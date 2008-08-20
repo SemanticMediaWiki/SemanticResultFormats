@@ -27,7 +27,7 @@ class SMWGoogleBarResultPrinter extends SMWResultPrinter {
 
 	protected function getResultText($res, $outputmode) {
 		global $smwgIQRunningNumber;
-		
+
 		$t = "";
 		// print all result rows
 		$first = true;
@@ -57,9 +57,7 @@ class SMWGoogleBarResultPrinter extends SMWResultPrinter {
 		$bardistance = 4; // distance between two bars
 		$height = $count* ($barwidth + $bardistance) + 15; // calculates the height of the image
 		return 	'<img src="http://chart.apis.google.com/chart?cht=bhs&chbh=' . $barwidth . ',' . $bardistance . '&chs=' . $this->m_width . 'x' . $height . '&chds=0,' . $max . '&chd=t:' . $t . '&chxt=y&chxl=0:|' . $n . '" width="' . $this->m_width . '" height="' . $height . '" />';
-		
 	}
-
 }
 
 class SMWGooglePieResultPrinter extends SMWResultPrinter {
@@ -86,7 +84,7 @@ class SMWGooglePieResultPrinter extends SMWResultPrinter {
 
 	protected function getResultText($res, $outputmode) {
 		global $smwgIQRunningNumber;
-		
+
 		$t = "";
 		// print all result rows
 		$first = true;
@@ -111,7 +109,5 @@ class SMWGooglePieResultPrinter extends SMWResultPrinter {
 			}
 		}
 		return 	'<img src="http://chart.apis.google.com/chart?cht=p3&chs=' . $this->m_width . 'x' . $this->m_height . '&chds=0,' . $max . '&chd=t:' . $t . '&chl=' . $n . '" width="' . $this->m_width . '" height="' . $this->m_height . '"  />';
-		
 	}
-
 }

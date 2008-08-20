@@ -2,12 +2,12 @@
 /**
  * Print query results as a graph.
  * @author Frank Dengler
- * 
+ *
  */
 
 /**
  * New implementation of SMW's printer for result in a graph.
- * This SMW printer requires the mediawiki graphviz extention. 
+ * This SMW printer requires the mediawiki graphviz extention.
  * @note AUTOLOADED
  */
 if( !defined( 'MEDIAWIKI' ) ) {
@@ -33,7 +33,7 @@ class SMWGraphResultPrinter extends SMWResultPrinter {
 		return array($result, 'isHTML' => true);
 
 	}
-	
+
 	protected function readParameters($params,$outputmode) {
 
 		SMWResultPrinter::readParameters($params,$outputmode);
@@ -49,23 +49,23 @@ class SMWGraphResultPrinter extends SMWResultPrinter {
 
 		}
 		if (array_key_exists('graphlegend', $params)) {
-		
+
 			if (strtolower(trim($params['graphlegend']))=='yes') $this->m_graphLegend = true;
 
 		}
-	
+
 		if (array_key_exists('graphlabel', $params)) {
-		
+
 			if (strtolower(trim($params['graphlabel']))=='yes') $this->m_graphLabel = true;
 
 		}
 		if (array_key_exists('rankdir', $params)) {
-		
+
 			$this->m_rankdir = strtoupper(trim($params['rankdir']));
 
 		}
 		if (array_key_exists('graphlink', $params)) {
-		
+
 			if (strtolower(trim($params['graphlink']))=='yes') $this->m_graphLink = true;
 
 		}
@@ -93,57 +93,53 @@ class SMWGraphResultPrinter extends SMWResultPrinter {
 
 			foreach ($row as $field) {
 
-
 				while ( ($object = $field->getNextObject()) !== false ) {
-				
+
 						$text = $object->getShortText($outputmode);
-					
+
 					if ($firstcol) {
 						$firstcolvalue = $object->getShortText($outputmode);
 
 					}
-					
+
 					if ($this->m_graphLink==true){
 						$graphInput .= " \"$text\" [URL = \"[[$text]]\"]; ";
 					}
-					
-					
-					
+
 					if (!$firstcol) {
 					$graphInput .= " \"$firstcolvalue\" -> \"$text\" ";
 						if (($this->m_graphLabel==true) || ($this->m_graphColor==true)){
 							$graphInput .= " [";
 							$req = $field->getPrintRequest();
 							$labelName = $req->getLabel();
-							
+
 							if (array_search($labelName,$this->m_labelArray,true)===false) {
 								$this->m_labelArray[]=$labelName;
-							} 
+							}
 								$key = array_search($labelName,$this->m_labelArray,true);
 								$color = $this->m_graphColors[$key];
-							
+
 							if ($this->m_graphLabel==true) {
 								$graphInput .= "label=\"$labelName\"";
 								if ($this->m_graphColor==true) $graphInput .= ",fontcolor=$color,";
-							} 
+							}
 							if ($this->m_graphColor==true) {
-								
+
 								$graphInput .= "color=$color";
-							} 
+							}
 							$graphInput .= "]";
-						
+
 						}
 						$graphInput .= ";";
-						
+
 					}
 				}
 
 				$firstcol = false;
 			}
-	
-		}	
 
-		
+		}
+
 		$graphInput .= "}";
 		// Calls renderGraphViz function from MediaWiki GraphViz extension
 		$result = renderGraphviz($graphInput);
@@ -159,8 +155,4 @@ class SMWGraphResultPrinter extends SMWResultPrinter {
 		}
 		return $result;
 	}
-
-
 }
-
-
