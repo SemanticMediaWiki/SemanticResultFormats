@@ -1,0 +1,19 @@
+Semantic Result Formats is an extension to MediaWiki that bundles a number of
+result formats for Semantic MediaWiki's inline queries. The individual formats
+can be added to the installation independently. This file contains an
+overview on how to install and configure the formats, as well as an overview
+of all included formats.
+
+== Installation ==
+
+In order to switch on a specific format, ...
+
+== Included formats ==
+
+=== Google Charts ===
+
+...
+
+=== GraphViz ===
+
+...
