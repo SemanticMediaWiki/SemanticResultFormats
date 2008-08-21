@@ -4,16 +4,36 @@
  * extension. In order to use them, add the following lines to your
  * LocalSettings.php:
  *
- *  ....
+ * include_once('path/to/here/SemanticResultFormats.php');
  *
+ * If nothing else is added, all the formats will be included. If you want to
+ * include only certain formats, you first need to set up an array with all the
+ * formats that should be included, e.g. like this:
+ * 
+ * global $srfgFormats;
+ * $srfgFormats = array('graph', 'googlebar');
+ * 
+ * A list of all available formats can be found at the end of this file.
  */
 if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-$smwgResultFormats['graph'] = 'SMWGraphResultPrinter';
-$smwgResultFormats['googlebar'] = 'SMWGoogleBarResultPrinter';
-$smwgResultFormats['googlepie'] = 'SMWGooglePieResultPrinter';
+function srfFormat($formatName, $formatClassName, $formatFileName) {
+	// if the array $srfgFormats does not exist, then include every format
+	// (as by default). If the array exists, check if the current format shall
+	// be included or not.
+	global $srfgFormats;
+	$include = !isset($srfgFormats);
+	if (!$include) $include = in_array($formatName, $srfgFormats);
+	if (!$include) return; 
+	global $smwgResultFormats, $wgAutoloadClasses;
+	$smwgResultFormats[$formatName] = $formatClassName;
+	$wgAutoloadClasses[$formatClassName] = $formatFileName;
+}
 
-include_once( 'GoogleCharts/GoogleCharts.php' );
-include_once( 'GraphViz/Graph.php' );
+global $IP;
+srfFormat('graph', 'SRFGraph', $IP . '/extensions/SemanticResultFormats/GraphViz/Graph.php');
+srfFormat('googlebar', 'SRFGoogleBar', $IP . '/extensions/SemanticResultFormats/GoogleCharts/GoogleBar.php');
+srfFormat('googlepie', 'SRFGooglePie', $IP . '/extensions/SemanticResultFormats/GoogleCharts/GooglePie.php');
+

@@ -8,13 +8,14 @@
 /**
  * New implementation of SMW's printer for result in a graph.
  * This SMW printer requires the mediawiki graphviz extention.
+ * 
  * @note AUTOLOADED
  */
 if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-class SMWGraphResultPrinter extends SMWResultPrinter {
+class SRFGraph extends SMWResultPrinter {
 	protected $m_graphName ='QueryResult';
 	protected $m_graphLabel = false;
 	protected $m_graphColor = false;

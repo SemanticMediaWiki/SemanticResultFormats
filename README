@@ -5,15 +5,32 @@ overview on how to install and configure the formats, as well as an overview
 of all included formats.
 
 == Installation ==
+Copy all files into MediaWiki's extensions folder, either by using SVN or by
+extracting an installation package. In order to include all available
+result formats, you can simply add the following line to your code:
 
-In order to switch on a specific format, ...
+require_once( 'path/to/extension/SemanticResultFormat.php' );
+
+If you want to enable only some of the available formats, you have to declare
+an array with all activated formats before including the file, e.g.
+
+global $srfgFormats;
+$srfgFormats = array('graph', 'googlebar');
+require_once( 'path/to/extension/SemanticResultFormat.php' );
+
+This will activate the graph and the google bar char format. The keywords
+for the formats are given below.
 
 == Included formats ==
+=== googlepie ===
+Creates a pie chart out of the numeric value of a specific property using
+the Google Charts API.
 
-=== Google Charts ===
+=== googlebar ===
+Creates a bar chart out of the numeric value of a specific property using
+the Google Charts API.
 
-...
+=== graph ===
+Creates a graph based on the relations in the wiki. Requires the GraphViz
+extension.
 
-=== GraphViz ===
-
-...
