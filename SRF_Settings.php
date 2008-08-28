@@ -33,7 +33,7 @@ function srfFormat($formatName, $formatClassName, $formatFileName) {
 }
 
 global $IP;
-srfFormat('graph', 'SRFGraph', $IP . '/extensions/SemanticResultFormats/GraphViz/SRFGraph.php');
-srfFormat('googlebar', 'SRFGoogleBar', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRFGoogleBar.php');
-srfFormat('googlepie', 'SRFGooglePie', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRFGooglePie.php');
+srfFormat('graph', 'SRFGraph', $IP . '/extensions/SemanticResultFormats/GraphViz/SRF_Graph.php');
+srfFormat('googlebar', 'SRFGoogleBar', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRF_GoogleBar.php');
+srfFormat('googlepie', 'SRFGooglePie', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRF_GooglePie.php');
 
