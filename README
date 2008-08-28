@@ -9,14 +9,14 @@ Copy all files into MediaWiki's extensions folder, either by using SVN or by
 extracting an installation package. In order to include all available
 result formats, you can simply add the following line to your code:
 
-require_once( 'path/to/extension/SemanticResultFormat.php' );
+require_once( 'path/to/extension/SRF_Settings.php' );
 
 If you want to enable only some of the available formats, you have to declare
 an array with all activated formats before including the file, e.g.
 
 global $srfgFormats;
 $srfgFormats = array('graph', 'googlebar');
-require_once( 'path/to/extension/SemanticResultFormat.php' );
+require_once( 'path/to/extension/SRF_Settings.php' );
 
 This will activate the graph and the google bar char format. The keywords
 for the formats are given below.
