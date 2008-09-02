@@ -19,15 +19,10 @@ class SRFGoogleBar extends SMWResultPrinter {
 		}
 	}
 
-	public function getResult($results, $params, $outputmode) {
-		$result = parent::getResult($results, $params, $outputmode);
-		$this->readParameters($params,$outputmode);
-		return array($result, 'isHTML' => true);
-	}
-
 	protected function getResultText($res, $outputmode) {
 		global $smwgIQRunningNumber;
-		
+		$this->isHTML = true;
+
 		$t = "";
 		// print all result rows
 		$first = true;

@@ -25,15 +25,6 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_graphSize="";
 	protected $m_labelArray = array();
 	protected $m_graphColors = array("black","red","green","blue","darkviolet","gold","deeppink","brown","bisque","darkgreen","yellow","darkblue","magenta","steelblue2");
-	public function getResult($results, $params, $outputmode) {
-
-		$result = parent::getResult($results, $params, $outputmode);
-
-		$this->readParameters($params,$outputmode);
-
-		return array($result, 'isHTML' => true);
-
-	}
 
 	protected function readParameters($params,$outputmode) {
 
@@ -79,6 +70,7 @@ class SRFGraph extends SMWResultPrinter {
 	}
 	protected function getResultText($res, $outputmode) {
 	$wgGraphVizSettings = new GraphVizSettings;
+	$this->isHTML = true;
 
     $key=0;
 	// Create text graph
