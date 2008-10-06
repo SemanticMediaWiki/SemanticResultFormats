@@ -36,4 +36,6 @@ global $IP;
 srfFormat('graph', 'SRFGraph', $IP . '/extensions/SemanticResultFormats/GraphViz/SRF_Graph.php');
 srfFormat('googlebar', 'SRFGoogleBar', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRF_GoogleBar.php');
 srfFormat('googlepie', 'SRFGooglePie', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRF_GooglePie.php');
+srfFormat('timeline', 'SRFTimeline', $IP . '/extensions/SemanticResultFormats/Timeline/SRF_Timeline.php');
+srfFormat('eventline', 'SRFTimeline', $IP . '/extensions/SemanticResultFormats/Timeline/SRF_Timeline.php');
 

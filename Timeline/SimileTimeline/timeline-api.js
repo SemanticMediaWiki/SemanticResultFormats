@@ -12,7 +12,7 @@
  *==================================================
  */
 
-var Timeline_urlPrefix = wgScriptPath+"/extensions/SemanticMediaWiki/skins/SimileTimeline/";
+var Timeline_urlPrefix = wgScriptPath+"/extensions/SemanticResultFormats/Timeline/SimileTimeline/";
  
 var Timeline = new Object();
 Timeline.Platform = new Object();

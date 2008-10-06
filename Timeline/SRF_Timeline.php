@@ -3,15 +3,12 @@
  * Print query results in interactive timelines.
  * @author Markus Krötzsch
  * @file
- * @ingroup SMWQuery
  */
 
 /**
- * New implementation of SMW's printer for timeline data.
- *
- * @ingroup SMWQuery
+ * Result printer for timeline data.
  */
-class SMWTimelineResultPrinter extends SMWResultPrinter {
+class SRFTimeline extends SMWResultPrinter {
 
 	protected $m_tlstart = '';  // name of the start-date property if any
 	protected $m_tlend = '';  // name of the end-date property if any
@@ -49,8 +46,10 @@ class SMWTimelineResultPrinter extends SMWResultPrinter {
 	}
 
 	protected function getResultText($res, $outputmode) {
-		global $smwgIQRunningNumber;
-		SMWOutputs::requireHeadItem(SMW_HEADER_TIMELINE); //make sure JavaScripts are available
+		global $smwgIQRunningNumber, $wgScriptPath;
+		SMWOutputs::requireHeadItem(SMW_HEADER_STYLE);
+		SMWOutputs::requireHeadItem('smw_tlhelper','<script type="text/javascript" src="' . $wgScriptPath .  '/extensions/SemanticResultFormats/Timeline/SRF_timeline.js"></script>');
+		SMWOutputs::requireHeadItem('smw_tl','<script type="text/javascript" src="' . $wgScriptPath .  '/extensions/SemanticResultFormats/Timeline/SimileTimeline/timeline-api.js"></script>');
 
 		$eventline =  ('eventline' == $this->mFormat);
 
