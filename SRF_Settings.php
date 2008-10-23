@@ -4,7 +4,7 @@
  * extension. In order to use them, add the following lines to your
  * LocalSettings.php:
  *
- * include_once('path/to/here/SemanticResultFormats.php');
+ * include_once('path/to/here/SRF_Settings.php');
  *
  * If nothing else is added, all the formats will be included. If you want to
  * include only certain formats, you first need to set up an array with all the
@@ -19,6 +19,14 @@ if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
+global $IP;
+$srfgIP = $IP . '/extensions/SemanticResultFormats';
+global $srfgScriptPath;
+$srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
+
+global $wgExtensionMessagesFiles;
+$wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
+
 function srfFormat($formatName, $formatClassName, $formatFileName) {
 	// if the array $srfgFormats does not exist, then include every format
 	// (as by default). If the array exists, check if the current format shall
@@ -32,10 +40,10 @@ function srfFormat($formatName, $formatClassName, $formatFileName) {
 	$wgAutoloadClasses[$formatClassName] = $formatFileName;
 }
 
-global $IP;
-srfFormat('graph', 'SRFGraph', $IP . '/extensions/SemanticResultFormats/GraphViz/SRF_Graph.php');
-srfFormat('googlebar', 'SRFGoogleBar', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRF_GoogleBar.php');
-srfFormat('googlepie', 'SRFGooglePie', $IP . '/extensions/SemanticResultFormats/GoogleCharts/SRF_GooglePie.php');
-srfFormat('timeline', 'SRFTimeline', $IP . '/extensions/SemanticResultFormats/Timeline/SRF_Timeline.php');
-srfFormat('eventline', 'SRFTimeline', $IP . '/extensions/SemanticResultFormats/Timeline/SRF_Timeline.php');
+srfFormat('graph', 'SRFGraph', $srfgIP . '/GraphViz/SRF_Graph.php');
+srfFormat('googlebar', 'SRFGoogleBar', $srfgIP . '/GoogleCharts/SRF_GoogleBar.php');
+srfFormat('googlepie', 'SRFGooglePie', $srfgIP . '/GoogleCharts/SRF_GooglePie.php');
+srfFormat('timeline', 'SRFTimeline', $srfgIP . '/Timeline/SRF_Timeline.php');
+srfFormat('eventline', 'SRFTimeline', $srfgIP . '/Timeline/SRF_Timeline.php');
+srfFormat('calendar', 'SRFCalendar', $srfgIP . '/Calendar/SRF_Calendar.php');
 
