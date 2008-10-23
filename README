@@ -28,6 +28,10 @@ for the formats are given below.
 
 == Included formats ==
 
+=== calendar ===
+
+Displays query results in a monthly calendar interface.
+
 === timeline ===
 
 Displays query results in interactive timelines, displaying one or two dates
