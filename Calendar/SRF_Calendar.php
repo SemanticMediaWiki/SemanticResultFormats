@@ -157,6 +157,11 @@ class SRFCalendar extends SMWResultPrinter {
 		$today_string = date("Y n j", mktime());
 		$url_year = $wgRequest->getVal('year');
 		$page_name = $page_title->getPrefixedDbKey();
+		// display of dates changed in SMW 1.4 from YYYY-MM-DD to YYYY/MM/DD
+		if (class_exists('SMWPropertyValue'))
+			$date_sep = '/';
+		else
+			$date_sep = '-';
 
 		// create table for holding title and navigation information
 		$text .=<<<END
@@ -225,15 +230,15 @@ END;
 			if ($day > $days_in_cur_month || $day < 1) {
 				if ($day < 1) {
 					$display_day = $day + $days_in_prev_month;
-					$date_str = "$prev_year-" . str_pad($prev_month_num, 2, "0", STR_PAD_LEFT) . "-" . str_pad($display_day, 2, "0", STR_PAD_LEFT);
+					$date_str = $prev_year . $date_sep . str_pad($prev_month_num, 2, "0", STR_PAD_LEFT) . $date_sep . str_pad($display_day, 2, "0", STR_PAD_LEFT);
 				}
 				if ($day > $days_in_cur_month) {
 					$display_day = $day - $days_in_cur_month;
-					$date_str = "$next_year-" . str_pad($next_month_num, 2, "0", STR_PAD_LEFT) . "-" . str_pad($display_day, 2, "0", STR_PAD_LEFT);
+					$date_str = $next_year . $date_sep . str_pad($next_month_num, 2, "0", STR_PAD_LEFT) . $date_sep . str_pad($display_day, 2, "0", STR_PAD_LEFT);
 				}
 				$text .= "<div class=\"day day_other_month\">$display_day</div>\n";
 			} else {
-				$date_str = "$cur_year-" . str_pad($cur_month_num, 2, "0", STR_PAD_LEFT) . "-" . str_pad($day, 2, "0", STR_PAD_LEFT);
+				$date_str = $cur_year . $date_sep . str_pad($cur_month_num, 2, "0", STR_PAD_LEFT) . $date_sep . str_pad($day, 2, "0", STR_PAD_LEFT);
 				$text .= "<div class=\"day\">$day</div>\n";
 			}
 			// finally, the most important step - get the events that
