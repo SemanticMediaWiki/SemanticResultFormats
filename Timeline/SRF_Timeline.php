@@ -57,10 +57,10 @@ class SRFTimeline extends SMWResultPrinter {
 			foreach ($res->getPrintRequests() as $pr) {
 				if ( ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && ($pr->getTypeID() == '_dat') ) {
 					if ( ($this->m_tlend == '') && ($this->m_tlstart != '') &&
-					     ($this->m_tlstart != $pr->getTitle()->getDBkey()) ) {
-						$this->m_tlend = $pr->getTitle()->getDBkey();
-					} elseif ( ($this->m_tlstart == '') && ($this->m_tlend != $pr->getTitle()->getDBkey()) ) {
-						$this->m_tlstart = $pr->getTitle()->getDBkey();
+					     ($this->m_tlstart != $pr->getData()->getXSDValue()) ) {
+						$this->m_tlend = $pr->getData()->getXSDValue();
+					} elseif ( ($this->m_tlstart == '') && ($this->m_tlend != $pr->getData()->getXSDValue()) ) {
+						$this->m_tlstart = $pr->getData()->getXSDValue();
 					}
 				}
 			}
@@ -68,8 +68,9 @@ class SRFTimeline extends SMWResultPrinter {
 
 		wfLoadExtensionMessages('SemanticMediaWiki');
 		// print header
+		$link = $res->getQueryLink(wfMsgForContent('smw_iq_altresults'));
 		$result = "<div class=\"smwtimeline\" id=\"smwtimeline$smwgIQRunningNumber\" style=\"height: $this->m_tlsize\">";
-		$result .= '<span class="smwtlcomment">' . wfMsgForContent('smw_iq_nojs') . ' ' . $this->getFurtherResultsLink($outputmode,$res,wfMsgForContent('smw_iq_altresults')). '</span>'; // note for people without JavaScript
+		$result .= '<span class="smwtlcomment">' . wfMsgForContent('smw_iq_nojs') . ' ' . $link->getText($outputmode,$this->mLinker) . '</span>'; // note for people without JavaScript
 
 		foreach ($this->m_tlbands as $band) {
 			$result .= '<span class="smwtlband">' . htmlspecialchars($band) . '</span>';
@@ -111,7 +112,7 @@ class SRFTimeline extends SMWResultPrinter {
 							}
 							// is this a start date?
 							if ( ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && 
-							     ($pr->getTitle()->getDBkey() == $this->m_tlstart) ) {
+							     ($pr->getData()->getXSDValue() == $this->m_tlstart) ) {
 								//FIXME: Timeline scripts should support XSD format explicitly. They
 								//currently seem to implement iso8601 which deviates from XSD in cases.
 								//NOTE: We can assume $object to be an SMWDataValue in this case.
@@ -121,7 +122,7 @@ class SRFTimeline extends SMWResultPrinter {
 							}
 							// is this the end date?
 							if ( ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && 
-							     ($pr->getTitle()->getDBkey() == $this->m_tlend) ) {
+							     ($pr->getData()->getXSDValue() == $this->m_tlend) ) {
 								//NOTE: We can assume $object to be an SMWDataValue in this case.
 								$curmeta .= '<span class="smwtlend">' . $object->getXSDValue() . '</span>';
 							}
@@ -143,7 +144,7 @@ class SRFTimeline extends SMWResultPrinter {
 							$curdata .= $header . $objectlabel;
 							$output = true;
 						}
-						if ($eventline && ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && ($pr->getTypeID() == '_dat') && ('' != $pr->getLabel()) && ($pr->getTitle()->getText() != $this->m_tlstart) && ($pr->getTitle()->getText() != $this->m_tlend) ) {
+						if ($eventline && ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && ($pr->getTypeID() == '_dat') && ('' != $pr->getLabel()) && ($pr->getData()->getXSDValue() != $this->m_tlstart) && ($pr->getData()->getXSDValue() != $this->m_tlend) ) {
 							$events[] = array($object->getXSDValue(), $pr->getLabel(), $object->getNumericValue());
 						}
 						$first_value = false;
