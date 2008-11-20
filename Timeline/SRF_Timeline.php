@@ -116,15 +116,15 @@ class SRFTimeline extends SMWResultPrinter {
 								//FIXME: Timeline scripts should support XSD format explicitly. They
 								//currently seem to implement iso8601 which deviates from XSD in cases.
 								//NOTE: We can assume $object to be an SMWDataValue in this case.
-								$curmeta .= '<span class="smwtlstart">' . $object->getXSDValue() . '</span>';
-								$positions[$object->getNumericValue()] = $object->getXSDValue();
+								$curmeta .= '<span class="smwtlstart">' . $object->getXMLSchemaDate() . '</span>';
+								$positions[$object->getNumericValue()] = $object->getXMLSchemaDate();
 								$hastime = true;
 							}
 							// is this the end date?
 							if ( ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && 
 							     ($pr->getData()->getXSDValue() == $this->m_tlend) ) {
 								//NOTE: We can assume $object to be an SMWDataValue in this case.
-								$curmeta .= '<span class="smwtlend">' . $object->getXSDValue() . '</span>';
+								$curmeta .= '<span class="smwtlend">' . $object->getXMLSchemaDate(false) . '</span>';
 							}
 							// find title for displaying event
 							if ( !$hastitle ) {
@@ -145,7 +145,7 @@ class SRFTimeline extends SMWResultPrinter {
 							$output = true;
 						}
 						if ($eventline && ($pr->getMode() == SMWPrintRequest::PRINT_PROP) && ($pr->getTypeID() == '_dat') && ('' != $pr->getLabel()) && ($pr->getData()->getXSDValue() != $this->m_tlstart) && ($pr->getData()->getXSDValue() != $this->m_tlend) ) {
-							$events[] = array($object->getXSDValue(), $pr->getLabel(), $object->getNumericValue());
+							$events[] = array($object->getXMLSchemaDate(), $pr->getLabel(), $object->getNumericValue());
 						}
 						$first_value = false;
 					}
