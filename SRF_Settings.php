@@ -24,6 +24,16 @@ $srfgIP = $IP . '/extensions/SemanticResultFormats';
 global $srfgScriptPath;
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 
+define('SRF_VERSION', '1.4.0');
+global $wgExtensionCredits;
+$wgExtensionCredits['other'][]= array(
+	'name' => 'Semantic Result Formats',
+	'version' => SRF_VERSION,
+	'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler and Yaron Koren",
+	'url' => 'http://www.semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
+	'description' => 'Additional formats for Semantic MediaWiki inline queries'
+);
+
 global $wgExtensionMessagesFiles;
 $wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
 
