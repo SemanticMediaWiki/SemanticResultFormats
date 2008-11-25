@@ -48,9 +48,9 @@ class SRFCalendar extends SMWResultPrinter {
 					}
 					if ($pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat') {
 						if (method_exists('SMWTimeValue', 'getYear')) { // SMW 1.4 and higher
-							$date = $object->getYear() . '-' . str_pad($object->getMonth(), 2, "0", STR_PAD_LEFT) . '-' . str_pad($object->getDay(), 2, "0", STR_PAD_LEFT);
+							$date = $object->getYear() . '-' . $object->getMonth() . '-' . $object->getDay();
 						} else {
-							$date = substr($object->getXSDValue(), 0, -9);
+							$date = date("Y-n-j", $event_date->getNumericValue());
 						}
 
 					}
@@ -229,15 +229,15 @@ END;
 			if ($day > $days_in_cur_month || $day < 1) {
 				if ($day < 1) {
 					$display_day = $day + $days_in_prev_month;
-					$date_str = $prev_year . '-' . str_pad($prev_month_num, 2, "0", STR_PAD_LEFT) . '-' . str_pad($display_day, 2, "0", STR_PAD_LEFT);
+					$date_str = $prev_year . '-' . $prev_month_num . '-' . $display_day;
 				}
 				if ($day > $days_in_cur_month) {
 					$display_day = $day - $days_in_cur_month;
-					$date_str = $next_year . '-' . str_pad($next_month_num, 2, "0", STR_PAD_LEFT) . '-' . str_pad($display_day, 2, "0", STR_PAD_LEFT);
+					$date_str = $next_year . '-' . $next_month_num . '-' . $display_day;
 				}
 				$text .= "<div class=\"day day_other_month\">$display_day</div>\n";
 			} else {
-				$date_str = $cur_year . '-' . str_pad($cur_month_num, 2, "0", STR_PAD_LEFT) . '-' . str_pad($day, 2, "0", STR_PAD_LEFT);
+				$date_str = $cur_year . '-' . $cur_month_num . '-' . $day;
 				$text .= "<div class=\"day\">$day</div>\n";
 			}
 			// finally, the most important step - get the events that
