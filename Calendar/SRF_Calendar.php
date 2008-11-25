@@ -63,9 +63,10 @@ class SRFCalendar extends SMWResultPrinter {
 			if ($date != '') {
 				// handle the 'color=' value, whether it came
 				// from a compound query or a regular one
-				if (is_array($row[0]->display_options) && array_key_exists('color', $row[0]->display_options))
-					$color = $row[0]->display_options['color'];
-				elseif (array_key_exists('color', $this->m_params))
+				if (property_exists($row[0], 'display_options')) {
+					if (is_array($row[0]->display_options) && array_key_exists('color', $row[0]->display_options))
+						$color = $row[0]->display_options['color'];
+				} elseif (array_key_exists('color', $this->m_params))
 					$color = $this->m_params['color'];
 				$events[] = array($title, $text, $date, $color);
 			}
@@ -165,7 +166,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$page_name = $page_title->getPrefixedDbKey();
 
 		// create table for holding title and navigation information
-		$text .=<<<END
+		$text =<<<END
 <table class="navigation_table">
 <tr>
 <td class="month_name">$cur_month $cur_year</td>

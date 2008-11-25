@@ -1,0 +1,19 @@
+For a documentation of all features, see
+http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
+
+== SRF 1.4.0 ==
+
+Released on November 26 2008.
+
+This is the initial release of Semantic Result Formats. The version number
+was chosen in order to be aligned to the Semantic MediaWiki core distribution.
+SRF 1.4.0 is compatible to SMW 1.4.0 and thus equally versioned.
+
+The initial sets of Semantic Result Formats are:
+* Calendar (written by Yaron Koren)
+* Eventline (written by Markus Krötzsch and based on code by MIT's Simile group)
+* Googlebar (written by Denny Vrandecic)
+* Googlepie (written by Denny Vrandecic)
+* Graph (written by Frank Dengler)
+* Timeline (written by Markus Krötzsch and based on code by MIT's Simile group)
+ 
