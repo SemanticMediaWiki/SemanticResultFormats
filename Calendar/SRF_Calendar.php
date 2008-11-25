@@ -48,7 +48,9 @@ class SRFCalendar extends SMWResultPrinter {
 					}
 					if ($pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat') {
 						if (method_exists('SMWTimeValue', 'getYear')) { // SMW 1.4 and higher
-							$date = $object->getYear() . '-' . $object->getMonth() . '-' . $object->getDay();
+							// for some reason, getMonth() and getDay() sometimes return a number with a leading zero -
+							// get rid of it using (int)
+							$date = $object->getYear() . '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 						} else {
 							$date = date("Y-n-j", $event_date->getNumericValue());
 						}
