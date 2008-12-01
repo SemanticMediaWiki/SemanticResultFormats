@@ -12,18 +12,10 @@ $messages = array();
  */
 $messages['en'] = array(
 	// user messages
-	'srfc_desc'          => 'A calendar that displays semantic date information',
 	'srfc_previousmonth' => 'Previous month',
 	'srfc_nextmonth'     => 'Next month',
 	'srfc_today'         => 'Today',
 	'srfc_gotomonth'     => 'Go to month',
-);
-
-/** Message documentation (Message documentation)
- * @author Purodha
- */
-$messages['qqq'] = array(
-	'srfc_desc' => 'Short description of this extension, shown in [[Special:Version]]. Do not translate or change links.',
 );
 
 /** Afrikaans (Afrikaans)
@@ -37,7 +29,6 @@ $messages['af'] = array(
  * @author Meno25
  */
 $messages['ar'] = array(
-	'srfc_desc' => 'نتيجة تعرض معلومات تاريخ سيمانتيك',
 	'srfc_previousmonth' => 'الشهر السابق',
 	'srfc_nextmonth' => 'الشهر التالي',
 	'srfc_today' => 'اليوم',
@@ -48,7 +39,6 @@ $messages['ar'] = array(
  * @author Meno25
  */
 $messages['arz'] = array(
-	'srfc_desc' => 'نتيجة تعرض معلومات تاريخ سيمانتيك',
 	'srfc_previousmonth' => 'الشهر السابق',
 	'srfc_nextmonth' => 'الشهر التالي',
 	'srfc_today' => 'اليوم',
@@ -118,7 +108,6 @@ $messages['fa'] = array(
  * @author Urhixidur
  */
 $messages['fr'] = array(
-	'srfc_desc' => 'Un calendrier qui affiche les informations de date sémantique',
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
 	'srfc_today' => "Aujourd'hui",
@@ -130,7 +119,6 @@ $messages['fr'] = array(
  * @author Toliño
  */
 $messages['gl'] = array(
-	'srfc_desc' => 'Un calendario que amosa datos da información semántica',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Mes seguinte',
 	'srfc_today' => 'Hoxe',
@@ -195,7 +183,6 @@ $messages['hu'] = array(
  * @author McDutchie
  */
 $messages['ia'] = array(
-	'srfc_desc' => 'Un calendario que monstra informationes de data semantic',
 	'srfc_previousmonth' => 'Mense precedente',
 	'srfc_nextmonth' => 'Mense sequente',
 	'srfc_today' => 'Hodie',
@@ -247,7 +234,6 @@ $messages['km'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
-	'srfc_desc' => 'Ene Kalländer, dä semantesche Dattums-Enfommazjuhne aanzeisch.',
 	'srfc_today' => 'Hück',
 );
 
@@ -305,7 +291,6 @@ $messages['myv'] = array(
  * @author Siebrand
  */
 $messages['nl'] = array(
-	'srfc_desc' => 'Een kalender die semantische datuminformatie weergeeft',
 	'srfc_previousmonth' => 'Vorige maand',
 	'srfc_nextmonth' => 'Volgende maand',
 	'srfc_today' => 'Vandaag',
@@ -326,7 +311,6 @@ $messages['nn'] = array(
  * @author Jon Harald Søby
  */
 $messages['no'] = array(
-	'srfc_desc' => 'En kalender som viser semantisk datoinformasjon',
 	'srfc_previousmonth' => 'Forrige måned',
 	'srfc_nextmonth' => 'Neste måned',
 	'srfc_today' => 'I dag',
@@ -337,7 +321,6 @@ $messages['no'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
-	'srfc_desc' => "Un calendièr qu'aficha las entresenhas de data semantica",
 	'srfc_previousmonth' => 'Mes precedent',
 	'srfc_nextmonth' => 'Mes seguent',
 	'srfc_today' => 'Uèi',
@@ -388,7 +371,6 @@ $messages['ru'] = array(
  * @author Helix84
  */
 $messages['sk'] = array(
-	'srfc_desc' => 'Kalendár zobrazujúci sémantické dátumové informácie',
 	'srfc_previousmonth' => 'Predošlý mesiac',
 	'srfc_nextmonth' => 'Ďalší mesiac',
 	'srfc_today' => 'Dnes',
