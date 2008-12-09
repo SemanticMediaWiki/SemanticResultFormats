@@ -41,6 +41,22 @@ the Google Charts API.
 Creates a graph based on the relations in the wiki. Requires the GraphViz
 extension.
 
+=== sum ===
+
+Displays the sum of the numeric values of the queried property.
+
+=== average ===
+
+Displays the average of the numeric values of the queried property.
+
+=== min ===
+
+Displays the smallest of the numeric values of the queried property.
+
+=== max ===
+
+Displays the largest of the numeric values of the queried property.
+
 == Contact ==
 
 If you have remarks, questions, or suggestions, please send them to
