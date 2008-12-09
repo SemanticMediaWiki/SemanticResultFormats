@@ -1,68 +1,69 @@
 <?php
 /**
- * Initializing file for the diverse query result formats supported in this
- * extension. In order to use them, add the following lines to your
- * LocalSettings.php:
+ * Initializing file for the Semantic Result Formats extension.
  *
- * include_once('path/to/here/SRF_Settings.php');
- *
- * If nothing else is added, no format will be included. In order to include a
- * format, add the following line to your local settings after the line above:
- * 
- *  srfInit( array('formatname', 'formatname') );
- * 
- * With formatname being one of the following values:
- * 
- *  calendar, eventline, googlebar, googlepie, graph, timeline
- * 
- * You can also just use the following command to include all formats:
- * 
- *  srfInit('all');
- * 
- * but this is not recommended.
+ * @file
+ * @ingroup SemanticResultFormats
  */
 if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define('SRF_VERSION', '1.4.0');
+define('SRF_VERSION', '1.4.1');
 
-global $srfgScriptPath, $srfgIP;
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = $IP . '/extensions/SemanticResultFormats';
-global $wgExtensionMessagesFiles;
 $wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
+$wgExtensionFunctions[] = 'srffSetup';
 
-function srfInit( $formatName ) {
-	if ($formatName == 'all') {
-		srfInit(array('calendar', 'eventline', 'googlebar', 'googlepie', 'graph', 'timeline'));
-	} elseif (is_array($formatName)) {
-		foreach($formatName as $fn) srfInit($fn);
-		
-		$formats = implode(', ', $formatName);
-		global $wgExtensionCredits;
-		$wgExtensionCredits['other'][]= array(
-			'name' => 'Semantic Result Formats',
-			'version' => SRF_VERSION,
-			'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler and Yaron Koren",
-			'url' => 'http://www.semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
-			'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats
-		);
-	} else {
-		global $smwgResultFormats, $wgAutoloadClasses, $srfgIP;
+$srfgFormats = array('calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
 
-		$class = '';
-		$file = '';
-		if ($formatName == 'graph') { $class = 'SRFGraph'; $file = $srfgIP . '/GraphViz/SRF_Graph.php'; }
-		if ($formatName == 'googlebar') { $class = 'SRFGoogleBar'; $file = $srfgIP . '/GoogleCharts/SRF_GoogleBar.php'; }
-		if ($formatName == 'googlepie') { $class = 'SRFGooglePie'; $file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php'; }
-		if ($formatName == 'timeline') { $class = 'SRFTimeline'; $file = $srfgIP . '/Timeline/SRF_Timeline.php'; }
-		if ($formatName == 'eventline') { $class = 'SRFTimeline'; $file = $srfgIP . '/Timeline/SRF_Timeline.php'; }
-		if ($formatName == 'calendar') { $class = 'SRFCalendar'; $file = $srfgIP . '/Calendar/SRF_Calendar.php'; }
-		if (($class != '') && ($file)) {
-			$smwgResultFormats[$formatName] = $class;
-			$wgAutoloadClasses[$class] = $file;
-		}
+function srffSetup() {
+	global $srfgFormats, $wgExtensionCredits;
+
+	foreach($srfgFormats as $fn) srffInitFormat($fn);
+	$formats_list = implode(', ', $srfgFormats);
+	$wgExtensionCredits['other'][]= array(
+		'name' => 'Semantic Result Formats',
+		'version' => SRF_VERSION,
+		'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler, Yaron Koren and Nathan Yergler",
+		'url' => 'http://www.semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
+		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
+	);
+}
+
+function srffInitFormat( $format ) {
+	global $smwgResultFormats, $wgAutoloadClasses, $srfgIP;
+
+	$class = '';
+	$file = '';
+	if ($format == 'graph') {
+		$class = 'SRFGraph';
+		$file = $srfgIP . '/GraphViz/SRF_Graph.php';
+	}
+	if ($format == 'googlebar') {
+		$class = 'SRFGoogleBar';
+		$file = $srfgIP . '/GoogleCharts/SRF_GoogleBar.php';
+	}
+	if ($format == 'googlepie') {
+		$class = 'SRFGooglePie';
+		$file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php';
+	}
+	if ($format == 'timeline' || $format == 'eventline') {
+		$class = 'SRFTimeline';
+		$file = $srfgIP . '/Timeline/SRF_Timeline.php';
+	}
+	if ($format == 'calendar') {
+		$class = 'SRFCalendar';
+		$file = $srfgIP . '/Calendar/SRF_Calendar.php';
+	}
+	if ($format == 'sum' || $format == 'average' || $format == 'min' || $format == 'max') {
+		$class = 'SRFMath';
+		$file = $srfgIP . '/Math/SRF_Math.php';
+	}
+	if (($class != '') && ($file)) {
+		$smwgResultFormats[$format] = $class;
+		$wgAutoloadClasses[$class] = $file;
 	}
 }
 
