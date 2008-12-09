@@ -22,8 +22,7 @@ formats to this list, you can add lines like:
 
  $srfgFormats = array('calendar', 'timeline');
 
-with formatname being one of the following values (you can use as many
-formatnames as you like):
+...using one or more of the following values:
 
   average, calendar, eventline, googlebar, googlepie, graph, max, min,
   sum, timeline
