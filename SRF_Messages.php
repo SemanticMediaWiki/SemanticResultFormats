@@ -74,6 +74,16 @@ $messages['de'] = array(
 	'srfc_gotomonth' => 'Gehe zu Monat',
 );
 
+/** Lower Sorbian (Dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'srfc_previousmonth' => 'Slědny mjasec',
+	'srfc_nextmonth' => 'Pśiducy mjasec',
+	'srfc_today' => 'Źinsa',
+	'srfc_gotomonth' => 'Źi k mjasecoju',
+);
+
 /** Greek (Ελληνικά)
  * @author Consta
  */
