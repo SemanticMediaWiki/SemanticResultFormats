@@ -244,7 +244,10 @@ $messages['km'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'srfc_previousmonth' => 'Jangk nohm Moohnd dovör',
+	'srfc_nextmonth' => 'Jangk nohm näkßte Moohnd',
 	'srfc_today' => 'Hück',
+	'srfc_gotomonth' => 'Jangk noh däm Moohnd',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
