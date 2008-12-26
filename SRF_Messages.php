@@ -370,6 +370,15 @@ $messages['pt'] = array(
 	'srfc_gotomonth' => 'Ir para mês',
 );
 
+/** Romanian (Română)
+ * @author KlaudiuMihaila
+ */
+$messages['ro'] = array(
+	'srfc_previousmonth' => 'Luna anterioară',
+	'srfc_nextmonth' => 'Luna următoare',
+	'srfc_today' => 'Astăzi',
+);
+
 /** Russian (Русский)
  * @author Александр Сигачёв
  */
