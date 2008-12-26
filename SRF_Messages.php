@@ -450,6 +450,16 @@ $messages['vo'] = array(
 	'srfc_today' => 'Adelo',
 );
 
+/** Traditional Chinese (‪中文(繁體)‬)
+ * @author Wrightbus
+ */
+$messages['zh-hant'] = array(
+	'srfc_previousmonth' => '上月',
+	'srfc_nextmonth' => '下月',
+	'srfc_today' => '今天',
+	'srfc_gotomonth' => '跳至月份',
+);
+
 /** Chinese (Taiwan) (‪中文(台灣)‬)
  * @author Roc michael
  */
