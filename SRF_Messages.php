@@ -25,6 +25,13 @@ $messages['af'] = array(
 	'srfc_gotomonth' => 'Gaan na maand',
 );
 
+/** Amharic (አማርኛ)
+ * @author Codex Sinaiticus
+ */
+$messages['am'] = array(
+	'srfc_today' => 'ዛሬ',
+);
+
 /** Arabic (العربية)
  * @author Meno25
  */
@@ -101,6 +108,13 @@ $messages['eo'] = array(
 	'srfc_nextmonth' => 'Posta monato',
 	'srfc_today' => 'Hodiaŭ',
 	'srfc_gotomonth' => 'Iru al monato',
+);
+
+/** Spanish (Español)
+ * @author Imre
+ */
+$messages['es'] = array(
+	'srfc_today' => 'Hoy día',
 );
 
 /** Persian (فارسی)
@@ -299,6 +313,16 @@ $messages['myv'] = array(
 	'srfc_today' => 'Течи',
 );
 
+/** Nahuatl (Nāhuatl)
+ * @author Fluence
+ */
+$messages['nah'] = array(
+	'srfc_previousmonth' => 'Achto mētztli',
+	'srfc_nextmonth' => 'Niman mētztli',
+	'srfc_today' => 'Āxcān',
+	'srfc_gotomonth' => 'Yāuh mētzhuīc',
+);
+
 /** Dutch (Nederlands)
  * @author GerardM
  * @author Siebrand
@@ -457,6 +481,16 @@ $messages['vo'] = array(
 	'srfc_previousmonth' => 'Mul büik',
 	'srfc_nextmonth' => 'Mul sököl',
 	'srfc_today' => 'Adelo',
+);
+
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Gzdavidwong
+ */
+$messages['zh-hans'] = array(
+	'srfc_previousmonth' => '上月',
+	'srfc_nextmonth' => '下月',
+	'srfc_today' => '今天',
+	'srfc_gotomonth' => '跳至月份',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
