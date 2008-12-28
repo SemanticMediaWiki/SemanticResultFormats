@@ -112,9 +112,10 @@ $messages['eo'] = array(
 
 /** Spanish (Español)
  * @author Imre
+ * @author Sanbec
  */
 $messages['es'] = array(
-	'srfc_today' => 'Hoy día',
+	'srfc_today' => 'Hoy',
 );
 
 /** Persian (فارسی)
