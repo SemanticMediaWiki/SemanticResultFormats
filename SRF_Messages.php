@@ -128,6 +128,14 @@ $messages['fa'] = array(
 	'srfc_gotomonth' => 'برو به ماه',
 );
 
+/** Finnish (Suomi)
+ * @author Str4nd
+ */
+$messages['fi'] = array(
+	'srfc_today' => 'Tänään',
+	'srfc_gotomonth' => 'Siirry kuukauteen',
+);
+
 /** French (Français)
  * @author Grondin
  * @author Urhixidur
