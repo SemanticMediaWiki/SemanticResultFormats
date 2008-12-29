@@ -412,6 +412,16 @@ $messages['ro'] = array(
 	'srfc_today' => 'Astăzi',
 );
 
+/** Tarandíne (Tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'srfc_previousmonth' => 'Mese precedende',
+	'srfc_nextmonth' => 'Mese successive',
+	'srfc_today' => 'Osce',
+	'srfc_gotomonth' => "Va a 'u mese",
+);
+
 /** Russian (Русский)
  * @author Александр Сигачёв
  */
