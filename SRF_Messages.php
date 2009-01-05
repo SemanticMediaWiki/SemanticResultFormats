@@ -118,6 +118,16 @@ $messages['es'] = array(
 	'srfc_today' => 'Hoy',
 );
 
+/** Basque (Euskara)
+ * @author An13sa
+ */
+$messages['eu'] = array(
+	'srfc_previousmonth' => 'Aurreko hilabetea',
+	'srfc_nextmonth' => 'Hurrengo hilabetea',
+	'srfc_today' => 'Gaur',
+	'srfc_gotomonth' => 'Hilabetera joan',
+);
+
 /** Persian (فارسی)
  * @author Tofighi
  */
@@ -470,6 +480,16 @@ $messages['tg-cyrl'] = array(
 	'srfc_nextmonth' => 'Моҳи баъдӣ',
 	'srfc_today' => 'Имрӯз',
 	'srfc_gotomonth' => 'Рафтан ба моҳ',
+);
+
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'srfc_previousmonth' => 'Nakaraang buwan',
+	'srfc_nextmonth' => 'Susunod na buwan',
+	'srfc_today' => 'Ngayong araw na ito',
+	'srfc_gotomonth' => 'Pumunta sa buwan',
 );
 
 /** Vèneto (Vèneto)
