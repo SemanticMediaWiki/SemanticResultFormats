@@ -515,11 +515,13 @@ $messages['vi'] = array(
 
 /** Volapük (Volapük)
  * @author Malafaya
+ * @author Smeira
  */
 $messages['vo'] = array(
 	'srfc_previousmonth' => 'Mul büik',
 	'srfc_nextmonth' => 'Mul sököl',
 	'srfc_today' => 'Adelo',
+	'srfc_gotomonth' => 'Lü mul',
 );
 
 /** Simplified Chinese (‪中文(简体)‬)
