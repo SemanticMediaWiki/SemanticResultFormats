@@ -7,7 +7,7 @@ overview on how to install and configure the formats, as well as an overview
 of all included formats.
 
 Semantic Result Formats requires Semantic MediaWiki to run, at least at the
-same second level version number as Semantic Result Formats, i.e. SRF 1.4.0
+same second level version number as Semantic Result Formats, i.e. SRF 1.4.1
 requires SMW 1.4.0.
 
 == Included formats ==
@@ -35,6 +35,11 @@ the Google Charts API.
 
 Creates a bar chart out of the numeric value of a specific property using
 the Google Charts API.
+
+=== ploticus ===
+
+Creates a variety of graph types using the Ploticus application, which must be
+installed.
 
 === graph ===
 

@@ -29,3 +29,9 @@ New formats in this version are:
 * min (written by Yaron Koren)
 * max (written by Yaron Koren)
 * sum (written by Nathan Yergler)
+
+== SRF 1.4.2 ==
+
+Released on January 12 2008.
+
+The 'ploticus' format, written by Joel Natividad, was added in this version.

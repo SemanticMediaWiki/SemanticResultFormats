@@ -49,6 +49,10 @@ function srffInitFormat( $format ) {
 		$class = 'SRFGooglePie';
 		$file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php';
 	}
+	if ($format == 'ploticus') {
+		$class = 'SRFPloticus';
+		$file = $srfgIP . '/Ploticus/SRF_Ploticus.php';
+	}
 	if ($format == 'timeline' || $format == 'eventline') {
 		$class = 'SRFTimeline';
 		$file = $srfgIP . '/Timeline/SRF_Timeline.php';
