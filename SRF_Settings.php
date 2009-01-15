@@ -9,7 +9,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define('SRF_VERSION', '1.4.1');
+define('SRF_VERSION', '1.4.2');
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = $IP . '/extensions/SemanticResultFormats';
@@ -26,7 +26,7 @@ function srffSetup() {
 	$wgExtensionCredits['other'][]= array(
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler, Yaron Koren and Nathan Yergler",
+		'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler, Yaron Koren, Nathan Yergler and Joel Natividad",
 		'url' => 'http://www.semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
 	);
