@@ -15,6 +15,8 @@ class SRFExhibit extends SMWResultPrinter {
   ///mapping between SMW's and Exhibit's the data types
   protected $m_types = array("_wpg" => "text", "_num" => "number", "_dat" => "date", "_geo" => "text");
 
+  protected static $exhibitRunningNumber = 0; //not sufficient since there might be multiple pages rendered within one PHP run; but good enough now
+
   ///overwrite function to allow execution of result printer even if no results are available (in case remote query yields no results in local wiki)
   public function getResult($results, $params, $outputmode) {
     $this->readParameters($params,$outputmode);
@@ -87,7 +89,7 @@ class SRFExhibit extends SMWResultPrinter {
     array_shift($colstack);
     array_unshift($colstack, 'label');
     if($remote == 'false'){
-      if($smwgIQRunningNumber == 1){
+      if(SRFExhibit::$exhibitRunningNumber == 0){
 	$sourcesrc = "var sources = { source".($smwgIQRunningNumber-1).": { id:  'querytable".$smwgIQRunningNumber."' , columns: '".implode(',',$colstack)."'.split(','), hideTable: '1', type: 'Item', label: 'Item', pluralLabel: 'Items' } };";
       }
       else{
@@ -96,7 +98,7 @@ class SRFExhibit extends SMWResultPrinter {
       $sourcesrc = "<script type=\"text/javascript\">".$sourcesrc."</script>";
     }
     else {
-      if($smwgIQRunningNumber == 1) $sourcesrc = "<script type=\"text/javascript\">var sources = {}</script>";
+      if(SRFExhibit::$exhibitRunningNumber == 0) $sourcesrc = "<script type=\"text/javascript\">var sources = {}</script>";
       else $sourcesrc = '';
     }
 
@@ -302,8 +304,9 @@ class SRFExhibit extends SMWResultPrinter {
       $result .= "</table>\n";
     }
 
-    if($smwgIQRunningNumber == 1) $result .= "<div id=\"exhibitLocation\"></div>"; // print placeholder (just print it one time)
+    if (SRFExhibit::$exhibitRunningNumber == 0) $result .= "<div id=\"exhibitLocation\"></div>"; // print placeholder (just print it one time)
     $this->isHTML = ($outputmode == SMW_OUTPUT_HTML); // yes, our code can be viewed as HTML if requested, no more parsing needed
+	SRFExhibit::$exhibitRunningNumber++;
     return $result;
   }
 }
