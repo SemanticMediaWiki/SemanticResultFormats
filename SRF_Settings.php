@@ -26,8 +26,8 @@ function srffSetup() {
 	$wgExtensionCredits['other'][]= array(
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler, Yaron Koren, Nathan Yergler and Joel Natividad",
-		'url' => 'http://www.semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
+		'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler, Yaron Koren, Nathan Yergler, Joel Natividad, Fabian Howahl, [http://korrekt.org Markus Krötzsch]",
+		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
 	);
 }
@@ -60,6 +60,10 @@ function srffInitFormat( $format ) {
 	if ($format == 'calendar') {
 		$class = 'SRFCalendar';
 		$file = $srfgIP . '/Calendar/SRF_Calendar.php';
+	}
+	if ($format == 'exhibit') {
+		$class = 'SRFExhibit';
+		$file = $srfgIP . '/Exhibit/SRF_Exhibit.php';
 	}
 	if ($format == 'sum' || $format == 'average' || $format == 'min' || $format == 'max') {
 		$class = 'SRFMath';
