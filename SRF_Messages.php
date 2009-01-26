@@ -175,6 +175,16 @@ $messages['grc'] = array(
 	'srfc_today' => 'Σήμερον',
 );
 
+/** Swiss German (Alemannisch)
+ * @author Als-Holder
+ */
+$messages['gsw'] = array(
+	'srfc_previousmonth' => 'Vorige Monet',
+	'srfc_nextmonth' => 'Negschte Monet',
+	'srfc_today' => 'Hit',
+	'srfc_gotomonth' => 'Gang zum Monet',
+);
+
 /** Manx (Gaelg)
  * @author MacTire02
  */
