@@ -11,14 +11,31 @@ When both of them are up and running, you can install this extension like
 any other semantic result printer (refer to the separate README for that).
 
 LocalSettings.php Modifications:
- * $srfgPloticusPath (default: /usr/bin/ploticus)
+ * $srfgPloticusPath (REQUIRED)
+   - path to ploticus executable. (typically /usr/bin/ploticus)
  
  * $srfgGDFontPath (default: '')
    - if you plan to use alternate TrueType fonts in your plot.
    (e.g. '/usr/share/fonts/truetype/freefont:/usr/share/fonts/truetype/msttcorefonts')
+   
+ * $srfgPloticusCacheAgeHours (default: 168 - 7 days)
+   - number of hours cached plot files are stored in the ploticus cache before they are forcibly purged regardless of liveupdating setting.
+   Set to 0 if you prefer to purge the cache manually.
+   This is required, especially with liveupdating plots, since changing query results will "orphan" plot cache files as the computed hash filename
+   will change even if the query definition itself is NOT changed.
+
+   This setting will only work if the SRF_Ploticus_cleanCache.php script is scheduled on cron.  Typically, it should only be run once a day.   
+   For example, run cleanCache at midnight, logging results to /var/log/ploticus_cleanCache.log:
+
+   0 0 * * * /usr/bin/php /var/www/wiki/extension/SemanticResultFormats/Ploticus/SRF_Ploticus_cleanCache.php -v 2>&1 > /var/log/ploticus_cleanCache.log
+  
+   If you're having problems running cleanCache, set the MW_INSTALL_PATH environment variable.  E.g.
+   
+   0 0 * * * MW_INSTALL_PATH=/var/www/wiki /usr/bin/php /var/www/wiki/extension/SemanticResultFormats/Ploticus/SRF_Ploticus_cleanCache.php -v 2>&1 > /var/log/ploticus_cleanCache.log
 
  * $wgEnableUploads (default: false - this is a MediaWiki setting)
-   - must be true. Be sure the upload directory has the proper permissions.
+   - must be true. Be sure the upload directory has the proper permissions.  If you wish to use SRF-Ploticus without enabling uploads,
+   you can create the 'ploticus' directory under the MW upload directory with permission 777.
    (see http://www.mediawiki.org/wiki/Manual:$wgUploadPath)
 
 == Configuration and Usage ==

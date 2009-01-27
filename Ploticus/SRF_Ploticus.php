@@ -16,13 +16,13 @@ class SRFPloticus extends SMWResultPrinter {
 	protected $m_ploticusparams = '';
 	protected $m_imageformat = 'png';
 	protected $m_alttext = 'Ploticus chart';
-	protected $m_showcsv = '0';
+	protected $m_showcsv = false;
 	protected $m_ploticusmode = 'prefab';
-	protected $m_debug = '0';
-	protected $m_liveupdating = '1';
+	protected $m_debug = false;
+	protected $m_liveupdating = true;
 	protected $m_updatefrequency = 60;  // by default, generate plot only once per minute
-	protected $m_showtimestamp = '0';
-	protected $m_showrefresh = '0';
+	protected $m_showtimestamp = false;
+	protected $m_showrefresh = false;
 
 	protected function readParameters($params, $outputmode) {
 		SMWResultPrinter::readParameters($params, $outputmode);
@@ -68,9 +68,11 @@ class SRFPloticus extends SMWResultPrinter {
 
 		$this->isHTML = true;
 
-		if(!strlen($this->m_ploticusparams)) {
+		if(empty($this->m_ploticusparams))
 		    return ('<p><strong>ERROR: <em>ploticusparams</em> required.</strong></p>');
-		}
+		
+		if(empty($srfgPloticusPath))
+		    return ('<p><strong>ERROR: Set $srfgPloticusPath in LocalSettings.php (e.g. $srfgPloticusPath=/usr/bin/ploticus).</strong></p>');
 		
 		// remove potentially dangerous keywords (prefab mode) or ploticus directives (script mode);
 		if ($this->m_ploticusmode == 'prefab') {
@@ -85,11 +87,10 @@ class SRFPloticus extends SMWResultPrinter {
 		}
 		$sanitized_ploticusparams = preg_replace($searches, $replaces, $this->m_ploticusparams); 
 
-		// Create the image directory if it doesnt exist
+		// Create the ploticus data directory if it doesn't exist
 		$ploticusDirectory = $wgUploadDirectory . '/ploticus/';
-		if (!is_dir($ploticusDirectory)) {
+		if (!is_dir($ploticusDirectory))
 			mkdir($ploticusDirectory, 0777);
-		}
 
 		// create result csv file that we pass on to ploticus
 		$tmpFile = tempnam($ploticusDirectory, 'srf-');
@@ -110,16 +111,17 @@ class SRFPloticus extends SMWResultPrinter {
 		fclose($fhandle);
 
 		// we create a hash based on params and csv file.
-		// this is a great way to see if the params and/or the query result has changed	    
-		$hashname = md5($this->m_ploticusparams . $this->m_imageformat . $this->m_showcsv . $this->m_ploticusmode .
+		// this is a great way to see if the params and/or the query result has changed
+		$hashname = hash('md5',$this->m_ploticusparams . $this->m_imageformat . $this->m_showcsv . $this->m_ploticusmode .
 				$this->m_liveupdating . $this->m_updatefrequency . $this->m_showtimestamp);
 		if ($this->m_liveupdating) {
 		    // only include contents of result csv in hash when liveupdating is on
 		    // in this way, doing file_exists check against hash filename will fail when query result has changed
-		    $hashname .= md5_file($tmpFile);
+		    $hashname .= hash_file('md5',$tmpFile);
 		}
 		
 		$dataFile = $ploticusDirectory . $hashname . '.csv';
+		@unlink($dataFile);
 		rename($tmpFile, $dataFile);
 		
 		$graphFile = $ploticusDirectory . $hashname . '.' . $this->m_imageformat;
@@ -154,7 +156,8 @@ class SRFPloticus extends SMWResultPrinter {
 			}
 			
 			// we set GDFONTPATH if specified
-			$commandline = strlen($srfgGDFontPath) ? 'GDFONTPATH=' . $srfgGDFontPath . ' ' : ' ';
+			$commandline = empty($srfgGDFontPath) ? ' ' : 'GDFONTPATH=' . $srfgGDFontPath . ' ';
+			
 			if ($this->m_ploticusmode == 'script') {
 			    // Script mode.  Search for special strings in ploticusparam
 			    // and replace it with actual values. (case-sensitive)
@@ -192,7 +195,7 @@ class SRFPloticus extends SMWResultPrinter {
 			$errorData = file_get_contents($errorFile);
 			unlink($errorFile);
 			
-			$graphLastGenerated = filemtime($graphFile);
+			$graphLastGenerated = time(); // faster than doing filemtime
 			
 			if($this->m_ploticusmode == 'script' && !$this->m_debug) {
 			    unlink($scriptFile);
@@ -201,7 +204,7 @@ class SRFPloticus extends SMWResultPrinter {
 		
 		//Prepare output
 		$rtnstr = '<table cols="3"><tr>';
-		if (strlen($errorData)) {
+		if (!empty($errorData)) {
 			// there was an error
 			$rtnstr .= '<th colspan="3"><strong>Error processing ploticus data:</strong></th></tr><tr><td colspan="3"' .
 				$errorData . '</td></tr>';
@@ -216,6 +219,7 @@ class SRFPloticus extends SMWResultPrinter {
 			} else {
 			    $rtnstr .= '<td colspan="3"><img src="' . $graphURL . '" alt="' . $this->alttext .'"></td></tr>';
 			}
+			
 		}
 		$rtnstr .= '<tr>';
 		// if showcsv is on, add link to data file (CSV)
@@ -246,7 +250,7 @@ class SRFPloticus extends SMWResultPrinter {
 		
 		$rtnstr .= '</tr></table>';
 		
-		// if debug is on, add link to script or display prefab cmdline
+		// if debug is on, add link to script or display ploticus cmdline/script
 		if ($this->m_debug) {
 		    if ($this->m_ploticusmode == 'script') {
 			$rtnstr .= '<p><strong>DEBUG: <a href="' . $scriptURL . '" target="_blank">SCRIPT</a></strong></p>';
@@ -254,7 +258,7 @@ class SRFPloticus extends SMWResultPrinter {
 			$rtnstr .= '<p><strong>DEBUG: PREFAB</strong></p><table width="100%"><tr>' . $commandline . '</tr></table>';
 		    }
 		}
+		
 		return ($rtnstr);
 	}
 }
-
