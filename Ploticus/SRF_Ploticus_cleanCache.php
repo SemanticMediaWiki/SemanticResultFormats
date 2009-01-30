@@ -1,6 +1,6 @@
 <?php
 /**
- * Purges old/orphan plots,maps,csvs from the ploticus cache directory.
+ * Purges old/orphan/temporary plots, maps, CSVs, drawdumps from the ploticus cache directory.
  * 
  *
  * Note: if SMW is not installed in its standard path under ./extensions
