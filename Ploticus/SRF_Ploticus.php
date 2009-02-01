@@ -120,12 +120,18 @@ class SRFPloticus extends SMWResultPrinter {
 		$sanitized_ploticusparams = preg_replace($searches, $replaces, $this->m_ploticusparams); 
 
 		// Create the ploticus data directory if it doesn't exist
-		$ploticusDirectory = $wgUploadDirectory . '/ploticus/';
-		if (!is_dir($ploticusDirectory))
-			mkdir($ploticusDirectory, 0777);
+		// create sharded directory structure to stay under the file no limits of filesystem
+		$ploticusDir = $wgUploadDirectory . '/ploticus/';
+		if (!is_dir($ploticusDir)) {
+			mkdir($ploticusDir, 0777);
+			for ($idx=0; $idx < 10; $idx++)
+				mkdir($ploticusDir . $idx);
+			foreach(range('a','f') as $idx)
+				mkdir($ploticusDir . $idx);
+		}
 
 		// create result csv file that we pass on to ploticus
-		$tmpFile = tempnam($ploticusDirectory, 'srf-');
+		$tmpFile = tempnam($ploticusDir, 'srf-');
 		if (($fhandle = fopen($tmpFile, 'w')) === false )
 			return ("<p><strong>ERROR: Cannot create data file - $tmpFile.  Check permissions. </strong></p>");
 		while ( $row = $res->getNext() ) {
@@ -153,16 +159,20 @@ class SRFPloticus extends SMWResultPrinter {
 		    $hashname .= hash_file('md5',$tmpFile);
 		}
 		
-		$dataFile = $ploticusDirectory . $hashname . '.csv';
+		$orighash = $hashname;
+		// modify hashname so files created with it will be stored in shard dir based on first char of hash
+		$hashname = substr($hashname, 0, 1) . '/' . $hashname; 
+		$dataFile = $ploticusDir . $hashname . '.csv';
 		@unlink($dataFile);
 		@rename($tmpFile, $dataFile);
+		$dataURL = $wgUploadPath . '/ploticus/' . $hashname . '.csv';
 		
-		$graphFile = $ploticusDirectory . $hashname . '.' . $this->m_imageformat;
+		$graphFile = $ploticusDir . $hashname . '.' . $this->m_imageformat;
 		$graphURL = $wgUploadPath . '/ploticus/' . $hashname . '.' . $this->m_imageformat;
-		$errorFile = $ploticusDirectory . $hashname . '.err';
-		$mapFile = $ploticusDirectory . $hashname . '.map';
+		$errorFile = $ploticusDir . $hashname . '.err';
+		$mapFile = $ploticusDir . $hashname . '.map';
 		$mapURL = $wgUploadPath . '/ploticus/' . $hashname . '.map';
-		$scriptFile = $ploticusDirectory . $hashname . '.plo';
+		$scriptFile = $ploticusDir . $hashname . '.plo';
 		$scriptURL = $wgUploadPath . '/ploticus/' . $hashname . '.plo';
 		
 		// get time graph was last generated and if liveupdating is on, check to see if the 
@@ -196,7 +206,7 @@ class SRFPloticus extends SMWResultPrinter {
 			    // and replace it with actual values. (case-sensitive)
 			    // The special strings currently are:  %DATAFILE.CSV%, %WORKINGDIR% 
 			    $replaces = array('%DATAFILE.CSV%'  => wfEscapeShellArg($dataFile),
-					      '%WORKINGDIR%' => $ploticusDirectory);
+					      '%WORKINGDIR%' => $ploticusDir);
 			    $literal_ploticusparams = strtr($sanitized_ploticusparams, $replaces);
 			    $fhandle = fopen($scriptFile, 'w');
 			    fputs($fhandle, $literal_ploticusparams);
@@ -215,7 +225,7 @@ class SRFPloticus extends SMWResultPrinter {
 				    ' -' . $this->m_imageformat;
 			
 			    if ($this->m_imageformat == 'drawdump' || $this->m_imageformat == 'drawdumpa' ) {
-				$commandline .= ' ' . wfEscapeShellArg($ploticusDirectory .  '/' . $this->m_drawdumpoutput);
+				$commandline .= ' ' . wfEscapeShellArg($ploticusDir .  '/' . $this->m_drawdumpoutput);
 			    } else {
 				$commandline .= ' -o '. wfEscapeShellArg($graphFile);
 			    }
@@ -279,8 +289,8 @@ class SRFPloticus extends SMWResultPrinter {
 						$mapData = file_get_contents($mapFile);
 						// we replace + with _ since ploticus uses + to represent spaces which mediawiki does not understand
 						$mapData = str_replace("+","_",$mapData);
-						$rtnstr .= '<map name="'. $hashname . '">'. $mapData .
-							'</map><img src="' . $graphURL . '" border="0" usemap="#' . $hashname . '">';
+						$rtnstr .= '<map name="'. $orighash . '">'. $mapData .
+							'</map><img src="' . $graphURL . '" border="0" usemap="#' . $orighash . '">';
 					} else {
 					    $rtnstr .= '<img src="' . $graphURL . '" alt="' . $this->alttext .'">';
 					}
@@ -300,8 +310,8 @@ class SRFPloticus extends SMWResultPrinter {
 		// INFOROW - ACTIONS - col 1
 		// if showcsv or debug is on, add link to data file (CSV)
 		if ($this->m_showcsv || $this->m_debug) {
-			$rtnstr .= '<a href="' . $wgUploadPath . '/ploticus/' . $hashname . '.csv" title="CSV file"><img src="'.
-				$srficonPath.'csv_16.png" alt="CSV file"></a>';
+			$rtnstr .= '<a href="' . $dataURL . '" title="CSV file"><img src="'.
+				$srficonPath . 'csv_16.png" alt="CSV file"></a>';
 		} else {
 		    @unlink($dataFile); // otherwise, clean it up
 		}
@@ -309,13 +319,13 @@ class SRFPloticus extends SMWResultPrinter {
 		// if showimagelink is on, add link to open image in a new window
 		if ($this->m_showimagelink ) {
 			$rtnstr .= ' <a href="' . $graphURL . '" target="_blank" title="Open image in new window"><img src="'.
-			$srficonPath . 'barchart_16.png" alt="Open image in new window"></a>';
+				$srficonPath . 'barchart_16.png" alt="Open image in new window"></a>';
 		}
 		
 		// if showrefresh is on, create link to force refresh
 		if ($this->m_showrefresh) {
 			$rtnstr .= ' <a href="' . $wgArticlePath . '?action=purge" title="Reload"><img src="'.
-			$srficonPath . 'reload_16.png" alt="Reload"></a>';
+				$srficonPath . 'reload_16.png" alt="Reload"></a>';
 		}
 		
 		// INFOROW - col 2
@@ -336,9 +346,11 @@ class SRFPloticus extends SMWResultPrinter {
 		// add link to script or display ploticus cmdline/script
 		if ($this->m_debug) {
 		    if ($this->m_ploticusmode == 'script') {
-			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: <a href="' . $scriptURL . '" target="_blank">SCRIPT</a></strong></td></tr>';
+			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: <a href="' .
+				$scriptURL . '" target="_blank">SCRIPT</a></strong></td></tr>';
 		    } else {
-			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: PREFAB</strong></td></tr><tr><td colspan="3">' . $commandline . '</td></tr>';
+			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: PREFAB</strong></td></tr><tr><td colspan="3">' .
+				$commandline . '</td></tr>';
 		    }
 		}
 		

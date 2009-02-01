@@ -47,6 +47,7 @@ if ($fileAge <= 0) {
 $ploticusDirectory = $wgUploadDirectory . '/ploticus';
 $deletecount = 0;
 
+// TODO: Modify to be shard dir aware
 if( $dirhandle = @opendir($ploticusDirectory) ) {
     while( false !== ($filename = readdir($dirhandle)) ) {
             if( $filename != '.' && $filename != '..' ) {
