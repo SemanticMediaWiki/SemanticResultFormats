@@ -27,13 +27,14 @@ class SRFPloticus extends SMWResultPrinter {
 	protected $m_ploticusmode = 'prefab';
 	protected $m_debug = false;
 	protected $m_liveupdating = true;
-	protected $m_updatefrequency = 60;  // by default, generate plot only once per minute
+	protected $m_updatefrequency = 3600;  // by default, generate plot only once per hour
 	protected $m_showtimestamp = false;
 	protected $m_showrefresh = false;
 	protected $m_showimagelink = false;
 	protected $m_drawdumpoutput = '';
 	protected $m_tblwidth = '';
 	protected $m_tblheight = '';
+	protected $m_params = array();
 
 	protected function readParameters($params, $outputmode) {
 		SMWResultPrinter::readParameters($params, $outputmode);
@@ -88,9 +89,10 @@ class SRFPloticus extends SMWResultPrinter {
 	}
 
 	protected function getResultText($res, $outputmode) {
-		global $smwgIQRunningNumber, $wgUploadDirectory, $wgUploadPath, $wgScriptPath, $srfgPloticusPath, $srfgGDFontPath;
+		global $smwgIQRunningNumber, $wgUploadDirectory, $wgUploadPath, $wgScriptPath, $srfgPloticusPath, $srfgEnvSettings;
 
 		$this->isHTML = true;
+		$this->outputmode = SMW_OUTPUT_HTML;
 
 		// check parameters
 		if(empty($this->m_ploticusparams))
@@ -120,14 +122,12 @@ class SRFPloticus extends SMWResultPrinter {
 		$sanitized_ploticusparams = preg_replace($searches, $replaces, $this->m_ploticusparams); 
 
 		// Create the ploticus data directory if it doesn't exist
-		// create sharded directory structure to stay under the file no limits of filesystem
+		// create sharded directory structure for data partitioning/scalability purposes
 		$ploticusDir = $wgUploadDirectory . '/ploticus/';
 		if (!is_dir($ploticusDir)) {
 			mkdir($ploticusDir, 0777);
-			for ($idx=0; $idx < 10; $idx++)
-				mkdir($ploticusDir . $idx);
-			foreach(range('a','f') as $idx)
-				mkdir($ploticusDir . $idx);
+			for ($idx=0; $idx < 16; $idx++)
+				mkdir($ploticusDir . dechex($idx), 0777);
 		}
 
 		// create result csv file that we pass on to ploticus
@@ -151,8 +151,7 @@ class SRFPloticus extends SMWResultPrinter {
 
 		// we create a hash based on params and csv file.
 		// this is a great way to see if the params and/or the query result has changed
-		$hashname = hash('md5',$this->m_ploticusparams . $this->m_imageformat . $this->m_showcsv . $this->m_ploticusmode .
-				$this->m_liveupdating . $this->m_updatefrequency . $this->m_showtimestamp);
+		$hashname = hash('md5', implode(',',$this->m_params));
 		if ($this->m_liveupdating) {
 		    // only include contents of result csv in hash when liveupdating is on
 		    // in this way, doing file_exists check against hash filename will fail when query result has changed
@@ -175,12 +174,12 @@ class SRFPloticus extends SMWResultPrinter {
 		$scriptFile = $ploticusDir . $hashname . '.plo';
 		$scriptURL = $wgUploadPath . '/ploticus/' . $hashname . '.plo';
 		
-		// get time graph was last generated and if liveupdating is on, check to see if the 
+		// get time graph was last generated. Also check to see if the 
 		// generated plot has expired per the updatefrequency and needs to be redrawn
-		if (file_exists($graphFile)) {
+		if (($this->m_updatefrequency > 0) && file_exists($graphFile)) {
 		    $graphLastGenerated = filemtime($graphFile);
 		    $expireTime = $graphLastGenerated + $this->m_updatefrequency;
-		    if ($this->m_liveupdating && $expireTime < time()) {
+		    if ( $expireTime < time()) {
 			@unlink($graphFile);
 		    }
 		}
@@ -198,8 +197,8 @@ class SRFPloticus extends SMWResultPrinter {
 					$srfgPloticusPath . '</em></strong></p>');
 			}
 			
-			// we set GDFONTPATH if specified
-			$commandline = empty($srfgGDFontPath) ? ' ' : 'GDFONTPATH=' . $srfgGDFontPath . ' ';
+			// we set $srfgEnvSettings if specified
+			$commandline = empty($srfgEnvSettings) ? ' ' : $srfgEnvSettings . ' ';
 			
 			if ($this->m_ploticusmode === 'script') {
 			    // Script mode.  Search for special strings in ploticusparam
