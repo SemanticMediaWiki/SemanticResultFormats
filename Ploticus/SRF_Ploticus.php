@@ -34,6 +34,8 @@ class SRFPloticus extends SMWResultPrinter {
 	protected $m_drawdumpoutput = '';
 	protected $m_tblwidth = '';
 	protected $m_tblheight = '';
+	protected $m_width = '';
+	protected $m_height = '';
 	protected $m_params = array();
 
 	protected function readParameters($params, $outputmode) {
@@ -86,6 +88,12 @@ class SRFPloticus extends SMWResultPrinter {
 		if (array_key_exists('tblheight', $this->m_params)) {
 			$this->m_tblheight = trim($params['tblheight']);
 		}
+		if (array_key_exists('width', $this->m_params)) {
+			$this->m_width = trim($params['width']);
+		}
+		if (array_key_exists('height', $this->m_params)) {
+			$this->m_height = trim($params['height']);
+		}
 	}
 
 	protected function getResultText($res, $outputmode) {
@@ -108,7 +116,8 @@ class SRFPloticus extends SMWResultPrinter {
 		if (!in_array($this->m_imageformat, $validformats))
 		    return ("<p><strong>ERROR: $this->m_imageformat is not a supported format. Valid values are: svg, svg, swf, png, gif, jpeg, drawdump, drawdumpa, eps, ps</strong></p>");
 		
-		// remove potentially dangerous keywords (prefab mode) or ploticus directives (script mode);
+		// remove potentially dangerous keywords (prefab mode) or ploticus directives (script mode)
+		// this is an extended check, JUST IN CASE, even though we're invoking ploticus with the noshell security parameter
 		if ($this->m_ploticusmode === 'prefab') {
 		     // we also remove line endings for prefab - this is done for readability so the user can specify the prefab
 		     // params over several lines rather than one long command line
@@ -169,6 +178,7 @@ class SRFPloticus extends SMWResultPrinter {
 		$graphFile = $ploticusDir . $hashname . '.' . $this->m_imageformat;
 		$graphURL = $wgUploadPath . '/ploticus/' . $hashname . '.' . $this->m_imageformat;
 		$errorFile = $ploticusDir . $hashname . '.err';
+		$errorURL = $wgUploadPath . '/ploticus/' . $hashname . '.err';
 		$mapFile = $ploticusDir . $hashname . '.map';
 		$mapURL = $wgUploadPath . '/ploticus/' . $hashname . '.map';
 		$scriptFile = $ploticusDir . $hashname . '.plo';
@@ -201,9 +211,9 @@ class SRFPloticus extends SMWResultPrinter {
 			$commandline = empty($srfgEnvSettings) ? ' ' : $srfgEnvSettings . ' ';
 			
 			if ($this->m_ploticusmode === 'script') {
-			    // Script mode.  Search for special strings in ploticusparam
+			    // Script mode.  Search for special keywords in ploticusparam
 			    // and replace it with actual values. (case-sensitive)
-			    // The special strings currently are:  %DATAFILE.CSV%, %WORKINGDIR% 
+			    // The special keywords currently are:  %DATAFILE.CSV%, %WORKINGDIR% 
 			    $replaces = array('%DATAFILE.CSV%'  => wfEscapeShellArg($dataFile),
 					      '%WORKINGDIR%' => $ploticusDir);
 			    $literal_ploticusparams = strtr($sanitized_ploticusparams, $replaces);
@@ -212,14 +222,16 @@ class SRFPloticus extends SMWResultPrinter {
 			    fclose($fhandle);
 			    
 			    $commandline .= wfEscapeShellArg($srfgPloticusPath) .
-				    ' -' . $this->m_imageformat .
+				    ($this->m_debug ? ' -debug':' ') .
+				    ' -noshell -' . $this->m_imageformat .
 				    ' -o ' . wfEscapeShellArg($graphFile) .
 				    ' ' . $scriptFile;
 				    
 			} else {
 			    // prefab mode, build the command line accordingly		       
 			    $commandline .= wfEscapeShellArg($srfgPloticusPath) .
-				    ' ' . $sanitized_ploticusparams .
+				    ($this->m_debug ? ' -debug':' ') .
+				    ' -noshell ' . $sanitized_ploticusparams .
 				    ' data=' . wfEscapeShellArg($dataFile) .
 				    ' -' . $this->m_imageformat;
 			
@@ -241,7 +253,8 @@ class SRFPloticus extends SMWResultPrinter {
 			// Execute ploticus.
 			wfShellExec($commandline);
 			$errorData = file_get_contents($errorFile);
-			@unlink($errorFile);
+			if (!$this->m_debug)
+				@unlink($errorFile);
 			
 			$graphLastGenerated = time(); // faster than doing filemtime
 			
@@ -260,25 +273,34 @@ class SRFPloticus extends SMWResultPrinter {
 			(empty($this->m_tblwidth) ? ' ' : ' width="'. $this->m_tblwidth . '" ') .
 			(empty($this->m_tblheight) ? ' ' : ' height="'. $this->m_tblheight . '" ') .
 			'><tr>';
-		if (!empty($errorData)) {
-			// there was an error
+		if (!empty($errorData) && !$this->m_debug) {
+			// there was an error.  We do the not debug check since ploticus by default sends the debug trace to stderr too
+			// so when debug is on, having a non-empty errorData does not necessarily indicate an error.
 			$rtnstr .= '<th colspan="3"><strong>Error processing ploticus data:</strong></th></tr><tr><td colspan="3" align="center">' .
 				$errorData . '</td></tr>';
-		}
-		else {
+		} else {
 			$rtnstr .= '<td colspan="3" align="center">';
 			switch ($this->m_imageformat) {
 				case 'svg':
 				case 'svgz':
-					// TODO: fix generated clickmap URLs to use _ instead of + for embedded spaces
-					// TODO: either patch ploticus or do regex (kinda expensive though on SVG XML files)
-					$rtnstr .= '<object data="' . $graphURL .
-						'" type="image/svg+xml">Requires SVG-capable browser</object>';
+					// note that if clickmaps are specified, Ploticus will use + instead of _
+					// for embedded spaces in target URLs which won't work in SMW.
+					// A patch has been submitted to Steve Grubb (Ploticus creator)
+					// that introduces the encodeclickmapurls parameter to fix this.
+					$rtnstr .= '<object data="' . $graphURL . '"' .
+						(empty($this->m_width)? ' ' : ' width="'. $this->m_width . '" ') .
+						(empty($this->m_height)? ' ' : ' height="'. $this->m_height . '" ') .
+						'type="image/svg+xml"><param name="src" value="' . $graphURL .
+						'"> alt : <a href="'. $graphURL . '">'. $this->m_alttext . ' - ' .
+						'Requires SVG capable browser</a></object>';
 					break;
 				case 'swf':
-					$rtnstr .= '<embed src="' . $graphURL .
-						'" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"' . 
-						'type="application/x-shockwave-flash"></embed>';
+					$rtnstr .= '<object type="application/x-shockwave-flash" data="' . $graphURL . '"' .
+						(empty($this->m_width)? ' ' : ' width="'. $this->m_width . '" ') .
+						(empty($this->m_height)? ' ' : ' height="'. $this->m_height . '" ') .
+						'<param name="movie" value="' . $graphURL .
+						'"><param name="loop" value="false"><param name="SCALE" value="noborder"> alt : <a href="'. $graphURL .
+						'">' . $this->m_alttext . ' - '  . 'Requires Adobe Flash plugin</a></object>';
 					break;
 				case 'png':
 				case 'gif':
@@ -287,19 +309,22 @@ class SRFPloticus extends SMWResultPrinter {
 					if (strpos($sanitized_ploticusparams, 'clickmap')) {
 						$mapData = file_get_contents($mapFile);
 						// we replace + with _ since ploticus uses + to represent spaces which mediawiki does not understand
+						// this is only required if you're using an unpatched copy of Ploticus (see SVG note above)
+						// we're still leaving the str_replace in if SRF-Ploticus cannot get the encodeclickmapurls patch.
 						$mapData = str_replace("+","_",$mapData);
 						$rtnstr .= '<map name="'. $orighash . '">'. $mapData .
 							'</map><img src="' . $graphURL . '" border="0" usemap="#' . $orighash . '">';
 					} else {
-					    $rtnstr .= '<img src="' . $graphURL . '" alt="' . $this->alttext .'">';
+					    $rtnstr .= '<img src="' . $graphURL . '" alt="' . $this->m_alttext .'">';
 					}
 					break;
 				case 'eps':
 				case 'ps':
-					// encapsulated postscript/postscript are not viewable on browsers
-					// just display a link
-					$rtnstr .= 'Download '. strtoupper($this->m_imageformat) . ' file.';
-					
+					$rtnstr .= '<object type="application/postscript" data="' . $graphURL . '"' .
+					(empty($this->m_width)? ' ' : ' width="'. $this->m_width . '" ') .
+					(empty($this->m_height)? ' ' : ' height="'. $this->m_height . '" ') .
+					' alt : <a href="'. $graphURL . '">' . $this->m_alttext . ' - ' .
+					'Requires PDF-capable browser</a></object>';
 			}
 			$rtnstr .= '</td></tr>';
 		}
@@ -346,9 +371,11 @@ class SRFPloticus extends SMWResultPrinter {
 		if ($this->m_debug) {
 		    if ($this->m_ploticusmode == 'script') {
 			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: <a href="' .
-				$scriptURL . '" target="_blank">SCRIPT</a></strong></td></tr>';
+				$scriptURL . '" target="_blank">SCRIPT</a> (<a href="'.
+				$errorURL . '" target="_blank">Ploticus Trace</a>)</strong></td></tr>';
 		    } else {
-			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: PREFAB</strong></td></tr><tr><td colspan="3">' .
+			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: PREFAB (<a href="' .
+				$errorURL .'" target="_blank">Ploticus Trace</a>)</strong></td></tr><tr><td colspan="3">' .
 				$commandline . '</td></tr>';
 		    }
 		}
