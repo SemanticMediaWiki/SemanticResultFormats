@@ -423,6 +423,16 @@ $messages['pt'] = array(
 	'srfc_gotomonth' => 'Ir para mês',
 );
 
+/** Brazilian Portuguese (Português do Brasil)
+ * @author Eduardo.mps
+ */
+$messages['pt-br'] = array(
+	'srfc_previousmonth' => 'Mês anterior',
+	'srfc_nextmonth' => 'Mês seguinte',
+	'srfc_today' => 'Hoje',
+	'srfc_gotomonth' => 'Ir para mês',
+);
+
 /** Romanian (Română)
  * @author KlaudiuMihaila
  */
