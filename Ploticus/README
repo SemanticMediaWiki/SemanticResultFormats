@@ -6,7 +6,8 @@ Ploticus to create plots, charts and graphics out of query results.
 The following should be installed and running.
 
 1) Semantic MediaWiki
-2) Ploticus 2.40 (http://ploticus.sourceforge.net)
+2) Ploticus 2.40 (http://ploticus.sourceforge.net).  
+   Patch required if you plan to use SVG/SVGZ formats. (see Imagemap section below)
 
 When both of them are up and running, you can install this extension like
 any other semantic result printer (refer to the separate README for that).
