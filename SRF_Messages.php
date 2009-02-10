@@ -18,7 +18,7 @@ $messages['en'] = array(
 	'srfc_today'         => 'Today',
 	'srfc_gotomonth'     => 'Go to month',
 	// format "vCard"
-	'srf_vcard_link' => 'vCard',
+	'srf_vcard_link'     => 'vCard',
 	// format "iCalendar"
 	'srf_icalendar_link' => 'iCalendar',
 );
@@ -94,8 +94,6 @@ $messages['de'] = array(
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
 	'srfc_gotomonth' => 'Gehe zu Monat',
-	'srf_icalendar_link' => 'iCalendar',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -271,8 +269,6 @@ $messages['ia'] = array(
 	'srfc_nextmonth' => 'Mense sequente',
 	'srfc_today' => 'Hodie',
 	'srfc_gotomonth' => 'Ir al mense',
-	'srf_icalendar_link' => 'iCalendar',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Italian (Italiano)
@@ -283,8 +279,6 @@ $messages['it'] = array(
 	'srfc_nextmonth' => 'Mese successivo',
 	'srfc_today' => 'Oggi',
 	'srfc_gotomonth' => 'Vai al mese',
-	'srf_icalendar_link' => 'iCalendar',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Japanese (日本語)
@@ -402,8 +396,6 @@ $messages['nl'] = array(
 	'srfc_nextmonth' => 'Volgende maand',
 	'srfc_today' => 'Vandaag',
 	'srfc_gotomonth' => 'Ga naar maand',
-	'srf_icalendar_link' => 'iCalendar',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -425,7 +417,6 @@ $messages['no'] = array(
 	'srfc_today' => 'I dag',
 	'srfc_gotomonth' => 'Gå til måned',
 	'srf_icalendar_link' => 'iKalender',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Occitan (Occitan)
@@ -469,7 +460,6 @@ $messages['pt'] = array(
 	'srfc_today' => 'Hoje',
 	'srfc_gotomonth' => 'Ir para mês',
 	'srf_icalendar_link' => 'iCalendário',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
@@ -510,7 +500,6 @@ $messages['ru'] = array(
 	'srfc_today' => 'Сегодня',
 	'srfc_gotomonth' => 'Перейти к месяцу',
 	'srf_icalendar_link' => 'iКалендарь',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Slovak (Slovenčina)
@@ -521,8 +510,6 @@ $messages['sk'] = array(
 	'srfc_nextmonth' => 'Ďalší mesiac',
 	'srfc_today' => 'Dnes',
 	'srfc_gotomonth' => 'Prejsť na mesiac',
-	'srf_icalendar_link' => 'iCalendar',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Swedish (Svenska)
@@ -534,7 +521,6 @@ $messages['sv'] = array(
 	'srfc_today' => 'Idag',
 	'srfc_gotomonth' => 'Gå till månad',
 	'srf_icalendar_link' => 'iKalender',
-	'srf_vcard_link' => 'vCard',
 );
 
 /** Telugu (తెలుగు)
@@ -586,7 +572,6 @@ $messages['vi'] = array(
 	'srfc_nextmonth' => 'Tháng sau',
 	'srfc_today' => 'Hôm nay',
 	'srfc_gotomonth' => 'Đến tháng',
-	'srf_icalendar_link' => 'iCalendar',
 );
 
 /** Volapük (Volapük)
