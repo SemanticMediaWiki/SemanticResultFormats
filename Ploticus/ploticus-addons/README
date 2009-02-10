@@ -1,0 +1,12 @@
+ploticus_encodeclickmapurls.patch 
+    - required to support imagemaps in SVG.
+    To apply the patch, be sure to patch Ploticus 2.40 up the last available patch in Dec 08.
+    To use, set "encodeclickmapurls:yes" in PLOTICUS_CONFIG.
+    This will force Ploticus to use underscores (_) instead of plus signs (+) when generating imagemap URLs.
+
+addons directory
+    - additional SMW prefabs.  To use, copy the files in this directory into the PLOTICUS prefabs directory. 
+
+    - pietopn prefab (In Development)
+        - similar to pie but with an additional parameter
+             topn (specifies the number of top pie slices after which, remaining slices are aggregated into one slice)

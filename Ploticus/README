@@ -13,7 +13,7 @@ any other semantic result printer (refer to the separate README for that).
 
 LocalSettings.php Modifications:
  * $srfgPloticusPath (REQUIRED)
-   - path to ploticus executable. (typically /usr/bin/ploticus or /usr/bin/pl)
+   - path to ploticus executable. Typically /usr/bin/ploticus (Debian/Ubuntu) or /usr/bin/pl (RedHat/CentOS, most other envs)
  
  * $srfgEnvSettings (default: '')
    - Ploticus behavior can be further modified by setting environment variables.  You can pass this env vars using this setting.
@@ -205,7 +205,7 @@ However, Ploticus 2.40 currently uses plus signs (+) instead of underscores (_) 
 clickmap URL targets.  This won't work in SMW.
 
 A patch has been submitted to Steve Grubb (Ploticus creator) to change this behavior.
-(http://tech.groups.yahoo.com/group/ploticus/message/2166)
+(http://tech.groups.yahoo.com/group/ploticus/message/2166).  A copy of the patch is also in the ploticus-addons directory.
 
 At the moment, SRF-Ploticus corrects the clickmap URL targets for PNG, GIF and JPEG raster formats, swapping out the + for _.
 SVG clickmaps will require the patch to work properly.
