@@ -10,7 +10,19 @@ Semantic Result Formats requires Semantic MediaWiki to run, at least at the
 same second level version number as Semantic Result Formats, i.e. SRF 1.4.1
 requires SMW 1.4.0.
 
+For more information, see http://semantic-mediawiki.org/wiki/SRF
+
 == Included formats ==
+
+=== icalendar ===
+
+Enable exports of calendar entries (events) using the iCalendar format.
+Using this format creates an according download link in the wiki.
+
+=== vcard ===
+
+Enable exports of contact data (email, phone, address, etc.) using the vCard
+format. Using this format creates an according download link in the wiki.
 
 === calendar ===
 
@@ -26,25 +38,6 @@ per query result.
 Displays query results in interactive timelines, displaying an arbitrary number
 of individual dates per query result.
 
-=== googlepie ===
-
-Creates a pie chart out of the numeric value of a specific property using
-the Google Charts API.
-
-=== googlebar ===
-
-Creates a bar chart out of the numeric value of a specific property using
-the Google Charts API.
-
-=== ploticus ===
-
-Creates a variety of graph types using the Ploticus application, which must be
-installed.
-
-=== graph ===
-
-Creates a graph based on the relations in the wiki. Requires the GraphViz
-extension.
 
 === sum ===
 
@@ -62,10 +55,37 @@ Displays the smallest of the numeric values of the queried property.
 
 Displays the largest of the numeric values of the queried property.
 
+=== googlepie ===
+
+Creates a pie chart out of the numeric value of a specific property using
+the Google Charts API. This format sends data to Google for formatting.
+
+=== googlebar ===
+
+Creates a bar chart out of the numeric value of a specific property using
+the Google Charts API. This format sends data to Google for formatting.
+
+=== exhibit ===
+
+Creates an interactive browsing/filtering interface for displaying query
+results. Various display modes are supported. One is Google Maps, which
+requires data to be transmitted to Google.
+
+=== ploticus ===
+
+Creates a variety of graph types using the Ploticus application, which must be
+installed.
+
+=== graph ===
+
+Creates a graph based on the relations in the wiki. Requires the GraphViz
+extension.
+
+
 == Contact ==
 
 If you have remarks, questions, or suggestions, please send them to
-semediawiki-users@lists.sourceforge.net. You can subscribe to this 
+semediawiki-users@lists.sourceforge.net. You can subscribe to this
 list at
 http://sourceforge.net/mailarchive/forum.php?forum_name=semediawiki-user.
 
@@ -107,5 +127,5 @@ the project Active.
 
 Translations to various languages are provided and maintained by many people.
 In general, main contributors can be found in the message file. Special thanks
-are due to Siebrand Mazeland and the Betawiki project for their excellent 
+are due to Siebrand Mazeland and the Betawiki project for their excellent
 support in that matter.

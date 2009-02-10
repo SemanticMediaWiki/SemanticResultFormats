@@ -12,17 +12,28 @@ include the code:
 
  require_once("$IP/extensions/SemanticResultFormats/SRF_Settings.php");
 
-If nothing else is added, the following formats will be enabled: 'calendar',
-'timeline', 'eventline', 'sum', 'average', 'min' and 'max'. To add more
-formats to this list, you can add lines like:
+If nothing else is added, a default set of formats is enabled. These are the
+the formats that satisfy the following criteria:
+
+* they do not require further software to be installed (besides SMW),
+* they do not transmit any data to external websites, not even by making client
+  browsers request any static external resouorces (such as an externally hosted
+  image file),
+* they are considered reasonably stable and secure.
+
+Currently, these default formats thus are:
+'vcard', 'icalendar', 'calendar', 'timeline', 'eventline', 'sum', 'average',
+'min', 'max'.
+
+To add more formats to this list, you can add lines like:
 
  $srfgFormats[] = 'googlebar';
 
-...or you can override the set of formats entirely, with a call like:
+... or you can override the set of formats entirely, with a call like:
 
  $srfgFormats = array('calendar', 'timeline');
 
-...using one or more of the following values:
+... using one or more of the following values:
 
   average, calendar, eventline, googlebar, googlepie, graph, ploticus,
   max, min, sum, timeline

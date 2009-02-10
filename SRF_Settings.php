@@ -16,7 +16,7 @@ $srfgIP = $IP . '/extensions/SemanticResultFormats';
 $wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
 $wgExtensionFunctions[] = 'srffSetup';
 
-$srfgFormats = array('calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
+$srfgFormats = array('icalendar', 'vcard', 'calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
 
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
@@ -37,39 +37,49 @@ function srffInitFormat( $format ) {
 
 	$class = '';
 	$file = '';
-	if ($format == 'graph') {
-		$class = 'SRFGraph';
-		$file = $srfgIP . '/GraphViz/SRF_Graph.php';
+	switch ($format) {
+		case 'timeline': case 'eventline':
+			$class = 'SRFTimeline';
+			$file = $srfgIP . '/Timeline/SRF_Timeline.php';
+		break;
+		case 'vcard':
+			$class = 'SRFvCard';
+			$file = $srfgIP . '/vCard/SRF_vCard.php';
+		break;
+		case 'icalendar':
+			$class = 'SRFiCalendar';
+			$file = $srfgIP . '/iCalendar/SRF_iCalendar.php';
+		break;
+		case 'calendar':
+			$class = 'SRFCalendar';
+			$file = $srfgIP . '/Calendar/SRF_Calendar.php';
+		breaK;
+		case  'sum': case 'average': case 'min': case 'max':
+			$class = 'SRFMath';
+			$file = $srfgIP . '/Math/SRF_Math.php';
+		break;
+		case 'exhibit':
+			$class = 'SRFExhibit';
+			$file = $srfgIP . '/Exhibit/SRF_Exhibit.php';
+		break;
+		case 'googlebar':
+			$class = 'SRFGoogleBar';
+			$file = $srfgIP . '/GoogleCharts/SRF_GoogleBar.php';
+		break;
+		case 'googlepie':
+			$class = 'SRFGooglePie';
+			$file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php';
+		break;
+		case 'ploticus':
+			$class = 'SRFPloticus';
+			$file = $srfgIP . '/Ploticus/SRF_Ploticus.php';
+		break;
+		case 'graph':
+			$class = 'SRFGraph';
+			$file = $srfgIP . '/GraphViz/SRF_Graph.php';
+		break;
 	}
-	if ($format == 'googlebar') {
-		$class = 'SRFGoogleBar';
-		$file = $srfgIP . '/GoogleCharts/SRF_GoogleBar.php';
-	}
-	if ($format == 'googlepie') {
-		$class = 'SRFGooglePie';
-		$file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php';
-	}
-	if ($format == 'ploticus') {
-		$class = 'SRFPloticus';
-		$file = $srfgIP . '/Ploticus/SRF_Ploticus.php';
-	}
-	if ($format == 'timeline' || $format == 'eventline') {
-		$class = 'SRFTimeline';
-		$file = $srfgIP . '/Timeline/SRF_Timeline.php';
-	}
-	if ($format == 'calendar') {
-		$class = 'SRFCalendar';
-		$file = $srfgIP . '/Calendar/SRF_Calendar.php';
-	}
-	if ($format == 'exhibit') {
-		$class = 'SRFExhibit';
-		$file = $srfgIP . '/Exhibit/SRF_Exhibit.php';
-	}
-	if ($format == 'sum' || $format == 'average' || $format == 'min' || $format == 'max') {
-		$class = 'SRFMath';
-		$file = $srfgIP . '/Math/SRF_Math.php';
-	}
-	if (($class != '') && ($file)) {
+	if (($class) && ($file)) {
 		$smwgResultFormats[$format] = $class;
 		$wgAutoloadClasses[$class] = $file;
 	}
