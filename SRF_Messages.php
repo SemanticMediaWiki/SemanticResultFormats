@@ -23,9 +23,10 @@ $messages['en'] = array(
 	'srf_icalendar_link' => 'iCalendar',
 );
 
+/** Message documentation (Message documentation) */
 $messages['qqq'] = array(
-	'srf_icalendar_link' => '{{optional}}',
 	'srf_vcard_link' => '{{optional}}',
+	'srf_icalendar_link' => '{{optional}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -51,8 +52,8 @@ $messages['ar'] = array(
 	'srfc_nextmonth' => 'الشهر التالي',
 	'srfc_today' => 'اليوم',
 	'srfc_gotomonth' => 'اذهب إلى شهر',
-	'srf_icalendar_link' => 'آي كالندر',
 	'srf_vcard_link' => 'في كارد',
+	'srf_icalendar_link' => 'آي كالندر',
 );
 
 /** Egyptian Spoken Arabic (مصرى)
@@ -63,8 +64,8 @@ $messages['arz'] = array(
 	'srfc_nextmonth' => 'الشهر التالي',
 	'srfc_today' => 'اليوم',
 	'srfc_gotomonth' => 'اذهب إلى شهر',
-	'srf_icalendar_link' => 'آى كالندر',
 	'srf_vcard_link' => 'فى كارد',
+	'srf_icalendar_link' => 'آى كالندر',
 );
 
 /** Bulgarian (Български)
@@ -171,8 +172,8 @@ $messages['fr'] = array(
 	'srfc_nextmonth' => 'Mois suivant',
 	'srfc_today' => "Aujourd'hui",
 	'srfc_gotomonth' => 'Aller vers le mois',
-	'srf_icalendar_link' => 'iCalendrier',
 	'srf_vcard_link' => 'vCarte',
+	'srf_icalendar_link' => 'iCalendrier',
 );
 
 /** Galician (Galego)
@@ -184,8 +185,8 @@ $messages['gl'] = array(
 	'srfc_nextmonth' => 'Mes seguinte',
 	'srfc_today' => 'Hoxe',
 	'srfc_gotomonth' => 'Ir ao mes',
-	'srf_icalendar_link' => 'iCalendario',
 	'srf_vcard_link' => 'vTarxeta',
+	'srf_icalendar_link' => 'iCalendario',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -321,8 +322,8 @@ $messages['ksh'] = array(
 	'srfc_nextmonth' => 'Jangk nohm näkßte Moohnd',
 	'srfc_today' => 'Hück',
 	'srfc_gotomonth' => 'Jangk noh däm Moohnd',
-	'srf_icalendar_link' => '<i lang="en">iCalendar</i>',
 	'srf_vcard_link' => '<i lang="en">vCard</i>',
+	'srf_icalendar_link' => '<i lang="en">iCalendar</i>',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -427,8 +428,8 @@ $messages['oc'] = array(
 	'srfc_nextmonth' => 'Mes seguent',
 	'srfc_today' => 'Uèi',
 	'srfc_gotomonth' => 'Anar cap al mes',
-	'srf_icalendar_link' => 'iCalendièr',
 	'srf_vcard_link' => 'vCarta',
+	'srf_icalendar_link' => 'iCalendièr',
 );
 
 /** Polish (Polski)
