@@ -113,10 +113,16 @@ the project Active.
 
 * S Page has contributed code, and currently coordinates user support.
 
-* The Graph format was contributed by Frank Dengler.
+* The Graph format was contributed by Frank Dengler, based on AT&T's Dot
+  Graphic utility and the MediaWiki Graph extension.
 
 * The Eventline and Timeline code is based on the Timeline code by the
   MIT Simile project.
+  
+* The Exhibit code was contributed by Fabian Howahl, based on code by the
+  MIT Simile project.
+  
+* The Ploticus format was contributed by Joel Natividad.
 
 * Many people have contributed to the project by providing helpful comments and
   suggestions. Among them are the members of the Semantic Wiki Interest Group

@@ -6,9 +6,8 @@ reading at:
  http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 Copy all files into MediaWiki's extensions folder, either by using SVN or by
-extracting an installation package. You need to enter two lines to your local
-settings (after the inclusion of Semantic MediaWiki). The first one is to
-include the code:
+extracting an installation package. You need to enter one line to your local
+settings (somewhere after the inclusion of Semantic MediaWiki):
 
  require_once("$IP/extensions/SemanticResultFormats/SRF_Settings.php");
 
@@ -17,7 +16,7 @@ the formats that satisfy the following criteria:
 
 * they do not require further software to be installed (besides SMW),
 * they do not transmit any data to external websites, not even by making client
-  browsers request any static external resouorces (such as an externally hosted
+  browsers request any static external resources (such as an externally hosted
   image file),
 * they are considered reasonably stable and secure.
 
@@ -35,7 +34,7 @@ To add more formats to this list, you can add lines like:
 
 ... using one or more of the following values:
 
-  average, calendar, eventline, googlebar, googlepie, graph, ploticus,
+  average, calendar, eventline, exhibit, googlebar, googlepie, graph, ploticus,
   max, min, sum, timeline
 
 There are some formats that you may not want to include because they may
@@ -45,6 +44,11 @@ which may be considered a data leak.
 
 Notes on specific formats:
 * eventline: requires Javascript to render.
+* exhibit: requires Javascript to render; requires access to javascript files
+  hosted by the MIT (not locally included), but does not send any data to
+  the MIT (besides the requesters IP and the URL of the site with the query).
+  Some subformats of Exhibit (like the Google Maps view) sends data to Google
+  for rendering.
 * googlebar: note that Googlebar sends data to Google for rendering.
   Googlebar requires access to the Google servers in order to render.
 * googlepie: note that Googlepie is sends data to Google for rendering.

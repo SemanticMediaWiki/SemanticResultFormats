@@ -26,7 +26,7 @@ function srffSetup() {
 	$wgExtensionCredits['other'][]= array(
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => "[http://simia.net Denny&nbsp;Vrandecic], Frank Dengler, Yaron Koren, Nathan Yergler, Joel Natividad, Fabian Howahl, [http://korrekt.org Markus Krötzsch]",
+		'author' => "Frank Dengler, Fabian Howahl, Joel Natividad, Yaron Koren, [http://korrekt.org Markus Krötzsch], [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
 		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
 	);

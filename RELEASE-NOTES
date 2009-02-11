@@ -1,29 +1,21 @@
 For a documentation of all features, see
 http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
-
 == SRF 1.4.2 ==
 
 Released on February 10 2009.
-
-* new 'ploticus' format, written by Joel Natividad
-* new 'exhibit' format, written by Fabian Howahl and using code from MIT CSAIL
-* moved existing formats 'vcard' and 'icalendar' from SMW
-
-
-== SRF 1.4.1 ==
-
-State of December 9 2008. No file release was issued for SRF 1.4.1.
 
 The initialization of formats was changed to use the global $srfgFormats
 variable, instead of the srfInit() function.
 
 New formats in this version are:
+* ploticus (written by Joel Natividad)
+* exhibit (written by Fabian Howahl and using code from MIT CSAIL)
 * average (written by Yaron Koren)
 * min (written by Yaron Koren)
 * max (written by Yaron Koren)
 * sum (written by Nathan Yergler)
-
+* moved existing formats 'vcard' and 'icalendar' from SMW
 
 == SRF 1.4.0 ==
 
