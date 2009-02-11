@@ -78,7 +78,7 @@ class SRFMath extends SMWResultPrinter {
 			$result = '';
 		}
 
-		return array($result, 'noparse' => 'true', 'isHTML' => 'true');
+		return $result;
 	}
 
 }
