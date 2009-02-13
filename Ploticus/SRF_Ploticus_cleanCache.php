@@ -38,34 +38,56 @@ if ( !empty( $options['a'] ) ) {
 
 $verbose = array_key_exists( 'v', $options );
 
+$now = strftime("%c", time());
 if ($fileAge <= 0) {
     if ($verbose)
-        echo "Ploticus cache cleaning disabled.\n";
+        echo "$now: Ploticus cache cleaning disabled.\n";
     return;
 }
 
-$ploticusDirectory = $wgUploadDirectory . '/ploticus';
-$deletecount = 0;
+$ploticusDirectory = $wgUploadDirectory . '/ploticus/';
 
-// TODO: Modify to be shard dir aware
-if( $dirhandle = @opendir($ploticusDirectory) ) {
-    while( false !== ($filename = readdir($dirhandle)) ) {
-            if( $filename != '.' && $filename != '..' ) {
-                    $filename = $ploticusDirectory . '/' . $filename;
-    
-                    if( @filemtime($filename) < (time()-$fileAge) ) {
-                            if ($verbose)
-                                echo "deleting $filename...\n";
-                            if (@unlink($filename))
-                                $deletecount ++;
-                    }
-            }
-    }
-} else {
+if (!is_dir($ploticusDirectory)) {
     if ($verbose)
-        echo "$ploticusDirectory not found...  Aborting...\n";    
+        echo "$now: $ploticusDirectory does not exist!\n";
+    return;
 }
 
-@closedir($dirhandle);
-if ($verbose)
-    echo "$deletecount files successfully deleted from Ploticus cache.\n";
+if ($verbose) 
+    echo "$now: Purging $ploticusDirectory cache of files >= $fileAge seconds old.\n";
+    
+$deletecount = rfr($ploticusDirectory, "*.*", $fileAge, $verbose);
+
+if ($verbose) {
+    $now = strftime("%c", time());
+    if ($deletecount > 0 ) {
+        echo "$now: $deletecount files successfully deleted from Ploticus cache.\n";
+    } else {
+        echo "$now: No files deleted.  Check if you have permission to delete files from $ploticusDirectory.\n";  
+    }
+}
+
+/* recursive file delete function */    
+function rfr($path, $match, $fileAge, $verbose) {
+   static $deleted = 0;
+   $dirs = glob($path."*");
+   $files = glob($path.$match);
+   foreach($files as $file){
+      if(is_file($file) && @filemtime($file) < (time()-$fileAge) ) {
+		if ($verbose) echo "$file...";
+		if (@unlink($file)) {
+			if ($verbose) echo "deleted.\n";
+                        $deleted++;
+		 } else {
+			if ($verbose) echo "ooops!\n";
+		 }
+      }
+   }
+   foreach($dirs as $dir) {
+      if(is_dir($dir)) {
+         $dir = basename($dir) . "/";
+         rfr($path.$dir, $match, $fileAge, $verbose);
+      }
+   }
+   return $deleted;
+}
