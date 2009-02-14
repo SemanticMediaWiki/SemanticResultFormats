@@ -68,6 +68,16 @@ $messages['arz'] = array(
 	'srf_icalendar_link' => 'آى كالندر',
 );
 
+/** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+ * @author Jim-by
+ */
+$messages['be-tarask'] = array(
+	'srfc_previousmonth' => 'Папярэдні месяц',
+	'srfc_nextmonth' => 'Наступны месяц',
+	'srfc_today' => 'Сёньня',
+	'srfc_gotomonth' => 'Перайсьці да месяца',
+);
+
 /** Bulgarian (Български)
  * @author DCLXVI
  */
@@ -109,11 +119,13 @@ $messages['dsb'] = array(
 
 /** Greek (Ελληνικά)
  * @author Consta
+ * @author Omnipaedista
  */
 $messages['el'] = array(
 	'srfc_previousmonth' => 'Προηγούμενος μήνας',
 	'srfc_nextmonth' => 'Επόμενος μήνας',
 	'srfc_today' => 'Σήμερα',
+	'srfc_gotomonth' => 'Μετάβαση στον μήνα',
 );
 
 /** Esperanto (Esperanto)
@@ -128,11 +140,15 @@ $messages['eo'] = array(
 );
 
 /** Spanish (Español)
+ * @author Crazymadlover
  * @author Imre
  * @author Sanbec
  */
 $messages['es'] = array(
+	'srfc_previousmonth' => 'Mes anterior',
+	'srfc_nextmonth' => 'Próximo mes',
 	'srfc_today' => 'Hoy',
+	'srfc_gotomonth' => 'Ir al mes',
 );
 
 /** Basque (Euskara)
