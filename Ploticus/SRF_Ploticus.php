@@ -269,17 +269,17 @@ class SRFPloticus extends SMWResultPrinter {
 		// PLOT ROW - colspan 3
 		// TODO:  use CSS, create stylesheet
 		// TODO:  generate CSS unique id for each SRF-Ploticus occurence
-		$rtnstr = '<table class="srfptable" cols="3"' .
+		$rtnstr = '<table class="srfptable" id="srfptblid' . $smwgIQRunningNumber . '" cols="3"' .
 			(empty($this->m_tblwidth) ? ' ' : ' width="'. $this->m_tblwidth . '" ') .
 			(empty($this->m_tblheight) ? ' ' : ' height="'. $this->m_tblheight . '" ') .
 			'><tr>';
 		if (!empty($errorData) && !$this->m_debug) {
 			// there was an error.  We do the not debug check since ploticus by default sends the debug trace to stderr too
 			// so when debug is on, having a non-empty errorData does not necessarily indicate an error.
-			$rtnstr .= '<th colspan="3"><strong>Error processing ploticus data:</strong></th></tr><tr><td colspan="3" align="center">' .
+			$rtnstr .= '<td class="srfperror" colspan="3"><strong>Error processing ploticus data:</strong></td></tr><tr><td colspan="3" align="center">' .
 				$errorData . '</td></tr>';
 		} else {
-			$rtnstr .= '<td colspan="3" align="center">';
+			$rtnstr .= '<td class="srfpplot" colspan="3" align="center">';
 			switch ($this->m_imageformat) {
 				case 'svg':
 				case 'svgz':
@@ -329,7 +329,7 @@ class SRFPloticus extends SMWResultPrinter {
 			$rtnstr .= '</td></tr>';
 		}
 		// INFOROW - colspan 3
-		$rtnstr .= '<tr><td width="33%" colspan="1">';
+		$rtnstr .= '<tr><td class="srfpaction" width="33%" colspan="1">';
 		
 		// INFOROW - ACTIONS - col 1
 		// if showcsv or debug is on, add link to data file (CSV)
@@ -359,7 +359,7 @@ class SRFPloticus extends SMWResultPrinter {
 		
 		// INFOROW - TIMESTAMP - col 3
 		// if showtimestamp is on, add plot generation timestamp
-		$rtnstr .= '</td><td width="33%" colspan="1" align="right">';
+		$rtnstr .= '</td><td class="srfptimestamp" width="33%" colspan="1" align="right">';
 		if ($this->m_showtimestamp) {
 			$rtnstr .= '<small> Generated: ' . date('Y-m-d h:i:s A', $graphLastGenerated) . '</small>';
 		}
@@ -369,13 +369,13 @@ class SRFPloticus extends SMWResultPrinter {
 		// DEBUGROW - colspan 3, only display when debug is on
 		// add link to script or display ploticus cmdline/script
 		if ($this->m_debug) {
+			$rtnstr .= '<tr><td class="srfpdebug" align="center" colspan="3"><strong>DEBUG: ';
 		    if ($this->m_ploticusmode == 'script') {
-			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: <a href="' .
-				$scriptURL . '" target="_blank">SCRIPT</a> (<a href="'.
+			$rtnstr .= '<a href="' . $scriptURL . '" target="_blank">SCRIPT</a> (<a href="'.
 				$errorURL . '" target="_blank">Ploticus Trace</a>)</strong></td></tr>';
 		    } else {
-			$rtnstr .= '<tr><td align="center" colspan="3"><strong>DEBUG: PREFAB (<a href="' .
-				$errorURL .'" target="_blank">Ploticus Trace</a>)</strong></td></tr><tr><td colspan="3">' .
+			$rtnstr .= 'PREFAB (<a href="' . $errorURL .
+				'" target="_blank">Ploticus Trace</a>)</strong></td></tr><tr><td colspan="3">' .
 				$commandline . '</td></tr>';
 		    }
 		}
