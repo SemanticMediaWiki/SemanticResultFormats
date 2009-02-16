@@ -13,6 +13,7 @@ When both of them are up and running, you can install this extension like
 any other semantic result printer (refer to the separate README for that).
 
 LocalSettings.php Modifications:
+-------------------------------
  * $srfgPloticusPath (REQUIRED)
    - path to ploticus executable. Typically /usr/bin/ploticus (Debian/Ubuntu) or /usr/bin/pl (RedHat/CentOS, most other envs)
  
@@ -24,11 +25,11 @@ LocalSettings.php Modifications:
      E.g. if you plan to use additional fonts in SWF files
        SWF_FONTS_DIR=/usr/share/ming/fonts/ttf-dejavu/fdb
        
-     E.g. set global ploticus config parameters with a config file.  See http://ploticus.sourceforge.net/doc/config.html for details.
-       PLOTICUS_CONFIG=/etc/ploticus/ploticus.conf
+     E.g. set global ploticus config parameters with a config file.  See ./ploticus-addons/ploticus.config for a sample config file.
+       PLOTICUS_CONFIG=/etc/ploticus/ploticus.config
      
     Remember, you can pass multiple environment variables, e.g.
-      GDFONTPATH=/usr/share/fonts/truetype/freefont PLOTICUS_CONFIG=/etc/ploticus/ploticus.conf
+      GDFONTPATH=/usr/share/fonts/truetype/freefont PLOTICUS_CONFIG=/etc/ploticus/ploticus.config
    
  * $srfgPloticusCacheAgeHours (default: 168 - 7 days)
    - number of hours cached plot files are stored in the ploticus cache before they are forcibly purged.
@@ -50,6 +51,14 @@ LocalSettings.php Modifications:
    you can manually create the 'ploticus' directory under the MW upload.  Further, under the ploticus directory, subdirectories from 0 to f hex
    (e.g. 0,1,2,3...9,a,b,c,d,e,f) should also be created, all with permission 777.
    (see http://www.mediawiki.org/wiki/Manual:$wgUploadPath)
+
+PLOTICUS_CONFIG:
+---------------
+Ploticus' default delimiter is set to space.  For CSV files, this needs to be set to comma (,).  One can do this by explicitly specifying
+delim=comma in ploticusparam, or better still, by setting it once and for all using the PLOTICUS_CONFIG env variable.
+
+To do this, ensure the PLOTICUS_CONFIG environment variable is set and the file it points to contains "option: delim=comma".
+See $srfgEnvSettings above.
 
 == Configuration and Usage ==
 
