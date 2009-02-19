@@ -103,18 +103,22 @@ class SRFPloticus extends SMWResultPrinter {
 		$this->outputmode = SMW_OUTPUT_HTML;
 
 		// check parameters
-		if(empty($this->m_ploticusparams))
-		    return ('<p><strong>ERROR: <em>ploticusparams</em> required.</strong></p>');
+		$validformats = array('svg', 'svgz','swf', 'png', 'gif', 'jpeg', 'drawdump', 'drawdumpa', 'eps', 'ps', 'csv');
+		if (!in_array($this->m_imageformat, $validformats))
+		    return ('<p classid="srfperror">ERROR: '. $this->m_imageformat. ' is not a supported imageformat.<br/>Valid imageformats are: ' .
+			    implode(', ', $validformats) . '</p>');
 		
-		if(empty($srfgPloticusPath))
-		    return ('<p><strong>ERROR: Set $srfgPloticusPath in LocalSettings.php (e.g. $srfgPloticusPath=/usr/bin/ploticus).</strong></p>');
+		if($this->m_imageformat != 'csv' && empty($this->m_ploticusparams))
+		    return ('<p classid="srfperror">ERROR: <em>ploticusparams</em> required.</p>');
+		
+		if($this->m_imageformat != 'csv' && empty($srfgPloticusPath))
+		    return ('<p classid="srfperror">ERROR: Set $srfgPloticusPath in LocalSettings.php (e.g. $srfgPloticusPath=/usr/bin/pl).</p>');
+
+		if (!file_exists($srfgPloticusPath)) 
+		    return ('<p classid=""srfperror">ERROR: Could not find ploticus in <em>' . $srfgPloticusPath . '</em></p>');
 		
 		if($this->m_ploticusmode !== 'script' && $this->m_ploticusmode !== 'prefab')
-		    return ("<p><strong>ERROR: Unknown mode specified ($this->m_ploticusmode). Only 'prefab' (default) and 'script' mode supported.</strong></p>");
-		
-		$validformats = array('svg', 'svgz','swf', 'png', 'gif', 'jpeg', 'drawdump', 'drawdumpa', 'eps', 'ps');
-		if (!in_array($this->m_imageformat, $validformats))
-		    return ("<p><strong>ERROR: $this->m_imageformat is not a supported format. Valid values are: svg, svg, swf, png, gif, jpeg, drawdump, drawdumpa, eps, ps</strong></p>");
+		    return ('<p classid="srfperror">ERROR: Unknown mode specified (' . $this->m_ploticusmode. '). Only "prefab" (default) and "script" mode supported.</p>');
 		
 		// remove potentially dangerous keywords (prefab mode) or ploticus directives (script mode)
 		// this is an extended check, JUST IN CASE, even though we're invoking ploticus with the noshell security parameter
@@ -142,7 +146,19 @@ class SRFPloticus extends SMWResultPrinter {
 		// create result csv file that we pass on to ploticus
 		$tmpFile = tempnam($ploticusDir, 'srf-');
 		if (($fhandle = fopen($tmpFile, 'w')) === false )
-			return ("<p><strong>ERROR: Cannot create data file - $tmpFile.  Check permissions. </strong></p>");
+			return ('<p class="srfperror">ERROR: Cannot create data file - ' . $tmpFile . '.  Check permissions.</p>');
+		// create the header row if asked - kludgy but works
+		if ($this->mShowHeaders) { 
+			$header_row = array();
+			foreach ($res->getPrintRequests() as $pr) {
+				$headertext= Sanitizer::decodeCharReferences(substr(end(explode('|', $pr->getText(SMW_OUTPUT_WIKI, $this->mLinker))),0,-2));
+				$header_row[] = strtr($headertext, " ,", "_|"); // ploticus cant handle embedded spaces/commas for legends
+			}
+			if (empty($header_row[0]))
+				$header_row[0] = "Article";
+			fputcsv($fhandle, $header_row);
+		}
+		// write the results
 		while ( $row = $res->getNext() ) {
 			 $row_items = array();
 			 foreach ($row as $field) {
@@ -158,11 +174,11 @@ class SRFPloticus extends SMWResultPrinter {
 		}
 		fclose($fhandle);
 
-		// we create a hash based on params and csv file.
+		// we create a hash based on params
 		// this is a great way to see if the params and/or the query result has changed
 		$hashname = hash('md5', implode(',',$this->m_params));
-		if ($this->m_liveupdating) {
-		    // only include contents of result csv in hash when liveupdating is on
+		if (!$this->m_imageformat != 'csv' && $this->m_liveupdating) {
+		    // only include contents of result csv in hash when liveupdating is on and imageformat != csv
 		    // in this way, doing file_exists check against hash filename will fail when query result has changed
 		    $hashname .= hash_file('md5',$tmpFile);
 		}
@@ -174,6 +190,10 @@ class SRFPloticus extends SMWResultPrinter {
 		@unlink($dataFile);
 		@rename($tmpFile, $dataFile);
 		$dataURL = $wgUploadPath . '/ploticus/' . $hashname . '.csv';
+		$srficonPath = $wgScriptPath . '/extensions/SemanticResultFormats/Ploticus/icons/';
+		
+		if ($this->m_imageformat == 'csv')
+		  return ('<a href="' . $dataURL . '" title="CSV file"><img src="'. $srficonPath . 'csv_16.png" alt="CSV file"></a>');
 		
 		$graphFile = $ploticusDir . $hashname . '.' . $this->m_imageformat;
 		$graphURL = $wgUploadPath . '/ploticus/' . $hashname . '.' . $this->m_imageformat;
@@ -200,13 +220,7 @@ class SRFPloticus extends SMWResultPrinter {
 		// the need to periodically clean-up graph, csv, script and map files
 		$errorData = '';
 		if ($this->m_debug || !file_exists($graphFile)) {
- 
-			// Verify that ploticus is installed.
-			if (!file_exists($srfgPloticusPath)) {
-				return ('<p><strong>ERROR: Could not find ploticus in <em>' .
-					$srfgPloticusPath . '</em></strong></p>');
-			}
-			
+ 			
 			// we set $srfgEnvSettings if specified
 			$commandline = empty($srfgEnvSettings) ? ' ' : $srfgEnvSettings . ' ';
 			
@@ -232,7 +246,8 @@ class SRFPloticus extends SMWResultPrinter {
 			    $commandline .= wfEscapeShellArg($srfgPloticusPath) .
 				    ($this->m_debug ? ' -debug':' ') .
 				    ' -noshell ' . $sanitized_ploticusparams .
-				    ' data=' . wfEscapeShellArg($dataFile) .
+				    ($this->mShowHeaders ? ' header=yes':' ') .
+				    ' delim=comma data=' . wfEscapeShellArg($dataFile) .
 				    ' -' . $this->m_imageformat;
 			
 			    if ($this->m_imageformat == 'drawdump' || $this->m_imageformat == 'drawdumpa' ) {
@@ -263,12 +278,8 @@ class SRFPloticus extends SMWResultPrinter {
 			}
 		}
 		
-		$srficonPath = $wgScriptPath . '/extensions/SemanticResultFormats/Ploticus/icons/';
-		
 		//Prepare output.  Put everything inside a table
 		// PLOT ROW - colspan 3
-		// TODO:  use CSS, create stylesheet
-		// TODO:  generate CSS unique id for each SRF-Ploticus occurence
 		$rtnstr = '<table class="srfptable" id="srfptblid' . $smwgIQRunningNumber . '" cols="3"' .
 			(empty($this->m_tblwidth) ? ' ' : ' width="'. $this->m_tblwidth . '" ') .
 			(empty($this->m_tblheight) ? ' ' : ' height="'. $this->m_tblheight . '" ') .
@@ -276,7 +287,7 @@ class SRFPloticus extends SMWResultPrinter {
 		if (!empty($errorData) && !$this->m_debug) {
 			// there was an error.  We do the not debug check since ploticus by default sends the debug trace to stderr too
 			// so when debug is on, having a non-empty errorData does not necessarily indicate an error.
-			$rtnstr .= '<td class="srfperror" colspan="3"><strong>Error processing ploticus data:</strong></td></tr><tr><td colspan="3" align="center">' .
+			$rtnstr .= '<td class="srfperror" colspan="3">Error processing ploticus data:</td></tr><tr><td class="srfperror" colspan="3" align="center">' .
 				$errorData . '</td></tr>';
 		} else {
 			$rtnstr .= '<td class="srfpplot" colspan="3" align="center">';
@@ -354,7 +365,7 @@ class SRFPloticus extends SMWResultPrinter {
 		
 		// INFOROW - col 2
 		// we don't display anything here for now - perhaps we can show query name in the future
-		$rtnstr .= '</td><td width="33%" colspan="1" align="center">';
+		$rtnstr .= '</td><td class="srfptitle" width="33%" colspan="1" align="center">';
 		
 		
 		// INFOROW - TIMESTAMP - col 3
@@ -369,13 +380,13 @@ class SRFPloticus extends SMWResultPrinter {
 		// DEBUGROW - colspan 3, only display when debug is on
 		// add link to script or display ploticus cmdline/script
 		if ($this->m_debug) {
-			$rtnstr .= '<tr><td class="srfpdebug" align="center" colspan="3"><strong>DEBUG: ';
+			$rtnstr .= '<tr><td class="srfpdebug" align="center" colspan="3">DEBUG: ';
 		    if ($this->m_ploticusmode == 'script') {
 			$rtnstr .= '<a href="' . $scriptURL . '" target="_blank">SCRIPT</a> (<a href="'.
-				$errorURL . '" target="_blank">Ploticus Trace</a>)</strong></td></tr>';
+				$errorURL . '" target="_blank">Ploticus Trace</a>)</td></tr>';
 		    } else {
 			$rtnstr .= 'PREFAB (<a href="' . $errorURL .
-				'" target="_blank">Ploticus Trace</a>)</strong></td></tr><tr><td colspan="3">' .
+				'" target="_blank">Ploticus Trace</a>)</td></tr><tr><td class="srfpdebug" colspan="3">' .
 				$commandline . '</td></tr>';
 		    }
 		}
