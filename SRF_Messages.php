@@ -97,6 +97,16 @@ $messages['br'] = array(
 	'srfc_gotomonth' => "Mont d'ar miz",
 );
 
+/** Bosnian (Bosanski)
+ * @author CERminator
+ */
+$messages['bs'] = array(
+	'srfc_previousmonth' => 'Prethodni mjesec',
+	'srfc_nextmonth' => 'Slijedeći mjesec',
+	'srfc_today' => 'Danas',
+	'srfc_gotomonth' => 'Idi na mjesec',
+);
+
 /** German (Deutsch)
  * @author Krabina
  */
