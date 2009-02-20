@@ -36,7 +36,7 @@ class SRFPloticus extends SMWResultPrinter {
 	protected $m_tblheight = '';
 	protected $m_width = '';
 	protected $m_height = '';
-	protected $m_params = array();
+	protected $mShowHeaders = false;  // override and make it false by default coz of current known overflow problem with Ploticus
 
 	protected function readParameters($params, $outputmode) {
 		SMWResultPrinter::readParameters($params, $outputmode);
@@ -93,6 +93,13 @@ class SRFPloticus extends SMWResultPrinter {
 		}
 		if (array_key_exists('height', $this->m_params)) {
 			$this->m_height = trim($params['height']);
+		}
+		if (array_key_exists('headers', $this->m_params)) {
+			if ( 'hide' == strtolower(trim($params['headers']))) {
+				$this->mShowHeaders = false;
+			} else {
+				$this->mShowHeaders = true;
+			}
 		}
 	}
 
@@ -176,8 +183,8 @@ class SRFPloticus extends SMWResultPrinter {
 
 		// we create a hash based on params
 		// this is a great way to see if the params and/or the query result has changed
-		$hashname = hash('md5', implode(',',$this->m_params));
-		if (!$this->m_imageformat != 'csv' && $this->m_liveupdating) {
+		$hashname = hash('md5', $smwgIQRunningNumber . implode(',',$this->m_params));
+		if ($this->m_imageformat != 'csv' && $this->m_liveupdating) {
 		    // only include contents of result csv in hash when liveupdating is on and imageformat != csv
 		    // in this way, doing file_exists check against hash filename will fail when query result has changed
 		    $hashname .= hash_file('md5',$tmpFile);

@@ -9,8 +9,8 @@ The following should be installed and running.
 2) Ploticus 2.40 (http://ploticus.sourceforge.net).  
    Patch required if you plan to use SVG/SVGZ formats with imagemaps. (see Imagemap section below)
 
-When both of them are up and running, you can install this extension like
-any other semantic result printer (refer to the separate README for that).
+When both required systems are up and running, you can install this extension like
+any other semantic result printer (refer to the Semantic Result Formats README for that).
 
 LocalSettings.php Modifications:
 -------------------------------
@@ -25,8 +25,8 @@ LocalSettings.php Modifications:
      E.g. if you plan to use additional fonts in SWF files
        SWF_FONTS_DIR=/usr/share/ming/fonts/ttf-dejavu/fdb
        
-     E.g. set global ploticus config parameters with a config file.  See ./ploticus-addons/ploticus.config for a sample config file and
-     http://ploticus.sourceforge.net/doc/config.html for more info.
+     E.g. if you plan to set global ploticus config parameters with a config file.
+     See ./ploticus-addons/ploticus.config for a sample config file and http://ploticus.sourceforge.net/doc/config.html for more info.
        PLOTICUS_CONFIG=/etc/ploticus/ploticus.config
      
     Remember, you can pass multiple environment variables, e.g.
@@ -48,10 +48,10 @@ LocalSettings.php Modifications:
    0 0 * * * MW_INSTALL_PATH=/var/www/wiki /usr/bin/php /var/www/wiki/extension/SemanticResultFormats/Ploticus/SRF_Ploticus_cleanCache.php -v 2>&1 > /var/log/ploticus_cleanCache.log
 
  * $wgEnableUploads (default: false - this is a MediaWiki setting)
-   - must be true. Be sure the upload directory has the proper permissions.  If you wish to use SRF-Ploticus without enabling uploads,
-   you can manually create the 'ploticus' directory under the MW upload.  Further, under the ploticus directory, subdirectories from 0 to f hex
-   (e.g. 0,1,2,3...9,a,b,c,d,e,f) should also be created, all with permission 777.
-   (see http://www.mediawiki.org/wiki/Manual:$wgUploadPath)
+   - must be true. Be sure the upload directory has the proper permissions.  (see http://www.mediawiki.org/wiki/Manual:$wgUploadPath)
+   If you MUST use SRF-Ploticus without enabling uploads, you can manually create the 'ploticus' directory under the
+   MediaWiki upload directory (Typically, MW_INSTALL_PATH/images).  Further, under the ploticus directory, subdirectories from
+   0 to f hex (e.g. 0,1,2...9,a,b,c,d,e,f) should also be created, all with permission 777.
 
 == Configuration and Usage ==
 
@@ -234,7 +234,7 @@ A patch has been submitted to Steve Grubb (Ploticus creator) to change this beha
 At the moment, SRF-Ploticus corrects the clickmap URL targets for PNG, GIF and JPEG raster formats, swapping out the + for _.
 SVG clickmaps will require the patch to work properly.
 
-Once the patch is applied, a new PLOTICUS_CONFIG parameter is now available - encodeclickmapurls.  This should be set to
+Once the patch is applied, a new PLOTICUS_CONFIG parameter is exposed - encodeclickmapurls.  This should be set to
 yes in the PLOTICUS_CONFIG file (e.g. encodeclickmapurls: yes).  See http://ploticus.sourceforge.net/doc/config.html.
 
 
