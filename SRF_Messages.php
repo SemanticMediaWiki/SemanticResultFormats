@@ -580,6 +580,15 @@ $messages['tl'] = array(
 	'srfc_gotomonth' => 'Pumunta sa buwan',
 );
 
+/** Turkish (Türkçe)
+ * @author Karduelis
+ */
+$messages['tr'] = array(
+	'srfc_previousmonth' => 'Önceki ay',
+	'srfc_nextmonth' => 'Sonraki ay',
+	'srfc_today' => 'Bugün',
+);
+
 /** Vèneto (Vèneto)
  * @author Candalua
  */
