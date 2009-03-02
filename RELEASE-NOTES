@@ -1,6 +1,16 @@
 For a documentation of all features, see
 http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
+== SRF 1.4.3 ==
+
+Released on March 2 2009.
+
+New formats in this version are:
+* bibtex (written by Steren Giannini)
+
+Also, handling of templates was added to the 'calendar' format by David
+Loomer.
+
 == SRF 1.4.2 ==
 
 Released on February 10 2009.
