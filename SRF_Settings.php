@@ -9,14 +9,14 @@ if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define('SRF_VERSION', '1.4.2');
+define('SRF_VERSION', '1.4.3');
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = $IP . '/extensions/SemanticResultFormats';
 $wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
 $wgExtensionFunctions[] = 'srffSetup';
 
-$srfgFormats = array('icalendar', 'vcard', 'calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
+$srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
 
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
@@ -26,7 +26,7 @@ function srffSetup() {
 	$wgExtensionCredits['other'][]= array(
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => "Frank Dengler, Fabian Howahl, Joel Natividad, Yaron Koren, [http://korrekt.org Markus Krötzsch], [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
+		'author' => "Frank Dengler, [http://steren.fr Steren Giannini], Fabian Howahl, Yaron Koren, [http://korrekt.org Markus Krötzsch], Joel Natividad, [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
 		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
 	);
@@ -49,6 +49,10 @@ function srffInitFormat( $format ) {
 		case 'icalendar':
 			$class = 'SRFiCalendar';
 			$file = $srfgIP . '/iCalendar/SRF_iCalendar.php';
+		break;
+		case 'bibtex':
+			$class = 'SRFBibTeX';
+			$file = $srfgIP . '/BibTeX/SRF_BibTeX.php';
 		break;
 		case 'calendar':
 			$class = 'SRFCalendar';
