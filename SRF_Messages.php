@@ -24,10 +24,13 @@ $messages['en'] = array(
 	'srf_bibtex_link'    => 'BibTeX',
 );
 
-/** Message documentation (Message documentation) */
+/** Message documentation (Message documentation)
+ * @author Raymond
+ */
 $messages['qqq'] = array(
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
+	'srf_bibtex_link' => '{{optional}}',
 );
 
 /** Afrikaans (Afrikaans)
