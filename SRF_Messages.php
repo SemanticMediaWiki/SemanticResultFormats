@@ -8,7 +8,6 @@
 $messages = array();
 
 /** English
- * @author Yaron Koren
  */
 $messages['en'] = array(
 	// user messages
@@ -21,6 +20,8 @@ $messages['en'] = array(
 	'srf_vcard_link'     => 'vCard',
 	// format "iCalendar"
 	'srf_icalendar_link' => 'iCalendar',
+	// format "BibTeX"
+	'srf_bibtex_link'    => 'BibTeX',
 );
 
 /** Message documentation (Message documentation) */
