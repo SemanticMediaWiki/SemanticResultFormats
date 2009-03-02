@@ -16,13 +16,18 @@ For more information, see http://semantic-mediawiki.org/wiki/SRF
 
 === icalendar ===
 
-Enable exports of calendar entries (events) using the iCalendar format.
+Enables exports of calendar entries (events) using the iCalendar format.
 Using this format creates an according download link in the wiki.
 
 === vcard ===
 
-Enable exports of contact data (email, phone, address, etc.) using the vCard
+Enables exports of contact data (email, phone, address, etc.) using the vCard
 format. Using this format creates an according download link in the wiki.
+
+=== bibtex ===
+
+Enables exports of bibliographical reference data using the BibTeX format.
+Using this format creates an according download link in the wiki.
 
 === calendar ===
 
@@ -37,7 +42,6 @@ per query result.
 
 Displays query results in interactive timelines, displaying an arbitrary number
 of individual dates per query result.
-
 
 === sum ===
 
@@ -123,6 +127,8 @@ the project Active.
   MIT Simile project.
   
 * The Ploticus format was contributed by Joel Natividad.
+
+* The BibTeX format was contributed by Steren Giannini.
 
 * Many people have contributed to the project by providing helpful comments and
   suggestions. Among them are the members of the Semantic Wiki Interest Group
