@@ -158,7 +158,7 @@ class SRFPloticus extends SMWResultPrinter {
 		if ($this->mShowHeaders) { 
 			$header_row = array();
 			foreach ($res->getPrintRequests() as $pr) {
-				$headertext= Sanitizer::decodeCharReferences(substr(end(explode('|', $pr->getText(SMW_OUTPUT_WIKI, $this->mLinker))),0,-2));
+				$headertext = $pr->getLabel();
 				$header_row[] = strtr($headertext, " ,", "_|"); // ploticus cant handle embedded spaces/commas for legends
 			}
 			if (empty($header_row[0]))
