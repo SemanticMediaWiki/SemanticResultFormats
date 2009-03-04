@@ -68,28 +68,15 @@ The SRF-ploticus Result Format has the following parameters:
    can and should be used in script mode.  Otherwise, the ploticus script parser will fail.
         
  * imageformat (enum/optional)
-   - png (default), gif, jpeg, svg, svgz, swf, eps, ps, drawdump, drawdumpa (drawdump append) and csv.
+   - png (default), gif, jpeg, svg, svgz, swf, eps, ps, drawdump and drawdumpa (drawdump append).
    Availability of format depends on how ploticus is built.  When using svgz, make sure Apache
    is configured properly, i.e. you have the svgz mime-type and svgz encoding.
         AddType image/svg+xml svg svgz
         AddEncoding gzip svgz
         
-    The csv format is a special case.  It only generates the CSV result and sets showcsv=true (see below), and
-    Ploticus is NOT actually invoked.
-    
-    This is useful in cases when the result set is very large and you want the ability to download the CSV file
-    without bumping up against SMW and PHP memory limits.
-    
-    FYI, while the stock CSV result printer creates the file in memory, SRF-Ploticus streams the result directly to the filesystem.
-    As a result, the resulting CSV file can be much bigger.
-    
-    As an added benefit, the CSV file is also persistent across sessions. That is, the generated URL for the CSV file is available
-    without running the query, within bounds of the $srfgPloticusCacheAgeHours LocalSettings.php parameter.
-        
- * alttext (string/optional)
-   - alternate text displayed on mouseover for raster formats (PNG/JPEG/GIF). Ignored when client-side imagemap is generated.
-   On vector formats (SVG/SVGZ/EPS/PS), alttext is prepended to the warning message if the browser is not capable of displaying
-   the plot.
+ * titletext (string/optional)
+   - text displayed underneath the chart.  Its also displayed on mouseover for raster formats (PNG/JPEG/GIF) and
+   when imagemaps are not used.
  
  * showcsv (bool/optional)
    - 0 (default). When 1, displays link to CSV file used to generate plot.  Beware that the CSV
