@@ -64,6 +64,7 @@ class SRFBibTeX extends SMWResultPrinter {
 				$booktitle = '';
 				$chapter = '';
 				$crossref = '';
+				$doi = '';
 				$edition = '';
 				$editor = '';
 				$eprint = '';
@@ -130,6 +131,12 @@ class SRFBibTeX extends SMWResultPrinter {
 						$value = current($field->getContent());
 						if ($value !== false) {
 						$crossref = $value->getShortWikiText();
+						}
+					}
+					if ( (strtolower($req->getLabel()) == "doi")) {
+						$value = current($field->getContent());
+						if ($value !== false) {
+						$doi = $value->getShortWikiText();
 						}
 					}
 					if ( (strtolower($req->getLabel()) == "edition")) {
@@ -263,7 +270,7 @@ class SRFBibTeX extends SMWResultPrinter {
 
 
 				}
-				$items[] = new SMWBibTeXEntry($type, $address, $annote, $author, $booktitle, $chapter, $crossref, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year);
+				$items[] = new SMWBibTeXEntry($type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year);
 				$row = $res->getNext();
 			}
 			foreach ($items as $item) {
@@ -298,7 +305,7 @@ class SMWBibTeXEntry {
 	private $URI;
 	private $fields = array();
 
-	public function SMWBibTeXEntry($type, $address, $annote, $author, $booktitle, $chapter, $crossref, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year) {
+	public function SMWBibTeXEntry($type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year) {
 		if($type) $this->bibTeXtype = ucfirst($type); else $this->bibTeXtype = 'Book';
 
 		$fields = array();
@@ -309,6 +316,7 @@ class SMWBibTeXEntry {
 		if($booktitle) $fields['booktitle'] = $booktitle;
 		if($chapter) $fields['chapter'] = $chapter;
 		if($crossref) $fields['crossref'] = $crossref;
+		if($doi) $fields['doi'] = $doi;
 		if($edition) $fields['edition'] = $edition;
 		if($editor) $fields['editor'] = $editor;
 		if($eprint) $fields['eprint'] = $eprint;
@@ -373,6 +381,7 @@ info from http://en.wikipedia.org/wiki/Bibtex
 # booktitle: The title of the book, if only part of it is being cited
 # chapter: The chapter number
 # crossref: The key of the cross-referenced entry
+# doi: The DOI number of the entry
 # edition: The edition of a book, long form (such as "first" or "second")
 # editor: The name(s) of the editor(s)
 # eprint: A specification of an electronic publication, often a preprint or a technical report
