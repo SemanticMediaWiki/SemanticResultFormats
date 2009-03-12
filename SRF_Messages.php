@@ -58,6 +58,7 @@ $messages['ar'] = array(
 	'srfc_gotomonth' => 'اذهب إلى شهر',
 	'srf_vcard_link' => 'في كارد',
 	'srf_icalendar_link' => 'آي كالندر',
+	'srf_bibtex_link' => 'بب تكس',
 );
 
 /** Egyptian Spoken Arabic (مصرى)
