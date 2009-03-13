@@ -36,7 +36,6 @@ class SRFPloticus extends SMWResultPrinter {
 	protected $m_tblheight = '';
 	protected $m_width = '';
 	protected $m_height = '';
-	protected $mShowHeaders = false;  // make false by default coz of current known buffer overflow with legends in Ploticus 2.40
 
 	protected function readParameters($params, $outputmode) {
 		SMWResultPrinter::readParameters($params, $outputmode);
@@ -93,13 +92,6 @@ class SRFPloticus extends SMWResultPrinter {
 		}
 		if (array_key_exists('height', $this->m_params)) {
 			$this->m_height = trim($params['height']);
-		}
-		if (array_key_exists('headers', $this->m_params)) {
-			if ( 'hide' == strtolower(trim($params['headers']))) {
-				$this->mShowHeaders = false;
-			} else {
-				$this->mShowHeaders = true;
-			}
 		}
 	}
 
@@ -300,11 +292,6 @@ class SRFPloticus extends SMWResultPrinter {
 			switch ($this->m_imageformat) {
 				case 'svg':
 				case 'svgz':
-					// note that if clickmaps are specified, Ploticus will use + instead of _
-					// for embedded spaces in target URLs in the SVG XML Xlink elements which won't work in SMW.
-					// A patch has been submitted to Steve Grubb (Ploticus creator)
-					// that introduces the encodeclickmapurls parameter to fix this. 
-					// The patch is also available in the add-ons directory.
 					$rtnstr .= '<object data="' . $graphURL . '"' .
 						(empty($this->m_width)? ' ' : ' width="'. $this->m_width . '" ') .
 						(empty($this->m_height)? ' ' : ' height="'. $this->m_height . '" ') .
@@ -325,11 +312,6 @@ class SRFPloticus extends SMWResultPrinter {
 					if (strpos($sanitized_ploticusparams, 'clickmap')) {
 						// we are using clickmaps, create HTML snippet to enable client-side imagemaps
 						$mapData = file_get_contents($mapFile);
-						// we replace + with _ since ploticus uses + to represent spaces which mediawiki does not understand
-						// this is only required if you're using an unpatched copy of Ploticus (see SVG note above)
-						// regardless, we're still leaving the str_replace in place just in case the 
-						// Ploticus encodeclickmapurls patch wasn't applied.
-						$mapData = str_replace("+","_",$mapData);
 						$rtnstr .= '<map name="'. $orighash . '">'. $mapData .
 							'</map><img src="' . $graphURL . '" border="0" usemap="#' . $orighash . '">';
 					} else {
