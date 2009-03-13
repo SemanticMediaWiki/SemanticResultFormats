@@ -51,10 +51,12 @@
   #set ptstyle = filled
 #endif
 
-#setifnotgiven name = "#usefname"
-#setifnotgiven name2 = "#usefname"
-#setifnotgiven name3 = "#usefname"
-#setifnotgiven name4 = "#usefname"
+// this is correct... used in legend labels etc..
+#setifnotgiven name = ""
+#setifnotgiven name2 = ""
+#setifnotgiven name3 = ""
+#setifnotgiven name4 = ""
+
 #if @CM_UNITS = 1
   #setifnotgiven legend = "max+1.5 max" 
 #else

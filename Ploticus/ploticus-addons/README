@@ -1,9 +1,3 @@
-ploticus_encodeclickmapurls.patch 
-- required to support imagemaps in SVG.
-    To apply the patch, be sure to patch Ploticus 2.40 up the last available patch in Dec 08.
-    To use, set "encodeclickmapurls:yes" in PLOTICUS_CONFIG.
-    This will force Ploticus to use underscores (_) instead of plus signs (+) when generating imagemap URLs.
-
 prefabs directory
 =================
 - additional SMW prefabs.  To use, copy the files in this directory into the PLOTICUS prefabs directory. 
@@ -16,4 +10,4 @@ prefabs directory
 - modified version of scats.pl.  To install, just replace the existing scats.pl.  
 For scatter plots, when corr=yes, the Pearson coefficient is displayed.
 In the stock version, the variables are displayed right-justified which works without problems using
-raster formats (png, gif, jpeg).  However, vector formats (eps,ps,swf,svg) crop the variables out.
+raster formats (png, gif, jpeg).  However, vector formats (eps,ps,swf,svg) often crop the variables out unless -pagesize is explicitly specified.  In this version, the variables are always displayed left-justified so they will never be cropped out.
