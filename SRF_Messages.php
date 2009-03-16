@@ -586,12 +586,14 @@ $messages['tl'] = array(
 );
 
 /** Turkish (Türkçe)
+ * @author Joseph
  * @author Karduelis
  */
 $messages['tr'] = array(
 	'srfc_previousmonth' => 'Önceki ay',
 	'srfc_nextmonth' => 'Sonraki ay',
 	'srfc_today' => 'Bugün',
+	'srfc_gotomonth' => 'Aya git',
 );
 
 /** Vèneto (Vèneto)
