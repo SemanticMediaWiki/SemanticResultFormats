@@ -1,6 +1,16 @@
 For a documentation of all features, see
 http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
+== Current changes (contained in next release) ==
+
+* improvements in 'exhibit' result format:
+** required scripts, stles, images largely included (no remote server access needed)
+** fixes for Timeline
+** many formatting improvements
+** improved compatibility with Internet Explorer (esp. IE8)
+** only Timeline and Map will access a remote server now
+
+
 == SRF 1.4.3 ==
 
 Released on March 2 2009.
