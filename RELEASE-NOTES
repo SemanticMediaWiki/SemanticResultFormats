@@ -6,6 +6,10 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 * improvements in 'exhibit' result format:
 ** required scripts, stles, images largely included (no remote server access needed)
 ** fixes for Timeline
+** Usage of Google Maps now requires to set a Google Maps key (as obtained from Google)
+   in LocalSettings.php:
+   $wgGoogleMapsKey = 'yourkey';
+   If this is not set, the "maps" view will be disabled.
 ** many formatting improvements
 ** improved compatibility with Internet Explorer (esp. IE8)
 ** only Timeline and Map will access a remote server now
