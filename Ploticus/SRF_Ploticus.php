@@ -302,7 +302,7 @@ class SRFPloticus extends SMWResultPrinter {
 					$rtnstr .= '<object type="application/x-shockwave-flash" data="' . $graphURL . '"' .
 						(empty($this->m_width)? ' ' : ' width="'. $this->m_width . '" ') .
 						(empty($this->m_height)? ' ' : ' height="'. $this->m_height . '" ') .
-						'<param name="movie" value="' . $graphURL .
+						'><param name="movie" value="' . $graphURL .
 						'"><param name="loop" value="false"><param name="SCALE" value="noborder"> alt : <a href="'. $graphURL .
 						'">Requires Adobe Flash plugin</a></object>';
 					break;
@@ -323,7 +323,7 @@ class SRFPloticus extends SMWResultPrinter {
 					$rtnstr .= '<object type="application/postscript" data="' . $graphURL . '"' .
 					(empty($this->m_width)? ' ' : ' width="'. $this->m_width . '" ') .
 					(empty($this->m_height)? ' ' : ' height="'. $this->m_height . '" ') .
-					' alt : <a href="'. $graphURL . '">Requires PDF-capable browser</a></object>';
+					'> alt : <a href="'. $graphURL . '">Requires PDF-capable browser</a></object>';
 			}
 			$rtnstr .= '</td></tr>';
 		}
