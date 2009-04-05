@@ -18,10 +18,16 @@ $messages['en'] = array(
 	'srfc_gotomonth'     => 'Go to month',
 	// format "vCard"
 	'srf_vcard_link'     => 'vCard',
+	'srf_printername_vcard' => 'vCard export',
 	// format "iCalendar"
 	'srf_icalendar_link' => 'iCalendar',
+	'srf_printername_icalendar' => 'iCalendar export',
 	// format "BibTeX"
 	'srf_bibtex_link'    => 'BibTeX',
+	'srf_printername_bibtex' => 'BibTeX export',
+	// format "timeline"
+	'srf_printername_timeline' => 'Timeline',
+	'srf_printername_eventline' => 'Eventline',
 );
 
 /** Message documentation (Message documentation)

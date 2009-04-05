@@ -47,6 +47,11 @@ class SRFiCalendar extends SMWResultPrinter {
 		return ($context==SMWQueryProcessor::SPECIAL_PAGE)?SMWQuery::MODE_INSTANCES:SMWQuery::MODE_NONE;
 	}
 
+	public function getName() {
+		wfLoadExtensionMessages('SemanticResultFormats');
+		return wfMsg('srf_printername_icalendar');
+	}
+
 	protected function getResultText($res, $outputmode) {
 		global $smwgIQRunningNumber, $wgSitename, $wgServer, $wgRequest;
 		$result = '';
