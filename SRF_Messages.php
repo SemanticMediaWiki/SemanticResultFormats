@@ -80,6 +80,7 @@ $messages['arz'] = array(
 );
 
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+ * @author EugeneZelenko
  * @author Jim-by
  */
 $messages['be-tarask'] = array(
@@ -87,6 +88,11 @@ $messages['be-tarask'] = array(
 	'srfc_nextmonth' => 'Наступны месяц',
 	'srfc_today' => 'Сёньня',
 	'srfc_gotomonth' => 'Перайсьці да месяца',
+	'srf_printername_vcard' => 'экспарт у фармаце vCard',
+	'srf_printername_icalendar' => 'экспарт у фармаце iCalendar',
+	'srf_printername_bibtex' => 'экспарт у фармаце BibTeX',
+	'srf_printername_timeline' => 'Храналёгія',
+	'srf_printername_eventline' => 'Храналёгія падзеяў',
 );
 
 /** Bulgarian (Български)
@@ -120,12 +126,16 @@ $messages['bs'] = array(
 
 /** German (Deutsch)
  * @author Krabina
+ * @author Purodha
  */
 $messages['de'] = array(
 	'srfc_previousmonth' => 'Voriger Monat',
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
 	'srfc_gotomonth' => 'Gehe zu Monat',
+	'srf_printername_vcard' => 'vCard Export',
+	'srf_printername_icalendar' => 'iCalendar Export',
+	'srf_printername_bibtex' => 'BibTeX Export',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -136,6 +146,11 @@ $messages['dsb'] = array(
 	'srfc_nextmonth' => 'Pśiducy mjasec',
 	'srfc_today' => 'Źinsa',
 	'srfc_gotomonth' => 'Źi k mjasecoju',
+	'srf_printername_vcard' => 'vCard eksportěrowaś',
+	'srf_printername_icalendar' => 'iCalendar eksportěrowaś',
+	'srf_printername_bibtex' => 'BibTeX eksportěrowaś',
+	'srf_printername_timeline' => 'Casowy wótběg',
+	'srf_printername_eventline' => 'Wótběg tšojenjow',
 );
 
 /** Greek (Ελληνικά)
@@ -202,6 +217,7 @@ $messages['fi'] = array(
 
 /** French (Français)
  * @author Grondin
+ * @author IAlex
  * @author Urhixidur
  */
 $messages['fr'] = array(
@@ -210,7 +226,12 @@ $messages['fr'] = array(
 	'srfc_today' => "Aujourd'hui",
 	'srfc_gotomonth' => 'Aller vers le mois',
 	'srf_vcard_link' => 'vCarte',
+	'srf_printername_vcard' => 'export en vCard',
 	'srf_icalendar_link' => 'iCalendrier',
+	'srf_printername_icalendar' => 'export en iCalendar',
+	'srf_printername_bibtex' => 'export en BibTeX',
+	'srf_printername_timeline' => 'Chronologie',
+	'srf_printername_eventline' => 'Chronologie des événements',
 );
 
 /** Galician (Galego)
@@ -223,7 +244,12 @@ $messages['gl'] = array(
 	'srfc_today' => 'Hoxe',
 	'srfc_gotomonth' => 'Ir ao mes',
 	'srf_vcard_link' => 'vTarxeta',
+	'srf_printername_vcard' => 'Exportación en vCard',
 	'srf_icalendar_link' => 'iCalendario',
+	'srf_printername_icalendar' => 'Exportación en iCalendar',
+	'srf_printername_bibtex' => 'Exportación en BibTeX',
+	'srf_printername_timeline' => 'Liña do tempo',
+	'srf_printername_eventline' => 'Liña do evento',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -241,6 +267,11 @@ $messages['gsw'] = array(
 	'srfc_nextmonth' => 'Negschte Monet',
 	'srfc_today' => 'Hit',
 	'srfc_gotomonth' => 'Gang zum Monet',
+	'srf_printername_vcard' => 'vCard-Export',
+	'srf_printername_icalendar' => 'iCalendar-Export',
+	'srf_printername_bibtex' => 'BibTeX-Export',
+	'srf_printername_timeline' => 'Zytlyschte',
+	'srf_printername_eventline' => 'Ereignislyschte',
 );
 
 /** Manx (Gaelg)
@@ -281,6 +312,11 @@ $messages['hsb'] = array(
 	'srfc_nextmonth' => 'Přichodny měsac',
 	'srfc_today' => 'Dźensa',
 	'srfc_gotomonth' => 'Dźi k měsacej',
+	'srf_printername_vcard' => 'vCard eksportować',
+	'srf_printername_icalendar' => 'iCalendar eksportować',
+	'srf_printername_bibtex' => 'BibTeX eksportować',
+	'srf_printername_timeline' => 'Časowa wotběh',
+	'srf_printername_eventline' => 'Wotběh podawkow',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -320,13 +356,20 @@ $messages['it'] = array(
 );
 
 /** Japanese (日本語)
+ * @author Fryed-peach
  * @author JtFuruhata
+ * @author 青子守歌
  */
 $messages['ja'] = array(
 	'srfc_previousmonth' => '前の月',
 	'srfc_nextmonth' => '次の月',
 	'srfc_today' => '今日',
 	'srfc_gotomonth' => 'この月を表示',
+	'srf_printername_vcard' => 'vCard形式で書き出し',
+	'srf_printername_icalendar' => 'iCalender形式で書き出し',
+	'srf_printername_bibtex' => 'BibTeX形式で書き出し',
+	'srf_printername_timeline' => '時系列',
+	'srf_printername_eventline' => '事象系列',
 );
 
 /** Javanese (Basa Jawa)
@@ -360,7 +403,12 @@ $messages['ksh'] = array(
 	'srfc_today' => 'Hück',
 	'srfc_gotomonth' => 'Jangk noh däm Moohnd',
 	'srf_vcard_link' => '<i lang="en">vCard</i>',
+	'srf_printername_vcard' => 'Expoot em <i lang="en">vCard</i>-Fommaat',
 	'srf_icalendar_link' => '<i lang="en">iCalendar</i>',
+	'srf_printername_icalendar' => 'Expoot em Fommaat vun <i lang="en">iCalendar</i>',
+	'srf_printername_bibtex' => 'Expoot em <i lang="en">BibTeX</i>-Fommaat',
+	'srf_printername_timeline' => 'De Reih noh de Zigk',
+	'srf_printername_eventline' => 'De Reih noh dämm, wat vörjekumme es',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -438,12 +486,17 @@ $messages['nl'] = array(
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
  * @author Eirik
+ * @author Gunnernett
  */
 $messages['nn'] = array(
 	'srfc_previousmonth' => 'Førre månad',
 	'srfc_nextmonth' => 'Neste månad',
 	'srfc_today' => 'I dag',
 	'srfc_gotomonth' => 'Gå til månad',
+	'srf_printername_vcard' => 'vCard eksport',
+	'srf_printername_icalendar' => 'iCalendar eksport',
+	'srf_printername_bibtex' => 'BibTeX eksport',
+	'srf_printername_timeline' => 'Tidsline',
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
@@ -548,6 +601,11 @@ $messages['sk'] = array(
 	'srfc_nextmonth' => 'Ďalší mesiac',
 	'srfc_today' => 'Dnes',
 	'srfc_gotomonth' => 'Prejsť na mesiac',
+	'srf_printername_vcard' => 'export vCard',
+	'srf_printername_icalendar' => 'export iCalendar',
+	'srf_printername_bibtex' => 'export BibTeX',
+	'srf_printername_timeline' => 'Časová os',
+	'srf_printername_eventline' => 'Os udalostí',
 );
 
 /** Swedish (Svenska)
