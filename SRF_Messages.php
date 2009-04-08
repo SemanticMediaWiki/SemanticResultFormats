@@ -185,6 +185,8 @@ $messages['es'] = array(
 	'srfc_nextmonth' => 'Próximo mes',
 	'srfc_today' => 'Hoy',
 	'srfc_gotomonth' => 'Ir al mes',
+	'srf_printername_timeline' => 'Línea de tiempo',
+	'srf_printername_eventline' => 'Línea de eventos',
 );
 
 /** Basque (Euskara)
@@ -216,6 +218,7 @@ $messages['fi'] = array(
 );
 
 /** French (Français)
+ * @author Crochet.david
  * @author Grondin
  * @author IAlex
  * @author Urhixidur
@@ -223,7 +226,7 @@ $messages['fi'] = array(
 $messages['fr'] = array(
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
-	'srfc_today' => "Aujourd'hui",
+	'srfc_today' => 'Aujourd’hui',
 	'srfc_gotomonth' => 'Aller vers le mois',
 	'srf_vcard_link' => 'vCarte',
 	'srf_printername_vcard' => 'export en vCard',
@@ -343,6 +346,11 @@ $messages['ia'] = array(
 	'srfc_nextmonth' => 'Mense sequente',
 	'srfc_today' => 'Hodie',
 	'srfc_gotomonth' => 'Ir al mense',
+	'srf_printername_vcard' => 'Exportation in vCard',
+	'srf_printername_icalendar' => 'Exportation in iCalendar',
+	'srf_printername_bibtex' => 'Exportation in BibTeX',
+	'srf_printername_timeline' => 'Chronologia',
+	'srf_printername_eventline' => 'Chronologia de eventos',
 );
 
 /** Italian (Italiano)
@@ -482,6 +490,11 @@ $messages['nl'] = array(
 	'srfc_nextmonth' => 'Volgende maand',
 	'srfc_today' => 'Vandaag',
 	'srfc_gotomonth' => 'Ga naar maand',
+	'srf_printername_vcard' => 'Naar vCard exporteren',
+	'srf_printername_icalendar' => 'Naar iCalendar exporteren',
+	'srf_printername_bibtex' => 'Naar BibTeX exporteren',
+	'srf_printername_timeline' => 'Tijdlijn',
+	'srf_printername_eventline' => 'Gebeurtenissenlijn',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -555,12 +568,17 @@ $messages['pt'] = array(
 
 /** Brazilian Portuguese (Português do Brasil)
  * @author Eduardo.mps
+ * @author GKnedo
  */
 $messages['pt-br'] = array(
 	'srfc_previousmonth' => 'Mês anterior',
 	'srfc_nextmonth' => 'Mês seguinte',
 	'srfc_today' => 'Hoje',
 	'srfc_gotomonth' => 'Ir para mês',
+	'srf_printername_vcard' => 'Exportar vCard',
+	'srf_printername_icalendar' => 'Exportar iCalendar',
+	'srf_printername_bibtex' => 'Exportar BibTeX',
+	'srf_printername_timeline' => 'Linha do Tempo',
 );
 
 /** Romanian (Română)
@@ -679,6 +697,11 @@ $messages['vi'] = array(
 	'srfc_nextmonth' => 'Tháng sau',
 	'srfc_today' => 'Hôm nay',
 	'srfc_gotomonth' => 'Đến tháng',
+	'srf_printername_vcard' => 'Xuất vCard',
+	'srf_printername_icalendar' => 'Xuất iCalendar',
+	'srf_printername_bibtex' => 'Xuất BibTeX',
+	'srf_printername_timeline' => 'Thời gian biểu',
+	'srf_printername_eventline' => 'Sự kiện biểu',
 );
 
 /** Volapük (Volapük)
