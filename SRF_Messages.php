@@ -65,6 +65,7 @@ $messages['ar'] = array(
 	'srf_vcard_link' => 'في كارد',
 	'srf_icalendar_link' => 'آي كالندر',
 	'srf_bibtex_link' => 'بب تكس',
+	'srf_printername_timeline' => 'خط زمني',
 );
 
 /** Egyptian Spoken Arabic (مصرى)
@@ -532,7 +533,12 @@ $messages['oc'] = array(
 	'srfc_today' => 'Uèi',
 	'srfc_gotomonth' => 'Anar cap al mes',
 	'srf_vcard_link' => 'vCarta',
+	'srf_printername_vcard' => 'expòrt en vCard',
 	'srf_icalendar_link' => 'iCalendièr',
+	'srf_printername_icalendar' => 'expòrt en iCalendar',
+	'srf_printername_bibtex' => 'expòrt en BibTeX',
+	'srf_printername_timeline' => 'Cronologia',
+	'srf_printername_eventline' => 'Cronologia dels eveniments',
 );
 
 /** Polish (Polski)
