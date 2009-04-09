@@ -694,6 +694,16 @@ $messages['vec'] = array(
 	'srfc_gotomonth' => 'Và al mese',
 );
 
+/** Veps (Vepsan kel')
+ * @author Игорь Бродский
+ */
+$messages['vep'] = array(
+	'srfc_previousmonth' => 'Edeline ku',
+	'srfc_nextmonth' => "Jäl'ghine ku",
+	'srfc_today' => 'Tämbei',
+	'srfc_gotomonth' => 'Mända kunnoks',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
  * @author Vinhtantran
