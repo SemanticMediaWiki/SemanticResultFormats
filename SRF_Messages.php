@@ -585,6 +585,7 @@ $messages['pt-br'] = array(
 	'srf_printername_icalendar' => 'Exportar iCalendar',
 	'srf_printername_bibtex' => 'Exportar BibTeX',
 	'srf_printername_timeline' => 'Linha do Tempo',
+	'srf_printername_eventline' => 'Linha de Eventos',
 );
 
 /** Romanian (Română)
