@@ -672,6 +672,11 @@ $messages['tl'] = array(
 	'srfc_nextmonth' => 'Susunod na buwan',
 	'srfc_today' => 'Ngayong araw na ito',
 	'srfc_gotomonth' => 'Pumunta sa buwan',
+	'srf_printername_vcard' => 'Luwas ng vCard',
+	'srf_printername_icalendar' => 'Luwas ng iCalendar',
+	'srf_printername_bibtex' => 'Luwas ng BibTeX',
+	'srf_printername_timeline' => 'Guhit ng panahon',
+	'srf_printername_eventline' => 'Guhit ng kaganapan',
 );
 
 /** Turkish (Türkçe)
