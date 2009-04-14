@@ -123,6 +123,11 @@ $messages['bs'] = array(
 	'srfc_nextmonth' => 'Slijedeći mjesec',
 	'srfc_today' => 'Danas',
 	'srfc_gotomonth' => 'Idi na mjesec',
+	'srf_printername_vcard' => 'Izvoz u vCard',
+	'srf_printername_icalendar' => 'Izvoz u iCalendar',
+	'srf_printername_bibtex' => 'Izvoz u BibTeX',
+	'srf_printername_timeline' => 'Vremenska linija',
+	'srf_printername_eventline' => 'Linija događaja',
 );
 
 /** German (Deutsch)
