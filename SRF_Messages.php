@@ -63,9 +63,13 @@ $messages['ar'] = array(
 	'srfc_today' => 'اليوم',
 	'srfc_gotomonth' => 'اذهب إلى شهر',
 	'srf_vcard_link' => 'في كارد',
+	'srf_printername_vcard' => 'تصدير vCard',
 	'srf_icalendar_link' => 'آي كالندر',
+	'srf_printername_icalendar' => 'تصدير iCalendar',
 	'srf_bibtex_link' => 'بب تكس',
+	'srf_printername_bibtex' => 'تصدير BibTeX',
 	'srf_printername_timeline' => 'خط زمني',
+	'srf_printername_eventline' => 'خط الأحداث',
 );
 
 /** Egyptian Spoken Arabic (مصرى)
@@ -568,13 +572,19 @@ $messages['ps'] = array(
 
 /** Portuguese (Português)
  * @author Malafaya
+ * @author Waldir
  */
 $messages['pt'] = array(
 	'srfc_previousmonth' => 'Mês anterior',
 	'srfc_nextmonth' => 'Mês seguinte',
 	'srfc_today' => 'Hoje',
 	'srfc_gotomonth' => 'Ir para mês',
+	'srf_printername_vcard' => 'exportação vCard',
 	'srf_icalendar_link' => 'iCalendário',
+	'srf_printername_icalendar' => 'exportação iCalendar',
+	'srf_printername_bibtex' => 'exportação BibTeX',
+	'srf_printername_timeline' => 'Cronograma',
+	'srf_printername_eventline' => 'Cronograma de eventos',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
