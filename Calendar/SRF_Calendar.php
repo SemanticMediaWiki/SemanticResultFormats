@@ -53,7 +53,7 @@ class SRFCalendar extends SMWResultPrinter {
 					$text .= '|' . ($i + 1) . '=';
 					while ( ($object = $field->getNextObject()) !== false ) {
 						if ($object->getTypeID() == '_dat') {
-							$test .= SRFCalendar::formatDateStr($object);
+							$text .= SRFCalendar::formatDateStr($object);
 						} elseif ($object->getTypeID() == '_wpg') { // use shorter "LongText" for wikipage
 							$text .= $object->getLongText($outputmode, NULL);
 						} else {
