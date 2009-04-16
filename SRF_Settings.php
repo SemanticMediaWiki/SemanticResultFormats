@@ -9,12 +9,17 @@ if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define('SRF_VERSION', '1.4.3');
+define('SRF_VERSION', '1.4.4');
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = $IP . '/extensions/SemanticResultFormats';
 $wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
 $wgExtensionFunctions[] = 'srffSetup';
+
+$wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
+
+$wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
+$wgExtensionFunctions[] = 'srffRegisterFunctions';
 
 $srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
 
@@ -26,7 +31,7 @@ function srffSetup() {
 	$wgExtensionCredits['other'][]= array(
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => "Frank Dengler, [http://steren.fr Steren Giannini], Fabian Howahl, Yaron Koren, [http://korrekt.org Markus Krötzsch], Joel Natividad, [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
+		'author' => "Frank Dengler, [http://steren.fr Steren Giannini], Fabian Howahl, Yaron Koren, [http://korrekt.org Markus Krötzsch], David Loomer, Joel Natividad, [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
 		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
 	);
@@ -89,3 +94,15 @@ function srffInitFormat( $format ) {
 	}
 }
 
+function srffRegisterFunctions ( ) {
+	global $wgHooks, $wgParser;
+	if( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
+		$wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
+	} else {
+		if ( class_exists( 'StubObject' ) && !StubObject::isRealObject( $wgParser ) ) {
+			$wgParser->_unstub();
+		}
+		SRFParserFunctions::registerFunctions( $wgParser );
+	}
+
+}

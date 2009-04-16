@@ -1,10 +1,12 @@
 For a documentation of all features, see
 http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
-== Current changes (contained in next release) ==
+== SRF 1.4.4 ==
+
+Released on April 16 2009.
 
 * improvements in 'exhibit' result format:
-** required scripts, stles, images largely included (no remote server access needed)
+** required scripts, styles, images largely included (no remote server access needed)
 ** fixes for Timeline
 ** Usage of Google Maps now requires to set a Google Maps key (as obtained from Google)
    in LocalSettings.php:
@@ -14,6 +16,10 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 ** improved compatibility with Internet Explorer (esp. IE8)
 ** only Timeline and Map will access a remote server now
 
+* other changes:
+** a getName() method was added to many of the formats
+** SRF_ParserFunctions.php file added, holding parser functions for use by
+'calendar' format.
 
 == SRF 1.4.3 ==
 
