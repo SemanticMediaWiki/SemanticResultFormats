@@ -20,13 +20,13 @@ if (!defined('MEDIAWIKI')) die();
 
 class SRFParserFunctions {
 
-	function registerFunctions( $parser ) {
+	static function registerFunctions( $parser ) {
 		$parser->setFunctionHook('calendarstartdate', array('SRFParserFunctions','runCalendarStartDate'));
 		$parser->setFunctionHook('calendarenddate', array('SRFParserFunctions','runCalendarEndDate'));
 		return true;
 	}
 
-	function languageGetMagic( &$magicWords, $langCode = "en" ) {
+	static function languageGetMagic( &$magicWords, $langCode = "en" ) {
 		switch ( $langCode ) {
 			default:
 			$magicWords['calendarstartdate']  = array ( 0, 'calendarstartdate' );
@@ -35,14 +35,14 @@ class SRFParserFunctions {
 		return true;
 	}
 
-	function runCalendarStartDate(&$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null) {
+	static function runCalendarStartDate(&$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null) {
 		if ($calendar_type == '') $calendar_type = 'month';
 		list($lower_date, $upper_date, $query_date) =
 			SRFParserFunctions::getBoundaryDates($calendar_type, $calendar_start_day, $calendar_days, $default_year, $default_month, $default_day);
 		return date("Y", $lower_date) . '-' . date("m", $lower_date) . '-' . date("d", $lower_date);
 	}
 
-	function runCalendarEndDate(&$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null) {
+	static function runCalendarEndDate(&$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null) {
 		if ($calendar_type == '') $calendar_type = 'month';
 		list($lower_date, $upper_date, $query_date) =
 			SRFParserFunctions::getBoundaryDates($calendar_type, $calendar_start_day, $calendar_days, $default_year, $default_month, $default_day);
