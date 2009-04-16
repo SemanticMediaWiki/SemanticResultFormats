@@ -30,7 +30,7 @@ $messages['en'] = array(
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
 	'srf_printername_min' => 'Maximum number',
-	'srf_printername_max' => 'Minimum numbers',
+	'srf_printername_max' => 'Minimum number',
 	// format "timeline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
