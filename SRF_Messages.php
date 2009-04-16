@@ -16,6 +16,7 @@ $messages['en'] = array(
 	'srfc_nextmonth'     => 'Next month',
 	'srfc_today'         => 'Today',
 	'srfc_gotomonth'     => 'Go to month',
+	'srf_printername_calendar' => 'Monthly calendar',
 	// format "vCard"
 	'srf_vcard_link'     => 'vCard',
 	'srf_printername_vcard' => 'vCard export',
@@ -25,6 +26,11 @@ $messages['en'] = array(
 	// format "BibTeX"
 	'srf_bibtex_link'    => 'BibTeX',
 	'srf_printername_bibtex' => 'BibTeX export',
+	// format "math"
+	'srf_printername_sum' => 'Sum of numbers',
+	'srf_printername_average' => 'Average of numbers',
+	'srf_printername_min' => 'Maximum number',
+	'srf_printername_max' => 'Minimum numbers',
 	// format "timeline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
