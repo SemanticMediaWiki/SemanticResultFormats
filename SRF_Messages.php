@@ -221,6 +221,9 @@ $messages['es'] = array(
 	'srfc_nextmonth' => 'Próximo mes',
 	'srfc_today' => 'Hoy',
 	'srfc_gotomonth' => 'Ir al mes',
+	'srf_printername_average' => 'Promedio de números',
+	'srf_printername_min' => 'Número máximo',
+	'srf_printername_max' => 'Número mínimo',
 	'srf_printername_timeline' => 'Línea de tiempo',
 	'srf_printername_eventline' => 'Línea de eventos',
 );
@@ -699,6 +702,7 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (Русский)
+ * @author Innv
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -707,6 +711,8 @@ $messages['ru'] = array(
 	'srfc_today' => 'Сегодня',
 	'srfc_gotomonth' => 'Перейти к месяцу',
 	'srf_icalendar_link' => 'iКалендарь',
+	'srf_printername_min' => 'Максимальное число',
+	'srf_printername_max' => 'Минимальное число',
 );
 
 /** Slovak (Slovenčina)
