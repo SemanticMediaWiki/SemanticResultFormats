@@ -47,7 +47,8 @@ class SRFCalendar extends SMWResultPrinter {
 		$locations = array();
 		// print all result rows
 		while ( $row = $res->getNext() ) {
-			$date = $title = $text = $color = "";
+			$dates = array();
+			$title = $text = $color = "";
 			
 			if ($this->mTemplate != '') { // build template code
 				$this->hasTemplates = true;
@@ -65,7 +66,7 @@ class SRFCalendar extends SMWResultPrinter {
 							$text .= $object->getShortText($outputmode, NULL);
 						}
 						if ($pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat') {
-							$date = SRFCalendar::formatDateStr($object);
+							$dates[] = SRFCalendar::formatDateStr($object);
 						}
 					}
 				}
@@ -89,14 +90,14 @@ class SRFCalendar extends SMWResultPrinter {
 							$text .= $pr->getHTMLText($skin) . " " . $object->getShortText($outputmode, $skin);
 						}
 						if ($pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat') {
-							$date = SRFCalendar::formatDateStr($object);
+							$dates[] = SRFCalendar::formatDateStr($object);
 						}
 					}
 				}
 				if ($i > 1)
 					$text .= ")";
 			}
-			if ($date != '') {
+			if (count($dates) > 0) {
 				// handle the 'color=' value, whether it came
 				// from a compound query or a regular one
 				if (property_exists($row[0], 'display_options')) {
@@ -104,7 +105,8 @@ class SRFCalendar extends SMWResultPrinter {
 						$color = $row[0]->display_options['color'];
 				} elseif (array_key_exists('color', $this->m_params))
 					$color = $this->m_params['color'];
-				$events[] = array($title, $text, $date, $color);
+				foreach ($dates as $date)
+					$events[] = array($title, $text, $date, $color);
 			}
 		}
 
