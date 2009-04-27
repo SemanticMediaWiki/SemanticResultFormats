@@ -111,8 +111,11 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 
 		$result = SRFCalendar::displayCalendar($events);
-
-		return array($result, 'noparse' => 'true', 'isHTML' => 'true');
+		global $wgParser;
+		if (is_null($wgParser->getTitle()))
+			return $result;
+		else
+			return array($result, 'noparse' => 'true', 'isHTML' => 'true');
 	}
 
 
@@ -154,8 +157,24 @@ class SRFCalendar extends SMWResultPrinter {
 		));
 		wfLoadExtensionMessages('SemanticResultFormats');
 
+		// set variables differently depending on whether this is
+		// being called from an #ask call or the Special:Ask page
 		$page_title = $wgParser->getTitle();
-		$skin = $wgParser->getOptions()->getSkin();
+		$in_ask_page = is_null($page_title);
+		if ($in_ask_page) {
+			global $wgTitle;
+			$page_title = $wgTitle;
+			global $wgUser;
+			$skin = $wgUser->getSkin();
+			$additional_query_string = '';
+			foreach ($wgRequest->getValues() as $key => $value) {
+				if ($key != 'month' && $key != 'year')
+					$additional_query_string .= "&$key=$value";
+			}
+		} else {
+			$skin = $wgParser->getOptions()->getSkin();
+			$additional_query_string = '';
+		}
 		// get all the date-based values we need - the current month
 		// and year (i.e., the one the user is looking at - not
 		// necessarily the "current" ones), the previous and next months
@@ -195,8 +214,8 @@ class SRFCalendar extends SMWResultPrinter {
 		if ($cur_year == "0") {$cur_year = "1"; }
 		if ($next_year == "0") {$next_year = "1"; }
 		if ($prev_year == "0") {$prev_year = "-1"; }
-		$prev_month_url = $page_title->getLocalURL("month=$prev_month_num&year=$prev_year");
-		$next_month_url = $page_title->getLocalURL("month=$next_month_num&year=$next_year");
+		$prev_month_url = $page_title->getLocalURL("month=$prev_month_num&year=$prev_year" . $additional_query_string);
+		$next_month_url = $page_title->getLocalURL("month=$next_month_num&year=$next_year" . $additional_query_string);
 		$today_url = $page_title->getLocalURL();
 		$today_text = wfMsg('srfc_today');
 		$prev_month_text = wfMsg('srfc_previousmonth');
