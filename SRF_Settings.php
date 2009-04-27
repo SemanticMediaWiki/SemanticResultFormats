@@ -29,6 +29,7 @@ function srffSetup() {
 	foreach($srfgFormats as $fn) srffInitFormat($fn);
 	$formats_list = implode(', ', $srfgFormats);
 	$wgExtensionCredits['other'][]= array(
+		'path' => __FILE__,
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
 		'author' => "Frank Dengler, [http://steren.fr Steren Giannini], Fabian Howahl, Yaron Koren, [http://korrekt.org Markus Krötzsch], David Loomer, Joel Natividad, [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
