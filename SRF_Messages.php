@@ -595,10 +595,16 @@ $messages['nn'] = array(
 	'srfc_nextmonth' => 'Neste månad',
 	'srfc_today' => 'I dag',
 	'srfc_gotomonth' => 'Gå til månad',
+	'srf_printername_calendar' => 'Månadleg kalender',
 	'srf_printername_vcard' => 'vCard eksport',
 	'srf_printername_icalendar' => 'iCalendar eksport',
 	'srf_printername_bibtex' => 'BibTeX eksport',
+	'srf_printername_sum' => 'Sum av tal',
+	'srf_printername_average' => 'Gjennomsnitt av tal',
+	'srf_printername_min' => 'Største tal',
+	'srf_printername_max' => 'Minste tal',
 	'srf_printername_timeline' => 'Tidsline',
+	'srf_printername_eventline' => 'Tidsline for hendingar',
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
