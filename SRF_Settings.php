@@ -80,10 +80,6 @@ function srffInitFormat( $format ) {
 			$class = 'SRFGooglePie';
 			$file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php';
 		break;
-		case 'ploticus':
-			$class = 'SRFPloticus';
-			$file = $srfgIP . '/Ploticus/SRF_Ploticus.php';
-		break;
 		case 'graph':
 			$class = 'SRFGraph';
 			$file = $srfgIP . '/GraphViz/SRF_Graph.php';
