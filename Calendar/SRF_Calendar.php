@@ -149,6 +149,8 @@ class SRFCalendar extends SMWResultPrinter {
 	function displayCalendar($events) {
 		global $wgOut, $srfgScriptPath, $wgParser, $wgRequest;
 
+		$wgParser->disableCache();
+
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
@@ -160,20 +162,22 @@ class SRFCalendar extends SMWResultPrinter {
 		// set variables differently depending on whether this is
 		// being called from an #ask call or the Special:Ask page
 		$page_title = $wgParser->getTitle();
+		$additional_query_string = '';
+		$hidden_inputs = '';
 		$in_ask_page = is_null($page_title);
 		if ($in_ask_page) {
 			global $wgTitle;
 			$page_title = $wgTitle;
 			global $wgUser;
 			$skin = $wgUser->getSkin();
-			$additional_query_string = '';
 			foreach ($wgRequest->getValues() as $key => $value) {
-				if ($key != 'month' && $key != 'year')
+				if ($key != 'month' && $key != 'year') {
 					$additional_query_string .= "&$key=$value";
+					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />\n";
+				}
 			}
 		} else {
 			$skin = $wgParser->getOptions()->getSkin();
-			$additional_query_string = '';
 		}
 		// get all the date-based values we need - the current month
 		// and year (i.e., the one the user is looking at - not
@@ -259,6 +263,7 @@ END;
 		$text .=<<<END
 </select>
 <input name="year" type="text" value="$cur_year" size="4">
+$hidden_inputs
 <input type="submit" value="$go_to_month_text">
 </form>
 </td>
