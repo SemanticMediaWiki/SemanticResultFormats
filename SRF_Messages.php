@@ -786,6 +786,10 @@ $messages['te'] = array(
 	'srfc_nextmonth' => 'తర్వాతి నెల',
 	'srfc_today' => 'ఈరోజు',
 	'srfc_gotomonth' => 'నెలకి వెళ్ళండి',
+	'srf_printername_average' => 'సంఖ్యల సగటు',
+	'srf_printername_min' => 'గరిష్ఠ సంఖ్య',
+	'srf_printername_max' => 'కనిష్ఠ సంఖ్య',
+	'srf_printername_timeline' => 'కాలరేఖ',
 );
 
 /** Tajik (Cyrillic) (Тоҷикӣ (Cyrillic))
