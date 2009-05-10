@@ -32,9 +32,10 @@ function srffSetup() {
 		'path' => __FILE__,
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => "Frank Dengler, [http://steren.fr Steren Giannini], Fabian Howahl, Yaron Koren, [http://korrekt.org Markus Krötzsch], David Loomer, Joel Natividad, [http://simia.net Denny&nbsp;Vrandecic], Nathan Yergler",
+		'author' => array( 'Frank Dengler', '[http://steren.fr Steren Giannini]', 'Fabian Howahl', 'Yaron Koren', '[http://korrekt.org Markus Krötzsch]', 'David Loomer', 'Joel Natividad', '[http://simia.net Denny&nbsp;Vrandecic]', 'Nathan Yergler' ),
 		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
-		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list
+		'description' => 'Additional formats for Semantic MediaWiki inline queries. Available formats: ' . $formats_list,
+		'descriptionmsg' => 'srf-desc'
 	);
 }
 
