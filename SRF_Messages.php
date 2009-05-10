@@ -160,21 +160,30 @@ $messages['bs'] = array(
 /** German (Deutsch)
  * @author Krabina
  * @author Purodha
+ * @author Umherirrender
  */
 $messages['de'] = array(
 	'srfc_previousmonth' => 'Voriger Monat',
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
 	'srfc_gotomonth' => 'Gehe zu Monat',
+	'srf_printername_calendar' => 'Monatlicher Kalendar',
 	'srf_printername_vcard' => 'vCard Export',
 	'srf_printername_icalendar' => 'iCalendar Export',
 	'srf_printername_bibtex' => 'BibTeX Export',
+	'srf_printername_sum' => 'Summe der Zahlen',
+	'srf_printername_average' => 'Durchschnittliche Zahl',
+	'srf_printername_min' => 'Maximale Zahl',
+	'srf_printername_max' => 'Minimale Zahl',
+	'srf_printername_timeline' => 'Zeitlinie',
+	'srf_printername_eventline' => 'Eventlinie',
 );
 
 /** Lower Sorbian (Dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
+	'srf-desc' => 'Pśidatne formaty za rědowe wótpšašanja Semantic MediaWiki',
 	'srfc_previousmonth' => 'Slědny mjasec',
 	'srfc_nextmonth' => 'Pśiducy mjasec',
 	'srfc_today' => 'Źinsa',
@@ -367,6 +376,7 @@ $messages['hi'] = array(
  * @author Michawiki
  */
 $messages['hsb'] = array(
+	'srf-desc' => 'Přidatne formaty za rjadowe wotprašowanja Semantic MediaWiki',
 	'srfc_previousmonth' => 'Předchadny měsac',
 	'srfc_nextmonth' => 'Přichodny měsac',
 	'srfc_today' => 'Dźensa',
@@ -403,6 +413,7 @@ $messages['hu'] = array(
  * @author McDutchie
  */
 $messages['ia'] = array(
+	'srf-desc' => 'Formatos additional pro incorporar consultas a Semantic MediaWiki',
 	'srfc_previousmonth' => 'Mense precedente',
 	'srfc_nextmonth' => 'Mense sequente',
 	'srfc_today' => 'Hodie',
@@ -572,6 +583,7 @@ $messages['nah'] = array(
  * @author Siebrand
  */
 $messages['nl'] = array(
+	'srf-desc' => 'Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki',
 	'srfc_previousmonth' => 'Vorige maand',
 	'srfc_nextmonth' => 'Volgende maand',
 	'srfc_today' => 'Vandaag',
