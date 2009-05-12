@@ -141,6 +141,7 @@ $messages['br'] = array(
  * @author CERminator
  */
 $messages['bs'] = array(
+	'srf-desc' => 'Dodatni formati za linijske upite na Semantic MediaWiki',
 	'srfc_previousmonth' => 'Prethodni mjesec',
 	'srfc_nextmonth' => 'Slijedeći mjesec',
 	'srfc_today' => 'Danas',
@@ -163,6 +164,7 @@ $messages['bs'] = array(
  * @author Umherirrender
  */
 $messages['de'] = array(
+	'srf-desc' => 'Ergänzende Formate für Inline-Abfragen in „Semantic MediaWiki“',
 	'srfc_previousmonth' => 'Voriger Monat',
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
@@ -274,6 +276,7 @@ $messages['fi'] = array(
  * @author Urhixidur
  */
 $messages['fr'] = array(
+	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
 	'srfc_today' => 'Aujourd’hui',
@@ -297,6 +300,7 @@ $messages['fr'] = array(
  * @author Toliño
  */
 $messages['gl'] = array(
+	'srf-desc' => 'Outros formatos para Semantic MediaWiki dentro das pescudas',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Mes seguinte',
 	'srfc_today' => 'Hoxe',
@@ -326,6 +330,7 @@ $messages['grc'] = array(
  * @author Als-Holder
  */
 $messages['gsw'] = array(
+	'srf-desc' => 'Zuesätzligi Format fir Semantic MediaWiki inline-Abfroge',
 	'srfc_previousmonth' => 'Vorige Monet',
 	'srfc_nextmonth' => 'Negschte Monet',
 	'srfc_today' => 'Hit',
@@ -446,6 +451,7 @@ $messages['it'] = array(
  * @author 青子守歌
  */
 $messages['ja'] = array(
+	'srf-desc' => 'Semantic MediaWiki のインラインクエリーのための追加的なフォーマット',
 	'srfc_previousmonth' => '前の月',
 	'srfc_nextmonth' => '次の月',
 	'srfc_today' => '今日',
@@ -488,6 +494,7 @@ $messages['km'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'srf-desc' => 'Zohsäzlejje Fommaate för dem „Semantesch MediaWiki“ sing Froore em Täx vun Sigge.',
 	'srfc_previousmonth' => 'Jangk nohm Moohnd dovör',
 	'srfc_nextmonth' => 'Jangk nohm näkßte Moohnd',
 	'srfc_today' => 'Hück',
@@ -636,6 +643,7 @@ $messages['no'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
+	'srf-desc' => 'Formats adicionals per las requèstas de Semantic MediaWiki',
 	'srfc_previousmonth' => 'Mes precedent',
 	'srfc_nextmonth' => 'Mes seguent',
 	'srfc_today' => 'Uèi',
@@ -754,6 +762,7 @@ $messages['ru'] = array(
  * @author Helix84
  */
 $messages['sk'] = array(
+	'srf-desc' => 'Ďalšie formáty inline požiadaviek Semantic MediaWiki',
 	'srfc_previousmonth' => 'Predošlý mesiac',
 	'srfc_nextmonth' => 'Ďalší mesiac',
 	'srfc_today' => 'Dnes',
@@ -867,6 +876,7 @@ $messages['vep'] = array(
  * @author Vinhtantran
  */
 $messages['vi'] = array(
+	'srf-desc' => 'Các định dạng bổ sung cho các câu truy vấn trong dòng lệnh của MediaWiki Ngữ Nghĩa',
 	'srfc_previousmonth' => 'Tháng trước',
 	'srfc_nextmonth' => 'Tháng sau',
 	'srfc_today' => 'Hôm nay',
