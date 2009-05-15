@@ -102,6 +102,7 @@ $messages['arz'] = array(
  * @author Jim-by
  */
 $messages['be-tarask'] = array(
+	'srf-desc' => 'Дадатковыя фарматы для ўбудаваных запытаў Semantic MediaWiki',
 	'srfc_previousmonth' => 'Папярэдні месяц',
 	'srfc_nextmonth' => 'Наступны месяц',
 	'srfc_today' => 'Сёньня',
