@@ -21,7 +21,7 @@ $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 $wgExtensionFunctions[] = 'srffRegisterFunctions';
 
-$srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'sum', 'average', 'min', 'max');
+$srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'sum', 'average', 'min', 'max');
 
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
@@ -64,6 +64,10 @@ function srffInitFormat( $format ) {
 		case 'calendar':
 			$class = 'SRFCalendar';
 			$file = $srfgIP . '/Calendar/SRF_Calendar.php';
+		breaK;
+		case 'outline':
+			$class = 'SRFOutline';
+			$file = $srfgIP . '/Outline/SRF_Outline.php';
 		breaK;
 		case  'sum': case 'average': case 'min': case 'max':
 			$class = 'SRFMath';
