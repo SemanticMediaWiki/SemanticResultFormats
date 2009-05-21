@@ -43,6 +43,11 @@ per query result.
 Displays query results in interactive timelines, displaying an arbitrary number
 of individual dates per query result.
 
+=== outline ====
+
+Displays query results in an "outline" form, using the values of one more
+properties as the headers.
+
 === sum ===
 
 Displays the sum of the numeric values of the queried property.
