@@ -13,6 +13,7 @@ $messages['en'] = array(
 	'srf-desc' => 'Additional formats for Semantic MediaWiki inline queries', // FIXME: descmsg in extension credits should allow for parameter(s) so that $formats_list can be added
 
 	// user messages
+	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 	// format "calendar"
 	'srfc_previousmonth' => 'Previous month',
 	'srfc_nextmonth'     => 'Next month',

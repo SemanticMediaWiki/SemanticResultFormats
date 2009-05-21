@@ -19,6 +19,7 @@ $wgExtensionFunctions[] = 'srffSetup';
 $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
+$wgHooks['AdminLinks'][] = 'srffAddToAdminLinks';
 $wgExtensionFunctions[] = 'srffRegisterFunctions';
 
 $srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'sum', 'average', 'min', 'max');
@@ -107,4 +108,19 @@ function srffRegisterFunctions ( ) {
 		SRFParserFunctions::registerFunctions( $wgParser );
 	}
 
+}
+
+/**
+ * Adds a link to Admin Links page
+ */
+function srffAddToAdminLinks(&$admin_links_tree) {
+	$displaying_data_section = $admin_links_tree->getSection(wfMsg('smw_adminlinks_displayingdata'));
+	// escape is SMW hasn't added links
+	if (is_null($displaying_data_section))
+		return true;
+	$smw_docu_row = $displaying_data_section->getRow('smw');
+	wfLoadExtensionMessages('SemanticResultFormats');
+	$srf_docu_label = wfMsg('adminlinks_documentation', wfMsg('srf-name'));
+	$smw_docu_row->addItem(AlItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats", $srf_docu_label));
+	return true;
 }
