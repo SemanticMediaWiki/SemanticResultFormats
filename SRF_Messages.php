@@ -28,6 +28,9 @@ $messages['en'] = array(
 	// format "BibTeX"
 	'srf_bibtex_link'    => 'BibTeX',
 	'srf_printername_bibtex' => 'BibTeX export',
+	// format "outline"
+	'srf_outline_novalue' => 'No value',
+	'srf_printername_outline' => 'Outline',
 	// format "math"
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
