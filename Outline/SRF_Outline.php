@@ -103,6 +103,7 @@ class SRFOutline extends SMWResultPrinter {
 	function printItem($item) {
 		$first_col = true;
 		$found_values = false; // has anything but the first column been printed?
+		$result = "";
 		foreach ($item->mRow as $orig_ra) {
 			// make a new copy of this, so that the call to
 			// getNextText() will work again
@@ -135,8 +136,9 @@ class SRFOutline extends SMWResultPrinter {
 	}
 
 	function printTree($outline_tree, $level = 0) {
+		$text = "";
 		if (! is_null($outline_tree->mUnsortedItems)) {
-			$text = "<ul>\n";
+			$text .= "<ul>\n";
 			foreach ($outline_tree->mUnsortedItems as $item) {
 				$text .= "<li>{$this->printItem($item)}</li>\n";
 			}
@@ -204,7 +206,7 @@ class SRFOutline extends SMWResultPrinter {
 		foreach ($this->mOutlineProperties as $outline_prop) {
 			$outline_tree->addProperty($outline_prop);
 		}
-		$result .= $this->printTree($outline_tree);
+		$result = $this->printTree($outline_tree);
 
 		// print further results footer
 		if ( $this->linkFurtherResults($res) ) {
