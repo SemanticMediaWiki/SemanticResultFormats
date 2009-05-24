@@ -116,7 +116,7 @@ $messages['be-tarask'] = array(
 	'srf_printername_vcard' => 'экспарт у фармаце vCard',
 	'srf_printername_icalendar' => 'экспарт у фармаце iCalendar',
 	'srf_printername_bibtex' => 'экспарт у фармаце BibTeX',
-	'srf_outline_novalue' => 'Няма значэньняў',
+	'srf_outline_novalue' => 'Няма значэньня',
 	'srf_printername_outline' => 'Кароткі зьмест',
 	'srf_printername_sum' => 'Сума лікаў',
 	'srf_printername_average' => 'Сярэдняе значэньне лікаў',
@@ -446,6 +446,7 @@ $messages['hu'] = array(
  */
 $messages['ia'] = array(
 	'srf-desc' => 'Formatos additional pro incorporar consultas a Semantic MediaWiki',
+	'srf-name' => 'Formatos de resultatos semantic',
 	'srfc_previousmonth' => 'Mense precedente',
 	'srfc_nextmonth' => 'Mense sequente',
 	'srfc_today' => 'Hodie',
@@ -454,6 +455,8 @@ $messages['ia'] = array(
 	'srf_printername_vcard' => 'Exportation in vCard',
 	'srf_printername_icalendar' => 'Exportation in iCalendar',
 	'srf_printername_bibtex' => 'Exportation in BibTeX',
+	'srf_outline_novalue' => 'Nulle valor',
+	'srf_printername_outline' => 'Schizzo',
 	'srf_printername_sum' => 'Total del numeros',
 	'srf_printername_average' => 'Media del numeros',
 	'srf_printername_min' => 'Numero maxime',
@@ -666,13 +669,27 @@ $messages['nn'] = array(
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Jon Harald Søby
+ * @author Nghtwlkr
  */
 $messages['no'] = array(
+	'srf-desc' => 'Ytterligere format for Semantic MediaWiki «inline»-spørringer',
+	'srf-name' => 'Semantic resultatformat',
 	'srfc_previousmonth' => 'Forrige måned',
 	'srfc_nextmonth' => 'Neste måned',
 	'srfc_today' => 'I dag',
 	'srfc_gotomonth' => 'Gå til måned',
+	'srf_printername_calendar' => 'Månedlig kalender',
+	'srf_printername_vcard' => 'vCard-eksport',
 	'srf_icalendar_link' => 'iKalender',
+	'srf_printername_icalendar' => 'iCalendar-eksport',
+	'srf_printername_bibtex' => 'BibTeX-eksport',
+	'srf_outline_novalue' => 'Ingen verdi',
+	'srf_printername_sum' => 'Sum av tall',
+	'srf_printername_average' => 'Gjennomsnitt av tall',
+	'srf_printername_min' => 'Største tall',
+	'srf_printername_max' => 'Minste tall',
+	'srf_printername_timeline' => 'Tidslinje',
+	'srf_printername_eventline' => 'Hendelseslinje',
 );
 
 /** Occitan (Occitan)
