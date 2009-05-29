@@ -651,6 +651,8 @@ $messages['nl'] = array(
  * @author Gunnernett
  */
 $messages['nn'] = array(
+	'srf-desc' => 'Fleire format for Semantic MediaWiki «inline»-spørjingar',
+	'srf-name' => 'Semantisk resultatformat',
 	'srfc_previousmonth' => 'Førre månad',
 	'srfc_nextmonth' => 'Neste månad',
 	'srfc_today' => 'I dag',
@@ -659,6 +661,7 @@ $messages['nn'] = array(
 	'srf_printername_vcard' => 'vCard eksport',
 	'srf_printername_icalendar' => 'iCalendar eksport',
 	'srf_printername_bibtex' => 'BibTeX eksport',
+	'srf_outline_novalue' => 'Ingen verdi',
 	'srf_printername_sum' => 'Sum av tal',
 	'srf_printername_average' => 'Gjennomsnitt av tal',
 	'srf_printername_min' => 'Største tal',
