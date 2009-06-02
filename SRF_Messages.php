@@ -949,6 +949,7 @@ $messages['vi'] = array(
 	'srf_printername_icalendar' => 'Xuất iCalendar',
 	'srf_printername_bibtex' => 'Xuất BibTeX',
 	'srf_outline_novalue' => 'Vô giá trị',
+	'srf_printername_outline' => 'Khái quát',
 	'srf_printername_sum' => 'Tổng số',
 	'srf_printername_average' => 'Trung bình số',
 	'srf_printername_min' => 'Số lớn nhất',
