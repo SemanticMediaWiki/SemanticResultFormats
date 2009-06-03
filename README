@@ -83,7 +83,7 @@ requires data to be transmitted to Google.
 === ploticus ===
 
 Creates a variety of graph types using the Ploticus application, which must be
-installed.
+installed (this format is currently disabled, due to a security hole).
 
 === graph ===
 
