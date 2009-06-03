@@ -44,11 +44,14 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author Raymond
+ * @author Siebrand
  */
 $messages['qqq'] = array(
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_bibtex_link' => '{{optional}}',
+	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query. 
+There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 );
 
 /** Afrikaans (Afrikaans)
@@ -375,8 +378,8 @@ $messages['gsw'] = array(
  * @author MacTire02
  */
 $messages['gv'] = array(
-	'srfc_previousmonth' => 'Yn mee roish shen',
-	'srfc_nextmonth' => 'Yn chied mee elley',
+	'srfc_previousmonth' => 'Yn vee roish shen',
+	'srfc_nextmonth' => 'Yn chied vee elley',
 	'srfc_today' => 'Jiu',
 );
 
@@ -540,7 +543,7 @@ $messages['ksh'] = array(
 	'srf_printername_icalendar' => 'Expoot em Fommaat vun <i lang="en">iCalendar</i>',
 	'srf_printername_bibtex' => 'Expoot em <i lang="en">BibTeX</i>-Fommaat',
 	'srf_outline_novalue' => 'Keine Wäät',
-	'srf_printername_outline' => 'Ömreß',
+	'srf_printername_outline' => 'Övverblecks_Leß',
 	'srf_printername_sum' => 'De Zahle zosammejetrocke',
 	'srf_printername_average' => 'Der Schnett vun dä Zahle',
 	'srf_printername_min' => 'De kleinßte Nommer',
