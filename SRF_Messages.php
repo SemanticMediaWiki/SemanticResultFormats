@@ -565,6 +565,7 @@ $messages['lb'] = array(
 	'srf_icalendar_link' => 'iKalenner',
 	'srf_printername_icalendar' => 'Export als iCalendar',
 	'srf_printername_bibtex' => 'Export als BibTeX',
+	'srf_outline_novalue' => 'Kee Wert',
 	'srf_printername_sum' => 'Total vun den Zuelen',
 	'srf_printername_average' => 'Duerchschnëtt vun den Zuelen',
 	'srf_printername_min' => 'Maximal Zuel',
