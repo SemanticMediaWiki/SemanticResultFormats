@@ -120,7 +120,7 @@ $messages['be-tarask'] = array(
 	'srf_printername_icalendar' => 'экспарт у фармаце iCalendar',
 	'srf_printername_bibtex' => 'экспарт у фармаце BibTeX',
 	'srf_outline_novalue' => 'Няма значэньня',
-	'srf_printername_outline' => 'Контуры',
+	'srf_printername_outline' => 'Табліца',
 	'srf_printername_sum' => 'Сума лікаў',
 	'srf_printername_average' => 'Сярэдняе значэньне лікаў',
 	'srf_printername_min' => 'Максымальны лік',
@@ -808,6 +808,7 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (Русский)
+ * @author Ferrer
  * @author Innv
  * @author Александр Сигачёв
  */
@@ -816,7 +817,12 @@ $messages['ru'] = array(
 	'srfc_nextmonth' => 'Следующий месяц',
 	'srfc_today' => 'Сегодня',
 	'srfc_gotomonth' => 'Перейти к месяцу',
+	'srf_printername_calendar' => 'Ежемесячный календарь',
+	'srf_printername_vcard' => 'Экспорт vCard',
 	'srf_icalendar_link' => 'iКалендарь',
+	'srf_printername_icalendar' => 'Экспорт iCalendar',
+	'srf_printername_bibtex' => 'Экспорт BibTeX',
+	'srf_outline_novalue' => 'Нет значений',
 	'srf_printername_min' => 'Максимальное число',
 	'srf_printername_max' => 'Минимальное число',
 );
