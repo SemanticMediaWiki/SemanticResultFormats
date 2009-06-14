@@ -179,6 +179,7 @@ $messages['bs'] = array(
  */
 $messages['de'] = array(
 	'srf-desc' => 'Ergänzende Formate für Inline-Abfragen in „Semantic MediaWiki“',
+	'srf-name' => 'Semantische Ergebnis-Formate',
 	'srfc_previousmonth' => 'Voriger Monat',
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
@@ -188,6 +189,7 @@ $messages['de'] = array(
 	'srf_printername_icalendar' => 'iCalendar Export',
 	'srf_printername_bibtex' => 'BibTeX Export',
 	'srf_outline_novalue' => 'Kein Wert',
+	'srf_printername_outline' => 'Gliederung',
 	'srf_printername_sum' => 'Summe der Zahlen',
 	'srf_printername_average' => 'Durchschnittliche Zahl',
 	'srf_printername_min' => 'Maximale Zahl',
