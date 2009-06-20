@@ -815,6 +815,8 @@ $messages['roa-tara'] = array(
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
+	'srf-desc' => 'Дополнительные форматы для запросов Semantic MediaWiki',
+	'srf-name' => 'Формат семантических результатов',
 	'srfc_previousmonth' => 'Предыдущий месяц',
 	'srfc_nextmonth' => 'Следующий месяц',
 	'srfc_today' => 'Сегодня',
@@ -825,6 +827,8 @@ $messages['ru'] = array(
 	'srf_printername_icalendar' => 'Экспорт iCalendar',
 	'srf_printername_bibtex' => 'Экспорт BibTeX',
 	'srf_outline_novalue' => 'Нет значений',
+	'srf_printername_sum' => 'Сумма чисел',
+	'srf_printername_average' => 'Среднее число',
 	'srf_printername_min' => 'Максимальное число',
 	'srf_printername_max' => 'Минимальное число',
 );
