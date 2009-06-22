@@ -816,7 +816,7 @@ $messages['roa-tara'] = array(
  */
 $messages['ru'] = array(
 	'srf-desc' => 'Дополнительные форматы для запросов Semantic MediaWiki',
-	'srf-name' => 'Формат семантических результатов',
+	'srf-name' => 'Форматы семантических результатов',
 	'srfc_previousmonth' => 'Предыдущий месяц',
 	'srfc_nextmonth' => 'Следующий месяц',
 	'srfc_today' => 'Сегодня',
