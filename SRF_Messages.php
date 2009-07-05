@@ -389,12 +389,17 @@ $messages['gv'] = array(
 
 /** Hebrew (עברית)
  * @author StuB
+ * @author YaronSh
  */
 $messages['he'] = array(
 	'srfc_previousmonth' => 'החודש הקודם',
 	'srfc_nextmonth' => 'החודש הבא',
 	'srfc_today' => 'היום',
 	'srfc_gotomonth' => 'מעבר לחודש',
+	'srf_printername_calendar' => 'לוח חודשי',
+	'srf_printername_vcard' => 'ייצוא vCard',
+	'srf_printername_icalendar' => 'ייצוא iCalendar',
+	'srf_printername_bibtex' => 'ייצוא BibTeX',
 );
 
 /** Hindi (हिन्दी)
