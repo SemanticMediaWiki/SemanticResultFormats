@@ -400,6 +400,10 @@ $messages['he'] = array(
 	'srf_printername_vcard' => 'ייצוא vCard',
 	'srf_printername_icalendar' => 'ייצוא iCalendar',
 	'srf_printername_bibtex' => 'ייצוא BibTeX',
+	'srf_outline_novalue' => 'אין ערך',
+	'srf_printername_sum' => 'סכום של מספרים',
+	'srf_printername_average' => 'ממוצע של מספרים',
+	'srf_printername_min' => 'המספר המירבי',
 );
 
 /** Hindi (हिन्दी)
