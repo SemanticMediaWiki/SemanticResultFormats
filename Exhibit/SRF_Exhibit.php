@@ -103,6 +103,7 @@ class SRFExhibit extends SMWResultPrinter {
 				if(array_key_exists($param, $this->m_params)) $facparams[] = 'ex:'.$param.'="'.$this->encodePropertyName($this->m_params[$param]).'" ';
 			}
 			foreach( $facets as $facet ) {
+				$facet = trim($facet);
 				$fieldcounter=0;
 				foreach ($res->getPrintRequests() as $pr){
 					if($this->encodePropertyName($pr->getLabel()) == $this->encodePropertyName($facet)){
