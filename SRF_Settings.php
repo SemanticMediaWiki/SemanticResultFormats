@@ -27,7 +27,8 @@ $srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 't
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
 
-	foreach($srfgFormats as $fn) srffInitFormat($fn);
+	foreach($srfgFormats as $fn) srffInitFormat( $fn );
+	
 	$formats_list = implode(', ', $srfgFormats);
 	$wgExtensionCredits['other'][]= array(
 		'path' => __FILE__,
@@ -65,11 +66,11 @@ function srffInitFormat( $format ) {
 		case 'calendar':
 			$class = 'SRFCalendar';
 			$file = $srfgIP . '/Calendar/SRF_Calendar.php';
-		breaK;
+		break;
 		case 'outline':
 			$class = 'SRFOutline';
 			$file = $srfgIP . '/Outline/SRF_Outline.php';
-		breaK;
+		break;
 		case  'sum': case 'average': case 'min': case 'max':
 			$class = 'SRFMath';
 			$file = $srfgIP . '/Math/SRF_Math.php';
@@ -89,6 +90,10 @@ function srffInitFormat( $format ) {
 		case 'graph':
 			$class = 'SRFGraph';
 			$file = $srfgIP . '/GraphViz/SRF_Graph.php';
+		break;
+		case 'ploticusvbar':
+			$class = 'SRFPloticusVBar';
+			$file = $srfgIP . '/Ploticus/SRF_PloticusVBar.php';
 		break;
 	}
 	if (($class) && ($file)) {

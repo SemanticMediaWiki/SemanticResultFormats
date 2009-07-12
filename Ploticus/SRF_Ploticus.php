@@ -21,7 +21,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
 
 class SRFPloticus extends SMWResultPrinter {
 	protected $m_ploticusparams = '';
-	protected $m_imageformat = 'png';
+	protected $m_imageformat = 'gif';
 	protected $m_titletext = '';
 	protected $m_showcsv = false;
 	protected $m_ploticusmode = 'prefab';
@@ -165,7 +165,7 @@ class SRFPloticus extends SMWResultPrinter {
 			 foreach ($row as $field) {
 				 $growing = array();
 				 while (($object = $field->getNextObject()) !== false) {
-					 $text = Sanitizer::decodeCharReferences($object->getWikiValue());
+					 $text = Sanitizer::decodeCharReferences($object->getXSDValue());
 					 // decode: CSV knows nothing of possible HTML entities
 					 $growing[] = $text;
 				 }
@@ -347,6 +347,7 @@ class SRFPloticus extends SMWResultPrinter {
 		
 		// if showrefresh is on, create link to force refresh
 		if ($this->m_showrefresh) {
+			global $wgArticlePath;
 			$rtnstr .= ' <a href="' . $wgArticlePath . '?action=purge" title="Reload"><img src="'.
 				$srficonPath . 'reload_16.png" alt="Reload"></a>';
 		}
