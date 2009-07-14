@@ -92,6 +92,13 @@ $messages['ar'] = array(
 	'srf_printername_eventline' => 'خط الأحداث',
 );
 
+/** Aramaic (ܐܪܡܝܐ)
+ * @author Basharh
+ */
+$messages['arc'] = array(
+	'srfc_today' => 'ܝܘܡܢܐ',
+);
+
 /** Egyptian Spoken Arabic (مصرى)
  * @author Meno25
  */
@@ -256,6 +263,7 @@ $messages['es'] = array(
 	'srfc_gotomonth' => 'Ir al mes',
 	'srf_printername_calendar' => 'Calendario mensual',
 	'srf_outline_novalue' => 'Sin valor',
+	'srf_printername_outline' => 'Esquema',
 	'srf_printername_average' => 'Promedio de números',
 	'srf_printername_min' => 'Número máximo',
 	'srf_printername_max' => 'Número mínimo',
