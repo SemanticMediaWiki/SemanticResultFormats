@@ -173,7 +173,7 @@ class SRFCalendar extends SMWResultPrinter {
 			foreach ($wgRequest->getValues() as $key => $value) {
 				if ($key != 'month' && $key != 'year') {
 					$additional_query_string .= "&$key=$value";
-					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />\n";
+					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />";
 				}
 			}
 		} else {
@@ -330,20 +330,14 @@ END;
 						$templatetext = '{{' . $this->mTemplate . $other_text . '}}';
 						$templatetext = $wgParser->replaceVariables($templatetext);
 						$templatetext = $wgParser->recursiveTagParse($templatetext);
-						if ($color != '') {
-							$text .= '<span style="color: ' . $color . '">' . $templatetext . '</span>';
-						} else {
-							$text .= $templatetext;
-						}
+						$text .= $templatetext;
 					} else {
-						$event_name = str_replace('_', ' ', $event_title->getPrefixedDbKey());
+						$event_str = $skin->makeLinkObj($event_title);
 						if ($color != '') {
-							$event_url = $event_title->getPrefixedDbKey();
-							$event_str = '<a href="' . $event_url . '" style="color: ' . $color . '">' . $event_name . "</a>";
+							$text .= "<p class=\"colored-entry\" style=\"border-left: 7px $color solid;\">$event_str $other_text</p>\n";
 						} else {
-							$event_str = $skin->makeLinkObj($event_title, $event_name);
+							$text .= "$event_str $other_text\n\n";
 						}
-						$text .= "$event_str $other_text\n\n";
 					}
 				}
 			}
