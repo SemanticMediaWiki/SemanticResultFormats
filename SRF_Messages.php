@@ -489,6 +489,30 @@ $messages['ia'] = array(
 	'srf_printername_eventline' => 'Chronologia de eventos',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author Bennylin
+ */
+$messages['id'] = array(
+	'srf-desc' => 'Format tambahan untuk kueri Semantik MediaWiki',
+	'srf-name' => 'Format Hasil Semantik',
+	'srfc_previousmonth' => 'Bulan lalu',
+	'srfc_nextmonth' => 'Bulan depan',
+	'srfc_today' => 'Hari ini',
+	'srfc_gotomonth' => 'Pergi ke bulan',
+	'srf_printername_calendar' => 'Kalender bulanan',
+	'srf_printername_vcard' => 'Ekspor vCard',
+	'srf_printername_icalendar' => 'Ekspor iCalendar',
+	'srf_printername_bibtex' => 'Ekspor BibTeX',
+	'srf_outline_novalue' => 'Tanpa nilai',
+	'srf_printername_outline' => 'Ikhtisar',
+	'srf_printername_sum' => 'Jumlah angka',
+	'srf_printername_average' => 'Angka rata-rata',
+	'srf_printername_min' => 'Angka maksimum',
+	'srf_printername_max' => 'Angka minimum',
+	'srf_printername_timeline' => 'Garis waktu',
+	'srf_printername_eventline' => 'Garis kejadian',
+);
+
 /** Italian (Italiano)
  * @author Darth Kule
  */
