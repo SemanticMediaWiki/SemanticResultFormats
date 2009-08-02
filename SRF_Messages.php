@@ -912,6 +912,10 @@ $messages['sr-ec'] = array(
 	'srfc_today' => 'Данас',
 	'srfc_gotomonth' => 'Пређи на месец',
 	'srf_printername_calendar' => 'Месечни календар',
+	'srf_printername_sum' => 'Сума бројева',
+	'srf_printername_average' => 'Средња вредност бројева',
+	'srf_printername_min' => 'Највећи број',
+	'srf_printername_max' => 'Најмањи број',
 );
 
 /** Swedish (Svenska)
