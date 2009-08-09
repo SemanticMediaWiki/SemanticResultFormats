@@ -295,8 +295,17 @@ $messages['fa'] = array(
  * @author Str4nd
  */
 $messages['fi'] = array(
+	'srfc_previousmonth' => 'Edellinen kuukausi',
+	'srfc_nextmonth' => 'Seuraava kuukausi',
 	'srfc_today' => 'Tänään',
 	'srfc_gotomonth' => 'Siirry kuukauteen',
+	'srf_printername_calendar' => 'Kuukausittainen kalenteri',
+	'srf_printername_sum' => 'Lukujen summa',
+	'srf_printername_average' => 'Lukujen keskiarvo',
+	'srf_printername_min' => 'Korkein luku',
+	'srf_printername_max' => 'Pienin luku',
+	'srf_printername_timeline' => 'Aikajana',
+	'srf_printername_eventline' => 'Tapahtumajana',
 );
 
 /** French (Français)
@@ -768,6 +777,15 @@ $messages['oc'] = array(
 	'srf_printername_max' => 'Nombre minimal',
 	'srf_printername_timeline' => 'Cronologia',
 	'srf_printername_eventline' => 'Cronologia dels eveniments',
+);
+
+/** Deitsch (Deitsch)
+ * @author Xqt
+ */
+$messages['pdc'] = array(
+	'srfc_previousmonth' => 'Letscht Munet',
+	'srfc_nextmonth' => 'Neegscht Munet',
+	'srfc_today' => 'Heit',
 );
 
 /** Polish (Polski)
