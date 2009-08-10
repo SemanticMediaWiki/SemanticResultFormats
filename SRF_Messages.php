@@ -71,6 +71,7 @@ $messages['am'] = array(
 
 /** Arabic (العربية)
  * @author Meno25
+ * @author OsamaK
  */
 $messages['ar'] = array(
 	'srfc_previousmonth' => 'الشهر السابق',
@@ -84,6 +85,7 @@ $messages['ar'] = array(
 	'srf_printername_icalendar' => 'تصدير iCalendar',
 	'srf_bibtex_link' => 'بب تكس',
 	'srf_printername_bibtex' => 'تصدير BibTeX',
+	'srf_outline_novalue' => 'لا قيم',
 	'srf_printername_sum' => 'مجموع الأرقام',
 	'srf_printername_average' => 'متوسط الأرقام',
 	'srf_printername_min' => 'الرقم الأقصى',
@@ -300,6 +302,10 @@ $messages['fi'] = array(
 	'srfc_today' => 'Tänään',
 	'srfc_gotomonth' => 'Siirry kuukauteen',
 	'srf_printername_calendar' => 'Kuukausittainen kalenteri',
+	'srf_printername_vcard' => 'vCard-vienti',
+	'srf_printername_icalendar' => 'iCalendar-vienti',
+	'srf_printername_bibtex' => 'BibTeX-vienti',
+	'srf_outline_novalue' => 'Ei arvoa',
 	'srf_printername_sum' => 'Lukujen summa',
 	'srf_printername_average' => 'Lukujen keskiarvo',
 	'srf_printername_min' => 'Korkein luku',
@@ -934,6 +940,21 @@ $messages['sr-ec'] = array(
 	'srf_printername_average' => 'Средња вредност бројева',
 	'srf_printername_min' => 'Највећи број',
 	'srf_printername_max' => 'Најмањи број',
+);
+
+/** latinica (latinica)
+ * @author Michaello
+ */
+$messages['sr-el'] = array(
+	'srfc_previousmonth' => 'Prethodni mesec',
+	'srfc_nextmonth' => 'Sledeći mesec',
+	'srfc_today' => 'Danas',
+	'srfc_gotomonth' => 'Pređi na mesec',
+	'srf_printername_calendar' => 'Mesečni kalendar',
+	'srf_printername_sum' => 'Suma brojeva',
+	'srf_printername_average' => 'Srednja vrednost brojeva',
+	'srf_printername_min' => 'Najveći broj',
+	'srf_printername_max' => 'Najmanji broj',
 );
 
 /** Swedish (Svenska)
