@@ -234,12 +234,20 @@ $messages['dsb'] = array(
 /** Greek (Ελληνικά)
  * @author Consta
  * @author Omnipaedista
+ * @author ZaDiak
  */
 $messages['el'] = array(
 	'srfc_previousmonth' => 'Προηγούμενος μήνας',
 	'srfc_nextmonth' => 'Επόμενος μήνας',
 	'srfc_today' => 'Σήμερα',
 	'srfc_gotomonth' => 'Μετάβαση στον μήνα',
+	'srf_printername_calendar' => 'Μηνιαίο ημερολόγιο',
+	'srf_outline_novalue' => 'Καμία τιμή',
+	'srf_printername_outline' => 'Περίγραμμα',
+	'srf_printername_min' => 'Μέγιστος αριθμός',
+	'srf_printername_max' => 'Ελάχιστος αριθμός',
+	'srf_printername_timeline' => 'Ζώνη ώρας',
+	'srf_printername_eventline' => 'Ζώνη γεγονότων',
 );
 
 /** Esperanto (Esperanto)
@@ -375,6 +383,7 @@ $messages['gl'] = array(
  */
 $messages['grc'] = array(
 	'srfc_today' => 'Σήμερον',
+	'srf_printername_outline' => 'Περίγραμμα',
 );
 
 /** Swiss German (Alemannisch)
@@ -841,6 +850,8 @@ $messages['pt'] = array(
  * @author GKnedo
  */
 $messages['pt-br'] = array(
+	'srf-desc' => 'Formatos adicionais para consultas embutidas do Semantic MediaWiki',
+	'srf-name' => 'Formatos de Resultados Semânticos',
 	'srfc_previousmonth' => 'Mês anterior',
 	'srfc_nextmonth' => 'Mês seguinte',
 	'srfc_today' => 'Hoje',
@@ -849,6 +860,8 @@ $messages['pt-br'] = array(
 	'srf_printername_vcard' => 'Exportar vCard',
 	'srf_printername_icalendar' => 'Exportar iCalendar',
 	'srf_printername_bibtex' => 'Exportar BibTeX',
+	'srf_outline_novalue' => 'Nenhum valor',
+	'srf_printername_outline' => 'Outline',
 	'srf_printername_sum' => 'Soma dos Números',
 	'srf_printername_average' => 'Média dos números',
 	'srf_printername_min' => 'Número máximo',
@@ -864,6 +877,13 @@ $messages['ro'] = array(
 	'srfc_previousmonth' => 'Luna anterioară',
 	'srfc_nextmonth' => 'Luna următoare',
 	'srfc_today' => 'Astăzi',
+	'srf_printername_calendar' => 'Calendar lunar',
+	'srf_printername_bibtex' => 'Export BibTeX',
+	'srf_outline_novalue' => 'Nici o valoare',
+	'srf_printername_sum' => 'Suma numerelor',
+	'srf_printername_average' => 'Media numerelor',
+	'srf_printername_min' => 'Numărul maxim',
+	'srf_printername_max' => 'Numărul minim',
 );
 
 /** Tarandíne (Tarandíne)
