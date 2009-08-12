@@ -245,8 +245,13 @@ $messages['el'] = array(
 	'srfc_today' => 'Σήμερα',
 	'srfc_gotomonth' => 'Μετάβαση στον μήνα',
 	'srf_printername_calendar' => 'Μηνιαίο ημερολόγιο',
+	'srf_printername_vcard' => 'Εξαγωγή vCard',
+	'srf_printername_icalendar' => 'Εξαγωγή iCalendar',
+	'srf_printername_bibtex' => 'Εξαγωγή BibTeX',
 	'srf_outline_novalue' => 'Καμία τιμή',
 	'srf_printername_outline' => 'Περίγραμμα',
+	'srf_printername_sum' => 'Σύνοψη αριθμών',
+	'srf_printername_average' => 'Μέσος όρος αριθμών',
 	'srf_printername_min' => 'Μέγιστος αριθμός',
 	'srf_printername_max' => 'Ελάχιστος αριθμός',
 	'srf_printername_timeline' => 'Ζώνη ώρας',
@@ -1115,6 +1120,8 @@ $messages['zh-hant'] = array(
 	'srfc_nextmonth' => '下月',
 	'srfc_today' => '今天',
 	'srfc_gotomonth' => '跳至月份',
+	'srf_printername_min' => '最大數目',
+	'srf_printername_max' => '最小數目',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)
