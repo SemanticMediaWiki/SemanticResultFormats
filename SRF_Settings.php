@@ -18,6 +18,7 @@ $wgExtensionFunctions[] = 'srffSetup';
 
 $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 
+// FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 $wgHooks['AdminLinks'][] = 'srffAddToAdminLinks';
 $wgExtensionFunctions[] = 'srffRegisterFunctions';

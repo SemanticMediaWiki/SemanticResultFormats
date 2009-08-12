@@ -26,6 +26,7 @@ class SRFParserFunctions {
 		return true;
 	}
 
+	// FIXME: Can be removed when new style magic words are used (introduced in r52503)
 	static function languageGetMagic( &$magicWords, $langCode = "en" ) {
 		switch ( $langCode ) {
 			default:
