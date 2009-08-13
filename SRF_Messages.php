@@ -184,6 +184,17 @@ $messages['bs'] = array(
 	'srf_printername_eventline' => 'Linija događaja',
 );
 
+/** Catalan (Català)
+ * @author Paucabot
+ */
+$messages['ca'] = array(
+	'srfc_previousmonth' => 'Mes anterior',
+	'srfc_nextmonth' => 'Mes posterior',
+	'srfc_today' => 'Avui',
+	'srfc_gotomonth' => 'Vés al mes',
+	'srf_printername_calendar' => 'Calendari mensual',
+);
+
 /** German (Deutsch)
  * @author Krabina
  * @author Purodha
