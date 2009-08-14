@@ -293,6 +293,7 @@ $messages['es'] = array(
 	'srf_printername_calendar' => 'Calendario mensual',
 	'srf_outline_novalue' => 'Sin valor',
 	'srf_printername_outline' => 'Esquema',
+	'srf_printername_sum' => 'Suma de números',
 	'srf_printername_average' => 'Promedio de números',
 	'srf_printername_min' => 'Número máximo',
 	'srf_printername_max' => 'Número mínimo',
