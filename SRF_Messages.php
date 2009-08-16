@@ -825,12 +825,27 @@ $messages['pdc'] = array(
 
 /** Polish (Polski)
  * @author Maire
+ * @author ToSter
  */
 $messages['pl'] = array(
+	'srf-desc' => 'Dodatkowe formaty dla wewnętrznych zapytań Semantic MediaWiki',
+	'srf-name' => 'Formaty semantycznych wyników',
 	'srfc_previousmonth' => 'Poprzedni miesiąc',
 	'srfc_nextmonth' => 'Następny miesiąc',
 	'srfc_today' => 'Dzisiaj',
 	'srfc_gotomonth' => 'Idź do miesiąca',
+	'srf_printername_calendar' => 'Kalendarz miesięczny',
+	'srf_printername_vcard' => 'eksport vCard',
+	'srf_printername_icalendar' => 'eksport iCalendar',
+	'srf_printername_bibtex' => 'eksport BibTeX',
+	'srf_outline_novalue' => 'Brak wartości',
+	'srf_printername_outline' => 'Element',
+	'srf_printername_sum' => 'Suma liczb',
+	'srf_printername_average' => 'Średnia liczb',
+	'srf_printername_min' => 'Maksymalna liczba',
+	'srf_printername_max' => 'Minimalna liczba',
+	'srf_printername_timeline' => 'Oś czasu',
+	'srf_printername_eventline' => 'Oś wydarzeń',
 );
 
 /** Pashto (پښتو)
