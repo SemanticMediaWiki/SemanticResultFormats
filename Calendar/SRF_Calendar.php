@@ -154,7 +154,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, projection, print",
+			'media' => "screen, print",
 			'href' => $srfgScriptPath . "/Calendar/skins/SRFC_main.css"
 		));
 		wfLoadExtensionMessages('SemanticResultFormats');
