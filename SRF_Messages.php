@@ -251,6 +251,7 @@ $messages['dsb'] = array(
  * @author ZaDiak
  */
 $messages['el'] = array(
+	'srf-name' => 'Σημασιολογικά Αποτελέσματα Φορμά',
 	'srfc_previousmonth' => 'Προηγούμενος μήνας',
 	'srfc_nextmonth' => 'Επόμενος μήνας',
 	'srfc_today' => 'Σήμερα',
@@ -277,7 +278,15 @@ $messages['eo'] = array(
 	'srfc_nextmonth' => 'Posta monato',
 	'srfc_today' => 'Hodiaŭ',
 	'srfc_gotomonth' => 'Iru al monato',
+	'srf_printername_calendar' => 'Monata kalendaro',
 	'srf_icalendar_link' => 'iKalendaro',
+	'srf_outline_novalue' => 'Sen valoro',
+	'srf_printername_sum' => 'Sumo de nombroj',
+	'srf_printername_average' => 'Averaĝo de nombroj',
+	'srf_printername_min' => 'Maksimuma nombro',
+	'srf_printername_max' => 'Minimuma nombro',
+	'srf_printername_timeline' => 'Templinio',
+	'srf_printername_eventline' => 'Eventlinio',
 );
 
 /** Spanish (Español)
