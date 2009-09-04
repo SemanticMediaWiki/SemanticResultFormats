@@ -20,7 +20,7 @@ if (!defined('MEDIAWIKI')) die();
 
 class SRFParserFunctions {
 
-	static function registerFunctions( $parser ) {
+	static function registerFunctions( &$parser ) {
 		$parser->setFunctionHook('calendarstartdate', array('SRFParserFunctions','runCalendarStartDate'));
 		$parser->setFunctionHook('calendarenddate', array('SRFParserFunctions','runCalendarEndDate'));
 		return true;

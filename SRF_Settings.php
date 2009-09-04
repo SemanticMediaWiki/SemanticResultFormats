@@ -21,7 +21,7 @@ $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 $wgHooks['AdminLinks'][] = 'srffAddToAdminLinks';
-$wgExtensionFunctions[] = 'srffRegisterFunctions';
+$wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 
 $srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'sum', 'average', 'min', 'max');
 
@@ -101,19 +101,6 @@ function srffInitFormat( $format ) {
 		$smwgResultFormats[$format] = $class;
 		$wgAutoloadClasses[$class] = $file;
 	}
-}
-
-function srffRegisterFunctions ( ) {
-	global $wgHooks, $wgParser;
-	if( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-		$wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
-	} else {
-		if ( class_exists( 'StubObject' ) && !StubObject::isRealObject( $wgParser ) ) {
-			$wgParser->_unstub();
-		}
-		SRFParserFunctions::registerFunctions( $wgParser );
-	}
-
 }
 
 /**
