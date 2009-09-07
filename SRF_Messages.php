@@ -290,6 +290,7 @@ $messages['eo'] = array(
 );
 
 /** Spanish (Español)
+ * @author Antur
  * @author Crazymadlover
  * @author Imre
  * @author Sanbec
@@ -300,6 +301,9 @@ $messages['es'] = array(
 	'srfc_today' => 'Hoy',
 	'srfc_gotomonth' => 'Ir al mes',
 	'srf_printername_calendar' => 'Calendario mensual',
+	'srf_printername_vcard' => 'Exportar vCard',
+	'srf_printername_icalendar' => 'Exportar iCalendar',
+	'srf_printername_bibtex' => 'Exportar BibTeX',
 	'srf_outline_novalue' => 'Sin valor',
 	'srf_printername_outline' => 'Esquema',
 	'srf_printername_sum' => 'Suma de números',
