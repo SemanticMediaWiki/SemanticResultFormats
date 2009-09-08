@@ -150,6 +150,22 @@ $messages['bg'] = array(
 	'srfc_today' => 'Днес',
 );
 
+/** Bengali (বাংলা)
+ * @author Bellayet
+ */
+$messages['bn'] = array(
+	'srfc_previousmonth' => 'পূর্ববর্তী মাস',
+	'srfc_nextmonth' => 'পরবর্তী মাস',
+	'srfc_today' => 'আজ',
+	'srfc_gotomonth' => 'যে মাসে যাবেন',
+	'srf_printername_calendar' => 'মাসিক ক্যালেন্ডার',
+	'srf_outline_novalue' => 'কোনো মান নাই',
+	'srf_printername_sum' => 'সমষ্টি',
+	'srf_printername_average' => 'গড়',
+	'srf_printername_min' => 'সর্বোচ্চ',
+	'srf_printername_max' => 'সর্বোনিম্ন',
+);
+
 /** Breton (Brezhoneg)
  * @author Fulup
  */
