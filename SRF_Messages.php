@@ -267,6 +267,7 @@ $messages['dsb'] = array(
  * @author ZaDiak
  */
 $messages['el'] = array(
+	'srf-desc' => 'Πρόσθετα φορμά για τα inline αιτήματα της Σημασιολογικής MediaWiki',
 	'srf-name' => 'Σημασιολογικά Αποτελέσματα Φορμά',
 	'srfc_previousmonth' => 'Προηγούμενος μήνας',
 	'srfc_nextmonth' => 'Επόμενος μήνας',
