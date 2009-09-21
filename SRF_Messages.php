@@ -533,10 +533,19 @@ $messages['ht'] = array(
 
 /** Hungarian (Magyar)
  * @author Dani
+ * @author Glanthor Reviol
  */
 $messages['hu'] = array(
 	'srfc_previousmonth' => 'Előző hónap',
 	'srfc_nextmonth' => 'Következő hónap',
+	'srfc_today' => 'Ma',
+	'srfc_gotomonth' => 'Ugrás hónapra',
+	'srf_printername_calendar' => 'Havi naptár',
+	'srf_printername_vcard' => 'vCard exportálás',
+	'srf_printername_icalendar' => 'iCalendar exportálás',
+	'srf_printername_bibtex' => 'BibTeX exportálás',
+	'srf_printername_timeline' => 'Idővonal',
+	'srf_printername_eventline' => 'Eseményvonal',
 );
 
 /** Interlingua (Interlingua)
