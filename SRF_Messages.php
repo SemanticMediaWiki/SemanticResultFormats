@@ -48,8 +48,10 @@ $messages['en'] = array(
 /** Message documentation (Message documentation)
  * @author Raymond
  * @author Siebrand
+ * @author Umherirrender
  */
 $messages['qqq'] = array(
+	'srf-desc' => '{{desc}}',
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_bibtex_link' => '{{optional}}',
