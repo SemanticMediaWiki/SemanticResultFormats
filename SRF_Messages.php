@@ -890,6 +890,30 @@ $messages['pl'] = array(
 	'srf_printername_eventline' => 'Oś wydarzeń',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'srf-desc' => 'Formà adissionaj për anterogassion an linia ëd Semantic MediaWiki',
+	'srf-name' => "Formà dj'Arzultà Semàntich",
+	'srfc_previousmonth' => 'Meis prima',
+	'srfc_nextmonth' => 'Meis apress',
+	'srfc_today' => 'Ancheuj',
+	'srfc_gotomonth' => 'Va al meis',
+	'srf_printername_calendar' => 'Armanach dël meis',
+	'srf_printername_vcard' => 'esportassion ëd vCard',
+	'srf_printername_icalendar' => "esportassion d'iCalendar",
+	'srf_printername_bibtex' => 'esportassion BibTeX',
+	'srf_outline_novalue' => 'Pa gnun valor',
+	'srf_printername_outline' => 'Fòra linia',
+	'srf_printername_sum' => 'Total dij nùmer',
+	'srf_printername_average' => 'Media dij nùmer',
+	'srf_printername_min' => 'Nùmer pì gròss',
+	'srf_printername_max' => 'Nùmer pì cit',
+	'srf_printername_timeline' => 'Cronologìa',
+	'srf_printername_eventline' => "Cronologìa dj'event",
+);
+
 /** Pashto (پښتو)
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
