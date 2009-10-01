@@ -106,7 +106,7 @@ class SRFOutline extends SMWResultPrinter {
 		$result = "";
 		foreach ($item->mRow as $orig_ra) {
 			// handling is simpler for SMW 1.5+
-			if (! class_exists('SMWResultArray')) {
+			if (method_exists('SMWQueryResult', 'getResults')) {
 				$ra = $orig_ra;
 			} else {
 				// make a new copy of this, so that the call to
