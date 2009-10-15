@@ -71,7 +71,7 @@ class SRFiCalendar extends SMWResultPrinter {
 
 			$row = $res->getNext();
 			while ( $row !== false ) {
-				$wikipage = $row[0]->getNextObject(); // get the object
+				$wikipage = $row[0]->getResultSubject(); // get the object
 				$startdate = false;
 				$enddate = false;
 				$location = '';

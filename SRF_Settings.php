@@ -9,7 +9,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define('SRF_VERSION', '1.4.5');
+define('SRF_VERSION', '1.4.6');
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = $IP . '/extensions/SemanticResultFormats';
@@ -91,6 +91,10 @@ function srffInitFormat( $format ) {
 		case 'graph':
 			$class = 'SRFGraph';
 			$file = $srfgIP . '/GraphViz/SRF_Graph.php';
+		break;
+		case 'process':
+			$class = 'SRFProcess';
+			$file = $srfgIP . '/GraphViz/SRF_Process.php';
 		break;
 		case 'ploticusvbar':
 			$class = 'SRFPloticusVBar';

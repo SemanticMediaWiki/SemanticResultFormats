@@ -64,8 +64,6 @@ class SRFBibTeX extends SMWResultPrinter {
 			}
 			$row = $res->getNext();
 			while ( $row !== false ) {
-				$wikipage = $row[0]->getNextObject(); // get the object
-
 				$type = '';
 				$address = '';
 				$annote = '';

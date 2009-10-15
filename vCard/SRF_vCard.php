@@ -47,7 +47,7 @@ class SRFvCard extends SMWResultPrinter {
 			}
 			$row = $res->getNext();
 			while ( $row !== false ) {
-				$wikipage = $row[0]->getNextObject(); // get the object
+				$wikipage = $row[0]->getResultSubject(); // get Subject of the Result
 				// name
 				$prefix = ''; // something like 'Dr.'
 				$firstname = ''; // given name
