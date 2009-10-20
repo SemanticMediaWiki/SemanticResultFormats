@@ -538,6 +538,8 @@ $messages['ht'] = array(
  * @author Glanthor Reviol
  */
 $messages['hu'] = array(
+	'srf-desc' => 'További formátumok a Szemantikus MediaWiki beépített lekérdezéseihez',
+	'srf-name' => 'Szemantikus eredményformátumok',
 	'srfc_previousmonth' => 'Előző hónap',
 	'srfc_nextmonth' => 'Következő hónap',
 	'srfc_today' => 'Ma',
@@ -546,6 +548,12 @@ $messages['hu'] = array(
 	'srf_printername_vcard' => 'vCard exportálás',
 	'srf_printername_icalendar' => 'iCalendar exportálás',
 	'srf_printername_bibtex' => 'BibTeX exportálás',
+	'srf_outline_novalue' => 'Nincs érték',
+	'srf_printername_outline' => 'Tagolt',
+	'srf_printername_sum' => 'A számok összege',
+	'srf_printername_average' => 'A számok átlaga',
+	'srf_printername_min' => 'Legnagyobb szám',
+	'srf_printername_max' => 'Legkisebb szám',
 	'srf_printername_timeline' => 'Idővonal',
 	'srf_printername_eventline' => 'Eseményvonal',
 );
