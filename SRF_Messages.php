@@ -313,8 +313,10 @@ $messages['eo'] = array(
  * @author Crazymadlover
  * @author Imre
  * @author Sanbec
+ * @author Translationista
  */
 $messages['es'] = array(
+	'srf-name' => 'Formatos de resultado semántico',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Próximo mes',
 	'srfc_today' => 'Hoy',
