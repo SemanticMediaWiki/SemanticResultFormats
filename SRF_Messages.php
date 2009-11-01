@@ -343,6 +343,8 @@ $messages['eu'] = array(
 	'srfc_nextmonth' => 'Hurrengo hilabetea',
 	'srfc_today' => 'Gaur',
 	'srfc_gotomonth' => 'Hilabetera joan',
+	'srf_printername_timeline' => 'Denbora-lerroa',
+	'srf_printername_eventline' => 'Gertakari-lerroa',
 );
 
 /** Persian (فارسی)
