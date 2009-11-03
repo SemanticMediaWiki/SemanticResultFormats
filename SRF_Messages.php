@@ -170,12 +170,14 @@ $messages['bn'] = array(
 
 /** Breton (Brezhoneg)
  * @author Fulup
+ * @author Y-M D
  */
 $messages['br'] = array(
 	'srfc_previousmonth' => 'Miz a-raok',
 	'srfc_nextmonth' => 'Miz a zeu',
 	'srfc_today' => 'Hiziv',
 	'srfc_gotomonth' => "Mont d'ar miz",
+	'srf_printername_sum' => 'Sammad niveroù',
 );
 
 /** Bosnian (Bosanski)
