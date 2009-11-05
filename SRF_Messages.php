@@ -169,6 +169,7 @@ $messages['bn'] = array(
 );
 
 /** Breton (Brezhoneg)
+ * @author Fohanno
  * @author Fulup
  * @author Y-M D
  */
@@ -177,7 +178,11 @@ $messages['br'] = array(
 	'srfc_nextmonth' => 'Miz a zeu',
 	'srfc_today' => 'Hiziv',
 	'srfc_gotomonth' => "Mont d'ar miz",
+	'srf_printername_vcard' => 'ezporzhiañ vCard',
+	'srf_printername_outline' => 'Trolinenn',
 	'srf_printername_sum' => 'Sammad niveroù',
+	'srf_printername_min' => 'Niver uhelañ',
+	'srf_printername_max' => 'Niver izelañ',
 );
 
 /** Bosnian (Bosanski)
