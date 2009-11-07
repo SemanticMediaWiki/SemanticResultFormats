@@ -17,6 +17,11 @@ $magicWords['mr'] = array(
 	'calendarenddate'     => array( '0', 'दिनदर्शिकासांगतादिन', 'calendarenddate' ),
 );
 
+$magicWords['nds-nl'] = array(
+	'calendarstartdate'   => array( '0', 'startdaotumkelender', 'startdatumkalender', 'calendarstartdate' ),
+	'calendarenddate'     => array( '0', 'einddaotumkelender', 'einddatumkalender', 'calendarenddate' ),
+);
+
 $magicWords['nl'] = array(
 	'calendarstartdate'   => array( '0', 'startdatumkalender', 'calendarstartdate' ),
 	'calendarenddate'     => array( '0', 'einddatumkalender', 'calendarenddate' ),
