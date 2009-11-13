@@ -944,10 +944,13 @@ $messages['ps'] = array(
 );
 
 /** Portuguese (Português)
+ * @author Hamilton Abreu
  * @author Malafaya
  * @author Waldir
  */
 $messages['pt'] = array(
+	'srf-desc' => "Formatos adicionais para consultas de incorporação dinâmica ''(inline queries)'' do Semantic MediaWiki",
+	'srf-name' => 'Formatos dos Resultados Semânticos',
 	'srfc_previousmonth' => 'Mês anterior',
 	'srfc_nextmonth' => 'Mês seguinte',
 	'srfc_today' => 'Hoje',
@@ -957,6 +960,8 @@ $messages['pt'] = array(
 	'srf_icalendar_link' => 'iCalendário',
 	'srf_printername_icalendar' => 'exportação iCalendar',
 	'srf_printername_bibtex' => 'exportação BibTeX',
+	'srf_outline_novalue' => 'Nenhum valor',
+	'srf_printername_outline' => 'Lista estruturada',
 	'srf_printername_sum' => 'Soma dos números',
 	'srf_printername_average' => 'Média dos números',
 	'srf_printername_min' => 'Número máximo',
