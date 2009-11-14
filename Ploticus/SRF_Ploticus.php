@@ -104,7 +104,7 @@ class SRFPloticus extends SMWResultPrinter {
 		// check parameters
 		$validformats = array('svg', 'svgz','swf', 'png', 'gif', 'jpeg', 'drawdump', 'drawdumpa', 'eps', 'ps');
 		if (!in_array($this->m_imageformat, $validformats))
-		    return ('<p classid="srfperror">ERROR: '. $this->m_imageformat. ' is not a supported imageformat.<br/>Valid imageformats are: ' .
+		    return ('<p classid="srfperror">ERROR: '. $this->m_imageformat. ' is not a supported imageformat.<br />Valid imageformats are: ' .
 			    implode(', ', $validformats) . '</p>');
 		
 		if (empty($this->m_ploticusparams))

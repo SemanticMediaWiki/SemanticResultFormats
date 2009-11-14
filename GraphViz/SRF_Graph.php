@@ -144,7 +144,7 @@ class SRFGraph extends SMWResultPrinter {
 			$result .= "<P>";
 			foreach ($this->m_labelArray as $m_label) {
 				$color = $this->m_graphColors[$arrayCount];
-				$result .= "<font color=$color>$color: $m_label </font><br>";
+				$result .= "<font color=$color>$color: $m_label </font><br />";
 				$arrayCount = $arrayCount +1;
 			}
 			$result .= "</P>";
