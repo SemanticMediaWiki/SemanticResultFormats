@@ -183,6 +183,8 @@ $messages['br'] = array(
 	'srf_printername_sum' => 'Sammad niveroù',
 	'srf_printername_min' => 'Niver uhelañ',
 	'srf_printername_max' => 'Niver izelañ',
+	'srf_printername_timeline' => 'Kronologiezh',
+	'srf_printername_eventline' => 'Kronologiezh an darvoudoù',
 );
 
 /** Bosnian (Bosanski)
