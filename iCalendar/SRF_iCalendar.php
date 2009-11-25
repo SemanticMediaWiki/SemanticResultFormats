@@ -155,7 +155,7 @@ class SRFiCalendar extends SMWResultPrinter {
 		$year = number_format($year, 0, '.', '');
 		$time = str_replace(':','', $dv->getTimeString(false));
 		if ( ($time == false) && ($isend) ) { // increment by one day, compute date to cover leap years etc.
-			$dv = SMWDataValueFactory::newTypeIDValue('_dat',$dv->getWikiValue() . 'T00:00:00+24:00');
+			$dv = SMWDataValueFactory::newTypeIDValue('_dat',$dv->getWikiValue() . 'T00:00:00-24:00');
 		}
 		$month = $dv->getMonth();
 		if (strlen($month) == 1) $month = '0' . $month;
