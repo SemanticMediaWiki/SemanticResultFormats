@@ -29,20 +29,39 @@ $messages['en'] = array(
 	// format "iCalendar"
 	'srf_icalendar_link' => 'iCalendar',
 	'srf_printername_icalendar' => 'iCalendar export',
+	'srf_paramdesc_icalendartitle' => 'The title of the calendar file',
+	'srf_paramdesc_icalendardescription' => 'The description of the calendar file',
 	// format "BibTeX"
 	'srf_bibtex_link'    => 'BibTeX',
 	'srf_printername_bibtex' => 'BibTeX export',
 	// format "outline"
 	'srf_outline_novalue' => 'No value',
 	'srf_printername_outline' => 'Outline',
+	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
 	// format "math"
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
 	'srf_printername_min' => 'Maximum number',
 	'srf_printername_max' => 'Minimum number',
+	'srf_paramdesc_limit' => 'The maximum number of pages to query',
 	// format "timeline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
+	'srf_paramdesc_timelinebands' => 'Defines which bands are displayed in the result.',
+	'srf_paramdesc_timelineposition' => 'Defines where the timeline initially focuses at.',
+	'srf_paramdesc_timelinestart' => 'A property name used to define a first time point',
+	'srf_paramdesc_timelineend' => 'A property name used to define a second time point',
+	'srf_paramdesc_timelinesize' => 'The height of the timeline (default is 300px)',
+
+	// format "Exhibit"
+	'srf_paramdesc_views' => 'The views to be displayed',
+	'srf_paramdesc_facets' => 'The set of properties to be displayed for each page',
+	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
+	// format "googlebar" and "googlepie"
+	'srf_printername_googlebar' => 'Google bar chart',
+	'srf_printername_googlepie' => 'Google pie chart',
+	'srf_paramdesc_chartheight' => 'The height of the chart, in pixels',
+	'srf_paramdesc_chartwidth' => 'The width of the chart, in pixels',
 );
 
 /** Message documentation (Message documentation)
