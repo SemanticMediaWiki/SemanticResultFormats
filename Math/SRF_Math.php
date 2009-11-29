@@ -86,4 +86,10 @@ class SRFMath extends SMWResultPrinter {
 		return $result;
 	}
 
+        public function getParameters() {
+                return array(
+                        array('name' => 'limit', 'type' => 'int', 'description' => wfMsg('srf_paramdesc_limit')),
+		);
+	}
+
 }
