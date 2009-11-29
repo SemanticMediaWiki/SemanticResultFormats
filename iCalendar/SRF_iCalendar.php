@@ -166,5 +166,12 @@ class SRFiCalendar extends SMWResultPrinter {
 		return $result;
 	}
 
+	public function getParameters() {
+		$params = parent::exportFormatParameters();
+		$params[] = array('name' => 'icalendartitle', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_icalendartitle'));
+		$params[] = array('name' => 'icalendardescription', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_icalendardescription'));
+		return $params;
+	}
+
 }
 
