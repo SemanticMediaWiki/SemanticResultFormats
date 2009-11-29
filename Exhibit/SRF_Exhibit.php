@@ -337,4 +337,13 @@ class SRFExhibit extends SMWResultPrinter {
 		SRFExhibit::$exhibitRunningNumber++;
 		return $result;
 	}
+
+	public function getParameters() {
+		$params = parent::getParameters();
+		$params[] = array('name' => 'views', 'type' => 'enum-list', 'description' => wfMsg('srf_paramdesc_views'), 'values' => array('tiles', 'tabular', 'timeline', 'maps'));
+		$params[] = array('name' => 'facets', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_facets'));
+		$params[] = array('name' => 'lens', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_lens'));
+		return $params;
+	}
+
 }
