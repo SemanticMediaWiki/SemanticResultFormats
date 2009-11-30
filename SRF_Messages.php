@@ -428,6 +428,7 @@ $messages['fi'] = array(
  * @author Crochet.david
  * @author Grondin
  * @author IAlex
+ * @author PieRRoMaN
  * @author Urhixidur
  */
 $messages['fr'] = array(
@@ -442,15 +443,31 @@ $messages['fr'] = array(
 	'srf_printername_vcard' => 'export en vCard',
 	'srf_icalendar_link' => 'iCalendrier',
 	'srf_printername_icalendar' => 'export en iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Le titre du fichier calendrier',
+	'srf_paramdesc_icalendardescription' => 'La description du fichier calendrier',
 	'srf_printername_bibtex' => 'export en BibTeX',
 	'srf_outline_novalue' => 'Aucune valeur',
 	'srf_printername_outline' => 'esquisse',
+	'srf_paramdesc_outlineproperties' => 'La liste des propriétés à afficher comme en-têtes, séparées par des virgules',
 	'srf_printername_sum' => 'Somme de nombres',
 	'srf_printername_average' => 'Moyenne des nombres',
 	'srf_printername_min' => 'Nombre maximal',
 	'srf_printername_max' => 'Nombre minimal',
+	'srf_paramdesc_limit' => 'Le nombre maximum de pages à rechercher',
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie des événements',
+	'srf_paramdesc_timelinebands' => 'Définit quels groupes sont affichées dans les résultats.',
+	'srf_paramdesc_timelineposition' => 'Définit la zone de la frise initialement centrée.',
+	'srf_paramdesc_timelinestart' => 'Un nom de propriété utilisé pour définir un point de démarrage',
+	'srf_paramdesc_timelineend' => 'Un nom de propriété utilisé pour définir un point de seconde date',
+	'srf_paramdesc_timelinesize' => 'La hauteur de la frise (300px par défaut)',
+	'srf_paramdesc_views' => 'Les vues à afficher',
+	'srf_paramdesc_facets' => "L'ensemble des propriétés à afficher pour chaque page",
+	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
+	'srf_printername_googlebar' => 'Diagramme à barres de Google',
+	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
+	'srf_paramdesc_chartheight' => 'La hauteur du diagramme, en pixels',
+	'srf_paramdesc_chartwidth' => 'La largeur du diagramme, en pixels',
 );
 
 /** Galician (Galego)
@@ -501,15 +518,31 @@ $messages['gsw'] = array(
 	'srf_printername_calendar' => 'Monetlige Kaländer',
 	'srf_printername_vcard' => 'vCard-Export',
 	'srf_printername_icalendar' => 'iCalendar-Export',
+	'srf_paramdesc_icalendartitle' => 'Dr Titel vu dr Kaländerdatei',
+	'srf_paramdesc_icalendardescription' => 'D Bschryybig vu dr Kaländerdatei',
 	'srf_printername_bibtex' => 'BibTeX-Export',
 	'srf_outline_novalue' => 'Kei Wärt',
 	'srf_printername_outline' => 'Entwurf',
+	'srf_paramdesc_outlineproperties' => 'D Lischt vu dr Eigeschafte, wu as Ibersichts-Chopftext aazeigt wird, dur Komma trännt',
 	'srf_printername_sum' => 'Zahl vu Nummere',
 	'srf_printername_average' => 'Durschnitt vu Nummere',
 	'srf_printername_min' => 'Hegschti Nummere',
 	'srf_printername_max' => 'Niderschti Nummere',
+	'srf_paramdesc_limit' => 'Di maximal Sytezahl, wu abgfrogt wird',
 	'srf_printername_timeline' => 'Zytlyschte',
 	'srf_printername_eventline' => 'Ereignislyschte',
+	'srf_paramdesc_timelinebands' => 'Definiert d Gränze vu dr aazeigte Ergebnis.',
+	'srf_paramdesc_timelineposition' => 'Definiert dr Schwärpunkt vu dr Zytachse.',
+	'srf_paramdesc_timelinestart' => 'Dr Name vu dr Eigeschaft, wu dr erscht Zytpunkt definiert',
+	'srf_paramdesc_timelineend' => 'Dr Name vu dr Eigenschaft, wu dr zwet Zytpunkt definiert',
+	'srf_paramdesc_timelinesize' => 'D Hechi vu dr Zytachse (Standard: 300 px)',
+	'srf_paramdesc_views' => 'D Ibersichte, wu aazeigt wäre',
+	'srf_paramdesc_facets' => 'D Eigeschafte, wu uf jedere Syte solle aazeigt wäre',
+	'srf_paramdesc_lens' => 'Dr Name vu dr Vorlag, wu Syteneigeschafte dermit aazeigt wäre',
+	'srf_printername_googlebar' => 'Google-Syylediagramm',
+	'srf_printername_googlepie' => 'Google-Kreisdiagramm',
+	'srf_paramdesc_chartheight' => 'D Hechi vum Diagramm, in Pixel',
+	'srf_paramdesc_chartwidth' => 'D Breiti vum Diagramm, in Pixel',
 );
 
 /** Manx (Gaelg)
@@ -851,7 +884,7 @@ $messages['nl'] = array(
 	'srf_printername_bibtex' => 'Naar BibTeX exporteren',
 	'srf_outline_novalue' => 'Geen waarde',
 	'srf_printername_outline' => 'Outline',
-	'srf_paramdesc_outlineproperties' => 'De koomagescheiden lijst met eigenschappen die weergegeven moet worden als "outline header"',
+	'srf_paramdesc_outlineproperties' => 'De koomagescheiden lijst met eigenschappen die weergegeven moet worden als overzichtskoptekst',
 	'srf_printername_sum' => 'Som van getallen',
 	'srf_printername_average' => 'Gemiddelde van getallen',
 	'srf_printername_min' => 'Hoogste getal',
