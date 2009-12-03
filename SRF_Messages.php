@@ -167,6 +167,15 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_timelinebands' => 'Вызначае, якія дыяпазоны будуць паказаныя ў выніку.',
 	'srf_paramdesc_timelineposition' => 'Вызначае, якое месца шкалы часу будзе паказвацца спачатку.',
 	'srf_paramdesc_timelinestart' => 'Назва ўласьцівасьці, якая выкарыстоўваецца як першы пункт часу',
+	'srf_paramdesc_timelineend' => 'Назва ўласьцівасьці, якая выкарыстоўваецца для вызначэньня другога пункту часу',
+	'srf_paramdesc_timelinesize' => 'Вышыня шкалы часу (па змоўчваньні 300пкс)',
+	'srf_paramdesc_views' => 'Прагляды для паказу',
+	'srf_paramdesc_facets' => 'Набор ўласьцівасьцяў для паказу на кожнай старонцы',
+	'srf_paramdesc_lens' => 'Назва шаблёну для паказу ўласьцівасьцяў старонкі',
+	'srf_printername_googlebar' => 'Слупковая дыяграма Google',
+	'srf_printername_googlepie' => 'Кругавая дыяграма Google',
+	'srf_paramdesc_chartheight' => 'Вышыня дыяграмы ў піксэлях',
+	'srf_paramdesc_chartwidth' => 'Шырыня дыяграмы ў піксэлях',
 );
 
 /** Bulgarian (Български)
@@ -251,6 +260,7 @@ $messages['ca'] = array(
 );
 
 /** German (Deutsch)
+ * @author DaSch
  * @author Krabina
  * @author Purodha
  * @author Umherirrender
@@ -265,6 +275,8 @@ $messages['de'] = array(
 	'srf_printername_calendar' => 'Monatlicher Kalendar',
 	'srf_printername_vcard' => 'vCard Export',
 	'srf_printername_icalendar' => 'iCalendar Export',
+	'srf_paramdesc_icalendartitle' => 'Titel der Kalender-Datei',
+	'srf_paramdesc_icalendardescription' => 'Beschreibung der Kalender-Datei',
 	'srf_printername_bibtex' => 'BibTeX Export',
 	'srf_outline_novalue' => 'Kein Wert',
 	'srf_printername_outline' => 'Gliederung',
@@ -274,6 +286,11 @@ $messages['de'] = array(
 	'srf_printername_max' => 'Minimale Zahl',
 	'srf_printername_timeline' => 'Zeitlinie',
 	'srf_printername_eventline' => 'Eventlinie',
+	'srf_paramdesc_timelinesize' => 'Höhe der Zeitleiste (Standard ist 300px)',
+	'srf_printername_googlebar' => 'Google Säulen-Diagramm',
+	'srf_printername_googlepie' => 'Google Torten-Diagramm',
+	'srf_paramdesc_chartheight' => 'Höhe des Charts, in Pixeln',
+	'srf_paramdesc_chartwidth' => 'Breite des Charts, in Pixeln',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -668,7 +685,7 @@ $messages['hu'] = array(
  * @author McDutchie
  */
 $messages['ia'] = array(
-	'srf-desc' => 'Formatos additional pro incorporar consultas a Semantic MediaWiki',
+	'srf-desc' => 'Formatos additional pro incorporar consultas de Semantic MediaWiki',
 	'srf-name' => 'Formatos de resultatos semantic',
 	'srfc_previousmonth' => 'Mense precedente',
 	'srfc_nextmonth' => 'Mense sequente',
@@ -677,15 +694,31 @@ $messages['ia'] = array(
 	'srf_printername_calendar' => 'Calendario mensual',
 	'srf_printername_vcard' => 'Exportation in vCard',
 	'srf_printername_icalendar' => 'Exportation in iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Le titulo del file del calendario',
+	'srf_paramdesc_icalendardescription' => 'Le description del file del calendario',
 	'srf_printername_bibtex' => 'Exportation in BibTeX',
 	'srf_outline_novalue' => 'Nulle valor',
 	'srf_printername_outline' => 'Schizzo',
+	'srf_paramdesc_outlineproperties' => 'Le lista de proprietates a presentar como capites de structura, separate per commas',
 	'srf_printername_sum' => 'Total del numeros',
 	'srf_printername_average' => 'Media del numeros',
 	'srf_printername_min' => 'Numero maxime',
 	'srf_printername_max' => 'Numeros minime',
+	'srf_paramdesc_limit' => 'Le numero maxime de paginas a consultar',
 	'srf_printername_timeline' => 'Chronologia',
 	'srf_printername_eventline' => 'Chronologia de eventos',
+	'srf_paramdesc_timelinebands' => 'Defini qual bandas es monstrate in le resultato.',
+	'srf_paramdesc_timelineposition' => 'Defini ubi le chronologia se concentra initialmente.',
+	'srf_paramdesc_timelinestart' => 'Un nomine de proprietate usate pro definir un prime puncto de tempore',
+	'srf_paramdesc_timelineend' => 'Un nomine de proprietate usate pro definir un secunde puncto de tempore',
+	'srf_paramdesc_timelinesize' => 'Le altitude del chronologia (predefinition es 300px)',
+	'srf_paramdesc_views' => 'Le vistas a monstrar',
+	'srf_paramdesc_facets' => 'Le insimul de proprietates a monstrar pro cata pagina',
+	'srf_paramdesc_lens' => 'Le nomine de un patrono con le qual monstrar le proprietates de pagina',
+	'srf_printername_googlebar' => 'Diagramma a barras de Google',
+	'srf_printername_googlepie' => 'Diagramma circular de Google',
+	'srf_paramdesc_chartheight' => 'Le altitude del diagramma, in pixeles',
+	'srf_paramdesc_chartwidth' => 'Le latitude del diagramma, in pixeles',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -749,6 +782,12 @@ $messages['ja'] = array(
 	'srf_paramdesc_limit' => '問い合わせする最大のページ数',
 	'srf_printername_timeline' => '時系列',
 	'srf_printername_eventline' => '事象系列',
+	'srf_paramdesc_timelinesize' => 'タイムラインの縦幅 (既定では300ピクセル)',
+	'srf_paramdesc_lens' => 'ページのプロパティーとともに表示するテンプレートの名前',
+	'srf_printername_googlebar' => 'Google 棒グラフ',
+	'srf_printername_googlepie' => 'Google 円グラフ',
+	'srf_paramdesc_chartheight' => 'グラフの縦幅 (ピクセル単位)',
+	'srf_paramdesc_chartwidth' => 'グラフの横幅 (ピクセル単位)',
 );
 
 /** Javanese (Basa Jawa)
@@ -892,6 +931,7 @@ $messages['nah'] = array(
 
 /** Dutch (Nederlands)
  * @author GerardM
+ * @author McDutchie
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -918,7 +958,7 @@ $messages['nl'] = array(
 	'srf_printername_timeline' => 'Tijdlijn',
 	'srf_printername_eventline' => 'Gebeurtenissenlijn',
 	'srf_paramdesc_timelinebands' => 'Geeft aan welke banden in het resultaat weergegeven moeten worden.',
-	'srf_paramdesc_timelineposition' => 'Geeft aan waar de tijdlijn initieel op focust.',
+	'srf_paramdesc_timelineposition' => 'Geeft aan waar de tijdlijn zich aanvankelijk op richt.',
 	'srf_paramdesc_timelinestart' => 'De naam van een eigenschap die wordt gebruikt om het eerst punt in de tijd te bepalen',
 	'srf_paramdesc_timelineend' => 'De naam van een eigenschap die wordt gebruikt om het tweede punt in de tijd te bepalen',
 	'srf_paramdesc_timelinesize' => 'De hoogte van de tijdlijn (standaard is 300 pixels)',
