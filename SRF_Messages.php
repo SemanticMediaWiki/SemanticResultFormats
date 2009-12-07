@@ -65,6 +65,7 @@ $messages['en'] = array(
 );
 
 /** Message documentation (Message documentation)
+ * @author Purodha
  * @author Raymond
  * @author Siebrand
  * @author Umherirrender
@@ -76,6 +77,8 @@ $messages['qqq'] = array(
 	'srf_bibtex_link' => '{{optional}}',
 	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query. 
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
+	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
+	'srf_paramdesc_timelinebands' => 'Available bands are DECADE, YEAR, MONTH, WEEK, and DAY. For details see http://semantic-mediawiki.org/wiki/Help:Timeline_format',
 );
 
 /** Afrikaans (Afrikaans)
@@ -510,15 +513,31 @@ $messages['gl'] = array(
 	'srf_printername_vcard' => 'Exportación en vCard',
 	'srf_icalendar_link' => 'iCalendario',
 	'srf_printername_icalendar' => 'Exportación en iCalendar',
+	'srf_paramdesc_icalendartitle' => 'O título do ficheiro de calendario',
+	'srf_paramdesc_icalendardescription' => 'A descrición do ficheiro de calendario',
 	'srf_printername_bibtex' => 'Exportación en BibTeX',
 	'srf_outline_novalue' => 'Sen valor',
 	'srf_printername_outline' => 'Esquema',
+	'srf_paramdesc_outlineproperties' => 'A lista de propiedades a mostrar como cabeceiras de contorno, separadas por comas',
 	'srf_printername_sum' => 'Suma dos números',
 	'srf_printername_average' => 'Media dos números',
 	'srf_printername_min' => 'Número máximo',
 	'srf_printername_max' => 'Número mínimo',
+	'srf_paramdesc_limit' => 'O número máximo de páxinas a pescudar',
 	'srf_printername_timeline' => 'Liña do tempo',
 	'srf_printername_eventline' => 'Liña do evento',
+	'srf_paramdesc_timelinebands' => 'Define as bandas que se mostrarán no resultado.',
+	'srf_paramdesc_timelineposition' => 'Define onde se fixará inicialmente a liña do tempo.',
+	'srf_paramdesc_timelinestart' => 'Un nome de propiedade usado para definir un primeiro punto de tempo',
+	'srf_paramdesc_timelineend' => 'Un nome de propiedade usado para definir un segundo punto de tempo',
+	'srf_paramdesc_timelinesize' => 'A altura da liña do tempo (por defecto, 300px)',
+	'srf_paramdesc_views' => 'As vistas a mostrar',
+	'srf_paramdesc_facets' => 'O conxunto de propiedades a mostrar en cada páxina',
+	'srf_paramdesc_lens' => 'O nome dun modelo co que mostrar as propiedades da páxina',
+	'srf_printername_googlebar' => 'Gráfico de barras do Google',
+	'srf_printername_googlepie' => 'Gráfico circular do Google',
+	'srf_paramdesc_chartheight' => 'A altura do gráfico, en píxeles',
+	'srf_paramdesc_chartwidth' => 'O largo do gráfico, en píxeles',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -555,7 +574,7 @@ $messages['gsw'] = array(
 	'srf_paramdesc_limit' => 'Di maximal Sytezahl, wu abgfrogt wird',
 	'srf_printername_timeline' => 'Zytlyschte',
 	'srf_printername_eventline' => 'Ereignislyschte',
-	'srf_paramdesc_timelinebands' => 'Definiert d Gränze vu dr aazeigte Ergebnis.',
+	'srf_paramdesc_timelinebands' => 'Definiert d Skalierig, wu d Ergebnis aazeigt wäre.',
 	'srf_paramdesc_timelineposition' => 'Definiert dr Schwärpunkt vu dr Zytachse.',
 	'srf_paramdesc_timelinestart' => 'Dr Name vu dr Eigeschaft, wu dr erscht Zytpunkt definiert',
 	'srf_paramdesc_timelineend' => 'Dr Name vu dr Eigenschaft, wu dr zwet Zytpunkt definiert',
@@ -723,6 +742,7 @@ $messages['ia'] = array(
 
 /** Indonesian (Bahasa Indonesia)
  * @author Bennylin
+ * @author Farras
  */
 $messages['id'] = array(
 	'srf-desc' => 'Format tambahan untuk kueri Semantik MediaWiki',
@@ -734,15 +754,31 @@ $messages['id'] = array(
 	'srf_printername_calendar' => 'Kalender bulanan',
 	'srf_printername_vcard' => 'Ekspor vCard',
 	'srf_printername_icalendar' => 'Ekspor iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Judul berkas kalender',
+	'srf_paramdesc_icalendardescription' => 'Deskripsi berkas kalender',
 	'srf_printername_bibtex' => 'Ekspor BibTeX',
 	'srf_outline_novalue' => 'Tanpa nilai',
 	'srf_printername_outline' => 'Ikhtisar',
+	'srf_paramdesc_outlineproperties' => 'Daftar properti yang akan ditampilkan sebagai kepala luar, dipisah oleh koma',
 	'srf_printername_sum' => 'Jumlah angka',
 	'srf_printername_average' => 'Angka rata-rata',
 	'srf_printername_min' => 'Angka maksimum',
 	'srf_printername_max' => 'Angka minimum',
+	'srf_paramdesc_limit' => 'Jumlah maksimal halaman yang dicari',
 	'srf_printername_timeline' => 'Garis waktu',
 	'srf_printername_eventline' => 'Garis kejadian',
+	'srf_paramdesc_timelinebands' => 'Menetapkan tanda yang mana yang ditampilkan di hasil.',
+	'srf_paramdesc_timelineposition' => 'Menetapkan tempat fokus awal garis waktu.',
+	'srf_paramdesc_timelinestart' => 'Nama properti untuk menetapkan titik waktu pertama',
+	'srf_paramdesc_timelineend' => 'Nama properti untuk menetapkan titik waktu kedua',
+	'srf_paramdesc_timelinesize' => 'Tinggi garis waktu (umumnya 200px)',
+	'srf_paramdesc_views' => 'Pandangan yang akan ditampilkan',
+	'srf_paramdesc_facets' => 'Rangkaian properti untuk ditampilkan di setiap halaman',
+	'srf_paramdesc_lens' => 'Nama templat untuk menampilkan properti halaman',
+	'srf_printername_googlebar' => 'Grafik batang Google',
+	'srf_printername_googlepie' => 'Grafik pai Google',
+	'srf_paramdesc_chartheight' => 'Tinggi grafik, dalam piksel',
+	'srf_paramdesc_chartwidth' => 'Lebar grafik, dalam piksel',
 );
 
 /** Italian (Italiano)
@@ -775,6 +811,7 @@ $messages['ja'] = array(
 	'srf_printername_bibtex' => 'BibTeX形式で書き出し',
 	'srf_outline_novalue' => '値なし',
 	'srf_printername_outline' => 'アウトライン',
+	'srf_paramdesc_outlineproperties' => 'アウトラインの見出しとして表示されるプロパティーのリスト。コンマ区切り',
 	'srf_printername_sum' => '数の合計',
 	'srf_printername_average' => '数の平均',
 	'srf_printername_min' => '最大数',
@@ -782,10 +819,12 @@ $messages['ja'] = array(
 	'srf_paramdesc_limit' => '問い合わせする最大のページ数',
 	'srf_printername_timeline' => '時系列',
 	'srf_printername_eventline' => '事象系列',
+	'srf_paramdesc_timelinebands' => '出力結果にどの時間単位を表示するか定義する。',
 	'srf_paramdesc_timelineposition' => '初期状態でタイムラインがどこにフォーカスしているか定義する。',
 	'srf_paramdesc_timelinestart' => '最初の時点を定義するプロパティーの名前',
 	'srf_paramdesc_timelineend' => '2番目の時点を定義するプロパティーの名前',
 	'srf_paramdesc_timelinesize' => 'タイムラインの縦幅 (既定では300ピクセル)',
+	'srf_paramdesc_views' => '表示されるビュー',
 	'srf_paramdesc_facets' => '各ページで表示するプロパティーの集合',
 	'srf_paramdesc_lens' => 'ページのプロパティーとともに表示するテンプレートの名前',
 	'srf_printername_googlebar' => 'Google 棒グラフ',
@@ -836,7 +875,7 @@ $messages['ksh'] = array(
 	'srf_printername_bibtex' => 'Expoot em <i lang="en">BibTeX</i>-Fommaat',
 	'srf_outline_novalue' => 'Keine Wäät',
 	'srf_printername_outline' => 'Övverblecks_Leß',
-	'srf_paramdesc_outlineproperties' => 'De Leß met Eijeschaffte, di als Övverschreffte för outlines aanjezeijsch wääde sulle, met Kommas dozwesche',
+	'srf_paramdesc_outlineproperties' => 'De Leß met Eijeschaffte, di als Övverschreffte för en Jlidderung aanjezeijsch wääde sulle, met Kommas dozwesche',
 	'srf_printername_sum' => 'De Zahle zosammejetrocke',
 	'srf_printername_average' => 'Der Schnett vun dä Zahle',
 	'srf_printername_min' => 'De kleinßte Nommer',
@@ -844,6 +883,7 @@ $messages['ksh'] = array(
 	'srf_paramdesc_limit' => 'De jrüüßte Zahl Sigge för dren ze söhke',
 	'srf_printername_timeline' => 'De Reih noh de Zigk',
 	'srf_printername_eventline' => 'De Reih noh dämm, wat vörjekumme es',
+	'srf_paramdesc_timelinebands' => 'Jitt aan, wat för en Zickraster aanjezeijsch wääde sulle.',
 	'srf_paramdesc_timelineposition' => 'Läät faß, woh de Zicklinnesch et eetz drop ußjereschdt es.',
 	'srf_paramdesc_timelinestart' => 'Ene Eijeschaff iere Name, di jebruch weed, öm ene eezte Zickpungk faßzelääje',
 	'srf_paramdesc_timelineend' => 'Ene Eijeschaff iere Name, di jebruch weed, öm ene zweijte Zickpungk faßzelääje',
@@ -890,6 +930,46 @@ $messages['lt'] = array(
 	'srfc_nextmonth' => 'Ateinantis mėnuo',
 	'srfc_today' => 'Šiandien',
 	'srfc_gotomonth' => 'Eiti į mėnesį',
+);
+
+/** Macedonian (Македонски)
+ * @author Bjankuloski06
+ */
+$messages['mk'] = array(
+	'srf-desc' => 'Дополнителни формати за барања од Semantic MediaWiki',
+	'srf-name' => 'Семантички формати на резултати',
+	'srfc_previousmonth' => 'Претходен месец',
+	'srfc_nextmonth' => 'Следен месец',
+	'srfc_today' => 'Денес',
+	'srfc_gotomonth' => 'Оди на месецот',
+	'srf_printername_calendar' => 'Месечен календар',
+	'srf_printername_vcard' => 'Извоз на vCard',
+	'srf_printername_icalendar' => 'Извоз на iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Насловот на податотеката на календарот',
+	'srf_paramdesc_icalendardescription' => 'Описот на податотеката на календарот',
+	'srf_printername_bibtex' => 'Извоз на BibTeX',
+	'srf_outline_novalue' => 'Нема вредност',
+	'srf_printername_outline' => 'Преглед',
+	'srf_paramdesc_outlineproperties' => 'Листа на својствата за прикажување како заглавија, разделени со запирки',
+	'srf_printername_sum' => 'Збир од броевите',
+	'srf_printername_average' => 'Просек од броевите',
+	'srf_printername_min' => 'Максимален број',
+	'srf_printername_max' => 'Минимален број',
+	'srf_paramdesc_limit' => 'Максимален број на страници кои можат да се пребараат',
+	'srf_printername_timeline' => 'Хронологија',
+	'srf_printername_eventline' => 'Преглед на настани',
+	'srf_paramdesc_timelinebands' => 'Определува кои ленти ќе се прикажуваат во резултатот.',
+	'srf_paramdesc_timelineposition' => 'Определува каде временската скала најпрвин ќе се фокусира.',
+	'srf_paramdesc_timelinestart' => 'Име на својството кое се користи за определување на првата временска точка',
+	'srf_paramdesc_timelineend' => 'Име на својството кое се користи за определување на втората временска точка',
+	'srf_paramdesc_timelinesize' => 'Висината на временската скала (300px по посновно)',
+	'srf_paramdesc_views' => 'Погледите за прикажување',
+	'srf_paramdesc_facets' => 'Збирот својства кои ќе се прикажуваат на секоја страница',
+	'srf_paramdesc_lens' => 'Името на шаблонот со кој ќе се прикажат својствата на страницата',
+	'srf_printername_googlebar' => 'Столбен дијаграм од Google',
+	'srf_printername_googlepie' => 'Кружен дијаграм од Google',
+	'srf_paramdesc_chartheight' => 'Висината на дијаграмот, во пиксели',
+	'srf_paramdesc_chartwidth' => 'Ширината на дијаграмот, во пиксели',
 );
 
 /** Malayalam (മലയാളം)
