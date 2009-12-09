@@ -26,7 +26,7 @@ class SRFExhibit extends SMWResultPrinter {
 
 	///function aligns the format of SMW's property names to Exhibit's format
 	protected function encodePropertyName($property){
-		return strtolower(str_replace(" ","_",$property));
+		return strtolower(str_replace(" ","_",trim($property)));
 	}
 
 	///implements an algorithm for automatic determination of a suitable intervall for numeric facets
@@ -35,7 +35,7 @@ class SRFExhibit extends SMWResultPrinter {
 		while($row = $res->getNext()){
 			$tmp = clone $row[$fieldcounter];
 			$object = $tmp->getNextObject();
-			if($object instanceof SMWNumberValue) $valuestack[] = $object->getNumericValue(); 
+			if($object instanceof SMWNumberValue) $valuestack[] = $object->getNumericValue();
 		}
 		if(sizeof($valuestack) > 0){
 			$average = (int)((max($valuestack) - min($valuestack))/2);
@@ -43,7 +43,7 @@ class SRFExhibit extends SMWResultPrinter {
 		}
 		else $retval = 0;
 		return $retval;
-	}	
+	}
 
 	protected function determineNamespace($res){
 		$row = $res->getNext();
@@ -58,7 +58,7 @@ class SRFExhibit extends SMWResultPrinter {
 				}
 			}
 			return "";
-		} 
+		}
 	}
 
 	protected function getResultText($res, $outputmode) {
@@ -66,6 +66,57 @@ class SRFExhibit extends SMWResultPrinter {
 		global $smwgIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $smwgScriptPath, $srfgIP, $srfgScriptPath;
 
 		wfLoadExtensionMessages('SemanticMediaWiki');
+
+
+		////////////////////////////////
+		/////////REMOTE STUFF///////////
+		////////////////////////////////
+
+		$remote=false;
+
+		//in case the remote parameter is set, a link to the JSON export of the remote wiki is included in the header as data source for Exhibit
+		//this section creates the link
+		if(array_key_exists('remote', $this->m_params) && srfgExhibitRemote==true){
+
+			$remote=true;
+
+			//fetch interwiki link
+			$list = array();
+			$dbr  = &wfGetDB(DB_SLAVE);
+			$cl   = $dbr->tableName('interwiki');
+			$dbres  = $dbr->select($cl, 'iw_url', "iw_prefix='". $this->m_params['remote']."'", __METHOD__, array());
+			$row = $dbr->fetchRow($dbres);
+			$extlinkpattern = $row[iw_url];
+			$dbr->freeResult($dbres);
+
+			$newheader = '<link rel="exhibit/data" type="application/jsonp" href="';
+			$link = $res->getQueryLink('JSON Link');
+			$link->setParameter('json','format');
+
+			if(array_key_exists('callback', $this->m_params)){ //check if a special name for the callback function is set, if not stick with 'callback'
+				$callbackfunc = $this->m_params['callback'];
+			} else {
+				$callbackfunc = 'callback';
+			}
+
+			if(array_key_exists('limit', $this->m_params)){
+				$link->setParameter($this->m_params['limit'],'limit');
+			}
+
+			$link->setParameter($callbackfunc,'callback');
+			$link = $link->getText(2,$this->mLinker);
+
+			list($link, $trash) = explode('|',$link);
+			$link = str_replace('[[:','',$link);
+
+			$newheader .= str_replace('$1',$link, $extlinkpattern);
+			$newheader .='" ex:jsonp-callback="'.$callbackfunc.'"';
+			$newheader .= '/>';
+
+			SMWOutputs::requireHeadItem('REMOTE', $newheader);
+		}
+
+
 
 		//the following variables indicate the use of special views
 		//the variable's values define the way Exhibit is called
@@ -83,15 +134,15 @@ class SRFExhibit extends SMWResultPrinter {
 		}
 		array_shift($colstack);
 		array_unshift($colstack, 'label');
-	
+
 		if(SRFExhibit::$exhibitRunningNumber == 0){
-			$sourcesrc = "var sources = { source".($smwgIQRunningNumber-1).": { id:  'querytable".$smwgIQRunningNumber."' , columns: '".implode(',',$colstack)."'.split(','), hideTable: '1', type: 'Item', label: 'Item', pluralLabel: 'Items' } };";
+			$sourcesrc = "var ex_sources = { source".($smwgIQRunningNumber-1).": { id:  'querytable".$smwgIQRunningNumber."' , columns: '".implode(',',$colstack)."'.split(','), hideTable: '1', type: 'Item', label: 'Item', pluralLabel: 'Items' } };";
 		}
 		else{
 			$sourcesrc = "sources.source".$smwgIQRunningNumber." =  { id:  'querytable".$smwgIQRunningNumber."' , columns: '".implode(',',$colstack)."'.split(','), hideTable: '1', type: 'Item', label: 'Item', pluralLabel: 'Items' };";
 		}
 		$sourcesrc = "<script type=\"text/javascript\">".$sourcesrc."</script>";
-		
+
 		//prepare facets
 		$facetcounter = 0;
 		if(array_key_exists('facets', $this->m_params)){
@@ -110,10 +161,10 @@ class SRFExhibit extends SMWResultPrinter {
 						switch($pr->getTypeID()){
 							case '_num':
 								$intervall = $this->determineSuitableInterval(clone $res,$facet,$fieldcounter);
-								$facetstack[] = ' facet'.$facetcounter++.': { position : "right", innerHTML: \'ex:role="facet" ex:showMissing="false" ex:facetClass="NumericRange"  ex:interval="'.$intervall.'" '.implode(" ",$facparams).' ex:expression=".'.$this->encodePropertyName($facet).'"\'}';  
+								$facetstack[] = ' facet'.$facetcounter++.': { position : "right", innerHTML: \'ex:role="facet" ex:showMissing="false" ex:facetClass="NumericRange"  ex:interval="'.$intervall.'" '.implode(" ",$facparams).' ex:expression=".'.$this->encodePropertyName($facet).'"\'}';
 								break;
 							default:
-								$facetstack[] = ' facet'.$facetcounter++.': { position : "right", innerHTML: \'ex:role="facet" ex:showMissing="false" '.implode(" ",$facparams).' ex:expression=".'.$this->encodePropertyName($facet).'"\'}';
+								$facetstack[] = ' facet'.$facetcounter++.': { position : "right", innerHTML: \'ex:role="facet" ex:showMissing="false" '.implode(" ",$facparams).' ex:expression=".'.$this->encodePropertyName($facet).'" ex:facetLabel="'.$this->encodePropertyName($facet).'"\'}';
 						}
 						break;
 					}
@@ -123,7 +174,7 @@ class SRFExhibit extends SMWResultPrinter {
 			$facetstring = implode(',',$facetstack);
 		}
 		else $facetstring = '';
-		$facetsrc = "var facets = {".$facetstring." };";
+		$facetsrc = "var ex_facets = {".$facetstring." };";
 
 
 		//prepare views
@@ -133,7 +184,7 @@ class SRFExhibit extends SMWResultPrinter {
 		else $views[] = 'tiles';
 
 		foreach( $views as $view ){
-			switch( $view ){
+			switch( trim($view) ){
 				case 'tabular'://table view (the columns are automatically defined by the selected properties)
 					$thstack = array();
 					foreach ($res->getPrintRequests() as $pr){
@@ -197,25 +248,45 @@ class SRFExhibit extends SMWResultPrinter {
 					}
 					break;
 				default:case 'tiles'://tile view
-					$viewstack[] = 'ex:role=\'view\' ex:showSummary=\'false\'';
+					if(array_key_exists('sort', $this->m_params)){
+						$sortfields = explode(",",$this->m_params['sort']);
+						foreach($sortfields as $field){
+							$sortkeys[] = ".".$this->encodePropertyName($field);
+						}
+						$sortstring = 'ex:orders=\''.implode(",", $sortkeys).'\' ';
+						if(array_key_exists('order', $this->m_params)) $sortstring.=' ex:directions=\''.$this->encodePropertyName($this->m_params['order']).'\'';
+						if(array_key_exists('grouped', $this->m_params)) $sortstring.=' ex:grouped=\''.$this->encodePropertyName($this->m_params['grouped']).'\'';
+					}
+					$viewstack[] = 'ex:role=\'view\' ex:showSummary=\'false\' '.$sortstring;
 					break;
 			}
 		}
 
-		$viewsrc = 'var views = "'.implode("/", $viewstack).'".split(\'/\');;';
-    
-		
+		$viewsrc = 'var ex_views = "'.implode("/", $viewstack).'".split(\'/\');;';
+
+
 
 		//prepare automatic lenses
 
 		global $wgParser;
 		$lenscounter = 0;
 		$linkcounter = 0;
+		$imagecounter = 0;
 
 		if(array_key_exists('lens', $this->m_params)){//a customized lens is specified via the lens parameter within the query
 			$lenstitle    = Title::newFromText("Template:".$this->m_params['lens']);
 			$lensarticle  = new Article($lenstitle);
 			$lenswikitext = $lensarticle->getContent();
+
+			if(preg_match_all("/[\[][\[][Ii][m][a][g][e][:][{][{][{][1-9A-z\-[:space:]]*[}][}][}][\]][\]]/u",$lenswikitext,$matches)){
+                                foreach($matches as $match){
+                                        foreach($match as $value){
+                                                $strippedvalue = trim(substr($value,8),"[[{}]]");
+                                                $lenswikitext = str_replace($value,'<div class="inlines" id="imagecontent'.$imagecounter.'">'.$this->encodePropertyName(strtolower(str_replace("\n","",$strippedvalue))).'</div>',$lenswikitext);
+                                                $imagecounter++;
+                                        }
+                                }
+                        }
 
 			if(preg_match_all("/[\[][\[][{][{][{][1-9A-z\-[:space:]]*[}][}][}][\]][\]]/u",$lenswikitext,$matches)){
 				foreach($matches as $match){
@@ -226,8 +297,8 @@ class SRFExhibit extends SMWResultPrinter {
 					}
 				}
 			}
-      
-			if (preg_match_all("/[{][{][{][1-9A-z\-[:space:]]*[}][}][}]/u",$lenswikitext,$matches)) {
+
+			if (preg_match_all("/[{][{][{][1-9A-z\:\|\/\=\-[:space:]]*[}][}][}]/u",$lenswikitext,$matches)) {
 				foreach($matches as $match){
 					foreach($match as $value){
 						$strippedvalue = trim($value,"{}");
@@ -236,44 +307,76 @@ class SRFExhibit extends SMWResultPrinter {
 					}
 				}
 			}
-	
+
 			$lenshtml = $wgParser->internalParse($lenswikitext);//$wgParser->parse($lenswikitext, $lenstitle, new ParserOptions(), true, true)->getText();
 
-			$lenssrc = "var lens = '".str_replace("\n","",$lenshtml)."';lenscounter =".$lenscounter.";linkcounter=".$linkcounter.";";
+			$lenssrc = "var ex_lens = '".str_replace("\n","",$lenshtml)."';ex_lenscounter =".$lenscounter.";ex_linkcounter=".$linkcounter.";ex_imagecounter=".$imagecounter.";";
 		} else {//generic lens (creates links to further content (property-pages, pages about values)
 			foreach ($res->getPrintRequests() as $pr){
+				if($remote){
+					$wikiurl=str_replace("$1","",$extlinkpattern);
+				} else {
+					$wikiurl=$wgScriptPath."/index.php?title=";
+				}
 				if($pr->getTypeID() == '_wpg') {
 					$prefix='';
 					if($pr->getLabel()=='Category') $prefix = "Category:";
-					$lensstack[] = '<tr ex:if-exists=".'.$this->encodePropertyName($pr->getLabel()).'"><td width="20%">'.$pr->getText(0, $this->mLinker).'</td><td width="80%" ex:content=".'.$this->encodePropertyName($pr->getLabel()).'"><a ex:href-subcontent="'.$wgScriptPath.'/index.php?title='.$prefix.'{{value}}"><div ex:content="value" class="name"></div></a></td></tr>';
+					$lensstack[] = '<tr ex:if-exists=".'.$this->encodePropertyName($pr->getLabel()).'"><td width="20%">'.$pr->getText(0, $this->mLinker).'</td><td width="80%" ex:content=".'.$this->encodePropertyName($pr->getLabel()).'"><a ex:href-subcontent="'.$wikiurl.$prefix.'{{value}}"><div ex:content="value" class="name"></div></a></td></tr>';
 				}
 				else{
 					$lensstack[] = '<tr ex:if-exists=".'.$this->encodePropertyName($pr->getLabel()).'"><td width="20%">'.$pr->getText(0, $this->mLinker).'</td><td width="80%"><div ex:content=".'.$this->encodePropertyName($pr->getLabel()).'" class="name"></div></td></tr>';
 				}
 			}
 			array_shift($lensstack);
-			$lenssrc = 'var lens = \'<table width=100% cellpadding=3><tr><th class="head" align=left bgcolor="#DDDDDD"><a ex:href-subcontent="'.$wgScriptPath.'/index.php?title='.$this->determineNamespace(clone $res).'{{.label}}" class="linkhead"><div ex:content=".label" class="name"></div></a></th></tr></table><table width="100%" cellpadding=3>'.implode("", $lensstack).'</table>\'; lenscounter = 0; linkcounter=0;';
+			$lenssrc = 'var ex_lens = \'<table width=100% cellpadding=3><tr><th class="head" align=left bgcolor="#DDDDDD"><a ex:href-subcontent="'.$wikiurl.$this->determineNamespace(clone $res).'{{.label}}" class="linkhead"><div ex:content=".label" class="name"></div></a></th></tr></table><table width="100%" cellpadding=3>'.implode("", $lensstack).'</table>\'; ex_lenscounter = 0; ex_linkcounter=0; ex_imagecounter=0;';
 		}
 
-		
+		if($remote){
+                         $varremote = 'true';
+                } else {
+                        $varremote = 'false';
+                }
+
+		//Handling special formats like date
+		$formatssrc = 'var formats =\'\'';
+		if(array_key_exists('date', $this->m_params)) $formatssrc = 'var formats = \'ex:formats="date { mode:'.$this->m_params['date'].'; show:date }"\';';
+
+		//create a URL pointing to the corresponding JSON feed
+
+		$JSONlink = $res->getQueryLink($label);
+		if ($this->getSearchLabel(SMW_OUTPUT_WIKI) != '') { // used as a file name
+			$link->setParameter($this->getSearchLabel(SMW_OUTPUT_WIKI),'searchlabel');
+		}
+		if(array_key_exists('limit', $this->m_params)) {
+			$JSONlink->setParameter(htmlspecialchars($this->m_params['limit']),'limit');
+		}
+		$JSONlink->setParameter('json','format');
+		$stringtoedit = explode("|", $JSONlink->getText($outputmode,$this->mLinker));
+		$stringtoedit = substr($stringtoedit[0],3);
+		$JSONlinksrc = "var JSONlink = '".$stringtoedit."';";
+
 		//create script header with variables containing the Exhibit markup
-		$headervars = "<script type='text/javascript'>\n\t\t\t".$facetsrc."\n\t\t\t".$viewsrc."\n\t\t\t".$lenssrc."\n\t\t\t".$stylesrc."\n</script>";
+		$headervars = "<script type='text/javascript'>\n\t\t\t".$facetsrc."\n\t\t\t".$viewsrc."\n\t\t\t".$lenssrc."\n\t\t\t".$stylesrc."\n\t\t\t".$formatssrc."\n\t\t\t".$JSONlinksrc."\n\t\t\t var remote=".$varremote.";</script>";
 
 
 		//To run Exhibit some links to the scripts of the API need to be included in the header
-		$ExhibitScriptSrc1 = '<script type="text/javascript" src="'.$srfgScriptPath.'/Exhibit/includes/src/webapp/api/exhibit-api.js?autoCreate=false&safe=true'; //former: auto create = remote
+
+		$ExhibitScriptSrc1 = '<script type="text/javascript" src="'.$srfgScriptPath.'/Exhibit/includes/src/webapp/api/exhibit-api.js?autoCreate=false&safe=true&bundle=false'; //former: auto create = remote
 		if($timeline) $ExhibitScriptSrc1 .= '&views=timeline';
 		if($map) $ExhibitScriptSrc1 .= '&gmapkey='.$wgGoogleMapsKey;
 		$ExhibitScriptSrc1 .= '"></script>';
 		$ExhibitScriptSrc2 = '<script type="text/javascript" src="'.$srfgScriptPath.'/Exhibit/SRF_Exhibit.js"></script>';
 		$CSSSrc = '<link rel="stylesheet" type="text/css" href="'.$srfgScriptPath.'/Exhibit/SRF_Exhibit.css"></link>';
-	  
+
 		SMWOutputs::requireHeadItem('CSS', $CSSSrc); //include CSS
 		SMWOutputs::requireHeadItem('EXHIBIT1', $ExhibitScriptSrc1); //include Exhibit API
 		SMWOutputs::requireHeadItem('EXHIBIT2', $ExhibitScriptSrc2); //includes javascript overwriting the Exhibit start-up functions
 		SMWOutputs::requireHeadItem('SOURCES'.$smwgIQRunningNumber, $sourcesrc);//include sources variable
 		SMWOutputs::requireHeadItem('VIEWSFACETS', $headervars);//include views and facets variable
-	  
+
+
+		if(!$remote){
+
 		//print input table
 		// print header
 		if ('broadtable' == $this->mFormat) $widthpara = ' width="100%"';
@@ -282,7 +385,9 @@ class SRFExhibit extends SMWResultPrinter {
 		if ($this->mShowHeaders) { // building headers
 			$result .= "\t<tr>\n";
 			foreach ($res->getPrintRequests() as $pr) {
-				$result .= "\t\t<th>" .$pr->getText($outputmode,$this->getLinker(0)). "</th>\n";
+				if($pr->getText($outputmode,$this->getLinker(0)) == '') $headerlabel = "Item Name";
+				else $headerlabel = $pr->getText($outputmode,$this->getLinker(0));
+				$result .= "\t\t<th>" .$headerlabel. "</th>\n";
 			}
 			$result .= "\t</tr>\n";
 		}
@@ -329,9 +434,9 @@ class SRFExhibit extends SMWResultPrinter {
 				else $result .= "</td>\n";
 			}
 			$result .= "\t</tr>\n";
-		}	
-		$result .= "</table>\n";
-    		
+		}
+		$result .= "</table>\n";}
+
 		if (SRFExhibit::$exhibitRunningNumber == 0) $result .= "<div id=\"exhibitLocation\"></div>"; // print placeholder (just print it one time)
 		$this->isHTML = ($outputmode == SMW_OUTPUT_HTML); // yes, our code can be viewed as HTML if requested, no more parsing needed
 		SRFExhibit::$exhibitRunningNumber++;
