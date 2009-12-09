@@ -1508,6 +1508,15 @@ $messages['vo'] = array(
 	'srfc_gotomonth' => 'Lü mul',
 );
 
+/** Yiddish (ייִדיש)
+ * @author פוילישער
+ */
+$messages['yi'] = array(
+	'srfc_previousmonth' => 'פֿאריגער חודש',
+	'srfc_nextmonth' => 'נעקסטער חודש',
+	'srfc_today' => 'הײַנט',
+);
+
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Gzdavidwong
  */
