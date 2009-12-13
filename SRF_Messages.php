@@ -1327,6 +1327,7 @@ $messages['ru'] = array(
 	'srf_paramdesc_timelinestart' => 'Имя свойства, используемое для определения первой временной точки',
 	'srf_paramdesc_timelineend' => 'Имя свойства, используемое для определения второй временной точки',
 	'srf_paramdesc_timelinesize' => 'Высота временной шкалы (по умолчанию 300 пикс)',
+	'srf_paramdesc_views' => 'Виды для отображения',
 	'srf_paramdesc_facets' => 'Набор свойств, отображаемых на каждой странице',
 	'srf_paramdesc_lens' => 'Название шаблона для отображения свойств страницы',
 	'srf_printername_googlebar' => 'Столбчатая диаграмма Google',
