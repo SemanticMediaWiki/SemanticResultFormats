@@ -1166,6 +1166,7 @@ $messages['pl'] = array(
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  */
 $messages['pms'] = array(
@@ -1178,31 +1179,31 @@ $messages['pms'] = array(
 	'srf_printername_calendar' => 'Armanach dël meis',
 	'srf_printername_vcard' => 'esportassion ëd vCard',
 	'srf_printername_icalendar' => "esportassion d'iCalendar",
-	'srf_paramdesc_icalendartitle' => "Ël tìtol dël file dl'armanach",
-	'srf_paramdesc_icalendardescription' => "La descrission dël file ëd l'armanach",
+	'srf_paramdesc_icalendartitle' => "Ël tìtol ëd l'archivi dël calendari",
+	'srf_paramdesc_icalendardescription' => "La descrission ëd l'achivi dël calendari",
 	'srf_printername_bibtex' => 'esportassion BibTeX',
 	'srf_outline_novalue' => 'Pa gnun valor',
 	'srf_printername_outline' => 'Fòra linia',
-	'srf_paramdesc_outlineproperties' => 'La lista ëd proprietà da visualisé com testà fòra linia, separà da virgole',
+	'srf_paramdesc_outlineproperties' => 'La lista ëd proprietà da visualisé com antestassion, separà da vìrgole',
 	'srf_printername_sum' => 'Total dij nùmer',
 	'srf_printername_average' => 'Media dij nùmer',
 	'srf_printername_min' => 'Nùmer pì gròss',
 	'srf_printername_max' => 'Nùmer pì cit',
-	'srf_paramdesc_limit' => 'Ël massim nùmer ëd pàgine da ciamé',
+	'srf_paramdesc_limit' => 'Ël nùmer màssim ëd pàgine da ciamé',
 	'srf_printername_timeline' => 'Cronologìa',
 	'srf_printername_eventline' => "Cronologìa dj'event",
-	'srf_paramdesc_timelinebands' => "A definiss che temp a son visualisà ant l'arzultà.",
-	'srf_paramdesc_timelineposition' => 'A definiss an doa la linia dël temp a part inissialment.',
+	'srf_paramdesc_timelinebands' => "A definiss che partìe a son visualisà ant l'arzultà.",
+	'srf_paramdesc_timelineposition' => 'A definiss andoa la cronologìa a part inissialment.',
 	'srf_paramdesc_timelinestart' => 'Ël nòm ëd na proprietà dovrà për definì un prim pont ëd temp',
 	'srf_paramdesc_timelineend' => 'Ël nòm ëd na proprietà dovrà për definì un secont pont ëd temp',
-	'srf_paramdesc_timelinesize' => "L'autëssa dla linia dël temp (ël default a l'é 300px)",
+	'srf_paramdesc_timelinesize' => "L'autëssa dla cronologìa (lë stàndard a l'é 300px)",
 	'srf_paramdesc_views' => 'Le viste da visualisé',
 	'srf_paramdesc_facets' => "L'ansema ëd proprietà da visualisé për minca pàgina",
 	'srf_paramdesc_lens' => 'Ël nòm ëd në stamp con ël qual visualisé le proprietà dle pàgine',
-	'srf_printername_googlebar' => 'La Google bar chart',
-	'srf_printername_googlepie' => 'La Google pie chart',
-	'srf_paramdesc_chartheight' => "L'autëssa dla chart, an pixel",
-	'srf_paramdesc_chartwidth' => 'La larghëssa dla chart, an pixel',
+	'srf_printername_googlebar' => 'Ël diagrama a bare ëd Google',
+	'srf_printername_googlepie' => 'Ël diagrama a torta ëd Google',
+	'srf_paramdesc_chartheight' => "L'autëssa dël diagrama, an pontin",
+	'srf_paramdesc_chartwidth' => 'La larghëssa dël diagrama, an pontin',
 );
 
 /** Pashto (پښتو)
