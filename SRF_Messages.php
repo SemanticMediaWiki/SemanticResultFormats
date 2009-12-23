@@ -110,15 +110,21 @@ $messages['ar'] = array(
 	'srf_printername_vcard' => 'تصدير vCard',
 	'srf_icalendar_link' => 'آي كالندر',
 	'srf_printername_icalendar' => 'تصدير iCalendar',
+	'srf_paramdesc_icalendartitle' => 'عنوان ملف النتيجة',
+	'srf_paramdesc_icalendardescription' => 'وصف ملف النتيجة',
 	'srf_bibtex_link' => 'بب تكس',
 	'srf_printername_bibtex' => 'تصدير BibTeX',
 	'srf_outline_novalue' => 'لا قيم',
+	'srf_printername_outline' => 'إطار',
+	'srf_paramdesc_outlineproperties' => 'قائمة الخصائص ليتم عرضها كعناوين عامة، مفصولة بواسطة فاصلات',
 	'srf_printername_sum' => 'مجموع الأرقام',
 	'srf_printername_average' => 'متوسط الأرقام',
 	'srf_printername_min' => 'الرقم الأقصى',
 	'srf_printername_max' => 'الرقم الأدنى',
+	'srf_paramdesc_limit' => 'أقصى عدد من الصفحات للاستعلام',
 	'srf_printername_timeline' => 'خط زمني',
 	'srf_printername_eventline' => 'خط الأحداث',
+	'srf_paramdesc_views' => 'عمليات الرؤية للعرض',
 );
 
 /** Aramaic (ܐܪܡܝܐ)
@@ -449,6 +455,10 @@ $messages['fi'] = array(
 	'srf_printername_max' => 'Pienin luku',
 	'srf_printername_timeline' => 'Aikajana',
 	'srf_printername_eventline' => 'Tapahtumajana',
+	'srf_printername_googlebar' => 'Googlen pylväskuvaaja',
+	'srf_printername_googlepie' => 'Googlen piirakkakuvaaja',
+	'srf_paramdesc_chartheight' => 'Kuvaajan korkeus pikseleinä',
+	'srf_paramdesc_chartwidth' => 'Kuvaajan leveys pikseleinä',
 );
 
 /** French (Français)
@@ -1094,6 +1104,8 @@ $messages['no'] = array(
 	'srf_printername_vcard' => 'vCard-eksport',
 	'srf_icalendar_link' => 'iKalender',
 	'srf_printername_icalendar' => 'iCalendar-eksport',
+	'srf_paramdesc_icalendartitle' => 'Tittelen på kalenderfilen',
+	'srf_paramdesc_icalendardescription' => 'Beskrivelsen av kalenderfilen',
 	'srf_printername_bibtex' => 'BibTeX-eksport',
 	'srf_outline_novalue' => 'Ingen verdi',
 	'srf_printername_sum' => 'Sum av tall',
@@ -1102,6 +1114,10 @@ $messages['no'] = array(
 	'srf_printername_max' => 'Minste tall',
 	'srf_printername_timeline' => 'Tidslinje',
 	'srf_printername_eventline' => 'Hendelseslinje',
+	'srf_printername_googlebar' => 'Google stolpediagram',
+	'srf_printername_googlepie' => 'Google kakediagram',
+	'srf_paramdesc_chartheight' => 'Høyden til diagrammet, i pixler',
+	'srf_paramdesc_chartwidth' => 'Bredden til diagrammet, i pixler',
 );
 
 /** Occitan (Occitan)
@@ -1409,6 +1425,7 @@ $messages['sr-el'] = array(
 
 /** Swedish (Svenska)
  * @author M.M.S.
+ * @author Per
  */
 $messages['sv'] = array(
 	'srfc_previousmonth' => 'Föregående månad',
@@ -1416,6 +1433,10 @@ $messages['sv'] = array(
 	'srfc_today' => 'Idag',
 	'srfc_gotomonth' => 'Gå till månad',
 	'srf_icalendar_link' => 'iKalender',
+	'srf_printername_googlebar' => 'Google stapeldiagram',
+	'srf_printername_googlepie' => 'Google tårtdiagram',
+	'srf_paramdesc_chartheight' => 'Höjden på diagrammet i pixlar',
+	'srf_paramdesc_chartwidth' => 'Bredden på diagrammet i pixlar',
 );
 
 /** Telugu (తెలుగు)
@@ -1432,6 +1453,8 @@ $messages['te'] = array(
 	'srf_printername_min' => 'గరిష్ఠ సంఖ్య',
 	'srf_printername_max' => 'కనిష్ఠ సంఖ్య',
 	'srf_printername_timeline' => 'కాలరేఖ',
+	'srf_paramdesc_chartheight' => 'చార్టు యొక్క ఎత్తు, పిక్సెళ్ళలో',
+	'srf_paramdesc_chartwidth' => 'చార్టు యొక్క వెడల్పు, పిక్సెళ్ళలో',
 );
 
 /** Tajik (Cyrillic) (Тоҷикӣ (Cyrillic))
