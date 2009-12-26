@@ -101,6 +101,8 @@ $messages['am'] = array(
  * @author OsamaK
  */
 $messages['ar'] = array(
+	'srf-desc' => 'صيغ إضافية لاستعلامات ميدياويكي الداخلية',
+	'srf-name' => 'صيغ النتائج الدلالية',
 	'srfc_previousmonth' => 'الشهر السابق',
 	'srfc_nextmonth' => 'الشهر التالي',
 	'srfc_today' => 'اليوم',
@@ -124,7 +126,18 @@ $messages['ar'] = array(
 	'srf_paramdesc_limit' => 'أقصى عدد من الصفحات للاستعلام',
 	'srf_printername_timeline' => 'خط زمني',
 	'srf_printername_eventline' => 'خط الأحداث',
+	'srf_paramdesc_timelinebands' => 'يعرف أي الفرق يتم عرضها في هذه النتيجة.',
+	'srf_paramdesc_timelineposition' => 'يعرف أين يركز الخط الزمني ابتداء.',
+	'srf_paramdesc_timelinestart' => 'اسم خاصية تستخدم لتعريف نقطة أول مرة',
+	'srf_paramdesc_timelineend' => 'اسم خاصية تستخدم لتعريف نقطة ثاني مرة',
+	'srf_paramdesc_timelinesize' => 'ارتفاع الخط الزمني (افتراضيا 300px)',
 	'srf_paramdesc_views' => 'عمليات الرؤية للعرض',
+	'srf_paramdesc_facets' => 'مجموعة الخصائص للعرض لكل صفحة',
+	'srf_paramdesc_lens' => 'اسم القالب لعرض خصائص الصفحة به',
+	'srf_printername_googlebar' => 'رسم جوجل بالأعمدة',
+	'srf_printername_googlepie' => 'رسم جوجل بالفطيرة',
+	'srf_paramdesc_chartheight' => 'ارتفاع الرسم بالبكسل',
+	'srf_paramdesc_chartwidth' => 'عرض الرسم بالبكسل',
 );
 
 /** Aramaic (ܐܪܡܝܐ)
@@ -222,7 +235,12 @@ $messages['br'] = array(
 	'srfc_nextmonth' => 'Miz a zeu',
 	'srfc_today' => 'Hiziv',
 	'srfc_gotomonth' => "Mont d'ar miz",
+	'srf_printername_calendar' => 'Deiziataer miziek',
 	'srf_printername_vcard' => 'ezporzhiañ vCard',
+	'srf_printername_icalendar' => 'Enporzh e iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Titl ar restr deiziataer',
+	'srf_paramdesc_icalendardescription' => 'Deskrivadur restr an deiziataer',
+	'srf_printername_bibtex' => 'Enporzh e BibTeX',
 	'srf_outline_novalue' => 'Talvoud ebet',
 	'srf_printername_outline' => 'Trolinenn',
 	'srf_printername_sum' => 'Sammad niveroù',
@@ -231,6 +249,10 @@ $messages['br'] = array(
 	'srf_printername_max' => 'Niver izelañ',
 	'srf_printername_timeline' => 'Kronologiezh',
 	'srf_printername_eventline' => 'Kronologiezh an darvoudoù',
+	'srf_paramdesc_timelinesize' => 'Uhelder ar frizenn (300px dre ziouer)',
+	'srf_paramdesc_views' => 'Ar gweladennoù da ziskouez',
+	'srf_paramdesc_chartheight' => 'Uhelder an diagramm, e piksel',
+	'srf_paramdesc_chartwidth' => 'Ledander an diagramm, e piksel',
 );
 
 /** Bosnian (Bosanski)
@@ -270,6 +292,7 @@ $messages['ca'] = array(
 
 /** German (Deutsch)
  * @author DaSch
+ * @author Imre
  * @author Krabina
  * @author Purodha
  * @author Umherirrender
@@ -293,9 +316,15 @@ $messages['de'] = array(
 	'srf_printername_average' => 'Durchschnittliche Zahl',
 	'srf_printername_min' => 'Maximale Zahl',
 	'srf_printername_max' => 'Minimale Zahl',
+	'srf_paramdesc_limit' => 'Die maximale Anzahl der abfragbaren Seiten',
 	'srf_printername_timeline' => 'Zeitlinie',
 	'srf_printername_eventline' => 'Eventlinie',
+	'srf_paramdesc_timelinebands' => 'Legt fest, welche Bereiche im Ergebnis angezeigt werden.',
+	'srf_paramdesc_timelineposition' => 'Legt fest, wo der Zeitstrahl anfänglich steht.',
+	'srf_paramdesc_timelinestart' => 'Ein Eigenname, der einen ersten Zeitpunkt festlegt',
+	'srf_paramdesc_timelineend' => 'Ein Eigenname, der einen zweiten Zeitpunkt festlegt',
 	'srf_paramdesc_timelinesize' => 'Höhe der Zeitleiste (Standard ist 300px)',
+	'srf_paramdesc_views' => 'Die anzuzeigenden Ansichten',
 	'srf_printername_googlebar' => 'Google Säulen-Diagramm',
 	'srf_printername_googlepie' => 'Google Torten-Diagramm',
 	'srf_paramdesc_chartheight' => 'Höhe des Charts, in Pixeln',
@@ -1114,6 +1143,13 @@ $messages['no'] = array(
 	'srf_printername_max' => 'Minste tall',
 	'srf_printername_timeline' => 'Tidslinje',
 	'srf_printername_eventline' => 'Hendelseslinje',
+	'srf_paramdesc_timelineposition' => 'Definerer hvor tidslinjen først fokuseres rundt.',
+	'srf_paramdesc_timelinestart' => 'Et egenskapsnavn brukt for å definere et første tidspunkt',
+	'srf_paramdesc_timelineend' => 'Et egenskapsnavn brukt for å definere et andre tidspunkt',
+	'srf_paramdesc_timelinesize' => 'Høyden på tidslinjen (standard er 300px)',
+	'srf_paramdesc_views' => 'Visninger som skal fremvises',
+	'srf_paramdesc_facets' => 'Egenskapssettet som skal vises for hver side',
+	'srf_paramdesc_lens' => 'Navnet på malen som skal vise frem sideegenskapene',
 	'srf_printername_googlebar' => 'Google stolpediagram',
 	'srf_printername_googlepie' => 'Google kakediagram',
 	'srf_paramdesc_chartheight' => 'Høyden til diagrammet, i pixler',
@@ -1560,12 +1596,15 @@ $messages['yi'] = array(
 
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Gzdavidwong
+ * @author Liangent
  */
 $messages['zh-hans'] = array(
 	'srfc_previousmonth' => '上月',
 	'srfc_nextmonth' => '下月',
 	'srfc_today' => '今天',
 	'srfc_gotomonth' => '跳至月份',
+	'srf_printername_min' => '最大数目',
+	'srf_printername_max' => '最小数目',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
