@@ -653,6 +653,11 @@ $messages['he'] = array(
 	'srf_printername_sum' => 'סכום של מספרים',
 	'srf_printername_average' => 'ממוצע של מספרים',
 	'srf_printername_min' => 'המספר המירבי',
+	'srf_printername_timeline' => 'ציר זמן',
+	'srf_printername_eventline' => 'ציר אירועים',
+	'srf_printername_googlepie' => 'דיאגרמת עוגה של גוגל',
+	'srf_paramdesc_chartheight' => 'גובה התרשים, בפיקסלים',
+	'srf_paramdesc_chartwidth' => 'רוחב התרשים, בפיקסלים',
 );
 
 /** Hindi (हिन्दी)
@@ -1501,6 +1506,16 @@ $messages['tg-cyrl'] = array(
 	'srfc_nextmonth' => 'Моҳи баъдӣ',
 	'srfc_today' => 'Имрӯз',
 	'srfc_gotomonth' => 'Рафтан ба моҳ',
+);
+
+/** Tajik (Latin) (Тоҷикӣ (Latin))
+ * @author Liangent
+ */
+$messages['tg-latn'] = array(
+	'srfc_previousmonth' => 'Mohi qablī',
+	'srfc_nextmonth' => "Mohi ba'dī",
+	'srfc_today' => 'Imrūz',
+	'srfc_gotomonth' => 'Raftan ba moh',
 );
 
 /** Tagalog (Tagalog)
