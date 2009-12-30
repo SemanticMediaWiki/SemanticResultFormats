@@ -434,6 +434,8 @@ $messages['es'] = array(
 	'srf_printername_calendar' => 'Calendario mensual',
 	'srf_printername_vcard' => 'Exportar vCard',
 	'srf_printername_icalendar' => 'Exportar iCalendar',
+	'srf_paramdesc_icalendartitle' => 'El título del archivo de calendario',
+	'srf_paramdesc_icalendardescription' => 'El descripción del archivo de calendario',
 	'srf_printername_bibtex' => 'Exportar BibTeX',
 	'srf_outline_novalue' => 'Sin valor',
 	'srf_printername_outline' => 'Esquema',
@@ -443,6 +445,11 @@ $messages['es'] = array(
 	'srf_printername_max' => 'Número mínimo',
 	'srf_printername_timeline' => 'Línea de tiempo',
 	'srf_printername_eventline' => 'Línea de eventos',
+	'srf_paramdesc_timelinesize' => 'La altura de la línea de tiempo (por defecto 300px)',
+	'srf_printername_googlebar' => 'Gráfico de barras de Google',
+	'srf_printername_googlepie' => 'Gráfica circular de Google',
+	'srf_paramdesc_chartheight' => 'La altura del gráfico, en píxeles',
+	'srf_paramdesc_chartwidth' => 'La anchura del gráfico, en píxeles',
 );
 
 /** Basque (Euskara)
@@ -972,6 +979,8 @@ $messages['lb'] = array(
 	'srf_paramdesc_limit' => "D'Maximal Zuel vu Säite fir ofzefroen",
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie vun den Evenementer',
+	'srf_printername_googlebar' => 'Google-Sailen-Diagramm',
+	'srf_printername_googlepie' => 'Google-Taarten-Diagramm',
 	'srf_paramdesc_chartheight' => "D'Héicht vun der Grafik, a Pixel",
 	'srf_paramdesc_chartwidth' => "D'Breet vun der Grafik, a Pixel",
 );
