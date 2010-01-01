@@ -12,6 +12,11 @@ $magicWords['ar'] = array(
 	'calendarenddate'     => array( '0', 'تاريخ_نهاية_التقويم', 'calendarenddate' ),
 );
 
+$magicWords['arz'] = array(
+	'calendarstartdate'   => array( '0', 'تاريخ_بداية_التقويم', 'calendarstartdate' ),
+	'calendarenddate'     => array( '0', 'تاريخ_نهاية_التقويم', 'calendarenddate' ),
+);
+
 $magicWords['mr'] = array(
 	'calendarstartdate'   => array( '0', 'दिनदर्शिकारंभदिन', 'calendarstartdate' ),
 	'calendarenddate'     => array( '0', 'दिनदर्शिकासांगतादिन', 'calendarenddate' ),
