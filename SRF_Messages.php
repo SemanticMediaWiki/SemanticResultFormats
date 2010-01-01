@@ -1585,12 +1585,29 @@ $messages['tl'] = array(
 /** Turkish (Türkçe)
  * @author Joseph
  * @author Karduelis
+ * @author Vito Genovese
  */
 $messages['tr'] = array(
+	'srf-name' => 'Anlamsal Sonuç Bilimleri',
 	'srfc_previousmonth' => 'Önceki ay',
 	'srfc_nextmonth' => 'Sonraki ay',
 	'srfc_today' => 'Bugün',
 	'srfc_gotomonth' => 'Aya git',
+	'srf_printername_calendar' => 'Aylık takvim',
+	'srf_printername_vcard' => 'vCard dışa aktarımı',
+	'srf_printername_icalendar' => 'iCalendar dışa aktarımı',
+	'srf_paramdesc_icalendartitle' => 'Takvim dosyasının başlığı',
+	'srf_paramdesc_icalendardescription' => 'Takvim dosyasının tanımı',
+	'srf_outline_novalue' => 'Değer yok',
+	'srf_printername_sum' => 'Sayıların toplamı',
+	'srf_printername_average' => 'Sayılan ortalaması',
+	'srf_printername_min' => 'Azami sayı',
+	'srf_printername_max' => 'Asgari sayı',
+	'srf_paramdesc_limit' => 'Sorgulanacak azami sayfa sayısı',
+	'srf_printername_timeline' => 'Zaman çizgisi',
+	'srf_paramdesc_views' => 'Görüntülenecek görünümler',
+	'srf_printername_googlebar' => 'Google çubuk çizelgesi',
+	'srf_printername_googlepie' => 'Google dilim çizelgesi',
 );
 
 /** Vèneto (Vèneto)
