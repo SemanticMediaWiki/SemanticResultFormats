@@ -105,9 +105,11 @@ class SRFOutline extends SMWResultPrinter {
 		$found_values = false; // has anything but the first column been printed?
 		$result = "";
 		foreach ($item->mRow as $orig_ra) {
-			// handling is simpler for SMW 1.5+
+			// handling is somewhat simpler for SMW 1.5+
 			if (method_exists('SMWQueryResult', 'getResults')) {
-				$ra = $orig_ra;
+				// make a new copy of this, so that the call to
+				// getNextText() will work again
+				$ra = clone($orig_ra);
 			} else {
 				// make a new copy of this, so that the call to
 				// getNextText() will work again
