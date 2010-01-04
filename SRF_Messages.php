@@ -23,6 +23,7 @@ $messages['en'] = array(
 	'srfc_today'         => 'Today',
 	'srfc_gotomonth'     => 'Go to month',
 	'srf_printername_calendar' => 'Monthly calendar',
+	'srf_paramdesc_calendarlang' => 'The code for the language in which to display the calendar',
 	// format "vCard"
 	'srf_vcard_link'     => 'vCard',
 	'srf_printername_vcard' => 'vCard export',
