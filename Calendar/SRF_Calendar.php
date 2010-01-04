@@ -13,6 +13,7 @@ class SRFCalendar extends SMWResultPrinter {
 
 	protected $mTemplate = '';
 	protected $mUserParam = '';
+	protected $mRealUserLang = null;
 
 	protected function readParameters($params,$outputmode) {
 		SMWResultPrinter::readParameters($params,$outputmode);
@@ -22,6 +23,13 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 		if (array_key_exists('userparam', $params)) {
 			$this->mUserParam = trim($params['userparam']);
+		}
+		if (array_key_exists('lang', $params)) {
+			global $wgLang;
+			// store the actual user's language, so we can revert
+			// back to it after printing the calendar
+			$this->mRealUserLang = clone($wgLang);
+			$wgLang = Language::factory(trim($params['lang']));
 		}
 	}
 
@@ -111,6 +119,12 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 
 		$result = SRFCalendar::displayCalendar($events);
+		// go back to the actual user's language, in case a different
+		// language had been specified for this calendar
+		if (! is_null($this->mRealUserLang)) {
+			global $wgLang;
+			$wgLang = $this->mRealUserLang;
+		}
 		global $wgParser;
 		if (is_null($wgParser->getTitle()))
 			return $result;
@@ -357,5 +371,11 @@ END;
 
 		return $text;
 	}
+
+        public function getParameters() {
+                $params = parent::getParameters();
+                $params[] = array('name' => 'lang', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_calendarlang'));
+                return $params;
+        }
 
 }
