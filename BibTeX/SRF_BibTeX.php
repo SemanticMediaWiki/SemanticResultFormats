@@ -301,6 +301,11 @@ class SRFBibTeX extends SMWResultPrinter {
 		return $result;
 	}
 
+	public function getParameters() {
+		$params = parent::exportFormatParameters();
+		return $params;
+	}
+
 }
 
 /**
