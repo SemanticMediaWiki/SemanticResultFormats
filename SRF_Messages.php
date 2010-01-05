@@ -299,6 +299,7 @@ $messages['bs'] = array(
 	'srf_printername_calendar' => 'Mjesečni kalendar',
 	'srf_printername_vcard' => 'Izvoz u vCard',
 	'srf_printername_icalendar' => 'Izvoz u iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Naslov datoteke kalendara',
 	'srf_printername_bibtex' => 'Izvoz u BibTeX',
 	'srf_outline_novalue' => 'Nema vrijednosti',
 	'srf_printername_outline' => 'Kontura',
@@ -306,8 +307,10 @@ $messages['bs'] = array(
 	'srf_printername_average' => 'Prosjek brojeva',
 	'srf_printername_min' => 'Najveći broj',
 	'srf_printername_max' => 'Najmanji broj',
+	'srf_paramdesc_limit' => 'Najveći broj stranica za upit',
 	'srf_printername_timeline' => 'Vremenska linija',
 	'srf_printername_eventline' => 'Linija događaja',
+	'srf_paramdesc_timelinesize' => 'Visina vremenske linije (pretpostavljeno je 300px)',
 );
 
 /** Catalan (Català)
@@ -375,6 +378,7 @@ $messages['dsb'] = array(
 	'srfc_today' => 'Źinsa',
 	'srfc_gotomonth' => 'Źi k mjasecoju',
 	'srf_printername_calendar' => 'Mjasecny kalendaŕ',
+	'srf_paramdesc_calendarlang' => 'Kode za toś tu rěc, w kótarejž kalendaŕ ma se zwobrazniś',
 	'srf_printername_vcard' => 'vCard eksportěrowaś',
 	'srf_printername_icalendar' => 'iCalendar eksportěrowaś',
 	'srf_paramdesc_icalendartitle' => 'Titel kalendroweje dataje',
@@ -474,9 +478,15 @@ $messages['es'] = array(
 	'srf_printername_average' => 'Promedio de números',
 	'srf_printername_min' => 'Número máximo',
 	'srf_printername_max' => 'Número mínimo',
+	'srf_paramdesc_limit' => 'La cantidad máxima de páginas a consultar',
 	'srf_printername_timeline' => 'Línea de tiempo',
 	'srf_printername_eventline' => 'Línea de eventos',
+	'srf_paramdesc_timelinestart' => 'Un nombre de propiedad utilizado para definir un primer punto temporal',
+	'srf_paramdesc_timelineend' => 'Un nombre de propiedad utilizado para definir un segundo punto temporal',
 	'srf_paramdesc_timelinesize' => 'La altura de la línea de tiempo (por defecto 300px)',
+	'srf_paramdesc_views' => 'Las vistas a mostrar',
+	'srf_paramdesc_facets' => 'El grupo de propiedades a mostrar para cada página',
+	'srf_paramdesc_lens' => 'El nombre de una plantilla con la que se muestra la propiedades de la página',
 	'srf_printername_googlebar' => 'Gráfico de barras de Google',
 	'srf_printername_googlepie' => 'Gráfica circular de Google',
 	'srf_paramdesc_chartheight' => 'La altura del gráfico, en píxeles',
@@ -534,6 +544,7 @@ $messages['fi'] = array(
  * @author Crochet.david
  * @author Grondin
  * @author IAlex
+ * @author Peter17
  * @author PieRRoMaN
  * @author Urhixidur
  */
@@ -545,6 +556,7 @@ $messages['fr'] = array(
 	'srfc_today' => 'Aujourd’hui',
 	'srfc_gotomonth' => 'Aller vers le mois',
 	'srf_printername_calendar' => 'Calendrier mensuel',
+	'srf_paramdesc_calendarlang' => 'Le code de la langue dans laquelle afficher le calendrier',
 	'srf_vcard_link' => 'vCarte',
 	'srf_printername_vcard' => 'export en vCard',
 	'srf_icalendar_link' => 'iCalendrier',
@@ -588,6 +600,7 @@ $messages['gl'] = array(
 	'srfc_today' => 'Hoxe',
 	'srfc_gotomonth' => 'Ir ao mes',
 	'srf_printername_calendar' => 'Calendario mensual',
+	'srf_paramdesc_calendarlang' => 'O código da lingua na que mostrar o calendario',
 	'srf_vcard_link' => 'vTarxeta',
 	'srf_printername_vcard' => 'Exportación en vCard',
 	'srf_icalendar_link' => 'iCalendario',
@@ -730,6 +743,7 @@ $messages['hsb'] = array(
 	'srfc_today' => 'Dźensa',
 	'srfc_gotomonth' => 'Dźi k měsacej',
 	'srf_printername_calendar' => 'Měsačna protyka',
+	'srf_paramdesc_calendarlang' => 'Kod za rěč, w kotrejž protyka ma so zwobraznić',
 	'srf_printername_vcard' => 'vCard eksportować',
 	'srf_printername_icalendar' => 'iCalendar eksportować',
 	'srf_paramdesc_icalendartitle' => 'Titul protykoweje dataje',
@@ -1037,6 +1051,7 @@ $messages['mk'] = array(
 	'srfc_today' => 'Денес',
 	'srfc_gotomonth' => 'Оди на месецот',
 	'srf_printername_calendar' => 'Месечен календар',
+	'srf_paramdesc_calendarlang' => 'Кодот на јазикот на кој ќе се прикажува календарот',
 	'srf_printername_vcard' => 'Извоз на vCard',
 	'srf_printername_icalendar' => 'Извоз на iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Насловот на податотеката на календарот',
@@ -1120,6 +1135,7 @@ $messages['nl'] = array(
 	'srfc_today' => 'Vandaag',
 	'srfc_gotomonth' => 'Ga naar maand',
 	'srf_printername_calendar' => 'Maandkalender',
+	'srf_paramdesc_calendarlang' => 'De taalcode voor de taal waarin de kalender wordt weergegeven',
 	'srf_printername_vcard' => 'Naar vCard exporteren',
 	'srf_printername_icalendar' => 'Naar iCalendar exporteren',
 	'srf_paramdesc_icalendartitle' => 'De titel van het kalenderbestand',
