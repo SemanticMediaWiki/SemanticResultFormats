@@ -103,14 +103,14 @@ class SRFTimeline extends SMWResultPrinter {
 					while ( ($object = $field->getNextObject()) !== false ) {
 						$l = $this->getLinker($first_col);
 						if ( !$hastitle && $object->getTypeID() != '_wpg') { // "linking" non-pages in title positions confuses timeline scripts, don't try this
-							$l = NULL;
+							$l = null;
 						}
 						if ($object->getTypeID() == '_wpg') { // use shorter "LongText" for wikipage
 							$objectlabel = $object->getLongText($outputmode,$l);
 						} else {
 							$objectlabel = $object->getShortText($outputmode,$l);
 						}
-						$urlobject =  ($l !== NULL);
+						$urlobject =  ($l !== null);
 						$header = '';
 						if ($first_value) {
 							// find header for current value:

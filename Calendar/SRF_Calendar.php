@@ -69,9 +69,9 @@ class SRFCalendar extends SMWResultPrinter {
 						if ($object->getTypeID() == '_dat') {
 							$text .= SRFCalendar::formatDateStr($object);
 						} elseif ($object->getTypeID() == '_wpg') { // use shorter "LongText" for wikipage
-							$text .= $object->getLongText($outputmode, NULL);
+							$text .= $object->getLongText($outputmode, null);
 						} else {
-							$text .= $object->getShortText($outputmode, NULL);
+							$text .= $object->getShortText($outputmode, null);
 						}
 						if ($pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat') {
 							$dates[] = SRFCalendar::formatDateStr($object);
