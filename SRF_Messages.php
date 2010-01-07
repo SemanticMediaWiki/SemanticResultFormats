@@ -467,6 +467,7 @@ $messages['es'] = array(
 	'srfc_today' => 'Hoy',
 	'srfc_gotomonth' => 'Ir al mes',
 	'srf_printername_calendar' => 'Calendario mensual',
+	'srf_paramdesc_calendarlang' => 'El código del idioma en el que se muestra el calendario',
 	'srf_printername_vcard' => 'Exportar vCard',
 	'srf_printername_icalendar' => 'Exportar iCalendar',
 	'srf_paramdesc_icalendartitle' => 'El título del archivo de calendario',
