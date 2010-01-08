@@ -901,6 +901,7 @@ $messages['it'] = array(
 
 /** Japanese (日本語)
  * @author Fryed-peach
+ * @author Hosiryuhosi
  * @author JtFuruhata
  * @author 青子守歌
  */
@@ -912,6 +913,7 @@ $messages['ja'] = array(
 	'srfc_today' => '今日',
 	'srfc_gotomonth' => 'この月を表示',
 	'srf_printername_calendar' => '月毎のカレンダー',
+	'srf_paramdesc_calendarlang' => 'カレンダーを表示するための言語コード',
 	'srf_printername_vcard' => 'vCard形式で書き出し',
 	'srf_printername_icalendar' => 'iCalender形式で書き出し',
 	'srf_paramdesc_icalendartitle' => 'カレンダーファイルのタイトル',
