@@ -341,7 +341,7 @@ END;
 				list($event_title, $other_text, $event_date, $color) = $event;
 				if ($event_date == $date_str) {
 					if ($this->mTemplate != '') {
-						$templatetext = '{{' . $this->mTemplate . $other_text . '}}';
+						$templatetext = '{{' . $this->mTemplate . $other_text .'|thisdate=' . $date_str . '}}';
 						$templatetext = $wgParser->replaceVariables($templatetext);
 						$templatetext = $wgParser->recursiveTagParse($templatetext);
 						$text .= $templatetext;
