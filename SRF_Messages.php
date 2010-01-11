@@ -278,6 +278,7 @@ $messages['br'] = array(
 	'srf_printername_average' => 'Keitad an niveroù',
 	'srf_printername_min' => 'Niver uhelañ',
 	'srf_printername_max' => 'Niver izelañ',
+	'srf_paramdesc_limit' => "Niver uhelañ a bajennoù da gerc'hat",
 	'srf_printername_timeline' => 'Kronologiezh',
 	'srf_printername_eventline' => 'Kronologiezh an darvoudoù',
 	'srf_paramdesc_timelinesize' => 'Uhelder ar frizenn (300px dre ziouer)',
