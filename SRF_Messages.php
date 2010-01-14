@@ -263,12 +263,14 @@ $messages['bn'] = array(
  * @author Y-M D
  */
 $messages['br'] = array(
+	'srf-desc' => 'Furmadoù ouzhpenn evit ar rekedoù Semantic MediaWiki',
 	'srf-name' => "Furmadoù an disoc'hoù semantek",
 	'srfc_previousmonth' => 'Miz a-raok',
 	'srfc_nextmonth' => 'Miz a zeu',
 	'srfc_today' => 'Hiziv',
 	'srfc_gotomonth' => "Mont d'ar miz",
 	'srf_printername_calendar' => 'Deiziataer miziek',
+	'srf_paramdesc_calendarlang' => 'Kod ar yezh a dalvez da ziskwel an deiziadur',
 	'srf_printername_vcard' => 'ezporzhiañ vCard',
 	'srf_printername_icalendar' => 'Enporzh e iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Titl ar restr deiziataer',
