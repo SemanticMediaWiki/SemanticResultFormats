@@ -829,6 +829,7 @@ $messages['ia'] = array(
 	'srfc_today' => 'Hodie',
 	'srfc_gotomonth' => 'Ir al mense',
 	'srf_printername_calendar' => 'Calendario mensual',
+	'srf_paramdesc_calendarlang' => 'Le codice del lingua in le qual monstrar le calendario',
 	'srf_printername_vcard' => 'Exportation in vCard',
 	'srf_printername_icalendar' => 'Exportation in iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Le titulo del file del calendario',
