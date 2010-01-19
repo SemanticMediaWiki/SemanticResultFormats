@@ -1462,6 +1462,7 @@ $messages['ru'] = array(
 	'srfc_today' => 'Сегодня',
 	'srfc_gotomonth' => 'Перейти к месяцу',
 	'srf_printername_calendar' => 'Ежемесячный календарь',
+	'srf_paramdesc_calendarlang' => 'Код языка, на котором отображать календарь',
 	'srf_printername_vcard' => 'Экспорт vCard',
 	'srf_icalendar_link' => 'iКалендарь',
 	'srf_printername_icalendar' => 'Экспорт iCalendar',
