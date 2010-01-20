@@ -1315,6 +1315,7 @@ $messages['pms'] = array(
 	'srfc_today' => 'Ancheuj',
 	'srfc_gotomonth' => 'Va al meis',
 	'srf_printername_calendar' => 'Armanach dël meis',
+	'srf_paramdesc_calendarlang' => 'Ël còdes për la lenga ant la qual visualisé ël calendari',
 	'srf_printername_vcard' => 'esportassion ëd vCard',
 	'srf_printername_icalendar' => "esportassion d'iCalendar",
 	'srf_paramdesc_icalendartitle' => "Ël tìtol ëd l'archivi dël calendari",
