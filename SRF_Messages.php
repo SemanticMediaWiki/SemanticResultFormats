@@ -529,6 +529,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Silvonen
  * @author Str4nd
  */
 $messages['fi'] = array(
@@ -539,6 +540,7 @@ $messages['fi'] = array(
 	'srf_printername_calendar' => 'Kuukausittainen kalenteri',
 	'srf_printername_vcard' => 'vCard-vienti',
 	'srf_printername_icalendar' => 'iCalendar-vienti',
+	'srf_paramdesc_icalendardescription' => 'Kalenteritiedoston kuvaus',
 	'srf_printername_bibtex' => 'BibTeX-vienti',
 	'srf_outline_novalue' => 'Ei arvoa',
 	'srf_printername_sum' => 'Lukujen summa',
@@ -547,6 +549,7 @@ $messages['fi'] = array(
 	'srf_printername_max' => 'Pienin luku',
 	'srf_printername_timeline' => 'Aikajana',
 	'srf_printername_eventline' => 'Tapahtumajana',
+	'srf_paramdesc_views' => 'Näytettävät näkymät',
 	'srf_printername_googlebar' => 'Googlen pylväskuvaaja',
 	'srf_printername_googlepie' => 'Googlen piirakkakuvaaja',
 	'srf_paramdesc_chartheight' => 'Kuvaajan korkeus pikseleinä',
