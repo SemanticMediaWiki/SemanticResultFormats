@@ -905,6 +905,19 @@ $messages['id'] = array(
 	'srf_paramdesc_chartwidth' => 'Lebar grafik, dalam piksel',
 );
 
+/** Igbo (Igbo)
+ * @author Ukabia
+ */
+$messages['ig'] = array(
+	'srfc_gotomonth' => 'Ga na önwa',
+	'srf_printername_timeline' => 'Ahiriogẹ',
+	'srf_printername_eventline' => 'Ahiriomémé',
+	'srf_printername_googlebar' => 'Ngwa nkuzie Google',
+	'srf_printername_googlepie' => 'Orịrị nkuzie Google',
+	'srf_paramdesc_chartheight' => 'Ógólógó ihü nkuzie, na ogụgụ pixel',
+	'srf_paramdesc_chartwidth' => 'Íbụ ihü nkuzie, na ogụgụ pixel',
+);
+
 /** Italian (Italiano)
  * @author Darth Kule
  */
