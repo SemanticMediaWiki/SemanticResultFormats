@@ -471,6 +471,7 @@ $messages['eo'] = array(
  * @author Translationista
  */
 $messages['es'] = array(
+	'srf-desc' => 'Formatos adicionales para consultas en línea de Semantic MediaWiki',
 	'srf-name' => 'Formatos de resultado semántico',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Próximo mes',
@@ -485,6 +486,7 @@ $messages['es'] = array(
 	'srf_printername_bibtex' => 'Exportar BibTeX',
 	'srf_outline_novalue' => 'Sin valor',
 	'srf_printername_outline' => 'Esquema',
+	'srf_paramdesc_outlineproperties' => 'La lista de propiedades que se mostrará como encabezados de esquema, separadas por comas',
 	'srf_printername_sum' => 'Suma de números',
 	'srf_printername_average' => 'Promedio de números',
 	'srf_printername_min' => 'Número máximo',
