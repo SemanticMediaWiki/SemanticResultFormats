@@ -37,7 +37,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
  *
  * 
  * @author Frank Dengler
- * @author Hans-J�rg Happel
+ * @author Hans-Jörg Happel
  * @ingroup SemanticResultFormats
  * 
  * @note AUTOLOADED
