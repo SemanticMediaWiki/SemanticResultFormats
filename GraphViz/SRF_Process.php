@@ -3,7 +3,7 @@
 *	This file contains the Process Printer for SemanticResultFormats
 *   (http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats)
 *
-*	Copyright (c) 2008 - 2009 Frank Dengler and Hans-Jörg Happel
+*	Copyright (c) 2008 - 2009 Frank Dengler and Hans-JÃ¶rg Happel
 *
 *   Process Printer is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
  *
  * 
  * @author Frank Dengler
- * @author Hans-Jörg Happel
+ * @author Hans-Jï¿½rg Happel
  * @ingroup SemanticResultFormats
  * 
  * @note AUTOLOADED
