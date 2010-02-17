@@ -52,7 +52,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$skin = $wgUser->getSkin();
 		$result = "";
 
-		$locations = array();
+		$events = array();
 		// print all result rows
 		while ( $row = $res->getNext() ) {
 			$dates = array();
