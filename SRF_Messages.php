@@ -1236,6 +1236,7 @@ $messages['no'] = array(
 	'srfc_today' => 'I dag',
 	'srfc_gotomonth' => 'Gå til måned',
 	'srf_printername_calendar' => 'Månedlig kalender',
+	'srf_paramdesc_calendarlang' => 'Språkkoden for språket som kalenderen skal vises i',
 	'srf_printername_vcard' => 'vCard-eksport',
 	'srf_icalendar_link' => 'iKalender',
 	'srf_printername_icalendar' => 'iCalendar-eksport',
