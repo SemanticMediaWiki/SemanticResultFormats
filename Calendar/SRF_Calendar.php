@@ -108,7 +108,12 @@ class SRFCalendar extends SMWResultPrinter {
 			if (count($dates) > 0) {
 				// handle the 'color=' value, whether it came
 				// from a compound query or a regular one
-				if (property_exists($row[0], 'display_options')) {
+				// handling is different for SMW 1.5+
+				if (method_exists('SMWQueryResult', 'getResults')) {
+					$res_subject = $field->getResultSubject();
+					if (is_array($res_subject->display_options) && array_key_exists('color', $res_subject->display_options))
+						$color = $res_subject->display_options['color'];
+				} elseif (property_exists($row[0], 'display_options')) {
 					if (is_array($row[0]->display_options) && array_key_exists('color', $row[0]->display_options))
 						$color = $row[0]->display_options['color'];
 				} elseif (array_key_exists('color', $this->m_params))
@@ -341,7 +346,7 @@ END;
 				list($event_title, $other_text, $event_date, $color) = $event;
 				if ($event_date == $date_str) {
 					if ($this->mTemplate != '') {
-						$templatetext = '{{' . $this->mTemplate . $other_text .'|thisdate=' . $date_str . '}}';
+						$templatetext = '{{' . $this->mTemplate . $other_text . '|thisdate=' . $date_str . '}}';
 						$templatetext = $wgParser->replaceVariables($templatetext);
 						$templatetext = $wgParser->recursiveTagParse($templatetext);
 						$text .= $templatetext;
