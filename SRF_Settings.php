@@ -5,11 +5,11 @@
  * @file
  * @ingroup SemanticResultFormats
  */
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define('SRF_VERSION', '1.4.6');
+define( 'SRF_VERSION', '1.4.6' );
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = $IP . '/extensions/SemanticResultFormats';
@@ -23,15 +23,15 @@ $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 $wgHooks['AdminLinks'][] = 'srffAddToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 
-$srfgFormats = array('icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'sum', 'average', 'min', 'max');
+$srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'sum', 'average', 'min', 'max' );
 
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
 
-	foreach($srfgFormats as $fn) srffInitFormat( $fn );
+	foreach ( $srfgFormats as $fn ) srffInitFormat( $fn );
 	
-	$formats_list = implode(', ', $srfgFormats);
-	$wgExtensionCredits['other'][]= array(
+	$formats_list = implode( ', ', $srfgFormats );
+	$wgExtensionCredits['other'][] = array(
 		'path' => __FILE__,
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
@@ -46,7 +46,7 @@ function srffInitFormat( $format ) {
 
 	$class = '';
 	$file = '';
-	switch ($format) {
+	switch ( $format ) {
 		case 'timeline': case 'eventline':
 			$class = 'SRFTimeline';
 			$file = $srfgIP . '/Timeline/SRF_Timeline.php';
@@ -100,7 +100,7 @@ function srffInitFormat( $format ) {
 			$file = $srfgIP . '/Ploticus/SRF_PloticusVBar.php';
 		break;
 	}
-	if (($class) && ($file)) {
+	if ( ( $class ) && ( $file ) ) {
 		$smwgResultFormats[$format] = $class;
 		$wgAutoloadClasses[$class] = $file;
 	}
@@ -109,14 +109,14 @@ function srffInitFormat( $format ) {
 /**
  * Adds a link to Admin Links page
  */
-function srffAddToAdminLinks(&$admin_links_tree) {
-	$displaying_data_section = $admin_links_tree->getSection(wfMsg('smw_adminlinks_displayingdata'));
+function srffAddToAdminLinks( &$admin_links_tree ) {
+	$displaying_data_section = $admin_links_tree->getSection( wfMsg( 'smw_adminlinks_displayingdata' ) );
 	// escape is SMW hasn't added links
-	if (is_null($displaying_data_section))
+	if ( is_null( $displaying_data_section ) )
 		return true;
-	$smw_docu_row = $displaying_data_section->getRow('smw');
-	wfLoadExtensionMessages('SemanticResultFormats');
-	$srf_docu_label = wfMsg('adminlinks_documentation', wfMsg('srf-name'));
-	$smw_docu_row->addItem(AlItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats", $srf_docu_label));
+	$smw_docu_row = $displaying_data_section->getRow( 'smw' );
+	wfLoadExtensionMessages( 'SemanticResultFormats' );
+	$srf_docu_label = wfMsg( 'adminlinks_documentation', wfMsg( 'srf-name' ) );
+	$smw_docu_row->addItem( AlItem::newFromExternalLink( "http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats", $srf_docu_label ) );
 	return true;
 }

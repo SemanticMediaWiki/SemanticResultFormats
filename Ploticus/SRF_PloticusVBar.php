@@ -16,7 +16,7 @@
  * @ingroup SMWQuery
  */
 
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
@@ -30,8 +30,8 @@ include_once( "SRF_Ploticus.php" );
  */
 class SRFPloticusVBar extends SRFPloticus {
 
-	protected function readParameters($params, $outputmode) {
-		SRFPloticus::readParameters($params, $outputmode);
+	protected function readParameters( $params, $outputmode ) {
+		SRFPloticus::readParameters( $params, $outputmode );
 		
 		// All other options will be simply ignored;
 		$this->m_ploticusmode === 'prefab';

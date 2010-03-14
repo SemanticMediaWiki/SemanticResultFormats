@@ -801,7 +801,7 @@ G=D.prefix+":"+D.localName;
 N+="</rdf:Description>";
 return N;
 };
-Exhibit.RdfXmlExporter._wrapRdf=function(C,B){var A="<?xml version='1.0'?>\n<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'\n\txmlns:exhibit='http://simile.mit.edu/2006/11/exhibit#'";
+Exhibit.RdfXmlExporter._wrapRdf=function(C,B){var A="<?xml version = '1.0'?>\n<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'\n\txmlns:exhibit='http://simile.mit.edu/2006/11/exhibit#'";
 for(prefix in B){A+="\n\txmlns:"+prefix+"='"+B[prefix]+"'";
 }A+=">\n"+C+"\n</rdf:RDF>";
 return A;
