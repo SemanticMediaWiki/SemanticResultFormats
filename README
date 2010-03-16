@@ -90,6 +90,10 @@ installed (this format is currently disabled, due to a security hole).
 Creates a graph based on the relations in the wiki. Requires the GraphViz
 extension.
 
+=== gallery ===
+
+Creates a gallery of images (and captions) dynamically. The output is the
+same as when using MediaWiki's built-in <gallery>-tag.
 
 == Contact ==
 
@@ -135,6 +139,8 @@ the project Active.
 * The Ploticus format was contributed by Joel Natividad.
 
 * The BibTeX format was contributed by Steren Giannini.
+
+* The Gallery format was contributed by Rowan van der Molen.
 
 * Many people have contributed to the project by providing helpful comments and
   suggestions. Among them are the members of the Semantic Wiki Interest Group

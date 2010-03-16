@@ -99,6 +99,10 @@ function srffInitFormat( $format ) {
 			$class = 'SRFPloticusVBar';
 			$file = $srfgIP . '/Ploticus/SRF_PloticusVBar.php';
 		break;
+    case 'gallery':
+      $class = 'SRFGallery';
+      $file = $srfgIP . '/Gallery/SRF_Gallery.php';
+    break;
 	}
 	if ( ( $class ) && ( $file ) ) {
 		$smwgResultFormats[$format] = $class;
