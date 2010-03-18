@@ -58,11 +58,13 @@ $messages['en'] = array(
 	'srf_paramdesc_views' => 'The views to be displayed',
 	'srf_paramdesc_facets' => 'The set of properties to be displayed for each page',
 	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
-	// format "googlebar" and "googlepie"
+	// formats "googlebar" and "googlepie"
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',
 	'srf_paramdesc_chartheight' => 'The height of the chart, in pixels',
 	'srf_paramdesc_chartwidth' => 'The width of the chart, in pixels',
+	// format "gallery"
+	'srf_printername_gallery' => 'Gallery',
 );
 
 /** Message documentation (Message documentation)
