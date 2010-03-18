@@ -14,6 +14,13 @@ if (!defined('MEDIAWIKI')) die();
 class SRFGallery extends SMWResultPrinter
 {
 
+	public function getName()
+	{
+		wfLoadExtensionMessages( 'SemanticResultFormats' );
+		return wfMsg( 'srf_printername_gallery' );
+	}
+
+
 	public function getResult($results, $params, $outputmode)
 	{
 		// skip checks, results with 0 entries are normal
