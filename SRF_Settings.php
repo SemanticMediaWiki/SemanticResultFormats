@@ -23,7 +23,7 @@ $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 $wgHooks['AdminLinks'][] = 'srffAddToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 
-$srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'sum', 'average', 'min', 'max' );
+$srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'gallery', 'sum', 'average', 'min', 'max' );
 
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
@@ -35,7 +35,7 @@ function srffSetup() {
 		'path' => __FILE__,
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => array( 'Frank Dengler', '[http://steren.fr Steren Giannini]', 'Fabian Howahl', 'Yaron Koren', '[http://korrekt.org Markus Krötzsch]', 'David Loomer', 'Joel Natividad', '[http://simia.net Denny&nbsp;Vrandecic]', 'Nathan Yergler', 'Hans-Jörg Happel' ),
+		'author' => array( 'Frank Dengler', '[http://steren.fr Steren Giannini]', 'Fabian Howahl', 'Yaron Koren', '[http://korrekt.org Markus Krötzsch]', 'David Loomer', 'Joel Natividad', '[http://simia.net Denny Vrandecic]', 'Nathan Yergler', 'Hans-Jörg Happel', 'Rowan Rodrik van der Molen' ),
 		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'descriptionmsg' => 'srf-desc'
 	);
@@ -99,10 +99,10 @@ function srffInitFormat( $format ) {
 			$class = 'SRFPloticusVBar';
 			$file = $srfgIP . '/Ploticus/SRF_PloticusVBar.php';
 		break;
-    case 'gallery':
-      $class = 'SRFGallery';
-      $file = $srfgIP . '/Gallery/SRF_Gallery.php';
-    break;
+		case 'gallery':
+			$class = 'SRFGallery';
+			$file = $srfgIP . '/Gallery/SRF_Gallery.php';
+		break;
 	}
 	if ( ( $class ) && ( $file ) ) {
 		$smwgResultFormats[$format] = $class;
