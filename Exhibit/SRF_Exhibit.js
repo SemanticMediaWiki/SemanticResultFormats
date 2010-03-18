@@ -67,12 +67,12 @@ function createExhibit() {//overload Exhibit's autoCreate-functionality
 		  if (position == "left") {
 			  var facetTd = document.getElementById('left-facets');
 			  facetTd.innerHTML = facetTd.innerHTML + innerHTML;
-			  facetTd.setAttribute('width', '20%');
+			  facetTd.setAttribute('width', '24%');
 		  }
 		  if (position == "right") {
 			  var facetTd = document.getElementById('right-facets');
 			  facetTd.innerHTML = facetTd.innerHTML + innerHTML;
-			  facetTd.setAttribute('width', '20%');
+			  facetTd.setAttribute('width', '24%');
 		  }
 		}
     }
@@ -96,14 +96,13 @@ function createExhibit() {//overload Exhibit's autoCreate-functionality
 			test.innerHTML = commands[0];
 		}
 		test.setAttribute('ex:content','.' + test.innerHTML.replace(' ','_').toLowerCase());
-		//test.setAttribute('ex:content','.' + test.innerHTML);
 		test.setAttribute('class',"inlines");
 		test.innerHTML = '';
     }
     for(var i = 0; i < ex_linkcounter; i++){ //lenses
 		var test = document.getElementById("linkcontent"+i);
 		var newlink = document.createElement('a');
-		newlink.setAttribute('ex:href-subcontent',wgServer + wgScript + '?title={{.' + test.innerHTML + '}}');
+		newlink.setAttribute('ex:href-subcontent',wgServer + wgScript + '?title={{urlenc(.' + test.innerHTML + ')}}');
 		newlink.setAttribute('ex:content','.' + test.innerHTML);
 		test.innerHTML = '';
 		test.appendChild(newlink);
