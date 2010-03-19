@@ -232,6 +232,7 @@ $messages['be-tarask'] = array(
 	'srf_printername_googlepie' => 'Кругавая дыяграма Google',
 	'srf_paramdesc_chartheight' => 'Вышыня дыяграмы ў піксэлях',
 	'srf_paramdesc_chartwidth' => 'Шырыня дыяграмы ў піксэлях',
+	'srf_printername_gallery' => 'Галерэя',
 );
 
 /** Bulgarian (Български)
@@ -606,6 +607,7 @@ $messages['fr'] = array(
 	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
 	'srf_paramdesc_chartheight' => 'La hauteur du diagramme, en pixels',
 	'srf_paramdesc_chartwidth' => 'La largeur du diagramme, en pixels',
+	'srf_printername_gallery' => 'Galerie',
 );
 
 /** Galician (Galego)
@@ -650,6 +652,7 @@ $messages['gl'] = array(
 	'srf_printername_googlepie' => 'Gráfico circular do Google',
 	'srf_paramdesc_chartheight' => 'A altura do gráfico, en píxeles',
 	'srf_paramdesc_chartwidth' => 'O largo do gráfico, en píxeles',
+	'srf_printername_gallery' => 'Galería',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -699,6 +702,7 @@ $messages['gsw'] = array(
 	'srf_printername_googlepie' => 'Google-Kreisdiagramm',
 	'srf_paramdesc_chartheight' => 'D Hechi vum Diagramm, in Pixel',
 	'srf_paramdesc_chartwidth' => 'D Breiti vum Diagramm, in Pixel',
+	'srf_printername_gallery' => 'Galeri',
 );
 
 /** Manx (Gaelg)
@@ -792,6 +796,7 @@ $messages['hsb'] = array(
 	'srf_printername_googlepie' => 'Google tortowy diagram',
 	'srf_paramdesc_chartheight' => 'Wysokosć diagrama, w pikselach',
 	'srf_paramdesc_chartwidth' => 'Šěrokosć diagrama, w pikselach',
+	'srf_printername_gallery' => 'Galerija',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -866,6 +871,7 @@ $messages['ia'] = array(
 	'srf_printername_googlepie' => 'Diagramma circular de Google',
 	'srf_paramdesc_chartheight' => 'Le altitude del diagramma, in pixeles',
 	'srf_paramdesc_chartwidth' => 'Le latitude del diagramma, in pixeles',
+	'srf_printername_gallery' => 'Galeria',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1116,6 +1122,7 @@ $messages['mk'] = array(
 	'srf_printername_googlepie' => 'Кружен дијаграм од Google',
 	'srf_paramdesc_chartheight' => 'Висината на дијаграмот, во пиксели',
 	'srf_paramdesc_chartwidth' => 'Ширината на дијаграмот, во пиксели',
+	'srf_printername_gallery' => 'Галерија',
 );
 
 /** Malayalam (മലയാളം)
@@ -1200,6 +1207,7 @@ $messages['nl'] = array(
 	'srf_printername_googlepie' => 'Google taartgrafiek',
 	'srf_paramdesc_chartheight' => 'De hoogte van de grafiek (in pixels)',
 	'srf_paramdesc_chartwidth' => 'De breedte van de grafiek (in pixels)',
+	'srf_printername_gallery' => 'Galerij',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -1263,6 +1271,7 @@ $messages['no'] = array(
 	'srf_printername_googlepie' => 'Google kakediagram',
 	'srf_paramdesc_chartheight' => 'Høyden til diagrammet, i pixler',
 	'srf_paramdesc_chartwidth' => 'Bredden til diagrammet, i pixler',
+	'srf_printername_gallery' => 'Galleri',
 );
 
 /** Occitan (Occitan)
@@ -1366,6 +1375,7 @@ $messages['pms'] = array(
 	'srf_printername_googlepie' => 'Ël diagrama a torta ëd Google',
 	'srf_paramdesc_chartheight' => "L'autëssa dël diagrama, an pontin",
 	'srf_paramdesc_chartwidth' => 'La larghëssa dël diagrama, an pontin',
+	'srf_printername_gallery' => 'Galarìa',
 );
 
 /** Pashto (پښتو)
@@ -1515,6 +1525,7 @@ $messages['ru'] = array(
 	'srf_printername_googlepie' => 'Круговая диаграмма Google',
 	'srf_paramdesc_chartheight' => 'Высота диаграммы в пикселях',
 	'srf_paramdesc_chartwidth' => 'Ширина диаграммы в пикселях',
+	'srf_printername_gallery' => 'Галерея',
 );
 
 /** Slovak (Slovenčina)
