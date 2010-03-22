@@ -419,6 +419,7 @@ $messages['dsb'] = array(
 	'srf_printername_googlepie' => 'Google tortowy diagram',
 	'srf_paramdesc_chartheight' => 'Wusokosć diagrama, w pikselach',
 	'srf_paramdesc_chartwidth' => 'Šyrokosć diagrama, w pikselach',
+	'srf_printername_gallery' => 'Galerija',
 );
 
 /** Greek (Ελληνικά)
