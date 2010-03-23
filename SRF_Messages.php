@@ -510,6 +510,7 @@ $messages['es'] = array(
 	'srf_printername_googlepie' => 'Gráfica circular de Google',
 	'srf_paramdesc_chartheight' => 'La altura del gráfico, en píxeles',
 	'srf_paramdesc_chartwidth' => 'La anchura del gráfico, en píxeles',
+	'srf_printername_gallery' => 'Galería',
 );
 
 /** Basque (Euskara)
