@@ -297,6 +297,7 @@ $messages['br'] = array(
 	'srf_printername_googlepie' => 'Grafik dre lodennoù Google',
 	'srf_paramdesc_chartheight' => 'Uhelder an diagramm, e piksel',
 	'srf_paramdesc_chartwidth' => 'Ledander an diagramm, e piksel',
+	'srf_printername_gallery' => 'Skeudennaoueg',
 );
 
 /** Bosnian (Bosanski)
@@ -573,7 +574,7 @@ $messages['fi'] = array(
  */
 $messages['fr'] = array(
 	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
-	'srf-name' => 'Formattage des résultats sémantiques',
+	'srf-name' => 'Formatage des résultats sémantiques',
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
 	'srfc_today' => 'Aujourd’hui',
