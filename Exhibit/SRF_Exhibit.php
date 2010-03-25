@@ -310,7 +310,7 @@ class SRFExhibit extends SMWResultPrinter {
 				if($pr->getTypeID() == '_wpg') {
 					$prefix='';
 					if($pr->getLabel()=='Category') $prefix = "Category:";
-					$lensstack[] = '<tr ex:if-exists=".'.$this->encodePropertyName($pr->getLabel()).'"><td width="20%">'.$pr->getText(0, $this->mLinker).'</td><td width="80%" ex:content=".'.$this->encodePropertyName($pr->getLabel()).'"><a ex:href-subcontent="'.$wikiurl.$prefix.'{{urlenc(.value)}}"><div ex:content="value" class="name"></div></a></td></tr>';
+					$lensstack[] = '<tr ex:if-exists=".'.$this->encodePropertyName($pr->getLabel()).'"><td width="20%">'.$pr->getText(0, $this->mLinker).'</td><td width="80%" ex:content=".'.$this->encodePropertyName($pr->getLabel()).'"><a ex:href-subcontent="'.$wikiurl.$prefix.'{{urlencval(value)}}"><div ex:content="value" class="name"></div></a></td></tr>';
 				}
 				else{
 					$lensstack[] = '<tr ex:if-exists=".'.$this->encodePropertyName($pr->getLabel()).'"><td width="20%">'.$pr->getText(0, $this->mLinker).'</td><td width="80%"><div ex:content=".'.$this->encodePropertyName($pr->getLabel()).'" class="name"></div></td></tr>';

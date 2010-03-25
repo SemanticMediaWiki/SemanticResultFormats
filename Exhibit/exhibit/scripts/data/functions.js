@@ -320,15 +320,30 @@ Exhibit.Functions["now"] = {
 };
 
 Exhibit.Functions["urlenc"] = {
-    f: function(args) {
-        a = args[0]._values.toArray();
-        url = escape(a[0]);
-        url = url.replace('+', '%2B');
-        url = url.replace('%20', '+');
-        url = url.replace('*', '%2A');
-        url = url.replace('/', '%2F');
-        url = url.replace('@', '%40');
-        return new Exhibit.Expression._Collection([ url ], "url");
+    f: function(arguments) {
+        if(typeof arguments[0]._values.toArray == "function"){
+            try{
+                var firstentry = arguments[0]._values.toArray();
+            }
+            catch(err){document.write(err.description)}
+            var url = escape(firstentry[0]).replace(/\+/g,'%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
+            return new Exhibit.Expression._Collection([ url ], "url");
+        } else {
+            return new Exhibit.Expression._Collection([ "error" ], "url");
+        }
     }
 };
+
+Exhibit.Functions["urlencval"] = {
+    f: function(arguments) {
+        if(arguments[0]._values[0] != null){
+            var url = escape(arguments[0]._values[0]).replace(/\+/g,'%2B').replace(/%20/g, '+').replace(/\*/g, '%2A').replace(/\//g, '%2F').replace(/@/g, '%40');
+            return new Exhibit.Expression._Collection([ url ], "url");
+        } else {
+            return new Exhibit.Expression._Collection([ "error" ], "url");
+        }
+    }
+};
+
+
 
