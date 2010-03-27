@@ -115,7 +115,7 @@ class SRFTimeline extends SMWResultPrinter {
 						if ( $first_value ) {
 							// find header for current value:
 							if ( $this->mShowHeaders && ( '' != $pr->getLabel() ) ) {
-								$header = $pr->getText( $outputmode, $this->mLinker ) . ' ';
+								$header = $pr->getText( $outputmode, $this->mLinker ) . ': ';
 							}
 							// is this a start date?
 							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
