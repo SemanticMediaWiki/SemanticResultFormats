@@ -1433,6 +1433,7 @@ $messages['pt'] = array(
 	'srf_printername_googlepie' => 'Gráfico circular Google',
 	'srf_paramdesc_chartheight' => 'A altura do gráfico, em pixels',
 	'srf_paramdesc_chartwidth' => 'A largura do gráfico, em pixels',
+	'srf_printername_gallery' => 'Galeria',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
