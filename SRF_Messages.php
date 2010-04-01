@@ -1389,6 +1389,7 @@ $messages['ps'] = array(
 	'srfc_nextmonth' => 'راتلونکې مياشت',
 	'srfc_today' => 'نن',
 	'srfc_gotomonth' => 'مياشت ته ورځه',
+	'srf_printername_gallery' => 'نندارتون',
 );
 
 /** Portuguese (Português)
