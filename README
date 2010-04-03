@@ -132,10 +132,10 @@ the project Active.
 
 * The Eventline and Timeline code is based on the Timeline code by the
   MIT Simile project.
-  
+
 * The Exhibit code was contributed by Fabian Howahl, based on code by the
   MIT Simile project.
-  
+
 * The Ploticus format was contributed by Joel Natividad.
 
 * The BibTeX format was contributed by Steren Giannini.
@@ -151,5 +151,5 @@ the project Active.
 
 Translations to various languages are provided and maintained by many people.
 In general, main contributors can be found in the message file. Special thanks
-are due to Siebrand Mazeland and the Betawiki project for their excellent
-support in that matter.
+are due to Siebrand Mazeland and the translatewiki.net project for their
+excellent support in that matter.
