@@ -945,6 +945,7 @@ $messages['it'] = array(
  * @author Fryed-peach
  * @author Hosiryuhosi
  * @author JtFuruhata
+ * @author Naohiro19
  * @author 青子守歌
  */
 $messages['ja'] = array(
@@ -983,6 +984,7 @@ $messages['ja'] = array(
 	'srf_printername_googlepie' => 'Google 円グラフ',
 	'srf_paramdesc_chartheight' => 'グラフの縦幅 (ピクセル単位)',
 	'srf_paramdesc_chartwidth' => 'グラフの横幅 (ピクセル単位)',
+	'srf_printername_gallery' => 'ギャラリー',
 );
 
 /** Javanese (Basa Jawa)
