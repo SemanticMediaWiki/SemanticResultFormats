@@ -20,7 +20,8 @@ class SRFMath extends SMWResultPrinter {
 
 	public function getResult( $results, $params, $outputmode ) {
 		$this->readParameters( $params, $outputmode );
-		return $this->getResultText( $results, SMW_OUTPUT_HTML );
+		global $wgLang; 
+		return $wgLang->formatNum($this->getResultText($results, SMW_OUTPUT_HTML));
 	}
 
 	protected function getResultText( $res, $outputmode ) {
