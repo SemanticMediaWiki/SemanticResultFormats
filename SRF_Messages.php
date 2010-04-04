@@ -1060,6 +1060,7 @@ $messages['lb'] = array(
 	'srfc_today' => 'Haut',
 	'srfc_gotomonth' => 'Géi op de Mount',
 	'srf_printername_calendar' => 'Monatleche Kalenner',
+	'srf_paramdesc_calendarlang' => 'De Code vun der Sprooch an där de Kalenner gewise gëtt',
 	'srf_printername_vcard' => 'Export als vCard',
 	'srf_icalendar_link' => 'iKalenner',
 	'srf_printername_icalendar' => 'Export als iCalendar',
@@ -1072,10 +1073,13 @@ $messages['lb'] = array(
 	'srf_paramdesc_limit' => "D'Maximal Zuel vu Säite fir ofzefroen",
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie vun den Evenementer',
+	'srf_paramdesc_views' => 'Déi Usiichten déi gewise solle ginn',
+	'srf_paramdesc_lens' => 'Den Numm vun enger Schabloun mat däer Säiteneegeschafte gewise  ginn',
 	'srf_printername_googlebar' => 'Google-Sailen-Diagramm',
 	'srf_printername_googlepie' => 'Google-Taarten-Diagramm',
 	'srf_paramdesc_chartheight' => "D'Héicht vun der Grafik, a Pixel",
 	'srf_paramdesc_chartwidth' => "D'Breet vun der Grafik, a Pixel",
+	'srf_printername_gallery' => 'Gallerie',
 );
 
 /** Lithuanian (Lietuvių)
