@@ -932,6 +932,7 @@ $messages['ig'] = array(
 );
 
 /** Italian (Italiano)
+ * @author Civvì
  * @author Darth Kule
  */
 $messages['it'] = array(
@@ -939,6 +940,12 @@ $messages['it'] = array(
 	'srfc_nextmonth' => 'Mese successivo',
 	'srfc_today' => 'Oggi',
 	'srfc_gotomonth' => 'Vai al mese',
+	'srf_printername_calendar' => 'Calendario mensile',
+	'srf_paramdesc_calendarlang' => 'Il codice per la lingua in cui visualizzare il calendario',
+	'srf_paramdesc_icalendartitle' => 'Il titolo del file di calendario',
+	'srf_paramdesc_icalendardescription' => 'La descrizione del file di calendario',
+	'srf_printername_min' => 'Numero massimo',
+	'srf_printername_max' => 'Numero minimo',
 );
 
 /** Japanese (日本語)
