@@ -1149,7 +1149,7 @@ $messages['ml'] = array(
 	'srfc_nextmonth' => 'അടുത്ത മാസം',
 	'srfc_today' => 'ഇന്ന്',
 	'srfc_gotomonth' => 'മാസത്തിലേക്ക് പോവുക',
-	'srf_icalendar_link' => 'iകലണ്ടര്‍',
+	'srf_icalendar_link' => 'iകലണ്ടർ',
 );
 
 /** Marathi (मराठी)
