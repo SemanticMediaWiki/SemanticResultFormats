@@ -379,6 +379,7 @@ $messages['de'] = array(
 	'srf_printername_googlepie' => 'Google Torten-Diagramm',
 	'srf_paramdesc_chartheight' => 'Höhe des Charts, in Pixeln',
 	'srf_paramdesc_chartwidth' => 'Breite des Charts, in Pixeln',
+	'srf_printername_gallery' => 'Galerie',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -1349,6 +1350,7 @@ $messages['pl'] = array(
 	'srf_printername_max' => 'Minimalna liczba',
 	'srf_printername_timeline' => 'Oś czasu',
 	'srf_printername_eventline' => 'Oś wydarzeń',
+	'srf_printername_gallery' => 'Galeria',
 );
 
 /** Piedmontese (Piemontèis)
