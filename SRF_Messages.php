@@ -825,6 +825,8 @@ $messages['hu'] = array(
 	'srf_printername_calendar' => 'Havi naptár',
 	'srf_printername_vcard' => 'vCard exportálás',
 	'srf_printername_icalendar' => 'iCalendar exportálás',
+	'srf_paramdesc_icalendartitle' => 'A naptárfájl címe',
+	'srf_paramdesc_icalendardescription' => 'A naptárfájl leírása',
 	'srf_printername_bibtex' => 'BibTeX exportálás',
 	'srf_outline_novalue' => 'Nincs érték',
 	'srf_printername_outline' => 'Tagolt',
@@ -834,6 +836,12 @@ $messages['hu'] = array(
 	'srf_printername_max' => 'Legkisebb szám',
 	'srf_printername_timeline' => 'Idővonal',
 	'srf_printername_eventline' => 'Eseményvonal',
+	'srf_paramdesc_timelinesize' => 'Az idővonal magassága (alapértelmezetten 300 képpont)',
+	'srf_printername_googlebar' => 'Google oszlopdiagram',
+	'srf_printername_googlepie' => 'Google tortadiagram',
+	'srf_paramdesc_chartheight' => 'A diagram magassága, pixelben',
+	'srf_paramdesc_chartwidth' => 'A diagram szélessége, pixelben',
+	'srf_printername_gallery' => 'Galéria',
 );
 
 /** Interlingua (Interlingua)
