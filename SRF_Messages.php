@@ -341,18 +341,20 @@ $messages['ca'] = array(
 /** German (Deutsch)
  * @author DaSch
  * @author Imre
+ * @author Kghbln
  * @author Krabina
  * @author Purodha
  * @author Umherirrender
  */
 $messages['de'] = array(
-	'srf-desc' => 'Ergänzende Formate für Inline-Abfragen in „Semantic MediaWiki“',
+	'srf-desc' => 'Stellt Semantic MediaWiki zusätzliche Ausgabeformate für Inlineabfragen zur Verfügung.',
 	'srf-name' => 'Semantische Ergebnis-Formate',
 	'srfc_previousmonth' => 'Voriger Monat',
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
 	'srfc_gotomonth' => 'Gehe zu Monat',
 	'srf_printername_calendar' => 'Monatlicher Kalendar',
+	'srf_paramdesc_calendarlang' => 'Der Code für die Sprache in der der Kalender angezeigt werden soll.',
 	'srf_printername_vcard' => 'vCard Export',
 	'srf_printername_icalendar' => 'iCalendar Export',
 	'srf_paramdesc_icalendartitle' => 'Titel der Kalender-Datei',
@@ -360,6 +362,7 @@ $messages['de'] = array(
 	'srf_printername_bibtex' => 'BibTeX Export',
 	'srf_outline_novalue' => 'Kein Wert',
 	'srf_printername_outline' => 'Gliederung',
+	'srf_paramdesc_outlineproperties' => 'List der mit Kommas voneinander getrennten Attribute, die in der Kopfzeile der Übersicht angezeigt werden sollen.',
 	'srf_printername_sum' => 'Summe der Zahlen',
 	'srf_printername_average' => 'Durchschnittliche Zahl',
 	'srf_printername_min' => 'Maximale Zahl',
