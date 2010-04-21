@@ -293,6 +293,7 @@ $messages['br'] = array(
 	'srf_paramdesc_timelinesize' => 'Uhelder ar frizenn (300px dre ziouer)',
 	'srf_paramdesc_views' => 'Ar gweladennoù da ziskouez',
 	'srf_paramdesc_facets' => 'An hollad perzhioù da ziskwel evit pep pajenn',
+	'srf_paramdesc_lens' => 'Anv ar patrom implijet evit diskouez perzhioù ar bajenn',
 	'srf_printername_googlebar' => 'Grafik barrennek Google',
 	'srf_printername_googlepie' => 'Grafik dre lodennoù Google',
 	'srf_paramdesc_chartheight' => 'Uhelder an diagramm, e piksel',
