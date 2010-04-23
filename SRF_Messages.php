@@ -471,6 +471,7 @@ $messages['eo'] = array(
 	'srf_printername_max' => 'Minimuma nombro',
 	'srf_printername_timeline' => 'Templinio',
 	'srf_printername_eventline' => 'Eventlinio',
+	'srf_printername_gallery' => 'Galerio',
 );
 
 /** Spanish (Español)
