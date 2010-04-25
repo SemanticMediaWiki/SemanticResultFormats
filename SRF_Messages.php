@@ -1056,7 +1056,7 @@ $messages['km'] = array(
 	'srfc_gotomonth' => 'ទៅកាន់ខែ',
 );
 
-/** Ripoarisch (Ripoarisch)
+/** Colognian (Ripoarisch)
  * @author Purodha
  */
 $messages['ksh'] = array(
