@@ -1456,7 +1456,7 @@ $messages['ps'] = array(
  * @author Waldir
  */
 $messages['pt'] = array(
-	'srf-desc' => "Formatos adicionais para consultas de incorporação dinâmica ''(inline queries)'' do Semantic MediaWiki",
+	'srf-desc' => "Formatos adicionais para consultas de incorporação dinâmica ''(inline queries)'' do MediaWiki Semântico",
 	'srf-name' => 'Formatos dos Resultados Semânticos',
 	'srfc_previousmonth' => 'Mês anterior',
 	'srfc_nextmonth' => 'Mês seguinte',
