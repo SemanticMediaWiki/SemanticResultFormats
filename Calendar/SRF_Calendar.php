@@ -111,7 +111,7 @@ class SRFCalendar extends SMWResultPrinter {
 				// handling is different for SMW 1.5+
 				if ( method_exists( 'SMWQueryResult', 'getResults' ) ) {
 					$res_subject = $field->getResultSubject();
-					if ( is_array( $res_subject->display_options ) && array_key_exists( 'color', $res_subject->display_options ) )
+					if ( isset( $res_subject->display_options ) && is_array( $res_subject->display_options ) && array_key_exists( 'color', $res_subject->display_options ) )
 						$color = $res_subject->display_options['color'];
 				} elseif ( property_exists( $row[0], 'display_options' ) ) {
 					if ( is_array( $row[0]->display_options ) && array_key_exists( 'color', $row[0]->display_options ) )
