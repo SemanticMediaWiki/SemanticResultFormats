@@ -894,6 +894,7 @@ $messages['ia'] = array(
 /** Indonesian (Bahasa Indonesia)
  * @author Bennylin
  * @author Farras
+ * @author Kenrick95
  */
 $messages['id'] = array(
 	'srf-desc' => 'Format tambahan untuk kueri Semantik MediaWiki',
@@ -930,6 +931,7 @@ $messages['id'] = array(
 	'srf_printername_googlepie' => 'Grafik pai Google',
 	'srf_paramdesc_chartheight' => 'Tinggi grafik, dalam piksel',
 	'srf_paramdesc_chartwidth' => 'Lebar grafik, dalam piksel',
+	'srf_printername_gallery' => 'Galeri',
 );
 
 /** Igbo (Igbo)
