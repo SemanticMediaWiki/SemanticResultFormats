@@ -1593,6 +1593,15 @@ $messages['ru'] = array(
 	'srf_printername_gallery' => 'Галерея',
 );
 
+/** Rusyn (русиньскый язык)
+ * @author Gazeb
+ */
+$messages['rue'] = array(
+	'srfc_previousmonth' => 'Минулый місяць',
+	'srfc_nextmonth' => 'Далшый місяць',
+	'srfc_today' => 'Днесь',
+);
+
 /** Slovak (Slovenčina)
  * @author Helix84
  */
