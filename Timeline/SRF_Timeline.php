@@ -63,11 +63,16 @@ class SRFTimeline extends SMWResultPrinter {
 		if ( !$eventline && ( $this->m_tlstart == '' ) ) { // seek defaults
 			foreach ( $res->getPrintRequests() as $pr ) {
 				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) ) {
+					if ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
+						$date_value = $pr->getData()->getValueKey();
+					} else {
+						$date_value = $pr->getData()->getXSDValue();
+					}
 					if ( ( $this->m_tlend == '' ) && ( $this->m_tlstart != '' ) &&
-					     ( $this->m_tlstart != $pr->getData()->getXSDValue() ) ) {
-						$this->m_tlend = $pr->getData()->getXSDValue();
-					} elseif ( ( $this->m_tlstart == '' ) && ( $this->m_tlend != $pr->getData()->getXSDValue() ) ) {
-						$this->m_tlstart = $pr->getData()->getXSDValue();
+					     ( $this->m_tlstart != $date_value ) ) {
+						$this->m_tlend = $date_value;
+					} elseif ( ( $this->m_tlstart == '' ) && ( $this->m_tlend != $date_value ) ) {
+						$this->m_tlstart = $date_value;
 					}
 				}
 			}
@@ -100,6 +105,13 @@ class SRFTimeline extends SMWResultPrinter {
 				foreach ( $row as $field ) {
 					$first_value = true;
 					$pr = $field->getPrintRequest();
+					if ( $pr->getData() == '' ) {
+						$date_value = null;
+					} elseif ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
+						$date_value = $pr->getData()->getValueKey();
+					} else {
+						$date_value = $pr->getData()->getXSDValue();
+					}
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 						$l = $this->getLinker( $first_col );
 						if ( !$hastitle && $object->getTypeID() != '_wpg' ) { // "linking" non-pages in title positions confuses timeline scripts, don't try this
@@ -119,17 +131,17 @@ class SRFTimeline extends SMWResultPrinter {
 							}
 							// is this a start date?
 							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
-							     ( $pr->getData()->getXSDValue() == $this->m_tlstart ) ) {
+							     ( $date_value == $this->m_tlstart ) ) {
 								// FIXME: Timeline scripts should support XSD format explicitly. They
 								// currently seem to implement iso8601 which deviates from XSD in cases.
 								// NOTE: We can assume $object to be an SMWDataValue in this case.
 								$curmeta .= '<span class="smwtlstart">' . $object->getXMLSchemaDate() . '</span>';
-								$positions[$object->getNumericValue()] = $object->getXMLSchemaDate();
+								$positions[$object->getHash()] = $object->getXMLSchemaDate();
 								$hastime = true;
 							}
 							// is this the end date?
 							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
-							     ( $pr->getData()->getXSDValue() == $this->m_tlend ) ) {
+							     ( $date_value == $this->m_tlend ) ) {
 								// NOTE: We can assume $object to be an SMWDataValue in this case.
 								$curmeta .= '<span class="smwtlend">' . $object->getXMLSchemaDate( false ) . '</span>';
 							}
@@ -151,7 +163,7 @@ class SRFTimeline extends SMWResultPrinter {
 							$curdata .= $header . $objectlabel;
 							$output = true;
 						}
-						if ( $eventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $pr->getData()->getXSDValue() != $this->m_tlstart ) && ( $pr->getData()->getXSDValue() != $this->m_tlend ) ) {
+						if ( $eventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
 							$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getNumericValue() );
 						}
 						$first_value = false;
@@ -198,5 +210,15 @@ class SRFTimeline extends SMWResultPrinter {
 		$result .= "</div>";
 		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
 		return $result;
+	}
+
+	function getParameters() {
+		$params = parent::getParameters();
+		$params[] = array( 'name' => 'timelinebands', 'type' => 'enum-list', 'description' => wfMsg( 'srf_paramdesc_timelinebands' ), 'values' => array( 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY' ) );
+		$params[] = array( 'name' => 'timelineposition', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_timelineposition' ), 'values' => array( 'start', 'middle', 'end' ) );
+		$params[] = array( 'name' => 'timelinestart', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelinestart' ) );
+	       	$params[] = array( 'name' => 'timelineend', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelineend' ) );
+		$params[] = array( 'name' => 'timelinesize', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelinesize' ) );
+		 return $params;
 	}
 }
