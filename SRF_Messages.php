@@ -330,13 +330,24 @@ $messages['bs'] = array(
 
 /** Catalan (Català)
  * @author Paucabot
+ * @author Toniher
  */
 $messages['ca'] = array(
+	'srf-desc' => 'Formats addicionals per a les consultes en línia del Semantic MediaWiki.',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Mes posterior',
 	'srfc_today' => 'Avui',
 	'srfc_gotomonth' => 'Vés al mes',
 	'srf_printername_calendar' => 'Calendari mensual',
+	'srf_paramdesc_calendarlang' => 'El codi de la llengua en què es mostrarà el calendari',
+	'srf_paramdesc_icalendartitle' => 'El títol del fitxer del calendari',
+	'srf_paramdesc_icalendardescription' => 'La descripció del fitxer del calendari',
+	'srf_printername_sum' => 'Suma dels nombres',
+	'srf_printername_average' => 'Mitjana dels nombres',
+	'srf_printername_min' => 'Nombre màxim',
+	'srf_printername_max' => 'Nombre mínim',
+	'srf_paramdesc_limit' => 'El nombre màxim de pàgines on fer la consulta',
+	'srf_printername_gallery' => 'Galeria',
 );
 
 /** German (Deutsch)
