@@ -69,7 +69,12 @@ class SRFCalendar extends SMWResultPrinter {
 						if ( $object->getTypeID() == '_dat' ) {
 							$text .= SRFCalendar::formatDateStr( $object );
 						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
-							$text .= $object->getLongText( $outputmode, null );
+							// handling of "link=" param
+							if ( $this->mLinkOthers ) {
+								$text .= $object->getLongText( $outputmode, null );
+							} else {
+								$text .= $object->getWikiValue();
+							}
 						} else {
 							$text .= $object->getShortText( $outputmode, null );
 						}
@@ -86,13 +91,25 @@ class SRFCalendar extends SMWResultPrinter {
 					elseif ( $i > 2 )
 						$text .= ", ";
 					while ( ( $object = $field->getNextObject() ) !== false ) {
-						if ( $object->getTypeID() == '_dat' ) { // use shorter "LongText" for wikipage
+						if ( $object->getTypeID() == '_dat' ) {
 							// don't add date values to the display
 						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
 							if ( $i == 0 ) {
 								$title = Title::newFromText( $object->getShortWikiText( false ) );
 							} else {
-								$text .= $pr->getHTMLText( $skin ) . " " . $object->getLongText( $outputmode, $skin );
+								// handling of "headers=" param
+								if ( $this->mShowHeaders == SMW_HEADERS_SHOW ) {
+									$text .= $pr->getHTMLText( $skin ) . " ";
+								} elseif ( $this->mShowHeaders == SMW_HEADERS_PLAIN ) {
+									$text .= $pr->getLabel() . " ";
+								}
+								// if $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing
+								// handling of "link=" param
+								if ( $this->mLinkOthers ) {
+									$text .= $object->getLongText( $outputmode, $skin );
+								} else {
+									$text .= $object->getWikiValue();
+								}
 							}
 						} else {
 							$text .= $pr->getHTMLText( $skin ) . " " . $object->getShortText( $outputmode, $skin );
