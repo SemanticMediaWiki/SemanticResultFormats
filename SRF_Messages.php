@@ -263,6 +263,7 @@ $messages['bn'] = array(
 /** Breton (Brezhoneg)
  * @author Fohanno
  * @author Fulup
+ * @author Gwenn-Ael
  * @author Y-M D
  */
 $messages['br'] = array(
@@ -281,6 +282,7 @@ $messages['br'] = array(
 	'srf_printername_bibtex' => 'Enporzh e BibTeX',
 	'srf_outline_novalue' => 'Talvoud ebet',
 	'srf_printername_outline' => 'Trolinenn',
+	'srf_paramdesc_outlineproperties' => 'Roll ar perzhioù da ziskwel evel talbennoù, dispartiet gant skejoù.',
 	'srf_printername_sum' => 'Sammad niveroù',
 	'srf_printername_average' => 'Keitad an niveroù',
 	'srf_printername_min' => 'Niver uhelañ',
@@ -288,6 +290,8 @@ $messages['br'] = array(
 	'srf_paramdesc_limit' => "Niver uhelañ a bajennoù da gerc'hat",
 	'srf_printername_timeline' => 'Kronologiezh',
 	'srf_printername_eventline' => 'Kronologiezh an darvoudoù',
+	'srf_paramdesc_timelinebands' => "a zielfenn peseurt strolladoù zo diskwelet en disoc'hoù.",
+	'srf_paramdesc_timelineposition' => 'a zielfenn takad ar frizenn a oa kreizennet da gentañ.',
 	'srf_paramdesc_timelinestart' => "Un anv perzh implijet da dermeniñ ur poent loc'hañ en amzer",
 	'srf_paramdesc_timelineend' => 'Un anv perzh implijet da dermeniñ un eil poent en amzer',
 	'srf_paramdesc_timelinesize' => 'Uhelder ar frizenn (300px dre ziouer)',
