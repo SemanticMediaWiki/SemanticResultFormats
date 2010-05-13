@@ -164,7 +164,12 @@ class SRFTimeline extends SMWResultPrinter {
 							$output = true;
 						}
 						if ( $eventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
-							$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getNumericValue() );
+							if ( method_exists( $object, 'getValueKey' ) ) {
+								$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getValueKey() );
+							}
+							else {
+								$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getNumericValue() );
+							}							
 						}
 						$first_value = false;
 					}

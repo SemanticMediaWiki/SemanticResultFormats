@@ -397,7 +397,12 @@ class SRFExhibit extends SMWResultPrinter {
 							$textstack[] = $object->getXSDValue($outputmode,$this->getLinker(0));
 							break;
 						case '_num':
-							$textstack[] = $object->getNumericValue($outputmode,$this->getLinker(0));
+							if ( method_exists( $object, 'getValueKey' ) ) {
+								$textstack[] = $object->getValueKey($outputmode,$this->getLinker(0));
+							}
+							else {
+								$textstack[] = $object->getNumericValue($outputmode,$this->getLinker(0));
+							}							
 							break;
 						case '_dat':
 							$textstack[] = $object->getYear()."-".str_pad($object->getMonth(),2,'0',STR_PAD_LEFT)."-".str_pad($object->getDay(),2,'0',STR_PAD_LEFT)." ".$object->getTimeString();

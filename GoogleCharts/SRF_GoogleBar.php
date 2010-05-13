@@ -37,9 +37,16 @@ class SRFGoogleBar extends SMWResultPrinter {
 			foreach ( $row as $field ) {
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
-						$nr = $object->getNumericValue();
+						if ( method_exists( $object, 'getValueKey' ) ) {
+							$nr = $object->getValueKey();
+						}
+						else {
+							$nr = $object->getNumericValue();
+						}		
+										
 						$count++;
 						$max = max( $max, $nr );
+						
 						if ( $first ) {
 							$first = false;
 							$t .= $nr;

@@ -178,7 +178,12 @@ class SRFCalendar extends SMWResultPrinter {
 			// get rid of it using (int)
 			return $object->getYear() . '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 		} else {
-			return date( "Y-n-j", $event_date->getNumericValue() );
+			if ( method_exists( $event_date, 'getValueKey' ) ) {
+				return date( "Y-n-j", $event_date->getValueKey() );
+			}
+			else {
+				return date( "Y-n-j", $event_date->getNumericValue() );
+			}
 		}
 	}
 

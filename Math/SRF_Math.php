@@ -39,7 +39,12 @@ class SRFMath extends SMWResultPrinter {
 			foreach ( $last_col->getContent() as $value ) {
 				// handle each value only if it's of type Number or NAry
 				if ( $value instanceof SMWNumberValue ) {
-					$num = $value->getNumericValue();
+					if ( method_exists( $event_date, 'getValueKey' ) ) {
+						$num = $event_date->getValueKey();
+					}
+					else {
+						$num = $event_date->getNumericValue();
+					}					
 				} elseif ( $value instanceof SMWNAryValue ) {
 					$inner_values = $value->getDVs();
 					// find the first inner value that's of
@@ -48,7 +53,12 @@ class SRFMath extends SMWResultPrinter {
 					$num = null;
 					foreach ( $inner_values as $inner_value ) {
 						if ( $inner_value instanceof SMWNumberValue ) {
-							$num = $inner_value->getNumericValue();
+							if ( method_exists( $inner_value, 'getValueKey' ) ) {
+								$num = $inner_value->getValueKey();
+							}
+							else {
+								$num = $inner_value->getNumericValue();
+							}							
 							break;
 						}
 					}
