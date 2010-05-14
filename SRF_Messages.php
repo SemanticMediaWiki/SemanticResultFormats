@@ -1675,6 +1675,7 @@ $messages['sr-el'] = array(
 );
 
 /** Swedish (Svenska)
+ * @author Dafer45
  * @author M.M.S.
  * @author Per
  */
@@ -1696,6 +1697,8 @@ $messages['sv'] = array(
 	'srf_printername_average' => 'Genomsnitt av tal',
 	'srf_printername_min' => 'Största nummer',
 	'srf_printername_max' => 'Minsta nummer',
+	'srf_printername_timeline' => 'Tidslinje',
+	'srf_printername_eventline' => 'Händelselinje',
 	'srf_printername_googlebar' => 'Google stapeldiagram',
 	'srf_printername_googlepie' => 'Google tårtdiagram',
 	'srf_paramdesc_chartheight' => 'Höjden på diagrammet i pixlar',
