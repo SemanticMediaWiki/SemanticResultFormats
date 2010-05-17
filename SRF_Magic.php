@@ -22,6 +22,11 @@ $magicWords['es'] = array(
 	'calendarenddate'     => array( '0', 'fechadefindecalendario', 'fechafincalendario', 'calendarenddate' ),
 );
 
+$magicWords['ml'] = array(
+	'calendarstartdate'   => array( '0', 'കലണ്ടറിലെയാദ്യതീയതി', 'calendarstartdate' ),
+	'calendarenddate'     => array( '0', 'കലണ്ടറിലെയന്ത്യതീയതി', 'calendarenddate' ),
+);
+
 $magicWords['mr'] = array(
 	'calendarstartdate'   => array( '0', 'दिनदर्शिकारंभदिन', 'calendarstartdate' ),
 	'calendarenddate'     => array( '0', 'दिनदर्शिकासांगतादिन', 'calendarenddate' ),
