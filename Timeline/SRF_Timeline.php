@@ -48,6 +48,7 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	public function getName() {
+		wfLoadExtensionMessages( 'SemanticResultFormats' );
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 
@@ -77,6 +78,7 @@ class SRFTimeline extends SMWResultPrinter {
 			}
 		}
 
+		wfLoadExtensionMessages( 'SemanticMediaWiki' );
 		// print header
 		$link = $res->getQueryLink( wfMsgForContent( 'smw_iq_altresults' ) );
 		$result = "<div class=\"smwtimeline\" id=\"smwtimeline$smwgIQRunningNumber\" style=\"height: $this->m_tlsize\">";

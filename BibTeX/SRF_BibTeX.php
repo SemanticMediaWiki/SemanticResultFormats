@@ -50,6 +50,7 @@ class SRFBibTeX extends SMWResultPrinter {
 	}
 
 	public function getName() {
+		wfLoadExtensionMessages( 'SemanticResultFormats' );
 		return wfMsg( 'srf_printername_bibtex' );
 	}
 
@@ -286,6 +287,7 @@ class SRFBibTeX extends SMWResultPrinter {
 			if ( $this->getSearchLabel( $outputmode ) ) {
 				$label = $this->getSearchLabel( $outputmode );
 			} else {
+				wfLoadExtensionMessages( 'SemanticResultFormats' );
 				$label = wfMsgForContent( 'srf_bibtex_link' );
 			}
 			$link = $res->getQueryLink( $label );

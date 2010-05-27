@@ -50,6 +50,9 @@ class SRFExhibit extends SMWResultPrinter {
 
 		global $smwgIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $smwgScriptPath, $srfgIP, $srfgScriptPath;
 
+		wfLoadExtensionMessages('SemanticMediaWiki');
+
+
 		////////////////////////////////
 		/////////REMOTE STUFF///////////
 		////////////////////////////////

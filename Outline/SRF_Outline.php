@@ -32,6 +32,7 @@ class SRFOutlineItem {
 		if ( array_key_exists( $field_name, $this->mVals ) )
 			return $this->mVals[$field_name];
 		else {
+			wfLoadExtensionMessages( 'SemanticResultFormats' );
 			return array( wfMsg( 'srf_outline_novalue' ) );
 		}
 	}
