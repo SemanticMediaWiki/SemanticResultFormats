@@ -11,8 +11,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 define( 'SRF_VERSION', '1.4.6' );
 
-$srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
-$srfgIP = $IP . '/extensions/SemanticResultFormats';
+$srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats'; // TODO: fix hardcoded path
+$srfgIP = dirname( __FILE__ );
 $wgExtensionMessagesFiles['SemanticResultFormats'] = $srfgIP . '/SRF_Messages.php';
 $wgExtensionFunctions[] = 'srffSetup';
 
