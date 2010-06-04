@@ -362,7 +362,6 @@ class SRFExhibit extends SMWResultPrinter {
 		SMWOutputs::requireHeadItem('EXHIBIT2', $ExhibitScriptSrc2); //includes javascript overwriting the Exhibit start-up functions
 		SMWOutputs::requireHeadItem('SOURCES'.$smwgIQRunningNumber, $sourcesrc);//include sources variable
 		SMWOutputs::requireHeadItem('VIEWSFACETS', $headervars);//include views and facets variable
-		SMWOutputs::requireHeadItem('CALENDAR','<script type="text/javascript" src="'.$srfgScriptPath.'/Exhibit/exhibit/extensions/calendar/calendar-extension.js"></script>');
 
 
 		if(!$remote){
