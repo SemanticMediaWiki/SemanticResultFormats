@@ -420,6 +420,9 @@ class SRFExhibit extends SMWResultPrinter {
 							}
 							$textstack[] = $tmp;
 							break;
+						case '_txt': case '_cod': case '_str':
+							$textstack[] = $object->getWikiValue();
+							break;
 						default:
 							$textstack[] = $object->getLongHTMLText($outputmode,$this->getLinker(0));
 					}
