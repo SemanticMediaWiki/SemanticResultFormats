@@ -39,11 +39,11 @@ class SRFMath extends SMWResultPrinter {
 			foreach ( $last_col->getContent() as $value ) {
 				// handle each value only if it's of type Number or NAry
 				if ( $value instanceof SMWNumberValue ) {
-					if ( method_exists( $event_date, 'getValueKey' ) ) {
-						$num = $event_date->getValueKey();
+					if ( method_exists( $value, 'getValueKey' ) ) {
+						$num = $value->getValueKey();
 					}
 					else {
-						$num = $event_date->getNumericValue();
+						$num = $value->getNumericValue();
 					}					
 				} elseif ( $value instanceof SMWNAryValue ) {
 					$inner_values = $value->getDVs();
