@@ -393,7 +393,8 @@ class SRFExhibit extends SMWResultPrinter {
 							$textstack[] = $object->getLongText($outputmode,$this->getLinker(0));
 							break;
 						case '_geo':
-							$textstack[] = $object->getXSDValue($outputmode,$this->getLinker(0));
+							$c = $object->getDBKeys();
+							$textstack[] = $c[0].",".$c[1];
 							break;
 						case '_num':
 							if ( method_exists( $object, 'getValueKey' ) ) {
@@ -410,7 +411,7 @@ class SRFExhibit extends SMWResultPrinter {
 							$textstack[] =  $object->getShortWikiText($this->getLinker(0));
 							break;
 						case '_tel': case '_anu': case '_uri':
-							$textstack[] = $object->getXSDValue($this->getLinker(0));
+							$textstack[] = $object->getWikiValue();
 							break;
 						case '__sin':
 							$tmp = $object->getShortText($outputmode,null);
