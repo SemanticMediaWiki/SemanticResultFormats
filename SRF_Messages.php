@@ -1653,10 +1653,12 @@ $messages['sr-ec'] = array(
 	'srfc_today' => 'Данас',
 	'srfc_gotomonth' => 'Пређи на месец',
 	'srf_printername_calendar' => 'Месечни календар',
+	'srf_outline_novalue' => 'Нема вредности',
 	'srf_printername_sum' => 'Сума бројева',
 	'srf_printername_average' => 'Средња вредност бројева',
 	'srf_printername_min' => 'Највећи број',
 	'srf_printername_max' => 'Најмањи број',
+	'srf_printername_gallery' => 'Галерија',
 );
 
 /** Serbian Latin ekavian (Srpski (latinica))
