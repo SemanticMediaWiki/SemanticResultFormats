@@ -1671,10 +1671,12 @@ $messages['sr-el'] = array(
 	'srfc_today' => 'Danas',
 	'srfc_gotomonth' => 'Pređi na mesec',
 	'srf_printername_calendar' => 'Mesečni kalendar',
+	'srf_outline_novalue' => 'Nema vrednosti',
 	'srf_printername_sum' => 'Suma brojeva',
 	'srf_printername_average' => 'Srednja vrednost brojeva',
 	'srf_printername_min' => 'Najveći broj',
 	'srf_printername_max' => 'Najmanji broj',
+	'srf_printername_gallery' => 'Galerija',
 );
 
 /** Swedish (Svenska)
