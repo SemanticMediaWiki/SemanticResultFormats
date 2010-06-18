@@ -3,15 +3,16 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 == SRF 1.5 ==
 
-Released on ?
+Released on June 22 2009.
 
 New formats in this version are:
 * gallery (written by Rowan Rodrik van der Molen)
 
 Changes in this version:
-* the functions getName() and getParameters() were added to most formats, for
-  use in Special:Ask
+* the functions getName() and getParameters() were added to most formats, for use in Special:Ask
 * a 'lang' parameter was added to the 'calendar' format
+* improvements in 'exhibit' result format
+** new facet styles (slider and search)
 
 == SRF 1.4.5 ==
 
