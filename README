@@ -7,8 +7,8 @@ overview on how to install and configure the formats, as well as an overview
 of all included formats.
 
 Semantic Result Formats requires Semantic MediaWiki to run, at least at the
-same second-level version number as Semantic Result Formats, i.e. SRF 1.4.1
-requires SMW 1.4.0.
+same second-level version number as Semantic Result Formats, i.e. SRF 1.5.0
+requires SMW 1.5.0.
 
 For more information, see the SRF homepage at:
 http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
