@@ -84,12 +84,16 @@ class SRFCalendar extends SMWResultPrinter {
 					}
 				}
 			} else {  // build simple text
+				$numNonDateProperties = 0;
+				// cycle through a 'row', which is the page
+				// name (the first field) plus all its
+				// properties
 				foreach ( $row as $i => $field ) {
 					$pr = $field->getPrintRequest();
-					if ( $i == 2 )
-						$text .= " (";
-					elseif ( $i > 2 )
-						$text .= ", ";
+					// a property can have more than one
+					// value - cycle through all the values
+					// for this property
+					$textForProperty = '';
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							// don't add date values to the display
@@ -97,30 +101,42 @@ class SRFCalendar extends SMWResultPrinter {
 							if ( $i == 0 ) {
 								$title = Title::newFromText( $object->getShortWikiText( false ) );
 							} else {
+								$numNonDateProperties++;
 								// handling of "headers=" param
 								if ( $this->mShowHeaders == SMW_HEADERS_SHOW ) {
-									$text .= $pr->getHTMLText( $skin ) . " ";
+									$textForProperty .= $pr->getHTMLText( $skin ) . " ";
 								} elseif ( $this->mShowHeaders == SMW_HEADERS_PLAIN ) {
-									$text .= $pr->getLabel() . " ";
+									$textForProperty .= $pr->getLabel() . " ";
 								}
 								// if $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing
 								// handling of "link=" param
 								if ( $this->mLinkOthers ) {
-									$text .= $object->getLongText( $outputmode, $skin );
+									$textForProperty .= $object->getLongText( $outputmode, $skin );
 								} else {
-									$text .= $object->getWikiValue();
+									$textForProperty .= $object->getWikiValue();
 								}
 							}
 						} else {
-							$text .= $pr->getHTMLText( $skin ) . " " . $object->getShortText( $outputmode, $skin );
+							$numNonDateProperties++;
+							$textForProperty .= $pr->getHTMLText( $skin ) . " " . $object->getShortText( $outputmode, $skin );
 						}
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
 							$dates[] = SRFCalendar::formatDateStr( $object );
 						}
 					}
+					// add the text for this property to
+					// the main text, adding on parentheses
+					// or commas as needed
+					if ( $numNonDateProperties == 1 ) {
+						$text .= " (";
+					} elseif ( $numNonDateProperties > 1 ) {
+						$text .= ", ";
+					}
+					$text .= $textForProperty;
 				}
-				if ( $i > 1 )
+				if ( $numNonDateProperties > 0 ) {
 					$text .= ")";
+				}
 			}
 			if ( count( $dates ) > 0 ) {
 				// handle the 'color=' value, whether it came
