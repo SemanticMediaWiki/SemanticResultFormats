@@ -920,6 +920,7 @@ $messages['id'] = array(
 	'srfc_today' => 'Hari ini',
 	'srfc_gotomonth' => 'Pergi ke bulan',
 	'srf_printername_calendar' => 'Kalender bulanan',
+	'srf_paramdesc_calendarlang' => 'Kode untuk bahasa yang digunakan untuk menampilkan kalender',
 	'srf_printername_vcard' => 'Ekspor vCard',
 	'srf_printername_icalendar' => 'Ekspor iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Judul berkas kalender',
@@ -1619,6 +1620,7 @@ $messages['rue'] = array(
 	'srfc_previousmonth' => 'Минулый місяць',
 	'srfc_nextmonth' => 'Далшый місяць',
 	'srfc_today' => 'Днесь',
+	'srf_printername_gallery' => 'Ґалерія',
 );
 
 /** Slovak (Slovenčina)
