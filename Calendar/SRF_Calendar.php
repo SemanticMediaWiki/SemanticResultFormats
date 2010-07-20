@@ -242,7 +242,7 @@ class SRFCalendar extends SMWResultPrinter {
 		// and years (same - note that the previous or next month could
 		// be in a different year), the number of days in the current,
 		// previous and next months, etc.
-		$cur_month_num = date( "n", mktime() );
+		$cur_month_num = date( "n", time() );
 		if ( $wgRequest->getCheck( 'month' ) ) {
 			$query_month = $wgRequest->getVal( 'month' );
 			if ( is_numeric( $query_month ) && ( intval( $query_month ) == $query_month ) && $query_month >= 1 && $query_month <= 12 ) {
@@ -250,7 +250,7 @@ class SRFCalendar extends SMWResultPrinter {
 			}
 		}
 		$cur_month = SRFCalendar::intToMonth( $cur_month_num );
-		$cur_year = date( "Y", mktime() );
+		$cur_year = date( "Y", time() );
 		if ( $wgRequest->getCheck( 'year' ) ) {
 			$query_year = $wgRequest->getVal( 'year' );
 			if ( is_numeric( $query_year ) && intval( $query_year ) == $query_year ) {
@@ -290,7 +290,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$start_day = 1 - $day_of_week_of_1;
 		$days_in_prev_month = SRFCHistoricalDate::daysInMonth( $prev_year, $prev_month_num );
 		$days_in_cur_month = SRFCHistoricalDate::daysInMonth( $cur_year, $cur_month_num );
-		$today_string = date( "Y n j", mktime() );
+		$today_string = date( "Y n j", time() );
 		$url_year = $wgRequest->getVal( 'year' );
 		$page_name = $page_title->getPrefixedDbKey();
 
