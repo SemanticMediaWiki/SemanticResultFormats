@@ -2,7 +2,7 @@
  *  Exhibit.ExhibitJsonExporter
  *==================================================
  */
- 
+
 Exhibit.ExhibitJsonExporter = {
     getLabel: function() {
         return Exhibit.l10n.exhibitJsonExporterLabel;
@@ -43,17 +43,17 @@ Exhibit.ExhibitJsonExporter._exportOne = function(itemID, database) {
     }
     var s = "";
     var uri = database.getObject(itemID, "uri");
-    
+
     s += "  {\"id\":" + quote(itemID) + ",\n";
-    
+
     var allProperties = database.getAllProperties();
-    
+
     for (var i = 0; i < allProperties.length; i++) {
         var propertyID = allProperties[i];
         var property = database.getProperty(propertyID);
         var values = database.getObjects(itemID, propertyID);
         var valueType = property.getValueType();
-        
+
         if (values.size() > 0) {
             var array;
             if (valueType == "url") {
@@ -64,7 +64,7 @@ Exhibit.ExhibitJsonExporter._exportOne = function(itemID, database) {
             } else {
                 array = values.toArray();
             }
-            
+
             s += "   " + quote(propertyID) + ":";
             if (array.length == 1) {
                 s += quote(array[0]);
@@ -80,7 +80,7 @@ Exhibit.ExhibitJsonExporter._exportOne = function(itemID, database) {
     }
     s += "   \"origin\":"+ quote(Exhibit.Persistence.getItemLink(itemID)) +"\n";
     s += "  }";
-    
+
     return s;
 };
 

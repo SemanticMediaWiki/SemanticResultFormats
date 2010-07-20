@@ -26,7 +26,7 @@ Timeline.GregorianDateLabeller.prototype.labelInterval = function(date, interval
 
 Timeline.GregorianDateLabeller.prototype.labelPrecise = function(date) {
     return SimileAjax.DateTime.removeTimeZoneOffset(
-        date, 
+        date,
         this._timeZone //+ (new Date().getTimezoneOffset() / 60)
     ).toUTCString();
 };
@@ -34,9 +34,9 @@ Timeline.GregorianDateLabeller.prototype.labelPrecise = function(date) {
 Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(date, intervalUnit) {
     var text;
     var emphasized = false;
-    
+
     date = SimileAjax.DateTime.removeTimeZoneOffset(date, this._timeZone);
-    
+
     switch(intervalUnit) {
     case SimileAjax.DateTime.MILLISECOND:
         text = date.getUTCMilliseconds();
@@ -78,9 +78,9 @@ Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(date, i
         } else {
             text = (1 - y) + "BC";
         }
-        emphasized = 
+        emphasized =
             (intervalUnit == SimileAjax.DateTime.MONTH) ||
-            (intervalUnit == SimileAjax.DateTime.DECADE && y % 100 == 0) || 
+            (intervalUnit == SimileAjax.DateTime.DECADE && y % 100 == 0) ||
             (intervalUnit == SimileAjax.DateTime.CENTURY && y % 1000 == 0);
         break;
     default:

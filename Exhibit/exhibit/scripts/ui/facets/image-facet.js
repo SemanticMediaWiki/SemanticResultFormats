@@ -7,11 +7,11 @@ Exhibit.ImageFacet = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
     this._colorCoder = null;
-    
+
     this._expression = null;
     this._valueSet = new Exhibit.Set();
     this._selectMissing = false;
-    
+
     this._settings = {};
     this._dom = null;
 };
@@ -35,12 +35,12 @@ Exhibit.ImageFacet._settingSpecs = {
 Exhibit.ImageFacet.create = function(configuration, containerElmt, uiContext) {
     var uiContext = Exhibit.UIContext.create(configuration, uiContext);
     var facet = new Exhibit.ImageFacet(containerElmt, uiContext);
-    
+
     Exhibit.ImageFacet._configure(facet, configuration);
-    
+
     facet._initializeUI();
     uiContext.getCollection().addFacet(facet);
-    
+
     return facet;
 };
 
@@ -48,18 +48,18 @@ Exhibit.ImageFacet.createFromDOM = function(configElmt, containerElmt, uiContext
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var uiContext = Exhibit.UIContext.createFromDOM(configElmt, uiContext);
     var facet = new Exhibit.ImageFacet(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         uiContext
     );
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.ImageFacet._settingSpecs, facet._settings);
-    
+
     try {
         var expressionString = Exhibit.getAttribute(configElmt, "expression");
         if (expressionString != null && expressionString.length > 0) {
             facet._expression = Exhibit.ExpressionParser.parse(expressionString);
         }
-        
+
         var imageString = Exhibit.getAttribute(configElmt, "image");
         if (imageString != null && imageString.length > 0) {
             facet._imageExpression = Exhibit.ExpressionParser.parse(imageString);
@@ -76,7 +76,7 @@ Exhibit.ImageFacet.createFromDOM = function(configElmt, containerElmt, uiContext
                 facet._valueSet.add(s);
             }
         }
-        
+
         var selectMissing = Exhibit.getAttribute(configElmt, "selectMissing");
         if (selectMissing != null && selectMissing.length > 0) {
             facet._selectMissing = (selectMissing == "true");
@@ -85,16 +85,16 @@ Exhibit.ImageFacet.createFromDOM = function(configElmt, containerElmt, uiContext
         SimileAjax.Debug.exception(e, "ImageFacet: Error processing configuration of list facet");
     }
     Exhibit.ImageFacet._configure(facet, configuration);
-    
+
     facet._initializeUI();
     uiContext.getCollection().addFacet(facet);
-    
+
     return facet;
 };
 
 Exhibit.ImageFacet._configure = function(facet, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.ImageFacet._settingSpecs, facet._settings);
-    
+
     if ("expression" in configuration) {
         facet._expression = Exhibit.ExpressionParser.parse(configuration.expression);
     }
@@ -111,7 +111,7 @@ Exhibit.ImageFacet._configure = function(facet, configuration) {
 	if (!(facet._tooltipExpression)) {
         facet._tooltipExpression = Exhibit.ExpressionParser.parse("value");
 	}
-	
+
     if ("selection" in configuration) {
         var selection = configuration.selection;
         for (var i = 0; i < selection.length; i++) {
@@ -121,7 +121,7 @@ Exhibit.ImageFacet._configure = function(facet, configuration) {
     if ("selectMissing" in configuration) {
         facet._selectMissing = configuration.selectMissing;
     }
-    
+
     if (!("facetLabel" in facet._settings)) {
         facet._settings.facetLabel = "missing ex:facetLabel";
         if (facet._expression != null && facet._expression.isPath()) {
@@ -138,18 +138,18 @@ Exhibit.ImageFacet._configure = function(facet, configuration) {
         for (var i = 0; i < values.length; i++) {
             orderMap[values[i].trim()] = i;
         }
-        
+
         facet._orderMap = orderMap;
     }
-    
+
     if ("colorCoder" in facet._settings) {
         facet._colorCoder = facet._uiContext.getExhibit().getComponent(facet._settings.colorCoder);
     }
-    
+
     if (facet._settings.collapsed) {
         facet._settings.collapsible = true;
     }
-    
+
     facet._cache = new Exhibit.FacetUtilities.Cache(
         facet._uiContext.getDatabase(),
         facet._uiContext.getCollection(),
@@ -160,15 +160,15 @@ Exhibit.ImageFacet._configure = function(facet, configuration) {
 Exhibit.ImageFacet.prototype.dispose = function() {
     this._cache.dispose();
     this._cache = null;
-    
+
     this._uiContext.getCollection().removeFacet(this);
     this._uiContext = null;
     this._colorCoder = null;
-    
+
     this._div.innerHTML = "";
     this._div = null;
     this._dom = null;
-    
+
     this._expression = null;
     this._valueSet = null;
     this._settings = null;
@@ -185,10 +185,10 @@ Exhibit.ImageFacet.prototype.clearAllRestrictions = function() {
             restrictions.selection.push(v);
         });
         this._valueSet = new Exhibit.Set();
-        
+
         restrictions.selectMissing = this._selectMissing;
         this._selectMissing = false;
-        
+
         this._notifyCollection();
     }
     return restrictions;
@@ -200,7 +200,7 @@ Exhibit.ImageFacet.prototype.applyRestrictions = function(restrictions) {
         this._valueSet.add(restrictions.selection[i]);
     }
     this._selectMissing = restrictions.selectMissing;
-    
+
     this._notifyCollection();
 };
 
@@ -224,12 +224,12 @@ Exhibit.ImageFacet.prototype.restrict = function(items) {
     if (this._valueSet.size() == 0 && !this._selectMissing) {
         return items;
     }
-    
+
     var set = this._cache.getItemsFromValues(this._valueSet, items);
     if (this._selectMissing) {
         this._cache.getItemsMissingValue(items, set);
     }
-    
+
     return set;
 };
 
@@ -245,13 +245,13 @@ Exhibit.ImageFacet.prototype._computeFacet = function(items) {
     var r = this._cache.getValueCountsFromItems(items);
     var entries = r.entries;
     var valueType = r.valueType;
-    
+
     if (entries.length > 0) {
         var selection = this._valueSet;
         var labeler = valueType == "item" ?
             function(v) { var l = database.getObject(v, "label"); return l != null ? l : v; } :
             function(v) { return v; }
-            
+
         for (var i = 0; i < entries.length; i++) {
             var entry = entries[i];
             entry.actionLabel = entry.selectionLabel = labeler(entry.value);
@@ -259,7 +259,7 @@ Exhibit.ImageFacet.prototype._computeFacet = function(items) {
 			entry.tooltip = this._tooltipExpression.evaluateSingleOnItem(entry.value, database).value;
             entry.selected = selection.contains(entry.value);
         }
-        
+
         entries.sort(this._createSortFunction(valueType));
     }
     /* should display something to account for items that don't have this field
@@ -268,12 +268,12 @@ Exhibit.ImageFacet.prototype._computeFacet = function(items) {
         var count = this._cache.countItemsMissingValue(items);
         if (count > 0 || this._selectMissing) {
             var span = document.createElement("span");
-            span.innerHTML = ("missingLabel" in this._settings) ? 
+            span.innerHTML = ("missingLabel" in this._settings) ?
                 this._settings.missingLabel : Exhibit.FacetUtilities.l10n.missingThisField;
             span.className = "exhibit-facet-value-missingThisField";
-            
+
             entries.unshift({
-                value:          null, 
+                value:          null,
                 count:          count,
                 selected:       this._selectMissing,
                 selectionLabel: span,
@@ -300,7 +300,7 @@ Exhibit.ImageFacet.prototype._initializeUI = function() {
         this._settings.collapsible,
         this._settings.collapsed
     );
-    
+
     if ("height" in this._settings && this._settings.scroll) {
         this._dom.valuesContainer.style.height = this._settings.height;
     }
@@ -310,7 +310,7 @@ Exhibit.ImageFacet.prototype._constructBody = function(entries) {
     var self = this;
     var shouldOverlayCounts = this._settings.overlayCounts;
     var containerDiv = this._dom.valuesContainer;
-    
+
     containerDiv.style.display = "none";
     var facetHasSelection = this._valueSet.size() > 0 || this._selectMissing;
     var constructValue = function(entry) {
@@ -325,7 +325,7 @@ Exhibit.ImageFacet.prototype._constructBody = function(entries) {
 		var image = document.createElement("img");
 		image.src = entry.image;
 		wrapper.appendChild(image);
-		
+
 		if(shouldOverlayCounts == true) {
 			var countDiv = document.createElement("div");
 			countDiv.className = "countDiv";
@@ -340,44 +340,44 @@ Exhibit.ImageFacet.prototype._constructBody = function(entries) {
 			countDiv.appendChild(innerCount);
 			wrapper.appendChild(countDiv);
 		}
-		
+
 		elmt.appendChild(wrapper);
-		
+
 		elmt.className = entry.selected ? "inline-block exhibit-imageFacet-value exhibit-imageFacet-value-selected" : "inline-block exhibit-imageFacet-value";
 
 		elmt.title = entry.count + " " + entry.tooltip;
 
 	    SimileAjax.WindowManager.registerEvent(elmt, "click", onSelectOnly, SimileAjax.WindowManager.getBaseLayer());
-	
+
         containerDiv.appendChild(elmt);
     };
-    
+
     for (var j = 0; j < entries.length; j++) {
         constructValue(entries[j]);
     }
     containerDiv.style.display = "block";
-    
+
     this._dom.setSelectionCount(this._valueSet.size() + (this._selectMissing ? 1 : 0));
 };
 
 Exhibit.ImageFacet.prototype._filter = function(value, label, selectOnly) {
     var self = this;
     var selected, select, deselect;
-    
+
     var oldValues = new Exhibit.Set(this._valueSet);
     var oldSelectMissing = this._selectMissing;
-    
+
     var newValues;
     var newSelectMissing;
     var actionLabel;
-    
+
     var wasSelected;
     var wasOnlyThingSelected;
-    
+
     if (value == null) { // the (missing this field) case
         wasSelected = oldSelectMissing;
         wasOnlyThingSelected = wasSelected && (oldValues.size() == 0);
-        
+
         if (selectOnly) {
             if (oldValues.size() == 0) {
                 newSelectMissing = !oldSelectMissing;
@@ -392,11 +392,11 @@ Exhibit.ImageFacet.prototype._filter = function(value, label, selectOnly) {
     } else {
         wasSelected = oldValues.contains(value);
         wasOnlyThingSelected = wasSelected && (oldValues.size() == 1) && !oldSelectMissing;
-        
+
         if (selectOnly) {
             newSelectMissing = false;
             newValues = new Exhibit.Set();
-            
+
             if (!oldValues.contains(value)) {
                 newValues.add(value);
             } else if (oldValues.size() > 1 || oldSelectMissing) {
@@ -412,10 +412,10 @@ Exhibit.ImageFacet.prototype._filter = function(value, label, selectOnly) {
             }
         }
     }
-    
+
     var newRestrictions = { selection: newValues.toArray(), selectMissing: newSelectMissing };
     var oldRestrictions = { selection: oldValues.toArray(), selectMissing: oldSelectMissing };
-    
+
     SimileAjax.History.addLengthyAction(
         function() { self.applyRestrictions(newRestrictions); },
         function() { self.applyRestrictions(oldRestrictions); },
@@ -445,7 +445,7 @@ Exhibit.ImageFacet.prototype._createSortFunction = function(valueType) {
     var sortValueFunction = function(a, b) { return a.selectionLabel.localeCompare(b.selectionLabel); };
     if ("_orderMap" in this) {
         var orderMap = this._orderMap;
-        
+
         sortValueFunction = function(a, b) {
             if (a.selectionLabel in orderMap) {
                 if (b.selectionLabel in orderMap) {
@@ -466,7 +466,7 @@ Exhibit.ImageFacet.prototype._createSortFunction = function(valueType) {
             return a < b ? -1 : a > b ? 1 : 0;
         }
     }
-    
+
     var sortFunction = sortValueFunction;
     if (this._settings.sortMode == "count") {
         sortFunction = function(a, b) {
@@ -481,6 +481,6 @@ Exhibit.ImageFacet.prototype._createSortFunction = function(valueType) {
             return sortFunction(b, a);
         }
     }
-    
+
     return sortDirectionFunction;
 }

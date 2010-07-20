@@ -29,7 +29,7 @@ function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
 
 	foreach ( $srfgFormats as $fn ) srffInitFormat( $fn );
-	
+
 	$formats_list = implode( ', ', $srfgFormats );
 	$wgExtensionCredits['other'][] = array(
 		'path' => __FILE__,

@@ -11,7 +11,7 @@ Exhibit.OrderedViewFrame.l10n.removeOrderLabel = "Ta bort det här sorteringskri
 
 Exhibit.OrderedViewFrame.l10n.sortingControlsTemplate =
     "sorterat efter: <span id='ordersSpan'></span>; <a id='thenSortByAction' href='javascript:void' class='exhibit-action' title='sortera ytterligare'>then by...</a>";
-    
+
 Exhibit.OrderedViewFrame.l10n.formatSortActionTitle = function(propertyLabel, sortLabel) {
     return "Sorterat efter " + propertyLabel + " (" + sortLabel + ")";
 };

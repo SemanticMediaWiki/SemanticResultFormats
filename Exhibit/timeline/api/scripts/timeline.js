@@ -26,11 +26,11 @@
 
 
 /*==================================================
- *  Timeline VERSION     
+ *  Timeline VERSION
  *==================================================
  */
 // Note: version is also stored in the build.xml file
-Timeline.version = 'pre 2.4.0';  // use format 'pre 1.2.3' for trunk versions 
+Timeline.version = 'pre 2.4.0';  // use format 'pre 1.2.3' for trunk versions
 Timeline.ajax_lib_version = SimileAjax.version;
 Timeline.display_version = Timeline.version + ' (with Ajax lib ' + Timeline.ajax_lib_version + ')';
  // cf method Timeline.writeVersion
@@ -54,12 +54,12 @@ Timeline.create = function(elmt, bandInfos, orientation, unit) {
         // Timeline.timelines array can have null members--Timelines that
         // once existed on the page, but were later disposed of.
     }
-    
+
     var timelineID = Timeline.timelines.length;
     Timeline.timelines[timelineID] = null; // placeholder until we have the object
     var new_tl = new Timeline._Impl(elmt, bandInfos, orientation, unit,
       timelineID);
-    Timeline.timelines[timelineID] = new_tl;    
+    Timeline.timelines[timelineID] = new_tl;
     return new_tl;
 };
 
@@ -67,23 +67,23 @@ Timeline.createBandInfo = function(params) {
     var theme = ("theme" in params) ? params.theme : Timeline.getDefaultTheme();
 
     var decorators = ("decorators" in params) ? params.decorators : [];
-        
+
     var eventSource = ("eventSource" in params) ? params.eventSource : null;
-    
-    var ether = new Timeline.LinearEther({ 
+
+    var ether = new Timeline.LinearEther({
         centersOn:          ("date" in params) ? params.date : new Date(),
         interval:           SimileAjax.DateTime.gregorianUnitLengths[params.intervalUnit],
         pixelsPerInterval:  params.intervalPixels,
         theme:              theme
     });
-    
+
     var etherPainter = new Timeline.GregorianEtherPainter({
-        unit:       params.intervalUnit, 
+        unit:       params.intervalUnit,
         multiple:   ("multiple" in params) ? params.multiple : 1,
         theme:      theme,
         align:      ("align" in params) ? params.align : undefined
     });
-    
+
     var eventPainterParams = {
         showText:   ("showEventText" in params) ? params.showEventText : true,
         theme:      theme
@@ -94,14 +94,14 @@ Timeline.createBandInfo = function(params) {
             eventPainterParams[prop] = params.eventPainterParams[prop];
         }
     }
-    
+
     if ("trackHeight" in params) {
         eventPainterParams.trackHeight = params.trackHeight;
     }
     if ("trackGap" in params) {
         eventPainterParams.trackGap = params.trackGap;
     }
-    
+
     var layout = ("overview" in params && params.overview) ? "overview" : ("layout" in params ? params.layout : "original");
     var eventPainter;
     if ("eventPainter" in params) {
@@ -118,8 +118,8 @@ Timeline.createBandInfo = function(params) {
                 eventPainter = new Timeline.OriginalEventPainter(eventPainterParams);
         }
     }
-    
-    return {   
+
+    return {
         width:          params.width,
         eventSource:    eventSource,
         timeZone:       ("timeZone" in params) ? params.timeZone : 0,
@@ -135,24 +135,24 @@ Timeline.createBandInfo = function(params) {
 
 Timeline.createHotZoneBandInfo = function(params) {
     var theme = ("theme" in params) ? params.theme : Timeline.getDefaultTheme();
-    
+
     var eventSource = ("eventSource" in params) ? params.eventSource : null;
-    
-    var ether = new Timeline.HotZoneEther({ 
+
+    var ether = new Timeline.HotZoneEther({
         centersOn:          ("date" in params) ? params.date : new Date(),
         interval:           SimileAjax.DateTime.gregorianUnitLengths[params.intervalUnit],
         pixelsPerInterval:  params.intervalPixels,
         zones:              params.zones,
         theme:              theme
     });
-    
+
     var etherPainter = new Timeline.HotZoneGregorianEtherPainter({
-        unit:       params.intervalUnit, 
+        unit:       params.intervalUnit,
         zones:      params.zones,
         theme:      theme,
         align:      ("align" in params) ? params.align : undefined
     });
-    
+
     var eventPainterParams = {
         showText:   ("showEventText" in params) ? params.showEventText : true,
         theme:      theme
@@ -169,7 +169,7 @@ Timeline.createHotZoneBandInfo = function(params) {
     if ("trackGap" in params) {
         eventPainterParams.trackGap = params.trackGap;
     }
-    
+
     var layout = ("overview" in params && params.overview) ? "overview" : ("layout" in params ? params.layout : "original");
     var eventPainter;
     if ("eventPainter" in params) {
@@ -185,8 +185,8 @@ Timeline.createHotZoneBandInfo = function(params) {
             default:
                 eventPainter = new Timeline.OriginalEventPainter(eventPainterParams);
         }
-    }   
-    return {   
+    }
+    return {
         width:          params.width,
         eventSource:    eventSource,
         timeZone:       ("timeZone" in params) ? params.timeZone : 0,
@@ -218,7 +218,7 @@ Timeline.loadXML = function(url, f) {
         var xml = xmlhttp.responseXML;
         if (!xml.documentElement && xmlhttp.responseStream) {
             xml.load(xmlhttp.responseStream);
-        } 
+        }
         f(xml, url);
     };
     SimileAjax.XmlHttp.get(url, fError, fDone);
@@ -241,7 +241,7 @@ Timeline.getTimelineFromID = function(timelineID) {
 
 // Write the current Timeline version as the contents of element with id el_id
 Timeline.writeVersion = function(el_id) {
-  document.getElementById(el_id).innerHTML = this.display_version;    
+  document.getElementById(el_id).innerHTML = this.display_version;
 };
 
 
@@ -252,29 +252,29 @@ Timeline.writeVersion = function(el_id) {
  */
 Timeline._Impl = function(elmt, bandInfos, orientation, unit, timelineID) {
     SimileAjax.WindowManager.initialize();
-    
+
     this._containerDiv = elmt;
-    
+
     this._bandInfos = bandInfos;
     this._orientation = orientation == null ? Timeline.HORIZONTAL : orientation;
     this._unit = (unit != null) ? unit : SimileAjax.NativeDateUnit;
     this._starting = true; // is the Timeline being created? Used by autoWidth
                            // functions
     this._autoResizing = false;
-    
+
     // autoWidth is a "public" property of the Timeline object
-    this.autoWidth = bandInfos && bandInfos[0] && bandInfos[0].theme && 
+    this.autoWidth = bandInfos && bandInfos[0] && bandInfos[0].theme &&
                      bandInfos[0].theme.autoWidth;
-    this.autoWidthAnimationTime = bandInfos && bandInfos[0] && bandInfos[0].theme && 
+    this.autoWidthAnimationTime = bandInfos && bandInfos[0] && bandInfos[0].theme &&
                      bandInfos[0].theme.autoWidthAnimationTime;
     this.timelineID = timelineID; // also public attribute
-    this.timeline_start = bandInfos && bandInfos[0] && bandInfos[0].theme && 
+    this.timeline_start = bandInfos && bandInfos[0] && bandInfos[0].theme &&
                      bandInfos[0].theme.timeline_start;
-    this.timeline_stop  = bandInfos && bandInfos[0] && bandInfos[0].theme && 
+    this.timeline_stop  = bandInfos && bandInfos[0] && bandInfos[0].theme &&
                      bandInfos[0].theme.timeline_stop;
-    this.timeline_at_start = false; // already at start or stop? Then won't 
+    this.timeline_at_start = false; // already at start or stop? Then won't
     this.timeline_at_stop = false;  // try to move further in the wrong direction
-    
+
     this._initialize();
 };
 
@@ -342,12 +342,12 @@ Timeline._Impl.prototype.isVertical = function() {
 };
 
 Timeline._Impl.prototype.getPixelLength = function() {
-    return this._orientation == Timeline.HORIZONTAL ? 
+    return this._orientation == Timeline.HORIZONTAL ?
         this._containerDiv.offsetWidth : this._containerDiv.offsetHeight;
 };
 
 Timeline._Impl.prototype.getPixelWidth = function() {
-    return this._orientation == Timeline.VERTICAL ? 
+    return this._orientation == Timeline.VERTICAL ?
         this._containerDiv.offsetWidth : this._containerDiv.offsetHeight;
 };
 
@@ -362,8 +362,8 @@ Timeline._Impl.prototype.getWidthStyle = function() {
 
 Timeline._Impl.prototype.loadXML = function(url, f) {
     var tl = this;
-    
-    
+
+
     var fError = function(statusText, status, xmlhttp) {
         alert("Failed to load data xml from " + url + "\n" + statusText);
         tl.hideLoadingMessage();
@@ -373,20 +373,20 @@ Timeline._Impl.prototype.loadXML = function(url, f) {
             var xml = xmlhttp.responseXML;
             if (!xml.documentElement && xmlhttp.responseStream) {
                 xml.load(xmlhttp.responseStream);
-            } 
+            }
             f(xml, url);
         } finally {
             tl.hideLoadingMessage();
         }
     };
-    
+
     this.showLoadingMessage();
     window.setTimeout(function() { SimileAjax.XmlHttp.get(url, fError, fDone); }, 0);
 };
 
 Timeline._Impl.prototype.loadJSON = function(url, f) {
     var tl = this;
-    
+
     var fError = function(statusText, status, xmlhttp) {
         alert("Failed to load json data from " + url + "\n" + statusText);
         tl.hideLoadingMessage();
@@ -398,7 +398,7 @@ Timeline._Impl.prototype.loadJSON = function(url, f) {
             tl.hideLoadingMessage();
         }
     };
-    
+
     this.showLoadingMessage();
     window.setTimeout(function() { SimileAjax.XmlHttp.get(url, fError, fDone); }, 0);
 };
@@ -408,17 +408,17 @@ Timeline._Impl.prototype.loadJSON = function(url, f) {
 // Private functions used by Timeline object functions
 //
 
-Timeline._Impl.prototype._autoWidthScrollListener = function(band) {	
+Timeline._Impl.prototype._autoWidthScrollListener = function(band) {
     band.getTimeline()._autoWidthCheck(false);
 };
 
 // called to re-calculate auto width and adjust the overall Timeline div if needed
-Timeline._Impl.prototype._autoWidthCheck = function(okToShrink) {	
+Timeline._Impl.prototype._autoWidthCheck = function(okToShrink) {
     var timeline = this; // this Timeline
     var immediateChange = timeline._starting;
     var newWidth = 0;
-    
-    function changeTimelineWidth() {        
+
+    function changeTimelineWidth() {
         var widthStyle = timeline.getWidthStyle();
         if (immediateChange) {
             timeline._containerDiv.style[widthStyle] = newWidth + 'px';
@@ -427,17 +427,17 @@ Timeline._Impl.prototype._autoWidthCheck = function(okToShrink) {
         	  timeline._autoResizing = true;
         	  var animateParam ={};
         	  animateParam[widthStyle] = newWidth + 'px';
-        	  
+
         	  SimileAjax.jQuery(timeline._containerDiv).animate(
         	      animateParam, timeline.autoWidthAnimationTime,
         	      'linear', function(){timeline._autoResizing = false;});
         }
     }
-        	
+
     function checkTimelineWidth() {
         var targetWidth = 0; // the new desired width
         var currentWidth = timeline.getPixelWidth();
-        
+
         if (timeline._autoResizing) {
         	return; // early return
         }
@@ -447,7 +447,7 @@ Timeline._Impl.prototype._autoWidthCheck = function(okToShrink) {
             timeline._bands[i].checkAutoWidth();
             targetWidth += timeline._bandInfos[i].width;
         }
-        
+
         if (targetWidth > currentWidth || okToShrink) {
             // yes, let's change the size
             newWidth = targetWidth;
@@ -455,7 +455,7 @@ Timeline._Impl.prototype._autoWidthCheck = function(okToShrink) {
             timeline._distributeWidths();
         }
     }
-    
+
     // function's mainline
     if (!timeline.autoWidth) {
         return; // early return
@@ -467,21 +467,21 @@ Timeline._Impl.prototype._autoWidthCheck = function(okToShrink) {
 Timeline._Impl.prototype._initialize = function() {
     var containerDiv = this._containerDiv;
     var doc = containerDiv.ownerDocument;
-    
-    containerDiv.className = 
+
+    containerDiv.className =
         containerDiv.className.split(" ").concat("timeline-container").join(" ");
-    
+
 	/*
 	 * Set css-class on container div that will define orientation
 	 */
 	var orientation = (this.isHorizontal()) ? 'horizontal' : 'vertical'
 	containerDiv.className +=' timeline-'+orientation;
-	
-	
+
+
     while (containerDiv.firstChild) {
         containerDiv.removeChild(containerDiv.firstChild);
     }
-    
+
     /*
      *  inserting copyright and link
      */
@@ -490,7 +490,7 @@ Timeline._Impl.prototype._initialize = function() {
     elmtCopyright.title = "SIMILE Timeline - http://www.simile-widgets.org/";
     SimileAjax.DOM.registerEvent(elmtCopyright, "click", function() { window.location = "http://www.simile-widgets.org/"; });
     containerDiv.appendChild(elmtCopyright);
-    
+
     /*
      *  creating bands
      */
@@ -500,7 +500,7 @@ Timeline._Impl.prototype._initialize = function() {
         this._bands.push(band);
     }
     this._distributeWidths();
-    
+
     /*
      *  sync'ing bands
      */
@@ -508,30 +508,30 @@ Timeline._Impl.prototype._initialize = function() {
         var bandInfo = this._bandInfos[i];
         if ("syncWith" in bandInfo) {
             this._bands[i].setSyncWithBand(
-                this._bands[bandInfo.syncWith], 
+                this._bands[bandInfo.syncWith],
                 ("highlight" in bandInfo) ? bandInfo.highlight : false
             );
         }
     }
-    
-    
+
+
     if (this.autoWidth) {
         for (var i = 0; i < this._bands.length; i++) {
             this._bands[i].addOnScrollListener(this._autoWidthScrollListener);
         }
     }
-    
-    
+
+
     /*
      *  creating loading UI
      */
     var message = SimileAjax.Graphics.createMessageBubble(doc);
     message.containerDiv.className = "timeline-message-container";
     containerDiv.appendChild(message.containerDiv);
-    
+
     message.contentDiv.className = "timeline-message";
     message.contentDiv.innerHTML = "<img src='" + Timeline.urlPrefix + "images/progress-running.gif' /> Loading...";
-    
+
     this.showLoadingMessage = function() { message.containerDiv.style.display = "block"; };
     this.hideLoadingMessage = function() { message.containerDiv.style.display = "none"; };
 };
@@ -540,13 +540,13 @@ Timeline._Impl.prototype._distributeWidths = function() {
     var length = this.getPixelLength();
     var width = this.getPixelWidth();
     var cumulativeWidth = 0;
-    
+
     for (var i = 0; i < this._bands.length; i++) {
         var band = this._bands[i];
         var bandInfos = this._bandInfos[i];
         var widthString = bandInfos.width;
         var bandWidth;
-        
+
         if (typeof widthString == 'string') {
           var x =  widthString.indexOf("%");
           if (x > 0) {
@@ -559,10 +559,10 @@ Timeline._Impl.prototype._distributeWidths = function() {
         	// was given an integer
         	bandWidth = widthString;
         }
-        	 
+
         band.setBandShiftAndWidth(cumulativeWidth, bandWidth);
         band.setViewLength(length);
-        
+
         cumulativeWidth += bandWidth;
     }
 };
@@ -573,18 +573,18 @@ Timeline._Impl.prototype.shiftOK = function(index, shift) {
     // Positive shift means going back in time
     var going_back = shift > 0,
         going_forward = shift < 0;
-    
+
     // Is there an edge?
     if ((going_back    && this.timeline_start == null) ||
         (going_forward && this.timeline_stop  == null) ||
         (shift == 0)) {
         return (true);  // early return
     }
-    
+
     // If any of the bands has noted that it is changing the others,
     // then this shift is a secondary shift in reaction to the real shift,
     // which already happened. In such cases, ignore it. (The issue is
-    // that a positive original shift can cause a negative secondary shift, 
+    // that a positive original shift can cause a negative secondary shift,
     // as the bands adjust.)
     var secondary_shift = false;
     for (var i = 0; i < this._bands.length && !secondary_shift; i++) {
@@ -593,13 +593,13 @@ Timeline._Impl.prototype.shiftOK = function(index, shift) {
     if (secondary_shift) {
         return(true); // early return
     }
-    
+
     // If we are already at an edge, then don't even think about going any further
     if ((going_back    && this.timeline_at_start) ||
         (going_forward && this.timeline_at_stop)) {
         return (false);  // early return
     }
-    
+
     // Need to check all the bands
     var ok = false; // return value
     // If any of the bands will be or are showing an ok date, then let the shift proceed.
@@ -611,9 +611,9 @@ Timeline._Impl.prototype.shiftOK = function(index, shift) {
        } else {
            ok = (i == index ? band.getMaxVisibleDateAfterDelta(shift) : band.getMaxVisibleDate())
                 <= this.timeline_stop;
-       }	
+       }
     }
-    
+
     // process results
     if (going_back) {
        this.timeline_at_start = !ok;
@@ -633,7 +633,7 @@ Timeline._Impl.prototype.shiftOK = function(index, shift) {
 Timeline._Impl.prototype.zoom = function (zoomIn, x, y, target) {
   var matcher = new RegExp("^timeline-band-([0-9]+)$");
   var bandIndex = null;
-  
+
   var result = matcher.exec(target.id);
   if (result) {
     bandIndex = parseInt(result[1]);
@@ -641,7 +641,7 @@ Timeline._Impl.prototype.zoom = function (zoomIn, x, y, target) {
 
   if (bandIndex != null) {
     this._bands[bandIndex].zoom(zoomIn, x, y, target);
-  }   
+  }
 
   this.paint();
 };

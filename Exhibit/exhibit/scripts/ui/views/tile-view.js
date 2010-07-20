@@ -7,19 +7,19 @@ Exhibit.TileView = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
     this._settings = {};
-    
+
     var view = this;
 
-    this._listener = { 
-        onItemsChanged: function() { 
+    this._listener = {
+        onItemsChanged: function() {
             view._orderedViewFrame._settings.page = 0;
-            view._reconstruct(); 
+            view._reconstruct();
         }
     };
     uiContext.getCollection().addListener(this._listener);
 
     this._orderedViewFrame = new Exhibit.OrderedViewFrame(uiContext);
-    this._orderedViewFrame.parentReconstruct = function() { 
+    this._orderedViewFrame.parentReconstruct = function() {
         view._reconstruct();
     };
 };
@@ -33,10 +33,10 @@ Exhibit.TileView.create = function(configuration, containerElmt, uiContext) {
         containerElmt,
         Exhibit.UIContext.create(configuration, uiContext)
     );
-    
+
     Exhibit.SettingsUtilities.collectSettings(
         configuration, Exhibit.TileView._settingSpecs, view._settings);
-        
+
     view._orderedViewFrame.configure(configuration);
 
     view._initializeUI();
@@ -49,12 +49,12 @@ Exhibit.TileView.createFromDOM = function(configElmt, containerElmt, uiContext) 
         containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext)
     );
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(
         configElmt, Exhibit.TileView._settingSpecs, view._settings);
     Exhibit.SettingsUtilities.collectSettings(
         configuration, Exhibit.TileView._settingSpecs, view._settings);
-    
+
     view._orderedViewFrame.configureFromDOM(configElmt);
     view._orderedViewFrame.configure(configuration);
 
@@ -71,7 +71,7 @@ Exhibit.TileView.prototype.dispose = function() {
         this._toolboxWidget.dispose();
         this._toolboxWidget = null;
     }
-    
+
     this._orderedViewFrame.dispose();
     this._orderedViewFrame = null;
     this._dom = null;
@@ -82,7 +82,7 @@ Exhibit.TileView.prototype.dispose = function() {
 
 Exhibit.TileView.prototype._initializeUI = function() {
     var self = this;
-    
+
     this._div.innerHTML = "";
     var template = {
         elmt: this._div,

@@ -56,19 +56,19 @@ Exhibit.Database.l10n.sortLabels = {
 Exhibit.Database.l10n.labelItemsOfType = function(count, typeID, database, countStyleClass) {
     var label = Exhibit.Database.l10n.itemType.label;
     var measureWord = "个";
-    
+
     var type = database.getType(typeID);
     if (type) {
         label = type.getLabel();
-        
+
         var measureWord2 = type.getProperty("measureWord");
         if (measureWord2) {
             measureWord = measureWord2;
         }
     }
-    
+
     var span = document.createElement("span");
     span.innerHTML = "<span class='" + countStyleClass + "'>" + count + "</span>" + measureWord + label;
-    
+
     return span;
 };

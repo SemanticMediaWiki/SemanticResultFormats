@@ -9,7 +9,7 @@ Exhibit.Formatter.createListDelimiter = function(parentElmt, count, uiContext) {
     var separator = uiContext.getSetting("format/list/separator");
     var lastSeparator = uiContext.getSetting("format/list/last-separator");
     var pairSeparator = uiContext.getSetting("format/list/pair-separator");
-    
+
     if (typeof separator != "string") {
         separator = Exhibit.Formatter.l10n.listSeparator;
     }
@@ -32,7 +32,7 @@ Exhibit.Formatter.createListDelimiter = function(parentElmt, count, uiContext) {
         f.index++;
     };
     f.index = 0;
-    
+
     return f;
 };
 
@@ -54,7 +54,7 @@ Exhibit.Formatter._ListFormatter = function(uiContext) {
     this._lastSeparator = uiContext.getSetting("format/list/last-separator");
     this._pairSeparator = uiContext.getSetting("format/list/pair-separator");
     this._emptyText = uiContext.getSetting("format/list/empty-text");
-    
+
     if (typeof this._separator != "string") {
         this._separator = Exhibit.Formatter.l10n.listSeparator;
     }
@@ -83,7 +83,7 @@ Exhibit.Formatter._ListFormatter.prototype.formatList = function(values, count, 
             values.visit(function(v) {
                 uiContext.format(v, valueType, appender);
                 index++;
-                
+
                 if (index == 1) {
                     appender(document.createTextNode(self._pairSeparator));
                 }
@@ -92,7 +92,7 @@ Exhibit.Formatter._ListFormatter.prototype.formatList = function(values, count, 
             values.visit(function(v) {
                 uiContext.format(v, valueType, appender);
                 index++;
-                
+
                 if (index < count) {
                     appender(document.createTextNode(
                         (index == count - 1) ? self._lastSeparator : self._separator));
@@ -108,7 +108,7 @@ Exhibit.Formatter._ListFormatter.prototype.formatList = function(values, count, 
  */
 Exhibit.Formatter._TextFormatter = function(uiContext) {
     this._maxLength = uiContext.getSetting("format/text/max-length");
-    
+
     if (typeof this._maxLength == "number") {
         this._maxLength = Math.max(3, Math.round(this._maxLength));
     } else {
@@ -127,7 +127,7 @@ Exhibit.Formatter._TextFormatter.prototype.formatText = function(value) {
     if (Exhibit.params.safe) {
         value = Exhibit.Formatter.encodeAngleBrackets(value);
     }
-    
+
     if (this._maxLength == 0 || value.length <= this._maxLength) {
         return value;
     } else {
@@ -149,7 +149,7 @@ Exhibit.Formatter._BooleanFormatter.prototype.format = function(value, appender)
 };
 
 Exhibit.Formatter._BooleanFormatter.prototype.formatText = function(value) {
-    return (typeof value == "boolean" ? value : (typeof value == "string" ? (value == "true") : false)) ? 
+    return (typeof value == "boolean" ? value : (typeof value == "string" ? (value == "true") : false)) ?
         Exhibit.Formatter.l10n.booleanTrue : Exhibit.Formatter.l10n.booleanFalse;
 };
 
@@ -159,7 +159,7 @@ Exhibit.Formatter._BooleanFormatter.prototype.formatText = function(value) {
  */
 Exhibit.Formatter._NumberFormatter = function(uiContext) {
     this._decimalDigits = uiContext.getSetting("format/number/decimal-digits");
-    
+
     if (typeof this._decimalDigits == "number") {
         this._decimalDigits = Math.max(-1, Math.round(this._decimalDigits));
     } else {
@@ -185,21 +185,21 @@ Exhibit.Formatter._NumberFormatter.prototype.formatText = function(value) {
  */
 Exhibit.Formatter._ImageFormatter = function(uiContext) {
     this._uiContext = uiContext;
-    
+
     this._maxWidth = uiContext.getSetting("format/image/max-width");
     if (typeof this._maxWidth == "number") {
         this._maxWidth = Math.max(-1, Math.round(this._maxWidth));
     } else {
         this._maxWidth = -1; // -1 means no limit
     }
-    
+
     this._maxHeight = uiContext.getSetting("format/image/max-height");
     if (typeof this._maxHeight == "number") {
         this._maxHeight = Math.max(-1, Math.round(this._maxHeight));
     } else {
         this._maxHeight = -1; // -1 means no limit
     }
-    
+
     this._tooltip = uiContext.getSetting("format/image/tooltip");
 };
 
@@ -207,10 +207,10 @@ Exhibit.Formatter._ImageFormatter.prototype.format = function(value, appender) {
     if (Exhibit.params.safe) {
         value = value.trim().startsWith("javascript:") ? "" : value;
     }
-    
+
     var img = document.createElement("img");
     img.src = value;
-    
+
     if (this._tooltip != null) {
         if (typeof this._tooltip == "string") {
             img.title = this._tootlip;
@@ -239,7 +239,7 @@ Exhibit.Formatter._URLFormatter.prototype.format = function(value, appender) {
     var a = document.createElement("a");
     a.href = value;
     a.innerHTML = value;
-    
+
     if (this._target != null) {
         a.target = this._target;
     }
@@ -267,17 +267,17 @@ Exhibit.Formatter._CurrencyFormatter = function(uiContext) {
     } else {
         this._decimalDigits = 2;
     }
-    
+
     this._symbol = uiContext.getSetting("format/currency/symbol");
     if (this._symbol == null) {
         this._symbol = Exhibit.Formatter.l10n.currencySymbol;
     }
-    
+
     this._symbolPlacement = uiContext.getSetting("format/currency/symbol-placement");
     if (this._symbolPlacement == null) {
         this._symbol = Exhibit.Formatter.l10n.currencySymbolPlacement;
     }
-    
+
     this._negativeFormat = {
         signed :      uiContext.getBooleanSetting("format/currency/negative-format/signed", Exhibit.Formatter.l10n.currencyShowSign),
         red :         uiContext.getBooleanSetting("format/currency/negative-format/red", Exhibit.Formatter.l10n.currencyShowRed),
@@ -305,12 +305,12 @@ Exhibit.Formatter._CurrencyFormatter.prototype.formatText = function(value) {
     } else {
         text = new Number(Math.abs(value)).toFixed(this._decimalDigits);
     }
-    
+
     var sign = (negative && this._negativeFormat.signed) ? "-" : "";
     if (negative && this._negativeFormat.parentheses) {
         text = "(" + text + ")";
     }
-    
+
     switch (this._negativeFormat) {
     case "first":       text = this._symbol + sign + text; break;
     case "after-sign":  text = sign + this._symbol + text; break;
@@ -331,32 +331,32 @@ Exhibit.Formatter._ItemFormatter = function(uiContext) {
 Exhibit.Formatter._ItemFormatter.prototype.format = function(value, appender) {
     var self = this;
     var title = this.formatText(value);
-    
+
     var a = SimileAjax.DOM.createElementFromString(
         "<a href=\"" + Exhibit.Persistence.getItemLink(value) + "\" class='exhibit-item'>" + title + "</a>");
-        
+
     var handler = function(elmt, evt, target) {
         Exhibit.UI.showItemInPopup(value, elmt, self._uiContext);
     }
     SimileAjax.WindowManager.registerEvent(a, "click", handler, this._uiContext.getSetting("layer"));
-    
+
     appender(a);
 };
 
 Exhibit.Formatter._ItemFormatter.prototype.formatText = function(value) {
     var database = this._uiContext.getDatabase();
     var title = null;
-    
+
     if (this._title == null) {
         title = database.getObject(value, "label");
     } else {
         title = this._title.evaluateSingleOnItem(value, database).value;
     }
-    
+
     if (title == null) {
         title = value;
     }
-    
+
     return title;
 };
 
@@ -370,46 +370,46 @@ Exhibit.Formatter._DateFormatter = function(uiContext) {
         this._timeZone = -(new Date().getTimezoneOffset()) / 60;
     }
     this._timeZoneOffset = this._timeZone * 3600000;
-    
+
     var mode = uiContext.getSetting("format/date/mode");
     var show = uiContext.getSetting("format/date/show");
     var template = null;
-    
+
     switch (mode) {
     case "short":
-        template = 
+        template =
             show == "date" ?  Exhibit.Formatter.l10n.dateShortFormat :
-            (show == "time" ? Exhibit.Formatter.l10n.timeShortFormat : 
+            (show == "time" ? Exhibit.Formatter.l10n.timeShortFormat :
                               Exhibit.Formatter.l10n.dateTimeShortFormat);
         break;
     case "medium":
-        template = 
+        template =
             show == "date" ?  Exhibit.Formatter.l10n.dateMediumFormat :
-            (show == "time" ? Exhibit.Formatter.l10n.timeMediumFormat : 
+            (show == "time" ? Exhibit.Formatter.l10n.timeMediumFormat :
                               Exhibit.Formatter.l10n.dateTimeMediumFormat);
         break;
     case "long":
-        template = 
+        template =
             show == "date" ?  Exhibit.Formatter.l10n.dateLongFormat :
-            (show == "time" ? Exhibit.Formatter.l10n.timeLongFormat : 
+            (show == "time" ? Exhibit.Formatter.l10n.timeLongFormat :
                               Exhibit.Formatter.l10n.dateTimeLongFormat);
         break;
     case "full":
-        template = 
+        template =
             show == "date" ?  Exhibit.Formatter.l10n.dateFullFormat :
-            (show == "time" ? Exhibit.Formatter.l10n.timeFullFormat : 
+            (show == "time" ? Exhibit.Formatter.l10n.timeFullFormat :
                               Exhibit.Formatter.l10n.dateTimeFullFormat);
         break;
     default:
         template = uiContext.getSetting("format/date/template");
     }
-    
+
     if (typeof template != "string") {
         template = Exhibit.Formatter.l10n.dateTimeDefaultFormat;
     }
-    
+
     var segments = [];
-    
+
     var placeholders = template.match(/\b\w+\b/g);
     var startIndex = 0;
     for (var p = 0; p < placeholders.length; p++) {
@@ -418,21 +418,21 @@ Exhibit.Formatter._DateFormatter = function(uiContext) {
         if (index > startIndex) {
             segments.push(template.substring(startIndex, index));
         }
-        
+
         var retriever = Exhibit.Formatter._DateFormatter._retrievers[placeholder];
         if (typeof retriever == "function") {
             segments.push(retriever);
         } else {
             segments.push(placeholder);
         }
-        
+
         startIndex = index + placeholder.length;
     }
-    
+
     if (startIndex < template.length) {
         segments.push(template.substr(startIndex));
     }
-    
+
     this._segments = segments;
 };
 
@@ -445,9 +445,9 @@ Exhibit.Formatter._DateFormatter.prototype.formatText = function(value) {
     if (date == null) {
         return value;
     }
-    
+
     date.setTime(date.getTime() + this._timeZoneOffset);
-    
+
     var text = "";
     var segments = this._segments;
     for (var i = 0; i < segments.length; i++) {
@@ -476,7 +476,7 @@ Exhibit.Formatter._DateFormatter._retrievers = {
     "dd": function(date) {
         return Exhibit.Formatter._DateFormatter._pad(date.getUTCDate());
     },
-    
+
     // day of week
     "EEE": function(date) {
         return Exhibit.Formatter.l10n.shortDaysOfWeek[date.getUTCDay()];
@@ -484,7 +484,7 @@ Exhibit.Formatter._DateFormatter._retrievers = {
     "EEEE": function(date) {
         return Exhibit.Formatter.l10n.daysOfWeek[date.getUTCDay()];
     },
-    
+
     // month
     "MM": function(date) {
         return Exhibit.Formatter._DateFormatter._pad(date.getUTCMonth() + 1);
@@ -495,7 +495,7 @@ Exhibit.Formatter._DateFormatter._retrievers = {
     "MMMM": function(date) {
         return Exhibit.Formatter.l10n.months[date.getUTCMonth()];
     },
-    
+
     // year
     "yy": function(date) {
         return Exhibit.Formatter._DateFormatter._pad(date.getUTCFullYear() % 100);
@@ -504,13 +504,13 @@ Exhibit.Formatter._DateFormatter._retrievers = {
         var y = date.getUTCFullYear();
         return y > 0 ? y.toString() : (1 - y);
     },
-    
+
     // era
     "G": function(date) {
         var y = date.getUTCYear();
         return y > 0 ? Exhibit.Formatter.l10n.commonEra : Exhibit.Formatter.l10n.beforeCommonEra;
     },
-    
+
     // hours of day
     "HH": function(date) {
         return Exhibit.Formatter._DateFormatter._pad(date.getUTCHours());
@@ -523,7 +523,7 @@ Exhibit.Formatter._DateFormatter._retrievers = {
         var h = date.getUTCHours();
         return (h == 0 ? 12 : (h > 12 ? h - 12 : h)).toString();
     },
-    
+
     // am/pm
     "a": function(date) {
         return date.getUTCHours() < 12 ? Exhibit.Formatter.l10n.beforeNoon : Exhibit.Formatter.l10n.afterNoon;
@@ -531,22 +531,22 @@ Exhibit.Formatter._DateFormatter._retrievers = {
     "A": function(date) {
         return date.getUTCHours() < 12 ? Exhibit.Formatter.l10n.BeforeNoon : Exhibit.Formatter.l10n.AfterNoon;
     },
-    
+
     // minutes of hour
     "mm": function(date) {
         return Exhibit.Formatter._DateFormatter._pad(date.getUTCMinutes());
     },
-    
+
     // seconds of minute
     "ss": function(date) {
         return Exhibit.Formatter._DateFormatter._pad(date.getUTCSeconds());
     },
-    
+
     // milliseconds of minute
     "S": function(date) {
         return Exhibit.Formatter._DateFormatter._pad3(date.getUTCMilliseconds());
     }
-    
+
 };
 
 /*==================================================

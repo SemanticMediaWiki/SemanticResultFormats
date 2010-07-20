@@ -1,6 +1,6 @@
 /*==================================================
- *  Norwegian (bokmål) localization 
- *  
+ *  Norwegian (bokmål) localization
+ *
  *==================================================
  */
 (function() {

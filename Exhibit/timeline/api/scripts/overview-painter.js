@@ -6,7 +6,7 @@
 Timeline.OverviewEventPainter = function(params) {
     this._params = params;
     this._onSelectListeners = [];
-    
+
     this._filterMatcher = null;
     this._highlightMatcher = null;
 };
@@ -14,7 +14,7 @@ Timeline.OverviewEventPainter = function(params) {
 Timeline.OverviewEventPainter.prototype.initialize = function(band, timeline) {
     this._band = band;
     this._timeline = timeline;
-    
+
     this._eventLayer = null;
     this._highlightLayer = null;
 };
@@ -57,9 +57,9 @@ Timeline.OverviewEventPainter.prototype.paint = function() {
     if (eventSource == null) {
         return;
     }
-    
+
     this._prepareForPainting();
-    
+
     var eventTheme = this._params.theme.event;
     var metrics = {
         trackOffset:    eventTheme.overviewTrack.offset,
@@ -67,17 +67,17 @@ Timeline.OverviewEventPainter.prototype.paint = function() {
         trackGap:       eventTheme.overviewTrack.gap,
         trackIncrement: eventTheme.overviewTrack.height + eventTheme.overviewTrack.gap
     }
-    
+
     var minDate = this._band.getMinDate();
     var maxDate = this._band.getMaxDate();
-    
-    var filterMatcher = (this._filterMatcher != null) ? 
+
+    var filterMatcher = (this._filterMatcher != null) ?
         this._filterMatcher :
         function(evt) { return true; };
-    var highlightMatcher = (this._highlightMatcher != null) ? 
+    var highlightMatcher = (this._highlightMatcher != null) ?
         this._highlightMatcher :
         function(evt) { return -1; };
-    
+
     var iterator = eventSource.getEventReverseIterator(minDate, maxDate);
     while (iterator.hasNext()) {
         var evt = iterator.next();
@@ -85,11 +85,11 @@ Timeline.OverviewEventPainter.prototype.paint = function() {
             this.paintEvent(evt, metrics, this._params.theme, highlightMatcher(evt));
         }
     }
-    
+
     this._highlightLayer.style.display = "block";
     this._eventLayer.style.display = "block";
     // update the band object for max number of tracks in this section of the ether
-    this._band.updateEventTrackInfo(this._tracks.length, metrics.trackIncrement); 
+    this._band.updateEventTrackInfo(this._tracks.length, metrics.trackIncrement);
 };
 
 Timeline.OverviewEventPainter.prototype.softPaint = function() {
@@ -97,15 +97,15 @@ Timeline.OverviewEventPainter.prototype.softPaint = function() {
 
 Timeline.OverviewEventPainter.prototype._prepareForPainting = function() {
     var band = this._band;
-        
+
     this._tracks = [];
-    
+
     if (this._highlightLayer != null) {
         band.removeLayerDiv(this._highlightLayer);
     }
     this._highlightLayer = band.createLayerDiv(105, "timeline-band-highlights");
     this._highlightLayer.style.display = "none";
-    
+
     if (this._eventLayer != null) {
         band.removeLayerDiv(this._eventLayer);
     }
@@ -124,7 +124,7 @@ Timeline.OverviewEventPainter.prototype.paintEvent = function(evt, metrics, them
 Timeline.OverviewEventPainter.prototype.paintInstantEvent = function(evt, metrics, theme, highlightIndex) {
     var startDate = evt.getStart();
     var startPixel = Math.round(this._band.dateToPixelOffset(startDate));
-    
+
     var color = evt.getColor(),
         klassName = evt.getClassName();
     if (klassName) {
@@ -132,19 +132,19 @@ Timeline.OverviewEventPainter.prototype.paintInstantEvent = function(evt, metric
     } else {
       color = color != null ? color : theme.event.duration.color;
     }
-    
+
     var tickElmtData = this._paintEventTick(evt, startPixel, color, 100, metrics, theme);
-    
+
     this._createHighlightDiv(highlightIndex, tickElmtData, theme);
 };
 
 Timeline.OverviewEventPainter.prototype.paintDurationEvent = function(evt, metrics, theme, highlightIndex) {
     var latestStartDate = evt.getLatestStart();
     var earliestEndDate = evt.getEarliestEnd();
-    
+
     var latestStartPixel = Math.round(this._band.dateToPixelOffset(latestStartDate));
     var earliestEndPixel = Math.round(this._band.dateToPixelOffset(earliestEndDate));
-    
+
     var tapeTrack = 0;
     for (; tapeTrack < this._tracks.length; tapeTrack++) {
         if (earliestEndPixel < this._tracks[tapeTrack]) {
@@ -152,7 +152,7 @@ Timeline.OverviewEventPainter.prototype.paintDurationEvent = function(evt, metri
         }
     }
     this._tracks[tapeTrack] = earliestEndPixel;
-    
+
     var color = evt.getColor(),
         klassName = evt.getClassName();
     if (klassName) {
@@ -160,20 +160,20 @@ Timeline.OverviewEventPainter.prototype.paintDurationEvent = function(evt, metri
     } else {
       color = color != null ? color : theme.event.duration.color;
     }
-    
+
     var tapeElmtData = this._paintEventTape(evt, tapeTrack, latestStartPixel, earliestEndPixel,
       color, 100, metrics, theme, klassName);
-    
+
     this._createHighlightDiv(highlightIndex, tapeElmtData, theme);
 };
 
 Timeline.OverviewEventPainter.prototype._paintEventTape = function(
     evt, track, left, right, color, opacity, metrics, theme, klassName) {
-    
+
     var top = metrics.trackOffset + track * metrics.trackIncrement;
     var width = right - left;
     var height = metrics.trackHeight;
-    
+
     var tapeDiv = this._timeline.getDocument().createElement("div");
     tapeDiv.className = 'timeline-small-event-tape'
     if (klassName) {tapeDiv.className += ' small-' + klassName;}
@@ -181,16 +181,16 @@ Timeline.OverviewEventPainter.prototype._paintEventTape = function(
     tapeDiv.style.width = width + "px";
     tapeDiv.style.top = top + "px";
     tapeDiv.style.height = height + "px";
-    
+
     if (color) {
       tapeDiv.style.backgroundColor = color; // set color here if defined by event. Else use css
     }
  //   tapeDiv.style.overflow = "hidden";   // now set in css
  //   tapeDiv.style.position = "absolute";
     if(opacity<100) SimileAjax.Graphics.setOpacity(tapeDiv, opacity);
-    
+
     this._eventLayer.appendChild(tapeDiv);
-    
+
     return {
         left:   left,
         top:    top,
@@ -202,11 +202,11 @@ Timeline.OverviewEventPainter.prototype._paintEventTape = function(
 
 Timeline.OverviewEventPainter.prototype._paintEventTick = function(
     evt, left, color, opacity, metrics, theme) {
-    
+
     var height = theme.event.overviewTrack.tickHeight;
     var top = metrics.trackOffset - height;
     var width = 1;
-    
+
     var tickDiv = this._timeline.getDocument().createElement("div");
 	  tickDiv.className = 'timeline-small-event-icon'
     tickDiv.style.left = left + "px";
@@ -219,11 +219,11 @@ Timeline.OverviewEventPainter.prototype._paintEventTick = function(
 
     var klassName = evt.getClassName()
     if (klassName) {tickDiv.className +=' small-' + klassName};
-	
+
     if(opacity<100) {SimileAjax.Graphics.setOpacity(tickDiv, opacity)};
-    
+
     this._eventLayer.appendChild(tickDiv);
-    
+
     return {
         left:   left,
         top:    top,
@@ -237,9 +237,9 @@ Timeline.OverviewEventPainter.prototype._createHighlightDiv = function(highlight
     if (highlightIndex >= 0) {
         var doc = this._timeline.getDocument();
         var eventTheme = theme.event;
-        
+
         var color = eventTheme.highlightColors[Math.min(highlightIndex, eventTheme.highlightColors.length - 1)];
-        
+
         var div = doc.createElement("div");
         div.style.position = "absolute";
         div.style.overflow = "hidden";
@@ -248,7 +248,7 @@ Timeline.OverviewEventPainter.prototype._createHighlightDiv = function(highlight
         div.style.top =     (dimensions.top - 1) + "px";
         div.style.height =  (dimensions.height + 2) + "px";
         div.style.background = color;
-        
+
         this._highlightLayer.appendChild(div);
     }
 };

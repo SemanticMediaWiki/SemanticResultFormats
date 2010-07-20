@@ -20,8 +20,8 @@ class SRFMath extends SMWResultPrinter {
 
 	public function getResult( $results, $params, $outputmode ) {
 		$this->readParameters( $params, $outputmode );
-		global $wgLang; 
-		return $wgLang->formatNum($this->getResultText($results, SMW_OUTPUT_HTML));
+		global $wgLang;
+		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
 	}
 
 	protected function getResultText( $res, $outputmode ) {
@@ -44,7 +44,7 @@ class SRFMath extends SMWResultPrinter {
 					}
 					else {
 						$num = $value->getNumericValue();
-					}					
+					}
 				} elseif ( $value instanceof SMWNAryValue ) {
 					$inner_values = $value->getDVs();
 					// find the first inner value that's of
@@ -58,7 +58,7 @@ class SRFMath extends SMWResultPrinter {
 							}
 							else {
 								$num = $inner_value->getNumericValue();
-							}							
+							}
 							break;
 						}
 					}

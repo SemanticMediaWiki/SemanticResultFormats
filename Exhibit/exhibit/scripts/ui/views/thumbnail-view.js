@@ -2,21 +2,21 @@
  *  Exhibit.ThumbnailView
  *==================================================
  */
- 
+
 Exhibit.ThumbnailView = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
     this._settings = {};
-    
+
     var view = this;
-    this._listener = { 
+    this._listener = {
         onItemsChanged: function() {
             view._orderedViewFrame._settings.page = 0;
-            view._reconstruct(); 
-        } 
+            view._reconstruct();
+        }
     };
     uiContext.getCollection().addListener(this._listener);
-    
+
     this._orderedViewFrame = new Exhibit.OrderedViewFrame(uiContext);
     this._orderedViewFrame.parentReconstruct = function() {
         view._reconstruct();
@@ -37,14 +37,14 @@ Exhibit.ThumbnailView.create = function(configuration, containerElmt, uiContext)
         containerElmt,
         Exhibit.UIContext.create(configuration, uiContext, true)
     );
-    
+
     view._lensRegistry = Exhibit.UIContext.createLensRegistry(configuration, uiContext.getLensRegistry());
-    
+
     Exhibit.SettingsUtilities.collectSettings(
         configuration, Exhibit.ThumbnailView._settingSpecs, view._settings);
-        
+
     view._orderedViewFrame.configure(configuration);
-    
+
     view._initializeUI();
     return view;
 };
@@ -52,47 +52,47 @@ Exhibit.ThumbnailView.create = function(configuration, containerElmt, uiContext)
 Exhibit.ThumbnailView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var view = new Exhibit.ThumbnailView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext, true)
     );
-    
+
     view._lensRegistry = Exhibit.UIContext.createLensRegistryFromDOM(configElmt, configuration, uiContext.getLensRegistry());
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(
         configElmt, Exhibit.ThumbnailView._settingSpecs, view._settings);
     Exhibit.SettingsUtilities.collectSettings(
         configuration, Exhibit.ThumbnailView._settingSpecs, view._settings);
-        
+
     view._orderedViewFrame.configureFromDOM(configElmt);
     view._orderedViewFrame.configure(configuration);
-    
+
     view._initializeUI();
     return view;
 };
 
 Exhibit.ThumbnailView.prototype.dispose = function() {
     this._uiContext.getCollection().removeListener(this._listener);
-    
+
     if (this._toolboxWidget) {
         this._toolboxWidget.dispose();
         this._toolboxWidget = null;
     }
-    
+
     this._orderedViewFrame.dispose();
     this._orderedViewFrame = null;
-    
+
     this._lensRegistry = null;
     this._dom = null;
-    
+
     this._div.innerHTML = "";
-    
+
     this._div = null;
     this._uiContext = null;
 };
 
 Exhibit.ThumbnailView.prototype._initializeUI = function() {
     var self = this;
-    
+
     this._div.innerHTML = "";
     var template = {
         elmt: this._div,
@@ -116,14 +116,14 @@ Exhibit.ThumbnailView.prototype._initializeUI = function() {
             return self._dom.bodyDiv.innerHTML;
         };
     }
-    
+
     this._orderedViewFrame._divHeader = this._dom.headerDiv;
     this._orderedViewFrame._divFooter = this._dom.footerDiv;
     this._orderedViewFrame._generatedContentElmtRetriever = function() {
         return self._dom.bodyDiv;
     };
     this._orderedViewFrame.initializeUI();
-        
+
     this._reconstruct();
 };
 
@@ -143,14 +143,14 @@ Exhibit.ThumbnailView.prototype._reconstructWithFloats = function() {
         groupDoms:      [],
         groupCounts:    []
     };
-    
+
     var closeGroups = function(groupLevel) {
         for (var i = groupLevel; i < state.groupDoms.length; i++) {
             state.groupDoms[i].countSpan.innerHTML = state.groupCounts[i];
         }
         state.groupDoms = state.groupDoms.slice(0, groupLevel);
         state.groupCounts = state.groupCounts.slice(0, groupLevel);
-        
+
         if (groupLevel > 0) {
             state.div = state.groupDoms[groupLevel - 1].contentDiv;
         } else {
@@ -158,47 +158,47 @@ Exhibit.ThumbnailView.prototype._reconstructWithFloats = function() {
         }
         state.itemContainer = null;
     }
-    
+
     this._orderedViewFrame.onNewGroup = function(groupSortKey, keyType, groupLevel) {
         closeGroups(groupLevel);
-        
+
         var groupDom = Exhibit.ThumbnailView.constructGroup(
             groupLevel,
             groupSortKey
         );
-        
+
         state.div.appendChild(groupDom.elmt);
         state.div = groupDom.contentDiv;
-        
+
         state.groupDoms.push(groupDom);
         state.groupCounts.push(0);
     };
-    
+
     this._orderedViewFrame.onNewItem = function(itemID, index) {
         //if (index > 10) return;
-        
+
         if (state.itemContainer == null) {
             state.itemContainer = Exhibit.ThumbnailView.constructItemContainer();
             state.div.appendChild(state.itemContainer);
         }
-        
+
         for (var i = 0; i < state.groupCounts.length; i++) {
             state.groupCounts[i]++;
         }
-        
+
         var itemLensDiv = document.createElement("div");
         itemLensDiv.className = Exhibit.ThumbnailView._itemContainerClass;
-        
+
         var itemLens = view._lensRegistry.createLens(itemID, itemLensDiv, view._uiContext);
         state.itemContainer.appendChild(itemLensDiv);
     };
-                
+
     this._div.style.display = "none";
-    
+
     this._dom.bodyDiv.innerHTML = "";
     this._orderedViewFrame.reconstruct();
     closeGroups(0);
-    
+
     this._div.style.display = "block";
 };
 
@@ -211,14 +211,14 @@ Exhibit.ThumbnailView.prototype._reconstructWithTable = function() {
         table:          null,
         columnIndex:    0
     };
-    
+
     var closeGroups = function(groupLevel) {
         for (var i = groupLevel; i < state.groupDoms.length; i++) {
             state.groupDoms[i].countSpan.innerHTML = state.groupCounts[i];
         }
         state.groupDoms = state.groupDoms.slice(0, groupLevel);
         state.groupCounts = state.groupCounts.slice(0, groupLevel);
-        
+
         if (groupLevel > 0) {
             state.div = state.groupDoms[groupLevel - 1].contentDiv;
         } else {
@@ -228,29 +228,29 @@ Exhibit.ThumbnailView.prototype._reconstructWithTable = function() {
         state.table = null;
         state.columnIndex = 0;
     }
-    
+
     this._orderedViewFrame.onNewGroup = function(groupSortKey, keyType, groupLevel) {
         closeGroups(groupLevel);
-        
+
         var groupDom = Exhibit.ThumbnailView.constructGroup(
             groupLevel,
             groupSortKey
         );
-        
+
         state.div.appendChild(groupDom.elmt);
         state.div = groupDom.contentDiv;
-        
+
         state.groupDoms.push(groupDom);
         state.groupCounts.push(0);
     };
-    
+
     this._orderedViewFrame.onNewItem = function(itemID, index) {
         //if (index > 10) return;
-        
+
         if (state.columnIndex >= view._settings.columnCount) {
             state.columnIndex = 0;
         }
-        
+
         if (state.table == null) {
             state.table = Exhibit.ThumbnailView.constructTableItemContainer();
             state.div.appendChild(state.table);
@@ -259,24 +259,24 @@ Exhibit.ThumbnailView.prototype._reconstructWithTable = function() {
             state.table.insertRow(state.table.rows.length);
         }
         var td = state.table.rows[state.table.rows.length - 1].insertCell(state.columnIndex++);
-        
+
         for (var i = 0; i < state.groupCounts.length; i++) {
             state.groupCounts[i]++;
         }
-        
+
         var itemLensDiv = document.createElement("div");
         itemLensDiv.className = Exhibit.ThumbnailView._itemContainerClass;
-        
+
         var itemLens = view._lensRegistry.createLens(itemID, itemLensDiv, view._uiContext);
         td.appendChild(itemLensDiv);
     };
-                
+
     this._div.style.display = "none";
-    
+
     this._dom.bodyDiv.innerHTML = "";
     this._orderedViewFrame.reconstruct();
     closeGroups(0);
-    
+
     this._div.style.display = "block";
 };
 
@@ -290,7 +290,7 @@ Exhibit.ThumbnailView.constructGroup = function(
         className: "exhibit-thumbnailView-group",
         children: [
             {   tag: "h" + (groupLevel + 1),
-                children: [ 
+                children: [
                     label,
                     {   tag:        "span",
                         className:  "exhibit-collectionView-group-count",
@@ -319,7 +319,7 @@ Exhibit.ThumbnailView.constructItemContainer = function() {
     div.className = "exhibit-thumbnailView-body";
     return div;
 };
-    
+
 Exhibit.ThumbnailView.constructTableItemContainer = function() {
     var table = document.createElement("table");
     table.className = "exhibit-thumbnailView-body";

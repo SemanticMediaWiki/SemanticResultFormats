@@ -6,7 +6,7 @@
 Exhibit.SizeCoder = function(uiContext) {
     this._uiContext = uiContext;
     this._settings = {};
-    
+
     this._map = {};
     this._mixedCase = { label: "mixed", size: 10 };
     this._missingCase = { label: "missing", size: 10 };
@@ -18,26 +18,26 @@ Exhibit.SizeCoder._settingSpecs = {
 
 Exhibit.SizeCoder.create = function(configuration, uiContext) {
     var coder = new Exhibit.SizeCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SizeCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.SizeCoder.createFromDOM = function(configElmt, uiContext) {
     configElmt.style.display = "none";
-    
+
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var coder = new Exhibit.SizeCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.SizeCoder._settingSpecs, coder._settings);
-    
+
     try {
         var node = configElmt.firstChild;
         while (node != null) {
             if (node.nodeType == 1) {
                 coder._addEntry(
-                    Exhibit.getAttribute(node, "case"), 
-                    node.firstChild.nodeValue.trim(), 
+                    Exhibit.getAttribute(node, "case"),
+                    node.firstChild.nodeValue.trim(),
                     Exhibit.getAttribute(node, "size"));
             }
             node = node.nextSibling;
@@ -45,14 +45,14 @@ Exhibit.SizeCoder.createFromDOM = function(configElmt, uiContext) {
     } catch (e) {
         SimileAjax.Debug.exception(e, "SizeCoder: Error processing configuration of coder");
     }
-    
+
     Exhibit.SizeCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.SizeCoder._configure = function(coder, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.SizeCoder._settingSpecs, coder._settings);
-    
+
     if ("entries" in configuration) {
         var entries = configuration.entries;
         for (var i = 0; i < entries.length; i++) {
@@ -66,7 +66,7 @@ Exhibit.SizeCoder.prototype.dispose = function() {
     this._settings = null;
 };
 
-Exhibit.SizeCoder.prototype._addEntry = function(kase, key, size) {  
+Exhibit.SizeCoder.prototype._addEntry = function(kase, key, size) {
     var entry = null;
     switch (kase) {
     case "others":  entry = this._othersCase; break;
@@ -108,7 +108,7 @@ Exhibit.SizeCoder.prototype.translateSet = function(keys, flags) {
         }
         return false;
     });
-    
+
     if (size != null) {
         return size;
     } else {

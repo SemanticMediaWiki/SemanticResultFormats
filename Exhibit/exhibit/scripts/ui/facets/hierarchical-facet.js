@@ -7,17 +7,17 @@ Exhibit.HierarchicalFacet = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
     this._colorCoder = null;
-    
+
     this._expression = null;
     this._uniformGroupingExpression = null;
     this._selections = [];
     this._expanded = {};
-    
+
     this._settings = {};
     this._dom = null;
-    
+
     var self = this;
-    this._listener = { 
+    this._listener = {
         onRootItemsChanged: function() {
             if ("_cache" in self) {
                 delete self._cache;
@@ -43,12 +43,12 @@ Exhibit.HierarchicalFacet._settingSpecs = {
 Exhibit.HierarchicalFacet.create = function(configuration, containerElmt, uiContext) {
     var uiContext = Exhibit.UIContext.create(configuration, uiContext);
     var facet = new Exhibit.HierarchicalFacet(containerElmt, uiContext);
-    
+
     Exhibit.HierarchicalFacet._configure(facet, configuration);
-    
+
     facet._initializeUI();
     uiContext.getCollection().addFacet(facet);
-    
+
     return facet;
 };
 
@@ -56,27 +56,27 @@ Exhibit.HierarchicalFacet.createFromDOM = function(configElmt, containerElmt, ui
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var uiContext = Exhibit.UIContext.createFromDOM(configElmt, uiContext);
     var facet = new Exhibit.HierarchicalFacet(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         uiContext
     );
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.HierarchicalFacet._settingSpecs, facet._settings);
-    
+
     try {
         var expressionString = Exhibit.getAttribute(configElmt, "expression");
         if (expressionString != null && expressionString.length > 0) {
             facet._expression = Exhibit.ExpressionParser.parse(expressionString);
         }
-        
+
         var uniformGroupingString = Exhibit.getAttribute(configElmt, "uniformGrouping");
         if (uniformGroupingString != null && uniformGroupingString.length > 0) {
             facet._uniformGroupingExpression = Exhibit.ExpressionParser.parse(uniformGroupingString);
         }
-        
+
         var selection = Exhibit.getAttribute(configElmt, "selection", ";");
         if (selection != null && selection.length > 0) {
             for (var i = 0, s; s = selection[i]; i++) {
-                facet._selections = 
+                facet._selections =
                     facet._internalAddSelection({ value: s, selectOthers: false });
             }
         }
@@ -84,16 +84,16 @@ Exhibit.HierarchicalFacet.createFromDOM = function(configElmt, containerElmt, ui
         SimileAjax.Debug.exception(e, "HierarchicalFacet: Error processing configuration of hierarchical facet");
     }
     Exhibit.HierarchicalFacet._configure(facet, configuration);
-    
+
     facet._initializeUI();
     uiContext.getCollection().addFacet(facet);
-    
+
     return facet;
 };
 
 Exhibit.HierarchicalFacet._configure = function(facet, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.HierarchicalFacet._settingSpecs, facet._settings);
-    
+
     if ("expression" in configuration) {
         facet._expression = Exhibit.ExpressionParser.parse(configuration.expression);
     }
@@ -106,7 +106,7 @@ Exhibit.HierarchicalFacet._configure = function(facet, configuration) {
             facet._selections.push({ value: selection[i], selectOthers: false });
         }
     }
-    
+
     if (!("facetLabel" in facet._settings)) {
         facet._settings.facetLabel = "missing ex:facetLabel";
         if (facet._expression != null && facet._expression.isPath()) {
@@ -123,14 +123,14 @@ Exhibit.HierarchicalFacet._configure = function(facet, configuration) {
         for (var i = 0; i < values.length; i++) {
             orderMap[values[i].trim()] = i;
         }
-        
+
         facet._orderMap = orderMap;
     }
-    
+
     if ("colorCoder" in facet._settings) {
         facet._colorCoder = facet._uiContext.getExhibit().getComponent(facet._settings.colorCoder);
     }
-    
+
     if (facet._settings.collapsed) {
         facet._settings.collapsible = true;
     }
@@ -138,20 +138,20 @@ Exhibit.HierarchicalFacet._configure = function(facet, configuration) {
 
 Exhibit.HierarchicalFacet.prototype.dispose = function() {
     this._uiContext.getCollection().removeFacet(this);
-    
+
     this._uiContext.getCollection().removeListener(this._listener);
     this._uiContext = null;
     this._colorCoder = null;
-    
+
     this._div.innerHTML = "";
     this._div = null;
     this._dom = null;
-    
+
     this._expression = null;
     this._uniformGroupingExpression = null;
     this._selections = null;
     this._settings = null;
-    
+
     this._cache = null;
 };
 
@@ -162,7 +162,7 @@ Exhibit.HierarchicalFacet.prototype.hasRestrictions = function() {
 Exhibit.HierarchicalFacet.prototype.clearAllRestrictions = function() {
     var selections = this._selections;
     this._selections = [];
-    
+
     if (selections.length > 0) {
         this._notifyCollection();
     }
@@ -198,9 +198,9 @@ Exhibit.HierarchicalFacet.prototype.restrict = function(items) {
     if (this._selections.length == 0) {
         return items;
     }
-    
+
     this._buildCache();
-    
+
     var set = new Exhibit.Set();
     var includeNode = function(node) {
         if ("children" in node) {
@@ -215,7 +215,7 @@ Exhibit.HierarchicalFacet.prototype.restrict = function(items) {
             includeNode(childNodes[i]);
         }
     };
-    
+
     for (var i = 0; i < this._selections.length; i++) {
         var selection = this._selections[i];
         var node = this._getTreeNode(selection.value);
@@ -227,14 +227,14 @@ Exhibit.HierarchicalFacet.prototype.restrict = function(items) {
             }
         }
     }
-    
+
     return set;
 };
 
 Exhibit.HierarchicalFacet.prototype._internalAddSelection = function(selection) {
     var parentToClear = {};
     var childrenToClear = {};
-    
+
     var cache = this._cache;
     var markClearAncestors = function(value) {
         if (value in cache.valueToParent) {
@@ -256,12 +256,12 @@ Exhibit.HierarchicalFacet.prototype._internalAddSelection = function(selection) 
             }
         }
     };
-    
+
     /*
-        ignore "(others)" at the root (its value is null) 
+        ignore "(others)" at the root (its value is null)
         because it has no parent nor children.
      */
-    if (selection.value != null) { 
+    if (selection.value != null) {
         markClearAncestors(selection.value);
         if (selection.selectOthers) {
             parentToClear[selection.value] = true;
@@ -270,18 +270,18 @@ Exhibit.HierarchicalFacet.prototype._internalAddSelection = function(selection) 
             markClearDescendants(selection.value);
         }
     }
-    
+
     var oldSelections = this._selections;
     var newSelections = [ selection ];
     for (var i = 0; i < oldSelections.length; i++) {
         var s = oldSelections[i];
-        if ((!(s.value in parentToClear) || s.selectOthers) && 
+        if ((!(s.value in parentToClear) || s.selectOthers) &&
             (!(s.value in childrenToClear))) {
-            
+
             newSelections.push(s);
         }
     }
-    
+
     return newSelections;
 };
 
@@ -294,14 +294,14 @@ Exhibit.HierarchicalFacet.prototype._internalRemoveSelection = function(selectio
             newSelections.push(s);
         }
     }
-    
+
     return newSelections;
 };
 
 Exhibit.HierarchicalFacet.prototype.update = function(items) {
     this._dom.valuesContainer.style.display = "none";
     this._dom.valuesContainer.innerHTML = "";
-    
+
     var tree = this._computeFacet(items);
     if (tree) {
         this._constructBody(tree);
@@ -311,17 +311,17 @@ Exhibit.HierarchicalFacet.prototype.update = function(items) {
 
 Exhibit.HierarchicalFacet.prototype._computeFacet = function(items) {
     this._buildCache();
-    
+
     var database = this._uiContext.getDatabase();
     var sorter = this._getValueSorter();
     var othersLabel = "othersLabel" in this._settings ? this._settings.othersLabel : "(others)";
-    
+
     var selectionMap = {};
     for (var i = 0; i < this._selections.length; i++) {
         var s = this._selections[i];
         selectionMap[s.value] = s.selectOthers;
     }
-    
+
     var processNode = function(node, resultNodes, superset) {
         var selected = (node.value in selectionMap && !selectionMap[node.value]);
         if ("children" in node) {
@@ -332,15 +332,15 @@ Exhibit.HierarchicalFacet.prototype._computeFacet = function(items) {
                 selected:   selected,
                 areOthers:  false
             };
-            
+
             var superset2 = new Exhibit.Set();
-            
+
             for (var i = 0; i < node.children.length; i++) {
                 var childNode = node.children[i];
                 processNode(childNode, resultNode.children, superset2);
             }
             resultNode.children.sort(sorter);
-            
+
             if (node.others.size() > 0) {
                 var othersSelected = (node.value in selectionMap && selectionMap[node.value]);
                 var subset = Exhibit.Set.createIntersection(items, node.others);
@@ -355,11 +355,11 @@ Exhibit.HierarchicalFacet.prototype._computeFacet = function(items) {
                     superset2.addSet(subset);
                 }
             }
-            
+
             resultNode.count = superset2.size();
             if (selected || resultNode.count > 0 || resultNode.children.length > 0) {
                 resultNodes.push(resultNode);
-                
+
                 if (superset != null && superset2.size() > 0) {
                     superset.addSet(superset2);
                 }
@@ -374,26 +374,26 @@ Exhibit.HierarchicalFacet.prototype._computeFacet = function(items) {
                     selected:   selected,
                     areOthers:  false
                 });
-                
+
                 if (superset != null && subset.size() > 0) {
                     superset.addSet(subset);
                 }
             }
         }
     };
-    
+
     var nodes = [];
     processNode(this._cache.tree, nodes, null);
-    
+
     return nodes[0];
 };
 
 Exhibit.HierarchicalFacet.prototype._getValueSorter = function() {
     var sortValueFunction = function(a, b) { return a.label.localeCompare(b.label); };
-    
+
     if ("_orderMap" in this) {
         var orderMap = this._orderMap;
-        
+
         sortValueFunction = function(a, b) {
             if (a.label in orderMap) {
                 if (b.label in orderMap) {
@@ -414,7 +414,7 @@ Exhibit.HierarchicalFacet.prototype._getValueSorter = function() {
             return a < b ? -1 : a > b ? 1 : 0;
         }
     }
-    
+
     var sortFunction = sortValueFunction;
     if (this._settings.sortMode == "count") {
         sortFunction = function(a, b) {
@@ -448,7 +448,7 @@ Exhibit.HierarchicalFacet.prototype._initializeUI = function() {
         this._settings.collapsible,
         this._settings.collapsed
     );
-    
+
     if ("height" in this._settings && this._settings.scroll) {
         this._dom.valuesContainer.style.height = this._settings.height;
     }
@@ -457,12 +457,12 @@ Exhibit.HierarchicalFacet.prototype._initializeUI = function() {
 Exhibit.HierarchicalFacet.prototype._constructBody = function(tree) {
     var self = this;
     var containerDiv = this._dom.valuesContainer;
-    
+
     containerDiv.style.display = "none";
-    
+
     var constructFacetItemFunction = Exhibit.FacetUtilities[this._settings.scroll ? "constructHierarchicalFacetItem" : "constructFlowingHierarchicalFacetItem"];
     var facetHasSelection = this._selections.length > 0;
-    
+
     var processNode = function(node, div) {
         var hasChildren = ("children" in node);
         var onSelect = function(elmt, evt, target) {
@@ -489,10 +489,10 @@ Exhibit.HierarchicalFacet.prototype._constructBody = function(tree) {
             return false;
         };
         var dom = constructFacetItemFunction(
-            node.label, 
-            node.count, 
+            node.label,
+            node.count,
             (self._colorCoder != null) ? self._colorCoder.translate(node.value) : null,
-            node.selected, 
+            node.selected,
             hasChildren,
             (node.value in self._expanded),
             facetHasSelection,
@@ -502,7 +502,7 @@ Exhibit.HierarchicalFacet.prototype._constructBody = function(tree) {
             self._uiContext
         );
         div.appendChild(dom.elmt);
-                
+
         if (hasChildren) {
             processChildNodes(node.children, dom.childrenContainer);
         }
@@ -512,23 +512,23 @@ Exhibit.HierarchicalFacet.prototype._constructBody = function(tree) {
             processNode(childNodes[i], div);
         }
     };
-    
+
     processChildNodes(tree.children, containerDiv);
-    
+
     containerDiv.style.display = "block";
-    
+
     this._dom.setSelectionCount(this._selections.length);
 };
 
 Exhibit.HierarchicalFacet.prototype._filter = function(value, areOthers, label, wasSelected, selectOnly) {
     var self = this;
     var wasSelectedAlone = wasSelected && this._selections.length == 1;
-    
+
     var selection = {
         value:          value,
         selectOthers:  areOthers
     };
-    
+
     var oldRestrictions = this._selections;
     var newRestrictions;
     if (wasSelected) {
@@ -551,7 +551,7 @@ Exhibit.HierarchicalFacet.prototype._filter = function(value, areOthers, label, 
             newRestrictions = this._internalAddSelection(selection);
         }
     }
-    
+
     SimileAjax.History.addLengthyAction(
         function() { self.applyRestrictions(newRestrictions); },
         function() { self.applyRestrictions(oldRestrictions); },
@@ -581,12 +581,12 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
     if (!("_cache" in this)) {
         var valueToItem = {};
         var valueType = "text";
-        
+
         var valueToChildren = {};
         var valueToParent = {};
         var valueToPath = {};
         var values = new Exhibit.Set();
-        
+
         var insert = function(x, y, map) {
             if (x in map) {
                 map[x].push(y);
@@ -594,7 +594,7 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
                 map[x] = [ y ];
             }
         };
-        
+
         var database = this._uiContext.getDatabase();
         var tree = {
             value:      null,
@@ -602,7 +602,7 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
             others:     new Exhibit.Set(),
             children:   []
         };
-        
+
         var expression = this._expression;
         this._uiContext.getCollection().getAllItems().visit(function(item) {
             var results = expression.evaluateOnItem(item, database);
@@ -616,7 +616,7 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
                 tree.others.add(item);
             }
         });
-        
+
         var groupingExpression = this._uniformGroupingExpression;
         var rootValues = new Exhibit.Set();
         var getParentChildRelationships = function(valueSet) {
@@ -636,13 +636,13 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
                     rootValues.add(value);
                 }
             });
-            
+
             if (newValueSet.size() > 0) {
                 getParentChildRelationships(newValueSet);
             }
         };
         getParentChildRelationships(values);
-        
+
         var processValue = function(value, nodes, valueSet, path) {
             var label = database.getObject(value, "label");
             var node = {
@@ -651,16 +651,16 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
             };
             nodes.push(node);
             valueToPath[value] = path;
-            
+
             if (value in valueToChildren) {
                 node.children = [];
-                
+
                 var valueSet2 = new Exhibit.Set();
                 var childrenValue = valueToChildren[value];
                 for (var i = 0; i < childrenValue.length; i++) {
                     processValue(childrenValue[i], node.children, valueSet2, path.concat(i));
                 };
-                
+
                 node.others = new Exhibit.Set();
                 if (value in valueToItem) {
                     var items = valueToItem[value];
@@ -672,7 +672,7 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
                         }
                     }
                 }
-                
+
                 valueSet.addSet(valueSet2);
             } else {
                 node.items = new Exhibit.Set();
@@ -686,10 +686,10 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
                 }
             }
         }
-        
+
         var index = 0;
         rootValues.visit(function (value) { processValue(value, tree.children, new Exhibit.Set(), [index++]); });
-        
+
         this._cache = {
             tree:               tree,
             valueToChildren:    valueToChildren,
@@ -704,7 +704,7 @@ Exhibit.HierarchicalFacet.prototype._getTreeNode = function(value) {
     if (value == null) {
         return this._cache.tree;
     }
-    
+
     var path = this._cache.valueToPath[value];
     var trace = function(node, path, index) {
         var node2 = node.children[path[index]];

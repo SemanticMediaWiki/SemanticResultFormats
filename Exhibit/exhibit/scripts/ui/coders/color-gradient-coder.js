@@ -6,19 +6,19 @@
 Exhibit.ColorGradientCoder = function(uiContext) {
     this._uiContext = uiContext;
     this._settings = {};
-    
+
     this._gradientPoints = [];
-    this._mixedCase = { 
-        label: Exhibit.Coders.l10n.mixedCaseLabel, 
+    this._mixedCase = {
+        label: Exhibit.Coders.l10n.mixedCaseLabel,
         color: Exhibit.Coders.mixedCaseColor
     };
-    this._missingCase = { 
-        label: Exhibit.Coders.l10n.missingCaseLabel, 
-        color: Exhibit.Coders.missingCaseColor 
+    this._missingCase = {
+        label: Exhibit.Coders.l10n.missingCaseLabel,
+        color: Exhibit.Coders.missingCaseColor
     };
-    this._othersCase = { 
-        label: Exhibit.Coders.l10n.othersCaseLabel, 
-        color: Exhibit.Coders.othersCaseColor 
+    this._othersCase = {
+        label: Exhibit.Coders.l10n.othersCaseLabel,
+        color: Exhibit.Coders.othersCaseColor
     };
 };
 
@@ -27,19 +27,19 @@ Exhibit.ColorGradientCoder._settingSpecs = {
 
 Exhibit.ColorGradientCoder.create = function(configuration, uiContext) {
     var coder = new Exhibit.ColorGradientCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.ColorGradientCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.ColorGradientCoder.createFromDOM = function(configElmt, uiContext) {
     configElmt.style.display = "none";
-    
+
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var coder = new Exhibit.ColorGradientCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.ColorGradientCoder._settingSpecs, coder._settings);
-    
+
     try {
 		var gradientPoints = Exhibit.getAttribute(configElmt, "gradientPoints", ";")
 		for (var i = 0; i < gradientPoints.length; i++) {
@@ -51,13 +51,13 @@ Exhibit.ColorGradientCoder.createFromDOM = function(configElmt, uiContext) {
 			var blue = parseInt(point.slice(colorIndex + 4), 16);
 			coder._gradientPoints.push({ value: value, red: red, green: green, blue: blue });
 		}
-		
+
         var node = configElmt.firstChild;
         while (node != null) {
             if (node.nodeType == 1) {
                 coder._addEntry(
-                    Exhibit.getAttribute(node, "case"), 
-                    node.firstChild.nodeValue.trim(), 
+                    Exhibit.getAttribute(node, "case"),
+                    node.firstChild.nodeValue.trim(),
                     Exhibit.getAttribute(node, "color"));
             }
             node = node.nextSibling;
@@ -65,14 +65,14 @@ Exhibit.ColorGradientCoder.createFromDOM = function(configElmt, uiContext) {
     } catch (e) {
         SimileAjax.Debug.exception(e, "ColorGradientCoder: Error processing configuration of coder");
     }
-    
+
     Exhibit.ColorGradientCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.ColorGradientCoder._configure = function(coder, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.ColorGradientCoder._settingSpecs, coder._settings);
-    
+
     if ("entries" in configuration) {
         var entries = configuration.entries;
         for (var i = 0; i < entries.length; i++) {
@@ -127,7 +127,7 @@ Exhibit.ColorGradientCoder.prototype.translate = function(key, flags) {
 		}
 		return "#" + decToHex(r) + decToHex(g) + decToHex(b);
 	}
-	
+
     if (key >= gradientPoints[0].value & key <= gradientPoints[gradientPoints.length-1].value) {
         if (flags) flags.keys.add(key);
         return getColor(key);
@@ -154,7 +154,7 @@ Exhibit.ColorGradientCoder.prototype.translateSet = function(keys, flags) {
         }
         return false;
     });
-    
+
     if (color != null) {
         return color;
     } else {

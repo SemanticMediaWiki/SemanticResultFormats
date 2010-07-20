@@ -24,7 +24,7 @@ Exhibit.Util.round = function(n, precision) {
     while (d[1].length < lg) {
         d[1] += "0";
     }
-    return d.join(".");  
+    return d.join(".");
 }
 
 

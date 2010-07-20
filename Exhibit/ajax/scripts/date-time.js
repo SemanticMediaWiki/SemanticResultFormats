@@ -30,7 +30,7 @@ SimileAjax.DateTime.gregorianUnitLengths = [];
     (function() {
         var d = SimileAjax.DateTime;
         var a = d.gregorianUnitLengths;
-        
+
         a[d.MILLISECOND] = 1;
         a[d.SECOND]      = 1000;
         a[d.MINUTE]      = a[d.SECOND] * 60;
@@ -43,7 +43,7 @@ SimileAjax.DateTime.gregorianUnitLengths = [];
         a[d.CENTURY]     = a[d.YEAR] * 100;
         a[d.MILLENNIUM]  = a[d.YEAR] * 1000;
     })();
-    
+
 SimileAjax.DateTime._dateRegexp = new RegExp(
     "^(-?)([0-9]{4})(" + [
         "(-?([0-9]{2})(-?([0-9]{2}))?)", // -month-dayOfMonth
@@ -72,12 +72,12 @@ SimileAjax.DateTime.setIso8601Date = function(dateObject, string) {
      *  This function has been adapted from dojo.date, v.0.3.0
      *  http://dojotoolkit.org/.
      */
-     
+
     var d = string.match(SimileAjax.DateTime._dateRegexp);
     if(!d) {
         throw new Error("Invalid date string: " + string);
     }
-    
+
     var sign = (d[1] == "-") ? -1 : 1; // BC or AD
     var year = sign * d[2];
     var month = d[5];
@@ -87,7 +87,7 @@ SimileAjax.DateTime.setIso8601Date = function(dateObject, string) {
     var dayofweek = (d[13]) ? d[13] : 1;
 
     dateObject.setUTCFullYear(year);
-    if (dayofyear) { 
+    if (dayofyear) {
         dateObject.setUTCMonth(0);
         dateObject.setUTCDate(Number(dayofyear));
     } else if (week) {
@@ -96,22 +96,22 @@ SimileAjax.DateTime.setIso8601Date = function(dateObject, string) {
         var gd = dateObject.getUTCDay();
         var day =  (gd) ? gd : 7;
         var offset = Number(dayofweek) + (7 * Number(week));
-        
-        if (day <= 4) { 
-            dateObject.setUTCDate(offset + 1 - day); 
-        } else { 
-            dateObject.setUTCDate(offset + 8 - day); 
+
+        if (day <= 4) {
+            dateObject.setUTCDate(offset + 1 - day);
+        } else {
+            dateObject.setUTCDate(offset + 8 - day);
         }
     } else {
-        if (month) { 
+        if (month) {
             dateObject.setUTCDate(1);
-            dateObject.setUTCMonth(month - 1); 
+            dateObject.setUTCMonth(month - 1);
         }
-        if (date) { 
-            dateObject.setUTCDate(date); 
+        if (date) {
+            dateObject.setUTCDate(date);
         }
     }
-    
+
     return dateObject;
 };
 
@@ -129,7 +129,7 @@ SimileAjax.DateTime.setIso8601Time = function (dateObject, string) {
      *  This function has been adapted from dojo.date, v.0.3.0
      *  http://dojotoolkit.org/.
      */
-    
+
     var d = string.match(SimileAjax.DateTime._timeRegexp);
     if(!d) {
         SimileAjax.Debug.warn("Invalid time string: " + string);
@@ -144,7 +144,7 @@ SimileAjax.DateTime.setIso8601Time = function (dateObject, string) {
     dateObject.setUTCMinutes(mins);
     dateObject.setUTCSeconds(secs);
     dateObject.setUTCMilliseconds(ms);
-    
+
     return dateObject;
 };
 
@@ -155,7 +155,7 @@ SimileAjax.DateTime.setIso8601Time = function (dateObject, string) {
 SimileAjax.DateTime.timezoneOffset = new Date().getTimezoneOffset();
 
 /**
- * Takes a date object and a string containing an ISO 8601 date and time and 
+ * Takes a date object and a string containing an ISO 8601 date and time and
  * sets the date object using information parsed from the string.
  *
  * @param {Date} dateObject the date object to modify
@@ -167,12 +167,12 @@ SimileAjax.DateTime.setIso8601 = function (dateObject, string){
      *  This function has been adapted from dojo.date, v.0.3.0
      *  http://dojotoolkit.org/.
      */
-     
+
     var offset = null;
     var comps = (string.indexOf("T") == -1) ? string.split(" ") : string.split("T");
-    
+
     SimileAjax.DateTime.setIso8601Date(dateObject, comps[0]);
-    if (comps.length == 2) { 
+    if (comps.length == 2) {
         // first strip timezone info from the end
         var d = comps[1].match(SimileAjax.DateTime._timezoneRegexp);
         if (d) {
@@ -185,13 +185,13 @@ SimileAjax.DateTime.setIso8601 = function (dateObject, string){
             comps[1] = comps[1].substr(0, comps[1].length - d[0].length);
         }
 
-        SimileAjax.DateTime.setIso8601Time(dateObject, comps[1]); 
+        SimileAjax.DateTime.setIso8601Time(dateObject, comps[1]);
     }
     if (offset == null) {
         offset = dateObject.getTimezoneOffset(); // local time zone if no tz info
     }
     dateObject.setTime(dateObject.getTime() + offset * 60000);
-    
+
     return dateObject;
 };
 
@@ -213,7 +213,7 @@ SimileAjax.DateTime.parseIso8601DateTime = function (string) {
 /**
  * Takes a string containing a Gregorian date and time and returns a newly
  * instantiated date object with the parsed date and time information from the
- * string.  If the param is actually an instance of Date instead of a string, 
+ * string.  If the param is actually an instance of Date instead of a string,
  * simply returns the given date instead.
  *
  * @param {Object} o an object, to either return or parse as a string
@@ -225,7 +225,7 @@ SimileAjax.DateTime.parseGregorianDateTime = function(o) {
     } else if (o instanceof Date) {
         return o;
     }
-    
+
     var s = o.toString();
     if (s.length > 0 && s.length < 8) {
         var space = s.indexOf(" ");
@@ -238,13 +238,13 @@ SimileAjax.DateTime.parseGregorianDateTime = function(o) {
         } else {
             var year = parseInt(s);
         }
-            
+
         var d = new Date(0);
         d.setUTCFullYear(year);
-        
+
         return d;
     }
-    
+
     try {
         return new Date(Date.parse(s));
     } catch (e) {
@@ -256,9 +256,9 @@ SimileAjax.DateTime.parseGregorianDateTime = function(o) {
  * Rounds date objects down to the nearest interval or multiple of an interval.
  * This method modifies the given date object, converting it to the given
  * timezone if specified.
- * 
+ *
  * @param {Date} date the date object to round
- * @param {Number} intervalUnit a constant, integer index specifying an 
+ * @param {Number} intervalUnit a constant, integer index specifying an
  *   interval, e.g. SimileAjax.DateTime.HOUR
  * @param {Number} timeZone a timezone shift, given in hours
  * @param {Number} multiple a multiple of the interval to round by
@@ -266,9 +266,9 @@ SimileAjax.DateTime.parseGregorianDateTime = function(o) {
  *   week, 0 corresponds to Sunday, 1 to Monday, etc.
  */
 SimileAjax.DateTime.roundDownToInterval = function(date, intervalUnit, timeZone, multiple, firstDayOfWeek) {
-    var timeShift = timeZone * 
+    var timeShift = timeZone *
         SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.HOUR];
-        
+
     var date2 = new Date(date.getTime() + timeShift);
     var clearInDay = function(d) {
         d.setUTCMilliseconds(0);
@@ -281,7 +281,7 @@ SimileAjax.DateTime.roundDownToInterval = function(date, intervalUnit, timeZone,
         d.setUTCDate(1);
         d.setUTCMonth(0);
     };
-    
+
     switch(intervalUnit) {
     case SimileAjax.DateTime.MILLISECOND:
         var x = date2.getUTCMilliseconds();
@@ -289,23 +289,23 @@ SimileAjax.DateTime.roundDownToInterval = function(date, intervalUnit, timeZone,
         break;
     case SimileAjax.DateTime.SECOND:
         date2.setUTCMilliseconds(0);
-        
+
         var x = date2.getUTCSeconds();
         date2.setUTCSeconds(x - (x % multiple));
         break;
     case SimileAjax.DateTime.MINUTE:
         date2.setUTCMilliseconds(0);
         date2.setUTCSeconds(0);
-        
+
         var x = date2.getUTCMinutes();
-        date2.setTime(date2.getTime() - 
+        date2.setTime(date2.getTime() -
             (x % multiple) * SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.MINUTE]);
         break;
     case SimileAjax.DateTime.HOUR:
         date2.setUTCMilliseconds(0);
         date2.setUTCSeconds(0);
         date2.setUTCMinutes(0);
-        
+
         var x = date2.getUTCHours();
         date2.setUTCHours(x - (x % multiple));
         break;
@@ -315,19 +315,19 @@ SimileAjax.DateTime.roundDownToInterval = function(date, intervalUnit, timeZone,
     case SimileAjax.DateTime.WEEK:
         clearInDay(date2);
         var d = (date2.getUTCDay() + 7 - firstDayOfWeek) % 7;
-        date2.setTime(date2.getTime() - 
+        date2.setTime(date2.getTime() -
             d * SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.DAY]);
         break;
     case SimileAjax.DateTime.MONTH:
         clearInDay(date2);
         date2.setUTCDate(1);
-        
+
         var x = date2.getUTCMonth();
         date2.setUTCMonth(x - (x % multiple));
         break;
     case SimileAjax.DateTime.YEAR:
         clearInYear(date2);
-        
+
         var x = date2.getUTCFullYear();
         date2.setUTCFullYear(x - (x % multiple));
         break;
@@ -344,7 +344,7 @@ SimileAjax.DateTime.roundDownToInterval = function(date, intervalUnit, timeZone,
         date2.setUTCFullYear(Math.floor(date2.getUTCFullYear() / 1000) * 1000);
         break;
     }
-    
+
     date.setTime(date2.getTime() - timeShift);
 };
 
@@ -352,9 +352,9 @@ SimileAjax.DateTime.roundDownToInterval = function(date, intervalUnit, timeZone,
  * Rounds date objects up to the nearest interval or multiple of an interval.
  * This method modifies the given date object, converting it to the given
  * timezone if specified.
- * 
+ *
  * @param {Date} date the date object to round
- * @param {Number} intervalUnit a constant, integer index specifying an 
+ * @param {Number} intervalUnit a constant, integer index specifying an
  *   interval, e.g. SimileAjax.DateTime.HOUR
  * @param {Number} timeZone a timezone shift, given in hours
  * @param {Number} multiple a multiple of the interval to round by
@@ -366,7 +366,7 @@ SimileAjax.DateTime.roundUpToInterval = function(date, intervalUnit, timeZone, m
     var originalTime = date.getTime();
     SimileAjax.DateTime.roundDownToInterval(date, intervalUnit, timeZone, multiple, firstDayOfWeek);
     if (date.getTime() < originalTime) {
-        date.setTime(date.getTime() + 
+        date.setTime(date.getTime() +
             SimileAjax.DateTime.gregorianUnitLengths[intervalUnit] * multiple);
     }
 };
@@ -376,16 +376,16 @@ SimileAjax.DateTime.roundUpToInterval = function(date, intervalUnit, timeZone, m
  * consideration the timezone.
  *
  * @param {Date} date the date object to increment
- * @param {Number} intervalUnit a constant, integer index specifying an 
+ * @param {Number} intervalUnit a constant, integer index specifying an
  *   interval, e.g. SimileAjax.DateTime.HOUR
  * @param {Number} timeZone the timezone offset in hours
  */
 SimileAjax.DateTime.incrementByInterval = function(date, intervalUnit, timeZone) {
     timeZone = (typeof timeZone == 'undefined') ? 0 : timeZone;
 
-    var timeShift = timeZone * 
+    var timeShift = timeZone *
         SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.HOUR];
-        
+
     var date2 = new Date(date.getTime() + timeShift);
 
     switch(intervalUnit) {
@@ -396,11 +396,11 @@ SimileAjax.DateTime.incrementByInterval = function(date, intervalUnit, timeZone)
         date2.setTime(date2.getTime() + 1000);
         break;
     case SimileAjax.DateTime.MINUTE:
-        date2.setTime(date2.getTime() + 
+        date2.setTime(date2.getTime() +
             SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.MINUTE]);
         break;
     case SimileAjax.DateTime.HOUR:
-        date2.setTime(date2.getTime() + 
+        date2.setTime(date2.getTime() +
             SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.HOUR]);
         break;
     case SimileAjax.DateTime.DAY:
@@ -437,7 +437,7 @@ SimileAjax.DateTime.incrementByInterval = function(date, intervalUnit, timeZone)
  * @return {Date} a new date object with the offset removed
  */
 SimileAjax.DateTime.removeTimeZoneOffset = function(date, timeZone) {
-    return new Date(date.getTime() + 
+    return new Date(date.getTime() +
         timeZone * SimileAjax.DateTime.gregorianUnitLengths[SimileAjax.DateTime.HOUR]);
 };
 

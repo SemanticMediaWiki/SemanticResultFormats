@@ -8,7 +8,7 @@ Exhibit.ExpressionParser = new Object();
 Exhibit.ExpressionParser.parse = function(s, startIndex, results) {
     startIndex = startIndex || 0;
     results = results || {};
-    
+
     var scanner = new Exhibit.ExpressionScanner(s, startIndex);
     try {
         return Exhibit.ExpressionParser._internalParse(scanner, false);
@@ -20,7 +20,7 @@ Exhibit.ExpressionParser.parse = function(s, startIndex, results) {
 Exhibit.ExpressionParser.parseSeveral = function(s, startIndex, results) {
     startIndex = startIndex || 0;
     results = results || {};
-    
+
     var scanner = new Exhibit.ExpressionScanner(s, startIndex);
     try {
         return Exhibit.ExpressionParser._internalParse(scanner, true);
@@ -34,13 +34,13 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
     var token = scanner.token();
     var next = function() { scanner.next(); token = scanner.token(); };
     var makePosition = function() { return token != null ? token.start : scanner.index(); };
-    
+
     var parsePath = function() {
         var path = new Exhibit.Expression.Path();
         while (token != null && token.type == Scanner.PATH_OPERATOR) {
             var hopOperator = token.value;
             next();
-            
+
             if (token != null && token.type == Scanner.IDENTIFIER) {
                 path.appendSegment(token.value, hopOperator);
                 next();
@@ -55,9 +55,9 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
         if (token == null) {
             throw new Error("Missing factor at end of expression");
         }
-        
+
         var result = null;
-        
+
         switch (token.type) {
         case Scanner.NUMBER:
             result = new Exhibit.Expression._Constant(token.value, "number");
@@ -73,17 +73,17 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
         case Scanner.IDENTIFIER:
             var identifier = token.value;
             next();
-            
+
             if (identifier in Exhibit.Controls) {
                 if (token != null && token.type == Scanner.DELIMITER && token.value == "(") {
                     next();
-                    
-                    var args = (token != null && token.type == Scanner.DELIMITER && token.value == ")") ? 
+
+                    var args = (token != null && token.type == Scanner.DELIMITER && token.value == ")") ?
                         [] :
                         parseExpressionList();
-                        
+
                     result = new Exhibit.Expression._ControlCall(identifier, args);
-                    
+
                     if (token != null && token.type == Scanner.DELIMITER && token.value == ")") {
                         next();
                     } else {
@@ -95,13 +95,13 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
             } else {
                 if (token != null && token.type == Scanner.DELIMITER && token.value == "(") {
                     next();
-                    
-                    var args = (token != null && token.type == Scanner.DELIMITER && token.value == ")") ? 
+
+                    var args = (token != null && token.type == Scanner.DELIMITER && token.value == ")") ?
                         [] :
                         parseExpressionList();
-                        
+
                     result = new Exhibit.Expression._FunctionCall(identifier, args);
-                    
+
                     if (token != null && token.type == Scanner.DELIMITER && token.value == ")") {
                         next();
                     } else {
@@ -116,7 +116,7 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
         case Scanner.DELIMITER:
             if (token.value == "(") {
                 next();
-                
+
                 result = parseExpression();
                 if (token != null && token.type == Scanner.DELIMITER && token.value == ")") {
                     next();
@@ -128,42 +128,42 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
         default:
             throw new Error("Unexpected text " + token.value + " at position " + makePosition());
         }
-        
+
         return result;
     };
     var parseTerm = function() {
         var term = parseFactor();
-        while (token != null && token.type == Scanner.OPERATOR && 
+        while (token != null && token.type == Scanner.OPERATOR &&
             (token.value == "*" || token.value == "/")) {
             var operator = token.value;
             next();
-            
+
             term = new Exhibit.Expression._Operator(operator, [ term, parseFactor() ]);
         }
         return term;
     };
     var parseSubExpression = function() {
         var subExpression = parseTerm();
-        while (token != null && token.type == Scanner.OPERATOR && 
+        while (token != null && token.type == Scanner.OPERATOR &&
             (token.value == "+" || token.value == "-")) {
-            
+
             var operator = token.value;
             next();
-            
+
             subExpression = new Exhibit.Expression._Operator(operator, [ subExpression, parseTerm() ]);
         }
         return subExpression;
     };
     var parseExpression = function() {
         var expression = parseSubExpression();
-        while (token != null && token.type == Scanner.OPERATOR && 
-            (token.value == "=" || token.value == "<>" || 
-             token.value == "<" || token.value == "<=" || 
+        while (token != null && token.type == Scanner.OPERATOR &&
+            (token.value == "=" || token.value == "<>" ||
+             token.value == "<" || token.value == "<=" ||
              token.value == ">" || token.value == ">=")) {
-            
+
             var operator = token.value;
             next();
-            
+
             expression = new Exhibit.Expression._Operator(operator, [ expression, parseSubExpression() ]);
         }
         return expression;
@@ -176,7 +176,7 @@ Exhibit.ExpressionParser._internalParse = function(scanner, several) {
         }
         return expressions;
     }
-    
+
     if (several) {
         var roots = parseExpressionList();
         var expressions = [];
@@ -217,16 +217,16 @@ Exhibit.ExpressionScanner.prototype.index = function() {
 
 Exhibit.ExpressionScanner.prototype.next = function() {
     this._token = null;
-    
+
     while (this._index < this._maxIndex &&
         " \t\r\n".indexOf(this._text.charAt(this._index)) >= 0) {
         this._index++;
     }
-    
+
     if (this._index < this._maxIndex) {
         var c1 = this._text.charAt(this._index);
         var c2 = this._text.charAt(this._index + 1);
-        
+
         if (".!".indexOf(c1) >= 0) {
             if (c2 == "@") {
                 this._token = {
@@ -287,7 +287,7 @@ Exhibit.ExpressionScanner.prototype.next = function() {
                 }
                 i++;
             }
-            
+
             if (i < this._maxIndex) {
                 this._token = {
                     type:   Exhibit.ExpressionScanner.STRING,
@@ -304,14 +304,14 @@ Exhibit.ExpressionScanner.prototype.next = function() {
             while (i < this._maxIndex && this._isDigit(this._text.charAt(i))) {
                 i++;
             }
-            
+
             if (i < this._maxIndex && this._text.charAt(i) == ".") {
                 i++;
                 while (i < this._maxIndex && this._isDigit(this._text.charAt(i))) {
                     i++;
                 }
             }
-            
+
             this._token = {
                 type:   Exhibit.ExpressionScanner.NUMBER,
                 value:  parseFloat(this._text.substring(this._index, i)),

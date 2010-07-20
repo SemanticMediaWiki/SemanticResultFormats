@@ -7,7 +7,7 @@ Exhibit.BabelBasedImporter = {
     mimetypeToReader: {
         "application/rdf+xml" : "rdf-xml",
         "application/n3" : "n3",
-        
+
         "application/msexcel" : "xls",
         "application/x-msexcel" : "xls",
         "application/x-ms-excel" : "xls",
@@ -15,11 +15,11 @@ Exhibit.BabelBasedImporter = {
         "application/x-excel" : "xls",
         "application/xls" : "xls",
         "application/x-xls" : "xls",
-        
+
         "application/x-bibtex" : "bibtex"
     },
     babelTranslatorURL: "http://service.simile-widgets.org/babel/translator",
-    
+
     _initialize: function() {
         var links = [];
         var heads = document.documentElement.getElementsByTagName("head");
@@ -48,7 +48,7 @@ Exhibit.importers["application/x-bibtex"] = Exhibit.BabelBasedImporter;
 
 Exhibit.BabelBasedImporter.load = function(link, database, cont) {
     Exhibit.BabelBasedImporter._initialize();
-    
+
     var url = (typeof link == "string") ?
         Exhibit.Persistence.resolveURL(link) :
         Exhibit.Persistence.resolveURL(link.href);
@@ -64,7 +64,7 @@ Exhibit.BabelBasedImporter.load = function(link, database, cont) {
     if (reader == "bibtex") {
         writer = "bibtex-exhibit-jsonp";
     }
-    
+
     var babelURL = Exhibit.BabelBasedImporter.babelTranslatorURL + "?" + [
         "reader=" + reader,
         "writer=" + writer,

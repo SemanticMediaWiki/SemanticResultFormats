@@ -53,7 +53,7 @@ class SRFOutlineTree {
 	function addItem( $item ) {
 		$this->mUnsortedItems[] = $item;
 	}
-	
+
 	function categorizeItem( $vals, $item ) {
 		foreach ( $vals as $val ) {
 			if ( array_key_exists( $val, $this->mTree ) ) {

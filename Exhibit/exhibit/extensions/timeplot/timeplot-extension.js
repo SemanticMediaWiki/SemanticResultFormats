@@ -8,22 +8,22 @@
  */
 
 (function() {
-    var isCompiled = ("Exhibit_TimeplotExtension_isCompiled" in window) && 
+    var isCompiled = ("Exhibit_TimeplotExtension_isCompiled" in window) &&
                     window.Exhibit_TimeplotExtension_isCompiled;
-                    
+
     Exhibit.TimeplotExtension = {
         params: {
             bundle: true
-        } 
+        }
     };
-    
+
     var javascriptFiles = [
         "timeplot-view.js"
     ];
     var cssFiles = [
         "timeplot-view.css"
     ];
-        
+
     var paramTypes = { bundle: Boolean };
     if (typeof Exhibit_TimeplotExtension_urlPrefix == "string") {
         Exhibit.TimeplotExtension.urlPrefix = Exhibit_TimeplotExtension_urlPrefix;
@@ -39,7 +39,7 @@
             return;
         }
         Exhibit.TimeplotExtension.urlPrefix = url.substr(0, url.indexOf("timeplot-extension.js"));
-        
+
         SimileAjax.parseURLParameters(url, Exhibit.TimeplotExtension.params, paramTypes);
     }
 
@@ -48,7 +48,7 @@
     // order is heavy handed but works.
     var scriptURLs = [ "http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true", "http://api.simile-widgets.org/timeline/2.3.1/timeline-bundle.js", "http://trunk.simile-widgets.org/timeplot/api/timeplot-api.js?bundle=true", "http://trunk.simile-widgets.org/timeplot/api/timeplot-bundle.js" ];
     var cssURLs = [];
-        
+
     if (Exhibit.TimeplotExtension.params.bundle) {
         scriptURLs.push(Exhibit.TimeplotExtension.urlPrefix + "timeplot-extension-bundle.js");
         cssURLs.push(Exhibit.TimeplotExtension.urlPrefix + "timeplot-extension-bundle.css");
@@ -56,11 +56,11 @@
         SimileAjax.prefixURLs(scriptURLs, Exhibit.TimeplotExtension.urlPrefix + "scripts/", javascriptFiles);
         SimileAjax.prefixURLs(cssURLs, Exhibit.TimeplotExtension.urlPrefix + "styles/", cssFiles);
     }
-    
+
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.TimeplotExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/timeplot-locale.js");
     };
-    
+
     if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);

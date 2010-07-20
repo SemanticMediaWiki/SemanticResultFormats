@@ -41,7 +41,7 @@ Exhibit.Formatter.l10n.timeFullFormat = "HH:mm:ss.S z";
 Exhibit.Formatter.l10n.dateTimeFullFormat = "EEEE, MMMM d, yyyy G, HH:mm:ss.S z";
 
 Exhibit.Formatter.l10n.shortDaysOfWeek=["Søn","Man","Tir","Ons","Tor","Fre","Lør"];
-Exhibit.Formatter.l10n.daysOfWeek=["Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag"]; 
+Exhibit.Formatter.l10n.daysOfWeek=["Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag"];
 
 Exhibit.Formatter.l10n.shortMonths=["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Des"];
 Exhibit.Formatter.l10n.months=["Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember"];

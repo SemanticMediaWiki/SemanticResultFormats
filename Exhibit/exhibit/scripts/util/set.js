@@ -2,11 +2,11 @@
  *  Exhibit.Set
  *==================================================
  */
- 
+
 Exhibit.Set = function(a) {
     this._hash = {};
     this._count = 0;
-    
+
     if (a instanceof Array) {
         for (var i = 0; i < a.length; i++) {
             this.add(a[i]);

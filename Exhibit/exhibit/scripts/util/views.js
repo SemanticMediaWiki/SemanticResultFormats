@@ -9,8 +9,8 @@ Exhibit.ViewUtilities = new Object();
 Exhibit.ViewUtilities.openBubbleForItems = function(anchorElmt, arrayOfItemIDs, uiContext) {
     var coords = SimileAjax.DOM.getPageCoordinates(anchorElmt);
     var bubble = SimileAjax.Graphics.createBubbleForPoint(
-        coords.left + Math.round(anchorElmt.offsetWidth / 2), 
-        coords.top + Math.round(anchorElmt.offsetHeight / 2), 
+        coords.left + Math.round(anchorElmt.offsetWidth / 2),
+        coords.top + Math.round(anchorElmt.offsetHeight / 2),
         uiContext.getSetting("bubbleWidth"), // px
         uiContext.getSetting("bubbleHeight") // px
     );
@@ -21,10 +21,10 @@ Exhibit.ViewUtilities.fillBubbleWithItems = function(bubbleElmt, arrayOfItemIDs,
     if (bubbleElmt == null) {
         bubbleElmt = document.createElement("div");
     }
-    
+
     if (arrayOfItemIDs.length > 1) {
         bubbleElmt.className = [ bubbleElmt.className, "exhibit-views-bubbleWithItems" ].join(" ");
-        
+
         var ul = document.createElement("ul");
         for (var i = 0; i < arrayOfItemIDs.length; i++) {
             uiContext.format(arrayOfItemIDs[i], "item", function(elmt) {
@@ -39,18 +39,18 @@ Exhibit.ViewUtilities.fillBubbleWithItems = function(bubbleElmt, arrayOfItemIDs,
         var itemLens = uiContext.getLensRegistry().createLens(arrayOfItemIDs[0], itemLensDiv, uiContext);
         bubbleElmt.appendChild(itemLensDiv);
     }
-    
+
     return bubbleElmt;
 };
 
 Exhibit.ViewUtilities.constructPlottingViewDom = function(
-    div, 
-    uiContext, 
+    div,
+    uiContext,
     showSummary,
-    resizableDivWidgetSettings, 
+    resizableDivWidgetSettings,
     legendWidgetSettings
 )
-{ 
+{
     var dom = SimileAjax.DOM.createDOMFromString(
         div,
         "<div class='exhibit-views-header'>" +
@@ -61,22 +61,22 @@ Exhibit.ViewUtilities.constructPlottingViewDom = function(
         "<div id='legendDiv'></div>",
         {}
     );
-    
+
     if (showSummary) {
         dom.collectionSummaryWidget = Exhibit.CollectionSummaryWidget.create(
-            {}, 
-            dom.collectionSummaryDiv, 
+            {},
+            dom.collectionSummaryDiv,
             uiContext
         );
     }
-    
+
     dom.resizableDivWidget = Exhibit.ResizableDivWidget.create(
         resizableDivWidgetSettings,
-        dom.resizableDiv, 
+        dom.resizableDiv,
         uiContext
     );
     dom.plotContainer = dom.resizableDivWidget.getContentDiv();
-    
+
     if (legendWidgetSettings.colorGradient == true) {
         dom.legendGradientWidget = Exhibit.LegendGradientWidget.create(
             dom.legendDiv,
@@ -85,11 +85,11 @@ Exhibit.ViewUtilities.constructPlottingViewDom = function(
     } else {
         dom.legendWidget = Exhibit.LegendWidget.create(
             legendWidgetSettings,
-            dom.legendDiv, 
+            dom.legendDiv,
             uiContext
         );
     }
-    
+
     dom.setUnplottableMessage = function(totalCount, unplottableItems) {
         Exhibit.ViewUtilities._setUnplottableMessage(dom, totalCount, unplottableItems, uiContext);
     };
@@ -110,7 +110,7 @@ Exhibit.ViewUtilities._setUnplottableMessage = function(dom, totalCount, unplott
         div.style.display = "none";
     } else {
         div.innerHTML = "";
-    
+
         var dom = SimileAjax.DOM.createDOMFromString(
             div,
             Exhibit.ViewUtilities.l10n.unplottableMessageFormatter(totalCount, unplottableItems, uiContext),

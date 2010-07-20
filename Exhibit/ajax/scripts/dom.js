@@ -15,18 +15,18 @@ SimileAjax.DOM.registerEvent = function(elmt, eventName, handler) {
     var handler2 = function(evt) {
         evt = (evt) ? evt : ((event) ? event : null);
         if (evt) {
-            var target = (evt.target) ? 
+            var target = (evt.target) ?
                 evt.target : ((evt.srcElement) ? evt.srcElement : null);
             if (target) {
-                target = (target.nodeType == 1 || target.nodeType == 9) ? 
+                target = (target.nodeType == 1 || target.nodeType == 9) ?
                     target : target.parentNode;
             }
-            
+
             return handler(elmt, evt, target);
         }
         return true;
     }
-    
+
     if (SimileAjax.Platform.browser.isIE) {
         elmt.attachEvent("on" + eventName, handler2);
     } else {
@@ -37,18 +37,18 @@ SimileAjax.DOM.registerEvent = function(elmt, eventName, handler) {
 SimileAjax.DOM.getPageCoordinates = function(elmt) {
     var left = 0;
     var top = 0;
-    
+
     if (elmt.nodeType != 1) {
         elmt = elmt.parentNode;
     }
-    
+
     var elmt2 = elmt;
     while (elmt2 != null) {
         left += elmt2.offsetLeft;
         top += elmt2.offsetTop;
         elmt2 = elmt2.offsetParent;
     }
-    
+
     var body = document.body;
     while (elmt != null && elmt != body) {
         if ("scrollLeft" in elmt) {
@@ -57,7 +57,7 @@ SimileAjax.DOM.getPageCoordinates = function(elmt) {
         }
         elmt = elmt.parentNode;
     }
-    
+
     return { left: left, top: top };
 };
 
@@ -88,9 +88,9 @@ SimileAjax.DOM.getEventRelativeCoordinates = function(evt, elmt) {
       if (evt.type == "mousewheel") {
         var coords = SimileAjax.DOM.getPageCoordinates(elmt);
         return {
-          x: evt.clientX - coords.left, 
+          x: evt.clientX - coords.left,
           y: evt.clientY - coords.top
-        };        
+        };
       } else {
         return {
           x: evt.offsetX,
@@ -103,11 +103,11 @@ SimileAjax.DOM.getEventRelativeCoordinates = function(evt, elmt) {
         if ((evt.type == "DOMMouseScroll") &&
           SimileAjax.Platform.browser.isFirefox &&
           (SimileAjax.Platform.browser.majorVersion == 2)) {
-          // Due to: https://bugzilla.mozilla.org/show_bug.cgi?id=352179                  
+          // Due to: https://bugzilla.mozilla.org/show_bug.cgi?id=352179
 
           return {
             x: evt.screenX - coords.left,
-            y: evt.screenY - coords.top 
+            y: evt.screenY - coords.top
           };
         } else {
           return {
@@ -145,7 +145,7 @@ SimileAjax.DOM._hittest = function(elmt, x, y, except) {
                 continue outer;
             }
         }
-        
+
         if (childNode.offsetWidth == 0 && childNode.offsetHeight == 0) {
             /*
              *  Sometimes SPAN elements have zero width and height but
@@ -158,14 +158,14 @@ SimileAjax.DOM._hittest = function(elmt, x, y, except) {
         } else {
             var top = 0;
             var left = 0;
-            
+
             var node = childNode;
             while (node) {
                 top += node.offsetTop;
                 left += node.offsetLeft;
                 node = node.offsetParent;
             }
-            
+
             if (left <= x && top <= y && (x - left) < childNode.offsetWidth && (y - top) < childNode.offsetHeight) {
                 return SimileAjax.DOM._hittest(childNode, x, y, except);
             } else if (childNode.nodeType == 1 && childNode.tagName == "TR") {
@@ -204,14 +204,14 @@ SimileAjax.DOM.appendClassName = function(elmt, className) {
 SimileAjax.DOM.createInputElement = function(type) {
     var div = document.createElement("div");
     div.innerHTML = "<input type='" + type + "' />";
-    
+
     return div.firstChild;
 };
 
 SimileAjax.DOM.createDOMFromTemplate = function(template) {
     var result = {};
     result.elmt = SimileAjax.DOM._createDOMFromTemplate(template, result, null);
-    
+
     return result;
 };
 
@@ -246,7 +246,7 @@ SimileAjax.DOM._createDOMFromTemplate = function(templateNode, result, parentElm
                 elmt = tag == "input" ?
                     SimileAjax.DOM.createInputElement(templateNode.type) :
                     document.createElement(tag);
-                    
+
                 if (parentElmt != null) {
                     parentElmt.appendChild(elmt);
                 }
@@ -257,13 +257,13 @@ SimileAjax.DOM._createDOMFromTemplate = function(templateNode, result, parentElm
                 parentElmt.appendChild(elmt);
             }
         }
-        
+
         for (var attribute in templateNode) {
             var value = templateNode[attribute];
-            
+
             if (attribute == "field") {
                 result[value] = elmt;
-                
+
             } else if (attribute == "className") {
                 elmt.className = value;
             } else if (attribute == "id") {
@@ -304,10 +304,10 @@ SimileAjax.DOM.createElementFromString = function(s) {
 SimileAjax.DOM.createDOMFromString = function(root, s, fieldElmts) {
     var elmt = typeof root == "string" ? document.createElement(root) : root;
     elmt.innerHTML = s;
-    
+
     var dom = { elmt: elmt };
     SimileAjax.DOM._processDOMChildrenConstructedFromString(dom, elmt, fieldElmts != null ? fieldElmts : {} );
-    
+
     return dom;
 };
 
@@ -319,14 +319,14 @@ SimileAjax.DOM._processDOMConstructedFromString = function(dom, elmt, fieldElmts
             var parentElmt = elmt.parentNode;
             parentElmt.insertBefore(fieldElmts[id], elmt);
             parentElmt.removeChild(elmt);
-            
+
             dom[id] = fieldElmts[id];
             return;
         } else {
             dom[id] = elmt;
         }
     }
-    
+
     if (elmt.hasChildNodes()) {
         SimileAjax.DOM._processDOMChildrenConstructedFromString(dom, elmt, fieldElmts);
     }

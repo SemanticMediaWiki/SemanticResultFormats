@@ -19,7 +19,7 @@ Exhibit.EditingBackend.getBackend = function(uiContext) {
 Exhibit.EditingBackend.prototype.rebuildNodeTree = function(lensRoot, templateRoot) {
     if(root == undefined || root == null)
         root = document.body;
-    
+
     var nodeTree = [];
     /* Two-step depth-first tree walking function! */
     var walk = function(lensNode, templateNode, propertyID){
@@ -43,7 +43,7 @@ Exhibit.EditingBackend.prototype.rebuildNodeTree = function(lensRoot, templateRo
  */
 Exhibit.EditingBackend.prototype.rebuildDataTree = function(database) {
     this._mode = (database == undefined || database == null) ? "full" : "diff";
-    
+
     var dataTree = [];
     for(var itemID in this._nodeTree) {
         if (this._mode = "full") {

@@ -10,23 +10,23 @@ Exhibit.Logo = function(elmt, exhibit) {
 
 Exhibit.Logo.create = function(configuration, elmt, exhibit) {
     var logo = new Exhibit.Logo(elmt, exhibit);
-    
+
     if ("color" in configuration) {
         logo._color = configuration.color;
     }
-    
+
     logo._initializeUI();
     return logo;
 };
 
 Exhibit.Logo.createFromDOM = function(elmt, exhibit) {
     var logo = new Exhibit.Logo(elmt, exhibit);
-    
+
     var color = Exhibit.getAttribute(elmt, "color");
     if (color != null && color.length > 0) {
         logo._color = color;
     }
-    
+
     logo._initializeUI();
     return logo;
 };
@@ -48,6 +48,6 @@ Exhibit.Logo.prototype._initializeUI = function() {
     a.title = "http://simile.mit.edu/exhibit/";
     a.target = "_blank";
     a.appendChild(img);
-    
+
     this._elmt.appendChild(a);
 };

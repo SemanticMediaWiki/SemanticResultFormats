@@ -41,7 +41,7 @@ SimileAjax.Graphics._createTranslucentImage2 = function(url, verticalAlign) {
  * Creates a DOM element for an <code>img</code> tag using the URL given. This
  * is a convenience method that automatically includes the necessary CSS to
  * allow for translucency, even on IE.
- * 
+ *
  * @function
  * @param {String} url the URL to the image
  * @param {String} verticalAlign the CSS value for the image's vertical-align
@@ -57,11 +57,11 @@ SimileAjax.Graphics._createTranslucentImageHTML1 = function(url, verticalAlign) 
         " />";
 };
 SimileAjax.Graphics._createTranslucentImageHTML2 = function(url, verticalAlign) {
-    var style = 
+    var style =
         "width: 1px; height: 1px; " +
         "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + url +"', sizingMethod='image');" +
         (verticalAlign != null ? " vertical-align: " + verticalAlign + ";" : "");
-        
+
     return "<img src='" + url + "' style=\"" + style + "\" />";
 };
 
@@ -69,7 +69,7 @@ SimileAjax.Graphics._createTranslucentImageHTML2 = function(url, verticalAlign) 
  * Creates an HTML string for an <code>img</code> tag using the URL given.
  * This is a convenience method that automatically includes the necessary CSS
  * to allow for translucency, even on IE.
- * 
+ *
  * @function
  * @param {String} url the URL to the image
  * @param {String} verticalAlign the CSS value for the image's vertical-align
@@ -104,24 +104,24 @@ SimileAjax.Graphics.bubbleConfig = {
     containerCSSClass:              "simileAjax-bubble-container",
     innerContainerCSSClass:         "simileAjax-bubble-innerContainer",
     contentContainerCSSClass:       "simileAjax-bubble-contentContainer",
-    
+
     borderGraphicSize:              50,
     borderGraphicCSSClassPrefix:    "simileAjax-bubble-border-",
-    
+
     arrowGraphicTargetOffset:       33,  // from tip of arrow to the side of the graphic that touches the content of the bubble
     arrowGraphicLength:             100, // dimension of arrow graphic along the direction that the arrow points
     arrowGraphicWidth:              49,  // dimension of arrow graphic perpendicular to the direction that the arrow points
     arrowGraphicCSSClassPrefix:     "simileAjax-bubble-arrow-",
-    
+
     closeGraphicCSSClass:           "simileAjax-bubble-close",
-    
+
     extraPadding:                   20
 };
 
 /**
  * Creates a nice, rounded bubble popup with the given content in a div,
- * page coordinates and a suggested width. The bubble will point to the 
- * location on the page as described by pageX and pageY.  All measurements 
+ * page coordinates and a suggested width. The bubble will point to the
+ * location on the page as described by pageX and pageY.  All measurements
  * should be given in pixels.
  *
  * @param {Element} the content div
@@ -147,7 +147,7 @@ SimileAjax.Graphics.createBubbleForContentAndPoint = function(
     div.style.top = "0px";
     div.style.width = contentWidth + "px";
     document.body.appendChild(div);
-    
+
     window.setTimeout(function() {
         var width = div.scrollWidth + 10;
         var height = div.scrollHeight + 10;
@@ -155,15 +155,15 @@ SimileAjax.Graphics.createBubbleForContentAndPoint = function(
         if (maxHeight > 0 && height > maxHeight) {
           height = maxHeight;
           scrollDivW = width - 25;
-        }  
-       
+        }
+
         var bubble = SimileAjax.Graphics.createBubbleForPoint(pageX, pageY, width, height, orientation);
-        
+
         document.body.removeChild(div);
         div.style.position = "static";
         div.style.left = "";
         div.style.top = "";
-        
+
         // create a scroll div if needed
         if (scrollDivW > 0) {
           var scrollDiv = document.createElement("div");
@@ -195,18 +195,18 @@ SimileAjax.Graphics.createBubbleForContentAndPoint = function(
 SimileAjax.Graphics.createBubbleForPoint = function(pageX, pageY, contentWidth, contentHeight, orientation) {
     contentWidth = parseInt(contentWidth, 10); // harden against bad input bugs
     contentHeight = parseInt(contentHeight, 10); // getting numbers-as-strings
-    
+
     var bubbleConfig = SimileAjax.Graphics.bubbleConfig;
-    var pngTransparencyClassSuffix = 
+    var pngTransparencyClassSuffix =
         SimileAjax.Graphics.pngIsTranslucent ? "pngTranslucent" : "pngNotTranslucent";
-    
+
     var bubbleWidth = contentWidth + 2 * bubbleConfig.borderGraphicSize;
     var bubbleHeight = contentHeight + 2 * bubbleConfig.borderGraphicSize;
-    
+
     var generatePngSensitiveClass = function(className) {
         return className + " " + className + "-" + pngTransparencyClassSuffix;
     };
-    
+
     /*
      *  Render container divs
      */
@@ -214,15 +214,15 @@ SimileAjax.Graphics.createBubbleForPoint = function(pageX, pageY, contentWidth, 
     div.className = generatePngSensitiveClass(bubbleConfig.containerCSSClass);
     div.style.width = contentWidth + "px";
     div.style.height = contentHeight + "px";
-    
+
     var divInnerContainer = document.createElement("div");
     divInnerContainer.className = generatePngSensitiveClass(bubbleConfig.innerContainerCSSClass);
     div.appendChild(divInnerContainer);
-    
+
     /*
      *  Create layer for bubble
      */
-    var close = function() { 
+    var close = function() {
         if (!bubble._closed) {
             document.body.removeChild(bubble._div);
             bubble._doc = null;
@@ -235,7 +235,7 @@ SimileAjax.Graphics.createBubbleForPoint = function(pageX, pageY, contentWidth, 
     var layer = SimileAjax.WindowManager.pushLayer(close, true, div);
     bubble._div = div;
     bubble.close = function() { SimileAjax.WindowManager.popLayer(layer); }
-    
+
     /*
      *  Render border graphics
      */
@@ -252,7 +252,7 @@ SimileAjax.Graphics.createBubbleForPoint = function(pageX, pageY, contentWidth, 
     createBorder("right");
     createBorder("top");
     createBorder("bottom");
-    
+
     /*
      *  Render content
      */
@@ -260,7 +260,7 @@ SimileAjax.Graphics.createBubbleForPoint = function(pageX, pageY, contentWidth, 
     divContentContainer.className = generatePngSensitiveClass(bubbleConfig.contentContainerCSSClass);
     divInnerContainer.appendChild(divContentContainer);
     bubble.content = divContentContainer;
-    
+
     /*
      *  Render close button
      */
@@ -268,112 +268,112 @@ SimileAjax.Graphics.createBubbleForPoint = function(pageX, pageY, contentWidth, 
     divClose.className = generatePngSensitiveClass(bubbleConfig.closeGraphicCSSClass);
     divInnerContainer.appendChild(divClose);
     SimileAjax.WindowManager.registerEventWithObject(divClose, "click", bubble, "close");
-    
+
     (function() {
         var dims = SimileAjax.Graphics.getWindowDimensions();
         var docWidth = dims.w;
         var docHeight = dims.h;
-        
+
         var halfArrowGraphicWidth = Math.ceil(bubbleConfig.arrowGraphicWidth / 2);
-        
+
         var createArrow = function(classNameSuffix) {
             var divArrowGraphic = document.createElement("div");
             divArrowGraphic.className = generatePngSensitiveClass(bubbleConfig.arrowGraphicCSSClassPrefix + "point-" + classNameSuffix);
             divInnerContainer.appendChild(divArrowGraphic);
             return divArrowGraphic;
         };
-        
+
         if (pageX - halfArrowGraphicWidth - bubbleConfig.borderGraphicSize - bubbleConfig.extraPadding > 0 &&
             pageX + halfArrowGraphicWidth + bubbleConfig.borderGraphicSize + bubbleConfig.extraPadding < docWidth) {
-            
+
             /*
              *  Bubble can be positioned above or below the target point.
              */
-            
+
             var left = pageX - Math.round(contentWidth / 2);
             left = pageX < (docWidth / 2) ?
-                Math.max(left, bubbleConfig.extraPadding + bubbleConfig.borderGraphicSize) : 
+                Math.max(left, bubbleConfig.extraPadding + bubbleConfig.borderGraphicSize) :
                 Math.min(left, docWidth - bubbleConfig.extraPadding - bubbleConfig.borderGraphicSize - contentWidth);
-                
-            if ((orientation && orientation == "top") || 
-                (!orientation && 
-                    (pageY 
-                        - bubbleConfig.arrowGraphicTargetOffset 
-                        - contentHeight 
-                        - bubbleConfig.borderGraphicSize 
+
+            if ((orientation && orientation == "top") ||
+                (!orientation &&
+                    (pageY
+                        - bubbleConfig.arrowGraphicTargetOffset
+                        - contentHeight
+                        - bubbleConfig.borderGraphicSize
                         - bubbleConfig.extraPadding > 0))) {
-                
+
                 /*
                  *  Position bubble above the target point.
                  */
-                
+
                 var divArrow = createArrow("down");
                 divArrow.style.left = (pageX - halfArrowGraphicWidth - left) + "px";
-                
+
                 div.style.left = left + "px";
                 div.style.top = (pageY - bubbleConfig.arrowGraphicTargetOffset - contentHeight) + "px";
-                
+
                 return;
-            } else if ((orientation && orientation == "bottom") || 
-                (!orientation && 
-                    (pageY 
-                        + bubbleConfig.arrowGraphicTargetOffset 
-                        + contentHeight 
-                        + bubbleConfig.borderGraphicSize 
+            } else if ((orientation && orientation == "bottom") ||
+                (!orientation &&
+                    (pageY
+                        + bubbleConfig.arrowGraphicTargetOffset
+                        + contentHeight
+                        + bubbleConfig.borderGraphicSize
                         + bubbleConfig.extraPadding < docHeight))) {
-                        
+
                 /*
                  *  Position bubble below the target point.
                  */
-                
+
                 var divArrow = createArrow("up");
                 divArrow.style.left = (pageX - halfArrowGraphicWidth - left) + "px";
-                
+
                 div.style.left = left + "px";
                 div.style.top = (pageY + bubbleConfig.arrowGraphicTargetOffset) + "px";
-                
+
                 return;
             }
         }
-        
+
         var top = pageY - Math.round(contentHeight / 2);
         top = pageY < (docHeight / 2) ?
-            Math.max(top, bubbleConfig.extraPadding + bubbleConfig.borderGraphicSize) : 
+            Math.max(top, bubbleConfig.extraPadding + bubbleConfig.borderGraphicSize) :
             Math.min(top, docHeight - bubbleConfig.extraPadding - bubbleConfig.borderGraphicSize - contentHeight);
-            
-        if ((orientation && orientation == "left") || 
-            (!orientation && 
-                (pageX 
-                    - bubbleConfig.arrowGraphicTargetOffset 
+
+        if ((orientation && orientation == "left") ||
+            (!orientation &&
+                (pageX
+                    - bubbleConfig.arrowGraphicTargetOffset
                     - contentWidth
-                    - bubbleConfig.borderGraphicSize 
+                    - bubbleConfig.borderGraphicSize
                     - bubbleConfig.extraPadding > 0))) {
-            
+
             /*
              *  Position bubble left of the target point.
              */
-            
+
             var divArrow = createArrow("right");
             divArrow.style.top = (pageY - halfArrowGraphicWidth - top) + "px";
-            
+
             div.style.top = top + "px";
             div.style.left = (pageX - bubbleConfig.arrowGraphicTargetOffset - contentWidth) + "px";
         } else {
-            
+
             /*
              *  Position bubble right of the target point, as the last resort.
              */
-            
+
             var divArrow = createArrow("left");
             divArrow.style.top = (pageY - halfArrowGraphicWidth - top) + "px";
-            
+
             div.style.top = top + "px";
             div.style.left = (pageX + bubbleConfig.arrowGraphicTargetOffset) + "px";
         }
     })();
-    
+
     document.body.appendChild(div);
-    
+
     return bubble;
 };
 
@@ -410,31 +410,31 @@ SimileAjax.Graphics.createMessageBubble = function(doc) {
         topDiv.style.background = "url(" + SimileAjax.urlPrefix + "images/message-top-left.png) top left no-repeat";
         topDiv.style.paddingLeft = "44px";
         containerDiv.appendChild(topDiv);
-        
+
         var topRightDiv = doc.createElement("div");
         topRightDiv.style.height = "33px";
         topRightDiv.style.background = "url(" + SimileAjax.urlPrefix + "images/message-top-right.png) top right no-repeat";
         topDiv.appendChild(topRightDiv);
-        
+
         var middleDiv = doc.createElement("div");
         middleDiv.style.background = "url(" + SimileAjax.urlPrefix + "images/message-left.png) top left repeat-y";
         middleDiv.style.paddingLeft = "44px";
         containerDiv.appendChild(middleDiv);
-        
+
         var middleRightDiv = doc.createElement("div");
         middleRightDiv.style.background = "url(" + SimileAjax.urlPrefix + "images/message-right.png) top right repeat-y";
         middleRightDiv.style.paddingRight = "44px";
         middleDiv.appendChild(middleRightDiv);
-        
+
         var contentDiv = doc.createElement("div");
         middleRightDiv.appendChild(contentDiv);
-        
+
         var bottomDiv = doc.createElement("div");
         bottomDiv.style.height = "55px";
         bottomDiv.style.background = "url(" + SimileAjax.urlPrefix + "images/message-bottom-left.png) bottom left no-repeat";
         bottomDiv.style.paddingLeft = "44px";
         containerDiv.appendChild(bottomDiv);
-        
+
         var bottomRightDiv = doc.createElement("div");
         bottomRightDiv.style.height = "55px";
         bottomRightDiv.style.background = "url(" + SimileAjax.urlPrefix + "images/message-bottom-right.png) bottom right no-repeat";
@@ -444,11 +444,11 @@ SimileAjax.Graphics.createMessageBubble = function(doc) {
         containerDiv.style.padding = "20px";
         containerDiv.style.background = "white";
         SimileAjax.Graphics.setOpacity(containerDiv, 90);
-        
+
         var contentDiv = doc.createElement("div");
         containerDiv.appendChild(contentDiv);
     }
-    
+
     return {
         containerDiv:   containerDiv,
         contentDiv:     contentDiv
@@ -482,11 +482,11 @@ SimileAjax.Graphics.createAnimation = function(f, from, to, duration, cont) {
 SimileAjax.Graphics._Animation = function(f, from, to, duration, cont) {
     this.f = f;
     this.cont = (typeof cont == "function") ? cont : function() {};
-    
+
     this.from = from;
     this.to = to;
     this.current = from;
-    
+
     this.duration = duration;
     this.start = new Date().getTime();
     this.timePassed = 0;
@@ -506,17 +506,17 @@ SimileAjax.Graphics._Animation.prototype.run = function() {
  */
 SimileAjax.Graphics._Animation.prototype.step = function() {
     this.timePassed += 50;
-    
+
     var timePassedFraction = this.timePassed / this.duration;
     var parameterFraction = -Math.cos(timePassedFraction * Math.PI) / 2 + 0.5;
     var current = parameterFraction * (this.to - this.from) + this.from;
-    
+
     try {
         this.f(current, current - this.current);
     } catch (e) {
     }
     this.current = current;
-    
+
     if (this.timePassed < this.duration) {
         this.run();
     } else {
@@ -534,10 +534,10 @@ SimileAjax.Graphics._Animation.prototype.step = function() {
 
 /**
  * Creates a button and textarea for displaying structured data and copying it
- * to the clipboard.  The data is dynamically generated by the given 
+ * to the clipboard.  The data is dynamically generated by the given
  * createDataFunction parameter.
  *
- * @param {String} image an image URL to use as the background for the 
+ * @param {String} image an image URL to use as the background for the
  *   generated box
  * @param {Number} width the width in pixels of the generated box
  * @param {Number} height the height in pixels of the generated box
@@ -553,13 +553,13 @@ SimileAjax.Graphics.createStructuredDataCopyButton = function(image, width, heig
     div.style.height = height + "px";
     div.style.overflow = "hidden";
     div.style.margin = "2px";
-    
+
     if (SimileAjax.Graphics.pngIsTranslucent) {
         div.style.background = "url(" + image + ") no-repeat";
     } else {
         div.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + image +"', sizingMethod='image')";
     }
-    
+
     var style;
     if (SimileAjax.Platform.browser.isIE) {
         style = "filter:alpha(opacity=0)";
@@ -567,7 +567,7 @@ SimileAjax.Graphics.createStructuredDataCopyButton = function(image, width, heig
         style = "opacity: 0";
     }
     div.innerHTML = "<textarea rows='1' autocomplete='off' value='none' style='" + style + "' />";
-    
+
     var textarea = div.firstChild;
     textarea.style.width = width + "px";
     textarea.style.height = height + "px";
@@ -578,7 +578,7 @@ SimileAjax.Graphics.createStructuredDataCopyButton = function(image, width, heig
             textarea.select();
         }
     };
-    
+
     return div;
 };
 
@@ -588,7 +588,7 @@ SimileAjax.Graphics.createStructuredDataCopyButton = function(image, width, heig
  */
 SimileAjax.Graphics.getWidthHeight = function(el) {
     // RETURNS hash {width:  w, height: h} in pixels
-    
+
     var w, h;
     // offsetWidth rounds on FF, so doesn't work for us.
     // See https://bugzilla.mozilla.org/show_bug.cgi?id=458617
@@ -607,7 +607,7 @@ SimileAjax.Graphics.getWidthHeight = function(el) {
         height: h
     };
 };
- 
+
 
 /*==================================================
  *  FontRenderingContext
@@ -643,7 +643,7 @@ SimileAjax.Graphics._FontRenderingContext.prototype.computeSize = function(text,
     el.className = className === undefined ? '' : className;
     var wh = SimileAjax.Graphics.getWidthHeight(el);
     el.className = ''; // reset for the next guy
-    
+
     return wh;
 };
 

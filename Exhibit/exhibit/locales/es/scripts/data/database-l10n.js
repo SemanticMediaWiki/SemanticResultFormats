@@ -2,7 +2,7 @@
  *  Exhibit.Database Spanish localization
  *==================================================
  */
- 
+
 if (!("l10n" in Exhibit.Database)) {
     Exhibit.Database.l10n = {};
 }
@@ -10,7 +10,7 @@ if (!("l10n" in Exhibit.Database)) {
 Exhibit.Database.l10n.itemType = {
     label:          "Elemento",
     pluralLabel:    "Elementos"
-    
+
 };
 Exhibit.Database.l10n.labelProperty = {
     label:                  "etiqueta",

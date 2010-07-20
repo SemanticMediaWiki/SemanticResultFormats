@@ -29,9 +29,9 @@ Exhibit.DefaultColorCoder.prototype.translate = function(key, flags) {
             return Exhibit.DefaultColorCoder._map[key];
         } else {
             var color = Exhibit.DefaultColorCoder.colors[Exhibit.DefaultColorCoder._nextColor];
-            Exhibit.DefaultColorCoder._nextColor = 
+            Exhibit.DefaultColorCoder._nextColor =
                 (Exhibit.DefaultColorCoder._nextColor + 1) % Exhibit.DefaultColorCoder.colors.length;
-                
+
             Exhibit.DefaultColorCoder._map[key] = color;
             return color;
         }
@@ -52,7 +52,7 @@ Exhibit.DefaultColorCoder.prototype.translateSet = function(keys, flags) {
         }
         return false;
     });
-    
+
     if (color != null) {
         return color;
     } else {

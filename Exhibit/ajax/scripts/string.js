@@ -35,7 +35,7 @@ String.substitute = function(s, objects) {
             start = percent + 2;
         }
     }
-    
+
     if (start < s.length) {
         result += s.substring(start);
     }

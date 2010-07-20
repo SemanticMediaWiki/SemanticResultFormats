@@ -86,7 +86,7 @@ Exhibit.RdfXmlExporter._exportOne = function(itemID, database, propertyIDToQuali
 };
 
 Exhibit.RdfXmlExporter._wrapRdf = function(s, prefixToBase) {
-    var s2 = "<?xml version='1.0'?>\n" +
+    var s2 = "<?xml version = '1.0'?>\n" +
         "<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'\n" +
         "\txmlns:exhibit='http://simile.mit.edu/2006/11/exhibit#'";
         

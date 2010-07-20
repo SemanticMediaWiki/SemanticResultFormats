@@ -2,10 +2,10 @@
  *  Exhibit.OrderedViewFrame
  *==================================================
  */
- 
+
 Exhibit.OrderedViewFrame = function(uiContext) {
     this._uiContext = uiContext;
-    
+
     this._orders = null;
     this._possibleOrders = null;
     this._settings = {};
@@ -27,7 +27,7 @@ Exhibit.OrderedViewFrame._settingSpecs = {
     "alwaysShowPagingControls": { type: "boolean", defaultValue: false },
     "pagingControlLocations":   { type: "enum",    defaultValue: "topbottom", choices: [ "top", "bottom", "topbottom" ] }
 };
-    
+
 Exhibit.OrderedViewFrame.prototype.configure = function(configuration) {
     if ("orders" in configuration) {
         this._orders = [];
@@ -40,7 +40,7 @@ Exhibit.OrderedViewFrame.prototype.configure = function(configuration) {
 
     Exhibit.SettingsUtilities.collectSettings(
         configuration, Exhibit.OrderedViewFrame._settingSpecs, this._settings);
-        
+
     this._internalValidate();
 };
 
@@ -50,14 +50,14 @@ Exhibit.OrderedViewFrame.prototype.configureFromDOM = function(domConfiguration)
         this._orders = [];
         this._configureOrders(orders);
     }
-    
+
     var directions = Exhibit.getAttribute(domConfiguration, "directions", ",");
     if (directions != null && directions.length > 0 && this._orders != null) {
         for (var i = 0; i < directions.length && i < this._orders.length; i++) {
             this._orders[i].ascending = (directions[i].toLowerCase() != "descending");
         }
     }
-    
+
     var possibleOrders = Exhibit.getAttribute(domConfiguration, "possibleOrders", ",");
     if (possibleOrders != null && possibleOrders.length > 0) {
         this._possibleOrders = [];
@@ -70,10 +70,10 @@ Exhibit.OrderedViewFrame.prototype.configureFromDOM = function(domConfiguration)
             this._possibleOrders[i].ascending = (possibleDirections[i].toLowerCase() != "descending");
         }
     }
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(
         domConfiguration, Exhibit.OrderedViewFrame._settingSpecs, this._settings);
-        
+
     this._internalValidate();
 }
 
@@ -86,7 +86,7 @@ Exhibit.OrderedViewFrame.prototype.dispose = function() {
         this._footerDom.dispose();
         this._footerDom = null;
     }
-    
+
     this._divHeader = null;
     this._divFooter = null;
     this._uiContext = null;
@@ -109,7 +109,7 @@ Exhibit.OrderedViewFrame.prototype._configureOrders = function(orders) {
         var order = orders[i];
         var expr;
         var ascending = true;
-        
+
         if (typeof order == "string") {
             expr = order;
         } else if (typeof order == "object") {
@@ -119,7 +119,7 @@ Exhibit.OrderedViewFrame.prototype._configureOrders = function(orders) {
             SimileAjax.Debug.warn("Bad order object " + order);
             continue;
         }
-            
+
         try {
             var expression = Exhibit.ExpressionParser.parse(expr);
             if (expression.isPath()) {
@@ -144,7 +144,7 @@ Exhibit.OrderedViewFrame.prototype._configurePossibleOrders = function(possibleO
         var order = possibleOrders[i];
         var expr;
         var ascending = true;
-        
+
         if (typeof order == "string") {
             expr = order;
         } else if (typeof order == "object") {
@@ -154,7 +154,7 @@ Exhibit.OrderedViewFrame.prototype._configurePossibleOrders = function(possibleO
             SimileAjax.Debug.warn("Bad possible order object " + order);
             continue;
         }
-            
+
         try {
             var expression = Exhibit.ExpressionParser.parse(expr);
             if (expression.isPath()) {
@@ -179,7 +179,7 @@ Exhibit.OrderedViewFrame.prototype.initializeUI = function() {
     if (this._settings.showHeader) {
         this._headerDom = Exhibit.OrderedViewFrame.createHeaderDom(
             this._uiContext,
-            this._divHeader, 
+            this._divHeader,
             this._settings.showSummary,
             this._settings.showControls,
             function(elmt, evt, target) { self._openSortPopup(elmt, -1); },
@@ -190,7 +190,7 @@ Exhibit.OrderedViewFrame.prototype.initializeUI = function() {
     if (this._settings.showFooter) {
         this._footerDom = Exhibit.OrderedViewFrame.createFooterDom(
             this._uiContext,
-            this._divFooter, 
+            this._divFooter,
             function(elmt, evt, target) { self._setShowAll(true); },
             function(elmt, evt, target) { self._setShowAll(false); },
             function(pageIndex) { self._gotoPage(pageIndex); }
@@ -202,16 +202,16 @@ Exhibit.OrderedViewFrame.prototype.reconstruct = function() {
     var self = this;
     var collection = this._uiContext.getCollection();
     var database = this._uiContext.getDatabase();
-    
+
     var originalSize = collection.countAllItems();
     var currentSize = collection.countRestrictedItems();
-    
+
     var hasSomeGrouping = false;
     if (currentSize > 0) {
         var currentSet = collection.getRestrictedItems();
-        
+
         hasSomeGrouping = this._internalReconstruct(currentSet);
-        
+
         /*
          *  Build sort controls
          */
@@ -221,7 +221,7 @@ Exhibit.OrderedViewFrame.prototype.reconstruct = function() {
             var label = property != null ?
                 (order.forward ? property.getPluralLabel() : property.getReversePluralLabel()) :
                 (order.forward ? order.property : "reverse of " + order.property);
-                
+
             orderElmts.push(Exhibit.UI.makeActionLink(
                 label,
                 function(elmt, evt, target) {
@@ -233,21 +233,21 @@ Exhibit.OrderedViewFrame.prototype.reconstruct = function() {
         for (var i = 0; i < orders.length; i++) {
             buildOrderElmt(orders[i], i);
         }
-        
+
         if (this._settings.showHeader && this._settings.showControls) {
             this._headerDom.setOrders(orderElmts);
             this._headerDom.enableThenByAction(orderElmts.length < this._getPossibleOrders().length);
         }
     }
-    
+
     if (this._settings.showHeader && this._settings.showControls) {
         this._headerDom.groupOptionWidget.setChecked(this._settings.grouped);
     }
     if (this._settings.showFooter) {
         this._footerDom.setCounts(
-            currentSize, 
-            this._settings.abbreviatedCount, 
-            this._settings.showAll, 
+            currentSize,
+            this._settings.abbreviatedCount,
+            this._settings.showAll,
             !(hasSomeGrouping && this._grouped) && !this._settings.paginate
         );
     }
@@ -259,7 +259,7 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
     var database = this._uiContext.getDatabase();
     var orders = this._getOrders();
     var itemIndex = 0;
-    
+
     var hasSomeGrouping = false;
     var createItem = function(itemID) {
         if ((itemIndex >= fromIndex && itemIndex < toIndex) || (hasSomeGrouping && settings.grouped)) {
@@ -275,10 +275,10 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
 
     var processLevel = function(items, index) {
         var order = orders[index];
-        var values = order.forward ? 
-            database.getObjectsUnion(items, order.property) : 
+        var values = order.forward ?
+            database.getObjectsUnion(items, order.property) :
             database.getSubjectsUnion(items, order.property);
-        
+
         var valueType = "text";
         if (order.forward) {
             var property = database.getProperty(order.property);
@@ -286,11 +286,11 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
         } else {
             valueType = "item";
         }
-        
+
         var keys = (valueType == "item" || valueType == "text") ?
             processNonNumericLevel(items, index, values, valueType) :
             processNumericLevel(items, index, values, valueType);
-        
+
         var grouped = false;
         for (var k = 0; k < keys.length; k++) {
             if (keys[k].items.size() > 1) {
@@ -301,14 +301,14 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
         if (grouped) {
             hasSomeGrouping = true;
         }
-        
+
         for (var k = 0; k < keys.length; k++) {
             var key = keys[k];
             if (key.items.size() > 0) {
                 if (grouped && settings.grouped) {
                     createGroup(key.display, valueType, index);
                 }
-                
+
                 items.removeSet(key.items);
                 if (key.items.size() > 1 && index < orders.length - 1) {
                     processLevel(key.items, index+1);
@@ -317,12 +317,12 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
                 }
             }
         }
-        
+
         if (items.size() > 0) {
             if (grouped && settings.grouped) {
                 createGroup(Exhibit.l10n.missingSortKey, valueType, index);
             }
-            
+
             if (items.size() > 1 && index < orders.length - 1) {
                 processLevel(items, index+1);
             } else {
@@ -330,25 +330,25 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
             }
         }
     };
-    
+
     var processNonNumericLevel = function(items, index, values, valueType) {
         var keys = [];
         var compareKeys;
         var retrieveItems;
         var order = orders[index];
-        
+
         if (valueType == "item") {
             values.visit(function(itemID) {
                 var label = database.getObject(itemID, "label");
                 label = label != null ? label : itemID;
                 keys.push({ itemID: itemID, display: label });
             });
-            
+
             compareKeys = function(key1, key2) {
                 var c = key1.display.localeCompare(key2.display);
                 return c != 0 ? c : key1.itemID.localeCompare(key2.itemID);
             };
-            
+
             retrieveItems = order.forward ? function(key) {
                 return database.getSubjects(key.itemID, order.property, null, items);
             } : function(key) {
@@ -358,7 +358,7 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
             values.visit(function(value) {
                 keys.push({ display: value });
             });
-            
+
             compareKeys = function(key1, key2) {
                 return key1.display.localeCompare(key2.display);
             };
@@ -368,11 +368,11 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
                 return database.getObjects(key.display, order.property, null, items);
             };
         }
-        
-        keys.sort(function(key1, key2) { 
-            return (order.ascending ? 1 : -1) * compareKeys(key1, key2); 
+
+        keys.sort(function(key1, key2) {
+            return (order.ascending ? 1 : -1) * compareKeys(key1, key2);
         });
-        
+
         for (var k = 0; k < keys.length; k++) {
             var key = keys[k];
             key.items = retrieveItems(key);
@@ -380,15 +380,15 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
                 items.removeSet(key.items);
             }
         }
-        
+
         return keys;
     };
-    
+
     var processNumericLevel = function(items, index, values, valueType) {
         var keys = [];
         var keyMap = {};
         var order = orders[index];
-        
+
         var valueParser;
         if (valueType == "number") {
             valueParser = function(value) {
@@ -415,7 +415,7 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
                 }
             };
         }
-        
+
         values.visit(function(value) {
             var sortkey = valueParser(value);
             if (sortkey != null) {
@@ -428,11 +428,11 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
                 key.values.push(value);
             }
         });
-        
-        keys.sort(function(key1, key2) { 
-            return (order.ascending ? 1 : -1) * (key1.sortkey - key2.sortkey); 
+
+        keys.sort(function(key1, key2) {
+            return (order.ascending ? 1 : -1) * (key1.sortkey - key2.sortkey);
         });
-        
+
         for (var k = 0; k < keys.length; k++) {
             var key = keys[k];
             var values = key.values;
@@ -443,24 +443,24 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
                     database.getObjects(values[v], order.property, key.items, items);
                 }
             }
-            
+
             if (!settings.showDuplicates) {
                 items.removeSet(key.items);
             }
         }
-        
+
         return keys;
     };
-    
+
     var totalCount = allItems.size();
     var pageCount = Math.ceil(totalCount / settings.pageSize);
     var fromIndex = 0;
     var toIndex = settings.showAll ? totalCount : Math.min(totalCount, settings.abbreviatedCount);
-    
+
     if (!settings.grouped && settings.paginate && (pageCount > 1 || (pageCount > 0 && settings.alwaysShowPagingControls))) {
         fromIndex = settings.page * settings.pageSize;
         toIndex = Math.min(fromIndex + settings.pageSize, totalCount);
-        
+
         if (settings.showHeader && (settings.pagingControlLocations == "top" || settings.pagingControlLocations == "topbottom")) {
             this._headerDom.renderPageLinks(
                 settings.page,
@@ -484,7 +484,7 @@ Exhibit.OrderedViewFrame.prototype._internalReconstruct = function(allItems) {
         }
     }
     processLevel(allItems, 0);
-    
+
     return hasSomeGrouping;
 };
 
@@ -502,12 +502,12 @@ Exhibit.OrderedViewFrame.prototype._getPossibleOrders = function() {
     } else {
         possibleOrders = [].concat(this._possibleOrders);
     }
-    
+
     if (possibleOrders.length == 0) {
         possibleOrders.push({
-            property:   "label", 
-            forward:    true, 
-            ascending:  true 
+            property:   "label",
+            forward:    true,
+            ascending:  true
         });
     }
     return possibleOrders;
@@ -516,7 +516,7 @@ Exhibit.OrderedViewFrame.prototype._getPossibleOrders = function() {
 Exhibit.OrderedViewFrame.prototype._openSortPopup = function(elmt, index) {
     var self = this;
     var database = this._uiContext.getDatabase();
-    
+
     var popupDom = Exhibit.UI.createPopupMenuDom(elmt);
 
     /*
@@ -529,35 +529,35 @@ Exhibit.OrderedViewFrame.prototype._openSortPopup = function(elmt, index) {
         var propertyLabel = order.forward ? property.getPluralLabel() : property.getReversePluralLabel();
         var valueType = order.forward ? property.getValueType() : "item";
         var sortLabels = Exhibit.Database.l10n.sortLabels[valueType];
-        sortLabels = (sortLabels != null) ? sortLabels : 
+        sortLabels = (sortLabels != null) ? sortLabels :
             Exhibit.Database.l10n.sortLabels["text"];
-        
+
         popupDom.appendMenuItem(
-            sortLabels.ascending, 
+            sortLabels.ascending,
             Exhibit.urlPrefix +
                 (order.ascending ? "images/option-check.png" : "images/option.png"),
             order.ascending ?
                 function() {} :
                 function() {
                     self._reSort(
-                        index, 
-                        order.property, 
-                        order.forward, 
+                        index,
+                        order.property,
+                        order.forward,
                         true,
                         false
                     );
                 }
         );
         popupDom.appendMenuItem(
-            sortLabels.descending, 
+            sortLabels.descending,
             Exhibit.urlPrefix +
                 (order.ascending ? "images/option.png" : "images/option-check.png"),
             order.ascending ?
                 function() {
                     self._reSort(
-                        index, 
-                        order.property, 
-                        order.forward, 
+                        index,
+                        order.property,
+                        order.forward,
                         false,
                         false
                     );
@@ -567,13 +567,13 @@ Exhibit.OrderedViewFrame.prototype._openSortPopup = function(elmt, index) {
         if (configuredOrders.length > 1) {
             popupDom.appendSeparator();
             popupDom.appendMenuItem(
-                Exhibit.OrderedViewFrame.l10n.removeOrderLabel, 
+                Exhibit.OrderedViewFrame.l10n.removeOrderLabel,
                 null,
                 function() {self._removeOrder(index);}
             );
         }
     }
-    
+
     /*
      *  The remaining possible orders
      */
@@ -584,51 +584,51 @@ Exhibit.OrderedViewFrame.prototype._openSortPopup = function(elmt, index) {
         var skip = false;
         for (var j = (index < 0) ? configuredOrders.length - 1 : index; j >= 0; j--) {
             var existingOrder = configuredOrders[j];
-            if (existingOrder.property == possibleOrder.property && 
+            if (existingOrder.property == possibleOrder.property &&
                 existingOrder.forward == possibleOrder.forward) {
                 skip = true;
                 break;
             }
         }
-        
+
         if (!skip) {
             var property = database.getProperty(possibleOrder.property);
             orders.push({
                 property:   possibleOrder.property,
                 forward:    possibleOrder.forward,
                 ascending:  possibleOrder.ascending,
-                label:      possibleOrder.forward ? 
-                                property.getPluralLabel() : 
+                label:      possibleOrder.forward ?
+                                property.getPluralLabel() :
                                 property.getReversePluralLabel()
             });
         }
     }
-    
+
     if (orders.length > 0) {
         if (index >= 0) {
             popupDom.appendSeparator();
         }
-        
+
         orders.sort(function(order1, order2) {
             return order1.label.localeCompare(order2.label);
         });
-        
+
         var appendOrder = function(order) {
             popupDom.appendMenuItem(
                 order.label,
                 null,
                 function() {
                     self._reSort(
-                        index, 
-                        order.property, 
-                        order.forward, 
+                        index,
+                        order.property,
+                        order.forward,
                         order.ascending,
                         true
                     );
                 }
             );
         }
-        
+
         for (var i = 0; i < orders.length; i++) {
             appendOrder(orders[i]);
         }
@@ -639,20 +639,20 @@ Exhibit.OrderedViewFrame.prototype._openSortPopup = function(elmt, index) {
 Exhibit.OrderedViewFrame.prototype._reSort = function(index, propertyID, forward, ascending, slice) {
     var oldOrders = this._getOrders();
     index = (index < 0) ? oldOrders.length : index;
-    
+
     var newOrders = oldOrders.slice(0, index);
     newOrders.push({ property: propertyID, forward: forward, ascending: ascending });
     if (!slice) {
         newOrders = newOrders.concat(oldOrders.slice(index+1));
     }
-    
+
     var property = this._uiContext.getDatabase().getProperty(propertyID);
     var propertyLabel = forward ? property.getPluralLabel() : property.getReversePluralLabel();
     var valueType = forward ? property.getValueType() : "item";
     var sortLabels = Exhibit.Database.l10n.sortLabels[valueType];
-    sortLabels = (sortLabels != null) ? sortLabels : 
+    sortLabels = (sortLabels != null) ? sortLabels :
         Exhibit.Database.l10n.sortLabels["text"];
-    
+
     var self = this;
     SimileAjax.History.addLengthyAction(
         function() {
@@ -671,15 +671,15 @@ Exhibit.OrderedViewFrame.prototype._reSort = function(index, propertyID, forward
 Exhibit.OrderedViewFrame.prototype._removeOrder = function(index) {
     var oldOrders = this._getOrders();
     var newOrders = oldOrders.slice(0, index).concat(oldOrders.slice(index + 1));
-    
+
     var order = oldOrders[index];
     var property = this._uiContext.getDatabase().getProperty(order.property);
     var propertyLabel = order.forward ? property.getPluralLabel() : property.getReversePluralLabel();
     var valueType = order.forward ? property.getValueType() : "item";
     var sortLabels = Exhibit.Database.l10n.sortLabels[valueType];
-    sortLabels = (sortLabels != null) ? sortLabels : 
+    sortLabels = (sortLabels != null) ? sortLabels :
         Exhibit.Database.l10n.sortLabels["text"];
-    
+
     var self = this;
     SimileAjax.History.addLengthyAction(
         function() {
@@ -751,7 +751,7 @@ Exhibit.OrderedViewFrame.prototype._toggleShowDuplicates = function() {
 Exhibit.OrderedViewFrame.prototype._gotoPage = function(pageIndex) {
     var settings = this._settings;
     var oldPageIndex = settings.page;
-    
+
     var self = this;
     SimileAjax.History.addLengthyAction(
         function() {
@@ -771,7 +771,7 @@ Exhibit.OrderedViewFrame.headerTemplate =
     "<div class='exhibit-collectionView-header-sortControls' style='display: none;' id='controlsDiv'>" +
         "%0" + // sorting controls template
         "<span class='exhibit-collectionView-header-groupControl'> \u2022 " +
-            "<a id='groupOption' class='exhibit-action'></a>" + 
+            "<a id='groupOption' class='exhibit-action'></a>" +
         "</span>" +
     "</div>";
 
@@ -787,17 +787,17 @@ Exhibit.OrderedViewFrame.createHeaderDom = function(
     var l10n = Exhibit.OrderedViewFrame.l10n;
     var template = String.substitute(
         Exhibit.OrderedViewFrame.headerTemplate +
-        "<" + l10n.pagingControlContainerElement + " class='exhibit-collectionView-pagingControls' style='display: none;' id='topPagingDiv'></" + l10n.pagingControlContainerElement + ">", 
+        "<" + l10n.pagingControlContainerElement + " class='exhibit-collectionView-pagingControls' style='display: none;' id='topPagingDiv'></" + l10n.pagingControlContainerElement + ">",
         [ l10n.sortingControlsTemplate ]);
-        
+
     var dom = SimileAjax.DOM.createDOMFromString(headerDiv, template, {});
     headerDiv.className = "exhibit-collectionView-header";
-    
+
     if (showSummary) {
         dom.collectionSummaryDiv.style.display = "block";
         dom.collectionSummaryWidget = Exhibit.CollectionSummaryWidget.create(
             {},
-            dom.collectionSummaryDiv, 
+            dom.collectionSummaryDiv,
             uiContext
         );
     }
@@ -810,14 +810,14 @@ Exhibit.OrderedViewFrame.createHeaderDom = function(
             dom.groupOption,
             uiContext
         );
-        
+
         SimileAjax.WindowManager.registerEvent(dom.thenSortByAction, "click", onThenSortBy);
         dom.enableThenByAction = function(enabled) {
             Exhibit.UI.enableActionLink(dom.thenSortByAction, enabled);
         };
         dom.setOrders = function(orderElmts) {
             dom.ordersSpan.innerHTML = "";
-            
+
             var addDelimiter = Exhibit.Formatter.createListDelimiter(dom.ordersSpan, orderElmts.length, uiContext);
             for (var i = 0; i < orderElmts.length; i++) {
                 addDelimiter();
@@ -833,23 +833,23 @@ Exhibit.OrderedViewFrame.createHeaderDom = function(
     dom.hidePageLinks = function() {
         dom.topPagingDiv.style.display = "none";
     };
-    
+
     dom.dispose = function() {
         if ("collectionSummaryWidget" in dom) {
             dom.collectionSummaryWidget.dispose();
             dom.collectionSummaryWidget = null;
         }
-        
+
         dom.groupOptionWidget.dispose();
         dom.groupOptionWidget = null;
     }
-    
+
     return dom;
 };
 
-Exhibit.OrderedViewFrame.footerTemplate = 
+Exhibit.OrderedViewFrame.footerTemplate =
     "<div id='showAllSpan'></div>";
-    
+
 Exhibit.OrderedViewFrame.createFooterDom = function(
     uiContext,
     footerDiv,
@@ -858,7 +858,7 @@ Exhibit.OrderedViewFrame.createFooterDom = function(
     gotoPage
 ) {
     var l10n = Exhibit.OrderedViewFrame.l10n;
-    
+
     var dom = SimileAjax.DOM.createDOMFromString(
         footerDiv,
         Exhibit.OrderedViewFrame.footerTemplate +
@@ -866,7 +866,7 @@ Exhibit.OrderedViewFrame.createFooterDom = function(
         {}
     );
     footerDiv.className = "exhibit-collectionView-footer";
-    
+
     dom.setCounts = function(count, limitCount, showAll, canToggle) {
         dom.showAllSpan.innerHTML = "";
         if (canToggle && count > limitCount) {
@@ -891,28 +891,28 @@ Exhibit.OrderedViewFrame.createFooterDom = function(
         dom.bottomPagingDiv.style.display = "none";
     };
     dom.dispose = function() {};
-    
+
     return dom;
 };
 
 Exhibit.OrderedViewFrame.renderPageLinks = function(parentElmt, page, pageCount, pageWindow, gotoPage) {
     var l10n = Exhibit.OrderedViewFrame.l10n;
-    
+
     parentElmt.className = "exhibit-collectionView-pagingControls";
     parentElmt.innerHTML = "";
-    
+
     var self = this;
     var renderPageLink = function(label, index) {
         var elmt = document.createElement(l10n.pagingControlElement);
         elmt.className = "exhibit-collectionView-pagingControls-page";
         parentElmt.appendChild(elmt);
-        
+
         var a = document.createElement("a");
         a.innerHTML = label;
         a.href = "javascript:{}";
         a.title = l10n.makePagingLinkTooltip(index);
         elmt.appendChild(a);
-        
+
         var handler = function(elmt, evt, target) {
             gotoPage(index);
             SimileAjax.DOM.cancelEvent(evt);
@@ -925,7 +925,7 @@ Exhibit.OrderedViewFrame.renderPageLinks = function(parentElmt, page, pageCount,
             var elmt = document.createElement(l10n.pagingControlElement);
             elmt.className = "exhibit-collectionView-pagingControls-currentPage";
             elmt.innerHTML = (index + 1);
-            
+
             parentElmt.appendChild(elmt);
         } else {
             renderPageLink(index + 1, index);
@@ -934,42 +934,42 @@ Exhibit.OrderedViewFrame.renderPageLinks = function(parentElmt, page, pageCount,
     var renderHTML = function(html) {
         var elmt = document.createElement(l10n.pagingControlElement);
         elmt.innerHTML = html;
-        
+
         parentElmt.appendChild(elmt);
     };
-    
+
     if (page > 0) {
         renderPageLink(l10n.previousPage, page - 1);
         if (l10n.pageSeparator.length > 0) {
             renderHTML(" ");
         }
     }
-    
+
     var pageWindowStart = 0;
     var pageWindowEnd = pageCount - 1;
-    
+
     if (page - pageWindow > 1) {
         renderPageNumber(0);
         renderHTML(l10n.pageWindowEllipses);
-        
+
         pageWindowStart = page - pageWindow;
     }
     if (page + pageWindow < pageCount - 2) {
         pageWindowEnd = page + pageWindow;
     }
-    
+
     for (var i = pageWindowStart; i <= pageWindowEnd; i++) {
         if (i > pageWindowStart && l10n.pageSeparator.length > 0) {
             renderHTML(l10n.pageSeparator);
         }
         renderPageNumber(i);
     }
-    
+
     if (pageWindowEnd < pageCount - 1) {
         renderHTML(l10n.pageWindowEllipses);
         renderPageNumber(pageCount - 1);
     }
-    
+
     if (page < pageCount - 1) {
         if (l10n.pageSeparator.length > 0) {
             renderHTML(" ");

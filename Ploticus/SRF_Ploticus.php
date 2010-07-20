@@ -3,7 +3,7 @@
  * A query printer using Ploticus
  * loosely based on the Ploticus Extension by Flavien Scheurer
  * and CSV result printer
- * 
+ *
  * @note AUTOLOADED
  * @author Joel Natividad
  */
@@ -106,20 +106,20 @@ class SRFPloticus extends SMWResultPrinter {
 		if ( !in_array( $this->m_imageformat, $validformats ) )
 		    return ( '<p classid="srfperror">ERROR: ' . $this->m_imageformat . ' is not a supported imageformat.<br />Valid imageformats are: ' .
 			    implode( ', ', $validformats ) . '</p>' );
-		
+
 		if ( empty( $this->m_ploticusparams ) )
 		    return ( '<p classid="srfperror">ERROR: <em>ploticusparams</em> required.</p>' );
-		
+
 		if ( empty( $srfgPloticusPath ) )
 		    return ( '<p classid="srfperror">ERROR: Set $srfgPloticusPath in LocalSettings.php (e.g. $srfgPloticusPath=/usr/bin/pl).</p>' );
 
 		if ( !file_exists( $srfgPloticusPath ) )
 		    return ( '<p classid=""srfperror">ERROR: Could not find ploticus in <em>' . $srfgPloticusPath . '</em></p>' );
-		
+
 		if ( $this->m_ploticusmode !== 'script' && $this->m_ploticusmode !== 'prefab' )
 		    return ( '<p classid="srfperror">ERROR: Unknown mode specified (' . $this->m_ploticusmode .
 		      '). Only "prefab" (default) and "script" mode supported.</p>' );
-		
+
 		// remove potentially dangerous keywords (prefab mode) or ploticus directives (script mode)
 		// this is an extended check, JUST IN CASE, even though we're invoking ploticus with the noshell security parameter
 		if ( $this->m_ploticusmode === 'prefab' ) {
@@ -147,9 +147,9 @@ class SRFPloticus extends SMWResultPrinter {
 		$tmpFile = tempnam( $ploticusDir, 'srf-' );
 		if ( ( $fhandle = fopen( $tmpFile, 'w' ) ) === false )
 			return ( '<p class="srfperror">ERROR: Cannot create data file - ' . $tmpFile . '.  Check permissions.</p>' );
-		
+
 		if ( $this->mShowHeaders ) {
-			// create the header row 
+			// create the header row
 			$header_row = array();
 			foreach ( $res->getPrintRequests() as $pr ) {
 				$headertext = $pr->getLabel();
@@ -183,7 +183,7 @@ class SRFPloticus extends SMWResultPrinter {
 		    // in this way, doing file_exists check against hash filename will fail when query result has changed
 		    $hashname .= hash_file( 'md5', $tmpFile );
 		}
-		
+
 		$orighash = $hashname;
 		// modify hashname so files created with it will be stored in shard dir based on first char of hash
 		$hashname = substr( $hashname, 0, 1 ) . '/' . $hashname;
@@ -192,7 +192,7 @@ class SRFPloticus extends SMWResultPrinter {
 		@rename( $tmpFile, $dataFile );
 		$dataURL = $wgUploadPath . '/ploticus/' . $hashname . '.csv';
 		$srficonPath = $wgScriptPath . '/extensions/SemanticResultFormats/Ploticus/icons/';
-				
+
 		$graphFile = $ploticusDir . $hashname . '.' . $this->m_imageformat;
 		$graphURL = $wgUploadPath . '/ploticus/' . $hashname . '.' . $this->m_imageformat;
 		$errorFile = $ploticusDir . $hashname . '.err';
@@ -201,9 +201,9 @@ class SRFPloticus extends SMWResultPrinter {
 		$mapURL = $wgUploadPath . '/ploticus/' . $hashname . '.map';
 		$scriptFile = $ploticusDir . $hashname . '.plo';
 		$scriptURL = $wgUploadPath . '/ploticus/' . $hashname . '.plo';
-		
+
 		if ( ( $this->m_updatefrequency > 0 ) && file_exists( $graphFile ) ) {
-			// get time graph was last generated. Also check to see if the 
+			// get time graph was last generated. Also check to see if the
 			// generated plot has expired per the updatefrequency and needs to be redrawn
 		    $graphLastGenerated = filemtime( $graphFile );
 		    $expireTime = $graphLastGenerated + $this->m_updatefrequency;
@@ -211,55 +211,55 @@ class SRFPloticus extends SMWResultPrinter {
 			@unlink( $graphFile );
 		    }
 		}
-		
+
 		// check if previous plot generated with the same params and result data is available
 		// we know this from the md5 hash.  This should eliminate
 		// unneeded, CPU-intensive invocations of ploticus and minimize
 		// the need to periodically clean-up graph, csv, script and map files
 		$errorData = '';
 		if ( $this->m_debug || !file_exists( $graphFile ) ) {
- 			
+
 			// we set $srfgEnvSettings if specified
 			$commandline = empty( $srfgEnvSettings ) ? ' ' : $srfgEnvSettings . ' ';
-			
+
 			if ( $this->m_ploticusmode === 'script' ) {
 			    // Script mode.  Search for special keywords in ploticusparam
 			    // and replace it with actual values. (case-sensitive)
-			    // The special keywords currently are:  %DATAFILE.CSV%, %WORKINGDIR% 
+			    // The special keywords currently are:  %DATAFILE.CSV%, %WORKINGDIR%
 			    $replaces = array( '%DATAFILE.CSV%'  => wfEscapeShellArg( $dataFile ),
 					      '%WORKINGDIR%' => $ploticusDir );
 			    $literal_ploticusparams = strtr( $sanitized_ploticusparams, $replaces );
 			    $fhandle = fopen( $scriptFile, 'w' );
 			    fputs( $fhandle, $literal_ploticusparams );
 			    fclose( $fhandle );
-			    
+
 			    $commandline .= wfEscapeShellArg( $srfgPloticusPath ) .
 				    ( $this->m_debug ? ' -debug':' ' ) .
 				    ' -noshell -' . $this->m_imageformat .
 				    ' -o ' . wfEscapeShellArg( $graphFile ) .
 				    ' ' . $scriptFile;
-				    
+
 			} else {
-			    // prefab mode, build the command line accordingly		       
+			    // prefab mode, build the command line accordingly
 			    $commandline .= wfEscapeShellArg( $srfgPloticusPath ) .
 				    ( $this->m_debug ? ' -debug':' ' ) .
 				    ' -noshell ' . $sanitized_ploticusparams .
 				    ( $this->mShowHeaders ? ' header=yes':' ' ) .
 				    ' delim=comma data=' . wfEscapeShellArg( $dataFile ) .
 				    ' -' . $this->m_imageformat;
-			
+
 			    if ( $this->m_imageformat == 'drawdump' || $this->m_imageformat == 'drawdumpa' ) {
 				$commandline .= ' ' . wfEscapeShellArg( $ploticusDir .  '/' . $this->m_drawdumpoutput );
 			    } else {
 				$commandline .= ' -o ' . wfEscapeShellArg( $graphFile );
 			    }
 			}
-			
-			// create the imagemap file if clickmap is specified for ploticus       
+
+			// create the imagemap file if clickmap is specified for ploticus
 			if ( strpos( $sanitized_ploticusparams, 'clickmap' ) ) {
 				$commandline .= ' >' . wfEscapeShellArg( $mapFile );
 			}
-			
+
 			// send errors to this file
 			$commandline .= ' 2>' . wfEscapeShellArg( $errorFile );
 
@@ -268,14 +268,14 @@ class SRFPloticus extends SMWResultPrinter {
 			$errorData = file_get_contents( $errorFile );
 			if ( !$this->m_debug )
 				@unlink( $errorFile );
-			
+
 			$graphLastGenerated = time(); // faster than doing filemtime
 
 			if ( $this->m_ploticusmode == 'script' && !$this->m_debug ) {
 			    @unlink( $scriptFile );
 			}
 		}
-		
+
 		// Prepare output.  Put everything inside a table
 		// PLOT ROW - colspan 3
 		$rtnstr = '<table class="srfptable" id="srfptblid' . $smwgIQRunningNumber . '" cols="3"' .
@@ -329,7 +329,7 @@ class SRFPloticus extends SMWResultPrinter {
 		}
 		// INFOROW - colspan 3
 		$rtnstr .= '<tr><td class="srfpaction" width="33%" colspan="1">';
-		
+
 		// INFOROW - ACTIONS - col 1
 		// if showcsv or debug is on, add link to data file (CSV)
 		if ( $this->m_showcsv || $this->m_debug ) {
@@ -338,33 +338,33 @@ class SRFPloticus extends SMWResultPrinter {
 		} else {
 		    @unlink( $dataFile ); // otherwise, clean it up
 		}
-		
+
 		// if showimagelink is on, add link to open image in a new window
 		if ( $this->m_showimagelink ) {
 			$rtnstr .= ' <a href="' . $graphURL . '" target="_blank" title="Open image in new window"><img src="' .
 				$srficonPath . 'barchart_16.png" alt="Open image in new window"></a>';
 		}
-		
+
 		// if showrefresh is on, create link to force refresh
 		if ( $this->m_showrefresh ) {
 			global $wgArticlePath;
 			$rtnstr .= ' <a href="' . $wgArticlePath . '?action=purge" title="Reload"><img src="' .
 				$srficonPath . 'reload_16.png" alt="Reload"></a>';
 		}
-		
+
 		// INFOROW - col 2
 		// show titletext
 		$rtnstr .= '</td><td class="srfptitle" width="33%" colspan="1" align="center">' . $this->m_titletext;
-		
+
 		// INFOROW - TIMESTAMP - col 3
 		// if showtimestamp is on, add plot generation timestamp
 		$rtnstr .= '</td><td class="srfptimestamp" width="33%" colspan="1" align="right">';
 		if ( $this->m_showtimestamp ) {
 			$rtnstr .= '<small> Generated: ' . date( 'Y-m-d h:i:s A', $graphLastGenerated ) . '</small>';
 		}
-		
+
 		$rtnstr .= '</td></tr>';
-		
+
 		// DEBUGROW - colspan 3, only display when debug is on
 		// add link to script or display ploticus cmdline/script
 		if ( $this->m_debug ) {
@@ -378,9 +378,9 @@ class SRFPloticus extends SMWResultPrinter {
 				$commandline . '</td></tr>';
 		    }
 		}
-		
+
 		$rtnstr .= '</table>';
-		
+
 		return ( $rtnstr );
 	}
 }

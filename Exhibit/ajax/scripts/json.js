@@ -116,7 +116,7 @@ SimileAjax.JSON = new Object();
             return o.toString();
         }
     };
-    
+
     SimileAjax.JSON.parseJSON = function () {
         try {
             return !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(

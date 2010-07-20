@@ -32,14 +32,14 @@ Exhibit.l10n.failedToLoadDataFileMessage = function(url) {
 Exhibit.l10n.copyButtonLabel = "Copiar";
 Exhibit.l10n.copyAllButtonLabel = "Copiar todo";
 Exhibit.l10n.copyDialogBoxCloseButtonLabel = "Cerrar";
-Exhibit.l10n.copyDialogBoxPrompt = 
+Exhibit.l10n.copyDialogBoxPrompt =
     "Copia este código en tu clipboard como si fuera texto. Pulsa ESC para cerrar este cuadro de diálogo.";
-    
+
 /*
  *  Focusdialog box
  */
 Exhibit.l10n.focusDialogBoxCloseButtonLabel =  "Cerrar";
- 
+
 /*
  *  Common exporters' labels
  */

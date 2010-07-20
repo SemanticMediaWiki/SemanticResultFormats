@@ -10,9 +10,9 @@ Exhibit.Expression._Impl = function(rootNode) {
 };
 
 Exhibit.Expression._Impl.prototype.evaluate = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     var collection = this._rootNode.evaluate(roots, rootValueTypes, defaultRootName, database);
@@ -25,39 +25,39 @@ Exhibit.Expression._Impl.prototype.evaluate = function(
 
 Exhibit.Expression._Impl.prototype.evaluateOnItem = function(itemID, database) {
     return this.evaluate(
-        { "value" : itemID }, 
-        { "value" : "item" }, 
+        { "value" : itemID },
+        { "value" : "item" },
         "value",
         database
     );
 };
 
 Exhibit.Expression._Impl.prototype.evaluateSingle = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     var collection = this._rootNode.evaluate(roots, rootValueTypes, defaultRootName, database);
     var result = { value: null, valueType: collection.valueType };
     collection.forEachValue(function(v) { result.value = v; return true; });
-    
+
     return result;
 };
 
 Exhibit.Expression._Impl.prototype.evaluateSingleOnItem = function(itemID, database) {
     return this.evaluateSingle(
-        { "value" : itemID }, 
-        { "value" : "item" }, 
+        { "value" : itemID },
+        { "value" : "item" },
         "value",
         database
     );
 };
 
 Exhibit.Expression._Impl.prototype.testExists = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     return this.isPath() ?
@@ -80,7 +80,7 @@ Exhibit.Expression._Impl.prototype.getPath = function() {
 Exhibit.Expression._Collection = function(values, valueType) {
     this._values = values;
     this.valueType = valueType;
-    
+
     if (values instanceof Array) {
         this.forEachValue = Exhibit.Expression._Collection._forEachValueInArray;
         this.getSet = Exhibit.Expression._Collection._getSetFromArray;
@@ -178,14 +178,14 @@ Exhibit.Expression.Path.prototype.getSegmentCount = function() {
 };
 
 Exhibit.Expression.Path.prototype.evaluate = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     var rootName = this._rootName != null ? this._rootName : defaultRootName;
     var valueType = rootName in rootValueTypes ? rootValueTypes[rootName] : "text";
-    
+
     var collection = null;
     if (rootName in roots) {
         var root = roots[rootName];
@@ -194,7 +194,7 @@ Exhibit.Expression.Path.prototype.evaluate = function(
         } else {
             collection = new Exhibit.Expression._Collection([ root ], valueType);
         }
-        
+
         return this._walkForward(collection, database);
     } else {
         throw new Error("No such variable called " + rootName);
@@ -208,7 +208,7 @@ Exhibit.Expression.Path.prototype.evaluateBackward = function(
     database
 ) {
     var collection = new Exhibit.Expression._Collection([ value ], valueType);
-    
+
     return this._walkBackward(collection, filter, database);
 }
 
@@ -239,7 +239,7 @@ Exhibit.Expression.Path.prototype._walkForward = function(collection, database) 
                 collection.forEachValue(function(v) {
                     database.getObjects(v, segment.property).visit(function(v2) { a.push(v2); });
                 });
-                
+
                 var property = database.getProperty(segment.property);
                 valueType = property != null ? property.getValueType() : "text";
             } else {
@@ -261,7 +261,7 @@ Exhibit.Expression.Path.prototype._walkForward = function(collection, database) 
             }
         }
     }
-    
+
     return collection;
 };
 
@@ -273,20 +273,20 @@ Exhibit.Expression.Path.prototype._walkBackward = function(collection, filter, d
             var valueType;
             if (segment.forward) {
                 collection.forEachValue(function(v) {
-                    database.getSubjects(v, segment.property).visit(function(v2) { 
+                    database.getSubjects(v, segment.property).visit(function(v2) {
                         if (i > 0 || filter == null || filter.contains(v2)) {
-                            a.push(v2); 
+                            a.push(v2);
                         }
                     });
                 });
-                
+
                 var property = database.getProperty(segment.property);
                 valueType = property != null ? property.getValueType() : "text";
             } else {
                 collection.forEachValue(function(v) {
-                    database.getObjects(v, segment.property).visit(function(v2) { 
+                    database.getObjects(v, segment.property).visit(function(v2) {
                         if (i > 0 || filter == null || filter.contains(v2)) {
-                            a.push(v2); 
+                            a.push(v2);
                         }
                     });
                 });
@@ -305,7 +305,7 @@ Exhibit.Expression.Path.prototype._walkBackward = function(collection, filter, d
             }
         }
     }
-    
+
     return collection;
 };
 
@@ -325,7 +325,7 @@ Exhibit.Expression.Path.prototype.rangeBackward = function(
         } else {
             throw new Error("Last path of segment must be forward");
         }
-                
+
         for (var i = this._segments.length - 2; i >= 0; i--) {
             segment = this._segments[i];
             if (segment.forward) {
@@ -333,7 +333,7 @@ Exhibit.Expression.Path.prototype.rangeBackward = function(
                 valueType = "item";
             } else {
                 set = database.getObjectsUnion(set, segment.property, null, i == 0 ? filter : null);
-                
+
                 var property = database.getProperty(segment.property);
                 valueType = property != null ? property.getValueType() : "text";
             }
@@ -347,9 +347,9 @@ Exhibit.Expression.Path.prototype.rangeBackward = function(
 };
 
 Exhibit.Expression.Path.prototype.testExists = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     return this.evaluate(roots, rootValueTypes, defaultRootName, database).size > 0;
@@ -365,9 +365,9 @@ Exhibit.Expression._Constant = function(value, valueType) {
 };
 
 Exhibit.Expression._Constant.prototype.evaluate = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     return new Exhibit.Expression._Collection([ this._value ], this._valueType);
@@ -383,18 +383,18 @@ Exhibit.Expression._Operator = function(operator, args) {
 };
 
 Exhibit.Expression._Operator.prototype.evaluate = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     var values = [];
-    
+
     var args = [];
     for (var i = 0; i < this._args.length; i++) {
         args.push(this._args[i].evaluate(roots, rootValueTypes, defaultRootName, database));
     }
-    
+
     var operator = Exhibit.Expression._operators[this._operator];
     var f = operator.f;
     if (operator.argumentType == "number") {
@@ -402,12 +402,12 @@ Exhibit.Expression._Operator.prototype.evaluate = function(
             if (!(typeof v1 == "number")) {
                 v1 = parseFloat(v1);
             }
-        
+
             args[1].forEachValue(function(v2) {
                 if (!(typeof v2 == "number")) {
                     v2 = parseFloat(v2);
                 }
-                
+
                 values.push(f(v1, v2));
             });
         });
@@ -418,7 +418,7 @@ Exhibit.Expression._Operator.prototype.evaluate = function(
             });
         });
     }
-    
+
     return new Exhibit.Expression._Collection(values, operator.valueType);
 };
 
@@ -487,16 +487,16 @@ Exhibit.Expression._FunctionCall = function(name, args) {
 };
 
 Exhibit.Expression._FunctionCall.prototype.evaluate = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     var args = [];
     for (var i = 0; i < this._args.length; i++) {
         args.push(this._args[i].evaluate(roots, rootValueTypes, defaultRootName, database));
     }
-    
+
     if (this._name in Exhibit.Functions) {
         return Exhibit.Functions[this._name].f(args);
     } else {
@@ -514,9 +514,9 @@ Exhibit.Expression._ControlCall = function(name, args) {
 };
 
 Exhibit.Expression._ControlCall.prototype.evaluate = function(
-    roots, 
-    rootValueTypes, 
-    defaultRootName, 
+    roots,
+    rootValueTypes,
+    defaultRootName,
     database
 ) {
     return Exhibit.Controls[this._name].f(this._args, roots, rootValueTypes, defaultRootName, database);

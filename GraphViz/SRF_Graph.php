@@ -8,7 +8,7 @@
 /**
  * New implementation of SMW's printer for result in a graph.
  * This SMW printer requires the mediawiki graphviz extention.
- * 
+ *
  * @note AUTOLOADED
  */
 if ( !defined( 'MEDIAWIKI' ) ) {

@@ -4,13 +4,13 @@
  */
 
 (function() {
-    var isCompiled = ("Exhibit_CalendarExtension_isCompiled" in window) && 
+    var isCompiled = ("Exhibit_CalendarExtension_isCompiled" in window) &&
                     window.Exhibit_CalendarExtension_isCompiled;
-    
+
     Exhibit.CalendarExtension = {
         params: {
             bundle: false
-        } 
+        }
     };
 
     var javascriptFiles = [
@@ -23,7 +23,7 @@
         "date-picker-facet.css",
         "calendar-view.css"
     ];
-        
+
     var paramTypes = { bundle: Boolean };
     if (typeof Exhibit_CalendarExtension_urlPrefix == "string") {
         Exhibit.CalendarExtension.urlPrefix = Exhibit_CalendarExtension_urlPrefix;
@@ -39,13 +39,13 @@
             return;
         }
         Exhibit.CalendarExtension.urlPrefix = url.substr(0, url.indexOf("calendar-extension.js"));
-        
+
         SimileAjax.parseURLParameters(url, Exhibit.CalendarExtension.params, paramTypes);
     }
-    
+
     var scriptURLs = [];
     var cssURLs = [];
-        
+
     if (Exhibit.CalendarExtension.params.bundle) {
         scriptURLs.push(Exhibit.CalendarExtension.urlPrefix + "calendar-extension-bundle.js");
         cssURLs.push(Exhibit.CalendarExtension.urlPrefix + "calendar-extension-bundle.css");
@@ -53,7 +53,7 @@
         SimileAjax.prefixURLs(scriptURLs, Exhibit.CalendarExtension.urlPrefix + "scripts/", javascriptFiles);
         SimileAjax.prefixURLs(cssURLs, Exhibit.CalendarExtension.urlPrefix + "styles/", cssFiles);
     }
-    
+
     if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);

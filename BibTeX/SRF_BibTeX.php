@@ -355,7 +355,7 @@ class SMWBibTeXEntry {
 		$URI = '';
 		if ( $author ) {
 			$arrayAuthor = explode( ' ', $author );
-			if(array_key_exists(1,$arrayAuthor)) $URI .= $arrayAuthor[1];
+			if ( array_key_exists( 1, $arrayAuthor ) ) $URI .= $arrayAuthor[1];
 		}
 		if ( $year ) $URI .= $year;
 		if ( $title ) {

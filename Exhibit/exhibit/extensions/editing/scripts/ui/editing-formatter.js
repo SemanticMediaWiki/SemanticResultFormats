@@ -1,7 +1,7 @@
 Exhibit.Formatter._ListFormatter.prototype.formatList = function(values, count, valueType, appender, editing) {
     var uiContext = this._uiContext;
     var self = this;
-    
+
     if (count == 0) {
         if (this._emptyText != null && this._emptyText.length > 0) {
             appender(document.createTextNode(this._emptyText));
@@ -16,7 +16,7 @@ Exhibit.Formatter._ListFormatter.prototype.formatList = function(values, count, 
             values.visit(function(v) {
                 uiContext.format(v, valueType, appender, editing);
                 index++;
-                
+
                 if (index == 1) {
                     appender(document.createTextNode(self._pairSeparator));
                 }
@@ -25,7 +25,7 @@ Exhibit.Formatter._ListFormatter.prototype.formatList = function(values, count, 
             values.visit(function(v) {
                 uiContext.format(v, valueType, appender, editing);
                 index++;
-                
+
                 if (index < count) {
                     appender(document.createTextNode(
                         (index == count - 1) ? self._lastSeparator : self._separator));
@@ -40,7 +40,7 @@ Exhibit.Formatter._TextFormatter.prototype.format = function(value, appender, ed
     var self = this;
     var span = document.createElement("span");
     span.innerHTML = this.formatText(value); //cuts text, adds "..."
-    
+
     if(editing && !editing) {
         span.setAttribute("ex:value", value);
         span.className = "editable-exhibit-value";
@@ -106,7 +106,7 @@ Exhibit.Formatter._NumberFormatter.prototype.formatText = function(value) {
 Exhibit.Formatter._ImageFormatter.prototype.format = function(value, appender, editing) {
     var img = document.createElement("img");
     img.src = value;
-    
+
     if (this._tooltip != null) {
         if (typeof this._tooltip == "string") {
             img.title = this._tootlip;
@@ -126,7 +126,7 @@ Exhibit.Formatter._URLFormatter.prototype.format = function(value, appender, edi
     var a = document.createElement("a");
     a.href = value;
     a.innerHTML = value;
-    
+
     if (this._target != null) {
         a.target = this._target;
     }
@@ -160,12 +160,12 @@ Exhibit.Formatter._CurrencyFormatter.prototype.formatText = function(value) {
     } else {
         text = new Number(Math.abs(value)).toFixed(this._decimalDigits);
     }
-    
+
     var sign = (negative && this._negativeFormat.signed) ? "-" : "";
     if (negative && this._negativeFormat.parentheses) {
         text = "(" + text + ")";
     }
-    
+
     switch (this._negativeFormat) {
     case "first":       text = this._symbol + sign + text; break;
     case "after-sign":  text = sign + this._symbol + text; break;
@@ -177,32 +177,32 @@ Exhibit.Formatter._CurrencyFormatter.prototype.formatText = function(value) {
 Exhibit.Formatter._ItemFormatter.prototype.format = function(value, appender, editing) {
     var self = this;
     var title = this.formatText(value);
-    
+
     var a = SimileAjax.DOM.createElementFromString(
         "<a href=\"" + Exhibit.Persistence.getItemLink(value) + "\" class='exhibit-item'>" + title + "</a>");
-        
+
     var handler = function(elmt, evt, target) {
         Exhibit.UI.showItemInPopup(value, elmt, self._uiContext);
     }
     SimileAjax.WindowManager.registerEvent(a, "click", handler, this._uiContext.getSetting("layer"));
-    
+
     appender(a);
 };
 
 Exhibit.Formatter._ItemFormatter.prototype.formatText = function(value) {
     var database = this._uiContext.getDatabase();
     var title = null;
-    
+
     if (this._title == null) {
         title = database.getObject(value, "label");
     } else {
         title = this._title.evaluateSingleOnItem(value, database).value;
     }
-    
+
     if (title == null) {
         title = value;
     }
-    
+
     return title;
 };
 
@@ -215,9 +215,9 @@ Exhibit.Formatter._DateFormatter.prototype.formatText = function(value) {
     if (date == null) {
         return value;
     }
-    
+
     date.setTime(date.getTime() + this._timeZoneOffset);
-    
+
     var text = "";
     var segments = this._segments;
     for (var i = 0; i < segments.length; i++) {

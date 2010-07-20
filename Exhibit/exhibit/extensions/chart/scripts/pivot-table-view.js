@@ -9,13 +9,13 @@ Exhibit.PivotTableView = function(containerElmt, uiContext) {
     this._rowPath = null;
     this._columnPath = null;
     this._cellExpression = null;
-    
+
     this._settings = {};
 
     var view = this;
-    this._listener = { 
+    this._listener = {
         onItemsChanged: function() {
-            view._reconstruct(); 
+            view._reconstruct();
         }
     };
     uiContext.getCollection().addListener(this._listener);
@@ -26,9 +26,9 @@ Exhibit.PivotTableView.create = function(configuration, containerElmt, uiContext
         containerElmt,
         Exhibit.UIContext.create(configuration, uiContext)
     );
-    
+
     Exhibit.PivotTableView._configure(view, configuration);
-    
+
     view._initializeUI();
     return view;
 };
@@ -36,15 +36,15 @@ Exhibit.PivotTableView.create = function(configuration, containerElmt, uiContext
 Exhibit.PivotTableView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var view = new Exhibit.PivotTableView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext)
     );
-    
+
     view._columnPath = Exhibit.PivotTableView._parsePath(Exhibit.getAttribute(configElmt, "column"));
     view._rowPath = Exhibit.PivotTableView._parsePath(Exhibit.getAttribute(configElmt, "row"));
     view._cellExpression = Exhibit.PivotTableView._parseExpression(Exhibit.getAttribute(configElmt, "cell"));
     Exhibit.PivotTableView._configure(view, configuration);
-    
+
     view._initializeUI();
     return view;
 };
@@ -86,40 +86,40 @@ Exhibit.PivotTableView._parsePath = function(s) {
 
 Exhibit.PivotTableView.prototype.dispose = function() {
     this._uiContext.getCollection().removeListener(this._listener);
-    
+
     this._toolboxWidget.dispose();
     this._toolboxWidget = null;
-    
+
     this._collectionSummaryWidget.dispose();
     this._collectionSummaryWidget = null;
-    
+
     this._uiContext.dispose();
     this._uiContext = null;
-    
+
     this._div.innerHTML = "";
-    
+
     this._dom = null;
     this._div = null;
 };
 
 Exhibit.PivotTableView.prototype._initializeUI = function() {
     var self = this;
-    
+
     this._div.innerHTML = "";
     this._dom = Exhibit.PivotTableView.constructDom(this._div);
     this._collectionSummaryWidget = Exhibit.CollectionSummaryWidget.create(
-        {}, 
-        this._dom.collectionSummaryDiv, 
+        {},
+        this._dom.collectionSummaryDiv,
         this._uiContext
     );
     this._toolboxWidget = Exhibit.ToolboxWidget.createFromDOM(this._div, this._div, this._uiContext);
-    
+
     this._reconstruct();
 };
 
 Exhibit.PivotTableView.prototype._reconstruct = function() {
     this._dom.tableContainer.innerHTML = "";
-    
+
     var currentSize = this._uiContext.getCollection().countRestrictedItems();
     if (currentSize > 0) {
         var currentSet = this._uiContext.getCollection().getRestrictedItems();
@@ -132,74 +132,74 @@ Exhibit.PivotTableView.prototype._reconstruct = function() {
 Exhibit.PivotTableView.prototype._makeTable = function(items) {
     var self = this;
     var database = this._uiContext.getDatabase();
-    
+
     var rowResults = this._rowPath.walkForward(items, "item", database).getSet();
     var columnResults = this._columnPath.walkForward(items, "item", database).getSet();
-    
+
     var rowValues = Exhibit.PivotTableView._sortValues(rowResults);
     var columnValues = Exhibit.PivotTableView._sortValues(columnResults);
-    
+
     var rowCount = rowValues.length;
     var columnCount = columnValues.length;
-    
+
     var evenColor = "#eee";
     var oddColor = "#fff";
-    
+
     var table = document.createElement("table");
     table.cellPadding = 2;
     table.cellSpacing = 0;
-    
+
     var rowToInsert = 0;
     var tr, td;
-    
+
     for (var c = 0; c < columnCount; c++) {
         var cellToInsert = 0;
-        
+
         tr = table.insertRow(rowToInsert++);
-        
+
         td = tr.insertCell(cellToInsert++); // empty horizontal cell
-        
+
         if (c > 0) {
             td = tr.insertCell(cellToInsert++);
             td.rowSpan = columnCount - c + 1;
             td.style.backgroundColor = (c % 2) == 0 ? oddColor : evenColor;
             td.innerHTML = "\u00a0";
         }
-        
+
         td = tr.insertCell(cellToInsert++);
         td.colSpan = columnCount - c + 1;
         td.style.backgroundColor = (c % 2) == 1 ? oddColor : evenColor;
         td.innerHTML = columnValues[c].label;
     }
-    
+
     tr = table.insertRow(rowToInsert++);
     td = tr.insertCell(0);
     td = tr.insertCell(1);
     td.style.backgroundColor = (columnCount % 2) == 0 ? oddColor : evenColor;
     td.innerHTML = "\u00a0";
     td = tr.insertCell(2);
-    
+
     for (var r = 0; r < rowCount; r++) {
         var cellToInsert = 0;
         var rowPair = rowValues[r];
         var rowValue = rowPair.value;
-        
+
         tr = table.insertRow(rowToInsert++);
-        
+
         td = tr.insertCell(cellToInsert++);
         td.innerHTML = rowValues[r].label;
         td.style.borderBottom = "1px solid #aaa";
-        
+
         var rowItems = this._rowPath.evaluateBackward(rowValue, rowResults.valueType, items, database).getSet();
         for (var c = 0; c < columnCount; c++) {
             var columnPair = columnValues[c];
             var columnValue = columnPair.value;
-            
+
             td = tr.insertCell(cellToInsert++);
             td.style.backgroundColor = (c % 2) == 1 ? oddColor : evenColor;
             td.style.borderBottom = "1px solid #ccc";
             td.title = rowPair.label + " / " + columnPair.label;
-            
+
             var cellItemResults = this._columnPath.evaluateBackward(columnValue, columnResults.valueType, rowItems, database);
             var cellResults = this._cellExpression.evaluate(
                 { "value" : cellItemResults.getSet() },
@@ -207,7 +207,7 @@ Exhibit.PivotTableView.prototype._makeTable = function(items) {
                 "value",
                 database
             );
-            
+
             if (cellResults.valueType == "number" && cellResults.values.size() == 1) {
                 cellResults.values.visit(function(v) {
                     if (v != 0) {
@@ -260,12 +260,12 @@ Exhibit.PivotTableView._sortValues = function(values, valueType, database) {
 Exhibit.PivotTableView.prototype._openPopup = function(elmt, items) {
     var coords = SimileAjax.DOM.getPageCoordinates(elmt);
     var bubble = SimileAjax.Graphics.createBubbleForPoint(
-        coords.left + Math.round(elmt.offsetWidth / 2), 
-        coords.top + Math.round(elmt.offsetHeight / 2), 
+        coords.left + Math.round(elmt.offsetWidth / 2),
+        coords.top + Math.round(elmt.offsetHeight / 2),
         400, // px
         300  // px
     );
-    
+
     if (items.length > 1) {
         var ul = document.createElement("ul");
         for (var i = 0; i < items.length; i++) {
@@ -296,6 +296,6 @@ Exhibit.PivotTableView.constructDom = function(div) {
             }
         ]
     };
-    
+
     return SimileAjax.DOM.createDOMFromTemplate(template);
 };

@@ -8,7 +8,7 @@ Exhibit.FormatParser = new Object();
 Exhibit.FormatParser.parse = function(uiContext, s, startIndex, results) {
     startIndex = startIndex || 0;
     results = results || {};
-    
+
     var scanner = new Exhibit.FormatScanner(s, startIndex);
     try {
         return Exhibit.FormatParser._internalParse(uiContext, scanner, results, false);
@@ -20,7 +20,7 @@ Exhibit.FormatParser.parse = function(uiContext, s, startIndex, results) {
 Exhibit.FormatParser.parseSeveral = function(uiContext, s, startIndex, results) {
     startIndex = startIndex || 0;
     results = results || {};
-    
+
     var scanner = new Exhibit.FormatScanner(s, startIndex);
     try {
         return Exhibit.FormatParser._internalParse(uiContext, scanner, results, true);
@@ -56,7 +56,7 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
         }
         return true;
     };
-    
+
     var parseNumber = function(valueType, settingName, keywords) {
         if (checkKeywords(valueType, settingName, keywords)) {
             if (token == null || token.type != Scanner.NUMBER) {
@@ -132,9 +132,9 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
             }
         }
         throw new Error(
-            "Unsupported option " + token.value + 
-            " for setting " + settingName + 
-            " on value type " + valueType + 
+            "Unsupported option " + token.value +
+            " for setting " + settingName +
+            " on value type " + valueType +
             " found at position " + makePosition());
     };
     var parseFlags = function(valueType, settingName, flags, counterFlags) {
@@ -152,13 +152,13 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
                 continue outer;
             }
             throw new Error(
-                "Unsupported flag " + token.value + 
-                " for setting " + settingName + 
-                " on value type " + valueType + 
+                "Unsupported flag " + token.value +
+                " for setting " + settingName +
+                " on value type " + valueType +
                 " found at position " + makePosition());
         }
     };
-    
+
     var parseSetting = function(valueType, settingName) {
         switch (valueType) {
         case "number":
@@ -228,8 +228,8 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
         case "currency":
             switch (settingName) {
             case "negative-format":
-                parseFlags(valueType, settingName, 
-                    [ "red", "parentheses", "signed" ], 
+                parseFlags(valueType, settingName,
+                    [ "red", "parentheses", "signed" ],
                     { "unsigned" : "signed", "no-parenthesis" : "parentheses", "black" : "red" }
                 );
                 return;
@@ -255,7 +255,7 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
             }
             break;
         }
-        throw new Error("Unsupported setting called " + settingName + 
+        throw new Error("Unsupported setting called " + settingName +
             " for value type " + valueType + " found at position " + makePosition());
     };
     var parseSettingList = function(valueType) {
@@ -264,15 +264,15 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
             var settingName = token.value;
 
             next();
-            
+
 
             if (token == null || token.type != Scanner.DELIMITER || token.value != ":") {
                 throw new Error("Missing : at position " + makePosition());
             }
             next();
-            
+
             parseSetting(valueType, settingName);
-            
+
 
             if (token == null || token.type != Scanner.DELIMITER || token.value != ";") {
                 break;
@@ -286,17 +286,17 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
         if (token == null || token.type != Scanner.IDENTIFIER) {
             throw new Error("Missing value type at position " + makePosition());
         }
-        
+
         var valueType = token.value;
         if (!(valueType in Exhibit.FormatParser._valueTypes)) {
             throw new Error("Unsupported value type " + valueType + " at position " + makePosition());
         }
         next();
-        
+
         if (token != null && token.type == Scanner.DELIMITER && token.value == "{") {
             next();
             parseSettingList(valueType);
-            
+
             if (token == null || token.type != Scanner.DELIMITER || token.value != "}") {
                 throw new Error("Missing } at position " + makePosition());
             }
@@ -311,7 +311,7 @@ Exhibit.FormatParser._internalParse = function(uiContext, scanner, results, seve
         }
         return valueType;
     }
-    
+
     if (several) {
         return parseRuleList();
     } else {
@@ -348,22 +348,22 @@ Exhibit.FormatScanner.prototype.index = function() {
 
 Exhibit.FormatScanner.prototype.next = function() {
     this._token = null;
-    
+
     var self = this;
     var skipSpaces = function(x) {
         while (x < self._maxIndex &&
             " \t\r\n".indexOf(self._text.charAt(x)) >= 0) {
-            
+
             x++;
         }
         return x;
     };
     this._index = skipSpaces(this._index);
-    
+
     if (this._index < this._maxIndex) {
         var c1 = this._text.charAt(this._index);
         var c2 = this._text.charAt(this._index + 1);
-        
+
         if ("{}(),:;".indexOf(c1) >= 0) {
             this._token = {
                 type:   Exhibit.FormatScanner.DELIMITER,
@@ -380,7 +380,7 @@ Exhibit.FormatScanner.prototype.next = function() {
                 }
                 i++;
             }
-            
+
             if (i < this._maxIndex) {
                 this._token = {
                     type:   Exhibit.FormatScanner.STRING,
@@ -397,7 +397,7 @@ Exhibit.FormatScanner.prototype.next = function() {
             while (i < this._maxIndex && this._isHexDigit(this._text.charAt(i))) {
                 i++;
             }
-            
+
             this._token = {
                 type:   Exhibit.FormatScanner.COLOR,
                 value:  this._text.substring(this._index, i),
@@ -410,14 +410,14 @@ Exhibit.FormatScanner.prototype.next = function() {
             while (i < this._maxIndex && this._isDigit(this._text.charAt(i))) {
                 i++;
             }
-            
+
             if (i < this._maxIndex && this._text.charAt(i) == ".") {
                 i++;
                 while (i < this._maxIndex && this._isDigit(this._text.charAt(i))) {
                     i++;
                 }
             }
-            
+
             this._token = {
                 type:   Exhibit.FormatScanner.NUMBER,
                 value:  parseFloat(this._text.substring(this._index, i)),
@@ -437,7 +437,7 @@ Exhibit.FormatScanner.prototype.next = function() {
                     break;
                 }
             }
-            
+
             var identifier = this._text.substring(this._index, i);
             while (true) {
                 if (identifier == "url") {
@@ -462,7 +462,7 @@ Exhibit.FormatScanner.prototype.next = function() {
                     if (this._text.charAt(openParen) == "(") {
                         var o = {};
                         var expression = Exhibit.ExpressionParser.parse(this._text, openParen + 1, o);
-                        
+
                         var closeParen = skipSpaces(o.index);
                         if (this._text.charAt(closeParen) == ")") {
                             this._token = {
@@ -478,7 +478,7 @@ Exhibit.FormatScanner.prototype.next = function() {
                         }
                     }
                 }
-                
+
                 this._token = {
                     type:   Exhibit.FormatScanner.IDENTIFIER,
                     value:  identifier,

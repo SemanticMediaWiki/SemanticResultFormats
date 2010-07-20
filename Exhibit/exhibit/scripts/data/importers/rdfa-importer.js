@@ -48,34 +48,34 @@ Exhibit.RDFaImporter.loadRDFa = function(iframe, rdfa, database) {
         }
         return found && result;
     };
-    
+
     // callback when the RDF/A parsing is done.
     RDFA.CALLBACK_DONE_PARSING = function() {
         if (iframe != null) {
             document.body.removeChild(iframe);
         }
-        
+
         this.cloneObject = function (what) {
             for (var i in what) {
                 this[i] = what[i];
             }
         };
-        
+
         var triples = this.triples;
         var parsed = { "classes": {}, "properties": {},"items": [] };
         for (var i in triples) {
             var item = {};
-            
+
             item['id'], item['uri'], item['label'] = i; // shouldn't have to do this, not sure if it's been fixed in the exporter or not yet
-            
+
             var tri = triples[i];
             for (var j in tri) {
                 for (var k = 0; k < tri[j].length; k++)  {
                     if (tri[j][k].predicate.ns) {
                         var p_label = tri[j][k].predicate.ns.prefix+':'+tri[j][k].predicate.suffix;
-                        
+
                         //item[p_label] = tri[j][k]['object'];
-                        
+
                         if (j == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')  {
                             try {
                                 var type_uri = tri[j][k]['object'];
@@ -96,20 +96,20 @@ Exhibit.RDFaImporter.loadRDFa = function(iframe, rdfa, database) {
                             } catch(e) {
                                 SimileAjax.Debug.log("problem adding property value: " + e);
                             }
-                            
-                            if (j == 'http://purl.org/dc/elements/1.1/title' || 
-                                j == 'http://www.w3.org/2000/01/rdf-schema#' || 
+
+                            if (j == 'http://purl.org/dc/elements/1.1/title' ||
+                                j == 'http://www.w3.org/2000/01/rdf-schema#' ||
                                 j == 'http://xmlns.com/foaf/0.1/name') {
                                 item.label = item[p_label];
                             }
                         }
-                    } 
-                    else { 
-                        item[j] = tri[j][k]['object']; 
+                    }
+                    else {
+                        item[j] = tri[j][k]['object'];
                     }
                 }
             }
-            
+
             parsed['items'].push(new this.cloneObject(item));
         }
         database.loadData(parsed, Exhibit.Persistence.getBaseURL(document.location.href));
@@ -121,7 +121,7 @@ Exhibit.RDFaImporter.loadRDFa = function(iframe, rdfa, database) {
     };
 
     /**
-     * Dynamically include the 
+     * Dynamically include the
      *
      *      RDFa Javascript parser
      *
@@ -133,6 +133,6 @@ Exhibit.RDFaImporter.loadRDFa = function(iframe, rdfa, database) {
      *
      * Dynamic include nullifies license incompatibility.
      */
-    
+
     SimileAjax.includeJavascriptFile(document, RDFA.url);
 };

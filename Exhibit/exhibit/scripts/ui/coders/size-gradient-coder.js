@@ -6,12 +6,12 @@
 Exhibit.SizeGradientCoder = function(uiContext) {
     this._uiContext = uiContext;
     this._settings = {};
-    
-    this._log = { 
+
+    this._log = {
     	func: function(size) { return Math.ceil(Math.log(size)); },
     	invFunc: function(size) { return Math.ceil(Math.exp(size)); }
     }
-    this._linear = { 
+    this._linear = {
     	func: function(size) { return Math.ceil(size); },
     	invFunc: function(size) { return Math.ceil(size); }
     }
@@ -19,13 +19,13 @@ Exhibit.SizeGradientCoder = function(uiContext) {
     	func: function(size) { return Math.ceil(Math.pow((size / 100), 2)); },
     	invFunc: function(size) { return Math.sqrt(size) * 100; }
     }
-    this._exp = { 
+    this._exp = {
     	func: function(size) { return Math.ceil(Math.exp(size)); },
     	invFunc: function(size) { return Math.ceil(Math.log(size)); }
     }
     this._markerScale = this._quad; // default marker scale type
     this._valueScale = this._linear; // value scaling functionality needs to be added
-    
+
     this._gradientPoints = [];
     this._mixedCase = { label: "mixed", size: 20 };
     this._missingCase = { label: "missing", size: 20 };
@@ -37,25 +37,25 @@ Exhibit.SizeGradientCoder._settingSpecs = {
 
 Exhibit.SizeGradientCoder.create = function(configuration, uiContext) {
     var coder = new Exhibit.SizeGradientCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SizeGradientCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.SizeGradientCoder.createFromDOM = function(configElmt, uiContext) {
     configElmt.style.display = "none";
-    
+
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var coder = new Exhibit.SizeGradientCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.SizeGradientCoder._settingSpecs, coder._settings);
-    
+
     try {
-		var markerScale = coder._settings.markerScale; 
+		var markerScale = coder._settings.markerScale;
 		if (markerScale == "log") { coder._markerScale = coder._log; }
 		if (markerScale == "linear") { coder._markerScale = coder._linear; }
 		if (markerScale == "exp") { coder._markerScale = coder._exp; }
-		
+
 		var gradientPoints = Exhibit.getAttribute(configElmt, "gradientPoints", ";")
 		for (var i = 0; i < gradientPoints.length; i++) {
 			var point = gradientPoints[i].split(',');
@@ -63,13 +63,13 @@ Exhibit.SizeGradientCoder.createFromDOM = function(configElmt, uiContext) {
 			var size = coder._markerScale.invFunc(parseFloat(point[1]));
 			coder._gradientPoints.push({ value: value, size: size});
 		}
-		
+
         var node = configElmt.firstChild;
         while (node != null) {
             if (node.nodeType == 1) {
                 coder._addEntry(
-                    Exhibit.getAttribute(node, "case"), 
-                    node.firstChild.nodeValue.trim(), 
+                    Exhibit.getAttribute(node, "case"),
+                    node.firstChild.nodeValue.trim(),
                     Exhibit.getAttribute(node, "size"));
             }
             node = node.nextSibling;
@@ -77,14 +77,14 @@ Exhibit.SizeGradientCoder.createFromDOM = function(configElmt, uiContext) {
     } catch (e) {
         SimileAjax.Debug.exception(e, "SizeGradientCoder: Error processing configuration of coder");
     }
-    
+
     Exhibit.SizeGradientCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.SizeGradientCoder._configure = function(coder, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.SizeGradientCoder._settingSpecs, coder._settings);
-    
+
     if ("entries" in configuration) {
         var entries = configuration.entries;
         for (var i = 0; i < entries.length; i++) {
@@ -130,7 +130,7 @@ Exhibit.SizeGradientCoder.prototype.translate = function(key, flags) {
 			}
 		}
 	}
-	
+
     if (key >= gradientPoints[0].value & key <= gradientPoints[gradientPoints.length-1].value) {
         if (flags) flags.keys.add(key);
         return getSize(key);
@@ -157,7 +157,7 @@ Exhibit.SizeGradientCoder.prototype.translateSet = function(keys, flags) {
         }
         return false;
     });
-    
+
     if (size != null) {
         return size;
     } else {

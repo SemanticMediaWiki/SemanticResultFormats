@@ -7,7 +7,7 @@
  *  Linear Ether
  *==================================================
  */
- 
+
 Timeline.LinearEther = function(params) {
     this._params = params;
     this._interval = params.interval;
@@ -18,7 +18,7 @@ Timeline.LinearEther.prototype.initialize = function(band, timeline) {
     this._band = band;
     this._timeline = timeline;
     this._unit = timeline.getUnit();
-    
+
     if ("startsOn" in this._params) {
         this._start = this._unit.parseFromObject(this._params.startsOn);
     } else if ("endsOn" in this._params) {
@@ -60,16 +60,16 @@ Timeline.LinearEther.prototype.zoom = function(zoomIn) {
   if (zoomIn && (currentZoomIndex > 0)) {
     newZoomIndex = currentZoomIndex - 1;
   }
-  
+
   if (!zoomIn && (currentZoomIndex < (this._band._zoomSteps.length - 1))) {
     newZoomIndex = currentZoomIndex + 1;
   }
 
-  this._band._zoomIndex = newZoomIndex;  
-  this._interval = 
+  this._band._zoomIndex = newZoomIndex;
+  this._interval =
     SimileAjax.DateTime.gregorianUnitLengths[this._band._zoomSteps[newZoomIndex].unit];
   this._pixelsPerInterval = this._band._zoomSteps[newZoomIndex].pixelsPerInterval;
-  netIntervalChange = this._band._zoomSteps[newZoomIndex].unit - 
+  netIntervalChange = this._band._zoomSteps[newZoomIndex].unit -
     this._band._zoomSteps[currentZoomIndex].unit;
 
   return netIntervalChange;
@@ -80,7 +80,7 @@ Timeline.LinearEther.prototype.zoom = function(zoomIn) {
  *  Hot Zone Ether
  *==================================================
  */
- 
+
 Timeline.HotZoneEther = function(params) {
     this._params = params;
     this._interval = params.interval;
@@ -92,7 +92,7 @@ Timeline.HotZoneEther.prototype.initialize = function(band, timeline) {
     this._band = band;
     this._timeline = timeline;
     this._unit = timeline.getUnit();
-    
+
     this._zones = [{
         startTime:  Number.NEGATIVE_INFINITY,
         endTime:    Number.POSITIVE_INFINITY,
@@ -103,10 +103,10 @@ Timeline.HotZoneEther.prototype.initialize = function(band, timeline) {
         var zone = params.zones[i];
         var zoneStart = this._unit.parseFromObject(zone.start);
         var zoneEnd =   this._unit.parseFromObject(zone.end);
-        
+
         for (var j = 0; j < this._zones.length && this._unit.compare(zoneEnd, zoneStart) > 0; j++) {
             var zone2 = this._zones[j];
-            
+
             if (this._unit.compare(zoneStart, zone2.endTime) < 0) {
                 if (this._unit.compare(zoneStart, zone2.startTime) > 0) {
                     this._zones.splice(j, 0, {
@@ -115,10 +115,10 @@ Timeline.HotZoneEther.prototype.initialize = function(band, timeline) {
                         magnify:     zone2.magnify
                     });
                     j++;
-                    
+
                     zone2.startTime = zoneStart;
                 }
-                
+
                 if (this._unit.compare(zoneEnd, zone2.endTime) < 0) {
                     this._zones.splice(j, 0, {
                         startTime:  zoneStart,
@@ -126,7 +126,7 @@ Timeline.HotZoneEther.prototype.initialize = function(band, timeline) {
                         magnify:    zone.magnify * zone2.magnify
                     });
                     j++;
-                    
+
                     zone2.startTime = zoneEnd;
                     zoneStart = zoneEnd;
                 } else {
@@ -175,16 +175,16 @@ Timeline.HotZoneEther.prototype.zoom = function(zoomIn) {
   if (zoomIn && (currentZoomIndex > 0)) {
     newZoomIndex = currentZoomIndex - 1;
   }
-  
+
   if (!zoomIn && (currentZoomIndex < (this._band._zoomSteps.length - 1))) {
     newZoomIndex = currentZoomIndex + 1;
   }
 
-  this._band._zoomIndex = newZoomIndex;  
-  this._interval = 
+  this._band._zoomIndex = newZoomIndex;
+  this._interval =
     SimileAjax.DateTime.gregorianUnitLengths[this._band._zoomSteps[newZoomIndex].unit];
   this._pixelsPerInterval = this._band._zoomSteps[newZoomIndex].pixelsPerInterval;
-  netIntervalChange = this._band._zoomSteps[newZoomIndex].unit - 
+  netIntervalChange = this._band._zoomSteps[newZoomIndex].unit -
     this._band._zoomSteps[currentZoomIndex].unit;
 
   return netIntervalChange;
@@ -194,7 +194,7 @@ Timeline.HotZoneEther.prototype._dateDiffToPixelOffset = function(fromDate, toDa
     var scale = this._getScale();
     var fromTime = fromDate;
     var toTime = toDate;
-    
+
     var pixels = 0;
     if (this._unit.compare(fromTime, toTime) < 0) {
         var z = 0;
@@ -204,13 +204,13 @@ Timeline.HotZoneEther.prototype._dateDiffToPixelOffset = function(fromDate, toDa
             }
             z++;
         }
-        
+
         while (this._unit.compare(fromTime, toTime) < 0) {
             var zone = this._zones[z];
             var toTime2 = this._unit.earlier(toTime, zone.endTime);
-            
+
             pixels += (this._unit.compare(toTime2, fromTime) / (scale / zone.magnify));
-            
+
             fromTime = toTime2;
             z++;
         }
@@ -222,13 +222,13 @@ Timeline.HotZoneEther.prototype._dateDiffToPixelOffset = function(fromDate, toDa
             }
             z--;
         }
-        
+
         while (this._unit.compare(fromTime, toTime) > 0) {
             var zone = this._zones[z];
             var toTime2 = this._unit.later(toTime, zone.startTime);
-            
+
             pixels += (this._unit.compare(toTime2, fromTime) / (scale / zone.magnify));
-            
+
             fromTime = toTime2;
             z--;
         }
@@ -247,11 +247,11 @@ Timeline.HotZoneEther.prototype._pixelOffsetToDate = function(pixels, fromDate) 
             }
             z++;
         }
-        
+
         while (pixels > 0) {
             var zone = this._zones[z];
             var scale2 = scale / zone.magnify;
-            
+
             if (zone.endTime == Number.POSITIVE_INFINITY) {
                 time = this._unit.change(time, pixels * scale2);
                 pixels = 0;
@@ -275,12 +275,12 @@ Timeline.HotZoneEther.prototype._pixelOffsetToDate = function(pixels, fromDate) 
             }
             z--;
         }
-        
+
         pixels = -pixels;
         while (pixels > 0) {
             var zone = this._zones[z];
             var scale2 = scale / zone.magnify;
-            
+
             if (zone.startTime == Number.NEGATIVE_INFINITY) {
                 time = this._unit.change(time, -pixels * scale2);
                 pixels = 0;

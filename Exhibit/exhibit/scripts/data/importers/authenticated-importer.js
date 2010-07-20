@@ -9,15 +9,15 @@ Exhibit.AuthenticatedImporter.constructURL = function() {
 }
 
 Exhibit.AuthenticatedImporter.load = function(link, database, cont) {
-    
+
     // var params = SimileAjax.parseURLParameters();
-    // 
+    //
     // if (!params.token) {
     //     window.location = Exhibit.AuthenticatedImporter.constructURL();
     // }
-    // 
-    
-            
+    //
+
+
     var url = typeof link == "string" ? link : link.href;
     url = Exhibit.Persistence.resolveURL(url);
 
@@ -26,7 +26,7 @@ Exhibit.AuthenticatedImporter.load = function(link, database, cont) {
         Exhibit.UI.showHelp(Exhibit.l10n.failedToLoadDataFileMessage(url));
         if (cont) cont();
     };
-    
+
     var fDone = function(xmlhttp) {
         Exhibit.UI.hideBusyIndicator();
         try {
@@ -36,7 +36,7 @@ Exhibit.AuthenticatedImporter.load = function(link, database, cont) {
             } catch (e) {
                 Exhibit.UI.showJsonFileValidation(Exhibit.l10n.badJsonMessage(url, e), url);
             }
-            
+
             if (o != null) {
                 database.loadData(o, Exhibit.Persistence.getBaseURL(url));
             }

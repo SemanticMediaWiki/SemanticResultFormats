@@ -38,15 +38,15 @@ class SRFCHistoricalDate {
 	static protected function leap_gregorian( $year ) {
 		return ( ( $year % 4 ) == 0 ) && ( !( ( ( $year % 100 ) == 0 ) && ( ( $year % 400 ) != 0 ) ) );
 	}
-	
+
 	static protected function leap_julian( $year ) {
 		return ( ( $year % 4 ) == ( ( $year > 0 ) ? 0 : 3 ) );
 	}
-	
+
 	static protected function leap_jul_greg( $year ) {
 		return ( ( $year < 1582 ) ? SRFCHistoricalDate::leap_julian( $year ) : SRFCHistoricalDate::leap_gregorian( $year ) );
 	}
-	
+
 	protected function createFromGregorian( $year, $month, $day ) {
 		$this->m_date = ( self::GREGORIAN_EPOCH - 1 ) +
 			( 365 * ( $year - 1 ) ) +
@@ -80,7 +80,7 @@ class SRFCHistoricalDate {
 	public function getDayOfWeek() {
 		return ( floor( $this->m_date + 1.5 ) % 7 );
 	}
-	
+
 	static function daysInMonth( $year, $month ) {
 		if ( $month == 4 || $month == 6 || $month == 9 || $month == 11 )
 			return 30;

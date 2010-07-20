@@ -1,7 +1,7 @@
 <?php
 /**
  * Purges old/orphan/temporary plots, maps, CSVs, drawdumps from the ploticus cache directory.
- * 
+ *
  *
  * Note: if SMW is not installed in its standard path under ./extensions
  *       then the MW_INSTALL_PATH environment variable must be set.
@@ -10,7 +10,7 @@
  * Usage:
  * php SRF_Ploticus_cleanCache.php [options...]
  *
- * -a <age in hours>    Override $srfgPloticusCacheAge setting and purge files of this age and greater      
+ * -a <age in hours>    Override $srfgPloticusCacheAge setting and purge files of this age and greater
  * -v                   Be verbose about the progress.
  *
  * @author Joel Natividad
@@ -55,7 +55,7 @@ if ( !is_dir( $ploticusDirectory ) ) {
 
 if ( $verbose )
     echo "$now: Purging $ploticusDirectory cache of files >= $fileAge seconds old.\n";
-    
+
 $deletecount = rfr( $ploticusDirectory, "*.*", $fileAge, $verbose );
 
 if ( $verbose ) {

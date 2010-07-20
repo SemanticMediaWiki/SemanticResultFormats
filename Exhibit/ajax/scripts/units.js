@@ -17,11 +17,11 @@ SimileAjax.NativeDateUnit.getParser = function(format) {
     if (typeof format == "string") {
         format = format.toLowerCase();
     }
-    
+
     var parser = (format == "iso8601" || format == "iso 8601") ?
-                    SimileAjax.DateTime.parseIso8601DateTime : 
+                    SimileAjax.DateTime.parseIso8601DateTime :
                     SimileAjax.DateTime.parseGregorianDateTime;
-                    
+
     return function(d) {
         if (typeof d != 'undefined' && typeof d.toUTCString == "function") {
             return d;
@@ -55,7 +55,7 @@ SimileAjax.NativeDateUnit.compare = function(v1, v2) {
     } else {
         n2 = Number(v2);
     }
-    
+
     return n1 - n2;
 };
 

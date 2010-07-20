@@ -27,7 +27,7 @@ Exhibit.Functions["union"] = {
     f: function(args) {
         var set = new Exhibit.Set();
         var valueType = null;
-        
+
         if (args.length > 0) {
             var valueType = args[0].valueType;
             for (var i = 0; i < args.length; i++) {
@@ -48,14 +48,14 @@ Exhibit.Functions["contains"] = {
     f: function(args) {
         var result = args[0].size > 0;
         var set = args[0].getSet();
-        
+
         args[1].forEachValue(function(v) {
             if (!set.contains(v)) {
                 result = false;
                 return true;
             }
         });
-        
+
         return new Exhibit.Expression._Collection([ result ], "boolean");
     }
 };
@@ -115,7 +115,7 @@ Exhibit.Functions["add"] = {
                 }
             });
         }
-        
+
         return new Exhibit.Expression._Collection([ total ], "number");
     }
 };
@@ -153,7 +153,7 @@ Exhibit.Functions["multiply"] = {
                 }
             });
         }
-        
+
         return new Exhibit.Expression._Collection([ product ], "number");
     }
 };
@@ -196,22 +196,22 @@ Exhibit.Functions["date-range"] = {
     },
     f: function(args) {
         var self = this;
-        
+
         var from = Number.POSITIVE_INFINITY;
         args[0].forEachValue(function(v) {
             from = Math.min(from, self._parseDate(v));
         });
-        
+
         var to = Number.NEGATIVE_INFINITY;
         args[1].forEachValue(function(v) {
             to = Math.max(to, self._parseDate(v));
         });
-        
+
         var interval = "day";
         args[2].forEachValue(function(v) {
             interval = v;
         });
-            
+
         var range = this._computeRange(from, to, interval);
         return new Exhibit.Expression._Collection(range != null ? [ range ] : [], "number");
     }
@@ -244,7 +244,7 @@ Exhibit.Functions["distance"] = {
         var latlng = data.origo.split(",");
         var from = new GLatLng( latlng[0], latlng[1] );
         var to = new GLatLng( data.lat, data.lng );
-        
+
         var range = this._computeDistance(from, to, data.unit, data.round);
         return new Exhibit.Expression._Collection(range != null ? [ range ] : [], "number");
     }
@@ -255,22 +255,22 @@ Exhibit.Functions["min"] = {
         var returnMe = function (val) { return val; };
         var min = Number.POSITIVE_INFINITY;
         var valueType = null;
-        
+
         for (var i = 0; i < args.length; i++) {
             var arg = args[i];
             var currentValueType = arg.valueType ? arg.valueType : 'text';
             var parser = Exhibit.SettingsUtilities._typeToParser(currentValueType);
-                
+
             arg.forEachValue(function(v) {
                 parsedV = parser(v, returnMe);
                 if (parsedV < min || min == Number.POSITIVE_INFINITY) {
                     min = parsedV;
-                    valueType = (valueType == null) ? currentValueType : 
+                    valueType = (valueType == null) ? currentValueType :
                         (valueType == currentValueType ? valueType : "text") ;
                 }
             });
         }
-        
+
         return new Exhibit.Expression._Collection([ min ], valueType != null ? valueType : "text");
     }
 };
@@ -280,17 +280,17 @@ Exhibit.Functions["max"] = {
         var returnMe = function (val) { return val; };
         var max = Number.NEGATIVE_INFINITY;
         var valueType = null;
-        
+
         for (var i = 0; i < args.length; i++) {
             var arg = args[i];
             var currentValueType = arg.valueType ? arg.valueType : 'text';
             var parser = Exhibit.SettingsUtilities._typeToParser(currentValueType);
-            
+
             arg.forEachValue(function(v) {
                 parsedV = parser(v, returnMe);
                 if (parsedV > max || max == Number.NEGATIVE_INFINITY) {
                     max = parsedV;
-                    valueType = (valueType == null) ? currentValueType : 
+                    valueType = (valueType == null) ? currentValueType :
                         (valueType == currentValueType ? valueType : "text") ;
                }
             });

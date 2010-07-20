@@ -57,7 +57,7 @@ class SRFCalendar extends SMWResultPrinter {
 		while ( $row = $res->getNext() ) {
 			$dates = array();
 			$title = $text = $color = "";
-			
+
 			if ( $this->mTemplate != '' ) { // build template code
 				$this->hasTemplates = true;
 				if ( $this->mUserParam )

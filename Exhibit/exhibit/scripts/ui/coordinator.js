@@ -9,13 +9,13 @@ Exhibit.Coordinator = function(uiContext) {
 
 Exhibit.Coordinator.create = function(configuration, uiContext) {
     var coordinator = new Exhibit.Coordinator(uiContext);
-    
+
     return coordinator;
 };
 
 Exhibit.Coordinator.createFromDOM = function(div, uiContext) {
     var coordinator = new Exhibit.Coordinator(Exhibit.UIContext.createFromDOM(div, uiContext, false));
-    
+
     return coordinator;
 };
 
@@ -27,7 +27,7 @@ Exhibit.Coordinator.prototype.dispose = function() {
 Exhibit.Coordinator.prototype.addListener = function(callback) {
     var listener = new Exhibit.Coordinator._Listener(this, callback);
     this._listeners.push(listener);
-    
+
     return listener;
 };
 

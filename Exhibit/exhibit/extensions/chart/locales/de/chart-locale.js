@@ -2,7 +2,7 @@
  *  Exhibit Chart Extension German localization
  *==================================================
  */
- 
+
 if (!("l10n" in Exhibit.ScatterPlotView)) {
     Exhibit.ScatterPlotView.l10n = {};
 }

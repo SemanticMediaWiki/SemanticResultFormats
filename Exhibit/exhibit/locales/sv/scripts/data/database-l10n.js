@@ -10,7 +10,7 @@ if (!("l10n" in Exhibit.Database)) {
 Exhibit.Database.l10n.itemType = {
     label:          "Sak",
     pluralLabel:    "Saker"
-    
+
 };
 Exhibit.Database.l10n.labelProperty = {
     label:                  "etikett",

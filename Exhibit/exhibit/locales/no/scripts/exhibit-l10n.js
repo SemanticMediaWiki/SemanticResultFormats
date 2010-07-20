@@ -11,21 +11,21 @@ Exhibit.l10n.missingLabel = "mangler";
 Exhibit.l10n.missingSortKey = "(mangler)";
 Exhibit.l10n.notApplicableSortKey = "(n/a)";
 Exhibit.l10n.itemLinkLabel = "lenke";
-    
+
 Exhibit.l10n.busyIndicatorMessage = "Søker...";
 Exhibit.l10n.showDocumentationMessage = "Vi vil vise dokumentasjon etter denne meldinga.";
 Exhibit.l10n.showJavascriptValidationMessage = "Vi vil forklare feilen etter denne meldinga.";
-    
+
 Exhibit.l10n.showJsonValidationMessage = "Vi vil forklare feilen etter denne meldinga.";
 Exhibit.l10n.showJsonValidationFormMessage = "Vi vil lete opp en webservice der du kan laste opp og teste koden etter denne meldinga.";
-    
+
 Exhibit.l10n.badJsonMessage = function(url, e) {
     return "JSON-datafila\n  " + url + "\ninneholder feil =\n\n" + e;
 };
 Exhibit.l10n.failedToLoadDataFileMessage = function(url) {
     return "Vi kan ikke finne fila \n  " + url + "\n sjekk om filnavnet stemmer.";
 };
-    
+
 /*
  *  Copy button and dialog box
  */
@@ -34,12 +34,12 @@ Exhibit.l10n.exportAllButtonLabel = "Eksporter alle";
 Exhibit.l10n.exportDialogBoxCloseButtonLabel =  "Lukk";
 Exhibit.l10n.exportDialogBoxPrompt =
     "Kopier koden til utklippstavlen. Trykk ESC for å fjerne denne dialogboksen.";
-        
+
 /*
  *  Focusdialog box
  */
 Exhibit.l10n.focusDialogBoxCloseButtonLabel = "Lukk";
-     
+
 /*
  *  Common exporters' labels
  */

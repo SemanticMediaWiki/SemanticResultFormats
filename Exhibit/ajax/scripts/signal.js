@@ -29,7 +29,7 @@
                             f = SimileAjax_onLoad;
                             SimileAjax_onLoad = null;
                         }
-                        
+
                         if (f != null) {
                             f();
                         }

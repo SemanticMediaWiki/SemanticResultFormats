@@ -7,16 +7,16 @@ Exhibit.CloudFacet = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
     this._colorCoder = null;
-    
+
     this._expression = null;
     this._valueSet = new Exhibit.Set();
     this._selectMissing = false;
-    
+
     this._settings = {};
     this._dom = null;
-    
+
     var self = this;
-    this._listener = { 
+    this._listener = {
         onRootItemsChanged: function() {
             if ("_itemToValue" in self) {
                 delete self._itemToValue;
@@ -42,12 +42,12 @@ Exhibit.CloudFacet._settingSpecs = {
 Exhibit.CloudFacet.create = function(configuration, containerElmt, uiContext) {
     var uiContext = Exhibit.UIContext.create(configuration, uiContext);
     var facet = new Exhibit.CloudFacet(containerElmt, uiContext);
-    
+
     Exhibit.CloudFacet._configure(facet, configuration);
-    
+
     facet._initializeUI();
     uiContext.getCollection().addFacet(facet);
-    
+
     return facet;
 };
 
@@ -55,25 +55,25 @@ Exhibit.CloudFacet.createFromDOM = function(configElmt, containerElmt, uiContext
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var uiContext = Exhibit.UIContext.createFromDOM(configElmt, uiContext);
     var facet = new Exhibit.CloudFacet(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         uiContext
     );
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.CloudFacet._settingSpecs, facet._settings);
-    
+
     try {
         var expressionString = Exhibit.getAttribute(configElmt, "expression");
         if (expressionString != null && expressionString.length > 0) {
             facet._expression = Exhibit.ExpressionParser.parse(expressionString);
         }
-        
+
         var selection = Exhibit.getAttribute(configElmt, "selection", ";");
         if (selection != null && selection.length > 0) {
             for (var i = 0, s; s = selection[i]; i++) {
                 facet._valueSet.add(s);
             }
         }
-        
+
         var selectMissing = Exhibit.getAttribute(configElmt, "selectMissing");
         if (selectMissing != null && selectMissing.length > 0) {
             facet._selectMissing = (selectMissing == "true");
@@ -82,16 +82,16 @@ Exhibit.CloudFacet.createFromDOM = function(configElmt, containerElmt, uiContext
         SimileAjax.Debug.exception(e, "CloudFacet: Error processing configuration of cloud facet");
     }
     Exhibit.CloudFacet._configure(facet, configuration);
-    
+
     facet._initializeUI();
     uiContext.getCollection().addFacet(facet);
-    
+
     return facet;
 };
 
 Exhibit.CloudFacet._configure = function(facet, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.CloudFacet._settingSpecs, facet._settings);
-    
+
     if ("expression" in configuration) {
         facet._expression = Exhibit.ExpressionParser.parse(configuration.expression);
     }
@@ -108,18 +108,18 @@ Exhibit.CloudFacet._configure = function(facet, configuration) {
 
 Exhibit.CloudFacet.prototype.dispose = function() {
     this._uiContext.getCollection().removeFacet(this);
-    
+
     this._uiContext.getCollection().removeListener(this._listener);
     this._uiContext = null;
-    
+
     this._div.innerHTML = "";
     this._div = null;
     this._dom = null;
-    
+
     this._expression = null;
     this._valueSet = null;
     this._settings = null;
-    
+
     this._itemToValue = null;
     this._valueToItem = null;
     this._missingItems = null;
@@ -136,10 +136,10 @@ Exhibit.CloudFacet.prototype.clearAllRestrictions = function() {
             restrictions.selection.push(v);
         });
         this._valueSet = new Exhibit.Set();
-        
+
         restrictions.selectMissing = this._selectMissing;
         this._selectMissing = false;
-        
+
         this._notifyCollection();
     }
     return restrictions;
@@ -151,7 +151,7 @@ Exhibit.CloudFacet.prototype.applyRestrictions = function(restrictions) {
         this._valueSet.add(restrictions.selection[i]);
     }
     this._selectMissing = restrictions.selectMissing;
-    
+
     this._notifyCollection();
 };
 
@@ -175,19 +175,19 @@ Exhibit.CloudFacet.prototype.restrict = function(items) {
     if (this._valueSet.size() == 0 && !this._selectMissing) {
         return items;
     }
-    
+
     var set;
     if (this._expression.isPath()) {
         set = this._expression.getPath().walkBackward(
-            this._valueSet, 
-            "item", items, 
+            this._valueSet,
+            "item", items,
             this._uiContext.getDatabase()
         ).getSet();
     } else {
         this._buildMaps();
-        
+
         set = new Exhibit.Set();
-        
+
         var valueToItem = this._valueToItem;
         this._valueSet.visit(function(value) {
             if (value in valueToItem) {
@@ -201,10 +201,10 @@ Exhibit.CloudFacet.prototype.restrict = function(items) {
             }
         });
     }
-    
+
     if (this._selectMissing) {
         this._buildMaps();
-        
+
         var missingItems = this._missingItems;
         items.visit(function(item) {
             if (item in missingItems) {
@@ -212,7 +212,7 @@ Exhibit.CloudFacet.prototype.restrict = function(items) {
             }
         });
     }
-    
+
     return set;
 };
 
@@ -225,12 +225,12 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
     var entries = [];
     var valueType = "text";
     var self = this;
-    
+
     if (this._expression.isPath()) {
         var path = this._expression.getPath();
         var facetValueResult = path.walkForward(items, "item", database);
         valueType = facetValueResult.valueType;
-        
+
         if (facetValueResult.size > 0) {
             facetValueResult.forEachValue(function(facetValue) {
                 var itemSubcollection = path.evaluateBackward(facetValue, valueType, items, database);
@@ -241,7 +241,7 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
         };
     } else {
         this._buildMaps();
-        
+
         valueType = this._valueType;
         for (var value in this._valueToItem) {
             var itemA = this._valueToItem[value];
@@ -251,29 +251,29 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
                     count++;
                 }
             }
-            
+
             if (count >= this._settings.minimumCount || this._valueSet.contains(value)) {
                 entries.push({ value: value, count: count });
             }
         }
     }
-    
+
     if (entries.length > 0) {
         var selection = this._valueSet;
         var labeler = valueType == "item" ?
             function(v) { var l = database.getObject(v, "label"); return l != null ? l : v; } :
             function(v) { return v; }
-            
+
         for (var i = 0; i < entries.length; i++) {
             var entry = entries[i];
             entry.actionLabel = entry.selectionLabel = labeler(entry.value);
             entry.selected = selection.contains(entry.value);
         }
-        
+
         var sortValueFunction = function(a, b) { return a.selectionLabel.localeCompare(b.selectionLabel); };
         if ("_orderMap" in this) {
             var orderMap = this._orderMap;
-            
+
             sortValueFunction = function(a, b) {
                 if (a.selectionLabel in orderMap) {
                     if (b.selectionLabel in orderMap) {
@@ -294,7 +294,7 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
                 return a < b ? -1 : a > b ? 1 : 0;
             }
         }
-        
+
         var sortFunction = sortValueFunction;
         if (this._settings.sortMode == "count") {
             sortFunction = function(a, b) {
@@ -312,25 +312,25 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
 
         entries.sort(sortDirectionFunction);
     }
-    
+
     if (this._settings.showMissing || this._selectMissing) {
         this._buildMaps();
-        
+
         var count = 0;
         for (var item in this._missingItems) {
             if (items.contains(item)) {
                 count++;
             }
         }
-        
+
         if (count > 0 || this._selectMissing) {
             var span = document.createElement("span");
-            span.innerHTML = ("missingLabel" in this._settings) ? 
+            span.innerHTML = ("missingLabel" in this._settings) ?
                 this._settings.missingLabel : Exhibit.FacetUtilities.l10n.missingThisField;
             span.className = "exhibit-facet-value-missingThisField";
-            
+
             entries.unshift({
-                value:          null, 
+                value:          null,
                 count:          count,
                 selected:       this._selectMissing,
                 selectionLabel: span,
@@ -338,7 +338,7 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
             });
         }
     }
-    
+
     return entries;
 }
 
@@ -368,10 +368,10 @@ Exhibit.CloudFacet.prototype._initializeUI = function() {
 Exhibit.CloudFacet.prototype._constructBody = function(entries) {
     var self = this;
     var div = this._dom.valuesContainer;
-    
+
     div.style.display = "none";
     div.innerHTML = "";
-    
+
     if (entries.length > 0) {
         var min = Number.POSITIVE_INFINITY;
         var max = Number.NEGATIVE_INFINITY;
@@ -381,16 +381,16 @@ Exhibit.CloudFacet.prototype._constructBody = function(entries) {
             max = Math.max(max, entry.count);
         }
         var range = max - min;
-        
+
         var constructValue = function(entry) {
             var onSelect = function(elmt, evt, target) {
                 self._filter(entry.value, entry.actionLabel, !(evt.ctrlKey || evt.metaKey));
                 SimileAjax.DOM.cancelEvent(evt);
                 return false;
             };
-        
+
             var elmt = document.createElement("span");
-            
+
             elmt.appendChild(document.createTextNode("\u00A0"));
             if (typeof entry.selectionLabel == "string") {
                 elmt.appendChild(document.createTextNode(entry.selectionLabel));
@@ -398,21 +398,21 @@ Exhibit.CloudFacet.prototype._constructBody = function(entries) {
                 elmt.appendChild(entry.selectionLabel);
             }
             elmt.appendChild(document.createTextNode("\u00A0"));
-            
-            elmt.className = entry.selected ? 
+
+            elmt.className = entry.selected ?
                 "exhibit-cloudFacet-value exhibit-cloudFacet-value-selected" :
                 "exhibit-cloudFacet-value";
-                
+
             if (entry.count > min) {
                 elmt.style.fontSize = Math.ceil(100 + 100 * Math.log(1 + 1.5 * (entry.count - min) / range)) + "%";
             }
-            
+
             SimileAjax.WindowManager.registerEvent(elmt, "click", onSelect, SimileAjax.WindowManager.getBaseLayer());
-        
+
             div.appendChild(elmt);
             div.appendChild(document.createTextNode(" "));
         };
-    
+
         for (var j = 0; j < entries.length; j++) {
             constructValue(entries[j]);
         }
@@ -423,21 +423,21 @@ Exhibit.CloudFacet.prototype._constructBody = function(entries) {
 Exhibit.CloudFacet.prototype._filter = function(value, label, selectOnly) {
     var self = this;
     var selected, select, deselect;
-    
+
     var oldValues = new Exhibit.Set(this._valueSet);
     var oldSelectMissing = this._selectMissing;
-    
+
     var newValues;
     var newSelectMissing;
     var actionLabel;
-    
+
     var wasSelected;
     var wasOnlyThingSelected;
-    
+
     if (value == null) { // the (missing this field) case
         wasSelected = oldSelectMissing;
         wasOnlyThingSelected = wasSelected && (oldValues.size() == 0);
-        
+
         if (selectOnly) {
             if (oldValues.size() == 0) {
                 newSelectMissing = !oldSelectMissing;
@@ -452,11 +452,11 @@ Exhibit.CloudFacet.prototype._filter = function(value, label, selectOnly) {
     } else {
         wasSelected = oldValues.contains(value);
         wasOnlyThingSelected = wasSelected && (oldValues.size() == 1) && !oldSelectMissing;
-        
+
         if (selectOnly) {
             newSelectMissing = false;
             newValues = new Exhibit.Set();
-            
+
             if (!oldValues.contains(value)) {
                 newValues.add(value);
             } else if (oldValues.size() > 1 || oldSelectMissing) {
@@ -472,10 +472,10 @@ Exhibit.CloudFacet.prototype._filter = function(value, label, selectOnly) {
             }
         }
     }
-    
+
     var newRestrictions = { selection: newValues.toArray(), selectMissing: newSelectMissing };
     var oldRestrictions = { selection: oldValues.toArray(), selectMissing: oldSelectMissing };
-    
+
     var facetLabel = ("facetLabel" in this._settings) ? this._settings.facetLabel : "";
     SimileAjax.History.addLengthyAction(
         function() { self.applyRestrictions(newRestrictions); },
@@ -508,7 +508,7 @@ Exhibit.CloudFacet.prototype._buildMaps = function() {
         var valueToItem = {};
         var missingItems = {};
         var valueType = "text";
-        
+
         var insert = function(x, y, map) {
             if (x in map) {
                 map[x].push(y);
@@ -516,10 +516,10 @@ Exhibit.CloudFacet.prototype._buildMaps = function() {
                 map[x] = [ y ];
             }
         };
-        
+
         var expression = this._expression;
         var database = this._uiContext.getDatabase();
-        
+
         this._uiContext.getCollection().getAllItems().visit(function(item) {
             var results = expression.evaluateOnItem(item, database);
             if (results.values.size() > 0) {
@@ -532,7 +532,7 @@ Exhibit.CloudFacet.prototype._buildMaps = function() {
                 missingItems[item] = true;
             }
         });
-        
+
         this._itemToValue = itemToValue;
         this._valueToItem = valueToItem;
         this._missingItems = missingItems;

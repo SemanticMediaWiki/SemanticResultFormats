@@ -9,7 +9,7 @@ Exhibit.EditingLens = function(itemID, div, uiContext, restore) {
     this._rootNode = div;
     var database = uiContext.getDatabase();
     this.backend = new Exhibit.EditingBackend();
-    
+
     this._getItemData = function() {
         var itemData = {};
         var allProperties = database.getAllProperties();
@@ -28,7 +28,7 @@ Exhibit.EditingLens = function(itemID, div, uiContext, restore) {
         div.style.marginBottom = "0em";
         div.style.marginTop = "0em";
         div.style.border = "none"
-        
+
         restore(self);
     }
     /* Revert changes the data back to what's in the database. */
@@ -77,13 +77,13 @@ Exhibit.EditingLens.create = function(itemID, div, uiContext, lens, restore, sta
 
 Exhibit.EditingLens.prototype._constructDefaultUI = function(itemID, div, uiContext) {
     var self = this;
-    
+
     var database = uiContext.getDatabase();
     if (this._commonProperties == null) {
         this._commonProperties = database.getAllProperties();
     }
     var properties = this._commonProperties;
-    
+
     var label = database.getObject(itemID, "label");
     var template = {
         elmt:       div,
@@ -112,21 +112,21 @@ Exhibit.EditingLens.prototype._constructDefaultUI = function(itemID, div, uiCont
         ]
     };
     var dom = SimileAjax.DOM.createDOMFromTemplate(template);
-    
+
     div.setAttribute("ex:itemID", itemID);
     this._TBody = dom.propertiesTable.tBodies[0];
-    
+
     var allProperties = database.getAllProperties();
     var pairs = Exhibit.ViewPanel.getPropertyValuesPairs(
         itemID, allProperties, database);
-    
+
     for (var j = 0; j < pairs.length; j++) {
         var pair = pairs[j];
-        
+
         var tr = dom.propertiesTable.insertRow(j);
         tr.className = "exhibit-lens-property";
         tr.setAttribute("ex:propertyID", pair.propertyID);
-        
+
         var tdName = tr.insertCell(0);
         tdName.className = "exhibit-lens-property-name";
         tdName.innerHTML = pair.propertyLabel /*+
@@ -135,39 +135,39 @@ Exhibit.EditingLens.prototype._constructDefaultUI = function(itemID, div, uiCont
         cell.className = "exhibit-lens-property-values";
         this._fillCell(pair.propertyID, cell, uiContext);
     }
-    
+
     //this.addButtons(itemID, dom.titlebar, uiContext);
 
     div.style.marginBottom = "2em";
     div.style.marginTop = "0.5em";
     div.style.border="solid";
     div.style.borderWidth = "1";
-    
+
     this._makeEditing(itemID, div, uiContext, Exhibit.EditingLens.getEditing(itemID, uiContext));
 }
 
 Exhibit.EditingLens.prototype._makeEditing = function(itemID, div, uiContext, editMode) {
     var self = this;
-    
+
     var popup = document.createElement("span");
     popup.className = "exhibit-toolboxWidget-popup screen";
-    
+
     var editImg = Exhibit.UI.createTranslucentImage("images/edit-icon.png");
     editImg.className = "exhibit-toolboxWidget-button";
     SimileAjax.WindowManager.registerEvent(
-        editImg, 
-        "click", 
+        editImg,
+        "click",
         function(elmt, evt, target) {
             self._convertLens(itemID, div, uiContext, editMode==0 ? 1 : 0);
         }
     );
     popup.style.marginTop = editMode==0 ? 1 : 0;
     popup.style.marginRight = editMode==0 ? 1 : 0;
-    
+
     popup.appendChild(editImg);
-    
+
     //===
-    
+
     var menuBar = document.createElement("div");
     menuBar.style.textAlign = "right";
     if(editMode == ADVANCED_EDITING) {
@@ -175,31 +175,31 @@ Exhibit.EditingLens.prototype._makeEditing = function(itemID, div, uiContext, ed
         menuBar.style.borderWidth = 1;
      } else
         menuBar.style.border = "none";
-    
+
     var toggleButton = document.createElement("span");
     toggleButton.className = "item-edit-button";
     toggleButton.innerHTML = editMode==0 ? "Edit" : "Done";
     toggleButton.title = editMode==0?"Open editing view.":"Save and return to normal view.";
     SimileAjax.WindowManager.registerEvent(
-        toggleButton, 
-        "click", 
+        toggleButton,
+        "click",
         function(elmt, evt, target) {
             self._convertLens(itemID, div, uiContext, editMode==0 ? 1 : 0);
         }
     );
-    
+
     var advancedButton = document.createElement("span");
     advancedButton.className = "item-edit-button";
     advancedButton.innerHTML = editMode==1 ? "Advanced" : "Simple";
     advancedButton.title = editMode==1 ? "Show advanced view." : "Show simple view.";
     SimileAjax.WindowManager.registerEvent(
-        advancedButton, 
-        "click", 
+        advancedButton,
+        "click",
         function(elmt, evt, target) {
             self._convertLens(itemID, div, uiContext, editMode==1 ? 2 : 1);
         }
     );
-    
+
     if (editMode == ADVANCED_EDITING) {
         var addButton = document.createElement("span");
         addButton.className = "item-edit-button";
@@ -224,7 +224,7 @@ Exhibit.EditingLens.prototype._makeEditing = function(itemID, div, uiContext, ed
                 self._openRemoveTagMenu(removeButton, itemID, uiContext);
             }
         );
-        
+
         var revertButton = document.createElement("span");
         revertButton.className = "item-edit-button";
         revertButton.innerHTML = "Revert";
@@ -234,7 +234,7 @@ Exhibit.EditingLens.prototype._makeEditing = function(itemID, div, uiContext, ed
             Exhibit.UI.removeChildren(self._rootNode);
             self._constructEditingLens(itemID, self._rootNode, uiContext);
         }
-        
+
         var saveButton = document.createElement("span");
         saveButton.className = "item-edit-button";
         saveButton.innerHTML = "Save";
@@ -251,7 +251,7 @@ Exhibit.EditingLens.prototype._makeEditing = function(itemID, div, uiContext, ed
     if(editMode != NO_EDITING)
         menuBar.appendChild(advancedButton);
     menuBar.appendChild(toggleButton);
-    
+
     var target = menuBar;
     for(var i=0; i<div.childNodes.length; i++) {
         var temp = div.childNodes[i];
@@ -280,7 +280,7 @@ Exhibit.EditingLens.prototype._convertLens = function(itemID, div, uiContext, to
     } else {
         this._restore();
     }
-    
+
 }
 
 Exhibit.EditingLens.prototype._constructEditingLens = function(itemID, div, uiContext) {
@@ -290,10 +290,10 @@ Exhibit.EditingLens.prototype._constructEditingLens = function(itemID, div, uiCo
 
 Exhibit.EditingLens.prototype.addButtons = function(itemID, div, uiContext) {
     var self = this;
-    
+
     var buttons = document.createElement("span");
     buttons.className = "item-edit-buttons";
-    
+
     var addButton = document.createElement("span");
     addButton.className = "item-edit-button";
     addButton.innerHTML = "Add value";
@@ -315,7 +315,7 @@ Exhibit.EditingLens.prototype.addButtons = function(itemID, div, uiContext) {
             self._openRemoveTagMenu(removeButton, itemID, uiContext);
         }
     );
-    
+
     var revertButton = document.createElement("span");
     revertButton.className = "item-edit-button";
     revertButton.innerHTML = "Revert";
@@ -324,7 +324,7 @@ Exhibit.EditingLens.prototype.addButtons = function(itemID, div, uiContext) {
         Exhibit.UI.removeChildren(self._rootNode);
         self._constructEditingLens(itemID, self._rootNode, uiContext);
     }
-    
+
     var saveButton = document.createElement("span");
     saveButton.className = "item-edit-button";
     saveButton.innerHTML = "Save";
@@ -332,12 +332,12 @@ Exhibit.EditingLens.prototype.addButtons = function(itemID, div, uiContext) {
         self._saveFromEditingLens(itemID, self._rootNode, uiContext);
         //revertButton.onclick();
     }
-    
+
     buttons.appendChild(addButton);
     buttons.appendChild(removeButton);
     buttons.appendChild(saveButton);
     buttons.appendChild(revertButton);
-    
+
     var target = buttons;
     for(var i=0; i<div.childNodes.length; i++) {
         var temp = div.childNodes[i];
@@ -421,8 +421,8 @@ Exhibit.EditingLens.prototype._addAppendButton = function(propertyID, cell, uiCo
     addImg.height = 10;
     addImg.title = "add new value";
     SimileAjax.WindowManager.registerEvent(
-        addImg, 
-        "click", 
+        addImg,
+        "click",
         function(elmt, evt, target) {
             self._addValue(propertyID, uiContext);
         }
@@ -517,18 +517,18 @@ Exhibit.EditingLens.prototype._removeValue = function(propertyID, num, uiContext
 Exhibit.EditingLens.prototype._openRemoveTagMenu = function(elmt, itemID, uiContext) {
     var self = this;
     this.sync();
-    
+
     var dom = Exhibit.createPopupMenu(elmt);
     dom.elmt.style.width = "15em";
     dom.appendSectionHeading("Remove property value:");
 
     var sample = function(text) {
-        if (text.length > 20) 
+        if (text.length > 20)
             return text.substr(0, 15) + "...";
         else
             return text;
     };
-    
+
     var pairs = [];
     var propertyIDs = database.getAllProperties();
     for (var i = 0; i < propertyIDs.length; i++) {
@@ -539,24 +539,24 @@ Exhibit.EditingLens.prototype._openRemoveTagMenu = function(elmt, itemID, uiCont
             pairs.push({ propertyID: propertyID, label: property != null ? property.getLabel() : propertyID });
         }
     }
-    
+
     var makeMenuItem = function(propertyID, label) {
         if(database.getProperty(propertyID).getValueType() == "item")
             return;
         var subdom = dom.appendSubMenu(label);
         for(var v = 0; v < self._itemData[propertyID].length; v++) {
             subdom.appendMenuItem(
-                sample(self._itemData[propertyID][v]), 
-                null, 
+                sample(self._itemData[propertyID][v]),
+                null,
                 (function(x) {
-                    return function() { 
+                    return function() {
                         self._removeValue(propertyID, x, uiContext);
                     }
                 })(v)
             );
         }
     }
-    
+
     for (var i = 0; i < pairs.length; i++) {
         var pair = pairs[i];
         makeMenuItem(pair.propertyID, pair.label);
@@ -569,11 +569,11 @@ Exhibit.EditingLens.prototype._openAddTagMenu = function(elmt, itemID, uiContext
     this.sync();
     var database = uiContext.getDatabase();
     //var property = this._columns[columnIndex].virtualProperty;
-    
+
     var dom = Exhibit.createPopupMenu(elmt);
     //dom.elmt.style.width = "10em";
     dom.appendSectionHeading("Add property value to:");
-    
+
     var pairs = [];
     var propertyIDs = database.getAllProperties();
     for (var i = 0; i < propertyIDs.length; i++) {
@@ -584,18 +584,18 @@ Exhibit.EditingLens.prototype._openAddTagMenu = function(elmt, itemID, uiContext
             pairs.push({ propertyID: propertyID, label: property != null ? property.getLabel() : propertyID });
         }
     }
-    
+
     var makeMenuItem = function(propertyID, label) {
         var a = dom.makeMenuItem(
-            label, 
-            null, 
-            function() { 
+            label,
+            null,
+            function() {
                 self._addValue(propertyID, uiContext);
             }
         );
         dom.elmt.appendChild(a);
     }
-    
+
     for (var i = 0; i < pairs.length; i++) {
         var pair = pairs[i];
         makeMenuItem(pair.propertyID, pair.label);
@@ -606,13 +606,13 @@ Exhibit.EditingLens.prototype._openAddTagMenu = function(elmt, itemID, uiContext
 Exhibit.EditingLens.prototype._addRemovableValueSpan = function(parentElmt, propertyID, num, layer, showRemoveIcon) {
     var self = this;
     var value = this._itemData[propertyID][num];
-    
+
     //We don't need to take into account the valueType
     var input = document.createElement("input");
     input.className = "editable-exhibit-value";
     input.value = value;
     parentElmt.appendChild(input);
-    
+
     var removeImg = Exhibit.UI.createTranslucentImage("images/remove-icon.png");
     removeImg.style.cursor = "pointer";
     removeImg.width = 10;
@@ -620,8 +620,8 @@ Exhibit.EditingLens.prototype._addRemovableValueSpan = function(parentElmt, prop
     removeImg.style.margin = 0;
     removeImg.title = "remove value";
     SimileAjax.WindowManager.registerEvent(
-        removeImg, 
-        "click", 
+        removeImg,
+        "click",
         function(elmt, evt, target) {
             self._removeValue(propertyID, num, layer);
         }
@@ -638,7 +638,7 @@ Exhibit.EditingLens.prototype._addRemovableValueSpan = function(parentElmt, prop
         removeImg.className = "not-shown";
         commaSpan.className = "not-shown";
     }
-    
+
 };
 
 
@@ -680,9 +680,9 @@ Exhibit.EditingLens._addInput = function(values, value, valueType, parentElmt, u
     input.className = "editable-exhibit-value";
     input.value = value;
     parentElmt.appendChild(input);
-    
+
     Exhibit.EditingLens._addRemoveIcon(values, valueType, parentElmt, uiContext, itemID, propertyID, value);
-    
+
     var commaSpan = document.createElement("span");
     commaSpan.appendChild(document.createTextNode(", "));
     parentElmt.appendChild(commaSpan);
@@ -697,8 +697,8 @@ Exhibit.EditingLens._addRemoveIcon = function(values, valueType, parentElmt, uiC
     parentElmt.onclick = "";
     parentElmt.onclick = null;
     SimileAjax.WindowManager.registerEvent(
-        removeImg, 
-        "click", 
+        removeImg,
+        "click",
         function(elmt, evt, target) {
             values.remove(value);
             Exhibit.UI.removeChildren(parentElmt);
@@ -714,8 +714,8 @@ Exhibit.EditingLens._addAppendIcon = function(values, valueType, parentElmt, uiC
     addImg.height = 10;
     addImg.title = "add new value";
     SimileAjax.WindowManager.registerEvent(
-        addImg, 
-        "click", 
+        addImg,
+        "click",
         function(elmt, evt, target) {
             values.add("");
             Exhibit.UI.removeChildren(parentElmt);
@@ -749,17 +749,17 @@ Exhibit.EditingLens._addSaveAndCancelButtons = function(propertyBox, uiContext, 
         itemEntry["id"] = itemID;
         uiContext.getDatabase().reloadItem(itemID, itemEntry);
     };
-    
+
     var redraw = function() {
         Exhibit.UI.removeChildren(propertyBox);
         Exhibit.EditingLens._constructDefaultValueList(values, valueType, propertyBox, uiContext, itemID, propertyID);
     };
-    
+
     var saveAndRedraw = function() {
         save();
         redraw();
     } //That was easy!
-    
+
     var saveButton = Exhibit.EditingLens.makeButton("Save", saveAndRedraw);
     var cancelButton = Exhibit.EditingLens.makeButton("Cancel", redraw);
     propertyBox.appendChild(saveButton);
@@ -771,7 +771,7 @@ Exhibit.UIContext.prototype.format = function(value, valueType, appender, editin
     if (valueType in this._formatters) {
         f = this._formatters[valueType];
     } else {
-        f = this._formatters[valueType] = 
+        f = this._formatters[valueType] =
             new Exhibit.Formatter._constructors[valueType](this);
     }
     f.format(value, appender, editing);

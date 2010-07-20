@@ -7,30 +7,30 @@ Exhibit.ViewPanel = function(div, uiContext) {
     this._uiContext = uiContext;
     this._div = div;
     this._uiContextCache = {};
-    
+
     this._viewConstructors = [];
     this._viewConfigs = [];
     this._viewLabels = [];
     this._viewTooltips = [];
     this._viewDomConfigs = [];
     this._viewIDs = [];
-    
+
     this._viewIndex = 0;
     this._view = null;
 }
 
 Exhibit.ViewPanel.create = function(configuration, div, uiContext) {
     var viewPanel = new Exhibit.ViewPanel(div, uiContext);
-    
+
     if ("views" in configuration) {
         for (var i = 0; i < configuration.views.length; i++) {
             var viewConfig = configuration.views[i];
-            
+
             var viewClass = ("viewClass" in view) ? view.viewClass : Exhibit.TileView;
             if (typeof viewClass == "string") {
                 viewClass = Exhibit.UI.viewClassNameToViewClass(viewClass);
             }
-            
+
             var label = null;
             if ("viewLabel" in viewConfig) {
                 label = viewConfig.viewLabel;
@@ -41,7 +41,7 @@ Exhibit.ViewPanel.create = function(configuration, div, uiContext) {
             } else {
                 label = "" + viewClass;
             }
-            
+
             var tooltip = null;
             if ("tooltip" in viewConfig) {
                 tooltip = viewConfig.tooltip;
@@ -50,12 +50,12 @@ Exhibit.ViewPanel.create = function(configuration, div, uiContext) {
             } else {
                 tooltip = label;
             }
-            
+
             var id = viewPanel._generateViewID();
             if ("id" in viewConfig) {
                 id = viewConfig.id;
             }
-                
+
             viewPanel._viewConstructors.push(viewClass);
             viewPanel._viewConfigs.push(viewConfig);
             viewPanel._viewLabels.push(label);
@@ -64,29 +64,29 @@ Exhibit.ViewPanel.create = function(configuration, div, uiContext) {
             viewPanel._viewIDs.push(id);
         }
     }
-    
+
     if ("initialView" in configuration) {
         viewPanel._viewIndex = configuration.initialView;
     }
-    
+
     viewPanel._internalValidate();
     viewPanel._initializeUI();
-    
+
     return viewPanel;
 };
 
 Exhibit.ViewPanel.createFromDOM = function(div, uiContext) {
     var viewPanel = new Exhibit.ViewPanel(div, Exhibit.UIContext.createFromDOM(div, uiContext, false));
-    
+
     var node = div.firstChild;
     while (node != null) {
         if (node.nodeType == 1) {
             node.style.display = "none";
-            
+
             var role = Exhibit.getRoleAttribute(node);
             if (role == "view") {
                 var viewClass = Exhibit.TileView;
-                
+
                 var viewClassString = Exhibit.getAttribute(node, "viewClass");
                 if (viewClassString != null && viewClassString.length > 0) {
                     viewClass = Exhibit.UI.viewClassNameToViewClass(viewClassString);
@@ -94,12 +94,12 @@ Exhibit.ViewPanel.createFromDOM = function(div, uiContext) {
                         SimileAjax.Debug.warn("Unknown viewClass " + viewClassString);
                     }
                 }
-                
+
                 var viewLabel = Exhibit.getAttribute(node, "viewLabel");
                 var label = (viewLabel != null && viewLabel.length > 0) ? viewLabel : Exhibit.getAttribute(node, "label");
                 var tooltip = Exhibit.getAttribute(node, "title");
                 var id = node.id;
-                
+
                 if (label == null) {
                     if ("viewLabel" in viewClass.l10n) {
                         label = viewClass.l10n.viewLabel;
@@ -117,7 +117,7 @@ Exhibit.ViewPanel.createFromDOM = function(div, uiContext) {
                 if (id == null || id.length == 0) {
                     id = viewPanel._generateViewID();
                 }
-                
+
                 viewPanel._viewConstructors.push(viewClass);
                 viewPanel._viewConfigs.push(null);
                 viewPanel._viewLabels.push(label);
@@ -128,7 +128,7 @@ Exhibit.ViewPanel.createFromDOM = function(div, uiContext) {
         }
         node = node.nextSibling;
     }
-    
+
     var initialView = Exhibit.getAttribute(div, "initialView");
     if (initialView != null && initialView.length > 0) {
         try {
@@ -139,10 +139,10 @@ Exhibit.ViewPanel.createFromDOM = function(div, uiContext) {
         } catch (e) {
         }
     }
-    
+
     viewPanel._internalValidate();
     viewPanel._initializeUI();
-    
+
     return viewPanel;
 };
 
@@ -153,9 +153,9 @@ Exhibit.ViewPanel.prototype.dispose = function() {
         this._view.dispose();
         this._view = null;
     }
-    
+
     this._div.innerHTML = "";
-    
+
     this._uiContext.dispose();
     this._uiContext = null;
     this._div = null;
@@ -174,8 +174,8 @@ Exhibit.ViewPanel.prototype._internalValidate = function() {
         this._viewDomConfigs.push(null);
         this._viewIDs.push(this._generateViewID());
     }
-    
-    this._viewIndex = 
+
+    this._viewIndex =
         Math.max(0, Math.min(this._viewIndex, this._viewConstructors.length - 1));
 };
 
@@ -186,7 +186,7 @@ Exhibit.ViewPanel.prototype._initializeUI = function() {
     } else {
         this._div.appendChild(div);
     }
-    
+
     var self = this;
     this._dom = Exhibit.ViewPanel.constructDom(
         this._div.firstChild,
@@ -196,30 +196,30 @@ Exhibit.ViewPanel.prototype._initializeUI = function() {
             self._selectView(index);
         }
     );
-    
+
     this._createView();
 };
 
 Exhibit.ViewPanel.prototype._createView = function() {
     var viewContainer = this._dom.getViewContainer();
     viewContainer.innerHTML = "";
-    
+
     var viewDiv = document.createElement("div");
     viewContainer.appendChild(viewDiv);
-    
+
     var index = this._viewIndex;
     var context = this._uiContextCache[index] || this._uiContext;
     try {
         if (this._viewDomConfigs[index] != null) {
             this._view = this._viewConstructors[index].createFromDOM(
                 this._viewDomConfigs[index],
-                viewContainer, 
+                viewContainer,
                 context
             );
         } else {
             this._view = this._viewConstructors[index].create(
                 this._viewConfigs[index],
-                viewContainer, 
+                viewContainer,
                 context
             );
         }
@@ -227,7 +227,7 @@ Exhibit.ViewPanel.prototype._createView = function() {
         SimileAjax.Debug.log("Failed to create view " + this._viewLabels[index]);
         SimileAjax.Debug.exception(e);
     }
-    
+
     this._uiContextCache[index] = this._view._uiContext;
 
     this._uiContext.getExhibit().setComponent(this._viewIDs[index], this._view);
@@ -261,14 +261,14 @@ Exhibit.ViewPanel.getPropertyValuesPairs = function(itemID, propertyEntries, dat
     var pairs = [];
     var enterPair = function(propertyID, forward) {
         var property = database.getProperty(propertyID);
-        var values = forward ? 
+        var values = forward ?
             database.getObjects(itemID, propertyID) :
             database.getSubjects(itemID, propertyID);
         var count = values.size();
-        
+
         if (count > 0) {
             var itemValues = property.getValueType() == "item";
-            var pair = { 
+            var pair = {
                 propertyLabel:
                     forward ?
                         (count > 1 ? property.getPluralLabel() : property.getLabel()) :
@@ -276,7 +276,7 @@ Exhibit.ViewPanel.getPropertyValuesPairs = function(itemID, propertyEntries, dat
                 valueType:  property.getValueType(),
                 values:     []
             };
-            
+
             if (itemValues) {
                 values.visit(function(value) {
                     var label = database.getObject(value, "label");
@@ -290,7 +290,7 @@ Exhibit.ViewPanel.getPropertyValuesPairs = function(itemID, propertyEntries, dat
             pairs.push(pair);
         }
     };
-    
+
     for (var i = 0; i < propertyEntries.length; i++) {
         var entry = propertyEntries[i];
         if (typeof entry == "string") {
@@ -330,20 +330,20 @@ Exhibit.ViewPanel.constructDom = function(
     dom.setViewIndex = function(index) {
         if (viewLabels.length > 1) {
             dom.viewSelectionDiv.innerHTML = "";
-            
+
             var appendView = function(i) {
                 var selected = (i == index);
                 if (i > 0) {
                     dom.viewSelectionDiv.appendChild(document.createTextNode(" \u2022 "));
                 }
-                
+
                 var span = document.createElement("span");
-                span.className = selected ? 
+                span.className = selected ?
                     "exhibit-viewPanel-viewSelection-selectedView" :
                     "exhibit-viewPanel-viewSelection-view";
                 span.title = viewTooltips[i];
                 span.innerHTML = viewLabels[i];
-                
+
                 if (!selected) {
                     var handler = function(elmt, evt, target) {
                         onSelectView(i);
@@ -354,12 +354,12 @@ Exhibit.ViewPanel.constructDom = function(
                 }
                 dom.viewSelectionDiv.appendChild(span);
             };
-            
+
             for (var i = 0; i < viewLabels.length; i++) {
                 appendView(i);
             }
         }
     };
-    
+
     return dom;
 };

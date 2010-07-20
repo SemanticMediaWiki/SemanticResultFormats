@@ -6,10 +6,10 @@ Exhibit.LegendWidget = function(configuration, containerElmt, uiContext) {
     this._configuration = configuration;
     this._div = containerElmt;
     this._uiContext = uiContext;
-    
+
     this._colorMarkerGenerator = "colorMarkerGenerator" in configuration ?
         configuration.colorMarkerGenerator :
-        Exhibit.LegendWidget._defaultColorMarkerGenerator;	 
+        Exhibit.LegendWidget._defaultColorMarkerGenerator;
 	this._sizeMarkerGenerator = "sizeMarkerGenerator" in configuration ?
 		configuration.sizeMarkerGenerator :
 		Exhibit.LegendWidget._defaultSizeMarkerGenerator;
@@ -20,7 +20,7 @@ Exhibit.LegendWidget = function(configuration, containerElmt, uiContext) {
     this._labelStyler = "labelStyler" in configuration ?
         configuration.labelStyler :
         Exhibit.LegendWidget._defaultColorLabelStyler;
-    
+
     this._initializeUI();
 };
 
@@ -30,7 +30,7 @@ Exhibit.LegendWidget.create = function(configuration, containerElmt, uiContext) 
 
 Exhibit.LegendWidget.prototype.dispose = function() {
     this._div.innerHTML = "";
-    
+
     this._div = null;
     this._uiContext = null;
 };
@@ -48,8 +48,8 @@ Exhibit.LegendWidget.prototype.addLegendLabel = function(label, type) {
 	var dom = SimileAjax.DOM.createDOMFromString(
 			"div",
 			"<div id='legend-label'>" +
-				"<span id='label' class='exhibit-legendWidget-entry-title'>" + 
-					label.replace(/\s+/g, "\u00a0") + 
+				"<span id='label' class='exhibit-legendWidget-entry-title'>" +
+					label.replace(/\s+/g, "\u00a0") +
 				"</span>" +
 			"\u00a0\u00a0 </div>",
 			{ }
@@ -66,8 +66,8 @@ Exhibit.LegendWidget.prototype.addEntry = function(value, label, type) {
 		var dom = SimileAjax.DOM.createDOMFromString(
 			"span",
 			"<span id='marker'></span>\u00a0" +
-				"<span id='label' class='exhibit-legendWidget-entry-title'>" + 
-					label.replace(/\s+/g, "\u00a0") + 
+				"<span id='label' class='exhibit-legendWidget-entry-title'>" +
+					label.replace(/\s+/g, "\u00a0") +
 				"</span>" +
 				"\u00a0\u00a0 ",
 			{ marker: this._colorMarkerGenerator(value) }
@@ -78,8 +78,8 @@ Exhibit.LegendWidget.prototype.addEntry = function(value, label, type) {
 		var dom = SimileAjax.DOM.createDOMFromString(
 			"span",
 			"<span id='marker'></span>\u00a0" +
-				"<span id='label' class='exhibit-legendWidget-entry-title'>" + 
-					label.replace(/\s+/g, "\u00a0") + 
+				"<span id='label' class='exhibit-legendWidget-entry-title'>" +
+					label.replace(/\s+/g, "\u00a0") +
 				"</span>" +
 				"\u00a0\u00a0 ",
 			{ marker: this._sizeMarkerGenerator(value) }
@@ -90,8 +90,8 @@ Exhibit.LegendWidget.prototype.addEntry = function(value, label, type) {
 		var dom = SimileAjax.DOM.createDOMFromString(
 			"span",
 			"<span id='marker'></span>\u00a0" +
-				"<span id='label' class='exhibit-legendWidget-entry-title'>" + 
-					label.replace(/\s+/g, "\u00a0") + 
+				"<span id='label' class='exhibit-legendWidget-entry-title'>" +
+					label.replace(/\s+/g, "\u00a0") +
 				"</span>" +
 				"\u00a0\u00a0 ",
 			{ marker: this._iconMarkerGenerator(value) }

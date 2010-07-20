@@ -4,13 +4,13 @@
  */
 
 (function() {
-    var isCompiled = ("Exhibit_ChartExtension_isCompiled" in window) && 
+    var isCompiled = ("Exhibit_ChartExtension_isCompiled" in window) &&
                     window.Exhibit_ChartExtension_isCompiled;
-                    
+
     Exhibit.ChartExtension = {
         params: {
             bundle: true
-        } 
+        }
     };
 
     var javascriptFiles = [
@@ -23,7 +23,7 @@
         "pivot-table-view.css",
         "bar-chart-view.css"
     ];
-    
+
     var paramTypes = { bundle: Boolean };
     if (typeof Exhibit_ChartExtension_urlPrefix == "string") {
         Exhibit.ChartExtension.urlPrefix = Exhibit_ChartExtension_urlPrefix;
@@ -39,13 +39,13 @@
             return;
         }
         Exhibit.ChartExtension.urlPrefix = url.substr(0, url.indexOf("chart-extension.js"));
-        
+
         SimileAjax.parseURLParameters(url, Exhibit.ChartExtension.params, paramTypes);
     }
-    
+
     var scriptURLs = [];
     var cssURLs = [];
-    
+
     if (Exhibit.ChartExtension.params.bundle) {
         scriptURLs.push(Exhibit.ChartExtension.urlPrefix + "chart-extension-bundle.js");
         cssURLs.push(Exhibit.ChartExtension.urlPrefix + "chart-extension-bundle.css");
@@ -53,11 +53,11 @@
         SimileAjax.prefixURLs(scriptURLs, Exhibit.ChartExtension.urlPrefix + "scripts/", javascriptFiles);
         SimileAjax.prefixURLs(cssURLs, Exhibit.ChartExtension.urlPrefix + "styles/", cssFiles);
     }
-    
+
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.ChartExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/chart-locale.js");
     };
-    
+
     if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);

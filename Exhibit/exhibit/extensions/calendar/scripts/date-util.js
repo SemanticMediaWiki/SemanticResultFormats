@@ -105,7 +105,7 @@ Exhibit.DateUtil.formatDate = function(date,format) {
 		}
 	return result;
 }
-	
+
 // ------------------------------------------------------------------
 // Utility functions for parsing in getDateFromFormat()
 // ------------------------------------------------------------------
@@ -126,12 +126,12 @@ Exhibit.DateUtil._getInt = function(str,i,minlength,maxlength) {
 		}
 	return null;
 }
-	
+
 // ------------------------------------------------------------------
 // getDateFromFormat( date_string , format_string )
 //
 // This function takes a date string and a format string. It matches
-// If the date string matches the format string, it returns the 
+// If the date string matches the format string, it returns the
 // getTime() of the date. If it does not match, it returns 0.
 // ------------------------------------------------------------------
 Exhibit.DateUtil.getDateFromFormat = function(val,format) {
@@ -151,7 +151,7 @@ Exhibit.DateUtil.getDateFromFormat = function(val,format) {
 	var mm=now.getMinutes();
 	var ss=now.getSeconds();
 	var ampm="";
-	
+
 	while (i_format < format.length) {
 		// Get next token from format string
 		c=format.charAt(i_format);

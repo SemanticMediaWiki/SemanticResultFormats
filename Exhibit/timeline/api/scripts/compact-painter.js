@@ -6,11 +6,11 @@
 Timeline.CompactEventPainter = function(params) {
     this._params = params;
     this._onSelectListeners = [];
-    
+
     this._filterMatcher = null;
     this._highlightMatcher = null;
     this._frc = null;
-    
+
     this._eventIdToElmt = {};
 };
 
@@ -21,12 +21,12 @@ Timeline.CompactEventPainter.prototype.getType = function() {
 Timeline.CompactEventPainter.prototype.initialize = function(band, timeline) {
     this._band = band;
     this._timeline = timeline;
-    
+
     this._backLayer = null;
     this._eventLayer = null;
     this._lineLayer = null;
     this._highlightLayer = null;
-    
+
     this._eventIdToElmt = null;
 };
 
@@ -68,30 +68,30 @@ Timeline.CompactEventPainter.prototype.paint = function() {
     if (eventSource == null) {
         return;
     }
-    
+
     this._eventIdToElmt = {};
     this._prepareForPainting();
-    
+
     var metrics = this._computeMetrics();
     var minDate = this._band.getMinDate();
     var maxDate = this._band.getMaxDate();
-    
-    var filterMatcher = (this._filterMatcher != null) ? 
+
+    var filterMatcher = (this._filterMatcher != null) ?
         this._filterMatcher :
         function(evt) { return true; };
-        
-    var highlightMatcher = (this._highlightMatcher != null) ? 
+
+    var highlightMatcher = (this._highlightMatcher != null) ?
         this._highlightMatcher :
         function(evt) { return -1; };
-    
+
     var iterator = eventSource.getEventIterator(minDate, maxDate);
-    
+
     var stackConcurrentPreciseInstantEvents = "stackConcurrentPreciseInstantEvents" in this._params && typeof this._params.stackConcurrentPreciseInstantEvents == "object";
     var collapseConcurrentPreciseInstantEvents = "collapseConcurrentPreciseInstantEvents" in this._params && this._params.collapseConcurrentPreciseInstantEvents;
     if (collapseConcurrentPreciseInstantEvents || stackConcurrentPreciseInstantEvents) {
         var bufferedEvents = [];
         var previousInstantEvent = null;
-        
+
         while (iterator.hasNext()) {
             var evt = iterator.next();
             if (filterMatcher(evt)) {
@@ -106,17 +106,17 @@ Timeline.CompactEventPainter.prototype.paint = function() {
                 }
             }
         }
-        
+
         for (var i = 0; i < bufferedEvents.length; i++) {
             var compositeEvents = bufferedEvents[i];
             if (compositeEvents.length == 1) {
-                this.paintEvent(compositeEvents[0], metrics, this._params.theme, highlightMatcher(evt)); 
+                this.paintEvent(compositeEvents[0], metrics, this._params.theme, highlightMatcher(evt));
             } else {
                 var match = -1;
                 for (var j = 0; match < 0 && j < compositeEvents.length; j++) {
                     match = highlightMatcher(compositeEvents[j]);
                 }
-                
+
                 if (stackConcurrentPreciseInstantEvents) {
                     this.paintStackedPreciseInstantEvents(compositeEvents, metrics, this._params.theme, match);
                 } else {
@@ -132,11 +132,11 @@ Timeline.CompactEventPainter.prototype.paint = function() {
             }
         }
     }
-    
+
     this._highlightLayer.style.display = "block";
     this._lineLayer.style.display = "block";
     this._eventLayer.style.display = "block";
-    
+
     this._setOrthogonalOffset(metrics);
 };
 
@@ -151,34 +151,34 @@ Timeline.CompactEventPainter.prototype.getOrthogonalExtent = function() {
 
 Timeline.CompactEventPainter.prototype._setOrthogonalOffset = function(metrics) {
     var orthogonalOffset = this._band.getViewOrthogonalOffset();
-    
-    this._highlightLayer.style.top = 
-        this._lineLayer.style.top = 
-            this._eventLayer.style.top = 
+
+    this._highlightLayer.style.top =
+        this._lineLayer.style.top =
+            this._eventLayer.style.top =
                 orthogonalOffset + "px";
 };
 
 Timeline.CompactEventPainter.prototype._computeMetrics = function() {
     var theme = this._params.theme;
     var eventTheme = theme.event;
-    
+
     var metrics = {
         trackOffset:            "trackOffset" in this._params ? this._params.trackOffset : 10,
         trackHeight:            "trackHeight" in this._params ? this._params.trackHeight : 10,
-        
+
         tapeHeight:             theme.event.tape.height,
         tapeBottomMargin:       "tapeBottomMargin" in this._params ? this._params.tapeBottomMargin : 2,
-        
+
         labelBottomMargin:      "labelBottomMargin" in this._params ? this._params.labelBottomMargin : 5,
         labelRightMargin:       "labelRightMargin" in this._params ? this._params.labelRightMargin : 5,
-        
+
         defaultIcon:            eventTheme.instant.icon,
         defaultIconWidth:       eventTheme.instant.iconWidth,
         defaultIconHeight:      eventTheme.instant.iconHeight,
-        
+
         customIconWidth:        "iconWidth" in this._params ? this._params.iconWidth : eventTheme.instant.iconWidth,
         customIconHeight:       "iconHeight" in this._params ? this._params.iconHeight : eventTheme.instant.iconHeight,
-        
+
         iconLabelGap:           "iconLabelGap" in this._params ? this._params.iconLabelGap : 2,
         iconBottomMargin:       "iconBottomMargin" in this._params ? this._params.iconBottomMargin : 2
     };
@@ -197,17 +197,17 @@ Timeline.CompactEventPainter.prototype._computeMetrics = function() {
         this._params.stackConcurrentPreciseInstantEvents.iconWidth : metrics.defaultIconWidth;
     metrics.defaultStackIconHeight = ("stackConcurrentPreciseInstantEvents" in this._params && "iconHeight" in this._params.stackConcurrentPreciseInstantEvents) ?
         this._params.stackConcurrentPreciseInstantEvents.iconHeight : metrics.defaultIconHeight;
-    
+
     return metrics;
 };
 
 Timeline.CompactEventPainter.prototype._prepareForPainting = function() {
     var band = this._band;
-        
+
     if (this._backLayer == null) {
         this._backLayer = this._band.createLayerDiv(0, "timeline-band-events");
         this._backLayer.style.visibility = "hidden";
-        
+
         var eventLabelPrototype = document.createElement("span");
         eventLabelPrototype.className = "timeline-event-label";
         this._backLayer.appendChild(eventLabelPrototype);
@@ -215,19 +215,19 @@ Timeline.CompactEventPainter.prototype._prepareForPainting = function() {
     }
     this._frc.update();
     this._tracks = [];
-    
+
     if (this._highlightLayer != null) {
         band.removeLayerDiv(this._highlightLayer);
     }
     this._highlightLayer = band.createLayerDiv(105, "timeline-band-highlights");
     this._highlightLayer.style.display = "none";
-    
+
     if (this._lineLayer != null) {
         band.removeLayerDiv(this._lineLayer);
     }
     this._lineLayer = band.createLayerDiv(110, "timeline-band-lines");
     this._lineLayer.style.display = "none";
-    
+
     if (this._eventLayer != null) {
         band.removeLayerDiv(this._eventLayer);
     }
@@ -242,7 +242,7 @@ Timeline.CompactEventPainter.prototype.paintEvent = function(evt, metrics, theme
         this.paintDurationEvent(evt, metrics, theme, highlightIndex);
     }
 };
-    
+
 Timeline.CompactEventPainter.prototype.paintInstantEvent = function(evt, metrics, theme, highlightIndex) {
     if (evt.isImprecise()) {
         this.paintImpreciseInstantEvent(evt, metrics, theme, highlightIndex);
@@ -258,12 +258,12 @@ Timeline.CompactEventPainter.prototype.paintDurationEvent = function(evt, metric
         this.paintPreciseDurationEvent(evt, metrics, theme, highlightIndex);
     }
 }
-    
+
 Timeline.CompactEventPainter.prototype.paintPreciseInstantEvent = function(evt, metrics, theme, highlightIndex) {
     var commonData = {
         tooltip: evt.getProperty("tooltip") || evt.getText()
     };
-    
+
     var iconData = {
         url: evt.getIcon()
     };
@@ -276,13 +276,13 @@ Timeline.CompactEventPainter.prototype.paintPreciseInstantEvent = function(evt, 
         iconData.width = evt.getProperty("iconWidth") || metrics.customIconWidth;
         iconData.height = evt.getProperty("iconHeight") || metrics.customIconHeight;
     }
-    
+
     var labelData = {
         text:       evt.getText(),
         color:      evt.getTextColor() || evt.getColor(),
         className:  evt.getClassName()
     };
-    
+
     var result = this.paintTapeIconLabel(
         evt.getStart(),
         commonData,
@@ -300,13 +300,13 @@ Timeline.CompactEventPainter.prototype.paintPreciseInstantEvent = function(evt, 
     };
     SimileAjax.DOM.registerEvent(result.iconElmtData.elmt, "mousedown", clickHandler);
     SimileAjax.DOM.registerEvent(result.labelElmtData.elmt, "mousedown", clickHandler);
-    
+
     this._eventIdToElmt[evt.getID()] = result.iconElmtData.elmt;
 };
 
 Timeline.CompactEventPainter.prototype.paintCompositePreciseInstantEvents = function(events, metrics, theme, highlightIndex) {
     var evt = events[0];
-    
+
     var tooltips = [];
     for (var i = 0; i < events.length; i++) {
         tooltips.push(events[i].getProperty("tooltip") || events[i].getText());
@@ -314,18 +314,18 @@ Timeline.CompactEventPainter.prototype.paintCompositePreciseInstantEvents = func
     var commonData = {
         tooltip: tooltips.join("; ")
     };
-    
+
     var iconData = {
         url: metrics.compositeIcon,
         width: metrics.compositeIconWidth,
         height: metrics.compositeIconHeight,
         className: "timeline-event-icon-composite"
     };
-    
+
     var labelData = {
         text: String.substitute(this._params.compositeEventLabelTemplate, [ events.length ])
     };
-    
+
     var result = this.paintTapeIconLabel(
         evt.getStart(),
         commonData,
@@ -336,24 +336,24 @@ Timeline.CompactEventPainter.prototype.paintCompositePreciseInstantEvents = func
         theme,
         highlightIndex
     );
-    
+
     var self = this;
     var clickHandler = function(elmt, domEvt, target) {
         return self._onClickMultiplePreciseInstantEvent(result.iconElmtData.elmt, domEvt, events);
     };
-    
+
     SimileAjax.DOM.registerEvent(result.iconElmtData.elmt, "mousedown", clickHandler);
     SimileAjax.DOM.registerEvent(result.labelElmtData.elmt, "mousedown", clickHandler);
-    
+
     for (var i = 0; i < events.length; i++) {
         this._eventIdToElmt[events[i].getID()] = result.iconElmtData.elmt;
     }
 };
 
 Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = function(events, metrics, theme, highlightIndex) {
-    var limit = "limit" in this._params.stackConcurrentPreciseInstantEvents ? 
+    var limit = "limit" in this._params.stackConcurrentPreciseInstantEvents ?
         this._params.stackConcurrentPreciseInstantEvents.limit : 10;
-    var moreMessageTemplate = "moreMessageTemplate" in this._params.stackConcurrentPreciseInstantEvents ? 
+    var moreMessageTemplate = "moreMessageTemplate" in this._params.stackConcurrentPreciseInstantEvents ?
         this._params.stackConcurrentPreciseInstantEvents.moreMessageTemplate : "%0 More Events";
     var showMoreMessage = limit <= events.length - 2; // We want at least 2 more events above the limit.
                                                       // Otherwise we'd need the singular case of "1 More Event"
@@ -378,14 +378,14 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
         }
         return iconData;
     };
-    
+
     var firstIconData = getIconData(events[0]);
     var horizontalIncrement = 5;
     var leftIconEdge = 0;
     var totalLabelWidth = 0;
     var totalLabelHeight = 0;
     var totalIconHeight = 0;
-    
+
     var records = [];
     for (var i = 0; i < events.length && (!showMoreMessage || i < limit); i++) {
         var evt = events[i];
@@ -401,7 +401,7 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
         record.labelLeft = firstIconData.width + i * horizontalIncrement + metrics.iconLabelGap;
         record.top = totalLabelHeight;
         records.push(record);
-        
+
         leftIconEdge = Math.min(leftIconEdge, record.iconLeft);
         totalLabelHeight += labelSize.height;
         totalLabelWidth = Math.max(totalLabelWidth, record.labelLeft + labelSize.width);
@@ -409,21 +409,21 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
     }
     if (showMoreMessage) {
         var moreMessage = String.substitute(moreMessageTemplate, [ events.length - limit ]);
-    
+
         var moreMessageLabelSize = this._frc.computeSize(moreMessage);
         var moreMessageLabelLeft = firstIconData.width + (limit - 1) * horizontalIncrement + metrics.iconLabelGap;
         var moreMessageLabelTop = totalLabelHeight;
-        
+
         totalLabelHeight += moreMessageLabelSize.height;
         totalLabelWidth = Math.max(totalLabelWidth, moreMessageLabelLeft + moreMessageLabelSize.width);
     }
     totalLabelWidth += metrics.labelRightMargin;
     totalLabelHeight += metrics.labelBottomMargin;
     totalIconHeight += metrics.iconBottomMargin;
-    
+
     var anchorPixel = getPixelOffset(events[0].getStart());
     var newTracks = [];
-    
+
     var trackCount = Math.ceil(Math.max(totalIconHeight, totalLabelHeight) / metrics.trackHeight);
     var rightIconEdge = firstIconData.width + (events.length - 1) * horizontalIncrement;
     for (var i = 0; i < trackCount; i++) {
@@ -437,7 +437,7 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
 
     var firstTrack = this._fitTracks(anchorPixel, newTracks);
     var verticalPixelOffset = firstTrack * metrics.trackHeight + metrics.trackOffset;
-    
+
     var iconStackDiv = this._timeline.getDocument().createElement("div");
     iconStackDiv.className = 'timeline-event-icon-stack';
     iconStackDiv.style.position = "absolute";
@@ -448,7 +448,7 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
     iconStackDiv.style.height = totalIconHeight + "px";
     iconStackDiv.innerHTML = "<div style='position: relative'></div>";
     this._eventLayer.appendChild(iconStackDiv);
-    
+
     var self = this;
     var onMouseOver = function(domEvt) {
         try {
@@ -469,19 +469,19 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
         var record = records[index];
         var evt = events[index];
         var tooltip = evt.getProperty("tooltip") || evt.getText();
-        
+
         var labelElmtData = self._paintEventLabel(
             { tooltip: tooltip },
             { text: record.text },
             anchorPixel + record.labelLeft,
             verticalPixelOffset + record.top,
-            record.labelSize.width, 
-            record.labelSize.height, 
+            record.labelSize.width,
+            record.labelSize.height,
             theme
         );
         labelElmtData.elmt.setAttribute("index", index);
         labelElmtData.elmt.onmouseover = onMouseOver;
-        
+
         var img = SimileAjax.Graphics.createTranslucentImage(record.iconData.url);
         var iconDiv = self._timeline.getDocument().createElement("div");
         iconDiv.className = 'timeline-event-icon' + ("className" in record.iconData ? (" " + record.iconData.className) : "");
@@ -491,22 +491,22 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
         iconDiv.appendChild(img);
         iconDiv.setAttribute("index", index);
         iconDiv.onmouseover = onMouseOver;
-        
+
         iconStackDiv.firstChild.appendChild(iconDiv);
-        
+
         var clickHandler = function(elmt, domEvt, target) {
             return self._onClickInstantEvent(labelElmtData.elmt, domEvt, evt);
         };
-        
+
         SimileAjax.DOM.registerEvent(iconDiv, "mousedown", clickHandler);
         SimileAjax.DOM.registerEvent(labelElmtData.elmt, "mousedown", clickHandler);
-        
+
         self._eventIdToElmt[evt.getID()] = iconDiv;
     };
     for (var i = 0; i < records.length; i++) {
         paintEvent(i);
     }
-    
+
     if (showMoreMessage) {
         var moreEvents = events.slice(limit);
         var moreMessageLabelElmtData = this._paintEventLabel(
@@ -514,16 +514,16 @@ Timeline.CompactEventPainter.prototype.paintStackedPreciseInstantEvents = functi
             { text: moreMessage },
             anchorPixel + moreMessageLabelLeft,
             verticalPixelOffset + moreMessageLabelTop,
-            moreMessageLabelSize.width, 
-            moreMessageLabelSize.height, 
+            moreMessageLabelSize.width,
+            moreMessageLabelSize.height,
             theme
         );
-        
+
         var moreMessageClickHandler = function(elmt, domEvt, target) {
             return self._onClickMultiplePreciseInstantEvent(moreMessageLabelElmtData.elmt, domEvt, moreEvents);
         };
         SimileAjax.DOM.registerEvent(moreMessageLabelElmtData.elmt, "mousedown", moreMessageClickHandler);
-        
+
         for (var i = 0; i < moreEvents.length; i++) {
             this._eventIdToElmt[moreEvents[i].getID()] = moreMessageLabelElmtData.elmt;
         }
@@ -535,7 +535,7 @@ Timeline.CompactEventPainter.prototype.paintImpreciseInstantEvent = function(evt
     var commonData = {
         tooltip: evt.getProperty("tooltip") || evt.getText()
     };
-    
+
     var tapeData = {
         start:          evt.getStart(),
         end:            evt.getEnd(),
@@ -544,7 +544,7 @@ Timeline.CompactEventPainter.prototype.paintImpreciseInstantEvent = function(evt
         color:          evt.getColor() || evt.getTextColor(),
         isInstant:      true
     };
-    
+
     var iconData = {
         url: evt.getIcon()
     };
@@ -554,13 +554,13 @@ Timeline.CompactEventPainter.prototype.paintImpreciseInstantEvent = function(evt
         iconData.width = evt.getProperty("iconWidth") || metrics.customIconWidth;
         iconData.height = evt.getProperty("iconHeight") || metrics.customIconHeight;
     }
-    
+
     var labelData = {
         text:       evt.getText(),
         color:      evt.getTextColor() || evt.getColor(),
         className:  evt.getClassName()
     };
-    
+
     var result = this.paintTapeIconLabel(
         evt.getStart(),
         commonData,
@@ -573,17 +573,17 @@ Timeline.CompactEventPainter.prototype.paintImpreciseInstantEvent = function(evt
     );
 
     var self = this;
-    var clickHandler = iconData != null ? 
+    var clickHandler = iconData != null ?
         function(elmt, domEvt, target) {
             return self._onClickInstantEvent(result.iconElmtData.elmt, domEvt, evt);
         } :
         function(elmt, domEvt, target) {
             return self._onClickInstantEvent(result.labelElmtData.elmt, domEvt, evt);
         };
-        
+
     SimileAjax.DOM.registerEvent(result.labelElmtData.elmt, "mousedown", clickHandler);
     SimileAjax.DOM.registerEvent(result.impreciseTapeElmtData.elmt, "mousedown", clickHandler);
-    
+
     if (iconData != null) {
         SimileAjax.DOM.registerEvent(result.iconElmtData.elmt, "mousedown", clickHandler);
         this._eventIdToElmt[evt.getID()] = result.iconElmtData.elmt;
@@ -596,14 +596,14 @@ Timeline.CompactEventPainter.prototype.paintPreciseDurationEvent = function(evt,
     var commonData = {
         tooltip: evt.getProperty("tooltip") || evt.getText()
     };
-    
+
     var tapeData = {
         start:          evt.getStart(),
         end:            evt.getEnd(),
         color:          evt.getColor() || evt.getTextColor(),
         isInstant:      false
     };
-    
+
     var iconData = {
         url: evt.getIcon()
     };
@@ -613,13 +613,13 @@ Timeline.CompactEventPainter.prototype.paintPreciseDurationEvent = function(evt,
         iconData.width = evt.getProperty("iconWidth") || metrics.customIconWidth;
         iconData.height = evt.getProperty("iconHeight") || metrics.customIconHeight;
     }
-    
+
     var labelData = {
         text:       evt.getText(),
         color:      evt.getTextColor() || evt.getColor(),
         className:  evt.getClassName()
     };
-    
+
     var result = this.paintTapeIconLabel(
         evt.getLatestStart(),
         commonData,
@@ -632,17 +632,17 @@ Timeline.CompactEventPainter.prototype.paintPreciseDurationEvent = function(evt,
     );
 
     var self = this;
-    var clickHandler = iconData != null ? 
+    var clickHandler = iconData != null ?
         function(elmt, domEvt, target) {
             return self._onClickInstantEvent(result.iconElmtData.elmt, domEvt, evt);
         } :
         function(elmt, domEvt, target) {
             return self._onClickInstantEvent(result.labelElmtData.elmt, domEvt, evt);
         };
-        
+
     SimileAjax.DOM.registerEvent(result.labelElmtData.elmt, "mousedown", clickHandler);
     SimileAjax.DOM.registerEvent(result.tapeElmtData.elmt, "mousedown", clickHandler);
-    
+
     if (iconData != null) {
         SimileAjax.DOM.registerEvent(result.iconElmtData.elmt, "mousedown", clickHandler);
         this._eventIdToElmt[evt.getID()] = result.iconElmtData.elmt;
@@ -655,7 +655,7 @@ Timeline.CompactEventPainter.prototype.paintImpreciseDurationEvent = function(ev
     var commonData = {
         tooltip: evt.getProperty("tooltip") || evt.getText()
     };
-    
+
     var tapeData = {
         start:          evt.getStart(),
         end:            evt.getEnd(),
@@ -664,7 +664,7 @@ Timeline.CompactEventPainter.prototype.paintImpreciseDurationEvent = function(ev
         color:          evt.getColor() || evt.getTextColor(),
         isInstant:      false
     };
-    
+
     var iconData = {
         url: evt.getIcon()
     };
@@ -674,13 +674,13 @@ Timeline.CompactEventPainter.prototype.paintImpreciseDurationEvent = function(ev
         iconData.width = evt.getProperty("iconWidth") || metrics.customIconWidth;
         iconData.height = evt.getProperty("iconHeight") || metrics.customIconHeight;
     }
-    
+
     var labelData = {
         text:       evt.getText(),
         color:      evt.getTextColor() || evt.getColor(),
         className:  evt.getClassName()
     };
-    
+
     var result = this.paintTapeIconLabel(
         evt.getLatestStart(),
         commonData,
@@ -693,17 +693,17 @@ Timeline.CompactEventPainter.prototype.paintImpreciseDurationEvent = function(ev
     );
 
     var self = this;
-    var clickHandler = iconData != null ? 
+    var clickHandler = iconData != null ?
         function(elmt, domEvt, target) {
             return self._onClickInstantEvent(result.iconElmtData.elmt, domEvt, evt);
         } :
         function(elmt, domEvt, target) {
             return self._onClickInstantEvent(result.labelElmtData.elmt, domEvt, evt);
         };
-        
+
     SimileAjax.DOM.registerEvent(result.labelElmtData.elmt, "mousedown", clickHandler);
     SimileAjax.DOM.registerEvent(result.tapeElmtData.elmt, "mousedown", clickHandler);
-    
+
     if (iconData != null) {
         SimileAjax.DOM.registerEvent(result.iconElmtData.elmt, "mousedown", clickHandler);
         this._eventIdToElmt[evt.getID()] = result.iconElmtData.elmt;
@@ -713,61 +713,61 @@ Timeline.CompactEventPainter.prototype.paintImpreciseDurationEvent = function(ev
 };
 
 Timeline.CompactEventPainter.prototype.paintTapeIconLabel = function(
-    anchorDate, 
+    anchorDate,
     commonData,
-    tapeData, 
-    iconData, 
-    labelData, 
-    metrics, 
-    theme, 
+    tapeData,
+    iconData,
+    labelData,
+    metrics,
+    theme,
     highlightIndex
 ) {
     var band = this._band;
     var getPixelOffset = function(date) {
         return Math.round(band.dateToPixelOffset(date));
     };
-    
+
     var anchorPixel = getPixelOffset(anchorDate);
     var newTracks = [];
-    
+
     var tapeHeightOccupied = 0;         // how many pixels (vertically) the tape occupies, including bottom margin
     var tapeTrackCount = 0;             // how many tracks the tape takes up, usually just 1
     var tapeLastTrackExtraSpace = 0;    // on the last track that the tape occupies, how many pixels are left (for icon and label to occupy as well)
     if (tapeData != null) {
         tapeHeightOccupied = metrics.tapeHeight + metrics.tapeBottomMargin;
         tapeTrackCount = Math.ceil(metrics.tapeHeight / metrics.trackHeight);
-        
+
         var tapeEndPixelOffset = getPixelOffset(tapeData.end) - anchorPixel;
         var tapeStartPixelOffset = getPixelOffset(tapeData.start) - anchorPixel;
-        
+
         for (var t = 0; t < tapeTrackCount; t++) {
             newTracks.push({ start: tapeStartPixelOffset, end: tapeEndPixelOffset });
         }
-        
+
         tapeLastTrackExtraSpace = metrics.trackHeight - (tapeHeightOccupied % metrics.tapeHeight);
     }
-    
-    var iconStartPixelOffset = 0;        // where the icon starts compared to the anchor pixel; 
+
+    var iconStartPixelOffset = 0;        // where the icon starts compared to the anchor pixel;
                                          // this can be negative if the icon is center-aligned around the anchor
-    var iconHorizontalSpaceOccupied = 0; // how many pixels the icon take up from the anchor pixel, 
+    var iconHorizontalSpaceOccupied = 0; // how many pixels the icon take up from the anchor pixel,
                                          // including the gap between the icon and the label
     if (iconData != null) {
         if ("iconAlign" in iconData && iconData.iconAlign == "center") {
             iconStartPixelOffset = -Math.floor(iconData.width / 2);
         }
         iconHorizontalSpaceOccupied = iconStartPixelOffset + iconData.width + metrics.iconLabelGap;
-        
+
         if (tapeTrackCount > 0) {
             newTracks[tapeTrackCount - 1].end = Math.max(newTracks[tapeTrackCount - 1].end, iconHorizontalSpaceOccupied);
         }
-        
+
         var iconHeight = iconData.height + metrics.iconBottomMargin + tapeLastTrackExtraSpace;
         while (iconHeight > 0) {
             newTracks.push({ start: iconStartPixelOffset, end: iconHorizontalSpaceOccupied });
             iconHeight -= metrics.trackHeight;
         }
     }
-    
+
     var text = labelData.text;
     var labelSize = this._frc.computeSize(text);
     var labelHeight = labelSize.height + metrics.labelBottomMargin + tapeLastTrackExtraSpace;
@@ -784,7 +784,7 @@ Timeline.CompactEventPainter.prototype.paintTapeIconLabel = function(
         }
         labelHeight -= metrics.trackHeight;
     }
-    
+
     /*
      *  Try to fit the new track on top of the existing tracks, then
      *  render the various elements.
@@ -792,29 +792,29 @@ Timeline.CompactEventPainter.prototype.paintTapeIconLabel = function(
     var firstTrack = this._fitTracks(anchorPixel, newTracks);
     var verticalPixelOffset = firstTrack * metrics.trackHeight + metrics.trackOffset;
     var result = {};
-    
+
     result.labelElmtData = this._paintEventLabel(
         commonData,
         labelData,
         anchorPixel + iconHorizontalSpaceOccupied,
         verticalPixelOffset + tapeHeightOccupied,
-        labelSize.width, 
-        labelSize.height, 
+        labelSize.width,
+        labelSize.height,
         theme
     );
-    
+
     if (tapeData != null) {
         if ("latestStart" in tapeData || "earliestEnd" in tapeData) {
             result.impreciseTapeElmtData = this._paintEventTape(
                 commonData,
                 tapeData,
                 metrics.tapeHeight,
-                verticalPixelOffset, 
+                verticalPixelOffset,
                 getPixelOffset(tapeData.start),
                 getPixelOffset(tapeData.end),
                 theme.event.duration.impreciseColor,
-                theme.event.duration.impreciseOpacity, 
-                metrics, 
+                theme.event.duration.impreciseOpacity,
+                metrics,
                 theme
             );
         }
@@ -825,27 +825,27 @@ Timeline.CompactEventPainter.prototype.paintTapeIconLabel = function(
                 metrics.tapeHeight,
                 verticalPixelOffset,
                 anchorPixel,
-                getPixelOffset("earliestEnd" in tapeData ? tapeData.earliestEnd : tapeData.end), 
-                tapeData.color, 
-                100, 
-                metrics, 
+                getPixelOffset("earliestEnd" in tapeData ? tapeData.earliestEnd : tapeData.end),
+                tapeData.color,
+                100,
+                metrics,
                 theme
             );
         }
     }
-    
+
     if (iconData != null) {
         result.iconElmtData = this._paintEventIcon(
             commonData,
             iconData,
             verticalPixelOffset + tapeHeightOccupied,
             anchorPixel + iconStartPixelOffset,
-            metrics, 
+            metrics,
             theme
         );
     }
     //this._createHighlightDiv(highlightIndex, iconElmtData, theme);
-    
+
     return result;
 };
 
@@ -861,7 +861,7 @@ Timeline.CompactEventPainter.prototype._fitTracks = function(anchorPixel, newTra
                 break;
             }
         }
-        
+
         if (fit) {
             break;
         }
@@ -869,7 +869,7 @@ Timeline.CompactEventPainter.prototype._fitTracks = function(anchorPixel, newTra
     for (var i = 0; i < newTracks.length; i++) {
         this._tracks[firstTrack + i] = anchorPixel + newTracks[i].end;
     }
-    
+
     return firstTrack;
 };
 
@@ -881,13 +881,13 @@ Timeline.CompactEventPainter.prototype._paintEventIcon = function(commonData, ic
     iconDiv.style.left = left + "px";
     iconDiv.style.top = top + "px";
     iconDiv.appendChild(img);
-    
+
     if ("tooltip" in commonData && typeof commonData.tooltip == "string") {
         iconDiv.title = commonData.tooltip;
     }
-    
+
     this._eventLayer.appendChild(iconDiv);
-    
+
     return {
         left:   left,
         top:    top,
@@ -899,7 +899,7 @@ Timeline.CompactEventPainter.prototype._paintEventIcon = function(commonData, ic
 
 Timeline.CompactEventPainter.prototype._paintEventLabel = function(commonData, labelData, left, top, width, height, theme) {
     var doc = this._timeline.getDocument();
-    
+
     var labelDiv = doc.createElement("div");
     labelDiv.className = 'timeline-event-label';
 
@@ -917,9 +917,9 @@ Timeline.CompactEventPainter.prototype._paintEventLabel = function(commonData, l
     if ("className" in labelData && typeof labelData.className == "string") {
         labelDiv.className += ' ' + labelData.className;
     }
-    
+
     this._eventLayer.appendChild(labelDiv);
-    
+
     return {
         left:   left,
         top:    top,
@@ -931,9 +931,9 @@ Timeline.CompactEventPainter.prototype._paintEventLabel = function(commonData, l
 
 Timeline.CompactEventPainter.prototype._paintEventTape = function(
     commonData, tapeData, height, top, startPixel, endPixel, color, opacity, metrics, theme) {
-    
+
     var width = endPixel - startPixel;
-    
+
     var tapeDiv = this._timeline.getDocument().createElement("div");
     tapeDiv.className = "timeline-event-tape"
 
@@ -948,22 +948,22 @@ Timeline.CompactEventPainter.prototype._paintEventTape = function(
     if (color != null && typeof tapeData.color == "string") {
         tapeDiv.style.backgroundColor = color;
     }
-    
+
     if ("backgroundImage" in tapeData && typeof tapeData.backgroundImage == "string") {
         tapeDiv.style.backgroundImage = "url(" + backgroundImage + ")";
-        tapeDiv.style.backgroundRepeat = 
-            ("backgroundRepeat" in tapeData && typeof tapeData.backgroundRepeat == "string") 
+        tapeDiv.style.backgroundRepeat =
+            ("backgroundRepeat" in tapeData && typeof tapeData.backgroundRepeat == "string")
                 ? tapeData.backgroundRepeat : 'repeat';
     }
-    
+
     SimileAjax.Graphics.setOpacity(tapeDiv, opacity);
-    
+
     if ("className" in tapeData && typeof tapeData.className == "string") {
         tapeDiv.className += ' ' + tapeData.className;
     }
 
     this._eventLayer.appendChild(tapeDiv);
-    
+
     return {
         left:   startPixel,
         top:    top,
@@ -977,9 +977,9 @@ Timeline.CompactEventPainter.prototype._createHighlightDiv = function(highlightI
     if (highlightIndex >= 0) {
         var doc = this._timeline.getDocument();
         var eventTheme = theme.event;
-        
+
         var color = eventTheme.highlightColors[Math.min(highlightIndex, eventTheme.highlightColors.length - 1)];
-        
+
         var div = doc.createElement("div");
         div.style.position = "absolute";
         div.style.overflow = "hidden";
@@ -988,7 +988,7 @@ Timeline.CompactEventPainter.prototype._createHighlightDiv = function(highlightI
         div.style.top =     (dimensions.top - 2) + "px";
         div.style.height =  (dimensions.height + 4) + "px";
 //        div.style.background = color;
-        
+
         this._highlightLayer.appendChild(div);
     }
 };
@@ -996,32 +996,32 @@ Timeline.CompactEventPainter.prototype._createHighlightDiv = function(highlightI
 Timeline.CompactEventPainter.prototype._onClickMultiplePreciseInstantEvent = function(icon, domEvt, events) {
     var c = SimileAjax.DOM.getPageCoordinates(icon);
     this._showBubble(
-        c.left + Math.ceil(icon.offsetWidth / 2), 
+        c.left + Math.ceil(icon.offsetWidth / 2),
         c.top + Math.ceil(icon.offsetHeight / 2),
         events
     );
-    
+
     var ids = [];
     for (var i = 0; i < events.length; i++) {
         ids.push(events[i].getID());
     }
     this._fireOnSelect(ids);
-    
+
     domEvt.cancelBubble = true;
     SimileAjax.DOM.cancelEvent(domEvt);
-    
+
     return false;
 };
 
 Timeline.CompactEventPainter.prototype._onClickInstantEvent = function(icon, domEvt, evt) {
     var c = SimileAjax.DOM.getPageCoordinates(icon);
     this._showBubble(
-        c.left + Math.ceil(icon.offsetWidth / 2), 
+        c.left + Math.ceil(icon.offsetWidth / 2),
         c.top + Math.ceil(icon.offsetHeight / 2),
         [evt]
     );
     this._fireOnSelect([evt.getID()]);
-    
+
     domEvt.cancelBubble = true;
     SimileAjax.DOM.cancelEvent(domEvt);
     return false;
@@ -1038,7 +1038,7 @@ Timeline.CompactEventPainter.prototype._onClickDurationEvent = function(target, 
     }
     this._showBubble(x, y, [evt]);
     this._fireOnSelect([evt.getID()]);
-    
+
     domEvt.cancelBubble = true;
     SimileAjax.DOM.cancelEvent(domEvt);
     return false;
@@ -1054,15 +1054,15 @@ Timeline.CompactEventPainter.prototype.showBubble = function(evt) {
 
 Timeline.CompactEventPainter.prototype._showBubble = function(x, y, evts) {
     var div = document.createElement("div");
-    
+
     evts = ("fillInfoBubble" in evts) ? [evts] : evts;
     for (var i = 0; i < evts.length; i++) {
         var div2 = document.createElement("div");
         div.appendChild(div2);
-        
+
         evts[i].fillInfoBubble(div2, this._params.theme, this._band.getLabeller());
     }
-    
+
     SimileAjax.WindowManager.cancelPopups();
     SimileAjax.Graphics.createBubbleForContentAndPoint(div, x, y, this._params.theme.event.bubble.width);
 };

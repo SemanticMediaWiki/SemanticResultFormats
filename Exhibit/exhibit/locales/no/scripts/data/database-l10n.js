@@ -56,7 +56,7 @@ Exhibit.Database.l10n.sortLabels = {
 Exhibit.Database.l10n.labelItemsOfType = function(count, typeID, database, countStyleClass) {
     var label = count == 1 ? Exhibit.Database.l10n.itemType.label :
         Exhibit.Database.l10n.itemType.pluralLabel
-        
+
     var type = database.getType(typeID);
     if (type) {
         label = type.getLabel();
@@ -67,9 +67,9 @@ Exhibit.Database.l10n.labelItemsOfType = function(count, typeID, database, count
             }
         }
     }
-    
+
     var span = document.createElement("span");
     span.innerHTML = "<span class='" + countStyleClass + "'>" + count + "</span> " + label;
-    
+
     return span;
 };

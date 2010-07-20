@@ -1063,7 +1063,7 @@ propertyString=qname.prefix+":"+qname.localName;
 s+="</rdf:Description>";
 return s;
 };
-Exhibit.RdfXmlExporter._wrapRdf=function(s,prefixToBase){var s2="<?xml version='1.0'?>\n<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'\n\txmlns:exhibit='http://simile.mit.edu/2006/11/exhibit#'";
+Exhibit.RdfXmlExporter._wrapRdf=function(s,prefixToBase){var s2="<?xml version = '1.0'?>\n<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'\n\txmlns:exhibit='http://simile.mit.edu/2006/11/exhibit#'";
 for(prefix in prefixToBase){s2+="\n\txmlns:"+prefix+"='"+prefixToBase[prefix]+"'";
 }s2+=">\n"+s+"\n</rdf:RDF>";
 return s2;

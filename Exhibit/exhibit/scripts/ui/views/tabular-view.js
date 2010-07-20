@@ -6,13 +6,13 @@
 Exhibit.TabularView = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
-    
+
     this._settings = { rowStyler: null, tableStyler: null };
     this._columns = [];
     this._rowTemplate = null;
 
     var view = this;
-    this._listener = { 
+    this._listener = {
         onItemsChanged: function() {
             view._settings.page = 0;
             view._reconstruct();
@@ -43,7 +43,7 @@ Exhibit.TabularView.create = function(configuration, containerElmt, uiContext) {
         Exhibit.UIContext.create(configuration, uiContext)
     );
     Exhibit.TabularView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -51,25 +51,25 @@ Exhibit.TabularView.create = function(configuration, containerElmt, uiContext) {
 
 Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
-    
+
     uiContext = Exhibit.UIContext.createFromDOM(configElmt, uiContext);
-    
+
     var view = new Exhibit.TabularView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         uiContext
     );
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.TabularView._settingSpecs, view._settings);
-    
+
     try {
         var expressions = [];
         var labels = Exhibit.getAttribute(configElmt, "columnLabels", ",") || [];
-        
+
         var s = Exhibit.getAttribute(configElmt, "columns");
         if (s != null && s.length > 0) {
             expressions = Exhibit.ExpressionParser.parseSeveral(s);
         }
-        
+
         for (var i = 0; i < expressions.length; i++) {
             var expression = expressions[i];
             view._columns.push({
@@ -80,7 +80,7 @@ Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContex
                 format:     "list"
             });
         }
-        
+
         var formats = Exhibit.getAttribute(configElmt, "columnFormats");
         if (formats != null && formats.length > 0) {
             var index = 0;
@@ -88,9 +88,9 @@ Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContex
             while (index < view._columns.length && startPosition < formats.length) {
                 var column = view._columns[index];
                 var o = {};
-                
+
                 column.format = Exhibit.FormatParser.parseSeveral(column.uiContext, formats, startPosition, o);
-                
+
                 startPosition = o.index;
                 while (startPosition < formats.length && " \t\r\n".indexOf(formats.charAt(startPosition)) >= 0) {
                     startPosition++;
@@ -98,11 +98,11 @@ Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContex
                 if (startPosition < formats.length && formats.charAt(startPosition) == ",") {
                     startPosition++;
                 }
-                
+
                 index++;
             }
         }
-        
+
         var tables = configElmt.getElementsByTagName("table");
         if (tables.length > 0 && tables[0].rows.length > 0) {
             view._rowTemplate = Exhibit.Lens.compileTemplate(tables[0].rows[0], false, uiContext);
@@ -110,7 +110,7 @@ Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContex
     } catch (e) {
         SimileAjax.Debug.exception(e, "TabularView: Error processing configuration of tabular view");
     }
-    
+
     var s = Exhibit.getAttribute(configElmt, "rowStyler");
     if (s != null && s.length > 0) {
         var f = eval(s);
@@ -125,7 +125,7 @@ Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContex
             view._settings.tableStyler = f;
         }
     }
-        
+
     Exhibit.TabularView._configure(view, configuration);
     view._internalValidate();
     view._initializeUI();
@@ -134,7 +134,7 @@ Exhibit.TabularView.createFromDOM = function(configElmt, containerElmt, uiContex
 
 Exhibit.TabularView._configure = function(view, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.TabularView._settingSpecs, view._settings);
-    
+
     if ("columns" in configuration) {
         var columns = configuration.columns;
         for (var i = 0; i < columns.length; i++) {
@@ -143,7 +143,7 @@ Exhibit.TabularView._configure = function(view, configuration) {
             var styler = null;
             var label = null;
             var format = null;
-            
+
             if (typeof column == "string") {
                 expr = column;
             } else {
@@ -152,7 +152,7 @@ Exhibit.TabularView._configure = function(view, configuration) {
                 label = column.label;
                 format = column.format;
             }
-            
+
             var expression = Exhibit.ExpressionParser.parse(expr);
             if (expression.isPath()) {
                 var path = expression.getPath();
@@ -161,18 +161,18 @@ Exhibit.TabularView._configure = function(view, configuration) {
                 } else {
                     format = "list";
                 }
-                
+
                 view._columns.push({
                     expression: expression,
                     styler:     styler,
                     label:      label,
                     format:     format,
-                    uiContext:  view._uiContext 
+                    uiContext:  view._uiContext
                 });
             }
         }
     }
-    
+
     if ("rowStyler" in configuration) {
         view._settings.rowStyler = configuration.rowStyler;
     }
@@ -198,38 +198,38 @@ Exhibit.TabularView.prototype._internalValidate = function() {
             }
         }
     }
-    this._settings.sortColumn = 
+    this._settings.sortColumn =
         Math.max(0, Math.min(this._settings.sortColumn, this._columns.length - 1));
 };
 
 Exhibit.TabularView.prototype.dispose = function() {
     this._uiContext.getCollection().removeListener(this._listener);
-    
+
     if (this._toolboxWidget) {
         this._toolboxWidget.dispose();
         this._toolboxWidget = null;
     }
-    
+
     this._collectionSummaryWidget.dispose();
     this._collectionSummaryWidget = null;
-    
+
     this._uiContext.dispose();
     this._uiContext = null;
-    
+
     this._div.innerHTML = "";
-    
+
     this._dom = null;
     this._div = null;
 };
 
 Exhibit.TabularView.prototype._initializeUI = function() {
     var self = this;
-    
+
     this._div.innerHTML = "";
     this._dom = Exhibit.TabularView.createDom(this._div);
     this._collectionSummaryWidget = Exhibit.CollectionSummaryWidget.create(
-        {}, 
-        this._dom.collectionSummaryDiv, 
+        {},
+        this._dom.collectionSummaryDiv,
         this._uiContext
     );
     if (this._settings.showToolbox) {
@@ -238,11 +238,11 @@ Exhibit.TabularView.prototype._initializeUI = function() {
             return self._dom.bodyDiv.innerHTML;
         };
     }
-    
+
     if (!this._settings.showSummary) {
         this._dom.collectionSummaryDiv.style.display = "none";
     }
-    
+
     this._reconstruct();
 };
 
@@ -250,7 +250,7 @@ Exhibit.TabularView.prototype._reconstruct = function() {
     var self = this;
     var collection = this._uiContext.getCollection();
     var database = this._uiContext.getDatabase();
-    
+
     var bodyDiv = this._dom.bodyDiv;
     bodyDiv.innerHTML = "";
 
@@ -263,14 +263,14 @@ Exhibit.TabularView.prototype._reconstruct = function() {
         var currentSet = collection.getRestrictedItems();
         currentSet.visit(function(itemID) { items.push({ id: itemID, sortKey: "" }); });
     }
-    
+
     if (items.length > 0) {
         /*
          *  Sort the items
          */
         var sortColumn = this._columns[this._settings.sortColumn];
         items.sort(this._createSortFunction(items, sortColumn.expression, this._settings.sortAscending));
-    
+
         /*
          *  Style the table
          */
@@ -283,7 +283,7 @@ Exhibit.TabularView.prototype._reconstruct = function() {
             table.cellPadding = this._settings.cellPadding;
             table.border = this._settings.border;
         }
-        
+
         /*
          *  Create the column headers
          */
@@ -318,7 +318,7 @@ Exhibit.TabularView.prototype._reconstruct = function() {
             renderItem = function(i) {
                 var item = items[i];
                 var tr = Exhibit.Lens.constructFromLensTemplate(item.id, self._rowTemplate, table, self._uiContext);
-                
+
                 if (self._settings.rowStyler != null) {
                     self._settings.rowStyler(item.id, database, tr, i);
                 }
@@ -327,43 +327,43 @@ Exhibit.TabularView.prototype._reconstruct = function() {
             renderItem = function(i) {
                 var item = items[i];
                 var tr = table.insertRow(table.rows.length);
-                
+
                 for (var c = 0; c < self._columns.length; c++) {
                     var column = self._columns[c];
                     var td = tr.insertCell(c);
-                    
+
                     var results = column.expression.evaluate(
-                        { "value" : item.id }, 
-                        { "value" : "item" }, 
+                        { "value" : item.id },
+                        { "value" : "item" },
                         "value",
                         database
                     );
-                    
+
                     var valueType = column.format == "list" ? results.valueType : column.format;
                     column.uiContext.formatList(
-                        results.values, 
+                        results.values,
                         results.size,
                         valueType,
                         function(elmt) { td.appendChild(elmt); }
                     );
-                    
+
                     if (column.styler != null) {
                         column.styler(item.id, database, td);
                     }
                 }
-                
+
                 if (self._settings.rowStyler != null) {
                     self._settings.rowStyler(item.id, database, tr, i);
                 }
             }
         }
-        
+
         var start, end;
         var generatePagingControls = false;
         if (this._settings.paginate) {
             start = this._settings.page * this._settings.pageSize;
             end = Math.min(start + this._settings.pageSize, items.length);
-            
+
             generatePagingControls = (items.length > this._settings.pageSize) || (items.length > 0 && this._settings.alwaysShowPagingControls);
         } else {
             start = 0;
@@ -374,13 +374,13 @@ Exhibit.TabularView.prototype._reconstruct = function() {
         }
 
         bodyDiv.appendChild(table);
-        
+
         if (generatePagingControls) {
             if (this._settings.pagingControlLocations == "top" || this._settings.pagingControlLocations == "topbottom") {
                 this._renderPagingDiv(this._dom.topPagingDiv, items.length, this._settings.page);
                 this._dom.topPagingDiv.style.display = "block";
             }
-            
+
             if (this._settings.pagingControlLocations == "bottom" || this._settings.pagingControlLocations == "topbottom") {
                 this._renderPagingDiv(this._dom.bottomPagingDiv, items.length, this._settings.page);
                 this._dom.bottomPagingDiv.style.display = "block";
@@ -395,9 +395,9 @@ Exhibit.TabularView.prototype._reconstruct = function() {
 Exhibit.TabularView.prototype._renderPagingDiv = function(parentElmt, itemCount, page) {
     var pageCount = Math.ceil(itemCount / this._settings.pageSize);
     var self = this;
-    
+
     Exhibit.OrderedViewFrame.renderPageLinks(
-        parentElmt, 
+        parentElmt,
         page,
         pageCount,
         this._settings.pageWindow,
@@ -423,41 +423,41 @@ Exhibit.TabularView.prototype._getColumnLabel = function(expression) {
 Exhibit.TabularView.prototype._createSortFunction = function(items, expression, ascending) {
     var database = this._uiContext.getDatabase();
     var multiply = ascending ? 1 : -1;
-    
+
     var numericFunction = function(item1, item2) {
         return multiply * (item1.sortKey - item2.sortKey);
     };
     var textFunction = function(item1, item2) {
         return multiply * item1.sortKey.localeCompare(item2.sortKey);
     };
-    
+
     var valueTypes = [];
     var valueTypeMap = {};
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         var r = expression.evaluate(
-            { "value" : item.id }, 
-            { "value" : "item" }, 
+            { "value" : item.id },
+            { "value" : "item" },
             "value",
             database
         );
         r.values.visit(function(value) {
             item.sortKey = value;
         });
-        
+
         if (!(r.valueType in valueTypeMap)) {
             valueTypeMap[r.valueType] = true;
             valueTypes.push(r.valueType);
         }
     }
-    
+
     var coercedValueType = "text"
     if (valueTypes.length == 1) {
         coercedValueType = valueTypes[0];
     } else {
         coercedValueType = "text";
     }
-    
+
     var coersion;
     var sortingFunction;
     if (coercedValueType == "number") {
@@ -522,12 +522,12 @@ Exhibit.TabularView.prototype._createSortFunction = function(items, expression, 
             }
         }
     }
-    
+
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         item.sortKey = coersion(item.sortKey);
     }
-    
+
     return sortingFunction;
 };
 
@@ -539,7 +539,7 @@ Exhibit.TabularView.prototype._doSort = function(columnIndex) {
     var oldPage = this._settings.page;
     var newPage = 0;
     var settings = this._settings;
-    
+
     var self = this;
     SimileAjax.History.addLengthyAction(
         function() {
@@ -562,7 +562,7 @@ Exhibit.TabularView.prototype._gotoPage = function(page) {
     var oldPage = this._settings.page;
     var newPage = page;
     var settings = this._settings;
-    
+
     var self = this;
     SimileAjax.History.addLengthyAction(
         function() {
@@ -586,7 +586,7 @@ Exhibit.TabularView._constructDefaultValueList = function(values, valueType, par
 Exhibit.TabularView.createDom = function(div) {
     var l10n = Exhibit.TabularView.l10n;
     var l10n2 = Exhibit.OrderedViewFrame.l10n;
-    
+
     var headerTemplate = {
         elmt:       div,
         className:  "exhibit-collectionView-header",
@@ -611,7 +611,7 @@ Exhibit.TabularView.createDom = function(div) {
 };
 
 Exhibit.TabularView.createColumnHeader = function(
-    exhibit, 
+    exhibit,
     th,
     label,
     sort,
@@ -621,8 +621,8 @@ Exhibit.TabularView.createColumnHeader = function(
     var l10n = Exhibit.TabularView.l10n;
     var template = {
         elmt:       th,
-        className:  sort ? 
-                    "exhibit-tabularView-columnHeader-sorted" : 
+        className:  sort ?
+                    "exhibit-tabularView-columnHeader-sorted" :
                     "exhibit-tabularView-columnHeader",
         title: sort ? l10n.columnHeaderReSortTooltip : l10n.columnHeaderSortTooltip,
         children: [ label ]
@@ -634,7 +634,7 @@ Exhibit.TabularView.createColumnHeader = function(
         });
     }
     SimileAjax.WindowManager.registerEvent(th, "click", sortFunction, null);
-    
+
     var dom = SimileAjax.DOM.createDOMFromTemplate(template);
     return dom;
 };

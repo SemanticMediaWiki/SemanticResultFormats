@@ -22,7 +22,7 @@ Exhibit.OrderedViewFrame.l10n.formatRemoveOrderActionTitle = function(propertyLa
 Exhibit.OrderedViewFrame.l10n.groupedAsSortedOptionLabel = "agrupar según orden";
 Exhibit.OrderedViewFrame.l10n.groupAsSortedActionTitle = "agrupar según orden";
 Exhibit.OrderedViewFrame.l10n.ungroupAsSortedActionTitle = "sin agrupar";
-    
+
 Exhibit.OrderedViewFrame.l10n.showAllActionTitle = "show all results";
 Exhibit.OrderedViewFrame.l10n.dontShowAllActionTitle = "show first few results";
 Exhibit.OrderedViewFrame.l10n.formatDontShowAll = function(limitCount) {

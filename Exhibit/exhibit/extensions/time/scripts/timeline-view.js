@@ -2,7 +2,7 @@
  *  Exhibit.TimelineView
  *==================================================
  */
- 
+
 Exhibit.TimelineView = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
@@ -12,16 +12,16 @@ Exhibit.TimelineView = function(containerElmt, uiContext) {
         getEventLabel:  function(itemID, database, visitor) { visitor(database.getObject(itemID, "label")); },
         getProxy:       function(itemID, database, visitor) { visitor(itemID); },
         getColorKey:    null,
-        getIconKey:     null 
+        getIconKey:     null
     };
 
     this._selectListener = null;
     this._largestSize = 0;
 
     var view = this;
-    this._listener = { 
+    this._listener = {
         onItemsChanged: function() {
-            view._reconstruct(); 
+            view._reconstruct();
         }
     };
     uiContext.getCollection().addListener(this._listener);
@@ -86,7 +86,7 @@ Exhibit.TimelineView._accessorSpecs = [
         attributeName:  "hoverText",
         type:           "text"
     }
-];    
+];
 
 
 Exhibit.TimelineView.create = function(configuration, containerElmt, uiContext) {
@@ -95,7 +95,7 @@ Exhibit.TimelineView.create = function(configuration, containerElmt, uiContext) 
         Exhibit.UIContext.create(configuration, uiContext)
     );
     Exhibit.TimelineView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -104,14 +104,14 @@ Exhibit.TimelineView.create = function(configuration, containerElmt, uiContext) 
 Exhibit.TimelineView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var view = new Exhibit.TimelineView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext)
     );
-    
+
     Exhibit.SettingsUtilities.createAccessorsFromDOM(configElmt, Exhibit.TimelineView._accessorSpecs, view._accessors);
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.TimelineView._settingSpecs, view._settings);
     Exhibit.TimelineView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -120,7 +120,7 @@ Exhibit.TimelineView.createFromDOM = function(configElmt, containerElmt, uiConte
 Exhibit.TimelineView._configure = function(view, configuration) {
     Exhibit.SettingsUtilities.createAccessors(configuration, Exhibit.TimelineView._accessorSpecs, view._accessors);
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.TimelineView._settingSpecs, view._settings);
-    
+
     var accessors = view._accessors;
     view._getDuration = function(itemID, database, visitor) {
         accessors.getProxy(itemID, database, function(proxy) {
@@ -131,23 +131,23 @@ Exhibit.TimelineView._configure = function(view, configuration) {
 
 Exhibit.TimelineView.prototype.dispose = function() {
     this._uiContext.getCollection().removeListener(this._listener);
-    
+
     this._timeline = null;
-    
+
     if (this._selectListener != null) {
         this._selectListener.dispose();
         this._selectListener = null;
     }
-    
+
     this._toolboxWidget.dispose();
     this._toolboxWidget = null;
-    
+
     this._dom.dispose();
     this._dom = null;
-    
+
     this._div.innerHTML = "";
     this._div = null;
-    
+
     this._uiContext.dispose();
     this._uiContext = null;
 };
@@ -182,7 +182,7 @@ Exhibit.TimelineView.prototype._internalValidate = function() {
 Exhibit.TimelineView.prototype._initializeUI = function() {
     var self = this;
     var legendWidgetSettings = {};
-    
+
     legendWidgetSettings.colorGradient = (this._colorCoder != null && "_gradientPoints" in this._colorCoder);
     legendWidgetSettings.iconMarkerGenerator = function(iconURL) {
         elmt = document.createElement('img');
@@ -190,35 +190,35 @@ Exhibit.TimelineView.prototype._initializeUI = function() {
         elmt.style.verticalAlign = "middle";
         return elmt;
     }
-    
+
     this._div.innerHTML = "";
     this._dom = Exhibit.ViewUtilities.constructPlottingViewDom(
-        this._div, 
-        this._uiContext, 
+        this._div,
+        this._uiContext,
         this._settings.showSummary && this._settings.showHeader,
-        {   onResize: function() { 
+        {   onResize: function() {
                 self._timeline.layout();
-            } 
-        }, 
+            }
+        },
         legendWidgetSettings
-    );    
+    );
     this._toolboxWidget = Exhibit.ToolboxWidget.createFromDOM(this._div, this._div, this._uiContext);
-    
+
     this._eventSource = new Timeline.DefaultEventSource();
     this._reconstruct();
 };
 
 Exhibit.TimelineView.prototype._reconstructTimeline = function(newEvents) {
     var settings = this._settings;
-    
+
     if (this._timeline != null) {
         this._timeline.dispose();
     }
-    
+
     if (newEvents) {
         this._eventSource.addMany(newEvents);
     }
-    
+
     var timelineDiv = this._dom.plotContainer;
     if (settings.timelineConstructor != null) {
         this._timeline = settings.timelineConstructor(timelineDiv, this._eventSource);
@@ -229,7 +229,7 @@ Exhibit.TimelineView.prototype._reconstructTimeline = function(newEvents) {
         var theme = Timeline.ClassicTheme.create();
         theme.event.bubble.width = this._uiContext.getSetting("bubbleWidth");
         theme.event.bubble.height = this._uiContext.getSetting("bubbleHeight");
-        
+
         var topIntervalUnit, bottomIntervalUnit;
         if (settings.topBandUnit != null || settings.bottomBandUnit != null) {
             if (Exhibit.TimelineView._intervalLabelMap == null) {
@@ -247,7 +247,7 @@ Exhibit.TimelineView.prototype._reconstructTimeline = function(newEvents) {
                     "millennium":       Timeline.DateTime.MILLENNIUM
                 };
             }
-            
+
             if (settings.topBandUnit == null) {
                 bottomIntervalUnit = Exhibit.TimelineView._intervalLabelMap[settings.bottomBandUnit];
                 topIntervalUnit = bottomIntervalUnit - 1;
@@ -261,12 +261,12 @@ Exhibit.TimelineView.prototype._reconstructTimeline = function(newEvents) {
         } else { // figure this out dynamically
             var earliest = this._eventSource.getEarliestDate();
             var latest = this._eventSource.getLatestDate();
-            
+
             var totalDuration = latest.getTime() - earliest.getTime();
             var totalEventCount = this._eventSource.getCount();
             if (totalDuration > 0 && totalEventCount > 1) {
                 var totalDensity = totalEventCount / totalDuration;
-                
+
                 var topIntervalUnit = Timeline.DateTime.MILLENNIUM;
                 while (topIntervalUnit > 0) {
                     var intervalDuration = Timeline.DateTime.gregorianUnitLengths[topIntervalUnit];
@@ -281,19 +281,19 @@ Exhibit.TimelineView.prototype._reconstructTimeline = function(newEvents) {
             }
             bottomIntervalUnit = topIntervalUnit + 1;
         }
-        
+
         var bandInfos = [
             Timeline.createBandInfo({
-                width:          settings.topBandHeight + "%", 
-                intervalUnit:   topIntervalUnit, 
+                width:          settings.topBandHeight + "%",
+                intervalUnit:   topIntervalUnit,
                 intervalPixels: settings.topBandPixelsPerUnit,
                 eventSource:    this._eventSource,
                 //date:           earliest,
                 theme:          theme
             }),
             Timeline.createBandInfo({
-                width:          settings.bottomBandHeight + "%", 
-                intervalUnit:   bottomIntervalUnit, 
+                width:          settings.bottomBandHeight + "%",
+                intervalUnit:   bottomIntervalUnit,
                 intervalPixels: settings.bottomBandPixelsPerUnit,
                 eventSource:    this._eventSource,
                 //date:           earliest,
@@ -306,7 +306,7 @@ Exhibit.TimelineView.prototype._reconstructTimeline = function(newEvents) {
 
         this._timeline = Timeline.create(timelineDiv, bandInfos, Timeline.HORIZONTAL);
     }
-    
+
     var self = this;
     var listener = function(eventID) {
         if (self._selectListener != null) {
@@ -437,7 +437,7 @@ Exhibit.TimelineView.prototype._reconstruct = function() {
         if (hasIconKey) {
             var legendWidget = this._dom.legendWidget;
             var iconCoder = this._iconCoder;
-            var keys = iconCodingFlags.keys.toArray().sort();    
+            var keys = iconCodingFlags.keys.toArray().sort();
             if (settings.iconLegendLabel != null) {
                 legendWidget.addLegendLabel(settings.iconLegendLabel, 'icon');
             }
@@ -456,7 +456,7 @@ Exhibit.TimelineView.prototype._reconstruct = function() {
                 legendWidget.addEntry(iconCoder.getMissingIcon(), iconCoder.getMissingLabel(), 'icon');
             }
         }
-        
+
         var plottableSize = currentSize - unplottableItems.length;
         if (plottableSize > this._largestSize) {
             this._largestSize = plottableSize;

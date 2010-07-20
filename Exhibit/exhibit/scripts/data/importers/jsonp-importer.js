@@ -152,7 +152,7 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
             separator = s;
         }
     }
-    
+
     var items = [];
     var properties = {};
     var types = {};
@@ -164,14 +164,14 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
         var id = entry.id.$t;
         var c = id.lastIndexOf("C");
         var r = id.lastIndexOf("R");
-        
+
         entries[i] = {
             row: parseInt(id.substring(r + 1, c)) - 1,
             col: parseInt(id.substring(c + 1)) - 1,
             val: entry.content.$t
         };
     };
-    
+
     var cellIndex = 0;
     var getNextRow = function() {
         if (cellIndex < entries.length) {
@@ -190,19 +190,19 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
         }
         return null;
     };
-    
+
     var propertyRow = getNextRow();
     if (propertyRow != null) {
         var propertiesByColumn = [];
         for (var i = 0; i < propertyRow.length; i++) {
             var cell = propertyRow[i];
-            
+
             var fieldSpec = cell.val.trim().replace(/^\{/g, "").replace(/\}$/g, "").split(":");
             var fieldName = fieldSpec[0].trim();
             var fieldDetails = fieldSpec.length > 1 ? fieldSpec[1].split(",") : [];
-            
+
             var property = { single: false };
-            
+
             for (var d = 0; d < fieldDetails.length; d++) {
                 var detail = fieldDetails[d].trim();
                 if (detail in valueTypes) {
@@ -211,15 +211,15 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
                     property.single = true;
                 }
             }
-            
+
             propertiesByColumn[cell.col] = fieldName;
             properties[fieldName] = property;
         }
-        
+
         var row = null;
         while ((row = getNextRow()) != null) {
             var item = {};
-            
+
             for (var i = 0; i < row.length; i++) {
                 var cell = row[i];
                 var fieldName = propertiesByColumn[cell.col];
@@ -232,7 +232,7 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
                     }
 
                     item[fieldName] = cell.val;
-                    
+
                     var property = properties[fieldName];
                     if (!property.single) {
                         var fieldValues = cell.val.split(separator);
@@ -245,11 +245,11 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
                     }
                 }
             }
-            
+
             items.push(item);
         }
     }
-    
+
     return { types:types, properties:properties, items:items };
 };
 

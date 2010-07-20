@@ -6,7 +6,7 @@
  *  See the main Exhibit LICENSE.txt for licensing.
  *==================================================
  */
- 
+
 Exhibit.TimeplotView = function(containerElmt, uiContext) {
     this._div = containerElmt;
     this._uiContext = uiContext;
@@ -22,9 +22,9 @@ Exhibit.TimeplotView = function(containerElmt, uiContext) {
     this._largestSize = 0;
 
     var view = this;
-    this._listener = { 
+    this._listener = {
         onItemsChanged: function() {
-            view._reconstruct(); 
+            view._reconstruct();
         }
     };
     uiContext.getCollection().addListener(this._listener);
@@ -82,7 +82,7 @@ Exhibit.TimeplotView.create = function(configuration, containerElmt, uiContext) 
         Exhibit.UIContext.create(configuration, uiContext)
     );
     Exhibit.TimeplotView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -91,14 +91,14 @@ Exhibit.TimeplotView.create = function(configuration, containerElmt, uiContext) 
 Exhibit.TimeplotView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var view = new Exhibit.TimeplotView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext)
     );
-    
+
     Exhibit.SettingsUtilities.createAccessorsFromDOM(configElmt, Exhibit.TimeplotView._accessorSpecs, view._accessors);
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.TimeplotView._settingSpecs, view._settings);
     Exhibit.TimeplotView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -107,7 +107,7 @@ Exhibit.TimeplotView.createFromDOM = function(configElmt, containerElmt, uiConte
 Exhibit.TimeplotView._configure = function(view, configuration) {
     Exhibit.SettingsUtilities.createAccessors(configuration, Exhibit.TimeplotView._accessorSpecs, view._accessors);
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.TimeplotView._settingSpecs, view._settings);
-    
+
     var accessors = view._accessors;
     view._getTime = function(itemID, database, visitor) {
         accessors.getProxy(itemID, database, function(proxy) {
@@ -118,20 +118,20 @@ Exhibit.TimeplotView._configure = function(view, configuration) {
 
 Exhibit.TimeplotView.prototype.dispose = function() {
     this._uiContext.getCollection().removeListener(this._listener);
-    
+
     this._timeplot = null;
-    
+
     if (this._settings.showToolbox) {
         this._toolboxWidget.dispose();
         this._toolboxWidget = null;
     }
-    
+
     this._dom.dispose();
     this._dom = null;
-    
+
     this._div.innerHTML = "";
     this._div = null;
-    
+
     this._uiContext.dispose();
     this._uiContext = null;
 };
@@ -151,25 +151,25 @@ Exhibit.TimeplotView.prototype._internalValidate = function() {
 Exhibit.TimeplotView.prototype._initializeUI = function() {
     var self = this;
     var legendWidgetSettings = {};
-    
+
     legendWidgetSettings.colorGradient = (this._colorCoder != null && "_gradientPoints" in this._colorCoder);
-    
+
     this._div.innerHTML = "";
     this._dom = Exhibit.ViewUtilities.constructPlottingViewDom(
-        this._div, 
-        this._uiContext, 
+        this._div,
+        this._uiContext,
         this._settings.showSummary && this._settings.showHeader,
-        {   onResize: function() { 
+        {   onResize: function() {
                 self._timeplot.repaint();
-            } 
-        }, 
+            }
+        },
         legendWidgetSettings
     );
 
     if (this._settings.showToolbox) {
         this._toolboxWidget = Exhibit.ToolboxWidget.createFromDOM(this._div, this._div, this._uiContext);
     }
-    
+
     this._eventSources = [];
     this._eventSource = new Timeplot.DefaultEventSource();
     this._columnSources = [];
@@ -182,7 +182,7 @@ Exhibit.TimeplotView.prototype._reconstructTimeplot = function(newEvents) {
         this._timeplot.dispose();
         this._timeplot = null;
     }
-    
+
     if (newEvents) {
         this._eventSource.addMany(newEvents);
     }

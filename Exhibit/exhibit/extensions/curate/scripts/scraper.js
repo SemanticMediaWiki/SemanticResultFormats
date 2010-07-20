@@ -1,9 +1,9 @@
-Exhibit.Scraper = function(elmt, uiContext, settings) {    
+Exhibit.Scraper = function(elmt, uiContext, settings) {
     if (!settings.scraperInput) {
         SimileAjax.Debug.warn('Scraper not given an input element!');
         return;
     }
-    
+
     var input = this._input = SimileAjax.jQuery('#' + settings.scraperInput);
 
     input.val('');
@@ -12,9 +12,9 @@ Exhibit.Scraper = function(elmt, uiContext, settings) {
     var elmt = this._elmt = SimileAjax.jQuery(elmt);
     this._uiContext = uiContext;
     this._settings = settings;
-    
+
     elmt.attr('href', 'javascript:');
-    
+
     var scraper = this;
     elmt.click(function() { scraper.activate() });
 }
@@ -38,7 +38,7 @@ Exhibit.Scraper.prototype.activate = function() {
             this.scrapeText(input);
         }
     } else if (this._settings.inputType == 'text') {
-        this.scrapeText(input);        
+        this.scrapeText(input);
     } else if (this._settings.inputType.toLowerCase() == 'url') {
         this.scrapeURL(input);
     } else {
@@ -64,7 +64,7 @@ Exhibit.Scraper.prototype.enableUI = function() {
 Exhibit.Scraper.prototype.scrapeURL = function(url) {
     this.disableUI();
     var scraper = this;
-    
+
     var success = function(resp) {
         var status = resp.status;
         if (status == 'ok') {
@@ -78,7 +78,7 @@ Exhibit.Scraper.prototype.scrapeURL = function(url) {
     }
 
     this.disableUI();
-    
+
     SimileAjax.jQuery.ajax({
         url: this._settings.scraperService,
         dataType: 'jsonp',
@@ -98,11 +98,11 @@ Exhibit.Scraper.prototype.scrapeText = function(text) {
 
 Exhibit.Scraper.prototype.scrapePageSource = function(pageSource) {
     var text = Exhibit.ScraperBackend.getTextFromPageSource(pageSource);
-    
+
     var title = Exhibit.ScraperBackend.getTitleFromPageSource(pageSource);
     var item = Exhibit.ScraperBackend.extractItemFromText(
         text, this._settings.itemType, this._uiContext.getDatabase());
-    
+
     Exhibit.ItemCreator.makeNewItemBox(this._uiContext, item, { title: title });
 }
 
@@ -112,10 +112,10 @@ Exhibit.ScraperBackend = {};
 Exhibit.ScraperBackend.getTitleFromPageSource = function(pageSource) {
     var div = document.createElement('div');
     div.innerHTML = pageSource.replace(/\s+/g, ' ');
-    
+
     var dom = SimileAjax.jQuery(div);
     var title = dom.find('title').text();
-    
+
     return title;
 }
 
@@ -139,7 +139,7 @@ Exhibit.ScraperBackend.getTextContents = function(node) {
 Exhibit.ScraperBackend.getTextFromPageSource = function(pageSource) {
     var div = document.createElement('div');
     div.innerHTML = pageSource.replace(/\s+/g, ' ');
-    
+
     // we ignore contents of style/script tags
     var children = div.childNodes;
     for (i=0; i < children.length; i++) {
@@ -148,14 +148,14 @@ Exhibit.ScraperBackend.getTextFromPageSource = function(pageSource) {
             div.removeChild(node);
         }
     }
-    
+
     return Exhibit.ScraperBackend.getTextContents(div);
 }
 
 Exhibit.ScraperBackend.findMostCommon = function(substrings, text) {
     var maxCount = 0; // if none have more than 0, return null
     var maxSubstring = null;
-    
+
     function countSubstrings(str, text) {
         str = str.toLowerCase();
         var count = 0;
@@ -167,7 +167,7 @@ Exhibit.ScraperBackend.findMostCommon = function(substrings, text) {
         }
         return count;
     }
-    
+
     for (var i=0; i < substrings.length; i++) {
         var s = substrings[i];
         var count = countSubstrings(s, text);
@@ -180,22 +180,22 @@ Exhibit.ScraperBackend.findMostCommon = function(substrings, text) {
 }
 
 Exhibit.ScraperBackend.extractItemFromText = function(text, itemType, db) {
-    var item = { type: itemType };    
+    var item = { type: itemType };
     var typeSet = new Exhibit.Set();
     typeSet.add(itemType);
-    
+
     var subjects = db.getSubjectsUnion(typeSet, 'type');
 
     text = text.toLowerCase(); // ignore cases
-    
+
     db.getAllProperties().forEach(function(prop) {
         var itemVals = db.getObjectsUnion(subjects, prop).toArray();
         var mostCommonItemValue = Exhibit.ScraperBackend.findMostCommon(itemVals, text);
-        
+
         if (mostCommonItemValue) {
             item[prop] = mostCommonItemValue;
         }
     });
-   
+
     return item;
 }

@@ -20,7 +20,7 @@
 
 Exhibit.OLMapView = function(containerElmt, uiContext) {
     Exhibit.OLMapView._initialize();
-    
+
     this._div = containerElmt;
     this._uiContext = uiContext;
 
@@ -35,14 +35,14 @@ Exhibit.OLMapView = function(containerElmt, uiContext) {
     this._colorCoder = null;
     this._sizeCoder = null;
     this._iconCoder = null;
-    
+
     this._selectListener = null;
     this._itemIDToMarker = {};
-    
+
     var view = this;
-    this._listener = { 
+    this._listener = {
         onItemsChanged: function() {
-            view._reconstruct(); 
+            view._reconstruct();
         }
     };
     uiContext.getCollection().addListener(this._listener);
@@ -69,7 +69,7 @@ Exhibit.OLMapView._settingSpecs = {
     "sizeCoder":        { type: "text",     defaultValue: null      },
     "iconCoder":        { type: "text",     defaultValue: null      },
     "selectCoordinator":  { type: "text",   defaultValue: null      },
-    
+
     "iconSize":         { type: "int",      defaultValue: 0         },
     "iconFit":          { type: "text",     defaultValue: "smaller" },
     "iconScale":        { type: "float",    defaultValue: 1         },
@@ -82,12 +82,12 @@ Exhibit.OLMapView._settingSpecs = {
     "pin":              { type: "boolean",  defaultValue: true      },
     "pinHeight":        { type: "int",      defaultValue: 6         },
     "pinWidth":         { type: "int",      defaultValue: 6         },
-    
+
     "borderOpacity":    { type: "float",    defaultValue: 0.5       },
     "borderWidth":      { type: "int",      defaultValue: 1         },
     "borderColor":      { type: "text",     defaultValue: null      },
     "opacity":          { type: "float",    defaultValue: 0.7       },
-    
+
     "sizeLegendLabel":  { type: "text",     defaultValue: null      },
     "colorLegendLabel": { type: "text",     defaultValue: null      },
     "iconLegendLabel":  { type: "text",     defaultValue: null      },
@@ -187,7 +187,7 @@ Exhibit.OLMapView.create = function(configuration, containerElmt, uiContext) {
         Exhibit.UIContext.create(configuration, uiContext)
     );
     Exhibit.OLMapView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -196,14 +196,14 @@ Exhibit.OLMapView.create = function(configuration, containerElmt, uiContext) {
 Exhibit.OLMapView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var view = new Exhibit.OLMapView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext)
     );
-    
+
     Exhibit.SettingsUtilities.createAccessorsFromDOM(configElmt, Exhibit.OLMapView._accessorSpecs, view._accessors);
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.OLMapView._settingSpecs, view._settings);
     Exhibit.OLMapView._configure(view, configuration);
-    
+
     view._internalValidate();
     view._initializeUI();
     return view;
@@ -212,40 +212,40 @@ Exhibit.OLMapView.createFromDOM = function(configElmt, containerElmt, uiContext)
 Exhibit.OLMapView._configure = function(view, configuration) {
     Exhibit.SettingsUtilities.createAccessors(configuration, Exhibit.OLMapView._accessorSpecs, view._accessors);
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.OLMapView._settingSpecs, view._settings);
-    
+
     var accessors = view._accessors;
     view._getLatlng = accessors.getLatlng != null ?
         function(itemID, database, visitor) {
             accessors.getProxy(itemID, database, function(proxy) {
                 accessors.getLatlng(proxy, database, visitor);
             });
-        } : 
+        } :
         null;
 };
 
 Exhibit.OLMapView.prototype.dispose = function() {
     this._uiContext.getCollection().removeListener(this._listener);
 
-    this._map.destroy();    
+    this._map.destroy();
     this._map = null;
-    
+
     if (this._selectListener != null) {
         this._selectListener.dispose();
         this._selectListener = null;
     }
     this._itemIDToMarker = {};
-    
+
     if (this._settings.showToolbox) {
         this._toolboxWidget.dispose();
         this._toolboxWidget = null;
     }
-    
+
     this._dom.dispose();
     this._dom = null;
-    
+
     this._uiContext.dispose();
     this._uiContext = null;
-    
+
     this._div.innerHTML = "";
     this._div = null;
 };
@@ -256,12 +256,12 @@ Exhibit.OLMapView.prototype._internalValidate = function() {
         if (this._settings.colorCoder != null) {
             this._colorCoder = exhibit.getComponent(this._settings.colorCoder);
         }
-        
+
         if (this._colorCoder == null) {
             this._colorCoder = new Exhibit.DefaultColorCoder(this._uiContext);
         }
     }
-    if (this._accessors.getSizeKey != null) {  
+    if (this._accessors.getSizeKey != null) {
         if (this._settings.sizeCoder != null) {
             this._sizeCoder = exhibit.getComponent(this._settings.sizeCoder);
             if ("markerScale" in this._settings) {
@@ -269,7 +269,7 @@ Exhibit.OLMapView.prototype._internalValidate = function() {
             }
         }
     }
-    if (this._accessors.getIconKey != null) {  
+    if (this._accessors.getIconKey != null) {
         if (this._settings.iconCoder != null) {
             this._iconCoder = exhibit.getComponent(this._settings.iconCoder);
         }
@@ -287,33 +287,33 @@ Exhibit.OLMapView.prototype._internalValidate = function() {
 
 Exhibit.OLMapView.prototype._initializeUI = function() {
     var self = this;
-    
+
     var legendWidgetSettings = {};
     legendWidgetSettings.colorGradient = (this._colorCoder != null && "_gradientPoints" in this._colorCoder);
     legendWidgetSettings.colorMarkerGenerator = this._createColorMarkerGenerator();
     legendWidgetSettings.sizeMarkerGenerator = this._createSizeMarkerGenerator();
     legendWidgetSettings.iconMarkerGenerator = this._createIconMarkerGenerator();
-    
+
     this._div.innerHTML = "";
     this._dom = Exhibit.ViewUtilities.constructPlottingViewDom(
-        this._div, 
-        this._uiContext, 
+        this._div,
+        this._uiContext,
         this._settings.showSummary && this._settings.showHeader,
-        {   onResize: function() { 
-                self._map.checkResize(); 
-            } 
+        {   onResize: function() {
+                self._map.checkResize();
+            }
         },
         legendWidgetSettings
     );
-    
+
     if (this._settings.showToolbox) {
         this._toolboxWidget = Exhibit.ToolboxWidget.createFromDOM(this._div, this._div, this._uiContext);
     }
-    
+
     var mapDiv = this._dom.plotContainer;
     mapDiv.style.height = this._settings.mapHeight + "px";
     mapDiv.className = "exhibit-mapView-map";
-    
+
     this._map = this._constructMap(mapDiv);
     this._reconstruct();
 };
@@ -454,9 +454,9 @@ Exhibit.OLMapView.prototype._constructMap = function(mapDiv) {
 	});
         map.addControl(selectControl);
 	selectControl.activate();
-        
+
 	map.addControl(new OpenLayers.Control.Navigation(settings.scrollWheelZoom, true, OpenLayers.Handler.MOD_SHIFT, true));
-        
+
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 
         map.events.register("click", null, SimileAjax.WindowManager.cancelPopups);
@@ -466,7 +466,7 @@ Exhibit.OLMapView.prototype._constructMap = function(mapDiv) {
 
 Exhibit.OLMapView.prototype._createColorMarkerGenerator = function() {
     var shape = this._settings.shape;
-    
+
     return function(color) {
         return SimileAjax.Graphics.createTranslucentImage(
             Exhibit.OLMapView._markerUrlPrefix +
@@ -479,7 +479,7 @@ Exhibit.OLMapView.prototype._createColorMarkerGenerator = function() {
 
 Exhibit.OLMapView.prototype._createSizeMarkerGenerator = function() {
     var shape = this._settings.shape;
-    
+
     return function(iconSize) {
         return SimileAjax.Graphics.createTranslucentImage(
             Exhibit.OLMapView._markerUrlPrefix +
@@ -516,7 +516,7 @@ Exhibit.OLMapView.prototype._reconstruct = function() {
     this._clearOverlays();
     this._dom.legendWidget.clear();
     this._itemIDToMarker = {};
-    
+
     var currentSize = this._uiContext.getCollection().countRestrictedItems();
     var unplottableItems = [];
 
@@ -539,7 +539,7 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
     var hasSizeKey = (accessors.getSizeKey != null);
     var hasIconKey = (accessors.getIconKey != null);
     var hasIcon = (accessors.getIcon != null);
-    
+
     var hasPoints = (this._getLatlng != null);
     var hasPolygons = (accessors.getPolygon != null);
     var hasPolylines = (accessors.getPolyline != null);
@@ -548,14 +548,14 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
     var sizeCodingFlags = { mixed: false, missing: false, others: false, keys: new Exhibit.Set() };
     var iconCodingFlags = { mixed: false, missing: false, others: false, keys: new Exhibit.Set() };
 
-    var makeLatLng = settings.latlngOrder == "latlng" ? 
+    var makeLatLng = settings.latlngOrder == "latlng" ?
     function(first, second) { return new OpenLayers.Geometry.Point(second, first); } :
     function(first, second) { return new OpenLayers.Geometry.Point(first, second); };
     currentSet.visit(function(itemID) {
         var latlngs = [];
         var polygons = [];
         var polylines = [];
-        
+
         if (hasPoints) {
             self._getLatlng(itemID, database, function(v) { if (v != null && "lat" in v && "lng" in v) latlngs.push(v); });
         }
@@ -565,18 +565,18 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
         if (hasPolylines) {
             accessors.getPolyline(itemID, database, function(v) { if (v != null) polylines.push(v); });
         }
-        
+
         if (latlngs.length > 0 || polygons.length > 0 || polylines.length > 0) {
             var color = self._settings.color;
-            
+
             var colorKeys = null;
             if (hasColorKey) {
                 colorKeys = new Exhibit.Set();
                 accessors.getColorKey(itemID, database, function(v) { colorKeys.add(v); });
-                
+
                 color = self._colorCoder.translateSet(colorKeys, colorCodingFlags);
             }
-            
+
             if (latlngs.length > 0) {
                 var sizeKeys = null;
                 if (hasSizeKey) {
@@ -609,27 +609,27 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
                     }
                 }
             }
-            
+
             for (var p = 0; p < polygons.length; p++) {
-                self._plotPolygon(itemID, polygons[p], color, makeLatLng); 
+                self._plotPolygon(itemID, polygons[p], color, makeLatLng);
             }
             for (var p = 0; p < polylines.length; p++) {
-                self._plotPolyline(itemID, polylines[p], color, makeLatLng); 
+                self._plotPolyline(itemID, polylines[p], color, makeLatLng);
             }
         } else {
             unplottableItems.push(itemID);
         }
     });
-    
+
     var bounds, maxAutoZoom = Infinity;
     var addMarkerAtLocation = function(locationData) {
         var itemCount = locationData.items.length;
         if (!bounds) {
             bounds = new OpenLayers.Bounds();
         }
-        
+
         var shape = self._settings.shape;
-        
+
         var color = self._settings.color;
         if (hasColorKey) {
             color = self._colorCoder.translateSet(locationData.colorKeys, colorCodingFlags);
@@ -638,7 +638,7 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
         if (hasSizeKey) {
             iconSize = self._sizeCoder.translateSet(locationData.sizeKeys, sizeCodingFlags);
         }
-        
+
         var icon = null;
         if (itemCount == 1) {
             if (hasIcon) {
@@ -648,10 +648,10 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
         if (hasIconKey) {
             icon = self._iconCoder.translateSet(locationData.iconKeys, iconCodingFlags);
         }
-        
+
         var icon = Exhibit.OLMapView._makeIcon(
-            shape, 
-            color, 
+            shape,
+            color,
             iconSize,
             itemCount == 1 ? "" : itemCount.toString(),
             icon,
@@ -687,7 +687,7 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
             maxAutoZoom = locationData.latlng.maxAutoZoom;
         }
         bounds.extend(point);
-        
+
         for (var x = 0; x < locationData.items.length; x++) {
             self._itemIDToMarker[locationData.items[x]] = marker;
         }
@@ -712,7 +712,7 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
                 legendWidget.addEntry(color, key);
             }
         }
-        
+
         if (colorCodingFlags.others) {
             legendWidget.addEntry(colorCoder.getOthersColor(), colorCoder.getOthersLabel());
         }
@@ -723,11 +723,11 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
             legendWidget.addEntry(colorCoder.getMissingColor(), colorCoder.getMissingLabel());
         }
     }
-    
+
     if (hasSizeKey) {
         var legendWidget = this._dom.legendWidget;
         var sizeCoder = this._sizeCoder;
-        var keys = sizeCodingFlags.keys.toArray().sort();    
+        var keys = sizeCodingFlags.keys.toArray().sort();
         if (settings.sizeLegendLabel !== null) {
             legendWidget.addLegendLabel(settings.sizeLegendLabel, 'size');
         }
@@ -741,7 +741,7 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
                 var size = sizeCoder.translate(key);
                 legendWidget.addEntry(size, key, 'size');
             }
-           } else {       
+           } else {
             for (var k = 0; k < keys.length; k++) {
                 var key = keys[k];
                 var size = sizeCoder.translate(key);
@@ -757,15 +757,15 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
                 legendWidget.addEntry(sizeCoder.getMissingSize(), sizeCoder.getMissingLabel(), 'size');
             }
         }
-    }        
+    }
 
     if (hasIconKey) {
         var legendWidget = this._dom.legendWidget;
         var iconCoder = this._iconCoder;
-        var keys = iconCodingFlags.keys.toArray().sort();    
+        var keys = iconCodingFlags.keys.toArray().sort();
         if (settings.iconLegendLabel != null) {
             legendWidget.addLegendLabel(settings.iconLegendLabel, 'icon');
-        }      
+        }
         for (var k = 0; k < keys.length; k++) {
             var key = keys[k];
             var icon = iconCoder.translate(key);
@@ -780,7 +780,7 @@ Exhibit.OLMapView.prototype._rePlotItems = function(unplottableItems) {
         if (iconCodingFlags.missing) {
             legendWidget.addEntry(iconCoder.getMissingIcon(), iconCoder.getMissingLabel(), 'icon');
         }
-    }  
+    }
 
     if (bounds && settings.zoom == null) {
         if (maxAutoZoom > 12) maxAutoZoom = 12;
@@ -810,7 +810,7 @@ Exhibit.OLMapView.prototype._plotPolygon = function(itemID, polygonString, color
 	    "fillOpacity": settings.opacity
 	};
 	var polygonFeature = new OpenLayers.Feature.Vector(polygon, null, polygonStyle);
-        
+
         return this._addPolygonOrPolyline(itemID, polygonFeature);
     }
     return null;
@@ -842,7 +842,7 @@ Exhibit.OLMapView.prototype._addPolygonOrPolyline = function(itemID, poly) {
     } else {
 	return null;
     }
-    
+
     var self = this;
     var centroid = poly.geometry.getCentroid();
     var popup = new OpenLayers.Popup.FramedCloud(
@@ -860,19 +860,19 @@ Exhibit.OLMapView.prototype._addPolygonOrPolyline = function(itemID, poly) {
     popup.feature = poly;
 
     this._itemIDToMarker[itemID] = poly;
-    
+
     return poly;
 };
 
 Exhibit.OLMapView.prototype._parsePolygonOrPolyline = function(s, makeLatLng) {
     var coords = [];
-    
+
     var a = s.split(this._settings.latlngPairSeparator);
     for (var i = 0; i < a.length; i++) {
         var pair = a[i].split(",");
         coords.push(makeLatLng(parseFloat(pair[0]), parseFloat(pair[1])));
     }
-    
+
     return coords;
 };
 
@@ -937,8 +937,8 @@ Exhibit.OLMapView.prototype._createInfoWindow = function(items) {
         f.format(value, appender);
     };
     return Exhibit.ViewUtilities.fillBubbleWithItems(
-        null, 
-        items, 
+        null,
+        items,
         olContext
     );
 };
@@ -959,7 +959,7 @@ Exhibit.OLMapView._makeIcon = function(shape, color, iconSize, label, iconURL, s
         height = iconSize;
         bodyHeight = iconSize;
         settings.pin = false;
-    }   
+    }
 
     var icon = new Object();
     var imageParameters = [
@@ -979,7 +979,7 @@ Exhibit.OLMapView._makeIcon = function(shape, color, iconSize, label, iconURL, s
     //    "height=" + bodyHeight
     //];
     var pinParameters = [];
-    
+
     if (iconURL != null) {
         imageParameters.push("icon=" + iconURL);
         if (settings.iconFit != "smaller") {
@@ -999,16 +999,16 @@ Exhibit.OLMapView._makeIcon = function(shape, color, iconSize, label, iconURL, s
     if (settings.pin) {
         var pinHeight = settings.pinHeight;
         var pinHalfWidth = Math.ceil(settings.pinWidth / 2);
-        
+
         height += pinHeight;
-        
+
         pinParameters.push("pinHeight=" + pinHeight);
         pinParameters.push("pinWidth=" + (pinHalfWidth * 2));
-        
+
         icon.iconAnchor = new OpenLayers.Pixel(-halfWidth, -height);
-        icon.imageMap = [ 
-            0, 0, 
-            0, bodyHeight, 
+        icon.imageMap = [
+            0, 0,
+            0, bodyHeight,
             halfWidth - pinHalfWidth, bodyHeight,
             halfWidth, height,
             halfWidth + pinHalfWidth, bodyHeight,
@@ -1019,17 +1019,17 @@ Exhibit.OLMapView._makeIcon = function(shape, color, iconSize, label, iconURL, s
         icon.infoWindowAnchor = (settings.bubbleTip == "bottom") ? new OpenLayers.Pixel(halfWidth, height) : new OpenLayers.Pixel(halfWidth, 0);
     } else {
         pinParameters.push("pin=false");
-        
+
         icon.iconAnchor = new OpenLayers.Pixel(-halfWidth, -Math.ceil(height / 2));
-        icon.imageMap = [ 
-            0, 0, 
-            0, bodyHeight, 
+        icon.imageMap = [
+            0, 0,
+            0, bodyHeight,
             width, bodyHeight,
             width, 0
         ];
         icon.infoWindowAnchor = new OpenLayers.Pixel(halfWidth, 0);
     }
-    
+
     icon.image = Exhibit.OLMapView._markerUrlPrefix + imageParameters.concat(pinParameters).join("&") + "&.png";
     // if (iconSize == 0) { icon.shadow = Exhibit.OLMapView._markerUrlPrefix + shadowParameters.concat(pinParameters).join("&") + "&.png"; }
     icon.iconSize = new OpenLayers.Size(width, height);

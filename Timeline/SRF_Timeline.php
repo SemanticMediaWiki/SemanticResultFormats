@@ -30,7 +30,7 @@ class SRFTimeline extends SMWResultPrinter {
 		if ( array_key_exists( 'timelinesize', $params ) ) {
 			$this->m_tlsize = htmlspecialchars( str_replace( ';', ' ', strtolower( trim( $params['timelinesize'] ) ) ) );
 			// str_replace makes sure this is only one value, not mutliple CSS fields (prevent CSS attacks)
-			/// FIXME: this is either unsafe or redundant, since Timeline is Wiki-compatible. If the JavaScript makes user inputs to CSS then it is bad even if we block this injection path.
+			// / FIXME: this is either unsafe or redundant, since Timeline is Wiki-compatible. If the JavaScript makes user inputs to CSS then it is bad even if we block this injection path.
 		} else {
 			$this->m_tlsize = '300px';
 		}
@@ -38,7 +38,7 @@ class SRFTimeline extends SMWResultPrinter {
 		// check for band parameter, should look like "DAY,MONTH,YEAR"
 			$this->m_tlbands = preg_split( '/[,][\s]*/u', trim( $params['timelinebands'] ) );
 		} else {
-			$this->m_tlbands = array( 'MONTH', 'YEAR' ); /// TODO: check what default the JavaScript uses
+			$this->m_tlbands = array( 'MONTH', 'YEAR' ); // / TODO: check what default the JavaScript uses
 		}
 		if ( array_key_exists( 'timelineposition', $params ) ) {
 			$this->m_tlpos = strtolower( trim( $params['timelineposition'] ) );
@@ -169,7 +169,7 @@ class SRFTimeline extends SMWResultPrinter {
 							}
 							else {
 								$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getNumericValue() );
-							}							
+							}
 						}
 						$first_value = false;
 					}

@@ -2,7 +2,7 @@
  *  Exhibit Chart Extension French localization
  *==================================================
  */
- 
+
 if (!("l10n" in Exhibit.ScatterPlotView)) {
     Exhibit.ScatterPlotView.l10n = {};
 }

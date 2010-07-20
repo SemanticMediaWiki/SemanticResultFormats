@@ -9,10 +9,10 @@
 
 (function() {
     var isCompiled = ("Exhibit_isCompiled" in window) && window.Exhibit_isCompiled;
-    
+
     var useLocalResources = true;
     var noAuthentication = false;
-    
+
     if (document.location.search.length > 0) {
         var params = document.location.search.substr(1).split("&");
         for (var i = 0; i < params.length; i++) {
@@ -22,15 +22,15 @@
             if (params[i] == 'exhibit-no-authentication') {
                 noAuthentication = true;
             }
-            
+
         }
     }
-    
+
     var loadMe = function() {
         if (typeof window.Exhibit != "undefined") {
             return;
         }
-    
+
         window.Exhibit = {
             version:    "2.2.0",
             loaded:     false,
@@ -39,7 +39,7 @@
             importers:  {},
             locales:    [ "en" ]
         };
-    
+
         var javascriptFiles = [
             "exhibit.js",
             "persistence.js",
@@ -50,14 +50,14 @@
             "util/views.js",
             "util/facets.js",
             "util/coders.js",
-            
+
             "data/database.js",
             "data/expression.js",
             "data/expression-parser.js",
             "data/functions.js",
             "data/controls.js",
             "data/collection.js",
-            
+
             "data/importers/authenticated-importer.js",
             "data/importers/exhibit-json-importer.js",
             "data/importers/html-table-importer.js",
@@ -67,21 +67,21 @@
             "data/importers/exhibit-xml-importer.js",
             "data/importers/tsv-csv-importer.js",
             "data/importers/json-importer.js",
-            
+
             "data/exporters/rdf-xml-exporter.js",
             "data/exporters/semantic-wikitext-exporter.js",
             "data/exporters/exhibit-json-exporter.js",
             "data/exporters/tsv-exporter.js",
             "data/exporters/bibtex-exporter.js",
             "data/exporters/facet-selection-exporter.js",
-            
+
             "ui/ui.js",
             "ui/ui-context.js",
             "ui/lens.js",
             "ui/format-parser.js",
             "ui/formatter.js",
             "ui/coordinator.js",
-            
+
             "ui/facets/list-facet.js",
             "ui/facets/numeric-range-facet.js",
             "ui/facets/text-search-facet.js",
@@ -91,14 +91,14 @@
 	          "ui/facets/slider-facet.js",
 	          "ui/facets/slider.js",
 	          "ui/facets/alpha-range-facet.js",
-      	    
+
             "ui/coders/color-coder.js",
             "ui/coders/default-color-coder.js",
             "ui/coders/color-gradient-coder.js",
             "ui/coders/size-coder.js",
             "ui/coders/size-gradient-coder.js",
             "ui/coders/icon-coder.js",
-            
+
             "ui/widgets/logo.js",
             "ui/widgets/collection-summary-widget.js",
             "ui/widgets/resizable-div-widget.js",
@@ -106,7 +106,7 @@
             "ui/widgets/legend-gradient-widget.js",
             "ui/widgets/option-widget.js",
             "ui/widgets/toolbox-widget.js",
-            
+
             "ui/views/view-panel.js",
             "ui/views/ordered-view-frame.js",
             "ui/views/tile-view.js",
@@ -118,25 +118,25 @@
             "exhibit.css",
             "browse-panel.css",
             "lens.css",
-            
+
             "util/facets.css",
             "util/views.css",
-            
+
             "widgets/collection-summary-widget.css",
             "widgets/resizable-div-widget.css",
             "widgets/legend-widget.css",
             "widgets/option-widget.css",
             "widgets/toolbox-widget.css",
-            
+
             "views/view-panel.css",
             "views/tile-view.css",
             "views/thumbnail-view.css",
             "views/tabular-view.css"
         ];
-        
+
         var includeMap = false;
         var includeTimeline = false;
-        
+
         var defaultClientLocales = ("language" in navigator ? navigator.language : navigator.browserLanguage).split(";");
         for (var l = 0; l < defaultClientLocales.length; l++) {
             var locale = defaultClientLocales[l];
@@ -164,10 +164,10 @@
                 return;
             }
             Exhibit.urlPrefix = url.substr(0, url.indexOf("exhibit-api.js"));
-        
+
             SimileAjax.parseURLParameters(url, Exhibit.params, paramTypes);
         }
-        
+
         if (useLocalResources) {
             Exhibit.urlPrefix = wgServer + wgScriptPath + "/extensions/SemanticResultFormats/Exhibit/exhibit/";
         }
@@ -199,7 +199,7 @@
 
         var scriptURLs = Exhibit.params.js || [];
         var cssURLs = Exhibit.params.css || [];
-                
+
         /*
          *  Core scripts and styles
          */
@@ -210,14 +210,14 @@
             SimileAjax.prefixURLs(scriptURLs, Exhibit.urlPrefix + "scripts/", javascriptFiles);
             SimileAjax.prefixURLs(cssURLs, Exhibit.urlPrefix + "styles/", cssFiles);
         }
-        
+
         /*
          *  Localization
          */
         for (var i = 0; i < Exhibit.locales.length; i++) {
             scriptURLs.push(Exhibit.urlPrefix + "locales/" + Exhibit.locales[i] + "/locale.js");
         };
-        
+
         if (Exhibit.params.callback) {
             window.SimileAjax_onLoad = function() {
                 eval(Exhibit.params.callback + "()");
@@ -235,12 +235,12 @@
         if (includeMap) {
             scriptURLs.push(Exhibit.urlPrefix + "extensions/map/map-extension.js");
         }
-        
+
         if (!isCompiled) {
             SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
             SimileAjax.includeCssFiles(document, "", cssURLs);
         }
-        
+
         Exhibit.loaded = true;
     };
 
@@ -249,11 +249,11 @@
      */
     if (typeof SimileAjax == "undefined" && !isCompiled) {
         window.SimileAjax_onLoad = loadMe;
-        
+
         var url = /*useLocalResources*/ true ?
             wgServer + wgScriptPath + "/extensions/SemanticResultFormats/Exhibit/ajax/simile-ajax-api.js?bundle=false" :
             "http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js";
-            
+
         var createScriptElement = function() {
             var script = document.createElement("script");
             script.type = "text/javascript";

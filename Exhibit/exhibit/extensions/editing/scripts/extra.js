@@ -11,13 +11,13 @@ Exhibit.UI.makeEditValueSpan = function(label, valueType, layer, showRemoveIcon)
     span.className = "exhibit-value";
     var input = document.createElement("input");
     input.className = "editable-exhibit-value";
-    
+
     //We don't need to take into account the valueType
     var input = document.createElement("input");
     input.className = "editable-exhibit-value";
     input.value = label;
     span.appendChild(input);
-    
+
     if(showRemoveIcon) {
         var removeImg = Exhibit.UI.createTranslucentImage("images/remove-icon.png");
         removeImg.width = 10;
@@ -25,8 +25,8 @@ Exhibit.UI.makeEditValueSpan = function(label, valueType, layer, showRemoveIcon)
         removeImg.style.margin = 0;
         removeImg.title = "remove value";
         SimileAjax.WindowManager.registerEvent(
-            removeImg, 
-            "click", 
+            removeImg,
+            "click",
             function(elmt, evt, target) {
                 span.parentNode.removeChild(span);
             }
@@ -51,15 +51,15 @@ Exhibit.UI.makeEditItemSpan = function(itemID, label, uiContext, layer) {
             label = itemID;
         }
     }
-    
+
     var a = SimileAjax.DOM.createElementFromString(
         "<a href=\"" + Exhibit.Persistence.getItemLink(itemID) + "\" class='exhibit-item'>" + label + "</a>");
-        
+
     var handler = function(elmt, evt, target) {
         Exhibit.UI.showEditItemInPopup(itemID, elmt, uiContext);
     }
     SimileAjax.WindowManager.registerEvent(a, "click", handler, layer);
-    
+
     return a;
 };
 
@@ -75,8 +75,8 @@ Exhibit.UI.correctPopupBehavior = function(lens, itemID, div, uiContext) {
     //div.removeChild(div.lastChild);
     div.lastChild.onclick = "";
     SimileAjax.WindowManager.registerEvent(
-        div.lastChild, 
-        "click", 
+        div.lastChild,
+        "click",
         function(elmt, evt, target) {
             lens._saveFromEditingLens(itemID, div, uiContext);
         }
@@ -92,12 +92,12 @@ Exhibit.UI.correctPopupBehavior = function(lens, itemID, div, uiContext) {
 Exhibit.UI.showEditItemInPopup = function(itemID, elmt, uiContext) {
     var coords = SimileAjax.DOM.getPageCoordinates(elmt);
     var bubble = SimileAjax.Graphics.createBubbleForPoint(
-        coords.left + Math.round(elmt.offsetWidth / 2), 
-        coords.top + Math.round(elmt.offsetHeight / 2), 
+        coords.left + Math.round(elmt.offsetWidth / 2),
+        coords.top + Math.round(elmt.offsetHeight / 2),
         uiContext.getSetting("bubbleWidth"),
         uiContext.getSetting("bubbleHeight")
     );
-    
+
     var itemLensDiv = document.createElement("div");
     var itemLens = uiContext.getLensRegistry().createLens(itemID, itemLensDiv, uiContext, true);
     itemLens._convertLens(itemID, itemLensDiv, uiContext, true);
@@ -126,7 +126,8 @@ Exhibit.Database._Impl.prototype.reloadItem = function(itemID, itemEntry) {
     try {
         for(p in itemEntry)
             this.removeObjects(itemID, p);
-        var o = {};        //itemEntry["label"] = itemEntry["label"][0]; //
+        var o = {};
+        //itemEntry["label"] = itemEntry["label"][0]; //
         //itemEntry["uri"]   = itemEntry["uri"][0];   //The database is a little bit more tolerant now of critical values being single element arrays.
         //itemEntry["type"]  = itemEntry["type"][0];  //
         o.items = [itemEntry];
@@ -141,21 +142,21 @@ Exhibit.Database._Impl.prototype.reloadItem = function(itemID, itemEntry) {
  */
 /*SimileAjax.DOM.registerEvent = function(elmt, eventName, handler) {
     var handler2 = function(evt) {
-        
+
         evt = (evt) ? evt : ((eventName) ? eventName : null);
         if (evt) {
-            var target = (evt.target) ? 
+            var target = (evt.target) ?
                 evt.target : ((evt.srcElement) ? evt.srcElement : null);
             if (target) {
-                target = (target.nodeType == 1 || target.nodeType == 9) ? 
+                target = (target.nodeType == 1 || target.nodeType == 9) ?
                     target : target.parentNode;
             }
-            
+
             return handler(elmt, evt, target);
         }
         return true;
     }
-    
+
     if (SimileAjax.Platform.browser.isIE) {
         elmt.attachEvent("on" + eventName, handler2);
     } else {
@@ -166,7 +167,7 @@ Exhibit.Database._Impl.prototype.reloadItem = function(itemID, itemEntry) {
 Exhibit.createPopupMenu = function(element, align) {
     var div = document.createElement("div");
     div.className = "exhibit-menu-popup exhibit-ui-protection";
-    
+
     var dom = {
         elmt: div,
         close: function() {
@@ -175,12 +176,12 @@ Exhibit.createPopupMenu = function(element, align) {
         open: function() {
             var self = this;
             this.layer = SimileAjax.WindowManager.pushLayer(function() { self.close(); }, true, this.elmt);
-                
+
             document.body.appendChild(div);
-            
+
             var docWidth = document.body.offsetWidth;
             var docHeight = document.body.offsetHeight;
-        
+
             var coords = SimileAjax.DOM.getPageCoordinates(element);
             if (align == "center") {
                 div.style.top = (coords.top + element.scrollHeight) + "px";
@@ -207,14 +208,14 @@ Exhibit.createPopupMenu = function(element, align) {
                     return false;
                 });
             }
-            
+
             var div = document.createElement("div");
             a.appendChild(div);
-    
+
             div.appendChild(SimileAjax.Graphics.createTranslucentImage(
                 icon != null ? icon : (Exhibit.urlPrefix + "images/blank-16x16.png")));
             div.appendChild(document.createTextNode(label));
-            
+
             return a;
         },
         appendMenuItem: function(label, icon, onClick) {
@@ -234,30 +235,30 @@ Exhibit.createPopupMenu = function(element, align) {
             var a = document.createElement("a");
             a.className = "exhibit-menu-item potluck-submenu";
             a.href = "javascript:";
-            
+
             var subdom = Exhibit.createPopupMenu(a, "right");
             a.onmousemove = function() { self._mousemoveSubmenu(a, subdom); };
-            
+
             var div = document.createElement("div");
             a.appendChild(div);
-    
+
             var table = document.createElement("table");
             table.cellSpacing = 0;
             table.cellPadding = 0;
             table.width = "100%";
             div.appendChild(table);
-            
+
             var tr = table.insertRow(0);
             var td = tr.insertCell(0);
             td.appendChild(document.createTextNode(label));
-            
+
             td = tr.insertCell(1);
             td.align = "right";
             td.style.verticalAlign = "middle";
             td.appendChild(Exhibit.UI.createTranslucentImage("images/submenu.png"));
-            
+
             parentElmt.appendChild(a);
-            
+
             return subdom;
         },
         appendSubMenu: function(label) {
@@ -275,9 +276,9 @@ Exhibit.createPopupMenu = function(element, align) {
                         this._timer = null;
                     }
                     var self = this;
-                    this._timer = window.setTimeout(function() { 
+                    this._timer = window.setTimeout(function() {
                         self._timer = null;
-                        self._closeSubmenu(); 
+                        self._closeSubmenu();
                         self._openSubmenu(submenu, submenuDom);
                     }, 200);
                 }
@@ -288,9 +289,9 @@ Exhibit.createPopupMenu = function(element, align) {
         _mouseoverMenuItem: function(menuItem) {
             var self = this;
             if (this._submenu != null && this._timer == null) {
-                this._timer = window.setTimeout(function() { 
+                this._timer = window.setTimeout(function() {
                     self._timer = null;
-                    self._closeSubmenu(); 
+                    self._closeSubmenu();
                 }, 200);
             }
         },
@@ -320,21 +321,42 @@ Exhibit.createPopupMenu = function(element, align) {
 Exhibit.UI.removeChildren = function(elmt){
     for(var i=elmt.childNodes.length; i>0; i--)
         elmt.removeChild(elmt.lastChild);
-}/** * Finds elements which have the given className in the editing lens. *@param className {String} The class name for which to look. *@param node The top node in which to look. The lens dom element will do, but it's not the best. *@returns An array of dom elements. */Exhibit.UI.findClassMembers = function(className, node) {    var values = [];    var walk = function(node){        if(node.className == className)            values.push(node);        else for(var i = 0; i<node.childNodes.length; i++)            walk(node.childNodes[i]);    }    walk(node);    return values;}/*
+}
+
+/**
+ * Finds elements which have the given className in the editing lens.
+ *@param className {String} The class name for which to look.
+ *@param node The top node in which to look. The lens dom element will do, but it's not the best.
+ *@returns An array of dom elements.
+ */
+Exhibit.UI.findClassMembers = function(className, node) {
+    var values = [];
+    var walk = function(node){
+        if(node.className == className)
+            values.push(node);
+        else for(var i = 0; i<node.childNodes.length; i++)
+            walk(node.childNodes[i]);
+    }
+    walk(node);
+    return values;
+}
+
+
+/*
  * This extra code should be in Exhibit, and affect it least possible.
  */
 Exhibit.ViewPanel.getPropertyValuesPairs = function(itemID, propertyEntries, database) {
     var pairs = [];
     var enterPair = function(propertyID, forward) {
         var property = database.getProperty(propertyID);
-        var values = forward ? 
+        var values = forward ?
             database.getObjects(itemID, propertyID) :
             database.getSubjects(itemID, propertyID);
         var count = values.size();
-        
+
         if (count > 0) {
             var itemValues = property.getValueType() == "item";
-            var pair = { 
+            var pair = {
                 propertyID: propertyID,
                 propertyLabel:
                     forward ?
@@ -343,7 +365,7 @@ Exhibit.ViewPanel.getPropertyValuesPairs = function(itemID, propertyEntries, dat
                 valueType:  property.getValueType(),
                 values:     []
             };
-            
+
             if (itemValues) {
                 values.visit(function(value) {
                     var label = database.getObject(value, "label");
@@ -357,7 +379,7 @@ Exhibit.ViewPanel.getPropertyValuesPairs = function(itemID, propertyEntries, dat
             pairs.push(pair);
         }
     };
-    
+
     for (var i = 0; i < propertyEntries.length; i++) {
         var entry = propertyEntries[i];
         if (typeof entry == "string") {
@@ -383,7 +405,7 @@ Exhibit.TileView.createFromDOM = function(configElmt, containerElmt, uiContext) 
     view._editSetting = Exhibit.getAttribute(configElmt, "editing");
     if(view._editSetting == null)
         view._editSetting = false;
-    
+
     view._initializeUI();
     return view;
 };
@@ -451,18 +473,18 @@ Exhibit.TileView.prototype._reconstruct = function() {
 Exhibit.ThumbnailView.createFromDOM = function(configElmt, containerElmt, uiContext) {
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var view = new Exhibit.ThumbnailView(
-        containerElmt != null ? containerElmt : configElmt, 
+        containerElmt != null ? containerElmt : configElmt,
         Exhibit.UIContext.createFromDOM(configElmt, uiContext, true)
     );
-    
+
     view._lensRegistry = Exhibit.UIContext.createLensRegistryFromDOM(configElmt, configuration, uiContext.getLensRegistry());
     view._orderedViewFrame.configureFromDOM(configElmt);
     view._orderedViewFrame.configure(configuration);
-    
+
     view._editSetting = Exhibit.getAttribute(configElmt, "editing");
     if(view._editSetting == null)
         view._editSetting = false;
-    
+
     view._initializeUI();
     return view;
 };
@@ -475,14 +497,14 @@ Exhibit.ThumbnailView.prototype._reconstruct = function() {
         groupDoms:      [],
         groupCounts:    []
     };
-    
+
     var closeGroups = function(groupLevel) {
         for (var i = groupLevel; i < state.groupDoms.length; i++) {
             state.groupDoms[i].countSpan.innerHTML = state.groupCounts[i];
         }
         state.groupDoms = state.groupDoms.slice(0, groupLevel);
         state.groupCounts = state.groupCounts.slice(0, groupLevel);
-        
+
         if (groupLevel > 0) {
             state.div = state.groupDoms[groupLevel - 1].contentDiv;
         } else {
@@ -490,49 +512,49 @@ Exhibit.ThumbnailView.prototype._reconstruct = function() {
         }
         state.itemContainer = null;
     }
-    
+
     this._orderedViewFrame.onNewGroup = function(groupSortKey, keyType, groupLevel) {
         closeGroups(groupLevel);
-        
+
         var groupDom = Exhibit.ThumbnailView.constructGroup(
             groupLevel,
             groupSortKey
         );
-        
+
         state.div.appendChild(groupDom.elmt);
         state.div = groupDom.contentDiv;
-        
+
         state.groupDoms.push(groupDom);
         state.groupCounts.push(0);
     };
-    
+
     this._orderedViewFrame.onNewItem = function(itemID, index) {
         //if (index > 10) return;
-        
+
         if (state.itemContainer == null) {
             state.itemContainer = Exhibit.ThumbnailView.constructItemContainer();
             state.div.appendChild(state.itemContainer);
         }
-        
+
         for (var i = 0; i < state.groupCounts.length; i++) {
             state.groupCounts[i]++;
         }
-        
+
         var itemLensDiv = document.createElement("div");
         itemLensDiv.className = SimileAjax.Platform.browser.isIE ?
             "exhibit-thumbnailView-itemContainer-IE" :
             "exhibit-thumbnailView-itemContainer";
-        
+
         var itemLens = view._lensRegistry.createLens(itemID, itemLensDiv, view._uiContext, view._editSetting);
         state.itemContainer.appendChild(itemLensDiv);
     };
-                
+
     this._div.style.display = "none";
-    
+
     this._dom.bodyDiv.innerHTML = "";
     this._orderedViewFrame.reconstruct();
     closeGroups(0);
-    
+
     this._div.style.display = "block";
 };
 

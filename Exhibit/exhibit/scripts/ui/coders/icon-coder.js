@@ -6,7 +6,7 @@
 Exhibit.IconCoder = function(uiContext) {
     this._uiContext = uiContext;
     this._settings = {};
-    
+
     this._map = {};
     this._mixedCase = { label: "mixed", icon: null };
     this._missingCase = { label: "missing", icon: null };
@@ -18,26 +18,26 @@ Exhibit.IconCoder._settingSpecs = {
 
 Exhibit.IconCoder.create = function(configuration, uiContext) {
     var coder = new Exhibit.IconCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.IconCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.IconCoder.createFromDOM = function(configElmt, uiContext) {
     configElmt.style.display = "none";
-    
+
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var coder = new Exhibit.IconCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.IconCoder._settingSpecs, coder._settings);
-    
+
     try {
         var node = configElmt.firstChild;
         while (node != null) {
             if (node.nodeType == 1) {
                 coder._addEntry(
-                    Exhibit.getAttribute(node, "case"), 
-                    node.firstChild.nodeValue.trim(), 
+                    Exhibit.getAttribute(node, "case"),
+                    node.firstChild.nodeValue.trim(),
                     Exhibit.getAttribute(node, "icon"));
             }
             node = node.nextSibling;
@@ -45,14 +45,14 @@ Exhibit.IconCoder.createFromDOM = function(configElmt, uiContext) {
     } catch (e) {
         SimileAjax.Debug.exception(e, "IconCoder: Error processing configuration of coder");
     }
-    
+
     Exhibit.IconCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.IconCoder._configure = function(coder, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.IconCoder._settingSpecs, coder._settings);
-    
+
     if ("entries" in configuration) {
         var entries = configuration.entries;
         for (var i = 0; i < entries.length; i++) {
@@ -75,7 +75,7 @@ Exhibit.IconCoder.prototype._addEntry = function(kase, key, icon) {
     if (icon in Exhibit.IconCoder._iconTable) {
         icon = Exhibit.IconCoder._iconTable[icon];
     }
-    
+
     var entry = null;
     switch (kase) {
     case "others":  entry = this._othersCase; break;
@@ -117,7 +117,7 @@ Exhibit.IconCoder.prototype.translateSet = function(keys, flags) {
         }
         return false;
     });
-    
+
     if (icon != null) {
         return icon;
     } else {

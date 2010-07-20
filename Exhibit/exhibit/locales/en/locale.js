@@ -1,5 +1,5 @@
 /*==================================================
- *  English localization 
+ *  English localization
  *  (also base and default localization)
  *==================================================
  */

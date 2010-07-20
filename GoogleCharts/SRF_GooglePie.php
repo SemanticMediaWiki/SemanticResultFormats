@@ -47,7 +47,7 @@ class SRFGooglePie extends SMWResultPrinter {
 						}
 						else {
 							$nr = $object->getNumericValue();
-						}						
+						}
 						$max = max( $max, $nr );
 						if ( $first ) {
 							$first = false;

@@ -4,14 +4,14 @@
  */
 
 (function() {
-    var isCompiled = ("Exhibit_MapExtension_isCompiled" in window) && 
+    var isCompiled = ("Exhibit_MapExtension_isCompiled" in window) &&
                     window.Exhibit_MapExtension_isCompiled;
-                    
+
     Exhibit.MapExtension = {
         params: {
             bundle:     true,
             service:    "google"
-        } 
+        }
     };
 
     var javascriptFiles = [
@@ -23,7 +23,7 @@
         "map-view.css",
         "olmap-view.css"
     ];
-    
+
     var paramTypes = { bundle: Boolean };
     if (typeof Exhibit_MapExtension_urlPrefix == "string") {
         Exhibit.MapExtension.urlPrefix = Exhibit_MapExtension_urlPrefix;
@@ -39,13 +39,13 @@
             return;
         }
         Exhibit.MapExtension.urlPrefix = url.substr(0, url.indexOf("map-extension.js"));
-        
+
         SimileAjax.parseURLParameters(url, Exhibit.MapExtension.params, paramTypes);
     }
-    
+
     var scriptURLs = [];
     var cssURLs = [];
-        
+
     if (Exhibit.MapExtension.params.service == "google") {
         if (Exhibit.params.gmapkey) {
             scriptURLs.push("http://maps.google.com/maps?file=api&v=2&key=" + Exhibit.params.gmapkey);
@@ -60,7 +60,7 @@
     } else {
         scriptURLs.push("http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=5");
     }
-    
+
     if (Exhibit.MapExtension.params.bundle) {
         scriptURLs.push(Exhibit.MapExtension.urlPrefix + "map-extension-bundle.js");
         cssURLs.push(Exhibit.MapExtension.urlPrefix + "map-extension-bundle.css");
@@ -68,11 +68,11 @@
         SimileAjax.prefixURLs(scriptURLs, Exhibit.MapExtension.urlPrefix + "scripts/", javascriptFiles);
         SimileAjax.prefixURLs(cssURLs, Exhibit.MapExtension.urlPrefix + "styles/", cssFiles);
     }
-    
+
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.MapExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/map-locale.js");
     };
-    
+
     if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);

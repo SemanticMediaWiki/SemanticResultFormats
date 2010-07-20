@@ -4,13 +4,13 @@
  */
 
 (function() {
-    var isCompiled = ("Exhibit_EditingExtension_isCompiled" in window) && 
+    var isCompiled = ("Exhibit_EditingExtension_isCompiled" in window) &&
                     window.Exhibit_EditingExtension_isCompiled;
-                    
+
     Exhibit.EditingExtension = {
         params: {
             bundle:     false
-        } 
+        }
     };
 
     var javascriptFiles = [
@@ -23,7 +23,7 @@
     var cssFiles = [
         "editing.css"
     ];
-    
+
     var paramTypes = { bundle: Boolean };
     if (typeof Exhibit_EditingExtension_urlPrefix == "string") {
         Exhibit.EditingExtension.urlPrefix = Exhibit_EditingExtension_urlPrefix;
@@ -39,13 +39,13 @@
             return;
         }
         Exhibit.EditingExtension.urlPrefix = url.substr(0, url.indexOf("editing-extension.js"));
-        
+
         SimileAjax.parseURLParameters(url, Exhibit.EditingExtension.params, paramTypes);
     }
-    
+
     var scriptURLs = [];
     var cssURLs = [];
-        
+
     if (Exhibit.EditingExtension.params.bundle) {
         scriptURLs.push(Exhibit.EditingExtension.urlPrefix + "editing-extension-bundle.js");
         cssURLs.push(Exhibit.EditingExtension.urlPrefix + "editing-extension-bundle.css");
@@ -53,11 +53,11 @@
         SimileAjax.prefixURLs(scriptURLs, Exhibit.EditingExtension.urlPrefix + "scripts/", javascriptFiles);
         SimileAjax.prefixURLs(cssURLs, Exhibit.EditingExtension.urlPrefix + "styles/", cssFiles);
     }
-    
+
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.EditingExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/editing-locale.js");
     };
-    
+
     if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);

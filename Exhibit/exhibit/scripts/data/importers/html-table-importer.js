@@ -24,7 +24,7 @@ Exhibit.HtmlTableImporter.load = function(link, database, cont) {
             }
         }
     } else if (typeof link != "string") {
-        var xpath = link.getAttribute('ex:xpath'); 
+        var xpath = link.getAttribute('ex:xpath');
         var columns = (link.getAttribute('ex:columns')).split(',');
         var babelURL = "http://simile.mit.edu/babel/html-extractor?" + [
             "xpath=" + xpath,
@@ -34,13 +34,13 @@ Exhibit.HtmlTableImporter.load = function(link, database, cont) {
             var div = document.createElement("div");
             div.innerHTML = string;
             var table = div.firstChild;
-            
+
             var th, ths = table.getElementsByTagName("th");
             for( col = 0; th = ths[col]; col++ ) {
                 var label = columns[col];
                 th.setAttribute('ex:name', label);
             }
-            
+
             Exhibit.HtmlTableImporter.loadTable(table, database);
             return {};
         }
@@ -125,16 +125,16 @@ Exhibit.HtmlTableImporter.loadTable = function(table, database) {
 
                     return data;
                 };
-                if (hastextwithlink) { 
-                    var fallback = attr.valueParser; 
-                    attr.valueParser = function( text, node, rowNo, colNo ) { 
-                        var links = node.getElementsByTagName("a"); 
+                if (hastextwithlink) {
+                    var fallback = attr.valueParser;
+                    attr.valueParser = function( text, node, rowNo, colNo ) {
+                        var links = node.getElementsByTagName("a");
                         if( !links.length ) { return fallback( text, node, rowNo, colNo ); }
                         var data={};
                         data[fields[colNo]] = text.trim();
                         data[(fields[colNo] + "-link") ] = links[0].href;
                         return data;
-                    } 
+                    }
                 }
             }
         }

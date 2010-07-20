@@ -14,22 +14,22 @@
 Exhibit.OrderedColorCoder = function(uiContext) {
     this._uiContext = uiContext;
     this._settings = {};
-    
+
     this._map = {};
     this._order = new Exhibit.OrderedColorCoder._OrderedHash();
     this._usePriority = "highest";
-    this._mixedCase = { 
+    this._mixedCase = {
         label: null,
         color: null,
 	isDefault: true
     };
-    this._missingCase = { 
-        label: Exhibit.Coders.l10n.missingCaseLabel, 
+    this._missingCase = {
+        label: Exhibit.Coders.l10n.missingCaseLabel,
         color: Exhibit.Coders.missingCaseColor,
 	isDefault: true
     };
-    this._othersCase = { 
-        label: Exhibit.Coders.l10n.othersCaseLabel, 
+    this._othersCase = {
+        label: Exhibit.Coders.l10n.othersCaseLabel,
         color: Exhibit.Coders.othersCaseColor,
 	isDefault: true
     };
@@ -54,27 +54,27 @@ Exhibit.OrderedColorCoder._settingSpecs = {
 
 Exhibit.OrderedColorCoder.create = function(configuration, uiContext) {
     var coder = new Exhibit.OrderedColorCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.OrderedColorCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.OrderedColorCoder.createFromDOM = function(configElmt, uiContext) {
     configElmt.style.display = "none";
-    
+
     var configuration = Exhibit.getConfigurationFromDOM(configElmt);
     var coder = new Exhibit.OrderedColorCoder(Exhibit.UIContext.create(configuration, uiContext));
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(configElmt, Exhibit.OrderedColorCoder._settingSpecs, coder._settings);
-    
+
     try {
 	this._usePriority = coder._settings.usePriority;
         var node = configElmt.firstChild;
         while (node != null) {
             if (node.nodeType == 1) {
                 coder._addEntry(
-                    Exhibit.getAttribute(node, "case"), 
-                    node.firstChild.nodeValue.trim(), 
+                    Exhibit.getAttribute(node, "case"),
+                    node.firstChild.nodeValue.trim(),
                     Exhibit.getAttribute(node, "color"));
             }
             node = node.nextSibling;
@@ -94,14 +94,14 @@ Exhibit.OrderedColorCoder.createFromDOM = function(configElmt, uiContext) {
     } catch (e) {
         SimileAjax.Debug.exception(e, "OrderedColorCoder: Error processing configuration of coder");
     }
-    
+
     Exhibit.OrderedColorCoder._configure(coder, configuration);
     return coder;
 };
 
 Exhibit.OrderedColorCoder._configure = function(coder, configuration) {
     Exhibit.SettingsUtilities.collectSettings(configuration, Exhibit.OrderedColorCoder._settingSpecs, coder._settings);
-    
+
     if ("entries" in configuration) {
         var entries = configuration.entries;
         for (var i = 0; i < entries.length; i++) {
@@ -140,7 +140,7 @@ Exhibit.OrderedColorCoder.prototype._addEntry = function(kase, key, color) {
     if (color in Exhibit.OrderedColorCoder._colorTable) {
         color = Exhibit.OrderedColorCoder._colorTable[color];
     }
-    
+
     var entry = null;
     var mixed = false;
     switch (kase) {
@@ -210,7 +210,7 @@ Exhibit.OrderedColorCoder.prototype.translateSet = function(keys, flags) {
         }
         return false;
     });
-    
+
     if (color != null) {
         return color;
     } else {

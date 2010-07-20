@@ -4,71 +4,71 @@
  */
 Exhibit.UIContext = function() {
     this._parent = null;
-    
+
     this._exhibit = null;
     this._collection = null;
     this._lensRegistry = new Exhibit.LensRegistry();
     this._settings = {};
-    
+
     this._formatters = {};
     this._listFormatter = null;
-    
+
     this._editModeRegistry = {};
-    
+
     this._popupFunc = null;
 };
 
 Exhibit.UIContext.createRootContext = function(configuration, exhibit) {
     var context = new Exhibit.UIContext();
     context._exhibit = exhibit;
-    
+
     var settings = Exhibit.UIContext.l10n.initialSettings;
     for (var n in settings) {
         context._settings[n] = settings[n];
     }
-    
+
     var formats = Exhibit.getAttribute(document.body, "formats");
     if (formats != null && formats.length > 0) {
         Exhibit.FormatParser.parseSeveral(context, formats, 0, {});
     }
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(
         document.body, Exhibit.UIContext._settingSpecs, context._settings);
-        
+
     Exhibit.UIContext._configure(context, configuration);
-    
+
     return context;
 };
 
 Exhibit.UIContext.create = function(configuration, parentUIContext, ignoreLenses) {
     var context = Exhibit.UIContext._createWithParent(parentUIContext);
     Exhibit.UIContext._configure(context, configuration, ignoreLenses);
-    
+
     return context;
 };
 
 Exhibit.UIContext.createFromDOM = function(configElmt, parentUIContext, ignoreLenses) {
     var context = Exhibit.UIContext._createWithParent(parentUIContext);
-    
+
     if (!(ignoreLenses)) {
         Exhibit.UIContext.registerLensesFromDOM(configElmt, context.getLensRegistry());
     }
-    
+
     var id = Exhibit.getAttribute(configElmt, "collectionID");
     if (id != null && id.length > 0) {
         context._collection = context._exhibit.getCollection(id);
     }
-    
+
     var formats = Exhibit.getAttribute(configElmt, "formats");
     if (formats != null && formats.length > 0) {
         Exhibit.FormatParser.parseSeveral(context, formats, 0, {});
     }
-    
+
     Exhibit.SettingsUtilities.collectSettingsFromDOM(
         configElmt, Exhibit.UIContext._settingSpecs, context._settings);
-        
+
     Exhibit.UIContext._configure(context, Exhibit.getConfigurationFromDOM(configElmt), ignoreLenses);
-    
+
     return context;
 };
 
@@ -107,8 +107,8 @@ Exhibit.UIContext.prototype.getLensRegistry = function() {
 };
 
 Exhibit.UIContext.prototype.getSetting = function(name) {
-    return name in this._settings ? 
-        this._settings[name] : 
+    return name in this._settings ?
+        this._settings[name] :
         (this._parent != null ? this._parent.getSetting(name) : undefined);
 };
 
@@ -126,7 +126,7 @@ Exhibit.UIContext.prototype.format = function(value, valueType, appender) {
     if (valueType in this._formatters) {
         f = this._formatters[valueType];
     } else {
-        f = this._formatters[valueType] = 
+        f = this._formatters[valueType] =
             new Exhibit.Formatter._constructors[valueType](this);
     }
     f.format(value, appender);
@@ -141,7 +141,7 @@ Exhibit.UIContext.prototype.formatList = function(iterator, count, valueType, ap
 
 Exhibit.UIContext.prototype.setEditMode = function(itemID, val) {
     if (val) {
-        this._editModeRegistry[itemID] = true;        
+        this._editModeRegistry[itemID] = true;
     } else {
         this._editModeRegistry[itemID] = false;
     }
@@ -158,12 +158,12 @@ Exhibit.UIContext.prototype.isBeingEdited = function(itemID) {
  */
 Exhibit.UIContext._createWithParent = function(parent) {
     var context = new Exhibit.UIContext();
-    
+
     context._parent = parent;
     context._exhibit = parent._exhibit;
     context._lensRegistry = new Exhibit.LensRegistry(parent.getLensRegistry());
     context._editModeRegistry = parent._editModeRegistry;
-    
+
     return context;
 };
 
@@ -174,15 +174,15 @@ Exhibit.UIContext._settingSpecs = {
 
 Exhibit.UIContext._configure = function(context, configuration, ignoreLenses) {
     Exhibit.UIContext.registerLenses(configuration, context.getLensRegistry());
-    
+
     if ("collectionID" in configuration) {
         context._collection = context._exhibit.getCollection(configuration["collectionID"]);
     }
-    
+
     if ("formats" in configuration) {
         Exhibit.FormatParser.parseSeveral(context, configuration.formats, 0, {});
     }
-    
+
     if (!(ignoreLenses)) {
         Exhibit.SettingsUtilities.collectSettings(
             configuration, Exhibit.UIContext._settingSpecs, context._settings);
@@ -208,10 +208,10 @@ Exhibit.UIContext.registerLens = function(configuration, lensRegistry) {
 
 Exhibit.UIContext.registerLensFromDOM = function(elmt, lensRegistry) {
     elmt.style.display = "none";
-    
+
     var itemTypes = Exhibit.getAttribute(elmt, "itemTypes", ",");
     var template = null;
-    
+
     var url = Exhibit.getAttribute(elmt, "templateFile");
     if (url != null && url.length > 0) {
         template = url;
@@ -224,7 +224,7 @@ Exhibit.UIContext.registerLensFromDOM = function(elmt, lensRegistry) {
             template = elmt;
         }
     }
-    
+
     if (template != null) {
         if (itemTypes == null || itemTypes.length == 0 || (itemTypes.length == 1 && itemTypes[0] == "")) {
             lensRegistry.registerDefaultLens(template);
@@ -263,7 +263,7 @@ Exhibit.UIContext.registerLensesFromDOM = function(parentNode, lensRegistry) {
         }
         node = node.nextSibling;
     }
-    
+
     var lensSelectorString = Exhibit.getAttribute(parentNode, "lensSelector");
     if (lensSelectorString != null && lensSelectorString.length > 0) {
         try {
@@ -282,7 +282,7 @@ Exhibit.UIContext.registerLensesFromDOM = function(parentNode, lensRegistry) {
 Exhibit.UIContext.createLensRegistry = function(configuration, parentLensRegistry) {
     var lensRegistry = new Exhibit.LensRegistry(parentLensRegistry);
     Exhibit.UIContext.registerLenses(configuration, lensRegistry);
-    
+
     return lensRegistry;
 };
 
@@ -290,6 +290,6 @@ Exhibit.UIContext.createLensRegistryFromDOM = function(parentNode, configuration
     var lensRegistry = new Exhibit.LensRegistry(parentLensRegistry);
     Exhibit.UIContext.registerLensesFromDOM(parentNode, lensRegistry);
     Exhibit.UIContext.registerLenses(configuration, lensRegistry);
-    
+
     return lensRegistry;
 };

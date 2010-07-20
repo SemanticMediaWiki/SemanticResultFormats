@@ -8,7 +8,7 @@ Exhibit.ResizableDivWidget = function(configuration, elmt, uiContext) {
     if (!("minHeight" in configuration)) {
         configuration["minHeight"] = 10; // pixels
     }
-    
+
     this._initializeUI();
 };
 
@@ -29,16 +29,16 @@ Exhibit.ResizableDivWidget.prototype.getContentDiv = function() {
 
 Exhibit.ResizableDivWidget.prototype._initializeUI = function() {
     var self = this;
-    
-    this._div.innerHTML = 
+
+    this._div.innerHTML =
         "<div></div>" +
         "<div class='exhibit-resizableDivWidget-resizer'>" +
             SimileAjax.Graphics.createTranslucentImageHTML(Exhibit.urlPrefix + "images/down-arrow.png") +
         "</div>";
-        
+
     this._contentDiv = this._div.childNodes[0];
     this._resizerDiv = this._div.childNodes[1];
-    
+
     SimileAjax.WindowManager.registerForDragging(
         this._resizerDiv,
         {   onDragStart: function() {
@@ -47,7 +47,7 @@ Exhibit.ResizableDivWidget.prototype._initializeUI = function() {
             onDragBy: function(diffX, diffY) {
                 this._height += diffY;
                 self._contentDiv.style.height = Math.max(
-                    self._configuration.minHeight, 
+                    self._configuration.minHeight,
                     this._height
                 ) + "px";
             },

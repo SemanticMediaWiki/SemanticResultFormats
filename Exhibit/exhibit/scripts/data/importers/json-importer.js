@@ -2,9 +2,9 @@ Exhibit.jsonImporter = { };
 
 Exhibit.importers["application/general-json"] = Exhibit.jsonImporter;
 
-Exhibit.jsonImporter.getjsonDocument = function (docURL) 
+Exhibit.jsonImporter.getjsonDocument = function (docURL)
 {
-	
+
 	var jsonDoc = null;
 	$.ajax({
 		   url: docURL,
@@ -65,26 +65,26 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 		itemQueue = root;
 	else
 		itemQueue = [root];
-		
+
 	while (itemQueue.length>0)
 	{
-	
+
 		var myObject = itemQueue.shift();
 		var index = myObject.index;
 		var objectToAppend = {};
-		
+
 		var propertyQueue = [];
 		for (propertyKey in myObject)
 		{
 			propertyQueue.push(propertyKey)
 		};
-		
+
 		while (propertyQueue.length>0)
 		{
 			var key = propertyQueue.shift();
-			
+
 			var keyID = key.split('.').pop();
-			
+
 			// TEST IF Property
 			if (configuration.itemTag.indexOf(keyID)==-1)
 			{
@@ -128,10 +128,10 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 				{
 					objectToAppend.type='Item';
 				};
-				
+
 			}
 			// MUST BE Item
-			else 
+			else
 			{
 				newObject = eval('myObject.' + key);
 				if (newObject instanceof Array)
@@ -157,19 +157,19 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 						newObject['isChildOf'] = objectToAppend.label;
 					itemQueue.push(newObject);
 				}
-				
-			
+
+
 			};
 		};
 		exhibitJSON.items.push(objectToAppend);
 	}
 	return exhibitJSON;
-		
+
 };
 
-Exhibit.jsonImporter.configure = function() 
+Exhibit.jsonImporter.configure = function()
 {
-	var configuration = 
+	var configuration =
 	{
 		'itemTag': [],
 		'propertyLabel': [],
@@ -177,14 +177,14 @@ Exhibit.jsonImporter.configure = function()
 		'parentRelation': [],
 		'propertyTags': [],
 		'propertyNames': []
-		
+
 
 	};
 
 	// get itemTag, propertyLabel, itemType, and parentRelation
 	$('link').each( function()
 							 {
-								 if (this.hasAttribute('ex:itemTag')) 
+								 if (this.hasAttribute('ex:itemTag'))
 								 {
 									 configuration.itemTag = Exhibit.getAttribute(this,'ex:itemTag',',');
 								 };
@@ -208,10 +208,10 @@ Exhibit.jsonImporter.configure = function()
 								 {
 									 configuration.propertyTags = Exhibit.getAttribute(this,'ex:propertyTags',',');
 								 };
-								
+
 							 }
 					);
-	
+
 	return configuration;
 }
 
@@ -226,7 +226,7 @@ Exhibit.jsonImporter.load = function (link,database,cont)
         Exhibit.UI.showHelp(Exhibit.l10n.failedToLoadDataFileMessage(url));
         if (cont) cont();
     };
-	
+
 	var fDone = function() {
         Exhibit.UI.hideBusyIndicator();
         try {
@@ -234,29 +234,29 @@ Exhibit.jsonImporter.load = function (link,database,cont)
             try {
 				jsonDoc = Exhibit.jsonImporter.getjsonDocument(url);
 				var configuration = self.configure();
-                o = { 
+                o = {
 					'items': []
 					};
 				var root = self.findFirstItems(jsonDoc,configuration);
 				o = Exhibit.jsonImporter.getItems(root,o,configuration);
-				
-				
+
+
             } catch (e) {
                 Exhibit.UI.showJsonFileValidation(Exhibit.l10n.badJsonMessage(url, e), url);
             }
-            
+
             if (o != null) {
                 database.loadData(o, Exhibit.Persistence.getBaseURL(url));
             }
         } catch (e) {
             SimileAjax.Debug.exception(e, "Error loading Exhibit JSON data from " + url);
-        } 
+        }
 
 		finally {
             if (cont) cont();
         }
     };
-	
+
 	Exhibit.UI.showBusyIndicator();
     SimileAjax.XmlHttp.get(url, fError, fDone);
 }
