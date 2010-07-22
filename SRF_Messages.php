@@ -1520,6 +1520,7 @@ $messages['pt'] = array(
 /** Brazilian Portuguese (Português do Brasil)
  * @author Eduardo.mps
  * @author GKnedo
+ * @author Giro720
  */
 $messages['pt-br'] = array(
 	'srf-desc' => 'Formatos adicionais para consultas embutidas do Semantic MediaWiki',
@@ -1529,17 +1530,23 @@ $messages['pt-br'] = array(
 	'srfc_today' => 'Hoje',
 	'srfc_gotomonth' => 'Ir para mês',
 	'srf_printername_calendar' => 'Calendário mensal',
+	'srf_paramdesc_calendarlang' => 'O código da língua em que será apresentado o calendário',
 	'srf_printername_vcard' => 'Exportar vCard',
 	'srf_printername_icalendar' => 'Exportar iCalendar',
+	'srf_paramdesc_icalendartitle' => 'O título do arquivo do calendário',
+	'srf_paramdesc_icalendardescription' => 'A descrição do arquivo do calendário',
 	'srf_printername_bibtex' => 'Exportar BibTeX',
 	'srf_outline_novalue' => 'Nenhum valor',
 	'srf_printername_outline' => 'Outline',
+	'srf_paramdesc_outlineproperties' => 'A lista das propriedades apresentadas como cabeçalhos das listas estruturadas, separadas por vírgulas',
 	'srf_printername_sum' => 'Soma dos Números',
 	'srf_printername_average' => 'Média dos números',
 	'srf_printername_min' => 'Número máximo',
 	'srf_printername_max' => 'Número mínimo',
+	'srf_paramdesc_limit' => 'O número máximo de páginas a consultar',
 	'srf_printername_timeline' => 'Linha do Tempo',
 	'srf_printername_eventline' => 'Linha de Eventos',
+	'srf_paramdesc_timelinebands' => 'Define quais grupos são apresentadas nos resultados.',
 );
 
 /** Romanian (Română)
