@@ -1547,6 +1547,18 @@ $messages['pt-br'] = array(
 	'srf_printername_timeline' => 'Linha do Tempo',
 	'srf_printername_eventline' => 'Linha de Eventos',
 	'srf_paramdesc_timelinebands' => 'Define quais grupos são apresentadas nos resultados.',
+	'srf_paramdesc_timelineposition' => 'Define onde é que o cronograma inicialmente está focado.',
+	'srf_paramdesc_timelinestart' => 'Um nome de propriedade, usado para definir um primeiro ponto no tempo.',
+	'srf_paramdesc_timelineend' => 'Um nome de propriedade, usado para definir um segundo ponto no tempo',
+	'srf_paramdesc_timelinesize' => 'A altura do cronograma (por padrão, 300 px)',
+	'srf_paramdesc_views' => 'As vistas que serão apresentadas',
+	'srf_paramdesc_facets' => 'O conjunto de propriedades que serão apresentadas para cada página',
+	'srf_paramdesc_lens' => 'O nome de uma predefinição usada para apresentar as propriedades das páginas',
+	'srf_printername_googlebar' => 'Gráfico de barras Google',
+	'srf_printername_googlepie' => 'Gráfico de pizza Google',
+	'srf_paramdesc_chartheight' => 'A altura do gráfico, em pixels',
+	'srf_paramdesc_chartwidth' => 'A largura do gráfico, em pixels',
+	'srf_printername_gallery' => 'Galeria',
 );
 
 /** Romanian (Română)
