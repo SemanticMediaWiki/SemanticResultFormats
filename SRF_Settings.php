@@ -1,15 +1,19 @@
 <?php
+
 /**
- * Initializing file for the Semantic Result Formats extension.
+ * Settings file for the Semantic Result Formats extension.
+ * 
+ * NOTE: Do not use this file as entry point, use SemanticresultFormats.php instead.
  *
  * @file
  * @ingroup SemanticResultFormats
  */
+
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.5.0' );
+define( 'SRF_VERSION', '1.5.1 alpha' );
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats'; // TODO: fix hardcoded path
 $srfgIP = dirname( __FILE__ );
