@@ -34,8 +34,7 @@ function srffSetup() {
 
 	foreach ( $srfgFormats as $fn ) srffInitFormat( $fn );
 
-	$formats_list = implode( ', ', $srfgFormats );
-	$wgExtensionCredits['other'][] = array(
+	$wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other'][] = array(
 		'path' => __FILE__,
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
