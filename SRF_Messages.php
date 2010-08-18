@@ -403,8 +403,14 @@ $messages['de'] = array(
 	'srf_paramdesc_lens' => 'Der Name einer Vorlage um Seiteneigenschaften anzuzeigen',
 	'srf_printername_googlebar' => 'Google Säulen-Diagramm',
 	'srf_printername_googlepie' => 'Google Torten-Diagramm',
+	'srf_printername_jqplotbar' => 'jqPlot Säulen- oder Balkendiagramm',
+	'srf_printername_jqplotpie' => 'jqPlot Kreisdiagramm',
 	'srf_paramdesc_chartheight' => 'Höhe des Charts, in Pixeln',
 	'srf_paramdesc_chartwidth' => 'Breite des Charts, in Pixeln',
+	'srf_paramdesc_charttitle' => 'Der Titel des Diagramms',
+	'srf_paramdesc_barcolor' => 'Die Farbe der Balken',
+	'srf_paramdesc_bardirection' => 'Ein Säulen- (vertikale Ausrichtung) oder Balkendiagramm (horizontale Ausrichtung)',
+	'srf_paramdesc_baryaxislabel' => 'Die Beschriftung der y-Achse',
 	'srf_printername_gallery' => 'Galerie',
 );
 
@@ -1289,8 +1295,14 @@ $messages['nl'] = array(
 	'srf_paramdesc_lens' => 'De naam van het sjabloon waarmee de paginaeigenschappen weergegeven moeten worden',
 	'srf_printername_googlebar' => 'Google staafgrafiek',
 	'srf_printername_googlepie' => 'Google taartgrafiek',
+	'srf_printername_jqplotbar' => 'jqPlot-staafdiagram',
+	'srf_printername_jqplotpie' => 'jqPlot-circeldiagram',
 	'srf_paramdesc_chartheight' => 'De hoogte van de grafiek (in pixels)',
 	'srf_paramdesc_chartwidth' => 'De breedte van de grafiek (in pixels)',
+	'srf_paramdesc_charttitle' => 'Grafiektitel',
+	'srf_paramdesc_barcolor' => 'De kleur van de balken',
+	'srf_paramdesc_bardirection' => 'De richting van de grafielbalken',
+	'srf_paramdesc_baryaxislabel' => 'Het lavel van de Y-as',
 	'srf_printername_gallery' => 'Galerij',
 );
 
