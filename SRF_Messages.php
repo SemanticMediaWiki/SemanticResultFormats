@@ -62,8 +62,14 @@ $messages['en'] = array(
 	// formats "googlebar" and "googlepie"
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',
+	'srf_printername_jqplotbar' => 'jqPlot bar chart',
+	'srf_printername_jqplotpie' => 'jqPlot pie chart',
 	'srf_paramdesc_chartheight' => 'The height of the chart, in pixels',
 	'srf_paramdesc_chartwidth' => 'The width of the chart, in pixels',
+	'srf_paramdesc_charttitle'  => 'The title of the chart',
+	'srf_paramdesc_barcolor'   =>   'The color of the bars',
+	'srf_paramdesc_bardirection'=>  'The direction of the bar chart',
+	'srf_paramdesc_baryaxislabel' => 'The label of the y-axis',
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
 );
@@ -79,7 +85,7 @@ $messages['qqq'] = array(
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_bibtex_link' => '{{optional}}',
-	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query. 
+	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query.
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
 	'srf_paramdesc_timelinebands' => 'Available bands are DECADE, YEAR, MONTH, WEEK, and DAY. For details see http://semantic-mediawiki.org/wiki/Help:Timeline_format',
