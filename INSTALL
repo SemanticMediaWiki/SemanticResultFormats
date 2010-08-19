@@ -9,7 +9,7 @@ Copy all files into MediaWiki's extensions folder, either by using SVN or by
 extracting an installation package. You need to enter one line to your local
 settings (somewhere after the inclusion of Semantic MediaWiki):
 
- require_once("$IP/extensions/SemanticResultFormats/SRF_Settings.php");
+ require_once("$IP/extensions/SemanticResultFormats/SemanticResultFormats.php");
 
 If nothing else is added, a default set of formats is enabled. These are the
 the formats that satisfy the following criteria:
@@ -22,7 +22,7 @@ the formats that satisfy the following criteria:
 
 Currently, these default formats thus are:
 'vcard', 'icalendar', 'calendar', 'timeline', 'eventline', 'bibtex', 'outline',
-'sum', 'average', 'min', 'max'.
+'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max'.
 
 To add more formats to this list, you can add lines like:
 
@@ -50,6 +50,8 @@ Notes on specific formats:
   access to the Google servers in order to render.
 * graph: in order to get the graph format to run, you first must have
   the MediaWiki Graph extension running.
+* jqplotbar: requires Javascript to render.
+* jqplotpie: requires Javascript to render.
 * process: in order to get the process format to run, you first must
   have the MediaWiki Graph extension running
 * ploticus: requires that the Ploticus application be installed on the

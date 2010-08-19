@@ -67,13 +67,23 @@ Displays the largest of the numeric values of the queried property.
 
 === googlepie ===
 
-Creates a pie chart out of the numeric value of a specific property using
+Creates a pie chart out of the numeric values of a specific property using
 the Google Charts API. This format sends data to Google for formatting.
 
 === googlebar ===
 
-Creates a bar chart out of the numeric value of a specific property using
+Creates a bar chart out of the numeric values of a specific property using
 the Google Charts API. This format sends data to Google for formatting.
+
+=== jqplotpie ===
+
+Creates a pie chart out of the numeric values of a specific property
+using the jqPlot Javascript library.
+
+=== jqplotbar ===
+
+Creates a bar chart out of the numeric values of a specific property
+using the jqPlot Javascript library.
 
 === exhibit ===
 

@@ -22,12 +22,15 @@ $wgExtensionFunctions[] = 'srffSetup';
 
 $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 
+// used for jqplot formats
+$srfgJQPlotIncluded = false;
+
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 $wgHooks['AdminLinks'][] = 'srffAddToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 
-$srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'gallery', 'sum', 'average', 'min', 'max' );
+$srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'gallery', 'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max' );
 
 function srffSetup() {
 	global $srfgFormats, $wgExtensionCredits;
@@ -38,7 +41,7 @@ function srffSetup() {
 		'path' => __FILE__,
 		'name' => 'Semantic Result Formats',
 		'version' => SRF_VERSION,
-		'author' => array( 'Frank Dengler', '[http://steren.fr Steren Giannini]', 'Fabian Howahl', 'Yaron Koren', '[http://korrekt.org Markus Krötzsch]', 'David Loomer', 'Joel Natividad', '[http://simia.net Denny Vrandecic]', 'Nathan Yergler', 'Hans-Jörg Happel', 'Rowan Rodrik van der Molen' ),
+		'author' => array( 'Frank Dengler', '[http://steren.fr Steren Giannini]', 'Sanyam Goyal', 'Fabian Howahl', 'Yaron Koren', '[http://korrekt.org Markus Krötzsch]', 'David Loomer', 'Joel Natividad', '[http://simia.net Denny Vrandecic]', 'Nathan Yergler', 'Hans-Jörg Happel', 'Rowan Rodrik van der Molen' ),
 		'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 		'descriptionmsg' => 'srf-desc'
 	);
@@ -89,6 +92,14 @@ function srffInitFormat( $format ) {
 		case 'googlepie':
 			$class = 'SRFGooglePie';
 			$file = $srfgIP . '/GoogleCharts/SRF_GooglePie.php';
+		break;
+		case 'jqplotpie':
+			$class = 'SRFjqPlotPie';
+			$file = $srfgIP . '/jqPlot/SRF_jqPlotPie.php';
+		break;
+		case 'jqplotbar':
+			$class = 'SRFjqPlotBar';
+			$file = $srfgIP . '/jqPlot/SRF_jqPlotBar.php';
 		break;
 		case 'graph':
 			$class = 'SRFGraph';
