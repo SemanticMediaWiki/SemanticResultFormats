@@ -50,23 +50,15 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 		if ( !$srfgJQPlotIncluded ) {
 			$srfgJQPlotIncluded = true;
-			$jqplotScriptSrc = '<script type="text/javascript" src="'.$srfgScriptPath.'/jqPlot/jquery.jqplot.min.js"></script>';    
-			$wgOut->addScript( $jqplotScriptSrc );
+			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jquery.jqplot.min.js" );
 		}
 
 		if ( self::$m_piechartnum == 1 ) {
-			$pieScriptSrc = '<script type="text/javascript" src="'.$srfgScriptPath.'/jqPlot/jqplot.pieRenderer.min.js"></script>';
-			$wgOut->addScript( $pieScriptSrc );
+			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jqplot.pieRenderer.min.js" );
 		}
 
 		// CSS file
-		$pie_css = array(
-			'rel' => 'stylesheet',
-			'type' => 'text/css',
-			'media' => "screen",
-			'href' => $srfgScriptPath . '/jqPlot/jquery.jqplot.css'
-		);
-		$wgOut->addLink( $pie_css );
+		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
 		$this->isHTML = true;
 
 		$t = "";

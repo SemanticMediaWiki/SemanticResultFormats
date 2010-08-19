@@ -82,17 +82,11 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		}
 
 		foreach ( $scripts as $script ) {
-			$wgOut->addScript( '<script type="text/javascript" src="' . $script . '"></script>' );
+			$wgOut->addScriptFile( $script );
 		}
 
 		// CSS file
-	       $bar_css = array(
-				'rel' => 'stylesheet',
-				'type' => 'text/css',
-				'media' => "screen",
-				'href' => $srfgScriptPath . '/jqPlot/jquery.jqplot.css'
-			);
-		$wgOut->addLink( $bar_css );
+		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
 		$this->isHTML = true;
 
 		$numbers = array();
