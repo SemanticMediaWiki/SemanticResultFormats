@@ -69,7 +69,7 @@ $messages['en'] = array(
 	'srf_paramdesc_charttitle'  => 'The title of the chart',
 	'srf_paramdesc_barcolor'   =>   'The color of the bars',
 	'srf_paramdesc_bardirection'=>  'The direction of the bar chart',
-	'srf_paramdesc_baryaxislabel' => 'The label of the y-axis',
+	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
 );
@@ -410,7 +410,7 @@ $messages['de'] = array(
 	'srf_paramdesc_charttitle' => 'Der Titel des Diagramms',
 	'srf_paramdesc_barcolor' => 'Die Farbe der Balken',
 	'srf_paramdesc_bardirection' => 'Ein Säulen- (vertikale Ausrichtung) oder Balkendiagramm (horizontale Ausrichtung)',
-	'srf_paramdesc_baryaxislabel' => 'Die Beschriftung der y-Achse',
+	'srf_paramdesc_barnumbersaxislabel' => 'Die Beschriftung der y-Achse',
 	'srf_printername_gallery' => 'Galerie',
 );
 
@@ -1302,7 +1302,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_charttitle' => 'Grafiektitel',
 	'srf_paramdesc_barcolor' => 'De kleur van de balken',
 	'srf_paramdesc_bardirection' => 'De richting van de grafielbalken',
-	'srf_paramdesc_baryaxislabel' => 'Het lavel van de Y-as',
+	'srf_paramdesc_barnumbersaxislabel' => 'Het lavel van de Y-as',
 	'srf_printername_gallery' => 'Galerij',
 );
 
