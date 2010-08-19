@@ -28,66 +28,66 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		} 
 	}
 
-    public function getName() {
-	return wfMsg( 'srf_printername_jqplotpie' );
-    }
-
-    protected function getResultText( $res, $outputmode ) {
-	global $smwgIQRunningNumber, $wgOut, $srfgScriptPath, $smwgScriptPath;
-	global $wgParser;
-	global $srfgJQPlotIncluded;
-	
-	$wgParser->disableCache();
-	// adding scripts - this code may be moved to some other location
-
-	$wgOut->includeJQuery();
-	if ( !$srfgJQPlotIncluded ) {
-	    $srfgJQPlotIncluded = true;
-	    $jqplotScriptSrc = '<script type="text/javascript" src="'.$srfgScriptPath.'/jqPlot/jquery.jqplot.min.js"></script>';    
-	    $wgOut->addScript($jqplotScriptSrc);
+	public function getName() {
+		return wfMsg( 'srf_printername_jqplotpie' );
 	}
 
-	$PieScriptSrc = '<script type="text/javascript" src="'.$srfgScriptPath.'/jqPlot/jqplot.pieRenderer.min.js"></script>';
-	$wgOut->addScript($PieScriptSrc);
+	protected function getResultText( $res, $outputmode ) {
+		global $smwgIQRunningNumber, $wgOut, $srfgScriptPath, $smwgScriptPath;
+		global $wgParser;
+		global $smwgJQueryIncluded, $srfgJQPlotIncluded;
+	
+		$wgParser->disableCache();
 
-	// CSS file
-	$pie_css = array(
-		'rel' => 'stylesheet',
-		'type' => 'text/css',
-		'media' => "screen",
-		'href' => $srfgScriptPath . '/jqPlot/jquery.jqplot.css'
-	);
-	$wgOut->addLink( $pie_css );
-	$this->isHTML = true;
-
-	$t = "";
-	$jqplot_data = "";
-	// print all result rows
-	$first = true;
-	$max = 0; // the biggest value. needed for scaling
-	while ( $row = $res->getNext() ) {
-	    $name = $row[0]->getNextObject()->getShortWikiText();
-	    foreach ( $row as $field ) {
-		while ( ( $object = $field->getNextObject() ) !== false ) {
-		    if ( $object->isNumeric() ) { // use numeric sortkey
-			if ( method_exists( $object, 'getValueKey' ) ) {
-			    $nr = $object->getValueKey();
-			}
-			else {
-			    $nr = $object->getNumericValue();
-			}
-			$max = max( $max, $nr );
-			if ( $first ) {
-			    $first = false;
-			    $jqplot_data .= "[[['$name', $nr]";
+                if ( !$smwgJQueryIncluded ) {
+			if ( method_exists( 'OutputPage', 'includeJQuery' ) ) {
+				$wgOut->includeJQuery();
 			} else {
-			    $jqplot_data .= ",['$name', $nr]";
+				$scripts[] = "$srfgScriptPath/jqPlot/jquery-1.4.2.min.js";
 			}
+			$smwgJQueryIncluded = true;
+		}
+
+		if ( !$srfgJQPlotIncluded ) {
+			$srfgJQPlotIncluded = true;
+			$jqplotScriptSrc = '<script type="text/javascript" src="'.$srfgScriptPath.'/jqPlot/jquery.jqplot.min.js"></script>';    
+			$wgOut->addScript( $jqplotScriptSrc );
+		}
+
+		if ( self::$m_piechartnum == 1 ) {
+			$pieScriptSrc = '<script type="text/javascript" src="'.$srfgScriptPath.'/jqPlot/jqplot.pieRenderer.min.js"></script>';
+			$wgOut->addScript( $pieScriptSrc );
+		}
+
+		// CSS file
+		$pie_css = array(
+			'rel' => 'stylesheet',
+			'type' => 'text/css',
+			'media' => "screen",
+			'href' => $srfgScriptPath . '/jqPlot/jquery.jqplot.css'
+		);
+		$wgOut->addLink( $pie_css );
+		$this->isHTML = true;
+
+		$t = "";
+		$pie_data = array();
+		// print all result rows
+		while ( $row = $res->getNext() ) {
+			$name = $row[0]->getNextObject()->getShortWikiText();
+			foreach ( $row as $field ) {
+				while ( ( $object = $field->getNextObject() ) !== false ) {
+					if ( $object->isNumeric() ) { // use numeric sortkey
+						if ( method_exists( $object, 'getValueKey' ) ) {
+							$nr = $object->getValueKey();
+						} else {
+							$nr = $object->getNumericValue();
+						}
+						$jqplot_data[] .= "['$name', $nr]";
 					}
 				}
 			}
 		}
-		$jqplot_data .= "]]";
+		$jqplot_data_str = "[[" . implode( ', ', $jqplot_data ) . "]]";
 		$pieID = 'pie' . self::$m_piechartnum;
 		self::$m_piechartnum++;
 
@@ -96,7 +96,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 jQuery.noConflict();
 jQuery(document).ready(function(){
 	jQuery.jqplot.config.enablePlugins = true;
-	plot1 = jQuery.jqplot('$pieID', $jqplot_data, {
+	plot1 = jQuery.jqplot('$pieID', $jqplot_data_str, {
 		title: '$this->m_charttitle',
 		seriesDefaults: {
 			renderer: jQuery.jqplot.PieRenderer,

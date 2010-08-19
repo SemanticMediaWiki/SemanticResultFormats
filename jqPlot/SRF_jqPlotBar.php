@@ -74,10 +74,12 @@ class SRFjqPlotBar extends SMWResultPrinter {
 			$srfgJQPlotIncluded = true;
 		}
 
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.categoryAxisRenderer.min.js";
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.barRenderer.min.js";
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.min.js";
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.min.js";
+		if ( self::$m_barchartnum == 1 ) {
+			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.categoryAxisRenderer.min.js";
+			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.barRenderer.min.js";
+			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.min.js";
+			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.min.js";
+		}
 
 		foreach ( $scripts as $script ) {
 			$wgOut->addScript( '<script type="text/javascript" src="' . $script . '"></script>' );
