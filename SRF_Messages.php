@@ -602,6 +602,7 @@ $messages['fi'] = array(
  * @author Crochet.david
  * @author Grondin
  * @author IAlex
+ * @author Iluvalar
  * @author Peter17
  * @author PieRRoMaN
  * @author Urhixidur
@@ -642,8 +643,14 @@ $messages['fr'] = array(
 	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
 	'srf_printername_googlebar' => 'Diagramme à barres de Google',
 	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
+	'srf_printername_jqplotbar' => 'Diagramme en barres jqPlot',
+	'srf_printername_jqplotpie' => 'Diagramme camembert jqPlot',
 	'srf_paramdesc_chartheight' => 'La hauteur du diagramme, en pixels',
 	'srf_paramdesc_chartwidth' => 'La largeur du diagramme, en pixels',
+	'srf_paramdesc_charttitle' => 'Le titre du graphique',
+	'srf_paramdesc_barcolor' => 'La couleur des barres',
+	'srf_paramdesc_bardirection' => 'Direction du diagramme en barres',
+	'srf_paramdesc_barnumbersaxislabel' => 'Étiquette pour l’axe numérique',
 	'srf_printername_gallery' => 'Galerie',
 );
 
@@ -687,8 +694,13 @@ $messages['gl'] = array(
 	'srf_paramdesc_lens' => 'O nome dun modelo co que mostrar as propiedades da páxina',
 	'srf_printername_googlebar' => 'Gráfico de barras do Google',
 	'srf_printername_googlepie' => 'Gráfico circular do Google',
+	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
+	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
 	'srf_paramdesc_chartheight' => 'A altura do gráfico, en píxeles',
 	'srf_paramdesc_chartwidth' => 'O largo do gráfico, en píxeles',
+	'srf_paramdesc_charttitle' => 'O título do gráfico',
+	'srf_paramdesc_barcolor' => 'A cor das barras',
+	'srf_paramdesc_bardirection' => 'A orientación do gráfico de barras',
 	'srf_printername_gallery' => 'Galería',
 );
 
@@ -914,8 +926,14 @@ $messages['ia'] = array(
 	'srf_paramdesc_lens' => 'Le nomine de un patrono con le qual monstrar le proprietates de pagina',
 	'srf_printername_googlebar' => 'Diagramma a barras de Google',
 	'srf_printername_googlepie' => 'Diagramma circular de Google',
+	'srf_printername_jqplotbar' => 'Diagramma de barras jqPlot',
+	'srf_printername_jqplotpie' => 'Diagramma circular jqPlot',
 	'srf_paramdesc_chartheight' => 'Le altitude del diagramma, in pixeles',
 	'srf_paramdesc_chartwidth' => 'Le latitude del diagramma, in pixeles',
+	'srf_paramdesc_charttitle' => 'Le titulo del diagramma',
+	'srf_paramdesc_barcolor' => 'Le color del barras',
+	'srf_paramdesc_bardirection' => 'Le orientation del diagramma de barras',
+	'srf_paramdesc_barnumbersaxislabel' => 'Le etiquetta pro le axe de numeros',
 	'srf_printername_gallery' => 'Galeria',
 );
 
@@ -1062,6 +1080,9 @@ $messages['ja'] = array(
 	'srf_printername_googlepie' => 'Google 円グラフ',
 	'srf_paramdesc_chartheight' => 'グラフの縦幅 (ピクセル単位)',
 	'srf_paramdesc_chartwidth' => 'グラフの横幅 (ピクセル単位)',
+	'srf_paramdesc_charttitle' => '図のタイトル',
+	'srf_paramdesc_barcolor' => '棒の色',
+	'srf_paramdesc_bardirection' => '棒グラフの方向',
 	'srf_printername_gallery' => 'ギャラリー',
 );
 
@@ -1210,8 +1231,14 @@ $messages['mk'] = array(
 	'srf_paramdesc_lens' => 'Името на шаблонот со кој ќе се прикажат својствата на страницата',
 	'srf_printername_googlebar' => 'Столбен дијаграм од Google',
 	'srf_printername_googlepie' => 'Кружен дијаграм од Google',
+	'srf_printername_jqplotbar' => 'Столбен графикон jqPlot',
+	'srf_printername_jqplotpie' => 'Кружен графикон jqPlot',
 	'srf_paramdesc_chartheight' => 'Висината на дијаграмот, во пиксели',
 	'srf_paramdesc_chartwidth' => 'Ширината на дијаграмот, во пиксели',
+	'srf_paramdesc_charttitle' => 'Насловот на графиконот',
+	'srf_paramdesc_barcolor' => 'Бојата на столбовите',
+	'srf_paramdesc_bardirection' => 'Насока на столбниот графикон',
+	'srf_paramdesc_barnumbersaxislabel' => 'Натпис за бројната оска',
 	'srf_printername_gallery' => 'Галерија',
 );
 
@@ -1474,8 +1501,14 @@ $messages['pms'] = array(
 	'srf_paramdesc_lens' => 'Ël nòm ëd në stamp con ël qual visualisé le proprietà dle pàgine',
 	'srf_printername_googlebar' => 'Ël diagrama a bare ëd Google',
 	'srf_printername_googlepie' => 'Ël diagrama a torta ëd Google',
+	'srf_printername_jqplotbar' => 'gràfich a bare jqPlot',
+	'srf_printername_jqplotpie' => 'gràfich a torta jqPlot',
 	'srf_paramdesc_chartheight' => "L'autëssa dël diagrama, an pontin",
 	'srf_paramdesc_chartwidth' => 'La larghëssa dël diagrama, an pontin',
+	'srf_paramdesc_charttitle' => 'Ël tìtol dël gràfich',
+	'srf_paramdesc_barcolor' => 'Ël color ëd le bare',
+	'srf_paramdesc_bardirection' => 'La diressin dël gràfich a bare',
+	'srf_paramdesc_barnumbersaxislabel' => "La tichëtta për l'ass dij nùmer",
 	'srf_printername_gallery' => 'Galarìa',
 );
 
@@ -1522,7 +1555,7 @@ $messages['pt'] = array(
 	'srf_printername_eventline' => 'Cronograma de eventos',
 	'srf_paramdesc_timelinebands' => 'Define que bandas são apresentadas no resultado.',
 	'srf_paramdesc_timelineposition' => 'Define onde é que o cronograma inicialmente está focado.',
-	'srf_paramdesc_timelinestart' => 'Um nome de propriedade, usado para definir um primeiro ponto no tempo.',
+	'srf_paramdesc_timelinestart' => 'Um nome de propriedade, usado para definir um primeiro ponto no tempo',
 	'srf_paramdesc_timelineend' => 'Um nome de propriedade, usado para definir um segundo ponto no tempo',
 	'srf_paramdesc_timelinesize' => 'A altura do cronograma (por omissão, 300 px)',
 	'srf_paramdesc_views' => 'As vistas que serão apresentadas',
@@ -1530,8 +1563,14 @@ $messages['pt'] = array(
 	'srf_paramdesc_lens' => 'O nome de uma predefinição usada para apresentar as propriedades das páginas',
 	'srf_printername_googlebar' => 'Gráfico de barras Google',
 	'srf_printername_googlepie' => 'Gráfico circular Google',
+	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
+	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
 	'srf_paramdesc_chartheight' => 'A altura do gráfico, em pixels',
 	'srf_paramdesc_chartwidth' => 'A largura do gráfico, em pixels',
+	'srf_paramdesc_charttitle' => 'O título do gráfico',
+	'srf_paramdesc_barcolor' => 'A cor das barras',
+	'srf_paramdesc_bardirection' => 'A orientação do gráfico de barras',
+	'srf_paramdesc_barnumbersaxislabel' => 'A legenda para o eixo dos números',
 	'srf_printername_gallery' => 'Galeria',
 );
 
@@ -1645,8 +1684,14 @@ $messages['ru'] = array(
 	'srf_paramdesc_lens' => 'Название шаблона для отображения свойств страницы',
 	'srf_printername_googlebar' => 'Столбчатая диаграмма Google',
 	'srf_printername_googlepie' => 'Круговая диаграмма Google',
+	'srf_printername_jqplotbar' => 'Столбчатая диаграмма jqPlot',
+	'srf_printername_jqplotpie' => 'Круговая диаграмма jqPlot',
 	'srf_paramdesc_chartheight' => 'Высота диаграммы в пикселях',
 	'srf_paramdesc_chartwidth' => 'Ширина диаграммы в пикселях',
+	'srf_paramdesc_charttitle' => 'Название диаграммы',
+	'srf_paramdesc_barcolor' => 'Цвет столбцов',
+	'srf_paramdesc_bardirection' => 'Направление столбцов',
+	'srf_paramdesc_barnumbersaxislabel' => 'Надпись для числовых осей',
 	'srf_printername_gallery' => 'Галерея',
 );
 
