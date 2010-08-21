@@ -701,6 +701,7 @@ $messages['gl'] = array(
 	'srf_paramdesc_charttitle' => 'O título do gráfico',
 	'srf_paramdesc_barcolor' => 'A cor das barras',
 	'srf_paramdesc_bardirection' => 'A orientación do gráfico de barras',
+	'srf_paramdesc_barnumbersaxislabel' => 'A etiqueta para o eixe numérico',
 	'srf_printername_gallery' => 'Galería',
 );
 
@@ -1507,7 +1508,7 @@ $messages['pms'] = array(
 	'srf_paramdesc_chartwidth' => 'La larghëssa dël diagrama, an pontin',
 	'srf_paramdesc_charttitle' => 'Ël tìtol dël gràfich',
 	'srf_paramdesc_barcolor' => 'Ël color ëd le bare',
-	'srf_paramdesc_bardirection' => 'La diressin dël gràfich a bare',
+	'srf_paramdesc_bardirection' => 'La diression dël gràfich a bare',
 	'srf_paramdesc_barnumbersaxislabel' => "La tichëtta për l'ass dij nùmer",
 	'srf_printername_gallery' => 'Galarìa',
 );
