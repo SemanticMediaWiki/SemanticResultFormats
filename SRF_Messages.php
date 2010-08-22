@@ -237,6 +237,7 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_lens' => 'Назва шаблёну для паказу ўласьцівасьцяў старонкі',
 	'srf_printername_googlebar' => 'Слупковая дыяграма Google',
 	'srf_printername_googlepie' => 'Кругавая дыяграма Google',
+	'srf_printername_jqplotbar' => 'Слупковая дыяграма jqPlot',
 	'srf_paramdesc_chartheight' => 'Вышыня дыяграмы ў піксэлях',
 	'srf_paramdesc_chartwidth' => 'Шырыня дыяграмы ў піксэлях',
 	'srf_printername_gallery' => 'Галерэя',
@@ -977,8 +978,14 @@ $messages['id'] = array(
 	'srf_paramdesc_lens' => 'Nama templat untuk menampilkan properti halaman',
 	'srf_printername_googlebar' => 'Grafik batang Google',
 	'srf_printername_googlepie' => 'Grafik pai Google',
+	'srf_printername_jqplotbar' => 'Grafik batang jqPlot',
+	'srf_printername_jqplotpie' => 'Grafik pai jqPlot',
 	'srf_paramdesc_chartheight' => 'Tinggi grafik, dalam piksel',
 	'srf_paramdesc_chartwidth' => 'Lebar grafik, dalam piksel',
+	'srf_paramdesc_charttitle' => 'Judul grafik',
+	'srf_paramdesc_barcolor' => 'Warna batang',
+	'srf_paramdesc_bardirection' => 'Arah grafik batang',
+	'srf_paramdesc_barnumbersaxislabel' => 'Label untuk poros nomor',
 	'srf_printername_gallery' => 'Galeri',
 );
 
