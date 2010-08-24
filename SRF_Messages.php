@@ -238,8 +238,13 @@ $messages['be-tarask'] = array(
 	'srf_printername_googlebar' => 'Слупковая дыяграма Google',
 	'srf_printername_googlepie' => 'Кругавая дыяграма Google',
 	'srf_printername_jqplotbar' => 'Слупковая дыяграма jqPlot',
+	'srf_printername_jqplotpie' => 'Кругавая дыяграма jqPlot',
 	'srf_paramdesc_chartheight' => 'Вышыня дыяграмы ў піксэлях',
 	'srf_paramdesc_chartwidth' => 'Шырыня дыяграмы ў піксэлях',
+	'srf_paramdesc_charttitle' => 'Назва дыяграмы',
+	'srf_paramdesc_barcolor' => 'Колер слупкоў',
+	'srf_paramdesc_bardirection' => 'Накіраваньне слупкоў дыяграмы',
+	'srf_paramdesc_barnumbersaxislabel' => 'Надпісы для лічбавых восяў',
 	'srf_printername_gallery' => 'Галерэя',
 );
 
@@ -751,8 +756,14 @@ $messages['gsw'] = array(
 	'srf_paramdesc_lens' => 'Dr Name vu dr Vorlag, wu Syteneigeschafte dermit aazeigt wäre',
 	'srf_printername_googlebar' => 'Google-Syylediagramm',
 	'srf_printername_googlepie' => 'Google-Kreisdiagramm',
+	'srf_printername_jqplotbar' => 'jqPlot Balkediagramm',
+	'srf_printername_jqplotpie' => 'jqPlot Chreisdiagramm',
 	'srf_paramdesc_chartheight' => 'D Hechi vum Diagramm, in Pixel',
 	'srf_paramdesc_chartwidth' => 'D Breiti vum Diagramm, in Pixel',
+	'srf_paramdesc_charttitle' => 'Dr Titel vum Diagramm',
+	'srf_paramdesc_barcolor' => 'D Farb vu dr Balke',
+	'srf_paramdesc_bardirection' => 'E Syyle- (sänkrächti Uusrichtig) oder Balkediagramm (woogrächti Uusrichtig)',
+	'srf_paramdesc_barnumbersaxislabel' => 'D Bschryftig vu dr Zahle-Achs',
 	'srf_printername_gallery' => 'Galeri',
 );
 
@@ -1621,8 +1632,14 @@ $messages['pt-br'] = array(
 	'srf_paramdesc_lens' => 'O nome de uma predefinição usada para apresentar as propriedades das páginas',
 	'srf_printername_googlebar' => 'Gráfico de barras Google',
 	'srf_printername_googlepie' => 'Gráfico de pizza Google',
+	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
+	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
 	'srf_paramdesc_chartheight' => 'A altura do gráfico, em pixels',
 	'srf_paramdesc_chartwidth' => 'A largura do gráfico, em pixels',
+	'srf_paramdesc_charttitle' => 'O título do gráfico',
+	'srf_paramdesc_barcolor' => 'A cor das barras',
+	'srf_paramdesc_bardirection' => 'A orientação do gráfico de barras',
+	'srf_paramdesc_barnumbersaxislabel' => 'A legenda para o eixo dos números',
 	'srf_printername_gallery' => 'Galeria',
 );
 
