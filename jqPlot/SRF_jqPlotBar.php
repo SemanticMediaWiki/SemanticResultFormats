@@ -70,6 +70,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		}
 
 		if ( !$srfgJQPlotIncluded ) {
+			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.min.js"></script><![endif]-->' );
 			$scripts[] = "$srfgScriptPath/jqPlot/jquery.jqplot.min.js";
 			$srfgJQPlotIncluded = true;
 		}

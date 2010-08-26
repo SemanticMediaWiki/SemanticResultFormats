@@ -50,6 +50,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 		if ( !$srfgJQPlotIncluded ) {
 			$srfgJQPlotIncluded = true;
+			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.min.js"></script><![endif]-->' );
 			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jquery.jqplot.min.js" );
 		}
 
