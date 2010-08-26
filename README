@@ -131,8 +131,12 @@ If you are interested in taking over coordination, please contact Denny.
 Some parts of Semantic Result Formats development have been funded by
 Institut AIFB of the Karlsruhe Institute of Technology in Germany; see
 http://www.aifb.kit.edu/web/Hauptseite.
+
 Specific development tasks have also been supported by the European Union
 under the project Active.
+
+Development of the jqPlot-based formats was funded via the Google Summer
+of Code.
 
 == Contributors ==
 
@@ -156,6 +160,9 @@ under the project Active.
 * The BibTeX format was contributed by Steren Giannini.
 
 * The Gallery format was contributed by Rowan van der Molen.
+
+* The jqPlot-based formats were contributed by Sanyam Goyal, using the
+  jQuery and jqPlot Javascript libraries.
 
 * Many other people have contributed to the project by providing helpful
   comments and suggestions. More comments are always welcome!
