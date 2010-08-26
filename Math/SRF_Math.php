@@ -71,11 +71,13 @@ class SRFMath extends SMWResultPrinter {
 				if ( $this->mFormat == 'sum' || $this->mFormat == 'average' ) {
 					$sum += $num;
 				} elseif ( $this->mFormat == 'min' ) {
-					if ( $min == '' || $num < $min )
+					if ( $min === '' || $num < $min ) {
 						$min = $num;
+					}
 				} elseif ( $this->mFormat == 'max' ) {
-					if ( $max == '' || $num > $max )
+					if ( $max === '' || $num > $max ) {
 						$max = $num;
+					}
 				}
 			}
 		}
