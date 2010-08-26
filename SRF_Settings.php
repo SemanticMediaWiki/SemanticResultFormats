@@ -13,7 +13,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.5.1 alpha' );
+define( 'SRF_VERSION', '1.5.1' );
 
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats'; // TODO: fix hardcoded path
 $srfgIP = dirname( __FILE__ );
