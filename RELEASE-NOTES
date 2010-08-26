@@ -9,6 +9,9 @@ New formats in this version are:
 * jqplotbar (written by Sanyam Goyal and Yaron Koren)
 * jqplotpie (written by Sanyam Goyal and Yaron Koren)
 
+Other changes:
+* Added support for 'semantic' extension type, added by SMW 1.5.2 and above.
+
 == SRF 1.5 ==
 
 Released on June 22 2010.
