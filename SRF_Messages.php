@@ -661,6 +661,17 @@ $messages['fr'] = array(
 	'srf_printername_gallery' => 'Galerie',
 );
 
+/** Franco-Provençal (Arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'srfc_previousmonth' => 'Mês devant',
+	'srfc_nextmonth' => 'Mês aprés',
+	'srfc_today' => 'Houé',
+	'srfc_gotomonth' => 'Alar vers lo mês',
+	'srf_printername_calendar' => 'Calendriér du mês',
+);
+
 /** Galician (Galego)
  * @author Alma
  * @author Toliño
@@ -1191,7 +1202,7 @@ $messages['lb'] = array(
 	'srf_printername_average' => 'Duerchschnëtt vun den Zuelen',
 	'srf_printername_max' => 'Maximal Zuel',
 	'srf_printername_min' => 'Minimal Zuel',
-	'srf_paramdesc_limit' => "D'Maximal Zuel vu Säite fir ofzefroen",
+	'srf_paramdesc_limit' => "D'minimal Zuel vu Säite fir ofzefroen",
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie vun den Evenementer',
 	'srf_paramdesc_timelinesize' => "D'Héicht vun der Zäitläischt (Standard ass 300px)",
