@@ -15,7 +15,7 @@ class SRFOutlineItem {
 	var $mRow;
 	var $mVals;
 
-	function SRFOutlineItem( $row ) {
+	function __construct( $row ) {
 		$this->mRow = $row;
 		$this->mVals = array();
 	}
@@ -45,7 +45,7 @@ class SRFOutlineTree {
 	var $mTree;
 	var $mUnsortedItems;
 
-	function SRFOutlineTree( $items = array() ) {
+	function __construct( $items = array() ) {
 		$this->mTree = array();
 		$this->mUnsortedItems = $items;
 	}
