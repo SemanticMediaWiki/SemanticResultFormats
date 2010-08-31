@@ -670,6 +670,12 @@ $messages['frp'] = array(
 	'srfc_today' => 'Houé',
 	'srfc_gotomonth' => 'Alar vers lo mês',
 	'srf_printername_calendar' => 'Calendriér du mês',
+	'srf_printername_vcard' => 'èxportacion en vCard',
+	'srf_printername_icalendar' => 'èxportacion en iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Lo titro du fichiér calendriér',
+	'srf_paramdesc_icalendardescription' => 'La dèscripcion du fichiér calendriér',
+	'srf_printername_bibtex' => 'èxportacion en BibTeX',
+	'srf_outline_novalue' => 'Gins de valor',
 );
 
 /** Galician (Galego)
