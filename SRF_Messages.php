@@ -676,6 +676,12 @@ $messages['frp'] = array(
 	'srf_paramdesc_icalendardescription' => 'La dèscripcion du fichiér calendriér',
 	'srf_printername_bibtex' => 'èxportacion en BibTeX',
 	'srf_outline_novalue' => 'Gins de valor',
+	'srf_printername_outline' => 'Començon',
+	'srf_printername_sum' => 'Soma de nombros',
+	'srf_printername_average' => 'Moyena des nombros',
+	'srf_printername_timeline' => 'Diagramo cronologico',
+	'srf_printername_eventline' => 'Diagramo cronologico des èvènements',
+	'srf_printername_gallery' => 'Galerie',
 );
 
 /** Galician (Galego)
