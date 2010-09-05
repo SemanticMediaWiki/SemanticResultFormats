@@ -1439,8 +1439,14 @@ $messages['no'] = array(
 	'srf_paramdesc_lens' => 'Navnet på malen som skal vise frem sideegenskapene',
 	'srf_printername_googlebar' => 'Google stolpediagram',
 	'srf_printername_googlepie' => 'Google kakediagram',
+	'srf_printername_jqplotbar' => 'jqPlot stolpediagram',
+	'srf_printername_jqplotpie' => 'jqPlot sektordiagram',
 	'srf_paramdesc_chartheight' => 'Høyden til diagrammet, i pixler',
 	'srf_paramdesc_chartwidth' => 'Bredden til diagrammet, i pixler',
+	'srf_paramdesc_charttitle' => 'Tittelen på diagrammet',
+	'srf_paramdesc_barcolor' => 'Fargen på stolpene',
+	'srf_paramdesc_bardirection' => 'Retningen på stolpediagrammet',
+	'srf_paramdesc_barnumbersaxislabel' => 'Etiketten for tallaksen',
 	'srf_printername_gallery' => 'Galleri',
 );
 
