@@ -276,6 +276,7 @@ $messages['bn'] = array(
 /** Breton (Brezhoneg)
  * @author Fohanno
  * @author Fulup
+ * @author Gwendal
  * @author Gwenn-Ael
  * @author Y-M D
  */
@@ -315,6 +316,8 @@ $messages['br'] = array(
 	'srf_printername_googlepie' => 'Grafik dre lodennoù Google',
 	'srf_paramdesc_chartheight' => 'Uhelder an diagramm, e piksel',
 	'srf_paramdesc_chartwidth' => 'Ledander an diagramm, e piksel',
+	'srf_paramdesc_charttitle' => 'Titl ar grafik',
+	'srf_paramdesc_barcolor' => 'Liv ar barennoù',
 	'srf_printername_gallery' => 'Skeudennaoueg',
 );
 
