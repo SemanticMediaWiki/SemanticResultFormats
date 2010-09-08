@@ -2036,6 +2036,7 @@ $messages['zh-hans'] = array(
 	'srfc_gotomonth' => '跳至月份',
 	'srf_printername_max' => '最大数目',
 	'srf_printername_min' => '最小数目',
+	'srf_printername_gallery' => '图库',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
