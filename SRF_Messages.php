@@ -1914,7 +1914,7 @@ $messages['tl'] = array(
 	'srf_printername_average' => 'Pinatakang halaga ng mga bilang',
 	'srf_printername_max' => 'Pinakamataas na bilang',
 	'srf_printername_min' => 'Pinakamababang bilang',
-	'srf_paramdesc_limit' => 'Ang pinakamataas na bilang ng mga pahinang itatanong',
+	'srf_paramdesc_limit' => 'Ang pinakamaraming bilang ng mga pahinang ipagtatanong',
 	'srf_printername_timeline' => 'Guhit ng panahon',
 	'srf_printername_eventline' => 'Guhit ng kaganapan',
 	'srf_paramdesc_timelinebands' => 'Tumutukoy kung aling mga sintas ang ipapakita sa loob ng resulta.',
@@ -1927,8 +1927,14 @@ $messages['tl'] = array(
 	'srf_paramdesc_lens' => 'Ang pangalan ng isang suleras na pagpapakitaan ng mga pag-aari ng pahina',
 	'srf_printername_googlebar' => 'Baretang tsart ng Google',
 	'srf_printername_googlepie' => 'Kakaning-tsart ng Google',
+	'srf_printername_jqplotbar' => 'baretang talangguhit ng jqPlot',
+	'srf_printername_jqplotpie' => 'kakaning-talangguhit ng jgPlot',
 	'srf_paramdesc_chartheight' => 'Ang taas ng tsart, nasa mga piksel',
 	'srf_paramdesc_chartwidth' => 'Ang lapad ng tsart, nasa mga piksel',
+	'srf_paramdesc_charttitle' => 'Ang pamagat ng talangguhit',
+	'srf_paramdesc_barcolor' => 'Ang kulay ng mga bareta',
+	'srf_paramdesc_bardirection' => 'Ang kapupuntahan ng baretang talangguhit',
+	'srf_paramdesc_barnumbersaxislabel' => 'Ang tatak para sa painugan ng mga bilang',
 	'srf_printername_gallery' => 'Galerya',
 );
 
