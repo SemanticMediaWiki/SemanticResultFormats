@@ -94,6 +94,8 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$labels = array();
 		// print all result rows
 		$count = 0;
+		$max_number = 0;
+		$min_number = 0;
 		while ( $row = $res->getNext() ) {
 			$name = $row[0]->getNextObject()->getShortWikiText();
 			foreach ( $row as $field ) {
@@ -105,7 +107,13 @@ class SRFjqPlotBar extends SMWResultPrinter {
 							$nr = $object->getNumericValue();
 						}
 						$count++;
-						
+						if ( $nr > $max_number ) {
+							$max_number = $nr;
+						}
+						if ( $nr < $min_number ) {
+							$min_number = $nr;
+						}
+
 						if ( $this->m_bardirection == 'horizontal' ) {
 							$numbers[] = "[$nr, $count]";
 						} else {
@@ -124,7 +132,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$labels_axis ="xaxis";
 		$numbers_axis = "yaxis";
 		$angle_val = -40;
-		$barmargin= 30;
+		$barmargin = 6;
 		if ( $this->m_bardirection == 'horizontal' ) {
 			$labels_axis ="yaxis";
 			$numbers_axis ="xaxis";
@@ -133,6 +141,43 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		}
 		$barwidth = 20; // width of each bar
 		$bardistance = 4; // distance between two bars
+
+		// Calculate the tick values for the numbers, based on the
+		// lowest and highest number. jqPlot has its own option for
+		// calculating ticks automatically - "autoscale" - but it
+		// currently (September 2010) fails for numbers less than 1,
+		// and negative numbers.
+		// If both max and min are 0, just escape now.
+		if ( $max_number == 0 && $min_number == 0 ) {
+			return null;
+		}
+		// Make the max and min slightly larger and bigger than the
+		// actual max and min, so that the bars don't directly touch
+		// the top and bottom of the graph
+		if ( $max_number > 0 ) { $max_number += .001; }
+		if ( $min_number < 0 ) { $min_number -= .001; }
+		if ( $max_number == 0 ) {
+			$multipleOf10 = 0;
+			$maxAxis = 0;
+		} else {
+			$multipleOf10 = pow( 10, floor( log( $max_number, 10 ) ) );
+			$maxAxis = ceil( $max_number / $multipleOf10 ) * $multipleOf10;
+		}
+		if ( $min_number == 0 ) {
+			$negativeMultipleOf10 = 0;
+			$minAxis = 0;
+		} else {
+			$negativeMultipleOf10 = -1 * pow( 10, floor( log( -1 * $min_number, 10 ) ) );
+			$minAxis = ceil( $min_number / $negativeMultipleOf10 ) * $negativeMultipleOf10;
+		}
+		$numbers_ticks = '';
+		$biggerMultipleOf10 = max( $multipleOf10, -1 * $negativeMultipleOf10 );
+		$lowestTick = floor( $minAxis / $biggerMultipleOf10 + .001 );
+		$highestTick = ceil( $maxAxis / $biggerMultipleOf10 - .001 );
+		for ( $i = $lowestTick; $i <= $highestTick; $i++ ) {
+			$numbers_ticks .= ($i * $biggerMultipleOf10) . ", ";
+		}
+
 		$js_bar =<<<END
 <script type="text/javascript">
 jQuery.noConflict();
@@ -141,6 +186,9 @@ jQuery(document).ready(function(){
 	plot1 = jQuery.jqplot('$barID', [[$numbers_str]], {
 		title: '{$this->m_charttitle}',
 		seriesColors: ['$this->m_barcolor'],
+		seriesDefaults: {
+			fillToZero: true
+		},
 		series: [  {
 			renderer: jQuery.jqplot.BarRenderer, rendererOptions: {
 				barDirection: '{$this->m_bardirection}',
@@ -158,7 +206,7 @@ jQuery(document).ready(function(){
 				}
 			},
 			$numbers_axis: {
-				autoscale: true,
+				ticks: [$numbers_ticks],
 				label: '{$this->m_numbersaxislabel}'
 			}
 		}
