@@ -301,7 +301,7 @@ $messages['br'] = array(
 	'srf_printername_average' => 'Keitad an niveroù',
 	'srf_printername_max' => 'Niver uhelañ',
 	'srf_printername_min' => 'Niver izelañ',
-	'srf_paramdesc_limit' => "Niver uhelañ a bajennoù da gerc'hat",
+	'srf_paramdesc_limit' => "Niver brasañ a bajennoù da gerc'hat",
 	'srf_printername_timeline' => 'Kronologiezh',
 	'srf_printername_eventline' => 'Kronologiezh an darvoudoù',
 	'srf_paramdesc_timelinebands' => "a zielfenn peseurt strolladoù zo diskwelet en disoc'hoù.",
@@ -317,7 +317,7 @@ $messages['br'] = array(
 	'srf_paramdesc_chartheight' => 'Uhelder an diagramm, e piksel',
 	'srf_paramdesc_chartwidth' => 'Ledander an diagramm, e piksel',
 	'srf_paramdesc_charttitle' => 'Titl ar grafik',
-	'srf_paramdesc_barcolor' => 'Liv ar barennoù',
+	'srf_paramdesc_barcolor' => 'Liv ar barrennoù',
 	'srf_printername_gallery' => 'Skeudennaoueg',
 );
 
