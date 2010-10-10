@@ -314,10 +314,14 @@ $messages['br'] = array(
 	'srf_paramdesc_lens' => 'Anv ar patrom implijet evit diskouez perzhioù ar bajenn',
 	'srf_printername_googlebar' => 'Grafik barrennek Google',
 	'srf_printername_googlepie' => 'Grafik dre lodennoù Google',
+	'srf_printername_jqplotbar' => 'Grafik e barrennoù jqPlot',
+	'srf_printername_jqplotpie' => 'Grafik kouign jqPlot',
 	'srf_paramdesc_chartheight' => 'Uhelder an diagramm, e piksel',
 	'srf_paramdesc_chartwidth' => 'Ledander an diagramm, e piksel',
 	'srf_paramdesc_charttitle' => 'Titl ar grafik',
 	'srf_paramdesc_barcolor' => 'Liv ar barrennoù',
+	'srf_paramdesc_bardirection' => "Durc'hadur ar grafik e barrennoù",
+	'srf_paramdesc_barnumbersaxislabel' => 'Tikedenn ahel an niveroù',
 	'srf_printername_gallery' => 'Skeudennaoueg',
 );
 
@@ -1200,6 +1204,7 @@ $messages['ksh'] = array(
  * @author Robby
  */
 $messages['lb'] = array(
+	'srf-name' => 'Formate vu semantesche Resultater',
 	'srfc_previousmonth' => 'Mount virdrun',
 	'srfc_nextmonth' => 'Nächste Mount',
 	'srfc_today' => 'Haut',
@@ -1225,8 +1230,14 @@ $messages['lb'] = array(
 	'srf_paramdesc_lens' => 'Den Numm vun enger Schabloun mat där Säiteneegeschafte gewise  ginn',
 	'srf_printername_googlebar' => 'Google-Sailen-Diagramm',
 	'srf_printername_googlepie' => 'Google-Taarten-Diagramm',
+	'srf_printername_jqplotbar' => 'jqPlot Sailen- oder Balkendiagramm',
+	'srf_printername_jqplotpie' => 'jqPlot Taartendiagramm',
 	'srf_paramdesc_chartheight' => "D'Héicht vun der Grafik, a Pixel",
 	'srf_paramdesc_chartwidth' => "D'Breet vun der Grafik, a Pixel",
+	'srf_paramdesc_charttitle' => 'Den Titel vum Diagramm',
+	'srf_paramdesc_barcolor' => "D'Faarf vun de Balken",
+	'srf_paramdesc_bardirection' => "D'Ausriichtung vum Balken-Diagramm",
+	'srf_paramdesc_barnumbersaxislabel' => "D'Etiquette fir d'Achs vun den Zuelen",
 	'srf_printername_gallery' => 'Gallerie',
 );
 
