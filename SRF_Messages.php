@@ -1520,6 +1520,7 @@ $messages['pl'] = array(
 	'srf_printername_bibtex' => 'eksport BibTeX',
 	'srf_outline_novalue' => 'Brak wartości',
 	'srf_printername_outline' => 'Szkic',
+	'srf_paramdesc_outlineproperties' => 'Spis właściwości, które zostaną wyświetlone jako nagłówki konspektu, rozdzielone przecinkami',
 	'srf_printername_sum' => 'Suma liczb',
 	'srf_printername_average' => 'Średnia liczb',
 	'srf_printername_max' => 'Maksymalna liczba',
