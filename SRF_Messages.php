@@ -1115,7 +1115,7 @@ $messages['ja'] = array(
 	'srf_printername_average' => '数の平均',
 	'srf_printername_max' => '最大数',
 	'srf_printername_min' => '最小数',
-	'srf_paramdesc_limit' => '問い合わせする最大のページ数',
+	'srf_paramdesc_limit' => '問い合わせするページの最大数',
 	'srf_printername_timeline' => '時系列',
 	'srf_printername_eventline' => '事象系列',
 	'srf_paramdesc_timelinebands' => '出力結果にどの時間単位を表示するか定義する。',
@@ -1128,11 +1128,14 @@ $messages['ja'] = array(
 	'srf_paramdesc_lens' => 'ページのプロパティーとともに表示するテンプレートの名前',
 	'srf_printername_googlebar' => 'Google 棒グラフ',
 	'srf_printername_googlepie' => 'Google 円グラフ',
+	'srf_printername_jqplotbar' => 'jqPlot棒グラフ',
+	'srf_printername_jqplotpie' => 'jqPlot円グラフ',
 	'srf_paramdesc_chartheight' => 'グラフの縦幅 (ピクセル単位)',
 	'srf_paramdesc_chartwidth' => 'グラフの横幅 (ピクセル単位)',
 	'srf_paramdesc_charttitle' => '図のタイトル',
 	'srf_paramdesc_barcolor' => '棒の色',
 	'srf_paramdesc_bardirection' => '棒グラフの方向',
+	'srf_paramdesc_barnumbersaxislabel' => '数値軸のラベル',
 	'srf_printername_gallery' => 'ギャラリー',
 );
 
