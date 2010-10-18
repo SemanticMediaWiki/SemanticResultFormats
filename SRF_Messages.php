@@ -557,8 +557,14 @@ $messages['es'] = array(
 	'srf_paramdesc_lens' => 'El nombre de una plantilla con la que se muestra la propiedades de la página',
 	'srf_printername_googlebar' => 'Gráfico de barras de Google',
 	'srf_printername_googlepie' => 'Gráfica circular de Google',
+	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
+	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
 	'srf_paramdesc_chartheight' => 'La altura del gráfico, en píxeles',
 	'srf_paramdesc_chartwidth' => 'La anchura del gráfico, en píxeles',
+	'srf_paramdesc_charttitle' => 'El título del gráfico',
+	'srf_paramdesc_barcolor' => 'El color de las barras',
+	'srf_paramdesc_bardirection' => 'La dirección del gráfico de barras',
+	'srf_paramdesc_barnumbersaxislabel' => 'La etiqueta del eje de los números',
 	'srf_printername_gallery' => 'Galería',
 );
 
@@ -837,6 +843,9 @@ $messages['he'] = array(
 	'srf_printername_googlepie' => 'דיאגרמת עוגה של גוגל',
 	'srf_paramdesc_chartheight' => 'גובה התרשים, בפיקסלים',
 	'srf_paramdesc_chartwidth' => 'רוחב התרשים, בפיקסלים',
+	'srf_paramdesc_charttitle' => 'כותרת התרשים',
+	'srf_paramdesc_barcolor' => 'צבע הפסים',
+	'srf_printername_gallery' => 'גלריה',
 );
 
 /** Hindi (हिन्दी)
