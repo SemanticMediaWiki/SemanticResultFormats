@@ -154,7 +154,13 @@ $messages['ar'] = array(
  * @author Basharh
  */
 $messages['arc'] = array(
+	'srfc_previousmonth' => 'ܝܪܚܐ ܕܕܥܒܪ',
+	'srfc_nextmonth' => 'ܝܪܚܐ ܕܐܬܐ',
 	'srfc_today' => 'ܝܘܡܢܐ',
+	'srf_printername_calendar' => 'ܦܠܛܐ ܝܪܚܝܐ',
+	'srf_printername_max' => 'ܡܬܚܐ ܥܠܝܐ ܕܡܢܝܢܐ',
+	'srf_printername_min' => 'ܡܬܚܐ ܬܚܬܝܐ ܕܡܢܝܢܐ',
+	'srf_printername_gallery' => 'ܒܝܬ ܓܠܚܐ',
 );
 
 /** Egyptian Spoken Arabic (مصرى)
