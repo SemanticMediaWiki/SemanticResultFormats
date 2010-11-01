@@ -4,7 +4,7 @@
  * Main entry point for the SemanticResultFormats extension.
  * http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
  * 
- * @file SemanticresultFormats.php
+ * @file SemanticResultFormats.php
  * @ingroup SemanticResultFormats
  * 
  * @author Jeroen De Dauw

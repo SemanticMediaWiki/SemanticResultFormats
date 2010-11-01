@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Settings file for the Semantic Result Formats extension.
  * http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
@@ -17,7 +16,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 }
 
 if ( !defined( 'SRF_VERSION' ) ) {
-	require_once dirname( __FILE__ ) . '/SemanticresultFormats.php';
+	require_once dirname( __FILE__ ) . '/SemanticResultFormats.php';
 }
 
 # The formats you want to be able to use.
