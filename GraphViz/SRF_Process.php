@@ -175,11 +175,6 @@ class SRFProcess extends SMWResultPrinter {
 		$row = $res->getNext(); // get initial row (i.e. array of SMWResultArray)
 
 		while ( $row !== false ) {
-
-			$node;
-			$cond_edge;
-
-
 			$subject = $row[0]->getResultSubject(); // get Subject of the Result
 			// creates a new node if $val has type wikipage
 			if ( $subject->getTypeID() == '_wpg' ) {
@@ -411,8 +406,6 @@ class ProcessGraph {
  	 * @return				Object of type ProcessNode
 	 */
 	public function makeNode( $id, $label ) {
-		$node;
-
 		// check if node exists
 		if ( isset( $this->m_nodes[$id] ) ) {
 			// take existing node
@@ -447,8 +440,6 @@ class ProcessGraph {
 	}
 
 	public function makeRole( $id, $label ) {
-		$role;
-
 		// check if role exists
 		if ( isset( $this->m_roles[$id] ) ) {
 			// take existing roles
@@ -468,8 +459,6 @@ class ProcessGraph {
 	}
 
 	public function makeRessource( $id, $label ) {
-		$res;
-
 		// check if res exists
 		if ( isset( $this->m_ressources[$id] ) ) {
 			// take existing res
