@@ -363,9 +363,7 @@ class SRFProcess extends SMWResultPrinter {
 		$debug = '';
 		if ( $this->m_isDebugSet ) $debug = '<pre>' . $graphInput . '</pre>';
 
-		return $result . $debug; ;
-
-
+		return $result . $debug;
 	}
 }
 
