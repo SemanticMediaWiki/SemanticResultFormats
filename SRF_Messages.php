@@ -902,8 +902,14 @@ $messages['hsb'] = array(
 	'srf_paramdesc_lens' => 'Mjeno předłohi, z kotrejž atributy strony maja so zwobraznić',
 	'srf_printername_googlebar' => 'Google hrjadowy diagram',
 	'srf_printername_googlepie' => 'Google tortowy diagram',
+	'srf_printername_jqplotbar' => 'Stołpowy abo hrjadowy diagram jgPlot',
+	'srf_printername_jqplotpie' => 'Kružny diagram jqPlot',
 	'srf_paramdesc_chartheight' => 'Wysokosć diagrama, w pikselach',
 	'srf_paramdesc_chartwidth' => 'Šěrokosć diagrama, w pikselach',
+	'srf_paramdesc_charttitle' => 'Titul diagrama',
+	'srf_paramdesc_barcolor' => 'Barba hrjadow/stołpow',
+	'srf_paramdesc_bardirection' => 'Stołpowy diagram abo hrjadowy diagram',
+	'srf_paramdesc_barnumbersaxislabel' => 'Popisanje y-wóski',
 	'srf_printername_gallery' => 'Galerija',
 );
 
