@@ -88,7 +88,9 @@ class SRFiCalendar extends SMWResultPrinter {
 			$result .= "X-WR-CALDESC:" . $this->m_description . "\r\n";
 		}
 		
-		//$result .= "BEGIN:VTIMEZONE\r\n";
+		// TODO: http://www.kanzaki.com/docs/ical/vtimezone.html
+		// $result .= "BEGIN:VTIMEZONE\r\n";
+		// $result .= "TZID:\r\n";
 
 		$row = $res->getNext();
 		while ( $row !== false ) {
@@ -96,7 +98,7 @@ class SRFiCalendar extends SMWResultPrinter {
 			$row = $res->getNext();
 		}
 		
-		//$result .= "END:VTIMEZONE\r\n";
+		// $result .= "END:VTIMEZONE\r\n";
 		
 		$result .= "END:VCALENDAR\r\n";
 
