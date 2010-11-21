@@ -25,7 +25,8 @@ define( 'SRF_VERSION', '1.5.2 alpha' );
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
 
-srffInitFormats();
+// Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
+$wgExtensionFunctions[] = 'srffInitFormats';
 
 $wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
 
@@ -111,7 +112,7 @@ function srffInitFormats() {
 		'ploticusvbar' => 'SRFPloticusVBar',
 		'gallery' => 'SRFGallery',
 	);
-	
+
 	foreach ( $srfgFormats as $format ) {
 		if ( array_key_exists( $format, $formatClasses ) ) {
 			$smwgResultFormats[$format] = $formatClasses[$format];
