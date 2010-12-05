@@ -121,6 +121,10 @@ function srffInitFormats() {
 	foreach ( $srfgFormats as $format ) {
 		if ( array_key_exists( $format, $formatClasses ) ) {
 			$smwgResultFormats[$format] = $formatClasses[$format];
+			
+			if ( method_exists( $formatClasses[$format], 'registerResourceModules' ) ) {
+				call_user_func( array( $formatClasses[$format], 'registerResourceModules' ) );
+			}
 		}
 		else {
 			wfDebug( "There is not result format class associated with the format '$format'." );

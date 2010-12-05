@@ -57,11 +57,29 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgScriptPath;
+		global $smwgIQRunningNumber, $srfgScriptPath;
 		
 		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
-		SMWOutputs::requireHeadItem( 'smw_tlhelper', '<script type="text/javascript" src="' . $wgScriptPath .  '/extensions/SemanticResultFormats/Timeline/SRF_timeline.js"></script>' );
-		SMWOutputs::requireHeadItem( 'smw_tl', '<script type="text/javascript" src="' . $wgScriptPath .  '/extensions/SemanticResultFormats/Timeline/SimileTimeline/timeline-api.js"></script>' );
+		
+		// MediaWiki 1.17 introduces the Resource Loader.
+		if ( method_exists( 'OutputPage', 'addModules' ) && method_exists( 'SMWOutputs', 'requireResource' ) ) {
+			SMWOutputs::requireResource( 'ext.srf.timeline' );
+			SMWOutputs::requireResource( 'ext.srf.timeline.api' );
+		}
+		else {
+			SMWOutputs::requireHeadItem(
+				'smw_tlhelper',
+				'<script type="text/javascript" src="' . $srfgScriptPath . 
+					'/Timeline/SRF_timeline.js"></script>'
+			);
+			SMWOutputs::requireHeadItem(
+				'smw_tl',
+				'<script type="text/javascript" src="' . $srfgScriptPath . 
+					'/Timeline/SimileTimeline/timeline-api.js"></script>'
+			);			
+		}
+		
+
 
 		$eventline =  ( 'eventline' == $this->mFormat );
 
@@ -254,6 +272,24 @@ class SRFTimeline extends SMWResultPrinter {
 	       	$params[] = array( 'name' => 'timelineend', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelineend' ) );
 		$params[] = array( 'name' => 'timelinesize', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelinesize' ) );
 		 return $params;
+	}
+	
+	public function registerResourceModules() {
+		global $wgResourceModules, $srfgScriptPath;
+		
+		$moduleTemplate = array(
+			'localBasePath' => dirname( __FILE__ ),
+			'remoteBasePath' => $srfgScriptPath . '/Timeline',
+			'group' => 'ext.srf'
+		);
+		
+		$wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
+			'styles' => 'SRF_timeline.js'
+		);
+		
+		$wgResourceModules['ext.srf.timeline.api'] = $moduleTemplate + array(
+			'styles' => 'SimileTimeline/timeline-api.js'
+		);			
 	}
 	
 }
