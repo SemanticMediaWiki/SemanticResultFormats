@@ -78,8 +78,6 @@ class SRFTimeline extends SMWResultPrinter {
 					'/Timeline/SimileTimeline/timeline-api.js"></script>'
 			);			
 		}
-		
-
 
 		$eventline =  ( 'eventline' == $this->mFormat );
 
@@ -274,6 +272,11 @@ class SRFTimeline extends SMWResultPrinter {
 		 return $params;
 	}
 	
+	/**
+	 * Register the resource modules used by this result printer.
+	 * 
+	 * @since 1.5.2
+	 */
 	public function registerResourceModules() {
 		global $wgResourceModules, $srfgScriptPath;
 		
@@ -284,7 +287,8 @@ class SRFTimeline extends SMWResultPrinter {
 		);
 		
 		$wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
-			'styles' => 'SRF_timeline.js'
+			'styles' => 'SRF_timeline.js',
+			'dependencies' => 'mediawiki.legacy.wikibits'
 		);
 		
 		$wgResourceModules['ext.srf.timeline.api'] = $moduleTemplate + array(
