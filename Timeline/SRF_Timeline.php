@@ -166,7 +166,11 @@ class SRFTimeline extends SMWResultPrinter {
 								// FIXME: Timeline scripts should support XSD format explicitly. They
 								// currently seem to implement iso8601 which deviates from XSD in cases.
 								// NOTE: We can assume $object to be an SMWDataValue in this case.
-								$curmeta .= '<span class="smwtlstart">' . $object->getXMLSchemaDate() . '</span>';
+								$curmeta .= Html::element(
+									'span',
+									array( 'class' => 'smwtlstart' ),
+									$object->getXMLSchemaDate()
+								);
 								$positions[$object->getHash()] = $object->getXMLSchemaDate();
 								$hastime = true;
 							}
@@ -175,7 +179,11 @@ class SRFTimeline extends SMWResultPrinter {
 							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
 							     ( $date_value == $this->m_tlend ) ) {
 								// NOTE: We can assume $object to be an SMWDataValue in this case.
-								$curmeta .= '<span class="smwtlend">' . $object->getXMLSchemaDate( false ) . '</span>';
+								$curmeta .= Html::element(
+									'span',
+									array( 'class' => 'smwtlend' ),
+									$object->getXMLSchemaDate( false )
+								);
 							}
 							
 							// find title for displaying event
@@ -206,10 +214,18 @@ class SRFTimeline extends SMWResultPrinter {
 						
 						if ( $eventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
 							if ( method_exists( $object, 'getValueKey' ) ) {
-								$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getValueKey() );
+								$events[] = array(
+									$object->getXMLSchemaDate(),
+									$pr->getLabel(),
+									$object->getValueKey()
+								);
 							}
 							else {
-								$events[] = array( $object->getXMLSchemaDate(), $pr->getLabel(), $object->getNumericValue() );
+								$events[] = array(
+									$object->getXMLSchemaDate(),
+									$pr->getLabel(),
+									$object->getNumericValue()
+								);
 							}
 						}
 						$first_value = false;
@@ -221,7 +237,15 @@ class SRFTimeline extends SMWResultPrinter {
 				}
 
 				if ( $hastime ) {
-					$result .= '<span class="smwtlevent">' . $curmeta . '<span class="smwtlcoloricon">' . $curcolor . '</span>' . $curdata . '</span>';
+					$result .= Html::rawElement(
+						'span',
+						array( 'class' => 'smwtlevent' ),
+						$curmeta . Html::element(
+							'span',
+							array( 'class' => 'smwtlcoloricon' ),
+							$curcolor
+						) . $curdata
+					);
 				}
 				
 				if ( $eventline ) {
