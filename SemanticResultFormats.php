@@ -30,6 +30,11 @@ $wgExtensionFunctions[] = 'srffInitFormats';
 
 $wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
 
+// To ensure Maps remains compatible with pre 1.16.
+if ( !class_exists( 'Html' ) ) {
+	$wgAutoloadClasses['Html'] = dirname( __FILE__ ) . '/compat/Html.php';
+}	
+
 // FIXME: hardcoded path
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
 $srfgIP = dirname( __FILE__ );
