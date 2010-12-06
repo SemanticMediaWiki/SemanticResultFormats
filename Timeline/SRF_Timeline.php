@@ -64,7 +64,6 @@ class SRFTimeline extends SMWResultPrinter {
 		// MediaWiki 1.17 introduces the Resource Loader.
 		if ( method_exists( 'OutputPage', 'addModules' ) && method_exists( 'SMWOutputs', 'requireResource' ) ) {
 			SMWOutputs::requireResource( 'ext.srf.timeline' );
-			SMWOutputs::requireResource( 'ext.srf.timeline.api' );
 		}
 		else {
 			SMWOutputs::requireHeadItem(
@@ -311,13 +310,9 @@ class SRFTimeline extends SMWResultPrinter {
 		);
 		
 		$wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
-			'styles' => 'SRF_timeline.js',
-			'dependencies' => 'mediawiki.legacy.wikibits'
+			'scripts' => array( 'SRF_timeline.js', 'SimileTimeline/timeline-api.js' ),
+			'dependencies' => array( 'mediawiki.legacy.wikibits' )
 		);
-		
-		$wgResourceModules['ext.srf.timeline.api'] = $moduleTemplate + array(
-			'styles' => 'SimileTimeline/timeline-api.js'
-		);			
 	}
 	
 }
