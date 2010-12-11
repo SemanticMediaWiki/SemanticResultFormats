@@ -1295,6 +1295,7 @@ $messages['mk'] = array(
 	'srf_printername_calendar' => 'Месечен календар',
 	'srf_paramdesc_calendarlang' => 'Кодот на јазикот на кој ќе се прикажува календарот',
 	'srf_printername_vcard' => 'Извоз на vCard',
+	'srf_icalendar_link' => 'iKalendar',
 	'srf_printername_icalendar' => 'Извоз на iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Насловот на податотеката на календарот',
 	'srf_paramdesc_icalendardescription' => 'Описот на податотеката на календарот',
