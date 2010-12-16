@@ -471,8 +471,14 @@ $messages['dsb'] = array(
 	'srf_paramdesc_lens' => 'Mě pśedłogi, z kótarejuž maju se bokowe atributy zwobrazniś',
 	'srf_printername_googlebar' => 'Google słupowy diagram',
 	'srf_printername_googlepie' => 'Google tortowy diagram',
+	'srf_printername_jqplotbar' => 'jqPlot słupowy diagram',
+	'srf_printername_jqplotpie' => 'jqPlot tortowy diagram',
 	'srf_paramdesc_chartheight' => 'Wusokosć diagrama, w pikselach',
 	'srf_paramdesc_chartwidth' => 'Šyrokosć diagrama, w pikselach',
+	'srf_paramdesc_charttitle' => 'Titel diagrama',
+	'srf_paramdesc_barcolor' => 'Barwa słupow',
+	'srf_paramdesc_bardirection' => 'Směr słupowego diagrama',
+	'srf_paramdesc_barnumbersaxislabel' => 'Pópisanje za y-wósku',
 	'srf_printername_gallery' => 'Galerija',
 );
 
