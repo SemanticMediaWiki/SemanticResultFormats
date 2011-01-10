@@ -3,6 +3,7 @@
  * A query printer for pie charts using the jqPlot JavaScript library.
  *
  * @author Sanyam Goyal
+ * @author Yaron Koren
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
@@ -32,12 +33,53 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_jqplotpie' );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgOut, $srfgScriptPath, $smwgScriptPath;
-		global $wgParser;
+	public static function registerResourceModules() {
+		global $wgResourceModules, $srfgIP;
+
+		$resourceTemplate = array(
+			'localBasePath' => $srfgIP . '/jqPlot',
+			'remoteExtPath' => 'SemanticResultFormats'
+		);
+		$wgResourceModules['ext.srf.jqplot'] = $resourceTemplate + array(
+			'scripts' => array(
+				'jquery.jqplot.min.js',
+			),
+			'styles' => array(
+				'jquery.jqplot.css',
+			),
+			'dependencies' => array(
+				'jquery',
+			),
+		);
+		$wgResourceModules['ext.srf.jqplotpie'] = $resourceTemplate + array(
+			'scripts' => array(
+				'jqplot.pieRenderer.min.js',
+			),
+			'styles' => array(
+			),
+			'dependencies' => array(
+				'ext.srf.jqplot',
+			),
+		);
+	}
+
+	protected function loadJavascriptAndCSS() {
+		global $wgOut;
+		$wgOut->addModules( 'ext.srf.jqplotpie' );
+	}
+
+	protected function addJavascriptAndCSS() {
+		if ( self::$m_piechartnum > 1 ) {
+			return;
+		}
+
+		// MW 1.17 +
+		if ( class_exists( 'ResourceLoader' ) ) {
+			self::loadJavascriptAndCSS();
+			return;
+		}
+		global $wgOut, $srfgScriptPath;
 		global $smwgJQueryIncluded, $srfgJQPlotIncluded;
-	
-		$wgParser->disableCache();
 
                 if ( !$smwgJQueryIncluded ) {
 			if ( method_exists( 'OutputPage', 'includeJQuery' ) ) {
@@ -54,12 +96,19 @@ class SRFjqPlotPie extends SMWResultPrinter {
 			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jquery.jqplot.min.js" );
 		}
 
-		if ( self::$m_piechartnum == 1 ) {
-			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jqplot.pieRenderer.min.js" );
-		}
+		$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jqplot.pieRenderer.min.js" );
 
 		// CSS file
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
+	}
+
+	protected function getResultText( $res, $outputmode ) {
+		global $wgOut, $wgParser;
+	
+		$wgParser->disableCache();
+
+		self::addJavascriptAndCSS();
+
 		$this->isHTML = true;
 
 		$t = "";
@@ -67,6 +116,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		// print all result rows
 		while ( $row = $res->getNext() ) {
 			$name = $row[0]->getNextObject()->getShortWikiText();
+			$name = str_replace( "'", "\'", $name );
 			foreach ( $row as $field ) {
 				while ( ( $object = $field->getNextObject() ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
@@ -75,12 +125,12 @@ class SRFjqPlotPie extends SMWResultPrinter {
 						} else {
 							$nr = $object->getNumericValue();
 						}
-						$jqplot_data[] .= "['$name', $nr]";
+						$pie_data[] .= "['$name', $nr]";
 					}
 				}
 			}
 		}
-		$jqplot_data_str = "[[" . implode( ', ', $jqplot_data ) . "]]";
+		$pie_data_str = "[[" . implode( ', ', $pie_data ) . "]]";
 		$pieID = 'pie' . self::$m_piechartnum;
 		self::$m_piechartnum++;
 
@@ -89,7 +139,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 jQuery.noConflict();
 jQuery(document).ready(function(){
 	jQuery.jqplot.config.enablePlugins = true;
-	plot1 = jQuery.jqplot('$pieID', $jqplot_data_str, {
+	plot1 = jQuery.jqplot('$pieID', $pie_data_str, {
 		title: '$this->m_charttitle',
 		seriesDefaults: {
 			renderer: jQuery.jqplot.PieRenderer,
@@ -101,9 +151,8 @@ jQuery(document).ready(function(){
 	});
 });
 </script>
-
 END;
-		$wgOut->addScript($js_pie);
+		$wgOut->addScript( $js_pie );
 
 		$text =<<<END
 <div id="$pieID" style="margin-top: 20px; margin-left: 20px; width: {$this->m_width}px; height: {$this->m_height}px;"></div>

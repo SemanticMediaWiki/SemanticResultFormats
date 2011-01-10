@@ -52,13 +52,59 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_jqplotbar' );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgOut, $srfgScriptPath;
-		global $srfgJQPlotIncluded, $smwgJQueryIncluded;
-		global $wgParser;
-		$wgParser->disableCache();
+	public static function registerResourceModules() {
+		global $wgResourceModules, $srfgIP;
 
-		//adding scripts - this code may be moved to some other location
+		$resourceTemplate = array(
+			'localBasePath' => $srfgIP . '/jqPlot',
+			'remoteExtPath' => 'SemanticResultFormats'
+		);
+		$wgResourceModules['ext.srf.jqplot'] = $resourceTemplate + array(
+			'scripts' => array(
+				'jquery.jqplot.min.js',
+			),
+			'styles' => array(
+				'jquery.jqplot.css',
+			),
+			'dependencies' => array(
+				'jquery',
+			),
+		);
+		$wgResourceModules['ext.srf.jqplotbar'] = $resourceTemplate + array(
+			'scripts' => array(
+				'jqplot.categoryAxisRenderer.min.js',
+				'jqplot.barRenderer.min.js',
+				'jqplot.canvasAxisTickRenderer.min.js',
+				'jqplot.canvasTextRenderer.min.js',
+			),
+			'styles' => array(
+			),
+			'dependencies' => array(
+				'ext.srf.jqplot',
+			),
+		);
+	}
+
+	protected function loadJavascriptAndCSS() {
+		global $wgOut;
+		$wgOut->addModules( 'ext.srf.jqplot' );
+		$wgOut->addModules( 'ext.srf.jqplotbar' );
+	}
+
+	static public function addJavascriptAndCSS() {
+		if ( self::$m_barchartnum > 1 ) {
+			return;
+		}
+
+		// MW 1.17 +
+		if ( class_exists( 'ResourceLoader' ) ) {
+			self::loadJavascriptAndCSS();
+			return;
+		}
+
+		global $wgOut, $smwgJQueryIncluded, $srfgJQPlotIncluded;
+		global $srfgScriptPath;
+
 		$scripts = array();
 		if ( !$smwgJQueryIncluded ) {
 			if ( method_exists( 'OutputPage', 'includeJQuery' ) ) {
@@ -75,12 +121,10 @@ class SRFjqPlotBar extends SMWResultPrinter {
 			$srfgJQPlotIncluded = true;
 		}
 
-		if ( self::$m_barchartnum == 1 ) {
-			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.categoryAxisRenderer.min.js";
-			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.barRenderer.min.js";
-			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.min.js";
-			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.min.js";
-		}
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.categoryAxisRenderer.min.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.barRenderer.min.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.min.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.min.js";
 
 		foreach ( $scripts as $script ) {
 			$wgOut->addScriptFile( $script );
@@ -88,6 +132,15 @@ class SRFjqPlotBar extends SMWResultPrinter {
 
 		// CSS file
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
+	}
+
+	protected function getResultText( $res, $outputmode ) {
+		global $wgOut, $wgParser;
+
+		$wgParser->disableCache();
+
+		self::addJavascriptAndCSS();
+
 		$this->isHTML = true;
 
 		$numbers = array();
@@ -98,6 +151,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$min_number = 0;
 		while ( $row = $res->getNext() ) {
 			$name = $row[0]->getNextObject()->getShortWikiText();
+			$name = str_replace( "'", "\'", $name );
 			foreach ( $row as $field ) {
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
@@ -213,9 +267,8 @@ jQuery(document).ready(function(){
 	});
 });
 </script>
- 
 END;
-		$wgOut->addScript($js_bar);
+		$wgOut->addScript( $js_bar );
 		$text =<<<END
 <div id="$barID" style="margin-top: 20px; margin-left: 20px; width: {$this->m_width}px; height: {$this->m_height}px;"></div>
 
