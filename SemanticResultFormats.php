@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.5.2 alpha' );
+define( 'SRF_VERSION', '1.5.2' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
@@ -30,7 +30,7 @@ $wgExtensionFunctions[] = 'srffInitFormats';
 
 $wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
 
-// To ensure Maps remains compatible with pre 1.16.
+// To ensure Semantic Result Formats works with pre-1.16 MediaWiki versions.
 if ( !class_exists( 'Html' ) ) {
 	$wgAutoloadClasses['Html'] = dirname( __FILE__ ) . '/compat/Html.php';
 }	
@@ -58,9 +58,7 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other']
 		'Yaron Koren',
 		'[http://korrekt.org Markus Krötzsch]',
 		'David Loomer',
-		'Joel Natividad',
 		'[http://simia.net Denny Vrandecic]',
-		'Nathan Yergler',
 		'Hans-Jörg Happel',
 		'Rowan Rodrik van der Molen'
 	),
