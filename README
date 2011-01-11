@@ -161,8 +161,8 @@ of Code.
 
 * The Gallery format was contributed by Rowan van der Molen.
 
-* The jqPlot-based formats were contributed by Sanyam Goyal, using the
-  jQuery and jqPlot Javascript libraries.
+* The jqPlot-based formats were contributed by Sanyam Goyal and Yaron Koren,
+  using the jQuery and jqPlot Javascript libraries.
 
 * Many other people have contributed to the project by providing helpful
   comments and suggestions. More comments are always welcome!
