@@ -96,7 +96,7 @@ class SRFPloticus extends SMWResultPrinter {
 	}
 
 	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgUploadDirectory, $wgUploadPath, $wgArticle, $wgScriptPath, $srfgPloticusPath, $srfgEnvSettings;
+		global $smwgIQRunningNumber, $wgUploadDirectory, $wgUploadPath, $wgTitle, $wgScriptPath, $srfgPloticusPath, $srfgEnvSettings;
 
 		$this->isHTML = true;
 		$this->outputmode = SMW_OUTPUT_HTML;
@@ -177,7 +177,7 @@ class SRFPloticus extends SMWResultPrinter {
 
 		// we create a hash based on params
 		// this is a great way to see if the params and/or the query result has changed
-		$hashname = hash( 'md5', $wgArticle->mTitle . $smwgIQRunningNumber . implode( ',', $this->m_params ) );
+		$hashname = hash( 'md5', $wgTitle->getPrefixedDBkey() . $smwgIQRunningNumber . implode( ',', $this->m_params ) );
 		if ( $this->m_liveupdating ) {
 		    // only include contents of result csv in hash when liveupdating is on
 		    // in this way, doing file_exists check against hash filename will fail when query result has changed
