@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.5.2' );
+define( 'SRF_VERSION', '1.5.3 alpha' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
@@ -46,6 +46,8 @@ $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 
+$wgExtensionFunctions[] = 'efSRFSetup';
+
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Result Formats',
@@ -60,7 +62,8 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other']
 		'David Loomer',
 		'[http://simia.net Denny Vrandecic]',
 		'Hans-Jörg Happel',
-		'Rowan Rodrik van der Molen'
+		'Rowan Rodrik van der Molen',
+		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]'
 	),
 	'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc'
@@ -131,6 +134,25 @@ function srffInitFormats() {
 }
 
 /**
+ * Extension initialization hook.
+ * 
+ * @since 0.5.3
+ * 
+ * @return true
+ */
+function efSRFSetup() {
+	global $wgVersion;
+	
+	// This function has been deprecated in 1.16, but needed for earlier versions.
+	// It's present in 1.16 as a stub, but lets check if it exists in case it gets removed at some point.
+	if ( version_compare( $wgVersion, '1.15', '<=' ) ) {
+		wfLoadExtensionMessages( 'SemanticResultFormats' );
+	}	
+	
+	return true;
+}
+
+/**
  * Adds a link to Admin Links page.
  */
 function srffAddToAdminLinks( &$admin_links_tree ) {
@@ -142,7 +164,6 @@ function srffAddToAdminLinks( &$admin_links_tree ) {
 	}
 		
 	$smw_docu_row = $displaying_data_section->getRow( 'smw' );
-	wfLoadExtensionMessages( 'SemanticResultFormats' );
 	$srf_docu_label = wfMsg( 'adminlinks_documentation', wfMsg( 'srf-name' ) );
 	$smw_docu_row->addItem( AlItem::newFromExternalLink( 'http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats', $srf_docu_label ) );
 	

@@ -14,7 +14,6 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 class SRFMath extends SMWResultPrinter {
 
 	public function getName() {
-		wfLoadExtensionMessages( 'SemanticResultFormats' );
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 

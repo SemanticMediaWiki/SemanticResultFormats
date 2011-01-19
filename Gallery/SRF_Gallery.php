@@ -16,7 +16,6 @@ class SRFGallery extends SMWResultPrinter
 
 	public function getName()
 	{
-		wfLoadExtensionMessages( 'SemanticResultFormats' );
 		return wfMsg( 'srf_printername_gallery' );
 	}
 

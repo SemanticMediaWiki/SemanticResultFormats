@@ -33,7 +33,6 @@ class SRFvCard extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		wfLoadExtensionMessages( 'SemanticResultFormats' );
 		return wfMsg( 'srf_printername_vcard' );
 	}
 
@@ -316,7 +315,6 @@ class SRFvCard extends SMWResultPrinter {
 			if ( $this->getSearchLabel( $outputmode ) ) {
 				$label = $this->getSearchLabel( $outputmode );
 			} else {
-				wfLoadExtensionMessages( 'SemanticResultFormats' );
 				$label = wfMsgForContent( 'srf_vcard_link' );
 			}
 			$link = $res->getQueryLink( $label );

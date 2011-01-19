@@ -34,7 +34,6 @@ class SRFCalendar extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		wfLoadExtensionMessages( 'SemanticResultFormats' );
 		return wfMsg( 'srf_printername_calendar' );
 	}
 
@@ -214,7 +213,6 @@ class SRFCalendar extends SMWResultPrinter {
 			'media' => "screen, print",
 			'href' => $srfgScriptPath . "/Calendar/skins/SRFC_main.css"
 		) );
-		wfLoadExtensionMessages( 'SemanticResultFormats' );
 
 		// set variables differently depending on whether this is
 		// being called from an #ask call or the Special:Ask page
