@@ -66,7 +66,7 @@ class SRFCalendar extends SMWResultPrinter {
 					$text .= '|' . ( $i + 1 ) . '=';
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
-							$text .= SRFCalendar::formatDateStr( $object );
+							$text .= $object->getLongWikiText();
 						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
 							// handling of "link=" param
 							if ( $this->mLinkOthers ) {
@@ -148,10 +148,12 @@ class SRFCalendar extends SMWResultPrinter {
 				} elseif ( property_exists( $row[0], 'display_options' ) ) {
 					if ( is_array( $row[0]->display_options ) && array_key_exists( 'color', $row[0]->display_options ) )
 						$color = $row[0]->display_options['color'];
-				} elseif ( array_key_exists( 'color', $this->m_params ) )
+				} elseif ( array_key_exists( 'color', $this->m_params ) ) {
 					$color = $this->m_params['color'];
-				foreach ( $dates as $date )
+				}
+				foreach ( $dates as $date ) {
 					$events[] = array( $title, $text, $date, $color );
+				}
 			}
 		}
 
@@ -188,18 +190,9 @@ class SRFCalendar extends SMWResultPrinter {
 
 
 	function formatDateStr( $object ) {
-		if ( method_exists( 'SMWTimeValue', 'getYear' ) ) { // SMW 1.4 and higher
-			// for some reason, getMonth() and getDay() sometimes return a number with a leading zero -
-			// get rid of it using (int)
-			return $object->getYear() . '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
-		} else {
-			if ( method_exists( $event_date, 'getValueKey' ) ) {
-				return date( "Y-n-j", $event_date->getValueKey() );
-			}
-			else {
-				return date( "Y-n-j", $event_date->getNumericValue() );
-			}
-		}
+		// For some reason, getMonth() and getDay() sometimes return a
+		// number with a leading zero - get rid of it using (int)
+		return $object->getYear() . '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 	}
 
 	function displayCalendar( $events ) {
@@ -214,19 +207,23 @@ class SRFCalendar extends SMWResultPrinter {
 			'href' => $srfgScriptPath . "/Calendar/skins/SRFC_main.css"
 		) );
 
-		// set variables differently depending on whether this is
-		// being called from an #ask call or the Special:Ask page
+		// Set variables differently depending on whether this is
+		// being called from a regular page, via #ask, or from a
+		// special page: most likely either Special:Ask or
+		// Special:RunQuery.
 		$page_title = $wgParser->getTitle();
 		$additional_query_string = '';
 		$hidden_inputs = '';
-		$in_ask_page = is_null( $page_title );
-		if ( $in_ask_page ) {
+		$in_special_page = is_null( $page_title ) || $page_title->isSpecialPage();
+		if ( $in_special_page ) {
 			global $wgTitle;
 			$page_title = $wgTitle;
 			global $wgUser;
 			$skin = $wgUser->getSkin();
 			foreach ( $wgRequest->getValues() as $key => $value ) {
-				if ( $key != 'month' && $key != 'year' ) {
+				if ( $key != 'month' && $key != 'year'
+			       		&& $key != 'query' // from 'RunQuery'
+				) {
 					$additional_query_string .= "&$key=$value";
 					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />";
 				}
