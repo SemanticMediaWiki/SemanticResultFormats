@@ -220,9 +220,23 @@ class SRFCalendar extends SMWResultPrinter {
 			$page_title = $wgTitle;
 			global $wgUser;
 			$skin = $wgUser->getSkin();
-			foreach ( $wgRequest->getValues() as $key => $value ) {
+			$request_values = $wgRequest->getValues();
+			// Also go through the predefined PHP variable
+			// $_REQUEST, because $wgRequest->getValues() for
+			// some reason doesn't return array values - is
+			// there a better (less hacky) way to do this?
+			foreach ( $_REQUEST as $key => $value ) {
+				if ( is_array( $value ) ) {
+					foreach ($value as $k2 => $v2 ) {
+						$new_key = $key . '[' . $k2 . ']';
+						$request_values[$new_key] = $v2;
+					}
+				}
+			}
+			foreach ( $request_values as $key => $value ) {
 				if ( $key != 'month' && $key != 'year'
-			       		&& $key != 'query' // from 'RunQuery'
+					// values from 'RunQuery'
+			       		&& $key != 'query' && $key != 'free_text'
 				) {
 					$additional_query_string .= "&$key=$value";
 					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />";
@@ -272,7 +286,7 @@ class SRFCalendar extends SMWResultPrinter {
 		if ( $prev_year == "0" ) { $prev_year = "-1"; }
 		$prev_month_url = $page_title->getLocalURL( "month=$prev_month_num&year=$prev_year" . $additional_query_string );
 		$next_month_url = $page_title->getLocalURL( "month=$next_month_num&year=$next_year" . $additional_query_string );
-		$today_url = $page_title->getLocalURL();
+		$today_url = $page_title->getLocalURL( $additional_query_string );
 		$today_text = wfMsg( 'srfc_today' );
 		$prev_month_text = wfMsg( 'srfc_previousmonth' );
 		$next_month_text = wfMsg( 'srfc_nextmonth' );
