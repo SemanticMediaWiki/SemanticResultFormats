@@ -300,7 +300,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 * 
 	 * @since 1.5.2
 	 */
-	public function registerResourceModules() {
+	public static function registerResourceModules() {
 		global $wgResourceModules, $srfgScriptPath;
 		
 		$moduleTemplate = array(
