@@ -1237,6 +1237,13 @@ $messages['ksh'] = array(
 	'srf_paramdesc_chartwidth' => 'Dämm Dijajramm sing Breedt en Pixelle',
 );
 
+/** Kurdish (Latin) (Kurdî (Latin))
+ * @author George Animal
+ */
+$messages['ku-latn'] = array(
+	'srfc_today' => 'Îro',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
