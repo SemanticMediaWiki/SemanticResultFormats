@@ -24,7 +24,7 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_rankdir = "LR";
 	protected $m_graphSize = "";
 	protected $m_labelArray = array();
-	protected $m_graphColors = array( "black", "red", "green", "blue", "darkviolet", "gold", "deeppink", "brown", "bisque", "darkgreen", "yellow", "darkblue", "magenta", "steelblue2" );
+	protected $m_graphColors = array( 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' );
 
 	protected function readParameters( $params, $outputmode ) {
 

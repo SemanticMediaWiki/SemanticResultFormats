@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.5.2.1' );
+define( 'SRF_VERSION', '1.5.3 alpha' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
@@ -65,7 +65,7 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other']
 		'Rowan Rodrik van der Molen',
 		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]'
 	),
-	'url' => 'http://semantic-mediawiki.org/wiki/Help:Semantic_Result_Formats',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc'
 );
 
