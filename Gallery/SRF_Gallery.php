@@ -1,9 +1,12 @@
 <?php
 /**
  * Print query results as a gallery.
- * @author Rowan Rodrik van der Molen
+ * 
  * @file
  * @ingroup SemanticResultFormats
+ * 
+ * @author Rowan Rodrik van der Molen
+ * @author Jeroen De Dauw
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
@@ -30,7 +33,7 @@ class SRFGallery extends SMWResultPrinter
 
 	public function getResultText( $results, $outputmode )
 	{
-		global $smwgIQRunningNumber, $wgUser, $wgParser;
+		global $wgUser, $wgParser;
 
 		$ig = new ImageGallery();
 		$ig->setShowBytes( false );
