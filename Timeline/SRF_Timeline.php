@@ -171,95 +171,13 @@ class SRFTimeline extends SMWResultPrinter {
 					$date_value = $pr->getData()->getXSDValue();
 				}
 				
-				while ( ( $object = $field->getNextObject() ) !== false ) {
-					$l = $this->getLinker( $first_col );
-					
-					if ( !$hastitle && $object->getTypeID() != '_wpg' ) { // "linking" non-pages in title positions confuses timeline scripts, don't try this
-						$l = null;
-					}
-					
-					if ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
-						$objectlabel = $object->getLongText( $outputmode, $l );
-					} else {
-						$objectlabel = $object->getShortText( $outputmode, $l );
-					}
-					
-					$urlobject =  ( $l !== null );
-					$header = '';
-					
-					if ( $first_value ) {
-						// find header for current value:
-						if ( $this->mShowHeaders && ( '' != $pr->getLabel() ) ) {
-							$header = $pr->getText( $outputmode, $this->mLinker ) . ': ';
-						}
-						
-						// is this a start date?
-						if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
-						     ( $date_value == $this->m_tlstart ) ) {
-							// FIXME: Timeline scripts should support XSD format explicitly. They
-							// currently seem to implement iso8601 which deviates from XSD in cases.
-							// NOTE: We can assume $object to be an SMWDataValue in this case.
-							$curmeta .= Html::element(
-								'span',
-								array( 'class' => 'smwtlstart' ),
-								$object->getXMLSchemaDate()
-							);
-							$positions[$object->getHash()] = $object->getXMLSchemaDate();
-							$hastime = true;
-						}
-						
-						// is this the end date?
-						if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
-						     ( $date_value == $this->m_tlend ) ) {
-							// NOTE: We can assume $object to be an SMWDataValue in this case.
-							$curmeta .= Html::element(
-								'span',
-								array( 'class' => 'smwtlend' ),
-								$object->getXMLSchemaDate( false )
-							);
-						}
-						
-						// find title for displaying event
-						if ( !$hastitle ) {
-							$curmeta .= Html::element(
-								'span',
-								array(
-									'class' => $urlobject ? 'smwtlurl' : 'smwtltitle'
-								),
-								$objectlabel
-							);
-
-							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) ) {
-								// NOTE: type Title of $object implied
-								$curarticle = $object->getLongWikiText();
-							}
-							$hastitle = true;
-						}
-					} elseif ( $output ) {
-						// it *can* happen that output is false here, if the subject was not printed (fixed subject query) and mutliple items appear in the first row
-						$curdata .= ', '; 
-					}
-					
-					if ( !$first_col || !$first_value || $isEventline ) {
-						$curdata .= $header . $objectlabel;
-						$output = true;
-					}
-					
-					if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
-						if ( method_exists( $object, 'getValueKey' ) ) {
-							$events[] = array(
-								$object->getXMLSchemaDate(),
-								$pr->getLabel(),
-								$object->getValueKey()
-							);
-						}
-						else {
-							$events[] = array(
-								$object->getXMLSchemaDate(),
-								$pr->getLabel(),
-								$object->getNumericValue()
-							);
-						}
+				while ( ( $object = $field->getNextObject() ) !== false ) { // Loop over property values
+					$event = $this->handlePropertyValue( 
+						$object, $outputmode, $pr, $first_col, $hastitle, $hastime,
+						$first_value, $isEventline, $curmeta, $curdata, $date_value
+					);
+					if ( $event !== false ) {
+						$events[] = $event;
 					}
 					$first_value = false;
 				}
@@ -312,6 +230,123 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 
 		return $result;
+	}
+	
+	/**
+	 * Hanldes a single property value. Returns an array with data for a single event or false.
+	 * 
+	 * @since 1.5.3
+	 * 
+	 * @param SMWDataValue $object
+	 * @param $outputmode
+	 * @param SMWPrintRequest $pr
+	 * @param boolean $first_col
+	 * @param boolean &$hastitle
+	 * @param boolean &$hastime
+	 * @param boolean $first_value
+	 * @param boolean $isEventline
+	 * @param string &$curmeta
+	 * @param string &$curdata
+	 * @param &$date_value
+	 * 
+	 * @return false or array
+	 */
+	protected function handlePropertyValue( SMWDataValue $object, $outputmode, SMWPrintRequest $pr, $first_col, 
+		&$hastitle, &$hastime, $first_value, $isEventline, &$curmeta, &$curdata, $date_value ) {
+		
+		$event = false;
+		
+		$l = $this->getLinker( $first_col );
+		
+		if ( !$hastitle && $object->getTypeID() != '_wpg' ) { // "linking" non-pages in title positions confuses timeline scripts, don't try this
+			$l = null;
+		}
+		
+		if ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
+			$objectlabel = $object->getLongText( $outputmode, $l );
+		} else {
+			$objectlabel = $object->getShortText( $outputmode, $l );
+		}
+		
+		$urlobject =  ( $l !== null );
+		$header = '';
+		
+		if ( $first_value ) {
+			// find header for current value:
+			if ( $this->mShowHeaders && ( '' != $pr->getLabel() ) ) {
+				$header = $pr->getText( $outputmode, $this->mLinker ) . ': ';
+			}
+			
+			// is this a start date?
+			if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
+			     ( $date_value == $this->m_tlstart ) ) {
+				// FIXME: Timeline scripts should support XSD format explicitly. They
+				// currently seem to implement iso8601 which deviates from XSD in cases.
+				// NOTE: We can assume $object to be an SMWDataValue in this case.
+				$curmeta .= Html::element(
+					'span',
+					array( 'class' => 'smwtlstart' ),
+					$object->getXMLSchemaDate()
+				);
+				$positions[$object->getHash()] = $object->getXMLSchemaDate();
+				$hastime = true;
+			}
+			
+			// is this the end date?
+			if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
+			     ( $date_value == $this->m_tlend ) ) {
+				// NOTE: We can assume $object to be an SMWDataValue in this case.
+				$curmeta .= Html::element(
+					'span',
+					array( 'class' => 'smwtlend' ),
+					$object->getXMLSchemaDate( false )
+				);
+			}
+			
+			// find title for displaying event
+			if ( !$hastitle ) {
+				$curmeta .= Html::element(
+					'span',
+					array(
+						'class' => $urlobject ? 'smwtlurl' : 'smwtltitle'
+					),
+					$objectlabel
+				);
+
+				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) ) {
+					// NOTE: type Title of $object implied
+					$curarticle = $object->getLongWikiText();
+				}
+				$hastitle = true;
+			}
+		} elseif ( $output ) {
+			// it *can* happen that output is false here, if the subject was not printed (fixed subject query) and mutliple items appear in the first row
+			$curdata .= ', '; 
+		}
+		
+		if ( !$first_col || !$first_value || $isEventline ) {
+			$curdata .= $header . $objectlabel;
+			$output = true;
+		}
+		
+		if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
+			if ( method_exists( $object, 'getValueKey' ) ) {
+				$event = array(
+					$object->getXMLSchemaDate(),
+					$pr->getLabel(),
+					$object->getValueKey()
+				);
+			}
+			else {
+				$event = array(
+					$object->getXMLSchemaDate(),
+					$pr->getLabel(),
+					$object->getNumericValue()
+				);
+			}
+		}
+
+		return $event;
 	}
 
 	/**
