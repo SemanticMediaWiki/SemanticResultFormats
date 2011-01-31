@@ -84,20 +84,20 @@ class SRFGallery extends SMWResultPrinter
 	 * @param string $captionProperty
 	 */
 	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty ) {
-		while ( /* array of SMWResultArray */ $row = $results->getNext() ) {
+		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			$images = array();
 			$captions = array();
 			
-			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) {
+			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
 				if ( $row[$i]->getPrintRequest()->getLabel() == $imageProperty ) {
-					while ( ( $obj = $row[$i]->getNextObject() ) !== false ) {
+					while ( ( $obj = $row[$i]->getNextObject() ) !== false ) { // Property values
 						if ( $obj->getTypeID() == '_wpg' ) {
 							$images[] = $obj->getTitle(); 
 						}					
 					}					
 				}
 				else if ( $row[$i]->getPrintRequest()->getLabel() == $captionProperty ) {
-					while ( ( $obj = $row[$i]->getNextObject() ) !== false ) {
+					while ( ( $obj = $row[$i]->getNextObject() ) !== false ) { // Property values
 						$captions[] = $obj->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
 					}					
 				}

@@ -56,31 +56,14 @@ class SRFTimeline extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $srfgScriptPath;
+	protected function getResultText( /* SMWQueryResult */ $res, $outputmode ) {
+		global $smwgIQRunningNumber;
 		
-		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
-		
-		// MediaWiki 1.17 introduces the Resource Loader.
-		if ( method_exists( 'OutputPage', 'addModules' ) && method_exists( 'SMWOutputs', 'requireResource' ) ) {
-			SMWOutputs::requireResource( 'ext.srf.timeline' );
-		}
-		else {
-			SMWOutputs::requireHeadItem(
-				'smw_tlhelper',
-				'<script type="text/javascript" src="' . $srfgScriptPath . 
-					'/Timeline/SRF_timeline.js"></script>'
-			);
-			SMWOutputs::requireHeadItem(
-				'smw_tl',
-				'<script type="text/javascript" src="' . $srfgScriptPath . 
-					'/Timeline/SimileTimeline/timeline-api.js"></script>'
-			);			
-		}
+		$this->includeJS();
 
-		$eventline =  ( 'eventline' == $this->mFormat );
+		$isEventline =  ( 'eventline' == $this->mFormat );
 
-		if ( !$eventline && ( $this->m_tlstart == '' ) ) { // seek defaults
+		if ( !$isEventline && ( $this->m_tlstart == '' ) ) { // seek defaults
 			foreach ( $res->getPrintRequests() as $pr ) {
 				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) ) {
 					if ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
@@ -109,173 +92,9 @@ class SRFTimeline extends SMWResultPrinter {
 			// just print any "band" given, the JavaScript will figure out what to make of it
 		}
 
-		// print all result rows
-		$positions = array(); // possible positions, collected to select one for centering
-		$curcolor = 0; // color cycling is used for eventline
-		
-		if ( ( $this->m_tlstart != '' ) || $eventline ) {
-			$output = false; // true if output for the popup was given on current line
-			if ( $eventline ) $events = array(); // array of events that are to be printed
-			
-			while ( $row = $res->getNext() ) {
-				$hastime = false; // true as soon as some startdate value was found
-				$hastitle = false; // true as soon as some label for the event was found
-				$curdata = ''; // current *inner* print data (within some event span)
-				$curmeta = ''; // current event meta data
-				$curarticle = ''; // label of current article, if it was found; needed only for eventline labeling
-				$first_col = true;
-				
-				foreach ( $row as $field ) {
-					$first_value = true;
-					$pr = $field->getPrintRequest();
-					
-					if ( $pr->getData() == '' ) {
-						$date_value = null;
-					} elseif ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
-						$date_value = $pr->getData()->getValueKey();
-					} else {
-						$date_value = $pr->getData()->getXSDValue();
-					}
-					
-					while ( ( $object = $field->getNextObject() ) !== false ) {
-						$l = $this->getLinker( $first_col );
-						
-						if ( !$hastitle && $object->getTypeID() != '_wpg' ) { // "linking" non-pages in title positions confuses timeline scripts, don't try this
-							$l = null;
-						}
-						
-						if ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
-							$objectlabel = $object->getLongText( $outputmode, $l );
-						} else {
-							$objectlabel = $object->getShortText( $outputmode, $l );
-						}
-						
-						$urlobject =  ( $l !== null );
-						$header = '';
-						
-						if ( $first_value ) {
-							// find header for current value:
-							if ( $this->mShowHeaders && ( '' != $pr->getLabel() ) ) {
-								$header = $pr->getText( $outputmode, $this->mLinker ) . ': ';
-							}
-							
-							// is this a start date?
-							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
-							     ( $date_value == $this->m_tlstart ) ) {
-								// FIXME: Timeline scripts should support XSD format explicitly. They
-								// currently seem to implement iso8601 which deviates from XSD in cases.
-								// NOTE: We can assume $object to be an SMWDataValue in this case.
-								$curmeta .= Html::element(
-									'span',
-									array( 'class' => 'smwtlstart' ),
-									$object->getXMLSchemaDate()
-								);
-								$positions[$object->getHash()] = $object->getXMLSchemaDate();
-								$hastime = true;
-							}
-							
-							// is this the end date?
-							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
-							     ( $date_value == $this->m_tlend ) ) {
-								// NOTE: We can assume $object to be an SMWDataValue in this case.
-								$curmeta .= Html::element(
-									'span',
-									array( 'class' => 'smwtlend' ),
-									$object->getXMLSchemaDate( false )
-								);
-							}
-							
-							// find title for displaying event
-							if ( !$hastitle ) {
-								$curmeta .= Html::element(
-									'span',
-									array(
-										'class' => $urlobject ? 'smwtlurl' : 'smwtltitle'
-									),
-									$objectlabel
-								);
-
-								if ( ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) ) {
-									// NOTE: type Title of $object implied
-									$curarticle = $object->getLongWikiText();
-								}
-								$hastitle = true;
-							}
-						} elseif ( $output ) {
-							// it *can* happen that output is false here, if the subject was not printed (fixed subject query) and mutliple items appear in the first row
-							$curdata .= ', '; 
-						}
-						
-						if ( !$first_col || !$first_value || $eventline ) {
-							$curdata .= $header . $objectlabel;
-							$output = true;
-						}
-						
-						if ( $eventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
-							if ( method_exists( $object, 'getValueKey' ) ) {
-								$events[] = array(
-									$object->getXMLSchemaDate(),
-									$pr->getLabel(),
-									$object->getValueKey()
-								);
-							}
-							else {
-								$events[] = array(
-									$object->getXMLSchemaDate(),
-									$pr->getLabel(),
-									$object->getNumericValue()
-								);
-							}
-						}
-						$first_value = false;
-					}
-					
-					if ( $output ) $curdata .= "<br />";
-					$output = false;
-					$first_col = false;
-				}
-
-				if ( $hastime ) {
-					$result .= Html::rawElement(
-						'span',
-						array( 'class' => 'smwtlevent' ),
-						$curmeta . Html::element(
-							'span',
-							array( 'class' => 'smwtlcoloricon' ),
-							$curcolor
-						) . $curdata
-					);
-				}
-				
-				if ( $eventline ) {
-					foreach ( $events as $event ) {
-						$result .= '<span class="smwtlevent"><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $event[1] . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
-						if ( $curarticle != '' ) $result .= '<span class="smwtlprefix">' . $curarticle . ' </span>';
-						$result .=  $curdata . '</span>';
-						$positions[$event[2]] = $event[0];
-					}
-					$events = array();
-					$curcolor = ( $curcolor + 1 ) % 10;
-				}
-			}
-			
-			if ( count( $positions ) > 0 ) {
-				ksort( $positions );
-				$positions = array_values( $positions );
-				
-				switch ( $this->m_tlpos ) {
-					case 'start':
-						$result .= '<span class="smwtlposition">' . $positions[0] . '</span>';
-						break;
-					case 'end':
-						$result .= '<span class="smwtlposition">' . $positions[count( $positions ) - 1] . '</span>';
-						break;
-					case 'today': break; // default
-					case 'middle': default:
-						$result .= '<span class="smwtlposition">' . $positions[ceil( count( $positions ) / 2 ) - 1] . '</span>';
-						break;
-				}
-			}
+		// print all result rows		
+		if ( ( $this->m_tlstart != '' ) || $isEventline ) {
+			$result .= $this->getEventsHTML( $res, $outputmode, $isEventline );
 		}
 		// no further results displayed ...
 
@@ -283,15 +102,234 @@ class SRFTimeline extends SMWResultPrinter {
 		$result .= "</div>";
 		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
 		return $result;
+	}	
+	
+	/**
+	 * Includes the JavaScript required for the timeline and eventline formats.
+	 * 
+	 * @since 1.5.3
+	 */
+	protected function includeJS() {
+		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
+		
+		// MediaWiki 1.17 introduces the Resource Loader.
+		if ( method_exists( 'OutputPage', 'addModules' ) && method_exists( 'SMWOutputs', 'requireResource' ) ) {
+			SMWOutputs::requireResource( 'ext.srf.timeline' );
+		}
+		else {
+			global $srfgScriptPath;
+			SMWOutputs::requireHeadItem(
+				'smw_tlhelper',
+				'<script type="text/javascript" src="' . $srfgScriptPath . 
+					'/Timeline/SRF_timeline.js"></script>'
+			);
+			SMWOutputs::requireHeadItem(
+				'smw_tl',
+				'<script type="text/javascript" src="' . $srfgScriptPath . 
+					'/Timeline/SimileTimeline/timeline-api.js"></script>'
+			);			
+		}		
+	}
+	
+	/**
+	 * Returns the HTML for the events.
+	 * 
+	 * @since 1.5.3
+	 * 
+	 * @param SMWQueryResult $res
+	 * @param $outputmode
+	 * @param boolean $isEventline
+	 * 
+	 * @return string
+	 */
+	protected function getEventsHTML( SMWQueryResult $res, $outputmode, $isEventline ) {
+		$positions = array(); // possible positions, collected to select one for centering
+		$curcolor = 0; // color cycling is used for eventline		
+		
+		$result = '';
+		
+		$output = false; // true if output for the popup was given on current line
+		if ( $isEventline ) $events = array(); // array of events that are to be printed
+		
+		while ( $row = $res->getNext() ) { // Loop over the objcts (pages)
+			$hastime = false; // true as soon as some startdate value was found
+			$hastitle = false; // true as soon as some label for the event was found
+			$curdata = ''; // current *inner* print data (within some event span)
+			$curmeta = ''; // current event meta data
+			$curarticle = ''; // label of current article, if it was found; needed only for eventline labeling
+			$first_col = true;
+			
+			foreach ( $row as $field ) { // Loop over the returned properties
+				$first_value = true;
+				$pr = $field->getPrintRequest();
+				
+				if ( $pr->getData() == '' ) {
+					$date_value = null;
+				} elseif ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
+					$date_value = $pr->getData()->getValueKey();
+				} else {
+					$date_value = $pr->getData()->getXSDValue();
+				}
+				
+				while ( ( $object = $field->getNextObject() ) !== false ) {
+					$l = $this->getLinker( $first_col );
+					
+					if ( !$hastitle && $object->getTypeID() != '_wpg' ) { // "linking" non-pages in title positions confuses timeline scripts, don't try this
+						$l = null;
+					}
+					
+					if ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
+						$objectlabel = $object->getLongText( $outputmode, $l );
+					} else {
+						$objectlabel = $object->getShortText( $outputmode, $l );
+					}
+					
+					$urlobject =  ( $l !== null );
+					$header = '';
+					
+					if ( $first_value ) {
+						// find header for current value:
+						if ( $this->mShowHeaders && ( '' != $pr->getLabel() ) ) {
+							$header = $pr->getText( $outputmode, $this->mLinker ) . ': ';
+						}
+						
+						// is this a start date?
+						if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
+						     ( $date_value == $this->m_tlstart ) ) {
+							// FIXME: Timeline scripts should support XSD format explicitly. They
+							// currently seem to implement iso8601 which deviates from XSD in cases.
+							// NOTE: We can assume $object to be an SMWDataValue in this case.
+							$curmeta .= Html::element(
+								'span',
+								array( 'class' => 'smwtlstart' ),
+								$object->getXMLSchemaDate()
+							);
+							$positions[$object->getHash()] = $object->getXMLSchemaDate();
+							$hastime = true;
+						}
+						
+						// is this the end date?
+						if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
+						     ( $date_value == $this->m_tlend ) ) {
+							// NOTE: We can assume $object to be an SMWDataValue in this case.
+							$curmeta .= Html::element(
+								'span',
+								array( 'class' => 'smwtlend' ),
+								$object->getXMLSchemaDate( false )
+							);
+						}
+						
+						// find title for displaying event
+						if ( !$hastitle ) {
+							$curmeta .= Html::element(
+								'span',
+								array(
+									'class' => $urlobject ? 'smwtlurl' : 'smwtltitle'
+								),
+								$objectlabel
+							);
+
+							if ( ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) ) {
+								// NOTE: type Title of $object implied
+								$curarticle = $object->getLongWikiText();
+							}
+							$hastitle = true;
+						}
+					} elseif ( $output ) {
+						// it *can* happen that output is false here, if the subject was not printed (fixed subject query) and mutliple items appear in the first row
+						$curdata .= ', '; 
+					}
+					
+					if ( !$first_col || !$first_value || $isEventline ) {
+						$curdata .= $header . $objectlabel;
+						$output = true;
+					}
+					
+					if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
+						if ( method_exists( $object, 'getValueKey' ) ) {
+							$events[] = array(
+								$object->getXMLSchemaDate(),
+								$pr->getLabel(),
+								$object->getValueKey()
+							);
+						}
+						else {
+							$events[] = array(
+								$object->getXMLSchemaDate(),
+								$pr->getLabel(),
+								$object->getNumericValue()
+							);
+						}
+					}
+					$first_value = false;
+				}
+				
+				if ( $output ) $curdata .= "<br />";
+				$output = false;
+				$first_col = false;
+			}
+
+			if ( $hastime ) {
+				$result .= Html::rawElement(
+					'span',
+					array( 'class' => 'smwtlevent' ),
+					$curmeta . Html::element(
+						'span',
+						array( 'class' => 'smwtlcoloricon' ),
+						$curcolor
+					) . $curdata
+				);
+			}
+			
+			if ( $isEventline ) {
+				foreach ( $events as $event ) {
+					$result .= '<span class="smwtlevent"><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $event[1] . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
+					if ( $curarticle != '' ) $result .= '<span class="smwtlprefix">' . $curarticle . ' </span>';
+					$result .=  $curdata . '</span>';
+					$positions[$event[2]] = $event[0];
+				}
+				$events = array();
+				$curcolor = ( $curcolor + 1 ) % 10;
+			}
+		}
+		
+		if ( count( $positions ) > 0 ) {
+			ksort( $positions );
+			$positions = array_values( $positions );
+			
+			switch ( $this->m_tlpos ) {
+				case 'start':
+					$result .= '<span class="smwtlposition">' . $positions[0] . '</span>';
+					break;
+				case 'end':
+					$result .= '<span class="smwtlposition">' . $positions[count( $positions ) - 1] . '</span>';
+					break;
+				case 'today': break; // default
+				case 'middle': default:
+					$result .= '<span class="smwtlposition">' . $positions[ceil( count( $positions ) / 2 ) - 1] . '</span>';
+					break;
+			}
+		}
+
+		return $result;
 	}
 
+	/**
+	 * @see SMWResultPrinter::getParameters
+	 * 
+	 * @since 1.5.0
+	 * 
+	 * @return array
+	 */	
 	public function getParameters() {
 		$params = parent::getParameters();
+		
 		$params[] = array( 'name' => 'timelinebands', 'type' => 'enum-list', 'description' => wfMsg( 'srf_paramdesc_timelinebands' ), 'values' => array( 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ) );
 		$params[] = array( 'name' => 'timelineposition', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_timelineposition' ), 'values' => array( 'start', 'middle', 'end' ) );
 		$params[] = array( 'name' => 'timelinestart', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelinestart' ) );
-	       	$params[] = array( 'name' => 'timelineend', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelineend' ) );
+		$params[] = array( 'name' => 'timelineend', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelineend' ) );
 		$params[] = array( 'name' => 'timelinesize', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_timelinesize' ) );
+		
 		 return $params;
 	}
 	
