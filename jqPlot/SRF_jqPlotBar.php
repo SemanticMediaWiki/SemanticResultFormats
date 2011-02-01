@@ -57,25 +57,25 @@ class SRFjqPlotBar extends SMWResultPrinter {
 
 		$resourceTemplate = array(
 			'localBasePath' => $srfgIP . '/jqPlot',
-			'remoteExtPath' => 'SemanticResultFormats'
+			'remoteExtPath' => 'SemanticResultFormats/jqPlot'
 		);
 		$wgResourceModules['ext.srf.jqplot'] = $resourceTemplate + array(
 			'scripts' => array(
-				'jquery.jqplot.min.js',
+				'jquery.jqplot.js',
 			),
 			'styles' => array(
 				'jquery.jqplot.css',
 			),
 			'dependencies' => array(
-				'jquery',
 			),
 		);
 		$wgResourceModules['ext.srf.jqplotbar'] = $resourceTemplate + array(
 			'scripts' => array(
-				'jqplot.categoryAxisRenderer.min.js',
-				'jqplot.barRenderer.min.js',
-				'jqplot.canvasAxisTickRenderer.min.js',
-				'jqplot.canvasTextRenderer.min.js',
+				'jqplot.categoryAxisRenderer.js',
+				'jqplot.barRenderer.js',
+				'jqplot.canvasAxisTickRenderer.js',
+				'jqplot.canvasTextRenderer.js',
+				'excanvas.js',
 			),
 			'styles' => array(
 			),
@@ -116,15 +116,15 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		}
 
 		if ( !$srfgJQPlotIncluded ) {
-			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.min.js"></script><![endif]-->' );
-			$scripts[] = "$srfgScriptPath/jqPlot/jquery.jqplot.min.js";
+			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.js"></script><![endif]-->' );
+			$scripts[] = "$srfgScriptPath/jqPlot/jquery.jqplot.js";
 			$srfgJQPlotIncluded = true;
 		}
 
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.categoryAxisRenderer.min.js";
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.barRenderer.min.js";
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.min.js";
-		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.min.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.categoryAxisRenderer.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.barRenderer.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.js";
+		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.js";
 
 		foreach ( $scripts as $script ) {
 			$wgOut->addScriptFile( $script );

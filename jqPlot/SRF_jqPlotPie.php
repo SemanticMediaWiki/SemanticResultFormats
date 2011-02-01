@@ -38,22 +38,22 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 		$resourceTemplate = array(
 			'localBasePath' => $srfgIP . '/jqPlot',
-			'remoteExtPath' => 'SemanticResultFormats'
+			'remoteExtPath' => 'SemanticResultFormats/jqPlot'
 		);
 		$wgResourceModules['ext.srf.jqplot'] = $resourceTemplate + array(
 			'scripts' => array(
-				'jquery.jqplot.min.js',
+				'jquery.jqplot.js',
 			),
 			'styles' => array(
 				'jquery.jqplot.css',
 			),
 			'dependencies' => array(
-				'jquery',
 			),
 		);
 		$wgResourceModules['ext.srf.jqplotpie'] = $resourceTemplate + array(
 			'scripts' => array(
-				'jqplot.pieRenderer.min.js',
+				'jqplot.pieRenderer.js',
+				'excanvas.js',
 			),
 			'styles' => array(
 			),
@@ -65,6 +65,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 	protected function loadJavascriptAndCSS() {
 		global $wgOut;
+		$wgOut->addModules( 'ext.srf.jqplot' );
 		$wgOut->addModules( 'ext.srf.jqplotpie' );
 	}
 
@@ -92,11 +93,11 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 		if ( !$srfgJQPlotIncluded ) {
 			$srfgJQPlotIncluded = true;
-			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.min.js"></script><![endif]-->' );
-			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jquery.jqplot.min.js" );
+			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.js"></script><![endif]-->' );
+			$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jquery.jqplot.js" );
 		}
 
-		$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jqplot.pieRenderer.min.js" );
+		$wgOut->addScriptFile( "$srfgScriptPath/jqPlot/jqplot.pieRenderer.js" );
 
 		// CSS file
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
