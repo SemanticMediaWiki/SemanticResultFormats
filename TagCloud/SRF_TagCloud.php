@@ -2,16 +2,19 @@
 /**
  * Print query results as a tag cloud.
  * 
- * @author Jeroen De Dauw
+ * @since 1.5.3
  * 
  * @file SRF_TagCloud.php
  * @ingroup SemanticResultFormats
+ * 
+ * @licence GNU GPL v3
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
 /**
- * Result printer that prints query results as a gallery.
+ * Result printer that prints query results as a tag cloud.
  */
 class SRFTagCloud extends SMWResultPrinter {
 

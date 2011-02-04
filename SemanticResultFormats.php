@@ -95,6 +95,7 @@ function srffInitFormats() {
 	$wgAutoloadClasses['SRFProcess'] = $formatDir . 'GraphViz/SRF_Process.php';
 	$wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
 	$wgAutoloadClasses['SRFGallery'] = $formatDir . 'Gallery/SRF_Gallery.php';
+	$wgAutoloadClasses['SRFTagCloud'] = $formatDir . 'TagCloud/SRF_TagCloud.php';
 	
 	$formatClasses = array(
 		'timeline' => 'SRFTimeline',
@@ -117,6 +118,7 @@ function srffInitFormats() {
 		'process' => 'SRFProcess',
 		'ploticusvbar' => 'SRFPloticusVBar',
 		'gallery' => 'SRFGallery',
+		'tagcloud' => 'SRFTagCloud',
 	);
 
 	foreach ( $srfgFormats as $format ) {
