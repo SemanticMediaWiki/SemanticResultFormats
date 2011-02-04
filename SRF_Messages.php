@@ -72,6 +72,8 @@ $messages['en'] = array(
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
+
+	'srf_printername_tagcloud' => 'Tag cloud',
 );
 
 /** Message documentation (Message documentation)
