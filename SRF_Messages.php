@@ -434,6 +434,7 @@ $messages['de'] = array(
 	'srf_paramdesc_bardirection' => 'Ein Säulen- (vertikale Ausrichtung) oder Balkendiagramm (horizontale Ausrichtung)',
 	'srf_paramdesc_barnumbersaxislabel' => 'Die Beschriftung der y-Achse',
 	'srf_printername_gallery' => 'Galerie',
+	'srf_printername_tagcloud' => 'Schlagwortwolke',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -482,6 +483,7 @@ $messages['dsb'] = array(
 	'srf_paramdesc_bardirection' => 'Směr słupowego diagrama',
 	'srf_paramdesc_barnumbersaxislabel' => 'Pópisanje za y-wósku',
 	'srf_printername_gallery' => 'Galerija',
+	'srf_printername_tagcloud' => 'Tafličkowa mróčel',
 );
 
 /** Greek (Ελληνικά)
@@ -919,6 +921,7 @@ $messages['hsb'] = array(
 	'srf_paramdesc_bardirection' => 'Stołpowy diagram abo hrjadowy diagram',
 	'srf_paramdesc_barnumbersaxislabel' => 'Popisanje y-wóski',
 	'srf_printername_gallery' => 'Galerija',
+	'srf_printername_tagcloud' => 'Tafličkowa mróčel',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -1015,6 +1018,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_bardirection' => 'Le orientation del diagramma de barras',
 	'srf_paramdesc_barnumbersaxislabel' => 'Le etiquetta pro le axe de numeros',
 	'srf_printername_gallery' => 'Galeria',
+	'srf_printername_tagcloud' => 'Etiquettario',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1344,6 +1348,7 @@ $messages['mk'] = array(
 	'srf_paramdesc_bardirection' => 'Насока на столбниот графикон',
 	'srf_paramdesc_barnumbersaxislabel' => 'Натпис за бројната оска',
 	'srf_printername_gallery' => 'Галерија',
+	'srf_printername_tagcloud' => 'Облак со ознаки',
 );
 
 /** Malayalam (മലയാളം)
@@ -1705,6 +1710,7 @@ $messages['pt'] = array(
 	'srf_paramdesc_bardirection' => 'A orientação do gráfico de barras',
 	'srf_paramdesc_barnumbersaxislabel' => 'A legenda para o eixo dos números',
 	'srf_printername_gallery' => 'Galeria',
+	'srf_printername_tagcloud' => 'Nuvem de tags',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
