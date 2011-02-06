@@ -818,6 +818,7 @@ $messages['gsw'] = array(
 	'srf_paramdesc_bardirection' => 'E Syyle- (sänkrächti Uusrichtig) oder Balkediagramm (woogrächti Uusrichtig)',
 	'srf_paramdesc_barnumbersaxislabel' => 'D Bschryftig vu dr Zahle-Achs',
 	'srf_printername_gallery' => 'Galeri',
+	'srf_printername_tagcloud' => 'Schlagwortwulche',
 );
 
 /** Manx (Gaelg)
@@ -1467,12 +1468,13 @@ $messages['nn'] = array(
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Event
  * @author Jon Harald Søby
  * @author Nghtwlkr
  */
 $messages['no'] = array(
 	'srf-desc' => 'Ytterligere format for Semantic MediaWiki «inline»-spørringer',
-	'srf-name' => 'Semantic resultatformat',
+	'srf-name' => 'Semantisk resultatformat',
 	'srfc_previousmonth' => 'Forrige måned',
 	'srfc_nextmonth' => 'Neste måned',
 	'srfc_today' => 'I dag',
@@ -1514,6 +1516,7 @@ $messages['no'] = array(
 	'srf_paramdesc_bardirection' => 'Retningen på stolpediagrammet',
 	'srf_paramdesc_barnumbersaxislabel' => 'Etiketten for tallaksen',
 	'srf_printername_gallery' => 'Galleri',
+	'srf_printername_tagcloud' => 'Tagg-sky',
 );
 
 /** Occitan (Occitan)
