@@ -1133,6 +1133,7 @@ $messages['it'] = array(
  * @author Hosiryuhosi
  * @author JtFuruhata
  * @author Naohiro19
+ * @author Whym
  * @author 青子守歌
  */
 $messages['ja'] = array(
@@ -1178,6 +1179,7 @@ $messages['ja'] = array(
 	'srf_paramdesc_bardirection' => '棒グラフの方向',
 	'srf_paramdesc_barnumbersaxislabel' => '数値軸のラベル',
 	'srf_printername_gallery' => 'ギャラリー',
+	'srf_printername_tagcloud' => 'タグクラウド',
 );
 
 /** Javanese (Basa Jawa)
