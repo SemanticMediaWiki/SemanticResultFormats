@@ -51,11 +51,11 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		$this->minCount = $params['mincount'];
 
-		if ( !array_key_exists( 'increase', $params ) || !ctype_digit( (string)$params['increase'] ) ) {
-			$params['increase'] = 100;
+		if ( !array_key_exists( 'increasefactor', $params ) || !ctype_digit( (string)$params['increasefactor'] ) ) {
+			$params['increasefactor'] = 100;
 		}
 		
-		$this->increaseFactor = $params['increase'];
+		$this->increaseFactor = $params['increasefactor'];
 
 		if ( !array_key_exists( 'maxtags', $params ) || !ctype_digit( (string)$params['maxtags'] ) ) {
 			$params['maxtags'] = 1000;
@@ -221,5 +221,26 @@ class SRFTagCloud extends SMWResultPrinter {
 			implode( ' ', $htmlTags )
 		);
 	}
+	
+	/**
+	 * @see SMWResultPrinter::getParameters
+	 * 
+	 * @since 1.5.3
+	 * 
+	 * @return array
+	 */	
+	public function getParameters() {
+		$params = parent::getParameters();
+		
+		$params[] = array( 'name' => 'increase', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_increase' ), 'values' => array( 'linear', 'log' ) );
+		$params[] = array( 'name' => 'tagorder', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_tagorder' ), 'values' => array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) );
+		
+		$params[] = array( 'name' => 'mincount', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_mincount' ) );
+		$params[] = array( 'name' => 'increasefactor', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_increasefactor' ) );
+		$params[] = array( 'name' => 'maxtags', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_maxtags' ) );
+		$params[] = array( 'name' => 'minsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_minsize' ) );
+		
+		return $params;
+	}	
 	
 }

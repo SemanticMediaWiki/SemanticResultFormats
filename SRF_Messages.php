@@ -73,7 +73,14 @@ $messages['en'] = array(
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
 
+	// "tagcloud" format
 	'srf_printername_tagcloud' => 'Tag cloud',
+	'srf_paramdesc_increase' => 'How to increase the size of tags',
+	'srf_paramdesc_tagorder' => 'The order of the tags',
+	'srf_paramdesc_mincount' => 'The minimun amount of times a value needs to occur to be listed',
+	'srf_paramdesc_increasefactor' => 'How many percent to increase the size of a tag per step',
+	'srf_paramdesc_maxtags' => 'The maximun amount of tags in the cloud',
+	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent (default: 77)',
 );
 
 /** Message documentation (Message documentation)
