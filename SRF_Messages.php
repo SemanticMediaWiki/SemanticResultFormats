@@ -70,8 +70,13 @@ $messages['en'] = array(
 	'srf_paramdesc_barcolor'   =>   'The color of the bars',
 	'srf_paramdesc_bardirection'=>  'The direction of the bar chart',
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
-	// format "gallery"
+
+	// "gallery" format
 	'srf_printername_gallery' => 'Gallery',
+	'srf_paramdesc_perrow' => 'The amount of images per row',
+	'srf_paramdesc_widths' => 'The width of the images',
+	'srf_paramdesc_heights' => 'The height of the images',
+	'srf_paramdesc_autocaptions' => 'Use file name as caption when none is provided',
 
 	// "tagcloud" format
 	'srf_printername_tagcloud' => 'Tag cloud',

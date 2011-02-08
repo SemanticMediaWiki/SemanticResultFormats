@@ -14,25 +14,19 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 /**
  * Result printer that prints query results as a gallery.
  */
-class SRFGallery extends SMWResultPrinter
-{
+class SRFGallery extends SMWResultPrinter {
 
-	public function getName()
-	{
+	public function getName() {
 		return wfMsg( 'srf_printername_gallery' );
 	}
 
-
-	public function getResult( $results, $params, $outputmode )
-	{
+	public function getResult( $results, $params, $outputmode ) {
 		// skip checks, results with 0 entries are normal
 		$this->readParameters( $params, $outputmode );
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
 
-
-	public function getResultText( $results, $outputmode )
-	{
+	public function getResultText( $results, $outputmode ) {
 		global $wgUser, $wgParser;
 
 		$ig = new ImageGallery();
@@ -166,5 +160,24 @@ class SRFGallery extends SMWResultPrinter
 			$wgParser->mOutput->addImage( $imgTitle->getDBkey() );
 		}
 	}
+	
+	/**
+	 * @see SMWResultPrinter::getParameters
+	 * 
+	 * @since 1.5.3
+	 * 
+	 * @return array
+	 */	
+	public function getParameters() {
+		$params = parent::getParameters();
+		
+		$params[] = array( 'name' => 'perrow', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_perrow' ) );
+		$params[] = array( 'name' => 'widths', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_widths' ) );
+		$params[] = array( 'name' => 'heights', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_heights' ) );
+
+		$params[] = array( 'name' => 'autocaptions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_autocaptions' ), 'values' => array( 'on', 'off' ) );
+		
+		return $params;
+	}		
 	
 }
