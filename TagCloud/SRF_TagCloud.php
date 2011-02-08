@@ -40,7 +40,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$this->sizeMode = $params['increase'];
 		
 		if ( !array_key_exists( 'tagorder', $params ) || !in_array( $params['tagorder'], array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) ) ) {
-			$params['tagorder'] = 'alphabetic';
+			$params['tagorder'] = 'unchanged';
 		}
 		
 		$this->tagOrder = $params['tagorder'];		
@@ -127,6 +127,11 @@ class SRFTagCloud extends SMWResultPrinter {
 			return $tags;
 		}		
 		
+		// If the original order needs to be kept, we need a copy of the current order.
+		if ( $this->tagOrder == 'unchanged' ) {
+			$unchangedTags = array_keys( $tags );
+		}
+		
 		arsort( $tags, SORT_NUMERIC );
 		
 		if ( count( $tags ) > $this->maxTags ) {
@@ -136,6 +141,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$min = end( $tags ) or $min = 0;
 		$max = reset( $tags ) or $max = 1;
 		
+		// Loop over the tags, and replace their count by a size.
 		foreach ( $tags as &$tag ) {
 			switch ( $this->sizeMode ) {
 				case 'linear':
@@ -146,6 +152,45 @@ class SRFTagCloud extends SMWResultPrinter {
 					break;
 			}
 		}
+
+		switch ( $this->tagOrder ) {
+			case 'desc' :
+				// Tags are already sorted desc
+				break;
+			case 'asc' :
+				asort( $tags );
+				break;
+			case 'alphabetic' :
+				natcasesort( $tags );
+				break;
+			case 'random' :
+				$tagSizes = $tags;
+				shuffle( $tagSizes );
+				$newTags = array();
+				
+				foreach ( $tagSizes as $size ) {
+					foreach ( $tags as $tagName => $tagSize ) {
+						if ( $tagSize == $size ) {
+							$newTags[$tagName] =  $tags[$tagName];
+							break;
+						}
+					}
+				}
+				
+				$tags = $newTags;
+				break;	
+			case 'unchanged' : default : // Restore the original order.
+				$changedTags = $tags;
+				$tags = array();
+				
+				foreach ( $unchangedTags as $name ) {
+					// Original tags might have been left out at this point, so only add remaining ones.
+					if ( array_key_exists( $name, $changedTags ) ) {
+						$tags[$name] = $changedTags[$name];
+					}
+				}			
+				break;
+		}		
 		
 		return $tags;
 	}	
