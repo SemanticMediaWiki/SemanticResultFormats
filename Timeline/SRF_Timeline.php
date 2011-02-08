@@ -21,7 +21,7 @@ class SRFTimeline extends SMWResultPrinter {
 	protected $m_tlpos = ''; // position identifier (start, end, today, middle)
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'timelinestart', $params ) ) {
 			$this->m_tlstart = smwfNormalTitleDBKey( $params['timelinestart'] );
