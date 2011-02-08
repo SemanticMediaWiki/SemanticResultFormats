@@ -261,6 +261,7 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_bardirection' => 'Накіраваньне слупкоў дыяграмы',
 	'srf_paramdesc_barnumbersaxislabel' => 'Надпісы для лічбавых восяў',
 	'srf_printername_gallery' => 'Галерэя',
+	'srf_printername_tagcloud' => 'Воблака тэгаў',
 );
 
 /** Bulgarian (Български)
@@ -368,6 +369,7 @@ $messages['bs'] = array(
 );
 
 /** Catalan (Català)
+ * @author Dvdgmz
  * @author Paucabot
  * @author Toniher
  */
@@ -386,6 +388,7 @@ $messages['ca'] = array(
 	'srf_printername_max' => 'Nombre màxim',
 	'srf_printername_min' => 'Nombre mínim',
 	'srf_paramdesc_limit' => 'El nombre màxim de pàgines on fer la consulta',
+	'srf_paramdesc_timelinesize' => 'La llargada de la línia de temps (per defecte són 300px)',
 	'srf_printername_gallery' => 'Galeria',
 );
 
@@ -1850,6 +1853,7 @@ $messages['ru'] = array(
 	'srf_paramdesc_bardirection' => 'Направление столбцов',
 	'srf_paramdesc_barnumbersaxislabel' => 'Надпись для числовых осей',
 	'srf_printername_gallery' => 'Галерея',
+	'srf_printername_tagcloud' => 'Облако меток',
 );
 
 /** Rusyn (Русиньскый)
