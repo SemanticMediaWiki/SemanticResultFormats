@@ -20,6 +20,8 @@ class SRFTagCloud extends SMWResultPrinter {
 	protected $maxTags;
 	protected $minTagSize;	
 	
+	protected $tagsHtml = array();
+	
 	public function getName() {
 		return wfMsg( 'srf_printername_tagcloud' );
 	}
@@ -39,12 +41,6 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		$this->includeName = $params['includename'] == 'yes';
 
-		if ( !array_key_exists( 'linkpages', $params ) || !in_array( $params['linkpages'], array( 'yes', 'no' ) ) ) {
-			$params['linkpages'] = 'yes';
-		}
-		
-		$this->linkPages = $params['linkpages'] == 'yes';		
-		
 		if ( !array_key_exists( 'increase', $params ) || !in_array( $params['increase'], array( 'linear', 'log' ) ) ) {
 			$params['increase'] = 'log';
 		}
@@ -101,10 +97,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getTags( SMWQueryResult $results, $outputmode ) {
-		global $wgUser;
-		
 		$tags = array();
-		$skin = $wgUser->getSkin();
 		
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
@@ -118,14 +111,17 @@ class SRFTagCloud extends SMWResultPrinter {
 					
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $obj->getTypeID() == '_wpg' ) {
-						$value = $this->linkPages ? $obj->getLongText( $outputmode, $skin ) : $obj->getTitle()->getText();
+						$value = $obj->getTitle()->getText();
+						$html = $obj->getLongText( $outputmode, $this->getLinker( method_exists( $obj, 'isMainObject' ) && $obj->isMainObject() ) );
 					}
 					else {
-						$value = $obj->getShortText( $outputmode, $skin );
+						$html = $obj->getShortText( $outputmode, $this->getLinker( false ) );
+						$value = $html;
 					}
 
 					if ( !array_key_exists( $value, $tags ) ) {
 						$tags[$value] = 0;
+						$this->tagsHtml[$value] = $html; // Store the HTML separetely, so sorting can be done easily.
 					}
 					
 					$tags[$value]++;
@@ -251,7 +247,7 @@ class SRFTagCloud extends SMWResultPrinter {
 			$htmlTags[] = Html::rawElement(
 				'span',
 				array( 'style' => "font-size:$size%" ),
-				$name
+				$this->tagsHtml[$name]
 			);
 		}
 		
@@ -273,7 +269,6 @@ class SRFTagCloud extends SMWResultPrinter {
 		$params = parent::getParameters();
 		
 		$params[] = array( 'name' => 'includename', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_includename' ), 'values' => array( 'yes', 'no' ) );
-		$params[] = array( 'name' => 'linkpages', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_linkpages' ), 'values' => array( 'yes', 'no' ) );
 		$params[] = array( 'name' => 'increase', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_increase' ), 'values' => array( 'linear', 'log' ) );
 		$params[] = array( 'name' => 'tagorder', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_tagorder' ), 'values' => array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) );
 		
