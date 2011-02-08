@@ -16,7 +16,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	protected $sizeMode;
 	protected $tagOrder;
 	protected $minCount;
-	protected $increaseFactor;
+	protected $maxSize;
 	protected $maxTags;
 	protected $minTagSize;	
 	
@@ -51,12 +51,6 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		$this->minCount = $params['mincount'];
 
-		if ( !array_key_exists( 'increasefactor', $params ) || !ctype_digit( (string)$params['increasefactor'] ) ) {
-			$params['increasefactor'] = 100;
-		}
-		
-		$this->increaseFactor = $params['increasefactor'];
-
 		if ( !array_key_exists( 'maxtags', $params ) || !ctype_digit( (string)$params['maxtags'] ) ) {
 			$params['maxtags'] = 1000;
 		}
@@ -67,7 +61,13 @@ class SRFTagCloud extends SMWResultPrinter {
 			$params['minsize'] = 77;
 		}
 		
-		$this->minTagSize = $params['minsize'];		
+		$this->minTagSize = $params['minsize'];	
+		
+		if ( !array_key_exists( 'maxsize', $params ) || !ctype_digit( (string)$params['maxsize'] ) ) {
+			$params['maxsize'] = 177;
+		}
+		
+		$this->maxSize = $params['maxsize'];		
 	}
 
 	public function getResultText( /* SMWQueryResult */ $results, $outputmode ) {
@@ -140,15 +140,17 @@ class SRFTagCloud extends SMWResultPrinter {
 	
 		$min = end( $tags ) or $min = 0;
 		$max = reset( $tags ) or $max = 1;
+		$maxSizeIncrease = $this->maxSize - $this->minTagSize;
+		
 		
 		// Loop over the tags, and replace their count by a size.
 		foreach ( $tags as &$tag ) {
 			switch ( $this->sizeMode ) {
 				case 'linear':
-					$tag = $this->minTagSize + $this->increaseFactor * ( $tag -$min ) / ( $max -$min );
+					$tag = $this->minTagSize + $maxSizeIncrease * ( $tag -$min ) / ( $max -$min );
 					break;
 				case 'log' : default :
-					$tag = $this->minTagSize + $this->increaseFactor * ( log( $tag ) -log( $min ) ) / ( log( $max ) -log( $min ) );
+					$tag = $this->minTagSize + $maxSizeIncrease * ( log( $tag ) -log( $min ) ) / ( log( $max ) -log( $min ) );
 					break;
 			}
 		}
@@ -161,7 +163,15 @@ class SRFTagCloud extends SMWResultPrinter {
 				asort( $tags );
 				break;
 			case 'alphabetic' :
-				natcasesort( $tags );
+				$tagNames = array_keys( $tags );
+				natcasesort( $tagNames );
+				$newTags = array();
+				
+				foreach ( $tagNames as $name ) {
+					$newTags[$name] = $tags[$name];
+				}
+				
+				$tags = $newTags;
 				break;
 			case 'random' :
 				$tagSizes = $tags;
@@ -236,9 +246,9 @@ class SRFTagCloud extends SMWResultPrinter {
 		$params[] = array( 'name' => 'tagorder', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_tagorder' ), 'values' => array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) );
 		
 		$params[] = array( 'name' => 'mincount', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_mincount' ) );
-		$params[] = array( 'name' => 'increasefactor', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_increasefactor' ) );
 		$params[] = array( 'name' => 'maxtags', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_maxtags' ) );
 		$params[] = array( 'name' => 'minsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_minsize' ) );
+		$params[] = array( 'name' => 'maxsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_maxsize' ) );
 		
 		return $params;
 	}	
