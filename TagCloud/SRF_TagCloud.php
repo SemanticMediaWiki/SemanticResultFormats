@@ -33,6 +33,18 @@ class SRFTagCloud extends SMWResultPrinter {
 	protected function readParameters( $params, $outputmode ) {
 		parent::readParameters( $params, $outputmode );
 		
+		if ( !array_key_exists( 'includename', $params ) || !in_array( $params['includename'], array( 'yes', 'no' ) ) ) {
+			$params['includename'] = 'no';
+		}
+		
+		$this->includeName = $params['includename'] == 'yes';
+
+		if ( !array_key_exists( 'linkpages', $params ) || !in_array( $params['linkpages'], array( 'yes', 'no' ) ) ) {
+			$params['linkpages'] = 'yes';
+		}
+		
+		$this->linkPages = $params['linkpages'] == 'yes';		
+		
 		if ( !array_key_exists( 'increase', $params ) || !in_array( $params['increase'], array( 'linear', 'log' ) ) ) {
 			$params['increase'] = 'log';
 		}
@@ -71,7 +83,11 @@ class SRFTagCloud extends SMWResultPrinter {
 	}
 
 	public function getResultText( /* SMWQueryResult */ $results, $outputmode ) {
-		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
+		return array(
+			$this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) ),
+			'noparse' => true,
+			'isHTML' => true
+		);
 	}
 	
 	/**
@@ -85,14 +101,28 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getTags( SMWQueryResult $results, $outputmode ) {
-		$minCount = 1; // TODO
+		global $wgUser;
 		
 		$tags = array();
+		$skin = $wgUser->getSkin();
 		
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
 				while ( ( $obj = $row[$i]->getNextObject() ) !== false ) { // Property values
-					$value = $obj->getTypeID() == '_wpg' ? $obj->getTitle()->getText() : $obj->getShortText( $outputmode );
+					
+					// If the main object should not be included, skip it.
+					// The isMainObject method was added in SMW 1.5.6, so this can only be done correctly if it's available.
+					if ( $i == 0 && !$this->includeName && method_exists( $obj, 'isMainObject' ) && $obj->isMainObject() ) {
+						continue;
+					}
+					
+					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
+					if ( $obj->getTypeID() == '_wpg' ) {
+						$value = $this->linkPages ? $obj->getLongText( $outputmode, $skin ) : $obj->getTitle()->getText();
+					}
+					else {
+						$value = $obj->getShortText( $outputmode, $skin );
+					}
 
 					if ( !array_key_exists( $value, $tags ) ) {
 						$tags[$value] = 0;
@@ -216,9 +246,9 @@ class SRFTagCloud extends SMWResultPrinter {
 	 */
 	protected function getTagCloud( array $tags ) {
 		$htmlTags = array();
-		
+
 		foreach ( $tags as $name => $size ) {
-			$htmlTags[] = Html::element(
+			$htmlTags[] = Html::rawElement(
 				'span',
 				array( 'style' => "font-size:$size%" ),
 				$name
@@ -242,6 +272,8 @@ class SRFTagCloud extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 		
+		$params[] = array( 'name' => 'includename', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_includename' ), 'values' => array( 'yes', 'no' ) );
+		$params[] = array( 'name' => 'linkpages', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_linkpages' ), 'values' => array( 'yes', 'no' ) );
 		$params[] = array( 'name' => 'increase', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_increase' ), 'values' => array( 'linear', 'log' ) );
 		$params[] = array( 'name' => 'tagorder', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_tagorder' ), 'values' => array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) );
 		
