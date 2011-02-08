@@ -75,7 +75,7 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other']
  * @since 1.5.2
  */
 function srffInitFormats() {
-	global $srfgFormats, $smwgResultFormats, $wgAutoloadClasses;
+	global $srfgFormats, $smwgResultFormats, $smwgResultAliases, $wgAutoloadClasses;
 	
 	$formatDir = dirname( __FILE__ ) . '/';
 	
@@ -121,12 +121,20 @@ function srffInitFormats() {
 		'tagcloud' => 'SRFTagCloud',
 	);
 
+	$formatAliases = array(
+		'tagcloud' => array( 'tag cloud' )
+	);
+	
 	foreach ( $srfgFormats as $format ) {
 		if ( array_key_exists( $format, $formatClasses ) ) {
 			$smwgResultFormats[$format] = $formatClasses[$format];
 			
 			if ( method_exists( $formatClasses[$format], 'registerResourceModules' ) ) {
 				call_user_func( array( $formatClasses[$format], 'registerResourceModules' ) );
+			}
+			
+			if ( isset( $smwgResultAliases ) && array_key_exists( $format, $formatAliases ) ) {
+				$smwgResultAliases[$format] = $formatAliases[$format];
 			}
 		}
 		else {
