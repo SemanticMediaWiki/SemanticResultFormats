@@ -40,7 +40,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$this->sizeMode = $params['increase'];
 		
 		if ( !array_key_exists( 'tagorder', $params ) || !in_array( $params['tagorder'], array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) ) ) {
-			$params['tagorder'] = 'unchanged';
+			$params['tagorder'] = 'alphabetic';
 		}
 		
 		$this->tagOrder = $params['tagorder'];		
