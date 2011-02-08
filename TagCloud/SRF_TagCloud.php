@@ -14,6 +14,11 @@
 class SRFTagCloud extends SMWResultPrinter {
 
 	protected $sizeMode;
+	protected $tagOrder;
+	protected $minCount;
+	protected $increaseFactor;
+	protected $maxTags;
+	protected $minTagSize;	
 	
 	public function getName() {
 		return wfMsg( 'srf_printername_tagcloud' );
@@ -33,6 +38,36 @@ class SRFTagCloud extends SMWResultPrinter {
 		}
 		
 		$this->sizeMode = $params['increase'];
+		
+		if ( !array_key_exists( 'tagorder', $params ) || !in_array( $params['tagorder'], array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) ) ) {
+			$params['tagorder'] = 'alphabetic';
+		}
+		
+		$this->tagOrder = $params['tagorder'];		
+		
+		if ( !array_key_exists( 'mincount', $params ) || !ctype_digit( (string)$params['mincount'] ) ) {
+			$params['mincount'] = 1;
+		}
+		
+		$this->minCount = $params['mincount'];
+
+		if ( !array_key_exists( 'increase', $params ) || !ctype_digit( (string)$params['increase'] ) ) {
+			$params['increase'] = 100;
+		}
+		
+		$this->increaseFactor = $params['increase'];
+
+		if ( !array_key_exists( 'maxtags', $params ) || !ctype_digit( (string)$params['maxtags'] ) ) {
+			$params['maxtags'] = 1000;
+		}
+		
+		$this->maxTags = $params['maxtags'];		
+		
+		if ( !array_key_exists( 'minsize', $params ) || !ctype_digit( (string)$params['minsize'] ) ) {
+			$params['minsize'] = 77;
+		}
+		
+		$this->minTagSize = $params['minsize'];		
 	}
 
 	public function getResultText( /* SMWQueryResult */ $results, $outputmode ) {
@@ -69,7 +104,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		}
 		
 		foreach ( $tags as $name => $count ) {
-			if ( $count < $minCount ) {
+			if ( $count < $this->minCount ) {
 				unset( $tags[$name] );
 			}
 		}
@@ -88,19 +123,14 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @return array
 	 */	
 	protected function getTagSizes( array $tags ) {
-		// TODO
-		$increaseFactor = 100;
-		$maxTags = 1000;
-		$minTagSize = 77;
-		
 		if ( count( $tags ) == 0 ) {
 			return $tags;
 		}		
 		
 		arsort( $tags, SORT_NUMERIC );
 		
-		if ( count( $tags ) > $maxTags ) {
-			$tags = array_slice( $tags, 0, $maxTags, true );
+		if ( count( $tags ) > $this->maxTags ) {
+			$tags = array_slice( $tags, 0, $this->maxTags, true );
 		}
 	
 		$min = end( $tags ) or $min = 0;
@@ -109,10 +139,10 @@ class SRFTagCloud extends SMWResultPrinter {
 		foreach ( $tags as &$tag ) {
 			switch ( $this->sizeMode ) {
 				case 'linear':
-					$tag = $minTagSize + $increaseFactor * ( $tag -$min ) / ( $max -$min );
+					$tag = $this->minTagSize + $this->increaseFactor * ( $tag -$min ) / ( $max -$min );
 					break;
 				case 'log' : default :
-					$tag = $minTagSize + $increaseFactor * ( log( $tag ) -log( $min ) ) / ( log( $max ) -log( $min ) );
+					$tag = $this->minTagSize + $this->increaseFactor * ( log( $tag ) -log( $min ) ) / ( log( $max ) -log( $min ) );
 					break;
 			}
 		}
