@@ -78,9 +78,9 @@ $messages['en'] = array(
 	'srf_paramdesc_increase' => 'How to increase the size of tags',
 	'srf_paramdesc_tagorder' => 'The order of the tags',
 	'srf_paramdesc_mincount' => 'The minimum amount of times a value needs to occur to be listed',
-	'srf_paramdesc_increasefactor' => 'How many percent to increase the size of a tag per step',
-	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent (default: 77)',
+	'srf_paramdesc_increasefactor' => 'The size of the biggest tag in percent, added to minsize (default: 100)',
+	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 );
 
 /** Message documentation (Message documentation)
