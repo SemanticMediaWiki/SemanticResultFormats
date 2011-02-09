@@ -47,8 +47,8 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		$this->sizeMode = $params['increase'];
 		
-		if ( !array_key_exists( 'tagorder', $params ) || !in_array( $params['tagorder'], array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) ) ) {
-			$params['tagorder'] = 'alphabetic';
+		if ( !array_key_exists( 'tagorder', $params ) || !in_array( $params['tagorder'], array( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) ) ) {
+			$params['tagorder'] = 'alphabetical';
 		}
 		
 		$this->tagOrder = $params['tagorder'];		
@@ -72,7 +72,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$this->minTagSize = $params['minsize'];	
 		
 		if ( !array_key_exists( 'maxsize', $params ) || !ctype_digit( (string)$params['maxsize'] ) ) {
-			$params['maxsize'] = 177;
+			$params['maxsize'] = 242;
 		}
 		
 		$this->maxSize = $params['maxsize'];		
@@ -188,7 +188,7 @@ class SRFTagCloud extends SMWResultPrinter {
 			case 'asc' :
 				asort( $tags );
 				break;
-			case 'alphabetic' :
+			case 'alphabetical' :
 				$tagNames = array_keys( $tags );
 				natcasesort( $tagNames );
 				$newTags = array();
