@@ -35,11 +35,11 @@ class SRFTagCloud extends SMWResultPrinter {
 	protected function readParameters( $params, $outputmode ) {
 		parent::readParameters( $params, $outputmode );
 		
-		if ( !array_key_exists( 'includename', $params ) || !in_array( $params['includename'], array( 'yes', 'no' ) ) ) {
-			$params['includename'] = 'no';
+		if ( !array_key_exists( 'includesubject', $params ) || !in_array( $params['includesubject'], array( 'yes', 'no' ) ) ) {
+			$params['includesubject'] = 'no';
 		}
 		
-		$this->includeName = $params['includename'] == 'yes';
+		$this->includeName = $params['includesubject'] == 'yes';
 
 		if ( !array_key_exists( 'increase', $params ) || !in_array( $params['increase'], array( 'linear', 'log' ) ) ) {
 			$params['increase'] = 'log';
@@ -268,7 +268,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 		
-		$params[] = array( 'name' => 'includename', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_includename' ), 'values' => array( 'yes', 'no' ) );
+		$params[] = array( 'name' => 'includesubject', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_includesubject' ), 'values' => array( 'yes', 'no' ) );
 		$params[] = array( 'name' => 'increase', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_increase' ), 'values' => array( 'linear', 'log' ) );
 		$params[] = array( 'name' => 'tagorder', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_tagorder' ), 'values' => array( 'alphabetic', 'asc', 'desc', 'random', 'unchanged' ) );
 		

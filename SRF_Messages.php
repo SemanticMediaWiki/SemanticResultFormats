@@ -80,7 +80,7 @@ $messages['en'] = array(
 
 	// "tagcloud" format
 	'srf_printername_tagcloud' => 'Tag cloud',
-	'srf_paramdesc_includename' => 'If the names of the object themselves should be included',
+	'srf_paramdesc_includesubject' => 'If the names of the subjects themselves should be included',
 	'srf_paramdesc_increase' => 'How to increase the size of tags',
 	'srf_paramdesc_tagorder' => 'The order of the tags',
 	'srf_paramdesc_mincount' => 'The minimum amount of times a value needs to occur to be listed',
