@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.5.3 rc' );
+define( 'SRF_VERSION', '1.5.3' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
