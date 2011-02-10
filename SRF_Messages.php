@@ -715,6 +715,18 @@ $messages['fr'] = array(
 	'srf_paramdesc_bardirection' => 'Direction du diagramme en barres',
 	'srf_paramdesc_barnumbersaxislabel' => 'Étiquette pour l’axe numérique',
 	'srf_printername_gallery' => 'Galerie',
+	'srf_paramdesc_perrow' => "Le nombre d'images par ligne",
+	'srf_paramdesc_widths' => 'La largeur des images',
+	'srf_paramdesc_heights' => 'La hauteur des images',
+	'srf_paramdesc_autocaptions' => "Utiliser le nom de fichier comme légende lorsqu'aucune n'est fournie",
+	'srf_printername_tagcloud' => 'Nuage de tags',
+	'srf_paramdesc_includesubject' => 'Si les noms des sujets eux-mêmes devraient être inclus',
+	'srf_paramdesc_increase' => 'Comment augmenter la taille des tags',
+	'srf_paramdesc_tagorder' => "L'ordre des tags",
+	'srf_paramdesc_mincount' => "Le nombre minimal de fois qu'une valeur doit être utilisée pour être listée",
+	'srf_paramdesc_minsize' => 'La taille du plus petit tag en pourcent (par défaut : 77)',
+	'srf_paramdesc_maxsize' => 'La taille du plus grand des tags en pourcent (par défaut : 177)',
+	'srf_paramdesc_maxtags' => 'Le montant maximal des tags dans le nuage',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -949,7 +961,18 @@ $messages['hsb'] = array(
 	'srf_paramdesc_bardirection' => 'Stołpowy diagram abo hrjadowy diagram',
 	'srf_paramdesc_barnumbersaxislabel' => 'Popisanje y-wóski',
 	'srf_printername_gallery' => 'Galerija',
+	'srf_paramdesc_perrow' => 'Ličba wobrazow na rjadku',
+	'srf_paramdesc_widths' => 'Šěrokosć wobrazow',
+	'srf_paramdesc_heights' => 'Wysokosć wobrazow',
+	'srf_paramdesc_autocaptions' => 'Datajowe mjeno jako wobrazowe wopisanje wužiwać, jeli tajke njeje podate.',
 	'srf_printername_tagcloud' => 'Tafličkowa mróčel',
+	'srf_paramdesc_includesubject' => 'Hač mjena temow same maja so zapřijeć',
+	'srf_paramdesc_increase' => 'Kak woznamjenjace słowa powjetšić',
+	'srf_paramdesc_tagorder' => 'Porjad woznamjenjacych słowow',
+	'srf_paramdesc_mincount' => 'Maksimalna ličba razow, katraž hódnota dyrbi so jewić, zo by so nalistowała',
+	'srf_paramdesc_minsize' => 'Wulkosć najmjeńšich woznamjenjacych słowow w procenće (standard: 77)',
+	'srf_paramdesc_maxsize' => 'Wulkosć najwjetšich woznamjenjacych słowow w procenće (standard: 177)',
+	'srf_paramdesc_maxtags' => 'Maksimalna ličba woznamjenjacych słowow w mróčeli',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -1764,7 +1787,18 @@ $messages['pt'] = array(
 	'srf_paramdesc_bardirection' => 'A orientação do gráfico de barras',
 	'srf_paramdesc_barnumbersaxislabel' => 'A legenda para o eixo dos números',
 	'srf_printername_gallery' => 'Galeria',
+	'srf_paramdesc_perrow' => 'A quantidade de imagens por linha',
+	'srf_paramdesc_widths' => 'A largura das imagens',
+	'srf_paramdesc_heights' => 'A altura das imagens',
+	'srf_paramdesc_autocaptions' => 'Usar o nome do ficheiro como legenda se esta não for fornecida',
 	'srf_printername_tagcloud' => 'Nuvem de tags',
+	'srf_paramdesc_includesubject' => 'Se os nomes dos próprios temas devem ser incluídos',
+	'srf_paramdesc_increase' => 'Como aumentar o tamanho das tags',
+	'srf_paramdesc_tagorder' => 'A ordem das tags',
+	'srf_paramdesc_mincount' => 'O número mínimo de vezes que um valor deve ocorrer, para ser listado',
+	'srf_paramdesc_minsize' => 'O tamanho das tags menores, em percentagem (padrão: 77)',
+	'srf_paramdesc_maxsize' => 'O tamanho das tags maiores, em percentagem (padrão: 177)',
+	'srf_paramdesc_maxtags' => 'A quantidade máxima de tags na nuvem',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
