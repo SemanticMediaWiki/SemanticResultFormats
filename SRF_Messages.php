@@ -1515,6 +1515,18 @@ $messages['nl'] = array(
 	'srf_paramdesc_bardirection' => 'De richting van de grafielbalken',
 	'srf_paramdesc_barnumbersaxislabel' => 'Het lavel van de Y-as',
 	'srf_printername_gallery' => 'Galerij',
+	'srf_paramdesc_perrow' => 'Het aantal afbeeldingen per rij',
+	'srf_paramdesc_widths' => 'De breedte van de afbeeldingen',
+	'srf_paramdesc_heights' => 'De hoogte van de afbeeldingen',
+	'srf_paramdesc_autocaptions' => 'Bestandsnaam als beschrijving gebruiken als er geen is opgegeven',
+	'srf_printername_tagcloud' => 'Woordwolk',
+	'srf_paramdesc_includesubject' => 'Of de namen van de onderwerpen zelf opgenomen moeten worden',
+	'srf_paramdesc_increase' => 'Hoe de grootte van de labels moet worden vergroot',
+	'srf_paramdesc_tagorder' => 'De volgorde van de labels',
+	'srf_paramdesc_mincount' => 'Het minimale aantal keren dat een waarde moet voorkomen om opgenomen te worden',
+	'srf_paramdesc_minsize' => 'De grootte van de kleinste labels in percentage (standaard: 77)',
+	'srf_paramdesc_maxsize' => 'De grootte van de grootste labels in percentage (standaard: 177)',
+	'srf_paramdesc_maxtags' => 'Het maximale aantal labels in de wolk',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
