@@ -311,7 +311,7 @@ $messages['br'] = array(
 	'srfc_gotomonth' => "Mont d'ar miz",
 	'srf_printername_calendar' => 'Deiziataer miziek',
 	'srf_paramdesc_calendarlang' => 'Kod ar yezh a dalvez da ziskwel an deiziadur',
-	'srf_printername_vcard' => 'ezporzhiañ vCard',
+	'srf_printername_vcard' => 'Ezporzh e vCard',
 	'srf_printername_icalendar' => 'Enporzh e iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Titl ar restr deiziataer',
 	'srf_paramdesc_icalendardescription' => 'Deskrivadur restr an deiziataer',
@@ -345,6 +345,18 @@ $messages['br'] = array(
 	'srf_paramdesc_bardirection' => "Durc'hadur ar grafik e barrennoù",
 	'srf_paramdesc_barnumbersaxislabel' => 'Tikedenn ahel an niveroù',
 	'srf_printername_gallery' => 'Skeudennaoueg',
+	'srf_paramdesc_perrow' => 'An niver a skeudennoù dre linenn',
+	'srf_paramdesc_widths' => 'Ledander ar skeudennoù',
+	'srf_paramdesc_heights' => 'Uhelder ar skeudennoù',
+	'srf_paramdesc_autocaptions' => "Ober gant anv ar restr da alc'hwez ma n'eus ket bet resisaet hini",
+	'srf_printername_tagcloud' => 'Nivlennad tikedennoù',
+	'srf_paramdesc_includesubject' => 'Ma tlefer lakaat e-barzh anv an danvezioù o-unan',
+	'srf_paramdesc_increase' => 'Penaos kreskiñ ment an tikedennoù',
+	'srf_paramdesc_tagorder' => 'Urzh an tikedennoù',
+	'srf_paramdesc_mincount' => 'Nizver izelañ a wezhioù e rank un dalvoudenn bezañ implijet evit bezañ rollet',
+	'srf_paramdesc_minsize' => 'Ment an dikedenn vihanañ e dregantad (dre ziouer : 77)',
+	'srf_paramdesc_maxsize' => 'Ment an dikedenn vrasañ e dregantad (dre ziouer : 77)',
+	'srf_paramdesc_maxtags' => 'Niver brasañ a dikedennoù en nivlennad',
 );
 
 /** Bosnian (Bosanski)
