@@ -1,14 +1,15 @@
 <?php
 
-/**
- * A class to print query results in a monthly calendar.
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
-global $srfgIP;
 $wgAutoloadClasses['SRFCHistoricalDate'] = $srfgIP . '/Calendar/SRFC_HistoricalDate.php';
 
+/**
+ * Result printer that prints query results as a monthly calendar.
+ * 
+ * @file SRF_Calendar.php
+ * @ingroup SemanticResultFormats
+ * 
+ * @author ...
+ */
 class SRFCalendar extends SMWResultPrinter {
 
 	protected $mTemplate = '';
@@ -16,14 +17,16 @@ class SRFCalendar extends SMWResultPrinter {
 	protected $mRealUserLang = null;
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'template', $params ) ) {
 			$this->mTemplate = trim( $params['template'] );
 		}
+		
 		if ( array_key_exists( 'userparam', $params ) ) {
 			$this->mUserParam = trim( $params['userparam'] );
 		}
+		
 		if ( array_key_exists( 'lang', $params ) ) {
 			global $wgLang;
 			// store the actual user's language, so we can revert
@@ -46,24 +49,34 @@ class SRFCalendar extends SMWResultPrinter {
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getResultText()
+	 * 
+	 * TODO: split up megamoth 
+	 */
 	protected function getResultText( $res, $outputmode ) {
 		global $smwgIQRunningNumber, $wgUser;
 		$skin = $wgUser->getSkin();
-		$result = "";
+		$result = '';
 
 		$events = array();
 		// print all result rows
 		while ( $row = $res->getNext() ) {
 			$dates = array();
-			$title = $text = $color = "";
+			$title = $text = $color = '';
 
 			if ( $this->mTemplate != '' ) { // build template code
 				$this->hasTemplates = true;
-				if ( $this->mUserParam )
+				
+				if ( $this->mUserParam ) {
 					$text = "|userparam=$this->mUserParam";
+				}
+					
 				foreach ( $row as $i => $field ) {
 					$pr = $field->getPrintRequest();
 					$text .= '|' . ( $i + 1 ) . '=';
+					
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							$text .= $object->getLongWikiText();
@@ -77,6 +90,7 @@ class SRFCalendar extends SMWResultPrinter {
 						} else {
 							$text .= $object->getShortText( $outputmode, null );
 						}
+						
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
 							$dates[] = SRFCalendar::formatDateStr( $object );
 						}
@@ -93,6 +107,7 @@ class SRFCalendar extends SMWResultPrinter {
 					// value - cycle through all the values
 					// for this property
 					$textForProperty = '';
+					
 					while ( ( $object = $field->getNextObject() ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							// don't add date values to the display
@@ -101,12 +116,14 @@ class SRFCalendar extends SMWResultPrinter {
 								$title = Title::newFromText( $object->getShortWikiText( false ) );
 							} else {
 								$numNonDateProperties++;
+								
 								// handling of "headers=" param
 								if ( $this->mShowHeaders == SMW_HEADERS_SHOW ) {
-									$textForProperty .= $pr->getHTMLText( $skin ) . " ";
+									$textForProperty .= $pr->getHTMLText( $skin ) . ' ';
 								} elseif ( $this->mShowHeaders == SMW_HEADERS_PLAIN ) {
-									$textForProperty .= $pr->getLabel() . " ";
+									$textForProperty .= $pr->getLabel() . ' ';
 								}
+								
 								// if $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing
 								// handling of "link=" param
 								if ( $this->mLinkOthers ) {
@@ -117,40 +134,47 @@ class SRFCalendar extends SMWResultPrinter {
 							}
 						} else {
 							$numNonDateProperties++;
-							$textForProperty .= $pr->getHTMLText( $skin ) . " " . $object->getShortText( $outputmode, $skin );
+							$textForProperty .= $pr->getHTMLText( $skin ) . ' ' . $object->getShortText( $outputmode, $skin );
 						}
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
 							$dates[] = SRFCalendar::formatDateStr( $object );
 						}
 					}
+					
 					// add the text for this property to
 					// the main text, adding on parentheses
 					// or commas as needed
 					if ( $numNonDateProperties == 1 ) {
-						$text .= " (";
+						$text .= ' (';
 					} elseif ( $numNonDateProperties > 1 ) {
-						$text .= ", ";
+						$text .= ', ';
 					}
 					$text .= $textForProperty;
 				}
 				if ( $numNonDateProperties > 0 ) {
-					$text .= ")";
+					$text .= ')';
 				}
 			}
+			
 			if ( count( $dates ) > 0 ) {
 				// handle the 'color=' value, whether it came
 				// from a compound query or a regular one
 				// handling is different for SMW 1.5+
 				if ( method_exists( 'SMWQueryResult', 'getResults' ) ) {
 					$res_subject = $field->getResultSubject();
-					if ( isset( $res_subject->display_options ) && is_array( $res_subject->display_options ) && array_key_exists( 'color', $res_subject->display_options ) )
-						$color = $res_subject->display_options['color'];
+					if ( isset( $res_subject->display_options )
+						&& is_array( $res_subject->display_options )
+						&& array_key_exists( 'color', $res_subject->display_options ) ) {
+							$color = $res_subject->display_options['color'];
+					}
 				} elseif ( property_exists( $row[0], 'display_options' ) ) {
-					if ( is_array( $row[0]->display_options ) && array_key_exists( 'color', $row[0]->display_options ) )
+					if ( is_array( $row[0]->display_options ) && array_key_exists( 'color', $row[0]->display_options ) ) {
 						$color = $row[0]->display_options['color'];
+					}
 				} elseif ( array_key_exists( 'color', $this->m_params ) ) {
 					$color = $this->m_params['color'];
 				}
+				
 				foreach ( $dates as $date ) {
 					$events[] = array( $title, $text, $date, $color );
 				}
@@ -158,36 +182,42 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 
 		$result = SRFCalendar::displayCalendar( $events );
+		
 		// go back to the actual user's language, in case a different
 		// language had been specified for this calendar
 		if ( ! is_null( $this->mRealUserLang ) ) {
 			global $wgLang;
 			$wgLang = $this->mRealUserLang;
 		}
+		
 		global $wgParser;
-		if ( is_null( $wgParser->getTitle() ) )
+		
+		if ( is_null( $wgParser->getTitle() ) ) {
 			return $result;
-		else
+		}
+		else {
 			return array( $result, 'noparse' => 'true', 'isHTML' => 'true' );
+		}
 	}
-
 
 	function intToMonth( $int ) {
-		if ( $int == '2' ) { return wfMsg( 'february' ); }
-		if ( $int == '3' ) { return wfMsg( 'march' ); }
-		if ( $int == '4' ) { return wfMsg( 'april' ); }
-		if ( $int == '5' ) { return wfMsg( 'may' ); }
-		if ( $int == '6' ) { return wfMsg( 'june' ); }
-		if ( $int == '7' ) { return wfMsg( 'july' ); }
-		if ( $int == '8' ) { return wfMsg( 'august' ); }
-		if ( $int == '9' ) { return wfMsg( 'september' ); }
-		if ( $int == '10' ) { return wfMsg( 'october' ); }
-		if ( $int == '11' ) { return wfMsg( 'november' ); }
-		if ( $int == '12' ) { return wfMsg( 'december' ); }
-		// keep it simple - if it's '1' or anything else, return January
-		return wfMsg( 'january' );
+		$months = array(
+			'1' => 'january',
+			'2' => 'february',
+			'3' => 'march',
+			'4' => 'april',
+			'5' => 'may',
+			'6' => 'june',
+			'7' => 'july',
+			'8' => 'august',
+			'9' => 'september',
+			'10' => 'october',	
+			'11' => 'november',
+			'12' => 'december',
+		);
+		
+		return wfMsg( array_key_exists( $int, $months ) ? $months[$int] : 'january' ); 
 	}
-
 
 	function formatDateStr( $object ) {
 		// For some reason, getMonth() and getDay() sometimes return a
@@ -203,8 +233,8 @@ class SRFCalendar extends SMWResultPrinter {
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, print",
-			'href' => $srfgScriptPath . "/Calendar/skins/SRFC_main.css"
+			'media' => 'screen, print',
+			'href' => $srfgScriptPath . '/Calendar/skins/SRFC_main.css'
 		) );
 
 		// Set variables differently depending on whether this is
@@ -215,6 +245,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$additional_query_string = '';
 		$hidden_inputs = '';
 		$in_special_page = is_null( $page_title ) || $page_title->isSpecialPage();
+		
 		if ( $in_special_page ) {
 			global $wgTitle;
 			$page_title = $wgTitle;
@@ -233,6 +264,7 @@ class SRFCalendar extends SMWResultPrinter {
 					}
 				}
 			}
+			
 			foreach ( $request_values as $key => $value ) {
 				if ( $key != 'month' && $key != 'year'
 					// values from 'RunQuery'
@@ -251,21 +283,23 @@ class SRFCalendar extends SMWResultPrinter {
 		// and years (same - note that the previous or next month could
 		// be in a different year), the number of days in the current,
 		// previous and next months, etc.
-		$cur_month_num = date( "n", time() );
+		$cur_month_num = date( 'n', time() );
 		if ( $wgRequest->getCheck( 'month' ) ) {
 			$query_month = $wgRequest->getVal( 'month' );
 			if ( is_numeric( $query_month ) && ( intval( $query_month ) == $query_month ) && $query_month >= 1 && $query_month <= 12 ) {
 				$cur_month_num = $wgRequest->getVal( 'month' );
 			}
 		}
+		
 		$cur_month = SRFCalendar::intToMonth( $cur_month_num );
-		$cur_year = date( "Y", time() );
+		$cur_year = date( 'Y', time() );
 		if ( $wgRequest->getCheck( 'year' ) ) {
 			$query_year = $wgRequest->getVal( 'year' );
 			if ( is_numeric( $query_year ) && intval( $query_year ) == $query_year ) {
 				$cur_year = $wgRequest->getVal( 'year' );
 			}
 		}
+		
 		if ( $cur_month_num == '1' ) {
 			$prev_month_num = '12';
 			$prev_year = $cur_year - 1;
@@ -273,6 +307,7 @@ class SRFCalendar extends SMWResultPrinter {
 			$prev_month_num = $cur_month_num - 1;
 			$prev_year = $cur_year;
 		}
+		
 		if ( $cur_month_num == '12' ) {
 			$next_month_num = '1';
 			$next_year = $cur_year + 1;
@@ -280,13 +315,16 @@ class SRFCalendar extends SMWResultPrinter {
 			$next_month_num = $cur_month_num + 1;
 			$next_year = $cur_year;
 		}
+		
 		// there's no year '0' - change it to '1' or '-1'
-		if ( $cur_year == "0" ) { $cur_year = "1"; }
-		if ( $next_year == "0" ) { $next_year = "1"; }
-		if ( $prev_year == "0" ) { $prev_year = "-1"; }
+		if ( $cur_year == '0' ) { $cur_year = '1'; }
+		if ( $next_year == '0' ) { $next_year = '1'; }
+		if ( $prev_year == '0' ) { $prev_year = '-1'; }
+		
 		$prev_month_url = $page_title->getLocalURL( "month=$prev_month_num&year=$prev_year" . $additional_query_string );
 		$next_month_url = $page_title->getLocalURL( "month=$next_month_num&year=$next_year" . $additional_query_string );
 		$today_url = $page_title->getLocalURL( $additional_query_string );
+		
 		$today_text = wfMsg( 'srfc_today' );
 		$prev_month_text = wfMsg( 'srfc_previousmonth' );
 		$next_month_text = wfMsg( 'srfc_nextmonth' );
@@ -299,7 +337,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$start_day = 1 - $day_of_week_of_1;
 		$days_in_prev_month = SRFCHistoricalDate::daysInMonth( $prev_year, $prev_month_num );
 		$days_in_cur_month = SRFCHistoricalDate::daysInMonth( $cur_year, $cur_month_num );
-		$today_string = date( "Y n j", time() );
+		$today_string = date( 'Y n j', time() );
 		$url_year = $wgRequest->getVal( 'year' );
 		$page_name = $page_title->getPrefixedDbKey();
 
@@ -424,10 +462,14 @@ END;
 		return $text;
 	}
 
-        public function getParameters() {
-                $params = parent::getParameters();
-                $params[] = array( 'name' => 'lang', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_calendarlang' ) );
-                return $params;
-        }
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getParameters()
+	 */
+	public function getParameters() {
+		$params = parent::getParameters();
+		$params[] = array( 'name' => 'lang', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_calendarlang' ) );
+		return $params;
+	}
 
 }

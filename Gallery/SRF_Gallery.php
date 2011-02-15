@@ -1,18 +1,13 @@
 <?php
+
 /**
- * Print query results as a gallery.
+ * Result printer that prints query results as a gallery.
  * 
- * @file
+ * @file SRF_Gallery.php
  * @ingroup SemanticResultFormats
  * 
  * @author Rowan Rodrik van der Molen
  * @author Jeroen De Dauw
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
-/**
- * Result printer that prints query results as a gallery.
  */
 class SRFGallery extends SMWResultPrinter {
 
