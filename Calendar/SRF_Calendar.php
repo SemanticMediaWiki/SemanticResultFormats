@@ -1,6 +1,6 @@
 <?php
 
-$wgAutoloadClasses['SRFCHistoricalDate'] = $srfgIP . '/Calendar/SRFC_HistoricalDate.php';
+$wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ ) . '/SRFC_HistoricalDate.php';
 
 /**
  * Result printer that prints query results as a monthly calendar.
@@ -206,7 +206,7 @@ class SRFCalendar extends SMWResultPrinter {
 			'2' => 'february',
 			'3' => 'march',
 			'4' => 'april',
-			'5' => 'may',
+			'5' => 'may_long',
 			'6' => 'june',
 			'7' => 'july',
 			'8' => 'august',
