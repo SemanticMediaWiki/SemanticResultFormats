@@ -200,7 +200,7 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 	}
 
-	function intToMonth( $int ) {
+	protected static function intToMonth( $int ) {
 		$months = array(
 			'1' => 'january',
 			'2' => 'february',
@@ -216,7 +216,7 @@ class SRFCalendar extends SMWResultPrinter {
 			'12' => 'december',
 		);
 		
-		return wfMsg( array_key_exists( $int, $months ) ? $months[$int] : 'january' ); 
+		return wfMsgForContent( array_key_exists( $int, $months ) ? $months[$int] : 'january' ); 
 	}
 
 	function formatDateStr( $object ) {
@@ -291,7 +291,7 @@ class SRFCalendar extends SMWResultPrinter {
 			}
 		}
 		
-		$cur_month = SRFCalendar::intToMonth( $cur_month_num );
+		$cur_month = self::intToMonth( $cur_month_num );
 		$cur_year = date( 'Y', time() );
 		if ( $wgRequest->getCheck( 'year' ) ) {
 			$query_year = $wgRequest->getVal( 'year' );
@@ -360,7 +360,7 @@ class SRFCalendar extends SMWResultPrinter {
 
 END;
 		for ( $i = 1; $i <= 12; $i++ ) {
-			$month_name = SRFCalendar::intToMonth( $i );
+			$month_name = self::intToMonth( $i );
 			$selected_str = ( $i == $cur_month_num ) ? "selected" : "";
 			$text .= "<option value=\"$i\" $selected_str>$month_name</option>\n";
 		}
