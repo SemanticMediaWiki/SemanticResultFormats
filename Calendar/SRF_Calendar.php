@@ -8,7 +8,7 @@ $wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ ) . '/SRFC_Historic
  * @file SRF_Calendar.php
  * @ingroup SemanticResultFormats
  * 
- * @author ...
+ * @author Yaron Koren
  */
 class SRFCalendar extends SMWResultPrinter {
 
@@ -227,6 +227,7 @@ class SRFCalendar extends SMWResultPrinter {
 
 	function displayCalendar( $events ) {
 		global $wgOut, $srfgScriptPath, $wgParser, $wgRequest;
+		global $srfgFirstDayOfWeek;
 
 		$wgParser->disableCache();
 
@@ -277,7 +278,43 @@ class SRFCalendar extends SMWResultPrinter {
 		} else {
 			$skin = $wgParser->getOptions()->getSkin();
 		}
-		// get all the date-based values we need - the current month
+
+		// Set days of the week.
+		$week_day_names = array(
+			1 => wfMsg( 'sunday' ),
+			2 => wfMsg( 'monday' ),
+			3 => wfMsg( 'tuesday' ),
+			4 => wfMsg( 'wednesday' ),
+			5 => wfMsg( 'thursday' ),
+			6 => wfMsg( 'friday' ),
+			7 => wfMsg( 'saturday' )
+		);
+		if ( empty( $srfgFirstDayOfWeek ) ) {
+			$firstDayOfWeek = 1;
+			$lastDayOfWeek = 7;
+		} else {
+			$firstDayOfWeek = array_search( $srfgFirstDayOfWeek, $week_day_names );
+			if ( $firstDayOfWeek === false ) {
+				// Bad value for $srfgFirstDayOfWeek!
+				print 'Warning: Bad value for $srfgFirstDayOfWeek ("' . $srfgFirstDayOfWeek . '")';
+				$firstDayOfWeek = 1;
+			}
+			if ( $firstDayOfWeek == 1 ) {
+				$lastDayOfWeek = 7;
+			} else {
+				$lastDayOfWeek = $firstDayOfWeek - 1;
+			}
+		}
+
+		// Now create the actual array of days of the week, based on
+		// the start day
+		$week_days = array();
+		for ( $i = 1; $i <= 7; $i++ ) {
+			$curDay = ( ( $firstDayOfWeek + $i - 2 ) % 7 ) + 1;
+			$week_days[$i] = $week_day_names[$curDay];
+		}
+
+		// Get all the date-based values we need - the current month
 		// and year (i.e., the one the user is looking at - not
 		// necessarily the "current" ones), the previous and next months
 		// and years (same - note that the previous or next month could
@@ -316,7 +353,7 @@ class SRFCalendar extends SMWResultPrinter {
 			$next_year = $cur_year;
 		}
 		
-		// there's no year '0' - change it to '1' or '-1'
+		// There's no year '0' - change it to '1' or '-1'.
 		if ( $cur_year == '0' ) { $cur_year = '1'; }
 		if ( $next_year == '0' ) { $next_year = '1'; }
 		if ( $prev_year == '0' ) { $prev_year = '-1'; }
@@ -330,18 +367,19 @@ class SRFCalendar extends SMWResultPrinter {
 		$next_month_text = wfMsg( 'srfc_nextmonth' );
 		$go_to_month_text = wfMsg( 'srfc_gotomonth' );
 
-		// get day of the week that the first of this month falls on
+		// Get day of the week that the first of this month falls on.
 		$first_day = new SRFCHistoricalDate();
 		$first_day->create( $cur_year, $cur_month_num, 1 );
 		$day_of_week_of_1 = $first_day->getDayOfWeek();
-		$start_day = 1 - $day_of_week_of_1;
+		$start_day = $firstDayOfWeek - $day_of_week_of_1;
+		if ( $start_day > 0 ) { $start_day -= 7; }
 		$days_in_prev_month = SRFCHistoricalDate::daysInMonth( $prev_year, $prev_month_num );
 		$days_in_cur_month = SRFCHistoricalDate::daysInMonth( $cur_year, $cur_month_num );
 		$today_string = date( 'Y n j', time() );
 		$url_year = $wgRequest->getVal( 'year' );
 		$page_name = $page_title->getPrefixedDbKey();
 
-		// create table for holding title and navigation information
+		// Create table for holding title and navigation information.
 		$text = <<<END
 <table class="navigation_table">
 <tr>
@@ -378,21 +416,22 @@ $hidden_inputs
 <tr class="weekdays">
 
 END;
-		// first row of the main table holds the days of the week
-		$week_days = array( wfMsg( 'sunday' ), wfMsg( 'monday' ), wfMsg( 'tuesday' ), wfMsg( 'wednesday' ), wfMsg( 'thursday' ), wfMsg( 'friday' ), wfMsg( 'saturday' ) );
+		// First row of the main table holds the days of the week
 		foreach ( $week_days as $week_day ) {
 			$text .= "<td>$week_day</td>";
 		}
 		$text .= "</tr>\n";
 
-		// now, create the calendar itself -
-		// loop through a set of weeks, from a Sunday (which might be
-		// before the beginning of the month) to a Saturday (which might
-		// be after the end of the month)
-		$day_of_the_week = 1;
+		// Now, create the calendar itself -
+		// loop through a set of weeks, from a "Sunday" (which might be
+		// before the beginning of the month) to a "Saturday" (which
+		// might be after the end of the month).
+		// "Sunday" and "Saturday" are in quotes because the actual
+		// start and end days of the week can be set by the admin.
+		$day_of_the_week = $firstDayOfWeek;
 		$is_last_week = false;
-		for ( $day = $start_day; ( ! $is_last_week || $day_of_the_week != 1 ); $day++ ) {
-			if ( $day_of_the_week == 1 ) {
+		for ( $day = $start_day; ( ! $is_last_week || $day_of_the_week != $firstDayOfWeek ); $day++ ) {
+			if ( $day_of_the_week == $firstDayOfWeek ) {
 				$text .= "<tr>\n";
 			}
 			if ( "$cur_year $cur_month_num $day" == $today_string ) {
@@ -403,9 +442,9 @@ END;
 				$text .= "<td>\n";
 			}
 			if ( $day == $days_in_cur_month || $day > 50 ) { $is_last_week = true; }
-			// if this day is before or after the current month, set a
-			// "display day" to show on the calendar, and use a different
-			// CSS style for it
+			// If this day is before or after the current month,
+			// set a "display day" to show on the calendar, and
+			// use a different CSS style for it.
 			if ( $day > $days_in_cur_month || $day < 1 ) {
 				if ( $day < 1 ) {
 					$display_day = $day + $days_in_prev_month;
@@ -420,13 +459,13 @@ END;
 				$date_str = $cur_year . '-' . $cur_month_num . '-' . $day;
 				$text .= "<div class=\"day\">$day</div>\n";
 			}
-			// finally, the most important step - get the events that
-			// match this date, and the given set of criteria, and
-			// display them in this date's box
+			// Finally, the most important step - get the events
+			// that match this date, and the given set of criteria,
+			// and display them in this date's box.
 			$text .= "<div class=\"main\">\n";
-			// avoid errors if array is null
-			if ( $events == null )
+			if ( $events == null ) {
 				$events = array();
+			}
 			foreach ( $events as $event ) {
 				list( $event_title, $other_text, $event_date, $color ) = $event;
 				if ( $event_date == $date_str ) {
@@ -450,8 +489,10 @@ END;
 </td>
 
 END;
-			if ( $day_of_the_week == 7 ) {
+			if ( $day_of_the_week == $lastDayOfWeek ) {
 				$text .= "</tr>\n";
+			}
+			if ( $day_of_the_week == 7 ) {
 				$day_of_the_week = 1;
 			} else {
 				$day_of_the_week++;
