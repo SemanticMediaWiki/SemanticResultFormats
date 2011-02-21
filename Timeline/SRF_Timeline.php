@@ -111,9 +111,9 @@ class SRFTimeline extends SMWResultPrinter {
 	 */
 	protected function includeJS() {
 		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
-		
+
 		// MediaWiki 1.17 introduces the Resource Loader.
-		if ( method_exists( 'OutputPage', 'addModules' ) && method_exists( 'SMWOutputs', 'requireResource' ) ) {
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) && method_exists( 'SMWOutputs', 'requireResource' ) ) {
 			SMWOutputs::requireResource( 'ext.srf.timeline' );
 		}
 		else {
