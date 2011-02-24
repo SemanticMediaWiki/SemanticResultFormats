@@ -522,7 +522,15 @@ $messages['dsb'] = array(
 	'srf_paramdesc_bardirection' => 'Směr słupowego diagrama',
 	'srf_paramdesc_barnumbersaxislabel' => 'Pópisanje za y-wósku',
 	'srf_printername_gallery' => 'Galerija',
+	'srf_paramdesc_perrow' => 'Licba wobrazow na smužku',
+	'srf_paramdesc_widths' => 'Šyrokosć wobrazow',
+	'srf_paramdesc_heights' => 'Wusokosć wobrazow',
+	'srf_paramdesc_autocaptions' => 'Datajowe mě ako wopisanje wužywaś, jolic žadno njeje pódane',
 	'srf_printername_tagcloud' => 'Tafličkowa mróčel',
+	'srf_paramdesc_includesubject' => 'Lěc mjenja temow same maju se zapśimjeś',
+	'srf_paramdesc_increase' => 'Kak ma se wjelikosć wobznamjenjow pówušyś',
+	'srf_paramdesc_tagorder' => 'Pórěd wobznamjenjow',
+	'srf_paramdesc_maxtags' => 'maksimalna licba wobznamjenjow w mrokawje',
 );
 
 /** Greek (Ελληνικά)
