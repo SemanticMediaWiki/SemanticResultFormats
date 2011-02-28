@@ -49,7 +49,7 @@ class SRFiCalendar extends SMWResultPrinter {
 	}
 
 	public function getQueryMode( $context ) {
-		return ( $context == SMWQueryProcessor::SPECIAL_PAGE ) ? SMWQuery::MODE_INSTANCES:SMWQuery::MODE_NONE;
+		return ( $context == SMWQueryProcessor::SPECIAL_PAGE ) ? SMWQuery::MODE_INSTANCES : SMWQuery::MODE_NONE;
 	}
 
 	public function getName() {
@@ -241,8 +241,8 @@ class SRFiCalendar extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::exportFormatParameters();
 		
-		$params[] = array( 'name' => 'icalendartitle', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendartitle' ) );
-		$params[] = array( 'name' => 'icalendardescription', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendardescription' ) );
+		$params[] = array( 'name' => 'title', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendartitle' ) );
+		$params[] = array( 'name' => 'description', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendardescription' ) );
 		
 		return $params;
 	}

@@ -214,7 +214,7 @@ class SRFTimeline extends SMWResultPrinter {
 		if ( count( $positions ) > 0 ) {
 			ksort( $positions );
 			$positions = array_values( $positions );
-			
+
 			switch ( $this->m_tlpos ) {
 				case 'start':
 					$result .= '<span class="smwtlposition">' . $positions[0] . '</span>';
