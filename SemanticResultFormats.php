@@ -125,25 +125,23 @@ function srffInitFormats() {
 		'tagcloud' => array( 'tag cloud' )
 	);
 	
-	// Register the resource loader modules for when they are supported.
-	if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-		foreach ( $srfgFormats as $format ) {
-			if ( array_key_exists( $format, $formatClasses ) ) {
-				$smwgResultFormats[$format] = $formatClasses[$format];
-				
-				if ( method_exists( $formatClasses[$format], 'registerResourceModules' ) ) {
-					call_user_func( array( $formatClasses[$format], 'registerResourceModules' ) );
-				}
-				
-				if ( isset( $smwgResultAliases ) && array_key_exists( $format, $formatAliases ) ) {
-					$smwgResultAliases[$format] = $formatAliases[$format];
-				}
+	foreach ( $srfgFormats as $format ) {
+		if ( array_key_exists( $format, $formatClasses ) ) {
+			$smwgResultFormats[$format] = $formatClasses[$format];
+			
+			// Register the resource loader modules for when they are supported.
+			if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) && method_exists( $formatClasses[$format], 'registerResourceModules' ) ) {
+				call_user_func( array( $formatClasses[$format], 'registerResourceModules' ) );
 			}
-			else {
-				wfDebug( "There is not result format class associated with the format '$format'." );
+			
+			if ( isset( $smwgResultAliases ) && array_key_exists( $format, $formatAliases ) ) {
+				$smwgResultAliases[$format] = $formatAliases[$format];
 			}
-		}		
-	}
+		}
+		else {
+			wfDebug( "There is not result format class associated with the format '$format'." );
+		}
+	}		
 }
 
 /**
