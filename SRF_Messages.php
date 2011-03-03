@@ -1373,6 +1373,10 @@ $messages['lb'] = array(
 	'srf_paramdesc_bardirection' => "D'Ausriichtung vum Balken-Diagramm",
 	'srf_paramdesc_barnumbersaxislabel' => "D'Etiquette fir d'Achs vun den Zuelen",
 	'srf_printername_gallery' => 'Gallerie',
+	'srf_paramdesc_perrow' => "D'Zuel vu Biller pro Rei",
+	'srf_paramdesc_widths' => "D'Breet vun de Biller",
+	'srf_paramdesc_heights' => "D'Héicht vun de Biller",
+	'srf_paramdesc_autocaptions' => 'Den NUmm vum Fichier als Beschreiwung benotzen, wa keng ugi gouf',
 );
 
 /** Lithuanian (Lietuvių)
