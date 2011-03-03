@@ -401,6 +401,8 @@ class ProcessGraph {
 	protected $m_showRedLinks	= false;	// check and highlight red links?
 	protected $m_redLinkColor	= 'red';	// red link font color
 	protected $m_showCompound	= true;		// highlight compound nodes (=subprocesses)
+	
+	public $m_useHtmlNodes = true;			// Set to false if you do not want to use HTML table nodes
 
 	// instance variables
 	protected $m_nodes		= array();	// list of all nodes
@@ -671,7 +673,19 @@ abstract class ProcessElement {
 	// TODO I18N
 	private $m_id		 = 'no_id';
 	private $m_label	 = 'unlabeled';
-
+	private $m_uid;
+	
+	public function getUUID(){
+		if (!isset($this->m_uid)){
+			$this->m_uid = sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+				mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+				mt_rand(0, 0x0fff) | 0x4000,
+				mt_rand(0, 0x3fff) | 0x8000,
+				mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+		}
+		
+		return $this->m_uid;
+	}
 	public function getId() {
 		return $this->m_id;
 	}
@@ -920,9 +934,15 @@ class ProcessNode extends ProcessElement {
 		//
 		// render node itself
 		//
-		$res = 
-	'"' . $this->getId() . '" [shape=plaintext,label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">' . $compound . '</TD><TD BORDER="0" WIDTH="80%"></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $status . '></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $discussion . '></TD></TR><TR><TD COLSPAN="4" PORT="port1" HREF="[[' . $this->getId() . ']]" TOOLTIP="' . $this->getLabel() .'"><FONT' . $high .'>' . $this->getLabel() . '</FONT></TD> </TR></TABLE>>];
-	';
+		if ($this->m_process->m_useHtmlNodes){
+			$res = 
+			'"' . $this->getId() . '" [shape=plaintext,label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">' . $compound . '</TD><TD BORDER="0" WIDTH="80%"></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $status . '></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $discussion . '></TD></TR><TR><TD COLSPAN="4" PORT="port1" HREF="[[' . $this->getId() . ']]" TOOLTIP="' . $this->getLabel() .'"><FONT' . $high .'>' . $this->getLabel() . '</FONT></TD> </TR></TABLE>>];
+			';
+		} else {
+			$res = 
+			'"' . $this->getId() . '"[label="' . $this->getLabel() . '",shape=rect, height=1.5, URL="[[' . $this->getId() . ']]"];
+			';
+		}
 
 		//
 		// render outgoing node
@@ -986,6 +1006,7 @@ class ProcessNode extends ProcessElement {
 abstract class ProcessEdge{
 	
 	private $m_id;
+	private $m_uid;
 	
 	public function getId(){
 		if (!isset($this->m_id)){
@@ -993,6 +1014,18 @@ abstract class ProcessEdge{
 		}
 		
 		return $this->m_id;
+	}
+	
+	public function getUUID(){
+		if (!isset($this->m_uid)){
+			$this->m_uid = sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+    	mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+    	mt_rand(0, 0x0fff) | 0x4000,
+    	mt_rand(0, 0x3fff) | 0x8000,
+    	mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+		}
+		
+		return $this->m_uid;
 	}
 	
 	abstract public function getSucc();
