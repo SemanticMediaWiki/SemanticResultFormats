@@ -87,6 +87,17 @@ $messages['en'] = array(
 	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent (default: 77)',
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 177)',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
+
+	// format "Array" and "Hash"
+	'srf_printername_array' => 'Array',
+	'srf_paramdesc_pagetitle' => 'Whether to show page titles as result entries or to hide them',
+	'srf_paramdesc_hidegaps' => 'Whether to show empty property and record values separated by separators or to hide them',
+	'srf_paramdesc_arrayname' => 'If given and ArrayExtension is available this will create an array with the specified name',
+	'srf_paramdesc_propsep' => 'Separator between the requested properties',
+	'srf_paramdesc_manysep' => 'Separator between many valued properties',
+	'srf_paramdesc_recordsep' => 'Separator between values of record properties',
+	'srf_printername_hash' => 'Hash',
+	'srf_paramdesc_hashname' => 'If given and the HashTables extension is available this will create an hash with the specified name',
 );
 
 /** Message documentation (Message documentation)
@@ -474,6 +485,13 @@ $messages['de'] = array(
 	'srf_paramdesc_minsize' => 'Die Darstellungsgröße des kleinsten Schlagwortes in Prozent (Standard ist 77)',
 	'srf_paramdesc_maxsize' => 'Die Darstellungsgröße des größten Schlagwortes in Prozent (Standard ist 177)',
 	'srf_paramdesc_maxtags' => 'Die maximale Anzahl der Schlagworte in der Schlagwortwolke',
+	'srf_paramdesc_pagetitle' => 'Legt fest ob Seitentitel in Auflistung mit aufgenommen werden soll',
+	'srf_paramdesc_hidegaps' => 'Definiert ob auf einer Seite nicht vorhandene Werte einen leeren Listeneintrag erzeugen',
+	'srf_paramdesc_arrayname' => 'Wenn die Erweiterung ArrayExtension vorhanden ist wird ein Array mit diesem Namen angelegt',
+	'srf_paramdesc_propsep' => 'Trennzeichen zwischen angeforderten Attributen',
+	'srf_paramdesc_manysep' => 'Trennzeichen zwischen mehreren Werten die fÃ¼r ein Attribut angegeben sind',
+	'srf_paramdesc_recordsep' => 'Trennzeichen zwischen einzelnen Werten eines Verbund-Attributes',
+	'srf_paramdesc_hashname' => 'Wenn die Erweiterung HashTables vorhanden ist wird ein Hash mit diesem Namen angelegt',
 );
 
 /** Lower Sorbian (Dolnoserbski)

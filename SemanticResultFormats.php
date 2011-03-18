@@ -63,6 +63,7 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other']
 		'[http://simia.net Denny Vrandecic]',
 		'Hans-Jörg Happel',
 		'Rowan Rodrik van der Molen',
+		'[http://www.mediawiki.org/wiki/User:Danwe Daniel Werner]',
 		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]'
 	),
 	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
@@ -96,6 +97,8 @@ function srffInitFormats() {
 	$wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
 	$wgAutoloadClasses['SRFGallery'] = $formatDir . 'Gallery/SRF_Gallery.php';
 	$wgAutoloadClasses['SRFTagCloud'] = $formatDir . 'TagCloud/SRF_TagCloud.php';
+	$wgAutoloadClasses['SRFArray'] = $formatDir . 'Array/SRF_Array.php';
+	$wgAutoloadClasses['SRFHash'] = $formatDir . 'Array/SRF_Array.php';
 	
 	$formatClasses = array(
 		'timeline' => 'SRFTimeline',
@@ -119,6 +122,8 @@ function srffInitFormats() {
 		'ploticusvbar' => 'SRFPloticusVBar',
 		'gallery' => 'SRFGallery',
 		'tagcloud' => 'SRFTagCloud',
+		'array' => 'SRFArray',
+		'hash' => 'SRFHash',
 	);
 
 	$formatAliases = array(

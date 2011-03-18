@@ -25,3 +25,11 @@ $srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', '
 
 # Used for jqplot formats.
 $srfgJQPlotIncluded = false;
+
+# Used for Array and Hash formats. 
+# Allows value as string or object instances of Title or Article classes or an array
+# where index 0 is the page title and 1 is the namespace-index (by default NS_MAIN)
+$srfgArraySep = ', ';
+$srfgArrayPropSep = '<PROP>';
+$srfgArrayManySep = '<MANY>';
+$srfgArrayRecordSep = '<RCRD>';
