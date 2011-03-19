@@ -485,12 +485,14 @@ $messages['de'] = array(
 	'srf_paramdesc_minsize' => 'Die Darstellungsgröße des kleinsten Schlagwortes in Prozent (Standard ist 77)',
 	'srf_paramdesc_maxsize' => 'Die Darstellungsgröße des größten Schlagwortes in Prozent (Standard ist 177)',
 	'srf_paramdesc_maxtags' => 'Die maximale Anzahl der Schlagworte in der Schlagwortwolke',
+	'srf_printername_array' => 'Datenfeld (Array)',
 	'srf_paramdesc_pagetitle' => 'Legt fest ob Seitentitel in Auflistung mit aufgenommen werden soll',
 	'srf_paramdesc_hidegaps' => 'Definiert ob auf einer Seite nicht vorhandene Werte einen leeren Listeneintrag erzeugen',
 	'srf_paramdesc_arrayname' => 'Wenn die Erweiterung ArrayExtension vorhanden ist wird ein Array mit diesem Namen angelegt',
 	'srf_paramdesc_propsep' => 'Trennzeichen zwischen angeforderten Attributen',
 	'srf_paramdesc_manysep' => 'Trennzeichen zwischen mehreren Werten die fÃ¼r ein Attribut angegeben sind',
 	'srf_paramdesc_recordsep' => 'Trennzeichen zwischen einzelnen Werten eines Verbund-Attributes',
+	'srf_printername_hash' => 'Assoziatives Datenfeld (Hash)',
 	'srf_paramdesc_hashname' => 'Wenn die Erweiterung HashTables vorhanden ist wird ein Hash mit diesem Namen angelegt',
 );
 
@@ -1581,6 +1583,15 @@ $messages['nl'] = array(
 	'srf_paramdesc_minsize' => 'De grootte van de kleinste labels in percentage (standaard: 77)',
 	'srf_paramdesc_maxsize' => 'De grootte van de grootste labels in percentage (standaard: 177)',
 	'srf_paramdesc_maxtags' => 'Het maximale aantal labels in de wolk',
+	'srf_printername_array' => 'Array',
+	'srf_paramdesc_pagetitle' => 'Of paginanamen weergeven of verborgen moeten worden in resultaatregels',
+	'srf_paramdesc_hidegaps' => "Of lege eigenschap- en recordwaardes door komma's gescheiden weergegeven moeten worden of verborgen moeten blijven",
+	'srf_paramdesc_arrayname' => 'Als opgegeven en ArrayExtension is beschikbaar, wordt een array met de aangegeven naan gemaakt',
+	'srf_paramdesc_propsep' => 'Scheidingsteken voor de opgevraagde eigenschappen',
+	'srf_paramdesc_manysep' => 'Scheidingsteken voor eigenschappen met meerdere waarden',
+	'srf_paramdesc_recordsep' => 'Scheidingsteken voor waarden van recordeigenschappen',
+	'srf_printername_hash' => 'Hash',
+	'srf_paramdesc_hashname' => 'Als opgegeven en de uitbreiding HashTables is beschikbaar, dan wordt een hash met de aangegeven naam gemaakt',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
