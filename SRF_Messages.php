@@ -704,6 +704,7 @@ $messages['fi'] = array(
 /** French (Français)
  * @author Crochet.david
  * @author Grondin
+ * @author Hashar
  * @author IAlex
  * @author Iluvalar
  * @author Peter17
@@ -767,6 +768,8 @@ $messages['fr'] = array(
 	'srf_paramdesc_minsize' => 'La taille du plus petit tag en pourcent (par défaut : 77)',
 	'srf_paramdesc_maxsize' => 'La taille du plus grand des tags en pourcent (par défaut : 177)',
 	'srf_paramdesc_maxtags' => 'Le montant maximal des tags dans le nuage',
+	'srf_printername_array' => 'Tableau',
+	'srf_paramdesc_propsep' => 'Séparateur entre les propriétés demandées',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -1133,6 +1136,15 @@ $messages['ia'] = array(
 	'srf_paramdesc_minsize' => 'Le dimension del etiquettas le plus parve, como percentage (predefinition: 77)',
 	'srf_paramdesc_maxsize' => 'Le dimension del etiquettas le plus grande como percentage (predefinition: 177)',
 	'srf_paramdesc_maxtags' => 'Le numero maxime de etiquettas in le nube',
+	'srf_printername_array' => 'Array',
+	'srf_paramdesc_pagetitle' => 'Si monstrar titulos de pagina como lineas de resultato o celar los',
+	'srf_paramdesc_hidegaps' => 'Si monstrar, con separatores, le valores vacue de proprietate e de registro, o celar los',
+	'srf_paramdesc_arrayname' => 'Si isto es specificate e ArrayExtension es disponibile, isto creara un array con le nomine specificate',
+	'srf_paramdesc_propsep' => 'Separator inter le proprietates requestate',
+	'srf_paramdesc_manysep' => 'Separator inter proprietates plurivalor',
+	'srf_paramdesc_recordsep' => 'Separator inter valores de proprietates de registro',
+	'srf_printername_hash' => 'Hash',
+	'srf_paramdesc_hashname' => 'Si isto es specificate e le extension HashTables es disponibile, isto creara un hash con le nomine specificate',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1480,6 +1492,15 @@ $messages['mk'] = array(
 	'srf_paramdesc_minsize' => 'Големина на најмалата ознака во проценти (по основно: 77)',
 	'srf_paramdesc_maxsize' => 'Големина на најголемите ознаки во проценти (по основно: 177)',
 	'srf_paramdesc_maxtags' => 'Најголемиот допуштен број на ознаки во облакот',
+	'srf_printername_array' => 'Податочен строј',
+	'srf_paramdesc_pagetitle' => 'Дали во резултатите да се прикажуваат наслови на страници или да се скриваат',
+	'srf_paramdesc_hidegaps' => 'Дали се прикажуваат празни вредности на својства и записи одделени со одделувач, или пак да се скриваат',
+	'srf_paramdesc_arrayname' => 'Ако има извесен додадок за податотечни строеви, ова ќе создаде нов строј со наведеното име',
+	'srf_paramdesc_propsep' => 'Одделувач помеѓу бараните својства',
+	'srf_paramdesc_manysep' => 'Одделувач за во повеќевредносни својства',
+	'srf_paramdesc_recordsep' => 'Одделувач помеѓу вредностите на записните својства',
+	'srf_printername_hash' => 'Тараба',
+	'srf_paramdesc_hashname' => 'Ако е зададено и отдодадок за тарабни табели е на располагање, ова ќе создаде тараба со наведеното име',
 );
 
 /** Malayalam (മലയാളം)
