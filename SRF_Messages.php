@@ -1977,6 +1977,7 @@ $messages['roa-tara'] = array(
 
 /** Russian (Русский)
  * @author Ferrer
+ * @author Haffman
  * @author Innv
  * @author Александр Сигачёв
  */
@@ -2024,7 +2025,12 @@ $messages['ru'] = array(
 	'srf_paramdesc_bardirection' => 'Направление столбцов',
 	'srf_paramdesc_barnumbersaxislabel' => 'Надпись для числовых осей',
 	'srf_printername_gallery' => 'Галерея',
+	'srf_paramdesc_perrow' => 'Количество изображений в строке',
+	'srf_paramdesc_widths' => 'Ширина изображений',
+	'srf_paramdesc_heights' => 'Высота изображений',
 	'srf_printername_tagcloud' => 'Облако меток',
+	'srf_paramdesc_tagorder' => 'Порядок тегов',
+	'srf_printername_array' => 'Массив',
 );
 
 /** Rusyn (Русиньскый)
