@@ -1437,7 +1437,7 @@ $messages['lt'] = array(
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
-	'srf-desc' => 'Дополнителни формати за барања од Semantic MediaWiki',
+	'srf-desc' => 'Дополнителни формати за барања од Семантички МедијаВики',
 	'srf-name' => 'Семантички формати на резултати',
 	'srfc_previousmonth' => 'Претходен месец',
 	'srfc_nextmonth' => 'Следен месец',
