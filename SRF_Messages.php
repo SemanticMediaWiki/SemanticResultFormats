@@ -1906,6 +1906,15 @@ $messages['pt'] = array(
 	'srf_paramdesc_minsize' => 'O tamanho das tags menores, em percentagem (padrão: 77)',
 	'srf_paramdesc_maxsize' => 'O tamanho das tags maiores, em percentagem (padrão: 177)',
 	'srf_paramdesc_maxtags' => 'A quantidade máxima de tags na nuvem',
+	'srf_printername_array' => 'Matriz',
+	'srf_paramdesc_pagetitle' => 'Se deseja apresentar como resultados os títulos das páginas, ou escondê-los',
+	'srf_paramdesc_hidegaps' => 'Se deseja apresentar os valores das propriedades e registos vazios separados por separadores ou escondê-los',
+	'srf_paramdesc_arrayname' => 'Se especificado e a ArrayExtension estiver disponível, isto criará uma matriz com o nome especificado',
+	'srf_paramdesc_propsep' => 'Separador entre as propriedades solicitadas',
+	'srf_paramdesc_manysep' => 'Separador entre propriedades com mais do que um valor',
+	'srf_paramdesc_recordsep' => 'Separador entre os valores das propriedades do registo',
+	'srf_printername_hash' => 'Resumo criptográfico ("hash")',
+	'srf_paramdesc_hashname' => 'Se especificado e a extensão HashTables estiver disponível, isto cria um resumo criptográfico ("hash") com o nome especificado',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
