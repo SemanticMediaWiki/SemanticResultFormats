@@ -173,10 +173,12 @@ class SRFTagCloud extends SMWResultPrinter {
 		foreach ( $tags as &$tag ) {
 			switch ( $this->sizeMode ) {
 				case 'linear':
-					$tag = $this->minTagSize + $maxSizeIncrease * ( $tag -$min ) / ( $max -$min );
+					$divisor = ($max == $min) ? 1 : $max - $min;
+					$tag = $this->minTagSize + $maxSizeIncrease * ( $tag -$min ) / $divisor;
 					break;
 				case 'log' : default :
-					$tag = $this->minTagSize + $maxSizeIncrease * ( log( $tag ) -log( $min ) ) / ( log( $max ) -log( $min ) );
+					$divisor = ($max == $min) ? 1 : log( $max ) - log( $min );
+					$tag = $this->minTagSize + $maxSizeIncrease * ( log( $tag ) - log( $min ) ) / $divisor ;
 					break;
 			}
 		}

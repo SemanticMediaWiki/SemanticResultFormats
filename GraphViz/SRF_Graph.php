@@ -151,4 +151,16 @@ class SRFGraph extends SMWResultPrinter {
 		}
 		return $result;
 	}
+	
+	function getParameters() {
+		return array(
+			array('name' => 'graphname', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_graphname')),
+	                array('name' => 'graphsize', 'type' => 'int', 'description' => wfMsg('srf_paramdesc_graphsize')),
+	                array('name' => 'graphlegend', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphlegend'), 'values'=>array('yes', 'no')),
+	                array('name' => 'graphlabel', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphlabel'), 'values'=>array('yes', 'no')),
+	                array('name' => 'rankdir', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_rankdir')),
+	                array('name' => 'graphlink', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphlink'), 'values'=>array('yes', 'no')),
+	                array('name' => 'graphcolor', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphcolor'), 'values'=>array('yes', 'no'))
+		);      
+	}
 }

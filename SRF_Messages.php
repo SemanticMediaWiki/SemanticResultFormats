@@ -98,6 +98,15 @@ $messages['en'] = array(
 	'srf_paramdesc_recordsep' => 'Separator between values of record properties',
 	'srf_printername_hash' => 'Hash',
 	'srf_paramdesc_hashname' => 'If given and the HashTables extension is available this will create an hash with the specified name',
+
+	// format "graph"
+	'srf_paramdesc_graphname' => 'Title',
+	'srf_paramdesc_graphsize' => 'Graph size (in px)',
+	'srf_paramdesc_graphlegend' => 'Show graph legend or not',
+	'srf_paramdesc_graphlabel' => 'Graph label',
+	'srf_paramdesc_rankdir' => 'Rank dir',
+	'srf_paramdesc_graphlink' => 'Graph link',
+	'srf_paramdesc_graphcolor' => 'Graph color'
 );
 
 /** Message documentation (Message documentation)

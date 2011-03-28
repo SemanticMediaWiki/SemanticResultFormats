@@ -34,6 +34,11 @@ class SRFGooglePie extends SMWResultPrinter {
 		$this->isHTML = true;
 
 		$t = "";
+		$n = "";
+		
+		// if there is only one column in the results then stop right away
+		if ($res->getColumnCount() == 1) return "";
+		                
 		// print all result rows
 		$first = true;
 		$max = 0; // the biggest value. needed for scaling

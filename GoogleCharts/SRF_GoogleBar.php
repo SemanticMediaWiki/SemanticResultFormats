@@ -28,6 +28,11 @@ class SRFGoogleBar extends SMWResultPrinter {
 		$this->isHTML = true;
 
 		$t = "";
+		$n = "";
+
+		// if there is only one column in the results then stop right away
+		if ($res->getColumnCount() == 1) return "";
+
 		// print all result rows
 		$first = true;
 		$count = 0; // How many bars will they be? Needed to calculate the height of the image
