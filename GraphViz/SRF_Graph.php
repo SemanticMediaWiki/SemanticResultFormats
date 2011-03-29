@@ -253,6 +253,7 @@ class SRFGraph extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getWordWrappedText( $text, $charLimit ) {
+		$charLimit = max( array( $charLimit, 1 ) );
 		$segments = array();
 		
 		while ( strlen( $text ) > $charLimit ) {
