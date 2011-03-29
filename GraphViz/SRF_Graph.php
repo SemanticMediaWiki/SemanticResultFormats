@@ -14,6 +14,40 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class SRFGraph extends SMWResultPrinter {
+	public static $NODE_SHAPES = array(
+		'box', 'rect', 'rectangle',
+		'none', 'plaintext',
+		'polygon',
+		'ellipse',
+		'circle',
+		'point',
+		'egg',
+		'triangle',
+		'diamond',
+		'trapezium',
+		'parallelogram',
+		'house',
+		'pentagon ',
+		'hexagon',
+		'septagon',
+		'octagon',
+		'doublecircle',
+		'doubleoctagon',
+		'tripleoctagon',
+		'invtriangle',
+		'invtrapezium',
+		'invhouse',
+		'Mdiamond',
+		'Msquare',
+		'Mcircle',
+		'square',
+		'note',
+		'tab',
+		'folder',
+		'box3d',
+		'component',
+	);
+	
 	protected $m_graphName = 'QueryResult';
 	protected $m_graphLabel;
 	protected $m_graphColor;
@@ -24,6 +58,7 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_labelArray = array();
 	protected $m_graphColors = array( 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' );
 	protected $m_nameProperty = false;
+	protected $m_nodeShape = false;
 	protected $m_parentRelation;
 	
 	protected function readParameters( $params, $outputmode ) {
@@ -52,6 +87,10 @@ class SRFGraph extends SMWResultPrinter {
 		}
 		
 		$this->m_parentRelation = array_key_exists( 'relation', $params ) && strtolower( trim( $params['relation'] ) ) == 'parent';
+		
+		if ( array_key_exists( 'nodeshape', $params ) && in_array( trim( $params['nodeshape'] ), self::$NODE_SHAPES ) ) {
+			$this->m_nodeShape = trim( $params['nodeshape'] );
+		}
 	}
 	
 	protected function getResultText( /* SMWQueryResult */ $res, $outputmode ) {
@@ -64,6 +103,7 @@ class SRFGraph extends SMWResultPrinter {
 		
 		$graphInput = "digraph $this->m_graphName {";
 		if ( $this->m_graphSize != '' ) $graphInput .= "size=\"$this->m_graphSize\";";
+		if ( $this->m_nodeShape ) $graphInput .=  "node [shape=$this->m_nodeShape];";
 		$graphInput .= "rankdir=$this->m_rankdir;";		
 		
 		while ( $row = $res->getNext() ) {
