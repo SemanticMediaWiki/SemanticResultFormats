@@ -162,7 +162,7 @@ class SRFGraph extends SMWResultPrinter {
 				$isName = $this->m_nameProperty ? ( $i != 0 && $this->m_nameProperty === $propName ) : $i == 0;
 				
 				if ( $isName ) {
-					$name = $object->getShortText( $outputmode );
+					$name = $this->getWordWrappedText( $object->getShortText( $outputmode ), 20 );
 				}
 				
 				if ( !( $this->m_nameProperty && $i == 0 ) ) {
@@ -194,7 +194,11 @@ class SRFGraph extends SMWResultPrinter {
 		if ( $this->m_graphLink ) {
 			$nodeLinkTitle = Title::newFromText( $text );
 			$nodeLinkURL = $nodeLinkTitle->getLocalURL();
-
+		}
+		
+		$text = $this->getWordWrappedText( $text, 20 );
+		
+		if ( $this->m_graphLink ) {
 			$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
 		}
 
@@ -227,6 +231,37 @@ class SRFGraph extends SMWResultPrinter {
 		}
 
 		return $graphInput;
+	}
+	
+	/**
+	 * Returns the word wrapped version of the provided text. 
+	 * 
+	 * @param string $text
+	 * @param integer $charLimit
+	 * 
+	 * @return string
+	 */
+	protected function getWordWrappedText( $text, $charLimit ) {
+		$segments = array();
+		
+		while ( strlen( $text ) > $charLimit ) {
+			$splitPosition = strrpos( substr( $text, 0, $charLimit ), ' ' );
+			
+			if ( $splitPosition === false ) {
+				$splitPosition = strpos( $text, ' ' );
+				
+				if ( $splitPosition === false ) {
+					 $splitPosition = strlen( $text );
+				}
+			}
+			
+			$segments[] = substr( $text, 0, $splitPosition );
+			$text = substr( $text, $splitPosition );
+		}
+		
+		$segments[] = $text;
+		
+		return implode( '\n', $segments );
 	}
 	
 	/**
