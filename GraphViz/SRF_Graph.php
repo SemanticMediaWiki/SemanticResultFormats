@@ -24,6 +24,7 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_labelArray = array();
 	protected $m_graphColors = array( 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' );
 	protected $m_nameProperty = false;
+	protected $m_parentRelation;
 	
 	protected function readParameters( $params, $outputmode ) {
 		SMWResultPrinter::readParameters( $params, $outputmode );
@@ -49,6 +50,8 @@ class SRFGraph extends SMWResultPrinter {
 		if ( array_key_exists( 'nameproperty', $params ) ) {
 			$this->m_nameProperty = trim( $params['nameproperty'] );
 		}
+		
+		$this->m_parentRelation = array_key_exists( 'relation', $params ) && strtolower( trim( $params['relation'] ) ) == 'parent';
 	}
 	
 	protected function getResultText( /* SMWQueryResult */ $res, $outputmode ) {
@@ -153,7 +156,7 @@ class SRFGraph extends SMWResultPrinter {
 		}
 
 		if ( !$isName ) {
-			$graphInput .= " \"$name\" -> \"$text\" ";
+			$graphInput .= $this->m_parentRelation ? " \"$text\" -> \"$name\" " : " \"$name\" -> \"$text\" ";
 			
 			if ( $this->m_graphLabel && $this->m_graphColor ) {
 				$graphInput .= ' [';
