@@ -1,81 +1,59 @@
 <?php
+
 /**
- * Print query results as a graph.
+ * SMW result printer for graphs using graphViz.
+ * In order to use this printer you need to have both
+ * the graphViz library installed on your system and
+ * have the graphViz MediaWiki extension installed.
+ * 
+ * @file SRF_Graph.php
+ * @ingroup SemanticResultFormats
+ *
+ * @licence GNU GPL v2+
  * @author Frank Dengler
- *
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-
-/**
- * New implementation of SMW's printer for result in a graph.
- * This SMW printer requires the mediawiki graphviz extention.
- *
- * @note AUTOLOADED
- */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'Not an entry point.' );
-}
-
 class SRFGraph extends SMWResultPrinter {
 	protected $m_graphName = 'QueryResult';
-	protected $m_graphLabel = false;
-	protected $m_graphColor = false;
-	protected $m_graphLegend = false;
-	protected $m_graphLink = false;
+	protected $m_graphLabel;
+	protected $m_graphColor;
+	protected $m_graphLegend;
+	protected $m_graphLink;
 	protected $m_rankdir = "LR";
 	protected $m_graphSize = "";
 	protected $m_labelArray = array();
 	protected $m_graphColors = array( 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' );
 
 	protected function readParameters( $params, $outputmode ) {
-
 		SMWResultPrinter::readParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'graphname', $params ) ) {
-
 			$this->m_graphName = trim( $params['graphname'] );
-
 		}
+		
 		if ( array_key_exists( 'graphsize', $params ) ) {
-
 			$this->m_graphSize = trim( $params['graphsize'] );
-
 		}
-		if ( array_key_exists( 'graphlegend', $params ) ) {
+		
+		$this->m_graphLegend = array_key_exists( 'graphlegend', $params ) && strtolower( trim( $params['graphlegend'] ) ) == 'yes';
+		$this->m_graphLabel = array_key_exists( 'graphlabel', $params ) && strtolower( trim( $params['graphlabel'] ) ) == 'yes';
 
-			if ( strtolower( trim( $params['graphlegend'] ) ) == 'yes' ) $this->m_graphLegend = true;
-
-		}
-
-		if ( array_key_exists( 'graphlabel', $params ) ) {
-
-			if ( strtolower( trim( $params['graphlabel'] ) ) == 'yes' ) $this->m_graphLabel = true;
-
-		}
 		if ( array_key_exists( 'rankdir', $params ) ) {
-
 			$this->m_rankdir = strtoupper( trim( $params['rankdir'] ) );
-
 		}
-		if ( array_key_exists( 'graphlink', $params ) ) {
-
-			if ( strtolower( trim( $params['graphlink'] ) ) == 'yes' ) $this->m_graphLink = true;
-
-		}
-		if ( array_key_exists( 'graphcolor', $params ) ) {
-
-			if ( strtolower( trim( $params['graphcolor'] ) ) == 'yes' ) $this->m_graphColor = true;
-
-		}
-
+		
+		$this->m_graphLink = array_key_exists( 'graphlink', $params ) && strtolower( trim( $params['graphlink'] ) ) == 'yes';
+		$this->m_graphColor = array_key_exists( 'graphcolor', $params ) && strtolower( trim( $params['graphcolor'] ) ) == 'yes';
 	}
+	
 	protected function getResultText( $res, $outputmode ) {
-	$wgGraphVizSettings = new GraphVizSettings;
-	$this->isHTML = true;
-
-    $key = 0;
-	// Create text graph
-	$graphInput = '';
-	$legendInput = '';
+		$wgGraphVizSettings = new GraphVizSettings;
+		$this->isHTML = true;
+	
+	    $key = 0;
+		// Create text graph
+		$graphInput = '';
+		$legendInput = '';
 
 		$graphInput .= "digraph $this->m_graphName {";
 		if ( $this->m_graphSize != '' ) $graphInput .= "size=\"$this->m_graphSize\";";
@@ -149,18 +127,20 @@ class SRFGraph extends SMWResultPrinter {
 			}
 			$result .= "</P>";
 		}
+		
 		return $result;
 	}
 	
 	function getParameters() {
 		return array(
-			array('name' => 'graphname', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_graphname')),
-	                array('name' => 'graphsize', 'type' => 'int', 'description' => wfMsg('srf_paramdesc_graphsize')),
-	                array('name' => 'graphlegend', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphlegend'), 'values'=>array('yes', 'no')),
-	                array('name' => 'graphlabel', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphlabel'), 'values'=>array('yes', 'no')),
-	                array('name' => 'rankdir', 'type' => 'string', 'description' => wfMsg('srf_paramdesc_rankdir')),
-	                array('name' => 'graphlink', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphlink'), 'values'=>array('yes', 'no')),
-	                array('name' => 'graphcolor', 'type' => 'enumeration', 'description' => wfMsg('srf_paramdesc_graphcolor'), 'values'=>array('yes', 'no'))
+			array( 'name' => 'graphname', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_graphname' ) ),
+			array( 'name' => 'graphsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_graphsize' ) ),
+			array( 'name' => 'graphlegend', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlegend' ), 'values'=> array( 'yes', 'no' ) ),
+			array( 'name' => 'graphlabel', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlabel' ), 'values'=> array( 'yes', 'no' ) ),
+			array( 'name' => 'rankdir', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_rankdir' ) ),
+			array( 'name' => 'graphlink', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlink' ), 'values'=> array( 'yes', 'no' ) ),
+			array( 'name' => 'graphcolor', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphcolor' ), 'values'=> array( 'yes', 'no' ) )
 		);      
 	}
+	
 }
