@@ -62,19 +62,25 @@ class SRFGraph extends SMWResultPrinter {
 			$graphInput .= $this->getGVForItem( $row, $outputmode );
 		}
 		
-		$graphInput .= "}";
+		$graphInput .= "}";//var_dump($graphInput);exit;
 		
 		// Calls renderGraphViz function from MediaWiki GraphViz extension
 		$result = renderGraphviz( $graphInput );
 		
 		if ( $this->m_graphLegend && $this->m_graphColor ) {
 			$arrayCount = 0;
+			$arraySize = count( $this->m_graphColors );
 			$result .= "<P>";
 			
 			foreach ( $this->m_labelArray as $m_label ) {
+				if ( $arrayCount >= $arraySize ) {
+					$arrayCount = 0;
+				}				
+				
 				$color = $this->m_graphColors[$arrayCount];
 				$result .= "<font color=$color>$color: $m_label </font><br />";
-				$arrayCount = $arrayCount + 1;
+				
+				$arrayCount += 1;
 			}
 			
 			$result .= "</P>";
@@ -130,7 +136,7 @@ class SRFGraph extends SMWResultPrinter {
 		$graphInput = '';
 		$text = $object->getShortText( $outputmode );
 
-		if ( $this->m_graphLink == true ) {
+		if ( $this->m_graphLink ) {
 			$nodeLinkTitle = Title::newFromText( $text );
 			$nodeLinkURL = $nodeLinkTitle->getLocalURL();
 
@@ -138,7 +144,7 @@ class SRFGraph extends SMWResultPrinter {
 		}
 
 		if ( !$isFirstColumn ) {
-			$graphInput .= " \"$firstColValue\" -> \"$text\" ";
+			$graphInput .= " \"$firstColValue\" -> \"$text\" "; // TODO
 			
 			if ( $this->m_graphLabel && $this->m_graphColor ) {
 				$graphInput .= ' [';
@@ -146,13 +152,15 @@ class SRFGraph extends SMWResultPrinter {
 				if ( array_search( $labelName, $this->m_labelArray, true ) === false ) {
 					$this->m_labelArray[] = $labelName;
 				}
-					$key = array_search( $labelName, $this->m_labelArray, true );
-					$color = $this->m_graphColors[$key];
+				
+				$key = array_search( $labelName, $this->m_labelArray, true );
+				$color = $this->m_graphColors[$key];
 
 				if ( $this->m_graphLabel ) {
 					$graphInput .= "label=\"$labelName\"";
 					if ( $this->m_graphColor ) $graphInput .= ",fontcolor=$color,";
 				}
+				
 				if ( $this->m_graphColor ) {
 					$graphInput .= "color=$color";
 				}
