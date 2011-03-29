@@ -23,7 +23,8 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_graphSize = "";
 	protected $m_labelArray = array();
 	protected $m_graphColors = array( 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' );
-
+	protected $m_nameProperty = false;
+	
 	protected function readParameters( $params, $outputmode ) {
 		SMWResultPrinter::readParameters( $params, $outputmode );
 
@@ -44,6 +45,10 @@ class SRFGraph extends SMWResultPrinter {
 		
 		$this->m_graphLink = array_key_exists( 'graphlink', $params ) && strtolower( trim( $params['graphlink'] ) ) == 'yes';
 		$this->m_graphColor = array_key_exists( 'graphcolor', $params ) && strtolower( trim( $params['graphcolor'] ) ) == 'yes';
+		
+		if ( array_key_exists( 'nameproperty', $params ) ) {
+			$this->m_nameProperty = trim( $params['nameproperty'] );
+		}
 	}
 	
 	protected function getResultText( /* SMWQueryResult */ $res, $outputmode ) {
@@ -107,12 +112,16 @@ class SRFGraph extends SMWResultPrinter {
 
 			// Loop throught all the parts of the field value.
 			while ( ( $object = $resultArray->getNextObject() ) !== false ) {
-				if ( $i == 0 ) {
-					$firstColValue = $object->getShortText( $outputmode );
-					$labelName = $resultArray->getPrintRequest()->getLabel();
+				$propName = $resultArray->getPrintRequest()->getLabel();
+				$isName = $this->m_nameProperty ? ( $i != 0 && $this->m_nameProperty === $propName ) : $i == 0;
+				
+				if ( $isName ) {
+					$name = $object->getShortText( $outputmode );
 				}
-							
-				$segments[] = $this->getGVForDataValue( $object, $outputmode, $i == 0, $firstColValue, $labelName );
+				
+				if ( !( $this->m_nameProperty && $i == 0 ) ) {
+					$segments[] = $this->getGVForDataValue( $object, $outputmode, $isName, $name, $propName );
+				}
 			}
 		}
 
@@ -126,13 +135,13 @@ class SRFGraph extends SMWResultPrinter {
 	 * 
 	 * @param SMWDataValue $object
 	 * @param $outputmode
-	 * @param boolean $isFirstColumn
-	 * @param string $firstColValue
+	 * @param boolean $isName Is this the name that should be used for the node?
+	 * @param string $name
 	 * @param string $labelName
 	 * 
 	 * @return string
 	 */	
-	protected function getGVForDataValue( SMWDataValue $object, $outputmode, $isFirstColumn, $firstColValue, $labelName ) {
+	protected function getGVForDataValue( SMWDataValue $object, $outputmode, $isName, $name, $labelName ) {
 		$graphInput = '';
 		$text = $object->getShortText( $outputmode );
 
@@ -143,8 +152,8 @@ class SRFGraph extends SMWResultPrinter {
 			$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
 		}
 
-		if ( !$isFirstColumn ) {
-			$graphInput .= " \"$firstColValue\" -> \"$text\" "; // TODO
+		if ( !$isName ) {
+			$graphInput .= " \"$name\" -> \"$text\" ";
 			
 			if ( $this->m_graphLabel && $this->m_graphColor ) {
 				$graphInput .= ' [';
@@ -153,8 +162,7 @@ class SRFGraph extends SMWResultPrinter {
 					$this->m_labelArray[] = $labelName;
 				}
 				
-				$key = array_search( $labelName, $this->m_labelArray, true );
-				$color = $this->m_graphColors[$key];
+				$color = $this->m_graphColors[array_search( $labelName, $this->m_labelArray, true )];
 
 				if ( $this->m_graphLabel ) {
 					$graphInput .= "label=\"$labelName\"";
