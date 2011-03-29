@@ -79,6 +79,10 @@ class SRFGraph extends SMWResultPrinter {
 		$this->m_graphLegend = array_key_exists( 'graphlegend', $params ) && strtolower( trim( $params['graphlegend'] ) ) == 'yes';
 		$this->m_graphLabel = array_key_exists( 'graphlabel', $params ) && strtolower( trim( $params['graphlabel'] ) ) == 'yes';
 
+		if ( array_key_exists( 'arrowdirection', $params ) ) {
+			$params['rankdir'] = $params['arrowdirection']; 
+		}
+		
 		if ( array_key_exists( 'rankdir', $params ) ) {
 			$this->m_rankdir = strtoupper( trim( $params['rankdir'] ) );
 		}
@@ -288,7 +292,7 @@ class SRFGraph extends SMWResultPrinter {
 			array( 'name' => 'graphsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_graphsize' ) ),
 			array( 'name' => 'graphlegend', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlegend' ), 'values'=> array( 'yes', 'no' ) ),
 			array( 'name' => 'graphlabel', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlabel' ), 'values'=> array( 'yes', 'no' ) ),
-			array( 'name' => 'rankdir', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_rankdir' ) ),
+			array( 'name' => 'arrowdirection', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_rankdir' ) ),
 			array( 'name' => 'graphlink', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlink' ), 'values'=> array( 'yes', 'no' ) ),
 			array( 'name' => 'graphcolor', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphcolor' ), 'values'=> array( 'yes', 'no' ) ),
 			array( 'name' => 'nodeshape', 'type' => 'enumeration', 'description' => wfMsg( 'srf-paramdesc-graph-nodeshape' ), 'values'=> self::$NODE_SHAPES ),
