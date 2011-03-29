@@ -502,12 +502,24 @@ $messages['de'] = array(
 	'srf_printername_array' => 'Datenfeld (Array)',
 	'srf_paramdesc_pagetitle' => 'Legt fest ob Seitentitel in Auflistung mit aufgenommen werden soll',
 	'srf_paramdesc_hidegaps' => 'Definiert ob auf einer Seite nicht vorhandene Werte einen leeren Listeneintrag erzeugen',
-	'srf_paramdesc_arrayname' => 'Wenn die Erweiterung ArrayExtension vorhanden ist wird ein Array mit diesem Namen angelegt',
+	'srf_paramdesc_arrayname' => 'Sofern die Erweiterung ArrayExtension verfügbar ist, wird ein Datenfeld (Array) mit diesem Namen angelegt',
 	'srf_paramdesc_propsep' => 'Trennzeichen zwischen angeforderten Attributen',
-	'srf_paramdesc_manysep' => 'Trennzeichen zwischen mehreren Werten die fÃ¼r ein Attribut angegeben sind',
-	'srf_paramdesc_recordsep' => 'Trennzeichen zwischen einzelnen Werten eines Verbund-Attributes',
+	'srf_paramdesc_manysep' => 'Trennzeichen zwischen mehreren Werten die für ein Attribut angegeben sind',
+	'srf_paramdesc_recordsep' => 'Trennzeichen zwischen einzelnen Werten eines Datenverbundattributs',
 	'srf_printername_hash' => 'Assoziatives Datenfeld (Hash)',
-	'srf_paramdesc_hashname' => 'Wenn die Erweiterung HashTables vorhanden ist wird ein Hash mit diesem Namen angelegt',
+	'srf_paramdesc_hashname' => 'Sofern die Erweiterung HashTables vorhanden ist wird ein assoziatives Datenfeld (Hash) mit diesem Namen angelegt',
+	'srf-printername-graph' => 'Grafik',
+	'srf-paramdesc-graph-relation' => 'Sind die Betreffe oder Namensattribute Haupt- oder Unterobjekte?',
+	'srf-paramdesc-graph-nameprop' => 'Ermöglicht es ein Attribut festzulegen, das als Betreff anstelle des eigentlichen Betreffs genutzt wird',
+	'srf-paramdesc-graph-nodeshape' => 'Die Form der Datenpunkte in der Grafik',
+	'srf_paramdesc_graphname' => 'Titel der Grafik',
+	'srf_paramdesc_graphsize' => 'Größe der Grafik (in Pixeln)',
+	'srf_paramdesc_graphlegend' => 'Legende zur Grafik anzeigen oder nicht',
+	'srf_paramdesc_graphlabel' => 'Beschriftung der Grafik',
+	'srf_paramdesc_rankdir' => 'Pfeilrichtung',
+	'srf_paramdesc_graphlink' => 'Link zur Grafik',
+	'srf_paramdesc_graphcolor' => 'Farbe der Grafik',
+	'srf-paramdesc-graph-wwl' => 'Begrenzung des Textumbruchs (Anzahl der Zeichen)',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -1159,6 +1171,13 @@ $messages['ia'] = array(
 	'srf_paramdesc_recordsep' => 'Separator inter valores de proprietates de registro',
 	'srf_printername_hash' => 'Hash',
 	'srf_paramdesc_hashname' => 'Si isto es specificate e le extension HashTables es disponibile, isto creara un hash con le nomine specificate',
+	'srf_paramdesc_graphname' => 'Titulo',
+	'srf_paramdesc_graphsize' => 'Dimension del graphico (in pixels)',
+	'srf_paramdesc_graphlegend' => 'Monstrar le legenda del graphico o non',
+	'srf_paramdesc_graphlabel' => 'Etiquetta del graphico',
+	'srf_paramdesc_rankdir' => 'Direction del sagitta',
+	'srf_paramdesc_graphlink' => 'Ligamine al graphico',
+	'srf_paramdesc_graphcolor' => 'Color del graphico',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1515,6 +1534,18 @@ $messages['mk'] = array(
 	'srf_paramdesc_recordsep' => 'Одделувач помеѓу вредностите на записните својства',
 	'srf_printername_hash' => 'Тараба',
 	'srf_paramdesc_hashname' => 'Ако е зададено и отдодадок за тарабни табели е на располагање, ова ќе создаде тараба со наведеното име',
+	'srf-printername-graph' => 'Графикон',
+	'srf-paramdesc-graph-relation' => 'Дали предметите или именските својства се матични или зависни?',
+	'srf-paramdesc-graph-nameprop' => 'Овозможува задавање на својство што ќе се користи како предмет наместо фактичкиот предмет',
+	'srf-paramdesc-graph-nodeshape' => 'Обликот на секој јазол во графиконот',
+	'srf_paramdesc_graphname' => 'Наслов',
+	'srf_paramdesc_graphsize' => 'Големина на графиконот (во пиксели)',
+	'srf_paramdesc_graphlegend' => 'Дали да се прикажува легенда за графиконот',
+	'srf_paramdesc_graphlabel' => 'Натпис на графиконот',
+	'srf_paramdesc_rankdir' => 'Правец на стрелката',
+	'srf_paramdesc_graphlink' => 'Врска за графиконот',
+	'srf_paramdesc_graphcolor' => 'Боја на графиконот',
+	'srf-paramdesc-graph-wwl' => 'Граница за прелом (во бр. на знаци)',
 );
 
 /** Malayalam (മലയാളം)
@@ -1627,6 +1658,12 @@ $messages['nl'] = array(
 	'srf_paramdesc_recordsep' => 'Scheidingsteken voor waarden van recordeigenschappen',
 	'srf_printername_hash' => 'Hash',
 	'srf_paramdesc_hashname' => 'Als opgegeven en de uitbreiding HashTables is beschikbaar, dan wordt een hash met de aangegeven naam gemaakt',
+	'srf_paramdesc_graphname' => 'Naam',
+	'srf_paramdesc_graphsize' => 'Grafiekgrootte (in pixels)',
+	'srf_paramdesc_graphlegend' => 'Legenda al dan niet weergeven',
+	'srf_paramdesc_graphlabel' => 'Grafieklabel',
+	'srf_paramdesc_graphlink' => 'Grafiekverwijzing',
+	'srf_paramdesc_graphcolor' => 'Grafiekkleur',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -1920,6 +1957,12 @@ $messages['pt'] = array(
 	'srf_paramdesc_recordsep' => 'Separador entre os valores das propriedades do registo',
 	'srf_printername_hash' => 'Resumo criptográfico ("hash")',
 	'srf_paramdesc_hashname' => 'Se especificado e a extensão HashTables estiver disponível, isto cria um resumo criptográfico ("hash") com o nome especificado',
+	'srf_paramdesc_graphname' => 'Título',
+	'srf_paramdesc_graphsize' => 'Tamanho do gráfico (em px)',
+	'srf_paramdesc_graphlegend' => 'Mostrar ou não a legenda do gráfico',
+	'srf_paramdesc_graphlabel' => 'Título do gráfico',
+	'srf_paramdesc_graphlink' => 'Link do gráfico',
+	'srf_paramdesc_graphcolor' => 'Cor do gráfico',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
