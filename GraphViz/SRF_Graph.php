@@ -15,37 +15,40 @@
  */
 class SRFGraph extends SMWResultPrinter {
 	public static $NODE_SHAPES = array(
-		'box', 'rect', 'rectangle',
-		'none', 'plaintext',
-		'polygon',
-		'ellipse',
+		'box',
+		'box3d',
 		'circle',
-		'point',
-		'egg',
-		'triangle',
+		'component',
 		'diamond',
-		'trapezium',
-		'parallelogram',
-		'house',
-		'pentagon ',
-		'hexagon',
-		'septagon',
-		'octagon',
 		'doublecircle',
 		'doubleoctagon',
-		'tripleoctagon',
-		'invtriangle',
-		'invtrapezium',
+		'egg',
+		'ellipse',
+		'folder',
+		'hexagon',
+		'house',
 		'invhouse',
+		'invtrapezium',
+		'invtriangle',
+		'Mcircle',
 		'Mdiamond',
 		'Msquare',
-		'Mcircle',
-		'square',
+		'none',
 		'note',
+		'octagon',
+		'parallelogram',
+		'pentagon ',
+		'plaintext',
+		'point',
+		'polygon',
+		'rect',
+		'rectangle',
+		'septagon',
+		'square',
 		'tab',
-		'folder',
-		'box3d',
-		'component',
+		'trapezium',
+		'triangle',
+		'tripleoctagon',
 	);
 	
 	protected $m_graphName = 'QueryResult';
@@ -226,6 +229,14 @@ class SRFGraph extends SMWResultPrinter {
 		return $graphInput;
 	}
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getName()
+	 */
+	public function getName() {
+		return wfMsg( 'srf-printername-graph' );
+	}	
+	
 	public function getParameters() {
 		return array(
 			array( 'name' => 'graphname', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_graphname' ) ),
@@ -234,7 +245,10 @@ class SRFGraph extends SMWResultPrinter {
 			array( 'name' => 'graphlabel', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlabel' ), 'values'=> array( 'yes', 'no' ) ),
 			array( 'name' => 'rankdir', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_rankdir' ) ),
 			array( 'name' => 'graphlink', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlink' ), 'values'=> array( 'yes', 'no' ) ),
-			array( 'name' => 'graphcolor', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphcolor' ), 'values'=> array( 'yes', 'no' ) )
+			array( 'name' => 'graphcolor', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphcolor' ), 'values'=> array( 'yes', 'no' ) ),
+			array( 'name' => 'nodeshape', 'type' => 'enumeration', 'description' => wfMsg( 'srf-paramdesc-graph-nodeshape' ), 'values'=> self::$NODE_SHAPES ),
+			array( 'name' => 'nameproperty', 'type' => 'text', 'description' => wfMsg( 'srf-paramdesc-graph-nameprop' ) ),
+			array( 'name' => 'relation', 'type' => 'enumeration', 'description' => wfMsg( 'srf-paramdesc-graph-relation' ), 'values'=> array( 'parent', 'child' ) ),
 		);      
 	}
 	

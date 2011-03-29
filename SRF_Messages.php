@@ -100,6 +100,10 @@ $messages['en'] = array(
 	'srf_paramdesc_hashname' => 'If given and the HashTables extension is available this will create an hash with the specified name',
 
 	// format "graph"
+	'srf-printername-graph' => 'Graph',
+	'srf-paramdesc-graph-relation' => 'Are the subjects or nameproperties parents or childs?',
+	'srf-paramdesc-graph-nameprop' => 'Allows setting a property that will be used as subject instead of the actual subject',
+	'srf-paramdesc-graph-nodeshape' => 'The shape of each node on the graph',
 	'srf_paramdesc_graphname' => 'Title',
 	'srf_paramdesc_graphsize' => 'Graph size (in px)',
 	'srf_paramdesc_graphlegend' => 'Show graph legend or not',
