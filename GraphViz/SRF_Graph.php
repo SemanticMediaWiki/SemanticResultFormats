@@ -63,6 +63,7 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_nameProperty = false;
 	protected $m_nodeShape = false;
 	protected $m_parentRelation;
+	protected $m_wordWrapLimit = 25;
 	
 	protected function readParameters( $params, $outputmode ) {
 		SMWResultPrinter::readParameters( $params, $outputmode );
@@ -93,6 +94,10 @@ class SRFGraph extends SMWResultPrinter {
 		
 		if ( array_key_exists( 'nodeshape', $params ) && in_array( trim( $params['nodeshape'] ), self::$NODE_SHAPES ) ) {
 			$this->m_nodeShape = trim( $params['nodeshape'] );
+		}
+		
+		if ( array_key_exists( 'wordwraplimit', $params ) && is_int( $params['wordwraplimit'] ) ) {
+			$this->m_wordWrapLimit = (int)$params['wordwraplimit'];
 		}
 	}
 	
@@ -162,7 +167,7 @@ class SRFGraph extends SMWResultPrinter {
 				$isName = $this->m_nameProperty ? ( $i != 0 && $this->m_nameProperty === $propName ) : $i == 0;
 				
 				if ( $isName ) {
-					$name = $this->getWordWrappedText( $object->getShortText( $outputmode ), 20 );
+					$name = $this->getWordWrappedText( $object->getShortText( $outputmode ), $this->m_wordWrapLimit );
 				}
 				
 				if ( !( $this->m_nameProperty && $i == 0 ) ) {
@@ -196,7 +201,7 @@ class SRFGraph extends SMWResultPrinter {
 			$nodeLinkURL = $nodeLinkTitle->getLocalURL();
 		}
 		
-		$text = $this->getWordWrappedText( $text, 20 );
+		$text = $this->getWordWrappedText( $text, $this->m_wordWrapLimit );
 		
 		if ( $this->m_graphLink ) {
 			$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
@@ -236,6 +241,8 @@ class SRFGraph extends SMWResultPrinter {
 	/**
 	 * Returns the word wrapped version of the provided text. 
 	 * 
+	 * @since 1.5.4
+	 * 
 	 * @param string $text
 	 * @param integer $charLimit
 	 * 
@@ -245,18 +252,21 @@ class SRFGraph extends SMWResultPrinter {
 		$segments = array();
 		
 		while ( strlen( $text ) > $charLimit ) {
+			// Find the last space in the allowed range.
 			$splitPosition = strrpos( substr( $text, 0, $charLimit ), ' ' );
 			
 			if ( $splitPosition === false ) {
+				// If there is no space (lond word), find the next space.
 				$splitPosition = strpos( $text, ' ' );
 				
 				if ( $splitPosition === false ) {
-					 $splitPosition = strlen( $text );
+					// If there are no spaces, everything goes on one line.
+					 $splitPosition = strlen( $text ) - 1;
 				}
 			}
 			
-			$segments[] = substr( $text, 0, $splitPosition );
-			$text = substr( $text, $splitPosition );
+			$segments[] = substr( $text, 0, $splitPosition + 1 );
+			$text = substr( $text, $splitPosition + 1 );
 		}
 		
 		$segments[] = $text;
@@ -284,6 +294,7 @@ class SRFGraph extends SMWResultPrinter {
 			array( 'name' => 'nodeshape', 'type' => 'enumeration', 'description' => wfMsg( 'srf-paramdesc-graph-nodeshape' ), 'values'=> self::$NODE_SHAPES ),
 			array( 'name' => 'nameproperty', 'type' => 'text', 'description' => wfMsg( 'srf-paramdesc-graph-nameprop' ) ),
 			array( 'name' => 'relation', 'type' => 'enumeration', 'description' => wfMsg( 'srf-paramdesc-graph-relation' ), 'values'=> array( 'parent', 'child' ) ),
+			array( 'name' => 'wordwraplimit', 'type' => 'int', 'description' => wfMsg( 'srf-paramdesc-graph-wwl' ) ),
 		);      
 	}
 	

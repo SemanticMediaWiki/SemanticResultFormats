@@ -110,7 +110,8 @@ $messages['en'] = array(
 	'srf_paramdesc_graphlabel' => 'Graph label',
 	'srf_paramdesc_rankdir' => 'Graph build direction',
 	'srf_paramdesc_graphlink' => 'Graph link',
-	'srf_paramdesc_graphcolor' => 'Graph color'
+	'srf_paramdesc_graphcolor' => 'Graph color',
+	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
 );
 
 /** Message documentation (Message documentation)
