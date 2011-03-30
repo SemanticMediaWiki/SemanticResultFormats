@@ -882,6 +882,15 @@ $messages['gl'] = array(
 	'srf_paramdesc_minsize' => 'O tamaño das etiquetas máis pequenas en porcentaxe (por defecto: 77)',
 	'srf_paramdesc_maxsize' => 'O tamaño das etiquetas máis grandes en porcentaxe (por defecto: 177)',
 	'srf_paramdesc_maxtags' => 'A cantidade máxima de etiquetas na nube',
+	'srf_printername_array' => 'Táboa',
+	'srf-printername-graph' => 'Gráfica',
+	'srf_paramdesc_graphname' => 'Título',
+	'srf_paramdesc_graphsize' => 'Tamaño da gráfica (en px)',
+	'srf_paramdesc_graphlegend' => 'Mostrar ou non a lenga da gráfica',
+	'srf_paramdesc_graphlabel' => 'Título da gráfica',
+	'srf_paramdesc_rankdir' => 'Dirección da frecha',
+	'srf_paramdesc_graphlink' => 'Ligazón da gráfica',
+	'srf_paramdesc_graphcolor' => 'Cor da gráfica',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
