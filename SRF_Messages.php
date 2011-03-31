@@ -700,6 +700,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Nike
  * @author Silvonen
  * @author Str4nd
  */
@@ -725,6 +726,7 @@ $messages['fi'] = array(
 	'srf_printername_googlepie' => 'Googlen piirakkakuvaaja',
 	'srf_paramdesc_chartheight' => 'Kuvaajan korkeus pikseleinä',
 	'srf_paramdesc_chartwidth' => 'Kuvaajan leveys pikseleinä',
+	'srf_paramdesc_rankdir' => 'Nuolen suunta',
 );
 
 /** French (Français)
@@ -1063,6 +1065,7 @@ $messages['hsb'] = array(
 	'srf_paramdesc_minsize' => 'Wulkosć najmjeńšich woznamjenjacych słowow w procenće (standard: 77)',
 	'srf_paramdesc_maxsize' => 'Wulkosć najwjetšich woznamjenjacych słowow w procenće (standard: 177)',
 	'srf_paramdesc_maxtags' => 'Maksimalna ličba woznamjenjacych słowow w mróčeli',
+	'srf_paramdesc_graphname' => 'Titul',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -1180,6 +1183,10 @@ $messages['ia'] = array(
 	'srf_paramdesc_recordsep' => 'Separator inter valores de proprietates de registro',
 	'srf_printername_hash' => 'Hash',
 	'srf_paramdesc_hashname' => 'Si isto es specificate e le extension HashTables es disponibile, isto creara un hash con le nomine specificate',
+	'srf-printername-graph' => 'Graphico',
+	'srf-paramdesc-graph-relation' => 'Le subjectos o proprietates de nomines es genitores o infantes?',
+	'srf-paramdesc-graph-nameprop' => 'Permitte definir un proprietate que essera usate como subjecto in loco del ver subjecto',
+	'srf-paramdesc-graph-nodeshape' => 'Le forma de cata nodo in le graphico',
 	'srf_paramdesc_graphname' => 'Titulo',
 	'srf_paramdesc_graphsize' => 'Dimension del graphico (in pixels)',
 	'srf_paramdesc_graphlegend' => 'Monstrar le legenda del graphico o non',
@@ -1187,6 +1194,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_rankdir' => 'Direction del sagitta',
 	'srf_paramdesc_graphlink' => 'Ligamine al graphico',
 	'srf_paramdesc_graphcolor' => 'Color del graphico',
+	'srf-paramdesc-graph-wwl' => 'Limite pro torno de parolas (in numero de characteres)',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1671,8 +1679,10 @@ $messages['nl'] = array(
 	'srf_paramdesc_graphsize' => 'Grafiekgrootte (in pixels)',
 	'srf_paramdesc_graphlegend' => 'Legenda al dan niet weergeven',
 	'srf_paramdesc_graphlabel' => 'Grafieklabel',
+	'srf_paramdesc_rankdir' => 'Pijlrichting',
 	'srf_paramdesc_graphlink' => 'Grafiekverwijzing',
 	'srf_paramdesc_graphcolor' => 'Grafiekkleur',
+	'srf-paramdesc-graph-wwl' => 'Regellimiet (in aantal tekens)',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -1970,8 +1980,10 @@ $messages['pt'] = array(
 	'srf_paramdesc_graphsize' => 'Tamanho do gráfico (em px)',
 	'srf_paramdesc_graphlegend' => 'Mostrar ou não a legenda do gráfico',
 	'srf_paramdesc_graphlabel' => 'Título do gráfico',
+	'srf_paramdesc_rankdir' => 'Direcção da seta',
 	'srf_paramdesc_graphlink' => 'Link do gráfico',
 	'srf_paramdesc_graphcolor' => 'Cor do gráfico',
+	'srf-paramdesc-graph-wwl' => 'Limite para forçar nova linha (em nº de caracteres)',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
