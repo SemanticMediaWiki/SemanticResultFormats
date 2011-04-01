@@ -1471,6 +1471,7 @@ $messages['lb'] = array(
 	'srf_paramdesc_widths' => "D'Breet vun de Biller",
 	'srf_paramdesc_heights' => "D'Héicht vun de Biller",
 	'srf_paramdesc_autocaptions' => 'Den NUmm vum Fichier als Beschreiwung benotzen, wa keng ugi gouf',
+	'srf_paramdesc_graphname' => 'Titel',
 );
 
 /** Lithuanian (Lietuvių)
@@ -1675,6 +1676,10 @@ $messages['nl'] = array(
 	'srf_paramdesc_recordsep' => 'Scheidingsteken voor waarden van recordeigenschappen',
 	'srf_printername_hash' => 'Hash',
 	'srf_paramdesc_hashname' => 'Als opgegeven en de uitbreiding HashTables is beschikbaar, dan wordt een hash met de aangegeven naam gemaakt',
+	'srf-printername-graph' => 'Grafiek',
+	'srf-paramdesc-graph-relation' => 'Zijn de onderwerpen of naameigenschappen ouders of kinderen?',
+	'srf-paramdesc-graph-nameprop' => 'Maakt het mogelijk een eigenschap in te stellen die wordt gebruikt als onderwerp in plaats van het eigenlijke onderwerp',
+	'srf-paramdesc-graph-nodeshape' => 'De vorm van de knooppunten in de grafiek.',
 	'srf_paramdesc_graphname' => 'Naam',
 	'srf_paramdesc_graphsize' => 'Grafiekgrootte (in pixels)',
 	'srf_paramdesc_graphlegend' => 'Legenda al dan niet weergeven',
