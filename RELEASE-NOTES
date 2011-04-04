@@ -2,12 +2,13 @@ For a documentation of all features, see
 http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 
-== SRF 1.5.4 ==
+== SRF 1.6 ==
 
 Changes in this version:
 * Cleaned up the graph format.
 * Fixed devision by zero issue (oh shii~) in the tagcloud format.
 * Added parameter descriptions to the graph and ploticus formats. 
+* Added support for SMW 1.6 style parameter handling to the tagcloud format.
 
 == SRF 1.5.3 ==
 
