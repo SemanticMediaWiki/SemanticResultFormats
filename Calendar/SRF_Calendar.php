@@ -160,7 +160,8 @@ class SRFCalendar extends SMWResultPrinter {
 				// handle the 'color=' value, whether it came
 				// from a compound query or a regular one
 				// handling is different for SMW 1.5+
-				if ( method_exists( 'SMWQueryResult', 'getResults' ) ) {
+				$realFunction = array( 'SMWQueryResult', 'getResults' );
+				if ( is_callable( $realFunction ) ) {
 					$res_subject = $field->getResultSubject();
 					if ( isset( $res_subject->display_options )
 						&& is_array( $res_subject->display_options )

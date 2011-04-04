@@ -105,7 +105,8 @@ class SRFOutline extends SMWResultPrinter {
 		$result = "";
 		foreach ( $item->mRow as $orig_ra ) {
 			// handling is somewhat simpler for SMW 1.5+
-			if ( method_exists( 'SMWQueryResult', 'getResults' ) ) {
+			$realFunction = array( 'SMWQueryResult', 'getResults' );
+			if ( is_callable( $realFunction ) ) {
 				// make a new copy of this, so that the call to
 				// getNextText() will work again
 				$ra = clone ( $orig_ra );
