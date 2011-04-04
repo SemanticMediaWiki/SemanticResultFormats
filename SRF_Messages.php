@@ -2308,6 +2308,9 @@ $messages['tl'] = array(
 	'srf_paramdesc_bardirection' => 'Ang kapupuntahan ng baretang talangguhit',
 	'srf_paramdesc_barnumbersaxislabel' => 'Ang tatak para sa painugan ng mga bilang',
 	'srf_printername_gallery' => 'Galerya',
+	'srf-printername-graph' => 'Talangguhit',
+	'srf_paramdesc_graphname' => 'Pamagat',
+	'srf_paramdesc_graphsize' => 'Sukat ng talangguhit (nasa px)',
 );
 
 /** Turkish (Türkçe)
