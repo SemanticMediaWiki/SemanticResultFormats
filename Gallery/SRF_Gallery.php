@@ -28,7 +28,7 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setShowBytes( false );
 		$ig->setShowFilename( false );
 		$ig->setParser( $wgParser );
-		$ig->useSkin( $wgUser->getSkin() );
+		$ig->useSkin( $wgUser->getSkin() ); // FIXME: deprecated method usage
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
 		if ( isset( $this->m_params['perrow'] ) ) {
@@ -96,8 +96,10 @@ class SRFGallery extends SMWResultPrinter {
 			$hasCaption = $amountMatches || count( $captions ) > 0;
 			
 			foreach ( $images as $imgTitle ) {
-				$imgCaption= $hasCaption ? ( $amountMatches ? array_shift( $captions ) : $captions[0] ) : '';
-				$this->addImageToGallery( $ig, $imgTitle, $imgCaption );
+				if ( $imgTitle->exists() ) {
+					$imgCaption= $hasCaption ? ( $amountMatches ? array_shift( $captions ) : $captions[0] ) : '';
+					$this->addImageToGallery( $ig, $imgTitle, $imgCaption );					
+				}
 			}			
 		}
 	}
@@ -113,18 +115,22 @@ class SRFGallery extends SMWResultPrinter {
 	protected function addImagePages( SMWQueryResult $results, ImageGallery &$ig ) {
 		while ( $row = $results->getNext() ) {
 			$firstField = $row[0];
-			$imgTitle = $firstField->getNextObject()->getTitle();
-			$imgCaption = '';
-
-			// Is there a property queried for display with ?property
-			if ( isset( $row[1] ) ) {
-				$imgCaption = $row[1]->getNextObject();
-				if ( is_object( $imgCaption ) ) {
-					$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
+			$nextObject = $firstField->getNextObject();
+			
+			if ( $nextObject !== false ) {
+				$imgTitle = $nextObject->getTitle();
+				$imgCaption = '';
+		
+				// Is there a property queried for display with ?property
+				if ( isset( $row[1] ) ) {
+					$imgCaption = $row[1]->getNextObject();
+					if ( is_object( $imgCaption ) ) {
+						$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
+					}
 				}
+		
+				$this->addImageToGallery( $ig, $imgTitle, $imgCaption );				
 			}
-
-			$this->addImageToGallery( $ig, $imgTitle, $imgCaption );
 		}		
 	}
 	
