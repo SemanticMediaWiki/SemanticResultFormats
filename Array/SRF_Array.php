@@ -9,8 +9,6 @@
 /**
  * Array format
  */
-if( !defined('MEDIAWIKI') ) die();
-
 class SRFArray extends SMWResultPrinter {
 	protected $mSep;
 	protected $mPropSep;
@@ -114,8 +112,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		wfLoadExtensionMessages('SemanticResultFormats');
-		return wfMsg('srf_printername_' . $this->mFormat);
+		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 
 	protected function getResultText( $res, $outputmode ) {
