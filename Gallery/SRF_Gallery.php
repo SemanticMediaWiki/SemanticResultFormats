@@ -172,11 +172,27 @@ class SRFGallery extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 		
-		$params[] = array( 'name' => 'perrow', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_perrow' ) );
-		$params[] = array( 'name' => 'widths', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_widths' ) );
-		$params[] = array( 'name' => 'heights', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_heights' ) );
-
-		$params[] = array( 'name' => 'autocaptions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_autocaptions' ), 'values' => array( 'on', 'off' ) );
+		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
+			$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
+			$params['perrow']->setDescription( wfMsg( 'srf_paramdesc_perrow' ) );
+			
+			$params['widths'] = new Parameter( 'widths', Parameter::TYPE_INTEGER );
+			$params['widths']->setDescription( wfMsg( 'srf_paramdesc_widths' ) );
+			
+			$params['heights'] = new Parameter( 'heights', Parameter::TYPE_INTEGER );
+			$params['heights']->setDescription( wfMsg( 'srf_paramdesc_heights' ) );
+			
+			$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
+			$params['autocaptions']->setDescription( wfMsg( 'srf_paramdesc_autocaptions' ) );
+		}
+		else {
+			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
+			$params[] = array( 'name' => 'perrow', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_perrow' ) );
+			$params[] = array( 'name' => 'widths', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_widths' ) );
+			$params[] = array( 'name' => 'heights', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_heights' ) );
+	
+			$params[] = array( 'name' => 'autocaptions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_autocaptions' ), 'values' => array( 'on', 'off' ) );			
+		}
 		
 		return $params;
 	}		
