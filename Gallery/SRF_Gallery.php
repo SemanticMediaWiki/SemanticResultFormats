@@ -175,15 +175,19 @@ class SRFGallery extends SMWResultPrinter {
 		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
 			$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
 			$params['perrow']->setDescription( wfMsg( 'srf_paramdesc_perrow' ) );
+			$params['perrow']->setDefault( '', false );
 			
 			$params['widths'] = new Parameter( 'widths', Parameter::TYPE_INTEGER );
 			$params['widths']->setDescription( wfMsg( 'srf_paramdesc_widths' ) );
+			$params['widths']->setDefault( '', false );
 			
 			$params['heights'] = new Parameter( 'heights', Parameter::TYPE_INTEGER );
 			$params['heights']->setDescription( wfMsg( 'srf_paramdesc_heights' ) );
+			$params['heights']->setDefault( '', false );
 			
 			$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
 			$params['autocaptions']->setDescription( wfMsg( 'srf_paramdesc_autocaptions' ) );
+			$params['autocaptions']->setDefault( true );
 		}
 		else {
 			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.

@@ -244,11 +244,14 @@ class SRFiCalendar extends SMWResultPrinter {
 			
 			$params['title'] = new Parameter( 'title' );
 			$params['title']->setDescription( wfMsg( 'srf_paramdesc_icalendartitle' ) );
+			$params['title']->setDefault( '' );
 			
 			$params['description'] = new Parameter( 'description' );
 			$params['description']->setDescription( wfMsg( 'srf_paramdesc_icalendardescription' ) );
+			$params['description']->setDefault( '' );
 		}
 		else {
+			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
 			$params = parent::exportFormatParameters();
 			
 			$params[] = array( 'name' => 'title', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendartitle' ) );
