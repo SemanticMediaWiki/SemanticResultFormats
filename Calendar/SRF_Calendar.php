@@ -58,7 +58,6 @@ class SRFCalendar extends SMWResultPrinter {
 	protected function getResultText( $res, $outputmode ) {
 		global $wgUser;
 		$skin = $wgUser->getSkin();
-		$result = '';
 
 		$events = array();
 		// print all result rows
@@ -377,7 +376,6 @@ class SRFCalendar extends SMWResultPrinter {
 		$days_in_prev_month = SRFCHistoricalDate::daysInMonth( $prev_year, $prev_month_num );
 		$days_in_cur_month = SRFCHistoricalDate::daysInMonth( $cur_year, $cur_month_num );
 		$today_string = date( 'Y n j', time() );
-		$url_year = $wgRequest->getVal( 'year' );
 		$page_name = $page_title->getPrefixedDbKey();
 
 		// Create table for holding title and navigation information.

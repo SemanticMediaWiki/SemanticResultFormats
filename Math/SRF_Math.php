@@ -24,9 +24,6 @@ class SRFMath extends SMWResultPrinter {
 	}
 
 	protected function getResultText( $res, $outputmode ) {
-		global $wgUser;
-		$skin = $wgUser->getSkin();
-
 		// initialize all necessary variables
 		$sum = 0;
 		$count = 0;

@@ -85,7 +85,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		);
 	}
 
-	protected function loadJavascriptAndCSS() {
+	protected static function loadJavascriptAndCSS() {
 		global $wgOut;
 		$wgOut->addModules( 'ext.srf.jqplot' );
 		$wgOut->addModules( 'ext.srf.jqplotbar' );

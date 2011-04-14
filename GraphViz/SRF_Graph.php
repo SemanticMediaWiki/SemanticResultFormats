@@ -109,11 +109,7 @@ class SRFGraph extends SMWResultPrinter {
 		global $wgGraphVizSettings;
 		$wgGraphVizSettings = new GraphVizSettings;
 		$this->isHTML = true;
-	
-	    $key = 0;
-		
-		$legendInput = '';
-		
+
 		$graphInput = "digraph $this->m_graphName {";
 		if ( $this->m_graphSize != '' ) $graphInput .= "size=\"$this->m_graphSize\";"; //  pack=true; layout=dot;
 		if ( $this->m_nodeShape ) $graphInput .=  "node [shape=$this->m_nodeShape];";
