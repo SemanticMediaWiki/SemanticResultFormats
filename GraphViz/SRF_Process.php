@@ -71,7 +71,7 @@ class SRFProcess extends SMWResultPrinter {
 	 */
 	protected function readParameters( $params, $outputmode ) {
 
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 
 		// init process graph instance
 		$this->m_process = new ProcessGraph();
@@ -167,7 +167,7 @@ class SRFProcess extends SMWResultPrinter {
 		//
 		//	GraphViz settings
 		//
-
+		global $wgGraphVizSettings;
 		$wgGraphVizSettings = new GraphVizSettings;
 		$this->isHTML 		= true;
 

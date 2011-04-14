@@ -14,7 +14,7 @@ class SRFGooglePie extends SMWResultPrinter {
 	protected $m_heighth = 250;
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 		if ( array_key_exists( 'width', $this->m_params ) ) {
 			$this->m_width = $this->m_params['width'];
 		}
@@ -30,7 +30,6 @@ class SRFGooglePie extends SMWResultPrinter {
 	}
 
 	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber;
 		$this->isHTML = true;
 
 		$t = "";

@@ -20,7 +20,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 	static protected $m_barchartnum = 1;
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 		if ( array_key_exists( 'width', $this->m_params ) ) {
 			$this->m_width = $this->m_params['width'];
 		}

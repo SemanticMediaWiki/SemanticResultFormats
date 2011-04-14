@@ -54,7 +54,7 @@ class SRFBibTeX extends SMWResultPrinter {
 	}
 
 	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgSitename, $wgServer, $wgRequest;
+		global $wgSitename;
 		$result = '';
 		$items = array();
 		if ( $outputmode == SMW_OUTPUT_FILE ) { // make file

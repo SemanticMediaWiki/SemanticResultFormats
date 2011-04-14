@@ -56,7 +56,7 @@ class SRFCalendar extends SMWResultPrinter {
 	 * TODO: split up megamoth 
 	 */
 	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgUser;
+		global $wgUser;
 		$skin = $wgUser->getSkin();
 		$result = '';
 
@@ -92,7 +92,7 @@ class SRFCalendar extends SMWResultPrinter {
 						}
 						
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
-							$dates[] = SRFCalendar::formatDateStr( $object );
+							$dates[] = $this->formatDateStr( $object );
 						}
 					}
 				}
@@ -137,7 +137,7 @@ class SRFCalendar extends SMWResultPrinter {
 							$textForProperty .= $pr->getHTMLText( $skin ) . ' ' . $object->getShortText( $outputmode, $skin );
 						}
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
-							$dates[] = SRFCalendar::formatDateStr( $object );
+							$dates[] = $this->formatDateStr( $object );
 						}
 					}
 					
@@ -182,7 +182,7 @@ class SRFCalendar extends SMWResultPrinter {
 			}
 		}
 
-		$result = SRFCalendar::displayCalendar( $events );
+		$result = $this->displayCalendar( $events );
 		
 		// go back to the actual user's language, in case a different
 		// language had been specified for this calendar

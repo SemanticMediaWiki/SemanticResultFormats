@@ -19,7 +19,7 @@ class SRFiCalendar extends SMWResultPrinter {
 	protected $m_description = '';
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 		
 		if ( array_key_exists( 'title', $this->m_params ) ) {
 			$this->m_title = trim( $this->m_params['title'] );

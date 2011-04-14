@@ -17,7 +17,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 	static protected $m_piechartnum = 1;
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 		if ( array_key_exists( 'width', $this->m_params ) ) {
 			$this->m_width = $this->m_params['width'];
 		}
@@ -76,7 +76,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 		// MW 1.17 +
 		if ( class_exists( 'ResourceLoader' ) ) {
-			self::loadJavascriptAndCSS();
+			$this->loadJavascriptAndCSS();
 			return;
 		}
 		global $wgOut, $srfgScriptPath;
@@ -109,7 +109,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 	
 		$wgParser->disableCache();
 
-		self::addJavascriptAndCSS();
+		$this->addJavascriptAndCSS();
 
 		$this->isHTML = true;
 

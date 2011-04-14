@@ -71,7 +71,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 		
 		//separators:
 		if( array_key_exists('sep', $params) )       $this->mSep       = trim( $params['sep'] );

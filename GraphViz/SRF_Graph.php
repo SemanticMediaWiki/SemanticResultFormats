@@ -66,7 +66,7 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_wordWrapLimit = 25;
 	
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'graphname', $params ) ) {
 			$this->m_graphName = trim( $params['graphname'] );
@@ -106,6 +106,7 @@ class SRFGraph extends SMWResultPrinter {
 	}
 	
 	protected function getResultText( /* SMWQueryResult */ $res, $outputmode ) {
+		global $wgGraphVizSettings;
 		$wgGraphVizSettings = new GraphVizSettings;
 		$this->isHTML = true;
 	

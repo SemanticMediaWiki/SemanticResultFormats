@@ -24,7 +24,7 @@ class SRFMath extends SMWResultPrinter {
 	}
 
 	protected function getResultText( $res, $outputmode ) {
-		global $smwgIQRunningNumber, $wgUser;
+		global $wgUser;
 		$skin = $wgUser->getSkin();
 
 		// initialize all necessary variables

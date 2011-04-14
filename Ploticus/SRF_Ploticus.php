@@ -32,7 +32,7 @@ class SRFPloticus extends SMWResultPrinter {
 	protected $m_height = '';
 
 	protected function readParameters( $params, $outputmode ) {
-		SMWResultPrinter::readParameters( $params, $outputmode );
+		parent::readParameters( $params, $outputmode );
 		if ( array_key_exists( 'ploticusparams', $this->m_params ) ) {
 			$this->m_ploticusparams = trim( $params['ploticusparams'] );
 		}
