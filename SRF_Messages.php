@@ -382,6 +382,8 @@ $messages['br'] = array(
 	'srf_paramdesc_minsize' => 'Ment an dikedenn vihanañ e dregantad (dre ziouer : 77)',
 	'srf_paramdesc_maxsize' => 'Ment an dikedenn vrasañ e dregantad (dre ziouer : 77)',
 	'srf_paramdesc_maxtags' => 'Niver brasañ a dikedennoù en nivlennad',
+	'srf_printername_array' => 'Taolenn',
+	'srf_paramdesc_graphname' => 'Titl',
 );
 
 /** Bosnian (Bosanski)
