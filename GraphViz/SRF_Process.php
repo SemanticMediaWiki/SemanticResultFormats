@@ -442,8 +442,7 @@ class ProcessGraph {
 
 			// is the node a red link (i.e. corresponding wiki page does not yet exist)?
 			if ( $this->m_showRedLinks ) {
-				$title = new Title();
-				$title = $title->newFromDBkey( $id );
+				$title = Title::newFromDBkey( $id );
 				if ( isset( $title ) && ( !$title->exists() ) ) $node->setFontColor( $this->m_redLinkColor );
 			}
 
