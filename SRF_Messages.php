@@ -2310,9 +2310,21 @@ $messages['tl'] = array(
 	'srf_paramdesc_bardirection' => 'Ang kapupuntahan ng baretang talangguhit',
 	'srf_paramdesc_barnumbersaxislabel' => 'Ang tatak para sa painugan ng mga bilang',
 	'srf_printername_gallery' => 'Galerya',
+	'srf_paramdesc_increase' => 'Paano patataasin ang sukat ng mga tatak',
+	'srf_paramdesc_tagorder' => 'Ang pagkakasunud-sunod ng mga tatak',
+	'srf_printername_array' => 'Hanay',
+	'srf_printername_hash' => 'Muling paghahayag',
 	'srf-printername-graph' => 'Talangguhit',
+	'srf-paramdesc-graph-relation' => 'Mga magulang ba o mga anak ang mga paksa o mga kaarian ng pangalan?',
+	'srf-paramdesc-graph-nodeshape' => 'Ang hugis ng bawat buko sa ibabaw ng talangguhit',
 	'srf_paramdesc_graphname' => 'Pamagat',
 	'srf_paramdesc_graphsize' => 'Sukat ng talangguhit (nasa px)',
+	'srf_paramdesc_graphlegend' => 'Ipakita ang alamat ng talangguhit o hindi',
+	'srf_paramdesc_graphlabel' => 'Tatak ng talangguhit',
+	'srf_paramdesc_rankdir' => 'Patutunguhan ng palaso',
+	'srf_paramdesc_graphlink' => 'Kawing ng talangguhit',
+	'srf_paramdesc_graphcolor' => 'Kulay ng talangguhit',
+	'srf-paramdesc-graph-wwl' => 'Hangganan ng balot ng salita (sa loob ng # mga panitik)',
 );
 
 /** Turkish (Türkçe)
