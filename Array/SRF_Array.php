@@ -273,7 +273,6 @@ class SRFHash extends SRFArray {
 	
 	protected function readParameters( $params, $outputmode ) {
 		parent::readParameters( $params, $outputmode );
-		//if( array_key_exists('sep', $params) ) $this->mSep = trim( $params['sep'] );
 		$this->mDeliverPageTitle = true;
 	}
 	protected function deliverPageTitle( $value ) {
