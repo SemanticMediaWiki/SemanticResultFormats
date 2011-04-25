@@ -800,6 +800,19 @@ $messages['fr'] = array(
 	'srf_paramdesc_maxtags' => 'Le montant maximal des tags dans le nuage',
 	'srf_printername_array' => 'Tableau',
 	'srf_paramdesc_propsep' => 'Séparateur entre les propriétés demandées',
+	'srf_paramdesc_manysep' => 'Séparateur entre les propriétés avec valeur',
+	'srf_paramdesc_recordsep' => "Séparateur entre les valeurs les propriétés d'enregistrement",
+	'srf_printername_hash' => 'Hachage',
+	'srf_paramdesc_hashname' => "Si donné et que l'extension HashTables est disponible, ceci créera un hachage avec le nom spécifié",
+	'srf-printername-graph' => 'Graphe',
+	'srf_paramdesc_graphname' => 'Titre',
+	'srf_paramdesc_graphsize' => 'Taille du graphe (en px)',
+	'srf_paramdesc_graphlegend' => 'Afficher la légende de graphe ou non',
+	'srf_paramdesc_graphlabel' => 'Étiquette du graphe',
+	'srf_paramdesc_rankdir' => 'Direction de la flèche',
+	'srf_paramdesc_graphlink' => 'Lien vers le graphe',
+	'srf_paramdesc_graphcolor' => 'Couleur du graphe',
+	'srf-paramdesc-graph-wwl' => 'Limite de retour automatique (en nombre de caractères)',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -2242,6 +2255,7 @@ $messages['te'] = array(
 	'srf_printername_timeline' => 'కాలరేఖ',
 	'srf_paramdesc_chartheight' => 'చార్టు యొక్క ఎత్తు, పిక్సెళ్ళలో',
 	'srf_paramdesc_chartwidth' => 'చార్టు యొక్క వెడల్పు, పిక్సెళ్ళలో',
+	'srf_paramdesc_graphname' => 'శీర్షిక',
 );
 
 /** Tajik (Cyrillic) (Тоҷикӣ (Cyrillic))
