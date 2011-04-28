@@ -125,7 +125,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
-				while ( ( $obj = $row[$i]->getNextObject() ) !== false ) { // Property values
+				while ( ( $obj = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Property values
 					
 					// If the main object should not be included, skip it.
 					// The isMainObject method was added in SMW 1.5.6, so this can only be done correctly if it's available.

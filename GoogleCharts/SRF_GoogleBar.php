@@ -37,9 +37,9 @@ class SRFGoogleBar extends SMWResultPrinter {
 		$count = 0; // How many bars will they be? Needed to calculate the height of the image
 		$max = 0; // the biggest value. needed for scaling
 		while ( $row = $res->getNext() ) {
-			$name = $row[0]->getNextObject()->getShortWikiText();
+			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
 			foreach ( $row as $field ) {
-					while ( ( $object = $field->getNextObject() ) !== false ) {
+					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
 						if ( method_exists( $object, 'getValueKey' ) ) {
 							$nr = $object->getValueKey();

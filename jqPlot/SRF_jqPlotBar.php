@@ -151,10 +151,10 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$max_number = 0;
 		$min_number = 0;
 		while ( $row = $res->getNext() ) {
-			$name = $row[0]->getNextObject()->getShortWikiText();
+			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
 			$name = str_replace( "'", "\'", $name );
 			foreach ( $row as $field ) {
-					while ( ( $object = $field->getNextObject() ) !== false ) {
+					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
 						if ( method_exists( $object, 'getValueKey' ) ) {
 							$nr = $object->getValueKey();

@@ -172,7 +172,7 @@ class SRFTimeline extends SMWResultPrinter {
 					$date_value = $pr->getData()->getXSDValue();
 				}
 				
-				while ( ( $object = $field->getNextObject() ) !== false ) { // Loop over property values
+				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) { // Loop over property values
 					$event = $this->handlePropertyValue( 
 						$object, $outputmode, $pr, $first_col, $hastitle, $hastime,
 						$first_value, $isEventline, $curmeta, $curdata, $date_value, $output

@@ -34,12 +34,13 @@ class SRFExhibit extends SMWResultPrinter {
 		$row = $res->getNext();
 		if ( $row != null ) {
 			$tmp = clone $row[0];
-			$object = $tmp->getNextObject();
+			$object = efSRFGetNextDV( $tmp );
+			
 			if ( $object instanceof SMWWikiPageValue ) {
 				$value = $object->getPrefixedText();
-				if ( strpos( $value, ":" ) ) {
-					$value = explode( ":", $value, 2 );
-					return $value[0] . ":";
+				if ( strpos( $value, ':' ) ) {
+					$value = explode( ':', $value, 2 );
+					return $value[0] . ':';
 				}
 			}
 			return "";
@@ -383,7 +384,7 @@ class SRFExhibit extends SMWResultPrinter {
 			foreach ( $row as $field ) {
 				$result .= "\t\t<td>";
 				$textstack = array();
-				while ( ( $object = $field->getNextObject() ) !== false ) {
+				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					switch( $object->getTypeID() ) {
 						case '_wpg':
 							$textstack[] = $object->getLongText( $outputmode, $this->getLinker( 0 ) );

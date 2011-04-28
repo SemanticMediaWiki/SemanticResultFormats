@@ -163,7 +163,7 @@ class SRFGraph extends SMWResultPrinter {
 		foreach ( $row as $i => $resultArray ) {
 
 			// Loop throught all the parts of the field value.
-			while ( ( $object = $resultArray->getNextObject() ) !== false ) {
+			while ( ( $object = efSRFGetNextDV( $resultArray ) ) !== false ) {
 				$propName = $resultArray->getPrintRequest()->getLabel();
 				$isName = $this->m_nameProperty ? ( $i != 0 && $this->m_nameProperty === $propName ) : $i == 0;
 				

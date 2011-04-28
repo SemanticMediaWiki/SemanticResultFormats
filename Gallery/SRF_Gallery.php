@@ -79,14 +79,14 @@ class SRFGallery extends SMWResultPrinter {
 			
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
 				if ( $row[$i]->getPrintRequest()->getLabel() == $imageProperty ) {
-					while ( ( $obj = $row[$i]->getNextObject() ) !== false ) { // Property values
+					while ( ( $obj = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Property values
 						if ( $obj->getTypeID() == '_wpg' ) {
 							$images[] = $obj->getTitle(); 
 						}					
 					}					
 				}
 				else if ( $row[$i]->getPrintRequest()->getLabel() == $captionProperty ) {
-					while ( ( $obj = $row[$i]->getNextObject() ) !== false ) { // Property values
+					while ( ( $obj = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Property values
 						$captions[] = $obj->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
 					}					
 				}
@@ -115,7 +115,7 @@ class SRFGallery extends SMWResultPrinter {
 	protected function addImagePages( SMWQueryResult $results, ImageGallery &$ig ) {
 		while ( $row = $results->getNext() ) {
 			$firstField = $row[0];
-			$nextObject = $firstField->getNextObject();
+			$nextObject = efSRFGetNextDV( $firstField );
 			
 			if ( $nextObject !== false ) {
 				$imgTitle = $nextObject->getTitle();
@@ -123,7 +123,7 @@ class SRFGallery extends SMWResultPrinter {
 		
 				// Is there a property queried for display with ?property
 				if ( isset( $row[1] ) ) {
-					$imgCaption = $row[1]->getNextObject();
+					$imgCaption = efSRFGetNextDV( $row[1] );
 					if ( is_object( $imgCaption ) ) {
 						$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
 					}

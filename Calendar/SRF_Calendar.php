@@ -76,7 +76,7 @@ class SRFCalendar extends SMWResultPrinter {
 					$pr = $field->getPrintRequest();
 					$text .= '|' . ( $i + 1 ) . '=';
 					
-					while ( ( $object = $field->getNextObject() ) !== false ) {
+					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							$text .= $object->getLongWikiText();
 						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
@@ -107,7 +107,7 @@ class SRFCalendar extends SMWResultPrinter {
 					// for this property
 					$textForProperty = '';
 					
-					while ( ( $object = $field->getNextObject() ) !== false ) {
+					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							// don't add date values to the display
 						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
