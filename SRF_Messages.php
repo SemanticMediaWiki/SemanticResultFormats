@@ -384,6 +384,7 @@ $messages['br'] = array(
 	'srf_paramdesc_maxtags' => 'Niver brasañ a dikedennoù en nivlennad',
 	'srf_printername_array' => 'Taolenn',
 	'srf_paramdesc_graphname' => 'Titl',
+	'srf_paramdesc_rankdir' => "Durc'hadur ar bir",
 );
 
 /** Bosnian (Bosanski)
