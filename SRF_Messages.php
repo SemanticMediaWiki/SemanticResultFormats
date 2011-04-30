@@ -1175,6 +1175,18 @@ $messages['hu'] = array(
 	'srf_paramdesc_bardirection' => 'Az oszlopdiagram iránya',
 	'srf_paramdesc_barnumbersaxislabel' => 'A számtengely felirata',
 	'srf_printername_gallery' => 'Galéria',
+	'srf_printername_tagcloud' => 'Címkefelhő',
+	'srf_printername_array' => 'Tömb',
+	'srf_printername_hash' => 'Hash',
+	'srf-printername-graph' => 'Grafikon',
+	'srf_paramdesc_graphname' => 'Cím',
+	'srf_paramdesc_graphsize' => 'Grafikon mérete (pixelben)',
+	'srf_paramdesc_graphlegend' => 'Jelmagyarázat megjelenítése vagy sem',
+	'srf_paramdesc_graphlabel' => 'Grafikon címkéje',
+	'srf_paramdesc_rankdir' => 'Nyíl iránya',
+	'srf_paramdesc_graphlink' => 'Grafikon linkje',
+	'srf_paramdesc_graphcolor' => 'Grafikon színe',
+	'srf-paramdesc-graph-wwl' => 'Sortörési határ (karakterszám)',
 );
 
 /** Interlingua (Interlingua)
@@ -1543,6 +1555,16 @@ $messages['lt'] = array(
 	'srfc_nextmonth' => 'Ateinantis mėnuo',
 	'srfc_today' => 'Šiandien',
 	'srfc_gotomonth' => 'Eiti į mėnesį',
+);
+
+/** Latvian (Latviešu)
+ * @author GreenZeb
+ */
+$messages['lv'] = array(
+	'srfc_previousmonth' => 'Iepriekšējais mēnesis',
+	'srfc_nextmonth' => 'Nākamais mēnesis',
+	'srfc_today' => 'Šodiena',
+	'srfc_gotomonth' => 'Doties uz mēnesi',
 );
 
 /** Macedonian (Македонски)
