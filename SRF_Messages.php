@@ -306,6 +306,7 @@ $messages['bg'] = array(
 
 /** Bengali (বাংলা)
  * @author Bellayet
+ * @author Wikitanvir
  */
 $messages['bn'] = array(
 	'srfc_previousmonth' => 'পূর্ববর্তী মাস',
@@ -318,6 +319,13 @@ $messages['bn'] = array(
 	'srf_printername_average' => 'গড়',
 	'srf_printername_max' => 'সর্বোচ্চ',
 	'srf_printername_min' => 'সর্বোনিম্ন',
+	'srf_printername_googlebar' => 'গুগল বার চার্ট',
+	'srf_printername_gallery' => 'গ্যালারি',
+	'srf_paramdesc_perrow' => 'প্রতি সারিতে ছবির সংখ্যা',
+	'srf_paramdesc_widths' => 'ছবির প্রস্থ',
+	'srf_paramdesc_heights' => 'ছবির উচ্চতা',
+	'srf_printername_array' => 'অ্যারে',
+	'srf_paramdesc_graphname' => 'শিরোনাম',
 );
 
 /** Breton (Brezhoneg)
@@ -2024,7 +2032,7 @@ $messages['ps'] = array(
 	'srfc_nextmonth' => 'راتلونکې مياشت',
 	'srfc_today' => 'نن',
 	'srfc_gotomonth' => 'مياشت ته ورځه',
-	'srf_printername_gallery' => 'نندارتون',
+	'srf_printername_gallery' => 'انځورتون',
 );
 
 /** Portuguese (Português)
