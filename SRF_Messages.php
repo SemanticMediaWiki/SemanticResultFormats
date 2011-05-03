@@ -1281,6 +1281,7 @@ $messages['ia'] = array(
 /** Indonesian (Bahasa Indonesia)
  * @author Bennylin
  * @author Farras
+ * @author IvanLanin
  * @author Kenrick95
  */
 $messages['id'] = array(
@@ -1326,6 +1327,39 @@ $messages['id'] = array(
 	'srf_paramdesc_bardirection' => 'Arah grafik batang',
 	'srf_paramdesc_barnumbersaxislabel' => 'Label untuk poros nomor',
 	'srf_printername_gallery' => 'Galeri',
+	'srf_paramdesc_perrow' => 'Jumlah gambar per baris',
+	'srf_paramdesc_widths' => 'Lebar gambar',
+	'srf_paramdesc_heights' => 'Tinggi gambar',
+	'srf_paramdesc_autocaptions' => 'Gunakan nama berkas sebagai judul jika judul tidak diberikan',
+	'srf_printername_tagcloud' => 'Awan tag',
+	'srf_paramdesc_includesubject' => 'Jika nama subjek sendiri harus dimasukkan',
+	'srf_paramdesc_increase' => 'Bagaimana meningkatkan ukuran tag',
+	'srf_paramdesc_tagorder' => 'Urutan tag',
+	'srf_paramdesc_mincount' => 'Jumlah minimum kemunculan suatu nilai untuk dapat didaftarkan',
+	'srf_paramdesc_minsize' => 'Ukuran tag terkecil dalam persen (bawaan: 77)',
+	'srf_paramdesc_maxsize' => 'Ukuran tag terbesar dalam persen (bawaan: 177)',
+	'srf_paramdesc_maxtags' => 'Jumlah maksimum tag di awan',
+	'srf_printername_array' => 'Larik',
+	'srf_paramdesc_pagetitle' => 'Tampilkan atau sembunyikan judul halaman sebagai entri hasil',
+	'srf_paramdesc_hidegaps' => 'Tampilkan atau sembunyikan nilai properti dan rekaman yang kosong, dipisahkan dengan pemisah',
+	'srf_paramdesc_arrayname' => 'Jika diberikan dan ArrayExtension tersedia, parameter ini akan membuat larik dengan nama yang diberikan',
+	'srf_paramdesc_propsep' => 'Pemisah antara properti yang diminta',
+	'srf_paramdesc_manysep' => 'Pemisah antara banyak properti bernilai',
+	'srf_paramdesc_recordsep' => 'Pemisah antara nilai properti rekaman',
+	'srf_printername_hash' => 'Hash',
+	'srf_paramdesc_hashname' => 'Jika diberikan dan ekstensi HashTables tersedia, parameter ini akan membuat hash dengan nama yang diberikan',
+	'srf-printername-graph' => 'Grafik',
+	'srf-paramdesc-graph-relation' => 'Apakah subjek atau properti nama merupakan induk atau turunan?',
+	'srf-paramdesc-graph-nameprop' => 'Memungkinkan pengaturan properti yang akan digunakan sebagai subjek, alih-alih subjek yang sebenarnya',
+	'srf-paramdesc-graph-nodeshape' => 'Bentuk masing-masing nodus (node) pada grafik',
+	'srf_paramdesc_graphname' => 'Judul',
+	'srf_paramdesc_graphsize' => 'Besar grafik (dalam px)',
+	'srf_paramdesc_graphlegend' => 'Tampilkan legenda grafik',
+	'srf_paramdesc_graphlabel' => 'Label grafik',
+	'srf_paramdesc_rankdir' => 'Arah panah',
+	'srf_paramdesc_graphlink' => 'Tautan grafik',
+	'srf_paramdesc_graphcolor' => 'Warna grafik',
+	'srf-paramdesc-graph-wwl' => 'Batas pemenggalan kata (dalam jumlah karakter)',
 );
 
 /** Igbo (Igbo)
@@ -1854,7 +1888,28 @@ $messages['no'] = array(
 	'srf_paramdesc_bardirection' => 'Retningen på stolpediagrammet',
 	'srf_paramdesc_barnumbersaxislabel' => 'Etiketten for tallaksen',
 	'srf_printername_gallery' => 'Galleri',
+	'srf_paramdesc_perrow' => 'Antall bilder per rad',
+	'srf_paramdesc_widths' => 'Bredde på bildene',
+	'srf_paramdesc_heights' => 'Høyde på bildene',
+	'srf_paramdesc_autocaptions' => 'Bruk filnavn som bildetekst når denne mangler',
 	'srf_printername_tagcloud' => 'Tagg-sky',
+	'srf_paramdesc_includesubject' => 'Hvis emnetekstene selv bør være med',
+	'srf_paramdesc_increase' => 'Hvordan du øker størrelsen på taggene',
+	'srf_paramdesc_tagorder' => 'Tagrekkefølgen',
+	'srf_paramdesc_mincount' => 'Minste antall forekomster av en verdi for at den skal bli oppført',
+	'srf_paramdesc_minsize' => 'Størrelsen på de minste taggene i prosent',
+	'srf_paramdesc_maxsize' => 'Størrelsen på de største taggene i prosent',
+	'srf_paramdesc_maxtags' => 'Minste antall tagger i skyen',
+	'srf_printername_array' => 'Array',
+	'srf_paramdesc_pagetitle' => 'Om sidetitlene skal vises eller skjules i resultatlisten',
+	'srf_paramdesc_hidegaps' => 'Om tomme egenskaper eller record-verdier skal vises med skilletegn eller skjules',
+	'srf_paramdesc_arrayname' => 'Hvis gitt og ArrayExtension er tilgjengelig, vil dette opprette et array med angitt navn',
+	'srf_paramdesc_propsep' => 'Skilletegn mellom valgte egenskaper',
+	'srf_paramdesc_manysep' => 'Skilletegn for flerverdi-egenskaper',
+	'srf_paramdesc_recordsep' => 'Skilletegn mellom flerverdi-recordegenskaper',
+	'srf_printername_hash' => 'Hash',
+	'srf_paramdesc_hashname' => 'Hvis gitt og HashTables extension er tilgjengelig, vil dette opprette en hashkode med angitt navn',
+	'srf-printername-graph' => 'Graf',
 );
 
 /** Occitan (Occitan)
