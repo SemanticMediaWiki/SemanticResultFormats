@@ -1910,6 +1910,17 @@ $messages['no'] = array(
 	'srf_printername_hash' => 'Hash',
 	'srf_paramdesc_hashname' => 'Hvis gitt og HashTables extension er tilgjengelig, vil dette opprette en hashkode med angitt navn',
 	'srf-printername-graph' => 'Graf',
+	'srf-paramdesc-graph-relation' => 'Er subjektene eller navnegenskapene foreldre eller barn?',
+	'srf-paramdesc-graph-nameprop' => 'Tillater å sette en egenskap som vil brukes som subjekt istedenfor det egentlige subjektet',
+	'srf-paramdesc-graph-nodeshape' => 'Formen på hver node i grafen',
+	'srf_paramdesc_graphname' => 'Tittel',
+	'srf_paramdesc_graphsize' => 'Grafstørrelse',
+	'srf_paramdesc_graphlegend' => 'Vis eller skjul graf-beskrivelse',
+	'srf_paramdesc_graphlabel' => 'Graf-etikett',
+	'srf_paramdesc_rankdir' => 'Pilretning',
+	'srf_paramdesc_graphlink' => 'Graf-lenke',
+	'srf_paramdesc_graphcolor' => 'Graf-farge',
+	'srf-paramdesc-graph-wwl' => 'Maksimal linjelengde',
 );
 
 /** Occitan (Occitan)
