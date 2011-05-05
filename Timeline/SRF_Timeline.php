@@ -175,7 +175,7 @@ class SRFTimeline extends SMWResultPrinter {
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) { // Loop over property values
 					$event = $this->handlePropertyValue( 
 						$object, $outputmode, $pr, $first_col, $hastitle, $hastime,
-						$first_value, $isEventline, $curmeta, $curdata, $date_value, $output
+						$first_value, $isEventline, $curmeta, $curdata, $date_value, $output, $positions
 					);
 					if ( $event !== false ) {
 						$events[] = $event;
@@ -236,6 +236,8 @@ class SRFTimeline extends SMWResultPrinter {
 	/**
 	 * Hanldes a single property value. Returns an array with data for a single event or false.
 	 * 
+	 * FIXME: 13 arguments, of which a whole bunch are byref... not a good design :)
+	 * 
 	 * @since 1.5.3
 	 * 
 	 * @param SMWDataValue $object
@@ -250,11 +252,12 @@ class SRFTimeline extends SMWResultPrinter {
 	 * @param string &$curdata
 	 * @param &$date_value
 	 * @param boolean &$output
+	 * @param array &$positions
 	 * 
 	 * @return false or array
 	 */
 	protected function handlePropertyValue( SMWDataValue $object, $outputmode, SMWPrintRequest $pr, $first_col, 
-		&$hastitle, &$hastime, $first_value, $isEventline, &$curmeta, &$curdata, $date_value, &$output ) {
+		&$hastitle, &$hastime, $first_value, $isEventline, &$curmeta, &$curdata, $date_value, &$output, array &$positions ) {
 		
 		$event = false;
 		
