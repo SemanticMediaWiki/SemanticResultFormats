@@ -6,7 +6,7 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 Changes in this version:
 * Cleaned up the graph format.
-* Fixed devision by zero issue (oh shii~) in the tagcloud format.
+* Fixed division by zero issue (oh shii~) in the tagcloud format.
 * Added parameter descriptions to the graph and ploticus formats. 
 * Added support for SMW 1.6 style parameter handling to the tagcloud format.
 
@@ -17,7 +17,7 @@ Released on February 9, 2011.
 Changes in this version:
 * Support for images specified by properties in the gallery format.
 * Fixes to the calendar and jqplot formats.
-* Improvents to the timeline and eventline formats.
+* Improvements to the timeline and eventline formats.
 
 New formats in this version are:
 * tagcloud (written by Jeroen De Dauw)
@@ -29,7 +29,7 @@ Released on January 11 2011.
 Changes in this version:
 * Handling for ResourceLoader in MediaWiki 1.17+ added for
   'timeline', 'eventline', 'jqplotbar' and 'jqplotpie' formats.
-* Visualization improvments for 'process' format.
+* Visualization improvements for 'process' format.
 
 == SRF 1.5.1 ==
 

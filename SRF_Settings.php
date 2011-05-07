@@ -8,7 +8,7 @@
  * @file SRF_Settings.php
  * @ingroup SemanticResultFormats
  * 
- * @author Jeroen De Dauw
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
