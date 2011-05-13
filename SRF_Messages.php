@@ -292,6 +292,8 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_bardirection' => 'Накіраваньне слупкоў дыяграмы',
 	'srf_paramdesc_barnumbersaxislabel' => 'Надпісы для лічбавых восяў',
 	'srf_printername_gallery' => 'Галерэя',
+	'srf_paramdesc_perrow' => 'Колькасьць выяваў у радку',
+	'srf_paramdesc_widths' => 'Шырыня выяваў',
 	'srf_printername_tagcloud' => 'Воблака тэгаў',
 );
 
