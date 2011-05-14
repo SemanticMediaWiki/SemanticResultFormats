@@ -3,6 +3,10 @@
 $magicWords = array();
 
 /** English (English) */
+
+$magicWords = array();
+
+/** English (English) */
 $magicWords['en'] = array(
 	'calendarstartdate' => array( 0, 'calendarstartdate' ),
 	'calendarenddate' => array( 0, 'calendarenddate' ),
@@ -10,8 +14,8 @@ $magicWords['en'] = array(
 
 /** Arabic (العربية) */
 $magicWords['ar'] = array(
-	'calendarstartdate' => array( 0, 'تاريخ_بداية_التقويم', 'calendarstartdate' ),
-	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم', 'calendarenddate' ),
+	'calendarstartdate' => array( 0, 'تاريخ_بداية_التقويم' ),
+	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم' ),
 );
 
 /** Egyptian Spoken Arabic (مصرى) */
@@ -26,10 +30,22 @@ $magicWords['es'] = array(
 	'calendarenddate' => array( 0, 'fechadefindecalendario', 'fechafincalendario', 'calendarenddate' ),
 );
 
+/** French (Français) */
+$magicWords['fr'] = array(
+	'calendarstartdate' => array( 0, 'datedébutcalendrier' ),
+	'calendarenddate' => array( 0, 'datefincalendrier' ),
+);
+
 /** Japanese (日本語) */
 $magicWords['ja'] = array(
 	'calendarstartdate' => array( 0, '暦開始日' ),
 	'calendarenddate' => array( 0, '暦終了日' ),
+);
+
+/** Macedonian (Македонски) */
+$magicWords['mk'] = array(
+	'calendarstartdate' => array( 0, 'почетенкалендарскидатум' ),
+	'calendarenddate' => array( 0, 'краенкалендарскидатум' ),
 );
 
 /** Malayalam (മലയാളം) */
@@ -60,4 +76,10 @@ $magicWords['nl'] = array(
 $magicWords['no'] = array(
 	'calendarstartdate' => array( 0, 'kalenderstartdato', 'calendarstartdate' ),
 	'calendarenddate' => array( 0, 'kalendersluttdato', 'calendarenddate' ),
+);
+
+/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬) */
+$magicWords['sr-ec'] = array(
+	'calendarstartdate' => array( 0, 'почетнидатум', 'почетни_датум' ),
+	'calendarenddate' => array( 0, 'завршнидатум', 'завршни_датум' ),
 );
