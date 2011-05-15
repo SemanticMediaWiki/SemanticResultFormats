@@ -127,16 +127,17 @@ class SRFTagCloud extends SMWResultPrinter {
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
 				while ( ( $obj = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Property values
 					
+					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
+					
 					// If the main object should not be included, skip it.
-					// The isMainObject method was added in SMW 1.5.6, so this can only be done correctly if it's available.
-					if ( $i == 0 && !$this->includeName && method_exists( $obj, 'isMainObject' ) && $obj->isMainObject() ) {
+					if ( $i == 0 && !$this->includeName && $isSubject ) {
 						continue;
 					}
 					
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $obj->getTypeID() == '_wpg' ) {
 						$value = $obj->getTitle()->getText();
-						$html = $obj->getLongText( $outputmode, $this->getLinker( method_exists( $obj, 'isMainObject' ) && $obj->isMainObject() ) );
+						$html = $obj->getLongText( $outputmode, $isSubject );
 					}
 					else {
 						$html = $obj->getShortText( $outputmode, $this->getLinker( false ) );
