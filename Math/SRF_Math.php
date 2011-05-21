@@ -9,15 +9,13 @@
  * @author Nathan Yergler
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 class SRFMath extends SMWResultPrinter {
 
 	public function getName() {
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 
-	public function getResult( $results, $params, $outputmode ) {
+	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
 		$this->readParameters( $params, $outputmode );
 		global $wgLang;
 		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );

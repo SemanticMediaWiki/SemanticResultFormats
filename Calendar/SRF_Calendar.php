@@ -40,7 +40,7 @@ class SRFCalendar extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_calendar' );
 	}
 
-	public function getResult( $results, $params, $outputmode ) {
+	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
 		$this->isHTML = false;
 		$this->hasTemplates = false;
 
