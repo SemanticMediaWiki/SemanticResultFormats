@@ -920,7 +920,10 @@ $messages['gl'] = array(
 	'srf_paramdesc_propsep' => 'Separador entre as propiedades solicitadas',
 	'srf_paramdesc_manysep' => 'Separador entre as propiedades con moitos valores',
 	'srf_paramdesc_recordsep' => 'Separador entre os valores das propiedades de rexistro',
+	'srf_printername_hash' => 'Hash',
 	'srf-printername-graph' => 'Gráfica',
+	'srf-paramdesc-graph-nameprop' => 'Permite definir unha propiedade que se usará como asunto no canto do asunto real',
+	'srf-paramdesc-graph-nodeshape' => 'A forma de cada nodo na gráfica',
 	'srf_paramdesc_graphname' => 'Título',
 	'srf_paramdesc_graphsize' => 'Tamaño da gráfica (en px)',
 	'srf_paramdesc_graphlegend' => 'Mostrar ou non a lenga da gráfica',
@@ -928,6 +931,7 @@ $messages['gl'] = array(
 	'srf_paramdesc_rankdir' => 'Dirección da frecha',
 	'srf_paramdesc_graphlink' => 'Ligazón da gráfica',
 	'srf_paramdesc_graphcolor' => 'Cor da gráfica',
+	'srf-paramdesc-graph-wwl' => 'Axuste automático de liña (en número de caracteres)',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
