@@ -137,7 +137,7 @@ class SRFTagCloud extends SMWResultPrinter {
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $obj->getTypeID() == '_wpg' ) {
 						$value = $obj->getTitle()->getText();
-						$html = $obj->getLongText( $outputmode, $isSubject );
+						$html = $obj->getLongText( $outputmode, $this->getLinker( $isSubject ) );
 					}
 					else {
 						$html = $obj->getShortText( $outputmode, $this->getLinker( false ) );
