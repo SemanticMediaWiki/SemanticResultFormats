@@ -275,8 +275,8 @@ class SRFHash extends SRFArray {
 		parent::readParameters( $params, $outputmode );
 		$this->mDeliverPageTitle = true;
 	}
-	protected function deliverPageTitle( $value ) {
-		$this->mLastPageTitle = $this->deliverSingleValue( $value, false ); //remember the page title
+	protected function deliverPageTitle( $value, $link = false ) {
+		$this->mLastPageTitle = $this->deliverSingleValue( $value, $link ); //remember the page title
 		return null; //don't add page title into property list
 	}
 	protected function deliverPageProperties( $perProperty_items ) {
