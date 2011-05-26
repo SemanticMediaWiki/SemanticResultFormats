@@ -115,6 +115,7 @@ $messages['en'] = array(
 );
 
 /** Message documentation (Message documentation)
+ * @author EugeneZelenko
  * @author Purodha
  * @author Raymond
  * @author Siebrand
@@ -129,6 +130,7 @@ $messages['qqq'] = array(
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
 	'srf_paramdesc_timelinebands' => 'Available bands are DECADE, YEAR, MONTH, WEEK, and DAY. For details see http://semantic-mediawiki.org/wiki/Help:Timeline_format',
+	'srf_paramdesc_graphname' => '{{Identical|Title}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -295,6 +297,8 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_perrow' => 'Колькасьць выяваў у радку',
 	'srf_paramdesc_widths' => 'Шырыня выяваў',
 	'srf_printername_tagcloud' => 'Воблака тэгаў',
+	'srf_paramdesc_graphname' => 'Назва',
+	'srf_paramdesc_graphsize' => 'Памер дыяграмы (у піксэлях)',
 );
 
 /** Bulgarian (Български)
