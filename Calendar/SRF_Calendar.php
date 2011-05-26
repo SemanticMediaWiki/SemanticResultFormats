@@ -55,7 +55,7 @@ class SRFCalendar extends SMWResultPrinter {
 	 * 
 	 * TODO: split up megamoth 
 	 */
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgUser;
 		$skin = $wgUser->getSkin();
 

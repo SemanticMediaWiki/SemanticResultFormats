@@ -178,7 +178,7 @@ class SRFOutline extends SMWResultPrinter {
 		return $text;
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$print_fields = array();
 		foreach ( $res->getPrintRequests() as $pr ) {
 			$field_name = $pr->getText( $outputmode, $this->mLinker );

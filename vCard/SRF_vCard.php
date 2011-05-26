@@ -36,7 +36,7 @@ class SRFvCard extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_vcard' );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgSitename;
 		$result = '';
 		$items = array();

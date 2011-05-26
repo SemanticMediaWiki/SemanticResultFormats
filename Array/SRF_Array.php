@@ -115,7 +115,7 @@ class SRFArray extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		/*
 		 * @ToDo:
 		 * labels of requested properties could define default values. Seems not possible at the moment because

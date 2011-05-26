@@ -135,7 +135,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgOut, $wgParser;
 
 		$wgParser->disableCache();

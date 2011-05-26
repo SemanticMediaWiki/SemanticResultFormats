@@ -161,7 +161,7 @@ class SRFProcess extends SMWResultPrinter {
 	 *  @returns				String, rendered HTML output of this printer for the ask-query
 	 *
 	 */
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgContLang; // content language object
 
 		//

@@ -106,7 +106,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$this->maxSize = $params['maxsize'];
 	}
 
-	public function getResultText( /* SMWQueryResult */ $results, $outputmode ) {
+	public function getResultText( SMWQueryResult $results, $outputmode ) {
 		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
 	}
 	

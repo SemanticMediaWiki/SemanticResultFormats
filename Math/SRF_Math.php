@@ -21,7 +21,7 @@ class SRFMath extends SMWResultPrinter {
 		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		// initialize all necessary variables
 		$sum = 0;
 		$count = 0;

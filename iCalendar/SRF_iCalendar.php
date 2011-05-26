@@ -56,7 +56,7 @@ class SRFiCalendar extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_icalendar' );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		return $outputmode == SMW_OUTPUT_FILE ? $this->getIcal( $res ) : $this->getIcalLink( $res, $outputmode );
 	}
 	

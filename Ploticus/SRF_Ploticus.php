@@ -86,7 +86,7 @@ class SRFPloticus extends SMWResultPrinter {
 		}
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $smwgIQRunningNumber, $wgUploadDirectory, $wgUploadPath, $wgTitle, $wgScriptPath, $srfgPloticusPath, $srfgEnvSettings;
 
 		$this->isHTML = true;

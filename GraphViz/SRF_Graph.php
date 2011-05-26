@@ -105,7 +105,7 @@ class SRFGraph extends SMWResultPrinter {
 		}
 	}
 	
-	protected function getResultText( /* SMWQueryResult */ $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgGraphVizSettings;
 		$wgGraphVizSettings = new GraphVizSettings;
 		$this->isHTML = true;

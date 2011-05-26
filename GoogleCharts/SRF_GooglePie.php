@@ -29,7 +29,7 @@ class SRFGooglePie extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_googlepie' );
 	}
 
-	protected function getResultText( $res, $outputmode ) {
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$this->isHTML = true;
 
 		$t = "";
