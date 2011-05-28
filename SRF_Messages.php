@@ -840,6 +840,7 @@ $messages['fr'] = array(
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
+	'srf-name' => 'Formatâjo des rèsultats sèmanticos',
 	'srfc_previousmonth' => 'Mês devant',
 	'srfc_nextmonth' => 'Mês aprés',
 	'srfc_today' => 'Houé',
@@ -856,7 +857,33 @@ $messages['frp'] = array(
 	'srf_printername_average' => 'Moyena des nombros',
 	'srf_printername_timeline' => 'Diagramo cronologico',
 	'srf_printername_eventline' => 'Diagramo cronologico des èvènements',
+	'srf_printername_googlebar' => 'Diagramo en bârres de Google',
+	'srf_printername_googlepie' => 'Diagramo en torta de Google',
+	'srf_printername_jqplotbar' => 'Diagramo en bârres jqPlot',
+	'srf_printername_jqplotpie' => 'Diagramo en torta jqPlot',
+	'srf_paramdesc_chartheight' => 'La hôtior du diagramo, en pixèls',
+	'srf_paramdesc_chartwidth' => 'La largior du diagramo, en pixèls',
+	'srf_paramdesc_charttitle' => 'Lo titro du diagramo',
+	'srf_paramdesc_barcolor' => 'La color de les bârres',
+	'srf_paramdesc_bardirection' => 'La dirèccion du diagramo en bârres',
+	'srf_paramdesc_barnumbersaxislabel' => 'Lo lambél por l’axo numerico',
 	'srf_printername_gallery' => 'Galerie',
+	'srf_paramdesc_perrow' => 'Lo nombro d’émâges per legne',
+	'srf_paramdesc_widths' => 'La largior de les émâges',
+	'srf_paramdesc_heights' => 'La hôtior de les émâges',
+	'srf_printername_tagcloud' => 'Niola de tags',
+	'srf_paramdesc_tagorder' => 'L’ôrdre des tags',
+	'srf_printername_array' => 'Tablô',
+	'srf_printername_hash' => 'Chaplâjo',
+	'srf-printername-graph' => 'Diagramo',
+	'srf_paramdesc_graphname' => 'Titro',
+	'srf_paramdesc_graphsize' => 'Talye du diagramo (en px)',
+	'srf_paramdesc_graphlegend' => 'Fâre vêre la lègenda du diagramo ou ben pas',
+	'srf_paramdesc_graphlabel' => 'Lambél du diagramo',
+	'srf_paramdesc_rankdir' => 'Dirèccion de la flèche',
+	'srf_paramdesc_graphlink' => 'Lim de vers lo diagramo',
+	'srf_paramdesc_graphcolor' => 'Color du diagramo',
+	'srf-paramdesc-graph-wwl' => 'Limita de retôrn ôtomatico (en nombro de caractèros)',
 );
 
 /** Galician (Galego)
