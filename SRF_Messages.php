@@ -1640,6 +1640,7 @@ $messages['lb'] = array(
 	'srf_paramdesc_widths' => "D'Breet vun de Biller",
 	'srf_paramdesc_heights' => "D'Héicht vun de Biller",
 	'srf_paramdesc_autocaptions' => 'Den NUmm vum Fichier als Beschreiwung benotzen, wa keng ugi gouf',
+	'srf_printername_array' => 'Tabell',
 	'srf_paramdesc_graphname' => 'Titel',
 );
 
