@@ -14,6 +14,7 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class SRFGraph extends SMWResultPrinter {
+	
 	public static $NODE_SHAPES = array(
 		'box',
 		'box3d',
@@ -107,7 +108,6 @@ class SRFGraph extends SMWResultPrinter {
 	
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgGraphVizSettings;
-		$wgGraphVizSettings = new GraphVizSettings;
 		$this->isHTML = true;
 
 		$graphInput = "digraph $this->m_graphName {";
