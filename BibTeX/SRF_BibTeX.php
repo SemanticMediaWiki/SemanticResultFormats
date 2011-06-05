@@ -56,247 +56,141 @@ class SRFBibTeX extends SMWResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgSitename;
 		$result = '';
-		$items = array();
+		
 		if ( $outputmode == SMW_OUTPUT_FILE ) { // make file
 			if ( $this->m_title == '' ) {
 				$this->m_title = $wgSitename;
 			}
-			$row = $res->getNext();
-			while ( $row !== false ) {
-				$type = '';
-				$address = '';
-				$annote = '';
-				$author = '';
-				$booktitle = '';
-				$chapter = '';
-				$crossref = '';
-				$doi = '';
-				$edition = '';
-				$editor = '';
-				$eprint = '';
-				$howpublished = '';
-				$institution = '';
-				$journal = '';
-				$key = '';
-				$month = '';
-				$note = '';
-				$number = '';
-				$organization = '';
-				$pages = '';
-				$publisher = '';
-				$school = '';
-				$series = '';
-				$title = '';
-				$type = '';
-				$url = '';
-				$volume = '';
-				$year = '';
-
-				foreach ( $row as $field ) {
-					$req = $field->getPrintRequest();
-
-					if ( ( strtolower( $req->getLabel() ) == "type" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$type = $value->getShortWikiText();
-						}
-					}
-
-
-					if ( ( strtolower( $req->getLabel() ) == "address" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$address = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "annote" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$annote = $value->getShortWikiText();
-						}
-					}
-					/* for flexibility, we permit 'author' or 'authors' */
-					if ( ( strtolower( $req->getLabel() ) == "author" ) || ( strtolower( $req->getLabel() ) == "authors" )  ) {
-						foreach ( $field->getContent() as $value ) {
-							$author .= ( $author ? ' and ':'' ) . $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "booktitle" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$booktitle = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "chapter" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$chapter = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "crossref" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$crossref = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "doi" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$doi = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "edition" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$edition = $value->getShortWikiText();
-						}
-					}
-					/* for flexibility, we permit 'editor' or 'editors' */
-					if ( ( strtolower( $req->getLabel() ) == "editor" ) || ( strtolower( $req->getLabel() ) == "editors" ) ) {
-						foreach ( $field->getContent() as $value ) {
-							$editor .= ( $editor ? ' and ':'' ) . $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "eprint" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$eprint = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "howpublished" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$howpublished = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "institution" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$institution = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "journal" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$journal = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "key" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$key = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "note" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$note = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "number" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$number = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "organization" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$organization = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "pages" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$pages = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "publisher" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$publisher = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "school" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$school = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "series" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$series = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "title" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$title = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "url" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$url = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "volume" ) || ( strtolower( $req->getLabel() ) == "journal_volume" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$volume = $value->getShortWikiText();
-						}
-					}
-
-
-
-					/*if we input a full date for the "month" and "year" BibTeX attributes, extract the month and year*/
-					if ( ( strtolower( $req->getLabel() ) == "date" ) ) {
-						$value = current( $field->getContent() );
-						if ( get_class( $value ) == 'SMWTimeValue' ) {
-							if ( $value !== false ) {
-							$year = $value->getYear();
-							$month = $value->getMonth();
-							}
-						}
-					}
-
-					if ( ( strtolower( $req->getLabel() ) == "year" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$year = $value->getShortWikiText();
-						}
-					}
-					if ( ( strtolower( $req->getLabel() ) == "month" ) ) {
-						$value = current( $field->getContent() );
-						if ( $value !== false ) {
-						$month = $value->getShortWikiText();
-						}
-					}
-
-
-				}
-				$items[] = new SMWBibTeXEntry( $type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year );
-				$row = $res->getNext();
+			
+			$items = array();
+			
+			while ( $row = $res->getNext() ) {
+				$items[] = $this->getItemForResultRow( $row )->text();
 			}
-			foreach ( $items as $item ) {
-				$result .= $item->text();
-			}
+			
+			$result = implode( '', $items );
 		} else { // just make link to export
 			if ( $this->getSearchLabel( $outputmode ) ) {
 				$label = $this->getSearchLabel( $outputmode );
 			} else {
 				$label = wfMsgForContent( 'srf_bibtex_link' );
 			}
+			
 			$link = $res->getQueryLink( $label );
 			$link->setParameter( 'bibtex', 'format' );
+			
 			if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
 				$link->setParameter( $this->getSearchLabel( SMW_OUTPUT_WIKI ), 'searchlabel' );
 			}
+			
 			$result .= $link->getText( $outputmode, $this->mLinker );
 			$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
 		}
+		
 		return $result;
+	}
+	
+	/**
+	 * Gets a SMWBibTeXEntry for the row.
+	 * 
+	 * @since 1.6
+	 * 
+	 * @param array of SMWResultArray $row
+	 * 
+	 * @return SMWBibTeXEntry
+	 */
+	protected function getItemForResultRow( array /* of SMWResultArray */ $row ) {
+		$type = '';
+		$address = '';
+		$annote = '';
+		$author = '';
+		$booktitle = '';
+		$chapter = '';
+		$crossref = '';
+		$doi = '';
+		$edition = '';
+		$editor = '';
+		$eprint = '';
+		$howpublished = '';
+		$institution = '';
+		$journal = '';
+		$key = '';
+		$month = '';
+		$note = '';
+		$number = '';
+		$organization = '';
+		$pages = '';
+		$publisher = '';
+		$school = '';
+		$series = '';
+		$title = '';
+		$type = '';
+		$url = '';
+		$volume = '';
+		$year = '';
+		
+		$var = false;
+
+		foreach ( $row as /* SMWResultArray */ $field ) {
+			$req = $field->getPrintRequest();
+			$label = strtolower( $req->getLabel() );
+			
+			switch ( $label ) {
+				case 'type': $var =& $type; break;
+				case 'address': $var =& $address; break;
+				case 'annote': $var =& $annote; break;
+				case 'booktitle': $var =& $booktitle; break;
+				case 'chapter': $var =& $chapter; break;
+				case 'crossref': $var =& $crossref; break;
+				case 'doi': $var =& $doi; break;
+				case 'edition': $var =& $edition; break;
+				case 'eprint': $var =& $eprint; break;
+				case 'howpublished': $var =& $howpublished; break;
+				case 'institution': $var =& $institution; break;
+				case 'journal': $var =& $journal; break;
+				case 'key': $var =& $key; break;
+				case 'note': $var =& $note; break;
+				case 'number': $var =& $number; break;
+				case 'organization': $var =& $organization; break;
+				case 'pages': $var =& $pages; break;
+				case 'publisher': $var =& $publisher; break;
+				case 'school': $var =& $school; break;
+				case 'series': $var =& $series; break;
+				case 'title': $var =& $title; break;
+				case 'url': $var =& $url; break;
+				case 'year': $var =& $year; break;
+				case 'month': $var =& $month; break;
+				case 'volume': case 'journal_volume': $var =& $volume; break;
+			}
+			
+			if ( $var !== false ) {
+				$var = efSRFGetNextDV( $field )->getShortWikiText();
+			}
+			else {
+				switch ( $label ) {
+					case 'author': case 'authors': case 'editor' : case 'editors':
+						$wikiTexts = array();
+						while ( ( /* SMWDataValue */ $dataValue = efSRFGetNextDV( $field ) ) !== false ) {
+							$wikiTexts[] = $dataValue->getShortWikiText();
+						}
+						$var =& $label == 'author' || $label == 'authors' ? $author : $editor;
+						$var = $GLOBALS['wgLang']->listToText( $wikiTexts );
+						break;
+					case 'date':
+						$value = efSRFGetNextDV( $field );
+						
+						if ( get_class( $value ) == 'SMWTimeValue' ) {
+							if ( $value !== false ) {
+								$year = $value->getYear();
+								$month = $value->getMonth();
+							}
+						}
+						break;
+				}
+			}
+		}
+
+		return new SMWBibTeXEntry( $type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year );
 	}
 
 	public function getParameters() {
