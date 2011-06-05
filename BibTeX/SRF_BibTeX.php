@@ -164,7 +164,11 @@ class SRFBibTeX extends SMWResultPrinter {
 			}
 			
 			if ( $var !== false ) {
-				$var = efSRFGetNextDV( $field )->getShortWikiText();
+				$dataValue = efSRFGetNextDV( $field );
+				
+				if ( $dataValue !== false ) {
+					$var = $dataValue->getShortWikiText();
+				}
 			}
 			else {
 				switch ( $label ) {
@@ -177,13 +181,11 @@ class SRFBibTeX extends SMWResultPrinter {
 						$var = $GLOBALS['wgLang']->listToText( $wikiTexts );
 						break;
 					case 'date':
-						$value = efSRFGetNextDV( $field );
+						$dataValue = efSRFGetNextDV( $field );
 						
-						if ( get_class( $value ) == 'SMWTimeValue' ) {
-							if ( $value !== false ) {
-								$year = $value->getYear();
-								$month = $value->getMonth();
-							}
+						if ( $dataValue !== false && get_class( $dataValue ) == 'SMWTimeValue' ) {
+							$year = $dataValue->getYear();
+							$month = $dataValue->getMonth();
 						}
 						break;
 				}
