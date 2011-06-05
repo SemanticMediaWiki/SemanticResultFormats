@@ -129,11 +129,10 @@ class SRFBibTeX extends SMWResultPrinter {
 		$volume = '';
 		$year = '';
 		
-		$var = false;
-
 		foreach ( $row as /* SMWResultArray */ $field ) {
 			$req = $field->getPrintRequest();
 			$label = strtolower( $req->getLabel() );
+			$var = false;
 			
 			switch ( $label ) {
 				case 'type': $var =& $type; break;
@@ -169,6 +168,8 @@ class SRFBibTeX extends SMWResultPrinter {
 				if ( $dataValue !== false ) {
 					$var = $dataValue->getShortWikiText();
 				}
+				
+				unset( $var );
 			}
 			else {
 				switch ( $label ) {
@@ -177,8 +178,14 @@ class SRFBibTeX extends SMWResultPrinter {
 						while ( ( /* SMWDataValue */ $dataValue = efSRFGetNextDV( $field ) ) !== false ) {
 							$wikiTexts[] = $dataValue->getShortWikiText();
 						}
-						$var =& $label == 'author' || $label == 'authors' ? $author : $editor;
-						$var = $GLOBALS['wgLang']->listToText( $wikiTexts );
+						$wikiText = $GLOBALS['wgLang']->listToText( $wikiTexts );
+						
+						if ( $label == 'author' || $label == 'authors' ) {
+							$author = $wikiText;
+						}
+						else {
+							$author = $editor;
+						}
 						break;
 					case 'date':
 						$dataValue = efSRFGetNextDV( $field );
@@ -252,17 +259,23 @@ class SMWBibTeXEntry {
 		// generating the URI: author last name + year + first letters of title
 		$URI = '';
 		if ( $author ) {
-			$arrayAuthor = explode( ' ', $author );
-			if ( array_key_exists( 1, $arrayAuthor ) ) $URI .= $arrayAuthor[1];
+			$authors = explode( ',', $author );
+			$authors = explode( wfMsg( 'and' ), $authors[0] );
+			$arrayAuthor = explode( ' ', $authors[0], 2 );
+			$URI .= str_replace( ' ', '', $arrayAuthor[array_key_exists( 1, $arrayAuthor ) ? 1 : 0] );
 		}
-		if ( $year ) $URI .= $year;
+		
+		if ( $year ) {
+			$URI .= $year;
+		}
+		
 		if ( $title ) {
-			$arrayTitle = explode( ' ', $title );
-			foreach ( $arrayTitle as $titleWord ) {
-						$charsTitleWord = preg_split( '//', $titleWord, - 1, PREG_SPLIT_NO_EMPTY );
-						$URI .= $charsTitleWord[0];
-					}
+			foreach ( explode( ' ', $title ) as $titleWord ) {
+				$charsTitleWord = preg_split( '//', $titleWord, - 1, PREG_SPLIT_NO_EMPTY );
+				$URI .= $charsTitleWord[0];
+			}
 		}
+		
 		$this->URI = strtolower( $URI );
 	}
 
@@ -272,9 +285,11 @@ class SMWBibTeXEntry {
 	 */
 	public function text() {
 		$text  = '@' . $this->bibTeXtype . '{' . $this->URI . ",\r\n";
+		
 		foreach ( $this->fields as $key => $value ) {
 			$text .= '  ' . $key . ' = "' . $value . '", ' . "\r\n";
 		}
+		
 		$text .= "}\r\n\r\n";
 
 		return $text;
