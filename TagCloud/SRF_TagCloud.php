@@ -124,8 +124,8 @@ class SRFTagCloud extends SMWResultPrinter {
 		$tags = array();
 		
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
-			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
-				while ( ( $obj = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Property values
+			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property 
+				while ( ( /* SMWDataValue */ $dataValue = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Data values
 					
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
 					
@@ -135,12 +135,12 @@ class SRFTagCloud extends SMWResultPrinter {
 					}
 					
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
-					if ( $obj->getTypeID() == '_wpg' ) {
-						$value = $obj->getTitle()->getText();
-						$html = $obj->getLongText( $outputmode, $this->getLinker( $isSubject ) );
+					if ( $dataValue->getTypeID() == '_wpg' ) {
+						$value = $dataValue->getTitle()->getText();
+						$html = $dataValue->getLongText( $outputmode, $this->getLinker( $isSubject ) );
 					}
 					else {
-						$html = $obj->getShortText( $outputmode, $this->getLinker( false ) );
+						$html = $dataValue->getShortText( $outputmode, $this->getLinker( false ) );
 						$value = $html;
 					}
 
