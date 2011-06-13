@@ -30,6 +30,7 @@ class SRFMath extends SMWResultPrinter {
 
 		while ( $row = $res->getNext() ) {
 			$last_col = array_pop( $row );
+			
 			foreach ( $last_col->getContent() as $value ) {
 				// handle each value only if it's of type Number or NAry
 				if ( $value instanceof SMWNumberValue ) {
@@ -45,6 +46,7 @@ class SRFMath extends SMWResultPrinter {
 					// type Number, and use that; if none
 					// are found, ignore this row
 					$num = null;
+					
 					foreach ( $inner_values as $inner_value ) {
 						if ( $inner_value instanceof SMWNumberValue ) {
 							if ( method_exists( $inner_value, 'getValueKey' ) ) {
@@ -56,12 +58,17 @@ class SRFMath extends SMWResultPrinter {
 							break;
 						}
 					}
-					if ( is_null( $num ) )
+					
+					if ( is_null( $num ) ) {
 						continue;
+					}
+						
 				} else {
 					continue;
 				}
+				
 				$count++;
+				
 				if ( $this->mFormat == 'sum' || $this->mFormat == 'average' ) {
 					$sum += $num;
 				} elseif ( $this->mFormat == 'min' ) {
@@ -93,9 +100,9 @@ class SRFMath extends SMWResultPrinter {
 		return $result;
 	}
 
-        public function getParameters() {
-                return array(
-                        array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_limit' ) ),
+	public function getParameters() {
+		return array(
+			array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_limit' ) ),
 		);
 	}
 

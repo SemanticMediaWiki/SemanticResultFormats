@@ -99,8 +99,11 @@ class SRFTimeline extends SMWResultPrinter {
 		// no further results displayed ...
 
 		// print footer
-		$result .= "</div>";
-		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
+		$result .= '</div>';
+		
+		// yes, our code can be viewed as HTML if requested, no more parsing needed
+		$this->isHTML = $outputmode == SMW_OUTPUT_HTML;
+		
 		return $result;
 	}	
 	
@@ -177,13 +180,18 @@ class SRFTimeline extends SMWResultPrinter {
 						$object, $outputmode, $pr, $first_col, $hastitle, $hastime,
 						$first_value, $isEventline, $curmeta, $curdata, $date_value, $output, $positions
 					);
+					
 					if ( $event !== false ) {
 						$events[] = $event;
 					}
+					
 					$first_value = false;
 				}
 				
-				if ( $output ) $curdata .= '<br />';
+				if ( $output ) {
+					$curdata .= '<br />';
+				}
+				
 				$output = false;
 				$first_col = false;
 			}
