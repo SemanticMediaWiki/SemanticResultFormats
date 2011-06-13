@@ -146,25 +146,33 @@ class SRFjqPlotBar extends SMWResultPrinter {
 
 		$numbers = array();
 		$labels = array();
+		
 		// print all result rows
 		$count = 0;
 		$max_number = 0;
 		$min_number = 0;
+		
 		while ( $row = $res->getNext() ) {
 			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
 			$name = str_replace( "'", "\'", $name );
+			
 			foreach ( $row as $field ) {
-					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
-					if ( $object->isNumeric() ) { // use numeric sortkey
-						if ( method_exists( $object, 'getValueKey' ) ) {
-							$nr = $object->getValueKey();
+				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+					// use numeric sortkey
+					if ( $object->isNumeric() ) {
+						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+						if ( method_exists( $object, 'getDataItem' ) ) {
+							$object->getDataItem()->getSortKey();
 						} else {
-							$nr = $object->getNumericValue();
+							$nr = $object->getValueKey();
 						}
+						
 						$count++;
+						
 						if ( $nr > $max_number ) {
 							$max_number = $nr;
 						}
+						
 						if ( $nr < $min_number ) {
 							$min_number = $nr;
 						}
@@ -179,21 +187,26 @@ class SRFjqPlotBar extends SMWResultPrinter {
 				}
 			}
 		}
+		
 		$barID = 'bar' . self::$m_barchartnum;
 		self::$m_barchartnum++;
 		
 		$labels_str = implode( ', ', $labels );
 		$numbers_str = implode( ', ', $numbers );
-		$labels_axis ="xaxis";
-		$numbers_axis = "yaxis";
+		
+		$labels_axis = 'xaxis';
+		$numbers_axis = 'yaxis';
+		
 		$angle_val = -40;
 		$barmargin = 6;
+		
 		if ( $this->m_bardirection == 'horizontal' ) {
-			$labels_axis ="yaxis";
-			$numbers_axis ="xaxis";
+			$labels_axis = 'yaxis';
+			$numbers_axis = 'xaxis';
 			$angle_val = 0;
 			$barmargin = 8 ;
 		}
+		
 		$barwidth = 20; // width of each bar
 		$bardistance = 4; // distance between two bars
 
@@ -218,6 +231,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 			$multipleOf10 = pow( 10, floor( log( $max_number, 10 ) ) );
 			$maxAxis = ceil( $max_number / $multipleOf10 ) * $multipleOf10;
 		}
+		
 		if ( $min_number == 0 ) {
 			$negativeMultipleOf10 = 0;
 			$minAxis = 0;
@@ -225,12 +239,14 @@ class SRFjqPlotBar extends SMWResultPrinter {
 			$negativeMultipleOf10 = -1 * pow( 10, floor( log( -1 * $min_number, 10 ) ) );
 			$minAxis = ceil( $min_number / $negativeMultipleOf10 ) * $negativeMultipleOf10;
 		}
+		
 		$numbers_ticks = '';
 		$biggerMultipleOf10 = max( $multipleOf10, -1 * $negativeMultipleOf10 );
 		$lowestTick = floor( $minAxis / $biggerMultipleOf10 + .001 );
 		$highestTick = ceil( $maxAxis / $biggerMultipleOf10 - .001 );
+		
 		for ( $i = $lowestTick; $i <= $highestTick; $i++ ) {
-			$numbers_ticks .= ($i * $biggerMultipleOf10) . ", ";
+			$numbers_ticks .= ($i * $biggerMultipleOf10) . ', ';
 		}
 
 		$js_bar =<<<END
@@ -288,4 +304,5 @@ END;
 			array( 'name' => 'width', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartwidth' ) ),
 		);
 	}
+	
 }
