@@ -119,21 +119,27 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		while ( $row = $res->getNext() ) {
 			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
 			$name = str_replace( "'", "\'", $name );
+			
 			foreach ( $row as $field ) {
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
-						if ( method_exists( $object, 'getValueKey' ) ) {
-							$nr = $object->getValueKey();
+						
+						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+						if ( method_exists( $object, 'getDataItem' ) ) {
+							$nr = $object->getDataItem()->getSortKey();
 						} else {
-							$nr = $object->getNumericValue();
+							$nr = $object->getValueKey();
 						}
+						
 						$pie_data[] .= "['$name', $nr]";
 					}
 				}
 			}
 		}
+		
 		$pie_data_str = "[[" . implode( ', ', $pie_data ) . "]]";
 		$pieID = 'pie' . self::$m_piechartnum;
+		
 		self::$m_piechartnum++;
 
 		$js_pie =<<<END
