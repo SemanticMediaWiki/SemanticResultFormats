@@ -61,15 +61,22 @@ class SRFTimeline extends SMWResultPrinter {
 		
 		$this->includeJS();
 
-		$isEventline =  ( 'eventline' == $this->mFormat );
+		$isEventline = 'eventline' == $this->mFormat;
 
 		if ( !$isEventline && ( $this->m_tlstart == '' ) ) { // seek defaults
 			foreach ( $res->getPrintRequests() as $pr ) {
 				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) ) {
-					if ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
-						$date_value = $pr->getData()->getValueKey();
-					} else {
-						$date_value = $pr->getData()->getXSDValue();
+					$dataValue = $pr->getData();
+					
+					// SMW >= 1.6
+					if ( method_exists ( $dataValue, 'getDataItem' ) ) {
+						$date_value = $dataValue->getDataItem()->getLabel();
+					} // SMW 1.5.x
+					elseif ( method_exists ( $dataValue, 'getValueKey' ) ) {
+						$date_value = $dataValue->getValueKey();
+					} // SMW < 1.5
+					else {
+						$date_value = $dataValue->getXSDValue();
 					}
 					
 					if ( ( $this->m_tlend == '' ) && ( $this->m_tlstart != '' ) &&
@@ -166,13 +173,19 @@ class SRFTimeline extends SMWResultPrinter {
 			foreach ( $row as $field ) { // Loop over the returned properties
 				$first_value = true;
 				$pr = $field->getPrintRequest();
+				$dataValue = $pr->getData();
 				
-				if ( $pr->getData() == '' ) {
+				if ( $dataValue == '' ) {
 					$date_value = null;
-				} elseif ( method_exists ( $pr->getData(), 'getValueKey' ) ) {
-					$date_value = $pr->getData()->getValueKey();
-				} else {
-					$date_value = $pr->getData()->getXSDValue();
+				} // SMW >= 1.6
+				elseif ( method_exists ( $dataValue, 'getDataItem' ) ) {
+					$date_value = $dataValue->getDataItem()->getLabel();
+				} // SMW 1.5.x
+				elseif ( method_exists ( $dataValue, 'getValueKey' ) ) {
+					$date_value = $dataValue->getValueKey();
+				} // SMW < 1.5
+				else {
+					$date_value = $dataValue->getXSDValue();
 				}
 				
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) { // Loop over property values
@@ -343,20 +356,22 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 		
 		if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
-			if ( method_exists( $object, 'getValueKey' ) ) {
-				$event = array(
-					$object->getXMLSchemaDate(),
-					$pr->getLabel(),
-					$object->getValueKey()
-				);
-			}
+			// SMW >= 1.6
+			if ( method_exists ( $object, 'getDataItem' ) ) {
+				$numericValue = $object->getDataItem()->getForCalendarModel( SMWDITime::CM_GREGORIAN );
+			} // SMW 1.5.x
+			elseif ( method_exists ( $object, 'getValueKey' ) ) {
+				$numericValue = $object->getValueKey();
+			} // SMW < 1.5
 			else {
-				$event = array(
-					$object->getXMLSchemaDate(),
-					$pr->getLabel(),
-					$object->getNumericValue()
-				);
-			}
+				$numericValue = $object->getNumericValue();
+			}			
+			
+			$event = array(
+				$object->getXMLSchemaDate(),
+				$pr->getLabel(),
+				$numericValue
+			);
 		}
 
 		return $event;
