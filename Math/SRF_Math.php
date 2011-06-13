@@ -29,16 +29,16 @@ class SRFMath extends SMWResultPrinter {
 		$max = '';
 
 		while ( $row = $res->getNext() ) {
-			$last_col = array_pop( $row );
+			/* SMWResultArray */ $last_col = array_pop( $row );
 			
-			foreach ( $last_col->getContent() as $value ) {
+			while ( ( $value = efSRFGetNextDV( $last_col ) ) !== false ) {
 				// handle each value only if it's of type Number or NAry
 				if ( $value instanceof SMWNumberValue ) {
-					if ( method_exists( $value, 'getValueKey' ) ) {
+					// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+					if ( method_exists( $value, 'getDataItem' ) ) {
+						$num = $value->getDataItem()->getNumber();
+					} else {
 						$num = $value->getValueKey();
-					}
-					else {
-						$num = $value->getNumericValue();
 					}
 				} elseif ( $value instanceof SMWNAryValue ) {
 					$inner_values = $value->getDVs();
@@ -49,11 +49,11 @@ class SRFMath extends SMWResultPrinter {
 					
 					foreach ( $inner_values as $inner_value ) {
 						if ( $inner_value instanceof SMWNumberValue ) {
-							if ( method_exists( $inner_value, 'getValueKey' ) ) {
+							// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+							if ( method_exists( $inner_value, 'getDataItem' ) ) {
+								$num = $inner_value->getDataItem()->getNumber();
+							} else {
 								$num = $inner_value->getValueKey();
-							}
-							else {
-								$num = $inner_value->getNumericValue();
 							}
 							break;
 						}
