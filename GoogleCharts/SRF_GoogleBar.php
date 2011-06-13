@@ -36,16 +36,19 @@ class SRFGoogleBar extends SMWResultPrinter {
 		$first = true;
 		$count = 0; // How many bars will they be? Needed to calculate the height of the image
 		$max = 0; // the biggest value. needed for scaling
+		
 		while ( $row = $res->getNext() ) {
 			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
 			foreach ( $row as $field ) {
-					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
-					if ( $object->isNumeric() ) { // use numeric sortkey
-						if ( method_exists( $object, 'getValueKey' ) ) {
+				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+					
+					// use numeric sortkey
+					if ( $object->isNumeric() ) {
+						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+						if ( method_exists( $object, 'getDataItem' ) ) {
+							$nr = $object->getDataItem()->getSortKey();
+						} else {
 							$nr = $object->getValueKey();
-						}
-						else {
-							$nr = $object->getNumericValue();
 						}
 
 						$count++;
@@ -63,9 +66,11 @@ class SRFGoogleBar extends SMWResultPrinter {
 				}
 			}
 		}
+		
 		$barwidth = 20; // width of each bar
 		$bardistance = 4; // distance between two bars
 		$height = $count * ( $barwidth + $bardistance ) + 15; // calculates the height of the image
+		
 		return 	'<img src="http://chart.apis.google.com/chart?cht=bhs&chbh=' . $barwidth . ',' . $bardistance . '&chs=' . $this->m_width . 'x' . $height . '&chds=0,' . $max . '&chd=t:' . $t . '&chxt=y&chxl=0:|' . $n . '" width="' . $this->m_width . '" height="' . $height . '" />';
 
 	}

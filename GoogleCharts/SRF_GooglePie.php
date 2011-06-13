@@ -41,18 +41,23 @@ class SRFGooglePie extends SMWResultPrinter {
 		// print all result rows
 		$first = true;
 		$max = 0; // the biggest value. needed for scaling
+		
 		while ( $row = $res->getNext() ) {
 			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
+			
 			foreach ( $row as $field ) {
-					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
-					if ( $object->isNumeric() ) { // use numeric sortkey
-						if ( method_exists( $object, 'getValueKey' ) ) {
+				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+					// use numeric sortkey
+					if ( $object->isNumeric() ) {
+						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+						if ( method_exists( $object, 'getDataItem' ) ) {
+							$nr = $object->getDataItem()->getSortKey();
+						} else {
 							$nr = $object->getValueKey();
 						}
-						else {
-							$nr = $object->getNumericValue();
-						}
+						
 						$max = max( $max, $nr );
+						
 						if ( $first ) {
 							$first = false;
 							$t .= $nr;
