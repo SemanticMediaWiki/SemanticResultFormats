@@ -107,11 +107,16 @@ class SRFGraph extends SMWResultPrinter {
 	}
 	
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+		if ( !is_callable( 'renderGraphviz' ) ) {
+			wfWarn( 'The SRF Graph printer needs the GraphViz extension to be installed.' );
+			return '';
+		}
+		
 		global $wgGraphVizSettings;
 		$this->isHTML = true;
 
 		$graphInput = "digraph $this->m_graphName {";
-		if ( $this->m_graphSize != '' ) $graphInput .= "size=\"$this->m_graphSize\";"; //  pack=true; layout=dot;
+		if ( $this->m_graphSize != '' ) $graphInput .= "size=\"$this->m_graphSize\";";
 		if ( $this->m_nodeShape ) $graphInput .=  "node [shape=$this->m_nodeShape];";
 		$graphInput .= "rankdir=$this->m_rankdir;";		
 		
@@ -119,7 +124,7 @@ class SRFGraph extends SMWResultPrinter {
 			$graphInput .= $this->getGVForItem( $row, $outputmode );
 		}
 		
-		$graphInput .= "}";//var_dump($graphInput);exit;
+		$graphInput .= "}";
 		
 		// Calls renderGraphViz function from MediaWiki GraphViz extension
 		$result = renderGraphviz( $graphInput );
