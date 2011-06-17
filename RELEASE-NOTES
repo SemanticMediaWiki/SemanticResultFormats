@@ -11,6 +11,7 @@ Changes in this version:
 * Added parameter descriptions to the graph and ploticus formats. 
 * Added support for SMW 1.6 style parameter handling to the tagcloud format.
 * Somewhat cleaned up the BibTeX format.
+* Fixed double HTML escaping issue in the tagcloud format.
 
 == SRF 1.5.3 ==
 
