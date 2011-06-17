@@ -35,7 +35,7 @@ class SRFExhibit extends SMWResultPrinter {
 		if ( $row != null ) {
 			$tmp = clone $row[0];
 			$object = efSRFGetNextDV( $tmp );
-			
+
 			if ( $object instanceof SMWWikiPageValue ) {
 				$value = $object->getPrefixedText();
 				if ( strpos( $value, ':' ) ) {
@@ -202,7 +202,7 @@ class SRFExhibit extends SMWResultPrinter {
 						if ( sizeof( $dates ) == 1 ) {
 							$tlparams[] = 'ex:start=\'.' . $this->encodePropertyName( $dates[0]->getLabel() ) . '\' ';
 						}
-						else if ( sizeof( $dates ) == 2 ) {
+						elseif ( sizeof( $dates ) == 2 ) {
 							$tlparams[] = 'ex:start=\'.' . $this->encodePropertyName( $dates[0]->getLabel() ) . '\' ';
 							$tlparams[] = 'ex:end=\'.' . $this->encodePropertyName( $dates[1]->getLabel() ) . '\' ';
 						}
