@@ -109,6 +109,7 @@ function srffInitFormats() {
 		'calendar' => 'SRFCalendar',
 		'outline' => 'SRFOutline',
 		'sum' => 'SRFMath',
+		'product' => 'SRFMath',
 		'average' => 'SRFMath',
 		'min' => 'SRFMath',
 		'max' => 'SRFMath',

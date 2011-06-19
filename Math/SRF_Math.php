@@ -1,105 +1,120 @@
 <?php
 
 /**
- * Various mathematical functions - sum, average, min and max.
+ * Various mathematical functions - sum, product, average, min and max.
  *
  * @file
  * @ingroup SemanticResultFormats
+ * 
+ * @licence GNU GPL v3+
+ * 
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren
  * @author Nathan Yergler
  */
 
 class SRFMath extends SMWResultPrinter {
 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getName()
+	 */
 	public function getName() {
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getResult()
+	 */
 	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
 		$this->readParameters( $params, $outputmode );
 		global $wgLang;
 		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getResultText()
+	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		// initialize all necessary variables
-		$sum = 0;
-		$count = 0;
-		$min = '';
-		$max = '';
+		$numbers = $this->getNumbers( $res );
+		
+		switch ( $this->mFormat ) {
+			case 'max':
+				return max( $numbers );
+				break;
+			case 'min':
+				return min( $numbers );
+				break;
+			case 'sum':
+				return array_sum( $numbers );
+				break;
+			case 'product':
+				return array_product( $numbers );
+				break;
+			case 'average':
+				return array_sum( $numbers ) / count( $numbers );
+				break;
+		}
+	}
+	
+	/**
+	 * Gets a list of all numbers.
+	 * 
+	 * @since 1.6
+	 * 
+	 * @param SMWQueryResult $res
+	 * 
+	 * @return array
+	 */
+	protected function getNumbers( SMWQueryResult $res ) {
+		$numbers = array();
 
 		while ( $row = $res->getNext() ) {
-			/* SMWResultArray */ $last_col = array_pop( $row );
-			
-			while ( ( $value = efSRFGetNextDV( $last_col ) ) !== false ) {
-				// handle each value only if it's of type Number or NAry
-				if ( $value instanceof SMWNumberValue ) {
-					// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-					if ( method_exists( $value, 'getDataItem' ) ) {
-						$num = $value->getDataItem()->getNumber();
-					} else {
-						$num = $value->getValueKey();
-					}
-				} elseif ( $value instanceof SMWNAryValue ) {
-					$inner_values = $value->getDVs();
-					// find the first inner value that's of
-					// type Number, and use that; if none
-					// are found, ignore this row
-					$num = null;
-					
-					foreach ( $inner_values as $inner_value ) {
-						if ( $inner_value instanceof SMWNumberValue ) {
-							// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-							if ( method_exists( $inner_value, 'getDataItem' ) ) {
-								$num = $inner_value->getDataItem()->getNumber();
-							} else {
-								$num = $inner_value->getValueKey();
-							}
-							break;
-						}
-					}
-					
-					if ( is_null( $num ) ) {
-						continue;
-					}
-						
-				} else {
-					continue;
-				}
-				
-				$count++;
-				
-				if ( $this->mFormat == 'sum' || $this->mFormat == 'average' ) {
-					$sum += $num;
-				} elseif ( $this->mFormat == 'min' ) {
-					if ( $min === '' || $num < $min ) {
-						$min = $num;
-					}
-				} elseif ( $this->mFormat == 'max' ) {
-					if ( $max === '' || $num > $max ) {
-						$max = $num;
-					}
-				}
+			foreach( $row as /* SMWResultArray */ $resultArray ) {
+				while ( ( $dataValue = efSRFGetNextDV( $resultArray ) ) !== false ) {
+					$numbers = array_merge( $numbers, $this->getNumbersForDataValue( $dataValue ) );
+				}				
 			}
 		}
-		// if there were no results, display a blank
-		if ( $count == 0 ) {
-			$result = '';
-		} elseif ( $this->mFormat == 'sum' ) {
-			$result = $sum;
-		} elseif ( $this->mFormat == 'average' ) {
-			$result = $sum / $count;
-		} elseif ( $this->mFormat == 'min' ) {
-			$result = $min;
-		} elseif ( $this->mFormat == 'max' ) {
-			$result = $max;
-		} else {
-			$result = '';
-		}
 
-		return $result;
+		return $numbers;
+	}
+	
+	/**
+	 * Gets a list of all numbers contained in a datavalue.
+	 * 
+	 * @since 1.6
+	 * 
+	 * @param SMWDataValue $dataValue
+	 * 
+	 * @return array
+	 */
+	protected function getNumbersForDataValue( SMWDataValue $dataValue ) {
+		$numbers = array();
+		
+		if ( $dataValue instanceof SMWNumberValue ) {
+			// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
+			if ( method_exists( $dataValue, 'getDataItem' ) ) {
+				$numbers[] = $dataValue->getDataItem()->getNumber();
+			} else {
+				$numbers[] = $dataValue->getValueKey();
+			}
+		// Support for SMWNAryValue, which was removed in SMW 1.6.
+		} elseif ( $dataValue instanceof SMWNAryValue ) {
+			foreach ( $dataValue->getDVs() as $inner_value ) {
+				$numbers = array_merge( $numbers, $this->getNumbersForDataValue( $inner_value ) );
+			}
+		}
+		
+		return $numbers;
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getParameters()
+	 */
 	public function getParameters() {
 		return array(
 			array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_limit' ) ),
