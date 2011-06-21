@@ -74,7 +74,7 @@ class SRFMath extends SMWResultPrinter {
 		while ( $row = $res->getNext() ) {
 			foreach( $row as /* SMWResultArray */ $resultArray ) {
 				while ( ( $dataValue = efSRFGetNextDV( $resultArray ) ) !== false ) {
-					$numbers = array_merge( $numbers, $this->getNumbersForDataValue( $dataValue ) );
+					self::addNumbersForDataValue( $dataValue, $numbers );
 				}				
 			}
 		}
@@ -88,27 +88,52 @@ class SRFMath extends SMWResultPrinter {
 	 * @since 1.6
 	 * 
 	 * @param SMWDataValue $dataValue
+	 * @param array $numbers
 	 * 
 	 * @return array
 	 */
-	protected function getNumbersForDataValue( SMWDataValue $dataValue ) {
-		$numbers = array();
-		
+	public static function addNumbersForDataValue( SMWDataValue $dataValue, array &$numbers ) {
+		// Make use of instanceof instead of getTypeId so that deriving classes will get handled as well.
 		if ( $dataValue instanceof SMWNumberValue ) {
 			// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
 			if ( method_exists( $dataValue, 'getDataItem' ) ) {
-				$numbers[] = $dataValue->getDataItem()->getNumber();
+				self::addNumbersForDataItem( $dataValue->getDataItem(), $numbers );
 			} else {
 				$numbers[] = $dataValue->getValueKey();
 			}
+		// Support for records (SMWRecordValue) using code added in SMW 1.6.
+		} elseif ( $dataValue instanceof SMWRecordValue && method_exists( $dataValue, 'getDataItem' ) ) {
+			self::addNumbersForDataItem( $dataValue->getDataItem(), $numbers );
 		// Support for SMWNAryValue, which was removed in SMW 1.6.
 		} elseif ( $dataValue instanceof SMWNAryValue ) {
-			foreach ( $dataValue->getDVs() as $inner_value ) {
-				$numbers = array_merge( $numbers, $this->getNumbersForDataValue( $inner_value ) );
+			foreach ( $dataValue->getDVs() as $dataValue ) {
+				self::addNumbersForDataValue( $dataValue, $numbers );
 			}
 		}
-		
-		return $numbers;
+	}
+	
+	/**
+	 * Gets a list of all numbers contained in a dataitem.
+	 * 
+	 * @since 1.6
+	 * 
+	 * @param SMWDataItem $dataItem
+	 * @param array $numbers
+	 * 
+	 * @return array
+	 */
+	public static function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
+		switch ( $dataItem->getDIType() ) {
+			case SMWDataItem::TYPE_NUMBER: /* case SMWDataItem::TYPE_WIKIPAGE: */
+				$numbers[] = /* !method_exists( $dataItem, 'getNumber' ) ? $dataItem->getDBkey() : */ $dataItem->getNumber();
+				break;
+			case SMWDataItem::TYPE_CONTAINER:
+				foreach ( $dataItem->getDataItems() as $di ) {
+					self::addNumbersForDataItem( $di, $numbers );
+				}
+				break;
+			default:
+		}
 	}
 
 	/**
