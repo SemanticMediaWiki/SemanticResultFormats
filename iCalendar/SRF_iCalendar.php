@@ -167,28 +167,27 @@ class SRFiCalendar extends SMWResultPrinter {
 		$location = '';
 		$description = '';
 		
-		foreach ( $row as $field ) {
+		foreach ( $row as /* SMWResultArray */ $field ) {
 			// later we may add more things like a generic
 			// mechanism to add whatever you want :)
 			// could include funny things like geo, description etc. though
 			$req = $field->getPrintRequest();
-			if ( ( strtolower( $req->getLabel() ) == "start" ) && ( $req->getTypeID() == "_dat" ) ) {
-				$startdate = current( $field->getContent() ); // save only the first
-			}
+			$label = strtolower( $req->getLabel() );
 			
-			if ( ( strtolower( $req->getLabel() ) == 'end' ) && ( $req->getTypeID() == '_dat' ) ) {
-				$enddate = current( $field->getContent() ); // save only the first
+			if ( $label == 'start' && $req->getTypeID() == '_dat' ) {
+				$startdate = efSRFGetNextDV( $field ); // save only the first
 			}
-			
-			if ( strtolower( $req->getLabel() ) == 'location' ) {
-				$value = current( $field->getContent() ); // save only the first
+			else if ( $label == 'end' && $req->getTypeID() == '_dat' ) {
+				$enddate = efSRFGetNextDV( $field ); // save only the first
+			}
+			else if ( $label == 'location' ) {
+				$value = efSRFGetNextDV( $field ); // save only the first
 				if ( $value !== false ) {
 					$location = $value->getShortWikiText();
 				}
 			}
-			
-			if ( strtolower( $req->getLabel() ) == 'description' ) {
-				$value = current( $field->getContent() ); // save only the first
+			else if ( $label == 'description' ) {
+				$value = efSRFGetNextDV( $field ); // save only the first
 				if ( $value !== false ) {
 					$description = $value->getShortWikiText();
 				}
