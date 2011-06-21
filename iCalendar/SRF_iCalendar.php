@@ -156,6 +156,12 @@ class SRFiCalendar extends SMWResultPrinter {
 		$result = '';
 		
 		$wikipage = $row[0]->getResultSubject(); // get the object
+		
+		// As of SMW 1.6, a SMWDiWikiPage object will be provided instead of a SMWWikiPageValue.
+		if ( class_exists( 'SMWDiWikiPage' ) && $wikipage instanceof SMWDiWikiPage ) {
+			$wikipage = SMWDataValueFactory::newDataItemValue( $wikipage, null );
+		}
+		
 		$startdate = false;
 		$enddate = false;
 		$location = '';
