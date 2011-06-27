@@ -304,6 +304,7 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_minsize' => 'Памер самых малых тэгаў у адсотках (па змоўчваньні: 77)',
 	'srf_paramdesc_maxsize' => 'Памер самых вялікіх тэгаў у адсотках (па змоўчваньні: 177)',
 	'srf_paramdesc_maxtags' => 'Максымальная колькасьць тэгаў у воблаку',
+	'srf_printername_array' => 'Масіў',
 	'srf_paramdesc_graphname' => 'Назва',
 	'srf_paramdesc_graphsize' => 'Памер дыяграмы (у піксэлях)',
 );
