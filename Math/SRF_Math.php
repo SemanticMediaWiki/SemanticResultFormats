@@ -55,7 +55,7 @@ class SRFMath extends SMWResultPrinter {
 			case 'average':
 				return array_sum( $numbers ) / count( $numbers );
 				break;
-			case 'mean':
+			case 'median':
 				sort( $numbers, SORT_NUMERIC );
 				$position = ( count( $numbers ) + 1 ) / 2 - 1;
 				return ( $numbers[ceil( $position )] + $numbers[floor( $position )] ) / 2; 

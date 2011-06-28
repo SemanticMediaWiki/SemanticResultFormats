@@ -113,7 +113,7 @@ function srffInitFormats() {
 		'average' => 'SRFMath',
 		'min' => 'SRFMath',
 		'max' => 'SRFMath',
-		'mean' => 'SRFMath',
+		'median' => 'SRFMath',
 		'exhibit' => 'SRFExhibit',
 		'googlebar' => 'SRFGoogleBar',
 		'googlepie' => 'SRFGooglePie',
