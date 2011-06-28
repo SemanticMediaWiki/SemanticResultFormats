@@ -6,7 +6,7 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 Changes in this version:
 * Added compatibility with SMW 1.6.
-* Added product format.
+* Added product and mean formats.
 * Rewrote math formats for efficiency, correct recursion and handling of multiple numerical properties.
 * Cleaned up the graph format.
 * Fixed division by zero issue (oh shii~) in the tagcloud format.

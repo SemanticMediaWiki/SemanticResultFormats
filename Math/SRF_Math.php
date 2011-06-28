@@ -12,7 +12,6 @@
  * @author Yaron Koren
  * @author Nathan Yergler
  */
-
 class SRFMath extends SMWResultPrinter {
 
 	/**
@@ -55,6 +54,11 @@ class SRFMath extends SMWResultPrinter {
 				break;
 			case 'average':
 				return array_sum( $numbers ) / count( $numbers );
+				break;
+			case 'mean':
+				sort( $numbers, SORT_NUMERIC );
+				$position = ( count( $numbers ) + 1 ) / 2 - 1;
+				return ( $numbers[ceil( $position )] + $numbers[floor( $position )] ) / 2; 
 				break;
 		}
 	}
