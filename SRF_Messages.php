@@ -305,6 +305,8 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_maxsize' => 'Памер самых вялікіх тэгаў у адсотках (па змоўчваньні: 177)',
 	'srf_paramdesc_maxtags' => 'Максымальная колькасьць тэгаў у воблаку',
 	'srf_printername_array' => 'Масіў',
+	'srf_paramdesc_pagetitle' => 'Ці паказваць назвы старонак як элемэнты вынікаў ці іх хаваць',
+	'srf_paramdesc_hidegaps' => 'Ці паказваць пустыя ўласьцівасьці і значэньні запісаў падзеленыя разьдзяляльнікамі ці іх хаваць',
 	'srf_paramdesc_graphname' => 'Назва',
 	'srf_paramdesc_graphsize' => 'Памер дыяграмы (у піксэлях)',
 );
