@@ -307,6 +307,11 @@ $messages['be-tarask'] = array(
 	'srf_printername_array' => 'Масіў',
 	'srf_paramdesc_pagetitle' => 'Ці паказваць назвы старонак як элемэнты вынікаў ці іх хаваць',
 	'srf_paramdesc_hidegaps' => 'Ці паказваць пустыя ўласьцівасьці і значэньні запісаў падзеленыя разьдзяляльнікамі ці іх хаваць',
+	'srf_paramdesc_propsep' => 'Разьдзяляльнік паміж запытанымі ўласьцівасьцямі',
+	'srf_paramdesc_manysep' => 'Разьдзяляльнік паміж ўласьцівасьцямі з некалькімі значэньнямі',
+	'srf_paramdesc_recordsep' => 'Разьдзяляльнік паміж значэньнямі запісаных уласьцівасьцяў',
+	'srf_printername_hash' => 'Рашотка',
+	'srf-printername-graph' => 'Графік',
 	'srf_paramdesc_graphname' => 'Назва',
 	'srf_paramdesc_graphsize' => 'Памер дыяграмы (у піксэлях)',
 );
