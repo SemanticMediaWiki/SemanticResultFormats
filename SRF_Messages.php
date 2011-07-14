@@ -77,6 +77,9 @@ $messages['en'] = array(
 	'srf_paramdesc_widths' => 'The width of the images',
 	'srf_paramdesc_heights' => 'The height of the images',
 	'srf_paramdesc_autocaptions' => 'Use file name as caption when none is provided',
+	'srf_paramdesc_fileextensions' => 'When using the filename as caption, also display the file extension',
+	'srf_paramdesc_captionproperty' => 'The name of a semantic property present on the queried pages to be used as caption',
+	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
 
 	// "tagcloud" format
 	'srf_printername_tagcloud' => 'Tag cloud',
