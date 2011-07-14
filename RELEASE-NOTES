@@ -14,6 +14,7 @@ Changes in this version:
 * Added support for SMW 1.6 style parameter handling to the tagcloud format.
 * Somewhat cleaned up the BibTeX format.
 * Fixed double HTML escaping issue in the tagcloud format.
+* Added fileextensions parameter to the Gallery format and added missing parameter description messages.
 
 == SRF 1.5.3 ==
 
