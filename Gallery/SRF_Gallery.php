@@ -43,7 +43,7 @@ class SRFGallery extends SMWResultPrinter {
 			$ig->setHeights( $this->m_params['heights'] );
 		}
 
-		$this->m_params['autocaptions'] = isset( $this->m_params['autocaptions'] ) ? $this->m_params['autocaptions'] != 'off' : true;
+		$this->m_params['autocaptions'] = isset( $this->m_params['autocaptions'] ) ? trim( $this->m_params['autocaptions'] ) != 'off' : true;
 
 		$printReqLabels = array();
 
@@ -148,7 +148,7 @@ class SRFGallery extends SMWResultPrinter {
 		global $wgParser;
 
 		if ( empty( $imgCaption ) ) {
-			$imgCaption =  $this->m_params['autocaptions'] ? preg_replace( '#\.[^.]+$#', '', $imgTitle->getBaseText() ) : '';
+			$imgCaption = $this->m_params['autocaptions'] ? preg_replace( '#\.[^.]+$#', '', $imgTitle->getBaseText() ) : '';
 		}
 		else {
 			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );
@@ -188,12 +188,22 @@ class SRFGallery extends SMWResultPrinter {
 			$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
 			$params['autocaptions']->setDescription( wfMsg( 'srf_paramdesc_autocaptions' ) );
 			$params['autocaptions']->setDefault( true );
+			
+			$params['captionproperty'] = new Parameter( 'captionproperty' );
+			$params['captionproperty']->setDescription( wfMsg( 'srf_paramdesc_captionproperty' ) );
+			$params['captionproperty']->setDefault( '' );
+			
+			$params['imageproperty'] = new Parameter( 'imageproperty' );
+			$params['imageproperty']->setDescription( wfMsg( 'srf_paramdesc_imageproperty' ) );
+			$params['imageproperty']->setDefault( '' );
 		}
 		else {
 			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
 			$params[] = array( 'name' => 'perrow', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_perrow' ) );
 			$params[] = array( 'name' => 'widths', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_widths' ) );
 			$params[] = array( 'name' => 'heights', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_heights' ) );
+			$params[] = array( 'name' => 'captionproperty', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_captionproperty' ) );
+			$params[] = array( 'name' => 'imageproperty', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_imageproperty' ) );
 
 			$params[] = array( 'name' => 'autocaptions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_autocaptions' ), 'values' => array( 'on', 'off' ) );
 		}
