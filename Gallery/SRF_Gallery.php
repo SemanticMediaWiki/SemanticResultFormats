@@ -44,6 +44,7 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		$this->m_params['autocaptions'] = isset( $this->m_params['autocaptions'] ) ? trim( $this->m_params['autocaptions'] ) != 'off' : true;
+		$this->m_params['fileextensions'] = isset( $this->m_params['fileextensions'] ) ? trim( $this->m_params['fileextensions'] ) != 'off' : true;
 
 		$printReqLabels = array();
 
@@ -148,7 +149,16 @@ class SRFGallery extends SMWResultPrinter {
 		global $wgParser;
 
 		if ( empty( $imgCaption ) ) {
-			$imgCaption = $this->m_params['autocaptions'] ? preg_replace( '#\.[^.]+$#', '', $imgTitle->getBaseText() ) : '';
+			if ( $this->m_params['autocaptions'] ) {
+				$imgCaption = $imgTitle->getBaseText();
+				
+				if ( !$this->m_params['fileextensions'] ) {
+					$imgCaption = preg_replace( '#\.[^.]+$#', '', $imgCaption );
+				}
+			}
+			else {
+				$imgCaption = '';
+			}
 		}
 		else {
 			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );
@@ -189,6 +199,10 @@ class SRFGallery extends SMWResultPrinter {
 			$params['autocaptions']->setDescription( wfMsg( 'srf_paramdesc_autocaptions' ) );
 			$params['autocaptions']->setDefault( true );
 			
+			$params['fileextensions'] = new Parameter( 'fileextensions', Parameter::TYPE_BOOLEAN );
+			$params['fileextensions']->setDescription( wfMsg( 'srf_paramdesc_fileextensions' ) );
+			$params['fileextensions']->setDefault( false );
+			
 			$params['captionproperty'] = new Parameter( 'captionproperty' );
 			$params['captionproperty']->setDescription( wfMsg( 'srf_paramdesc_captionproperty' ) );
 			$params['captionproperty']->setDefault( '' );
@@ -206,6 +220,7 @@ class SRFGallery extends SMWResultPrinter {
 			$params[] = array( 'name' => 'imageproperty', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_imageproperty' ) );
 
 			$params[] = array( 'name' => 'autocaptions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_autocaptions' ), 'values' => array( 'on', 'off' ) );
+			$params[] = array( 'name' => 'fileextensions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_fileextensions' ), 'values' => array( 'on', 'off' ) );
 		}
 
 		return $params;
