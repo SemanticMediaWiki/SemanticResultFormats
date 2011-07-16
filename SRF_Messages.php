@@ -1322,6 +1322,9 @@ $messages['ia'] = array(
 	'srf_paramdesc_widths' => 'Le latitude del imagines',
 	'srf_paramdesc_heights' => 'Le altitude del imagines',
 	'srf_paramdesc_autocaptions' => 'Usar le nomine de file qua legenda si nulle es fornite',
+	'srf_paramdesc_fileextensions' => 'Si le nomine de file es usate como legenda, monstrar tamben le extension',
+	'srf_paramdesc_captionproperty' => 'Le nomine de un proprietate semantic presente in le paginas consultate, pro esser usate como legenda',
+	'srf_paramdesc_imageproperty' => 'Le nomine de un proprietate semantic presente in le paginas consultate, que indica imagines a usar. Si definite, le paginas consultate illos mesme non essera monstrate como imagines.',
 	'srf_printername_tagcloud' => 'Etiquettario',
 	'srf_paramdesc_includesubject' => 'Si le nomines del subjectos mesme debe esser includite',
 	'srf_paramdesc_increase' => 'Como augmentar le dimension de etiquettas',
@@ -1736,6 +1739,9 @@ $messages['mk'] = array(
 	'srf_paramdesc_widths' => 'Ширина на сликите',
 	'srf_paramdesc_heights' => 'Висина на сликите',
 	'srf_paramdesc_autocaptions' => 'Користи го името на податотеката за опис ако не е внесен друг',
+	'srf_paramdesc_fileextensions' => 'При користење на податотечното име како опис, прикажувај ја и наставката',
+	'srf_paramdesc_captionproperty' => 'Име на семантичкото својство присутно на побараните страници што ќе се користи како опис',
+	'srf_paramdesc_imageproperty' => 'Име на семантичкото својство присутно на побараните страници што ќе посочува кои слики да се користат. Кога е зададено, самите побарани страници нема да се прикажуваат како слики',
 	'srf_printername_tagcloud' => 'Облак со ознаки',
 	'srf_paramdesc_includesubject' => 'Дали да се вклучат имињата на самите теми',
 	'srf_paramdesc_increase' => 'Како да ги зголемите ознаките',
@@ -1787,6 +1793,13 @@ $messages['mr'] = array(
 	'srfc_today' => 'आज',
 	'srfc_gotomonth' => 'महीन्याकडे चला',
 	'srf_icalendar_link' => 'इ-कैलेंडर',
+);
+
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'srf_paramdesc_graphname' => 'Tajuk',
 );
 
 /** Erzya (Эрзянь)
@@ -2230,6 +2243,9 @@ $messages['pt'] = array(
 	'srf_paramdesc_widths' => 'A largura das imagens',
 	'srf_paramdesc_heights' => 'A altura das imagens',
 	'srf_paramdesc_autocaptions' => 'Usar o nome do ficheiro como legenda se esta não for fornecida',
+	'srf_paramdesc_fileextensions' => 'Ao usar o nome do ficheiro como legenda, mostrar também a extensão',
+	'srf_paramdesc_captionproperty' => 'O nome de uma propriedade semântica presente nas páginas consultadas para ser usado como legenda',
+	'srf_paramdesc_imageproperty' => 'O nome de uma propriedade semântica nas páginas consultadas que aponta para imagens a usar. Quando definido, as próprias páginas consultadas não serão mostradas como imagens',
 	'srf_printername_tagcloud' => 'Nuvem de tags',
 	'srf_paramdesc_includesubject' => 'Se os nomes dos próprios temas devem ser incluídos',
 	'srf_paramdesc_increase' => 'Como aumentar o tamanho das tags',
