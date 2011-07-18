@@ -502,6 +502,7 @@ $messages['de'] = array(
 	'srf_printername_max' => 'Maximale Zahl',
 	'srf_printername_min' => 'Minimale Zahl',
 	'srf_paramdesc_limit' => 'Die maximale Anzahl der abfragbaren Seiten',
+	'srf_printername_product' => 'Produkt von Zahlen',
 	'srf_printername_timeline' => 'Zeitlinie',
 	'srf_printername_eventline' => 'Ereignislinie',
 	'srf_paramdesc_timelinebands' => 'Legt fest, welche Bereiche im Ergebnis angezeigt werden.',
@@ -1667,6 +1668,7 @@ $messages['lb'] = array(
 	'srf_paramdesc_autocaptions' => 'Den NUmm vum Fichier als Beschreiwung benotzen, wa keng ugi gouf',
 	'srf_printername_array' => 'Tabell',
 	'srf_paramdesc_graphname' => 'Titel',
+	'srf_paramdesc_rankdir' => 'Richtung vum Feil',
 );
 
 /** Lithuanian (Lietuvių)
