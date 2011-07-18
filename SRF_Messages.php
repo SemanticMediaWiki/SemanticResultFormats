@@ -46,6 +46,7 @@ $messages['en'] = array(
 	'srf_printername_max' => 'Maximum number',
 	'srf_printername_min' => 'Minimum number',
 	'srf_paramdesc_limit' => 'The maximum number of pages to query',
+	'srf_printername_product' => 'Product of numbers',
 	// format "timeline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
