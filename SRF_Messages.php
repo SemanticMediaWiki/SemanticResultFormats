@@ -1299,6 +1299,7 @@ $messages['ia'] = array(
 	'srf_printername_max' => 'Numero maxime',
 	'srf_printername_min' => 'Numeros minime',
 	'srf_paramdesc_limit' => 'Le numero maxime de paginas a consultar',
+	'srf_printername_product' => 'Producto de numeros',
 	'srf_printername_timeline' => 'Chronologia',
 	'srf_printername_eventline' => 'Chronologia de eventos',
 	'srf_paramdesc_timelinebands' => 'Defini qual bandas es monstrate in le resultato.',
