@@ -124,7 +124,7 @@ class SRFTimeline extends SMWResultPrinter {
 
 		// MediaWiki 1.17 introduces the Resource Loader.
 		$realFunction = array( 'SMWOutputs', 'requireResource' );
-		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) &&  is_callable( $realFunction ) ) {
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) && is_callable( $realFunction ) ) {
 			SMWOutputs::requireResource( 'ext.srf.timeline' );
 		}
 		else {

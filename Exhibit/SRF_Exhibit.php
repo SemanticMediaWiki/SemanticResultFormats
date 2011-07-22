@@ -12,26 +12,33 @@
  * @ingroup SMWQuery
  */
 class SRFExhibit extends SMWResultPrinter {
-	// /mapping between SMW's and Exhibit's the data types
-	protected $m_types = array( "_wpg" => "text", "_num" => "number", "_dat" => "date", "_geo" => "text", "_uri" => "url" );
+	
+	// mapping between SMW's and Exhibit's the data types
+	protected $m_types = array(
+		'_wpg' => 'text',
+		'_num' => 'number',
+		'_dat' => 'date',
+		'_geo' => 'text',
+		'_uri' => 'url'
+	);
 
 	protected static $exhibitRunningNumber = 0; // not sufficient since there might be multiple pages rendered within one PHP run; but good enough now
 
-	// /overwrite function to allow execution of result printer even if no results are available (in case remote query yields no results in local wiki)
-	public function getResult( $results, $params, $outputmode ) {
+	// Overwrite function to allow execution of result printer even if no results are available (in case remote query yields no results in local wiki)
+	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
 		$this->readParameters( $params, $outputmode );
-		$result = $this->getResultText( $results, $outputmode );
-		return $result;
+		return $this->getResultText( $results, $outputmode );
 	}
 
-	// /function aligns the format of SMW's property names to Exhibit's format
+	// Function aligns the format of SMW's property names to Exhibit's format
 	protected function encodePropertyName( $property ) {
-		return strtolower( str_replace( " ", "_", trim( $property ) ) );
+		return strtolower( str_replace( ' ', '_', trim( $property ) ) );
 	}
 
-	// /Tries to determine the namespace in the event it got lost
+	// Tries to determine the namespace in the event it got lost
 	protected function determineNamespace( $res ) {
 		$row = $res->getNext();
+		
 		if ( $row != null ) {
 			$tmp = clone $row[0];
 			$object = efSRFGetNextDV( $tmp );
@@ -43,13 +50,14 @@ class SRFExhibit extends SMWResultPrinter {
 					return $value[0] . ':';
 				}
 			}
-			return "";
+			
+			return '';
 		}
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 
-		global $smwgIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $srfgScriptPath;
+		global $smwgIQRunningNumber, $wgScriptPath, $srfgScriptPath;
 
 		// //////////////////////////////
 		// ///////REMOTE STUFF///////////
@@ -210,24 +218,30 @@ class SRFExhibit extends SMWResultPrinter {
 					$viewstack[] = 'ex:role=\'view\' ex:viewClass=\'Timeline\' ex:label=\'Timeline\' ex:showSummary=\'false\' ' . implode( " ", $tlparams );
 					break;
 				case 'map':// map view
-					if ( isset( $wgGoogleMapsKey ) ) {
-					   $map = true;
-					   $exparams = array( 'latlng', 'colorkey' );
-					   $usparams = array( 'type', 'center', 'zoom', 'size', 'scalecontrol', 'overviewcontrol', 'mapheight' );
-					   $mapparams = array();
-					   foreach ( $exparams as $param ) {
-						if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
-					   }
-					   foreach ( $usparams as $param ) {
-						if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
-					   }
-					   if ( !array_key_exists( 'start', $this->m_params ) && !array_key_exists( 'end', $this->m_params ) ) { // find out if a geographic coordinate is available
-						foreach ( $res->getPrintRequests() as $pr ) {
-							if ( $pr->getTypeID() == '_geo' ) {
-								$mapparams[] = 'ex:latlng=\'.' . $this->encodePropertyName( $pr->getLabel() ) . '\' ';
-								break;
-							}
+					global $egGoogleMapsKey;
+					
+					if ( isset( $egGoogleMapsKey ) ) {
+						
+						$map = true;
+						$exparams = array( 'latlng', 'colorkey' );
+						$usparams = array( 'type', 'center', 'zoom', 'size', 'scalecontrol', 'overviewcontrol', 'mapheight' );
+						$mapparams = array();
+						
+						foreach ( $exparams as $param ) {
+							if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
 						}
+						
+						foreach ( $usparams as $param ) {
+							if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
+						}
+						
+						if ( !array_key_exists( 'start', $this->m_params ) && !array_key_exists( 'end', $this->m_params ) ) { // find out if a geographic coordinate is available
+							foreach ( $res->getPrintRequests() as $pr ) {
+								if ( $pr->getTypeID() == '_geo' ) {
+									$mapparams[] = 'ex:latlng=\'.' . $this->encodePropertyName( $pr->getLabel() ) . '\' ';
+									break;
+								}
+							}
 					   }
 					   $viewstack[] .= 'ex:role=\'view\' ex:viewClass=\'Map\' ex:showSummary=\'false\' ex:label=\'Map\' ' . implode( " ", $mapparams );
 					}
@@ -341,23 +355,10 @@ class SRFExhibit extends SMWResultPrinter {
 		$stringtoedit = substr( $stringtoedit[0], 3 );
 		$JSONlinksrc = "var JSONlink = '" . $stringtoedit . "';";
 
+		$this->includeJS( $timeline, $map );
+		
 		// create script header with variables containing the Exhibit markup
 		$headervars = "<script type='text/javascript'>\n\t\t\t" . $facetsrc . "\n\t\t\t" . $viewsrc . "\n\t\t\t" . $lenssrc . "\n\t\t\t" . $stylesrc . "\n\t\t\t" . $formatssrc . "\n\t\t\t" . $JSONlinksrc . "\n\t\t\t var remote=" . $varremote . ";</script>";
-
-
-		// To run Exhibit some links to the scripts of the API need to be included in the header
-
-		$ExhibitScriptSrc1 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/exhibit/exhibit-api.js?autoCreate=false&safe=true&bundle=false';
-		if ( $timeline ) $ExhibitScriptSrc1 .= '&views=timeline';
-		if ( $map ) $ExhibitScriptSrc1 .= '&gmapkey=' . $wgGoogleMapsKey;
-		$ExhibitScriptSrc1 .= '"></script>';
-		$ExhibitScriptSrc2 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.js"></script>';
-		$CSSSrc = '<link rel="stylesheet" type="text/css" href="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.css"></link>';
-
-		SMWOutputs::requireHeadItem( 'CSS', $CSSSrc ); // include CSS
-		SMWOutputs::requireHeadItem( 'EXHIBIT1', $ExhibitScriptSrc1 ); // include Exhibit API
-		SMWOutputs::requireHeadItem( 'EXHIBIT2', $ExhibitScriptSrc2 ); // includes javascript overwriting the Exhibit start-up functions
-		SMWOutputs::requireHeadItem( 'SOURCES' . $smwgIQRunningNumber, $sourcesrc );// include sources variable
 		SMWOutputs::requireHeadItem( 'VIEWSFACETS', $headervars );// include views and facets variable
 
 
@@ -435,18 +436,75 @@ class SRFExhibit extends SMWResultPrinter {
 		}
 		$result .= "</table>\n"; }
 
-		if ( SRFExhibit::$exhibitRunningNumber == 0 ) $result .= "<div id=\"exhibitLocation\"></div>"; // print placeholder (just print it one time)
+		if ( SRFExhibit::$exhibitRunningNumber == 0 ) {
+			$result .= "<div id=\"exhibitLocation\"></div>"; // print placeholder (just print it one time)
+		}
+		
 		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
 		SRFExhibit::$exhibitRunningNumber++;
+		
 		return $result;
 	}
 
 	public function getParameters() {
 		$params = parent::getParameters();
+		
 		$params[] = array( 'name' => 'views', 'type' => 'enum-list', 'description' => wfMsg( 'srf_paramdesc_views' ), 'values' => array( 'tiles', 'tabular', 'timeline', 'maps' ) );
 		$params[] = array( 'name' => 'facets', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_facets' ) );
 		$params[] = array( 'name' => 'lens', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_lens' ) );
+		
 		return $params;
+	}
+
+	/**
+	 * Includes the JavaScript required for the timeline and eventline formats.
+	 * 
+	 * @since 1.6
+	 */
+	protected function includeJS( $timeline, $map ) {
+		global $srfgScriptPath, $egGoogleMapsKey;
+		
+		$ExhibitScriptSrc1 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/exhibit/exhibit-api.js?autoCreate=false&safe=true&bundle=false';
+		if ( $timeline ) $ExhibitScriptSrc1 .= '&views=timeline';
+		if ( $map ) $ExhibitScriptSrc1 .= '&gmapkey=' . $egGoogleMapsKey;
+		$ExhibitScriptSrc1 .= '"></script>';
+		
+		SMWOutputs::requireHeadItem( 'EXHIBIT1', $ExhibitScriptSrc1 ); // include Exhibit API
+		
+		// MediaWiki 1.17 introduces the Resource Loader.
+		$realFunction = array( 'SMWOutputs', 'requireResource' );
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) && is_callable( $realFunction ) ) {
+			SMWOutputs::requireResource( 'ext.srf.exhibit' );
+		}
+		else {
+			$ExhibitScriptSrc2 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.js"></script>';
+			$CSSSrc = '<link rel="stylesheet" type="text/css" href="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.css"></link>';
+	
+			SMWOutputs::requireHeadItem( 'CSS', $CSSSrc ); // include CSS
+			SMWOutputs::requireHeadItem( 'EXHIBIT2', $ExhibitScriptSrc2 ); // includes javascript overwriting the Exhibit start-up functions
+			SMWOutputs::requireHeadItem( 'SOURCES' . $smwgIQRunningNumber, $sourcesrc );// include sources variable
+		}		
+	}
+	
+	/**
+	 * Register the resource modules used by this result printer.
+	 * 
+	 * @since 1.6
+	 */
+	public static function registerResourceModules() {
+		global $wgResourceModules, $srfgScriptPath;
+		
+		$moduleTemplate = array(
+			'localBasePath' => dirname( __FILE__ ),
+			'remoteBasePath' => $srfgScriptPath . '/Exhibit',
+			'group' => 'ext.srf'
+		);
+		
+		$wgResourceModules['ext.srf.exhibit'] = $moduleTemplate + array(
+			'scripts' => array( 'SRF_Exhibit.js' ),
+			'styles' => array( 'SRF_Exhibit.css' ),
+			'dependencies' => array( 'mediawiki.legacy.wikibits' )
+		);
 	}
 
 }

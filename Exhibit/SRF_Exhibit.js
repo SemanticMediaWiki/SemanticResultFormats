@@ -119,6 +119,53 @@ function createExhibit() {//overload Exhibit's autoCreate-functionality
     window.exhibit.configureFromDOM();
 }
 
-addOnloadHook(createExhibit);
+// add any onload functions in this hook (please don't hard-code any events in the xhtml source)
+var doneExhibitOnloadHook;
 
+if (!window.exhibitOnloadFuncts) {
+	var exhibitOnloadFuncts = [];
+}
 
+function addExhibitOnloadHook(hookFunct) {
+	// Allows add-on scripts to add onload functions
+	if(!doneExhibitOnloadHook) {
+		exhibitOnloadFuncts[exhibitOnloadFuncts.length] = hookFunct;
+	} else {
+		hookFunct();  // bug in MSIE script loading
+	}
+}
+
+addExhibitOnloadHandler(window, "load",
+	function () {
+		// don't run anything below this for non-dom browsers
+		if (doneExhibitOnloadHook || !(document.getElementById && document.getElementsByTagName)) {
+			return;
+		}
+	
+		// set this before running any hooks, since any errors below
+		// might cause the function to terminate prematurely
+		doneExhibitOnloadHook = true;
+	
+		// Run any added-on functions
+		for (var i = 0; i < exhibitOnloadFuncts.length; i++) {
+			exhibitOnloadFuncts[i]();
+		}
+	}
+);
+
+/**
+ * Add an event handler to an element
+ *
+ * @param Element element Element to add handler to
+ * @param String attach Event to attach to
+ * @param callable handler Event handler callback
+ */
+function addExhibitOnloadHandler( element, attach, handler ) {
+	if( window.addEventListener ) {
+		element.addEventListener( attach, handler, false );
+	} else if( window.attachEvent ) {
+		element.attachEvent( 'on' + attach, handler );
+	}
+}
+
+addExhibitOnloadHook(createExhibit);
