@@ -95,7 +95,7 @@ class SRFTimeline extends SMWResultPrinter {
 		$result .= '<span class="smwtlcomment">' . wfMsgForContent( 'smw_iq_nojs' ) . ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
 
 		foreach ( $this->m_tlbands as $band ) {
-			$result .= '<span class="smwtlband">' . htmlspecialchars( $band ) . '</span>';
+			$result .= '<span class="smwtlband" style="display:none;">' . htmlspecialchars( $band ) . '</span>';
 			// just print any "band" given, the JavaScript will figure out what to make of it
 		}
 
@@ -212,7 +212,7 @@ class SRFTimeline extends SMWResultPrinter {
 			if ( $hastime ) {
 				$result .= Html::rawElement(
 					'span',
-					array( 'class' => 'smwtlevent' ),
+					array( 'class' => 'smwtlevent', 'style' => 'display:none;' ),
 					$curmeta . Html::element(
 						'span',
 						array( 'class' => 'smwtlcoloricon' ),
@@ -223,7 +223,7 @@ class SRFTimeline extends SMWResultPrinter {
 			
 			if ( $isEventline ) {
 				foreach ( $events as $event ) {
-					$result .= '<span class="smwtlevent"><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $event[1] . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
+					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $event[1] . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
 					if ( $curarticle != '' ) $result .= '<span class="smwtlprefix">' . $curarticle . ' </span>';
 					$result .=  $curdata . '</span>';
 					$positions[$event[2]] = $event[0];
@@ -239,14 +239,14 @@ class SRFTimeline extends SMWResultPrinter {
 
 			switch ( $this->m_tlpos ) {
 				case 'start':
-					$result .= '<span class="smwtlposition">' . $positions[0] . '</span>';
+					$result .= '<span class="smwtlposition" style="display:none;" >' . $positions[0] . '</span>';
 					break;
 				case 'end':
-					$result .= '<span class="smwtlposition">' . $positions[count( $positions ) - 1] . '</span>';
+					$result .= '<span class="smwtlposition" style="display:none;" >' . $positions[count( $positions ) - 1] . '</span>';
 					break;
 				case 'today': break; // default
 				case 'middle': default:
-					$result .= '<span class="smwtlposition">' . $positions[ceil( count( $positions ) / 2 ) - 1] . '</span>';
+					$result .= '<span class="smwtlposition" style="display:none;" >' . $positions[ceil( count( $positions ) / 2 ) - 1] . '</span>';
 					break;
 			}
 		}
