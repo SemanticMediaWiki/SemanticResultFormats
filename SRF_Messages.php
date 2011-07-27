@@ -47,7 +47,7 @@ $messages['en'] = array(
 	'srf_printername_min' => 'Minimum number',
 	'srf_paramdesc_limit' => 'The maximum number of pages to query',
 	'srf_printername_product' => 'Product of numbers',
-	// format "timeline"
+	// formats "timeline" and "eventline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
 	'srf_paramdesc_timelinebands' => 'Defines which bands are displayed in the result.',
@@ -55,6 +55,8 @@ $messages['en'] = array(
 	'srf_paramdesc_timelinestart' => 'A property name used to define a first time point',
 	'srf_paramdesc_timelineend' => 'A property name used to define a second time point',
 	'srf_paramdesc_timelinesize' => 'The height of the timeline (default is 300px)',
+	'srf-timeline-allresults' => 'Further results for this query.',
+	'srf-timeline-nojs' => 'You need to have JavaScript enabled to view the interactive timeline.',
 
 	// format "Exhibit"
 	'srf_paramdesc_views' => 'The views to be displayed',

@@ -93,8 +93,6 @@ class SRFMath extends SMWResultPrinter {
 	 * 
 	 * @param SMWDataValue $dataValue
 	 * @param array $numbers
-	 * 
-	 * @return array
 	 */
 	public static function addNumbersForDataValue( SMWDataValue $dataValue, array &$numbers ) {
 		// Make use of instanceof instead of getTypeId so that deriving classes will get handled as well.
@@ -123,13 +121,11 @@ class SRFMath extends SMWResultPrinter {
 	 * 
 	 * @param SMWDataItem $dataItem
 	 * @param array $numbers
-	 * 
-	 * @return array
 	 */
 	public static function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
 		switch ( $dataItem->getDIType() ) {
-			case SMWDataItem::TYPE_NUMBER: /* case SMWDataItem::TYPE_WIKIPAGE: */
-				$numbers[] = /* !method_exists( $dataItem, 'getNumber' ) ? $dataItem->getDBkey() : */ $dataItem->getNumber();
+			case SMWDataItem::TYPE_NUMBER:
+				$numbers[] = $dataItem->getNumber();
 				break;
 			case SMWDataItem::TYPE_CONTAINER:
 				foreach ( $dataItem->getDataItems() as $di ) {

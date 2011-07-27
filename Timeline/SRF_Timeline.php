@@ -6,6 +6,8 @@
  * @ingroup SemanticResultFormats
  * 
  * @author Markus Krötzsch
+ * 
+ * FIXME: this code is just insane; rewrite from 0 is probably the only way to get it right
  */
 
 /**
@@ -90,9 +92,9 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 
 		// print header
-		$link = $res->getQueryLink( wfMsgForContent( 'smw_iq_altresults' ) );
+		$link = $res->getQueryLink( wfMsgForContent( 'srf-timeline-allresults' ) );
 		$result = "<div class=\"smwtimeline\" id=\"smwtimeline$smwgIQRunningNumber\" style=\"height: $this->m_tlsize\">";
-		$result .= '<span class="smwtlcomment">' . wfMsgForContent( 'smw_iq_nojs' ) . ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
+		$result .= '<span class="smwtlcomment">' . wfMsgForContent( 'srf-timeline-nojs' ) . ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
 
 		foreach ( $this->m_tlbands as $band ) {
 			$result .= '<span class="smwtlband" style="display:none;">' . htmlspecialchars( $band ) . '</span>';
@@ -154,6 +156,8 @@ class SRFTimeline extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getEventsHTML( SMWQueryResult $res, $outputmode, $isEventline ) {
+		global $curarticle, $cururl; // why not, code flow has reached max insanity already
+		
 		$positions = array(); // possible positions, collected to select one for centering
 		$curcolor = 0; // color cycling is used for eventline		
 		
@@ -167,6 +171,7 @@ class SRFTimeline extends SMWResultPrinter {
 			$hastitle = false; // true as soon as some label for the event was found
 			$curdata = ''; // current *inner* print data (within some event span)
 			$curmeta = ''; // current event meta data
+			$cururl = '';
 			$curarticle = ''; // label of current article, if it was found; needed only for eventline labeling
 			$first_col = true;
 			
@@ -223,7 +228,7 @@ class SRFTimeline extends SMWResultPrinter {
 			
 			if ( $isEventline ) {
 				foreach ( $events as $event ) {
-					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $event[1] . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
+					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . str_replace( ' ', '_', $curarticle ) . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
 					if ( $curarticle != '' ) $result .= '<span class="smwtlprefix">' . $curarticle . ' </span>';
 					$result .=  $curdata . '</span>';
 					$positions[$event[2]] = $event[0];
@@ -279,6 +284,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 */
 	protected function handlePropertyValue( SMWDataValue $object, $outputmode, SMWPrintRequest $pr, $first_col, 
 		&$hastitle, &$hastime, $first_value, $isEventline, &$curmeta, &$curdata, $date_value, &$output, array &$positions ) {
+			global $curarticle, $cururl;
 		
 		$event = false;
 		
@@ -339,10 +345,12 @@ class SRFTimeline extends SMWResultPrinter {
 					$objectlabel
 				);
 
-				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) ) {
-					// NOTE: type Title of $object implied
-					$curarticle = $object->getLongWikiText();
+				if ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) {
+					$curarticle = $object->getShortText( $outputmode, false );
+					$cururl = $object->getTitle()->getFullUrl();
 				}
+				
+				// NOTE: type Title of $object implied
 				$hastitle = true;
 			}
 		} elseif ( $output ) {
@@ -358,7 +366,7 @@ class SRFTimeline extends SMWResultPrinter {
 		if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
 			// SMW >= 1.6
 			if ( method_exists ( $object, 'getDataItem' ) ) {
-				$numericValue = $object->getDataItem()->getForCalendarModel( SMWDITime::CM_GREGORIAN );
+				$numericValue = $object->getDataItem()->getSortKey();
 			} // SMW 1.5.x
 			elseif ( method_exists ( $object, 'getValueKey' ) ) {
 				$numericValue = $object->getValueKey();
@@ -370,10 +378,10 @@ class SRFTimeline extends SMWResultPrinter {
 			$event = array(
 				$object->getXMLSchemaDate(),
 				$pr->getLabel(),
-				$numericValue
+				$numericValue,
 			);
 		}
-
+	
 		return $event;
 	}
 
