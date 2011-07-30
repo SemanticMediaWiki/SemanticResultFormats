@@ -22,7 +22,7 @@ the formats that satisfy the following criteria:
 
 Currently, these default formats thus are:
 'vcard', 'icalendar', 'calendar', 'timeline', 'eventline', 'bibtex', 'outline',
-'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max'.
+'gallery', 'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max', 'tagcloud'.
 
 To add more formats to this list, you can add lines like:
 
@@ -30,7 +30,7 @@ To add more formats to this list, you can add lines like:
 
 ... or you can override the set of formats entirely, with a call like:
 
- $srfgFormats = array('calendar', 'timeline');
+ $srfgFormats = array( 'calendar', 'timeline' );
 
 There are some formats that you may not want to include because they may
 not follow certain policies within your wiki; the formats 'googlebar' and

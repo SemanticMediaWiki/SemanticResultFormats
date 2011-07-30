@@ -4,9 +4,10 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 == SRF 1.6 ==
 
+Released on July 30, 2011.
+
 Changes in this version:
 * Added compatibility with SMW 1.6.
-* Added product and median formats.
 * Rewrote math formats for efficiency, correct recursion and handling of multiple numerical properties.
 * Cleaned up the graph format.
 * Fixed division by zero issue (oh shii~) in the tagcloud format.
@@ -15,6 +16,10 @@ Changes in this version:
 * Somewhat cleaned up the BibTeX format.
 * Fixed double HTML escaping issue in the tagcloud format.
 * Added fileextensions parameter to the Gallery format and added missing parameter description messages.
+
+New formats in this version are:
+* product (written by Jeroen De Dauw)
+* median (written by Jeroen De Dauw)
 
 == SRF 1.5.3 ==
 
