@@ -107,7 +107,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	}
 
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-		$this->isHTML = true;
+		$this->isHTML = $outputmode == SMW_OUTPUT_HTML;
 		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
 	}
 	
