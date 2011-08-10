@@ -6,10 +6,6 @@
  * @author Yaron Koren
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'Not an entry point.' );
-}
-
 class SRFjqPlotBar extends SMWResultPrinter {
 	protected $m_width = '150';
 	protected $m_height = '400';
@@ -148,44 +144,34 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$labels = array();
 		
 		// print all result rows
-		$count = 0;
-		$max_number = 0;
-		$min_number = 0;
+		$maxValue = 0;
+		$minValue = 0;
 		
 		while ( $row = $res->getNext() ) {
 			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
-			$name = str_replace( "'", "\'", $name );
+			$name = str_replace( "'", "\'", $name ); // FIXME: fail escaping is fail
 			
 			foreach ( $row as $field ) {
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
-					// use numeric sortkey
 					if ( $object->isNumeric() ) {
 						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
 						if ( method_exists( $object, 'getDataItem' ) ) {
-							$nr = $object->getDataItem()->getSortKey();
+							$numbers[] = $object->getDataItem()->getSortKey();
 						} else {
-							$nr = $object->getValueKey();
+							$numbers[] = $object->getValueKey();
 						}
 						
-						$count++;
-						
-						if ( $nr > $max_number ) {
-							$max_number = $nr;
-						}
-						
-						if ( $nr < $min_number ) {
-							$min_number = $nr;
-						}
-
-						if ( $this->m_bardirection == 'horizontal' ) {
-							$numbers[] = "[$nr, $count]";
-						} else {
-							$numbers[] = "$nr";
-						}
 						$labels[] = "'$name'";
 					}
 				}
 			}
+		}
+		
+		$maxValue = count( $numbers ) == 0 ? 0 : max( $numbers );
+		$minValue = count( $numbers ) == 0 ? 0 : min( $numbers );
+		
+		foreach ( $numbers as $i => &$nr ) {
+			$nr = $this->m_bardirection == 'horizontal' ? "[$nr, $i]" : "$nr";
 		}
 		
 		$barID = 'bar' . self::$m_barchartnum;
@@ -216,28 +202,28 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		// currently (September 2010) fails for numbers less than 1,
 		// and negative numbers.
 		// If both max and min are 0, just escape now.
-		if ( $max_number == 0 && $min_number == 0 ) {
+		if ( $maxValue == 0 && $minValue == 0 ) {
 			return null;
 		}
 		// Make the max and min slightly larger and bigger than the
 		// actual max and min, so that the bars don't directly touch
 		// the top and bottom of the graph
-		if ( $max_number > 0 ) { $max_number += .001; }
-		if ( $min_number < 0 ) { $min_number -= .001; }
-		if ( $max_number == 0 ) {
+		if ( $maxValue > 0 ) { $maxValue += .001; }
+		if ( $minValue < 0 ) { $minValue -= .001; }
+		if ( $maxValue == 0 ) {
 			$multipleOf10 = 0;
 			$maxAxis = 0;
 		} else {
-			$multipleOf10 = pow( 10, floor( log( $max_number, 10 ) ) );
-			$maxAxis = ceil( $max_number / $multipleOf10 ) * $multipleOf10;
+			$multipleOf10 = pow( 10, floor( log( $maxValue, 10 ) ) );
+			$maxAxis = ceil( $maxValue / $multipleOf10 ) * $multipleOf10;
 		}
 		
-		if ( $min_number == 0 ) {
+		if ( $minValue == 0 ) {
 			$negativeMultipleOf10 = 0;
 			$minAxis = 0;
 		} else {
-			$negativeMultipleOf10 = -1 * pow( 10, floor( log( -1 * $min_number, 10 ) ) );
-			$minAxis = ceil( $min_number / $negativeMultipleOf10 ) * $negativeMultipleOf10;
+			$negativeMultipleOf10 = -1 * pow( 10, floor( log( $minValue, 10 ) ) );
+			$minAxis = ceil( $minValue / $negativeMultipleOf10 ) * $negativeMultipleOf10;
 		}
 		
 		$numbers_ticks = '';
