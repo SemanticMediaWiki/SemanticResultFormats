@@ -456,21 +456,28 @@ $messages['bs'] = array(
  */
 $messages['ca'] = array(
 	'srf-desc' => 'Formats addicionals per a les consultes en línia del Semantic MediaWiki.',
+	'srf-name' => 'Semantic Result Formats',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Mes posterior',
 	'srfc_today' => 'Avui',
 	'srfc_gotomonth' => 'Vés al mes',
 	'srf_printername_calendar' => 'Calendari mensual',
 	'srf_paramdesc_calendarlang' => 'El codi de la llengua en què es mostrarà el calendari',
+	'srf_printername_vcard' => 'Exportació vCard',
 	'srf_paramdesc_icalendartitle' => 'El títol del fitxer del calendari',
 	'srf_paramdesc_icalendardescription' => 'La descripció del fitxer del calendari',
+	'srf_outline_novalue' => 'Sense valor',
 	'srf_printername_sum' => 'Suma dels nombres',
 	'srf_printername_average' => 'Mitjana dels nombres',
 	'srf_printername_max' => 'Nombre màxim',
 	'srf_printername_min' => 'Nombre mínim',
-	'srf_paramdesc_limit' => 'El nombre màxim de pàgines on fer la consulta',
+	'srf_paramdesc_limit' => 'El nombre màxim de pàgines per consultar',
+	'srf_printername_product' => 'Producte de nombres',
 	'srf_paramdesc_timelinesize' => 'La llargada de la línia de temps (per defecte són 300px)',
 	'srf_printername_gallery' => 'Galeria',
+	'srf_printername_tagcloud' => "Núvol d'etiquetes",
+	'srf_paramdesc_graphname' => 'Títol',
+	'srf_paramdesc_graphlabel' => 'Etiqueta del gràfic',
 );
 
 /** German (Deutsch)
