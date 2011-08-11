@@ -6,10 +6,6 @@
  * @author Yaron Koren
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-    die( 'Not an entry point.' );
-}
-
 class SRFjqPlotPie extends SMWResultPrinter {
 	protected $m_width = 400;
 	protected $m_height = 400;
@@ -105,9 +101,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgOut, $wgParser;
-	
-		$wgParser->disableCache();
+		global $wgOut;
 
 		$this->addJavascriptAndCSS();
 

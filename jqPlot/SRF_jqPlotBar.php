@@ -132,9 +132,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgOut, $wgParser;
-
-		$wgParser->disableCache();
+		global $wgOut;
 
 		self::addJavascriptAndCSS();
 
