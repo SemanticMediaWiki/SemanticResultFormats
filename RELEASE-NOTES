@@ -6,6 +6,7 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 * Fixed rendering bug in the tagcloud format occuring for inline queries.
 * Fixed jqPlotBar and jqPlotPie rendering on Special:Ask and other special pages. 
+Cleaned up the jqPlotBar format somewhat.
 
 == SRF 1.6 ==
 

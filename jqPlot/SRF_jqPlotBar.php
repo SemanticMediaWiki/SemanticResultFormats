@@ -103,7 +103,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 
 		$scripts = array();
 		if ( !$smwgJQueryIncluded ) {
-			$realFunction = array( 'OutputPage', 'includeJQuery' );
+			$realFunction = array( $wgOut, 'includeJQuery' );
 			if ( is_callable( $realFunction ) ) {
 				$wgOut->includeJQuery();
 			} else {
