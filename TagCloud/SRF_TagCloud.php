@@ -298,33 +298,33 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
 			$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
-			$params['includesubject']->setDescription( wfMsg( 'srf_paramdesc_includesubject' ) );
+			$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );
 			$params['includesubject']->setDefault( false );
 			
 			$params['increase'] = new Parameter( 'increase' );
-			$params['increase']->setDescription( wfMsg( 'srf_paramdesc_increase' ) );
+			$params['increase']->setMessage( 'srf_paramdesc_increase' );
 			$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
 			$params['increase']->setDefault( 'log' );
 			
 			$params['tagorder'] = new Parameter( 'tagorder' );
-			$params['tagorder']->setDescription( wfMsg( 'srf_paramdesc_tagorder' ) );
+			$params['tagorder']->setMessage( 'srf_paramdesc_tagorder' );
 			$params['tagorder']->addCriteria( new CriterionInArray( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) );
 			$params['tagorder']->setDefault( 'alphabetical' );
 			
 			$params['mincount'] = new Parameter( 'mincount', Parameter::TYPE_INTEGER );
-			$params['mincount']->setDescription( wfMsg( 'srf_paramdesc_mincount' ) );
+			$params['mincount']->setMessage( 'srf_paramdesc_mincount' );
 			$params['mincount']->setDefault( 1 );
 			
 			$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
-			$params['maxtags']->setDescription( wfMsg( 'srf_paramdesc_maxtags' ) );
+			$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
 			$params['maxtags']->setDefault( 1000 );
 
 			$params['minsize'] = new Parameter( 'minsize', Parameter::TYPE_INTEGER );
-			$params['minsize']->setDescription( wfMsg( 'srf_paramdesc_minsize' ) );
+			$params['minsize']->setMessage( 'srf_paramdesc_minsize' );
 			$params['minsize']->setDefault( 77 );
 
 			$params['maxsize'] = new Parameter( 'maxsize', Parameter::TYPE_INTEGER );
-			$params['maxsize']->setDescription( wfMsg( 'srf_paramdesc_maxsize' ) );
+			$params['maxsize']->setMessage( 'srf_paramdesc_maxsize' );
 			$params['maxsize']->setDefault( 242 );
 		}
 		else {
