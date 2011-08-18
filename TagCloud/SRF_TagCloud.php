@@ -33,60 +33,6 @@ class SRFTagCloud extends SMWResultPrinter {
 	}
 	
 	/**
-	 * This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
-	 * 
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::readParameters()
-	 * 
-	 * @deprecated
-	 */
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
-		
-		if ( !array_key_exists( 'includesubject', $params ) || !in_array( $params['includesubject'], array( 'yes', 'no' ) ) ) {
-			$params['includesubject'] = 'no';
-		}
-		
-		$this->includeName = $params['includesubject'] == 'yes';
-
-		if ( !array_key_exists( 'increase', $params ) || !in_array( $params['increase'], array( 'linear', 'log' ) ) ) {
-			$params['increase'] = 'log';
-		}
-		
-		$this->sizeMode = $params['increase'];
-		
-		if ( !array_key_exists( 'tagorder', $params ) || !in_array( $params['tagorder'], array( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) ) ) {
-			$params['tagorder'] = 'alphabetical';
-		}
-		
-		$this->tagOrder = $params['tagorder'];	
-		
-		if ( !array_key_exists( 'mincount', $params ) || !ctype_digit( (string)$params['mincount'] ) ) {
-			$params['mincount'] = 1;
-		}
-		
-		$this->minCount = $params['mincount'];
-
-		if ( !array_key_exists( 'maxtags', $params ) || !ctype_digit( (string)$params['maxtags'] ) ) {
-			$params['maxtags'] = 1000;
-		}
-		
-		$this->maxTags = $params['maxtags'];	
-		
-		if ( !array_key_exists( 'minsize', $params ) || !ctype_digit( (string)$params['minsize'] ) ) {
-			$params['minsize'] = 77;
-		}
-		
-		$this->minTagSize = $params['minsize'];
-		
-		if ( !array_key_exists( 'maxsize', $params ) || !ctype_digit( (string)$params['maxsize'] ) ) {
-			$params['maxsize'] = 242;
-		}
-		
-		$this->maxSize = $params['maxsize'];	
-	}
-	
-	/**
 	 * @see SMWResultPrinter::handleParameters
 	 * 
 	 * @since 1.6
@@ -296,48 +242,35 @@ class SRFTagCloud extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 		
-		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
-			$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
-			$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );
-			$params['includesubject']->setDefault( false );
-			
-			$params['increase'] = new Parameter( 'increase' );
-			$params['increase']->setMessage( 'srf_paramdesc_increase' );
-			$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
-			$params['increase']->setDefault( 'log' );
-			
-			$params['tagorder'] = new Parameter( 'tagorder' );
-			$params['tagorder']->setMessage( 'srf_paramdesc_tagorder' );
-			$params['tagorder']->addCriteria( new CriterionInArray( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) );
-			$params['tagorder']->setDefault( 'alphabetical' );
-			
-			$params['mincount'] = new Parameter( 'mincount', Parameter::TYPE_INTEGER );
-			$params['mincount']->setMessage( 'srf_paramdesc_mincount' );
-			$params['mincount']->setDefault( 1 );
-			
-			$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
-			$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
-			$params['maxtags']->setDefault( 1000 );
+		$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
+		$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );
+		$params['includesubject']->setDefault( false );
+		
+		$params['increase'] = new Parameter( 'increase' );
+		$params['increase']->setMessage( 'srf_paramdesc_increase' );
+		$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
+		$params['increase']->setDefault( 'log' );
+		
+		$params['tagorder'] = new Parameter( 'tagorder' );
+		$params['tagorder']->setMessage( 'srf_paramdesc_tagorder' );
+		$params['tagorder']->addCriteria( new CriterionInArray( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) );
+		$params['tagorder']->setDefault( 'alphabetical' );
+		
+		$params['mincount'] = new Parameter( 'mincount', Parameter::TYPE_INTEGER );
+		$params['mincount']->setMessage( 'srf_paramdesc_mincount' );
+		$params['mincount']->setDefault( 1 );
+		
+		$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
+		$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
+		$params['maxtags']->setDefault( 1000 );
 
-			$params['minsize'] = new Parameter( 'minsize', Parameter::TYPE_INTEGER );
-			$params['minsize']->setMessage( 'srf_paramdesc_minsize' );
-			$params['minsize']->setDefault( 77 );
+		$params['minsize'] = new Parameter( 'minsize', Parameter::TYPE_INTEGER );
+		$params['minsize']->setMessage( 'srf_paramdesc_minsize' );
+		$params['minsize']->setDefault( 77 );
 
-			$params['maxsize'] = new Parameter( 'maxsize', Parameter::TYPE_INTEGER );
-			$params['maxsize']->setMessage( 'srf_paramdesc_maxsize' );
-			$params['maxsize']->setDefault( 242 );
-		}
-		else {
-			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
-			$params[] = array( 'name' => 'includesubject', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_includesubject' ), 'values' => array( 'yes', 'no' ) );
-			$params[] = array( 'name' => 'increase', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_increase' ), 'values' => array( 'linear', 'log' ) );
-			$params[] = array( 'name' => 'tagorder', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_tagorder' ), 'values' => array( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) );
-			
-			$params[] = array( 'name' => 'mincount', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_mincount' ) );
-			$params[] = array( 'name' => 'maxtags', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_maxtags' ) );
-			$params[] = array( 'name' => 'minsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_minsize' ) );
-			$params[] = array( 'name' => 'maxsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_maxsize' ) );			
-		}
+		$params['maxsize'] = new Parameter( 'maxsize', Parameter::TYPE_INTEGER );
+		$params['maxsize']->setMessage( 'srf_paramdesc_maxsize' );
+		$params['maxsize']->setDefault( 242 );
 		
 		return $params;
 	}	
