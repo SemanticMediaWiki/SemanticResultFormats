@@ -509,13 +509,13 @@ $messages['ca'] = array(
  * @author Umherirrender
  */
 $messages['de'] = array(
-	'srf-desc' => 'Stellt zusätzliche Ausgabeformate für eingebettete Abfragen zur Verfügung',
+	'srf-desc' => 'Ermöglicht zusätzliche Ausgabeformate für eingebettete Abfragen',
 	'srf-name' => 'Semantische Ergebnisformate',
 	'srfc_previousmonth' => 'Voriger Monat',
 	'srfc_nextmonth' => 'Nächster Monat',
 	'srfc_today' => 'Heute',
 	'srfc_gotomonth' => 'Gehe zu Monat',
-	'srf_printername_calendar' => 'Monatlicher Kalender',
+	'srf_printername_calendar' => 'Kalender',
 	'srf_paramdesc_calendarlang' => 'Der Sprachcode der Sprache, in der der Kalender angezeigt werden soll',
 	'srf_printername_vcard' => 'vCard-Export',
 	'srf_printername_icalendar' => 'iCalendar-Export',
