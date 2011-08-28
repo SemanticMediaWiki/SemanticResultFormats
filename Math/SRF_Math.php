@@ -39,6 +39,10 @@ class SRFMath extends SMWResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$numbers = $this->getNumbers( $res );
 		
+		if ( count( $numbers ) == 0 ) {
+			return '';
+		}
+		
 		switch ( $this->mFormat ) {
 			case 'max':
 				return max( $numbers );

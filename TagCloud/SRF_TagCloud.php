@@ -140,7 +140,6 @@ class SRFTagCloud extends SMWResultPrinter {
 		$max = reset( $tags ) or $max = 1;
 		$maxSizeIncrease = $this->maxSize - $this->minTagSize;
 		
-		
 		// Loop over the tags, and replace their count by a size.
 		foreach ( $tags as &$tag ) {
 			switch ( $this->sizeMode ) {
