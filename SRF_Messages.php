@@ -801,6 +801,7 @@ $messages['fi'] = array(
 
 /** French (Français)
  * @author Crochet.david
+ * @author Gomoko
  * @author Grondin
  * @author Hashar
  * @author IAlex
@@ -833,6 +834,7 @@ $messages['fr'] = array(
 	'srf_printername_max' => 'Nombre maximal',
 	'srf_printername_min' => 'Nombre minimal',
 	'srf_paramdesc_limit' => 'Le nombre maximum de pages à rechercher',
+	'srf_printername_product' => 'Produit de nombres',
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie des événements',
 	'srf_paramdesc_timelinebands' => 'Définit quels groupes sont affichées dans les résultats.',
@@ -840,6 +842,8 @@ $messages['fr'] = array(
 	'srf_paramdesc_timelinestart' => 'Un nom de propriété utilisé pour définir un point de démarrage',
 	'srf_paramdesc_timelineend' => 'Un nom de propriété utilisé pour définir un point de seconde date',
 	'srf_paramdesc_timelinesize' => 'La hauteur de la frise (300px par défaut)',
+	'srf-timeline-allresults' => 'Autres résultats pour cette requête.',
+	'srf-timeline-nojs' => 'JavaScript doit être activé pour voir la chronologie interactive.',
 	'srf_paramdesc_views' => 'Les vues à afficher',
 	'srf_paramdesc_facets' => 'L’ensemble des propriétés à afficher pour chaque page',
 	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
@@ -858,6 +862,9 @@ $messages['fr'] = array(
 	'srf_paramdesc_widths' => 'La largeur des images',
 	'srf_paramdesc_heights' => 'La hauteur des images',
 	'srf_paramdesc_autocaptions' => "Utiliser le nom de fichier comme légende lorsqu'aucune n'est fournie",
+	'srf_paramdesc_fileextensions' => "Quand le nom de fichier est utilisé comme titre, afficher aussi l'extension du fichier",
+	'srf_paramdesc_captionproperty' => 'Le nom de la propriété sémantique présent sur les pages demandées doit être utilisé comme titre',
+	'srf_paramdesc_imageproperty' => 'Le nom de la propriété sémantique sur les pages demandées qui pointent vers des images à utiliser. Quand il est positionné, les pages demandées elles-mêmes ne seront aps affichées comme des images',
 	'srf_printername_tagcloud' => 'Nuage de tags',
 	'srf_paramdesc_includesubject' => 'Si les noms des sujets eux-mêmes devraient être inclus',
 	'srf_paramdesc_increase' => 'Comment augmenter la taille des tags',
