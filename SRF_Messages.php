@@ -136,6 +136,7 @@ $messages['qqq'] = array(
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
 	'srf_paramdesc_timelinebands' => 'Available bands are DECADE, YEAR, MONTH, WEEK, and DAY. For details see http://semantic-mediawiki.org/wiki/Help:Timeline_format',
+	'srf_printername_gallery' => '{{Identical|Gallery}}',
 	'srf_paramdesc_graphname' => '{{Identical|Title}}',
 );
 
