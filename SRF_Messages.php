@@ -1550,6 +1550,7 @@ $messages['it'] = array(
  * @author Hosiryuhosi
  * @author JtFuruhata
  * @author Naohiro19
+ * @author Schu
  * @author Whym
  * @author 青子守歌
  */
@@ -1582,6 +1583,7 @@ $messages['ja'] = array(
 	'srf_paramdesc_timelinestart' => '最初の時点を定義するプロパティーの名前',
 	'srf_paramdesc_timelineend' => '2番目の時点を定義するプロパティーの名前',
 	'srf_paramdesc_timelinesize' => 'タイムラインの縦幅 (既定では300ピクセル)',
+	'srf-timeline-nojs' => 'インタラクティブなタイムラインを表示するために JavaScript を有効にする必要があります。',
 	'srf_paramdesc_views' => '表示されるビュー',
 	'srf_paramdesc_facets' => '各ページで表示するプロパティーの集合',
 	'srf_paramdesc_lens' => 'ページのプロパティーとともに表示するテンプレートの名前',
@@ -1596,7 +1598,11 @@ $messages['ja'] = array(
 	'srf_paramdesc_bardirection' => '棒グラフの方向',
 	'srf_paramdesc_barnumbersaxislabel' => '数値軸のラベル',
 	'srf_printername_gallery' => 'ギャラリー',
+	'srf_paramdesc_perrow' => '行あたりの画像の量',
+	'srf_paramdesc_widths' => '画像の幅',
+	'srf_paramdesc_heights' => '画像の高さ',
 	'srf_printername_tagcloud' => 'タグクラウド',
+	'srf-printername-graph' => 'グラフ',
 );
 
 /** Javanese (Basa Jawa)
