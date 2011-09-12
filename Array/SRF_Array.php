@@ -4,6 +4,8 @@
  * @file
  * @ingroup SemanticResultFormats
  * @author Daniel Werner
+ * 
+ * Requires ArrayExtension 1.3.2 or higher and HashTables 0.6 or higher
  */
 
 /**
@@ -245,11 +247,7 @@ class SRFArray extends SMWResultPrinter {
 			
 		$arrExtClass = new ReflectionClass( get_class( $wgArrayExtension ) );
 		
-		if( $arrExtClass->hasConstant( 'VERSION' ) && version_compare( $wgArrayExtension::VERSION, '1.3.2', '>=' ) ) {
-			$wgArrayExtension->createArray( $this->mArrayName, $arr );  //requires Extension:ArrayExtension 1.3.2 or higher
-		} else {
-			$wgArrayExtension->mArrayExtension[ $this->mArrayName ] = $arr; //dirty way
-		}
+		$wgArrayExtension->createArray( $this->mArrayName, $arr );
 		
 		return true;
 	}
@@ -305,12 +303,7 @@ class SRFHash extends SRFArray {
 		
 		$hashExtClass = new ReflectionClass( get_class( $wgHashTables ) );
 		
-		if ( $hashExtClass->hasConstant( 'VERSION' ) && version_compare( $wgHashTables::VERSION, '0.6', '>=' ) ) {
-			$wgHashTables->createHash( $this->mArrayName, $hash );  // requires Extension:HashTables 0.6 or higher
-		}
-		else {
-			$wgHashTables->mHashTables[ $this->mArrayName ] = $hash;
-		}
+		$wgHashTables->createHash( $this->mArrayName, $hash );
 		
 		return true;
 	}
