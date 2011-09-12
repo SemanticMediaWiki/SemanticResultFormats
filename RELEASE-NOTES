@@ -6,6 +6,8 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 * Fixed error in math printer when there are no numerical results. 
 * Fixed vCard compatibility with SMW 1.6 and later.
+* Fixed array compatibility with SMW 1.6 and later.
+* Added median and product formats to the list of default enabled formats.
 
 == SRF 1.6.1 ==
 

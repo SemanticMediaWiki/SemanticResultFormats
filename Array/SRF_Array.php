@@ -143,7 +143,7 @@ class SRFArray extends SMWResultPrinter {
 					$missingProperty = true;
 				} else
 				//otherwise collect property value (potentially many values)
-				foreach( $manyValues as $obj ) { // $manyValues of type SMWResultArray, contains many values (or just one) of one property of type SMWDataValue
+				while( $obj = efSRFGetNextDV( $field ) ) { // $manyValues of type SMWResultArray, contains many values (or just one) of one property of type SMWDataValue
 					
 					$value_items = array();					
 					
@@ -237,8 +237,11 @@ class SRFArray extends SMWResultPrinter {
 	
 	protected function createArray( $arr ) {
 		global $wgArrayExtension;
-		if( ! isset( $wgArrayExtension ) ) //Hash extension is not installed in this wiki		
+		
+		if( ! isset( $wgArrayExtension ) ) {
+			//Hash extension is not installed in this wiki
 			return false;
+		}		
 			
 		$arrExtClass = new ReflectionClass( get_class( $wgArrayExtension ) );
 		
@@ -247,6 +250,7 @@ class SRFArray extends SMWResultPrinter {
 		} else {
 			$wgArrayExtension->mArrayExtension[ $this->mArrayName ] = $arr; //dirty way
 		}
+		
 		return true;
 	}
 	
@@ -290,18 +294,24 @@ class SRFHash extends SRFArray {
 		}
 		return parent::deliverQueryResultPages( $hash );
 	}
+	
 	protected function createArray( $hash ) {
 		global $wgHashTables;
-		if( ! isset( $wgHashTables ) ) //Hash extension is not installed in this wiki
+		
+		if( ! isset( $wgHashTables ) ) {
+			//Hash extension is not installed in this wiki
 			return false;
-
+		}
+		
 		$hashExtClass = new ReflectionClass( get_class( $wgHashTables ) );
 		
-		if( $hashExtClass->hasConstant( 'VERSION' ) && version_compare( $wgHashTables::VERSION, '0.6', '>=' ) ) {
-			$wgHashTables->createHash( $this->mArrayName, $hash );  //requires Extension:HashTables 0.6 or higher		
-		} else {
-			$wgHashTables->mHashTables[ $this->mArrayName ] = $hash; //dirty way
+		if ( $hashExtClass->hasConstant( 'VERSION' ) && version_compare( $wgHashTables::VERSION, '0.6', '>=' ) ) {
+			$wgHashTables->createHash( $this->mArrayName, $hash );  // requires Extension:HashTables 0.6 or higher
 		}
+		else {
+			$wgHashTables->mHashTables[ $this->mArrayName ] = $hash;
+		}
+		
 		return true;
 	}
 	
