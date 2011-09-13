@@ -24,6 +24,12 @@ $magicWords['arz'] = array(
 	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم', 'calendarenddate' ),
 );
 
+/** German (Deutsch) */
+$magicWords['de'] = array(
+	'calendarstartdate' => array( 0, 'kalenderanfangsdatum' ),
+	'calendarenddate' => array( 0, 'kalenderenddatum' ),
+);
+
 /** Spanish (Español) */
 $magicWords['es'] = array(
 	'calendarstartdate' => array( 0, 'fechadeiniciodecalendario', 'fechainiciocalendario', 'calendarstartdate' ),
@@ -62,8 +68,8 @@ $magicWords['mr'] = array(
 
 /** Nedersaksisch (Nedersaksisch) */
 $magicWords['nds-nl'] = array(
-	'calendarstartdate' => array( 0, 'startdaotumkelender', 'startdatumkalender', 'calendarstartdate' ),
-	'calendarenddate' => array( 0, 'einddaotumkelender', 'einddatumkalender', 'calendarenddate' ),
+	'calendarstartdate' => array( 0, 'startdaotumkalender', 'startdatumkalender' ),
+	'calendarenddate' => array( 0, 'einddaotumkalender', 'einddatumkalender' ),
 );
 
 /** Dutch (Nederlands) */
@@ -74,11 +80,11 @@ $magicWords['nl'] = array(
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬) */
 $magicWords['no'] = array(
-	'calendarstartdate' => array( 0, 'kalenderstartdato', 'calendarstartdate' ),
-	'calendarenddate' => array( 0, 'kalendersluttdato', 'calendarenddate' ),
+	'calendarstartdate' => array( 0, 'kalenderstartdato' ),
+	'calendarenddate' => array( 0, 'kalendersluttdato' ),
 );
 
-/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬) */
 $magicWords['sr-ec'] = array(
 	'calendarstartdate' => array( 0, 'почетнидатум', 'почетни_датум' ),
 	'calendarenddate' => array( 0, 'завршнидатум', 'завршни_датум' ),
