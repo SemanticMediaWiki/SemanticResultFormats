@@ -40,6 +40,7 @@ $messages['en'] = array(
 	'srf_outline_novalue' => 'No value',
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
+	
 	// format "math"
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
@@ -47,6 +48,8 @@ $messages['en'] = array(
 	'srf_printername_min' => 'Minimum number',
 	'srf_paramdesc_limit' => 'The maximum number of pages to query',
 	'srf_printername_product' => 'Product of numbers',
+	'srf_printername_median' => 'Median of numbers',
+	
 	// formats "timeline" and "eventline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
