@@ -219,7 +219,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		foreach ( $tags as $name => $size ) {
 			$htmlTags[] = Html::rawElement(
 				'span',
-				array( 'style' => array( 'font-size' => "$size%" ) ),
+				array( 'style' => "font-size:$size%" ),
 				$this->tagsHtml[$name]
 			);
 		}
