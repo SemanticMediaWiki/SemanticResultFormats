@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.6.1' );
+define( 'SRF_VERSION', '1.6.2' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
@@ -53,18 +53,10 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other']
 	'name' => 'Semantic Result Formats',
 	'version' => SRF_VERSION,
 	'author' => array(
-		'Frank Dengler',
-		'[http://steren.fr Steren Giannini]',
-		'Sanyam Goyal',
-		'Fabian Howahl',
+		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
 		'Yaron Koren',
-		'[http://korrekt.org Markus Krötzsch]',
-		'David Loomer',
-		'[http://simia.net Denny Vrandecic]',
-		'Hans-Jörg Happel',
-		'Rowan Rodrik van der Molen',
-		'[http://www.mediawiki.org/wiki/User:Danwe Daniel Werner]',
-		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]'
+		'Sanyam Goyal',
+		'others'
 	),
 	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc'
