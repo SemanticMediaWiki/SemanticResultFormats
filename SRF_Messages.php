@@ -995,6 +995,7 @@ $messages['gl'] = array(
 	'srf_printername_min' => 'Número mínimo',
 	'srf_paramdesc_limit' => 'O número máximo de páxinas a pescudar',
 	'srf_printername_product' => 'Produto dos números',
+	'srf_printername_median' => 'Media dos números',
 	'srf_printername_timeline' => 'Liña do tempo',
 	'srf_printername_eventline' => 'Liña do evento',
 	'srf_paramdesc_timelinebands' => 'Define as bandas que se mostrarán no resultado.',
