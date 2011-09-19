@@ -1931,6 +1931,7 @@ $messages['nl'] = array(
 	'srf_printername_min' => 'Laagste getal',
 	'srf_paramdesc_limit' => "Het maximaal aantal op te vragen pagina's",
 	'srf_printername_product' => 'Product van getallen',
+	'srf_printername_median' => 'Mediaan van getallen',
 	'srf_printername_timeline' => 'Tijdlijn',
 	'srf_printername_eventline' => 'Gebeurtenissenlijn',
 	'srf_paramdesc_timelinebands' => 'Geeft aan welke banden in het resultaat weergegeven moeten worden.',
