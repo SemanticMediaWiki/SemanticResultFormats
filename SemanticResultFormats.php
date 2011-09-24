@@ -20,7 +20,16 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-define( 'SRF_VERSION', '1.6.2' );
+// Show a warning if Semantic MediaWiki is not loaded.
+if ( ! defined( 'SMW_VERSION' ) ) {
+	die( '<b>Error:</b> You need to have <a href="http://semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> installed in order to use <a href="http://www.mediawiki.org/wiki/Extension:Semantic Result Formats">Semantic Result Formats</a>.<br />' );
+}
+
+if ( version_compare( SMW_VERSION, '1.6.2 alpha', '<' ) ) {
+	die( '<b>Error:</b> This version of Semantic Result Formats requires Semantic MediaWiki 1.6.3 or above; use Semantic Result Formats <= 1.6.2 for older versions of SMW.' );
+}
+
+define( 'SRF_VERSION', '1.6.3 alpha' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
