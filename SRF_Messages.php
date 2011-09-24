@@ -434,6 +434,7 @@ $messages['br'] = array(
 	'srf_paramdesc_maxsize' => 'Ment an dikedenn vrasañ e dregantad (dre ziouer : 77)',
 	'srf_paramdesc_maxtags' => 'Niver brasañ a dikedennoù en nivlennad',
 	'srf_printername_array' => 'Taolenn',
+	'srf-printername-graph' => 'Grafik',
 	'srf_paramdesc_graphname' => 'Titl',
 	'srf_paramdesc_rankdir' => "Durc'hadur ar bir",
 );
@@ -2108,6 +2109,7 @@ $messages['no'] = array(
 );
 
 /** Occitan (Occitan)
+ * @author Boulaur
  * @author Cedric31
  */
 $messages['oc'] = array(
@@ -2131,6 +2133,7 @@ $messages['oc'] = array(
 	'srf_printername_min' => 'Nombre minimal',
 	'srf_printername_timeline' => 'Cronologia',
 	'srf_printername_eventline' => 'Cronologia dels eveniments',
+	'srf_paramdesc_graphname' => 'Títol',
 );
 
 /** Deitsch (Deitsch)
