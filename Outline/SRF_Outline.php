@@ -84,8 +84,8 @@ class SRFOutline extends SMWResultPrinter {
 	protected $mOutlineProperties = array();
 	protected $mInnerFormat = '';
 
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
+	protected function handleParameters( $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'outlineproperties', $params ) ) {
 			$this->mOutlineProperties = array_map( 'trim', explode( ',', $params['outlineproperties'] ) );

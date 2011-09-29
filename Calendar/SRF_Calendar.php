@@ -16,8 +16,8 @@ class SRFCalendar extends SMWResultPrinter {
 	protected $mUserParam = '';
 	protected $mRealUserLang = null;
 
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
+	protected function handleParameters( $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'template', $params ) ) {
 			$this->mTemplate = trim( $params['template'] );
@@ -45,7 +45,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$this->hasTemplates = false;
 
 		// skip checks, results with 0 entries are normal
-		$this->readParameters( $params, $outputmode );
+		$this->handleParameters( $params, $outputmode );
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
 

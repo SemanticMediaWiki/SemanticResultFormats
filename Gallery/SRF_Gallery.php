@@ -17,7 +17,7 @@ class SRFGallery extends SMWResultPrinter {
 
 	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
 		// skip checks, results with 0 entries are normal
-		$this->readParameters( $params, $outputmode );
+		$this->handleParameters( $params, $outputmode );
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
 

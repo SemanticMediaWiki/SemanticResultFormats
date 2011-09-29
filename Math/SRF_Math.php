@@ -27,7 +27,7 @@ class SRFMath extends SMWResultPrinter {
 	 * @see SMWResultPrinter::getResult()
 	 */
 	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
-		$this->readParameters( $params, $outputmode );
+		$this->handleParameters( $params, $outputmode );
 		global $wgLang;
 		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
 	}
