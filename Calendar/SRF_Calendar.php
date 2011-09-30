@@ -12,28 +12,21 @@ $wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ ) . '/SRFC_Historic
  */
 class SRFCalendar extends SMWResultPrinter {
 
-	protected $mTemplate = '';
-	protected $mUserParam = '';
+	protected $mTemplate;
+	protected $mUserParam;
 	protected $mRealUserLang = null;
 
-	protected function handleParameters( $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
-		if ( array_key_exists( 'template', $params ) ) {
-			$this->mTemplate = trim( $params['template'] );
-		}
+		$this->mTemplate = trim( $params['template'] );
+		$this->mUserParam = trim( $params['userparam'] );
 		
-		if ( array_key_exists( 'userparam', $params ) ) {
-			$this->mUserParam = trim( $params['userparam'] );
-		}
-		
-		if ( array_key_exists( 'lang', $params ) ) {
-			global $wgLang;
-			// store the actual user's language, so we can revert
-			// back to it after printing the calendar
-			$this->mRealUserLang = clone ( $wgLang );
-			$wgLang = Language::factory( trim( $params['lang'] ) );
-		}
+		global $wgLang;
+		// store the actual user's language, so we can revert
+		// back to it after printing the calendar
+		$this->mRealUserLang = clone ( $wgLang );
+		$wgLang = Language::factory( trim( $params['lang'] ) );
 	}
 
 	public function getName() {
@@ -508,7 +501,16 @@ END;
 	 */
 	public function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'lang', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_calendarlang' ) );
+		
+		$params['lang'] = new Parameter( 'lang' );
+		$params['lang']->setMessage( 'srf_paramdesc_calendarlang' );
+		
+		$params['template'] = new Parameter( 'template' );
+		$params['template']->setDefault( '' );
+		
+		$params['userparam'] = new Parameter( 'userparam' );
+		$params['userparam']->setDefault( '' );
+		
 		return $params;
 	}
 
