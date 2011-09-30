@@ -22,11 +22,13 @@ class SRFCalendar extends SMWResultPrinter {
 		$this->mTemplate = trim( $params['template'] );
 		$this->mUserParam = trim( $params['userparam'] );
 		
-		global $wgLang;
-		// store the actual user's language, so we can revert
-		// back to it after printing the calendar
-		$this->mRealUserLang = clone ( $wgLang );
-		$wgLang = Language::factory( trim( $params['lang'] ) );
+		if ( $params['userparam'] !== false ) {
+			global $wgLang;
+			// store the actual user's language, so we can revert
+			// back to it after printing the calendar
+			$this->mRealUserLang = clone ( $wgLang );
+			$wgLang = Language::factory( trim( $params['lang'] ) );
+		}
 	}
 
 	public function getName() {
@@ -504,6 +506,7 @@ END;
 		
 		$params['lang'] = new Parameter( 'lang' );
 		$params['lang']->setMessage( 'srf_paramdesc_calendarlang' );
+		$params['lang']->setDefault( false, false );
 		
 		$params['template'] = new Parameter( 'template' );
 		$params['template']->setDefault( '' );
