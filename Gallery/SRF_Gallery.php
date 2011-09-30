@@ -31,30 +31,26 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->useSkin( $wgUser->getSkin() ); // FIXME: deprecated method usage
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
-		if ( isset( $this->m_params['perrow'] ) ) {
+		if ( $this->m_params['perrow'] !== '' ) {
 			$ig->setPerRow( $this->m_params['perrow'] );
 		}
 
-		if ( isset( $this->m_params['widths'] ) ) {
+		if ( $this->m_params['widths'] !== '' ) {
 			$ig->setWidths( $this->m_params['widths'] );
 		}
 
-		if ( isset( $this->m_params['heights'] ) ) {
+		if ( $this->m_params['heights'] !== '' ) {
 			$ig->setHeights( $this->m_params['heights'] );
 		}
 
-		$this->m_params['autocaptions'] = isset( $this->m_params['autocaptions'] ) ? trim( $this->m_params['autocaptions'] ) != 'off' : true;
-		$this->m_params['fileextensions'] = isset( $this->m_params['fileextensions'] ) ? trim( $this->m_params['fileextensions'] ) != 'off' : true;
-
 		$printReqLabels = array();
 
-		foreach ( $results->getPrintRequests() as $printReq ) {
+		foreach ( $results->getPrintRequests() as /* SMWPrintRequest */ $printReq ) {
 			$printReqLabels[] = $printReq->getLabel();
 		}
 
-		if ( isset( $this->m_params['imageproperty'] ) && in_array( $this->m_params['imageproperty'], $printReqLabels ) ) {
-			$captionProperty = isset( $this->m_params['captionproperty'] ) ? $this->m_params['captionproperty'] : '';
-			$this->addImageProperties( $results, $ig, $this->m_params['imageproperty'], $captionProperty );
+		if ( $this->m_params['imageproperty'] !== '' && in_array( $this->m_params['imageproperty'], $printReqLabels ) ) {
+			$this->addImageProperties( $results, $ig, $this->m_params['imageproperty'], $this->m_params['captionproperty'] );
 		}
 		else {
 			$this->addImagePages( $results, $ig );
@@ -182,46 +178,33 @@ class SRFGallery extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 
-		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
-			$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
-			$params['perrow']->setDescription( wfMsg( 'srf_paramdesc_perrow' ) );
-			$params['perrow']->setDefault( '', false );
+		$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
+		$params['perrow']->setMessage( 'srf_paramdesc_perrow' );
+		$params['perrow']->setDefault( '', false );
 
-			$params['widths'] = new Parameter( 'widths', Parameter::TYPE_INTEGER );
-			$params['widths']->setDescription( wfMsg( 'srf_paramdesc_widths' ) );
-			$params['widths']->setDefault( '', false );
+		$params['widths'] = new Parameter( 'widths', Parameter::TYPE_INTEGER );
+		$params['widths']->setMessage( 'srf_paramdesc_widths' );
+		$params['widths']->setDefault( '', false );
 
-			$params['heights'] = new Parameter( 'heights', Parameter::TYPE_INTEGER );
-			$params['heights']->setDescription( wfMsg( 'srf_paramdesc_heights' ) );
-			$params['heights']->setDefault( '', false );
+		$params['heights'] = new Parameter( 'heights', Parameter::TYPE_INTEGER );
+		$params['heights']->setMessage( 'srf_paramdesc_heights' );
+		$params['heights']->setDefault( '', false );
 
-			$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
-			$params['autocaptions']->setDescription( wfMsg( 'srf_paramdesc_autocaptions' ) );
-			$params['autocaptions']->setDefault( true );
-			
-			$params['fileextensions'] = new Parameter( 'fileextensions', Parameter::TYPE_BOOLEAN );
-			$params['fileextensions']->setDescription( wfMsg( 'srf_paramdesc_fileextensions' ) );
-			$params['fileextensions']->setDefault( false );
-			
-			$params['captionproperty'] = new Parameter( 'captionproperty' );
-			$params['captionproperty']->setDescription( wfMsg( 'srf_paramdesc_captionproperty' ) );
-			$params['captionproperty']->setDefault( '' );
-			
-			$params['imageproperty'] = new Parameter( 'imageproperty' );
-			$params['imageproperty']->setDescription( wfMsg( 'srf_paramdesc_imageproperty' ) );
-			$params['imageproperty']->setDefault( '' );
-		}
-		else {
-			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
-			$params[] = array( 'name' => 'perrow', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_perrow' ) );
-			$params[] = array( 'name' => 'widths', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_widths' ) );
-			$params[] = array( 'name' => 'heights', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_heights' ) );
-			$params[] = array( 'name' => 'captionproperty', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_captionproperty' ) );
-			$params[] = array( 'name' => 'imageproperty', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_imageproperty' ) );
-
-			$params[] = array( 'name' => 'autocaptions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_autocaptions' ), 'values' => array( 'on', 'off' ) );
-			$params[] = array( 'name' => 'fileextensions', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_fileextensions' ), 'values' => array( 'on', 'off' ) );
-		}
+		$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
+		$params['autocaptions']->setMessage( 'srf_paramdesc_autocaptions' );
+		$params['autocaptions']->setDefault( true );
+		
+		$params['fileextensions'] = new Parameter( 'fileextensions', Parameter::TYPE_BOOLEAN );
+		$params['fileextensions']->setMessage( 'srf_paramdesc_fileextensions' );
+		$params['fileextensions']->setDefault( false );
+		
+		$params['captionproperty'] = new Parameter( 'captionproperty' );
+		$params['captionproperty']->setMessage( 'srf_paramdesc_captionproperty' );
+		$params['captionproperty']->setDefault( '' );
+		
+		$params['imageproperty'] = new Parameter( 'imageproperty' );
+		$params['imageproperty']->setMessage( 'srf_paramdesc_imageproperty' );
+		$params['imageproperty']->setDefault( '' );
 
 		return $params;
 	}
