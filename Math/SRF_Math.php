@@ -81,41 +81,13 @@ class SRFMath extends SMWResultPrinter {
 
 		while ( $row = $res->getNext() ) {
 			foreach( $row as /* SMWResultArray */ $resultArray ) {
-				while ( ( $dataValue = efSRFGetNextDV( $resultArray ) ) !== false ) {
-					self::addNumbersForDataValue( $dataValue, $numbers );
-				}				
+				foreach ( $resultArray->getContent() as /* SMWDataItem */ $dataItem ) {
+					self::addNumbersForDataItem( $dataItem, $numbers );
+				}
 			}
 		}
 
 		return $numbers;
-	}
-	
-	/**
-	 * Gets a list of all numbers contained in a datavalue.
-	 * 
-	 * @since 1.6
-	 * 
-	 * @param SMWDataValue $dataValue
-	 * @param array $numbers
-	 */
-	public static function addNumbersForDataValue( SMWDataValue $dataValue, array &$numbers ) {
-		// Make use of instanceof instead of getTypeId so that deriving classes will get handled as well.
-		if ( $dataValue instanceof SMWNumberValue ) {
-			// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-			if ( method_exists( $dataValue, 'getDataItem' ) ) {
-				self::addNumbersForDataItem( $dataValue->getDataItem(), $numbers );
-			} else {
-				$numbers[] = $dataValue->getValueKey();
-			}
-		// Support for records (SMWRecordValue) using code added in SMW 1.6.
-		} elseif ( $dataValue instanceof SMWRecordValue && method_exists( $dataValue, 'getDataItem' ) ) {
-			self::addNumbersForDataItem( $dataValue->getDataItem(), $numbers );
-		// Support for SMWNAryValue, which was removed in SMW 1.6.
-		} elseif ( $dataValue instanceof SMWNAryValue ) {
-			foreach ( $dataValue->getDVs() as $dataValue ) {
-				self::addNumbersForDataValue( $dataValue, $numbers );
-			}
-		}
 	}
 	
 	/**
@@ -145,9 +117,13 @@ class SRFMath extends SMWResultPrinter {
 	 * @see SMWResultPrinter::getParameters()
 	 */
 	public function getParameters() {
-		return array(
-			array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_limit' ) ),
-		);
+		$params = parent::getParameters();
+		
+		$params['limit'] = new Parameter( 'limit', Parameter::TYPE_INTEGER );
+		$params['limit']->setMessage( 'srf_paramdesc_limit' );
+		$params['limit']->setDefault( 1000 );
+		
+		return $params;
 	}
 
 }
