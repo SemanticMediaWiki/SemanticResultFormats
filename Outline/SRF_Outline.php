@@ -5,13 +5,12 @@
  * helper classes to handle the aggregation
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 /**
  * Represents a single item, or page, in the outline - contains both the
  * SMWResultArray and an array of some of its values, for easier aggregation
  */
 class SRFOutlineItem {
+	
 	var $mRow;
 	var $mVals;
 
@@ -86,10 +85,7 @@ class SRFOutline extends SMWResultPrinter {
 
 	protected function handleParameters( $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
-
-		if ( array_key_exists( 'outlineproperties', $params ) ) {
-			$this->mOutlineProperties = array_map( 'trim', explode( ',', $params['outlineproperties'] ) );
-		}
+		$this->mOutlineProperties = $params['outlineproperties'];
 	}
 
 	public function getName() {
@@ -231,9 +227,14 @@ class SRFOutline extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
-                $params = parent::getParameters();
-                $params[] = array( 'name' => 'outlineproperties', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_outlineproperties' ) );
-                return $params;
+		$params = parent::getParameters();
+		
+		$params['outlineproperties'] = new ListParameter( 'outlineproperties' );
+		$params['outlineproperties']->setMessage( 'srf_paramdesc_outlineproperties' );
+		$params['outlineproperties']->setDefault( array() );
+		$params['outlineproperties']->addManipulations( new ParamManipulationFunctions( 'trim' ) );
+		
+		return $params;
 	}
 
 }

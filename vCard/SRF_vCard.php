@@ -18,6 +18,7 @@
  * TODO: make SRFvCardAddress constructor sane
  */
 class SRFvCard extends SMWResultPrinter {
+	
 	protected $m_title = '';
 	protected $m_description = '';
 
@@ -34,7 +35,7 @@ class SRFvCard extends SMWResultPrinter {
 	}
 
 	public function getQueryMode( $context ) {
-		return ( $context == SMWQueryProcessor::SPECIAL_PAGE ) ? SMWQuery::MODE_INSTANCES:SMWQuery::MODE_NONE;
+		return ( $context == SMWQueryProcessor::SPECIAL_PAGE ) ? SMWQuery::MODE_INSTANCES : SMWQuery::MODE_NONE;
 	}
 
 	public function getName() {
@@ -339,12 +340,7 @@ class SRFvCard extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
-		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
-			return array_merge( parent::getParameters(), $this->exportFormatParameters() );
-		}
-		else {
-			return parent::exportFormatParameters();
-		}
+		return array_merge( parent::getParameters(), $this->exportFormatParameters() );
 	}
 }
 
@@ -426,6 +422,8 @@ class SRFvCardEntry {
 
 	/**
 	 * Creates the vCard output for a single item.
+	 * 
+	 * CAUTION: this might hurt your eyes
 	 */
 	public function text() {
 		$text  = "BEGIN:VCARD\r\n";
