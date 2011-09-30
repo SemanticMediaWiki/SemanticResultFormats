@@ -22,8 +22,8 @@ class SRFiCalendar extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
-		$this->m_params = trim( $this->m_params['title'] );
-		$this->m_description = trim( $this->m_params['icalendardescription'] );
+		$this->m_params = trim( $this->params['title'] );
+		$this->m_description = trim( $this->params['icalendardescription'] );
 	}
 
 	public function getMimeType( $res ) {
