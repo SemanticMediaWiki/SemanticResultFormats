@@ -15,25 +15,15 @@
  * @ingroup SemanticResultFormats
  */
 class SRFiCalendar extends SMWResultPrinter {
-	protected $m_title = '';
-	protected $m_description = '';
+	
+	protected $m_title;
+	protected $m_description;
 
-	protected function handleParameters( $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
-		if ( array_key_exists( 'title', $this->m_params ) ) {
-			$this->m_title = trim( $this->m_params['title'] );
-		// for backward compatibility
-		} elseif ( array_key_exists( 'icalendartitle', $this->m_params ) ) {
-			$this->m_title = trim( $this->m_params['icalendartitle'] );
-		}
-		
-		if ( array_key_exists( 'description', $this->m_params ) ) {
-			$this->m_description = trim( $this->m_params['description'] );
-		// for backward compatibility
-		} elseif ( array_key_exists( 'icalendardescription', $this->m_params ) ) {
-			$this->m_description = trim( $this->m_params['icalendardescription'] );
-		}
+		$this->m_params = trim( $this->m_params['title'] );
+		$this->m_description = trim( $this->m_params['icalendardescription'] );
 	}
 
 	public function getMimeType( $res ) {
@@ -244,24 +234,15 @@ class SRFiCalendar extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
-		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
-			$params = array_merge( parent::getParameters(), $this->exportFormatParameters() );
-			
-			$params['title'] = new Parameter( 'title' );
-			$params['title']->setDescription( wfMsg( 'srf_paramdesc_icalendartitle' ) );
-			$params['title']->setDefault( '' );
-			
-			$params['description'] = new Parameter( 'description' );
-			$params['description']->setDescription( wfMsg( 'srf_paramdesc_icalendardescription' ) );
-			$params['description']->setDefault( '' );
-		}
-		else {
-			// This if for b/c with SMW 1.5.x; SMW 1.6 directly accepts Parameter objects.
-			$params = parent::exportFormatParameters();
-			
-			$params[] = array( 'name' => 'title', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendartitle' ) );
-			$params[] = array( 'name' => 'description', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_icalendardescription' ) );				
-		}
+		$params = array_merge( parent::getParameters(), $this->exportFormatParameters() );
+		
+		$params['title'] = new Parameter( 'title' );
+		$params['title']->setMessage( 'srf_paramdesc_icalendartitle' );
+		$params['title']->setDefault( '' );
+		
+		$params['description'] = new Parameter( 'description' );
+		$params['description']->setMessage( 'srf_paramdesc_icalendardescription' );
+		$params['description']->setDefault( '' );
 		
 		return $params;
 	}
