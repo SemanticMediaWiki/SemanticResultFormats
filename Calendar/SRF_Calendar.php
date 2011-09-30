@@ -22,7 +22,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$this->mTemplate = trim( $params['template'] );
 		$this->mUserParam = trim( $params['userparam'] );
 		
-		if ( $params['userparam'] !== false ) {
+		if ( $params['lang'] !== false ) {
 			global $wgLang;
 			// store the actual user's language, so we can revert
 			// back to it after printing the calendar
