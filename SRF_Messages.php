@@ -853,6 +853,7 @@ $messages['fr'] = array(
 	'srf_printername_min' => 'Nombre minimal',
 	'srf_paramdesc_limit' => 'Le nombre maximum de pages à rechercher',
 	'srf_printername_product' => 'Produit de nombres',
+	'srf_printername_median' => 'Moyenne des nombres',
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie des événements',
 	'srf_paramdesc_timelinebands' => 'Définit quels groupes sont affichées dans les résultats.',
@@ -1744,7 +1745,10 @@ $messages['lb'] = array(
 	'srf_printername_array' => 'Tabell',
 	'srf-printername-graph' => 'Grafik',
 	'srf_paramdesc_graphname' => 'Titel',
+	'srf_paramdesc_graphlabel' => 'Etiquette vun der Grafik',
 	'srf_paramdesc_rankdir' => 'Richtung vum Feil',
+	'srf_paramdesc_graphlink' => 'Link op de Grafik',
+	'srf_paramdesc_graphcolor' => 'Faarf vun der Grafik',
 );
 
 /** Lithuanian (Lietuvių)
