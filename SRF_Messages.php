@@ -492,9 +492,11 @@ $messages['ca'] = array(
 	'srf_printername_min' => 'Nombre mínim',
 	'srf_paramdesc_limit' => 'El nombre màxim de pàgines per consultar',
 	'srf_printername_product' => 'Producte de nombres',
+	'srf_printername_median' => 'Mediana de nombres',
 	'srf_printername_timeline' => 'Línia temporal',
 	'srf_printername_eventline' => "Línia d'esdeveniments",
 	'srf_paramdesc_timelinebands' => 'Defineix quines bandes es mostren en el resultat.',
+	'srf_paramdesc_timelineposition' => "Defineix on s'enfoca inicialment la línia temporal.",
 	'srf_paramdesc_timelinesize' => 'La llargada de la línia de temps (per defecte són 300px)',
 	'srf-timeline-allresults' => "Més resultats d'aquesta consulta.",
 	'srf_paramdesc_lens' => "El nom d'una plantilla amb què mostrar les propietats de la pàgina",
@@ -511,9 +513,14 @@ $messages['ca'] = array(
 	'srf_paramdesc_propsep' => 'Separador entre les propietats sol·licitades',
 	'srf_paramdesc_manysep' => 'Separador entre moltes propietats amb valor',
 	'srf_paramdesc_recordsep' => 'Separador entre els valors de les propietats de registre',
+	'srf-printername-graph' => 'Gràfic',
+	'srf-paramdesc-graph-nodeshape' => 'La forma de cada node en el gràfic',
 	'srf_paramdesc_graphname' => 'Títol',
+	'srf_paramdesc_graphsize' => 'Mida del gràfic (en px)',
 	'srf_paramdesc_graphlabel' => 'Etiqueta del gràfic',
 	'srf_paramdesc_rankdir' => 'Direcció de la fletxa',
+	'srf_paramdesc_graphlink' => 'Enllaç del gràfic',
+	'srf_paramdesc_graphcolor' => 'Color del gràfic',
 );
 
 /** German (Deutsch)
