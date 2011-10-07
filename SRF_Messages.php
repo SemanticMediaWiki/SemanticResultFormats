@@ -2469,6 +2469,7 @@ $messages['roa-tara'] = array(
  * @author Ferrer
  * @author Haffman
  * @author Innv
+ * @author Kaganer
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -2500,7 +2501,7 @@ $messages['ru'] = array(
 	'srf_paramdesc_timelineposition' => 'Определяет какое место временной шкалы будет отображаться первоначально',
 	'srf_paramdesc_timelinestart' => 'Имя свойства, используемое для определения первой временной точки',
 	'srf_paramdesc_timelineend' => 'Имя свойства, используемое для определения второй временной точки',
-	'srf_paramdesc_timelinesize' => 'Высота временной шкалы (по умолчанию 300 пикс)',
+	'srf_paramdesc_timelinesize' => 'Высота временной шкалы (по умолчанию 300 пикс.)',
 	'srf_paramdesc_views' => 'Виды для отображения',
 	'srf_paramdesc_facets' => 'Набор свойств, отображаемых на каждой странице',
 	'srf_paramdesc_lens' => 'Название шаблона для отображения свойств страницы',
