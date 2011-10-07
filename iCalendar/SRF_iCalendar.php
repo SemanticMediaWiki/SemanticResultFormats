@@ -22,7 +22,7 @@ class SRFiCalendar extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
-		$this->m_params = trim( $params['title'] );
+		$this->m_title = trim( $params['title'] );
 		$this->m_description = trim( $params['icalendardescription'] );
 	}
 
@@ -122,8 +122,8 @@ class SRFiCalendar extends SMWResultPrinter {
 			$link->setParameter( $this->m_description, 'description' );
 		}
 		
-		if ( array_key_exists( 'limit', $this->m_params ) ) {
-			$link->setParameter( $this->m_params['limit'], 'limit' );
+		if ( array_key_exists( 'limit', $this->params ) ) {
+			$link->setParameter( $this->params['limit'], 'limit' );
 		} else { // use a reasonable default limit
 			$link->setParameter( 20, 'limit' );
 		}
