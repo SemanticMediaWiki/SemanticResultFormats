@@ -2558,7 +2558,8 @@ $messages['sk'] = array(
 	'srf_printername_eventline' => 'Os udalostí',
 );
 
-/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+ * @author Rancher
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
@@ -2567,6 +2568,9 @@ $messages['sr-ec'] = array(
 	'srfc_today' => 'Данас',
 	'srfc_gotomonth' => 'Пређи на месец',
 	'srf_printername_calendar' => 'Месечни календар',
+	'srf_vcard_link' => 'vCard',
+	'srf_icalendar_link' => 'iCalendar',
+	'srf_bibtex_link' => 'BibTeX',
 	'srf_outline_novalue' => 'Нема вредности',
 	'srf_printername_sum' => 'Сума бројева',
 	'srf_printername_average' => 'Средња вредност бројева',
