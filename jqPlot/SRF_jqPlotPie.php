@@ -157,11 +157,13 @@ jQuery(document).ready(function(){
 END;
 		$wgOut->addScript( $js_pie );
 
-		$text =<<<END
-<div id="$pieID" style="margin-top: 20px; margin-left: 20px; width: {$this->m_width}px; height: {$this->m_height}px;"></div>
-
-END;
-		return $text;
+		return Html::element(
+			'div',
+			array(
+				'id' => $pieID,
+				'style' => Sanitizer::checkCss( "margin-top: 20px; margin-left: 20px; width: {$this->m_width}px; height: {$this->m_height}px;" )
+			)
+		);
 	}
 
 	public function getParameters() {
