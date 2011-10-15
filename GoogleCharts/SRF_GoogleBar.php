@@ -5,18 +5,18 @@
  * @note AUTOLOADED
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'Not an entry point.' );
-}
-
 class SRFGoogleBar extends SMWResultPrinter {
-	protected $m_width = '250';
+	
+	protected $m_width;
 
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
-		if ( array_key_exists( 'width', $this->m_params ) ) {
-			$this->m_width = $this->m_params['width'];
-		}
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::handleParameters()
+	 */
+	protected function handleParameters( array $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
+		
+		$this->m_width = $this->m_params['width'];
 	}
 
 	public function getName() {
@@ -76,11 +76,15 @@ class SRFGoogleBar extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
-		return array(
-			array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'smw_paramdesc_limit' ) ),
-			array( 'name' => 'height', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartheight' ) ),
-			array( 'name' => 'width', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartwidth' ) ),
-		);
+		$params = parent::getParameters();
+		
+//		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 250 );
+//		$params['height']->addMessage( 'srf_paramdesc_chartheight' );
+		
+		$params['width'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 250 );
+		$params['width']->addMessage( 'srf_paramdesc_chartwidth' );		
+		
+		return $params;
 	}
 
 }

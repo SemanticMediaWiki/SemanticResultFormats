@@ -5,10 +5,6 @@
  * @note AUTOLOADED
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'Not an entry point.' );
-}
-
 class SRFGooglePie extends SMWResultPrinter {
 	protected $m_width = 250;
 	protected $m_heighth = 250;
