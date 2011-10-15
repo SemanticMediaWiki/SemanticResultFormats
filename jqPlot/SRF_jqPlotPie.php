@@ -7,22 +7,23 @@
  */
 
 class SRFjqPlotPie extends SMWResultPrinter {
-	protected $m_width = 400;
-	protected $m_height = 400;
-	protected $m_charttitle = " ";
-	static protected $m_piechartnum = 1;
+	
+	protected static $m_piechartnum = 1;
+	
+	protected $m_width;
+	protected $m_height;
+	protected $m_charttitle;
 
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
-		if ( array_key_exists( 'width', $this->m_params ) ) {
-			$this->m_width = $this->m_params['width'];
-		}
-		if ( array_key_exists( 'height', $this->m_params ) ) {
-			$this->m_height = $this->m_params['height'];
-		}
-		if ( array_key_exists( 'charttitle', $this->m_params ) ) {
-			$this->m_charttitle = $this->m_params['charttitle'];
-		} 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::handleParameters()
+	 */
+	protected function handleParameters( array $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
+		
+		$this->m_width = $this->m_params['width'];
+		$this->m_height = $this->m_params['height'];
+		$this->m_charttitle = $this->m_params['charttitle'];
 	}
 
 	public function getName() {
@@ -164,12 +165,18 @@ END;
 	}
 
 	public function getParameters() {
-		return array(
-			array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'smw_paramdesc_limit' ) ),
-			array( 'name' => 'height', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartheight' ) ),
-			array( 'name' => 'charttitle', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_charttitle' ) ),
-			array( 'name' => 'width', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartwidth' ) ),
-		);
+		$params = parent::getParameters();
+		
+		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
+		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
+
+		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 400 );
+		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
+
+		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
+		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
+		
+		return $params;
 	}
 
 }
