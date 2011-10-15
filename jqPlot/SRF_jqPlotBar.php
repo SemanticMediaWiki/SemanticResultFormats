@@ -7,41 +7,29 @@
  */
 
 class SRFjqPlotBar extends SMWResultPrinter {
+	
+	protected static $m_barchartnum = 1;
+	
 	protected $m_width = '150';
 	protected $m_height = '400';
 	protected $m_charttitle = ' ';
 	protected $m_barcolor = '#85802b' ;
 	protected $m_bardirection = 'vertical';
 	protected $m_numbersaxislabel = ' ';
-	static protected $m_barchartnum = 1;
 
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
-		if ( array_key_exists( 'width', $this->m_params ) ) {
-			$this->m_width = $this->m_params['width'];
-		}
-		if ( array_key_exists( 'height', $this->m_params ) ) {
-			$this->m_height = $this->m_params['height'];
-		}
-		if ( array_key_exists( 'charttitle', $this->m_params ) ) {
-		      $this->m_charttitle = $this->m_params['charttitle'];
-		}
-		if ( array_key_exists( 'barcolor', $this->m_params ) ) {
-		      $this->m_barcolor = $this->m_params['barcolor'];
-		}
-		if ( array_key_exists( 'bardirection', $this->m_params ) ) {
-			// keep it simple - only 'horizontal' makes sense as
-			// an alternate value
-			if ( $this->m_params['bardirection'] == 'horizontal' ) {
-				$this->m_bardirection = $this->m_params['bardirection'];
-			}
-		}
-		else{
-		    $this->m_bardirection = 'vertical';
-		}
-		if ( array_key_exists( 'numbersaxislabel', $this->m_params ) ) {
-		      $this->m_numbersaxislabel = $this->m_params['numbersaxislabel'];
-		}
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::handleParameters()
+	 */
+	protected function handleParameters( array $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
+		
+		$this->m_width = $this->m_params['width'];
+		$this->m_height = $this->m_params['height'];
+		$this->m_charttitle = $this->m_params['charttitle'];
+		$this->m_barcolor = $this->m_params['barcolor'];
+		$this->m_bardirection = $this->m_params['bardirection'];
+		$this->m_numbersaxislabel = $this->m_params['numbersaxislabel'];
 	}
 
 	public function getName() {
@@ -278,15 +266,28 @@ END;
 	}
 
 	public function getParameters() {
-		return array(
-			array( 'name' => 'limit', 'type' => 'int', 'description' => wfMsg( 'smw_paramdesc_limit' ) ),
-			array( 'name' => 'height', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartheight' ) ),
-			array( 'name' => 'charttitle', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_charttitle' ) ),
-			array( 'name' => 'barcolor', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_barcolor' ) ),
-			array( 'name' => 'bardirection', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_bardirection' ),'values' => array('horizontal', 'vertical')),
-			array( 'name' => 'numbersaxislabel', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_barnumbersaxislabel' ) ),
-			array( 'name' => 'width', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_chartwidth' ) ),
-		);
+		$params = parent::getParameters();
+		
+		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
+		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
+		
+		$params['width'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 150 );
+		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
+		
+		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
+		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
+		
+		$params['barcolor'] = new Parameter( 'barcolor', Parameter::TYPE_STRING, '#85802b' );
+		$params['barcolor']->setMessage( 'srf_paramdesc_barcolor' );
+		
+		$params['bardirection'] = new Parameter( 'bardirection', Parameter::TYPE_STRING, 'vertical' );
+		$params['bardirection']->setMessage( 'srf_paramdesc_bardirection' );
+		$params['bardirection']->addCriteria( new CriterionInArray( 'horizontal', 'vertical' ) );
+		
+		$params['numbersaxislabel'] = new Parameter( 'numbersaxislabel', Parameter::TYPE_STRING, ' ' );
+		$params['numbersaxislabel']->setMessage( 'srf_paramdesc_barnumbersaxislabel' );
+		
+		return $params;
 	}
 	
 }
