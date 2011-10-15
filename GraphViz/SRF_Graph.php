@@ -66,44 +66,31 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_parentRelation;
 	protected $m_wordWrapLimit = 25;
 	
-	protected function readParameters( $params, $outputmode ) {
-		parent::readParameters( $params, $outputmode );
-
-		if ( array_key_exists( 'graphname', $params ) ) {
-			$this->m_graphName = trim( $params['graphname'] );
-		}
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::handleParameters()
+	 */
+	protected function handleParameters( array $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
 		
-		if ( array_key_exists( 'graphsize', $params ) ) {
-			$this->m_graphSize = trim( $params['graphsize'] );
-		}
+		$this->m_graphName = trim( $params['graphname'] );
+		$this->m_graphSize = trim( $params['graphsize'] );
 		
-		$this->m_graphLegend = array_key_exists( 'graphlegend', $params ) && strtolower( trim( $params['graphlegend'] ) ) == 'yes';
-		$this->m_graphLabel = array_key_exists( 'graphlabel', $params ) && strtolower( trim( $params['graphlabel'] ) ) == 'yes';
-
-		if ( array_key_exists( 'arrowdirection', $params ) ) {
-			$params['rankdir'] = $params['arrowdirection']; 
-		}
+		$this->m_graphLegend = $params['graphlegend'];
+		$this->m_graphLabel = $params['graphlabel'];
 		
-		if ( array_key_exists( 'rankdir', $params ) ) {
-			$this->m_rankdir = strtoupper( trim( $params['rankdir'] ) );
-		}
+		$params['rankdir'] = $params['arrowdirection']; // TODO
+		$this->m_rankdir = strtoupper( trim( $params['rankdir'] ) );
 		
-		$this->m_graphLink = array_key_exists( 'graphlink', $params ) && strtolower( trim( $params['graphlink'] ) ) == 'yes';
-		$this->m_graphColor = array_key_exists( 'graphcolor', $params ) && strtolower( trim( $params['graphcolor'] ) ) == 'yes';
+		$this->m_graphLink = $params['graphlink'];
+		$this->m_graphColor =$params['graphcolor'];
 		
-		if ( array_key_exists( 'nameproperty', $params ) ) {
-			$this->m_nameProperty = trim( $params['nameproperty'] );
-		}
+		$this->m_nameProperty = trim( $params['nameproperty'] );
 		
-		$this->m_parentRelation = array_key_exists( 'relation', $params ) && strtolower( trim( $params['relation'] ) ) == 'parent';
+		$this->m_parentRelation = strtolower( trim( $params['relation'] ) ) == 'parent';
 		
-		if ( array_key_exists( 'nodeshape', $params ) && in_array( trim( $params['nodeshape'] ), self::$NODE_SHAPES ) ) {
-			$this->m_nodeShape = trim( $params['nodeshape'] );
-		}
-		
-		if ( array_key_exists( 'wordwraplimit', $params ) && is_int( $params['wordwraplimit'] ) ) {
-			$this->m_wordWrapLimit = (int)$params['wordwraplimit'];
-		}
+		$this->m_nodeShape = $params['nodeshape'];
+		$this->m_wordWrapLimit = $params['wordwraplimit'];
 	}
 	
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -290,9 +277,18 @@ class SRFGraph extends SMWResultPrinter {
 	}	
 	
 	public function getParameters() {
+		$params = parent::getParameters();
+		
+		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, '' );
+		$params['graphname']->setMessage( 'srf_paramdesc_graphname' );
+		
+		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_INTEGER );
+		$params['graphsize']->setMessage( 'srf_paramdesc_graphsize' );
+		$params['graphsize']->setDefault( '', false );
+		
+		return $params; // TODO
+		
 		return array(
-			array( 'name' => 'graphname', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_graphname' ) ),
-			array( 'name' => 'graphsize', 'type' => 'int', 'description' => wfMsg( 'srf_paramdesc_graphsize' ) ),
 			array( 'name' => 'graphlegend', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlegend' ), 'values'=> array( 'yes', 'no' ) ),
 			array( 'name' => 'graphlabel', 'type' => 'enumeration', 'description' => wfMsg( 'srf_paramdesc_graphlabel' ), 'values'=> array( 'yes', 'no' ) ),
 			array( 'name' => 'arrowdirection', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_rankdir' ) ),
