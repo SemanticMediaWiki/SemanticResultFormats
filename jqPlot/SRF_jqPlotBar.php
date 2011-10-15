@@ -271,7 +271,7 @@ END;
 		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
 		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
 		
-		$params['width'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 150 );
+		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 150 );
 		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
 		
 		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
