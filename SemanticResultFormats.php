@@ -21,7 +21,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 }
 
 if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-	die( '<b>Error:</b> This version of Maps requires MediaWiki 1.16 or above; use SRF 1.6.x for older versions.' );
+	die( '<b>Error:</b> This version of Semantic Result Formats requires MediaWiki 1.16 or above; use SRF 1.6.x for older versions.' );
 }
 
 // Show a warning if Semantic MediaWiki is not loaded.
