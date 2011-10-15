@@ -10,12 +10,12 @@ class SRFjqPlotBar extends SMWResultPrinter {
 	
 	protected static $m_barchartnum = 1;
 	
-	protected $m_width = '150';
-	protected $m_height = '400';
-	protected $m_charttitle = ' ';
-	protected $m_barcolor = '#85802b' ;
-	protected $m_bardirection = 'vertical';
-	protected $m_numbersaxislabel = ' ';
+	protected $m_width;
+	protected $m_height;
+	protected $m_charttitle;
+	protected $m_barcolor;
+	protected $m_bardirection;
+	protected $m_numbersaxislabel;
 
 	/**
 	 * (non-PHPdoc)
