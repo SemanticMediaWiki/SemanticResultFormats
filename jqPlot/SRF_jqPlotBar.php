@@ -274,7 +274,8 @@ END;
 		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
 		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
 		
-		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 150 );
+		// TODO: this is a string to allow for %, but better handling would be nice
+		$params['width'] = new Parameter( 'width', Parameter::TYPE_STRING, '100%' );
 		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
 		
 		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );

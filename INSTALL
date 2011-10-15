@@ -1,3 +1,15 @@
+== Requirements ==
+
+Semantic Result Formats requires:
+* MediaWiki 1.16 or above
+* Semantic MediaWiki 1.7 or above
+* PHP 5.2 or above
+
+For older setups, SRF 1.6.x can be used, which has these requirements:
+* MediaWiki 1.15 or above
+* Semantic MediaWiki 1.5.1 to 1.6.1
+* PHP 5.2 or above
+
 == Installation ==
 
 Installation instructions are available online in a more convenient form for
