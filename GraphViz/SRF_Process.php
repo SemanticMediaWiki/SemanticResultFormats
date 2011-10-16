@@ -59,99 +59,66 @@ class SRFProcess extends SMWResultPrinter {
 	// internal variables
 	protected $m_process;	// process to be rendered
 
-
 	/**
-	 *  This method is called before rendering the output to push
-	 *  the parameters for result formatting to the printer
-	 *
-	 *	@param params		array of parameters provided for the ask-query
-	 *  @param outputmode	?
-	 *	@return				void
-	 *
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::handleParameters()
 	 */
-	protected function readParameters( $params, $outputmode ) {
-
-		parent::readParameters( $params, $outputmode );
-
+	protected function handleParameters( array $params, $outputmode ) {
+		parent::handleParameters( $params, $outputmode );
+		
 		// init process graph instance
 		$this->m_process = new ProcessGraph();
-
-		// process configuration
-
-		if ( array_key_exists( 'graphname', $params ) ) {
-			$this->m_process->setGraphName( trim( $params['graphname'] ) );
-		}
-
-		if ( array_key_exists( 'graphsize', $params ) ) {
-			$this->m_process->setGraphSize( trim( $params['graphsize'] ) );
-		}
-
-		if ( array_key_exists( 'clustercolor', $params ) ) {
-			$this->m_process->setClusterColor( trim( $params['clustercolor'] ) );
-		}
-
-		if ( array_key_exists( 'rankdir', $params ) ) {
-			$this->m_process->setRankdir( strtoupper( trim( $params['rankdir'] ) ) );
-		}
-
-		if ( array_key_exists( 'showroles', $params ) ) {
-			if ( self::isTrue( $params['showroles'] ) ) $this->m_process->setShowRoles( true );
-		}
-
-		if ( array_key_exists( 'showstatus', $params ) ) {
-			if ( self::isTrue( $params['showstatus'] ) ) $this->m_process->setShowStatus( true );
-		}
-
-		if ( array_key_exists( 'showresources', $params ) ) {
-			if ( self::isTrue( $params['showresources'] ) ) $this->m_process->setShowRessources( true );
-		}
-
-		if ( array_key_exists( 'highlight', $params ) ) {
-			$this->m_process->setHighlightNode( trim( $params['highlight'] ) );
-		}
-
-		if ( array_key_exists( 'highlightcolor', $params ) ) {
-			$this->m_process->setHighlightColor( trim( $params['highlightcolor'] ) );
-		}
-
-		if (array_key_exists('showdiscussion', $params)) {
-			if (self::isTrue($params['showdiscussion'])) $this->m_process->setShowDiscussion(true);
-		}
-
-		if ( array_key_exists( 'redlinkcolor', $params ) ) {
-			$this->m_process->setHighlightColor( trim( $params['redlinkcolor'] ) );
-		}
-
-		if ( array_key_exists( 'showredlinks', $params ) ) {
-			if ( self::isTrue( $params['showredlinks'] ) ) $this->m_process->setShowRedLinks( true );
-		}
-
-		if ( array_key_exists( 'showcompound', $params ) ) {
-			if ( self::isTrue( $params['showcompound'] ) ) $this->m_process->setShowCompound( true );
-		}
-
-		// method configuration
-
-		if ( array_key_exists( 'debug', $params ) ) {
-			if ( self::isTrue( $params['debug'] ) ) $this->m_isDebugSet = true;
-		}
-
-		if ( array_key_exists( 'graphvalidation', $params ) ) {
-			if ( self::isTrue( $params['graphvalidation'] ) ) $this->m_graphValidation = true;
-		}
-
-		if ( array_key_exists( 'processcat', $params ) ) {
-			$this->m_processCategory = $params['processcat'];
-		}
-
+		
+		$this->m_process->setGraphName( trim( $params['graphname'] ) );
+		$this->m_process->setGraphSize( trim( $params['graphsize'] ) );
+		$this->m_process->setClusterColor( trim( $params['clustercolor'] ) );
+		$this->m_process->setRankdir( strtoupper( trim( $params['rankdir'] ) ) );
+		$this->m_process->setHighlightNode( trim( $params['highlight'] ) );
+		$this->m_process->setHighlightColor( trim( $params['highlightcolor'] ) );
+		$this->m_process->setHighlightColor( trim( $params['redlinkcolor'] ) );
+		
+		$this->m_process->setShowRoles( $params['showroles'] );
+		$this->m_process->setShowStatus( $params['showstatus'] );
+		$this->m_process->setShowRessources( $params['showresources'] );
+		$this->m_process->setShowDiscussion( $params['showdiscussion'] );
+		$this->m_process->setShowRedLinks( $params['showredlinks'] );
+		$this->m_process->setShowCompound( $params['showcompound'] );
+		
+		$this->m_processCategory = $params['processcat'];
+		$this->m_isDebugSet = $params['debug'];
+		$this->m_graphValidation = $params['graphvalidation'];
 	}
-
-	public static function isTrue( $value ) {
-		$res = false;
-		if ( ( strtolower( trim( $value ) ) == 'yes' ) || ( strtolower( trim( $value ) ) == 'true' ) ) $res = true;
-		return $res;
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getParameters()
+	 * 
+	 * TODO: add messages and criteria
+	 */
+	public function getParameters() {
+		$params = parent::getParameters();
+		
+		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, '' );
+		$params['rankdir'] = new Parameter( 'rankdir', Parameter::TYPE_STRING, 'TB' );
+		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_STRING, '' );
+		$params['clustercolor'] = new Parameter( 'clustercolor', Parameter::TYPE_STRING, 'lightgrey' );
+		$params['highlight'] = new Parameter( 'highlight', Parameter::TYPE_STRING, '' );
+		$params['highlightcolor'] = new Parameter( 'highlightcolor', Parameter::TYPE_STRING, 'blue' );
+		$params['redlinkcolor'] = new Parameter( 'redlinkcolor', Parameter::TYPE_STRING, 'red' );
+		
+		$params['showroles'] = new Parameter( 'showroles', Parameter::TYPE_BOOLEAN, false );
+		$params['showstatus'] = new Parameter( 'showstatus', Parameter::TYPE_BOOLEAN, false );
+		$params['showresources'] = new Parameter( 'showresources', Parameter::TYPE_BOOLEAN, false );
+		$params['showdiscussion'] = new Parameter( 'showdiscussion', Parameter::TYPE_BOOLEAN, false );
+		$params['showredlinks'] = new Parameter( 'showredlinks', Parameter::TYPE_BOOLEAN, false );
+		$params['showcompound'] = new Parameter( 'showcompound', Parameter::TYPE_BOOLEAN, true );
+		
+		$params['processcat'] = new Parameter( 'processcat', Parameter::TYPE_STRING, 'Process' );
+		$params['debug'] = new Parameter( 'debug', Parameter::TYPE_BOOLEAN, false );
+		$params['graphvalidation'] = new Parameter( 'graphvalidation', Parameter::TYPE_BOOLEAN, false );
+		
+		return $params;
 	}
-
 
 	/**
 	 *	This method renders the result set provided by SMW according to the printer
