@@ -2058,6 +2058,7 @@ $messages['no'] = array(
 	'srf_printername_min' => 'Minste tall',
 	'srf_paramdesc_limit' => 'Maks antall sider å etterspørre',
 	'srf_printername_product' => 'Produktet av tallene',
+	'srf_printername_median' => 'Tallmedian',
 	'srf_printername_timeline' => 'Tidslinje',
 	'srf_printername_eventline' => 'Hendelseslinje',
 	'srf_paramdesc_timelinebands' => 'Definerer hvilke bånd som vises i resultatet.',
