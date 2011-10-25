@@ -97,6 +97,7 @@ function srffInitFormats() {
 	$wgAutoloadClasses['SRFTagCloud'] = $formatDir . 'TagCloud/SRF_TagCloud.php';
 	$wgAutoloadClasses['SRFArray'] = $formatDir . 'Array/SRF_Array.php';
 	$wgAutoloadClasses['SRFHash'] = $formatDir . 'Array/SRF_Array.php';
+	$wgAutoloadClasses['SRFValueRank'] = $formatDir . 'ValueRank/SRF_ValueRank.php';
 	
 	$formatClasses = array(
 		'timeline' => 'SRFTimeline',
@@ -122,12 +123,14 @@ function srffInitFormats() {
 		'ploticusvbar' => 'SRFPloticusVBar',
 		'gallery' => 'SRFGallery',
 		'tagcloud' => 'SRFTagCloud',
+		'valuerank' => 'SRFValueRank',
 		'array' => 'SRFArray',
 		'hash' => 'SRFHash',
 	);
 
 	$formatAliases = array(
-		'tagcloud' => array( 'tag cloud' )
+		'tagcloud' => array( 'tag cloud' ),
+		'valuerank' => array( 'value rank' )
 	);
 	
 	foreach ( $srfgFormats as $format ) {

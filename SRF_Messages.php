@@ -97,6 +97,9 @@ $messages['en'] = array(
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 177)',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 
+	// "valuerank" format
+	'srf_printername_valuerank' => 'Value rank',
+
 	// format "Array" and "Hash"
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Whether to show page titles as result entries or to hide them',
