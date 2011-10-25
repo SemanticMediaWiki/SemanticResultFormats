@@ -54,9 +54,7 @@ $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 
-$wgExtensionFunctions[] = 'efSRFSetup';
-
-$wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'other'][] = array(
+$wgExtensionCredits['semantic'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Result Formats',
 	'version' => SRF_VERSION,
@@ -149,24 +147,6 @@ function srffInitFormats() {
 			wfDebug( "There is not result format class associated with the format '$format'." );
 		}
 	}		
-}
-
-/**
- * Extension initialization hook.
- * 
- * @since 0.5.3
- * 
- * @return true
- */
-function efSRFSetup() {
-	global $wgVersion;
-	
-	// This function has been deprecated in 1.16, but needed for earlier versions.
-	if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-		wfLoadExtensionMessages( 'SemanticResultFormats' );
-	}	
-	
-	return true;
 }
 
 /**
