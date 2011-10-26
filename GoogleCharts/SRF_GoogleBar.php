@@ -81,7 +81,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 //		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 250 );
 //		$params['height']->addMessage( 'srf_paramdesc_chartheight' );
 		
-		$params['width'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 250 );
+		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 250 );
 		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );		
 		
 		return $params;
