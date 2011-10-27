@@ -71,12 +71,10 @@ class SRFGoogleBar extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
-		$this->supportsGroupBy = true;
-		
 		$params = parent::getParameters();
 		
 //		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 250 );
-//		$params['height']->addMessage( 'srf_paramdesc_chartheight' );
+//		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
 		
 		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 250 );
 		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );		
@@ -85,4 +83,3 @@ class SRFGoogleBar extends SMWResultPrinter {
 	}
 
 }
-
