@@ -118,14 +118,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 			foreach ( $row as $field ) {
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
-						
-						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-						if ( method_exists( $object, 'getDataItem' ) ) {
-							$nr = $object->getDataItem()->getSortKey();
-						} else {
-							$nr = $object->getValueKey();
-						}
-						
+						$nr = $object->getDataItem()->getSortKey();
 						$pie_data[] .= "['$name', $nr]";
 					}
 				}

@@ -162,15 +162,9 @@ class SRFTimeline extends SMWResultPrinter {
 				
 				if ( $dataValue == '' ) {
 					$date_value = null;
-				} // SMW >= 1.6
-				elseif ( method_exists ( $dataValue, 'getDataItem' ) ) {
-					$date_value = $dataValue->getDataItem()->getLabel();
-				} // SMW 1.5.x
-				elseif ( method_exists ( $dataValue, 'getValueKey' ) ) {
-					$date_value = $dataValue->getValueKey();
-				} // SMW < 1.5
+				}
 				else {
-					$date_value = $dataValue->getXSDValue();
+					$date_value = $dataValue->getDataItem()->getLabel();
 				}
 				
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) { // Loop over property values
@@ -344,21 +338,10 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 		
 		if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
-			// SMW >= 1.6
-			if ( method_exists ( $object, 'getDataItem' ) ) {
-				$numericValue = $object->getDataItem()->getSortKey();
-			} // SMW 1.5.x
-			elseif ( method_exists ( $object, 'getValueKey' ) ) {
-				$numericValue = $object->getValueKey();
-			} // SMW < 1.5
-			else {
-				$numericValue = $object->getNumericValue();
-			}			
-			
 			$event = array(
 				$object->getXMLSchemaDate(),
 				$pr->getLabel(),
-				$numericValue,
+				$object->getDataItem()->getSortKey(),
 			);
 		}
 	

@@ -140,13 +140,7 @@ class SRFjqPlotBar extends SMWResultPrinter {
 			foreach ( $row as $field ) {
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					if ( $object->isNumeric() ) {
-						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-						if ( method_exists( $object, 'getDataItem' ) ) {
-							$numbers[] = $object->getDataItem()->getSortKey();
-						} else {
-							$numbers[] = $object->getValueKey();
-						}
-						
+						$numbers[] = $object->getDataItem()->getSortKey();
 						$labels[] = "'$name'";
 					}
 				}
