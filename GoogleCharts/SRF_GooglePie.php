@@ -45,12 +45,7 @@ class SRFGooglePie extends SMWResultPrinter {
 				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
 					// use numeric sortkey
 					if ( $object->isNumeric() ) {
-						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-						if ( method_exists( $object, 'getDataItem' ) ) {
-							$nr = $object->getDataItem()->getSortKey();
-						} else {
-							$nr = $object->getValueKey();
-						}
+						$nr = $object->getDataItem()->getSortKey();
 						
 						$max = max( $max, $nr );
 						

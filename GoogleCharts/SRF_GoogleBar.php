@@ -44,12 +44,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 					
 					// use numeric sortkey
 					if ( $object->isNumeric() ) {
-						// getDataItem was introduced in SMW 1.6, getValueKey was deprecated in the same version.
-						if ( method_exists( $object, 'getDataItem' ) ) {
-							$nr = $object->getDataItem()->getSortKey();
-						} else {
-							$nr = $object->getValueKey();
-						}
+						$nr = $object->getDataItem()->getSortKey();
 
 						$count++;
 						$max = max( $max, $nr );
@@ -76,6 +71,8 @@ class SRFGoogleBar extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
+		$this->supportsGroupBy = true;
+		
 		$params = parent::getParameters();
 		
 //		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 250 );
