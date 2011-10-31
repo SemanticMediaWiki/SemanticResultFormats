@@ -1420,6 +1420,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_minsize' => 'Le dimension del etiquettas le plus parve, como percentage (predefinition: 77)',
 	'srf_paramdesc_maxsize' => 'Le dimension del etiquettas le plus grande como percentage (predefinition: 177)',
 	'srf_paramdesc_maxtags' => 'Le numero maxime de etiquettas in le nube',
+	'srf_printername_valuerank' => 'Valor del rango',
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Si monstrar titulos de pagina como lineas de resultato o celar los',
 	'srf_paramdesc_hidegaps' => 'Si monstrar, con separatores, le valores vacue de proprietate e de registro, o celar los',
