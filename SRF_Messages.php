@@ -550,6 +550,7 @@ $messages['de'] = array(
 	'srf_printername_icalendar' => 'iCalendar-Export',
 	'srf_paramdesc_icalendartitle' => 'Titel der Kalenderdatei',
 	'srf_paramdesc_icalendardescription' => 'Beschreibung der Kalenderdatei',
+	'srf-paramdesc-ical-summary' => 'Die Zusammenfassung für jeden Kalendereintrag. $1 wird durch den Titel der Seite ersetzt, die dem Eintrag entspricht.',
 	'srf_printername_bibtex' => 'BibTeX-Export',
 	'srf_outline_novalue' => 'Kein Wert',
 	'srf_printername_outline' => 'Gliederung',
