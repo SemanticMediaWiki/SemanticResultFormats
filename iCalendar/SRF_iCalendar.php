@@ -185,7 +185,7 @@ class SRFiCalendar extends SMWResultPrinter {
 		$url = $title->getFullURL();
 		
 		$result .= "BEGIN:VEVENT\r\n";
-		$result .= "SUMMARY:" . $wikipage->getShortWikiText() . "\r\n";
+		$result .= "SUMMARY:" . str_replace( '$1', $wikipage->getShortWikiText(), $this->params['summary'] ) . "\r\n";
 		$result .= "URL:$url\r\n";
 		$result .= "UID:$url\r\n";
 		
@@ -207,7 +207,7 @@ class SRFiCalendar extends SMWResultPrinter {
 	 */
 	static private function parsedate( SMWTimeValue $dv, $isend = false ) {
 		$year = $dv->getYear();
-		if ( ( $year > 9999 ) || ( $year < - 9998 ) ) return ''; // ISO range is limited to four digits
+		if ( ( $year > 9999 ) || ( $year < -9998 ) ) return ''; // ISO range is limited to four digits
 		
 		$year = number_format( $year, 0, '.', '' );
 		$time = str_replace( ':', '', $dv->getTimeString( false ) );
@@ -239,6 +239,10 @@ class SRFiCalendar extends SMWResultPrinter {
 		$params['description'] = new Parameter( 'description' );
 		$params['description']->setMessage( 'srf_paramdesc_icalendardescription' );
 		$params['description']->setDefault( '' );
+		
+		$params['summary'] = new Parameter( 'summary' );
+		$params['summary']->setMessage( 'srf-paramdesc-ical-summary' );
+		$params['summary']->setDefault( '$1' );
 		
 		return $params;
 	}
