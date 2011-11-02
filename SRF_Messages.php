@@ -33,7 +33,7 @@ $messages['en'] = array(
 	'srf_printername_icalendar' => 'iCalendar export',
 	'srf_paramdesc_icalendartitle' => 'The title of the calendar file',
 	'srf_paramdesc_icalendardescription' => 'The description of the calendar file',
-	'srf-paramdesc-ical-summary' => 'The summary for each calendar entry. $1 gets replaced by the title of the page to shich the entry corresponds.',
+	'srf-paramdesc-ical-summary' => 'The summary for each calendar entry. $1 gets replaced by the title of the page to which the entry corresponds.',
 	// format "BibTeX"
 	'srf_bibtex_link'    => 'BibTeX',
 	'srf_printername_bibtex' => 'BibTeX export',
