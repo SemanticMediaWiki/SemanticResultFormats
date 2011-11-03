@@ -150,8 +150,10 @@ class SRFiCalendar extends SMWResultPrinter {
 		
 		$startdate = false;
 		$enddate = false;
-		$location = '';
-		$description = '';
+		
+		$params = array(
+			'summary' => $wikipage->getShortWikiText()
+		);
 		
 		foreach ( $row as /* SMWResultArray */ $field ) {
 			// later we may add more things like a generic
@@ -160,23 +162,18 @@ class SRFiCalendar extends SMWResultPrinter {
 			$req = $field->getPrintRequest();
 			$label = strtolower( $req->getLabel() );
 			
-			if ( $label == 'start' && $req->getTypeID() == '_dat' ) {
-				$startdate = efSRFGetNextDV( $field ); // save only the first
-			}
-			else if ( $label == 'end' && $req->getTypeID() == '_dat' ) {
-				$enddate = efSRFGetNextDV( $field ); // save only the first
-			}
-			else if ( $label == 'location' ) {
-				$value = efSRFGetNextDV( $field ); // save only the first
-				if ( $value !== false ) {
-					$location = $value->getShortWikiText();
-				}
-			}
-			else if ( $label == 'description' ) {
-				$value = efSRFGetNextDV( $field ); // save only the first
-				if ( $value !== false ) {
-					$description = $value->getShortWikiText();
-				}
+			switch ( $label ) {
+				case 'start': case 'end':
+					if ( $req->getTypeID() == '_dat' ) {
+						$params[$label] = $field->getNextDataValue();
+					}
+					break;
+				case 'location': case 'description': case 'summary':
+					$value = $field->getNextDataValue();
+					if ( $value !== false ) {
+						$params[$label] = $value->getShortWikiText();
+					}
+					break;
 			}
 		}
 		
@@ -185,14 +182,14 @@ class SRFiCalendar extends SMWResultPrinter {
 		$url = $title->getFullURL();
 		
 		$result .= "BEGIN:VEVENT\r\n";
-		$result .= "SUMMARY:" . str_replace( '$1', $wikipage->getShortWikiText(), $this->params['summary'] ) . "\r\n";
+		$result .= "SUMMARY:" . $params['summary'] . "\r\n";
 		$result .= "URL:$url\r\n";
 		$result .= "UID:$url\r\n";
 		
-		if ( $startdate != false ) $result .= "DTSTART:" . $this->parsedate( $startdate ) . "\r\n";
-		if ( $enddate != false )   $result .= "DTEND:" . $this->parsedate( $enddate, true ) . "\r\n";
-		if ( $location != "" )  $result .= "LOCATION:$location\r\n";
-		if ( $description != "" )  $result .= "DESCRIPTION:$description\r\n";
+		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $this->parsedate( $params['start'] ) . "\r\n";
+		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $this->parsedate( $params['end'], true ) . "\r\n";
+		if ( array_key_exists( 'location', $params ) )  $result .= "LOCATION:" . $params['location'] . "\r\n";
+		if ( array_key_exists( 'description', $params ) )  $result .= "DESCRIPTION:" . $params['description'] . "\r\n";
 		
 		$t = strtotime( str_replace( 'T', ' ', $article->getTimestamp() ) );
 		$result .= "DTSTAMP:" . date( "Ymd", $t ) . "T" . date( "His", $t ) . "\r\n";
@@ -239,10 +236,6 @@ class SRFiCalendar extends SMWResultPrinter {
 		$params['description'] = new Parameter( 'description' );
 		$params['description']->setMessage( 'srf_paramdesc_icalendardescription' );
 		$params['description']->setDefault( '' );
-		
-		$params['summary'] = new Parameter( 'summary' );
-		$params['summary']->setMessage( 'srf-paramdesc-ical-summary' );
-		$params['summary']->setDefault( '$1' );
 		
 		return $params;
 	}
