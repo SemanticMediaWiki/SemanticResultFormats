@@ -1994,6 +1994,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_minsize' => 'De grootte van de kleinste labels in percentage (standaard: 77)',
 	'srf_paramdesc_maxsize' => 'De grootte van de grootste labels in percentage (standaard: 177)',
 	'srf_paramdesc_maxtags' => 'Het maximale aantal labels in de wolk',
+	'srf_printername_valuerank' => 'Rangwaarde',
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Of paginanamen weergeven of verborgen moeten worden in resultaatregels',
 	'srf_paramdesc_hidegaps' => "Of lege eigenschap- en recordwaardes door komma's gescheiden weergegeven moeten worden of verborgen moeten blijven",
