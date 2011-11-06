@@ -164,6 +164,7 @@ $messages['am'] = array(
 /** Arabic (العربية)
  * @author Meno25
  * @author OsamaK
+ * @author روخو
  */
 $messages['ar'] = array(
 	'srf-desc' => 'صيغ إضافية لاستعلامات ميدياويكي الداخلية',
@@ -203,6 +204,10 @@ $messages['ar'] = array(
 	'srf_printername_googlepie' => 'رسم جوجل بالفطيرة',
 	'srf_paramdesc_chartheight' => 'ارتفاع الرسم بالبكسل',
 	'srf_paramdesc_chartwidth' => 'عرض الرسم بالبكسل',
+	'srf_printername_tagcloud' => 'وسم سحابة',
+	'srf_printername_array' => 'نسق',
+	'srf_printername_hash' => 'تجزئة',
+	'srf_paramdesc_graphname' => 'العنوان',
 );
 
 /** Aramaic (ܐܪܡܝܐ)
