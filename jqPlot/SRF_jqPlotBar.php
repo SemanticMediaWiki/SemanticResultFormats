@@ -86,19 +86,11 @@ class SRFjqPlotBar extends SMWResultPrinter {
 			return;
 		}
 
-		global $wgOut, $smwgJQueryIncluded, $srfgJQPlotIncluded;
+		global $wgOut, $srfgJQPlotIncluded;
 		global $srfgScriptPath;
 
 		$scripts = array();
-		if ( !$smwgJQueryIncluded ) {
-			$realFunction = array( $wgOut, 'includeJQuery' );
-			if ( is_callable( $realFunction ) ) {
-				$wgOut->includeJQuery();
-			} else {
-				$scripts[] = "$srfgScriptPath/jqPlot/jquery-1.4.2.min.js";
-			}
-			$smwgJQueryIncluded = true;
-		}
+		$wgOut->includeJQuery();
 
 		if ( !$srfgJQPlotIncluded ) {
 			$wgOut->addScript( '<!--[if IE]><script language="javascript" type="text/javascript" src="' . $srfgScriptPath . '/jqPlot/excanvas.js"></script><![endif]-->' );

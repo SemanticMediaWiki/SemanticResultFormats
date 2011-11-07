@@ -76,18 +76,11 @@ class SRFjqPlotPie extends SMWResultPrinter {
 			$this->loadJavascriptAndCSS();
 			return;
 		}
+		
 		global $wgOut, $srfgScriptPath;
-		global $smwgJQueryIncluded, $srfgJQPlotIncluded;
+		global $srfgJQPlotIncluded;
 
-		if ( !$smwgJQueryIncluded ) {
-			$realFunction = array( $wgOut, 'includeJQuery' );
-			if ( is_callable( $realFunction ) ) {
-				$wgOut->includeJQuery();
-			} else {
-				$scripts[] = "$srfgScriptPath/jqPlot/jquery-1.4.2.min.js";
-			}
-			$smwgJQueryIncluded = true;
-		}
+		$wgOut->includeJQuery();
 
 		if ( !$srfgJQPlotIncluded ) {
 			$srfgJQPlotIncluded = true;
