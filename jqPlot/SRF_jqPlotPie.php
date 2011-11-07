@@ -100,32 +100,57 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		// CSS file
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
 	}
-
+	
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgOut;
-
-		$this->addJavascriptAndCSS();
-
-		$this->isHTML = true;
-
-		$t = "";
+		if ( $this->params['distribution'] ) {
+			$data = SRFUtils::getDistributionResults( $res, $outputmode, $this->getLinker( false ) );
+		}
+		else {
+			$data = $this->getNumericResults( $res );
+		}
+		
+		if ( count( $data ) == 0 ) {
+			global $wgParser;
+			return $wgParser->parse(
+				'{{#info:' . wfMsgForContent( 'srf-warn-empy-chart' ) . '|warning}}',
+				Title::newMainPage(),
+				( new ParserOptions() )
+			)->getText();
+		}
+		else {
+			$this->isHTML = true;
+			$this->addJavascriptAndCSS();
+			return $this->getChart( $data );
+		}
+	}
+	
+	protected function getNumericResults( SMWQueryResult $res ) {
 		$pie_data = array();
+		
 		// print all result rows
 		while ( $row = $res->getNext() ) {
-			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
-			$name = str_replace( "'", "\'", $name );
+			$name = $row[0]->getNextDataValue()->getShortWikiText();
 			
 			foreach ( $row as $field ) {
-				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					if ( $object->isNumeric() ) { // use numeric sortkey
-						$nr = $object->getDataItem()->getSortKey();
-						$pie_data[] .= "['$name', $nr]";
+						$pie_data[$name] = $object->getDataItem()->getNumber();
 					}
 				}
 			}
 		}
 		
-		$pie_data_str = "[[" . implode( ', ', $pie_data ) . "]]";
+		return $pie_data;
+	}
+	
+	protected function getChart( array $data ) {
+		$json = array();
+		
+		foreach ( $data as $name => $value ) {
+			$json[] = array( $name, $value );
+		}
+		
+		$pie_data_str = '[' . FormatJson::encode( $json ) . ']';
 		$pieID = 'pie' . self::$m_piechartnum;
 		
 		self::$m_piechartnum++;
@@ -148,6 +173,7 @@ jQuery(document).ready(function(){
 });
 </script>
 END;
+		global $wgOut;
 		$wgOut->addScript( $js_pie );
 
 		return Html::element(
@@ -171,6 +197,9 @@ END;
 
 		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
 		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
+		
+		$params['distribution'] = new Parameter( 'distribution', Parameter::TYPE_BOOLEAN, false );
+		$params['distribution']->setMessage( 'srf-paramdesc-distribution' );
 		
 		return $params;
 	}

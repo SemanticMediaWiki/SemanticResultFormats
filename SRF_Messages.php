@@ -65,7 +65,8 @@ $messages['en'] = array(
 	'srf_paramdesc_views' => 'The views to be displayed',
 	'srf_paramdesc_facets' => 'The set of properties to be displayed for each page',
 	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
-	// formats "googlebar" and "googlepie"
+	
+	// formats "googlebar", "googlepie", jqplotpie and jqplotbar
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',
 	'srf_printername_jqplotbar' => 'jqPlot bar chart',
@@ -76,6 +77,7 @@ $messages['en'] = array(
 	'srf_paramdesc_barcolor'   =>   'The color of the bars',
 	'srf_paramdesc_bardirection'=>  'The direction of the bar chart',
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
+	'srf-paramdesc-distribution' => 'If the distribution of results should be calculated and shown.',
 
 	// "gallery" format
 	'srf_printername_gallery' => 'Gallery',
@@ -124,6 +126,8 @@ $messages['en'] = array(
 	'srf_paramdesc_graphlink' => 'Graph link',
 	'srf_paramdesc_graphcolor' => 'Graph color',
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
+	
+	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
 );
 
 /** Message documentation (Message documentation)

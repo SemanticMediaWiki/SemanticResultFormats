@@ -6,6 +6,8 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 * Compatibility with SMW 1.7 and later.
 * Dropped support for MediaWiki 1.15.x.
+* Added warning icon with tooltip to jqplotpie shown when there are no results instead of a non-working chart.
+* Added distribution parameter to the jqplotpie format using a new utility function in SRFUtils.
 
 == SRF 1.6.2 ==
 
