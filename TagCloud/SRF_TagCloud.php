@@ -23,11 +23,6 @@ class SRFTagCloud extends SMWResultPrinter {
 	
 	protected $tagsHtml = array();
 	
-	public function __construct( $format, $inline, $useValidator = true ) {
-		parent::__construct( $format, $inline );
-		$this->useValidator = $useValidator;
-	}
-	
 	public function getName() {
 		return wfMsg( 'srf_printername_tagcloud' );
 	}

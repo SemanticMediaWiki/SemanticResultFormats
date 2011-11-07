@@ -2,6 +2,15 @@
 
 /**
  * Result printer that prints query results as a valuerank.
+ * In other words, it prints a list of all occuring values, with duplicates removed,
+ * together with their occurance count.
+ * 
+ * For example, this result set: foo bar baz foo bar bar ohi 
+ * Will be turned into
+ * * bar (3)
+ * * foo (2)
+ * * baz (1)
+ * * ohi (1)
  * 
  * @since 1.7
  * 
@@ -10,7 +19,7 @@
  * 
  * @licence GNU GPL v3
  * @author DaSch < dasch@daschmedia.de >
- * build out of Tag Cloud Format
+ * build out of Tag Cloud Format by Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class SRFValueRank extends SMWResultPrinter {
 
@@ -19,11 +28,6 @@ class SRFValueRank extends SMWResultPrinter {
 	protected $maxTags;
 	
 	protected $tagsHtml = array();
-	
-	public function __construct( $format, $inline, $useValidator = true ) {
-		parent::__construct( $format, $inline );
-		$this->useValidator = $useValidator;
-	}
 	
 	public function getName() {
 		return wfMsg( 'srf_printername_valuerank' );
@@ -53,7 +57,7 @@ class SRFValueRank extends SMWResultPrinter {
 	/**
 	 * Returns an array with the tags (keys) and the number of times they occur (values).
 	 * 
-	 * @since 1.5.3
+	 * @since 1.7
 	 * 
 	 * @param SMWQueryResult $results
 	 * @param $outputmode
@@ -65,7 +69,7 @@ class SRFValueRank extends SMWResultPrinter {
 		
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property 
-				while ( ( /* SMWDataValue */ $dataValue = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Data values
+				while ( ( /* SMWDataValue */ $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
 					
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
 					
@@ -106,7 +110,7 @@ class SRFValueRank extends SMWResultPrinter {
 	 * Determines the sizes of tags.
 	 * This method is based on code from the FolkTagCloud extension by Katharina Wäschle.
 	 * 
-	 * @since 1.5.3
+	 * @since 1.7
 	 * 
 	 * @param array $tags
 	 * 
@@ -129,7 +133,7 @@ class SRFValueRank extends SMWResultPrinter {
 	/**
 	 * Returns the HTML for the tag cloud.
 	 * 
-	 * @since 1.5.3
+	 * @since 1.7
 	 * 
 	 * @param array $tags
 	 * 
@@ -156,7 +160,7 @@ class SRFValueRank extends SMWResultPrinter {
 	/**
 	 * @see SMWResultPrinter::getParameters
 	 * 
-	 * @since 1.5.3
+	 * @since 1.7
 	 * 
 	 * @return array
 	 */	

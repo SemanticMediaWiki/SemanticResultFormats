@@ -9,6 +9,9 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 * Added warning icon with tooltip to jqplotpie shown when there are no results instead of a non-working chart.
 * Added distribution parameter to the jqplotpie format using a new utility function in SRFUtils.
 
+New formats in this version are:
+* valuerank (written by DaSch)
+
 == SRF 1.6.2 ==
 
 Released on September 18, 2011.
