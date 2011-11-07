@@ -591,6 +591,7 @@ $messages['de'] = array(
 	'srf_paramdesc_barcolor' => 'Die Farbe der Balken',
 	'srf_paramdesc_bardirection' => 'Ein Säulen- (vertikale Ausrichtung) oder Balkendiagramm (horizontale Ausrichtung)',
 	'srf_paramdesc_barnumbersaxislabel' => 'Die Beschriftung der y-Achse',
+	'srf-paramdesc-distribution' => 'Ob die Verteilung der Ergebnisse berechnet und angezeigt werden soll.',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => 'Die Anzahl der Bilder pro Zeile',
 	'srf_paramdesc_widths' => 'Die Breite der Bilder',
@@ -629,6 +630,7 @@ $messages['de'] = array(
 	'srf_paramdesc_graphlink' => 'Link zur Grafik',
 	'srf_paramdesc_graphcolor' => 'Farbe der Grafik',
 	'srf-paramdesc-graph-wwl' => 'Begrenzung des Textumbruchs (Anzahl der Zeichen)',
+	'srf-warn-empy-chart' => 'Es wird kein Diagramm angezeigt, da keine anzuzeigende Ergebnisse vorhanden sind.',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -897,6 +899,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_barcolor' => 'La couleur des barres',
 	'srf_paramdesc_bardirection' => 'Direction du diagramme en barres',
 	'srf_paramdesc_barnumbersaxislabel' => 'Étiquette pour l’axe numérique',
+	'srf-paramdesc-distribution' => 'Si la distribution des résultats doit être calculée et affichée.',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => "Le nombre d'images par ligne",
 	'srf_paramdesc_widths' => 'La largeur des images',
@@ -935,6 +938,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_graphlink' => 'Lien vers le graphe',
 	'srf_paramdesc_graphcolor' => 'Couleur du graphe',
 	'srf-paramdesc-graph-wwl' => 'Limite de retour automatique (en nombre de caractères)',
+	'srf-warn-empy-chart' => "Le tableau n'est pas affiché parce qu'il n'y a pas de résultats qui peuvent être affichés dedans.",
 );
 
 /** Franco-Provençal (Arpetan)
@@ -1043,6 +1047,7 @@ $messages['gl'] = array(
 	'srf_paramdesc_barcolor' => 'A cor das barras',
 	'srf_paramdesc_bardirection' => 'A orientación do gráfico de barras',
 	'srf_paramdesc_barnumbersaxislabel' => 'A etiqueta para o eixe numérico',
+	'srf-paramdesc-distribution' => 'Se a distribución dos resultados debería ser calculada e mostrada.',
 	'srf_printername_gallery' => 'Galería',
 	'srf_paramdesc_perrow' => 'A cantidade de imaxes por liña',
 	'srf_paramdesc_widths' => 'O largo das imaxes',
@@ -1081,6 +1086,7 @@ $messages['gl'] = array(
 	'srf_paramdesc_graphlink' => 'Ligazón da gráfica',
 	'srf_paramdesc_graphcolor' => 'Cor da gráfica',
 	'srf-paramdesc-graph-wwl' => 'Axuste automático de liña (en número de caracteres)',
+	'srf-warn-empy-chart' => 'A táboa non se mostra porque non hai resultados que incluír nela.',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -1380,7 +1386,6 @@ $messages['ia'] = array(
 	'srf_printername_icalendar' => 'Exportation in iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Le titulo del file del calendario',
 	'srf_paramdesc_icalendardescription' => 'Le description del file del calendario',
-	'srf-paramdesc-ical-summary' => 'Le summario pro cata entrata de calendario. $1 es reimplaciate per le titulo del pagina al qual le entrata corresponde.',
 	'srf_printername_bibtex' => 'Exportation in BibTeX',
 	'srf_outline_novalue' => 'Nulle valor',
 	'srf_printername_outline' => 'Schizzo',
@@ -1414,6 +1419,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_barcolor' => 'Le color del barras',
 	'srf_paramdesc_bardirection' => 'Le orientation del diagramma de barras',
 	'srf_paramdesc_barnumbersaxislabel' => 'Le etiquetta pro le axe de numeros',
+	'srf-paramdesc-distribution' => 'Si le distribution del resultatos debe esser calculate e monstrate.',
 	'srf_printername_gallery' => 'Galeria',
 	'srf_paramdesc_perrow' => 'Le numero de imagines per linea',
 	'srf_paramdesc_widths' => 'Le latitude del imagines',
@@ -1452,6 +1458,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_graphlink' => 'Ligamine al graphico',
 	'srf_paramdesc_graphcolor' => 'Color del graphico',
 	'srf-paramdesc-graph-wwl' => 'Limite pro torno de parolas (in numero de characteres)',
+	'srf-warn-empy-chart' => 'Le graphico non es monstrate perque il non ha resultatos que pote esser presentate in illo.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1814,7 +1821,6 @@ $messages['mk'] = array(
 	'srf_printername_icalendar' => 'Извоз на iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Насловот на податотеката на календарот',
 	'srf_paramdesc_icalendardescription' => 'Описот на податотеката на календарот',
-	'srf-paramdesc-ical-summary' => 'Опис на секој запис во календарот. $1 се заменува со насловот на страницата на која се однесува записот.',
 	'srf_printername_bibtex' => 'Извоз на BibTeX',
 	'srf_outline_novalue' => 'Нема вредност',
 	'srf_printername_outline' => 'Преглед',
@@ -1848,6 +1854,7 @@ $messages['mk'] = array(
 	'srf_paramdesc_barcolor' => 'Бојата на столбовите',
 	'srf_paramdesc_bardirection' => 'Насока на столбниот графикон',
 	'srf_paramdesc_barnumbersaxislabel' => 'Натпис за бројната оска',
+	'srf-paramdesc-distribution' => 'Дали да се пресметува и прикажува распределбата на резултатите.',
 	'srf_printername_gallery' => 'Галерија',
 	'srf_paramdesc_perrow' => 'Број на слики по ред',
 	'srf_paramdesc_widths' => 'Ширина на сликите',
@@ -1886,6 +1893,7 @@ $messages['mk'] = array(
 	'srf_paramdesc_graphlink' => 'Врска за графиконот',
 	'srf_paramdesc_graphcolor' => 'Боја на графиконот',
 	'srf-paramdesc-graph-wwl' => 'Граница за прелом (во бр. на знаци)',
+	'srf-warn-empy-chart' => 'Графикот не е прикажан бидејќи нема резултати што би го исцртале.',
 );
 
 /** Malayalam (മലയാളം)
