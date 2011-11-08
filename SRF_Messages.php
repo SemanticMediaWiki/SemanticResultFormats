@@ -591,7 +591,7 @@ $messages['de'] = array(
 	'srf_paramdesc_barcolor' => 'Die Farbe der Balken',
 	'srf_paramdesc_bardirection' => 'Ein Säulen- (vertikale Ausrichtung) oder Balkendiagramm (horizontale Ausrichtung)',
 	'srf_paramdesc_barnumbersaxislabel' => 'Die Beschriftung der y-Achse',
-	'srf-paramdesc-distribution' => 'Ob die Verteilung der Ergebnisse berechnet und angezeigt werden soll.',
+	'srf-paramdesc-minvalue' => 'Der niedrigste Wert, der auf der Y-Achse angezeigt werden soll',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => 'Die Anzahl der Bilder pro Zeile',
 	'srf_paramdesc_widths' => 'Die Breite der Bilder',
@@ -899,7 +899,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_barcolor' => 'La couleur des barres',
 	'srf_paramdesc_bardirection' => 'Direction du diagramme en barres',
 	'srf_paramdesc_barnumbersaxislabel' => 'Étiquette pour l’axe numérique',
-	'srf-paramdesc-distribution' => 'Si la distribution des résultats doit être calculée et affichée.',
+	'srf-paramdesc-minvalue' => "La valeur minimale à afficher sur l'axe des ordonnées",
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => "Le nombre d'images par ligne",
 	'srf_paramdesc_widths' => 'La largeur des images',
@@ -1419,7 +1419,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_barcolor' => 'Le color del barras',
 	'srf_paramdesc_bardirection' => 'Le orientation del diagramma de barras',
 	'srf_paramdesc_barnumbersaxislabel' => 'Le etiquetta pro le axe de numeros',
-	'srf-paramdesc-distribution' => 'Si le distribution del resultatos debe esser calculate e monstrate.',
+	'srf-paramdesc-minvalue' => 'Le valor minime a monstrar sur le axe Y',
 	'srf_printername_gallery' => 'Galeria',
 	'srf_paramdesc_perrow' => 'Le numero de imagines per linea',
 	'srf_paramdesc_widths' => 'Le latitude del imagines',
@@ -1854,7 +1854,7 @@ $messages['mk'] = array(
 	'srf_paramdesc_barcolor' => 'Бојата на столбовите',
 	'srf_paramdesc_bardirection' => 'Насока на столбниот графикон',
 	'srf_paramdesc_barnumbersaxislabel' => 'Натпис за бројната оска',
-	'srf-paramdesc-distribution' => 'Дали да се пресметува и прикажува распределбата на резултатите.',
+	'srf-paramdesc-minvalue' => 'Минимална вредност за приказ на Y-оската',
 	'srf_printername_gallery' => 'Галерија',
 	'srf_paramdesc_perrow' => 'Број на слики по ред',
 	'srf_paramdesc_widths' => 'Ширина на сликите',
@@ -1947,6 +1947,7 @@ $messages['nah'] = array(
 /** Dutch (Nederlands)
  * @author GerardM
  * @author McDutchie
+ * @author SPQRobin
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -1995,6 +1996,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_barcolor' => 'De kleur van de balken',
 	'srf_paramdesc_bardirection' => 'De richting van de grafielbalken',
 	'srf_paramdesc_barnumbersaxislabel' => 'Het lavel van de Y-as',
+	'srf-paramdesc-minvalue' => 'De minimumwaarde om op de Y-as weer te geven',
 	'srf_printername_gallery' => 'Galerij',
 	'srf_paramdesc_perrow' => 'Het aantal afbeeldingen per rij',
 	'srf_paramdesc_widths' => 'De breedte van de afbeeldingen',
@@ -2033,6 +2035,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_graphlink' => 'Grafiekverwijzing',
 	'srf_paramdesc_graphcolor' => 'Grafiekkleur',
 	'srf-paramdesc-graph-wwl' => 'Regellimiet (in aantal tekens)',
+	'srf-warn-empy-chart' => 'De grafiek wordt niet weergegeven omdat er geen weer te geven resultaten zijn.',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
