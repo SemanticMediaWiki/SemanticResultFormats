@@ -170,7 +170,7 @@ END;
 		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
 		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
 		
-		$params['distributionimit']->setDefault( 13 );
+		$params['distributionlimit']->setDefault( 13 );
 		
 		return $params;
 	}
