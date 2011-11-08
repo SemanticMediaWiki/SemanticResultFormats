@@ -1,11 +1,16 @@
 <?php
+
 /**
  * A query printer for pie charts using the jqPlot JavaScript library.
  *
+ * @since 1.5.1
+ *
+ * @licence GNU GPL v3
+ *
  * @author Sanyam Goyal
  * @author Yaron Koren
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-
 class SRFjqPlotPie extends SMWDistributablePrinter {
 	
 	protected static $m_piechartnum = 1;

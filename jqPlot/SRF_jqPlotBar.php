@@ -1,17 +1,20 @@
 <?php
+
 /**
-* A query printer for bar charts using the jqPlot JavaScript library.
+ * A query printer for bar charts using the jqPlot JavaScript library.
+ *
+ * @since 1.5.1
+ *
+ * @licence GNU GPL v3
  *
  * @author Sanyam Goyal
  * @author Yaron Koren
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-
-class SRFjqPlotBar extends SMWResultPrinter {
+class SRFjqPlotBar extends SMWDistributablePrinter {
 	
 	protected static $m_barchartnum = 1;
 	
-	protected $m_width;
-	protected $m_height;
 	protected $m_charttitle;
 	protected $m_barcolor;
 	protected $m_bardirection;
@@ -24,8 +27,6 @@ class SRFjqPlotBar extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
-		$this->m_width = $this->m_params['width'];
-		$this->m_height = $this->m_params['height'];
 		$this->m_charttitle = $this->m_params['charttitle'];
 		$this->m_barcolor = $this->m_params['barcolor'];
 		$this->m_bardirection = $this->m_params['bardirection'];
@@ -75,7 +76,12 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$wgOut->addModules( 'ext.srf.jqplotbar' );
 	}
 
-	static public function addJavascriptAndCSS() {
+	/**
+	 * Add the JS and CSS resources needed by this chart.
+	 * 
+	 * @since 1.7
+	 */
+	protected function addResources() {
 		if ( self::$m_barchartnum > 1 ) {
 			return;
 		}
@@ -111,46 +117,32 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	/**
+	 * Get the JS and HTML that needs to be added to the output to create the chart.
+	 * 
+	 * @since 1.7
+	 * 
+	 * @param array $data label => value
+	 */
+	protected function getFormatOutput( array $data ) {
 		global $wgOut;
-
-		self::addJavascriptAndCSS();
 
 		$this->isHTML = true;
 
-		$numbers = array();
-		$labels = array();
+		$maxValue = count( $data ) == 0 ? 0 : max( $data );
+		$minValue = count( $data ) == 0 ? 0 : min( $data );
 		
-		// print all result rows
-		$maxValue = 0;
-		$minValue = 0;
-		
-		while ( $row = $res->getNext() ) {
-			$name = $row[0]->getNextDataValue()->getShortWikiText();
-			$name = str_replace( "'", "\'", $name ); // FIXME: fail escaping is fail
-			
-			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
-					if ( $object->isNumeric() ) {
-						$numbers[] = $object->getDataItem()->getSortKey();
-						$labels[] = "'$name'";
-					}
-				}
+		foreach ( $data as $i => &$nr ) {
+			if ( $this->m_bardirection == 'horizontal' ) {
+				$nr = array( $nr, $i );
 			}
-		}
-		
-		$maxValue = count( $numbers ) == 0 ? 0 : max( $numbers );
-		$minValue = count( $numbers ) == 0 ? 0 : min( $numbers );
-		
-		foreach ( $numbers as $i => &$nr ) {
-			$nr = $this->m_bardirection == 'horizontal' ? "[$nr, $i]" : "$nr";
 		}
 		
 		$barID = 'bar' . self::$m_barchartnum;
 		self::$m_barchartnum++;
 		
-		$labels_str = implode( ', ', $labels );
-		$numbers_str = implode( ', ', $numbers );
+		$labels_str = FormatJson::encode( array_keys( $data ) );
+		$numbers_str = FormatJson::encode( array_values( $data ) );
 		
 		$labels_axis = 'xaxis';
 		$numbers_axis = 'yaxis';
@@ -209,10 +201,9 @@ class SRFjqPlotBar extends SMWResultPrinter {
 
 		$js_bar =<<<END
 <script type="text/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function(){
 	jQuery.jqplot.config.enablePlugins = true;
-	plot1 = jQuery.jqplot('$barID', [[$numbers_str]], {
+	plot1 = jQuery.jqplot('$barID', [{$numbers_str}], {
 		title: '{$this->m_charttitle}',
 		seriesColors: ['$this->m_barcolor'],
 		seriesDefaults: {
@@ -228,7 +219,7 @@ jQuery(document).ready(function(){
 		axes: {
 			$labels_axis: {
 				renderer: jQuery.jqplot.CategoryAxisRenderer,
-				ticks: [$labels_str],
+				ticks: {$labels_str},
 				tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
 				tickOptions: {
 					angle: $angle_val
@@ -245,11 +236,14 @@ jQuery(document).ready(function(){
 END;
 		$wgOut->addScript( $js_bar );
 		
+		$width = $this->params['width'];
+		$height = $this->params['height'];
+		
 		return Html::element(
 			'div',
 			array(
 				'id' => $barID,
-				'style' => Sanitizer::checkCss( "margin-top: 20px; margin-left: 20px; width: {$this->m_width}px; height: {$this->m_height}px;" )
+				'style' => Sanitizer::checkCss( "margin-top: 20px; margin-left: 20px; width: {$width}px; height: {$height}px;" )
 			)
 		);
 	}
