@@ -67,7 +67,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property 
-				while ( ( /* SMWDataValue */ $dataValue = efSRFGetNextDV( $row[$i] ) ) !== false ) { // Data values
+				while ( ( /* SMWDataValue */ $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
 					
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
 					

@@ -145,7 +145,7 @@ class SRFArray extends SMWResultPrinter {
 					$missingProperty = true;
 				} else
 				//otherwise collect property value (potentially many values)
-				while( $obj = efSRFGetNextDV( $field ) ) { // $manyValues of type SMWResultArray, contains many values (or just one) of one property of type SMWDataValue
+				while( $obj = $field->getNextDataValue() ) { // $manyValues of type SMWResultArray, contains many values (or just one) of one property of type SMWDataValue
 					
 					$value_items = array();					
 					

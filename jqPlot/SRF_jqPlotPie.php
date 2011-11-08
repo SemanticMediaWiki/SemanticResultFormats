@@ -117,6 +117,15 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		}
 	}
 	
+	/**
+	 * Returns an array with the numerical data in the query result.
+	 * 
+	 * @since 1.7
+	 * 
+	 * @param SMWQueryResult $res
+	 * 
+	 * @return array label => value
+	 */
 	protected function getNumericResults( SMWQueryResult $res ) {
 		$pie_data = array();
 		
@@ -136,6 +145,13 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		return $pie_data;
 	}
 	
+	/**
+	 * Get the JS and HTML that needs to be added to the output to create the chart.
+	 * 
+	 * @since 1.7
+	 * 
+	 * @param array $data label => value
+	 */
 	protected function getChart( array $data ) {
 		$json = array();
 		
@@ -178,6 +194,9 @@ END;
 		);
 	}
 
+	/**
+	 * @see SMWResultPrinter::getParameters
+	 */
 	public function getParameters() {
 		$params = parent::getParameters();
 		

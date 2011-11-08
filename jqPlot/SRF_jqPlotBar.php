@@ -126,11 +126,11 @@ class SRFjqPlotBar extends SMWResultPrinter {
 		$minValue = 0;
 		
 		while ( $row = $res->getNext() ) {
-			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
+			$name = $row[0]->getNextDataValue()->getShortWikiText();
 			$name = str_replace( "'", "\'", $name ); // FIXME: fail escaping is fail
 			
 			foreach ( $row as $field ) {
-				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					if ( $object->isNumeric() ) {
 						$numbers[] = $object->getDataItem()->getSortKey();
 						$labels[] = "'$name'";
@@ -254,6 +254,9 @@ END;
 		);
 	}
 
+	/**
+	 * @see SMWResultPrinter::getParameters
+	 */
 	public function getParameters() {
 		$params = parent::getParameters();
 		

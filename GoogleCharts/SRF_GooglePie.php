@@ -39,10 +39,10 @@ class SRFGooglePie extends SMWResultPrinter {
 		$max = 0; // the biggest value. needed for scaling
 		
 		while ( $row = $res->getNext() ) {
-			$name = efSRFGetNextDV( $row[0] )->getShortWikiText();
+			$name = $row[0]->getNextDataValue()->getShortWikiText();
 			
 			foreach ( $row as $field ) {
-				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					// use numeric sortkey
 					if ( $object->isNumeric() ) {
 						$nr = $object->getDataItem()->getSortKey();

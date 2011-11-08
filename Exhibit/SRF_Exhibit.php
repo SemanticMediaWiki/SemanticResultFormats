@@ -34,7 +34,7 @@ class SRFExhibit extends SMWResultPrinter {
 		$row = $res->getNext();
 		if ( $row != null ) {
 			$tmp = clone $row[0];
-			$object = efSRFGetNextDV( $tmp );
+			$object = $tmp->getNextDataValue();
 
 			if ( $object instanceof SMWWikiPageValue ) {
 				$value = $object->getPrefixedText();
@@ -384,7 +384,7 @@ class SRFExhibit extends SMWResultPrinter {
 			foreach ( $row as $field ) {
 				$result .= "\t\t<td>";
 				$textstack = array();
-				while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					switch( $object->getTypeID() ) {
 						case '_wpg':
 							$textstack[] = $object->getLongText( $outputmode, $this->getLinker( 0 ) );

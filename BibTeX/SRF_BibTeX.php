@@ -163,7 +163,7 @@ class SRFBibTeX extends SMWResultPrinter {
 			}
 			
 			if ( $var !== false ) {
-				$dataValue = efSRFGetNextDV( $field );
+				$dataValue = $field->getNextDataValue();
 				
 				if ( $dataValue !== false ) {
 					$var = $dataValue->getShortWikiText();
@@ -175,7 +175,7 @@ class SRFBibTeX extends SMWResultPrinter {
 				switch ( $label ) {
 					case 'author': case 'authors': case 'editor' : case 'editors':
 						$wikiTexts = array();
-						while ( ( /* SMWDataValue */ $dataValue = efSRFGetNextDV( $field ) ) !== false ) {
+						while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
 							$wikiTexts[] = $dataValue->getShortWikiText();
 						}
 						$wikiText = $GLOBALS['wgLang']->listToText( $wikiTexts );
@@ -188,7 +188,7 @@ class SRFBibTeX extends SMWResultPrinter {
 						}
 						break;
 					case 'date':
-						$dataValue = efSRFGetNextDV( $field );
+						$dataValue = $field->getNextDataValue();
 						
 						if ( $dataValue !== false && get_class( $dataValue ) == 'SMWTimeValue' ) {
 							$year = $dataValue->getYear();

@@ -102,83 +102,83 @@ class SRFvCard extends SMWResultPrinter {
 					
 					switch( strtolower( $req->getLabel() ) ) {
 						case "name":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$fullname = $value->getShortWikiText();
 							}
 						break;
 
 						case "prefix":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$prefix .= ( $prefix ? ',':'' ) . $value->getShortWikiText();
 							}
 						break;
 
 						case "suffix":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$suffix .= ( $suffix ? ',':'' ) . $value->getShortWikiText();
 							}
 						break;
 
 						case "firstname":
-							$value = efSRFGetNextDV( $field ); // save only the first
+							$value = $field->getNextDataValue(); // save only the first
 							if ( $value !== false ) {
 								$firstname = $value->getShortWikiText();
 							}
 						break;
 
 						case "extraname":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$additionalname .= ( $additionalname ? ',':'' ) . $value->getShortWikiText();
 							}
 						break;
 
 						case "lastname":
-							$value = efSRFGetNextDV( $field ); // save only the first
+							$value = $field->getNextDataValue(); // save only the first
 							if ( $value !== false ) {
 								$lastname = $value->getShortWikiText();
 							}
 						break;
 
 						case "note":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$note .= ( $note ? ', ':'' ) . $value->getShortWikiText();
 							}
 						break;
 
 						case "email":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$emails[] = new SRFvCardEmail( 'internet', $value->getShortWikiText() );
 							}
 					 	break;
 
 						case "workphone":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$tels[] = new SRFvCardTel( 'WORK', $value->getShortWikiText() );
 							}
 					 	break;
 
 						case "cellphone":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$tels[] = new SRFvCardTel( 'CELL', $value->getShortWikiText() );
 							}
 						break;
 
 						case "homephone":
-							while( $value = efSRFGetNextDV( $field ) ) {
+							while( $value = $field->getNextDataValue() ) {
 								$tels[] = new SRFvCardTel( 'HOME', $value->getShortWikiText() );
 							}
 						break;
 
 						case "organization":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$organization = $value->getShortWikiText();
 							}
 						break;
 
 						case "workpostofficebox":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$workpostofficebox = $value->getShortWikiText();
 								$workaddress = true;
@@ -186,7 +186,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "workextendedaddress":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$workextendedaddress = $value->getShortWikiText();
 								$workaddress = true;
@@ -194,7 +194,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "workstreet":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$workstreet = $value->getShortWikiText();
 								$workaddress = true;
@@ -202,7 +202,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "worklocality":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$worklocality = $value->getShortWikiText();
 								$workaddress = true;
@@ -210,7 +210,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "workregion":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$workregion = $value->getShortWikiText();
 								$workaddress = true;
@@ -218,7 +218,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "workpostalcode":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$workpostalcode = $value->getShortWikiText();
 								$workaddress = true;
@@ -226,7 +226,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "workcountry":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$workcountry = $value->getShortWikiText();
 								$workaddress = true;
@@ -234,7 +234,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homepostofficebox":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homepostofficebox = $value->getShortWikiText();
 								$homeaddress = true;
@@ -242,7 +242,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homeextendedaddress":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homeextendedaddress = $value->getShortWikiText();
 								$homeaddress = true;
@@ -250,7 +250,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homestreet":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homestreet = $value->getShortWikiText();
 								$homeaddress = true;
@@ -258,7 +258,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homelocality":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homelocality = $value->getShortWikiText();
 								$homeaddress = true;
@@ -266,7 +266,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homeregion":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homeregion = $value->getShortWikiText();
 								$homeaddress = true;
@@ -274,7 +274,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homepostalcode":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homepostalcode = $value->getShortWikiText();
 								$homeaddress = true;
@@ -282,7 +282,7 @@ class SRFvCard extends SMWResultPrinter {
 						break;
 
 						case "homecountry":
-							$value = efSRFGetNextDV( $field );
+							$value = $field->getNextDataValue();
 							if ( $value !== false ) {
 								$homecountry = $value->getShortWikiText();
 								$homeaddress = true;
@@ -291,7 +291,7 @@ class SRFvCard extends SMWResultPrinter {
 
 						case "birthday":
 							if ( $req->getTypeID() == "_dat" )  {
-								$value = efSRFGetNextDV( $field );
+								$value = $field->getNextDataValue();
 								if ( $value !== false ) {
 									$birthday =  $value->getXMLSchemaDate();
 								}
@@ -300,7 +300,7 @@ class SRFvCard extends SMWResultPrinter {
 
 						case "homepage":
 							if ( $req->getTypeID() == "_uri" )  {
-								$value = efSRFGetNextDV( $field );
+								$value = $field->getNextDataValue();
 								if ( $value !== false ) {
 									$url =  $value->getWikiValue();
 								}

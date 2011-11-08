@@ -145,7 +145,8 @@ class SRFPloticus extends SMWResultPrinter {
 			 $row_items = array();
 			 foreach ( $row as $field ) {
 				 $growing = array();
-				 while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+				 
+				 while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					 $text = Sanitizer::decodeCharReferences( $object->getXSDValue() );
 					 // decode: CSV knows nothing of possible HTML entities
 					 $growing[] = $text;

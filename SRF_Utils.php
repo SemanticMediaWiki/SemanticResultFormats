@@ -13,6 +13,18 @@
  */
 final class SRFUtils {
 	
+	/**
+	 * Counts all the occurances of all values in the query result,
+	 * and returns an array with as key the value and as value the count.
+	 * 
+	 * @since 1.7
+	 * 
+	 * @param SMWQueryResult $res
+	 * @param $outputmode
+	 * @param $linker
+	 * 
+	 * @return array label => value
+	 */
 	public static function getDistributionResults( SMWQueryResult $result, $outputmode, $linker ) {
 		$values = array();
 		

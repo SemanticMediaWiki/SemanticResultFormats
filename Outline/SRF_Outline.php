@@ -195,7 +195,7 @@ class SRFOutline extends SMWResultPrinter {
 				$first = true;
 				$field_name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
 				if ( in_array( $field_name, $this->mOutlineProperties ) ) {
-					while ( ( $object = efSRFGetNextDV( $field ) ) !== false ) {
+					while ( ( $object = $field->getNextDataValue() ) !== false ) {
 						$field_val = $object->getLongWikiText( $this->mLinker );
 						$item->addFieldValue( $field_name, $field_val );
 					}
