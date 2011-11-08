@@ -6,7 +6,7 @@
  * @author Yaron Koren
  */
 
-class SRFjqPlotPie extends SMWResultPrinter {
+class SRFjqPlotPie extends SMWDistributablePrinter {
 	
 	protected static $m_piechartnum = 1;
 	
@@ -66,7 +66,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		$wgOut->addModules( 'ext.srf.jqplotpie' );
 	}
 
-	protected function addJavascriptAndCSS() {
+	protected function addResources() {
 		if ( self::$m_piechartnum > 1 ) {
 			return;
 		}
@@ -94,57 +94,6 @@ class SRFjqPlotPie extends SMWResultPrinter {
 		$wgOut->addExtensionStyle( "$srfgScriptPath/jqPlot/jquery.jqplot.css" );
 	}
 	
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		if ( $this->params['distribution'] ) {
-			$data = SRFUtils::getDistributionResults( $res, $outputmode, $this->getLinker( false ) );
-		}
-		else {
-			$data = $this->getNumericResults( $res );
-		}
-		
-		if ( count( $data ) == 0 ) {
-			global $wgParser;
-			return $wgParser->parse(
-				'{{#info:' . wfMsgForContent( 'srf-warn-empy-chart' ) . '|warning}}',
-				Title::newMainPage(),
-				( new ParserOptions() )
-			)->getText();
-		}
-		else {
-			$this->isHTML = true;
-			$this->addJavascriptAndCSS();
-			return $this->getChart( $data );
-		}
-	}
-	
-	/**
-	 * Returns an array with the numerical data in the query result.
-	 * 
-	 * @since 1.7
-	 * 
-	 * @param SMWQueryResult $res
-	 * 
-	 * @return array label => value
-	 */
-	protected function getNumericResults( SMWQueryResult $res ) {
-		$pie_data = array();
-		
-		// print all result rows
-		while ( $row = $res->getNext() ) {
-			$name = $row[0]->getNextDataValue()->getShortWikiText();
-			
-			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
-					if ( $object->isNumeric() ) { // use numeric sortkey
-						$pie_data[$name] = $object->getDataItem()->getNumber();
-					}
-				}
-			}
-		}
-		
-		return $pie_data;
-	}
-	
 	/**
 	 * Get the JS and HTML that needs to be added to the output to create the chart.
 	 * 
@@ -152,7 +101,7 @@ class SRFjqPlotPie extends SMWResultPrinter {
 	 * 
 	 * @param array $data label => value
 	 */
-	protected function getChart( array $data ) {
+	protected function getFormatOutput( array $data ) {
 		$json = array();
 		
 		foreach ( $data as $name => $value ) {
@@ -166,7 +115,6 @@ class SRFjqPlotPie extends SMWResultPrinter {
 
 		$js_pie =<<<END
 <script type="text/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function(){
 	jQuery.jqplot.config.enablePlugins = true;
 	plot1 = jQuery.jqplot('$pieID', $pie_data_str, {
@@ -185,6 +133,8 @@ END;
 		global $wgOut;
 		$wgOut->addScript( $js_pie );
 
+		$this->isHTML = true;
+		
 		return Html::element(
 			'div',
 			array(
@@ -209,9 +159,6 @@ END;
 
 		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
 		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
-		
-		$params['distribution'] = new Parameter( 'distribution', Parameter::TYPE_BOOLEAN, false );
-		$params['distribution']->setMessage( 'srf-paramdesc-distribution' );
 		
 		return $params;
 	}
