@@ -130,7 +130,13 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 		$this->isHTML = true;
 
 		$maxValue = count( $data ) == 0 ? 0 : max( $data );
-		$minValue = count( $data ) == 0 ? 0 : min( $data );
+		
+		if ( $this->params['min'] === false ) {
+			$minValue = count( $data ) == 0 ? 0 : min( $data );
+		}
+		else {
+			$minValue = $this->params['min'];
+		}
 		
 		foreach ( $data as $i => &$nr ) {
 			if ( $this->m_bardirection == 'horizontal' ) {
@@ -273,6 +279,10 @@ END;
 		
 		$params['numbersaxislabel'] = new Parameter( 'numbersaxislabel', Parameter::TYPE_STRING, ' ' );
 		$params['numbersaxislabel']->setMessage( 'srf_paramdesc_barnumbersaxislabel' );
+		
+		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
+		$params['min']->setMessage( 'srf-paramdesc-minvalue' );
+		$params['min']->setDefault( false, false );
 		
 		return $params;
 	}
