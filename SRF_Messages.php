@@ -77,7 +77,7 @@ $messages['en'] = array(
 	'srf_paramdesc_barcolor'   =>   'The color of the bars',
 	'srf_paramdesc_bardirection'=>  'The direction of the bar chart',
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
-	'srf-paramdesc-minvalue' => 'The minimun value to show on the Y-axis',
+	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
 
 	// "gallery" format
 	'srf_printername_gallery' => 'Gallery',
