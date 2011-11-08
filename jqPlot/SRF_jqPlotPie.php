@@ -66,6 +66,11 @@ class SRFjqPlotPie extends SMWDistributablePrinter {
 		$wgOut->addModules( 'ext.srf.jqplotpie' );
 	}
 
+	/**
+	 * Add the JS and CSS resources needed by this chart.
+	 * 
+	 * @since 1.7
+	 */
 	protected function addResources() {
 		if ( self::$m_piechartnum > 1 ) {
 			return;
@@ -159,6 +164,8 @@ END;
 
 		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
 		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
+		
+		$params['distributionimit']->setDefault( 13 );
 		
 		return $params;
 	}
