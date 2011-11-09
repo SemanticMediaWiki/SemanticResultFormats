@@ -170,18 +170,3 @@ function srffAddToAdminLinks( &$admin_links_tree ) {
 	
 	return true;
 }
-
-/**
- * Backwards compatibility helper to get the next data value from a SMWResultArray.
- * SMW 1.6 introduces the getNextDataValue and deprecates the getNextObject one.
- * 
- * @since 1.6
- * @deprecated since 1.7, removal in 1.9
- * 
- * @param SMWResultArray $resArray
- * 
- * @return SMWDataValue or false
- */
-function efSRFGetNextDV( SMWResultArray &$resArray ) {
-	return $resArray->getNextDataValue(); 
-}
