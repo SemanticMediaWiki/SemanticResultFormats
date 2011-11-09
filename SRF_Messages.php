@@ -78,6 +78,7 @@ $messages['en'] = array(
 	'srf_paramdesc_bardirection'=>  'The direction of the bar chart',
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
 	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
+	'srf-paramdesc-pointlabels' => 'Display of individual data points',
 
 	// "gallery" format
 	'srf_printername_gallery' => 'Gallery',

@@ -51,9 +51,8 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 			'styles' => array(
 				'jquery.jqplot.css',
 			),
-			'dependencies' => array(
-			),
 		);
+		
 		$wgResourceModules['ext.srf.jqplotbar'] = $resourceTemplate + array(
 			'scripts' => array(
 				'jqplot.categoryAxisRenderer.js',
@@ -61,19 +60,30 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 				'jqplot.canvasAxisTickRenderer.js',
 				'jqplot.canvasTextRenderer.js',
 				'excanvas.js',
-			),
-			'styles' => array(
+				'jqplot.pointLabels.js',
 			),
 			'dependencies' => array(
 				'ext.srf.jqplot',
 			),
 		);
+		
+		$wgResourceModules['ext.srf.jqplotpointlabels'] = $resourceTemplate + array(
+			'scripts' => array(
+				'jqplot.pointLabels.min.js',
+			),
+			'dependencies' => array(
+				'ext.srf.jqplotbar',
+			),
+		);
 	}
 
-	protected static function loadJavascriptAndCSS() {
+	protected function loadJavascriptAndCSS() {
 		global $wgOut;
-		$wgOut->addModules( 'ext.srf.jqplot' );
 		$wgOut->addModules( 'ext.srf.jqplotbar' );
+		
+		if ( $this->params['pointlabels'] ) {
+			$wgOut->addModules( 'ext.srf.jqplotpointlabels' );
+		}
 	}
 
 	/**
@@ -88,7 +98,7 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 
 		// MW 1.17 +
 		if ( class_exists( 'ResourceLoader' ) ) {
-			self::loadJavascriptAndCSS();
+			$this->loadJavascriptAndCSS();
 			return;
 		}
 
@@ -109,6 +119,10 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasAxisTickRenderer.js";
 		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.js";
 
+		if ( $this->params['pointlabels'] ) {
+			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.pointLabels.js";
+		}
+		
 		foreach ( $scripts as $script ) {
 			$wgOut->addScriptFile( $script );
 		}
@@ -205,6 +219,8 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 			$numbers_ticks .= ($i * $biggerMultipleOf10) . ', ';
 		}
 
+		$pointlabels = FormatJson::encode( $this->params['pointlabels'] );
+		
 		$js_bar =<<<END
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -220,7 +236,8 @@ jQuery(document).ready(function(){
 				barDirection: '{$this->m_bardirection}',
 				barPadding: 6,
 				barMargin: $barmargin
-			}
+			},
+			pointLabels: {show: $pointlabels}
 		}],
 		axes: {
 			$labels_axis: {
@@ -283,6 +300,9 @@ END;
 		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
 		$params['min']->setMessage( 'srf-paramdesc-minvalue' );
 		$params['min']->setDefault( false, false );
+		
+		$params['pointlabels'] = new Parameter( 'pointlabels', Parameter::TYPE_BOOLEAN, false );
+		$params['pointlabels']->setMessage( 'srf-paramdesc-pointlabels' );
 		
 		return $params;
 	}

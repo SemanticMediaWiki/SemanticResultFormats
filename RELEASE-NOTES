@@ -9,6 +9,7 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 * Added warning icon with tooltip to jqplotpie shown when there are no results instead of a non-working chart.
 * Added value distribution support to jqplotpie and jqplotbar.
 * Added min parameter to jqplotbar to set the minimun value for the Y-axis.
+* Added pointlabel parameter to jqplotbar, based on a patch by James Hong Kong.
 
 New formats in this version are:
 * valuerank (written by DaSch)
