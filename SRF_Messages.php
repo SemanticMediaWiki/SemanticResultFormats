@@ -451,7 +451,12 @@ $messages['br'] = array(
 	'srf_printername_hash' => 'Hacherezh',
 	'srf-printername-graph' => 'Grafik',
 	'srf_paramdesc_graphname' => 'Titl',
+	'srf_paramdesc_graphsize' => 'Ment ar grafik (e px)',
+	'srf_paramdesc_graphlegend' => "Diskouez alc'hwez ar grafik pe get",
+	'srf_paramdesc_graphlabel' => 'Tikedenn ar grafik',
 	'srf_paramdesc_rankdir' => "Durc'hadur ar bir",
+	'srf_paramdesc_graphlink' => 'Liamm war-zu ar grafik',
+	'srf_paramdesc_graphcolor' => 'Liv ar grafik',
 );
 
 /** Bosnian (Bosanski)
