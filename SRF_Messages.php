@@ -421,6 +421,7 @@ $messages['br'] = array(
 	'srf_paramdesc_timelinestart' => "Un anv perzh implijet da dermeniñ ur poent loc'hañ en amzer",
 	'srf_paramdesc_timelineend' => 'Un anv perzh implijet da dermeniñ un eil poent en amzer',
 	'srf_paramdesc_timelinesize' => 'Uhelder ar frizenn (300px dre ziouer)',
+	'srf-timeline-allresults' => "Disoc'hoù ouzhpenn evit ar reked-mañ.",
 	'srf_paramdesc_views' => 'Ar gweladennoù da ziskouez',
 	'srf_paramdesc_facets' => 'An hollad perzhioù da ziskwel evit pep pajenn',
 	'srf_paramdesc_lens' => 'Anv ar patrom implijet evit diskouez perzhioù ar bajenn',
