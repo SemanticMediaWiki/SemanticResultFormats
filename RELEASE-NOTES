@@ -6,10 +6,11 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 * Compatibility with SMW 1.7 and later.
 * Dropped support for MediaWiki 1.15.x and SMW < 1.7.
-* Added warning icon with tooltip to jqplotpie shown when there are no results instead of a non-working chart.
+* Added warning message to jqplotpie and jqplotbar shown when there are no results instead of a non-working chart.
 * Added value distribution support to jqplotpie and jqplotbar.
 * Added min parameter to jqplotbar to set the minimun value for the Y-axis.
-* Added pointlabel parameter to jqplotbar, based on a patch by James Hong Kong.
+* Added pointlabel parameter to jqplotbar and chartlegend, legendlocation,
+  datalabels and datalabeltype parameters to jqplotpie based on a patches by James Hong Kong.
 
 New formats in this version are:
 * valuerank (written by DaSch)

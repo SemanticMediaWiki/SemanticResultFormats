@@ -79,6 +79,10 @@ $messages['en'] = array(
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
 	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
 	'srf-paramdesc-pointlabels' => 'Display of individual data points',
+	'srf-paramdesc-chartlegend' => 'Display chart legend',	
+	'srf-paramdesc-legendlocation' => 'Set legend location',	  
+	'srf-paramdesc-datalabels' => 'Display pie data labels',
+	'srf-paramdesc-datalabeltype' => 'Set data label type',
 
 	// "gallery" format
 	'srf_printername_gallery' => 'Gallery',

@@ -123,6 +123,11 @@ class SRFjqPlotPie extends SMWDistributablePrinter {
 		
 		self::$m_piechartnum++;
 
+    $chartlegend    = FormatJson::encode( $this->params['chartlegend'] );
+    $legendlocation = FormatJson::encode( $this->params['legendlocation'] );
+		$datalabels     = FormatJson::encode( $this->params['datalabels'] );
+		$datalabeltype  = FormatJson::encode( $this->params['datalabeltype'] );
+
 		$js_pie =<<<END
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -132,10 +137,12 @@ jQuery(document).ready(function(){
 		seriesDefaults: {
 			renderer: jQuery.jqplot.PieRenderer,
 			rendererOptions: {
+			  showDataLabels: $datalabels,
+			  dataLabels: $datalabeltype,
 				sliceMargin:2
 			}
 		},
-			legend: { show:true }
+			legend: { show:$chartlegend, location: $legendlocation }
 	});
 });
 </script>
@@ -171,6 +178,21 @@ END;
 		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
 		
 		$params['distributionlimit']->setDefault( 13 );
+
+ 		$params['chartlegend'] = new Parameter( 'chartlegend', Parameter::TYPE_BOOLEAN, true );
+		$params['chartlegend']->setMessage( 'srf-paramdesc-chartlegend' );
+
+		$params['legendlocation'] = new Parameter( 'legendlocation', Parameter::TYPE_STRING, 'ne' );
+		$params['legendlocation']->setMessage( 'srf-paramdesc-legendlocation' );
+		$params['legendlocation']->addCriteria( new CriterionInArray( 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ) );
+
+		$params['datalabels'] = new Parameter( 'datalabels', Parameter::TYPE_BOOLEAN, false );
+		$params['datalabels']->setMessage( 'srf-paramdesc-datalabels' );
+
+		$params['datalabeltype'] = new Parameter( 'datalabeltype', Parameter::TYPE_STRING, ' ' );
+		$params['datalabeltype']->setMessage( 'srf-paramdesc-datalabeltype' );
+		$params['datalabeltype']->addCriteria( new CriterionInArray( 'percent','value', 'label' ) );
+		
 		
 		return $params;
 	}
