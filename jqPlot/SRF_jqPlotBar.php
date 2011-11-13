@@ -60,7 +60,6 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 				'jqplot.canvasAxisTickRenderer.js',
 				'jqplot.canvasTextRenderer.js',
 				'excanvas.js',
-				'jqplot.pointLabels.js',
 			),
 			'dependencies' => array(
 				'ext.srf.jqplot',
@@ -120,7 +119,7 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 		$scripts[] = "$srfgScriptPath/jqPlot/jqplot.canvasTextRenderer.js";
 
 		if ( $this->params['pointlabels'] ) {
-			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.pointLabels.js";
+			$scripts[] = "$srfgScriptPath/jqPlot/jqplot.pointLabels.min.js";
 		}
 		
 		foreach ( $scripts as $script ) {
