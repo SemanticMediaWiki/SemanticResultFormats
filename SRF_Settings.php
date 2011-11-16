@@ -21,7 +21,30 @@ if ( !defined( 'SRF_VERSION' ) ) {
 
 # The formats you want to be able to use.
 # See the INSTALL file or this url for more info: http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats#Installation
-$srfgFormats = array( 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventline', 'timeline', 'outline', 'gallery', 'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max', 'median', 'product', 'tagcloud', 'valuerank', 'array' );
+$srfgFormats = array(
+	'icalendar',
+	'vcard',
+	'bibtex',
+	'calendar',
+	'eventline',
+	'timeline',
+	'outline',
+	'gallery',
+	'jqplotbar',
+	'jqplotpie',
+	'sum',
+	'average',
+	'min',
+	'max',
+	'median',
+	'product',
+	'tagcloud',
+	'valuerank',
+	'array',
+	'D3Line',
+	'D3Bar',
+	'D3Treemap',
+);
 
 # load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 if( isset( $wgHashTables ) ) {

@@ -41,6 +41,10 @@ $messages['en'] = array(
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
 	
+	'srf_printername_D3Line'  => 'D3 line chart',
+	'srf_printername_D3Bar'  => 'D3 bar chart',    
+	'srf_printername_D3Treemap'  => 'D3 treemap',     
+
 	// format "math"
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
