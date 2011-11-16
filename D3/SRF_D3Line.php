@@ -12,50 +12,8 @@ class SRFD3Line extends SMWDistributablePrinter {
 	
 	protected static $m_barchartnum = 1;
 	
-	protected $m_charttitle;
-	protected $m_barcolor;
-#	protected $m_bardirection;
-#	protected $m_numbersaxislabel;
-
-	/**
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::handleParameters()
-	 */
-	protected function handleParameters( array $params, $outputmode ) {
-		parent::handleParameters( $params, $outputmode );
-		
-		$this->m_charttitle = $this->m_params['charttitle'];
-		$this->m_barcolor = $this->m_params['barcolor'];
-#		$this->m_bardirection = $this->m_params['bardirection'];
-#		$this->m_numbersaxislabel = $this->m_params['numbersaxislabel'];
-	}
-
 	public function getName() {
 		return wfMsg( 'srf_printername_D3Line' );
-	}
-
-	public static function registerResourceModules() {
-		global $wgResourceModules, $srfgIP;
-
-		$resourceTemplate = array(
-			'localBasePath' => $srfgIP . '/D3',
-			'remoteExtPath' => 'SemanticResultFormats/D3'
-		);
-		$wgResourceModules['ext.srf.d3core'] = $resourceTemplate + array(
-			'scripts' => array(
-				'd3.js',
-			),
-			'styles' => array(
-				'd3.css',
-			),
-		);
-		
- 	}
-
-	protected function loadJavascriptAndCSS() {
-		global $wgOut;
-		$wgOut->addModules( 'ext.srf.d3core' );
-
 	}
 
 	/**
@@ -68,16 +26,8 @@ class SRFD3Line extends SMWDistributablePrinter {
 			return;
 		}
 
-		// MW 1.17 +
-		if ( class_exists( 'ResourceLoader' ) ) {
-			$this->loadJavascriptAndCSS();
-			return;
-		}
-		global $wgOut, $srfgJQPlotIncluded;
-		global $srfgScriptPath;
-
-		$scripts = array();
-		$wgOut->includeJQuery();
+		global $wgOut;
+		$wgOut->addModules( 'ext.srf.d3core' );
 	}
 
 	/**
@@ -101,12 +51,6 @@ class SRFD3Line extends SMWDistributablePrinter {
 			$minValue = $this->params['min'];
 		}
 		
-		foreach ( $data as $i => &$nr ) {
-#			if ( $this->m_bardirection == 'horizontal' ) {
-#				$nr = array( $nr, $i );
-#			}
-		}
-		
 		$lineID = 'line' . self::$m_barchartnum;
 		self::$m_barchartnum++;
 		
@@ -118,13 +62,6 @@ class SRFD3Line extends SMWDistributablePrinter {
 		
 		$angle_val = -40;
 		$barmargin = 6;
-		
-#		if ( $this->m_bardirection == 'horizontal' ) {
-#			$labels_axis = 'yaxis';
-#			$numbers_axis = 'xaxis';
-#			$angle_val = 0;
-#			$barmargin = 8 ;
-#		}
 		
 		$barwidth = 20; // width of each bar
 		$bardistance = 4; // distance between two bars
@@ -173,7 +110,6 @@ class SRFD3Line extends SMWDistributablePrinter {
 		$width = $this->params['width'];
 		$height = $this->params['height'];
 
-		
 		$js_line =<<<END
 <script type="text/javascript">
 $(document).ready(function() {
@@ -267,19 +203,9 @@ END;
 		$params['barcolor'] = new Parameter( 'barcolor', Parameter::TYPE_STRING, '#85802b' );
 		$params['barcolor']->setMessage( 'srf_paramdesc_barcolor' );
 		
-#		$params['bardirection'] = new Parameter( 'bardirection', Parameter::TYPE_STRING, 'vertical' );
-#		$params['bardirection']->setMessage( 'srf_paramdesc_bardirection' );
-#		$params['bardirection']->addCriteria( new CriterionInArray( 'horizontal', 'vertical' ) );
-		
-#		$params['numbersaxislabel'] = new Parameter( 'numbersaxislabel', Parameter::TYPE_STRING, ' ' );
-#		$params['numbersaxislabel']->setMessage( 'srf_paramdesc_barnumbersaxislabel' );
-		
 		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
 		$params['min']->setMessage( 'srf-paramdesc-minvalue' );
 		$params['min']->setDefault( false, false );
-		
-#		$params['pointlabels'] = new Parameter( 'pointlabels', Parameter::TYPE_BOOLEAN, false );
-#		$params['pointlabels']->setMessage( 'srf-paramdesc-pointlabels' );
 		
 		return $params;
 	}

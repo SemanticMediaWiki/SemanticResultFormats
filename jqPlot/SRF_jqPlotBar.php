@@ -37,45 +37,6 @@ class SRFjqPlotBar extends SMWDistributablePrinter {
 		return wfMsg( 'srf_printername_jqplotbar' );
 	}
 
-	public static function registerResourceModules() {
-		global $wgResourceModules, $srfgIP;
-
-		$resourceTemplate = array(
-			'localBasePath' => $srfgIP . '/jqPlot',
-			'remoteExtPath' => 'SemanticResultFormats/jqPlot'
-		);
-		$wgResourceModules['ext.srf.jqplot'] = $resourceTemplate + array(
-			'scripts' => array(
-				'jquery.jqplot.js',
-			),
-			'styles' => array(
-				'jquery.jqplot.css',
-			),
-		);
-		
-		$wgResourceModules['ext.srf.jqplotbar'] = $resourceTemplate + array(
-			'scripts' => array(
-				'jqplot.categoryAxisRenderer.js',
-				'jqplot.barRenderer.js',
-				'jqplot.canvasAxisTickRenderer.js',
-				'jqplot.canvasTextRenderer.js',
-				'excanvas.js',
-			),
-			'dependencies' => array(
-				'ext.srf.jqplot',
-			),
-		);
-		
-		$wgResourceModules['ext.srf.jqplotpointlabels'] = $resourceTemplate + array(
-			'scripts' => array(
-				'jqplot.pointLabels.min.js',
-			),
-			'dependencies' => array(
-				'ext.srf.jqplotbar',
-			),
-		);
-	}
-
 	protected function loadJavascriptAndCSS() {
 		global $wgOut;
 		$wgOut->addModules( 'ext.srf.jqplotbar' );

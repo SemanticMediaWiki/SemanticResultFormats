@@ -35,36 +35,6 @@ class SRFjqPlotPie extends SMWDistributablePrinter {
 		return wfMsg( 'srf_printername_jqplotpie' );
 	}
 
-	public static function registerResourceModules() {
-		global $wgResourceModules, $srfgIP;
-
-		$resourceTemplate = array(
-			'localBasePath' => $srfgIP . '/jqPlot',
-			'remoteExtPath' => 'SemanticResultFormats/jqPlot'
-		);
-		$wgResourceModules['ext.srf.jqplot'] = $resourceTemplate + array(
-			'scripts' => array(
-				'jquery.jqplot.js',
-			),
-			'styles' => array(
-				'jquery.jqplot.css',
-			),
-			'dependencies' => array(
-			),
-		);
-		$wgResourceModules['ext.srf.jqplotpie'] = $resourceTemplate + array(
-			'scripts' => array(
-				'jqplot.pieRenderer.js',
-				'excanvas.js',
-			),
-			'styles' => array(
-			),
-			'dependencies' => array(
-				'ext.srf.jqplot',
-			),
-		);
-	}
-
 	protected function loadJavascriptAndCSS() {
 		global $wgOut;
 		$wgOut->addModules( 'ext.srf.jqplot' );

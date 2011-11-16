@@ -41,10 +41,13 @@ $srfgFormats = array(
 	'tagcloud',
 	'valuerank',
 	'array',
-	'D3Line',
-	'D3Bar',
-	'D3Treemap',
 );
+
+if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+	$srfgFormats[] = 'D3Line';
+	$srfgFormats[] = 'D3Bar';
+	$srfgFormats[] = 'D3Treemap';
+}
 
 # load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 if( isset( $wgHashTables ) ) {

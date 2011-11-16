@@ -38,6 +38,10 @@ define( 'SRF_VERSION', '1.7 alpha' );
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
 
+if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+	require dirname( __FILE__ ) . '/SRF_Resources.php';
+}
+
 // Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
 $wgExtensionFunctions[] = 'srffInitFormats';
 
@@ -99,7 +103,7 @@ function srffInitFormats() {
 	$wgAutoloadClasses['SRFArray'] = $formatDir . 'Array/SRF_Array.php';
 	$wgAutoloadClasses['SRFHash'] = $formatDir . 'Array/SRF_Array.php';
 	$wgAutoloadClasses['SRFValueRank'] = $formatDir . 'ValueRank/SRF_ValueRank.php';
-	$wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_d3Line.php';
+	$wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
 	$wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
 	$wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';        
 	

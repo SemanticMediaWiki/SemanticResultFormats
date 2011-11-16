@@ -383,24 +383,4 @@ class SRFTimeline extends SMWResultPrinter {
 		 return $params;
 	}
 	
-	/**
-	 * Register the resource modules used by this result printer.
-	 * 
-	 * @since 1.5.2
-	 */
-	public static function registerResourceModules() {
-		global $wgResourceModules, $srfgScriptPath;
-		
-		$moduleTemplate = array(
-			'localBasePath' => dirname( __FILE__ ),
-			'remoteBasePath' => $srfgScriptPath . '/Timeline',
-			'group' => 'ext.srf'
-		);
-		
-		$wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
-			'scripts' => array( 'SRF_timeline.js', 'SimileTimeline/timeline-api.js' ),
-			'dependencies' => array( 'mediawiki.legacy.wikibits' )
-		);
-	}
-	
 }
