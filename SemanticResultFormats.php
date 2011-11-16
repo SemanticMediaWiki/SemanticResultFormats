@@ -7,7 +7,8 @@
  * @file SemanticResultFormats.php
  * @ingroup SemanticResultFormats
  * 
- * @author Jeroen De Dauw
+ * @licence GNU GPL v3+
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
 /**
@@ -160,5 +161,3 @@ function srffInitFormats() {
 		}
 	}	
 }
-
-

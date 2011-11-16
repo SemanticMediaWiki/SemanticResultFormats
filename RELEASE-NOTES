@@ -14,6 +14,7 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 New formats in this version are:
 * valuerank (written by DaSch)
+* D3Line, D3Bar and D3Treemap (written by James Hong Kong) (requires MW 1.17 or later)
 
 == SRF 1.6.2 ==
 
