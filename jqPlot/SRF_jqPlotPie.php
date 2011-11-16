@@ -11,7 +11,7 @@
  * @author Yaron Koren
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class SRFjqPlotPie extends SMWDistributablePrinter {
+class SRFjqPlotPie extends SMWAggregatablePrinter {
 	
 	protected static $m_piechartnum = 1;
 	

@@ -8,7 +8,7 @@
  * @licence GNU GPL v3
  * @author James Hong Kong
  */
-class SRFD3Bar extends SMWDistributablePrinter {
+class SRFD3Bar extends SMWAggregatablePrinter {
 	
 	protected static $m_barchartnum = 1;
 	

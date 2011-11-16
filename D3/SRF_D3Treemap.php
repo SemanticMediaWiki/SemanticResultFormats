@@ -8,7 +8,7 @@
  * @licence GNU GPL v3
  * @author James Hong Kong
  */
-class SRFD3Treemap extends SMWDistributablePrinter {
+class SRFD3Treemap extends SMWAggregatablePrinter {
 	
 	protected static $m_barchartnum = 1;
 	

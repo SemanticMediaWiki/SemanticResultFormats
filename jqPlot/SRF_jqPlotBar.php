@@ -11,7 +11,7 @@
  * @author Yaron Koren
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class SRFjqPlotBar extends SMWDistributablePrinter {
+class SRFjqPlotBar extends SMWAggregatablePrinter {
 	
 	protected static $m_barchartnum = 1;
 	
