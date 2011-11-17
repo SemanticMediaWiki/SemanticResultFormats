@@ -869,6 +869,7 @@ $messages['fi'] = array(
 
 /** French (Français)
  * @author Crochet.david
+ * @author DavidL
  * @author Gomoko
  * @author Grondin
  * @author Hashar
@@ -897,6 +898,9 @@ $messages['fr'] = array(
 	'srf_outline_novalue' => 'Aucune valeur',
 	'srf_printername_outline' => 'esquisse',
 	'srf_paramdesc_outlineproperties' => 'La liste des propriétés à afficher comme en-têtes, séparées par des virgules',
+	'srf_printername_D3Line' => 'Graphique linéaire D3',
+	'srf_printername_D3Bar' => 'Diagramme à barres D3',
+	'srf_printername_D3Treemap' => 'Treemap D3',
 	'srf_printername_sum' => 'Somme de nombres',
 	'srf_printername_average' => 'Moyenne des nombres',
 	'srf_printername_max' => 'Nombre maximal',
@@ -1051,6 +1055,9 @@ $messages['gl'] = array(
 	'srf_outline_novalue' => 'Sen valor',
 	'srf_printername_outline' => 'Esquema',
 	'srf_paramdesc_outlineproperties' => 'A lista de propiedades a mostrar como cabeceiras de contorno, separadas por comas',
+	'srf_printername_D3Line' => 'Gráfica linear D3',
+	'srf_printername_D3Bar' => 'Diagrama de barras D3',
+	'srf_printername_D3Treemap' => 'Mapa de árbore D3',
 	'srf_printername_sum' => 'Suma dos números',
 	'srf_printername_average' => 'Media dos números',
 	'srf_printername_max' => 'Número máximo',
@@ -1429,6 +1436,9 @@ $messages['ia'] = array(
 	'srf_outline_novalue' => 'Nulle valor',
 	'srf_printername_outline' => 'Schizzo',
 	'srf_paramdesc_outlineproperties' => 'Le lista de proprietates a presentar como capites de structura, separate per commas',
+	'srf_printername_D3Line' => 'Graphico de lineas D3',
+	'srf_printername_D3Bar' => 'Graphico de barras D3',
+	'srf_printername_D3Treemap' => 'Graphico arborescente D3',
 	'srf_printername_sum' => 'Total del numeros',
 	'srf_printername_average' => 'Media del numeros',
 	'srf_printername_max' => 'Numero maxime',
@@ -1870,6 +1880,9 @@ $messages['mk'] = array(
 	'srf_outline_novalue' => 'Нема вредност',
 	'srf_printername_outline' => 'Преглед',
 	'srf_paramdesc_outlineproperties' => 'Список на својствата за прикажување како заглавија, одделени со запирки',
+	'srf_printername_D3Line' => 'D3-линиски графикон',
+	'srf_printername_D3Bar' => 'D3-столбен графикон',
+	'srf_printername_D3Treemap' => 'D3-разгранет преглед',
 	'srf_printername_sum' => 'Збир од броевите',
 	'srf_printername_average' => 'Просек од броевите',
 	'srf_printername_max' => 'Максимален број',
