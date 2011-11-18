@@ -412,7 +412,6 @@ class SRFHash extends SRFArray {
 			//Hash extension is not installed in this wiki
 			return false;
 		}
-		$hashExtClass = new ReflectionClass( get_class( $wgHashTables ) );
 		
 		$version = null;
 		if( defined( 'ExtHashTables::VERSION' ) ) {
