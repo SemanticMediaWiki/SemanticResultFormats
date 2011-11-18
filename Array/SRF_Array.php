@@ -196,6 +196,9 @@ class SRFArray extends SMWResultPrinter {
 		}
 	}
 	
+	/**
+	 * @ToDo: adjust for ArrayExtension 1.4
+	 */
 	protected function createArray( $array ) {
 		global $wgArrayExtension;
 		
@@ -405,6 +408,9 @@ class SRFHash extends SRFArray {
 		return parent::deliverQueryResultPages( $hash );
 	}
 	
+	/**
+	 * @ToDo: adjust for HashTables 0.8
+	 */
 	protected function createArray( $hash ) {
 		global $wgHashTables;
 		
@@ -412,7 +418,6 @@ class SRFHash extends SRFArray {
 			//Hash extension is not installed in this wiki
 			return false;
 		}
-		
 		$version = null;
 		if( defined( 'ExtHashTables::VERSION' ) ) {
 			$version = ExtHashTables::VERSION;
