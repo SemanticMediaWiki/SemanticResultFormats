@@ -878,6 +878,7 @@ $messages['fi'] = array(
  * @author Peter17
  * @author PieRRoMaN
  * @author Urhixidur
+ * @author Verdy p
  */
 $messages['fr'] = array(
 	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
@@ -960,7 +961,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_propsep' => 'Séparateur entre les propriétés demandées',
 	'srf_paramdesc_manysep' => 'Séparateur entre les valeurs de propriété multi-valuées',
 	'srf_paramdesc_recordsep' => "Séparateur entre les valeurs les propriétés d'enregistrement",
-	'srf_paramdesc_headersep' => 'Séparateur entre le nom de la propriété et la valeur si "headers" est positionné à "show" ou "plain"',
+	'srf_paramdesc_headersep' => 'Séparateur entre le nom de la propriété et la valeur si "<code>headers</code>" est positionné à "<code>show</code>" ou "<code>plain</code>"',
 	'srf_printername_hash' => 'Hachage',
 	'srf_paramdesc_hashname' => "Si l'extension HashTables est disponible et fournie, ceci créera un hachage avec le nom spécifié (pas de sortie visible dans ce cas)",
 	'srf-printername-graph' => 'Graphe',
