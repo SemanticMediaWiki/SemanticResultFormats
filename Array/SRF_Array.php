@@ -1,14 +1,14 @@
 <?php
 /**
- * Query format for arrays with features for Extensions ArrayExtension and HashTables
+ * Query format for arrays with features for Extensions 'Arrays' and 'HashTables'
  * @file
  * @ingroup SemanticResultFormats
  * @author Daniel Werner < danweetz@web.de >
  * 
- * Doesn't require ArrayExtension nor HashTables but has additional features
+ * Doesn't require 'Arrays' nor 'HashTables' exytensions but has additional features
  * ('name' parameter in either result format) if they are available.
  * 
- * ArrayExtension 1.3.2+ and HashTables 0.6+ are recommended but not necessary
+ * Arrays 2.0+ and HashTables 1.0+ are recommended but not necessary.
  */
 
 /**
@@ -197,25 +197,39 @@ class SRFArray extends SMWResultPrinter {
 	}
 	
 	/**
-	 * @ToDo: adjust for ArrayExtension 1.4
+	 * Helper function to create a new Array within 'Arrays' extension. Takes care of different versions
+	 * as well as the old 'ArrayExtension'.
 	 */
 	protected function createArray( $array ) {
 		global $wgArrayExtension;
+		
+		$arrayId = $this->mArrayName;
+		
+		if( defined( 'ExtArrays::VERSION' ) ) {
+			// 'Arrays' extension 2+
+			global $wgParser; /** ToDo: is there a way to get the actual parser which has started the query? */
+			ExtArrays::get( $wgParser )->createArray( $arrayId, $array );
+			return true;
+		}
+		
+		// compatbility to 'ArrayExtension' extension before 2.0:
 		
 		if( ! isset( $wgArrayExtension ) ) {
 			//Hash extension is not installed in this wiki
 			return false;
 		}
-		$version = null;
+		$version = null;		
 		if( defined( 'ArrayExtension::VERSION' ) ) {
-			$version = ArrayExtension::VERSION;
+			$version = ExtArrayExtension::VERSION;
 		} elseif( defined( 'ExtArrayExtension::VERSION' ) ) {
 			$version = ExtArrayExtension::VERSION;
 		}
 		if( $version !== null && version_compare( $version, '1.3.2', '>=' ) ) {
-			$wgArrayExtension->createArray( $this->mArrayName, $array );  //requires Extension:ArrayExtension 1.3.2 or higher
+			// ArrayExtension 1.3.2+
+			$wgArrayExtension->createArray( $arrayId, $array );
 		} else {
-			$wgArrayExtension->mArrayExtension[ trim( $this->mArrayName ) ] = $array;
+			// dirty way
+			$wgArrayExtension->mArrays[ trim( $arrayId ) ] = $array;
 		}
 		return true;
 	}
@@ -402,6 +416,7 @@ class SRFHash extends SRFArray {
 		return array( $this->mLastPageTitle, implode( $this->mPropSep, $perProperty_items ) );
 	}
 	protected function deliverQueryResultPages( $perPage_items ) {
+		$hash = array();
 		foreach( $perPage_items as $page ) {
 			$hash[ $page[0] ] = $page[1];  //name of page as key, Properties as value
 		}
@@ -414,18 +429,27 @@ class SRFHash extends SRFArray {
 	protected function createArray( $hash ) {
 		global $wgHashTables;
 		
-		if( ! isset( $wgHashTables ) ) {
-			//Hash extension is not installed in this wiki
-			return false;
-		}
+		$hashId = $this->mArrayName;
 		$version = null;
 		if( defined( 'ExtHashTables::VERSION' ) ) {
 			$version = ExtHashTables::VERSION;
 		}
-		if( $version !== null && version_compare( $version, '0.6', '>=' ) )	{
-			$wgHashTables->createHash( $this->mArrayName, $hash );  //requires Extension:HashTables 0.6 or higher
-		} else {
-			$wgHashTables->mHashTables[ trim( $this->mArrayName ) ] = $hash; //dirty way
+		if( $version !== null && version_compare( $version, '0.999', '>=' ) )	{
+			// Version 1.0+, doesn't use $wgHashTables anymore
+			global $wgParser; /** ToDo: is there a way to get the actual parser which has started the query? */
+			ExtHashTables::get( $wgParser )->createHash( $hashId, $hash );
+		}		
+		elseif( ! isset( $wgHashTables ) ) {
+			//Hash extension is not installed in this wiki
+			return false;
+		}
+		elseif( $version !== null && version_compare( $version, '0.6', '>=' ) )	{
+			// HashTables 0.6 to 1.0
+			$wgHashTables->createHash( $hashId, $hash );
+		}
+		else {
+			// old HashTables, dirty way
+			$wgHashTables->mHashTables[ trim( $hashId ) ] = $hash;
 		}
 		return true;
 	}
