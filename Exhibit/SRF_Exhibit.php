@@ -51,6 +51,10 @@ class SRFExhibit extends SMWResultPrinter {
 
 		global $smwgIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $srfgScriptPath;
 
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+			SMWOutputs::requireHeadItem( 'exhibit-compat', Html::linkedScript( "$wgScriptPath/common/wikibits.js" ) );
+		}
+		
 		// //////////////////////////////
 		// ///////REMOTE STUFF///////////
 		// //////////////////////////////
