@@ -1781,7 +1781,7 @@ $messages['ksh'] = array(
 	'srf_paramdesc_chartwidth' => 'Dämm Dijajramm sing Breedt en Pixelle',
 );
 
-/** Kurdish (Latin) (Kurdî (Latin))
+/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
  * @author George Animal
  */
 $messages['ku-latn'] = array(
@@ -2696,7 +2696,7 @@ $messages['sr-ec'] = array(
 	'srf_printername_gallery' => 'Галерија',
 );
 
-/** Serbian Latin ekavian (‪Srpski (latinica)‬)
+/** Serbian (Latin script) (‪Srpski (latinica)‬)
  * @author Michaello
  */
 $messages['sr-el'] = array(
@@ -2763,7 +2763,7 @@ $messages['te'] = array(
 	'srf_paramdesc_graphname' => 'శీర్షిక',
 );
 
-/** Tajik (Cyrillic) (Тоҷикӣ (Cyrillic))
+/** Tajik (Cyrillic script) (Тоҷикӣ)
  * @author Ibrahim
  */
 $messages['tg-cyrl'] = array(
@@ -2773,7 +2773,7 @@ $messages['tg-cyrl'] = array(
 	'srfc_gotomonth' => 'Рафтан ба моҳ',
 );
 
-/** Tajik (Latin) (Тоҷикӣ (Latin))
+/** Tajik (Latin script) (tojikī)
  * @author Liangent
  */
 $messages['tg-latn'] = array(
