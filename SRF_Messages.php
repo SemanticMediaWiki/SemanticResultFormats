@@ -160,6 +160,27 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_printername_gallery' => '{{Identical|Gallery}}',
 	'srf_paramdesc_headersep' => 'Do not translate "headers" since it is the name of a parameter. "show" and "plain" should not be translated either since these are setting options for this parameter.',
 	'srf_paramdesc_graphname' => '{{Identical|Title}}',
+
+	'srf_printername_googlebar' => '{{doc-smwformat|googlebar}}',
+	'srf_printername_googlepie' => '{{doc-smwformat|googlepie}}',
+	'srf_printername_jqplotbar' => '{{doc-smwformat|jqplotbar}}',
+	'srf_printername_jqplotpie' => '{{doc-smwformat|jqplotpie}}',
+	'srf_printername_D3Line'  => '{{doc-smwformat|D3Line}}',
+	'srf_printername_D3Bar'  => '{{doc-smwformat|D3Bar}}',    
+	'srf_printername_D3Treemap'  => '{{doc-smwformat|D3Treemap}}',   
+
+	'srf_paramdesc_chartheight' => '{{doc-paramdesc|chartheight}}',
+	'srf_paramdesc_chartwidth' => '{{doc-paramdesc|chartwidth}}',
+	'srf_paramdesc_charttitle' => '{{doc-paramdesc|charttitle}}',
+	'srf_paramdesc_barcolor' => '{{doc-paramdesc|barcolor}}',
+	'srf_paramdesc_bardirection'=> '{{doc-paramdesc|bardirection}}',
+	'srf_paramdesc_barnumbersaxislabel' => '{{doc-paramdesc|barnumbersaxislabel}}',
+	'srf-paramdesc-minvalue' => '{{doc-paramdesc|minvalue}}',
+	'srf-paramdesc-pointlabels' => '{{doc-paramdesc|pointlabels}}',
+	'srf-paramdesc-chartlegend' => '{{doc-paramdesc|chartlegend}}',	
+	'srf-paramdesc-legendlocation' => '{{doc-paramdesc|legendlocation}}',	  
+	'srf-paramdesc-datalabels' => '{{doc-paramdesc|datalabels}}',
+	'srf-paramdesc-datalabeltype' => '{{doc-paramdesc|datalabeltype}}',
 );
 
 /** Afrikaans (Afrikaans)
