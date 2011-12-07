@@ -4,6 +4,11 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 == SRF 1.7 ==
 
+THIS IS NOT A RELEASE YET
+
+Semantic Result Formats 1.7 is currently in beta-quality and is not recommended for use in
+production until the actual release.
+
 * Compatibility with SMW 1.7 and later.
 * Dropped support for MediaWiki 1.15.x and SMW < 1.7.
 * Added warning message to jqplotpie and jqplotbar shown when there are no results instead of a non-working chart.
@@ -11,7 +16,7 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 * Added min parameter to jqplotbar to set the minimun value for the Y-axis.
 * Added pointlabel parameter to jqplotbar and chartlegend, legendlocation,
   datalabels and datalabeltype parameters to jqplotpie based on a patches by James Hong Kong.
-* array and hash formats compatible with 'Array' extension 2.0 and 'HashTables' 1.0 now.
+* Made array and hash formats compatible with 'Array' extension 2.0 and 'HashTables' 1.0.
 
 New formats in this version are:
 * valuerank (written by DaSch)
