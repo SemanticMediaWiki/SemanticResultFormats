@@ -17,6 +17,7 @@ production until the actual release.
 * Added pointlabel parameter to jqplotbar and chartlegend, legendlocation,
   datalabels and datalabeltype parameters to jqplotpie based on a patches by James Hong Kong.
 * Made array and hash formats compatible with 'Array' extension 2.0 and 'HashTables' 1.0.
+* Added summary parameter to the icalendar format.
 
 New formats in this version are:
 * valuerank (written by DaSch)
