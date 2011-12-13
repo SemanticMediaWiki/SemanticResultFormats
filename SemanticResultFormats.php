@@ -62,7 +62,7 @@ $wgExtensionCredits['semantic'][] = array(
 		'Sanyam Goyal',
 		'others'
 	),
-	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc'
 );
 
