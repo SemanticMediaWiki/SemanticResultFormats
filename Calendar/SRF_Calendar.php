@@ -51,10 +51,8 @@ class SRFCalendar extends SMWResultPrinter {
 	 * TODO: split up megamoth 
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgUser;
-		$skin = $wgUser->getSkin();
-
 		$events = array();
+		
 		// print all result rows
 		while ( $row = $res->getNext() ) {
 			$dates = array();
@@ -113,7 +111,7 @@ class SRFCalendar extends SMWResultPrinter {
 								
 								// handling of "headers=" param
 								if ( $this->mShowHeaders == SMW_HEADERS_SHOW ) {
-									$textForProperty .= $pr->getHTMLText( $skin ) . ' ';
+									$textForProperty .= $pr->getHTMLText( smwfGetLinker() ) . ' ';
 								} elseif ( $this->mShowHeaders == SMW_HEADERS_PLAIN ) {
 									$textForProperty .= $pr->getLabel() . ' ';
 								}
@@ -121,14 +119,14 @@ class SRFCalendar extends SMWResultPrinter {
 								// if $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing
 								// handling of "link=" param
 								if ( $this->mLinkOthers ) {
-									$textForProperty .= $object->getLongText( $outputmode, $skin );
+									$textForProperty .= $object->getLongText( $outputmode, smwfGetLinker() );
 								} else {
 									$textForProperty .= $object->getWikiValue();
 								}
 							}
 						} else {
 							$numNonDateProperties++;
-							$textForProperty .= $pr->getHTMLText( $skin ) . ' ' . $object->getShortText( $outputmode, $skin );
+							$textForProperty .= $pr->getHTMLText( smwfGetLinker() ) . ' ' . $object->getShortText( $outputmode, smwfGetLinker() );
 						}
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
 							$dates[] = $this->formatDateStr( $object );

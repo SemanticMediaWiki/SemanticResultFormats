@@ -28,7 +28,6 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setShowBytes( false );
 		$ig->setShowFilename( false );
 		$ig->setParser( $wgParser );
-		$ig->useSkin( $wgUser->getSkin() ); // FIXME: deprecated method usage
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
 		if ( $this->m_params['perrow'] !== '' ) {
