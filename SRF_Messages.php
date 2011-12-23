@@ -2724,6 +2724,9 @@ $messages['sr-el'] = array(
 	'srfc_today' => 'Danas',
 	'srfc_gotomonth' => 'Pređi na mesec',
 	'srf_printername_calendar' => 'Mesečni kalendar',
+	'srf_vcard_link' => 'vCard',
+	'srf_icalendar_link' => 'iCalendar',
+	'srf_bibtex_link' => 'BibTeX',
 	'srf_outline_novalue' => 'Nema vrednosti',
 	'srf_printername_sum' => 'Suma brojeva',
 	'srf_printername_average' => 'Srednja vrednost brojeva',
@@ -2988,6 +2991,7 @@ $messages['zh-hant'] = array(
 	'srfc_gotomonth' => '跳至月份',
 	'srf_printername_max' => '最大數目',
 	'srf_printername_min' => '最小數目',
+	'srf_printername_gallery' => '圖庫',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)
