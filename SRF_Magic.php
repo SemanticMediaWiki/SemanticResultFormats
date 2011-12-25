@@ -79,7 +79,7 @@ $magicWords['nl'] = array(
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬) */
-$magicWords['no'] = array(
+$magicWords['nb'] = array(
 	'calendarstartdate' => array( 0, 'kalenderstartdato' ),
 	'calendarenddate' => array( 0, 'kalendersluttdato' ),
 );

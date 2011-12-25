@@ -2160,7 +2160,7 @@ $messages['nn'] = array(
  * @author Jon Harald Søby
  * @author Nghtwlkr
  */
-$messages['no'] = array(
+$messages['nb'] = array(
 	'srf-desc' => 'Ytterligere format for Semantic MediaWiki «inline»-spørringer',
 	'srf-name' => 'Semantisk resultatformat',
 	'srfc_previousmonth' => 'Forrige måned',
