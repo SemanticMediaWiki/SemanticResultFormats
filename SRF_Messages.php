@@ -2965,6 +2965,7 @@ $messages['yi'] = array(
 	'srfc_previousmonth' => 'פֿאריגער חודש',
 	'srfc_nextmonth' => 'נעקסטער חודש',
 	'srfc_today' => 'הײַנט',
+	'srf_paramdesc_graphname' => 'טיטל',
 );
 
 /** Simplified Chinese (‪中文(简体)‬)
