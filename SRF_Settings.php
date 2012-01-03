@@ -1,7 +1,7 @@
 <?php
 /**
  * Settings file for the Semantic Result Formats extension.
- * http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
+ * https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
  * 
  * NOTE: Do not use this file as entry point, use SemanticresultFormats.php instead.
  *
@@ -9,6 +9,7 @@
  * @ingroup SemanticResultFormats
  * 
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author Daniel Werner < danweetz@web.de >
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
@@ -69,8 +70,8 @@ $srfgArrayRecordSep = '<RCRD>';
 $srfgArrayHeaderSep = ' ';
 
 /**
- * used if Array|Hash result format isn't used inline and the standard config values
- * defined in LocalSettings.php can't be used because they are page references which
+ * Used if Array|Hash result format is not used inline and the standard config values
+ * defined in LocalSettings.php can not be used because they are page references which
  * can only be evaluated in inline queries
  * 
  * @var Array
@@ -82,4 +83,3 @@ $srfgArraySepTextualFallbacks = array (
 	'recordsep' => $srfgArrayRecordSep,
 	'headersep' => $srfgArrayHeaderSep
 );
-$srfgArraySep = array( 'bla', NS_TEMPLATE );
