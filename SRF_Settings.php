@@ -51,7 +51,10 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 }
 
 # load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
-if( isset( $wgHashTables ) ) {
+if(	defined( 'ExtHashTables::VERSION' )
+	&& version_compare( ExtHashTables::VERSION, '0.999', '>=' )
+	|| isset( $wgHashTables ) // Version < 1.0 alpha
+) {
 	$srfgFormats[] = 'hash';
 }
 

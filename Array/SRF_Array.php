@@ -423,9 +423,6 @@ class SRFHash extends SRFArray {
 		return parent::deliverQueryResultPages( $hash );
 	}
 	
-	/**
-	 * @ToDo: adjust for HashTables 0.8
-	 */
 	protected function createArray( $hash ) {
 		global $wgHashTables;
 		
@@ -440,7 +437,7 @@ class SRFHash extends SRFArray {
 			ExtHashTables::get( $wgParser )->createHash( $hashId, $hash );
 		}		
 		elseif( ! isset( $wgHashTables ) ) {
-			//Hash extension is not installed in this wiki
+			// Hash extension is not installed in this wiki
 			return false;
 		}
 		elseif( $version !== null && version_compare( $version, '0.6', '>=' ) )	{
