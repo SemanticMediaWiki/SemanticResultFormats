@@ -23,16 +23,6 @@ class SRFParserFunctions {
 		return true;
 	}
 
-	// FIXME: Can be removed when new style magic words are used (introduced in r52503)
-	static function languageGetMagic( &$magicWords, $langCode = "en" ) {
-		switch ( $langCode ) {
-			default:
-			$magicWords['calendarstartdate']  = array ( 0, 'calendarstartdate' );
-			$magicWords['calendarenddate']	  = array ( 0, 'calendarenddate' );
-		}
-		return true;
-	}
-
 	static function runCalendarStartDate( &$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null ) {
 		if ( $calendar_type == '' ) $calendar_type = 'month';
 		list( $lower_date, $upper_date, $query_date ) =

@@ -34,7 +34,7 @@ if ( version_compare( SMW_VERSION, '1.6.2 alpha', '<' ) ) {
 	die( '<b>Error:</b> This version of Semantic Result Formats requires Semantic MediaWiki 1.7 or above; use Semantic Result Formats 1.6.1 for older versions of SMW.' );
 }
 
-define( 'SRF_VERSION', '1.7' );
+define( 'SRF_VERSION', '1.7.1' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
@@ -47,6 +47,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 $wgExtensionFunctions[] = 'srffInitFormats';
 
 $wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
+$wgExtensionMessagesFiles['SemanticResultFormatsMagic'] = dirname( __FILE__ ) . '/SRF_Magic.php';
 
 // FIXME: hardcoded path
 $srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
@@ -99,9 +100,6 @@ $wgAutoloadClasses['SRFHooks'] = $srfgIP . '/SRF_Hooks.php';
 
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
-
-// FIXME: Can be removed when new style magic words are used (introduced in r52503)
-$wgHooks['LanguageGetMagic'][] = 'SRFParserFunctions::languageGetMagic';
 
 /**
  * Autoload the query printer classes and associate them with their formats in the $smwgResultFormats array.

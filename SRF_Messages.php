@@ -6,9 +6,6 @@
  * @ingroup Extensions
  */
 
-// FIXME: Can be enabled when new style magic words are used (introduced in r52503)
-// require_once( dirname( __FILE__ ) . '/SRF_Magic.php' );
-
 $messages = array();
 
 /** English
