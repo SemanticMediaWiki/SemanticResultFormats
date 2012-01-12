@@ -84,6 +84,33 @@ $wgResourceModules['ext.srf.d3treemap'] = $moduleTemplate + array(
 	'dependencies' => array(
 		'ext.srf.d3core',
 	),
-);	
+);
+
+$wgResourceModules['jquery.progressbar'] = $moduleTemplate + array(
+	'scripts' => array(
+		'JitGraph/jquery.progressbar',
+	),
+);
+
+$wgResourceModules['ext.srf.jit'] = $moduleTemplate + array(
+	'scripts' => array(
+		'JitGraph/Jit/jit.js',
+	),
+);
+		
+$wgResourceModules['ext.srf.jitgraph'] = $moduleTemplate + array(
+	'scripts' => array(
+		'JitGraph/SRF_JitGraph.js',
+	),
+	'styles' => array(
+		'JitGraph/base.css',
+	),
+	'dependencies' => array(
+		'mediawiki.legacy.wikibits',
+		'jquery.progressbar',
+		'ext.srf.jit',
+	),
+	'position' => 'top'
+);
 
 unset( $moduleTemplate );

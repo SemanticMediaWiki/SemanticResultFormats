@@ -11,6 +11,9 @@ production until the actual release.
 
 * 
 
+New formats in this version are:
+* JitGraph (written by Alex Shapovalov) (bug 32877)
+
 == SRF 1.7 ==
 
 Released on January 1, 2012.

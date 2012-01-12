@@ -31,6 +31,8 @@ $srfgFormats = array(
 	'timeline',
 	'outline',
 	'gallery',
+	// Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
+	//'jitgraph',
 	'jqplotbar',
 	'jqplotpie',
 	'sum',
