@@ -49,8 +49,7 @@ $wgExtensionFunctions[] = 'srffInitFormats';
 $wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
 $wgExtensionMessagesFiles['SemanticResultFormatsMagic'] = dirname( __FILE__ ) . '/SRF_Magic.php';
 
-// FIXME: hardcoded path
-$srfgScriptPath = $wgScriptPath . '/extensions/SemanticResultFormats';
+$srfgScriptPath = ( $wgExtensionAssetsPath === false ? $wgScriptPath . '/extensions' : $wgExtensionAssetsPath ) . '/SemanticResultFormats'; 
 $srfgIP = dirname( __FILE__ );
 
 $wgExtensionCredits['semantic'][] = array(
