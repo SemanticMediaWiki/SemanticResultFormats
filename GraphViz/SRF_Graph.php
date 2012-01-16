@@ -285,7 +285,7 @@ class SRFGraph extends SMWResultPrinter {
 		$params['graphsize']->setMessage( 'srf_paramdesc_graphsize' );
 		$params['graphsize']->setDefault( '', false );
 		
-		$params['graphlegend'] = new Parameter( 'graphsize', Parameter::TYPE_BOOLEAN, false );
+		$params['graphlegend'] = new Parameter( 'graphlegend', Parameter::TYPE_BOOLEAN, false );
 		$params['graphlegend']->setMessage( 'srf_paramdesc_graphlegend' );
 		
 		$params['graphlabel'] = new Parameter( 'graphlabel', Parameter::TYPE_BOOLEAN, false );

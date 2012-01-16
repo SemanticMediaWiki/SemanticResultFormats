@@ -9,7 +9,7 @@ THIS IS NOT A RELEASE YET
 Semantic Result Formats 1.7.1 is currently in beta-quality and is not recommended for use in
 production until the actual release.
 
-* 
+* Fixed issue with the graphlenegd parameter in the graph format (bug 33745)
 
 New formats in this version are:
 * JitGraph, still in alpha, disabled by default (written by Alex Shapovalov) (bug 32877)
