@@ -512,6 +512,9 @@ END;
 		$params['userparam'] = new Parameter( 'userparam' );
 		$params['userparam']->setDefault( '' );
 		
+		$params['color'] = new Parameter( 'color' );
+		$params['color']->setDefault( '' );
+		
 		return $params;
 	}
 
