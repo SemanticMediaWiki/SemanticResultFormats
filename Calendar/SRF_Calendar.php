@@ -24,8 +24,8 @@ class SRFCalendar extends SMWResultPrinter {
 		
 		if ( $params['lang'] !== false ) {
 			global $wgLang;
-			// store the actual user's language, so we can revert
-			// back to it after printing the calendar
+			// Store the actual user's language, so we can revert
+			// back to it after printing the calendar.
 			$this->mRealUserLang = clone ( $wgLang );
 			$wgLang = Language::factory( trim( $params['lang'] ) );
 		}
@@ -39,7 +39,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$this->isHTML = false;
 		$this->hasTemplates = false;
 
-		// skip checks, results with 0 entries are normal
+		// Skip checks - results with 0 entries are normal.
 		$this->handleParameters( $params, $outputmode );
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
@@ -53,12 +53,13 @@ class SRFCalendar extends SMWResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$events = array();
 		
-		// print all result rows
+		// Print all result rows.
 		while ( $row = $res->getNext() ) {
 			$dates = array();
 			$title = $text = $color = '';
 
-			if ( $this->mTemplate != '' ) { // build template code
+			if ( $this->mTemplate != '' ) {
+				// Build template code
 				$this->hasTemplates = true;
 				
 				if ( $this->mUserParam ) {
@@ -88,21 +89,22 @@ class SRFCalendar extends SMWResultPrinter {
 						}
 					}
 				}
-			} else {  // build simple text
+			} else {
+				// Build simple text.
 				$numNonDateProperties = 0;
-				// cycle through a 'row', which is the page
+				// Cycle through a 'row', which is the page
 				// name (the first field) plus all its
-				// properties
+				// properties.
 				foreach ( $row as $i => $field ) {
 					$pr = $field->getPrintRequest();
-					// a property can have more than one
+					// A property can have more than one
 					// value - cycle through all the values
-					// for this property
+					// for this property.
 					$textForProperty = '';
 					
 					while ( ( $object = $field->getNextDataValue() ) !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
-							// don't add date values to the display
+							// Don't add date values to the display.
 						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
 							if ( $i == 0 ) {
 								$title = Title::newFromText( $object->getShortWikiText( false ) );
@@ -116,7 +118,7 @@ class SRFCalendar extends SMWResultPrinter {
 									$textForProperty .= $pr->getLabel() . ' ';
 								}
 								
-								// if $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing
+								// If $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing.
 								// handling of "link=" param
 								if ( $this->mLinkOthers ) {
 									$textForProperty .= $object->getLongText( $outputmode, smwfGetLinker() );
@@ -133,9 +135,9 @@ class SRFCalendar extends SMWResultPrinter {
 						}
 					}
 					
-					// add the text for this property to
+					// Add the text for this property to
 					// the main text, adding on parentheses
-					// or commas as needed
+					// or commas as needed.
 					if ( $numNonDateProperties == 1 ) {
 						$text .= ' (';
 					} elseif ( $numNonDateProperties > 1 ) {
@@ -149,8 +151,8 @@ class SRFCalendar extends SMWResultPrinter {
 			}
 			
 			if ( count( $dates ) > 0 ) {
-				// handle the 'color=' value, whether it came
-				// from a compound query or a regular one
+				// Handle the 'color=' value, whether it came
+				// from a compound query or a regular one.
 				// handling is different for SMW 1.5+
 				$realFunction = array( $field, 'getResultSubject' );
 				if ( is_callable( $realFunction ) ) {
@@ -176,8 +178,8 @@ class SRFCalendar extends SMWResultPrinter {
 
 		$result = $this->displayCalendar( $events );
 		
-		// go back to the actual user's language, in case a different
-		// language had been specified for this calendar
+		// Go back to the actual user's language, in case a different
+		// language had been specified for this calendar.
 		if ( ! is_null( $this->mRealUserLang ) ) {
 			global $wgLang;
 			$wgLang = $this->mRealUserLang;
@@ -187,8 +189,7 @@ class SRFCalendar extends SMWResultPrinter {
 		
 		if ( is_null( $wgParser->getTitle() ) ) {
 			return $result;
-		}
-		else {
+		} else {
 			return array( $result, 'noparse' => 'true', 'isHTML' => 'true' );
 		}
 	}
