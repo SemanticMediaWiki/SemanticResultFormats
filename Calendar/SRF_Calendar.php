@@ -469,7 +469,7 @@ END;
 					} else {
 						$event_str = $skin->makeLinkObj( $event_title );
 						if ( $color != '' ) {
-							$text .= "<p class=\"colored-entry\" style=\"border-left: 7px $color solid;\">$event_str $other_text</p>\n";
+							 $text .= "<div class=\"colored-entry\"><p style=\"border-left: 7px $color solid;\">$event_str $other_text</p></div>\n";
 						} else {
 							$text .= "$event_str $other_text\n\n";
 						}
