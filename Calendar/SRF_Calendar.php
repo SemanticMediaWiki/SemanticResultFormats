@@ -16,6 +16,18 @@ class SRFCalendar extends SMWResultPrinter {
 	protected $mUserParam;
 	protected $mRealUserLang = null;
 
+	protected function setColors( $colorsText ) {
+		$colors = array();
+		$colorElements = explode( ',', $colorsText );
+		foreach ( $colorElements as $colorElem ) {
+			$propAndColor = explode( '=>', $colorElem );
+			if ( count( $propAndColor ) == 2 ) {
+				$colors[$propAndColor[0]] = $propAndColor[1];
+			}
+		}
+		$this->mColors = $colors;
+	}
+
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
@@ -29,6 +41,8 @@ class SRFCalendar extends SMWResultPrinter {
 			$this->mRealUserLang = clone ( $wgLang );
 			$wgLang = Language::factory( trim( $params['lang'] ) );
 		}
+
+		$this->setColors( $params['colors'] );
 	}
 
 	public function getName() {
@@ -131,7 +145,11 @@ class SRFCalendar extends SMWResultPrinter {
 							$textForProperty .= $pr->getHTMLText( smwfGetLinker() ) . ' ' . $object->getShortText( $outputmode, smwfGetLinker() );
 						}
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
-							$dates[] = $this->formatDateStr( $object );
+							$datePropLabel = $pr->getLabel();
+							if ( !array_key_exists( $datePropLabel, $dates ) ) {
+								$dates[$datePropLabel] = array();
+							}
+							$dates[$datePropLabel][] = $this->formatDateStr( $object );
 						}
 					}
 
@@ -155,13 +173,32 @@ class SRFCalendar extends SMWResultPrinter {
 				// from a compound query or a regular one.
 				$res_subject = $field->getResultSubject();
 				if ( isset( $res_subject->display_options )
-					&& is_array( $res_subject->display_options )
-					&& array_key_exists( 'color', $res_subject->display_options ) ) {
+					&& is_array( $res_subject->display_options ) ) {
+					if ( array_key_exists( 'color', $res_subject->display_options ) ) {
 						$color = $res_subject->display_options['color'];
+					}
+					if ( array_key_exists( 'colors', $res_subject->display_options ) ) {
+						$this->setColors( $res_subject->display_options['colors'] );
+					}
 				}
 
-				foreach ( $dates as $date ) {
-					$events[] = array( $title, $text, $date, $color );
+				foreach ( $dates as $label => $datesForLabel ) {
+					foreach ( $datesForLabel as $date ) {
+						$curText = $text;
+						// If there's more than one
+						// label, i.e. more than one
+						// date property being displayed,
+						// show the name of the current
+						// property in parentheses.
+						if ( count( $dates ) > 1 ) {
+							$curText = "($label) " . $curText;
+						}
+						$curColor = $color;
+						if ( array_key_exists( $label, $this->mColors ) ) {
+							$curColor = $this->mColors[$label];
+						}
+						$events[] = array( $title, $curText, $date, $curColor );
+					}
 				}
 			}
 		}
@@ -253,7 +290,7 @@ class SRFCalendar extends SMWResultPrinter {
 			foreach ( $request_values as $key => $value ) {
 				if ( $key != 'month' && $key != 'year'
 					// values from 'RunQuery'
-			       		&& $key != 'query' && $key != 'free_text'
+					&& $key != 'query' && $key != 'free_text'
 				) {
 					$additional_query_string .= "&$key=$value";
 					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />";
@@ -460,7 +497,7 @@ END;
 					} else {
 						$event_str = $skin->makeLinkObj( $event_title );
 						if ( $color != '' ) {
-							 $text .= "<div class=\"colored-entry\"><p style=\"border-left: 7px $color solid;\">$event_str $other_text</p></div>\n";
+							$text .= "<div class=\"colored-entry\"><p style=\"border-left: 7px $color solid;\">$event_str $other_text</p></div>\n";
 						} else {
 							$text .= "$event_str $other_text\n\n";
 						}
@@ -505,6 +542,10 @@ END;
 
 		$params['color'] = new Parameter( 'color' );
 		$params['color']->setDefault( '' );
+
+		$params['colors'] = new Parameter( 'colors' );
+		$params['colors']->setMessage( 'srf_paramdesc_calendarcolors' );
+		$params['colors']->setDefault( '' );
 
 		return $params;
 	}
