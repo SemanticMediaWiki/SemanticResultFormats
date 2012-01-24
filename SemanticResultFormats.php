@@ -56,11 +56,16 @@ $wgExtensionCredits['semantic'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Result Formats',
 	'version' => SRF_VERSION,
+	// At least 14 people have contributed formats to this extension, so
+	// it would be prohibitive to list them all in the credits. Instead,
+	// the current rule is to list anyone who has created, or contributed
+	// significantly to, at least three formats, or the overall extension.
 	'author' => array(
 		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
 		'Yaron Koren',
-		'Sanyam Goyal',
-		'others'
+		'[http://korrekt.org Markus Krötzsch]',
+		'[http://simia.net Denny Vrandecic]',
+		'...'
 	),
 	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc'
