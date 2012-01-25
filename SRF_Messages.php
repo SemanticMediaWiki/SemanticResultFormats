@@ -148,6 +148,7 @@ $messages['en'] = array(
  */
 $messages['qqq'] = array(
 	'srf-desc' => '{{desc}}',
+	'srf_paramdesc_calendarcolors' => 'Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.',
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_bibtex_link' => '{{optional}}',
@@ -589,6 +590,7 @@ $messages['de'] = array(
 	'srfc_gotomonth' => 'Gehe zu Monat',
 	'srf_printername_calendar' => 'Kalender',
 	'srf_paramdesc_calendarlang' => 'Der Sprachcode der Sprache, in der der Kalender angezeigt werden soll',
+	'srf_paramdesc_calendarcolors' => 'Die für das jeweilige Datumsattribut zur Darstellung zu verwendende Farbe (Beispiel: „Startdatum=>green,Enddatum=>#09C“)',
 	'srf_printername_vcard' => 'vCard-Export',
 	'srf_printername_icalendar' => 'iCalendar-Export',
 	'srf_paramdesc_icalendartitle' => 'Der Name für die Kalenderdatei',
@@ -892,6 +894,7 @@ $messages['fi'] = array(
  * @author Hashar
  * @author IAlex
  * @author Iluvalar
+ * @author McDutchie
  * @author Peter17
  * @author PieRRoMaN
  * @author Urhixidur
@@ -906,6 +909,7 @@ $messages['fr'] = array(
 	'srfc_gotomonth' => 'Aller vers le mois',
 	'srf_printername_calendar' => 'Calendrier mensuel',
 	'srf_paramdesc_calendarlang' => 'Le code de la langue dans laquelle afficher le calendrier',
+	'srf_paramdesc_calendarcolors' => 'La couleur à afficher pour chaque propriété date (exemple: "Date de démarrage => green,Date de fin => #09c")',
 	'srf_vcard_link' => 'vCarte',
 	'srf_printername_vcard' => 'export en vCard',
 	'srf_icalendar_link' => 'iCalendrier',
@@ -1063,6 +1067,7 @@ $messages['gl'] = array(
 	'srfc_gotomonth' => 'Ir ao mes',
 	'srf_printername_calendar' => 'Calendario mensual',
 	'srf_paramdesc_calendarlang' => 'O código da lingua na que mostrar o calendario',
+	'srf_paramdesc_calendarcolors' => 'A cor na que mostrar cada propiedade de data (exemplo: "Data de inicio=>green,Data de fin=>#09c")',
 	'srf_vcard_link' => 'vTarxeta',
 	'srf_printername_vcard' => 'Exportación en vCard',
 	'srf_icalendar_link' => 'iCalendario',
@@ -1371,6 +1376,7 @@ $messages['hsb'] = array(
 	'srf_paramdesc_minsize' => 'Wulkosć najmjeńšich woznamjenjacych słowow w procenće (standard: 77)',
 	'srf_paramdesc_maxsize' => 'Wulkosć najwjetšich woznamjenjacych słowow w procenće (standard: 177)',
 	'srf_paramdesc_maxtags' => 'Maksimalna ličba woznamjenjacych słowow w mróčeli',
+	'srf_printername_array' => 'Datowe polo',
 	'srf_paramdesc_graphname' => 'Titul',
 );
 
@@ -1446,6 +1452,7 @@ $messages['ia'] = array(
 	'srfc_gotomonth' => 'Ir al mense',
 	'srf_printername_calendar' => 'Calendario mensual',
 	'srf_paramdesc_calendarlang' => 'Le codice del lingua in le qual monstrar le calendario',
+	'srf_paramdesc_calendarcolors' => 'Le color pro cata proprietate de data (exemplo: "Data de initio=>green,Data de fin=>#09c")',
 	'srf_printername_vcard' => 'Exportation in vCard',
 	'srf_printername_icalendar' => 'Exportation in iCalendar',
 	'srf_paramdesc_icalendartitle' => 'Le titulo del file del calendario',
@@ -1891,6 +1898,7 @@ $messages['mk'] = array(
 	'srfc_gotomonth' => 'Оди на месецот',
 	'srf_printername_calendar' => 'Месечен календар',
 	'srf_paramdesc_calendarlang' => 'Кодот на јазикот на кој ќе се прикажува календарот',
+	'srf_paramdesc_calendarcolors' => 'Бојата за приказ на секое датумско својство (пример: "Почетен датум=>green,Краен датум=>#09c")',
 	'srf_printername_vcard' => 'Извоз на vCard',
 	'srf_icalendar_link' => 'iКалендар',
 	'srf_printername_icalendar' => 'Извоз на iCalendar',
