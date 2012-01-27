@@ -2151,6 +2151,7 @@ $messages['nl'] = array(
 	'srfc_gotomonth' => 'Ga naar maand',
 	'srf_printername_calendar' => 'Maandkalender',
 	'srf_paramdesc_calendarlang' => 'De taalcode voor de taal waarin de kalender wordt weergegeven',
+	'srf_paramdesc_calendarcolors' => 'De kleur weer te geven voor elke datumeigenschap (voorbeeld: "Startdatum=>green,Einddatum=>#09c")',
 	'srf_printername_vcard' => 'Naar vCard exporteren',
 	'srf_printername_icalendar' => 'Naar iCalendar exporteren',
 	'srf_paramdesc_icalendartitle' => 'De titel van het kalenderbestand',
