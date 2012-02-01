@@ -272,7 +272,10 @@ class SMWBibTeXEntry {
 		if ( $title ) {
 			foreach ( explode( ' ', $title ) as $titleWord ) {
 				$charsTitleWord = preg_split( '//', $titleWord, - 1, PREG_SPLIT_NO_EMPTY );
-				$URI .= $charsTitleWord[0];
+				
+				if ( !empty( $charsTitleWord ) ) {
+					$URI .= $charsTitleWord[0];
+				}
 			}
 		}
 		
