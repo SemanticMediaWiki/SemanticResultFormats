@@ -1860,6 +1860,7 @@ $messages['lb'] = array(
 	'srf-printername-graph' => 'Grafik',
 	'srf_paramdesc_graphname' => 'Titel',
 	'srf_paramdesc_graphsize' => 'Gréisst vun der Grafik (a Pixel)',
+	'srf_paramdesc_graphlegend' => "D'Erklärung (Legend) vum Grafik weisen oder net",
 	'srf_paramdesc_graphlabel' => 'Etiquette vun der Grafik',
 	'srf_paramdesc_rankdir' => 'Richtung vum Feil',
 	'srf_paramdesc_graphlink' => 'Link op de Grafik',
