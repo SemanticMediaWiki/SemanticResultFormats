@@ -110,7 +110,18 @@ $wgResourceModules['ext.srf.jitgraph'] = $moduleTemplate + array(
 		'jquery.progressbar',
 		'ext.srf.jit',
 	),
-	'position' => 'top'
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.srf.jcarousel'] = $moduleTemplate + array(
+	'scripts' => array(
+		'Gallery/resources/jquery.jcarousel.min.js',
+		'Gallery/resources/ext.srf.jcarousel.js',
+	),
+	'styles' => array(
+		'Gallery/resources/ext.srf.jcarousel.css',
+	),
+	'position' => 'top',
 );
 
 unset( $moduleTemplate );

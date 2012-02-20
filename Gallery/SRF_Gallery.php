@@ -7,7 +7,7 @@
  * @ingroup SemanticResultFormats
  *
  * @author Rowan Rodrik van der Molen
- * @author Jeroen De Dauw
+ * @author Jeroen De Dauw, mwjames
  */
 class SRFGallery extends SMWResultPrinter {
 
@@ -29,8 +29,20 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setShowFilename( false );
 		$ig->setParser( $wgParser );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
-
-		if ( $this->m_params['perrow'] !== '' ) {
+	
+		if ( $this->m_params['galleryformat'] == 'carousel' ) {
+			// Set attributes for jcarousel
+			$mAttribs['id']	= 'carousel';
+			$mAttribs['class'] = 'jcarousel-skin-smw'; 
+			$mAttribs['style'] = 'display:none;';		
+			$ig->setAttributes( $mAttribs );
+		 
+			// Require the javascript
+			SMWOutputs::requireResource( 'ext.srf.jcarousel' );
+		}
+	
+		// In case galleryformat = carousel, perrow should not be set 
+		if ( $this->m_params['perrow'] !== '' && $this->m_params['galleryformat'] !== 'carousel' ) {
 			$ig->setPerRow( $this->m_params['perrow'] );
 		}
 
@@ -155,14 +167,17 @@ class SRFGallery extends SMWResultPrinter {
 				$imgCaption = '';
 			}
 		}
-		else {
-			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );
+		else {	  
+			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );		
+			// the above call creates getMaxIncludeSize() fatal error on Special Pages
+			// below might fix this
+			// $imgCaption = $wgParser->transformMsg( $imgCaption, ParserOptions::newFromUser( null ) ); 		
 		}
 
 		$ig->add( $imgTitle, $imgCaption );
 
 		// Only add real images (bug #5586)
-		if ( $imgTitle->getNamespace() == NS_IMAGE ) {
+		if ( $imgTitle->getNamespace() == NS_IMAGE && !$imgTitle->getDBkey() == null ) {
 			$wgParser->mOutput->addImage( $imgTitle->getDBkey() );
 		}
 	}
@@ -176,6 +191,10 @@ class SRFGallery extends SMWResultPrinter {
 	 */
 	public function getParameters() {
 		$params = parent::getParameters();
+
+		$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
+		$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
+		$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel' ) );
 
 		$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
 		$params['perrow']->setMessage( 'srf_paramdesc_perrow' );

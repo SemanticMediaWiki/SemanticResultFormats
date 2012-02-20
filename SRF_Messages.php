@@ -95,6 +95,7 @@ $messages['en'] = array(
 	'srf_paramdesc_fileextensions' => 'When using the filename as caption, also display the file extension',
 	'srf_paramdesc_captionproperty' => 'The name of a semantic property present on the queried pages to be used as caption',
 	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
+	'srf_paramdesc_galleryformat' => 'Gallery format',
 
 	// "tagcloud" format
 	'srf_printername_tagcloud' => 'Tag cloud',
@@ -136,6 +137,11 @@ $messages['en'] = array(
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
 	
 	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
+
+  //DataTables
+	'srf_printername_datatables'  => 'DataTables',
+	'srf-paramdesc-rowindex'      => 'Table row index',
+ 'srf-paramdesc-displaylength' => 'Initial display length', 
 );
 
 /** Message documentation (Message documentation)
