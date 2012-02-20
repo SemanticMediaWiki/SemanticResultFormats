@@ -44,6 +44,9 @@ $srfgFormats = array(
 	'tagcloud',
 	'valuerank',
 	'array',
+	'tree',
+	'ultree',
+	'oltree',
 );
 
 if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {

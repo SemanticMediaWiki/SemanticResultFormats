@@ -137,11 +137,15 @@ $messages['en'] = array(
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
 	
 	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
-
+	
   //DataTables
 	'srf_printername_datatables'  => 'DataTables',
 	'srf-paramdesc-rowindex'      => 'Table row index',
- 'srf-paramdesc-displaylength' => 'Initial display length', 
+	'srf-paramdesc-displaylength' => 'Initial display length', 
+	
+	// format "tree", "ultree", "oltree"
+	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
+	'srf-paramdesc-parent' => 'The property containing the parent page',
 );
 
 /** Message documentation (Message documentation)
@@ -184,6 +188,8 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_printername_gallery' => '{{Identical|Gallery}}',
 	'srf_paramdesc_headersep' => 'Do not translate "headers" since it is the name of a parameter. "show" and "plain" should not be translated either since these are setting options for this parameter.',
 	'srf_paramdesc_graphname' => '{{Identical|Title}}',
+	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
+	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
 );
 
 /** Afrikaans (Afrikaans)
