@@ -192,9 +192,11 @@ class SRFGallery extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 
-		$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
-		$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
-		$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel' ) );
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+			$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
+			$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
+			$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel' ) );
+		}
 
 		$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
 		$params['perrow']->setMessage( 'srf_paramdesc_perrow' );
