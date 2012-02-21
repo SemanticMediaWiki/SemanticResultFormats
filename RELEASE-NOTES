@@ -13,6 +13,7 @@ production until the actual release.
 
 New formats in this version are:
 * JitGraph, still in alpha, disabled by default (written by Alex Shapovalov) (bug 32877)
+* tree, ultree, oltree
 
 == SRF 1.7 ==
 

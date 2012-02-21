@@ -106,6 +106,12 @@ extension.
 Creates a gallery of images (and captions) dynamically. The output is the
 same as when using MediaWiki's built-in <gallery>-tag.
 
+=== tree, ultree, oltree ===
+
+Format tree displays the query result as a tree, i.e. as an unordered (bulleted)
+nested HTML list. ultree is an alias of tree. oltree produces an ordered
+(numbered) list instead of an unordered list. 
+
 == Contact ==
 
 If you have remarks, questions, or suggestions, please send them to
