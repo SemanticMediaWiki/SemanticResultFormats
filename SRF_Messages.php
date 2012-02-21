@@ -657,6 +657,7 @@ $messages['de'] = array(
 	'srf_paramdesc_fileextensions' => 'Sofern der Dateiname als Beschreibung verwendet wird, ebenso die Dateierweiterung anzeigen',
 	'srf_paramdesc_captionproperty' => 'Der Name des Attributs auf abgefragten Seiten, der als Beschreibung verwendet werden soll',
 	'srf_paramdesc_imageproperty' => 'Der Name des Attributs auf abgefragten Seiten, das auf das zu verwendende Bild hinweist. Sofern festgelegt, werden die abgefragten Seiten selbst, nicht als Bild angezeigt.',
+	'srf_paramdesc_galleryformat' => 'Galerie',
 	'srf_printername_tagcloud' => 'Stichwortwolke',
 	'srf_paramdesc_includesubject' => 'Ob die Themenbezeichnungen selbst mit einbezogen werden sollen',
 	'srf_paramdesc_increase' => 'Wie soll die Darstellungsgröße der Stichwörter verändert werden?',
@@ -689,6 +690,11 @@ $messages['de'] = array(
 	'srf_paramdesc_graphcolor' => 'Farbe der Grafik',
 	'srf-paramdesc-graph-wwl' => 'Begrenzung des Textumbruchs (Anzahl der Zeichen)',
 	'srf-warn-empy-chart' => 'Es wird kein Diagramm angezeigt, da keine anzuzeigende Ergebnisse vorhanden sind.',
+	'srf_printername_datatables' => 'Datentabellen',
+	'srf-paramdesc-rowindex' => 'Zeilenindex der Tabelle',
+	'srf-paramdesc-displaylength' => 'Ausgangsanzeigelänge',
+	'srf-noparentprop' => 'Es wurde kein übergeordnetes Attribut angegeben. Der Baum kann nicht ohne Angabe eines übergeordneten Attributs erstellt werden.',
+	'srf-paramdesc-parent' => 'Das Attribut, das die übergeordnete Seite enthält',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -978,6 +984,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_fileextensions' => "Quand le nom de fichier est utilisé comme titre, afficher aussi l'extension du fichier",
 	'srf_paramdesc_captionproperty' => 'Le nom de la propriété sémantique présent sur les pages demandées doit être utilisé comme titre',
 	'srf_paramdesc_imageproperty' => 'Le nom de la propriété sémantique sur les pages demandées qui pointent vers des images à utiliser. Quand il est positionné, les pages demandées elles-mêmes ne seront aps affichées comme des images',
+	'srf_paramdesc_galleryformat' => 'Format de la galerie',
 	'srf_printername_tagcloud' => 'Nuage de tags',
 	'srf_paramdesc_includesubject' => 'Si les noms des sujets eux-mêmes devraient être inclus',
 	'srf_paramdesc_increase' => 'Comment augmenter la taille des tags',
@@ -1010,6 +1017,11 @@ $messages['fr'] = array(
 	'srf_paramdesc_graphcolor' => 'Couleur du graphe',
 	'srf-paramdesc-graph-wwl' => 'Limite de retour automatique (en nombre de caractères)',
 	'srf-warn-empy-chart' => "Le tableau n'est pas affiché parce qu'il n'y a pas de résultats qui peuvent être affichés dedans.",
+	'srf_printername_datatables' => 'Tables de données',
+	'srf-paramdesc-rowindex' => 'Index de la ligne de la table',
+	'srf-paramdesc-displaylength' => "Longueur d'affichage initiale",
+	'srf-noparentprop' => "Aucune propriété parente fournie. L'arbre ne peut pas être construit sans une propriété parente spécifiée.",
+	'srf-paramdesc-parent' => 'La propriété contenant la page parent',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -1519,6 +1531,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_fileextensions' => 'Si le nomine de file es usate como legenda, monstrar tamben le extension',
 	'srf_paramdesc_captionproperty' => 'Le nomine de un proprietate semantic presente in le paginas consultate, pro esser usate como legenda',
 	'srf_paramdesc_imageproperty' => 'Le nomine de un proprietate semantic presente in le paginas consultate, que indica imagines a usar. Si definite, le paginas consultate illos mesme non essera monstrate como imagines.',
+	'srf_paramdesc_galleryformat' => 'Formato del galeria',
 	'srf_printername_tagcloud' => 'Etiquettario',
 	'srf_paramdesc_includesubject' => 'Si le nomines del subjectos mesme debe esser includite',
 	'srf_paramdesc_increase' => 'Como augmentar le dimension de etiquettas',
@@ -1551,6 +1564,11 @@ $messages['ia'] = array(
 	'srf_paramdesc_graphcolor' => 'Color del graphico',
 	'srf-paramdesc-graph-wwl' => 'Limite pro torno de parolas (in numero de characteres)',
 	'srf-warn-empy-chart' => 'Le graphico non es monstrate perque il non ha resultatos que pote esser presentate in illo.',
+	'srf_printername_datatables' => 'Tabellas de datos',
+	'srf-paramdesc-rowindex' => 'Indice de lineas de tabella',
+	'srf-paramdesc-displaylength' => 'Longitude initial del presentation',
+	'srf-noparentprop' => 'Nulle proprietate genitor specificate. Le arbore non pote esser construite sin specification de un proprietate genitor.',
+	'srf-paramdesc-parent' => 'Le proprietate que contine le pagina genitor',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1967,6 +1985,7 @@ $messages['mk'] = array(
 	'srf_paramdesc_fileextensions' => 'При користење на податотечното име како опис, прикажувај ја и наставката',
 	'srf_paramdesc_captionproperty' => 'Име на семантичкото својство присутно на побараните страници што ќе се користи како опис',
 	'srf_paramdesc_imageproperty' => 'Име на семантичкото својство присутно на побараните страници што ќе посочува кои слики да се користат. Кога е зададено, самите побарани страници нема да се прикажуваат како слики',
+	'srf_paramdesc_galleryformat' => 'Формат на галеријата',
 	'srf_printername_tagcloud' => 'Облак со ознаки',
 	'srf_paramdesc_includesubject' => 'Дали да се вклучат имињата на самите теми',
 	'srf_paramdesc_increase' => 'Како да ги зголемите ознаките',
@@ -1999,6 +2018,11 @@ $messages['mk'] = array(
 	'srf_paramdesc_graphcolor' => 'Боја на графиконот',
 	'srf-paramdesc-graph-wwl' => 'Граница за прелом (во бр. на знаци)',
 	'srf-warn-empy-chart' => 'Графикот не е прикажан бидејќи нема резултати што би го исцртале.',
+	'srf_printername_datatables' => 'ПодаточниТабели',
+	'srf-paramdesc-rowindex' => 'Индекс на табл. ред',
+	'srf-paramdesc-displaylength' => 'Првична должина на приказот',
+	'srf-noparentprop' => 'Нема зададено матично својство. Дрвото не може да се оформи без наведено матично својство.',
+	'srf-paramdesc-parent' => 'Својството што ја содржи матичната страница',
 );
 
 /** Malayalam (മലയാളം)
