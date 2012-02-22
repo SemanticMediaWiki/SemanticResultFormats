@@ -138,7 +138,7 @@ $messages['en'] = array(
 	
 	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
 	
-  //DataTables
+	// DataTables
 	'srf_printername_datatables'  => 'DataTables',
 	'srf-paramdesc-rowindex'      => 'Table row index',
 	'srf-paramdesc-displaylength' => 'Initial display length', 

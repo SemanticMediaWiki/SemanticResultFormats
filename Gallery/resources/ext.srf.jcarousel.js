@@ -6,16 +6,19 @@
  * 
  * @release: 0.1  
  */
- 
-jQuery(function($) {
- $(window).load(function() {
-  // Display carousel only after js is loaded and ready otherwise display=none
-  $( '#carousel').show();
+
+(function( $ ) {
+
+	$( document ).ready( function() {
+
+		// Display carousel only after js is loaded and ready otherwise display=none
+		$( '#carousel').show();
    
-  // Call the  jcarousel plug-in
-  $( '#carousel' ).jcarousel({
-      //circular carousel
-    	wrap: 'circular',    	
-    });
-  });
-});
+		  // Call the  jcarousel plug-in
+		$( '#carousel' ).jcarousel( {
+    		wrap: 'circular'
+    	} );
+
+	} );
+
+})( window.jQuery );
