@@ -31,7 +31,7 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setParser( $wgParser );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
-		if ( $this->m_params['galleryformat'] == 'carousel' ) {
+		if ( $this->params['galleryformat'] == 'carousel' ) {
 			static $carouselNr = 0;
 			
 			// Set attributes for jcarousel
@@ -45,11 +45,11 @@ class SRFGallery extends SMWResultPrinter {
 			);
 
 			// Use perrow parameter to determine the scroll sequence.
-			if ( empty( $this->m_params['perrow'] ) ) {
+			if ( empty( $this->params['perrow'] ) ) {
 				$attribs['scroll'] = 1;  // default 1
 			} else {
-				$attribs['scroll'] = $this->m_params['perrow'];
-				$attribs['visible'] = $this->m_params['perrow'];
+				$attribs['scroll'] = $this->params['perrow'];
+				$attribs['visible'] = $this->params['perrow'];
 			}
 
 			$ig->setAttributes( $mAttribs );
@@ -59,16 +59,16 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		// In case galleryformat = carousel, perrow should not be set
-		if ( $this->m_params['perrow'] !== '' && $this->m_params['galleryformat'] !== 'carousel' ) {
-			$ig->setPerRow( $this->m_params['perrow'] );
+		if ( $this->params['perrow'] !== '' && $this->params['galleryformat'] !== 'carousel' ) {
+			$ig->setPerRow( $this->params['perrow'] );
 		}
 
-		if ( $this->m_params['widths'] !== '' ) {
-			$ig->setWidths( $this->m_params['widths'] );
+		if ( $this->params['widths'] !== '' ) {
+			$ig->setWidths( $this->params['widths'] );
 		}
 
-		if ( $this->m_params['heights'] !== '' ) {
-			$ig->setHeights( $this->m_params['heights'] );
+		if ( $this->params['heights'] !== '' ) {
+			$ig->setHeights( $this->params['heights'] );
 		}
 
 		$printReqLabels = array();
@@ -77,8 +77,8 @@ class SRFGallery extends SMWResultPrinter {
 			$printReqLabels[] = $printReq->getLabel();
 		}
 
-		if ( $this->m_params['imageproperty'] !== '' && in_array( $this->m_params['imageproperty'], $printReqLabels ) ) {
-			$this->addImageProperties( $results, $ig, $this->m_params['imageproperty'], $this->m_params['captionproperty'] );
+		if ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ) {
+			$this->addImageProperties( $results, $ig, $this->params['imageproperty'], $this->params['captionproperty'] );
 		}
 		else {
 			$this->addImagePages( $results, $ig );
