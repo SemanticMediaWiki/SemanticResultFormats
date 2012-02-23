@@ -4,32 +4,34 @@
  * @licence: GNU GPL v3 or later
  * @author:  mwjames
  * 
- * @release: 0.1  
+ * @release: 0.1.3  
  */
 
 (function( $ ) {
 
 	$( document ).ready( function() {
-
-		var v_visible = parseInt($( '#carousel' ).attr( 'visible' ) ), 
-		v_scroll = parseInt($( '#carousel' ).attr( 'scroll' ) ),
-		v_directionality = $( '#carousel' ).attr( 'directionality' ),
-		v_orientation = $( '#carousel' ).attr( 'orientation' ),
-		v_wrap = $( '#carousel' ).attr( 'wrap' ),
-		v_vertical = v_orientation === 'vertical',
-		v_rtl = v_directionality === 'rtl';
 		
-		// Display carousel only after js is loaded and ready otherwise display=none
-		$( '#carousel').show();
-   
-		  // Call the  jcarousel plug-in
-		$( '#carousel' ).jcarousel( {
-			scroll: v_scroll, // Number of items to be scrolled
-			visible: v_visible, // calculated and set visible elements
-    		wrap: 'circular', // Whether to wrap at the first/last item  (Options are "first", "last", "both" or "circular")
-    		vertical: v_vertical, // Whether the carousel appears in horizontal or vertical orientation 
-    		rtl: v_rtl // Directionality
-    	} );
+		// Bind individual elements containing class jcarousel as the plug-in 
+		// requires different id's  
+		$(".jcarousel").each(function() {	
+			var galleryId = "#" + $(this).closest(".jcarousel").attr("id"),
+			v_vertical = ( $( this ).attr( 'vertical' ) === 'true'),  // Value is either true or false 
+			v_rtl = ( $( this ).attr( 'rtl' ) === 'true');  // Value is either true or false
+			//console.log(galleryId);
+			
+			// Display carousel only after js is loaded and is ready otherwise display=none
+			$( this ).show(); 
+	
+			// Call the  jcarousel plug-in
+			$( this ).jcarousel({			
+				scroll:  parseInt($( this ).attr( 'scroll' ) ), // Number of items to be scrolled
+				visible: parseInt($( this ).attr( 'visible' ) ), // calculated and set visible elements
+				wrap: $( this ).attr( 'wrap' ), // Options are "first", "last", "both" or "circular" 
+				vertical: v_vertical, // Whether the carousel appears in horizontal or vertical orientation
+				rtl: v_rtl // Directionality 
+			} );
+	
+		} );
 
 	} );
 

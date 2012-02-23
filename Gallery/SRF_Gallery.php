@@ -32,25 +32,24 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
 		if ( $this->m_params['galleryformat'] == 'carousel' ) {
+			static $carouselNr = 0;
+			
 			// Set attributes for jcarousel
-			$mAttribs['id'] = 'carousel';
-			$mAttribs['class'] = 'jcarousel-skin-smw';
+			$attribs = array(
+				'id' => 'carousel' . ++$carouselNr,
+				'class' => 'jcarousel jcarousel-skin-smw',
+				'style' => 'display:none;', // Avoid js loading issues by not displaying anything until js is able to do so.
+				'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
+				'vertical' => 'false', // Orientation: vertical = false means horizontal
+				'rtl' => 'false', // Directionality: rtl = false means ltr
+			);
 
-			// Aoid js loading issues by not displaying anything until js is able to do so
-			$mAttribs['style'] = 'display:none;';
-
-			// Horizontal or vertical orientation
-			$mAttribs['orientation'] = 'horizontal';
-
-			// Whether to wrap at the first/last item (or both) and jump back to the start/end
-			$mAttribs['wrap'] = 'both';
-
-			// Use perrow parameter to determine the scroll sequence
+			// Use perrow parameter to determine the scroll sequence.
 			if ( empty( $this->m_params['perrow'] ) ) {
-				$mAttribs['scroll'] = 1;  // default 1
+				$attribs['scroll'] = 1;  // default 1
 			} else {
-				$mAttribs['scroll'] = $this->m_params['perrow'];
-				$mAttribs['visible'] = $this->m_params['perrow'];
+				$attribs['scroll'] = $this->m_params['perrow'];
+				$attribs['visible'] = $this->m_params['perrow'];
 			}
 
 			$ig->setAttributes( $mAttribs );
