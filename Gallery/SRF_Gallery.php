@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Result printer that prints query results as a gallery.
@@ -7,7 +7,8 @@
  * @ingroup SemanticResultFormats
  *
  * @author Rowan Rodrik van der Molen
- * @author Jeroen De Dauw, mwjames
+ * @author Jeroen De Dauw
+ * @author mwjames
  */
 class SRFGallery extends SMWResultPrinter {
 
@@ -29,18 +30,35 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setShowFilename( false );
 		$ig->setParser( $wgParser );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
-	
+
 		if ( $this->m_params['galleryformat'] == 'carousel' ) {
 			// Set attributes for jcarousel
-			$mAttribs['id']	= 'carousel';
+			$mAttribs['id'] = 'carousel';
 			$mAttribs['class'] = 'jcarousel-skin-smw'; 
+			
+			// Aoid js loading issues by not displaying anything until js is able to do so
 			$mAttribs['style'] = 'display:none;';		
+
+			// Horizontal or vertical orientation
+			$mAttribs['orientation'] = 'horizontal';	
+
+			// Whether to wrap at the first/last item (or both) and jump back to the start/end
+			$mAttribs['wrap'] = 'both';	
+
+			// Use perrow parameter to determine the scroll sequence  
+			if( empty($this->m_params['perrow']) ){
+				$mAttribs['scroll'] = 1;  // default 1    
+			}else{
+				$mAttribs['scroll'] = $this->m_params['perrow'];
+				$mAttribs['visible'] = $this->m_params['perrow'];
+			}
+
 			$ig->setAttributes( $mAttribs );
-		 
-			// Require the javascript
+
+			// Load javascript module
 			SMWOutputs::requireResource( 'ext.srf.jcarousel' );
 		}
-	
+
 		// In case galleryformat = carousel, perrow should not be set 
 		if ( $this->m_params['perrow'] !== '' && $this->m_params['galleryformat'] !== 'carousel' ) {
 			$ig->setPerRow( $this->m_params['perrow'] );
@@ -177,7 +195,7 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->add( $imgTitle, $imgCaption );
 
 		// Only add real images (bug #5586)
-		if ( $imgTitle->getNamespace() == NS_IMAGE && !$imgTitle->getDBkey() == null ) {
+		if ( $imgTitle->getNamespace() == NS_IMAGE && !is_null($imgTitle->getDBkey()) ) {
 			$wgParser->mOutput->addImage( $imgTitle->getDBkey() );
 		}
 	}
@@ -193,6 +211,7 @@ class SRFGallery extends SMWResultPrinter {
 		$params = parent::getParameters();
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+			// Since 1.7.1
 			$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
 			$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
 			$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel' ) );
