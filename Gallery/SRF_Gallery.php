@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * Result printer that prints query results as a gallery.
@@ -34,21 +34,21 @@ class SRFGallery extends SMWResultPrinter {
 		if ( $this->m_params['galleryformat'] == 'carousel' ) {
 			// Set attributes for jcarousel
 			$mAttribs['id'] = 'carousel';
-			$mAttribs['class'] = 'jcarousel-skin-smw'; 
-			
+			$mAttribs['class'] = 'jcarousel-skin-smw';
+
 			// Aoid js loading issues by not displaying anything until js is able to do so
-			$mAttribs['style'] = 'display:none;';		
+			$mAttribs['style'] = 'display:none;';
 
 			// Horizontal or vertical orientation
-			$mAttribs['orientation'] = 'horizontal';	
+			$mAttribs['orientation'] = 'horizontal';
 
 			// Whether to wrap at the first/last item (or both) and jump back to the start/end
-			$mAttribs['wrap'] = 'both';	
+			$mAttribs['wrap'] = 'both';
 
-			// Use perrow parameter to determine the scroll sequence  
-			if( empty($this->m_params['perrow']) ){
-				$mAttribs['scroll'] = 1;  // default 1    
-			}else{
+			// Use perrow parameter to determine the scroll sequence
+			if ( empty( $this->m_params['perrow'] ) ) {
+				$mAttribs['scroll'] = 1;  // default 1
+			} else {
 				$mAttribs['scroll'] = $this->m_params['perrow'];
 				$mAttribs['visible'] = $this->m_params['perrow'];
 			}
@@ -59,7 +59,7 @@ class SRFGallery extends SMWResultPrinter {
 			SMWOutputs::requireResource( 'ext.srf.jcarousel' );
 		}
 
-		// In case galleryformat = carousel, perrow should not be set 
+		// In case galleryformat = carousel, perrow should not be set
 		if ( $this->m_params['perrow'] !== '' && $this->m_params['galleryformat'] !== 'carousel' ) {
 			$ig->setPerRow( $this->m_params['perrow'] );
 		}
@@ -123,7 +123,7 @@ class SRFGallery extends SMWResultPrinter {
 
 			foreach ( $images as $imgTitle ) {
 				if ( $imgTitle->exists() ) {
-					$imgCaption= $hasCaption ? ( $amountMatches ? array_shift( $captions ) : $captions[0] ) : '';
+					$imgCaption = $hasCaption ? ( $amountMatches ? array_shift( $captions ) : $captions[0] ) : '';
 					$this->addImageToGallery( $ig, $imgTitle, $imgCaption );
 				}
 			}
@@ -149,7 +149,7 @@ class SRFGallery extends SMWResultPrinter {
 
 				// Is there a property queried for display with ?property
 				if ( isset( $row[1] ) ) {
-					$imgCaption =$row[1]->getNextDataValue();
+					$imgCaption = $row[1]->getNextDataValue();
 					if ( is_object( $imgCaption ) ) {
 						$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
 					}
@@ -176,7 +176,7 @@ class SRFGallery extends SMWResultPrinter {
 		if ( empty( $imgCaption ) ) {
 			if ( $this->m_params['autocaptions'] ) {
 				$imgCaption = $imgTitle->getBaseText();
-				
+
 				if ( !$this->m_params['fileextensions'] ) {
 					$imgCaption = preg_replace( '#\.[^.]+$#', '', $imgCaption );
 				}
@@ -185,17 +185,17 @@ class SRFGallery extends SMWResultPrinter {
 				$imgCaption = '';
 			}
 		}
-		else {	  
-			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );		
+		else {
+			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );
 			// the above call creates getMaxIncludeSize() fatal error on Special Pages
 			// below might fix this
-			// $imgCaption = $wgParser->transformMsg( $imgCaption, ParserOptions::newFromUser( null ) ); 		
+			// $imgCaption = $wgParser->transformMsg( $imgCaption, ParserOptions::newFromUser( null ) );
 		}
 
 		$ig->add( $imgTitle, $imgCaption );
 
 		// Only add real images (bug #5586)
-		if ( $imgTitle->getNamespace() == NS_IMAGE && !is_null($imgTitle->getDBkey()) ) {
+		if ( $imgTitle->getNamespace() == NS_IMAGE && !is_null( $imgTitle->getDBkey() ) ) {
 			$wgParser->mOutput->addImage( $imgTitle->getDBkey() );
 		}
 	}
@@ -232,15 +232,15 @@ class SRFGallery extends SMWResultPrinter {
 		$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
 		$params['autocaptions']->setMessage( 'srf_paramdesc_autocaptions' );
 		$params['autocaptions']->setDefault( true );
-		
+
 		$params['fileextensions'] = new Parameter( 'fileextensions', Parameter::TYPE_BOOLEAN );
 		$params['fileextensions']->setMessage( 'srf_paramdesc_fileextensions' );
 		$params['fileextensions']->setDefault( false );
-		
+
 		$params['captionproperty'] = new Parameter( 'captionproperty' );
 		$params['captionproperty']->setMessage( 'srf_paramdesc_captionproperty' );
 		$params['captionproperty']->setDefault( '' );
-		
+
 		$params['imageproperty'] = new Parameter( 'imageproperty' );
 		$params['imageproperty']->setMessage( 'srf_paramdesc_imageproperty' );
 		$params['imageproperty']->setDefault( '' );
