@@ -1148,6 +1148,7 @@ $messages['gl'] = array(
 	'srf_paramdesc_fileextensions' => 'Ao usar o nome do ficheiro como pé de imaxe, mostrar tamén a extensión do ficheiro',
 	'srf_paramdesc_captionproperty' => 'O nome dunha propiedade semántica presente nas páxinas consultadas a usar como pé de imaxe',
 	'srf_paramdesc_imageproperty' => 'Nome dunha propiedade semántica nas páxinas consultadas que apunta cara a imaxes a usar. Cando estea definido, as páxinas consultadas en si non se mostrarán como imaxes',
+	'srf_paramdesc_galleryformat' => 'Formato da galería',
 	'srf_printername_tagcloud' => 'Nube de etiquetas',
 	'srf_paramdesc_includesubject' => 'Se os nomes dos temas deben incluírse',
 	'srf_paramdesc_increase' => 'Como aumentar o tamaño das etiquetas',
@@ -1180,6 +1181,11 @@ $messages['gl'] = array(
 	'srf_paramdesc_graphcolor' => 'Cor da gráfica',
 	'srf-paramdesc-graph-wwl' => 'Axuste automático de liña (en número de caracteres)',
 	'srf-warn-empy-chart' => 'A táboa non se mostra porque non hai resultados que incluír nela.',
+	'srf_printername_datatables' => 'Táboas de datos',
+	'srf-paramdesc-rowindex' => 'Índice da ringleira da táboa',
+	'srf-paramdesc-displaylength' => 'Lonxitude inicial de presentación',
+	'srf-noparentprop' => 'Non se especificou propiedade pai ningunha. Non se pode construír a árbore sen achegar unha propiedade pai.',
+	'srf-paramdesc-parent' => 'A propiedade que contén a páxina pai',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -2243,6 +2249,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_fileextensions' => 'Ook de extensie weergeven als bestandsnamen als bijschrift worden gebruikt',
 	'srf_paramdesc_captionproperty' => "De naam van een semantische eigenschap die aanwezig is op de doorzochte pagina's die gebruikt moet worden als bijschrift",
 	'srf_paramdesc_imageproperty' => "De naam van een semantische eigenschap die aanwezig is op de doorzochte pagina's die verwijst naar de te gebruiken afbeeldingen. Als deze instelling wordt gebruikt, worden de doorzochte pagina's zelf niet weergegeven als afbeeldingen",
+	'srf_paramdesc_galleryformat' => 'Galerijformaat',
 	'srf_printername_tagcloud' => 'Woordwolk',
 	'srf_paramdesc_includesubject' => 'Of de namen van de onderwerpen zelf opgenomen moeten worden',
 	'srf_paramdesc_increase' => 'Hoe de grootte van de labels moet worden vergroot',
@@ -2275,6 +2282,9 @@ $messages['nl'] = array(
 	'srf_paramdesc_graphcolor' => 'Grafiekkleur',
 	'srf-paramdesc-graph-wwl' => 'Regellimiet (in aantal tekens)',
 	'srf-warn-empy-chart' => 'De grafiek wordt niet weergegeven omdat er geen weer te geven resultaten zijn.',
+	'srf-paramdesc-rowindex' => 'Tabelrij-index',
+	'srf-paramdesc-displaylength' => 'Eerste weergavelengte',
+	'srf-paramdesc-parent' => 'De eigenschap die de bovenliggende pagina bevat',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
