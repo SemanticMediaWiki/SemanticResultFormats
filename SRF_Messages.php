@@ -2284,6 +2284,7 @@ $messages['nl'] = array(
 	'srf-warn-empy-chart' => 'De grafiek wordt niet weergegeven omdat er geen weer te geven resultaten zijn.',
 	'srf-paramdesc-rowindex' => 'Tabelrij-index',
 	'srf-paramdesc-displaylength' => 'Eerste weergavelengte',
+	'srf-noparentprop' => 'Geen bovenliggende eigenschap gegeven. De boom kan niet opgebouwd worden zonder een opgegeven bovenliggende eigenschap.',
 	'srf-paramdesc-parent' => 'De eigenschap die de bovenliggende pagina bevat',
 );
 
