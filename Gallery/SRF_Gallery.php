@@ -35,10 +35,7 @@ class SRFGallery extends SMWResultPrinter {
 			static $carouselNr = 0;
 			
 			// Set attributes for jcarousel
-			$attribs = array(
-				'id' => 'carousel' . ++$carouselNr,
-				'class' => 'jcarousel jcarousel-skin-smw',
-				'style' => 'display:none;', // Avoid js loading issues by not displaying anything until js is able to do so.
+			$dataAttribs = array(
 				'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
 				'vertical' => 'false', // Orientation: vertical = false means horizontal
 				'rtl' => 'false', // Directionality: rtl = false means ltr
@@ -46,13 +43,23 @@ class SRFGallery extends SMWResultPrinter {
 
 			// Use perrow parameter to determine the scroll sequence.
 			if ( empty( $this->params['perrow'] ) ) {
-				$attribs['scroll'] = 1;  // default 1
+				$dataAttribs['scroll'] = 1;  // default 1
 			} else {
-				$attribs['scroll'] = $this->params['perrow'];
-				$attribs['visible'] = $this->params['perrow'];
+				$dataAttribs['scroll'] = $this->params['perrow'];
+				$dataAttribs['visible'] = $this->params['perrow'];
+			}
+			
+			$attribs = array(
+				'id' => 'carousel' . ++$carouselNr,
+				'class' => 'jcarousel jcarousel-skin-smw',
+				'style' => 'display:none;', // Avoid js loading issues by not displaying anything until js is able to do so.
+			);
+			
+			foreach ( $dataAttribs as $name => $value ) {
+				$attribs['data-' . $name] = $value;
 			}
 
-			$ig->setAttributes( $mAttribs );
+			$ig->setAttributes( $attribs );
 
 			// Load javascript module
 			SMWOutputs::requireResource( 'ext.srf.jcarousel' );
