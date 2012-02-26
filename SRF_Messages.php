@@ -2249,7 +2249,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_fileextensions' => 'Ook de extensie weergeven als bestandsnamen als bijschrift worden gebruikt',
 	'srf_paramdesc_captionproperty' => "De naam van een semantische eigenschap die aanwezig is op de doorzochte pagina's die gebruikt moet worden als bijschrift",
 	'srf_paramdesc_imageproperty' => "De naam van een semantische eigenschap die aanwezig is op de doorzochte pagina's die verwijst naar de te gebruiken afbeeldingen. Als deze instelling wordt gebruikt, worden de doorzochte pagina's zelf niet weergegeven als afbeeldingen",
-	'srf_paramdesc_galleryformat' => 'Galerijformaat',
+	'srf_paramdesc_galleryformat' => 'Galerij-indeling',
 	'srf_printername_tagcloud' => 'Woordwolk',
 	'srf_paramdesc_includesubject' => 'Of de namen van de onderwerpen zelf opgenomen moeten worden',
 	'srf_paramdesc_increase' => 'Hoe de grootte van de labels moet worden vergroot',
@@ -2284,7 +2284,7 @@ $messages['nl'] = array(
 	'srf-warn-empy-chart' => 'De grafiek wordt niet weergegeven omdat er geen weer te geven resultaten zijn.',
 	'srf-paramdesc-rowindex' => 'Tabelrij-index',
 	'srf-paramdesc-displaylength' => 'Eerste weergavelengte',
-	'srf-noparentprop' => 'Geen bovenliggende eigenschap gegeven. De boom kan niet opgebouwd worden zonder een opgegeven bovenliggende eigenschap.',
+	'srf-noparentprop' => 'Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.',
 	'srf-paramdesc-parent' => 'De eigenschap die de bovenliggende pagina bevat',
 );
 
