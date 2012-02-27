@@ -1,5 +1,5 @@
 /**
- * JavasSript for SRF Gallery Carousel module
+ * JavaScript for SRF Gallery Carousel module
  *
  * @licence: GNU GPL v3 or later
  * @author:  mwjames
