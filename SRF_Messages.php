@@ -3094,6 +3094,7 @@ $messages['zh-hans'] = array(
 	'srf_paramdesc_fileextensions' => '当使用文件名作为标题，同时也显示文件扩展名',
 	'srf_paramdesc_captionproperty' => '存在于所查询页面上的某个语义属性的名称要用作标题',
 	'srf_paramdesc_imageproperty' => '所查询页面上某一指向所要使用的图像的语义属性的名称。当设置时，所查询页面本身将不会显示为图像。',
+	'srf_paramdesc_galleryformat' => '画廊格式',
 	'srf_printername_tagcloud' => '标签云',
 	'srf_paramdesc_includesubject' => '如果主题名称本身应当包括在内',
 	'srf_paramdesc_increase' => '如何增加标签的大小',
@@ -3126,6 +3127,11 @@ $messages['zh-hans'] = array(
 	'srf_paramdesc_graphcolor' => '图形颜色',
 	'srf-paramdesc-graph-wwl' => 'Word自动换行限制（以字符计）',
 	'srf-warn-empy-chart' => '该图表未被显示是因为其中没有可加以显示的结果。',
+	'srf_printername_datatables' => '数据表',
+	'srf-paramdesc-rowindex' => '数据表行索引',
+	'srf-paramdesc-displaylength' => '初始显示长度',
+	'srf-noparentprop' => '未提供父属性。在没有指定父属性的情况下无法构建树种结构。',
+	'srf-paramdesc-parent' => '包含父页面的属性',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
