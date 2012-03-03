@@ -2282,6 +2282,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_graphcolor' => 'Grafiekkleur',
 	'srf-paramdesc-graph-wwl' => 'Regellimiet (in aantal tekens)',
 	'srf-warn-empy-chart' => 'De grafiek wordt niet weergegeven omdat er geen weer te geven resultaten zijn.',
+	'srf_printername_datatables' => 'Gegevenstabellen',
 	'srf-paramdesc-rowindex' => 'Tabelrij-index',
 	'srf-paramdesc-displaylength' => 'Eerste weergavelengte',
 	'srf-noparentprop' => 'Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.',
