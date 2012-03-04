@@ -203,12 +203,7 @@ class SRFBibTeX extends SMWResultPrinter {
 	}
 
 	public function getParameters() {
-		if ( defined( 'SMW_SUPPORTS_VALIDATOR' ) ) {
-			return array_merge( parent::getParameters(), $this->exportFormatParameters() );
-		}
-		else {
-			return parent::exportFormatParameters();
-		}
+		return array_merge( parent::getParameters(), $this->exportFormatParameters() );
 	}
 
 }
