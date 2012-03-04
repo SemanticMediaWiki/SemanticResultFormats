@@ -124,4 +124,38 @@ $wgResourceModules['ext.srf.jcarousel'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
+$wgResourceModules['ext.srf.filtered'] = $moduleTemplate + array(
+	'scripts' => array(
+		'Filtered/libs/ext.srf.filtered.js',
+	),
+	'styles' => array(
+		'Filtered/skins/ext.srf.filtered.css',
+	),
+);
+
+$wgResourceModules['ext.srf.filtered.list-view'] = $moduleTemplate + array(
+	'scripts' => array(
+		'Filtered/libs/ext.srf.filtered.list-view.js',
+	),
+// TODO: Do we need a style file?
+//	'styles' => array(
+//		'Filtered/skins/ext.srf.filtered.css',
+//	),
+	'dependencies' => array(
+		'ext.srf.filtered'
+	),
+);
+
+$wgResourceModules['ext.srf.filtered.value-filter'] = $moduleTemplate + array(
+	'scripts' => array(
+		'Filtered/libs/ext.srf.filtered.value-filter.js',
+	),
+	'styles' => array(
+		'Filtered/skins/ext.srf.filtered.value-filter.css',
+	),
+	'dependencies' => array(
+		'ext.srf.filtered'
+	),
+);
+
 unset( $moduleTemplate );

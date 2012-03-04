@@ -98,6 +98,7 @@ $wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
 $wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
 $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';  
 $wgAutoloadClasses['SRFTree'] = $formatDir . 'Tree/SRF_Tree.php';  
+$wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';  
 
 unset( $formatDir );
 
@@ -149,6 +150,7 @@ function srffInitFormats() {
 		'tree' => 'SRFTree',
 		'ultree' => 'SRFTree',
 		'oltree' => 'SRFTree',
+		'filtered' => 'SRFFiltered',
 	);
 
 	$formatAliases = array(
