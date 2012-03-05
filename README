@@ -112,6 +112,11 @@ Format tree displays the query result as a tree, i.e. as an unordered (bulleted)
 nested HTML list. ultree is an alias of tree. oltree produces an ordered
 (numbered) list instead of an unordered list. 
 
+=== filtered ===
+
+Displays results in switchable views and offers client-side (JavaScript based)
+filtering. (unfinished, e.g. no switching between views yet)
+
 == Contact ==
 
 If you have remarks, questions, or suggestions, please send them to

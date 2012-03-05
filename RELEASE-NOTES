@@ -13,8 +13,9 @@ production until the actual release.
 * Added 'default' parameter to math formats (bug 34983).
 
 New formats in this version are:
-* JitGraph, still in alpha, disabled by default (written by Alex Shapovalov) (bug 32877)
+* JitGraph (still in alpha, disabled by default (written by Alex Shapovalov) (bug 32877))
 * tree, ultree, oltree
+* filtered (unfinished)
 
 == SRF 1.7 ==
 

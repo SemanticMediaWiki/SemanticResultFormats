@@ -34,7 +34,12 @@ the formats that satisfy the following criteria:
 
 Currently, these default formats thus are:
 'vcard', 'icalendar', 'calendar', 'timeline', 'eventline', 'bibtex', 'outline',
-'gallery', 'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max', 'tagcloud'.
+'gallery', 'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max', 'tagcloud',
+'median', 'product', 'valuerank', 'array', 'tree', 'ultree', 'oltree',
+'D3Line'¹, 'D3Bar'¹, 'D3Treemap'¹, 'filtered'¹, 'hash'².
+
+¹ from MediaWiki 1.17 onwards
+² with HashTables extension installed
 
 To add more formats to this list, you can add lines like:
 
