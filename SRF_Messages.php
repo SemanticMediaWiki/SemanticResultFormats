@@ -39,9 +39,9 @@ $messages['en'] = array(
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
 	
-	'srf_printername_D3Line'  => 'D3 line chart',
-	'srf_printername_D3Bar'  => 'D3 bar chart',    
-	'srf_printername_D3Treemap'  => 'D3 treemap',     
+	'srf_printername_D3Line' => 'D3 line chart',
+	'srf_printername_D3Bar' => 'D3 bar chart',
+	'srf_printername_D3Treemap' => 'D3 treemap',
 
 	// format "math"
 	'srf_printername_sum' => 'Sum of numbers',
@@ -51,7 +51,8 @@ $messages['en'] = array(
 	'srf_paramdesc_limit' => 'The maximum number of pages to query',
 	'srf_printername_product' => 'Product of numbers',
 	'srf_printername_median' => 'Median of numbers',
-	
+	'srf-paramdesc-default' => 'Default value that will be displayed when there are no numerical results',
+
 	// formats "timeline" and "eventline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',

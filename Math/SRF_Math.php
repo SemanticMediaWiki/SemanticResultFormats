@@ -40,7 +40,7 @@ class SRFMath extends SMWResultPrinter {
 		$numbers = $this->getNumbers( $res );
 		
 		if ( count( $numbers ) == 0 ) {
-			return '';
+			return $this->params['default'];
 		}
 		
 		switch ( $this->mFormat ) {
@@ -122,6 +122,10 @@ class SRFMath extends SMWResultPrinter {
 		$params['limit'] = new Parameter( 'limit', Parameter::TYPE_INTEGER );
 		$params['limit']->setMessage( 'srf_paramdesc_limit' );
 		$params['limit']->setDefault( 1000 );
+
+		$params['default'] = new Parameter( 'default' );
+		$params['default']->setMessage( 'srf-paramdesc-default' );
+		$params['default']->setDefault( '' );
 		
 		return $params;
 	}
