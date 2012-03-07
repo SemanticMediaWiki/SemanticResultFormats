@@ -95,7 +95,7 @@
 			
 				var switchControls = $('<div class="filtered-value-switches">');
 			
-				if ( $.inArray('and or', switches) ) {
+				if ( $.inArray('and or', switches) >= 0 ) {
 
 					var andorControl = $('<div class="filtered-value-andor">');
 					var andControl = $('<input type="radio" name="filtered-value-andor ' +
