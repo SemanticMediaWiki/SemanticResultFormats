@@ -47,7 +47,7 @@
 									});
 								}
 							} else {
-								var selected = true;
+								var selected = ( printoutValues.length > 0 );
 
 								for ( var j in printoutValues ) {
 
