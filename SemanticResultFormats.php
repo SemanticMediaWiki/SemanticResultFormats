@@ -21,8 +21,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-	die( '<b>Error:</b> This version of Semantic Result Formats requires MediaWiki 1.16 or above; use SRF 1.6.x for older versions.' );
+if ( version_compare( $wgVersion, '1.17', '<' ) ) {
+	die( '<b>Error:</b> This version of Semantic Result Formats requires MediaWiki 1.17 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
 }
 
 // Show a warning if Semantic MediaWiki is not loaded.
@@ -34,14 +34,12 @@ if ( version_compare( SMW_VERSION, '1.6.2 alpha', '<' ) ) {
 	die( '<b>Error:</b> This version of Semantic Result Formats requires Semantic MediaWiki 1.7 or above; use Semantic Result Formats 1.6.1 for older versions of SMW.' );
 }
 
-define( 'SRF_VERSION', '1.7.1' );
+define( 'SRF_VERSION', '1.8 alpha' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
 
-if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-	require dirname( __FILE__ ) . '/SRF_Resources.php';
-}
+require dirname( __FILE__ ) . '/SRF_Resources.php';
 
 // Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
 $wgExtensionFunctions[] = 'srffInitFormats';
@@ -114,7 +112,7 @@ $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
  * @since 1.5.2
  */
 function srffInitFormats() {
-	global $srfgFormats, $smwgResultFormats, $smwgResultAliases, $wgAutoloadClasses;
+	global $srfgFormats, $smwgResultFormats, $smwgResultAliases;
 	
 	$formatClasses = array(
 		'timeline' => 'SRFTimeline',
