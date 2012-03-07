@@ -153,8 +153,9 @@ class SRFProcess extends SMWResultPrinter {
 			/* SMWDataItem */ $subject = $row[0]->getResultSubject(); // get Subject of the Result
 			// creates a new node if $val has type wikipage
 			if ( $subject->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
-				/* SMWDataValue */ $dataValue = SMWDataValueFactory::newDataItemValue( $subject, SMWDIProperty::getDataItemClassNameForId( $subject->getDIType() ) );
-				$node = $this->m_process->makeNode( $dataValue->getShortWikiText(), $dataValue->getShortWikiText() );
+				$wikiPageValue = new SMWWikiPageValue( '_wpg' );
+				$wikiPageValue->setDataItem( $subject );
+				$node = $this->m_process->makeNode( $wikiPageValue->getShortWikiText(), $wikiPageValue->getShortWikiText() );
 			}
 
      		//
