@@ -53,7 +53,9 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 	$srfgFormats[] = 'D3Line';
 	$srfgFormats[] = 'D3Bar';
 	$srfgFormats[] = 'D3Treemap';
-	$srfgFormats[] = 'filtered';
+
+	// Still in alpha.
+	// $srfgFormats[] = 'filtered';
 }
 
 # load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
