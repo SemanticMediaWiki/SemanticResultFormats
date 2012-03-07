@@ -18,39 +18,53 @@
 				
 					var values = filtered.data('ext.srf.filtered')['values'];
 					var selectedInputs = filtercontrols.children('div.filtered-value-option').children('input:checked');
-								
-					for ( i in values ) {
-						
-						var printoutValues = values[i]['printouts'][target]['values'];
-						var useOr = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'use or'} );
-						
-						if ( useOr ) {
-							var selected = false;
-
-							for ( var j in printoutValues ) {
-
-								selectedInputs.each(function(){
-									selected = selected || ( printoutValues[j] == $(this).attr('value') );
-								});
-							}
-						} else {
-							var selected = true;
-
-							for ( var j in printoutValues ) {
-
-								selectedInputs.each(function(){
-									selected = selected && ( printoutValues[j] == $(this).attr('value') );
-								});
-							}
+					
+					// show all if no value is checked
+					if ( selectedInputs.length == 0 ) {
+						for ( i in values ) {
+							filtered.filtered( 'voteItemVisibilityAndUpdate', {
+								'filter': 'value', 
+								'printout' : target, 
+								'visible': true,
+								'item': i
+							});
 						}
-
-						filtered.filtered( 'voteItemVisibilityAndUpdate', {
-							'filter': 'value', 
-							'printout' : target, 
-							'visible': selected,
-							'item': i
-						});
 								
+					} else {
+								
+						for ( i in values ) {
+
+							var printoutValues = values[i]['printouts'][target]['values'];
+							var useOr = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'use or'} );
+
+							if ( useOr ) {
+								var selected = false;
+
+								for ( var j in printoutValues ) {
+
+									selectedInputs.each(function(){
+										selected = selected || ( printoutValues[j] == $(this).attr('value') );
+									});
+								}
+							} else {
+								var selected = true;
+
+								for ( var j in printoutValues ) {
+
+									selectedInputs.each(function(){
+										selected = selected && ( printoutValues[j] == $(this).attr('value') );
+									});
+								}
+							}
+
+							filtered.filtered( 'voteItemVisibilityAndUpdate', {
+								'filter': 'value', 
+								'printout' : target, 
+								'visible': selected,
+								'item': i
+							});
+
+						}
 					}
 			}
 			
@@ -75,7 +89,7 @@
 				filtered.filtered( 'voteItemVisibility', {
 					'filter': 'value', 
 					'printout' : target, 
-					'visible': printoutValues.length > 0,
+					'visible': true,
 					'item': i
 				});
 			}
@@ -107,7 +121,7 @@
 					andControl
 					.add( orControl )
 					.change(function() {
-						filtered.filtered( 'setFilterData', {filter: 'value', printout: target, configvar: 'use or', configvalue: orControl.is(':checked') } );
+						filtered.filtered( 'setFilterData', {filter: 'value', printout: target, configvar: 'use or', configvalue: orControl.is(':checked')} );
 						update( filtered, filtercontrols, target );
 					});
 
@@ -134,7 +148,7 @@
 			// TODO: Do we need to wrap these in a form?
 			for ( var j in sortedDistinctValues ) {
 				var option = $('<div class="filtered-value-option">');
-				var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + sortedDistinctValues[j] + '" checked >');
+				var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + sortedDistinctValues[j] + '"  >');
 				
 				// attach event handler
 				checkbox.change(function( evt ){
