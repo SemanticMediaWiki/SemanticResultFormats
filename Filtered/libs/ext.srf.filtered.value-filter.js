@@ -49,10 +49,19 @@
 							} else {
 								var selected = ( printoutValues.length > 0 );
 
-								for ( var j in printoutValues ) {
-
+								if ( selected ) {
+									// try to find each required value
 									selectedInputs.each(function(){
-										selected = selected && ( printoutValues[j] == $(this).attr('value') );
+
+										var selectedFoundInPrintout = false;
+										for ( var j in printoutValues ) {
+											selectedFoundInPrintout = selectedFoundInPrintout || ( printoutValues[j] == $(this).attr('value') );
+
+											if ( selectedFoundInPrintout ) {
+												break;
+											}
+										}
+										selected = selected && selectedFoundInPrintout;
 									});
 								}
 							}
@@ -101,7 +110,7 @@
 			filtercontrols.append('<div class="filtered-value-label"><span>' + values[i]['printouts'][target]['label'] + '</span></div>');
 
 			// set default config values
-			filtered.filtered( 'setFilterData', {filter: 'value', printout: target, configvar: 'use or', configvalue: true } );
+			filtered.filtered( 'setFilterData', {filter: 'value', printout: target, configvar: 'use or', configvalue: true} );
 			
 			
 			// insert switches
