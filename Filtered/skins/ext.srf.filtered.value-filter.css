@@ -38,3 +38,16 @@
 	width: 20%;
 }
 
+.filtered-filters .filtered-value .filtered-value-show,
+.filtered-filters .filtered-value .filtered-value-hide { 
+	margin: 0pt;
+	padding: 0pt 1em;
+	background-color: white;
+	width: 1.5em;
+	float: right;
+	position: relative;
+	top: -1.8em;
+	right: 0pt;
+	text-align: center;
+	cursor: pointer;
+}

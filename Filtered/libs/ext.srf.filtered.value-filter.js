@@ -82,6 +82,7 @@
 			var values = this.data('ext.srf.filtered')['values'];
 			var target = args.printout;
 			var switches = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'switches'} );
+			var collapsible = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'collapsible'} );
 			
 			// find distinct values and set visibility for all items that have
 			// some value for this printout
@@ -173,6 +174,39 @@
 				
 			}
 			
+			if ( collapsible != null && ( collapsible == 'collapsed' || collapsible == 'uncollapsed') ) {
+				var showControl = $('<span class="filtered-value-show">[+]</span>');
+				var hideControl = $('<span class="filtered-value-hide">[-]</span>');
+				
+				showControl.click(function(){
+					filtercontrols.children('.filtered-value-collapsible').slideDown();
+					showControl.hide();
+					hideControl.show();
+				});
+				
+				hideControl.click(function(){
+					filtercontrols.children('.filtered-value-collapsible').slideUp();
+					showControl.show();
+					hideControl.hide();
+				});
+				
+				filtercontrols
+				.prepend(showControl)
+				.prepend(hideControl)
+				
+				.children('.filtered-value-switches,.filtered-value-option')
+				.wrapAll( '<div class="filtered-value-collapsible">' );
+				
+				if ( collapsible == 'collapsed' ) {
+					hideControl.hide();
+					filtercontrols.children('.filtered-value-collapsible').slideUp(0);
+				} else {
+					showControl.hide();
+				}
+				
+				
+			}
+
 			return this;
 		},
 		

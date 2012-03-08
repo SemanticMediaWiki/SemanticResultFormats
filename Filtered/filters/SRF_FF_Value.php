@@ -46,15 +46,21 @@ class SRF_FF_Value extends SRF_Filtered_Filter {
 	 */
 	public function getJsData() {
 		$params = $this->getActualParameters();
+		
+		$ret = array();
 
 		if (  array_key_exists( 'value filter switches', $params ) ) {
 			$switches = explode( ',', $params['value filter switches'] );
 			$switches = array_map( 'trim', $switches );
 
-			return array( 'switches' => $switches );
+			$ret['switches'] = $switches;
 		}
 
-		return null;
+		if (  array_key_exists( 'value filter collapsible', $params ) ) {
+			$ret['collapsible'] = trim($params['value filter collapsible']);
+		}
+
+		return $ret;
 	}
 
 }
