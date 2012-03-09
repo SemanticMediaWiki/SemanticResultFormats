@@ -365,7 +365,7 @@ class SRFTimeline extends SMWResultPrinter {
 		$params['timelineposition'] = new Parameter( 'timelineposition' );
 		$params['timelineposition']->setDefault( 'middle' );
 		$params['timelineposition']->setMessage( 'srf_paramdesc_timelineposition' );
-		$params['timelineposition']->addCriteria( new CriterionInArray( 'start', 'middle', 'end' ) );
+		$params['timelineposition']->addCriteria( new CriterionInArray( 'start', 'middle', 'end', 'today' ) );
 		
 		$params['timelinestart'] = new Parameter( 'timelinestart' );
 		$params['timelinestart']->setDefault( '' );
