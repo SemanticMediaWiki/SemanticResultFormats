@@ -2867,8 +2867,10 @@ $messages['sr-el'] = array(
  * @author Dafer45
  * @author M.M.S.
  * @author Per
+ * @author Rotsee
  */
 $messages['sv'] = array(
+	'srf-desc' => 'Extra utskriftsformat för Semantic MediaWiki',
 	'srfc_previousmonth' => 'Föregående månad',
 	'srfc_nextmonth' => 'Nästa månad',
 	'srfc_today' => 'Idag',
@@ -2886,12 +2888,22 @@ $messages['sv'] = array(
 	'srf_printername_average' => 'Genomsnitt av tal',
 	'srf_printername_max' => 'Största nummer',
 	'srf_printername_min' => 'Minsta nummer',
+	'srf_paramdesc_limit' => 'Högsta antal sidor att fråga',
+	'srf_printername_product' => 'Produkt (multiplikation)',
+	'srf_printername_median' => 'Medianvärde',
+	'srf-paramdesc-default' => 'Standardvärde att visa när resultat saknas',
 	'srf_printername_timeline' => 'Tidslinje',
 	'srf_printername_eventline' => 'Händelselinje',
 	'srf_printername_googlebar' => 'Google stapeldiagram',
 	'srf_printername_googlepie' => 'Google tårtdiagram',
 	'srf_paramdesc_chartheight' => 'Höjden på diagrammet i pixlar',
 	'srf_paramdesc_chartwidth' => 'Bredden på diagrammet i pixlar',
+	'srf_printername_gallery' => 'Bildgalleri',
+	'srf_paramdesc_perrow' => 'Antal bilder per rad',
+	'srf_paramdesc_widths' => 'Bildbredd',
+	'srf_paramdesc_heights' => 'Bildhöjd',
+	'srf_paramdesc_autocaptions' => 'Använd filnamnet som bildtext, om ingen annan bildtext angetts',
+	'srf_paramdesc_fileextensions' => 'Skriv ut filändelser när bildnamn används som bildtext',
 );
 
 /** Telugu (తెలుగు)
