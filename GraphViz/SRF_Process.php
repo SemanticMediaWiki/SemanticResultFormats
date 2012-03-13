@@ -162,6 +162,11 @@ class SRFProcess extends SMWResultPrinter {
 			//	Iterate all colums of the row (which describe properties of the proces node)
 			//
 
+			// FIXME: this does not work with SMW >= 1.6, see
+			// https://bugzilla.wikimedia.org/show_bug.cgi?id=35003
+
+			// FIXME: got _a bit_ of redundancy here looks like... :/
+
 			foreach ( $row as $field ) {
 
 				// check column title
