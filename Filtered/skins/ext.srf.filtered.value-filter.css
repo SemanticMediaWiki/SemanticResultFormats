@@ -51,3 +51,7 @@
 	text-align: center;
 	cursor: pointer;
 }
+
+.filtered-filters .filtered-value .filtered-value-scrollable { 
+	overflow: auto;
+}

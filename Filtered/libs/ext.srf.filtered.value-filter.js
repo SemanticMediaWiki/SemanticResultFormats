@@ -83,6 +83,7 @@
 			var target = args.printout;
 			var switches = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'switches'} );
 			var collapsible = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'collapsible'} );
+			var height = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'height'} );
 			
 			// find distinct values and set visibility for all items that have
 			// some value for this printout
@@ -109,6 +110,39 @@
 			
 			// insert the label of the printout this filter filters on
 			filtercontrols.append('<div class="filtered-value-label"><span>' + values[i]['printouts'][target]['label'] + '</span></div>');
+
+			if ( collapsible != null && ( collapsible == 'collapsed' || collapsible == 'uncollapsed') ) {
+				var showControl = $('<span class="filtered-value-show">[+]</span>');
+				var hideControl = $('<span class="filtered-value-hide">[-]</span>');
+				
+				
+				filtercontrols
+				.prepend(showControl)
+				.prepend(hideControl);
+				
+				filtercontrols = $('<div class="filtered-value-collapsible">')
+				.appendTo(filtercontrols);
+				
+				showControl.click(function(){
+					filtercontrols.slideDown();
+					showControl.hide();
+					hideControl.show();
+				});
+				
+				hideControl.click(function(){
+					filtercontrols.slideUp();
+					showControl.show();
+					hideControl.hide();
+				});
+				
+				if ( collapsible == 'collapsed' ) {
+					hideControl.hide();
+					filtercontrols.slideUp(0);
+				} else {
+					showControl.hide();
+				}
+				
+			}
 
 			// set default config values
 			filtered.filtered( 'setFilterData', {filter: 'value', printout: target, configvar: 'use or', configvalue: true} );
@@ -146,6 +180,15 @@
 				
 				filtercontrols.append( switchControls );
 			}
+			
+			if ( height != null ) {
+				filtercontrols = $( '<div class="filtered-value-scrollable">' )
+				.appendTo( filtercontrols );
+				
+				filtercontrols.height( height );
+			}
+			
+			
 			var sortedDistinctValues = [];
 			
 			for ( var i in distinctValues ) {
@@ -174,39 +217,6 @@
 				
 			}
 			
-			if ( collapsible != null && ( collapsible == 'collapsed' || collapsible == 'uncollapsed') ) {
-				var showControl = $('<span class="filtered-value-show">[+]</span>');
-				var hideControl = $('<span class="filtered-value-hide">[-]</span>');
-				
-				showControl.click(function(){
-					filtercontrols.children('.filtered-value-collapsible').slideDown();
-					showControl.hide();
-					hideControl.show();
-				});
-				
-				hideControl.click(function(){
-					filtercontrols.children('.filtered-value-collapsible').slideUp();
-					showControl.show();
-					hideControl.hide();
-				});
-				
-				filtercontrols
-				.prepend(showControl)
-				.prepend(hideControl)
-				
-				.children('.filtered-value-switches,.filtered-value-option')
-				.wrapAll( '<div class="filtered-value-collapsible">' );
-				
-				if ( collapsible == 'collapsed' ) {
-					hideControl.hide();
-					filtercontrols.children('.filtered-value-collapsible').slideUp(0);
-				} else {
-					showControl.hide();
-				}
-				
-				
-			}
-
 			return this;
 		},
 		

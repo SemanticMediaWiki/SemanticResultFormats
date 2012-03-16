@@ -60,6 +60,10 @@ class SRF_FF_Value extends SRF_Filtered_Filter {
 			$ret['collapsible'] = trim($params['value filter collapsible']);
 		}
 
+		if (  array_key_exists( 'value filter height', $params ) ) {
+			$ret['height'] = trim($params['value filter height']);
+		}
+
 		return $ret;
 	}
 
