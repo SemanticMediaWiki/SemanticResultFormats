@@ -1921,7 +1921,7 @@ $messages['ku-latn'] = array(
  */
 $messages['lb'] = array(
 	'srf-name' => 'Formate vu semantesche Resultater',
-	'srfc_previousmonth' => 'Mount virdrun',
+	'srfc_previousmonth' => 'Virege Mount',
 	'srfc_nextmonth' => 'Nächste Mount',
 	'srfc_today' => 'Haut',
 	'srfc_gotomonth' => 'Géi op de Mount',
