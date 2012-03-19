@@ -3,7 +3,7 @@
 /**
  * Result printer that prints query results as a valuerank.
  * In other words, it prints a list of all occuring values, with duplicates removed,
- * together with their occurance count.
+ * together with their occurrence count.
  * 
  * For example, this result set: foo bar baz foo bar bar ohi 
  * Will be turned into
