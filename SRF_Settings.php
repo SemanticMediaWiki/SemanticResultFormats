@@ -49,9 +49,16 @@ $srfgFormats = array(
 	'D3Bar',
 	'D3Treemap',
 
-	// Still in alpha.
-	//'filtered',
-	//'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
+	// Still in alpha:
+	// 'filtered',
+	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
+
+	// Disabled by default sicne they contact external sites:
+	// 'googlebar',
+	// 'googlepie',
+
+	// Unstable/broken:
+	// 'exhibit',
 );
 
 // load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
