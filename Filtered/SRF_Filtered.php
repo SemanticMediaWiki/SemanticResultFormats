@@ -18,6 +18,7 @@ $wgAutoloadClasses['SRF_FV_List'] = $formatDir . 'views/SRF_FV_List.php';
 
 $wgAutoloadClasses['SRF_Filtered_Filter'] = $formatDir . 'filters/SRF_Filtered_Filter.php';
 $wgAutoloadClasses['SRF_FF_Value'] = $formatDir . 'filters/SRF_FF_Value.php';
+$wgAutoloadClasses['SRF_FF_Distance'] = $formatDir . 'filters/SRF_FF_Distance.php';
 
 
 /**
@@ -68,6 +69,7 @@ class SRFFiltered extends SMWResultPrinter {
 	 */
 	private $mFilterTypes = array(
 		'value' => 'SRF_FF_Value',
+		'distance' => 'SRF_FF_Distance',
 	);
 
 	private $mViews;

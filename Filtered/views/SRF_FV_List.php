@@ -138,6 +138,7 @@ class SRF_FV_List extends SRF_Filtered_View {
 			foreach ( $row as $field ) {
 				$first_value = true;
 
+				$field->reset();
 				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $first_col ) ) ) !== false ) {
 					if ( !$first_col && !$found_values ) { // first values after first column
 						$result .= ' (';

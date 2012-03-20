@@ -24,16 +24,16 @@ class SRF_Filtered_Item {
 		$this->mQueryPrinter = $queryPrinter;
 	}
 
-	public function setDataForView ( $viewId, &$data ) {
-		$this->mItemData[$viewId] = $data;
+	public function setData ( $viewOrFilterId, $data ) {
+		$this->mItemData[$viewOrFilterId] = $data;
 	}
 
-	public function unsetDataForView ( $viewId ) {
-		unset( $this->mItemData[$viewId] );
+	public function unsetData ( $viewOrFilterId ) {
+		unset( $this->mItemData[$viewOrFilterId] );
 	}
 
-	public function getDataForView ( $viewId ) {
-		return $this->mItemData[$viewId];
+	public function getData ( $viewOrFilterId ) {
+		return $this->mItemData[$viewOrFilterId];
 	}
 
 	public function getValue() {

@@ -19,18 +19,6 @@
 class SRF_FF_Value extends SRF_Filtered_Filter {
 
 	/**
-	 * Returns the HTML text that is to be included for this view.
-	 *
-	 * This text will appear on the page in a div that has the view's id set as
-	 * class.
-	 *
-	 * @return string
-	 */
-	public function getResultText() {
-		return '';
-	}
-
-	/**
 	 * Returns the name (string) or names (array of strings) of the resource
 	 * modules to load.
 	 *

@@ -16,66 +16,67 @@
 			
 			function update( filtered, filtercontrols, target ) {
 				
-					var values = filtered.data('ext.srf.filtered')['values'];
-					var selectedInputs = filtercontrols.children('div.filtered-value-option').children('input:checked');
-					
-					// show all if no value is checked
-					if ( selectedInputs.length == 0 ) {
-						for ( i in values ) {
-							filtered.filtered( 'voteItemVisibilityAndUpdate', {
-								'filter': 'value', 
-								'printout' : target, 
-								'visible': true,
-								'item': i
-							});
-						}
-								
-					} else {
-								
-						for ( i in values ) {
+				var values = filtered.data('ext.srf.filtered')['values'];
+				var selectedInputs = filtercontrols.children('div.filtered-value-option').children('input:checked');
 
-							var printoutValues = values[i]['printouts'][target]['values'];
-							var useOr = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'use or'} );
-
-							if ( useOr ) {
-								var selected = false;
-
-								for ( var j in printoutValues ) {
-
-									selectedInputs.each(function(){
-										selected = selected || ( printoutValues[j] == $(this).attr('value') );
-									});
-								}
-							} else {
-								var selected = ( printoutValues.length > 0 );
-
-								if ( selected ) {
-									// try to find each required value
-									selectedInputs.each(function(){
-
-										var selectedFoundInPrintout = false;
-										for ( var j in printoutValues ) {
-											selectedFoundInPrintout = selectedFoundInPrintout || ( printoutValues[j] == $(this).attr('value') );
-
-											if ( selectedFoundInPrintout ) {
-												break;
-											}
-										}
-										selected = selected && selectedFoundInPrintout;
-									});
-								}
-							}
-
-							filtered.filtered( 'voteItemVisibilityAndUpdate', {
-								'filter': 'value', 
-								'printout' : target, 
-								'visible': selected,
-								'item': i
-							});
-
-						}
+				// show all if no value is checked
+				if ( selectedInputs.length == 0 ) {
+					for ( i in values ) {
+						filtered.filtered( 'voteItemVisibilityAndUpdate', {
+							'filter': 'value', 
+							'printout' : target, 
+							'visible': true,
+							'item': i
+						});
 					}
-			}
+
+				} else {
+
+					for ( i in values ) {
+
+						var printoutValues = values[i]['printouts'][target]['values'];
+						var useOr = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'use or'} );
+
+						if ( useOr ) {
+							var selected = false;
+
+							for ( var j in printoutValues ) {
+
+								selectedInputs.each(function(){
+									selected = selected || ( printoutValues[j] == $(this).attr('value') );
+								});
+							}
+						} else {
+							var selected = ( printoutValues.length > 0 );
+
+							if ( selected ) {
+								// try to find each required value
+								selectedInputs.each(function(){
+
+									var selectedFoundInPrintout = false;
+									for ( var j in printoutValues ) {
+										selectedFoundInPrintout = selectedFoundInPrintout || ( printoutValues[j] == $(this).attr('value') );
+
+										if ( selectedFoundInPrintout ) {
+											break;
+										}
+									}
+									selected = selected && selectedFoundInPrintout;
+								});
+							}
+						}
+
+						filtered.filtered( 'voteItemVisibilityAndUpdate', {
+							'filter': 'value', 
+							'printout' : target, 
+							'visible': selected,
+							'item': i
+						});
+
+					}
+				}
+			}  // function update( filtered, filtercontrols, target )
+			
 			
 			var filtered = this;
 			
@@ -112,9 +113,9 @@
 			filtercontrols.append('<div class="filtered-value-label"><span>' + values[i]['printouts'][target]['label'] + '</span></div>');
 
 			if ( collapsible != null && ( collapsible == 'collapsed' || collapsible == 'uncollapsed') ) {
+				
 				var showControl = $('<span class="filtered-value-show">[+]</span>');
 				var hideControl = $('<span class="filtered-value-hide">[-]</span>');
-				
 				
 				filtercontrols
 				.prepend(showControl)
@@ -123,21 +124,23 @@
 				filtercontrols = $('<div class="filtered-value-collapsible">')
 				.appendTo(filtercontrols);
 				
+				var outercontrols = filtercontrols
+				
 				showControl.click(function(){
-					filtercontrols.slideDown();
+					outercontrols.slideDown();
 					showControl.hide();
 					hideControl.show();
 				});
 				
 				hideControl.click(function(){
-					filtercontrols.slideUp();
+					outercontrols.slideUp();
 					showControl.show();
 					hideControl.hide();
 				});
 				
 				if ( collapsible == 'collapsed' ) {
 					hideControl.hide();
-					filtercontrols.slideUp(0);
+					outercontrols.slideUp(0);
 				} else {
 					showControl.hide();
 				}

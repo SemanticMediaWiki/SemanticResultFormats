@@ -30,13 +30,11 @@
 				// init housekeeping on values
 				for (i in data['values']) {
 
-					data['values'][i]['data'] =	{
-						
-						'visibility': {
-							'overall' : true,
-							'votes' : {}
-						}
+					data['values'][i]['data']['visibility'] =	{
+						'overall' : true,
+						'votes' : {}
 					}
+					
 				}
 
 				return this;
