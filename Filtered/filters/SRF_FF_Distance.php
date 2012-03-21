@@ -165,6 +165,11 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 		if ( array_key_exists( 'distance filter collapsible', $params ) ) {
 			$ret['collapsible'] = trim($params['distance filter collapsible']);
 		}
+		
+		if ( array_key_exists( 'distance filter initial value', $params ) ) {
+			$ret['initial value'] = trim( $params['distance filter initial value'] );
+		}
+
 
 		return $ret;
 	}
