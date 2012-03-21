@@ -158,4 +158,17 @@ $wgResourceModules['ext.srf.filtered.value-filter'] = $moduleTemplate + array(
 	),
 );
 
+$wgResourceModules['ext.srf.filtered.distance-filter'] = $moduleTemplate + array(
+	'scripts' => array(
+		'Filtered/libs/ext.srf.filtered.distance-filter.js',
+	),
+	'styles' => array(
+		'Filtered/skins/ext.srf.filtered.distance-filter.css',
+	),
+	'dependencies' => array(
+		'ext.srf.filtered',
+		'jquery.ui.slider'
+	),
+);
+
 unset( $moduleTemplate );

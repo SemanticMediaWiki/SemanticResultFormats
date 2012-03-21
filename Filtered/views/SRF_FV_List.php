@@ -118,13 +118,21 @@ class SRF_FV_List extends SRF_Filtered_View {
 			$wikitext = '';
 
 			foreach ( $row as $i => $field ) {
-				$wikitext .= '|' . ( $this->mNamedArgs ? '?' . $field->getPrintRequest()->getLabel() : $i + 1 ) . '=';
-				$first_value = true;
+				
+				$printrequest = $field->getPrintRequest();
+				
+				// only print value if not hidden
+				if ( $printrequest->getParameter( 'hide' ) === false ) {
+					$wikitext .= '|' . ( $this->mNamedArgs ? '?' . $printrequest->getLabel() : $i + 1 ) . '=';
+					$first_value = true;
 
-				$field->reset();
-				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $i == 0 ) ) ) !== false ) {
-					if ( $first_value ) $first_value = false; else $wikitext .= ', ';
-					$wikitext .= $text;
+					$field->reset();
+					while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $i == 0 ) ) ) !== false ) {
+						if ( $first_value )
+							$first_value = false; else
+							$wikitext .= ', ';
+						$wikitext .= $text;
+					}
 				}
 			}
 
@@ -138,28 +146,35 @@ class SRF_FV_List extends SRF_Filtered_View {
 			foreach ( $row as $field ) {
 				$first_value = true;
 
-				$field->reset();
-				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $first_col ) ) ) !== false ) {
-					if ( !$first_col && !$found_values ) { // first values after first column
-						$result .= ' (';
-						$found_values = true;
-					} elseif ( $found_values || !$first_value ) {
-						// any value after '(' or non-first values on first column
-						$result .= "$listsep ";
-					}
-
-					if ( $first_value ) { // first value in any column, print header
-						$first_value = false;
-
-						if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel() !== '' ) ) {
-							$result .= $field->getPrintRequest()->getText( SMW_OUTPUT_WIKI, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null:$this->getQueryPrinter()->getLinker( true, true ) ) ) . ' ';
+				$printrequest = $field->getPrintRequest();
+				
+					$field->reset();
+					while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $first_col ) ) ) !== false ) {
+						
+				// only print value if not hidden
+				if ( $printrequest->getParameter( 'hide' ) === false ) {
+					
+						if ( !$first_col && !$found_values ) { // first values after first column
+							$result .= ' (';
+							$found_values = true;
+						} elseif ( $found_values || !$first_value ) {
+							// any value after '(' or non-first values on first column
+							$result .= "$listsep ";
 						}
-					}
 
-					$result .= $text; // actual output value
+						if ( $first_value ) { // first value in any column, print header
+							$first_value = false;
+
+							if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel() !== '' ) ) {
+								$result .= $field->getPrintRequest()->getText( SMW_OUTPUT_WIKI, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null:$this->getQueryPrinter()->getLinker( true, true ) ) ) . ' ';
+							}
+						}
+
+						$result .= $text; // actual output value
 				}
-
-				$first_col = false;
+					}
+					
+					$first_col = false;
 			}
 
 			if ( $found_values ) $result .= ')';

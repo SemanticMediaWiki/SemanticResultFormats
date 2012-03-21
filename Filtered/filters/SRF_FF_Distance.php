@@ -46,6 +46,15 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 			$this->mUnit = MapsDistanceParser::getValidUnit();
 		}
 
+		// Is the real position stored in a property?
+		if ( array_key_exists( 'distance filter property', $params ) ) {
+			$property = trim( $params['distance filter property'] );
+			$locations = array();
+		} else {
+			$property = null;
+			$locations = null;
+		}
+
 		$targetLabel = $printRequest->getLabel();
 		
 		foreach ( $this->getQueryResults() as $id => $filteredItem ) {
@@ -68,8 +77,41 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 					if ( $dataValue !== false ) {
 						
 						$posText = $dataValue->getShortText( SMW_OUTPUT_WIKI, false );
-						$pos = MapsGeocoders::attemptToGeocode( $posText );
 						
+						if ( $property === null ) {
+							
+							// position is directly given
+							$pos = MapsGeocoders::attemptToGeocode( $posText );
+							
+						} else {
+							// position is given in a property of a page
+							
+							// if we used this page before, just look up the coordinates
+							if ( array_key_exists( $posText, $locations ) ) {
+								$pos = $locations[$posText];
+							} else {
+								
+								// query the position's page for the coordinates or address
+								$posText = SMWQueryProcessor::getResultFromFunctionParams(
+									array($posText, '?' . $property),
+									SMW_OUTPUT_WIKI,
+									SMWQueryProcessor::INLINE_QUERY,
+									true
+								);
+								
+								// 
+								if ( $posText !== '' ) {
+									// geocode 
+									$pos = MapsGeocoders::attemptToGeocode( $posText );
+								} else {
+									$pos = array('lat' => '0', 'lon' => '0');
+								}
+								
+								// store coordinates in case we need them again
+								$locations[$posText] = $pos;
+							}
+						}
+
 						if ( is_array( $pos ) ){
 							$distance = round( MapsGeoFunctions::calculateDistance( $origin, $pos ) / MapsDistanceParser::getUnitRatio( $this->mUnit ) );
 							
