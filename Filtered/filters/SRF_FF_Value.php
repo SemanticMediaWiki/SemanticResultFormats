@@ -37,19 +37,23 @@ class SRF_FF_Value extends SRF_Filtered_Filter {
 		
 		$ret = array();
 
-		if (  array_key_exists( 'value filter switches', $params ) ) {
+		if ( array_key_exists( 'value filter switches', $params ) ) {
 			$switches = explode( ',', $params['value filter switches'] );
 			$switches = array_map( 'trim', $switches );
 
 			$ret['switches'] = $switches;
 		}
 
-		if (  array_key_exists( 'value filter collapsible', $params ) ) {
+		if ( array_key_exists( 'value filter collapsible', $params ) ) {
 			$ret['collapsible'] = trim($params['value filter collapsible']);
 		}
 
-		if (  array_key_exists( 'value filter height', $params ) ) {
+		if ( array_key_exists( 'value filter height', $params ) ) {
 			$ret['height'] = trim($params['value filter height']);
+		}
+
+		if ( array_key_exists( 'value filter values', $params ) ) {
+			$ret['values'] = trim($params['value filter values']);
 		}
 
 		return $ret;

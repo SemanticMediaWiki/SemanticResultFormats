@@ -21,20 +21,20 @@
 
 				// show all if no value is checked
 				if ( selectedInputs.length == 0 ) {
-					for ( i in values ) {
+					for ( valueId in values ) {
 						filtered.filtered( 'voteItemVisibilityAndUpdate', {
 							'filter': 'value', 
 							'printout' : target, 
 							'visible': true,
-							'item': i
+							'item': valueId
 						});
 					}
 
 				} else {
 
-					for ( i in values ) {
+					for ( valueId in values ) {
 
-						var printoutValues = values[i]['printouts'][target]['values'];
+						var printoutValues = values[valueId]['printouts'][target]['values'];
 						var useOr = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'use or'} );
 
 						if ( useOr ) {
@@ -70,7 +70,7 @@
 							'filter': 'value', 
 							'printout' : target, 
 							'visible': selected,
-							'item': i
+							'item': valueId
 						});
 
 					}
@@ -85,32 +85,50 @@
 			var switches = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'switches'} );
 			var collapsible = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'collapsible'} );
 			var height = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'height'} );
+			var fixedValues = filtered.filtered( 'getFilterData', {filter: 'value', printout: target, configvar: 'values'} );
 			
-			// find distinct values and set visibility for all items that have
-			// some value for this printout
-			var distinctValues = [];
-			
-			var i;
-			for ( i in values ) {
-				var printoutValues = values[i]['printouts'][target]['values'];
+			var valueId; // just some valid value ID
+			if ( fixedValues == null ) {
+				// build filter values from available values in result set
 				
-				for (var j in printoutValues) {
-					distinctValues[ printoutValues[j] ] = true;
+				// find distinct values and set visibility for all items that have
+				// some value for this printout
+				var distinctValues = [];
+
+				for ( valueId in values ) {
+					var printoutValues = values[valueId]['printouts'][target]['values'];
+
+					for (var j in printoutValues) {
+						distinctValues[ printoutValues[j] ] = true;
+					}
+
+					filtered.filtered( 'voteItemVisibility', {
+						'filter': 'value', 
+						'printout' : target, 
+						'visible': true,
+						'item': valueId
+					});
 				}
 
-				filtered.filtered( 'voteItemVisibility', {
-					'filter': 'value', 
-					'printout' : target, 
-					'visible': true,
-					'item': i
-				});
+				var sortedDistinctValues = [];
+
+				for ( var i in distinctValues ) {
+					sortedDistinctValues.push(i);
+				}
+
+				sortedDistinctValues.sort();
+			} else {
+				// use given values
+				sortedDistinctValues = fixedValues.split(/\s*,\s*/);
+				
+				for ( valueId in values ) break; // get some valid value ID
 			}
 			
 			// build filter controls
 			var filtercontrols = this.children('.filtered-filters').children('.' + target).filter('.filtered-value');
 			
 			// insert the label of the printout this filter filters on
-			filtercontrols.append('<div class="filtered-value-label"><span>' + values[i]['printouts'][target]['label'] + '</span></div>');
+			filtercontrols.append('<div class="filtered-value-label"><span>' + values[valueId]['printouts'][target]['label'] + '</span></div>');
 
 			if ( collapsible != null && ( collapsible == 'collapsed' || collapsible == 'uncollapsed') ) {
 				
@@ -191,14 +209,6 @@
 				filtercontrols.height( height );
 			}
 			
-			
-			var sortedDistinctValues = [];
-			
-			for ( var i in distinctValues ) {
-				sortedDistinctValues.push(i);
-			}
-			
-			sortedDistinctValues.sort();
 			
 			// insert options (checkboxes and labels) and attach event handlers
 			// TODO: Do we need to wrap these in a form?
