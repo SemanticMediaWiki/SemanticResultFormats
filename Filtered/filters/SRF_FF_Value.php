@@ -33,27 +33,30 @@ class SRF_FF_Value extends SRF_Filtered_Filter {
 	 * @return null
 	 */
 	public function getJsData() {
+		
+		global $wgParser;
+		
 		$params = $this->getActualParameters();
 		
 		$ret = array();
 
 		if ( array_key_exists( 'value filter switches', $params ) ) {
-			$switches = explode( ',', $params['value filter switches'] );
+			$switches = explode( ',', $wgParser->recursiveTagParse( $params['value filter switches'] ) );
 			$switches = array_map( 'trim', $switches );
 
 			$ret['switches'] = $switches;
 		}
 
 		if ( array_key_exists( 'value filter collapsible', $params ) ) {
-			$ret['collapsible'] = trim($params['value filter collapsible']);
+			$ret['collapsible'] = trim( $wgParser->recursiveTagParse( $params['value filter collapsible'] ) );
 		}
 
 		if ( array_key_exists( 'value filter height', $params ) ) {
-			$ret['height'] = trim($params['value filter height']);
+			$ret['height'] = trim( $wgParser->recursiveTagParse( $params['value filter height'] ) );
 		}
 
 		if ( array_key_exists( 'value filter values', $params ) ) {
-			$ret['values'] = trim($params['value filter values']);
+			$ret['values'] = trim( $wgParser->recursiveTagParse( $params['value filter values'] ) );
 		}
 
 		return $ret;

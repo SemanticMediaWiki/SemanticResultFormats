@@ -52,41 +52,35 @@
 			// build filter controls
 			var filtercontrols = this.children('.filtered-filters').children('.filtered-distance');
 			
-			var readoutAndSlider = $('<tr>');
+			var readout = $('<div class="filtered-distance-readout">' + iniValue + '</div>' );
 
-			var readout = $('<div class="filtered-distance-readout">' + iniValue + data['unit'] + '</div>' );
-			var slider = $('<div class="filtered-distance-slider">');
-
-			var readoutTD = $('<td class="filtered-distance-readout-cell">');
-			var sliderTD = $('<td class="filtered-distance-slider-cell">');
-			
-			readoutTD.append( readout );
-			sliderTD.append( slider );
-			
-			readoutAndSlider
-			.append( readoutTD )
-			.append( sliderTD );
+			var table = $('<table class="filtered-distance-table"><tbody><tr><td class="filtered-distance-min-cell">0</td>' + 
+				'<td class="filtered-distance-slider-cell"><div class="filtered-distance-slider"></div></td>' + 
+				'<td class="filtered-distance-max-cell">' + data['max'] + '</td></tr>' +
+				'<tr><td colspan=3 class="filtered-distance-unit-cell">' + data['unit'] + '</td></tr></tbody></table>');
 			
 			filtercontrols
 			.append( '<div class="filtered-distance-label"><span>' + values[i]['printouts'][target]['label'] + '</span></div>' )
-			.append( readoutAndSlider );
+			.append( table );
 
-			readoutAndSlider.wrap('<table><tbody>');
-			
-			readout.width( readout.width() ); // fix width of readout
-			
+			var slider = table.find('.filtered-distance-slider');
+
 			slider.slider({
 				animate: true,
 				max: data['max'],
 				value: iniValue,
 				slide: function(event, ui) {
-					readout.empty().append( ui.value + data['unit'] );
+					readout.empty().append( ui.value );
 				},
 				change: function(event, ui) {
 					update( filtered, ui.value, target );
 				}
 			});
-			
+
+			var handle = slider.find('.ui-slider-handle');
+
+			handle
+			.append( readout );
 			
 			return this;
 		},

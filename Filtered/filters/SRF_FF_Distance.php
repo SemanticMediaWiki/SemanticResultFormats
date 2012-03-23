@@ -24,6 +24,9 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 	private $mMaxDistance = 1;
 
 	public function __construct( &$results, SMWPrintRequest $printRequest, SRFFiltered &$queryPrinter ) {
+		
+		global $wgParser;
+		
 		parent::__construct($results, $printRequest, $queryPrinter);
 		
 		if ( !defined('Maps_VERSION') || version_compare( Maps_VERSION, '1.0', '<' ) ) {
@@ -35,20 +38,20 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 		$params = $this->getActualParameters();
 
 		if (  array_key_exists( 'distance filter origin', $params ) ) {
-			$origin = MapsGeocoders::attemptToGeocode( $params['distance filter origin'] );
+			$origin = MapsGeocoders::attemptToGeocode( $wgParser->recursiveTagParse( $params['distance filter origin'] ) );
 		} else {
 			$origin = array( 'lat'=>'0', 'lon' => '0' );
 		}
 
 		if ( array_key_exists( 'distance filter unit', $params ) ) {
-			$this->mUnit = MapsDistanceParser::getValidUnit( $params['distance filter unit'] );
+			$this->mUnit = MapsDistanceParser::getValidUnit( $wgParser->recursiveTagParse( $params['distance filter unit'] ) );
 		} else {
 			$this->mUnit = MapsDistanceParser::getValidUnit();
 		}
 
 		// Is the real position stored in a property?
 		if ( array_key_exists( 'distance filter property', $params ) ) {
-			$property = trim( $params['distance filter property'] );
+			$property = trim( $wgParser->recursiveTagParse( $params['distance filter property'] ) );
 			$locations = array();
 		} else {
 			$property = null;
@@ -132,10 +135,17 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 				
 			}
 		}
-		
-		if ( $this->mMaxDistance > 1 ) {
-			$base = pow( 10, floor( log10( $this->mMaxDistance ) ) );
-			$this->mMaxDistance = ceil ( $this->mMaxDistance / $base ) * $base;
+
+		if ( array_key_exists( 'distance filter max distance', $params ) &&
+			is_numeric( $maxDist = trim( $wgParser->recursiveTagParse( $params['distance filter max distance'] ) ) ) ) {
+			// this assignation ^^^ is ugly, but intentional
+			
+			$this->mMaxDistance = $maxDist;
+		} else {
+			if ( $this->mMaxDistance > 1 ) {
+				$base = pow( 10, floor( log10( $this->mMaxDistance ) ) );
+				$this->mMaxDistance = ceil ( $this->mMaxDistance / $base ) * $base;
+			}
 		}
 		
 	}
@@ -155,6 +165,9 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 	 * @return null
 	 */
 	public function getJsData() {
+		
+		global $wgParser;
+		
 		$params = $this->getActualParameters();
 		
 		$ret = array();
@@ -163,11 +176,11 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 		$ret['max'] = $this->mMaxDistance;
 
 		if ( array_key_exists( 'distance filter collapsible', $params ) ) {
-			$ret['collapsible'] = trim($params['distance filter collapsible']);
+			$ret['collapsible'] = trim( $wgParser->recursiveTagParse( $params['distance filter collapsible'] ) );
 		}
 		
 		if ( array_key_exists( 'distance filter initial value', $params ) ) {
-			$ret['initial value'] = trim( $params['distance filter initial value'] );
+			$ret['initial value'] = trim( $wgParser->recursiveTagParse( $params['distance filter initial value'] ) );
 		}
 
 
