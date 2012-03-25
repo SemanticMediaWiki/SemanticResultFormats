@@ -95,8 +95,9 @@ $wgAutoloadClasses['SRFValueRank'] = $formatDir . 'ValueRank/SRF_ValueRank.php';
 $wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
 $wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
 $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';  
-$wgAutoloadClasses['SRFTree'] = $formatDir . 'Tree/SRF_Tree.php';  
-$wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';  
+$wgAutoloadClasses['SRFTree'] = $formatDir . 'Tree/SRF_Tree.php';
+$wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
+$wgAutoloadClasses['SRFTime'] = $formatDir . 'Time/SRF_Time.php';
 
 unset( $formatDir );
 
@@ -149,6 +150,8 @@ function srffInitFormats() {
 		'ultree' => 'SRFTree',
 		'oltree' => 'SRFTree',
 		'filtered' => 'SRFFiltered',
+		'latest' => 'SRFTime',
+		'earliest' => 'SRFTime',
 	);
 
 	$formatAliases = array(

@@ -48,6 +48,8 @@ $srfgFormats = array(
 	'D3Line',
 	'D3Bar',
 	'D3Treemap',
+	'latest',
+	'earliest',
 
 	// Still in alpha:
 	// 'filtered',
