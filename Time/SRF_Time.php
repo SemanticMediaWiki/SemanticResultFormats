@@ -1,11 +1,15 @@
 <?php
 
 /**
+ * Formats that return a time.
+ * @since 1.8
  *
- * @file
+ * @file SRF_Time.php
  * @ingroup SemanticResultFormats
- * @licence GNU GPL v3+
  *
+ * @licence GNU GPL v3+
+ * @author nischayn22
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class SRFTime extends SMWResultPrinter {
 
@@ -44,8 +48,7 @@ class SRFTime extends SMWResultPrinter {
 	}
 
 	/**
-	 * Gets a list of SortKeys for all dates.
-	 *
+	 * Returns an array with sortkeys for dates pointing to their source DataItems.
 	 *
 	 * @param SMWQueryResult $res
 	 *
@@ -80,7 +83,7 @@ class SRFTime extends SMWResultPrinter {
 
 		$params['default'] = new Parameter( 'default' );
 		$params['default']->setMessage( 'srf-paramdesc-default' );
-		$params['default']->setDefault( 'default' );
+		$params['default']->setDefault( '' );
 
 		return $params;
 	}

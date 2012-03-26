@@ -53,6 +53,10 @@ $messages['en'] = array(
 	'srf_printername_median' => 'Median of numbers',
 	'srf-paramdesc-default' => 'Default value that will be displayed when there are no numerical results',
 
+	// format "time"
+	'srf_printername_earliest' => 'Earliest time',
+	'srf_printername_lateest' => 'Latest time',
+
 	// formats "timeline" and "eventline"
 	'srf_printername_timeline' => 'Timeline',
 	'srf_printername_eventline' => 'Eventline',
