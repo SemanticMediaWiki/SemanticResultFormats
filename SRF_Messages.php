@@ -149,6 +149,9 @@ $messages['en'] = array(
 	'srf-paramdesc-displaylength' => 'Initial display length', 
 	
 	// format "tree", "ultree", "oltree"
+	'srf_printername_tree'  => 'Tree',
+	'srf_printername_ultree'  => 'Ultree',
+	'srf_printername_oltree'  => 'Oltree',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => 'The property containing the parent page',
 );
@@ -197,6 +200,9 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
 	'srf_printername_earliest' => '{{doc-smwformat|earliest}}',
 	'srf_printername_latest' => '{{doc-smwformat|latest}}',
+	'srf_printername_tree'  => '{{doc-smwformat|tree}}',
+	'srf_printername_ultree'  => '{{doc-smwformat|ultree}}',
+	'srf_printername_oltree'  => '{{doc-smwformat|oltree}}',
 );
 
 /** Afrikaans (Afrikaans)

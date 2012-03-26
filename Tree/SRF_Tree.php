@@ -21,6 +21,14 @@ class SRFTree extends SMWListResultPrinter {
 
 	protected $mTreeProp = null;
 
+	/**
+	 * (non-PHPdoc)
+	 * @see SMWResultPrinter::getName()
+	 */
+	public function getName() {
+		return wfMsg( 'srf_printername_' . $this->mFormat );
+	}
+
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
