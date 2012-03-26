@@ -55,7 +55,7 @@ $messages['en'] = array(
 
 	// format "time"
 	'srf_printername_earliest' => 'Earliest time',
-	'srf_printername_lateest' => 'Latest time',
+	'srf_printername_latest' => 'Latest time',
 
 	// formats "timeline" and "eventline"
 	'srf_printername_timeline' => 'Timeline',
@@ -195,6 +195,8 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_paramdesc_graphname' => '{{Identical|Title}}',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
+	'srf_printername_earliest' => '{{doc-smwformat|earliest}}',
+	'srf_printername_latest' => '{{doc-smwformat|latest}}',
 );
 
 /** Afrikaans (Afrikaans)
