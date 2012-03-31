@@ -88,7 +88,7 @@ $wgResourceModules['ext.srf.d3treemap'] = $moduleTemplate + array(
 
 $wgResourceModules['jquery.progressbar'] = $moduleTemplate + array(
 	'scripts' => array(
-		'JitGraph/jquery.progressbar',
+		'JitGraph/jquery.progressbar.js',
 	),
 );
 
