@@ -51,6 +51,9 @@ $srfgFormats = array(
 	'latest',
 	'earliest',
 
+	// Disabled by default
+	// 'jqplotseries',
+	
 	// Still in alpha:
 	// 'filtered',
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
@@ -71,9 +74,6 @@ if(	array_key_exists( 'ExtHashTables', $wgAutoloadClasses ) && defined( 'ExtHash
 ) {
 	$srfgFormats[] = 'hash';
 }
-
-// Used for jqplot formats.
-$srfgJQPlotIncluded = false;
 
 // Used for Array and Hash formats.
 // Allows value as string or object instances of Title or Article classes or an array
@@ -99,4 +99,18 @@ $srfgArraySepTextualFallbacks = array (
 	'manysep'   => $srfgArrayManySep,
 	'recordsep' => $srfgArrayRecordSep,
 	'headersep' => $srfgArrayHeaderSep
+);
+
+// $srfgColorScheme  
+// Color schems are used among v1.8 jqPlot, D3, and JitGraph, if you do change 
+// those settings please ensure that in case of any change the content of 
+// themes.js has to be altered as well
+$srfgColorScheme = array ( 'cc124', 'cc128', 'cc129', 'cc173', 'cc210', 'cc252', 'cc267', 'cc294' , 'cc303', 'cc327', 'ylgn','ylgnbu','gnbu','bugn','pubugn','pubu','bupu', 'rdpu','purd','orrd','ylorrd','ylorbr','purples', 'blues','greens','oranges','reds','greys','puor','brbg','prgn','piyg','rdbu','rdgy','rdylbu','spectral','rdylgn' );
+
+// jqPlot Settings 
+$srfgjqPlotSettings = array (
+	'pierenderer' => array ( 'pie', 'donut' ),
+	'barrenderer' => array ( 'bar', 'line' ),
+	'seriesrenderer' => array ( 'bar', 'line', 'donut', 'bubble' ),
+	'seriesgroup' => array ( 'row', 'column', 'label' )  // 'label' is only experimental
 );

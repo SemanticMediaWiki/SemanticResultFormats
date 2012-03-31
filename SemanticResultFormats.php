@@ -84,6 +84,7 @@ $wgAutoloadClasses['SRFGooglePie'] = $formatDir . 'GoogleCharts/SRF_GooglePie.ph
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
 $wgAutoloadClasses['SRFjqPlotPie'] = $formatDir . 'jqPlot/SRF_jqPlotPie.php';
 $wgAutoloadClasses['SRFjqPlotBar'] = $formatDir . 'jqPlot/SRF_jqPlotBar.php';
+$wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqPlot/SRF_jqPlotSeries.php';
 $wgAutoloadClasses['SRFGraph'] = $formatDir . 'GraphViz/SRF_Graph.php';
 $wgAutoloadClasses['SRFProcess'] = $formatDir . 'GraphViz/SRF_Process.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
@@ -135,6 +136,7 @@ function srffInitFormats() {
 		'jitgraph' => 'SRFJitGraph',
 		'jqplotpie' => 'SRFjqPlotPie',
 		'jqplotbar' => 'SRFjqPlotBar',
+		'jqplotseries' => 'SRFjqPlotSeries',		
 		'graph' => 'SRFGraph',
 		'process' => 'SRFProcess',
 		'ploticusvbar' => 'SRFPloticusVBar',
