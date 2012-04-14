@@ -74,12 +74,9 @@ $messages['en'] = array(
 	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
 
 	// Error and warning
-	'srf-error-feature' => 'This feature is currently not available',
 	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
 	'srf-error-missing-renderer' => 'A chart/graph renderer is missing',
-	'srf-error-missing-label' => '$1 is missing label(s) information',
-	'srf-error-missing-number' => '$1 is missing numerical information',
-	
+
 	// formats "googlebar", "googlepie", jqplotpie and jqplotbar
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',

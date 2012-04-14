@@ -131,6 +131,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		if ( empty( $data['label'] ) || empty( $data['series'] )  ) {
 			return '<span class="error">' . wfMsgForContent( 'srf-error-series-data' ) . '</span>';
 		}
+
+		// FIXME: srf-error-series-data appears to not exist
 				
 		// Only look for numeric values that have been stored
 		$dataSeries = array_values($data['series']);	
