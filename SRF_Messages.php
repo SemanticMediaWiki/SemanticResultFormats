@@ -2553,6 +2553,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-pointlabels' => 'Individuele waarden in de grafiek weergeven',
 	'srf-paramdesc-chartlegend' => 'Positie van de grafieklegenda',
 	'srf-paramdesc-datalabels' => 'Grafieklegenda weergeven',
+	'srf-paramdesc-colorscheme' => 'Selecteer een kleurschema',
 	'srf_printername_gallery' => 'Galerij',
 	'srf_paramdesc_perrow' => 'Het aantal afbeeldingen per rij',
 	'srf_paramdesc_widths' => 'De breedte van de afbeeldingen',
