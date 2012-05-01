@@ -59,10 +59,10 @@ $wgExtensionCredits['semantic'][] = array(
 	// the current rule is to list anyone who has created, or contributed
 	// significantly to, at least three formats, or the overall extension.
 	'author' => array(
+		'James Hong Kong',
+		'Stephan Gambke',
 		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
 		'Yaron Koren',
-		'[http://korrekt.org Markus Krötzsch]',
-		'[http://simia.net Denny Vrandecic]',
 		'...'
 	),
 	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
