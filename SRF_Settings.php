@@ -51,7 +51,8 @@ $srfgFormats = array(
 	'latest',
 	'earliest',
 	'filtered',
-
+	'slideshow', 
+	
 	// Disabled by default
 	// 'jqplotseries',
 	

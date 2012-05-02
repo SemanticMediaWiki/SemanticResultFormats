@@ -170,6 +170,14 @@ $messages['en'] = array(
 	'srf_printername_oltree'  => 'Oltree',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => 'The property containing the parent page',
+	
+	// format "slideshow"
+	'srf-printername-slideshow' => 'SlideShow',
+	'srf-paramdesc-delay' => 'The delay between slides',
+	'srf-paramdesc-height' => 'The height of the slideshow widget',
+	'srf-paramdesc-width' => 'The height of the slideshow widget',
+	'srf-paramdesc-nav-buttons' => 'Show nav buttons or not',
+	
 );
 
 /** Message documentation (Message documentation)
