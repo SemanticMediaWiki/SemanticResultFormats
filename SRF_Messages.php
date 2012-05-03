@@ -38,7 +38,7 @@ $messages['en'] = array(
 	'srf_outline_novalue' => 'No value',
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
-	
+
 	'srf_printername_D3Line' => 'D3 line chart',
 	'srf_printername_D3Bar' => 'D3 bar chart',
 	'srf_printername_D3Treemap' => 'D3 treemap',
@@ -91,7 +91,7 @@ $messages['en'] = array(
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
 	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
 	'srf-paramdesc-pointlabels' => 'Display in-chart data points',
-	'srf-paramdesc-chartlegend' => 'Chart legend position',	
+	'srf-paramdesc-chartlegend' => 'Chart legend position',
 	'srf-paramdesc-datalabels' =>	'Display chart labels',
 	'srf-paramdesc-charttext'		=> 'Descriptive chart text',
 	'srf-paramdesc-chartclass' => 'Additional CSS class',
@@ -137,7 +137,7 @@ $messages['en'] = array(
 	'srf_paramdesc_hidegaps' => 'Whether to print requested but unavailable property and record values separated by separators or leaving them out',
 	'srf_paramdesc_arrayname' => 'If given and ArrayExtension is available this will create an array with the specified name (no visible output then)',
 	'srf_paramdesc_propsep' => 'Separator between the requested properties',
-	'srf_paramdesc_manysep' => 'Separator between many valued property values',	
+	'srf_paramdesc_manysep' => 'Separator between many valued property values',
 	'srf_paramdesc_recordsep' => 'Separator between values of record properties',
 	'srf_paramdesc_headersep' => 'Separator between property name and value if "headers" is set to "show" or "plain"',
 	'srf_printername_hash' => 'Hash',
@@ -156,28 +156,28 @@ $messages['en'] = array(
 	'srf_paramdesc_graphlink' => 'Graph link',
 	'srf_paramdesc_graphcolor' => 'Graph color',
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
-	
+
 	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
-	
+
 	// DataTables
 	'srf_printername_datatables'  => 'DataTables',
 	'srf-paramdesc-rowindex'      => 'Table row index',
-	'srf-paramdesc-displaylength' => 'Initial display length', 
-	
+	'srf-paramdesc-displaylength' => 'Initial display length',
+
 	// format "tree", "ultree", "oltree"
 	'srf_printername_tree'  => 'Tree',
 	'srf_printername_ultree'  => 'Ultree',
 	'srf_printername_oltree'  => 'Oltree',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => 'The property containing the parent page',
-	
+
 	// format "slideshow"
 	'srf-printername-slideshow' => 'SlideShow',
 	'srf-paramdesc-delay' => 'The delay between slides',
 	'srf-paramdesc-height' => 'The height of the slideshow widget',
-	'srf-paramdesc-width' => 'The height of the slideshow widget',
+	'srf-paramdesc-width' => 'The width of the slideshow widget',
 	'srf-paramdesc-nav-buttons' => 'Show nav buttons or not',
-	
+
 );
 
 /** Message documentation (Message documentation)
@@ -194,7 +194,7 @@ $messages['qqq'] = array(
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_bibtex_link' => '{{optional}}',
-	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query. 
+	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query.
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
 	'srf_printername_D3Line' => '{{doc-smwformat|D3Line}}',
