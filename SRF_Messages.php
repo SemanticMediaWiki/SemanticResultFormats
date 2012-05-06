@@ -176,7 +176,8 @@ $messages['en'] = array(
 	'srf-paramdesc-delay' => 'The delay between slides',
 	'srf-paramdesc-height' => 'The height of the slideshow widget',
 	'srf-paramdesc-width' => 'The width of the slideshow widget',
-	'srf-paramdesc-nav-buttons' => 'Show nav buttons or not',
+	'srf-paramdesc-navigation-buttons' => 'Show navigation buttons or not',
+	'srf-paramdesc-effect' => 'The effect to switch from slide to slide'
 
 );
 
@@ -226,6 +227,15 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_printername_oltree' => '{{doc-smwformat|oltree}}',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
+	
+	// format "slideshow"
+	'srf-printername-slideshow' => '{{doc-smwformat|slideshow}}',
+	'srf-paramdesc-delay' => '{{doc-paramdesc|delay}}',
+	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
+	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
+	'srf-paramdesc-navigation-buttons' => '{{doc-paramdesc|nav buttons}}',
+	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}'
+
 );
 
 /** Afrikaans (Afrikaans)
