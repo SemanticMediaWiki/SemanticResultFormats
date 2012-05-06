@@ -1,0 +1,21 @@
+/*
+	Main stylesheet for the slideshow query printer
+*/
+
+.slideshow-nav-left {
+	float:left;
+	cursor: pointer;
+	width: 50%;
+	text-align: left;
+}
+
+.slideshow-nav-right {
+	float:right;
+	cursor: pointer;
+	width: 50%;
+	text-align: right;
+}
+
+.slideshow-element {
+	background-color: white;
+}
