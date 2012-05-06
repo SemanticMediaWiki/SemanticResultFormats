@@ -16,7 +16,8 @@
 		var height        = options.data[3];
 		var width         = options.data[4];
 		var navButtons    = options.data[5];
-		var printrequests = options.data[6];
+		var effect        = options.data[6];
+		var printrequests = options.data[7];
 	
 		var requestedIndex = 0;
 		var timeout;
@@ -52,7 +53,261 @@
 		switchTo( 0, true, 0 );
 
 
-		function switchTo( index, moveRight, speed ) {
+		function switchTo( index, moveForward, speed ) {
+			
+			var animateForward, animateBackward;
+			
+			switch ( effect ) {
+				case 'slide left':
+					animateForward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'left': (targetDiv.outerWidth() * 1.1) + 'px'})
+						.animate({'left': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'left': (-oldWrapper.outerWidth()) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'left': (-targetDiv.outerWidth() * 1.1) + 'px'})
+						.animate({'left': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'left': (oldWrapper.outerWidth()) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					break;
+				case 'slide right':
+					animateForward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'left': (-newWrapper.outerWidth()) + 'px'})
+						.animate({'left': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'left': (targetDiv.outerWidth() * 1.1) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'left': (newWrapper.outerWidth()) + 'px'})
+						.animate({'left': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'left': (-targetDiv.outerWidth() * 1.1) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					break;
+				case 'slide up':
+					animateForward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'top': (targetDiv.outerHeight() * 1.1) + 'px'})
+						.animate({'top': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'top': (-oldWrapper.outerHeight()) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'top': (-targetDiv.outerHeight() * 1.1) + 'px'})
+						.animate({'top': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'top': (oldWrapper.outerHeight()) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					break;
+				case 'slide down':
+					animateForward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'top': (-newWrapper.outerHeight()) + 'px'})
+						.animate({'top': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'top': (targetDiv.outerHeight() * 1.1) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'top': (newWrapper.outerHeight()) + 'px'})
+						.animate({'top': '0px'}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'top': (-targetDiv.outerHeight() * 1.1) + 'px'}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}} );
+					}
+					
+					break;
+				case 'fade':
+					animateForward = animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+
+						newWrapper.children()
+						.css({'opacity': 0})
+						.animate({'opacity': 1}, {duration: speed, easing:'linear', queue: true} );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.animate({'opacity': 0}, {duration: speed, easing:'linear', queue: true, complete: function(){
+							jQuery(this).parent().detach();
+						}
+						} );
+					}
+					
+					break;
+				case 'hide':
+					animateForward = animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						// insert next result into document
+						targetDiv.append( newWrapper );
+
+						// need to set dimensions, might have changed since last cycle
+						newWrapper.children()
+						.width( targetDiv.width() )
+						.height( targetDiv.height() );
+						
+						// slide out old element, then detach it
+						oldWrapper.children()
+						.width( targetDiv.width() )
+						.height( targetDiv.height() );
+						
+						newWrapper
+						.width( 0 )
+						.height( 0 )
+						.css({'opacity': 0});
+						
+						
+						if ( oldWrapper.length > 0 ) {
+							oldWrapper
+							.animate({ 'opacity': 0, 'width': 0, 'height': 0 },
+							{ duration: speed, easing:'linear', queue: true, 
+								complete: function(){
+									jQuery(this).detach();
+
+									newWrapper
+									.animate({ 'opacity': 1, 'width': targetDiv.width(), 'height': targetDiv.height()}, {
+										duration: speed, easing:'linear', queue: true
+									} );
+								}
+							} );
+						} else {
+							newWrapper
+							.animate({ 'opacity': 1, 'width': targetDiv.width(), 'height': targetDiv.height()}, {
+								duration: speed, easing:'linear', queue: true
+							} );
+						}
+					}
+					
+					break;
+				default:
+					animateForward = animateBackward = function ( targetDiv, oldWrapper, newWrapper, speed ) {
+						
+						// need to set dimensions, might have changed since last cycle
+						// insert next result into document
+						newWrapper
+						.width( targetDiv.width() )
+						.height( targetDiv.height() )
+						.appendTo( targetDiv );
+
+						// slide out old element, then detach it
+						oldWrapper.detach();
+					}
+					
+					break;
+			}
 
 			// store old index, set new requested index
 			var oldIndex = requestedIndex
@@ -60,18 +315,18 @@
 		
 			// set speed to default if not given as param
 			if ( typeof speed === 'undefined' ) {
-				speed =  'slow';
+				speed = 'slow';
 			}
 			
 			// set speed to default if not given as param
-			if ( typeof moveRight === 'undefined' ) {
-				moveRight = true;
+			if ( typeof moveForward === 'undefined' ) {
+				moveForward = true;
 			}
 			
 			// requested result item not available and not loading
 			if ( results[index].length === 1) {
 				// fetch it and switch immediately
-				fetchResult( index, moveRight, speed );			
+				fetchResult( index, moveForward, speed );			
 			} else {
 				// requested result item available?
 				if ( typeof results[index][1] !== "boolean" ) {
@@ -87,39 +342,11 @@
 					// find current result (or sometimes current results)
 					var oldWrapper = targetDiv.children();
 					
-					// insert next result into document
-					targetDiv.append( newWrapper );
-
-					// need to set dimensions, might have changed since last cycle
-					newWrapper
-					.width( targetDiv.width() )
-					.height( targetDiv.height() )
-
 					// set start position for animation and slide in
-					if ( moveRight ) {
-						
-						newWrapper.children()
-						.css({'left': (targetDiv.outerWidth() * 1.1) + 'px'})
-						.animate({'left': '0px'}, { duration: speed, easing:'linear', queue: true } );
-						
-						// slide out old element, then detach it
-						oldWrapper.children()
-						.animate({'left': (-oldWrapper.outerWidth()) + 'px'}, { duration: speed, easing:'linear', queue: true, complete: function(){
-							jQuery(this).parent().detach();
-						}} );
-						
+					if ( moveForward ) {
+						animateForward( targetDiv, oldWrapper, newWrapper, speed);
 					} else {
-						
-						newWrapper.children()
-						.css({'left': (-targetDiv.outerWidth() * 1.1) + 'px'})
-						.animate({'left': '0px'}, { duration: speed, easing:'linear', queue: true } );
-						
-						// slide out old element, then detach it
-						oldWrapper.children()
-						.animate({'left': (oldWrapper.outerWidth()) + 'px'}, { duration: speed, easing:'linear', queue: true, complete: function(){
-							jQuery(this).parent().detach();
-						}} );
-						
+						animateBackward( targetDiv, oldWrapper, newWrapper, speed);
 					}
 
 					// calculate index of next result item

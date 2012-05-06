@@ -23,6 +23,7 @@ class SRFSlideShow extends SMWResultPrinter {
 	var $mHeight = '100px';
 	var $mWidth = '200px';
 	var $mNavButtons = false;
+	var $mEffect = 'none';
 
 	/**
 	 * Return serialised results in specified format.
@@ -71,6 +72,7 @@ class SRFSlideShow extends SMWResultPrinter {
 						$this->params['height'],
 						$this->params['width'],
 						$this->params['nav buttons'],
+						$this->params['effect'],
 						json_encode($printrequests) ,
 					)
 				) . ';'
@@ -109,6 +111,7 @@ class SRFSlideShow extends SMWResultPrinter {
 		$this->mHeight = $params['height'];
 		$this->mWidth = $params['width'];
 		$this->mNavButtons = $params['nav buttons'];
+		$this->mEffect = $params['effect'];
 		
 	}
 
@@ -142,9 +145,9 @@ class SRFSlideShow extends SMWResultPrinter {
 //		$params['named args'] = new Parameter( 'named args', Parameter::TYPE_BOOLEAN, false );
 //		$params['named args']->setMessage( 'smw_paramdesc_named_args' );
 
-		$params['delay'] = new Parameter( 'delay' );
+		$params['delay'] = new Parameter( 'delay', Parameter::TYPE_INTEGER );
 		$params['delay']->setMessage( 'srf-paramdesc-template' );
-		$params['delay']->setDefault( '5000' );	
+		$params['delay']->setDefault( '5' );	
 		
 		$params['height'] = new Parameter( 'height' );
 		$params['height']->setMessage( 'srf-paramdesc-height' );
@@ -158,6 +161,19 @@ class SRFSlideShow extends SMWResultPrinter {
 		$params['nav buttons']->setMessage( 'srf-paramdesc-nav-buttons' );
 		$params['nav buttons']->setDefault( false );	
 		
+		$params['effect'] = new Parameter( 'effect' );
+		$params['effect']->setMessage( 'srf-paramdesc-effect' );
+		$params['effect']->setDefault( 'none' );	
+		$params['effect']->addCriteria( new CriterionInArray(
+				'none',
+				'slide left',
+				'slide right',
+				'slide up',
+				'slide down',
+				'fade',
+				'hide'
+		) );
+
 		return $params;
 	}
 
