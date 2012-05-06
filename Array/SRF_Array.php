@@ -220,7 +220,7 @@ class SRFArray extends SMWResultPrinter {
 		}
 		$version = null;		
 		if( defined( 'ArrayExtension::VERSION' ) ) {
-			$version = ExtArrayExtension::VERSION;
+			$version = ArrayExtension::VERSION;
 		} elseif( defined( 'ExtArrayExtension::VERSION' ) ) {
 			$version = ExtArrayExtension::VERSION;
 		}
