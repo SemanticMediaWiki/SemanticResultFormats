@@ -227,15 +227,12 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_printername_oltree' => '{{doc-smwformat|oltree}}',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
-	
-	// format "slideshow"
 	'srf-printername-slideshow' => '{{doc-smwformat|slideshow}}',
 	'srf-paramdesc-delay' => '{{doc-paramdesc|delay}}',
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-navigation-buttons' => '{{doc-paramdesc|nav buttons}}',
-	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}'
-
+	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -766,7 +763,8 @@ $messages['de'] = array(
 	'srf-paramdesc-delay' => 'Die Verzögerung zwischen der Anzeige der einzelnen Bilder',
 	'srf-paramdesc-height' => 'Die Höhe des Bildvorführungswidgets',
 	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
-	'srf-paramdesc-nav-buttons' => 'Die Navigationsschaltflächen anzeigen oder nicht',
+	'srf-paramdesc-navigation-buttons' => 'Die Navigationsschaltflächen anzeigen oder nicht',
+	'srf-paramdesc-effect' => 'Der Effekt beim Wechseln zwischen den Bildern',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -1036,7 +1034,6 @@ $messages['es'] = array(
 	'srf-paramdesc-delay' => 'Tiempo entre diapositivas',
 	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
 	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
-	'srf-paramdesc-nav-buttons' => 'Mostrar o no mostrar los botones de navegación',
 );
 
 /** Basque (Euskara)
@@ -1877,7 +1874,6 @@ $messages['ia'] = array(
 	'srf-paramdesc-delay' => 'Tempore inter diapositivas',
 	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
 	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
-	'srf-paramdesc-nav-buttons' => 'Monstrar buttones navigational o non',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2365,7 +2361,6 @@ $messages['mk'] = array(
 	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите',
 	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
 	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
-	'srf-paramdesc-nav-buttons' => 'Дали да се прикажат навигациски копчиња',
 );
 
 /** Malayalam (മലയാളം)
