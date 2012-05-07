@@ -38,7 +38,7 @@ $messages['en'] = array(
 	'srf_outline_novalue' => 'No value',
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
-	
+
 	'srf_printername_D3Line' => 'D3 line chart',
 	'srf_printername_D3Bar' => 'D3 bar chart',
 	'srf_printername_D3Treemap' => 'D3 treemap',
@@ -91,7 +91,7 @@ $messages['en'] = array(
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
 	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
 	'srf-paramdesc-pointlabels' => 'Display in-chart data points',
-	'srf-paramdesc-chartlegend' => 'Chart legend position',	
+	'srf-paramdesc-chartlegend' => 'Chart legend position',
 	'srf-paramdesc-datalabels' =>	'Display chart labels',
 	'srf-paramdesc-charttext'		=> 'Descriptive chart text',
 	'srf-paramdesc-chartclass' => 'Additional CSS class',
@@ -137,7 +137,7 @@ $messages['en'] = array(
 	'srf_paramdesc_hidegaps' => 'Whether to print requested but unavailable property and record values separated by separators or leaving them out',
 	'srf_paramdesc_arrayname' => 'If given and ArrayExtension is available this will create an array with the specified name (no visible output then)',
 	'srf_paramdesc_propsep' => 'Separator between the requested properties',
-	'srf_paramdesc_manysep' => 'Separator between many valued property values',	
+	'srf_paramdesc_manysep' => 'Separator between many valued property values',
 	'srf_paramdesc_recordsep' => 'Separator between values of record properties',
 	'srf_paramdesc_headersep' => 'Separator between property name and value if "headers" is set to "show" or "plain"',
 	'srf_printername_hash' => 'Hash',
@@ -156,20 +156,29 @@ $messages['en'] = array(
 	'srf_paramdesc_graphlink' => 'Graph link',
 	'srf_paramdesc_graphcolor' => 'Graph color',
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
-	
+
 	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
-	
+
 	// DataTables
 	'srf_printername_datatables'  => 'DataTables',
 	'srf-paramdesc-rowindex'      => 'Table row index',
-	'srf-paramdesc-displaylength' => 'Initial display length', 
-	
+	'srf-paramdesc-displaylength' => 'Initial display length',
+
 	// format "tree", "ultree", "oltree"
 	'srf_printername_tree'  => 'Tree',
 	'srf_printername_ultree'  => 'Ultree',
 	'srf_printername_oltree'  => 'Oltree',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => 'The property containing the parent page',
+
+	// format "slideshow"
+	'srf-printername-slideshow' => 'SlideShow',
+	'srf-paramdesc-delay' => 'The delay between slides',
+	'srf-paramdesc-height' => 'The height of the slideshow widget',
+	'srf-paramdesc-width' => 'The width of the slideshow widget',
+	'srf-paramdesc-navigation-buttons' => 'Show navigation buttons or not',
+	'srf-paramdesc-effect' => 'The effect to switch from slide to slide'
+
 );
 
 /** Message documentation (Message documentation)
@@ -186,7 +195,7 @@ $messages['qqq'] = array(
 	'srf_vcard_link' => '{{optional}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_bibtex_link' => '{{optional}}',
-	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query. 
+	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query.
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
 	'srf_printername_D3Line' => '{{doc-smwformat|D3Line}}',
@@ -218,6 +227,15 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_printername_oltree' => '{{doc-smwformat|oltree}}',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
+	
+	// format "slideshow"
+	'srf-printername-slideshow' => '{{doc-smwformat|slideshow}}',
+	'srf-paramdesc-delay' => '{{doc-paramdesc|delay}}',
+	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
+	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
+	'srf-paramdesc-navigation-buttons' => '{{doc-paramdesc|nav buttons}}',
+	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}'
+
 );
 
 /** Afrikaans (Afrikaans)
@@ -665,11 +683,8 @@ $messages['de'] = array(
 	'srf_paramdesc_views' => 'Die anzuzeigenden Ansichten',
 	'srf_paramdesc_facets' => 'Die Gruppe der Attribute, die für jede Seite angezeigt werden sollen',
 	'srf_paramdesc_lens' => 'Der Name einer Vorlage zum Anzeigen der Seiteneigenschaften',
-	'srf-error-feature' => 'Diese Funktion ist derzeit nicht verfügbar',
 	'srf-error-resourceloader' => 'Dieses Format benötigt den ResourceLoader',
 	'srf-error-missing-renderer' => 'Es ist kein Programm zum Rendern des Diagramms / der Grafik vorhanden.',
-	'srf-error-missing-label' => 'Die Bezeichnung/Bezeichnungen zu $1 sind nicht vorhanden',
-	'srf-error-missing-number' => 'Die numerischen Informationen zu $1 sind nicht vorhanden',
 	'srf_printername_googlebar' => 'Google - Säulendiagramm',
 	'srf_printername_googlepie' => 'Google - Tortendiagramm',
 	'srf_printername_jqplotbar' => 'jqPlot - Säulen- oder Balkendiagramm',
@@ -747,6 +762,11 @@ $messages['de'] = array(
 	'srf_printername_oltree' => 'Baumansicht (nummeriert)',
 	'srf-noparentprop' => 'Es wurde kein übergeordnetes Attribut angegeben. Der Baum kann nicht ohne Angabe eines übergeordneten Attributs erstellt werden.',
 	'srf-paramdesc-parent' => 'Das Attribut, das die übergeordnete Seite enthält',
+	'srf-printername-slideshow' => 'Bildvorführung',
+	'srf-paramdesc-delay' => 'Die Verzögerung zwischen der Anzeige der einzelnen Bilder',
+	'srf-paramdesc-height' => 'Die Höhe des Bildvorführungswidgets',
+	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
+	'srf-paramdesc-nav-buttons' => 'Die Navigationsschaltflächen anzeigen oder nicht',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -933,11 +953,8 @@ $messages['es'] = array(
 	'srf_paramdesc_views' => 'Las vistas a mostrar',
 	'srf_paramdesc_facets' => 'El grupo de propiedades a mostrar para cada página',
 	'srf_paramdesc_lens' => 'El nombre de una plantilla con la que se muestra la propiedades de la página',
-	'srf-error-feature' => 'Actualmente esta función no está disponible',
 	'srf-error-resourceloader' => 'Este formato requiere ResourceLoader',
 	'srf-error-missing-renderer' => 'Falta un procesador de tablas/gráficas',
-	'srf-error-missing-label' => '$1 falta información de etiqueta(s)',
-	'srf-error-missing-number' => '$1falta información numérica',
 	'srf_printername_googlebar' => 'Gráfico de barras de Google',
 	'srf_printername_googlepie' => 'Gráfica circular de Google',
 	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
@@ -1015,6 +1032,11 @@ $messages['es'] = array(
 	'srf_printername_oltree' => 'Árbol OL',
 	'srf-noparentprop' => 'No se ha especificado ninguna propiedad padre. No se puede construir el árbol sin especificar una propiedad padre.',
 	'srf-paramdesc-parent' => 'La propiedad que contiene la página padre',
+	'srf-printername-slideshow' => 'Presentación de diapositivas',
+	'srf-paramdesc-delay' => 'Tiempo entre diapositivas',
+	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
+	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
+	'srf-paramdesc-nav-buttons' => 'Mostrar o no mostrar los botones de navegación',
 );
 
 /** Basque (Euskara)
@@ -1772,11 +1794,8 @@ $messages['ia'] = array(
 	'srf_paramdesc_views' => 'Le vistas a monstrar',
 	'srf_paramdesc_facets' => 'Le insimul de proprietates a monstrar pro cata pagina',
 	'srf_paramdesc_lens' => 'Le nomine de un patrono con le qual monstrar le proprietates de pagina',
-	'srf-error-feature' => 'Iste function es indisponibile pro le momento.',
 	'srf-error-resourceloader' => 'Iste formato require le ResourceLoader.',
 	'srf-error-missing-renderer' => 'Il manca un motor de rendition de graphicos.',
-	'srf-error-missing-label' => 'A $1 manca information de etiquetta(s).',
-	'srf-error-missing-number' => 'A $1 manca information numeric.',
 	'srf_printername_googlebar' => 'Diagramma a barras de Google',
 	'srf_printername_googlepie' => 'Diagramma circular de Google',
 	'srf_printername_jqplotbar' => 'Diagramma de barras jqPlot',
@@ -1854,6 +1873,11 @@ $messages['ia'] = array(
 	'srf_printername_oltree' => 'Arbore OL',
 	'srf-noparentprop' => 'Nulle proprietate genitor specificate. Le arbore non pote esser construite sin specification de un proprietate genitor.',
 	'srf-paramdesc-parent' => 'Le proprietate que contine le pagina genitor',
+	'srf-printername-slideshow' => 'Presentation de diapositivas',
+	'srf-paramdesc-delay' => 'Tempore inter diapositivas',
+	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
+	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
+	'srf-paramdesc-nav-buttons' => 'Monstrar buttones navigational o non',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2258,11 +2282,8 @@ $messages['mk'] = array(
 	'srf_paramdesc_views' => 'Погледите за прикажување',
 	'srf_paramdesc_facets' => 'Збирот својства кои ќе се прикажуваат на секоја страница',
 	'srf_paramdesc_lens' => 'Името на шаблонот со кој ќе се прикажат својствата на страницата',
-	'srf-error-feature' => 'Оваа функција е моментално недостапна.',
 	'srf-error-resourceloader' => 'Овој формат го бара вчитувачот на ресурси (ResourceLoader)',
 	'srf-error-missing-renderer' => 'Недостасува исписникот на графикони',
-	'srf-error-missing-label' => 'Во $1 недостасуваат информации за натпис(и)',
-	'srf-error-missing-number' => 'Во $1 недостасуваат бројчени информации',
 	'srf_printername_googlebar' => 'Столбен дијаграм од Google',
 	'srf_printername_googlepie' => 'Кружен дијаграм од Google',
 	'srf_printername_jqplotbar' => 'Столбен графикон jqPlot',
@@ -2340,6 +2361,11 @@ $messages['mk'] = array(
 	'srf_printername_oltree' => 'Подредено дрво',
 	'srf-noparentprop' => 'Нема зададено матично својство. Дрвото не може да се оформи без наведено матично својство.',
 	'srf-paramdesc-parent' => 'Својството што ја содржи матичната страница',
+	'srf-printername-slideshow' => 'ПодвижнаГалерија',
+	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите',
+	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
+	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
+	'srf-paramdesc-nav-buttons' => 'Дали да се прикажат навигациски копчиња',
 );
 
 /** Malayalam (മലയാളം)
@@ -2548,8 +2574,8 @@ $messages['nl'] = array(
 	'srf_paramdesc_charttitle' => 'Grafiektitel',
 	'srf_paramdesc_barcolor' => 'De kleur van de balken',
 	'srf_paramdesc_bardirection' => 'Geeft de richting van een grafiek aan',
-	'srf_paramdesc_barnumbersaxislabel' => 'Het lavel van de Y-as',
-	'srf-paramdesc-minvalue' => 'De minimumwaarde om op de Y-as weer te geven',
+	'srf_paramdesc_barnumbersaxislabel' => 'Het label van de nummeras',
+	'srf-paramdesc-minvalue' => 'De minimumwaarde om weer te geven op de Y-as',
 	'srf-paramdesc-pointlabels' => 'Individuele waarden in de grafiek weergeven',
 	'srf-paramdesc-chartlegend' => 'Positie van de grafieklegenda',
 	'srf-paramdesc-datalabels' => 'Grafieklegenda weergeven',
@@ -2588,7 +2614,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-graph-nodeshape' => 'De vorm van de knooppunten in de grafiek.',
 	'srf_paramdesc_graphname' => 'Naam',
 	'srf_paramdesc_graphsize' => 'Grafiekgrootte (in pixels)',
-	'srf_paramdesc_graphlegend' => 'Legenda al dan niet weergeven',
+	'srf_paramdesc_graphlegend' => 'Legenda weergeven of verbergen',
 	'srf_paramdesc_graphlabel' => 'Grafieklabel',
 	'srf_paramdesc_rankdir' => 'Pijlrichting',
 	'srf_paramdesc_graphlink' => 'Grafiekverwijzing',

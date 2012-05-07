@@ -99,6 +99,7 @@ $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';
 $wgAutoloadClasses['SRFTree'] = $formatDir . 'Tree/SRF_Tree.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 $wgAutoloadClasses['SRFTime'] = $formatDir . 'Time/SRF_Time.php';
+$wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'SlideShow/SRF_SlideShow.php';
 
 unset( $formatDir );
 
@@ -107,6 +108,8 @@ $wgAutoloadClasses['SRFHooks'] = $srfgIP . '/SRF_Hooks.php';
 
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
+
+$wgAjaxExportList[] = 'SRFSlideShow::handleGetResult';
 
 /**
  * Autoload the query printer classes and associate them with their formats in the $smwgResultFormats array.
@@ -154,6 +157,7 @@ function srffInitFormats() {
 		'filtered' => 'SRFFiltered',
 		'latest' => 'SRFTime',
 		'earliest' => 'SRFTime',
+		'slideshow' => 'SRFSlideShow',
 	);
 
 	$formatAliases = array(

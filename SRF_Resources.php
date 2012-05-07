@@ -205,4 +205,16 @@ $wgResourceModules['ext.srf.filtered.distance-filter'] = $moduleTemplate + array
 	),
 );
 
+$wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
+	'scripts' => array(
+		'SlideShow/ext.srf.slideshow.js',
+	),
+	'styles' => array(
+		'SlideShow/ext.srf.slideshow.css',
+	),
+	'dependencies' => array(
+		'mediawiki.legacy.ajax',
+	),
+);
+
 unset( $moduleTemplate );
