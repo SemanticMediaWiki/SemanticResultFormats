@@ -173,11 +173,12 @@ $messages['en'] = array(
 
 	// format "slideshow"
 	'srf-printername-slideshow' => 'SlideShow',
-	'srf-paramdesc-delay' => 'The delay between slides',
+	'srf-paramdesc-class' => 'Additional CSS class',
+	'srf-paramdesc-delay' => 'The delay between slides in seconds',
 	'srf-paramdesc-height' => 'The height of the slideshow widget',
 	'srf-paramdesc-width' => 'The width of the slideshow widget',
-	'srf-paramdesc-navigation-buttons' => 'Show navigation buttons or not',
-	'srf-paramdesc-effect' => 'The effect to switch from slide to slide'
+	'srf-paramdesc-navigation-controls' => 'Show navigation controls or not',
+	'srf-paramdesc-effect' => 'The effect to be used to switch from slide to slide'
 
 );
 
@@ -228,10 +229,11 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
 	'srf-printername-slideshow' => '{{doc-smwformat|slideshow}}',
+	'srf-paramdesc-class' => '{{doc-paramdesc|class}}',
 	'srf-paramdesc-delay' => '{{doc-paramdesc|delay}}',
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
-	'srf-paramdesc-navigation-buttons' => '{{doc-paramdesc|nav buttons}}',
+	'srf-paramdesc-navigation-controls' => '{{doc-paramdesc|nav controls}}',
 	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
 );
 
@@ -763,7 +765,7 @@ $messages['de'] = array(
 	'srf-paramdesc-delay' => 'Die Verzögerung zwischen der Anzeige der einzelnen Bilder',
 	'srf-paramdesc-height' => 'Die Höhe des Bildvorführungswidgets',
 	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
-	'srf-paramdesc-navigation-buttons' => 'Die Navigationsschaltflächen anzeigen oder nicht',
+	'srf-paramdesc-navigation-controls' => 'Die Navigationsschaltflächen anzeigen oder nicht',
 	'srf-paramdesc-effect' => 'Der Effekt beim Wechseln zwischen den Bildern',
 );
 
