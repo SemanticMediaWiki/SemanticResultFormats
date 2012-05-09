@@ -227,15 +227,12 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf_printername_oltree' => '{{doc-smwformat|oltree}}',
 	'srf-noparentprop' => 'No parent property given. The tree can not be built without a specified parent property.',
 	'srf-paramdesc-parent' => '{{doc-paramdesc|parent}}',
-	
-	// format "slideshow"
 	'srf-printername-slideshow' => '{{doc-smwformat|slideshow}}',
 	'srf-paramdesc-delay' => '{{doc-paramdesc|delay}}',
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-navigation-buttons' => '{{doc-paramdesc|nav buttons}}',
-	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}'
-
+	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -766,7 +763,8 @@ $messages['de'] = array(
 	'srf-paramdesc-delay' => 'Die Verzögerung zwischen der Anzeige der einzelnen Bilder',
 	'srf-paramdesc-height' => 'Die Höhe des Bildvorführungswidgets',
 	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
-	'srf-paramdesc-nav-buttons' => 'Die Navigationsschaltflächen anzeigen oder nicht',
+	'srf-paramdesc-navigation-buttons' => 'Die Navigationsschaltflächen anzeigen oder nicht',
+	'srf-paramdesc-effect' => 'Der Effekt beim Wechseln zwischen den Bildern',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -1036,7 +1034,8 @@ $messages['es'] = array(
 	'srf-paramdesc-delay' => 'Tiempo entre diapositivas',
 	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
 	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
-	'srf-paramdesc-nav-buttons' => 'Mostrar o no mostrar los botones de navegación',
+	'srf-paramdesc-navigation-buttons' => 'Mostrar o no mostrar los botones de navegación',
+	'srf-paramdesc-effect' => 'El efecto para cambiar de una diapositiva a la siguiente',
 );
 
 /** Basque (Euskara)
@@ -1150,11 +1149,8 @@ $messages['fr'] = array(
 	'srf_paramdesc_views' => 'Les vues à afficher',
 	'srf_paramdesc_facets' => 'L’ensemble des propriétés à afficher pour chaque page',
 	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
-	'srf-error-feature' => "Cette fonctionnalité n'est pas disponible pour le moment",
 	'srf-error-resourceloader' => 'Ce format nécessite le ResourceLoader',
 	'srf-error-missing-renderer' => 'Un moteur de rendu de graphique/graphe est manquant',
-	'srf-error-missing-label' => "$1 manque d'information de libellé(s)",
-	'srf-error-missing-number' => "$1 manque d'informations numériques",
 	'srf_printername_googlebar' => 'Diagramme à barres de Google',
 	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
 	'srf_printername_jqplotbar' => 'Diagramme en barres jqPlot',
@@ -1232,6 +1228,12 @@ $messages['fr'] = array(
 	'srf_printername_oltree' => 'Arbre Ol',
 	'srf-noparentprop' => "Aucune propriété parente fournie. L'arbre ne peut pas être construit sans une propriété parente spécifiée.",
 	'srf-paramdesc-parent' => 'La propriété contenant la page parent',
+	'srf-printername-slideshow' => 'Diaporama',
+	'srf-paramdesc-delay' => 'Le délai entre les diapositives',
+	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
+	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
+	'srf-paramdesc-navigation-buttons' => 'Afficher les boutons de navigation ou non',
+	'srf-paramdesc-effect' => "L'effet de passage d'une diapositive à l'autre",
 );
 
 /** Franco-Provençal (Arpetan)
@@ -1877,7 +1879,7 @@ $messages['ia'] = array(
 	'srf-paramdesc-delay' => 'Tempore inter diapositivas',
 	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
 	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
-	'srf-paramdesc-nav-buttons' => 'Monstrar buttones navigational o non',
+	'srf-paramdesc-navigation-buttons' => 'Monstrar buttones navigational o non',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2365,7 +2367,8 @@ $messages['mk'] = array(
 	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите',
 	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
 	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
-	'srf-paramdesc-nav-buttons' => 'Дали да се прикажат навигациски копчиња',
+	'srf-paramdesc-navigation-buttons' => 'Дали да се прикажат навигациски копчиња',
+	'srf-paramdesc-effect' => 'Ефектот при префрлањето од слика на слика',
 );
 
 /** Malayalam (മലയാളം)
@@ -2553,6 +2556,7 @@ $messages['nl'] = array(
 	'srf_printername_median' => 'Mediaan van getallen',
 	'srf-paramdesc-default' => 'De standaard waarde die wordt weergegeven als er geen numerieke resultaten zijn',
 	'srf_printername_earliest' => 'Vroegste tijd',
+	'srf_printername_latest' => 'Meest recente tijd',
 	'srf_printername_timeline' => 'Tijdlijn',
 	'srf_printername_eventline' => 'Gebeurtenissenlijn',
 	'srf_paramdesc_timelinebands' => 'Geeft aan welke banden in het resultaat weergegeven moeten worden.',
@@ -2565,10 +2569,13 @@ $messages['nl'] = array(
 	'srf_paramdesc_views' => 'De weer te geven overzichten',
 	'srf_paramdesc_facets' => 'De op iedere pagina weer te geven eigenschappen',
 	'srf_paramdesc_lens' => 'De naam van het sjabloon waarmee de paginaeigenschappen weergegeven moeten worden',
+	'srf-error-resourceloader' => 'Voor deze opmaak is ResourceLoader vereist',
+	'srf-error-missing-renderer' => 'Er mist een renderer voor een kaart of grafiek',
 	'srf_printername_googlebar' => 'Google staafgrafiek',
 	'srf_printername_googlepie' => 'Google taartgrafiek',
 	'srf_printername_jqplotbar' => 'jqPlot-staafdiagram',
 	'srf_printername_jqplotpie' => 'jqPlot-circeldiagram',
+	'srf_printername_jqplotseries' => 'jqPlot-seriekaart',
 	'srf_paramdesc_chartheight' => 'De hoogte van de grafiek (in pixels)',
 	'srf_paramdesc_chartwidth' => 'De breedte van de grafiek (in pixels)',
 	'srf_paramdesc_charttitle' => 'Grafiektitel',
@@ -2579,6 +2586,9 @@ $messages['nl'] = array(
 	'srf-paramdesc-pointlabels' => 'Individuele waarden in de grafiek weergeven',
 	'srf-paramdesc-chartlegend' => 'Positie van de grafieklegenda',
 	'srf-paramdesc-datalabels' => 'Grafieklegenda weergeven',
+	'srf-paramdesc-charttext' => 'Beschrijvende grafiektekst',
+	'srf-paramdesc-chartclass' => 'Extra CSS-klasse',
+	'srf-paramdesc-renderer' => 'Selecteer een renderer voor een kaart of grafiek',
 	'srf-paramdesc-colorscheme' => 'Selecteer een kleurschema',
 	'srf_printername_gallery' => 'Galerij',
 	'srf_paramdesc_perrow' => 'Het aantal afbeeldingen per rij',
@@ -2627,6 +2637,12 @@ $messages['nl'] = array(
 	'srf_printername_tree' => 'Boom',
 	'srf-noparentprop' => 'Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.',
 	'srf-paramdesc-parent' => 'De eigenschap die de bovenliggende pagina bevat',
+	'srf-printername-slideshow' => 'Diapresentatie',
+	'srf-paramdesc-delay' => "De vertraging tussen dia's",
+	'srf-paramdesc-height' => 'De hoogte van de diapresentatiewidget',
+	'srf-paramdesc-width' => 'De breedte van de diapresentatiewidget',
+	'srf-paramdesc-navigation-buttons' => 'Navigatieknoppen weergeven of verbergen',
+	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselens",
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
