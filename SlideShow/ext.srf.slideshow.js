@@ -15,12 +15,13 @@
 		var delay         = options.data[2];
 		var height        = options.data[3];
 		var width         = options.data[4];
-		var navButtons    = options.data[5];
+		var navControls   = options.data[5];
 		var effect        = options.data[6];
 		var printrequests = options.data[7];
 	
 		var requestedIndex = 0;
 		var timeout;
+		var nav = null;
 	
 		// Build widget
 		
@@ -31,22 +32,30 @@
 		.width( width )
 		.append( targetDiv );
 		
-		if ( navButtons ) {
-			var navLeft = jQuery('<div class="slideshow-nav-left" >&lt;</div>');
-			var navRight = jQuery('<div class="slideshow-nav-right" >&gt;</div>');
+		if ( navControls ) {
+			var readout = $('<div class="slideshow-nav-readout">' + 1 + '</div>' );
+			nav = jQuery('<div class="slideshow-nav" >');
 			
-			
-			navLeft.click(function(){
-				switchTo(getPreviousIndex( requestedIndex), false );
+			nav.slider({
+				animate: true,
+				min: 1,
+				max: results.length,
+				value: 1,
+				slide: function(event, ui) {
+					readout.empty().append( ui.value );
+					switchTo( ui.value - 1, requestedIndex < ui.value - 1 );
+				},
+				change: function(event, ui) {
+					readout.empty().append( ui.value );
+				}
 			});
+
+			nav.find('.ui-slider-handle')
+			.append( readout )
 			
-			navRight.click(function(){
-				switchTo(getNextIndex( requestedIndex) );
-			});
+			nav
+			.appendTo( this );
 			
-			this
-			.append( navLeft )
-			.append( navRight );
 		}
 	
 		// start the show
@@ -242,6 +251,7 @@
 						
 						// slide out old element, then detach it
 						oldWrapper.children()
+						.css({'opacity': 1})
 						.animate({'opacity': 0}, {duration: speed, easing:'linear', queue: true, complete: function(){
 							jQuery(this).parent().detach();
 						}
@@ -278,6 +288,7 @@
 									jQuery(this).detach();
 
 									newWrapper
+									.css({ 'opacity': 0, 'width': 0, 'height': 0 })
 									.animate({ 'opacity': 1, 'width': targetDiv.width(), 'height': targetDiv.height()}, {
 										duration: speed, easing:'linear', queue: true
 									} );
@@ -309,8 +320,7 @@
 					break;
 			}
 
-			// store old index, set new requested index
-			var oldIndex = requestedIndex
+			// set new requested index
 			requestedIndex = index;
 		
 			// set speed to default if not given as param
@@ -379,14 +389,25 @@
 				// wait some time then switch to next result item
 				timeout = window.setTimeout( function(){
 
+					var nextIndex =  requestedIndex + 1;
+
+					if ( nextIndex >= results.length ) {
+						nextIndex = 0;
+					}
+			
 					// switch to next item
-					switchTo( getNextIndex( requestedIndex ) );
+					if ( nav !== null ) {
+						switchTo( nextIndex, nextIndex > requestedIndex );
+						nav.slider( "value", requestedIndex + 1 );
+					} else {
+						switchTo( nextIndex );
+					}
 
 				}, delay);
 			}
 		}
 
-		function fetchResult( index, moveRight, speed ) {
+		function fetchResult( index, moveForward, speed ) {
 		
 			// mark as loading
 			results[index][1] = true;
@@ -399,16 +420,11 @@
 				// create element from returned text
 				var element = jQuery( '<div class="slideshow-element">' + ajaxHeader.responseText + '</div>' );
 				
-				// initialize style parameters
-				element
-				.css({'position':'relative', 'top':0, 'left':0});
-				
 				// create wrapper, basically a mask to hide the overflow when animating
-				var wrapper = jQuery( '<div>' );
+				var wrapper = jQuery( '<div class="slideshow-element-wrapper">' );
 				
-				// initialize style parameters and insert element
+				// insert element
 				wrapper
-				.css({'position':'absolute', 'top':0, 'left':0, 'overflow':'hidden'})
 				.append(element);
 				
 				// store the wrapper with the attached element
@@ -416,37 +432,13 @@
 
 				// is the loaded item the requested one, switch to it immediately
 				if ( requestedIndex === index ) {
-					switchTo( requestedIndex, moveRight, speed );
+					switchTo( requestedIndex, moveForward, speed );
 				}
 
 			});
 
 		}
 		
-		function getNextIndex( index ) {
-			
-			// increase element index
-			index++;
-			if ( index >= results.length ) {
-				return 0;
-			} else {
-				return index;
-			}
-
-		}
-
-		function getPreviousIndex( index ) {
-			
-			// decrease element index
-			if ( index == 0 ) {
-				return results.length - 1;
-			} else {
-				return index-1
-			};
-
-		}
-
-
 	};
 })( jQuery );
 
