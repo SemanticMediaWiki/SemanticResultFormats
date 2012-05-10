@@ -699,19 +699,19 @@ $messages['de'] = array(
 	'srf-paramdesc-pointlabels' => 'Die Anzeige der Diagrammdatenpunkte',
 	'srf-paramdesc-chartlegend' => 'Die Position der Diagrammlegenden',
 	'srf-paramdesc-datalabels' => 'Die Anzeige der Diagrammbeschriftungen',
-	'srf-paramdesc-charttext' => 'Beschreibender Diagrammtext',
+	'srf-paramdesc-charttext' => 'Der beschreibende Diagrammtext',
 	'srf-paramdesc-chartclass' => 'Zusätzliche CSS-Klasse',
 	'srf-paramdesc-renderer' => 'Das Programm zum Rendern des Diagramms / der Grafik auswählen',
-	'srf-paramdesc-filling' => 'Individuelle Fülloption',
+	'srf-paramdesc-filling' => 'Die individuelle Fülloption',
 	'srf-paramdesc-theme' => 'Die Anmutung für das Raster auswählen',
-	'srf-paramdesc-chartcolor' => 'Individuelle Diagrammfarben zuteilen',
+	'srf-paramdesc-chartcolor' => 'Die individuellen Diagrammfarben zuteilen',
 	'srf-paramdesc-colorscheme' => 'Wähle ein Farbschema',
-	'srf-paramdesc-valueformat' => 'Formatierungsregel für Werte bestimmen',
+	'srf-paramdesc-valueformat' => 'Die Formatierungsregel für Werte bestimmen',
 	'srf-paramdesc-highlighter' => 'Eine Hervorhebung zu Datenpunkten anzeigen',
 	'srf-paramdesc-smoothlines' => 'Einen Algorithmus zum Glätten der Anzeige von Liniendiagrammen einsetzen',
 	'srf-paramdesc-stackseries' => 'Diagramm als gestapelte Reihen anzeigen',
 	'srf-paramdesc-seriesgroup' => 'Die Gruppierung von Datenreihen auswählen',
-	'srf-paramdesc-serieslabel' => 'Reihenbeschriftungen bestimmen',
+	'srf-paramdesc-serieslabel' => 'Die Reihenbeschriftungen bestimmen',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => 'Die Anzahl der Bilder pro Zeile',
 	'srf_paramdesc_widths' => 'Die Breite der Bilder',
@@ -762,6 +762,7 @@ $messages['de'] = array(
 	'srf-noparentprop' => 'Es wurde kein übergeordnetes Attribut angegeben. Der Baum kann nicht ohne Angabe eines übergeordneten Attributs erstellt werden.',
 	'srf-paramdesc-parent' => 'Das Attribut, das die übergeordnete Seite enthält',
 	'srf-printername-slideshow' => 'Bildvorführung',
+	'srf-paramdesc-class' => 'Die zusätzliche CSS-Klasse',
 	'srf-paramdesc-delay' => 'Die Verzögerung zwischen der Anzeige der einzelnen Bilder',
 	'srf-paramdesc-height' => 'Die Höhe des Bildvorführungswidgets',
 	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
@@ -1036,7 +1037,6 @@ $messages['es'] = array(
 	'srf-paramdesc-delay' => 'Tiempo entre diapositivas',
 	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
 	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
-	'srf-paramdesc-navigation-buttons' => 'Mostrar o no mostrar los botones de navegación',
 	'srf-paramdesc-effect' => 'El efecto para cambiar de una diapositiva a la siguiente',
 );
 
@@ -1234,7 +1234,6 @@ $messages['fr'] = array(
 	'srf-paramdesc-delay' => 'Le délai entre les diapositives',
 	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
 	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
-	'srf-paramdesc-navigation-buttons' => 'Afficher les boutons de navigation ou non',
 	'srf-paramdesc-effect' => "L'effet de passage d'une diapositive à l'autre",
 );
 
@@ -1881,7 +1880,6 @@ $messages['ia'] = array(
 	'srf-paramdesc-delay' => 'Tempore inter diapositivas',
 	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
 	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
-	'srf-paramdesc-navigation-buttons' => 'Monstrar buttones navigational o non',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2369,7 +2367,6 @@ $messages['mk'] = array(
 	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите',
 	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
 	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
-	'srf-paramdesc-navigation-buttons' => 'Дали да се прикажат навигациски копчиња',
 	'srf-paramdesc-effect' => 'Ефектот при префрлањето од слика на слика',
 );
 
@@ -2643,7 +2640,6 @@ $messages['nl'] = array(
 	'srf-paramdesc-delay' => "De vertraging tussen dia's",
 	'srf-paramdesc-height' => 'De hoogte van de diapresentatiewidget',
 	'srf-paramdesc-width' => 'De breedte van de diapresentatiewidget',
-	'srf-paramdesc-navigation-buttons' => 'Navigatieknoppen weergeven of verbergen',
 	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselens",
 );
 
