@@ -763,11 +763,11 @@ $messages['de'] = array(
 	'srf-paramdesc-parent' => 'Das Attribut, das die übergeordnete Seite enthält',
 	'srf-printername-slideshow' => 'Bildvorführung',
 	'srf-paramdesc-class' => 'Die zusätzliche CSS-Klasse',
-	'srf-paramdesc-delay' => 'Die Verzögerung zwischen der Anzeige der einzelnen Bilder',
+	'srf-paramdesc-delay' => 'Die Verzögerung beim Wechseln zwischen den einzelnen Bildern in Sekunden',
 	'srf-paramdesc-height' => 'Die Höhe des Bildvorführungswidgets',
 	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
 	'srf-paramdesc-navigation-controls' => 'Die Navigationsschaltflächen anzeigen oder nicht',
-	'srf-paramdesc-effect' => 'Der Effekt beim Wechseln zwischen den Bildern',
+	'srf-paramdesc-effect' => 'Der Effekt, der beim Wechseln zwischen den einzelnen Bildern angewendet werden soll',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -1628,10 +1628,7 @@ $messages['hsb'] = array(
 	'srf_paramdesc_views' => 'Napohlady, kotrež maja so zwobraznić',
 	'srf_paramdesc_facets' => 'Sadźba atributow, kotrež maja so za kóždu stronu zwobraznić',
 	'srf_paramdesc_lens' => 'Mjeno předłohi, z kotrejž atributy strony maja so zwobraznić',
-	'srf-error-feature' => 'Tuta funkcija tuchwilu k dispoziciji njesteji.',
 	'srf-error-resourceloader' => 'Tutón format sej ResourceLoader wužaduje',
-	'srf-error-missing-label' => '$1 nima informacije wo popisach',
-	'srf-error-missing-number' => '$1 nima numeriske informcije',
 	'srf_printername_googlebar' => 'Google hrjadowy diagram',
 	'srf_printername_googlepie' => 'Google tortowy diagram',
 	'srf_printername_jqplotbar' => 'Stołpowy abo hrjadowy diagram jgPlot',
@@ -2367,11 +2364,11 @@ $messages['mk'] = array(
 	'srf-paramdesc-parent' => 'Својството што ја содржи матичната страница',
 	'srf-printername-slideshow' => 'ПодвижнаГалерија',
 	'srf-paramdesc-class' => 'Дополнителна CSS-класа',
-	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите',
+	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите во секунди',
 	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
 	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
 	'srf-paramdesc-navigation-controls' => 'Дали да се прикажат навигациските контроли',
-	'srf-paramdesc-effect' => 'Ефектот при префрлањето од слика на слика',
+	'srf-paramdesc-effect' => 'Ефектот што ќе се корсити при префрлањето од слика на слика',
 );
 
 /** Malayalam (മലയാളം)
@@ -2592,7 +2589,16 @@ $messages['nl'] = array(
 	'srf-paramdesc-charttext' => 'Beschrijvende grafiektekst',
 	'srf-paramdesc-chartclass' => 'Extra CSS-klasse',
 	'srf-paramdesc-renderer' => 'Selecteer een renderer voor een kaart of grafiek',
+	'srf-paramdesc-filling' => 'Optie voor individuele vulling',
+	'srf-paramdesc-theme' => 'Selecteer een vormgeving voor het raster',
+	'srf-paramdesc-chartcolor' => 'Individuele grafiekkleuren toewijzen',
 	'srf-paramdesc-colorscheme' => 'Selecteer een kleurschema',
+	'srf-paramdesc-valueformat' => 'Geef een opmaakregel voor de waarden op',
+	'srf-paramdesc-highlighter' => 'Een gegevenspuntmarkering opgeven',
+	'srf-paramdesc-smoothlines' => 'Lijnen in lijngrafieken vloeiend maken',
+	'srf-paramdesc-stackseries' => 'Grafiek weergeven als gestapelde series',
+	'srf-paramdesc-seriesgroup' => 'Selecteer groeperen van series',
+	'srf-paramdesc-serieslabel' => 'Geef labels voor series op',
 	'srf_printername_gallery' => 'Galerij',
 	'srf_paramdesc_perrow' => 'Het aantal afbeeldingen per rij',
 	'srf_paramdesc_widths' => 'De breedte van de afbeeldingen',
@@ -2638,13 +2644,17 @@ $messages['nl'] = array(
 	'srf-paramdesc-rowindex' => 'Tabelrij-index',
 	'srf-paramdesc-displaylength' => 'Eerste weergavelengte',
 	'srf_printername_tree' => 'Boom',
+	'srf_printername_ultree' => 'Ongenummerde lijst',
+	'srf_printername_oltree' => 'Genummerde lijst',
 	'srf-noparentprop' => 'Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.',
 	'srf-paramdesc-parent' => 'De eigenschap die de bovenliggende pagina bevat',
 	'srf-printername-slideshow' => 'Diapresentatie',
-	'srf-paramdesc-delay' => "De vertraging tussen dia's",
+	'srf-paramdesc-class' => 'Extra CSS-klasse',
+	'srf-paramdesc-delay' => "De vertraging tussen dia's in seconden",
 	'srf-paramdesc-height' => 'De hoogte van de diapresentatiewidget',
 	'srf-paramdesc-width' => 'De breedte van de diapresentatiewidget',
-	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselens",
+	'srf-paramdesc-navigation-controls' => 'Of navigatieknoppen wel of niet weergegeven moeten worden',
+	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselen",
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -2706,6 +2716,17 @@ $messages['pdc'] = array(
 	'srfc_previousmonth' => 'Letscht Munet',
 	'srfc_nextmonth' => 'Neegscht Munet',
 	'srfc_today' => 'Heit',
+);
+
+/** Pälzisch (Pälzisch)
+ * @author Manuae
+ */
+$messages['pfl'] = array(
+	'srfc_previousmonth' => 'Vorische Monad',
+	'srfc_nextmonth' => 'Negschde Monad',
+	'srfc_today' => 'Haid',
+	'srf_printername_earliest' => 'De friehschde Zaidpungd',
+	'srf_printername_latest' => 'De schbedschde Zaidpungd',
 );
 
 /** Polish (Polski)
@@ -3224,7 +3245,7 @@ $messages['tg-cyrl'] = array(
 	'srfc_gotomonth' => 'Рафтан ба моҳ',
 );
 
-/** Tajik (Latin script) (tojikī)
+/** Tajik (Latin script) (Tojikī)
  * @author Liangent
  */
 $messages['tg-latn'] = array(
@@ -3341,7 +3362,7 @@ $messages['vec'] = array(
 	'srfc_gotomonth' => 'Và al mese',
 );
 
-/** Veps (Vepsan kel')
+/** Veps (Vepsän kel’)
  * @author Игорь Бродский
  */
 $messages['vep'] = array(
