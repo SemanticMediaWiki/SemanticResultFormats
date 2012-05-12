@@ -1231,9 +1231,11 @@ $messages['fr'] = array(
 	'srf-noparentprop' => "Aucune propriété parente fournie. L'arbre ne peut pas être construit sans une propriété parente spécifiée.",
 	'srf-paramdesc-parent' => 'La propriété contenant la page parent',
 	'srf-printername-slideshow' => 'Diaporama',
+	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
 	'srf-paramdesc-delay' => 'Le délai entre les diapositives',
 	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
 	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
+	'srf-paramdesc-navigation-controls' => 'Afficher les contrôles de navigation ou non',
 	'srf-paramdesc-effect' => "L'effet de passage d'une diapositive à l'autre",
 );
 
@@ -2364,9 +2366,11 @@ $messages['mk'] = array(
 	'srf-noparentprop' => 'Нема зададено матично својство. Дрвото не може да се оформи без наведено матично својство.',
 	'srf-paramdesc-parent' => 'Својството што ја содржи матичната страница',
 	'srf-printername-slideshow' => 'ПодвижнаГалерија',
+	'srf-paramdesc-class' => 'Дополнителна CSS-класа',
 	'srf-paramdesc-delay' => 'Временското растојание помеѓу сликите',
 	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
 	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
+	'srf-paramdesc-navigation-controls' => 'Дали да се прикажат навигациските контроли',
 	'srf-paramdesc-effect' => 'Ефектот при префрлањето од слика на слика',
 );
 
