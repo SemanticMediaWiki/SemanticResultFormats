@@ -1034,10 +1034,10 @@ $messages['es'] = array(
 	'srf-noparentprop' => 'No se ha especificado ninguna propiedad padre. No se puede construir el árbol sin especificar una propiedad padre.',
 	'srf-paramdesc-parent' => 'La propiedad que contiene la página padre',
 	'srf-printername-slideshow' => 'Presentación de diapositivas',
-	'srf-paramdesc-delay' => 'Tiempo entre diapositivas',
+	'srf-paramdesc-delay' => 'Tiempo entre diapositivas, en segundos',
 	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
 	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
-	'srf-paramdesc-effect' => 'El efecto para cambiar de una diapositiva a la siguiente',
+	'srf-paramdesc-effect' => 'El efecto que se utilizará para cambiar de una diapositiva a la siguiente',
 );
 
 /** Basque (Euskara)
@@ -1876,9 +1876,12 @@ $messages['ia'] = array(
 	'srf-noparentprop' => 'Nulle proprietate genitor specificate. Le arbore non pote esser construite sin specification de un proprietate genitor.',
 	'srf-paramdesc-parent' => 'Le proprietate que contine le pagina genitor',
 	'srf-printername-slideshow' => 'Presentation de diapositivas',
-	'srf-paramdesc-delay' => 'Tempore inter diapositivas',
+	'srf-paramdesc-class' => 'Classe CSS additional',
+	'srf-paramdesc-delay' => 'Tempore inter diapositivas in secundas',
 	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
 	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
+	'srf-paramdesc-navigation-controls' => 'Monstrar controlos de navigation o non',
+	'srf-paramdesc-effect' => 'Le effecto a usar pro cambiar inter diapositivas',
 );
 
 /** Indonesian (Bahasa Indonesia)
