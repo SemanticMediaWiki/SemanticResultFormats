@@ -1034,9 +1034,11 @@ $messages['es'] = array(
 	'srf-noparentprop' => 'No se ha especificado ninguna propiedad padre. No se puede construir el árbol sin especificar una propiedad padre.',
 	'srf-paramdesc-parent' => 'La propiedad que contiene la página padre',
 	'srf-printername-slideshow' => 'Presentación de diapositivas',
+	'srf-paramdesc-class' => 'Clase CSS adicional',
 	'srf-paramdesc-delay' => 'Tiempo entre diapositivas, en segundos',
 	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
 	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
+	'srf-paramdesc-navigation-controls' => 'Mostrar controles de navegación o no mostrarlos',
 	'srf-paramdesc-effect' => 'El efecto que se utilizará para cambiar de una diapositiva a la siguiente',
 );
 
@@ -1232,11 +1234,11 @@ $messages['fr'] = array(
 	'srf-paramdesc-parent' => 'La propriété contenant la page parent',
 	'srf-printername-slideshow' => 'Diaporama',
 	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
-	'srf-paramdesc-delay' => 'Le délai entre les diapositives',
+	'srf-paramdesc-delay' => 'Le délai entre les diapositives en secondes',
 	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
 	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
 	'srf-paramdesc-navigation-controls' => 'Afficher les contrôles de navigation ou non',
-	'srf-paramdesc-effect' => "L'effet de passage d'une diapositive à l'autre",
+	'srf-paramdesc-effect' => "L'effet à utiliser pour passer d'une diapositive à l'autre",
 );
 
 /** Franco-Provençal (Arpetan)
@@ -1421,6 +1423,13 @@ $messages['gl'] = array(
 	'srf_printername_oltree' => 'Árbore OL',
 	'srf-noparentprop' => 'Non se especificou propiedade pai ningunha. Non se pode construír a árbore sen achegar unha propiedade pai.',
 	'srf-paramdesc-parent' => 'A propiedade que contén a páxina pai',
+	'srf-printername-slideshow' => 'Presentación de diapositivas',
+	'srf-paramdesc-class' => 'Clase CSS adicional',
+	'srf-paramdesc-delay' => 'O tempo entre diapositivas, en segundos',
+	'srf-paramdesc-height' => 'A altura do widget de diapositivas',
+	'srf-paramdesc-width' => 'O largo do widget de diapositivas',
+	'srf-paramdesc-navigation-controls' => 'Mostrar ou non os controis de navegación',
+	'srf-paramdesc-effect' => 'O efecto que se usará ao cambiar dunha diapositiva a outra',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
