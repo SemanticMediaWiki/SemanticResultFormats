@@ -1653,6 +1653,7 @@ $messages['hsb'] = array(
 	'srf-paramdesc-datalabels' => 'Diagramowe popisy zwobraznić',
 	'srf-paramdesc-charttext' => 'Wopisowacy diagramowy tekst',
 	'srf-paramdesc-chartclass' => 'Přidatna CSS-klasa',
+	'srf-paramdesc-filling' => 'Indiwiduelna pjelnjenska opcija',
 	'srf-paramdesc-theme' => 'Lěsyčnu drastu wubrać',
 	'srf-paramdesc-chartcolor' => 'Jednotliwe diagramowe barby připokazać',
 	'srf-paramdesc-colorscheme' => 'Barbowu šemu wubrać',
@@ -1697,6 +1698,13 @@ $messages['hsb'] = array(
 	'srf_printername_ultree' => 'Štomowy napohlad (naličeny)',
 	'srf_printername_oltree' => 'Štomowy napohlad (čisłowany)',
 	'srf-paramdesc-parent' => 'Kajkosć, kotraž nadrjadowanu stronu wobsahuje',
+	'srf-printername-slideshow' => 'Wobrazowe předstajenje',
+	'srf-paramdesc-class' => 'Přidatna CSS-klasa',
+	'srf-paramdesc-delay' => 'Komdźenje mjez wobrazami w sekundach',
+	'srf-paramdesc-height' => 'Wysokosć asistenta wobrazoweho předstajenja',
+	'srf-paramdesc-width' => 'Šěrokosć asistenta wobrazoweho předstajenja',
+	'srf-paramdesc-navigation-controls' => 'Nawigaciske elementy pokazać abo nic',
+	'srf-paramdesc-effect' => 'Efekt, kotryž ma so wužiwać, zo by wot wobraza do wobraza přešło',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -2210,8 +2218,10 @@ $messages['lb'] = array(
 	'srf_paramdesc_chartwidth' => "D'Breet vun der Grafik, a Pixel",
 	'srf_paramdesc_charttitle' => 'Den Titel vum Diagramm',
 	'srf_paramdesc_barcolor' => "D'Faarf vun de Balken",
-	'srf_paramdesc_bardirection' => "D'Ausriichtung vum Balken-Diagramm",
+	'srf_paramdesc_bardirection' => "Spezifizéiert d'Ausriichtung vum Balken-Diagramm",
 	'srf_paramdesc_barnumbersaxislabel' => "D'Etiquette fir d'Achs vun den Zuelen",
+	'srf-paramdesc-minvalue' => 'De klengste Wäert,deen op der Y-Achs gewise soll ginn',
+	'srf-paramdesc-charttext' => 'Textbeschreiwung vum Diagramm',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => "D'Zuel vu Biller pro Rei",
 	'srf_paramdesc_widths' => "D'Breet vun de Biller",
@@ -2226,6 +2236,9 @@ $messages['lb'] = array(
 	'srf_paramdesc_rankdir' => 'Richtung vum Feil',
 	'srf_paramdesc_graphlink' => 'Link op de Grafik',
 	'srf_paramdesc_graphcolor' => 'Faarf vun der Grafik',
+	'srf-printername-slideshow' => 'SlideShow',
+	'srf-paramdesc-delay' => 'Den zäitlechen Ofstand tëschent de Sliden a Sekonnen',
+	'srf-paramdesc-effect' => 'Den Iwwergang de vun engem Slide op dee nächste slide benotzt gëtt',
 );
 
 /** Lithuanian (Lietuvių)
