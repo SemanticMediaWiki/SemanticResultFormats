@@ -770,6 +770,13 @@ $messages['de'] = array(
 	'srf-paramdesc-effect' => 'Der Effekt, der beim Wechseln zwischen den einzelnen Bildern angewendet werden soll',
 );
 
+/** Zazaki (Zazaki)
+ * @author Erdemaslancan
+ */
+$messages['diq'] = array(
+	'srf_outline_novalue' => 'Deger çıno',
+);
+
 /** Lower Sorbian (Dolnoserbski)
  * @author Michawiki
  */
