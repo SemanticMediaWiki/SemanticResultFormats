@@ -42,7 +42,7 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 		);
 
 		// TODO: this is a string to allow for %, but better handling would be nice
-		$params['height'] = array(
+		$params['width'] = array(
 			'message' => 'srf_paramdesc_chartwidth',
 			'default' => '400',
 		);
