@@ -470,29 +470,21 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	} // end of prepareDataSet();
 
 	/**
-	 * @see SMWResultPrinter::getParameters
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
-		global $srfgColorScheme, $srfgjqPlotSettings;
+	public function getParamDefinitions( array $definitions ) {
+		$params = array_merge( parent::getParamDefinitions( $definitions ), SRFjqPlot::getCommonParams() );
+
+		global $srfgjqPlotSettings;
 	
-		$params = parent::getParameters();
-
-		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
-		$params['min']->setMessage( 'srf-paramdesc-minvalue' );
-		$params['min']->setDefault( false, false );
-
-		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, ' ' );
-		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
-
-		$params['charttext'] = new Parameter( 'charttext', Parameter::TYPE_STRING, '' );
-		$params['charttext']->setMessage( 'srf-paramdesc-charttext' );
-
 		$params['numbersaxislabel'] = new Parameter( 'numbersaxislabel', Parameter::TYPE_STRING, ' ' );
 		$params['numbersaxislabel']->setMessage( 'srf_paramdesc_barnumbersaxislabel' );
-
-		$params['renderer'] = new Parameter( 'renderer', Parameter::TYPE_STRING, 'bar' );
-		$params['renderer']->setMessage( 'srf-paramdesc-renderer' );
-		$params['renderer']->addCriteria( new CriterionInArray(  $srfgjqPlotSettings['seriesrenderer'] ) );
 
 		$params['seriesgroup'] = new Parameter( 'seriesgroup', Parameter::TYPE_STRING, 'row' );
 		$params['seriesgroup']->setMessage( 'srf-paramdesc-seriesgroup' );
@@ -502,13 +494,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$params['bardirection']->setMessage( 'srf_paramdesc_bardirection' );
 		$params['bardirection']->addCriteria( new CriterionInArray( 'horizontal', 'vertical' ) );
 	
-		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
-		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
-		
-		// TODO: this is a string to allow for %, but better handling would be nice
-		$params['width'] = new Parameter( 'width', Parameter::TYPE_STRING, '100%' );
-		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
-
 		$params['stackseries'] = new Parameter( 'stackseries', Parameter::TYPE_BOOLEAN, false );
 		$params['stackseries']->setMessage( 'srf-paramdesc-stackseries' );
 						
@@ -522,36 +507,16 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$params['smoothlines'] = new Parameter( 'smoothlines', Parameter::TYPE_BOOLEAN, false );
 		$params['smoothlines']->setMessage( 'srf-paramdesc-smoothlines' );
 
-		$params['theme'] = new Parameter( 'theme', Parameter::TYPE_STRING, '' );
-		$params['theme']->setMessage( 'srf-paramdesc-theme' );
-		$params['theme']->addCriteria( new CriterionInArray( 'vector', 'mono') );
-		
-		$params['colorscheme'] = new Parameter( 'colorscheme', Parameter::TYPE_STRING, '' );
-		$params['colorscheme']->setMessage( 'srf-paramdesc-colorscheme' );
-		$params['colorscheme']->addCriteria( new CriterionInArray( $srfgColorScheme ) );
-
-		$params['chartcolor'] = new Parameter( 'chartcolor', Parameter::TYPE_STRING, '' );
-		$params['chartcolor']->setMessage( 'srf-paramdesc-chartcolor' );
-
-		$params['chartclass'] = new Parameter( 'chartclass', Parameter::TYPE_STRING );
-		$params['chartclass']->setMessage( 'srf-paramdesc-chartclass' );
-		$params['chartclass']->setDefault( '' );
-
 		$params['serieslabel'] = new Parameter( 'serieslabel', Parameter::TYPE_STRING );
 		$params['serieslabel']->setMessage( 'srf-paramdesc-serieslabel' );
 		$params['serieslabel']->setDefault( '' );
-
-		$params['valueformat'] = new Parameter( 'valueformat', Parameter::TYPE_STRING, '%d' );
-		$params['valueformat']->setMessage( 'srf-paramdesc-valueformat' );
-		// %.2f round number to 2 digits after decimal point e.g.  EUR %.2f, $ %.2f  
-		// %d a signed integer, in decimal
 
 		$params['chartlegend'] = new Parameter( 'chartlegend', Parameter::TYPE_STRING, 'ne' );
 		$params['chartlegend']->setMessage( 'srf-paramdesc-chartlegend' );
 		$params['chartlegend']->addCriteria( new CriterionInArray( 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ) );
 
 		$params['ticklabels'] = new Parameter( 'ticklabels', Parameter::TYPE_BOOLEAN, true );
-		$params['ticklabels']->setMessage( 'srf-paramdesc-datalabels' );
+		$params['ticklabels']->setMessage( 'srf-paramdesc-ticklabels' );
 
 		return $params;
 	}	

@@ -14,7 +14,7 @@
  * @author Sanyam Goyal
  * @author Yaron Koren
  */
-class SRFjqPlotPie extends SMWAggregatablePrinter {
+class SRFjqPlotPie extends SRFjqPlot {
 
 	/*
 	 * Message name  
@@ -23,21 +23,6 @@ class SRFjqPlotPie extends SMWAggregatablePrinter {
 	public function getName() {
 		return wfMsg( 'srf_printername_jqplotpie' );
 	}
-
-	/**
-	 * 
-	 * Handling of specified parameters 
-	 * @see SMWResultPrinter::handleParameters
-	 *
-	 * @since 1.7.2
-	 *
-	 * @param array $params
-	 * @param $outputmode
-	 */
-	protected function handleParameters( array $params, $outputmode ) {
-		parent::handleParameters( $params, $outputmode );
-
-	} // end of handleParameters ()
 
 	/**
 	 * Prepare aggregated data output
@@ -118,6 +103,8 @@ class SRFjqPlotPie extends SMWAggregatablePrinter {
 	 * @since 1.8
 	 * 
 	 * @param array $data label => value
+	 *
+	 * @return array
 	 */
 	private function prepareDataSet( $data ) {
 
@@ -142,66 +129,26 @@ class SRFjqPlotPie extends SMWAggregatablePrinter {
 	} // end of prepareDataSet();
 
 	/**
-	 * @see SMWResultPrinter::getParameters
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
-		global $srfgjqPlotSettings, $srfgColorScheme;
-		
-		$params = parent::getParameters();
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 
 		$params['distributionlimit']->setDefault( 13 );
 
-		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
-		$params['min']->setMessage( 'srf-paramdesc-minvalue' );
-		$params['min']->setDefault( false, false );
+		$params['chartlegend'] = array(
+			'name' => 'chartlegend',
+			'message' => 'srf-paramdesc-chartlegend',
+			'values' => array( 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ),
+		);
 
-		$params['renderer'] = new Parameter( 'renderer', Parameter::TYPE_STRING, 'pie' );
-		$params['renderer']->setMessage( 'srf-paramdesc-renderer' );
-		$params['renderer']->addCriteria( new CriterionInArray( $srfgjqPlotSettings['pierenderer'] ) );
-
- 		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
-		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
-
-		// TODO: this is a string to allow for %, but better handling would be nice
-		$params['width'] = new Parameter( 'width', Parameter::TYPE_STRING, '400' );
-		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
-
-		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, '' );
-		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
-
-		$params['charttext'] = new Parameter( 'charttext', Parameter::TYPE_STRING, '' );
-		$params['charttext']->setMessage( 'srf-paramdesc-charttext' );
-
-		$params['valueformat'] = new Parameter( 'valueformat', Parameter::TYPE_STRING, '%d' );
-		$params['valueformat']->setMessage( 'srf-paramdesc-valueformat' );
-
-		$params['filling'] = new Parameter( 'filling', Parameter::TYPE_BOOLEAN, true );
-		$params['filling']->setMessage( 'srf-paramdesc-filling' );
-
-		$params['chartlegend'] = new Parameter( 'chartlegend', Parameter::TYPE_STRING, '' );
-		$params['chartlegend']->setMessage( 'srf-paramdesc-chartlegend' );
-		$params['chartlegend']->addCriteria( new CriterionInArray( 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ) );
-
-		$params['datalabels'] = new Parameter( 'datalabels', Parameter::TYPE_STRING, '' );
-		$params['datalabels']->setMessage( 'srf-paramdesc-datalabels' );
-		$params['datalabels']->addCriteria( new CriterionInArray( 'percent','value', 'label' ) );
-
-		$params['theme'] = new Parameter( 'theme', Parameter::TYPE_STRING, '' );
-		$params['theme']->setMessage( 'srf-paramdesc-theme' );
-		$params['theme']->addCriteria( new CriterionInArray( 'vector', 'mono') );
-
-		$params['colorscheme'] = new Parameter( 'colorscheme', Parameter::TYPE_STRING, '' );
-		$params['colorscheme']->setMessage( 'srf-paramdesc-colorscheme' );
-		$params['colorscheme']->addCriteria( new CriterionInArray( $srfgColorScheme ) );
-
-		$params['chartcolor'] = new Parameter( 'chartcolor', Parameter::TYPE_STRING, '' );
-		$params['chartcolor']->setMessage( 'srf-paramdesc-chartcolor' );
-
-		$params['chartclass'] = new Parameter( 'chartclass', Parameter::TYPE_STRING );
-		$params['chartclass']->setMessage( 'srf-paramdesc-chartclass' );
-		$params['chartclass']->setDefault( '' );
-				
 		return $params;
-	} // end of getParameters()
+	}
 
 }
