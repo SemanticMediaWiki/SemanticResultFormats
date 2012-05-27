@@ -16,9 +16,17 @@ class SRFGallery extends SMWResultPrinter {
 		return wfMsg( 'srf_printername_gallery' );
 	}
 
-	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
+	/**
+	 * @see SMWResultPrinter::buildResult
+	 *
+	 * @since 1.8
+	 *
+	 * @param SMWQueryResult $results
+	 *
+	 * @return string
+	 */
+	protected function buildResult( SMWQueryResult $results ) {
 		// skip checks, results with 0 entries are normal
-		$this->handleParameters( $params, $outputmode );
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
 

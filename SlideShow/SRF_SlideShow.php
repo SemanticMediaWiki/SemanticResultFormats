@@ -93,9 +93,11 @@ class SRFSlideShow extends SMWResultPrinter {
 	 * Check whether a "further results" link would normally be generated for this
 	 * result set with the given parameters.
 	 *
+	 * @param SMWQueryResult $results
+	 *
 	 * @return boolean
 	 */
-	protected function linkFurtherResults( $results ) {
+	protected function linkFurtherResults( SMWQueryResult $results ) {
 		return false;
 	}
 

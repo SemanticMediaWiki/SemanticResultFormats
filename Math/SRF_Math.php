@@ -23,11 +23,15 @@ class SRFMath extends SMWResultPrinter {
 	}
 
 	/**
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getResult()
+	 * @see SMWResultPrinter::buildResult
+	 *
+	 * @since 1.8
+	 *
+	 * @param SMWQueryResult $results
+	 *
+	 * @return string
 	 */
-	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
-		$this->handleParameters( $params, $outputmode );
+	protected function buildResult( SMWQueryResult $results ) {
 		global $wgLang;
 		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
 	}
