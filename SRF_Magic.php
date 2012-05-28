@@ -57,7 +57,7 @@ $magicWords['mk'] = array(
 /** Malayalam (മലയാളം) */
 $magicWords['ml'] = array(
 	'calendarstartdate' => array( 0, 'കലണ്ടറിലെയാദ്യതീയതി' ),
-	'calendarenddate' => array( 0, 'കലണ്ടറിലെയന്ത്യതീയതി' ),
+	'calendarenddate' => array( 0, 'കലണ്ടറിലെയവസാനതീയതി' ),
 );
 
 /** Marathi (मराठी) */
