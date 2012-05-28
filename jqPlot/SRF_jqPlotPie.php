@@ -140,12 +140,13 @@ class SRFjqPlotPie extends SRFjqPlot {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['distributionlimit']->setDefault( 13 );
+		$params['distributionlimit']['default'] = 13;
 
 		$params['chartlegend'] = array(
 			'name' => 'chartlegend',
 			'message' => 'srf-paramdesc-chartlegend',
 			'values' => array( 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ),
+			'default' => '',
 		);
 
 		return $params;
