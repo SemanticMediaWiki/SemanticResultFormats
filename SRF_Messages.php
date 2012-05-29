@@ -178,8 +178,11 @@ $messages['en'] = array(
 	'srf-paramdesc-height' => 'The height of the slideshow widget',
 	'srf-paramdesc-width' => 'The width of the slideshow widget',
 	'srf-paramdesc-navigation-controls' => 'Show navigation controls or not',
-	'srf-paramdesc-effect' => 'The effect to be used to switch from slide to slide'
+	'srf-paramdesc-effect' => 'The effect to be used to switch from slide to slide',
 
+	// format "filtered"
+	'srf-printername-filtered' => 'Filtered',
+	'srf-paramdesc-views' => 'The views that shall be available in the result display.',
 );
 
 /** Message documentation (Message documentation)
@@ -235,6 +238,8 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-navigation-controls' => '{{doc-paramdesc|nav controls}}',
 	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
+	'srf-printername-filtered' => '{{doc-smwformat|filtered}}',
+	'srf-paramdesc-views' => '{{doc-paramdesc|views}}',
 );
 
 /** Afrikaans (Afrikaans)

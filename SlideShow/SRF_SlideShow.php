@@ -15,6 +15,15 @@
 class SRFSlideShow extends SMWResultPrinter {
 
 	/**
+	 * Get a human readable label for this printer.
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return wfMsg( 'srf-printername-slideshow' );
+	}
+
+	/**
 	 * Return serialised results in specified format.
 	 * Implemented by subclasses.
 	 */
@@ -121,7 +130,7 @@ class SRFSlideShow extends SMWResultPrinter {
 //		$params['named args']->setMessage( 'smw_paramdesc_named_args' );
 
 		$params['class'] = new Parameter( 'class' );
-		$params['class']->setMessage( 'smw-paramdesc-class' );
+		$params['class']->setMessage( 'srf-paramdesc-class' );
 		$params['class']->setDefault( '' );
 
 		$params['delay'] = new Parameter( 'delay', Parameter::TYPE_INTEGER );

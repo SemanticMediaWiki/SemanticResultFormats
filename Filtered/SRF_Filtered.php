@@ -83,6 +83,15 @@ class SRFFiltered extends SMWResultPrinter {
 		return $ret;
 	}
 
+	/**
+	 * Get a human readable label for this printer.
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return wfMsg( 'srf-printername-filtered' );
+	}
+
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
