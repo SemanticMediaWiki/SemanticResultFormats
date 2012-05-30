@@ -773,6 +773,8 @@ $messages['de'] = array(
 	'srf-paramdesc-width' => 'Die Breite des Bildvorführungswidgets',
 	'srf-paramdesc-navigation-controls' => 'Die Navigationsschaltflächen anzeigen oder nicht',
 	'srf-paramdesc-effect' => 'Der Effekt, der beim Wechseln zwischen den einzelnen Bildern angewendet werden soll',
+	'srf-printername-filtered' => 'Gefiltert',
+	'srf-paramdesc-views' => 'Die Ansichten, die in der Ergebnisanzeige verfügbar sein sollen.',
 );
 
 /** Zazaki (Zazaki)
@@ -1251,6 +1253,8 @@ $messages['fr'] = array(
 	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
 	'srf-paramdesc-navigation-controls' => 'Afficher les contrôles de navigation ou non',
 	'srf-paramdesc-effect' => "L'effet à utiliser pour passer d'une diapositive à l'autre",
+	'srf-printername-filtered' => 'Filtré',
+	'srf-paramdesc-views' => "Les vues qui doivent être disponibles dans l'affichage du résultat.",
 );
 
 /** Franco-Provençal (Arpetan)
@@ -1442,6 +1446,8 @@ $messages['gl'] = array(
 	'srf-paramdesc-width' => 'O largo do widget de diapositivas',
 	'srf-paramdesc-navigation-controls' => 'Mostrar ou non os controis de navegación',
 	'srf-paramdesc-effect' => 'O efecto que se usará ao cambiar dunha diapositiva a outra',
+	'srf-printername-filtered' => 'Filtrado',
+	'srf-paramdesc-views' => 'As vistas que deberan estar dispoñibles na presentación do resultado.',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -1534,7 +1540,7 @@ $messages['he'] = array(
 	'srf_paramdesc_outlineproperties' => 'רשימת מאפיינים להצגה ככותרות במִתאר, מופרדת בפסיקים',
 	'srf_printername_sum' => 'סכום של מספרים',
 	'srf_printername_average' => 'ממוצע של מספרים',
-	'srf_printername_max' => 'המספר המירבי',
+	'srf_printername_max' => 'המספר המרבי',
 	'srf_printername_min' => 'מספר מינימלי',
 	'srf_paramdesc_limit' => 'מספר הדפים המרבי לתשאול',
 	'srf_printername_timeline' => 'ציר זמן',
@@ -2405,7 +2411,9 @@ $messages['mk'] = array(
 	'srf-paramdesc-height' => 'Висина на елементот за подв. галерии',
 	'srf-paramdesc-width' => 'Ширина на елементот за подв. галерии',
 	'srf-paramdesc-navigation-controls' => 'Дали да се прикажат навигациските контроли',
-	'srf-paramdesc-effect' => 'Ефектот што ќе се корсити при префрлањето од слика на слика',
+	'srf-paramdesc-effect' => 'Ефектот што ќе се користи при префрлањето од слика на слика',
+	'srf-printername-filtered' => 'Филтрирано',
+	'srf-paramdesc-views' => 'Погледите на на располагање во приказот на резултатите',
 );
 
 /** Malayalam (മലയാളം)
@@ -2692,6 +2700,8 @@ $messages['nl'] = array(
 	'srf-paramdesc-width' => 'De breedte van de diapresentatiewidget',
 	'srf-paramdesc-navigation-controls' => 'Of navigatieknoppen wel of niet weergegeven moeten worden',
 	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselen",
+	'srf-printername-filtered' => 'Gefilterd',
+	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
