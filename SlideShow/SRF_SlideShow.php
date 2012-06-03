@@ -178,19 +178,20 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		$rp = new SMWListResultPrinter( 'template', true );
 
-		$validatorParams = $rp->getValidatorParameters();
+		$paramDefinitions = ParamDefinition::getCleanDefinitions( $rp->getParamDefinitions( array() ) );
+
 		$params = array();
 
-		foreach ( $validatorParams as $key => $param ) {
-			$params[ $param->getName() ] = $param->getValue();
+		foreach ( $paramDefinitions as $key => $def ) {
+			$params[ $def->getName() ] = $def->getDefault();
 		}
 
 		$params = array_merge( $params, array(
 			'format' => 'template',
-			'template' => "$template",
+			'template' => $template,
 			'mainlabel' => '',
-			'sort' => array(),
-			'order' => array(),
+			'sort' => '',
+			'order' => '',
 			'intro' => null,
 			'outro' => null,
 			'searchlabel' => null,
@@ -200,6 +201,8 @@ class SRFSlideShow extends SMWResultPrinter {
 			'introtemplate' => '',
 			'outrotemplate' => '',
 			) );
+
+		$params = SMWQueryProcessor::getProcessedParams($params, array());
 
 		$p = json_decode( $printrequests, true );
 		$extraprintouts = array();
