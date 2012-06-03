@@ -475,7 +475,7 @@ $messages['bn'] = array(
 	'srf_paramdesc_graphname' => 'শিরোনাম',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fohanno
  * @author Fulup
  * @author Gwendal
@@ -548,6 +548,7 @@ $messages['br'] = array(
 	'srf_paramdesc_rankdir' => "Durc'hadur ar bir",
 	'srf_paramdesc_graphlink' => 'Liamm war-zu ar grafik',
 	'srf_paramdesc_graphcolor' => 'Liv ar grafik',
+	'srf-printername-filtered' => 'Silet',
 );
 
 /** Bosnian (Bosanski)
@@ -917,7 +918,7 @@ $messages['eo'] = array(
 	'srf_printername_gallery' => 'Galerio',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Antur
  * @author Armando-Martin
  * @author Badon
@@ -1110,7 +1111,7 @@ $messages['fi'] = array(
 	'srf_paramdesc_rankdir' => 'Nuolen suunta',
 );
 
-/** French (Français)
+/** French (français)
  * @author Crochet.david
  * @author DavidL
  * @author Gomoko
@@ -2281,7 +2282,7 @@ $messages['lv'] = array(
 	'srfc_gotomonth' => 'Doties uz mēnesi',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
