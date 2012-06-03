@@ -920,6 +920,7 @@ $messages['eo'] = array(
 /** Spanish (Español)
  * @author Antur
  * @author Armando-Martin
+ * @author Badon
  * @author Crazymadlover
  * @author Imre
  * @author Sanbec
@@ -1054,6 +1055,7 @@ $messages['es'] = array(
 	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
 	'srf-paramdesc-navigation-controls' => 'Mostrar controles de navegación o no mostrarlos',
 	'srf-paramdesc-effect' => 'El efecto que se utilizará para cambiar de una diapositiva a la siguiente',
+	'srf-printername-filtered' => 'Filtrado',
 );
 
 /** Basque (Euskara)
