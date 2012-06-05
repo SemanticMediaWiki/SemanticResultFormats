@@ -78,7 +78,9 @@ class SRFjqPlotPie extends SRFjqPlot {
 		$json = array();
 		
 		foreach ( $data as $name => $value ) {
-			$json[] = array( $name , $value );
+			if ( $value > $this->params['min'] ) {
+				$json[] = array( $name , $value );
+			}
 		}
 
 		$requireHeadItem = array ( $piechartID => FormatJson::encode( $this->prepareDataSet( $json ) ) ); 

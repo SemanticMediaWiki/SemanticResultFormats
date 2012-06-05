@@ -34,7 +34,6 @@ class SRFjqPlotBar extends SRFjqPlot {
 	protected function getFormatOutput( array $data ) {
 		static $statNr = 0;
 		$result = '';
-		$numbers_ticks = '';
 
 		$this->isHTML = true;
 
@@ -129,7 +128,13 @@ class SRFjqPlotBar extends SRFjqPlot {
 		
 		// Data encoding 
 		// This way we keep it similar to the jqplotseries data structure
-		$dataObject['series'] = $data; 
+		$dataObject['series'] = array();
+
+		foreach ( $data as $key => $value ) {
+			if ( $value > $this->params['min'] ) {
+				$dataObject['series'][$key] = $value;
+			}
+		}
 		
 		$requireHeadItem = array ( $barchartID => FormatJson::encode( $this->prepareDataSet( $dataObject ) ) ); 
 		SMWOutputs::requireHeadItem( $barchartID, Skin::makeVariablesScript($requireHeadItem ) );
