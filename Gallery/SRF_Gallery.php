@@ -31,7 +31,7 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-		global $wgUser, $wgParser;
+		global $wgParser;
 
 		$ig = new ImageGallery();
 		$ig->setShowBytes( false );
