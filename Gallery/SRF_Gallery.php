@@ -93,7 +93,7 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		if ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ) {
-			$this->addImageProperties( $results, $ig, $this->params['imageproperty'], $this->params['captionproperty'] );
+			$this->addImageProperties( $results, $ig, $this->params['imageproperty'], $this->params['captionproperty'], $outputmode );
 		}
 		else {
 			$this->addImagePages( $results, $ig );
@@ -111,8 +111,9 @@ class SRFGallery extends SMWResultPrinter {
 	 * @param ImageGallery $ig
 	 * @param string $imageProperty
 	 * @param string $captionProperty
+	 * @param $outputMode
 	 */
-	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty ) {
+	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $outputMode ) {
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			$images = array();
 			$captions = array();
@@ -127,7 +128,7 @@ class SRFGallery extends SMWResultPrinter {
 				}
 				elseif ( $row[$i]->getPrintRequest()->getLabel() == $captionProperty ) {
 					while ( ( $obj = $row[$i]->getNextDataValue() ) !== false ) { // Property values
-						$captions[] = $obj->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
+						$captions[] = $obj->getShortText( $outputMode, $this->getLinker( true ) );
 					}
 				}
 			}
