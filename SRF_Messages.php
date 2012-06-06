@@ -1726,6 +1726,7 @@ $messages['hsb'] = array(
 	'srf-paramdesc-width' => 'Šěrokosć asistenta wobrazoweho předstajenja',
 	'srf-paramdesc-navigation-controls' => 'Nawigaciske elementy pokazać abo nic',
 	'srf-paramdesc-effect' => 'Efekt, kotryž ma so wužiwać, zo by wot wobraza do wobraza přešło',
+	'srf-printername-filtered' => 'Filtrowany',
 );
 
 /** Haitian (Kreyòl ayisyen)
