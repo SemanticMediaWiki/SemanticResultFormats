@@ -160,17 +160,20 @@ class SRFGallery extends SMWResultPrinter {
 
 			if ( $nextObject !== false ) {
 				$imgTitle = $nextObject->getTitle();
-				$imgCaption = '';
 
-				// Is there a property queried for display with ?property
-				if ( isset( $row[1] ) ) {
-					$imgCaption = $row[1]->getNextDataValue();
-					if ( is_object( $imgCaption ) ) {
-						$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
+				if ( !is_null( $imgTitle ) ) {
+					$imgCaption = '';
+
+					// Is there a property queried for display with ?property
+					if ( isset( $row[1] ) ) {
+						$imgCaption = $row[1]->getNextDataValue();
+						if ( is_object( $imgCaption ) ) {
+							$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
+						}
 					}
-				}
 
-				$this->addImageToGallery( $ig, $imgTitle, $imgCaption );
+					$this->addImageToGallery( $ig, $imgTitle, $imgCaption );
+				}
 			}
 		}
 	}
