@@ -548,6 +548,8 @@ $messages['br'] = array(
 	'srf_paramdesc_rankdir' => "Durc'hadur ar bir",
 	'srf_paramdesc_graphlink' => 'Liamm war-zu ar grafik',
 	'srf_paramdesc_graphcolor' => 'Liv ar grafik',
+	'srf_printername_tree' => 'Gwezenn',
+	'srf_printername_ultree' => 'Gwezenn Ul',
 	'srf-printername-filtered' => 'Silet',
 );
 
@@ -924,6 +926,7 @@ $messages['eo'] = array(
  * @author Badon
  * @author Crazymadlover
  * @author Imre
+ * @author McDutchie
  * @author Sanbec
  * @author Translationista
  */
@@ -1057,6 +1060,7 @@ $messages['es'] = array(
 	'srf-paramdesc-navigation-controls' => 'Mostrar controles de navegación o no mostrarlos',
 	'srf-paramdesc-effect' => 'El efecto que se utilizará para cambiar de una diapositiva a la siguiente',
 	'srf-printername-filtered' => 'Filtrado',
+	'srf-paramdesc-views' => 'Las vistas que estarán disponibles en la pantalla de resultados.',
 );
 
 /** Basque (Euskara)
@@ -1789,7 +1793,7 @@ $messages['hu'] = array(
 	'srf-paramdesc-graph-wwl' => 'Sortörési határ (karakterszám)',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -1921,6 +1925,8 @@ $messages['ia'] = array(
 	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
 	'srf-paramdesc-navigation-controls' => 'Monstrar controlos de navigation o non',
 	'srf-paramdesc-effect' => 'Le effecto a usar pro cambiar inter diapositivas',
+	'srf-printername-filtered' => 'Filtrate',
+	'srf-paramdesc-views' => 'Le vistas que debe esser disponibile in le presentation de resultatos.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2078,6 +2084,7 @@ $messages['it'] = array(
  * @author JtFuruhata
  * @author Naohiro19
  * @author Schu
+ * @author Shirayuki
  * @author Whym
  * @author 青子守歌
  */
@@ -2097,7 +2104,7 @@ $messages['ja'] = array(
 	'srf_printername_bibtex' => 'BibTeX形式で書き出し',
 	'srf_outline_novalue' => '値なし',
 	'srf_printername_outline' => 'アウトライン',
-	'srf_paramdesc_outlineproperties' => 'アウトラインの見出しとして表示されるプロパティーのリスト。コンマ区切り',
+	'srf_paramdesc_outlineproperties' => 'アウトラインの見出しとして表示されるプロパティのリスト（カンマ区切り）',
 	'srf_printername_sum' => '数の合計',
 	'srf_printername_average' => '数の平均',
 	'srf_printername_max' => '最大数',
@@ -2107,13 +2114,13 @@ $messages['ja'] = array(
 	'srf_printername_eventline' => '事象系列',
 	'srf_paramdesc_timelinebands' => '出力結果にどの時間単位を表示するか定義する。',
 	'srf_paramdesc_timelineposition' => '初期状態でタイムラインがどこにフォーカスしているか定義する。',
-	'srf_paramdesc_timelinestart' => '最初の時点を定義するプロパティーの名前',
-	'srf_paramdesc_timelineend' => '2番目の時点を定義するプロパティーの名前',
+	'srf_paramdesc_timelinestart' => '最初の時点を定義するプロパティの名前',
+	'srf_paramdesc_timelineend' => '2番目の時点を定義するプロパティの名前',
 	'srf_paramdesc_timelinesize' => 'タイムラインの縦幅 (既定では300ピクセル)',
-	'srf-timeline-nojs' => 'インタラクティブなタイムラインを表示するために JavaScript を有効にする必要があります。',
+	'srf-timeline-nojs' => '対話的なタイムラインを表示するために JavaScript を有効にする必要があります。',
 	'srf_paramdesc_views' => '表示されるビュー',
-	'srf_paramdesc_facets' => '各ページで表示するプロパティーの集合',
-	'srf_paramdesc_lens' => 'ページのプロパティーとともに表示するテンプレートの名前',
+	'srf_paramdesc_facets' => '各ページで表示するプロパティの集合',
+	'srf_paramdesc_lens' => 'ページのプロパティと共に表示するテンプレートの名前',
 	'srf_printername_googlebar' => 'Google 棒グラフ',
 	'srf_printername_googlepie' => 'Google 円グラフ',
 	'srf_printername_jqplotbar' => 'jqPlot棒グラフ',
@@ -2121,8 +2128,8 @@ $messages['ja'] = array(
 	'srf_paramdesc_chartheight' => 'グラフの縦幅 (ピクセル単位)',
 	'srf_paramdesc_chartwidth' => 'グラフの横幅 (ピクセル単位)',
 	'srf_paramdesc_charttitle' => '図のタイトル',
-	'srf_paramdesc_barcolor' => '棒の色',
-	'srf_paramdesc_bardirection' => '棒グラフの方向',
+	'srf_paramdesc_barcolor' => 'グラフの色を指定',
+	'srf_paramdesc_bardirection' => 'グラフの方向を指定',
 	'srf_paramdesc_barnumbersaxislabel' => '数値軸のラベル',
 	'srf_printername_gallery' => 'ギャラリー',
 	'srf_paramdesc_perrow' => '行あたりの画像の量',
