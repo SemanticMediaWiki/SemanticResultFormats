@@ -30,13 +30,13 @@ $magicWords['de'] = array(
 	'calendarenddate' => array( 0, 'kalenderenddatum' ),
 );
 
-/** Spanish (Español) */
+/** Spanish (español) */
 $magicWords['es'] = array(
 	'calendarstartdate' => array( 0, 'fechadeiniciodecalendario', 'fechainiciocalendario' ),
 	'calendarenddate' => array( 0, 'fechadefindecalendario', 'fechafincalendario' ),
 );
 
-/** French (Français) */
+/** French (français) */
 $magicWords['fr'] = array(
 	'calendarstartdate' => array( 0, 'datedébutcalendrier' ),
 	'calendarenddate' => array( 0, 'datefincalendrier' ),
@@ -48,7 +48,13 @@ $magicWords['ja'] = array(
 	'calendarenddate' => array( 0, '暦終了日' ),
 );
 
-/** Macedonian (Македонски) */
+/** Korean (한국어) */
+$magicWords['ko'] = array(
+	'calendarstartdate' => array( 0, '달력시작날짜' ),
+	'calendarenddate' => array( 0, '달력끝날짜' ),
+);
+
+/** Macedonian (македонски) */
 $magicWords['mk'] = array(
 	'calendarstartdate' => array( 0, 'почетенкалендарскидатум' ),
 	'calendarenddate' => array( 0, 'краенкалендарскидатум' ),
@@ -66,7 +72,7 @@ $magicWords['mr'] = array(
 	'calendarenddate' => array( 0, 'दिनदर्शिकासांगतादिन', 'calendarenddate' ),
 );
 
-/** Norwegian Bokmål (‪Norsk (bokmål)‬) */
+/** Norwegian Bokmål (‪norsk (bokmål)‬) */
 $magicWords['nb'] = array(
 	'calendarstartdate' => array( 0, 'kalenderstartdato' ),
 	'calendarenddate' => array( 0, 'kalendersluttdato' ),
@@ -84,13 +90,13 @@ $magicWords['nl'] = array(
 	'calendarenddate' => array( 0, 'einddatumkalender' ),
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬) */
 $magicWords['sr-ec'] = array(
 	'calendarstartdate' => array( 0, 'почетнидатум', 'почетни_датум' ),
 	'calendarenddate' => array( 0, 'завршнидатум', 'завршни_датум' ),
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬) */
+/** Serbian (Latin script) (‪srpski (latinica)‬) */
 $magicWords['sr-el'] = array(
 	'calendarstartdate' => array( 0, 'početnidatum', 'početni_datum' ),
 	'calendarenddate' => array( 0, 'završnidatum', 'završni_datum' ),
