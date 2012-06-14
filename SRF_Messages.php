@@ -361,7 +361,7 @@ $messages['arz'] = array(
 	'srf_paramdesc_chartwidth' => 'عرض الرسم بالبكسل',
 );
 
-/** Azerbaijani (Azərbaycanca)
+/** Azerbaijani (azərbaycanca)
  * @author Cekli829
  */
 $messages['az'] = array(
@@ -442,7 +442,7 @@ $messages['be-tarask'] = array(
 	'srf_paramdesc_graphsize' => 'Памер дыяграмы (у піксэлях)',
 );
 
-/** Bulgarian (Български)
+/** Bulgarian (български)
  * @author DCLXVI
  */
 $messages['bg'] = array(
@@ -553,7 +553,7 @@ $messages['br'] = array(
 	'srf-printername-filtered' => 'Silet',
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  */
 $messages['bs'] = array(
@@ -580,7 +580,7 @@ $messages['bs'] = array(
 	'srf_paramdesc_timelinesize' => 'Visina vremenske linije (pretpostavljeno je 300px)',
 );
 
-/** Catalan (Català)
+/** Catalan (català)
  * @author Dvdgmz
  * @author Paucabot
  * @author Toniher
@@ -1063,7 +1063,7 @@ $messages['es'] = array(
 	'srf-paramdesc-views' => 'Las vistas que estarán disponibles en la pantalla de resultados.',
 );
 
-/** Basque (Euskara)
+/** Basque (euskara)
  * @author An13sa
  */
 $messages['eu'] = array(
@@ -1085,7 +1085,7 @@ $messages['fa'] = array(
 	'srfc_gotomonth' => 'برو به ماه',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Nike
  * @author Silvonen
  * @author Str4nd
@@ -1264,7 +1264,7 @@ $messages['fr'] = array(
 	'srf-paramdesc-views' => "Les vues qui doivent être disponibles dans l'affichage du résultat.",
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
@@ -1741,7 +1741,7 @@ $messages['ht'] = array(
 	'srf_icalendar_link' => 'iKalandrye',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author Dani
  * @author Glanthor Reviol
  */
@@ -2026,7 +2026,7 @@ $messages['ig'] = array(
 	'srf_paramdesc_chartwidth' => 'Íbụ ihü nkuzie, na ogụgụ pixel',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Beta16
  * @author Civvì
  * @author Darth Kule
@@ -2270,7 +2270,7 @@ $messages['lb'] = array(
 	'srf-paramdesc-effect' => 'Den Iwwergang de vun engem Slide op dee nächste slide benotzt gëtt',
 );
 
-/** Lithuanian (Lietuvių)
+/** Lithuanian (lietuvių)
  * @author Hugo.arg
  */
 $messages['lt'] = array(
@@ -2280,7 +2280,7 @@ $messages['lt'] = array(
 	'srfc_gotomonth' => 'Eiti į mėnesį',
 );
 
-/** Latvian (Latviešu)
+/** Latvian (latviešu)
  * @author GreenZeb
  */
 $messages['lv'] = array(
@@ -2715,7 +2715,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
 );
 
-/** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
  * @author Eirik
  * @author Gunnernett
  */
@@ -2739,7 +2739,7 @@ $messages['nn'] = array(
 	'srf_printername_eventline' => 'Tidsline for hendingar',
 );
 
-/** Occitan (Occitan)
+/** Occitan (occitan)
  * @author Boulaur
  * @author Cedric31
  */
@@ -2787,7 +2787,7 @@ $messages['pfl'] = array(
 	'srf_printername_latest' => 'De schbedschde Zaidpungd',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author BeginaFelicysym
  * @author Maire
  * @author Sp5uhe
@@ -2931,7 +2931,7 @@ $messages['ps'] = array(
 	'srf_printername_gallery' => 'انځورتون',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author Hamilton Abreu
  * @author Malafaya
  * @author Waldir
@@ -3021,7 +3021,7 @@ $messages['pt'] = array(
 	'srf-paramdesc-graph-wwl' => 'Limite para forçar nova linha (em nº de caracteres)',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author Eduardo.mps
  * @author GKnedo
  * @author Giro720
@@ -3071,7 +3071,7 @@ $messages['pt-br'] = array(
 	'srf_printername_gallery' => 'Galeria',
 );
 
-/** Romanian (Română)
+/** Romanian (română)
  * @author KlaudiuMihaila
  */
 $messages['ro'] = array(
@@ -3087,7 +3087,7 @@ $messages['ro'] = array(
 	'srf_printername_min' => 'Numărul minim',
 );
 
-/** Tarandíne (Tarandíne)
+/** tarandíne (tarandíne)
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
@@ -3097,7 +3097,7 @@ $messages['roa-tara'] = array(
 	'srfc_gotomonth' => "Va a 'u mese",
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Ferrer
  * @author Haffman
  * @author Innv
@@ -3166,7 +3166,7 @@ $messages['rue'] = array(
 	'srf_printername_gallery' => 'Ґалерія',
 );
 
-/** Slovak (Slovenčina)
+/** Slovak (slovenčina)
  * @author Helix84
  */
 $messages['sk'] = array(
@@ -3190,7 +3190,7 @@ $messages['sk'] = array(
 	'srf_printername_eventline' => 'Os udalostí',
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -3211,7 +3211,7 @@ $messages['sr-ec'] = array(
 	'srf_printername_gallery' => 'Галерија',
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬)
+/** Serbian (Latin script) (‪srpski (latinica)‬)
  * @author Michaello
  */
 $messages['sr-el'] = array(
@@ -3231,7 +3231,7 @@ $messages['sr-el'] = array(
 	'srf_printername_gallery' => 'Galerija',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author Dafer45
  * @author M.M.S.
  * @author Per
@@ -3293,7 +3293,7 @@ $messages['te'] = array(
 	'srf_paramdesc_graphname' => 'శీర్షిక',
 );
 
-/** Tajik (Cyrillic script) (Тоҷикӣ)
+/** Tajik (Cyrillic script) (тоҷикӣ)
  * @author Ibrahim
  */
 $messages['tg-cyrl'] = array(
@@ -3303,7 +3303,7 @@ $messages['tg-cyrl'] = array(
 	'srfc_gotomonth' => 'Рафтан ба моҳ',
 );
 
-/** Tajik (Latin script) (Tojikī)
+/** Tajik (Latin script) (tojikī)
  * @author Liangent
  */
 $messages['tg-latn'] = array(
@@ -3410,7 +3410,7 @@ $messages['tr'] = array(
 	'srf_printername_googlepie' => 'Google dilim çizelgesi',
 );
 
-/** Vèneto (Vèneto)
+/** vèneto (vèneto)
  * @author Candalua
  */
 $messages['vec'] = array(
@@ -3476,7 +3476,7 @@ $messages['yi'] = array(
 	'srf_paramdesc_graphname' => 'טיטל',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Gzdavidwong
  * @author Liangent
  * @author Linforest
@@ -3584,7 +3584,7 @@ $messages['zh-hans'] = array(
 	'srf-paramdesc-parent' => '包含父页面的属性',
 );
 
-/** Traditional Chinese (‪中文(繁體)‬)
+/** Traditional Chinese (‪中文（繁體）‬)
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
