@@ -221,15 +221,16 @@ class SRFTagCloud extends SMWResultPrinter {
 
 		foreach ( $tags as $name => $size ) {
 			$htmlTags[] = Html::rawElement(
-				'span',
-				array( 'style' => "font-size:$size%" ),
+				'span', array( 
+				'class' => 'srf-tagcloud-element',
+				'style' => "font-size:$size%" ),
 				$this->tagsHtml[$name]
 			);
 		}
 		
-		return Html::rawElement(
-			'div',
-			array( 'align' => 'justify' ),
+		return Html::rawElement( 'div', array( 
+			'class' => 'srf-tagcloud ' . $this->params['class'],
+			'align' => 'justify' ),
 			implode( ' ', $htmlTags )
 		);
 	}
@@ -259,13 +260,17 @@ class SRFTagCloud extends SMWResultPrinter {
 	 */	
 	public function getParameters() {
 		$params = parent::getParameters();
-		
+
+		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
+		$params['class']->setMessage( 'srf-paramdesc-class' );
+		$params['class']->setDefault( '' );
+
 		$params['template'] = new Parameter( 'template' );
-		$params['template']->setDescription( wfMsg( 'smw-paramdesc-category-template' ) );
+		$params['template']->setDescription( wfMsg( 'smw-paramdesc-template' ) );
 		$params['template']->setDefault( '' );
 
 		$params['userparam'] = new Parameter( 'userparam' );
-		$params['userparam']->setDescription( wfMsg( 'smw-paramdesc-category-userparam' ) );
+		$params['userparam']->setDescription( wfMsg( 'smw-paramdesc-userparam' ) );
 		$params['userparam']->setDefault( '' );	
 		
 		$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
@@ -297,7 +302,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$params['maxsize'] = new Parameter( 'maxsize', Parameter::TYPE_INTEGER );
 		$params['maxsize']->setMessage( 'srf_paramdesc_maxsize' );
 		$params['maxsize']->setDefault( 242 );
-		
+
 		return $params;
-	}		
+	}
 }
