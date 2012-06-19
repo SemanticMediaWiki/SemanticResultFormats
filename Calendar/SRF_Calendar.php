@@ -107,7 +107,11 @@ class SRFCalendar extends SMWResultPrinter {
 						}
 
 						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
-							$dates[] = $this->formatDateStr( $object );
+							$datePropLabel = $pr->getLabel();
+							if ( !array_key_exists( $datePropLabel, $dates ) ) {
+								$dates[$datePropLabel] = array();
+							}
+							$dates[$datePropLabel][] = $this->formatDateStr( $object );
 						}
 					}
 				}
