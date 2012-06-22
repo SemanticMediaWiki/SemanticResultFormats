@@ -735,7 +735,7 @@ $messages['de'] = array(
 	'srf_paramdesc_tagorder' => 'Die Reihenfolge der Stichwörter',
 	'srf_paramdesc_mincount' => 'Das Mindestvorkommen eines Stichwortes, um aufgelistet zu werden',
 	'srf_paramdesc_minsize' => 'Die Darstellungsgröße des kleinsten Stichwortes in Prozent (Standard ist 77)',
-	'srf_paramdesc_maxsize' => 'Die Darstellungsgröße des größten Stichwortes in Prozent (Standard ist 177)',
+	'srf_paramdesc_maxsize' => 'Die Darstellungsgröße des größten Stichwortes in Prozent (Standard ist 242)',
 	'srf_paramdesc_maxtags' => 'Die maximale Anzahl der Stichwörter in der Stichwortwolke',
 	'srf_printername_valuerank' => 'Rang',
 	'srf_printername_array' => 'Datenfeld (Array)',
@@ -1318,7 +1318,7 @@ $messages['frp'] = array(
 	'srf-paramdesc-graph-wwl' => 'Limita de retôrn ôtomatico (en nombro de caractèros)',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Alma
  * @author Toliño
  */
@@ -3551,7 +3551,7 @@ $messages['zh-hans'] = array(
 	'srf_paramdesc_tagorder' => '标签的顺序',
 	'srf_paramdesc_mincount' => '要列出某一取值所需出现的最少次数',
 	'srf_paramdesc_minsize' => '以百分比计算的最小标签的大小（默认值：77）',
-	'srf_paramdesc_maxsize' => '以百分比计算的最大标签的大小（默认值：177）',
+	'srf_paramdesc_maxsize' => '以百分比计算的最大标签的大小（默认值：242）',
 	'srf_paramdesc_maxtags' => '云中标签的最大数量',
 	'srf_printername_valuerank' => '取值排名',
 	'srf_printername_array' => '数组',
