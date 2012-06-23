@@ -369,7 +369,7 @@ $messages['az'] = array(
 	'srf_printername_gallery' => 'Qalereya',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  */
@@ -1617,7 +1617,7 @@ $messages['hi'] = array(
 	'srf_icalendar_link' => 'आइकैलेंडर',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
