@@ -30,6 +30,12 @@ $magicWords['de'] = array(
 	'calendarenddate' => array( 0, 'kalenderenddatum' ),
 );
 
+/** Zazaki (Zazaki) */
+$magicWords['diq'] = array(
+	'calendarstartdate' => array( 0, 'standardemêteqwimi' ),
+	'calendarenddate' => array( 0, 'demuteqwima' ),
+);
+
 /** Spanish (español) */
 $magicWords['es'] = array(
 	'calendarstartdate' => array( 0, 'fechadeiniciodecalendario', 'fechainiciocalendario' ),
