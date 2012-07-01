@@ -787,7 +787,7 @@ $messages['diq'] = array(
 	'srf_outline_novalue' => 'Deger çıno',
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
@@ -3156,7 +3156,7 @@ $messages['ru'] = array(
 	'srf_printername_array' => 'Массив',
 );
 
-/** Rusyn (Русиньскый)
+/** Rusyn (русиньскый)
  * @author Gazeb
  */
 $messages['rue'] = array(
