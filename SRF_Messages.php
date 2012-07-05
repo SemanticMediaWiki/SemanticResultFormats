@@ -1812,6 +1812,9 @@ $messages['hu'] = array(
 $messages['ia'] = array(
 	'srf-desc' => 'Formatos additional pro incorporar consultas de Semantic MediaWiki',
 	'srf-name' => 'Formatos de resultatos semantic',
+	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
+	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
+	'srf-paramdesc-class' => 'Classe CSS additional',
 	'srfc_previousmonth' => 'Mense precedente',
 	'srfc_nextmonth' => 'Mense sequente',
 	'srfc_today' => 'Hodie',
@@ -1852,8 +1855,6 @@ $messages['ia'] = array(
 	'srf_paramdesc_views' => 'Le vistas a monstrar',
 	'srf_paramdesc_facets' => 'Le insimul de proprietates a monstrar pro cata pagina',
 	'srf_paramdesc_lens' => 'Le nomine de un patrono con le qual monstrar le proprietates de pagina',
-	'srf-error-resourceloader' => 'Iste formato require le ResourceLoader.',
-	'srf-error-missing-renderer' => 'Il manca un motor de rendition de graphicos.',
 	'srf_printername_googlebar' => 'Diagramma a barras de Google',
 	'srf_printername_googlepie' => 'Diagramma circular de Google',
 	'srf_printername_jqplotbar' => 'Diagramma de barras jqPlot',
@@ -1932,14 +1933,13 @@ $messages['ia'] = array(
 	'srf-noparentprop' => 'Nulle proprietate genitor specificate. Le arbore non pote esser construite sin specification de un proprietate genitor.',
 	'srf-paramdesc-parent' => 'Le proprietate que contine le pagina genitor',
 	'srf-printername-slideshow' => 'Presentation de diapositivas',
-	'srf-paramdesc-class' => 'Classe CSS additional',
 	'srf-paramdesc-delay' => 'Tempore inter diapositivas in secundas',
-	'srf-paramdesc-height' => 'Altitude del presentator de diapositivas',
-	'srf-paramdesc-width' => 'Le latitude del presentator de diapositivas',
 	'srf-paramdesc-navigation-controls' => 'Monstrar controlos de navigation o non',
 	'srf-paramdesc-effect' => 'Le effecto a usar pro cambiar inter diapositivas',
 	'srf-printername-filtered' => 'Filtrate',
 	'srf-paramdesc-views' => 'Le vistas que debe esser disponibile in le presentation de resultatos.',
+	'srf-error-resourceloader' => 'Iste formato require le ResourceLoader.',
+	'srf-error-missing-renderer' => 'Il manca un motor de rendition de graphicos.',
 );
 
 /** Indonesian (Bahasa Indonesia)
