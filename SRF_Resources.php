@@ -217,4 +217,24 @@ $wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
 	),
 );
 
+/******************************************************************************
+ * Tag cloud
+ ******************************************************************************/
+// excanvas allows 2D command-based drawing for compatibility 
+// with pre-9.0 Internet Explorer
+$wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $moduleTemplate + array(
+	'scripts' => 'TagCloud/resources/excanvas.js'
+);
+
+$wgResourceModules['ext.jquery.tagcanvas'] = $moduleTemplate + array(
+	'scripts' => 'TagCloud/resources/jquery.tagcanvas.1.18.min.js',
+	'dependencies' => 'ext.jquery.tagcanvas.excanvas',
+);
+
+$wgResourceModules['ext.srf.tagcloud.canvas'] = $moduleTemplate + array(
+	'scripts' => 'TagCloud/resources/ext.srf.tagcloud.canvas.js',
+	'style'   => 'TagCloud/resources/ext.srf.tagcloud.canvas.css',
+	'dependencies' => 'ext.jquery.tagcanvas',
+	'position'     => 'top',
+);
 unset( $moduleTemplate );

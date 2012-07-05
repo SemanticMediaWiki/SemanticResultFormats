@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Internationalization file for the Semantic Result Formats extension
  *
@@ -15,6 +15,12 @@ $messages['en'] = array(
 
 	// user messages
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
+
+	// Common messages
+	'srf-paramdesc-height' => 'Height (in pixel)',
+	'srf-paramdesc-width'  => 'Width (in pixel)',
+	'srf-paramdesc-class'  => 'Additional CSS class',
+
 	// format "calendar"
 	'srfc_previousmonth' => 'Previous month',
 	'srfc_nextmonth'     => 'Next month',
@@ -23,17 +29,21 @@ $messages['en'] = array(
 	'srf_printername_calendar' => 'Monthly calendar',
 	'srf_paramdesc_calendarlang' => 'The code for the language in which to display the calendar',
 	'srf_paramdesc_calendarcolors' => 'The color to display for each date property (example: "Start date=>green,End date=>#09c")',
+
 	// format "vCard"
 	'srf_vcard_link'     => 'vCard',
 	'srf_printername_vcard' => 'vCard export',
+
 	// format "iCalendar"
 	'srf_icalendar_link' => 'iCalendar',
 	'srf_printername_icalendar' => 'iCalendar export',
 	'srf_paramdesc_icalendartitle' => 'The title of the calendar file',
 	'srf_paramdesc_icalendardescription' => 'The description of the calendar file',
+
 	// format "BibTeX"
 	'srf_bibtex_link'    => 'BibTeX',
 	'srf_printername_bibtex' => 'BibTeX export',
+
 	// format "outline"
 	'srf_outline_novalue' => 'No value',
 	'srf_printername_outline' => 'Outline',
@@ -72,10 +82,6 @@ $messages['en'] = array(
 	'srf_paramdesc_views' => 'The views to be displayed',
 	'srf_paramdesc_facets' => 'The set of properties to be displayed for each page',
 	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
-
-	// Error and warning
-	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
-	'srf-error-missing-renderer' => 'A chart/graph renderer is missing',
 
 	// formats "googlebar", "googlepie", jqplotpie and jqplotbar
 	'srf_printername_googlebar' => 'Google bar chart',
@@ -118,15 +124,17 @@ $messages['en'] = array(
 	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
 	'srf_paramdesc_galleryformat' => 'Gallery format',
 
-	// "tagcloud" format
+	// format "tagcloud"
 	'srf_printername_tagcloud' => 'Tag cloud',
-	'srf_paramdesc_includesubject' => 'If the names of the subjects themselves should be included',
+	'srf_paramdesc_includesubject' => 'Subject names themselves should be included',
 	'srf_paramdesc_increase' => 'How to increase the size of tags',
 	'srf_paramdesc_tagorder' => 'The order of the tags',
 	'srf_paramdesc_mincount' => 'The minimum amount of times a value needs to occur to be listed',
 	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent (default: 77)',
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 242)',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
+	'srf-paramdesc-tagformat' => 'Available tag format',
+	'srf-paramdesc-excludetags' => 'Exclude tag names (;)',
 
 	// "valuerank" format
 	'srf_printername_valuerank' => 'Value rank',
@@ -157,7 +165,7 @@ $messages['en'] = array(
 	'srf_paramdesc_graphcolor' => 'Graph color',
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
 
-	'srf-warn-empy-chart' => 'The chart is not shown because there are no results that can be displayed on it.',
+	'srf-warn-empy-chart' => 'Sufficient data are missing for a chart',
 
 	// DataTables
 	'srf_printername_datatables'  => 'DataTables',
@@ -173,7 +181,6 @@ $messages['en'] = array(
 
 	// format "slideshow"
 	'srf-printername-slideshow' => 'SlideShow',
-	'srf-paramdesc-class' => 'Additional CSS class',
 	'srf-paramdesc-delay' => 'The delay between slides in seconds',
 	'srf-paramdesc-height' => 'The height of the slideshow widget',
 	'srf-paramdesc-width' => 'The width of the slideshow widget',
@@ -183,6 +190,12 @@ $messages['en'] = array(
 	// format "filtered"
 	'srf-printername-filtered' => 'Filtered',
 	'srf-paramdesc-views' => 'The views that shall be available in the result display.',
+
+	// General error
+	'srf-error-option-mix' => 'Options ($1) are not available',
+	'srf-error-option-link-all'   => 'Option ($1) requires parameter [link] to be set "all"',
+	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
+	'srf-error-missing-renderer' => 'Rendering option is missing',
 );
 
 /** Message documentation (Message documentation)
