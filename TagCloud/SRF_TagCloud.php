@@ -17,14 +17,15 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
- * 
+ *
  * @since 1.5.3
- * 
+ *
  * @file SRF_TagCloud.php
  * @ingroup SemanticResultFormats
- * 
+ *
  * @licence GNU GPL v3
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author mwjames
  */
 class SRFTagCloud extends SMWResultPrinter {
 
@@ -41,18 +42,30 @@ class SRFTagCloud extends SMWResultPrinter {
 
 	/**
 	 * Return serialised results in specified format
-	 * 
-	 * @param SMWQueryResult $res
+	 *
+	 * @param SMWQueryResult $results
 	 * @param $outputmode
-	 * 
-	 * @return string 	  
+	 *
+	 * @return string
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
+		if ( ( $this->params['tagformat'] == 'sphere' ) && ( $this->params['template'] !== '' ) ) {
+			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'sphere, template' ) ) );
+		} elseif ( ( $this->params['tagformat'] == 'sphere' ) && ( $this->params['link'] !== 'all' ) ) {
+			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-link-all', 'sphere' ) ) );
+		}
+
 		$this->isHTML = $outputmode == SMW_OUTPUT_HTML;
 
 		if ( $this->params['template'] !== '' ) {
 			$this->hasTemplates = true;
 			$this->isHTML = false;
+		} elseif ( $this->params['tagformat'] == 'sphere' ){
+			$this->isHTML = true;
+			$outputmode = SMW_OUTPUT_HTML;
+
+			// RL module
+			SMWOutputs::requireResource( 'ext.srf.tagcloud.canvas' );
 		}
 
 		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
@@ -60,28 +73,29 @@ class SRFTagCloud extends SMWResultPrinter {
 
 	/**
 	 * Returns an array with the tags (keys) and the number of times they occur (values).
-	 * 
+	 *
 	 * @since 1.5.3
-	 * 
+	 *
 	 * @param SMWQueryResult $results
 	 * @param $outputmode
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getTags( SMWQueryResult $results, $outputmode ) {
-		$tags = array();
+		$tags        = array();
+		$excludetags = explode( ';', $this->params['excludetags'] );
 
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property 
 				while ( ( /* SMWDataValue */ $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
-					
+
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
-					
+
 					// If the main object should not be included, skip it.
 					if ( $i == 0 && !$this->params['includesubject'] && $isSubject ) {
 						continue;
 					}
-					
+
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $dataValue->getTypeID() == '_wpg' ) {
 						$value = $dataValue->getTitle()->getText();
@@ -89,6 +103,11 @@ class SRFTagCloud extends SMWResultPrinter {
 					} else {
 						$html = $dataValue->getShortText( $outputmode, $this->getLinker( false ) );
 						$value = $html;
+					}
+
+					// Exclude tags from result set
+					if ( in_array( $value, $excludetags ) ) {
+						continue;
 					}
 
 					// Replace content with template inclusion  
@@ -109,18 +128,18 @@ class SRFTagCloud extends SMWResultPrinter {
 				unset( $tags[$name] );
 			}
 		}
-		
+
 		return $tags;
 	}
 
 	/**
 	 * Determines the sizes of tags.
 	 * This method is based on code from the FolkTagCloud extension by Katharina Wäschle.
-	 * 
+	 *
 	 * @since 1.5.3
-	 * 
+	 *
 	 * @param array $tags
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getTagSizes( array $tags ) {
@@ -132,9 +151,9 @@ class SRFTagCloud extends SMWResultPrinter {
 		if ( $this->params['tagorder'] == 'unchanged' ) {
 			$unchangedTags = array_keys( $tags );
 		}
-		
+
 		arsort( $tags, SORT_NUMERIC );
-		
+
 		if ( count( $tags ) > $this->params['maxtags'] ) {
 			$tags = array_slice( $tags, 0, $this->params['maxtags'], true );
 		}
@@ -209,39 +228,82 @@ class SRFTagCloud extends SMWResultPrinter {
 
 	/**
 	 * Returns the HTML for the tag cloud.
-	 * 
+	 *
 	 * @since 1.5.3
-	 * 
+	 *
 	 * @param array $tags
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getTagCloud( array $tags ) {
-		$htmlTags = array();
+		// Initialize
+		$htmlTags  = array();
+		$htmlSTags = $htmlCTags = '';
 
+		// Count actual output, div identifier
+		static $statNr = 0;
+		$tagID = 'tagcloud-' . ++$statNr;
+
+		// Determine HTML element
+		$element = $this->params['tagformat'] == 'sphere' ? 'li' : 'span';
+
+		// Add size information
 		foreach ( $tags as $name => $size ) {
-			$htmlTags[] = Html::rawElement(
-				'span', array( 
-				'class' => 'srf-tagcloud-element',
+			$htmlTags[] = Html::rawElement( $element, array (
 				'style' => "font-size:$size%" ),
 				$this->tagsHtml[$name]
 			);
 		}
-		
-		return Html::rawElement( 'div', array( 
-			'class' => 'srf-tagcloud ' . $this->params['class'],
-			'align' => 'justify' ),
-			implode( ' ', $htmlTags )
+
+		// Stringify
+		$htmlSTags = implode( ' ', $htmlTags );
+
+		// Handle sphere/canvas output objects
+		if ( $this->params['tagformat'] == 'sphere' ) {
+			// Wrap UL list
+			$htmlCTags = Html::rawElement('ul', array (
+				'style' => 'display:none;'
+				), $htmlSTags
+			);
+
+			// Required capsulation for tags
+			$canvasTags = Xml::tags( 'div', array ( 'id' => $tagID . '-tags' ), $htmlCTags );
+
+			// Canvas output object
+			$canvasDIV  = Xml::tags( 'canvas', array ( 'id' => $tagID . '-canvas',
+				'width'  => $this->params['width'],
+				'height' => $this->params['height']
+				), null
+			);
+
+			// Collect canvas and tag object in separated DIV
+			$htmlSTags  = Xml::tags( 'div', array( 'id' => $tagID . '-container',
+				'data-font' => 'Impact,Arial Black,sans-serif'
+				), $canvasDIV . $canvasTags
+			);
+		}
+
+		// Beautify class selector
+		$class = $this->params['tagformat'] ?  '-' . $this->params['tagformat'] . ' ' : '';
+		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
+
+		// Divide general content from result output
+		return Html::rawElement( 'div', array (
+			'class'  => 'srf-tagcloud ' . $class,
+			'align'  => 'justify',
+			), $htmlSTags
 		);
 	}
 
 	/**
 	 * Create a template output
-	 * 
+	 *
 	 * @since 1.8
-	 * 
+	 *
 	 * @param $value
-	 * @return string 	  
+	 * @param $rownum
+	 *
+	 * @return string
 	 */
 	protected function initTemplateOutput( $value, &$rownum ) {
 		$rownum++;
@@ -253,9 +315,9 @@ class SRFTagCloud extends SMWResultPrinter {
 
 	/**
 	 * @see SMWResultPrinter::getParameters
-	 * 
+	 *
 	 * @since 1.5.3
-	 * 
+	 *
 	 * @return array
 	 */	
 	public function getParameters() {
@@ -271,29 +333,40 @@ class SRFTagCloud extends SMWResultPrinter {
 
 		$params['userparam'] = new Parameter( 'userparam' );
 		$params['userparam']->setDescription( wfMsg( 'smw-paramdesc-userparam' ) );
-		$params['userparam']->setDefault( '' );	
-		
+		$params['userparam']->setDefault( '' );
+
+		$params['excludetags'] = new Parameter( 'excludetags', Parameter::TYPE_STRING );
+		$params['excludetags']->setMessage( 'srf-paramdesc-excludetags' );
+		$params['excludetags']->setDefault( '' );
+
 		$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
 		$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );
 		$params['includesubject']->setDefault( false );
 
-		$params['increase'] = new Parameter( 'increase' );
-		$params['increase']->setMessage( 'srf_paramdesc_increase' );
-		$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
-		$params['increase']->setDefault( 'log' );
+		$params['tagformat'] = new Parameter( 'tagformat' );
+		$params['tagformat']->setMessage( 'srf-paramdesc-tagformat' );
+		$params['tagformat']->addCriteria( new CriterionInArray( 'sphere' ) );
+		$params['tagformat']->setDefault( '' );
 
 		$params['tagorder'] = new Parameter( 'tagorder' );
 		$params['tagorder']->setMessage( 'srf_paramdesc_tagorder' );
 		$params['tagorder']->addCriteria( new CriterionInArray( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) );
 		$params['tagorder']->setDefault( 'alphabetical' );
 
+		$params['increase'] = new Parameter( 'increase' );
+		$params['increase']->setMessage( 'srf_paramdesc_increase' );
+		$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
+		$params['increase']->setDefault( 'log' );
+
+		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 200 );
+		$params['height']->setMessage( 'srf-paramdesc-height' );
+
+		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, '200' );
+		$params['width']->setMessage( 'srf-paramdesc-width' );
+
 		$params['mincount'] = new Parameter( 'mincount', Parameter::TYPE_INTEGER );
 		$params['mincount']->setMessage( 'srf_paramdesc_mincount' );
 		$params['mincount']->setDefault( 1 );
-
-		$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
-		$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
-		$params['maxtags']->setDefault( 1000 );
 
 		$params['minsize'] = new Parameter( 'minsize', Parameter::TYPE_INTEGER );
 		$params['minsize']->setMessage( 'srf_paramdesc_minsize' );
@@ -302,6 +375,10 @@ class SRFTagCloud extends SMWResultPrinter {
 		$params['maxsize'] = new Parameter( 'maxsize', Parameter::TYPE_INTEGER );
 		$params['maxsize']->setMessage( 'srf_paramdesc_maxsize' );
 		$params['maxsize']->setDefault( 242 );
+
+		$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
+		$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
+		$params['maxtags']->setDefault( 1000 );
 
 		return $params;
 	}
