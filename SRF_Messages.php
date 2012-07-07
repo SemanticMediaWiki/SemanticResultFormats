@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Internationalization file for the Semantic Result Formats extension
  *
@@ -17,8 +17,8 @@ $messages['en'] = array(
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 
 	// Common messages
-	'srf-paramdesc-height' => 'Height (in pixel)',
-	'srf-paramdesc-width'  => 'Width (in pixel)',
+	'srf-paramdesc-height' => 'Height (in pixels)',
+	'srf-paramdesc-width'  => 'Width (in pixels)',
 	'srf-paramdesc-class'  => 'Additional CSS class',
 
 	// format "calendar"
@@ -134,7 +134,7 @@ $messages['en'] = array(
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 242)',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 	'srf-paramdesc-tagformat' => 'Available tag format',
-	'srf-paramdesc-excludetags' => 'Exclude tag names (;)',
+	'srf-paramdesc-excludetags' => 'Exclude tag names (delimter: ;)',
 
 	// "valuerank" format
 	'srf_printername_valuerank' => 'Value rank',
@@ -193,7 +193,7 @@ $messages['en'] = array(
 
 	// General error
 	'srf-error-option-mix' => 'Options ($1) are not available',
-	'srf-error-option-link-all'   => 'Option ($1) requires parameter [link] to be set "all"',
+	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
 	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
 	'srf-error-missing-renderer' => 'Rendering option is missing',
 );
@@ -253,9 +253,10 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
 	'srf-printername-filtered' => '{{doc-smwformat|filtered}}',
 	'srf-paramdesc-views' => '{{doc-paramdesc|views}}',
-	'srf-error-option-link-all' => 'This is an error message.
-
-{{doc-important|Do not translate the parameter "[link]" and its possible value "all".}}',
+	'srf-error-option-mix' => 'Options ($1) are not available',
+	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
+	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
+	'srf-error-missing-renderer' => 'Rendering option is missing',
 );
 
 /** Afrikaans (Afrikaans)

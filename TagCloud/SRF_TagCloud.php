@@ -49,22 +49,25 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-		if ( ( $this->params['tagformat'] == 'sphere' ) && ( $this->params['template'] !== '' ) ) {
-			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'sphere, template' ) ) );
-		} elseif ( ( $this->params['tagformat'] == 'sphere' ) && ( $this->params['link'] !== 'all' ) ) {
+
+		// Check output conditions
+		if ( ( $this->params['tagformat'] == 'sphere' ) &&
+			( $this->params['link'] !== 'all' ) &&
+			( $this->params['template'] == '' ) ) {
 			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-link-all', 'sphere' ) ) );
 		}
 
-		$this->isHTML = $outputmode == SMW_OUTPUT_HTML;
+		// Template support
+		$this->hasTemplates = $this->params['template'] !== '';
 
-		if ( $this->params['template'] !== '' ) {
-			$this->hasTemplates = true;
-			$this->isHTML = false;
-		} elseif ( $this->params['tagformat'] == 'sphere' ){
-			$this->isHTML = true;
-			$outputmode = SMW_OUTPUT_HTML;
+		// Prioritize HTML setting
+		$this->isHTML = $this->params['tagformat'] == 'sphere';
+		$this->isHTML = $this->params['template'] !== '' ? false : true;
 
-			// RL module
+		$outputmode = SMW_OUTPUT_HTML;
+
+		// RL module
+		if ( $this->params['tagformat'] == 'sphere' ){
 			SMWOutputs::requireResource( 'ext.srf.tagcloud.canvas' );
 		}
 
@@ -111,7 +114,7 @@ class SRFTagCloud extends SMWResultPrinter {
 					}
 
 					// Replace content with template inclusion  
-					$html = $this->params['template'] !== '' ? $this->initTemplateOutput ( $value , $rownum ) : $html;
+					$html = $this->params['template'] !== '' ? $this->addTemplateOutput ( $value , $rownum ) : $html;
 
 					if ( !array_key_exists( $value, $tags ) ) {
 						$tags[$value] = 0;
@@ -240,9 +243,9 @@ class SRFTagCloud extends SMWResultPrinter {
 		$htmlTags  = array();
 		$htmlSTags = $htmlCTags = '';
 
-		// Count actual output, div identifier
+		// Count actual output and store div identifier
 		static $statNr = 0;
-		$tagID = 'tagcloud-' . ++$statNr;
+		$tagID   = $this->params['tagformat'] . '-' . ++$statNr;
 
 		// Determine HTML element
 		$element = $this->params['tagformat'] == 'sphere' ? 'li' : 'span';
@@ -260,26 +263,25 @@ class SRFTagCloud extends SMWResultPrinter {
 
 		// Handle sphere/canvas output objects
 		if ( $this->params['tagformat'] == 'sphere' ) {
-			// Wrap UL list
-			$htmlCTags = Html::rawElement('ul', array (
+
+			// Wrap LI/UL elements
+			$htmlCTags = Html::rawElement( 'ul', array (
 				'style' => 'display:none;'
 				), $htmlSTags
 			);
 
-			// Required capsulation for tags
-			$canvasTags = Xml::tags( 'div', array ( 'id' => $tagID . '-tags' ), $htmlCTags );
-
-			// Canvas output object
-			$canvasDIV  = Xml::tags( 'canvas', array ( 'id' => $tagID . '-canvas',
-				'width'  => $this->params['width'],
-				'height' => $this->params['height']
-				), null
+			// Wrap tags
+			$htmlCTags = Html::rawElement( 'div', array (
+				'id' => $tagID . '-tags'
+				), $htmlCTags
 			);
 
-			// Collect canvas and tag object in separated DIV
-			$htmlSTags  = Xml::tags( 'div', array( 'id' => $tagID . '-container',
+			// Wrap everything in a container object
+			$htmlSTags = Html::rawElement( 'div', array (
+				'id'    => $tagID . '-container',
+				'style' => Sanitizer::checkCss( "width:{$this->params['width']}px; height:{$this->params['height']}px;" ),
 				'data-font' => 'Impact,Arial Black,sans-serif'
-				), $canvasDIV . $canvasTags
+				), $htmlCTags
 			);
 		}
 
@@ -289,7 +291,7 @@ class SRFTagCloud extends SMWResultPrinter {
 
 		// Divide general content from result output
 		return Html::rawElement( 'div', array (
-			'class'  => 'srf-tagcloud ' . $class,
+			'class'  => 'srf-tagcloud' . $class,
 			'align'  => 'justify',
 			), $htmlSTags
 		);
@@ -305,7 +307,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	 *
 	 * @return string
 	 */
-	protected function initTemplateOutput( $value, &$rownum ) {
+	protected function addTemplateOutput( $value, &$rownum ) {
 		$rownum++;
 		$wikitext  = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
 		$wikitext .= "|" . $value;

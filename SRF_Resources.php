@@ -8,7 +8,7 @@
  * @file SRF_Resources.php
  * @ingroup SemanticResultFormats
  *
- * @licence GNU GPL v3
+ * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
@@ -220,21 +220,19 @@ $wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
 /******************************************************************************
  * Tag cloud
  ******************************************************************************/
-// excanvas allows 2D command-based drawing for compatibility 
-// with pre-9.0 Internet Explorer
+// excanvas is only needed for pre-9.0 Internet Explorer compatibility
 $wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $moduleTemplate + array(
 	'scripts' => 'TagCloud/resources/excanvas.js'
 );
 
 $wgResourceModules['ext.jquery.tagcanvas'] = $moduleTemplate + array(
-	'scripts' => 'TagCloud/resources/jquery.tagcanvas.1.18.min.js',
-	'dependencies' => 'ext.jquery.tagcanvas.excanvas',
+	'scripts' => 'TagCloud/resources/jquery.tagcanvas.1.18.min.js'
 );
 
 $wgResourceModules['ext.srf.tagcloud.canvas'] = $moduleTemplate + array(
 	'scripts' => 'TagCloud/resources/ext.srf.tagcloud.canvas.js',
 	'style'   => 'TagCloud/resources/ext.srf.tagcloud.canvas.css',
-	'dependencies' => 'ext.jquery.tagcanvas',
+	'dependencies' => array( 'ext.jquery.tagcanvas', 'jquery.client' ),
 	'position'     => 'top',
 );
 unset( $moduleTemplate );
