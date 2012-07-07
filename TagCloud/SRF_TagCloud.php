@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * Result printer that prints query results as a tag cloud
