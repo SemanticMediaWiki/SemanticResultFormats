@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Internationalization file for the Semantic Result Formats extension
  *
@@ -17,8 +17,8 @@ $messages['en'] = array(
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 
 	// Common messages
-	'srf-paramdesc-height' => 'Height (in pixels)',
-	'srf-paramdesc-width'  => 'Width (in pixels)',
+	'srf-paramdesc-height' => 'Height (in pixel)',
+	'srf-paramdesc-width'  => 'Width (in pixel)',
 	'srf-paramdesc-class'  => 'Additional CSS class',
 
 	// format "calendar"
@@ -134,7 +134,7 @@ $messages['en'] = array(
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 242)',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 	'srf-paramdesc-tagformat' => 'Available tag format',
-	'srf-paramdesc-excludetags' => 'Exclude tag names (delimter: ;)',
+	'srf-paramdesc-excludetags' => 'Exclude tag names (;)',
 
 	// "valuerank" format
 	'srf_printername_valuerank' => 'Value rank',
@@ -193,7 +193,7 @@ $messages['en'] = array(
 
 	// General error
 	'srf-error-option-mix' => 'Options ($1) are not available',
-	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
+	'srf-error-option-link-all'   => 'Option ($1) requires parameter [link] to be set "all"',
 	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
 	'srf-error-missing-renderer' => 'Rendering option is missing',
 );
@@ -253,10 +253,9 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
 	'srf-printername-filtered' => '{{doc-smwformat|filtered}}',
 	'srf-paramdesc-views' => '{{doc-paramdesc|views}}',
-	'srf-error-option-mix' => 'Options ($1) are not available',
-	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
-	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
-	'srf-error-missing-renderer' => 'Rendering option is missing',
+	'srf-error-option-link-all' => 'This is an error message.
+
+{{doc-important|Do not translate the parameter "[link]" and its possible value "all".}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -954,6 +953,9 @@ $messages['eo'] = array(
 $messages['es'] = array(
 	'srf-desc' => 'Formatos adicionales para consultas en línea de Semantic MediaWiki',
 	'srf-name' => 'Formatos de resultado semántico',
+	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
+	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
+	'srf-paramdesc-class' => 'Clase CSS adicional',
 	'srfc_previousmonth' => 'Mes anterior',
 	'srfc_nextmonth' => 'Próximo mes',
 	'srfc_today' => 'Hoy',
@@ -994,8 +996,6 @@ $messages['es'] = array(
 	'srf_paramdesc_views' => 'Las vistas a mostrar',
 	'srf_paramdesc_facets' => 'El grupo de propiedades a mostrar para cada página',
 	'srf_paramdesc_lens' => 'El nombre de una plantilla con la que se muestra la propiedades de la página',
-	'srf-error-resourceloader' => 'Este formato requiere ResourceLoader',
-	'srf-error-missing-renderer' => 'Falta un procesador de tablas/gráficas',
 	'srf_printername_googlebar' => 'Gráfico de barras de Google',
 	'srf_printername_googlepie' => 'Gráfica circular de Google',
 	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
@@ -1041,6 +1041,8 @@ $messages['es'] = array(
 	'srf_paramdesc_minsize' => 'El tamaño de las etiquetas más pequeñas, en porcentaje (por defecto: 77)',
 	'srf_paramdesc_maxsize' => 'El tamaño de las etiquetas más grandes en porcentaje (por defecto: 242)',
 	'srf_paramdesc_maxtags' => 'La cantidad máxima de etiquetas en la nube',
+	'srf-paramdesc-tagformat' => 'Formato de etiqueta disponible',
+	'srf-paramdesc-excludetags' => 'Excluir nombres de etiqueta (;)',
 	'srf_printername_valuerank' => 'Valor del rango',
 	'srf_printername_array' => 'Tabla',
 	'srf_paramdesc_pagetitle' => 'Mostrar los títulos de las páginas como entradas de resultados, o bien omitirlos',
@@ -1074,14 +1076,15 @@ $messages['es'] = array(
 	'srf-noparentprop' => 'No se ha especificado ninguna propiedad padre. No se puede construir el árbol sin especificar una propiedad padre.',
 	'srf-paramdesc-parent' => 'La propiedad que contiene la página padre',
 	'srf-printername-slideshow' => 'Presentación de diapositivas',
-	'srf-paramdesc-class' => 'Clase CSS adicional',
 	'srf-paramdesc-delay' => 'Tiempo entre diapositivas, en segundos',
-	'srf-paramdesc-height' => 'Altura del presentador de diapositivas',
-	'srf-paramdesc-width' => 'Anchura del presentador de diapositivas',
 	'srf-paramdesc-navigation-controls' => 'Mostrar controles de navegación o no mostrarlos',
 	'srf-paramdesc-effect' => 'El efecto que se utilizará para cambiar de una diapositiva a la siguiente',
 	'srf-printername-filtered' => 'Filtrado',
 	'srf-paramdesc-views' => 'Las vistas que estarán disponibles en la pantalla de resultados.',
+	'srf-error-option-mix' => 'Las opciones ($1) no están disponibles',
+	'srf-error-option-link-all' => 'La opción ($1) necesita que el parámetro [link] esté definido como "all"',
+	'srf-error-resourceloader' => 'Este formato requiere ResourceLoader',
+	'srf-error-missing-renderer' => 'Falta un procesador de tablas/gráficas',
 );
 
 /** Basque (euskara)
