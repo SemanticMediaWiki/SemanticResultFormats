@@ -1,4 +1,4 @@
-﻿
+
 
 /* timeline-view.js */
 Exhibit.TimelineView=function(C,B){this._div=C;

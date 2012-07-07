@@ -1,4 +1,4 @@
-﻿
+
 
 /* authentication.js */
 Exhibit.Authentication={};

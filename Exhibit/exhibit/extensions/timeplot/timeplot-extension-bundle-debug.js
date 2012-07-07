@@ -1,4 +1,4 @@
-﻿
+
 
 /* timeplot-view.js */
 Exhibit.TimeplotView=function(containerElmt,uiContext){this._div=containerElmt;

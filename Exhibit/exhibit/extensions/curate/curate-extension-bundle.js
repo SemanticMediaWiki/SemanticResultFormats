@@ -1,4 +1,4 @@
-﻿
+
 
 /* change-list.js */
 Exhibit.ChangeList=function(B,A,C){this._div=SimileAjax.jQuery(B);

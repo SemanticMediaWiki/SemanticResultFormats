@@ -1,4 +1,4 @@
-﻿
+
 
 /* calendar-view.js */
 Exhibit.CalendarView=function(C,B){this._div=C;

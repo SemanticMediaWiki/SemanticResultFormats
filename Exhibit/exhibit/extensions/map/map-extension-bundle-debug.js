@@ -1,4 +1,4 @@
-﻿
+
 
 /* map-view.js */
 Exhibit.MapView=function(containerElmt,uiContext){Exhibit.MapView._initialize();

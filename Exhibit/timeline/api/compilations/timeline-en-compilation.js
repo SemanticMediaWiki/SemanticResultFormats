@@ -1,4 +1,4 @@
-﻿
+
 
 /* compile-prolog.js */
 window.Timeline_isCompiled=true;

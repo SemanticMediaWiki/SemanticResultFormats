@@ -1,4 +1,4 @@
-﻿
+
 
 /* timeplot-view.js */
 Exhibit.TimeplotView=function(C,B){this._div=C;

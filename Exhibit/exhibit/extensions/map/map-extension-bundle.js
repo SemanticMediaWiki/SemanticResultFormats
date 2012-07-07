@@ -1,4 +1,4 @@
-﻿
+
 
 /* map-view.js */
 Exhibit.MapView=function(C,B){Exhibit.MapView._initialize();

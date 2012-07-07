@@ -1,4 +1,4 @@
-﻿
+
 
 /* calendar-view.js */
 Exhibit.CalendarView=function(containerElmt,uiContext){this._div=containerElmt;

@@ -1,4 +1,4 @@
-﻿
+
 
 /* timeline-view.js */
 Exhibit.TimelineView=function(containerElmt,uiContext){this._div=containerElmt;

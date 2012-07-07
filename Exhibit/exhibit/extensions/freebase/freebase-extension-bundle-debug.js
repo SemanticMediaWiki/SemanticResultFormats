@@ -1,4 +1,4 @@
-﻿
+
 
 /* freebase-importer.js */
 Exhibit.FreebaseImporter={};

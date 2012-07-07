@@ -1,4 +1,4 @@
-﻿
+
 
 /* editing-backend.js */
 Exhibit.EditingBackend=function(){this._nodeTree={};

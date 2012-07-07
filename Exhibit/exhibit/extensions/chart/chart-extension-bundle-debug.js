@@ -1,4 +1,4 @@
-﻿
+
 
 /* bar-chart-view.js */
 Exhibit.BarChartView=function(containerElmt,uiContext){this._div=containerElmt;

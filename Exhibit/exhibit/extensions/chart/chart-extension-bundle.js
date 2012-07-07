@@ -1,4 +1,4 @@
-﻿
+
 
 /* bar-chart-view.js */
 Exhibit.BarChartView=function(C,B){this._div=C;

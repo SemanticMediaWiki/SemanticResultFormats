@@ -1,4 +1,4 @@
-﻿
+
 
 /* change-list.js */
 Exhibit.ChangeList=function(elmt,uiContext,settings){this._div=SimileAjax.jQuery(elmt);
