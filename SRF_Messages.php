@@ -779,7 +779,7 @@ $messages['de'] = array(
 	'srf_paramdesc_graphlink' => 'Link zur Grafik',
 	'srf_paramdesc_graphcolor' => 'Farbe der Grafik',
 	'srf-paramdesc-graph-wwl' => 'Begrenzung des Textumbruchs (Anzahl der Zeichen)',
-	'srf-warn-empy-chart' => 'Es wird kein Diagramm angezeigt, da keine anzuzeigende Ergebnisse vorhanden sind.',
+	'srf-warn-empy-chart' => 'Es sind keine ausreichenden Daten zur Darstellung eines Diagramms vorhanden.',
 	'srf_printername_datatables' => 'Datentabellen',
 	'srf-paramdesc-rowindex' => 'Zeilenindex der Tabelle',
 	'srf-paramdesc-displaylength' => 'Ausgangsanzeigelänge',
@@ -797,7 +797,7 @@ $messages['de'] = array(
 	'srf-error-option-mix' => 'Die Optionen ($1) sind  nicht verfügbar',
 	'srf-error-option-link-all' => 'Zur Option ($1) muss beim Paramenter [link] der Wert „all“ gesetzt werden.',
 	'srf-error-resourceloader' => 'Dieses Format benötigt den ResourceLoader',
-	'srf-error-missing-renderer' => 'Es ist kein Programm zum Rendern des Diagramms / der Grafik vorhanden.',
+	'srf-error-missing-renderer' => 'Option zum Rendern fehlt',
 );
 
 /** Zazaki (Zazaki)
@@ -1156,6 +1156,9 @@ $messages['fi'] = array(
 $messages['fr'] = array(
 	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
 	'srf-name' => 'Formatage des résultats sémantiques',
+	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
+	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
+	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
 	'srfc_today' => 'Aujourd’hui',
@@ -1198,8 +1201,6 @@ $messages['fr'] = array(
 	'srf_paramdesc_views' => 'Les vues à afficher',
 	'srf_paramdesc_facets' => 'L’ensemble des propriétés à afficher pour chaque page',
 	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
-	'srf-error-resourceloader' => 'Ce format nécessite le ResourceLoader',
-	'srf-error-missing-renderer' => 'Un moteur de rendu de graphique/graphe est manquant',
 	'srf_printername_googlebar' => 'Diagramme à barres de Google',
 	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
 	'srf_printername_jqplotbar' => 'Diagramme en barres jqPlot',
@@ -1278,14 +1279,13 @@ $messages['fr'] = array(
 	'srf-noparentprop' => "Aucune propriété parente fournie. L'arbre ne peut pas être construit sans une propriété parente spécifiée.",
 	'srf-paramdesc-parent' => 'La propriété contenant la page parent',
 	'srf-printername-slideshow' => 'Diaporama',
-	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
 	'srf-paramdesc-delay' => 'Le délai entre les diapositives en secondes',
-	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
-	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
 	'srf-paramdesc-navigation-controls' => 'Afficher les contrôles de navigation ou non',
 	'srf-paramdesc-effect' => "L'effet à utiliser pour passer d'une diapositive à l'autre",
 	'srf-printername-filtered' => 'Filtré',
 	'srf-paramdesc-views' => "Les vues qui doivent être disponibles dans l'affichage du résultat.",
+	'srf-error-resourceloader' => 'Ce format nécessite le ResourceLoader',
+	'srf-error-missing-renderer' => 'Un moteur de rendu de graphique/graphe est manquant',
 );
 
 /** Franco-Provençal (arpetan)
@@ -1731,6 +1731,7 @@ $messages['hsb'] = array(
 	'srf_paramdesc_maxtags' => 'Maksimalna ličba woznamjenjacych słowow w mróčeli',
 	'srf_printername_valuerank' => 'Hódnota',
 	'srf_printername_array' => 'Datowe polo',
+	'srf_paramdesc_pagetitle' => 'Postaja, hač titule stronow maja so jako wuslědkowe zapiski pokazać abo so wuwostajić',
 	'srf_paramdesc_propsep' => 'Dźělatko mjez požadanymi kajkosćemi',
 	'srf_paramdesc_manysep' => 'Dźělatko mjez wjacorymi kajkostnymi hódnotami kajkosće',
 	'srf_paramdesc_recordsep' => 'Dźělatko mjez hódnotami kajkosćow datoweje sadźby',
@@ -1747,7 +1748,7 @@ $messages['hsb'] = array(
 	'srf_paramdesc_graphlink' => 'Wotkaz ke grafice',
 	'srf_paramdesc_graphcolor' => 'Barba grafiki',
 	'srf-paramdesc-graph-wwl' => 'Limit za tekstowe łamanje (ličba znamješkow)',
-	'srf-warn-empy-chart' => 'Diagram so njepokazuje, dokelž njejsu wuslědki, kotrež dadźa so na nim pokazać.',
+	'srf-warn-empy-chart' => 'Za diagram dosć datow faluje',
 	'srf_printername_datatables' => 'Datowe tabele',
 	'srf-paramdesc-rowindex' => 'Rjadkowy indeks tabele',
 	'srf-paramdesc-displaylength' => 'Spočatna zwobraznjenska dołhosć',
@@ -1760,9 +1761,11 @@ $messages['hsb'] = array(
 	'srf-paramdesc-navigation-controls' => 'Nawigaciske elementy pokazać abo nic',
 	'srf-paramdesc-effect' => 'Efekt, kotryž ma so wužiwać, zo by wot wobraza do wobraza přešło',
 	'srf-printername-filtered' => 'Filtrowany',
+	'srf-paramdesc-views' => 'Napohlady, kotrež ma we wuslědkowym wozjewjenju k dispoziciji stać.',
 	'srf-error-option-mix' => 'Opcije ($1) k dispoziciji njesteji',
 	'srf-error-option-link-all' => 'Opcija ($1) sej wužaduje, zo so parameter [link] na "all" staji.',
 	'srf-error-resourceloader' => 'Tutón format sej ResourceLoader wužaduje',
+	'srf-error-missing-renderer' => 'Nastajenje za rysowanje faluje',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -1944,7 +1947,7 @@ $messages['ia'] = array(
 	'srf_paramdesc_graphlink' => 'Ligamine al graphico',
 	'srf_paramdesc_graphcolor' => 'Color del graphico',
 	'srf-paramdesc-graph-wwl' => 'Limite pro torno de parolas (in numero de characteres)',
-	'srf-warn-empy-chart' => 'Le graphico non es monstrate perque il non ha resultatos que pote esser presentate in illo.',
+	'srf-warn-empy-chart' => 'Il non ha datos sufficiente pro facer un graphico.',
 	'srf_printername_datatables' => 'Tabellas de datos',
 	'srf-paramdesc-rowindex' => 'Indice de lineas de tabella',
 	'srf-paramdesc-displaylength' => 'Longitude initial del presentation',
@@ -1962,7 +1965,7 @@ $messages['ia'] = array(
 	'srf-error-option-mix' => 'Le optiones ($1) non es disponibile',
 	'srf-error-option-link-all' => 'Le option ($1) require que le parametro [link] es definite como "all"',
 	'srf-error-resourceloader' => 'Iste formato require le ResourceLoader.',
-	'srf-error-missing-renderer' => 'Il manca un motor de rendition de graphicos.',
+	'srf-error-missing-renderer' => 'Il manca un motor de rendition.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2446,7 +2449,7 @@ $messages['mk'] = array(
 	'srf_paramdesc_graphlink' => 'Врска за графиконот',
 	'srf_paramdesc_graphcolor' => 'Боја на графиконот',
 	'srf-paramdesc-graph-wwl' => 'Граница за прелом (во бр. на знаци)',
-	'srf-warn-empy-chart' => 'Графикот не е прикажан бидејќи нема резултати што би го исцртале.',
+	'srf-warn-empy-chart' => 'Нема доволно податоци за графиконот',
 	'srf_printername_datatables' => 'ПодаточниТабели',
 	'srf-paramdesc-rowindex' => 'Индекс на табл. ред',
 	'srf-paramdesc-displaylength' => 'Првична должина на приказот',
@@ -2464,7 +2467,7 @@ $messages['mk'] = array(
 	'srf-error-option-mix' => 'Можностите ($1) не се достапни',
 	'srf-error-option-link-all' => 'Можноста ($1) бара параметарот [link] да биде ставен на „all“',
 	'srf-error-resourceloader' => 'Овој формат го бара вчитувачот на ресурси (ResourceLoader)',
-	'srf-error-missing-renderer' => 'Недостасува исписникот на графикони',
+	'srf-error-missing-renderer' => 'Недостасува можноста за испис на графикони',
 );
 
 /** Malayalam (മലയാളം)
@@ -2625,6 +2628,9 @@ $messages['nb'] = array(
 $messages['nl'] = array(
 	'srf-desc' => 'Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki',
 	'srf-name' => 'Semantische resultaatformaten',
+	'srf-paramdesc-height' => 'De hoogte van de diapresentatiewidget',
+	'srf-paramdesc-width' => 'De breedte van de diapresentatiewidget',
+	'srf-paramdesc-class' => 'Extra CSS-klasse',
 	'srfc_previousmonth' => 'Vorige maand',
 	'srfc_nextmonth' => 'Volgende maand',
 	'srfc_today' => 'Vandaag',
@@ -2665,8 +2671,6 @@ $messages['nl'] = array(
 	'srf_paramdesc_views' => 'De weer te geven overzichten',
 	'srf_paramdesc_facets' => 'De op iedere pagina weer te geven eigenschappen',
 	'srf_paramdesc_lens' => 'De naam van het sjabloon waarmee de paginaeigenschappen weergegeven moeten worden',
-	'srf-error-resourceloader' => 'Voor deze opmaak is ResourceLoader vereist',
-	'srf-error-missing-renderer' => 'Er mist een renderer voor een kaart of grafiek',
 	'srf_printername_googlebar' => 'Google staafgrafiek',
 	'srf_printername_googlepie' => 'Google taartgrafiek',
 	'srf_printername_jqplotbar' => 'jqPlot-staafdiagram',
@@ -2745,14 +2749,13 @@ $messages['nl'] = array(
 	'srf-noparentprop' => 'Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.',
 	'srf-paramdesc-parent' => 'De eigenschap die de bovenliggende pagina bevat',
 	'srf-printername-slideshow' => 'Diapresentatie',
-	'srf-paramdesc-class' => 'Extra CSS-klasse',
 	'srf-paramdesc-delay' => "De vertraging tussen dia's in seconden",
-	'srf-paramdesc-height' => 'De hoogte van de diapresentatiewidget',
-	'srf-paramdesc-width' => 'De breedte van de diapresentatiewidget',
 	'srf-paramdesc-navigation-controls' => 'Of navigatieknoppen wel of niet weergegeven moeten worden',
 	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselen",
 	'srf-printername-filtered' => 'Gefilterd',
 	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
+	'srf-error-resourceloader' => 'Voor deze opmaak is ResourceLoader vereist',
+	'srf-error-missing-renderer' => 'Er mist een renderer voor een kaart of grafiek',
 );
 
 /** Norwegian Nynorsk (‪norsk (nynorsk)‬)
