@@ -17,8 +17,8 @@ $messages['en'] = array(
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 
 	// Common messages
-	'srf-paramdesc-height' => 'Height (in pixel)',
-	'srf-paramdesc-width'  => 'Width (in pixel)',
+	'srf-paramdesc-height' => 'Height (in pixels)',
+	'srf-paramdesc-width'  => 'Width (in pixels)',
 	'srf-paramdesc-class'  => 'Additional CSS class',
 
 	// format "calendar"
@@ -123,6 +123,9 @@ $messages['en'] = array(
 	'srf_paramdesc_captionproperty' => 'The name of a semantic property present on the queried pages to be used as caption',
 	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
 	'srf_paramdesc_galleryformat' => 'Gallery format',
+	'srf-paramdesc-navigation'    => 'Navigation',
+	'srf-gallery-navigation-previous' => 'Previous',
+	'srf-gallery-navigation-next'     => 'Next',
 
 	// format "tagcloud"
 	'srf_printername_tagcloud' => 'Tag cloud',

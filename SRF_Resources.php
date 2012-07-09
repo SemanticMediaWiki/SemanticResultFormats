@@ -17,8 +17,8 @@ $moduleTemplate = array(
 	'remoteExtPath' => 'SemanticResultFormats/'
 );
 
-/******************************************************************************/
-/* jqPlot
+/******************************************************************************
+ * jqPlot
 /******************************************************************************/
 // excanvas is required only for IE versions below 9 while IE 9 includes 
 // native support
@@ -88,10 +88,9 @@ $wgResourceModules['ext.srf.jqplot.donut'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
+/******************************************************************************
+ *  Timeline
 /******************************************************************************/
-/*  Timeline
-/******************************************************************************/
-
 $wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
 	'scripts' => array(
 		'Timeline/SRF_timeline.js',
@@ -147,17 +146,34 @@ $wgResourceModules['ext.srf.jitgraph'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jcarousel'] = $moduleTemplate + array(
-	'scripts' => array(
-		'Gallery/resources/jquery.jcarousel.min.js',
-		'Gallery/resources/ext.srf.jcarousel.js',
-	),
-	'styles' => array(
-		'Gallery/resources/ext.srf.jcarousel.css',
-	),
+/******************************************************************************
+ * Gallery
+/******************************************************************************/
+$wgResourceModules['ext.jquery.jcarousel'] = $moduleTemplate + array(
+	'scripts' => 'Gallery/resources/jquery.jcarousel.min.js',
+);
+
+$wgResourceModules['ext.jquery.responsiveslides'] = $moduleTemplate + array(
+	'scripts' => 'Gallery/resources/jquery.responsiveslides.1.32.min.js',
+);
+
+$wgResourceModules['ext.srf.gallery.carousel'] = $moduleTemplate + array(
+	'scripts' => 'Gallery/resources/ext.srf.jcarousel.js',
+	'styles'  => 'Gallery/resources/ext.srf.jcarousel.css',
+	'dependencies' => 'ext.jquery.jcarousel',
 	'position' => 'top',
 );
 
+$wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
+	'scripts' => 'Gallery/resources/ext.srf.gallery.slideshow.js',
+	'styles'  => 'Gallery/resources/ext.srf.gallery.slideshow.css',
+	'dependencies' => 'ext.jquery.responsiveslides',
+	'position' => 'top',
+);
+
+/******************************************************************************
+ * Filtered
+/******************************************************************************/
 $wgResourceModules['ext.srf.filtered'] = $moduleTemplate + array(
 	'scripts' => array(
 		'Filtered/libs/ext.srf.filtered.js',
@@ -205,6 +221,9 @@ $wgResourceModules['ext.srf.filtered.distance-filter'] = $moduleTemplate + array
 	),
 );
 
+/******************************************************************************
+ * Slideshow
+ ******************************************************************************/
 $wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
 	'scripts' => array(
 		'SlideShow/ext.srf.slideshow.js',
