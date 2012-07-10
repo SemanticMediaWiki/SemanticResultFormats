@@ -3,6 +3,21 @@
 /**
  * Result printer that prints query results as a gallery.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ *
  * @file SRF_Gallery.php
  * @ingroup SemanticResultFormats
  *
@@ -31,7 +46,7 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-		global $wgParser;
+		global $wgParser, $wgStylePath;
 
 		$ig = new ImageGallery();
 		$ig->setShowBytes( false );
@@ -39,9 +54,12 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setParser( $wgParser );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
+		$processing    = '';
+		static $statNr = 0;
+
+		// Carousel parameters
 		if ( $this->params['galleryformat'] == 'carousel' ) {
-			static $carouselNr = 0;
-			
+
 			// Set attributes for jcarousel
 			$dataAttribs = array(
 				'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
@@ -56,21 +74,35 @@ class SRFGallery extends SMWResultPrinter {
 				$dataAttribs['scroll'] = $this->params['perrow'];
 				$dataAttribs['visible'] = $this->params['perrow'];
 			}
-			
+
 			$attribs = array(
-				'id' => 'carousel' . ++$carouselNr,
+				'id' =>  $this->params['galleryformat'] . '-' . ++$statNr,
 				'class' => 'jcarousel jcarousel-skin-smw',
-				'style' => 'display:none;', // Avoid js loading issues by not displaying anything until js is able to do so.
+				'style' => 'display:none;',
 			);
-			
+
 			foreach ( $dataAttribs as $name => $value ) {
 				$attribs['data-' . $name] = $value;
 			}
 
 			$ig->setAttributes( $attribs );
 
-			// Load javascript module
-			SMWOutputs::requireResource( 'ext.srf.jcarousel' );
+			// RL module
+			SMWOutputs::requireResource( 'ext.srf.gallery.carousel' );
+		}
+
+		// Slideshow parameters
+		if ( $this->params['galleryformat'] == 'slideshow' ) {
+			$mAttribs['id']    = $this->params['galleryformat'] . '-' . ++$statNr;
+			$mAttribs['style'] = 'display:none;';
+			$mAttribs['data-nav-control']  = $this->params['navigation'];
+			$mAttribs['data-previous'] = wfMsg('srf-gallery-navigation-previous', '');
+			$mAttribs['data-next']     = wfMsg('srf-gallery-navigation-next', '');
+
+			$ig->setAttributes( $mAttribs );
+
+			// RL module
+			SMWOutputs::requireResource( 'ext.srf.gallery.slideshow' );
 		}
 
 		// In case galleryformat = carousel, perrow should not be set
@@ -99,7 +131,29 @@ class SRFGallery extends SMWResultPrinter {
 			$this->addImagePages( $results, $ig );
 		}
 
-		return array( $ig->toHTML(), 'nowiki' => true, 'isHTML' => true );
+		// Display a processing image as long as jquery is not loaded
+		if ( $this->params['galleryformat'] !== '' ) {
+			$processing = XML::tags( 'img', array (
+				'class' => 'processing',
+				'style' => 'vertical-align: middle;',
+				'src'   => "{$wgStylePath}/common/images/spinner.gif",
+				'title' => 'Loading ...'
+				), null
+			);
+		}
+
+		// Beautify class selector
+		$class = $this->params['galleryformat'] ?  '-' . $this->params['galleryformat'] . ' ' : '';
+		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
+
+		// Separate content from result output
+		$html  = Html::rawElement( 'div', array (
+			'class'  => 'srf-gallery' . $class,
+			'align'  => 'justify',
+			), $processing . $ig->toHTML()
+		);
+
+		return array( $html, 'nowiki' => true, 'isHTML' => true );
 	}
 
 	/**
@@ -228,12 +282,18 @@ class SRFGallery extends SMWResultPrinter {
 	public function getParameters() {
 		$params = parent::getParameters();
 
-		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-			// Since 1.7.1
-			$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
-			$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
-			$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel' ) );
-		}
+		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
+		$params['class']->setMessage( 'srf-paramdesc-class' );
+		$params['class']->setDefault( '' );
+
+		$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
+		$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
+		$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
+
+		$params['navigation'] = new Parameter( 'navigation', Parameter::TYPE_STRING, '' );
+		$params['navigation']->setMessage( 'srf-paramdesc-navigation' );
+		$params['navigation']->addCriteria( new CriterionInArray( 'auto', 'pager', 'nav' ) );
+		$params['navigation']->setDefault( 'nav' );
 
 		$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
 		$params['perrow']->setMessage( 'srf_paramdesc_perrow' );
@@ -265,5 +325,4 @@ class SRFGallery extends SMWResultPrinter {
 
 		return $params;
 	}
-
 }
