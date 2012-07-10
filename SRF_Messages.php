@@ -749,6 +749,9 @@ $messages['de'] = array(
 	'srf_paramdesc_captionproperty' => 'Der Name des Attributs auf abgefragten Seiten, der als Beschreibung verwendet werden soll',
 	'srf_paramdesc_imageproperty' => 'Der Name des Attributs auf abgefragten Seiten, das auf das zu verwendende Bild hinweist. Sofern festgelegt, werden die abgefragten Seiten selbst, nicht als Bild angezeigt.',
 	'srf_paramdesc_galleryformat' => 'Galerie',
+	'srf-paramdesc-navigation' => 'Navigation',
+	'srf-gallery-navigation-previous' => 'Zurück',
+	'srf-gallery-navigation-next' => 'Weiter',
 	'srf_printername_tagcloud' => 'Stichwortwolke',
 	'srf_paramdesc_includesubject' => 'Ob die Themenbezeichnungen selbst mit einbezogen werden sollen',
 	'srf_paramdesc_increase' => 'Wie soll die Darstellungsgröße der Stichwörter verändert werden?',
@@ -952,6 +955,7 @@ $messages['eo'] = array(
  * @author McDutchie
  * @author Sanbec
  * @author Translationista
+ * @author VegaDark
  */
 $messages['es'] = array(
 	'srf-desc' => 'Formatos adicionales para consultas en línea de Semantic MediaWiki',
@@ -1069,7 +1073,7 @@ $messages['es'] = array(
 	'srf_paramdesc_graphlink' => 'Enlace de la gráfica',
 	'srf_paramdesc_graphcolor' => 'Color de la gráfica',
 	'srf-paramdesc-graph-wwl' => 'Ajuste automático de línea (en número de caracteres)',
-	'srf-warn-empy-chart' => 'La tabla no se muestra porque no hay resultados que incluir en ella.',
+	'srf-warn-empy-chart' => 'Faltan datos suficientes para el gráfico',
 	'srf_printername_datatables' => 'Tablas de datos',
 	'srf-paramdesc-rowindex' => 'Índice de la fila de la tabla',
 	'srf-paramdesc-displaylength' => 'Longitud de presentación inicial',
@@ -1721,6 +1725,10 @@ $messages['hsb'] = array(
 	'srf-paramdesc-colorscheme' => 'Barbowu šemu wubrać',
 	'srf-paramdesc-valueformat' => 'Formatowanske prawidło za hódnoty podać',
 	'srf-paramdesc-highlighter' => 'Wuzběhnjenje datowych dypkow zwobraznić',
+	'srf-paramdesc-smoothlines' => 'Algoritmus za wupłonjenje na linijowych diagramach nałožić',
+	'srf-paramdesc-stackseries' => 'Diagram jako worštowane rjady zwobraznić',
+	'srf-paramdesc-seriesgroup' => 'Grupěrowanje rjadow wubrać',
+	'srf-paramdesc-serieslabel' => 'Popisy rjadow podać',
 	'srf_printername_gallery' => 'Galerija',
 	'srf_paramdesc_perrow' => 'Ličba wobrazow na rjadku',
 	'srf_paramdesc_widths' => 'Šěrokosć wobrazow',
