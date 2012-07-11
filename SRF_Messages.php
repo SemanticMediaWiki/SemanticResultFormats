@@ -1147,6 +1147,7 @@ $messages['fi'] = array(
 );
 
 /** French (français)
+ * @author Brunoperel
  * @author Crochet.david
  * @author DavidL
  * @author Gomoko
@@ -1245,6 +1246,9 @@ $messages['fr'] = array(
 	'srf_paramdesc_captionproperty' => 'Le nom de la propriété sémantique présent sur les pages demandées doit être utilisé comme titre',
 	'srf_paramdesc_imageproperty' => 'Le nom de la propriété sémantique sur les pages demandées qui pointent vers des images à utiliser. Quand il est positionné, les pages demandées elles-mêmes ne seront aps affichées comme des images',
 	'srf_paramdesc_galleryformat' => 'Format de la galerie',
+	'srf-paramdesc-navigation' => 'Navigation',
+	'srf-gallery-navigation-previous' => 'Précédent',
+	'srf-gallery-navigation-next' => 'Suivant',
 	'srf_printername_tagcloud' => 'Nuage de tags',
 	'srf_paramdesc_includesubject' => 'Si les noms des sujets eux-mêmes devraient être inclus',
 	'srf_paramdesc_increase' => 'Comment augmenter la taille des tags',
@@ -1438,6 +1442,9 @@ $messages['gl'] = array(
 	'srf_paramdesc_captionproperty' => 'O nome dunha propiedade semántica presente nas páxinas consultadas a usar como pé de imaxe',
 	'srf_paramdesc_imageproperty' => 'Nome dunha propiedade semántica nas páxinas consultadas que apunta cara a imaxes a usar. Cando estea definido, as páxinas consultadas en si non se mostrarán como imaxes',
 	'srf_paramdesc_galleryformat' => 'Formato da galería',
+	'srf-paramdesc-navigation' => 'Navegación',
+	'srf-gallery-navigation-previous' => 'Anterior',
+	'srf-gallery-navigation-next' => 'Seguinte',
 	'srf_printername_tagcloud' => 'Nube de etiquetas',
 	'srf_paramdesc_includesubject' => 'Se os nomes dos temas deben incluírse',
 	'srf_paramdesc_increase' => 'Como aumentar o tamaño das etiquetas',
