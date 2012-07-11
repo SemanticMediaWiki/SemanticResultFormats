@@ -854,7 +854,6 @@ $messages['dsb'] = array(
 	'srf_paramdesc_views' => 'Naglědy, kótarež maju se zwobrazniś',
 	'srf_paramdesc_facets' => 'Sajźba atributow, kótarež maju se zwobrazniś za kuždy bok',
 	'srf_paramdesc_lens' => 'Mě pśedłogi, z kótarejuž maju se bokowe atributy zwobrazniś',
-	'srf-error-resourceloader' => 'Toś ten format pomina se ResourceLoader',
 	'srf_printername_googlebar' => 'Google słupowy diagram',
 	'srf_printername_googlepie' => 'Google tortowy diagram',
 	'srf_printername_jqplotbar' => 'jqPlot słupowy diagram',
@@ -898,6 +897,7 @@ $messages['dsb'] = array(
 	'srf-paramdesc-displaylength' => 'Zachopna zwobraznjeńska dłujkosć',
 	'srf_printername_tree' => 'Bom',
 	'srf-paramdesc-parent' => 'Kakosć, kótaraž wopśimujo nadrědowany bok',
+	'srf-error-resourceloader' => 'Toś ten format pomina se ResourceLoader',
 );
 
 /** Greek (Ελληνικά)
@@ -1737,6 +1737,9 @@ $messages['hsb'] = array(
 	'srf_paramdesc_fileextensions' => 'Jeli so datajowe mjeno jako wopisanje wužiwa, tež datajowu kóncowku pokazać',
 	'srf_paramdesc_captionproperty' => 'Mjeno semantiskeje kajkosće na naprašowanych stronach, kotrež ma so jako wopisanje wužiwać',
 	'srf_paramdesc_galleryformat' => 'Galerijowy format',
+	'srf-paramdesc-navigation' => 'Nawigacija',
+	'srf-gallery-navigation-previous' => 'Předchadny',
+	'srf-gallery-navigation-next' => 'Přichodny',
 	'srf_printername_tagcloud' => 'Tafličkowa mróčel',
 	'srf_paramdesc_includesubject' => 'Hač mjena temow same maja so zapřijeć',
 	'srf_paramdesc_increase' => 'Kak woznamjenjace słowa powjetšić',
@@ -1930,6 +1933,9 @@ $messages['ia'] = array(
 	'srf_paramdesc_captionproperty' => 'Le nomine de un proprietate semantic presente in le paginas consultate, pro esser usate como legenda',
 	'srf_paramdesc_imageproperty' => 'Le nomine de un proprietate semantic presente in le paginas consultate, que indica imagines a usar. Si definite, le paginas consultate illos mesme non essera monstrate como imagines.',
 	'srf_paramdesc_galleryformat' => 'Formato del galeria',
+	'srf-paramdesc-navigation' => 'Navigation',
+	'srf-gallery-navigation-previous' => 'Precedente',
+	'srf-gallery-navigation-next' => 'Sequente',
 	'srf_printername_tagcloud' => 'Etiquettario',
 	'srf_paramdesc_includesubject' => 'Si le nomines del subjectos mesme debe esser includite',
 	'srf_paramdesc_increase' => 'Como augmentar le dimension de etiquettas',
@@ -2432,6 +2438,9 @@ $messages['mk'] = array(
 	'srf_paramdesc_captionproperty' => 'Име на семантичкото својство присутно на побараните страници што ќе се користи како опис',
 	'srf_paramdesc_imageproperty' => 'Име на семантичкото својство присутно на побараните страници што ќе посочува кои слики да се користат. Кога е зададено, самите побарани страници нема да се прикажуваат како слики',
 	'srf_paramdesc_galleryformat' => 'Формат на галеријата',
+	'srf-paramdesc-navigation' => 'Навигација',
+	'srf-gallery-navigation-previous' => 'Претходно',
+	'srf-gallery-navigation-next' => 'Следно',
 	'srf_printername_tagcloud' => 'Облак со ознаки',
 	'srf_paramdesc_includesubject' => 'Дали да се вклучат имињата на самите теми',
 	'srf_paramdesc_increase' => 'Како да ги зголемите ознаките',
@@ -2515,7 +2524,7 @@ $messages['ms'] = array(
 	'srf_paramdesc_graphname' => 'Tajuk',
 );
 
-/** Erzya (Эрзянь)
+/** Erzya (эрзянь)
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
@@ -2534,13 +2543,12 @@ $messages['nah'] = array(
 	'srfc_gotomonth' => 'Yāuh mētzhuīc',
 );
 
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
  * @author Event
- * @author Jon Harald Søby
  * @author Nghtwlkr
  */
 $messages['nb'] = array(
-	'srf-desc' => 'Ytterligere format for Semantic MediaWiki «inline»-spørringer',
+	'srf-desc' => 'Tilleggsformater for Semantic MediaWiki «inline»-spørringer',
 	'srf-name' => 'Semantisk resultatformat',
 	'srfc_previousmonth' => 'Forrige måned',
 	'srfc_nextmonth' => 'Neste måned',
@@ -2548,6 +2556,7 @@ $messages['nb'] = array(
 	'srfc_gotomonth' => 'Gå til måned',
 	'srf_printername_calendar' => 'Månedlig kalender',
 	'srf_paramdesc_calendarlang' => 'Språkkoden for språket som kalenderen skal vises i',
+	'srf_paramdesc_calendarcolors' => 'Fargen som vil brukes for hver datoegenskap (eksempel: "Start date=>green,End date=>#09c")',
 	'srf_printername_vcard' => 'vCard-eksport',
 	'srf_icalendar_link' => 'iKalender',
 	'srf_printername_icalendar' => 'iCalendar-eksport',
@@ -2557,13 +2566,19 @@ $messages['nb'] = array(
 	'srf_outline_novalue' => 'Ingen verdi',
 	'srf_printername_outline' => 'Disposisjon',
 	'srf_paramdesc_outlineproperties' => 'Listen over egenskaper som skal vises som disposisjonsoverskrifter, adskilt med komma',
-	'srf_printername_sum' => 'Sum av tall',
+	'srf_printername_D3Line' => 'D3-type linjediagram',
+	'srf_printername_D3Bar' => 'D3-type søylediagram',
+	'srf_printername_D3Treemap' => 'D3-type trekart',
+	'srf_printername_sum' => 'Tallsum',
 	'srf_printername_average' => 'Gjennomsnitt av tall',
 	'srf_printername_max' => 'Største tall',
 	'srf_printername_min' => 'Minste tall',
 	'srf_paramdesc_limit' => 'Maks antall sider å etterspørre',
 	'srf_printername_product' => 'Produktet av tallene',
 	'srf_printername_median' => 'Median av tall',
+	'srf-paramdesc-default' => 'Standardverdi som vises når det ikke er numeriske resultater',
+	'srf_printername_earliest' => 'Tidligst tidspunkt',
+	'srf_printername_latest' => 'Senest tidspunkt',
 	'srf_printername_timeline' => 'Tidslinje',
 	'srf_printername_eventline' => 'Hendelseslinje',
 	'srf_paramdesc_timelinebands' => 'Definerer hvilke bånd som vises i resultatet.',
@@ -2573,25 +2588,37 @@ $messages['nb'] = array(
 	'srf_paramdesc_timelinesize' => 'Høyden på tidslinjen (standard er 300px)',
 	'srf-timeline-allresults' => 'Flere resultater for denne spørringen',
 	'srf-timeline-nojs' => 'Du må tillate JavaScript for å kunne se den interaktive tidslinjen.',
-	'srf_paramdesc_views' => 'Visninger som skal fremvises',
+	'srf_paramdesc_views' => 'Visninger som skal sees',
 	'srf_paramdesc_facets' => 'Egenskapssettet som skal vises for hver side',
 	'srf_paramdesc_lens' => 'Navnet på malen som skal vise frem sideegenskapene',
 	'srf_printername_googlebar' => 'Google stolpediagram',
 	'srf_printername_googlepie' => 'Google kakediagram',
 	'srf_printername_jqplotbar' => 'jqPlot stolpediagram',
 	'srf_printername_jqplotpie' => 'jqPlot kakediagram',
+	'srf_printername_jqplotseries' => 'qPlot punktdiagram',
 	'srf_paramdesc_chartheight' => 'Høyden til diagrammet, i piksler',
 	'srf_paramdesc_chartwidth' => 'Bredden til diagrammet, i piksler',
 	'srf_paramdesc_charttitle' => 'Tittelen på diagrammet',
 	'srf_paramdesc_barcolor' => 'Fargen på stolpene',
-	'srf_paramdesc_bardirection' => 'Retningen på stolpediagrammet',
+	'srf_paramdesc_bardirection' => 'Angi diagramretning',
 	'srf_paramdesc_barnumbersaxislabel' => 'Etiketten for tallaksen',
 	'srf-paramdesc-minvalue' => 'Minimumsverdi på Y-aksen',
-	'srf-paramdesc-pointlabels' => 'Visning av individuelle datapunkter',
-	'srf-paramdesc-chartlegend' => 'Vis diagramforklaring',
-	'srf-paramdesc-legendlocation' => 'Plasser diagramforklaring',
-	'srf-paramdesc-datalabels' => 'Vis dataetiketter for sektordiagram',
-	'srf-paramdesc-datalabeltype' => 'Angi dataetikettype',
+	'srf-paramdesc-pointlabels' => 'Visning diagramspesifikke datapunkter',
+	'srf-paramdesc-chartlegend' => 'Diagramforklaringsposisjon',
+	'srf-paramdesc-datalabels' => 'Vis dataetiketter',
+	'srf-paramdesc-charttext' => 'Beskrivende diagramtekst',
+	'srf-paramdesc-chartclass' => 'Ekstra CSS-klasse',
+	'srf-paramdesc-renderer' => 'Velg en diagram-fremviser',
+	'srf-paramdesc-filling' => 'Valg av enkeltutfylling',
+	'srf-paramdesc-theme' => 'Velg et rutenett-tema',
+	'srf-paramdesc-chartcolor' => 'Bruk individuelle diagramfarger',
+	'srf-paramdesc-colorscheme' => 'Velg en fargepalett',
+	'srf-paramdesc-valueformat' => 'Velg en formateringsregel for verdier',
+	'srf-paramdesc-highlighter' => 'Vis en datapunktuthever',
+	'srf-paramdesc-smoothlines' => 'Bruk glatting i linjediagrammer',
+	'srf-paramdesc-stackseries' => 'Vis diagrammet som en stablet rekke',
+	'srf-paramdesc-seriesgroup' => 'Velg rekkegruppering',
+	'srf-paramdesc-serieslabel' => 'Angi rekke-etiketter',
 	'srf_printername_gallery' => 'Galleri',
 	'srf_paramdesc_perrow' => 'Antall bilder per rad',
 	'srf_paramdesc_widths' => 'Bredde på bildene',
@@ -2600,6 +2627,7 @@ $messages['nb'] = array(
 	'srf_paramdesc_fileextensions' => 'Hvis filnavn brukes som figurtekst, vis også filtypen',
 	'srf_paramdesc_captionproperty' => 'Som figurtekst brukes navnet på den semantiske egenskapen tilgjengelig på sidene med spørringer',
 	'srf_paramdesc_imageproperty' => 'Navnet på en semantisk egenskap for sidene med spørringer som peker to bilder som skal brukes. Hvis satt, blir sidene med spørringer ikke selv vist frem som bilder.',
+	'srf_paramdesc_galleryformat' => 'Galleriformat',
 	'srf_printername_tagcloud' => 'Tagg-sky',
 	'srf_paramdesc_includesubject' => 'Hvis emnetekstene selv bør være med',
 	'srf_paramdesc_increase' => 'Hvordan du øker størrelsen på taggene',
@@ -2632,6 +2660,16 @@ $messages['nb'] = array(
 	'srf_paramdesc_graphcolor' => 'Graf-farge',
 	'srf-paramdesc-graph-wwl' => 'Maksimal lengde av tekstlinje',
 	'srf-warn-empy-chart' => 'Diagrammet vises ikke fordi det ikke finnes resultater som kan presenteres.',
+	'srf_printername_datatables' => 'Datatabeller',
+	'srf-paramdesc-rowindex' => 'Tabellradnummer',
+	'srf-paramdesc-displaylength' => 'Initial visningslengde',
+	'srf_printername_tree' => 'Tre',
+	'srf_printername_ultree' => 'Unummerert tre',
+	'srf_printername_oltree' => 'Nummerert tre',
+	'srf-noparentprop' => 'Ingen foreldreegenskap er oppgitt. Treet kan ikke bygges uten en slik.',
+	'srf-paramdesc-parent' => 'Egenskapen som inneholder foreldresiden',
+	'srf-error-resourceloader' => 'Dette formatet krever ResourceLoader',
+	'srf-error-missing-renderer' => 'Det mangler en diagram/graf-fremviser',
 );
 
 /** Dutch (Nederlands)
@@ -3479,7 +3517,7 @@ $messages['vec'] = array(
 	'srfc_gotomonth' => 'Và al mese',
 );
 
-/** Veps (Vepsän kel’)
+/** Veps (vepsän kel’)
  * @author Игорь Бродский
  */
 $messages['vep'] = array(
