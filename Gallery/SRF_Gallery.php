@@ -243,7 +243,6 @@ class SRFGallery extends SMWResultPrinter {
 	 * @param string $imgCaption An optional caption for the image
 	 */
 	protected function addImageToGallery( ImageGallery &$ig, Title $imgTitle, $imgCaption ) {
-		global $wgParser;
 
 		if ( empty( $imgCaption ) ) {
 			if ( $this->m_params['autocaptions'] ) {
@@ -258,18 +257,13 @@ class SRFGallery extends SMWResultPrinter {
 			}
 		}
 		else {
-			$imgCaption = $wgParser->recursiveTagParse( $imgCaption );
-			// the above call creates getMaxIncludeSize() fatal error on Special Pages
-			// below might fix this
-			// $imgCaption = $wgParser->transformMsg( $imgCaption, ParserOptions::newFromUser( null ) );
+			if ( $imgTitle instanceof Title || $imgTitle->getNamespace() == NS_FILE ) {
+				$newParser  = new Parser();
+				$imgCaption = $newParser->preprocess( $imgCaption, $imgTitle, ParserOptions::newFromUser( null ) );
+			}
 		}
 
 		$ig->add( $imgTitle, $imgCaption );
-
-		// Only add real images (bug #5586)
-		if ( $imgTitle->getNamespace() == NS_IMAGE && !is_null( $imgTitle->getDBkey() ) ) {
-			$wgParser->mOutput->addImage( $imgTitle->getDBkey() );
-		}
 	}
 
 	/**
