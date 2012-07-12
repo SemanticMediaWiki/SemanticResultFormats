@@ -16,6 +16,18 @@ $moduleTemplate = array(
 	'localBasePath' => dirname( __FILE__ ) . '/',
 	'remoteExtPath' => 'SemanticResultFormats/'
 );
+/******************************************************************************/
+/* Common resources
+/******************************************************************************/
+$wgResourceModules['ext.jquery.easing'] = $moduleTemplate + array(
+	'scripts' => 'resources/easing/jquery.easing-1.3.pack.js'
+);
+
+$wgResourceModules['ext.jquery.fancybox'] = $moduleTemplate + array(
+	'scripts' => 'resources/fancybox/jquery.fancybox-1.3.4.pack.js',
+	'styles'  => 'resources/fancybox/jquery.fancybox-1.3.4.css',
+	'dependencies' => 'ext.jquery.easing',
+);
 
 /******************************************************************************
  * jqPlot
@@ -168,6 +180,20 @@ $wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
 	'scripts' => 'Gallery/resources/ext.srf.gallery.slideshow.js',
 	'styles'  => 'Gallery/resources/ext.srf.gallery.slideshow.css',
 	'dependencies' => 'ext.jquery.responsiveslides',
+	'messages' => array(
+		'srf-gallery-navigation-previous',
+		'srf-gallery-navigation-next'
+	),
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.srf.gallery.fancybox'] = $moduleTemplate + array(
+	'scripts' => 'Gallery/resources/ext.srf.gallery.fancybox.js',
+	'styles'  => 'Gallery/resources/ext.srf.gallery.fancybox.css',
+	'dependencies' => 'ext.jquery.fancybox',
+	'messages' => array(
+		'srf-gallery-overlay-count'
+	),
 	'position' => 'top',
 );
 

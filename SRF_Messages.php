@@ -124,8 +124,10 @@ $messages['en'] = array(
 	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
 	'srf_paramdesc_galleryformat' => 'Gallery format',
 	'srf-paramdesc-navigation'    => 'Navigation',
+	'srf-paramdesc-overlay'       => 'Image overlay',
 	'srf-gallery-navigation-previous' => 'Previous',
 	'srf-gallery-navigation-next'     => 'Next',
+	'srf-gallery-overlay-count' => 'Image $1 of $2',
 
 	// format "tagcloud"
 	'srf_printername_tagcloud' => 'Tag cloud',

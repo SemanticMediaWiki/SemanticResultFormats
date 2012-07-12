@@ -47,8 +47,8 @@
 
 			if( !gallery.responsiveSlides({
 				pauseControls: gallery.attr( 'data-nav-control' ) === 'auto',
-				prevText: gallery.attr( 'data-previous' ),
-				nextText: gallery.attr( 'data-next' ),
+				prevText: mw.msg( 'srf-gallery-navigation-previous' ),
+				nextText: mw.msg( 'srf-gallery-navigation-next' ),
 				auto:  gallery.attr( 'data-nav-control' ) === 'auto',
 				pause: gallery.attr( 'data-nav-control' ) === 'auto',
 				pager: gallery.attr( 'data-nav-control' ) === 'pager',

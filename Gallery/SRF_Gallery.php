@@ -21,12 +21,17 @@
  * @file SRF_Gallery.php
  * @ingroup SemanticResultFormats
  *
- * @author Rowan Rodrik van der Molen
  * @author Jeroen De Dauw
  * @author mwjames
+ * @author Rowan Rodrik van der Molen
  */
 class SRFGallery extends SMWResultPrinter {
 
+	/**
+	 * @see SMWResultPrinter::getName
+	 *
+	 * @return string
+	 */
 	public function getName() {
 		return wfMsg( 'srf_printername_gallery' );
 	}
@@ -46,7 +51,7 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-		global $wgParser, $wgStylePath;
+		global $wgParser;
 
 		$ig = new ImageGallery();
 		$ig->setShowBytes( false );
@@ -77,7 +82,7 @@ class SRFGallery extends SMWResultPrinter {
 
 			$attribs = array(
 				'id' =>  $this->params['galleryformat'] . '-' . ++$statNr,
-				'class' => 'jcarousel jcarousel-skin-smw',
+				'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
 				'style' => 'display:none;',
 			);
 
@@ -93,11 +98,12 @@ class SRFGallery extends SMWResultPrinter {
 
 		// Slideshow parameters
 		if ( $this->params['galleryformat'] == 'slideshow' ) {
-			$mAttribs['id']    = $this->params['galleryformat'] . '-' . ++$statNr;
-			$mAttribs['style'] = 'display:none;';
-			$mAttribs['data-nav-control']  = $this->params['navigation'];
-			$mAttribs['data-previous'] = wfMsg('srf-gallery-navigation-previous', '');
-			$mAttribs['data-next']     = wfMsg('srf-gallery-navigation-next', '');
+			$mAttribs = array(
+				'id'    => $this->params['galleryformat'] . '-' . ++$statNr,
+				'class' => $this->getImageOverlay(),
+				'style' => 'display:none;',
+				'data-nav-control' => $this->params['navigation']
+			);
 
 			$ig->setAttributes( $mAttribs );
 
@@ -131,12 +137,15 @@ class SRFGallery extends SMWResultPrinter {
 			$this->addImagePages( $results, $ig );
 		}
 
+		// SRF Global settings
+		$this->getGlobalSettings();
+
 		// Display a processing image as long as jquery is not loaded
 		if ( $this->params['galleryformat'] !== '' ) {
 			$processing = XML::tags( 'img', array (
 				'class' => 'processing',
 				'style' => 'vertical-align: middle;',
-				'src'   => "{$wgStylePath}/common/images/spinner.gif",
+				'src'   => $GLOBALS['wgStylePath'] . "/common/images/spinner.gif",
 				'title' => 'Loading ...'
 				), null
 			);
@@ -262,8 +271,38 @@ class SRFGallery extends SMWResultPrinter {
 				$imgCaption = $newParser->preprocess( $imgCaption, $imgTitle, ParserOptions::newFromUser( null ) );
 			}
 		}
+			$ig->add( $imgTitle, $imgCaption, $imgCaption );
+	}
 
-		$ig->add( $imgTitle, $imgCaption );
+	/**
+	 * Return SRF global settings
+	 *
+	 * @since 1.8
+	 *
+	 * @return array
+	 */
+	public function getGlobalSettings(){
+		$options = array (
+			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
+			'srfVersion' => SRF_VERSION
+		);
+
+		$requireHeadItem = array ( 'srf.options' => $options );
+		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript($requireHeadItem ) );
+	}
+
+	/**
+	 * Return the image overlay setting
+	 *
+	 * @since 1.8
+	 *
+	 * @return array
+	 */
+	protected function getImageOverlay() {
+		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] == true ) {
+			SMWOutputs::requireResource( 'ext.srf.gallery.fancybox' );
+			return ' srf-fancybox';
+		}
 	}
 
 	/**
@@ -283,6 +322,10 @@ class SRFGallery extends SMWResultPrinter {
 		$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
 		$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
 		$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
+
+		$params['overlay'] = new Parameter( 'overlay', Parameter::TYPE_BOOLEAN, true );
+		$params['overlay']->setMessage( 'srf-paramdesc-overlay' );
+		$params['overlay']->setDefault( false );
 
 		$params['navigation'] = new Parameter( 'navigation', Parameter::TYPE_STRING, '' );
 		$params['navigation']->setMessage( 'srf-paramdesc-navigation' );
