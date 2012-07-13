@@ -19,8 +19,8 @@
 			$( this ).find( '.processing' ).hide();
 		} );
 
-		// Bind individual elements containing class jcarousel as the plug-in 
-		// requires different id's  
+		// Bind individual elements containing class jcarousel as the plug-in
+		// requires different id's
 		$( '.jcarousel' ).each( function() {
 			var $this = $( this );
 
@@ -33,7 +33,7 @@
 				visible: parseInt( $this.attr( 'data-visible' ), 10 ), // calculated and set visible elements
 				wrap: $this.attr( 'data-wrap' ), // Options are "first", "last", "both" or "circular"
 				vertical: $this.attr( 'data-vertical' ) === 'true', // Whether the carousel appears in horizontal or vertical orientation
-				rtl: $this.attr( 'data-rtl' ) === 'true' // Directionality 
+				rtl: $this.attr( 'data-rtl' ) === 'true' // Directionality
 			} );
 /* End javascript *************************************************************/
 		} );

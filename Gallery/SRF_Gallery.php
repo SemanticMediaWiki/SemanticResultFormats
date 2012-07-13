@@ -281,14 +281,14 @@ class SRFGallery extends SMWResultPrinter {
 	 *
 	 * @return array
 	 */
-	public function getGlobalSettings(){
+	protected function getGlobalSettings(){
 		$options = array (
 			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			'srfVersion' => SRF_VERSION
 		);
 
 		$requireHeadItem = array ( 'srf.options' => $options );
-		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript($requireHeadItem ) );
+		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem ) );
 	}
 
 	/**
@@ -300,8 +300,8 @@ class SRFGallery extends SMWResultPrinter {
 	 */
 	protected function getImageOverlay() {
 		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] == true ) {
-			SMWOutputs::requireResource( 'ext.srf.gallery.fancybox' );
-			return ' srf-fancybox';
+			SMWOutputs::requireResource( 'ext.srf.gallery.overlay' );
+			return ' srf-overlay';
 		}
 	}
 

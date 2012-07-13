@@ -20,12 +20,12 @@ $moduleTemplate = array(
 /* Common resources
 /******************************************************************************/
 $wgResourceModules['ext.jquery.easing'] = $moduleTemplate + array(
-	'scripts' => 'resources/easing/jquery.easing-1.3.pack.js'
+	'scripts' => 'resources/jquery.easing/jquery.easing-1.3.pack.js'
 );
 
 $wgResourceModules['ext.jquery.fancybox'] = $moduleTemplate + array(
-	'scripts' => 'resources/fancybox/jquery.fancybox-1.3.4.pack.js',
-	'styles'  => 'resources/fancybox/jquery.fancybox-1.3.4.css',
+	'scripts' => 'resources/jquery.fancybox/jquery.fancybox-1.3.4.pack.js',
+	'styles'  => 'resources/jquery.fancybox/jquery.fancybox-1.3.4.css',
 	'dependencies' => 'ext.jquery.easing',
 );
 
@@ -170,8 +170,8 @@ $wgResourceModules['ext.jquery.responsiveslides'] = $moduleTemplate + array(
 );
 
 $wgResourceModules['ext.srf.gallery.carousel'] = $moduleTemplate + array(
-	'scripts' => 'Gallery/resources/ext.srf.jcarousel.js',
-	'styles'  => 'Gallery/resources/ext.srf.jcarousel.css',
+	'styles'  => 'Gallery/resources/ext.srf.gallery.carousel.css',
+	'scripts' => 'Gallery/resources/ext.srf.gallery.carousel.js',
 	'dependencies' => 'ext.jquery.jcarousel',
 	'position' => 'top',
 );
@@ -187,9 +187,9 @@ $wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.gallery.fancybox'] = $moduleTemplate + array(
-	'scripts' => 'Gallery/resources/ext.srf.gallery.fancybox.js',
-	'styles'  => 'Gallery/resources/ext.srf.gallery.fancybox.css',
+$wgResourceModules['ext.srf.gallery.overlay'] = $moduleTemplate + array(
+	'scripts' => 'Gallery/resources/ext.srf.gallery.overlay.js',
+	'styles'  => 'Gallery/resources/ext.srf.gallery.overlay.css',
 	'dependencies' => 'ext.jquery.fancybox',
 	'messages' => array(
 		'srf-gallery-overlay-count'

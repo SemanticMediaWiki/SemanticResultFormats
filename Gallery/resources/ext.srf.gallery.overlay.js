@@ -1,5 +1,5 @@
 /**
- * JavaSript for SRF gallery fancybox module
+ * JavaSript for SRF gallery overlay/fancybox module
  *
  * There is a method ImageGallery->add which allows to override the
  * image url but this feature is only introduced in MW 1.20 therefore
@@ -51,7 +51,7 @@
 
 	$(document).ready(function() {
 
-		$( ".srf-fancybox" ).each(function() {
+		$( ".srf-overlay" ).each(function() {
 			var $this   = $( this );
 			var srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
 
@@ -60,10 +60,10 @@
 				var $this = $( this );
 
 				// Group images
-				$this.attr( 'rel', $this.has('img').length ? 'fancybox' : '' );
+				$this.attr( 'rel', $this.has( 'img' ).length ? 'overlay' : '' );
 
 				// Copy text information for image text display
-				$this.attr( 'title', $this.find('img').attr('alt') );
+				$this.attr( 'title', $this.find( 'img' ).attr( 'alt' ) );
 
 				// There should be a better way to find the title object but there isn't
 				title = $this.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
@@ -79,12 +79,12 @@
 			} );
 
 			// Format title display
-			function formatTitle(title, currentArray, currentIndex, currentOpts) {
-				return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' +  srfPath + '/resources/fancybox/closelabel.gif' + '></a></span>' + (title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' +  mw.msg( 'srf-gallery-overlay-count', (currentIndex + 1) , currentArray.length ) + ')</span></div>';
+			function formatTitle( title, currentArray, currentIndex, currentOpts ) {
+				return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' +  srfPath + '/resources/jquery.fancybox/closelabel.gif' + '></a></span>' + (title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' +  mw.msg( 'srf-gallery-overlay-count', (currentIndex + 1) , currentArray.length ) + ')</span></div>';
 			}
 
 			// Display all images related to a group
-			$this.find("a[rel^='fancybox']").fancybox( {
+			$this.find( "a[rel^='overlay']" ).fancybox( {
 				'showCloseButton' : false,
 				'titlePosition'   : 'inside',
 				'titleFormat'     : formatTitle

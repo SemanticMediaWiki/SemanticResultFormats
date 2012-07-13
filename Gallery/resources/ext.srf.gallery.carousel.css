@@ -1,9 +1,10 @@
 /**
- * Adopted .jcarousel-skin-tango css for SRF Gallery Carousel module
+ * CSS for SRF Gallery Carousel module
+ * Adopted .jcarousel-skin-tango
  *
- * @licence: GNU GPL v3 or later
+ * @licence: GNU GPL v2 or later
  * @author:  mwjames and others
- * 
+ *
  * @release: 0.1.3
  */
 
@@ -120,7 +121,7 @@
 	width: 32px;
 	height: 32px;
 	cursor: pointer;
-	background: transparent url(images/prev-horizontal.png) no-repeat 0 0;  
+	background: transparent url(images/prev-horizontal.png) no-repeat 0 0;
 	background-size:7px 11px;
 }
 
@@ -130,7 +131,7 @@
 	background-image: url(images/prev-horizontal.png);
 }
 
-.jcarousel-skin-smw .jcarousel-prev-horizontal:hover, 
+.jcarousel-skin-smw .jcarousel-prev-horizontal:hover,
 .jcarousel-skin-smw .jcarousel-prev-horizontal:focus {
 	background-position: -32px 0;
 }
@@ -147,8 +148,8 @@
 	background-position: -96px 0;
 }
 
-.jcarousel-skin-smw .jcarousel-next-horizontal, 
-.jcarousel-skin-smw .jcarousel-prev-horizontal { 
+.jcarousel-skin-smw .jcarousel-next-horizontal,
+.jcarousel-skin-smw .jcarousel-prev-horizontal {
 	background-color: whiteSmoke;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -166,15 +167,15 @@
 	border-radius: 2px 0 0 2px;
 	-moz-border-radius: 2px 0 0 2px;
 	-webkit-border-radius: 2px 0 0 2px;
-} 
+}
 
-.jcarousel-skin-smw .jcarousel-next-horizontal:hover, 
+.jcarousel-skin-smw .jcarousel-next-horizontal:hover,
 .jcarousel-skin-smw .jcarousel-prev-horizontal:hover {
 	background-color: #F8F8F8;
 	border-color: #D6D6D6;
 	box-shadow:inset 0 0 1px rgba(0, 0, 0, 0.1);
 	color: #4B4B4B;
-	text-decoration: none;  
+	text-decoration: none;
 }
 
 /**
@@ -237,8 +238,8 @@
 	background-position: 0 -96px;
 }
 
-.jcarousel-skin-smw .jcarousel-next-vertical, 
-.jcarousel-skin-smw .jcarousel-prev-vertical { 
+.jcarousel-skin-smw .jcarousel-next-vertical,
+.jcarousel-skin-smw .jcarousel-prev-vertical {
 	background-color: whiteSmoke;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -256,13 +257,13 @@
 	border-radius: 2px 0 0 2px;
 	-moz-border-radius: 2px 0 0 2px;
 	-webkit-border-radius: 2px 0 0 2px;
-} 
+}
 
-.jcarousel-skin-smw .jcarousel-next-vertical:hover, 
+.jcarousel-skin-smw .jcarousel-next-vertical:hover,
 .jcarousel-skin-smw .jcarousel-prev-vertical:hover {
 	background-color: #F8F8F8;
 	border-color: #D6D6D6;
 	box-shadow:inset 0 0 1px rgba(0, 0, 0, 0.1);
 	color: #4B4B4B;
-	text-decoration: none;  
+	text-decoration: none;
 }

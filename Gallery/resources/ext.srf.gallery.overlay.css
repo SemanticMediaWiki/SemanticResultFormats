@@ -1,5 +1,5 @@
 /**
- * JavaSript for SRF gallery fancybox module
+ * CSS for SRF gallery fancybox module
  *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
@@ -26,7 +26,7 @@
 	float: right;
 }
 
-.srf-fancybox li.gallerybox div.thumb {
+.srf-overlay li.gallerybox div.thumb {
 	background-color: #fff;
 	background-image: -webkit-linear-gradient(top,white,#F6F8F9);
 	background-image: linear-gradient(top,white,#F6F8F9);
