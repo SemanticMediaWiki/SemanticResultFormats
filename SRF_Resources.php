@@ -162,23 +162,23 @@ $wgResourceModules['ext.srf.jitgraph'] = $moduleTemplate + array(
  * Gallery
 /******************************************************************************/
 $wgResourceModules['ext.jquery.jcarousel'] = $moduleTemplate + array(
-	'scripts' => 'Gallery/resources/jquery.jcarousel.min.js',
+	'scripts' => 'gallery/resources/jquery.jcarousel.min.js',
 );
 
 $wgResourceModules['ext.jquery.responsiveslides'] = $moduleTemplate + array(
-	'scripts' => 'Gallery/resources/jquery.responsiveslides.1.32.min.js',
+	'scripts' => 'gallery/resources/jquery.responsiveslides.1.32.min.js',
 );
 
 $wgResourceModules['ext.srf.gallery.carousel'] = $moduleTemplate + array(
-	'styles'  => 'Gallery/resources/ext.srf.gallery.carousel.css',
-	'scripts' => 'Gallery/resources/ext.srf.gallery.carousel.js',
+	'styles'  => 'gallery/resources/ext.srf.gallery.carousel.css',
+	'scripts' => 'gallery/resources/ext.srf.gallery.carousel.js',
 	'dependencies' => 'ext.jquery.jcarousel',
 	'position' => 'top',
 );
 
 $wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
-	'scripts' => 'Gallery/resources/ext.srf.gallery.slideshow.js',
-	'styles'  => 'Gallery/resources/ext.srf.gallery.slideshow.css',
+	'scripts' => 'gallery/resources/ext.srf.gallery.slideshow.js',
+	'styles'  => 'gallery/resources/ext.srf.gallery.slideshow.css',
 	'dependencies' => 'ext.jquery.responsiveslides',
 	'messages' => array(
 		'srf-gallery-navigation-previous',
@@ -188,8 +188,8 @@ $wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
 );
 
 $wgResourceModules['ext.srf.gallery.overlay'] = $moduleTemplate + array(
-	'scripts' => 'Gallery/resources/ext.srf.gallery.overlay.js',
-	'styles'  => 'Gallery/resources/ext.srf.gallery.overlay.css',
+	'scripts' => 'gallery/resources/ext.srf.gallery.overlay.js',
+	'styles'  => 'gallery/resources/ext.srf.gallery.overlay.css',
 	'dependencies' => 'ext.jquery.fancybox',
 	'messages' => array(
 		'srf-gallery-overlay-count'
