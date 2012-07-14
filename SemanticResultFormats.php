@@ -74,10 +74,6 @@ $formatDir = dirname( __FILE__ ) . '/';
 $wgAutoloadClasses['SRFCalendar'] = $formatDir . 'Calendar/SRF_Calendar.php';
 $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
-$wgAutoloadClasses['SRFjqPlot'] = $formatDir . 'jqPlot/SRF_jqPlot.php';
-$wgAutoloadClasses['SRFjqPlotPie'] = $formatDir . 'jqPlot/SRF_jqPlotPie.php';
-$wgAutoloadClasses['SRFjqPlotBar'] = $formatDir . 'jqPlot/SRF_jqPlotBar.php';
-$wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqPlot/SRF_jqPlotSeries.php';
 $wgAutoloadClasses['SRFGraph'] = $formatDir . 'GraphViz/SRF_Graph.php';
 $wgAutoloadClasses['SRFProcess'] = $formatDir . 'GraphViz/SRF_Process.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
@@ -87,6 +83,10 @@ $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follow naming convention
+$wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
+$wgAutoloadClasses['SRFjqPlotPie']    = $formatDir . 'jqplot/SRF_jqPlotPie.php';
+$wgAutoloadClasses['SRFjqPlotBar']    = $formatDir . 'jqplot/SRF_jqPlotBar.php';
+$wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.php';
 $wgAutoloadClasses['SRFArray']     = $formatDir . 'array/SRF_Array.php';
 $wgAutoloadClasses['SRFHash']      = $formatDir . 'array/SRF_Hash.php';
 $wgAutoloadClasses['SRFiCalendar'] = $formatDir . 'icalendar/SRF_iCalendar.php';
