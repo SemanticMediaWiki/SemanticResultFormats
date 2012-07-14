@@ -99,7 +99,7 @@ $wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
 $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';  
 $wgAutoloadClasses['SRFTree'] = $formatDir . 'Tree/SRF_Tree.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
-$wgAutoloadClasses['SRFTime'] = $formatDir . 'Time/SRF_Time.php';
+$wgAutoloadClasses['SRFTime'] = $formatDir . 'time/SRF_Time.php';
 $wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'SlideShow/SRF_SlideShow.php';
 
 unset( $formatDir );
