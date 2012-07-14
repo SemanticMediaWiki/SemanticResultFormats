@@ -71,13 +71,9 @@ $wgExtensionCredits['semantic'][] = array(
 
 $formatDir = dirname( __FILE__ ) . '/';
 
-$wgAutoloadClasses['SRFTimeline'] = $formatDir . 'timeline/SRF_Timeline.php';
-$wgAutoloadClasses['SRFvCard'] = $formatDir . 'vcard/SRF_vCard.php';
 $wgAutoloadClasses['SRFiCalendar'] = $formatDir . 'iCalendar/SRF_iCalendar.php';
-$wgAutoloadClasses['SRFBibTeX'] = $formatDir . 'bibtex/SRF_BibTeX.php';
 $wgAutoloadClasses['SRFCalendar'] = $formatDir . 'Calendar/SRF_Calendar.php';
 $wgAutoloadClasses['SRFOutline'] = $formatDir . 'Outline/SRF_Outline.php';
-$wgAutoloadClasses['SRFMath'] = $formatDir . 'Math/SRF_Math.php';
 $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFGoogleBar'] = $formatDir . 'GoogleCharts/SRF_GoogleBar.php';
 $wgAutoloadClasses['SRFGooglePie'] = $formatDir . 'GoogleCharts/SRF_GooglePie.php';
@@ -89,18 +85,24 @@ $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqPlot/SRF_jqPlotSeries.ph
 $wgAutoloadClasses['SRFGraph'] = $formatDir . 'GraphViz/SRF_Graph.php';
 $wgAutoloadClasses['SRFProcess'] = $formatDir . 'GraphViz/SRF_Process.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
-$wgAutoloadClasses['SRFGallery'] = $formatDir . 'gallery/SRF_Gallery.php';
-$wgAutoloadClasses['SRFTagCloud'] = $formatDir . 'tagcloud/SRF_TagCloud.php';
 $wgAutoloadClasses['SRFArray'] = $formatDir . 'Array/SRF_Array.php';
 $wgAutoloadClasses['SRFHash'] = $formatDir . 'Array/SRF_Hash.php';
-$wgAutoloadClasses['SRFValueRank'] = $formatDir . 'valuerank/SRF_ValueRank.php';
 $wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
 $wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
 $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';  
-$wgAutoloadClasses['SRFTree'] = $formatDir . 'tree/SRF_Tree.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
-$wgAutoloadClasses['SRFTime'] = $formatDir . 'time/SRF_Time.php';
+
+// Follow naming convention
+$wgAutoloadClasses['SRFTime']      = $formatDir . 'time/SRF_Time.php';
 $wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'slideshow/SRF_SlideShow.php';
+$wgAutoloadClasses['SRFTree']      = $formatDir . 'tree/SRF_Tree.php';
+$wgAutoloadClasses['SRFGallery']   = $formatDir . 'gallery/SRF_Gallery.php';
+$wgAutoloadClasses['SRFTagCloud']  = $formatDir . 'tagcloud/SRF_TagCloud.php';
+$wgAutoloadClasses['SRFMath']      = $formatDir . 'math/SRF_Math.php';
+$wgAutoloadClasses['SRFTimeline']  = $formatDir . 'timeline/SRF_Timeline.php';
+$wgAutoloadClasses['SRFvCard']     = $formatDir . 'vcard/SRF_vCard.php';
+$wgAutoloadClasses['SRFValueRank'] = $formatDir . 'valuerank/SRF_ValueRank.php';
+$wgAutoloadClasses['SRFBibTeX']    = $formatDir . 'bibtex/SRF_BibTeX.php';
 
 unset( $formatDir );
 
