@@ -114,12 +114,12 @@ class SRFTimeline extends SMWResultPrinter {
 			SMWOutputs::requireHeadItem(
 				'smw_tlhelper',
 				'<script type="text/javascript" src="' . $srfgScriptPath . 
-					'/Timeline/SRF_timeline.js"></script>'
+					'/timeline/resources/ext.srf.timeline.js"></script>'
 			);
 			SMWOutputs::requireHeadItem(
 				'smw_tl',
 				'<script type="text/javascript" src="' . $srfgScriptPath . 
-					'/Timeline/SimileTimeline/timeline-api.js"></script>'
+					'/timeline/resources/SimileTimeline/timeline-api.js"></script>'
 			);			
 		}		
 	}

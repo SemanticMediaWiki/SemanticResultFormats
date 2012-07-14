@@ -101,18 +101,23 @@ $wgResourceModules['ext.srf.jqplot.donut'] = $moduleTemplate + array(
 );
 
 /******************************************************************************
- *  Timeline
+ * Timeline
 /******************************************************************************/
+$wgResourceModules['ext.smile.timeline'] = $moduleTemplate + array(
+	'scripts' => 'timeline/resources/SimileTimeline/timeline-api.js'
+);
+
 $wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
-	'scripts' => array(
-		'Timeline/SRF_timeline.js',
-		'Timeline/SimileTimeline/timeline-api.js'
-	),
+	'scripts' => 'timeline/resources/ext.srf.timeline.js',
 	'dependencies' => array(
+		'ext.smile.timeline',
 		'mediawiki.legacy.wikibits'
 	)
 );
 
+/******************************************************************************
+ * D3
+/******************************************************************************/
 $wgResourceModules['ext.srf.d3core'] = $moduleTemplate + array(
 	'scripts' => array(
 		'D3/d3.js',

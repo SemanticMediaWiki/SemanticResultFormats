@@ -71,7 +71,7 @@ $wgExtensionCredits['semantic'][] = array(
 
 $formatDir = dirname( __FILE__ ) . '/';
 
-$wgAutoloadClasses['SRFTimeline'] = $formatDir . 'Timeline/SRF_Timeline.php';
+$wgAutoloadClasses['SRFTimeline'] = $formatDir . 'timeline/SRF_Timeline.php';
 $wgAutoloadClasses['SRFvCard'] = $formatDir . 'vcard/SRF_vCard.php';
 $wgAutoloadClasses['SRFiCalendar'] = $formatDir . 'iCalendar/SRF_iCalendar.php';
 $wgAutoloadClasses['SRFBibTeX'] = $formatDir . 'bibtex/SRF_BibTeX.php';
