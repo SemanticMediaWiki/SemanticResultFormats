@@ -81,14 +81,14 @@ $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqPlot/SRF_jqPlotSeries.ph
 $wgAutoloadClasses['SRFGraph'] = $formatDir . 'GraphViz/SRF_Graph.php';
 $wgAutoloadClasses['SRFProcess'] = $formatDir . 'GraphViz/SRF_Process.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
-$wgAutoloadClasses['SRFArray'] = $formatDir . 'Array/SRF_Array.php';
-$wgAutoloadClasses['SRFHash'] = $formatDir . 'Array/SRF_Hash.php';
 $wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
 $wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
 $wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';  
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follow naming convention
+$wgAutoloadClasses['SRFArray']     = $formatDir . 'array/SRF_Array.php';
+$wgAutoloadClasses['SRFHash']      = $formatDir . 'array/SRF_Hash.php';
 $wgAutoloadClasses['SRFiCalendar'] = $formatDir . 'icalendar/SRF_iCalendar.php';
 $wgAutoloadClasses['SRFGoogleBar'] = $formatDir . 'googlecharts/SRF_GoogleBar.php';
 $wgAutoloadClasses['SRFGooglePie'] = $formatDir . 'googlecharts/SRF_GooglePie.php';
