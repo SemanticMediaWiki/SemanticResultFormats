@@ -173,7 +173,7 @@ class SRFPloticus extends SMWResultPrinter {
 		@unlink( $dataFile );
 		@rename( $tmpFile, $dataFile );
 		$dataURL = $wgUploadPath . '/ploticus/' . $hashname . '.csv';
-		$srficonPath = $wgScriptPath . '/extensions/SemanticResultFormats/Ploticus/icons/';
+		$srficonPath = $wgScriptPath . '/extensions/SemanticResultFormats/ploticus/images/';
 
 		$graphFile = $ploticusDir . $hashname . '.' . $this->m_imageformat;
 		$graphURL = $wgUploadPath . '/ploticus/' . $hashname . '.' . $this->m_imageformat;
