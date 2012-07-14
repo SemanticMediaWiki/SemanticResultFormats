@@ -27,7 +27,7 @@
 .srf-tagcloud ul li a {
  margin: 2px;
 }
-.srf-tagcloud.canvas canvas#gradient {
+.srf-tagcloud-sphere canvas#gradient {
  float: right;
  border:1px solid #000;
  margin: 2px 20px

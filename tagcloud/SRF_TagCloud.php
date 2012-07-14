@@ -2,7 +2,7 @@
 
 /**
  * Result printer that prints query results as a tag cloud
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -23,7 +23,7 @@
  * @file SRF_TagCloud.php
  * @ingroup SemanticResultFormats
  *
- * @licence GNU GPL v3
+ * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
  */
@@ -68,7 +68,7 @@ class SRFTagCloud extends SMWResultPrinter {
 
 		// RL module
 		if ( $this->params['tagformat'] == 'sphere' ){
-			SMWOutputs::requireResource( 'ext.srf.tagcloud.canvas' );
+			SMWOutputs::requireResource( 'ext.srf.tagcloud.sphere' );
 		}
 
 		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
@@ -113,14 +113,14 @@ class SRFTagCloud extends SMWResultPrinter {
 						continue;
 					}
 
-					// Replace content with template inclusion  
+					// Replace content with template inclusion
 					$html = $this->params['template'] !== '' ? $this->addTemplateOutput ( $value , $rownum ) : $html;
 
 					if ( !array_key_exists( $value, $tags ) ) {
 						$tags[$value] = 0;
 						$this->tagsHtml[$value] = $html; // Store the HTML separetely, so sorting can be done easily.
 					}
-					
+
 					$tags[$value]++;
 				}
 			}
@@ -164,7 +164,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$min = end( $tags ) or $min = 0;
 		$max = reset( $tags ) or $max = 1;
 		$maxSizeIncrease = $this->params['maxsize'] - $this->params['minsize'];
-		
+
 		// Loop over the tags, and replace their count by a size.
 		foreach ( $tags as &$tag ) {
 			switch ( $this->params['increase'] ) {
@@ -190,11 +190,11 @@ class SRFTagCloud extends SMWResultPrinter {
 				$tagNames = array_keys( $tags );
 				natcasesort( $tagNames );
 				$newTags = array();
-				
+
 				foreach ( $tagNames as $name ) {
 					$newTags[$name] = $tags[$name];
 				}
-				
+
 				$tags = $newTags;
 				break;
 			case 'random' :
@@ -212,11 +212,11 @@ class SRFTagCloud extends SMWResultPrinter {
 				}
 
 				$tags = $newTags;
-				break;	
+				break;
 			case 'unchanged' : default : // Restore the original order.
 				$changedTags = $tags;
 				$tags = array();
-				
+
 				foreach ( $unchangedTags as $name ) {
 					// Original tags might have been left out at this point, so only add remaining ones.
 					if ( array_key_exists( $name, $changedTags ) ) {
@@ -321,7 +321,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @return array
-	 */	
+	 */
 	public function getParameters() {
 		$params = parent::getParameters();
 

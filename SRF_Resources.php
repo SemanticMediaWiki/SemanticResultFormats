@@ -267,16 +267,16 @@ $wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
  ******************************************************************************/
 // excanvas is only needed for pre-9.0 Internet Explorer compatibility
 $wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $moduleTemplate + array(
-	'scripts' => 'TagCloud/resources/excanvas.js'
+	'scripts' => 'tagcloud/resources/excanvas.js'
 );
 
 $wgResourceModules['ext.jquery.tagcanvas'] = $moduleTemplate + array(
-	'scripts' => 'TagCloud/resources/jquery.tagcanvas.1.18.min.js'
+	'scripts' => 'tagcloud/resources/jquery.tagcanvas.1.18.min.js'
 );
 
-$wgResourceModules['ext.srf.tagcloud.canvas'] = $moduleTemplate + array(
-	'scripts' => 'TagCloud/resources/ext.srf.tagcloud.canvas.js',
-	'style'   => 'TagCloud/resources/ext.srf.tagcloud.canvas.css',
+$wgResourceModules['ext.srf.tagcloud.sphere'] = $moduleTemplate + array(
+	'scripts' => 'tagcloud/resources/ext.srf.tagcloud.sphere.js',
+	'style'   => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
 	'dependencies' => array( 'ext.jquery.tagcanvas', 'jquery.client' ),
 	'position'     => 'top',
 );
