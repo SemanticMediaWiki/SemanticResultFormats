@@ -73,8 +73,6 @@ $formatDir = dirname( __FILE__ ) . '/';
 
 $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
-$wgAutoloadClasses['SRFGraph'] = $formatDir . 'GraphViz/SRF_Graph.php';
-$wgAutoloadClasses['SRFProcess'] = $formatDir . 'GraphViz/SRF_Process.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'Ploticus/SRF_PloticusVBar.php';
 $wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
 $wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
@@ -86,6 +84,8 @@ $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
 $wgAutoloadClasses['SRFjqPlotPie']    = $formatDir . 'jqplot/SRF_jqPlotPie.php';
 $wgAutoloadClasses['SRFjqPlotBar']    = $formatDir . 'jqplot/SRF_jqPlotBar.php';
 $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.php';
+$wgAutoloadClasses['SRFGraph']     = $formatDir . 'graphviz/SRF_Graph.php';
+$wgAutoloadClasses['SRFProcess']   = $formatDir . 'graphviz/SRF_Process.php';
 $wgAutoloadClasses['SRFCalendar']  = $formatDir . 'calendar/SRF_Calendar.php';
 $wgAutoloadClasses['SRFArray']     = $formatDir . 'array/SRF_Array.php';
 $wgAutoloadClasses['SRFHash']      = $formatDir . 'array/SRF_Hash.php';
