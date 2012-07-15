@@ -145,25 +145,33 @@ $wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
 
 /******************************************************************************
  * D3
-/******************************************************************************/
-$wgResourceModules['ext.srf.d3core'] = $moduleTemplate + array(
-	'scripts' => array(
-		'D3/d3.js',
-	),
-	'styles' => array(
-		'D3/d3.css',
-	),
+ ******************************************************************************/
+$wgResourceModules['ext.srf.d3.core'] = $moduleTemplate + array(
+	'scripts' => 'd3/resources/d3.v2.min.js'
 );
 
-$wgResourceModules['ext.srf.d3treemap'] = $moduleTemplate + array(
-	'scripts' => array(
-		'D3/d3.layout.min.js',
-	),
-	'dependencies' => array(
-		'ext.srf.d3core',
-	),
+$wgResourceModules['ext.srf.d3.common'] = $moduleTemplate + array(
+	'scripts' => 'd3/resources/ext.srf.d3.common.js',
+	'styles'  => 'd3/resources/ext.srf.d3.common.css'
 );
 
+$wgResourceModules['ext.srf.d3.chart.treemap'] = $moduleTemplate + array(
+	'scripts' => 'D3/resources/chart/ext.srf.d3.chart.treemap.js',
+	'styles'  => 'D3/resources/chart/ext.srf.d3.chart.treemap.css',
+	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
+	'position'     => 'top',
+);
+
+$wgResourceModules['ext.srf.d3.chart.bubble'] = $moduleTemplate + array(
+	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.bubble.js',
+	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.bubble.css',
+	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
+	'position'     => 'top',
+);
+
+/******************************************************************************
+ * JitGraph
+ ******************************************************************************/
 $wgResourceModules['jquery.progressbar'] = $moduleTemplate + array(
 	'scripts' => array(
 		'JitGraph/jquery.progressbar.js',

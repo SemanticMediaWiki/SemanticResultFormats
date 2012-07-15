@@ -417,11 +417,11 @@ class SRFCalendar extends SMWResultPrinter {
 <tr>
 <td class="month_name">$cur_month $cur_year</td>
 <td class="nav_links">
-<a href="$prev_month_url" title="$prev_month_text"><img src="$GLOBALS['srfgScriptPath']/calendar/resources/images/left-arrow.png" border="0" /></a>
+<a href="$prev_month_url" title="$prev_month_text"><img src="{$GLOBALS['srfgScriptPath']}/calendar/resources/images/left-arrow.png" border="0" /></a>
 &#160;
 <a href="$today_url">$today_text</a>
 &#160;
-<a href="$next_month_url" title="$next_month_text"><img src="$GLOBALS['srfgScriptPath']/calendar/resources/images/right-arrow.png" border="0" /></a>
+<a href="$next_month_url" title="$next_month_text"><img src="{$GLOBALS['srfgScriptPath']}/calendar/resources/images/right-arrow.png" border="0" /></a>
 </td>
 <td class="nav_form">
 <form>

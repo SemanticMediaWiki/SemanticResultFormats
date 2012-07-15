@@ -73,17 +73,15 @@ $formatDir = dirname( __FILE__ ) . '/';
 
 $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
-$wgAutoloadClasses['SRFD3Line'] = $formatDir . 'D3/SRF_D3Line.php';
-$wgAutoloadClasses['SRFD3Bar'] = $formatDir . 'D3/SRF_D3Bar.php';
-$wgAutoloadClasses['SRFD3Treemap'] = $formatDir . 'D3/SRF_D3Treemap.php';  
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
-// Follow naming convention
+// Follows naming convention
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
 $wgAutoloadClasses['SRFjqPlotPie']    = $formatDir . 'jqplot/SRF_jqPlotPie.php';
 $wgAutoloadClasses['SRFjqPlotBar']    = $formatDir . 'jqplot/SRF_jqPlotBar.php';
 $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'ploticus/SRF_PloticusVBar.php';
+$wgAutoloadClasses['SRFD3Chart']   = $formatDir . 'd3/SRF_D3Chart.php';
 $wgAutoloadClasses['SRFGraph']     = $formatDir . 'graphviz/SRF_Graph.php';
 $wgAutoloadClasses['SRFProcess']   = $formatDir . 'graphviz/SRF_Process.php';
 $wgAutoloadClasses['SRFCalendar']  = $formatDir . 'calendar/SRF_Calendar.php';
@@ -151,9 +149,7 @@ function srffInitFormats() {
 		'valuerank' => 'SRFValueRank',
 		'array' => 'SRFArray',
 		'hash' => 'SRFHash',
-		'D3Line' => 'SRFD3Line',
-		'D3Bar' => 'SRFD3Bar',
-		'D3Treemap' => 'SRFD3Treemap',
+		'd3chart' => 'SRFD3Chart',
 		'tree' => 'SRFTree',
 		'ultree' => 'SRFTree',
 		'oltree' => 'SRFTree',
@@ -164,8 +160,9 @@ function srffInitFormats() {
 	);
 
 	$formatAliases = array(
-		'tagcloud' => array( 'tag cloud' ),
-		'valuerank' => array( 'value rank' )
+		'tagcloud'  => array( 'tag cloud' ),
+		'valuerank' => array( 'value rank' ),
+		'd3chart'   => array( 'd3 chart' )		
 	);
 	
 	foreach ( $srfgFormats as $format ) {
@@ -177,7 +174,7 @@ function srffInitFormats() {
 			}
 		}
 		else {
-			wfDebug( "There is not result format class associated with the format '$format'." );
+			wfDebug( "There is no result format class associated with the '$format' format." );
 		}
 	}	
 }

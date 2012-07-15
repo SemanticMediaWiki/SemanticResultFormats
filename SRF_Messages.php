@@ -49,10 +49,6 @@ $messages['en'] = array(
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
 
-	'srf_printername_D3Line' => 'D3 line chart',
-	'srf_printername_D3Bar' => 'D3 bar chart',
-	'srf_printername_D3Treemap' => 'D3 treemap',
-
 	// format "math"
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
@@ -170,8 +166,6 @@ $messages['en'] = array(
 	'srf_paramdesc_graphcolor' => 'Graph color',
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
 
-	'srf-warn-empy-chart' => 'Sufficient data are missing for a chart',
-
 	// DataTables
 	'srf_printername_datatables'  => 'DataTables',
 	'srf-paramdesc-rowindex'      => 'Table row index',
@@ -196,11 +190,16 @@ $messages['en'] = array(
 	'srf-printername-filtered' => 'Filtered',
 	'srf-paramdesc-views' => 'The views that shall be available in the result display.',
 
+	// format "d3chart"
+	'srf-printername-d3chart' => 'D3 chart',
+	'srf-paramdesc-layout'    => 'Layout option',
+
 	// General error
 	'srf-error-option-mix' => 'Options ($1) are not available',
-	'srf-error-option-link-all'   => 'Option ($1) requires parameter [link] to be set "all"',
+	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
 	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
-	'srf-error-missing-renderer' => 'Rendering option is missing',
+	'srf-error-missing-layout' => 'Required layout is missing',
+	'srf-warn-empy-chart' => 'Sufficient data is missing for this chart',
 );
 
 /** Message documentation (Message documentation)
@@ -223,9 +222,7 @@ $messages['qqq'] = array(
 	'srf_printername_outline' => 'This is the name of an output format. It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query.
 There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http://semantic-mediawiki.org/wiki/Help:Outline_format more information]).',
 	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
-	'srf_printername_D3Line' => '{{doc-smwformat|D3Line}}',
-	'srf_printername_D3Bar' => '{{doc-smwformat|D3Bar}}',
-	'srf_printername_D3Treemap' => '{{doc-smwformat|D3Treemap}}',
+	'srf-printername-d3chart' => '{{doc-smwformat|d3chart}}',
 	'srf_printername_earliest' => '{{doc-smwformat|earliest}}',
 	'srf_printername_latest' => '{{doc-smwformat|latest}}',
 	'srf_paramdesc_timelinebands' => 'Available bands are DECADE, YEAR, MONTH, WEEK, and DAY. For details see http://semantic-mediawiki.org/wiki/Help:Timeline_format',
@@ -244,6 +241,7 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-paramdesc-pointlabels' => '{{doc-paramdesc|pointlabels}}',
 	'srf-paramdesc-chartlegend' => '{{doc-paramdesc|chartlegend}}',
 	'srf-paramdesc-datalabels' => '{{doc-paramdesc|datalabels}}',
+	'srf-paramdesc-layout' => '{{doc-paramdesc|layout}}',
 	'srf_printername_gallery' => '{{Identical|Gallery}}',
 	'srf_paramdesc_headersep' => 'Do not translate "headers" since it is the name of a parameter. "show" and "plain" should not be translated either since these are setting options for this parameter.',
 	'srf_paramdesc_graphname' => '{{Identical|Title}}',
@@ -258,9 +256,6 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example] ([http
 	'srf-paramdesc-effect' => '{{doc-paramdesc|effect}}',
 	'srf-printername-filtered' => '{{doc-smwformat|filtered}}',
 	'srf-paramdesc-views' => '{{doc-paramdesc|views}}',
-	'srf-error-option-link-all' => 'This is an error message.
-
-{{doc-important|Do not translate the parameter "[link]" and its possible value "all".}}',
 );
 
 /** Afrikaans (Afrikaans)
