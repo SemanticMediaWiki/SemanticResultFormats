@@ -3,11 +3,26 @@
 /**
  * Main entry point for the SemanticResultFormats extension.
  * http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
- * 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ *
  * @file SemanticResultFormats.php
  * @ingroup SemanticResultFormats
- * 
- * @licence GNU GPL v3+
+ *
+ * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
@@ -105,7 +120,8 @@ $wgAutoloadClasses['SRFBibTeX']    = $formatDir . 'bibtex/SRF_BibTeX.php';
 unset( $formatDir );
 
 $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
-$wgAutoloadClasses['SRFHooks'] = $srfgIP . '/SRF_Hooks.php';
+$wgAutoloadClasses['SRFHooks']           = $srfgIP . '/SRF_Hooks.php';
+$wgAutoloadClasses['SRFLibrary']         = $srfgIP . '/SRF_Library.php';
 
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';

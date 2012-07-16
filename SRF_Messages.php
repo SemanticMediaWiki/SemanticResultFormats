@@ -17,6 +17,8 @@ $messages['en'] = array(
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 
 	// Common messages
+	'srf-module-loading'   => 'Loading...',
+	'srf-paramdesc-layout' => 'Available layout',
 	'srf-paramdesc-height' => 'Height (in pixels)',
 	'srf-paramdesc-width'  => 'Width (in pixels)',
 	'srf-paramdesc-class'  => 'Additional CSS class',
@@ -85,8 +87,8 @@ $messages['en'] = array(
 	'srf_printername_jqplotbar' => 'jqPlot bar chart',
 	'srf_printername_jqplotpie' => 'jqPlot pie chart',
 	'srf_printername_jqplotseries' => 'jqPlot series chart',
-	'srf_paramdesc_chartheight' => 'The height of the chart, in pixels',
-	'srf_paramdesc_chartwidth' => 'The width of the chart, in pixels',
+	'srf_paramdesc_chartheight' => 'Chart/graph height (in pixels)',
+	'srf_paramdesc_chartwidth' => 'Chart/graph width (in pixels)',
 	'srf_paramdesc_charttitle'  => 'The title of the chart',
 	'srf_paramdesc_barcolor'   =>   'Specify chart colors',
 	'srf_paramdesc_bardirection'=>  'Specify the direction of a chart',
@@ -94,16 +96,16 @@ $messages['en'] = array(
 	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
 	'srf-paramdesc-pointlabels' => 'Display in-chart data points',
 	'srf-paramdesc-chartlegend' => 'Chart legend position',
-	'srf-paramdesc-datalabels' =>	'Display chart labels',
-	'srf-paramdesc-charttext'		=> 'Descriptive chart text',
+	'srf-paramdesc-datalabels' => 'Chart/graph data labels',
+	'srf-paramdesc-charttext' => 'Descriptive chart text',
 	'srf-paramdesc-chartclass' => 'Additional CSS class',
 	'srf-paramdesc-renderer' => 'Select a graph/chart renderer',
 	'srf-paramdesc-filling' => 'Individual filling option',
 	'srf-paramdesc-theme' => 'Select a grid theme',
-	'srf-paramdesc-chartcolor'	=> 'Assign individual chart colors',
-	'srf-paramdesc-colorscheme'	=> 'Select a color scheme',
-	'srf-paramdesc-valueformat'	=> 'Specify formatting rule for values',
-	'srf-paramdesc-highlighter'	=> 'Display a data point highlighter',
+	'srf-paramdesc-chartcolor' => 'Assign individual chart colors',
+	'srf-paramdesc-colorscheme' => 'Select a color scheme',
+	'srf-paramdesc-valueformat' => 'Specify formatting rule for values',
+	'srf-paramdesc-highlighter' => 'Display a data point highlighter',
 	'srf-paramdesc-smoothlines' => 'Apply a smoothing algorithm on line charts',
 	'srf-paramdesc-stackseries' => 'Display chart as stacked series',
 	'srf-paramdesc-seriesgroup' => 'Select series grouping',
@@ -118,7 +120,6 @@ $messages['en'] = array(
 	'srf_paramdesc_fileextensions' => 'When using the filename as caption, also display the file extension',
 	'srf_paramdesc_captionproperty' => 'The name of a semantic property present on the queried pages to be used as caption',
 	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
-	'srf_paramdesc_galleryformat' => 'Gallery format',
 	'srf-paramdesc-navigation'    => 'Navigation',
 	'srf-paramdesc-overlay'       => 'Image overlay',
 	'srf-gallery-navigation-previous' => 'Previous',
@@ -134,8 +135,7 @@ $messages['en'] = array(
 	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent (default: 77)',
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 242)',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
-	'srf-paramdesc-tagformat' => 'Available tag format',
-	'srf-paramdesc-excludetags' => 'Exclude tag names (;)',
+	'srf-paramdesc-excludetags' => 'Exclude tags (delimiter: ;)',
 
 	// "valuerank" format
 	'srf_printername_valuerank' => 'Value rank',
@@ -181,8 +181,6 @@ $messages['en'] = array(
 	// format "slideshow"
 	'srf-printername-slideshow' => 'SlideShow',
 	'srf-paramdesc-delay' => 'The delay between slides in seconds',
-	'srf-paramdesc-height' => 'The height of the slideshow widget',
-	'srf-paramdesc-width' => 'The width of the slideshow widget',
 	'srf-paramdesc-navigation-controls' => 'Show navigation controls or not',
 	'srf-paramdesc-effect' => 'The effect to be used to switch from slide to slide',
 
@@ -192,7 +190,6 @@ $messages['en'] = array(
 
 	// format "d3chart"
 	'srf-printername-d3chart' => 'D3 chart',
-	'srf-paramdesc-layout'    => 'Layout option',
 
 	// General error
 	'srf-error-option-mix' => 'Options ($1) are not available',

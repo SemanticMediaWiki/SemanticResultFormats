@@ -17,28 +17,33 @@
 		$( ".srf-d3-chart-treemap" ).each(function() {
 
 			var $this = $( this ),
-				d3ID   = $this.find( ".treemap" ).attr( "id" ),
-				json   = mw.config.get( d3ID ),
-				width  = $this.width(),
-				height = $this.height();
+				chart  = $this.find( ".container" ),
+				d3ID   = chart.attr( "id" ),
+				json   = mw.config.get( d3ID );
 
 			// Parse json string and convert it back into objects
-			typeof json == 'string' ? data = JSON.parse( json ) : data = json;
+			typeof json == 'string' ? container = jQuery.parseJSON( json ) : container = json;
+
+			var data      = container['data'],
+				width       = container['parameters'].width,
+				height      = container['parameters'].height,
+				charttitle  = container['parameters'].charttitle,
+				charttext   = container['parameters'].charttext,
+				datalabels  = container['parameters'].datalabels,
+				colors      = container['parameters'].colorscheme == null ? colorscheme[0] : colorscheme[container['parameters'].colorscheme][9];
 
 			// Release the graph
-			$this.show();
+			$this.find( ".srf-processing" ).hide();
+			$this.css( 'width', width ).css( 'height', height);
+			chart.show();
 
-			var children = data['data'],
-				charttitle = data['parameters'].charttitle,
-				charttext  = data['parameters'].charttext,
-				datalabels = data['parameters'].datalabels,
-				colors     = data['parameters'].colorscheme == null ? colorscheme[0] : colorscheme[data['parameters'].colorscheme][9];
-
+			// Add chart title
 			if ( charttitle.length > 0 ) {
 				charttitle = '<span class="srf-d3-chart-title">' + charttitle + '</span>';
 				$this.find( '#' + d3ID ).before( charttitle );
 			}
 
+			// Add bottom chart text
 			if ( charttext.length > 0 ) {
 				charttext  = '<span class="srf-d3-chart-text">' + charttext  + '</span>';
 				$this.find( '#' + d3ID ).after( charttext );
@@ -49,14 +54,15 @@
 
 /* D3 object declaration ******************************************************/
 
-			// Create a function of an ordinal array
+			// Create an ordinal color array and set formatting
 			var color = d3.scale.ordinal().range( colors ),
-				format = d3.format(",d");
+				format  = d3.format(",d");
 
+			// Data array definition
 			var treeArray = [];
 			treeArray.push( {
-				label:  charttitle !== '' ? data['parameters'].charttitle : mw.config.get ( 'wgTitle' ),
-				children:  children
+				label:  charttitle !== '' ? container['parameters'].charttitle : mw.config.get ( 'wgTitle' ),
+				children:  data
 			} );
 
 			var treemap = d3.layout.treemap()

@@ -1,5 +1,5 @@
 /**
- * JavaSript for SRF Tagcloud module using the Tagcanvas plug-in
+ * JavaSript for SRF tagcloud module using the tagcanvas plug-in
  *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
@@ -18,12 +18,16 @@
 			$( ".srf-tagcloud-sphere" ).each(function() {
 				var $this = $( this );
 
-				var container = $this.children( "div" ),
+				var container = $this.find( ".container" ),
 					containerID = container.attr( "id" ),
-					width       = container.css( "width" ),
-					height      = container.css( "height" ),
+					width       = container.attr( "width" ),
+					height      = container.attr( "height" ),
 					textFont    = container.attr( "data-font" ),
 					tagsID      = container.children( "div" ).attr('id');
+
+				// Hide and re-assign elements
+				$this.find( '.srf-processing' ).hide();
+				$this.css( { 'width': width, 'height': height } );
 
 				// Add canvas object
 				var canvasID = containerID + '-canvas';

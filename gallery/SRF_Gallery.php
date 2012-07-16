@@ -59,11 +59,13 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setParser( $wgParser );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
-		$processing    = '';
+		// Initialize
 		static $statNr = 0;
+		$html          = '';
+		$processing    = '';
 
 		// Carousel parameters
-		if ( $this->params['galleryformat'] == 'carousel' ) {
+		if ( $this->params['layout'] == 'carousel' ) {
 
 			// Set attributes for jcarousel
 			$dataAttribs = array(
@@ -81,7 +83,7 @@ class SRFGallery extends SMWResultPrinter {
 			}
 
 			$attribs = array(
-				'id' =>  $this->params['galleryformat'] . '-' . ++$statNr,
+				'id' =>  $this->params['layout'] . '-' . ++$statNr,
 				'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
 				'style' => 'display:none;',
 			);
@@ -97,9 +99,9 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		// Slideshow parameters
-		if ( $this->params['galleryformat'] == 'slideshow' ) {
+		if ( $this->params['layout'] == 'slideshow' ) {
 			$mAttribs = array(
-				'id'    => $this->params['galleryformat'] . '-' . ++$statNr,
+				'id'    => $this->params['layout'] . '-' . ++$statNr,
 				'class' => $this->getImageOverlay(),
 				'style' => 'display:none;',
 				'data-nav-control' => $this->params['navigation']
@@ -111,8 +113,8 @@ class SRFGallery extends SMWResultPrinter {
 			SMWOutputs::requireResource( 'ext.srf.gallery.slideshow' );
 		}
 
-		// In case galleryformat = carousel, perrow should not be set
-		if ( $this->params['perrow'] !== '' && $this->params['galleryformat'] !== 'carousel' ) {
+		// In case layout = carousel, perrow should not be set
+		if ( $this->params['perrow'] !== '' && $this->params['layout'] !== 'carousel' ) {
 			$ig->setPerRow( $this->params['perrow'] );
 		}
 
@@ -138,29 +140,26 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		// SRF Global settings
-		$this->getGlobalSettings();
+		SRFLibrary::setSRFGlobalSettings();
 
 		// Display a processing image as long as jquery is not loaded
-		if ( $this->params['galleryformat'] !== '' ) {
-			$processing = XML::tags( 'img', array (
-				'class' => 'processing',
-				'style' => 'vertical-align: middle;',
-				'src'   => $GLOBALS['wgStylePath'] . "/common/images/spinner.gif",
-				'title' => 'Loading ...'
-				), null
-			);
+		if ( $this->params['layout'] !== '' ) {
+			$processing = SRFLibrary::htmlProcessingElement();
 		}
 
 		// Beautify class selector
-		$class = $this->params['galleryformat'] ?  '-' . $this->params['galleryformat'] . ' ' : '';
+		$class = $this->params['layout'] ?  '-' . $this->params['layout'] . ' ' : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
 
 		// Separate content from result output
-		$html  = Html::rawElement( 'div', array (
-			'class'  => 'srf-gallery' . $class,
-			'align'  => 'justify',
-			), $processing . $ig->toHTML()
-		);
+		if ( !$ig->isEmpty() ) {
+			$attribs = array (
+				'class'  => 'srf-gallery' . $class,
+				'align'  => 'justify'
+			);
+
+			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
+		}
 
 		return array( $html, 'nowiki' => true, 'isHTML' => true );
 	}
@@ -275,23 +274,6 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	/**
-	 * Return SRF global settings
-	 *
-	 * @since 1.8
-	 *
-	 * @return array
-	 */
-	protected function getGlobalSettings(){
-		$options = array (
-			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
-			'srfVersion' => SRF_VERSION
-		);
-
-		$requireHeadItem = array ( 'srf.options' => $options );
-		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem ) );
-	}
-
-	/**
 	 * Return the image overlay setting
 	 *
 	 * @since 1.8
@@ -319,9 +301,9 @@ class SRFGallery extends SMWResultPrinter {
 		$params['class']->setMessage( 'srf-paramdesc-class' );
 		$params['class']->setDefault( '' );
 
-		$params['galleryformat'] = new Parameter( 'galleryformat', Parameter::TYPE_STRING, '' );
-		$params['galleryformat']->setMessage( 'srf_paramdesc_galleryformat' );
-		$params['galleryformat']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
+		$params['layout'] = new Parameter( 'layout', Parameter::TYPE_STRING, '' );
+		$params['layout']->setMessage( 'srf-paramdesc-layout' );
+		$params['layout']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
 
 		$params['overlay'] = new Parameter( 'overlay', Parameter::TYPE_BOOLEAN, true );
 		$params['overlay']->setMessage( 'srf-paramdesc-overlay' );

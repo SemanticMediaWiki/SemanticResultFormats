@@ -66,6 +66,8 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		$d3data = array (
 			'data' => $dataObject,
 			'parameters' => array (
+				'width'       => $this->params['width'],
+				'height'      => $this->params['height'],
 				'colorscheme' => $this->params['colorscheme'] ? $this->params['colorscheme'] : null,
 				'charttitle'  => $this->params['charttitle'],
 				'charttext'   => $this->params['charttext'],
@@ -82,18 +84,24 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		SMWOutputs::requireResource( $resource );
 
 		// Chart/graph placeholder
-		$chart = Xml::tags( 'div', array( 'id' => $d3chartID, 'class' => $this->params['layout'] ), null	);
+		$attribs = array(
+			'id'    => $d3chartID,
+			'class' => 'container',
+			'style' => 'display:none;'
+		);
+
+		$chart = Xml::tags( 'div', $attribs, null );
+
+		// Processing
+		$processing = SRFLibrary::htmlProcessingElement();
 
 		// Beautify class selector
 		$class = $this->params['layout'] ?  '-' . $this->params['layout'] : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' d3-chart-common';
 
-		// Return D3 wrappper
-		return Xml::tags( 'div', array(
-			'class' => 'srf-d3-chart' . $class,
-			'style' => "display:none; width: {$this->params['width']}px; height: {$this->params['height']}px;"
-			), $chart
-		);
+		// D3 wrappper
+		$attribs = array( 'class' => 'srf-d3-chart' . $class );
+		return Xml::tags( 'div', $attribs , $processing . $chart );
 	}
 
 	/**

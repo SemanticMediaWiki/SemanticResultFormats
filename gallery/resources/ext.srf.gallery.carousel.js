@@ -16,7 +16,7 @@
 
 		// Hide processing image
 		$( ".srf-gallery-carousel" ).each(function() {
-			$( this ).find( '.processing' ).hide();
+			$( this ).find( '.srf-processing' ).hide();
 		} );
 
 		// Bind individual elements containing class jcarousel as the plug-in

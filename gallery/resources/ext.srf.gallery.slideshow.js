@@ -30,7 +30,7 @@
 			}
 
 			// Make elements visible / hide
-			$this.find( '.processing' ).hide();
+			$this.find( '.srf-processing' ).hide();
 			gallery.show();
 
 			// Loop over all the gallery items
