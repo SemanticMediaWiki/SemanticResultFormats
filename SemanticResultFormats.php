@@ -121,7 +121,7 @@ unset( $formatDir );
 
 $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
 $wgAutoloadClasses['SRFHooks']           = $srfgIP . '/SRF_Hooks.php';
-$wgAutoloadClasses['SRFLibrary']         = $srfgIP . '/SRF_Library.php';
+$wgAutoloadClasses['SRFUtils']           = $srfgIP . '/SRF_Utils.php';
 
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';

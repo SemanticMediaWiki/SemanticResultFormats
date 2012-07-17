@@ -53,7 +53,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		// Check output conditions
 		if ( ( $this->params['layout'] == 'sphere' ) &&
 			( $this->params['link'] !== 'all' ) &&
-			( $this->params['template'] == '' ) ) {
+			( $this->params['template'] === '' ) ) {
 			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-link-all', 'sphere' ) ) );
 		}
 
@@ -289,7 +289,7 @@ class SRFTagCloud extends SMWResultPrinter {
 				), $htmlCTags
 			);
 
-			$processing = SRFLibrary::htmlProcessingElement();
+			$processing = SRFUtils::htmlProcessingElement();
 		}
 
 		// Beautify class selector

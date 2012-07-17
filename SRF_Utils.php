@@ -26,15 +26,16 @@
  *
  * @author mwjames
  */
-final class SRFLibrary {
+final class SRFUtils {
 
 	/**
-	 * Generates proccessing spinner
+	 * Generates a html element, representing a processing/loading image
 	 *
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement() {
 
+		# Attributes
 		$attribs = array (
 			'style' => 'vertical-align: middle;',
 			'src'   => "{$GLOBALS['wgStylePath']}/common/images/spinner.gif",
@@ -50,6 +51,7 @@ final class SRFLibrary {
 
 		$text = Html::rawElement( 'span', $attribs , wfMsgForContent( 'srf-module-loading' ) );
 
+		# Attributes
 		$attribs = array (
 			'class' => 'srf-processing',
 			'style' => 'display:block; vertical-align: middle; padding: 1em; background-color: white; color: #666;'
@@ -59,11 +61,11 @@ final class SRFLibrary {
 	}
 
 	/**
-	 * Set SRF global settings
+	 * Add JavaScript variables to the output
 	 *
 	 * @since 1.8
 	 */
-	public static function setSRFGlobalSettings(){
+	public static function addGlobalJSVariables(){
 		$options = array (
 			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			'srfVersion' => SRF_VERSION

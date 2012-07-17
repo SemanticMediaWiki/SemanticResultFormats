@@ -90,10 +90,10 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 			'style' => 'display:none;'
 		);
 
-		$chart = Xml::tags( 'div', $attribs, null );
+		$chart = Html::rawElement( 'div', $attribs, null );
 
 		// Processing
-		$processing = SRFLibrary::htmlProcessingElement();
+		$processing = SRFUtils::htmlProcessingElement();
 
 		// Beautify class selector
 		$class = $this->params['layout'] ?  '-' . $this->params['layout'] : '';
@@ -101,7 +101,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 
 		// D3 wrappper
 		$attribs = array( 'class' => 'srf-d3-chart' . $class );
-		return Xml::tags( 'div', $attribs , $processing . $chart );
+		return Html::rawElement( 'div', $attribs , $processing . $chart );
 	}
 
 	/**

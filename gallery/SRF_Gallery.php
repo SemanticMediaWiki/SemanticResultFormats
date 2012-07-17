@@ -140,11 +140,11 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		// SRF Global settings
-		SRFLibrary::setSRFGlobalSettings();
+		SRFUtils::addGlobalJSVariables();
 
 		// Display a processing image as long as jquery is not loaded
 		if ( $this->params['layout'] !== '' ) {
-			$processing = SRFLibrary::htmlProcessingElement();
+			$processing = SRFUtils::htmlProcessingElement();
 		}
 
 		// Beautify class selector
