@@ -16,12 +16,18 @@ $messages['en'] = array(
 	// user messages
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 
-	// Common messages
+	// shared messages
 	'srf-module-loading'   => 'Loading...',
 	'srf-paramdesc-layout' => 'Available layout',
 	'srf-paramdesc-height' => 'Height (in pixels)',
 	'srf-paramdesc-width'  => 'Width (in pixels)',
 	'srf-paramdesc-class'  => 'Additional CSS class',
+
+	// error descriptions
+	'srf-error-option-mix' => 'Options ($1) are not available',
+	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
+	'srf-error-missing-layout' => 'Layout is missing',
+	'srf-warn-empy-chart' => 'The chart/graph is empty due to missing data',
 
 	// format "calendar"
 	'srfc_previousmonth' => 'Previous month',
@@ -32,17 +38,17 @@ $messages['en'] = array(
 	'srf_paramdesc_calendarlang' => 'The code for the language in which to display the calendar',
 	'srf_paramdesc_calendarcolors' => 'The color to display for each date property (example: "Start date=>green,End date=>#09c")',
 
-	// format "vCard"
+	// format "vcard"
 	'srf_vcard_link'     => 'vCard',
 	'srf_printername_vcard' => 'vCard export',
 
-	// format "iCalendar"
+	// format "icalendar"
 	'srf_icalendar_link' => 'iCalendar',
 	'srf_printername_icalendar' => 'iCalendar export',
 	'srf_paramdesc_icalendartitle' => 'The title of the calendar file',
 	'srf_paramdesc_icalendardescription' => 'The description of the calendar file',
 
-	// format "BibTeX"
+	// format "bibtex"
 	'srf_bibtex_link'    => 'BibTeX',
 	'srf_printername_bibtex' => 'BibTeX export',
 
@@ -111,7 +117,7 @@ $messages['en'] = array(
 	'srf-paramdesc-seriesgroup' => 'Select series grouping',
 	'srf-paramdesc-serieslabel' => 'Specify series labels',
 
-	// "gallery" format
+	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
 	'srf_paramdesc_perrow' => 'The amount of images per row',
 	'srf_paramdesc_widths' => 'The width of the images',
@@ -120,8 +126,8 @@ $messages['en'] = array(
 	'srf_paramdesc_fileextensions' => 'When using the filename as caption, also display the file extension',
 	'srf_paramdesc_captionproperty' => 'The name of a semantic property present on the queried pages to be used as caption',
 	'srf_paramdesc_imageproperty' => 'Name of a semantic property on the queried pages that points to images to use. When set, the queried pages themselves will not be displayed as images',
-	'srf-paramdesc-navigation'    => 'Navigation',
-	'srf-paramdesc-overlay'       => 'Image overlay',
+	'srf-paramdesc-navigation'    => 'Layout navigation control',
+	'srf-paramdesc-overlay'       => 'Enable image overlay',
 	'srf-gallery-navigation-previous' => 'Previous',
 	'srf-gallery-navigation-next'     => 'Next',
 	'srf-gallery-overlay-count' => 'Image $1 of $2',
@@ -137,10 +143,10 @@ $messages['en'] = array(
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 	'srf-paramdesc-excludetags' => 'Exclude tags (delimiter: ;)',
 
-	// "valuerank" format
+	// format "valuerank"
 	'srf_printername_valuerank' => 'Value rank',
 
-	// format "Array" and "Hash"
+	// format "array" and "hash"
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Whether to show page titles as result entries or to leave them out',
 	'srf_paramdesc_hidegaps' => 'Whether to print requested but unavailable property and record values separated by separators or leaving them out',
@@ -166,7 +172,7 @@ $messages['en'] = array(
 	'srf_paramdesc_graphcolor' => 'Graph color',
 	'srf-paramdesc-graph-wwl' => 'Word wrap limit (in # characters)',
 
-	// DataTables
+	// format "datatables"
 	'srf_printername_datatables'  => 'DataTables',
 	'srf-paramdesc-rowindex'      => 'Table row index',
 	'srf-paramdesc-displaylength' => 'Initial display length',
@@ -190,13 +196,6 @@ $messages['en'] = array(
 
 	// format "d3chart"
 	'srf-printername-d3chart' => 'D3 chart',
-
-	// General error
-	'srf-error-option-mix' => 'Options ($1) are not available',
-	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
-	'srf-error-resourceloader' => 'This format requires the ResourceLoader',
-	'srf-error-missing-layout' => 'Required layout is missing',
-	'srf-warn-empy-chart' => 'Sufficient data is missing for this chart',
 );
 
 /** Message documentation (Message documentation)
