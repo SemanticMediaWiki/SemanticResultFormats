@@ -33,7 +33,7 @@ $magicWords['de'] = array(
 /** Zazaki (Zazaki) */
 $magicWords['diq'] = array(
 	'calendarstartdate' => array( 0, 'standardemêteqwimi' ),
-	'calendarenddate' => array( 0, 'demuteqwima' ),
+	'calendarenddate' => array( 0, 'demeuteqwima' ),
 );
 
 /** Spanish (español) */
