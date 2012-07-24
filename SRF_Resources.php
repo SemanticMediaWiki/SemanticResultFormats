@@ -29,6 +29,23 @@ $wgResourceModules['ext.jquery.fancybox'] = $moduleTemplate + array(
 	'dependencies' => 'ext.jquery.easing',
 );
 
+$wgResourceModules['ext.jquery.jqgrid'] = $moduleTemplate + array(
+	'scripts' => array(
+		'resources/jquery.jqgrid/jquery.jqGrid.4.4.0min.js',
+		'resources/jquery.jqgrid/grid.locale-en.js' 
+	),
+	'styles' => 'resources/jquery.jqgrid/ui.jqgrid.css',
+	'dependencies' => 'jquery.ui.core'
+);
+
+$wgResourceModules['ext.jquery.flot'] = $moduleTemplate + array(
+	'scripts' => array( 
+		'resources/jquery.flot/jquery.flot.js',
+		'resources/jquery.flot/jquery.flot.selection.js'
+	)
+);
+
+
 /******************************************************************************
  * jqPlot
 /******************************************************************************/
@@ -314,5 +331,21 @@ $wgResourceModules['ext.srf.tagcloud.sphere'] = $moduleTemplate + array(
 	'style'   => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
 	'dependencies' => array( 'ext.jquery.tagcanvas', 'jquery.client' ),
 	'position'     => 'top',
+);
+
+/******************************************************************************
+ * Flot
+ ******************************************************************************/
+$wgResourceModules['ext.srf.flot.core'] = $moduleTemplate + array(
+	'styles'  => 'flot/resources/ext.srf.flot.core.css',
+);
+
+$wgResourceModules['ext.srf.flot.timeseries'] = $moduleTemplate + array(
+	'scripts' => 'flot/resources/ext.srf.flot.timeseries.js',
+	'dependencies' => array ( 'ext.jquery.flot', 'ext.jquery.jqgrid', 'ext.srf.flot.core' ),
+	'messages' => array(
+		'srf-timeseries-zoom-out-of-range'
+	),
+	'position' => 'top'
 );
 unset( $moduleTemplate );

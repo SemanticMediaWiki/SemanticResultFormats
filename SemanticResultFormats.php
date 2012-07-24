@@ -91,6 +91,7 @@ $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follows naming convention
+$wgAutoloadClasses['SRFFlotTimeseries'] = $formatDir . 'flot/SRF_FlotTimeseries.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
 $wgAutoloadClasses['SRFjqPlotPie']    = $formatDir . 'jqplot/SRF_jqPlotPie.php';
 $wgAutoloadClasses['SRFjqPlotBar']    = $formatDir . 'jqplot/SRF_jqPlotBar.php';
@@ -173,12 +174,14 @@ function srffInitFormats() {
 		'latest' => 'SRFTime',
 		'earliest' => 'SRFTime',
 		'slideshow' => 'SRFSlideShow',
+		'timeseries' => 'SRFFlotTimeseries',
 	);
 
 	$formatAliases = array(
-		'tagcloud'  => array( 'tag cloud' ),
-		'valuerank' => array( 'value rank' ),
-		'd3chart'   => array( 'd3 chart' )		
+		'tagcloud'   => array( 'tag cloud' ),
+		'valuerank'  => array( 'value rank' ),
+		'd3chart'    => array( 'd3 chart' ),
+		'timeseries' => array ( 'time series', 'time series chart' )
 	);
 	
 	foreach ( $srfgFormats as $format ) {

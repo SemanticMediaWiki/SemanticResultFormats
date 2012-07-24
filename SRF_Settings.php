@@ -50,6 +50,7 @@ $srfgFormats = array(
 	'earliest',
 	'filtered',
 	'slideshow', 
+	'timeseries',
 	
 	// Disabled by default
 	// 'jqplotseries',

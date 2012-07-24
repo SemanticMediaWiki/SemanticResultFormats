@@ -24,7 +24,7 @@ $messages['en'] = array(
 	'srf-paramdesc-class'  => 'Additional CSS class',
 
 	// error descriptions
-	'srf-error-option-mix' => 'Options ($1) are not available',
+	'srf-error-option-mix' => 'Option ($1) is not available',
 	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
 	'srf-error-missing-layout' => 'Layout is missing',
 	'srf-warn-empy-chart' => 'The chart/graph is empty due to missing data',
@@ -196,6 +196,14 @@ $messages['en'] = array(
 
 	// format "d3chart"
 	'srf-printername-d3chart' => 'D3 chart',
+
+	// format "timeseries"
+	'srf-printername-timeseries' => 'Timeseries chart',
+	'srf-paramdesc-threshold' => 'Threshold',
+	'srf-paramdesc-groupedby' => 'Grouped by',
+	'srf-paramdesc-zoom' => 'Enable zoom',
+	'srf-paramdesc-datatable' => 'Display a datatable',
+	'srf-timeseries-zoom-out-of-range' => 'The zoom range did not produce any sufficient data',
 );
 
 /** Message documentation (Message documentation)
@@ -212,9 +220,6 @@ $messages['qqq'] = array(
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-class' => '{{doc-paramdesc|class}}',
-	'srf-error-option-link-all' => 'This is an error message.
-
-{{doc-important|Do not translate the parameter "[link]" and its possible value "all".}}',
 	'srf_printername_calendar' => '{{doc-smwformat|calendar}}',
 	'srf_paramdesc_calendarcolors' => 'Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.',
 	'srf_vcard_link' => '{{optional}}',
@@ -234,6 +239,8 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf_printername_min' => '{{doc-smwformat|min}}',
 	'srf_printername_product' => '{{doc-smwformat|product}}',
 	'srf_printername_median' => '{{doc-smwformat|median}}',
+	'srf-printername-d3chart' => '{{doc-smwformat|d3chart}}',
+	'srf-printername-timeseries' => '{{doc-smwformat|timeseries}}',
 	'srf_printername_earliest' => '{{doc-smwformat|earliest}}',
 	'srf_printername_latest' => '{{doc-smwformat|latest}}',
 	'srf_printername_timeline' => '{{doc-smwformat|timeline}}',
