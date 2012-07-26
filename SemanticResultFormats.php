@@ -29,7 +29,7 @@
 /**
  * This documentation group collects source code files belonging to SemanticResultFormats.
  * 
- * @defgroup SemanticResultFormats SemanticResultFormats
+ * @defgroup SemanticResultFormats Semantic Result Formats
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
@@ -126,6 +126,7 @@ $wgAutoloadClasses['SRFUtils']           = $srfgIP . '/SRF_Utils.php';
 
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
+$wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
 $wgAjaxExportList[] = 'SRFSlideShow::handleGetResult';
 

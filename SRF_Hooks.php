@@ -1,21 +1,50 @@
 <?php
 
 /**
- * Static class for hooks handled by the Semantic Result Formats
+ * Static class for hooks handled by the Semantic Result Formats.
+ *
  * @since 1.7
  * 
- * @file SRF_Hooks.php
+ * @file
  * @ingroup SemanticResultFormats
  * 
  * @licence GNU GPL v3+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 final class SRFHooks {
-	
+
+	/**
+	 * Hook to add PHPUnit test cases.
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
+	 *
+	 * @since 1.8
+	 *
+	 * @param array $files
+	 *
+	 * @return boolean
+	 */
+	public static function registerUnitTests ( array &$files ) {
+		$testFiles = array(
+			'formats/Math',
+		);
+
+		foreach ( $testFiles as $file ) {
+			$files[] = dirname( __FILE__ ) . '/tests/phpunit/' . $file . 'Test.php';
+		}
+
+		return true;
+	}
+
 	/**
 	 * Adds a link to Admin Links page.
+	 *
+	 * @since 1.7
+	 *
+	 * @param ALTree $admin_links_tree
+	 *
+	 * @return boolean
 	 */
-	public static function addToAdminLinks( &$admin_links_tree ) {
+	public static function addToAdminLinks( ALTree &$admin_links_tree ) {
 		$displaying_data_section = $admin_links_tree->getSection( wfMsg( 'smw_adminlinks_displayingdata' ) );
 		
 		// Escape is SMW hasn't added links.
@@ -29,5 +58,5 @@ final class SRFHooks {
 		
 		return true;
 	}
-	
+
 }
