@@ -25,7 +25,11 @@ final class SRFHooks {
 	 */
 	public static function registerUnitTests ( array &$files ) {
 		$testFiles = array(
+			'formats/Array',
+			'formats/Gallery',
 			'formats/Math',
+			'formats/TagCloud',
+			'formats/vCard',
 		);
 
 		foreach ( $testFiles as $file ) {
