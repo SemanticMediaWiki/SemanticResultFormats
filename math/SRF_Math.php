@@ -116,22 +116,4 @@ class SRFMath extends SMWResultPrinter {
 		}
 	}
 
-	/**
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getParameters()
-	 */
-	public function getParameters() {
-		$params = parent::getParameters();
-		
-		$params['limit'] = new Parameter( 'limit', Parameter::TYPE_INTEGER );
-		$params['limit']->setMessage( 'srf_paramdesc_limit' );
-		$params['limit']->setDefault( 1000 );
-
-		$params['default'] = new Parameter( 'default' );
-		$params['default']->setMessage( 'srf-paramdesc-default' );
-		$params['default']->setDefault( '' );
-		
-		return $params;
-	}
-
 }
