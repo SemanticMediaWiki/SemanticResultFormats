@@ -91,7 +91,7 @@ $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follows naming convention
-$wgAutoloadClasses['SRFFlotTimeseries'] = $formatDir . 'flot/SRF_FlotTimeseries.php';
+$wgAutoloadClasses['SRFFlotTimeseries'] = $formatDir . 'flot/SRF_FlotTimeSeries.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
 $wgAutoloadClasses['SRFjqPlotPie']    = $formatDir . 'jqplot/SRF_jqPlotPie.php';
 $wgAutoloadClasses['SRFjqPlotBar']    = $formatDir . 'jqplot/SRF_jqPlotBar.php';
