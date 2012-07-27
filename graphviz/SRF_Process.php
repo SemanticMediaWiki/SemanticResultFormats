@@ -88,15 +88,18 @@ class SRFProcess extends SMWResultPrinter {
 		$this->m_isDebugSet = $params['debug'];
 		$this->m_graphValidation = $params['graphvalidation'];
 	}
-	
+
 	/**
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getParameters()
-	 * 
-	 * TODO: add messages and criteria
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
-		$params = parent::getParameters();
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 		
 		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, '' );
 		$params['rankdir'] = new Parameter( 'rankdir', Parameter::TYPE_STRING, 'TB' );

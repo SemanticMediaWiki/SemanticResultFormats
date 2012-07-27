@@ -156,16 +156,18 @@ class SRFValueRank extends SMWResultPrinter {
 			implode( ' ', $htmlTags )
 		);
 	}
-	
+
 	/**
-	 * @see SMWResultPrinter::getParameters
-	 * 
-	 * @since 1.7
-	 * 
-	 * @return array
-	 */	
-	public function getParameters() {
-		$params = parent::getParameters();
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 		
 		$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
 		$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );

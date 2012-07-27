@@ -349,14 +349,16 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParameters
-	 * 
-	 * @since 1.5.0
-	 * 
-	 * @return array
-	 */	
-	public function getParameters() {
-		$params = parent::getParameters();
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 		
 		$params['timelinesize'] = new Parameter( 'timelinesize' );
 		$params['timelinesize']->setDefault( '300px' );

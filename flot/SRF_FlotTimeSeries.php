@@ -28,9 +28,9 @@
  */
 class SRFFlotTimeseries extends SMWResultPrinter {
 
-	/*
+	/**
 	 * @see SMWResultPrinter::getName
-	 *
+	 * @return string
 	 */
 	public function getName() {
 		return wfMsg( 'srf-printername-timeseries' );
@@ -39,6 +39,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	/**
 	 * Returns an array with the numerical data in the query result.
 	 *
+	 * @since 1.8
 	 *
 	 * @param SMWQueryResult $result
 	 * @param $outputMode
@@ -46,7 +47,6 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		if ( $this->params['layout'] === '' ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-error-missing-layout' ) ) );
 		}
@@ -191,10 +191,16 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParameters
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
-		$params = parent::getParameters();
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 
 		$params['layout'] = new Parameter( 'layout', Parameter::TYPE_STRING, 'line' );
 		$params['layout']->setMessage( 'srf-paramdesc-layout' );
@@ -234,4 +240,5 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 
 		return $params;
 	}
+
 }

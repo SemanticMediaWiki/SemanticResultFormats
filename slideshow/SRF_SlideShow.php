@@ -111,15 +111,16 @@ class SRFSlideShow extends SMWResultPrinter {
 	}
 
 	/**
-	 * A function to describe the allowed parameters of a query using
-	 * any specific format - most query printers should override this
-	 * function.
+	 * @see SMWResultPrinter::getParamDefinitions
 	 *
-	 * @since 1.5
+	 * @since 1.8
 	 *
-	 * @return array of Parameter
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 
 		$params['template'] = new Parameter( 'template' );
 		$params['template']->setMessage( 'smw_paramdesc_template' );

@@ -211,10 +211,6 @@ class SRFBibTeX extends SMWResultPrinter {
 		return new SMWBibTeXEntry( $type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year );
 	}
 
-	public function getParameters() {
-		return array_merge( parent::getParameters(), $this->exportFormatParameters() );
-	}
-
 }
 
 /**

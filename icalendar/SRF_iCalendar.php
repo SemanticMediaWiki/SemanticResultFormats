@@ -226,8 +226,17 @@ class SRFiCalendar extends SMWResultPrinter {
 		return $result;
 	}
 
-	public function getParameters() {
-		$params = array_merge( parent::getParameters(), $this->exportFormatParameters() );
+	/**
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 		
 		$params['title'] = new Parameter( 'title' );
 		$params['title']->setMessage( 'srf_paramdesc_icalendartitle' );

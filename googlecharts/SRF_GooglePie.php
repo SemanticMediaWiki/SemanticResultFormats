@@ -65,8 +65,17 @@ class SRFGooglePie extends SMWResultPrinter {
 		return 	'<img src="http://chart.apis.google.com/chart?cht=p3&chs=' . $this->m_width . 'x' . $this->m_height . '&chds=0,' . $max . '&chd=t:' . $t . '&chl=' . $n . '" width="' . $this->m_width . '" height="' . $this->m_height . '"  />';
 	}
 
-	public function getParameters() {
-		$params = parent::getParameters();
+	/**
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 		
 		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 100 );
 		$params['height']->setMessage( 'srf_paramdesc_chartheight' );

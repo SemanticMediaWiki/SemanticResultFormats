@@ -71,11 +71,16 @@ class SRFTime extends SMWResultPrinter {
 	}
 
 	/**
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getParameters()
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
-		$params = parent::getParameters();
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 
 		$params['limit'] = new Parameter( 'limit', Parameter::TYPE_INTEGER );
 		$params['limit']->setMessage( 'srf_paramdesc_limit' );

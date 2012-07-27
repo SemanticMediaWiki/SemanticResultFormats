@@ -273,10 +273,19 @@ class SRFGraph extends SMWResultPrinter {
 	 */
 	public function getName() {
 		return wfMsg( 'srf-printername-graph' );
-	}	
-	
-	public function getParameters() {
-		$params = parent::getParameters();
+	}
+
+	/**
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 		
 		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, 'QueryResult' );
 		$params['graphname']->setMessage( 'srf_paramdesc_graphname' );

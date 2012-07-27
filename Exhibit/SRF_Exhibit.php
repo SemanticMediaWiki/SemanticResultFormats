@@ -445,11 +445,22 @@ class SRFExhibit extends SMWResultPrinter {
 		return $result;
 	}
 
-	public function getParameters() {
-		$params = parent::getParameters();
-		$params[] = array( 'name' => 'views', 'type' => 'enum-list', 'description' => wfMsg( 'srf_paramdesc_views' ), 'values' => array( 'tiles', 'tabular', 'timeline', 'maps' ) );
-		$params[] = array( 'name' => 'facets', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_facets' ) );
-		$params[] = array( 'name' => 'lens', 'type' => 'string', 'description' => wfMsg( 'srf_paramdesc_lens' ) );
+	/**
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
+
+		$params[] = array( 'name' => 'views', 'message' => 'srf_paramdesc_views', 'islist' => true, 'values' => array( 'tiles', 'tabular', 'timeline', 'maps' ) );
+		$params[] = array( 'name' => 'facets', 'message' => 'srf_paramdesc_facets' );
+		$params[] = array( 'name' => 'lens', 'message' => 'srf_paramdesc_lens' );
+
 		return $params;
 	}
 

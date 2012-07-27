@@ -121,33 +121,6 @@ class SRFJitGraph extends SMWResultPrinter {
 		
 	}
 
-	public function getParameters() {
-		$params = parent::getParameters();
-		
-		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, 'GraphName' );
-		$params['graphname']->setMessage( 'srf_paramdesc_graphname' );
-		
-		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_INTEGER );
-		$params['graphsize']->setMessage( 'srf_paramdesc_graphsize' );
-		$params['graphsize']->setDefault( '', false );
-		
-		$params['graphlegend'] = new Parameter( 'graphsize', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlegend']->setMessage( 'srf_paramdesc_graphlegend' );
-		
-		$params['graphlabel'] = new Parameter( 'graphlabel', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlabel']->setMessage( 'srf_paramdesc_graphlabel' );
-		
-		$params['graphcolor'] = new Parameter( 'graphcolor', Parameter::TYPE_BOOLEAN, false );
-		$params['graphcolor']->setMessage( 'srf_paramdesc_graphcolor' );
-		
-		$params['graphnodetype'] = new Parameter( 'graphnodetype' );
-		$params['graphnodetype']->setDefault( false, false );
-		$params['graphnodetype']->setMessage( 'srf-paramdesc-graph-graphnodetype' );
-		$params['graphnodetype']->addCriteria( new CriterionInArray( self::$NODE_SHAPES ) );
-		
-		return $params;
-	}
-
 	public function getName() {
 		return wfMsg( 'srf_printername_' . $this->mFormat );
 	}
@@ -353,5 +326,41 @@ class SRFJitGraph extends SMWResultPrinter {
 				'/JitGraph/SRF_JitGraph.js"></script>'
 		);			
 	}
-	
+
+	/**
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
+
+		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, 'GraphName' );
+		$params['graphname']->setMessage( 'srf_paramdesc_graphname' );
+
+		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_INTEGER );
+		$params['graphsize']->setMessage( 'srf_paramdesc_graphsize' );
+		$params['graphsize']->setDefault( '', false );
+
+		$params['graphlegend'] = new Parameter( 'graphsize', Parameter::TYPE_BOOLEAN, false );
+		$params['graphlegend']->setMessage( 'srf_paramdesc_graphlegend' );
+
+		$params['graphlabel'] = new Parameter( 'graphlabel', Parameter::TYPE_BOOLEAN, false );
+		$params['graphlabel']->setMessage( 'srf_paramdesc_graphlabel' );
+
+		$params['graphcolor'] = new Parameter( 'graphcolor', Parameter::TYPE_BOOLEAN, false );
+		$params['graphcolor']->setMessage( 'srf_paramdesc_graphcolor' );
+
+		$params['graphnodetype'] = new Parameter( 'graphnodetype' );
+		$params['graphnodetype']->setDefault( false, false );
+		$params['graphnodetype']->setMessage( 'srf-paramdesc-graph-graphnodetype' );
+		$params['graphnodetype']->addCriteria( new CriterionInArray( self::$NODE_SHAPES ) );
+
+		return $params;
+	}
+
 }

@@ -288,14 +288,16 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParameters
+	 * @see SMWResultPrinter::getParamDefinitions
 	 *
-	 * @since 1.5.3
+	 * @since 1.8
 	 *
-	 * @return array
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
 	 */
-	public function getParameters() {
-		$params = parent::getParameters();
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 
 		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
 		$params['class']->setMessage( 'srf-paramdesc-class' );

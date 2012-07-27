@@ -339,9 +339,6 @@ class SRFvCard extends SMWResultPrinter {
 		return $result;
 	}
 
-	public function getParameters() {
-		return array_merge( parent::getParameters(), $this->exportFormatParameters() );
-	}
 }
 
 /**
