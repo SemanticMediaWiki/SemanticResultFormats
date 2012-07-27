@@ -16,6 +16,12 @@ $moduleTemplate = array(
 	'localBasePath' => dirname( __FILE__ ) . '/',
 	'remoteExtPath' => 'SemanticResultFormats/'
 );
+
+$formatModule = array(
+	'localBasePath' => dirname( __FILE__ ) . '/formats/',
+	'remoteExtPath' => 'SemanticResultFormats/formats/'
+);
+
 /******************************************************************************/
 /* Common resources
 /******************************************************************************/
@@ -49,21 +55,21 @@ $wgResourceModules['ext.jquery.flot'] = $moduleTemplate + array(
 /******************************************************************************
  * jqPlot
 /******************************************************************************/
-$wgResourceModules['ext.jquery.jqplot'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/jquery.jqplot.min.js',
 	'styles' => 'jqplot/resources/jquery.jqplot.css'
 );
 
 // excanvas is required only for pre- IE 9 versions
-$wgResourceModules['ext.jquery.jqplot.excanvas'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.excanvas'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/excanvas.min.js'
 );
 
-$wgResourceModules['ext.jquery.jqplot.json'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.json'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/jqplot.json2.min.js'
 );
 
-$wgResourceModules['ext.jquery.jqplot.bar'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.bar'] = $formatModule + array(
 	'scripts' => array(
 		'jqplot/resources/jqplot.canvasAxisTickRenderer.min.js',
 		'jqplot/resources/jqplot.canvasTextRenderer.min.js',
@@ -74,27 +80,27 @@ $wgResourceModules['ext.jquery.jqplot.bar'] = $moduleTemplate + array(
 	'dependencies' => 'ext.jquery.jqplot',
 );
 
-$wgResourceModules['ext.jquery.jqplot.pie'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.pie'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/jqplot.pieRenderer.min.js',
 	'dependencies' => 'ext.jquery.jqplot'
 );
 
-$wgResourceModules['ext.jquery.jqplot.bubble'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.bubble'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/jqplot.bubbleRenderer.min.js',
 	'dependencies' => 'ext.jquery.jqplot'
 );
 
-$wgResourceModules['ext.jquery.jqplot.donut'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.donut'] = $formatModule + array(
 	'scripts' =>'jqplot/resources/jqplot.donutRenderer.min.js',
 	'dependencies' => 'ext.jquery.jqplot.pie'
 );
 
-$wgResourceModules['ext.srf.jqplot.themes'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.themes'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.themes.js',
 	'dependencies' =>	'jquery.client'
 );
 
-$wgResourceModules['ext.srf.jqplot.bar'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.bar'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.bar.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.bar',
@@ -103,7 +109,7 @@ $wgResourceModules['ext.srf.jqplot.bar'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bar.extended'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.bar.extended'] = $formatModule + array(
 	'scripts' => array(
 		'jqplot/resources/jqplot.pointLabels.min.js',
 		'jqplot/resources/jqplot.highlighter.min.js',
@@ -112,13 +118,13 @@ $wgResourceModules['ext.srf.jqplot.bar.extended'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bar.trendline'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.bar.trendline'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/jqplot.trendline.min.js',
 	'dependencies' => 'ext.srf.jqplot.bar',
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.pie'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.pie'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.pie.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.pie',
@@ -127,7 +133,7 @@ $wgResourceModules['ext.srf.jqplot.pie'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bubble'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.bubble'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.bubble.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.bubble',
@@ -136,7 +142,7 @@ $wgResourceModules['ext.srf.jqplot.bubble'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.donut'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jqplot.donut'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.pie.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.donut',
@@ -148,11 +154,11 @@ $wgResourceModules['ext.srf.jqplot.donut'] = $moduleTemplate + array(
 /******************************************************************************
  * Timeline
 /******************************************************************************/
-$wgResourceModules['ext.smile.timeline'] = $moduleTemplate + array(
+$wgResourceModules['ext.smile.timeline'] = $formatModule + array(
 	'scripts' => 'timeline/resources/SimileTimeline/timeline-api.js'
 );
 
-$wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.timeline'] = $formatModule + array(
 	'scripts' => 'timeline/resources/ext.srf.timeline.js',
 	'dependencies' => array(
 		'ext.smile.timeline',
@@ -163,23 +169,23 @@ $wgResourceModules['ext.srf.timeline'] = $moduleTemplate + array(
 /******************************************************************************
  * D3
  ******************************************************************************/
-$wgResourceModules['ext.srf.d3.core'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.d3.core'] = $formatModule + array(
 	'scripts' => 'd3/resources/d3.v2.min.js'
 );
 
-$wgResourceModules['ext.srf.d3.common'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.d3.common'] = $formatModule + array(
 	'scripts' => 'd3/resources/ext.srf.d3.common.js',
 	'styles'  => 'd3/resources/ext.srf.d3.common.css'
 );
 
-$wgResourceModules['ext.srf.d3.chart.treemap'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.d3.chart.treemap'] = $formatModule + array(
 	'scripts' => 'D3/resources/chart/ext.srf.d3.chart.treemap.js',
 	'styles'  => 'D3/resources/chart/ext.srf.d3.chart.treemap.css',
 	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
 );
 
-$wgResourceModules['ext.srf.d3.chart.bubble'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.d3.chart.bubble'] = $formatModule + array(
 	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.bubble.js',
 	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.bubble.css',
 	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
@@ -189,19 +195,19 @@ $wgResourceModules['ext.srf.d3.chart.bubble'] = $moduleTemplate + array(
 /******************************************************************************
  * JitGraph
  ******************************************************************************/
-$wgResourceModules['jquery.progressbar'] = $moduleTemplate + array(
+$wgResourceModules['jquery.progressbar'] = $formatModule + array(
 	'scripts' => array(
 		'JitGraph/jquery.progressbar.js',
 	),
 );
 
-$wgResourceModules['ext.srf.jit'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jit'] = $formatModule + array(
 	'scripts' => array(
 		'JitGraph/Jit/jit.js',
 	),
 );
 		
-$wgResourceModules['ext.srf.jitgraph'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.jitgraph'] = $formatModule + array(
 	'scripts' => array(
 		'JitGraph/SRF_JitGraph.js',
 	),
@@ -219,22 +225,22 @@ $wgResourceModules['ext.srf.jitgraph'] = $moduleTemplate + array(
 /******************************************************************************
  * Gallery
 /******************************************************************************/
-$wgResourceModules['ext.jquery.jcarousel'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jcarousel'] = $formatModule + array(
 	'scripts' => 'gallery/resources/jquery.jcarousel.min.js',
 );
 
-$wgResourceModules['ext.jquery.responsiveslides'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.responsiveslides'] = $formatModule + array(
 	'scripts' => 'gallery/resources/jquery.responsiveslides.1.32.min.js',
 );
 
-$wgResourceModules['ext.srf.gallery.carousel'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.gallery.carousel'] = $formatModule + array(
 	'styles'  => 'gallery/resources/ext.srf.gallery.carousel.css',
 	'scripts' => 'gallery/resources/ext.srf.gallery.carousel.js',
 	'dependencies' => 'ext.jquery.jcarousel',
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.gallery.slideshow'] = $formatModule + array(
 	'scripts' => 'gallery/resources/ext.srf.gallery.slideshow.js',
 	'styles'  => 'gallery/resources/ext.srf.gallery.slideshow.css',
 	'dependencies' => 'ext.jquery.responsiveslides',
@@ -245,7 +251,7 @@ $wgResourceModules['ext.srf.gallery.slideshow'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.gallery.overlay'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.gallery.overlay'] = $formatModule + array(
 	'scripts' => 'gallery/resources/ext.srf.gallery.overlay.js',
 	'styles'  => 'gallery/resources/ext.srf.gallery.overlay.css',
 	'dependencies' => 'ext.jquery.fancybox',
@@ -258,7 +264,7 @@ $wgResourceModules['ext.srf.gallery.overlay'] = $moduleTemplate + array(
 /******************************************************************************
  * Filtered
 /******************************************************************************/
-$wgResourceModules['ext.srf.filtered'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.filtered'] = $formatModule + array(
 	'scripts' => array(
 		'Filtered/libs/ext.srf.filtered.js',
 	),
@@ -267,7 +273,7 @@ $wgResourceModules['ext.srf.filtered'] = $moduleTemplate + array(
 	),
 );
 
-$wgResourceModules['ext.srf.filtered.list-view'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.filtered.list-view'] = $formatModule + array(
 	'scripts' => array(
 		'Filtered/libs/ext.srf.filtered.list-view.js',
 	),
@@ -280,7 +286,7 @@ $wgResourceModules['ext.srf.filtered.list-view'] = $moduleTemplate + array(
 	),
 );
 
-$wgResourceModules['ext.srf.filtered.value-filter'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.filtered.value-filter'] = $formatModule + array(
 	'scripts' => array(
 		'Filtered/libs/ext.srf.filtered.value-filter.js',
 	),
@@ -292,7 +298,7 @@ $wgResourceModules['ext.srf.filtered.value-filter'] = $moduleTemplate + array(
 	),
 );
 
-$wgResourceModules['ext.srf.filtered.distance-filter'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.filtered.distance-filter'] = $formatModule + array(
 	'scripts' => array(
 		'Filtered/libs/ext.srf.filtered.distance-filter.js',
 	),
@@ -308,7 +314,7 @@ $wgResourceModules['ext.srf.filtered.distance-filter'] = $moduleTemplate + array
 /******************************************************************************
  * Slideshow
  ******************************************************************************/
-$wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.slideshow'] = $formatModule + array(
 	'scripts' => 'slideshow/resources/ext.srf.slideshow.js',
 	'styles'  => 'slideshow/resources/ext.srf.slideshow.css',
 	'dependencies' =>'mediawiki.legacy.ajax'
@@ -318,15 +324,15 @@ $wgResourceModules['ext.srf.slideshow'] = $moduleTemplate + array(
  * Tag cloud
  ******************************************************************************/
 // excanvas is only needed for pre-9.0 Internet Explorer compatibility
-$wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $formatModule + array(
 	'scripts' => 'tagcloud/resources/excanvas.js'
 );
 
-$wgResourceModules['ext.jquery.tagcanvas'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.tagcanvas'] = $formatModule + array(
 	'scripts' => 'tagcloud/resources/jquery.tagcanvas.1.18.min.js'
 );
 
-$wgResourceModules['ext.srf.tagcloud.sphere'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.tagcloud.sphere'] = $formatModule + array(
 	'scripts' => 'tagcloud/resources/ext.srf.tagcloud.sphere.js',
 	'style'   => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
 	'dependencies' => array( 'ext.jquery.tagcanvas', 'jquery.client' ),
@@ -336,11 +342,11 @@ $wgResourceModules['ext.srf.tagcloud.sphere'] = $moduleTemplate + array(
 /******************************************************************************
  * Flot
  ******************************************************************************/
-$wgResourceModules['ext.srf.flot.core'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.flot.core'] = $formatModule + array(
 	'styles'  => 'flot/resources/ext.srf.flot.core.css',
 );
 
-$wgResourceModules['ext.srf.flot.timeseries'] = $moduleTemplate + array(
+$wgResourceModules['ext.srf.flot.timeseries'] = $formatModule + array(
 	'scripts' => 'flot/resources/ext.srf.flot.timeseries.js',
 	'dependencies' => array ( 'ext.jquery.flot', 'ext.jquery.jqgrid', 'ext.srf.flot.core' ),
 	'messages' => array(
@@ -348,4 +354,6 @@ $wgResourceModules['ext.srf.flot.timeseries'] = $moduleTemplate + array(
 	),
 	'position' => 'top'
 );
+
+unset( $formatModule );
 unset( $moduleTemplate );

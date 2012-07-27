@@ -12,7 +12,7 @@
  *==================================================
  */
 
-var Timeline_urlPrefix = mw.config.get( 'wgScriptPath') + "/extensions/SemanticResultFormats/timeline/resources/SimileTimeline/";
+var Timeline_urlPrefix = mw.config.get( 'wgScriptPath') + "/extensions/SemanticResultFormats/formats/timeline/resources/SimileTimeline/";
  
 var Timeline = new Object();
 window.Timeline = Timeline; // Added to make this RL compatible.

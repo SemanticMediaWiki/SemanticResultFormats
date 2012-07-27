@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-include_once( "SRF_Ploticus.php" );
+include_once("SRF_Ploticus.php");
 
 /**
  * This class only specifies the the SRFPloticus superclass. Since the

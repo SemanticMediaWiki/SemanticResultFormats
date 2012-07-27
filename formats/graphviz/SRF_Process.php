@@ -45,7 +45,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // global variable defining picture path
 
-$srfgPicturePath = "graphviz/images/";
+$srfgPicturePath = "formats/graphviz/images/";
 
 
 
@@ -842,8 +842,8 @@ class ProcessNode extends ProcessElement {
 
 			if ( file_exists( $IP . "/images/p000.png" ) ) {
 				$PicturePath = $IP . "/images/";
-			} elseif ( file_exists( $srfgIP . "/graphviz/images/p000.png" ) ) {
-				$PicturePath = $srfgIP . "/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/p000.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
@@ -874,8 +874,8 @@ class ProcessNode extends ProcessElement {
 
 			if ( file_exists( $IP . "/images/discuss_icon.png" ) ) {
 				$PicturePath = $IP . "/images/";
-			} elseif ( file_exists( $srfgIP . "/graphviz/images/discuss_icon.png" ) ) {
-				$PicturePath = $srfgIP . "/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/discuss_icon.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
@@ -891,7 +891,7 @@ class ProcessNode extends ProcessElement {
 
 		// use highlight color if set (either CURRENTPAGE or REDLINK highlighting - see ProcessGraph::makeNode()
 		$high = '';
-		if ( $this->m_fontColor != '' ) {
+		if ( $this->m_fontColor !== '' ) {
 			$high = ',fontcolor=' . $this->m_fontColor;
 		}
 
@@ -900,8 +900,8 @@ class ProcessNode extends ProcessElement {
 		if ($this->getProcess()->getShowCompound()){
 			if ( file_exists( $IP . "/images/subprocess.png" ) ) {
 				$PicturePath = $IP . "/images/";
-			} elseif ( file_exists( $srfgIP . "/graphviz/images/subprocess.png" ) ) {
-				$PicturePath = $srfgIP . "/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
