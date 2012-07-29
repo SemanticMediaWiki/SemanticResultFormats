@@ -84,7 +84,7 @@ $wgExtensionCredits['semantic'][] = array(
 	'descriptionmsg' => 'srf-desc'
 );
 
-$formatDir = dirname( __FILE__ ) . '/';
+$formatDir = dirname( __FILE__ ) . '/formats/';
 
 $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
