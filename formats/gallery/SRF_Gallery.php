@@ -259,18 +259,17 @@ class SRFGallery extends SMWResultPrinter {
 				if ( !$this->m_params['fileextensions'] ) {
 					$imgCaption = preg_replace( '#\.[^.]+$#', '', $imgCaption );
 				}
-			}
-			else {
+			}	else {
 				$imgCaption = '';
 			}
-		}
-		else {
-			if ( $imgTitle instanceof Title || $imgTitle->getNamespace() == NS_FILE ) {
-				$newParser  = new Parser();
-				$imgCaption = $newParser->preprocess( $imgCaption, $imgTitle, ParserOptions::newFromUser( null ) );
+		}	else {
+			// @TODO global
+			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE &&
+			!$GLOBALS['wgTitle']->isSpecialPage() ) {
+				$imgCaption = $GLOBALS['wgParser']->recursiveTagParse( $imgCaption );
 			}
 		}
-			$ig->add( $imgTitle, $imgCaption, $imgCaption );
+		$ig->add( $imgTitle, $imgCaption, $imgCaption );
 	}
 
 	/**
