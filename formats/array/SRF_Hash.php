@@ -64,12 +64,22 @@ class SRFHash extends SRFArray {
 		$this->mShowPageTitles = true;
 	}
 
-	public function getParameters() {
-		$params = parent::getParameters();
+	/**
+	 * @see SMWResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param $definitions array of IParamDefinition
+	 *
+	 * @return array of IParamDefinition|array
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
 
 		unset( $params['pagetitle'] ); // page title is Hash key, otherwise, just use Array format!
 		$params['name']->setMessage( 'srf_paramdesc_hashname' );
 
 		return $params;
 	}
+
 }
