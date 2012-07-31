@@ -204,6 +204,9 @@ $messages['en'] = array(
 	'srf-paramdesc-zoom' => 'Enable zoom',
 	'srf-paramdesc-datatable' => 'Display a datatable',
 	'srf-timeseries-zoom-out-of-range' => 'The zoom range did not produce any sufficient data',
+
+	// format "sparkline"
+	'srf-printername-sparkline' => 'Sparklines',
 );
 
 /** Message documentation (Message documentation)
@@ -223,6 +226,7 @@ $messages['qqq'] = array(
 	'srf_printername_calendar' => '{{doc-smwformat|calendar}}',
 	'srf_paramdesc_calendarcolors' => 'Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.',
 	'srf_vcard_link' => '{{optional}}',
+	'srf-printername-sparkline' => '{{doc-smwformat|sparkline}}',
 	'srf_printername_vcard' => '{{doc-smwformat|vcard}}',
 	'srf_icalendar_link' => '{{optional}}',
 	'srf_printername_icalendar' => '{{doc-smwformat|icalendar}}',
