@@ -51,6 +51,7 @@ $srfgFormats = array(
 	'filtered',
 	'slideshow', 
 	'timeseries',
+	'sparkline',
 	
 	// Disabled by default
 	// 'jqplotseries',

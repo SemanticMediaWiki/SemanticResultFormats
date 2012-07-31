@@ -51,6 +51,18 @@ $wgResourceModules['ext.jquery.flot'] = $moduleTemplate + array(
 	)
 );
 
+$wgResourceModules['ext.jquery.sparkline'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.sparkline/jquery.sparkline.min.js'
+);
+
+/******************************************************************************
+ * Sparkline
+/******************************************************************************/
+$wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
+	'scripts' => 'sparkline/resources/ext.srf.sparkline.js',
+	'dependencies' => 'ext.jquery.sparkline',
+	'position' => 'top',
+);
 
 /******************************************************************************
  * jqPlot

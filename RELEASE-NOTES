@@ -19,6 +19,7 @@ Changes/bug fixes
 New formats in this version are:
 * slideshow (written by Stephan Gambke)
 * listwidget (bug 37721) (mwjames)
+* sparkline format (I911862ce) (mwjames)
 
 == SRF 1.7.1 ==
 

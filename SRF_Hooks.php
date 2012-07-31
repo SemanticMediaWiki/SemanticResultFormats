@@ -8,7 +8,7 @@
  * @file
  * @ingroup SemanticResultFormats
  * 
- * @licence GNU GPL v3+
+ * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 final class SRFHooks {
@@ -30,6 +30,7 @@ final class SRFHooks {
 			'formats/Math',
 			'formats/TagCloud',
 			'formats/vCard',
+			'formats/Sparkline',
 		);
 
 		foreach ( $testFiles as $file ) {
