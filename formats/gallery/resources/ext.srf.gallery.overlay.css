@@ -31,3 +31,13 @@
 	background-image: -webkit-linear-gradient(top,white,#F6F8F9);
 	background-image: linear-gradient(top,white,#F6F8F9);
 }
+
+.srf-overlay .zoomicon {
+	width: 20px;
+	height: 18px;
+	display: block;
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	/* @embed */ background: url(images/overlay-zoom.png) no-repeat;
+}

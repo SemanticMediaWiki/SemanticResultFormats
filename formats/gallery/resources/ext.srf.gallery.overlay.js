@@ -75,6 +75,10 @@
 						image.attr( 'href', url );
 					}
 			} );
+
+			// Add overlay zoom icon placeholder
+			var zoomicon = '<span class="zoomicon"></span>';
+			image.prepend( zoomicon );
 		} );
 
 		// Formatting the title
