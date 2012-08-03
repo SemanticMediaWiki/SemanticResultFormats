@@ -841,7 +841,7 @@ $messages['de'] = array(
 	'srf-paramdesc-zoom' => 'Zoom aktivieren',
 	'srf-paramdesc-datatable' => 'Eine Datentabelle anzeigen',
 	'srf-timeseries-zoom-out-of-range' => 'Der Zoombereich erzeugt keine ausreichenden Daten',
-	'srf-printername-sparkline' => 'Wortgrafiken',
+	'srf-printername-sparkline' => 'Wortgrafik',
 );
 
 /** Zazaki (Zazaki)
@@ -1015,6 +1015,7 @@ $messages['eo'] = array(
  * @author Badon
  * @author Crazymadlover
  * @author Imre
+ * @author Jewbask
  * @author McDutchie
  * @author Sanbec
  * @author Translationista
@@ -1023,6 +1024,7 @@ $messages['eo'] = array(
 $messages['es'] = array(
 	'srf-desc' => 'Formatos adicionales para consultas en línea de Semantic MediaWiki',
 	'srf-name' => 'Formatos de resultado semántico',
+	'srf-module-loading' => 'Cargando...',
 	'srf-paramdesc-height' => 'Altura (en píxeles)',
 	'srf-paramdesc-width' => 'Anchura (en píxeles)',
 	'srf-paramdesc-class' => 'Clase CSS adicional',
@@ -1105,6 +1107,7 @@ $messages['es'] = array(
 	'srf-paramdesc-navigation' => 'Diseñar control de navegación',
 	'srf-gallery-navigation-previous' => 'Anterior',
 	'srf-gallery-navigation-next' => 'Siguiente',
+	'srf-gallery-overlay-count' => 'Imagen  $1  de$2',
 	'srf_printername_tagcloud' => 'Nube de etiquetas',
 	'srf_paramdesc_includesubject' => 'Si los propios nombres de los temas deben incluirse',
 	'srf_paramdesc_increase' => 'Como aumentar el tamaño de las etiquetas',
@@ -1217,17 +1220,19 @@ $messages['fi'] = array(
  * @author McDutchie
  * @author Peter17
  * @author PieRRoMaN
+ * @author Tititou36
  * @author Urhixidur
  * @author Verdy p
  */
 $messages['fr'] = array(
 	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
 	'srf-name' => 'Formatage des résultats sémantiques',
-	'srf-paramdesc-height' => 'La hauteur du widget de diaporama',
-	'srf-paramdesc-width' => 'La largeur du widget de diaporama',
+	'srf-module-loading' => 'Chargement...',
+	'srf-paramdesc-height' => 'Hauteur (en pixels)',
+	'srf-paramdesc-width' => 'Largeur (en pixels)',
 	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
-	'srf-error-option-mix' => 'Les options ($1) ne sont pas disponibles',
-	'srf-error-option-link-all' => 'L\'option ($1) nécessite le paramètre [link] pour être mise à "all"',
+	'srf-error-option-mix' => "L'option ($1) n'est pas disponible",
+	'srf-error-option-link-all' => 'L\'option ($1) nécessite le paramètre "link" pour être mise à "all"',
 	'srf-warn-empy-chart' => 'Il manque des données suffisantes pour faire un graphique',
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
@@ -1307,6 +1312,7 @@ $messages['fr'] = array(
 	'srf-paramdesc-navigation' => 'Navigation',
 	'srf-gallery-navigation-previous' => 'Précédent',
 	'srf-gallery-navigation-next' => 'Suivant',
+	'srf-gallery-overlay-count' => 'Image $1 sur $2',
 	'srf_printername_tagcloud' => 'Nuage de tags',
 	'srf_paramdesc_includesubject' => 'Si les noms des sujets eux-mêmes devraient être inclus',
 	'srf_paramdesc_increase' => 'Comment augmenter la taille des tags',
@@ -1421,7 +1427,7 @@ $messages['gl'] = array(
 	'srf-paramdesc-height' => 'Altura (en píxeles)',
 	'srf-paramdesc-width' => 'Largo (en píxeles)',
 	'srf-paramdesc-class' => 'Clase CSS adicional',
-	'srf-error-option-mix' => 'As opcións ($1) non están dispoñibles',
+	'srf-error-option-mix' => 'A opción ($1) non está dispoñible',
 	'srf-error-option-link-all' => 'A opción ($1) necesita que o parámetro "link" estea definido como "all"',
 	'srf-error-missing-layout' => 'Falta o esquema',
 	'srf-warn-empy-chart' => 'A gráfica está baleira porque non hai datos suficientes',
@@ -1725,7 +1731,7 @@ $messages['hsb'] = array(
 	'srf-paramdesc-height' => 'Wysokosć (w pikselach)',
 	'srf-paramdesc-width' => 'Šěrokosć (w pikselach)',
 	'srf-paramdesc-class' => 'Přidatna CSS-klasa',
-	'srf-error-option-mix' => 'Opcije ($1) k dispoziciji njesteja',
+	'srf-error-option-mix' => 'Opcija ($1) k dispoziciji njesteji',
 	'srf-error-option-link-all' => 'Opcija ($1) sej wužaduje, zo so parameter "link" na "all" staji',
 	'srf-error-missing-layout' => 'Layout faluje',
 	'srf-warn-empy-chart' => 'Diagram/grafika njeda so wutworić, dokelž daty faluja',
@@ -1848,6 +1854,12 @@ $messages['hsb'] = array(
 	'srf-printername-filtered' => 'Filtrowany',
 	'srf-paramdesc-views' => 'Napohlady, kotrež ma we wuslědkowym wozjewjenju k dispoziciji stać.',
 	'srf-printername-d3chart' => 'D3-diagram',
+	'srf-printername-timeseries' => 'Diagram časowych rjadow',
+	'srf-paramdesc-threshold' => 'Ekstremna hódnota',
+	'srf-paramdesc-groupedby' => 'Zeskupjeny po',
+	'srf-paramdesc-zoom' => 'Skalowanje zmóžnić',
+	'srf-paramdesc-datatable' => 'Datowu tabelu zwobraznić',
+	'srf-timeseries-zoom-out-of-range' => 'Skalowanski wobłuk dosć datow njepłodźi',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -2472,7 +2484,7 @@ $messages['mk'] = array(
 	'srf-paramdesc-height' => 'Висина (во пиксели)',
 	'srf-paramdesc-width' => 'Ширина (во пиксели)',
 	'srf-paramdesc-class' => 'Дополнителна CSS-класа',
-	'srf-error-option-mix' => 'Можностите ($1) не се достапни',
+	'srf-error-option-mix' => 'Можноста ($1) не е достапна',
 	'srf-error-option-link-all' => 'Можноста ($1) бара параметарот „link“ да биде ставен на „all“',
 	'srf-error-missing-layout' => 'Распоредот недостасува',
 	'srf-warn-empy-chart' => 'Дијаграмот/графиконот е празен или недостасуваат податоци',
@@ -2602,6 +2614,13 @@ $messages['mk'] = array(
 	'srf-printername-filtered' => 'Филтрирано',
 	'srf-paramdesc-views' => 'Погледите на на располагање во приказот на резултатите',
 	'srf-printername-d3chart' => 'D3-графикон',
+	'srf-printername-timeseries' => 'Графикон на временска низа',
+	'srf-paramdesc-threshold' => 'Праг',
+	'srf-paramdesc-groupedby' => 'Групирани според',
+	'srf-paramdesc-zoom' => 'Овозможи приближување',
+	'srf-paramdesc-datatable' => 'Прикажи податочна табела',
+	'srf-timeseries-zoom-out-of-range' => 'Опсегот на приближување не даде достатни податоци',
+	'srf-printername-sparkline' => 'Графикони во текст',
 );
 
 /** Malayalam (മലയാളം)
@@ -2786,7 +2805,7 @@ $messages['nl'] = array(
 	'srf-desc' => 'Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki',
 	'srf-name' => 'Semantische resultaatformaten',
 	'srf-module-loading' => 'Bezig met laden…',
-	'srf-paramdesc-layout' => 'Beschikbare lay-out',
+	'srf-paramdesc-layout' => 'Beschikbare opmaak',
 	'srf-paramdesc-height' => 'Hoogte (in pixels)',
 	'srf-paramdesc-width' => 'Breedte (in pixels)',
 	'srf-paramdesc-class' => 'Extra CSS-klasse',
