@@ -1,0 +1,15 @@
+/**
+ * CSS for SRF jqplot module
+ * *
+ * @licence: GNU GPL v2 or later
+ * @author:  mwjames
+ *
+ * @release: 0.1
+ */
+.srf-jqplot-chart-text {
+	color:grey;
+	display:block;
+	position:relative;
+	font-size:90%;
+	margin-bottom: 10px;
+}

@@ -31,6 +31,8 @@ final class SRFHooks {
 			'formats/TagCloud',
 			'formats/vCard',
 			'formats/Sparkline',
+			'formats/jqPlotChart',
+			'formats/jqPlotSeries',
 		);
 
 		foreach ( $testFiles as $file ) {

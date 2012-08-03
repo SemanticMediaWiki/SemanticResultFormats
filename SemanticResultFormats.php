@@ -93,8 +93,7 @@ $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 // Follows naming convention
 $wgAutoloadClasses['SRFFlotTimeseries'] = $formatDir . 'flot/SRF_FlotTimeSeries.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
-$wgAutoloadClasses['SRFjqPlotPie']    = $formatDir . 'jqplot/SRF_jqPlotPie.php';
-$wgAutoloadClasses['SRFjqPlotBar']    = $formatDir . 'jqplot/SRF_jqPlotBar.php';
+$wgAutoloadClasses['SRFjqPlotChart']  = $formatDir . 'jqplot/SRF_jqPlotChart.php';
 $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.php';
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'ploticus/SRF_PloticusVBar.php';
 $wgAutoloadClasses['SRFSparkline'] = $formatDir . 'sparkline/SRF_Sparkline.php';
@@ -157,9 +156,8 @@ function srffInitFormats() {
 		'googlebar' => 'SRFGoogleBar',
 		'googlepie' => 'SRFGooglePie',
 		'jitgraph' => 'SRFJitGraph',
-		'jqplotpie' => 'SRFjqPlotPie',
-		'jqplotbar' => 'SRFjqPlotBar',
-		'jqplotseries' => 'SRFjqPlotSeries',		
+		'jqplotchart' => 'SRFjqPlotChart',
+		'jqplotseries' => 'SRFjqPlotSeries',
 		'graph' => 'SRFGraph',
 		'process' => 'SRFProcess',
 		'ploticusvbar' => 'SRFPloticusVBar',
@@ -185,7 +183,9 @@ function srffInitFormats() {
 		'tagcloud'   => array( 'tag cloud' ),
 		'valuerank'  => array( 'value rank' ),
 		'd3chart'    => array( 'd3 chart' ),
-		'timeseries' => array ( 'time series', 'time series chart' )
+		'timeseries' => array ( 'time series', 'time series chart' ),
+		'jqplotchart' => array( 'jqplot chart', 'jqplotpie', 'jqplotbar' ),
+		'jqplotseries' => array( 'jqplot series' ),
 	);
 	
 	foreach ( $srfgFormats as $format ) {

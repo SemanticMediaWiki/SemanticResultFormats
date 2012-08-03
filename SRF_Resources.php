@@ -23,7 +23,7 @@ $formatModule = array(
 );
 
 /******************************************************************************/
-/* Common resources
+/* Common and non format specific resources
 /******************************************************************************/
 $wgResourceModules['ext.jquery.easing'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.easing/jquery.easing-1.3.pack.js'
@@ -38,14 +38,14 @@ $wgResourceModules['ext.jquery.fancybox'] = $moduleTemplate + array(
 $wgResourceModules['ext.jquery.jqgrid'] = $moduleTemplate + array(
 	'scripts' => array(
 		'resources/jquery.jqgrid/jquery.jqGrid.4.4.0min.js',
-		'resources/jquery.jqgrid/grid.locale-en.js' 
+		'resources/jquery.jqgrid/grid.locale-en.js'
 	),
-	'styles' => 'resources/jquery.jqgrid/ui.jqgrid.css',
+	'styles' => 'jquery.jqgrid/ui.jqgrid.css',
 	'dependencies' => 'jquery.ui.core'
 );
 
 $wgResourceModules['ext.jquery.flot'] = $moduleTemplate + array(
-	'scripts' => array( 
+	'scripts' => array(
 		'resources/jquery.flot/jquery.flot.js',
 		'resources/jquery.flot/jquery.flot.selection.js'
 	)
@@ -66,99 +66,128 @@ $wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
 
 /******************************************************************************
  * jqPlot
+ * @since 1.8
 /******************************************************************************/
-$wgResourceModules['ext.jquery.jqplot'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/jquery.jqplot.min.js',
-	'styles' => 'jqplot/resources/jquery.jqplot.css'
+$wgResourceModules['ext.jquery.jqplot'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jquery.jqplot.min.js',
+	'styles' => 'resources/jquery.jqplot/jquery.jqplot.css'
 );
 
 // excanvas is required only for pre- IE 9 versions
-$wgResourceModules['ext.jquery.jqplot.excanvas'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/excanvas.min.js'
+$wgResourceModules['ext.jquery.jqplot.excanvas'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/excanvas.min.js'
 );
 
-$wgResourceModules['ext.jquery.jqplot.json'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/jqplot.json2.min.js'
+$wgResourceModules['ext.jquery.jqplot.json'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.json2.min.js'
 );
 
-$wgResourceModules['ext.jquery.jqplot.bar'] = $formatModule + array(
+$wgResourceModules['ext.jquery.jqplot.cursor'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.cursor.min.js'
+);
+
+$wgResourceModules['ext.jquery.jqplot.bar'] = $moduleTemplate + array(
 	'scripts' => array(
-		'jqplot/resources/jqplot.canvasAxisTickRenderer.min.js',
-		'jqplot/resources/jqplot.canvasTextRenderer.min.js',
-		'jqplot/resources/jqplot.canvasAxisLabelRenderer.min.js',
-		'jqplot/resources/jqplot.categoryAxisRenderer.min.js',
-		'jqplot/resources/jqplot.barRenderer.min.js',
+		'resources/jquery.jqplot/jqplot.canvasAxisTickRenderer.min.js',
+		'resources/jquery.jqplot/jqplot.canvasTextRenderer.min.js',
+		'resources/jquery.jqplot/jqplot.canvasAxisLabelRenderer.min.js',
+		'resources/jquery.jqplot/jqplot.categoryAxisRenderer.min.js',
+		'resources/jquery.jqplot/jqplot.barRenderer.min.js'
 	),
 	'dependencies' => 'ext.jquery.jqplot',
 );
 
-$wgResourceModules['ext.jquery.jqplot.pie'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/jqplot.pieRenderer.min.js',
+$wgResourceModules['ext.jquery.jqplot.pie'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.pieRenderer.min.js',
 	'dependencies' => 'ext.jquery.jqplot'
 );
 
-$wgResourceModules['ext.jquery.jqplot.bubble'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/jqplot.bubbleRenderer.min.js',
+$wgResourceModules['ext.jquery.jqplot.bubble'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.bubbleRenderer.min.js',
 	'dependencies' => 'ext.jquery.jqplot'
 );
 
-$wgResourceModules['ext.jquery.jqplot.donut'] = $formatModule + array(
-	'scripts' =>'jqplot/resources/jqplot.donutRenderer.min.js',
+$wgResourceModules['ext.jquery.jqplot.donut'] = $moduleTemplate + array(
+	'scripts' =>'resources/jquery.jqplot/jqplot.donutRenderer.min.js',
 	'dependencies' => 'ext.jquery.jqplot.pie'
+);
+
+$wgResourceModules['ext.jquery.jqplot.pointlabels'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.pointLabels.min.js'
+);
+
+$wgResourceModules['ext.jquery.jqplot.highlighter'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.highlighter.min.js'
+);
+
+$wgResourceModules['ext.jquery.jqplot.enhancedlegend'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.enhancedLegendRenderer.min.js'
 );
 
 $wgResourceModules['ext.srf.jqplot.themes'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.themes.js',
-	'dependencies' =>	'jquery.client'
+	'styles'  => 'jqplot/resources/ext.srf.jqlpot.general.css',
+	'dependencies' => 'jquery.client'
+);
+
+$wgResourceModules['ext.srf.jqplot.chart'] = $formatModule + array(
+	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.js',
+	'dependencies' => 'ext.srf.jqplot.themes'
 );
 
 $wgResourceModules['ext.srf.jqplot.bar'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/ext.srf.jqplot.bar.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.bar',
-		'ext.srf.jqplot.themes',
+		'ext.srf.jqplot.chart'
+	),
+	'messages' => array (
+		'srf-error-jqplot-stackseries-data-length'
 	),
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bar.extended'] = $formatModule + array(
-	'scripts' => array(
-		'jqplot/resources/jqplot.pointLabels.min.js',
-		'jqplot/resources/jqplot.highlighter.min.js',
+$wgResourceModules['ext.srf.jqplot.bar.extended'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar',
+		'ext.jquery.jqplot.pointlabels',
+		'ext.jquery.jqplot.highlighter',
+		'ext.jquery.jqplot.enhancedlegend'
 	),
-	'dependencies' => 'ext.srf.jqplot.bar',
+	'messages' => array (
+		'srf-error-jqplot-stackseries-data-length'
+	),
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bar.trendline'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/jqplot.trendline.min.js',
+$wgResourceModules['ext.srf.jqplot.bar.trendline'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.trendline.min.js',
 	'dependencies' => 'ext.srf.jqplot.bar',
 	'position' => 'top',
 );
 
 $wgResourceModules['ext.srf.jqplot.pie'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/ext.srf.jqplot.pie.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.pie',
-		'ext.srf.jqplot.themes'
+		'ext.srf.jqplot.chart'
 	),
 	'position' => 'top',
 );
 
 $wgResourceModules['ext.srf.jqplot.bubble'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/ext.srf.jqplot.bubble.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.bubble',
-		'ext.srf.jqplot.themes'
+		'ext.srf.jqplot.chart'
+	),
+	'messages' => array (
+		'srf-error-jqplot-bubble-data-length'
 	),
 	'position' => 'top',
 );
 
 $wgResourceModules['ext.srf.jqplot.donut'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/ext.srf.jqplot.pie.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.donut',
-		'ext.srf.jqplot.themes'
+		'ext.srf.jqplot.chart'
 	),
 	'position' => 'top',
 );
