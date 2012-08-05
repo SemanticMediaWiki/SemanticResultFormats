@@ -838,9 +838,9 @@ $messages['de'] = array(
 	'srf-printername-timeseries' => 'Zeitreihengrafik',
 	'srf-paramdesc-threshold' => 'Schwellenwert',
 	'srf-paramdesc-groupedby' => 'Gruppiert nach',
-	'srf-paramdesc-zoom' => 'Zoom aktivieren',
+	'srf-paramdesc-zoom' => 'Den Zoom aktivieren oder nicht',
 	'srf-paramdesc-datatable' => 'Eine Datentabelle anzeigen',
-	'srf-timeseries-zoom-out-of-range' => 'Der Zoombereich erzeugt keine ausreichenden Daten',
+	'srf-timeseries-zoom-out-of-range' => 'Der Zoombereich enthält nicht genug Daten.',
 	'srf-printername-sparkline' => 'Wortgrafik',
 );
 
@@ -855,10 +855,11 @@ $messages['diq'] = array(
 	'srf_printername_calendar' => 'Teqwimê Aşmekan',
 	'srf_outline_novalue' => 'Deger çıno',
 	'srf_printername_gallery' => 'Galeri',
-	'srf-paramdesc-navigation' => 'Pusula',
+	'srf-paramdesc-navigation' => 'Kontrolê cerbiney da pusula',
 	'srf-gallery-navigation-previous' => 'Verên',
 	'srf-gallery-navigation-next' => 'Bahdoyên',
 	'srf_printername_tagcloud' => 'Etiket çıno',
+	'srf_printername_tree' => 'Dar',
 );
 
 /** Lower Sorbian (dolnoserbski)
@@ -872,7 +873,7 @@ $messages['dsb'] = array(
 	'srf-paramdesc-height' => 'Wusokosć (w pikselach)',
 	'srf-paramdesc-width' => 'Šyrokosć (w pikselach)',
 	'srf-paramdesc-class' => 'Pśidatna CSS-klasa',
-	'srf-error-option-mix' => 'Opcije ($1) k dispoziciji njestoje',
+	'srf-error-option-mix' => 'Opcija ($1) njestoj k dispoziciji',
 	'srf-error-option-link-all' => 'Opcija ($1) se pomina,, až parameter staji se "link" na "all"',
 	'srf-warn-empy-chart' => 'Diagram/grafika njedajo se napóraś, dokulaž daty feluju',
 	'srfc_previousmonth' => 'Slědny mjasec',
@@ -1558,6 +1559,10 @@ $messages['gl'] = array(
 	'srf-printername-filtered' => 'Filtrado',
 	'srf-paramdesc-views' => 'As vistas que deberan estar dispoñibles na presentación do resultado.',
 	'srf-printername-d3chart' => 'Gráfica D3',
+	'srf-paramdesc-threshold' => 'Límite',
+	'srf-paramdesc-zoom' => 'Activar o zoom',
+	'srf-paramdesc-datatable' => 'Mostrar unha táboa de datos',
+	'srf-timeseries-zoom-out-of-range' => 'O rango do zoom non produciu datos suficientes',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -2809,7 +2814,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-height' => 'Hoogte (in pixels)',
 	'srf-paramdesc-width' => 'Breedte (in pixels)',
 	'srf-paramdesc-class' => 'Extra CSS-klasse',
-	'srf-error-option-mix' => 'Opties ($1) zijn niet beschikbaar',
+	'srf-error-option-mix' => 'De optie ($1) is niet beschikbaar',
 	'srf-warn-empy-chart' => 'De grafiek of kaart is leeg omdat er gegevens missen',
 	'srfc_previousmonth' => 'Vorige maand',
 	'srfc_nextmonth' => 'Volgende maand',
