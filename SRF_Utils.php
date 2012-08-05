@@ -29,34 +29,43 @@
 final class SRFUtils {
 
 	/**
-	 * Generates a html element, representing a processing/loading image
+	 * Helper function that generates a html element, representing a
+	 * processing/loading image as long as jquery is inactive
+	 *
+	 * @param boolean $isHtml
 	 *
 	 * @since 1.8
 	 */
-	public static function htmlProcessingElement() {
+	public static function htmlProcessingElement( $isHtml = true ) {
 
-		# Attributes
+		// Init
+		$image = '';
+
+		if ( $isHtml === true ) {
+			// Attributes
+			$attribs = array (
+				'style' => 'vertical-align: middle;',
+				'src'   => "{$GLOBALS['wgStylePath']}/common/images/spinner.gif",
+				'title' => wfMsgForContent( 'srf-module-loading' )
+			);
+
+			$image = Html::rawElement( 'img', $attribs , null );
+		}
+
+		// Attributes
 		$attribs = array (
-			'style' => 'vertical-align: middle;',
-			'src'   => "{$GLOBALS['wgStylePath']}/common/images/spinner.gif",
-			'title' => wfMsgForContent( 'srf-module-loading' )
-		);
-
-		$image = Html::rawElement( 'img', $attribs , null );
-
-		# Attributes
-		$attribs = array (
-			'style' => 'vertical-align: middle; padding: 1em;',
+			'style' => 'vertical-align: middle; padding-left: 1em;',
 		);
 
 		$text = Html::rawElement( 'span', $attribs , wfMsgForContent( 'srf-module-loading' ) );
 
-		# Attributes
+		// Attributes
 		$attribs = array (
 			'class' => 'srf-processing',
-			'style' => 'display:block; vertical-align: middle; padding: 1em; background-color: white; color: #666;'
+			'style' => 'display:inline-block; vertical-align: middle; background-color: white; color: #666;'
 		);
 
+		// Escaped by original caller
 		return Html::rawElement( 'div', $attribs, $image . $text );
 	}
 
