@@ -65,6 +65,27 @@ $wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
 );
 
 /******************************************************************************
+ * ListWidget
+ ******************************************************************************/
+$wgResourceModules['ext.jquery.listwidget'] = $formatModule + array(
+	'scripts' => array(
+		'listwidget/resources/jquery.listnav.min-2.1.js',
+		'listwidget/resources/jquery.listmenu.min-1.1.js',
+		'listwidget/resources/jquery.pajinate.js',
+	),
+);
+
+$wgResourceModules['ext.srf.listwidget'] = $formatModule + array(
+	'scripts' => 'listwidget/resources/ext.srf.listwidget.js',
+	'styles'  => 'listwidget/resources/ext.srf.listwidget.css',
+	'dependencies' => 'ext.jquery.listwidget',
+	'position' => 'top',
+	'messages' => array(
+		'srf-module-nomatch'
+	)
+);
+
+/******************************************************************************
  * jqPlot
  * @since 1.8
 /******************************************************************************/

@@ -52,6 +52,7 @@ $srfgFormats = array(
 	'slideshow', 
 	'timeseries',
 	'sparkline',
+	'listwidget',
 	
 	// Disabled by default
 	

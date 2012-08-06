@@ -22,6 +22,7 @@ $messages['en'] = array(
 	'srf-paramdesc-height' => 'Height (in pixels)',
 	'srf-paramdesc-width'  => 'Width (in pixels)',
 	'srf-paramdesc-class'  => 'Additional CSS class',
+	'srf-module-nomatch' => 'No matches found',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
@@ -207,6 +208,12 @@ $messages['en'] = array(
 
 	// format "sparkline"
 	'srf-printername-sparkline' => 'Sparklines',
+
+	// format "listwidget"
+	'srf-printername-listwidget' => 'Listwidget',
+	'srf-paramdesc-listtype' => 'Type of list',
+	'srf-paramdesc-widget' => 'Available widget',
+	'srf-paramdesc-pageitems' => 'Items per page',
 );
 
 /** Message documentation (Message documentation)
@@ -290,6 +297,10 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-printername-d3chart' => '{{doc-smwformat|d3chart}}',
 	'srf-printername-timeseries' => '{{doc-smwformat|timeseries}}',
 	'srf-printername-sparkline' => '{{doc-smwformat|sparkline}}',
+	'srf-printername-listwidget' => '{{doc-smwformat|listwidget}}',
+	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
+	'srf-paramdesc-widget' => '{{doc-paramdesc|widget}}',
+	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}'
 );
 
 /** Afrikaans (Afrikaans)

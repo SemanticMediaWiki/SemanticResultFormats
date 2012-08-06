@@ -33,6 +33,7 @@ final class SRFHooks {
 			'formats/Sparkline',
 			'formats/jqPlotChart',
 			'formats/jqPlotSeries',
+			'formats/ListWidget',
 		);
 
 		foreach ( $testFiles as $file ) {
