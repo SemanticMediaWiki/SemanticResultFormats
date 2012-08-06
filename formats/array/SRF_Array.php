@@ -265,7 +265,7 @@ class SRFArray extends SMWResultPrinter {
 		if( $obj instanceof Title ) {
 			$article = new Article( $obj );
 		} elseif( $obj instanceof Article ) {
-			$article = obj;
+			$article = $obj;
 		} else {
 			return $obj; //only text
 		}
