@@ -1865,6 +1865,7 @@ $messages['hsb'] = array(
 	'srf-paramdesc-zoom' => 'Skalowanje zmóžnić',
 	'srf-paramdesc-datatable' => 'Datowu tabelu zwobraznić',
 	'srf-timeseries-zoom-out-of-range' => 'Skalowanski wobłuk dosć datow njepłodźi',
+	'srf-printername-sparkline' => 'Słowne grafiki',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -2815,6 +2816,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-width' => 'Breedte (in pixels)',
 	'srf-paramdesc-class' => 'Extra CSS-klasse',
 	'srf-error-option-mix' => 'De optie ($1) is niet beschikbaar',
+	'srf-error-missing-layout' => 'Vormgeving ontbreekt',
 	'srf-warn-empy-chart' => 'De grafiek of kaart is leeg omdat er gegevens missen',
 	'srfc_previousmonth' => 'Vorige maand',
 	'srfc_nextmonth' => 'Volgende maand',
@@ -2939,6 +2941,8 @@ $messages['nl'] = array(
 	'srf-printername-filtered' => 'Gefilterd',
 	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
 	'srf-printername-d3chart' => 'D3-grafiek',
+	'srf-paramdesc-threshold' => 'Drempelwaarde',
+	'srf-paramdesc-groupedby' => 'Gegroepeerd op',
 );
 
 /** Norwegian Nynorsk (‪norsk (nynorsk)‬)
