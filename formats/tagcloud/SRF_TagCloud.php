@@ -51,7 +51,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
 
 		// Check output conditions
-		if ( ( $this->params['layout'] == 'sphere' ) &&
+		if ( ( $this->params['widget'] == 'sphere' ) &&
 			( $this->params['link'] !== 'all' ) &&
 			( $this->params['template'] === '' ) ) {
 			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-link-all', 'sphere' ) ) );
@@ -61,13 +61,13 @@ class SRFTagCloud extends SMWResultPrinter {
 		$this->hasTemplates = $this->params['template'] !== '';
 
 		// Prioritize HTML setting
-		$this->isHTML = $this->params['layout'] == 'sphere';
+		$this->isHTML = $this->params['widget'] == 'sphere';
 		$this->isHTML = $this->params['template'] !== '' ? false : true;
 
 		$outputmode = SMW_OUTPUT_HTML;
 
 		// RL module
-		if ( $this->params['layout'] == 'sphere' ){
+		if ( $this->params['widget'] == 'sphere' ){
 			SMWOutputs::requireResource( 'ext.srf.tagcloud.sphere' );
 		}
 
@@ -248,10 +248,10 @@ class SRFTagCloud extends SMWResultPrinter {
 		$htmlCTags     = '';
 
 		// Count actual output and store div identifier
-		$tagID   = $this->params['layout'] . '-' . ++$statNr;
+		$tagID   = $this->params['widget'] . '-' . ++$statNr;
 
 		// Determine HTML element
-		$element = $this->params['layout'] == 'sphere' ? 'li' : 'span';
+		$element = $this->params['widget'] == 'sphere' ? 'li' : 'span';
 
 		// Add size information
 		foreach ( $tags as $name => $size ) {
@@ -265,7 +265,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$htmlSTags = implode( ' ', $htmlTags );
 
 		// Handle sphere/canvas output objects
-		if ( $this->params['layout'] == 'sphere' ) {
+		if ( $this->params['widget'] == 'sphere' ) {
 
 			// Wrap LI/UL elements
 			$htmlCTags = Html::rawElement( 'ul', array (
@@ -283,8 +283,8 @@ class SRFTagCloud extends SMWResultPrinter {
 			$htmlSTags = Html::rawElement( 'div', array (
 				'id'     => $tagID . '-container',
 				'class'  => 'container',
-				'width'  => $this->params['width'],
-				'height' => $this->params['height'],
+				'data-width'  => $this->params['width'],
+				'data-height' => $this->params['height'],
 				'data-font' => 'Impact,Arial Black,sans-serif'
 				), $htmlCTags
 			);
@@ -293,7 +293,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		}
 
 		// Beautify class selector
-		$class = $this->params['layout'] ?  '-' . $this->params['layout'] . ' ' : '';
+		$class = $this->params['widget'] ?  '-' . $this->params['widget'] . ' ' : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
 
 		// Divide general content from result output
@@ -365,10 +365,10 @@ class SRFTagCloud extends SMWResultPrinter {
 		$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
 		$params['increase']->setDefault( 'log' );
 
-		$params['layout'] = new Parameter( 'layout' );
-		$params['layout']->setMessage( 'srf-paramdesc-layout' );
-		$params['layout']->addCriteria( new CriterionInArray( 'sphere' ) );
-		$params['layout']->setDefault( '' );
+		$params['widget'] = new Parameter( 'widget' );
+		$params['widget']->setMessage( 'srf-paramdesc-widget' );
+		$params['widget']->addCriteria( new CriterionInArray( 'sphere' ) );
+		$params['widget']->setDefault( '' );
 
 		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 200 );
 		$params['height']->setMessage( 'srf-paramdesc-height' );
