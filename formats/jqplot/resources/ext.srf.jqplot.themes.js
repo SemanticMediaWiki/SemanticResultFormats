@@ -1,28 +1,28 @@
 /**
  * JavaSript for SRF jqPlot module
- * 
- * jqPlot has basic theming support for commonly styled atributes of plot elements. 
- * A "themeEngine"  controls modificaition, adding, removing and activating of 
- * plot themes  
- * 
- * A "style" object holds various plot elements and styles with each of 
+ *
+ * jqPlot has basic theming support for commonly styled atributes of plot elements.
+ * A "themeEngine"  controls modificaition, adding, removing and activating of
+ * plot themes
+ *
+ * A "style" object holds various plot elements and styles with each of
  * those ojbects where the actual styling properties are attached.
- * 
- * Color patterns with keys corresponding to the ColorCombo website  
- *  
- * @licence: GNU GPL v3 or later
- * @author:  mwjames 
- * 
- * @release: 0.3  
+ *
+ * Color patterns with keys corresponding to the ColorCombo website
+ *
+ * @licence: GNU GPL v2 or later
+ * @author: mwjames
+ *
+ * @release: 0.3
  */
 (function( $ ) {
 
 	$(document).ready(function() {
 
-		$( "#jqplot" ).each(function() {	
+		$( "[class^=srf-jqplot]" ).each(function() {
 
-			colorscheme = {	
-				  	0:    [ '#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5' ] ,
+			colorscheme = {
+				0:    [ '#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5' ] ,
 				cc124:{9: [ '#E8D0A9', '#B7AFA3', '#C1DAD6', '#F5FAFA', '#ACD1E9', '#6D929B' ] },
 				cc128:{9: [ '#7D9C9F', '#BDD8DA', '#DFEFF0', '#AD235E', '#ECECEC', '#B1B1B1' ] },
 				cc129:{9: [ '#6194BC', '#A5D1F3', '#D0EAFF', '#E4001B', '#ECECEC', '#606060' ] },
@@ -62,8 +62,7 @@
 				rdylgn:{3:["rgb(252,141,89)","rgb(255,255,191)","rgb(145,207,96)"],4:["rgb(215,25,28)","rgb(253,174,97)","rgb(166,217,106)","rgb(26,150,65)"],5:["rgb(215,25,28)","rgb(253,174,97)","rgb(255,255,191)","rgb(166,217,106)","rgb(26,150,65)"],6:["rgb(215,48,39)","rgb(252,141,89)","rgb(254,224,139)","rgb(217,239,139)","rgb(145,207,96)","rgb(26,152,80)"],7:["rgb(215,48,39)","rgb(252,141,89)","rgb(254,224,139)","rgb(255,255,191)","rgb(217,239,139)","rgb(145,207,96)","rgb(26,152,80)"],8:["rgb(215,48,39)","rgb(244,109,67)","rgb(253,174,97)","rgb(254,224,139)","rgb(217,239,139)","rgb(166,217,106)","rgb(102,189,99)","rgb(26,152,80)"],9:["rgb(215,48,39)","rgb(244,109,67)","rgb(253,174,97)","rgb(254,224,139)","rgb(255,255,191)","rgb(217,239,139)","rgb(166,217,106)","rgb(102,189,99)","rgb(26,152,80)"],10:["rgb(165,0,38)","rgb(215,48,39)","rgb(244,109,67)","rgb(253,174,97)","rgb(254,224,139)","rgb(217,239,139)","rgb(166,217,106)","rgb(102,189,99)","rgb(26,152,80)","rgb(0,104,55)"],11:["rgb(165,0,38)","rgb(215,48,39)","rgb(244,109,67)","rgb(253,174,97)","rgb(254,224,139)","rgb(255,255,191)","rgb(217,239,139)","rgb(166,217,106)","rgb(102,189,99)","rgb(26,152,80)","rgb(0,104,55)"]}
 			};
 
-
-			mono = { grid: { drawBorder: 1, drawGridlines: 1, shadow: 0, borderWidth: 0.5, borderColor: '#ddd', backgroundColor: '#ffffff' },
+			simple = { grid: { drawBorder: 1, drawGridlines: 1, shadow: 0, borderWidth: 0.5, borderColor: '#ddd', backgroundColor: '#ffffff' },
 						axes: { xaxis: { borderColor: "#ddd", borderWidth: 1, label: { fontSize: '9pt', textColor: '#aaa' } },
 										yaxis: { borderColor: "#ddd", borderWidth: 1, label: { fontSize: '9pt', textColor: '#aaa' } } } };
 
@@ -73,7 +72,5 @@
 													yaxis: { borderColor: "#a7d7f9", borderWidth: 1, label: { fontSize: '9pt', textColor: '#aaa' } } } };
 
 		} ); // end of initilized $this object
- 
-	} ); // end $(document).ready  
-
-})( window.jQuery );	  
+	} );
+})( window.jQuery );

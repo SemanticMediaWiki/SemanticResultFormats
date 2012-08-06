@@ -31,8 +31,8 @@ $srfgFormats = array(
 	'timeline',
 	'outline',
 	'gallery',
-	'jqplotbar',
-	'jqplotpie',
+	'jqplotchart',
+	'jqplotseries',
 	'sum',
 	'average',
 	'min',
@@ -54,7 +54,6 @@ $srfgFormats = array(
 	'sparkline',
 	
 	// Disabled by default
-	// 'jqplotseries',
 	
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
@@ -102,16 +101,8 @@ $srfgArraySepTextualFallbacks = array (
 	'headersep' => $srfgArrayHeaderSep
 );
 
-// $srfgColorScheme  
-// Color schems are used among v1.8 jqPlot, D3, and JitGraph, if you do change 
-// those settings please ensure that in case of any change the content of 
-// themes.js has to be altered as well
+// $srfgColorScheme
+// Color schems are used among v1.8 jqPlot, and other printers if change
+// those settings please ensure that the content of themes.js has to be 
+// altered as well
 $srfgColorScheme = array ( 'cc124', 'cc128', 'cc129', 'cc173', 'cc210', 'cc252', 'cc267', 'cc294' , 'cc303', 'cc327', 'ylgn','ylgnbu','gnbu','bugn','pubugn','pubu','bupu', 'rdpu','purd','orrd','ylorrd','ylorbr','purples', 'blues','greens','oranges','reds','greys','puor','brbg','prgn','piyg','rdbu','rdgy','rdylbu','spectral','rdylgn' );
-
-// jqPlot Settings 
-$srfgjqPlotSettings = array (
-	'pierenderer' => array ( 'pie', 'donut' ),
-	'barrenderer' => array ( 'bar', 'line' ),
-	'seriesrenderer' => array ( 'bar', 'line', 'donut', 'bubble' ),
-	'seriesgroup' => array ( 'row', 'column', 'label' )  // 'label' is only experimental
-);
