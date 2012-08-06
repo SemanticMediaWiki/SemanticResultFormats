@@ -51,13 +51,16 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-		global $wgParser;
 
 		$ig = new ImageGallery();
 		$ig->setShowBytes( false );
 		$ig->setShowFilename( false );
-		$ig->setParser( $wgParser );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
+
+		// Don't init the parser if it is a special page otherwise it causes a fatal error
+		// We need the parser for "normal" pages to ensure caption text is rendered
+		// correctly but is less important for Special:Ask
+		!$this->isSpecialPage() ? $ig->setParser( $GLOBALS['wgParser'] ) : '';
 
 		// Initialize
 		static $statNr = 0;
@@ -65,7 +68,7 @@ class SRFGallery extends SMWResultPrinter {
 		$processing    = '';
 
 		// Carousel parameters
-		if ( $this->params['layout'] == 'carousel' ) {
+		if ( $this->params['widget'] == 'carousel' ) {
 
 			// Set attributes for jcarousel
 			$dataAttribs = array(
@@ -83,7 +86,7 @@ class SRFGallery extends SMWResultPrinter {
 			}
 
 			$attribs = array(
-				'id' =>  $this->params['layout'] . '-' . ++$statNr,
+				'id' =>  $this->params['widget'] . '-' . ++$statNr,
 				'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
 				'style' => 'display:none;',
 			);
@@ -99,9 +102,9 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		// Slideshow parameters
-		if ( $this->params['layout'] == 'slideshow' ) {
+		if ( $this->params['widget'] == 'slideshow' ) {
 			$mAttribs = array(
-				'id'    => $this->params['layout'] . '-' . ++$statNr,
+				'id'    => $this->params['widget'] . '-' . ++$statNr,
 				'class' => $this->getImageOverlay(),
 				'style' => 'display:none;',
 				'data-nav-control' => $this->params['navigation']
@@ -113,8 +116,15 @@ class SRFGallery extends SMWResultPrinter {
 			SMWOutputs::requireResource( 'ext.srf.gallery.slideshow' );
 		}
 
-		// In case layout = carousel, perrow should not be set
-		if ( $this->params['perrow'] !== '' && $this->params['layout'] !== 'carousel' ) {
+		// Only use redirects where overlay is false
+		// Allow thumb pictures to be redirected towards a different target
+		if ( $this->params['redirects'] !== '' && $this->params['overlay'] === false ){
+			// RL module
+			SMWOutputs::requireResource( 'ext.srf.gallery.redirect' );
+		}
+
+		// In case widget = carousel, perrow should not be set
+		if ( $this->params['perrow'] !== '' && $this->params['widget'] !== 'carousel' ) {
 			$ig->setPerRow( $this->params['perrow'] );
 		}
 
@@ -132,10 +142,18 @@ class SRFGallery extends SMWResultPrinter {
 			$printReqLabels[] = $printReq->getLabel();
 		}
 
-		if ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ) {
-			$this->addImageProperties( $results, $ig, $this->params['imageproperty'], $this->params['captionproperty'], $outputmode );
-		}
-		else {
+		if ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ||
+			$this->params['redirects'] !== '' && in_array( $this->params['redirects'], $printReqLabels ) ) {
+
+			$this->addImageProperties(
+				$results,
+				$ig,
+				$this->params['imageproperty'],
+				$this->params['captionproperty'],
+				$this->params['redirects'],
+				$outputmode
+			);
+		} else {
 			$this->addImagePages( $results, $ig );
 		}
 
@@ -143,12 +161,13 @@ class SRFGallery extends SMWResultPrinter {
 		SRFUtils::addGlobalJSVariables();
 
 		// Display a processing image as long as jquery is not loaded
-		if ( $this->params['layout'] !== '' ) {
+		if ( $this->params['widget'] !== '' ) {
 			$processing = SRFUtils::htmlProcessingElement();
 		}
 
 		// Beautify class selector
-		$class = $this->params['layout'] ?  '-' . $this->params['layout'] . ' ' : '';
+		$class = $this->params['widget'] ?  '-' . $this->params['widget'] . ' ' : '';
+		$class = $this->params['redirects'] !== '' && $this->params['overlay'] === false ? $class . ' srf-redirect' . ' ': $class;
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
 
 		// Separate content from result output
@@ -175,10 +194,11 @@ class SRFGallery extends SMWResultPrinter {
 	 * @param string $captionProperty
 	 * @param $outputMode
 	 */
-	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $outputMode ) {
+	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
 			$images = array();
 			$captions = array();
+			$redirects = array();
 
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
 				if ( $row[$i]->getPrintRequest()->getLabel() == $imageProperty ) {
@@ -187,21 +207,32 @@ class SRFGallery extends SMWResultPrinter {
 							$images[] = $obj->getTitle();
 						}
 					}
-				}
-				elseif ( $row[$i]->getPrintRequest()->getLabel() == $captionProperty ) {
+				} elseif ( $row[$i]->getPrintRequest()->getLabel() == $captionProperty ) {
 					while ( ( $obj = $row[$i]->getNextDataValue() ) !== false ) { // Property values
 						$captions[] = $obj->getShortText( $outputMode, $this->getLinker( true ) );
+					}
+				} elseif ( $row[$i]->getPrintRequest()->getLabel() == $redirectProperty ) {
+					while ( ( $obj = $row[$i]->getNextDataValue() ) !== false ) { // Property values
+						if ( $obj->getTypeID() == '_wpg' ) {
+							$redirects[] = $obj->getTitle();
+						}
 					}
 				}
 			}
 
+			// Check available matches against captions
 			$amountMatches = count( $captions ) == count( $images );
 			$hasCaption = $amountMatches || count( $captions ) > 0;
+
+			// Check available matches against redirects
+			$amountRedirects = count( $redirects ) == count( $images );
+			$hasRedirect = $amountRedirects || count( $redirects ) > 0;
 
 			foreach ( $images as $imgTitle ) {
 				if ( $imgTitle->exists() ) {
 					$imgCaption = $hasCaption ? ( $amountMatches ? array_shift( $captions ) : $captions[0] ) : '';
-					$this->addImageToGallery( $ig, $imgTitle, $imgCaption );
+					$imgRedirect = $hasRedirect ? ( $amountRedirects ? array_shift( $redirects ) : $redirects[0] ) : '';
+					$this->addImageToGallery( $ig, $imgTitle, $imgCaption, $imgRedirect );
 				}
 			}
 		}
@@ -250,7 +281,7 @@ class SRFGallery extends SMWResultPrinter {
 	 * @param Title $imgTitle The title object of the page of the image
 	 * @param string $imgCaption An optional caption for the image
 	 */
-	protected function addImageToGallery( ImageGallery &$ig, Title $imgTitle, $imgCaption ) {
+	protected function addImageToGallery( ImageGallery &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
 
 		if ( empty( $imgCaption ) ) {
 			if ( $this->m_params['autocaptions'] ) {
@@ -259,17 +290,30 @@ class SRFGallery extends SMWResultPrinter {
 				if ( !$this->m_params['fileextensions'] ) {
 					$imgCaption = preg_replace( '#\.[^.]+$#', '', $imgCaption );
 				}
-			}	else {
+			} else {
 				$imgCaption = '';
 			}
-		}	else {
-			// @TODO global
-			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE &&
-			!$GLOBALS['wgTitle']->isSpecialPage() ) {
+		} else {
+			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->isSpecialPage() ) {
 				$imgCaption = $GLOBALS['wgParser']->recursiveTagParse( $imgCaption );
 			}
 		}
-		$ig->add( $imgTitle, $imgCaption, $imgCaption );
+		// Use image alt as helper for either text
+		$imgAlt =  $this->params['redirects'] === '' ? $imgCaption : $imgRedirect !== '' ? $imgRedirect : '' ;
+		$ig->add( $imgTitle, $imgCaption, $imgAlt );
+	}
+
+	/**
+	 * Check if accessing page is a SpecialPage
+	 *
+	 * @since 1.8
+	 *
+	 * @return boolean
+	 */
+	protected function isSpecialPage() {
+		// @TODO global
+		// This should come from RequestContext but we can't because of MW 1.17
+		return $GLOBALS['wgTitle']->isSpecialPage();
 	}
 
 	/**
@@ -302,18 +346,18 @@ class SRFGallery extends SMWResultPrinter {
 		$params['class']->setMessage( 'srf-paramdesc-class' );
 		$params['class']->setDefault( '' );
 
-		$params['layout'] = new Parameter( 'layout', Parameter::TYPE_STRING, '' );
-		$params['layout']->setMessage( 'srf-paramdesc-layout' );
-		$params['layout']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
-
-		$params['overlay'] = new Parameter( 'overlay', Parameter::TYPE_BOOLEAN, true );
-		$params['overlay']->setMessage( 'srf-paramdesc-overlay' );
-		$params['overlay']->setDefault( false );
+		$params['widget'] = new Parameter( 'widget', Parameter::TYPE_STRING, '' );
+		$params['widget']->setMessage( 'srf-paramdesc-widget' );
+		$params['widget']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
 
 		$params['navigation'] = new Parameter( 'navigation', Parameter::TYPE_STRING, '' );
 		$params['navigation']->setMessage( 'srf-paramdesc-navigation' );
 		$params['navigation']->addCriteria( new CriterionInArray( 'auto', 'pager', 'nav' ) );
 		$params['navigation']->setDefault( 'nav' );
+
+		$params['overlay'] = new Parameter( 'overlay', Parameter::TYPE_BOOLEAN, true );
+		$params['overlay']->setMessage( 'srf-paramdesc-overlay' );
+		$params['overlay']->setDefault( false );
 
 		$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
 		$params['perrow']->setMessage( 'srf_paramdesc_perrow' );
@@ -342,6 +386,10 @@ class SRFGallery extends SMWResultPrinter {
 		$params['imageproperty'] = new Parameter( 'imageproperty' );
 		$params['imageproperty']->setMessage( 'srf_paramdesc_imageproperty' );
 		$params['imageproperty']->setDefault( '' );
+
+		$params['redirects'] = new Parameter( 'redirects' );
+		$params['redirects']->setMessage( 'srf-paramdesc-redirects' );
+		$params['redirects']->setDefault( '' );
 
 		return $params;
 	}
