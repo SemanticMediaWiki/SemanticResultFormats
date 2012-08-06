@@ -4,15 +4,18 @@
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
+ * jshint checked; full compliance
+ *
  * @since: 1.8
  *
- * @release: 0.2.1
+ * @release: 0.2.2
  */
-(function( $ ) {
+( function( $ ) {
+	// jshint compliance
+	/*global mw:true*/
+	"use strict";
 
-/* Error handling *************************************************************/
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
-/* Start javascript ***********************************************************/
 	var sphere = { init: function () {
 		$(document).ready(function() {
 			$( ".srf-tagcloud-sphere" ).each(function() {
@@ -20,9 +23,9 @@
 
 				var container = $this.find( ".container" ),
 					containerID = container.attr( "id" ),
-					width       = container.attr( "width" ),
-					height      = container.attr( "height" ),
-					textFont    = container.attr( "data-font" ),
+					width       = container.data( "width" ),
+					height      = container.data( "height" ),
+					textFont    = container.data( "font" ),
 					tagsID      = container.children( "div" ).attr('id');
 
 				// Hide and re-assign elements
@@ -48,16 +51,15 @@
 					// something went wrong, hide the canvas container
 					$this.find( '#' + containerID ).hide();
 				}
-			} ); // end of initilized $this object
-		} ); // end $(document).ready
-	} } // end sphere init
-/* Check browser ( jquery.profile ) *******************************************/
-	var p = $.client.profile()
+			} );
+		} );
+	} };
+
+	var p = $.client.profile();
 
 	if ( p.name === 'msie' && p.versionNumber < 9 ) {
 		mw.loader.using( 'ext.jquery.tagcanvas.excanvas', sphere.init );
 	} else {
 		sphere.init();
 	}
-/* End ************************************************************************/
 } )( window.jQuery );
