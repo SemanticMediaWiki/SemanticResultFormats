@@ -6,6 +6,8 @@
  * we have to catch the "real" image location url from the api to be able
  * to display the image in the fancybox
  *
+ * jshint checked; full compliance
+ *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
@@ -13,7 +15,11 @@
  *
  * @release: 0.2
  */
-(function( $ ) {
+( function( $ ) {
+
+	// jshint compliance
+	/*global mw:true*/
+	"use strict";
 
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
@@ -28,17 +34,20 @@
 				'format': 'json',
 				'prop'  : 'imageinfo',
 				'iiprop': 'url',
-				'titles': 'File:' + title,
+				'titles': 'File:' + title
 			},
 			function( data ) {
 				if ( data.query && data.query.pages ) {
 					var pages = data.query.pages;
-
-					for ( p in pages ) {
-						var info = pages[p].imageinfo;
-						for ( i in info ) {
-							callback( info[i].url );
-							return;
+					for ( var p in pages ) {
+						if ( pages.hasOwnProperty( p ) ) {
+							var info = pages[p].imageinfo;
+							for ( var i in info ) {
+								if ( info.hasOwnProperty( i ) ) {
+									callback( info[i].url );
+									return;
+								}
+							}
 						}
 					}
 				}
@@ -55,7 +64,8 @@
 		this.find( '.gallerybox' ).each( function () {
 			var $this   = $( this ),
 				image     = $this.find( 'a.image' ),
-				imageText = $this.find( '.gallerytext p' ).html();
+				imageText = $this.find( '.gallerytext p' ).html(),
+				zoomicon  = '<span class="zoomicon"></span>';
 
 			// Group images
 			image.attr( 'rel', image.has( 'img' ).length ? galleryID : '' );
@@ -65,20 +75,18 @@
 			image.attr( 'title', imageText );
 
 			// There should be a better way to find the title object but there isn't
-			title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
+			var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
 
 			// Assign image url
 			_this.getImageURL( title ,
 					function( url ) { if ( url === false ) {
 						image.attr( 'href', '' );
-					}	else {
+					} else {
 						image.attr( 'href', url );
+						// Add overlay zoom icon placeholder
+						image.prepend( zoomicon );
 					}
 			} );
-
-			// Add overlay zoom icon placeholder
-			var zoomicon = '<span class="zoomicon"></span>';
-			image.prepend( zoomicon );
 		} );
 
 		// Formatting the title
@@ -92,7 +100,7 @@
 			'titlePosition'   : 'inside',
 			'titleFormat'     : formatTitle
 		} );
-	}
+	};
 
 	// DOM
 	$(document).ready(function() {

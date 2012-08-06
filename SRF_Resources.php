@@ -273,6 +273,12 @@ $wgResourceModules['ext.srf.gallery.overlay'] = $formatModule + array(
 	'position' => 'top',
 );
 
+$wgResourceModules['ext.srf.gallery.redirect'] = $formatModule + array(
+	'scripts' => 'gallery/resources/ext.srf.gallery.redirect.js',
+	'styles'  => 'gallery/resources/ext.srf.gallery.redirect.css',
+	'position' => 'top',
+);
+
 /******************************************************************************
  * Filtered
 /******************************************************************************/
