@@ -40,7 +40,7 @@ $wgResourceModules['ext.jquery.jqgrid'] = $moduleTemplate + array(
 		'resources/jquery.jqgrid/jquery.jqGrid.4.4.0min.js',
 		'resources/jquery.jqgrid/grid.locale-en.js'
 	),
-	'styles' => 'jquery.jqgrid/ui.jqgrid.css',
+	'styles' => 'resources/jquery.jqgrid/ui.jqgrid.css',
 	'dependencies' => 'jquery.ui.core'
 );
 
@@ -220,8 +220,8 @@ $wgResourceModules['ext.srf.d3.common'] = $formatModule + array(
 );
 
 $wgResourceModules['ext.srf.d3.chart.treemap'] = $formatModule + array(
-	'scripts' => 'D3/resources/chart/ext.srf.d3.chart.treemap.js',
-	'styles'  => 'D3/resources/chart/ext.srf.d3.chart.treemap.css',
+	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.treemap.js',
+	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.treemap.css',
 	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
 );
