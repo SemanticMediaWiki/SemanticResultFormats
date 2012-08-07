@@ -2816,6 +2816,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-width' => 'Breedte (in pixels)',
 	'srf-paramdesc-class' => 'Extra CSS-klasse',
 	'srf-error-option-mix' => 'De optie ($1) is niet beschikbaar',
+	'srf-error-option-link-all' => 'Voor optie ($1) moet de parameter "link" ingesteld worden op "all".',
 	'srf-error-missing-layout' => 'Vormgeving ontbreekt',
 	'srf-warn-empy-chart' => 'De grafiek of kaart is leeg omdat er gegevens missen',
 	'srfc_previousmonth' => 'Vorige maand',
@@ -2892,6 +2893,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_captionproperty' => "De naam van een semantische eigenschap die aanwezig is op de doorzochte pagina's die gebruikt moet worden als bijschrift",
 	'srf_paramdesc_imageproperty' => "De naam van een semantische eigenschap die aanwezig is op de doorzochte pagina's die verwijst naar de te gebruiken afbeeldingen. Als deze instelling wordt gebruikt, worden de doorzochte pagina's zelf niet weergegeven als afbeeldingen",
 	'srf-paramdesc-navigation' => 'Navigatie-instellingen',
+	'srf-paramdesc-overlay' => 'Beeldoverlay inschakelen',
 	'srf-gallery-navigation-previous' => 'Vorige',
 	'srf-gallery-navigation-next' => 'Volgende',
 	'srf-gallery-overlay-count' => 'Afbeelding $1 van $2',
@@ -2903,6 +2905,7 @@ $messages['nl'] = array(
 	'srf_paramdesc_minsize' => 'De grootte van de kleinste labels in percentage (standaard: 77)',
 	'srf_paramdesc_maxsize' => 'De grootte van de grootste labels in percentage (standaard: 242)',
 	'srf_paramdesc_maxtags' => 'Het maximale aantal labels in de wolk',
+	'srf-paramdesc-excludetags' => 'Labels uitsluiten (scheidingsteken is ";")',
 	'srf_printername_valuerank' => 'Rangwaarde',
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Of paginanamen moeten worden weergegeven of weggelaten in resultaatregels',
@@ -2941,8 +2944,13 @@ $messages['nl'] = array(
 	'srf-printername-filtered' => 'Gefilterd',
 	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
 	'srf-printername-d3chart' => 'D3-grafiek',
+	'srf-printername-timeseries' => 'Tijdseriegrafiek',
 	'srf-paramdesc-threshold' => 'Drempelwaarde',
 	'srf-paramdesc-groupedby' => 'Gegroepeerd op',
+	'srf-paramdesc-zoom' => 'Zoom inschakelen',
+	'srf-paramdesc-datatable' => 'Gegevenstabel weergeven',
+	'srf-timeseries-zoom-out-of-range' => 'Het zoombereik heeft onvoldoende gegevens opgeleverd',
+	'srf-printername-sparkline' => 'Sparkline',
 );
 
 /** Norwegian Nynorsk (‪norsk (nynorsk)‬)
