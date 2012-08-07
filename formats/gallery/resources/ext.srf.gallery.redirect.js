@@ -23,36 +23,36 @@
 
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
-	var _this = this;
+	$.fn.galleryRedirect = function( options ) {
 
-	// API image url fetch (see Jeroen's SF image preview)
-	this.getArticleURL = function( title , callback ) {
-		$.getJSON(
-			mw.config.get( 'wgScriptPath' ) + '/api.php',
-			{
-				'action': 'query',
-				'format': 'json',
-				'prop'  : 'info',
-				'inprop': 'url',
-				'titles': title
-			},
-			function( data ) {
-				if ( data.query && data.query.pages ) {
-					var pages = data.query.pages;
-					for ( var p in pages ) {
-						if ( pages.hasOwnProperty( p ) ) {
-							var info = pages[p];
-								callback( info.fullurl );
-								return;
+		var _this = this;
+
+		// API image url fetch (see Jeroen's SF image preview)
+		this.getArticleURL = function( title , callback ) {
+			$.getJSON(
+				mw.config.get( 'wgScriptPath' ) + '/api.php',
+				{
+					'action': 'query',
+					'format': 'json',
+					'prop'  : 'info',
+					'inprop': 'url',
+					'titles': title
+				},
+				function( data ) {
+					if ( data.query && data.query.pages ) {
+						var pages = data.query.pages;
+						for ( var p in pages ) {
+							if ( pages.hasOwnProperty( p ) ) {
+								var info = pages[p];
+									callback( info.fullurl );
+									return;
+							}
 						}
 					}
+					callback( false );
 				}
-				callback( false );
-			}
-		);
-	};
-
-	$.fn.galleryRedirect = function( options ) {
+			);
+		};
 
 		// Loop over all relevant gallery items
 		this.find( '.gallerybox' ).each( function () {

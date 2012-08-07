@@ -23,42 +23,42 @@
 
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
-	var _this = this;
+	$.fn.galleryOverlay = function( options ) {
+		var galleryID = this.attr( 'id' ),
+			srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
 
-	// API image url fetch (see Jeroen's SF image preview)
-	this.getImageURL = function( title , callback ) {
-		$.getJSON(
-			mw.config.get( 'wgScriptPath' ) + '/api.php',
-			{
-				'action': 'query',
-				'format': 'json',
-				'prop'  : 'imageinfo',
-				'iiprop': 'url',
-				'titles': 'File:' + title
-			},
-			function( data ) {
-				if ( data.query && data.query.pages ) {
-					var pages = data.query.pages;
-					for ( var p in pages ) {
-						if ( pages.hasOwnProperty( p ) ) {
-							var info = pages[p].imageinfo;
-							for ( var i in info ) {
-								if ( info.hasOwnProperty( i ) ) {
-									callback( info[i].url );
-									return;
+		var _this = this;
+
+		// API image url fetch (see Jeroen's SF image preview)
+		this.getImageURL = function( title , callback ) {
+			$.getJSON(
+				mw.config.get( 'wgScriptPath' ) + '/api.php',
+				{
+					'action': 'query',
+					'format': 'json',
+					'prop'  : 'imageinfo',
+					'iiprop': 'url',
+					'titles': 'File:' + title
+				},
+				function( data ) {
+					if ( data.query && data.query.pages ) {
+						var pages = data.query.pages;
+						for ( var p in pages ) {
+							if ( pages.hasOwnProperty( p ) ) {
+								var info = pages[p].imageinfo;
+								for ( var i in info ) {
+									if ( info.hasOwnProperty( i ) ) {
+										callback( info[i].url );
+										return;
+									}
 								}
 							}
 						}
 					}
+					callback( false );
 				}
-				callback( false );
-			}
-		);
-	};
-
-	$.fn.galleryOverlay = function( options ) {
-		var galleryID = this.attr( 'id' ),
-			srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
+			);
+		};
 
 		// Loop over all relevant gallery items
 		this.find( '.gallerybox' ).each( function () {
