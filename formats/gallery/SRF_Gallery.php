@@ -47,6 +47,12 @@ class SRFGallery extends SMWResultPrinter {
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
 		// skip checks, results with 0 entries are normal
+
+		// Create a link that points to the output
+		if ( $this->linkFurtherResults( $results ) ) {
+			return $this->getLink( $results, SMW_OUTPUT_WIKI )->getText( SMW_OUTPUT_WIKI, $this->mLinker );
+		}
+
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
 
@@ -342,54 +348,79 @@ class SRFGallery extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
-		$params['class']->setMessage( 'srf-paramdesc-class' );
-		$params['class']->setDefault( '' );
+		$params['class'] = array(
+			'type' => 'string',
+			'message' => 'srf-paramdesc-class',
+			'default' => ''
+		);
 
-		$params['widget'] = new Parameter( 'widget', Parameter::TYPE_STRING, '' );
-		$params['widget']->setMessage( 'srf-paramdesc-widget' );
-		$params['widget']->addCriteria( new CriterionInArray( 'carousel', 'slideshow' ) );
+		$params['widget'] = array(
+			'type' => 'string',
+			'default' => '',
+			'message' => 'srf-paramdesc-widget',
+			'values' => array( 'carousel', 'slideshow' )
+		);
 
-		$params['navigation'] = new Parameter( 'navigation', Parameter::TYPE_STRING, '' );
-		$params['navigation']->setMessage( 'srf-paramdesc-navigation' );
-		$params['navigation']->addCriteria( new CriterionInArray( 'auto', 'pager', 'nav' ) );
-		$params['navigation']->setDefault( 'nav' );
+		$params['navigation'] = array(
+			'type' => 'string',
+			'default' => 'nav',
+			'message' => 'srf-paramdesc-navigation',
+			'values' => array( 'nav', 'pager', 'auto' )
+		);
 
-		$params['overlay'] = new Parameter( 'overlay', Parameter::TYPE_BOOLEAN, true );
-		$params['overlay']->setMessage( 'srf-paramdesc-overlay' );
-		$params['overlay']->setDefault( false );
+		$params['overlay'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf-paramdesc-overlay'
+		);
 
-		$params['perrow'] = new Parameter( 'perrow', Parameter::TYPE_INTEGER );
-		$params['perrow']->setMessage( 'srf_paramdesc_perrow' );
-		$params['perrow']->setDefault( '', false );
+		$params['perrow'] = array(
+			'type' => 'integer',
+			'default' => '',
+			'message' => 'srf_paramdesc_perrow'
+		);
 
-		$params['widths'] = new Parameter( 'widths', Parameter::TYPE_INTEGER );
-		$params['widths']->setMessage( 'srf_paramdesc_widths' );
-		$params['widths']->setDefault( '', false );
+		$params['widths'] = array(
+			'type' => 'integer',
+			'default' => '',
+			'message' => 'srf_paramdesc_widths'
+		);
 
-		$params['heights'] = new Parameter( 'heights', Parameter::TYPE_INTEGER );
-		$params['heights']->setMessage( 'srf_paramdesc_heights' );
-		$params['heights']->setDefault( '', false );
+		$params['heights'] = array(
+			'type' => 'integer',
+			'default' => '',
+			'message' => 'srf_paramdesc_heights'
+		);
 
-		$params['autocaptions'] = new Parameter( 'autocaptions', Parameter::TYPE_BOOLEAN );
-		$params['autocaptions']->setMessage( 'srf_paramdesc_autocaptions' );
-		$params['autocaptions']->setDefault( true );
+		$params['autocaptions'] = array(
+			'type' => 'boolean',
+			'default' => true,
+			'message' => 'srf_paramdesc_autocaptions'
+		);
 
-		$params['fileextensions'] = new Parameter( 'fileextensions', Parameter::TYPE_BOOLEAN );
-		$params['fileextensions']->setMessage( 'srf_paramdesc_fileextensions' );
-		$params['fileextensions']->setDefault( false );
+		$params['fileextensions'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_fileextensions'
+		);
 
-		$params['captionproperty'] = new Parameter( 'captionproperty' );
-		$params['captionproperty']->setMessage( 'srf_paramdesc_captionproperty' );
-		$params['captionproperty']->setDefault( '' );
+		$params['captionproperty'] = array(
+			'type' => 'string',
+			'default' => '',
+			'message' => 'srf_paramdesc_captionproperty'
+		);
 
-		$params['imageproperty'] = new Parameter( 'imageproperty' );
-		$params['imageproperty']->setMessage( 'srf_paramdesc_imageproperty' );
-		$params['imageproperty']->setDefault( '' );
+		$params['imageproperty'] = array(
+			'type' => 'string',
+			'default' => '',
+			'message' => 'srf_paramdesc_imageproperty'
+		);
 
-		$params['redirects'] = new Parameter( 'redirects' );
-		$params['redirects']->setMessage( 'srf-paramdesc-redirects' );
-		$params['redirects']->setDefault( '' );
+		$params['redirects'] = array(
+			'type' => 'string',
+			'default' => '',
+			'message' => 'srf-paramdesc-redirects'
+		);
 
 		return $params;
 	}
