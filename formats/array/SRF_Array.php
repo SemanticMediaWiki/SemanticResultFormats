@@ -357,53 +357,58 @@ class SRFArray extends SMWResultPrinter {
 		### new params: ###
 		
 		$params['titles'] = array(
-			'name' => 'titles',
 			'message' => 'srf_paramdesc_pagetitle',
 			'values' => array( 'show', 'hide' ),
 			'aliases' => array( 'pagetitle', 'pagetitles' ),
 			'default' => 'show',
 		);
 
-		// TODO: migrate to Validator 0.5.x array style definitions
+		$params['hidegaps'] = array(
+			'message' => 'srf_paramdesc_hidegaps',
+			'values' => array( 'none', 'all', 'property', 'record' ),
+			'default' => 'none',
+		);
 
-		$params['hidegaps'] = new Parameter( 'hidegaps' );
-		$params['hidegaps']->setMessage( 'srf_paramdesc_hidegaps' );
-		$params['hidegaps']->addCriteria( new CriterionInArray( 'none', 'all', 'property', 'record' ) );
-		$params['hidegaps']->setDefault( 'none' );
-		
-		# name to create 'real' array with if set (empty string '' counts as set!):
-		$params['name'] = new Parameter( 'name' );
-		$params['name']->setMessage( 'srf_paramdesc_arrayname' );
-		$params['name']->setDefault( false, false );
-		
-		# separators (default values are defined in the following globals:)
+		$params['name'] = array(
+			'message' => 'srf_paramdesc_arrayname',
+			'default' => false,
+			'manipulatedefault' => false,
+		);
+
+		// separators (default values are defined in the following globals:)
 		global $srfgArraySep, $srfgArrayPropSep, $srfgArrayManySep, $srfgArrayRecordSep, $srfgArrayHeaderSep;
-		
-		$params['sep'] = new Parameter( 'sep' );
-		$params['sep']->setMessage( 'smw_paramdesc_sep' );
-		$params['sep']->setDefault( $this->initializeCfgValue( $srfgArraySep, 'sep' ) );
-		
-		$params['propsep'] = new Parameter( 'propsep' );
-		$params['propsep']->setMessage( 'srf_paramdesc_propsep' );
-		$params['propsep']->setDefault( $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ) );
-		
-		$params['manysep'] = new Parameter( 'manysep' );
-		$params['manysep']->setMessage( 'srf_paramdesc_manysep' );
-		$params['manysep']->setDefault( $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ) );
-		
-		$params['recordsep'] = new Parameter( 'recordsep' );
-		$params['recordsep']->setMessage( 'srf_paramdesc_recordsep' );
-		$params['recordsep']->addAliases( 'narysep', 'rcrdsep', 'recsep' );
-		$params['recordsep']->setDefault( $this->initializeCfgValue( $srfgArrayRecordSep, 'recordsep' ) );
-		
-		$params['headersep'] = new Parameter( 'headersep' );
-		$params['headersep']->setMessage( 'srf_paramdesc_headersep' );
-		$params['headersep']->addAliases( 'narysep', 'rcrdsep', 'recsep' );
-		$params['headersep']->setDefault( $this->initializeCfgValue( $srfgArrayHeaderSep, 'headersep' ) );
-		
+
+		$params['sep'] = array(
+			'message' => 'smw_paramdesc_sep',
+			'default' => $this->initializeCfgValue( $srfgArraySep, 'sep' ),
+		);
+
+		$params['propsep'] = array(
+			'message' => 'smw_paramdesc_propsep',
+			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
+		);
+
+		$params['manysep'] = array(
+			'message' => 'srf_paramdesc_manysep',
+			'default' => $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ),
+		);
+
+		$params['recordsep'] = array(
+			'message' => 'srf_paramdesc_recordsep',
+			'default' => $this->initializeCfgValue( $srfgArrayRecordSep, 'recordsep' ),
+			'aliases' => array( 'narysep', 'rcrdsep', 'recsep' ),
+		);
+
+		$params['headersep'] = array(
+			'message' => 'srf_paramdesc_headersep',
+			'default' => $this->initializeCfgValue( $srfgArrayHeaderSep, 'headersep' ),
+			'aliases' => array( 'narysep', 'rcrdsep', 'recsep' ),
+		);
+
 		return $params;
 	}
 
 }
+
 
 
