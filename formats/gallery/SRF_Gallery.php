@@ -46,12 +46,14 @@ class SRFGallery extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
-		// skip checks, results with 0 entries are normal
 
-		// Create a link that points to the output
-		if ( $this->linkFurtherResults( $results ) ) {
-			return $this->getLink( $results, SMW_OUTPUT_WIKI )->getText( SMW_OUTPUT_WIKI, $this->mLinker );
-		}
+		// Features check
+		// Widgets and intro/outro are not planned to work
+		if ( $this->params['intro'] !== '' && $this->params['widget'] !== '' ){
+			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'intro/widget' ) ) );
+		} elseif( $this->params['outro'] !== '' && $this->params['widget'] !== '' ){
+			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'outro/widget' ) ) );
+		};
 
 		return $this->getResultText( $results, SMW_OUTPUT_HTML );
 	}
@@ -184,6 +186,11 @@ class SRFGallery extends SMWResultPrinter {
 			);
 
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
+		}
+
+		// Allow to create a link that points to further results
+		if ( $this->linkFurtherResults( $results ) ) {
+			$html .= $this->getLink( $results, $outputmode )->getText( $outputmode, $this->mLinker );
 		}
 
 		return array( $html, 'nowiki' => true, 'isHTML' => true );
