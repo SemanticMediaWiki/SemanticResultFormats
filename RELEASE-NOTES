@@ -9,17 +9,45 @@ THIS IS NOT A RELEASE YET
 Semantic Result Formats 1.8 is currently in beta-quality and is not recommended for use in
 production until the actual release.
 
-Changes/bug fixes
-* Added 'tagformat' parameter with sphere output support (bug 38094) (mwjames)
-* Added tag cloud template support (bug 37695) (mwjames)
-* Added 'galleryformat' slideshow (bug 38184) (mwjames)
-* Added 'overlay' parameter enabling gallery slideshow/carousel image overlay (bug 38357) (mwjames)
-* Fixed Special:Ask gallery display (bug 38296) (mwjames)
+; Compatibility changes
 
-New formats in this version are:
+* Changed minimum MediaWiki version from 1.16 to 1.17.
+* Changed minimum Semantic MediaWiki version from 1.7 to 1.8.
+* Full compatibility with MediaWiki 1.19 and forward-compatibility with 1.20.
+* Changed minimum Validator version from 0.4 to 0.5.
+
+; New formats
+
 * slideshow (written by Stephan Gambke)
-* listwidget (bug 37721) (mwjames)
+* listwidget (bug 37721, I54660c15) (mwjames)
 * sparkline format (I911862ce) (mwjames)
+* flot timeseries printer (Ibad00690) (mwjames)
+* d3chart format (I4baa7df8) (mwjames)
+* incoming format (Ie5be9196) (mwjames)
+* syndication feed (atom, rss) (bug 38636, Ia3cdc243) (mwjames)
+* earliest format (written by Jeroen De Dauw, Nischay Nahata)
+* latest format (written by Jeroen De Dauw, Nischay Nahata)
+
+; New features
+
+* (bug 38094) TagCloud format added 'sphere widget' (mwjames)
+* (bug 37695) TagCloud format added template support (mwjames)
+* (bug 38184) Gallery format added 'slideshow widget' (mwjames)
+* (bug 38357) Gallery format added 'overlay' parameter enabling gallery slideshow/carousel image overlay  (mwjames)
+* (I7c49a644) Gallery format added redirects to enable images to be redirect to another target (mwjames)
+* (bug 38296, Ic9f5e186) Gallery format fixed Special:Ask gallery display error (mwjames)
+* (bug 35627, I3c8847aa) jqPlot re-factoring (mwjames)
+
+; Other improvements
+
+* Added test file support (see SemanticResultFormats/tests/...)
+* All formats have been moved (see SemanticResultFormats/formats/...)
+* Added new folder (SemanticResultFormats/resources/...) where all external plug-ins will be successively been moved
+* Introduce a new array-based syntax to define parameters (see Validator/IParameterDefinition class)
+
+; Bug fixes
+
+*
 
 == SRF 1.7.1 ==
 
