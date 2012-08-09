@@ -200,10 +200,9 @@ $messages['en'] = array(
 
 	// format "timeseries"
 	'srf-printername-timeseries' => 'Timeseries chart',
-	'srf-paramdesc-threshold' => 'Threshold',
-	'srf-paramdesc-groupedby' => 'Grouped by',
+	'srf-paramdesc-group' => 'Series grouped by',
 	'srf-paramdesc-zoom' => 'Enable zoom',
-	'srf-paramdesc-datatable' => 'Display a datatable',
+	'srf-paramdesc-datatable' => 'Enable a datatable',
 	'srf-timeseries-zoom-out-of-range' => 'The zoom range did not produce any sufficient data',
 
 	// format "sparkline"
@@ -301,6 +300,7 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
 	'srf-paramdesc-widget' => '{{doc-paramdesc|widget}}',
 	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}',
+	'srf-paramdesc-group' => '{{doc-paramdesc|group}}',
 );
 
 /** Afrikaans (Afrikaans)

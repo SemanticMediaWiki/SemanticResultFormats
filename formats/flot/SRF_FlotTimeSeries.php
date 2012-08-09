@@ -18,6 +18,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Flot_timeseries_chart
+ *
  * @file SRF_FlotTimeseries.php
  * @ingroup SemanticResultFormats
  * @licence GNU GPL v2 or later
@@ -37,9 +39,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	}
 
 	/**
-	 * Returns an array with the numerical data in the query result.
-	 *
-	 * @since 1.8
+	 * @see SMWResultPrinter::getResultText
 	 *
 	 * @param SMWQueryResult $result
 	 * @param $outputMode
@@ -47,12 +47,16 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+
+		// Data pre-processing check
 		if ( $this->params['layout'] === '' ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-error-missing-layout' ) ) );
 		}
 
+		// Data processing
 		$data = $this->getAggregatedTimeSeries( $result, $outputMode );
 
+		// Post-data processing check
 		if ( count( $data ) == 0 ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
 		} else {
@@ -61,7 +65,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	}
 
 	/**
-	 * Returns an array with the numerical data in the query result.
+	 * Returns an array with numerical data
 	 *
 	 * @since 1.8
 	 *
@@ -85,10 +89,10 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 				$rowSum = array();
 
 				// Group by subject (page object)  or property
-				if ( $this->params['groupedby'] == 'subject' ){
-					$groupedBy = $field->getResultSubject()->getTitle()->getText();
+				if ( $this->params['group'] == 'subject' ){
+					$group = $field->getResultSubject()->getTitle()->getText();
 				} else {
-					$groupedBy = $field->getPrintRequest()->getLabel();
+					$group = $field->getPrintRequest()->getLabel();
 				}
 
 				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) { // Data values
@@ -110,7 +114,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 
 				// Check the sum and threshold/min
 				if ( $timeStamp !== '' && $rowSum == true && $rowSum >= $this->params['min'] ) {
-					$series[$groupedBy] = array ( $timeStamp , $rowSum ) ;
+					$series[$group] = array ( $timeStamp , $rowSum ) ;
 				}
 			}
 				$values[] = $series ;
@@ -131,6 +135,8 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	 * @since 1.8
 	 *
 	 * @param array $data
+	 *
+	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
 
@@ -141,7 +147,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		$this->isHTML = true;
 
 		// Reorganize the raw data
-			foreach ( $data as $key => $values ) {
+		foreach ( $data as $key => $values ) {
 			$dataObject[] = array ( 'label' => $key, 'data' => $values );
 		}
 
@@ -154,9 +160,8 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 				'charttitle'  => $this->params['charttitle'],
 				'charttext'   => $this->params['charttext'],
 				'layout'      => $this->params['layout'],
-				'groupedby'   => $this->params['groupedby'],
-				'datatable'   => $this->params['datatable'],
-				'zoom'        => $this->params['zoom'],
+				'datatable'   => $this->params['tablearea'],
+				'zoom'        => $this->params['zoomarea'],
 			)
 		);
 
@@ -165,8 +170,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
-		$resource = 'ext.srf.flot.timeseries';
-		SMWOutputs::requireResource( $resource );
+		SMWOutputs::requireResource( 'ext.srf.flot.timeseries' );
 
 		// Chart/graph placeholder
 		$chart = Html::rawElement( 'div', array(
@@ -177,13 +181,12 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		);
 
 		// Processing/loading image
-		$processing = SRFUtils::htmlProcessingElement();
+		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 
 		// Beautify class selector
-		//$class = $this->params['layout'] ?  '-' . $this->params['layout'] : '';
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : ' flot-chart-common';
 
-		// Return D3 wrappper
+		// General output marker
 		return Html::rawElement( 'div', array(
 			'class' => 'srf-flot-timeseries' . $class
 			), $processing . $chart
@@ -202,43 +205,66 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['layout'] = new Parameter( 'layout', Parameter::TYPE_STRING, 'line' );
-		$params['layout']->setMessage( 'srf-paramdesc-layout' );
-		$params['layout']->addCriteria( new CriterionInArray( 'line' , 'bar' ) );
+		$params['layout'] = array(
+			'message' => 'srf-paramdesc-layout',
+			'default' => 'line',
+			'values' => array( 'line', 'bar'),
+		);
 
-		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
-		$params['min']->setMessage( 'srf-paramdesc-min' );
-		$params['min']->setDefault( false, false );
+		$params['min'] = array(
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-minvalue',
+			'default' => '',
+			'values' => array( 'line', 'bar'),
+		);
 
-		$params['groupedby'] = new Parameter( 'groupedby', Parameter::TYPE_STRING, 'property' );
-		$params['groupedby']->setMessage( 'srf-paramdesc-groupedby' );
-		$params['groupedby']->addCriteria( new CriterionInArray( 'property' , 'subject' ) );
+		$params['group'] = array(
+			'message' => 'srf-paramdesc-group',
+			'default' => 'subject',
+			'values' => array( 'property' , 'subject' ),
+		);
 
-		$params['zoom'] = new Parameter( 'zoom', Parameter::TYPE_STRING, 'bottom' );
-		$params['zoom']->setMessage( 'srf-paramdesc-zoom' );
-		$params['zoom']->addCriteria( new CriterionInArray( 'none' , 'bottom', 'top' ) );
+		$params['zoomarea'] = array(
+			'message' => 'srf-paramdesc-zoomarea',
+			'default' => 'bottom',
+			'values' => array( 'none' , 'bottom', 'top' ),
+		);
 
-		$params['datatable'] = new Parameter( 'datatable', Parameter::TYPE_STRING, 'bottom' );
-		$params['datatable']->setMessage( 'srf-paramdesc-datatable' );
-		$params['datatable']->addCriteria( new CriterionInArray( 'none' , 'bottom', 'top' ) );
+		$params['tablearea'] = array(
+			'message' => 'srf-paramdesc-tablearea',
+			'default' => 'bottom',
+			'values' => array( 'none' , 'bottom', 'top' ),
+		);
 
-		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
-		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
+		$params['height'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_chartheight',
+			'default' => 400,
+			'lowerbound' => 1,
+		);
 
-		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 400 );
-		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
+		$params['width'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_chartwidth',
+			'default' => 400,
+			'lowerbound' => 1,
+		);
 
-		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, '' );
-		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
+		$params['charttitle'] = array(
+			'message' => 'srf_paramdesc_charttitle',
+			'default' => '',
+		);
 
-		$params['charttext'] = new Parameter( 'charttext', Parameter::TYPE_STRING, '' );
-		$params['charttext']->setMessage( 'srf-paramdesc-charttext' );
+		$params['charttext'] = array(
+			'message' => 'srf-paramdesc-charttext',
+			'default' => '',
+		);
 
-		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
-		$params['class']->setMessage( 'srf-paramdesc-class' );
-		$params['class']->setDefault( '' );
+		$params['class'] = array(
+			'message' => 'srf-paramdesc-class',
+			'default' => '',
+		);
 
 		return $params;
 	}
-
 }

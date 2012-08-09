@@ -6,6 +6,10 @@
  *
  * @release: 0.1
  */
+.srf-flot-timeseries .ui-widget-header {
+	border-width: 0 0 1px;
+}
+
 .srf-flot-chart-title {
 	text-align:center;
 	font-weight: bold;
