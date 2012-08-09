@@ -191,9 +191,8 @@ class SRFBibTeX extends SMWResultPrinter {
 						
 						if ( $label == 'author' || $label == 'authors' ) {
 							$author = $wikiText;
-						}
-						else {
-							$author = $editor;
+						} else {
+							$editor = $wikiText;
 						}
 						break;
 					case 'date':
