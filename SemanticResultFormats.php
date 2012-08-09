@@ -80,7 +80,7 @@ $wgExtensionCredits['semantic'][] = array(
 		'Yaron Koren',
 		'...'
 	),
-	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats',
+	'url' => 'http://semantic-mediawiki.org/wiki/Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc'
 );
 
