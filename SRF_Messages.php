@@ -300,7 +300,7 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-printername-listwidget' => '{{doc-smwformat|listwidget}}',
 	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
 	'srf-paramdesc-widget' => '{{doc-paramdesc|widget}}',
-	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}'
+	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -717,6 +717,7 @@ $messages['de'] = array(
 	'srf-paramdesc-height' => 'Die Höhe (in Pixel)',
 	'srf-paramdesc-width' => 'Die Breite (in Pixel)',
 	'srf-paramdesc-class' => 'Die zusätzliche CSS-Klasse',
+	'srf-module-nomatch' => 'Keine Treffer',
 	'srf-error-option-mix' => 'Option ($1) ist nicht verfügbar',
 	'srf-error-option-link-all' => 'Zur Option ($1) muss beim Paramenter „link“ der Wert „all“ gesetzt werden.',
 	'srf-error-missing-layout' => 'Es wurde kein Layout angegeben.',
@@ -853,6 +854,9 @@ $messages['de'] = array(
 	'srf-paramdesc-datatable' => 'Eine Datentabelle anzeigen',
 	'srf-timeseries-zoom-out-of-range' => 'Der Zoombereich enthält nicht genug Daten.',
 	'srf-printername-sparkline' => 'Wortgrafik',
+	'srf-paramdesc-listtype' => 'Listentyp',
+	'srf-paramdesc-widget' => 'Das verfügbare Widget',
+	'srf-paramdesc-pageitems' => 'Elemente pro Seite',
 );
 
 /** Zazaki (Zazaki)
@@ -1235,6 +1239,7 @@ $messages['fi'] = array(
  * @author Brunoperel
  * @author Crochet.david
  * @author DavidL
+ * @author Erkethan
  * @author Gomoko
  * @author Grondin
  * @author Hashar
@@ -1251,12 +1256,14 @@ $messages['fr'] = array(
 	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
 	'srf-name' => 'Formatage des résultats sémantiques',
 	'srf-module-loading' => 'Chargement...',
+	'srf-paramdesc-layout' => 'Mise en page disponible',
 	'srf-paramdesc-height' => 'Hauteur (en pixels)',
 	'srf-paramdesc-width' => 'Largeur (en pixels)',
 	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
 	'srf-error-option-mix' => "L'option ($1) n'est pas disponible",
 	'srf-error-option-link-all' => 'L\'option ($1) nécessite le paramètre "link" pour être mise à "all"',
-	'srf-warn-empy-chart' => 'Il manque des données suffisantes pour faire un graphique',
+	'srf-error-missing-layout' => 'Mise en page manquante',
+	'srf-warn-empy-chart' => 'Le graphique est vide en raison de données manquantes',
 	'srfc_previousmonth' => 'Mois précédent',
 	'srfc_nextmonth' => 'Mois suivant',
 	'srfc_today' => 'Aujourd’hui',
@@ -1301,8 +1308,8 @@ $messages['fr'] = array(
 	'srf_printername_jqplotbar' => 'Diagramme en barres jqPlot',
 	'srf_printername_jqplotpie' => 'Diagramme camembert jqPlot',
 	'srf_printername_jqplotseries' => 'Diagramme de séries jqPlot',
-	'srf_paramdesc_chartheight' => 'La hauteur du diagramme, en pixels',
-	'srf_paramdesc_chartwidth' => 'La largeur du diagramme, en pixels',
+	'srf_paramdesc_chartheight' => 'Hauteur du graphique (en pixels)',
+	'srf_paramdesc_chartwidth' => 'Largeur du graphique (en pixels)',
 	'srf_paramdesc_charttitle' => 'Le titre du graphique',
 	'srf_paramdesc_barcolor' => 'La couleur des barres',
 	'srf_paramdesc_bardirection' => "Spécifier la direction d'un diagramme",
@@ -1382,6 +1389,8 @@ $messages['fr'] = array(
 	'srf-paramdesc-effect' => "L'effet à utiliser pour passer d'une diapositive à l'autre",
 	'srf-printername-filtered' => 'Filtré',
 	'srf-paramdesc-views' => "Les vues qui doivent être disponibles dans l'affichage du résultat.",
+	'srf-paramdesc-threshold' => 'Seuil',
+	'srf-paramdesc-zoom' => 'Activer le zoom',
 );
 
 /** Franco-Provençal (arpetan)
@@ -3196,6 +3205,7 @@ $messages['ps'] = array(
 /** Portuguese (português)
  * @author Hamilton Abreu
  * @author Malafaya
+ * @author SandroHc
  * @author Waldir
  */
 $messages['pt'] = array(
@@ -3238,11 +3248,11 @@ $messages['pt'] = array(
 	'srf_printername_googlepie' => 'Gráfico circular Google',
 	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
 	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
-	'srf_paramdesc_chartheight' => 'A altura do gráfico, em pixels',
-	'srf_paramdesc_chartwidth' => 'A largura do gráfico, em pixels',
+	'srf_paramdesc_chartheight' => 'Altura do gráfico (em pixels)',
+	'srf_paramdesc_chartwidth' => 'Largura do gráfico (em pixels)',
 	'srf_paramdesc_charttitle' => 'O título do gráfico',
 	'srf_paramdesc_barcolor' => 'A cor das barras',
-	'srf_paramdesc_bardirection' => 'A orientação do gráfico de barras',
+	'srf_paramdesc_bardirection' => 'Especifica a orientação do gráfico',
 	'srf_paramdesc_barnumbersaxislabel' => 'A legenda para o eixo dos números',
 	'srf_printername_gallery' => 'Galeria',
 	'srf_paramdesc_perrow' => 'A quantidade de imagens por linha',
@@ -3261,14 +3271,14 @@ $messages['pt'] = array(
 	'srf_paramdesc_maxsize' => 'O tamanho das tags maiores, em percentagem (padrão: 242)',
 	'srf_paramdesc_maxtags' => 'A quantidade máxima de tags na nuvem',
 	'srf_printername_array' => 'Matriz',
-	'srf_paramdesc_pagetitle' => 'Se deseja apresentar como resultados os títulos das páginas, ou escondê-los',
+	'srf_paramdesc_pagetitle' => 'Se deseja apresentar como resultados os títulos das páginas, ou omiti-los',
 	'srf_paramdesc_hidegaps' => 'Se deseja apresentar os valores das propriedades e registos vazios separados por separadores ou escondê-los',
 	'srf_paramdesc_arrayname' => 'Se especificado e a ArrayExtension estiver disponível, isto criará uma matriz com o nome especificado',
 	'srf_paramdesc_propsep' => 'Separador entre as propriedades solicitadas',
 	'srf_paramdesc_manysep' => 'Separador entre propriedades com mais do que um valor',
 	'srf_paramdesc_recordsep' => 'Separador entre os valores das propriedades do registo',
 	'srf_printername_hash' => 'Resumo criptográfico ("hash")',
-	'srf_paramdesc_hashname' => 'Se especificado e a extensão HashTables estiver disponível, isto cria um resumo criptográfico ("hash") com o nome especificado',
+	'srf_paramdesc_hashname' => 'Se especificado e a extensão HashTables estiver disponível, isto cria um resumo criptográfico ("hash") com o nome especificado (sem saída visível)',
 	'srf-printername-graph' => 'Grafo',
 	'srf-paramdesc-graph-relation' => 'Os assuntos ("subjects") ou propriedades dos nomes ("nameproperties"), são pais ou filhos?',
 	'srf-paramdesc-graph-nameprop' => 'Permite definir uma propriedade que será usada como assunto ("subject") em vez do verdadeiro assunto',
@@ -3281,6 +3291,7 @@ $messages['pt'] = array(
 	'srf_paramdesc_graphlink' => 'Link do grafo',
 	'srf_paramdesc_graphcolor' => 'Cor do grafo',
 	'srf-paramdesc-graph-wwl' => 'Limite para forçar nova linha (em nº de caracteres)',
+	'srf-printername-filtered' => 'Filtrado',
 );
 
 /** Brazilian Portuguese (português do Brasil)
