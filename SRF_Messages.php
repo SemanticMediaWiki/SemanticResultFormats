@@ -229,9 +229,9 @@ $messages['qqq'] = array(
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-class' => '{{doc-paramdesc|class}}',
-	'srf-error-option-link-all' => 'This is an error message.
-
-{{doc-important|Do not translate the parameter "link" and its possible value "all".}}',
+	'srf-error-option-link-all' => '{{doc-important|Do not translate the parameter "link" and its possible value "all".}}
+This is an error message. Parameters:
+* $1 is a fixed entitity name that cannot and should not be translated.',
 	'srf_printername_calendar' => '{{doc-smwformat|calendar}}',
 	'srf_paramdesc_calendarcolors' => 'Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.',
 	'srf_vcard_link' => '{{optional}}',
@@ -295,12 +295,12 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-views' => '{{doc-paramdesc|views}}',
 	'srf-printername-d3chart' => '{{doc-smwformat|d3chart}}',
 	'srf-printername-timeseries' => '{{doc-smwformat|timeseries}}',
+	'srf-paramdesc-group' => '{{doc-paramdesc|group}}',
 	'srf-printername-sparkline' => '{{doc-smwformat|sparkline}}',
 	'srf-printername-listwidget' => '{{doc-smwformat|listwidget}}',
 	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
 	'srf-paramdesc-widget' => '{{doc-paramdesc|widget}}',
 	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}',
-	'srf-paramdesc-group' => '{{doc-paramdesc|group}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -717,7 +717,7 @@ $messages['de'] = array(
 	'srf-paramdesc-height' => 'Die Höhe (in Pixel)',
 	'srf-paramdesc-width' => 'Die Breite (in Pixel)',
 	'srf-paramdesc-class' => 'Die zusätzliche CSS-Klasse',
-	'srf-module-nomatch' => 'Keine Treffer',
+	'srf-module-nomatch' => 'Es wurden keine Übereinstimmungen gefunden.',
 	'srf-error-option-mix' => 'Option ($1) ist nicht verfügbar',
 	'srf-error-option-link-all' => 'Zur Option ($1) muss beim Paramenter „link“ der Wert „all“ gesetzt werden.',
 	'srf-error-missing-layout' => 'Es wurde kein Layout angegeben.',
@@ -737,16 +737,16 @@ $messages['de'] = array(
 	'srf_outline_novalue' => 'Kein Wert',
 	'srf_printername_outline' => 'Gliederung',
 	'srf_paramdesc_outlineproperties' => 'Die Liste der mit Kommata voneinander getrennten Attribute, die in der Kopfzeile der Gliederung angezeigt werden sollen',
-	'srf_printername_sum' => 'Summe der Zahlen',
-	'srf_printername_average' => 'Durchschnitt der Zahlen',
-	'srf_printername_max' => 'Höchste Zahl',
-	'srf_printername_min' => 'Niedrigste Zahl',
+	'srf_printername_sum' => 'Zahlen (Summe)',
+	'srf_printername_average' => 'Zahlen (Durchschnitt)',
+	'srf_printername_max' => 'Zahlen (höchste)',
+	'srf_printername_min' => 'Zahlen (niedrigste)',
 	'srf_paramdesc_limit' => 'Die maximale Anzahl der abzufragenden Seiten',
-	'srf_printername_product' => 'Produkt der Zahlen',
-	'srf_printername_median' => 'Median der Zahlen',
+	'srf_printername_product' => 'Zahlen (Produkt)',
+	'srf_printername_median' => 'Zahlen (Median)',
 	'srf-paramdesc-default' => 'Der Standardwert, der angezeigt wird, sofern keine numerischen Ergebnisse vorhanden sind.',
-	'srf_printername_earliest' => 'Frühester Zeitpunkt',
-	'srf_printername_latest' => 'Spätester Zeitpunkt',
+	'srf_printername_earliest' => 'Zeitpunkt (frühester)',
+	'srf_printername_latest' => 'Zeitpunkt (spätester)',
 	'srf_printername_timeline' => 'Zeitlinie',
 	'srf_printername_eventline' => 'Ereignislinie',
 	'srf_paramdesc_timelinebands' => 'Die Zeitleisten, die angezeigt werden sollen',
@@ -848,15 +848,15 @@ $messages['de'] = array(
 	'srf-paramdesc-views' => 'Die Ansichten, die in der Ergebnisanzeige verfügbar sein sollen.',
 	'srf-printername-d3chart' => 'D3-Diagramm',
 	'srf-printername-timeseries' => 'Zeitreihengrafik',
-	'srf-paramdesc-threshold' => 'Schwellenwert',
-	'srf-paramdesc-groupedby' => 'Gruppiert nach',
+	'srf-paramdesc-group' => 'Datenreihen sortiert nach',
 	'srf-paramdesc-zoom' => 'Den Zoom aktivieren oder nicht',
-	'srf-paramdesc-datatable' => 'Eine Datentabelle anzeigen',
+	'srf-paramdesc-datatable' => 'Aktivieren einer Datentabelle',
 	'srf-timeseries-zoom-out-of-range' => 'Der Zoombereich enthält nicht genug Daten.',
 	'srf-printername-sparkline' => 'Wortgrafik',
-	'srf-paramdesc-listtype' => 'Listentyp',
+	'srf-printername-listwidget' => 'Listenwidget',
+	'srf-paramdesc-listtype' => 'Der Listentyp',
 	'srf-paramdesc-widget' => 'Das verfügbare Widget',
-	'srf-paramdesc-pageitems' => 'Elemente pro Seite',
+	'srf-paramdesc-pageitems' => 'Datenelemente pro Seite',
 );
 
 /** Zazaki (Zazaki)
@@ -1175,8 +1175,6 @@ $messages['es'] = array(
 	'srf-paramdesc-views' => 'Las vistas que estarán disponibles en la pantalla de resultados.',
 	'srf-printername-d3chart' => 'Gráfico D3',
 	'srf-printername-timeseries' => 'Gráfico de series temporales',
-	'srf-paramdesc-threshold' => 'Límite',
-	'srf-paramdesc-groupedby' => 'Agrupados por',
 	'srf-paramdesc-zoom' => 'Activar el zoom',
 	'srf-paramdesc-datatable' => 'Mostrar una tabla de datos',
 	'srf-timeseries-zoom-out-of-range' => 'El alcance del zoom no produjo datos suficientes',
@@ -1196,6 +1194,7 @@ $messages['eu'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Mjbmr
  * @author Tofighi
  */
 $messages['fa'] = array(
@@ -1203,6 +1202,9 @@ $messages['fa'] = array(
 	'srfc_nextmonth' => 'ماه آینده',
 	'srfc_today' => 'امروز',
 	'srfc_gotomonth' => 'برو به ماه',
+	'srf_outline_novalue' => 'بدون مقدار',
+	'srf-gallery-navigation-previous' => 'قبلی',
+	'srf-gallery-navigation-next' => 'بعدی',
 );
 
 /** Finnish (suomi)
@@ -1260,6 +1262,7 @@ $messages['fr'] = array(
 	'srf-paramdesc-height' => 'Hauteur (en pixels)',
 	'srf-paramdesc-width' => 'Largeur (en pixels)',
 	'srf-paramdesc-class' => 'Classe CSS supplémentaire',
+	'srf-module-nomatch' => 'Aucun résultat trouvé',
 	'srf-error-option-mix' => "L'option ($1) n'est pas disponible",
 	'srf-error-option-link-all' => 'L\'option ($1) nécessite le paramètre "link" pour être mise à "all"',
 	'srf-error-missing-layout' => 'Mise en page manquante',
@@ -1340,6 +1343,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_captionproperty' => 'Le nom de la propriété sémantique présent sur les pages demandées doit être utilisé comme titre',
 	'srf_paramdesc_imageproperty' => 'Le nom de la propriété sémantique sur les pages demandées qui pointent vers des images à utiliser. Quand il est positionné, les pages demandées elles-mêmes ne seront aps affichées comme des images',
 	'srf-paramdesc-navigation' => 'Navigation',
+	'srf-paramdesc-overlay' => "Activer la superposition d'image",
 	'srf-gallery-navigation-previous' => 'Précédent',
 	'srf-gallery-navigation-next' => 'Suivant',
 	'srf-gallery-overlay-count' => 'Image $1 sur $2',
@@ -1351,7 +1355,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_minsize' => 'La taille du plus petit tag en pourcent (par défaut : 77)',
 	'srf_paramdesc_maxsize' => 'La taille du plus grand des tags en pourcent (par défaut : 242)',
 	'srf_paramdesc_maxtags' => 'Le montant maximal des tags dans le nuage',
-	'srf-paramdesc-excludetags' => 'Exclure les noms de balise (;)',
+	'srf-paramdesc-excludetags' => 'Exclure les noms de balise (délimiteur : ;)',
 	'srf_printername_valuerank' => 'Valeur du rang',
 	'srf_printername_array' => 'Tableau',
 	'srf_paramdesc_pagetitle' => "S'il faut afficher les titres de page comme entrées de résultat ou les omettre",
@@ -1389,8 +1393,13 @@ $messages['fr'] = array(
 	'srf-paramdesc-effect' => "L'effet à utiliser pour passer d'une diapositive à l'autre",
 	'srf-printername-filtered' => 'Filtré',
 	'srf-paramdesc-views' => "Les vues qui doivent être disponibles dans l'affichage du résultat.",
-	'srf-paramdesc-threshold' => 'Seuil',
+	'srf-printername-d3chart' => 'Graphique D3',
 	'srf-paramdesc-zoom' => 'Activer le zoom',
+	'srf-paramdesc-datatable' => 'Afficher une table de données',
+	'srf-timeseries-zoom-out-of-range' => "La plage de zoom n'a pas produit de données suffisantes",
+	'srf-paramdesc-listtype' => 'Type de liste',
+	'srf-paramdesc-widget' => 'Widget disponible',
+	'srf-paramdesc-pageitems' => 'Éléments par page',
 );
 
 /** Franco-Provençal (arpetan)
@@ -1459,6 +1468,7 @@ $messages['gl'] = array(
 	'srf-paramdesc-height' => 'Altura (en píxeles)',
 	'srf-paramdesc-width' => 'Largo (en píxeles)',
 	'srf-paramdesc-class' => 'Clase CSS adicional',
+	'srf-module-nomatch' => 'Non se atoparon coincidencias',
 	'srf-error-option-mix' => 'A opción ($1) non está dispoñible',
 	'srf-error-option-link-all' => 'A opción ($1) necesita que o parámetro "link" estea definido como "all"',
 	'srf-error-missing-layout' => 'Falta o esquema',
@@ -1591,11 +1601,11 @@ $messages['gl'] = array(
 	'srf-paramdesc-views' => 'As vistas que deberan estar dispoñibles na presentación do resultado.',
 	'srf-printername-d3chart' => 'Gráfica D3',
 	'srf-printername-timeseries' => 'Gráfica de serie temporal',
-	'srf-paramdesc-threshold' => 'Límite',
-	'srf-paramdesc-groupedby' => 'Agrupados por',
 	'srf-paramdesc-zoom' => 'Activar o zoom',
 	'srf-paramdesc-datatable' => 'Mostrar unha táboa de datos',
 	'srf-timeseries-zoom-out-of-range' => 'O rango do zoom non produciu datos suficientes',
+	'srf-paramdesc-listtype' => 'Tipo de lista',
+	'srf-paramdesc-pageitems' => 'Elementos por páxina',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -1769,6 +1779,7 @@ $messages['hsb'] = array(
 	'srf-paramdesc-height' => 'Wysokosć (w pikselach)',
 	'srf-paramdesc-width' => 'Šěrokosć (w pikselach)',
 	'srf-paramdesc-class' => 'Přidatna CSS-klasa',
+	'srf-module-nomatch' => 'Žane wotpowědniki namakane.',
 	'srf-error-option-mix' => 'Opcija ($1) k dispoziciji njesteji',
 	'srf-error-option-link-all' => 'Opcija ($1) sej wužaduje, zo so parameter "link" na "all" staji',
 	'srf-error-missing-layout' => 'Layout faluje',
@@ -1893,12 +1904,14 @@ $messages['hsb'] = array(
 	'srf-paramdesc-views' => 'Napohlady, kotrež ma we wuslědkowym wozjewjenju k dispoziciji stać.',
 	'srf-printername-d3chart' => 'D3-diagram',
 	'srf-printername-timeseries' => 'Diagram časowych rjadow',
-	'srf-paramdesc-threshold' => 'Ekstremna hódnota',
-	'srf-paramdesc-groupedby' => 'Zeskupjeny po',
 	'srf-paramdesc-zoom' => 'Skalowanje zmóžnić',
 	'srf-paramdesc-datatable' => 'Datowu tabelu zwobraznić',
 	'srf-timeseries-zoom-out-of-range' => 'Skalowanski wobłuk dosć datow njepłodźi',
 	'srf-printername-sparkline' => 'Słowne grafiki',
+	'srf-printername-listwidget' => 'Lisćinowy asistent',
+	'srf-paramdesc-listtype' => 'Lisćinowy typ',
+	'srf-paramdesc-widget' => 'K dispoziciji stejacy asistent',
+	'srf-paramdesc-pageitems' => 'Elementy na stronu',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -2523,6 +2536,7 @@ $messages['mk'] = array(
 	'srf-paramdesc-height' => 'Висина (во пиксели)',
 	'srf-paramdesc-width' => 'Ширина (во пиксели)',
 	'srf-paramdesc-class' => 'Дополнителна CSS-класа',
+	'srf-module-nomatch' => 'Нема совпаѓања',
 	'srf-error-option-mix' => 'Можноста ($1) не е достапна',
 	'srf-error-option-link-all' => 'Можноста ($1) бара параметарот „link“ да биде ставен на „all“',
 	'srf-error-missing-layout' => 'Распоредот недостасува',
@@ -2654,12 +2668,14 @@ $messages['mk'] = array(
 	'srf-paramdesc-views' => 'Погледите на на располагање во приказот на резултатите',
 	'srf-printername-d3chart' => 'D3-графикон',
 	'srf-printername-timeseries' => 'Графикон на временска низа',
-	'srf-paramdesc-threshold' => 'Праг',
-	'srf-paramdesc-groupedby' => 'Групирани според',
 	'srf-paramdesc-zoom' => 'Овозможи приближување',
 	'srf-paramdesc-datatable' => 'Прикажи податочна табела',
 	'srf-timeseries-zoom-out-of-range' => 'Опсегот на приближување не даде достатни податоци',
 	'srf-printername-sparkline' => 'Графикони во текст',
+	'srf-printername-listwidget' => 'Елемент за списоци',
+	'srf-paramdesc-listtype' => 'Вид на список',
+	'srf-paramdesc-widget' => 'Елемент на располагање',
+	'srf-paramdesc-pageitems' => 'Ставки по страница',
 );
 
 /** Malayalam (മലയാളം)
@@ -2978,8 +2994,6 @@ $messages['nl'] = array(
 	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
 	'srf-printername-d3chart' => 'D3-grafiek',
 	'srf-printername-timeseries' => 'Tijdseriegrafiek',
-	'srf-paramdesc-threshold' => 'Drempelwaarde',
-	'srf-paramdesc-groupedby' => 'Gegroepeerd op',
 	'srf-paramdesc-zoom' => 'Zoom inschakelen',
 	'srf-paramdesc-datatable' => 'Gegevenstabel weergeven',
 	'srf-timeseries-zoom-out-of-range' => 'Het zoombereik heeft onvoldoende gegevens opgeleverd',
@@ -3597,6 +3611,7 @@ $messages['tl'] = array(
 	'srf-paramdesc-height' => 'Taas (nasa mga piksel)',
 	'srf-paramdesc-width' => 'Lapad (na nasa mga piksel)',
 	'srf-paramdesc-class' => 'Karagdagang klase ng Mga Pilas ng Lumalagaslas na Estilo',
+	'srf-module-nomatch' => 'Walang natagpuang mga pagtutugma',
 	'srf-error-option-mix' => 'Hindi makukuha ang napili ($1)',
 	'srf-error-option-link-all' => 'Ang mapagpipilian ($1) ay nangangailangan ng parametrong "link" na maitakda bilang "all"',
 	'srf-error-missing-layout' => 'Nawawala ang kalatagan',
@@ -3730,12 +3745,14 @@ $messages['tl'] = array(
 	'srf-paramdesc-views' => 'Ang mga tanawin na magiging makukuha sa loob ng pakitaan ng resulta.',
 	'srf-printername-d3chart' => 'Talangguhit ng D3',
 	'srf-printername-timeseries' => 'Talangguhit ng pagkakasunud-sunod ng panahon',
-	'srf-paramdesc-threshold' => 'Bingit ng katindihan',
-	'srf-paramdesc-groupedby' => 'Pinagpangkat-pangkat ayon sa',
 	'srf-paramdesc-zoom' => 'Paganahin ang paglapit na nakatutok',
 	'srf-paramdesc-datatable' => 'Magpakita ng isang talahanayan ng dato',
 	'srf-timeseries-zoom-out-of-range' => 'Ang saklaw ng paglapit na nakatutok ay hindi nakagawa ng anumang sapat na dato',
 	'srf-printername-sparkline' => 'Mga guhit ng pagkisap',
+	'srf-printername-listwidget' => 'Widyet ng lista',
+	'srf-paramdesc-listtype' => 'Uri ng lista',
+	'srf-paramdesc-widget' => 'Makukuhang widyet',
+	'srf-paramdesc-pageitems' => 'Mga bagay sa bawat pahina',
 );
 
 /** Turkish (Türkçe)
