@@ -38,15 +38,33 @@
  * @author Steren Giannini
  * @ingroup SemanticResultFormats
  */
-class SRFBibTeX extends SMWResultPrinter {
+class SRFBibTeX extends SMWExportPrinter {
 	protected $m_title = '';
 	protected $m_description = '';
 
-	public function getMimeType( $res ) {
+	/**
+	 * @see SMWIExportPrinter::getMimeType
+	 *
+	 * @since 1.8
+	 *
+	 * @param SMWQueryResult $queryResult
+	 *
+	 * @return string
+	 */
+	public function getMimeType( SMWQueryResult $queryResult ) {
 		return 'text/bibtex';
 	}
 
-	public function getFileName( $res ) {
+	/**
+	 * @see SMWIExportPrinter::getFileName
+	 *
+	 * @since 1.8
+	 *
+	 * @param SMWQueryResult $queryResult
+	 *
+	 * @return string|boolean
+	 */
+	public function getFileName( SMWQueryResult $queryResult ) {
 		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
 			return str_replace( ' ', '_', $this->getSearchLabel( SMW_OUTPUT_WIKI ) ) . '.bib';
 		} else {

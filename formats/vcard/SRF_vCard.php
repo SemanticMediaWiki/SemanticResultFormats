@@ -17,16 +17,34 @@
  * TODO: fix the insane case
  * TODO: make SRFvCardAddress constructor sane
  */
-class SRFvCard extends SMWResultPrinter {
+class SRFvCard extends SMWExportPrinter {
 	
 	protected $m_title = '';
 	protected $m_description = '';
 
-	public function getMimeType( $res ) {
+	/**
+	 * @see SMWIExportPrinter::getMimeType
+	 *
+	 * @since 1.8
+	 *
+	 * @param SMWQueryResult $queryResult
+	 *
+	 * @return string
+	 */
+	public function getMimeType( SMWQueryResult $queryResult ) {
 		return 'text/x-vcard';
 	}
 
-	public function getFileName( $res ) {
+	/**
+	 * @see SMWIExportPrinter::getFileName
+	 *
+	 * @since 1.8
+	 *
+	 * @param SMWQueryResult $queryResult
+	 *
+	 * @return string|boolean
+	 */
+	public function getFileName( SMWQueryResult $queryResult ) {
 		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
 			return str_replace( ' ', '_', $this->getSearchLabel( SMW_OUTPUT_WIKI ) ) . '.vcf';
 		} else {
