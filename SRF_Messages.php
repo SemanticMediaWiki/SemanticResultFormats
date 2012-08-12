@@ -233,7 +233,8 @@ This is an error message. Parameters:
 * $1 is a fixed entitity name that cannot and should not be translated.',
 	'srf_printername_calendar' => '{{doc-smwformat|calendar}}',
 	'srf_paramdesc_calendarlang' => '{{doc-paramdesc|lang}}',
-	'srf_paramdesc_calendarcolors' => 'Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.',
+	'srf_paramdesc_calendarcolors' => '{{doc-smwformat|colors}}
+Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.',
 	'srf_vcard_link' => '{{optional}}',
 	'srf_printername_vcard' => '{{doc-smwformat|vcard}}',
 	'srf_icalendar_link' => '{{optional}}',
@@ -246,7 +247,9 @@ This is an error message. Parameters:
 
 It is basically a list, or nested list, of topics, subtopics, subsubtopics, etc., as deeply stacked as defined by page editors in an inline query.
 There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
-	'srf_paramdesc_outlineproperties' => '"Outline" means the outline of text or document here.',
+	'srf_paramdesc_outlineproperties' => '{{doc-paramdesc|outlineproperties}}
+
+"Outline" means the outline of text or document here.',
 	'srf_printername_sum' => '{{doc-smwformat|sum}}',
 	'srf_printername_average' => '{{doc-smwformat|average}}',
 	'srf_printername_max' => '{{doc-smwformat|max}}',
@@ -259,7 +262,7 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf_printername_latest' => '{{doc-smwformat|latest}}',
 	'srf_printername_timeline' => '{{doc-smwformat|timeline}}',
 	'srf_printername_eventline' => '{{doc-smwformat|eventline}}',
-	'srf_paramdesc_timelinebands' => 'Available bands are DECADE, YEAR, MONTH, WEEK, and DAY. For details see http://semantic-mediawiki.org/wiki/Help:Timeline_format',
+	'srf_paramdesc_timelinebands' => '{{doc-smwformat|timelinebands}}',
 	'srf_paramdesc_timelineposition' => '{{doc-paramdesc|timelineposition}}',
 	'srf_paramdesc_timelinestart' => '{{doc-paramdesc|timelinestart}}',
 	'srf_paramdesc_timelineend' => '{{doc-paramdesc|timelineend}}',
@@ -269,9 +272,6 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf_paramdesc_lens' => '{{doc-paramdesc|lens}}',
 	'srf_printername_googlebar' => '{{doc-smwformat|googlebar}}',
 	'srf_printername_googlepie' => '{{doc-smwformat|googlepie}}',
-	'srf_printername_jqplotbar' => '{{doc-smwformat|jqplotbar}}',
-	'srf_printername_jqplotpie' => '{{doc-smwformat|jqplotpie}}',
-	'srf_printername_jqplotseries' => '{{doc-smwformat|jqplotseries}}',
 	'srf_paramdesc_chartheight' => '{{doc-paramdesc|chartheight}}',
 	'srf_paramdesc_chartwidth' => '{{doc-paramdesc|chartwidth}}',
 	'srf_paramdesc_charttitle' => '{{doc-paramdesc|charttitle}}',
@@ -323,19 +323,26 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf_paramdesc_propsep' => '{{doc-paramdesc|propsep}}',
 	'srf_paramdesc_manysep' => '{{doc-paramdesc|manysep}}',
 	'srf_paramdesc_recordsep' => '{{doc-paramdesc|recordsep}}',
-	'srf_paramdesc_headersep' => 'Do not translate "headers" since it is the name of a parameter. "show" and "plain" should not be translated either since these are setting options for this parameter.',
+	'srf_paramdesc_headersep' => '{{doc-smwformat|headersep}}
+{{doc-important|Do not translate the parameter name "headers" and its possible values "show" or "plain".}}',
 	'srf_printername_hash' => '{{doc-smwformat|hash}}',
 	'srf_paramdesc_hashname' => '{{doc-paramdesc|name}}',
 	'srf-printername-graph' => '{{doc-smwformat|graph}}',
 	'srf-paramdesc-graph-relation' => '{{doc-paramdesc|graphrelation}}',
 	'srf-paramdesc-graph-nameprop' => '{{doc-paramdesc|nameproperty}}',
 	'srf-paramdesc-graph-nodeshape' => '{{doc-paramdesc|nodeshape}}',
-	'srf_paramdesc_graphname' => '{{Identical|Title}}',
+	'srf_paramdesc_graphname' => '{{doc-smwformat|graphname}}
+{{Identical|Title}}',
 	'srf_paramdesc_graphsize' => '{{doc-paramdesc|graphsize}}',
 	'srf_paramdesc_graphlegend' => '{{doc-paramdesc|graphlegend}}',
 	'srf_paramdesc_graphlabel' => '{{doc-paramdesc|graphlabel}}',
 	'srf_paramdesc_rankdir' => '{{doc-paramdesc|rankdir}}',
+	'srf_paramdesc_graphlink' => '{{doc-paramdesc|graphlink}}',
+	'srf_paramdesc_graphcolor' => '{{doc-paramdesc|graphcolor}}',
+	'srf-paramdesc-graph-wwl' => '{{doc-paramdesc|wordwraplimit}}',
 	'srf_printername_datatables' => '{{doc-smwformat|datatables}}',
+	'srf-paramdesc-rowindex' => '{{doc-paramdesc|rowindex}}',
+	'srf-paramdesc-displaylength' => '{{doc-paramdesc|displaylength}}',
 	'srf_printername_tree' => '{{doc-smwformat|tree}}',
 	'srf_printername_ultree' => '{{doc-smwformat|ultree}}
 This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
@@ -351,6 +358,8 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-printername-d3chart' => '{{doc-smwformat|d3chart}}',
 	'srf-printername-timeseries' => '{{doc-smwformat|timeseries}}',
 	'srf-paramdesc-group' => '{{doc-paramdesc|group}}',
+	'srf-paramdesc-zoom' => '{{doc-paramdesc|zoom}}',
+	'srf-paramdesc-datatable' => '{{doc-paramdesc|datatable}}',
 	'srf-printername-sparkline' => '{{doc-smwformat|sparkline}}',
 	'srf-printername-listwidget' => '{{doc-smwformat|listwidget}}',
 	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
@@ -816,9 +825,8 @@ $messages['de'] = array(
 	'srf_paramdesc_lens' => 'Der Name einer Vorlage zum Anzeigen der Seiteneigenschaften',
 	'srf_printername_googlebar' => 'Google - Säulendiagramm',
 	'srf_printername_googlepie' => 'Google - Tortendiagramm',
-	'srf_printername_jqplotbar' => 'jqPlot - Säulen- oder Balkendiagramm',
-	'srf_printername_jqplotpie' => 'jqPlot - Kreisdiagramm',
-	'srf_printername_jqplotseries' => 'jqPlot-Reihendiagramm',
+	'srf-printername-jqplotchart' => 'jqPlot-Diagramm',
+	'srf-printername-jqplotseries' => 'jqPlot-Datenreihen',
 	'srf_paramdesc_chartheight' => 'Die Höhe des Diagramms / der Grafik (in Pixeln)',
 	'srf_paramdesc_chartwidth' => 'Die Breite des Diagramms / der Grafik (in Pixeln)',
 	'srf_paramdesc_charttitle' => 'Der Titel des Diagramms',
@@ -1143,9 +1151,6 @@ $messages['es'] = array(
 	'srf_paramdesc_lens' => 'El nombre de una plantilla con la que se muestra la propiedades de la página',
 	'srf_printername_googlebar' => 'Gráfico de barras de Google',
 	'srf_printername_googlepie' => 'Gráfica circular de Google',
-	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
-	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
-	'srf_printername_jqplotseries' => 'Diagrama de series jqPlot',
 	'srf_paramdesc_chartheight' => 'Altura de la tabla/gráfica (en píxeles)',
 	'srf_paramdesc_chartwidth' => 'Anchura de la tabla/gráfica (en píxeles)',
 	'srf_paramdesc_charttitle' => 'El título del gráfico',
@@ -1363,9 +1368,6 @@ $messages['fr'] = array(
 	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
 	'srf_printername_googlebar' => 'Diagramme à barres de Google',
 	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
-	'srf_printername_jqplotbar' => 'Diagramme en barres jqPlot',
-	'srf_printername_jqplotpie' => 'Diagramme camembert jqPlot',
-	'srf_printername_jqplotseries' => 'Diagramme de séries jqPlot',
 	'srf_paramdesc_chartheight' => 'Hauteur du graphique (en pixels)',
 	'srf_paramdesc_chartwidth' => 'Largeur du graphique (en pixels)',
 	'srf_paramdesc_charttitle' => 'Le titre du graphique',
@@ -1569,9 +1571,6 @@ $messages['gl'] = array(
 	'srf_paramdesc_lens' => 'O nome dun modelo co que mostrar as propiedades da páxina',
 	'srf_printername_googlebar' => 'Gráfica de barras do Google',
 	'srf_printername_googlepie' => 'Gráfica circular do Google',
-	'srf_printername_jqplotbar' => 'Gráfica de barras jqPlot',
-	'srf_printername_jqplotpie' => 'Gráfica circular jqPlot',
-	'srf_printername_jqplotseries' => 'Diagrama de series jqPlot',
 	'srf_paramdesc_chartheight' => 'Altura da gráfica (en píxeles)',
 	'srf_paramdesc_chartwidth' => 'Largo da gráfica (en píxeles)',
 	'srf_paramdesc_charttitle' => 'O título da gráfica',
@@ -1880,9 +1879,6 @@ $messages['hsb'] = array(
 	'srf_paramdesc_lens' => 'Mjeno předłohi, z kotrejž atributy strony maja so zwobraznić',
 	'srf_printername_googlebar' => 'Google hrjadowy diagram',
 	'srf_printername_googlepie' => 'Google tortowy diagram',
-	'srf_printername_jqplotbar' => 'Stołpowy abo hrjadowy diagram jgPlot',
-	'srf_printername_jqplotpie' => 'Kružny diagram jqPlot',
-	'srf_printername_jqplotseries' => 'Rjadowy diagram jqPlot',
 	'srf_paramdesc_chartheight' => 'Wysokosć diagrama/grafiki (w pikselach)',
 	'srf_paramdesc_chartwidth' => 'Šěrokosć diagrama/grafiki (w pikselach)',
 	'srf_paramdesc_charttitle' => 'Titul diagrama',
@@ -2670,9 +2666,6 @@ $messages['mk'] = array(
 	'srf_paramdesc_lens' => 'Името на шаблонот со кој ќе се прикажат својствата на страницата',
 	'srf_printername_googlebar' => 'Столбен дијаграм од Google',
 	'srf_printername_googlepie' => 'Кружен дијаграм од Google',
-	'srf_printername_jqplotbar' => 'Столбен графикон jqPlot',
-	'srf_printername_jqplotpie' => 'Кружен графикон jqPlot',
-	'srf_printername_jqplotseries' => 'Графикон со jqPlot-низа',
 	'srf_paramdesc_chartheight' => 'Висина на дијаграмот/графикот (во пиксели)',
 	'srf_paramdesc_chartwidth' => 'Ширина на дијаграмот/графикот (во пиксели)',
 	'srf_paramdesc_charttitle' => 'Насловот на графиконот',
@@ -2997,9 +2990,6 @@ $messages['nl'] = array(
 	'srf_paramdesc_lens' => 'De naam van het sjabloon waarmee de paginaeigenschappen weergegeven moeten worden',
 	'srf_printername_googlebar' => 'Google staafgrafiek',
 	'srf_printername_googlepie' => 'Google taartgrafiek',
-	'srf_printername_jqplotbar' => 'jqPlot-staafdiagram',
-	'srf_printername_jqplotpie' => 'jqPlot-circeldiagram',
-	'srf_printername_jqplotseries' => 'jqPlot-seriekaart',
 	'srf_paramdesc_chartheight' => 'Kaart- of grafiekhoogte (in pixels)',
 	'srf_paramdesc_chartwidth' => 'Kaart- of grafiekbreedte (in pixels)',
 	'srf_paramdesc_charttitle' => 'Grafiektitel',
@@ -3350,8 +3340,6 @@ $messages['pt'] = array(
 	'srf_paramdesc_lens' => 'O nome de uma predefinição usada para apresentar as propriedades das páginas',
 	'srf_printername_googlebar' => 'Gráfico de barras Google',
 	'srf_printername_googlepie' => 'Gráfico circular Google',
-	'srf_printername_jqplotbar' => 'Gráfico de barras jqPlot',
-	'srf_printername_jqplotpie' => 'Gráfico circular jqPlot',
 	'srf_paramdesc_chartheight' => 'Altura do gráfico (em pixels)',
 	'srf_paramdesc_chartwidth' => 'Largura do gráfico (em pixels)',
 	'srf_paramdesc_charttitle' => 'O título do gráfico',
@@ -3543,6 +3531,28 @@ $messages['rue'] = array(
 	'srf_printername_gallery' => 'Ґалерія',
 );
 
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'srf-module-loading' => 'ප්‍රවේශනය වෙමින්...',
+	'srf-module-nomatch' => 'කිසිදු ගැලපුමක් හමු නොවුණි',
+	'srfc_previousmonth' => 'පෙර මාසය',
+	'srfc_nextmonth' => 'මීළඟ මාසය',
+	'srfc_today' => 'අද',
+	'srfc_gotomonth' => 'මාසයට යන්න',
+	'srf_printername_calendar' => 'මාසික දින දසුන',
+	'srf_outline_novalue' => 'අගයක් නොමැත',
+	'srf_printername_max' => 'උපරිම අංකය',
+	'srf_printername_min' => 'අවම අංකය',
+	'srf_printername_gallery' => 'ගැලරිය',
+	'srf-gallery-navigation-previous' => 'පෙර',
+	'srf-gallery-navigation-next' => 'මීළඟ',
+	'srf-printername-graph' => 'ප්‍රස්තාරය',
+	'srf_paramdesc_graphname' => 'මාතෘකාව',
+	'srf_printername_tree' => 'වෘක්ෂය',
+);
+
 /** Slovak (slovenčina)
  * @author Helix84
  */
@@ -3651,6 +3661,20 @@ $messages['sv'] = array(
 	'srf_paramdesc_fileextensions' => 'Skriv ut filändelser när bildnamn används som bildtext',
 );
 
+/** Tamil (தமிழ்)
+ * @author Karthi.dr
+ */
+$messages['ta'] = array(
+	'srfc_previousmonth' => 'கடந்த மாதம்',
+	'srfc_nextmonth' => 'அடுத்த மாதம்',
+	'srfc_today' => 'இன்று',
+	'srf_printername_calendar' => 'மாதாந்திர நாட்காட்டி',
+	'srf_printername_gallery' => 'காட்சியகம்',
+	'srf-gallery-navigation-previous' => 'முந்தைய',
+	'srf-gallery-navigation-next' => 'அடுத்தது',
+	'srf_paramdesc_graphname' => 'தலைப்பு',
+);
+
 /** Telugu (తెలుగు)
  * @author Veeven
  */
@@ -3750,9 +3774,6 @@ $messages['tl'] = array(
 	'srf_paramdesc_lens' => 'Ang pangalan ng isang suleras na pagpapakitaan ng mga pag-aari ng pahina',
 	'srf_printername_googlebar' => 'Baretang tsart ng Google',
 	'srf_printername_googlepie' => 'Kakaning-tsart ng Google',
-	'srf_printername_jqplotbar' => 'baretang talangguhit ng jqPlot',
-	'srf_printername_jqplotpie' => 'kakaning-talangguhit ng jgPlot',
-	'srf_printername_jqplotseries' => 'Talangguhit ng serye ng jqPlot',
 	'srf_paramdesc_chartheight' => 'Taas ng talangguhit/talaguhitan (na nasa mga piksel)',
 	'srf_paramdesc_chartwidth' => 'Lapad ng talangguhit/talaguhitan (na nasa mga piksel)',
 	'srf_paramdesc_charttitle' => 'Ang pamagat ng talangguhit',
