@@ -91,9 +91,8 @@ $messages['en'] = array(
 	// formats "googlebar", "googlepie", jqplotpie and jqplotbar
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',
-	'srf_printername_jqplotbar' => 'jqPlot bar chart',
-	'srf_printername_jqplotpie' => 'jqPlot pie chart',
-	'srf_printername_jqplotseries' => 'jqPlot series chart',
+	'srf-printername-jqplotchart' => 'jqPlot chart',
+	'srf-printername-jqplotseries' => 'jqPlot series',
 	'srf_paramdesc_chartheight' => 'Chart/graph height (in pixels)',
 	'srf_paramdesc_chartwidth' => 'Chart/graph width (in pixels)',
 	'srf_paramdesc_charttitle'  => 'The title of the chart',
