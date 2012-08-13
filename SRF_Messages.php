@@ -272,6 +272,8 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf_paramdesc_lens' => '{{doc-paramdesc|lens}}',
 	'srf_printername_googlebar' => '{{doc-smwformat|googlebar}}',
 	'srf_printername_googlepie' => '{{doc-smwformat|googlepie}}',
+	'srf-printername-jqplotchart' => '{{doc-smwformat|Jqplotchart}}',
+	'srf-printername-jqplotseries' => '{{doc-smwformat|Jqplotseries}}',
 	'srf_paramdesc_chartheight' => '{{doc-paramdesc|chartheight}}',
 	'srf_paramdesc_chartwidth' => '{{doc-paramdesc|chartwidth}}',
 	'srf_paramdesc_charttitle' => '{{doc-paramdesc|charttitle}}',
@@ -763,6 +765,34 @@ $messages['ca'] = array(
 	'srf_paramdesc_graphcolor' => 'Color del gràfic',
 );
 
+/** Czech (česky)
+ * @author Vks
+ */
+$messages['cs'] = array(
+	'srfc_previousmonth' => 'Předchozí měsíc',
+	'srfc_nextmonth' => 'Další měsíc',
+	'srfc_today' => 'Dnes',
+	'srfc_gotomonth' => 'Přejdi na měsíc',
+	'srf_printername_calendar' => 'Měsíční kalendář',
+	'srf_paramdesc_calendarlang' => 'Kód jazyka, ve kteréem bude zobrazován kalendář',
+	'srf_printername_vcard' => 'export vCard',
+	'srf_printername_icalendar' => 'export iCalendar',
+	'srf_paramdesc_icalendartitle' => 'titulek souboru s kalendářem',
+	'srf_paramdesc_icalendardescription' => 'Popisek souboru s kalendářem',
+	'srf_printername_bibtex' => 'export BibTeX',
+	'srf_outline_novalue' => 'Žádná hodnota',
+	'srf_printername_outline' => 'Náčrtek',
+	'srf-gallery-navigation-previous' => 'Předchozí',
+	'srf-gallery-navigation-next' => 'Následujicí',
+	'srf-gallery-overlay-count' => 'Obrázek $1 z $2',
+	'srf_printername_tagcloud' => 'Oblak nálepek',
+	'srf_printername_array' => 'Pole',
+	'srf_printername_hash' => 'Asociativní pole (Haš)',
+	'srf_paramdesc_graphname' => 'Název',
+	'srf_paramdesc_graphsize' => 'Velikost grafu (v pixelech)',
+	'srf_printername_tree' => 'Strom',
+);
+
 /** German (Deutsch)
  * @author DaSch
  * @author Imre
@@ -1239,6 +1269,19 @@ $messages['es'] = array(
 	'srf-paramdesc-datatable' => 'Mostrar una tabla de datos',
 	'srf-timeseries-zoom-out-of-range' => 'El alcance del zoom no produjo datos suficientes',
 	'srf-printername-sparkline' => 'Minigráficos',
+);
+
+/** Estonian (eesti)
+ * @author Avjoska
+ */
+$messages['et'] = array(
+	'srfc_previousmonth' => 'Eelmine kuu',
+	'srfc_nextmonth' => 'Järgmine kuu',
+	'srfc_today' => 'Täna',
+	'srfc_gotomonth' => 'Mine kalendrikuuni',
+	'srf_printername_gallery' => 'Galerii',
+	'srf-gallery-navigation-previous' => 'Eelmine',
+	'srf-gallery-navigation-next' => 'Järgmine',
 );
 
 /** Basque (euskara)
@@ -1879,6 +1922,8 @@ $messages['hsb'] = array(
 	'srf_paramdesc_lens' => 'Mjeno předłohi, z kotrejž atributy strony maja so zwobraznić',
 	'srf_printername_googlebar' => 'Google hrjadowy diagram',
 	'srf_printername_googlepie' => 'Google tortowy diagram',
+	'srf-printername-jqplotchart' => 'jqPlot-diagram',
+	'srf-printername-jqplotseries' => 'jqPlot-rjady',
 	'srf_paramdesc_chartheight' => 'Wysokosć diagrama/grafiki (w pikselach)',
 	'srf_paramdesc_chartwidth' => 'Šěrokosć diagrama/grafiki (w pikselach)',
 	'srf_paramdesc_charttitle' => 'Titul diagrama',
@@ -2666,6 +2711,8 @@ $messages['mk'] = array(
 	'srf_paramdesc_lens' => 'Името на шаблонот со кој ќе се прикажат својствата на страницата',
 	'srf_printername_googlebar' => 'Столбен дијаграм од Google',
 	'srf_printername_googlepie' => 'Кружен дијаграм од Google',
+	'srf-printername-jqplotchart' => 'jqPlot-графикон',
+	'srf-printername-jqplotseries' => 'jqPlot-низа',
 	'srf_paramdesc_chartheight' => 'Висина на дијаграмот/графикот (во пиксели)',
 	'srf_paramdesc_chartwidth' => 'Ширина на дијаграмот/графикот (во пиксели)',
 	'srf_paramdesc_charttitle' => 'Насловот на графиконот',
@@ -2947,6 +2994,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-height' => 'Hoogte (in pixels)',
 	'srf-paramdesc-width' => 'Breedte (in pixels)',
 	'srf-paramdesc-class' => 'Extra CSS-klasse',
+	'srf-module-nomatch' => 'Geen overeenkomsten gevonden',
 	'srf-error-option-mix' => 'De optie ($1) is niet beschikbaar',
 	'srf-error-option-link-all' => 'Voor optie ($1) moet de parameter "link" ingesteld worden op "all".',
 	'srf-error-missing-layout' => 'Vormgeving ontbreekt',
@@ -2990,6 +3038,8 @@ $messages['nl'] = array(
 	'srf_paramdesc_lens' => 'De naam van het sjabloon waarmee de paginaeigenschappen weergegeven moeten worden',
 	'srf_printername_googlebar' => 'Google staafgrafiek',
 	'srf_printername_googlepie' => 'Google taartgrafiek',
+	'srf-printername-jqplotchart' => 'jqPlotgrafiek',
+	'srf-printername-jqplotseries' => 'jqPlotserie',
 	'srf_paramdesc_chartheight' => 'Kaart- of grafiekhoogte (in pixels)',
 	'srf_paramdesc_chartwidth' => 'Kaart- of grafiekbreedte (in pixels)',
 	'srf_paramdesc_charttitle' => 'Grafiektitel',
@@ -3074,10 +3124,15 @@ $messages['nl'] = array(
 	'srf-paramdesc-views' => 'De views die beschikbaar zijn in de resultaatweergave.',
 	'srf-printername-d3chart' => 'D3-grafiek',
 	'srf-printername-timeseries' => 'Tijdseriegrafiek',
+	'srf-paramdesc-group' => 'Series groepen op',
 	'srf-paramdesc-zoom' => 'Zoom inschakelen',
-	'srf-paramdesc-datatable' => 'Gegevenstabel weergeven',
+	'srf-paramdesc-datatable' => 'Gegevenstabel inschakelen',
 	'srf-timeseries-zoom-out-of-range' => 'Het zoombereik heeft onvoldoende gegevens opgeleverd',
 	'srf-printername-sparkline' => 'Sparkline',
+	'srf-printername-listwidget' => 'Lijstwidget',
+	'srf-paramdesc-listtype' => 'Lijsttype',
+	'srf-paramdesc-widget' => 'Beschikbaar widget',
+	'srf-paramdesc-pageitems' => 'Items per pagina',
 );
 
 /** Norwegian Nynorsk (‪norsk (nynorsk)‬)
@@ -3663,6 +3718,7 @@ $messages['sv'] = array(
 
 /** Tamil (தமிழ்)
  * @author Karthi.dr
+ * @author Shanmugamp7
  */
 $messages['ta'] = array(
 	'srfc_previousmonth' => 'கடந்த மாதம்',
@@ -3673,6 +3729,7 @@ $messages['ta'] = array(
 	'srf-gallery-navigation-previous' => 'முந்தைய',
 	'srf-gallery-navigation-next' => 'அடுத்தது',
 	'srf_paramdesc_graphname' => 'தலைப்பு',
+	'srf-paramdesc-listtype' => 'பட்டியல் வகை',
 );
 
 /** Telugu (తెలుగు)
@@ -3774,6 +3831,8 @@ $messages['tl'] = array(
 	'srf_paramdesc_lens' => 'Ang pangalan ng isang suleras na pagpapakitaan ng mga pag-aari ng pahina',
 	'srf_printername_googlebar' => 'Baretang tsart ng Google',
 	'srf_printername_googlepie' => 'Kakaning-tsart ng Google',
+	'srf-printername-jqplotchart' => 'Talangguhit ng jqPlot',
+	'srf-printername-jqplotseries' => 'Mga serye ng jqPlot',
 	'srf_paramdesc_chartheight' => 'Taas ng talangguhit/talaguhitan (na nasa mga piksel)',
 	'srf_paramdesc_chartwidth' => 'Lapad ng talangguhit/talaguhitan (na nasa mga piksel)',
 	'srf_paramdesc_charttitle' => 'Ang pamagat ng talangguhit',
