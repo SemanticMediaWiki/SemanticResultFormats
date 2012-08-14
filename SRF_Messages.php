@@ -212,6 +212,12 @@ $messages['en'] = array(
 	'srf-paramdesc-listtype' => 'Type of list',
 	'srf-paramdesc-widget' => 'Available widget',
 	'srf-paramdesc-pageitems' => 'Items per page',
+
+	// format "syndication feed"
+	'srf-printername-feed' => 'RSS/Atom feed',
+	'srf-paramdesc-feedtype' => 'Feed type',
+	'srf-paramdesc-feedtitle' => 'Feed title',
+	'srf-paramdesc-feeddescription' => 'Feed description',
 );
 
 /** Message documentation (Message documentation)
@@ -367,6 +373,10 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
 	'srf-paramdesc-widget' => '{{doc-paramdesc|widget}}',
 	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}',
+	'srf-printername-feed' => '{{doc-smwformat|feed}}',
+	'srf-paramdesc-feedtype' => '{{doc-paramdesc|feedtype}}',
+	'srf-paramdesc-feedtitle' => '{{doc-paramdesc|feedtitle}}',
+	'srf-paramdesc-feeddescription' => '{{doc-paramdesc|feeddescription}}',
 );
 
 /** Afrikaans (Afrikaans)
