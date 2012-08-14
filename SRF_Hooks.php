@@ -35,6 +35,7 @@ final class SRFHooks {
 			'formats/jqPlotSeries',
 			'formats/ListWidget',
 			'formats/Timeseries',
+			'formats/Feed'
 		);
 
 		foreach ( $testFiles as $file ) {
