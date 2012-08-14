@@ -960,6 +960,10 @@ $messages['de'] = array(
 	'srf-paramdesc-listtype' => 'Der Listentyp',
 	'srf-paramdesc-widget' => 'Das verfügbare Widget',
 	'srf-paramdesc-pageitems' => 'Datenelemente pro Seite',
+	'srf-printername-feed' => 'RSS-/Atom-Feed',
+	'srf-paramdesc-feedtype' => 'Feedtyp',
+	'srf-paramdesc-feedtitle' => 'Feedtitel',
+	'srf-paramdesc-feeddescription' => 'Feedbeschreibung',
 );
 
 /** Zazaki (Zazaki)
@@ -2021,6 +2025,10 @@ $messages['hsb'] = array(
 	'srf-paramdesc-listtype' => 'Lisćinowy typ',
 	'srf-paramdesc-widget' => 'K dispoziciji stejacy asistent',
 	'srf-paramdesc-pageitems' => 'Elementy na stronu',
+	'srf-printername-feed' => 'RSS/Atom-kanal',
+	'srf-paramdesc-feedtype' => 'Kanalowy typ',
+	'srf-paramdesc-feedtitle' => 'Kanalowy titul',
+	'srf-paramdesc-feeddescription' => 'Kanalowe wopisanje',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -2372,6 +2380,7 @@ $messages['ig'] = array(
  * @author Beta16
  * @author Civvì
  * @author Darth Kule
+ * @author F. Cosoleto
  */
 $messages['it'] = array(
 	'srf-desc' => 'Formati addizionali per le query di Semantic Mediawiki',
@@ -2379,6 +2388,7 @@ $messages['it'] = array(
 	'srf-module-loading' => 'Caricamento in corso...',
 	'srf-paramdesc-height' => 'Altezza (in pixel)',
 	'srf-paramdesc-width' => 'Larghezza (in pixel)',
+	'srf-module-nomatch' => 'Nessun risultato trovato',
 	'srf-error-option-mix' => 'Opzione ($1) non disponibile',
 	'srf-error-option-link-all' => 'L\'opzione ($1) richiede che il parametro "link" sia impostato a "all"',
 	'srfc_previousmonth' => 'Mese precedente',
@@ -2423,6 +2433,7 @@ $messages['it'] = array(
 	'srf_paramdesc_graphsize' => 'Dimensione del grafico (in px)',
 	'srf_paramdesc_graphlegend' => 'Mostra la legenda del grafico o no',
 	'srf_paramdesc_graphlabel' => 'Etichetta del grafico',
+	'srf-paramdesc-zoom' => 'Abilita zoom',
 );
 
 /** Japanese (日本語)
@@ -3143,6 +3154,10 @@ $messages['nl'] = array(
 	'srf-paramdesc-listtype' => 'Lijsttype',
 	'srf-paramdesc-widget' => 'Beschikbaar widget',
 	'srf-paramdesc-pageitems' => 'Items per pagina',
+	'srf-printername-feed' => 'RSS/Atomfeed',
+	'srf-paramdesc-feedtype' => 'Feedtype',
+	'srf-paramdesc-feedtitle' => 'Feednaam',
+	'srf-paramdesc-feeddescription' => 'Feedbeschrijving',
 );
 
 /** Norwegian Nynorsk (‪norsk (nynorsk)‬)
@@ -3936,6 +3951,10 @@ $messages['tl'] = array(
 	'srf-paramdesc-listtype' => 'Uri ng lista',
 	'srf-paramdesc-widget' => 'Makukuhang widyet',
 	'srf-paramdesc-pageitems' => 'Mga bagay sa bawat pahina',
+	'srf-printername-feed' => 'Pakain na RSS/Atom',
+	'srf-paramdesc-feedtype' => 'Uri ng pakain',
+	'srf-paramdesc-feedtitle' => 'Pamagat ng pakain',
+	'srf-paramdesc-feeddescription' => 'Paglalarawan ng pakain',
 );
 
 /** Turkish (Türkçe)
