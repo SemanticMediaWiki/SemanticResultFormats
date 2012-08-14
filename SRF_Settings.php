@@ -53,6 +53,7 @@ $srfgFormats = array(
 	'timeseries',
 	'sparkline',
 	'listwidget',
+	'feed',
 	
 	// Disabled by default
 	
