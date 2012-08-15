@@ -2447,8 +2447,14 @@ $messages['it'] = array(
  * @author 青子守歌
  */
 $messages['ja'] = array(
-	'srf-desc' => 'Semantic MediaWiki のインラインクエリーのための追加的なフォーマット',
+	'srf-desc' => 'Semantic MediaWiki のインラインクエリーのための追加的な形式',
 	'srf-name' => 'セマンティック・リザルト・フォーマット',
+	'srf-module-loading' => '読み込み中...',
+	'srf-paramdesc-height' => '高さ (ピクセル単位)',
+	'srf-paramdesc-width' => '幅 (ピクセル単位)',
+	'srf-module-nomatch' => '該当するものはありません',
+	'srf-error-option-mix' => 'オプション ($1) は利用できません',
+	'srf-error-missing-layout' => 'レイアウトがありません',
 	'srfc_previousmonth' => '前の月',
 	'srfc_nextmonth' => '次の月',
 	'srfc_today' => '今日',
@@ -2481,10 +2487,9 @@ $messages['ja'] = array(
 	'srf_paramdesc_lens' => 'ページのプロパティと共に表示するテンプレートの名前',
 	'srf_printername_googlebar' => 'Google 棒グラフ',
 	'srf_printername_googlepie' => 'Google 円グラフ',
-	'srf_printername_jqplotbar' => 'jqPlot棒グラフ',
-	'srf_printername_jqplotpie' => 'jqPlot円グラフ',
-	'srf_paramdesc_chartheight' => 'グラフの縦幅 (ピクセル単位)',
-	'srf_paramdesc_chartwidth' => 'グラフの横幅 (ピクセル単位)',
+	'srf-printername-jqplotchart' => 'jqPlot チャート',
+	'srf_paramdesc_chartheight' => 'チャート/グラフの高さ (ピクセル単位)',
+	'srf_paramdesc_chartwidth' => 'チャート/グラフの幅 (ピクセル単位)',
 	'srf_paramdesc_charttitle' => '図のタイトル',
 	'srf_paramdesc_barcolor' => 'グラフの色を指定',
 	'srf_paramdesc_bardirection' => 'グラフの方向を指定',
@@ -2493,8 +2498,20 @@ $messages['ja'] = array(
 	'srf_paramdesc_perrow' => '行あたりの画像の量',
 	'srf_paramdesc_widths' => '画像の幅',
 	'srf_paramdesc_heights' => '画像の高さ',
+	'srf-gallery-navigation-previous' => '前',
+	'srf-gallery-navigation-next' => '次',
 	'srf_printername_tagcloud' => 'タグクラウド',
+	'srf_printername_hash' => 'ハッシュ',
 	'srf-printername-graph' => 'グラフ',
+	'srf_paramdesc_graphlabel' => 'グラフ ラベル',
+	'srf_paramdesc_rankdir' => '矢印の方向',
+	'srf_paramdesc_graphlink' => 'グラフ リンク',
+	'srf_paramdesc_graphcolor' => 'グラフの色',
+	'srf-printername-slideshow' => 'スライドショー',
+	'srf-printername-feed' => 'RSS/Atom フィード',
+	'srf-paramdesc-feedtype' => 'フィードの種類',
+	'srf-paramdesc-feedtitle' => 'フィードのタイトル',
+	'srf-paramdesc-feeddescription' => 'フィードの説明',
 );
 
 /** Javanese (Basa Jawa)
@@ -2827,6 +2844,10 @@ $messages['mk'] = array(
 	'srf-paramdesc-listtype' => 'Вид на список',
 	'srf-paramdesc-widget' => 'Елемент на располагање',
 	'srf-paramdesc-pageitems' => 'Ставки по страница',
+	'srf-printername-feed' => 'RSS/Atom канал',
+	'srf-paramdesc-feedtype' => 'Вид на канал',
+	'srf-paramdesc-feedtitle' => 'Наслов на каналот',
+	'srf-paramdesc-feeddescription' => 'Опис на каналот',
 );
 
 /** Malayalam (മലയാളം)
