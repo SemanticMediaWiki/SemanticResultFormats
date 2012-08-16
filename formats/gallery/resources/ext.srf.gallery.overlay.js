@@ -13,17 +13,16 @@
  *
  * @since: 1.8
  *
- * @release: 0.2
+ * @release: 0.3
  */
 ( function( $ ) {
-
-	// jshint compliance
-	/*global mw:true*/
 	"use strict";
+
+	/*global mw:true*/
 
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
-	$.fn.galleryOverlay = function( options ) {
+	$.fn.galleryOverlay = function() {
 		var galleryID = this.attr( 'id' ),
 			srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
 
@@ -74,23 +73,28 @@
 			imageText = imageText !== null ? imageText :  image.find( 'img' ).attr( 'alt' );
 			image.attr( 'title', imageText );
 
-			// There should be a better way to find the title object but there isn't
-			var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
+			// Avoid undefined error
+			if ( typeof  image.attr( 'href' ) === 'undefined' ) {
+				$this.html( '<span class="error">' + mw.message( 'srf-gallery-image-url-error' ).escaped() + '</span>' );
+			} else {
+				// There should be a better way to find the title object but there isn't
+				var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
 
-			// Assign image url
-			_this.getImageURL( title ,
-					function( url ) { if ( url === false ) {
-						image.attr( 'href', '' );
-					} else {
-						image.attr( 'href', url );
-						// Add overlay zoom icon placeholder
-						image.prepend( zoomicon );
-					}
-			} );
+				// Assign image url
+				_this.getImageURL( title ,
+						function( url ) { if ( url === false ) {
+							image.attr( 'href', '' );
+						} else {
+							image.attr( 'href', url );
+							// Add overlay zoom icon placeholder
+							image.prepend( zoomicon );
+						}
+				} );
+			}
 		} );
 
 		// Formatting the title
-		function formatTitle( title, currentArray, currentIndex, currentOpts ) {
+		function formatTitle( title, currentArray, currentIndex /*,currentOpts*/ ) {
 			return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' +  srfPath + '/resources/jquery.fancybox/closelabel.gif' + '></a></span>' + (title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' +  mw.msg( 'srf-gallery-overlay-count', (currentIndex + 1) , currentArray.length ) + ')</span></div>';
 		}
 

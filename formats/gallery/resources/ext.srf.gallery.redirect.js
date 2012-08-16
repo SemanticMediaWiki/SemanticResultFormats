@@ -13,17 +13,16 @@
  *
  * @since: 1.8
  *
- * @release: 0.2
+ * @release: 0.3
  */
 ( function( $ ) {
-
-	// jshint compliance
-	/*global mw:true*/
 	"use strict";
+
+	/*global mw:true*/
 
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
-	$.fn.galleryRedirect = function( options ) {
+	$.fn.galleryRedirect = function( ) {
 
 		var _this = this;
 
@@ -60,20 +59,25 @@
 				image     = $this.find( 'a.image' ),
 				redirecticon = '<span class="redirect"></span>';
 
-			// Alt attribute contains redirect title
-			var title = image.find( 'img' ).attr( 'alt' );
+			// Avoid undefined error
+			if ( typeof  image.attr( 'href' ) === 'undefined' ) {
+				$this.html( '<span class="error">' + mw.message( 'srf-gallery-image-url-error' ).escaped() + '</span>' );
+			} else {
+				// Alt attribute contains redirect title
+				var title = image.find( 'img' ).attr( 'alt' );
 
-			// Assign redirect article url
-			if ( title.length > 0 ) {
-				_this.getArticleURL( title ,
-						function( url ) { if ( url === false ) {
-							image.attr( 'href', '' );
-						} else {
-							image.attr( 'href', url );
-							// Add redirect icon placeholder
-							image.prepend( redirecticon );
-						}
-				} );
+				// Assign redirect article url
+				if ( title.length > 0 ) {
+					_this.getArticleURL( title ,
+							function( url ) { if ( url === false ) {
+								image.attr( 'href', '' );
+							} else {
+								image.attr( 'href', url );
+								// Add redirect icon placeholder
+								image.prepend( redirecticon );
+							}
+					} );
+				}
 			}
 		} );
 	};

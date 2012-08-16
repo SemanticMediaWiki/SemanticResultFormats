@@ -131,6 +131,7 @@ $messages['en'] = array(
 	'srf-gallery-navigation-previous' => 'Previous',
 	'srf-gallery-navigation-next'     => 'Next',
 	'srf-gallery-overlay-count' => 'Image $1 of $2',
+	'srf-gallery-image-url-error' => 'The image was not found.',
 
 	// format "tagcloud"
 	'srf_printername_tagcloud' => 'Tag cloud',

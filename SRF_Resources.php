@@ -318,7 +318,8 @@ $wgResourceModules['ext.srf.gallery.overlay'] = $formatModule + array(
 	'styles'  => 'gallery/resources/ext.srf.gallery.overlay.css',
 	'dependencies' => 'ext.jquery.fancybox',
 	'messages' => array(
-		'srf-gallery-overlay-count'
+		'srf-gallery-overlay-count',
+		'srf-gallery-image-url-error'
 	),
 	'position' => 'top',
 );
@@ -326,6 +327,9 @@ $wgResourceModules['ext.srf.gallery.overlay'] = $formatModule + array(
 $wgResourceModules['ext.srf.gallery.redirect'] = $formatModule + array(
 	'scripts' => 'gallery/resources/ext.srf.gallery.redirect.js',
 	'styles'  => 'gallery/resources/ext.srf.gallery.redirect.css',
+	'messages' => array(
+		'srf-gallery-image-url-error'
+	),
 	'position' => 'top',
 );
 
