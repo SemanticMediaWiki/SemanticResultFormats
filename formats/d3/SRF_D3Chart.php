@@ -45,9 +45,6 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	 * @param array $data label => value
 	 */
 	protected function getFormatOutput( array $data ) {
-		if ( $this->params['layout'] === '' ) {
-			return Xml::tags( 'span', array( 'class' => "error" ), wfMsgForContent( 'srf-error-missing-layout' ) );
-		}
 
 		// Object count
 		static $statNr = 0;
@@ -62,11 +59,14 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 			}
 		}
 
+		// Ensure right conversion
+		$width = strstr( $this->params['width'] ,"%") ? $this->params['width'] : $this->params['width'] . 'px';
+
 		// Prepare transfer objects
 		$d3data = array (
 			'data' => $dataObject,
 			'parameters' => array (
-				'width'       => $this->params['width'],
+				'width'       => $width,
 				'height'      => $this->params['height'],
 				'colorscheme' => $this->params['colorscheme'] ? $this->params['colorscheme'] : null,
 				'charttitle'  => $this->params['charttitle'],
@@ -80,7 +80,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		SMWOutputs::requireHeadItem( $d3chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
-		$resource = 'ext.srf.d3.chart.' . $this->params['layout'];
+		$resource = 'ext.srf.d3.chart.' . $this->params['charttype'];
 		SMWOutputs::requireResource( $resource );
 
 		// Chart/graph placeholder
@@ -96,7 +96,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		$processing = SRFUtils::htmlProcessingElement();
 
 		// Beautify class selector
-		$class = $this->params['layout'] ?  '-' . $this->params['layout'] : '';
+		$class = $this->params['charttype'] ?  '-' . $this->params['charttype'] : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' d3-chart-common';
 
 		// D3 wrappper
@@ -116,40 +116,62 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['min'] = new Parameter( 'min', Parameter::TYPE_INTEGER );
-		$params['min']->setMessage( 'srf-paramdesc-minvalue' );
-		$params['min']->setDefault( false, false );
+		$params['min'] = array(
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-minvalue',
+			'default' => false,
+			'manipulatedefault' => false,
+		);
 
-		$params['layout'] = new Parameter( 'layout', Parameter::TYPE_STRING, '' );
-		$params['layout']->setMessage( 'srf-paramdesc-layout' );
-		$params['layout']->addCriteria( new CriterionInArray( 'treemap', 'bubble' ) );
+		$params['charttype'] = array(
+			'message' => 'srf-paramdesc-charttype',
+			'default' => 'treemap',
+			'values' => array( 'treemap', 'bubble' ),
+		);
 
-		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 400 );
-		$params['height']->setMessage( 'srf_paramdesc_chartheight' );
+		$params['height'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_chartheight',
+			'default' => 400,
+			'lowerbound' => 1,
+		);
 
-		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, 400 );
-		$params['width']->setMessage( 'srf_paramdesc_chartwidth' );
+		$params['width'] = array(
+			'message' => 'srf_paramdesc_chartwidth',
+			'default' => '100%',
+		);
 
-		$params['charttitle'] = new Parameter( 'charttitle', Parameter::TYPE_STRING, '' );
-		$params['charttitle']->setMessage( 'srf_paramdesc_charttitle' );
+		$params['charttitle'] = array(
+			'message' => 'srf_paramdesc_charttitle',
+			'default' => '',
+		);
 
-		$params['charttext'] = new Parameter( 'charttext', Parameter::TYPE_STRING, '' );
-		$params['charttext']->setMessage( 'srf-paramdesc-charttext' );
+		$params['charttext'] = array(
+			'message' => 'srf-paramdesc-charttext',
+			'default' => '',
+		);
 
-		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
-		$params['class']->setMessage( 'srf-paramdesc-class' );
-		$params['class']->setDefault( '' );
+		$params['class'] = array(
+			'message' => 'srf-paramdesc-class',
+			'default' => '',
+		);
 
-		$params['datalabels'] = new Parameter( 'datalabels', Parameter::TYPE_STRING, '' );
-		$params['datalabels']->setMessage( 'srf-paramdesc-datalabels' );
-		$params['datalabels']->addCriteria( new CriterionInArray( 'value', 'label' ) );
+		$params['datalabels'] = array(
+			'message' => 'srf-paramdesc-datalabels',
+			'default' => 'none',
+			'values' => array( 'value', 'label' ),
+		);
 
-		$params['colorscheme'] = new Parameter( 'colorscheme', Parameter::TYPE_STRING, '' );
-		$params['colorscheme']->setMessage( 'srf-paramdesc-colorscheme' );
-		$params['colorscheme']->addCriteria( new CriterionInArray( $GLOBALS['srfgColorScheme'] ) );
+		$params['colorscheme'] = array(
+			'message' => 'srf-paramdesc-colorscheme',
+			'default' => '',
+			'values' => $GLOBALS['srfgColorScheme'],
+		);
 
-		$params['chartcolor'] = new Parameter( 'chartcolor', Parameter::TYPE_STRING, '' );
-		$params['chartcolor']->setMessage( 'srf-paramdesc-chartcolor' );
+		$params['chartcolor'] = array(
+			'message' => 'srf-paramdesc-chartcolor',
+			'default' => '',
+		);
 
 		return $params;
 	}
