@@ -904,6 +904,7 @@ $messages['de'] = array(
 	'srf-gallery-navigation-previous' => 'Zurück',
 	'srf-gallery-navigation-next' => 'Weiter',
 	'srf-gallery-overlay-count' => 'Bild $1 von $2',
+	'srf-gallery-image-url-error' => 'Das Bild wurde nicht gefunden.',
 	'srf_printername_tagcloud' => 'Stichwortwolke',
 	'srf_paramdesc_includesubject' => 'Ob die Themenbezeichnungen selbst mit einbezogen werden sollen',
 	'srf_paramdesc_increase' => 'Wie soll die Darstellungsgröße der Stichwörter verändert werden?',
@@ -1281,7 +1282,7 @@ $messages['es'] = array(
 	'srf-printername-d3chart' => 'Gráfico D3',
 	'srf-printername-timeseries' => 'Gráfico de series temporales',
 	'srf-paramdesc-zoom' => 'Activar el zoom',
-	'srf-paramdesc-datatable' => 'Mostrar una tabla de datos',
+	'srf-paramdesc-datatable' => 'Activar una tabla de datos',
 	'srf-timeseries-zoom-out-of-range' => 'El alcance del zoom no produjo datos suficientes',
 	'srf-printername-sparkline' => 'Minigráficos',
 );
@@ -1522,6 +1523,10 @@ $messages['fr'] = array(
  */
 $messages['frp'] = array(
 	'srf-name' => 'Formatâjo des rèsultats sèmanticos',
+	'srf-module-loading' => 'Chargement...',
+	'srf-paramdesc-height' => 'Hôtior (en pixèls)',
+	'srf-paramdesc-width' => 'Largior (en pixèls)',
+	'srf-paramdesc-class' => 'Cllâsse CSS de ples',
 	'srfc_previousmonth' => 'Mês devant',
 	'srfc_nextmonth' => 'Mês aprés',
 	'srfc_today' => 'Houé',
@@ -1539,12 +1544,13 @@ $messages['frp'] = array(
 	'srf_printername_max' => 'Nombro lo ples grant',
 	'srf_printername_min' => 'Nombro lo ples petiôt',
 	'srf_printername_product' => 'Fruit de nombros',
+	'srf_printername_median' => 'Moyena des nombros',
+	'srf_printername_earliest' => 'Premiére hora',
+	'srf_printername_latest' => 'Dèrriére hora',
 	'srf_printername_timeline' => 'Diagramo cronologico',
 	'srf_printername_eventline' => 'Diagramo cronologico des èvènements',
 	'srf_printername_googlebar' => 'Diagramo en bârres de Google',
 	'srf_printername_googlepie' => 'Diagramo en torta de Google',
-	'srf_printername_jqplotbar' => 'Diagramo en bârres jqPlot',
-	'srf_printername_jqplotpie' => 'Diagramo en torta jqPlot',
 	'srf_paramdesc_chartheight' => 'La hôtior du diagramo, en pixèls',
 	'srf_paramdesc_chartwidth' => 'La largior du diagramo, en pixèls',
 	'srf_paramdesc_charttitle' => 'Lo titro du diagramo',
@@ -1555,6 +1561,9 @@ $messages['frp'] = array(
 	'srf_paramdesc_perrow' => 'Lo nombro d’émâges per legne',
 	'srf_paramdesc_widths' => 'La largior de les émâges',
 	'srf_paramdesc_heights' => 'La hôtior de les émâges',
+	'srf-gallery-navigation-previous' => 'Devant',
+	'srf-gallery-navigation-next' => 'Aprés',
+	'srf-gallery-overlay-count' => 'Émâge $1 sur $2',
 	'srf_printername_tagcloud' => 'Niola de tags',
 	'srf_paramdesc_tagorder' => 'L’ôrdre des tags',
 	'srf_printername_valuerank' => 'Valor du rang',
@@ -1569,6 +1578,28 @@ $messages['frp'] = array(
 	'srf_paramdesc_graphlink' => 'Lim de vers lo diagramo',
 	'srf_paramdesc_graphcolor' => 'Color du diagramo',
 	'srf-paramdesc-graph-wwl' => 'Limita de retôrn ôtomatico (en nombro de caractèros)',
+	'srf_printername_datatables' => 'Grelyes de donâs',
+	'srf_printername_tree' => 'Âbro',
+	'srf_printername_ultree' => 'Âbro Ul',
+	'srf_printername_oltree' => 'Âbro Ol',
+	'srf-printername-filtered' => 'Filtrâ',
+	'srf-printername-d3chart' => 'Diagramo D3',
+	'srf-paramdesc-zoom' => 'Activar lo zoome',
+	'srf-paramdesc-datatable' => 'Activar na grelye de donâs',
+	'srf-paramdesc-listtype' => 'Tipo de lista',
+	'srf-paramdesc-pageitems' => 'Èlèments per pâge',
+	'srf-printername-feed' => 'Flux RSS / Atom',
+	'srf-paramdesc-feedtype' => 'Tipo de flux',
+	'srf-paramdesc-feedtitle' => 'Titro du flux',
+	'srf-paramdesc-feeddescription' => 'Dèscripcion du flux',
+);
+
+/** Irish (Gaeilge)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ga'] = array(
+	'srf-module-loading' => 'Ag Lódáil...',
+	'srf_paramdesc_graphname' => 'Teideal',
 );
 
 /** Galician (galego)
@@ -3119,6 +3150,7 @@ $messages['nl'] = array(
 	'srf-gallery-navigation-previous' => 'Vorige',
 	'srf-gallery-navigation-next' => 'Volgende',
 	'srf-gallery-overlay-count' => 'Afbeelding $1 van $2',
+	'srf-gallery-image-url-error' => 'Deze afbeelding werd niet gevonden.',
 	'srf_printername_tagcloud' => 'Woordwolk',
 	'srf_paramdesc_includesubject' => 'Of de namen van de onderwerpen zelf opgenomen moeten worden',
 	'srf_paramdesc_increase' => 'Hoe de grootte van de labels moet worden vergroot',
@@ -3916,6 +3948,7 @@ $messages['tl'] = array(
 	'srf-gallery-navigation-previous' => 'Nakaraan',
 	'srf-gallery-navigation-next' => 'Susunod',
 	'srf-gallery-overlay-count' => 'Imaheng $1 ng $2',
+	'srf-gallery-image-url-error' => 'Hindi natagpuan ang imahe.',
 	'srf_printername_tagcloud' => 'Ulap ng tatak',
 	'srf_paramdesc_includesubject' => 'Kung dapat bang isama ang mga pangalan ng mga paksa mismo',
 	'srf_paramdesc_increase' => 'Paano patataasin ang sukat ng mga tatak',
@@ -4030,10 +4063,12 @@ $messages['vep'] = array(
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
  * @author Vinhtantran
+ * @author පසිඳු කාවින්ද
  */
 $messages['vi'] = array(
 	'srf-desc' => 'Các định dạng bổ sung cho các câu truy vấn trong dòng lệnh của MediaWiki Ngữ Nghĩa',
 	'srf-name' => 'Định dạng Kết quả Ngữ nghĩa',
+	'srf-module-loading' => 'Đang tải...',
 	'srfc_previousmonth' => 'Tháng trước',
 	'srfc_nextmonth' => 'Tháng sau',
 	'srfc_today' => 'Hôm nay',
@@ -4050,6 +4085,9 @@ $messages['vi'] = array(
 	'srf_printername_min' => 'Số nhỏ nhất',
 	'srf_printername_timeline' => 'Thời gian biểu',
 	'srf_printername_eventline' => 'Sự kiện biểu',
+	'srf-gallery-navigation-previous' => 'Trước',
+	'srf-gallery-navigation-next' => 'Tiếp theo',
+	'srf_paramdesc_graphname' => 'Tựa đề',
 );
 
 /** Volapük (Volapük)
