@@ -48,6 +48,11 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 			'default' => '',
 		);
 
+		$params['labelaxislabel'] = array(
+			'message' => 'srf-paramdesc-labelaxislabel',
+			'default' => '',
+		);
+
 		$params['height'] = array(
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_chartheight',

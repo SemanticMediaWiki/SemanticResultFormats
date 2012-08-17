@@ -50,29 +50,18 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$i = 0;
 		$numcount = 0;
 
-		// Check layout
-		if ( $this->params['layout'] === '' ) {
+		// Check layout type
+		if ( $this->params['charttype'] === '' ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-error-missing-layout' ) ) );
 		}
 
 		// Get data set
 		$data = $this->getResultData( $result, $outputMode );
 
-		// Bailout
+		// Check data availability
 		if ( count( $data['series'] ) == 0 ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
 		} else {
-
-			// Data dependant requirements
-			foreach ( $data['printrequest'] as $item ) {
-				$i++;
-
-				// First position has to be occupied with a label entity 
-				if ( !in_array( $item['typeid'], array( '_str', '_wpg', '_dat' ) ) && $i == 1 ){
-					return $result->addErrors( array( wfMsgForContent( 'srf-error-jqplot-data-order' ) ) );
-				}
-			}
-
 			return $this->getFormatOutput( $this->getFormatSettings( $this->getNumbersTicks( $data ) ) );
 		}
 	}
@@ -94,26 +83,39 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		while ( $row = $res->getNext() ) {
 			// Loop over their fields (properties)
 			$label = '';
+			$i = 0;
 
 			foreach ( $row as /* SMWResultArray */ $field ) {
+				$i++;
 				$rowNumbers = array();
 
 				// Grouping by subject (page object) or property
-				if ( $this->params['group'] == 'subject' ){
+				if ( $this->params['group'] === 'subject' ){
 					$groupedBy = $field->getResultSubject()->getTitle()->getText();
 				} else {
 					$groupedBy = $field->getPrintRequest()->getLabel();
 				}
 
-				// printrequest array is used to verify some input data at a later point
+				// Property label
 				$property = $field->getPrintRequest()->getLabel();
-				$data['printrequest'][$property] = array ( 'typeid' => $field->getPrintRequest()->getTypeID() );
+
+				// First column property typeid
+				$i == 1 ? $data['fcolumntypeid'] = $field->getPrintRequest()->getTypeID() : '';
 
 				// Loop over all values for the property.
 				while ( ( /* SMWDataValue */ $object = $field->getNextDataValue() ) !== false ) {
 
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ) {
 						$number =  $object->getNumber();
+
+						// Checking against the row and in case the first column is a numeric
+						// value it is handled as label with the remaining steps continue to work
+						// as it were a text label
+						// The first column container will not be part of the series container
+						if ( $i == 1 ){
+							$label = $number;
+							continue;
+						}
 
 						if ( $label !== '' && $number >= $this->params['min'] ){
 
@@ -153,13 +155,20 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$dataSet = array ();
 		$grid = array ();
 
+		// Available markers
+		$marker = array ( 'circle', 'diamond', 'square', 'filledCircle', 'filledDiamond', 'filledSquare' );
+
+		// Series colour(has to be null otherwise jqplot runs with a type error)
+		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : null;
+		$mode = 'series';
+
 		// Re-grouping
 		foreach ( $data[$this->params['group']] as $rowKey => $row ) {
 			$values= array();
 
 			foreach ( $row as $key => $value ) {
 				// Switch labels according to the group parameter
-				$label = $this->params['grouplabel'] == 'property' ? $value['property'] : $value['subject'];
+				$label = $this->params['grouplabel'] === 'property' ? $value['property'] : $value['subject'];
 				$values[] = array ( $label , $value['value'] );
 			}
 			$dataSet[] = $values;
@@ -168,26 +177,31 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		// Series plotting parameters
 		foreach ( $data[$this->params['group']] as $key => $row ) {
 			$series[] = array ('label' => $key,
-			'xaxis' => 'xaxis',
+			'xaxis' => 'xaxis', // xaxis could also be xaxis2 or ...
 			'yaxis' => 'yaxis',
-			'fill'  => $this->params['stackseries'] === true ? true : false,
-			'rendererOptions' => array (
-				'barDirection' => $this->params['direction'] )
+			'fill'  => $this->params['stackseries'],
+			'showLine' => $this->params['charttype'] !== 'scatter',
+			'showMarker' => true,
+			'trendline' => array (
+				'show' => $this->params['charttype'] === 'scatter',
+				'shadow' => $this->params['theme'] !== 'simple'
+			),
+			'markerOptions' => array (
+				'style' => $marker[array_rand( $marker )],
+				'shadow' => $this->params['theme'] !== 'simple'
+			),
+			'rendererOptions' => array ('barDirection' => $this->params['direction'] )
 			);
 		};
-
-		// Series colour
-		// has to be null otherwise jqplot runs with a type error
-		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( ",", $this->params['chartcolor'] ) ): null;
-		$mode = 'series';
 
 		// Basic parameters
 		$parameters = array (
 			'numbersaxislabel' => $this->params['numbersaxislabel'],
+			'labelaxislabel'   => $this->params['labelaxislabel'],
 			'charttitle'   => $this->params['charttitle'],
 			'charttext'    => $this->params['charttext'],
 			'theme'        => $this->params['theme'] ? $this->params['theme'] : null,
-			'valueformat'  => $this->params['datalabels'] == 'label' ? '' : $this->params['valueformat'],
+			'valueformat'  => $this->params['datalabels'] === 'label' ? '' : $this->params['valueformat'],
 			'ticklabels'   => $this->params['ticklabels'],
 			'highlighter'  => $this->params['highlighter'],
 			'autoscale'    => false,
@@ -195,22 +209,23 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'smoothlines'  => $this->params['smoothlines'],
 			'chartlegend'  => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
 			'colorscheme'  => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null,
-			'pointlabels'  => $this->params['datalabels'] == 'none' ? false : $this->params['datalabels'],
+			'pointlabels'  => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
 			'datalabels'   => $this->params['datalabels'],
 			'stackseries'  => $this->params['stackseries'],
-			'grid'         => $this->params['theme'] == 'vector' ? array ( 'borderColor' => '#a7d7f9' ) : ( $this->params['theme'] == 'simple' ? array ( 'borderColor' => '#ddd' ) : null ),
+			'grid'         => $this->params['theme'] === 'vector' ? array ( 'borderColor' => '#a7d7f9' ) : ( $this->params['theme'] === 'simple' ? array ( 'borderColor' => '#ddd' ) : null ),
 			'seriescolors' => $seriescolors
 		);
 
 		return array (
-			'data'         => $dataSet,
+			'data'          => $dataSet,
 			//'rawdata'      => $data , // control array
-			'series'       => $series,
-			'ticks'        => $data['numbersticks'],
-			'total'        => $data['total'], 
-			'mode'         => $mode,
-			'renderer'     => $this->params['layout'],
-			'parameters'   => $parameters
+			'series'        => $series,
+			'ticks'         => $data['numbersticks'],
+			'total'         => $data['total'],
+			'fcolumntypeid' => $data['fcolumntypeid'],
+			'mode'          => $mode,
+			'renderer'      => $this->params['charttype'],
+			'parameters'    => $parameters
 		);
 	}
 
@@ -259,17 +274,19 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$chartID = 'jqplot-series-' . ++$statNr;
 
 		// RL module
-		switch ( $this->params['layout'] ) {
+		switch ( $this->params['charttype'] ) {
 			case 'bubble':
 				SMWOutputs::requireResource( 'ext.srf.jqplot.bubble' );
 				break;
 			case 'donut':
 				SMWOutputs::requireResource( 'ext.srf.jqplot.donut' );
 				break;
+			case 'scatter':
+				SMWOutputs::requireResource( 'ext.srf.jqplot.scatter' );
 			case 'line':
 			case 'bar':
 				if ( in_array( $this->params['datalabels'], array( 'label', 'value', 'percent' ) ) ||
-					$this->params['highlighter'] == true ) {
+					$this->params['highlighter'] ) {
 					SMWOutputs::requireResource( 'ext.srf.jqplot.bar.extended' );
 				}else{
 					SMWOutputs::requireResource( 'ext.srf.jqplot.bar' );
@@ -296,7 +313,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		);
 
 		// Beautify class selector
-		$class = $this->params['layout'] ?  '-' . $this->params['layout'] : '';
+		$class = $this->params['charttype'] ?  '-' . $this->params['charttype'] : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' jqplot-common';
 
 		// Chart/graph wrappper
@@ -336,10 +353,10 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'values' => array( 'property' , 'subject' ),
 		);
 
-		$params['layout'] = array(
-			'message' => 'srf-paramdesc-layout',
+		$params['charttype'] = array(
+			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
-			'values' => array( 'bar', 'line', 'donut', 'bubble' ),
+			'values' => array( 'bar', 'line', 'donut', 'bubble', 'scatter' ),
 		);
 
 		return $params;

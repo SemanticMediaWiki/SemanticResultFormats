@@ -145,6 +145,10 @@ $wgResourceModules['ext.jquery.jqplot.enhancedlegend'] = $moduleTemplate + array
 	'scripts' => 'resources/jquery.jqplot/jqplot.enhancedLegendRenderer.min.js'
 );
 
+$wgResourceModules['ext.srf.jqplot.trendline'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.jqplot/jqplot.trendline.min.js'
+);
+
 $wgResourceModules['ext.srf.jqplot.themes'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.themes.js',
 	'styles'  => 'jqplot/resources/ext.srf.jqlpot.general.css',
@@ -180,9 +184,11 @@ $wgResourceModules['ext.srf.jqplot.bar.extended'] = $moduleTemplate + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bar.trendline'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.trendline.min.js',
-	'dependencies' => 'ext.srf.jqplot.bar',
+$wgResourceModules['ext.srf.jqplot.scatter'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar.extended',
+		'ext.srf.jqplot.trendline'
+	),
 	'position' => 'top',
 );
 

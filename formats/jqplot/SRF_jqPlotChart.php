@@ -50,15 +50,15 @@ class SRFjqPlotChart extends SRFjqPlot {
 	protected function getFormatOutput( array $data ) {
 
 		static $statNr = 0;
-		$chartID = 'jqplot-' . $this->params['layout'] . '-' . ++$statNr;
+		$chartID = 'jqplot-' . $this->params['charttype'] . '-' . ++$statNr;
 
 		$this->isHTML = true;
 
 		// Prepare data objects
-		if ( in_array( $this->params['layout'], array( 'bar', 'line') ) ) {
+		if ( in_array( $this->params['charttype'], array( 'bar', 'line' ) ) ) {
 			// Parse bar relevant data
 			$dataObject = $this->prepareBarData( $data );
-		} elseif ( in_array( $this->params['layout'], array( 'pie', 'donut') ) ){
+		} elseif ( in_array( $this->params['charttype'], array( 'pie', 'donut' ) ) ){
 			//Parse pie/donut relevant data
 			$dataObject = $this->preparePieData( $data );
 		} else {
@@ -88,7 +88,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 		);
 
 		// Beautify class selector
-		$class = $this->params['layout'] ?  '-' . $this->params['layout'] : '';
+		$class = $this->params['charttype'] ?  '-' . $this->params['charttype'] : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' jqplot-common';
 
 		// Chart/graph wrappper
@@ -118,7 +118,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 			}
 		}
 
-		if ( $this->params['layout'] == 'donut' ) {
+		if ( $this->params['charttype'] === 'donut' ) {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.donut' );
 		} else {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.pie' );
@@ -126,7 +126,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 
 		return array (
 			'data'       => array ( $data ),
-			'renderer'   => $this->params['layout'],
+			'renderer'   => $this->params['charttype'],
 			'mode'       => $mode,
 			'parameters' => $this->addCommonOptions()
 		);
@@ -171,7 +171,8 @@ class SRFjqPlotChart extends SRFjqPlot {
 		}
 
 		// RL module
-		if ( $this->params['datalabels'] == true || $this->params['highlighter'] == true ) {
+		if ( in_array( $this->params['datalabels'], array( 'label', 'value', 'percent' ) )
+			|| $this->params['highlighter'] ) {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.bar.extended' );
 		} else {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.bar' );
@@ -186,7 +187,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 			'total'     => $total,
 			'mode'      => $mode,
 			'series'    => array(),
-			'renderer'  => $this->params['layout'],
+			'renderer'  => $this->params['charttype'],
 			'parameters'=> $this->addCommonOptions()
 		);
 	}
@@ -204,6 +205,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 
 		return array (
 			'numbersaxislabel' => $this->params['numbersaxislabel'],
+			'labelaxislabel' => $this->params['labelaxislabel'],
 			'charttitle'   => $this->params['charttitle'],
 			'charttext'    => $this->params['charttext'],
 			'theme'        => $this->params['theme'] ? $this->params['theme'] : null,
@@ -217,8 +219,8 @@ class SRFjqPlotChart extends SRFjqPlot {
 			'valueformat'  => $this->params['valueformat'],
 			'chartlegend'  => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
 			'colorscheme'  => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null ,
-			'pointlabels'  => $this->params['datalabels'] == 'none' ? false : $this->params['datalabels'],
-			'grid' => $this->params['theme'] == 'vector' ? array ( 'borderColor' => '#a7d7f9' ) : ( $this->params['theme'] == 'simple' ? array ( 'borderColor' => '#ddd' ) : null ),
+			'pointlabels'  => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
+			'grid' => $this->params['theme'] === 'vector' ? array ( 'borderColor' => '#a7d7f9' ) : ( $this->params['theme'] === 'simple' ? array ( 'borderColor' => '#ddd' ) : null ),
 			'seriescolors' => $seriescolors
 		);
 	}
@@ -235,8 +237,8 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 public function getParamDefinitions( array $definitions ) {
 		$params = self::getCommonParams();
 
-		$params['layout'] = array(
-			'message' => 'srf-paramdesc-layout',
+		$params['charttype'] = array(
+			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
 			'values' => array( 'bar', 'line', 'pie', 'donut' ),
 		);
