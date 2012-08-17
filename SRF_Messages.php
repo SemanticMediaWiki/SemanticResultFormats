@@ -2004,6 +2004,7 @@ $messages['hsb'] = array(
 	'srf-gallery-navigation-previous' => 'Předchadny',
 	'srf-gallery-navigation-next' => 'Přichodny',
 	'srf-gallery-overlay-count' => 'Wobraz $1 z $2',
+	'srf-gallery-image-url-error' => 'Wobraz njeje so namakał.',
 	'srf_printername_tagcloud' => 'Tafličkowa mróčel',
 	'srf_paramdesc_includesubject' => 'Hač mjena temow same maja so zapřijeć',
 	'srf_paramdesc_increase' => 'Kak woznamjenjace słowa powjetšić',
@@ -2460,6 +2461,7 @@ $messages['it'] = array(
 	'srf_paramdesc_chartwidth' => 'La larghezza del grafico, in pixel',
 	'srf_paramdesc_charttitle' => 'Il titolo del grafico',
 	'srf_printername_gallery' => 'Galleria',
+	'srf_printername_hash' => 'Hash',
 	'srf-printername-graph' => 'Grafico',
 	'srf_paramdesc_graphname' => 'Titolo',
 	'srf_paramdesc_graphsize' => 'Dimensione del grafico (in px)',
@@ -2819,6 +2821,7 @@ $messages['mk'] = array(
 	'srf-gallery-navigation-previous' => 'Претходно',
 	'srf-gallery-navigation-next' => 'Следно',
 	'srf-gallery-overlay-count' => 'Слика $1 од $2',
+	'srf-gallery-image-url-error' => 'Сликата не е најдена.',
 	'srf_printername_tagcloud' => 'Облак со ознаки',
 	'srf_paramdesc_includesubject' => 'Дали да се вклучат имињата на самите теми',
 	'srf_paramdesc_increase' => 'Како да ги зголемите ознаките',
@@ -3854,6 +3857,7 @@ $messages['tg-latn'] = array(
 
 /** Tagalog (Tagalog)
  * @author AnakngAraw
+ * @author Sky Harbor
  */
 $messages['tl'] = array(
 	'srf-desc' => 'Dagdag na mga anyo para sa nasa loob ng guhit na mga pagtatanong na pang-Semantikong MediaWiki',
@@ -3948,7 +3952,7 @@ $messages['tl'] = array(
 	'srf-gallery-navigation-previous' => 'Nakaraan',
 	'srf-gallery-navigation-next' => 'Susunod',
 	'srf-gallery-overlay-count' => 'Imaheng $1 ng $2',
-	'srf-gallery-image-url-error' => 'Hindi natagpuan ang imahe.',
+	'srf-gallery-image-url-error' => 'Hindi natagpuan ang larawan.',
 	'srf_printername_tagcloud' => 'Ulap ng tatak',
 	'srf_paramdesc_includesubject' => 'Kung dapat bang isama ang mga pangalan ng mga paksa mismo',
 	'srf_paramdesc_increase' => 'Paano patataasin ang sukat ng mga tatak',
@@ -4038,6 +4042,21 @@ $messages['tr'] = array(
 	'srf_paramdesc_views' => 'Görüntülenecek görünümler',
 	'srf_printername_googlebar' => 'Google çubuk çizelgesi',
 	'srf_printername_googlepie' => 'Google dilim çizelgesi',
+);
+
+/** Urdu (اردو)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ur'] = array(
+	'srf-module-loading' => 'لوڈ ہو رہا ہے...',
+	'srfc_previousmonth' => 'پچھلے ماہ',
+	'srfc_nextmonth' => 'اگلے ماہ',
+	'srfc_today' => 'آج',
+	'srfc_gotomonth' => 'مہینے پر جائیں',
+	'srf_printername_calendar' => 'ماہانہ کیلنڈر',
+	'srf-gallery-navigation-previous' => 'پچھلے',
+	'srf-gallery-navigation-next' => 'اگلے',
+	'srf_paramdesc_graphname' => 'عنوان',
 );
 
 /** vèneto (vèneto)
