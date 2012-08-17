@@ -4,21 +4,27 @@
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
- * @release: 0.1
+ * jshint checked
+ *
+ * @release: 0.2
  */
-(function( $ ) {
+( function( $ ) {
+	// Use ECMAScript 5's strict mode
+	"use strict";
+
+	/*global mw:true*/
 
 	// Only display errors
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
-	$.fn.spline = function( options ) {
+	$.fn.spline = function() {
 
 		var chart = this.find( ".container" ),
 			chartID = chart.attr( "id" ),
 			json = mw.config.get( chartID );
 
-		// Parse json string and convert it back into objects
-		typeof json == 'string' ? data = jQuery.parseJSON( json ) : data = json;
+		// Parse json string and convert it back
+		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
 		// Release graph and bottom text
 		this.find( '.srf-processing' ).hide();
@@ -26,10 +32,9 @@
 		// Release chart/graph
 		chart.show();
 		chart.sparkline( data.data , {
-			type: data.layout
+			type: data.charttype
 		} );
-
-	} // end of function
+	};
 
 	$( document ).ready( function() {
 		$( ".srf-sparkline" ).each( function() {

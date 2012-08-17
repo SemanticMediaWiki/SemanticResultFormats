@@ -50,7 +50,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$dataObject = array();
 
 		static $statNr = 0;
-		$chartID = 'sparkline-' . $this->params['layout'] . '-' . ++$statNr;
+		$chartID = 'sparkline-' . $this->params['charttype'] . '-' . ++$statNr;
 
 		$this->isHTML = true;
 
@@ -61,7 +61,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 			}
 		}
 
-		$dataObject['layout'] = $this->params['layout'];
+		$dataObject['charttype'] = $this->params['charttype'];
 
 		// Encode data objects
 		$requireHeadItem = array ( $chartID => FormatJson::encode( $dataObject ) );
@@ -110,8 +110,8 @@ class SRFSparkline extends SMWAggregatablePrinter {
 			'manipulatedefault' => false,
 		);
 
-		$params['layout'] = array(
-			'message' => 'srf-paramdesc-layout',
+		$params['charttype'] = array(
+			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
 			'values' => array ( 'bar', 'line', 'pie', 'discrete' )
 		);
