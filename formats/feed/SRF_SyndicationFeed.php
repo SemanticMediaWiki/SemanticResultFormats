@@ -246,6 +246,8 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
+		$params['searchlabel']->setDefault( 'RSS' );
+
 		$params['type'] = array(
 			'type' => 'string',
 			'default' => 'rss',
