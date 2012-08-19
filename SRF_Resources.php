@@ -237,8 +237,13 @@ $wgResourceModules['ext.srf.timeline'] = $formatModule + array(
 /******************************************************************************
  * D3
  ******************************************************************************/
-$wgResourceModules['ext.srf.d3.core'] = $formatModule + array(
-	'scripts' => 'd3/resources/d3.v2.min.js'
+$wgResourceModules['ext.d3.core'] = $moduleTemplate + array(
+	'scripts' => 'resources/d3/d3.v2.min.js'
+);
+
+$wgResourceModules['ext.d3.layout.cloud'] = $moduleTemplate + array(
+	'scripts' => 'resources/d3/d3.layout.cloud.js',
+	'dependencies' => 'ext.d3.core'
 );
 
 $wgResourceModules['ext.srf.d3.common'] = $formatModule + array(
@@ -249,14 +254,14 @@ $wgResourceModules['ext.srf.d3.common'] = $formatModule + array(
 $wgResourceModules['ext.srf.d3.chart.treemap'] = $formatModule + array(
 	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.treemap.js',
 	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.treemap.css',
-	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
+	'dependencies' => array ( 'ext.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
 );
 
 $wgResourceModules['ext.srf.d3.chart.bubble'] = $formatModule + array(
 	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.bubble.js',
 	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.bubble.css',
-	'dependencies' => array ( 'ext.srf.d3.core', 'ext.srf.d3.common' ),
+	'dependencies' => array ( 'ext.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
 );
 
@@ -402,18 +407,27 @@ $wgResourceModules['ext.srf.slideshow'] = $formatModule + array(
  * Tag cloud
  ******************************************************************************/
 // excanvas is only needed for pre-9.0 Internet Explorer compatibility
-$wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $formatModule + array(
-	'scripts' => 'tagcloud/resources/excanvas.js'
+$wgResourceModules['ext.jquery.tagcanvas.excanvas'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.tagcanvas/excanvas.js'
 );
 
-$wgResourceModules['ext.jquery.tagcanvas'] = $formatModule + array(
-	'scripts' => 'tagcloud/resources/jquery.tagcanvas.1.18.min.js'
+$wgResourceModules['ext.jquery.tagcanvas'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.tagcanvas/jquery.tagcanvas.1.18.min.js'
 );
 
 $wgResourceModules['ext.srf.tagcloud.sphere'] = $formatModule + array(
 	'scripts' => 'tagcloud/resources/ext.srf.tagcloud.sphere.js',
 	'style'   => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
 	'dependencies' => array( 'ext.jquery.tagcanvas', 'jquery.client' ),
+	'position'     => 'top',
+);
+
+$wgResourceModules['ext.srf.tagcloud.wordcloud'] = $formatModule + array(
+	'scripts' => 'tagcloud/resources/ext.srf.tagcloud.wordcloud.js',
+	'dependencies' => array (
+		'ext.d3.layout.cloud',
+		'ext.srf.d3.common'
+	),
 	'position'     => 'top',
 );
 
