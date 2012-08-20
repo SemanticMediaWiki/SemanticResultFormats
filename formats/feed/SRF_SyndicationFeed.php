@@ -86,7 +86,7 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 
 		if ( $outputmode == SMW_OUTPUT_FILE ) {
 			if ( $res->getCount() == 0 ){
-				return $results->addErrors( array( wfMsgForContent( 'smw_result_noresults' ) ) );;
+				return $results->addErrors( array( wfMsgForContent( 'smw_result_noresults' ) ) );
 			}
 			$result = $this->getFeed( $res, $this->params['type'] );
 		} else {
