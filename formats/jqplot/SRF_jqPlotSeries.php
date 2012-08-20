@@ -183,8 +183,9 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'showLine' => $this->params['charttype'] !== 'scatter',
 			'showMarker' => true,
 			'trendline' => array (
-				'show' => $this->params['charttype'] === 'scatter',
-				'shadow' => $this->params['theme'] !== 'simple'
+				'show' => in_array( $this->params['trendline'], array( 'exp', 'linear' ) ),
+				'shadow' => $this->params['theme'] !== 'simple',
+				'type' => $this->params['trendline'],
 			),
 			'markerOptions' => array (
 				'style' => $marker[array_rand( $marker )],
@@ -357,6 +358,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
 			'values' => array( 'bar', 'line', 'donut', 'bubble', 'scatter' ),
+		);
+
+		$params['trendline'] = array(
+			'message' => 'srf-paramdesc-trendline',
+			'default' => 'none',
+			'values' => array( 'none', 'exp', 'linear' ),
 		);
 
 		return $params;
