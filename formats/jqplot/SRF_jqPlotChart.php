@@ -209,7 +209,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 			'charttitle'   => $this->params['charttitle'],
 			'charttext'    => $this->params['charttext'],
 			'theme'        => $this->params['theme'] ? $this->params['theme'] : null,
-			'valueformat'  => $this->params['valueformat'],
 			'ticklabels'   => $this->params['ticklabels'],
 			'highlighter'  => $this->params['highlighter'],
 			'direction'    => $this->params['direction'],
