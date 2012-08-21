@@ -116,6 +116,7 @@ $messages['en'] = array(
 	'srf-paramdesc-stackseries' => 'Display chart as stacked series',
 	'srf-paramdesc-seriesgroup' => 'Select series grouping',
 	'srf-paramdesc-serieslabel' => 'Specify series labels',
+	'srf-paramdesc-chartcursor' => 'Chart cursor display option',
 
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
@@ -378,6 +379,7 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-feedtype' => '{{doc-paramdesc|feedtype}}',
 	'srf-paramdesc-feedtitle' => '{{doc-paramdesc|feedtitle}}',
 	'srf-paramdesc-feeddescription' => '{{doc-paramdesc|feeddescription}}',
+	'srf-paramdesc-chartcursor'  => '{{doc-paramdesc|chartcursor}}',
 );
 
 /** Afrikaans (Afrikaans)

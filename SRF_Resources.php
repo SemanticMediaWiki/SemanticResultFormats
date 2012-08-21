@@ -200,6 +200,7 @@ $wgResourceModules['ext.srf.jqplot.bar.extended'] = $moduleTemplate + array(
 		'ext.srf.jqplot.bar',
 		'ext.jquery.jqplot.pointlabels',
 		'ext.jquery.jqplot.highlighter',
+		'ext.jquery.jqplot.cursor',
 		'ext.jquery.jqplot.enhancedlegend'
 	),
 	'messages' => array (

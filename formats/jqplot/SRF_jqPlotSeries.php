@@ -208,6 +208,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'autoscale'    => false,
 			'direction'    => $this->params['direction'],
 			'smoothlines'  => $this->params['smoothlines'],
+			'cursor'       => $this->params['cursor'],
 			'chartlegend'  => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
 			'colorscheme'  => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null,
 			'pointlabels'  => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
@@ -287,6 +288,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			case 'line':
 			case 'bar':
 				if ( in_array( $this->params['datalabels'], array( 'label', 'value', 'percent' ) ) ||
+					in_array( $this->params['cursor'], array( 'zoom', 'tooltip' ) ) ||
 					$this->params['highlighter'] ) {
 					SMWOutputs::requireResource( 'ext.srf.jqplot.bar.extended' );
 				}else{
@@ -364,6 +366,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'message' => 'srf-paramdesc-trendline',
 			'default' => 'none',
 			'values' => array( 'none', 'exp', 'linear' ),
+		);
+
+		$params['cursor'] = array(
+			'message' => 'srf-paramdesc-chartcursor',
+			'default' => 'none',
+			'values' => array( 'none', 'zoom', 'tooltip' ),
 		);
 
 		return $params;

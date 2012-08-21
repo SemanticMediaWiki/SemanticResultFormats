@@ -413,10 +413,10 @@
 			highlighter: highlighter,
 			seriesDefaults: seriesDefaults,
 			cursor: {
-				show: true,
-				zoom: true,
-				looseZoom: true,
-				showTooltip: false
+				show: $.inArray( data.parameters.cursor, ['zoom','tooltip'] ) > -1 && $.inArray( data.fcolumntypeid, ['_num','_dat'] ) > -1,
+				zoom: data.parameters.cursor === 'zoom',
+				looseZoom:  data.parameters.cursor === 'zoom',
+				showTooltip: data.parameters.cursor === 'tooltip'
 			},
 			series: data.mode === 'single' ?  single : series,
 			axes: {
