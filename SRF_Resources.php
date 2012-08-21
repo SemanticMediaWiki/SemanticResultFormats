@@ -89,6 +89,8 @@ $wgResourceModules['ext.srf.listwidget'] = $formatModule + array(
  * jqPlot
  * @since 1.8
 /******************************************************************************/
+/*** jQuery plugin specific declarations ***/
+
 $wgResourceModules['ext.jquery.jqplot.core'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.jqplot/jquery.jqplot.min.js',
 	'styles' => 'resources/jquery.jqplot/jquery.jqplot.min.css'
@@ -168,9 +170,11 @@ $wgResourceModules['ext.jquery.jqplot.enhancedlegend'] = $moduleTemplate + array
 );
 
 // Plugin class to render a trendline
-$wgResourceModules['ext.srf.jqplot.trendline'] = $moduleTemplate + array(
+$wgResourceModules['ext.jquery.jqplot.trendline'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.jqplot/jqplot.trendline.min.js'
 );
+
+/*** General jqplot/SRF specific declarations ***/
 
 // Plugin class supporting themes
 $wgResourceModules['ext.srf.jqplot.themes'] = $formatModule + array(
@@ -179,12 +183,54 @@ $wgResourceModules['ext.srf.jqplot.themes'] = $formatModule + array(
 	'dependencies' => 'jquery.client'
 );
 
+$wgResourceModules['ext.srf.jqplot.cursor'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar',
+		'ext.jquery.jqplot.cursor',
+	),
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.srf.jqplot.enhancedlegend'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar',
+		'ext.jquery.jqplot.enhancedlegend',
+	),
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.srf.jqplot.pointlabels'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar',
+		'ext.jquery.jqplot.pointlabels',
+	),
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.srf.jqplot.highlighter'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar',
+		'ext.jquery.jqplot.highlighter',
+	),
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.srf.jqplot.trendline'] = $moduleTemplate + array(
+	'dependencies' => array (
+		'ext.srf.jqplot.bar',
+		'ext.jquery.jqplot.trendline',
+	),
+	'position' => 'top',
+);
+
+/*** Chart type specific declarations ***/
 $wgResourceModules['ext.srf.jqplot.chart'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.js',
 	'dependencies' => 'ext.srf.jqplot.themes'
 );
 
 $wgResourceModules['ext.srf.jqplot.bar'] = $formatModule + array(
+	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.bar.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.bar',
 		'ext.srf.jqplot.chart'
@@ -195,29 +241,8 @@ $wgResourceModules['ext.srf.jqplot.bar'] = $formatModule + array(
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.srf.jqplot.bar.extended'] = $moduleTemplate + array(
-	'dependencies' => array (
-		'ext.srf.jqplot.bar',
-		'ext.jquery.jqplot.pointlabels',
-		'ext.jquery.jqplot.highlighter',
-		'ext.jquery.jqplot.cursor',
-		'ext.jquery.jqplot.enhancedlegend'
-	),
-	'messages' => array (
-		'srf-error-jqplot-stackseries-data-length'
-	),
-	'position' => 'top',
-);
-
-$wgResourceModules['ext.srf.jqplot.scatter'] = $moduleTemplate + array(
-	'dependencies' => array (
-		'ext.srf.jqplot.bar.extended',
-		'ext.srf.jqplot.trendline'
-	),
-	'position' => 'top',
-);
-
 $wgResourceModules['ext.srf.jqplot.pie'] = $formatModule + array(
+	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.pie.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.pie',
 		'ext.srf.jqplot.chart'
@@ -226,6 +251,7 @@ $wgResourceModules['ext.srf.jqplot.pie'] = $formatModule + array(
 );
 
 $wgResourceModules['ext.srf.jqplot.bubble'] = $formatModule + array(
+	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.bubble.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.bubble',
 		'ext.srf.jqplot.chart'
@@ -237,6 +263,7 @@ $wgResourceModules['ext.srf.jqplot.bubble'] = $formatModule + array(
 );
 
 $wgResourceModules['ext.srf.jqplot.donut'] = $formatModule + array(
+	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.pie.js',
 	'dependencies' => array (
 		'ext.jquery.jqplot.donut',
 		'ext.srf.jqplot.chart'

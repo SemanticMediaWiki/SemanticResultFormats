@@ -170,12 +170,17 @@ class SRFjqPlotChart extends SRFjqPlot {
 			}
 		}
 
-		// RL module
-		if ( in_array( $this->params['datalabels'], array( 'label', 'value', 'percent' ) )
-			|| $this->params['highlighter'] ) {
-			SMWOutputs::requireResource( 'ext.srf.jqplot.bar.extended' );
-		} else {
-			SMWOutputs::requireResource( 'ext.srf.jqplot.bar' );
+		// Bar/line module
+		SMWOutputs::requireResource( 'ext.srf.jqplot.bar' );
+
+		// Highlighter plugin
+		if ( $this->params['highlighter'] ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.highlighter' );
+		}
+
+		// Pointlabels plugin
+		if ( in_array( $this->params['datalabels'], array( 'value', 'label', 'percent' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.pointlabels' );
 		}
 
 		return array (

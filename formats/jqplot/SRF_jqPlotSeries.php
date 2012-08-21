@@ -260,6 +260,57 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	}
 
 	/**
+	 * Add resource definitions
+	 *
+	 * @since 1.8
+	 *
+	 * @param array $data
+	 *
+	 * @return string
+	 */
+	protected function addResources() {
+		// RL module
+		switch ( $this->params['charttype'] ) {
+			case 'bubble':
+				SMWOutputs::requireResource( 'ext.srf.jqplot.bubble' );
+				break;
+			case 'donut':
+				SMWOutputs::requireResource( 'ext.srf.jqplot.donut' );
+				break;
+			case 'scatter':
+			case 'line':
+			case 'bar':
+				SMWOutputs::requireResource( 'ext.srf.jqplot.bar' );
+				break;
+		}
+
+		// Trendline plugin
+		if ( in_array( $this->params['trendline'], array( 'exp', 'linear' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.trendline' );
+		}
+
+		// Cursor plugin
+		if ( in_array( $this->params['cursor'], array( 'zoom', 'tooltip' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.cursor' );
+		}
+
+		// Highlighter plugin
+		if ( $this->params['highlighter'] ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.highlighter' );
+		}
+
+		// Enhancedlegend plugin
+		if ( $this->params['chartlegend'] ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.enhancedlegend' );
+		}
+
+		// Pointlabels plugin
+		if ( in_array( $this->params['datalabels'], array( 'value', 'label', 'percent' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.pointlabels' );
+		}
+	}
+
+	/**
 	 * Prepare data for the output
 	 *
 	 * @since 1.8
@@ -275,31 +326,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		static $statNr = 0;
 		$chartID = 'jqplot-series-' . ++$statNr;
 
-		// RL module
-		switch ( $this->params['charttype'] ) {
-			case 'bubble':
-				SMWOutputs::requireResource( 'ext.srf.jqplot.bubble' );
-				break;
-			case 'donut':
-				SMWOutputs::requireResource( 'ext.srf.jqplot.donut' );
-				break;
-			case 'scatter':
-				SMWOutputs::requireResource( 'ext.srf.jqplot.scatter' );
-			case 'line':
-			case 'bar':
-				if ( in_array( $this->params['datalabels'], array( 'label', 'value', 'percent' ) ) ||
-					in_array( $this->params['cursor'], array( 'zoom', 'tooltip' ) ) ||
-					$this->params['highlighter'] ) {
-					SMWOutputs::requireResource( 'ext.srf.jqplot.bar.extended' );
-				}else{
-					SMWOutputs::requireResource( 'ext.srf.jqplot.bar' );
-				};
-				break;
-		}
-
 		// Encoding
 		$requireHeadItem = array ( $chartID => FormatJson::encode( $data )  );
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
+
+		// Add RL resources
+		$this->addResources();
 
 		// Processing placeholder
 		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
