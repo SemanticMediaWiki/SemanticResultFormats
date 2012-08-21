@@ -61,14 +61,19 @@ class SRFTagCloud extends SMWResultPrinter {
 		$this->hasTemplates = $this->params['template'] !== '';
 
 		// Prioritize HTML setting
-		$this->isHTML = $this->params['widget'] == 'sphere';
-		$this->isHTML = $this->params['template'] !== '' ? false : true;
+		$this->isHTML = $this->params['widget'] !== '';
+		$this->isHTML = $this->params['template'] === '';
 
 		$outputmode = SMW_OUTPUT_HTML;
 
-		// RL module
-		if ( $this->params['widget'] == 'sphere' ){
+		// Sphere widget
+		if ( $this->params['widget'] === 'sphere' ){
 			SMWOutputs::requireResource( 'ext.srf.tagcloud.sphere' );
+		}
+
+		// Wordcloud widget
+		if ( $this->params['widget'] === 'wordcloud' ){
+			SMWOutputs::requireResource( 'ext.srf.tagcloud.wordcloud' );
 		}
 
 		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
@@ -248,10 +253,10 @@ class SRFTagCloud extends SMWResultPrinter {
 		$htmlCTags     = '';
 
 		// Count actual output and store div identifier
-		$tagID   = $this->params['widget'] . '-' . ++$statNr;
+		$tagID = $this->params['widget'] . '-' . ++$statNr;
 
-		// Determine HTML element
-		$element = $this->params['widget'] == 'sphere' ? 'li' : 'span';
+		// Determine HTML element marker
+		$element = $this->params['widget'] !== '' ? 'li' : 'span';
 
 		// Add size information
 		foreach ( $tags as $name => $size ) {
@@ -265,7 +270,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		$htmlSTags = implode( ' ', $htmlTags );
 
 		// Handle sphere/canvas output objects
-		if ( $this->params['widget'] == 'sphere' ) {
+		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
 
 			// Wrap LI/UL elements
 			$htmlCTags = Html::rawElement( 'ul', array (
@@ -285,18 +290,19 @@ class SRFTagCloud extends SMWResultPrinter {
 				'class'  => 'container',
 				'data-width'  => $this->params['width'],
 				'data-height' => $this->params['height'],
-				'data-font' => 'Impact,Arial Black,sans-serif'
+				'data-font'   => $this->params['font']
 				), $htmlCTags
 			);
 
-			$processing = SRFUtils::htmlProcessingElement();
+			// Processing placeholder
+			$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 		}
 
 		// Beautify class selector
 		$class = $this->params['widget'] ?  '-' . $this->params['widget'] . ' ' : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
 
-		// Divide general content from result output
+		// General placeholder
 		$attribs = array (
 			'class'  => 'srf-tagcloud' . $class,
 			'align'  => 'justify'
@@ -335,62 +341,96 @@ class SRFTagCloud extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['class'] = new Parameter( 'class', Parameter::TYPE_STRING );
-		$params['class']->setMessage( 'srf-paramdesc-class' );
-		$params['class']->setDefault( '' );
+		$params['template'] = array(
+			'message' => 'srf-paramdesc-template',
+			'default' => '',
+		);
 
-		$params['template'] = new Parameter( 'template' );
-		$params['template']->setDescription( wfMsg( 'smw-paramdesc-template' ) );
-		$params['template']->setDefault( '' );
+		$params['userparam'] = array(
+			'message' => 'srf-paramdesc-userparam',
+			'default' => '',
+		);
 
-		$params['userparam'] = new Parameter( 'userparam' );
-		$params['userparam']->setDescription( wfMsg( 'smw-paramdesc-userparam' ) );
-		$params['userparam']->setDefault( '' );
+		$params['excludetags'] = array(
+			'message' => 'srf-paramdesc-excludetags',
+			'default' => '',
+		);
 
-		$params['excludetags'] = new Parameter( 'excludetags', Parameter::TYPE_STRING );
-		$params['excludetags']->setMessage( 'srf-paramdesc-excludetags' );
-		$params['excludetags']->setDefault( '' );
+		$params['includesubject'] = array(
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-includesubject',
+			'default' => false,
+		);
 
-		$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
-		$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );
-		$params['includesubject']->setDefault( false );
+		$params['tagorder'] = array(
+			'message' => 'srf_paramdesc_tagorder',
+			'default' => 'alphabetical',
+			'values' => array( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ),
+		);
 
-		$params['tagorder'] = new Parameter( 'tagorder' );
-		$params['tagorder']->setMessage( 'srf_paramdesc_tagorder' );
-		$params['tagorder']->addCriteria( new CriterionInArray( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ) );
-		$params['tagorder']->setDefault( 'alphabetical' );
+		$params['increase'] = array(
+			'message' => 'srf_paramdesc_increase',
+			'default' => 'log',
+			'values' => array( 'linear', 'log' ),
+		);
 
-		$params['increase'] = new Parameter( 'increase' );
-		$params['increase']->setMessage( 'srf_paramdesc_increase' );
-		$params['increase']->addCriteria( new CriterionInArray( 'linear', 'log' ) );
-		$params['increase']->setDefault( 'log' );
+		$params['widget'] = array(
+			'message' => 'srf-paramdesc-widget',
+			'default' => '',
+			'values' => array( 'sphere', 'wordcloud' ),
+		);
 
-		$params['widget'] = new Parameter( 'widget' );
-		$params['widget']->setMessage( 'srf-paramdesc-widget' );
-		$params['widget']->addCriteria( new CriterionInArray( 'sphere' ) );
-		$params['widget']->setDefault( '' );
+		$params['class'] = array(
+			'message' => 'srf-paramdesc-class',
+			'default' => '',
+		);
 
-		$params['height'] = new Parameter( 'height', Parameter::TYPE_INTEGER, 200 );
-		$params['height']->setMessage( 'srf-paramdesc-height' );
+		$params['font'] = array(
+			'message' => 'srf-paramdesc-font',
+			'default' => 'impact',
+		);
 
-		$params['width'] = new Parameter( 'width', Parameter::TYPE_INTEGER, '200' );
-		$params['width']->setMessage( 'srf-paramdesc-width' );
+		$params['height'] = array(
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-height',
+			'default' => 400,
+			'lowerbound' => 1,
+		);
 
-		$params['mincount'] = new Parameter( 'mincount', Parameter::TYPE_INTEGER );
-		$params['mincount']->setMessage( 'srf_paramdesc_mincount' );
-		$params['mincount']->setDefault( 1 );
+		$params['width'] = array(
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-width',
+			'default' => 400,
+			'lowerbound' => 1,
+		);
 
-		$params['minsize'] = new Parameter( 'minsize', Parameter::TYPE_INTEGER );
-		$params['minsize']->setMessage( 'srf_paramdesc_minsize' );
-		$params['minsize']->setDefault( 77 );
+		$params['mincount'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_mincount',
+			'default' => 1,
+			'manipulatedefault' => false,
+		);
 
-		$params['maxsize'] = new Parameter( 'maxsize', Parameter::TYPE_INTEGER );
-		$params['maxsize']->setMessage( 'srf_paramdesc_maxsize' );
-		$params['maxsize']->setDefault( 242 );
+		$params['minsize'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_minsize',
+			'default' => 77,
+			'manipulatedefault' => false,
+		);
 
-		$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
-		$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
-		$params['maxtags']->setDefault( 1000 );
+		$params['maxsize'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_maxsize',
+			'default' => 242,
+			'manipulatedefault' => false,
+		);
+
+		$params['maxtags'] = array(
+			'type' => 'integer',
+			'message' => 'srf_paramdesc_maxtags',
+			'default' => 1000,
+			'lowerbound' => 1,
+		);
 
 		return $params;
 	}
