@@ -220,6 +220,14 @@ $messages['en'] = array(
 	'srf-paramdesc-feedtype' => 'Feed type',
 	'srf-paramdesc-feedtitle' => 'Feed title',
 	'srf-paramdesc-feeddescription' => 'Feed description',
+
+	// format "eventcalendar"
+	'srf-printername-eventcalendar' => 'Event calendar',
+	'srf-paramdesc-calendarfirstday' => 'The day that each week begins',
+	'srf-paramdesc-calendardefaultview' => 'The initial view when the calendar loads',
+	'srf-paramdesc-eventicon' => 'Property that represents the icon value',
+	'srf-paramdesc-eventcolor' => 'Property that represents the color value',
+	'srf-paramdesc-dayview' => 'Enable the day view by clicking the day number',
 );
 
 /** Message documentation (Message documentation)
@@ -380,6 +388,12 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-feedtype' => '{{doc-paramdesc|feedtype}}',
 	'srf-paramdesc-feedtitle' => '{{doc-paramdesc|feedtitle}}',
 	'srf-paramdesc-feeddescription' => '{{doc-paramdesc|feeddescription}}',
+	'srf-printername-eventcalendar' => '{{doc-smwformat|eventcalendar}}',
+	'srf-paramdesc-calendarfirstday' => '{{doc-paramdesc|calendarfirstday}}',
+	'srf-paramdesc-calendardefaultview' => '{{doc-paramdesc|calendardefaultview}}',
+	'srf-paramdesc-eventicon' => '{{doc-paramdesc|eventicon}}',
+	'srf-paramdesc-eventcolor' => '{{doc-paramdesc|eventcolor}}',
+	'srf-paramdesc-dayview' => '{{doc-paramdesc|dayview}}',
 );
 
 /** Afrikaans (Afrikaans)
