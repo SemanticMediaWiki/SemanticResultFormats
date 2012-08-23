@@ -27,6 +27,7 @@ $srfgFormats = array(
 	'vcard',
 	'bibtex',
 	'calendar',
+	'eventcalendar',
 	'eventline',
 	'timeline',
 	'outline',
