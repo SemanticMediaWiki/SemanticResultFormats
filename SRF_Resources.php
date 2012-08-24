@@ -499,5 +499,34 @@ $wgResourceModules['ext.srf.flot.timeseries'] = $formatModule + array(
 	'position' => 'top'
 );
 
+/******************************************************************************
+ * Eventcalendar
+ ******************************************************************************/
+$wgResourceModules['ext.jquery.fullcalendar'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.fullcalendar/fullcalendar.min.js',
+	'style' => 'resources/jquery.fullcalendar/fullcalendar.css',
+);
+
+$wgResourceModules['ext.jquery.gcal'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.fullcalendar/gcal.js',
+);
+
+$wgResourceModules['ext.srf.eventcalendar'] = $formatModule + array(
+	'scripts' => 'calendar/resources/ext.srf.eventcalendar.js',
+	'dependencies' => array (
+		'jquery.ui.core',
+		'jquery.ui.widget',
+		'jquery.tipsy',
+		'ext.jquery.fullcalendar'
+	)
+);
+
+$wgResourceModules['ext.srf.eventcalendar.gcal'] = $formatModule + array(
+	'dependencies' => array (
+		'ext.srf.eventcalendar',
+		'ext.jquery.gcal'
+	)
+);
+
 unset( $formatModule );
 unset( $moduleTemplate );
