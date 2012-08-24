@@ -1716,6 +1716,7 @@ $messages['gl'] = array(
 	'srf-paramdesc-stackseries' => 'Mostrar a gráfica en forma de serie apilada',
 	'srf-paramdesc-seriesgroup' => 'Seleccionar o agrupamento por series',
 	'srf-paramdesc-serieslabel' => 'Especificar as etiquetas das series',
+	'srf-paramdesc-chartcursor' => 'Opción de visualización do cursor da gráfica',
 	'srf_printername_gallery' => 'Galería',
 	'srf_paramdesc_perrow' => 'A cantidade de imaxes por liña',
 	'srf_paramdesc_widths' => 'O largo das imaxes',
