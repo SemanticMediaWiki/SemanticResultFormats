@@ -55,6 +55,18 @@ $wgResourceModules['ext.jquery.sparkline'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.sparkline/jquery.sparkline.min.js'
 );
 
+$wgResourceModules['ext.jquery.listnav'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.listnav/jquery.listnav.min-2.1.js'
+);
+
+$wgResourceModules['ext.jquery.listmenu'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.listmenu/jquery.listmenu.min-1.1.js'
+);
+
+$wgResourceModules['ext.jquery.pajinate'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.pajinate/jquery.pajinate.js'
+);
+
 /******************************************************************************
  * Sparkline
 /******************************************************************************/
@@ -67,22 +79,36 @@ $wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
 /******************************************************************************
  * ListWidget
  ******************************************************************************/
-$wgResourceModules['ext.jquery.listwidget'] = $formatModule + array(
-	'scripts' => array(
-		'listwidget/resources/jquery.listnav.min-2.1.js',
-		'listwidget/resources/jquery.listmenu.min-1.1.js',
-		'listwidget/resources/jquery.pajinate.js',
-	),
-);
-
 $wgResourceModules['ext.srf.listwidget'] = $formatModule + array(
 	'scripts' => 'listwidget/resources/ext.srf.listwidget.js',
 	'styles'  => 'listwidget/resources/ext.srf.listwidget.css',
-	'dependencies' => 'ext.jquery.listwidget',
-	'position' => 'top',
 	'messages' => array(
 		'srf-module-nomatch'
 	)
+);
+
+$wgResourceModules['ext.srf.listwidget.alphabet'] = $formatModule + array(
+	'dependencies' => array (
+		'ext.srf.listwidget',
+		'ext.jquery.listnav'
+	),
+	'position' => 'top'
+);
+
+$wgResourceModules['ext.srf.listwidget.menu'] = $formatModule + array(
+	'dependencies' => array (
+		'ext.srf.listwidget',
+		'ext.jquery.listmenu'
+	),
+	'position' => 'top'
+);
+
+$wgResourceModules['ext.srf.listwidget.pagination'] = $formatModule + array(
+	'dependencies' => array (
+		'ext.srf.listwidget',
+		'ext.jquery.pajinate'
+	),
+	'position' => 'top'
 );
 
 /******************************************************************************

@@ -72,7 +72,8 @@ class SRFListWidget extends SMWListResultPrinter {
 		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 
 		// RL module
-		SMWOutputs::requireResource( 'ext.srf.listwidget' );
+		$resource =  'ext.srf.listwidget.' . $this->params['widget'];
+		SMWOutputs::requireResource( $resource );
 
 		// Wrap results
 		return Html::rawElement( 'div', array(
