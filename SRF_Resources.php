@@ -317,6 +317,24 @@ $wgResourceModules['ext.srf.d3.chart.bubble'] = $formatModule + array(
 	'position'     => 'top',
 );
 
+$wgResourceModules['ext.srf.jqplot.chart.tableview'] = $formatModule + array(
+	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.tableview.js',
+	'dependencies' => array(
+		'ext.srf.jqplot.chart',
+		'jquery.ui.core',
+		'jquery.ui.tabs',
+		'ext.jquery.jqgrid'
+	),
+	'messages' => array(
+		'srf-chart-tableview-series',
+		'srf-chart-tableview-item',
+		'srf-chart-tableview-value',
+		'srf-chart-tableview-chart-tab',
+		'srf-chart-tableview-data-tab'
+	),
+	'position' => 'top',
+);
+
 /******************************************************************************
  * JitGraph
  ******************************************************************************/

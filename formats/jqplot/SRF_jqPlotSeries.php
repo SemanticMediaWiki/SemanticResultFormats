@@ -206,6 +206,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'ticklabels'   => $this->params['ticklabels'],
 			'highlighter'  => $this->params['highlighter'],
 			'autoscale'    => false,
+			'tableview'     => $this->params['tableview'],
 			'direction'    => $this->params['direction'],
 			'smoothlines'  => $this->params['smoothlines'],
 			'cursor'       => $this->params['cursor'],
@@ -302,6 +303,11 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		// Enhancedlegend plugin
 		if ( $this->params['chartlegend'] ) {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.enhancedlegend' );
+		}
+
+		// Tableview plugin
+		if ( in_array( $this->params['tableview'], array( 'tabs' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.jqplot.chart.tableview' );
 		}
 
 		// Pointlabels plugin
@@ -404,6 +410,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'message' => 'srf-paramdesc-chartcursor',
 			'default' => 'none',
 			'values' => array( 'none', 'zoom', 'tooltip' ),
+		);
+
+		$params['tableview'] = array(
+			'message' => 'srf-paramdesc-tableview',
+			'default' => 'none',
+			'values' => array( 'none' , 'tabs' ),
 		);
 
 		return $params;
