@@ -79,16 +79,16 @@ $messages['en'] = array(
 	'srf_paramdesc_timelineposition' => 'Defines where the timeline initially focuses at.',
 	'srf_paramdesc_timelinestart' => 'A property name used to define a first time point',
 	'srf_paramdesc_timelineend' => 'A property name used to define a second time point',
-	'srf_paramdesc_timelinesize' => 'The height of the timeline (default is 300px)',
+	'srf_paramdesc_timelinesize' => 'The height of the timeline',
 	'srf-timeline-allresults' => 'Further results for this query.',
 	'srf-timeline-nojs' => 'You need to have JavaScript enabled to view the interactive timeline.',
 
-	// format "Exhibit"
+	// format "exhibit"
 	'srf_paramdesc_views' => 'The views to be displayed',
 	'srf_paramdesc_facets' => 'The set of properties to be displayed for each page',
 	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
 
-	// formats "googlebar", "googlepie", jqplotpie and jqplotbar
+	// formats "googlebar", "googlepie", "jqplotpie" and "jqplotbar"
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',
 	'srf-printername-jqplotchart' => 'jqPlot chart',
@@ -140,8 +140,8 @@ $messages['en'] = array(
 	'srf_paramdesc_increase' => 'How to increase the size of tags',
 	'srf_paramdesc_tagorder' => 'The order of the tags',
 	'srf_paramdesc_mincount' => 'The minimum amount of times a value needs to occur to be listed',
-	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent (default: 77)',
-	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent (default: 242)',
+	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent',
+	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
 	'srf-paramdesc-excludetags' => 'Exclude tags (delimiter: ;)',
 
@@ -166,7 +166,7 @@ $messages['en'] = array(
 	'srf-paramdesc-graph-nameprop' => 'Allows setting a property that will be used as subject instead of the actual subject',
 	'srf-paramdesc-graph-nodeshape' => 'The shape of each node on the graph',
 	'srf_paramdesc_graphname' => 'Title',
-	'srf_paramdesc_graphsize' => 'Graph size (in px)',
+	'srf_paramdesc_graphsize' => 'Graph size (in pixels)',
 	'srf_paramdesc_graphlegend' => 'Show graph legend or not',
 	'srf_paramdesc_graphlabel' => 'Graph label',
 	'srf_paramdesc_rankdir' => 'Arrow direction',
@@ -215,7 +215,7 @@ $messages['en'] = array(
 	'srf-paramdesc-widget' => 'Available widget',
 	'srf-paramdesc-pageitems' => 'Items per page',
 
-	// format "syndication feed"
+	// format "feed" (syndication feed)
 	'srf-printername-feed' => 'RSS/Atom feed',
 	'srf-paramdesc-feedtype' => 'Feed type',
 	'srf-paramdesc-feedtitle' => 'Feed title',
