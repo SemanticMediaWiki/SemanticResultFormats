@@ -17,7 +17,7 @@
 	// Only display errors
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
 
-	$.fn.spline = function() {
+	$.fn.srfSparkline = function() {
 
 		var chart = this.find( ".container" ),
 			chartID = chart.attr( "id" ),
@@ -32,13 +32,17 @@
 		// Release chart/graph
 		chart.show();
 		chart.sparkline( data.data , {
-			type: data.charttype
+			type: data.charttype,
+			tooltipFormat: '{{value}}{{y}} ({{offset:offset}})',
+			tooltipValueLookups: {
+				offset: data.label
+			}
 		} );
 	};
 
 	$( document ).ready( function() {
 		$( ".srf-sparkline" ).each( function() {
-			$( this ).spline();
+			$( this ).srfSparkline();
 		} );
 	} ); // end $(document).ready
 } )( window.jQuery );
