@@ -54,11 +54,11 @@ class SRFSparkline extends SMWAggregatablePrinter {
 
 		$this->isHTML = true;
 
-		// Prepare data output
+		// Prepare data array
 		foreach ( $data as $key => $value ) {
 			if ( $value >= $this->params['min'] ) {
 				$dataObject['label'][] = $key;
-				$dataObject['data'][]  = $value;
+				$dataObject['value'][] = $value;
 			}
 		}
 
