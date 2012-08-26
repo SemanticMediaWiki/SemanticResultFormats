@@ -1,5 +1,7 @@
 /**
- * JavaScript for SRF event calendar module
+ * JavaScript for SRF event calendar module using the fullcalendar library
+ *
+ * @see http://arshaw.com/fullcalendar/docs/
  *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
@@ -28,12 +30,11 @@
 		var gcalholiday = data.options.gcalurl === null ? '' : data.options.gcalurl;
 
 		// Check if the local browser is supporting localStorage
-		var cacheUse = 'localStorage' in window && window.localStorage !== null;
+		var cacheUse = 'localStorage' in window && window.localStorage !== null,
+			cacheTime = 24; // 24 hours
 
-		var _this = this;
-
-		// API image url fetch
-		this.getImageURL = function( title, cacheUse, cacheTime, callback ) {
+		// Fetch url via ajax
+		function getImageURL( title, cacheUse, cacheTime, callback ) {
 
 			if ( cacheUse ){
 				// Use localstorage to improve performance
@@ -83,7 +84,7 @@
 					callback( false );
 				}
 			);
-		};
+		}
 
 		// Hide processing note
 		this.find( '.srf-processing' ).hide();
@@ -92,7 +93,6 @@
 		container.show();
 
 		// Init calendar container
-		// @see http://arshaw.com/fullcalendar/docs/
 		container.fullCalendar( {
 			header: {
 				right: 'prev,next today',
@@ -106,10 +106,10 @@
 			eventColor: '#48a0d5',
 			eventSources: [ data.events, gcalholiday ],
 			eventRender: function( event, element, view ) {
-				// Handle the event icon
+				// Handle event icons
 				if ( event.eventicon ) {
-					// Find image url and add icon
-					_this.getImageURL( event.eventicon, cacheUse, 10 /* 10 h*/,
+					// Find image url and add an icon
+					getImageURL( event.eventicon, cacheUse, cacheTime,
 							function( url ) { if ( url !== false ) {
 								if ( element.find('.fc-event-time').length ) {
 									element.find('.fc-event-time').before( $( '<img src=' + url + ' />' ) );
@@ -122,19 +122,20 @@
 				if ( event.description ) {
 					// Show the tooltip for the month view and render any additional description
 					// into the event for all other views
-					if ( element.find( '.fc-event-title' ).length && view.name !== 'month' ) {
-						element.find( '.fc-event-title' ).after( $( '<span class="srf-fc-description">' + ( view.name.indexOf( 'Week' ) >= 0 ? '<br />' : '' ) + event.description + '</span>' ) );
+					if ( element.find( '.fc-event-title' ).length && view.name !== 'month' && view.name.indexOf( 'Day' ) >= 0 ) {
+						element.find( '.fc-event-title' ).after( $( '<span class="srf-fc-description">' + event.description + '</span>' ) );
 					} else {
 						element.tipsy( {
 							gravity: 'sw',
 							html: true,
-							title: function() { return event.description; }
+							// Return abridged description (100 characters) without cutting the last word
+							title: function() { return event.description.substring(0, event.description.substr(0, 100).lastIndexOf( " " ) ) + ' ...'; }
 						} );
 					}
 				}
 			},
 			dayClick: function( date, allDay, jsEvent ) {
-				// If clicked on the day number then switch to the daily view to see its details
+				// If the day number (where available) is clicked then switch to the daily view
 				if ( allDay && data.options.dayview && $( jsEvent.target ).is( 'div.fc-day-number' ) ) {
 					container.fullCalendar( 'changeView', 'agendaDay'/* or 'basicDay' */).fullCalendar( 'gotoDate', date );
 				}

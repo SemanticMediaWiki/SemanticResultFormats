@@ -28,8 +28,6 @@
  */
 class SRFEventCalendar extends SMWResultPrinter {
 
-	protected $holidayCal;
-
 	/**
 	 * Corresponding message name
 	 *
@@ -49,11 +47,11 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
 
-		// Get data set
+		// Fetch the data set
 		$data = $this->getEventData( $result, $outputMode );
 
 		// Check data availability
-		if ( count( $data ) == 0 ) {
+		if ( $data === array() ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-error-empty-calendar' ) ) );
 		} else {
 			return $this->getCalendarOutput( $data );
@@ -85,23 +83,27 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 *
 	 * @return array
 	 */
+	/**
+	 * @var SMWResultArray $field
+	 * @var SMWDataValue $object
+	 */
 	protected function getEventData( SMWQueryResult $res, $outputMode ) {
 		$data = array();
 
 		while ( $row = $res->getNext() ) {
-			// Loop over their fields (properties)
+			// Loop over available fields (properties)
 			$rowData = array();
 			$rowDesc = array();
 			$description = false;
 
-			foreach ( $row as /* SMWResultArray */ $field ) {
+			foreach ( $row as $field ) {
 
 				// Property label
 				$property = $field->getPrintRequest()->getLabel();
 				$subject = $field->getResultSubject()->getTitle()->getText();
 
 				// Loop over all values for the property.
-				while ( ( /* SMWDataValue */ $object = $field->getNextDataValue() ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
 
@@ -123,7 +125,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 							$rowData['start'] = $object->getISO8601Date();
 						}
 					} elseif ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_URI ){
-						// Used for the holiday feed from google calendar
+						// Get holiday feed url (google calendar etc.)
 						// if ( $field->getPrintRequest()->getLabel() === $this->params['holidaycal'] && $this->params['holidaycal'] !== '' ) {
 						//	$this->holidayCal = $object->getURI();
 						// }
@@ -142,11 +144,11 @@ class SRFEventCalendar extends SMWResultPrinter {
 						}
 					}
 				}
-			 // Pull all descriptions into one field
-			 $rowData['description'] = implode (', ', $rowDesc );
+				// Pull all descriptions into one field
+				$rowData['description'] = implode (', ', $rowDesc );
 			}
 			// Check if the array has actual data
-			if ( count( $rowData ) > 0 ) {
+			if ( $rowData !== array() ) {
 				$data[]= $rowData;
 			}
 		}
@@ -174,13 +176,12 @@ class SRFEventCalendar extends SMWResultPrinter {
 		$defaultView = str_replace ( $defaultVS, $defaultVR, $this->params['defaultview'] );
 
 		// Add options
-		$dataObject['events'] = $events;
+		$dataObject['events']  = $events;
 		$dataObject['options'] = array(
 			'defaultview' => $defaultView,
 			'dayview'     => $this->params['dayview'],
 			'firstday'    => date( 'N', strtotime( $this->params['firstday'] ) ),
-			'gcalurl'     => $this->holidayCal,
-			'theme'       => false,
+			'theme'       => in_array( $this->params['theme'], array( 'vector' ) ),
 			'views' => 'month,' .
 				( strpos( $defaultView, 'Week') === false ? 'basicWeek' : $defaultView ) . ',' .
 				( strpos( $defaultView, 'Day' ) === false ? 'agendaDay' : $defaultView ),
@@ -190,26 +191,27 @@ class SRFEventCalendar extends SMWResultPrinter {
 		$requireHeadItem = array ( $calendarID => FormatJson::encode( $dataObject ) );
 		SMWOutputs::requireHeadItem( $calendarID, Skin::makeVariablesScript($requireHeadItem ) );
 
+		// RL module
 		SMWOutputs::requireResource( 'ext.srf.eventcalendar' );
 
 		// Processing placeholder
 		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 
-		// Chart/graph placeholder
-		$calendar = Html::rawElement( 'div', array(
-			'id'    => $calendarID,
-			'class' => 'container',
-			'style' => "display:none;"
-			), null
+		// Container placeholder
+		$calendar = Html::rawElement(
+			'div',
+			array( 'id' => $calendarID, 'class' => 'container', 'style' => 'display:none;' ),
+			null
 		);
 
 		// Beautify class selector
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : '';
 
-		// Chart/graph wrappper
-		return Html::rawElement( 'div', array(
-			'class' => 'srf-eventcalendar' . $class,
-			), $processing . $calendar
+		// General wrappper
+		return Html::rawElement(
+			'div',
+			array( 'class' => 'srf-eventcalendar' . $class ),
+			$processing . $calendar
 		);
 	}
 
@@ -256,6 +258,12 @@ class SRFEventCalendar extends SMWResultPrinter {
 		$params['class'] = array(
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
+		);
+
+		$params['theme'] = array(
+			'message' => 'srf-paramdesc-theme',
+			'default' => 'basic',
+			'values' => array ( 'basic', 'vector' )
 		);
 
 		return $params;
