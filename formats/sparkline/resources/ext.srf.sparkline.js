@@ -31,7 +31,7 @@
 
 		// Release chart/graph
 		chart.show();
-		chart.sparkline( data.data , {
+		chart.sparkline( data.value , {
 			type: data.charttype,
 			tooltipFormat: '{{value}}{{y}} ({{offset:offset}})',
 			tooltipValueLookups: {

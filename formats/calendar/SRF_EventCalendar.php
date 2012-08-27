@@ -83,10 +83,6 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 *
 	 * @return array
 	 */
-	/**
-	 * @var SMWResultArray $field
-	 * @var SMWDataValue $object
-	 */
 	protected function getEventData( SMWQueryResult $res, $outputMode ) {
 		$data = array();
 
@@ -96,13 +92,22 @@ class SRFEventCalendar extends SMWResultPrinter {
 			$rowDesc = array();
 			$description = false;
 
+			/**
+			 * Loop over the subject row
+			 *
+			 * @var SMWResultArray $field
+			 */
 			foreach ( $row as $field ) {
 
 				// Property label
 				$property = $field->getPrintRequest()->getLabel();
 				$subject = $field->getResultSubject()->getTitle()->getText();
 
-				// Loop over all values for the property.
+				/**
+				 * Loop over all values for a property
+				 *
+				 * @var SMWDataValue $object
+				 */
 				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
