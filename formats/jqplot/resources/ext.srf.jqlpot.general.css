@@ -13,3 +13,8 @@
 	font-size:90%;
 	margin-bottom: 10px;
 }
+
+.srf-jqplot-chart-text.ui-tabs-panel {
+	top: -10px;
+	font-size:120%;
+}
