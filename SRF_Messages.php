@@ -117,6 +117,12 @@ $messages['en'] = array(
 	'srf-paramdesc-seriesgroup' => 'Select series grouping',
 	'srf-paramdesc-serieslabel' => 'Specify series labels',
 	'srf-paramdesc-chartcursor' => 'Chart cursor display option',
+	'srf-paramdesc-tableview' => 'Enable simultaneous display of chart and data sets',
+	'srf-chart-tableview-item'  => 'Data item',
+	'srf-chart-tableview-value' => 'Data value',
+	'srf-chart-tableview-series' => 'Data series',
+	'srf-chart-tableview-chart-tab' => 'Chart',
+	'srf-chart-tableview-data-tab' => 'Data',
 
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
@@ -394,6 +400,12 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-eventicon' => '{{doc-paramdesc|eventicon}}',
 	'srf-paramdesc-eventcolor' => '{{doc-paramdesc|eventcolor}}',
 	'srf-paramdesc-dayview' => '{{doc-paramdesc|dayview}}',
+	'srf-paramdesc-tableview' => '{{doc-paramdesc|tableview}}',
+	'srf-chart-tableview-item'  => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-chart-tableview-value' => 'This is a table header See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-chart-tableview-series' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-chart-tableview-chart-tab' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-chart-tableview-data-tab' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 );
 
 /** Afrikaans (Afrikaans)
