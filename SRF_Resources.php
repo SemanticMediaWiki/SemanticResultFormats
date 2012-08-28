@@ -23,7 +23,7 @@ $formatModule = array(
 );
 
 /******************************************************************************/
-/* Common and non format specific resources
+/* SRF common and non printer specific resources
 /******************************************************************************/
 $wgResourceModules['ext.jquery.easing'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.easing/jquery.easing-1.3.pack.js'
@@ -65,6 +65,25 @@ $wgResourceModules['ext.jquery.listmenu'] = $moduleTemplate + array(
 
 $wgResourceModules['ext.jquery.pajinate'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.pajinate/jquery.pajinate.js'
+);
+
+/******************************************************************************
+ * SRF specific printer independent utility resources
+/******************************************************************************/
+$wgResourceModules['ext.srf.util.grid.tableview'] = $moduleTemplate + array(
+	'scripts' => 'resources/srf.util/ext.srf.util.grid.tableview.js',
+	'dependencies' => array(
+		'jquery.ui.tabs',
+		'ext.jquery.jqgrid',
+	),
+	'messages' => array(
+		'srf-chart-tableview-series',
+		'srf-chart-tableview-item',
+		'srf-chart-tableview-value',
+		'srf-chart-tableview-chart-tab',
+		'srf-chart-tableview-data-tab'
+	),
+	'position' => 'top',
 );
 
 /******************************************************************************
@@ -297,6 +316,14 @@ $wgResourceModules['ext.srf.jqplot.donut'] = $formatModule + array(
 	'position' => 'top',
 );
 
+$wgResourceModules['ext.srf.jqplot.chart.tableview'] = $formatModule + array(
+	'dependencies' => array(
+		'ext.srf.jqplot.chart',
+		'ext.srf.util.grid.tableview'
+	),
+	'position' => 'top',
+);
+
 /******************************************************************************
  * Timeline
 /******************************************************************************/
@@ -341,24 +368,6 @@ $wgResourceModules['ext.srf.d3.chart.bubble'] = $formatModule + array(
 	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.bubble.css',
 	'dependencies' => array ( 'ext.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
-);
-
-$wgResourceModules['ext.srf.jqplot.chart.tableview'] = $formatModule + array(
-	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.tableview.js',
-	'dependencies' => array(
-		'ext.srf.jqplot.chart',
-		'jquery.ui.core',
-		'jquery.ui.tabs',
-		'ext.jquery.jqgrid'
-	),
-	'messages' => array(
-		'srf-chart-tableview-series',
-		'srf-chart-tableview-item',
-		'srf-chart-tableview-value',
-		'srf-chart-tableview-chart-tab',
-		'srf-chart-tableview-data-tab'
-	),
-	'position' => 'top',
 );
 
 /******************************************************************************
@@ -536,10 +545,7 @@ $wgResourceModules['ext.srf.flot.core'] = $formatModule + array(
 
 $wgResourceModules['ext.srf.flot.timeseries'] = $formatModule + array(
 	'scripts' => 'flot/resources/ext.srf.flot.timeseries.js',
-	'dependencies' => array ( 'ext.jquery.flot', 'ext.jquery.jqgrid', 'ext.srf.flot.core' ),
-	'messages' => array(
-		'srf-timeseries-zoom-out-of-range'
-	),
+	'dependencies' => array ( 'ext.jquery.flot', 'ext.srf.flot.core' ),
 	'position' => 'top'
 );
 

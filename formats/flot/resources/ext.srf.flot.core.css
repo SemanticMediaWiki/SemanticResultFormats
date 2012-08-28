@@ -34,6 +34,7 @@
 	display:block;
 	position:relative;
 	font-size:90%;
+	margin-left: 5px;
 }
 
 .srf-flot-tooltip {

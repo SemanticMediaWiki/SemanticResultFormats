@@ -48,16 +48,11 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
 
-		// Data pre-processing check
-		if ( $this->params['layout'] === '' ) {
-			return $result->addErrors( array( wfMsgForContent( 'srf-error-missing-layout' ) ) );
-		}
-
 		// Data processing
 		$data = $this->getAggregatedTimeSeries( $result, $outputMode );
 
 		// Post-data processing check
-		if ( count( $data ) == 0 ) {
+		if ( $data === array() ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
 		} else {
 			return $this->getFormatOutput( $data );
@@ -151,17 +146,22 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 			$dataObject[] = array ( 'label' => $key, 'data' => $values );
 		}
 
+		// Series colour
+		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : array();
+
 		// Prepare transfer array
 		$chartData = array (
 			'data' => $dataObject,
+			'fcolumntypeid' => '_dat',
 			'parameters' => array (
-				'width'       => $this->params['width'],
-				'height'      => $this->params['height'],
-				'charttitle'  => $this->params['charttitle'],
-				'charttext'   => $this->params['charttext'],
-				'layout'      => $this->params['layout'],
-				'datatable'   => $this->params['tablearea'],
-				'zoom'        => $this->params['zoomarea'],
+				'width'        => $this->params['width'],
+				'height'       => $this->params['height'],
+				'charttitle'   => $this->params['charttitle'],
+				'charttext'    => $this->params['charttext'],
+				'charttype'    => $this->params['charttype'],
+				'datatable'    => $this->params['tableview'],
+				'zoom'         => $this->params['zoompane'],
+				'seriescolors' => $seriescolors
 			)
 		);
 
@@ -171,6 +171,10 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 
 		// RL module
 		SMWOutputs::requireResource( 'ext.srf.flot.timeseries' );
+
+		if ( $this->params['tableview'] === 'tabs' ) {
+			SMWOutputs::requireResource( 'ext.srf.util.grid.tableview' );
+		}
 
 		// Chart/graph placeholder
 		$chart = Html::rawElement( 'div', array(
@@ -205,7 +209,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['layout'] = array(
+		$params['charttype'] = array(
 			'message' => 'srf-paramdesc-layout',
 			'default' => 'line',
 			'values' => array( 'line', 'bar'),
@@ -215,7 +219,12 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-minvalue',
 			'default' => '',
-			'values' => array( 'line', 'bar'),
+		);
+
+		$params['tableview'] = array(
+			'message' => 'srf-paramdesc-tableview',
+			'default' => 'none',
+			'values' => array( 'none' , 'tabs' ),
 		);
 
 		$params['group'] = array(
@@ -224,14 +233,8 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 			'values' => array( 'property' , 'subject' ),
 		);
 
-		$params['zoomarea'] = array(
-			'message' => 'srf-paramdesc-zoomarea',
-			'default' => 'bottom',
-			'values' => array( 'none' , 'bottom', 'top' ),
-		);
-
-		$params['tablearea'] = array(
-			'message' => 'srf-paramdesc-tablearea',
+		$params['zoompane'] = array(
+			'message' => 'srf-paramdesc-zoompane',
 			'default' => 'bottom',
 			'values' => array( 'none' , 'bottom', 'top' ),
 		);
@@ -244,10 +247,8 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		);
 
 		$params['width'] = array(
-			'type' => 'integer',
 			'message' => 'srf_paramdesc_chartwidth',
-			'default' => 400,
-			'lowerbound' => 1,
+			'default' => '100%',
 		);
 
 		$params['charttitle'] = array(
@@ -257,6 +258,11 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 
 		$params['charttext'] = array(
 			'message' => 'srf-paramdesc-charttext',
+			'default' => '',
+		);
+
+		$params['chartcolor'] = array(
+			'message' => 'srf-paramdesc-chartcolor',
 			'default' => '',
 		);
 

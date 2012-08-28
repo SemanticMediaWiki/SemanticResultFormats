@@ -1,157 +1,152 @@
 /**
- * JavaSript for SRF flot chart module
+ * JavaScript for SRF ...
  *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
  * @release: 0.2
  */
-(function( $ ) {
+( function( $ ) {
+	"use strict";
 
-/* Error handling *************************************************************/
+	// Only display errors
 	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
-/* Start javascript ***********************************************************/
 
-	// Time series data grid table
-	$.fn.timeSeriesDataTable = function ( data , charttitle, width, pagerID ) {
+	/*global mw:true*/
 
-		var gridTable = [],
-			names       = ["id", "series" ,"date", "value" ],
-			counter     = 0;
+	var methods = {
+		/**
+		 * Initialization method
+		 *
+		 * @since 1.8
+		 */
+		init : function() {
+			var chart = this,
+				container = this.find( ".container" ),
+				chartID   = container.attr( "id" ),
+				json      = mw.config.get( chartID );
 
-		// Add row to gridTable
-		var addRow = function ( names, counter, label, data ) {
-					var column = {};
-						column[names[0]] = counter;
-						column[names[1]] = label;
-							for ( var k = 0; k < data.length; ++k ) {
-								column[names[k+2]] = names[k+2] == 'date' ? data[k] / 1000 : data[k];
-							}
-			return column;
-		};
+			// Parse json string and convert it back
+			var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
-		// Flatten data array
-		for (var j = 0; j < data.length; ++j) {
-			for ( var i = 0; i < data[j].data.length; ++i ) {
-				gridTable.push( addRow( names, ++counter , data[j].label, data[j].data[i] ) );
-			}
-		}
+			/**
+			 * @var plotClass identifies class that holds the plot
+			 * @var addedHeight collects heights of objects other that the chart in order
+			 * to be able to adjust the height of the chart and sray within the limits
+			 * specified by the query printer
+			 */
+			var plotClass = 'srf-flot-plot',
+				width = data.parameters.width,
+				addedHeight = 20,
+				height = data.parameters.height;
 
-		// Create grid instance
-		return this.jqGrid({
-			datatype: 'local',
-			data: gridTable,
-			colNames:['Id','Series','Date','Value'],
-			colModel :[
-				{name:'id',index:'id', width:65, sorttype: 'int', hidden:true},
-				{name:'series',index:'series' },
-				{name:'date',index:'date', width:120, align:'center', sorttype:'date', formatter:'date', formatoptions: {srcformat: 'U', newformat:'d/m/Y'} },
-				{name:'value',index:'value'}
-			],
-			pager: '#' + pagerID ,
-			rowNum:10,
-			rowList:[10,20,30],
-			grouping:true,
-			groupingView : {
-				groupField : ['series'],
-				groupDataSorted : true
-			},
-			sortname: 'date',
-			sortorder: 'asc',
-			viewrecords: true,
-			//autowidth: true,
-			width: width,
-			caption: charttitle
-		} )
-	};
+			// Extend option settings
+			var settings = $.extend( {
+				'height' : height,
+				'width'  : width,
+				'plotclass' : plotClass,
+				'chartid' : chartID,
+			}, data );
 
-	$(document).ready( function() {
+			// Timeseries plot container
+			var plotContainer = '<div class="' + plotClass + '"></span>';
+			container.prepend( plotContainer );
 
-		$( ".srf-flot-timeseries" ).each(function() {
+			// Set chart height and width
+			chart.css( { 'height': height, 'width': width } );
 
-			var $this = $( this ),
-				chart   = $this.find( ".container" ),
-				chartID = chart.attr( "id" ),
-				pagerID = 'pager-' + chartID,
-				json    = mw.config.get( chartID );
-
-			// Parse json string and convert it back into objects
-			typeof json == 'string' ? container = jQuery.parseJSON( json ) : container = json;
-
-			var data      = container['data'],
-				width       = container['parameters'].width,
-				height      = container['parameters'].height,
-				charttitle  = container['parameters'].charttitle,
-				charttext   = container['parameters'].charttext,
-				layout      = container['parameters'].layout,
-				status      = 0,
-				addHeight   = 20,
-				max         = 0;
+			// Adjustments for cases where jquery ui is used
+			width  = width - ( data.parameters.datatable === 'tabs' ? 30 : 0 );
 
 			// Hide processing
-			$this.find( ".srf-processing" ).hide();
+			chart.find( ".srf-processing" ).hide();
 
-			// Base settings
-			$this.css( { 'height': height, 'width': width == 0 ? height : width } );
+			// Release chart container
+			container.show();
 
 			// Set-up chart title
-			if ( charttitle.length > 0 ) {
-				charttitle = '<span class="srf-flot-chart-title">' + charttitle + '</span>';
-				$this.find( '#' + chartID ).before( charttitle );
-				addHeight += $this.find( '.srf-flot-chart-title' ).height();
+			var chartTitle = data.parameters.charttitle;
+			if ( chartTitle.length > 0 ) {
+				chartTitle = '<span class="srf-flot-chart-title">' + chartTitle + '</span>';
+				container.find( '.' + plotClass ).before( chartTitle );
+				addedHeight += container.find( '.srf-flot-chart-title' ).height();
 			}
 
-			// Set-up chart text
-			if ( charttext.length > 0 ) {
-				charttext  = '<span class="srf-flot-chart-text">' + charttext  + '</span>';
-				$this.find( '#' + chartID ).after( charttext );
-				addHeight += $this.find( '.srf-flot-chart-text' ).height();
-			}
-
-			// Set-up table and table pager
-			var datatable  = '<table id=grid-'+ chartID + ' class="srf-flot-list"></table>',
-				tablepager = '<div id="'+ pagerID +'" class="srf-flot-list-pager"></div>';
-
-			if ( container['parameters'].datatable == 'top' ){
-				$this.find( '#' + chartID ).before( datatable ).css( 'width', width );
-				$this.find( '#' + chartID ).before( tablepager ).css( 'width', width );
-			} else if ( container['parameters'].datatable == 'bottom' ){
-				$this.find( '#' + chartID ).after( datatable ).css( 'width', width );
-				$this.find( '#' + chartID ).after( tablepager ).css( 'width', width );
+			// Set-up chart title
+			var chartText = data.parameters.charttext;
+			if ( chartText.length > 0 ) {
+				chartText = '<span class="srf-flot-chart-text">' + chartText + '</span>';
+				container.find( '.' + plotClass ).after( chartText );
+				addedHeight += container.find( '.srf-flot-chart-text' ).height();
 			}
 
 			// Set-up zoom box
-			var zoom  = '<div class="srf-flot-zoom" style="margin-top:10px;height:50px"></div>';
-			if ( container['parameters'].zoom == 'top'){
-				$this.find( '#' + chartID ).before( zoom ).css( 'width', width );
-			}else if ( container['parameters'].zoom == 'bottom' ){
-				$this.find( '#' + chartID ).after( zoom ).css( 'width', width );
+			var zoom  = '<div class="' + plotClass + '-zoom" style="height:50px"></div>';
+			if ( data.parameters.zoom === 'top'){
+				container.find( '.' + plotClass ).before( zoom ).css( 'width', width );
+			}else if ( data.parameters.zoom === 'bottom' ){
+				container.find( '.' + plotClass ).after( zoom ).css( 'width', width );
 			}
-			addHeight += $this.find( '.srf-flot-zoom' ).height();
+			addedHeight += container.find( '.' + plotClass + '-zoom' ).height();
 
 			// Set-up info note
-			var infonote  = '<span class="srf-flot-note" style="display:none;"></span>';
-			$this.find( '#' + chartID ).before( infonote );
-			addHeight = addHeight + $this.find( '.srf-flot-note' ).height();
+			var infoNote  = '<span class="srf-flot-note" style="display:none;"></span>';
+			container.find( '.' + plotClass ).before( infoNote );
 
 			// Keep the overall height and width and apply possible changes onto the chart
-			chart.css( { 'height': height - addHeight, 'width': width } );
+			height = height - ( data.parameters.datatable === 'tabs' ? 20 + addedHeight : addedHeight );
+			container.css( { 'height': height, 'width': width } );
+			container.find( '.' + plotClass ).css( { 'height': height, 'width': width } );
 
-			// Release chart
-			chart.show();
-/* Flot object declaration ****************************************************/
+			// Handle jqGrid table
+			if ( data.parameters.datatable === 'tabs' ) {
+				// Datatable declaration
+				var dataSeries = [];
+				var dataTable = [];
+				var newRow = {};
+				for ( var j = 0; j < data.data.length; ++j ) {
+					newRow = { 'label' : data.data[j].label };
+					dataSeries.push ( newRow );
+					dataTable.push ( data.data[j].data );
+				}
+				// Tableview plugin
+				chart.srfTableView( {
+					'id' : chartID,
+					'chart' : container,
+					'data' : {
+						'series': dataSeries,
+						'data': dataTable,
+						'fcolumntypeid': data.fcolumntypeid
+					}
+				} );
+			}
+
+			// Draw chart
+			container.srfFlotTimeSeries( 'chart', settings );
+		},
+		/**
+		 * Chart handling method
+		 *
+		 * @since 1.8
+		 */
+		chart : function( content ) {
+			var plotArea = this.find( '.' + content.plotclass ),
+				plotZoomArea = this.find( '.' + content.plotclass + '-zoom' ),
+				data = content.data;
 
 			// Javascript timestamp is the number of milliseconds since
 			// January 1, 1970 00:00:00 UTC therefore * 1000
 			// correct timestamps daily midnights in UTC+0100, add one hour to hit
 			// the midnights in the plot
-			function convertData( tseries, tmax ) {
-				var len=tseries.length, k;
-					for (var j = 0; j < len; ++j ) {
+			function convertData( tseries ) {
+				var ttData =[];
+				var max = 0;
+				var len=tseries.length;
+					for ( var j = 0; j < len; ++j ) {
 						ttData  = tseries[j].data;
-							for ( var k = 0; k < ttData.length; ++k ) {
-								ttData[k][0] = ( ttData[k][0] * 1000 ) + ( 60 * 60 * 1000 );
-								max = max > ttData[k][1] ? max : ttData[k][1];
+							for ( var p = 0; p < ttData.length; ++p ) {
+								ttData[p][0] = ( ttData[p][0] * 1000 ) + ( 60 * 60 * 1000 );
+								max = max > ttData[p][1] ? max : ttData[p][1];
 						}
 					}
 				return ttData;
@@ -166,7 +161,7 @@
 				var d = new Date(axes.xaxis.min);
 
 				// go to the first Saturday
-				d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
+				d.setUTCDate(d.getUTCDate() - ( ( d.getUTCDay() + 1 ) % 7) );
 				d.setUTCSeconds(0);
 				d.setUTCMinutes(0);
 				d.setUTCHours(0);
@@ -184,48 +179,41 @@
 			// Set-up plot options
 			var options = {
 				xaxis: { mode: "time", tickLength: 5 },
-				//yaxis: { ticks: 10 },
 				alignTicksWithAxis: 1,
-				selection: { mode: container['parameters'].zoom == 'top' || container['parameters'].zoom == 'bottom' ? "x" : null },
-				bars: layout == 'bar' ? { show: true, barWidth: 0.6 } : false,
-				grid: { markings: weekendAreas, hoverable: true, clickable: true, borderColor: '#BBB', borderWidth: 1 }
+				selection: { mode: content.parameters.zoom === 'top' || content.parameters.zoom === 'bottom' ? "x" : null },
+				bars: content.parameters.charttype === 'bar' ? { show: true, barWidth: 0.6 } : false,
+				colors: content.parameters.seriescolors,
+				grid: { markings: weekendAreas, hoverable: true, clickable: true, borderColor: '#BBB', borderWidth: 1, backgroundColor: '#FFF' }
 			};
 
 			// Draw actual plot
-			var plot = $.plot( $this.find( "#" + chartID ), data, options );
+			var plot = $.plot( plotArea , data, options );
 
-			// Find tick labels and calculate margin
-			var tickLabelMargin  = $this.find( '.yAxis.y1Axis').find( '.tickLabel' ).width();
-			$this.find( '.srf-flot-chart-text' ).css( "margin-left", tickLabelMargin + 5 );
-
-			// Re-assign zoom box margin-left / width
-			if ( container['parameters'].zoom == 'top' || container['parameters'].zoom == 'bottom' ){
-				var zoomBoxWidth = $this.find( '.srf-flot-zoom > canvas' ).width() - tickLabelMargin;
-
-				$this.find( '.srf-flot-zoom' ).css( "margin-left", tickLabelMargin );
-				$this.find( '.srf-flot-zoom > canvas' ).attr( 'width', zoomBoxWidth );
-				$this.find( '.srf-flot-zoom > canvas.overlay' ).attr( 'width', zoomBoxWidth );
+			if ( content.parameters.zoom === 'top' || content.parameters.zoom === 'bottom' ){
 
 				// Init zoom box
-				var zoombox = $.plot( $this.find( '.srf-flot-zoom' ), data , {
+				var zoombox = $.plot( plotZoomArea , data , {
 					series: {
-						lines: layout == 'bar' ? false: { show: true, lineWidth: 1 },
-						bars:  layout == 'bar' ? { show: true, barWidth: 0.6 } : false,
+						lines: content.parameters.charttype === 'bar' ? false: { show: true, lineWidth: 1 },
+						bars:  content.parameters.charttype === 'bar' ? { show: true, barWidth: 0.6 } : false,
 						shadowSize: 0
 					},
-					grid: { borderColor: '#BBB', borderWidth: 1 },
+					grid: { borderColor: '#BBB', borderWidth: 1, backgroundColor: '#FFF' },
+					colors: content.parameters.seriescolors,
 					legend: { show: false },
-					xaxis: { ticks: [], mode: "time" },
+					xaxis: { ticks: [], mode: "time" , timeformat: "%y-%m-%d" },
 					yaxis: { ticks: [], min: 0, autoscaleMargin: 0.1 },
 					selection: { mode: "x" }
 				} );
 
 				// Connect zoom box and chart
-				$( "#" + chartID ).bind("plotselected", function (event, ranges) {
-					if (ranges.xaxis.to - ranges.xaxis.from < 0.00001)
+				this.bind("plotselected", function (event, ranges) {
+					if (ranges.xaxis.to - ranges.xaxis.from < 0.00001){
 						ranges.xaxis.to = ranges.xaxis.from + 0.00001;
-					if (ranges.yaxis.to - ranges.yaxis.from < 0.00001)
+					}
+					if (ranges.yaxis.to - ranges.yaxis.from < 0.00001){
 						ranges.yaxis.to = ranges.yaxis.from + 0.00001;
+					}
 
 					// Calculate y-min and y-max for the selected x range
 					var ymin, ymax;
@@ -233,27 +221,17 @@
 						$.each(plotdata, function (e, val) {
 						$.each(val.data, function (e1, val1) {
 							if ((val1[0] >= ranges.xaxis.from) && (val1[0] <= ranges.xaxis.to)) {
-								if (ymax == null || val1[1] > ymax) ymax = val1[1];
-									if (ymin == null || val1[1] < ymin) ymin = val1[1];
+								if (ymax == null || val1[1] > ymax) { ymax = val1[1]; }
+									if (ymin == null || val1[1] < ymin) { ymin = val1[1]; }
 								}
-							} )
+							} );
 						} );
 
-					// Out of range zoom message
-					if ( ymin == undefined ){
-						$this.find( '.srf-flot-note' ).html( mw.msg( 'srf-timeseries-zoom-out-of-range' ) ).css( { 'display': 'block',  "margin-left": tickLabelMargin + 5 } );
-						chart.css( 'display', 'none' );
-						$this.css( 'height', height - chart.height() + $this.find( '.srf-flot-note' ).height()  );
-					}else{
-						$this.css( 'height', height );
-						chart.css( 'display', 'block' );
-						$this.find( '.srf-flot-note' ).css( 'display', 'none' );
-					}
 					ranges.yaxis.from = Math.round( ymin ).toFixed(0);
 					ranges.yaxis.to   = Math.round( ymax + ( ymax / Math.log(ymax)/Math.log(10) ) ).toFixed(0);
 
 				// Do the zooming
-				plot = $.plot( $this.find( "#" + chartID ), data ,
+				plot = $.plot( plotArea , data ,
 					$.extend(true, {}, options, {
 						xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
 						yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
@@ -264,39 +242,10 @@
 				zoombox.setSelection(ranges, true);
 			} );
 
-			$this.find( '.srf-flot-zoom' ).bind("plotselected", function (event, ranges) {
+			plotZoomArea.bind("plotselected", function (event, ranges) {
 				plot.setSelection(ranges);
 			} );
 		}
-/* jqGrid table declaration ***************************************************/
-
-			// Init jqGrid table
-			if ( container['parameters'].datatable == 'top' || container['parameters'].datatable == 'bottom' ){
-				$this.find( '.srf-flot-list' ).timeSeriesDataTable( data, charttitle, width - tickLabelMargin - 10, pagerID );
-			}
-
-			// Set margin
-			$this.find( '.ui-jqgrid' ).css( "margin-left", tickLabelMargin + 5 );
-
-			// Re-calculate height
-			height = $this.height() + $this.find( '.ui-jqgrid' ).height();
-			$this.css ( 'height', height );
-
-			// Re-assign height for when the collapse button is pressed
-			$this.find( '.HeaderButton' ).click(function(){
-				if ( status == 0 ){
-					++status;
-					$this.css ( 'height',  $this.height() - ( $this.find( '.ui-jqgrid' ).height() -  $this.find( '.ui-jqgrid-titlebar' ).height() ) );
-					$this.find('.ui-widget-header' ).css( 'border-bottom', '0px solid #BBB' );
-				} else {
-					status = 0;
-					$this.css ( 'height', height  );
-					$this.find('.ui-widget-header' ).css( 'border-bottom', '1px solid #BBB' );
-				};
-			} );
-
-/* Tooltip object declaration *************************************************/
-
 			// Tool tip for line chart
 			function showTooltip(x, y, contents) {
 				$('<div class="srf-flot-tooltip">' + contents + '</div>').css( {
@@ -311,21 +260,21 @@
 				} ).appendTo("body").fadeIn(200);
 			}
 
-			var  b = function (i) {
-					return i < 10 ? "0" + i : i
+			var b = function (i) {
+					return i < 10 ? "0" + i : i;
 				},
 					h = function (i) {
 						var l = i.getUTCFullYear() + "-" + b(i.getUTCMonth() + 1);
-						return l + "-" + b(i.getUTCDate())
+						return l + "-" + b( i.getUTCDate() );
 				};
 
 			var previousPoint = null;
 
-			$( "#" + chartID ).bind("plothover", function (event, pos, item) {
+			$( "#" + content.chartid ).bind("plothover", function (event, pos, item) {
 				$("#x").text(pos.x.toFixed(2));
 				$("#y").text(pos.y.toFixed(2));
 					if (item) {
-						if (previousPoint != item.datapoint) {
+						if (previousPoint !== item.datapoint) {
 								previousPoint = item.datapoint;
 								$( '.srf-flot-tooltip' ).remove();
 									var x = item.datapoint[0],
@@ -336,8 +285,33 @@
 							$( '.srf-flot-tooltip' ).remove();
 								previousPoint = null;
 					}
+			} );
+		}
+	};
+
+	/**
+	 * Method handling
+	 *
+	 * @since 1.8
+	 */
+	$.fn.srfFlotTimeSeries = function( method ) {
+		if ( methods[method] ) {
+			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ) );
+		} else if ( typeof method === 'object' || ! method ) {
+			return methods.init.apply( this, arguments );
+		} else {
+			$.error( 'Method ' + method + ' does not exist within the jQuery.srf.plugin pool' );
+		}
+	};
+
+	/**
+	 * DOM handling
+	 *
+	 * @since 1.8
+	 */
+	$( document ).ready( function() {
+		$( ".srf-flot-timeseries" ).each(function() {
+			$( this ).srfFlotTimeSeries();
 		} );
-/* End ************************************************************************/
-		} ); // end of initilized $this object
 	} ); // end $(document).ready
 } )( window.jQuery );

@@ -1,12 +1,12 @@
 /**
- * JavaScript for SRF jqPlot tableview module
+ * JavaScript for SRF grid tableview plugin
  *
  * jshint checked
  *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
- * @release: 0.1
+ * @release: 0.2
  */
 ( function( $ ) {
 	"use strict";
@@ -61,7 +61,9 @@
 		show : function( content ) {
 			var dataTableGrid = this,
 				data = content.data.data,
-				series = content.data.series;
+				series = content.data.series,
+				columnWidth = ( content.width / 2 ) - 5,
+				tableHeight = content.height - 110;
 
 			var gridTable = [],
 				counter     = 0;
@@ -70,9 +72,33 @@
 			for ( var j = 0; j < data.length; ++j ) {
 				var ttSeries = series[j];
 				for ( var i = 0; i < data[j].length; ++i ) {
-					var row = { id: ++counter , series: ttSeries.label, label: data[j][i][0], value: data[j][i][1] };
+					var row = { id: ++counter , series: ttSeries.label, item: data[j][i][0], value: data[j][i][1] };
 					gridTable.push( row );
 				}
+			}
+
+			// Adopt data item output
+			var colModelItem = '';
+			if ( content.data.fcolumntypeid === '_dat' ) {
+				// Fetch default date display
+				var dateFormat = mw.user.options.get( 'date' );
+				if ( dateFormat.indexOf( 'ISO' ) >= 0 ){
+					dateFormat = "Y-m-d H:i:s";
+				} else {
+					dateFormat = 'd M Y';
+				}
+
+				colModelItem = {
+					name:'item',
+					index:'item',
+					width: columnWidth,
+					align:'center',
+					sorttype:'date',
+					formatter:'date',
+					formatoptions: { srcformat: 'U', newformat: dateFormat }
+					};
+			}else{
+				colModelItem = { name:'item', index:'item', width: columnWidth };
 			}
 
 			// Create grid instance
@@ -89,21 +115,19 @@
 				colModel :[
 					{ name:'id', index:'id', sorttype: 'int', hidden:true },
 					{ name:'series', index:'series', width: 0 },
-					{ name:'label', index:'label', width: content.width / 2 },
-					{ name:'value', index:'value', width: content.width / 2 }
+					colModelItem,
+					{ name:'value', index:'value', width: columnWidth, align:"right" }
 				],
 				pager: '#' + content.pagerID ,
-				rowNum:10,
-				height: content.height - 110,
-				//width: width,
-				rowList:[10,20,30],
+				height: tableHeight,
+				rowList:[10,20,30,40,50],
 				ignoreCase: true,
 				grouping:true,
 				groupingView : {
 					groupField : ['series'],
 					groupColumnShow : [false]
 				},
-				sortname: 'date',
+				sortname: 'item',
 				sortorder: 'asc',
 				viewrecords: true,
 				hidegrid: false
