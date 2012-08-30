@@ -1428,6 +1428,7 @@ $messages['fi'] = array(
  * @author IAlex
  * @author Iluvalar
  * @author McDutchie
+ * @author Nicolas NALLET
  * @author Peter17
  * @author PieRRoMaN
  * @author Tititou36
@@ -1511,6 +1512,7 @@ $messages['fr'] = array(
 	'srf-paramdesc-stackseries' => 'Afficher le graphique sous forme de barres empilées',
 	'srf-paramdesc-seriesgroup' => 'Sélectionner le regroupement par séries',
 	'srf-paramdesc-serieslabel' => 'Spécifier les libellés des séries',
+	'srf-chart-tableview-data-tab' => 'Données',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => "Le nombre d'images par ligne",
 	'srf_paramdesc_widths' => 'La largeur des images',
@@ -1524,6 +1526,7 @@ $messages['fr'] = array(
 	'srf-gallery-navigation-previous' => 'Précédent',
 	'srf-gallery-navigation-next' => 'Suivant',
 	'srf-gallery-overlay-count' => 'Image $1 sur $2',
+	'srf-gallery-image-url-error' => "L'image n'a pas été trouvée",
 	'srf_printername_tagcloud' => 'Nuage de tags',
 	'srf_paramdesc_includesubject' => 'Si les noms des sujets eux-mêmes devraient être inclus',
 	'srf_paramdesc_increase' => 'Comment augmenter la taille des tags',
