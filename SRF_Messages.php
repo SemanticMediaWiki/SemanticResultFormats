@@ -4263,9 +4263,9 @@ $messages['vep'] = array(
  * @author පසිඳු කාවින්ද
  */
 $messages['vi'] = array(
-	'srf-desc' => 'Các định dạng bổ sung cho các câu truy vấn trong dòng lệnh của MediaWiki Ngữ Nghĩa',
+	'srf-desc' => 'Các định dạng bổ sung cho các câu truy vấn trong dòng lệnh của MediaWiki Ngữ nghĩa',
 	'srf-name' => 'Định dạng Kết quả Ngữ nghĩa',
-	'srf-module-loading' => 'Đang tải...',
+	'srf-module-loading' => 'Đang tải…',
 	'srfc_previousmonth' => 'Tháng trước',
 	'srfc_nextmonth' => 'Tháng sau',
 	'srfc_today' => 'Hôm nay',
