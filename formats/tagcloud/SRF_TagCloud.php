@@ -103,10 +103,6 @@ class SRFTagCloud extends SMWResultPrinter {
 
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
 
-					if ( !$isSubject ) {
-						q($row[$i]->getPrintRequest()->getLabel());
-					}
-
 					// If the main object should not be included, skip it.
 					if ( $i == 0 && !$this->params['includesubject'] && $isSubject ) {
 						continue;
