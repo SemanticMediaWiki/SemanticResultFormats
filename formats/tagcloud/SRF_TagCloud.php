@@ -94,10 +94,18 @@ class SRFTagCloud extends SMWResultPrinter {
 		$excludetags = explode( ';', $this->params['excludetags'] );
 
 		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
-			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property 
-				while ( ( /* SMWDataValue */ $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
+			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property
+
+				/**
+				 * @var SMWDataValue $dataValue
+				 */
+				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
 
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
+
+					if ( !$isSubject ) {
+						q($row[$i]->getPrintRequest()->getLabel());
+					}
 
 					// If the main object should not be included, skip it.
 					if ( $i == 0 && !$this->params['includesubject'] && $isSubject ) {

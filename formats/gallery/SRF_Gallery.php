@@ -18,10 +18,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @file SRF_Gallery.php
+ * @file
  * @ingroup SemanticResultFormats
  *
- * @author Jeroen De Dauw
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
  * @author Rowan Rodrik van der Molen
  */
@@ -68,7 +68,9 @@ class SRFGallery extends SMWResultPrinter {
 		// Don't init the parser if it is a special page otherwise it causes a fatal error
 		// We need the parser for "normal" pages to ensure caption text is rendered
 		// correctly but is less important for Special:Ask
-		!$this->isSpecialPage() ? $ig->setParser( $GLOBALS['wgParser'] ) : '';
+		if ( !$this->isSpecialPage() ) {
+			$ig->setParser( $GLOBALS['wgParser'] );
+		}
 
 		// Initialize
 		static $statNr = 0;
@@ -146,7 +148,10 @@ class SRFGallery extends SMWResultPrinter {
 
 		$printReqLabels = array();
 
-		foreach ( $results->getPrintRequests() as /* SMWPrintRequest */ $printReq ) {
+		/**
+		 * @var SMWPrintRequest $printReq
+		 */
+		foreach ( $results->getPrintRequests() as $printReq ) {
 			$printReqLabels[] = $printReq->getLabel();
 		}
 
@@ -208,24 +213,33 @@ class SRFGallery extends SMWResultPrinter {
 	 * @param $outputMode
 	 */
 	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
-		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
+		while ( /* array of SMWResultArray */ $rows = $results->getNext() ) { // Objects (pages)
 			$images = array();
 			$captions = array();
 			$redirects = array();
 
-			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // Properties
-				if ( $row[$i]->getPrintRequest()->getLabel() == $imageProperty ) {
-					while ( ( $obj = $row[$i]->getNextDataValue() ) !== false ) { // Property values
+			for ( $i = 0, $n = count( $rows ); $i < $n; $i++ ) { // Properties
+				/**
+				 * @var SMWResultArray $resultArray
+				 * @var SMWDataValue $obj
+				 */
+				$resultArray = $rows[$i];
+
+				$label = $resultArray->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS
+					? '-' : $resultArray->getPrintRequest()->getLabel();
+
+				if ( $label == $imageProperty ) {
+					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
 						if ( $obj->getTypeID() == '_wpg' ) {
 							$images[] = $obj->getTitle();
 						}
 					}
-				} elseif ( $row[$i]->getPrintRequest()->getLabel() == $captionProperty ) {
-					while ( ( $obj = $row[$i]->getNextDataValue() ) !== false ) { // Property values
+				} elseif ( $label == $captionProperty ) {
+					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
 						$captions[] = $obj->getShortText( $outputMode, $this->getLinker( true ) );
 					}
-				} elseif ( $row[$i]->getPrintRequest()->getLabel() == $redirectProperty ) {
-					while ( ( $obj = $row[$i]->getNextDataValue() ) !== false ) { // Property values
+				} elseif ( $label == $redirectProperty ) {
+					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
 						if ( $obj->getTypeID() == '_wpg' ) {
 							$redirects[] = $obj->getTitle();
 						}
@@ -241,6 +255,9 @@ class SRFGallery extends SMWResultPrinter {
 			$amountRedirects = count( $redirects ) == count( $images );
 			$hasRedirect = $amountRedirects || count( $redirects ) > 0;
 
+			/**
+			 * @var Title $imgTitle
+			 */
 			foreach ( $images as $imgTitle ) {
 				if ( $imgTitle->exists() ) {
 					$imgCaption = $hasCaption ? ( $amountMatches ? array_shift( $captions ) : $captions[0] ) : '';
@@ -261,6 +278,9 @@ class SRFGallery extends SMWResultPrinter {
 	 */
 	protected function addImagePages( SMWQueryResult $results, ImageGallery &$ig ) {
 		while ( $row = $results->getNext() ) {
+			/**
+			 * @var SMWResultArray $firstField
+			 */
 			$firstField = $row[0];
 			$nextObject = $firstField->getNextDataValue();
 
@@ -365,7 +385,7 @@ class SRFGallery extends SMWResultPrinter {
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf-paramdesc-widget',
-			'values' => array( 'carousel', 'slideshow' )
+			'values' => array( 'carousel', 'slideshow', '' )
 		);
 
 		$params['navigation'] = array(
