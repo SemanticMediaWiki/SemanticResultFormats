@@ -19,16 +19,17 @@ $messages['en'] = array(
 	// shared messages
 	'srf-module-loading'   => 'Loading...',
 	'srf-paramdesc-layout' => 'Available layout',
-	'srf-paramdesc-height' => 'Height (in pixels)',
-	'srf-paramdesc-width'  => 'Width (in pixels)',
-	'srf-paramdesc-class'  => 'Additional CSS class',
+	'srf-paramdesc-height' => 'Height',
+	'srf-paramdesc-width'  => 'Width',
+	'srf-paramdesc-class'  => 'Specify an additional cascading style sheet class',
 	'srf-module-nomatch' => 'No matches found',
+	'srf-paramdesc-charttype' => 'Available chart type',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
-	'srf-error-option-link-all'   => 'Option ($1) requires parameter "link" to be set "all"',
+	'srf-error-option-link-all' => 'Option ($1) requires parameter "link" to be set "all"',
 	'srf-error-missing-layout' => 'Layout is missing',
-	'srf-warn-empy-chart' => 'The chart/graph is empty due to missing data',
+	'srf-warn-empy-chart' => 'The chart or graph is empty due to missing data',
 
 	// format "calendar"
 	'srfc_previousmonth' => 'Previous month',
@@ -93,12 +94,15 @@ $messages['en'] = array(
 	'srf_printername_googlepie' => 'Google pie chart',
 	'srf-printername-jqplotchart' => 'jqPlot chart',
 	'srf-printername-jqplotseries' => 'jqPlot series',
-	'srf_paramdesc_chartheight' => 'Chart/graph height (in pixels)',
-	'srf_paramdesc_chartwidth' => 'Chart/graph width (in pixels)',
+	'srf_paramdesc_chartheight' => 'Specify the height (in pixels) of a chart or graph',
+	'srf_paramdesc_chartwidth' => 'Specify the width (in pixels or percent) of a chart or graph',
 	'srf_paramdesc_charttitle'  => 'The title of the chart',
 	'srf_paramdesc_barcolor'   =>   'Specify chart colors',
 	'srf_paramdesc_bardirection'=>  'Specify the direction of a chart',
+	'srf-paramdesc-direction' => 'Specify the direction of a chart or graph',
 	'srf_paramdesc_barnumbersaxislabel' => 'The label for the numbers axis',
+	'srf-paramdesc-labelaxislabel' => 'The label for the label axis',
+	'srf-paramdesc-ticklabels' => 'Enable display of tick labels',
 	'srf-paramdesc-minvalue' => 'The minimum value to show on the Y-axis',
 	'srf-paramdesc-pointlabels' => 'Display in-chart data points',
 	'srf-paramdesc-chartlegend' => 'Chart legend position',
@@ -115,8 +119,10 @@ $messages['en'] = array(
 	'srf-paramdesc-smoothlines' => 'Apply a smoothing algorithm on line charts',
 	'srf-paramdesc-stackseries' => 'Display chart as stacked series',
 	'srf-paramdesc-seriesgroup' => 'Select series grouping',
-	'srf-paramdesc-serieslabel' => 'Specify series labels',
+	'srf-paramdesc-serieslabel' => 'Determine the series label',
+	'srf-paramdesc-grouplabel' => 'Determine the group label',
 	'srf-paramdesc-chartcursor' => 'Chart cursor display option',
+	'srf-paramdesc-trendline' => 'Enable simultaneous display of a chart and its trendline',
 	'srf-paramdesc-tableview' => 'Enable simultaneous display of chart and data sets',
 	'srf-chart-tableview-item'  => 'Data item',
 	'srf-chart-tableview-value' => 'Data value',
@@ -218,7 +224,7 @@ $messages['en'] = array(
 
 	// format "listwidget"
 	'srf-printername-listwidget' => 'Listwidget',
-	'srf-paramdesc-listtype' => 'Type of list',
+	'srf-paramdesc-listtype' => 'Specify the list type',
 	'srf-paramdesc-widget' => 'Available widget',
 	'srf-paramdesc-pageitems' => 'Items per page',
 
@@ -408,6 +414,12 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-eventcolor' => '{{doc-paramdesc|eventcolor}}',
 	'srf-paramdesc-dayview' => '{{doc-paramdesc|dayview}}',
 	'srf-paramdesc-redirects' => '{{doc-paramdesc|redirects}}',
+	'srf-paramdesc-charttype' => '{{doc-paramdesc|charttype}}',
+	'srf-paramdesc-labelaxislabel' => '{{doc-paramdesc|labelaxislabel}}',
+	'srf-paramdesc-ticklabels' => '{{doc-paramdesc|ticklabels}}',
+	'srf-paramdesc-grouplabel' => '{{doc-paramdesc|grouplabel}}',
+	'srf-paramdesc-direction' => '{{doc-paramdesc|direction}}',
+	'srf-paramdesc-trendline' => '{{doc-paramdesc|trendline}}',
 );
 
 /** Afrikaans (Afrikaans)
