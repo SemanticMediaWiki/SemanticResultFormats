@@ -55,9 +55,18 @@ class SRFGallery extends SMWResultPrinter {
 			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'outro/widget' ) ) );
 		};
 
-		return $this->getResultText( $results, SMW_OUTPUT_HTML );
+		return $this->getResultText( $results, $this->outputMode );
 	}
 
+	/**
+	 * @see SMWResultPrinter::getResultText
+	 *
+	 * @param $results SMWQueryResult
+	 * @param $fullParams array
+	 * @param $outputmode integer
+	 *
+	 * @return string
+	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
 
 		$ig = new ImageGallery();
@@ -195,7 +204,7 @@ class SRFGallery extends SMWResultPrinter {
 
 		// Allow to create a link that points to further results
 		if ( $this->linkFurtherResults( $results ) ) {
-			$html .= $this->getLink( $results, $outputmode )->getText( $outputmode, $this->mLinker );
+			$html .= $this->getLink( $results, SMW_OUTPUT_HTML )->getText( SMW_OUTPUT_HTML, $this->mLinker );
 		}
 
 		return array( $html, 'nowiki' => true, 'isHTML' => true );
@@ -210,6 +219,7 @@ class SRFGallery extends SMWResultPrinter {
 	 * @param ImageGallery $ig
 	 * @param string $imageProperty
 	 * @param string $captionProperty
+	 * @param string $redirectProperty
 	 * @param $outputMode
 	 */
 	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
@@ -228,7 +238,8 @@ class SRFGallery extends SMWResultPrinter {
 				$label = $resultArray->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS
 					? '-' : $resultArray->getPrintRequest()->getLabel();
 
-				if ( $label == $imageProperty ) {
+				// Make sure always use real label here otherwise it results in an empty array
+				if ( $resultArray->getPrintRequest()->getLabel() == $imageProperty ) {
 					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
 						if ( $obj->getTypeID() == '_wpg' ) {
 							$images[] = $obj->getTitle();
