@@ -28,7 +28,7 @@
  *
  * @author mwjames
  */
-class SRFFlotTimeseries extends SMWResultPrinter {
+class SRFTimeseries extends SMWResultPrinter {
 
 	/**
 	 * @see SMWResultPrinter::getName
@@ -55,7 +55,8 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		if ( $data === array() ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
 		} else {
-			return $this->getFormatOutput( $data );
+			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
+			return $this->getFormatOutput( $data, $options );
 		}
 	}
 
@@ -133,11 +134,11 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 	 *
 	 * @return string
 	 */
-	protected function getFormatOutput( array $data ) {
+	protected function getFormatOutput( array $data, $options ) {
 
 		// Object count
 		static $statNr = 0;
-		$chartID = 'flot-timeseries-' . ++$statNr;
+		$chartID = 'timeseries-' . ++$statNr;
 
 		$this->isHTML = true;
 
@@ -153,11 +154,13 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		$chartData = array (
 			'data' => $dataObject,
 			'fcolumntypeid' => '_dat',
+			'sask' => $options['sask'],
 			'parameters' => array (
 				'width'        => $this->params['width'],
 				'height'       => $this->params['height'],
 				'charttitle'   => $this->params['charttitle'],
 				'charttext'    => $this->params['charttext'],
+				'infotext'     => $this->params['infotext'],
 				'charttype'    => $this->params['charttype'],
 				'datatable'    => $this->params['tableview'],
 				'zoom'         => $this->params['zoompane'],
@@ -170,10 +173,10 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
-		SMWOutputs::requireResource( 'ext.srf.flot.timeseries' );
+		SMWOutputs::requireResource( 'ext.srf.timeseries.flot' );
 
 		if ( $this->params['tableview'] === 'tabs' ) {
-			SMWOutputs::requireResource( 'ext.srf.util.grid.tableview' );
+			SMWOutputs::requireResource( 'ext.srf.util.tableview' );
 		}
 
 		// Chart/graph placeholder
@@ -192,7 +195,7 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 
 		// General output marker
 		return Html::rawElement( 'div', array(
-			'class' => 'srf-flot-timeseries' . $class
+			'class' => 'srf-timeseries' . $class
 			), $processing . $chart
 		);
 	}
@@ -258,6 +261,11 @@ class SRFFlotTimeseries extends SMWResultPrinter {
 
 		$params['charttext'] = array(
 			'message' => 'srf-paramdesc-charttext',
+			'default' => '',
+		);
+
+		$params['infotext'] = array(
+			'message' => 'srf-paramdesc-infotext',
 			'default' => '',
 		);
 

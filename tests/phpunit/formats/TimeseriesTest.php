@@ -40,7 +40,7 @@ class TimeseriesTest extends ResultPrinterTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFFlotTimeseries';
+		return '\SRFTimeseries';
 	}
 
 }

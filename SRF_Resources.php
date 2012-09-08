@@ -70,18 +70,21 @@ $wgResourceModules['ext.jquery.pajinate'] = $moduleTemplate + array(
 /******************************************************************************
  * SRF specific printer independent utility resources
 /******************************************************************************/
-$wgResourceModules['ext.srf.util.grid.tableview'] = $moduleTemplate + array(
-	'scripts' => 'resources/srf.util/ext.srf.util.grid.tableview.js',
+$wgResourceModules['ext.srf.util.tableview'] = $moduleTemplate + array(
+	'scripts' => 'resources/util/ext.srf.util.tableview.js',
+	'styles'  => 'resources/util/ext.srf.util.tableview.css',
 	'dependencies' => array(
 		'jquery.ui.tabs',
 		'ext.jquery.jqgrid',
 	),
 	'messages' => array(
+		'ask',
 		'srf-chart-tableview-series',
 		'srf-chart-tableview-item',
 		'srf-chart-tableview-value',
 		'srf-chart-tableview-chart-tab',
-		'srf-chart-tableview-data-tab'
+		'srf-chart-tableview-data-tab',
+		'srf-chart-tableview-info-tab'
 	),
 	'position' => 'top',
 );
@@ -271,7 +274,10 @@ $wgResourceModules['ext.srf.jqplot.trendline'] = $moduleTemplate + array(
 /*** Chart type specific declarations ***/
 $wgResourceModules['ext.srf.jqplot.chart'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.js',
-	'dependencies' => 'ext.srf.jqplot.themes'
+	'dependencies' => array(
+		'jquery.async',
+		'ext.srf.jqplot.themes'
+	)
 );
 
 $wgResourceModules['ext.srf.jqplot.bar'] = $formatModule + array(
@@ -312,14 +318,6 @@ $wgResourceModules['ext.srf.jqplot.donut'] = $formatModule + array(
 	'dependencies' => array (
 		'ext.jquery.jqplot.donut',
 		'ext.srf.jqplot.chart'
-	),
-	'position' => 'top',
-);
-
-$wgResourceModules['ext.srf.jqplot.chart.tableview'] = $formatModule + array(
-	'dependencies' => array(
-		'ext.srf.jqplot.chart',
-		'ext.srf.util.grid.tableview'
 	),
 	'position' => 'top',
 );
@@ -537,15 +535,19 @@ $wgResourceModules['ext.srf.tagcloud.wordcloud'] = $formatModule + array(
 );
 
 /******************************************************************************
- * Flot
+ * Timeseries
  ******************************************************************************/
 $wgResourceModules['ext.srf.flot.core'] = $formatModule + array(
-	'styles'  => 'flot/resources/ext.srf.flot.core.css',
+	'styles'  => 'timeseries/resources/ext.srf.flot.core.css',
 );
 
-$wgResourceModules['ext.srf.flot.timeseries'] = $formatModule + array(
-	'scripts' => 'flot/resources/ext.srf.flot.timeseries.js',
-	'dependencies' => array ( 'ext.jquery.flot', 'ext.srf.flot.core' ),
+$wgResourceModules['ext.srf.timeseries.flot'] = $formatModule + array(
+	'scripts' => 'timeseries/resources/ext.srf.timeseries.flot.js',
+	'dependencies' => array(
+		'jquery.async',
+		'ext.jquery.flot',
+		'ext.srf.flot.core'
+	),
 	'position' => 'top'
 );
 

@@ -46,23 +46,15 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
 
-		// Init
-		$i = 0;
-		$numcount = 0;
-
-		// Check layout type
-		if ( $this->params['charttype'] === '' ) {
-			return $result->addErrors( array( wfMsgForContent( 'srf-error-missing-layout' ) ) );
-		}
-
 		// Get data set
 		$data = $this->getResultData( $result, $outputMode );
 
 		// Check data availability
-		if ( count( $data['series'] ) == 0 ) {
+		if ( $data['series'] === array() ) {
 			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
 		} else {
-			return $this->getFormatOutput( $this->getFormatSettings( $this->getNumbersTicks( $data ) ) );
+			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
+			return $this->getFormatOutput( $this->getFormatSettings( $this->getNumbersTicks( $data ), $options ) );
 		}
 	}
 
@@ -149,18 +141,19 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 *@return array
 	 */
-	private function getFormatSettings( $data ) {
+	private function getFormatSettings( $data, $options ) {
 
 		// Init
 		$dataSet = array ();
 		$grid = array ();
+		$options['mode'] = 'series';
+		$options['autoscale'] = false;
 
 		// Available markers
 		$marker = array ( 'circle', 'diamond', 'square', 'filledCircle', 'filledDiamond', 'filledSquare' );
 
 		// Series colour(has to be null otherwise jqplot runs with a type error)
 		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : null;
-		$mode = 'series';
 
 		// Re-grouping
 		foreach ( $data[$this->params['group']] as $rowKey => $row ) {
@@ -201,12 +194,13 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'labelaxislabel'   => $this->params['labelaxislabel'],
 			'charttitle'   => $this->params['charttitle'],
 			'charttext'    => $this->params['charttext'],
+			'infotext'     => $this->params['infotext'],
 			'theme'        => $this->params['theme'] ? $this->params['theme'] : null,
 			'valueformat'  => $this->params['datalabels'] === 'label' ? '' : $this->params['valueformat'],
 			'ticklabels'   => $this->params['ticklabels'],
 			'highlighter'  => $this->params['highlighter'],
-			'autoscale'    => false,
-			'tableview'     => $this->params['tableview'],
+			'autoscale'    => $options['autoscale'],
+			'tableview'    => $this->params['tableview'],
 			'direction'    => $this->params['direction'],
 			'smoothlines'  => $this->params['smoothlines'],
 			'cursor'       => $this->params['cursor'],
@@ -226,7 +220,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'ticks'         => $data['numbersticks'],
 			'total'         => $data['total'],
 			'fcolumntypeid' => $data['fcolumntypeid'],
-			'mode'          => $mode,
+			'sask'          => $options['sask'],
+			'mode'          => $options['mode'],
 			'renderer'      => $this->params['charttype'],
 			'parameters'    => $parameters
 		);
@@ -307,7 +302,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		// Tableview plugin
 		if ( in_array( $this->params['tableview'], array( 'tabs' ) ) ) {
-			SMWOutputs::requireResource( 'ext.srf.jqplot.chart.tableview' );
+			SMWOutputs::requireResource( 'ext.srf.util.tableview' );
 		}
 
 		// Pointlabels plugin
@@ -375,6 +370,11 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = array_merge( parent::getParamDefinitions( $definitions ), SRFjqPlot::getCommonParams() );
+
+		$params['infotext'] = array(
+			'message' => 'srf-paramdesc-infotext',
+			'default' => '',
+		);
 
 		$params['stackseries'] = array(
 			'type' => 'boolean',

@@ -18,7 +18,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @file SRF_Library.php
+ * @file
  * @ingroup SemanticResultFormats
  * @licence GNU GPL v2 or later
  *
@@ -83,4 +83,29 @@ final class SRFUtils {
 		$requireHeadItem = array ( 'srf.options' => $options );
 		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem ) );
 	}
+
+	/**
+	 * @brief Returns semantic search link for the current query
+	 *
+	 * Generate a link to access the current ask query
+	 *
+	 * @since 1.8
+	 *
+	 * @param string $link
+	 *
+	 * @return $link
+	 */
+	public function htmlQueryResultLink( $link ) {
+		// Get linker instance
+		$linker = class_exists( 'DummyLinker' ) ? new DummyLinker : new Linker;
+
+		// Set caption
+		$link->setCaption( '[+]' );
+
+		// Set parameters
+		$link->setParameter( '' , 'class' );
+		$link->setParameter( '' , 'searchlabel' );
+		return $link->getText( SMW_OUTPUT_HTML, $linker );
+	}
+
 }
