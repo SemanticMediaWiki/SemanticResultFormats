@@ -49,7 +49,7 @@
 		container.css( {
 			'height': height - ( data.parameters.tableview === 'tabs' ? 40 : 0 ),
 			'width': width - ( data.parameters.tableview === 'tabs' ? 15 : 0 ),
-			'margin-left': data.parameters.tableview === 'tabs' ? 10 : 0,
+			'margin-left': data.parameters.tableview === 'tabs' ? 10 : 0
 		} );
 
 		// remove() was reported to solve some memory leak problems on IE
@@ -76,7 +76,12 @@
 			// Further adjustments of height and xaxis after the chart has been plotted
 			chart.find( '.jqplot-table-legend' ).css( { 'margin-right' : 35, 'margin-bottom' : 30 } );
 			chart.find( '.jqplot-axis.jqplot-xaxis' ).css( { 'height' : chart.find( '.jqplot-axis.jqplot-xaxis' ).height() + 10 } );
-			chart.srfTableView( { 'id' : chartID, 'chart' : container, 'data' : data } );
+			chart.srftableview( {
+				'id' : chartID,
+				'chart' : container,
+				'info'  : data.parameters.infotext,
+				'data'  : data
+			} );
 		}
 	};
 
@@ -100,10 +105,19 @@
 	};
 
 	$( document ).ready( function() {
-		// Use "[class^=srf-jqplot]" instead of ".srf-jqplot-bar,.srf-jqplot-line,
-		// .srf-jqplot-pie,.srf-jqplot-donut,.srf-jqplot-bubble"
-		$( "[class^=srf-jqplot]" ).each( function() {
-			$( this ).srfjqPlotChartContainer();
-		} );
-	} ); // end $(document).ready
+		// Check if eachAsync exists, and if so use it to increase browsers responsiveness
+		if( $.isFunction( $.fn.eachAsync ) ){
+				$( "[class^=srf-jqplot]" ).eachAsync( {
+				delay: 100,
+				bulk: 0,
+				loop: function(){
+					$( this ).srfjqPlotChartContainer();
+				}
+			} );
+		}else{
+			$( "[class^=srf-jqplot]" ).each( function() {
+				$( this ).srfjqPlotChartContainer();
+			} );
+		}
+	} );
 } )( window.jQuery );

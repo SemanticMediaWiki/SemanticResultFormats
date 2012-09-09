@@ -1,0 +1,16 @@
+/**
+ * JavaScript for SRF tableview plugin
+ *
+ * @licence: GNU GPL v2 or later
+ * @author:  mwjames
+ *
+ * @release: 0.1
+ */
+.srf-special-ask-link {
+	font-size:12px;
+	font-weight: normal;
+	margin-top:4px;
+	margin-right:3px;
+	color:#ddd;
+	float:right;
+}

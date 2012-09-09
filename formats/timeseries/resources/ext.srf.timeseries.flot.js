@@ -36,8 +36,8 @@
 			 * specified by the query printer
 			 */
 			var plotClass = 'srf-flot-plot',
-				width = data.parameters.width,
 				addedHeight = 20,
+				width = data.parameters.width,
 				height = data.parameters.height;
 
 			// Extend option settings
@@ -49,14 +49,13 @@
 			}, data );
 
 			// Timeseries plot container
-			var plotContainer = '<div class="' + plotClass + '"></span>';
-			container.prepend( plotContainer );
+			container.prepend( '<div class="' + plotClass + '"></span>' );
 
 			// Set chart height and width
 			chart.css( { 'height': height, 'width': width } );
 
-			// Adjustments for cases where jquery ui is used
-			width  = width - ( data.parameters.datatable === 'tabs' ? 30 : 0 );
+			// Adjustment for cases where the jquery ui is used
+			width = width - ( data.parameters.datatable === 'tabs' ? 30 : 0 );
 
 			// Hide processing
 			chart.find( ".srf-processing" ).hide();
@@ -67,16 +66,16 @@
 			// Set-up chart title
 			var chartTitle = data.parameters.charttitle;
 			if ( chartTitle.length > 0 ) {
-				chartTitle = '<span class="srf-flot-chart-title">' + chartTitle + '</span>';
-				container.find( '.' + plotClass ).before( chartTitle );
+				container.find( '.' + plotClass )
+					.before( '<span class="srf-flot-chart-title">' + chartTitle + '</span>' );
 				addedHeight += container.find( '.srf-flot-chart-title' ).height();
 			}
 
-			// Set-up chart title
+			// Set-up chart text
 			var chartText = data.parameters.charttext;
 			if ( chartText.length > 0 ) {
-				chartText = '<span class="srf-flot-chart-text">' + chartText + '</span>';
-				container.find( '.' + plotClass ).after( chartText );
+				container.find( '.' + plotClass )
+					.after( '<span class="srf-flot-chart-text">' + chartText + '</span>' );
 				addedHeight += container.find( '.srf-flot-chart-text' ).height();
 			}
 
@@ -88,10 +87,6 @@
 				container.find( '.' + plotClass ).after( zoom ).css( 'width', width );
 			}
 			addedHeight += container.find( '.' + plotClass + '-zoom' ).height();
-
-			// Set-up info note
-			var infoNote  = '<span class="srf-flot-note" style="display:none;"></span>';
-			container.find( '.' + plotClass ).before( infoNote );
 
 			// Keep the overall height and width and apply possible changes onto the chart
 			height = height - ( data.parameters.datatable === 'tabs' ? 20 + addedHeight : addedHeight );
@@ -110,13 +105,15 @@
 					dataTable.push ( data.data[j].data );
 				}
 				// Tableview plugin
-				chart.srfTableView( {
+				chart.srftableview( {
 					'id' : chartID,
 					'chart' : container,
+					'info'  : data.parameters.infotext,
 					'data' : {
 						'series': dataSeries,
 						'data': dataTable,
-						'fcolumntypeid': data.fcolumntypeid
+						'fcolumntypeid': data.fcolumntypeid,
+						'sask': data.sask
 					}
 				} );
 			}
@@ -304,14 +301,20 @@
 		}
 	};
 
-	/**
-	 * DOM handling
-	 *
-	 * @since 1.8
-	 */
 	$( document ).ready( function() {
-		$( ".srf-flot-timeseries" ).each(function() {
-			$( this ).srfFlotTimeSeries();
-		} );
-	} ); // end $(document).ready
+		// Check if eachAsync exists, and if so use it to increase browsers responsiveness
+		if( $.isFunction( $.fn.eachAsync ) ){
+				$( ".srf-timeseries" ).eachAsync( {
+				delay: 100,
+				bulk: 0,
+				loop: function(){
+					$( this ).srfFlotTimeSeries();
+				}
+			} );
+		}else{
+			$( ".srf-timeseries" ).each( function() {
+				$( this ).srfFlotTimeSeries();
+			} );
+		}
+	} );
 } )( window.jQuery );

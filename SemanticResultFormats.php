@@ -91,7 +91,7 @@ $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follows naming convention
-$wgAutoloadClasses['SRFFlotTimeseries'] = $formatDir . 'flot/SRF_FlotTimeSeries.php';
+$wgAutoloadClasses['SRFTimeseries'] = $formatDir . 'timeseries/SRF_Timeseries.php';
 $wgAutoloadClasses['SRFEventCalendar']  = $formatDir . 'calendar/SRF_EventCalendar.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
 $wgAutoloadClasses['SRFjqPlotChart']  = $formatDir . 'jqplot/SRF_jqPlotChart.php';
@@ -178,7 +178,7 @@ function srffInitFormats() {
 		'latest' => 'SRFTime',
 		'earliest' => 'SRFTime',
 		'slideshow' => 'SRFSlideShow',
-		'timeseries' => 'SRFFlotTimeseries',
+		'timeseries' => 'SRFTimeseries',
 		'sparkline' => 'SRFSparkline',
 		'listwidget' => 'SRFListWidget',
 		'feed' => 'SRFSyndicationFeed',
@@ -189,7 +189,7 @@ function srffInitFormats() {
 		'tagcloud'   => array( 'tag cloud' ),
 		'valuerank'  => array( 'value rank' ),
 		'd3chart'    => array( 'd3 chart' ),
-		'timeseries' => array ( 'time series', 'time series chart' ),
+		'timeseries' => array ( 'time series' ),
 		'jqplotchart' => array( 'jqplot chart', 'jqplotpie', 'jqplotbar' ),
 		'jqplotseries' => array( 'jqplot series' ),
 	);
