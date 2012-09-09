@@ -556,7 +556,7 @@ $wgResourceModules['ext.srf.timeseries.flot'] = $formatModule + array(
  ******************************************************************************/
 $wgResourceModules['ext.jquery.fullcalendar'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.fullcalendar/fullcalendar.min.js',
-	'style' => 'resources/jquery.fullcalendar/fullcalendar.css',
+	'styles' => 'resources/jquery.fullcalendar/fullcalendar.css',
 );
 
 $wgResourceModules['ext.jquery.gcal'] = $moduleTemplate + array(
