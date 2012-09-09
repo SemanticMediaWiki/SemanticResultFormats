@@ -129,6 +129,8 @@ $messages['en'] = array(
 	'srf-chart-tableview-series' => 'Data series',
 	'srf-chart-tableview-chart-tab' => 'Chart',
 	'srf-chart-tableview-data-tab' => 'Data',
+	'srf-chart-tableview-info-tab' => 'Info',
+	'srf-paramdesc-infotext' => 'Display some additional information on the info tab',
 
 	// format "gallery"
 	'srf_printername_gallery' => 'Gallery',
@@ -220,7 +222,7 @@ $messages['en'] = array(
 	'srf-timeseries-zoom-out-of-range' => 'The zoom range did not produce any sufficient data',
 
 	// format "sparkline"
-	'srf-printername-sparkline' => 'Sparklines',
+	'srf-printername-sparkline' => 'Sparkline chart',
 
 	// format "listwidget"
 	'srf-printername-listwidget' => 'Listwidget',
@@ -241,6 +243,16 @@ $messages['en'] = array(
 	'srf-paramdesc-eventicon' => 'Property that represents the icon value',
 	'srf-paramdesc-eventcolor' => 'Property that represents the color value',
 	'srf-paramdesc-dayview' => 'Enable the day view by clicking the day number',
+
+	// format "dygraphs"
+	'srf-printername-dygraphs' => 'Dygraphs chart',
+	'srf-paramdesc-datasource' => 'Specify the source from where the data is accessible (file, url etc.)',
+	'srf-paramdesc-errorbar' => 'Specify the error bar used (standard deviation (sigma), plot fractions, or custom bar as a range of low;middle;high values)',
+	'srf-paramdesc-movingaverage' => 'Display the average over a number of days (zero will indicate no moving average)',
+	'srf-paramdesc-yaxislabel' => 'Description that appears on the y-axis',
+	'srf-paramdesc-xaxislabel' => 'Description that appears on the x-axis',
+	'srf-paramdesc-unit' => 'Unit',
+
 );
 
 /** Message documentation (Message documentation)
@@ -339,6 +351,7 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf-chart-tableview-series' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 	'srf-chart-tableview-chart-tab' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 	'srf-chart-tableview-data-tab' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-chart-tableview-info-tab' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 	'srf_printername_gallery' => '{{doc-smwformat|gallery}}
 {{Identical|Gallery}}',
 	'srf_paramdesc_perrow' => '{{doc-paramdesc|perrow}}',
@@ -420,6 +433,14 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-eventicon' => '{{doc-paramdesc|eventicon}}',
 	'srf-paramdesc-eventcolor' => '{{doc-paramdesc|eventcolor}}',
 	'srf-paramdesc-dayview' => '{{doc-paramdesc|dayview}}',
+	'srf-paramdesc-infotext' => '{{doc-paramdesc|infotext}}',
+	'srf-printername-dygraphs' => '{{doc-smwformat|dygraphs}}',
+	'srf-paramdesc-datasource' => '{{doc-paramdesc|datasource}}',
+	'srf-paramdesc-errorbar' => '{{doc-paramdesc|errorbar}}',
+	'srf-paramdesc-movingaverage' => '{{doc-paramdesc|movingaverage}}',
+	'srf-paramdesc-yaxislabel' => '{{doc-paramdesc|yaxislabel}}',
+	'srf-paramdesc-xaxislabel' => '{{doc-paramdesc|xaxislabel}}',
+	'srf-paramdesc-unit' => '{{doc-paramdesc|unit}}',
 );
 
 /** Afrikaans (Afrikaans)
