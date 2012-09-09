@@ -94,10 +94,12 @@
 
 		// Number axis
 		var numberaxis = {
-			ticks: ( data.parameters.stackseries === true ) || ( data.parameters.autoscale === true ) ?  [] : data.ticks, // use autoscale for staked series
+			ticks: data.parameters.stackseries || data.parameters.autoscale ?  [] : data.ticks, // use autoscale for staked series
 			label: data.parameters.numbersaxislabel,
 			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-			autoscale: ( data.parameters.stackseries === true ) || ( data.parameters.autoscale === true ) ? true : false,
+			autoscale: data.parameters.stackseries || data.parameters.autoscale ? true : false,
+			padMax: 0,
+			padMin: 0,
 			tickOptions: {
 			angle: data.parameters.direction === 'horizontal' ? 0 : -40,
 			formatString: !data.parameters.valueformat ? '%d' : data.parameters.valueformat  // %d default
@@ -118,7 +120,7 @@
 
 		// Label axis
 		var labelaxis = {
-			// Pending on the first column type handling of values/labels is different
+			// Depending on first column type values/labels are handled differently
 			renderer: data.fcolumntypeid === '_num' ? $.jqplot.LinearAxisRenderer : $.jqplot.CategoryAxisRenderer,
 			ticks:  data.fcolumntypeid === '_num' ? [] : labels,
 			label: data.parameters.labelaxislabel,
@@ -195,10 +197,6 @@
 			renderer: data.renderer === 'bar' ? $.jqplot.BarRenderer : $.jqplot.LineRenderer,
 			fillToZero: true,
 			shadow: data.parameters.theme !== 'simple',
-			//trendline: {
-			//	'show' => ( $this->params['trendline'] == true && $this->params['renderer'] == 'line' ? true : false ),
-			//	'color' => '#666666',
-			//},
 			rendererOptions: {
 				smooth: data.parameters.smoothlines
 			},
@@ -231,8 +229,6 @@
 			stackSeries: data.parameters.stackseries,
 			seriesColors: seriesColors,
 			axesDefaults: {
-				padMax: 2.5,
-				pad: 2.1,
 				showTicks: data.parameters.ticklabels,
 				tickOptions: { showMark: false }
 			},

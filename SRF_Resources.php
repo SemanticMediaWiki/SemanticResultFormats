@@ -227,7 +227,6 @@ $wgResourceModules['ext.jquery.jqplot.trendline'] = $moduleTemplate + array(
 // Plugin class supporting themes
 $wgResourceModules['ext.srf.jqplot.themes'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.themes.js',
-	'styles'  => 'jqplot/resources/ext.srf.jqlpot.general.css',
 	'dependencies' => 'jquery.client'
 );
 
@@ -274,6 +273,7 @@ $wgResourceModules['ext.srf.jqplot.trendline'] = $moduleTemplate + array(
 /*** Chart type specific declarations ***/
 $wgResourceModules['ext.srf.jqplot.chart'] = $formatModule + array(
 	'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.js',
+	'styles'  => 'jqplot/resources/ext.srf.jqlpot.chart.css',
 	'dependencies' => array(
 		'jquery.async',
 		'ext.srf.jqplot.themes'

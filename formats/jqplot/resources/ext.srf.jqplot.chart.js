@@ -23,38 +23,20 @@
 
 		var chart = this,
 			container = chart.find( ".container" ),
+			chartID   = container.attr( "id" ),
 			height    = container.height(),
 			width     = container.width(),
-			chartID   = container.attr( "id" ),
 			json      = mw.config.get( chartID );
 
 		// Parse json string and convert it back
 		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
-		// Add chart text
-		var chartText = data.parameters.charttext,
-			chartTextHeight = 0;
-		if ( chartText.length > 0 ) {
-			chartText = '<span id="' + chartID +'" class="srf-jqplot-chart-text">' + chartText + '</span>';
-			container.after( chartText ) ;
-			chartTextHeight = chart.find( '.srf-jqplot-chart-text' ).height() + ( data.parameters.tableview === 'tabs' ? 25 : 10 );
-		}
-
-		// Adjust height and width according to current customizing
-		width = width === 0 ? height : width;
+		// Assign height/width important when dealing with % values
 		chart.css( { 'height': height , 'width': width } );
-		height = height - chartTextHeight;
-
-		// General height adjustments (before) are necessary to ensure alignment when using jquery ui
 		container.css( {
-			'height': height - ( data.parameters.tableview === 'tabs' ? 40 : 0 ),
-			'width': width - ( data.parameters.tableview === 'tabs' ? 15 : 0 ),
-			'margin-left': data.parameters.tableview === 'tabs' ? 10 : 0
+			'height': chart.height() - ( data.parameters.tableview === 'tabs' ? 40 : 0 ),
+			'width': chart.width() - ( data.parameters.tableview === 'tabs' ? 20 : 0 )
 		} );
-
-		// remove() was reported to solve some memory leak problems on IE
-		// in connection with canvas objects
-		chart.find('canvas').remove();
 
 		// Hide processing image
 		chart.find( '.srf-processing' ).hide();
@@ -62,20 +44,43 @@
 		// Release chart/graph
 		container.show();
 
+		// Add chart text
+		var chartText = data.parameters.charttext,
+			chartTextHeight = 0;
+		if ( chartText.length > 0 ) {
+			container.prepend( '<div id="' + chartID + '-text' + '" class="srf-jqplot-chart-text">' + chartText + '</div>' );
+			container.find( '.srf-jqplot-chart-text' )
+				.addClass( ( data.parameters.tableview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
+			chartTextHeight = container.find( '.srf-jqplot-chart-text' ).height() + 10;
+		}
+
+		// Adjust height and width according to current customizing
+		width = container.width();
+		height = container.height() - chartTextHeight;
+
+		// Div thta holds the plot
+		var plotID = chartID + '-plot';
+		container.prepend( '<div id="' + plotID + '" class="srf-jqplot-plot"></div>' ) ;
+		var plot = chart.find( '.srf-jqplot-plot' );
+		plot
+			.css( { 'height': height, 'width': width } )
+			.addClass( ( data.parameters.tableview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
+
+		// Was reported to solve some memory leak problems on IE in connection with
+		// canvas objects
+		container.find( 'canvas' ).remove();
+
 		// Chart plotting
 		if ( data.renderer === 'pie' || data.renderer === 'donut' ){
-			chart.srfjqPlotPieChart( { 'id' : chartID, 'height' : height, 'width' : width, 'chart' : container, 'data' : data } );
+			plot.srfjqPlotPieChart( { 'id' : plotID, 'height' : height, 'width' : width, 'chart' : container, 'data' : data } );
 		} else if ( data.renderer === 'bubble' ){
-			chart.srfjqPlotBubbleChartData( { 'id' : chartID, 'height' : height, 'width' : width, 'chart' : container, 'data' : data } );
+			plot.srfjqPlotBubbleChartData( { 'id' : plotID, 'height' : height, 'width' : width, 'chart' : container, 'data' : data } );
 		} else {
-			chart.srfjqPlotBarChartData( { 'id' : chartID, 'height' : height , 'width' : width , 'chart' : container, 'data' : data } );
+			plot.srfjqPlotBarChartData( { 'id' : plotID, 'height' : height , 'width' : width , 'chart' : container, 'data' : data } );
 		}
 
 		// Call tableview plugin
 		if ( data.parameters.tableview === 'tabs' ){
-			// Further adjustments of height and xaxis after the chart has been plotted
-			chart.find( '.jqplot-table-legend' ).css( { 'margin-right' : 35, 'margin-bottom' : 30 } );
-			chart.find( '.jqplot-axis.jqplot-xaxis' ).css( { 'height' : chart.find( '.jqplot-axis.jqplot-xaxis' ).height() + 10 } );
 			chart.srftableview( {
 				'id' : chartID,
 				'chart' : container,

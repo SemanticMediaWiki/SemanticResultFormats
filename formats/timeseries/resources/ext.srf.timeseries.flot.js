@@ -36,7 +36,7 @@
 			 * specified by the query printer
 			 */
 			var plotClass = 'srf-flot-plot',
-				addedHeight = 20,
+				addedHeight = 0,
 				width = data.parameters.width,
 				height = data.parameters.height;
 
@@ -48,20 +48,26 @@
 				'chartid' : chartID,
 			}, data );
 
-			// Timeseries plot container
-			container.prepend( '<div class="' + plotClass + '"></span>' );
+			// Set chart height and width and reassign to catch px instead of % value
+			container.css( { 'height': height, 'width': width } );
+			chart.css( { 'height': container.height(), 'width': container.width() } );
+			container.css( {
+				'height': height - ( data.parameters.datatable === 'tabs' ? 40 : 0 ),
+				'width': chart.width() - ( data.parameters.datatable === 'tabs' ? 20 : 0 )
+			} );
 
-			// Set chart height and width
-			chart.css( { 'height': height, 'width': width } );
-
-			// Adjustment for cases where the jquery ui is used
-			width = width - ( data.parameters.datatable === 'tabs' ? 30 : 0 );
+			// Make sure to keep converted px values because canvas elements can't deal with %
+			height = container.height();
+			width = container.width();
 
 			// Hide processing
 			chart.find( ".srf-processing" ).hide();
 
 			// Release chart container
 			container.show();
+
+			// Timeseries plot container
+			container.prepend( '<div class="' + plotClass + '"></span>' );
 
 			// Set-up chart title
 			var chartTitle = data.parameters.charttitle;
@@ -76,7 +82,9 @@
 			if ( chartText.length > 0 ) {
 				container.find( '.' + plotClass )
 					.after( '<span class="srf-flot-chart-text">' + chartText + '</span>' );
-				addedHeight += container.find( '.srf-flot-chart-text' ).height();
+				container.find( '.srf-flot-chart-text' )
+					.addClass( ( data.parameters.datatable === 'tabs' ? 'tabs' : '' ) );
+				addedHeight += container.find( '.srf-flot-chart-text' ).height() - 20;
 			}
 
 			// Set-up zoom box
@@ -89,8 +97,8 @@
 			addedHeight += container.find( '.' + plotClass + '-zoom' ).height();
 
 			// Keep the overall height and width and apply possible changes onto the chart
-			height = height - ( data.parameters.datatable === 'tabs' ? 20 + addedHeight : addedHeight );
-			container.css( { 'height': height, 'width': width } );
+			height = height - addedHeight;
+
 			container.find( '.' + plotClass ).css( { 'height': height, 'width': width } );
 
 			// Handle jqGrid table

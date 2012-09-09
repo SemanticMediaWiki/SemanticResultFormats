@@ -6,15 +6,26 @@
  *
  * @release: 0.1
  */
+.srf-jqplot-plot.tabs {
+	margin-bottom: 10px;
+}
+
 .srf-jqplot-chart-text {
 	color:grey;
 	display:block;
 	position:relative;
 	font-size:90%;
 	margin-bottom: 10px;
+	margin-right: 10px;
 }
 
-.srf-jqplot-chart-text.ui-tabs-panel {
-	top: -10px;
+.srf-jqplot-chart-text.tabs {
 	font-size:120%;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.srf-jqplot-chart-text.pie,
+.srf-jqplot-chart-text.donut {
+	margin-left: 10px;
 }
