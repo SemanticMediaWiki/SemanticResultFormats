@@ -91,6 +91,7 @@ $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follows naming convention
+$wgAutoloadClasses['SRFDygraphs'] = $formatDir . 'dygraphs/SRF_Dygraphs.php';
 $wgAutoloadClasses['SRFTimeseries'] = $formatDir . 'timeseries/SRF_Timeseries.php';
 $wgAutoloadClasses['SRFEventCalendar']  = $formatDir . 'calendar/SRF_EventCalendar.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
@@ -182,7 +183,7 @@ function srffInitFormats() {
 		'sparkline' => 'SRFSparkline',
 		'listwidget' => 'SRFListWidget',
 		'feed' => 'SRFSyndicationFeed',
-
+		'dygraphs' => 'SRFDygraphs',
 	);
 
 	$formatAliases = array(

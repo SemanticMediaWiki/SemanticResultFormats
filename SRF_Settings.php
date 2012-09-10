@@ -55,7 +55,8 @@ $srfgFormats = array(
 	'sparkline',
 	'listwidget',
 	'feed',
-	
+	'dygraphs',
+
 	// Disabled by default
 	
 	// Still in alpha:

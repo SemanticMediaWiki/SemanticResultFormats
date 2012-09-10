@@ -1,0 +1,18 @@
+/**
+ * JavaScript for SRF ...
+ *
+ * @licence: GNU GPL v2 or later
+ * @author:  mwjames
+ *
+ * @release: 0.2
+ */
+.srf-chart-source {
+	float: right;
+	clear:both;
+	margin-right: 5px;
+}
+
+.srf-chart-text{
+	float: right;
+	margin-right: 5px;
+}

@@ -67,6 +67,10 @@ $wgResourceModules['ext.jquery.pajinate'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.pajinate/jquery.pajinate.js'
 );
 
+$wgResourceModules['ext.dygraphs.combined'] = $moduleTemplate + array(
+	'scripts' => 'resources/dygraphs/dygraph-combined.js'
+);
+
 /******************************************************************************
  * SRF specific printer independent utility resources
 /******************************************************************************/
@@ -98,6 +102,21 @@ $wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
 	'position' => 'top',
 );
 
+/******************************************************************************
+ * Dygraphs
+/******************************************************************************/
+$wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
+	'scripts' => array(
+		'dygraphs/resources/ext.srf.dygraphs.js',
+		'../resources/dygraphs/dygraph-combined.js'
+	),
+	'styles' => 'dygraphs/resources/ext.srf.dygraphs.css',
+	'dependencies' => array(
+		'jquery.async',
+		'ext.dygraphs.combined',
+	),
+	'position' => 'top',
+);
 /******************************************************************************
  * ListWidget
  ******************************************************************************/
