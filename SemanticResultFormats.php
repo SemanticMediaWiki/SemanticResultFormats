@@ -49,7 +49,7 @@ if ( version_compare( SMW_VERSION, '1.8c', '<' ) ) {
 	die( '<b>Error:</b> This version of Semantic Result Formats requires Semantic MediaWiki 1.8 or above; use Semantic Result Formats 1.7.x for SMW 1.7.x.' );
 }
 
-define( 'SRF_VERSION', '1.8 alpha' );
+define( 'SRF_VERSION', '1.8 rc1' );
 
 // Require the settings file.
 require dirname( __FILE__ ) . '/SRF_Settings.php';
