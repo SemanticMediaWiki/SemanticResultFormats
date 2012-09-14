@@ -261,6 +261,7 @@ $messages['en'] = array(
  * @author Purodha
  * @author Raymond
  * @author Siebrand
+ * @author Toliño
  * @author Umherirrender
  */
 $messages['qqq'] = array(
@@ -437,7 +438,7 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-printername-dygraphs' => '{{doc-smwformat|dygraphs}}',
 	'srf-paramdesc-datasource' => '{{doc-paramdesc|datasource}}',
 	'srf-paramdesc-errorbar' => '{{doc-paramdesc|errorbar}}
-{{doc-important|Do not translate <code>low;middle;high</code>)',
+{{doc-important|Do not translate <code>low;middle;high</code>}}',
 	'srf-paramdesc-movingaverage' => '{{doc-paramdesc|movingaverage}}
 {{doc-important|Do not translate <code>zero</code>}}',
 	'srf-paramdesc-yaxislabel' => '{{doc-paramdesc|yaxislabel}}',
@@ -1952,7 +1953,10 @@ $messages['gl'] = array(
 	'srf-paramdesc-eventicon' => 'Propiedade que representa o valor da icona',
 	'srf-paramdesc-eventcolor' => 'Propiedade que representa o valor da cor',
 	'srf-paramdesc-dayview' => 'Activar a vista de día ao premer no número do día',
+	'srf-printername-dygraphs' => 'Gráfica dupla',
 	'srf-paramdesc-datasource' => 'Especificar a fonte na que están accesibles os datos (ficheiro, enderezo URL etc.)',
+	'srf-paramdesc-errorbar' => 'Especificar o erro que usou a barra (desviación típica (sigma), intervalo das fraccións ou unha barra personalizada como un rango de valores low;middle;high)',
+	'srf-paramdesc-movingaverage' => 'Mostrar a media despois dun número de días ("zero" ha indicar que a media non se move)',
 	'srf-paramdesc-yaxislabel' => 'Descrición do eixe Y',
 	'srf-paramdesc-xaxislabel' => 'Descrición do eixe X',
 	'srf-paramdesc-unit' => 'Unidade',
@@ -2896,6 +2900,8 @@ $messages['ka'] = array(
 	'srf_printername_calendar' => 'ყოველთვიური კალენდარი',
 	'srf_printername_max' => 'მაქსიმალური რაოდენობა',
 	'srf_printername_min' => 'მინიმალური რაოდენობა',
+	'srf-chart-tableview-data-tab' => 'მონაცემები',
+	'srf-chart-tableview-info-tab' => 'ინფორმაცია',
 	'srf_printername_gallery' => 'გალერეა',
 	'srf-gallery-navigation-previous' => 'წინა',
 	'srf-gallery-navigation-next' => 'შემდეგი',
