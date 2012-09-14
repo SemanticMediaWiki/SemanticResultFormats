@@ -95,7 +95,7 @@ final class SRFUtils {
 	 *
 	 * @return $link
 	 */
-	public function htmlQueryResultLink( $link ) {
+	public static function htmlQueryResultLink( $link ) {
 		// Get linker instance
 		$linker = class_exists( 'DummyLinker' ) ? new DummyLinker : new Linker;
 
