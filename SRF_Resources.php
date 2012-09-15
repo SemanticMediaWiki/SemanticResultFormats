@@ -539,14 +539,19 @@ $wgResourceModules['ext.jquery.tagcanvas'] = $moduleTemplate + array(
 
 $wgResourceModules['ext.srf.tagcloud.sphere'] = $formatModule + array(
 	'scripts' => 'tagcloud/resources/ext.srf.tagcloud.sphere.js',
-	'style'   => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
-	'dependencies' => array( 'ext.jquery.tagcanvas', 'jquery.client' ),
-	'position'     => 'top',
+	'styles'  => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
+	'dependencies' => array(
+		'jquery.async',
+		'jquery.client',
+		'ext.jquery.tagcanvas'
+	),
+	'position' => 'top',
 );
 
 $wgResourceModules['ext.srf.tagcloud.wordcloud'] = $formatModule + array(
 	'scripts' => 'tagcloud/resources/ext.srf.tagcloud.wordcloud.js',
 	'dependencies' => array (
+		'jquery.async',
 		'ext.d3.layout.cloud',
 		'ext.srf.d3.common'
 	),
