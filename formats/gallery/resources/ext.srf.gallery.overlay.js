@@ -26,39 +26,6 @@
 		var galleryID = this.attr( 'id' ),
 			srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
 
-		var _this = this;
-
-		// API image url fetch (see Jeroen's SF image preview)
-		this.getImageURL = function( title , callback ) {
-			$.getJSON(
-				mw.config.get( 'wgScriptPath' ) + '/api.php',
-				{
-					'action': 'query',
-					'format': 'json',
-					'prop'  : 'imageinfo',
-					'iiprop': 'url',
-					'titles': 'File:' + title
-				},
-				function( data ) {
-					if ( data.query && data.query.pages ) {
-						var pages = data.query.pages;
-						for ( var p in pages ) {
-							if ( pages.hasOwnProperty( p ) ) {
-								var info = pages[p].imageinfo;
-								for ( var i in info ) {
-									if ( info.hasOwnProperty( i ) ) {
-										callback( info[i].url );
-										return;
-									}
-								}
-							}
-						}
-					}
-					callback( false );
-				}
-			);
-		};
-
 		// Loop over all relevant gallery items
 		this.find( '.gallerybox' ).each( function () {
 			var $this   = $( this ),
@@ -81,7 +48,7 @@
 				var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
 
 				// Assign image url
-				_this.getImageURL( title ,
+				$.srfutil.getImageURL( { 'title': 'File:' + title },
 						function( url ) { if ( url === false ) {
 							image.attr( 'href', '' );
 						} else {

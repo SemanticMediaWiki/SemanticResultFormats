@@ -82,6 +82,11 @@ if ( !in_array( 'jquery.jStorage' , $wgResourceModules ) ) {
 /******************************************************************************
  * SRF specific printer independent utility resources
 /******************************************************************************/
+$wgResourceModules['ext.srf.util'] = $moduleTemplate + array(
+	'scripts' => 'resources/util/ext.srf.util.js',
+	'dependencies' => 'jquery.jStorage'
+);
+
 $wgResourceModules['ext.srf.util.tableview'] = $moduleTemplate + array(
 	'scripts' => 'resources/util/ext.srf.util.tableview.js',
 	'styles'  => 'resources/util/ext.srf.util.tableview.css',
@@ -457,7 +462,10 @@ $wgResourceModules['ext.srf.gallery.slideshow'] = $formatModule + array(
 $wgResourceModules['ext.srf.gallery.overlay'] = $formatModule + array(
 	'scripts' => 'gallery/resources/ext.srf.gallery.overlay.js',
 	'styles'  => 'gallery/resources/ext.srf.gallery.overlay.css',
-	'dependencies' => 'ext.jquery.fancybox',
+	'dependencies' => array(
+		'ext.srf.util',
+		'ext.jquery.fancybox'
+	),
 	'messages' => array(
 		'srf-gallery-overlay-count',
 		'srf-gallery-image-url-error'
@@ -468,6 +476,7 @@ $wgResourceModules['ext.srf.gallery.overlay'] = $formatModule + array(
 $wgResourceModules['ext.srf.gallery.redirect'] = $formatModule + array(
 	'scripts' => 'gallery/resources/ext.srf.gallery.redirect.js',
 	'styles'  => 'gallery/resources/ext.srf.gallery.redirect.css',
+	'dependencies' => 'ext.srf.util',
 	'messages' => array(
 		'srf-gallery-image-url-error'
 	),
@@ -601,6 +610,7 @@ $wgResourceModules['ext.srf.eventcalendar'] = $formatModule + array(
 		'jquery.ui.core',
 		'jquery.ui.widget',
 		'jquery.tipsy',
+		'ext.srf.util',
 		'ext.jquery.fullcalendar'
 	)
 );

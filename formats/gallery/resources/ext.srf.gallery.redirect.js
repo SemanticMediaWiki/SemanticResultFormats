@@ -24,35 +24,6 @@
 
 	$.fn.galleryRedirect = function( ) {
 
-		var _this = this;
-
-		// API image url fetch (see Jeroen's SF image preview)
-		this.getArticleURL = function( title , callback ) {
-			$.getJSON(
-				mw.config.get( 'wgScriptPath' ) + '/api.php',
-				{
-					'action': 'query',
-					'format': 'json',
-					'prop'  : 'info',
-					'inprop': 'url',
-					'titles': title
-				},
-				function( data ) {
-					if ( data.query && data.query.pages ) {
-						var pages = data.query.pages;
-						for ( var p in pages ) {
-							if ( pages.hasOwnProperty( p ) ) {
-								var info = pages[p];
-									callback( info.fullurl );
-									return;
-							}
-						}
-					}
-					callback( false );
-				}
-			);
-		};
-
 		// Loop over all relevant gallery items
 		this.find( '.gallerybox' ).each( function () {
 			var $this   = $( this ),
@@ -68,7 +39,7 @@
 
 				// Assign redirect article url
 				if ( title.length > 0 ) {
-					_this.getArticleURL( title ,
+					$.srfutil.getTitleURL( { 'title': title },
 							function( url ) { if ( url === false ) {
 								image.attr( 'href', '' );
 							} else {

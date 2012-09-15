@@ -29,63 +29,6 @@
 
 		var gcalholiday = data.options.gcalurl === null ? '' : data.options.gcalurl;
 
-		// Check if the local browser is supporting localStorage
-		var cacheUse = 'localStorage' in window && window.localStorage !== null,
-			cacheTime = 24; // 24 hours
-
-		// Fetch url via ajax
-		function getImageURL( title, cacheUse, cacheTime, callback ) {
-
-			if ( cacheUse ){
-				// Use localstorage to improve performance
-				var urlCache = localStorage.getItem( title ),
-					urlCacheTS = localStorage.getItem( title + 'cacheTS');
-
-				// Check cache timestamp and if valid get the object from localstorage
-				// otherwise remove item from localstorage
-				if ( urlCacheTS < +new Date() && urlCache !== null ){
-					localStorage.removeItem( title );
-					localStorage.removeItem( title  + 'cacheTS' );
-				} else if ( urlCache !== null ) {
-					callback( urlCache );
-					return;
-				}
-			}
-
-			$.getJSON(
-				mw.config.get( 'wgScriptPath' ) + '/api.php',
-				{
-					'action': 'query',
-					'format': 'json',
-					'prop'  : 'imageinfo',
-					'iiprop': 'url',
-					'titles': title
-				},
-				function( data ) {
-					if ( data.query && data.query.pages ) {
-						var pages = data.query.pages;
-						for ( var p in pages ) {
-							if ( pages.hasOwnProperty( p ) ) {
-								var info = pages[p].imageinfo;
-								for ( var i in info ) {
-									if ( info.hasOwnProperty( i ) ) {
-										if ( cacheUse ) {
-											// Store the item in the localStorage together with its timestamp
-											localStorage.setItem( title, info[i].url );
-											localStorage.setItem( title  + 'cacheTS', +new Date() + 1000 * 60 * 60 * cacheTime );
-										}
-										callback( info[i].url );
-										return;
-									}
-								}
-							}
-						}
-					}
-					callback( false );
-				}
-			);
-		}
-
 		// Hide processing note
 		this.find( '.srf-processing' ).hide();
 
@@ -109,12 +52,12 @@
 				// Handle event icons
 				if ( event.eventicon ) {
 					// Find image url and add an icon
-					getImageURL( event.eventicon, cacheUse, cacheTime,
+					$.srfutil.getImageURL( { 'title': event.eventicon },
 							function( url ) { if ( url !== false ) {
-								if ( element.find('.fc-event-time').length ) {
-									element.find('.fc-event-time').before( $( '<img src=' + url + ' />' ) );
+								if ( element.find( '.fc-event-time' ).length ) {
+									element.find( '.fc-event-time' ).before( $( '<img src=' + url + ' />' ) );
 								} else {
-									element.find('.fc-event-title').before( $( '<img src=' + url + ' />' ) );
+									element.find( '.fc-event-title' ).before( $( '<img src=' + url + ' />' ) );
 								}
 							}
 					} );
