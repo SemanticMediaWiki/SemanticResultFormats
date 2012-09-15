@@ -72,19 +72,17 @@ $wgResourceModules['ext.dygraphs.combined'] = $moduleTemplate + array(
 );
 
 // jStorage was added in MW 1.20 and for all other releases register as compat module
-if ( !in_array( 'jquery.jStorage' , $wgResourceModules ) ) {
-	$wgResourceModules['jquery.jStorage'] = $moduleTemplate + array(
-		'scripts' => 'resources/util/compat/jquery.jStorage.js',
-		'dependencies' => 'jquery.json',
-	);
-}
+$wgResourceModules['ext.jquery.jStorage'] = $moduleTemplate + array(
+	'scripts' => 'resources/util/compat/jquery.jStorage.js',
+	'dependencies' => 'jquery.json',
+);
 
 /******************************************************************************
  * SRF specific printer independent utility resources
 /******************************************************************************/
 $wgResourceModules['ext.srf.util'] = $moduleTemplate + array(
 	'scripts' => 'resources/util/ext.srf.util.js',
-	'dependencies' => 'jquery.jStorage'
+	'dependencies' => 'ext.jquery.jStorage'
 );
 
 $wgResourceModules['ext.srf.util.tableview'] = $moduleTemplate + array(
