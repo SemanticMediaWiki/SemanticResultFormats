@@ -181,7 +181,7 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 			$negativeMultipleOf10 = 0;
 			$minAxis = 0;
 		} else {
-			$negativeMultipleOf10 = -1 * pow( 10, floor( log( $minValue, 10 ) ) );
+			$negativeMultipleOf10 = -1 * pow( 10, floor( log( ( $minValue * -1 ), 10 ) ) );
 			$minAxis = ceil( $minValue / $negativeMultipleOf10 ) * $negativeMultipleOf10;
 		}
 
