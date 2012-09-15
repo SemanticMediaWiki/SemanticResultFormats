@@ -15,29 +15,35 @@ production until the actual release.
 * Changed minimum Semantic MediaWiki version from 1.7 to 1.8.
 * Full compatibility with MediaWiki 1.19 and forward-compatibility with 1.20.
 * Changed minimum Validator version from 0.4 to 1.0.
+* jqplotbar and jqplotpie format are replaced by jqplotchart format
 
 ; New formats
 
 * slideshow (written by Stephan Gambke)
 * listwidget (bug 37721, I54660c15) (mwjames)
 * sparkline format (I911862ce) (mwjames)
-* flot timeseries printer (Ibad00690) (mwjames)
+* timeseries printer (Ibad00690) (mwjames)
 * d3chart format (I4baa7df8) (mwjames)
+* jqplotseries format (I3c8847aa) (mwjames)
+* jqplotchart format (I3c8847aa) (mwjames)
 * incoming format (Ie5be9196) (mwjames)
 * syndication feed (atom, rss) (bug 38636, Ia3cdc243) (mwjames)
+* dygraphs chart format (Ibac4b753) (mwjames)
+* event calendar (Iaff44b71) (mwjames)
 * earliest format (written by Jeroen De Dauw, Nischay Nahata)
 * latest format (written by Jeroen De Dauw, Nischay Nahata)
 
 ; New features
 
-* (bug 38094) TagCloud format added 'sphere widget' (mwjames)
-* (bug 37695) TagCloud format added template support (mwjames)
+* (Ice7ba7ea) Enable tableview plugin support for timeseries, jqplotseries, and dygraphs format
+* (bug 38094) Tag cloud format added 'sphere widget' (mwjames)
+* (I6920ae49) Tag cloud format added 'wordcloud widget' (mwjames)
+* (bug 37695) Tag cloud format added template support (mwjames)
 * (bug 38184) Gallery format added 'slideshow widget' (mwjames)
 * (bug 38357) Gallery format added 'overlay' parameter enabling gallery slideshow/carousel image overlay  (mwjames)
 * (I7c49a644) Gallery format added redirects to enable images to be redirect to another target (mwjames)
 * (bug 38296, Ic9f5e186) Gallery format fixed Special:Ask gallery display error (mwjames)
-* (bug 35627, I3c8847aa) jqPlot re-factoring (mwjames)
-* Added support for pointing to the subject property in the gallery property parameters using "-"
+* (I338b6b19, I7a0e663b) Gallery format added support for pointing to the subject property in the gallery property parameters using "-"
 
 ; Other improvements
 
