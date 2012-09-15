@@ -71,6 +71,14 @@ $wgResourceModules['ext.dygraphs.combined'] = $moduleTemplate + array(
 	'scripts' => 'resources/dygraphs/dygraph-combined.js'
 );
 
+// jStorage was added in MW 1.20 and for all other releases register as compat module
+if ( !in_array( 'jquery.jStorage' , $wgResourceModules ) ) {
+	$wgResourceModules['jquery.jStorage'] = $moduleTemplate + array(
+		'scripts' => 'resources/util/compat/jquery.jStorage.js',
+		'dependencies' => 'jquery.json',
+	);
+}
+
 /******************************************************************************
  * SRF specific printer independent utility resources
 /******************************************************************************/
