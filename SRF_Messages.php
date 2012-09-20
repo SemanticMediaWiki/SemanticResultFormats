@@ -24,6 +24,9 @@ $messages['en'] = array(
 	'srf-paramdesc-class'  => 'Specify an additional cascading style sheet class',
 	'srf-module-nomatch' => 'No matches found',
 	'srf-paramdesc-charttype' => 'Available chart type',
+	'srf-navigation-previous'  => 'Previous',
+	'srf-navigation-prev' => 'Prev',
+	'srf-navigation-next'  => 'Next',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
@@ -253,6 +256,9 @@ $messages['en'] = array(
 	'srf-paramdesc-xaxislabel' => 'Description that appears on the x-axis',
 	'srf-paramdesc-unit' => 'Unit',
 
+	// format "pagewidget"
+	'srf-printername-pagewidget' => 'Pagewidget',
+
 );
 
 /** Message documentation (Message documentation)
@@ -444,6 +450,7 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-yaxislabel' => '{{doc-paramdesc|yaxislabel}}',
 	'srf-paramdesc-xaxislabel' => '{{doc-paramdesc|xaxislabel}}',
 	'srf-paramdesc-unit' => '{{doc-paramdesc|unit}}',
+	'srf-printername-pagewidget' => '{{doc-smwformat|pagewidget}}',
 );
 
 /** Afrikaans (Afrikaans)
