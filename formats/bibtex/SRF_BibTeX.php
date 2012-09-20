@@ -127,7 +127,6 @@ class SRFBibTeX extends SMWExportPrinter {
 	 * @return SMWBibTeXEntry
 	 */
 	protected function getItemForResultRow( array /* of SMWResultArray */ $row ) {
-		$type = '';
 		$address = '';
 		$annote = '';
 		$author = '';
@@ -227,7 +226,6 @@ class SRFBibTeX extends SMWExportPrinter {
 
 		return new SMWBibTeXEntry( $type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year );
 	}
-
 }
 
 /**
@@ -314,5 +312,4 @@ class SMWBibTeXEntry {
 
 		return $text;
 	}
-
 }

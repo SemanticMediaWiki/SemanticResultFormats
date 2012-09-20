@@ -98,9 +98,9 @@ class SRFEventCalendar extends SMWResultPrinter {
 			 * @var SMWResultArray $field
 			 */
 			foreach ( $row as $field ) {
-
 				// Property label
 				$property = $field->getPrintRequest()->getLabel();
+				// @todo FIXME: Unused local variable.
 				$subject = $field->getResultSubject()->getTitle()->getText();
 
 				/**
