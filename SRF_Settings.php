@@ -54,6 +54,7 @@ $srfgFormats = array(
 	'timeseries',
 	'sparkline',
 	'listwidget',
+	'pagewidget',
 	'feed',
 	'dygraphs',
 

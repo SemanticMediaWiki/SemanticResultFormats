@@ -71,6 +71,10 @@ $wgResourceModules['ext.dygraphs.combined'] = $moduleTemplate + array(
 	'scripts' => 'resources/dygraphs/dygraph-combined.js'
 );
 
+$wgResourceModules['ext.jquery.dynamiccarousel'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.dynamiccarousel/plugin.js'
+);
+
 // jStorage was added in MW 1.20 and for all other releases register as compat module
 $wgResourceModules['ext.jquery.jStorage'] = $moduleTemplate + array(
 	'scripts' => 'resources/util/compat/jquery.jStorage.js',
@@ -132,8 +136,8 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
  * ListWidget
  ******************************************************************************/
 $wgResourceModules['ext.srf.listwidget'] = $formatModule + array(
-	'scripts' => 'listwidget/resources/ext.srf.listwidget.js',
-	'styles'  => 'listwidget/resources/ext.srf.listwidget.css',
+	'scripts' => 'widget/resources/ext.srf.listwidget.js',
+	'styles'  => 'widget/resources/ext.srf.listwidget.css',
 	'messages' => array(
 		'srf-module-nomatch'
 	)
@@ -161,6 +165,17 @@ $wgResourceModules['ext.srf.listwidget.pagination'] = $formatModule + array(
 		'ext.jquery.pajinate'
 	),
 	'position' => 'top'
+);
+
+$wgResourceModules['ext.srf.pagewidget.carousel'] = $formatModule + array(
+	'scripts' => 'widget/resources/ext.srf.pagewidget.carousel.js',
+	'styles' => 'widget/resources/ext.srf.pagewidget.carousel.css',
+	'dependencies' => 'ext.jquery.dynamiccarousel',
+	'messages' => array(
+		'srf-navigation-prev',
+		'srf-navigation-next',
+	),
+	'position' => 'top',
 );
 
 /******************************************************************************

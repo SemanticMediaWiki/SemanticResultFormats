@@ -34,6 +34,7 @@ final class SRFHooks {
 			'formats/jqPlotChart',
 			'formats/jqPlotSeries',
 			'formats/ListWidget',
+			'formats/PageWidget',
 			'formats/Timeseries',
 			'formats/Feed',
 			'formats/EventCalendar',
