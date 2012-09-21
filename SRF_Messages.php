@@ -894,6 +894,9 @@ $messages['de'] = array(
 	'srf-paramdesc-class' => 'Die CSS-Klasse angeben, die zusätzlich verwendet werden soll',
 	'srf-module-nomatch' => 'Es wurden keine Übereinstimmungen gefunden.',
 	'srf-paramdesc-charttype' => 'Den Diagrammtyp angeben',
+	'srf-navigation-previous' => 'Vorherige',
+	'srf-navigation-prev' => 'Zurück',
+	'srf-navigation-next' => 'Nächste',
 	'srf-error-option-mix' => 'Option ($1) ist nicht verfügbar',
 	'srf-error-option-link-all' => 'Zur Option ($1) muss beim Paramenter „link“ der Wert „all“ gesetzt werden.',
 	'srf-error-missing-layout' => 'Es wurde kein Layout angegeben.',
@@ -1065,6 +1068,7 @@ $messages['de'] = array(
 	'srf-paramdesc-yaxislabel' => 'Die Beschreibung, die auf der Y-Achse angezeigt wird',
 	'srf-paramdesc-xaxislabel' => 'Die Beschreibung, die auf der X-Achse angezeigt wird',
 	'srf-paramdesc-unit' => 'Die Einheit',
+	'srf-printername-pagewidget' => 'Seitenwidget',
 );
 
 /** Zazaki (Zazaki)
@@ -1794,6 +1798,9 @@ $messages['gl'] = array(
 	'srf-paramdesc-class' => 'Especificar unha clase CSS adicional',
 	'srf-module-nomatch' => 'Non se atoparon coincidencias',
 	'srf-paramdesc-charttype' => 'Tipo de gráficas dispoñible',
+	'srf-navigation-previous' => 'Anterior',
+	'srf-navigation-prev' => 'Anterior',
+	'srf-navigation-next' => 'Seguinte',
 	'srf-error-option-mix' => 'A opción ($1) non está dispoñible',
 	'srf-error-option-link-all' => 'A opción ($1) necesita que o parámetro "link" estea definido como "all"',
 	'srf-error-missing-layout' => 'Falta o esquema',
@@ -1967,6 +1974,7 @@ $messages['gl'] = array(
 	'srf-paramdesc-yaxislabel' => 'Descrición do eixe Y',
 	'srf-paramdesc-xaxislabel' => 'Descrición do eixe X',
 	'srf-paramdesc-unit' => 'Unidade',
+	'srf-printername-pagewidget' => 'Pagewidget',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
