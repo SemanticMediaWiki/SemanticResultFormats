@@ -27,8 +27,8 @@ Exhibit.SubmissionBackend.formatChanges = function(itemChanges, submissionProper
 
 Exhibit.SubmissionBackend.SubmissionDefaults = {
     'gdoc': {
-        'url': 'http://valinor.mit.edu/sostler/gdocbackend.cgi',
-    }
+        'url': 'http://valinor.mit.edu/sostler/gdocbackend.cgi'
+	}
 };
 
 Exhibit.SubmissionBackend.getOutputOptions = function() {

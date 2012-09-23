@@ -252,9 +252,8 @@ Exhibit.Database._Impl.prototype.loadTypes = function(typeEntries, baseURI) {
             } else {
                 type = new Exhibit.Database._Type(typeID);
                 this._types[typeID] = type;
-            };
-            
-            for (var p in typeEntry) {
+			}
+			for (var p in typeEntry) {
                 type._custom[p] = typeEntry[p];
             }
             
@@ -298,9 +297,8 @@ Exhibit.Database._Impl.prototype.loadProperties = function(propertyEntries, base
             } else {
                 property = new Exhibit.Database._Property(propertyID, this);
                 this._properties[propertyID] = property;
-            };
-            
-            property._uri = ("uri" in propertyEntry) ? propertyEntry.uri : (baseURI + "property#" + encodeURIComponent(propertyID));
+			}
+			property._uri = ("uri" in propertyEntry) ? propertyEntry.uri : (baseURI + "property#" + encodeURIComponent(propertyID));
             property._valueType = ("valueType" in propertyEntry) ? propertyEntry.valueType : "text";
                 // text, html, number, date, boolean, item, url
             
@@ -1095,15 +1093,18 @@ Exhibit.Database._Impl.prototype.getItem = function(id) {
     for (var i in properties) {
         var prop = properties[i];
         var val = this.getObject(id, prop);
-        if (val) { item[prop] = val };
-    }
+		if ( val ) {
+			item[prop] = val
+		}
+	}
     return item;
 }
 
 Exhibit.Database._Impl.prototype.addItem = function(item) {
-    if (!item.id) { item.id = item.label };
-
-    if (!item.modified) {
+	if ( !item.id ) {
+		item.id = item.label
+	}
+	if (!item.modified) {
         item.modified = "yes";
     }
     
@@ -1217,8 +1218,8 @@ Exhibit.Database._Impl.prototype.collectChangesForItem = function(id, ignoredPro
             var val = this.getObject(id, prop);
             if (val) { 
                 item.vals[prop] = { newVal: val }
-            };
-        }
+			}
+		}
     } else if (id in this._originalValues && !this.isSubmission(id)) {
         item.changeType = 'modified';
         var vals = this._originalValues[id];
@@ -1291,8 +1292,8 @@ Exhibit.Database._Impl.prototype.mergeSubmissionIntoItem = function(submissionID
             } else {
                 SimileAjax.Debug.warn("Exhibit.Database._Impl.prototype.commitChangeToItem cannot handle " + 
                 "multiple values for attribute " + attr + ": " + val);
-            };
-        });
+			}
+		});
         delete this._submissionRegistry[submissionID];
         
     } else if (change == 'addition') {

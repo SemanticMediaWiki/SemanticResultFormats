@@ -1,15 +1,15 @@
 
 Exhibit.LensRegistry.prototype.createLens = function(itemID, div, uiContext, editing) {
     var lensTemplate = this.getLens(itemID, uiContext);
-    var create = function(ilens) {
-        if (lensTemplate == null) {
-            ilens._constructDefaultUI(itemID, div, uiContext);
-        } else if (typeof lensTemplate == "string") {
-            ilens._constructFromLensTemplateURL(itemID, div, uiContext, lensTemplate);
-        } else {
-            ilens._constructFromLensTemplateDOM(itemID, div, uiContext, lensTemplate);
-        }
-    }
+    var create = function ( ilens ) {
+		if ( lensTemplate == null ) {
+			ilens._constructDefaultUI( itemID, div, uiContext );
+		} else if ( typeof lensTemplate == "string" ) {
+			ilens._constructFromLensTemplateURL( itemID, div, uiContext, lensTemplate );
+		} else {
+			ilens._constructFromLensTemplateDOM( itemID, div, uiContext, lensTemplate );
+		}
+	};
     
     var lens={};
     try {

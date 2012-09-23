@@ -166,6 +166,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 * @since 1.8
 	 *
 	 * @param array $events
+	 * @return string
 	 */
 	protected function getCalendarOutput( array $events ) {
 

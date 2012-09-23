@@ -58,9 +58,8 @@
 
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.TimeExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/time-locale.js");
-    };
-
-    if (!isCompiled) {
+	}
+	if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);
     }

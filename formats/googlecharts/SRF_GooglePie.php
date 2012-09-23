@@ -6,7 +6,6 @@
  */
 
 class SRFGooglePie extends SMWResultPrinter {
-	
 	protected $m_width = 250;
 	protected $m_heighth = 100;
 
@@ -22,7 +21,7 @@ class SRFGooglePie extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_googlepie' );
+		return wfMessage( 'srf_printername_googlepie' )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {

@@ -27,12 +27,11 @@
  * @author mwjames 
  */
 class SRFjqPlotSeries extends SMWResultPrinter {
-	
 	/**
 	 * @see SMWResultPrinter::getName
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-jqplotseries' );
+		return wfMessage( 'srf-printername-jqplotseries' )->text();
 	}
 
 	/**
@@ -51,7 +50,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		// Check data availability
 		if ( $data['series'] === array() ) {
-			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
+			return $result->addErrors( array( wfMessage( 'srf-warn-empy-chart' )
+					->inContentLanguage()->text() ) );
 		} else {
 			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
 			return $this->getFormatOutput( $this->getFormatSettings( $this->getNumbersTicks( $data ), $options ) );

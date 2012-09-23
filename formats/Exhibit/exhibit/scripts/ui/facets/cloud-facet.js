@@ -238,8 +238,8 @@ Exhibit.CloudFacet.prototype._computeFacet = function(items) {
                     entries.push({ value: facetValue, count: itemSubcollection.size });
                 }
             });
-        };
-    } else {
+		}
+	} else {
         this._buildMaps();
 
         valueType = this._valueType;

@@ -10,7 +10,6 @@
  * SMWResultArray and an array of some of its values, for easier aggregation
  */
 class SRFOutlineItem {
-	
 	var $mRow;
 	var $mVals;
 
@@ -31,7 +30,7 @@ class SRFOutlineItem {
 		if ( array_key_exists( $field_name, $this->mVals ) )
 			return $this->mVals[$field_name];
 		else {
-			return array( wfMsg( 'srf_outline_novalue' ) );
+			return array( wfMessage( 'srf_outline_novalue' )->text() );
 		}
 	}
 }
@@ -75,11 +74,9 @@ class SRFOutlineTree {
 			}
 		}
 	}
-
 }
 
 class SRFOutline extends SMWResultPrinter {
-
 	protected $mOutlineProperties = array();
 	protected $mInnerFormat = '';
 
@@ -89,7 +86,7 @@ class SRFOutline extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_outline' );
+		return wfMessage( 'srf_printername_outline' )->text();
 	}
 
 	/**

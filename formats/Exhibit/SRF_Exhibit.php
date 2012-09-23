@@ -43,8 +43,9 @@ class SRFExhibit extends SMWResultPrinter {
 					return $value[0] . ':';
 				}
 			}
-			return "";
 		}
+
+		return "";
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {

@@ -116,14 +116,14 @@ class SRFBibTeX extends SMWExportPrinter {
 		
 		return $result;
 	}
-	
+
 	/**
 	 * Gets a SMWBibTeXEntry for the row.
-	 * 
+	 *
 	 * @since 1.6
-	 * 
-	 * @param array of SMWResultArray $row
-	 * 
+	 *
+	 * @param $row array of SMWResultArray
+	 *
 	 * @return SMWBibTeXEntry
 	 */
 	protected function getItemForResultRow( array /* of SMWResultArray */ $row ) {

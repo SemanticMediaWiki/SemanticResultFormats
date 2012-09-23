@@ -21,7 +21,7 @@ Exhibit.jsonImporter.getjsonDocument = function (docURL)
 	{
 		alert('ERROR FINDING JSON DOC');
 		return null;
-	};
+	}
 };
 
 Exhibit.jsonImporter.findFirstItems = function(json,configuration)
@@ -41,18 +41,19 @@ Exhibit.jsonImporter.findFirstItems = function(json,configuration)
 			{
 				for (var i = 0; i < json[child].length; i++)
 				{
-				    var subChild = json[child][i];
+					var subChild = json[child][i];
 					subChild.index = configuration.itemTag.indexOf(child);
 					listOfItems.push(subChild);
-				};
-			};
-		};
+				}
+			}
+		}
 		if (listOfItems.length)
 		{
 			return listOfItems;
 		}
-		else
+		else {
 			return Exhibit.jsonImporter.findFirstItems(visited,configuration);
+		}
 	}
 };
 
@@ -77,8 +78,7 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 		for (propertyKey in myObject)
 		{
 			propertyQueue.push(propertyKey)
-		};
-
+		}
 		while (propertyQueue.length>0)
 		{
 			var key = propertyQueue.shift();
@@ -127,7 +127,7 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 				else
 				{
 					objectToAppend.type='Item';
-				};
+				}
 
 			}
 			// MUST BE Item
@@ -138,7 +138,7 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 				{
 					for (var i = 0; i < newObject.length; i++)
 					{
-					    var object = newObject[i];
+						var object = newObject[i];
 						object.index = configuration.itemTag.indexOf(keyID);
 						// PARENT RELATION
 						if (configuration.parentRelation[object.index])
@@ -159,8 +159,8 @@ Exhibit.jsonImporter.getItems = function(json,exhibitJSON,configuration)
 				}
 
 
-			};
-		};
+			}
+		}
 		exhibitJSON.items.push(objectToAppend);
 	}
 	return exhibitJSON;
@@ -187,33 +187,33 @@ Exhibit.jsonImporter.configure = function()
 								 if (this.hasAttribute('ex:itemTag'))
 								 {
 									 configuration.itemTag = Exhibit.getAttribute(this,'ex:itemTag',',');
-								 };
+								 }
 								 if (this.hasAttribute('ex:setPropertyAsLabel'))
 								 {
 									configuration.propertyLabel = Exhibit.getAttribute(this,'ex:setPropertyAsLabel',',');
-								 };
+								 }
 								 if (this.hasAttribute('ex:itemType'))
 								 {
 									 configuration.itemType = Exhibit.getAttribute(this,'ex:itemType',',');
-								 };
+								 }
 								 if (this.hasAttribute('ex:parentRelation'))
 								 {
 									 configuration.parentRelation = Exhibit.getAttribute(this,'ex:parentRelation',',');
-								 };
+								 }
 								 if (this.hasAttribute('ex:propertyNames'))
 								 {
 									 configuration.propertyNames = Exhibit.getAttribute(this,'ex:propertyNames',',');
-								 };
+								 }
 								 if (this.hasAttribute('ex:propertyTags'))
 								 {
 									 configuration.propertyTags = Exhibit.getAttribute(this,'ex:propertyTags',',');
-								 };
+								 }
 
 							 }
 					);
 
 	return configuration;
-}
+};
 
 
 Exhibit.jsonImporter.load = function (link,database,cont)

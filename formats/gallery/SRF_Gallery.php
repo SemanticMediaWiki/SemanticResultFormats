@@ -365,13 +365,15 @@ class SRFGallery extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @return array
+	 * @return string
 	 */
 	protected function getImageOverlay() {
 		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] == true ) {
 			SMWOutputs::requireResource( 'ext.srf.gallery.overlay' );
 			return ' srf-overlay';
 		}
+
+		return '';
 	}
 
 	/**

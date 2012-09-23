@@ -465,7 +465,7 @@ var database=uiContext.getDatabase();
 if(this._commonProperties==null){this._commonProperties=database.getAllProperties();
 }var properties=this._commonProperties;
 var label=database.getObject(itemID,"label");
-var template={elmt:div,className:"exhibit-lens",children:[{tag:"div",className:"exhibit-lens-title",field:"titlebar",title:label,children:[label]},{tag:"div",className:"exhibit-lens-body",children:[{tag:"table",className:"exhibit-lens-properties",field:"propertiesTable"}]},{tag:"div",className:"exhibit-lens-title",title:label,children:[label]},]};
+var template={elmt:div,className:"exhibit-lens",children:[{tag:"div",className:"exhibit-lens-title",field:"titlebar",title:label,children:[label]},{tag:"div",className:"exhibit-lens-body",children:[{tag:"table",className:"exhibit-lens-properties",field:"propertiesTable"}]},{tag:"div",className:"exhibit-lens-title",title:label,children:[label]}]};
 var dom=SimileAjax.DOM.createDOMFromTemplate(template);
 div.setAttribute("ex:itemID",itemID);
 this._TBody=dom.propertiesTable.tBodies[0];

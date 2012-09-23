@@ -175,9 +175,9 @@ Exhibit.ScraperBackend.findMostCommon = function(substrings, text) {
             maxCount = count;
             maxSubstring = s;
         }
-    };
-    return maxSubstring;
-}
+	}
+	return maxSubstring;
+};
 
 Exhibit.ScraperBackend.extractItemFromText = function(text, itemType, db) {
     var item = { type: itemType };

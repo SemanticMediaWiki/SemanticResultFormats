@@ -218,7 +218,7 @@ Timeline.OverviewEventPainter.prototype._paintEventTick = function(
   //  tickDiv.style.overflow = "hidden";
 
     var klassName = evt.getClassName()
-    if (klassName) {tickDiv.className +=' small-' + klassName};
+    if (klassName) {tickDiv.className +=' small-' + klassName}
 
     if(opacity<100) {SimileAjax.Graphics.setOpacity(tickDiv, opacity)};
 

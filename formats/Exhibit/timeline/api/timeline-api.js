@@ -82,9 +82,8 @@
                 useLocalResources = true;
             }
         }
-    };
-
-    var loadMe = function() {
+	}
+	var loadMe = function() {
         if ("Timeline" in window) {
             return;
         }

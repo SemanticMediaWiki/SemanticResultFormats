@@ -43,6 +43,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	 * @since 1.8
 	 *
 	 * @param array $data label => value
+	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
 

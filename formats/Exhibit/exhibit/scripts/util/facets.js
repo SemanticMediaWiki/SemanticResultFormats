@@ -449,8 +449,8 @@ Exhibit.FacetUtilities.Cache.prototype.getValueCountsFromItems = function(items)
                 var itemSubcollection = path.evaluateBackward(facetValue, valueType, items, database);
                 entries.push({ value: facetValue, count: itemSubcollection.size });
             });
-        };
-    } else {
+		}
+	} else {
         this._buildMaps();
 
         valueType = this._valueType;

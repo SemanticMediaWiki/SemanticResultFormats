@@ -157,8 +157,8 @@ Exhibit.BarChartView._getAxisInverseFunc = function(s) {
         return function (x) { return Math.pow(10, x); };
     } else {
         return function (x) { return x; };
-    };
-}
+    }
+};
 
 
 Exhibit.BarChartView._colors = [

@@ -56,9 +56,8 @@
 
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.EditingExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/editing-locale.js");
-    };
-
-    if (!isCompiled) {
+	}
+	if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);
     }

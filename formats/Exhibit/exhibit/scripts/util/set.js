@@ -3,18 +3,18 @@
  *==================================================
  */
 
-Exhibit.Set = function(a) {
-    this._hash = {};
-    this._count = 0;
+Exhibit.Set = function ( a ) {
+	this._hash = {};
+	this._count = 0;
 
-    if (a instanceof Array) {
-        for (var i = 0; i < a.length; i++) {
-            this.add(a[i]);
-        }
-    } else if (a instanceof Exhibit.Set) {
-        this.addSet(a);
-    }
-}
+	if ( a instanceof Array ) {
+		for ( var i = 0; i < a.length; i++ ) {
+			this.add( a[i] );
+		}
+	} else if ( a instanceof Exhibit.Set ) {
+		this.addSet( a );
+	}
+};
 
 Exhibit.Set.prototype.add = function(o) {
     if (!(o in this._hash)) {

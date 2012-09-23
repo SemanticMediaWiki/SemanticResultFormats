@@ -194,9 +194,9 @@
 			}else if(options.wrap_around){
                 gotopage(total_page_no_links-1);   
 			}
-				
-		};
-			
+
+		}
+
 		function showNextPage(e){
 			new_page = parseInt(meta.data(current_page)) + 1;
 			
@@ -208,7 +208,7 @@
 				gotopage(0);
 			}
 				
-		};
+		}
 			
 		function gotopage(page_num){
 			
@@ -242,8 +242,7 @@
 			
 			// Add a class to the next or prev links if there are no more pages next or previous to the active page
 			tagNextPrev();
-		};	
-		
+		}
 		// Methods to shift the diplayed index of page numbers to the left or right
 		function movePageNumbersLeft(e, new_p){
 			var new_page = new_p;

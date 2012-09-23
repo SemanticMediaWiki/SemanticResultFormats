@@ -59,9 +59,8 @@
 
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.TimeplotExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/timeplot-locale.js");
-    };
-
-    if (!isCompiled) {
+	}
+	if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);
     }
