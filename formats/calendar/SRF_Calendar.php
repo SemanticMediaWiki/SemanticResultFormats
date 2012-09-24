@@ -46,7 +46,7 @@ class SRFCalendar extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_calendar' );
+		return wfMessage( 'srf_printername_calendar' )->text();
 	}
 
 	/**
@@ -249,7 +249,7 @@ class SRFCalendar extends SMWResultPrinter {
 			'12' => 'december',
 		);
 
-		return wfMsgForContent( array_key_exists( $int, $months ) ? $months[$int] : 'january' ); 
+		return wfMessage( array_key_exists( $int, $months ) ? $months[$int] : 'january' )->inContentLanguage()->text();
 	}
 
 	function formatDateStr( $object ) {
@@ -314,13 +314,13 @@ class SRFCalendar extends SMWResultPrinter {
 
 		// Set days of the week.
 		$week_day_names = array(
-			1 => wfMsg( 'sunday' ),
-			2 => wfMsg( 'monday' ),
-			3 => wfMsg( 'tuesday' ),
-			4 => wfMsg( 'wednesday' ),
-			5 => wfMsg( 'thursday' ),
-			6 => wfMsg( 'friday' ),
-			7 => wfMsg( 'saturday' )
+			1 => wfMessage( 'sunday' )->text(),
+			2 => wfMessage( 'monday' )->text(),
+			3 => wfMessage( 'tuesday' )->text(),
+			4 => wfMessage( 'wednesday' )->text(),
+			5 => wfMessage( 'thursday' )->text(),
+			6 => wfMessage( 'friday' )->text(),
+			7 => wfMessage( 'saturday' )->text()
 		);
 		if ( empty( $srfgFirstDayOfWeek ) ) {
 			$firstDayOfWeek = 1;
@@ -395,10 +395,10 @@ class SRFCalendar extends SMWResultPrinter {
 		$next_month_url = $page_title->getLocalURL( "month=$next_month_num&year=$next_year" . $additional_query_string );
 		$today_url = $page_title->getLocalURL( $additional_query_string );
 
-		$today_text = wfMsg( 'srfc_today' );
-		$prev_month_text = wfMsg( 'srfc_previousmonth' );
-		$next_month_text = wfMsg( 'srfc_nextmonth' );
-		$go_to_month_text = wfMsg( 'srfc_gotomonth' );
+		$today_text = wfMessage( 'srfc_today' )->text();
+		$prev_month_text = wfMessage( 'srfc_previousmonth' )->text();
+		$next_month_text = wfMessage( 'srfc_nextmonth' )->text();
+		$go_to_month_text = wfMessage( 'srfc_gotomonth' )->text();
 
 		// Get day of the week that the first of this month falls on.
 		$first_day = new SRFCHistoricalDate();

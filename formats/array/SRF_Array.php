@@ -45,7 +45,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_' . $this->mFormat );
+		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 	
 	/*
@@ -58,7 +58,7 @@ class SRFArray extends SMWResultPrinter {
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		/*
-		 * @ToDo:
+		 * @todo
 		 * labels of requested properties could define default values. Seems not possible at the moment because
 		 * SMWPrintRequest::getLable() always returns the property name even if no specific label is defined.
 		 */
@@ -71,7 +71,7 @@ class SRFArray extends SMWResultPrinter {
 			
 			/**
 			 * first field is always the page title, except, mainlabel is set to '-'
-			 * @ToDo: Is there some other way to check the data value directly for being the
+			 * @todo Is there some other way to check the data value directly for being the
 			 *        page title or not? SMWs behavior could change on mainlabel handling...
 			 */
 			$isPageTitle = !$this->mMainLabelHack;

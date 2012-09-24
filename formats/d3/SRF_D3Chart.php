@@ -34,7 +34,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	 *
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-d3chart' );
+		return wfMessage( 'srf-printername-d3chart' )->text();
 	}
 
 	/**

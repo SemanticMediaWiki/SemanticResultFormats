@@ -122,7 +122,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_' . $this->mFormat );
+		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {

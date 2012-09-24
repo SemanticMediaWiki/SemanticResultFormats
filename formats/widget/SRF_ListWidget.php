@@ -34,7 +34,7 @@ class SRFListWidget extends SMWListResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-listwidget' );
+		return wfMessage( 'srf-printername-listwidget' )->text();
 	}
 
 	/**

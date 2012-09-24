@@ -33,7 +33,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 *
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-eventcalendar' );
+		return wfMessage( 'srf-printername-eventcalendar' )->text();
 	}
 
 	/**
@@ -52,7 +52,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 
 		// Check data availability
 		if ( $data === array() ) {
-			return $result->addErrors( array( wfMsgForContent( 'srf-error-empty-calendar' ) ) );
+			return $result->addErrors( array( wfMessage( 'srf-error-empty-calendar' )->inContentLanguage()->text() ) );
 		} else {
 			return $this->getCalendarOutput( $data );
 		}

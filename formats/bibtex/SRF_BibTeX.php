@@ -77,7 +77,7 @@ class SRFBibTeX extends SMWExportPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_bibtex' );
+		return wfMessage( 'srf_printername_bibtex' )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -100,7 +100,7 @@ class SRFBibTeX extends SMWExportPrinter {
 			if ( $this->getSearchLabel( $outputmode ) ) {
 				$label = $this->getSearchLabel( $outputmode );
 			} else {
-				$label = wfMsgForContent( 'srf_bibtex_link' );
+				$label = wfMessage( 'srf_bibtex_link' )->inContentLanguage()->text();
 			}
 			
 			$link = $res->getQueryLink( $label );
@@ -275,7 +275,7 @@ class SMWBibTeXEntry {
 		$URI = '';
 		if ( $author ) {
 			$authors = explode( ',', $author );
-			$authors = explode( wfMsg( 'and' ), $authors[0] );
+			$authors = explode( wfMessage( 'and' )->text(), $authors[0] );
 			$arrayAuthor = explode( ' ', $authors[0], 2 );
 			$URI .= str_replace( ' ', '', $arrayAuthor[array_key_exists( 1, $arrayAuthor ) ? 1 : 0] );
 		}

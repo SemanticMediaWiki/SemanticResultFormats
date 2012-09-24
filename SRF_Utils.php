@@ -46,7 +46,7 @@ final class SRFUtils {
 			$attribs = array (
 				'style' => 'vertical-align: middle;',
 				'src'   => "{$GLOBALS['wgStylePath']}/common/images/spinner.gif",
-				'title' => wfMsgForContent( 'srf-module-loading' )
+				'title' => wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
 			);
 
 			$image = Html::rawElement( 'img', $attribs , null );
@@ -57,7 +57,7 @@ final class SRFUtils {
 			'style' => 'vertical-align: middle; padding-left: 1em;',
 		);
 
-		$text = Html::rawElement( 'span', $attribs , wfMsgForContent( 'srf-module-loading' ) );
+		$text = Html::rawElement( 'span', $attribs , wfMessage( 'srf-module-loading' )->inContentLanguage()->text() );
 
 		// Attributes
 		$attribs = array (

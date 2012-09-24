@@ -37,7 +37,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf_printername_tagcloud' );
+		return wfMessage( 'srf_printername_tagcloud' )->text();
 	}
 
 	/**
@@ -54,7 +54,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		if ( ( $this->params['widget'] == 'sphere' ) &&
 			( $this->params['link'] !== 'all' ) &&
 			( $this->params['template'] === '' ) ) {
-			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-link-all', 'sphere' ) ) );
+			return $results->addErrors( array( wfMessage( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ) );
 		}
 
 		// Template support

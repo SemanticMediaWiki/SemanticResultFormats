@@ -57,7 +57,7 @@ class SRFvCard extends SMWExportPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_vcard' );
+		return wfMessage( 'srf_printername_vcard' )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -339,7 +339,7 @@ class SRFvCard extends SMWExportPrinter {
 			if ( $this->getSearchLabel( $outputmode ) ) {
 				$label = $this->getSearchLabel( $outputmode );
 			} else {
-				$label = wfMsgForContent( 'srf_vcard_link' );
+				$label = wfMessage( 'srf_vcard_link' )->inContentLanguage()->text();
 			}
 			$link = $res->getQueryLink( $label );
 			$link->setParameter( 'vcard', 'format' );
@@ -356,7 +356,6 @@ class SRFvCard extends SMWExportPrinter {
 		}
 		return $result;
 	}
-
 }
 
 /**

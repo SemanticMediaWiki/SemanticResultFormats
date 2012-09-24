@@ -61,7 +61,7 @@ class SRFiCalendar extends SMWExportPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_icalendar' );
+		return wfMessage( 'srf_printername_icalendar' )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -126,7 +126,7 @@ class SRFiCalendar extends SMWExportPrinter {
 		if ( $this->getSearchLabel( $outputmode ) ) {
 			$label = $this->getSearchLabel( $outputmode );
 		} else {
-			$label = wfMsgForContent( 'srf_icalendar_link' );
+			$label = wfMessage( 'srf_icalendar_link' )->inContentLanguage()->text();
 		}
 		
 		$link = $res->getQueryLink( $label );

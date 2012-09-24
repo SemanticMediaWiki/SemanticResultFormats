@@ -34,7 +34,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	 *
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-sparkline' );
+		return wfMessage( 'srf-printername-sparkline' )->text();
 	}
 
 	/**

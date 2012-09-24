@@ -58,7 +58,7 @@ final class SRFHooks {
 	 * @return boolean
 	 */
 	public static function addToAdminLinks( ALTree &$admin_links_tree ) {
-		$displaying_data_section = $admin_links_tree->getSection( wfMsg( 'smw_adminlinks_displayingdata' ) );
+		$displaying_data_section = $admin_links_tree->getSection( wfMessage( 'smw_adminlinks_displayingdata' )->text() );
 		
 		// Escape is SMW hasn't added links.
 		if ( is_null( $displaying_data_section ) ) {
@@ -66,10 +66,9 @@ final class SRFHooks {
 		}
 			
 		$smw_docu_row = $displaying_data_section->getRow( 'smw' );
-		$srf_docu_label = wfMsg( 'adminlinks_documentation', wfMsg( 'srf-name' ) );
+		$srf_docu_label = wfMessage( 'adminlinks_documentation', wfMessage( 'srf-name' )->text() )->text();
 		$smw_docu_row->addItem( AlItem::newFromExternalLink( 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats', $srf_docu_label ) );
 		
 		return true;
 	}
-
 }

@@ -272,7 +272,7 @@ class SRFGraph extends SMWResultPrinter {
 	 * @see SMWResultPrinter::getName()
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-graph' );
+		return wfMessage( 'srf-printername-graph' )->text();
 	}
 
 	/**

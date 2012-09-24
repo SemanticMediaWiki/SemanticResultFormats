@@ -35,7 +35,7 @@ class SRFTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-timeseries' );
+		return wfMessage( 'srf-printername-timeseries' )->text();
 	}
 
 	/**
@@ -53,7 +53,7 @@ class SRFTimeseries extends SMWResultPrinter {
 
 		// Post-data processing check
 		if ( $data === array() ) {
-			return $result->addErrors( array( wfMsgForContent( 'srf-warn-empy-chart' ) ) );
+			return $result->addErrors( array( wfMessage( 'srf-warn-empy-chart' )->inContentLanguage()->text() ) );
 		} else {
 			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
 			return $this->getFormatOutput( $data, $options );

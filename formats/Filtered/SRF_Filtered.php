@@ -89,7 +89,7 @@ class SRFFiltered extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-filtered' );
+		return wfMessage( 'srf-printername-filtered' )->text();
 	}
 
 	protected function handleParameters( array $params, $outputmode ) {

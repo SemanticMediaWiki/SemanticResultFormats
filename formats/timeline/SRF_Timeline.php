@@ -44,7 +44,7 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 	
 	public function getName() {
-		return wfMsg( 'srf_printername_' . $this->mFormat );
+		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -72,9 +72,9 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 
 		// print header
-		$link = $res->getQueryLink( wfMsgForContent( 'srf-timeline-allresults' ) );
+		$link = $res->getQueryLink( wfMessage( 'srf-timeline-allresults' )->inContentLanguage()->text() );
 		$result = "<div class=\"smwtimeline\" id=\"smwtimeline$smwgIQRunningNumber\" style=\"height: $this->m_tlsize\">";
-		$result .= '<span class="smwtlcomment">' . wfMsgForContent( 'srf-timeline-nojs' ) . ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
+		$result .= '<span class="smwtlcomment">' . wfMessage( 'srf-timeline-nojs' )->inContentLanguage()->text() . ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
 
 		foreach ( $this->m_tlbands as $band ) {
 			$result .= '<span class="smwtlband" style="display:none;">' . htmlspecialchars( $band ) . '</span>';

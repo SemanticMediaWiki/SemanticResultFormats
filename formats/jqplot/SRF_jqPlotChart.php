@@ -37,7 +37,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 *
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-jqplotchart' );
+		return wfMessage( 'srf-printername-jqplotchart' )->text();
 	}
 
 	/**
@@ -65,7 +65,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 			// Return with an error
 			return Html::rawElement( 'span', array(
 				'class' => "error"
-				), wfMsgForContent( 'srf-error-missing-layout' )
+				), wfMessage( 'srf-error-missing-layout' )->inContentLanguage()->text()
 			);
 		}
 

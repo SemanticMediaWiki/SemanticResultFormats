@@ -68,7 +68,7 @@ class SRFTree extends SMWListResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 
 		if ( $this->mTreeProp === null || $this->mTreeProp === '' ) {
-			$res->addErrors( array( wfMsgForContent( 'srf-noparentprop' ) ) );
+			$res->addErrors( array( wfMessage( 'srf-noparentprop' )->inContentLanguage()->text() ) );
 			return '';
 		}
 

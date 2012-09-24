@@ -34,7 +34,7 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-feed' );
+		return wfMessage( 'srf-printername-feed' )->text();
 	}
 
 	/**
@@ -86,7 +86,7 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 
 		if ( $outputmode == SMW_OUTPUT_FILE ) {
 			if ( $res->getCount() == 0 ){
-				return $results->addErrors( array( wfMsgForContent( 'smw_result_noresults' ) ) );
+				return $results->addErrors( array( wfMessage( 'smw_result_noresults' )->inContentLanguage()->text() ) );
 			}
 			$result = $this->getFeed( $res, $this->params['type'] );
 		} else {
@@ -112,7 +112,7 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 		global $wgFeedClasses;
 
 		if( !isset( $wgFeedClasses[$type] ) ) {
-			return $results->addErrors( array( wfMsgForContent( 'feed-invalid' ) ) );
+			return $results->addErrors( array( wfMessage( 'feed-invalid' )->inContentLanguage()->text() ) );
 		}
 
 		// Init feed class
@@ -155,7 +155,7 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 	 * @return string
 	 */
 	protected function feedDescription() {
-		return $this->params['description'] !== '' ? wfMsg( 'smw_rss_description', $this->params['description'] ) : wfMsg( 'tagline' );
+		return $this->params['description'] !== '' ? wfMessage( 'smw_rss_description', $this->params['description'] )->text() : wfMessage( 'tagline' )->text();
 	}
 
 	/**

@@ -33,7 +33,7 @@ class SRFGallery extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf_printername_gallery' );
+		return wfMessage( 'srf_printername_gallery' )->text();
 	}
 
 	/**
@@ -50,9 +50,9 @@ class SRFGallery extends SMWResultPrinter {
 		// Features check
 		// Widgets and intro/outro are not planned to work
 		if ( $this->params['intro'] !== '' && $this->params['widget'] !== '' ){
-			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'intro/widget' ) ) );
+			return $results->addErrors( array( wfMessage( 'srf-error-option-mix', 'intro/widget' )->inContentLanguage()->text() ) );
 		} elseif( $this->params['outro'] !== '' && $this->params['widget'] !== '' ){
-			return $results->addErrors( array( wfMsgForContent( 'srf-error-option-mix', 'outro/widget' ) ) );
+			return $results->addErrors( array( wfMessage( 'srf-error-option-mix', 'outro/widget' )->inContentLanguage()->text() ) );
 		};
 
 		return $this->getResultText( $results, $this->outputMode );
@@ -88,7 +88,6 @@ class SRFGallery extends SMWResultPrinter {
 
 		// Carousel parameters
 		if ( $this->params['widget'] == 'carousel' ) {
-
 			// Set attributes for jcarousel
 			$dataAttribs = array(
 				'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
