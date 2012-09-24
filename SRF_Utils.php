@@ -57,7 +57,7 @@ final class SRFUtils {
 			'style' => 'vertical-align: middle; padding-left: 1em;',
 		);
 
-		$text = Html::rawElement( 'span', $attribs , wfMessage( 'srf-module-loading' )->inContentLanguage()->text() );
+		$text = Html::element( 'span', $attribs , wfMessage( 'srf-module-loading' )->inContentLanguage()->text() );
 
 		// Attributes
 		$attribs = array (

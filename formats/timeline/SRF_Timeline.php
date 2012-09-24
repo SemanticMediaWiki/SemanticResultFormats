@@ -74,7 +74,9 @@ class SRFTimeline extends SMWResultPrinter {
 		// print header
 		$link = $res->getQueryLink( wfMessage( 'srf-timeline-allresults' )->inContentLanguage()->text() );
 		$result = "<div class=\"smwtimeline\" id=\"smwtimeline$smwgIQRunningNumber\" style=\"height: $this->m_tlsize\">";
-		$result .= '<span class="smwtlcomment">' . wfMessage( 'srf-timeline-nojs' )->inContentLanguage()->text() . ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
+		$result .= '<span class="smwtlcomment">'
+			. wfMessage( 'srf-timeline-nojs' )->inContentLanguage()->escaped()
+			. ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
 
 		foreach ( $this->m_tlbands as $band ) {
 			$result .= '<span class="smwtlband" style="display:none;">' . htmlspecialchars( $band ) . '</span>';
