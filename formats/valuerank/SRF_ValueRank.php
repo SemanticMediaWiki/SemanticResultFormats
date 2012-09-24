@@ -30,7 +30,7 @@ class SRFValueRank extends SMWResultPrinter {
 	protected $tagsHtml = array();
 	
 	public function getName() {
-		return wfMsg( 'srf_printername_valuerank' );
+		return wfMessage( 'srf_printername_valuerank' )->text();
 	}
 	
 	/**

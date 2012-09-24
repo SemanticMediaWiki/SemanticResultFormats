@@ -326,7 +326,7 @@ if(F in C){throw"Collision between change property and submission property "+F+"
 return C;
 });
 };
-Exhibit.SubmissionBackend.SubmissionDefaults={"gdoc":{"url":"http://valinor.mit.edu/sostler/gdocbackend.cgi",}};
+Exhibit.SubmissionBackend.SubmissionDefaults={"gdoc":{"url":"http://valinor.mit.edu/sostler/gdocbackend.cgi"}};
 Exhibit.SubmissionBackend.getOutputOptions=function(){var A=$('head link[rel="exhibit/output"]');
 if(A.length==0){throw"No output link provided";
 }else{if(A.length>1){SimileAjax.Debug.warn("Multiple output links provided; ignoring all but the first");

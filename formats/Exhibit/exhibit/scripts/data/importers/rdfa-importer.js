@@ -1,6 +1,6 @@
 /*==================================================
  *  Exhibit.RDFaImporter
- *  author: Keith Alexander (with the assistance of Johan Sundström and Ben Adida)
+ *  author: Keith Alexander (with the assistance of Johan Sundstrï¿½m and Ben Adida)
  *==================================================
  */
 
@@ -85,8 +85,8 @@ Exhibit.RDFaImporter.loadRDFa = function(iframe, rdfa, database) {
                                 item['type'] = type_label;
                             } catch(e) {
                                 //ERRORS GO HERE
-                            };
-                        } else {
+							}
+						} else {
                             parsed['properties'][p_label] = { "uri": j, "label": tri[j][k]['predicate']['suffix'] };
                             try {
                                 if (!item[p_label]) {

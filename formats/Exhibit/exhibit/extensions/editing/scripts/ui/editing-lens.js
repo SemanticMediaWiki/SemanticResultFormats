@@ -108,8 +108,8 @@ Exhibit.EditingLens.prototype._constructDefaultUI = function(itemID, div, uiCont
                 className:  "exhibit-lens-title",
                 title:      label,
                 children:   [ label ]
-            },
-        ]
+            }
+		]
     };
     var dom = SimileAjax.DOM.createDOMFromTemplate(template);
 

@@ -71,9 +71,8 @@
 
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.MapExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/map-locale.js");
-    };
-
-    if (!isCompiled) {
+	}
+	if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);
     }

@@ -20,7 +20,7 @@ class SRFSlideShow extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-slideshow' );
+		return wfMessage( 'srf-printername-slideshow' )->text();
 	}
 
 	/**

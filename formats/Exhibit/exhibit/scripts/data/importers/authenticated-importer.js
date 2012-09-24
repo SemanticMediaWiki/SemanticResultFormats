@@ -4,9 +4,10 @@ Exhibit.AuthenticatedImporter = {
 
 Exhibit.importers["application/authenticated"] = Exhibit.AuthenticatedImporter;
 
-Exhibit.AuthenticatedImporter.constructURL = function() {
-    return "https://www.google.com/accounts/AuthSubRequest?scope=http%3A%2F%2Fspreadsheets.google.com%2Ffeeds%2F&session=1&secure=0&next=" + window.location;
-}
+Exhibit.AuthenticatedImporter.constructURL = function () {
+	return "https://www.google.com/accounts/AuthSubRequest?scope=http%3A%2F%2Fspreadsheets.google.com%2Ffeeds%2F&session=1&secure=0&next="
+		+ window.location;
+};
 
 Exhibit.AuthenticatedImporter.load = function(link, database, cont) {
 

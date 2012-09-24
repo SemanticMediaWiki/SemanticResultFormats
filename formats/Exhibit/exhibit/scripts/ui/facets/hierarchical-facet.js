@@ -659,9 +659,8 @@ Exhibit.HierarchicalFacet.prototype._buildCache = function() {
                 var childrenValue = valueToChildren[value];
                 for (var i = 0; i < childrenValue.length; i++) {
                     processValue(childrenValue[i], node.children, valueSet2, path.concat(i));
-                };
-
-                node.others = new Exhibit.Set();
+				}
+				node.others = new Exhibit.Set();
                 if (value in valueToItem) {
                     var items = valueToItem[value];
                     for (var i = 0; i < items.length; i++) {

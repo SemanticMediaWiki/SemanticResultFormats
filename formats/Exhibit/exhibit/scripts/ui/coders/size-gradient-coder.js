@@ -8,9 +8,13 @@ Exhibit.SizeGradientCoder = function(uiContext) {
     this._settings = {};
 
     this._log = {
-    	func: function(size) { return Math.ceil(Math.log(size)); },
-    	invFunc: function(size) { return Math.ceil(Math.exp(size)); }
-    }
+		func: function ( size ) {
+			return Math.ceil( Math.log( size ) );
+		},
+		invFunc: function ( size ) {
+			return Math.ceil( Math.exp( size ) );
+		}
+	};
     this._linear = {
     	func: function(size) { return Math.ceil(size); },
     	invFunc: function(size) { return Math.ceil(size); }

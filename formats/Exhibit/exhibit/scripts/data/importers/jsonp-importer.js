@@ -170,9 +170,8 @@ Exhibit.JSONPImporter.googleSpreadsheetsConverter = function(json, url, link) {
             col: parseInt(id.substring(c + 1)) - 1,
             val: entry.content.$t
         };
-    };
-
-    var cellIndex = 0;
+	}
+	var cellIndex = 0;
     var getNextRow = function() {
         if (cellIndex < entries.length) {
             var firstEntry = entries[cellIndex++];

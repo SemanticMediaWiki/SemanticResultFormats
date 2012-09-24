@@ -208,6 +208,8 @@ class SRFSyndicationFeed extends SMWExportPrinter {
 				$this->feedItemComments()
 			);
 		}
+
+		return array();
 	}
 
 	/**

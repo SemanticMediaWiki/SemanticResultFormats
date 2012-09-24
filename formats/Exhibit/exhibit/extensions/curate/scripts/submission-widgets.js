@@ -2,15 +2,15 @@ Exhibit.Submission = {};
 
 Exhibit.Submission.submissionWidgets = ['submission-property', 'submission-button'];
 
-Exhibit.Submission.enableWidgets = function() {
-    Exhibit.UI.findAttribute('ex:role', Exhibit.Submission.submissionWidgets)
-        .removeAttr('disabled');
-}
+Exhibit.Submission.enableWidgets = function () {
+	Exhibit.UI.findAttribute( 'ex:role', Exhibit.Submission.submissionWidgets )
+		.removeAttr( 'disabled' );
+};
 
-Exhibit.Submission.disableWidgets = function() {
-    Exhibit.UI.findAttribute('ex:role', Exhibit.Submission.submissionWidgets)
-        .attr('disabled', true);
-}
+Exhibit.Submission.disableWidgets = function () {
+	Exhibit.UI.findAttribute( 'ex:role', Exhibit.Submission.submissionWidgets )
+		.attr( 'disabled', true );
+};
 
 Exhibit.Submission.resetAfterSubmission = function(uiContext) {
     Exhibit.UI.findAttribute('ex:role', 'submission-property').val("");

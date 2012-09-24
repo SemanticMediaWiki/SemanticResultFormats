@@ -216,7 +216,7 @@
          */
         for (var i = 0; i < Exhibit.locales.length; i++) {
             scriptURLs.push(Exhibit.urlPrefix + "locales/" + Exhibit.locales[i] + "/locale.js");
-        };
+        }
 
         if (Exhibit.params.callback) {
             window.SimileAjax_onLoad = function() {

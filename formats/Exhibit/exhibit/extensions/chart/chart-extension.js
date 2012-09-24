@@ -56,9 +56,8 @@
 
     for (var i = 0; i < Exhibit.locales.length; i++) {
         scriptURLs.push(Exhibit.ChartExtension.urlPrefix + "locales/" + Exhibit.locales[i] + "/chart-locale.js");
-    };
-
-    if (!isCompiled) {
+	}
+	if (!isCompiled) {
         SimileAjax.includeJavascriptFiles(document, "", scriptURLs);
         SimileAjax.includeCssFiles(document, "", cssURLs);
     }

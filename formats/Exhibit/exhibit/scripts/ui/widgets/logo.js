@@ -2,11 +2,11 @@
  *  Exhibit.Logo
  *======================================================================
  */
-Exhibit.Logo = function(elmt, exhibit) {
-    this._exhibit = exhibit;
-    this._elmt = elmt;
-    this._color = "Silver";
-}
+Exhibit.Logo = function ( elmt, exhibit ) {
+	this._exhibit = exhibit;
+	this._elmt = elmt;
+	this._color = "Silver";
+};
 
 Exhibit.Logo.create = function(configuration, elmt, exhibit) {
     var logo = new Exhibit.Logo(elmt, exhibit);

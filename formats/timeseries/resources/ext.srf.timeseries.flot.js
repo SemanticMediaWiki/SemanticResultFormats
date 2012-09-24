@@ -45,7 +45,7 @@
 				'height' : height,
 				'width'  : width,
 				'plotclass' : plotClass,
-				'chartid' : chartID,
+				'chartid' : chartID
 			}, data );
 
 			// Set chart height and width and reassign to catch px instead of % value

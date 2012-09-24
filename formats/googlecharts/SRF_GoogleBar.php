@@ -20,7 +20,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 	}
 
 	public function getName() {
-		return wfMsg( 'srf_printername_googlebar' );
+		return wfMessage( 'srf_printername_googlebar' )->text();
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {

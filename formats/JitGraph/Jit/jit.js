@@ -5789,8 +5789,8 @@ Graph.Op = {
                 }));
                 break;
 
-            default:;
-        }
+default:
+		}
     },
 
     
@@ -8285,8 +8285,7 @@ Layouts.Tree = (function() {
       var e = es[i], ans = fit(acc, e, subtreeOffset, siblingOffset, 0);
       return [ ans ].concat($fitlistl(merge(acc, moveextent(e, ans)), es, ++i));
     }
-    ;
-    return $fitlistl( [], es, 0);
+	  return $fitlistl( [], es, 0);
   }
 
 
@@ -8297,8 +8296,7 @@ Layouts.Tree = (function() {
       var e = es[i], ans = -fit(e, acc, subtreeOffset, siblingOffset, 0);
       return [ ans ].concat($fitlistr(merge(moveextent(e, ans), acc), es, ++i));
     }
-    ;
-    es = slice.call(es);
+	  es = slice.call(es);
     var ans = $fitlistr( [], es.reverse(), 0);
     return ans.reverse();
   }
@@ -8525,9 +8523,10 @@ $jit.ST= (function() {
   	      nodeArray.push(n);
   	    }
   	  } 
-  	  return nodeArray;       
-    };
-    // Nodes to expand
+  	  return nodeArray;
+
+}
+	// Nodes to expand
      function getNodesToShow(node) {
         var nodeArray = [], config = this.config;
         node = node || this.clickedNode;
@@ -8540,8 +8539,8 @@ $jit.ST= (function() {
             }
         });
         return nodeArray;
-     };
-    // Now define the actual class.
+	 }
+	// Now define the actual class.
     return new Class({
     
         Implements: [Loader, Extras, Layouts.Tree],
@@ -8791,8 +8790,8 @@ $jit.ST= (function() {
               var parents = node.getParents();
               parents = (parents.length > 0)? parents[0] : null;
               path(parents);
-          };
-          for(var i=0, ns = [node.id].concat(nodesInPath); i < ns.length; i++) {
+		  }
+			for(var i=0, ns = [node.id].concat(nodesInPath); i < ns.length; i++) {
               path(this.graph.getNode(ns[i]));
           }
         },

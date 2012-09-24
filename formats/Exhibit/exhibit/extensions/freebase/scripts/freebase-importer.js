@@ -10,9 +10,9 @@ Exhibit.importers["application/freebase"] = Exhibit.FreebaseImporter;
 
 var $ = SimileAjax.jQuery;
 
-var parseQuery = function(link) {
-    return eval($(link).attr('ex:query'));
-}
+var parseQuery = function ( link ) {
+	return eval( $( link ).attr( 'ex:query' ) );
+};
 
 function rename(item, oldAttr, newAttr) {
     if (item && item[oldAttr]) {

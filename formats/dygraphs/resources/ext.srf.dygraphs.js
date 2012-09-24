@@ -98,7 +98,7 @@
 						'data' : {
 							'series': dataSeries,
 							'data'  : dataTable,
-							'sask'  : data.sask,
+							'sask'  : data.sask
 						}
 					} );
 				}

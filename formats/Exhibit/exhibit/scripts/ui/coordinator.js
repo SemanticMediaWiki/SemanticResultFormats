@@ -2,10 +2,10 @@
  *  Exhibit.Coordinator
  *======================================================================
  */
-Exhibit.Coordinator = function(uiContext) {
-    this._uiContext = uiContext;
-    this._listeners = [];
-}
+Exhibit.Coordinator = function ( uiContext ) {
+	this._uiContext = uiContext;
+	this._listeners = [];
+};
 
 Exhibit.Coordinator.create = function(configuration, uiContext) {
     var coordinator = new Exhibit.Coordinator(uiContext);

@@ -18,7 +18,7 @@ class SRFTime extends SMWResultPrinter {
 	 * @see SMWResultPrinter::getName()
 	 */
 	public function getName() {
-		return wfMsg( 'srf_printername_' . $this->mFormat );
+		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
 	/**

@@ -465,7 +465,7 @@ var N=H.getDatabase();
 if(this._commonProperties==null){this._commonProperties=N.getAllProperties();
 }var I=this._commonProperties;
 var K=N.getObject(C,"label");
-var O={elmt:A,className:"exhibit-lens",children:[{tag:"div",className:"exhibit-lens-title",field:"titlebar",title:K,children:[K]},{tag:"div",className:"exhibit-lens-body",children:[{tag:"table",className:"exhibit-lens-properties",field:"propertiesTable"}]},{tag:"div",className:"exhibit-lens-title",title:K,children:[K]},]};
+var O={elmt:A,className:"exhibit-lens",children:[{tag:"div",className:"exhibit-lens-title",field:"titlebar",title:K,children:[K]},{tag:"div",className:"exhibit-lens-body",children:[{tag:"table",className:"exhibit-lens-properties",field:"propertiesTable"}]},{tag:"div",className:"exhibit-lens-title",title:K,children:[K]}]};
 var G=SimileAjax.DOM.createDOMFromTemplate(O);
 A.setAttribute("ex:itemID",C);
 this._TBody=G.propertiesTable.tBodies[0];

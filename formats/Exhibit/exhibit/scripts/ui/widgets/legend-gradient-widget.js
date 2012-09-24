@@ -99,14 +99,14 @@ Exhibit.LegendGradientWidget.prototype.addGradient = function(configuration) {
 				this.parentNode.parentNode.childNodes[0].childNodes[this.count].childNodes[0].style.visibility="visible";
 				this.parentNode.parentNode.childNodes[0].childNodes[this.count].childNodes[0].style.overflow="visible";
 				this.style.border="solid 1.2px";
-			};
+			}
 			colorRect.onmouseout = function() {
 				this.parentNode.parentNode.childNodes[0].childNodes[this.count].childNodes[0].style.visibility="hidden";
 				this.parentNode.parentNode.childNodes[0].childNodes[this.count].childNodes[0].style.overflow="hidden";
 				this.style.border="none";
-			};
-		};
-	};
+			}
+		}
+	}
 
 	var high = gradientPoints.length - 1
 	var colorRect = document.createElement("td");
