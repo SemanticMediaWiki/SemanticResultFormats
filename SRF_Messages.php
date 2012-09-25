@@ -4517,6 +4517,13 @@ $messages['ur'] = array(
 	'srf_paramdesc_graphname' => 'عنوان',
 );
 
+/** Uzbek (oʻzbekcha)
+ * @author CoderSI
+ */
+$messages['uz'] = array(
+	'srf-chart-tableview-info-tab' => "Ma'lumot",
+);
+
 /** vèneto (vèneto)
  * @author Candalua
  */

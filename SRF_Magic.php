@@ -78,7 +78,7 @@ $magicWords['mr'] = array(
 	'calendarenddate' => array( 0, 'दिनदर्शिकासांगतादिन', 'calendarenddate' ),
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬) */
+/** Norwegian Bokmål (norsk (bokmål)‎) */
 $magicWords['nb'] = array(
 	'calendarstartdate' => array( 0, 'kalenderstartdato' ),
 	'calendarenddate' => array( 0, 'kalendersluttdato' ),
@@ -96,13 +96,13 @@ $magicWords['nl'] = array(
 	'calendarenddate' => array( 0, 'einddatumkalender' ),
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (српски (ћирилица)‎) */
 $magicWords['sr-ec'] = array(
 	'calendarstartdate' => array( 0, 'почетнидатум', 'почетни_датум' ),
 	'calendarenddate' => array( 0, 'завршнидатум', 'завршни_датум' ),
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬) */
+/** Serbian (Latin script) (srpski (latinica)‎) */
 $magicWords['sr-el'] = array(
 	'calendarstartdate' => array( 0, 'početnidatum', 'početni_datum' ),
 	'calendarenddate' => array( 0, 'završnidatum', 'završni_datum' ),
