@@ -27,6 +27,7 @@ $messages['en'] = array(
 	'srf-navigation-previous'  => 'Previous',
 	'srf-navigation-prev' => 'Prev',
 	'srf-navigation-next'  => 'Next',
+	'srf-ui-label-datasource' => 'Data source:',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
@@ -451,6 +452,7 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-xaxislabel' => '{{doc-paramdesc|xaxislabel}}',
 	'srf-paramdesc-unit' => '{{doc-paramdesc|unit}}',
 	'srf-printername-pagewidget' => '{{doc-smwformat|pagewidget}}',
+	'srf-ui-label-datasource' => 'Label pointing to a data source. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 );
 
 /** Afrikaans (Afrikaans)

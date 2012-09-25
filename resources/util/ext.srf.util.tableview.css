@@ -1,12 +1,12 @@
 /**
- * JavaScript for SRF tableview plugin
+ * CSS for SRF tableview plugin
  *
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
  * @release: 0.1
  */
-.srf-special-ask-link {
+.srf-chart-query-link {
 	font-size:12px;
 	font-weight: normal;
 	margin-top:4px;

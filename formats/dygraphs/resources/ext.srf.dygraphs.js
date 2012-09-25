@@ -4,19 +4,17 @@
  * @licence: GNU GPL v2 or later
  * @author:  mwjames
  *
- * @release: 0.1
+ * @release: 0.2
  */
 ( function( mw, $ ) {
 	"use strict";
 
 	$.fn.extend( {
 		srfdygraphs: function( options ) {
-			var options = $.extend( '', options);
+			var options = $.extend( '', options );
 			return this.each( function() {
 
 				var chart = $(this),
-					height    = options.height,
-					width     = options.width,
 					container = chart.find( ".container" ),
 					chartID   = container.attr( "id" ),
 					json      = mw.config.get( chartID );
@@ -36,9 +34,8 @@
 				addedHeight = 20,
 				height = data.parameters.height;
 
-			// Timeseries plot container
-			var plotContainer = '<div id="' + plotID + '" class="' + plotClass + '"></div>';
-			container.prepend( plotContainer );
+			// Plot container
+			container.prepend( '<div id="' + plotID + '" class="' + plotClass + '"></div>' );
 
 			// Set chart height and width
 			chart.css( { 'height': height , 'width': width } );
@@ -50,24 +47,21 @@
 			container.show();
 
 			// Set-up chart source
-			var chartText = data.parameters.charttext;
-			if ( data.data.source.subject !== undefined ){
-				var chartSource = data.data.source.subject;
-				if ( chartSource.length > 0 ) {
-					chartSource = '<span class="srf-chart-source">' + 'Source: ' +  chartSource + '</span>';
-					container.find( '.' + plotClass ).after( chartSource );
-					container.find( '.srf-chart-source' ).css( 'visibility', 'hidden' );
-					// Count existing external links
-					var numItems = $( '.external.autonumber' ).length + $( '.srf-chart-source' ).length;
-					container.find( '.srf-chart-source' ).find( 'a' ).text( '[' + numItems + ']'  );
-					addedHeight += container.find( '.srf-chart-source' ).height();
-				}
+			var chartSource = data.data.source.subject !== undefined ? data.data.source.subject : data.data.source.link !== undefined ? data.data.source.link : null;
+			if ( chartSource.length > 0 ) {
+				chartSource = '<span class="srf-chart-source">' + mw.msg( 'srf-ui-label-datasource' ) + ' ' +  chartSource + '</span>';
+				container.find( '.' + plotClass ).after( chartSource );
+				container.find( '.srf-chart-source' ).css( 'visibility', 'hidden' );
+				// Count existing external links
+				var numItems = $( '.external.autonumber' ).length + $( '.srf-chart-source' ).length;
+				container.find( '.srf-chart-source' ).find( 'a' ).text( '[' + numItems + ']'  );
+				addedHeight += container.find( '.srf-chart-source' ).height();
 			}
 
 			// Set-up chart text
+			var chartText = data.parameters.charttext;
 			if ( chartText.length > 0 ) {
-				chartText = '<span class="srf-chart-text">' + chartText + '</span>';
-				container.find( '.' + plotClass ).after( chartText );
+				container.find( '.' + plotClass ).after( '<span class="srf-chart-text">' + chartText + '</span>' );
 				container.find( '.srf-chart-text' ).css( 'visibility', 'hidden' );
 				addedHeight += container.find( '.srf-chart-text' ).height();
 			}
@@ -83,11 +77,11 @@
 					// Datatable declaration
 					var dataSeries = [];
 					var dataTable = [];
-					var newRow = {};
-					for ( var j = 0; j < data.data.source.annotation.length; ++j ) {
-					//	newRow = { 'label' : data.data[j].label };
-						dataSeries.push ( 'Annotation' );
-						dataTable.push ( data.data.source.annotation[j] );
+					if ( data.data.source.annotation !== undefined ){
+						$.map( data.data.source.annotation , function( val ){
+							dataSeries.push ( { label: val.series } );
+							dataTable.push ( [[ val.shortText + ' (' + val.text + ')', val.x]] );
+						} );
 					}
 
 					// Tableview plugin
@@ -95,6 +89,7 @@
 						'chart'     : chart,
 						'id'        : chartID,
 						'container' : container,
+						'info'      : data.parameters.infotext,
 						'data' : {
 							'series': dataSeries,
 							'data'  : dataTable,
@@ -104,13 +99,24 @@
 				}
 			}
 
-			// Pending data source
-			if ( data.parameters.datasource === 'page' ){
-			}else{
+			// Data source
+			if ( data.parameters.datasource !== 'page' ){
 				var dataTable = data.data.source.url;
 			}
 
+			// Manage annotations 
 			var annotations = data.data.source.annotation;
+			if ( annotations !== undefined ){
+					$.map( annotations , function(key){
+						// Determine correct width of the shortText (therefore use a <div> as vehicle)
+						// and not the length (such as key.shortText.length)
+						var o = $('<div>' + key.shortText + '</div>')
+							.css( {'position': 'absolute', 'float': 'left', 'white-space': 'nowrap', 'visibility': 'hidden'} )
+							.appendTo( container );
+							key.width = o.width() + 5;
+							o.remove();
+					} );
+			}
 
 			// Init dygraph
 			var g = new Dygraph(
@@ -122,7 +128,7 @@
 					title: data.parameters.charttitle,
 					ylabel: data.parameters.ylabel,
 					xlabel: data.parameters.xlabel,
-					//labelsKMB: true,
+					labelsKMB: true,
 					customBars: data.parameters.errorbar === 'range',
 					fractions: data.parameters.errorbar === 'fraction',
 					errorBars: data.parameters.errorbar === 'sigma',
@@ -141,14 +147,13 @@
 				drawCallback: function(g, is_initial) {
 					if (!is_initial) return;
 						container.show();
-						// Release objects after chart is ready to avoid display clutter
+						// Release objects after the chart is ready to avoid display clutter
 						container.find( ".srf-chart-text" ).css( 'visibility', 'visible');
 						container.find( ".srf-chart-source" ).css( 'visibility', 'visible');
 						container.css( 'visibility', 'visible' );
-
-						showTable();
-
 						chart.find( ".srf-processing" ).hide();
+						// Tableview plug-in processing
+						showTable();
 
 						// Display annotations
 						if ( annotations !== undefined ){
@@ -156,7 +161,7 @@
 						}
 					}
 				}
-			)
+			);
 			} );
 		}
 	} );
