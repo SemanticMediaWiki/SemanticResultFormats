@@ -297,7 +297,8 @@ class SRFGallery extends SMWResultPrinter {
 			if ( $nextObject !== false ) {
 				$imgTitle = $nextObject->getTitle();
 
-				if ( !is_null( $imgTitle ) ) {
+				// Ensure the title belongs to the image namespace
+				if ( $imgTitle instanceof Title && $imgTitle->getNamespace() === NS_FILE ) {
 					$imgCaption = '';
 
 					// Is there a property queried for display with ?property
