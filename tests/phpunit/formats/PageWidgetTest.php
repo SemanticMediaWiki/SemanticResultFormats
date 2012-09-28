@@ -19,7 +19,7 @@ use \SMW\Tests\ResultPrinterTest as ResultPrinterTest;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class ListWidgetTest extends ResultPrinterTest {
+class PageWidgetTest extends ResultPrinterTest {
 
 	/**
 	 * @see ResultPrinterTest::getFormats
