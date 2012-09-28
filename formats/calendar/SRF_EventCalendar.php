@@ -90,7 +90,6 @@ class SRFEventCalendar extends SMWResultPrinter {
 			// Loop over available fields (properties)
 			$rowData = array();
 			$rowDesc = array();
-			$description = false;
 
 			/**
 			 * Loop over the subject row
@@ -98,10 +97,9 @@ class SRFEventCalendar extends SMWResultPrinter {
 			 * @var SMWResultArray $field
 			 */
 			foreach ( $row as $field ) {
+
 				// Property label
-				$property = $field->getPrintRequest()->getLabel();
-				// @todo FIXME: Unused local variable.
-				$subject = $field->getResultSubject()->getTitle()->getText();
+				$propertyLabel = $field->getPrintRequest()->getLabel();
 
 				/**
 				 * Loop over all values for a property
@@ -110,15 +108,31 @@ class SRFEventCalendar extends SMWResultPrinter {
 				 */
 				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 
+					// A subject (page or subobject id) is always the source for an event
+					// Source -> a page -> subject -> is an event or
+					// Source -> n subobject -> subject -> is n event
+					if ( !isset( $rowData['url'] ) ) {
+						$rowData['url'] = $this->getLinker( $this->mLinker ) !== null ? $field->getResultSubject()->getTitle()->getFullURL() : '';
+						// The title is mandatory and for events that don't explicitly
+						// specify their title use the subject text
+						$rowData['title'] = $field->getResultSubject()->getTitle()->getText();
+					}
+
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
 
-						// Catch event icon
-						if ( $field->getPrintRequest()->getLabel() === $this->params['eventicon'] && $this->params['eventicon'] !== '' ) {
-							$rowData['eventicon'] = $object->getWikiValue();
-						} else {
+						// Identify properties with a specific inherent meaning through a fixed
+						// identifier assigned to a property (Fixed identifiers are title, icon, color)
+						// Its allows a property to be variable within a query while its identifier
+						// reamain fixed without the need for extra parameters
+						if ( $propertyLabel === 'title' ) {
 							$rowData['title'] = $object->getWikiValue();
-							$this->getLinker( $this->mLinker ) !== null ? $rowData['url'] = $object->getTitle()->getFullURL() : '';
+						} elseif ( $propertyLabel === 'icon' ) {
+							$rowData['eventicon'] = $object->getWikiValue();
+						} elseif ( $propertyLabel !== '' ) {
+							// Items without fixed identifiers remain part of a description
+							$rowDesc[] = $this->mShowHeaders === SMW_HEADERS_HIDE ? $object->getWikiValue() : $propertyLabel . ': ' . $object->getWikiValue();
 						}
+
 					} elseif ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_TIME ){
 						// If the start date was set earlier we interfere that the next date
 						// we found in the same row is an end date
@@ -134,19 +148,19 @@ class SRFEventCalendar extends SMWResultPrinter {
 						// if ( $field->getPrintRequest()->getLabel() === $this->params['holidaycal'] && $this->params['holidaycal'] !== '' ) {
 						//	$this->holidayCal = $object->getURI();
 						// }
-					} else {
-						// If one of the leftover properties is an assigned event color property
-						if ( $field->getPrintRequest()->getLabel() === $this->params['eventcolor'] && $this->params['eventcolor'] !== '' ) {
-							$rowData['color'] = $object->getWikiValue();
-						} elseif ( array_key_exists( 'title', $rowData ) && $description ) {
-							// Title has already been set therefore add description
-							$rowDesc[] = $this->mShowHeaders === SMW_HEADERS_HIDE ? $object->getWikiValue() : $property . ': ' . $object->getWikiValue();
-						} else {
-							// Override the title (normally used to make sure that subobject titles
-							// can use a different label other than the subject label itself)
+					} else{
+						// Check other types such as string or blob because a title
+						// don't have to be of type wikipage
+						if ( $propertyLabel === 'title' ) {
 							$rowData['title'] = $object->getWikiValue();
-							$description = true;
-						}
+						} elseif ( $propertyLabel === 'color' ) {
+							// Identify the color which should be a string otherwise
+							// #DDD color specs will cause an error
+							$rowData['color'] = $object->getWikiValue();
+						} elseif ( $propertyLabel !== '' ){
+							// Collect remaining items as part of a description
+							$rowDesc[] = $this->mShowHeaders === SMW_HEADERS_HIDE ? $object->getWikiValue() : $propertyLabel . ': ' . $object->getWikiValue();
+					  }
 					}
 				}
 				// Pull all descriptions into one field
@@ -176,18 +190,28 @@ class SRFEventCalendar extends SMWResultPrinter {
 
 		$this->isHTML = true;
 
-		// Somewhat silly but we have to convert the names otherwise fullCalendar throws an error
+		// Consistency of names otherwise fullCalendar throws an error
 		$defaultVS   = array ( 'day', 'week');
 		$defaultVR   = array ( 'Day', 'Week');
 		$defaultView = str_replace ( $defaultVS, $defaultVR, $this->params['defaultview'] );
 
+		// Array should be sorted but to make sure to find the earliest date of the result set
+		if ( $this->params['start'] === 'earliest' ){
+			function sortByDate( $arr1, $arr2 ){
+				return strcmp( $arr1['start'], $arr2['start'] );
+			}
+			usort( $events, 'sortByDate' );
+			$calendarStart = $events[0]['start'];
+		}
+
 		// Add options
 		$dataObject['events']  = $events;
 		$dataObject['options'] = array(
-			'defaultview' => $defaultView,
-			'dayview'     => $this->params['dayview'],
-			'firstday'    => date( 'N', strtotime( $this->params['firstday'] ) ),
-			'theme'       => in_array( $this->params['theme'], array( 'vector' ) ),
+			'defaultview'   => $defaultView,
+			'calendarstart' => $this->params['start'] === 'earliest' ? $calendarStart : null,
+			'dayview'       => $this->params['dayview'],
+			'firstday'      => date( 'N', strtotime( $this->params['firstday'] ) ),
+			'theme'         => in_array( $this->params['theme'], array( 'vector' ) ),
 			'views' => 'month,' .
 				( strpos( $defaultView, 'Week') === false ? 'basicWeek' : $defaultView ) . ',' .
 				( strpos( $defaultView, 'Day' ) === false ? 'agendaDay' : $defaultView ),
@@ -233,26 +257,22 @@ class SRFEventCalendar extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['firstday'] = array(
-			'message' => 'srf-paramdesc-calendarfirstday',
-			'default' => 'Sunday',
-			'values' => array ( "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" )
-		);
-
 		$params['defaultview'] = array(
 			'message' => 'srf-paramdesc-calendardefaultview',
 			'default' => 'month',
 			'values' => array ( 'month', 'basicweek', 'basicday', 'agendaweek', 'agendaday' )
 		);
 
-		$params['eventicon'] = array(
-			'message' => 'srf-paramdesc-eventicon',
-			'default' => '',
+		$params['firstday'] = array(
+			'message' => 'srf-paramdesc-calendarfirstday',
+			'default' => 'Sunday',
+			'values' => array ( "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" )
 		);
 
-		$params['eventcolor'] = array(
-			'message' => 'srf-paramdesc-eventcolor',
-			'default' => '',
+		$params['start'] = array(
+			'message' => 'srf-paramdesc-calendarstart',
+			'default' => 'current',
+			'values' => array ( 'current', 'earliest' )
 		);
 
 		$params['dayview'] = array(

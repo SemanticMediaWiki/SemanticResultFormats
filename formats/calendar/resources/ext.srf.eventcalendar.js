@@ -15,9 +15,6 @@
 
 	/*global mw:true*/
 
-	// Only display errors
-	try { console.log( 'console ready' ); } catch (e) { var console = { log: function () { } }; }
-
 	$.fn.srfEventCalendar = function() {
 
 		var container = this.find( ".container" ),
@@ -27,6 +24,10 @@
 		// Parse json string and convert it back
 		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
+		// Split start date (format is ISO8601 -> 2012-09-17T09:49Z)
+		var calendarStart = data.options.calendarstart !== null ? data.options.calendarstart.split( '-', 3 ) : null;
+
+		// Get Google holiday calendar url
 		var gcalholiday = data.options.gcalurl === null ? '' : data.options.gcalurl;
 
 		// Hide processing note
@@ -46,6 +47,12 @@
 			firstDay: data.options.firstday,
 			theme: data.options.theme,
 			editable: false,
+			// Set undefined in case eventStart is not specified
+			year: calendarStart !== null ? calendarStart[0] : undefined,
+			// The value is 0-based, meaning January=0, February=1, etc.
+			month: calendarStart !== null ? calendarStart[1] - 1 : undefined,
+			// ...17T09:49Z only use the first two
+			date: calendarStart !== null ? calendarStart[2].substring( 0, 2 ) : undefined,
 			eventColor: '#48a0d5',
 			eventSources: [ data.events, gcalholiday ],
 			eventRender: function( event, element, view ) {
