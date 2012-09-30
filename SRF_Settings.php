@@ -60,6 +60,11 @@ $srfgFormats = array(
 
 	// Disabled by default
 	
+	// This format can influence performance during execution due to potential
+	// large number of incoming properties assigned to each selected entity
+	// @see Help:Incoming format
+	// 'incoming',
+
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
 

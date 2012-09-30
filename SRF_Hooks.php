@@ -39,6 +39,7 @@ final class SRFHooks {
 			'formats/Feed',
 			'formats/EventCalendar',
 			'formats/Dygraphs'
+			'formats/Incoming',
 		);
 
 		foreach ( $testFiles as $file ) {
