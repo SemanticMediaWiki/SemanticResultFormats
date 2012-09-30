@@ -130,6 +130,9 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
 		'jquery.async',
 		'ext.dygraphs.combined',
 	),
+	'messages' => array (
+		'srf-ui-label-datasource'
+	),
 	'position' => 'top',
 );
 /******************************************************************************

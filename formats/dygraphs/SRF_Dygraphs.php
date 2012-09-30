@@ -78,6 +78,8 @@ class SRFDygraphs extends SMWResultPrinter {
 		
 		while ( $rows = $result->getNext() ) { // Objects (pages)
 			$annotation = array();
+			$dataSource = false;
+
 			/**
 			 * @var SMWResultArray $field
 			 * @var SMWDataValue $dataValue
@@ -85,41 +87,59 @@ class SRFDygraphs extends SMWResultPrinter {
 			foreach ( $rows as $field ) {
 
 				// Use the subject marker to identify a possible data file
-				// Should we check the file mime type getMimeType() as to be text/plain?
 				$subject = $field->getResultSubject(); 
-				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace() === NS_FILE ){
-						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $subject->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
-						$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
+				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace() === NS_FILE && !$dataSource ){
+					$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $subject->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+					$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
+					$dataSource = true;
 				}
 
-				// Proceed with those items where a property label is known otherwise
-				// we are not able to use those as annotation object key identifiers
-				if ( $field->getPrintRequest()->getLabel() !== ''){
-					$property = $field->getPrintRequest()->getLabel();
+				// Proceed only where a label is known otherwise items are of no use
+				// for being a potential object identifier
+				if ( $field->getPrintRequest()->getLabel() !== '' ){
+					$propertyLabel = $field->getPrintRequest()->getLabel();
 				}else{
 					continue;
 				}
 
 				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // Data values
 
-					// In case the data source points to an url, fetch the first url data source
-					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI && $this->params['datasource'] === 'url' ){
+					// Jump the column (indicated by continue) because we don't want the data source being part of the annotation array
+					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'raw' && !$dataSource ){
+						// Support data source = raw which pulls the url from a wikipage in raw format
+						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+						$aggregatedValues['url'] = $dataValue->getTitle()->getFullURL( 'action=raw' );
+						$dataSource = true;
+						continue;
+					} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'file' && $dataValue->getTitle()->getNamespace() === NS_FILE && !$dataSource ) {
+						// Support data source = file which pulls the url from a uploaded file
+						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+						$aggregatedValues['url'] = wfFindFile( $dataValue->getTitle() )->getUrl();
+						$dataSource = true;
+						continue;
+					} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI && $this->params['datasource'] === 'url'  && !$dataSource ){
+						// Support data source = url, pointing to an url data source
 						$aggregatedValues['link'] = $dataValue->getShortHTMLText( $this->getLinker( false ) );
 						$aggregatedValues['url'] = $dataValue->getURL();
-						// We don't want the data source url to be published as annotation therefore we jump the column
+						$dataSource = true;
 						continue;
 					}
 
-					// For those items with a label, the label text should adhere conventions
-					// outlined as the name indicates the array object key
+					// The annotation should adhere outlined conventions as the label identifies the array object key
+					// series -> Required The name of the series to which the annotated point belongs
+					// x -> Required The x value of the point
+					// shortText -> Text that will appear as annotation flag
+					// text -> A longer description of the annotation
 					// @see  http://dygraphs.com/annotations.html
-					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ){
-						// Set unit if available
-						$dataValue->setOutputFormat( $this->params['unit'] );
-						// Check if unit is available
-						$annotation[$property] = $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText() : $dataValue->getNumber() ;
-					}else{
-						$annotation[$property] = $dataValue->getWikiValue();
+					if ( in_array( $propertyLabel, array( 'series', 'x', 'shortText', 'text' ) ) ){
+						if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ){
+							// Set unit if available
+							$dataValue->setOutputFormat( $this->params['unit'] );
+							// Check if unit is available
+							$annotation[$propertyLabel] = $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText() : $dataValue->getNumber() ;
+						} else {
+							$annotation[$propertyLabel] = $dataValue->getWikiValue();
+						}
 					}
 				}
 			}
@@ -168,6 +188,7 @@ class SRFDygraphs extends SMWResultPrinter {
 				'ylabel'       => $this->params['ylabel'],
 				'charttitle'   => $this->params['charttitle'],
 				'charttext'    => $this->params['charttext'],
+				'infotext'     => $this->params['infotext'],
 				'datasource'   => $this->params['datasource'],
 				'rollerperiod' => $this->params['mavg'],
 				'datatable'    => $this->params['tableview'],
@@ -221,7 +242,7 @@ class SRFDygraphs extends SMWResultPrinter {
 		$params['datasource'] = array(
 			'message' => 'srf-paramdesc-datasource',
 			'default' => 'file',
-			'values' => array( 'file', 'url' ),
+			'values' => array( 'file', 'raw', 'url' ),
 		);
 
 		$params['errorbar'] = array(
@@ -278,6 +299,11 @@ class SRFDygraphs extends SMWResultPrinter {
 
 		$params['charttext'] = array(
 			'message' => 'srf-paramdesc-charttext',
+			'default' => '',
+		);
+
+		$params['infotext'] = array(
+			'message' => 'srf-paramdesc-infotext',
 			'default' => '',
 		);
 

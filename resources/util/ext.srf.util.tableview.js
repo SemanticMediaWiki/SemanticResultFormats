@@ -33,17 +33,22 @@
 				var tabChartNavi = '<li><a href="#' + options.id + '">' + mw.msg( 'srf-chart-tableview-chart-tab' ) +'</a></li>';
 				var tabDataNavi  = '<li><a href="#' + options.id + '-data">' + mw.msg( 'srf-chart-tableview-data-tab' ) +'</a></li>';
 				var tabInfoNavi  = '<li><a href="#' + options.id + '-info">' + mw.msg( 'srf-chart-tableview-info-tab' ) +'</a></li>';
-				obj.prepend( '<ul>' + tabChartNavi + tabDataNavi +  ( options.info !== undefined && options.info !== '' ? tabInfoNavi : '' ) + '</ul>' ) ;
+				obj.prepend( '<ul>' + tabChartNavi
+					+ ( options.data.data !== undefined && options.data.data.length > 0 ? tabDataNavi : '' )
+					+ ( options.info !== undefined && options.info !== '' ? tabInfoNavi : '' ) + '</ul>'
+				);
 
 				// Represents the info tab
-				if ( options.info !==  undefined && options.info !== '' ){
+				if ( options.info !== undefined && options.info !== '' ){
 					obj.find( '.container' )
-						.after( '<div id="' + options.id + '-info">' + options.info + '</div>' );
+						.after( '<div id="' + options.id + '-info" class="srf-chart-info-tab">' + options.info + '</div>' );
 				}
 
 				// Represents the data tab
-				obj.find( '.container' )
-					.after( '<div id="' + options.id + '-data"></div>' );
+				if ( options.data.data !== undefined && options.data.data.length > 0 ){
+					obj.find( '.container' )
+						.after( '<div id="' + options.id + '-data" class="srf-chart-data-tab"></div>' );
+				}
 
 				// Init table elements
 				obj.find( '#' + options.id + '-data')
@@ -57,12 +62,12 @@
 
 				// Reiterate href link after tabs() was applied
 				if ( mw.config.get( 'wgCanonicalSpecialPageName' ) === 'Ask' || options.data.sask === undefined ){
-					obj.find( '.srf-special-ask-link' )
+					obj.find( '.srf-chart-query-link' )
 						.empty();
 				}else{
 					obj.find( '.ui-tabs-nav' )
-						.prepend( '<span class="srf-special-ask-link">' + options.data.sask + '</span>' );
-					obj.find( '.srf-special-ask-link' )
+						.prepend( '<span class="srf-chart-query-link">' + options.data.sask + '</span>' );
+					obj.find( '.srf-chart-query-link' )
 						.find( 'a' )
 						.attr( 'title', mw.msg( 'ask' ) );
 				}
