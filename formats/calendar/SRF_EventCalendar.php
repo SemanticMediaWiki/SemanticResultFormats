@@ -52,7 +52,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 
 		// Check data availability
 		if ( $data === array() ) {
-			return $result->addErrors( array( wfMessage( 'srf-error-empty-calendar' )->inContentLanguage()->text() ) );
+			return $result->addErrors( array( wfMessage( 'srf-error-result-processing-empty', 'gallery' )->inContentLanguage()->text() ) );
 		} else {
 			return $this->getCalendarOutput( $data );
 		}
@@ -146,9 +146,9 @@ class SRFEventCalendar extends SMWResultPrinter {
 					} elseif ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_URI ){
 						// Get holiday feed url (google calendar etc.)
 						// if ( $field->getPrintRequest()->getLabel() === $this->params['holidaycal'] && $this->params['holidaycal'] !== '' ) {
-						//	$this->holidayCal = $object->getURI();
+						// $this->holidayCal = $object->getURI();
 						// }
-					} else{
+					} else {
 						// Check other types such as string or blob because a title
 						// don't have to be of type wikipage
 						if ( $propertyLabel === 'title' ) {
@@ -160,14 +160,14 @@ class SRFEventCalendar extends SMWResultPrinter {
 						} elseif ( $propertyLabel !== '' ){
 							// Collect remaining items as part of a description
 							$rowDesc[] = $this->mShowHeaders === SMW_HEADERS_HIDE ? $object->getWikiValue() : $propertyLabel . ': ' . $object->getWikiValue();
-					  }
+						}
 					}
 				}
-				// Pull all descriptions into one field
+				// Concatenate fields
 				$rowData['description'] = implode (', ', $rowDesc );
 			}
-			// Check if the array has actual data
-			if ( $rowData !== array() ) {
+			// Ensure that the array is not empty and has a start date
+			if ( $rowData !== array() && array_key_exists( 'start', $rowData ) ) {
 				$data[]= $rowData;
 			}
 		}
