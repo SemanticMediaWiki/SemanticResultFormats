@@ -279,6 +279,7 @@ $messages['qqq'] = array(
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-class' => '{{doc-paramdesc|class}}',
 	'srf-paramdesc-charttype' => '{{doc-paramdesc|charttype}}',
+	'srf-ui-label-datasource' => 'Label pointing to a data source. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 	'srf-error-option-link-all' => '{{doc-important|Do not translate the parameter "link" and its possible value "all".}}
 This is an error message. Parameters:
 * $1 is a fixed entitity name that cannot and should not be translated.',
@@ -454,7 +455,6 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-xaxislabel' => '{{doc-paramdesc|xaxislabel}}',
 	'srf-paramdesc-unit' => '{{doc-paramdesc|unit}}',
 	'srf-printername-pagewidget' => '{{doc-smwformat|pagewidget}}',
-	'srf-ui-label-datasource' => 'Label pointing to a data source. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 );
 
 /** Afrikaans (Afrikaans)
@@ -907,6 +907,7 @@ $messages['de'] = array(
 	'srf-navigation-previous' => 'Vorherige',
 	'srf-navigation-prev' => 'Zurück',
 	'srf-navigation-next' => 'Nächste',
+	'srf-ui-label-datasource' => 'Datenquelle:',
 	'srf-error-option-mix' => 'Option ($1) ist nicht verfügbar',
 	'srf-error-option-link-all' => 'Zur Option ($1) muss beim Paramenter „link“ der Wert „all“ gesetzt werden.',
 	'srf-error-missing-layout' => 'Es wurde kein Layout angegeben.',
