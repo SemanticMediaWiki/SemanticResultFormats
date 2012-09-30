@@ -261,6 +261,11 @@ $messages['en'] = array(
 	// format "pagewidget"
 	'srf-printername-pagewidget' => 'Pagewidget',
 
+	// format "incoming"
+	'srf-printername-incoming' => 'Incoming properties',
+	'srf-paramdesc-min' => 'Minimum or threshold value',
+	'srf-paramdesc-excludeproperty' => 'Exclude property from result set',
+
 );
 
 /** Message documentation (Message documentation)
@@ -455,6 +460,10 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-xaxislabel' => '{{doc-paramdesc|xaxislabel}}',
 	'srf-paramdesc-unit' => '{{doc-paramdesc|unit}}',
 	'srf-printername-pagewidget' => '{{doc-smwformat|pagewidget}}',
+	'srf-printername-incoming' => '{{doc-smwformat|incoming}}',
+	'srf-paramdesc-min' => '{{doc-paramdesc|min}}',
+	'srf-paramdesc-excludeproperty' => '{{doc-paramdesc|excludeproperty}}',
+
 );
 
 /** Afrikaans (Afrikaans)
