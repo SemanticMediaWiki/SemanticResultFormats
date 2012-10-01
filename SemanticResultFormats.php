@@ -100,7 +100,6 @@ $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.ph
 $wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'ploticus/SRF_PloticusVBar.php';
 $wgAutoloadClasses['SRFPageWidget']   = $formatDir . 'widget/SRF_PageWidget.php';
 $wgAutoloadClasses['SRFListWidget']   = $formatDir . 'widget/SRF_ListWidget.php';
-$wgAutoloadClasses['SRFListWidget']   = $formatDir . 'listwidget/SRF_ListWidget.php';
 $wgAutoloadClasses['SRFIncoming']  = $formatDir . 'incoming/SRF_Incoming.php';
 $wgAutoloadClasses['SRFSparkline'] = $formatDir . 'sparkline/SRF_Sparkline.php';
 $wgAutoloadClasses['SRFSyndicationFeed'] = $formatDir . 'feed/SRF_SyndicationFeed.php';
