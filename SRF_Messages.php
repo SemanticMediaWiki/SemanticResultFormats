@@ -463,7 +463,6 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-printername-incoming' => '{{doc-smwformat|incoming}}',
 	'srf-paramdesc-min' => '{{doc-paramdesc|min}}',
 	'srf-paramdesc-excludeproperty' => '{{doc-paramdesc|excludeproperty}}',
-
 );
 
 /** Afrikaans (Afrikaans)
@@ -1078,6 +1077,7 @@ $messages['de'] = array(
 	'srf-printername-eventcalendar' => 'Veranstaltungskalender',
 	'srf-paramdesc-calendarfirstday' => 'Der Tag, an dem jede Woche beginnt',
 	'srf-paramdesc-calendardefaultview' => 'Die Ausgangsansicht beim Laden des Kalenders',
+	'srf-paramdesc-calendarstart' => 'Das Anfangsdatum des Kalenders',
 	'srf-paramdesc-eventicon' => 'Das Attribut, das den Symbolwert enthält',
 	'srf-paramdesc-eventcolor' => 'Das Attribut, das den Farbwert enthält',
 	'srf-paramdesc-dayview' => 'Die Tagesansicht beim Anklicken der Tagesnummer aktivieren oder nicht',
@@ -1089,6 +1089,9 @@ $messages['de'] = array(
 	'srf-paramdesc-xaxislabel' => 'Die Beschreibung, die auf der X-Achse angezeigt wird',
 	'srf-paramdesc-unit' => 'Die Einheit',
 	'srf-printername-pagewidget' => 'Seitenwidget',
+	'srf-printername-incoming' => 'Eingehende Attribute',
+	'srf-paramdesc-min' => 'Der maximale Wert oder Schwellenwert',
+	'srf-paramdesc-excludeproperty' => 'Das Attribut vom Ergebnis ausschließen',
 );
 
 /** Zazaki (Zazaki)
@@ -1825,6 +1828,7 @@ $messages['gl'] = array(
 	'srf-navigation-previous' => 'Anterior',
 	'srf-navigation-prev' => 'Anterior',
 	'srf-navigation-next' => 'Seguinte',
+	'srf-ui-label-datasource' => 'Fonte de datos:',
 	'srf-error-option-mix' => 'A opción ($1) non está dispoñible',
 	'srf-error-option-link-all' => 'A opción ($1) necesita que o parámetro "link" estea definido como "all"',
 	'srf-error-missing-layout' => 'Falta o esquema',
@@ -1999,6 +2003,8 @@ $messages['gl'] = array(
 	'srf-paramdesc-xaxislabel' => 'Descrición do eixe X',
 	'srf-paramdesc-unit' => 'Unidade',
 	'srf-printername-pagewidget' => 'Pagewidget',
+	'srf-printername-incoming' => 'Propiedades entrantes',
+	'srf-paramdesc-excludeproperty' => 'Excluír a propiedade do conxunto de resultados',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -2787,6 +2793,7 @@ $messages['ja'] = array(
 	'srf-navigation-previous' => '前へ',
 	'srf-navigation-prev' => '前へ',
 	'srf-navigation-next' => '次へ',
+	'srf-ui-label-datasource' => 'データ ソース:',
 	'srf-error-option-mix' => 'オプション ($1) は利用できません',
 	'srf-error-option-link-all' => 'オプション ($1) を使用するには、パラメーター「link」を「all」に設定する必要があります',
 	'srf-error-missing-layout' => 'レイアウトがありません',
@@ -2919,6 +2926,8 @@ $messages['ja'] = array(
 	'srf-paramdesc-xaxislabel' => 'X 軸に表示する説明',
 	'srf-paramdesc-unit' => 'ユニット',
 	'srf-printername-pagewidget' => 'ページウィジェット',
+	'srf-paramdesc-min' => 'しきい値の最小値',
+	'srf-paramdesc-excludeproperty' => '結果の集合からプロパティを除外',
 );
 
 /** Javanese (Basa Jawa)
@@ -3127,6 +3136,7 @@ $messages['mk'] = array(
 	'srf-navigation-previous' => 'Претходно',
 	'srf-navigation-prev' => 'Прет',
 	'srf-navigation-next' => 'След',
+	'srf-ui-label-datasource' => 'Извор на податоци:',
 	'srf-error-option-mix' => 'Можноста ($1) не е достапна',
 	'srf-error-option-link-all' => 'Можноста ($1) бара параметарот „link“ да биде ставен на „all“',
 	'srf-error-missing-layout' => 'Распоредот недостасува',
@@ -3289,6 +3299,7 @@ $messages['mk'] = array(
 	'srf-printername-eventcalendar' => 'Календар на настани',
 	'srf-paramdesc-calendarfirstday' => 'Почетниот ден на седмиците',
 	'srf-paramdesc-calendardefaultview' => 'Првичниот изглед со вчитувањето на календарот',
+	'srf-paramdesc-calendarstart' => 'Првичен почеток на календарот',
 	'srf-paramdesc-eventicon' => 'Својство што ја претставува вредноста за икона',
 	'srf-paramdesc-eventcolor' => 'Својство што ја претставува вредноста за боја',
 	'srf-paramdesc-dayview' => 'Овозможува преглед на поедичени денови со стискање на бројот на денот',
@@ -3300,6 +3311,9 @@ $messages['mk'] = array(
 	'srf-paramdesc-xaxislabel' => 'Опис што се прикажува на x-оската',
 	'srf-paramdesc-unit' => 'Единица',
 	'srf-printername-pagewidget' => 'Елемент на страница',
+	'srf-printername-incoming' => 'Дојдовни својства',
+	'srf-paramdesc-min' => 'Минимална или гранична вредност',
+	'srf-paramdesc-excludeproperty' => 'Исклучување на својството од резултатот',
 );
 
 /** Malayalam (മലയാളം)
