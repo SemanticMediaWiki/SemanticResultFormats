@@ -598,7 +598,7 @@ $messages['az'] = array(
 	'srf_printername_gallery' => 'Qalereya',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  */
@@ -1319,6 +1319,7 @@ $messages['es'] = array(
 	'srf-navigation-previous' => 'Anterior',
 	'srf-navigation-prev' => 'Anterior',
 	'srf-navigation-next' => 'Siguiente',
+	'srf-ui-label-datasource' => 'Fuente de datos:',
 	'srf-error-option-mix' => 'La opción ($1) no está disponible',
 	'srf-error-option-link-all' => 'La opción ($1) necesita que el parámetro "link" esté definido como "all"',
 	'srf-error-missing-layout' => 'Falta el diseño',
@@ -1480,6 +1481,7 @@ $messages['es'] = array(
 	'srf-printername-eventcalendar' => 'Calendario de eventos',
 	'srf-paramdesc-calendarfirstday' => 'El día en que comienza cada semana',
 	'srf-paramdesc-calendardefaultview' => 'Vista inicial cuando se carga el calendario',
+	'srf-paramdesc-calendarstart' => 'El comienzo del calendario inicial',
 	'srf-paramdesc-eventicon' => 'Propiedad que representa el valor del icono',
 	'srf-paramdesc-eventcolor' => 'Propiedad que representa el valor de color',
 	'srf-paramdesc-dayview' => 'Habilitar la vista de día haciendo clic en el número del día',
@@ -1491,6 +1493,9 @@ $messages['es'] = array(
 	'srf-paramdesc-xaxislabel' => 'Descripción que aparece en el eje x',
 	'srf-paramdesc-unit' => 'Unidad',
 	'srf-printername-pagewidget' => 'Pagewidget',
+	'srf-printername-incoming' => 'Propiedades entrantes',
+	'srf-paramdesc-min' => 'Valor mínimo o umbral',
+	'srf-paramdesc-excludeproperty' => 'Excluir la propiedad del conjunto de resultados',
 );
 
 /** Estonian (eesti)
@@ -2179,6 +2184,7 @@ $messages['hsb'] = array(
 	'srf-navigation-previous' => 'Předchadny',
 	'srf-navigation-prev' => 'Wróćo',
 	'srf-navigation-next' => 'Přichodny',
+	'srf-ui-label-datasource' => 'Datowe žórło:',
 	'srf-error-option-mix' => 'Opcija ($1) k dispoziciji njesteji',
 	'srf-error-option-link-all' => 'Opcija ($1) sej wužaduje, zo so parameter "link" na "all" staji',
 	'srf-error-missing-layout' => 'Layout faluje',
@@ -2329,6 +2335,7 @@ $messages['hsb'] = array(
 	'srf-printername-eventcalendar' => 'Zarjadowanska protyka',
 	'srf-paramdesc-calendarfirstday' => 'Dźeń, hdyž kóždy tydźeń so započina',
 	'srf-paramdesc-calendardefaultview' => 'Wuchadny napohlad, hdyž so protyka startuje',
+	'srf-paramdesc-calendarstart' => 'Spočatny datum protyki',
 	'srf-paramdesc-eventicon' => 'Kajkosć, kotraž symbolowu hódnotu reprezentuje',
 	'srf-paramdesc-eventcolor' => 'Kajkosć, kotraž barbowu hódnotu reprezentuje',
 	'srf-paramdesc-dayview' => 'Dnjowy napohlad přez kliknjenje na dnjowe čisło zmóžnić',
@@ -2336,6 +2343,10 @@ $messages['hsb'] = array(
 	'srf-paramdesc-yaxislabel' => 'Wopisanje, kotrež so na y-wósce jewi',
 	'srf-paramdesc-xaxislabel' => 'Wopisanje, kotrež so na x-wósce jewi',
 	'srf-paramdesc-unit' => 'Jednotka',
+	'srf-printername-pagewidget' => 'Asistent strony',
+	'srf-printername-incoming' => 'Dochadźace kajkosće',
+	'srf-paramdesc-min' => 'Minimum abo ekstremna hódnota',
+	'srf-paramdesc-excludeproperty' => 'Kajkosć z wuslědka wuzamknyć',
 );
 
 /** Haitian (Kreyòl ayisyen)
@@ -3024,7 +3035,7 @@ $messages['ksh'] = array(
 	'srf_printername_oltree' => 'ene Boum met Leßte met Nommere',
 );
 
-/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
+/** Kurdish (Latin script) (Kurdî (latînî)‎)
  * @author George Animal
  */
 $messages['ku-latn'] = array(
@@ -3364,7 +3375,7 @@ $messages['nah'] = array(
 	'srfc_gotomonth' => 'Yāuh mētzhuīc',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Event
  * @author Nghtwlkr
  */
@@ -3659,7 +3670,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-dayview' => 'Dagweergave inschakelen door te klikken op het dagnummer',
 );
 
-/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
+/** Norwegian Nynorsk (norsk (nynorsk)‎)
  * @author Eirik
  * @author Gunnernett
  */
@@ -4180,7 +4191,7 @@ $messages['sk'] = array(
 	'srf_printername_eventline' => 'Os udalostí',
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -4201,7 +4212,7 @@ $messages['sr-ec'] = array(
 	'srf_printername_gallery' => 'Галерија',
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬)
+/** Serbian (Latin script) (srpski (latinica)‎)
  * @author Michaello
  */
 $messages['sr-el'] = array(
@@ -4623,7 +4634,7 @@ $messages['yi'] = array(
 	'srf_paramdesc_graphname' => 'טיטל',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Gzdavidwong
  * @author Liangent
  * @author Linforest
