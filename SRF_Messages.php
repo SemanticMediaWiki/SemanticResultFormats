@@ -598,7 +598,7 @@ $messages['az'] = array(
 	'srf_printername_gallery' => 'Qalereya',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  */
@@ -3024,7 +3024,7 @@ $messages['ksh'] = array(
 	'srf_printername_oltree' => 'ene Boum met Leßte met Nommere',
 );
 
-/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
+/** Kurdish (Latin script) (Kurdî (latînî)‎)
  * @author George Animal
  */
 $messages['ku-latn'] = array(
@@ -3364,7 +3364,7 @@ $messages['nah'] = array(
 	'srfc_gotomonth' => 'Yāuh mētzhuīc',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Event
  * @author Nghtwlkr
  */
@@ -3659,7 +3659,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-dayview' => 'Dagweergave inschakelen door te klikken op het dagnummer',
 );
 
-/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
+/** Norwegian Nynorsk (norsk (nynorsk)‎)
  * @author Eirik
  * @author Gunnernett
  */
@@ -4180,7 +4180,7 @@ $messages['sk'] = array(
 	'srf_printername_eventline' => 'Os udalostí',
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -4201,7 +4201,7 @@ $messages['sr-ec'] = array(
 	'srf_printername_gallery' => 'Галерија',
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬)
+/** Serbian (Latin script) (srpski (latinica)‎)
  * @author Michaello
  */
 $messages['sr-el'] = array(
@@ -4623,7 +4623,7 @@ $messages['yi'] = array(
 	'srf_paramdesc_graphname' => 'טיטל',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Gzdavidwong
  * @author Liangent
  * @author Linforest
