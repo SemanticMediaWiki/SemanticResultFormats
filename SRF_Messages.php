@@ -3512,6 +3512,10 @@ $messages['nl'] = array(
 	'srf-paramdesc-class' => 'Geef een extra CSS-klasse op',
 	'srf-module-nomatch' => 'Geen overeenkomsten gevonden',
 	'srf-paramdesc-charttype' => 'Beschikbaar grafiektype',
+	'srf-navigation-previous' => 'Vorige',
+	'srf-navigation-prev' => 'Vorige',
+	'srf-navigation-next' => 'Volgende',
+	'srf-ui-label-datasource' => 'Gegevensbron:',
 	'srf-error-option-mix' => 'De optie ($1) is niet beschikbaar',
 	'srf-error-option-link-all' => 'Voor optie ($1) moet de parameter "link" ingesteld worden op "all".',
 	'srf-error-missing-layout' => 'Vormgeving ontbreekt',
@@ -3579,7 +3583,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-smoothlines' => 'Lijnen in lijngrafieken vloeiend maken',
 	'srf-paramdesc-stackseries' => 'Grafiek weergeven als gestapelde series',
 	'srf-paramdesc-seriesgroup' => 'Selecteer groeperen van series',
-	'srf-paramdesc-serieslabel' => 'Geef labels voor series op',
+	'srf-paramdesc-serieslabel' => 'Label voor series bepalen',
 	'srf-paramdesc-chartcursor' => 'Optie voor het weergeven van een cursor in de grafiek',
 	'srf-paramdesc-tableview' => 'Gelijktijdige weergave van grafiek en gegevenssets inschakelen',
 	'srf-chart-tableview-item' => 'Gegevensitem',
@@ -3653,7 +3657,7 @@ $messages['nl'] = array(
 	'srf-paramdesc-zoom' => 'Zoom inschakelen',
 	'srf-paramdesc-datatable' => 'Gegevenstabel inschakelen',
 	'srf-timeseries-zoom-out-of-range' => 'Het zoombereik heeft onvoldoende gegevens opgeleverd',
-	'srf-printername-sparkline' => 'Sparkline',
+	'srf-printername-sparkline' => 'Sparklinegrafief',
 	'srf-printername-listwidget' => 'Lijstwidget',
 	'srf-paramdesc-listtype' => 'Geef het lijsttype op',
 	'srf-paramdesc-widget' => 'Beschikbaar widget',
@@ -3668,6 +3672,8 @@ $messages['nl'] = array(
 	'srf-paramdesc-eventicon' => 'Eigenschap die de pictogramwaarde voorstelt',
 	'srf-paramdesc-eventcolor' => 'Eigenschap die de kleurwaarde voorstelt',
 	'srf-paramdesc-dayview' => 'Dagweergave inschakelen door te klikken op het dagnummer',
+	'srf-paramdesc-unit' => 'Eenheid',
+	'srf-printername-pagewidget' => 'Paginawidget',
 );
 
 /** Norwegian Nynorsk (norsk (nynorsk)‎)
