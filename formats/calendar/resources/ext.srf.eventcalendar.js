@@ -140,11 +140,11 @@
 					if ( element.find( '.fc-event-title' ).length && view.name !== 'month' && view.name.indexOf( 'Day' ) >= 0 ) {
 						element.find( '.fc-event-title' ).after( $( '<span class="srf-fc-description">' + event.description + '</span>' ) );
 					} else {
-						element.tipsy( {
-							gravity: 'sw',
-							html: true,
-							// Return abridged description (100 characters) without cutting the last word
-							title: function() { return event.description.substring(0, event.description.substr(0, 100).lastIndexOf( " " ) ) + ' ...'; }
+						// Tooltip
+						element.smwTooltip( {
+							content: event.description.substring( 0, event.description.substr( 0, 100 ).lastIndexOf( " " ) ) + ' ...',
+							title: mw.msg( 'smw-ui-tooltip-title-event' ),
+							button: false
 						} );
 					}
 				}
