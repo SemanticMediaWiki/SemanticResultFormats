@@ -644,6 +644,19 @@ $wgResourceModules['ext.srf.eventcalendar'] = $formatModule + array(
 		'jquery.tipsy',
 		'ext.srf.util',
 		'ext.jquery.fullcalendar'
+	),
+	'messages' => array(
+		'january', 'february', 'march', 'april', 'may_long', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 
+		'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+		'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+		'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat',
+		'srf-ui-eventcalendar-label-today', 'srf-ui-eventcalendar-label-month',
+		'srf-ui-eventcalendar-label-week', 'srf-ui-eventcalendar-label-day',
+		'srf-ui-eventcalendar-label-allday', 'srf-ui-eventcalendar-format-time',
+		'srf-ui-eventcalendar-format-time-agenda', 'srf-ui-eventcalendar-format-axis',
+		'srf-ui-eventcalendar-format-title-month', 'srf-ui-eventcalendar-format-title-week',
+		'srf-ui-eventcalendar-format-title-day', 'srf-ui-eventcalendar-format-column-month',
+		'srf-ui-eventcalendar-format-column-week', 'srf-ui-eventcalendar-format-column-day'
 	)
 );
 

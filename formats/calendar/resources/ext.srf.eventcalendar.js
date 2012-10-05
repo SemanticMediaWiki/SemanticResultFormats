@@ -4,17 +4,73 @@
  * @see http://arshaw.com/fullcalendar/docs/
  *
  * @licence: GNU GPL v2 or later
- * @author:  mwjames
  *
- * jshint checked
+ * @since: 1.8
+ * @release: 0.3
  *
- * @release: 0.2
+ * @author: mwjames
  */
 ( function( $ ) {
 	"use strict";
 
 	/*global mw:true*/
 
+	/**
+	 * Internationalization (i18n) support
+	 *
+	 * @see http://arshaw.com/fullcalendar/docs/text/timeFormat/
+	 * @see http://arshaw.com/fullcalendar/docs/text/titleFormat
+	 * @see http://arshaw.com/fullcalendar/docs/agenda/axisFormat/
+	 * @see http://arshaw.com/fullcalendar/docs/text/columnFormat/
+	 *
+	 * @since: 1.8
+	 */
+	var _i18n = {
+		monthNames : [ mw.msg( 'january' ), mw.msg( 'february' ), mw.msg( 'march' ),
+			mw.msg( 'april' ), mw.msg( 'may_long' ), mw.msg( 'june' ),
+			mw.msg( 'july' ), mw.msg( 'august' ), mw.msg( 'september' ),
+			mw.msg( 'october' ), mw.msg( 'november' ), mw.msg( 'december' )
+		],
+		monthNamesShort : [ mw.msg( 'jan' ), mw.msg( 'feb' ), mw.msg( 'mar' ),
+			mw.msg( 'apr' ), mw.msg( 'may' ), mw.msg( 'jun' ),
+			mw.msg( 'jul' ), mw.msg( 'aug' ), mw.msg( 'sep' ),
+			mw.msg( 'oct' ), mw.msg( 'nov' ), mw.msg( 'dec' )
+		],
+		dayNames : [ mw.msg( 'sunday' ), mw.msg( 'monday' ), mw.msg( 'tuesday' ),
+			mw.msg( 'wednesday' ), mw.msg( 'thursday' ), mw.msg( 'friday' ), mw.msg( 'saturday' )
+		],
+		dayNamesShort : [ mw.msg( 'sun' ), mw.msg( 'mon' ), mw.msg( 'tue' ),
+			mw.msg( 'wed' ), mw.msg( 'thu' ), mw.msg( 'fri' ), mw.msg( 'sat' )
+		],
+		buttonText : {
+			today:  mw.msg( 'srf-ui-eventcalendar-label-today' ),
+			month: mw.msg( 'srf-ui-eventcalendar-label-month' ),
+			week: mw.msg( 'srf-ui-eventcalendar-label-week' ),
+			day: mw.msg( 'srf-ui-eventcalendar-label-day' ),
+		},
+		allDayText : mw.msg( 'srf-ui-eventcalendar-label-allday' ),
+		timeFormat : {
+			'': mw.msg( 'srf-ui-eventcalendar-format-time' ),
+			agenda: mw.msg( 'srf-ui-eventcalendar-format-time-agenda' )
+		},
+		axisFormat : mw.msg( 'srf-ui-eventcalendar-format-axis' ),
+		titleFormat : {
+			month: mw.msg( 'srf-ui-eventcalendar-format-title-month' ),
+			week: mw.msg( 'srf-ui-eventcalendar-format-title-week' ),
+			day: mw.msg( 'srf-ui-eventcalendar-format-title-day' ),
+		},
+		columnFormat : {
+			month: mw.msg( 'srf-ui-eventcalendar-format-column-month' ),
+			week: mw.msg( 'srf-ui-eventcalendar-format-column-week' ),
+			day: mw.msg( 'srf-ui-eventcalendar-format-column-day' ),
+		}
+	};
+
+	/**
+	 * Calendar
+	 *
+	 * @since: 1.8
+	 */
 	$.fn.srfEventCalendar = function() {
 
 		var container = this.find( ".container" ),
@@ -45,6 +101,15 @@
 			},
 			defaultView: data.options.defaultview,
 			firstDay: data.options.firstday,
+			monthNames: _i18n.monthNames,
+			monthNamesShort: _i18n.monthNamesShort,
+			dayNames: _i18n.dayNames,
+			dayNamesShort: _i18n.dayNamesShort,
+			buttonText: _i18n.buttonText,
+			allDayText: _i18n.allDayText,
+			timeFormat: _i18n.timeFormat,
+			titleFormat: _i18n.titleFormat,
+			columnFormat: _i18n.columnFormat,
 			theme: data.options.theme,
 			editable: false,
 			// Set undefined in case eventStart is not specified
