@@ -165,10 +165,7 @@ class SRFiCalendar extends SMWExportPrinter {
 		
 		$wikipage = $row[0]->getResultSubject(); // get the object
 		$wikipage = SMWDataValueFactory::newDataItemValue( $wikipage, null );
-		
-		$startdate = false;
-		$enddate = false;
-		
+
 		$params = array(
 			'summary' => $wikipage->getShortWikiText()
 		);
@@ -183,7 +180,14 @@ class SRFiCalendar extends SMWExportPrinter {
 			switch ( $label ) {
 				case 'start': case 'end':
 					if ( $req->getTypeID() == '_dat' ) {
-						$params[$label] = $field->getNextDataValue();
+						$dataValue = $field->getNextDataValue();
+
+						if ( $dataValue === false ) {
+							unset( $params[$label] );
+						}
+						else {
+							$params[$label] = $dataValue;
+						}
 					}
 					break;
 				case 'location': case 'description': case 'summary':
