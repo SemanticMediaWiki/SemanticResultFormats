@@ -1,12 +1,16 @@
 /**
  * JavaScript for SRF grid tableview plugin
  *
- * jshint checked
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Tableview
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @since 1.8
+ * @release 0.2.1
  *
- * @release: 0.2
+ * @file
+ * @ingroup SRF
+ *
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
 ( function( $ ) {
 	"use strict";
@@ -17,25 +21,33 @@
 		srftableview: function( settings ) {
 
 			var options = $.extend( {
-				'height' : this.height() - 10,
-				'width'  : this.width() - 30,
+				'height' : this.height(),
+				'width'  : settings.widthBorder !== undefined ? this.width() - settings.widthBorder : this.width() - 30,
 				'pagerID': settings.id + '-grid-pager'
 			}, settings );
 
+			// Add tab li element
+			function addTab( tab ){
+				return '<li><a href="#' + tab.id + '">' + tab.msg +'</a></li>';
+			}
+
 			return this.each( function() {
 
-				var obj = $(this),
+				var obj = $( this ),
 					height = options.height,
 					width = options.width,
-					pagerID = options.pagerID;
+					pagerID = options.pagerID,
+					tabs = [];
+
+				// Tabs definition
+				tabs.chart = addTab( { id: options.id, msg: mw.msg( 'srf-chart-tableview-chart-tab' ) } );
+				tabs.data  = addTab( { id: options.id + '-data', msg: mw.msg( 'srf-chart-tableview-data-tab' ) } );
+				tabs.info  = addTab( { id: options.id + '-info', msg: mw.msg( 'srf-chart-tableview-info-tab' ) } );
 
 				// Add tabs navigation
-				var tabChartNavi = '<li><a href="#' + options.id + '">' + mw.msg( 'srf-chart-tableview-chart-tab' ) +'</a></li>';
-				var tabDataNavi  = '<li><a href="#' + options.id + '-data">' + mw.msg( 'srf-chart-tableview-data-tab' ) +'</a></li>';
-				var tabInfoNavi  = '<li><a href="#' + options.id + '-info">' + mw.msg( 'srf-chart-tableview-info-tab' ) +'</a></li>';
-				obj.prepend( '<ul>' + tabChartNavi
-					+ ( options.data.data !== undefined && options.data.data.length > 0 ? tabDataNavi : '' )
-					+ ( options.info !== undefined && options.info !== '' ? tabInfoNavi : '' ) + '</ul>'
+				obj.prepend( '<ul>' + tabs.chart +
+					( options.data.data !== undefined && options.data.data.length > 0 ? tabs.data : '' ) +
+					( options.info !== undefined && options.info !== '' ? tabs.info : '' ) + '</ul>'
 				);
 
 				// Represents the info tab
@@ -60,13 +72,17 @@
 				// Create tabs ui
 				obj.tabs();
 
-				// Reiterate href link after tabs() was applied
+				// Tabs height can vary (due to CSS) therefore after tabs instance was
+				// created get the height
+				var _tabs = obj.find( '.ui-tabs-nav' );
+				var tabsHeight = _tabs.height();
+
+				// Create Special:Ask query link [+]
 				if ( mw.config.get( 'wgCanonicalSpecialPageName' ) === 'Ask' || options.data.sask === undefined ){
 					obj.find( '.srf-chart-query-link' )
 						.empty();
-				}else{
-					obj.find( '.ui-tabs-nav' )
-						.prepend( '<span class="srf-chart-query-link">' + options.data.sask + '</span>' );
+				} else {
+					_tabs.prepend( '<span class="srf-chart-query-link">' + options.data.sask + '</span>' );
 					obj.find( '.srf-chart-query-link' )
 						.find( 'a' )
 						.attr( 'title', mw.msg( 'ask' ) );
@@ -76,7 +92,7 @@
 					dataContainer = options.data.data,
 					series = options.data.series,
 					columnWidth = ( options.width / 2 ) - 5,
-					tableHeight = options.height - 110;
+					tableHeight = options.height - 100 - tabsHeight;
 
 				var gridTable = [],
 					counter = 0;
