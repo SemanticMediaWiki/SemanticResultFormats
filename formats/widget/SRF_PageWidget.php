@@ -26,7 +26,6 @@
  * @file
  */
 class SRFPageWidget extends SMWEmbeddedResultPrinter {
-
 	/**
 	 * Get a human readable label for this printer.
 	 *

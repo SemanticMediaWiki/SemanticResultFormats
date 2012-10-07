@@ -26,14 +26,13 @@
  * @file SRF_Incoming.php
  */
 class SRFIncoming extends SMWResultPrinter {
-
 	/**
 	 * Get a human readable label for this printer.
 	 *
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-incoming' );
+		return wfMessage( 'srf-printername-incoming' )->text();
 	}
 
 	/**
@@ -47,7 +46,6 @@ class SRFIncoming extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputmode ) {
-
 		$data = $this->getResultData( $result, $outputmode );
 
 		// Bailout if we have no results
@@ -55,7 +53,8 @@ class SRFIncoming extends SMWResultPrinter {
 			if ( $this->params['default'] !== '' ) {
 				return $this->escapeText( $this->params['default'], $outputmode );
 			} else {
-				return $result->addErrors( array( wfMsgForContent( 'smw_result_noresults' ) ) );
+				$result->addErrors( array( wfMessage( 'smw_result_noresults' )->inContentLanguage()->text() ) );
+				return '';
 			}
 		} else {
 			return $this->getFormatOutput( $data );
@@ -71,7 +70,6 @@ class SRFIncoming extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getResultData( SMWQueryResult $res, $outputMode ) {
-
 		// Init
 		$properties = array();
 		$excludeProperties = explode( $this->params['sep'], $this->params['exclude'] );
@@ -139,7 +137,6 @@ class SRFIncoming extends SMWResultPrinter {
 	 * @param array $data
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		// Init
 		$result = '';
 

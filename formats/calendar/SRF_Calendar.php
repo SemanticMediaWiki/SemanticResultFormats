@@ -11,7 +11,6 @@ $wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ ) . '/SRFC_Historic
  * @author Yaron Koren
  */
 class SRFCalendar extends SMWResultPrinter {
-
 	protected $mTemplate;
 	protected $mUserParam;
 	protected $mRealUserLang = null;
@@ -70,7 +69,7 @@ class SRFCalendar extends SMWResultPrinter {
 	 * (non-PHPdoc)
 	 * @see SMWResultPrinter::getResultText()
 	 * 
-	 * TODO: split up megamoth 
+	 * @todo Split up megamoth
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$events = array();
@@ -283,8 +282,6 @@ class SRFCalendar extends SMWResultPrinter {
 		if ( $in_special_page ) {
 			global $wgTitle;
 			$page_title = $wgTitle;
-			global $wgUser;
-			$skin = $wgUser->getSkin();
 			$request_values = $wgRequest->getValues();
 			// Also go through the predefined PHP variable
 			// $_REQUEST, because $wgRequest->getValues() for
@@ -308,8 +305,6 @@ class SRFCalendar extends SMWResultPrinter {
 					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />";
 				}
 			}
-		} else {
-			$skin = $wgParser->getOptions()->getSkin();
 		}
 
 		// Set days of the week.
@@ -507,7 +502,7 @@ END;
 						$templatetext = $wgParser->recursiveTagParse( $templatetext );
 						$text .= $templatetext;
 					} else {
-						$event_str = $skin->makeLinkObj( $event_title );
+						$event_str = Linker::link( $event_title );
 						if ( $color != '' ) {
 							$text .= "<div class=\"colored-entry\"><p style=\"border-left: 7px $color solid;\">$event_str $other_text</p></div>\n";
 						} else {
@@ -575,5 +570,4 @@ END;
 
 		return $params;
 	}
-
 }
