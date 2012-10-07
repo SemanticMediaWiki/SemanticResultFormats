@@ -108,7 +108,7 @@ class SRFDygraphs extends SMWResultPrinter {
 					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'raw' && !$dataSource ){
 						// Support data source = raw which pulls the url from a wikipage in raw format
 						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
-						$aggregatedValues['url'] = $dataValue->getTitle()->getFullURL( 'action=raw' );
+						$aggregatedValues['url'] = $dataValue->getTitle()->getLocalURL( 'action=raw' );
 						$dataSource = true;
 						continue;
 					} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'file' && $dataValue->getTitle()->getNamespace() === NS_FILE && !$dataSource ) {
