@@ -2028,6 +2028,11 @@ $messages['gl'] = array(
 	'srf-paramdesc-calendarfirstday' => 'O día que comeza a semana',
 	'srf-paramdesc-calendardefaultview' => 'A vista inicial cando carga o calendario',
 	'srf-paramdesc-dayview' => 'Activar a vista de día ao premer no número do día',
+	'srf-ui-eventcalendar-label-today' => 'Hoxe',
+	'srf-ui-eventcalendar-label-month' => 'Mes',
+	'srf-ui-eventcalendar-label-week' => 'Semana',
+	'srf-ui-eventcalendar-label-day' => 'Día',
+	'srf-ui-eventcalendar-label-allday' => 'Todo o día',
 	'srf-printername-dygraphs' => 'Gráfica dupla',
 	'srf-paramdesc-datasource' => 'Especificar a fonte na que están accesibles os datos (ficheiro, enderezo URL etc.)',
 	'srf-paramdesc-errorbar' => 'Especificar o erro que usou a barra (desviación típica (sigma), intervalo das fraccións ou unha barra personalizada como un rango de valores low;middle;high)',
@@ -2037,6 +2042,7 @@ $messages['gl'] = array(
 	'srf-paramdesc-unit' => 'Unidade',
 	'srf-printername-pagewidget' => 'Pagewidget',
 	'srf-printername-incoming' => 'Propiedades entrantes',
+	'srf-paramdesc-min' => 'Valor mínimo ou límite',
 	'srf-paramdesc-excludeproperty' => 'Excluír a propiedade do conxunto de resultados',
 );
 
