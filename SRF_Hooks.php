@@ -38,7 +38,7 @@ final class SRFHooks {
 			'formats/Timeseries',
 			'formats/Feed',
 			'formats/EventCalendar',
-			'formats/Dygraphs'
+			'formats/Dygraphs',
 			'formats/Incoming',
 		);
 
