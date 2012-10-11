@@ -21,7 +21,7 @@
  *
  * @since 1.8
  *
- * @file SRF_Sparkline.php
+ * @file
  * @ingroup SemanticResultFormats
  * @licence GNU GPL v2 or later
  *
@@ -86,7 +86,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : '';
 
 		// Chart/graph wrappper
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'span', array(
 			'class' => 'srf-sparkline' . $class,
 			), $processing . $chart
 		);
