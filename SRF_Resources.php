@@ -100,6 +100,21 @@ $wgResourceModules['ext.jquery.jStorage'] = $moduleTemplate + array(
 /******************************************************************************
  * SRF specific printer independent utility resources
 /******************************************************************************/
+$wgResourceModules['ext.srf'] = $moduleTemplate + array(
+	'scripts' => 'resources/semanticFormats/ext.srf.js',
+	'group' => 'ext.srf'
+);
+
+$wgResourceModules['ext.srf.utilities'] = $moduleTemplate + array(
+	'scripts' => 'resources/semanticFormats/ext.srf.util.js',
+	'dependencies' => array (
+		'ext.srf',
+		'ext.jquery.jStorage'
+	),
+	'group' => 'ext.srf'
+);
+
+// @todo kept until the migration
 $wgResourceModules['ext.srf.util'] = $moduleTemplate + array(
 	'scripts' => 'resources/util/ext.srf.util.js',
 	'dependencies' => 'ext.jquery.jStorage'
