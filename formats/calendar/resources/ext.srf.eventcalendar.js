@@ -1,19 +1,24 @@
 /**
  * JavaScript for SRF event calendar module using the fullcalendar library
- *
  * @see http://arshaw.com/fullcalendar/docs/
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Eventcalendar_format
  *
- * @licence: GNU GPL v2 or later
+ * @since 1.8
+ * @release 0.3
  *
- * @since: 1.8
- * @release: 0.3
+ * @file
+ * @ingroup SRF
  *
- * @author: mwjames
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
 ( function( $ ) {
+
 	"use strict";
 
 	/*global mw:true*/
+
+	////////////////////////// PRIVATE METHODS ////////////////////////
 
 	/**
 	 * Internationalization (i18n) support
@@ -23,7 +28,7 @@
 	 * @see http://arshaw.com/fullcalendar/docs/agenda/axisFormat/
 	 * @see http://arshaw.com/fullcalendar/docs/text/columnFormat/
 	 *
-	 * @since: 1.8
+	 * @since 1.8
 	 */
 	var _i18n = {
 		monthNames : [ mw.msg( 'january' ), mw.msg( 'february' ), mw.msg( 'march' ),
@@ -46,7 +51,7 @@
 			today:  mw.msg( 'srf-ui-eventcalendar-label-today' ),
 			month: mw.msg( 'srf-ui-eventcalendar-label-month' ),
 			week: mw.msg( 'srf-ui-eventcalendar-label-week' ),
-			day: mw.msg( 'srf-ui-eventcalendar-label-day' ),
+			day: mw.msg( 'srf-ui-eventcalendar-label-day' )
 		},
 		allDayText : mw.msg( 'srf-ui-eventcalendar-label-allday' ),
 		timeFormat : {
@@ -57,19 +62,21 @@
 		titleFormat : {
 			month: mw.msg( 'srf-ui-eventcalendar-format-title-month' ),
 			week: mw.msg( 'srf-ui-eventcalendar-format-title-week' ),
-			day: mw.msg( 'srf-ui-eventcalendar-format-title-day' ),
+			day: mw.msg( 'srf-ui-eventcalendar-format-title-day' )
 		},
 		columnFormat : {
 			month: mw.msg( 'srf-ui-eventcalendar-format-column-month' ),
 			week: mw.msg( 'srf-ui-eventcalendar-format-column-week' ),
-			day: mw.msg( 'srf-ui-eventcalendar-format-column-day' ),
+			day: mw.msg( 'srf-ui-eventcalendar-format-column-day' )
 		}
 	};
+
+	////////////////////////// PUBLIC METHODS ////////////////////////
 
 	/**
 	 * Calendar
 	 *
-	 * @since: 1.8
+	 * @since 1.8
 	 */
 	$.fn.srfEventCalendar = function() {
 
@@ -157,6 +164,8 @@
 			}
 		} );
 	};
+
+	////////////////////////// IMPLEMENTATION ////////////////////////
 
 	$( document ).ready( function() {
 		$( ".srf-eventcalendar" ).each( function() {
