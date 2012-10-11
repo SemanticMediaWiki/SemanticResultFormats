@@ -1,48 +1,67 @@
 /**
- * JavaSript for SRF sparkline module
+ * JavaSript for SRF sparkline format
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Sparkline format
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @since 1.8
+ * @release 0.2
  *
- * jshint checked
+ * @file
+ * @ingroup SRF
  *
- * @release: 0.2
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $ ) {
-	// Use ECMAScript 5's strict mode
+( function( srf, $ ) {
+
 	"use strict";
 
-	/*global mw:true*/
+	/*global mw:true semanticFormats:true*/
 
-	// Only display errors
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
+	////////////////////////// PUBLIC METHODS ////////////////////////
 
-	$.fn.srfSparkline = function() {
+	srf.formats = srf.formats || {};
 
-		var chart = this.find( ".container" ),
-			chartID = chart.attr( "id" ),
-			json = mw.config.get( chartID );
-
-		// Parse json string and convert it back
-		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
-
-		// Release graph and bottom text
-		this.find( '.srf-processing' ).hide();
-
-		// Release chart/graph
-		chart.show();
-		chart.sparkline( data.value , {
-			type: data.charttype,
-			tooltipFormat: '{{value}}{{y}} ({{offset:offset}})',
-			tooltipValueLookups: {
-				offset: data.label
-			}
-		} );
+	/**
+	 * Constructor
+	 * @var Object
+	 */
+	srf.formats.sparkline = function( settings ) {
+		$.extend( this, settings );
+		this.init();
 	};
 
-	$( document ).ready( function() {
-		$( ".srf-sparkline" ).each( function() {
-			$( this ).srfSparkline();
+	srf.formats.sparkline.prototype = {
+
+		init: function() {
+			return this.context.each( function() {
+				var chart = $( this ).find( '.container' ),
+					chartID = chart.attr( 'id' ),
+					json = mw.config.get( chartID );
+
+				// Parse json string and convert it back
+				var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
+
+				// Release graph and bottom text
+				$( this ).find( '.srf-processing' ).hide();
+
+				// Release chart/graph
+				chart.show();
+				chart.sparkline( data.value , {
+					type: data.charttype,
+					tooltipFormat: '{{value}}{{y}} ({{offset:offset}})',
+					tooltipValueLookups: {
+						offset: data.label
+					}
+				} );
 		} );
-	} ); // end $(document).ready
-} )( window.jQuery );
+		}
+	};
+
+	////////////////////////// IMPLEMENTATION ////////////////////////
+
+	$( document ).ready( function() {
+		$( '.srf-sparkline' ).each( function() {
+			new srf.formats.sparkline( { context: $( this ) } );
+		} );
+	} );
+} )( semanticFormats, jQuery );

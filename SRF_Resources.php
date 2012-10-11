@@ -144,7 +144,11 @@ $wgResourceModules['ext.srf.util.tableview'] = $moduleTemplate + array(
 /******************************************************************************/
 $wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
 	'scripts' => 'sparkline/resources/ext.srf.sparkline.js',
-	'dependencies' => 'ext.jquery.sparkline',
+	'dependencies' => array(
+		'ext.srf',
+		'ext.jquery.sparkline'
+	),
+	'group' => 'ext.srf',
 	'position' => 'top',
 );
 
