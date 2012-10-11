@@ -24,10 +24,16 @@ $messages['en'] = array(
 	'srf-paramdesc-class'  => 'Specify an additional cascading style sheet class',
 	'srf-module-nomatch' => 'No matches found',
 	'srf-paramdesc-charttype' => 'Available chart type',
+
+	// common ui elements
 	'srf-navigation-previous'  => 'Previous',
 	'srf-navigation-prev' => 'Prev',
 	'srf-navigation-next'  => 'Next',
-	'srf-ui-label-datasource' => 'Data source:',
+	'srf-ui-common-label-datasource' => 'Data source',
+	'srf-ui-common-label-ajax-error' => 'The server reported a failed communication for this $1. Please try to refresh the page or consult with this $2.',
+	'srf-ui-common-label-request-object' => 'request object',
+	'srf-ui-common-label-help-section' => 'help section',
+	'srf-ui-tooltip-title-options' => 'Options',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
@@ -296,7 +302,11 @@ $messages['qqq'] = array(
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-class' => '{{doc-paramdesc|class}}',
 	'srf-paramdesc-charttype' => '{{doc-paramdesc|charttype}}',
-	'srf-ui-label-datasource' => 'Label pointing to a data source. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-ui-common-label-datasource' => 'A label pointing to a data source. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
+	'srf-ui-common-label-ajax-error' => 'Information that is displayed during a failed ajax communication. See [http://www.semantic-mediawiki.org/wiki/Help:Ajax Help:Ajax].',
+	'srf-ui-common-label-request-object' => 'A support label concatenate in a sentence structure and is therefore kept lower case.',
+	'srf-ui-common-label-help-section' => 'A support label concatenate in a sentence structure and is therefore kept lower case.',
+	'srf-ui-tooltip-title-options' => 'A label that is displayed on the info tooltip. See [http://semantic-mediawiki.org/wiki/Help:Tooltip Help:Tooltip].',
 	'srf-error-option-link-all' => '{{doc-important|Do not translate the parameter "link" and its possible value "all".}}
 This is an error message. Parameters:
 * $1 is a fixed entitity name that cannot and should not be translated.',

@@ -30,7 +30,7 @@
 
 $moduleTemplate = array(
 	'localBasePath' => __DIR__ ,
-	'remoteExtPath' => 'SemanticResultFormats/'
+	'remoteExtPath' => 'SemanticResultFormats'
 );
 
 $formatModule = array(
@@ -162,11 +162,17 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
 	),
 	'styles' => 'dygraphs/resources/ext.srf.dygraphs.css',
 	'dependencies' => array(
+		'jquery.client',
 		'jquery.async',
+		'ext.smw.tooltip',
 		'ext.dygraphs.combined',
 	),
 	'messages' => array (
-		'srf-ui-label-datasource'
+		'srf-ui-common-label-datasource',
+		'srf-ui-common-label-request-object',
+		'srf-ui-common-label-ajax-error',
+		'srf-ui-common-label-help-section',
+		'srf-ui-tooltip-title-options'
 	),
 	'position' => 'top',
 );
