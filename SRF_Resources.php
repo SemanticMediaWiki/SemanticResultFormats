@@ -93,7 +93,7 @@ $wgResourceModules['ext.jquery.dynamiccarousel'] = $moduleTemplate + array(
 
 // jStorage was added in MW 1.20 and for all other releases register as compat module
 $wgResourceModules['ext.jquery.jStorage'] = $moduleTemplate + array(
-	'scripts' => 'resources/util/compat/jquery.jStorage.js',
+	'scripts' => 'resources/jquery.jstorage/jquery.jStorage.js',
 	'dependencies' => 'jquery.json',
 );
 
@@ -114,7 +114,28 @@ $wgResourceModules['ext.srf.utilities'] = $moduleTemplate + array(
 	'group' => 'ext.srf'
 );
 
-// @todo kept until the migration
+$wgResourceModules['ext.srf.util.grid'] = $moduleTemplate + array(
+	'scripts' => 'resources/semanticFormats/ext.srf.util.grid.js',
+	'styles'  => 'resources/semanticFormats/ext.srf.util.grid.css',
+	'dependencies' => array(
+		'jquery.ui.tabs',
+		'ext.srf.utilities',
+		'ext.jquery.jqgrid',
+	),
+	'messages' => array(
+		'ask',
+		'srf-ui-gridview-label-series',
+		'srf-ui-gridview-label-item',
+		'srf-ui-gridview-label-value',
+		'srf-ui-gridview-label-chart-tab',
+		'srf-ui-gridview-label-data-tab',
+		'srf-ui-gridview-label-info-tab'
+	),
+	'position' => 'top',
+	'group' => 'ext.srf'
+);
+
+// @todo keep below definitions until the migration is done to avoid breakage
 $wgResourceModules['ext.srf.util'] = $moduleTemplate + array(
 	'scripts' => 'resources/util/ext.srf.util.js',
 	'dependencies' => 'ext.jquery.jStorage'
