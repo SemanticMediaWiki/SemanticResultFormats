@@ -229,86 +229,86 @@ $wgResourceModules['ext.srf.pagewidget.carousel'] = $formatModule + array(
 /*** jQuery plugin specific declarations ***/
 
 $wgResourceModules['ext.jquery.jqplot.core'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jquery.jqplot.min.js',
-	'styles' => 'resources/jquery.jqplot/jquery.jqplot.min.css'
+	'scripts' => 'resources/jquery.jqplot/jquery.jqplot.js',
+	'styles' => 'resources/jquery.jqplot/jquery.jqplot.css'
 );
 
 // excanvas is required only for pre- IE 9 versions
 $wgResourceModules['ext.jquery.jqplot.excanvas'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/excanvas.min.js'
+	'scripts' => 'resources/jquery.jqplot/excanvas.js'
 );
 
 // JSON data formatting according the the City Index API spec
 $wgResourceModules['ext.jquery.jqplot.json'] = $moduleTemplate + array(
 	'scripts' => array (
 		'resources/jquery.jqplot/jqplot.json2.min.js',
-		'resources/jquery.jqplot/jqplot.ciParser.min.js'
+		'resources/jquery.jqplot/jqplot.ciParser.js'
 	)
 );
 
 // Plugin class representing the cursor
 $wgResourceModules['ext.jquery.jqplot.cursor'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.cursor.min.js'
+	'scripts' => 'resources/jquery.jqplot/jqplot.cursor.js'
 );
 
 // Plugin class to render a logarithmic axis
 $wgResourceModules['ext.jquery.jqplot.logaxisrenderer'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.logAxisRenderer.min.js'
+	'scripts' => 'resources/jquery.jqplot/jqplot.logAxisRenderer.js'
 );
 
 // Plugin class to render a mekko style chart
 $wgResourceModules['ext.jquery.jqplot.mekko'] = $moduleTemplate + array(
 	'scripts' => array (
-		'resources/jquery.jqplot/jqplot.mekkoRenderer.min.js',
-		'resources/jquery.jqplot/jqplot.mekkoAxisRenderer.min.js'
+		'resources/jquery.jqplot/jqplot.mekkoRenderer.js',
+		'resources/jquery.jqplot/jqplot.mekkoAxisRenderer.js'
 	)
 );
 
 // Plugin class to render a bar/line style chart
 $wgResourceModules['ext.jquery.jqplot.bar'] = $moduleTemplate + array(
 	'scripts' => array(
-		'resources/jquery.jqplot/jqplot.canvasAxisTickRenderer.min.js',
-		'resources/jquery.jqplot/jqplot.canvasTextRenderer.min.js',
-		'resources/jquery.jqplot/jqplot.canvasAxisLabelRenderer.min.js',
-		'resources/jquery.jqplot/jqplot.categoryAxisRenderer.min.js',
-		'resources/jquery.jqplot/jqplot.barRenderer.min.js'
+		'resources/jquery.jqplot/jqplot.canvasAxisTickRenderer.js',
+		'resources/jquery.jqplot/jqplot.canvasTextRenderer.js',
+		'resources/jquery.jqplot/jqplot.canvasAxisLabelRenderer.js',
+		'resources/jquery.jqplot/jqplot.categoryAxisRenderer.js',
+		'resources/jquery.jqplot/jqplot.barRenderer.js'
 	),
 	'dependencies' => 'ext.jquery.jqplot.core',
 );
 
 // Plugin class to render a pie style chart
 $wgResourceModules['ext.jquery.jqplot.pie'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.pieRenderer.min.js',
+	'scripts' => 'resources/jquery.jqplot/jqplot.pieRenderer.js',
 	'dependencies' => 'ext.jquery.jqplot.core'
 );
 
 // Plugin class to render a bubble style chart
 $wgResourceModules['ext.jquery.jqplot.bubble'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.bubbleRenderer.min.js',
+	'scripts' => 'resources/jquery.jqplot/jqplot.bubbleRenderer.js',
 	'dependencies' => 'ext.jquery.jqplot.core'
 );
 
 // Plugin class to render a donut style chart
 $wgResourceModules['ext.jquery.jqplot.donut'] = $moduleTemplate + array(
-	'scripts' =>'resources/jquery.jqplot/jqplot.donutRenderer.min.js',
+	'scripts' =>'resources/jquery.jqplot/jqplot.donutRenderer.js',
 	'dependencies' => 'ext.jquery.jqplot.pie'
 );
 
 $wgResourceModules['ext.jquery.jqplot.pointlabels'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.pointLabels.min.js'
+	'scripts' => 'resources/jquery.jqplot/jqplot.pointLabels.js'
 );
 
 $wgResourceModules['ext.jquery.jqplot.highlighter'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.highlighter.min.js'
+	'scripts' => 'resources/jquery.jqplot/jqplot.highlighter.js'
 );
 
 $wgResourceModules['ext.jquery.jqplot.enhancedlegend'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.enhancedLegendRenderer.min.js'
+	'scripts' => 'resources/jquery.jqplot/jqplot.enhancedLegendRenderer.js'
 );
 
 // Plugin class to render a trendline
 $wgResourceModules['ext.jquery.jqplot.trendline'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.jqplot/jqplot.trendline.min.js'
+	'scripts' => 'resources/jquery.jqplot/jqplot.trendline.js'
 );
 
 /*** General jqplot/SRF specific declarations ***/
