@@ -191,8 +191,8 @@
 
 				// Adjustments for cases where jquery ui is involved
 				// @var addedHeight collects heights of objects other that the chart in order
-				width = chart.width() - ( data.parameters.datatable === 'tabs' ? 30 : 0 );
-				height = height - ( data.parameters.datatable === 'tabs' ? 20 : 20 );
+				width = chart.width() - ( data.parameters.gridview === 'tabs' ? 30 : 0 );
+				height = height - ( data.parameters.gridview === 'tabs' ? 20 : 20 );
 
 				// Release container in order to measure adjustments
 				showContainer();
@@ -200,7 +200,7 @@
 				height = height - _addChartSource( {
 					instance: plotInstance,
 					source: ( data.data.source.subject !== undefined ? data.data.source.subject : data.data.source.link !== undefined ? data.data.source.link : null ),
-					extraClass: data.parameters.datatable,
+					extraClass: data.parameters.gridview,
 					sourceTitle: mw.msg( 'srf-ui-common-label-datasource' ),
 					className: 'srf-ui-chart-source'
 				} );
@@ -208,7 +208,7 @@
 				height = height - _addChartText( {
 					instance: plotInstance,
 					text: data.parameters.charttext,
-					extraClass: data.parameters.datatable,
+					extraClass: data.parameters.gridview,
 					className: 'srf-ui-chart-text'
 				} );
 
@@ -224,32 +224,32 @@
 			 *
 			 */
 			function initGridView(){
-				if ( data.parameters.datatable === 'tabs' ) {
+				var dataSeries = [],
+					dataTable = [];
 
-					var dataSeries = [],
-						dataTable = [];
-
-					// Prepare datatable
-					if ( data.data.source.annotation !== undefined ){
-						$.map( data.data.source.annotation , function( val ){
-							dataSeries.push ( { label: val.series } );
-							dataTable.push ( [[ val.shortText + ' (' + val.text + ')', val.x]] );
-						} );
-					}
-
-					// Init GridView
-					chart.srftableview( {
-						'chart'     : chart,
-						'id'        : chartID,
-						'container' : container,
-						'info'      : data.parameters.infotext,
-						'data' : {
-							'series': dataSeries,
-							'data'  : dataTable,
-							'sask'  : data.sask
-						}
+				// Prepare datatable
+				if ( data.data.source.annotation !== undefined ){
+					$.map( data.data.source.annotation , function( val ){
+						dataSeries.push ( { label: val.series } );
+						dataTable.push ( [[ val.shortText + ' (' + val.text + ')', val.x]] );
 					} );
 				}
+
+				// Set options
+				var gridOptions = {
+					'context'   : chart,
+					'id'        : chartID,
+					'container' : container,
+					'info'      : data.parameters.infotext,
+					'data' : {
+						'series': dataSeries,
+						'data'  : dataTable,
+						'sask'  : data.sask
+					}
+				};
+
+				// Grid view instance
+				new srf.util.grid( gridOptions );
 			}
 
 			/**
@@ -339,7 +339,9 @@
 							} else {
 
 								// GridView plug-in processing
-								initGridView();
+								if ( data.parameters.gridview === 'tabs' ) {
+									initGridView();
+								}
 
 								// Adjust table height due to possible changes initiated by the
 								// jquery ui tabs

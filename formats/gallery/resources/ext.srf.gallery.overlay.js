@@ -26,6 +26,9 @@
 		var galleryID = this.attr( 'id' ),
 			srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
 
+		// Create class reference
+		var util = new srf.util();
+
 		// Loop over all relevant gallery items
 		this.find( '.gallerybox' ).each( function () {
 			var $this   = $( this ),
@@ -48,14 +51,14 @@
 				var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
 
 				// Assign image url
-				$.srfutil.getImageURL( { 'title': 'File:' + title },
-						function( url ) { if ( url === false ) {
-							image.attr( 'href', '' );
-						} else {
-							image.attr( 'href', url );
-							// Add overlay zoom icon placeholder
-							image.prepend( zoomicon );
-						}
+				util.getImageURL( { 'title': 'File:' + title },
+					function( url ) { if ( url === false ) {
+						image.attr( 'href', '' );
+					} else {
+						image.attr( 'href', url );
+						// Add overlay zoom icon placeholder
+						image.prepend( zoomicon );
+					}
 				} );
 			}
 		} );

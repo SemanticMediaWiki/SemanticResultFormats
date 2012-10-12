@@ -101,12 +101,12 @@ $wgResourceModules['ext.jquery.jStorage'] = $moduleTemplate + array(
  * SRF specific printer independent utility resources
 /******************************************************************************/
 $wgResourceModules['ext.srf'] = $moduleTemplate + array(
-	'scripts' => 'resources/semanticFormats/ext.srf.js',
+	'scripts' => 'resources/ext.srf.js',
 	'group' => 'ext.srf'
 );
 
-$wgResourceModules['ext.srf.utilities'] = $moduleTemplate + array(
-	'scripts' => 'resources/semanticFormats/ext.srf.util.js',
+$wgResourceModules['ext.srf.util'] = $moduleTemplate + array(
+	'scripts' => 'resources/ext.srf.util.js',
 	'dependencies' => array (
 		'ext.srf',
 		'ext.jquery.jStorage'
@@ -115,11 +115,11 @@ $wgResourceModules['ext.srf.utilities'] = $moduleTemplate + array(
 );
 
 $wgResourceModules['ext.srf.util.grid'] = $moduleTemplate + array(
-	'scripts' => 'resources/semanticFormats/ext.srf.util.grid.js',
-	'styles'  => 'resources/semanticFormats/ext.srf.util.grid.css',
+	'scripts' => 'resources/ext.srf.util.grid.js',
+	'styles'  => 'resources/ext.srf.util.grid.css',
 	'dependencies' => array(
 		'jquery.ui.tabs',
-		'ext.srf.utilities',
+		'ext.srf.util',
 		'ext.jquery.jqgrid',
 	),
 	'messages' => array(
@@ -133,31 +133,6 @@ $wgResourceModules['ext.srf.util.grid'] = $moduleTemplate + array(
 	),
 	'position' => 'top',
 	'group' => 'ext.srf'
-);
-
-// @todo keep below definitions until the migration is done to avoid breakage
-$wgResourceModules['ext.srf.util'] = $moduleTemplate + array(
-	'scripts' => 'resources/util/ext.srf.util.js',
-	'dependencies' => 'ext.jquery.jStorage'
-);
-
-$wgResourceModules['ext.srf.util.tableview'] = $moduleTemplate + array(
-	'scripts' => 'resources/util/ext.srf.util.tableview.js',
-	'styles'  => 'resources/util/ext.srf.util.tableview.css',
-	'dependencies' => array(
-		'jquery.ui.tabs',
-		'ext.jquery.jqgrid',
-	),
-	'messages' => array(
-		'ask',
-		'srf-chart-tableview-series',
-		'srf-chart-tableview-item',
-		'srf-chart-tableview-value',
-		'srf-chart-tableview-chart-tab',
-		'srf-chart-tableview-data-tab',
-		'srf-chart-tableview-info-tab'
-	),
-	'position' => 'top',
 );
 
 /******************************************************************************

@@ -30,6 +30,9 @@
 				image     = $this.find( 'a.image' ),
 				redirecticon = '<span class="redirect"></span>';
 
+			// Create class reference
+			var util = new srf.util();
+
 			// Avoid undefined error
 			if ( typeof  image.attr( 'href' ) === 'undefined' ) {
 				$this.html( '<span class="error">' + mw.message( 'srf-gallery-image-url-error' ).escaped() + '</span>' );
@@ -39,14 +42,14 @@
 
 				// Assign redirect article url
 				if ( title.length > 0 ) {
-					$.srfutil.getTitleURL( { 'title': title },
-							function( url ) { if ( url === false ) {
-								image.attr( 'href', '' );
-							} else {
-								image.attr( 'href', url );
-								// Add redirect icon placeholder
-								image.prepend( redirecticon );
-							}
+					util.getTitleURL( { 'title': title },
+						function( url ) { if ( url === false ) {
+							image.attr( 'href', '' );
+						} else {
+							image.attr( 'href', url );
+							// Add redirect icon placeholder
+							image.prepend( redirecticon );
+						}
 					} );
 				}
 			}

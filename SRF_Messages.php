@@ -28,7 +28,7 @@ $messages['en'] = array(
 	// common ui elements
 	'srf-navigation-previous'  => 'Previous',
 	'srf-navigation-prev' => 'Prev',
-	'srf-navigation-next'  => 'Next',
+	'srf-navigation-next' => 'Next',
 	'srf-ui-common-label-datasource' => 'Data source',
 	'srf-ui-common-label-ajax-error' => 'The server reported a failed communication for this $1. Please try to refresh the page or consult with this $2.',
 	'srf-ui-common-label-request-object' => 'request object',
@@ -135,7 +135,6 @@ $messages['en'] = array(
 	'srf-paramdesc-trendline' => 'Enable simultaneous display of a chart and its trendline',
 
 	// srf gridview plugin
-	'srf-paramdesc-tableview' => 'Enable simultaneous display of chart and data sets',
 	'srf-paramdesc-gridview' => 'Display chart and data sets simultaneously',
 	'srf-paramdesc-infotext' => 'Display additional information on a corresponding info tab',
 	'srf-ui-gridview-label-item'  => 'Data item',
@@ -385,7 +384,6 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf-paramdesc-grouplabel' => '{{doc-paramdesc|grouplabel}}',
 	'srf-paramdesc-chartcursor' => '{{doc-paramdesc|chartcursor}}',
 	'srf-paramdesc-trendline' => '{{doc-paramdesc|trendline}}',
-	'srf-paramdesc-tableview' => '{{doc-paramdesc|tableview}}',
 	'srf-paramdesc-gridview' => '{{doc-paramdesc|gridview}}',
 	'srf-paramdesc-infotext' => '{{doc-paramdesc|infotext}}',
 	'srf-ui-gridview-label-item' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',

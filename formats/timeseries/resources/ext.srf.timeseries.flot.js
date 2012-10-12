@@ -52,8 +52,8 @@
 			container.css( { 'height': height, 'width': width } );
 			chart.css( { 'height': container.height(), 'width': container.width() } );
 			container.css( {
-				'height': height - ( data.parameters.datatable === 'tabs' ? 40 : 0 ),
-				'width': chart.width() - ( data.parameters.datatable === 'tabs' ? 20 : 0 )
+				'height': height - ( data.parameters.gridview === 'tabs' ? 20 : 0 ),
+				'width': chart.width() - ( data.parameters.gridview === 'tabs' ? 20 : 0 )
 			} );
 
 			// Make sure to keep converted px values because canvas elements can't deal with %
@@ -83,7 +83,7 @@
 				container.find( '.' + plotClass )
 					.after( '<span class="srf-flot-chart-text">' + chartText + '</span>' );
 				container.find( '.srf-flot-chart-text' )
-					.addClass( ( data.parameters.datatable === 'tabs' ? 'tabs' : '' ) );
+					.addClass( ( data.parameters.gridview === 'tabs' ? 'tabs' : '' ) );
 				addedHeight += container.find( '.srf-flot-chart-text' ).height() - 20;
 			}
 
@@ -99,11 +99,9 @@
 			// Keep the overall height and width and apply possible changes onto the chart
 			height = height - addedHeight;
 
-			container.find( '.' + plotClass ).css( { 'height': height, 'width': width } );
-
 			// Handle jqGrid table
-			if ( data.parameters.datatable === 'tabs' ) {
-				// Datatable declaration
+			if ( data.parameters.gridview === 'tabs' ) {
+				// gridview declaration
 				var dataSeries = [];
 				var dataTable = [];
 				var newRow = {};
@@ -112,19 +110,29 @@
 					dataSeries.push ( newRow );
 					dataTable.push ( data.data[j].data );
 				}
-				// Tableview plugin
-				chart.srftableview( {
-					'id' : chartID,
-					'chart' : container,
-					'info'  : data.parameters.infotext,
+
+				// Set options
+				var gridOptions = {
+					'context'   : chart,
+					'id'        : chartID,
+					'container' : container,
+					'info'      : data.parameters.infotext,
 					'data' : {
 						'series': dataSeries,
-						'data': dataTable,
+						'data'  : dataTable,
 						'fcolumntypeid': data.fcolumntypeid,
-						'sask': data.sask
+						'sask'  : data.sask
 					}
-				} );
+				};
+
+				// Grid view instance
+				new srf.util.grid( gridOptions );
 			}
+
+			// Tabs height can vary (due to CSS) therefore after tabs instance was
+			// created get the height
+			var _tabs = chart.find( '.ui-tabs-nav' );
+			container.find( '.' + plotClass ).css( { 'height': height - _tabs.height() , 'width': width } );
 
 			// Draw chart
 			container.srfFlotTimeSeries( 'chart', settings );

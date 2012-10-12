@@ -69,7 +69,7 @@
 	/**
 	 * Constructor
 	 * Class reference by using new srf.util.grid( options );
-	 *	  
+	 *
 	 * @var Object
 	 */
 	srf.util.grid = function( settings ) {
@@ -85,7 +85,7 @@
 		}, settings );
 
 		$.extend( this, options );
-		
+
 		// Self-invoked init() for direct access to the class reference
 		this.init();
 	};
@@ -124,7 +124,7 @@
 						context: containerContext,
 						content: options.info,
 						id : options.id + '-info',
-						elemtClass: options.baseClass + '-info-tab'
+						elemClass: options.baseClass + '-info-tab'
 					} );
 				}
 
@@ -134,7 +134,7 @@
 						context: containerContext,
 						content: '',
 						id : options.id + '-data',
-						elemtClass: options.baseClass + '-data-tab'
+						elemClass: options.baseClass + '-data-tab'
 					} );
 				}
 

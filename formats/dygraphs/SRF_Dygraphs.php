@@ -191,7 +191,7 @@ class SRFDygraphs extends SMWResultPrinter {
 				'infotext'     => $this->params['infotext'],
 				'datasource'   => $this->params['datasource'],
 				'rollerperiod' => $this->params['mavg'],
-				'datatable'    => $this->params['tableview'],
+				'gridview'    => $this->params['gridview'],
 				'errorbar'     => $this->params['errorbar'],
 			)
 		);
@@ -202,8 +202,8 @@ class SRFDygraphs extends SMWResultPrinter {
 
 		SMWOutputs::requireResource( 'ext.srf.dygraphs' );
 
-		if ( $this->params['tableview'] === 'tabs' ) {
-			SMWOutputs::requireResource( 'ext.srf.util.tableview' );
+		if ( $this->params['gridview'] === 'tabs' ) {
+			SMWOutputs::requireResource( 'ext.srf.util.grid' );
 		}
 
 		// Chart/graph placeholder
@@ -264,8 +264,8 @@ class SRFDygraphs extends SMWResultPrinter {
 			'lowerbound' => 0,
 		);
 
-		$params['tableview'] = array(
-			'message' => 'srf-paramdesc-tableview',
+		$params['gridview'] = array(
+			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
 			'values' => array( 'none' , 'tabs' ),
 		);

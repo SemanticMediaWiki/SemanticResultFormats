@@ -34,8 +34,8 @@
 		// Assign height/width important when dealing with % values
 		chart.css( { 'height': height , 'width': width } );
 		container.css( {
-			'height': chart.height() - ( data.parameters.tableview === 'tabs' ? 40 : 0 ),
-			'width': chart.width() - ( data.parameters.tableview === 'tabs' ? 20 : 0 )
+			'height': chart.height() - ( data.parameters.gridview === 'tabs' ? 20 : 0 ),
+			'width': chart.width() - ( data.parameters.gridview === 'tabs' ? 20 : 0 )
 		} );
 
 		// Hide processing image
@@ -50,25 +50,44 @@
 		if ( chartText.length > 0 ) {
 			container.prepend( '<div id="' + chartID + '-text' + '" class="srf-jqplot-chart-text">' + chartText + '</div>' );
 			container.find( '.srf-jqplot-chart-text' )
-				.addClass( ( data.parameters.tableview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
+				.addClass( ( data.parameters.gridview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
 			chartTextHeight = container.find( '.srf-jqplot-chart-text' ).height() + 10;
 		}
-
-		// Adjust height and width according to current customizing
-		width = container.width();
-		height = container.height() - chartTextHeight;
-
-		// Div thta holds the plot
-		var plotID = chartID + '-plot';
-		container.prepend( '<div id="' + plotID + '" class="srf-jqplot-plot"></div>' ) ;
-		var plot = chart.find( '.srf-jqplot-plot' );
-		plot
-			.css( { 'height': height, 'width': width } )
-			.addClass( ( data.parameters.tableview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
 
 		// Was reported to solve some memory leak problems on IE in connection with
 		// canvas objects
 		container.find( 'canvas' ).remove();
+
+		// Call gridview plugin
+		if ( data.parameters.gridview === 'tabs' ){
+			// Set options
+			var options ={
+					'context'   : chart,
+					'id'        : chartID,
+					'container' : container,
+					'info'      : data.parameters.infotext,
+					'data'      : data
+				};
+
+			// Grid view instance
+			new srf.util.grid( options );
+		}
+
+		// Tabs height can vary (due to CSS) therefore after tabs instance was
+		// created get the height
+		var _tabs = chart.find( '.ui-tabs-nav' );
+
+		// Adjust height and width according to current customizing
+		width = container.width();
+		height = container.height() - chartTextHeight - _tabs.height();
+
+		// Div thta holds the plot
+		var plotID = chartID + '-plot';
+		container.prepend( '<div id="' + plotID + '" class="srf-jqplot-plot"></div>' );
+		var plot = chart.find( '.srf-jqplot-plot' );
+		plot
+			.css( { 'height': height, 'width': width } )
+			.addClass( ( data.parameters.gridview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
 
 		// Chart plotting
 		if ( data.renderer === 'pie' || data.renderer === 'donut' ){
@@ -79,15 +98,6 @@
 			plot.srfjqPlotBarChartData( { 'id' : plotID, 'height' : height , 'width' : width , 'chart' : container, 'data' : data } );
 		}
 
-		// Call tableview plugin
-		if ( data.parameters.tableview === 'tabs' ){
-			chart.srftableview( {
-				'id' : chartID,
-				'chart' : container,
-				'info'  : data.parameters.infotext,
-				'data'  : data
-			} );
-		}
 	};
 
 	// Theming

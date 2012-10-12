@@ -87,6 +87,9 @@
 		// Parse json string and convert it back
 		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
+		// Create class reference
+		var util = new srf.util();
+
 		// Split start date (format is ISO8601 -> 2012-09-17T09:49Z)
 		var calendarStart = data.options.calendarstart !== null ? data.options.calendarstart.split( '-', 3 ) : null;
 
@@ -131,7 +134,7 @@
 				// Handle event icons
 				if ( event.eventicon ) {
 					// Find image url and add an icon
-					$.srfutil.getImageURL( { 'title': event.eventicon },
+					util.getImageURL( { 'title': event.eventicon },
 							function( url ) { if ( url !== false ) {
 								if ( element.find( '.fc-event-time' ).length ) {
 									element.find( '.fc-event-time' ).before( $( '<img src=' + url + ' />' ) );

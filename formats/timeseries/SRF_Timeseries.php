@@ -20,7 +20,7 @@
  *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Flot_timeseries_chart
  *
- * @file SRF_FlotTimeseries.php
+ * @file
  * @ingroup SemanticResultFormats
  * @licence GNU GPL v2 or later
  *
@@ -162,7 +162,7 @@ class SRFTimeseries extends SMWResultPrinter {
 				'charttext'    => $this->params['charttext'],
 				'infotext'     => $this->params['infotext'],
 				'charttype'    => $this->params['charttype'],
-				'datatable'    => $this->params['tableview'],
+				'gridview'     => $this->params['gridview'],
 				'zoom'         => $this->params['zoompane'],
 				'seriescolors' => $seriescolors
 			)
@@ -175,8 +175,8 @@ class SRFTimeseries extends SMWResultPrinter {
 		// RL module
 		SMWOutputs::requireResource( 'ext.srf.timeseries.flot' );
 
-		if ( $this->params['tableview'] === 'tabs' ) {
-			SMWOutputs::requireResource( 'ext.srf.util.tableview' );
+		if ( $this->params['gridview'] === 'tabs' ) {
+			SMWOutputs::requireResource( 'ext.srf.util.grid' );
 		}
 
 		// Chart/graph placeholder
@@ -224,8 +224,8 @@ class SRFTimeseries extends SMWResultPrinter {
 			'default' => '',
 		);
 
-		$params['tableview'] = array(
-			'message' => 'srf-paramdesc-tableview',
+		$params['gridview'] = array(
+			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
 			'values' => array( 'none' , 'tabs' ),
 		);

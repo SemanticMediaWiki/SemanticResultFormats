@@ -200,7 +200,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'ticklabels'   => $this->params['ticklabels'],
 			'highlighter'  => $this->params['highlighter'],
 			'autoscale'    => $options['autoscale'],
-			'tableview'    => $this->params['tableview'],
+			'gridview'     => $this->params['gridview'],
 			'direction'    => $this->params['direction'],
 			'smoothlines'  => $this->params['smoothlines'],
 			'cursor'       => $this->params['cursor'],
@@ -300,9 +300,9 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.enhancedlegend' );
 		}
 
-		// Tableview plugin
-		if ( in_array( $this->params['tableview'], array( 'tabs' ) ) ) {
-			SMWOutputs::requireResource( 'ext.srf.util.tableview' );
+		// gridview plugin
+		if ( in_array( $this->params['gridview'], array( 'tabs' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.util.grid' );
 		}
 
 		// Pointlabels plugin
@@ -412,8 +412,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'values' => array( 'none', 'zoom', 'tooltip' ),
 		);
 
-		$params['tableview'] = array(
-			'message' => 'srf-paramdesc-tableview',
+		$params['gridview'] = array(
+			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
 			'values' => array( 'none' , 'tabs' ),
 		);
