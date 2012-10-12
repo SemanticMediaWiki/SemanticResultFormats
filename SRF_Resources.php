@@ -484,7 +484,7 @@ $wgResourceModules['ext.srf.jit'] = $formatModule + array(
 		'JitGraph/Jit/jit.js',
 	),
 );
-		
+
 $wgResourceModules['ext.srf.jitgraph'] = $formatModule + array(
 	'scripts' => array(
 		'JitGraph/SRF_JitGraph.js',
@@ -552,6 +552,58 @@ $wgResourceModules['ext.srf.gallery.redirect'] = $formatModule + array(
 );
 
 /******************************************************************************
+ * Eventcalendar
+ ******************************************************************************/
+
+$calendarMessages = array( 'messages' => array(
+		'january', 'february', 'march', 'april', 'may_long', 'june', 'july', 'august', 'september', 'october', 'november', 'december',
+		'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+		'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+		'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat',
+		'srf-ui-eventcalendar-label-today', 'srf-ui-eventcalendar-label-month',
+		'srf-ui-eventcalendar-label-week', 'srf-ui-eventcalendar-label-day',
+		'srf-ui-eventcalendar-label-allday', 'srf-ui-eventcalendar-format-time',
+		'srf-ui-eventcalendar-format-time-agenda', 'srf-ui-eventcalendar-format-axis',
+		'srf-ui-eventcalendar-format-title-month', 'srf-ui-eventcalendar-format-title-week',
+		'srf-ui-eventcalendar-format-title-day', 'srf-ui-eventcalendar-format-column-month',
+		'srf-ui-eventcalendar-format-column-week', 'srf-ui-eventcalendar-format-column-day'
+	)
+);
+
+$wgResourceModules['ext.jquery.fullcalendar'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.fullcalendar/fullcalendar.js',
+	'styles' => 'resources/jquery.fullcalendar/fullcalendar.css',
+// If you have MW 1.20+ the definitions below will work but not for earlier
+// MW installations
+//	'styles' => array(
+//		'resources/jquery.fullcalendar/fullcalendar.css' => array( 'media' => 'screen' ),
+//		'resources/jquery.fullcalendar/fullcalendar.print.css' => array( 'media' => 'print' ),
+//	)
+);
+
+$wgResourceModules['ext.jquery.gcal'] = $moduleTemplate + array(
+	'scripts' => 'resources/jquery.fullcalendar/gcal.js',
+);
+
+$wgResourceModules['ext.srf.eventcalendar'] = $formatModule + $calendarMessages + array(
+	'scripts' => 'calendar/resources/ext.srf.eventcalendar.js',
+	'dependencies' => array (
+		'jquery.ui.core',
+		'jquery.ui.widget',
+		'ext.smw.tooltip',
+		'ext.srf.util',
+		'ext.jquery.fullcalendar'
+	),
+);
+
+$wgResourceModules['ext.srf.eventcalendar.gcal'] = $formatModule + array(
+	'dependencies' => array (
+		'ext.srf.eventcalendar',
+		'ext.jquery.gcal'
+	)
+);
+
+/******************************************************************************
  * Filtered
 /******************************************************************************/
 $wgResourceModules['ext.srf.filtered'] = $formatModule + array(
@@ -567,12 +619,21 @@ $wgResourceModules['ext.srf.filtered.list-view'] = $formatModule + array(
 	'scripts' => array(
 		'Filtered/libs/ext.srf.filtered.list-view.js',
 	),
-// TODO: Do we need a style file?
-//	'styles' => array(
-//		'Filtered/skins/ext.srf.filtered.css',
-//	),
 	'dependencies' => array(
 		'ext.srf.filtered'
+	),
+);
+
+$wgResourceModules['ext.srf.filtered.calendar-view'] = $formatModule + $calendarMessages + array(
+	'scripts' => array(
+		'Filtered/libs/ext.srf.filtered.calendar-view.js',
+	),
+	'styles' => array(
+		'Filtered/skins/ext.srf.filtered.calendar-view.css',
+	),
+	'dependencies' => array(
+		'ext.srf.filtered',
+		'ext.jquery.fullcalendar'
 	),
 );
 
@@ -663,58 +724,6 @@ $wgResourceModules['ext.srf.timeseries.flot'] = $formatModule + array(
 );
 
 /******************************************************************************
- * Eventcalendar
- ******************************************************************************/
-$wgResourceModules['ext.jquery.fullcalendar'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.fullcalendar/fullcalendar.js',
-	'styles' => 'resources/jquery.fullcalendar/fullcalendar.css',
-// If you have MW 1.20+ the definitions below will work but not for earlier
-// MW installations
-//	'styles' => array(
-//		'resources/jquery.fullcalendar/fullcalendar.css' => array( 'media' => 'screen' ),
-//		'resources/jquery.fullcalendar/fullcalendar.print.css' => array( 'media' => 'print' ),
-//	)
-);
-
-$wgResourceModules['ext.jquery.gcal'] = $moduleTemplate + array(
-	'scripts' => 'resources/jquery.fullcalendar/gcal.js',
-);
-
-$wgResourceModules['ext.srf.eventcalendar'] = $formatModule + array(
-	'scripts' => 'calendar/resources/ext.srf.eventcalendar.js',
-	'dependencies' => array (
-		'jquery.ui.core',
-		'jquery.ui.widget',
-		'ext.smw.tooltip',
-		'ext.srf.util',
-		'ext.jquery.fullcalendar'
-	),
-	'messages' => array(
-		'january', 'february', 'march', 'april', 'may_long', 'june', 'july', 'august', 'september', 'october', 'november', 'december',
-		'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
-		'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
-		'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat',
-		'srf-ui-eventcalendar-label-today', 'srf-ui-eventcalendar-label-month',
-		'srf-ui-eventcalendar-label-week', 'srf-ui-eventcalendar-label-day',
-		'srf-ui-eventcalendar-label-allday', 'srf-ui-eventcalendar-format-time',
-		'srf-ui-eventcalendar-format-time-agenda', 'srf-ui-eventcalendar-format-axis',
-		'srf-ui-eventcalendar-format-title-month', 'srf-ui-eventcalendar-format-title-week',
-		'srf-ui-eventcalendar-format-title-day', 'srf-ui-eventcalendar-format-column-month',
-		'srf-ui-eventcalendar-format-column-week', 'srf-ui-eventcalendar-format-column-day'
-	)
-);
-
-$wgResourceModules['ext.srf.eventcalendar.gcal'] = $formatModule + array(
-	'dependencies' => array (
-		'ext.srf.eventcalendar',
-		'ext.jquery.gcal'
-	)
-);
-
-
-
-
-/******************************************************************************
  * Boilerplate example registration
 /******************************************************************************/
 /*
@@ -740,5 +749,6 @@ $wgResourceModules['ext.srf.boilerplate.namespace'] = $formatModule + array(
 );
 */
 
+unset( $calendarMessages );
 unset( $formatModule );
 unset( $moduleTemplate );

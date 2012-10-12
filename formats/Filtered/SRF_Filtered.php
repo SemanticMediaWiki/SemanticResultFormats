@@ -15,6 +15,7 @@ $wgAutoloadClasses['SRF_Filtered_Item'] = $formatDir . 'SRF_Filtered_Item.php';
 
 $wgAutoloadClasses['SRF_Filtered_View'] = $formatDir . 'views/SRF_Filtered_View.php';
 $wgAutoloadClasses['SRF_FV_List'] = $formatDir . 'views/SRF_FV_List.php';
+$wgAutoloadClasses['SRF_FV_Calendar'] = $formatDir . 'views/SRF_FV_Calendar.php';
 
 $wgAutoloadClasses['SRF_Filtered_Filter'] = $formatDir . 'filters/SRF_Filtered_Filter.php';
 $wgAutoloadClasses['SRF_FF_Value'] = $formatDir . 'filters/SRF_FF_Value.php';
@@ -61,6 +62,7 @@ class SRFFiltered extends SMWResultPrinter {
 	 */
 	private $mViewTypes = array(
 		'list' => 'SRF_FV_List',
+		'calendar' => 'SRF_FV_Calendar',
 	);
 
 	/**
@@ -74,6 +76,7 @@ class SRFFiltered extends SMWResultPrinter {
 
 	private $mViews;
 	private $mParams;
+	private $mFiltersOnTop;
 
 	public function hasTemplates ( $hasTemplates = null ) {
 		$ret = $this->hasTemplates;
@@ -107,7 +110,8 @@ class SRFFiltered extends SMWResultPrinter {
 		$this->mSearchlabel = null;
 
 		$this->mParams = $params;
-		$this->mViews = array_map( 'trim', explode( ',', $params['views'] ) );
+		$this->mViews = explode( ',', $params['views'] );
+		$this->mFiltersOnTop = $params['filter position'] === 'top';
 
 	}
 
@@ -133,8 +137,7 @@ class SRFFiltered extends SMWResultPrinter {
 			$filter = $printRequest->getParameter( 'filter' );
 			if ( $filter ) {
 
-				$filtersForPrintout = explode( ',', $filter );
-				$filtersForPrintout = array_map( 'trim', $filtersForPrintout );
+				$filtersForPrintout = array_map( 'trim', explode( ',', $filter ) );
 
 				foreach ( $filtersForPrintout as $filterName ) {
 					if ( array_key_exists( $filterName, $this->mFilterTypes ) ) {
@@ -165,16 +168,32 @@ class SRFFiltered extends SMWResultPrinter {
 
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
+		$viewSelectorsHtml = '';
 		$viewHandlers = array();
-		$viewElements = array();
+		$viewElements = array(); // will contain the id of the html element to be used by the view
+		$viewData = array();
 
 		foreach ( $this->mViews as $viewName ) {
+
+			// cut off the selector label (if one was specified) from the actual view name
+			$viewnameComponents = explode('=', $viewName, 2 );
+
+			$viewName = trim( $viewnameComponents[0] );
+
 			if ( array_key_exists( $viewName, $this->mViewTypes ) ) {
 
 				// generate unique id
 				$viewid = uniqid();
 
 				$view = new $this->mViewTypes[$viewName]( $viewid, $result, $this->mParams, $this );
+
+				if ( count( $viewnameComponents ) > 1 ) {
+					// a selector label was specified in the wiki text
+					$viewSelectorLabel = trim( $viewnameComponents[1] );
+				} else {
+					// use the default selector label
+					$viewSelectorLabel = $view->getSelectorLabel();
+				}
 
 				$resourceModules = $view->getResourceModules();
 
@@ -184,15 +203,28 @@ class SRFFiltered extends SMWResultPrinter {
 					SMWOutputs::requireResource( $resourceModules );
 				}
 
-				$viewHtml .= Html::rawElement( 'div', array( 'class' => "filtered-$viewName $viewid" ), $view->getResultText() );
+				$viewHtml .= Html::rawElement( 'div', array( 'class' => "filtered-view filtered-$viewName filtered-view-id$viewid" ), $view->getResultText() );
+				$viewSelectorsHtml .= Html::rawElement( 'div', array( 'class' => "filtered-view-selector filtered-$viewName filtered-view-id$viewid" ), $viewSelectorLabel );
 
 				$viewHandlers[$viewName] = null;
 				$viewElements[$viewName][] = $viewid;
+				$viewData[$viewName] = $view->getJsData();
 			}
 		}
 
-		// wrap views in a div
-		$viewHtml = Html::rawElement( 'div', array( 'class' => 'filtered-views' ), $viewHtml );
+		// more than one view?
+		if ( count( $viewData ) > 1 ) {
+			// wrap views in a div
+			$viewHtml = Html::rawElement( 'div', array('class' => 'filtered-views', 'style' => 'display:none'),
+				Html::rawElement( 'div', array('class' => 'filtered-views-selectors-container'), $viewSelectorsHtml ) .
+				Html::rawElement( 'div', array('class' => 'filtered-views-container'), $viewHtml )
+			);
+		} else {
+			// wrap views in a div
+			$viewHtml = Html::rawElement( 'div', array('class' => 'filtered-views', 'style' => 'display:none'),
+				Html::rawElement( 'div', array('class' => 'filtered-views-container'), $viewHtml )
+			);
+		}
 
 		// Define the srf_filtered_values array
 		SMWOutputs::requireScript( 'srf_filtered_values', Html::inlineScript(
@@ -212,8 +244,13 @@ class SRFFiltered extends SMWResultPrinter {
 				', "data": {' .
 				' "viewhandlers" : ' . json_encode( $viewHandlers ) .
 				', "viewelements" : ' . json_encode( $viewElements ) .
+				', "viewdata" : ' . json_encode( $viewData ) .
 				', "filterhandlers" : ' . json_encode( $filterHandlers ) .
 				', "filterdata" : ' . json_encode( $filterData ) .
+				', "sorthandlers" : ' . json_encode( array() ) .
+				', "sorterdata" : ' . json_encode( array() ) .
+//				', "sorterhandlers" : ' . json_encode( $sorterHandlers ) .
+//				', "sorterdata" : ' . json_encode( $sorterData ) .
 				'}};'
 			)
 		);
@@ -221,7 +258,11 @@ class SRFFiltered extends SMWResultPrinter {
 		SMWOutputs::requireResource( 'ext.srf.filtered' );
 
 		// wrap all in a div
-		$html = Html::rawElement( 'div', array( 'class' => 'filtered ' . $id ), $filterHtml . $viewHtml );
+		if ( $this->mFiltersOnTop ) {
+			$html = Html::rawElement( 'div', array( 'class' => 'filtered ' . $id ), $filterHtml . $viewHtml );
+		} else {
+			$html = Html::rawElement( 'div', array( 'class' => 'filtered ' . $id ), $viewHtml. $filterHtml );
+		}
 
 		return $html;
 	}
@@ -239,9 +280,20 @@ class SRFFiltered extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['views'] = array(
-			'default' => '',
+		$params[] = array(
+			// 'type' => 'string',
+			'name' => 'views',
 			'message' => 'srf-paramdesc-views',
+			'default' => '',
+			// 'islist' => false,
+		);
+
+		$params[] = array(
+			// 'type' => 'string',
+			'name' => 'filter position',
+			'message' => 'srf-paramdesc-filtered-filter-position',
+			'default' => 'top',
+			// 'islist' => false,
 		);
 
 		foreach ( $this->mViewTypes as $viewType ) {

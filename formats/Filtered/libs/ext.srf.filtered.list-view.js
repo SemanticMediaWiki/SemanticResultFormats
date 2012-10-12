@@ -1,8 +1,8 @@
 /**
  * File holding the list-view plugin
- * 
+ *
  * For this plugin to work, the filtered plugin needs to be available first.
- * 
+ *
  * @author Stephan Gambke
  * @file
  * @ingroup SemanticResultFormats
@@ -10,53 +10,93 @@
 
 (function ($) {
 
+	var animationSpeed = 600;
+	var viewIsVisible = false;
+	
 	var methods = {
-		
+	
 		init: function( args ){
 			return this;
 		},
-		
+
 		alert: function(){
 			alert('List View!');
 			return this;
 		},
-		
+
 		updateItem: function(params){
 
-			var view = this.children('.filtered-views').children('.filtered-list');
-			
-			if ( params.visible ) {
-				view.children('.' + params.item ).slideDown( 200 );
+			var view = this.find('.filtered-views').find('.filtered-list');
+
+			if ( viewIsVisible ) {
+				if ( params.visible ) { // show
+					view.children('.' + params.item ).slideDown( animationSpeed, function(){
+						jQuery(this).fadeTo(animationSpeed, 1);
+					} );
+				} else { // hide
+					view.children('.' + params.item ).fadeTo( animationSpeed, 0, function(){
+						jQuery(this).slideUp(animationSpeed);
+					}  );
+				}
 			} else {
-				view.children('.' + params.item ).slideUp( 200 );
+				if ( params.visible ) {
+					view.children('.' + params.item ).css({'display': 'block', 'opacity': 1}); //show
+				} else {
+					view.children('.' + params.item ).css({'display': 'none', 'opacity': 0}); //hide
+				}
 			}
 			return this;
 		},
-		
+
 		updateAllItems: function(){
 
 			var filtered = this;
-			var items = this.children('.filtered-views').children('.filtered-list').children();
+			var items = this.find('.filtered-views').find('.filtered-list').children();
 			
-			items.each(function(){
+			var visibleItems = jQuery([]);
+			var hiddenItems = jQuery([]);
+
+			for ( var i = 0; i < items.length; ++i ) {
 				
-				var $this = $(this)
-				var id = $this.attr('id');
-				
-				if (filtered.filtered('isVisible', id)) {
-					$this.slideDown(0);
+				if ( filtered.filtered( 'isVisible', items[i].id ) ) {
+					visibleItems = visibleItems.add(items[i]);
 				} else {
-					$this.slideUp(0);
+					hiddenItems = hiddenItems.add(items[i]);
 				}
-				
-			});
+
+			}
 			
+			if ( viewIsVisible ) {
+				
+				visibleItems.slideDown( animationSpeed, function(){
+						jQuery(this).fadeTo(animationSpeed, 1);
+					} );
+					
+				hiddenItems.fadeTo( animationSpeed, 0, function(){
+						jQuery(this).slideUp(animationSpeed);
+					}  );
+					
+			} else {
+				visibleItems.css({'display': 'block', 'opacity': 1}); //show
+				hiddenItems.css({'display': 'none', 'opacity': 0}); //hide
+			}
+
+		},
+
+		show:  function() {
+			jQuery(this).show();
+			viewIsVisible = true;
+		},
+
+		hide:  function() {
+			jQuery(this).hide();
+			viewIsVisible = false;
 		}
-		
+
 	};
 
 	listView = function( method ) {
-  
+
 		// Method calling logic
 		if ( methods[method] ) {
 			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
@@ -64,7 +104,7 @@
 			return methods.init.apply( this, arguments );
 		} else {
 			$.error( 'Method ' +  method + ' does not exist on jQuery.filtered.listView' );
-		}    
+		}
 
 
 	};

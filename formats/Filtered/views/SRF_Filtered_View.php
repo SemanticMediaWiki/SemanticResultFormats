@@ -25,7 +25,7 @@ abstract class SRF_Filtered_View {
 	 *
 	 * @param $id the view id
 	 * @param $results array of SRF_Filtered_Item containing the query results
-	 * @param type $params array of parameter values given as key-value-pairs
+	 * @param $params array of parameter values given as key-value-pairs
 	 */
 	public function __construct( $id, &$results, &$params, SRFFiltered &$queryPrinter ) {
 		$this->mId = $id;
@@ -69,4 +69,21 @@ abstract class SRF_Filtered_View {
 	public function getResultText() {
 		return '';
 	}
+
+	/**
+	 * Returns an array of config data for this filter to be stored in the JS
+	 * @return null
+	 */
+	public function getJsData() {
+		return null;
+	}
+
+	/**
+	 * Returns the label of the selector for this view.
+	 * @return String the selector label
+	 */
+	public function getSelectorLabel() {
+		return '';
+	}
+
 }

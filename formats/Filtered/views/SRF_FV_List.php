@@ -118,9 +118,9 @@ class SRF_FV_List extends SRF_Filtered_View {
 			$wikitext = '';
 
 			foreach ( $row as $i => $field ) {
-				
+
 				$printrequest = $field->getPrintRequest();
-				
+
 				// only print value if not hidden
 				if ( $printrequest->getParameter( 'hide' ) === false ) {
 					$wikitext .= '|' . ( $this->mNamedArgs ? '?' . $printrequest->getLabel() : $i + 1 ) . '=';
@@ -147,13 +147,13 @@ class SRF_FV_List extends SRF_Filtered_View {
 				$first_value = true;
 
 				$printrequest = $field->getPrintRequest();
-				
+
 					$field->reset();
 					while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $first_col ) ) ) !== false ) {
-						
+
 				// only print value if not hidden
 				if ( $printrequest->getParameter( 'hide' ) === false ) {
-					
+
 						if ( !$first_col && !$found_values ) { // first values after first column
 							$result .= ' (';
 							$found_values = true;
@@ -173,7 +173,7 @@ class SRF_FV_List extends SRF_Filtered_View {
 						$result .= $text; // actual output value
 				}
 					}
-					
+
 					$first_col = false;
 			}
 
@@ -191,30 +191,44 @@ class SRF_FV_List extends SRF_Filtered_View {
 	public static function getParameters() {
 		$params = parent::getParameters();
 
-		$params['list view type'] = array(
-			'default' => 'list',
+		$params[] = array(
+			// 'type' => 'string',
+			'name' => 'list view type',
 			'message' => 'srf-paramdesc-filtered-list-type',
+			'default' => 'list',
+			// 'islist' => false,
 		);
 
-		$params['list view template'] = array(
-			'default' => '',
+		$params[] = array(
+			// 'type' => 'string',
+			'name' => 'list view template',
 			'message' => 'srf-paramdesc-filtered-list-template',
+			'default' => '',
+			// 'islist' => false,
 		);
 
-		$params['list view named args'] = array(
+		$params[] = array(
 			'type' => 'boolean',
-			'default' => false,
+			'name' => 'list view named args',
 			'message' => 'srf-paramdesc-filtered-list-named-args',
+			'default' => false,
+			// 'islist' => false,
 		);
 
-		$params['list view introtemplate'] = array(
-			'default' => '',
+		$params[] = array(
+			//'type' => 'string',
+			'name' => 'list view introtemplate',
 			'message' => 'srf-paramdesc-filtered-list-introtemplate',
+			'default' => '',
+			// 'islist' => false,
 		);
 
-		$params['list view outrotemplate'] = array(
-			'default' => '',
+		$params[] = array(
+			//'type' => 'string',
+			'name' => 'list view outrotemplate',
 			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
+			'default' => '',
+			// 'islist' => false,
 		);
 
 		return $params;
@@ -227,6 +241,14 @@ class SRF_FV_List extends SRF_Filtered_View {
 	 */
 	public function getResourceModules() {
 		return 'ext.srf.filtered.list-view';
+	}
+
+	/**
+	 * Returns the label of the selector for this view.
+	 * @return String the selector label
+	 */
+	public function getSelectorLabel() {
+		return wfMsg('srf-filtered-selectorlabel-list');
 	}
 
 }

@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/gpl.html
  *
  * @since 1.7
- * 
+ *
  * @file
  * @ingroup SemanticResultFormats
- * 
+ *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
@@ -81,16 +81,16 @@ final class SRFHooks {
 	 */
 	public static function addToAdminLinks( ALTree &$admin_links_tree ) {
 		$displaying_data_section = $admin_links_tree->getSection( wfMessage( 'smw_adminlinks_displayingdata' )->text() );
-		
+
 		// Escape is SMW hasn't added links.
 		if ( is_null( $displaying_data_section ) ) {
 			return true;
 		}
-			
+
 		$smw_docu_row = $displaying_data_section->getRow( 'smw' );
 		$srf_docu_label = wfMessage( 'adminlinks_documentation', wfMessage( 'srf-name' )->text() )->text();
 		$smw_docu_row->addItem( AlItem::newFromExternalLink( 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats', $srf_docu_label ) );
-		
+
 		return true;
 	}
 	/**
