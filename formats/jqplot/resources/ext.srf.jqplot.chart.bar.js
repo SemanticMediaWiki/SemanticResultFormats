@@ -13,9 +13,6 @@
 ( function( $ ) {
 	"use strict";
 
-	// Only display errors
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
-
 	/*global mw:true, colorscheme:true*/
 
 	// Bar/line data handling is separated from plotting because relevant data array
@@ -200,6 +197,7 @@
 			rendererOptions: {
 				smooth: data.parameters.smoothlines
 			},
+			trendline: { show : false },
 			pointLabels: pointLabels
 		};
 
