@@ -650,10 +650,13 @@ $wgResourceModules['ext.srf.timeseries.flot'] = $formatModule + array(
  ******************************************************************************/
 $wgResourceModules['ext.jquery.fullcalendar'] = $moduleTemplate + array(
 	'scripts' => 'resources/jquery.fullcalendar/fullcalendar.js',
-	'styles' => array(
-		'resources/jquery.fullcalendar/fullcalendar.css' => array( 'media' => 'screen' ),
-		'resources/jquery.fullcalendar/fullcalendar.print.css' => array( 'media' => 'print' ),
-	)
+	'styles' => 'resources/jquery.fullcalendar/fullcalendar.css',
+// If you have MW 1.20+ the definitions below will work but not for earlier
+// MW installations
+//	'styles' => array(
+//		'resources/jquery.fullcalendar/fullcalendar.css' => array( 'media' => 'screen' ),
+//		'resources/jquery.fullcalendar/fullcalendar.print.css' => array( 'media' => 'print' ),
+//	)
 );
 
 $wgResourceModules['ext.jquery.gcal'] = $moduleTemplate + array(
