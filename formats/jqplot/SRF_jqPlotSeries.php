@@ -20,7 +20,7 @@
  *
  * @since 1.8
  *
- * @file SRF_jqPlotSeries.php
+ * @file
  * @ingroup SemanticResultFormats
  * @licence GNU GPL v2 or later
  *
@@ -125,7 +125,15 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 				}
 				// Only for array's with numbers 
 				if ( count( $rowNumbers ) > 0 ) {
-					$data[$this->params['group']][$groupedBy][]= $rowNumbers;
+
+					// For cases where mainlabel=- we assume that the subject should not be
+					// used as identifier and therefore we try to match the groupby
+					// with the first available text label
+					if ( $this->params['mainlabel'] == '-' && $this->params['group'] === 'subject' ){
+						$data[$this->params['group']][$label][]= $rowNumbers;
+					} else {
+						$data[$this->params['group']][$groupedBy][]= $rowNumbers;
+					}
 				}
 			}
 		}
