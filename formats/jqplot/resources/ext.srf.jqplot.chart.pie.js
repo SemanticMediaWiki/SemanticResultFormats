@@ -13,9 +13,6 @@
 ( function( $ ) {
 	"use strict";
 
-	// Only display errors
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
-
 	/*global colorscheme:true*/
 
 	// Pie/donut handling
@@ -54,6 +51,8 @@
 			title: data.parameters.charttitle,
 			seriesColors: data.parameters.seriescolors ?  data.parameters.seriescolors :  ( data.parameters.colorscheme === null ? null : colorscheme[data.parameters.colorscheme][9] ),
 			grid: data.parameters.grid,
+			highlighter: { show: false },
+			cursor: { show: false },
 			seriesDefaults: seriesDefaults,
 			legend: {
 				show: data.parameters.chartlegend !== 'none',
