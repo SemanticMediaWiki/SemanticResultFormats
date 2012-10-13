@@ -109,6 +109,7 @@
 				center: 'title',
 				left: data.options.views
 			},
+			height: this.height(),
 			defaultView: data.options.defaultview,
 			firstDay: data.options.firstday,
 			monthNames: _i18n.monthNames,
