@@ -173,7 +173,7 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
 	'position' => 'top',
 );
 /******************************************************************************
- * ListWidget
+ * Widget
  ******************************************************************************/
 $wgResourceModules['ext.srf.listwidget'] = $formatModule + array(
 	'scripts' => 'widget/resources/ext.srf.listwidget.js',
@@ -212,8 +212,9 @@ $wgResourceModules['ext.srf.pagewidget.carousel'] = $formatModule + array(
 	'styles' => 'widget/resources/ext.srf.pagewidget.carousel.css',
 	'dependencies' => 'ext.jquery.dynamiccarousel',
 	'messages' => array(
-		'srf-navigation-prev',
-		'srf-navigation-next',
+		'srf-ui-navigation-prev',
+		'srf-ui-navigation-next',
+		'srf-ui-common-label-source',
 	),
 	'position' => 'top',
 );

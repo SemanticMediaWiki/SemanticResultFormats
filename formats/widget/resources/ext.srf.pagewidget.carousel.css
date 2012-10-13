@@ -20,6 +20,21 @@ ul.slidecontrols {
 	padding-left: 0;
 }
 
+.srf-pagewidget-carousel-source {
+	list-style: none;
+	font-size: 0.9em;
+	display: block;
+	width:67px;
+	clear:both;
+	padding: 4px 9px;
+	border: 1px solid #DDD;
+	text-decoration: none;
+	border-width: 1px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
+	border-right: 1px solid #DDD;
+}
 .srf-pagewidget-carousel-prev {
 	list-style: none;
 	font-size: 0.9em;
