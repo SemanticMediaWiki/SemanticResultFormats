@@ -1,5 +1,5 @@
 /**
- * JavaSript for SRF jqPlot chart/series module
+ * JavaScript for SRF jqPlot chart/series module
  *
  * The script is designed to handle single and series data sets
  *
@@ -13,10 +13,23 @@
 ( function( $ ) {
 	"use strict";
 
-	// Only display errors
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
-
 	/*global mw:true*/
+
+	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	// Browser information
+	var profile = $.client.profile();
+
+	// Attribute information can only be gathered after they have been applied to
+	// an element
+	function _getElementAttribute( options ){
+		var p = $("<p></p>").hide().appendTo( options.context ).addClass( options.className ),
+			value = parseInt( p.css( options.attribute ), 10 );
+			p.remove();
+		return value;
+	}
+
+	////////////////////////// PUBLIC METHODS ////////////////////////
 
 	// Global jqplot container handling
 	$.fn.srfjqPlotChartContainer = function() {
@@ -31,11 +44,15 @@
 		// Parse json string and convert it back
 		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
+		var adjustChartElement = 'srf-jqplot-chart-adjust ' + data.parameters.gridview + ' ' + profile.name,
+			adjustTableElement = 'srf-jqplot-table-adjust ' + data.parameters.gridview + ' ' + profile.name,
+			adjustTextElement = 'srf-jqplot-text-adjust ' + data.parameters.gridview + ' ' + profile.name;
+
 		// Assign height/width important when dealing with % values
 		chart.css( { 'height': height , 'width': width } );
 		container.css( {
-			'height': chart.height() - ( data.parameters.gridview === 'tabs' ? 20 : 0 ),
-			'width': chart.width() - ( data.parameters.gridview === 'tabs' ? 20 : 0 )
+			'height': chart.height() - _getElementAttribute( { context: container, className: adjustChartElement,  attribute: 'height' } ),
+			'width': chart.width() - _getElementAttribute( { context: container, className: adjustChartElement,  attribute: 'width' } )
 		} );
 
 		// Hide processing image
@@ -43,16 +60,6 @@
 
 		// Release chart/graph
 		container.show();
-
-		// Add chart text
-		var chartText = data.parameters.charttext,
-			chartTextHeight = 0;
-		if ( chartText.length > 0 ) {
-			container.prepend( '<div id="' + chartID + '-text' + '" class="srf-jqplot-chart-text">' + chartText + '</div>' );
-			container.find( '.srf-jqplot-chart-text' )
-				.addClass( ( data.parameters.gridview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
-			chartTextHeight = container.find( '.srf-jqplot-chart-text' ).height() + 10;
-		}
 
 		// Was reported to solve some memory leak problems on IE in connection with
 		// canvas objects
@@ -62,11 +69,12 @@
 		if ( data.parameters.gridview === 'tabs' ){
 			// Set options
 			var options ={
-					'context'   : chart,
-					'id'        : chartID,
-					'container' : container,
-					'info'      : data.parameters.infotext,
-					'data'      : data
+					'context'    : chart,
+					'id'         : chartID,
+					'container'  : container,
+					'widthBorder': _getElementAttribute( { context: container, className: adjustTableElement, attribute: 'width' } ),
+					'info'       : data.parameters.infotext,
+					'data'       : data
 				};
 
 			// Grid view instance
@@ -75,13 +83,26 @@
 
 		// Tabs height can vary (due to CSS) therefore after tabs instance was
 		// created get the height
-		var _tabs = chart.find( '.ui-tabs-nav' );
+		var _tabsHeight = chart.find( '.ui-tabs-nav' ).outerHeight();
+
+		// Add chart text
+		var chartText = data.parameters.charttext,
+			chartTextHeight = 0;
+		if ( chartText.length > 0 ) {
+			container.prepend( '<div id="' + chartID + '-text' + '" class="srf-jqplot-chart-text">' + chartText + '</div>' );
+			container.find( '.srf-jqplot-chart-text' )
+				.addClass( ( data.parameters.gridview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
+			chartTextHeight = container.find( '.srf-jqplot-chart-text' ).height() +
+			_getElementAttribute( { context: container, className: adjustTextElement,  attribute: 'height' } ) ;
+		}
 
 		// Adjust height and width according to current customizing
+		container.css( { height: container.height() - _tabsHeight } );
+		// Get height,width for plotting area
 		width = container.width();
-		height = container.height() - chartTextHeight - _tabs.height();
+		height = container.height() - chartTextHeight;
 
-		// Div thta holds the plot
+		// Plotting area
 		var plotID = chartID + '-plot';
 		container.prepend( '<div id="' + plotID + '" class="srf-jqplot-plot"></div>' );
 		var plot = chart.find( '.srf-jqplot-plot' );
@@ -118,6 +139,8 @@
 			options.plot.activateTheme( options.theme );
 		}
 	};
+
+	////////////////////////// IMPLEMENTATION ////////////////////////
 
 	$( document ).ready( function() {
 		// Check if eachAsync exists, and if so use it to increase browsers responsiveness

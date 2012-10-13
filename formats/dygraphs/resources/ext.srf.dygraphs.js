@@ -345,7 +345,7 @@
 
 								// Adjust table height due to possible changes initiated by the
 								// jquery ui tabs
-								var tabsHeight = chart.find( '.ui-tabs-nav' ).height() ;
+								var tabsHeight = chart.find( '.ui-tabs-nav' ).outerHeight() ;
 								plotInstance.css( { height: plotInstance.height() - tabsHeight } );
 								g.resize();
 

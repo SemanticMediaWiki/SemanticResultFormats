@@ -167,7 +167,7 @@
 
 				var gridContext = obj.find( '.' + options.tableClass ),
 					columnWidth = ( width / 2 ) - 5,
-					tableHeight = height - 100 - _tabs.height();
+					tableHeight = height - 100 - _tabs.outerHeight();
 
 				// Adopt data item output
 				var colModelItem = '';
