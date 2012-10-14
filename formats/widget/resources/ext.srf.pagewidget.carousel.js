@@ -3,7 +3,7 @@
  * @see http://www.semantic-mediawiki.org/wiki/Help:Pagewidget format
  *
  * @since 1.8
- * @release 0.2
+ * @release 0.3
  *
  * @file
  * @ingroup SRF
@@ -12,7 +12,30 @@
  * @author mwjames
  */
 ( function( $ ) {
+
 	"use strict";
+
+	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	function _moveSlide( slider, event ){
+		var direction = null;
+
+		// Handle cursor keys
+		if ( event.keyCode == 37 ) {
+			// Left
+			direction = 'prev';
+		} else if ( event.keyCode == 39 ) {
+			// Right
+			direction = 'next';
+		}
+
+		if (direction != null) {
+			slider.trigger( 'nextprev', { dir: direction } );
+			event.preventDefault();
+		}
+	}
+
+	////////////////////////// IMPLEMENTATION ////////////////////////
 
 	$(document).ready( function() {
 		$( '.srf-pagewidget' ).each( function() {
@@ -30,7 +53,7 @@
 				$( this ).carousel( {
 					namespace: 'srf-pagewidget-carousel',
 					slider: '.slider',
-					slide: '.slide',
+					slide: '.slide'
 				} );
 			} );
 
@@ -54,6 +77,13 @@
 			// Hide TOC as it will disturb the embedded display behaviour
 			container.find ( '.toc' ).css ( { 'display': 'none' } );
 
+			// Current slider instance
+			var slider = $( '#' + container.find( '.slider' ).attr( 'id' ) );
+
+			// Keyboard event listener which should work in all browsers
+			$( document.documentElement ).keyup( function( event ){
+				_moveSlide( slider, event );
+			} );
 		} );
 	} );
 } )( window.jQuery );
