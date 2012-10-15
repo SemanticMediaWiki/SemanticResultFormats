@@ -1347,6 +1347,7 @@ $messages['eo'] = array(
  * @author Crazymadlover
  * @author Imre
  * @author Jewbask
+ * @author Maor X
  * @author McDutchie
  * @author Sanbec
  * @author Translationista
