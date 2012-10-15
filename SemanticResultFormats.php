@@ -134,7 +134,11 @@ $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
+// @TODO see bug 40746
 $wgAjaxExportList[] = 'SRFSlideShow::handleGetResult';
+
+// User preference
+$wgHooks['GetPreferences'][] = 'SRFHooks::onGetPreferences';
 
 /**
  * Autoload the query printer classes and associate them with their formats in the $smwgResultFormats array.

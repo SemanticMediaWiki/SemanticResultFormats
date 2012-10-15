@@ -3,6 +3,21 @@
 /**
  * Static class for hooks handled by the Semantic Result Formats.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ *
  * @since 1.7
  * 
  * @file
@@ -10,6 +25,7 @@
  * 
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author mwjames
  */
 final class SRFHooks {
 
@@ -70,6 +86,35 @@ final class SRFHooks {
 		$srf_docu_label = wfMessage( 'adminlinks_documentation', wfMessage( 'srf-name' )->text() )->text();
 		$smw_docu_row->addItem( AlItem::newFromExternalLink( 'https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats', $srf_docu_label ) );
 		
+		return true;
+	}
+	/**
+	 * Hook: GetPreferences adds user preference
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
+	 *
+	 * @param User $user
+	 * @param array $preferences
+	 *
+	 * @return true
+	 */
+	public static function onGetPreferences( $user, &$preferences ) {
+
+		// Intro text, do not escape the message here as it contains
+		// href links
+		$preferences['srf-prefs-intro'] =
+			array(
+				'type' => 'info',
+				'label' => '&#160;',
+				'default' => Html::rawElement(
+					'span',
+					array( 'class' => 'srf-prefs-intro' ),
+					wfMessage( 'srf-prefs-intro-text' )->parseAsBlock()
+				),
+				'section' => 'smw/srf',
+				'raw' => 1,
+				'rawrow' => 1,
+			);
+
 		return true;
 	}
 }

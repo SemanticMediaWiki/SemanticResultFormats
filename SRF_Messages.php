@@ -16,6 +16,10 @@ $messages['en'] = array(
 	// user messages
 	'srf-name' => 'Semantic Result Formats', // name of extension, can be translated or not; used by Admin Links
 
+	// user preferences
+	'prefs-srf' => 'Semantic Result Formats',
+	'srf-prefs-intro-text' => 'You have installed the Semantic Result Formats extension which at moment has no customizable user options. For assistance, please visit the [http://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats] help page.',
+
 	// shared messages
 	'srf-module-loading'   => 'Loading...',
 	'srf-paramdesc-layout' => 'Available layout',
@@ -300,6 +304,8 @@ $messages['en'] = array(
  */
 $messages['qqq'] = array(
 	'srf-desc' => '{{desc}}',
+	'prefs-srf' => 'This is the text of a section header on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
+	'srf-prefs-intro-text' => 'This is an user preference intro text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
 	'srf-paramdesc-layout' => '{{doc-paramdesc|layout}}',
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
