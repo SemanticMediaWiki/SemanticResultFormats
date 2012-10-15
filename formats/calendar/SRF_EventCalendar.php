@@ -195,20 +195,11 @@ class SRFEventCalendar extends SMWResultPrinter {
 		$defaultVR   = array ( 'Day', 'Week');
 		$defaultView = str_replace ( $defaultVS, $defaultVR, $this->params['defaultview'] );
 
-		// Array should be sorted but to make sure to find the earliest date of the result set
-		if ( $this->params['start'] === 'earliest' ){
-			function sortByDate( $arr1, $arr2 ){
-				return strcmp( $arr1['start'], $arr2['start'] );
-			}
-			usort( $events, 'sortByDate' );
-			$calendarStart = $events[0]['start'];
-		}
-
 		// Add options
 		$dataObject['events']  = $events;
 		$dataObject['options'] = array(
 			'defaultview'   => $defaultView,
-			'calendarstart' => $this->params['start'] === 'earliest' ? $calendarStart : null,
+			'calendarstart' => $this->getCalendarStart( $events, $this->params['start'] ),
 			'dayview'       => $this->params['dayview'],
 			'firstday'      => date( 'N', strtotime( $this->params['firstday'] ) ),
 			'theme'         => in_array( $this->params['theme'], array( 'vector' ) ),
@@ -246,6 +237,28 @@ class SRFEventCalendar extends SMWResultPrinter {
 	}
 
 	/**
+	 * Return either the earliest or latest date of an array
+	 *
+	 * @since 1.8
+	 *
+	 * @param array $events
+	 * @param $option
+	 *
+	 * @return string
+	 */
+	private function getCalendarStart( array $events , $option ){
+		if ( in_array( $option, array( 'earliest', 'latest' ) ) ){
+			// Sort with an anoymous function
+			usort( $events, function ( $arr1, $arr2 ) use( $option ) {
+					return strcmp( $arr1['start'], $arr2['start'] ) * ( $option === 'latest' ? -1 : 1 );
+			} );
+			return $events[0]['start'];
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * @see SMWResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
@@ -272,7 +285,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 		$params['start'] = array(
 			'message' => 'srf-paramdesc-calendarstart',
 			'default' => 'current',
-			'values' => array ( 'current', 'earliest' )
+			'values' => array ( 'current', 'earliest', 'latest' )
 		);
 
 		$params['dayview'] = array(
