@@ -39,8 +39,7 @@ final class SRFUtils {
 	public static function htmlProcessingElement( $isHtml = true ) {
 		SMWOutputs::requireResource( 'ext.srf' );
 
-		// Escaped by original caller
-		return Html::element(
+		return Html::rawElement(
 			'div',
 			array( 'class' => 'srf-processing' ),
 			Html::element(

@@ -103,6 +103,7 @@ $wgResourceModules['ext.jquery.jStorage'] = $moduleTemplate + array(
 $wgResourceModules['ext.srf'] = $moduleTemplate + array(
 	'scripts' => 'resources/ext.srf.js',
 	'styles'  => 'resources/ext.srf.css',
+	'position' => 'top',
 	'group' => 'ext.srf'
 );
 
