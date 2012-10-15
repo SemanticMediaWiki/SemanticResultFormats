@@ -37,36 +37,18 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement( $isHtml = true ) {
-
-		// Init
-		$image = '';
-
-		if ( $isHtml === true ) {
-			// Attributes
-			$attribs = array (
-				'style' => 'vertical-align: middle;',
-				'src'   => "{$GLOBALS['wgStylePath']}/common/images/spinner.gif",
-				'title' => wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
-			);
-
-			$image = Html::rawElement( 'img', $attribs , null );
-		}
-
-		// Attributes
-		$attribs = array (
-			'style' => 'vertical-align: middle; padding-left: 1em;',
-		);
-
-		$text = Html::element( 'span', $attribs , wfMessage( 'srf-module-loading' )->inContentLanguage()->text() );
-
-		// Attributes
-		$attribs = array (
-			'class' => 'srf-processing',
-			'style' => 'display:inline-block; vertical-align: middle; background-color: white; color: #666;'
-		);
+		SMWOutputs::requireResource( 'ext.srf' );
 
 		// Escaped by original caller
-		return Html::rawElement( 'div', $attribs, $image . $text );
+		return Html::element(
+			'div',
+			array( 'class' => 'srf-processing' ),
+			Html::element(
+				'span',
+				array( 'class' => 'srf-processing-text' ),
+				wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
+			)
+		);
 	}
 
 	/**
