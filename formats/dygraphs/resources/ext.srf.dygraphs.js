@@ -19,6 +19,8 @@
 
 	////////////////////////// PRIVATE METHODS ////////////////////////
 
+	var tooltip = new smw.util.tooltip();
+
 	/**
 	 * Add icon image
 	 *
@@ -161,14 +163,15 @@
 					var responseText = error.responseText !== '' ?  ' (' + error.responseText + ')' : '';
 
 					// Init error tooltip
-					container.smwTooltip( 'add', {
+					tooltip.add( {
+						targetClass: 'smwtticon warning',
+						context: container,
 						title: mw.msg( 'smw-ui-tooltip-title-warning' ),
 						type: 'warning',
-						iconClass: 'smwtticon warning',
 						button: true,
 						content: mw.msg(
 							'srf-ui-common-label-ajax-error',
-							h.element( 'a', { 'href' : options.data.source.url }, mw.msg( 'srf-ui-common-label-request-object' ) + responseText ),
+							h.element( 'a', { 'href' : options.data.source.url }, mw.msg( 'srf-ui-common-label-request-object', responseText ) ),
 							h.element( 'a', { 'href' : 'http://www.semantic-mediawiki.org/wiki/Help:Ajax' }, mw.msg( 'srf-ui-common-label-help-section' ) ) )
 					} );
 				} )
@@ -285,13 +288,14 @@
 
 				// Create option set which is displayed as tooltip to safe space and
 				// only displays it when the user demands it
-				container.find( '.srf-ui-chart-source' ).smwTooltip( 'add', {
+				tooltip.add( {
+					contextClass: 'srf-dygraphs-series',
+					contentClass: 'srf-dygraphs-series-content',
+					targetClass : 'srf-dygraphs series icon',
+					context: container.find( '.srf-ui-chart-source' ),
 					title: mw.msg( 'srf-ui-tooltip-title-options' ),
 					type: 'info',
 					button: true,
-					iconClass: 'srf-dygraphs series icon',
-					contentClass: 'srf-dygraphs-series-content',
-					entityClass: '',
 					content: seriesItem
 				} );
 

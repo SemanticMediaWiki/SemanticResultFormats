@@ -20,6 +20,10 @@
 
 	////////////////////////// PRIVATE METHODS ////////////////////////
 
+	// Create class reference
+	var util = new srf.util(),
+		tooltip = new smw.util.tooltip();
+
 	/**
 	 * Internationalization (i18n) support
 	 *
@@ -87,9 +91,6 @@
 		// Parse json string and convert it back
 		var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
-		// Create class reference
-		var util = new srf.util();
-
 		// Split start date (format is ISO8601 -> 2012-09-17T09:49Z)
 		var calendarStart = data.options.calendarstart !== null ? data.options.calendarstart.split( '-', 3 ) : null;
 
@@ -152,7 +153,8 @@
 						element.find( '.fc-event-title' ).after( $( '<span class="srf-fc-description">' + event.description + '</span>' ) );
 					} else {
 						// Tooltip
-						element.smwTooltip( {
+						tooltip.show( {
+							context: element,
 							content: event.description.substring( 0, event.description.substr( 0, 100 ).lastIndexOf( " " ) ) + ' ...',
 							title: mw.msg( 'smw-ui-tooltip-title-event' ),
 							button: false
