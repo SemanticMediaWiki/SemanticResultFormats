@@ -295,6 +295,7 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author EugeneZelenko
+ * @author F.trott
  * @author Kghbln
  * @author Purodha
  * @author Raymond
@@ -358,7 +359,13 @@ There is an [http://discoursedb.org/wiki/Outline_example Outline example]',
 	'srf_paramdesc_timelinestart' => '{{doc-paramdesc|timelinestart}}',
 	'srf_paramdesc_timelineend' => '{{doc-paramdesc|timelineend}}',
 	'srf_paramdesc_timelinesize' => '{{doc-paramdesc|timelinesize}}',
-	'srf_paramdesc_views' => '{{doc-paramdesc|views}}',
+	'srf_paramdesc_views' => '{{doc-paramdesc|views}}
+
+The result format "filtered", part of the Semantic Result Formats extension, displays results in switchable \'\'\'views\'\'\', e.g. as map, as table, as calendar, etc.
+
+This text is a description of the parameter "views" to the function that generates the "filtered" result format.
+
+Synonyms might be representation, or maybe appearance, aspect, facet',
 	'srf_paramdesc_facets' => '{{doc-paramdesc|facets}}',
 	'srf_paramdesc_lens' => '{{doc-paramdesc|lens}}',
 	'srf_printername_googlebar' => '{{doc-smwformat|googlebar}}',
@@ -952,7 +959,7 @@ $messages['de'] = array(
 	'srf-desc' => 'Ermöglicht zusätzliche Ausgabeformate für eingebettete Abfragen',
 	'srf-name' => 'Semantische Ergebnisformate',
 	'prefs-srf' => 'Semantische Ergebnisformate',
-	'srf-prefs-intro-text' => 'Du hast die „Semantic Result Formats“-Erweiterung installiert, die derzeit keine anpassbaren Benutzeroptionen hat. Für Hilfestellung besuche bitte die [http://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite].',
+	'srf-prefs-intro-text' => 'Du hast die Programmerweiterung „Semantic Result Formats“ installiert, die derzeit keine anpassbaren Benutzeroptionen ermöglicht. Besuch bitte die [http://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten], für weitere Informationen.',
 	'srf-module-loading' => 'Lade …',
 	'srf-paramdesc-layout' => 'Das verfügbare Layout',
 	'srf-paramdesc-height' => 'Die Höhe (in Pixel)',
@@ -962,7 +969,7 @@ $messages['de'] = array(
 	'srf-paramdesc-charttype' => 'Den Diagrammtyp angeben',
 	'srf-navigation-previous' => 'Vorherige',
 	'srf-ui-navigation-prev' => 'Zurück',
-	'srf-ui-navigation-next' => 'Nächste',
+	'srf-ui-navigation-next' => 'Vor',
 	'srf-ui-common-label-source' => 'Quelle',
 	'srf-ui-common-label-datasource' => 'Datenquelle',
 	'srf-ui-common-label-ajax-error' => 'Der Server berichtete eine fehlgeschlagene Kommunikation für diesen $1. Bitte versuche, die Seite neu zu laden oder wende dich an $2.',
@@ -1028,7 +1035,7 @@ $messages['de'] = array(
 	'srf-paramdesc-chartlegend' => 'Die Position der Diagrammlegenden',
 	'srf-paramdesc-datalabels' => 'Die Diagramm- und Grafikbeschriftungen',
 	'srf-paramdesc-charttext' => 'Der beschreibende Diagrammtext',
-	'srf-paramdesc-chartclass' => 'Zusätzliche CSS-Klasse',
+	'srf-paramdesc-chartclass' => 'Die zusätzliche CSS-Klasse',
 	'srf-paramdesc-renderer' => 'Das Programm zum Rendern des Diagramms / der Grafik auswählen',
 	'srf-paramdesc-filling' => 'Die individuelle Fülloption',
 	'srf-paramdesc-theme' => 'Die Anmutung für das Raster auswählen',
@@ -1043,8 +1050,8 @@ $messages['de'] = array(
 	'srf-paramdesc-grouplabel' => 'Die Gruppenbeschriftung bestimmen',
 	'srf-paramdesc-chartcursor' => 'Die Option zur Anzeige des Cursors in der Grafik',
 	'srf-paramdesc-trendline' => 'Das gleichzeitige Anzeigen des Diagramms und der Trendlinie aktivieren',
-	'srf-paramdesc-gridview' => 'Diagramm und Datensätze simultan anzeigen',
-	'srf-paramdesc-infotext' => 'Zusätzliche Informationen auf dem entsprechenden Inforeiter anzeigen',
+	'srf-paramdesc-gridview' => 'Das Diagramm und die Datensätze simultan anzeigen',
+	'srf-paramdesc-infotext' => 'Die zusätzlichen Informationen auf dem entsprechenden Inforeiter anzeigen',
 	'srf-ui-gridview-label-item' => 'Datenelement',
 	'srf-ui-gridview-label-value' => 'Datenwert',
 	'srf-ui-gridview-label-series' => 'Datenreihen',
@@ -1148,6 +1155,13 @@ $messages['de'] = array(
 	'srf-printername-incoming' => 'Eingehende Attribute',
 	'srf-paramdesc-min' => 'Der maximale Wert oder Schwellenwert',
 	'srf-paramdesc-excludeproperty' => 'Das Attribut vom Ergebnis ausschließen',
+);
+
+/** German (formal address) (Deutsch (Sie-Form)‎)
+ * @author Kghbln
+ */
+$messages['de-formal'] = array(
+	'srf-prefs-intro-text' => 'Sie haben die Programmerweiterung „Semantic Result Formats“ installiert, die derzeit keine anpassbaren Benutzeroptionen ermöglicht. Besuchen Sie bitte die [http://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten], für weitere Informationen.',
 );
 
 /** Zazaki (Zazaki)
@@ -2829,7 +2843,7 @@ $messages['it'] = array(
 	'srf_paramdesc_barnumbersaxislabel' => "L'etichetta per l'asse dei numeri",
 	'srf-paramdesc-labelaxislabel' => "L'etichetta per l'asse delle etichetta",
 	'srf-paramdesc-minvalue' => "Il valore minimo da mostrare sull'asse y",
-	'srf-paramdesc-infotext' => 'Mostra alcune informazioni aggiuntive sulla scheda info',
+	'srf-paramdesc-infotext' => 'Mostra informazioni aggiuntive sulla corrispondente scheda di informazioni',
 	'srf-ui-gridview-label-item' => 'Elemento dati',
 	'srf-ui-gridview-label-value' => 'Valore dati',
 	'srf-ui-gridview-label-series' => 'Serie di dati',
