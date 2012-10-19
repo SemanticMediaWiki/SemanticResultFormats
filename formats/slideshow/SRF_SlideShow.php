@@ -168,7 +168,7 @@ class SRFSlideShow extends SMWResultPrinter {
 
 	/**
 	 * Handles Ajax call
-	 * @param type $pageId
+	 * @param integer $pageId
 	 * @param type $template
 	 * @param type $printrequests
 	 * @return type
@@ -183,7 +183,10 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		$params = array();
 
-		foreach ( $paramDefinitions as $key => $def ) {
+		/**
+		 * @param IParamDefinition $def
+		 */
+		foreach ( $paramDefinitions as $def ) {
 			$params[ $def->getName() ] = $def->getDefault();
 		}
 
