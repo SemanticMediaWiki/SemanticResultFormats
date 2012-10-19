@@ -239,9 +239,10 @@ class SRFFiltered extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['views'] = new Parameter( 'views' );
-		$params['views']->setMessage( 'srf-paramdesc-views' );
-		$params['views']->setDefault( '' );
+		$params['views'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-views',
+		);
 
 		foreach ( $this->mViewTypes as $viewType ) {
 			$params = array_merge( $params, call_user_func( array( $viewType, 'getParameters' ) ) );

@@ -244,9 +244,10 @@ class SRFTree extends SMWListResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['parent'] = new Parameter( 'parent' );
-		$params['parent']->setMessage( 'srf-paramdesc-parent' );
-		$params['parent']->setDefault( '' );
+		$params['parent'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-parent',
+		);
 
 		return $params;
 	}

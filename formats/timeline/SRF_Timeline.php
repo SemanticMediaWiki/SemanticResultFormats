@@ -361,29 +361,35 @@ class SRFTimeline extends SMWResultPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-		
-		$params['timelinesize'] = new Parameter( 'timelinesize' );
-		$params['timelinesize']->setDefault( '300px' );
-		$params['timelinesize']->setMessage( 'srf_paramdesc_timelinesize' );
 
-		$params['timelineposition'] = new Parameter( 'timelineposition' );
-		$params['timelineposition']->setDefault( 'middle' );
-		$params['timelineposition']->setMessage( 'srf_paramdesc_timelineposition' );
-		$params['timelineposition']->addCriteria( new CriterionInArray( 'start', 'middle', 'end', 'today' ) );
-		
-		$params['timelinestart'] = new Parameter( 'timelinestart' );
-		$params['timelinestart']->setDefault( '' );
-		$params['timelinestart']->setMessage( 'srf_paramdesc_timelinestart' );
-		
-		$params['timelineend'] = new Parameter( 'timelineend' );
-		$params['timelineend']->setDefault( '' );
-		$params['timelineend']->setMessage( 'srf_paramdesc_timelineend' );
-		
-		$params['timelinebands'] = new ListParameter( 'timelinebands' );
-		$params['timelinebands']->setDefault( array( 'MONTH', 'YEAR' ) );
-		$params['timelinebands']->setMessage( 'srf_paramdesc_timelinebands' );
-		$params['timelinebands']->addCriteria( new CriterionInArray( 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ) );
-		
+		$params['timelinesize'] = array(
+			'default' => '300px',
+			'message' => 'srf_paramdesc_timelinesize',
+		);
+
+		$params['timelineposition'] = array(
+			'default' => 'middle',
+			'message' => 'srf_paramdesc_timelineposition',
+			'values' => array( 'start', 'middle', 'end', 'today' ),
+		);
+
+		$params['timelinestart'] = array(
+			'default' => '',
+			'message' => 'srf_paramdesc_timelinestart',
+		);
+
+		$params['timelineend'] = array(
+			'default' => '',
+			'message' => 'srf_paramdesc_timelineend',
+		);
+
+		$params['timelinebands'] = array(
+			'islist' => true,
+			'default' => array( 'MONTH', 'YEAR' ),
+			'message' => 'srf_paramdesc_timelinebands',
+			'values' => array( 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ),
+		);
+
 		 return $params;
 	}
 	

@@ -339,26 +339,41 @@ class SRFJitGraph extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, 'GraphName' );
-		$params['graphname']->setMessage( 'srf_paramdesc_graphname' );
+		$params['graphname'] = array(
+			'default' => 'GraphName',
+			'message' => 'srf_paramdesc_graphname',
+		);
 
-		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_INTEGER );
-		$params['graphsize']->setMessage( 'srf_paramdesc_graphsize' );
-		$params['graphsize']->setDefault( '', false );
+		$params['graphnodetype'] = array(
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-graphnodetype',
+			'values' => self::$NODE_SHAPES,
+		);
 
-		$params['graphlegend'] = new Parameter( 'graphsize', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlegend']->setMessage( 'srf_paramdesc_graphlegend' );
+		$params['graphsize'] = array(
+			'type' => 'integer',
+			'default' => '',
+			'manipulatedefault' => false,
+			'message' => 'srf_paramdesc_graphsize',
+		);
 
-		$params['graphlabel'] = new Parameter( 'graphlabel', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlabel']->setMessage( 'srf_paramdesc_graphlabel' );
+		$params['graphlegend'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphlegend',
+		);
 
-		$params['graphcolor'] = new Parameter( 'graphcolor', Parameter::TYPE_BOOLEAN, false );
-		$params['graphcolor']->setMessage( 'srf_paramdesc_graphcolor' );
+		$params['graphlabel'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphlabel',
+		);
 
-		$params['graphnodetype'] = new Parameter( 'graphnodetype' );
-		$params['graphnodetype']->setDefault( false, false );
-		$params['graphnodetype']->setMessage( 'srf-paramdesc-graph-graphnodetype' );
-		$params['graphnodetype']->addCriteria( new CriterionInArray( self::$NODE_SHAPES ) );
+		$params['graphcolor'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphcolor',
+		);
 
 		return $params;
 	}

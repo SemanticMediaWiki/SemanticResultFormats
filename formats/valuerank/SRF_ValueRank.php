@@ -168,18 +168,24 @@ class SRFValueRank extends SMWResultPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-		
-		$params['includesubject'] = new Parameter( 'includesubject', Parameter::TYPE_BOOLEAN );
-		$params['includesubject']->setMessage( 'srf_paramdesc_includesubject' );
-		$params['includesubject']->setDefault( false );
-		
-		$params['mincount'] = new Parameter( 'mincount', Parameter::TYPE_INTEGER );
-		$params['mincount']->setMessage( 'srf_paramdesc_mincount' );
-		$params['mincount']->setDefault( 1 );
-		
-		$params['maxtags'] = new Parameter( 'maxtags', Parameter::TYPE_INTEGER );
-		$params['maxtags']->setMessage( 'srf_paramdesc_maxtags' );
-		$params['maxtags']->setDefault( 1000 );
+
+		$params['includesubject'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_includesubject',
+		);
+
+		$params['mincount'] = array(
+			'type' => 'integer',
+			'default' => 1,
+			'message' => 'srf_paramdesc_mincount',
+		);
+
+		$params['maxtags'] = array(
+			'type' => 'integer',
+			'default' => 1000,
+			'message' => 'srf_paramdesc_maxtags',
+		);
 		
 		return $params;
 	}

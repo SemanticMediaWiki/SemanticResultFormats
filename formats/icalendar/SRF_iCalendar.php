@@ -259,15 +259,17 @@ class SRFiCalendar extends SMWExportPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-		
-		$params['title'] = new Parameter( 'title' );
-		$params['title']->setMessage( 'srf_paramdesc_icalendartitle' );
-		$params['title']->setDefault( '' );
-		
-		$params['description'] = new Parameter( 'description' );
-		$params['description']->setMessage( 'srf_paramdesc_icalendardescription' );
-		$params['description']->setDefault( '' );
-		
+
+		$params['title'] = array(
+			'default' => '',
+			'message' => 'srf_paramdesc_icalendartitle',
+		);
+
+		$params['description'] = array(
+			'default' => '',
+			'message' => 'srf_paramdesc_icalendardescription',
+		);
+
 		return $params;
 	}
 

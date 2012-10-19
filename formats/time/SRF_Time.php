@@ -82,13 +82,17 @@ class SRFTime extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['limit'] = new Parameter( 'limit', Parameter::TYPE_INTEGER );
-		$params['limit']->setMessage( 'srf_paramdesc_limit' );
-		$params['limit']->setDefault( 1000 );
+		$params['limit'] = array(
+			'type' => 'integer',
+			'default' => 1000,
+			'message' => 'srf_paramdesc_limit',
+		);
 
-		$params['default'] = new Parameter( 'default' );
-		$params['default']->setMessage( 'srf-paramdesc-default' );
-		$params['default']->setDefault( '' );
+		$params['default'] = array(
+			'type' => 'integer',
+			'default' => '',
+			'message' => 'srf-paramdesc-default',
+		);
 
 		return $params;
 	}

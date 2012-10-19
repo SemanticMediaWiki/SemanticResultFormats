@@ -191,24 +191,31 @@ class SRF_FV_List extends SRF_Filtered_View {
 	public static function getParameters() {
 		$params = parent::getParameters();
 
-		$params['list view type'] = new Parameter( 'list view type' );
-		$params['list view type']->setMessage( 'srf-paramdesc-filtered-list-type' );
-		$params['list view type']->setDefault( 'list' );
+		$params['list view type'] = array(
+			'default' => 'list',
+			'message' => 'srf-paramdesc-filtered-list-type',
+		);
 
-		$params['list view template'] = new Parameter( 'list view template' );
-		$params['list view template']->setMessage( 'srf-paramdesc-filtered-list-template' );
-		$params['list view template']->setDefault( '' );
+		$params['list view template'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-filtered-list-template',
+		);
 
-		$params['list view named args'] = new Parameter( 'list view named args', Parameter::TYPE_BOOLEAN, false );
-		$params['list view named args']->setMessage( 'srf-paramdesc-filtered-list-named-args' );
+		$params['list view named args'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf-paramdesc-filtered-list-named-args',
+		);
 
-		$params['list view introtemplate'] = new Parameter( 'list view introtemplate' );
-		$params['list view introtemplate']->setMessage( 'srf-paramdesc-filtered-list-introtemplate' );
-		$params['list view introtemplate']->setDefault( '' );
+		$params['list view introtemplate'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-filtered-list-introtemplate',
+		);
 
-		$params['list view outrotemplate'] = new Parameter( 'list view outrotemplate' );
-		$params['list view outrotemplate']->setMessage( 'srf-paramdesc-filtered-list-outrotemplate' );
-		$params['list view outrotemplate']->setDefault( '' );
+		$params['list view outrotemplate'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
+		);
 
 		return $params;
 	}
