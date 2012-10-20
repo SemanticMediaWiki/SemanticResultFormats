@@ -39,23 +39,26 @@ final class SRFHooks {
 	 *
 	 * @return boolean
 	 */
-	public static function registerUnitTests ( array &$files ) {
+	public static function registerUnitTests( array &$files ) {
+		// Keep this in alphabetical order please!
 		$testFiles = array(
 			'formats/Array',
+			'formats/Dygraphs',
+			'formats/EventCalendar',
+			'formats/Feed',
 			'formats/Gallery',
-			'formats/Math',
-			'formats/TagCloud',
-			'formats/vCard',
-			'formats/Sparkline',
+			'formats/Graph',
+			'formats/Incoming',
 			'formats/jqPlotChart',
 			'formats/jqPlotSeries',
 			'formats/ListWidget',
+			'formats/Math',
 			'formats/PageWidget',
+			'formats/Sparkline',
+			'formats/TagCloud',
 			'formats/Timeseries',
-			'formats/Feed',
-			'formats/EventCalendar',
-			'formats/Dygraphs',
-			'formats/Incoming',
+			'formats/vCard',
+
 		);
 
 		foreach ( $testFiles as $file ) {

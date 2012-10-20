@@ -1,7 +1,7 @@
 <?php
 
 namespace SRF\Test;
-use \SMW\Tests\ResultPrinterTest as ResultPrinterTest;
+use SMW\Tests\ResultPrinterTest;
 
 /**
  *  Tests for the SRF\Sparkline class.

@@ -4,7 +4,7 @@ namespace SRF\Test;
 use SMW\Tests\ResultPrinterTest;
 
 /**
- *  Tests for the SRF\PageWidget class.
+ *  Tests for the SRF\Array class.
  *
  * @file
  * @since 1.8
@@ -17,9 +17,9 @@ use SMW\Tests\ResultPrinterTest;
  * @group ResultPrinters
  *
  * @licence GNU GPL v2+
- * @author mwjames
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class PageWidgetTest extends ResultPrinterTest {
+class GraphTest extends ResultPrinterTest {
 
 	/**
 	 * @see ResultPrinterTest::getFormats
@@ -29,7 +29,7 @@ class PageWidgetTest extends ResultPrinterTest {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'pagewidget' );
+		return array( 'graph' );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class PageWidgetTest extends ResultPrinterTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFPageWidget';
+		return '\SRFGraph';
 	}
 
 }
