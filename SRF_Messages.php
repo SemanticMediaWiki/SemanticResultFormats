@@ -313,6 +313,7 @@ $messages['qqq'] = array(
 	'srf-paramdesc-width' => '{{doc-paramdesc|width}}',
 	'srf-paramdesc-class' => '{{doc-paramdesc|class}}',
 	'srf-paramdesc-charttype' => '{{doc-paramdesc|charttype}}',
+	'srf-navigation-previous' => 'A label describing a navigation control component.',
 	'srf-ui-navigation-prev' => 'A label describing a navigation control component.',
 	'srf-ui-navigation-next' => 'A label describing a navigation control component.',
 	'srf-ui-common-label-source' => 'A label pointing to a source. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
@@ -325,6 +326,7 @@ $messages['qqq'] = array(
 	'srf-error-option-link-all' => '{{doc-important|Do not translate the parameter "link" and its possible value "all".}}
 This is an error message. Parameters:
 * $1 is a fixed entitity name that cannot and should not be translated.',
+	'srfc_previousmonth' => 'A label describing a navigation control component.',
 	'srf_printername_calendar' => '{{doc-smwformat|calendar}}',
 	'srf_paramdesc_calendarlang' => '{{doc-paramdesc|lang}}',
 	'srf_paramdesc_calendarcolors' => '{{doc-smwformat|colors}}
@@ -4003,14 +4005,21 @@ $messages['pms'] = array(
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
+	'srf-module-loading' => 'برسېرېدنې کې دی...',
+	'srf-ui-tooltip-title-options' => 'خوښنې',
 	'srfc_previousmonth' => 'پخوانۍ مياشت',
 	'srfc_nextmonth' => 'راتلونکې مياشت',
 	'srfc_today' => 'نن',
 	'srfc_gotomonth' => 'مياشت ته ورځه',
-	'srf-chart-tableview-info-tab' => 'مالومات',
+	'srf-ui-gridview-label-info-tab' => 'مالومات',
 	'srf_printername_gallery' => 'انځورتون',
 	'srf-gallery-navigation-previous' => 'پخوانی',
 	'srf-gallery-navigation-next' => 'راتلونکی',
+	'srf-ui-eventcalendar-label-today' => 'نن',
+	'srf-ui-eventcalendar-label-month' => 'مياشت',
+	'srf-ui-eventcalendar-label-week' => 'اونۍ',
+	'srf-ui-eventcalendar-label-day' => 'ورځ',
+	'srf-ui-eventcalendar-label-allday' => 'ټوله ورځ',
 );
 
 /** Portuguese (português)
