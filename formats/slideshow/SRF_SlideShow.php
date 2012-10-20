@@ -122,46 +122,55 @@ class SRFSlideShow extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['template'] = new Parameter( 'template' );
-		$params['template']->setMessage( 'smw_paramdesc_template' );
-		$params['template']->setDefault( '' );
+		$params['template'] = array(
+			'default' => '',
+			'message' => 'smw_paramdesc_template',
+		);
 
 		// TODO: Implement named args
 //		$params['named args'] = new Parameter( 'named args', Parameter::TYPE_BOOLEAN, false );
 //		$params['named args']->setMessage( 'smw_paramdesc_named_args' );
 
-		$params['class'] = new Parameter( 'class' );
-		$params['class']->setMessage( 'srf-paramdesc-class' );
-		$params['class']->setDefault( '' );
+		$params['class'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-class',
+		);
 
-		$params['delay'] = new Parameter( 'delay', Parameter::TYPE_INTEGER );
-		$params['delay']->setMessage( 'srf-paramdesc-delay' );
-		$params['delay']->setDefault( '5' );
+		$params['height'] = array(
+			'default' => '100px',
+			'message' => 'srf-paramdesc-height',
+		);
 
-		$params['height'] = new Parameter( 'height' );
-		$params['height']->setMessage( 'srf-paramdesc-height' );
-		$params['height']->setDefault( '100px' );
+		$params['width'] = array(
+			'default' => '200px',
+			'message' => 'srf-paramdesc-width',
+		);
 
-		$params['width'] = new Parameter( 'width' );
-		$params['width']->setMessage( 'srf-paramdesc-width' );
-		$params['width']->setDefault( '200px' );
+		$params['delay'] = array(
+			'type' => 'integer',
+			'default' => 5,
+			'message' => 'srf-paramdesc-delay',
+		);
 
-		$params['nav controls'] = new Parameter( 'nav controls', Parameter::TYPE_BOOLEAN );
-		$params['nav controls']->setMessage( 'srf-paramdesc-navigation-controls' );
-		$params['nav controls']->setDefault( false );
+		$params['nav controls'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf-paramdesc-navigation-controls',
+		);
 
-		$params['effect'] = new Parameter( 'effect' );
-		$params['effect']->setMessage( 'srf-paramdesc-effect' );
-		$params['effect']->setDefault( 'none' );
-		$params['effect']->addCriteria( new CriterionInArray(
+		$params['effect'] = array(
+			'default' => 'none',
+			'message' => 'srf-paramdesc-effect',
+			'values' => array(
 				'none',
 				'slide left',
 				'slide right',
 				'slide up',
 				'slide down',
 				'fade',
-				'hide'
-		) );
+				'hide',
+			),
+		);
 
 		return $params;
 	}
