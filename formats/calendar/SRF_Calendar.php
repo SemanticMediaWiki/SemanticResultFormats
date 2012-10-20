@@ -547,22 +547,31 @@ END;
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['lang'] = new Parameter( 'lang' );
-		$params['lang']->setMessage( 'srf_paramdesc_calendarlang' );
-		$params['lang']->setDefault( false, false );
+		$params['lang'] = array(
+			'message' => 'srf_paramdesc_calendarlang',
+			'default' => false,
+			'manipulatedefault' => false,
+		);
 
-		$params['template'] = new Parameter( 'template' );
-		$params['template']->setDefault( '' );
+		$params['template'] = array(
+			'message' => 'srf-paramdesc-template',
+			'default' => '',
+		);
 
-		$params['userparam'] = new Parameter( 'userparam' );
-		$params['userparam']->setDefault( '' );
+		$params['userparam'] = array(
+			'message' => 'srf-paramdesc-userparam',
+			'default' => '',
+		);
 
-		$params['color'] = new Parameter( 'color' );
-		$params['color']->setDefault( '' );
+		$params['color'] = array(
+			'message' => 'srf-paramdesc-color',
+			'default' => '',
+		);
 
-		$params['colors'] = new Parameter( 'colors' );
-		$params['colors']->setMessage( 'srf_paramdesc_calendarcolors' );
-		$params['colors']->setDefault( '' );
+		$params['colors'] = array(
+			'message' => 'srf_paramdesc_calendarcolors',
+			'default' => '',
+		);
 
 		return $params;
 	}
