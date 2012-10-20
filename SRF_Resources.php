@@ -170,7 +170,7 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
 		'srf-ui-common-label-request-object',
 		'srf-ui-common-label-ajax-error',
 		'srf-ui-common-label-help-section',
-		'srf-ui-tooltip-title-options'
+		'srf-ui-tooltip-title-scope'
 	),
 	'position' => 'top',
 );

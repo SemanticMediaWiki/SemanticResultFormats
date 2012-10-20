@@ -39,6 +39,7 @@ $messages['en'] = array(
 	'srf-ui-common-label-request-object' => 'request object',
 	'srf-ui-common-label-help-section' => 'help section',
 	'srf-ui-tooltip-title-options' => 'Options',
+	'srf-ui-tooltip-title-scope' => 'Scope',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
@@ -319,7 +320,8 @@ $messages['qqq'] = array(
 	'srf-ui-common-label-ajax-error' => 'Information that is displayed during a failed ajax communication. See [http://www.semantic-mediawiki.org/wiki/Help:Ajax Help:Ajax].',
 	'srf-ui-common-label-request-object' => 'A support label concatenate in a sentence structure and is therefore kept lower case.',
 	'srf-ui-common-label-help-section' => 'A support label concatenate in a sentence structure and is therefore kept lower case.',
-	'srf-ui-tooltip-title-options' => 'A label that is displayed on the info tooltip. See [http://semantic-mediawiki.org/wiki/Help:Tooltip Help:Tooltip].',
+	'srf-ui-tooltip-title-options' => 'A label that is displayed within the tooltip. See [http://semantic-mediawiki.org/wiki/Help:Tooltip Help:Tooltip].',
+	'srf-ui-tooltip-title-scope' => 'A label that is displayed within the tooltip. See [http://semantic-mediawiki.org/wiki/Help:Tooltip Help:Tooltip].',
 	'srf-error-option-link-all' => '{{doc-important|Do not translate the parameter "link" and its possible value "all".}}
 This is an error message. Parameters:
 * $1 is a fixed entitity name that cannot and should not be translated.',

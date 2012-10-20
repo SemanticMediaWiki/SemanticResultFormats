@@ -293,7 +293,7 @@
 					contentClass: 'srf-dygraphs-series-content',
 					targetClass : 'srf-dygraphs series icon',
 					context: container.find( '.srf-ui-chart-source' ),
-					title: mw.msg( 'srf-ui-tooltip-title-options' ),
+					title: mw.msg( 'srf-ui-tooltip-title-scope' ),
 					type: 'info',
 					button: true,
 					content: seriesItem
