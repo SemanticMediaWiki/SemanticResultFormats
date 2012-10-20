@@ -24,3 +24,9 @@
 	display:inline-block;
 	/* @embed */ background: url(images/spinner.gif) no-repeat left bottom;
 }
+
+.srf-spinner-img.mw-small-spinner {
+	vertical-align: middle;
+	display:inline-block;
+	padding: 0px !important;
+}

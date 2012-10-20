@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Result printer that prints query results as a gallery.
+ * Result printer that outputs query results as a image gallery.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,12 @@
  * @author mwjames
  * @author Rowan Rodrik van der Molen
  */
+
+/**
+ * Result printer that outputs query results as a image gallery.
+ * @ingroup SemanticResultFormats
+ *
+ */
 class SRFGallery extends SMWResultPrinter {
 
 	/**
@@ -47,12 +53,15 @@ class SRFGallery extends SMWResultPrinter {
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
 
-		// Features check
-		// Widgets and intro/outro are not planned to work
+		// Intro/outro are not planned to work with the widget option
 		if ( $this->params['intro'] !== '' && $this->params['widget'] !== '' ){
-			return $results->addErrors( array( wfMessage( 'srf-error-option-mix', 'intro/widget' )->inContentLanguage()->text() ) );
+			return $results->addErrors( array(
+				wfMessage( 'srf-error-option-mix', 'intro/widget' )->inContentLanguage()->text() 
+			) );
 		} elseif( $this->params['outro'] !== '' && $this->params['widget'] !== '' ){
-			return $results->addErrors( array( wfMessage( 'srf-error-option-mix', 'outro/widget' )->inContentLanguage()->text() ) );
+			return $results->addErrors(
+				array( wfMessage( 'srf-error-option-mix', 'outro/widget' )->inContentLanguage()->text() 
+			) );
 		};
 
 		return $this->getResultText( $results, $this->outputMode );
@@ -74,9 +83,8 @@ class SRFGallery extends SMWResultPrinter {
 		$ig->setShowFilename( false );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
-		// Don't init the parser if it is a special page otherwise it causes a fatal error
-		// We need the parser for "normal" pages to ensure caption text is rendered
-		// correctly but is less important for Special:Ask
+		// No need for a special page to use the parser but for the "normal" page
+		// view we have to ensure caption text is parsed correctly through the parser
 		if ( !$this->isSpecialPage() ) {
 			$ig->setParser( $GLOBALS['wgParser'] );
 		}
@@ -86,62 +94,23 @@ class SRFGallery extends SMWResultPrinter {
 		$html          = '';
 		$processing    = '';
 
-		// Carousel parameters
+		// Carousel widget
 		if ( $this->params['widget'] == 'carousel' ) {
-			// Set attributes for jcarousel
-			$dataAttribs = array(
-				'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
-				'vertical' => 'false', // Orientation: vertical = false means horizontal
-				'rtl' => 'false', // Directionality: rtl = false means ltr
-			);
-
-			// Use perrow parameter to determine the scroll sequence.
-			if ( empty( $this->params['perrow'] ) ) {
-				$dataAttribs['scroll'] = 1;  // default 1
-			} else {
-				$dataAttribs['scroll'] = $this->params['perrow'];
-				$dataAttribs['visible'] = $this->params['perrow'];
-			}
-
-			$attribs = array(
-				'id' =>  $this->params['widget'] . '-' . ++$statNr,
-				'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
-				'style' => 'display:none;',
-			);
-
-			foreach ( $dataAttribs as $name => $value ) {
-				$attribs['data-' . $name] = $value;
-			}
-
-			$ig->setAttributes( $attribs );
-
-			// RL module
-			SMWOutputs::requireResource( 'ext.srf.gallery.carousel' );
+			$ig->setAttributes( $this->getCarouselWidget( $statNr ) );
 		}
 
-		// Slideshow parameters
+		// Slideshow widget
 		if ( $this->params['widget'] == 'slideshow' ) {
-			$mAttribs = array(
-				'id'    => $this->params['widget'] . '-' . ++$statNr,
-				'class' => $this->getImageOverlay(),
-				'style' => 'display:none;',
-				'data-nav-control' => $this->params['navigation']
-			);
-
-			$ig->setAttributes( $mAttribs );
-
-			// RL module
-			SMWOutputs::requireResource( 'ext.srf.gallery.slideshow' );
+			$ig->setAttributes( $this->getSlideshowWidget( $statNr ) );
 		}
 
-		// Only use redirects where overlay is false
-		// Allow thumb pictures to be redirected towards a different target
-		if ( $this->params['redirects'] !== '' && $this->params['overlay'] === false ){
-			// RL module
+		// Only use redirects where the overlay option is not used and redirect
+		// thumb images towards a different target
+		if ( $this->params['redirects'] !== '' && !$this->params['overlay'] ){
 			SMWOutputs::requireResource( 'ext.srf.gallery.redirect' );
 		}
 
-		// In case widget = carousel, perrow should not be set
+		// For the carousel widget, the perrow option should not be set
 		if ( $this->params['perrow'] !== '' && $this->params['widget'] !== 'carousel' ) {
 			$ig->setPerRow( $this->params['perrow'] );
 		}
@@ -181,12 +150,12 @@ class SRFGallery extends SMWResultPrinter {
 		// SRF Global settings
 		SRFUtils::addGlobalJSVariables();
 
-		// Display a processing image as long as jquery is not loaded
+		// Display a processing image as long as the DOM is no ready
 		if ( $this->params['widget'] !== '' ) {
 			$processing = SRFUtils::htmlProcessingElement();
 		}
 
-		// Beautify class selector
+		// Beautify the class selector
 		$class = $this->params['widget'] ?  '-' . $this->params['widget'] . ' ' : '';
 		$class = $this->params['redirects'] !== '' && $this->params['overlay'] === false ? $class . ' srf-redirect' . ' ': $class;
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
@@ -201,7 +170,7 @@ class SRFGallery extends SMWResultPrinter {
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
 		}
 
-		// Allow to create a link that points to further results
+		// If available, create a link that points to further results
 		if ( $this->linkFurtherResults( $results ) ) {
 			$html .= $this->getLink( $results, SMW_OUTPUT_HTML )->getText( SMW_OUTPUT_HTML, $this->mLinker );
 		}
@@ -348,32 +317,92 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	/**
-	 * Check if accessing page is a SpecialPage
+	 * Checks if a page is a SpecialPage
 	 *
 	 * @since 1.8
 	 *
 	 * @return boolean
 	 */
-	protected function isSpecialPage() {
-		// @TODO global
-		// This should come from RequestContext but we can't because of MW 1.17
+	private function isSpecialPage() {
+		// @todo global: use getContext->getTitle()->->isSpecialPage() instead
 		return $GLOBALS['wgTitle']->isSpecialPage();
 	}
 
 	/**
-	 * Return the image overlay setting
+	 * Returns the image overlay setting
 	 *
 	 * @since 1.8
 	 *
 	 * @return string
 	 */
-	protected function getImageOverlay() {
+	private function getImageOverlay() {
 		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] == true ) {
 			SMWOutputs::requireResource( 'ext.srf.gallery.overlay' );
 			return ' srf-overlay';
+		} else {
+			return '';
+		}
+	}
+
+	/**
+	 * Init carousel widget
+	 *
+	 * @since 1.8
+	 *
+	 * @return string
+	 */
+	private function getCarouselWidget( &$statNr ) {
+
+		// Set attributes for jcarousel
+		$dataAttribs = array(
+			'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
+			'vertical' => 'false', // Orientation: vertical = false means horizontal
+			'rtl' => 'false', // Directionality: rtl = false means ltr
+		);
+
+		// Use the perrow parameter to determine the scroll sequence.
+		if ( empty( $this->params['perrow'] ) ) {
+			$dataAttribs['scroll'] = 1;  // default 1
+		} else {
+			$dataAttribs['scroll'] = $this->params['perrow'];
+			$dataAttribs['visible'] = $this->params['perrow'];
 		}
 
-		return '';
+		$attribs = array(
+			'id' =>  $this->params['widget'] . '-' . ++$statNr,
+			'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
+			'style' => 'display:none;',
+		);
+
+		foreach ( $dataAttribs as $name => $value ) {
+			$attribs['data-' . $name] = $value;
+		}
+
+		SMWOutputs::requireResource( 'ext.srf.gallery.carousel' );
+
+		return $attribs;
+	}
+
+
+	/**
+	 * Init slideshow widget
+	 *
+	 * @since 1.8
+	 *
+	 * @return string
+	 */
+	private function getSlideshowWidget( &$statNr ) {
+
+		$attribs = array(
+			'id'    => $this->params['widget'] . '-' . ++$statNr,
+			'class' => $this->getImageOverlay(),
+			'style' => 'display:none;',
+			'data-nav-control' => $this->params['navigation']
+		);
+
+		SMWOutputs::requireResource( 'ext.srf.gallery.slideshow' );
+
+		return $attribs;
 	}
 
 	/**

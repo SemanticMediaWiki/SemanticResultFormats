@@ -10,9 +10,8 @@
  * @licence GNU GPL v2 or later
  * @author mwjames
  */
-( function( srf, mw, $ ) {
-
-	"use strict";
+( function( $, mw, srf ) {
+ 'use strict';
 
 	/*global semanticFormats:true mediaWiki:true*/
 
@@ -20,11 +19,15 @@
 
 	var _cacheTime = 1000 * 60 * 60 * 24; // 24 hours
 
+	var _CL_mwspinner  = 'mw-small-spinner';
+	var _CL_srfspinner = 'srf-spinner-img';
+
 	////////////////////////// PUBLIC INTERFACE /////////////////////////
 
 	/**
-	 * Init utilities namespace
-	 * @var Object
+	 * Module for formats utilities namespace
+	 * @since 1.8
+	 * @type Object
 	 */
 	srf.util = srf.util || {};
 
@@ -39,10 +42,10 @@
 	srf.util.prototype = {
 		/**
 		 * Get image url
-		 *
+		 * @since 1.8
 		 * @param options
 		 * @param callback
-		 * @return url
+		 * @return string
 		 */
 		getImageURL: function( options, callback ) {
 			var title = options.title,
@@ -98,10 +101,10 @@
 
 		/**
 		 * Get title url
-		 *
+		 * @since 1.8
 		 * @param options
 		 * @param callback
-		 * @return url
+		 * @return string
 		 */
 		getTitleURL: function( options, callback ) {
 			var title = options.title,
@@ -148,7 +151,39 @@
 				}
 				}
 			);
+		},
+
+		/**
+		 * Get spinner for a local element
+		 * @since 1.8
+		 * @param options
+		 * @return object
+		 */
+		spinner: {
+			show: function( options ) {
+
+				// Select the object from its context and determine height and width
+				var obj = options.context.find( options.selector ),
+					h = mw.html,
+					width  = obj.width(),
+					height = obj.height();
+
+				// Add spinner to target object
+				obj.after( h.element( 'span', { 'class' : _CL_srfspinner + ' ' + _CL_mwspinner }, null ) );
+
+				// Adopt height and width to avoid clutter
+				options.context.find( '.' + _CL_srfspinner + '.' + _CL_mwspinner )
+					.css( { width: width, height: height } )
+					.data ( 'spinner', obj ); // Attach the original object as data element
+				obj.remove(); // Could just hide the element instead of removing it
+
+			},
+			hide: function ( options ){
+				// Replace spinner and restore original instance
+				options.context.find( '.' + _CL_srfspinner + '.' + _CL_mwspinner )
+					.replaceWith( options.context.find( '.' + _CL_srfspinner ).data( 'spinner' ) ) ;
+			}
 		}
 	};
 
-} )( semanticFormats, mediaWiki, jQuery );
+} )( jQuery, mediaWiki, semanticFormats );

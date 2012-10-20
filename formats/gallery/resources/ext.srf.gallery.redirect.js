@@ -1,66 +1,92 @@
 /**
- * JavaSript for SRF gallery overlay/fancybox module
+ * JavaScript for SRF gallery overlay/fancybox module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery format
  *
  * There is a method ImageGallery->add which allows to override the
  * image url but this feature is only introduced in MW 1.20 therefore
- * we have to catch the "real" image location url from the api to be able
- * to display the image in the fancybox
+ * we have to catch the "real" image location url from the api
  *
- * jshint checked; full compliance
+ * @since 1.8
+ * @release 0.3
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @file
+ * @ingroup SemanticResultFormats
  *
- * @since: 1.8
- *
- * @release: 0.3
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $ ) {
-	"use strict";
+( function( $, mw, srf ) {
+	'use strict';
 
-	/*global mw:true*/
+	/*global mediaWiki:true semanticFormats:true */
+	/**
+	 * Module for formats extensions
+	 * @since 1.8
+	 * @type Object
+	 */
+	srf.formats = srf.formats || {};
 
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
+	/**
+	 * Base constructor for objects representing a gallery instance
+	 * @since 1.8
+	 * @type Object
+	 */
+	srf.formats.gallery = function() {};
 
-	$.fn.galleryRedirect = function( ) {
+	srf.formats.gallery.prototype = {
+		redirect: function( context ) {
+			return context.find( '.gallerybox' ).each( function() {
+				var $this = $( this ),
+					h = mw.html,
+					image = $this.find( 'a.image' );
 
-		// Loop over all relevant gallery items
-		this.find( '.gallerybox' ).each( function () {
-			var $this   = $( this ),
-				image     = $this.find( 'a.image' ),
-				redirecticon = '<span class="redirect"></span>';
+				// Prepare redirect icon placeholder
+				image.prepend( h.element( 'span', { 'class': 'redirect' }, null ) );
+				var redirect = image.find( '.redirect' ).hide();
 
-			// Create class reference
-			var util = new srf.util();
+				// Avoid undefined error
+				if ( typeof  image.attr( 'href' ) === undefined ) {
+					$this.html( h.element( 'span', { 'class': 'error' },  mw.message( 'srf-gallery-image-url-error' ).escaped() ) ); 
+				} else {
 
-			// Avoid undefined error
-			if ( typeof  image.attr( 'href' ) === 'undefined' ) {
-				$this.html( '<span class="error">' + mw.message( 'srf-gallery-image-url-error' ).escaped() + '</span>' );
-			} else {
-				// Alt attribute contains redirect title
-				var title = image.find( 'img' ).attr( 'alt' );
+					// Alt attribute contains redirect title
+					var title = image.find( 'img' ).attr( 'alt' );
 
-				// Assign redirect article url
-				if ( title.length > 0 ) {
-					util.getTitleURL( { 'title': title },
-						function( url ) { if ( url === false ) {
-							image.attr( 'href', '' );
-						} else {
-							image.attr( 'href', url );
-							// Add redirect icon placeholder
-							image.prepend( redirecticon );
-						}
-					} );
+					// Assign redirect article url
+					if ( title !== undefined && title.length > 0 ) {
+						// Show image spinner while fetching the URL
+						util.spinner.show( { context: $this, selector: 'img' } );
+
+						util.getTitleURL( { 'title': title },
+							function( url ) { if ( url === false ) {
+								image.attr( 'href', '' );
+								// Release thumb image
+								util.spinner.hide( { context: $this, selector: 'img' } );
+							} else {
+								image.attr( 'href', url );
+								// Release thumb image
+								util.spinner.hide( { context: $this, selector: 'img' } );
+								// Release redirect icon
+								redirect.show();
+							}
+						} );
+					}
 				}
-			}
 		} );
+		}
 	};
 
-	$(document).ready(function() {
-		$( ".srf-redirect" ).each(function() {
-			$( this ).galleryRedirect();
-			// Release graph and bottom text
-			$( this ).find( '.srf-processing' ).hide();
+	/**
+	 * Implementation and representation of the gallery instance
+	 * @since 1.8
+	 * @type Object
+	 */
+	var gallery = new srf.formats.gallery();
+	var util = new srf.util();
+
+	$( document ).ready( function() {
+		$( '.srf-redirect' ).each(function() {
+			gallery.redirect( $( this ) );
 		} );
 	} );
-} )( window.jQuery, window.mediaWiki );
+} )( jQuery, mediaWiki, semanticFormats );
