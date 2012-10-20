@@ -100,26 +100,79 @@ class SRFProcess extends SMWResultPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-		
-		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, '' );
-		$params['rankdir'] = new Parameter( 'rankdir', Parameter::TYPE_STRING, 'TB' );
-		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_STRING, '' );
-		$params['clustercolor'] = new Parameter( 'clustercolor', Parameter::TYPE_STRING, 'lightgrey' );
-		$params['highlight'] = new Parameter( 'highlight', Parameter::TYPE_STRING, '' );
-		$params['highlightcolor'] = new Parameter( 'highlightcolor', Parameter::TYPE_STRING, 'blue' );
-		$params['redlinkcolor'] = new Parameter( 'redlinkcolor', Parameter::TYPE_STRING, 'red' );
-		
-		$params['showroles'] = new Parameter( 'showroles', Parameter::TYPE_BOOLEAN, false );
-		$params['showstatus'] = new Parameter( 'showstatus', Parameter::TYPE_BOOLEAN, false );
-		$params['showresources'] = new Parameter( 'showresources', Parameter::TYPE_BOOLEAN, false );
-		$params['showdiscussion'] = new Parameter( 'showdiscussion', Parameter::TYPE_BOOLEAN, false );
-		$params['showredlinks'] = new Parameter( 'showredlinks', Parameter::TYPE_BOOLEAN, false );
-		$params['showcompound'] = new Parameter( 'showcompound', Parameter::TYPE_BOOLEAN, true );
-		
-		$params['processcat'] = new Parameter( 'processcat', Parameter::TYPE_STRING, 'Process' );
-		$params['debug'] = new Parameter( 'debug', Parameter::TYPE_BOOLEAN, false );
-		$params['graphvalidation'] = new Parameter( 'graphvalidation', Parameter::TYPE_BOOLEAN, false );
-		
+
+		$params['graphname'] = array(
+			'default' => '',
+		);
+
+		$params['rankdir'] = array(
+			'default' => 'TB',
+		);
+
+		$params['graphsize'] = array(
+			'default' => '',
+		);
+
+		$params['clustercolor'] = array(
+			'default' => 'lightgrey',
+		);
+
+		$params['highlight'] = array(
+			'default' => '',
+		);
+
+		$params['highlightcolor'] = array(
+			'default' => 'blue',
+		);
+
+		$params['redlinkcolor'] = array(
+			'default' => 'red',
+		);
+
+		$params['processcat'] = array(
+			'default' => 'Process',
+		);
+
+		$params['showroles'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
+		$params['showstatus'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
+		$params['showresources'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
+		$params['showdiscussion'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
+		$params['showredlinks'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
+		$params['showcompound'] = array(
+			'type' => 'boolean',
+			'default' => true,
+		);
+
+		$params['debug'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
+		$params['graphvalidation'] = array(
+			'type' => 'boolean',
+			'default' => false,
+		);
+
 		return $params;
 	}
 
