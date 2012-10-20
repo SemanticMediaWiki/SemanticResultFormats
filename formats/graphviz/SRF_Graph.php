@@ -286,47 +286,76 @@ class SRFGraph extends SMWResultPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-		
-		$params['graphname'] = new Parameter( 'graphname', Parameter::TYPE_STRING, 'QueryResult' );
-		$params['graphname']->setMessage( 'srf_paramdesc_graphname' );
-		
-		$params['graphsize'] = new Parameter( 'graphsize', Parameter::TYPE_INTEGER );
-		$params['graphsize']->setMessage( 'srf_paramdesc_graphsize' );
-		$params['graphsize']->setDefault( '', false );
-		
-		$params['graphlegend'] = new Parameter( 'graphlegend', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlegend']->setMessage( 'srf_paramdesc_graphlegend' );
-		
-		$params['graphlabel'] = new Parameter( 'graphlabel', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlabel']->setMessage( 'srf_paramdesc_graphlabel' );
-		
-		$params['graphlink'] = new Parameter( 'graphlink', Parameter::TYPE_BOOLEAN, false );
-		$params['graphlink']->setMessage( 'srf_paramdesc_graphlink' );
-		
-		$params['graphcolor'] = new Parameter( 'graphcolor', Parameter::TYPE_BOOLEAN, false );
-		$params['graphcolor']->setMessage( 'srf_paramdesc_graphcolor' );
-		
-		$params['arrowdirection'] = new Parameter( 'arrowdirection', Parameter::TYPE_STRING, 'LR', array( 'rankdir' ) );
-		$params['arrowdirection']->setMessage( 'srf_paramdesc_rankdir' );
-		$params['arrowdirection']->addCriteria( new CriterionInArray( 'LR', 'RL', 'TB', 'BT' ) );
-		
-		$params['nodeshape'] = new Parameter( 'nodeshape' );
-		$params['nodeshape']->setDefault( false, false );
-		$params['nodeshape']->setMessage( 'srf-paramdesc-graph-nodeshape' );
-		$params['nodeshape']->addCriteria( new CriterionInArray( self::$NODE_SHAPES ) );
-		
-		$params['relation'] = new Parameter( 'relation' );
-		$params['relation']->setDefault( 'child' );
-		$params['relation']->setMessage( 'srf-paramdesc-graph-relation' );
-		$params['relation']->addCriteria( new CriterionInArray( 'parent', 'child' ) );
-		
-		$params['nameproperty'] = new Parameter( 'nameproperty', Parameter::TYPE_STRING, '' );
-		$params['nameproperty']->setMessage( 'srf-paramdesc-graph-nameprop' );
-		$params['nameproperty']->setDefault( false, false );
-		
-		$params['wordwraplimit'] = new Parameter( 'wordwraplimit', Parameter::TYPE_INTEGER );
-		$params['wordwraplimit']->setMessage( 'srf-paramdesc-graph-wwl' );
-		$params['wordwraplimit']->setDefault( 25 );
+
+		$params['graphsize'] = array(
+			'default' => 'QueryResult',
+			'message' => 'srf_paramdesc_graphname',
+		);
+
+		$params['graphsize'] = array(
+			'type' => 'integer',
+			'default' => '',
+			'message' => 'srf_paramdesc_graphsize',
+			'manipulatedefault' => false,
+		);
+
+		$params['graphlegend'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphlegend',
+		);
+
+		$params['graphlabel'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphlabel',
+		);
+
+		$params['graphlink'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphlink',
+		);
+
+		$params['graphcolor'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf_paramdesc_graphcolor',
+		);
+
+		$params['arrowdirection'] = array(
+			'aliases' => 'rankdir',
+			'default' => 'LR',
+			'message' => 'srf_paramdesc_rankdir',
+			'values' => array( 'LR', 'RL', 'TB', 'BT' ),
+		);
+
+		$params['nodeshape'] = array(
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-nodeshape',
+			'manipulatedefault' => false,
+			'values' => self::$NODE_SHAPES,
+		);
+
+		$params['relation'] = array(
+			'default' => 'child',
+			'message' => 'srf-paramdesc-graph-relation',
+			'manipulatedefault' => false,
+			'values' => array( 'parent', 'child' ),
+		);
+
+		$params['nameproperty'] = array(
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-nameprop',
+			'manipulatedefault' => false,
+		);
+
+		$params['wordwraplimit'] = array(
+			'type' => 'integer',
+			'default' => 25,
+			'message' => 'srf-paramdesc-graph-wwl',
+			'manipulatedefault' => false,
+		);
 		
 		return $params;
 	}
