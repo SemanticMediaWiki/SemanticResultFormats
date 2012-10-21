@@ -268,7 +268,7 @@ class SRFCalendar extends SMWResultPrinter {
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
 			'media' => 'screen, print',
-			'href' => $GLOBALS['srfgScriptPath'] . '/calendar/resources/ext.srf.calendar.css'
+			'href' => $GLOBALS['srfgScriptPath'] . '/formats/calendar/resources/ext.srf.calendar.css'
 		) );
 
 		// Set variables differently depending on whether this is
