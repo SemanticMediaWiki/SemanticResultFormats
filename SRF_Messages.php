@@ -3297,6 +3297,7 @@ $messages['mk'] = array(
 	'srf-ui-common-label-request-object' => 'објект за проверка',
 	'srf-ui-common-label-help-section' => 'дел за помош',
 	'srf-ui-tooltip-title-options' => 'Поставки',
+	'srf-ui-tooltip-title-scope' => 'Делокруг',
 	'srf-error-option-mix' => 'Можноста ($1) не е достапна',
 	'srf-error-option-link-all' => 'Можноста ($1) бара параметарот „link“ да биде ставен на „all“',
 	'srf-error-missing-layout' => 'Распоредот недостасува',
