@@ -71,7 +71,9 @@
 			// If embedonly is undefined it means the first <a> element contains the link
 			// to the embedded source page
 			if ( embedonly === undefined ) {
-				container.find( 'ul.slider > li > a' ).addClass( 'srf-pagewidget-carousel-source' ).text( mw.msg( 'srf-ui-common-label-source' ) );
+				container.find( 'ul.slider > li > a:first-child' )
+					.addClass( 'srf-pagewidget-carousel-source' )
+					.text( mw.msg( 'srf-ui-common-label-source' ) );
 			}
 
 			// Hide TOC as it will disturb the embedded display behaviour
