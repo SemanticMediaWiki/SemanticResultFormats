@@ -17,8 +17,15 @@
 
 	////////////////////////// PRIVATE METHODS ////////////////////////
 
-	function _moveSlide( slider, event ){
+	function _moveSlide( slider, fancybox, event ){
 		var direction = null;
+
+		// Event collusion detection with fancybox, the .button will indicate an active
+		// overlay window and to avoid a conflict with both eventhandlers
+		// we will not respond to the event and bailout
+		if ( fancybox.find( '#fancybox-title' ).find( '.button' ).length > 0 ){
+			return true;
+		};
 
 		// Handle cursor keys
 		if ( event.keyCode == 37 || event.keyCode == 33 ) {
@@ -82,9 +89,12 @@
 			// Current slider instance
 			var slider = $( '#' + container.find( '.slider' ).attr( 'id' ) );
 
+			// Find the fancybox instance for possible event collusion detection
+			var fancybox = $( '#fancybox-wrap' );
+
 			// Keyboard event listener which should work in all browsers
 			$( document.documentElement ).keyup( function( event ){
-				_moveSlide( slider, event );
+				_moveSlide( slider, fancybox, event );
 			} );
 		} );
 	} );
