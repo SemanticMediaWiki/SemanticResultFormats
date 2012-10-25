@@ -702,5 +702,34 @@ $wgResourceModules['ext.srf.eventcalendar.gcal'] = $formatModule + array(
 	)
 );
 
+
+
+
+/******************************************************************************
+ * Boilerplate example registration
+/******************************************************************************/
+/*
+// Simple implementation
+$wgResourceModules['ext.srf.boilerplate.simple'] = $formatModule + array(
+	'scripts' => 'boilerplate/resources/ext.srf.boilerplate.simple.js',
+	'styles'  => 'boilerplate/resources/ext.srf.boilerplate.css',
+	'messages' => array(
+		'srf-boilerplate-message'
+	),
+);
+
+// Using the semanticFormats namespace class implementation
+$wgResourceModules['ext.srf.boilerplate.namespace'] = $formatModule + array(
+	'scripts' => 'boilerplate/resources/ext.srf.boilerplate.namespace.js',
+	'styles'  => 'boilerplate/resources/ext.srf.boilerplate.css',
+	'dependencies' => array (
+		'ext.srf.util'
+	),
+	'messages' => array(
+		'srf-boilerplate-message'
+	),
+);
+*/
+
 unset( $formatModule );
 unset( $moduleTemplate );
