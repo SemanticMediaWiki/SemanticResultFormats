@@ -15,7 +15,7 @@
  */
 ( function( $ ) {
 
-	// Use EcmaScript 5, to improve code quality and check with jshint/jslint
+	// Use EcmaScript 5 to improve code quality and check with jshint/jslint
 	// if the code adheres standard coding conventions
 
 	// Strict mode eliminates some JavaScript pitfalls
@@ -33,7 +33,7 @@
 
 		// Use the class selector to find all instances relevant to the "boilerplate" printer
 		// since a wiki page can have more than one instance of the same result printer
-		// and we ensure using that .each() instance is being handled separately
+		// .each() ensures instances are handled separately
 		$( '.srf-boilerplate' ).each( function() {
 
 			// Ensure variables have only local scope otherwise leaked content might

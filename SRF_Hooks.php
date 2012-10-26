@@ -58,7 +58,9 @@ final class SRFHooks {
 			'formats/TagCloud',
 			'formats/Timeseries',
 			'formats/vCard',
-
+			// Boilerplate
+			// Register your testclass
+			// 'formats/Boilerplate',
 		);
 
 		foreach ( $testFiles as $file ) {

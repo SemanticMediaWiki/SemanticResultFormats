@@ -19,7 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @file SemanticResultFormats.php
+ * @file
  * @ingroup SemanticResultFormats
  *
  * @licence GNU GPL v2 or later
@@ -90,10 +90,15 @@ $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
 $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
+// Boilerplate
+// Uncomment the line below and adopt the class name
+// $wgAutoloadClasses['SRFBoilerplate'] = $formatDir . 'boilerplate/SRF_Boilerplate.php';
+
 // Follows naming convention
-$wgAutoloadClasses['SRFDygraphs'] = $formatDir . 'dygraphs/SRF_Dygraphs.php';
-$wgAutoloadClasses['SRFTimeseries'] = $formatDir . 'timeseries/SRF_Timeseries.php';
-$wgAutoloadClasses['SRFEventCalendar']  = $formatDir . 'calendar/SRF_EventCalendar.php';
+$wgAutoloadClasses['SRFSyndicationFeed'] = $formatDir . 'feed/SRF_SyndicationFeed.php';
+$wgAutoloadClasses['SRFEventCalendar']   = $formatDir . 'calendar/SRF_EventCalendar.php';
+$wgAutoloadClasses['SRFDygraphs']     = $formatDir . 'dygraphs/SRF_Dygraphs.php';
+$wgAutoloadClasses['SRFTimeseries']   = $formatDir . 'timeseries/SRF_Timeseries.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
 $wgAutoloadClasses['SRFjqPlotChart']  = $formatDir . 'jqplot/SRF_jqPlotChart.php';
 $wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.php';
@@ -102,7 +107,6 @@ $wgAutoloadClasses['SRFPageWidget']   = $formatDir . 'widget/SRF_PageWidget.php'
 $wgAutoloadClasses['SRFListWidget']   = $formatDir . 'widget/SRF_ListWidget.php';
 $wgAutoloadClasses['SRFIncoming']  = $formatDir . 'incoming/SRF_Incoming.php';
 $wgAutoloadClasses['SRFSparkline'] = $formatDir . 'sparkline/SRF_Sparkline.php';
-$wgAutoloadClasses['SRFSyndicationFeed'] = $formatDir . 'feed/SRF_SyndicationFeed.php';
 $wgAutoloadClasses['SRFD3Chart']   = $formatDir . 'd3/SRF_D3Chart.php';
 $wgAutoloadClasses['SRFGraph']     = $formatDir . 'graphviz/SRF_Graph.php';
 $wgAutoloadClasses['SRFProcess']   = $formatDir . 'graphviz/SRF_Process.php';
@@ -149,6 +153,8 @@ function srffInitFormats() {
 	global $srfgFormats, $smwgResultFormats, $smwgResultAliases;
 	
 	$formatClasses = array(
+		// Assign the Boilerplate class to a format identifier
+		// 'boilerplate' => 'SRFBoilerplate',
 		'timeline' => 'SRFTimeline',
 		'eventline' => 'SRFTimeline',
 		'vcard' => 'SRFvCard',

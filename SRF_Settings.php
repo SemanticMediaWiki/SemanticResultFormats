@@ -58,6 +58,10 @@ $srfgFormats = array(
 	'feed',
 	'dygraphs',
 
+	// Boilerplate
+	// Enable access to the format identifier
+	// 'boilerplate',
+
 	// Disabled by default
 	
 	// This format can influence performance during execution due to potential
