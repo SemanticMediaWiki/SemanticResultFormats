@@ -33,7 +33,7 @@ class SRFArray extends SMWResultPrinter {
 	 */
 	protected $mMainLabelHack = false;
 	
-	public function __construct( $format, $inline, $useValidator = true ) {
+	public function __construct( $format, $inline = true, $useValidator = true ) {
 		parent::__construct( $format, $inline, $useValidator );
 		//overwrite parent default behavior for linking:
 		$this->mLinkFirst = false;
