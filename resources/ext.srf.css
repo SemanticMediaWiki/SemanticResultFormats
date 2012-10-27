@@ -17,14 +17,22 @@
 	vertical-align: middle;
 }
 
-.srf-processing {
-	vertical-align: middle;
-	background-color: white;
+.srf-spinner.text{
 	color: #666;
-	display:inline-block;
-	/* @embed */ background: url(images/spinner.gif) no-repeat left bottom;
+	padding-left: 1.6em;
+	font-size: 12px;
+	vertical-align: middle;
 }
 
+/* Spinner for left side in-text*/
+.srf-spinner.mw-small-spinner {
+	background-position:left;
+	vertical-align: middle;
+	display:inline-block;
+	padding: 0px !important;
+}
+
+/* Sppiner for image center*/
 .srf-spinner-img.mw-small-spinner {
 	vertical-align: middle;
 	display:inline-block;

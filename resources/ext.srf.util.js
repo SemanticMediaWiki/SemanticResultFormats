@@ -19,8 +19,9 @@
 
 	var _cacheTime = 1000 * 60 * 60 * 24; // 24 hours
 
-	var _CL_mwspinner  = 'mw-small-spinner';
-	var _CL_srfspinner = 'srf-spinner-img';
+	var _CL_mwspinner   = 'mw-small-spinner';
+	var _CL_srfIspinner = 'srf-spinner-img';
+	var _CL_srfspinner  = 'srf-spinner';
 
 	////////////////////////// PUBLIC INTERFACE /////////////////////////
 
@@ -160,7 +161,7 @@
 		 * @return object
 		 */
 		spinner: {
-			show: function( options ) {
+			create: function( options ) {
 
 				// Select the object from its context and determine height and width
 				var obj = options.context.find( options.selector ),
@@ -169,19 +170,23 @@
 					height = obj.height();
 
 				// Add spinner to target object
-				obj.after( h.element( 'span', { 'class' : _CL_srfspinner + ' ' + _CL_mwspinner }, null ) );
+				obj.after( h.element( 'span', { 'class' : _CL_srfIspinner + ' ' + _CL_mwspinner }, null ) );
 
 				// Adopt height and width to avoid clutter
-				options.context.find( '.' + _CL_srfspinner + '.' + _CL_mwspinner )
+				options.context.find( '.' + _CL_srfIspinner + '.' + _CL_mwspinner )
 					.css( { width: width, height: height } )
 					.data ( 'spinner', obj ); // Attach the original object as data element
 				obj.remove(); // Could just hide the element instead of removing it
 
 			},
-			hide: function ( options ){
+			replace: function ( options ){
 				// Replace spinner and restore original instance
-				options.context.find( '.' + _CL_srfspinner + '.' + _CL_mwspinner )
-					.replaceWith( options.context.find( '.' + _CL_srfspinner ).data( 'spinner' ) ) ;
+				options.context.find( '.' + _CL_srfIspinner + '.' + _CL_mwspinner )
+					.replaceWith( options.context.find( '.' + _CL_srfIspinner ).data( 'spinner' ) ) ;
+			},
+			hide: function ( options ){
+				// Hide spinner
+				options.context.find( '.' + _CL_srfspinner ).hide();
 			}
 		}
 	};

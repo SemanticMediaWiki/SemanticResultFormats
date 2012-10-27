@@ -13,8 +13,7 @@
  * @author mwjames
  */
 ( function( $ ) {
-
-	"use strict";
+	'use strict';
 
 	/*global mw:true*/
 
@@ -98,7 +97,7 @@
 		var gcalholiday = data.options.gcalurl === null ? '' : data.options.gcalurl;
 
 		// Hide processing note
-		this.find( '.srf-processing' ).hide();
+		util.spinner.hide( { context: this } );
 
 		// Show container
 		container.show();

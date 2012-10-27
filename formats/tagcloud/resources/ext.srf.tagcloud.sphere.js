@@ -1,14 +1,22 @@
 /**
  * JavaScript for SRF tagcloud module using the tagcanvas plug-in
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Tagcloud format
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @since 1.8
+ * @release 0.3
  *
- * @since: 1.8
- * @release: 0.3
+ * @file
+ * @ingroup SemanticResultFormats
+ *
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $, mw ) {
-	"use strict";
+( function( $, mw, srf ) {
+	'use strict';
+
+	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	var util = new srf.util();
 
 	var sphere = {
 		init: function () {
@@ -37,7 +45,7 @@
 				tagsID      = container.children( "div" ).attr('id');
 
 			// Hide and re-assign elements
-			$this.find( '.srf-processing' ).hide();
+			util.spinner.hide( { context: $this } );
 			$this.css( { 'width': width, 'height': height } );
 
 			// Add canvas object
@@ -69,4 +77,4 @@
 	} else {
 		sphere.init();
 	}
-} )( window.jQuery );
+} )( jQuery, mediaWiki, semanticFormats );

@@ -41,7 +41,7 @@ final class SRFUtils {
 
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'srf-processing' ),
+			array( 'class' => 'srf-spinner mw-small-spinner' ),
 			Html::element(
 				'span',
 				array( 'class' => 'srf-processing-text' ),

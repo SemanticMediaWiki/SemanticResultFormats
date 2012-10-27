@@ -1,18 +1,24 @@
 /**
- * JavaScript for SRF ...
+ * JavaScript for SRF timeseries
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Timeseries format
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @since 1.8
+ * @release 0.3
  *
- * @release: 0.2
+ * @file
+ * @ingroup SemanticResultFormats
+ *
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $ ) {
-	"use strict";
-
-	// Only display errors
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
+( function( $, srf ) {
+	'use strict';
 
 	/*global mw:true*/
+
+	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	var util = new srf.util();
 
 	var methods = {
 		/**
@@ -61,7 +67,7 @@
 			width = container.width();
 
 			// Hide processing
-			chart.find( ".srf-processing" ).hide();
+			util.spinner.hide( { context: chart } );
 
 			// Release chart container
 			container.show();
@@ -333,4 +339,4 @@
 			} );
 		}
 	} );
-} )( window.jQuery );
+} )( jQuery, semanticFormats );

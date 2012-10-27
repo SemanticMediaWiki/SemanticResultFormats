@@ -40,6 +40,7 @@
 				var $this = $( this ),
 					galleryID = $this.attr( 'id' ),
 					srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
+
 				// Loop over all relevant gallery items
 				$this.find( '.gallerybox' ).each( function () {
 					var $this = $( this ),
@@ -47,9 +48,6 @@
 						image = $this.find( 'a.image' ),
 						imageText = $this.find( '.gallerytext p' ).html();
 
-					// Prepare overlay icon placeholder
-					image.prepend( h.element( 'span', { 'class': 'zoomicon' }, null ) );
-					var overlay = image.find( '.zoomicon' ).hide();
 
 					// Group images
 					image.attr( 'rel', image.has( 'img' ).length ? galleryID : '' );
@@ -59,27 +57,33 @@
 					image.attr( 'title', imageText );
 
 					// Avoid undefined error
-					if ( typeof  image.attr( 'href' ) === undefined ) {
+					if ( image.attr( 'href' ) === undefined ) {
 						$this.html( '<span class="error">' + mw.message( 'srf-gallery-image-url-error' ).escaped() + '</span>' );
 					} else {
-						// Add spinner while fetching the URL
-						util.spinner.show( { context: $this, selector: 'img' } );
 
 						// There should be a better way to find the title object but there isn't
-						var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" );
+						var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" ),
+							imageSource = image.attr( 'href' );
+
+						// Prepare overlay icon placeholder
+						image.before( h.element( 'a', { 'class': 'zoomicon', 'href': imageSource }, null ) );
+						var overlay = $this.find( '.zoomicon' ).hide();
+
+						// Add spinner while fetching the URL
+						util.spinner.create( { context: $this, selector: 'img' } );
 
 						// Re-assign image url
 						util.getImageURL( { 'title': 'File:' + title },
 							function( url ) { if ( url === false ) {
 								image.attr( 'href', '' );
 								// Release thumb image
-								util.spinner.hide( { context: $this, selector: 'img' } );
+								util.spinner.replace( { context: $this, selector: 'img' } );
 							} else {
 								image.attr( 'href', url );
+								// Release thumb image
+								util.spinner.replace( { context: $this, selector: 'img' } );
 								// Release overlay icon
 								overlay.show();
-								// Release thumb image
-								util.spinner.hide( { context: $this, selector: 'img' } );
 							}
 						} );
 					}

@@ -6,16 +6,17 @@
  * @release 0.3
  *
  * @file
- * @ingroup SRF
+ * @ingroup SemanticResultFormats
  *
  * @licence GNU GPL v2 or later
  * @author mwjames
  */
-( function( $ ) {
-
-	"use strict";
+( function( $, mw, srf ) {
+	'use strict';
 
 	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	var util = new srf.util();
 
 	function _moveSlide( slider, fancybox, event ){
 		var direction = null;
@@ -25,7 +26,7 @@
 		// we will not respond to the event and bailout
 		if ( fancybox.find( '#fancybox-title' ).find( '.button' ).length > 0 ){
 			return true;
-		};
+		}
 
 		// Handle cursor keys
 		if ( event.keyCode == 37 || event.keyCode == 33 ) {
@@ -36,7 +37,7 @@
 			direction = 'next';
 		}
 
-		if (direction != null) {
+		if (direction !== null) {
 			slider.trigger( 'nextprev', { dir: direction } );
 			event.preventDefault();
 		}
@@ -66,7 +67,7 @@
 
 			// Release container
 			container.show();
-			$this.find( '.srf-processing' ).hide();
+			util.spinner.hide( { context: $this } );
 
 			// Override static text with available translation
 			container.find( '.slidecontrols' ).find( 'li .srf-pagewidget-carousel-prev' ).text( mw.msg( 'srf-ui-navigation-prev' ) );
@@ -98,4 +99,4 @@
 			} );
 		} );
 	} );
-} )( window.jQuery );
+} )( jQuery, mediaWiki, semanticFormats );

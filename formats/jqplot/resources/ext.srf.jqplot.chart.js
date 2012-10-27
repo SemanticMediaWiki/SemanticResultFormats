@@ -1,21 +1,25 @@
 /**
  * JavaScript for SRF jqPlot chart/series module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Jqplotchart format
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Jplotseries format
  *
- * The script is designed to handle single and series data sets
+ * @since 1.8
+ * @release 0.3
  *
- * jshint checked and passed
+ * @file
+ * @ingroup SemanticResultFormats
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
- *
- * @release: 0.6
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $ ) {
-	"use strict";
+( function( $, srf ) {
+	'use strict';
 
 	/*global mw:true*/
 
 	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	var util = new srf.util();
 
 	// Browser information
 	var profile = $.client.profile();
@@ -56,7 +60,7 @@
 		} );
 
 		// Hide processing image
-		chart.find( '.srf-processing' ).hide();
+		util.spinner.hide( { context: chart } );
 
 		// Release chart/graph
 		container.show();
@@ -158,4 +162,4 @@
 			} );
 		}
 	} );
-} )( window.jQuery );
+} )( jQuery, semanticFormats );

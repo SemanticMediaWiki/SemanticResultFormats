@@ -40,32 +40,33 @@
 					h = mw.html,
 					image = $this.find( 'a.image' );
 
-				// Prepare redirect icon placeholder
-				image.prepend( h.element( 'span', { 'class': 'redirect' }, null ) );
-				var redirect = image.find( '.redirect' ).hide();
-
 				// Avoid undefined error
-				if ( typeof  image.attr( 'href' ) === undefined ) {
-					$this.html( h.element( 'span', { 'class': 'error' },  mw.message( 'srf-gallery-image-url-error' ).escaped() ) ); 
+				if ( image.attr( 'href' ) === undefined ) {
+					$this.html( h.element( 'span', { 'class': 'error' }, mw.message( 'srf-gallery-image-url-error' ).escaped() ) );
 				} else {
 
 					// Alt attribute contains redirect title
-					var title = image.find( 'img' ).attr( 'alt' );
+					var title = image.find( 'img' ).attr( 'alt' ),
+						imageSource = image.attr( 'href' );
+
+					// Prepare redirect icon placeholder
+					image.before( h.element( 'a', { 'class': 'redirect', 'href': imageSource }, null ) );
+					var redirect = $this.find( '.redirect' ).hide();
 
 					// Assign redirect article url
 					if ( title !== undefined && title.length > 0 ) {
 						// Show image spinner while fetching the URL
-						util.spinner.show( { context: $this, selector: 'img' } );
+						util.spinner.create( { context: $this, selector: 'img' } );
 
 						util.getTitleURL( { 'title': title },
 							function( url ) { if ( url === false ) {
 								image.attr( 'href', '' );
 								// Release thumb image
-								util.spinner.hide( { context: $this, selector: 'img' } );
+								util.spinner.replace( { context: $this, selector: 'img' } );
 							} else {
 								image.attr( 'href', url );
 								// Release thumb image
-								util.spinner.hide( { context: $this, selector: 'img' } );
+								util.spinner.replace( { context: $this, selector: 'img' } );
 								// Release redirect icon
 								redirect.show();
 							}

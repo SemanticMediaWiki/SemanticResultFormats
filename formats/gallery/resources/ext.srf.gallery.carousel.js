@@ -46,7 +46,7 @@
 				var $this = $( this ),
 					carousel = $this.find( '.jcarousel' );
 
-					$this.find( '.srf-processing' ).hide();
+					util.spinner.hide( { context: $this } );
 
 					carousel.each( function() {
 						$( this ).show();
@@ -63,11 +63,12 @@
 	};
 
 	/**
-	 * Implementation representing a carousel instance
+	 * Implementation representing a gallery instance
 	 * @since 1.8
 	 * @type Object
 	 */
 	var gallery = new srf.formats.gallery();
+	var util = new srf.util();
 
 	$( document ).ready( function() {
 		$( '.srf-gallery-carousel' ).each(function() {

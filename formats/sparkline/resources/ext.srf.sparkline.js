@@ -12,8 +12,7 @@
  * @author mwjames
  */
 ( function( srf, $ ) {
-
-	"use strict";
+	'use strict';
 
 	/*global mw:true semanticFormats:true*/
 
@@ -42,7 +41,7 @@
 				var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
 				// Release graph and bottom text
-				$( this ).find( '.srf-processing' ).hide();
+				util.spinner.hide( { context: $( this ) } );
 
 				// Release chart/graph
 				chart.show();
@@ -57,7 +56,12 @@
 		}
 	};
 
-	////////////////////////// IMPLEMENTATION ////////////////////////
+	/**
+	 * Implementation and representation of the sparkline instance
+	 * @since 1.8
+	 * @type Object
+	 */
+	var util = new srf.util();
 
 	$( document ).ready( function() {
 		$( '.srf-sparkline' ).each( function() {

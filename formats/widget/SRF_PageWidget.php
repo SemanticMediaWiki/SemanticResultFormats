@@ -33,7 +33,7 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMsg( 'srf-printername-pagewidget' );
+		return wfMessage( 'srf-printername-pagewidget' )->text();
 	}
 
 	/**

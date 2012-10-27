@@ -150,7 +150,7 @@ $wgResourceModules['ext.srf.util.grid'] = $moduleTemplate + array(
 $wgResourceModules['ext.srf.sparkline'] = $formatModule + array(
 	'scripts' => 'sparkline/resources/ext.srf.sparkline.js',
 	'dependencies' => array(
-		'ext.srf',
+		'ext.srf.util',
 		'ext.jquery.sparkline'
 	),
 	'group' => 'ext.srf',
@@ -169,6 +169,7 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
 	'dependencies' => array(
 		'jquery.client',
 		'jquery.async',
+		'ext.srf.util',
 		'ext.smw.tooltip',
 		'ext.dygraphs.combined',
 	),
@@ -187,6 +188,7 @@ $wgResourceModules['ext.srf.dygraphs'] = $formatModule + array(
 $wgResourceModules['ext.srf.listwidget'] = $formatModule + array(
 	'scripts' => 'widget/resources/ext.srf.listwidget.js',
 	'styles'  => 'widget/resources/ext.srf.listwidget.css',
+	'dependencies' => 'ext.srf.util',
 	'messages' => array(
 		'srf-module-nomatch'
 	)
@@ -219,7 +221,10 @@ $wgResourceModules['ext.srf.listwidget.pagination'] = $formatModule + array(
 $wgResourceModules['ext.srf.pagewidget.carousel'] = $formatModule + array(
 	'scripts' => 'widget/resources/ext.srf.pagewidget.carousel.js',
 	'styles' => 'widget/resources/ext.srf.pagewidget.carousel.css',
-	'dependencies' => 'ext.jquery.dynamiccarousel',
+	'dependencies' => array(
+		'ext.jquery.dynamiccarousel',
+		'ext.srf.util'
+	),
 	'messages' => array(
 		'srf-ui-navigation-prev',
 		'srf-ui-navigation-next',
@@ -371,6 +376,7 @@ $wgResourceModules['ext.srf.jqplot.chart'] = $formatModule + array(
 	'styles'  => 'jqplot/resources/ext.srf.jqlpot.chart.css',
 	'dependencies' => array(
 		'jquery.async',
+		'ext.srf.util',
 		'ext.srf.jqplot.themes'
 	)
 );
@@ -446,19 +452,20 @@ $wgResourceModules['ext.d3.layout.cloud'] = $moduleTemplate + array(
 
 $wgResourceModules['ext.srf.d3.common'] = $formatModule + array(
 	'scripts' => 'd3/resources/ext.srf.d3.common.js',
-	'styles'  => 'd3/resources/ext.srf.d3.common.css'
+	'styles'  => 'd3/resources/ext.srf.d3.common.css',
+	'dependencies' => 'ext.srf.util'
 );
 
 $wgResourceModules['ext.srf.d3.chart.treemap'] = $formatModule + array(
-	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.treemap.js',
-	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.treemap.css',
+	'scripts' => 'd3/resources/ext.srf.d3.chart.treemap.js',
+	'styles'  => 'd3/resources/ext.srf.d3.chart.treemap.css',
 	'dependencies' => array ( 'ext.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
 );
 
 $wgResourceModules['ext.srf.d3.chart.bubble'] = $formatModule + array(
-	'scripts' => 'd3/resources/chart/ext.srf.d3.chart.bubble.js',
-	'styles'  => 'd3/resources/chart/ext.srf.d3.chart.bubble.css',
+	'scripts' => 'd3/resources/ext.srf.d3.chart.bubble.js',
+	'styles'  => 'd3/resources/ext.srf.d3.chart.bubble.css',
 	'dependencies' => array ( 'ext.d3.core', 'ext.srf.d3.common' ),
 	'position'     => 'top',
 );
@@ -500,7 +507,7 @@ $wgResourceModules['ext.srf.gallery.carousel'] = $formatModule + array(
 	'styles'  => 'gallery/resources/ext.srf.gallery.carousel.css',
 	'scripts' => 'gallery/resources/ext.srf.gallery.carousel.js',
 	'dependencies' => array(
-		'ext.srf',
+		'ext.srf.util',
 		'ext.jquery.jcarousel'
 	),
 	'position' => 'top',
@@ -510,7 +517,7 @@ $wgResourceModules['ext.srf.gallery.slideshow'] = $formatModule + array(
 	'scripts' => 'gallery/resources/ext.srf.gallery.slideshow.js',
 	'styles'  => 'gallery/resources/ext.srf.gallery.slideshow.css',
 	'dependencies' => array(
-		'ext.srf',
+		'ext.srf.util',
 		'ext.jquery.responsiveslides'
 	),
 	'messages' => array(
@@ -621,6 +628,7 @@ $wgResourceModules['ext.srf.tagcloud.sphere'] = $formatModule + array(
 	'dependencies' => array(
 		'jquery.async',
 		'jquery.client',
+		'ext.srf.util',
 		'ext.jquery.tagcanvas'
 	),
 	'position' => 'top',
@@ -648,6 +656,7 @@ $wgResourceModules['ext.srf.timeseries.flot'] = $formatModule + array(
 	'dependencies' => array(
 		'jquery.async',
 		'ext.jquery.flot',
+		'ext.srf.util',
 		'ext.srf.flot.core'
 	),
 	'position' => 'top'

@@ -1,21 +1,26 @@
 /**
  * JavaScript for SRF ListWidget module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Listwidget format
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @since 1.8
+ * @release 0.3
  *
- * @since: 1.8
+ * @file
+ * @ingroup SemanticResultFormats
  *
- * jshint checked
- *
- * @release: 0.3
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $ ) {
-	"use strict";
+( function( $, mw, srf ) {
+	'use strict';
 
 	/*global mw:true*/
 
-	try { console.log('console ready'); } catch (e) { var console = { log: function () { } }; }
+	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	var util = new srf.util();
+
+	////////////////////////// PUBLIC METHODS ////////////////////////
 
 	$.fn.srfListwidget = function() {
 		var widgetID = this.find( '.container' ).attr( 'id' ),
@@ -61,7 +66,7 @@
 		}
 
 		// Release display
-		this.find( '.srf-processing' ).hide();
+		util.spinner.hide( { context: this } );
 		this.find( '.srf-listwidget-navigation' ).show();
 		this.find( '.container' ).show();
 	};
@@ -70,5 +75,5 @@
 		$( '.srf-listwidget' ).each( function() {
 			$( this ).srfListwidget();
 		} );
-	} ); // end $(document).ready
-} )( window.jQuery );
+	} );
+} )( jQuery, mediaWiki, semanticFormats );

@@ -6,19 +6,19 @@
  * @release 0.3
  *
  * @file
- * @ingroup SRF
+ * @ingroup SemanticResultFormats
  *
  * @licence GNU GPL v2 or later
  * @author mwjames
  */
-( function( mw, $ ) {
-
-	"use strict";
+( function( $, mw, srf ) {
+	'use strict';
 
 	/*global mw:true Dygraph:true mediaWiki:true*/
 
 	////////////////////////// PRIVATE METHODS ////////////////////////
 
+	var util = new srf.util();
 	var tooltip = new smw.util.tooltip();
 
 	/**
@@ -126,7 +126,7 @@
 			 */
 			function showContainer(){
 				container.show();
-				chart.find( '.srf-processing' ).hide();
+				util.spinner.hide( { context: chart } );
 			}
 
 			/**
@@ -416,4 +416,4 @@
 	} else {
 		dygraphs.init();
 	}
-} )( mediaWiki, jQuery );
+} )( jQuery, mediaWiki, semanticFormats );

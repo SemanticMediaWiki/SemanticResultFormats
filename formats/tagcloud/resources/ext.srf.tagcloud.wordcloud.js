@@ -1,15 +1,23 @@
 /**
  * JavaScript for SRF wordcloud widget based on d3 and d3.layout.cloud.js
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Tagcloud format
  *
- * @licence: GNU GPL v2 or later
- * @author:  mwjames
+ * @since 1.8
+ * @release 0.3
  *
- * @since: 1.8
- * @release: 0.2
+ * @file
+ * @ingroup SemanticResultFormats
+ *
+ * @licence GNU GPL v2 or later
+ * @author mwjames
  */
-( function( $ ) {
-	"use strict";
+( function( $, mw, srf ) {
+	'use strict';
+
 	/*global d3:true*/
+	////////////////////////// PRIVATE METHODS ////////////////////////
+
+	var util = new srf.util();
 
 	var wordcloud = {
 		init: function () {
@@ -38,7 +46,7 @@
 				textFont    = container.data( "font" ).split(',');
 
 			// Hide and re-assign elements
-			$this.find( '.srf-processing' ).hide();
+			util.spinner.hide( { context: $this } );
 			$this.css( { 'width': width, 'height': height } );
 
 			// Build array of tags, fetch size, and href property
@@ -92,4 +100,4 @@
 	};
 
 	wordcloud.init();
-} )( window.jQuery );
+} )( jQuery, mediaWiki, semanticFormats );

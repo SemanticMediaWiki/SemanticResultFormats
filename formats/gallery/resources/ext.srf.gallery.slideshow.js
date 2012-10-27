@@ -45,7 +45,7 @@
 				}
 
 				// Make elements visible / hide
-				$this.find( '.srf-processing' ).hide();
+				util.spinner.hide( { context: $this } );
 				gallery.show();
 
 				// Loop over all the gallery items
@@ -83,6 +83,7 @@
 	 * @type Object
 	 */
 	var gallery = new srf.formats.gallery();
+	var util = new srf.util();
 
 	$( document ).ready( function() {
 		$( '.srf-gallery-slideshow' ).each(function() {

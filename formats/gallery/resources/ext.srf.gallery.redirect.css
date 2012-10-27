@@ -14,11 +14,11 @@
 }
 
 .srf-redirect .redirect {
-	width: 20px;
-	height: 18px;
-	display: block;
 	position: absolute;
-	top: 12px;
-	margin-left: 12px;
-	/* @embed */ background: url(images/gallery-redirect.png) no-repeat;
+	top:10px;
+	left:10px;
+	width: 16px;
+	height: 16px;
+	display:block;
+	/* @embed */ background: url(images/gallery-redirect.png) no-repeat left;
 }
