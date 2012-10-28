@@ -28,7 +28,7 @@
 
 /**
  * This documentation group collects source code files belonging to SemanticResultFormats.
- * 
+ *
  * @defgroup SemanticResultFormats Semantic Result Formats
  */
 
@@ -62,7 +62,7 @@ $wgExtensionFunctions[] = 'srffInitFormats';
 $wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
 $wgExtensionMessagesFiles['SemanticResultFormatsMagic'] = dirname( __FILE__ ) . '/SRF_Magic.php';
 
-$srfgScriptPath = ( $wgExtensionAssetsPath === false ? $wgScriptPath . '/extensions' : $wgExtensionAssetsPath ) . '/SemanticResultFormats'; 
+$srfgScriptPath = ( $wgExtensionAssetsPath === false ? $wgScriptPath . '/extensions' : $wgExtensionAssetsPath ) . '/SemanticResultFormats';
 $srfgIP = dirname( __FILE__ );
 
 $wgExtensionCredits['semantic'][] = array(
@@ -119,6 +119,7 @@ $wgAutoloadClasses['SRFGooglePie'] = $formatDir . 'googlecharts/SRF_GooglePie.ph
 $wgAutoloadClasses['SRFOutline']   = $formatDir . 'outline/SRF_Outline.php';
 $wgAutoloadClasses['SRFTime']      = $formatDir . 'time/SRF_Time.php';
 $wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'slideshow/SRF_SlideShow.php';
+$wgAutoloadClasses['SRFSlideShowApi'] = $formatDir . 'slideshow/SRF_SlideShowApi.php';
 $wgAutoloadClasses['SRFTree']      = $formatDir . 'tree/SRF_Tree.php';
 $wgAutoloadClasses['SRFGallery']   = $formatDir . 'gallery/SRF_Gallery.php';
 $wgAutoloadClasses['SRFTagCloud']  = $formatDir . 'tagcloud/SRF_TagCloud.php';
@@ -138,20 +139,20 @@ $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
-// @TODO see bug 40746
-$wgAjaxExportList[] = 'SRFSlideShow::handleGetResult';
+// register API modules
+$wgAPIModules['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
 // User preference
 $wgHooks['GetPreferences'][] = 'SRFHooks::onGetPreferences';
 
 /**
  * Autoload the query printer classes and associate them with their formats in the $smwgResultFormats array.
- * 
+ *
  * @since 1.5.2
  */
 function srffInitFormats() {
 	global $srfgFormats, $smwgResultFormats, $smwgResultAliases;
-	
+
 	$formatClasses = array(
 		// Assign the Boilerplate class to a format identifier
 		// 'boilerplate' => 'SRFBoilerplate',
@@ -208,11 +209,11 @@ function srffInitFormats() {
 		'jqplotchart' => array( 'jqplot chart', 'jqplotpie', 'jqplotbar' ),
 		'jqplotseries' => array( 'jqplot series' ),
 	);
-	
+
 	foreach ( $srfgFormats as $format ) {
 		if ( array_key_exists( $format, $formatClasses ) ) {
 			$smwgResultFormats[$format] = $formatClasses[$format];
-			
+
 			if ( isset( $smwgResultAliases ) && array_key_exists( $format, $formatAliases ) ) {
 				$smwgResultAliases[$format] = $formatAliases[$format];
 			}
@@ -220,5 +221,5 @@ function srffInitFormats() {
 		else {
 			wfDebug( "There is no result format class associated with the '$format' format." );
 		}
-	}	
+	}
 }
