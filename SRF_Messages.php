@@ -1693,14 +1693,16 @@ $messages['fi'] = array(
  * @author Verdy p
  */
 $messages['fr'] = array(
-	'srf-desc' => 'Formats additionnels pour les requêtes de Semantic MediaWiki',
+	'srf-desc' => "Formats additionnels d'affichage pour les requêtes de Semantic MediaWiki",
 	'srf-name' => 'Formatage des résultats sémantiques',
 	'srf-module-loading' => 'Chargement...',
 	'srf-paramdesc-layout' => 'Mise en page disponible',
 	'srf-paramdesc-height' => 'Hauteur (en pixels)',
 	'srf-paramdesc-width' => 'Largeur',
-	'srf-paramdesc-class' => 'Classe CSS supplémentaire', # Fuzzy
+	'srf-paramdesc-class' => 'Spécifiez une classe CSS supplémentaire',
 	'srf-module-nomatch' => 'Aucun résultat trouvé',
+	'srf-ui-navigation-prev' => 'Précédent',
+	'srf-ui-navigation-next' => 'Suivant',
 	'srf-error-option-mix' => "L'option ($1) n'est pas disponible",
 	'srf-error-option-link-all' => 'L\'option ($1) nécessite le paramètre "link" pour être mise à "all"',
 	'srf-error-missing-layout' => 'Mise en page manquante',
@@ -1746,7 +1748,7 @@ $messages['fr'] = array(
 	'srf_paramdesc_lens' => 'Le nom du modèle utilisé pour afficher les propriétés de la page',
 	'srf_printername_googlebar' => 'Diagramme à barres de Google',
 	'srf_printername_googlepie' => 'Diagramme en camembert de Google',
-	'srf_paramdesc_chartheight' => 'Hauteur du graphique (en pixels)', # Fuzzy
+	'srf_paramdesc_chartheight' => "Spécifiez la hauteur (en pixels) d'un diagramme ou d'un graphe",
 	'srf_paramdesc_chartwidth' => 'Largeur du graphique (en pixels)', # Fuzzy
 	'srf_paramdesc_charttitle' => 'Le titre du graphique',
 	'srf_paramdesc_barcolor' => 'La couleur des barres',
@@ -1837,6 +1839,11 @@ $messages['fr'] = array(
 	'srf-paramdesc-listtype' => 'Type de liste', # Fuzzy
 	'srf-paramdesc-widget' => 'Widget disponible',
 	'srf-paramdesc-pageitems' => 'Éléments par page',
+	'srf-ui-eventcalendar-label-today' => 'Aujourd’hui',
+	'srf-ui-eventcalendar-label-month' => 'Mois',
+	'srf-ui-eventcalendar-label-week' => 'Semaine',
+	'srf-ui-eventcalendar-label-day' => 'Jour',
+	'srf-ui-eventcalendar-label-allday' => 'Toute la journée',
 );
 
 /** Franco-Provençal (arpetan)
@@ -3195,6 +3202,12 @@ $messages['lb'] = array(
 	'srf-name' => 'Formate vu semantesche Resultater',
 	'srf-paramdesc-height' => 'Héicht',
 	'srf-paramdesc-width' => 'Breet',
+	'srf-navigation-previous' => 'Vireg',
+	'srf-ui-navigation-prev' => 'Vireg',
+	'srf-ui-navigation-next' => 'Nächst',
+	'srf-ui-common-label-source' => 'Quell',
+	'srf-ui-tooltip-title-options' => 'Optiounen',
+	'srf-error-option-mix' => 'Optioun ($1) ass net disponibel',
 	'srf-error-missing-layout' => 'De Layout feelt',
 	'srfc_previousmonth' => 'Virege Mount',
 	'srfc_nextmonth' => 'Nächste Mount',
@@ -3231,6 +3244,8 @@ $messages['lb'] = array(
 	'srf-paramdesc-minvalue' => 'De klengste Wäert,deen op der Y-Achs gewise soll ginn',
 	'srf-paramdesc-charttext' => 'Textbeschreiwung vum Diagramm',
 	'srf-ui-gridview-label-chart-tab' => 'Diagramm',
+	'srf-ui-gridview-label-data-tab' => 'Donnéeën',
+	'srf-ui-gridview-label-info-tab' => 'Informatioun',
 	'srf_printername_gallery' => 'Galerie',
 	'srf_paramdesc_perrow' => "D'Zuel vu Biller pro Rei",
 	'srf_paramdesc_widths' => "D'Breet vun de Biller",
@@ -3253,7 +3268,14 @@ $messages['lb'] = array(
 	'srf-printername-slideshow' => 'SlideShow',
 	'srf-paramdesc-delay' => 'Den zäitlechen Ofstand tëschent de Sliden a Sekonnen',
 	'srf-paramdesc-effect' => 'Den Iwwergang de vun engem Slide op dee nächste slide benotzt gëtt',
+	'srf-paramdesc-zoom' => 'Zoom aschalten',
 	'srf-paramdesc-pageitems' => 'Objete pro Säit:',
+	'srf-paramdesc-calendarfirstday' => 'Den Dag mat deem all Woch ufänkt',
+	'srf-ui-eventcalendar-label-today' => 'Haut',
+	'srf-ui-eventcalendar-label-month' => 'Mount',
+	'srf-ui-eventcalendar-label-week' => 'Woch',
+	'srf-ui-eventcalendar-label-day' => 'Dag',
+	'srf-ui-eventcalendar-label-allday' => 'Ganzen Dag',
 	'srf-paramdesc-unit' => 'Eenheet',
 );
 
