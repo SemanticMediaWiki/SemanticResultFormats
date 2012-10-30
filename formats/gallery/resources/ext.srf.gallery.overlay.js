@@ -8,7 +8,7 @@
  * to display the image in the fancybox
  *
  * @since 1.8
- * @release 0.3
+ * @version 0.3
  *
  * @file
  * @ingroup SemanticResultFormats
@@ -48,7 +48,6 @@
 						image = $this.find( 'a.image' ),
 						imageText = $this.find( '.gallerytext p' ).html();
 
-
 					// Group images
 					image.attr( 'rel', image.has( 'img' ).length ? galleryID : '' );
 
@@ -66,8 +65,8 @@
 							imageSource = image.attr( 'href' );
 
 						// Prepare overlay icon placeholder
-						image.before( h.element( 'a', { 'class': 'zoomicon', 'href': imageSource }, null ) );
-						var overlay = $this.find( '.zoomicon' ).hide();
+						image.before( h.element( 'a', { 'class': 'overlayicon', 'href': imageSource }, null ) );
+						var overlay = $this.find( '.overlayicon' ).hide();
 
 						// Add spinner while fetching the URL
 						util.spinner.create( { context: $this, selector: 'img' } );
