@@ -252,7 +252,7 @@ $wgResourceModules['ext.jquery.jqplot.excanvas'] = $moduleTemplate + array(
 // JSON data formatting according the the City Index API spec
 $wgResourceModules['ext.jquery.jqplot.json'] = $moduleTemplate + array(
 	'scripts' => array (
-		'resources/jquery.jqplot/jqplot.json2.min.js',
+		'resources/jquery.jqplot/jqplot.json2.js',
 		'resources/jquery.jqplot/jqplot.ciParser.js'
 	)
 );
