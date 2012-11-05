@@ -7,7 +7,7 @@
  * we have to catch the "real" image location url from the api
  *
  * @since 1.8
- * @release 0.3
+ * @version 0.4
  *
  * @file
  * @ingroup SemanticResultFormats
@@ -35,6 +35,7 @@
 
 	srf.formats.gallery.prototype = {
 		redirect: function( context ) {
+			var type = context.data( 'redirect-type' );
 			return context.find( '.gallerybox' ).each( function() {
 				var $this = $( this ),
 					h = mw.html,
@@ -45,20 +46,25 @@
 					$this.html( h.element( 'span', { 'class': 'error' }, mw.message( 'srf-gallery-image-url-error' ).escaped() ) );
 				} else {
 
-					// Alt attribute contains redirect title
-					var title = image.find( 'img' ).attr( 'alt' ),
+					// Per convention "alt" attribute contains the redirect title
+					var titleAlt = image.find( 'img' ).attr( 'alt' ),
+						titleStatus = titleAlt !== undefined && titleAlt.length > 0,
 						imageSource = image.attr( 'href' );
 
-					// Prepare redirect icon placeholder
-					image.before( h.element( 'a', { 'class': 'redirect', 'href': imageSource }, null ) );
-					var redirect = $this.find( '.redirect' ).hide();
+					// Prepare and hide the redirect icon placeholder
+					image.before( h.element( 'a', { 'class': 'redirecticon', 'href': imageSource }, null ) );
+					var redirect = $this.find( '.redirecticon' ).hide();
 
-					// Assign redirect article url
-					if ( title !== undefined && title.length > 0 ) {
+					if ( type === '_uri' && titleStatus ) {
+						// Direct assign redirect url
+						image.attr( 'href', titleAlt );
+						redirect.show();
+					} else if ( titleStatus ) {
+						// Assign redirect article url
 						// Show image spinner while fetching the URL
 						util.spinner.create( { context: $this, selector: 'img' } );
 
-						util.getTitleURL( { 'title': title },
+						util.getTitleURL( { 'title': titleAlt },
 							function( url ) { if ( url === false ) {
 								image.attr( 'href', '' );
 								// Release thumb image

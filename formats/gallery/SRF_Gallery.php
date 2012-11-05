@@ -94,14 +94,21 @@ class SRFGallery extends SMWResultPrinter {
 		$html          = '';
 		$processing    = '';
 
-		// Carousel widget
 		if ( $this->params['widget'] == 'carousel' ) {
-			$ig->setAttributes( $this->getCarouselWidget( $statNr ) );
-		}
+			// Carousel widget
+			$ig->setAttributes( $this->getCarouselWidget() );
+		} elseif ( $this->params['widget'] == 'slideshow' ) {
+			// Slideshow widget
+			$ig->setAttributes( $this->getSlideshowWidget() );
+		} else {
 
-		// Slideshow widget
-		if ( $this->params['widget'] == 'slideshow' ) {
-			$ig->setAttributes( $this->getSlideshowWidget( $statNr ) );
+			// Standard gallery attributes
+			$attribs = array(
+				'id' => uniqid(),
+				'class' => $this->getImageOverlay(),
+			);
+
+			$ig->setAttributes( $attribs );
 		}
 
 		// Only use redirects where the overlay option is not used and redirect
@@ -124,12 +131,18 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		$printReqLabels = array();
+		$redirectType = '';
 
 		/**
 		 * @var SMWPrintRequest $printReq
 		 */
 		foreach ( $results->getPrintRequests() as $printReq ) {
 			$printReqLabels[] = $printReq->getLabel();
+
+			// Get redirect type
+			if ( $this->params['redirects'] === $printReq->getLabel() ){
+			 $redirectType = $printReq->getTypeID();
+			}
 		}
 
 		if ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ||
@@ -164,7 +177,8 @@ class SRFGallery extends SMWResultPrinter {
 		if ( !$ig->isEmpty() ) {
 			$attribs = array (
 				'class'  => 'srf-gallery' . $class,
-				'align'  => 'justify'
+				'align'  => 'justify',
+				'data-redirect-type' => $redirectType
 			);
 
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
@@ -199,7 +213,7 @@ class SRFGallery extends SMWResultPrinter {
 			for ( $i = 0, $n = count( $rows ); $i < $n; $i++ ) { // Properties
 				/**
 				 * @var SMWResultArray $resultArray
-				 * @var SMWDataValue $obj
+				 * @var SMWDataValue $dataValue
 				 */
 				$resultArray = $rows[$i];
 
@@ -208,19 +222,21 @@ class SRFGallery extends SMWResultPrinter {
 
 				// Make sure always use real label here otherwise it results in an empty array
 				if ( $resultArray->getPrintRequest()->getLabel() == $imageProperty ) {
-					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
-						if ( $obj->getTypeID() == '_wpg' ) {
-							$images[] = $obj->getTitle();
+					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // Property values
+						if ( $dataValue->getTypeID() == '_wpg' ) {
+							$images[] = $dataValue->getTitle();
 						}
 					}
 				} elseif ( $label == $captionProperty ) {
-					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
-						$captions[] = $obj->getShortText( $outputMode, $this->getLinker( true ) );
+					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // Property values
+						$captions[] = $dataValue->getShortText( $outputMode, $this->getLinker( true ) );
 					}
 				} elseif ( $label == $redirectProperty ) {
-					while ( ( $obj = $resultArray->getNextDataValue() ) !== false ) { // Property values
-						if ( $obj->getTypeID() == '_wpg' ) {
-							$redirects[] = $obj->getTitle();
+					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // Property values
+						if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
+							$redirects[] = $dataValue->getTitle();
+						} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI  ) {
+						  $redirects[] = $dataValue->getURL();
 						}
 					}
 				}
@@ -329,7 +345,7 @@ class SRFGallery extends SMWResultPrinter {
 	}
 
 	/**
-	 * Returns the image overlay setting
+	 * Returns the overlay setting
 	 *
 	 * @since 1.8
 	 *
@@ -351,7 +367,7 @@ class SRFGallery extends SMWResultPrinter {
 	 *
 	 * @return string
 	 */
-	private function getCarouselWidget( &$statNr ) {
+	private function getCarouselWidget() {
 
 		// Set attributes for jcarousel
 		$dataAttribs = array(
@@ -369,7 +385,7 @@ class SRFGallery extends SMWResultPrinter {
 		}
 
 		$attribs = array(
-			'id' =>  $this->params['widget'] . '-' . ++$statNr,
+			'id' => uniqid(),
 			'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
 			'style' => 'display:none;',
 		);
@@ -391,10 +407,10 @@ class SRFGallery extends SMWResultPrinter {
 	 *
 	 * @return string
 	 */
-	private function getSlideshowWidget( &$statNr ) {
+	private function getSlideshowWidget() {
 
 		$attribs = array(
-			'id'    => $this->params['widget'] . '-' . ++$statNr,
+			'id'    => uniqid(),
 			'class' => $this->getImageOverlay(),
 			'style' => 'display:none;',
 			'data-nav-control' => $this->params['navigation']
