@@ -2993,6 +2993,10 @@ $messages['it'] = array(
 	'srf-paramdesc-feeddescription' => 'Descrizione feed',
 	'srf-printername-eventcalendar' => 'Calendario degli eventi',
 	'srf-paramdesc-calendarfirstday' => 'Il giorno in cui inizia ogni settimana',
+	'srf-ui-eventcalendar-label-today' => 'Oggi',
+	'srf-ui-eventcalendar-label-month' => 'Mese',
+	'srf-ui-eventcalendar-label-week' => 'Settimana',
+	'srf-ui-eventcalendar-label-day' => 'Giorno',
 	'srf-paramdesc-yaxislabel' => "Descrizione visualizzata sull'asse y",
 	'srf-paramdesc-xaxislabel' => "Descrizione visualizzata sull'asse x",
 );
