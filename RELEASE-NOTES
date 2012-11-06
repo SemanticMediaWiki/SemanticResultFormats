@@ -44,6 +44,7 @@ production until the actual release.
 * (I7c49a644) Gallery format added redirects to enable images to be redirect to another target (mwjames)
 * (bug 38296, Ic9f5e186) Gallery format fixed Special:Ask gallery display error (mwjames)
 * (I338b6b19, I7a0e663b) Gallery format added support for pointing to the subject property in the gallery property parameters using "-"
+* (I762cde6a) Value rank format added template support (mwjames)
 
 ; Other improvements
 
@@ -54,7 +55,7 @@ production until the actual release.
 
 ; Bug fixes
 
-*
+* (bug 38258, I10be92c9) Fix authors/editors in bibtex
 
 == SRF 1.7.1 ==
 
@@ -79,13 +80,13 @@ Released on January 1, 2012.
 * Added value distribution support to jqplotpie and jqplotbar.
 * Added min parameter to jqplotbar to set the minimun value for the Y-axis.
 * Added pointlabel parameter to jqplotbar and chartlegend, legendlocation,
-  datalabels and datalabeltype parameters to jqplotpie based on a patches by James Hong Kong.
+  datalabels and datalabeltype parameters to jqplotpie based on a patches by mwjames.
 * Made array and hash formats compatible with 'Array' extension 2.0 and 'HashTables' 1.0.
 * Added summary parameter to the icalendar format.
 
 New formats in this version are:
 * valuerank (written by DaSch)
-* D3Line, D3Bar and D3Treemap (written by James Hong Kong) (requires MW 1.17 or later)
+* D3Line, D3Bar and D3Treemap (written by mwjames) (requires MW 1.17 or later)
 
 == SRF 1.6.2 ==
 
