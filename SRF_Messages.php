@@ -5195,6 +5195,13 @@ $messages['tr'] = array(
 	'srf_printername_googlepie' => 'Google dilim çizelgesi',
 );
 
+/** Central Atlas Tamazight (ⵜⴰⵎⴰⵣⵉⵖⵜ)
+ * @author Tifinaghes
+ */
+$messages['tzm'] = array(
+	'srf-filtered-selectorlabel-list' => 'ⵓⵎⵓⵖ',
+);
+
 /** Urdu (اردو)
  * @author පසිඳු කාවින්ද
  */
