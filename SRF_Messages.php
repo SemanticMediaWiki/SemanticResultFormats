@@ -2346,6 +2346,7 @@ $messages['gv'] = array(
  * @author Amire80
  * @author StuB
  * @author YaronSh
+ * @author חיים
  */
 $messages['he'] = array(
 	'srf-desc' => 'תבניות נוספות לשאילתות מובנות של מדיה־ויקי סמנטית',
@@ -2381,8 +2382,8 @@ $messages['he'] = array(
 	'srf_paramdesc_lens' => 'שם התבנית שבאמצעותה יוצגו מאפייני הדף',
 	'srf_printername_googlebar' => 'תרשים עמודות של Google',
 	'srf_printername_googlepie' => 'דיאגרמת עוגה של גוגל',
-	'srf_paramdesc_chartheight' => 'גובה התרשים, בפיקסלים', # Fuzzy
-	'srf_paramdesc_chartwidth' => 'רוחב התרשים, בפיקסלים', # Fuzzy
+	'srf_paramdesc_chartheight' => 'ציין את הגובה (בפיקסלים) של תרשים או גרף',
+	'srf_paramdesc_chartwidth' => 'ציין את הרוחב (פיקסלים או אחוזים) של תרשים או גרף',
 	'srf_paramdesc_charttitle' => 'כותרת התרשים',
 	'srf_paramdesc_barcolor' => 'צבע הפסים',
 	'srf_paramdesc_bardirection' => 'כיוון התרשים',
@@ -3390,6 +3391,7 @@ $messages['lb'] = array(
 	'srf_printername_timeline' => 'Chronologie',
 	'srf_printername_eventline' => 'Chronologie vun den Evenementer',
 	'srf_paramdesc_timelinesize' => "D'Héicht vun der Zäitläischt",
+	'srf-timeline-allresults' => 'Méi Resultater fir dës Ufro.',
 	'srf-timeline-nojs' => 'JavaScript muss aktivéiert si fir déi interaktiv Zäitläischt benotzen ze kënnen.',
 	'srf_paramdesc_views' => 'Déi Usiichten déi gewise solle ginn',
 	'srf_paramdesc_lens' => 'Den Numm vun enger Schabloun mat där Säiteneegeschafte gewise  ginn',
@@ -3428,6 +3430,9 @@ $messages['lb'] = array(
 	'srf-printername-slideshow' => 'SlideShow',
 	'srf-paramdesc-delay' => 'Den zäitlechen Ofstand tëschent de Sliden a Sekonnen',
 	'srf-paramdesc-effect' => 'Den Iwwergang de vun engem Slide op dee nächste slide benotzt gëtt',
+	'srf-filtered-selectorlabel-list' => 'Lëscht',
+	'srf-filtered-selectorlabel-calendar' => 'Kalenner',
+	'srf-printername-d3chart' => 'D3 Grafik',
 	'srf-paramdesc-zoom' => 'Zoom aschalten',
 	'srf-paramdesc-pageitems' => 'Objete pro Säit:',
 	'srf-paramdesc-calendarfirstday' => 'Den Dag mat deem all Woch ufänkt',
@@ -3850,12 +3855,15 @@ $messages['nb'] = array(
  * @author AvatarTeam
  * @author GerardM
  * @author McDutchie
+ * @author Rcdeboer
  * @author SPQRobin
  * @author Siebrand
  */
 $messages['nl'] = array(
 	'srf-desc' => 'Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki',
-	'srf-name' => 'Semantische resultaatformaten',
+	'srf-name' => 'Semantische resultaatopmaken',
+	'prefs-srf' => 'Semantische resultaatopmaken',
+	'srf-prefs-intro-text' => 'U heeft de uitbreiding voor semantische resultaatopmaken geïnstalleerd, die op dit moment geen instelbare gebruikersopties heeft. Voor hulp bezoekt u de [http://www.semantic-mediawiki.org/wiki/Help:Result_formats resultaatopmaken] hulppagina.',
 	'srf-module-loading' => 'Bezig met laden…',
 	'srf-paramdesc-layout' => 'Beschikbare opmaak',
 	'srf-paramdesc-height' => 'Hoogte',
@@ -4002,6 +4010,8 @@ $messages['nl'] = array(
 	'srf-paramdesc-navigation-controls' => 'Of navigatieknoppen wel of niet weergegeven moeten worden',
 	'srf-paramdesc-effect' => "Het effect om tussen dia's te wisselen",
 	'srf-printername-filtered' => 'Gefilterd',
+	'srf-filtered-selectorlabel-list' => 'Lijst',
+	'srf-filtered-selectorlabel-calendar' => 'Kalender',
 	'srf-printername-d3chart' => 'D3-grafiek',
 	'srf-printername-timeseries' => 'Tijdseriegrafiek',
 	'srf-paramdesc-group' => 'Series groepen op',
