@@ -55,7 +55,6 @@ $srfgFormats = array(
 	'sparkline',
 	'listwidget',
 	'pagewidget',
-	'feed',
 	'dygraphs',
 
 	// Boilerplate
