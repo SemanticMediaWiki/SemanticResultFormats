@@ -95,7 +95,6 @@ $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 // $wgAutoloadClasses['SRFBoilerplate'] = $formatDir . 'boilerplate/SRF_Boilerplate.php';
 
 // Follows naming convention
-$wgAutoloadClasses['SRFSyndicationFeed'] = $formatDir . 'feed/SRF_SyndicationFeed.php';
 $wgAutoloadClasses['SRFEventCalendar']   = $formatDir . 'calendar/SRF_EventCalendar.php';
 $wgAutoloadClasses['SRFDygraphs']     = $formatDir . 'dygraphs/SRF_Dygraphs.php';
 $wgAutoloadClasses['SRFTimeseries']   = $formatDir . 'timeseries/SRF_Timeseries.php';
@@ -195,7 +194,6 @@ function srffInitFormats() {
 		'sparkline' => 'SRFSparkline',
 		'listwidget' => 'SRFListWidget',
 		'pagewidget' => 'SRFPageWidget',
-		'feed' => 'SRFSyndicationFeed',
 		'dygraphs' => 'SRFDygraphs',
 		'incoming' => 'SRFIncoming',
 	);

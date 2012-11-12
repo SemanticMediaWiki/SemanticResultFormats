@@ -261,11 +261,6 @@ $messages['en'] = array(
 	'srf-paramdesc-widget' => 'Available widget',
 	'srf-paramdesc-pageitems' => 'Items per page',
 
-	// format "feed" (syndication feed)
-	'srf-printername-feed' => 'RSS/Atom feed',
-	'srf-paramdesc-feedtype' => 'Feed type',
-	'srf-paramdesc-feedtitle' => 'Feed title',
-	'srf-paramdesc-feeddescription' => 'Feed description',
 
 	// format "eventcalendar"
 	'srf-printername-eventcalendar' => 'Event calendar',
@@ -532,10 +527,6 @@ D3 is the name of the library used to generate the charts.',
 	'srf-paramdesc-listtype' => '{{doc-paramdesc|listtype}}',
 	'srf-paramdesc-widget' => '{{doc-paramdesc|widget}}',
 	'srf-paramdesc-pageitems' => '{{doc-paramdesc|pageitems}}',
-	'srf-printername-feed' => '{{doc-smwformat|feed}}',
-	'srf-paramdesc-feedtype' => '{{doc-paramdesc|feedtype}}',
-	'srf-paramdesc-feedtitle' => '{{doc-paramdesc|feedtitle}}',
-	'srf-paramdesc-feeddescription' => '{{doc-paramdesc|feeddescription}}',
 	'srf-printername-eventcalendar' => '{{doc-smwformat|eventcalendar}}',
 	'srf-paramdesc-calendarfirstday' => '{{doc-paramdesc|calendarfirstday}}',
 	'srf-paramdesc-calendardefaultview' => '{{doc-paramdesc|calendardefaultview}}',
