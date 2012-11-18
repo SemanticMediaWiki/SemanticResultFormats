@@ -16,6 +16,7 @@ production until the actual release.
 * Full compatibility with MediaWiki 1.19 and forward-compatibility with 1.20.
 * Changed minimum Validator version from 0.4 to 1.0.
 * jqplotbar and jqplotpie format are replaced by jqplotchart format
+* SRF_Settings.php has been deprecated (will be removed in 1.9) as entry point, use SemanticResultFormats.php instead
 
 ; New formats
 
