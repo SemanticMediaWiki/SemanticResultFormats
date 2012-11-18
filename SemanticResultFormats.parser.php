@@ -11,8 +11,24 @@
  * #calendarenddate returns the *day after* the end date for the set of dates
  *    being displayed on the screen, according to the query string.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ *
  * @file
  * @ingroup SemanticResultFormats
+ *
  * @author David Loomer
  */
 class SRFParserFunctions {
@@ -73,7 +89,7 @@ class SRFParserFunctions {
 		// otherwise fall back to defaults.
 		if ( $wgRequest->getCheck( 'year' ) && $wgRequest->getCheck( 'month' ) ) {
 			$query_year = $wgRequest->getVal( 'year' );
-			
+
 			if ( is_numeric( $query_year ) && ( intval( $query_year ) == $query_year ) ) {
 				$lower_year = $query_year;
 			}
@@ -91,14 +107,14 @@ class SRFParserFunctions {
 
 			if ( $wgRequest->getCheck( 'day' ) ) {
 				$query_day = $wgRequest->getVal( 'day' );
-				
+
 				if ( is_numeric( $query_day ) && ( intval( $query_day ) == $query_day ) && $query_day >= 1 && $query_day <= 31 ) {
 					$lower_day = $query_day;
 				}
 				else {
 					$lower_day = '1';
 				}
-				
+
 				$lower_day = $wgRequest->getVal( 'day' );
 			} elseif ( $calendar_type != 'month'
 				&& (int)$lower_year == (int)$default_year
@@ -111,7 +127,7 @@ class SRFParserFunctions {
 		} else {
 			$lower_year = $default_year;
 			$lower_month = $default_month;
-			
+
 			if ( $calendar_type == 'month' ) {
 				$lower_day = 1;
 			}
@@ -119,7 +135,7 @@ class SRFParserFunctions {
 				$lower_month = $default_day;
 			}
 		}
-		
+
 		$lower_date = mktime( 0, 0, 0, $lower_month, $lower_day, $lower_year );
 
 		// Date to be queried
@@ -143,21 +159,21 @@ class SRFParserFunctions {
 		// If necessary, adjust bounds to comply with required days of week for each.
 		if ( $calendar_type == 'month' || $calendar_start_day >= 0 ) {
 			$lower_offset = date( "w", $lower_date ) - $calendar_start_day;
-			
+
 			if ( $lower_offset < 0 ) {
 				$lower_offset += 7;
 			}
-			
+
 			if ( $calendar_type == 'month' ) {
 				$upper_offset = $calendar_start_day + 6 - date( "w", $upper_date );
-				
+
 				if ( $upper_offset > 6 ) {
 					$upper_offset -= 7;
 				}
 			} else {
 				$upper_offset = 0 - $lower_offset;
 			}
-			
+
 			$lower_date = $lower_date - 86400 * $lower_offset;
 			$upper_date = $upper_date + 86400 * $upper_offset;
 		}
@@ -167,5 +183,5 @@ class SRFParserFunctions {
 
 		return array( $lower_date, $upper_date, $return_date );
 	}
-	
+
 }

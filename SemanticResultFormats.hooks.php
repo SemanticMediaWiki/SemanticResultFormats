@@ -45,7 +45,7 @@ final class SRFHooks {
 			'formats/Array',
 			'formats/Dygraphs',
 			'formats/EventCalendar',
-			'formats/Feed',
+			// 'formats/Feed',
 			'formats/Gallery',
 			'formats/Graph',
 			'formats/Incoming',

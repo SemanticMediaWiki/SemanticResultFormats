@@ -2,7 +2,7 @@
 
 /**
  * Main entry point for the SemanticResultFormats extension.
- * http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
+ * http://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 
 /**
  * This documentation group collects source code files belonging to SemanticResultFormats.
- * 
+ *
  * @defgroup SemanticResultFormats Semantic Result Formats
  */
 
@@ -51,19 +51,20 @@ if ( version_compare( SMW_VERSION, '1.8c', '<' ) ) {
 
 define( 'SRF_VERSION', '1.8 rc2' );
 
-// Require the settings file.
-require dirname( __FILE__ ) . '/SRF_Settings.php';
-
-require dirname( __FILE__ ) . '/SRF_Resources.php';
-
 // Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
 $wgExtensionFunctions[] = 'srffInitFormats';
 
-$wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SRF_Messages.php';
-$wgExtensionMessagesFiles['SemanticResultFormatsMagic'] = dirname( __FILE__ ) . '/SRF_Magic.php';
+$wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SemanticResultFormats.i18n.php';
+$wgExtensionMessagesFiles['SemanticResultFormatsMagic'] = dirname( __FILE__ ) . '/SemanticResultFormats.i18n.magic.php';
 
-$srfgScriptPath = ( $wgExtensionAssetsPath === false ? $wgScriptPath . '/extensions' : $wgExtensionAssetsPath ) . '/SemanticResultFormats'; 
+$srfgScriptPath = ( $wgExtensionAssetsPath === false ? $wgScriptPath . '/extensions' : $wgExtensionAssetsPath ) . '/SemanticResultFormats';
 $srfgIP = dirname( __FILE__ );
+
+// Require the settings file.
+require dirname( __FILE__ ) . '/SemanticResultFormats.settings.php';
+
+// Resource definitions
+$wgResourceModules = array_merge( $wgResourceModules, include( __DIR__ . "/resources/Resources.php" ) );
 
 $wgExtensionCredits['semantic'][] = array(
 	'path' => __FILE__,
@@ -129,9 +130,9 @@ $wgAutoloadClasses['SRFBibTeX']    = $formatDir . 'bibtex/SRF_BibTeX.php';
 
 unset( $formatDir );
 
-$wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SRF_ParserFunctions.php';
-$wgAutoloadClasses['SRFHooks']           = $srfgIP . '/SRF_Hooks.php';
-$wgAutoloadClasses['SRFUtils']           = $srfgIP . '/SRF_Utils.php';
+$wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SemanticResultFormats.parser.php';
+$wgAutoloadClasses['SRFHooks']           = $srfgIP . '/SemanticResultFormats.hooks.php';
+$wgAutoloadClasses['SRFUtils']           = $srfgIP . '/SemanticResultFormats.utils.php';
 
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
@@ -145,12 +146,12 @@ $wgHooks['GetPreferences'][] = 'SRFHooks::onGetPreferences';
 
 /**
  * Autoload the query printer classes and associate them with their formats in the $smwgResultFormats array.
- * 
+ *
  * @since 1.5.2
  */
 function srffInitFormats() {
 	global $srfgFormats, $smwgResultFormats, $smwgResultAliases;
-	
+
 	$formatClasses = array(
 		// Assign the Boilerplate class to a format identifier
 		// 'boilerplate' => 'SRFBoilerplate',
@@ -206,11 +207,11 @@ function srffInitFormats() {
 		'jqplotchart' => array( 'jqplot chart', 'jqplotpie', 'jqplotbar' ),
 		'jqplotseries' => array( 'jqplot series' ),
 	);
-	
+
 	foreach ( $srfgFormats as $format ) {
 		if ( array_key_exists( $format, $formatClasses ) ) {
 			$smwgResultFormats[$format] = $formatClasses[$format];
-			
+
 			if ( isset( $smwgResultAliases ) && array_key_exists( $format, $formatAliases ) ) {
 				$smwgResultAliases[$format] = $formatAliases[$format];
 			}
@@ -218,5 +219,5 @@ function srffInitFormats() {
 		else {
 			wfDebug( "There is no result format class associated with the '$format' format." );
 		}
-	}	
+	}
 }
