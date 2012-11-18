@@ -1,9 +1,6 @@
 <?php
 /**
  * Settings file for the Semantic Result Formats extension.
- * https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats
- *
- * NOTE: Do not use this file as entry point, use SemanticresultFormats.php instead.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
+ * @see http://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
+ *
  * @file
  * @ingroup SemanticResultFormats
  *
@@ -28,15 +27,13 @@
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'Not an entry point.' );
+  die( "This file is part of the Semantic Result Formats extension. It is not a valid entry point.\n" );
 }
 
-if ( !defined( 'SRF_VERSION' ) ) {
-	require_once dirname( __FILE__ ) . '/SemanticResultFormats.php';
-}
 
 // The formats you want to be able to use.
-// See the INSTALL file or this url for more info: https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats#Installation
+// See the INSTALL file or
+// http://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats#Installation
 $srfgFormats = array(
 	'icalendar',
 	'vcard',
