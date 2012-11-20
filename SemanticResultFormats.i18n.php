@@ -3926,6 +3926,7 @@ $messages['nl'] = array(
 	'srf-ui-gridview-label-series' => 'Gegevensseries',
 	'srf-ui-gridview-label-chart-tab' => 'Grafiek',
 	'srf-ui-gridview-label-data-tab' => 'Gegevens',
+	'srf-ui-gridview-label-info-tab' => 'Informatie',
 	'srf_printername_gallery' => 'Galerij',
 	'srf_paramdesc_perrow' => 'Het aantal afbeeldingen per rij',
 	'srf_paramdesc_widths' => 'De breedte van de afbeeldingen',
