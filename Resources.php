@@ -29,13 +29,13 @@
  */
 
 $moduleTemplate = array(
-	'localBasePath' => $srfgIP ,
-	'remoteExtPath' => $srfgScriptPath
+	'localBasePath' => __DIR__ ,
+	'remoteExtPath' => 'SemanticResultFormats'
 );
 
 $formatModule = array(
-	'localBasePath' => $srfgIP . '/formats',
-	'remoteExtPath' => $srfgScriptPath . '/formats'
+	'localBasePath' => __DIR__ . '/formats',
+	'remoteExtPath' => 'SemanticResultFormats/formats'
 );
 
 $calendarMessages = array( 'messages' => array(

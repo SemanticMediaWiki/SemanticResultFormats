@@ -64,7 +64,7 @@ $srfgIP = dirname( __FILE__ );
 require dirname( __FILE__ ) . '/SemanticResultFormats.settings.php';
 
 // Resource definitions
-$wgResourceModules = array_merge( $wgResourceModules, include( __DIR__ . "/resources/Resources.php" ) );
+$wgResourceModules = array_merge( $wgResourceModules, include( __DIR__ . "/Resources.php" ) );
 
 $wgExtensionCredits['semantic'][] = array(
 	'path' => __FILE__,
