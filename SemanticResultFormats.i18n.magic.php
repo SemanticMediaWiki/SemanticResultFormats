@@ -84,7 +84,7 @@ $magicWords['nb'] = array(
 	'calendarenddate' => array( 0, 'kalendersluttdato' ),
 );
 
-/** Nedersaksisch (Nedersaksisch) */
+/** Nedersaksies (Nedersaksies) */
 $magicWords['nds-nl'] = array(
 	'calendarstartdate' => array( 0, 'startdaotumkalender', 'startdatumkalender' ),
 	'calendarenddate' => array( 0, 'einddaotumkalender', 'einddatumkalender' ),

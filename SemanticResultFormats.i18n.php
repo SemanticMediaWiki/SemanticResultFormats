@@ -1700,11 +1700,16 @@ $messages['fa'] = array(
 );
 
 /** Finnish (suomi)
+ * @author Nedergard
  * @author Nike
  * @author Silvonen
  * @author Str4nd
  */
 $messages['fi'] = array(
+	'srf-navigation-previous' => 'Edellinen',
+	'srf-ui-navigation-prev' => 'Edellinen',
+	'srf-ui-navigation-next' => 'Seuraava',
+	'srf-ui-common-label-source' => 'Lähde',
 	'srfc_previousmonth' => 'Edellinen kuukausi',
 	'srfc_nextmonth' => 'Seuraava kuukausi',
 	'srfc_today' => 'Tänään',
@@ -1726,7 +1731,19 @@ $messages['fi'] = array(
 	'srf_printername_googlepie' => 'Googlen piirakkakuvaaja',
 	'srf_paramdesc_chartheight' => 'Kuvaajan korkeus pikseleinä', # Fuzzy
 	'srf_paramdesc_chartwidth' => 'Kuvaajan leveys pikseleinä', # Fuzzy
+	'srf_printername_gallery' => 'Galleria',
+	'srf-gallery-navigation-previous' => 'Edellinen',
+	'srf-gallery-navigation-next' => 'Seuraava',
+	'srf-gallery-overlay-count' => 'Kuva $1 / $2',
+	'srf-gallery-image-url-error' => 'Kuvaa ei löytynyt.',
 	'srf_paramdesc_rankdir' => 'Nuolen suunta',
+	'srf-filtered-selectorlabel-list' => 'Luettelo',
+	'srf-filtered-selectorlabel-calendar' => 'Kalenteri',
+	'srf-ui-eventcalendar-label-today' => 'Tänään',
+	'srf-ui-eventcalendar-label-month' => 'Kuukausi',
+	'srf-ui-eventcalendar-label-week' => 'Viikko',
+	'srf-ui-eventcalendar-label-day' => 'Päivä',
+	'srf-paramdesc-unit' => 'Yksikkö',
 );
 
 /** French (français)
