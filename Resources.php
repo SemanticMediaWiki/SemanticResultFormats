@@ -723,6 +723,64 @@ return array(
 		'position' => 'top'
 	),
 
+	// Register the jplayer js
+	'ext.jquery.jplayer' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery.jplayer/jquery.jplayer.min.js',
+	),
+
+	// Register the jplayer skin
+	'ext.jquery.jplayer.skin.blue.monday' => $moduleTemplate + array(
+		'styles' => 'resources/jquery.jplayer/skin/blue.monday/jplayer.blue.monday.css',
+	),
+
+	// Register the jplayer skin
+	'ext.jquery.jplayer.skin.morning.light' => $moduleTemplate + array(
+		'styles' => 'resources/jquery.jplayer/skin/morning.light/jplayer.morning.light.css',
+	),
+
+	// Register the jplayer playlist js
+	'ext.jquery.jplayer.playlist' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery.jplayer/add-on/jplayer.playlist.min.js',
+		'dependencies' => 'ext.jquery.jplayer',
+	),
+
+	// Register the jplayer inspector js
+	'ext.jquery.jplayer.inspector' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery.jplayer/add-on/jquery.jplayer.inspector.js',
+		'dependencies' => 'ext.jquery.jplayer',
+	),
+
+	// SRF jplayer template specifications
+	'ext.srf.mediaplayer.template' => $formatModule + array(
+		'scripts' => 'media/resources/ext.srf.mediaplayer.template.js',
+		'messages' => array(
+			'srf-ui-mediaplayer-label-previous',
+			'srf-ui-mediaplayer-label-play',
+			'srf-ui-mediaplayer-label-pause',
+			'srf-ui-mediaplayer-label-next',
+			'srf-ui-mediaplayer-label-stop',
+			'srf-ui-mediaplayer-label-mute',
+			'srf-ui-mediaplayer-label-unmute',
+			'srf-ui-mediaplayer-label-volume-max',
+			'srf-ui-mediaplayer-label-shuffle',
+			'srf-ui-mediaplayer-label-shuffle-off',
+			'srf-ui-mediaplayer-label-repeat',
+			'srf-ui-mediaplayer-label-repeat-off',
+			'srf-ui-mediaplayer-label-full-screen',
+			'srf-ui-mediaplayer-label-restore-screen',
+		)
+	),
+
+	// SRF implementation
+	'ext.srf.mediaplayer' => $formatModule + array(
+		'scripts' => 'media/resources/ext.srf.mediaplayer.js',
+		'styles'  => 'media/resources/ext.srf.mediaplayer.css',
+		'dependencies' => array(
+			'ext.jquery.jplayer.playlist',
+			'ext.srf.mediaplayer.template'
+		)
+	),
+
 	// Boilerplate example registration
 	/*
 		// Simple implementation
