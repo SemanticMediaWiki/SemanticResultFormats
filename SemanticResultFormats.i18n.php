@@ -3944,7 +3944,7 @@ $messages['nl'] = array(
 	'srf-desc' => 'Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki',
 	'srf-name' => 'Semantische resultaatopmaken',
 	'prefs-srf' => 'Semantische resultaatopmaken',
-	'srf-prefs-intro-text' => 'U heeft de uitbreiding voor semantische resultaatopmaken geïnstalleerd, die op dit moment geen instelbare gebruikersopties heeft. Voor hulp bezoekt u de [http://www.semantic-mediawiki.org/wiki/Help:Result_formats resultaatopmaken] hulppagina.',
+	'srf-prefs-intro-text' => 'U heeft de uitbreiding Semantic Result Formats geïnstalleerd, die op dit moment geen instelbare gebruikersopties heeft. Raadpleeg de hulppagina voor [http://www.semantic-mediawiki.org/wiki/Help:Result_formats resultaatopmaken] voor meer informatie.',
 	'srf-module-loading' => 'Bezig met laden…',
 	'srf-paramdesc-layout' => 'Beschikbare opmaak',
 	'srf-paramdesc-height' => 'Hoogte',
@@ -5325,6 +5325,27 @@ $messages['tr'] = array(
  */
 $messages['tzm'] = array(
 	'srf-filtered-selectorlabel-list' => 'ⵓⵎⵓⵖ',
+);
+
+/** Ukrainian (українська)
+ * @author Base
+ */
+$messages['uk'] = array(
+	'srf-desc' => 'Додаткові формати для вбудованих запитів Semantic MediaWiki',
+	'srf-name' => 'Формати семантичних результатів',
+	'prefs-srf' => 'Формати семантичних результатів',
+	'srf-module-loading' => 'Завантаження…',
+	'srf-paramdesc-height' => 'Висота',
+	'srf-paramdesc-width' => 'Ширина',
+	'srf-module-nomatch' => 'Не знайдено збігів',
+	'srf-navigation-previous' => 'Попередній',
+	'srf-ui-navigation-prev' => 'Попер.',
+	'srf-ui-navigation-next' => 'Наступний',
+	'srf-ui-common-label-source' => 'Джерело',
+	'srf-ui-common-label-datasource' => 'Джерело даних',
+	'srf-ui-common-label-request-object' => "об'єкт запиту",
+	'srf-ui-common-label-help-section' => 'розділ довідки',
+	'srf-ui-tooltip-title-options' => 'Опції',
 );
 
 /** Urdu (اردو)
