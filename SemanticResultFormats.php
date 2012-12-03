@@ -119,6 +119,7 @@ $wgAutoloadClasses['SRFGooglePie'] = $formatDir . 'googlecharts/SRF_GooglePie.ph
 $wgAutoloadClasses['SRFOutline']   = $formatDir . 'outline/SRF_Outline.php';
 $wgAutoloadClasses['SRFTime']      = $formatDir . 'time/SRF_Time.php';
 $wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'slideshow/SRF_SlideShow.php';
+$wgAutoloadClasses['SRFSlideShowApi'] = $formatDir . 'slideshow/SRF_SlideShowApi.php';
 $wgAutoloadClasses['SRFTree']      = $formatDir . 'tree/SRF_Tree.php';
 $wgAutoloadClasses['SRFGallery']   = $formatDir . 'gallery/SRF_Gallery.php';
 $wgAutoloadClasses['SRFTagCloud']  = $formatDir . 'tagcloud/SRF_TagCloud.php';
@@ -138,8 +139,8 @@ $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
-// @TODO see bug 40746
-$wgAjaxExportList[] = 'SRFSlideShow::handleGetResult';
+// register API modules
+$wgAPIModules['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
 // User preference
 $wgHooks['GetPreferences'][] = 'SRFHooks::onGetPreferences';
