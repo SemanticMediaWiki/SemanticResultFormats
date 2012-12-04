@@ -504,7 +504,9 @@ This is an alias of "tree" {{msg-mw|Srf printername tree}}.',
 	'srf-paramdesc-filtered-filter-position' => '{{doc-paramdesc|filter position}}',
 	'srf-paramdesc-filtered-list-type' => '{{doc-paramdesc|list view type}}',
 	'srf-paramdesc-filtered-list-template' => '{{doc-paramdesc|list view template}}',
-	'srf-paramdesc-filtered-list-named-args' => '{{doc-paramdesc|list view named args}}',
+	'srf-paramdesc-filtered-list-named-args' => '{{doc-paramdesc|list view named args}}
+
+See this page for [https://semantic-mediawiki.org/wiki/Help:Template_format#Usage_for_named_args detailed information on named argruments].',
 	'srf-paramdesc-filtered-list-introtemplate' => '{{doc-paramdesc|list view introtemplate}}',
 	'srf-paramdesc-filtered-list-outrotemplate' => '{{doc-paramdesc|list view outrotemplate}}',
 	'srf-paramdesc-filtered-calendar-start' => '{{doc-paramdesc|calendar view start}}',
