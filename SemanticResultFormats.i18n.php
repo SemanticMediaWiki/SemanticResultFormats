@@ -75,7 +75,7 @@ $messages['en'] = array(
 	'srf_printername_outline' => 'Outline',
 	'srf_paramdesc_outlineproperties' => 'The list of properties to be displayed as outline headers, separated by commas',
 
-	// format "math"
+	// math formats
 	'srf_printername_sum' => 'Sum of numbers',
 	'srf_printername_average' => 'Average of numbers',
 	'srf_printername_max' => 'Maximum number',
@@ -85,7 +85,7 @@ $messages['en'] = array(
 	'srf_printername_median' => 'Median of numbers',
 	'srf-paramdesc-default' => 'Default value that will be displayed when there are no numerical results',
 
-	// format "time"
+	// time formats
 	'srf_printername_earliest' => 'Earliest time',
 	'srf_printername_latest' => 'Latest time',
 
@@ -105,7 +105,7 @@ $messages['en'] = array(
 	'srf_paramdesc_facets' => 'The set of properties to be displayed for each page',
 	'srf_paramdesc_lens' => 'The name of a template with which to display page properties',
 
-	// formats "googlebar", "googlepie", "jqplotpie" and "jqplotbar"
+	// formats "googlebar", "googlepie" and "jqplotchart"
 	'srf_printername_googlebar' => 'Google bar chart',
 	'srf_printername_googlepie' => 'Google pie chart',
 	'srf-printername-jqplotchart' => 'jqPlot chart',
@@ -141,7 +141,7 @@ $messages['en'] = array(
 	'srf-paramdesc-trendline' => 'Enable simultaneous display of a chart and its trendline',
 
 	// srf gridview plugin
-	'srf-paramdesc-gridview' => 'Display chart and data sets simultaneously',
+	'srf-paramdesc-gridview' => 'Display chart and data sets simultaneously. Allowed values: none and tabs. Default: none',
 	'srf-paramdesc-infotext' => 'Display additional information on a corresponding info tab',
 	'srf-ui-gridview-label-item'  => 'Data item',
 	'srf-ui-gridview-label-value' => 'Data value',
@@ -181,7 +181,7 @@ $messages['en'] = array(
 	// format "valuerank"
 	'srf_printername_valuerank' => 'Value rank',
 
-	// format "array" and "hash"
+	// formats "array" and "hash"
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Whether to show page titles as result entries or to leave them out',
 	'srf_paramdesc_hidegaps' => 'Whether to print requested but unavailable property and record values separated by separators or leaving them out',
@@ -212,7 +212,7 @@ $messages['en'] = array(
 	'srf-paramdesc-rowindex'      => 'Table row index',
 	'srf-paramdesc-displaylength' => 'Initial display length',
 
-	// format "tree", "ultree", "oltree"
+	// formats "tree", "ultree" and "oltree"
 	'srf_printername_tree'  => 'Tree',
 	'srf_printername_ultree'  => 'Ultree',
 	'srf_printername_oltree'  => 'Oltree',
@@ -261,12 +261,11 @@ $messages['en'] = array(
 	'srf-paramdesc-widget' => 'Available widget',
 	'srf-paramdesc-pageitems' => 'Items per page',
 
-
 	// format "eventcalendar"
 	'srf-printername-eventcalendar' => 'Event calendar',
 	'srf-paramdesc-calendarfirstday' => 'The day that each week begins',
 	'srf-paramdesc-calendardefaultview' => 'The initial view when the calendar loads',
-	'srf-paramdesc-calendarstart' => 'The initial calendar start',
+	'srf-paramdesc-calendarstart' => 'The initial calendar start (date or datetime values)',
 	'srf-paramdesc-dayview' => 'Enable the day view by clicking the day number',
 	'srf-ui-eventcalendar-label-today' => 'Today',
 	'srf-ui-eventcalendar-label-month' => 'Month',
@@ -285,8 +284,8 @@ $messages['en'] = array(
 
 	// format "dygraphs"
 	'srf-printername-dygraphs' => 'Dygraphs chart',
-	'srf-paramdesc-datasource' => 'Specify the source from where the data is accessible (file, url etc.)',
-	'srf-paramdesc-errorbar' => 'Specify the error bar used (standard deviation (sigma), plot fractions, or custom bar as a range of low;middle;high values)',
+	'srf-paramdesc-datasource' => 'The source from where the data is accessible. Allowed values: file, raw and url. Default: file',
+	'srf-paramdesc-errorbar' => 'The error bar to be used. Allowed values: fraction (confidence intervals for values), sigma (standard deviation of values) and range (custom value ranges)',
 	'srf-paramdesc-movingaverage' => 'Display the average over a number of days (zero will indicate no moving average)',
 	'srf-paramdesc-yaxislabel' => 'Description that appears on the y-axis',
 	'srf-paramdesc-xaxislabel' => 'Description that appears on the x-axis',
