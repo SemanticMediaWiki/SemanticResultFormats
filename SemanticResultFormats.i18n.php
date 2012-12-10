@@ -18,7 +18,7 @@ $messages['en'] = array(
 
 	// user preferences
 	'prefs-srf' => 'Semantic Result Formats',
-	'srf-prefs-intro-text' => 'You have installed the Semantic Result Formats extension which at moment has no customizable user options. For assistance, please visit the [http://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats] help page.',
+	'srf-prefs-intro-text' => 'You have installed the Semantic Result Formats extension which at moment has no customizable user options. For assistance, please visit the [https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats] help page.',
 
 	// shared messages
 	'srf-module-loading'   => 'Loading...',
@@ -141,7 +141,7 @@ $messages['en'] = array(
 	'srf-paramdesc-trendline' => 'Enable simultaneous display of a chart and its trendline',
 
 	// srf gridview plugin
-	'srf-paramdesc-gridview' => 'Display chart and data sets simultaneously. Allowed values: none and tabs. Default: none',
+	'srf-paramdesc-gridview' => 'Display chart and data sets simultaneously. Allowed values: "none" and "tabs". Default: "none"',
 	'srf-paramdesc-infotext' => 'Display additional information on a corresponding info tab',
 	'srf-ui-gridview-label-item'  => 'Data item',
 	'srf-ui-gridview-label-value' => 'Data value',
@@ -228,8 +228,8 @@ $messages['en'] = array(
 	// format "filtered"
 	'srf-printername-filtered' => 'Filtered',
 	'srf-paramdesc-filtered-views' => 'The views that shall be available in the result display.',
-	'srf-paramdesc-filtered-filter-position' => 'The position of the filters in relation to the views. Allowed values: top, bottom. Default: top.',
-	'srf-paramdesc-filtered-list-type' => 'The type of the list. Allowed values: list, ul, ol. Default: list.',
+	'srf-paramdesc-filtered-filter-position' => 'The position of the filters in relation to the views. Allowed values: "top", "bottom". Default: "top".',
+	'srf-paramdesc-filtered-list-type' => 'The type of the list. Allowed values: "list", "ul", "ol". Default: "list".',
 	'srf-paramdesc-filtered-list-template' => 'The template that is to be used to format the list entries.',
 	'srf-paramdesc-filtered-list-named-args' => 'Name the arguments passed to the template.',
 	'srf-paramdesc-filtered-list-introtemplate' => 'The name of a template to display before the query results, if there are any.',
@@ -285,8 +285,8 @@ $messages['en'] = array(
 
 	// format "dygraphs"
 	'srf-printername-dygraphs' => 'Dygraphs chart',
-	'srf-paramdesc-datasource' => 'The source from where the data is accessible. Allowed values: file, raw and url. Default: file',
-	'srf-paramdesc-errorbar' => 'The error bar to be used. Allowed values: fraction (confidence intervals for values), sigma (standard deviation of values) and range (custom value ranges)',
+	'srf-paramdesc-datasource' => 'The source from where the data is accessible. Allowed values: "file", "raw" and "url". Default: "file"',
+	'srf-paramdesc-errorbar' => 'The error bar to be used. Allowed values: "fraction" (confidence intervals for values), "sigma" (standard deviation of values) and "range" (custom value ranges)',
 	'srf-paramdesc-movingaverage' => 'Display the average over a number of days (zero will indicate no moving average)',
 	'srf-paramdesc-yaxislabel' => 'Description that appears on the y-axis',
 	'srf-paramdesc-xaxislabel' => 'Description that appears on the x-axis',
@@ -317,7 +317,6 @@ $messages['en'] = array(
 	'srf-ui-mediaplayer-label-repeat-off' => 'Repeat off',
 	'srf-ui-mediaplayer-label-full-screen' => 'Full screen',
 	'srf-ui-mediaplayer-label-restore-screen' => 'Restore screen',
-
 );
 
 /** Message documentation (Message documentation)
