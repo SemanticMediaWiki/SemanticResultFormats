@@ -4160,6 +4160,7 @@ $messages['nl'] = array(
 	'srf-printername-eventcalendar' => 'Evenementenkalender',
 	'srf-paramdesc-calendarfirstday' => 'De dag waarop de week begint',
 	'srf-paramdesc-calendardefaultview' => 'De weergave wanneer de kalender wordt geladen',
+	'srf-paramdesc-calendarstart' => 'De begindatum van de kalender (datum- of datumtijdwaarden)',
 	'srf-paramdesc-dayview' => 'Dagweergave inschakelen door te klikken op het dagnummer',
 	'srf-ui-eventcalendar-label-today' => 'Vandaag',
 	'srf-ui-eventcalendar-label-month' => 'Maand',
