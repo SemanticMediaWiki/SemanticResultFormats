@@ -307,12 +307,13 @@ $messages['en'] = array(
  * @author Kghbln
  * @author Purodha
  * @author Raymond
+ * @author Shirayuki
  * @author Siebrand
  * @author Toliño
  * @author Umherirrender
  */
 $messages['qqq'] = array(
-	'srf-desc' => '{{desc}}',
+	'srf-desc' => '{{desc|name=Semantic Result Formats|url=http://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}',
 	'srf-name' => 'This is the name of this extension (Used by the [[mw:Extension:Admin_Links|Admin Links]] extension).',
 	'prefs-srf' => 'This is the text of a section header on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
 	'srf-prefs-intro-text' => 'This is an user preference intro text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
@@ -3193,7 +3194,7 @@ $messages['it'] = array(
  * @author 青子守歌
  */
 $messages['ja'] = array(
-	'srf-desc' => 'Semantic MediaWiki のインラインクエリーのための追加的な形式',
+	'srf-desc' => 'Semantic MediaWiki のインラインクエリのための追加的な形式',
 	'srf-name' => '意味的結果の形式',
 	'prefs-srf' => '意味的結果の形式',
 	'srf-module-loading' => '読み込み中...',
@@ -3290,7 +3291,7 @@ $messages['ja'] = array(
 	'srf_paramdesc_heights' => '画像の高さ',
 	'srf_paramdesc_autocaptions' => 'キャプションとして何も指定しなかった場合はファイル名を使用',
 	'srf_paramdesc_fileextensions' => 'キャプションにファイル名を使用する際にそのファイルの拡張子も表示',
-	'srf-paramdesc-redirects' => 'リダイレクト先を含むクエリー ページに表示する意味的プロパティの名前',
+	'srf-paramdesc-redirects' => 'リダイレクト先を含むクエリページに表示する意味的プロパティの名前',
 	'srf-paramdesc-overlay' => '画像オーバーレイを有効化',
 	'srf-gallery-navigation-previous' => '前へ',
 	'srf-gallery-navigation-next' => '次へ',
