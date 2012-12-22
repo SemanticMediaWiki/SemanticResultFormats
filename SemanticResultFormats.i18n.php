@@ -348,7 +348,7 @@ This is an error message. Parameters:
 	'srf_printername_calendar' => '{{doc-smwformat|calendar}}',
 	'srf_paramdesc_calendarlang' => '{{doc-paramdesc|lang}}',
 	'srf_paramdesc_calendarcolors' => '{{doc-smwformat|colors}}
-{{doc-important|Hint for <code>"Start date=>green,End date=>#09c"</code>: "Start date" and "End date" should be translated, but not the other parts.}}',
+{{doc-important|"Start date" and "End date" should be translated, but not the other parts of the example code.}}',
 	'srf_vcard_link' => '{{optional}}',
 	'srf_printername_vcard' => '{{doc-smwformat|vcard}}',
 	'srf_icalendar_link' => '{{optional}}',
@@ -1703,6 +1703,13 @@ $messages['et'] = array(
 	'srf_printername_gallery' => 'Galerii',
 	'srf-gallery-navigation-previous' => 'Eelmine',
 	'srf-gallery-navigation-next' => 'Järgmine',
+	'srf_paramdesc_graphname' => 'Pealkiri',
+	'srf-filtered-selectorlabel-calendar' => 'Kalender',
+	'srf-ui-eventcalendar-label-today' => 'Täna',
+	'srf-ui-eventcalendar-label-month' => 'Kuu',
+	'srf-ui-eventcalendar-label-week' => 'Nädal',
+	'srf-ui-eventcalendar-label-day' => 'Päev',
+	'srf-ui-eventcalendar-label-allday' => 'Terve päev',
 );
 
 /** Basque (euskara)
@@ -1722,13 +1729,50 @@ $messages['eu'] = array(
  * @author Tofighi
  */
 $messages['fa'] = array(
+	'srf-module-loading' => 'در حال بارگیری...',
+	'srf-paramdesc-height' => 'ارتفاع',
+	'srf-paramdesc-width' => 'عرض',
+	'srf-navigation-previous' => 'قبلی',
+	'srf-ui-navigation-prev' => 'قبلی',
+	'srf-ui-navigation-next' => 'بعدی',
+	'srf-ui-tooltip-title-options' => 'گزینه‌ها',
 	'srfc_previousmonth' => 'ماه گذشته',
 	'srfc_nextmonth' => 'ماه آینده',
 	'srfc_today' => 'امروز',
 	'srfc_gotomonth' => 'برو به ماه',
+	'srf_printername_calendar' => 'تقویم ماهانه',
 	'srf_outline_novalue' => 'بدون مقدار',
+	'srf_printername_sum' => 'مجموع اعداد',
+	'srf_printername_average' => 'میانگین اعداد',
+	'srf_printername_max' => 'بیشترین عدد',
+	'srf_printername_min' => 'کمترین عدد',
+	'srf_printername_earliest' => 'اولین زمان',
+	'srf_printername_latest' => 'آخرین زمان',
+	'srf_printername_timeline' => 'خط زمان',
+	'srf_printername_eventline' => 'خط رویداد',
+	'srf_printername_googlebar' => 'نمودار میله‌ای گوگل',
+	'srf_printername_googlepie' => 'نمودار دایره‌ای گوگل',
+	'srf-ui-gridview-label-data-tab' => 'داده‌ها',
+	'srf-ui-gridview-label-info-tab' => 'اطلاعات',
+	'srf_printername_gallery' => 'نگارخانه',
 	'srf-gallery-navigation-previous' => 'قبلی',
 	'srf-gallery-navigation-next' => 'بعدی',
+	'srf-gallery-overlay-count' => 'تصویر $1 از $2',
+	'srf_printername_array' => 'آرایه',
+	'srf_printername_hash' => 'هش',
+	'srf-printername-graph' => 'گراف',
+	'srf_paramdesc_graphname' => 'عنوان',
+	'srf_paramdesc_graphlabel' => 'برچسب گراف',
+	'srf_paramdesc_graphlink' => 'پیوند گراف',
+	'srf_paramdesc_graphcolor' => 'رنگ گراف',
+	'srf_printername_tree' => 'درخت',
+	'srf-filtered-selectorlabel-list' => 'فهرست',
+	'srf-filtered-selectorlabel-calendar' => 'تقویم',
+	'srf-ui-eventcalendar-label-today' => 'امروز',
+	'srf-ui-eventcalendar-label-month' => 'ماه',
+	'srf-ui-eventcalendar-label-week' => 'هفته',
+	'srf-ui-eventcalendar-label-day' => 'روز',
+	'srf-paramdesc-unit' => 'واحد',
 );
 
 /** Finnish (suomi)
@@ -4808,7 +4852,18 @@ $messages['rue'] = array(
  */
 $messages['si'] = array(
 	'srf-module-loading' => 'ප්‍රවේශනය වෙමින්...',
+	'srf-paramdesc-height' => 'උස',
+	'srf-paramdesc-width' => 'පළල',
 	'srf-module-nomatch' => 'කිසිදු ගැලපුමක් හමු නොවුණි',
+	'srf-navigation-previous' => 'පෙර',
+	'srf-ui-navigation-prev' => 'පෙර',
+	'srf-ui-navigation-next' => 'මීළඟ',
+	'srf-ui-common-label-source' => 'මූලාශ්‍රය',
+	'srf-ui-common-label-datasource' => 'දත්ත මූලාශ්‍රය',
+	'srf-ui-common-label-request-object' => 'වස්තුව අයදින්න',
+	'srf-ui-common-label-help-section' => 'උපකාර අංශය',
+	'srf-ui-tooltip-title-options' => 'විකල්ප',
+	'srf-ui-tooltip-title-scope' => 'අභිප්‍රාය',
 	'srfc_previousmonth' => 'පෙර මාසය',
 	'srfc_nextmonth' => 'මීළඟ මාසය',
 	'srfc_today' => 'අද',
@@ -4817,12 +4872,24 @@ $messages['si'] = array(
 	'srf_outline_novalue' => 'අගයක් නොමැත',
 	'srf_printername_max' => 'උපරිම අංකය',
 	'srf_printername_min' => 'අවම අංකය',
+	'srf-ui-gridview-label-item' => 'දත්ත අයිතමය',
+	'srf-ui-gridview-label-value' => 'දත්ත අගය',
+	'srf-ui-gridview-label-chart-tab' => 'ප්‍රස්තාරය',
+	'srf-ui-gridview-label-data-tab' => 'දත්ත',
+	'srf-ui-gridview-label-info-tab' => 'තොරතුරු',
 	'srf_printername_gallery' => 'ගැලරිය',
 	'srf-gallery-navigation-previous' => 'පෙර',
 	'srf-gallery-navigation-next' => 'මීළඟ',
 	'srf-printername-graph' => 'ප්‍රස්තාරය',
 	'srf_paramdesc_graphname' => 'මාතෘකාව',
 	'srf_printername_tree' => 'වෘක්ෂය',
+	'srf-filtered-selectorlabel-list' => 'ලැයිස්තුව',
+	'srf-filtered-selectorlabel-calendar' => 'දිනදසුන',
+	'srf-paramdesc-pageitems' => 'එක් පිටුවකට අයිතම',
+	'srf-ui-eventcalendar-label-today' => 'අද',
+	'srf-ui-eventcalendar-label-month' => 'මාසය',
+	'srf-ui-eventcalendar-label-week' => 'සතිය',
+	'srf-ui-eventcalendar-label-day' => 'දිනය',
 );
 
 /** Slovak (slovenčina)
@@ -5364,15 +5431,19 @@ $messages['tzm'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Steve.rusyn
  */
 $messages['uk'] = array(
 	'srf-desc' => 'Додаткові формати для вбудованих запитів Semantic MediaWiki',
 	'srf-name' => 'Формати семантичних результатів',
 	'prefs-srf' => 'Формати семантичних результатів',
+	'srf-prefs-intro-text' => 'Ви встановили розширення Semantic Result Formats, яке наразі немає налаштованих опцій. За домомогою, будь ласка, відвідайте [http://www.semantic-mediawiki.org/wiki/Help:Result_formats довідкову сторінку форматів результатів]',
 	'srf-module-loading' => 'Завантаження…',
 	'srf-paramdesc-height' => 'Висота',
 	'srf-paramdesc-width' => 'Ширина',
+	'srf-paramdesc-class' => 'Вказати додатковий клас CSS',
 	'srf-module-nomatch' => 'Не знайдено збігів',
+	'srf-paramdesc-charttype' => 'Доступні типи діаграм',
 	'srf-navigation-previous' => 'Попередній',
 	'srf-ui-navigation-prev' => 'Попер.',
 	'srf-ui-navigation-next' => 'Наступний',
@@ -5381,8 +5452,48 @@ $messages['uk'] = array(
 	'srf-ui-common-label-request-object' => "об'єкт запиту",
 	'srf-ui-common-label-help-section' => 'розділ довідки',
 	'srf-ui-tooltip-title-options' => 'Опції',
+	'srf-ui-tooltip-title-scope' => 'Сфера',
+	'srf-error-option-mix' => 'Опція ($1) не доступна',
+	'srf-error-option-link-all' => 'Опція ($1) вимагає, щоб параметр «link» було встановлено як «all»',
 	'srfc_previousmonth' => 'Попередній місяць',
 	'srfc_nextmonth' => 'Наступний місяць',
+	'srfc_today' => 'Сьогодні',
+	'srfc_gotomonth' => 'Перейти до місяця',
+	'srf_printername_calendar' => 'Місячний календар',
+	'srf_paramdesc_calendarlang' => 'Код мови, якою показувати календар',
+	'srf_paramdesc_calendarcolors' => 'Колір, яким показувати кожну властивість дати (наприклад: «Start date=>green,End date=>#09c»)',
+	'srf_printername_vcard' => 'Експорт vCard',
+	'srf_printername_icalendar' => 'Експорт iCalendar',
+	'srf_paramdesc_icalendartitle' => 'Назва фалу календаря',
+	'srf_paramdesc_icalendardescription' => 'Опис файлу календаря',
+	'srf_printername_bibtex' => 'Експорт BibTeX',
+	'srf_outline_novalue' => 'Немає значення',
+	'srf_printername_outline' => 'Ескіз',
+	'srf_paramdesc_outlineproperties' => 'Список властивостей, що буде показано як заголовки ескізу, розділених комами',
+	'srf_printername_sum' => 'Сума чисел',
+	'srf_printername_average' => 'Середнє арифметичне чисел',
+	'srf_printername_max' => 'Максимальне число',
+	'srf_printername_min' => 'Мінімальне число',
+	'srf_paramdesc_limit' => 'Максимальне число сторінок для запиту',
+	'srf_printername_product' => 'Добуток чисел',
+	'srf_printername_median' => 'Медіана чисел',
+	'srf-paramdesc-default' => 'Значення за змовчуванням, яке буде показано, якщо немає числових результатів',
+	'srf_printername_earliest' => 'Найранніший час',
+	'srf_printername_latest' => 'Найпізніший час',
+	'srf_printername_timeline' => 'Хронологія',
+	'srf_printername_eventline' => 'Список подій',
+	'srf_paramdesc_timelinebands' => 'Визначає, які діапазони буде показано у результаті.',
+	'srf_paramdesc_timelineposition' => 'Визначає, яке місце часової шкали буде показано початково.',
+	'srf_paramdesc_timelinestart' => 'Назва властивості, що використовується для визначення першої часової точки',
+	'srf_paramdesc_timelineend' => 'Назва властивості, що використовується для визначення другої часової точки',
+	'srf_paramdesc_timelinesize' => 'Висота часової шкали',
+	'srf-timeline-allresults' => 'Подальші результати для цього запиту.',
+	'srf-timeline-nojs' => 'Вам слід увімкнути JavaScript для того, щоб бачити інтерактивну часову шкалу.',
+	'srf_paramdesc_views' => 'Вигляди для показу',
+	'srf_paramdesc_facets' => 'Набір властивостей, що показується на кожній сторінці',
+	'srf_paramdesc_lens' => 'Назва шаблону для відображення властивостей сторінки',
+	'srf_printername_googlebar' => 'Гістограма Google',
+	'srf_printername_googlepie' => 'Секторна діаграма Google',
 	'srf-ui-gridview-label-item' => 'Елемент даних',
 	'srf-ui-gridview-label-value' => 'Значення даних',
 	'srf-ui-gridview-label-series' => 'Серія даних',
@@ -5396,6 +5507,8 @@ $messages['uk'] = array(
 	'srf_paramdesc_autocaptions' => 'Використовувати назву файлу в якості заголовку, якщо його не вказано',
 	'srf-gallery-navigation-previous' => 'Попередній',
 	'srf-gallery-navigation-next' => 'Наступний',
+	'srf_printername_tagcloud' => 'Хмаринка теґів',
+	'srf_printername_array' => 'Масив',
 	'srf-ui-eventcalendar-label-today' => 'Сьогодні',
 	'srf-ui-eventcalendar-label-month' => 'Місяць',
 	'srf-ui-eventcalendar-label-week' => 'Тиждень',
@@ -5500,10 +5613,12 @@ $messages['yi'] = array(
  * @author Gzdavidwong
  * @author Liangent
  * @author Linforest
+ * @author Shirayuki
  */
 $messages['zh-hans'] = array(
 	'srf-desc' => 'Semantic MediaWiki嵌入式查询的附加格式',
 	'srf-name' => '语义结果格式',
+	'srf-module-loading' => '载入中...',
 	'srf-warn-empy-chart' => '该图表未被显示是因为其中没有可加以显示的结果。', # Fuzzy
 	'srfc_previousmonth' => '上月',
 	'srfc_nextmonth' => '下月',
@@ -5552,6 +5667,7 @@ $messages['zh-hans'] = array(
 	'srf-paramdesc-pointlabels' => '具体数据点的显示', # Fuzzy
 	'srf-paramdesc-chartlegend' => '显示图表图例', # Fuzzy
 	'srf-paramdesc-datalabels' => '显示饼图数据标签', # Fuzzy
+	'srf-ui-gridview-label-info-tab' => '信息',
 	'srf_printername_gallery' => '图库',
 	'srf_paramdesc_perrow' => '每行的图像个数',
 	'srf_paramdesc_widths' => '图像宽度',
@@ -5596,9 +5712,12 @@ $messages['zh-hans'] = array(
 	'srf-paramdesc-displaylength' => '初始显示长度',
 	'srf-noparentprop' => '未提供父属性。在没有指定父属性的情况下无法构建树种结构。',
 	'srf-paramdesc-parent' => '包含父页面的属性',
+	'srf-filtered-selectorlabel-calendar' => '日历',
+	'srf-ui-eventcalendar-label-today' => '今天',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
+ * @author Shirayuki
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
@@ -5689,6 +5808,7 @@ $messages['zh-hant'] = array(
 	'srf-paramdesc-displaylength' => '初始顯示長度',
 	'srf-noparentprop' => '未提供父屬性。在沒有指定父屬性的情況下無法構建樹種結構。',
 	'srf-paramdesc-parent' => '包含父頁面的屬性',
+	'srf-ui-eventcalendar-label-today' => '今天',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)
