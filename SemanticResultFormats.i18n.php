@@ -774,11 +774,25 @@ $messages['be-tarask'] = array(
 
 /** Bulgarian (български)
  * @author DCLXVI
+ * @author පසිඳු කාවින්ද
  */
 $messages['bg'] = array(
+	'srf-navigation-previous' => 'Предишна',
+	'srf-ui-navigation-next' => 'Следваща',
+	'srf-ui-common-label-source' => 'Източник',
 	'srfc_previousmonth' => 'Предходен месец',
 	'srfc_nextmonth' => 'Следващ месец',
 	'srfc_today' => 'Днес',
+	'srf-ui-gridview-label-data-tab' => 'Данни',
+	'srf-gallery-navigation-next' => 'Следваща',
+	'srf_paramdesc_graphname' => 'Заглавие',
+	'srf-filtered-selectorlabel-list' => 'Списък',
+	'srf-filtered-selectorlabel-calendar' => 'Календар',
+	'srf-ui-eventcalendar-label-today' => 'Днес',
+	'srf-ui-eventcalendar-label-month' => 'Месец',
+	'srf-ui-eventcalendar-label-week' => 'Седмица',
+	'srf-ui-eventcalendar-label-day' => 'Ден',
+	'srf-paramdesc-unit' => 'Единица',
 );
 
 /** Bengali (বাংলা)
@@ -3038,10 +3052,13 @@ $messages['ia'] = array(
  * @author Farras
  * @author IvanLanin
  * @author Kenrick95
+ * @author පසිඳු කාවින්ද
  */
 $messages['id'] = array(
 	'srf-desc' => 'Format tambahan untuk kueri Semantik MediaWiki',
 	'srf-name' => 'Format Hasil Semantik',
+	'srf-navigation-previous' => 'Sebelumnya',
+	'srf-ui-common-label-source' => 'Sumber',
 	'srfc_previousmonth' => 'Bulan lalu',
 	'srfc_nextmonth' => 'Bulan depan',
 	'srfc_today' => 'Hari ini',
@@ -3079,11 +3096,13 @@ $messages['id'] = array(
 	'srf_paramdesc_barcolor' => 'Warna batang',
 	'srf_paramdesc_bardirection' => 'Arah grafik batang', # Fuzzy
 	'srf_paramdesc_barnumbersaxislabel' => 'Label untuk poros nomor',
+	'srf-ui-gridview-label-data-tab' => 'Data',
 	'srf_printername_gallery' => 'Galeri',
 	'srf_paramdesc_perrow' => 'Jumlah gambar per baris',
 	'srf_paramdesc_widths' => 'Lebar gambar',
 	'srf_paramdesc_heights' => 'Tinggi gambar',
 	'srf_paramdesc_autocaptions' => 'Gunakan nama berkas sebagai judul jika judul tidak diberikan',
+	'srf-gallery-navigation-previous' => 'Sebelumnya',
 	'srf_printername_tagcloud' => 'Awan tag',
 	'srf_paramdesc_includesubject' => 'Jika nama subjek sendiri harus dimasukkan',
 	'srf_paramdesc_increase' => 'Bagaimana meningkatkan ukuran tag',
@@ -3113,6 +3132,11 @@ $messages['id'] = array(
 	'srf_paramdesc_graphlink' => 'Tautan grafik',
 	'srf_paramdesc_graphcolor' => 'Warna grafik',
 	'srf-paramdesc-graph-wwl' => 'Batas pemenggalan kata (dalam jumlah karakter)',
+	'srf-filtered-selectorlabel-list' => 'Daftar',
+	'srf-filtered-selectorlabel-calendar' => 'Kalender',
+	'srf-ui-eventcalendar-label-today' => 'Hari ini',
+	'srf-ui-eventcalendar-label-month' => 'Bulan',
+	'srf-ui-eventcalendar-label-day' => 'Hari',
 );
 
 /** Igbo (Igbo)
@@ -3214,6 +3238,7 @@ $messages['it'] = array(
 	'srf_paramdesc_graphsize' => 'Dimensione del grafico (in px)',
 	'srf_paramdesc_graphlegend' => 'Mostra la legenda del grafico o no',
 	'srf_paramdesc_graphlabel' => 'Etichetta del grafico',
+	'srf-filtered-selectorlabel-calendar' => 'Calendario',
 	'srf-paramdesc-zoom' => 'Abilita zoom',
 	'srf-paramdesc-listtype' => 'Specificare il tipo di elenco',
 	'srf-paramdesc-pageitems' => 'Elementi per pagina',
@@ -4963,6 +4988,7 @@ $messages['sr-el'] = array(
  * @author Martinwiss
  * @author Per
  * @author Rotsee
+ * @author WikiPhoenix
  */
 $messages['sv'] = array(
 	'srf-desc' => 'Extra utskriftsformat för Semantic MediaWiki',
@@ -4977,7 +5003,10 @@ $messages['sv'] = array(
 	'srf-navigation-previous' => 'Föregående',
 	'srf-ui-navigation-prev' => 'Föreg.',
 	'srf-ui-navigation-next' => 'Nästa',
+	'srf-ui-common-label-source' => 'Källa',
 	'srf-ui-common-label-datasource' => 'Datakälla',
+	'srf-ui-common-label-help-section' => 'hjälpavsnitt',
+	'srf-ui-tooltip-title-options' => 'Alternativ',
 	'srf-error-option-mix' => 'Alternativ ( $1 ) är inte tillgängligt',
 	'srf-error-option-link-all' => 'För alternativ ($1) måste parametern "link" ges värdet "all"',
 	'srf-error-missing-layout' => 'Layouten saknas',
@@ -5120,7 +5149,8 @@ $messages['sv'] = array(
 	'srf-paramdesc-navigation-controls' => 'Visa navigeringsknappar eller inte',
 	'srf-paramdesc-effect' => 'Vilken effekt som ska visas när bilden byts',
 	'srf-printername-filtered' => 'Filtrerad',
-	'srf-paramdesc-views' => 'Vyerna som ska visas i resultatet.',
+	'srf-filtered-selectorlabel-list' => 'Lista',
+	'srf-filtered-selectorlabel-calendar' => 'Kalender',
 	'srf-printername-d3chart' => 'D3 diagram',
 	'srf-printername-timeseries' => 'Tidsserie diagram',
 	'srf-paramdesc-group' => 'Serie grupperad efter',
@@ -5132,14 +5162,10 @@ $messages['sv'] = array(
 	'srf-paramdesc-listtype' => 'Ange listtyp',
 	'srf-paramdesc-widget' => 'Tillgängliga manicker (widget)',
 	'srf-paramdesc-pageitems' => 'Antal per sida',
-	'srf-printername-feed' => 'RSS/Atom flöde',
-	'srf-paramdesc-feedtype' => 'Flödestyp',
-	'srf-paramdesc-feedtitle' => 'Flödestitel',
-	'srf-paramdesc-feeddescription' => 'Beskrivning av flöde',
 	'srf-printername-eventcalendar' => 'Event calendar',
 	'srf-paramdesc-calendarfirstday' => 'Första dagen i veckan',
 	'srf-paramdesc-calendardefaultview' => 'Första läget när kalendern visas',
-	'srf-paramdesc-calendarstart' => 'Valt datum när kalendern laddas',
+	'srf-paramdesc-calendarstart' => 'Valt datum när kalendern laddas', # Fuzzy
 	'srf-paramdesc-dayview' => 'Visa "dags-vyn" genom att klicka på numret för den dagen',
 	'srf-ui-eventcalendar-label-today' => 'Idag',
 	'srf-ui-eventcalendar-label-month' => 'Månad',
@@ -5147,8 +5173,8 @@ $messages['sv'] = array(
 	'srf-ui-eventcalendar-label-day' => 'Dag',
 	'srf-ui-eventcalendar-label-allday' => 'Hela dagen',
 	'srf-printername-dygraphs' => 'Dygraphs diagram',
-	'srf-paramdesc-datasource' => 'Ange källan där data är tillgängligt (fil, URL o.s.v.)',
-	'srf-paramdesc-errorbar' => 'Definiera den "fel-stapel" som ska användas (standardavvikelse (sigma), diagram-fraktioner, eller en egendefinierad stapel med värden low;middle;high)',
+	'srf-paramdesc-datasource' => 'Ange källan där data är tillgängligt (fil, URL o.s.v.)', # Fuzzy
+	'srf-paramdesc-errorbar' => 'Definiera den "fel-stapel" som ska användas (standardavvikelse (sigma), diagram-fraktioner, eller en egendefinierad stapel med värden low;middle;high)', # Fuzzy
 	'srf-paramdesc-movingaverage' => 'Visa medelvärdet för ett visst antal dagar (zero innebär inget medelvärde)',
 	'srf-paramdesc-yaxislabel' => 'Beskrivning som visas på y-axeln',
 	'srf-paramdesc-xaxislabel' => 'Beskrivning som visas på x-axeln',
@@ -5509,6 +5535,23 @@ $messages['uk'] = array(
 	'srf-gallery-navigation-next' => 'Наступний',
 	'srf_printername_tagcloud' => 'Хмаринка теґів',
 	'srf_printername_array' => 'Масив',
+	'srf-printername-graph' => 'Графік',
+	'srf-paramdesc-graph-nodeshape' => 'Форма кожного вузла графу',
+	'srf_paramdesc_graphname' => 'Назва',
+	'srf_paramdesc_graphsize' => 'Розмір графу (у пікселях)',
+	'srf_paramdesc_graphlegend' => 'Показувати легенду чи ні?',
+	'srf_paramdesc_graphlabel' => 'Підпис графу',
+	'srf_paramdesc_graphlink' => 'Посилання графу',
+	'srf_paramdesc_graphcolor' => 'Колір графу',
+	'srf-paramdesc-graph-wwl' => 'Межа переносу слів (у # символів)',
+	'srf_printername_datatables' => 'Таблиці даних',
+	'srf-paramdesc-rowindex' => 'Індекс рядка таблиці',
+	'srf-paramdesc-displaylength' => 'Початкова довжина для показу',
+	'srf_printername_tree' => 'Дерево',
+	'srf-printername-slideshow' => 'Слайд-шоу',
+	'srf-printername-filtered' => 'Відфільтровано',
+	'srf-filtered-selectorlabel-list' => 'Список',
+	'srf-filtered-selectorlabel-calendar' => 'Календар',
 	'srf-ui-eventcalendar-label-today' => 'Сьогодні',
 	'srf-ui-eventcalendar-label-month' => 'Місяць',
 	'srf-ui-eventcalendar-label-week' => 'Тиждень',
@@ -5618,7 +5661,12 @@ $messages['yi'] = array(
 $messages['zh-hans'] = array(
 	'srf-desc' => 'Semantic MediaWiki嵌入式查询的附加格式',
 	'srf-name' => '语义结果格式',
+	'prefs-srf' => '语义结果格式',
 	'srf-module-loading' => '载入中...',
+	'srf-module-nomatch' => '找不到匹配项目',
+	'srf-ui-common-label-source' => '来源',
+	'srf-ui-common-label-datasource' => '数据源',
+	'srf-ui-tooltip-title-options' => '选项',
 	'srf-warn-empy-chart' => '该图表未被显示是因为其中没有可加以显示的结果。', # Fuzzy
 	'srfc_previousmonth' => '上月',
 	'srfc_nextmonth' => '下月',
@@ -5667,6 +5715,7 @@ $messages['zh-hans'] = array(
 	'srf-paramdesc-pointlabels' => '具体数据点的显示', # Fuzzy
 	'srf-paramdesc-chartlegend' => '显示图表图例', # Fuzzy
 	'srf-paramdesc-datalabels' => '显示饼图数据标签', # Fuzzy
+	'srf-ui-gridview-label-data-tab' => '数据',
 	'srf-ui-gridview-label-info-tab' => '信息',
 	'srf_printername_gallery' => '图库',
 	'srf_paramdesc_perrow' => '每行的图像个数',
@@ -5710,6 +5759,7 @@ $messages['zh-hans'] = array(
 	'srf_printername_datatables' => '数据表',
 	'srf-paramdesc-rowindex' => '数据表行索引',
 	'srf-paramdesc-displaylength' => '初始显示长度',
+	'srf_printername_tree' => '树',
 	'srf-noparentprop' => '未提供父属性。在没有指定父属性的情况下无法构建树种结构。',
 	'srf-paramdesc-parent' => '包含父页面的属性',
 	'srf-filtered-selectorlabel-calendar' => '日历',
@@ -5723,6 +5773,11 @@ $messages['zh-hans'] = array(
 $messages['zh-hant'] = array(
 	'srf-desc' => 'Semantic MediaWiki嵌入式查詢的附加格式',
 	'srf-name' => '語義結果格式',
+	'srf-module-loading' => '載入中...',
+	'srf-module-nomatch' => '沒有符合的資訊',
+	'srf-ui-common-label-source' => '來源',
+	'srf-ui-common-label-datasource' => '資料來源',
+	'srf-ui-tooltip-title-options' => '選項',
 	'srfc_previousmonth' => '上月',
 	'srfc_nextmonth' => '下月',
 	'srfc_today' => '今天',
@@ -5764,6 +5819,8 @@ $messages['zh-hant'] = array(
 	'srf_paramdesc_barcolor' => '條形的顏色',
 	'srf_paramdesc_barnumbersaxislabel' => '數字軸標籤',
 	'srf-paramdesc-minvalue' => 'Y-軸上所要顯示的最小值',
+	'srf-ui-gridview-label-data-tab' => '資料',
+	'srf-ui-gridview-label-info-tab' => '資訊',
 	'srf_printername_gallery' => '圖庫',
 	'srf_paramdesc_perrow' => '每行的圖像個數',
 	'srf_paramdesc_widths' => '圖像寬度',
@@ -5808,6 +5865,10 @@ $messages['zh-hant'] = array(
 	'srf-paramdesc-displaylength' => '初始顯示長度',
 	'srf-noparentprop' => '未提供父屬性。在沒有指定父屬性的情況下無法構建樹種結構。',
 	'srf-paramdesc-parent' => '包含父頁面的屬性',
+	'srf-paramdesc-filtered-list-introtemplate' => '用於在查詢結果前顯示內容的模板的名稱。',
+	'srf-paramdesc-filtered-list-outrotemplate' => '用於在查詢結果後顯示內容的模板的名稱。',
+	'srf-filtered-selectorlabel-list' => '列表',
+	'srf-filtered-selectorlabel-calendar' => '日曆',
 	'srf-ui-eventcalendar-label-today' => '今天',
 );
 
