@@ -1,0 +1,22 @@
+/**
+ * CSS for SRF jplayer/media format
+ *
+ * @since 1.8
+ * @release 0.2
+ *
+ * @file
+ * @ingroup SemanticResultFormats
+ *
+ * @licence GNU GPL v2 or later
+ * @author mwjames
+ */
+
+/* Place your CSS in here ... */
+
+div.jp-playlist ul {
+	list-style-image: none;
+}
+
+div.jp-type-single div.jp-playlist li {
+	border-bottom: 0px solid #EEE;
+}

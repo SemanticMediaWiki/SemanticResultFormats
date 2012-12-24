@@ -58,6 +58,7 @@ final class SRFHooks {
 			'formats/TagCloud',
 			'formats/Timeseries',
 			'formats/vCard',
+			'formats/MediaPlayer',
 			// Boilerplate
 			// Register your testclass
 			// 'formats/Boilerplate',

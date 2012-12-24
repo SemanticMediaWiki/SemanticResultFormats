@@ -299,6 +299,24 @@ $messages['en'] = array(
 	'srf-paramdesc-min' => 'Minimum or threshold value',
 	'srf-paramdesc-excludeproperty' => 'Exclude property from result set',
 
+	// format "media"
+	'srf-printername-media' => 'Media player',
+	'srf-paramdesc-mediainspector' => 'Displays detailed information about a specified media element',
+	'srf-ui-mediaplayer-label-previous' => 'Previous',
+	'srf-ui-mediaplayer-label-play' => 'Play',
+	'srf-ui-mediaplayer-label-pause' => 'Pause',
+	'srf-ui-mediaplayer-label-next' => 'Next',
+	'srf-ui-mediaplayer-label-stop' => 'Stop',
+	'srf-ui-mediaplayer-label-mute' => 'Mute',
+	'srf-ui-mediaplayer-label-unmute' => 'Unmute',
+	'srf-ui-mediaplayer-label-volume-max' => 'Max volume',
+	'srf-ui-mediaplayer-label-shuffle' => 'Shuffle',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'Shuffle off',
+	'srf-ui-mediaplayer-label-repeat' => 'Repeat',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Repeat off',
+	'srf-ui-mediaplayer-label-full-screen' => 'Full screen',
+	'srf-ui-mediaplayer-label-restore-screen' => 'Restore screen',
+
 );
 
 /** Message documentation (Message documentation)
@@ -566,6 +584,22 @@ Infos on terms used: [[wikipedia:Error bar|error bar]], [[wikipedia:Standard dev
 	'srf-printername-incoming' => '{{doc-smwformat|incoming}}',
 	'srf-paramdesc-min' => '{{doc-paramdesc|min}}',
 	'srf-paramdesc-excludeproperty' => '{{doc-paramdesc|excludeproperty}}',
+	'srf-printername-media' => '{{doc-smwformat|media}}',
+	'srf-paramdesc-mediainspector' => 'An option to display extra media information',
+	'srf-ui-mediaplayer-label-previous' => '{{doc-smw-ui-label|previous}}',
+	'srf-ui-mediaplayer-label-play' => '{{doc-smw-ui-label|play}}',
+	'srf-ui-mediaplayer-label-pause' => '{{doc-smw-ui-label|pause}}',
+	'srf-ui-mediaplayer-label-next' => '{{doc-smw-ui-label|next}}',
+	'srf-ui-mediaplayer-label-stop' => '{{doc-smw-ui-label|stop}}',
+	'srf-ui-mediaplayer-label-mute' => '{{doc-smw-ui-label|mute}}',
+	'srf-ui-mediaplayer-label-unmute' => '{{doc-smw-ui-label|unmute}}',
+	'srf-ui-mediaplayer-label-volume-max' => '{{doc-smw-ui-label|volume-max}}',
+	'srf-ui-mediaplayer-label-shuffle' => '{{doc-smw-ui-label|shuffle}}',
+	'srf-ui-mediaplayer-label-shuffle-off' => '{{doc-smw-ui-label|shuffle-off}}',
+	'srf-ui-mediaplayer-label-repeat' => '{{doc-smw-ui-label|repeat}}',
+	'srf-ui-mediaplayer-label-repeat-off' => '{{doc-smw-ui-label|repeat-off}}',
+	'srf-ui-mediaplayer-label-full-screen' => '{{doc-smw-ui-label|full-screen}}',
+	'srf-ui-mediaplayer-label-restore-screen' => '{{doc-smw-ui-label|restore-screen}}',
 );
 
 /** Afrikaans (Afrikaans)
