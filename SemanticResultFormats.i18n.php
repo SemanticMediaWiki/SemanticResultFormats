@@ -445,7 +445,7 @@ Synonyms might be representation, or maybe appearance, aspect, facet',
 	'srf-paramdesc-chartcursor' => '{{doc-paramdesc|chartcursor}}',
 	'srf-paramdesc-trendline' => '{{doc-paramdesc|trendline}}',
 	'srf-paramdesc-gridview' => '{{doc-paramdesc|gridview}}
-{{doc-important|Do not translate the possible parameters "none" and "tabs".}}', # Fuzzy
+{{doc-important|Do not translate the possible parameters "none" and "tabs".}}',
 	'srf-paramdesc-infotext' => '{{doc-paramdesc|infotext}}',
 	'srf-ui-gridview-label-item' => 'This is a table header. See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
 	'srf-ui-gridview-label-value' => 'This is a table header See also [http://semantic-mediawiki.org/wiki/Help:Result_formats result format].',
@@ -553,7 +553,7 @@ D3 is the name of the library used to generate the charts.',
 	'srf-printername-eventcalendar' => '{{doc-smwformat|eventcalendar}}',
 	'srf-paramdesc-calendarfirstday' => '{{doc-paramdesc|calendarfirstday}}',
 	'srf-paramdesc-calendardefaultview' => '{{doc-paramdesc|calendardefaultview}}',
-	'srf-paramdesc-calendarstart' => '{{doc-paramdesc|calendarstart}}', # Fuzzy
+	'srf-paramdesc-calendarstart' => '{{doc-paramdesc|calendarstart}}',
 	'srf-paramdesc-dayview' => '{{doc-paramdesc|dayview}}',
 	'srf-ui-eventcalendar-label-today' => 'Text that will be displayed on buttons of the calendar header. See [http://www.semantic-mediawiki.org/wiki/Help:Event_calendar_format Event calendar format] and [http://arshaw.com/fullcalendar/docs/text/buttonText/ buttonText]',
 	'srf-ui-eventcalendar-label-month' => 'Text that will be displayed on buttons of the calendar header. See [http://www.semantic-mediawiki.org/wiki/Help:Event_calendar_format Event calendar format] and [http://arshaw.com/fullcalendar/docs/text/buttonText/ buttonText]',
@@ -571,10 +571,10 @@ D3 is the name of the library used to generate the charts.',
 	'srf-ui-eventcalendar-format-column-day' => "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]",
 	'srf-printername-dygraphs' => '{{doc-smwformat|dygraphs}}',
 	'srf-paramdesc-datasource' => '{{doc-paramdesc|datasource}}
-{{doc-important|Do not translate the possible parameters "file", "raw" and "url".}}', # Fuzzy
+{{doc-important|Do not translate the possible parameters "file", "raw" and "url".}}',
 	'srf-paramdesc-errorbar' => '{{doc-paramdesc|errorbar}}
 {{doc-important|Do not translate the parametre values "fraction", "sigma" and "range".}}
-Infos on terms used: [[wikipedia:Error bar|error bar]], [[wikipedia:Standard deviation|standard deviation]], [[wikipedia:Confidence interval|confidence interval]]', # Fuzzy
+Information on terms used: [[wikipedia:Error bar|error bar]], [[wikipedia:Standard deviation|standard deviation]], [[wikipedia:Confidence interval|confidence interval]].',
 	'srf-paramdesc-movingaverage' => '{{doc-paramdesc|movingaverage}}
 {{doc-important|Do not translate <code>zero</code>}}',
 	'srf-paramdesc-yaxislabel' => '{{doc-paramdesc|yaxislabel}}',
@@ -1287,6 +1287,22 @@ $messages['de'] = array(
 	'srf-printername-incoming' => 'Eingehende Attribute',
 	'srf-paramdesc-min' => 'Der maximale Wert oder Schwellenwert',
 	'srf-paramdesc-excludeproperty' => 'Das Attribut vom Ergebnis ausschließen',
+	'srf-printername-media' => 'Medienspieler',
+	'srf-paramdesc-mediainspector' => 'Zeigt detaillierte Informationen über ein angegebenes Medienelement an',
+	'srf-ui-mediaplayer-label-previous' => 'Vorherige',
+	'srf-ui-mediaplayer-label-play' => 'Wiedergabe',
+	'srf-ui-mediaplayer-label-pause' => 'Pause',
+	'srf-ui-mediaplayer-label-next' => 'Nächste',
+	'srf-ui-mediaplayer-label-stop' => 'Stop',
+	'srf-ui-mediaplayer-label-mute' => 'Stummschaltung',
+	'srf-ui-mediaplayer-label-unmute' => 'Stummschaltung aufheben',
+	'srf-ui-mediaplayer-label-volume-max' => 'Maximale Lautstärke',
+	'srf-ui-mediaplayer-label-shuffle' => 'Zufallswiedergabe',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'Zufallswiedergabe aus',
+	'srf-ui-mediaplayer-label-repeat' => 'Wiederholen',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Wiederholen aus',
+	'srf-ui-mediaplayer-label-full-screen' => 'Vollbild',
+	'srf-ui-mediaplayer-label-restore-screen' => 'Bildschirm wiederherstellen',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -1472,19 +1488,28 @@ $messages['dsb'] = array(
 /** Greek (Ελληνικά)
  * @author Consta
  * @author Omnipaedista
+ * @author Protnet
  * @author ZaDiak
  */
 $messages['el'] = array(
-	'srf-desc' => 'Πρόσθετα φορμά για τα inline αιτήματα της Σημασιολογικής MediaWiki',
-	'srf-name' => 'Σημασιολογικά Αποτελέσματα Φορμά',
+	'srf-desc' => 'Πρόσθετες μορφές αποτελεσμάτων για ενσωματωμένα σημασιολογικά ερωτήματα του Semantic MediaWiki',
+	'srf-name' => 'Μορφές σημασιολογικών αποτελεσμάτων',
+	'prefs-srf' => 'Μορφές σημασιολογικών αποτελεσμάτων',
+	'srf-module-loading' => 'Φόρτωση...',
+	'srf-paramdesc-height' => 'Ύψος',
+	'srf-paramdesc-width' => 'Πλάτος',
+	'srf-navigation-previous' => 'Προηγούμενο',
+	'srf-ui-navigation-prev' => 'Προηγ',
+	'srf-ui-navigation-next' => 'Επόμενο',
+	'srf-ui-common-label-help-section' => 'ενότητα βοήθειας',
 	'srfc_previousmonth' => 'Προηγούμενος μήνας',
 	'srfc_nextmonth' => 'Επόμενος μήνας',
 	'srfc_today' => 'Σήμερα',
 	'srfc_gotomonth' => 'Μετάβαση στον μήνα',
 	'srf_printername_calendar' => 'Μηνιαίο ημερολόγιο',
-	'srf_printername_vcard' => 'Εξαγωγή vCard',
-	'srf_printername_icalendar' => 'Εξαγωγή iCalendar',
-	'srf_printername_bibtex' => 'Εξαγωγή BibTeX',
+	'srf_printername_vcard' => 'Εξαγωγή σε vCard',
+	'srf_printername_icalendar' => 'Εξαγωγή σε iCalendar',
+	'srf_printername_bibtex' => 'Εξαγωγή σε BibTeX',
 	'srf_outline_novalue' => 'Καμία τιμή',
 	'srf_printername_outline' => 'Περίγραμμα',
 	'srf_printername_sum' => 'Σύνοψη αριθμών',
@@ -1493,6 +1518,7 @@ $messages['el'] = array(
 	'srf_printername_min' => 'Ελάχιστος αριθμός',
 	'srf_printername_timeline' => 'Ζώνη ώρας',
 	'srf_printername_eventline' => 'Ζώνη γεγονότων',
+	'srf_paramdesc_timelinesize' => 'Ύψος χρονολογίου',
 );
 
 /** Esperanto (Esperanto)
@@ -2188,6 +2214,22 @@ $messages['fr'] = array(
 	'srf-printername-incoming' => 'Propriétés entrantes',
 	'srf-paramdesc-min' => 'Valeur minimale ou seuil',
 	'srf-paramdesc-excludeproperty' => "Exclure la propriété de l'ensemble des résultats",
+	'srf-printername-media' => 'Lecteur de média',
+	'srf-paramdesc-mediainspector' => 'Affiche des informations détaillées sur un élément de média particulier',
+	'srf-ui-mediaplayer-label-previous' => 'Précédent',
+	'srf-ui-mediaplayer-label-play' => 'Lecture',
+	'srf-ui-mediaplayer-label-pause' => 'Pause',
+	'srf-ui-mediaplayer-label-next' => 'Suivant',
+	'srf-ui-mediaplayer-label-stop' => 'Arrêt',
+	'srf-ui-mediaplayer-label-mute' => 'Muet',
+	'srf-ui-mediaplayer-label-unmute' => 'Non muet',
+	'srf-ui-mediaplayer-label-volume-max' => 'Volume max',
+	'srf-ui-mediaplayer-label-shuffle' => 'Lecture aléatoire',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'Lecture aléatoire désactivée',
+	'srf-ui-mediaplayer-label-repeat' => 'Répétition',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Répétition désactivée',
+	'srf-ui-mediaplayer-label-full-screen' => 'Plein écran',
+	'srf-ui-mediaplayer-label-restore-screen' => "Rétablir l'écran",
 );
 
 /** Franco-Provençal (arpetan)
@@ -3266,6 +3308,7 @@ $messages['it'] = array(
 	'srf-gallery-navigation-next' => 'Successivo',
 	'srf-gallery-overlay-count' => 'Immagine $1 di $2',
 	'srf-gallery-image-url-error' => "L'immagine non è stato trovata.",
+	'srf_paramdesc_minsize' => 'La dimensione dei tag più piccoli in percentuale',
 	'srf_printername_hash' => 'Hash',
 	'srf-printername-graph' => 'Grafico',
 	'srf_paramdesc_graphname' => 'Titolo',
@@ -3273,6 +3316,7 @@ $messages['it'] = array(
 	'srf_paramdesc_graphlegend' => 'Mostra la legenda del grafico o no',
 	'srf_paramdesc_graphlabel' => 'Etichetta del grafico',
 	'srf-filtered-selectorlabel-calendar' => 'Calendario',
+	'srf-paramdesc-group' => 'Serie raggruppata per',
 	'srf-paramdesc-zoom' => 'Abilita zoom',
 	'srf-paramdesc-listtype' => 'Specificare il tipo di elenco',
 	'srf-paramdesc-pageitems' => 'Elementi per pagina',
@@ -3469,6 +3513,22 @@ $messages['ja'] = array(
 	'srf-printername-pagewidget' => 'ページウィジェット',
 	'srf-paramdesc-min' => 'しきい値の最小値',
 	'srf-paramdesc-excludeproperty' => '結果の集合からプロパティを除外',
+	'srf-printername-media' => 'メディア プレーヤー',
+	'srf-paramdesc-mediainspector' => '指定したメディア要素について詳細情報を表示する',
+	'srf-ui-mediaplayer-label-previous' => '前へ',
+	'srf-ui-mediaplayer-label-play' => '再生',
+	'srf-ui-mediaplayer-label-pause' => '一時停止',
+	'srf-ui-mediaplayer-label-next' => '次へ',
+	'srf-ui-mediaplayer-label-stop' => '停止',
+	'srf-ui-mediaplayer-label-mute' => 'ミュート',
+	'srf-ui-mediaplayer-label-unmute' => 'ミュート解除',
+	'srf-ui-mediaplayer-label-volume-max' => '最大音量',
+	'srf-ui-mediaplayer-label-shuffle' => 'ランダム再生',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'ランダム再生解除',
+	'srf-ui-mediaplayer-label-repeat' => '連続再生',
+	'srf-ui-mediaplayer-label-repeat-off' => '連続再生解除',
+	'srf-ui-mediaplayer-label-full-screen' => '全画面表示',
+	'srf-ui-mediaplayer-label-restore-screen' => '全画面表示解除',
 );
 
 /** Javanese (Basa Jawa)
@@ -3898,6 +3958,22 @@ $messages['mk'] = array(
 	'srf-printername-incoming' => 'Дојдовни својства',
 	'srf-paramdesc-min' => 'Минимална или гранична вредност',
 	'srf-paramdesc-excludeproperty' => 'Исклучување на својството од резултатот',
+	'srf-printername-media' => 'Мултимедијален изведувач',
+	'srf-paramdesc-mediainspector' => 'Прикажува подробни информации за даден медиумски елемент',
+	'srf-ui-mediaplayer-label-previous' => 'Претходно',
+	'srf-ui-mediaplayer-label-play' => 'Пушти',
+	'srf-ui-mediaplayer-label-pause' => 'Паузирај',
+	'srf-ui-mediaplayer-label-next' => 'Следно',
+	'srf-ui-mediaplayer-label-stop' => 'Запри',
+	'srf-ui-mediaplayer-label-mute' => 'Искл. звук',
+	'srf-ui-mediaplayer-label-unmute' => 'Вкл. звук',
+	'srf-ui-mediaplayer-label-volume-max' => 'Макс. гласност',
+	'srf-ui-mediaplayer-label-shuffle' => 'Измешај',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'Искл. мешање',
+	'srf-ui-mediaplayer-label-repeat' => 'Повторувај',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Искл. повторување',
+	'srf-ui-mediaplayer-label-full-screen' => 'На цел екран',
+	'srf-ui-mediaplayer-label-restore-screen' => 'Поврати екран',
 );
 
 /** Malayalam (മലയാളം)
@@ -4282,6 +4358,22 @@ $messages['nl'] = array(
 	'srf-printername-incoming' => 'Inkomende eigenschappen',
 	'srf-paramdesc-min' => 'Minimale waar of drempelwaarde',
 	'srf-paramdesc-excludeproperty' => 'Eigenschap uitsluiten van resultaatset',
+	'srf-printername-media' => 'Mediaspeler',
+	'srf-paramdesc-mediainspector' => 'Geeft gedetailleerde gegevens weer over een aangegeven mediaelement',
+	'srf-ui-mediaplayer-label-previous' => 'Vorige',
+	'srf-ui-mediaplayer-label-play' => 'Afspelen',
+	'srf-ui-mediaplayer-label-pause' => 'Pauzeren',
+	'srf-ui-mediaplayer-label-next' => 'Volgende',
+	'srf-ui-mediaplayer-label-stop' => 'Stoppen',
+	'srf-ui-mediaplayer-label-mute' => 'Geluid uit',
+	'srf-ui-mediaplayer-label-unmute' => 'Geluid aan',
+	'srf-ui-mediaplayer-label-volume-max' => 'max volume',
+	'srf-ui-mediaplayer-label-shuffle' => 'Willekeurig',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'Willekeurig uit',
+	'srf-ui-mediaplayer-label-repeat' => 'Herhalen',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Herhalen uit',
+	'srf-ui-mediaplayer-label-full-screen' => 'Volledig scherm',
+	'srf-ui-mediaplayer-label-restore-screen' => 'Scherm herstellen',
 );
 
 /** Norwegian Nynorsk (norsk (nynorsk)‎)
@@ -4815,8 +4907,13 @@ $messages['pt-br'] = array(
 
 /** Romanian (română)
  * @author KlaudiuMihaila
+ * @author Stelistcristi
  */
 $messages['ro'] = array(
+	'srf-paramdesc-height' => 'Înălțime',
+	'srf-paramdesc-width' => 'Lățime',
+	'srf-ui-common-label-source' => 'Sursă',
+	'srf-ui-tooltip-title-options' => 'Opțiuni',
 	'srfc_previousmonth' => 'Luna anterioară',
 	'srfc_nextmonth' => 'Luna următoare',
 	'srfc_today' => 'Astăzi',
@@ -4827,6 +4924,10 @@ $messages['ro'] = array(
 	'srf_printername_average' => 'Media numerelor',
 	'srf_printername_max' => 'Numărul maxim',
 	'srf_printername_min' => 'Numărul minim',
+	'srf-ui-gridview-label-chart-tab' => 'Diagramă',
+	'srf-ui-gridview-label-info-tab' => 'Informații',
+	'srf_printername_gallery' => 'Galerie',
+	'srf-paramdesc-unit' => 'Unitate',
 );
 
 /** tarandíne (tarandíne)
