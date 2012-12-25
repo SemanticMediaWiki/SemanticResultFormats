@@ -1,7 +1,8 @@
 <?php
 
 namespace SRF;
-use SMWResultPrinter, SMWQueryResult, SMWDataItem, SMWDataValue, SMWOutputs, SRFUtils, FormatJson, Skin, Html, Title, File;
+use SMWResultPrinter, SMWQueryResult, SMWDataItem, SMWDataValue, SMWOutputs, SRFUtils;
+use FormatJson, Skin, Html, Title, File;
 
 /**
  * HTML5 Audio / Video media query printer
@@ -162,14 +163,18 @@ class MediaPlayer extends SMWResultPrinter {
 		// Find the file source
 		$source = wfFindFile ( $title );
 		if ( $source ){
-			// $source->getExtension() returns ogg even though it is a ogv/oga file
+			// $source->getExtension() returns ogg even though it is a ogv/oga (same goes for m4p) file
 			// this doesn't help much therefore we do it ourselves
-			if( in_array( $source->getExtension(), array( 'ogg', 'oga', 'ogv' ) ) ){
+			$extension = $source->getExtension();
+
+			if ( in_array( $extension, array( 'ogg', 'oga', 'ogv' ) ) ) {
 				$extension = strtolower( substr( $source->getName(), strrpos( $source->getName(), '.' ) + 1 ) );
 				$params = array( $extension === 'ogv' ? 'video' : 'audio',  $extension, $source->getUrl() );
+			} elseif ( in_array( $extension, array( 'm4v', 'm4a', 'm4p' ) )  ) {
+				$params = array( $extension === 'm4v' ? 'video' : 'audio',  $extension, $source->getUrl() );
 			} else {
 				list( $major, $minor ) = File::splitMime( $source->getMimeType() );
-				$params = array( $major, $source->getExtension(), $source->getUrl() );
+				$params = array( $major, $extension, $source->getUrl() );
 			}
 		} else {
 			$params = array();

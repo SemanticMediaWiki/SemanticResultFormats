@@ -11,7 +11,9 @@
  * @author mwjames
  */
 
-/* Place your CSS in here ... */
+div.jp-jplayer {
+	background-color: white;
+}
 
 div.jp-playlist ul {
 	list-style-image: none;
