@@ -1023,9 +1023,13 @@ $messages['cs'] = array(
 	'srf-paramdesc-height' => 'Výška',
 	'srf-paramdesc-width' => 'Šířka',
 	'srf-navigation-previous' => 'Předchozí',
+	'srf-ui-navigation-prev' => 'Předch.',
 	'srf-ui-navigation-next' => 'Další',
 	'srf-ui-common-label-source' => 'Zdroj',
 	'srf-ui-common-label-datasource' => 'Zdroj dat',
+	'srf-ui-tooltip-title-options' => 'Nastavení',
+	'srf-ui-tooltip-title-scope' => 'Rozsah',
+	'srf-error-missing-layout' => 'Rozložení chybí',
 	'srfc_previousmonth' => 'Předchozí měsíc',
 	'srfc_nextmonth' => 'Další měsíc',
 	'srfc_today' => 'Dnes',
@@ -1046,6 +1050,8 @@ $messages['cs'] = array(
 	'srf_printername_product' => 'Součin čísel',
 	'srf_printername_median' => 'Medián čísel',
 	'srf-paramdesc-default' => 'Výchozí hodnota, která se zobrazí, když neexistují žádné číselné výsledky',
+	'srf_paramdesc_charttitle' => 'Název grafu',
+	'srf-ui-gridview-label-chart-tab' => 'Graf',
 	'srf-gallery-navigation-previous' => 'Předchozí',
 	'srf-gallery-navigation-next' => 'Následujicí',
 	'srf-gallery-overlay-count' => 'Obrázek $1 z $2',
@@ -1054,7 +1060,11 @@ $messages['cs'] = array(
 	'srf_printername_hash' => 'Asociativní pole (Haš)',
 	'srf_paramdesc_graphname' => 'Název',
 	'srf_paramdesc_graphsize' => 'Velikost grafu (v pixelech)',
+	'srf_paramdesc_graphlabel' => 'Popisek grafu',
+	'srf_paramdesc_rankdir' => 'Směr šipky',
+	'srf_paramdesc_graphcolor' => 'Barva grafu',
 	'srf_printername_tree' => 'Strom',
+	'srf-filtered-selectorlabel-list' => 'Seznam',
 	'srf-filtered-selectorlabel-calendar' => 'Kalendář',
 	'srf-paramdesc-pageitems' => 'Položek na stránku',
 	'srf-paramdesc-calendarfirstday' => 'Den, kterým začíná týden',
@@ -1063,8 +1073,13 @@ $messages['cs'] = array(
 	'srf-ui-eventcalendar-label-month' => 'Měsíc',
 	'srf-ui-eventcalendar-label-week' => 'Týden',
 	'srf-ui-eventcalendar-label-day' => 'Den',
+	'srf-ui-eventcalendar-label-allday' => 'Celý den',
 	'srf-paramdesc-yaxislabel' => 'Popisek, který se objeví na ose y',
 	'srf-paramdesc-xaxislabel' => 'Popisek, který se objeví na ose x',
+	'srf-ui-mediaplayer-label-previous' => 'Předchozí',
+	'srf-ui-mediaplayer-label-play' => 'Přehrát',
+	'srf-ui-mediaplayer-label-pause' => 'Pozastavit',
+	'srf-ui-mediaplayer-label-next' => 'Následujicí',
 );
 
 /** German (Deutsch)
@@ -1768,9 +1783,10 @@ $messages['es'] = array(
 
 /** Estonian (eesti)
  * @author Avjoska
+ * @author Pikne
  */
 $messages['et'] = array(
-	'srf-module-loading' => 'Laen...',
+	'srf-module-loading' => 'Laadimine...',
 	'srf-paramdesc-height' => 'Kõrgus',
 	'srf-paramdesc-width' => 'Laius',
 	'srf-navigation-previous' => 'Eelmine',
@@ -2558,6 +2574,22 @@ $messages['gl'] = array(
 	'srf-printername-incoming' => 'Propiedades entrantes',
 	'srf-paramdesc-min' => 'Valor mínimo ou límite',
 	'srf-paramdesc-excludeproperty' => 'Excluír a propiedade do conxunto de resultados',
+	'srf-printername-media' => 'Reprodutor multimedia',
+	'srf-paramdesc-mediainspector' => 'Mostra a información detallada sobre un elemento multimedia específico',
+	'srf-ui-mediaplayer-label-previous' => 'Anterior',
+	'srf-ui-mediaplayer-label-play' => 'Reproducir',
+	'srf-ui-mediaplayer-label-pause' => 'Pausar',
+	'srf-ui-mediaplayer-label-next' => 'Seguinte',
+	'srf-ui-mediaplayer-label-stop' => 'Deter',
+	'srf-ui-mediaplayer-label-mute' => 'Silenciar',
+	'srf-ui-mediaplayer-label-unmute' => 'Restablecer o son',
+	'srf-ui-mediaplayer-label-volume-max' => 'Volume máximo',
+	'srf-ui-mediaplayer-label-shuffle' => 'Reprodución aleatoria',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'Reprodución aleatoria desactivada',
+	'srf-ui-mediaplayer-label-repeat' => 'Repetición',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Repetición desactivada',
+	'srf-ui-mediaplayer-label-full-screen' => 'Pantalla completa',
+	'srf-ui-mediaplayer-label-restore-screen' => 'Restablecer a pantalla',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -2917,6 +2949,7 @@ $messages['ht'] = array(
 
 /** Hungarian (magyar)
  * @author Dani
+ * @author Dj
  * @author Glanthor Reviol
  * @author TK-999
  */
@@ -2959,16 +2992,18 @@ $messages['hu'] = array(
 	'srf_paramdesc_lens' => 'Az oldal tulajdonságait megjelenítő sablon neve',
 	'srf_printername_googlebar' => 'Google oszlopdiagram',
 	'srf_printername_googlepie' => 'Google tortadiagram',
-	'srf_paramdesc_chartheight' => 'A diagram magassága, pixelben', # Fuzzy
-	'srf_paramdesc_chartwidth' => 'A diagram szélessége, pixelben', # Fuzzy
+	'srf_paramdesc_chartheight' => 'Add meg a diagram vagy a grafikon magasságát pixelben',
+	'srf_paramdesc_chartwidth' => 'Add meg a diagram vagy a grafikon szélességét pixelben',
 	'srf_paramdesc_charttitle' => 'A diagram címe',
 	'srf_paramdesc_barcolor' => 'Az oszlopok színe',
 	'srf_paramdesc_bardirection' => 'Add meg a diagram irányát',
+	'srf-paramdesc-direction' => 'Add meg a diagram vagy a grafikon irányát',
 	'srf_paramdesc_barnumbersaxislabel' => 'A számtengely felirata',
+	'srf-paramdesc-labelaxislabel' => 'A vízszintes tengely felirata',
 	'srf-paramdesc-minvalue' => 'Az y tengelyen megjelenítendő legkisebb érték',
 	'srf-paramdesc-pointlabels' => 'Adatpontok megjelenítése a diagramban',
 	'srf-paramdesc-chartlegend' => 'Diagram jelmagyarázatának helyzete',
-	'srf-paramdesc-datalabels' => 'Diagramfeliratok megjelenítése', # Fuzzy
+	'srf-paramdesc-datalabels' => 'Diagram/grafikon feliratok',
 	'srf-paramdesc-charttext' => 'A diagramot leíró szöveg',
 	'srf-paramdesc-chartclass' => 'Extra CSS osztály',
 	'srf-paramdesc-renderer' => 'Válasszd ki a gradikon/diagram leképezőjét',
@@ -2981,7 +3016,8 @@ $messages['hu'] = array(
 	'srf-paramdesc-smoothlines' => 'Simító algoritmus alkalmazása a vonaldiagramokon',
 	'srf-paramdesc-stackseries' => 'Diagram megjelenítése halmozott adatsorként',
 	'srf-paramdesc-seriesgroup' => 'Válaszd ki az adatsor csoportosítását',
-	'srf-paramdesc-serieslabel' => 'Add meg az adatsor feliratait', # Fuzzy
+	'srf-paramdesc-serieslabel' => 'Határozd meg az adatsor feliratát',
+	'srf-paramdesc-grouplabel' => 'Határozd meg a csoport cimkét',
 	'srf_printername_gallery' => 'Galéria',
 	'srf_paramdesc_perrow' => 'A képek száma soronként',
 	'srf_paramdesc_widths' => 'A képek szélessége',
@@ -3015,6 +3051,13 @@ $messages['hu'] = array(
 	'srf_paramdesc_graphlink' => 'Grafikon linkje',
 	'srf_paramdesc_graphcolor' => 'Grafikon színe',
 	'srf-paramdesc-graph-wwl' => 'Sortörési határ (karakterszám)',
+	'srf-ui-eventcalendar-label-today' => 'Ma',
+	'srf-ui-eventcalendar-label-month' => 'Hónap',
+	'srf-ui-eventcalendar-label-week' => 'Hét',
+	'srf-ui-eventcalendar-label-day' => 'Nap',
+	'srf-ui-eventcalendar-label-allday' => 'Egész nap',
+	'srf-printername-dygraphs' => 'Diagram ábra',
+	'srf-printername-incoming' => 'Bejövő tulajdonságok',
 );
 
 /** Interlingua (interlingua)
@@ -3657,6 +3700,15 @@ $messages['ksh'] = array(
  */
 $messages['ku-latn'] = array(
 	'srfc_today' => 'Îro',
+);
+
+/** Kirghiz (Кыргызча)
+ * @author Growingup
+ */
+$messages['ky'] = array(
+	'srf-module-loading' => 'Жүктөө...',
+	'srf-ui-common-label-source' => 'Булак',
+	'srf_printername_gallery' => 'Галерея',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -5127,10 +5179,16 @@ $messages['si'] = array(
 	'srfc_gotomonth' => 'මාසයට යන්න',
 	'srf_printername_calendar' => 'මාසික දින දසුන',
 	'srf_outline_novalue' => 'අගයක් නොමැත',
+	'srf_printername_outline' => 'පිට මායිම',
 	'srf_printername_max' => 'උපරිම අංකය',
 	'srf_printername_min' => 'අවම අංකය',
+	'srf_printername_earliest' => 'පෙරතම කාලය',
+	'srf_printername_latest' => 'නවතම කාලය',
+	'srf_printername_timeline' => 'කාලපෙළ',
+	'srf_printername_eventline' => 'සිද්ධිපෙළ',
 	'srf-ui-gridview-label-item' => 'දත්ත අයිතමය',
 	'srf-ui-gridview-label-value' => 'දත්ත අගය',
+	'srf-ui-gridview-label-series' => 'දත්ත පෙළ',
 	'srf-ui-gridview-label-chart-tab' => 'ප්‍රස්තාරය',
 	'srf-ui-gridview-label-data-tab' => 'දත්ත',
 	'srf-ui-gridview-label-info-tab' => 'තොරතුරු',
@@ -5138,20 +5196,32 @@ $messages['si'] = array(
 	'srf-gallery-navigation-previous' => 'පෙර',
 	'srf-gallery-navigation-next' => 'මීළඟ',
 	'srf_printername_array' => 'ආයිත්තම',
+	'srf_printername_hash' => 'පූරකය',
 	'srf-printername-graph' => 'ප්‍රස්තාරය',
 	'srf_paramdesc_graphname' => 'මාතෘකාව',
 	'srf_printername_tree' => 'වෘක්ෂය',
+	'srf_printername_ultree' => 'අල්ට්‍රි',
+	'srf_printername_oltree' => 'ඔල්ට්‍රි',
 	'srf-filtered-selectorlabel-list' => 'ලැයිස්තුව',
 	'srf-filtered-selectorlabel-calendar' => 'දිනදසුන',
+	'srf-printername-d3chart' => 'D3 ප්‍රස්තාරය',
 	'srf-paramdesc-pageitems' => 'එක් පිටුවකට අයිතම',
 	'srf-ui-eventcalendar-label-today' => 'අද',
 	'srf-ui-eventcalendar-label-month' => 'මාසය',
 	'srf-ui-eventcalendar-label-week' => 'සතිය',
 	'srf-ui-eventcalendar-label-day' => 'දිනය',
+	'srf-ui-eventcalendar-label-allday' => 'දවසෙම',
 	'srf-paramdesc-unit' => 'ඒකකය',
+	'srf-printername-media' => 'මාධ්‍ය වාදකය',
 	'srf-ui-mediaplayer-label-previous' => 'පෙර',
 	'srf-ui-mediaplayer-label-play' => 'වයන්න',
+	'srf-ui-mediaplayer-label-pause' => 'විරාම කරන්න',
 	'srf-ui-mediaplayer-label-next' => 'මීළඟ',
+	'srf-ui-mediaplayer-label-stop' => 'නවතන්න',
+	'srf-ui-mediaplayer-label-volume-max' => 'උපරිම ශබ්ද ප්‍රමාණය',
+	'srf-ui-mediaplayer-label-repeat' => 'නැවත කරන්න',
+	'srf-ui-mediaplayer-label-repeat-off' => 'නැවත කිරීම අක්‍රියයි',
+	'srf-ui-mediaplayer-label-full-screen' => 'පූර්ණ තිරය',
 );
 
 /** Slovak (slovenčina)
@@ -5427,15 +5497,74 @@ $messages['sv'] = array(
  * @author Shanmugamp7
  */
 $messages['ta'] = array(
+	'srf-module-loading' => 'ஏற்றப்படுகிறது...',
+	'srf-paramdesc-layout' => 'கிடைக்கும் வடிவமைப்பு',
+	'srf-paramdesc-height' => 'உயரம்',
+	'srf-paramdesc-width' => 'அகலம்',
+	'srf-module-nomatch' => 'பொருத்தமானவைகள் ஒன்றும் காணப்படவில்லை.',
+	'srf-paramdesc-charttype' => 'கிடைக்கும் வரைபட வகை',
+	'srf-navigation-previous' => 'முந்தைய',
+	'srf-ui-navigation-prev' => 'முந்தைய',
+	'srf-ui-navigation-next' => 'அடுத்தது',
+	'srf-ui-common-label-source' => 'மூலம்',
+	'srf-ui-common-label-datasource' => 'தரவு மூலம்',
+	'srf-ui-common-label-request-object' => 'பொருளைக் கோரவும்',
+	'srf-ui-common-label-help-section' => 'உதவிப் பகுதி',
+	'srf-ui-tooltip-title-options' => 'விருப்பத்தேர்வுகள்',
+	'srf-ui-tooltip-title-scope' => 'நோக்கம்',
+	'srf-error-option-mix' => 'விருப்பத்தேர்வு ($1) இல்லை',
 	'srfc_previousmonth' => 'கடந்த மாதம்',
 	'srfc_nextmonth' => 'அடுத்த மாதம்',
 	'srfc_today' => 'இன்று',
 	'srf_printername_calendar' => 'மாதாந்திர நாட்காட்டி',
+	'srf_outline_novalue' => 'மதிப்பு இல்லை',
+	'srf_printername_outline' => 'திட்டவரை',
+	'srf_printername_sum' => 'எண்களின் கூட்டல்',
+	'srf_printername_average' => 'எண்களின் சராசரி',
+	'srf_printername_max' => 'அதிகபட்ச எண்',
+	'srf_printername_min' => 'குறைந்தபட்ச எண்',
+	'srf_printername_product' => 'எண்களின் பெருக்கல்',
+	'srf_printername_median' => 'எண்களின் இடைநிலை',
+	'srf_printername_earliest' => 'மிகமுந்திய நேரம்',
+	'srf_printername_latest' => 'மிகஅண்மைய நேரம்',
+	'srf_printername_timeline' => 'காலவரிசை',
+	'srf_printername_eventline' => 'நிகழ்ச்சிவரிசை',
+	'srf_paramdesc_timelinesize' => 'காலக்கோட்டின் உயரம்',
+	'srf_printername_googlebar' => 'கூகிள் பட்டை வரைபடம்',
+	'srf_printername_googlepie' => 'கூகுள் வட்ட விளக்கப்படம்',
+	'srf-ui-gridview-label-item' => 'தரவு உருப்படி',
+	'srf-ui-gridview-label-series' => 'தரவு வரிசைகள்',
+	'srf-ui-gridview-label-chart-tab' => 'விளக்கப்படம்',
+	'srf-ui-gridview-label-data-tab' => 'தரவு',
+	'srf-ui-gridview-label-info-tab' => 'தகவல்',
 	'srf_printername_gallery' => 'காட்சியகம்',
+	'srf_paramdesc_perrow' => 'நெடுவரிசை ஒன்றிற்கு படங்களின் எண்ணிக்கை',
+	'srf_paramdesc_widths' => 'படங்களின் அகலம்',
+	'srf_paramdesc_heights' => 'படங்களின் உயரம்',
 	'srf-gallery-navigation-previous' => 'முந்தைய',
 	'srf-gallery-navigation-next' => 'அடுத்தது',
 	'srf_paramdesc_graphname' => 'தலைப்பு',
-	'srf-paramdesc-listtype' => 'பட்டியல் வகை', # Fuzzy
+	'srf-paramdesc-listtype' => 'பட்டியல் வகையை குறிப்பிடவும்',
+	'srf-ui-eventcalendar-label-today' => 'இன்று',
+	'srf-ui-eventcalendar-label-month' => 'மாதம்',
+	'srf-ui-eventcalendar-label-week' => 'வாரம்',
+	'srf-ui-eventcalendar-label-day' => 'நாள்',
+	'srf-ui-eventcalendar-label-allday' => 'அனைத்து நாட்களும்',
+	'srf-paramdesc-unit' => 'பகுதி',
+	'srf-printername-media' => 'ஊடக இயக்கி',
+	'srf-ui-mediaplayer-label-previous' => 'முந்தைய',
+	'srf-ui-mediaplayer-label-play' => 'இயக்கு',
+	'srf-ui-mediaplayer-label-pause' => 'இடைநிறுத்து',
+	'srf-ui-mediaplayer-label-next' => 'அடுத்தது',
+	'srf-ui-mediaplayer-label-stop' => 'நிறுத்து',
+	'srf-ui-mediaplayer-label-mute' => 'அமைதியாக்கு',
+	'srf-ui-mediaplayer-label-unmute' => 'ஒலிக்கச் செய்',
+	'srf-ui-mediaplayer-label-volume-max' => 'அதிகபட்ச ஒலியளவு',
+	'srf-ui-mediaplayer-label-shuffle' => 'கலைத்தல்',
+	'srf-ui-mediaplayer-label-shuffle-off' => 'கலைத்தல் அணை',
+	'srf-ui-mediaplayer-label-repeat' => 'மீள்செயல்',
+	'srf-ui-mediaplayer-label-repeat-off' => 'மீள்செயல் அணை',
+	'srf-ui-mediaplayer-label-full-screen' => 'முழுத்திரை',
 );
 
 /** Telugu (తెలుగు)
@@ -5794,6 +5923,18 @@ $messages['uk'] = array(
 	'srf-ui-eventcalendar-label-week' => 'Тиждень',
 	'srf-ui-eventcalendar-label-day' => 'День',
 	'srf-ui-eventcalendar-label-allday' => 'Весь день',
+	'srf-ui-mediaplayer-label-previous' => 'Назад',
+	'srf-ui-mediaplayer-label-play' => 'Відтворити',
+	'srf-ui-mediaplayer-label-pause' => 'Пауза',
+	'srf-ui-mediaplayer-label-next' => 'Далі',
+	'srf-ui-mediaplayer-label-stop' => 'Зупинити',
+	'srf-ui-mediaplayer-label-mute' => 'Без звуку',
+	'srf-ui-mediaplayer-label-unmute' => 'Увімкнути звук',
+	'srf-ui-mediaplayer-label-volume-max' => 'Максимальна гучність',
+	'srf-ui-mediaplayer-label-repeat' => 'Повторити',
+	'srf-ui-mediaplayer-label-repeat-off' => 'Вимкнути повторення',
+	'srf-ui-mediaplayer-label-full-screen' => 'Повноекранний режим',
+	'srf-ui-mediaplayer-label-restore-screen' => 'Відновити екран',
 );
 
 /** Urdu (اردو)
