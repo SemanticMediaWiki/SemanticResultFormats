@@ -40,7 +40,7 @@ class EventCalendarTest extends ResultPrinterTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFEventCalendar';
+		return 'SRF\EventCalendar';
 	}
 
 }

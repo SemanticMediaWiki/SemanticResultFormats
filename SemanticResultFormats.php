@@ -97,7 +97,7 @@ $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 
 // Follows naming convention
 $wgAutoloadClasses['SRF\MediaPlayer'] = $formatDir . 'media/MediaPlayer.php';
-$wgAutoloadClasses['SRFEventCalendar']   = $formatDir . 'calendar/SRF_EventCalendar.php';
+$wgAutoloadClasses['SRF\EventCalendar']   = $formatDir . 'calendar/EventCalendar.php';
 $wgAutoloadClasses['SRFDygraphs']     = $formatDir . 'dygraphs/SRF_Dygraphs.php';
 $wgAutoloadClasses['SRFTimeseries']   = $formatDir . 'timeseries/SRF_Timeseries.php';
 $wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
@@ -163,7 +163,7 @@ function srffInitFormats() {
 		'icalendar' => 'SRFiCalendar',
 		'bibtex' => 'SRFBibTeX',
 		'calendar' => 'SRFCalendar',
-		'eventcalendar' => 'SRFEventCalendar',
+		'eventcalendar' => 'SRF\EventCalendar',
 		'outline' => 'SRFOutline',
 		'sum' => 'SRFMath',
 		'product' => 'SRFMath',
