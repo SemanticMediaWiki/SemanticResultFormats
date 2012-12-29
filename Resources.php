@@ -587,6 +587,7 @@ return array(
 	//
 	'ext.srf.eventcalendar' => $formatModule + $calendarMessages + array(
 		'scripts' => 'calendar/resources/ext.srf.eventcalendar.js',
+		'styles' => 'calendar/resources/ext.srf.eventcalendar.css',
 		'dependencies' => array (
 			'jquery.ui.core',
 			'jquery.ui.widget',

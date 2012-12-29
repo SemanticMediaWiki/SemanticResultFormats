@@ -1,5 +1,9 @@
 <?php
 
+namespace SRF;
+use SMWResultPrinter, SMWQueryResult, SMWDataItem, SMWOutputs, SRFUtils;
+use Html, FormatJson, Skin;
+
 /**
  * An event calendar printer using the FullCalendar JavaScript library.
  *
@@ -26,7 +30,7 @@
  *
  * @author mwjames
  */
-class SRFEventCalendar extends SMWResultPrinter {
+class EventCalendar extends SMWResultPrinter {
 
 	/**
 	 * Corresponding message name
@@ -52,7 +56,8 @@ class SRFEventCalendar extends SMWResultPrinter {
 
 		// Check data availability
 		if ( $data === array() ) {
-			return $result->addErrors( array( wfMessage( 'srf-error-result-processing-empty', 'gallery' )->inContentLanguage()->text() ) );
+			$result->addErrors( array( wfMessage( 'srf-error-result-processing-empty', 'gallery' )->inContentLanguage()->text() ) );
+			return '';
 		} else {
 			return $this->getCalendarOutput( $data );
 		}
@@ -72,6 +77,11 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 * color - Sets an event's background and border color
 	 * description is a non-standard Event Object field
 	 * allDay if set false it will show the time
+	 *
+	 * Since 1.9 new syntax
+	 * &legend - markes a property to be used as legend
+	 * &filter - markes a property to be used as legend with filter option
+	 *
 	 *
 	 * @see http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
 	 * @see http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
@@ -120,6 +130,10 @@ class SRFEventCalendar extends SMWResultPrinter {
 
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
 
+						//@todo Use new syntax for title, color, icon such as
+						// done with &legend/&filter for a controlling purpuse
+						// oppose to the normal printout functionality
+
 						// Identify properties with a specific inherent meaning through a fixed
 						// identifier assigned to a property (Fixed identifiers are title, icon, color)
 						// Its allows a property to be variable within a query while its identifier
@@ -128,6 +142,8 @@ class SRFEventCalendar extends SMWResultPrinter {
 							$rowData['title'] = $object->getWikiValue();
 						} elseif ( $propertyLabel === 'icon' ) {
 							$rowData['eventicon'] = $object->getWikiValue();
+						} elseif ( $propertyLabel === '&filter' || $propertyLabel === '&legend' ) {
+							$rowData['filter'] = array( $object->getWikiValue(), ( $propertyLabel === '&filter' ? true : false ) );
 						} elseif ( $propertyLabel !== '' ) {
 							// Items without fixed identifiers remain part of a description
 							$rowDesc[] = $this->mShowHeaders === SMW_HEADERS_HIDE ? $object->getWikiValue() : $propertyLabel . ': ' . $object->getWikiValue();
@@ -157,6 +173,9 @@ class SRFEventCalendar extends SMWResultPrinter {
 							// Identify the color which should be a string otherwise
 							// #DDD color specs will cause an error
 							$rowData['color'] = $object->getWikiValue();
+						} elseif ( $propertyLabel === '&filter' || $propertyLabel === '&legend' ) {
+							// Identify the legend or filter taxonomy object
+							$rowData['filter'] = array( $object->getWikiValue(), ( $propertyLabel === '&filter' ? true : false ) );
 						} elseif ( $propertyLabel !== '' ){
 							// Collect remaining items as part of a description
 							$rowDesc[] = $this->mShowHeaders === SMW_HEADERS_HIDE ? $object->getWikiValue() : $propertyLabel . ': ' . $object->getWikiValue();
@@ -168,7 +187,14 @@ class SRFEventCalendar extends SMWResultPrinter {
 			}
 			// Ensure that the array is not empty and has a start date
 			if ( $rowData !== array() && array_key_exists( 'start', $rowData ) ) {
-				$data[]= $rowData;
+				// Collect legend list where elements marked as filter in a separated array
+				// together with the associated colour
+				if ( array_key_exists( 'filter', $rowData ) ){
+					list( $value, $option ) = $rowData['filter'];
+					$rowData['filter'] = $value;
+					$data['legend'][$rowData['filter']] = array( 'color' => ( array_key_exists( 'color', $rowData ) ? $rowData['color'] : null ), 'filter' => $option );
+				}
+				$data['events'][] = $rowData;
 			}
 		}
 		return $data;
@@ -179,10 +205,10 @@ class SRFEventCalendar extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $events
+	 * @param array $data
 	 * @return string
 	 */
-	protected function getCalendarOutput( array $events ) {
+	protected function getCalendarOutput( array $data ) {
 
 		// Init
 		static $statNr = 0;
@@ -196,10 +222,10 @@ class SRFEventCalendar extends SMWResultPrinter {
 		$defaultView = str_replace ( $defaultVS, $defaultVR, $this->params['defaultview'] );
 
 		// Add options
-		$dataObject['events']  = $events;
-		$dataObject['options'] = array(
+		$data['options'] = array(
+			'legend'        => $this->params['legend'],
 			'defaultview'   => $defaultView,
-			'calendarstart' => $this->getCalendarStart( $events, $this->params['start'] ),
+			'calendarstart' => $this->getCalendarStart( $data['events'], $this->params['start'] ),
 			'dayview'       => $this->params['dayview'],
 			'firstday'      => date( 'N', strtotime( $this->params['firstday'] ) ),
 			'theme'         => in_array( $this->params['theme'], array( 'vector' ) ),
@@ -209,7 +235,7 @@ class SRFEventCalendar extends SMWResultPrinter {
 		);
 
 		// Encode data objects
-		$requireHeadItem = array ( $calendarID => FormatJson::encode( $dataObject ) );
+		$requireHeadItem = array ( $calendarID => FormatJson::encode( $data ) );
 		SMWOutputs::requireHeadItem( $calendarID, Skin::makeVariablesScript($requireHeadItem ) );
 
 		// RL module
@@ -286,6 +312,12 @@ class SRFEventCalendar extends SMWResultPrinter {
 			'message' => 'srf-paramdesc-calendarstart',
 			'default' => 'current',
 			'values' => array ( 'current', 'earliest', 'latest' )
+		);
+
+		$params['legend'] = array(
+			'message' => 'srf-paramdesc-calendarlegend',
+			'default' => 'none',
+			'values' => array ( 'none', 'top', 'bottom', 'tooltip' )
 		);
 
 		$params['dayview'] = array(

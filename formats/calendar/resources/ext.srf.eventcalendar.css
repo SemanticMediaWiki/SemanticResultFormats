@@ -1,0 +1,110 @@
+/**
+ * CSS for SRF event calendar module
+ *
+ * @since 1.9
+ * @release 0.4.1
+ *
+ * @file
+ * @ingroup SRF
+ *
+ * @licence GNU GPL v2 or later
+ * @author mwjames
+ */
+.srf-ui-legendList, .srf-ui-legendList-sel {
+	color: #222;
+	line-height: 30px;
+	background-color: #eee;
+}
+
+.srf-ui-legendList.top {
+	margin: 0 0 10px 0;
+}
+
+.srf-ui-legendList.bottom {
+	margin: 10px 0 0 0;
+}
+
+.srf-ui-legendList.basic {
+	background-color: #fff;
+	border: 1px solid gainsboro;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+}
+
+.srf-ui-legendList.top.basic {
+	background-image: -webkit-linear-gradient(top,white,#F6F8F9);
+	background-image: linear-gradient(top,white,#F6F8F9);
+}
+
+.srf-ui-legendList.bottom.basic {
+	background-image: -webkit-linear-gradient(bottom,white,#F6F8F9);
+	background-image: linear-gradient(bottom,white,#F6F8F9);
+}
+
+.srf-ui-legendList ul {
+	list-style-type: none;
+	list-style-image: none;
+	margin: .3em 0 0 0.6em;
+	width: 100%;  /* room for 3 columns */
+	overflow: hidden;
+}
+
+.srf-ui-legendList ul li {
+	float: left;
+	width: 23%;  /* accommodate the widest item */
+	margin-right: 15px;
+	font-size: 90%;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.srf-ui-legendLabel, .srf-ui-legendLabel-sel {
+	font-size: 12px;
+	font-family: Arial,sans-serif;
+	white-space: nowrap;
+	vertical-align: top;
+}
+
+.srf-ui-legendSquare {
+	list-style-type: square;
+	background: white;
+	border: 1px solid gainsboro;
+	height: 11px;
+	margin-right: 4px;
+	position: relative;
+	top: 2px;
+	width: 11px;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+	float: left;
+}
+
+.srf-ui-legendTooltipList ul {
+	list-style-type: none;
+	list-style-image: none;
+	width: 100%;  /* room for 3 columns */
+	overflow: hidden;
+	margin: .3em 0 0 0.6em;
+}
+
+.srf-ui-legendTooltipList ul li {
+	margin-right: 15px;
+	font-size: 90%;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.srf-ui-legendTooltipContent {
+	display:none;
+}
+
+.srf-ui-square{
+	position: relative;
+	float: left;
+	top: 25%;
+	border: solid 3px #48A0D5;
+	width: 6px;
+	height: 6px;
+}
