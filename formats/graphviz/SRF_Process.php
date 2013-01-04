@@ -223,27 +223,36 @@ class SRFProcess extends SMWResultPrinter {
 
 			// FIXME: got _a bit_ of redundancy here looks like... :/
 
+			/**
+			 * @var SMWResultArray $field
+			 */
 			foreach ( $row as $field ) {
 
 				// check column title
 				$req = $field->getPrintRequest();
 				switch ( ( strtolower( $req->getLabel() ) ) ) {
 
-
-
 					case strtolower( $wgContLang->getNsText( NS_CATEGORY ) ):
-
 						foreach ( $field->getContent() as $value ) {
-							$val = $value->getShortWikiText();
-							if ( $val == ( $wgContLang->getNsText( NS_CATEGORY ) . ':' . $this->m_processCategory ) ) $node->setAtomic( false );
+							$wikiPageValue = new SMWWikiPageValue( '_wpg' );
+							$wikiPageValue->setDataItem( $value );
+							$val = $wikiPageValue->getShortWikiText();
+
+							if ( $val == ( $wgContLang->getNsText( NS_CATEGORY ) . ':' . $this->m_processCategory ) ) {
+								$node->setAtomic( false );
+							}
 						}
 
 	 					break;
 
 	 				case "haslabel":
 	 					$value = current($field->getContent()); // save only the first
-							if (($value !== false)) {
-							$val = $value->getLongWikiText();
+
+						if (($value !== false)) {
+							$wikiPageValue = new SMWWikiPageValue( '_wpg' );
+							$wikiPageValue->setDataItem( $value );
+							$val = $wikiPageValue->getLongWikiText();
+
 							if ($this->m_process->getUseOtherLabels()) {
 								$val = str_replace("&","and",$val);
 								$node->setLabel($val);
@@ -253,7 +262,10 @@ class SRFProcess extends SMWResultPrinter {
 
 					case "hasrole":
 						foreach ( $field->getContent() as $value ) {
-							$val = $value->getShortWikiText();
+							$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+							$wikiPageValue->setDataItem( $value );
+							$val = $wikiPageValue->getShortWikiText();
+
 							$role = $this->m_process->makeRole( $val, $val );
 							$node->addRole( $role );
 						}
@@ -261,7 +273,10 @@ class SRFProcess extends SMWResultPrinter {
 
 					case "usesresource":
 						foreach ( $field->getContent() as $value ) {
-							$val = $value->getShortWikiText();
+							$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+							$wikiPageValue->setDataItem( $value );
+							$val = $wikiPageValue->getShortWikiText();
+
 							$xres = $this->m_process->makeRessource( $val, $val );
 							$node->addUsedRessource( $xres );
 						}
@@ -269,7 +284,10 @@ class SRFProcess extends SMWResultPrinter {
 
 					case "producesresource":
 						foreach ( $field->getContent() as $value ) {
-							$val = $value->getShortWikiText();
+							$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+							$wikiPageValue->setDataItem( $value );
+							$val = $wikiPageValue->getShortWikiText();
+
 							$xres = $this->m_process->makeRessource( $val, $val );
 							$node->addProducedRessource( $xres );
 						}
@@ -283,7 +301,10 @@ class SRFProcess extends SMWResultPrinter {
 							$edge = new SplitParallelEdge();
 							$edge->setFrom( $node );
 							foreach ( $field->getContent() as $value ) {
-								$val = $value->getShortWikiText();
+								$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+								$wikiPageValue->setDataItem( $value );
+								$val = $wikiPageValue->getShortWikiText();
+
 								$edge->addTo( $this->m_process->makeNode( $val, $val ) );
 							}
 
@@ -291,7 +312,10 @@ class SRFProcess extends SMWResultPrinter {
 
 							// Sequence
 							foreach ( $field->getContent() as $value ) {
-								$val = $value->getShortWikiText();
+								$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+								$wikiPageValue->setDataItem( $value );
+								$val = $wikiPageValue->getShortWikiText();
+
 								$edge = new SequentialEdge();
 								$edge->setFrom( $node );
 								$edge->setTo( $this->m_process->makeNode( $val, $val ) );
@@ -308,7 +332,10 @@ class SRFProcess extends SMWResultPrinter {
 							$edge = new SplitExclusiveOrEdge();
 							$edge->setFrom( $node );
 							foreach ( $field->getContent() as $value ) {
-								$val = $value->getShortWikiText();
+								$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+								$wikiPageValue->setDataItem( $value );
+								$val = $wikiPageValue->getShortWikiText();
+
 								$edge->addTo( $this->m_process->makeNode( $val, $val ) );
 							}
 						}
@@ -327,7 +354,10 @@ class SRFProcess extends SMWResultPrinter {
 
 							// should be only one
 							foreach ( $field->getContent() as $value ) {
-								$val = $value->getShortWikiText();
+								$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+								$wikiPageValue->setDataItem( $value );
+								$val = $wikiPageValue->getShortWikiText();
+
 								$cond_edge->setToTrue( $this->m_process->makeNode( $val, $val ) );
 							}
 
@@ -347,7 +377,10 @@ class SRFProcess extends SMWResultPrinter {
 
 							// should be only one
 							foreach ( $field->getContent() as $value ) {
-								$val = $value->getShortWikiText();
+								$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+								$wikiPageValue->setDataItem( $value );
+								$val = $wikiPageValue->getShortWikiText();
+
 								$cond_edge->setToFalse( $this->m_process->makeNode( $val, $val ) );
 							}
 						}
@@ -366,7 +399,10 @@ class SRFProcess extends SMWResultPrinter {
 
 							// should be only one
 							foreach ( $field->getContent() as $value ) {
-								$val = $value->getShortWikiText();
+								$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+								$wikiPageValue->setDataItem( $value );
+								$val = $wikiPageValue->getShortWikiText();
+
 								$cond_edge->setConditionText( $val );
 
 							}
@@ -378,7 +414,10 @@ class SRFProcess extends SMWResultPrinter {
 
 						// should be only one
 						foreach ( $field->getContent() as $value ) {
-							$val = $value->getShortWikiText();
+							$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
+							$wikiPageValue->setDataItem( $value );
+							$val = $wikiPageValue->getShortWikiText();
+
 							$node->setStatus( $val );
 						}
 
