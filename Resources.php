@@ -67,6 +67,11 @@ return array(
 		'dependencies' => 'ext.jquery.easing',
 	),
 
+	// blockUI plugin
+	'ext.jquery.blockUI' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery.blockUI/jquery.blockUI.js'
+	),
+
 	// jqgrid
 	'ext.jquery.jqgrid' => $moduleTemplate + array(
 		'scripts' => array(
@@ -98,14 +103,17 @@ return array(
 		'position' => 'top',
 		'group' => 'ext.srf'
 	),
+
 	'ext.srf.util' => $moduleTemplate + array(
 		'scripts' => 'resources/ext.srf.util.js',
 		'dependencies' => array (
 			'ext.srf',
-			'ext.jquery.jStorage'
+			'ext.jquery.jStorage',
+			'ext.jquery.blockUI'
 		),
 		'group' => 'ext.srf'
 	),
+
 	'ext.srf.util.grid' => $moduleTemplate + array(
 		'scripts' => 'resources/ext.srf.util.grid.js',
 		'styles'  => 'resources/ext.srf.util.grid.css',

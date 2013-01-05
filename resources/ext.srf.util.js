@@ -2,7 +2,7 @@
  * JavaScript for SRF semanticFormats util namespace
  *
  * @since 1.8
- * @release 0.2
+ * @release 0.3
  *
  * @file
  * @ingroup SRF
@@ -17,13 +17,15 @@
 
 	////////////////////////// PRIVATE METHODS //////////////////////////
 
+	var html = mw.html;
+
 	var _cacheTime = 1000 * 60 * 60 * 24; // 24 hours
 
 	var _CL_mwspinner   = 'mw-small-spinner';
 	var _CL_srfIspinner = 'srf-spinner-img';
 	var _CL_srfspinner  = 'srf-spinner';
 
-	////////////////////////// PUBLIC INTERFACE /////////////////////////
+	////////////////////////// PUBLIC METHODS /////////////////////////
 
 	/**
 	 * Module for formats utilities namespace
@@ -187,6 +189,46 @@
 			hide: function ( options ){
 				// Hide spinner
 				options.context.find( '.' + _CL_srfspinner ).hide();
+			}
+		},
+
+		/**
+		 * Convenience method for growl-like notifications using the blockUI plugin
+		 *
+		 * @since 1.9
+		 * @var options
+		 * @return object
+		 */
+		notification: {
+			create: function( options ) {
+				return $.blockUI( {
+					message: html.element( 'span', { 'class' : 'srf-notification-content' }, new html.Raw( options.content ) ),
+					fadeIn: 700,
+					fadeOut: 700,
+					timeout: 2000,
+					showOverlay: false,
+					centerY: false,
+					css: {
+						'width': '235px',
+						'line-height': '1.35',
+						'z-index': '10000',
+						'top': '10px',
+						'left': '',
+						'right': '15px',
+						'padding': '0.25em 1em',
+						'margin-bottom': '0.5em',
+						'border': '0px solid #fff',
+						'background-color': options.color || '#000',
+						'opacity': '.6',
+						'cursor': 'pointer',
+						'-webkit-border-radius': '5px',
+						'-moz-border-radius': '5px',
+						'border-radius': '5px',
+						'-webkit-box-shadow': '0 2px 10px 0 rgba(0,0,0,0.125)',
+						'-moz-box-shadow': '0 2px 10px 0 rgba(0,0,0,0.125)',
+						'box-shadow': '0 2px 10px 0 rgba(0,0,0,0.125)'
+					}
+				} );
 			}
 		}
 	};
