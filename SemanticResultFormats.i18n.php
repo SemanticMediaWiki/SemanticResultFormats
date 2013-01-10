@@ -18,7 +18,11 @@ $messages['en'] = array(
 
 	// user preferences
 	'prefs-srf' => 'Semantic Result Formats',
-	'srf-prefs-intro-text' => 'You have installed the Semantic Result Formats extension which at moment has no customizable user options. For assistance, please visit the [https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats] help page.',
+	'srf-prefs-intro-text' => 'You have installed the Semantic Result Formats extension. For additional assistance, please visit the [https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats] help page.',
+	'prefs-srf-eventcalendar-options' => '{{INT:Srf-printername-eventcalendar}} options',
+	'srf-prefs-eventcalendar-options-update-default' => 'Enable automatic updates during page refresh',
+	'srf-prefs-eventcalendar-help-update' => 'The event calendar will try to fetch updates automatically during the page refresh (or intial page load) process.',
+	'srf-prefs-eventcalendar-options-paneview-default' => 'Enable the pane view by default',
 
 	// shared messages
 	'srf-module-loading'   => 'Loading...',
@@ -40,6 +44,13 @@ $messages['en'] = array(
 	'srf-ui-common-label-help-section' => 'help section',
 	'srf-ui-tooltip-title-options' => 'Options',
 	'srf-ui-tooltip-title-scope' => 'Scope',
+	'srf-ui-tooltip-title-legend' => 'Legend',
+	'srf-ui-tooltip-title-filter' => 'Filter',
+	'srf-ui-common-label-refresh' => 'Refresh',
+	'srf-ui-common-label-parameters' => 'Parameters',
+	'srf-ui-common-label-query' => 'Query',
+	'srf-ui-common-label-paneview' => 'Pane view',
+	'srf-ui-common-label-daterange' => 'Date range',
 
 	// error descriptions
 	'srf-error-option-mix' => 'Option ($1) is not available',
@@ -282,6 +293,8 @@ $messages['en'] = array(
 	'srf-ui-eventcalendar-format-column-month' => 'ddd',
 	'srf-ui-eventcalendar-format-column-week' => 'ddd d/M',
 	'srf-ui-eventcalendar-format-column-day' => 'dddd d/M',
+	'srf-ui-eventcalendar-label-update-success' => 'The event calendar update was successful.',
+	'srf-ui-eventcalendar-label-update-error' => 'The event calendar update failed.',
 
 	// format "dygraphs"
 	'srf-printername-dygraphs' => 'Dygraphs chart',
@@ -335,6 +348,10 @@ $messages['qqq'] = array(
 	'srf-name' => 'This is the name of this extension (Used by the [[mw:Extension:Admin_Links|Admin Links]] extension).',
 	'prefs-srf' => 'This is the text of a section header on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
 	'srf-prefs-intro-text' => 'This is an user preference intro text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
+	'prefs-srf-eventcalendar-options' => 'This is a section header text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
+	'srf-prefs-eventcalendar-options-update-default' => 'This is an user preference that belongs to the Event calendar [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
+	'srf-prefs-eventcalendar-help-update' => 'This is an user preference help text that belongs to the Event calendar [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
+	'srf-prefs-eventcalendar-options-paneview-default' => 'This is an user preference that belongs to the Event calendar [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].',
 	'srf-module-loading' => 'This is an informatory message.',
 	'srf-paramdesc-layout' => '{{doc-paramdesc|layout}}',
 	'srf-paramdesc-height' => '{{doc-paramdesc|height}}',
@@ -601,6 +618,15 @@ Information on terms used: [[wikipedia:Error bar|error bar]], [[wikipedia:Standa
 	'srf-ui-mediaplayer-label-repeat-off' => '{{doc-smw-ui-label|repeat-off}}',
 	'srf-ui-mediaplayer-label-full-screen' => '{{doc-smw-ui-label|full-screen}}',
 	'srf-ui-mediaplayer-label-restore-screen' => '{{doc-smw-ui-label|restore-screen}}',
+	'srf-ui-tooltip-title-legend' => '{{doc-smw-ui-tooltip|tooltip-title-legend}}',
+	'srf-ui-tooltip-title-filter' => '{{doc-smw-ui-tooltip|tooltip-title-filter}}',
+	'srf-ui-eventcalendar-label-update-success' => '{{doc-smw-ui-feedback|update-success}}',
+	'srf-ui-eventcalendar-label-update-error' => '{{doc-smw-ui-feedback|update-error}}',
+	'srf-ui-common-label-refresh' => '{{doc-smw-ui-label|refresh}}',
+	'srf-ui-common-label-parameters' => '{{doc-smw-ui-label|parameters}}',
+	'srf-ui-common-label-query' => '{{doc-smw-ui-label|query}}',
+	'srf-ui-common-label-paneview' => '{{doc-smw-ui-label|paneview}}',
+	'srf-ui-common-label-daterange' => '{{doc-smw-ui-label|daterange}}',
 );
 
 /** Afrikaans (Afrikaans)

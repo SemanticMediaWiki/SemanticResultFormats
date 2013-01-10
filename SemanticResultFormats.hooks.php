@@ -121,6 +121,21 @@ final class SRFHooks {
 				'rawrow' => 1,
 			);
 
+		// Enable auto update during a page refresh
+		$preferences['srf-prefs-eventcalendar-options-update-default'] = array(
+			'type' => 'toggle',
+			'label-message' => 'srf-prefs-eventcalendar-options-update-default',
+			'help-message' => 'srf-prefs-eventcalendar-help-update',
+			'section' => 'smw/srf-eventcalendar-options',
+		);
+
+		// Enable paneView by default
+		$preferences['srf-prefs-eventcalendar-options-paneview-default'] = array(
+			'type' => 'toggle',
+			'label-message' => 'srf-prefs-eventcalendar-options-paneview-default',
+			'section' => 'smw/srf-eventcalendar-options',
+		);
+
 		return true;
 	}
 }

@@ -230,6 +230,29 @@
 					}
 				} );
 			}
+		},
+
+		/**
+		 * Convenience method for ui-widget like error/info messages
+		 *
+		 * @since 1.9
+		 * @var options
+		 * @return object
+		 */
+		message:{
+			set: function( options ){
+				var type = options.type === 'error' ? 'ui-state-error' : 'ui-state-highlight';
+				options.context.prepend( html.element( 'div', { 'class': 'ui-widget' }, new html.Raw( html.element( 'div', { 'class': type + ' ui-corner-all', 'style': 'padding-left: 0.5em' }, new html.Raw( html.element( 'p', { 'style': 'color:' + ( options.type === 'error' ? 'white' : 'blue' ) }, new html.Raw( html.element( 'span', { 'class': 'ui-icon ui-icon-alert', 'style': 'float: left; margin-right: 0.7em;' }, '' ) + options.message ) ) ) ) ) ) );
+			},
+
+			exception: function( options ){
+				this.set( $.extend( {}, { type: 'error' }, options ) );
+				throw new Error( options.message );
+			},
+
+			remove:function( context ){
+				context.children().fadeOut( 'slow' ).remove();
+			}
 		}
 	};
 

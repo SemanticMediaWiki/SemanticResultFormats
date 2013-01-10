@@ -2,7 +2,7 @@
  * CSS for SRF event calendar module
  *
  * @since 1.9
- * @release 0.4.1
+ * @release 0.7.2
  *
  * @file
  * @ingroup SRF
@@ -13,7 +13,7 @@
 .srf-ui-legendList, .srf-ui-legendList-sel {
 	color: #222;
 	line-height: 30px;
-	background-color: #eee;
+	/* background-color: #eee; */
 }
 
 .srf-ui-legendList.top {
@@ -59,29 +59,30 @@
 	margin-bottom: 0.5em;
 }
 
-.srf-ui-legendLabel, .srf-ui-legendLabel-sel {
+.srf-ui-legend-label, .srf-ui-legend-label-sel {
 	font-size: 12px;
 	font-family: Arial,sans-serif;
 	white-space: nowrap;
 	vertical-align: top;
 }
 
-.srf-ui-legendSquare {
+.srf-ui-legend-square {
 	list-style-type: square;
 	background: white;
 	border: 1px solid gainsboro;
-	height: 11px;
+	height: 10px;
 	margin-right: 4px;
 	position: relative;
 	top: 2px;
-	width: 11px;
+	width: 10px;
 	-moz-border-radius: 1px;
 	-webkit-border-radius: 1px;
 	border-radius: 1px;
 	float: left;
+	padding: 1px;
 }
 
-.srf-ui-legendTooltipList ul {
+.srf-ui-legend-tooltip-list ul {
 	list-style-type: none;
 	list-style-image: none;
 	width: 100%;  /* room for 3 columns */
@@ -89,22 +90,238 @@
 	margin: .3em 0 0 0.6em;
 }
 
-.srf-ui-legendTooltipList ul li {
+.srf-ui-legend-tooltip-list ul li {
 	margin-right: 15px;
 	font-size: 90%;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
 
-.srf-ui-legendTooltipContent {
+.srf-ui-legend-tooltip-content {
 	display:none;
 }
 
-.srf-ui-square{
+.srf-ui-square {
 	position: relative;
 	float: left;
 	top: 25%;
-	border: solid 3px #48A0D5;
+	border: 3px solid #48A0D5;
 	width: 6px;
 	height: 6px;
+}
+
+.srf-ui-circle {
+	position: relative;
+	top: 25%;
+	border-radius: 6px; /* border-radius value should be in px/em because some browsers do not support */
+	width: 12px;
+	height: 12px;
+	background: #BF381A;
+}
+
+/* @since 0.7 */
+
+.srf-calendar-pane {
+	overflow: hidden;
+	float: left;
+	margin-right: 10px;
+	display:none;
+	min-width: 17em; /* Min width for the paneView */
+}
+
+.srf-calendar-pane fieldset {
+	border: 1px solid #2F6FAB;
+	margin: 0.1em 0.1em 0.1em 0.1em;
+	padding: 0 0.5em 0.5em 0.5em;
+	line-height: 1.5em;
+	border: 1px solid gainsboro;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+
+}
+
+.srf-calendar-pane fieldset label {
+	vertical-align: top;
+}
+
+.srf-calendar-pane .section-header {
+	color: black;
+	background: none;
+	font-weight: normal;
+	margin: 0;
+	overflow: hidden;
+	padding-top: .5em;
+	padding-bottom: .17em;
+	border-bottom: none;
+	font-weight: bold;
+	font-size: 132%;
+}
+
+.srf-calendar-pane .ui-sortable-placeholder {
+	border: 1px dotted black;
+	visibility: visible !important;
+	height: 50px !important;
+}
+
+.srf-calendar-pane .ui-sortable-placeholder {
+	visibility: hidden;
+}
+
+.srf-calendar-pane .reset-link {
+	background-color:white;
+	border:0;
+	color:blue;
+	text-decoration:underline;
+	font-size:1em;
+	font-family:inherit;
+	cursor:pointer;
+	float: right;
+	margin-right: 3px;
+}
+
+.srf-calendar-pane .mini-calendar {
+	background-color: #fff;
+}
+
+.srf-calendar-pane .mini-calendar .options {
+	margin-top: 0px;
+	width: 100%;
+}
+
+.srf-calendar-pane .mini-calendar .options input {
+	padding: 3px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #CECECE;
+	outline: none;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	-webkit-transition: all 250ms ease-in-out;
+	-moz-transition: all 250ms ease-in-out;
+	-o-transition: all 250ms ease-in-out;
+	transition: all 250ms ease-in-out;
+}
+
+.srf-calendar-pane .select-wrap-chrome, .srf-calendar-pane .select-wrap-safari {
+	padding: 2px;
+}
+
+.srf-calendar-pane .select-wrap-firefox {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.srf-calendar-pane select {
+	width: 100%;
+	padding: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 4px;
+	border: 1px solid #CECECE;
+	outline: none;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	-webkit-transition: all 250ms ease-in-out;
+	-moz-transition: all 250ms ease-in-out;
+	-o-transition: all 250ms ease-in-out;
+	transition: all 250ms ease-in-out;
+}
+
+.srf-calendar-pane .mini-calendar .options .input-right {
+	float:right;
+}
+
+.srf-calendar-pane input[readonly="readonly"] {
+	background-color: #eee;
+}
+
+.srf-calendar-pane .legend {
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.srf-calendar-pane .legend fieldset {
+	background-color: #fff;
+}
+
+.srf-calendar-pane .parameters {
+	margin-top: 5px;
+}
+
+.srf-calendar-pane .parameters fieldset {
+	background-color: #fff;
+}
+
+.srf-calendar-pane .parameters .limitparam {
+	padding: 0.5em;
+}
+
+.srf-calendar-pane .parameters .label {
+	overflow: hidden;
+	float:left;
+	margin-right: 5px;
+}
+
+.srf-calendar-pane .parameters .limitparam .value {
+	overflow: hidden;
+	float:left;
+	margin-right: 5px;
+}
+
+.srf-calendar-pane .parameters .limitparam .count {
+	float:right;
+}
+
+.srf-calendar-pane .parameters .slider {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.srf-ui-legendList.pane {
+	margin-top: 0px;
+}
+
+.srf-ui-legendList.pane ul {
+	list-style-type: none;
+	list-style-image: none;
+	margin: .3em 0 0 0.6em;
+	width: 100%;  /* room for 3 columns */
+	overflow: hidden;
+}
+
+.srf-ui-legendList.pane ul li {
+	float: none;
+	width: 100%;
+	margin-right: 15px;
+	font-size: 90%;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.srf-legend-item input {
+	/* float: left; */
+	margin-right: 5px;
+}
+
+/* Datepicker uses auto width */
+.srf-calendar-pane .ui-datepicker {
+ width: auto;
+}
+
+.srf-calendar-pane .limitparam .parameter-section {
+	margin-left: 0;
+	margin-top: 0;
+	margin-bottom:5px;
+	font-size: 110%;
+}
+
+.srf-calendar-pane .filterparam .parameter-section {
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-bottom:5px;
+	font-size: 110%;
 }

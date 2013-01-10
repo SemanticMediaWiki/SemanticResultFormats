@@ -50,7 +50,11 @@ $calendarMessages = array( 'messages' => array(
 		'srf-ui-eventcalendar-format-time-agenda', 'srf-ui-eventcalendar-format-axis',
 		'srf-ui-eventcalendar-format-title-month', 'srf-ui-eventcalendar-format-title-week',
 		'srf-ui-eventcalendar-format-title-day', 'srf-ui-eventcalendar-format-column-month',
-		'srf-ui-eventcalendar-format-column-week', 'srf-ui-eventcalendar-format-column-day'
+		'srf-ui-eventcalendar-format-column-week', 'srf-ui-eventcalendar-format-column-day',
+		'srf-ui-tooltip-title-legend', 'srf-ui-tooltip-title-filter',
+		'srf-ui-common-label-refresh', 'srf-ui-eventcalendar-label-update-success',
+		'srf-ui-eventcalendar-label-update-error', 'srf-ui-common-label-parameters',
+		'srf-ui-common-label-paneview', 'smw_qui_limt', 'srf-ui-common-label-daterange',
 	)
 );
 
@@ -104,12 +108,24 @@ return array(
 		'group' => 'ext.srf'
 	),
 
+	// SMW/SRF query/result api module
+	'ext.srf.api' => $moduleTemplate + array(
+		'scripts' => array(
+			'resources/ext.srf.api.results.js',
+			'resources/ext.srf.api.query.js',
+		),
+		'position' => 'top',
+		'group' => 'ext.srf'
+	),
+
+	// Collects utility methods that are shared among different printers
 	'ext.srf.util' => $moduleTemplate + array(
 		'scripts' => 'resources/ext.srf.util.js',
 		'dependencies' => array (
 			'ext.srf',
 			'ext.jquery.jStorage',
-			'ext.jquery.blockUI'
+			'ext.jquery.blockUI',
+			'jquery.client'
 		),
 		'group' => 'ext.srf'
 	),
@@ -599,7 +615,10 @@ return array(
 		'dependencies' => array (
 			'jquery.ui.core',
 			'jquery.ui.widget',
+			'jquery.ui.datepicker',
+			'jquery.ui.slider',
 			'ext.smw.tooltip',
+			'ext.srf.api',
 			'ext.srf.util',
 			'ext.jquery.fullcalendar'
 		),
