@@ -317,6 +317,11 @@ $messages['en'] = array(
 	'srf-ui-mediaplayer-label-repeat-off' => 'Repeat off',
 	'srf-ui-mediaplayer-label-full-screen' => 'Full screen',
 	'srf-ui-mediaplayer-label-restore-screen' => 'Restore screen',
+
+	//format excel
+	'srf-excel-link' => 'Excel',
+	'srf-excel-missing-phpexcel' => 'Could not export as excel! Missing extension [http://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel], please contact your system administrator in order to enable this feature.',
+
 );
 
 /** Message documentation (Message documentation)

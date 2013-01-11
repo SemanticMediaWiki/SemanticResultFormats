@@ -88,6 +88,9 @@ $srfgFormats = array(
 	// 'googlebar',
 	// 'googlepie',
 
+	//Disabled by default since it requires PHPExcel extension
+	// 'excel',
+
 	// Unstable/broken:
 	// 'exhibit',
 );
