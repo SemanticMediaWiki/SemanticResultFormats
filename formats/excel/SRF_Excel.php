@@ -106,9 +106,8 @@ class SRFExcel extends SMWExportPrinter {
 					} else {
 						$this->setStringDataValue( $object, $sheet, $colOffset, $rowOffset );
 					}
-					$colOffset++;
 				}
-
+				$colOffset++;
 			}
 		}
 	}
