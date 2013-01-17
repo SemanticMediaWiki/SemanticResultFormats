@@ -38,7 +38,7 @@ class ExcelTest extends ResultPrinterTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFExcel';
+		return 'SRF\SRFExcel';
 	}
 
 }

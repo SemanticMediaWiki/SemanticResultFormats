@@ -1,5 +1,11 @@
 <?php
 namespace SRF;
+use SMWExportPrinter,
+	SMWQueryResult,
+	PHPExcel,
+	PHPExcel_IOFactory,
+	PHPExcel_Cell_DataType,
+	Sanitizer;
 /**
  * @author Kim Eik
  * @since 1.9

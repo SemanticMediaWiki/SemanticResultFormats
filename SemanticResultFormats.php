@@ -129,7 +129,7 @@ $wgAutoloadClasses['SRFTimeline']  = $formatDir . 'timeline/SRF_Timeline.php';
 $wgAutoloadClasses['SRFvCard']     = $formatDir . 'vcard/SRF_vCard.php';
 $wgAutoloadClasses['SRFValueRank'] = $formatDir . 'valuerank/SRF_ValueRank.php';
 $wgAutoloadClasses['SRFBibTeX']    = $formatDir . 'bibtex/SRF_BibTeX.php';
-$wgAutoloadClasses['SRFExcel']     = $formatDir . 'excel/SRF_Excel.php';
+$wgAutoloadClasses['SRF\SRFExcel']     = $formatDir . 'excel/SRF_Excel.php';
 
 unset( $formatDir );
 
@@ -201,7 +201,7 @@ function srffInitFormats() {
 		'dygraphs' => 'SRFDygraphs',
 		'incoming' => 'SRFIncoming',
 		'media' => 'SRF\MediaPlayer',
-		'excel' => 'SRFExcel'
+		'excel' => 'SRF\SRFExcel'
 	);
 
 	$formatAliases = array(
