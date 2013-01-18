@@ -192,14 +192,14 @@ return array(
 		'position' => 'top',
 	),
 
-	// Listnave
+	// Listnav
 	'ext.jquery.listnav' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.listnav/jquery.listnav.min-2.1.js'
+		'scripts' => 'resources/jquery/jquery.listnav.js'
 	),
 
 	// Listmenu
 	'ext.jquery.listmenu' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.listmenu/jquery.listmenu.min-1.1.js'
+		'scripts' => 'resources/jquery/jquery.listmenu.js'
 	),
 
 	// pajinate
