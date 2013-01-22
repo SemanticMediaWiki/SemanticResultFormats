@@ -69,7 +69,7 @@
 
 				// Create an ordinal color array and set formatting
 				var color = d3.scale.ordinal().range( colors ),
-					format  = d3.format( ",d" );
+					format  = d3.format( ',d' );
 
 				// Data array definition
 				var treeArray = [];
@@ -84,32 +84,32 @@
 					.size([ width , height ])
 					.value( function( d ) { return d.value; } );
 
-				var svg = d3.select( "#" + d3ID ).append( "svg" )
-					.attr( "width", width )
-					.attr( "height", height )
-					.append( "g" )
-					.attr( "transform", "translate(-.5,-.5)" );
+				var svg = d3.select( '#' + d3ID ).append( 'svg' )
+					.attr( 'width', width )
+					.attr( 'height', height )
+					.append( 'g' )
+					.attr( 'transform', 'translate(-.5,-.5)' );
 
-				var cell = svg.data( treeArray ).selectAll( "g" )
+				var cell = svg.data( treeArray ).selectAll( 'g' )
 					.data( treemap )
-					.enter().append( "g" )
-					.attr( "class", "cell" )
-					.attr( "transform", function( d ) { return "translate(" + d.x + "," + d.y + ")"; } );
+					.enter().append( 'g' )
+					.attr( 'class', 'cell' )
+					.attr( 'transform', function( d ) { return 'translate(' + d.x + ',' + d.y + ')'; } );
 
-				cell.append( "title" )
-					.text( function( d ) { return d.data.label + ( d.children ? "" : ": " + format( d.data.value ) ); } );
+				cell.append( 'title' )
+					.text( function( d ) { return d.label + ( d.children ? '' : ': ' + format( d.value ) ); } );
 
-				cell.append( "rect" )
-					.attr( "width", function( d ) { return d.dx; } )
-					.attr( "height", function( d ) { return d.dy; } )
-					.style( "fill", function( d ) { return d.label ? color( d.data.label ) :  color( d.data.label ); } );
+				cell.append( 'rect' )
+					.attr( 'width', function( d ) { return d.dx; } )
+					.attr( 'height', function( d ) { return d.dy; } )
+					.style( 'fill', function( d ) { return d.label ? color( d.label ) :  color( d.label ); } );
 
-				cell.append( "text" )
-					.attr( "x", function( d ) { return d.dx / 2; } )
-					.attr( "y", function( d ) { return d.dy / 2; } )
-					.attr( "dy", ".35em" )
-					.attr( "text-anchor", "middle" )
-					.text( function( d ) { return d.children ? null : datalabels === 'value' ? d.data.value : d.data.label ; } );
+				cell.append( 'text' )
+					.attr( 'x', function( d ) { return d.dx / 2; } )
+					.attr( 'y', function( d ) { return d.dy / 2; } )
+					.attr( 'dy', '.35em' )
+					.attr( 'text-anchor', 'middle' )
+					.text( function( d ) { return d.children ? null : datalabels === 'value' ? d.value : d.label ; } );
 		} );
 		}
 	};

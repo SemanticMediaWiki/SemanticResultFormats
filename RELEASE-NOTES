@@ -9,7 +9,31 @@ THIS IS NOT A RELEASE YET.
 Semantic Result Formats 1.9 is currently in alpha-quality and is not recommended for use in
 production until the actual release.
 
+; Compatibility changes
 
+* Changed minimum MediaWiki version from 1.17 to 1.19.
+* Changed minimum PHP version from 5.2.x. to 5.3.x.
+* Full compatibility with MediaWiki 1.19 and forward-compatibility with 1.21.
+* Deleted SRF_Settings.php entry point, the main entry point is SemanticResultFormats.php
+
+; New formats
+
+* format media (I8bc7a506)(mwjames)
+* format excel (I742699fe) (requires PHPExcel, disabled by default) (Kim Eik)
+
+; New features
+
+* (I3f7407a1) EventCalendar SMWAPI/Ajax integration
+
+; Other improvements and changes
+
+* jquery.tagcanvas increase from 1.18 to 1.20
+* jquery.responsiveslides increase from v1.32 to v1.53
+* jquery.sparkline increase from 2.0 to 2.1
+* d3 increase from d3.vs to d3.v3
+* Introduce PHP SRF\ namespaces
+
+; Bug fixes
 
 == SRF 1.8 ==
 
@@ -99,7 +123,7 @@ New formats in this version are:
 
 Released on September 18, 2011.
 
-* Fixed error in math printer when there are no numerical results. 
+* Fixed error in math printer when there are no numerical results.
 * Fixed vCard compatibility with SMW 1.6 and later.
 * Fixed array compatibility with SMW 1.6 and later.
 * Added median and product formats to the list of default enabled formats.
@@ -109,7 +133,7 @@ Released on September 18, 2011.
 Released on August 20, 2011.
 
 * Fixed rendering bug in the tagcloud format occuring for inline queries.
-* Fixed jqPlotBar and jqPlotPie rendering on Special:Ask and other special pages. 
+* Fixed jqPlotBar and jqPlotPie rendering on Special:Ask and other special pages.
 * Cleaned up the jqPlotBar format somewhat.
 * Dropped compatibility with SMW < 1.6 for the tagcloud format.
 
@@ -122,7 +146,7 @@ Changes in this version:
 * Rewrote math formats for efficiency, correct recursion and handling of multiple numerical properties.
 * Cleaned up the graph format.
 * Fixed division by zero issue (oh shii~) in the tagcloud format.
-* Added parameter descriptions to the graph and ploticus formats. 
+* Added parameter descriptions to the graph and ploticus formats.
 * Added support for SMW 1.6 style parameter handling to the tagcloud format.
 * Somewhat cleaned up the BibTeX format.
 * Fixed double HTML escaping issue in the tagcloud format.

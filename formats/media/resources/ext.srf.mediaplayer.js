@@ -14,7 +14,7 @@
 ( function( $, mw, srf ) {
 	'use strict';
 
-	/*global mw:true jPlayerPlaylist:true*/
+	/*global jPlayerPlaylist:true*/
 
 	/**
 	 * Default values
@@ -29,11 +29,11 @@
 	var defaults = {
 		posterImage: scriptPath + '/formats/media/resources/images/audio.auto.cover.png',
 		size:{
-			'270p' : { width: '480', height: '270', cssClass: "jp-video-270p" },
-			'360p' : { width: '640', height: '360', cssClass: "jp-video-360p" }
+			'270p' : { width: '480', height: '270', cssClass: 'jp-video-270p' },
+			'360p' : { width: '640', height: '360', cssClass: 'jp-video-360p' }
 		},
 		jplayer : {
-			swfPath: scriptPath + '/resources/jquery.jplayer/Jplayer.swf',
+			swfPath: scriptPath + '/resources/jquery/jplayer/Jplayer.swf',
 			backgroundColor: '#FFFFFF',
 			solution: 'html, flash',
 			wmode: 'window'

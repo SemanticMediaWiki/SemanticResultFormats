@@ -1,0 +1,7 @@
+# jQuery third-party libs
+resources/jquery/
+
+# other third-party libs
+formats/Exhibit
+formats/JitGraph
+formats/timeline/resources/SimileTimeline

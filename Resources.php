@@ -61,42 +61,42 @@ $calendarMessages = array( 'messages' => array(
 return array(
 	//SRF common and non printer specific resources
 	'ext.jquery.easing' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.easing/jquery.easing-1.3.pack.js'
+		'scripts' => 'resources/jquery/jquery.easing.js'
 	),
 
 	// Fancybox
 	'ext.jquery.fancybox' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.fancybox/jquery.fancybox-1.3.4.pack.js',
-		'styles'  => 'resources/jquery.fancybox/jquery.fancybox-1.3.4.css',
+		'scripts' => 'resources/jquery/fancybox/jquery.fancybox-1.3.4.pack.js',
+		'styles'  => 'resources/jquery/fancybox/jquery.fancybox-1.3.4.css',
 		'dependencies' => 'ext.jquery.easing',
 	),
 
 	// blockUI plugin
 	'ext.jquery.blockUI' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.blockUI/jquery.blockUI.js'
+		'scripts' => 'resources/jquery/jquery.blockUI.js'
 	),
 
 	// jqgrid
 	'ext.jquery.jqgrid' => $moduleTemplate + array(
 		'scripts' => array(
-			'resources/jquery.jqgrid/jquery.jqGrid.4.4.0min.js',
-			'resources/jquery.jqgrid/grid.locale-en.js'
+			'resources/jquery/jqgrid/jquery.jqGrid.js',
+			'resources/jquery/jqgrid/grid.locale-en.js'
 		),
-		'styles' => 'resources/jquery.jqgrid/ui.jqgrid.css',
+		'styles' => 'resources/jquery/jqgrid/ui.jqgrid.css',
 		'dependencies' => 'jquery.ui.core'
 	),
 
 	// Flot
 	'ext.jquery.flot' => $moduleTemplate + array(
 		'scripts' => array(
-			'resources/jquery.flot/jquery.flot.js',
-			'resources/jquery.flot/jquery.flot.selection.js'
+			'resources/jquery/flot/jquery.flot.js',
+			'resources/jquery/flot/jquery.flot.selection.js'
 		)
 	),
 
 	// jStorage was added in MW 1.20 and for all other releases register as compat module
 	'ext.jquery.jStorage' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jstorage/jquery.jStorage.js',
+		'scripts' => 'resources/jquery/jquery.jStorage.js',
 		'dependencies' => 'jquery.json',
 	),
 
@@ -153,7 +153,7 @@ return array(
 
 	// Sparkline
 	'ext.jquery.sparkline' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.sparkline/jquery.sparkline.min.js'
+		'scripts' => 'resources/jquery/jquery.sparkline.js'
 	),
 	'ext.srf.sparkline' => $formatModule + array(
 		'scripts' => 'sparkline/resources/ext.srf.sparkline.js',
@@ -167,12 +167,12 @@ return array(
 
 	// Dygraphs
 	'ext.dygraphs.combined' => $moduleTemplate + array(
-		'scripts' => 'resources/dygraphs/dygraph-combined.js'
+		'scripts' => 'resources/jquery/dygraphs/dygraph-combined.js'
 	),
 	'ext.srf.dygraphs' => $formatModule + array(
 		'scripts' => array(
 			'dygraphs/resources/ext.srf.dygraphs.js',
-			'../resources/dygraphs/dygraph-combined.js'
+			'../resources/jquery/dygraphs/dygraph-combined.js'
 		),
 		'styles' => 'dygraphs/resources/ext.srf.dygraphs.css',
 		'dependencies' => array(
@@ -204,7 +204,7 @@ return array(
 
 	// pajinate
 	'ext.jquery.pajinate' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.pajinate/jquery.pajinate.js'
+		'scripts' => 'resources/jquery/jquery.pajinate.js'
 	),
 
 	// Listwidget
@@ -240,7 +240,7 @@ return array(
 
 	// Dynamiccarousel
 	'ext.jquery.dynamiccarousel' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.dynamiccarousel/plugin.js'
+		'scripts' => 'resources/jquery/jquery.dynamiccarousel.js'
 	),
 
 	// Pagewidget
@@ -262,86 +262,86 @@ return array(
 	// jqPlot
 	// jQuery plugin specific declarations
 	'ext.jquery.jqplot.core' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jquery.jqplot.js',
-		'styles' => 'resources/jquery.jqplot/jquery.jqplot.css'
+		'scripts' => 'resources/jquery/jqplot/jquery.jqplot.js',
+		'styles' => 'resources/jquery/jqplot/jquery.jqplot.css'
 	),
 
 	// excanvas is required only for pre- IE 9 versions
 	'ext.jquery.jqplot.excanvas' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/excanvas.js'
+		'scripts' => 'resources/jquery/jqplot/excanvas.js'
 	),
 
 	// JSON data formatting according the the City Index API spec
 	'ext.jquery.jqplot.json' => $moduleTemplate + array(
 		'scripts' => array (
-			'resources/jquery.jqplot/jqplot.json2.js',
-			'resources/jquery.jqplot/jqplot.ciParser.js'
+			'resources/jquery/jqplot/jqplot.json2.js',
+			'resources/jquery/jqplot/jqplot.ciParser.js'
 		)
 	),
 
 	// Plugin class representing the cursor
 	'ext.jquery.jqplot.cursor' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.cursor.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.cursor.js'
 	),
 
 	// Plugin class to render a logarithmic axis
 	'ext.jquery.jqplot.logaxisrenderer' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.logAxisRenderer.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.logAxisRenderer.js'
 	),
 
 	// Plugin class to render a mekko style chart
 	'ext.jquery.jqplot.mekko' => $moduleTemplate + array(
 		'scripts' => array (
-			'resources/jquery.jqplot/jqplot.mekkoRenderer.js',
-			'resources/jquery.jqplot/jqplot.mekkoAxisRenderer.js'
+			'resources/jquery/jqplot/jqplot.mekkoRenderer.js',
+			'resources/jquery/jqplot/jqplot.mekkoAxisRenderer.js'
 		)
 	),
 
 	// Plugin class to render a bar/line style chart
 	'ext.jquery.jqplot.bar' => $moduleTemplate + array(
 		'scripts' => array(
-			'resources/jquery.jqplot/jqplot.canvasAxisTickRenderer.js',
-			'resources/jquery.jqplot/jqplot.canvasTextRenderer.js',
-			'resources/jquery.jqplot/jqplot.canvasAxisLabelRenderer.js',
-			'resources/jquery.jqplot/jqplot.categoryAxisRenderer.js',
-			'resources/jquery.jqplot/jqplot.barRenderer.js'
+			'resources/jquery/jqplot/jqplot.canvasAxisTickRenderer.js',
+			'resources/jquery/jqplot/jqplot.canvasTextRenderer.js',
+			'resources/jquery/jqplot/jqplot.canvasAxisLabelRenderer.js',
+			'resources/jquery/jqplot/jqplot.categoryAxisRenderer.js',
+			'resources/jquery/jqplot/jqplot.barRenderer.js'
 		),
 		'dependencies' => 'ext.jquery.jqplot.core',
 	),
 
 	// Plugin class to render a pie style chart
 	'ext.jquery.jqplot.pie' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.pieRenderer.js',
+		'scripts' => 'resources/jquery/jqplot/jqplot.pieRenderer.js',
 		'dependencies' => 'ext.jquery.jqplot.core'
 	),
 
 	// Plugin class to render a bubble style chart
 	'ext.jquery.jqplot.bubble' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.bubbleRenderer.js',
+		'scripts' => 'resources/jquery/jqplot/jqplot.bubbleRenderer.js',
 		'dependencies' => 'ext.jquery.jqplot.core'
 	),
 
 	// Plugin class to render a donut style chart
 	 'ext.jquery.jqplot.donut' => $moduleTemplate + array(
-		'scripts' =>'resources/jquery.jqplot/jqplot.donutRenderer.js',
+		'scripts' =>'resources/jquery/jqplot/jqplot.donutRenderer.js',
 		'dependencies' => 'ext.jquery.jqplot.pie'
 	),
 
 	'ext.jquery.jqplot.pointlabels' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.pointLabels.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.pointLabels.js'
 	),
 
 	'ext.jquery.jqplot.highlighter' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.highlighter.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.highlighter.js'
 	),
 
 	'ext.jquery.jqplot.enhancedlegend' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.enhancedLegendRenderer.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.enhancedLegendRenderer.js'
 	),
 
 	// Plugin class to render a trendline
 	'ext.jquery.jqplot.trendline' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jqplot/jqplot.trendline.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.trendline.js'
 	),
 
 	// General jqplot/SRF specific declarations
@@ -467,12 +467,12 @@ return array(
 
 	// D3
 	'ext.d3.core' => $moduleTemplate + array(
-		'scripts' => 'resources/d3/d3.v2.min.js'
+		'scripts' => 'resources/jquery/d3/d3.v3.js'
 	),
 
 	//
 	'ext.d3.layout.cloud' => $moduleTemplate + array(
-		'scripts' => 'resources/d3/d3.layout.cloud.js',
+		'scripts' => 'resources/jquery/d3/d3.layout.cloud.js',
 		'dependencies' => 'ext.d3.core'
 	),
 
@@ -530,12 +530,12 @@ return array(
 
 	// jcarousel
 	'ext.jquery.jcarousel' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jcarousel/jquery.jcarousel.min.js',
+		'scripts' => 'resources/jquery/jquery.jcarousel.js',
 	),
 
 	// responsiveslides
 	'ext.jquery.responsiveslides' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.responsiveslides/jquery.responsiveslides.1.32.min.js',
+		'scripts' => 'resources/jquery/jquery.responsiveslides.js',
 	),
 
 	//
@@ -593,19 +593,19 @@ return array(
 
 	// Eventcalendar
 	'ext.jquery.fullcalendar' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.fullcalendar/fullcalendar.js',
-		'styles' => 'resources/jquery.fullcalendar/fullcalendar.css',
+		'scripts' => 'resources/jquery/fullcalendar/fullcalendar.js',
+		'styles' => 'resources/jquery/fullcalendar/fullcalendar.css',
 	// If you have MW 1.20+ the definitions below will work but not for earlier
 	// MW installations
 	//	'styles' => array(
-	//		'resources/jquery.fullcalendar/fullcalendar.css' => array( 'media' => 'screen' ),
-	//		'resources/jquery.fullcalendar/fullcalendar.print.css' => array( 'media' => 'print' ),
+	//		'resources/jquery/fullcalendar/fullcalendar.css' => array( 'media' => 'screen' ),
+	//		'resources/jquery/fullcalendar/fullcalendar.print.css' => array( 'media' => 'print' ),
 	//	)
 	),
 
 	//
 	'ext.jquery.gcal' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.fullcalendar/gcal.js',
+		'scripts' => 'resources/jquery/fullcalendar/gcal.js',
 	),
 
 	//
@@ -703,12 +703,12 @@ return array(
 	// Tag cloud
 	// excanvas is only needed for pre-9.0 Internet Explorer compatibility
 	'ext.jquery.tagcanvas.excanvas' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.tagcanvas/excanvas.js'
+	//	'scripts' => 'resources/jquery.tagcanvas/excanvas.js'
 	),
 
 	//
 	'ext.jquery.tagcanvas' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.tagcanvas/jquery.tagcanvas.1.18.min.js'
+		'scripts' => 'resources/jquery/jquery.tagcanvas.js'
 	),
 
 	//
@@ -753,28 +753,28 @@ return array(
 
 	// Register the jplayer js
 	'ext.jquery.jplayer' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jplayer/jquery.jplayer.min.js',
+		'scripts' => 'resources/jquery/jplayer/jquery.jplayer.min.js',
 	),
 
 	// Register the jplayer skin
 	'ext.jquery.jplayer.skin.blue.monday' => $moduleTemplate + array(
-		'styles' => 'resources/jquery.jplayer/skin/blue.monday/jplayer.blue.monday.css',
+		'styles' => 'resources/jquery/jplayer/skin/blue.monday/jplayer.blue.monday.css',
 	),
 
 	// Register the jplayer skin
 	'ext.jquery.jplayer.skin.morning.light' => $moduleTemplate + array(
-		'styles' => 'resources/jquery.jplayer/skin/morning.light/jplayer.morning.light.css',
+		'styles' => 'resources/jquery/jplayer/skin/morning.light/jplayer.morning.light.css',
 	),
 
 	// Register the jplayer playlist js
 	'ext.jquery.jplayer.playlist' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jplayer/add-on/jplayer.playlist.min.js',
+		'scripts' => 'resources/jquery/jplayer/add-on/jplayer.playlist.min.js',
 		'dependencies' => 'ext.jquery.jplayer',
 	),
 
 	// Register the jplayer inspector js
 	'ext.jquery.jplayer.inspector' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery.jplayer/add-on/jquery.jplayer.inspector.js',
+		'scripts' => 'resources/jquery/jplayer/add-on/jquery.jplayer.inspector.js',
 		'dependencies' => 'ext.jquery.jplayer',
 	),
 
