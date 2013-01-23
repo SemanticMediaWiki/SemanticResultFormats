@@ -40,7 +40,7 @@ class GalleryTest extends ResultPrinterTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFGallery';
+		return 'SRF\Gallery';
 	}
 
 }

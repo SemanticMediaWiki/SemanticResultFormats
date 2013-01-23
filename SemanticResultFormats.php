@@ -122,7 +122,7 @@ $wgAutoloadClasses['SRFTime']      = $formatDir . 'time/SRF_Time.php';
 $wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'slideshow/SRF_SlideShow.php';
 $wgAutoloadClasses['SRFSlideShowApi'] = $formatDir . 'slideshow/SRF_SlideShowApi.php';
 $wgAutoloadClasses['SRFTree']      = $formatDir . 'tree/SRF_Tree.php';
-$wgAutoloadClasses['SRFGallery']   = $formatDir . 'gallery/SRF_Gallery.php';
+$wgAutoloadClasses['SRF\Gallery']   = $formatDir . 'gallery/Gallery.php';
 $wgAutoloadClasses['SRFTagCloud']  = $formatDir . 'tagcloud/SRF_TagCloud.php';
 $wgAutoloadClasses['SRFMath']      = $formatDir . 'math/SRF_Math.php';
 $wgAutoloadClasses['SRFTimeline']  = $formatDir . 'timeline/SRF_Timeline.php';
@@ -181,7 +181,7 @@ function srffInitFormats() {
 		'graph' => 'SRFGraph',
 		'process' => 'SRFProcess',
 		'ploticusvbar' => 'SRFPloticusVBar',
-		'gallery' => 'SRFGallery',
+		'gallery' => 'SRF\Gallery',
 		'tagcloud' => 'SRFTagCloud',
 		'valuerank' => 'SRFValueRank',
 		'array' => 'SRFArray',

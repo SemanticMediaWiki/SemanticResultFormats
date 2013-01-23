@@ -1,5 +1,9 @@
 <?php
 
+namespace SRF;
+use SMW, SMWQueryResult, SMWPrintRequest, SMWDataItem, SMWOutputs, SRFUtils;
+use Html, ImageGallery, Title;
+
 /**
  * Result printer that outputs query results as a image gallery.
  *
@@ -31,7 +35,7 @@
  * @ingroup SemanticResultFormats
  *
  */
-class SRFGallery extends SMWResultPrinter {
+class Gallery extends SMW\ResultPrinter {
 
 	/**
 	 * @see SMWResultPrinter::getName
@@ -39,7 +43,7 @@ class SRFGallery extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMessage( 'srf_printername_gallery' )->text();
+		return $this->getContext()->msg( 'srf_printername_gallery' )->text();
 	}
 
 	/**
@@ -54,13 +58,9 @@ class SRFGallery extends SMWResultPrinter {
 	protected function buildResult( SMWQueryResult $results ) {
 
 		// Intro/outro are not planned to work with the widget option
-		if ( $this->params['intro'] !== '' && $this->params['widget'] !== '' ){
+		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ){
 			return $results->addErrors( array(
-				wfMessage( 'srf-error-option-mix', 'intro/widget' )->inContentLanguage()->text() 
-			) );
-		} elseif( $this->params['outro'] !== '' && $this->params['widget'] !== '' ){
-			return $results->addErrors(
-				array( wfMessage( 'srf-error-option-mix', 'outro/widget' )->inContentLanguage()->text() 
+				$this->getContext()->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
 			) );
 		};
 
@@ -85,7 +85,7 @@ class SRFGallery extends SMWResultPrinter {
 
 		// No need for a special page to use the parser but for the "normal" page
 		// view we have to ensure caption text is parsed correctly through the parser
-		if ( !$this->isSpecialPage() ) {
+		if ( !$this->getContext()->getTitle()->isSpecialPage() ) {
 			$ig->setParser( $GLOBALS['wgParser'] );
 		}
 
@@ -323,25 +323,13 @@ class SRFGallery extends SMWResultPrinter {
 				$imgCaption = '';
 			}
 		} else {
-			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->isSpecialPage() ) {
-				$imgCaption = $GLOBALS['wgParser']->recursiveTagParse( $imgCaption );
+			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->getContext()->getTitle()->isSpecialPage() ) {
+				$imgCaption = $GLOBALS['wgParser']->recursivePreprocess( $imgCaption );
 			}
 		}
 		// Use image alt as helper for either text
 		$imgAlt =  $this->params['redirects'] === '' ? $imgCaption : $imgRedirect !== '' ? $imgRedirect : '' ;
 		$ig->add( $imgTitle, $imgCaption, $imgAlt );
-	}
-
-	/**
-	 * Checks if a page is a SpecialPage
-	 *
-	 * @since 1.8
-	 *
-	 * @return boolean
-	 */
-	private function isSpecialPage() {
-		// @todo global: use getContext->getTitle()->->isSpecialPage() instead
-		return $GLOBALS['wgTitle']->isSpecialPage();
 	}
 
 	/**
