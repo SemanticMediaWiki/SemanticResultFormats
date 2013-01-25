@@ -72,6 +72,35 @@ final class SRFHooks {
 	}
 
 	/**
+	 * Add new JavaScript/QUnit testing modules
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderTestModules
+	 *
+	 * @since: 1.9
+	 *
+	 * @param  array $testModules array of JavaScript testing modules
+	 * @param  ResourceLoader $resourceLoader object
+	 *
+	 * @return boolean
+	 */
+	public static function registerQUnitTests( array &$testModules, ResourceLoader &$resourceLoader ){
+		$testModules['qunit']['ext.semanticFormats'] = array(
+			'scripts' => array(
+				'tests/qunit/ext.srf.test.js',
+				'tests/qunit/ext.srf.util.test.js',
+			),
+			'dependencies' => array(
+				'ext.srf',
+				'ext.srf.util',
+			),
+			'position' => 'top',
+			'localBasePath' => __DIR__,
+			'remoteExtPath' => 'SemanticResultFormats',
+		);
+
+		return true;
+	}
+
+	/**
 	 * Adds a link to Admin Links page.
 	 *
 	 * @since 1.7

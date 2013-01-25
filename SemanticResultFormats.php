@@ -141,6 +141,9 @@ $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
+$wgHooks['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
+
+
 // register API modules
 $wgAPIModules['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
