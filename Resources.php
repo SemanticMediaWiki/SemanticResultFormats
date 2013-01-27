@@ -120,7 +120,10 @@ return array(
 
 	// Collects utility methods that are shared among different printers
 	'ext.srf.util' => $moduleTemplate + array(
-		'scripts' => 'resources/ext.srf.util.js',
+		'scripts' => array(
+			'resources/ext.srf.util.js',
+			'resources/ext.srf.util.html.js',
+		),
 		'dependencies' => array (
 			'ext.srf',
 			'ext.jquery.jStorage',
@@ -590,8 +593,7 @@ return array(
 		'position' => 'top',
 	),
 
-
-	// Eventcalendar
+	// fullCalendar
 	'ext.jquery.fullcalendar' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/fullcalendar/fullcalendar.js',
 		'styles' => 'resources/jquery/fullcalendar/fullcalendar.css',
@@ -608,28 +610,40 @@ return array(
 		'scripts' => 'resources/jquery/fullcalendar/gcal.js',
 	),
 
-	//
-	'ext.srf.eventcalendar' => $formatModule + $calendarMessages + array(
-		'scripts' => 'calendar/resources/ext.srf.eventcalendar.js',
-		'styles' => 'calendar/resources/ext.srf.eventcalendar.css',
+	// Eventcalendar widgets
+	'ext.srf.widgets.eventcalendar' => $formatModule + array(
+		'scripts' => array(
+			'calendar/resources/ext.srf.widgets.calendarpane.js',
+			'calendar/resources/ext.srf.widgets.calendarbutton.js',
+			'calendar/resources/ext.srf.widgets.calendarparameters.js',
+			'calendar/resources/ext.srf.widgets.calendarlegend.js',
+		),
 		'dependencies' => array (
 			'jquery.ui.core',
 			'jquery.ui.widget',
 			'jquery.ui.datepicker',
 			'jquery.ui.slider',
 			'ext.smw.tooltip',
-			'ext.srf.api',
 			'ext.srf.util',
-			'ext.jquery.fullcalendar'
-		),
+			'ext.srf.api',
+		)
 	),
 
-	//
-	'ext.srf.eventcalendar.gcal' => $formatModule + array(
+	// Eventcalendar hooks
+	'ext.srf.hooks.eventcalendar' => $formatModule + array(
+		'scripts' => 'calendar/resources/ext.srf.hooks.eventcalendar.js',
+		'dependencies' => 'ext.srf'
+	),
+
+	// Eventcalendar module
+	'ext.srf.eventcalendar' => $formatModule + $calendarMessages + array(
+		'scripts' => 'calendar/resources/ext.srf.formats.eventcalendar.js',
+		'styles' => 'calendar/resources/ext.srf.formats.eventcalendar.css',
 		'dependencies' => array (
-			'ext.srf.eventcalendar',
-			'ext.jquery.gcal'
-		)
+			'ext.srf.widgets.eventcalendar',
+			'ext.srf.hooks.eventcalendar',
+			'ext.jquery.fullcalendar',
+		),
 	),
 
 	// Filtered

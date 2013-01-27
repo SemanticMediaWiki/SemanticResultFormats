@@ -1,11 +1,11 @@
 <?php
 
 namespace SRF;
-use SMWResultPrinter, SMWQueryResult, SMWDataItem, SMWOutputs, SRFUtils, SMWQuery;
-use Html, FormatJson, Skin;
+use SMW, Html;
 
 /**
- * An event calendar printer using the FullCalendar JavaScript library.
+ * An event calendar printer using the FullCalendar JavaScript library
+ * and SMWAPI.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ use Html, FormatJson, Skin;
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @since 1.8
+ * @since 1.9
  *
  * @file
  * @ingroup SemanticResultFormats
@@ -30,47 +30,14 @@ use Html, FormatJson, Skin;
  *
  * @author mwjames
  */
-class EventCalendar extends SMWResultPrinter {
+class EventCalendar extends SMW\ApiResultPrinter {
 
 	/**
 	 * Corresponding message name
 	 *
 	 */
 	public function getName() {
-		return wfMessage( 'srf-printername-eventcalendar' )->text();
-	}
-
-	/**
-	 * Returns string of the query result
-	 *
-	 * @param SMWQueryResult $result
-	 * @param $outputMode
-	 *
-	 * @return string
-	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputMode ) {
-
-		// Result object serialization
-		$data['query']['result'] = $queryResult->toArray();
-
-		// The serialization method allways returns a meta/count object
-		if ( $data['query']['result']['meta']['count'] === 0 ) {
-			$queryResult->addErrors( array( wfMessage( 'smw_result_noresults' )->inContentLanguage()->text() ) );
-			return '';
-		} else {
-
-			// Add query details
-			$data['query']['ask'] = $queryResult->getQuery()->toArray();
-
-			// Add additional parameters that are only known to this printer
-			foreach ( $this->params as $key => $value ) {
-				if ( is_string( $value ) ) {
-					$data['query']['ask']['parameters'][$key] = $value;
-				}
-			}
-
-			return $this->getHtml( $data );
-		}
+		return $this->getContext()->msg( 'srf-printername-eventcalendar' )->text();
 	}
 
 	/**
@@ -84,48 +51,29 @@ class EventCalendar extends SMWResultPrinter {
 	protected function getHtml( array $data ) {
 
 		// Init
-		static $statNr = 0;
-		$calendarID = 'srf-calendar-' . ++$statNr;
-
 		$this->isHTML = true;
-
-		// Consistency of names otherwise fullCalendar throws an error
-		$defaultVS   = array ( 'day', 'week');
-		$defaultVR   = array ( 'Day', 'Week');
-		$defaultView = str_replace ( $defaultVS, $defaultVR, $this->params['defaultview'] );
+		$id = $this->getId();
 
 		// Add options
-		$data['options'] = array(
-			'version'       => '0.7.2',
-			'legend'        => $this->params['legend'],
-			'defaultview'   => $defaultView,
-			'start'         => $this->params['start'],
-			'dayview'       => $this->params['dayview'],
-			'firstday'      => date( 'N', strtotime( $this->params['firstday'] ) ),
-			'theme'         => in_array( $this->params['theme'], array( 'vector' ) ),
-			'views' => 'month,' .
-				( strpos( $defaultView, 'Week') === false ? 'basicWeek' : $defaultView ) . ',' .
-				( strpos( $defaultView, 'Day' ) === false ? 'agendaDay' : $defaultView ),
-		);
+		$data['version'] = '0.7.4';
+
+		// The boolean value wasn't caught earlier with all other parameters
+		$data['query']['ask']['parameters']['dayview'] = $this->params['dayview'];
 
 		// Encode data object
-		$requireHeadItem = array ( $calendarID => FormatJson::encode( $data ) );
-		SMWOutputs::requireHeadItem( $calendarID, Skin::makeVariablesScript($requireHeadItem ) );
+		$this->encode( $id, $data );
 
 		// Init RL module
-		SMWOutputs::requireResource( 'ext.srf.eventcalendar' );
+		$this->addResources( 'ext.srf.eventcalendar' );
 
-		// Processing placeholder
-		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
-
-		// General and Ccontainer placeholder
+		// Element includes info, spinner, and container placeholder
 		return Html::rawElement(
 			'div',
 			array( 'class' => 'srf-eventcalendar' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ) ),
-			 Html::element( 'div', array( 'class' => 'info' ), null ) . $processing . Html::element(
+				Html::element( 'div', array( 'class' => 'info' ), '' ) .  $this->loading() . Html::element(
 				'div',
-				array( 'id' => $calendarID, 'class' => 'container', 'style' => 'display:none;' ),
-				null
+				array( 'id' => $id, 'class' => 'container', 'style' => 'display:none;' ),
+				''
 			)
 		);
 	}
@@ -169,7 +117,7 @@ class EventCalendar extends SMWResultPrinter {
 		$params['dayview'] = array(
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-dayview',
-			'default' => '',
+			'default' => false
 		);
 
 		$params['class'] = array(

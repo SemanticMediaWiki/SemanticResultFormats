@@ -82,15 +82,21 @@ final class SRFHooks {
 	 *
 	 * @return boolean
 	 */
-	public static function registerQUnitTests( array &$testModules, ResourceLoader &$resourceLoader ){
-		$testModules['qunit']['ext.semanticFormats'] = array(
+	public static function registerQUnitTests( array &$testModules, ResourceLoader &$resourceLoader ) {
+		$testModules['qunit']['ext.srf.tests'] = array(
 			'scripts' => array(
+				// Base
 				'tests/qunit/ext.srf.test.js',
 				'tests/qunit/ext.srf.util.test.js',
+
+				// Formats
+				'tests/qunit/ext.srf.formats.eventcalendar.tests.js',
+				'tests/qunit/ext.srf.widgets.eventcalendar.tests.js',
 			),
 			'dependencies' => array(
 				'ext.srf',
 				'ext.srf.util',
+				'ext.srf.eventcalendar'
 			),
 			'position' => 'top',
 			'localBasePath' => __DIR__,

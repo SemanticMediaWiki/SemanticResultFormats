@@ -30,4 +30,5 @@
 	"multistr": true, // suppresses warnings about multi-line strings
 
 	"browser": true // defines globals exposed by modern browsers
+	"nomen": false // Tolerate dangling _ in identifiers
 }

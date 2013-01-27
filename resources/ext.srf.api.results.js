@@ -1,5 +1,5 @@
 /**
- * JavaScript for the semanticFormats api/results
+ * SRF JavaScript for the api/results
  *
  * @since 1.9
  * @release 0.1
@@ -13,8 +13,6 @@
 /*global semanticFormats:true mediaWiki:true*/
 ( function( $, mw, srf ) {
  'use strict';
-
-	////////////////////////// PRIVATE METHODS //////////////////////////
 
 	////////////////////////// PUBLIC METHODS /////////////////////////
 
@@ -105,7 +103,7 @@
 
 					if ( printrequests !== undefined ){
 						$.map( printrequests, function( key, index ) {
-							tList[key.label] = { typeid: key.typeid, position: index };
+							tList[key.label] = { typeid: key.typeid, position: index, meta: key.meta };
 						} );
 					}
 					return list = tList;
@@ -119,6 +117,16 @@
 				 */
 				getTypeId: function ( property ){
 					return list[property].typeid || null;
+				},
+
+				/**
+				 * Returns some meta data for a property
+				 *
+				 * @since 1.9
+				 * @type Object
+				 */
+				getMetaData: function ( property ){
+					return list[property].meta || null;
 				},
 
 				/**

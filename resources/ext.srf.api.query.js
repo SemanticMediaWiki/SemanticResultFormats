@@ -1,5 +1,5 @@
 /**
- * JavaScript for the semanticFormats api/query
+ * SRF JavaScript for the api/query
  *
  * @since 1.9
  * @release 0.1
@@ -13,10 +13,6 @@
 /*global semanticFormats:true mediaWiki:true*/
 ( function( $, mw, srf ) {
  'use strict';
-
-	////////////////////////// PRIVATE METHODS //////////////////////////
-
-	var results = new srf.api.results();
 
 	////////////////////////// PUBLIC METHODS /////////////////////////
 
@@ -64,7 +60,7 @@
 		printouts: {
 
 			/**
-			 * Normalize printouts in order to get access to an indexed list
+			 * Normalize printouts in order to get access via key reference
 			 *
 			 * e.g. |?Has location=location	will be transformed into an
 			 * array ["Has location", "location"]
@@ -129,19 +125,19 @@
 				},
 
 				/**
-				 * Match type that is quried from the printrequest
+				 * Returns properties for a specific type where properties
+				 * aren't marked with an identifier ( |?property=indentifier)
 				 *
-				 * Use normalized printouts, printrequest array available via .toArray()
+				 * SMWQUERY printouts, SMWAPI printrequests, ["_str","_txt"]
 				 *
 				 * For example
-				 * search.type( [ ["Has location", "location"] ], [ ["location", "_str"] ], ["_str","_txt"] )
-				 * will result in ["Has location", "..."] that matches the type _str
+				 * type( printouts, printrequests, ["_str"] )
+				 * result in ["Has location", "..."] that matches the type _str
 				 *
-				 * @note Properties with the notion of Has location=location will have
-				 * an array where its strcuture is property: Has location, label:location
-				 * therefore we first have to check with the label as refrence (printrequests
-				 * stores the label and the type together) but we export the property text
-				 * instead of the label
+				 * Filter all printout properties that are of type [...] and check against
+				 * the printout list to indentify which of these printouts do not
+				 * carry an additional identifier because those are not eligible
+				 * to beused as filter properties
 				 *
 				 * @since 1.9
 				 * @type Object
@@ -150,20 +146,43 @@
 				 *
 				 * @return array
 				 */
-				type: function( printouts, printrequests, keys ){
-					var matches = [];
-					$.each( printouts, function( index, property ) {
-						if ( typeof property === 'object' ) {
-							if ( $.inArray( results.printrequests( printrequests ).getTypeId( property[1] ), keys ) > -1 ){
-								matches.push( property[0] );
+				type: function( printouts, printrequests, dataTypes ){
+					// Cache printouts, printrequests
+					var	po = srf.api.query.prototype.printouts.toList( printouts ),
+						pr = srf.api.results.prototype.printrequests();
+						pr.toArray( printrequests );
+
+					// Normalize printouts to an amendable structure
+					function normalize(){
+						var matches = [];
+						// Match printouts against the list of available printrequests
+						$.each( po, function( index, property ) {
+							if ( typeof property === 'object' ) {
+								if ( $.inArray( pr.getTypeId( property[1] ), dataTypes ) > -1 ){
+									matches.push( property[0] );
+								}
+							} else {
+								if ( $.inArray( pr.getTypeId( property ), dataTypes ) > -1 ){
+									matches.push( property );
+								}
 							}
-						} else {
-							if ( $.inArray( results.printrequests( printrequests ).getTypeId( property ), keys ) > -1 ){
+						} );
+						return matches;
+					}
+
+					// Find those properties that are without an identifier
+					function withoutIdentifier( list ){
+						var matches = [];
+						$.each( list, function( index, property ) {
+							if ( $.inArray( property, po ) > -1 ) {
 								matches.push( property );
 							}
-						}
-					} );
-					return matches;
+						} );
+						return matches;
+					}
+
+					var record = withoutIdentifier( normalize() );
+					return record.length > 0 ? srf.api.util.prototype.array.unique( record ) : '';
 				}
 			}
 		},
@@ -216,7 +235,7 @@
 			}
 
 			$.ajax( {
-				url: mw.config.get( 'wgScriptPath' ) + '/api.php',
+				url: mw.util.wikiScript( 'api' ),
 				dataType: 'json',
 				data: {
 					'action': 'ask',
