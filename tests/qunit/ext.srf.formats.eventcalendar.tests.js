@@ -53,10 +53,12 @@
 
 		var expected = {
 			"dates": [
-				{ "end": "1325563200", "start": "1325390400" },
-				{ "start": "1325300400" },
-				{ "end": "1357308000", "start": "1357304400" }
-			]
+						"1325390400",
+						"1325563200",
+						"1325300400",
+						"1357304400",
+						"1357308000"
+						]
 		}
 
 		// Check for parsed dates array
@@ -85,14 +87,11 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'startDate', 8, function ( assert ) {
+	QUnit.test( 'startDate', 9, function ( assert ) {
 
 		var calendar = new srf.formats.eventcalendar();
 
-		var testData = [
-			{ 'start': '1325390400', 'end': '1325563200' },
-			{ 'start': '1357304400', 'end': '1357308000' },
-		];
+		var testData = [ '1325390400', '1325563200', '1357304400', '1357308000' ];
 
 		assert.equal( $.type( calendar.test._startDate() ) , 'object', pass + 'the object was accessible' );
 		assert.equal( $.type( calendar.test._startDate( testData ).minmax() ), 'object', pass + 'minmax() was accessible' );
@@ -112,6 +111,11 @@
 
 		var results = calendar.test._startDate( testData ).get( 'latest' );
 		assert.equal( results.getDate(), '4' , pass + 'get( "latest" ) returned 1' );
+
+		var testData = [ '633830400', '634176000', '1262563200' ];
+
+		var results = calendar.test._startDate( testData ).minmax();
+		assert.deepEqual( results, {"max": "1262563200","min": "633830400"}, pass + 'minmax() returned an object' );
 
 	} );
 

@@ -8,7 +8,7 @@
  * implementation
  *
  * @since 1.8
- * @release 0.7.4
+ * @release 0.7.5
  *
  * @file
  * @ingroup SRF
@@ -143,7 +143,7 @@
 						val = value;
 					} );
 					return val;
-				}
+					}
 
 				// Transform results into the calendar specific array format
 				function getResults( parameters, printrequests, results ){
@@ -154,7 +154,6 @@
 
 					$.each( results, function( subjectName, subject ) {
 						var rowData = {},
-							rowDate = {},
 							rowDesc = [],
 							metaData = [],
 							prevElement = '';
@@ -171,16 +170,15 @@
 
 								// Date/Time type properties
 								if (  printrequests.getTypeId( property ) === '_dat' ){
-									// The date with the lower position ( wich comes in the
-									// printouts first) becomes the start date
+									// The date with the lower position becomes the start date
 									if ( prevElement === '' ) {
 										prevElement = printrequests.getPosition( property );
 										rowData.start = _calendar.api.results.dataValues.time.getISO8601Date( value );
-										rowDate.start = value;
+										dates.push( value );
 										rowData.allDay = true;
 									} else if ( prevElement < printrequests.getPosition( property ) && value !== '' ) {
 										rowData.end = _calendar.api.results.dataValues.time.getISO8601Date( value );
-										rowDate.end = value;
+										dates.push( value );
 										// Find those entries that don't have a specific time which
 										// means there are all day events
 										rowData.allDay = rowData.end.indexOf( '00:00:00' ) !== -1 || false;
@@ -188,7 +186,7 @@
 
 								// Page type properties
 								} else if (  printrequests.getTypeId( property ) === '_wpg' ){
-									if ( property === 'title' ){
+									if ( property === 'title' && value.fulltext !== undefined ){
 										rowData.title = value.fulltext;
 									} else if ( property === 'icon' ){
 										rowData.eventicon = value.fulltext;
@@ -202,7 +200,7 @@
 										rowDesc.push( parameters.headers === 'hide' ? value.fulltext : property + ':' + value.fulltext );
 									}
 								} else {
-									if ( property === 'title' ){
+									if ( property === 'title' && value.fulltext !== undefined ){
 										rowData.title = value;
 									} else if ( property === 'color' ) {
 										rowData.color = value;
@@ -242,8 +240,6 @@
 							}
 							// Collect events
 							events.push( rowData );
-							// Collect dates
-							dates.push( rowDate );
 						}
 					} );
 
@@ -279,16 +275,16 @@
 					minmax: function(){
 						var min = '',
 							max = '';
-
-						$.map( dates, function( values ) {
-							$.each ( values, function( key, value ) {
-								if ( key === 'start' && ( value < min || min === '' ) ) {
+							$.each ( dates, function( key, value ) {
+								if ( min === '' ) {
 									min = value;
-								} else if( key === 'end' && ( value > max || max === '' ) ) {
+								} else if ( max === '' ) {
 									max = value;
+								} else {
+									min = parseInt( value, 10 ) < parseInt ( min, 10 ) ? value : min;
+									max = parseInt( value, 10 ) > parseInt ( max, 10 ) ? value : max;
 								}
 							} );
-						} );
 						return { 'min': min, 'max': max };
 					},
 
@@ -931,7 +927,7 @@
 				calendar.update( context, container, data );
 			}
 
-			//console.log( 'Data', data, 'Objects', _calendar );
+			// console.log( 'Data', data, 'Objects', _calendar );
 
 		} );
 	} );

@@ -242,7 +242,9 @@
 		message:{
 			set: function( options ){
 				var type = options.type === 'error' ? 'ui-state-error' : 'ui-state-highlight';
-				options.context.prepend( html.element( 'div', { 'class': 'ui-widget' }, new html.Raw( html.element( 'div', { 'class': type + ' ui-corner-all', 'style': 'padding-left: 0.5em' }, new html.Raw( html.element( 'p', { 'style': 'color:' + ( options.type === 'error' ? 'white' : 'blue' ) }, new html.Raw( html.element( 'span', { 'class': 'ui-icon ui-icon-alert', 'style': 'float: left; margin-right: 0.7em;' }, '' ) + options.message ) ) ) ) ) ) );
+				options.context.prepend( html.element( 'div', {
+					'class': 'ui-widget' }, new html.Raw( html.element( 'div', {
+						'class': type + ' ui-corner-all','style': 'padding-left: 0.5em' }, new html.Raw( html.element( 'p', { }, new html.Raw( html.element( 'span', { 'class': 'ui-icon ui-icon-alert', 'style': 'float: left; margin-right: 0.7em;' }, '' ) + options.message ) ) ) ) ) ) );
 			},
 
 			exception: function( options ){
