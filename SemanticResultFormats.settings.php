@@ -69,6 +69,7 @@ $srfgFormats = array(
 	'pagewidget',
 	'dygraphs',
 	'media',
+	'datatables',
 
 	// Boilerplate
 	// Enable access to the format identifier

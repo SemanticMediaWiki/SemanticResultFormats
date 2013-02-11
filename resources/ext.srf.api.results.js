@@ -10,9 +10,28 @@
  * @licence GNU GPL v2 or later
  * @author mwjames
  */
-/*global semanticFormats:true mediaWiki:true*/
+/* global wgMonthNames:true */
 ( function( $, mw, srf ) {
  'use strict';
+
+	////////////////////////// PRIVATE METHODS //////////////////////////
+
+	var timeLocales = {
+		monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+		monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+		dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+		dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+		amDesignator: 'AM',
+		pmDesignator: 'PM'
+	};
+
+	// Map wgMonthNames and create an indexed array
+	var monthNames = [];
+	$.map ( mw.config.get( 'wgMonthNames' ), function( value, key ) {
+		if( value !== '' ){
+			monthNames.push( value );
+		}
+	} );
 
 	////////////////////////// PUBLIC METHODS /////////////////////////
 
@@ -168,11 +187,11 @@
 						return d;
 					}
 					if ( typeof d === 'number' ) {
-						return new Date( d * 1000);
+						return new Date( d * 1000 );
 					}
 					if ( typeof d === 'string' ) {
 						if ( d.match(/^\d+(\.\d+)?$/) ) {
-							return new Date(parseFloat( d ) * 1000);
+							return new Date( parseFloat( d ) * 1000 );
 						}
 					}
 					return null;
@@ -187,9 +206,59 @@
 				 * @since 1.9
 				 * @type Object
 				 */
-				getISO8601Date: function( timestamp ){
+				getISO8601Date: function( timestamp ) {
 					var d = this.parseDate( timestamp );
 					return d !== null ? d.toISOString() : null;
+				},
+
+				/**
+				 * Returns a formatted time (HH:MM:SS)
+				 *
+				 * @param string|Date time
+				 * @return string
+				 */
+				getTime: function( time ) {
+					var d = typeof time === 'object' ? time : this.parseDate( time );
+					return ( d.getHours() < 10 ? '0' + d.getHours() : d.getHours() ) +
+						':' + ( d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes() ) +
+						':' + ( d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds() );
+				},
+
+				/**
+				 * Returns a formatted date
+				 *
+				 * @param string|Date
+				 * @param string format
+				 * @return string
+				 */
+				getDate: function( date, format ) {
+					var d = typeof date === 'object' ? date : this.parseDate( date ),
+						formatDate = '';
+
+					switch( format ) {
+						case 'dmY':
+							formatDate = d.getDate() + '.' + ( '' + d.getMonth() + 1 ) + '.' + d.getFullYear();
+							break;
+						case 'Ymd':
+							formatDate = d.getFullYear() + '.' + ( '' + d.getMonth() + 1 ) + '.' + d.getDate();
+							break;
+						default:
+							formatDate = d.getDate() + ' ' + monthNames[d.getMonth()] + ' ' + d.getFullYear();
+					}
+
+					return formatDate;
+				},
+
+				/**
+				 * Returns date
+				 *
+				 * @param string timestamp
+				 * @param string format
+				 * @return string
+				 */
+				getMediaWikiDate: function( timestamp, format ) {
+					var date = this.parseDate( timestamp );
+					return this.getDate( date, format ) + ' ' + this.getTime( date );
 				}
 			}
 		}

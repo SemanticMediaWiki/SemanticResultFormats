@@ -255,7 +255,73 @@
 			remove:function( context ){
 				context.children().fadeOut( 'slow' ).remove();
 			}
-		}
+		},
+
+		/**
+		 *
+		 *
+		 *
+		 */
+		 image: {
+
+			/**
+			 * Returns image information including thumbnail
+			 *
+			 * @since  1.9
+			 *
+			 * @param options
+			 * @param callback
+			 *
+			 * @return object
+			 */
+			imageInfo: function( options, callback ){
+				var isCached = true;
+
+				// Get cache otherwise do an Ajax call
+				if ( options.cache ) {
+					var imageInfo = $.jStorage.get( options.title + '-' + options.width );
+
+					if ( imageInfo !== null ) {
+						if ( typeof callback === 'function' ) {
+							callback.call( this, isCached, imageInfo );
+						}
+						return;
+					}
+				}
+
+				$.getJSON( mw.config.get( 'wgScriptPath' ) + '/api.php', {
+						'action': 'query',
+						'format': 'json',
+						'prop'  : 'imageinfo',
+						'iiprop': 'url',
+						'iiurlwidth': options.width,
+						'iiurlheight': options.height,
+						'titles': options.title
+					},
+					function( data ) {
+						if ( data.query && data.query.pages ) {
+							var pages = data.query.pages;
+							for ( var p in pages ) {
+								if ( pages.hasOwnProperty( p ) ) {
+									var info = pages[p];
+									if ( options.cache !== undefined ) {
+										$.jStorage.set( options.title + '-' + options.width , info, { TTL: options.cache } );
+									}
+									if ( typeof callback === 'function' ) {
+										callback.call( this, !isCached, info );
+									}
+									return;
+								}
+							}
+						}
+					if ( typeof callback === 'function' ) {
+						callback.call( this, !isCached, false );
+					}
+					}
+				);
+			}
+
+		 }
 	};
 
 } )( jQuery, mediaWiki, semanticFormats );

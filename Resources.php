@@ -71,6 +71,23 @@ return array(
 		'dependencies' => 'ext.jquery.easing',
 	),
 
+	// Multiselect
+	'ext.jquery.multiselect' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery/multiselect/jquery.multiselect.js',
+		'styles'  => 'resources/jquery/multiselect/jquery.multiselect.css',
+		'dependencies' => array(
+			'jquery.ui.core',
+			'jquery.ui.widget'
+		)
+	),
+
+	// Multiselect filter
+	'ext.jquery.multiselect.filter' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery/multiselect/jquery.multiselect.filter.js',
+		'styles'  => 'resources/jquery/multiselect/jquery.multiselect.filter.css',
+		'dependencies' => 'ext.jquery.multiselect'
+	),
+
 	// blockUI plugin
 	'ext.jquery.blockUI' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/jquery.blockUI.js'
@@ -115,6 +132,7 @@ return array(
 			'resources/ext.srf.api.query.js',
 		),
 		'position' => 'top',
+		'dependencies' => 'ext.srf',
 		'group' => 'ext.srf'
 	),
 
@@ -128,7 +146,29 @@ return array(
 			'ext.srf',
 			'ext.jquery.jStorage',
 			'ext.jquery.blockUI',
-			'jquery.client'
+			'jquery.client',
+			'mediawiki.Title',
+		),
+		'group' => 'ext.srf'
+	),
+
+	// SRF widgets
+	'ext.srf.widgets' => $moduleTemplate + array(
+		'scripts' => array(
+			'resources/widgets/ext.srf.widgets.panel.js',
+			'resources/widgets/ext.srf.widgets.parameters.js',
+			'resources/widgets/ext.srf.widgets.optionslist.js'
+		),
+		'dependencies' => array(
+			'ext.srf',
+			'jquery.ui.core',
+			'jquery.ui.widget',
+			'jquery.ui.button',
+			'jquery.ui.slider',
+			'ext.jquery.multiselect'
+		),
+		'messages' => array(
+			'srf-ui-widgets-label-parameter-limit',
 		),
 		'group' => 'ext.srf'
 	),
@@ -821,6 +861,81 @@ return array(
 			'ext.jquery.jplayer.playlist',
 			'ext.srf.mediaplayer.template'
 		)
+	),
+
+	// jQuery DataTables
+	'jquery.dataTables' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery/datatables/jquery.dataTables.js',
+		'position' => 'top'
+	),
+
+	// DataTables extras
+	'jquery.dataTables.extras' => $moduleTemplate + array(
+		'scripts'  => 'resources/jquery/datatables/jquery.dataTables.extras.js',
+	),
+
+	// DataTables implementation
+	'ext.srf.datatables' => $formatModule + array(
+		'scripts' => 'datatables/resources/ext.srf.formats.datatables.js',
+		'styles'  => 'datatables/resources/ext.srf.formats.datatables.css',
+		'dependencies' => array(
+			'jquery.dataTables',
+			'jquery.dataTables.extras',
+			'jquery.ui.core',
+			'jquery.ui.widget',
+			'jquery.ui.button',
+			'ext.smw.dataItem',
+			'ext.smw.api',
+			'ext.srf.api',
+			'ext.srf.util',
+			'ext.srf.widgets'
+		),
+		'messages' => array(
+			'srf-ui-datatables-label-conditions',
+			'srf-ui-datatables-label-parameters',
+			'srf-ui-datatables-label-filters',
+			'srf-ui-datatables-label-information',
+			'srf-ui-datatables-panel-information-text',
+			'srf-ui-datatables-label-update-success',
+			'srf-ui-datatables-label-update-error',
+			'srf-ui-datatables-label-sEmptyTable',
+			'srf-ui-datatables-label-sInfo',
+			'srf-ui-datatables-label-sInfoEmpty',
+			'srf-ui-datatables-label-sInfoFiltered',
+			'srf-ui-datatables-label-sInfoPostFix',
+			'srf-ui-datatables-label-sInfoThousands',
+			'srf-ui-datatables-label-sLengthMenu',
+			'srf-ui-datatables-label-sLoadingRecords',
+			'srf-ui-datatables-label-sProcessing',
+			'srf-ui-datatables-label-sSearch',
+			'srf-ui-datatables-label-sZeroRecords',
+			'srf-ui-datatables-label-oPaginate-sFirst',
+			'srf-ui-datatables-label-oPaginate-sLast',
+			'srf-ui-datatables-label-oPaginate-sNext',
+			'srf-ui-datatables-label-oPaginate-sPrevious',
+			'srf-ui-datatables-label-oAria-sSortAscending',
+			'srf-ui-datatables-label-oAria-sSortDescending',
+			'srf-ui-datatables-label-multiselect-column-header',
+			'srf-ui-datatables-label-multiselect-column-noneselectedtext',
+			'srf-ui-datatables-label-multiselect-column-selectedtext',
+			'srf-ui-datatables-label-placeholder-column-search'
+		)
+	),
+
+	// DataTables bootstrap
+	'ext.srf.datatables.bootstrap' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery/datatables/jquery.dataTables.bootstrap.js',
+		'styles'  => 'resources/jquery/datatables/jquery.dataTables.bootstrap.css',
+		'dependencies' => 'ext.srf.datatables'
+	),
+
+	// DataTables basic
+	'ext.srf.datatables.basic' => $moduleTemplate + array(
+		'styles'  => array(
+			'resources/jquery/datatables/jquery.dataTables.css',
+			'resources/jquery/datatables/jquery.dataTables.images.css'
+		),
+		'dependencies' => 'ext.srf.datatables'
 	),
 
 	// Boilerplate example registration

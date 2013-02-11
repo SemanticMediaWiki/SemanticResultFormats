@@ -96,6 +96,8 @@ $wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
 // $wgAutoloadClasses['SRFBoilerplate'] = $formatDir . 'boilerplate/SRF_Boilerplate.php';
 
 // Follows naming convention
+$wgAutoloadClasses['SRF\DataTables'] = $formatDir . 'datatables/DataTables.php';
+
 $wgAutoloadClasses['SRF\MediaPlayer'] = $formatDir . 'media/MediaPlayer.php';
 $wgAutoloadClasses['SRF\EventCalendar']   = $formatDir . 'calendar/EventCalendar.php';
 $wgAutoloadClasses['SRFDygraphs']     = $formatDir . 'dygraphs/SRF_Dygraphs.php';
@@ -142,7 +144,7 @@ $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
 $wgHooks['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
-
+$wgHooks['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
 
 // register API modules
 $wgAPIModules['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
@@ -204,11 +206,13 @@ function srffInitFormats() {
 		'dygraphs' => 'SRFDygraphs',
 		'incoming' => 'SRFIncoming',
 		'media' => 'SRF\MediaPlayer',
-		'excel' => 'SRF\SRFExcel'
+		'excel' => 'SRF\SRFExcel',
+		'datatables' => 'SRF\DataTables'
 	);
 
 	$formatAliases = array(
 		'tagcloud'   => array( 'tag cloud' ),
+		'datatables'   => array( 'datatable' ),
 		'valuerank'  => array( 'value rank' ),
 		'd3chart'    => array( 'd3 chart' ),
 		'timeseries' => array ( 'time series' ),

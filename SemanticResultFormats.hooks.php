@@ -45,7 +45,6 @@ final class SRFHooks {
 			'formats/Array',
 			'formats/Dygraphs',
 			'formats/EventCalendar',
-			// 'formats/Feed',
 			'formats/Gallery',
 			'formats/Graph',
 			'formats/Incoming',
@@ -59,6 +58,8 @@ final class SRFHooks {
 			'formats/Timeseries',
 			'formats/vCard',
 			'formats/MediaPlayer',
+			'formats/DataTables',
+
 			// Boilerplate
 			// Register your testclass
 			// 'formats/Boilerplate',
@@ -90,13 +91,22 @@ final class SRFHooks {
 				'tests/qunit/ext.srf.util.test.js',
 
 				// Formats
-				'tests/qunit/ext.srf.formats.eventcalendar.tests.js',
-				'tests/qunit/ext.srf.widgets.eventcalendar.tests.js',
+				'tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js',
+				'tests/qunit/formats/ext.srf.formats.datatables.test.js',
+
+				// Widgets
+				'tests/qunit/widgets/ext.srf.widgets.eventcalendar.tests.js',
+				'tests/qunit/widgets/ext.srf.widgets.optionslist.test.js',
+				'tests/qunit/widgets/ext.srf.widgets.panel.test.js',
+				'tests/qunit/widgets/ext.srf.widgets.parameters.test.js'
+
 			),
 			'dependencies' => array(
 				'ext.srf',
 				'ext.srf.util',
-				'ext.srf.eventcalendar'
+				'ext.srf.eventcalendar',
+				'ext.srf.datatables',
+				'ext.srf.widgets'
 			),
 			'position' => 'top',
 			'localBasePath' => __DIR__,
@@ -129,6 +139,29 @@ final class SRFHooks {
 
 		return true;
 	}
+
+	/**
+	 * Hook: ResourceLoaderGetConfigVars called right before
+	 * ResourceLoaderStartUpModule::getConfig returns
+	 *
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderGetConfigVars
+	 *
+	 * @param &$vars Array of variables to be added into the output of the startup module.
+	 *
+	 * @return true
+	 */
+	public static function onResourceLoaderGetConfigVars( &$vars ) {
+
+		$vars['srf'] = array(
+			'version' => SRF_VERSION,
+			'options' => array(
+				'thumbsize' => $GLOBALS['wgThumbLimits']
+			)
+		);
+
+		return true;
+	}
+
 	/**
 	 * Hook: GetPreferences adds user preference
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
@@ -160,7 +193,6 @@ final class SRFHooks {
 		$preferences['srf-prefs-eventcalendar-options-update-default'] = array(
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-eventcalendar-options-update-default',
-			'help-message' => 'srf-prefs-eventcalendar-help-update',
 			'section' => 'smw/srf-eventcalendar-options',
 		);
 
@@ -169,6 +201,21 @@ final class SRFHooks {
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-eventcalendar-options-paneview-default',
 			'section' => 'smw/srf-eventcalendar-options',
+		);
+
+
+		// Enable auto update during a page refresh
+		$preferences['srf-prefs-datatables-options-update-default'] = array(
+			'type' => 'toggle',
+			'label-message' => 'srf-prefs-datatables-options-update-default',
+			'section' => 'smw/srf-datatables-options',
+		);
+
+		// Enable local caching
+		$preferences['srf-prefs-datatables-options-cache-default'] = array(
+			'type' => 'toggle',
+			'label-message' => 'srf-prefs-datatables-options-cache-default',
+			'section' => 'smw/srf-datatables-options',
 		);
 
 		return true;

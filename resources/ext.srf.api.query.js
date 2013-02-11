@@ -10,14 +10,18 @@
  * @licence GNU GPL v2 or later
  * @author mwjames
  */
-/*global semanticFormats:true mediaWiki:true*/
 ( function( $, mw, srf ) {
  'use strict';
 
-	////////////////////////// PUBLIC METHODS /////////////////////////
+	/**
+	 * Private methods and objects used within the class
+	 *
+	 * @since  1.9
+	 */
+	var results = new srf.api.results();
 
 	/**
-	 * API namespace declaration
+	 * Public API namespace declaration
 	 *
 	 * @since 1.9
 	 * @type Object
@@ -198,9 +202,11 @@
 		toString: function( options ){
 
 			var printouts = '';
-			$.each( options.printouts , function( key, value ) {
-				printouts = printouts + '|' + value;
-			} );
+			if ( options.printouts ){
+				$.each( options.printouts , function( key, value ) {
+					printouts = printouts + '|' + value;
+				} );
+			}
 
 			var parameters = '';
 			$.each( options.parameters , function( key, value ) {
@@ -220,7 +226,7 @@
 		},
 
 		/**
-		 * Returns results from the SMWAPI interface
+		 * Return results from the SMWAPI interface as callback
 		 *
 		 * @since 1.9
 		 * @type Object
@@ -228,6 +234,7 @@
 		 * @return array
 		 */
 		fetch: function( query, callback, log ){
+
 			// Log data is only visible while in debug mode( &debug=true )
 			if ( log ){
 				var startDate = new Date();
@@ -242,25 +249,25 @@
 					'format': 'json',
 					'query' : query
 					}
-				} )
-				.done( function ( data ) {
-					if ( log ){
-						srf.log( 'Hash: ' + data.query.meta.hash );
-						srf.log( 'Fetched: ' + ( new Date().getTime() - startDate.getTime() ) + ' ms ' + '( ' + data.query.meta.count + ' object )' );
-					}
+			} )
+			.done( function ( data ) {
+				if ( log ){
+					srf.log( 'Hash: ' + data.query.meta.hash );
+					srf.log( 'Fetched: ' + ( new Date().getTime() - startDate.getTime() ) + ' ms ' + '( ' + data.query.meta.count + ' object )' );
+				}
 
-					// Return data to the callback
-					if ( typeof callback === 'function' ) {
-						callback.call( this, true, data );
-					}
-					return;
-				} )
-				.fail( function ( error ) {
-					if ( typeof callback === 'function' ) {
-						callback.call( this, false, error );
-					}
-					return;
-				} );
+				// Return data to the callback
+				if ( typeof callback === 'function' ) {
+					callback.call( this, true, data );
+				}
+				return;
+			} )
+			.fail( function ( error ) {
+				if ( typeof callback === 'function' ) {
+					callback.call( this, false, error );
+				}
+				return;
+			} );
 		}
 	};
 
