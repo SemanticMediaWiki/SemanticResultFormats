@@ -124,7 +124,7 @@
 					var imageInfo = null;
 
 					util.image.imageInfo( {
-						'cache': datatables.defaults.cache,
+						'cache': datatables.defaults.cacheImageInfo,
 						'width': datatables.defaults.thumbSize,
 						'title': title
 					}, function( isCached, info ) {
@@ -387,7 +387,7 @@
 				}
 			} );
 
-			// Information
+			// Disclaimer and content source text
 			queryPanel.panel( 'portlet', {
 				'class'  : 'information',
 				'title'  : mw.msg( 'srf-ui-datatables-label-information' ),
@@ -395,8 +395,11 @@
 			} )
 			.find( 'fieldset > legend' )
 			.after(
-				html.element( 'p', {}, mw.msg( 'srf-ui-datatables-panel-information-text' )
-			) );
+				html.element( 'p', { 'class': 'disclaimer' }, mw.msg( 'srf-ui-datatables-panel-disclaimer' ) )
+			)
+			.after(
+				html.element( 'p', { 'class': 'content-source' }, mw.msg( 'srf-ui-datatables-label-content-server' ) )
+			);
 
 			// Refresh button
 			$( html.element( 'span', { 'class': 'button' } ) )
@@ -463,6 +466,8 @@
 		 * in MW 1.21 therefore instead of being customizable those settings are
 		 * going to be fixed
 		 *
+		 * TTl (if enabled) cache for resultObject is set to be 15 min by default
+		 * TTl (if enabled) cache for imageInfo is set to be 24 h
 		 *
 		 * @since  1.9
 		 *
@@ -471,7 +476,8 @@
 		defaults: {
 			autoUpdate: mw.user.options.get( 'srf-prefs-datatables-options-update-default' ),
 			userIsKnown: mw.config.get( 'wgUserName' ),
-			cache: mw.user.options.get( 'srf-prefs-datatables-options-cache-default' ) ? 86400000 : false,
+			cacheImageInfo: mw.user.options.get( 'srf-prefs-datatables-options-cache-default' ) ? 86400000 : false,
+			cacheApi: mw.user.options.get( 'srf-prefs-datatables-options-cache-default' ),
 			// thumbSize: mw.config.get( 'srf' ).options.thumbsize[mw.user.options.get( 'thumbsize' )],
 			// inlineLimit: mw.config.get( 'smw' ).options['QMaxInlineLimit']
 			thumbSize: 180,
@@ -578,7 +584,7 @@
 			var query = new smw.api.query( printouts, parameters, conditions ).toString();
 
 			// Fetch data via Ajax/SMWAPI
-			smwApi.fetch( query )
+			smwApi.fetch( query, datatables.defaults.cacheApi )
 			.done( function ( result ) {
 
 				// Copy result query data and run a result parse
@@ -589,6 +595,11 @@
 				data.table.fnClearTable();
 				data.table.fnAddData( data.aaData );
 				data.table.fnDraw();
+
+				// Update information from where the content was derived
+				context.find( '#srf-panel-information .content-source' )
+				.toggleClass( 'cache', result.isCached )
+				.text( result.isCached ? mw.msg( 'srf-ui-datatables-label-content-cache' ) : mw.msg( 'srf-ui-datatables-label-content-server' ) );
 
 				// Update conditions text-field content
 				context.find( '#condition' ).val( data.query.ask.conditions );

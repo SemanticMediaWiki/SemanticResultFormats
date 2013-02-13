@@ -128,6 +128,10 @@
 	width: 200px;
 }
 
+.srf-datatables .srf-panel .content-source.cache {
+	color: rgba(141, 192, 219, 0.85);
+}
+
 .srf-datatables .conditions textarea {
 	word-wrap: break-word;
 	height: 75px;

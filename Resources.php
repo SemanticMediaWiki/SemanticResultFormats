@@ -111,12 +111,6 @@ return array(
 		)
 	),
 
-	// jStorage was added in MW 1.20 and for all other releases register as compat module
-	'ext.jquery.jStorage' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/jquery.jStorage.js',
-		'dependencies' => 'jquery.json',
-	),
-
 	// SRF specific printer independent utility resources
 	'ext.srf' => $moduleTemplate + array(
 		'scripts' => 'resources/ext.srf.js',
@@ -895,7 +889,7 @@ return array(
 			'srf-ui-datatables-label-parameters',
 			'srf-ui-datatables-label-filters',
 			'srf-ui-datatables-label-information',
-			'srf-ui-datatables-panel-information-text',
+			'srf-ui-datatables-panel-disclaimer',
 			'srf-ui-datatables-label-update-success',
 			'srf-ui-datatables-label-update-error',
 			'srf-ui-datatables-label-sEmptyTable',
@@ -918,7 +912,9 @@ return array(
 			'srf-ui-datatables-label-multiselect-column-header',
 			'srf-ui-datatables-label-multiselect-column-noneselectedtext',
 			'srf-ui-datatables-label-multiselect-column-selectedtext',
-			'srf-ui-datatables-label-placeholder-column-search'
+			'srf-ui-datatables-label-placeholder-column-search',
+			'srf-ui-datatables-label-content-cache',
+			'srf-ui-datatables-label-content-server'
 		)
 	),
 

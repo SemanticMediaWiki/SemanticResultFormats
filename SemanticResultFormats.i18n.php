@@ -229,9 +229,12 @@ $messages['en'] = array(
 	'srf-ui-datatables-label-parameters' => 'Parameters',
 	'srf-ui-datatables-label-filters' => 'Column filters and search',
 	'srf-ui-datatables-label-information' => 'Information',
-	'srf-ui-datatables-panel-information-text' => 'Parameters and conditions can be altered but any change is temporary and restored after a page refresh.',
+	'srf-ui-datatables-panel-disclaimer' => 'Parameters and conditions can be altered but any change is temporary and restored after a page refresh.',
 	'srf-ui-datatables-label-update-success' => 'The table update was successful',
 	'srf-ui-datatables-label-update-error' => 'The table update failed.',
+	'srf-ui-datatables-label-placeholder-column-search' => 'Search ...',
+	'srf-ui-datatables-label-content-cache' => 'The content was derived from local cache.',
+	'srf-ui-datatables-label-content-server' => 'The content was derived from the server.',
 	'srf-ui-datatables-label-multiselect-column-header' => 'Available columns',
 	'srf-ui-datatables-label-multiselect-column-noneselectedtext' => 'Filter settings',
 	'srf-ui-datatables-label-multiselect-column-selectedtext' => 'Columns are visible',
@@ -674,7 +677,7 @@ Information on terms used: [[wikipedia:Error bar|error bar]], [[wikipedia:Standa
 	'srf-ui-datatables-label-parameters' => '{{doc-smw-ui-label|parameters}}',
 	'srf-ui-datatables-label-filters' => '{{doc-smw-ui-label|filters}}',
 	'srf-ui-datatables-label-information' => '{{doc-smw-ui-label|information}}',
-	'srf-ui-datatables-panel-information-text' => 'Some textual information for the user',
+	'srf-ui-datatables-panel-disclaimer' => 'Some textual information for the user',
 	'srf-ui-datatables-label-sEmptyTable' => '{{doc-smw-ui-label|sEmptyTable}}',
 	'srf-ui-datatables-label-sInfo' =>  '{{doc-smw-ui-label|sInfo}}',
 	'srf-ui-datatables-label-sInfoEmpty' => '{{doc-smw-ui-label|sInfoEmpty}}',
@@ -696,6 +699,8 @@ Information on terms used: [[wikipedia:Error bar|error bar]], [[wikipedia:Standa
 	'srf-ui-datatables-label-multiselect-column-noneselectedtext' => '{{doc-smw-ui-label|multiselect-column-noneselectedtext}}',
 	'srf-ui-datatables-label-multiselect-column-selectedtext' => '{{doc-smw-ui-label|multiselect-column-selectedtext}}',
 	'srf-ui-datatables-label-placeholder-column-search' => '{{doc-smw-ui-label|placeholder-column-search}}',
+	'srf-ui-datatables-label-content-cache' => '{{doc-smw-ui-label|content-cache}}',
+	'srf-ui-datatables-label-content-server' => '{{doc-smw-ui-label|content-server}}'
 );
 
 /** Afrikaans (Afrikaans)
