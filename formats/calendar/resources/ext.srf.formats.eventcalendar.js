@@ -200,7 +200,7 @@
 										rowDesc.push( parameters.headers === 'hide' ? value.fulltext : property + ':' + value.fulltext );
 									}
 								} else {
-									if ( property === 'title' && value.fulltext !== undefined ){
+									if ( property === 'title' && value !== undefined ){
 										rowData.title = value;
 									} else if ( property === 'color' ) {
 										rowData.color = value;
