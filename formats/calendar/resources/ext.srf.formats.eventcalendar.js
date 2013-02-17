@@ -273,15 +273,14 @@
 					 * @return object
 					 */
 					minmax: function(){
-						var min = '',
-							max = '';
-							$.each ( dates, function( key, value ) {
-								if ( min === '' ) {
-									min = value;
-								} else if ( max === '' ) {
-									max = value;
-								} else {
-									min = parseInt( value, 10 ) < parseInt ( min, 10 ) ? value : min;
+						var min = 0,
+							max = 0;
+							$.map ( dates, function( value ) {
+								if ( value !== '' ) {
+									// 0 would be always (in the context given) min
+									// but this is not what is of interest here therefore
+									// in case min is 0 set it to the next value known
+									min = parseInt( value, 10 ) < parseInt ( min, 10 ) ? value : min === 0 ? value : min;
 									max = parseInt( value, 10 ) > parseInt ( max, 10 ) ? value : max;
 								}
 							} );

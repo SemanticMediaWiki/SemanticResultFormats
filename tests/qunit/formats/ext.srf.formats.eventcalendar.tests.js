@@ -87,7 +87,7 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'startDate', 9, function ( assert ) {
+	QUnit.test( 'startDate', 10, function ( assert ) {
 
 		var calendar = new srf.formats.eventcalendar();
 
@@ -113,9 +113,13 @@
 		assert.equal( results.getDate(), '4' , pass + 'get( "latest" ) returned 1' );
 
 		var testData = [ '633830400', '634176000', '1262563200' ];
-
 		var results = calendar.test._startDate( testData ).minmax();
-		assert.deepEqual( results, {"max": "1262563200","min": "633830400"}, pass + 'minmax() returned an object' );
+		assert.deepEqual( results, {"max": "1262563200","min": "633830400"}, pass + 'minmax() returned the correct object' );
+
+		// I7156d76086b62: Regression test
+		var testData = ["1360886400", "1347753600", "1347753600", "1347926400", "1347926400"];
+		var results = calendar.test._startDate( testData ).minmax();
+		assert.deepEqual( results, {"max": "1360886400","min": "1347753600"}, pass + 'minmax() returned the correct object' );
 
 	} );
 
