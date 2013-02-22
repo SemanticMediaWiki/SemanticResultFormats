@@ -2,7 +2,7 @@
  * CSS for the SRF dataTables module
  *
  * @since 1.9
- * @release 0.1
+ * @version 0.2.5
  *
  * @file
  * @ingroup SRF
@@ -31,7 +31,7 @@
 	margin-right: 10px;
 	display:none;
 	min-width: 17em;
-	margin-top: 26px;
+	margin-top: 0px;
 }
 
 .srf-datatables .srf-panel fieldset {
@@ -54,6 +54,19 @@
     font-size: 110%;
     line-height: 16px;
     color: #333;
+}
+
+.srf-datatables .srf-panel .query-link {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.srf-datatables .srf-panel .export {
+	padding: 0.35em 0.3em 0.35em 0.3em;
+	border: 1px solid gainsboro;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
 }
 
 .srf-datatables .parameters .label {

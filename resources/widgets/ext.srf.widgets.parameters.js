@@ -61,11 +61,11 @@
 				max: options.max,
 				step: options.step,
 				slide: function( event, ui ){
-					self._limitParameterUpdate( { limit: self._limitConstrain( ui.value ) } );
+					self._limitParameterUpdate( { limit: self._limitConstrain( ui.value, options.max ) } );
 				},
 				change: function( event, ui ){
 					if ( $.isFunction( options.change ) ){
-						options.change( event, { value : self._limitConstrain( ui.value )  } );
+						options.change( event, { value : self._limitConstrain( ui.value, options.max )  } );
 					}
 				}
 			} );
@@ -92,8 +92,8 @@
 			}
 		},
 
-		_limitConstrain: function( value ){
-			return value > 1 ? value - 1 : value;
+		_limitConstrain: function( value, max ){
+			return value > 1 ? value >= max ? max : value - 1 : value;
 		},
 
 		/**

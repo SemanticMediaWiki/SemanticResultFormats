@@ -4,7 +4,7 @@
  * @see http://datatables.net/
  *
  * @since 1.9
- * @release 0.1
+ * @version 0.2.5
  *
  * @file
  * @ingroup SRF
@@ -173,19 +173,28 @@
 								columnIndex++;
 								var collectedValueItem = '';
 
-								$.map ( values, function( value, key ) {
+								$.map ( values, function( DI, key ) {
+									// For multiple values within one row/column use a separator
 									collectedValueItem += collectedValueItem !== '' && key >= 0 ? '<br />' : '';
-									if ( value instanceof smw.dataItem.time  ){
-										collectedValueItem += value.getHtml();
-									} else if ( value instanceof smw.dataItem.wikiPage ){
-										collectedValueItem += createLink( value, linker, {
+
+									// dataItem
+									if ( DI instanceof smw.dataItem.time  ){
+										collectedValueItem += DI.getMediaWikiDate();
+									} else if ( DI instanceof smw.dataItem.wikiPage ){
+										collectedValueItem += createLink( DI, linker, {
 											column: columnIndex,
 											row: rowIndex
 										} );
-									} else if (  value instanceof smw.dataItem.uri ){
-										collectedValueItem += value.getHtml( linker );
-									} else if ( key >= 0 ) {
-										collectedValueItem += value;
+									} else if ( DI instanceof smw.dataItem.uri ){
+										collectedValueItem += DI.getHtml( linker );
+									} else if ( DI instanceof smw.dataItem.text ){
+										collectedValueItem += DI.getText();
+									} else if ( DI instanceof smw.dataItem.number ){
+										collectedValueItem += DI.getNumber();
+									} else if ( DI instanceof smw.dataValue.quantity ){
+										collectedValueItem += DI.getUnit() !== '' ? DI.getValue() + ' ' + DI.getUnit() : DI.getValue();
+									} else if ( DI instanceof smw.dataItem.unknown ){
+										collectedValueItem += DI.getValue();
 									}
 
 								} );
@@ -218,6 +227,51 @@
 				// Parse and return results
 				return getResults( data.query.ask.parameters, data.query.result.results );
 			}
+		},
+
+		/**
+		 * Export links
+		 *
+		 * Depending on the event that invokes a change, adopt the link query
+		 *
+		 * @private
+		 * @return void
+		 */
+		exportlinks: function( context, data ) {
+			var exportLinks = context.find( '#srf-panel-export > .center' ),
+				parameters = data.query.ask.parameters,
+				printouts = [];
+
+			// Only columns that are visible are supposed to be part of the export links
+			$.each( data.table.fnSettings().aoColumns, function( index, column ) {
+				if ( column.bVisible ){
+					printouts.push( data.query.ask.printouts[index] );
+				}
+			} ) ;
+
+			// Manage individual links
+			$.each( datatables.defaults.exportFormats, function( format, name ) {
+				var formatLink = exportLinks.find( '.' + format );
+
+				// Create element if it doesn't exists
+				if ( formatLink.length === 0 ) {
+					formatLink = exportLinks.append( html.element( 'span', { 'class': format } ) ).find( '.' + format );
+				}
+
+				// Set name and format
+				parameters.format = format;
+				parameters.searchlabel = name;
+
+				// Create link
+				var link = new smw.Query(
+					printouts,
+					parameters,
+					data.query.ask.conditions ).getLink();
+
+				// Remove previous and append an updated link
+				formatLink.find( 'a' ).remove();
+				formatLink.append( link );
+			} ) ;
 		},
 
 		/**
@@ -267,6 +321,16 @@
 				'show': false
 			} );
 
+			// Add exportFormat portlet
+			queryPanel.panel( 'portlet', {
+				'class'  : 'export',
+				'fieldset': false
+			} )
+			.append( html.element( 'div', { 'class': 'center' } ) );
+
+			// Init export links
+			_datatables.exportlinks( context, data );
+
 			// Map available columns
 			var columnList = [];
 			$.each( data.table.fnSettings().aoColumns, function( key, item ) {
@@ -304,7 +368,10 @@
 				minWidth: 'auto',
 				click: function( event, ui ) {
 					var bVis = data.table.fnSettings().aoColumns[ui.value].bVisible;
-					data.table.fnSetColumnVis( ui.value, bVis ? false : true );
+					data.table.fnSetColumnVis( ui.value, !bVis );
+
+					// Update export links
+					_datatables.exportlinks( context, data );
 				}
 			} );
 
@@ -466,8 +533,8 @@
 		 * in MW 1.21 therefore instead of being customizable those settings are
 		 * going to be fixed
 		 *
-		 * TTl (if enabled) cache for resultObject is set to be 15 min by default
-		 * TTl (if enabled) cache for imageInfo is set to be 24 h
+		 * TTL (if enabled) cache for resultObject is set to be 15 min by default
+		 * TTL (if enabled) cache for imageInfo is set to be 24 h
 		 *
 		 * @since  1.9
 		 *
@@ -481,7 +548,8 @@
 			// thumbSize: mw.config.get( 'srf' ).options.thumbsize[mw.user.options.get( 'thumbsize' )],
 			// inlineLimit: mw.config.get( 'smw' ).options['QMaxInlineLimit']
 			thumbSize: 180,
-			inlineLimit: 500
+			inlineLimit: 750,
+			exportFormats: { 'csv': 'CSV', 'rss': 'RSS', 'json': 'JSON', 'rdf': 'RDF' }
 		},
 
 		/**
@@ -581,10 +649,10 @@
 				};
 
 			// Stringify the query
-			var query = new smw.api.query( printouts, parameters, conditions ).toString();
+			var queryString = new smw.Query( printouts, parameters, conditions ).toString();
 
 			// Fetch data via Ajax/SMWAPI
-			smwApi.fetch( query, datatables.defaults.cacheApi )
+			smwApi.fetch( queryString, datatables.defaults.cacheApi )
 			.done( function ( result ) {
 
 				// Copy result query data and run a result parse
@@ -610,6 +678,9 @@
 						'limit': data.query.ask.parameters.limit,
 						'count': data.query.result.meta.count
 				} ) ;
+
+				// Update export links
+				_datatables.exportlinks( context, data );
 
 				context.unblock( {
 					onUnblock: function(){ util.notification.create ( {

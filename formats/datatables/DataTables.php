@@ -54,7 +54,7 @@ class DataTables extends SMW\ApiResultPrinter {
 		$id = $this->getId();
 
 		// Add options
-		$data['version'] = '0.1';
+		$data['version'] = '0.2.5';
 
 		// Encode data object
 		$this->encode( $id, $data );

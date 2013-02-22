@@ -11,7 +11,8 @@
 .srf-datatables .bordered-table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
 .srf-datatables .bordered-table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
 
-.srf-datatables table{width:100%;margin-bottom:18px;padding:0;font-size:13px;border-collapse:collapse;}table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
+.srf-datatables table{width:100%;margin-bottom:18px;padding:0;font-size:13px;border-collapse:collapse;}
+.srf-datatables table th,.srf-datatables table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
 .srf-datatables table th{padding-top:9px;font-weight:bold;vertical-align:middle;}
 .srf-datatables table td{vertical-align:top;border-top:1px solid #ddd;}
 .srf-datatables table tbody th{border-top:1px solid #ddd;vertical-align:top;}
