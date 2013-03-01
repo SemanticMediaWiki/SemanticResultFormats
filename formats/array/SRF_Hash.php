@@ -69,7 +69,7 @@ class SRFHash extends SRFArray {
 	 *
 	 * @since 1.8
 	 *
-	 * @param $definitions array of IParamDefinition
+	 * @param IParamDefinition[] $definitions
 	 *
 	 * @return array of IParamDefinition|array
 	 */
@@ -77,7 +77,7 @@ class SRFHash extends SRFArray {
 		$params = parent::getParamDefinitions( $definitions );
 
 		unset( $params['pagetitle'] ); // page title is Hash key, otherwise, just use Array format!
-		$params['name']->setMessage( 'srf_paramdesc_hashname' );
+		$params['name']['message'] = 'srf_paramdesc_hashname';
 
 		return $params;
 	}
