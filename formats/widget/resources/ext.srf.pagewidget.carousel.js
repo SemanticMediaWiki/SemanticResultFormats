@@ -84,7 +84,7 @@
 					.text( mw.msg( 'srf-ui-common-label-source' ) );
 			}
 
-			// Hide TOC as it will disturb the embedded display behaviour
+			// Hide TOC as it will disturb the embedded display behavior
 			container.find ( '.toc' ).css ( { 'display': 'none' } );
 
 			// Current slider instance
