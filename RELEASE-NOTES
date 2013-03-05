@@ -24,6 +24,7 @@ production until the actual release.
 ; New features
 
 * (I3f7407a1) EventCalendar SMWAPI/Ajax integration
+* (I65cc4854) tree format: new parameters 'root' and 'start level'
 
 ; Other improvements and changes
 
@@ -34,6 +35,8 @@ production until the actual release.
 * Introduce PHP SRF\ namespaces
 
 ; Bug fixes
+
+* tree format: root elements not included
 
 == SRF 1.8 ==
 

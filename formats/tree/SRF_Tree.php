@@ -2,23 +2,26 @@
 
 /**
  * File holding the SRFTree class.
- * 
+ *
  * @file
  * @ingroup SemanticResultFormats
  * @author Stephan Gambke
- * 
+ *
  */
 
 /**
  * Result printer that prints query results as a tree (nested html lists).
- * 
+ *
  * The available formats are 'tree', 'ultree', 'oltree'. 'tree' is an alias of
  * 'ultree'. In an #ask query the parameter 'parent' must be set to contain the
  * name of the property, that gives the parent page of the subject page.
- * 
+ *
  */
 class SRFTree extends SMWListResultPrinter {
+
 	protected $mTreeProp = null;
+	protected $mRoot = null;
+	protected $mStartLevel = 1;
 
 	/**
 	 * (non-PHPdoc)
@@ -47,6 +50,7 @@ class SRFTree extends SMWListResultPrinter {
 		// $this->mColumns = !$this->isPlainlist() ? $params['columns'] : 1;
 		// $this->mIntroTemplate = $params['introtemplate'];
 		// $this->mOutroTemplate = $params['outrotemplate'];
+
 		// Don't support pagination in trees
 		$this->mSearchlabel = null;
 
@@ -56,9 +60,9 @@ class SRFTree extends SMWListResultPrinter {
 		// Trees support only one column
 		$this->mColumns = 1;
 
-		if ( array_key_exists( 'parent', $params ) ) {
-			$this->mTreeProp = $params['parent'];
-		}
+		$this->mTreeProp = $params['parent'];
+		$this->mRoot = $params['root'];
+		$this->mStartLevel = $params['start level'];
 	}
 
 	/**
@@ -66,116 +70,127 @@ class SRFTree extends SMWListResultPrinter {
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 
-		if ( $this->mTreeProp === null || $this->mTreeProp === '' ) {
+		if ( $this->mTreeProp === '' ) {
 			$res->addErrors( array( wfMessage( 'srf-noparentprop' )->inContentLanguage()->text() ) );
 			return '';
 		}
 
 		$store = $res->getStore();
-			
 
-		// first put everything in a list
-		// elements appearing more than once will be inserted more than once,
-		// but only one instance will be inserted with the hash
-		// only this instance will be considered as a parent element in the tree
-		$list = array( );
+		// put everything in a list and set parent hashes
+		// elements appearing more than once will be inserted more than once and
+		// elements with more than one parent will be cloned for each parent,
+		// but only one instance will ever be inserted with the hash and
+		// only this instance will later be considered as a parent element in the tree
+		$tree = array( );
 
 		while ( $row = $res->getNext() ) {
 
+			$element = new SRFTreeElement( $row );
+
 			$hash = $row[0]->getResultSubject()->getSerialization();
-
-			if ( array_key_exists( $hash, $list ) ) {
-				$list[] = new SRFTreeElement( $row );
-			} else {
-				$list[$hash] = new SRFTreeElement( $row );
+			if ( array_key_exists( $hash, $tree ) ) {
+				$hash = null;
 			}
-		}
-
-		// transfer the listelements into the tree
-		// elements with more than one parent will be cloned for each parent
-		$tree = array( );
-
-		foreach ( $list as $hash => $listElem ) {
-
+			
 			$parents = $store->getPropertyValues(
-				$listElem->mRow[0]->getResultSubject(),
-				SMWDIProperty::newFromUserLabel($this->mTreeProp)
-				);
+					$element->mRow[0]->getResultSubject(), SMWDIProperty::newFromUserLabel( $this->mTreeProp )
+			);
 
-			// transfer element from list to tree
-			foreach ( $parents as $parent ) {
-				$parentPageHash = $parent->getSerialization();
-
+			if ( empty( $parents ) ) {
+				// no parents: copy into tree as root level item
 				if ( $hash !== null ) {
-
-					if ( array_key_exists( $parentPageHash, $list ) ) {
-						$listElem->mParent = $parentPageHash;
-					}
-
-					$tree[$hash] = $listElem;
-					$hash = null;
+					$tree[$hash] = $element;
 				} else {
-					$treeElem = clone $listElem;
+					$tree[] = $element;					
+				}
+			} else {
+				// one or more parents: copy one copy per parent into tree
 
-					if ( array_key_exists( $parentPageHash, $list ) ) {
-						$treeElem->mParent = $parentPageHash;
+				foreach ( $parents as $parent ) {
+
+					if ( $hash !== null ) {
+
+						$tree[$hash] = $element;
+						$hash = null;
 					} else {
-						$treeElem->mParent = null;
+
+						$element = clone $element;
+						$tree[] = $element;
 					}
 
-					$tree[] = $treeElem;
+					$element->mParent = $parent->getSerialization();
 				}
 			}
 		}
 
-			
-			foreach ( $tree as $hash => $value ) {
+		$rootElements = array();
 
-			}
-		// build pointers from parants to children
-		foreach ( $tree as $hash => $treeElem ) {
-
-			if ( $treeElem->mParent != null ) {
-				$tree[$treeElem->mParent]->mChildren[] = $treeElem;
-			}
-		}
-
-		// remove children from toplevel
-		foreach ( $tree as $hash => $treeElem ) {
-
-			if ( $treeElem->mParent != null ) {
-				unset ($tree[$hash]);
+		// build pointers from parents to children and remove pointers to parents that don't exist in the tree
+		foreach ( $tree as $hash => $element ) {
+			if ( $element->mParent !== null ) {
+				if ( array_key_exists( $element->mParent, $tree ) ) {
+					$tree[$element->mParent]->mChildren[] = $element;
+				} else {
+					$element->mParent = null;
+					$rootElements[$hash] = $element;
+				}
+			} else {
+				$rootElements[$hash] = $element;
 			}
 		}
-		
+
 		$result = '';
 		$rownum = 0;
 
-		foreach ( $tree as $hash => $treeElem ) {
+		// if a specific page was specified as root element of the tree
+		if ( $this->mRoot !== '' ) {
 
-			$this->printElement( $result, $treeElem, $row );
+			// get the title object of the root page
+			$rootTitle = Title::newFromText( $this->mRoot );
+
+			if ( $rootTitle === null ) {
+				$res->addErrors( array( wfMessage( 'srf-rootinvalid' )->params( $this->mRoot )->inContentLanguage()->text() ) );
+				return '';
+			}
+
+			$rootSerialization = SMWDIWikiPage::newFromTitle( $rootTitle )->getSerialization();
+
+			// find the root page in the tree and print it and its subtree
+			if ( array_key_exists( $rootSerialization, $tree ) ) {
+				$this->printElement( $result, $tree[$rootSerialization], $rownum, $this->mStartLevel );
+			}
+
+		} else {
+
+			// iterate through all tree elements
+			foreach ( $rootElements as $hash => $element ) {
+				// print current root element and its subtree
+				$this->printElement( $result, $element, $rownum, $this->mStartLevel );
+			}
+
 		}
 
 		return $result;
 	}
 
 	protected function printElement( &$result, SRFTreeElement &$element, &$rownum, $level = 1 ) {
-		
+
 		$rownum++;
-		
+
 		$result .= str_pad( '', $level, ($this->mFormat == 'oltree')?'#':'*'  );
-			
+
 		if ( $this->mTemplate !== '' ) { // build template code
 			$this->hasTemplates = true;
 			$wikitext = ( $this->mUserParam ) ? "|userparam=$this->mUserParam" : '';
-			
+
 			foreach ( $element->mRow as $i => $field ) {
 				$wikitext .= '|' . ( $this->mNamedArgs ? '?' . $field->getPrintRequest()->getLabel() : $i + 1 ) . '=';
 				$first_value = true;
-				
+
 				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI,
 				$this->getLinker( $i == 0 ) ) ) !== false ) {
-					
+
 					if ( $first_value ) {
 						$first_value = false;
 					} else {
@@ -184,47 +199,47 @@ class SRFTree extends SMWListResultPrinter {
 					$wikitext .= $text;
 				}
 			}
-			
+
 			$wikitext .= "|#=$rownum";
 			$result .= '{{' . $this->mTemplate . $wikitext . '}}';
 			// str_replace('|', '&#x007C;', // encode '|' for use in templates (templates fail otherwise) -- this is not the place for doing this, since even DV-Wikitexts contain proper "|"!
 		} else {  // build simple list
 			$first_col = true;
 			$found_values = false; // has anything but the first column been printed?
-			
+
 			foreach ( $element->mRow as $field ) {
 				$first_value = true;
-				
+
 				$field->reset();
-				
+
 				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getLinker( $first_col ) ) ) !== false ) {
-					
+
 					if ( !$first_col && !$found_values ) { // first values after first column
 						$result .= ' (';
 						$found_values = true;
 					}
-					
+
 					if ( $first_value ) { // first value in any column, print header
 						$first_value = false;
-						
-						if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && 
+
+						if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) &&
 							( $field->getPrintRequest()->getLabel() !== '' ) ) {
 							$result .= $field->getPrintRequest()->getText( SMW_OUTPUT_WIKI, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null:$this->mLinker ) ) . ' ';
 						}
 					}
-					
+
 					$result .= $text; // actual output value
-					
+
 				}
-				
+
 				$first_col = false;
 			}
-			
+
 			if ( $found_values ) $result .= ')';
 		}
-		
+
 		$result .= "\n";
-				
+
 		foreach ( $element->mChildren as $hash => $treeElem ) {
 
 			$this->printElement($result, $treeElem, $rownum, $level + 1);
@@ -247,6 +262,17 @@ class SRFTree extends SMWListResultPrinter {
 		$params['parent'] = array(
 			'default' => '',
 			'message' => 'srf-paramdesc-parent',
+		);
+
+		$params['root'] = array(
+			'default' => '',
+			'message' => 'srf-paramdesc-root',
+		);
+
+		$params['start level'] = array(
+			'default' => 1,
+			'message' => 'srf-paramdesc-startlevel',
+			'type' => 'integer',
 		);
 
 		return $params;
