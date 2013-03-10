@@ -122,6 +122,8 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	public function getName() {
+		// Give grep a chance to find the usages:
+		// srf_printername_outline, srf_printername_sum, srf_printername_average, srf_printername_max
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 

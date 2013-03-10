@@ -28,6 +28,8 @@ class SRFTree extends SMWListResultPrinter {
 	 * @see SMWResultPrinter::getName()
 	 */
 	public function getName() {
+		// Give grep a chance to find the usages:
+		// srf_printername_tree, srf_printername_ultree, srf_printername_oltree
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 

@@ -19,6 +19,9 @@ class SRFMath extends SMWResultPrinter {
 	 * @see SMWResultPrinter::getName()
 	 */
 	public function getName() {
+		// Give grep a chance to find the usages:
+		// srf_printername_max, srf_printername_min, srf_printername_sum,
+		// srf_printername_product, srf_printername_average, srf_printername_median
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 

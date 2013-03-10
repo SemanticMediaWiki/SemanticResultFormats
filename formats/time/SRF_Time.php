@@ -18,6 +18,8 @@ class SRFTime extends SMWResultPrinter {
 	 * @see SMWResultPrinter::getName()
 	 */
 	public function getName() {
+		// Give grep a chance to find the usages:
+		// srf_printername_latest, srf_printername_earliest
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 

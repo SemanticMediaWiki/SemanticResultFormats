@@ -45,6 +45,8 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	public function getName() {
+		// Give grep a chance to find the usages:
+		// srf_printername_array, srf_printername_hash
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 	

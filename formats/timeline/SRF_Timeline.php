@@ -44,6 +44,8 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 	
 	public function getName() {
+		// Give grep a chance to find the usages:
+		// srf_printername_timeline, srf_printername_eventline
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
