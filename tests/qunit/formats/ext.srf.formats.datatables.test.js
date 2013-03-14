@@ -45,7 +45,7 @@
 		var data = smwAPI.parse( _uriTestCase );
 		var result = datatables.test._parse.results( context, data );
 		assert.equal( result.aaData.length, 2, pass + 'the result parsing returned an aaData array' );
-		assert.equal( data.aoColumns.length, 2, pass + 'the result parsing returned an aoColumns array' );
+		assert.equal( data.aoColumnDefs.length, 2, pass + 'the result parsing returned an aoColumnDefs array' );
 
 	} );
 

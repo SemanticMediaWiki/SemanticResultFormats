@@ -11,6 +11,11 @@
  * @author mwjames
  */
 
+/* Type dependant formatting */
+.srf-datatables .smwtype_num {
+	text-align: right;
+}
+
 /* Basis setting */
 .srf-datatables .button-space {
 	margin-left: 10px;

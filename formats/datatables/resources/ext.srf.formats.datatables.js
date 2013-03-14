@@ -217,12 +217,18 @@
 					return { 'aaData': aaData };
 				}
 
-				// Create column definitions (see aoColumns)
-				var aoColumns = [];
-				$.map ( data.query.result.printrequests, function( property ) {
-					aoColumns.push( { 'mData': property.label, 'sTitle': property.label } );
+				// Create column definitions (see aoColumnDefs)
+				// @see http://www.datatables.net/usage/columns
+				var aoColumnDefs = [];
+				$.map ( data.query.result.printrequests, function( property, index ) {
+					aoColumnDefs.push( {
+						'mData': property.label,
+						'sTitle': property.label,
+						'sClass': 'smwtype' + property.typeid,
+						'aTargets': [index]
+					} );
 				} );
-				data.aoColumns = aoColumns;
+				data.aoColumnDefs = aoColumnDefs;
 
 				// Parse and return results
 				return getResults( data.query.ask.parameters, data.query.result.results );
@@ -239,8 +245,11 @@
 		 */
 		exportlinks: function( context, data ) {
 			var exportLinks = context.find( '#srf-panel-export > .center' ),
-				parameters = data.query.ask.parameters,
+				parameters = {},
 				printouts = [];
+
+			// Clone data into new object in order to keep it local
+			$.extend( true, parameters, data.query.ask.parameters );
 
 			// Only columns that are visible are supposed to be part of the export links
 			$.each( data.table.fnSettings().aoColumns, function( index, column ) {
@@ -268,7 +277,7 @@
 					parameters,
 					data.query.ask.conditions ).getLink();
 
-				// Remove previous and append an updated link
+				// Remove previous link and append with an updated one
 				formatLink.find( 'a' ).remove();
 				formatLink.append( link );
 			} ) ;
@@ -596,7 +605,7 @@
 				'bAutoWidth': false,
 				'oLanguage': _datatables.oLanguage,
 				'aaData': data.aaData,
-				'aoColumns': data.aoColumns
+				'aoColumnDefs': data.aoColumnDefs
 			} );
 
 			// Bind the imageInfo trigger and update the appropriate table cell
