@@ -200,7 +200,7 @@ $messages['en'] = array(
 	// formats "array" and "hash"
 	'srf_printername_array' => 'Array',
 	'srf_paramdesc_pagetitle' => 'Whether to show page titles as result entries or to leave them out',
-	'srf_paramdesc_hidegaps' => 'Whether to print requested but unavailable property and record values separated by separators or leaving them out',
+	'srf_paramdesc_hidegaps' => 'Whether to print requested, but unavailable property and record values separated by separators or leaving them out',
 	'srf_paramdesc_arrayname' => 'If given and ArrayExtension is available this will create an array with the specified name (no visible output then)',
 	'srf_paramdesc_propsep' => 'Separator between the requested properties',
 	'srf_paramdesc_manysep' => 'Separator between many valued property values',
@@ -229,7 +229,7 @@ $messages['en'] = array(
 	'srf-ui-datatables-label-parameters' => 'Parameters',
 	'srf-ui-datatables-label-filters' => 'Column filters and search',
 	'srf-ui-datatables-label-information' => 'Information',
-	'srf-ui-datatables-panel-disclaimer' => 'Parameters and conditions can be altered but any change is temporary and restored after a page refresh.',
+	'srf-ui-datatables-panel-disclaimer' => 'Parameters and conditions can be altered, but any change is temporary and restored after a page refresh.',
 	'srf-ui-datatables-label-update-success' => 'The table update was successful',
 	'srf-ui-datatables-label-update-error' => 'The table update failed.',
 	'srf-ui-datatables-label-placeholder-column-search' => 'Search ...',
