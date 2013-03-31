@@ -42,6 +42,10 @@ final class SRFHooks {
 	public static function registerUnitTests( array &$files ) {
 		// Keep this in alphabetical order please!
 		$testFiles = array(
+
+			'Resources',
+
+			// Formats
 			'formats/Array',
 			'formats/Dygraphs',
 			'formats/EventCalendar',
