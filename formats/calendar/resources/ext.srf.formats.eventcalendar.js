@@ -8,7 +8,7 @@
  * implementation
  *
  * @since 1.8
- * @release 0.7.5
+ * @version 0.8
  *
  * @file
  * @ingroup SRF
@@ -19,10 +19,21 @@
 ( function( $, mw, srf ) {
 	'use strict';
 
-	////////////////////////// PRIVATE OBJECTS ////////////////////////
+	/* Private methods and objects */
 
+	/**
+	 * Helper objects
+	 *
+	 * @since 1.9
+	 *
+	 * @ignore
+	 * @private
+	 * @static
+	 */
 	var html = mw.html,
-		profile = $.client.profile();
+		profile = $.client.profile(),
+		smwApi = new smw.api(),
+		util = new srf.util();
 
 	/**
 	 * Calendar related utility functions
@@ -41,7 +52,6 @@
 			color: '#48a0d5',
 			dateFormat: 'yy-mm-dd',
 			descriptionLength: 100,
-			autoUpdate: mw.user.options.get( 'srf-prefs-eventcalendar-options-update-default' ),
 			paneView: mw.user.options.get( 'srf-prefs-eventcalendar-options-paneview-default' ),
 			slider: {
 				max: 1000,
@@ -72,9 +82,6 @@
 				// Google holiday calendar url
 				that.holiday = data.query.ask.parameters.gcalurl === null ? '' : data.query.ask.parameters.gcalurl;
 
-				// Set RTL direction
-				that.isRTL = $( 'html' ).attr( 'dir' ) === 'rtl' || false;
-
 				$.extend( this, that );
 			}
 		},
@@ -90,25 +97,22 @@
 		},
 
 		/**
+		 * Returns container data
+		 *
+		 * @private
+		 * @return {object}
+		 */
+		getData: function( container ) {
+			return mw.config.get( this.getID( container ) );
+		},
+
+		/**
 		 * Contains methods linked to the parsing of objects
 		 *
 		 * @since 1.9
 		 * @type Object
 		 */
 		parse: {
-
-			/**
-			 * Returns a parsed json object
-			 *
-			 * Objects set through using mw.config.set/mw.config.get
-			 *
-			 * @since 1.9
-			 * @type Object
-			 */
-			container: function( container ) {
-				var json = mw.config.get( _calendar.getID( container ) );
-				return typeof json === 'string' ? jQuery.parseJSON( json ) : json;
-			},
 
 			/**
 			 * Returns a parsed query result object
@@ -136,17 +140,8 @@
 			 */
 			api: function( data ) {
 
-				// Flatten value object
-				function getValue( values ){
-					var val = '';
-					$.each ( values, function( key, value ) {
-						val = value;
-					} );
-					return val;
-					}
-
 				// Transform results into the calendar specific array format
-				function getResults( parameters, printrequests, results ){
+				function getResults( parameters, results ){
 
 					var events = [],
 						dates = [],
@@ -159,70 +154,74 @@
 							prevElement = '';
 
 						// Subject
-						if ( rowData.url === undefined ) {
-							rowData.url = parameters.link === 'none' ? null : subject.fullurl;
-							rowData.title = subject.fulltext;
+						if ( rowData.url === undefined && subject instanceof smw.dataItem.wikiPage ) {
+							rowData.url = parameters.link === 'none' ? null : subject.getUri();
+							rowData.title = subject.getName();
 						}
 
 						if ( $.inArray( 'printouts', subject ) ) {
 							$.each ( subject.printouts, function( property, values ) {
-								var value = getValue( values );
 
-								// Date/Time type properties
-								if (  printrequests.getTypeId( property ) === '_dat' ){
-									// The date with the lower position becomes the start date
-									if ( prevElement === '' ) {
-										prevElement = printrequests.getPosition( property );
-										rowData.start = _calendar.api.results.dataValues.time.getISO8601Date( value );
-										dates.push( value );
-										rowData.allDay = true;
-									} else if ( prevElement < printrequests.getPosition( property ) && value !== '' ) {
-										rowData.end = _calendar.api.results.dataValues.time.getISO8601Date( value );
-										dates.push( value );
-										// Find those entries that don't have a specific time which
-										// means there are all day events
-										rowData.allDay = rowData.end.indexOf( '00:00:00' ) !== -1 || false;
+								$.map ( values, function( value ) {
+
+									// Time type properties
+									if ( value instanceof smw.dataItem.time ) {
+										if ( rowData.start === undefined ){
+											rowData.start = value.getDate().toISOString();
+											dates.push( value.getMwTimestamp() );
+											rowData.allDay = true;
+										} else {
+											rowData.end = value.getDate().toISOString();
+											dates.push( value.getMwTimestamp() );
+											var test = value.getISO8601Date();
+											rowData.allDay = test.indexOf( '00:00:00' ) !== -1 || false;
+										}
+									// Page type properties
+									} else if ( value instanceof smw.dataItem.wikiPage ) {
+
+										if ( property === 'title' && value.getName() !== undefined ) {
+											rowData.title = value.getFullText();
+										} else if ( property === 'icon' ){
+											rowData.eventicon = value.getFullText();
+										} else if ( property === data.query.ask.parameters.filterProperty ) {
+											rowData.filter = {
+												'value' : value.getFullText(),
+												'option': ( data.query.ask.parameters.filterType === 'filter' ? true: false )
+											};
+										} else if ( property !== '' ) {
+											rowDesc.push( parameters.headers === 'hide' ? value.getFullText() : property + ':' + value.getFullText() );
+										}
+
+									} else if ( $.type( value ) === 'object' ) {
+										if ( property === 'title' ){
+											rowData.title = value.getValue();
+										} else if ( property === 'color' ) {
+											rowData.color = value.getValue();
+										} else if ( property === 'iconclass' ) {
+											rowData.eventIconClass = value.getValue();
+										} else if ( property === data.query.ask.parameters.filterProperty ) {
+											rowData.filter = {
+												'value' : value.getValue(),
+												'option': ( data.query.ask.parameters.filterType === 'filter' ? true: false )
+											};
+										} else if ( property !== '' ) {
+											// Items without fixed identifiers remain part of a description
+											rowDesc.push( parameters.headers === 'hide' ? value.getValue() : property + ':' + value.getValue() );
+										}
 									}
 
-								// Page type properties
-								} else if (  printrequests.getTypeId( property ) === '_wpg' ){
-									if ( property === 'title' && value.fulltext !== undefined ){
-										rowData.title = value.fulltext;
-									} else if ( property === 'icon' ){
-										rowData.eventicon = value.fulltext;
-									} else if ( property === data.query.ask.parameters.filterProperty ) {
-										rowData.filter = { 'value' : value.fulltext, 'option': ( data.query.ask.parameters.filterType === 'filter' ? true: false ) };
-									} else if ( property !== '' ) {
-										// Do we have an external meta data description?
-										if ( printrequests.getMetaData( property ) !== null ){
-											metaData.push( [ property, value.fulltext ] );
-										}
-										rowDesc.push( parameters.headers === 'hide' ? value.fulltext : property + ':' + value.fulltext );
-									}
-								} else {
-									if ( property === 'title' && value !== undefined ){
-										rowData.title = value;
-									} else if ( property === 'color' ) {
-										rowData.color = value;
-									} else if ( property === data.query.ask.parameters.filterProperty ) {
-										rowData.filter = { 'value' : value, 'option': ( data.query.ask.parameters.filterType === 'filter' ? true: false ) };
-									} else if ( property !== '' ) {
-										// Do we have an external meta description?
-										if ( printrequests.getMetaData( property ) !== null ){
-											meta.push( [ property, value.fulltext ] );
-										}
-										// Items without fixed identifiers remain part of a description
-										rowDesc.push( parameters.headers === 'hide' ? value : property + ':' + value );
-									}
-								}
+								} );
 							} );
 							// Collect all descriptions
 							rowData.description = rowDesc.join(',');
-							rowData.metaData = metaData;
 						}
 
 						// Only care for entries that have at least a start date
-						if ( rowData !== {} && $.inArray( 'start', rowData ) && rowData.start !== null ) {
+						if ( rowData !== {} &&
+							$.inArray( 'start', rowData ) &&
+							rowData.start !== null &&
+							rowData.start !== undefined ) {
+
 							if ( $.inArray( 'filter', rowData ) && rowData.filter !== undefined ){
 								var filter = rowData.filter,
 									color = $.inArray( 'color', rowData ) ? rowData.color : null;
@@ -246,12 +245,8 @@
 					return { 'events': events, 'legend': legend, 'dates': dates };
 				}
 
-				// Transform the printRequests/property list into a key accessible object
-				var printrequests = _calendar.api.results.printrequests();
-				var list = printrequests.toArray( data.query.result.printrequests );
-
 				// Parse and return results
-				return getResults( data.query.ask.parameters, printrequests, data.query.result.results );
+				return getResults( data.query.ask.parameters, data.query.result.results );
 			}
 		},
 
@@ -263,7 +258,7 @@
 		 */
 		data: {
 
-			startDate: function( dates ){
+			startDate: function( dates ) {
 				var self = this;
 
 				return {
@@ -318,7 +313,7 @@
 				$.extend( data, _calendar.parse.api( data ) );
 
 				// Displayed only while in debug mode
-				srf.log( 'Parsed: ' + ( new Date().getTime() - startDate.getTime() ) + ' ms' );
+				srf.log( 'Parse: ' + ( new Date().getTime() - startDate.getTime() ) + ' ms' );
 
 				// @todo Check hash from current data object with the newly
 				// arrived result hash and bail-out in case the hash match each other
@@ -346,70 +341,6 @@
 						content: message
 					} );
 				}
-			},
-
-			/**
-			 * External update via Ajax
-			 *
-			 * Lock the calendar during the update, and send a notification to the user
-			 * when the task is finished
-			 *
-			 * @since 1.9
-			 * @type Object
-			 * @type Object
-			 * @type Object
-			 */
-			update: function( context, container, data ){
-				// Instead of sending the whole parameter block to the api, we eliminate
-				// those parameters from the query string that do not influence the
-				// results (only use limit, offset)
-				var query = _calendar.api.query.toString( {
-					printouts : data.query.ask.printouts,
-					parameters: {
-						'limit' : data.query.ask.parameters.limit,
-						'offset': data.query.ask.parameters.offset
-					},
-					conditions: data.query.ask.conditions
-				} );
-
-				// Lock the current container element to avoid queuing issues
-				// during the update process (e.g another button is pressed )
-				context.block( {
-					message: '<span class="mw-ajax-loader"></span>',
-					css: {
-						border: '2px solid #DDD', height: '20px', 'padding-top' : '35px', opacity: 0.8, '-webkit-border-radius': '5px', '-moz-border-radius': '5px', 'border-radius' : '5px' },
-					overlayCSS: { backgroundColor: '#fff', opacity: 0.6, cursor: 'wait' }
-				} );
-
-				// Fetch data via srf.api/ajax
-				_calendar.api.query.fetch( query, function( status, api ) {
-					if ( status ) {
-
-						// Reassign api query data into the data array
-						$.extend( data.query.result, api.query );
-
-						// Refresh all internal objects
-						_calendar.data.refresh( context, container, data );
-
-						container.trigger( 'srf.eventcalendar.updateAfterParse' );
-
-						// Unlock container and send notification to the user
-						context.unblock( {
-							onUnblock: function(){ _calendar.util.notification.create ( {
-								content: mw.msg( 'srf-ui-eventcalendar-label-update-success' )
-								} );
-							}
-						} );
-					} else {
-						context.unblock( {
-							onUnblock: function(){ _calendar.util.notification.create ( {
-								content: mw.msg( 'srf-ui-eventcalendar-label-update-error' ),
-								color: '#BF381A'
-								} );
-							}
-						} );
-					} }, true // true = will set debug/log
-				);
 			}
 		},
 
@@ -484,7 +415,7 @@
 							center: 'title',
 							left: self.defaults.view
 						},
-						isRTL: self.defaults.isRTL,
+						isRTL: context.attr( 'dir' ) === 'rtl' || false,
 						height: context.height(),
 						defaultView: self.defaults.defaultView,
 						firstDay: self.defaults.firstday,
@@ -548,8 +479,8 @@
 				 */
 				resize: function(){
 					container.resize();
-					if ( context.find( '.info' ).calendarpane( 'context' ).css( 'display' ) !== 'none' ){
-						container.fullCalendar('option', 'height', ( context.find( '.info' ).calendarpane( 'context' ).height() - 1 ) );
+					if ( context.find( '.srf-top' ).calendarpane( 'context' ).css( 'display' ) !== 'none' ){
+						container.fullCalendar('option', 'height', ( context.find( '.srf-top' ).calendarpane( 'context' ).height() - 1 ) );
 					} else {
 						container.fullCalendar( 'option', 'height', null );
 					}
@@ -627,35 +558,50 @@
 		tooltip: new smw.util.tooltip()
 	};
 
-	////////////////////////// PUBLIC METHODS ////////////////////////
-
 	/**
-	 * Module for formats extensions
-	 * Ensure the namespace is initialized and available
+	 * Inheritance class for the srf.formats constructor
 	 *
 	 * @since 1.9
+	 *
+	 * @class
+	 * @abstract
 	 */
 	srf.formats = srf.formats || {};
 
 	/**
-	 * Base constructor for objects representing a eventcalendar instance
+	 * Class that contains the Eventcalendar JavaScript result printer
+	 *
 	 * @since 1.9
+	 *
+	 * @class
+	 * @constructor
+	 * @extends srf.formats
 	 */
 	srf.formats.eventcalendar = function() {};
 
-	/**
-	 * Constructor
-	 * @var Object
-	 */
+	/* Public methods */
+
 	srf.formats.eventcalendar.prototype = {
 
 		/**
-		 * Public method that initializes the calendar instance
+		 * Default settings
+		 *
+		 * @since  1.9
+		 *
+		 * @property
+		 */
+		defaults: {
+			autoUpdate: mw.user.options.get( 'srf-prefs-eventcalendar-options-update-default' ),
+		},
+
+		/**
+		 * Initializes the DataTables instance
 		 *
 		 * @since 1.9
-		 * @var context
-		 * @var container
-		 * @var data
+		 *
+		 * @param  {array} context
+		 * @param  {array} container
+		 * @param  {array} data
 		 */
 		init: function( context, container, data ) {
 
@@ -672,7 +618,7 @@
 			_calendar.fullCalendar( context, container, data ).init();
 
 			// Add portlet sections using the calendarpane $.widget
-			var pane = context.find( '.info' );
+			var pane = context.find( '.srf-top' );
 			pane.calendarpane( {
 				'show': _calendar.defaults.paneView
 			} );
@@ -702,7 +648,7 @@
 				theme: _calendar.defaults.theme
 			} )
 			.on( 'click', '.srf-calendarbutton-refresh', function( event ) {
-				_calendar.data.update( context, container, data );
+				calendar.update( context, container, data );
 				event.preventDefault();
 			} );
 
@@ -736,7 +682,7 @@
 					condition['start'] = '';
 					condition['end'] = '';
 					data.query.ask.conditions = condition;
-					_calendar.data.update( context, container, data );
+					calendar.update( context, container, data );
 				},
 				onSelect: function( ui ) {
 					// Reassign information received from the dateSelection portlet
@@ -748,7 +694,7 @@
 					data.query.ask.conditions = condition;
 					if ( condition['start'] && condition['end'] ){
 						// Do an update via Ajax when conditions are met (from/to date)
-						_calendar.data.update( context, container, data );
+						calendar.update( context, container, data );
 					}
 				}
 			} );
@@ -781,7 +727,7 @@
 				step  : _calendar.defaults.slider.step,
 				change: function( event, value ) {
 					data.query.ask.parameters.limit = value ;
-					_calendar.data.update( context, container, data );
+					calendar.update( context, container, data );
 				}
 			} );
 
@@ -820,7 +766,7 @@
 			// data source and add newly selected elements
 			context.calendarlegend( {
 				position: data.query.ask.parameters.legend,
-				wrapper: data.query.ask.parameters.legend === 'pane' ? 'info' : 'container',
+				wrapper: data.query.ask.parameters.legend === 'pane' ? 'srf-top' : 'srf-container',
 				list: data.legend,
 				defaultColor: _calendar.defaults.color,
 				theme : _calendar.defaults.theme,
@@ -859,29 +805,97 @@
 		 *
 		 * @since 1.9
 		 *
-		 * @var container
-		 * @var data
+		 * @param {Array} context
+		 * @param {Array} container
+		 * @param {Array} data
+		 * @return {void}
 		 */
 		update: function ( context, container, data ){
-			_calendar.data.update( context, container, data );
+			var self = this;
+
+			// Lock the current context to avoid queuing issues during the update
+			// process (e.g another button is pressed )
+			context.block( {
+				message: html.element( 'span', { 'class': 'mw-ajax-loader' }, '' ),
+				css: {
+					border: '2px solid #DDD',
+					height: '20px', 'padding-top' : '35px',
+					opacity: 0.8, '-webkit-border-radius': '5px',
+					'-moz-border-radius': '5px',
+					'border-radius' : '5px'
+				},
+				overlayCSS: {
+					backgroundColor: '#fff',
+					opacity: 0.6,
+					cursor: 'wait'
+				}
+			} );
+
+			// Collect query information
+			var conditions = data.query.ask.conditions,
+				printouts = data.query.ask.printouts,
+				parameters = {
+					'limit' : data.query.ask.parameters.limit,
+					'offset': data.query.ask.parameters.offset
+				};
+
+			// Stringify the query
+			var query = new smw.query( printouts, parameters, conditions ).toString();
+			var startDate = new Date();
+			srf.log( 'Query: ' + query );
+
+			// Fetch data via Ajax/SMWAPI
+			smwApi.fetch( query )
+			.done( function ( result ) {
+
+				srf.log( 'Api : ' + ( new Date().getTime() - startDate.getTime() ) + ' ms ' + '( ' + result.query.meta.count + ' object )' );
+
+				// Reassign api query data into the data array
+				$.extend( data.query.result, result.query );
+
+				// Refresh all internal objects
+				_calendar.data.refresh( context, container, data );
+
+				container.trigger( 'srf.eventcalendar.updateAfterParse' );
+
+				context.unblock( {
+					onUnblock: function(){ util.notification.create ( {
+						content: mw.msg( 'srf-ui-eventcalendar-label-update-success' )
+						} );
+					}
+				} );
+			} )
+			.fail( function ( error ) {
+				context.unblock( {
+					onUnblock: function(){ util.notification.create ( {
+						content: mw.msg( 'srf-ui-eventcalendar-label-update-error' ),
+						color: '#BF381A'
+						} );
+					}
+				} );
+			} );
 		},
 
 		/**
-		 * Test interface
-		 *
-		 * Enable qunit to access some internal methods / objects and make
-		 * them accessible via the prototype
+		 * Test interface which enables some internal methods / objects
+		 * to be tested via qunit
 		 *
 		 * @since 1.9
+		 *
+		 * @ignore
 		 */
 		test: {
 			_parse: _calendar.parse,
+			_getData: function( container ) { return smwApi.parse( _calendar.getData( container ) ) },
 			_startDate: function( dates ) { return _calendar.data.startDate( dates ) }
 		}
 	};
 
-	////////////////////////// IMPLEMENTATION ////////////////////////
-
+	/**
+	 * eventCalendar implementation
+	 *
+	 * @ignore
+	 */
 	var calendar = new srf.formats.eventcalendar();
 
 	$( document ).ready( function() {
@@ -892,15 +906,22 @@
 			// is made made available for any other local function within the same
 			// instance
 			var context = $( this ),
-				container = context.find( '.container' ),
-				data = _calendar.parse.container( container );
+				container = context.find( '.srf-container' ),
+				data = smwApi.parse( _calendar.getData( container ) );
+
+			// Add bottom element to clear preceding elements and avoid display clutter
+			$( html.element( 'div', { 'class': 'srf-bottom', 'style': 'clear:both' } ) ).appendTo( context );
+
+			// Adopt directionality which ensures that all elements within this context
+			// are appropriately displayed
+			context.prop( 'dir', $( 'html' ).attr( 'dir' ) );
 
 			// Precautionary measure to make sure that no old content is used
-			if ( ( data.version === undefined || data.version < '0.7' ) ||
+			if ( ( data === null || data.version === undefined || data.version < '0.8' ) ||
 				( profile.name === 'msie' && profile.versionNumber < 9 ) ){
 					context.find( '.smw-spinner' ).hide();
 				_calendar.util.message.exception( {
-					context: context.find( '.info' ),
+					context: context.find( '.srf-top' ),
 					message: ( profile.name === 'msie' && profile.versionNumber < 9 ) ? 'Your IE (' + profile.versionNumber + ') version is not supported!' : 'Please update your page content! This is required due to some internal changes.'
 				} );
 			}
@@ -908,22 +929,29 @@
 			// Parse JS array and merge with the data array
 			$.extend( data, _calendar.parse.api( data ) );
 
-			if ( data.events.length > 0 ){
+			if ( data.events.length > 0 ) {
 				// Initial calendar setup
-				calendar.init( context, container, data );
+
+				// Seen some race-conditions in 1.22 ResourceLoader therefore
+				// make sure that CSS/JS dependencies are "really" loaded before
+				// further processing
+				mw.loader.using( 'ext.srf.eventcalendar', function(){
+					calendar.init( context, container, data );
+
+					// Auto update if enabled via user-preference will ensure that events
+					// are properly updated and not used from an outdated parser cache
+					// where the initial array content was stored
+					if ( calendar.defaults.autoUpdate ) {
+						calendar.update( context, container, data );
+					}
+				} );
+
 			} else {
 				context.find( '.smw-spinner' ).hide();
 				_calendar.util.message.set( {
-					context: context.find( '.info' ),
+					context: context.find( '.srf-top' ),
 					message: 'No results'
 				} );
-			}
-
-			// Auto update if enabled via user-preference will ensure that events
-			// are properly updated and not used from an outdated parser cache
-			// where the initial array content was stored
-			if ( _calendar.defaults.autoUpdate ) {
-				calendar.update( context, container, data );
 			}
 
 			// console.log( 'Data', data, 'Objects', _calendar );

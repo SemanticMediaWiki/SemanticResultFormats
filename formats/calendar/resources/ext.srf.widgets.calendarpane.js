@@ -39,7 +39,9 @@
 			this.pane = $(
 				html.element( 'div', { 'class': self.widgetBaseClass }, '' )
 			).insertAfter( el );
-			return this.options.show ? this.pane.show() : this.pane.hide();
+			return this.pane.css( {
+				'display' : ( this.options.show ? 'block' : 'none' )
+			} )
 		},
 
 		/**

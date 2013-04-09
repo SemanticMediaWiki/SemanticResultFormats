@@ -55,7 +55,7 @@ class EventCalendar extends SMW\ApiResultPrinter {
 		$id = $this->getId();
 
 		// Add options
-		$data['version'] = '0.7.4';
+		$data['version'] = '0.8.0';
 
 		// The boolean value wasn't caught earlier with all other parameters
 		$data['query']['ask']['parameters']['dayview'] = $this->params['dayview'];
@@ -70,9 +70,9 @@ class EventCalendar extends SMW\ApiResultPrinter {
 		return Html::rawElement(
 			'div',
 			array( 'class' => 'srf-eventcalendar' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ) ),
-				Html::element( 'div', array( 'class' => 'info' ), '' ) .  $this->loading() . Html::element(
+				Html::element( 'div', array( 'class' => 'srf-top' ), '' ) .  $this->loading() . Html::element(
 				'div',
-				array( 'id' => $id, 'class' => 'container', 'style' => 'display:none;' ),
+				array( 'id' => $id, 'class' => 'srf-container', 'style' => 'display:none;' ),
 				''
 			)
 		);

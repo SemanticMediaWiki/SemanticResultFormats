@@ -114,7 +114,15 @@ return array(
 	// SRF specific printer independent utility resources
 	'ext.srf' => $moduleTemplate + array(
 		'scripts' => 'resources/ext.srf.js',
-		'styles'  => 'resources/ext.srf.css',
+		'styles'  => array(
+			'resources/ext.srf.css',
+
+			// Someone broke the CSS loading (Suspect bug 46401) in 1.22
+			// until this is fixed force styles to be loaded at the very start
+			// to avoid display clutter
+			'formats/calendar/resources/ext.srf.formats.eventcalendar.css',
+		),
+		'dependencies' => 'ext.smw.api',
 		'position' => 'top',
 		'group' => 'ext.srf'
 	),

@@ -13,14 +13,27 @@
 ( function( $, mw, srf ) {
 	'use strict';
 
-	////////////////////////// PRIVATE OBJECTS ////////////////////////
+	/* Private methods and objects */
 
+	/**
+	 * Helper objects
+	 *
+	 * @since 1.9
+	 *
+	 * @ignore
+	 * @private
+	 * @static
+	 */
 	var html = mw.html,
 		api = new srf.api.util(),
 		tooltip = new smw.util.tooltip();
 
-	////////////////////////// FACTORY METHOD ////////////////////////
-
+	/**
+	 * $.widget function
+	 *
+	 * @since 1.9
+	 * @type Object
+	 */
 	$.widget( 'srf.calendarlegend', {
 		options:{
 			_BASE : 'srf-ui-legendList'
@@ -41,7 +54,7 @@
 				this.legend = $( html.element( 'div',{ 'class': self.options._BASE } , '') ).appendTo( $( '.' + self.options.wrapper , el ) );
 				this.legend.addClass( self.options.theme !== 'fc' ? 'bottom ui-state-default' : 'bottom basic' );
 			} else if ( self.options.position === 'pane' ) {
-				el.find( '.info' ).calendarpane( 'portlet', {
+				el.find( '.' + self.options.wrapper ).calendarpane( 'portlet', {
 					'class'  : self.options._BASE + ' pane',
 					'title'  : 'Legend',
 					'fieldset': true

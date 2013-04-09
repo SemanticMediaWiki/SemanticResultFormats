@@ -46,10 +46,10 @@
 
 		// Base data set
 		mw.config.set( testJSON1 );
-		assert.equal( $.type( calendar.test._parse.container( container ) ), 'object', pass + 'container() returned an object' );
+		assert.equal( $.type( calendar.test._getData( container ) ), 'object', pass + 'getData() returned an object' );
 
 		// Check api is available
-		var testData = calendar.test._parse.container( container );
+		var testData = calendar.test._getData( container );
 		assert.equal( $.type( calendar.test._parse.api( testData ) ), 'object', pass + 'api() was accessible' );
 
 		var expected = {
@@ -68,15 +68,16 @@
 
 		// Second test data contains type data for colorFilter settings
 		mw.config.set( testJSON2 );
-		var testData = calendar.test._parse.container( container );
+		var testData = calendar.test._getData( container );
 
 		results = calendar.test._parse.api( testData );
 		assert.deepEqual( results.legend, {} , pass + 'filterProperty was empty and therefore an empty {} was returned' );
 
 		testData.query.ask.parameters.filterProperty = 'Has event type';
 		var results = calendar.test._parse.api( testData ),
-			expected = {
-				"legend": {"Meeting": {"color": ["green","",""],"filter": false},"Talk": {"color": ["yellow"],"filter": false} }
+			expected = { "legend": {
+				"Meeting": {"color": ["green"],"filter": false},
+				"Talk": {"color": ["yellow"],"filter": false} }
 			};
 
 		assert.deepEqual( results.legend, expected.legend , pass + 'filterProperty was set and a legend {} was returned' );
@@ -86,7 +87,7 @@
 
 		// Id101d97fc69a: title test (typeof _str)
 		mw.config.set( testJSON3 );
-		var testData = calendar.test._parse.container( container );
+		var testData = calendar.test._getData( container );
 		results = calendar.test._parse.api( testData );
 		assert.equal( results.events[0].title, 'Pellentesque dui pretiu' , pass + 'correct title (typeof _str) was returned' );
 
@@ -144,7 +145,7 @@
 		assert.equal( $.type( calendar.update ), 'function', pass + 'the function was accessible' );
 
 		mw.config.set( testJSON1 );
-		var testData = calendar.test._parse.container( container );
+		var testData = calendar.test._getData( container );
 
 		// Wait for an asynchronous action to complete
 		calendar.update( context, container, testData );

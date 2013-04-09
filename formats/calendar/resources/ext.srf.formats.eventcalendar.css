@@ -10,6 +10,15 @@
  * @licence GNU GPL v2 or later
  * @author mwjames
  */
+
+.srf-top {
+	margin-bottom: 5px;
+}
+
+.srf-bottom {
+	margin-bottom: 5px;
+}
+
 .srf-ui-legendList, .srf-ui-legendList-sel {
 	color: #222;
 	line-height: 30px;
