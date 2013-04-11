@@ -178,7 +178,8 @@ class Gallery extends SMW\ResultPrinter {
 			$attribs = array (
 				'class'  => 'srf-gallery' . $class,
 				'align'  => 'justify',
-				'data-redirect-type' => $redirectType
+				'data-redirect-type' => $redirectType,
+				'data-ns-text' => $this->getContext()->getTitle()->getPageLanguage()->getNsText( NS_FILE )
 			);
 
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );

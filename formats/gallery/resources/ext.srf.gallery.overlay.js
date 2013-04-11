@@ -35,8 +35,13 @@
 	srf.formats.gallery = function() {};
 
 	srf.formats.gallery.prototype = {
-		overlay: function( context ) {
-			return context.each( function() {
+		overlay: function( context, ns ) {
+
+			// Encode the namespace (NS_FILE) otherwise languages
+			// like Japanese, Chinese will fail
+			var encodedNsText = encodeURIComponent( ns );
+
+			context.each( function() {
 				var $this = $( this ),
 					galleryID = $this.attr( 'id' ),
 					srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
@@ -60,19 +65,20 @@
 						$this.html( '<span class="error">' + mw.message( 'srf-gallery-image-url-error' ).escaped() + '</span>' );
 					} else {
 
-						// There should be a better way to find the title object but there isn't
-						var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" ),
+						// There should be a better way to get the title object but there isn't
+						// var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" ),
+						var title = image.attr( 'href' ).split( encodedNsText + ':' ),
 							imageSource = image.attr( 'href' );
 
 						// Prepare overlay icon placeholder
 						image.before( h.element( 'a', { 'class': 'overlayicon', 'href': imageSource }, null ) );
-						var overlay = $this.find( '.overlayicon' ).hide();
+						var overlayIcon = $this.find( '.overlayicon' ).hide();
 
 						// Add spinner while fetching the URL
 						util.spinner.create( { context: $this, selector: 'img' } );
 
 						// Re-assign image url
-						util.getImageURL( { 'title': 'File:' + title },
+						util.getImageURL( { 'title': ns + ':' + title[1] },
 							function( url ) { if ( url === false ) {
 								image.attr( 'href', '' );
 								// Release thumb image
@@ -82,7 +88,7 @@
 								// Release thumb image
 								util.spinner.replace( { context: $this, selector: 'img' } );
 								// Release overlay icon
-								overlay.show();
+								overlayIcon.show();
 							}
 						} );
 					}
@@ -112,8 +118,15 @@
 	var util = new srf.util();
 
 	$( document ).ready( function() {
-		$( '.srf-overlay' ).each(function() {
-			gallery.overlay( $( this ) );
+		var ns = 'File';
+
+		// Find the namespace used for the current instance
+		$( '.srf-gallery,.srf-gallery-slideshow,.srf-gallery-carousel' ).each( function() {
+			ns = $( this ).data( 'ns-text' );
+		} );
+
+		$( '.srf-overlay' ).each( function() {
+			gallery.overlay( $( this ), ns );
 		} );
 	} );
 } )( jQuery, mediaWiki, semanticFormats  );
