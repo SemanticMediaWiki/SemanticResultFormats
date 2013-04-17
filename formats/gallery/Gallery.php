@@ -291,7 +291,7 @@ class Gallery extends SMW\ResultPrinter {
 					if ( isset( $row[1] ) ) {
 						$imgCaption = $row[1]->getNextDataValue();
 						if ( is_object( $imgCaption ) ) {
-							$imgCaption = $imgCaption->getShortText( SMW_OUTPUT_HTML, $this->getLinker( true ) );
+							$imgCaption = $imgCaption->getShortText( $this->outputMode, $this->getLinker( true ) );
 						}
 					}
 
@@ -325,7 +325,7 @@ class Gallery extends SMW\ResultPrinter {
 			}
 		} else {
 			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->getContext()->getTitle()->isSpecialPage() ) {
-				$imgCaption = $GLOBALS['wgParser']->recursivePreprocess( $imgCaption );
+				$imgCaption = $ig->mParser->recursiveTagParse( $imgCaption );
 			}
 		}
 		// Use image alt as helper for either text
