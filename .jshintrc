@@ -3,6 +3,8 @@
 		"mediaWiki",
 		"smw",
 		"srf",
+		"semanticMediaWiki",
+		"semanticFormats",
 		"jQuery",
 		"QUnit"
 	],
@@ -21,7 +23,7 @@
 	"quotmark": "single", // enforces the consistency of quotation marks used throughout your code
 	"regexp": false, // prohibits the use of unsafe . in regular expressions
 	"undef": false, // prohibits the use of explicitly undeclared variables
-	"unused": false, // warns when you define and never use your variables
+	"unused": true, // warns when you define and never use your variables
 	"strict": true, // requires all functions to run in EcmaScript 5's strict mode
 	"trailing": true, // makes it an error to leave a trailing whitespace in your code
 
@@ -30,5 +32,4 @@
 	"multistr": true, // suppresses warnings about multi-line strings
 
 	"browser": true // defines globals exposed by modern browsers
-	"nomen": false // Tolerate dangling _ in identifiers
 }
