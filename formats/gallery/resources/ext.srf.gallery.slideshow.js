@@ -1,41 +1,65 @@
 /**
- * JavaScript for SRF gallery slides module
- * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery format
+ * This file is part of the SRF gallery slideshow module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
- * @since 1.8
- * @release 0.2
+ * @section LICENSE
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @file
- * @ingroup SemanticResultFormats
+ * @ignore
  *
- * @licence GNU GPL v2 or later
+ * @since 1.8
+ * @revision 0.4
+ *
+ * @ingroup SRF
+ *
+ * @license GNU GPL v2+
  * @author mwjames
+ */
+
+/**
+ * Extends base class with a slideshow function
+ *
+ * @class srf.formats.gallery.slideshow
  */
 ( function( $, mw, srf ) {
 	'use strict';
 
-	/*global mediaWiki:true semanticFormats:true */
 	/**
-	 * Module for formats extensions
-	 * @since 1.8
-	 * @type Object
+	 * @class srf.formats.gallery
+	 * @mixins srf.formats.gallery.slideshow
 	 */
-	srf.formats = srf.formats || {};
 
-	/**
-	 * Base constructor for objects representing a gallery instance
-	 * @since 1.8
-	 * @type Object
-	 */
-	srf.formats.gallery = function() {};
+	$.extend( srf.formats.gallery.prototype, {
 
-	srf.formats.gallery.prototype = {
+		/**
+		 * Provides the slideshow functionality
+		 *
+		 * @since 1.8
+		 *
+		 * @param {string} context
+		 *
+		 * @return {Function}
+		 */
 		slideshow: function( context ) {
 			return context.each( function() {
+				var util = new srf.util();
 				var $this = $( this );
 				var maxHeight = 0;
 				var gallery   = $this.find( 'ul' );
-				var galleryId = "#" + gallery.attr( 'id' );
+				var galleryId = '#' + gallery.attr( 'id' );
 				var previous  = $this.prev( 'p' ).children( 'br' );
 
 				// The gallery parser comes with a preceding empty <p> element
@@ -75,19 +99,18 @@
 				}
 		} );
 		}
-	};
+	} );
 
 	/**
-	 * Implementation and representation of the gallery instance
+	 * Implementation of an slideshow instance
 	 * @since 1.8
-	 * @type Object
+	 * @ignore
 	 */
-	var gallery = new srf.formats.gallery();
-	var util = new srf.util();
-
 	$( document ).ready( function() {
 		$( '.srf-gallery-slideshow' ).each(function() {
+			var gallery = new srf.formats.gallery();
 			gallery.slideshow( $( this ) );
 		} );
 	} );
+
 } )( jQuery, mediaWiki, semanticFormats );

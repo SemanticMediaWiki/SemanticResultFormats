@@ -1,41 +1,68 @@
 /**
- * JavaScript for SRF gallery overlay/fancybox module
- * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery format
+ * This file is part of the SRF gallery overlay/fancybox module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
- * There is a method ImageGallery->add which allows to override the
- * image url but this feature is only introduced in MW 1.20 therefore
- * we have to catch the "real" image location url from the api to be able
- * to display the image in the fancybox
+ * @section LICENSE
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * @since 1.8
- * @version 0.3
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @file
- * @ingroup SemanticResultFormats
+ * @ignore
  *
- * @licence GNU GPL v2 or later
+ * @since 1.8
+ * @revision 0.4
+ *
+ * @ingroup SRF
+ *
+ * @license GNU GPL v2+
  * @author mwjames
+ */
+
+/**
+ * Extends base class with an overlay function
+ *
+ * @class srf.formats.gallery.overlay
  */
 ( function( $, mw, srf ) {
 	'use strict';
 
-	/*global mediaWiki:true semanticFormats:true */
 	/**
-	 * Module for formats extensions
-	 * @since 1.8
-	 * @type Object
+	 * @class srf.formats.gallery
+	 * @mixins srf.formats.gallery.overlay
 	 */
-	srf.formats = srf.formats || {};
 
-	/**
-	 * Base constructor for objects representing a gallery instance
-	 * @since 1.8
-	 * @type Object
-	 */
-	srf.formats.gallery = function() {};
+	$.extend( srf.formats.gallery.prototype, {
 
-	srf.formats.gallery.prototype = {
+		/**
+		 * Provides the overlay functionality
+		 *
+		 * @since 1.8
+		 *
+		 * @param {string} context
+		 * @param {string} ns
+		 *
+		 * @return {Function}
+		 */
 		overlay: function( context, ns ) {
+			var self = this,
+				util = new srf.util();
+
+			// Override defaults
+			self.defaults = {
+				ns: ns,
+				path: srf.settings.get( 'srfgScriptPath' )
+			};
 
 			// Encode the namespace (NS_FILE) otherwise languages
 			// like Japanese, Chinese will fail
@@ -43,8 +70,7 @@
 
 			context.each( function() {
 				var $this = $( this ),
-					galleryID = $this.attr( 'id' ),
-					srfPath = mw.config.get( 'srf.options' ).srfgScriptPath;
+					galleryID = $this.attr( 'id' );
 
 				// Loop over all relevant gallery items
 				$this.find( '.gallerybox' ).each( function () {
@@ -96,7 +122,7 @@
 
 				// Formatting the title
 				function formatTitle( title, currentArray, currentIndex /*,currentOpts*/ ) {
-					return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' +  srfPath + '/resources/jquery/fancybox/closelabel.gif' + '></a></span>' + (title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' +  mw.msg( 'srf-gallery-overlay-count', (currentIndex + 1) , currentArray.length ) + ')</span></div>';
+					return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' +  self.defaults.path + '/resources/jquery/fancybox/closelabel.gif' + '></a></span>' + (title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' +  mw.msg( 'srf-gallery-overlay-count', (currentIndex + 1) , currentArray.length ) + ')</span></div>';
 				}
 
 				// Display all images related to a group
@@ -105,18 +131,15 @@
 					'titlePosition'   : 'inside',
 					'titleFormat'     : formatTitle
 				} );
-		} );
+			} );
 		}
-	};
+	} );
 
 	/**
-	 * Implementation representing a slideshow instance
+	 * Implementation of an overlay instance
 	 * @since 1.8
-	 * @type Object
+	 * @ignore
 	 */
-	var gallery = new srf.formats.gallery();
-	var util = new srf.util();
-
 	$( document ).ready( function() {
 		var ns = 'File';
 
@@ -126,7 +149,9 @@
 		} );
 
 		$( '.srf-overlay' ).each( function() {
+			var gallery = new srf.formats.gallery();
 			gallery.overlay( $( this ), ns );
 		} );
 	} );
+
 } )( jQuery, mediaWiki, semanticFormats  );

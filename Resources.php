@@ -583,12 +583,18 @@ return array(
 		'scripts' => 'resources/jquery/jquery.responsiveslides.js',
 	),
 
+	// Gallery base class
+	'ext.srf.formats.gallery' => $formatModule + array(
+		'scripts' => 'gallery/resources/ext.srf.formats.gallery.js',
+		'dependencies' => 'ext.srf.util'
+	),
+
 	//
 	'ext.srf.gallery.carousel' => $formatModule + array(
 		'styles'  => 'gallery/resources/ext.srf.gallery.carousel.css',
 		'scripts' => 'gallery/resources/ext.srf.gallery.carousel.js',
 		'dependencies' => array(
-			'ext.srf.util',
+			'ext.srf.formats.gallery',
 			'ext.jquery.jcarousel'
 		),
 		'position' => 'top',
@@ -599,7 +605,7 @@ return array(
 		'scripts' => 'gallery/resources/ext.srf.gallery.slideshow.js',
 		'styles'  => 'gallery/resources/ext.srf.gallery.slideshow.css',
 		'dependencies' => array(
-			'ext.srf.util',
+			'ext.srf.formats.gallery',
 			'ext.jquery.responsiveslides'
 		),
 		'messages' => array(
@@ -614,7 +620,7 @@ return array(
 		'scripts' => 'gallery/resources/ext.srf.gallery.overlay.js',
 		'styles'  => 'gallery/resources/ext.srf.gallery.overlay.css',
 		'dependencies' => array(
-			'ext.srf.util',
+			'ext.srf.formats.gallery',
 			'ext.jquery.fancybox'
 		),
 		'messages' => array(
@@ -628,7 +634,7 @@ return array(
 	'ext.srf.gallery.redirect' => $formatModule + array(
 		'scripts' => 'gallery/resources/ext.srf.gallery.redirect.js',
 		'styles'  => 'gallery/resources/ext.srf.gallery.redirect.css',
-		'dependencies' => 'ext.srf.util',
+		'dependencies' => 'ext.srf.formats.gallery',
 		'messages' => array(
 			'srf-gallery-image-url-error'
 		),

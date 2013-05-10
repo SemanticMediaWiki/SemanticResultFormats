@@ -1,40 +1,60 @@
 /**
- * JavaScript for SRF gallery overlay/fancybox module
- * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery format
+ * This file is part of the SRF gallery redirect module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
- * There is a method ImageGallery->add which allows to override the
- * image url but this feature is only introduced in MW 1.20 therefore
- * we have to catch the "real" image location url from the api
+ * @section LICENSE
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * @since 1.8
- * @version 0.4
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @file
- * @ingroup SemanticResultFormats
+ * @ignore
  *
- * @licence GNU GPL v2 or later
+ * @since 1.8
+ * @revision 0.4
+ *
+ * @ingroup SRF
+ *
+ * @license GNU GPL v2+
  * @author mwjames
+ */
+
+/**
+ * Extends base class with a redirect function
+ *
+ * @class srf.formats.gallery.redirect
  */
 ( function( $, mw, srf ) {
 	'use strict';
 
-	/*global mediaWiki:true semanticFormats:true */
 	/**
-	 * Module for formats extensions
-	 * @since 1.8
-	 * @type Object
+	 * @class srf.formats.gallery
+	 * @mixins srf.formats.gallery.redirect
 	 */
-	srf.formats = srf.formats || {};
 
-	/**
-	 * Base constructor for objects representing a gallery instance
-	 * @since 1.8
-	 * @type Object
-	 */
-	srf.formats.gallery = function() {};
+	$.extend( srf.formats.gallery.prototype, {
 
-	srf.formats.gallery.prototype = {
+		/**
+		 * Provides the redirect functionality
+		 *
+		 * @since 1.8
+		 *
+		 * @param {string} context
+		 *
+		 * @return {Function}
+		 */
 		redirect: function( context ) {
+			var util = new srf.util();
 			var type = context.data( 'redirect-type' );
 			return context.find( '.gallerybox' ).each( function() {
 				var $this = $( this ),
@@ -81,19 +101,18 @@
 				}
 		} );
 		}
-	};
+	} );
 
 	/**
-	 * Implementation and representation of the gallery instance
+	 * Implementation of an redirect instance
 	 * @since 1.8
-	 * @type Object
+	 * @ignore
 	 */
-	var gallery = new srf.formats.gallery();
-	var util = new srf.util();
-
 	$( document ).ready( function() {
 		$( '.srf-redirect' ).each(function() {
+			var gallery = new srf.formats.gallery();
 			gallery.redirect( $( this ) );
 		} );
 	} );
+
 } )( jQuery, mediaWiki, semanticFormats );

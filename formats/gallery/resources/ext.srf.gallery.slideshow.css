@@ -1,13 +1,34 @@
 /**
- * CSS for SRF gallery slides module
+ * This file is part of the SRF gallery slideshow module
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
- * @licence: GNU GPL v2 or later
- * @author:  viljamis
- * @author:  mwjames
+ * @section LICENSE
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * @since: 1.8
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * @release: 0.1
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
+ *
+ * @file
+ *
+ * @since 1.8
+ * @revision 0.4
+ *
+ * @ingroup SRF
+ *
+ * @license GNU GPL v2+
+ * @author mwjames
+ * @author viljamis
+ *
+ * @ignore
  */
 .srf-gallery-slideshow ul.gallery {
 	padding: 0px 0px 0px 0px;
@@ -41,8 +62,10 @@
 	float: left;
 }
 
-// pager
-
+/**
+ * Pager
+ * @ignore
+ */
 .srf-gallery-slideshow .rslides_tabs {
 	padding: 0;
 	margin: 1em 0;
