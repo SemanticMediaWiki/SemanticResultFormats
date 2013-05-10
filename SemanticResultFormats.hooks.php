@@ -156,10 +156,11 @@ final class SRFHooks {
 	 */
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
 
-		$vars['srf'] = array(
+		$vars['srf-config'] = array(
 			'version' => SRF_VERSION,
-			'options' => array(
-				'thumbsize' => $GLOBALS['wgThumbLimits']
+			'settings' => array(
+				'wgThumbLimits' => $GLOBALS['wgThumbLimits'],
+				'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			)
 		);
 
