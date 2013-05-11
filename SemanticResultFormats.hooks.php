@@ -98,6 +98,7 @@ final class SRFHooks {
 				'tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js',
 				'tests/qunit/formats/ext.srf.formats.datatables.test.js',
 				'tests/qunit/formats/ext.srf.formats.gallery.test.js',
+				'tests/qunit/formats/ext.srf.formats.media.test.js',
 
 				// Widgets
 				'tests/qunit/widgets/ext.srf.widgets.eventcalendar.tests.js',
@@ -115,7 +116,8 @@ final class SRFHooks {
 				'ext.srf.gallery.overlay',
 				'ext.srf.gallery.carousel',
 				'ext.srf.gallery.slideshow',
-				'ext.srf.gallery.redirect'
+				'ext.srf.gallery.redirect',
+				'ext.srf.formats.media'
 			),
 			'position' => 'top',
 			'localBasePath' => __DIR__,

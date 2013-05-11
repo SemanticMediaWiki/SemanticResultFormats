@@ -30,7 +30,7 @@
  * QUnit tests for the srf base class
  *
  */
-( function ( mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	QUnit.module( 'ext.srf', QUnit.newMwEnvironment() );
@@ -76,4 +76,4 @@
 
 	} );
 
-}( mediaWiki, semanticFormats ) );
+}( jQuery, mediaWiki, semanticFormats ) );

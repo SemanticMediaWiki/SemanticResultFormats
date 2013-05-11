@@ -841,8 +841,8 @@ return array(
 	),
 
 	// SRF jplayer template specifications
-	'ext.srf.mediaplayer.template' => $formatModule + array(
-		'scripts' => 'media/resources/ext.srf.mediaplayer.template.js',
+	'ext.srf.template.jplayer' => $formatModule + array(
+		'scripts' => 'media/resources/ext.srf.template.jplayer.js',
 		'messages' => array(
 			'srf-ui-mediaplayer-label-previous',
 			'srf-ui-mediaplayer-label-play',
@@ -858,17 +858,20 @@ return array(
 			'srf-ui-mediaplayer-label-repeat-off',
 			'srf-ui-mediaplayer-label-full-screen',
 			'srf-ui-mediaplayer-label-restore-screen',
-		)
+		),
+		'dependencies' => 'ext.srf'
 	),
 
 	// SRF implementation
-	'ext.srf.mediaplayer' => $formatModule + array(
-		'scripts' => 'media/resources/ext.srf.mediaplayer.js',
-		'styles'  => 'media/resources/ext.srf.mediaplayer.css',
+	'ext.srf.formats.media' => $formatModule + array(
+		'scripts' => 'media/resources/ext.srf.formats.media.js',
+		'styles'  => 'media/resources/ext.srf.formats.media.css',
 		'dependencies' => array(
-			'ext.jquery.jplayer.playlist',
-			'ext.srf.mediaplayer.template'
-		)
+			'ext.srf',
+			'ext.srf.template.jplayer',
+			'ext.jquery.jplayer.playlist'
+		),
+		'group' => 'ext.srf'
 	),
 
 	// jQuery DataTables

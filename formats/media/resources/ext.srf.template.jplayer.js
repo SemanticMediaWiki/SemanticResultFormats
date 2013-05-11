@@ -1,26 +1,47 @@
 /**
- * JavaScript for SRF media/jplayer format
- * @see http://www.semantic-mediawiki.org/wiki/Help:Media format
+ * This file is part of the Semantic Result Formats Media module
+ * @see https://www.semantic-mediawiki.org/wiki/Help:Media_formats
  *
- * @since 1.9
- * @release 0.2
+ * @section LICENSE
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @file
- * @ingroup SemanticResultFormats
+ * @ignore
  *
- * @licence GNU GPL v2 or later
+ * @since 1.9
+ * @ingroup SRF
+ *
+ * @licence GNU GPL v2+
  * @author mwjames
  */
 ( function( $, mw, srf ) {
 	'use strict';
 
 	/*jshint scripturl:true*/
-	/*global mw:true */
+
+	/**
+	 * Helper method
+	 * @ignore
+	 */
+	var h = mw.html;
 
 	/**
 	 * Internationalization (i18n) support
 	 *
 	 * @since 1.9
+	 * @ignore
 	 */
 	var _i18n = {
 		'previous' : mw.msg( 'srf-ui-mediaplayer-label-previous' ),
@@ -39,24 +60,33 @@
 		'restoreScreen' : mw.msg( 'srf-ui-mediaplayer-label-restore-screen' )
 	};
 
-	var h = mw.html;
-
 	/**
-	 * SRF global template reference object
+	 * Inheritance class for the srf.template constructor
 	 *
 	 * @since 1.9
+	 *
+	 * @class
+	 * @abstract
 	 */
 	srf.template = srf.template || {};
 
-	// Don't get crazy about the indentation, it is the best that allows
-	// to keep some kind of structure
+	/**
+	 * Base constructor for objects representing a template instance
+	 *
+	 * @since 1.9
+	 *
+	 * @class
+	 * @constructor
+	 * @extends srf.template
+	 */
 	srf.template.jplayer = {
+
 		/**
 		 * Placeholder for the media inspector
 		 *
 		 * @return object
 		 */
-		inspector : function( ID ) { return h.element( 'div', { 'id' : ID}, '' );
+		inspector : function( ID ) { return h.element( 'div', { 'id' : ID }, '' );
 		},
 
 		/**

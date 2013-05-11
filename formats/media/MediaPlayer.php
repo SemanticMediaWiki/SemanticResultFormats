@@ -1,8 +1,19 @@
 <?php
 
 namespace SRF;
-use SMWResultPrinter, SMWQueryResult, SMWDataItem, SMWDataValue, SMWOutputs, SRFUtils;
-use FormatJson, Skin, Html, Title, File;
+
+use SMW\ResultPrinter;
+use SMWQueryResult;
+use SMWDataItem;
+use SMWDataValue;
+use SMWOutputs;
+use SRFUtils;
+
+use FormatJson;
+use Skin;
+use Html;
+use Title;
+use File;
 
 /**
  * HTML5 Audio / Video media query printer
@@ -25,12 +36,13 @@ use FormatJson, Skin, Html, Title, File;
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @see http://www.semantic-mediawiki.org/wiki/Help:Media format
- *
- * @file
- * @ingroup SemanticResultFormats
+ * @see http://www.semantic-mediawiki.org/wiki/Help:Media_format
  *
  * @since 1.9
+ *
+ * @file
+ * @ingroup SRF
+ * @ingroup QueryPrinter
  *
  * @licence GNU GPL v2 or later
  * @author mwjames
@@ -40,12 +52,14 @@ use FormatJson, Skin, Html, Title, File;
  * This printer integrates jPlayer which is a HTML5 Audio / Video
  * Javascript libray under GPL/MIT license.
  *
- * @ingroup SemanticResultFormats
+ * @ingroup SRF
+ * @ingroup QueryPrinter
  */
-class MediaPlayer extends SMWResultPrinter {
+class MediaPlayer extends ResultPrinter {
 
 	/**
-	 * @var valid mime types
+	 * Specifies valid mime types supported by jPlayer
+	 * @var array
 	 */
 	protected $validMimeTypes = array( 'mp3', 'mp4', 'webm', 'webma', 'webmv', 'ogg', 'oga', 'ogv', 'm4v', 'm4a' );
 
@@ -54,7 +68,7 @@ class MediaPlayer extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMessage( 'srf-printername-media' )->text();
+		return $this->msg( 'srf-printername-media' )->text();
 	}
 
 	/**
@@ -75,7 +89,7 @@ class MediaPlayer extends SMWResultPrinter {
 			if ( $this->params['default'] !== '' ) {
 				return $this->params['default'];
 			} else{
-				$result->addErrors( array( wfMessage( 'srf-no-results' )->inContentLanguage()->text() ) );
+				$result->addErrors( array( $this->msg( 'srf-no-results' )->inContentLanguage()->text() ) );
 				return '';
 			}
 		} else {
@@ -169,9 +183,13 @@ class MediaPlayer extends SMWResultPrinter {
 
 			if ( in_array( $extension, array( 'ogg', 'oga', 'ogv' ) ) ) {
 				$extension = strtolower( substr( $source->getName(), strrpos( $source->getName(), '.' ) + 1 ) );
-				$params = array( $extension === 'ogv' ? 'video' : 'audio',  $extension, $source->getUrl() );
-			} elseif ( in_array( $extension, array( 'm4v', 'm4a', 'm4p' ) )  ) {
-				$params = array( $extension === 'm4v' ? 'video' : 'audio',  $extension, $source->getUrl() );
+
+				// Xiph.Org recommends that .ogg only be used for Ogg Vorbis audio files
+				$extension = $extension === 'ogg' ? 'oga' : $extension;
+
+				$params = array( $extension === 'ogv' ? 'video' : 'audio', $extension, $source->getUrl() );
+			} elseif ( in_array( $extension, array( 'm4v', 'm4a', 'm4p' ) ) ) {
+				$params = array( $extension === 'm4v' ? 'video' : 'audio', $extension, $source->getUrl() );
 			} else {
 				list( $major, $minor ) = File::splitMime( $source->getMimeType() );
 				$params = array( $major, $extension, $source->getUrl() );
@@ -228,13 +246,8 @@ class MediaPlayer extends SMWResultPrinter {
 	 */
 	protected function getFormatOutput( $data ) {
 
-		static $statNr = 0;
-		$ID = 'srf-media-' . ++$statNr;
-
+		$ID = 'srf-' . uniqid();
 		$this->isHTML = true;
-
-		// SRF related JS globals
-		SRFUtils::addGlobalJSVariables();
 
 		// Get the media/mime types
 		if ( in_array( 'video', $data['mediaTypes'] ) ){
@@ -260,8 +273,7 @@ class MediaPlayer extends SMWResultPrinter {
 		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		SMWOutputs::requireResource( 'ext.jquery.jplayer.skin.' . $this->params['theme'] );
-
-		SMWOutputs::requireResource( 'ext.srf.mediaplayer' );
+		SMWOutputs::requireResource( 'ext.srf.formats.media' );
 
 		$processing = SRFUtils::htmlProcessingElement();
 
