@@ -26,15 +26,16 @@
  * @author Jeroen De Dauw <jeroendedauw at gmail dot com>
  * @author mwjames
  */
-/*global console:true message:true */
 
 /**
  * Declares global srf instance and namespace
  *
  * @class srf
  */
-var instance = ( function ( $ ) {
+var instance = ( function () {
 	'use strict';
+
+	/*global console:true message:true */
 
 	var instance = {};
 
@@ -123,7 +124,7 @@ var instance = ( function ( $ ) {
 	instance.Util = instance.util;
 
 	return instance;
-} )( jQuery );
+} )();
 
 // Assign namespace
 window.srf = window.semanticFormats = instance;

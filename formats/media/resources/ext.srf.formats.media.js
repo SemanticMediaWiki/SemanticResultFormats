@@ -78,7 +78,8 @@
 			jplayer : {
 				swfPath: srf.settings.get( 'srfgScriptPath' ) + '/resources/jquery/jplayer/Jplayer.swf',
 				backgroundColor: '#FFFFFF',
-				wmode: 'window'
+				wmode: 'window',
+				errorAlerts: smw.debug()
 			}
 		},
 
@@ -191,23 +192,6 @@
 				} );
 			} );
 			return srf.template.jplayer.inspector( self.getId( ID ).inspectorId );
-		},
-
-		/**
-		 * Return query string value for a given url
-		 *
-		 * @see http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
-		 *
-		 * @since 1.9
-		 *
-		 * @param {string} url
-		 * @param {string} key
-		 *
-		 * @return {mixed}
-		 */
-		getQueryStringValue: function( url, key ){
-			var match = RegExp('[?&]' + key + '=([^&]*)').exec( url );
-			return match && decodeURIComponent( match[1].replace(/\+/g, ' ') );
 		}
 	};
 
@@ -245,11 +229,6 @@
 			// Init media event inspector
 			if ( json.inspector ){
 				container.append( media.getInspector( ID ) );
-			}
-
-			// Use RL debug mode to output additional alert messages
-			if ( media.getQueryStringValue( $( location ).attr( 'href' ), 'debug' ) === 'true' ){
-				media.defaults.jplayer.errorAlerts = true;
 			}
 
 			// Create jPlayer instance

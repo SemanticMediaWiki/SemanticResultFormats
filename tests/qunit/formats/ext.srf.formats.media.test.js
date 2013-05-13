@@ -45,7 +45,7 @@
 	QUnit.test( 'init', 8, function ( assert ) {
 		var media = new srf.formats.media();
 
-		assert.ok( media instanceof Object, 'media instance was accessible' );
+		assert.ok( media instanceof Object, 'srf.formats.media() instance was accessible' );
 		assert.equal( $.type( media.defaults ), 'object', '.defaults was accessible' );
 		assert.equal( $.type( media.parse ), 'function', '.parse() was accessible' );
 		assert.equal( $.type( media.getId ), 'function', '.getId() was accessible' );
@@ -79,22 +79,22 @@
 
 		$.get( media.defaults.posterImage )
 		.done( function() {
-			start();
+			QUnit.start();
 			assert.ok( true, media.defaults.posterImage + ' verified' );
 		} )
 		.fail( function() {
 			// doesn't exists
-			start();
+			QUnit.start();
 		} );
 
 		$.get( media.defaults.jplayer.swfPath )
 		.done( function() {
-			start();
+			QUnit.start();
 			assert.ok( true, media.defaults.jplayer.swfPath + ' verified' );
 		} )
 		.fail( function() {
 			// doesn't exists
-			start();
+			QUnit.start();
 		} );
 
 	} );
