@@ -1,7 +1,9 @@
 <?php
 
 namespace SRF;
-use SMW, Html;
+
+use SMW\ApiResultPrinter;
+use Html;
 
 /**
  * An event calendar printer using the FullCalendar JavaScript library
@@ -25,19 +27,26 @@ use SMW, Html;
  * @since 1.9
  *
  * @file
- * @ingroup SemanticResultFormats
- * @licence GNU GPL v2 or later
+ * @ingroup QueryPrinter
  *
+ * @licence GNU GPL v2+
  * @author mwjames
  */
-class EventCalendar extends SMW\ApiResultPrinter {
+
+/**
+ * Query printer supporting a JavaScript Event calendar using the
+ * Semantic MediaWiki Api
+ *
+ * @ingroup QueryPrinter
+ */
+class EventCalendar extends ApiResultPrinter {
 
 	/**
 	 * Corresponding message name
 	 *
 	 */
 	public function getName() {
-		return $this->getContext()->msg( 'srf-printername-eventcalendar' )->text();
+		return $this->msg( 'srf-printername-eventcalendar' )->text();
 	}
 
 	/**
@@ -56,9 +65,6 @@ class EventCalendar extends SMW\ApiResultPrinter {
 
 		// Add options
 		$data['version'] = '0.8.0';
-
-		// The boolean value wasn't caught earlier with all other parameters
-		$data['query']['ask']['parameters']['dayview'] = $this->params['dayview'];
 
 		// Encode data object
 		$this->encode( $id, $data );
