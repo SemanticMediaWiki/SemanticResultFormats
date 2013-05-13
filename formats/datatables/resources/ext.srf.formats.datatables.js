@@ -106,7 +106,7 @@
 				// Try to resolve image/thumbnail information by fetching its
 				// imageInfo from the back-end
 				function createLink( wikiPage, linker, options ){
-					if ( wikiPage.getNamespace() === 6 && linker ) {
+					if ( wikiPage.getNamespaceId() === 6 && linker ) {
 						var imageInfo = getImageInfo( wikiPage.getName(), options );
 						if ( imageInfo !== null &&  imageInfo !== undefined  ) {
 							var imageLink = self.thumbnail( imageInfo );
