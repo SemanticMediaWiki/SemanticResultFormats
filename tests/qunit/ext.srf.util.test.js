@@ -46,7 +46,7 @@
 		util.message.set( { context: fixture, message: 'Test' } );
 		assert.equal( $( '.ui-widget', fixture ).length, 1, pass + 'message.set() created an object' );
 
-		raises( function() {
+		QUnit.raises( function() {
 			util.message.exception( { context: fixture, message: 'Test' } );
 		}, pass + 'message.exception() thrown an exception' );
 
@@ -54,11 +54,30 @@
 	} );
 
 	/**
-	 * Object testing
+	 * Test spinner
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( '.notification', 3, function ( assert ) {
+	QUnit.test( 'spinner', 2, function ( assert ) {
+		var context;
+		var util = new srf.util();
+
+		context = $( '<div><div id="spinner1" class="srf-spinner"></div></div>', '#qunit-fixture' );
+		util.spinner.hide( context );
+		assert.equal( context.find( '#' + 'spinner1' ).css( 'display' ), 'none', '.hide( context ) was successful' );
+
+		context = $( '<div><div><div id="spinner2" class="srf-spinner"></div></div></div>', '#qunit-fixture' );
+		util.spinner.hide( { context: context } );
+		assert.equal( context.find( '#' + 'spinner2' ).css( 'display' ), 'none', '.hide( { context: ... } ) was successful' );
+
+	} );
+
+	/**
+	 * Test notification
+	 *
+	 * @since  1.9
+	 */
+	QUnit.test( 'notification', 3, function ( assert ) {
 		var util;
 
 		util = new srf.util();

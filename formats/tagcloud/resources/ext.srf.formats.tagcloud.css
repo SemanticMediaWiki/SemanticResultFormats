@@ -1,12 +1,8 @@
-<?php
-
-namespace SRF\Test;
-
-use SMW\Tests\ResultPrinterTest;
-
-/**
- * Tests for the SRF\TagCloud class.
+/*!
+ * This file is part of the Semantic Result Formats Tagcloud module
+ * @see https://www.semantic-mediawiki.org/wiki/Help:Tagcloud_formats
  *
+ * @section LICENSE
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -14,7 +10,7 @@ use SMW\Tests\ResultPrinterTest;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along
@@ -22,46 +18,35 @@ use SMW\Tests\ResultPrinterTest;
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @since 1.8
- *
  * @file
  *
+ * @since 1.8
  * @ingroup SRF
- * @ingroup Test
  *
  * @licence GNU GPL v2+
- * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author mwjames
  */
-
-/**
- * Tests for the SRF\TagCloud class.
- *
- * @group SRF
- * @group SMWExtension
- * @group ResultPrinters
- */
-class TagCloudTest extends ResultPrinterTest {
-
-	/**
-	 * @see ResultPrinterTest::getFormats
-	 *
-	 * @since 1.8
-	 *
-	 * @return array
-	 */
-	public function getFormats() {
-		return array( 'tagcloud' );
-	}
-
-	/**
-	 * @see ResultPrinterTest::getClass
-	 *
-	 * @since 1.8
-	 *
-	 * @return string
-	 */
-	public function getClass() {
-		return '\SRF\TagCloud';
-	}
-
+.srf-tagcloud ul {
+ float: left;
+ display: block;
+ width: 280px;
+ overflow: auto;
+ padding: 20px;
+ margin: 0 10px 20px 0;
+ background-color: #fff;
+ border: 4px solid #aaa;
+ border-radius: 20px;
+ -moz-border-radius: 20px;
+}
+.srf-tagcloud ul li {
+ display: inline;
+ white-space: nowrap;
+}
+.srf-tagcloud ul li a {
+ margin: 2px;
+}
+.srf-tagcloud-sphere canvas#gradient {
+ float: right;
+ border:1px solid #000;
+ margin: 2px 20px
 }

@@ -1,0 +1,66 @@
+[
+	{
+		"name": "General",
+		"groups": [
+			{
+				"name": "Instance",
+				"classes": ["srf"]
+			}
+		]
+	},
+	{
+		"name": "Formats",
+		"groups": [
+			{
+				"name": "Meta",
+				"classes": ["srf.format"]
+			},
+			{
+				"name": "Formats",
+				"classes": ["srf.formats.*"]
+			}
+		]
+	},
+	{
+		"name": "Widgets",
+		"groups": [
+			{
+				"name": "Meta",
+				"classes": ["srf.widget*"]
+			}
+		]
+	},
+	{
+		"name": "Utilities",
+		"groups": [
+			{
+				"name": "Support",
+				"classes": ["srf.util*"]
+			}
+		]
+	},
+	{
+		"name": "Test",
+		"groups": [
+			{
+				"name": "QUnit",
+				"classes": ["QUnit", "QUnit.assert"]
+			}
+		]
+	},
+	{
+		"name": "Upstream",
+		"groups": [
+			{
+				"name": "jQuery",
+				"classes": ["jQuery", "jQuery.Event", "jQuery.Promise", "jQuery.Deferred", "jQuery.jqXHR", "QUnit"]
+			},
+			{
+				"name": "JavaScript",
+				"classes": [
+					"Array", "Boolean", "Date", "Function", "Number", "Object", "RegExp", "String"
+				]
+			}
+		]
+	}
+]

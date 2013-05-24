@@ -1,0 +1,16 @@
+{
+	"--title": "Semantic Result Formats Code Documentation",
+	"--categories": "../docs/jsduck.categories.json",
+	"--warnings": ["-no_doc"],
+	"--builtin-classes": true,
+	"--external": "HTMLDocument,Window",
+	"--":[
+		"../resources/docs",
+		"../resources/srf",
+		"../formats/tagcloud",
+		"../formats/gallery",
+		"../formats/datatables",
+		"../formats/media",
+		"../formats/calendar"	
+	]
+}

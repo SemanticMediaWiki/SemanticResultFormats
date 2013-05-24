@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2010-2012 Graham Breach
+ * Copyright (C) 2010-2013 Graham Breach
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -10,12 +10,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * jQuery.tagcanvas 2.0
+ * jQuery.tagcanvas 2.1.2
  * For more information, please contact <graham@goat1000.com>
  */
 (function($){
@@ -26,7 +26,7 @@ var i, j, abs = Math.abs, sin = Math.sin, cos = Math.cos,
   0:"0,",   1:"17,",  2:"34,",  3:"51,",  4:"68,",  5:"85,",
   6:"102,", 7:"119,", 8:"136,", 9:"153,", a:"170,", A:"170,",
   b:"187,", B:"187,", c:"204,", C:"204,", d:"221,", D:"221,",
-  e:"238,", E:"238,", f:"255,", F:"255,"
+  e:"238,", E:"238,", f:"255,", F:"255,"  
 }, Oproto, Tproto, TCproto, doc = document, ocanvas, handlers = {};
 for(i = 0; i < 256; ++i) {
   j = i.toString(16);
@@ -331,17 +331,23 @@ function EventToCanvasId(e) {
   return e.target && Defined(e.target.id) ? e.target.id :
     e.srcElement.parentNode.id;
 }
-function EventXY(e, id) {
+function EventXY(e, c) {
+  var xy, p, xmul = parseInt(GetProperty(c, 'width')) / c.width,
+    ymul = parseInt(GetProperty(c, 'height')) / c.height;
   if(Defined(e.offsetX)) {
-    return {x: e.offsetX, y: e.offsetY};
+    xy = {x: e.offsetX, y: e.offsetY};
   } else {
-    var p = AbsPos(id);
+    p = AbsPos(c.id);
     if(Defined(e.changedTouches))
       e = e.changedTouches[0];
     if(e.pageX)
-      return {x: e.pageX - p.x, y: e.pageY - p.y};
+      xy = {x: e.pageX - p.x, y: e.pageY - p.y};
   }
-  return null;
+  if(xy && xmul && ymul) {
+    xy.x /= xmul;
+    xy.y /= ymul;
+  }
+  return xy;
 }
 function MouseOut(e) {
   var cv = e.target || e.fromElement.parentNode, tc = TagCanvas.tc[cv.id];
@@ -362,7 +368,7 @@ function MouseMove(e) {
   }
   if(tg && t.tc[tg]) {
     tc = t.tc[tg];
-    if(p = EventXY(e, tg)) {
+    if(p = EventXY(e, tc.canvas)) {
       tc.mx = p.x;
       tc.my = p.y;
       tc.Drag(e, p);
@@ -415,7 +421,7 @@ function TouchMove(e) {
   }
   if(tg && t.tc[tg] && e.changedTouches) {
     tc = t.tc[tg];
-    if(p = EventXY(e, tg)) {
+    if(p = EventXY(e, tc.canvas)) {
       tc.mx = p.x;
       tc.my = p.y;
       tc.Drag(e, p);
@@ -564,7 +570,7 @@ Oproto.DrawColourText = function(c,x,y,w,h,colour,tag,x1,y1) {
   return 1;
 };
 Oproto.DrawColourImage = function(c,x,y,w,h,colour,tag,x1,y1) {
-  var ccanvas = c.canvas, fx = ~~max(x,0), fy = ~~max(y,0),
+  var ccanvas = c.canvas, fx = ~~max(x,0), fy = ~~max(y,0), 
     fw = min(ccanvas.width - fx, w) + .5|0, fh = min(ccanvas.height - fy,h) + .5|0, cc;
   if(ocanvas)
     ocanvas.width = fw, ocanvas.height = fh;
@@ -611,7 +617,7 @@ Oproto.DrawPulsate = function(c, tag, x1, y1) {
   c.strokeStyle = t.outlineColour;
   c.lineWidth = t.outlineThickness;
   c.shadowBlur = c.shadowOffsetX = c.shadowOffsetY = 0;
-  c.globalAlpha = t.pulsateTo + ((1 - t.pulsateTo) *
+  c.globalAlpha = t.pulsateTo + ((1 - t.pulsateTo) * 
     (0.5 + (cos(2 * Math.PI * diff / (1000 * t.pulsateTime)) / 2)));
   return this.drawFunc(c,this.x,this.y,this.w,this.h,t.outlineColour,tag,x1,y1);
 };
@@ -709,7 +715,7 @@ Tproto.Weight = function(c,t) {
     this.colour = FindGradientColour(t, (w - t.min_weight) / (t.max_weight-t.min_weight));
   if(m == 'size' || m == 'both') {
     if(t.weightSizeMin > 0 && t.weightSizeMax > t.weightSizeMin) {
-      this.textHeight = t.weightSize *
+      this.textHeight = t.weightSize * 
         (t.weightSizeMin + (t.weightSizeMax - t.weightSizeMin) *
          (w - t.min_weight) / (t.max_weight - t.min_weight));
     } else {
@@ -825,7 +831,7 @@ function TagCanvas(cid,lctr,opt) {
     throw 0;
   }
   for(i in TagCanvas.options)
-    this[i] = opt && Defined(opt[i]) ? opt[i] :
+    this[i] = opt && Defined(opt[i]) ? opt[i] : 
       (Defined(TagCanvas[i]) ? TagCanvas[i] : TagCanvas.options[i]);
 
   this.canvas = c;
@@ -846,7 +852,7 @@ function TagCanvas(cid,lctr,opt) {
   this.frozen = 0;
   this.dx = this.dy = 0;
   this.touched = 0;
-  this.source = doc.getElementById(lctr || cid);
+  this.source = lctr || cid;
   this.transform = Matrix.Identity();
   this.time = new Date().valueOf();
   this.Animate = this.dragControl ? this.AnimateDrag : this.AnimatePosition;
@@ -862,9 +868,9 @@ function TagCanvas(cid,lctr,opt) {
   if(lctr && this.hideTags) {
     (function(t) {
     if(TagCanvas.loaded)
-      t.source.style.display = 'none';
+      t.HideTags();
     else
-      AddHandler('load', function() { t.source.style.display = 'none'; }, window);
+      AddHandler('load', function() { t.HideTags(); }, window);
     })(this);
   }
 
@@ -908,6 +914,26 @@ function TagCanvas(cid,lctr,opt) {
   TagCanvas.started || (TagCanvas.started = setTimeout(DrawCanvas, this.interval));
 }
 TCproto = TagCanvas.prototype;
+TCproto.SourceElements = function() {
+  if(doc.querySelectorAll)
+    return doc.querySelectorAll('#' + this.source);
+  return [doc.getElementById(this.source)];
+};
+TCproto.HideTags = function() {
+  var el = this.SourceElements(), i;
+  for(i = 0; i < el.length; ++i)
+    el[i].style.display = 'none';
+};
+TCproto.GetTags = function() {
+  var el = this.SourceElements(), etl, tl = [], i, j;
+  for(i = 0; i < el.length; ++i) {
+    etl = el[i].getElementsByTagName('a');
+    for(j = 0; j < etl.length; ++j) {
+      tl.push(etl[j]);
+    }
+  }
+  return tl;
+};
 TCproto.CreateTag = function(e, p) {
   var im = e.getElementsByTagName('img'), i, t, ts, font;
   p = p || [0, 0, 0];
@@ -949,8 +975,8 @@ TCproto.Weight = function(tl) {
   }
 };
 TCproto.Load = function() {
-  var tl = this.source.getElementsByTagName('a'), taglist = [], shape,
-    shapeArgs, rx, ry, rz, vl, pfuncs = {
+  var tl = this.GetTags(), taglist = [], shape,
+    shapeArgs, rx, ry, rz, vl, i, tagmap = [], pfuncs = {
       sphere: PointsOnSphere,
       vcylinder: PointsOnCylinderV,
       hcylinder: PointsOnCylinderH,
@@ -959,6 +985,10 @@ TCproto.Load = function() {
     };
 
   if(tl.length) {
+    tagmap.length = tl.length;
+    for(i = 0; i < tl.length; ++i)
+      tagmap[i] = i;
+    this.shuffleTags && Shuffle(tagmap);
     rx = 100 * this.radiusX;
     ry = 100 * this.radiusY;
     rz = 100 * this.radiusZ;
@@ -973,17 +1003,16 @@ TCproto.Load = function() {
       this.shapeArgs = [tl.length, rx, ry, rz].concat(shapeArgs);
     }
     vl = this.shape.apply(this, this.shapeArgs);
-    this.shuffleTags && Shuffle(vl);
     this.listLength = tl.length;
     for(i = 0; i < tl.length; ++i) {
-      taglist.push(this.CreateTag(tl[i], vl[i]));
+      taglist.push(this.CreateTag(tl[tagmap[i]], vl[i]));
     }
     this.weight && this.Weight(taglist, true);
   }
   this.taglist = taglist;
 };
 TCproto.Update = function() {
-  var tl = this.source.getElementsByTagName('a'), newlist = [],
+  var tl = this.GetTags(), newlist = [],
     taglist = this.taglist, found,
     added = [], removed = [], vl, ol, nl, i, j;
 
@@ -1075,7 +1104,7 @@ TCproto.Draw = function(t) {
   for(i = 0; i < l; ++i)
     tl[i].Calc(this.transform);
   tl = SortList(tl, function(a,b) {return b.z-a.z});
-
+  
   for(i = 0; i < l; ++i) {
     a = this.mx >= 0 && this.my >= 0 && this.taglist[i].CheckActive(c, x, y);
     if(a && a.sc > max_sc && (!frontsel || a.z <= 0)) {
@@ -1214,7 +1243,7 @@ TCproto.Wheel = function(i) {
   this.Zoom(this.zoom);
 };
 TCproto.BeginDrag = function(e) {
-  this.down = EventXY(e, this.canvas.id);
+  this.down = EventXY(e, this.canvas);
   e.cancelBubble = true;
   e.returnValue = false;
   e.preventDefault && e.preventDefault();

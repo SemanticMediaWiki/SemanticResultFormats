@@ -1,19 +1,33 @@
-/**
- * JavaScript for SRF semanticFormats util namespace
+/*!
+ * This file is part of the Semantic Result Formats Extension
+ * @see https://www.semantic-mediawiki.org/wiki/SRF
  *
- * @since 1.8
- * @release 0.3
+ * @section LICENSE
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
  *
  * @file
+ *
+ * @since 1.8
  * @ingroup SRF
  *
- * @licence GNU GPL v2 or later
+ * @licence GNU GPL v2+
  * @author mwjames
  */
 ( function( $, mw, srf ) {
  'use strict';
-
-	/*global semanticFormats:true mediaWiki:true*/
 
 	////////////////////////// PRIVATE METHODS //////////////////////////
 
@@ -187,8 +201,31 @@
 					.replaceWith( options.context.find( '.' + _CL_srfIspinner ).data( 'spinner' ) ) ;
 			},
 			hide: function ( options ){
-				// Hide spinner
-				options.context.find( '.' + _CL_srfspinner ).hide();
+				var c = options.length === undefined ? options.context : options;
+				c.find( '.' + _CL_srfspinner ).hide();
+			}
+		},
+
+		/**
+		 * Convenience method to check if some options are supported
+		 *
+		 * @since 1.9
+		 *
+		 * @param {string} option
+		 *
+		 * @return boolean
+		 */
+		assert: function( option ) {
+			switch ( option ){
+				case 'canvas':
+					// Checks if the current browser supports canvas
+					// @see http://goo.gl/9PYP3
+					return !!window.HTMLCanvasElement;
+				case 'svg':
+					// Checks if the current browser supports svg
+					return !!window.SVGSVGElement;
+				default:
+					return false;
 			}
 		},
 

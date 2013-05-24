@@ -516,16 +516,19 @@ return array(
 	),
 
 	//
-	'ext.d3.layout.cloud' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/d3/d3.layout.cloud.js',
-		'dependencies' => 'ext.d3.core'
-	),
-
-	//
 	'ext.srf.d3.common' => $formatModule + array(
 		'scripts' => 'd3/resources/ext.srf.d3.common.js',
 		'styles'  => 'd3/resources/ext.srf.d3.common.css',
 		'dependencies' => 'ext.srf.util'
+	),
+
+	// Wordcloud
+	'ext.d3.wordcloud' => $moduleTemplate + array(
+		'scripts' => 'resources/jquery/d3/d3.layout.cloud.js',
+		'dependencies' => array (
+			'ext.d3.core',
+			'ext.srf.d3.common'
+		)
 	),
 
 	//
@@ -762,39 +765,16 @@ return array(
 		'dependencies' =>'mediawiki.legacy.ajax'
 	),
 
-	// Tag cloud
-	// excanvas is only needed for pre-9.0 Internet Explorer compatibility
-	'ext.jquery.tagcanvas.excanvas' => $moduleTemplate + array(
-	//	'scripts' => 'resources/jquery.tagcanvas/excanvas.js'
-	),
-
-	//
+	// Tagcanvas module
 	'ext.jquery.tagcanvas' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/jquery.tagcanvas.js'
 	),
 
-	//
-	'ext.srf.tagcloud.sphere' => $formatModule + array(
-		'scripts' => 'tagcloud/resources/ext.srf.tagcloud.sphere.js',
-		'styles'  => 'tagcloud/resources/ext.srf.tagcloud.sphere.css',
-		'dependencies' => array(
-			'jquery.async',
-			'jquery.client',
-			'ext.srf.util',
-			'ext.jquery.tagcanvas'
-		),
-		'position' => 'top',
-	),
-
-	//
-	'ext.srf.tagcloud.wordcloud' => $formatModule + array(
-		'scripts' => 'tagcloud/resources/ext.srf.tagcloud.wordcloud.js',
-		'dependencies' => array (
-			'jquery.async',
-			'ext.d3.layout.cloud',
-			'ext.srf.d3.common'
-		),
-		'position'     => 'top',
+	// SRF Tag cloud module
+	'ext.srf.formats.tagcloud' => $formatModule + array(
+		'scripts' => 'tagcloud/resources/ext.srf.formats.tagcloud.js',
+		'styles'  => 'tagcloud/resources/ext.srf.formats.tagcloud.css',
+		'dependencies' => 'ext.srf.util'
 	),
 
 	// Timeseries

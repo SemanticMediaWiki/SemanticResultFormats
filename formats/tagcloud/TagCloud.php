@@ -1,5 +1,15 @@
 <?php
 
+namespace SRF;
+
+use SMW\ResultPrinter;
+use SMWQueryResult;
+use SMWPrintRequest;
+use SRFUtils;
+use SMWOutputs;
+
+use Html;
+
 /**
  * Result printer that prints query results as a tag cloud
  *
@@ -20,15 +30,27 @@
  *
  * @since 1.5.3
  *
- * @file SRF_TagCloud.php
- * @ingroup SemanticResultFormats
+ * @file
+ * @ingroup SRF
+ * @ingroup QueryPrinter
  *
  * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
  */
-class SRFTagCloud extends SMWResultPrinter {
 
+/**
+ * Result printer that prints query results as a tag cloud
+ *
+ * @ingroup SRF
+ * @ingroup QueryPrinter
+ */
+class TagCloud extends ResultPrinter {
+
+	/**
+	 * Contains html generated tags
+	 * @var array
+	 */
 	protected $tagsHtml = array();
 
 	/**
@@ -37,24 +59,32 @@ class SRFTagCloud extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return wfMessage( 'srf_printername_tagcloud' )->text();
+		return $this->msg( 'srf_printername_tagcloud' )->text();
 	}
 
 	/**
 	 * Return serialised results in specified format
 	 *
-	 * @param SMWQueryResult $results
+	 * @param SMWQueryResult $queryResult
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	public function getResultText( SMWQueryResult $results, $outputmode ) {
+	public function getResultText( SMWQueryResult $queryResult, $outputmode ) {
+
+		$tags = $this->getTags( $queryResult, $outputmode );
+
+		if ( $tags === array() ) {
+			$queryResult->addErrors( array( $this->msg( 'smw_result_noresults' )->inContentLanguage()->text() ) );
+			return '';
+		}
 
 		// Check output conditions
 		if ( ( $this->params['widget'] == 'sphere' ) &&
 			( $this->params['link'] !== 'all' ) &&
 			( $this->params['template'] === '' ) ) {
-			return $results->addErrors( array( wfMessage( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ) );
+			$queryResult->addErrors( array( $this->msg( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ) );
+			return '';
 		}
 
 		// Template support
@@ -66,17 +96,12 @@ class SRFTagCloud extends SMWResultPrinter {
 
 		$outputmode = SMW_OUTPUT_HTML;
 
-		// Sphere widget
-		if ( $this->params['widget'] === 'sphere' ){
-			SMWOutputs::requireResource( 'ext.srf.tagcloud.sphere' );
+		// Register RL module
+		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
+			SMWOutputs::requireResource( 'ext.srf.formats.tagcloud' );
 		}
 
-		// Wordcloud widget
-		if ( $this->params['widget'] === 'wordcloud' ){
-			SMWOutputs::requireResource( 'ext.srf.tagcloud.wordcloud' );
-		}
-
-		return $this->getTagCloud( $this->getTagSizes( $this->getTags( $results, $outputmode ) ) );
+		return $this->getTagCloud( $this->getTagSizes( $tags ) );
 	}
 
 	/**
@@ -89,16 +114,17 @@ class SRFTagCloud extends SMWResultPrinter {
 	 *
 	 * @return array
 	 */
-	protected function getTags( SMWQueryResult $results, $outputmode ) {
+	protected function getTags( SMWQueryResult $queryResult, $outputmode ) {
 		$tags        = array();
 		$excludetags = explode( ';', $this->params['excludetags'] );
 
-		while ( /* array of SMWResultArray */ $row = $results->getNext() ) { // Objects (pages)
+		/**
+		 * @var SMWResultArray $row
+		 * @var SMWDataValue $dataValue
+		 */
+		while ( $row = $queryResult->getNext() ) { // Objects (pages)
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property
 
-				/**
-				 * @var SMWDataValue $dataValue
-				 */
 				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
 
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
@@ -125,9 +151,10 @@ class SRFTagCloud extends SMWResultPrinter {
 					// Replace content with template inclusion
 					$html = $this->params['template'] !== '' ? $this->addTemplateOutput ( $value , $rownum ) : $html;
 
+					// Store the HTML separately, so sorting can be done easily
 					if ( !array_key_exists( $value, $tags ) ) {
 						$tags[$value] = 0;
-						$this->tagsHtml[$value] = $html; // Store the HTML separetely, so sorting can be done easily.
+						$this->tagsHtml[$value] = $html;
 					}
 
 					$tags[$value]++;
@@ -250,14 +277,13 @@ class SRFTagCloud extends SMWResultPrinter {
 	protected function getTagCloud( array $tags ) {
 
 		// Initialize
-		static $statNr = 0;
 		$htmlTags      = array();
 		$processing    = '';
 		$htmlSTags     = '';
 		$htmlCTags     = '';
 
 		// Count actual output and store div identifier
-		$tagID = $this->params['widget'] . '-' . ++$statNr;
+		$tagId = 'srf-' . uniqid();
 
 		// Determine HTML element marker
 		$element = $this->params['widget'] !== '' ? 'li' : 'span';
@@ -284,14 +310,15 @@ class SRFTagCloud extends SMWResultPrinter {
 
 			// Wrap tags
 			$htmlCTags = Html::rawElement( 'div', array (
-				'id' => $tagID . '-tags'
+				'id'    => $tagId . '-tags',
+				'class' => 'srf-tags'
 				), $htmlCTags
 			);
 
 			// Wrap everything in a container object
 			$htmlSTags = Html::rawElement( 'div', array (
-				'id'     => $tagID . '-container',
-				'class'  => 'container',
+				'id'     => $tagId . '-container',
+				'class'  => 'srf-container',
 				'data-width'  => $this->params['width'],
 				'data-height' => $this->params['height'],
 				'data-font'   => $this->params['font']
@@ -299,7 +326,7 @@ class SRFTagCloud extends SMWResultPrinter {
 			);
 
 			// Processing placeholder
-			$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
+			$processing = SRFUtils::htmlProcessingElement();
 		}
 
 		// Beautify class selector
@@ -309,6 +336,7 @@ class SRFTagCloud extends SMWResultPrinter {
 		// General placeholder
 		$attribs = array (
 			'class'  => 'srf-tagcloud' . $class,
+			'data-version' => '0.4.1',
 			'align'  => 'justify'
 		);
 
@@ -334,7 +362,7 @@ class SRFTagCloud extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
