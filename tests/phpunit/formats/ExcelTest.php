@@ -1,10 +1,11 @@
 <?php
 
 namespace SRF\Test;
-use SMW\Tests\ResultPrinterTest;
+
+use SMW\Test\ResultPrinterTestCase;
 
 /**
- *  Tests for the SRF\Excel class.
+ * Tests for the SRF\Excel class.
  *
  * @since 1.9
  *
@@ -17,10 +18,10 @@ use SMW\Tests\ResultPrinterTest;
  *
  * @author Kim Eik
  */
-class ExcelTest extends ResultPrinterTest {
+class ExcelTest extends ResultPrinterTestCase {
 
 	/**
-	 * @see ResultPrinterTest::getFormats
+	 * @see ResultPrinterTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
@@ -31,7 +32,7 @@ class ExcelTest extends ResultPrinterTest {
 	}
 
 	/**
-	 * @see ResultPrinterTest::getClass
+	 * @see ResultPrinterTestCase::getClass
 	 *
 	 * @since 1.8
 	 *

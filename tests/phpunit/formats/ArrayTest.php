@@ -1,10 +1,11 @@
 <?php
 
 namespace SRF\Test;
-use SMW\Tests\ResultPrinterTest;
+
+use SMW\Test\ResultPrinterTestCase;
 
 /**
- *  Tests for the SRF\Array class.
+ * Tests for the SRF\Array class.
  *
  * @file
  * @since 1.8
@@ -19,7 +20,7 @@ use SMW\Tests\ResultPrinterTest;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class ArrayTest extends ResultPrinterTest {
+class ArrayTest extends ResultPrinterTestCase {
 
 	/**
 	 * @see ResultPrinterTest::getFormats

@@ -1,10 +1,11 @@
 <?php
 
 namespace SRF\Test;
-use SMW\Tests\ResultPrinterTest;
+
+use SMW\Test\ResultPrinterTestCase;
 
 /**
- *  Tests for the SRF\Sparkline class.
+ * Tests for the SRF\Sparkline class.
  *
  * @file
  * @since 1.8
@@ -19,10 +20,10 @@ use SMW\Tests\ResultPrinterTest;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class TimeseriesTest extends ResultPrinterTest {
+class TimeseriesTest extends ResultPrinterTestCase {
 
 	/**
-	 * @see ResultPrinterTest::getFormats
+	 * @see ResultPrinterTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
@@ -33,7 +34,7 @@ class TimeseriesTest extends ResultPrinterTest {
 	}
 
 	/**
-	 * @see ResultPrinterTest::getClass
+	 * @see ResultPrinterTestCase::getClass
 	 *
 	 * @since 1.8
 	 *

@@ -1,7 +1,8 @@
 <?php
 
 namespace SRF\Test;
-use SMW\Tests\ResultPrinterTest;
+
+use SMW\Test\ResultPrinterTestCase;
 
 /**
  *  Tests for the SRF\ListWidget class.
@@ -19,10 +20,10 @@ use SMW\Tests\ResultPrinterTest;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class ListWidgetTest extends ResultPrinterTest {
+class ListWidgetTest extends ResultPrinterTestCase {
 
 	/**
-	 * @see ResultPrinterTest::getFormats
+	 * @see ResultPrinterTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
@@ -33,7 +34,7 @@ class ListWidgetTest extends ResultPrinterTest {
 	}
 
 	/**
-	 * @see ResultPrinterTest::getClass
+	 * @see ResultPrinterTestCase::getClass
 	 *
 	 * @since 1.8
 	 *

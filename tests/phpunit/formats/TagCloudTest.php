@@ -2,7 +2,7 @@
 
 namespace SRF\Test;
 
-use SMW\Tests\ResultPrinterTest;
+use SMW\Test\ResultPrinterTestCase;
 
 /**
  * Tests for the SRF\TagCloud class.
@@ -40,10 +40,10 @@ use SMW\Tests\ResultPrinterTest;
  * @group SMWExtension
  * @group ResultPrinters
  */
-class TagCloudTest extends ResultPrinterTest {
+class TagCloudTest extends ResultPrinterTestCase {
 
 	/**
-	 * @see ResultPrinterTest::getFormats
+	 * @see ResultPrinterTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
@@ -54,7 +54,7 @@ class TagCloudTest extends ResultPrinterTest {
 	}
 
 	/**
-	 * @see ResultPrinterTest::getClass
+	 * @see ResultPrinterTestCase::getClass
 	 *
 	 * @since 1.8
 	 *
