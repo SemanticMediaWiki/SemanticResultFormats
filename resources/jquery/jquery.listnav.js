@@ -104,8 +104,8 @@
 
 			function addLetterClass(firstChar, $el, isPrefix) {
 				// Deployed with SRF 1.9 to recognize the data-sortkey
-				var sortKey = $el.data( 'sortkey' );
-				if ( sortKey ){
+				var sortKey = String( $el.data( 'sortkey' ) );
+				if ( sortKey !== 'undefined' ){
 					firstChar = sortKey.toLowerCase();
 				} else {
 					if (/\W/.test(firstChar)) firstChar = '-'; // not A-Z, a-z or 0-9, so considered "other"

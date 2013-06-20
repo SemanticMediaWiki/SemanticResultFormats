@@ -84,8 +84,8 @@
 				$list.children().each(function() {
 					str = $(this).text().replace(/\s+/g, ''); // strip all white space from text (including tabs and linebreaks that might have been in the HTML) // thanks to Liam Byrne, liam@onsight.ie
 					// Deployed with SRF 1.9 to recognize the data-sortkey
-					var sortKey = $(this).data( 'sortkey' );
-					if ( sortKey ){
+					var sortKey = String( $(this).data( 'sortkey' ) );
+					if ( sortKey !== 'undefined' ){
 						firstChar = sortKey.toLowerCase();
 					} else {
 						if (str !== '') {
