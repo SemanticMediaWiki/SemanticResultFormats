@@ -515,7 +515,8 @@ return array(
 		'dependencies' => array(
 			'ext.smile.timeline',
 			'mediawiki.legacy.wikibits'
-		)
+		),
+		'position' => 'top',
 	),
 
 	// D3
