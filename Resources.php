@@ -373,15 +373,18 @@ return array(
 	),
 
 	'ext.jquery.jqplot.pointlabels' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/jqplot/jqplot.pointLabels.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.pointLabels.js',
+		'dependencies' => 'ext.jquery.jqplot.core'
 	),
 
 	'ext.jquery.jqplot.highlighter' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/jqplot/jqplot.highlighter.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.highlighter.js',
+		'dependencies' => 'ext.jquery.jqplot.core'
 	),
 
 	'ext.jquery.jqplot.enhancedlegend' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/jqplot/jqplot.enhancedLegendRenderer.js'
+		'scripts' => 'resources/jquery/jqplot/jqplot.enhancedLegendRenderer.js',
+		'dependencies' => 'ext.jquery.jqplot.core'
 	),
 
 	// Plugin class to render a trendline
@@ -443,9 +446,14 @@ return array(
 
 	// Chart specific declarations
 	'ext.srf.jqplot.chart' => $formatModule + array(
-		'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.js',
+		'scripts' => array(
+			'jqplot/resources/ext.srf.jqplot.chart.bar.js',
+			'jqplot/resources/ext.srf.jqplot.chart.pie.js',
+			'jqplot/resources/ext.srf.jqplot.chart.js',
+		),
 		'styles'  => 'jqplot/resources/ext.srf.jqlpot.chart.css',
 		'dependencies' => array(
+			'ext.jquery.jqplot.core',
 			'jquery.async',
 			'ext.srf.util',
 			'ext.srf.jqplot.themes'
