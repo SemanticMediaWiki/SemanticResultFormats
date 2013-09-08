@@ -63,6 +63,7 @@
 			return context.each( function() {
 				var util = new srf.util();
 				var $this = $( this ),
+					fallbackDimension = srf.settings.get( 'wgThumbLimits' )[mw.user.options.get( 'thumbsize' )],
 					carousel = $this.find( '.jcarousel' );
 
 					util.spinner.hide( { context: $this } );
@@ -74,7 +75,8 @@
 							visible: parseInt( $( this ).attr( 'data-visible' ), 10 ),
 							wrap: $( this ).attr( 'data-wrap' ),
 							vertical: $( this ).attr( 'data-vertical' ) === 'true',
-							rtl: $( this ).attr( 'data-rtl' ) === 'true'
+							rtl: $( this ).attr( 'data-rtl' ) === 'true',
+							itemFallbackDimension: fallbackDimension
 						} );
 					} );
 			} );
