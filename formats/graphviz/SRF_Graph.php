@@ -293,7 +293,7 @@ class SRFGraph extends SMWResultPrinter {
 		);
 
 		$params['graphsize'] = array(
-			'type' => 'integer',
+			'type' => 'string',
 			'default' => '',
 			'message' => 'srf_paramdesc_graphsize',
 			'manipulatedefault' => false,
