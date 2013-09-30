@@ -102,15 +102,20 @@ class SRFExcel extends SMWExportPrinter {
 			$rowOffset++;
 			$colOffset = 0;
 			foreach ( $row as $field ) {
-
+				$numValues = 0;
 				while ( ( $object = $field->getNextDataValue() ) !== false ) {
-					//NOTE: must check against subclasses before superclasses
-					if ( $object instanceof SMWQuantityValue ) {
-						$this->setQuantityDataValue( $object, $sheet, $colOffset, $rowOffset );
-					} else if ( $object instanceof SMWNumberValue ) {
-						$this->setNumberDataValue( $object, $sheet, $colOffset, $rowOffset );
-					} else {
-						$this->setStringDataValue( $object, $sheet, $colOffset, $rowOffset );
+					$numValues++;
+					if($numValues > 1){
+						$this->setOrAppendStringDataValue( $object, $sheet, $colOffset, $rowOffset );
+					}else{
+						//NOTE: must check against subclasses before superclasses
+						if ( $object instanceof SMWQuantityValue ) {
+							$this->setQuantityDataValue( $object, $sheet, $colOffset, $rowOffset );
+						} else if ( $object instanceof SMWNumberValue ) {
+							$this->setNumberDataValue( $object, $sheet, $colOffset, $rowOffset );
+						} else {
+							$this->setOrAppendStringDataValue( $object, $sheet, $colOffset, $rowOffset );
+						}
 					}
 				}
 				$colOffset++;
@@ -119,21 +124,29 @@ class SRFExcel extends SMWExportPrinter {
 	}
 
 	/**
-	 * Sets a string value at the given col,row location
+	 * Sets or appends a string value at the given col,row location
+	 *
+	 * If there already exists a value at a given col,row location, then
+	 * convert the cell to a string and append the data value. Creating
+	 * a list of comma separated entries.
 	 *
 	 * @param $object    the raw data value object
 	 * @param $sheet     the current phpexcel sheet
 	 * @param $colOffset the col offset to store the data
 	 * @param $rowOffset the row offset to store the data
 	 */
-	protected function setStringDataValue ( $object, $sheet, $colOffset, $rowOffset ) {
+	protected function setOrAppendStringDataValue ( $object, \PHPExcel_Worksheet $sheet, $colOffset, $rowOffset ) {
 		$type = PHPExcel_Cell_DataType::TYPE_STRING;
 		$value = $object->getWikiValue();
 		$value = Sanitizer::decodeCharReferences( $value );
 		$value = PHPExcel_Cell_DataType::checkString( $value );
 
-		$sheet->getCellByColumnAndRow( $colOffset, $rowOffset )
-			->setValueExplicit( $value, $type );
+		$cell = $sheet->getCellByColumnAndRow( $colOffset, $rowOffset );
+		$existingValue = $cell->getValue();
+		if($existingValue){
+			$value = $cell->getValue().','.$value;
+		}
+		$cell->setValueExplicit($value,$type);
 	}
 
 	/**
