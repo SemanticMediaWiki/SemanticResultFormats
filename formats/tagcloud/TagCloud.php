@@ -3,8 +3,10 @@
 namespace SRF;
 
 use SMW\ResultPrinter;
+use SMWDataValue;
 use SMWQueryResult;
 use SMWPrintRequest;
+use SMWResultArray;
 use SRFUtils;
 use SMWOutputs;
 
@@ -94,8 +96,6 @@ class TagCloud extends ResultPrinter {
 		$this->isHTML = $this->params['widget'] !== '';
 		$this->isHTML = $this->params['template'] === '';
 
-		$outputmode = SMW_OUTPUT_HTML;
-
 		// Register RL module
 		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
 			SMWOutputs::requireResource( 'ext.srf.formats.tagcloud' );
@@ -109,13 +109,13 @@ class TagCloud extends ResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param SMWQueryResult $results
-	 * @param $outputmode
+	 * @param SMWQueryResult $queryResult
+	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getTags( SMWQueryResult $queryResult, $outputmode ) {
-		$tags        = array();
+	protected function getTags( SMWQueryResult $queryResult, $outputMode ) {
+		$tags = array();
 		$excludetags = explode( ';', $this->params['excludetags'] );
 
 		/**
@@ -137,9 +137,9 @@ class TagCloud extends ResultPrinter {
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $dataValue->getTypeID() == '_wpg' ) {
 						$value = $dataValue->getTitle()->getText();
-						$html = $dataValue->getLongText( $outputmode, $this->getLinker( $isSubject ) );
+						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
 					} else {
-						$html = $dataValue->getShortText( $outputmode, $this->getLinker( false ) );
+						$html = $dataValue->getShortText( $outputMode, $this->getLinker( false ) );
 						$value = $html;
 					}
 
