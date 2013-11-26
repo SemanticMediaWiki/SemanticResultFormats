@@ -27,7 +27,7 @@ $messages['en'] = array(
 	'srf-prefs-datatables-options-cache-default' => 'Enable [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage local storage] to improve response time',
 
 	// shared messages
-	'srf-module-loading'   => 'Loading...',
+	'srf-module-loading'   => 'Loading…',
 	'srf-paramdesc-layout' => 'Available layout',
 	'srf-paramdesc-height' => 'Height',
 	'srf-paramdesc-width'  => 'Width',
@@ -192,7 +192,7 @@ $messages['en'] = array(
 	'srf_paramdesc_minsize' => 'The size of the smallest tags in percent',
 	'srf_paramdesc_maxsize' => 'The size of the biggest tags in percent',
 	'srf_paramdesc_maxtags' => 'The maximum amount of tags in the cloud',
-	'srf-paramdesc-excludetags' => 'Exclude tags (delimiter: ;)',
+	'srf-paramdesc-excludetags' => 'Exclude tags (delimiter: ";")',
 
 	// format "valuerank"
 	'srf_printername_valuerank' => 'Value rank',
@@ -229,16 +229,16 @@ $messages['en'] = array(
 	'srf-ui-datatables-label-parameters' => 'Parameters',
 	'srf-ui-datatables-label-filters' => 'Column filters and search',
 	'srf-ui-datatables-label-information' => 'Information',
-	'srf-ui-datatables-panel-disclaimer' => 'Parameters and conditions can be altered, but any change is temporary and restored after a page refresh.',
+	'srf-ui-datatables-panel-disclaimer' => 'Parameters and conditions can be altered, but any change is temporary and abandoned after a page refresh.',
 	'srf-ui-datatables-label-update-success' => 'The table update was successful',
 	'srf-ui-datatables-label-update-error' => 'The table update failed.',
-	'srf-ui-datatables-label-placeholder-column-search' => 'Search ...',
+	'srf-ui-datatables-label-placeholder-column-search' => 'Search …',
 	'srf-ui-datatables-label-content-cache' => 'The content was derived from local cache.',
 	'srf-ui-datatables-label-content-server' => 'The content was derived from the server.',
 	'srf-ui-datatables-label-multiselect-column-header' => 'Available columns',
 	'srf-ui-datatables-label-multiselect-column-noneselectedtext' => 'Filter settings',
 	'srf-ui-datatables-label-multiselect-column-selectedtext' => 'Columns are visible',
-	'srf-ui-datatables-label-placeholder-column-search' => 'Search ...',
+	'srf-ui-datatables-label-placeholder-column-search' => 'Search …',
 
 	// For more information see http://datatables.net/plug-ins/i18n
 	'srf-ui-datatables-label-sEmptyTable' => 'No data available in table',
@@ -248,8 +248,8 @@ $messages['en'] = array(
 	'srf-ui-datatables-label-sInfoPostFix' => '',
 	'srf-ui-datatables-label-sInfoThousands' => ',',
 	'srf-ui-datatables-label-sLengthMenu' => 'Show _MENU_ entries',
-	'srf-ui-datatables-label-sLoadingRecords' => 'Loading...',
-	'srf-ui-datatables-label-sProcessing' => 'Processing...',
+	'srf-ui-datatables-label-sLoadingRecords' => 'Loading…',
+	'srf-ui-datatables-label-sProcessing' => 'Processing…',
 	'srf-ui-datatables-label-sSearch' => 'Search:',
 	'srf-ui-datatables-label-sZeroRecords' => 'No matching records found',
 	'srf-ui-datatables-label-oPaginate-sFirst' => 'First',
@@ -327,7 +327,7 @@ $messages['en'] = array(
 	'srf-ui-eventcalendar-format-time-agenda' => 'H:mm( - H:mm)',
 	'srf-ui-eventcalendar-format-axis' => 'H:mm',
 	'srf-ui-eventcalendar-format-title-month' => 'MMMM yyyy',
-	'srf-ui-eventcalendar-format-title-week' => 'd [ yyyy]{ \'&#8212;\'[ MMM] d MMM yyyy}',
+	'srf-ui-eventcalendar-format-title-week' => 'd [MMM][ yyyy]{ \'&#8212;\' d MMM yyyy}',
 	'srf-ui-eventcalendar-format-title-day' => 'dddd, d MMM, yyyy',
 	'srf-ui-eventcalendar-format-column-month' => 'ddd',
 	'srf-ui-eventcalendar-format-column-week' => 'ddd d/M',
@@ -370,10 +370,9 @@ $messages['en'] = array(
 	'srf-ui-mediaplayer-label-full-screen' => 'Full screen',
 	'srf-ui-mediaplayer-label-restore-screen' => 'Restore screen',
 
-	//format excel
+	// format "excel"
 	'srf-excel-link' => 'Excel',
-	'srf-excel-missing-phpexcel' => 'Could not export as excel! Missing extension [http://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel], please contact your system administrator in order to enable this feature.',
-
+	'srf-excel-missing-phpexcel' => 'Could not export for MS-Excel because extension [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] is not installed.',
 );
 
 /** Message documentation (Message documentation)
