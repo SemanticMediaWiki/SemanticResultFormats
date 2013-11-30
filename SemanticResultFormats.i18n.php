@@ -1,14 +1,13 @@
 <?php
+
 /**
- * Internationalization file for the Semantic Result Formats extension
- *
- * @file
- * @ingroup Extensions
+ * Internationalization file for the Semantic Result Formats extension.
  */
 
 $messages = array();
 
-/** English
+/**
+ * English
  */
 $messages['en'] = array(
 	// FIXME: descmsg in extension credits should allow for parameter(s) so that $formats_list can be added
