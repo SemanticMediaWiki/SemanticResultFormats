@@ -29,7 +29,7 @@ if ( defined( 'SRF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SRF_VERSION', '1.9 alpha' );
+define( 'SRF_VERSION', '1.9 beta' );
 
 // Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
 $GLOBALS['wgExtensionFunctions'][] = 'srffInitFormats';
