@@ -17,6 +17,8 @@ if ( defined( 'SRF_VERSION' ) ) {
 	return 1;
 }
 
+define( 'SRF_VERSION', '1.9 beta' );
+
 if ( version_compare( $GLOBALS['wgVersion'], '1.19c', '<' ) ) {
 	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.17 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
 }
@@ -28,8 +30,6 @@ if ( !defined( 'SMW_VERSION' ) && is_readable( __DIR__ . '/vendor/autoload.php' 
 if ( ! defined( 'SMW_VERSION' ) ) {
 	throw new Exception( 'You need to have Semantic MediaWiki installed in order to use Semantic Result Formats' );
 }
-
-define( 'SRF_VERSION', '1.9 beta' );
 
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
