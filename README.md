@@ -17,10 +17,9 @@ For more information, see the [SRF homepage]
 
 If you have remarks, questions, or suggestions, please send them to
 semediawiki-users@lists.sourceforge.net. You can subscribe to this
-list at
-http://sourceforge.net/mailarchive/forum.php?forum_name=semediawiki-user.
+list [here](http://sourceforge.net/mailarchive/forum.php?forum_name=semediawiki-user).
 
-Bugs should be filed at the MediaWiki Bugzilla, at http://bugzilla.wikimedia.org/.
+Bugs should be filed at the [MediaWiki Bugzilla](http://bugzilla.wikimedia.org/).
 Please select "SemanticResultFormats" as the "component".
 
 If you want to contribute work to the project please subscribe to the
