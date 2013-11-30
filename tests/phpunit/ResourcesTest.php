@@ -21,22 +21,18 @@ use ResourceLoaderContext;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class ResourcesTest extends \MediaWikiTestCase {
+class ResourcesTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Helper method to load resources only valid for this extension
 	 *
 	 * @return array
 	 */
-	private function getSRFResourceModules(){
+	private function getSRFResourceModules() {
 		global $srfgIP;
 		return include $srfgIP . '/' . 'Resources.php';
 	}
 
-	/**
-	 * DataProvider
-	 *
-	 */
 	public function moduleDataProvider() {
 		$resourceLoader = new ResourceLoader();
 		$context = ResourceLoaderContext::newDummyContext();
@@ -46,18 +42,11 @@ class ResourcesTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * Test scripts accessibility
-	 *
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ){
-
 		foreach ( $modules as $name => $values ){
-
-			// Get module details
 			$module = $resourceLoader->getModule( $name );
-
-			// Get scripts per module
 			$scripts = $module->getScript( $context );
 			$this->assertInternalType( 'string', $scripts );
 		}
@@ -80,4 +69,5 @@ class ResourcesTest extends \MediaWikiTestCase {
 			$this->assertContainsOnly( 'string', $styles );
 		}
 	}
+
 }

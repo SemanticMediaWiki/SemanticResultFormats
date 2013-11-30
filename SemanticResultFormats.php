@@ -37,10 +37,10 @@ $GLOBALS['wgExtensionFunctions'][] = 'srffInitFormats';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
-$srfgScriptPath = ( $GLOBALS['wgExtensionAssetsPath'] === false ?
+$GLOBALS['srfgScriptPath'] = ( $GLOBALS['wgExtensionAssetsPath'] === false ?
 		$GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
 
-$srfgIP = __DIR__;
+$GLOBALS['srfgIP'] = __DIR__;
 
 // Require the settings file.
 require __DIR__ . '/SemanticResultFormats.settings.php';
@@ -71,57 +71,7 @@ $formatDir = __DIR__ . '/formats/';
 
 global $wgAutoloadClasses;
 
-$wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
-$wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
-$wgAutoloadClasses['SRFFiltered'] = $formatDir . 'Filtered/SRF_Filtered.php';
-
-// Boilerplate
-// Uncomment the line below and adopt the class name
-// $wgAutoloadClasses['SRFBoilerplate'] = $formatDir . 'boilerplate/SRF_Boilerplate.php';
-
-// Follows naming convention
-$wgAutoloadClasses['SRF\DataTables'] = $formatDir . 'datatables/DataTables.php';
-
-$wgAutoloadClasses['SRF\MediaPlayer'] = $formatDir . 'media/MediaPlayer.php';
-$wgAutoloadClasses['SRF\EventCalendar']   = $formatDir . 'calendar/EventCalendar.php';
-$wgAutoloadClasses['SRFDygraphs']     = $formatDir . 'dygraphs/SRF_Dygraphs.php';
-$wgAutoloadClasses['SRFTimeseries']   = $formatDir . 'timeseries/SRF_Timeseries.php';
-$wgAutoloadClasses['SRFjqPlot']       = $formatDir . 'jqplot/SRF_jqPlot.php';
-$wgAutoloadClasses['SRFjqPlotChart']  = $formatDir . 'jqplot/SRF_jqPlotChart.php';
-$wgAutoloadClasses['SRFjqPlotSeries'] = $formatDir . 'jqplot/SRF_jqPlotSeries.php';
-$wgAutoloadClasses['SRFPloticusVBar'] = $formatDir . 'ploticus/SRF_PloticusVBar.php';
-$wgAutoloadClasses['SRFPageWidget']   = $formatDir . 'widget/SRF_PageWidget.php';
-$wgAutoloadClasses['SRFListWidget']   = $formatDir . 'widget/SRF_ListWidget.php';
-$wgAutoloadClasses['SRFIncoming']  = $formatDir . 'incoming/SRF_Incoming.php';
-$wgAutoloadClasses['SRFSparkline'] = $formatDir . 'sparkline/SRF_Sparkline.php';
-$wgAutoloadClasses['SRFD3Chart']   = $formatDir . 'd3/SRF_D3Chart.php';
-$wgAutoloadClasses['SRFGraph']     = $formatDir . 'graphviz/SRF_Graph.php';
-$wgAutoloadClasses['SRFProcess']   = $formatDir . 'graphviz/SRF_Process.php';
-$wgAutoloadClasses['SRFCalendar']  = $formatDir . 'calendar/SRF_Calendar.php';
-$wgAutoloadClasses['SRFArray']     = $formatDir . 'array/SRF_Array.php';
-$wgAutoloadClasses['SRFHash']      = $formatDir . 'array/SRF_Hash.php';
-$wgAutoloadClasses['SRFiCalendar'] = $formatDir . 'icalendar/SRF_iCalendar.php';
-$wgAutoloadClasses['SRFGoogleBar'] = $formatDir . 'googlecharts/SRF_GoogleBar.php';
-$wgAutoloadClasses['SRFGooglePie'] = $formatDir . 'googlecharts/SRF_GooglePie.php';
-$wgAutoloadClasses['SRFOutline']   = $formatDir . 'outline/SRF_Outline.php';
-$wgAutoloadClasses['SRFTime']      = $formatDir . 'time/SRF_Time.php';
-$wgAutoloadClasses['SRFSlideShow'] = $formatDir . 'slideshow/SRF_SlideShow.php';
-$wgAutoloadClasses['SRFSlideShowApi'] = $formatDir . 'slideshow/SRF_SlideShowApi.php';
-$wgAutoloadClasses['SRFTree']      = $formatDir . 'tree/SRF_Tree.php';
-$wgAutoloadClasses['SRF\Gallery']   = $formatDir . 'gallery/Gallery.php';
-$wgAutoloadClasses['SRF\TagCloud']  = $formatDir . 'tagcloud/TagCloud.php';
-$wgAutoloadClasses['SRFMath']      = $formatDir . 'math/SRF_Math.php';
-$wgAutoloadClasses['SRFTimeline']  = $formatDir . 'timeline/SRF_Timeline.php';
-$wgAutoloadClasses['SRFvCard']     = $formatDir . 'vcard/SRF_vCard.php';
-$wgAutoloadClasses['SRFValueRank'] = $formatDir . 'valuerank/SRF_ValueRank.php';
-$wgAutoloadClasses['SRFBibTeX']    = $formatDir . 'bibtex/SRF_BibTeX.php';
-$wgAutoloadClasses['SRF\SRFExcel']     = $formatDir . 'excel/SRF_Excel.php';
-
 unset( $formatDir );
-
-$wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SemanticResultFormats.parser.php';
-$wgAutoloadClasses['SRFHooks']           = $srfgIP . '/SemanticResultFormats.hooks.php';
-$wgAutoloadClasses['SRFUtils']           = $srfgIP . '/SemanticResultFormats.utils.php';
 
 global $wgHooks;
 

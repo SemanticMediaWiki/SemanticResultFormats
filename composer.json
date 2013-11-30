@@ -51,6 +51,12 @@
 	"autoload": {
 		"files" : [
 			"SemanticResultFormats.php"
+		],
+		"classmap": [
+			"formats/",
+			"SemanticResultFormats.hooks.php",
+			"SemanticResultFormats.parser.php",
+			"SemanticResultFormats.utils.php"
 		]
 	}
 }
