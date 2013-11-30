@@ -31,9 +31,6 @@ if ( ! defined( 'SMW_VERSION' ) ) {
 
 define( 'SRF_VERSION', '1.9 beta' );
 
-// Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
-$GLOBALS['wgExtensionFunctions'][] = 'srffInitFormats';
-
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
@@ -93,7 +90,7 @@ $GLOBALS['wgHooks']['GetPreferences'][] = 'SRFHooks::onGetPreferences';
  *
  * @since 1.5.2
  */
-function srffInitFormats() {
+$GLOBALS['wgExtensionFunctions'][] = function() {
 	global $srfgFormats, $smwgResultFormats, $smwgResultAliases;
 
 	$formatClasses = array(
@@ -168,4 +165,4 @@ function srffInitFormats() {
 			wfDebug( "There is no result format class associated with the '$format' format." );
 		}
 	}
-}
+};
