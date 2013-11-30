@@ -11,7 +11,7 @@ same second-level version number as Semantic Result Formats, i.e. SRF 1.5.x
 requires SMW 1.5.x.
 
 For more information, see the [SRF homepage]
-(https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats).
+(https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats).
 
 ## Included formats
 

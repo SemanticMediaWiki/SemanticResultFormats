@@ -8,47 +8,47 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
-/**
- * This documentation group collects source code files belonging to SemanticResultFormats.
- *
- * @defgroup SemanticResultFormats Semantic Result Formats
- */
-
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
-if ( version_compare( $wgVersion, '1.17c', '<' ) ) {
-	die( '<b>Error:</b> This version of Semantic Result Formats requires MediaWiki 1.17 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
+if ( version_compare( $GLOBALS['wgVersion'], '1.19c', '<' ) ) {
+	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.17 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
 }
 
-// Show a warning if Semantic MediaWiki is not loaded.
+if ( !defined( 'SMW_VERSION' ) && is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+	include_once( __DIR__ . '/vendor/autoload.php' );
+}
+
 if ( ! defined( 'SMW_VERSION' ) ) {
-	die( '<b>Error:</b> You need to have <a href="http://semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> installed in order to use <a href="https://www.mediawiki.org/wiki/Extension:Semantic Result Formats">Semantic Result Formats</a>.<br />' );
+	throw new Exception( 'You need to have Semantic MediaWiki installed in order to use Semantic Result Formats' );
 }
 
-if ( version_compare( SMW_VERSION, '1.8c', '<' ) ) {
-	die( '<b>Error:</b> This version of Semantic Result Formats requires Semantic MediaWiki 1.8 or above; use Semantic Result Formats 1.7.x for SMW 1.7.x.' );
+if ( defined( 'SRF_VERSION' ) ) {
+	// Do not initialize more than once.
+	return 1;
 }
 
 define( 'SRF_VERSION', '1.9 alpha' );
 
 // Initialize the formats later on, so the $srfgFormats setting can be manipulated in LocalSettings.
-$wgExtensionFunctions[] = 'srffInitFormats';
+$GLOBALS['wgExtensionFunctions'][] = 'srffInitFormats';
 
-$wgExtensionMessagesFiles['SemanticResultFormats'] = dirname( __FILE__ ) . '/SemanticResultFormats.i18n.php';
-$wgExtensionMessagesFiles['SemanticResultFormatsMagic'] = dirname( __FILE__ ) . '/SemanticResultFormats.i18n.magic.php';
+$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
+$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
-$srfgScriptPath = ( $wgExtensionAssetsPath === false ? $wgScriptPath . '/extensions' : $wgExtensionAssetsPath ) . '/SemanticResultFormats';
-$srfgIP = dirname( __FILE__ );
+$srfgScriptPath = ( $GLOBALS['wgExtensionAssetsPath'] === false ?
+		$GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
+
+$srfgIP = __DIR__;
 
 // Require the settings file.
-require dirname( __FILE__ ) . '/SemanticResultFormats.settings.php';
+require __DIR__ . '/SemanticResultFormats.settings.php';
 
 // Resource definitions
-$wgResourceModules = array_merge( $wgResourceModules, include( __DIR__ . "/Resources.php" ) );
+$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include( __DIR__ . "/Resources.php" ) );
 
-$wgExtensionCredits['semantic'][] = array(
+$GLOBALS['wgExtensionCredits']['semantic'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Result Formats',
 	'version' => SRF_VERSION,
@@ -59,7 +59,7 @@ $wgExtensionCredits['semantic'][] = array(
 	'author' => array(
 		'James Hong Kong',
 		'Stephan Gambke',
-		'[http://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
+		'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
 		'Yaron Koren',
 		'...'
 	),
@@ -67,7 +67,9 @@ $wgExtensionCredits['semantic'][] = array(
 	'descriptionmsg' => 'srf-desc'
 );
 
-$formatDir = dirname( __FILE__ ) . '/formats/';
+$formatDir = __DIR__ . '/formats/';
+
+global $wgAutoloadClasses;
 
 $wgAutoloadClasses['SRFExhibit'] = $formatDir . 'Exhibit/SRF_Exhibit.php';
 $wgAutoloadClasses['SRFJitGraph'] = $formatDir . 'JitGraph/SRF_JitGraph.php';
@@ -121,6 +123,8 @@ $wgAutoloadClasses['SRFParserFunctions'] = $srfgIP . '/SemanticResultFormats.par
 $wgAutoloadClasses['SRFHooks']           = $srfgIP . '/SemanticResultFormats.hooks.php';
 $wgAutoloadClasses['SRFUtils']           = $srfgIP . '/SemanticResultFormats.utils.php';
 
+global $wgHooks;
+
 $wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
@@ -129,10 +133,10 @@ $wgHooks['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
 $wgHooks['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
 
 // register API modules
-$wgAPIModules['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
+$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
 // User preference
-$wgHooks['GetPreferences'][] = 'SRFHooks::onGetPreferences';
+$GLOBALS['wgHooks']['GetPreferences'][] = 'SRFHooks::onGetPreferences';
 
 /**
  * Autoload the query printer classes and associate them with their formats in the $smwgResultFormats array.
