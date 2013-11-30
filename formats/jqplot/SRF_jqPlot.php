@@ -5,9 +5,6 @@
  *
  * @since 1.8
  *
- * @file
- * @ingroup SemanticResultFormats
- *
  * @licence GNU GPL v2+
  * @author mwjames
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

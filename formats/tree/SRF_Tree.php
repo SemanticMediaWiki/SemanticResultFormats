@@ -2,9 +2,6 @@
 
 /**
  * File holding the SRFTree class.
- *
- * @file
- * @ingroup SemanticResultFormats
  * @author Stephan Gambke
  *
  */

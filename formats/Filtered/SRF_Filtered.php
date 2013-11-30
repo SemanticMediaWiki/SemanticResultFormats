@@ -2,9 +2,6 @@
 
 /**
  * File holding the SRFFiltered class.
- *
- * @file
- * @ingroup SemanticResultFormats
  * @author Stephan Gambke
  *
  */

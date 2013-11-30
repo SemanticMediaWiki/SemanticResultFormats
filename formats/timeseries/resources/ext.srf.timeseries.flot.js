@@ -5,9 +5,6 @@
  * @since 1.8
  * @release 0.3
  *
- * @file
- * @ingroup SemanticResultFormats
- *
  * @licence GNU GPL v2 or later
  * @author mwjames
  */

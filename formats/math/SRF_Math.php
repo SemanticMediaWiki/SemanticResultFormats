@@ -3,9 +3,6 @@
 /**
  * Various mathematical functions - sum, product, average, min and max.
  *
- * @file
- * @ingroup SemanticResultFormats
- * 
  * @licence GNU GPL v3+
  * 
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
