@@ -13,6 +13,13 @@ requires SMW 1.5.x.
 For more information, see the [SRF homepage]
 (https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats).
 
+[![Build Status](https://secure.travis-ci.org/SemanticMediaWiki/SemanticResultFormats.png?branch=master)](http://travis-ci.org/SemanticMediaWiki/SemanticResultFormats)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/quality-score.png?s=a2f091e91cb9c8aa297e028f2f30d99153446796)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/)
+
+On [Packagist](https://packagist.org/packages/mediawiki/semantic-result-formats):
+[![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
+[![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
+
 ## Contact
 
 If you have remarks, questions, or suggestions, please send them to
