@@ -52,6 +52,7 @@ $GLOBALS['srfgFormats'] = array(
 	'dygraphs',
 	'media',
 	'datatables',
+	'jitgraph',
 
 	// Boilerplate
 	// Enable access to the format identifier
@@ -63,9 +64,6 @@ $GLOBALS['srfgFormats'] = array(
 	// large number of incoming properties assigned to each selected entity
 	// @see Help:Incoming format
 	// 'incoming',
-
-	// Still in alpha:
-	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
 
 	// Disabled by default sicne they contact external sites:
 	// 'googlebar',
