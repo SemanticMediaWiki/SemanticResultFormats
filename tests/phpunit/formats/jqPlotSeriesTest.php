@@ -2,7 +2,7 @@
 
 namespace SRF\Test;
 
-use SMW\Test\ResultPrinterTestCase;
+use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
  * Tests for the SRF\jqPlotSeries class.
@@ -20,10 +20,10 @@ use SMW\Test\ResultPrinterTestCase;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class jqPlotSeriesTest extends ResultPrinterTestCase {
+class jqPlotSeriesTest extends QueryPrinterRegistryTestCase {
 
 	/**
-	 * @see ResultPrinterTestCase::getFormats
+	 * @see QueryPrinterRegistryTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
@@ -34,7 +34,7 @@ class jqPlotSeriesTest extends ResultPrinterTestCase {
 	}
 
 	/**
-	 * @see ResultPrinterTestCase::getClass
+	 * @see QueryPrinterRegistryTestCase::getClass
 	 *
 	 * @since 1.8
 	 *

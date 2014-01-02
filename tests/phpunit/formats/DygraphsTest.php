@@ -2,7 +2,7 @@
 
 namespace SRF\Test;
 
-use SMW\Test\ResultPrinterTestCase;
+use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
  * Tests for the SRF\Dygraphs class.
@@ -20,10 +20,10 @@ use SMW\Test\ResultPrinterTestCase;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class DygraphsTest extends ResultPrinterTestCase {
+class DygraphsTest extends QueryPrinterRegistryTestCase {
 
 	/**
-	 * @see ResultPrinterTestCase::getFormats
+	 * @see QueryPrinterRegistryTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
@@ -34,14 +34,14 @@ class DygraphsTest extends ResultPrinterTestCase {
 	}
 
 	/**
-	 * @see ResultPrinterTestCase::getClass
+	 * @see QueryPrinterRegistryTestCase::getClass
 	 *
 	 * @since 1.8
 	 *
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFDygraphs';
+		return 'SRFDygraphs';
 	}
 
 }

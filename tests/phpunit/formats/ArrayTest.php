@@ -2,7 +2,7 @@
 
 namespace SRF\Test;
 
-use SMW\Test\ResultPrinterTestCase;
+use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
  * Tests for the SRF\Array class.
@@ -20,7 +20,7 @@ use SMW\Test\ResultPrinterTestCase;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class ArrayTest extends ResultPrinterTestCase {
+class ArrayTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see ResultPrinterTest::getFormats
