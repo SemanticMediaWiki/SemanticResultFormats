@@ -1,5 +1,7 @@
 <?php
 
+use SMW\ListResultPrinter;
+
 /**
  * Extends the list result printer (SMW_QP_List.php) with a JavaScript
  * navigation widget
@@ -11,7 +13,7 @@
  * @ingroup SemanticResultFormats
  * @file SRF_ListWidget.php
  */
-class SRFListWidget extends SMWListResultPrinter {
+class SRFListWidget extends ListResultPrinter {
 
 	/**
 	 * Get a human readable label for this printer.

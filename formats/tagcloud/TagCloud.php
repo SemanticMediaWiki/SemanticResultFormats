@@ -11,6 +11,7 @@ use SRFUtils;
 use SMWOutputs;
 
 use Html;
+use Title;
 
 /**
  * Result printer that prints query results as a tag cloud
@@ -120,7 +121,7 @@ class TagCloud extends ResultPrinter {
 					}
 
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
-					if ( $dataValue->getTypeID() == '_wpg' ) {
+					if ( $dataValue->getTypeID() === '_wpg' && $dataValue->getTitle() instanceof Title ) {
 						$value = $dataValue->getTitle()->getText();
 						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
 					} else {
