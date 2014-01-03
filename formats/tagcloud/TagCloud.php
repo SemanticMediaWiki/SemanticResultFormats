@@ -79,8 +79,7 @@ class TagCloud extends ResultPrinter {
 		$this->hasTemplates = $this->params['template'] !== '';
 
 		// Prioritize HTML setting
-		$this->isHTML = $this->params['widget'] !== '';
-		$this->isHTML = $this->params['template'] === '';
+		$this->isHTML = $this->params['widget'] !== '' && $this->params['template'] === '';
 
 		// Register RL module
 		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
