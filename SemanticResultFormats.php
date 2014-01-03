@@ -72,15 +72,7 @@ unset( $formatDir );
 
 global $wgHooks;
 
-// Admin Links hook needs to be called in a delayed way so that it
-// will always be called after SMW's Admin Links addition; as of
-// SMW 1.9, SMW delays calling all its hook functions.
-$wgExtensionFunctions[] = 'srffAddAdminLinksHook';
-function srffAddAdminLinksHook() {
-	global $wgHooks;
-	$wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
-}
-
+$wgHooks['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
 $wgHooks['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 $wgHooks['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
