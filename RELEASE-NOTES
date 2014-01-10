@@ -2,31 +2,26 @@ For a documentation of all features, see
 http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 
-== SRF 1.9 ==
+## SRF 1.9 (2014-01-10)
 
-THIS IS NOT A RELEASE YET.
-
-Semantic Result Formats 1.9 is currently in alpha-quality and is not recommended for use in
-production until the actual release.
-
-; Compatibility changes
+### Compatibility changes
 
 * Changed minimum MediaWiki version from 1.17 to 1.19.
 * Changed minimum PHP version from 5.2.x. to 5.3.x.
-* Full compatibility with MediaWiki 1.19 and forward-compatibility with 1.21.
+* Full compatibility with MediaWiki 1.19, 1.20, 1.21, 1.22 and forward-compatibility with 1.23.
 * Deleted SRF_Settings.php entry point, the main entry point is SemanticResultFormats.php
 
-; New formats
+### New formats
 
 * format media (I8bc7a506)(mwjames)
 * format excel (I742699fe) (requires PHPExcel, disabled by default) (Kim Eik)
 
-; New features
+### New features
 
 * (I3f7407a1) EventCalendar SMWAPI/Ajax integration
 * (I65cc4854) tree format: new parameters 'root' and 'start level'
 
-; Other improvements and changes
+### Other improvements and changes
 
 * jquery.tagcanvas increase from 1.18 to 1.20
 * jquery.responsiveslides increase from v1.32 to v1.53
@@ -34,15 +29,13 @@ production until the actual release.
 * d3 increase from d3.vs to d3.v3
 * Introduce PHP SRF\ namespaces
 
-; Bug fixes
+### Bug fixes
 
 * tree format: root elements not included
 
-== SRF 1.8 ==
+## SRF 1.8 (2012-12-02)
 
-Released on December 2, 2012.
-
-; Compatibility changes
+### Compatibility changes
 
 * Changed minimum MediaWiki version from 1.16 to 1.17.
 * Changed minimum Semantic MediaWiki version from 1.7 to 1.8.
@@ -51,7 +44,7 @@ Released on December 2, 2012.
 * jqplotbar and jqplotpie format are replaced by jqplotchart format
 * SRF_Settings.php has been deprecated (will be removed in 1.9) as entry point, use SemanticResultFormats.php instead
 
-; New formats
+### New formats
 
 * slideshow (written by Stephan Gambke)
 * listwidget (bug 37721, I54660c15) (mwjames)
@@ -67,7 +60,7 @@ Released on December 2, 2012.
 * earliest format (written by Jeroen De Dauw, Nischay Nahata)
 * latest format (written by Jeroen De Dauw, Nischay Nahata)
 
-; New features
+### New features
 
 * (Ice7ba7ea) Enable tableview plugin support for timeseries, jqplotseries, and dygraphs format
 * (bug 38094) Tag cloud format added 'sphere widget' (mwjames)
@@ -80,20 +73,18 @@ Released on December 2, 2012.
 * (I338b6b19, I7a0e663b) Gallery format added support for pointing to the subject property in the gallery property parameters using "-"
 * (I762cde6a) Value rank format added template support (mwjames)
 
-; Other improvements
+### Other improvements
 
 * Added test file support (see SemanticResultFormats/tests/...)
 * All formats have been moved (see SemanticResultFormats/formats/...)
 * Added new folder (SemanticResultFormats/resources/...) where all external plug-ins will be successively been moved
 * Introduce a new array-based syntax to define parameters (see Validator/IParameterDefinition class)
 
-; Bug fixes
+### Bug fixes
 
 * (bug 38258, I10be92c9) Fix authors/editors in bibtex
 
-== SRF 1.7.1 ==
-
-Released on March 8, 2012.
+## SRF 1.7.1 (2012-03-08)
 
 * Fixed issue with the graphlenegd parameter in the graph format (bug 33745).
 * Added 'default' parameter to math formats (bug 34983).
@@ -104,9 +95,7 @@ New formats in this version are:
 * JitGraph (still in alpha, disabled by default) (written by Alex Shapovalov) (bug 32877)
 * filtered (still in alpha, disabled by default) (written by Stephan Gambke)
 
-== SRF 1.7 ==
-
-Released on January 1, 2012.
+## SRF 1.7 (2012-01-01)
 
 * Compatibility with SMW 1.7 and later.
 * Dropped support for MediaWiki 1.15.x and SMW < 1.7.
@@ -122,7 +111,7 @@ New formats in this version are:
 * valuerank (written by DaSch)
 * D3Line, D3Bar and D3Treemap (written by mwjames) (requires MW 1.17 or later)
 
-== SRF 1.6.2 ==
+## SRF 1.6.2 ##
 
 Released on September 18, 2011.
 
@@ -131,7 +120,7 @@ Released on September 18, 2011.
 * Fixed array compatibility with SMW 1.6 and later.
 * Added median and product formats to the list of default enabled formats.
 
-== SRF 1.6.1 ==
+## SRF 1.6.1 ##
 
 Released on August 20, 2011.
 
@@ -140,7 +129,7 @@ Released on August 20, 2011.
 * Cleaned up the jqPlotBar format somewhat.
 * Dropped compatibility with SMW < 1.6 for the tagcloud format.
 
-== SRF 1.6 ==
+## SRF 1.6 ##
 
 Released on July 30, 2011.
 
@@ -159,7 +148,7 @@ New formats in this version are:
 * product (written by Jeroen De Dauw)
 * median (written by Jeroen De Dauw)
 
-== SRF 1.5.3 ==
+## SRF 1.5.3 ##
 
 Released on February 9, 2011.
 
@@ -171,7 +160,7 @@ Changes in this version:
 New formats in this version are:
 * tagcloud (written by Jeroen De Dauw)
 
-== SRF 1.5.2 ==
+## SRF 1.5.2 ##
 
 Released on January 11 2011.
 
@@ -180,7 +169,7 @@ Changes in this version:
   'timeline', 'eventline', 'jqplotbar' and 'jqplotpie' formats.
 * Visualization improvements for 'process' format.
 
-== SRF 1.5.1 ==
+## SRF 1.5.1 ##
 
 Released on August 26 2010.
 
@@ -191,7 +180,7 @@ New formats in this version are:
 Other changes:
 * Added support for 'semantic' extension type, added by SMW 1.5.2 and above.
 
-== SRF 1.5 ==
+## SRF 1.5 ##
 
 Released on June 22 2010.
 
@@ -204,7 +193,7 @@ Changes in this version:
 * improvements in 'exhibit' result format
 ** new facet styles (slider and search)
 
-== SRF 1.4.5 ==
+## SRF 1.4.5 ##
 
 Released on June 3 2009.
 
@@ -217,7 +206,7 @@ Other changes:
 * imagemap links were fixed for the 'graph' format
 * handling was added for the Admin Links extension
 
-== SRF 1.4.4 ==
+## SRF 1.4.4 ##
 
 Released on April 16 2009.
 
@@ -237,7 +226,7 @@ Released on April 16 2009.
 ** SRF_ParserFunctions.php file added, holding parser functions for use by
 'calendar' format.
 
-== SRF 1.4.3 ==
+## SRF 1.4.3 ##
 
 Released on March 2 2009.
 
@@ -247,7 +236,7 @@ New formats in this version are:
 Also, handling of templates was added to the 'calendar' format by David
 Loomer.
 
-== SRF 1.4.2 ==
+## SRF 1.4.2 ##
 
 Released on February 10 2009.
 
@@ -263,7 +252,7 @@ New formats in this version are:
 * sum (written by Nathan Yergler)
 * moved existing formats 'vcard' and 'icalendar' from SMW
 
-== SRF 1.4.0 ==
+## SRF 1.4.0 ##
 
 Released on November 26 2008.
 
