@@ -18,13 +18,13 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
-		<th>SMW 1.9.0</th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.0</a></th>
 		<td>Stable release</td>
 		<td>2014-01-10</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/1.9">1.9</a></td>
 	</tr>
 	<tr>
-		<th>SMW 1.8.0</th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.8.0</a></th>
 		<td>Legacy release</td>
 		<td>2012-12-02</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/1.8">1.8</a></td>
@@ -42,21 +42,21 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Composer</th>
 	</tr>
 	<tr>
-		<th>SMW 1.9.x</th>
+		<th>SRF 1.9.x</th>
 		<td>5.3.2 - 5.5.x</td>
 		<td>1.19 - 1.23</td>
 		<td>1.9.x</td>
 		<td>Required</td>
 	</tr>
 	<tr>
-		<th>SMW 1.8.x</th>
+		<th>SRF 1.8.x</th>
 		<td>5.2.0 - 5.5.x</td>
 		<td>1.17 - 1.22</td>
 		<td>1.8.x</td>
 		<td>Not supported</td>
 	</tr>
 	<tr>
-		<th>SMW 1.7.x</th>
+		<th>SRF 1.7.x</th>
 		<td>5.2.0 - 5.4.x</td>
 		<td>1.16 - 1.19</td>
 		<td>1.7.x</td>
