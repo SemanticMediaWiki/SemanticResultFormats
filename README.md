@@ -6,12 +6,11 @@ can be added to the installation independently. This file contains an
 overview on how to install and configure the formats, as well as an overview
 of all included formats.
 
-Semantic Result Formats requires Semantic MediaWiki to run, at least at the
-same second-level version number as Semantic Result Formats, i.e. SRF 1.5.x
-requires SMW 1.5.x.
-
 For more information, see the [SRF homepage]
 (https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats).
+
+* [Release notes](RELEASE-NOTES.md)
+* [Installation and configuration](INSTALL.md)
 
 [![Build Status](https://secure.travis-ci.org/SemanticMediaWiki/SemanticResultFormats.png?branch=master)](http://travis-ci.org/SemanticMediaWiki/SemanticResultFormats)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/quality-score.png?s=a2f091e91cb9c8aa297e028f2f30d99153446796)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/)
