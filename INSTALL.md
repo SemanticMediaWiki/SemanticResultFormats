@@ -12,7 +12,7 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Git branch</th>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SMW 1.9.0.x</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.0.x</a></th>
 		<td>Development version</td>
 		<td>-</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
@@ -110,7 +110,7 @@ rather than composer-example.json. When this is done, run:
 
 ##### Verify installation success
 
-As final step, you can verify SMW got installed by looking at the "Special:Version" page on your wiki and verifying the
+As final step, you can verify SRF got installed by looking at the "Special:Version" page on your wiki and verifying the
 Semantic Result Formats section is listed.
 
 ## Configuration
