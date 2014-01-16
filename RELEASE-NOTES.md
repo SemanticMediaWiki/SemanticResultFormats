@@ -1,5 +1,5 @@
-For a documentation of all features, see
-http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
+These are the release notes for the [Semantic Result Formats]
+(http://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
 
 ## SRF 1.9 (2014-01-10)
@@ -13,13 +13,13 @@ http://semantic-mediawiki.org/wiki/Semantic_Result_Formats
 
 ### New formats
 
-* format media (I8bc7a506)(mwjames)
-* format excel (I742699fe) (requires PHPExcel, disabled by default) (Kim Eik)
+* [media](https://semantic-mediawiki.org/wiki/Help:Media_format) (I8bc7a506)(mwjames)
+* [excel](https://semantic-mediawiki.org/wiki/Help:Excel_format) (requires PHPExcel, disabled by default) (Kim Eik)
 
 ### New features
 
-* (I3f7407a1) EventCalendar SMWAPI/Ajax integration
-* (I65cc4854) tree format: new parameters 'root' and 'start level'
+* [EventCalendar](https://semantic-mediawiki.org/wiki/Help:Eventcalendar_format) SMWAPI/Ajax integration
+* [tree format](http://semantic-mediawiki.org/wiki/Help:Tree_format): new parameters 'root' and 'start level'
 
 ### Other improvements and changes
 
