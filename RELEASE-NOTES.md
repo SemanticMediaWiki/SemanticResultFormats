@@ -13,8 +13,8 @@ These are the release notes for the [Semantic Result Formats]
 
 ### New formats
 
-* [media](https://semantic-mediawiki.org/wiki/Help:Media_format) (I8bc7a506)(mwjames)
-* [excel](https://semantic-mediawiki.org/wiki/Help:Excel_format) (requires PHPExcel, disabled by default) (Kim Eik)
+* [media](https://semantic-mediawiki.org/wiki/Help:Media_format) (Added by mwjames)
+* [excel](https://semantic-mediawiki.org/wiki/Help:Excel_format) (requires PHPExcel, disabled by default) (Added by Kim Eik)
 
 ### New features
 
