@@ -8,8 +8,10 @@ These are the release notes for the [Semantic Result Formats]
 
 * Changed minimum MediaWiki version from 1.17 to 1.19.
 * Changed minimum PHP version from 5.2.x. to 5.3.x.
+* Changed Semantic MediaWiki compatibility from 1.8.x to 1.9.x.
 * Full compatibility with MediaWiki 1.19, 1.20, 1.21, 1.22 and forward-compatibility with 1.23.
 * Deleted SRF_Settings.php entry point, the main entry point is SemanticResultFormats.php
+* [Installation](INSTALL.md) is now done via the [Composer](http://getcomposer.org/) dependency manager.
 
 ### New formats
 
