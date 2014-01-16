@@ -1,5 +1,5 @@
 These are the release notes for the [Semantic Result Formats]
-(http://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
+(https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
 
 ## SRF 1.9 (2014-01-10)
@@ -21,7 +21,7 @@ These are the release notes for the [Semantic Result Formats]
 ### New features
 
 * [EventCalendar](https://semantic-mediawiki.org/wiki/Help:Eventcalendar_format) SMWAPI/Ajax integration
-* [tree format](http://semantic-mediawiki.org/wiki/Help:Tree_format): new parameters 'root' and 'start level'
+* [tree format](https://semantic-mediawiki.org/wiki/Help:Tree_format): new parameters 'root' and 'start level'
 
 ### Other improvements and changes
 
