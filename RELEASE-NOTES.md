@@ -1,6 +1,11 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 1.9.0.1 (2014-01-17)
+
+### Bug fixes
+
+* (#7) Fix tagcloud rendering on special pages and when using templates
 
 ## SRF 1.9 (2014-01-10)
 
