@@ -14,7 +14,7 @@ These are the release notes for the [Semantic Result Formats]
 ### New formats
 
 * [media](https://semantic-mediawiki.org/wiki/Help:Media_format) (Added by mwjames)
-* [excel](https://semantic-mediawiki.org/wiki/Help:Excel_format) (requires PHPExcel, disabled by default) (Added by Kim Eik)
+* [excel](https://semantic-mediawiki.org/wiki/Help:Excel_format) (Requires PHPExcel, disabled by default) (Added by Kim Eik)
 
 ### New features
 
