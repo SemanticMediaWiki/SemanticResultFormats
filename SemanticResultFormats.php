@@ -17,7 +17,7 @@ if ( defined( 'SRF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SRF_VERSION', '1.9' );
+define( 'SRF_VERSION', '1.9.0.1' );
 
 if ( version_compare( $GLOBALS['wgVersion'], '1.19c', '<' ) ) {
 	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.17 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
