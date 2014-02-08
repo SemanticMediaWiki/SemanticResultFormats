@@ -58,5 +58,10 @@
 			"SemanticResultFormats.parser.php",
 			"SemanticResultFormats.utils.php"
 		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.9.x-dev"
+		}
 	}
 }
