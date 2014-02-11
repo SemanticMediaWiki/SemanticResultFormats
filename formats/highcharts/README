@@ -1,0 +1,6 @@
+in order to get all libraries for this result format, 
+you need to run the following commands
+
+1. git submodule init
+2. git submodule update
+
