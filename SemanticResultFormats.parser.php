@@ -61,9 +61,9 @@ class SRFParserFunctions {
 	static function getBoundaryDates( $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null ) {
  		if ( $calendar_type == 'month' ) $calendar_start_day = 0;
 
-		if ( $default_year == null ) $default_year = date( "Y", mktime() );
-		if ( $default_month == null ) $default_month = date( "n", mktime() );
-		if ( $default_day == null ) $default_day = date( "j", mktime() );
+		if ( $default_year == null ) $default_year = date( "Y", time() );
+		if ( $default_month == null ) $default_month = date( "n", time() );
+		if ( $default_day == null ) $default_day = date( "j", time() );
 
 		global $wgRequest;
 
