@@ -1,0 +1,75 @@
+
+SRF YearCal
+=============================
+
+The YearCal SRF displays a calendar table covering one year. For each "line" in the result table it places
+a two digit abbreviation in the cell of the corresponding date. If given a second argument (a second date),
+it interprets this as a time span, beginning with the first and ending with a second date.
+
+If the argument is not a date, or the time span is negative (end date before start date), nothing is
+displayed in the calendar.
+
+
+* INSTALLATION
+
+The "yearcal"-Subdirectory must be copied into the .../extensions/SemanticResultFormats/formats Folder.
+I understand that for SMW 1.9+ this is already sufficient, but have not tried it myself.
+
+For SMW 1.8 two more edits of files in the SemanticResultFormats Directory are required:
+
+a. SemanticResultFormats.php
+----------------------------
+   Find the line
+	  $wgAutoloadClasses['SRFCalendar']  = $formatDir . 'calendar/SRF_Calendar.php';
+   and add the following line right below it:
+	  $wgAutoloadClasses['SRFYearCal']   = $formatDir . 'yearcal/SRF_YearCal.php';
+
+   Also find the line
+        'calendar' => 'SRFCalendar',
+   and add the following line right below it:
+        'yearcal' => 'SRFYearCal',
+
+b. SemanticResultFormats.settings.php
+-------------------------------------
+   Find the line
+ 	'calendar',
+   and add the following line right below it:
+       'yearcal',
+
+
+* USAGE
+
+Set date properties on your SMW pages that can be searched. As YearCal is designed to render time spans
+(e.g. a 2 week holiday) it is a good idea to use subobjects for this (records work, too, but are
+depreceated). Subobjects have the additional advantage that if named with a two digit/letter code, this
+code will be used for the calendar display instead of the automatically generated two digit code, which
+sometimes will look odd or create unwanted duplicates.
+
+Example:
+Create a page called "YearCal-Test" and fill it with {{#subobject:XY|start=2014-08-02|end=2014-08-06}}.
+Assuming that the properties "start" and "end" are not yet in other usage, the #ask query could look
+like this:
+
+{{#ask: [[start::+]] 
+| ?start
+| ?end
+| format=yearcal
+| default=No entries found
+}}
+
+This should display a calender showing "XY" from 2nd to 8th of August 2014. A mouseover on these entries
+should display a tooltip "YearCal-Test".
+
+
+* CUSTOMIZING
+
+You may create a page called "SRF YearCal". Any date property set on this page will not render as a
+"normal" date entry, but will rather result in the corresponding date value in the calendar to be 
+drawn inverted (white text on gray background). This feature is intended to code "generic" dates such
+as public holiday or the like.
+
+If you do not like the 8 predefined background colors, or would like to add more, find the line 
+beginning with "$colors = array..." in the SRF_YearCal.php file and adjust it to your liking.
+
+
+Contact + Feedback: Hans Oleander (hans.oleander@gmail.com)
