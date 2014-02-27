@@ -12,10 +12,10 @@ use SMWResultPrinter;
 class HighCharts extends SMWResultPrinter {
 
 	/**
-	 * @var \SRF\HighCharts\ChartTemplate[]
+	 * @var \SRF\HighCharts\Chart[]
 	 */
 	protected $graphs = array(
-		'frequency distribution' => 'SRF\HighCharts\FrequencyDistributionChart',
+		'frequency histogram' => 'SRF\HighCharts\FrequencyHistogram',
 	);
 
 	function __construct() {
@@ -31,7 +31,7 @@ class HighCharts extends SMWResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		SMWOutputs::requireResource( 'ext.srf.highcharts');
 		$id = uniqid ('hc');
-		$graph = $this->graphs['frequency distribution'];
+		$graph = $this->graphs['frequency histogram'];
 		$graph->setQueryResult($res);
 		$graph->setParameters($this->params);
 		$js = sprintf(
@@ -62,7 +62,7 @@ class HighCharts extends SMWResultPrinter {
 		$params['graph-format'] = array(
 			'message' => 'srf-hc-paramdesc-graph',
 			'default' => '',
-			'values' => array('frequency distribution'),
+			'values' => array('frequency histogram'),
 		);
 
 		$params['yscale'] = array(
@@ -107,7 +107,7 @@ class HighCharts extends SMWResultPrinter {
 			'default' => '400',
 		);
 
-		$params = array_merge($params,$this->graphs['frequency distribution']->getParameterDefinitions());
+		//$params = array_merge($params,$this->graphs['frequency distribution']->getParameterDefinitions());
 
 		return $params;
 	}
