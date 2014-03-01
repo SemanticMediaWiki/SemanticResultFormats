@@ -40,10 +40,10 @@
 						printout: target,
 						configvar: 'use or'
 					} );
-					
+
 					var printoutValues;
 					var selected;
-					
+
 					var targetValues = new Array();
 					selectedInputs.each(function(){
 						targetValues.push( $(this).attr('value') );
@@ -52,10 +52,10 @@
 					for ( valueId in values ) {
 
 						printoutValues = values[valueId]['printouts'][target]['values'];
-						
+
 						if ( printoutValues.length > 0 ){
 							if ( useOr ) {
-								
+
 								selected = false;
 
 								for ( var k = 0; k < targetValues.length && ! selected; ++k ) {
@@ -65,23 +65,26 @@
 								}
 
 							} else {
-								
+
 								selected = true;
 
 								// try to find each required value
 								for ( var k = 0; k < targetValues.length && selected; ++k ) {
 
 									var selectedFoundInPrintout = false;
-									
+
 									for ( var j = 0; j < printoutValues.length && ! selectedFoundInPrintout; ++j ) {
 										selectedFoundInPrintout = selectedFoundInPrintout || ( printoutValues[j] == targetValues[k] );
 									}
-									
+
 									selected = selected && selectedFoundInPrintout;
 								}
 							}
+
+						} else {
+							selected = false;
 						}
-						
+
 						filtered.filtered( 'voteItemVisibilityAndUpdate', {
 							'filter': 'value',
 							'printout' : target,
