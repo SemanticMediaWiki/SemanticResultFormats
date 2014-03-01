@@ -4,7 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 
-Semantic Result Formats is an extension to MediaWiki that bundles a number of result formats for Semantic MediaWiki's inline queries. The individual formats can be added to the installation independently. For more information, visit the [SRF homepage][srf] or consult the [release notes](RELEASE-NOTES.md).
+Semantic Result Formats (a.k.a. SRF) is an extension to MediaWiki that bundles a number of result formats for [Semantic MediaWiki's][smw] inline queries. The individual formats can be added to the installation independently. For more information, visit the [SRF homepage][srf] or consult the [release notes](RELEASE-NOTES.md).
 
 ## Requirements
 
@@ -42,8 +42,9 @@ developers mailing list and have a look at the [contribution guildline](/CONTRIB
 
 ## License
 
-Generally published under [GNU General Public License 2.0 or later][licence] together with third-party plugins and their licence.
+Generally published under [GNU General Public License 2.0 or later][licence] together with third-party plugins and their license.
 
+[smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
 [srf]: https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
 [composer]: https://getcomposer.org/
 [contributors]: https://github.com/SemanticMediaWiki/SemanticResultFormats/graphs/contributors
