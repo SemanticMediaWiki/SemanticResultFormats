@@ -17,20 +17,7 @@ The recommended way to install this extension is by using [Composer][composer]. 
 	}
 }
 ```
-Information about compatability and deatils about the installation can be found [here](INSTALL.md).
-
-
-## Contact
-
-If you have remarks, questions, or suggestions, please send them to
-semediawiki-users@lists.sourceforge.net. You can subscribe to this
-list [here](http://sourceforge.net/mailarchive/forum.php?forum_name=semediawiki-user).
-
-Bugs should be filed at the [MediaWiki Bugzilla](http://bugzilla.wikimedia.org/).
-Please select "SemanticResultFormats" as the "component".
-
-If you want to contribute work to the project please subscribe to the
-developers mailing list, semediawiki-devel@lists.sourceforge.net.
+Information about compatability and details about the installation can be found [here](INSTALL.md).
 
 ## Developers
 
@@ -46,9 +33,17 @@ under the project Active.
 Development of the jqPlot-based formats was funded via the Google Summer
 of Code.
 
-## Contribution
+## Contribution and support
 
-Please have a look at the [contribution guildline](/CONTRIBUTING.md) together with a [list of people][contributors] who have made contributions in the past.
+If you have remarks, questions, or suggestions, please send them to semediawiki-users@lists.sourceforge.net. You can subscribe to this list [here](http://sourceforge.net/mailarchive/forum.php?forum_name=semediawiki-user).
+
+If you want to contribute work to the project please subscribe to the
+developers mailing list and have a look at the [contribution guildline](/CONTRIBUTING.md). A list of people who have made contributions in the past can be found [here][contributors].
+
+* [File an issue](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues)
+* [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticResultFormats/pulls)
+* Ask a question on [the mailing list](https://semantic-mediawiki.org/wiki/Mailing_list)
+* Ask a question on the #semantic-mediawiki IRC channel on Freenode.
 
 [srf]: https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
 [composer]: https://getcomposer.org/
