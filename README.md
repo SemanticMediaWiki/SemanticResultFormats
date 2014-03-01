@@ -46,25 +46,10 @@ under the project Active.
 Development of the jqPlot-based formats was funded via the Google Summer
 of Code.
 
-## Contributors
+## Contribution
 
-* S Page has contributed code.
-* The Graph format was contributed by Frank Dengler, based on AT&T's Dot
-Graphic utility and the MediaWiki Graph extension. The Process format
-had great contributions by Hans-Jörg Happel.
-* The Eventline and Timeline code is based on the Timeline code by the
-MIT Simile project.
-* The Exhibit code was contributed by Fabian Howahl, based on code by the
-MIT Simile project.
-* The Calendar, Outline and mathematical formats were contributed by Yaron Koren.
-* The Ploticus format was contributed by Joel Natividad.
-* The BibTeX format was contributed by Steren Giannini.
-* The Gallery format was contributed by Rowan van der Molen.
-* The jqPlot-based formats were contributed by Sanyam Goyal and Yaron Koren,
-using the jQuery and jqPlot Javascript libraries.
-* The valuerank format was added by DaSch.
-* Many other people have contributed to the project by providing helpful
-comments and suggestions. More comments are always welcome!
+Please have a look at the [contribution guildline](/CONTRIBUTING.md) together with a [list of people][contributors] who have made contributions in the past.
 
 [srf]: https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
 [composer]: https://getcomposer.org/
+[contributors]: https://github.com/SemanticMediaWiki/SemanticResultFormats/graphs/contributors
