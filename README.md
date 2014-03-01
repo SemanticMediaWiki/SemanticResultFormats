@@ -1,23 +1,24 @@
 # Semantic Result Formats
-
-Semantic Result Formats is an extension to MediaWiki that bundles a number of
-result formats for Semantic MediaWiki's inline queries. The individual formats
-can be added to the installation independently. This file contains an
-overview on how to install and configure the formats, as well as an overview
-of all included formats.
-
-For more information, see the [SRF homepage]
-(https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats).
-
-* [Release notes](RELEASE-NOTES.md)
-* [Installation and configuration](INSTALL.md)
-
 [![Build Status](https://secure.travis-ci.org/SemanticMediaWiki/SemanticResultFormats.png?branch=master)](http://travis-ci.org/SemanticMediaWiki/SemanticResultFormats)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/quality-score.png?s=a2f091e91cb9c8aa297e028f2f30d99153446796)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/)
-
-On [Packagist](https://packagist.org/packages/mediawiki/semantic-result-formats):
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
+
+Semantic Result Formats is an extension to MediaWiki that bundles a number of result formats for Semantic MediaWiki's inline queries. The individual formats can be added to the installation independently. For more information, visit the [SRF homepage][srf] or consult the [release notes](RELEASE-NOTES.md).
+
+## Installation
+
+The recommended way to install this extension is by using [Composer][composer]. Just add the following to the MediaWiki `composer.json` file and run the ``php composer.phar install/update`` command.
+
+```json
+{
+	"require": {
+		"mediawiki/semantic-result-formats": "~1.9.*"
+	}
+}
+```
+Information about compatability and deatils about the installation can be found [here](INSTALL.md).
+
 
 ## Contact
 
@@ -65,9 +66,5 @@ using the jQuery and jqPlot Javascript libraries.
 * Many other people have contributed to the project by providing helpful
 comments and suggestions. More comments are always welcome!
 
-## Translations
-
-Translations to various languages are provided and maintained by many people.
-In general, main contributors can be found in the message file. Special thanks
-are due to Siebrand Mazeland and the [TranslateWiki project](https://translatewiki.net) for their
-excellent support in that matter.
+[srf]: https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
+[composer]: https://getcomposer.org/
