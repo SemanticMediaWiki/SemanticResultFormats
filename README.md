@@ -17,23 +17,11 @@ The recommended way to install this extension is by using [Composer][composer]. 
 	}
 }
 ```
-Information about compatability and details about the installation can be found [here](INSTALL.md).
-
-## Developers
-
-Development is coordinated by James Hong Kong and Jeroen De Dauw.
-
-Some parts of Semantic Result Formats development have been funded by
-[Institut AIFB](http://www.aifb.kit.edu/web/Hauptseite) of the
-Karlsruhe Institute of Technology in Germany.
-
-Specific development tasks have also been supported by the European Union
-under the project Active.
-
-Development of the jqPlot-based formats was funded via the Google Summer
-of Code.
+Information about compatibility, details about the installation, and its configuration can be found [here](INSTALL.md).
 
 ## Contribution and support
+
+Development is coordinated by James Hong Kong and Jeroen De Dauw.
 
 If you have remarks, questions, or suggestions, please send them to semediawiki-users@lists.sourceforge.net. You can subscribe to this list [here](http://sourceforge.net/mailarchive/forum.php?forum_name=semediawiki-user).
 
