@@ -6,6 +6,13 @@
 
 Semantic Result Formats is an extension to MediaWiki that bundles a number of result formats for Semantic MediaWiki's inline queries. The individual formats can be added to the installation independently. For more information, visit the [SRF homepage][srf] or consult the [release notes](RELEASE-NOTES.md).
 
+## Requirements
+
+- PHP 5.3 or later
+- MediaWiki 1.20 or later
+- Semantic MediaWiki 1.9 or later
+- When using MySQL 5 or later or when using SQLite 3 or later
+
 ## Installation
 
 The recommended way to install this extension is by using [Composer][composer]. Just add the following to the MediaWiki `composer.json` file and run the ``php composer.phar install/update`` command.
@@ -33,6 +40,11 @@ developers mailing list and have a look at the [contribution guildline](/CONTRIB
 * Ask a question on [the mailing list](https://semantic-mediawiki.org/wiki/Mailing_list)
 * Ask a question on the #semantic-mediawiki IRC channel on Freenode.
 
+## License
+
+Generally published under [GNU General Public License 2.0 or later][licence] together with third-party plugins and their licence.
+
 [srf]: https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
 [composer]: https://getcomposer.org/
 [contributors]: https://github.com/SemanticMediaWiki/SemanticResultFormats/graphs/contributors
+[licence]: https://www.gnu.org/copyleft/gpl.html
