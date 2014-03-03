@@ -107,7 +107,9 @@ class HighCharts extends SMWResultPrinter {
 			'default' => '400',
 		);
 
-		//$params = array_merge($params,$this->graphs['frequency distribution']->getParameterDefinitions());
+		foreach ($this->graphs as $graph) {
+			$params = array_merge($params,$graph->getParameterDefinitions());
+		}
 
 		return $params;
 	}
