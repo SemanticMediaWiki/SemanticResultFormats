@@ -93,15 +93,18 @@ class SRFExcel extends SMWExportPrinter {
 	/**
 	 * Populates the PHPExcel document with the query data
 	 *
-	 * @param $res       the query result
-	 * @param $sheet     the current phpexcel sheet
-	 * @param $rowOffset the offset at which rows should be inserted
+	 * @param $res       SMWQueryResult the query result
+	 * @param $sheet     \PHPExcel_Worksheet the current phpexcel sheet
+	 * @param $rowOffset int the offset at which rows should be inserted
 	 */
 	protected function populateDocumentWithQueryData ( $res, $sheet, $rowOffset ) {
 		while ( $row = $res->getNext() ) {
 			$rowOffset++;
 			$colOffset = 0;
 			foreach ( $row as $field ) {
+				if($this->skipExtraMainLabel($field->getPrintRequest()->getLabel())){
+					continue;
+				}
 				$numValues = 0;
 				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					$numValues++;
@@ -109,9 +112,9 @@ class SRFExcel extends SMWExportPrinter {
 						$this->setOrAppendStringDataValue( $object, $sheet, $colOffset, $rowOffset );
 					}else{
 						//NOTE: must check against subclasses before superclasses
-						if ( $object instanceof SMWQuantityValue ) {
+						if ( $object instanceof \SMWQuantityValue ) {
 							$this->setQuantityDataValue( $object, $sheet, $colOffset, $rowOffset );
-						} else if ( $object instanceof SMWNumberValue ) {
+						} else if ( $object instanceof \SMWNumberValue ) {
 							$this->setNumberDataValue( $object, $sheet, $colOffset, $rowOffset );
 						} else {
 							$this->setOrAppendStringDataValue( $object, $sheet, $colOffset, $rowOffset );
@@ -195,6 +198,10 @@ class SRFExcel extends SMWExportPrinter {
 		$colOffset = 0;
 		foreach ( $res->getPrintRequests() as $pr ) {
 			$header = $pr->getLabel();
+			if($this->skipExtraMainLabel($header) ){
+				//Skip extra header ending with # caused by mainlabel parameter
+				continue;
+			}
 			$sheet->setCellValueByColumnAndRow( $colOffset, self::HEADER_ROW_OFFSET, $header )
 				->getStyleByColumnAndRow( $colOffset, self::HEADER_ROW_OFFSET )
 				->getFont()
@@ -228,4 +235,13 @@ class SRFExcel extends SMWExportPrinter {
 	private function isPHPExcelInstalled () {
 		return class_exists( "PHPExcel" );
 	}
+
+	/**
+	 * @param $label
+	 * @return bool
+	 */
+	private function skipExtraMainLabel( $label ) {
+		return array_key_exists("mainlabel", $this->params) && $label === $this->params[ "mainlabel" ] . '#';
+	}
 }
+
