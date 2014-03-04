@@ -146,7 +146,8 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 		'incoming' => 'SRFIncoming',
 		'media' => 'SRF\MediaPlayer',
 		'excel' => 'SRF\SRFExcel',
-		'datatables' => 'SRF\DataTables'
+		'datatables' => 'SRF\DataTables',
+		'highcharts' => 'SRF\HighCharts',
 	);
 
 	$formatAliases = array(
@@ -157,6 +158,7 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 		'timeseries' => array ( 'time series' ),
 		'jqplotchart' => array( 'jqplot chart', 'jqplotpie', 'jqplotbar' ),
 		'jqplotseries' => array( 'jqplot series' ),
+		'highcharts' => array( 'hc' ),
 	);
 
 	foreach ( $srfgFormats as $format ) {
