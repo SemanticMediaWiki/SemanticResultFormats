@@ -73,6 +73,28 @@ class FrequencyHistogram implements Chart {
 		return $freqTable;
 	}
 
+	/**
+	 * @param $percent float A value greater than 0, less than 1.
+	 * @param $values Array ordered array from lowest to highest
+	 * @throws \InvalidArgumentException
+	 * @return float percentile
+	 */
+	private function getPercentile($percent,$values){
+		if($percent > 1 || $percent < 0){
+			throw new \InvalidArgumentException();
+		}
+
+		$index = $percent * count($values);
+
+		if($index % 1 === 0){
+			//whole number
+			return $values[$index-1];
+		}else{
+			return ($values[$index-1] + $values[$index])/2;
+		}
+
+	}
+
 	public function getChartJSON() {
 		$title = $this->params['title'];
 		$subtitle = $this->params['subtitle'];
@@ -103,30 +125,22 @@ class FrequencyHistogram implements Chart {
 		);
 
 
-		$mi = $min = 2147483647;
-		$ma = $max = -1*$min;
+		$min = 2147483647;
+		$max = -1*$min;
 		$mean = 0;
-		$median = 0;
 		foreach($frequencyTable as $value => $occurence){
-			$mi = $value < $mi ? $value : $mi;
-			$ma = $value > $ma ? $value : $ma;
-			$min = $occurence < $min ? $occurence : $min;
-			$max = $occurence > $max ? $occurence : $max;
-			$mean += $occurence;
-			$median += $occurence;
+			$min = $value < $min ? $value : $min;
+			$max = $value > $max ? $value : $max;
+			$mean += $value;
 		}
+
 		$mean /= $total;
-		$mean /= 100;
-
-		$median = $me = $median / 2;
 
 
-		$offset = $mi;
-
-
+		$offset = $min;
 		if($binRange > 0){
 			$range = $binRange;
-			$numBins = ceil($ma/$binRange);
+			$numBins = ceil($max/$binRange);
 			$offset = 0;
 		}
 
@@ -135,7 +149,7 @@ class FrequencyHistogram implements Chart {
 		}
 
 		$mode = 0;
-		$range = isset($range) ? $range : ($ma-$mi)/$numBins;
+		$range = isset($range) ? $range : ($max-$min)/$numBins;
 		for($x = 0; $x < $numBins; $x++){
 			$bmin = ceil($offset + ($range*$x));
 			$bmax = floor($offset + $range*($x+1));
@@ -146,12 +160,6 @@ class FrequencyHistogram implements Chart {
 					$sumOccurenceAboveCurrent += $occurence;
 					if($value <= $bmax){
 						$sumOccurenceInRange += $occurence;
-						if ($me > 0){
-							$me -= $occurence;
-							if ($me <= 0){
-								$median = $value + $me;
-							}
-						}
 					}
 				}
 			}
@@ -159,7 +167,7 @@ class FrequencyHistogram implements Chart {
 
 			$series[0]['data'][] = array(
 				'y' => $sumOccurenceInRange/$total,
-				'name' => $numBins === $count ? $bmin : $bmin . '-'. ($bmax > $ma ? $ma : $bmax),
+				'name' => $numBins === $count ? $bmin : $bmin . '-'. ($bmax > $max ? $max : $bmax),
 			);
 
 			$series[1]['data'][] = array(
@@ -167,10 +175,16 @@ class FrequencyHistogram implements Chart {
 			);
 
 		}
-
-
-
 		$series = json_encode($series);
+
+
+		$mode = round($mode*100,2).'%';
+		$mean = round($mean,2);
+
+		$sortedFrequencyTableValues = array_keys($frequencyTable);
+		$p10 = $this->getPercentile(0.1,$sortedFrequencyTableValues);
+		$p50 = $this->getPercentile(0.5,$sortedFrequencyTableValues);
+		$p90 = $this->getPercentile(0.9,$sortedFrequencyTableValues);
 		$template = <<<EOT
 {
     chart: {
@@ -179,7 +193,7 @@ class FrequencyHistogram implements Chart {
     },
     labels: {
         items: [{
-            html: '<b>Min: </b>$min <b>Max: </b>$max <b>Mode: </b>$mode <b>Median (P50): </b>$median <b>Mean: </b>$mean  <b>Data points:</b> $total',
+            html: '<b>Min: </b>$min <b>Max: </b>$max <b>Mode: </b>$mode <b>P10: </b>$p10 <b>Median/P50: </b>$p50 <b>P90: </b>$p90 <b>Mean: </b>$mean  <b>Data points:</b> $total',
             style: {
                 top: '-20px',
                 left: '0px',
