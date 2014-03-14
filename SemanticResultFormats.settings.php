@@ -71,9 +71,6 @@ $GLOBALS['srfgFormats'] = array(
 	// 'googlebar',
 	// 'googlepie',
 
-	//Disabled by default since it requires PHPExcel extension
-	// 'excel',
-
 	// Unstable/broken:
 	// 'exhibit',
 );
@@ -85,6 +82,11 @@ if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && define
 	|| isset( $GLOBALS['wgHashTables'] ) // Version < 1.0 alpha
 ) {
 	$GLOBALS['srfgFormats'][] = 'hash';
+}
+
+//load excel format only if PHPExcel is installed.
+if(\SRF\SRFExcel::isPHPExcelInstalled()){
+	$GLOBALS['srfgFormats'][] = 'excel';
 }
 
 // Used for Array and Hash formats.
