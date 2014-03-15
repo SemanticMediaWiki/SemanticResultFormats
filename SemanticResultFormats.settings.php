@@ -71,20 +71,22 @@ $GLOBALS['srfgFormats'] = array(
 	// 'googlebar',
 	// 'googlepie',
 
-	//Disabled by default since it requires PHPExcel extension
-	// 'excel',
-
 	// Unstable/broken:
 	// 'exhibit',
 );
 
-// load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
+// Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 // FIXME: According to the INSTALL file only formats should be enabled, that "do not require further software to be installed (besides SMW)"
 if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && defined( 'ExtHashTables::VERSION' )
 	&& version_compare( ExtHashTables::VERSION, '0.999', '>=' )
 	|| isset( $GLOBALS['wgHashTables'] ) // Version < 1.0 alpha
 ) {
 	$GLOBALS['srfgFormats'][] = 'hash';
+}
+
+// Enable the excel format only if PHPExcel can be loaded.
+if( class_exists( 'PHPExcel' ) ){
+	$GLOBALS['srfgFormats'][] = 'excel';
 }
 
 // Used for Array and Hash formats.

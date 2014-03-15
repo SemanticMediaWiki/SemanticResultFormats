@@ -1,11 +1,14 @@
 <?php
+
 namespace SRF;
-use SMWExportPrinter,
-	SMWQueryResult,
-	PHPExcel,
-	PHPExcel_IOFactory,
-	PHPExcel_Cell_DataType,
-	Sanitizer;
+
+use SMWExportPrinter;
+use SMWQueryResult;
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PHPExcel_Cell_DataType;
+use Sanitizer;
+
 /**
  * @author Kim Eik
  * @since 1.9
@@ -45,15 +48,15 @@ class SRFExcel extends SMWExportPrinter {
 	 *
 	 * @return string
 	 */
-	public function getMimeType ( SMWQueryResult $queryResult ) {
+	public function getMimeType( SMWQueryResult $queryResult ) {
 		return "application/vnd.ms-excel";
 	}
 
-	public function getFileName ( SMWQueryResult $queryResult ) {
+	public function getFileName( SMWQueryResult $queryResult ) {
 		return round( microtime( true ) * 1000 ) . '.xls';
 	}
 
-	public function outputAsFile ( SMWQueryResult $queryResult, array $params ) {
+	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
 		if ( $this->isPHPExcelInstalled() ) {
 			parent::outputAsFile( $queryResult, $params );
 		} else {
@@ -62,7 +65,7 @@ class SRFExcel extends SMWExportPrinter {
 		}
 	}
 
-	public function getParamDefinitions ( array $definitions ) {
+	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$definitions[ 'searchlabel' ]->setDefault( wfMessage( 'srf-excel-link' )->inContentLanguage()->text() );
@@ -74,8 +77,8 @@ class SRFExcel extends SMWExportPrinter {
 	 * Return serialised results in specified format.
 	 * Implemented by subclasses.
 	 */
-	protected function getResultText ( SMWQueryResult $res, $outputmode ) {
-		if ( $outputmode == SMW_OUTPUT_FILE ) {
+	protected function getResultText( SMWQueryResult $res, $outputMode ) {
+		if ( $outputMode == SMW_OUTPUT_FILE ) {
 			if ( $this->isPHPExcelInstalled() ) {
 				$document = $this->createExcelDocument();
 				$this->sheet = $document->getSheet( 0 );
@@ -95,8 +98,8 @@ class SRFExcel extends SMWExportPrinter {
 				$result = wfMessage( 'srf-excel-missing-phpexcel' )->parse();
 			}
 		} else {
-			$result = $this->getLink( $res, $outputmode )->getText( $outputmode, $this->mLinker );
-			$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML );
+			$result = $this->getLink( $res, $outputMode )->getText( $outputMode, $this->mLinker );
+			$this->isHTML = ( $outputMode == SMW_OUTPUT_HTML );
 		}
 
 		return $result;
@@ -105,7 +108,7 @@ class SRFExcel extends SMWExportPrinter {
 	/*
 	 * Turns the PHPExcel document object into a string
 	 */
-	protected function writeDocumentToString ( $document ) {
+	protected function writeDocumentToString( $document ) {
 		$objWriter = PHPExcel_IOFactory::createWriter( $document, 'Excel5' );
 
 		ob_start();
@@ -118,7 +121,7 @@ class SRFExcel extends SMWExportPrinter {
 	 *
 	 * @param $res SMWQueryResult the query result
 	 */
-	protected function populateDocumentWithQueryData ( $res ) {
+	protected function populateDocumentWithQueryData( $res ) {
 		while ( $row = $res->getNext() ) {
 			$this->rowNum++;
 			$this->colNum = 0;
@@ -135,7 +138,7 @@ class SRFExcel extends SMWExportPrinter {
 	 *
 	 * @param $object \SMWDataValue the raw data value object
 	 */
-	protected function setOrAppendStringDataValue ( $object ) {
+	protected function setOrAppendStringDataValue( $object ) {
 		$type = PHPExcel_Cell_DataType::TYPE_STRING;
 		$value = $object->getWikiValue();
 		$value = Sanitizer::decodeCharReferences( $value );
@@ -154,7 +157,7 @@ class SRFExcel extends SMWExportPrinter {
 	 *
 	 * @param $object \SMWDataValue the raw data value object
 	 */
-	protected function setNumberDataValue ( $object ) {
+	protected function setNumberDataValue( $object ) {
 		$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
 		$value = $object->getDataItem()->getNumber();
 
@@ -167,7 +170,7 @@ class SRFExcel extends SMWExportPrinter {
 	 *
 	 * @param $object \SMWDataValue  the raw data value object
 	 */
-	protected function setQuantityDataValue ( $object ) {
+	protected function setQuantityDataValue( $object ) {
 		$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
 		$unit = $object->getUnit();
 		$value = $object->getNumber();
@@ -182,9 +185,9 @@ class SRFExcel extends SMWExportPrinter {
 	/**
 	 * Populates the PHPExcel sheet with the headers from the result query
 	 *
-	 * @param $res   the query result
+	 * @param SMWQueryResult $res The query result
 	 */
-	protected function populateDocumentWithHeaders ( $res ) {
+	protected function populateDocumentWithHeaders( SMWQueryResult $res ) {
 		$this->colNum = 0;
 		foreach ( $res->getPrintRequests() as $pr ) {
 			$header = $pr->getLabel();
@@ -203,17 +206,13 @@ class SRFExcel extends SMWExportPrinter {
 	 *
 	 * @return PHPExcel
 	 */
-	protected function createExcelDocument () { // Create new PHPExcel object
+	protected function createExcelDocument() {
 		$objPHPExcel = new PHPExcel();
 
 		// Set document properties
 		$objPHPExcel->getProperties()->setCreator( "SemanticMediaWiki PHPExcel Export" );
 
 		return $objPHPExcel;
-	}
-
-	private function isPHPExcelInstalled () {
-		return class_exists( "PHPExcel" );
 	}
 
 	/**
@@ -225,9 +224,6 @@ class SRFExcel extends SMWExportPrinter {
 		return !(array_key_exists("mainlabel", $this->params) && $label === $this->params[ "mainlabel" ] . '#');
 	}
 
-	/**
-	 * @param $field
-	 */
 	protected function readFieldValue( $field ) {
 		$valueCount = 0;
 		while ( ( $object = $field->getNextDataValue() ) !== false ) {
@@ -256,7 +252,6 @@ class SRFExcel extends SMWExportPrinter {
 	}
 
 	/**
-	 * Traverses row data
 	 * @param $row
 	 */
 	protected function readRowData( $row ) {
@@ -267,5 +262,10 @@ class SRFExcel extends SMWExportPrinter {
 			}
 		}
 	}
+
+	private function isPHPExcelInstalled() {
+		return class_exists( "PHPExcel" );
+	}
+
 }
 
