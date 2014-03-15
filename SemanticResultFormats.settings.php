@@ -75,7 +75,7 @@ $GLOBALS['srfgFormats'] = array(
 	// 'exhibit',
 );
 
-// load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
+// Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 // FIXME: According to the INSTALL file only formats should be enabled, that "do not require further software to be installed (besides SMW)"
 if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && defined( 'ExtHashTables::VERSION' )
 	&& version_compare( ExtHashTables::VERSION, '0.999', '>=' )
@@ -84,8 +84,8 @@ if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && define
 	$GLOBALS['srfgFormats'][] = 'hash';
 }
 
-//load excel format only if PHPExcel is installed.
-if(\SRF\SRFExcel::isPHPExcelInstalled()){
+// Enable the excel format only if PHPExcel can be loaded.
+if( class_exists( 'PHPExcel' ) ){
 	$GLOBALS['srfgFormats'][] = 'excel';
 }
 

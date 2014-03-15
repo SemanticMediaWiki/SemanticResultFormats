@@ -54,7 +54,7 @@ class SRFExcel extends SMWExportPrinter {
 	}
 
 	public function outputAsFile ( SMWQueryResult $queryResult, array $params ) {
-		if ( self::isPHPExcelInstalled() ) {
+		if ( $this->isPHPExcelInstalled() ) {
 			parent::outputAsFile( $queryResult, $params );
 		} else {
 			header( 'Cache-Control: no-store, no-cache, must-revalidate' );
@@ -76,7 +76,7 @@ class SRFExcel extends SMWExportPrinter {
 	 */
 	protected function getResultText ( SMWQueryResult $res, $outputmode ) {
 		if ( $outputmode == SMW_OUTPUT_FILE ) {
-			if ( self::isPHPExcelInstalled() ) {
+			if ( $this->isPHPExcelInstalled() ) {
 				$document = $this->createExcelDocument();
 				$this->sheet = $document->getSheet( 0 );
 
@@ -264,8 +264,9 @@ class SRFExcel extends SMWExportPrinter {
 		}
 	}
 
-	public static function isPHPExcelInstalled(){
+	private function isPHPExcelInstalled() {
 		return class_exists( "PHPExcel" );
 	}
+
 }
 
