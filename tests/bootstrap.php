@@ -6,7 +6,7 @@ if ( php_sapi_name() !== 'cli' ) {
 
 require_once( __DIR__ . '/evilMediaWikiBootstrap.php' );
 
-$pwd = exec( 'pwd' );
+$pwd = getcwd();
 chdir( __DIR__ . '/..' );
 passthru( 'composer update' );
 chdir( $pwd );
