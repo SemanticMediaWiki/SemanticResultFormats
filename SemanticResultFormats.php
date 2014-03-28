@@ -34,9 +34,6 @@ if ( ! defined( 'SMW_VERSION' ) ) {
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
-$GLOBALS['srfgScriptPath'] = ( $GLOBALS['wgExtensionAssetsPath'] === false ?
-		$GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
-
 $GLOBALS['srfgIP'] = __DIR__;
 
 // Require the settings file.
@@ -98,6 +95,9 @@ $GLOBALS['wgHooks']['GetPreferences'][] = 'SRFHooks::onGetPreferences';
  */
 $GLOBALS['wgExtensionFunctions'][] = function() {
 	global $srfgFormats, $smwgResultFormats, $smwgResultAliases;
+
+	$GLOBALS['srfgScriptPath'] = ( $GLOBALS['wgExtensionAssetsPath'] === false ?
+			$GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
 
 	$formatClasses = array(
 		// Assign the Boilerplate class to a format identifier
