@@ -1,0 +1,34 @@
+{
+    "@metadata": {
+        "authors": [
+            "GreenZeb",
+            "Papuass"
+        ]
+    },
+    "srf-module-loading": "Ielādē…",
+    "srf-paramdesc-height": "Augstums",
+    "srf-paramdesc-width": "Platums",
+    "srf-ui-common-label-source": "Avots",
+    "srf-ui-common-label-datasource": "Datu avots",
+    "srf-ui-common-label-help-section": "palīdzības sadaļa",
+    "srfc_previousmonth": "Iepriekšējais mēnesis",
+    "srfc_nextmonth": "Nākamais mēnesis",
+    "srfc_today": "Šodiena",
+    "srfc_gotomonth": "Doties uz mēnesi",
+    "srf_printername_vcard": "vCard eksports",
+    "srf_printername_icalendar": "iCalendar eksports",
+    "srf_printername_bibtex": "BibTeX eksports",
+    "srf_printername_gallery": "Galerija",
+    "srf-filtered-selectorlabel-list": "Saraksts",
+    "srf-filtered-selectorlabel-calendar": "Kalendārs",
+    "srf-printername-d3chart": "D3 diagramma",
+    "srf-ui-eventcalendar-label-today": "Šodiena",
+    "srf-ui-eventcalendar-label-month": "Mēnesis",
+    "srf-ui-eventcalendar-label-week": "Nedēļa",
+    "srf-ui-eventcalendar-label-day": "Diena",
+    "srf-ui-eventcalendar-label-allday": "Visu dienu",
+    "srf-printername-dygraphs": "Dygraphs diagramma",
+    "srf-paramdesc-datasource": "Avots, no kurienes dati ir pieejami. Atļautās vērtības: fails, izejas dati un URL. Noklusētais: fails",
+    "srf-paramdesc-unit": "Vienība",
+    "srf-ui-mediaplayer-label-repeat": "Atkārtot"
+}

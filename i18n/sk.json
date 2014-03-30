@@ -1,0 +1,25 @@
+{
+    "@metadata": {
+        "authors": [
+            "Helix84"
+        ]
+    },
+    "srf-desc": "Ďalšie formáty inline požiadaviek Semantic MediaWiki",
+    "srf-name": "Formáty sémantických výsledkov",
+    "srfc_previousmonth": "Predošlý mesiac",
+    "srfc_nextmonth": "Ďalší mesiac",
+    "srfc_today": "Dnes",
+    "srfc_gotomonth": "Prejsť na mesiac",
+    "srf_printername_calendar": "Mesačný kalendár",
+    "srf_printername_vcard": "export vCard",
+    "srf_printername_icalendar": "export iCalendar",
+    "srf_printername_bibtex": "export BibTeX",
+    "srf_outline_novalue": "Žiadna hodnota",
+    "srf_printername_outline": "Náčrt",
+    "srf_printername_sum": "Suma čísiel",
+    "srf_printername_average": "Priemer čísiel",
+    "srf_printername_max": "Maximálne číslo",
+    "srf_printername_min": "Minimálne číslo",
+    "srf_printername_timeline": "Časová os",
+    "srf_printername_eventline": "Os udalostí"
+}

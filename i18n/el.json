@@ -1,0 +1,37 @@
+{
+    "@metadata": {
+        "authors": [
+            "Consta",
+            "Omnipaedista",
+            "Protnet",
+            "ZaDiak"
+        ]
+    },
+    "srf-desc": "Πρόσθετες μορφές αποτελεσμάτων για ενσωματωμένα σημασιολογικά ερωτήματα του Semantic MediaWiki",
+    "srf-name": "Μορφές σημασιολογικών αποτελεσμάτων",
+    "prefs-srf": "Μορφές σημασιολογικών αποτελεσμάτων",
+    "srf-module-loading": "Φόρτωση...",
+    "srf-paramdesc-height": "Ύψος",
+    "srf-paramdesc-width": "Πλάτος",
+    "srf-navigation-previous": "Προηγούμενο",
+    "srf-ui-navigation-prev": "Προηγ",
+    "srf-ui-navigation-next": "Επόμενο",
+    "srf-ui-common-label-help-section": "ενότητα βοήθειας",
+    "srfc_previousmonth": "Προηγούμενος μήνας",
+    "srfc_nextmonth": "Επόμενος μήνας",
+    "srfc_today": "Σήμερα",
+    "srfc_gotomonth": "Μετάβαση στον μήνα",
+    "srf_printername_calendar": "Μηνιαίο ημερολόγιο",
+    "srf_printername_vcard": "Εξαγωγή σε vCard",
+    "srf_printername_icalendar": "Εξαγωγή σε iCalendar",
+    "srf_printername_bibtex": "Εξαγωγή σε BibTeX",
+    "srf_outline_novalue": "Καμία τιμή",
+    "srf_printername_outline": "Περίγραμμα",
+    "srf_printername_sum": "Σύνοψη αριθμών",
+    "srf_printername_average": "Μέσος όρος αριθμών",
+    "srf_printername_max": "Μέγιστος αριθμός",
+    "srf_printername_min": "Ελάχιστος αριθμός",
+    "srf_printername_timeline": "Ζώνη ώρας",
+    "srf_printername_eventline": "Ζώνη γεγονότων",
+    "srf_paramdesc_timelinesize": "Ύψος χρονολογίου"
+}

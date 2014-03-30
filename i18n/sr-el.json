@@ -1,0 +1,21 @@
+{
+    "@metadata": {
+        "authors": [
+            "Michaello"
+        ]
+    },
+    "srfc_previousmonth": "Prethodni mesec",
+    "srfc_nextmonth": "Sledeći mesec",
+    "srfc_today": "Danas",
+    "srfc_gotomonth": "Pređi na mesec",
+    "srf_printername_calendar": "Mesečni kalendar",
+    "srf_vcard_link": "vCard",
+    "srf_icalendar_link": "iCalendar",
+    "srf_bibtex_link": "BibTeX",
+    "srf_outline_novalue": "Nema vrednosti",
+    "srf_printername_sum": "Suma brojeva",
+    "srf_printername_average": "Srednja vrednost brojeva",
+    "srf_printername_max": "Najveći broj",
+    "srf_printername_min": "Najmanji broj",
+    "srf_printername_gallery": "Galerija"
+}

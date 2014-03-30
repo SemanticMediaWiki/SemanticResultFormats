@@ -1,0 +1,41 @@
+{
+    "@metadata": {
+        "authors": [
+            "KlaudiuMihaila",
+            "Minisarm",
+            "Stelistcristi"
+        ]
+    },
+    "srf-paramdesc-height": "Înălțime",
+    "srf-paramdesc-width": "Lățime",
+    "srf-ui-common-label-source": "Sursă",
+    "srf-ui-tooltip-title-options": "Opțiuni",
+    "srfc_previousmonth": "Luna anterioară",
+    "srfc_nextmonth": "Luna următoare",
+    "srfc_today": "Astăzi",
+    "srf_printername_calendar": "Calendar lunar",
+    "srf_printername_bibtex": "Export BibTeX",
+    "srf_outline_novalue": "Nici o valoare",
+    "srf_printername_sum": "Suma numerelor",
+    "srf_printername_average": "Media numerelor",
+    "srf_printername_max": "Numărul maxim",
+    "srf_printername_min": "Numărul minim",
+    "srf-ui-gridview-label-chart-tab": "Diagramă",
+    "srf-ui-gridview-label-info-tab": "Informații",
+    "srf_printername_gallery": "Galerie",
+    "srf_paramdesc_graphname": "Titlu",
+    "srf-printername-filtered": "Filtrat",
+    "srf-filtered-selectorlabel-list": "Listă",
+    "srf-filtered-selectorlabel-calendar": "Calendar",
+    "srf-paramdesc-yaxislabel": "Descriere care apare pe axa y",
+    "srf-paramdesc-unit": "Unitate",
+    "srf-ui-mediaplayer-label-play": "Redare",
+    "srf-ui-mediaplayer-label-pause": "Pauză",
+    "srf-ui-mediaplayer-label-stop": "Stop",
+    "srf-ui-mediaplayer-label-mute": "Fără sunet",
+    "srf-ui-mediaplayer-label-volume-max": "Volum maxim",
+    "srf-ui-mediaplayer-label-shuffle": "Amestecare",
+    "srf-ui-mediaplayer-label-repeat": "Repetare",
+    "srf-ui-mediaplayer-label-full-screen": "Pe tot ecranul",
+    "srf-ui-mediaplayer-label-restore-screen": "Restabilește ecranul"
+}
