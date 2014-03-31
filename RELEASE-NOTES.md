@@ -3,13 +3,13 @@ These are the release notes for the [Semantic Result Formats]
 
 ## SRF 1.9.1 (dev)
 
-* Added support for the new MediaWiki i18n JSON system
+* #24 Added support for the new MediaWiki i18n JSON system
 
 ## SRF 1.9.0.1 (2014-01-17)
 
 ### Bug fixes
 
-* (#7) Fix tagcloud rendering on special pages and when using templates
+* #7 Fix tagcloud rendering on special pages and when using templates
 
 ## SRF 1.9 (2014-01-10)
 
