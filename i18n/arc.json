@@ -1,0 +1,20 @@
+{
+    "@metadata": {
+        "authors": [
+            "Basharh"
+        ]
+    },
+    "srf-navigation-previous": "ܕܩܕܡ",
+    "srf-ui-navigation-next": "ܕܒܬܪ",
+    "srfc_previousmonth": "ܝܪܚܐ ܕܩܕܡ",
+    "srfc_nextmonth": "ܝܪܚܐ ܕܒܬܪ",
+    "srfc_today": "ܝܘܡܢܐ",
+    "srfc_gotomonth": "ܙܠ ܠܝܪܚܐ",
+    "srf_printername_calendar": "ܦܠܛܐ ܝܪܚܝܐ",
+    "srf_printername_max": "ܡܬܚܐ ܥܠܝܐ ܕܡܢܝܢܐ",
+    "srf_printername_min": "ܡܬܚܐ ܬܚܬܝܐ ܕܡܢܝܢܐ",
+    "srf_printername_gallery": "ܒܝܬ ܓܠܚܐ",
+    "srf-gallery-navigation-previous": "ܕܩܕܡ",
+    "srf-gallery-navigation-next": "ܕܒܬܪ",
+    "srf-gallery-overlay-count": "ܨܘܪܬܐ $1 ܡܢ $2"
+}

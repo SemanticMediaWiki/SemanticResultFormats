@@ -1,0 +1,27 @@
+{
+    "@metadata": {
+        "authors": [
+            "Ahmed-Najib-Biabani-Ibrahimkhel"
+        ]
+    },
+    "srf-module-loading": "برسېرېدنې کې دی...",
+    "srf-ui-tooltip-title-options": "خوښنې",
+    "srfc_previousmonth": "پخوانۍ مياشت",
+    "srfc_nextmonth": "راتلونکې مياشت",
+    "srfc_today": "نن",
+    "srfc_gotomonth": "مياشت ته ورځه",
+    "srf-ui-gridview-label-info-tab": "مالومات",
+    "srf_printername_gallery": "انځورتون",
+    "srf-gallery-navigation-previous": "پخوانی",
+    "srf-gallery-navigation-next": "راتلونکی",
+    "srf-filtered-selectorlabel-list": "لړليک",
+    "srf-ui-eventcalendar-label-today": "نن",
+    "srf-ui-eventcalendar-label-month": "مياشت",
+    "srf-ui-eventcalendar-label-week": "اونۍ",
+    "srf-ui-eventcalendar-label-day": "ورځ",
+    "srf-ui-eventcalendar-label-allday": "ټوله ورځ",
+    "srf-ui-mediaplayer-label-play": "غږول",
+    "srf-ui-mediaplayer-label-stop": "درول",
+    "srf-ui-mediaplayer-label-mute": "ټپول",
+    "srf-ui-mediaplayer-label-unmute": "ناټپول"
+}

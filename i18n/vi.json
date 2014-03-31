@@ -1,0 +1,31 @@
+{
+    "@metadata": {
+        "authors": [
+            "Minh Nguyen",
+            "Vinhtantran",
+            "පසිඳු කාවින්ද"
+        ]
+    },
+    "srf-desc": "Các định dạng bổ sung cho các câu truy vấn trong dòng lệnh của MediaWiki Ngữ nghĩa",
+    "srf-name": "Định dạng Kết quả Ngữ nghĩa",
+    "srf-module-loading": "Đang tải…",
+    "srfc_previousmonth": "Tháng trước",
+    "srfc_nextmonth": "Tháng sau",
+    "srfc_today": "Hôm nay",
+    "srfc_gotomonth": "Đến tháng",
+    "srf_printername_calendar": "Lịch tháng",
+    "srf_printername_vcard": "Xuất vCard",
+    "srf_printername_icalendar": "Xuất iCalendar",
+    "srf_printername_bibtex": "Xuất BibTeX",
+    "srf_outline_novalue": "Vô giá trị",
+    "srf_printername_outline": "Khái quát",
+    "srf_printername_sum": "Tổng số",
+    "srf_printername_average": "Trung bình số",
+    "srf_printername_max": "Số lớn nhất",
+    "srf_printername_min": "Số nhỏ nhất",
+    "srf_printername_timeline": "Thời gian biểu",
+    "srf_printername_eventline": "Sự kiện biểu",
+    "srf-gallery-navigation-previous": "Trước",
+    "srf-gallery-navigation-next": "Tiếp theo",
+    "srf_paramdesc_graphname": "Tựa đề"
+}
