@@ -1,6 +1,10 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 1.9.1 (dev)
+
+* Added support for the new MediaWiki i18n JSON system
+
 ## SRF 1.9.0.1 (2014-01-17)
 
 ### Bug fixes
