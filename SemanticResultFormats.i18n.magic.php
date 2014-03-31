@@ -78,13 +78,13 @@ $magicWords['mr'] = array(
 	'calendarenddate' => array( 0, 'दिनदर्शिकासांगतादिन', 'calendarenddate' ),
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎) */
+/** Norwegian Bokmål (norsk bokmål) */
 $magicWords['nb'] = array(
 	'calendarstartdate' => array( 0, 'kalenderstartdato' ),
 	'calendarenddate' => array( 0, 'kalendersluttdato' ),
 );
 
-/** Nedersaksies (Nedersaksies) */
+/** Low Saxon (Netherlands) (Nedersaksies) */
 $magicWords['nds-nl'] = array(
 	'calendarstartdate' => array( 0, 'startdaotumkalender', 'startdatumkalender' ),
 	'calendarenddate' => array( 0, 'einddaotumkalender', 'einddatumkalender' ),

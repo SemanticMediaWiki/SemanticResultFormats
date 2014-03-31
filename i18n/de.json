@@ -12,7 +12,7 @@
             "Umherirrender"
         ]
     },
-    "srf-desc": "Ermöglicht zusätzliche Ausgabeformate für eingebettete Abfragen",
+    "srf-desc": "Ermöglicht zusätzliche Ergebnisformate für „Semantic MediaWiki“-Abfragen",
     "srf-name": "Semantische Ergebnisformate",
     "prefs-srf": "Semantische Ergebnisformate",
     "srf-prefs-intro-text": "Du hast die Programmerweiterung „Semantic Result Formats“ installiert. Besuch bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen.",
@@ -152,7 +152,7 @@
     "srf_paramdesc_minsize": "Die Darstellungsgröße des kleinsten Stichwortes in Prozent",
     "srf_paramdesc_maxsize": "Die Darstellungsgröße des größten Stichwortes in Prozent",
     "srf_paramdesc_maxtags": "Die maximale Anzahl der Stichwörter in der Stichwortwolke",
-    "srf-paramdesc-excludetags": "Die auszuschließenden Stichworte (Trennzeichen: ;)",
+    "srf-paramdesc-excludetags": "Die auszuschließenden Stichworte (Trennzeichen: „;“)",
     "srf_printername_valuerank": "Liste (Rangfolge)",
     "srf_printername_array": "Datenfeld (Array)",
     "srf_paramdesc_pagetitle": "Legt fest ob Seitentitel in der Ergebnisliste angezeigt oder weggelassen werden sollen",
@@ -176,7 +176,7 @@
     "srf_paramdesc_graphlink": "Link zur Grafik",
     "srf_paramdesc_graphcolor": "Farbe der Grafik",
     "srf-paramdesc-graph-wwl": "Begrenzung des Textumbruchs (Anzahl der Zeichen)",
-    "srf_printername_datatables": "Tabelle (Datentabelle)",
+    "srf-printername-datatables": "Datentabellen",
     "srf-ui-datatables-label-conditions": "Bedingungen",
     "srf-ui-datatables-label-parameters": "Parameter",
     "srf-ui-datatables-label-filters": "Spaltenfilter und Suche",
@@ -194,7 +194,6 @@
     "srf-ui-datatables-label-sInfo": "Es werden die Einträge _START_ bis _END_ von insgesamt _TOTAL_ Einträgen angezeigt.",
     "srf-ui-datatables-label-sInfoEmpty": "Es werden 0 bis 0 von insgesamt 0 Einträgen angezeigt.",
     "srf-ui-datatables-label-sInfoFiltered": "(aus insgesamt _MAX_ Einträgen herausgefiltert)",
-    "srf-ui-datatables-label-sInfoPostFix": "",
     "srf-ui-datatables-label-sInfoThousands": ".",
     "srf-ui-datatables-label-sLengthMenu": "Zeige _MENU_ Einträge",
     "srf-ui-datatables-label-sLoadingRecords": "Lade …",
@@ -207,8 +206,6 @@
     "srf-ui-datatables-label-oPaginate-sPrevious": "Voriger",
     "srf-ui-datatables-label-oAria-sSortAscending": ": zum aufsteigenden Sortieren der Spalte aktivieren",
     "srf-ui-datatables-label-oAria-sSortDescending": ": zum absteigenden Sortieren der Spalte aktivieren",
-    "srf-paramdesc-rowindex": "Zeilenindex der Tabelle",
-    "srf-paramdesc-displaylength": "Ausgangsanzeigelänge",
     "srf_printername_tree": "Baumansicht (aufgezählt)",
     "srf_printername_ultree": "Baumansicht (aufgezählt)",
     "srf_printername_oltree": "Baumansicht (nummeriert)",
@@ -290,5 +287,6 @@
     "srf-ui-mediaplayer-label-repeat-off": "Wiederholen aus",
     "srf-ui-mediaplayer-label-full-screen": "Vollbild",
     "srf-ui-mediaplayer-label-restore-screen": "Bildschirm wiederherstellen",
+    "srf-excel-link": "Excel",
     "srf-excel-missing-phpexcel": "Die Daten konnten nicht für MS-Excel exportiert werden, da die notwendige Softwareerweiterung [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nicht installiert ist."
 }
