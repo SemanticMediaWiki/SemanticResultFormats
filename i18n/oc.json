@@ -7,6 +7,11 @@
     },
     "srf-desc": "Formats adicionals per las requèstas de Semantic MediaWiki",
     "srf-name": "Formatatge dels resultats semantics",
+    "srf-module-loading": "Cargament…",
+    "srf-ui-tooltip-title-filter": "Filtre",
+    "srf-ui-common-label-refresh": "Refrescar",
+    "srf-ui-common-label-parameters": "Paramètres",
+    "srf-ui-common-label-query": "Requèsta",
     "srfc_previousmonth": "Mes precedent",
     "srfc_nextmonth": "Mes seguent",
     "srfc_today": "Uèi",
@@ -25,5 +30,9 @@
     "srf_printername_min": "Nombre minimal",
     "srf_printername_timeline": "Cronologia",
     "srf_printername_eventline": "Cronologia dels eveniments",
-    "srf_paramdesc_graphname": "Títol"
+    "srf-ui-gridview-label-item": "Element de donada",
+    "srf_paramdesc_graphname": "Títol",
+    "srf-ui-datatables-label-sInfoThousands": ",",
+    "srf-ui-datatables-label-sLoadingRecords": "Cargament…",
+    "srf-ui-datatables-label-oPaginate-sNext": "Seguent"
 }
