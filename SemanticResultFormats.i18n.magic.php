@@ -107,3 +107,9 @@ $magicWords['sr-el'] = array(
 	'calendarstartdate' => array( 0, 'početnidatum', 'početni_datum' ),
 	'calendarenddate' => array( 0, 'završnidatum', 'završni_datum' ),
 );
+
+/** Simplified Chinese (中文（简体）‎) */
+$magicWords['zh-hans'] = array(
+	'calendarstartdate' => array( 0, '日历起始日期' ),
+	'calendarenddate' => array( 0, '日历届满日期' ),
+);
