@@ -6,7 +6,8 @@
             "McDutchie",
             "Rcdeboer",
             "SPQRobin",
-            "Siebrand"
+            "Siebrand",
+            "Southparkfan"
         ]
     },
     "srf-desc": "Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki",
@@ -160,12 +161,14 @@
     "srf_paramdesc_graphcolor": "Grafiekkleur",
     "srf-paramdesc-graph-wwl": "Regellimiet (in aantal tekens)",
     "srf-printername-datatables": "Gegevenstabellen",
+    "srf-ui-datatables-label-sLoadingRecords": "Bezig met laden...",
     "srf-ui-datatables-label-oPaginate-sNext": "Volgende",
     "srf-ui-datatables-label-oPaginate-sPrevious": "Vorige",
     "srf_printername_tree": "Boom",
     "srf_printername_ultree": "Ongenummerde lijst",
     "srf_printername_oltree": "Genummerde lijst",
     "srf-noparentprop": "Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.",
+    "srf-rootinvalid": "$1 is geen geldige paginatitel.",
     "srf-paramdesc-parent": "De eigenschap die de bovenliggende pagina bevat",
     "srf-printername-slideshow": "Diapresentatie",
     "srf-paramdesc-delay": "De vertraging tussen dia's in seconden",
