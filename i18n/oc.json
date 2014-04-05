@@ -5,9 +5,10 @@
             "Cedric31"
         ]
     },
-    "srf-desc": "Formats adicionals per las requèstas de Semantic MediaWiki",
+    "srf-desc": "Formats adicionals d'afichatge de resultat per las requèstas de Semantic MediaWiki",
     "srf-name": "Formatatge dels resultats semantics",
     "srf-module-loading": "Cargament…",
+    "srf-ui-tooltip-title-legend": "Legenda",
     "srf-ui-tooltip-title-filter": "Filtre",
     "srf-ui-common-label-refresh": "Refrescar",
     "srf-ui-common-label-parameters": "Paramètres",
@@ -32,7 +33,18 @@
     "srf_printername_eventline": "Cronologia dels eveniments",
     "srf-ui-gridview-label-item": "Element de donada",
     "srf_paramdesc_graphname": "Títol",
+    "srf-ui-datatables-label-conditions": "Condicions",
+    "srf-ui-datatables-label-parameters": "Paramètres",
+    "srf-ui-datatables-label-information": "Informacion",
+    "srf-ui-datatables-label-placeholder-column-search": "Recèrca en cors…",
+    "srf-ui-datatables-label-multiselect-column-noneselectedtext": "Paramètres de filtre",
     "srf-ui-datatables-label-sInfoThousands": ",",
     "srf-ui-datatables-label-sLoadingRecords": "Cargament…",
-    "srf-ui-datatables-label-oPaginate-sNext": "Seguent"
+    "srf-ui-datatables-label-sProcessing": "Tractament en cors...",
+    "srf-ui-datatables-label-sSearch": "Recercar :",
+    "srf-ui-datatables-label-oPaginate-sFirst": "Primièr",
+    "srf-ui-datatables-label-oPaginate-sLast": "Darrièr",
+    "srf-ui-datatables-label-oPaginate-sNext": "Seguent",
+    "srf-ui-datatables-label-oPaginate-sPrevious": "Precedent",
+    "srf-excel-link": "Excel"
 }
