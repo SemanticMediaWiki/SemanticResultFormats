@@ -43,7 +43,7 @@
     "srf-ui-tooltip-title-legend": "{{doc-smw-ui-tooltip|tooltip-title-legend}}",
     "srf-ui-tooltip-title-filter": "{{doc-smw-ui-tooltip|tooltip-title-filter}}\n{{Identical|Filter}}",
     "srf-ui-common-label-refresh": "{{doc-smw-ui-label|refresh}}\n{{Identical|Refresh}}",
-    "srf-ui-common-label-parameters": "{{doc-smw-ui-label|parameters}}",
+    "srf-ui-common-label-parameters": "{{doc-smw-ui-label|parameters}}\n\n{{Identical|Parameter|Plural}}",
     "srf-ui-common-label-query": "{{doc-smw-ui-label|query}}",
     "srf-ui-common-label-paneview": "{{doc-smw-ui-label|paneview}}",
     "srf-ui-common-label-daterange": "{{doc-smw-ui-label|daterange}}",
@@ -182,7 +182,7 @@
     "srf-paramdesc-graph-wwl": "{{doc-paramdesc|wordwraplimit}}",
     "srf-printername-datatables": "{{doc-smwformat|datatables}}",
     "srf-ui-datatables-label-conditions": "{{doc-smw-ui-label|conditions}}",
-    "srf-ui-datatables-label-parameters": "{{doc-smw-ui-label|parameters}}",
+    "srf-ui-datatables-label-parameters": "{{doc-smw-ui-label|parameters}}\n\n{{Identical|Parameter|Plural}}",
     "srf-ui-datatables-label-filters": "{{doc-smw-ui-label|filters}}",
     "srf-ui-datatables-label-information": "{{doc-smw-ui-label|information}}\n{{Identical|Information}}",
     "srf-ui-datatables-panel-disclaimer": "Some textual information for the user",
@@ -298,6 +298,6 @@
     "srf-ui-mediaplayer-label-repeat-off": "{{doc-smw-ui-label|repeat-off}}",
     "srf-ui-mediaplayer-label-full-screen": "{{doc-smw-ui-label|full-screen}}",
     "srf-ui-mediaplayer-label-restore-screen": "{{doc-smw-ui-label|restore-screen}}",
-    "srf-excel-link": "{{doc-smwformat|excel}}",
+    "srf-excel-link": "{{doc-smwformat|excel}}\n\n{{Identical|Excel}}",
     "srf-excel-missing-phpexcel": "This is an error message."
 }
