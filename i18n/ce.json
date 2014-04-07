@@ -1,0 +1,30 @@
+{
+    "@metadata": {
+        "authors": [
+            "Умар"
+        ]
+    },
+    "srf-module-loading": "Чуйолуш...",
+    "srf-paramdesc-height": "Локхалла",
+    "srf-paramdesc-width": "Шоралла",
+    "srf-ui-common-label-source": "Хьост",
+    "srf-ui-tooltip-title-options": "Параметраш",
+    "srf-ui-tooltip-title-legend": "Легенда",
+    "srf-ui-common-label-refresh": "Карлаяккха",
+    "srf-ui-common-label-query": "Дехар",
+    "srf_paramdesc_charttitle": "Диаграммин цӀе",
+    "srf-ui-gridview-label-info-tab": "Хаам",
+    "srf_paramdesc_heights": "Суьртан локхалла",
+    "srf_paramdesc_graphname": "Корта",
+    "srf-ui-datatables-label-conditions": "Хьал",
+    "srf-ui-datatables-label-information": "Хаам",
+    "srf-ui-datatables-label-placeholder-column-search": "Лоьху...",
+    "srf-ui-datatables-label-multiselect-column-noneselectedtext": "Литтаран нисярш",
+    "srf-ui-datatables-label-sProcessing": "Кечдар...",
+    "srf-ui-datatables-label-sSearch": "Лаха:",
+    "srf-ui-datatables-label-oPaginate-sFirst": "ЦхьалгӀаниг",
+    "srf-ui-datatables-label-oPaginate-sLast": "ТӀехьарниг",
+    "srf-ui-datatables-label-oPaginate-sNext": "Кхин дӀа",
+    "srf-ui-mediaplayer-label-next": "Кхин дӀа",
+    "srf-excel-link": "Excel"
+}
