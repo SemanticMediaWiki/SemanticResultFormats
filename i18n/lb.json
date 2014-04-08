@@ -81,6 +81,7 @@
     "srf-ui-datatables-label-parameters": "Parameteren",
     "srf-ui-datatables-label-information": "Informatioun",
     "srf-ui-datatables-label-placeholder-column-search": "Sichen...",
+    "srf-ui-datatables-label-multiselect-column-noneselectedtext": "Astellunge vum Filter",
     "srf-ui-datatables-label-sInfoThousands": ",",
     "srf-ui-datatables-label-sLoadingRecords": "Lueden...",
     "srf-ui-datatables-label-sSearch": "Sichen:",
