@@ -2,7 +2,8 @@
     "@metadata": {
         "authors": [
             "Karthi.dr",
-            "Shanmugamp7"
+            "Shanmugamp7",
+            "ElangoRamanujam"
         ]
     },
     "srf-module-loading": "ஏற்றப்படுகிறது...",
@@ -20,6 +21,8 @@
     "srf-ui-common-label-help-section": "உதவிப் பகுதி",
     "srf-ui-tooltip-title-options": "விருப்பத்தேர்வுகள்",
     "srf-ui-tooltip-title-scope": "நோக்கம்",
+    "srf-ui-tooltip-title-filter": "வடிகட்டி",
+    "srf-ui-common-label-paneview": "பக்க நோக்கு",
     "srf-error-option-mix": "விருப்பத்தேர்வு ($1) இல்லை",
     "srfc_previousmonth": "கடந்த மாதம்",
     "srfc_nextmonth": "அடுத்த மாதம்",
@@ -52,6 +55,15 @@
     "srf-gallery-navigation-previous": "முந்தைய",
     "srf-gallery-navigation-next": "அடுத்தது",
     "srf_paramdesc_graphname": "தலைப்பு",
+    "srf-ui-datatables-label-conditions": "கட்டுப்பாடுகள்",
+    "srf-ui-datatables-label-information": "தகவல்",
+    "srf-ui-datatables-label-placeholder-column-search": "தேடுக...",
+    "srf-ui-datatables-label-sLoadingRecords": "ஏற்றப்படுகிறது...",
+    "srf-ui-datatables-label-sSearch": "தேடுக:",
+    "srf-ui-datatables-label-oPaginate-sFirst": "முதல்",
+    "srf-ui-datatables-label-oPaginate-sLast": "இறுதி",
+    "srf-ui-datatables-label-oPaginate-sNext": "அடுத்து",
+    "srf-ui-datatables-label-oPaginate-sPrevious": "முந்தைய",
     "srf-paramdesc-listtype": "பட்டியல் வகையை குறிப்பிடவும்",
     "srf-ui-eventcalendar-label-today": "இன்று",
     "srf-ui-eventcalendar-label-month": "மாதம்",
