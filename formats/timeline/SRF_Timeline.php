@@ -21,6 +21,8 @@ class SRFTimeline extends SMWResultPrinter {
 	protected $m_tlsize = ''; // CSS-compatible size (such as 400px)
 	protected $m_tlbands = ''; // array of band IDs (MONTH, YEAR, ...)
 	protected $m_tlpos = ''; // position identifier (start, end, today, middle)
+	protected $mTemplate;
+	protected $mNamedArgs;
 
 	/**
 	 * @see SMWResultPrinter::handleParameters
@@ -33,6 +35,8 @@ class SRFTimeline extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
+		$this->mTemplate = trim( $params['template'] );
+		$this->mNamedArgs = $params['named args'];
 		$this->m_tlstart = smwfNormalTitleDBKey( $params['timelinestart'] );
 		$this->m_tlend = smwfNormalTitleDBKey( $params['timelineend'] );
 		$this->m_tlbands = $params['timelinebands'];
@@ -149,7 +153,7 @@ class SRFTimeline extends SMWResultPrinter {
 		
 		$output = false; // true if output for the popup was given on current line
 		if ( $isEventline ) $events = array(); // array of events that are to be printed
-		
+
 		while ( $row = $res->getNext() ) { // Loop over the objcts (pages)
 			$hastime = false; // true as soon as some startdate value was found
 			$hastitle = false; // true as soon as some label for the event was found
@@ -159,6 +163,13 @@ class SRFTimeline extends SMWResultPrinter {
 			$curarticle = ''; // label of current article, if it was found; needed only for eventline labeling
 			$first_col = true;
 			
+			if ( $this->mTemplate != '' ) {
+				$this->hasTemplates = true;
+				$template_text = '';
+				$wikitext = '';
+				$i = 0;
+			}
+
 			foreach ( $row as $field ) { // Loop over the returned properties
 				$first_value = true;
 				$pr = $field->getPrintRequest();
@@ -172,10 +183,20 @@ class SRFTimeline extends SMWResultPrinter {
 				}
 				
 				while ( ( $object = $field->getNextDataValue() ) !== false ) { // Loop over property values
-					$event = $this->handlePropertyValue( 
+					$event = $this->handlePropertyValue(
 						$object, $outputmode, $pr, $first_col, $hastitle, $hastime,
 						$first_value, $isEventline, $curmeta, $curdata, $date_value, $output, $positions
 					);
+
+					if ( $this->mTemplate != '')
+					{
+						$template_text .= '|' . ( $this->mNamedArgs ? '?' . $field->getPrintRequest()->getLabel() : $i + 1 ) . '=';
+						if ( !$first_value ) {
+							$template_text .= ', ';
+						}
+						$template_text .= $object->getShortText( SMW_OUTPUT_WIKI, $this->getLinker( $first_value ) );
+						$i++;
+					}
 					
 					if ( $event !== false ) {
 						$events[] = $event;
@@ -190,6 +211,11 @@ class SRFTimeline extends SMWResultPrinter {
 				
 				$output = false;
 				$first_col = false;
+			}
+
+			if ( $this->mTemplate != '')
+			{
+				$curdata = '{{' . $this->mTemplate . $template_text . '}}';
 			}
 
 			if ( $hastime ) {
@@ -392,7 +418,12 @@ class SRFTimeline extends SMWResultPrinter {
 			'values' => array( 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ),
 		);
 
-		 return $params;
+		$params['template'] = array(
+			'message' => 'smw-paramdesc-template',
+			'default' => '',
+		);
+
+		return $params;
 	}
 	
 }
