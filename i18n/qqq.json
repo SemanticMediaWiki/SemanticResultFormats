@@ -206,7 +206,7 @@
     "srf-ui-datatables-label-sSearch": "{{doc-smw-ui-label|sSearch}}\n{{Identical|Search}}",
     "srf-ui-datatables-label-sZeroRecords": "{{doc-smw-ui-label|sZeroRecords}}",
     "srf-ui-datatables-label-oPaginate-sFirst": "{{doc-smw-ui-label|oPaginate-sFirst}}",
-    "srf-ui-datatables-label-oPaginate-sLast": "{{doc-smw-ui-label|oPaginate-sLast}}",
+    "srf-ui-datatables-label-oPaginate-sLast": "{{doc-smw-ui-label|oPaginate-sLast}}\n{{Identical|Last}}",
     "srf-ui-datatables-label-oPaginate-sNext": "{{doc-smw-ui-label|oPaginate-sNext}}",
     "srf-ui-datatables-label-oPaginate-sPrevious": "{{doc-smw-ui-label|oPaginate-sPrevious}}\n{{Identical|Previous}}",
     "srf-ui-datatables-label-oAria-sSortAscending": "{{doc-smw-ui-label|oAria-sSortAscending}}",
