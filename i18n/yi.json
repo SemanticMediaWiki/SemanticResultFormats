@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "פוילישער"
-        ]
-    },
-    "srfc_previousmonth": "פֿאריגער חודש",
-    "srfc_nextmonth": "נעקסטער חודש",
-    "srfc_today": "הײַנט",
-    "srf_paramdesc_graphname": "טיטל"
+	"@metadata": {
+		"authors": [
+			"פוילישער"
+		]
+	},
+	"srfc_previousmonth": "פֿאריגער חודש",
+	"srfc_nextmonth": "נעקסטער חודש",
+	"srfc_today": "הײַנט",
+	"srf_paramdesc_graphname": "טיטל"
 }

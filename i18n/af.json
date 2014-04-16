@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "SPQRobin"
-        ]
-    },
-    "srfc_gotomonth": "Gaan na maand",
-    "srf_icalendar_link": "iKalender"
+	"@metadata": {
+		"authors": [
+			"SPQRobin"
+		]
+	},
+	"srfc_gotomonth": "Gaan na maand",
+	"srf_icalendar_link": "iKalender"
 }

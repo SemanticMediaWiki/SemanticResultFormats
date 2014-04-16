@@ -1,25 +1,25 @@
 {
-    "@metadata": {
-        "authors": [
-            "Eirik",
-            "Gunnernett"
-        ]
-    },
-    "srf-desc": "Fleire format for Semantic MediaWiki «inline»-spørjingar",
-    "srf-name": "Semantisk resultatformat",
-    "srfc_previousmonth": "Førre månad",
-    "srfc_nextmonth": "Neste månad",
-    "srfc_today": "I dag",
-    "srfc_gotomonth": "Gå til månad",
-    "srf_printername_calendar": "Månadleg kalender",
-    "srf_printername_vcard": "vCard eksport",
-    "srf_printername_icalendar": "iCalendar eksport",
-    "srf_printername_bibtex": "BibTeX eksport",
-    "srf_outline_novalue": "Ingen verdi",
-    "srf_printername_sum": "Sum av tal",
-    "srf_printername_average": "Gjennomsnitt av tal",
-    "srf_printername_max": "Største tal",
-    "srf_printername_min": "Minste tal",
-    "srf_printername_timeline": "Tidsline",
-    "srf_printername_eventline": "Tidsline for hendingar"
+	"@metadata": {
+		"authors": [
+			"Eirik",
+			"Gunnernett"
+		]
+	},
+	"srf-desc": "Fleire format for Semantic MediaWiki «inline»-spørjingar",
+	"srf-name": "Semantisk resultatformat",
+	"srfc_previousmonth": "Førre månad",
+	"srfc_nextmonth": "Neste månad",
+	"srfc_today": "I dag",
+	"srfc_gotomonth": "Gå til månad",
+	"srf_printername_calendar": "Månadleg kalender",
+	"srf_printername_vcard": "vCard eksport",
+	"srf_printername_icalendar": "iCalendar eksport",
+	"srf_printername_bibtex": "BibTeX eksport",
+	"srf_outline_novalue": "Ingen verdi",
+	"srf_printername_sum": "Sum av tal",
+	"srf_printername_average": "Gjennomsnitt av tal",
+	"srf_printername_max": "Største tal",
+	"srf_printername_min": "Minste tal",
+	"srf_printername_timeline": "Tidsline",
+	"srf_printername_eventline": "Tidsline for hendingar"
 }

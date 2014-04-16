@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Candalua"
-        ]
-    },
-    "srfc_previousmonth": "Mese preçedente",
-    "srfc_nextmonth": "Mese sucessivo",
-    "srfc_today": "Ancuó",
-    "srfc_gotomonth": "Và al mese"
+	"@metadata": {
+		"authors": [
+			"Candalua"
+		]
+	},
+	"srfc_previousmonth": "Mese preçedente",
+	"srfc_nextmonth": "Mese sucessivo",
+	"srfc_today": "Ancuó",
+	"srfc_gotomonth": "Và al mese"
 }

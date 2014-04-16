@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Hugo.arg"
-        ]
-    },
-    "srfc_previousmonth": "Praeitas mėnuo",
-    "srfc_nextmonth": "Ateinantis mėnuo",
-    "srfc_today": "Šiandien",
-    "srfc_gotomonth": "Eiti į mėnesį"
+	"@metadata": {
+		"authors": [
+			"Hugo.arg"
+		]
+	},
+	"srfc_previousmonth": "Praeitas mėnuo",
+	"srfc_nextmonth": "Ateinantis mėnuo",
+	"srfc_today": "Šiandien",
+	"srfc_gotomonth": "Eiti į mėnesį"
 }
