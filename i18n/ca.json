@@ -3,7 +3,8 @@
 		"authors": [
 			"Dvdgmz",
 			"Paucabot",
-			"Toniher"
+			"Toniher",
+			"Ssola"
 		]
 	},
 	"srf-desc": "Formats addicionals per a les consultes en línia del Semantic MediaWiki.",
@@ -54,5 +55,6 @@
 	"srf_paramdesc_graphlabel": "Etiqueta del gràfic",
 	"srf_paramdesc_rankdir": "Direcció de la fletxa",
 	"srf_paramdesc_graphlink": "Enllaç del gràfic",
-	"srf_paramdesc_graphcolor": "Color del gràfic"
+	"srf_paramdesc_graphcolor": "Color del gràfic",
+	"srf-ui-datatables-label-oPaginate-sNext": "Següent"
 }
