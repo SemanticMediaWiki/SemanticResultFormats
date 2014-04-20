@@ -76,6 +76,7 @@
     "srf_paramdesc_timelinestart": "A property name used to define a first time point",
     "srf_paramdesc_timelineend": "A property name used to define a second time point",
     "srf_paramdesc_timelinesize": "The height of the timeline",
+    "srf_paramdesc_shownamespaces": "Whether namespaces should be shown in titles of the query results",
     "srf-timeline-allresults": "Further results for this query.",
     "srf-timeline-nojs": "You need to have JavaScript enabled to view the interactive timeline.",
     "srf_paramdesc_views": "The views to be displayed",

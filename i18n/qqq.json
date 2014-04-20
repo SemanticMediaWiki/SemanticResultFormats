@@ -87,6 +87,7 @@
     "srf_paramdesc_timelinestart": "{{doc-paramdesc|timelinestart}}",
     "srf_paramdesc_timelineend": "{{doc-paramdesc|timelineend}}",
     "srf_paramdesc_timelinesize": "{{doc-paramdesc|timelinesize}}",
+    "srf_paramdesc_shownamespaces": "Whether namespaces should be shown in titles of the query results, expects true or false",
     "srf-timeline-allresults": "This is the text of an link pointing to further query results.",
     "srf-timeline-nojs": "This is an informatory and/or error message.",
     "srf_paramdesc_views": "{{doc-paramdesc|views}}\n\nThe result format \"filtered\", part of the Semantic Result Formats extension, displays results in switchable '''views''', e.g. as map, as table, as calendar, etc.\n\nThis text is a description of the parameter \"views\" to the function that generates the \"filtered\" result format.\n\nSynonyms might be representation, or maybe appearance, aspect, facet",
