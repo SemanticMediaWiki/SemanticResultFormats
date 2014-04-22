@@ -3,7 +3,12 @@ These are the release notes for the [Semantic Result Formats]
 
 ## SRF 1.9.1 (dev)
 
+* #13 Fixed PHP warning when running PHP >=5.1 in strict mode
+* #22 The excel format is now enabled by default when PHPExcel is loaded
+* #23 The PHPUnit bootstrap now works on Windows
 * #24 Added support for the new MediaWiki i18n JSON system
+* #25 Fixed resource path issue occuring on some installations
+* #27 Fixed error in the tagcloud format occuring when referencing a non-existing page
 
 ## SRF 1.9.0.1 (2014-01-17)
 
