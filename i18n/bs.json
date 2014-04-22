@@ -1,28 +1,28 @@
 {
-    "@metadata": {
-        "authors": [
-            "CERminator"
-        ]
-    },
-    "srf-desc": "Dodatni formati za linijske upite na Semantic MediaWiki",
-    "srf-name": "Formati semantičkih rezultata",
-    "srfc_previousmonth": "Prethodni mjesec",
-    "srfc_nextmonth": "Slijedeći mjesec",
-    "srfc_today": "Danas",
-    "srfc_gotomonth": "Idi na mjesec",
-    "srf_printername_calendar": "Mjesečni kalendar",
-    "srf_printername_vcard": "Izvoz u vCard",
-    "srf_printername_icalendar": "Izvoz u iCalendar",
-    "srf_paramdesc_icalendartitle": "Naslov datoteke kalendara",
-    "srf_printername_bibtex": "Izvoz u BibTeX",
-    "srf_outline_novalue": "Nema vrijednosti",
-    "srf_printername_outline": "Kontura",
-    "srf_printername_sum": "Zbir brojeva",
-    "srf_printername_average": "Prosjek brojeva",
-    "srf_printername_max": "Najveći broj",
-    "srf_printername_min": "Najmanji broj",
-    "srf_paramdesc_limit": "Najveći broj stranica za upit",
-    "srf_printername_timeline": "Vremenska linija",
-    "srf_printername_eventline": "Linija događaja",
-    "srf_paramdesc_timelinesize": "Visina vremenske linije"
+	"@metadata": {
+		"authors": [
+			"CERminator"
+		]
+	},
+	"srf-desc": "Dodatni formati za linijske upite na Semantic MediaWiki",
+	"srf-name": "Formati semantičkih rezultata",
+	"srfc_previousmonth": "Prethodni mjesec",
+	"srfc_nextmonth": "Slijedeći mjesec",
+	"srfc_today": "Danas",
+	"srfc_gotomonth": "Idi na mjesec",
+	"srf_printername_calendar": "Mjesečni kalendar",
+	"srf_printername_vcard": "Izvoz u vCard",
+	"srf_printername_icalendar": "Izvoz u iCalendar",
+	"srf_paramdesc_icalendartitle": "Naslov datoteke kalendara",
+	"srf_printername_bibtex": "Izvoz u BibTeX",
+	"srf_outline_novalue": "Nema vrijednosti",
+	"srf_printername_outline": "Kontura",
+	"srf_printername_sum": "Zbir brojeva",
+	"srf_printername_average": "Prosjek brojeva",
+	"srf_printername_max": "Najveći broj",
+	"srf_printername_min": "Najmanji broj",
+	"srf_paramdesc_limit": "Najveći broj stranica za upit",
+	"srf_printername_timeline": "Vremenska linija",
+	"srf_printername_eventline": "Linija događaja",
+	"srf_paramdesc_timelinesize": "Visina vremenske linije"
 }

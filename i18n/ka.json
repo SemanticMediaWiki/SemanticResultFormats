@@ -1,29 +1,29 @@
 {
-    "@metadata": {
-        "authors": [
-            "David1010"
-        ]
-    },
-    "srf-module-loading": "იტვირთება…",
-    "srf-paramdesc-height": "სიმაღლე",
-    "srf-paramdesc-width": "სიგანე",
-    "srfc_previousmonth": "წინა თვე",
-    "srfc_nextmonth": "შემდეგი თვე",
-    "srfc_today": "დღეს",
-    "srfc_gotomonth": "თვეზე გადასვლა",
-    "srf_printername_calendar": "ყოველთვიური კალენდარი",
-    "srf_printername_max": "მაქსიმალური რაოდენობა",
-    "srf_printername_min": "მინიმალური რაოდენობა",
-    "srf-ui-gridview-label-data-tab": "მონაცემები",
-    "srf-ui-gridview-label-info-tab": "ინფორმაცია",
-    "srf_printername_gallery": "გალერეა",
-    "srf-gallery-navigation-previous": "წინა",
-    "srf-gallery-navigation-next": "შემდეგი",
-    "srf-printername-graph": "გრაფიკი",
-    "srf_paramdesc_graphname": "სათაური",
-    "srf_paramdesc_graphsize": "გრაფიკის ზომა (პიქსელებში)",
-    "srf_paramdesc_graphlink": "გრაფიკის ბმული",
-    "srf_paramdesc_graphcolor": "გრაფიკის ფერი",
-    "srf_printername_tree": "ხე",
-    "srf-printername-slideshow": "სლაიდშოუ"
+	"@metadata": {
+		"authors": [
+			"David1010"
+		]
+	},
+	"srf-module-loading": "იტვირთება…",
+	"srf-paramdesc-height": "სიმაღლე",
+	"srf-paramdesc-width": "სიგანე",
+	"srfc_previousmonth": "წინა თვე",
+	"srfc_nextmonth": "შემდეგი თვე",
+	"srfc_today": "დღეს",
+	"srfc_gotomonth": "თვეზე გადასვლა",
+	"srf_printername_calendar": "ყოველთვიური კალენდარი",
+	"srf_printername_max": "მაქსიმალური რაოდენობა",
+	"srf_printername_min": "მინიმალური რაოდენობა",
+	"srf-ui-gridview-label-data-tab": "მონაცემები",
+	"srf-ui-gridview-label-info-tab": "ინფორმაცია",
+	"srf_printername_gallery": "გალერეა",
+	"srf-gallery-navigation-previous": "წინა",
+	"srf-gallery-navigation-next": "შემდეგი",
+	"srf-printername-graph": "გრაფიკი",
+	"srf_paramdesc_graphname": "სათაური",
+	"srf_paramdesc_graphsize": "გრაფიკის ზომა (პიქსელებში)",
+	"srf_paramdesc_graphlink": "გრაფიკის ბმული",
+	"srf_paramdesc_graphcolor": "გრაფიკის ფერი",
+	"srf_printername_tree": "ხე",
+	"srf-printername-slideshow": "სლაიდშოუ"
 }

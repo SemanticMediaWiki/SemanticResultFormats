@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Liangent"
-        ]
-    },
-    "srfc_previousmonth": "Mohi qablī",
-    "srfc_nextmonth": "Mohi ba'dī",
-    "srfc_today": "Imrūz",
-    "srfc_gotomonth": "Raftan ba moh"
+	"@metadata": {
+		"authors": [
+			"Liangent"
+		]
+	},
+	"srfc_previousmonth": "Mohi qablī",
+	"srfc_nextmonth": "Mohi ba'dī",
+	"srfc_today": "Imrūz",
+	"srfc_gotomonth": "Raftan ba moh"
 }
