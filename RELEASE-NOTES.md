@@ -9,6 +9,7 @@ These are the release notes for the [Semantic Result Formats]
 * #24 Added support for the new MediaWiki i18n JSON system
 * #25 Fixed resource path issue occuring on some installations
 * #27 Fixed error in the tagcloud format occuring when referencing a non-existing page
+* #31 Added template format to timeline
 
 ## SRF 1.9.0.1 (2014-01-17)
 
