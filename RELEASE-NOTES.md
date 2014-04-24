@@ -4,13 +4,13 @@ These are the release notes for the [Semantic Result Formats]
 ## SRF 1.9.1 (2014-04-25)
 
 * #13 Fixed PHP warning when running PHP >=5.1 in strict mode
-* #16 Improved handling of empy values in the filtered format
+* #16 Improved handling of empty values in the filtered format
 * #19 Fixed duplicate headers bug in the excel format
 * #22 The excel format is now enabled by default when PHPExcel is loaded
 * #23 The PHPUnit bootstrap now works on Windows
 * #24 Added support for the new MediaWiki i18n JSON system
-* #25 Fixed resource path issue occuring on some installations
-* #27 Fixed error in the tagcloud format occuring when referencing a non-existing page
+* #25 Fixed resource path issue occurring on some installations
+* #27 Fixed error in the tagcloud format occurring when referencing a non-existing page
 * #31 Added template parameter to the timeline format
 
 ## SRF 1.9.0.1 (2014-01-17)
