@@ -1,9 +1,11 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 1.9.1 (dev)
+## SRF 1.9.1 (2014-04-25)
 
 * #13 Fixed PHP warning when running PHP >=5.1 in strict mode
+* #16 Improved handling of empy values in the filtered format
+* #19 Fixed duplicate headers bug in the excel format
 * #22 The excel format is now enabled by default when PHPExcel is loaded
 * #23 The PHPUnit bootstrap now works on Windows
 * #24 Added support for the new MediaWiki i18n JSON system
