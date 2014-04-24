@@ -18,8 +18,14 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.0</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.1</a></th>
 		<td>Stable release</td>
+		<td>2014-04-25</td>
+		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/1.9">1.9.1</a></td>
+	</tr>
+	<tr>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.0</a></th>
+		<td>Legacy release</td>
 		<td>2014-01-10</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/1.9">1.9</a></td>
 	</tr>
@@ -106,7 +112,7 @@ If you do not have a composer.json file yet, copy the composer-example.json file
 If you are using the Extension Installer extension, the file to copy will be named example.json,
 rather than composer-example.json. When this is done, run:
     
-    php composer.phar require mediawiki/semantic-result-formats "1.9.*"
+    php composer.phar require mediawiki/semantic-result-formats "~1.9.2"
 
 ##### Verify installation success
 
