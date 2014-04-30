@@ -12,6 +12,7 @@
 	"srf-module-nomatch": "沒有符合的資訊",
 	"srf-ui-common-label-source": "來源",
 	"srf-ui-common-label-datasource": "資料來源",
+	"srf-ui-common-label-request-object": "徽求對象",
 	"srf-ui-tooltip-title-options": "選項",
 	"srfc_previousmonth": "上月",
 	"srfc_nextmonth": "下月",

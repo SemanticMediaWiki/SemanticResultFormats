@@ -30,6 +30,7 @@
 	"srf-ui-navigation-next": "下一步",
 	"srf-ui-common-label-source": "来源",
 	"srf-ui-common-label-datasource": "数据源",
+	"srf-ui-common-label-ajax-error": "服务器报告对此$1的通信失败。请尝试刷新页面或查阅$2获取帮助。",
 	"srf-ui-common-label-request-object": "请求对象",
 	"srf-ui-common-label-help-section": "帮助部分",
 	"srf-ui-tooltip-title-options": "选项",
