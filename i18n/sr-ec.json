@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Rancher",
-			"Михајло Анђелковић"
+			"Михајло Анђелковић",
+			"Milicevic01"
 		]
 	},
+	"srf-ui-common-label-refresh": "Освежи",
 	"srfc_previousmonth": "Претходни месец",
 	"srfc_nextmonth": "Следећи месец",
 	"srfc_today": "Данас",
