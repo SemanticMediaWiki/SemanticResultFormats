@@ -112,7 +112,7 @@ If you do not have a composer.json file yet, copy the composer-example.json file
 If you are using the Extension Installer extension, the file to copy will be named example.json,
 rather than composer-example.json. When this is done, run:
     
-    php composer.phar require mediawiki/semantic-result-formats "~1.9.2"
+    php composer.phar require mediawiki/semantic-result-formats "~1.9.1"
 
 ##### Verify installation success
 
