@@ -100,6 +100,7 @@
 	"srf-paramdesc-datalabels": "图纸/图表数据标签",
 	"srf-paramdesc-charttext": "描述性图表文本",
 	"srf-paramdesc-chartclass": "额外CSS类",
+	"srf-paramdesc-renderer": "选择图形/图表渲染器",
 	"srf-paramdesc-colorscheme": "选择配色方案",
 	"srf-ui-gridview-label-item": "数据项",
 	"srf-ui-gridview-label-value": "数据值",
