@@ -22,7 +22,7 @@ cd extensions
 cp -r $originalDirectory SemanticResultFormats
 
 cd SemanticResultFormats
-composer install
+composer install --prefer-source --dev
 
 cd ../..
 
