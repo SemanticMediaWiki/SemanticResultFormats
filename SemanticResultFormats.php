@@ -58,8 +58,9 @@ $GLOBALS['wgExtensionCredits']['semantic'][] = array(
 		'Yaron Koren',
 		'...'
 	),
-	'url' => 'http://semantic-mediawiki.org/wiki/Semantic_Result_Formats',
-	'descriptionmsg' => 'srf-desc'
+	'url' => 'https://semantic-mediawiki.org/wiki/Semantic_Result_Formats',
+	'descriptionmsg' => 'srf-desc',
+	'license-name'   => 'GPL-2.0+'
 );
 
 $formatDir = __DIR__ . '/formats/';
