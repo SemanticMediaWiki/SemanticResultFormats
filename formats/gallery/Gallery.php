@@ -49,6 +49,11 @@ class Gallery extends SMW\ResultPrinter {
 		return $this->getResultText( $results, $this->outputMode );
 	}
 
+	private function isSpecialPage() {
+		$title = $this->getContext()->getTitle();
+		return $title instanceof \Title && $title->isSpecialPage();
+	}
+
 	/**
 	 * @see SMWResultPrinter::getResultText
 	 *
@@ -67,7 +72,7 @@ class Gallery extends SMW\ResultPrinter {
 
 		// No need for a special page to use the parser but for the "normal" page
 		// view we have to ensure caption text is parsed correctly through the parser
-		if ( !$this->getContext()->getTitle()->isSpecialPage() ) {
+		if ( !$this->isSpecialPage() ) {
 			$ig->setParser( $GLOBALS['wgParser'] );
 		}
 
