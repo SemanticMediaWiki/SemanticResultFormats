@@ -1,6 +1,11 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 1.9.2 (not released yet)
+
+* #35 Fixed error in the gallary format for a null object
+* #37 Fixed error in the timeline format for named arguments
+
 ## SRF 1.9.1 (2014-04-25)
 
 * #13 Fixed PHP warning when running PHP >=5.1 in strict mode
