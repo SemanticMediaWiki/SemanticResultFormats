@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Michaello"
+			"Michaello",
+			"Milicevic01"
 		]
 	},
+	"srf-ui-common-label-refresh": "Osveži",
 	"srfc_previousmonth": "Prethodni mesec",
 	"srfc_nextmonth": "Sledeći mesec",
 	"srfc_today": "Danas",
