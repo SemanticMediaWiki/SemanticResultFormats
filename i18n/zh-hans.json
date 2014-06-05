@@ -44,6 +44,7 @@
 	"srf-ui-common-label-daterange": "日期范围",
 	"srf-ui-widgets-label-parameter-limit": "限制参数",
 	"srf-error-option-mix": "选项（$1）不可用",
+	"srf-error-option-link-all": "选项（$1）需要参数\"link\"设置为\"all\"",
 	"srf-error-missing-layout": "丢失布局",
 	"srf-warn-empy-chart": "由于丢失数据，该图表或曲线图是空的",
 	"srfc_previousmonth": "上月",

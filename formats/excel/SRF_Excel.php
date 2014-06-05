@@ -146,10 +146,10 @@ class SRFExcel extends SMWExportPrinter {
 
 		$cell = $this->sheet->getCellByColumnAndRow( $this->colNum, $this->rowNum );
 		$existingValue = $cell->getValue();
-		if($existingValue){
-			$value = $cell->getValue().','.$value;
+		if ( $existingValue ) {
+			$value = $existingValue . ', ' . $value;
 		}
-		$cell->setValueExplicit($value,$type);
+		$cell->setValueExplicit( $value, $type );
 	}
 
 	/**
@@ -180,6 +180,25 @@ class SRFExcel extends SMWExportPrinter {
 		$this->sheet->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
 			->getNumberFormat()
 			->setFormatCode( '0 "' . $unit . '"' );
+	}
+
+	/**
+	 * Sets a date/time value at the given col,row location
+	 *
+	 * @param $object    the raw data value object
+	 */
+	protected function setTimeDataValue ( \SMWTimeValue $object ) {
+		$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+		$value = \PHPExcel_Shared_Date::stringToExcel( str_replace( 'T', ' ', $object->getISO8601Date() ) );
+
+		$this->sheet
+			->getCellByColumnAndRow( $this->colNum, $this->rowNum )
+			->setValueExplicit( $value, $type );
+
+		$this->sheet
+			->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
+			->getNumberFormat()
+			->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
 	}
 
 	/**
@@ -246,6 +265,8 @@ class SRFExcel extends SMWExportPrinter {
 			$this->setQuantityDataValue($object);
 		} else if( $object instanceof \SMWNumberValue ) {
 			$this->setNumberDataValue($object);
+		} else if ( $object instanceof \SMWTimeValue ) {
+			$this->setTimeDataValue( $object );
 		} else {
 			$this->setOrAppendStringDataValue($object);
 		}
