@@ -202,7 +202,7 @@ class SRFGraph extends SMWResultPrinter {
 		if ( !$isName ) {
 			$graphInput .= $this->m_parentRelation ? " \"$text\" -> \"$name\" " : " \"$name\" -> \"$text\" ";
 			
-			if ( $this->m_graphLabel && $this->m_graphColor ) {
+			if ( $this->m_graphLabel || $this->m_graphColor ) {
 				$graphInput .= ' [';
 
 				if ( array_search( $labelName, $this->m_labelArray, true ) === false ) {
