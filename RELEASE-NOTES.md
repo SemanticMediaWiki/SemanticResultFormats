@@ -3,6 +3,7 @@ These are the release notes for the [Semantic Result Formats]
 
 ## SRF 1.9.2 (not released yet)
 
+* #26 Fixed not showing up of graphvis legend when it should
 * #35 Fixed error in the gallary format for a null object
 * #37 Fixed error in the timeline format for named arguments
 * #43 Fixed graphname parameter in the graphviz format
