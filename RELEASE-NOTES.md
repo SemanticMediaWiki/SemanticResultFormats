@@ -5,6 +5,7 @@ These are the release notes for the [Semantic Result Formats]
 
 * #35 Fixed error in the gallary format for a null object
 * #37 Fixed error in the timeline format for named arguments
+* #43 Fixed graphname parameter in the graphviz format
 
 ## SRF 1.9.1 (2014-04-25)
 
