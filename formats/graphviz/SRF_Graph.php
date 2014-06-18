@@ -287,7 +287,7 @@ class SRFGraph extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['graphsize'] = array(
+		$params['graphname'] = array(
 			'default' => 'QueryResult',
 			'message' => 'srf_paramdesc_graphname',
 		);
