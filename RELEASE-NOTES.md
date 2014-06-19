@@ -7,6 +7,7 @@ These are the release notes for the [Semantic Result Formats]
 * #35 Fixed error in the gallary format for a null object
 * #37 Fixed error in the timeline format for named arguments
 * #43 Fixed graphname parameter in the graphviz format
+* commit [14daff1](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/14daff10350190634b96f644961beb15d0b29e09): Added support for date/time values to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
 
 ## SRF 1.9.1 (2014-04-25)
 
