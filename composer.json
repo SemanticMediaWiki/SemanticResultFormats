@@ -51,7 +51,8 @@
 		"mediawiki/semantic-media-wiki": "@dev"
 	},
 	"suggest": {
-        	"phpoffice/phpexcel": "Used when exporting to excel format using 'format=excel'"
+        	"phpoffice/phpexcel": "Used when exporting to excel format using 'format=excel'",
+		"mediawiki/graphviz": "Required for 'format=graph'"
 	},
 	"autoload": {
 		"files" : [
