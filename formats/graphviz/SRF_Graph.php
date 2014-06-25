@@ -93,12 +93,11 @@ class SRFGraph extends SMWResultPrinter {
 	}
 	
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		if ( !is_callable( 'renderGraphviz' ) ) {
+		if ( !is_callable( 'GraphViz::graphvizParserHook' ) ) {
 			wfWarn( 'The SRF Graph printer needs the GraphViz extension to be installed.' );
 			return '';
 		}
 		
-		global $wgGraphVizSettings;
 		$this->isHTML = true;
 
 		$graphInput = "digraph $this->m_graphName {";
@@ -112,8 +111,8 @@ class SRFGraph extends SMWResultPrinter {
 		
 		$graphInput .= "}";
 		
-		// Calls renderGraphViz function from MediaWiki GraphViz extension
-		$result = renderGraphviz( $graphInput );
+		// Calls graphvizParserHook function from MediaWiki GraphViz extension
+		$result = GraphViz::graphvizParserHook( $graphInput, "", $GLOBALS['wgParser'] );
 		
 		if ( $this->m_graphLegend && $this->m_graphColor ) {
 			$arrayCount = 0;
@@ -189,8 +188,7 @@ class SRFGraph extends SMWResultPrinter {
 		$text = $object->getShortText( $outputmode );
 
 		if ( $this->m_graphLink ) {
-			$nodeLinkTitle = Title::newFromText( $text );
-			$nodeLinkURL = $nodeLinkTitle->getLocalURL();
+			$nodeLinkURL = "[[" . $text . "]]";
 		}
 		
 		$text = $this->getWordWrappedText( $text, $this->m_wordWrapLimit );
