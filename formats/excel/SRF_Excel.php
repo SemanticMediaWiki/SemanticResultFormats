@@ -2,18 +2,21 @@
 
 namespace SRF;
 
-use SMWExportPrinter;
+use ImagePage;
+use SMW\FileExportPrinter;
+use ParamProcessor\Definition\StringParam;
 use SMWQueryResult;
 use PHPExcel;
 use PHPExcel_IOFactory;
 use PHPExcel_Cell_DataType;
 use Sanitizer;
+use Title;
 
 /**
  * @author Kim Eik
  * @since 1.9
  */
-class SRFExcel extends SMWExportPrinter {
+class SRFExcel extends FileExportPrinter {
 
 	const HEADER_ROW_OFFSET = 1;
 
@@ -31,6 +34,8 @@ class SRFExcel extends SMWExportPrinter {
 	 * @var \PHPExcel_Worksheet
 	 */
 	protected $sheet;
+
+	protected $styled = false;
 
 	/**
 	 * Some printers do not mainly produce embeddable HTML or Wikitext, but
@@ -53,7 +58,8 @@ class SRFExcel extends SMWExportPrinter {
 	}
 
 	public function getFileName( SMWQueryResult $queryResult ) {
-		return round( microtime( true ) * 1000 ) . '.xls';
+
+		return $this->params[ 'filename' ] ? $this->params[ 'filename' ] : round( microtime( true ) * 1000 ) . '.xls';
 	}
 
 	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
@@ -65,10 +71,18 @@ class SRFExcel extends SMWExportPrinter {
 		}
 	}
 
+	/**
+	 * @param $definitions \ParamProcessor\ParamDefinition[]
+	 *
+	 * @return array
+	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$definitions[ 'searchlabel' ]->setDefault( wfMessage( 'srf-excel-link' )->inContentLanguage()->text() );
+
+		$params[ 'templatefile' ] = new StringParam( 'string', 'templatefile', '' );
+		$params[ 'filename' ] = new StringParam( 'string', 'filename', '' );
 
 		return $params;
 	}
@@ -92,6 +106,8 @@ class SRFExcel extends SMWExportPrinter {
 
 				//Get data rows
 				$this->populateDocumentWithQueryData( $res );
+
+				$document->getActiveSheet()->getDefaultRowDimension()->setRowHeight();
 
 				$result = $this->writeDocumentToString( $document );
 			} else {
@@ -177,9 +193,12 @@ class SRFExcel extends SMWExportPrinter {
 
 		$this->sheet->getCellByColumnAndRow( $this->colNum, $this->rowNum )
 			->setValueExplicit( $value, $type );
-		$this->sheet->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
-			->getNumberFormat()
-			->setFormatCode( '0 "' . $unit . '"' );
+
+		if ( !$this->styled ) {
+			$this->sheet->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
+				->getNumberFormat()
+				->setFormatCode( '0 "' . $unit . '"' );
+		}
 	}
 
 	/**
@@ -195,10 +214,12 @@ class SRFExcel extends SMWExportPrinter {
 			->getCellByColumnAndRow( $this->colNum, $this->rowNum )
 			->setValueExplicit( $value, $type );
 
-		$this->sheet
-			->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
-			->getNumberFormat()
-			->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
+		if ( !$this->styled ) {
+			$this->sheet
+				->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
+				->getNumberFormat()
+				->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
+		}
 	}
 
 	/**
@@ -226,7 +247,28 @@ class SRFExcel extends SMWExportPrinter {
 	 * @return PHPExcel
 	 */
 	protected function createExcelDocument() {
-		$objPHPExcel = new PHPExcel();
+
+		$fileTitle = Title::newFromText( $this->params[ 'templatefile' ], NS_FILE );
+
+		if ( $fileTitle !== null && $fileTitle->exists() ) {
+
+			$filePage = new ImagePage( $fileTitle, $this );
+
+			$virtualFile = $filePage->getDisplayedFile();
+			$virtualFilePath =  $virtualFile->getPath();
+
+			$localFile= $virtualFile->getRepo()->getLocalReference( $virtualFilePath );
+			$localFilePath = $localFile->getPath();
+
+			$objPHPExcel = PHPExcel_IOFactory::load( $localFilePath );
+
+			$this->styled = true;
+
+		} else {
+
+			$objPHPExcel = new PHPExcel();
+
+		}
 
 		// Set document properties
 		$objPHPExcel->getProperties()->setCreator( "SemanticMediaWiki PHPExcel Export" );
