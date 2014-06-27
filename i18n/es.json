@@ -13,10 +13,11 @@
 			"Sanbec",
 			"Translationista",
 			"VegaDark",
-			"Fitoschido"
+			"Fitoschido",
+			"Macofe"
 		]
 	},
-	"srf-desc": "Formatos adicionales para consultas en línea de Semantic MediaWiki",
+	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
 	"srf-name": "Formatos de resultado semántico",
 	"prefs-srf": "Formatos de resultados semánticos",
 	"srf-prefs-intro-text": "Tienes instalada la extensión para dar formato a los resultados semánticos pero en este momento no tienes opciones personalizables de usuario. Para obtener ayuda, visita la página de ayuda sobre los [http://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de los resultados].",
