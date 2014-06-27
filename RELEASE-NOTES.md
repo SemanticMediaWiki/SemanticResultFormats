@@ -12,6 +12,7 @@ These are the release notes for the [Semantic Result Formats]
 * #47 Added parameters 'filename' (the download file name for the generated file) and 'templatefile' (a template file
       from the NS_FILE namespace used for formatting the generated file) to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
 * #52 Fixed `format=process` exception that was caused by missing message parameters
+* #53 Updated jQuery blockUI plugin to v.2.66.0-2013.10.09
 
 ## SRF 1.9.1 (2014-04-25)
 
