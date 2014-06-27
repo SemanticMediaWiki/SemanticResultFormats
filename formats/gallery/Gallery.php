@@ -58,7 +58,6 @@ class Gallery extends SMW\ResultPrinter {
 	 * @see SMWResultPrinter::getResultText
 	 *
 	 * @param $results SMWQueryResult
-	 * @param $fullParams array
 	 * @param $outputmode integer
 	 *
 	 * @return string
@@ -297,6 +296,7 @@ class Gallery extends SMW\ResultPrinter {
 	 * @param ImageGallery $ig The gallery to add the image to
 	 * @param Title $imgTitle The title object of the page of the image
 	 * @param string $imgCaption An optional caption for the image
+	 * @param string $imgRedirect
 	 */
 	protected function addImageToGallery( ImageGallery &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
 
