@@ -7,10 +7,11 @@ These are the release notes for the [Semantic Result Formats]
 * #35 Fixed error in the gallary format for a null object
 * #37 Fixed error in the timeline format for named arguments
 * #43 Fixed graphname parameter in the graphviz format
-* commit [14daff1](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/14daff10350190634b96f644961beb15d0b29e09): Added support for date/time values to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
-* #46 Added support for format=graph using Composer mediawiki/graph-viz package
+* [14daff1](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/14daff10350190634b96f644961beb15d0b29e09) commit added support for date/time values to the [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
+* #46 Added support for `format=graph` using Composer `mediawiki/graph-viz` package
 * #47 Added parameters 'filename' (the download file name for the generated file) and 'templatefile' (a template file
       from the NS_FILE namespace used for formatting the generated file) to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
+* #52 Fixed `format=process` exception that was caused by missing message parameters
 
 ## SRF 1.9.1 (2014-04-25)
 
