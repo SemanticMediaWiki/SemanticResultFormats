@@ -65,10 +65,10 @@ class SRFProcess extends SMWResultPrinter {
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
-		
+
 		// init process graph instance
 		$this->m_process = new ProcessGraph();
-		
+
 		$this->m_process->setGraphName( trim( $params['graphname'] ) );
 		$this->m_process->setGraphSize( trim( $params['graphsize'] ) );
 		$this->m_process->setClusterColor( trim( $params['clustercolor'] ) );
@@ -76,14 +76,14 @@ class SRFProcess extends SMWResultPrinter {
 		$this->m_process->setHighlightNode( trim( $params['highlight'] ) );
 		$this->m_process->setHighlightColor( trim( $params['highlightcolor'] ) );
 		$this->m_process->setHighlightColor( trim( $params['redlinkcolor'] ) );
-		
+
 		$this->m_process->setShowRoles( $params['showroles'] );
 		$this->m_process->setShowStatus( $params['showstatus'] );
 		$this->m_process->setShowRessources( $params['showresources'] );
 		$this->m_process->setShowDiscussion( $params['showdiscussion'] );
 		$this->m_process->setShowRedLinks( $params['showredlinks'] );
 		$this->m_process->setShowCompound( $params['showcompound'] );
-		
+
 		$this->m_processCategory = $params['processcat'];
 		$this->m_isDebugSet = $params['debug'];
 		$this->m_graphValidation = $params['graphvalidation'];
@@ -103,74 +103,90 @@ class SRFProcess extends SMWResultPrinter {
 
 		$params['graphname'] = array(
 			'default' => '',
+			'message' => 'srf-paramdesc-graphname',
 		);
 
 		$params['rankdir'] = array(
 			'default' => 'TB',
+			'message' => 'srf-paramdesc-rankdir',
 		);
 
 		$params['graphsize'] = array(
 			'default' => '',
+			'message' => 'srf-paramdesc-graphsize',
 		);
 
 		$params['clustercolor'] = array(
 			'default' => 'lightgrey',
+			'message' => 'srf-paramdesc-clustercolor',
 		);
 
 		$params['highlight'] = array(
 			'default' => '',
+			'message' => 'srf-paramdesc-highlight',
 		);
 
 		$params['highlightcolor'] = array(
 			'default' => 'blue',
+			'message' => 'srf-paramdesc-highlightcolor',
 		);
 
 		$params['redlinkcolor'] = array(
 			'default' => 'red',
+			'message' => 'srf-paramdesc-redlinkcolor',
 		);
 
 		$params['processcat'] = array(
 			'default' => 'Process',
+			'message' => 'srf-paramdesc-processcategory',
 		);
 
 		$params['showroles'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-showroles',
 		);
 
 		$params['showstatus'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-showstatus',
 		);
 
 		$params['showresources'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-showresources',
 		);
 
 		$params['showdiscussion'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-showdiscussion',
 		);
 
 		$params['showredlinks'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-showredlinks',
 		);
 
 		$params['showcompound'] = array(
 			'type' => 'boolean',
 			'default' => true,
+			'message' => 'srf-paramdesc-showcompound',
 		);
 
 		$params['debug'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-debug',
 		);
 
 		$params['graphvalidation'] = array(
 			'type' => 'boolean',
 			'default' => false,
+			'message' => 'srf-paramdesc-graphvalidation',
 		);
 
 		return $params;
