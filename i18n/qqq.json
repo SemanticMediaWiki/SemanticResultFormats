@@ -10,7 +10,8 @@
 			"Siebrand",
 			"Toliño",
 			"Umherirrender",
-			"Robby"
+			"Robby",
+			"Amire80"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -195,7 +196,7 @@
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "{{doc-smw-ui-label-datatables|multiselect-column-noneselectedtext}}",
 	"srf-ui-datatables-label-multiselect-column-selectedtext": "{{doc-smw-ui-label-datatables|multiselect-column-selectedtext}}",
 	"srf-ui-datatables-label-sEmptyTable": "{{doc-smw-ui-label-datatables|sEmptyTable}}",
-	"srf-ui-datatables-label-sInfo": "{{doc-smw-ui-label-datatables|sInfo}}\n{{doc-important|Do not lacalise the variables <code>_START_</code>, <code>_END_</code> and <code>_TOTAL_</code>}}",
+	"srf-ui-datatables-label-sInfo": "{{doc-smw-ui-label-datatables|sInfo}}\n{{doc-important|Do not localise the variables <code>_START_</code>, <code>_END_</code> and <code>_TOTAL_</code>}}",
 	"srf-ui-datatables-label-sInfoEmpty": "{{doc-smw-ui-label-datatables|sInfoEmpty}}",
 	"srf-ui-datatables-label-sInfoFiltered": "{{doc-smw-ui-label-datatables|sInfoFiltered}}\n{{doc-important|Do not localise the variable <code>__MAX__.</code>}}",
 	"srf-ui-datatables-label-sInfoPostFix": "{{doc-smw-ui-label-datatables|sInfoPostFix}}",
