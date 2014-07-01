@@ -102,6 +102,7 @@
 	"srf-paramdesc-zoom": "הפעלת תקריב",
 	"srf-paramdesc-datatable": "הפעלת טבלת נתונים",
 	"srf-timeseries-zoom-out-of-range": "טווח התקריב לא ייצר נתונים מספיקים",
+	"srf-printername-sparkline": "קו סיכום מגמה",
 	"srf-ui-mediaplayer-label-mute": "השתקה",
 	"srf-ui-mediaplayer-label-unmute": "ביטול השתקה",
 	"srf-ui-mediaplayer-label-volume-max": "עצמה מרבית",
