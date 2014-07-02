@@ -198,7 +198,7 @@
 	"srf_printername_ultree": "Árbol UL",
 	"srf_printername_oltree": "Árbol OL",
 	"srf-noparentprop": "No se ha especificado ninguna propiedad padre. No se puede construir el árbol sin especificar una propiedad padre.",
-	"srf-rootinvalid": "$1 no es un título de página valido",
+	"srf-rootinvalid": "El título de la página «$1» no es válido.",
 	"srf-paramdesc-parent": "La propiedad que contiene la página padre",
 	"srf-printername-slideshow": "Presentación de diapositivas",
 	"srf-paramdesc-delay": "Tiempo entre diapositivas, en segundos",

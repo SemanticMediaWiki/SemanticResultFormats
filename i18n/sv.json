@@ -28,6 +28,7 @@
 	"srf-ui-common-label-help-section": "hjälpavsnitt",
 	"srf-ui-tooltip-title-options": "Alternativ",
 	"srf-ui-tooltip-title-legend": "Teckenförklaring",
+	"srf-ui-tooltip-title-filter": "Filter",
 	"srf-ui-common-label-refresh": "Uppdatera",
 	"srf-ui-common-label-parameters": "Parametrar",
 	"srf-ui-common-label-daterange": "Datumintervall",
