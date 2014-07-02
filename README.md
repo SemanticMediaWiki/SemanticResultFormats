@@ -20,7 +20,7 @@ The recommended way to install this extension is by using [Composer][composer]. 
 ```json
 {
 	"require": {
-		"mediawiki/semantic-result-formats": "~1.9.*"
+		"mediawiki/semantic-result-formats": "~1.9"
 	}
 }
 ```
