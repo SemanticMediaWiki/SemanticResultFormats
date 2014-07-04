@@ -4,7 +4,8 @@
 			"Base",
 			"Steve.rusyn",
 			"SteveR",
-			"Ата"
+			"Ата",
+			"NataChe"
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",
@@ -105,7 +106,7 @@
 	"srf-paramdesc-filling": "Індивідуальна опція заповнення",
 	"srf-paramdesc-theme": "Виберіть тему сітки",
 	"srf-paramdesc-chartcolor": "Призначити окремі кольори діаграми",
-	"srf-paramdesc-colorscheme": "Виберіть колірну схему",
+	"srf-paramdesc-colorscheme": "Виберіть схему кольорів",
 	"srf-paramdesc-valueformat": "Вкажіть правило форматування для значень",
 	"srf-paramdesc-highlighter": "Відобразити виділення точок даних",
 	"srf-paramdesc-smoothlines": "Застосувати алгоритм згладжування для лінійних діаграм",
@@ -114,7 +115,7 @@
 	"srf-paramdesc-serieslabel": "Визначте ярлик серії",
 	"srf-paramdesc-grouplabel": "Визначте ярлик групи",
 	"srf-paramdesc-chartcursor": "Параметр відображення покажчика діаграми",
-	"srf-paramdesc-trendline": "Увімкнути одночасне відображення діаграми та її лінії тренда",
+	"srf-paramdesc-trendline": "Увімкнути одночасне відображення діаграми та її лінії тренду",
 	"srf-paramdesc-gridview": "Відобразити діаграму та набори даних одночасно. Допустимі значення: «none» і «tabs». За замовчуванням: «none»",
 	"srf-paramdesc-infotext": "Відображати додаткові відомості на відповідній інформаційній вкладці",
 	"srf-ui-gridview-label-item": "Елемент даних",
