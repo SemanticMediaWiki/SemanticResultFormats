@@ -5,11 +5,24 @@
 			"Maire",
 			"Sp5uhe",
 			"ToSter",
-			"Rzuwig"
+			"Rzuwig",
+			"Alan ffm"
 		]
 	},
 	"srf-desc": "Dodatkowe formaty dla zapytań semantycznych MediaWiki z wiersza poleceń",
 	"srf-name": "Formaty semantycznych wyników",
+	"srf-paramdesc-layout": "Dostępny układ",
+	"srf-paramdesc-height": "Wysokość",
+	"srf-paramdesc-width": "Szerokość",
+	"srf-navigation-previous": "Poprzednie",
+	"srf-ui-navigation-next": "Następne",
+	"srf-ui-common-label-source": "Źródło",
+	"srf-ui-common-label-datasource": "Źródło danych",
+	"srf-ui-tooltip-title-options": "Opcje",
+	"srf-ui-tooltip-title-filter": "Filtr",
+	"srf-ui-common-label-refresh": "Odśwież",
+	"srf-ui-common-label-parameters": "Parametry",
+	"srf-ui-common-label-query": "Zapytanie",
 	"srfc_previousmonth": "Poprzedni miesiąc",
 	"srfc_nextmonth": "Następny miesiąc",
 	"srfc_today": "Dzisiaj",
@@ -48,5 +61,12 @@
 	"srf_paramdesc_bardirection": "Wskaż kierunek wykresu",
 	"srf_paramdesc_barnumbersaxislabel": "Etykieta wartości osi",
 	"srf-ui-gridview-label-item": "Element danych",
-	"srf_printername_gallery": "Galeria"
+	"srf_printername_gallery": "Galeria",
+	"srf-ui-eventcalendar-label-today": "Dzisiaj",
+	"srf-ui-eventcalendar-label-month": "Miesiąc",
+	"srf-ui-eventcalendar-label-week": "Tydzień",
+	"srf-ui-eventcalendar-label-day": "Dzień",
+	"srf-ui-mediaplayer-label-repeat": "Powtórz",
+	"srf-ui-mediaplayer-label-repeat-off": "Powtarzanie wyłączone",
+	"srf-ui-mediaplayer-label-full-screen": "Pełny ekran"
 }
