@@ -16,17 +16,18 @@
 			"PieRRoMaN",
 			"Tititou36",
 			"Urhixidur",
-			"Verdy p"
+			"Verdy p",
+			"SnowedEarth"
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
 	"srf-name": "Formatage des résultats sémantiques",
 	"prefs-srf": "Formats des résultats sémantiques",
 	"srf-prefs-intro-text": "Vous avez installé l'extension Formats de résultats sémantiques qui, pour l'instant, n'a pas d'option paramétrable par l'utilisateur. Pour plus d’aide, veuillez regarder la page d'aide [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formats de résultat].",
-	"prefs-srf-eventcalendar-options": "Options {{INT:Srf-printername-eventcalendar}}",
+	"prefs-srf-eventcalendar-options": "Options de calendrier d'événements",
 	"srf-prefs-eventcalendar-options-update-default": "Activer les [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates mises à jour automatiques] des événements du calendrier lors d’un rafraîchissement de page",
 	"srf-prefs-eventcalendar-options-paneview-default": "Activer l’affichage du volet par défaut",
-	"prefs-srf-datatables-options": "Options {{INT:srf-printername-datatables}}",
+	"prefs-srf-datatables-options": "Options des plages de données",
 	"srf-prefs-datatables-options-update-default": "Activer les [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates mises à jour automatiques] de la table des matières lors du rafraîchissement d’une page",
 	"srf-prefs-datatables-options-cache-default": "Activer le [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage stockage local] pour améliorer les temps de réponse",
 	"srf-module-loading": "Chargement...",

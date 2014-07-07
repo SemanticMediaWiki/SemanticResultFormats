@@ -15,7 +15,7 @@
 	"srf-name": "Semantic Result Formats",
 	"prefs-srf": "Semantic Result Formats",
 	"srf-prefs-intro-text": "У вас установлено расширение «Semantic Result Formats». Для получения дополнительной помощи, пожалуйста, посетите страницу [http://www.semantic-mediawiki.org/wiki/Help:Форматы_вывода Форматы вывода].",
-	"prefs-srf-eventcalendar-options": "Настройки {{INT:Srf-printername-eventcalendar}}",
+	"prefs-srf-eventcalendar-options": "Календарь событий параметры",
 	"srf-prefs-eventcalendar-options-update-default": "Включить [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates автоматическое обновление] событий календаря при обновлении страницы",
 	"prefs-srf-datatables-options": "Настройки {{INT:srf-printername-datatables}}",
 	"srf-prefs-datatables-options-update-default": "Включить [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates автоматическое обновление] содержания при обновлении страницы",

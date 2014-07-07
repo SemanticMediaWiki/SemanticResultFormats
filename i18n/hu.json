@@ -4,11 +4,13 @@
 			"Dani",
 			"Dj",
 			"Glanthor Reviol",
-			"TK-999"
+			"TK-999",
+			"Csega"
 		]
 	},
 	"srf-desc": "További formátumok a Szemantikus MediaWiki beépített lekérdezéseihez",
 	"srf-name": "Szemantikus eredményformátumok",
+	"srf-module-loading": "Betöltés…",
 	"srf-paramdesc-height": "A diavetítés-widget magassága",
 	"srf-paramdesc-width": "A diavetítés-widget szélessége",
 	"srf-paramdesc-class": "Extra CSS osztály",
@@ -104,6 +106,9 @@
 	"srf_paramdesc_graphlink": "Grafikon linkje",
 	"srf_paramdesc_graphcolor": "Grafikon színe",
 	"srf-paramdesc-graph-wwl": "Sortörési határ (karakterszám)",
+	"srf-ui-datatables-label-placeholder-column-search": "Keresés...",
+	"srf-ui-datatables-label-sLoadingRecords": "Betöltés...",
+	"srf-ui-datatables-label-sProcessing": "Feldolgozás...",
 	"srf-ui-eventcalendar-label-today": "Ma",
 	"srf-ui-eventcalendar-label-month": "Hónap",
 	"srf-ui-eventcalendar-label-week": "Hét",

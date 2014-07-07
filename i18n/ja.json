@@ -8,13 +8,14 @@
 			"Schu",
 			"Shirayuki",
 			"Whym",
-			"青子守歌"
+			"青子守歌",
+			"Rxy"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
 	"srf-name": "意味的結果の形式",
 	"prefs-srf": "意味的結果の形式",
-	"srf-module-loading": "読み込み中…",
+	"srf-module-loading": "読み込み中...",
 	"srf-paramdesc-layout": "利用できるレイアウト",
 	"srf-paramdesc-height": "高さ",
 	"srf-paramdesc-width": "幅",
@@ -133,6 +134,9 @@
 	"srf_paramdesc_graphlink": "グラフ リンク",
 	"srf_paramdesc_graphcolor": "グラフの色",
 	"srf-printername-datatables": "データテーブル",
+	"srf-ui-datatables-label-placeholder-column-search": "検索...",
+	"srf-ui-datatables-label-sLoadingRecords": "読み込み中...",
+	"srf-ui-datatables-label-sProcessing": "処理中...",
 	"srf-paramdesc-parent": "親ページを含むプロパティ",
 	"srf-printername-slideshow": "スライドショー",
 	"srf-paramdesc-delay": "スライド間の遅延 (秒)",

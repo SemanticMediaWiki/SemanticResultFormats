@@ -4,11 +4,13 @@
 			"Hamilton Abreu",
 			"Malafaya",
 			"SandroHc",
-			"Waldir"
+			"Waldir",
+			"Vitorvicentevalente"
 		]
 	},
 	"srf-desc": "Formatos adicionais para consultas de incorporação dinâmica ''(inline queries)'' do MediaWiki Semântico",
 	"srf-name": "Formatos dos Resultados Semânticos",
+	"srf-module-loading": "A carregar...",
 	"srfc_previousmonth": "Mês anterior",
 	"srfc_nextmonth": "Mês seguinte",
 	"srfc_today": "Hoje",
@@ -87,5 +89,8 @@
 	"srf_paramdesc_graphlink": "Link do grafo",
 	"srf_paramdesc_graphcolor": "Cor do grafo",
 	"srf-paramdesc-graph-wwl": "Limite para forçar nova linha (em nº de caracteres)",
+	"srf-ui-datatables-label-placeholder-column-search": "Pesquisar...",
+	"srf-ui-datatables-label-sLoadingRecords": "A carregar...",
+	"srf-ui-datatables-label-sProcessing": "A processar...",
 	"srf-printername-filtered": "Filtrado"
 }
