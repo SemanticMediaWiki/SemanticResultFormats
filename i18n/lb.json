@@ -5,8 +5,8 @@
 		]
 	},
 	"srf-name": "Formate vu semantesche Resultater",
-	"prefs-srf-eventcalendar-options": "{{INT:Srf-printername-eventcalendar}} Optiounen",
-	"prefs-srf-datatables-options": "{{INT:srf-printername-datatables}} Optiounen",
+	"prefs-srf-eventcalendar-options": "Optioune vum Kalenner vun den Eventementer",
+	"prefs-srf-datatables-options": "Optioune vun den Tabelle vun Donnéeën",
 	"srf-module-loading": "Lueden...",
 	"srf-paramdesc-height": "Héicht",
 	"srf-paramdesc-width": "Breet",

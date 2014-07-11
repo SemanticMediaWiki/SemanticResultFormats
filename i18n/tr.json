@@ -3,10 +3,12 @@
 		"authors": [
 			"Joseph",
 			"Karduelis",
-			"Vito Genovese"
+			"Vito Genovese",
+			"Sayginer"
 		]
 	},
 	"srf-name": "Anlamsal Sonuç Bilimleri",
+	"srf-module-loading": "Yükleniyor...",
 	"srfc_previousmonth": "Önceki ay",
 	"srfc_nextmonth": "Sonraki ay",
 	"srfc_today": "Bugün",
@@ -25,5 +27,7 @@
 	"srf_printername_timeline": "Zaman çizgisi",
 	"srf_paramdesc_views": "Görüntülenecek görünümler",
 	"srf_printername_googlebar": "Google çubuk çizelgesi",
-	"srf_printername_googlepie": "Google dilim çizelgesi"
+	"srf_printername_googlepie": "Google dilim çizelgesi",
+	"srf-ui-datatables-label-sLoadingRecords": "Yükleniyor...",
+	"srf-ui-datatables-label-sProcessing": "İşleniyor..."
 }

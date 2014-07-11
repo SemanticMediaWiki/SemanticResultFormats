@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nepaboy"
+		]
+	},
+	"srf-module-loading": "लोड हो रहल बा...",
+	"srf-ui-datatables-label-placeholder-column-search": "खोज...",
+	"srf-ui-datatables-label-sLoadingRecords": "लोड हो रहल बा...",
+	"srf-ui-datatables-label-sProcessing": "प्रगति में बा..."
+}
