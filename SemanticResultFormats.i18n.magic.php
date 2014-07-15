@@ -20,8 +20,8 @@ $magicWords['ar'] = array(
 
 /** Egyptian Spoken Arabic (مصرى) */
 $magicWords['arz'] = array(
-	'calendarstartdate' => array( 0, 'تاريخ_بداية_التقويم', 'calendarstartdate' ),
-	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم', 'calendarenddate' ),
+	'calendarstartdate' => array( 0, 'تاريخ_بداية_التقويم' ),
+	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم' ),
 );
 
 /** German (Deutsch) */
