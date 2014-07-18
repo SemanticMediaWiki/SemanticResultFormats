@@ -96,6 +96,12 @@ $magicWords['nl'] = array(
 	'calendarenddate' => array( 0, 'einddatumkalender' ),
 );
 
+/** Quechua (Runa Simi) */
+$magicWords['qu'] = array(
+	'calendarstartdate' => array( 0, 'watapiqallarinapunchaw', 'watapiqallariypunchaw' ),
+	'calendarenddate' => array( 0, 'watapipuchukanapunchaw', 'watapipuchukaypunchaw' ),
+);
+
 /** Serbian (Cyrillic script) (српски (ћирилица)‎) */
 $magicWords['sr-ec'] = array(
 	'calendarstartdate' => array( 0, 'почетнидатум', 'почетни_датум' ),
