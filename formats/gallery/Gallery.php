@@ -1,8 +1,18 @@
 <?php
 
 namespace SRF;
-use SMW, SMWQueryResult, SMWPrintRequest, SMWDataItem, SMWOutputs, SRFUtils;
-use Html, ImageGallery, Title;
+
+use SMW\ResultPrinter;
+
+use SMWQueryResult;
+use SMWPrintRequest;
+use SMWDataItem;
+use SMWOutputs;
+use SRFUtils;
+
+use Html;
+use ImageGallery;
+use Title;
 
 /**
  * Result printer that outputs query results as a image gallery.
@@ -11,13 +21,7 @@ use Html, ImageGallery, Title;
  * @author mwjames
  * @author Rowan Rodrik van der Molen
  */
-
-/**
- * Result printer that outputs query results as a image gallery.
- * @ingroup SemanticResultFormats
- *
- */
-class Gallery extends SMW\ResultPrinter {
+class Gallery extends ResultPrinter {
 
 	/**
 	 * @see SMWResultPrinter::getName
@@ -47,11 +51,6 @@ class Gallery extends SMW\ResultPrinter {
 		};
 
 		return $this->getResultText( $results, $this->outputMode );
-	}
-
-	private function isSpecialPage() {
-		$title = $this->getContext()->getTitle();
-		return $title instanceof \Title && $title->isSpecialPage();
 	}
 
 	/**
@@ -165,7 +164,7 @@ class Gallery extends SMW\ResultPrinter {
 				'class'  => 'srf-gallery' . $class,
 				'align'  => 'justify',
 				'data-redirect-type' => $redirectType,
-				'data-ns-text' => $this->getContext()->getTitle()->getPageLanguage()->getNsText( NS_FILE )
+				'data-ns-text' => $this->getFileNsTextForPageLanguage()
 			);
 
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
@@ -311,7 +310,7 @@ class Gallery extends SMW\ResultPrinter {
 				$imgCaption = '';
 			}
 		} else {
-			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->getContext()->getTitle()->isSpecialPage() ) {
+			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->isSpecialPage() ) {
 				$imgCaption = $ig->mParser->recursiveTagParse( $imgCaption );
 			}
 		}
@@ -485,4 +484,15 @@ class Gallery extends SMW\ResultPrinter {
 
 		return $params;
 	}
+
+	private function isSpecialPage() {
+		$title = $this->getContext()->getTitle();
+		return $title instanceof Title && $title->isSpecialPage();
+	}
+
+	private function getFileNsTextForPageLanguage() {
+		$title = $this->getContext()->getTitle();
+		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
+	}
+
 }
