@@ -7,17 +7,18 @@
 			"Shirayuki",
 			"Liuxinyu970226",
 			"乌拉跨氪",
-			"Hudafu"
+			"Hudafu",
+			"Fengchao"
 		]
 	},
 	"srf-desc": "用于Semantic MediaWiki的附加结果格式",
 	"srf-name": "语义结果格式",
 	"prefs-srf": "语义结果格式",
 	"srf-prefs-intro-text": "您已安装语义结果格式拓展。额外帮助请参见[https://www.semantic-mediawiki.org/wiki/Help:Result_formats 此拓展的帮助页]。",
-	"prefs-srf-eventcalendar-options": "{{INT:Srf-printername-eventcalendar}}选项",
+	"prefs-srf-eventcalendar-options": "事件日历选项",
 	"srf-prefs-eventcalendar-options-update-default": "在页面刷新时启用日历活动的[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates 自动更新]",
 	"srf-prefs-eventcalendar-options-paneview-default": "默认启用窗格视图",
-	"prefs-srf-datatables-options": "{{INT:srf-printername-datatables}}选项",
+	"prefs-srf-datatables-options": "数据表选项",
 	"srf-prefs-datatables-options-cache-default": "启用[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage 本地存储]以改进响应时间",
 	"srf-module-loading": "载入中...",
 	"srf-paramdesc-layout": "可用布局",
