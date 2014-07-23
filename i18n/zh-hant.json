@@ -3,7 +3,8 @@
 		"authors": [
 			"Shirayuki",
 			"Wrightbus",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"LNDDYL"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki嵌入式查詢的附加格式",
@@ -94,7 +95,7 @@
 	"srf_paramdesc_graphlegend": "顯示或不顯示圖形圖例",
 	"srf_paramdesc_graphlabel": "圖形標籤",
 	"srf_paramdesc_rankdir": "箭頭方向",
-	"srf_paramdesc_graphlink": "圖形鏈接",
+	"srf_paramdesc_graphlink": "圖形連結",
 	"srf_paramdesc_graphcolor": "圖形顏色",
 	"srf-paramdesc-graph-wwl": "Word自動換行限制（以字符計）",
 	"srf-printername-datatables": "數據表",
