@@ -5,15 +5,16 @@
 			"Dj",
 			"Glanthor Reviol",
 			"TK-999",
-			"Csega"
+			"Csega",
+			"Misibacsi"
 		]
 	},
 	"srf-desc": "További formátumok a Szemantikus MediaWiki beépített lekérdezéseihez",
 	"srf-name": "Szemantikus eredményformátumok",
 	"srf-module-loading": "Betöltés…",
-	"srf-paramdesc-height": "A diavetítés-widget magassága",
-	"srf-paramdesc-width": "A diavetítés-widget szélessége",
-	"srf-paramdesc-class": "Extra CSS osztály",
+	"srf-paramdesc-height": "Magasság",
+	"srf-paramdesc-width": "Szélesség",
+	"srf-paramdesc-class": "Extra CSS osztály megadása",
 	"srfc_previousmonth": "Előző hónap",
 	"srfc_nextmonth": "Következő hónap",
 	"srfc_today": "Ma",
