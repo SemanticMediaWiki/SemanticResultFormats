@@ -12,6 +12,7 @@ commit added support for date/time values to the [excel format](https://semantic
 * #46 Added support for `format=graph` using Composer `mediawiki/graph-viz` package
 * #47 Added parameters 'filename' (the download file name for the generated file) and 'templatefile' (a template file
       from the NS_FILE namespace used for formatting the generated file) to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
+* #51 Fixed null title issue in Gallery.php for MW 1.23+
 * #52 Fixed `format=process` exception that was caused by missing message parameters
 * #53 Updated jQuery blockUI plugin to v.2.66.0-2013.10.09
 
