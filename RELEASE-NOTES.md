@@ -1,13 +1,14 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 1.9.2 (not released yet)
+## SRF 2.0 (2014-08-06)
 
 * #26 Fixed not showing up of graphvis legend when it should
 * #35 Fixed error in the gallary format for a null object
 * #37 Fixed error in the timeline format for named arguments
 * #43 Fixed graphname parameter in the graphviz format
-* [14daff1](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/14daff10350190634b96f644961beb15d0b29e09) commit added support for date/time values to the [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
+* [14daff1](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/14daff10350190634b96f644961beb15d0b29e09)
+commit added support for date/time values to the [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
 * #46 Added support for `format=graph` using Composer `mediawiki/graph-viz` package
 * #47 Added parameters 'filename' (the download file name for the generated file) and 'templatefile' (a template file
       from the NS_FILE namespace used for formatting the generated file) to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
