@@ -25,7 +25,7 @@ following to the MediaWiki `composer.json` file and run the ``php composer.phar 
 ```json
 {
 	"require": {
-		"mediawiki/semantic-result-formats": "~1.9"
+		"mediawiki/semantic-result-formats": "~2.0"
 	}
 }
 ```
