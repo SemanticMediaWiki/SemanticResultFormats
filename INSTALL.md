@@ -12,10 +12,16 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Git branch</th>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.0.x</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.x</a></th>
 		<td>Development version</td>
 		<td>-</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
+	</tr>
+	<tr>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.0</a></th>
+		<td>Stable release</td>
+		<td>2014-08-06</td>
+		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.0">2.0</a></td>
 	</tr>
 	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 1.9.1</a></th>
@@ -46,6 +52,13 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>MediaWiki</th>
 		<th>Semantic MediaWiki</th>
 		<th>Composer</th>
+	</tr>
+	<tr>
+		<th>SRF 2.0.x</th>
+		<td>5.3.2 - 5.5.x</td>
+		<td>1.19 - 1.23</td>
+		<td>2.x</td>
+		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 1.9.x</th>
