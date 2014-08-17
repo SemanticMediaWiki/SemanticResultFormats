@@ -16,6 +16,7 @@
 	"srf-ui-common-label-ajax-error": "伺服器報告對此$1通訊失敗。請嘗試重新載入頁面或查閱$2。",
 	"srf-ui-common-label-request-object": "徽求對象",
 	"srf-ui-tooltip-title-options": "選項",
+	"srf-ui-common-label-query": "查詢",
 	"srfc_previousmonth": "上月",
 	"srfc_nextmonth": "下月",
 	"srfc_today": "今天",
