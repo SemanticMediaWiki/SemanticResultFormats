@@ -10,7 +10,11 @@
 	"srf-desc": "Semantic MediaWiki嵌入式查詢的附加格式",
 	"srf-name": "語義結果格式",
 	"srf-module-loading": "載入中...",
+	"srf-paramdesc-height": "高度",
+	"srf-paramdesc-width": "寬度",
 	"srf-module-nomatch": "沒有符合的資訊",
+	"srf-ui-navigation-prev": "前一頁",
+	"srf-ui-navigation-next": "下一頁",
 	"srf-ui-common-label-source": "來源",
 	"srf-ui-common-label-datasource": "資料來源",
 	"srf-ui-common-label-ajax-error": "伺服器報告對此$1通訊失敗。請嘗試重新載入頁面或查閱$2。",
@@ -101,11 +105,13 @@
 	"srf-paramdesc-graph-wwl": "Word自動換行限制（以字元計）",
 	"srf-printername-datatables": "數據表",
 	"srf-ui-datatables-label-placeholder-column-search": "搜尋中...",
+	"srf-ui-datatables-label-oPaginate-sNext": "下一頁",
 	"srf-noparentprop": "未提供父屬性。在沒有指定父屬性的情況下無法構建樹種結構。",
 	"srf-paramdesc-parent": "包含父頁面的屬性",
 	"srf-paramdesc-filtered-list-introtemplate": "用於在查詢結果前顯示內容的模板的名稱。",
 	"srf-paramdesc-filtered-list-outrotemplate": "用於在查詢結果後顯示內容的模板的名稱。",
 	"srf-filtered-selectorlabel-list": "列表",
 	"srf-filtered-selectorlabel-calendar": "日曆",
-	"srf-ui-eventcalendar-label-today": "今天"
+	"srf-ui-eventcalendar-label-today": "今天",
+	"srf-ui-mediaplayer-label-next": "下一頁"
 }
