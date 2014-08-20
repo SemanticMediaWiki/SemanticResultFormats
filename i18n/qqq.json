@@ -170,7 +170,7 @@
 	"srf_paramdesc_headersep": "{{doc-smwformat|headersep}}\n{{doc-important|Do not translate the parameter name \"headers\" and its possible values \"show\" or \"plain\".}}",
 	"srf_printername_hash": "{{doc-smwformat|hash}}",
 	"srf_paramdesc_hashname": "{{doc-paramdesc|name}}",
-	"srf-printername-graph": "{{doc-smwformat|graph}}",
+	"srf-printername-graph": "{{doc-smwformat|graph}}\n{{Identical|Graph}}",
 	"srf-paramdesc-graph-relation": "{{doc-paramdesc|graphrelation}}",
 	"srf-paramdesc-graph-nameprop": "{{doc-paramdesc|nameproperty}}",
 	"srf-paramdesc-graph-nodeshape": "{{doc-paramdesc|nodeshape}}",
