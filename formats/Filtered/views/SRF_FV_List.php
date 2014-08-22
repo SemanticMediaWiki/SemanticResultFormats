@@ -248,7 +248,7 @@ class SRF_FV_List extends SRF_Filtered_View {
 	 * @return String the selector label
 	 */
 	public function getSelectorLabel() {
-		return wfMsg('srf-filtered-selectorlabel-list');
+		return Message::newFromKey( 'srf-filtered-selectorlabel-list' )->inContentLanguage()->text();
 	}
 
 }
