@@ -235,7 +235,7 @@ class SRF_FV_Calendar extends SRF_Filtered_View {
 		return
 			$this->getParamHashes( $this->getQueryResults(), $this->getActualParameters()) +
 			array(
-				'firstDay' => ($wgAmericanDates?'0':wfMsg( 'srf-filtered-firstdayofweek' )),
+				'firstDay' => ($wgAmericanDates?'0':Message::newFromKey( 'srf-filtered-firstdayofweek' )->inContentLanguage()->text()),
 				'isRTL' => wfGetLangObj( true )->isRTL(),
 			);
 	}
@@ -280,7 +280,7 @@ class SRF_FV_Calendar extends SRF_Filtered_View {
 	 * @return String the selector label
 	 */
 	public function getSelectorLabel() {
-		return wfMsg('srf-filtered-selectorlabel-calendar');
+		return Message::newFromKey( 'srf-filtered-selectorlabel-calendar' )->inContentLanguage()->text();
 	}
 
 }
