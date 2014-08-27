@@ -247,6 +247,7 @@
 	"srf-ui-eventcalendar-label-week": "Недела",
 	"srf-ui-eventcalendar-label-day": "Ден",
 	"srf-ui-eventcalendar-label-allday": "Цел ден",
+	"srf-ui-eventcalendar-format-title-day": "dddd d MMM yyyy",
 	"srf-ui-eventcalendar-label-update-success": "Подновата на календарот со настани е успешна.",
 	"srf-ui-eventcalendar-label-update-error": "Не успеа подновата на календарот.",
 	"srf-printername-dygraphs": "Двографен дијаграм",
