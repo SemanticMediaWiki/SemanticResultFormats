@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Mjbmr",
-			"Tofighi"
+			"Tofighi",
+			"Reza1615"
 		]
 	},
 	"srf-module-loading": "در حال بارگیری...",
@@ -12,6 +13,7 @@
 	"srf-ui-navigation-prev": "قبلی",
 	"srf-ui-navigation-next": "بعدی",
 	"srf-ui-tooltip-title-options": "گزینه‌ها",
+	"srf-ui-common-label-query": "کوئری",
 	"srfc_previousmonth": "ماه گذشته",
 	"srfc_nextmonth": "ماه آینده",
 	"srfc_today": "امروز",
