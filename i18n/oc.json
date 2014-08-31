@@ -7,7 +7,7 @@
 	},
 	"srf-desc": "Formats adicionals d'afichatge de resultat per las requèstas de Semantic MediaWiki",
 	"srf-name": "Formatatge dels resultats semantics",
-	"prefs-srf-datatables-options": "Opcions {{INT:srf-printername-datatables}}",
+	"prefs-srf-datatables-options": "Opcions de las plajas de donadas",
 	"srf-module-loading": "Cargament…",
 	"srf-ui-tooltip-title-legend": "Legenda",
 	"srf-ui-tooltip-title-filter": "Filtre",
