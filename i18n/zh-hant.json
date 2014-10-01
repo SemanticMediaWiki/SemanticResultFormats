@@ -20,6 +20,7 @@
 	"srf-ui-common-label-ajax-error": "伺服器報告對此$1通訊失敗。請嘗試重新載入頁面或查閱$2。",
 	"srf-ui-common-label-request-object": "徽求對象",
 	"srf-ui-tooltip-title-options": "選項",
+	"srf-ui-tooltip-title-legend": "說明",
 	"srf-ui-tooltip-title-filter": "篩選器",
 	"srf-ui-common-label-refresh": "重新整理",
 	"srf-ui-common-label-query": "查詢",
