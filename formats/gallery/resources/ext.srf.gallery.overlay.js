@@ -77,7 +77,7 @@
 					var $this = $( this ),
 						h = mw.html,
 						image = $this.find( 'a.image' ),
-						imageText = $this.find( '.gallerytext p' ).html();
+						imageText = $.trim( $this.find( '.gallerytext p' ).text() );
 
 					// Group images
 					image.attr( 'rel', image.has( 'img' ).length ? galleryID : '' );
