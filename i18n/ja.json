@@ -29,6 +29,7 @@
 	"srf-ui-common-label-datasource": "データ ソース",
 	"srf-ui-tooltip-title-options": "オプション",
 	"srf-ui-tooltip-title-scope": "スコープ",
+	"srf-ui-tooltip-title-legend": "凡例",
 	"srf-error-option-mix": "オプション ($1) は利用できません",
 	"srf-error-option-link-all": "オプション ($1) を使用するには、パラメーター「link」を「all」に設定する必要があります",
 	"srf-error-missing-layout": "レイアウトがありません",
