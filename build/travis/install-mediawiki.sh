@@ -3,9 +3,9 @@ set -ex
 
 cd ..
 
-wget https://github.com/wikimedia/mediawiki-core/archive/$MW.tar.gz
+wget https://github.com/wikimedia/mediawiki/archive/$MW.tar.gz
 tar -zxf $MW.tar.gz
-mv mediawiki-core-$MW mw
+mv mediawiki-$MW mw
 
 cd mw
 
