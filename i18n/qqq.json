@@ -128,6 +128,7 @@
 	"srf-paramdesc-chartcursor": "{{doc-paramdesc|chartcursor}}",
 	"srf-paramdesc-trendline": "{{doc-paramdesc|trendline}}",
 	"srf-paramdesc-gridview": "{{doc-paramdesc|gridview}}\n{{doc-important|Do not translate the possible parameters \"none\" and \"tabs\".}}",
+	"srf-paramdesc-paneview": "{{doc-paramdesc|paneview}}\n{{doc-important|Do not translate the possible parameters \"bottom\", \"top\" and \"none\" and \"tabs\".}}\n\nSee [https://semantic-mediawiki.org/wiki/Help:SMW_-_Number_of_downloads this page] for an example (pane below the actual chart).",
 	"srf-paramdesc-infotext": "{{doc-paramdesc|infotext}}",
 	"srf-ui-gridview-label-item": "{{doc-smw-ui-gridview}}",
 	"srf-ui-gridview-label-value": "{{doc-smw-ui-gridview}}",
