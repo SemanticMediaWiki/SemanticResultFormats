@@ -119,6 +119,7 @@
 	"srf-paramdesc-chartcursor": "אפשרות תצוגה של סמן התרשים",
 	"srf-paramdesc-trendline": "אפשר תצוגה בו־זמנית של תרשים ושל קו המגמה שלו",
 	"srf-paramdesc-gridview": "הצגת תרשים וערכות נתונים בו־זמנית. הערכים המותרים: \"none\" ו־\"tabs\". ברירת מחדל: \"none\"",
+	"srf-paramdesc-paneview": "נא לציין את המיקום של החלונית שמכילה את תרשים הקווים הקטן. ערכים מורשים: \"\"bottom\"‏, \"top\" ו־\"none\"",
 	"srf-paramdesc-infotext": "הצגת מידע נוסף בלשונית מידע מתאימה",
 	"srf-ui-gridview-label-item": "פריט נתונים",
 	"srf-ui-gridview-label-value": "ערך הנתונים",

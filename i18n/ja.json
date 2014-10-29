@@ -9,7 +9,8 @@
 			"Shirayuki",
 			"Whym",
 			"青子守歌",
-			"Rxy"
+			"Rxy",
+			"SkyDaisy9"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
@@ -97,6 +98,7 @@
 	"srf-paramdesc-grouplabel": "グループ ラベルを指定",
 	"srf-paramdesc-chartcursor": "グラフ カーソルの表示オプション",
 	"srf-paramdesc-trendline": "グラフとその近似曲線の同時表示を有効化",
+	"srf-paramdesc-paneview": "小さな折れ線グラフの入る枠の位置を指定します。使用できる値:\"bottom\"、 \"top\"または  \"none\"。 規定値: \"bottom\"",
 	"srf-paramdesc-infotext": "対応する情報タブで追加的な情報を表示",
 	"srf-ui-gridview-label-item": "データ項目",
 	"srf-ui-gridview-label-value": "データの値",
