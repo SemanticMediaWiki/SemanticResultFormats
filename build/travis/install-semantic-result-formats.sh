@@ -12,7 +12,7 @@ function installToMediaWikiRoot {
 
 	composer init --stability dev
 
-	composer require 'phpunit/phpunit=3.7.*' --prefer-source
+	composer require 'phpunit/phpunit=3.7.*' --prefer-source --update-with-dependencies
 	composer require mediawiki/semantic-result-formats "dev-master" --prefer-source --dev
 
 	cd extensions
