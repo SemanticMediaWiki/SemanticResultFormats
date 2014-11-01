@@ -280,7 +280,7 @@ class SRFFiltered extends SMWResultPrinter {
 		$params[] = array(
 			// 'type' => 'string',
 			'name' => 'views',
-			'message' => 'srf-paramdesc-views',
+			'message' => 'srf-paramdesc-filtered-views',
 			'default' => '',
 			// 'islist' => false,
 		);
