@@ -169,7 +169,7 @@
 	"srf_paramdesc_manysep": "{{doc-paramdesc|manysep}}",
 	"srf_paramdesc_recordsep": "{{doc-paramdesc|recordsep}}",
 	"srf_paramdesc_headersep": "{{doc-smwformat|headersep}}\n{{doc-important|Do not translate the parameter name \"headers\" and its possible values \"show\" or \"plain\".}}",
-	"srf_printername_hash": "{{doc-smwformat|hash}}",
+	"srf_printername_hash": "{{doc-smwformat|hash}}\n{{Identical|Hash}}",
 	"srf_paramdesc_hashname": "{{doc-paramdesc|name}}",
 	"srf-printername-graph": "{{doc-smwformat|graph}}\n{{Identical|Graph}}",
 	"srf-paramdesc-graph-relation": "{{doc-paramdesc|graphrelation}}",
