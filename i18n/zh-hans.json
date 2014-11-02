@@ -183,7 +183,7 @@
 	"srf-ui-datatables-panel-disclaimer": "参数和条件是可以改变的，但任何改变都是暂时的，且在页面刷新之后将会被放弃。",
 	"srf-ui-datatables-label-update-success": "图标更新成功",
 	"srf-ui-datatables-label-update-error": "图标更新失败。",
-	"srf-ui-datatables-label-placeholder-column-search": "搜索中...",
+	"srf-ui-datatables-label-placeholder-column-search": "搜索中……",
 	"srf-ui-datatables-label-content-cache": "内容从本地缓存中得到。",
 	"srf-ui-datatables-label-content-server": "内容从服务器得到。",
 	"srf-ui-datatables-label-multiselect-column-header": "可用阵列",
