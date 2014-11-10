@@ -204,14 +204,18 @@ class SRFiCalendar extends SMWExportPrinter {
 		$url = $title->getFullURL();
 		
 		$result .= "BEGIN:VEVENT\r\n";
-		$result .= "SUMMARY:" . $params['summary'] . "\r\n";
+		$result .= "SUMMARY:" . $this->escapeICalendarText( $params['summary'] ) . "\r\n";
 		$result .= "URL:$url\r\n";
 		$result .= "UID:$url\r\n";
 		
 		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $this->parsedate( $params['start'] ) . "\r\n";
 		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $this->parsedate( $params['end'], true ) . "\r\n";
-		if ( array_key_exists( 'location', $params ) )  $result .= "LOCATION:" . $params['location'] . "\r\n";
-		if ( array_key_exists( 'description', $params ) )  $result .= "DESCRIPTION:" . $params['description'] . "\r\n";
+		if ( array_key_exists( 'location', $params ) ) {
+			$result .= "LOCATION:" . $this->escapeICalendarText( $params['location'] ) . "\r\n";
+		}
+		if ( array_key_exists( 'description', $params ) ) {
+			$result .= "DESCRIPTION:" . $this->escapeICalendarText( $params['description'] ) . "\r\n";
+		}
 		
 		$t = strtotime( str_replace( 'T', ' ', $article->getTimestamp() ) );
 		$result .= "DTSTAMP:" . date( "Ymd", $t ) . "T" . date( "His", $t ) . "\r\n";
@@ -247,6 +251,16 @@ class SRFiCalendar extends SMWExportPrinter {
 		
 		return $result;
 	}
+
+	/**
+	 * Implements esaping of special characters for iCalendar properties of type TEXT. This is defined
+	 * in RFC2445 Section 4.3.11.
+	 */
+	static private function escapeICalendarText( $text ) {
+		// Note that \\ is a PHP escaped single \ here
+		return str_replace( array( "\\", "\n", ";", "," ), array( "\\\\", "\\n", "\\;", "\\," ), $text );
+	}
+
 
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions
