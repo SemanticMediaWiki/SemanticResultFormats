@@ -115,7 +115,7 @@
 	"srf-paramdesc-parent": "包含父頁面的屬性",
 	"srf-paramdesc-filtered-list-introtemplate": "用於在查詢結果前顯示內容的模板的名稱。",
 	"srf-paramdesc-filtered-list-outrotemplate": "用於在查詢結果後顯示內容的模板的名稱。",
-	"srf-filtered-selectorlabel-list": "列表",
+	"srf-filtered-selectorlabel-list": "清單",
 	"srf-filtered-selectorlabel-calendar": "日曆",
 	"srf-ui-eventcalendar-label-today": "今天",
 	"srf-ui-mediaplayer-label-next": "下一頁"
