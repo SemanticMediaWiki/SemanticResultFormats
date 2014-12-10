@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Omnipaedista"
-        ]
-    },
-    "srfc_today": "Σήμερον",
-    "srf_printername_outline": "Περίγραμμα"
+	"@metadata": {
+		"authors": [
+			"Omnipaedista"
+		]
+	},
+	"srfc_today": "Σήμερον",
+	"srf_printername_outline": "Περίγραμμα"
 }

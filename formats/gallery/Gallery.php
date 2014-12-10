@@ -1,8 +1,18 @@
 <?php
 
 namespace SRF;
-use SMW, SMWQueryResult, SMWPrintRequest, SMWDataItem, SMWOutputs, SRFUtils;
-use Html, ImageGallery, Title;
+
+use SMW\ResultPrinter;
+
+use SMWQueryResult;
+use SMWPrintRequest;
+use SMWDataItem;
+use SMWOutputs;
+use SRFUtils;
+
+use Html;
+use ImageGallery;
+use Title;
 
 /**
  * Result printer that outputs query results as a image gallery.
@@ -11,13 +21,7 @@ use Html, ImageGallery, Title;
  * @author mwjames
  * @author Rowan Rodrik van der Molen
  */
-
-/**
- * Result printer that outputs query results as a image gallery.
- * @ingroup SemanticResultFormats
- *
- */
-class Gallery extends SMW\ResultPrinter {
+class Gallery extends ResultPrinter {
 
 	/**
 	 * @see SMWResultPrinter::getName
@@ -53,7 +57,6 @@ class Gallery extends SMW\ResultPrinter {
 	 * @see SMWResultPrinter::getResultText
 	 *
 	 * @param $results SMWQueryResult
-	 * @param $fullParams array
 	 * @param $outputmode integer
 	 *
 	 * @return string
@@ -67,7 +70,7 @@ class Gallery extends SMW\ResultPrinter {
 
 		// No need for a special page to use the parser but for the "normal" page
 		// view we have to ensure caption text is parsed correctly through the parser
-		if ( !$this->getContext()->getTitle()->isSpecialPage() ) {
+		if ( !$this->isSpecialPage() ) {
 			$ig->setParser( $GLOBALS['wgParser'] );
 		}
 
@@ -161,7 +164,7 @@ class Gallery extends SMW\ResultPrinter {
 				'class'  => 'srf-gallery' . $class,
 				'align'  => 'justify',
 				'data-redirect-type' => $redirectType,
-				'data-ns-text' => $this->getContext()->getTitle()->getPageLanguage()->getNsText( NS_FILE )
+				'data-ns-text' => $this->getFileNsTextForPageLanguage()
 			);
 
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
@@ -292,6 +295,7 @@ class Gallery extends SMW\ResultPrinter {
 	 * @param ImageGallery $ig The gallery to add the image to
 	 * @param Title $imgTitle The title object of the page of the image
 	 * @param string $imgCaption An optional caption for the image
+	 * @param string $imgRedirect
 	 */
 	protected function addImageToGallery( ImageGallery &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
 
@@ -306,7 +310,7 @@ class Gallery extends SMW\ResultPrinter {
 				$imgCaption = '';
 			}
 		} else {
-			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->getContext()->getTitle()->isSpecialPage() ) {
+			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->isSpecialPage() ) {
 				$imgCaption = $ig->mParser->recursiveTagParse( $imgCaption );
 			}
 		}
@@ -480,4 +484,15 @@ class Gallery extends SMW\ResultPrinter {
 
 		return $params;
 	}
+
+	private function isSpecialPage() {
+		$title = $this->getContext()->getTitle();
+		return $title instanceof Title && $title->isSpecialPage();
+	}
+
+	private function getFileNsTextForPageLanguage() {
+		$title = $this->getContext()->getTitle();
+		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
+	}
+
 }

@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Meursault2004"
-        ]
-    },
-    "srfc_previousmonth": "Sasi sadurungé",
-    "srfc_nextmonth": "Sasi sabanjuré",
-    "srfc_today": "Dina iki",
-    "srfc_gotomonth": "Tumuju menyang sasi",
-    "srf_icalendar_link": "iKalèndher"
+	"@metadata": {
+		"authors": [
+			"Meursault2004"
+		]
+	},
+	"srfc_previousmonth": "Sasi sadurungé",
+	"srfc_nextmonth": "Sasi sabanjuré",
+	"srfc_today": "Dina iki",
+	"srfc_gotomonth": "Tumuju menyang sasi",
+	"srf_icalendar_link": "iKalèndher"
 }

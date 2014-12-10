@@ -4,11 +4,12 @@ if ( php_sapi_name() !== 'cli' ) {
 	die( 'Not an entry point' );
 }
 
-require_once( __DIR__ . '/evilMediaWikiBootstrap.php' );
+if ( is_readable( $path = __DIR__ . '/../../SemanticMediaWiki/tests/autoloader.php' ) ) {
+	print( "\nUsing SemanticMediaWiki ...\n" );
+} else {
+	die( 'The SemanticMediaWiki test autoloader is not available' );
+}
 
-$pwd = getcwd();
-chdir( __DIR__ . '/..' );
-passthru( 'composer update' );
-chdir( $pwd );
+$autoloader = require $path;
 
-require_once( __DIR__ . '/../vendor/autoload.php' );
+$autoloader->addPsr4( 'SRF\\Tests\\', __DIR__ . '/phpunit' );

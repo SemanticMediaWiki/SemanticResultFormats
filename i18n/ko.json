@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Keysuck",
+			"아라"
+		]
+	},
+	"srf-module-loading": "불러오는 중…",
+	"srf-paramdesc-layout": "사용할 수 있는 레이아웃",
+	"srf-paramdesc-height": "높이",
+	"srf-paramdesc-width": "너비",
+	"srf-ui-navigation-prev": "이전",
+	"srf-ui-navigation-next": "다음",
+	"srf-ui-common-label-help-section": "도움말 문단",
+	"srf-ui-tooltip-title-options": "옵션",
+	"srf-ui-tooltip-title-filter": "필터",
+	"srf-ui-common-label-refresh": "새로 고침",
+	"srf-ui-common-label-parameters": "변수",
+	"srf-ui-common-label-query": "쿼리",
+	"srf-ui-common-label-daterange": "날짜 범위",
+	"srf-error-option-mix": "옵션 ($1)은 사용할 수 없습니다",
+	"srfc_previousmonth": "이전 달",
+	"srfc_nextmonth": "다음 달",
+	"srfc_today": "오늘",
+	"srfc_gotomonth": "이 달로 가기",
+	"srf_printername_calendar": "월별 달력",
+	"srf_printername_vcard": "vCard 내보내기",
+	"srf_printername_icalendar": "iCalendar 내보내기",
+	"srf_paramdesc_icalendartitle": "달력 파일의 제목",
+	"srf_paramdesc_icalendardescription": "달력 파일의 설명",
+	"srf_printername_bibtex": "BibTeX 내보내기",
+	"srf_outline_novalue": "값 없음",
+	"srf_printername_outline": "개요",
+	"srf_printername_sum": "숫자의 합",
+	"srf_printername_average": "숫자의 평균",
+	"srf_printername_max": "최대 수",
+	"srf_printername_min": "최소 수",
+	"srf_paramdesc_limit": "쿼리할 페이지의 최대 수",
+	"srf_printername_median": "숫자의 중간 값",
+	"srf_printername_earliest": "가장 이른 시간",
+	"srf_printername_latest": "가장 늦은 시간"
+}

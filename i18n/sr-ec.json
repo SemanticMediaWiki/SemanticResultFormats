@@ -1,22 +1,24 @@
 {
-    "@metadata": {
-        "authors": [
-            "Rancher",
-            "Михајло Анђелковић"
-        ]
-    },
-    "srfc_previousmonth": "Претходни месец",
-    "srfc_nextmonth": "Следећи месец",
-    "srfc_today": "Данас",
-    "srfc_gotomonth": "Пређи на месец",
-    "srf_printername_calendar": "Месечни календар",
-    "srf_vcard_link": "vCard",
-    "srf_icalendar_link": "iCalendar",
-    "srf_bibtex_link": "BibTeX",
-    "srf_outline_novalue": "Нема вредности",
-    "srf_printername_sum": "Сума бројева",
-    "srf_printername_average": "Средња вредност бројева",
-    "srf_printername_max": "Највећи број",
-    "srf_printername_min": "Најмањи број",
-    "srf_printername_gallery": "Галерија"
+	"@metadata": {
+		"authors": [
+			"Rancher",
+			"Михајло Анђелковић",
+			"Milicevic01"
+		]
+	},
+	"srf-ui-common-label-refresh": "Освежи",
+	"srfc_previousmonth": "Претходни месец",
+	"srfc_nextmonth": "Следећи месец",
+	"srfc_today": "Данас",
+	"srfc_gotomonth": "Пређи на месец",
+	"srf_printername_calendar": "Месечни календар",
+	"srf_vcard_link": "vCard",
+	"srf_icalendar_link": "iCalendar",
+	"srf_bibtex_link": "BibTeX",
+	"srf_outline_novalue": "Нема вредности",
+	"srf_printername_sum": "Сума бројева",
+	"srf_printername_average": "Средња вредност бројева",
+	"srf_printername_max": "Највећи број",
+	"srf_printername_min": "Најмањи број",
+	"srf_printername_gallery": "Галерија"
 }

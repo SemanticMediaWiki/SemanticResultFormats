@@ -424,6 +424,13 @@ class SRFTimeline extends SMWResultPrinter {
 			'message' => 'smw-paramdesc-template',
 			'default' => '',
 		);
+		
+		$params['named args'] = array(
+			'type' => 'boolean',
+			'message' => 'smw-paramdesc-named_args',
+			'default' => false,
+		);
+
 
 		$params['show namespaces'] = array(
 			'message' => 'srf_paramdesc_shownamespaces',

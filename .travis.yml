@@ -5,22 +5,19 @@ env:
 
 matrix:
   include:
-    - env: DBTYPE=mysql; MW=master
-      php: 5.3
-    - env: DBTYPE=mysql; MW=1.19.0
+    - env: DB=mysql; MW=master
+      php: 5.6
+    - env: DB=sqlite; MW=1.23.0
       php: 5.4
-    - env: DBTYPE=mysql; MW=1.21.0
-      php: 5.5
-    - env: DBTYPE=sqlite; MW=master
-      php: 5.4
-    - env: DBTYPE=sqlite; MW=1.19.0
-      php: 5.5
   exclude:
     - env: THENEEDFORTHIS=FAIL
 
-before_script: bash ./build/travis/before_script.sh
+install:
+  - bash ./build/travis/install-mediawiki.sh
+  - bash ./build/travis/install-semantic-result-formats.sh
 
-script: bash ./build/travis/script.sh
+script:
+  - bash ./build/travis/run-tests.sh
 
 notifications:
   irc:

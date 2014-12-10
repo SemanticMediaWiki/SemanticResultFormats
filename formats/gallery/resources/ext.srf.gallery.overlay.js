@@ -77,7 +77,7 @@
 					var $this = $( this ),
 						h = mw.html,
 						image = $this.find( 'a.image' ),
-						imageText = $this.find( '.gallerytext p' ).html();
+						imageText = $.trim( $this.find( '.gallerytext p' ).text() );
 
 					// Group images
 					image.attr( 'rel', image.has( 'img' ).length ? galleryID : '' );
@@ -104,7 +104,7 @@
 						util.spinner.create( { context: $this, selector: 'img' } );
 
 						// Re-assign image url
-						util.getImageURL( { 'title': ns + ':' + title[1] },
+						util.getImageURL( { 'title': ns + ':' + decodeURIComponent( title[1] ) },
 							function( url ) { if ( url === false ) {
 								image.attr( 'href', '' );
 								// Release thumb image

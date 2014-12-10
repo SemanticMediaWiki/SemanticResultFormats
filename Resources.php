@@ -93,6 +93,16 @@ return array(
 		)
 	),
 
+	// Provide migration tool to avoid jqplot to fail with
+	// $.browser is undefined jquery.jqplot.js:398 caused
+	// by jQuery 1.9+
+	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/issues/356
+	'ext.jquery.migration.browser' => $moduleTemplate + array(
+		'scripts' => array(
+			'resources/jquery/ext.jquery.migration.browser.js'
+		)
+	),
+
 	// SRF specific printer independent utility resources
 	'ext.srf' => $moduleTemplate + array(
 		'scripts' => 'resources/ext.srf.js',
@@ -290,7 +300,10 @@ return array(
 	// jQuery plugin specific declarations
 	'ext.jquery.jqplot.core' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/jqplot/jquery.jqplot.js',
-		'styles' => 'resources/jquery/jqplot/jquery.jqplot.css'
+		'styles' => 'resources/jquery/jqplot/jquery.jqplot.css',
+		'dependencies' => array(
+			'ext.jquery.migration.browser'
+		)
 	),
 
 	// excanvas is required only for pre- IE 9 versions
