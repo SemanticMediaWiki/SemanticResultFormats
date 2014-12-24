@@ -60,7 +60,7 @@ class EventCalendar extends ApiResultPrinter {
 		// Element includes info, spinner, and container placeholder
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'srf-eventcalendar' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ) ),
+			array( 'class' => 'srf-eventcalendar', 'data-external-class' => ( $this->params['class'] ? $this->params['class'] : '' ) ),
 				Html::element( 'div', array( 'class' => 'srf-top' ), '' ) .  $this->loading() . Html::element(
 				'div',
 				array( 'id' => $id, 'class' => 'srf-container', 'style' => 'display:none;' ),

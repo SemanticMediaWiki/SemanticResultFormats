@@ -480,9 +480,14 @@
 				resize: function(){
 					container.resize();
 					if ( context.find( '.srf-top' ).calendarpane( 'context' ).css( 'display' ) !== 'none' ){
-						container.fullCalendar('option', 'height', ( context.find( '.srf-top' ).calendarpane( 'context' ).height() - 1 ) );
+						var height = context.find( '.srf-top' ).calendarpane( 'context' ).height() - 1;
+						container.fullCalendar('option', 'height', height );
+						context.height( ( height > container.height() ? height : container.height() ) );
+					} else if( context.data( 'height' ) !== null ) {
+						container.fullCalendar( 'option', 'height', context.data( 'height' ) );
+						context.height( ( context.data( 'height' ) > container.height() ? context.data( 'height' ) : container.height() ) );
 					} else {
-						container.fullCalendar( 'option', 'height', null );
+						container.fullCalendar( 'option', 'height', context.height() );
 					}
 				},
 
@@ -712,6 +717,7 @@
 				change: function( type ){
  					container.fullCalendar( 'gotoDate', _calendar.data.startDate( data.dates ).get( type ) );
 					data.query.ask.parameters.start = type;
+					_calendar.fullCalendar( context, container ).resize();
 				},
 				reset: function(){
 					data.query.ask.parameters.start = '';
@@ -908,6 +914,18 @@
 			var context = $( this ),
 				container = context.find( '.srf-container' ),
 				data = smwApi.parse( _calendar.getData( container ) );
+
+			context.addClass( context.data( 'external-class' ) );
+
+			// An external class that sets a height less 350px is invalid as it
+			// causes inline distortion therefore set min height
+			if ( context.data( 'external-class' ) !== '' && context.height() < 350 ) {
+				context.removeClass( context.data( 'external-class' ) );
+				context.height( 350 );
+			}
+
+			// Whether a fixed height has been defined
+			context.data( 'height', context.data( 'external-class' ) !== '' ? context.height() : null );
 
 			// Add bottom element to clear preceding elements and avoid display clutter
 			$( html.element( 'div', { 'class': 'srf-bottom', 'style': 'clear:both' } ) ).appendTo( context );
