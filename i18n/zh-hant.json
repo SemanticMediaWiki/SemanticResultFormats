@@ -109,6 +109,7 @@
 	"srf-paramdesc-graph-wwl": "Word自動換行限制（以字元計）",
 	"srf-printername-datatables": "數據表",
 	"srf-ui-datatables-label-placeholder-column-search": "搜尋中...",
+	"srf-ui-datatables-label-sSearch": "搜尋：",
 	"srf-ui-datatables-label-oPaginate-sFirst": "第一",
 	"srf-ui-datatables-label-oPaginate-sNext": "下一頁",
 	"srf-noparentprop": "未提供父屬性。在沒有指定父屬性的情況下無法構建樹種結構。",
