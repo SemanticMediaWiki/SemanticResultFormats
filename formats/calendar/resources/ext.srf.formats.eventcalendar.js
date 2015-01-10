@@ -165,7 +165,7 @@
 								$.map ( values, function( value ) {
 
 									// Time type properties
-									if ( value instanceof smw.dataItem.time ) {
+									if ( value instanceof smw.dataItem.time && value.getDate() !== undefined ) {
 										if ( rowData.start === undefined ){
 											rowData.start = value.getDate().toISOString();
 											dates.push( value.getMwTimestamp() );
@@ -478,7 +478,7 @@
 				 * @since 1.9
 				 */
 				resize: function(){
-					container.resize();
+
 					if ( context.find( '.srf-top' ).calendarpane( 'context' ).css( 'display' ) !== 'none' ){
 						var height = context.find( '.srf-top' ).calendarpane( 'context' ).height() - 1;
 						container.fullCalendar('option', 'height', height );
@@ -489,6 +489,8 @@
 					} else {
 						container.fullCalendar( 'option', 'height', context.height() );
 					}
+
+					container.resize();
 				},
 
 				/**
@@ -741,7 +743,7 @@
 			var filterList = _calendar.api.query.printouts.search.type(
 				data.query.ask.printouts,
 				data.query.result.printrequests,
-				['_wpg', '_str'] );
+				['_wpg', '_str', '_txt'] );
 
 			param.calendarparameters( 'colorFilter', {
 				list    : filterList,
@@ -928,7 +930,7 @@
 			context.data( 'height', context.data( 'external-class' ) !== '' ? context.height() : null );
 
 			// Add bottom element to clear preceding elements and avoid display clutter
-			$( html.element( 'div', { 'class': 'srf-bottom', 'style': 'clear:both' } ) ).appendTo( context );
+			context.after( html.element( 'div', { 'class': 'srf-eventcalendar-clear srf-bottom', 'style': 'clear:both' } ) );
 
 			// Adopt directionality which ensures that all elements within this context
 			// are appropriately displayed
