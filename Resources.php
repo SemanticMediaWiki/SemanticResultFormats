@@ -50,7 +50,10 @@ return array(
 	'ext.jquery.fancybox' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/fancybox/jquery.fancybox-1.3.4.pack.js',
 		'styles'  => 'resources/jquery/fancybox/jquery.fancybox-1.3.4.css',
-		'dependencies' => 'ext.jquery.easing',
+		'dependencies' => array(
+			'ext.jquery.easing',
+			'ext.jquery.migration.browser'
+		)
 	),
 
 	// Multiselect
