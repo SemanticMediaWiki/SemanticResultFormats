@@ -93,11 +93,12 @@
 
 						// There should be a better way to get the title object but there isn't
 						// var title = image.attr( 'href' ).replace(/.+?\File:(.*)$/, "$1" ).replace( "%27", "\'" ),
-						var title = image.attr( 'href' ).split( encodedNsText + ':' ),
-							imageSource = image.attr( 'href' );
+						// Apparently Windows server uses %3A
+						var href = image.attr( 'href' ),
+							title = href.split( encodedNsText + ( href.indexOf( '%3A' ) >= 0 ? '%3A': ':' ) );
 
 						// Prepare overlay icon placeholder
-						image.before( h.element( 'a', { 'class': 'overlayicon', 'href': imageSource }, null ) );
+						image.before( h.element( 'a', { 'class': 'overlayicon', 'href': href }, null ) );
 						var overlayIcon = $this.find( '.overlayicon' ).hide();
 
 						// Add spinner while fetching the URL
