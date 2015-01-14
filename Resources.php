@@ -85,7 +85,10 @@ return array(
 			'resources/jquery/jqgrid/grid.locale-en.js'
 		),
 		'styles' => 'resources/jquery/jqgrid/ui.jqgrid.css',
-		'dependencies' => 'jquery.ui.core'
+		'dependencies' => array(
+			'jquery.ui.core',
+			'ext.jquery.migration.browser'
+		)
 	),
 
 	// Flot
