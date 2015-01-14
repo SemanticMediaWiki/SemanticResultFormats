@@ -806,6 +806,12 @@
 
 			// Resize for a better look and feel
 			_calendar.fullCalendar( context, container ).resize();
+
+			// Attach click event on the fc-buttons to ensure that
+			// a resize is being carried out each time the view is changed
+			container.find( '.fc-button' ).click( function() {
+				_calendar.fullCalendar( context, container ).resize();
+			} );
 		},
 
 		/**
@@ -927,7 +933,7 @@
 			}
 
 			// Whether a fixed height has been defined
-			context.data( 'height', context.data( 'external-class' ) !== '' ? context.height() : null );
+			context.data( 'height', context.data( 'external-class' ) !== '' ? context.height() : 600 );
 
 			// Add bottom element to clear preceding elements and avoid display clutter
 			context.after( html.element( 'div', { 'class': 'srf-eventcalendar-clear srf-bottom', 'style': 'clear:both' } ) );
