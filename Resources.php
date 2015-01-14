@@ -196,8 +196,12 @@ return array(
 
 	// Sparkline
 	'ext.jquery.sparkline' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/jquery.sparkline.js'
+		'scripts' => 'resources/jquery/jquery.sparkline.js',
+		'dependencies' => array(
+			'ext.jquery.migration.browser'
+		)
 	),
+
 	'ext.srf.sparkline' => $formatModule + array(
 		'scripts' => 'sparkline/resources/ext.srf.sparkline.js',
 		'dependencies' => array(
@@ -283,7 +287,10 @@ return array(
 
 	// Dynamiccarousel
 	'ext.jquery.dynamiccarousel' => $moduleTemplate + array(
-		'scripts' => 'resources/jquery/jquery.dynamiccarousel.js'
+		'scripts' => 'resources/jquery/jquery.dynamiccarousel.js',
+		'dependencies' => array(
+			'ext.jquery.migration.browser'
+		)
 	),
 
 	// Pagewidget
