@@ -1,6 +1,15 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.1 (not released yet)
+
+* Fixed various jQuery 1.9+ issues that appeared in connection with MW 1.24+ including `jquery.jqplot`, `jquery.fancybox`, and`jquery.jgrid`
+* Added replacement pattern for `%3A` in `gallery` overlay format (65abda9)
+* Fixed the usage of plain-text title attribute in `gallery` overlay format (f18f3ea8)
+* Added support for apostrophes in title text `gallery` overlay format (8dec4106)
+* #79 Fixed `event calender` class parameter usage
+* #73 Fixed `icalendar` escaping issues (as per RFC)
+
 ## SRF 2.0 (2014-08-06)
 
 * #26 Fixed not showing up of graphvis legend when it should
