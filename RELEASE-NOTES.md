@@ -1,7 +1,7 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 2.1 (not released yet)
+## SRF 2.1 (2015-01-??)
 
 * Fixed various jQuery 1.9+ issues that appeared in connection with MW 1.24+ including `jquery.jqplot`, `jquery.fancybox`, and`jquery.jgrid`
 * Added replacement pattern for `%3A` in `gallery` overlay format (65abda9)
