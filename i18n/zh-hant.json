@@ -120,5 +120,6 @@
 	"srf-filtered-selectorlabel-list": "清單",
 	"srf-filtered-selectorlabel-calendar": "日曆",
 	"srf-ui-eventcalendar-label-today": "今天",
+	"srf-ui-mediaplayer-label-previous": "上一頁",
 	"srf-ui-mediaplayer-label-next": "下一頁"
 }
