@@ -48,7 +48,7 @@
 	"srf-ui-common-label-parameters": "{{doc-smw-ui-label|parameters}}\n\n{{Identical|Parameter|Plural}}",
 	"srf-ui-common-label-query": "{{doc-smw-ui-label|query}}\n{{Identical|Query}}",
 	"srf-ui-common-label-paneview": "{{doc-smw-ui-label|paneview}}",
-	"srf-ui-common-label-daterange": "{{doc-smw-ui-label|daterange}}",
+	"srf-ui-common-label-daterange": "{{doc-smw-ui-label|daterange}}\n{{Identical|Date range}}",
 	"srf-ui-widgets-label-parameter-limit": "{{doc-smw-ui-label|parameter-limit}}",
 	"srf-error-option-mix": "This is an error message. Parameters:\n* $1 is a fixed entity name (name of the option) that cannot and should not be translated.",
 	"srf-error-option-link-all": "{{doc-important|Do not translate the parameter \"link\" and its possible value \"all\".}}\nThis is an error message. Parameters:\n* $1 is a fixed entitity name that cannot and should not be translated.",

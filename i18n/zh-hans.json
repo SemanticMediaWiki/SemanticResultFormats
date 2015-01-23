@@ -8,7 +8,8 @@
 			"Liuxinyu970226",
 			"乌拉跨氪",
 			"Hudafu",
-			"Fengchao"
+			"Fengchao",
+			"Yfdyh000"
 		]
 	},
 	"srf-desc": "用于Semantic MediaWiki的附加结果格式",
@@ -120,7 +121,8 @@
 	"srf-paramdesc-grouplabel": "确定分组标签",
 	"srf-paramdesc-chartcursor": "图表光标显示选项",
 	"srf-paramdesc-trendline": "启用图表及其趋势线的同时显示",
-	"srf-paramdesc-gridview": "同时显示图表和数据集。允许取值：\"无\"和\"选项卡\"。默认值：\"无\"",
+	"srf-paramdesc-gridview": "同时显示图表和数据集。允许取值：\"none\"和\"tabs\"。默认值：\"none\"",
+	"srf-paramdesc-paneview": "指定面板内含的小折线图的位置。允许取值：\"bottom\"、\"top\"和\"none\"。默认值：\"bottom\"",
 	"srf-paramdesc-infotext": "在相应的信息选项卡上显示附加信息",
 	"srf-ui-gridview-label-item": "数据项",
 	"srf-ui-gridview-label-value": "数据值",

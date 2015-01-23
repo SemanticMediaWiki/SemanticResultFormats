@@ -25,6 +25,7 @@
 	"srf-ui-tooltip-title-filter": "篩選器",
 	"srf-ui-common-label-refresh": "重新整理",
 	"srf-ui-common-label-query": "查詢",
+	"srf-ui-common-label-daterange": "日期範圍",
 	"srfc_previousmonth": "上月",
 	"srfc_nextmonth": "下月",
 	"srfc_today": "今天",
@@ -119,5 +120,6 @@
 	"srf-filtered-selectorlabel-list": "清單",
 	"srf-filtered-selectorlabel-calendar": "日曆",
 	"srf-ui-eventcalendar-label-today": "今天",
+	"srf-ui-mediaplayer-label-previous": "上一頁",
 	"srf-ui-mediaplayer-label-next": "下一頁"
 }
