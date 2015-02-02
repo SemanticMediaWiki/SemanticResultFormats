@@ -2,13 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Alma",
-			"Toliño"
+			"Toliño",
+			"Elisardojm"
 		]
 	},
-	"srf-desc": "Formatos adicionais para as pescudas interiores de Semantic MediaWiki",
+	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
 	"srf-name": "Formatos dos resultados semánticos",
 	"prefs-srf": "Formatos dos resultados semánticos",
-	"srf-prefs-intro-text": "Ten instalada a extensión para dar formato aos resultados semánticos, pero nestes intres non ten opcións de personalización. Para obter axuda, visite a páxina de axuda sobre os [http://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos dos rexultados].",
+	"srf-prefs-intro-text": "Ten instalada a extensión para dar formato aos resultados semánticos, pero nestes intres non ten opcións de personalización. Para obter axuda aducuibak, visite a páxina de axuda sobre os [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos dos rexultados].",
 	"srf-module-loading": "Cargando...",
 	"srf-paramdesc-layout": "Esquema dispoñible",
 	"srf-paramdesc-height": "Altura (en píxeles)",
@@ -102,7 +103,7 @@
 	"srf-paramdesc-grouplabel": "Determinar a etiqueta do grupo",
 	"srf-paramdesc-chartcursor": "Opción de visualización do cursor da gráfica",
 	"srf-paramdesc-trendline": "Activar a visualización simultánea dunha gráfica e a súa liña de tencendia",
-	"srf-paramdesc-gridview": "Mostrar a gráfica e os conxuntos de datos simultaneamente. Valores permitidos: none e tabs. Predeterminado: none",
+	"srf-paramdesc-gridview": "Mostrar a gráfica e os conxuntos de datos simultaneamente. Valores permitidos: none e tabs. Predeterminado: \"none\"",
 	"srf-paramdesc-infotext": "Mostrar información adicional na lapela de información correspondente",
 	"srf-ui-gridview-label-item": "Elemento de datos",
 	"srf-ui-gridview-label-value": "Valor dos datos",
