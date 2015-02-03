@@ -59,7 +59,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		// Chart/graph placeholder
 		$chart = Html::rawElement( 'div', array(
 			'id'    => $chartID,
-			'class' => 'container',
+			'class' => 'sparkline-container',
 			'style' => "display:none;"
 			), null
 		);

@@ -33,7 +33,7 @@
 
 		init: function() {
 			return this.context.each( function() {
-				var chart = $( this ).find( '.container' ),
+				var chart = $( this ).find( '.sparkline-container' ),
 					chartID = chart.attr( 'id' ),
 					json = mw.config.get( chartID );
 

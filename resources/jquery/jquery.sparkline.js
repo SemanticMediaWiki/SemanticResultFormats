@@ -2,7 +2,7 @@
 *
 * jquery.sparkline.js
 *
-* v2.1
+* v2.1.2
 * (c) Splunk, Inc
 * Contact: Gareth Watts (gareth@splunk.com)
 * http://omnipotent.net/jquery.sparkline/
@@ -202,13 +202,13 @@
 
 /*jslint regexp: true, browser: true, jquery: true, white: true, nomen: false, plusplus: false, maxerr: 500, indent: 4 */
 
+(function(document, Math, undefined) { // performance/minified-size optimization
 (function(factory) {
     if(typeof define === 'function' && define.amd) {
-		define(['jquery'], factory);
-	}
-	else {
-		factory(jQuery);
-	}
+        define(['jquery'], factory);
+    } else if (jQuery && !jQuery.fn.sparkline) {
+        factory(jQuery);
+    }
 }
 (function($) {
     'use strict';
@@ -218,7 +218,7 @@
         remove, isNumber, all, sum, addCSS, ensureArray, formatNumber, RangeMap,
         MouseHandler, Tooltip, barHighlightMixin,
         line, bar, tristate, discrete, bullet, pie, box, defaultStyles, initStyles,
-         VShape, VCanvas_base, VCanvas_canvas, VCanvas_vml, pending, shapeCount = 0;
+        VShape, VCanvas_base, VCanvas_canvas, VCanvas_vml, pending, shapeCount = 0;
 
     /**
      * Default configuration settings
@@ -597,19 +597,41 @@
         if (useExisting && (target = this.data('_jqs_vcanvas'))) {
             return target;
         }
+
+        if ($.fn.sparkline.canvas === false) {
+            // We've already determined that neither Canvas nor VML are available
+            return false;
+
+        } else if ($.fn.sparkline.canvas === undefined) {
+            // No function defined yet -- need to see if we support Canvas or VML
+            var el = document.createElement('canvas');
+            if (!!(el.getContext && el.getContext('2d'))) {
+                // Canvas is available
+                $.fn.sparkline.canvas = function(width, height, target, interact) {
+                    return new VCanvas_canvas(width, height, target, interact);
+                };
+            } else if (document.namespaces && !document.namespaces.v) {
+                // VML is available
+                document.namespaces.add('v', 'urn:schemas-microsoft-com:vml', '#default#VML');
+                $.fn.sparkline.canvas = function(width, height, target, interact) {
+                    return new VCanvas_vml(width, height, target);
+                };
+            } else {
+                // Neither Canvas nor VML are available
+                $.fn.sparkline.canvas = false;
+                return false;
+            }
+        }
+
         if (width === undefined) {
             width = $(this).innerWidth();
         }
         if (height === undefined) {
             height = $(this).innerHeight();
         }
-        if ($.browser.hasCanvas) {
-            target = new VCanvas_canvas(width, height, this, interact);
-        } else if ($.browser.msie) {
-            target = new VCanvas_vml(width, height, this);
-        } else {
-            return false;
-        }
+
+        target = $.fn.sparkline.canvas(width, height, this, interact);
+
         mhandler = $(this).data('_jqs_mhandler');
         if (mhandler) {
             mhandler.registerCanvas(target);
@@ -977,8 +999,7 @@
                     mhandler.registerSparkline(sp);
                 }
             };
-            // jQuery 1.3.0 completely changed the meaning of :hidden :-/
-            if (($(this).html() && !options.get('disableHiddenCheck') && $(this).is(':hidden')) || ($.fn.jquery < '1.3.0' && $(this).parents().is(':hidden')) || !$(this).parents('body').length) {
+            if (($(this).html() && !options.get('disableHiddenCheck') && $(this).is(':hidden')) || !$(this).parents('body').length) {
                 if (!options.get('composite') && $.data(this, '_jqs_pending')) {
                     // remove any existing references to the element
                     for (i = pending.length; i; i--) {
@@ -1647,7 +1668,7 @@
                 }
 
             }
-            if (spotRadius && options.get('spotColor')) {
+            if (spotRadius && options.get('spotColor') && yvalues[yvallast] !== null) {
                 target.drawCircle(canvasLeft + Math.round((xvalues[xvalues.length - 1] - this.minx) * (canvasWidth / rangex)),
                     canvasTop + Math.round(canvasHeight - (canvasHeight * ((yvalues[yvallast] - this.miny) / rangey))),
                     spotRadius, undefined,
@@ -2528,14 +2549,6 @@
     // Setup a very simple "virtual canvas" to make drawing the few shapes we need easier
     // This is accessible as $(foo).simpledraw()
 
-    if ($.browser.msie && document.namespaces && !document.namespaces.v) {
-        document.namespaces.add('v', 'urn:schemas-microsoft-com:vml', '#default#VML');
-    }
-
-    if ($.browser.hasCanvas === undefined) {
-        $.browser.hasCanvas = document.createElement('canvas').getContext !== undefined;
-    }
-
     VShape = createClass({
         init: function (target, id, type, args) {
             this.target = target;
@@ -2934,7 +2947,7 @@
         _drawPieSlice: function (shapeid, x, y, radius, startAngle, endAngle, lineColor, fillColor) {
             var vpath, startx, starty, endx, endy, stroke, fill, vel;
             if (startAngle === endAngle) {
-                return;  // VML seems to have problem when start angle equals end angle.
+                return '';  // VML seems to have problem when start angle equals end angle.
             }
             if ((endAngle - startAngle) === (2 * Math.PI)) {
                 startAngle = 0.0;  // VML seems to have a problem when drawing a full circle that doesn't start 0
@@ -2946,9 +2959,18 @@
             endx = x + Math.round(Math.cos(endAngle) * radius);
             endy = y + Math.round(Math.sin(endAngle) * radius);
 
-            // Prevent very small slices from being mistaken as a whole pie
+            if (startx === endx && starty === endy) {
+                if ((endAngle - startAngle) < Math.PI) {
+                    // Prevent very small slices from being mistaken as a whole pie
+                    return '';
+                }
+                // essentially going to be the entire circle, so ignore startAngle
+                startx = endx = x + radius;
+                starty = endy = y;
+            }
+
             if (startx === endx && starty === endy && (endAngle - startAngle) < Math.PI) {
-                return;
+                return '';
             }
 
             vpath = [x - radius, y - radius, x + radius, y + radius, startx, starty, endx, endy];
@@ -3029,4 +3051,4 @@
         }
     });
 
-}));
+}))}(document, Math));
