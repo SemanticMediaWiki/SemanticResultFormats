@@ -1,13 +1,35 @@
 {
 	"@metadata": {
 		"authors": [
-			"An13sa"
+			"An13sa",
+			"Subi"
 		]
 	},
+	"srf-ui-common-label-parameters": "Parametroak",
 	"srfc_previousmonth": "Aurreko hilabetea",
 	"srfc_nextmonth": "Hurrengo hilabetea",
 	"srfc_today": "Gaur",
 	"srfc_gotomonth": "Hilabetera joan",
+	"srf_printername_sum": "Zenbakien batura",
+	"srf_printername_average": "Zenbakien batez bestekoa",
 	"srf_printername_timeline": "Denbora-lerroa",
-	"srf_printername_eventline": "Gertakari-lerroa"
+	"srf_printername_eventline": "Gertakari-lerroa",
+	"srf-ui-gridview-label-info-tab": "Informazioa",
+	"srf_printername_gallery": "Galeria",
+	"srf-gallery-navigation-previous": "Aurrekoa",
+	"srf-gallery-navigation-next": "Hurrengoa",
+	"srf-ui-datatables-label-conditions": "Baldintzak",
+	"srf-ui-datatables-label-parameters": "Parametroak",
+	"srf-ui-datatables-label-information": "Informazioa",
+	"srf-ui-datatables-label-placeholder-column-search": "Bilatu...",
+	"srf-ui-datatables-label-sLoadingRecords": "Kargatzen...",
+	"srf-ui-datatables-label-sProcessing": "Prozesatzen...",
+	"srf-ui-datatables-label-oPaginate-sFirst": "Lehena",
+	"srf-ui-datatables-label-oPaginate-sLast": "Azkena",
+	"srf-ui-datatables-label-oPaginate-sNext": "Hurrengoa",
+	"srf-ui-datatables-label-oPaginate-sPrevious": "Aurrekoa",
+	"srf-filtered-selectorlabel-calendar": "Egutegia",
+	"srf-ui-eventcalendar-label-today": "Gaur",
+	"srf-ui-mediaplayer-label-previous": "Aurrekoa",
+	"srf-ui-mediaplayer-label-next": "Hurrengoa"
 }
