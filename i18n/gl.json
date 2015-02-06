@@ -134,7 +134,7 @@
 	"srf_paramdesc_minsize": "O tamaño das etiquetas máis pequenas en porcentaxe",
 	"srf_paramdesc_maxsize": "O tamaño das etiquetas máis grandes en porcentaxe",
 	"srf_paramdesc_maxtags": "A cantidade máxima de etiquetas na nube",
-	"srf-paramdesc-excludetags": "Excluír as etiquetas (delimitador: ;)",
+	"srf-paramdesc-excludetags": "Excluír as etiquetas (delimitador: \";\")",
 	"srf_printername_valuerank": "Valor do rango",
 	"srf_printername_array": "Táboa",
 	"srf_paramdesc_pagetitle": "Mostrar ou omitir os títulos das páxinas como entradas dos resultados",
