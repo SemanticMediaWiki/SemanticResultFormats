@@ -149,4 +149,16 @@ class SRFSlideShowApi extends ApiBase {
 		);
 	}
 
+	/**
+	 * Returns a string that identifies the version of the extending class.
+	 * Typically includes the class name, the svn revision, timestamp, and
+	 * last author. Usually done with SVN's Id keyword
+	 * @return string
+	 */
+	public function getVersion() {
+		global $srfgIP;
+		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfgIP );
+		return __CLASS__ . '-' . SRF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
+	}
+
 }
