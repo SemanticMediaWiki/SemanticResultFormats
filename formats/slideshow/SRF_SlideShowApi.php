@@ -1,15 +1,11 @@
 <?php
-/**
- * File holding the SRF_SlideShowApi class
- *
- * @author Stephan Gambke
- * @file
- * @ingroup SemanticResultFormats
- */
+
+use ParamProcessor\ParamDefinition;
 
 /**
  * API module to retrieve formatted results for a given page, printouts and template.
  *
+ * @author Stephan Gambke
  * @ingroup SemanticResultFormats
  */
 class SRFSlideShowApi extends ApiBase {
