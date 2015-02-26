@@ -1,6 +1,10 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.1.2 (2015-02-26)
+
+* Fixed bug in the slideshow format API
+
 ## SRF 2.1.1 (2015-02-04)
 
 * Fixed various jQuery 1.9+ issues that appeared in connection with MW 1.24+ including `jquery.jqplot`, `jquery.fancybox`, and`jquery.jgrid`
