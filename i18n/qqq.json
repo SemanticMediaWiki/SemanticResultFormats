@@ -12,7 +12,8 @@
 			"Umherirrender",
 			"Robby",
 			"Amire80",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"아라"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -266,12 +267,12 @@
 	"srf-ui-eventcalendar-format-time": "Determines the time-text that will be displayed on each event and is language dependent. For more see [http://arshaw.com/fullcalendar/docs/text/timeFormat/ here]",
 	"srf-ui-eventcalendar-format-time-agenda": "Determines the time-text that will be displayed on each event and is language dependent. For more see [http://arshaw.com/fullcalendar/docs/text/timeFormat/ here]",
 	"srf-ui-eventcalendar-format-axis": "Determines the time-text that will be displayed on the vertical axis of the agenda. See [http://arshaw.com/fullcalendar/docs/agenda/axisFormat/ axisFormat]",
-	"srf-ui-eventcalendar-format-title-month": "Determines the text that will be displayed in the header's title. See [http://arshaw.com/fullcalendar/docs/text/titleFormat/ titleFormat]\n{{Related|Srf-ui-eventcalendar-format-title}}",
-	"srf-ui-eventcalendar-format-title-week": "Determines the text that will be displayed in the header's title. See [http://arshaw.com/fullcalendar/docs/text/titleFormat/ titleFormat]\n{{Related|Srf-ui-eventcalendar-format-title}}",
-	"srf-ui-eventcalendar-format-title-day": "Determines the text that will be displayed in the header's title. See [http://arshaw.com/fullcalendar/docs/text/titleFormat/ titleFormat]\n{{Related|Srf-ui-eventcalendar-format-title}}",
-	"srf-ui-eventcalendar-format-column-month": "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]",
-	"srf-ui-eventcalendar-format-column-week": "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]",
-	"srf-ui-eventcalendar-format-column-day": "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]",
+	"srf-ui-eventcalendar-format-title-month": "Determines the text that will be displayed in the header's title. See [http://arshaw.com/fullcalendar/docs/text/titleFormat/ titleFormat]\n{{DataFormatSpecifiers/en}}\n{{Related|Srf-ui-eventcalendar-format-title}}",
+	"srf-ui-eventcalendar-format-title-week": "Determines the text that will be displayed in the header's title. See [http://arshaw.com/fullcalendar/docs/text/titleFormat/ titleFormat]\n{{DataFormatSpecifiers/en}}\n{{Related|Srf-ui-eventcalendar-format-title}}",
+	"srf-ui-eventcalendar-format-title-day": "Determines the text that will be displayed in the header's title. See [http://arshaw.com/fullcalendar/docs/text/titleFormat/ titleFormat]\n{{DataFormatSpecifiers/en}}\n{{Related|Srf-ui-eventcalendar-format-title}}",
+	"srf-ui-eventcalendar-format-column-month": "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]\n{{DataFormatSpecifiers/en}}",
+	"srf-ui-eventcalendar-format-column-week": "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]\n{{DataFormatSpecifiers/en}}",
+	"srf-ui-eventcalendar-format-column-day": "Determines the text that will be displayed on the calendar's column headings. See [http://arshaw.com/fullcalendar/docs/text/columnFormat/ columnFormat]\n{{DataFormatSpecifiers/en}}",
 	"srf-ui-eventcalendar-label-update-success": "{{doc-smw-ui-feedback|update-success}}",
 	"srf-ui-eventcalendar-label-update-error": "{{doc-smw-ui-feedback|update-error}}",
 	"srf-printername-dygraphs": "{{doc-smwformat|dygraphs}}",
