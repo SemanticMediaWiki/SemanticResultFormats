@@ -108,7 +108,7 @@
 	"srf_paramdesc_graphlink": "圖形連結",
 	"srf_paramdesc_graphcolor": "圖形顏色",
 	"srf-paramdesc-graph-wwl": "Word自動換行限制（以字元計）",
-	"srf-printername-datatables": "數據表",
+	"srf-printername-datatables": "資料表",
 	"srf-ui-datatables-label-placeholder-column-search": "搜尋中...",
 	"srf-ui-datatables-label-sSearch": "搜尋：",
 	"srf-ui-datatables-label-oPaginate-sFirst": "第一",
