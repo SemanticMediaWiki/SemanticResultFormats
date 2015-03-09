@@ -12,9 +12,9 @@
 
 	var animationSpeed = 600;
 	var viewIsVisible = false;
-	
+
 	var methods = {
-	
+
 		init: function( args ){
 			return this;
 		},
@@ -30,19 +30,19 @@
 
 			if ( viewIsVisible ) {
 				if ( params.visible ) { // show
-					view.children('.' + params.item ).slideDown( animationSpeed, function(){
+					view.find('.' + params.item ).slideDown( animationSpeed, function(){
 						jQuery(this).fadeTo(animationSpeed, 1);
 					} );
 				} else { // hide
-					view.children('.' + params.item ).fadeTo( animationSpeed, 0, function(){
+					view.find('.' + params.item ).fadeTo( animationSpeed, 0, function(){
 						jQuery(this).slideUp(animationSpeed);
 					}  );
 				}
 			} else {
 				if ( params.visible ) {
-					view.children('.' + params.item ).css({'display': 'block', 'opacity': 1}); //show
+					view.find('.' + params.item ).css({'display': 'block', 'opacity': 1}); //show
 				} else {
-					view.children('.' + params.item ).css({'display': 'none', 'opacity': 0}); //hide
+					view.find('.' + params.item ).css({'display': 'none', 'opacity': 0}); //hide
 				}
 			}
 			return this;
@@ -51,13 +51,13 @@
 		updateAllItems: function(){
 
 			var filtered = this;
-			var items = this.find('.filtered-views').find('.filtered-list').children();
-			
+			var items = this.find('.filtered-views .filtered-list .filtered-list-item');
+
 			var visibleItems = jQuery([]);
 			var hiddenItems = jQuery([]);
 
 			for ( var i = 0; i < items.length; ++i ) {
-				
+
 				if ( filtered.filtered( 'isVisible', items[i].id ) ) {
 					visibleItems = visibleItems.add(items[i]);
 				} else {
@@ -65,17 +65,17 @@
 				}
 
 			}
-			
+
 			if ( viewIsVisible ) {
-				
+
 				visibleItems.slideDown( animationSpeed, function(){
 						jQuery(this).fadeTo(animationSpeed, 1);
 					} );
-					
+
 				hiddenItems.fadeTo( animationSpeed, 0, function(){
 						jQuery(this).slideUp(animationSpeed);
 					}  );
-					
+
 			} else {
 				visibleItems.css({'display': 'block', 'opacity': 1}); //show
 				hiddenItems.css({'display': 'none', 'opacity': 0}); //hide
