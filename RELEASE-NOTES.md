@@ -4,6 +4,7 @@ These are the release notes for the [Semantic Result Formats]
 ## SRF 2.1.2 (2015-02-26)
 
 * Fixed bug in the slideshow format API
+* Fixed Filtered format so that filters work for ol/ul type lists
 
 ## SRF 2.1.1 (2015-02-04)
 
