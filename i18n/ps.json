@@ -14,6 +14,8 @@
 	"srf_printername_gallery": "انځورتون",
 	"srf-gallery-navigation-previous": "پخوانی",
 	"srf-gallery-navigation-next": "راتلونکی",
+	"srf-ui-datatables-label-placeholder-column-search": "پلټل...",
+	"srf-ui-datatables-label-sSearch": "پلټل:",
 	"srf-filtered-selectorlabel-list": "لړليک",
 	"srf-ui-eventcalendar-label-today": "نن",
 	"srf-ui-eventcalendar-label-month": "مياشت",
