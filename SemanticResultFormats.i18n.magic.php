@@ -119,3 +119,9 @@ $magicWords['zh-hans'] = array(
 	'calendarstartdate' => array( 0, '日历起始日期' ),
 	'calendarenddate' => array( 0, '日历届满日期' ),
 );
+
+/** Traditional Chinese (中文（繁體）‎) */
+$magicWords['zh-hant'] = array(
+	'calendarstartdate' => array( 0, '記錄起始日期' ),
+	'calendarenddate' => array( 0, '記錄屆滿日期' ),
+);
