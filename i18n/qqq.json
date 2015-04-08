@@ -83,7 +83,7 @@
 	"srf-paramdesc-default": "{{doc-paramdesc|default}}",
 	"srf_printername_earliest": "{{doc-smwformat|earliest}}",
 	"srf_printername_latest": "{{doc-smwformat|latest}}",
-	"srf_printername_timeline": "{{doc-smwformat|timeline}}",
+	"srf_printername_timeline": "{{doc-smwformat|timeline}}\n{{Identical|Timeline}}",
 	"srf_printername_eventline": "{{doc-smwformat|eventline}}",
 	"srf_paramdesc_timelinebands": "{{doc-smwformat|timelinebands}}",
 	"srf_paramdesc_timelineposition": "{{doc-paramdesc|timelineposition}}",
