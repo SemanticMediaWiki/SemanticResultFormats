@@ -3,7 +3,8 @@
 		"authors": [
 			"Alma",
 			"Toliño",
-			"Elisardojm"
+			"Elisardojm",
+			"Banjo"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
@@ -27,6 +28,10 @@
 	"srf-ui-common-label-help-section": "sección de axuda",
 	"srf-ui-tooltip-title-options": "Opcións",
 	"srf-ui-tooltip-title-scope": "Alcance",
+	"srf-ui-tooltip-title-legend": "Lenda",
+	"srf-ui-tooltip-title-filter": "Filtro",
+	"srf-ui-common-label-parameters": "Parámetros",
+	"srf-ui-common-label-query": "Consulta",
 	"srf-error-option-mix": "A opción ($1) non está dispoñible",
 	"srf-error-option-link-all": "A opción ($1) necesita que o parámetro \"link\" estea definido como \"all\"",
 	"srf-error-missing-layout": "Falta o esquema",
@@ -159,6 +164,11 @@
 	"srf_paramdesc_graphcolor": "Cor da gráfica",
 	"srf-paramdesc-graph-wwl": "Axuste automático de liña (en número de caracteres)",
 	"srf-printername-datatables": "Táboas de datos",
+	"srf-ui-datatables-label-parameters": "Parámetros",
+	"srf-ui-datatables-label-oPaginate-sFirst": "Primeiro",
+	"srf-ui-datatables-label-oPaginate-sLast": "Último",
+	"srf-ui-datatables-label-oPaginate-sNext": "Seguinte",
+	"srf-ui-datatables-label-oPaginate-sPrevious": "Anterior",
 	"srf_printername_tree": "Árbore",
 	"srf_printername_ultree": "Árbore UL",
 	"srf_printername_oltree": "Árbore OL",
