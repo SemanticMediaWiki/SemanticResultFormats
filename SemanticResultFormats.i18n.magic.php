@@ -54,6 +54,12 @@ $magicWords['ja'] = array(
 	'calendarenddate' => array( 0, '暦終了日' ),
 );
 
+/** Georgian (ქართული) */
+$magicWords['ka'] = array(
+	'calendarstartdate' => array( 0, 'კალენდრის_დაწყების_თარიღი' ),
+	'calendarenddate' => array( 0, 'კალენდრის_დასრულების_თარიღი' ),
+);
+
 /** Korean (한국어) */
 $magicWords['ko'] = array(
 	'calendarstartdate' => array( 0, '달력시작날짜' ),
