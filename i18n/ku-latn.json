@@ -4,5 +4,14 @@
 			"George Animal"
 		]
 	},
-	"srfc_today": "Îro"
+	"srf-module-loading": "Tê barkirin...",
+	"srf-ui-common-label-refresh": "Nû bike",
+	"srfc_today": "Îro",
+	"srf_paramdesc_graphname": "Sernav",
+	"srf-ui-eventcalendar-label-today": "Îro",
+	"srf-ui-eventcalendar-label-month": "Meh",
+	"srf-ui-eventcalendar-label-week": "Hefte",
+	"srf-ui-eventcalendar-label-day": "Roj",
+	"srf-ui-eventcalendar-label-allday": "Bi tevahiya rojê",
+	"srf-ui-mediaplayer-label-play": "Bilêze"
 }
