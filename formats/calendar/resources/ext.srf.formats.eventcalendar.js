@@ -525,9 +525,16 @@
 									element.find( '.fc-event-title' ).after( html.element( 'span', { 'class': 'srf-fc-description', 'property': 'v:description' }, event.description ) );
 								} else {
 									// Tooltip
+									var tooltipDesc = event.description.substr( 0, self.defaults.descriptionLength );
+									if ( event.description.length > self.defaults.descriptionLength ) {
+										var tooltipDescEnd = tooltipDesc.lastIndexOf( " " );
+										if( tooltipDescEnd != -1 ) {
+											tooltipDesc = event.description.substring( 0, tooltipDescEnd );
+										}
+									}
 									self.tooltip.show( {
 										context: element,
-										content: event.description.substring( 0, event.description.substr( 0, self.defaults.descriptionLength ).lastIndexOf( " " ) ) + ' ...',
+										content: tooltipDesc + ' ...',
 										title: mw.msg( 'smw-ui-tooltip-title-event' ),
 										button: false
 									} );
