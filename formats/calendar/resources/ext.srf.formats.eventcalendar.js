@@ -107,6 +107,27 @@
 		},
 
 		/**
+		 * Returns truncated version of string for tooltip description of month view
+		 *
+		 * @private
+		 * @param str string to be truncated
+		 * @param maxChars max number of characters to be returned (excluding ' ...')
+		 * @return {string}
+		 */
+		getTruncatedSentence: function( str, maxChars ) {
+			var truncated = str.substr( 0, maxChars );
+			if ( str.length > maxChars ) {
+				var truncatedEnd = truncated.lastIndexOf( " " );
+				if( truncatedEnd != -1 ) {
+					truncated = str.substring( 0, truncatedEnd );
+				}
+				return truncated + ' ...';
+			}else{
+				return truncated;
+			}
+		},
+
+		/**
 		 * Contains methods linked to the parsing of objects
 		 *
 		 * @since 1.9
@@ -525,16 +546,9 @@
 									element.find( '.fc-event-title' ).after( html.element( 'span', { 'class': 'srf-fc-description', 'property': 'v:description' }, event.description ) );
 								} else {
 									// Tooltip
-									var tooltipDesc = event.description.substr( 0, self.defaults.descriptionLength );
-									if ( event.description.length > self.defaults.descriptionLength ) {
-										var tooltipDescEnd = tooltipDesc.lastIndexOf( " " );
-										if( tooltipDescEnd != -1 ) {
-											tooltipDesc = event.description.substring( 0, tooltipDescEnd );
-										}
-									}
 									self.tooltip.show( {
 										context: element,
-										content: tooltipDesc + ' ...',
+										content: _calendar.getTruncatedSentence( event.description, self.defaults.descriptionLength ),
 										title: mw.msg( 'smw-ui-tooltip-title-event' ),
 										button: false
 									} );
