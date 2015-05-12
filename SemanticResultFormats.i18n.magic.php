@@ -18,7 +18,7 @@ $magicWords['ar'] = array(
 	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم' ),
 );
 
-/** Egyptian Spoken Arabic (مصرى) */
+/** Egyptian Arabic (مصرى) */
 $magicWords['arz'] = array(
 	'calendarstartdate' => array( 0, 'تاريخ_بداية_التقويم' ),
 	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم' ),

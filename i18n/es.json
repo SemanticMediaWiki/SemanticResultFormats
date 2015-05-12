@@ -71,7 +71,7 @@
 	"srf_paramdesc_limit": "La cantidad máxima de páginas a consultar",
 	"srf_printername_product": "Producto de números",
 	"srf_printername_median": "Mediana de los números",
-	"srf-paramdesc-default": "Valor por defecto que se mostrará cuando no haya resultados numéricos",
+	"srf-paramdesc-default": "Valor predeterminado que se mostrará cuando no haya resultados numéricos",
 	"srf_printername_earliest": "Primera hora",
 	"srf_printername_latest": "Última hora",
 	"srf_printername_timeline": "Línea de tiempo",
