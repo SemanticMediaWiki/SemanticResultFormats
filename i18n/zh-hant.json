@@ -94,7 +94,7 @@
 	"srf_paramdesc_manysep": "許多已經賦值的屬性取值之間的分隔符",
 	"srf_paramdesc_recordsep": "記錄屬性的取值之間的分隔符",
 	"srf_paramdesc_headersep": "當把\"headers\"設定為\"show\"或\"plain\"時，屬性名稱和取值之間的分離符",
-	"srf_printername_hash": "哈希",
+	"srf_printername_hash": "雜湊",
 	"srf_paramdesc_hashname": "如果已經給出，且 HashTables 擴展可用，這將會建立一個帶有指定名稱的哈希表（沒有任何可見的輸出）",
 	"srf-printername-graph": "圖形",
 	"srf-paramdesc-graph-relation": "這些主題或名稱屬性是父節點或子節點嗎？",
