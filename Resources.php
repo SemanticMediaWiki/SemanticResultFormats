@@ -596,6 +596,7 @@ return array(
 	// jcarousel
 	'ext.jquery.jcarousel' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/jquery.jcarousel.js',
+		'dependencies' => 'ext.jquery.migration.browser'
 	),
 
 	// responsiveslides
