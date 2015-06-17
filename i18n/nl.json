@@ -10,10 +10,10 @@
 			"Southparkfan"
 		]
 	},
-	"srf-desc": "Aanvullende formaten voor inline zoekopdrachten via Semantic MediaWiki",
+	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
 	"srf-name": "Semantische resultaatopmaken",
 	"prefs-srf": "Semantische resultaatopmaken",
-	"srf-prefs-intro-text": "U heeft de uitbreiding Semantic Result Formats geïnstalleerd, die op dit moment geen instelbare gebruikersopties heeft. Raadpleeg de hulppagina voor [http://www.semantic-mediawiki.org/wiki/Help:Result_formats resultaatopmaken] voor meer informatie.",
+	"srf-prefs-intro-text": "U heeft de uitbreiding Semantic Result Formats geïnstalleerd. Raadpleeg de hulppagina voor [https://www.semantic-mediawiki.org/wiki/Help:Result_formats resultaatopmaken] voor meer informatie.",
 	"srf-module-loading": "Bezig met laden…",
 	"srf-paramdesc-layout": "Beschikbare opmaak",
 	"srf-paramdesc-height": "Hoogte",

@@ -8,9 +8,11 @@
 	"srf-ui-navigation-next": "Folgjende",
 	"srf-ui-tooltip-title-options": "Opsjes",
 	"srf-ui-tooltip-title-legend": "Leginda",
+	"srfc_today": "Hjoed",
 	"srf-ui-datatables-label-placeholder-column-search": "Sykje...",
 	"srf-ui-datatables-label-sSearch": "Sykje:",
 	"srf-ui-datatables-label-oPaginate-sNext": "Folgjende",
+	"srf-ui-eventcalendar-label-today": "Hjoed",
 	"srf-ui-mediaplayer-label-previous": "Foarige",
 	"srf-ui-mediaplayer-label-next": "Folgjende",
 	"srf-ui-mediaplayer-label-full-screen": "Folsleinskerm"

@@ -269,7 +269,7 @@
 	"srf-paramdesc-min": "Минимальное или пороговое значение",
 	"srf-paramdesc-excludeproperty": "Исключить свойство из набора результатов",
 	"srf-printername-media": "Медиа-проигрыватель",
-	"srf-paramdesc-mediainspector": "Показывать детальную информацию об указанном медиа-элементе",
+	"srf-paramdesc-mediainspector": "Показывать детальную информацию об указанном элементе медиа",
 	"srf-ui-mediaplayer-label-previous": "Назад",
 	"srf-ui-mediaplayer-label-play": "Воспроизвести",
 	"srf-ui-mediaplayer-label-pause": "Пауза",

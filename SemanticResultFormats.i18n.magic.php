@@ -18,7 +18,7 @@ $magicWords['ar'] = array(
 	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم' ),
 );
 
-/** Egyptian Spoken Arabic (مصرى) */
+/** Egyptian Arabic (مصرى) */
 $magicWords['arz'] = array(
 	'calendarstartdate' => array( 0, 'تاريخ_بداية_التقويم' ),
 	'calendarenddate' => array( 0, 'تاريخ_نهاية_التقويم' ),
@@ -52,6 +52,12 @@ $magicWords['fr'] = array(
 $magicWords['ja'] = array(
 	'calendarstartdate' => array( 0, '暦開始日' ),
 	'calendarenddate' => array( 0, '暦終了日' ),
+);
+
+/** Georgian (ქართული) */
+$magicWords['ka'] = array(
+	'calendarstartdate' => array( 0, 'კალენდრის_დაწყების_თარიღი' ),
+	'calendarenddate' => array( 0, 'კალენდრის_დასრულების_თარიღი' ),
 );
 
 /** Korean (한국어) */
