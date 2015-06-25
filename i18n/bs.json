@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"CERminator"
+			"CERminator",
+			"KWiki"
 		]
 	},
 	"srf-desc": "Dodatni formati za linijske upite na Semantic MediaWiki",
 	"srf-name": "Formati semantičkih rezultata",
 	"srfc_previousmonth": "Prethodni mjesec",
-	"srfc_nextmonth": "Slijedeći mjesec",
+	"srfc_nextmonth": "Sljedeći mjesec",
 	"srfc_today": "Danas",
 	"srfc_gotomonth": "Idi na mjesec",
 	"srf_printername_calendar": "Mjesečni kalendar",
