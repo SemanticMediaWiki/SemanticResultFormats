@@ -3,7 +3,8 @@
 		"authors": [
 			"Mjbmr",
 			"Tofighi",
-			"Reza1615"
+			"Reza1615",
+			"Ebraminio"
 		]
 	},
 	"srf-module-loading": "در حال بارگیری...",
@@ -16,7 +17,7 @@
 	"srf-ui-tooltip-title-options": "گزینه‌ها",
 	"srf-ui-tooltip-title-legend": "شرح علائم",
 	"srf-ui-tooltip-title-filter": "پالایه",
-	"srf-ui-common-label-refresh": "تازه‌کردن",
+	"srf-ui-common-label-refresh": "تازه کردن",
 	"srf-ui-common-label-parameters": "پارامترها",
 	"srf-ui-common-label-query": "کوئری",
 	"srfc_previousmonth": "ماه گذشته",
