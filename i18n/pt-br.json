@@ -119,6 +119,7 @@
 	"srf-paramdesc-chartcursor": "Opção de exibição do cursor gráfico",
 	"srf-paramdesc-trendline": "Habilita a exibição simultânea de um gráfico e suas linhas de tendência",
 	"srf-paramdesc-gridview": "Exibe simultaneamente o gráfico e os conjuntos de dados. Valores permitidos: \"none\" e \"tabs\". Padrão: \"none\".",
+	"srf-paramdesc-paneview": "Especifica a posição do quadro que contém um pequeno gráfico de linha. Os valores permitidos são: \"bottom\", \"top\" e \"none\". Padrão: \"bottom\"",
 	"srf-paramdesc-infotext": "Exibe informações adicionais em uma aba correspondente",
 	"srf-ui-gridview-label-item": "Item dos dados",
 	"srf-ui-gridview-label-value": "Valor dos dados",
