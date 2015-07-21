@@ -88,6 +88,9 @@ if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && define
 if( class_exists( 'PHPExcel' ) ){
 	$GLOBALS['srfgFormats'][] = 'excel';
 }
+if( class_exists( 'PHPWord' ) ){
+	$GLOBALS['srfgFormats'][] = 'word';
+}
 
 // Used for Array and Hash formats.
 // Allows value as string or object instances of Title or Article classes or an array

@@ -148,6 +148,7 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 		'incoming' => 'SRFIncoming',
 		'media' => 'SRF\MediaPlayer',
 		'excel' => 'SRF\SRFExcel',
+		'word' => 'SRF\SRFWord',
 		'datatables' => 'SRF\DataTables'
 	);
 

@@ -290,4 +290,6 @@
     "srf-ui-mediaplayer-label-restore-screen": "Restore screen",
     "srf-excel-link": "Excel",
     "srf-excel-missing-phpexcel": "Could not export for MS-Excel because extension [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] is not installed."
+    "srf-word-link": "Word",
+    "srf-word-missing-phpword": "Could not export for MS-Word because extension [https://www.mediawiki.org/wiki/Extension:PHPWord PHPWord] is not installed."
 }
