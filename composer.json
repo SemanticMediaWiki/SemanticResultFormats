@@ -52,6 +52,7 @@
 	},
 	"suggest": {
 		"phpoffice/phpexcel": "Used when exporting to excel format using 'format=excel'",
+		"phpoffice/phpword": "Used when exporting to word format using 'format=word'",
 		"mediawiki/graph-viz": "Required for 'format=graph'"
 	},
 	"autoload": {
