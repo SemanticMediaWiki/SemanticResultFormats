@@ -235,25 +235,6 @@ class SRFWord extends FileExportPrinter {
 	}
 
   /**
-   * get the Value for the given dataItem 
-   * @param dataItem - the dataItem to read the value from
-   * @param plabel  - the label
-   */
-	protected function readValueFromItem(/* SMWDataItem */ $dataItem,$plabel ) {
-    $l_value="?";
-    switch ($dataItem->getDIType()) {
-      case SMWDataItem::TYPE_BLOB:
-        $l_value=$dataItem->getString();
-      break;
-    }
-    $l_name=strtolower($plabel);
-    if ($this->debug) {
-      wfDebug("readValue from field: ".$l_name."=".$l_value."\n");
-    }
-		$this->document->setValue($l_name,$l_value);
-	}
-
-  /**
    * get the Value for the given dataValue 
    * @param dataValue - the dataValue to read the value from
    * @param plabel  - the label
@@ -297,17 +278,6 @@ class SRFWord extends FileExportPrinter {
         while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
 				  $this->readValue($dataValue,$l_label);
         }
-        /*
-        $l_contents=$field->getContent();
-        if ($this->debug) {
-          wfDebug("getting ".count($l_contents)." dataitems for field label=".$l_label."\n");
-        }
-        // loop over SMWDataItems
-        foreach ( $l_contents as $dataItem ) {
-				  $this->readValueFromItem($dataItem,$l_label);
-				  $this->colNum++;
-        }
-        */
 			}
 		}
 	}
