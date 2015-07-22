@@ -6,15 +6,29 @@ use ImagePage;
 use SMW\FileExportPrinter;
 use ParamProcessor\Definition\StringParam;
 use SMWQueryResult;
-use PHPWord;
+use SMWDataItem;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
 use Sanitizer;
 use Title;
 
 /**
+ * Semantic Results Format for Microsoft Word 
+ * 
  * @author Wolfgang Fahl 
  * @since 2.1.3 
  */
 class SRFWord extends FileExportPrinter {
+
+  /**
+   * @var int
+   */
+  protected $rowNum;
+
+  /**
+   * @var int
+   */
+  protected $colNum;
 
 	/**
 	 * Some printers do not mainly produce embeddable HTML or Wikitext, but
@@ -50,6 +64,7 @@ class SRFWord extends FileExportPrinter {
    * 
    */
 	public function getFileName( SMWQueryResult $queryResult ) {
+    // the filename can be given as a parameter
     $l_filename=$this->params[ 'filename' ] ? $this->params[ 'filename' ] : round( microtime( true ) * 1000 ) . '.doc';
 		return $l_filename;
 	}
@@ -103,7 +118,7 @@ class SRFWord extends FileExportPrinter {
 				$this->populateDocumentWithQueryData( $res );
 				$result = $this->writeDocumentToString( $document );
 			} else {
-				$result = wfMessage( 'srf-word-missing-phpexcel' )->parse();
+				$result = wfMessage( 'srf-word-missing-phpword' )->parse();
 			}
 		} else {
 			$result = $this->getLink( $res, $outputMode )->getText( $outputMode, $this->mLinker );
@@ -117,7 +132,8 @@ class SRFWord extends FileExportPrinter {
 	 * Turns the PHPWord document object into a string
 	 */
 	protected function writeDocumentToString( $document ) {
-		$objWriter = PHPWord_IOFactory::createWriter( $document, 'Word2007' );
+    // create a writer
+		$objWriter = IOFactory::createWriter( $document, 'Word2007' );
 
 		ob_start();
 		$objWriter->save('php://output');
@@ -130,6 +146,7 @@ class SRFWord extends FileExportPrinter {
 	 * @param $res SMWQueryResult the query result
 	 */
 	protected function populateDocumentWithQueryData( $res ) {
+    wfDebug("populating Document with Query data\n");
 		while ( $row = $res->getNext() ) {
 			$this->rowNum++;
 			$this->colNum = 0;
@@ -143,11 +160,12 @@ class SRFWord extends FileExportPrinter {
 	 * @return PHPWord
 	 */
 	protected function createWordDocument() {
-
-		$fileTitle = Title::newFromText( $this->params[ 'templatefile' ], NS_FILE );
-
+    // get the templatefile pageTitle
+    $l_templatefile=$this->params[ 'templatefile' ];
+    wfDebug( "templatefile=".$l_templatefile."\n");
+		$fileTitle = Title::newFromText( $l_templatefile, NS_FILE );
 		if ( $fileTitle !== null && $fileTitle->exists() ) {
-
+      wfDebug( "got file title ".$fileTitle->getFullURL()."\n");
 			$filePage = new ImagePage( $fileTitle, $this );
 
 			$virtualFile = $filePage->getDisplayedFile();
@@ -155,17 +173,23 @@ class SRFWord extends FileExportPrinter {
 
 			$localFile= $virtualFile->getRepo()->getLocalReference( $virtualFilePath );
 			$localFilePath = $localFile->getPath();
-      $objPHPWord = new PHPWord();
+      wfDebug( "template for Word is at ".$localFilePath."\n");
+      // see https://github.com/PHPOffice/PHPWord
+			$objPHPWord = new \PhpOffice\PhpWord\PhpWord();
       $objPHPWord->loadTemplate($localFilePath);
 
 		} else {
-
-			$objPHPWord = new PHPWord();
+      wfDebug( "creating word object with no template\n");
+      // see https://github.com/PHPOffice/PHPWord
+			$objPHPWord = new \PhpOffice\PhpWord\PhpWord();
 
 		}
+    wfDebug( "setting creator\n");
 
 		// Set document properties
-		$objPHPWord->getProperties()->setCreator( "SemanticMediaWiki PHPWord Export" );
+    $l_properties = $objPHPWord -> getDocInfo ();
+		$l_properties -> setCreator( "SemanticMediaWiki PHPWord Export" );
+    wfDebug( "creator set\n");
 
 		return $objPHPWord;
 	}
@@ -179,49 +203,43 @@ class SRFWord extends FileExportPrinter {
 		return !(array_key_exists("mainlabel", $this->params) && $label === $this->params[ "mainlabel" ] . '#');
 	}
 
-	protected function readFieldValue( $field ) {
-		$valueCount = 0;
-		while ( ( $object = $field->getNextDataValue() ) !== false ) {
-			if( $valueCount === 0 ) {
-				$this->setValueAccordingToType($object);
-			} else {
-				$this->setOrAppendStringDataValue($object);
-			}
-			$valueCount++;
-		}
+  /**
+   * get the Value for the given dataItem 
+   * @param dataItem - the dataItem to read the value from
+   * @param plabel  - the label
+   */
+	protected function readValue(/* SMWDataItem */ $dataItem,$plabel ) {
+    switch ($dataItem->getDIType()) {
+      case SMWDataItem::TYPE_BLOB:
+        wfDebug($plabel."=".$dataItem->getString());
+      break;
+    }
 	}
 
 	/**
-	 * Checks the type of the value, and set's it in the sheet accordingly
-	 * @param $object
-	 */
-	protected function setValueAccordingToType( $object ) {
-		//NOTE: must check against subclasses before superclasses
-		if( $object instanceof \SMWQuantityValue ) {
-			$this->setQuantityDataValue($object);
-		} else if( $object instanceof \SMWNumberValue ) {
-			$this->setNumberDataValue($object);
-		} else if ( $object instanceof \SMWTimeValue ) {
-			$this->setTimeDataValue( $object );
-		} else {
-			$this->setOrAppendStringDataValue($object);
-		}
-	}
-
-	/**
-	 * @param $row
+   * read data from the given row
+	 * @param $row - SMWResultArray
 	 */
 	protected function readRowData( $row ) {
-		foreach ( $row as $field ) {
-			if( $this->showLabel($field->getPrintRequest()->getLabel()) ) {
-				$this->readFieldValue($field);
-				$this->colNum++;
+		foreach ( $row as /* SMWResultArray */ $field ) {
+      $l_label=$field->getPrintRequest()->getLabel();
+      wfDebug("field label=".$l_label."\n");
+			if( $this->showLabel($l_label)) {
+        foreach ( $field->getContent() as /* SMWDataItem */ $dataItem ) {
+				  $this->readValue($dataItem,$l_label);
+				  $this->colNum++;
+        }
 			}
 		}
 	}
 
-	private function isPHPWordInstalled() {
-		return class_exists( "PHPWord" );
+  /**
+   * check whether PHP Word is installed
+   */
+	private function isPHPWordInstalled() { 
+    $l_result=class_exists( "PhpOffice\PhpWord\PhpWord" );
+    //wfDebug( "isPhpWordInstalled: ".$l_result."\n");
+	 	return $l_result;
 	}
 
 }
