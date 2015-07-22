@@ -233,7 +233,7 @@ class SRFWord extends FileExportPrinter {
    * @param dataItem - the dataItem to read the value from
    * @param plabel  - the label
    */
-	protected function readValue(/* SMWDataItem */ $dataItem,$plabel ) {
+	protected function readValueFromItem(/* SMWDataItem */ $dataItem,$plabel ) {
     $l_value="?";
     switch ($dataItem->getDIType()) {
       case SMWDataItem::TYPE_BLOB:
@@ -243,6 +243,30 @@ class SRFWord extends FileExportPrinter {
     $l_name=strtolower($plabel);
     if ($this->debug) {
       wfDebug("readValue from field: ".$l_name."=".$l_value."\n");
+    }
+		$this->document->setValue($l_name,$l_value);
+	}
+
+  /**
+   * get the Value for the given dataValue 
+   * @param dataValue - the dataValue to read the value from
+   * @param plabel  - the label
+   */
+	protected function readValue(/* SMWDataValue */ $dataValue,$plabel ) {
+    $l_value="?";
+    // http://semantic-mediawiki.org/doc/classSMWDataValue.html
+    $l_type=$dataValue->getTypeID();
+    $l_dataItem=$dataValue->getDataItem();
+    if ($l_dataItem!=null) {
+      switch ($l_dataItem->getDIType()) {
+        case SMWDataItem::TYPE_BLOB:
+          $l_value=$l_dataItem->getString();
+        break;
+      }
+    }
+    $l_name=strtolower($plabel);
+    if ($this->debug) {
+      wfDebug("readValue from field: ".$l_name."(".$l_type.")=".$l_value."\n");
     }
 		$this->document->setValue($l_name,$l_value);
 	}
@@ -267,14 +291,20 @@ class SRFWord extends FileExportPrinter {
         wfDebug("field label=".$l_label."\n");
       }
 			if( $this->showLabel($l_label)) {
+        while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
+				  $this->readValue($dataValue,$l_label);
+        }
+        /*
         $l_contents=$field->getContent();
         if ($this->debug) {
           wfDebug("getting ".count($l_contents)." dataitems for field label=".$l_label."\n");
         }
-        foreach ( $l_contents as /* SMWDataItem */ $dataItem ) {
-				  $this->readValue($dataItem,$l_label);
+        // loop over SMWDataItems
+        foreach ( $l_contents as $dataItem ) {
+				  $this->readValueFromItem($dataItem,$l_label);
 				  $this->colNum++;
         }
+        */
 			}
 		}
 	}
