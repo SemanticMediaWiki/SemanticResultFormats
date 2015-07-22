@@ -19,6 +19,10 @@ use Title;
  * @since 2.1.3 
  */
 class SRFWord extends FileExportPrinter {
+  /**
+   * set to true for debug output
+   */
+  protected $debug=true;
 
   /**
    * @var int
@@ -132,9 +136,15 @@ class SRFWord extends FileExportPrinter {
 	 * Turns the PHPWord document object into a string
 	 */
 	protected function writeDocumentToString( $document ) {
+    global $wgTmpDirectory;
+    $l_tmpname=$wgTmpDirectory."/tmp.docx";
+    if ($this->debug) 
+      wfDebug("saving template result to tmp file ".$l_tmpname."\n");
+    $document->saveAs($l_tmpname);
+    $l_document=IOFactory::load($l_tmpname);
     // create a writer
-		$objWriter = IOFactory::createWriter( $document, 'Word2007' );
-
+		$objWriter = IOFactory::createWriter( $l_document, 'Word2007' );
+    // write to output pipe to allow downloading the resulting document
 		ob_start();
 		$objWriter->save('php://output');
 		return ob_get_clean();
@@ -146,7 +156,8 @@ class SRFWord extends FileExportPrinter {
 	 * @param $res SMWQueryResult the query result
 	 */
 	protected function populateDocumentWithQueryData( $res ) {
-    wfDebug("populating Document with Query data\n");
+    if ($this->debug)
+      wfDebug("populating Document with Query data\n");
 		while ( $row = $res->getNext() ) {
 			$this->rowNum++;
 			$this->colNum = 0;
@@ -162,10 +173,12 @@ class SRFWord extends FileExportPrinter {
 	protected function createWordDocument() {
     // get the templatefile pageTitle
     $l_templatefile=$this->params[ 'templatefile' ];
-    wfDebug( "templatefile=".$l_templatefile."\n");
+    if ($this->debug)
+      wfDebug( "templatefile=".$l_templatefile."\n");
 		$fileTitle = Title::newFromText( $l_templatefile, NS_FILE );
 		if ( $fileTitle !== null && $fileTitle->exists() ) {
-      wfDebug( "got file title ".$fileTitle->getFullURL()."\n");
+      if ($this->debug)
+        wfDebug( "got file title ".$fileTitle->getFullURL()."\n");
 			$filePage = new ImagePage( $fileTitle, $this );
 
 			$virtualFile = $filePage->getDisplayedFile();
@@ -173,25 +186,31 @@ class SRFWord extends FileExportPrinter {
 
 			$localFile= $virtualFile->getRepo()->getLocalReference( $virtualFilePath );
 			$localFilePath = $localFile->getPath();
-      wfDebug( "template for Word is at ".$localFilePath."\n");
+      if ($this->debug)
+        wfDebug( "template for Word is at ".$localFilePath."\n");
       // see https://github.com/PHPOffice/PHPWord
-			$objPHPWord = new \PhpOffice\PhpWord\PhpWord();
-      $objPHPWord->loadTemplate($localFilePath);
+			$this->objPHPWord = new \PhpOffice\PhpWord\PhpWord();
+      // the document to be saved is based on the template
+      $this->document =  $this->objPHPWord->loadTemplate($localFilePath);
 
 		} else {
-      wfDebug( "creating word object with no template\n");
+      if ($this->debug)
+        wfDebug( "creating word object with no template\n");
       // see https://github.com/PHPOffice/PHPWord
-			$objPHPWord = new \PhpOffice\PhpWord\PhpWord();
+			$this->objPHPWord = new \PhpOffice\PhpWord\PhpWord();
+			$this->document = $this->objPHPWord; 
 
 		}
-    wfDebug( "setting creator\n");
+    if ($this->debug)
+      wfDebug( "setting creator\n");
 
 		// Set document properties
-    $l_properties = $objPHPWord -> getDocInfo ();
+    $l_properties = $this->objPHPWord -> getDocInfo ();
 		$l_properties -> setCreator( "SemanticMediaWiki PHPWord Export" );
-    wfDebug( "creator set\n");
+    if ($this->debug)
+      wfDebug( "creator set\n");
 
-		return $objPHPWord;
+		return $this->document;
 	}
 
 	/**
@@ -209,11 +228,16 @@ class SRFWord extends FileExportPrinter {
    * @param plabel  - the label
    */
 	protected function readValue(/* SMWDataItem */ $dataItem,$plabel ) {
+    $l_value="?";
     switch ($dataItem->getDIType()) {
       case SMWDataItem::TYPE_BLOB:
-        wfDebug($plabel."=".$dataItem->getString());
+        $l_value=$dataItem->getString();
       break;
     }
+    if ($this->debug) {
+      wfDebug("readValue: ".$plabel."=".$l_value."\n");
+    }
+		$this->document->setValue(strtolower($plabel),$l_value);
 	}
 
 	/**
