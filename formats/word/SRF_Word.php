@@ -139,17 +139,11 @@ class SRFWord extends FileExportPrinter {
    * @param document - the document
 	 */
 	protected function writeDocumentToString( $document ) {
-    global $wgTmpDirectory;
-    $l_tmpname=$wgTmpDirectory."/tmp.docx";
-    if ($this->debug) 
-      wfDebug("saving template result to tmp file ".$l_tmpname."\n");
-    $document->saveAs($l_tmpname);
-    $l_document=IOFactory::load($l_tmpname);
-    // create a writer
-		$objWriter = IOFactory::createWriter( $l_document, 'Word2007' );
+		$l_tempFileName = $document->save();
     // write to output pipe to allow downloading the resulting document
 		ob_start();
-		$objWriter->save('php://output');
+		readfile($l_tempFileName);
+		//$objWriter->save('php://output');
 		return ob_get_clean();
 	}
 
@@ -167,6 +161,28 @@ class SRFWord extends FileExportPrinter {
 			$this->readRowData($row);
 		}
 	}
+	
+	/**
+	 * get the local ImageFilePath for the given filePageTitle
+	 * @param $p_FilePageTitle - the title of the File: page without prefix
+	 * @return the local file path to the image file
+	 */
+	function getImageFilePath($p_FilePageTitle) {
+		$l_localFilePath=null;
+		$l_fileTitle = Title::newFromText( $p_FilePageTitle, NS_FILE );
+		if ( $l_fileTitle !== null && $l_fileTitle->exists() ) {
+      if ($this->debug)
+        wfDebug( "got file title ".$l_fileTitle->getFullURL()."\n");
+			$l_filePage = new ImagePage( $l_fileTitle, $this );
+
+			$l_virtualFile = $l_filePage->getDisplayedFile();
+			$l_virtualFilePath =  $l_virtualFile->getPath();
+
+			$l_localFile= $l_virtualFile->getRepo()->getLocalReference( $l_virtualFilePath );
+			$l_localFilePath = $l_localFile->getPath();
+		}
+		return $l_localFilePath;
+	}
 
 	/**
 	 * Creates a new PHPWord document and returns it
@@ -174,27 +190,17 @@ class SRFWord extends FileExportPrinter {
 	 * @return PHPWord
 	 */
 	protected function createWordDocument() {
-    // get the templatefile pageTitle
-    $l_templatefile=$this->params[ 'templatefile' ];
-    if ($this->debug)
-      wfDebug( "templatefile=".$l_templatefile."\n");
-		$fileTitle = Title::newFromText( $l_templatefile, NS_FILE );
-		if ( $fileTitle !== null && $fileTitle->exists() ) {
+   // get the templatefile pageTitle
+   $l_templatefile=$this->params[ 'templatefile' ];
+   // get the local image file path for the template
+   $l_localFilePath=$this->getImageFilePath($l_templatefile);
+   if ($l_localFilePath!=null) { 		
       if ($this->debug)
-        wfDebug( "got file title ".$fileTitle->getFullURL()."\n");
-			$filePage = new ImagePage( $fileTitle, $this );
-
-			$virtualFile = $filePage->getDisplayedFile();
-			$virtualFilePath =  $virtualFile->getPath();
-
-			$localFile= $virtualFile->getRepo()->getLocalReference( $virtualFilePath );
-			$localFilePath = $localFile->getPath();
-      if ($this->debug)
-        wfDebug( "template for Word is at ".$localFilePath."\n");
+        wfDebug( "template ".$l_templatefile." for Word is at ".$l_localFilePath."\n");
       // see https://github.com/PHPOffice/PHPWord
 			$this->objPHPWord = new \PhpOffice\PhpWord\PhpWord();
       // the document to be saved is based on the template
-      $this->document =  $this->objPHPWord->loadTemplate($localFilePath);
+      $this->document =  $this->objPHPWord->loadTemplate($l_localFilePath);
 
 		} else {
       if ($this->debug)
