@@ -14,8 +14,9 @@ use Title;
 
 /**
  * Semantic Results Format for Microsoft Word 
+ * @licence GNU GPL v2+
  * 
- * @author Wolfgang Fahl 
+ * @author Wolfgang Fahl < wf@bitplan.com >
  * @since 2.1.3 
  */
 class SRFWord extends FileExportPrinter {
@@ -69,7 +70,7 @@ class SRFWord extends FileExportPrinter {
    */
 	public function getFileName( SMWQueryResult $queryResult ) {
     // the filename can be given as a parameter
-    $l_filename=$this->params[ 'filename' ] ? $this->params[ 'filename' ] : round( microtime( true ) * 1000 ) . '.doc';
+    $l_filename=$this->params[ 'filename' ] ? $this->params[ 'filename' ] : round( microtime( true ) * 1000 ) . '.docx';
 		return $l_filename;
 	}
 
@@ -95,6 +96,8 @@ class SRFWord extends FileExportPrinter {
    * return the parameter definitions
    *  searchlabel, templatefile and filename are possible
    *
+	 * @since 2.1.3
+   *
 	 * @param $definitions \ParamProcessor\ParamDefinition[]
 	 *
 	 * @return array
@@ -112,7 +115,6 @@ class SRFWord extends FileExportPrinter {
 
 	/**
 	 * Return serialised results in specified format.
-	 * Implemented by subclasses.
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputMode ) {
 		if ( $outputMode == SMW_OUTPUT_FILE ) {
@@ -134,6 +136,7 @@ class SRFWord extends FileExportPrinter {
 
 	/*
 	 * Turns the PHPWord document object into a string
+   * @param document - the document
 	 */
 	protected function writeDocumentToString( $document ) {
     global $wgTmpDirectory;
@@ -214,12 +217,15 @@ class SRFWord extends FileExportPrinter {
 	}
 
 	/**
-	 * Check for the existence of the extra mainlabel.
+	 * filter labels  
 	 * @param $label
 	 * @return bool
 	 */
 	private function showLabel( $label ) {
-		return !(array_key_exists("mainlabel", $this->params) && $label === $this->params[ "mainlabel" ] . '#');
+    $l_show=true; 
+    // filter labels
+    // $l_show=!(array_key_exists("mainlabel", $this->params) && $label === $this->params[ "mainlabel" ] . '#'); 
+    return $l_show;
 	}
 
   /**
@@ -234,10 +240,11 @@ class SRFWord extends FileExportPrinter {
         $l_value=$dataItem->getString();
       break;
     }
+    $l_name=strtolower($plabel);
     if ($this->debug) {
-      wfDebug("readValue: ".$plabel."=".$l_value."\n");
+      wfDebug("readValue from field: ".$l_name."=".$l_value."\n");
     }
-		$this->document->setValue(strtolower($plabel),$l_value);
+		$this->document->setValue($l_name,$l_value);
 	}
 
 	/**
@@ -245,11 +252,26 @@ class SRFWord extends FileExportPrinter {
 	 * @param $row - SMWResultArray
 	 */
 	protected function readRowData( $row ) {
+    // loop over fields of this row
 		foreach ( $row as /* SMWResultArray */ $field ) {
-      $l_label=$field->getPrintRequest()->getLabel();
-      wfDebug("field label=".$l_label."\n");
+      // http://kontext.fraunhofer.de/haenelt/kurs/Skripten/Wiki-Anleitungen/SMW-Ausgabeschnittstellex.pdf
+      if ($this->debug) {
+        // can not do this "Fatal error: Nesting level too deep - recursive dependency?
+        //$l_fielddump = var_export($field, true);
+        //wfDebug("fielddump=".$l_fielddump."\n");
+      }
+      $l_fieldinfo=$field->getPrintRequest();
+      $l_label=$l_fieldinfo->getLabel();
+      
+      if ($this->debug) {
+        wfDebug("field label=".$l_label."\n");
+      }
 			if( $this->showLabel($l_label)) {
-        foreach ( $field->getContent() as /* SMWDataItem */ $dataItem ) {
+        $l_contents=$field->getContent();
+        if ($this->debug) {
+          wfDebug("getting ".count($l_contents)." dataitems for field label=".$l_label."\n");
+        }
+        foreach ( $l_contents as /* SMWDataItem */ $dataItem ) {
 				  $this->readValue($dataItem,$l_label);
 				  $this->colNum++;
         }
