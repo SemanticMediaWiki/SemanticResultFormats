@@ -259,20 +259,17 @@ class SRFWord extends FileExportPrinter {
    * @param plabel  - the label
    */
 	protected function readValue(/* SMWDataValue */ $dataValue,$plabel ) {
-    $l_value="?";
-    // http://semantic-mediawiki.org/doc/classSMWDataValue.html
+    $l_value=$dataValue->getWikiValue();
     $l_type=$dataValue->getTypeID();
+    $l_ditype="?";
     $l_dataItem=$dataValue->getDataItem();
     if ($l_dataItem!=null) {
-      switch ($l_dataItem->getDIType()) {
-        case SMWDataItem::TYPE_BLOB:
-          $l_value=$l_dataItem->getString();
-        break;
-      }
+    	// get the data item type
+    	$l_ditype=$l_dataItem->getDIType();
     }
     $l_name=strtolower($plabel);
     if ($this->debug) {
-      wfDebug("readValue from field: ".$l_name."(".$l_type.")=".$l_value."\n");
+      wfDebug("readValue from field: ".$l_name."(type:".$l_type."/ditype:".$l_ditype.")=".$l_value."\n");
     }
 		$this->document->setValue($l_name,$l_value);
 	}
