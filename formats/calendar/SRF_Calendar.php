@@ -14,6 +14,8 @@ class SRFCalendar extends SMWResultPrinter {
 	protected $mTemplate;
 	protected $mUserParam;
 	protected $mRealUserLang = null;
+	protected $mStartMonth;
+	protected $mStartYear;
 
 	protected function setColors( $colorsText ) {
 		$colors = array();
@@ -32,6 +34,8 @@ class SRFCalendar extends SMWResultPrinter {
 
 		$this->mTemplate = trim( $params['template'] );
 		$this->mUserParam = trim( $params['userparam'] );
+		$this->mStartMonth = trim( $params['startmonth'] );	// startmonth is initialized with current month by default
+		$this->mStartYear = trim( $params['startyear'] );	// startyear is initialized with current year by default
 
 		if ( $params['lang'] !== false ) {
 			global $wgLang;
@@ -348,7 +352,13 @@ class SRFCalendar extends SMWResultPrinter {
 		// and years (same - note that the previous or next month could
 		// be in a different year), the number of days in the current,
 		// previous and next months, etc.
-		$cur_month_num = date( 'n', time() );
+
+
+		if ( is_numeric( $this->mStartMonth ) && ( intval( $this->mStartMonth ) == $this->mStartMonth ) && $this->mStartMonth >= 1 && $this->mStartMonth <= 12 ) {
+			$cur_month_num = $this->mStartMonth;
+		} else {
+			$cur_month_num = date( 'n' );
+		}
 		if ( $wgRequest->getCheck( 'month' ) ) {
 			$query_month = $wgRequest->getVal( 'month' );
 			if ( is_numeric( $query_month ) && ( intval( $query_month ) == $query_month ) && $query_month >= 1 && $query_month <= 12 ) {
@@ -357,7 +367,12 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 
 		$cur_month = self::intToMonth( $cur_month_num );
-		$cur_year = date( 'Y', time() );
+
+		if ( is_numeric( $this->mStartYear ) && ( intval( $this->mStartYear ) == $this->mStartYear ) ) {
+			$cur_year = $this->mStartYear;
+		} else {
+			$cur_year = date( 'Y' );
+		}
 		if ( $wgRequest->getCheck( 'year' ) ) {
 			$query_year = $wgRequest->getVal( 'year' );
 			if ( is_numeric( $query_year ) && intval( $query_year ) == $query_year ) {
@@ -568,6 +583,16 @@ END;
 			'default' => '',
 		);
 
+		$params['startmonth'] = array(
+			'message' => 'srf-paramdesc-calendar-startmonth',
+			'default' => date( 'n' ),
+		);
+		
+		$params['startyear'] = array(
+			'message' => 'srf-paramdesc-calendar-startyear',
+			'default' => date( 'Y' ),
+		);
+		
 		return $params;
 	}
 }
