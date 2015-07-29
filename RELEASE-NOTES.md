@@ -1,10 +1,15 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.2 (not released yet)
+
+* Fixed filtered format so that filters work for ol/ul type lists
+* Fixed gallery format by adding a required dependency for the carousel option to the widget parameter
+* Enhanced calendar format by adding the startmonth and startyear parameters
+
 ## SRF 2.1.2 (2015-02-26)
 
 * Fixed bug in the slideshow format API
-* Fixed Filtered format so that filters work for ol/ul type lists
 
 ## SRF 2.1.1 (2015-02-04)
 
