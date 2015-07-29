@@ -137,7 +137,7 @@
 	"srf_paramdesc_imageproperty": "Nombre de una propiedad semántica en las páginas consultadas que apunta a las imágenes a usar. Cuando esté definido, las propias páginas consultadas no se mostrarán como imágenes",
 	"srf-paramdesc-redirects": "El nombre de una propiedad semántica presente en las páginas consultadas que contienen el destino de la redirección",
 	"srf-paramdesc-navigation": "Diseñar control de navegación",
-	"srf-paramdesc-overlay": "Activar la superposición de imagenes",
+	"srf-paramdesc-overlay": "Activar la superposición de imágenes",
 	"srf-gallery-navigation-previous": "Anterior",
 	"srf-gallery-navigation-next": "Siguiente",
 	"srf-gallery-overlay-count": "Imagen  $1  de$2",
