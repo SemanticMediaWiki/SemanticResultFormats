@@ -48,6 +48,8 @@
     "srf_printername_calendar": "Monthly calendar",
     "srf_paramdesc_calendarlang": "The code for the language in which to display the calendar",
     "srf_paramdesc_calendarcolors": "The color to display for each date property (example: \"Start date=>green,End date=>#09c\")",
+    "srf-paramdesc-calendar-startmonth": "The month, the calendar display is initialized with (defaults to current month)",
+    "srf-paramdesc-calendar-startyear": "The year, the calendar display is initialized with (defaults to current year)",
     "srf_vcard_link": "vCard",
     "srf_printername_vcard": "vCard export",
     "srf_icalendar_link": "iCalendar",
