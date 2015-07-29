@@ -37,7 +37,6 @@ class SRFMath extends SMWResultPrinter {
 	}
 
 	/**
-	 * (non-PHPdoc)
 	 * @see SMWResultPrinter::getResultText()
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -72,20 +71,16 @@ class SRFMath extends SMWResultPrinter {
 	}
 	
 	/**
-	 * Gets a list of all numbers.
-	 * 
-	 * @since 1.6
-	 * 
 	 * @param SMWQueryResult $res
 	 * 
-	 * @return array
+	 * @return float[]
 	 */
-	protected function getNumbers( SMWQueryResult $res ) {
+	private function getNumbers( SMWQueryResult $res ) {
 		$numbers = array();
 
 		while ( $row = $res->getNext() ) {
-			foreach( $row as /* SMWResultArray */ $resultArray ) {
-				foreach ( $resultArray->getContent() as /* SMWDataItem */ $dataItem ) {
+			foreach( $row as $resultArray ) {
+				foreach ( $resultArray->getContent() as $dataItem ) {
 					self::addNumbersForDataItem( $dataItem, $numbers );
 				}
 			}
@@ -95,14 +90,10 @@ class SRFMath extends SMWResultPrinter {
 	}
 	
 	/**
-	 * Gets a list of all numbers contained in a dataitem.
-	 * 
-	 * @since 1.6
-	 * 
 	 * @param SMWDataItem $dataItem
-	 * @param array $numbers
+	 * @param float[] $numbers
 	 */
-	public static function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
+	private function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
 		switch ( $dataItem->getDIType() ) {
 			case SMWDataItem::TYPE_NUMBER:
 				$numbers[] = $dataItem->getNumber();
