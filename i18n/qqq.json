@@ -62,6 +62,8 @@
 	"srf_printername_calendar": "{{doc-smwformat|calendar}}",
 	"srf_paramdesc_calendarlang": "{{doc-paramdesc|lang}}",
 	"srf_paramdesc_calendarcolors": "{{doc-paramdesc|colors}}\n{{doc-important|\"Start date\" and \"End date\" should be translated, but not the other parts of the example code.}}",
+	"srf-paramdesc-calendar-startmonth": "{{doc-paramdesc|startmonth}}",
+	"srf-paramdesc-calendar-startyear": "{{doc-paramdesc|startyear}}",
 	"srf_vcard_link": "{{doc-smw-link}}",
 	"srf_printername_vcard": "{{doc-smwformat|vcard}}",
 	"srf_icalendar_link": "{{doc-smw-link}}",

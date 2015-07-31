@@ -50,6 +50,8 @@
 	"srf_printername_calendar": "Месечен календар",
 	"srf_paramdesc_calendarlang": "Кодот на јазикот на кој ќе се прикажува календарот",
 	"srf_paramdesc_calendarcolors": "Бојата за приказ на секое датумско својство (пример: \"Почетен датум=>green,Краен датум=>#09c\")",
+	"srf-paramdesc-calendar-startmonth": "Од кој месец да почнува приказот на календарот (по основно: тековниот месец)",
+	"srf-paramdesc-calendar-startyear": "Од која година да почнува приказот на календарот (по основно: тековната година)",
 	"srf_printername_vcard": "Извоз на vCard",
 	"srf_icalendar_link": "iКалендар",
 	"srf_printername_icalendar": "Извоз на iCalendar",

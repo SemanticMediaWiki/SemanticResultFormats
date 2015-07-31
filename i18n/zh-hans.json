@@ -58,6 +58,8 @@
 	"srf_printername_calendar": "月历",
 	"srf_paramdesc_calendarlang": "日历显示语言的代码",
 	"srf_paramdesc_calendarcolors": "每个日期属性的显示颜色（示例：\"Start date=>green,End date=>#09c\"）",
+	"srf-paramdesc-calendar-startmonth": "月，日历显示初始化为（默认为当前月）",
+	"srf-paramdesc-calendar-startyear": "年，日历显示初始化为（默认为当前年）",
 	"srf_printername_vcard": "vCard导出",
 	"srf_printername_icalendar": "iCalendar导出",
 	"srf_paramdesc_icalendartitle": "日历文件的标题",

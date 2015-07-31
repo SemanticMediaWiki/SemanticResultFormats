@@ -55,6 +55,8 @@
 	"srf_printername_calendar": "לוח חודשי",
 	"srf_paramdesc_calendarlang": "קוד השפה שלוח השנה יוצג בה",
 	"srf_paramdesc_calendarcolors": "צבע להצגת כל מאפיין של תאריך (דוגמה: \"תאריך התחלה=>green,תאריך סיום=>#09c\")",
+	"srf-paramdesc-calendar-startmonth": "החוד שתצוגת לוח השנה מאותחלת אתו (בררת המחדל היא החודש הנוכחי)",
+	"srf-paramdesc-calendar-startyear": "השנה שתצוגת לוח השנה מאותחלת אתה (בררת המחדל היא השנה הנוכחית)",
 	"srf_printername_vcard": "ייצוא vCard",
 	"srf_printername_icalendar": "ייצוא iCalendar",
 	"srf_paramdesc_icalendartitle": "כותרת קובץ לוח השנה",
