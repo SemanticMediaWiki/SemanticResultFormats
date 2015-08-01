@@ -30,6 +30,8 @@
 	"srfc_gotomonth": "Idź do miesiąca",
 	"srf_printername_calendar": "Kalendarz na miesiąc",
 	"srf_paramdesc_calendarlang": "Kod języka, w którym jest wyświetlany kalendarz",
+	"srf-paramdesc-calendar-startmonth": "Miesiąc, z którym inicjowane jest wyświetlanie kalendarza (domyślnie bieżący miesiąc)",
+	"srf-paramdesc-calendar-startyear": "Rok, z którym inicjowane jest wyświetlanie kalendarza (domyślnie bieżący rok)",
 	"srf_printername_vcard": "eksport vCard",
 	"srf_printername_icalendar": "eksport iCalendar",
 	"srf_paramdesc_icalendartitle": "Nazwa pliku kalendarza",

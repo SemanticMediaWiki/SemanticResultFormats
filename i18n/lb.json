@@ -28,6 +28,7 @@
 	"srfc_gotomonth": "Géi op de Mount",
 	"srf_printername_calendar": "Monatleche Kalenner",
 	"srf_paramdesc_calendarlang": "De Code vun der Sprooch an där de Kalenner gewise gëtt",
+	"srf-paramdesc-calendar-startmonth": "De Mound deen am Kalenner am Ufank gewise gëtt (Standard ass den aktuelle Mound)",
 	"srf_printername_vcard": "Export als vCard",
 	"srf_icalendar_link": "iKalenner",
 	"srf_printername_icalendar": "Export als iCalendar",
