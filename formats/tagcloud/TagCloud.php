@@ -9,7 +9,6 @@ use SMWPrintRequest;
 use SMWResultArray;
 use SRFUtils;
 use SMWOutputs;
-
 use Html;
 use Title;
 
@@ -18,20 +17,12 @@ use Title;
  *
  * @since 1.5.3
  *
- * @file
  * @ingroup SRF
  * @ingroup QueryPrinter
  *
  * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
- */
-
-/**
- * Result printer that prints query results as a tag cloud
- *
- * @ingroup SRF
- * @ingroup QueryPrinter
  */
 class TagCloud extends ResultPrinter {
 
@@ -77,7 +68,7 @@ class TagCloud extends ResultPrinter {
 
 		// Template support
 		$this->hasTemplates = $this->params['template'] !== '';
-		$this->isHTML = ( $this->getTitle() instanceof Title && $this->getTitle()->isSpecialPage() ) && !$this->hasTemplates;
+		$this->isHTML = $this->isHTML();
 
 		// Register RL module
 		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
@@ -87,17 +78,25 @@ class TagCloud extends ResultPrinter {
 		return $this->getTagCloud( $this->getTagSizes( $tags ) );
 	}
 
+	private function isHTML() {
+		$title = $this->getTitle();
+
+		if ( !( $title instanceof Title ) ) {
+			return false;
+		}
+
+		return $title->isSpecialPage() && !$this->hasTemplates;
+	}
+
 	/**
 	 * Returns an array with the tags (keys) and the number of times they occur (values).
-	 *
-	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $queryResult
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getTags( SMWQueryResult $queryResult, $outputMode ) {
+	private function getTags( SMWQueryResult $queryResult, $outputMode ) {
 		$tags = array();
 		$excludetags = explode( ';', $this->params['excludetags'] );
 
@@ -158,13 +157,11 @@ class TagCloud extends ResultPrinter {
 	 * Determines the sizes of tags.
 	 * This method is based on code from the FolkTagCloud extension by Katharina Wäschle.
 	 *
-	 * @since 1.5.3
-	 *
 	 * @param array $tags
 	 *
 	 * @return array
 	 */
-	protected function getTagSizes( array $tags ) {
+	private function getTagSizes( array $tags ) {
 		if ( count( $tags ) == 0 ) {
 			return $tags;
 		}
@@ -251,13 +248,11 @@ class TagCloud extends ResultPrinter {
 	/**
 	 * Returns the HTML for the tag cloud.
 	 *
-	 * @since 1.5.3
-	 *
 	 * @param array $tags
 	 *
 	 * @return string
 	 */
-	protected function getTagCloud( array $tags ) {
+	private function getTagCloud( array $tags ) {
 
 		// Initialize
 		$htmlTags      = array();
@@ -327,20 +322,16 @@ class TagCloud extends ResultPrinter {
 	}
 
 	/**
-	 * Create a template output
-	 *
-	 * @since 1.8
-	 *
-	 * @param $value
-	 * @param $rownum
+	 * @param string $value
+	 * @param int $rowNumber
 	 *
 	 * @return string
 	 */
-	protected function addTemplateOutput( $value, &$rownum ) {
-		$rownum++;
+	private function addTemplateOutput( $value, &$rowNumber ) {
+		$rowNumber++;
 		$wikitext  = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
 		$wikitext .= "|" . $value;
-		$wikitext .= "|#=$rownum";
+		$wikitext .= "|#=$rowNumber";
 		return '{{' . trim ( $this->params['template'] ) . $wikitext . '}}';
 	}
 
