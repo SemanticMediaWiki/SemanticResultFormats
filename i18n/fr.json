@@ -17,7 +17,8 @@
 			"Tititou36",
 			"Urhixidur",
 			"Verdy p",
-			"SnowedEarth"
+			"SnowedEarth",
+			"Wladek92"
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
@@ -66,6 +67,8 @@
 	"srf_printername_calendar": "Calendrier mensuel",
 	"srf_paramdesc_calendarlang": "Le code de la langue dans laquelle afficher le calendrier",
 	"srf_paramdesc_calendarcolors": "La couleur à afficher pour chaque propriété date (exemple: \"Date de démarrage => green,Date de fin => #09c\")",
+	"srf-paramdesc-calendar-startmonth": "Le mois, avec lequel l'affichage du calendrier est initialisé (par défaut, le mois courant)",
+	"srf-paramdesc-calendar-startyear": "L'année avec laquelle l'affichage de calendrier est initialisé (par défaut, l'année en cours)",
 	"srf_vcard_link": "vCarte",
 	"srf_printername_vcard": "export en vCard",
 	"srf_icalendar_link": "iCalendrier",
