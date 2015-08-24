@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kaustubh"
+			"Kaustubh",
+			"Phoenix303"
 		]
 	},
 	"srfc_previousmonth": "पिछला महिना",
 	"srfc_nextmonth": "अगला महिना",
 	"srfc_today": "आज़",
 	"srfc_gotomonth": "महिनेपर चलें",
-	"srf_icalendar_link": "आइकैलेंडर"
+	"srf_icalendar_link": "आइकैलेंडर",
+	"srf-ui-datatables-label-information": "जानकारी"
 }
