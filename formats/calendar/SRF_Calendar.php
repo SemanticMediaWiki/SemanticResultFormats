@@ -262,12 +262,14 @@ class SRFCalendar extends SMWResultPrinter {
 	}
 
 	function displayCalendar( $events ) {
-		global $wgOut, $wgParser, $wgRequest;
+		global $wgParser;
 		global $srfgFirstDayOfWeek;
 
+		$context = RequestContext::getMain();
+		$request = $context->getRequest();
 		$wgParser->disableCache();
 
-		$wgOut->addLink( array(
+		$context->getOutput()->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
 			'media' => 'screen, print',
@@ -278,17 +280,17 @@ class SRFCalendar extends SMWResultPrinter {
 		// being called from a regular page, via #ask, or from a
 		// special page: most likely either Special:Ask or
 		// Special:RunQuery.
-		$page_title = $wgParser->getTitle();
+		$page_title = $context->getTitle();
+		if ( !$page_title ) {
+			$page_title = $wgParser->getTitle();
+		}
 		$additional_query_string = '';
 		$hidden_inputs = '';
-		$in_special_page = is_null( $page_title ) || $page_title->isSpecialPage();
 
-		if ( $in_special_page ) {
-			global $wgTitle;
-			$page_title = $wgTitle;
-			$request_values = $wgRequest->getValues();
+		if ( $page_title->isSpecialPage() ) {
+			$request_values = $request->getValues();
 			// Also go through the predefined PHP variable
-			// $_REQUEST, because $wgRequest->getValues() for
+			// $_REQUEST, because $request->getValues() for
 			// some reason doesn't return array values - is
 			// there a better (less hacky) way to do this?
 			foreach ( $_REQUEST as $key => $value ) {
@@ -359,10 +361,10 @@ class SRFCalendar extends SMWResultPrinter {
 		} else {
 			$cur_month_num = date( 'n' );
 		}
-		if ( $wgRequest->getCheck( 'month' ) ) {
-			$query_month = $wgRequest->getVal( 'month' );
+		if ( $request->getCheck( 'month' ) ) {
+			$query_month = $request->getVal( 'month' );
 			if ( is_numeric( $query_month ) && ( intval( $query_month ) == $query_month ) && $query_month >= 1 && $query_month <= 12 ) {
-				$cur_month_num = $wgRequest->getVal( 'month' );
+				$cur_month_num = $request->getVal( 'month' );
 			}
 		}
 
@@ -373,10 +375,10 @@ class SRFCalendar extends SMWResultPrinter {
 		} else {
 			$cur_year = date( 'Y' );
 		}
-		if ( $wgRequest->getCheck( 'year' ) ) {
-			$query_year = $wgRequest->getVal( 'year' );
+		if ( $request->getCheck( 'year' ) ) {
+			$query_year = $request->getVal( 'year' );
 			if ( is_numeric( $query_year ) && intval( $query_year ) == $query_year ) {
-				$cur_year = $wgRequest->getVal( 'year' );
+				$cur_year = $request->getVal( 'year' );
 			}
 		}
 
