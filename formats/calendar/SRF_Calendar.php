@@ -1,13 +1,14 @@
 <?php
 
-$wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ ) . '/SRFC_HistoricalDate.php';
+$wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ )
+	. '/SRFC_HistoricalDate.php';
 
 /**
  * Result printer that prints query results as a monthly calendar.
- * 
+ *
  * @file SRF_Calendar.php
  * @ingroup SemanticResultFormats
- * 
+ *
  * @author Yaron Koren
  */
 class SRFCalendar extends SMWResultPrinter {
@@ -34,8 +35,10 @@ class SRFCalendar extends SMWResultPrinter {
 
 		$this->mTemplate = trim( $params['template'] );
 		$this->mUserParam = trim( $params['userparam'] );
-		$this->mStartMonth = trim( $params['startmonth'] );	// startmonth is initialized with current month by default
-		$this->mStartYear = trim( $params['startyear'] );	// startyear is initialized with current year by default
+		// startmonth is initialized with current month by default
+		$this->mStartMonth = trim( $params['startmonth'] );
+		// startyear is initialized with current year by default
+		$this->mStartYear = trim( $params['startyear'] );
 
 		if ( $params['lang'] !== false ) {
 			global $wgLang;
@@ -72,7 +75,7 @@ class SRFCalendar extends SMWResultPrinter {
 	/**
 	 * (non-PHPdoc)
 	 * @see SMWResultPrinter::getResultText()
-	 * 
+	 *
 	 * @todo Split up megamoth
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -95,13 +98,18 @@ class SRFCalendar extends SMWResultPrinter {
 					$pr = $field->getPrintRequest();
 					$text .= '|' . ( $i + 1 ) . '=';
 
-					while ( ( $object = $field->getNextDataValue() ) !== false ) {
+					while (
+						( $object = $field->getNextDataValue() ) !== false
+					) {
 						if ( $object->getTypeID() == '_dat' ) {
 							$text .= $object->getLongWikiText();
-						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
+
+						// use shorter "LongText" for wikipage
+						} elseif ( $object->getTypeID() == '_wpg' ) {
 							// handling of "link=" param
 							if ( $this->mLinkOthers ) {
-								$text .= $object->getLongText( $outputmode, null );
+								$text .=
+									$object->getLongText( $outputmode, null );
 							} else {
 								$text .= $object->getWikiValue();
 							}
@@ -109,12 +117,16 @@ class SRFCalendar extends SMWResultPrinter {
 							$text .= $object->getShortText( $outputmode, null );
 						}
 
-						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
+						if (
+							$pr->getMode() == SMWPrintRequest::PRINT_PROP &&
+							$pr->getTypeID() == '_dat'
+						) {
 							$datePropLabel = $pr->getLabel();
 							if ( !array_key_exists( $datePropLabel, $dates ) ) {
 								$dates[$datePropLabel] = array();
 							}
-							$dates[$datePropLabel][] = $this->formatDateStr( $object );
+							$dates[$datePropLabel][] =
+								$this->formatDateStr( $object );
 						}
 					}
 				}
@@ -131,40 +143,61 @@ class SRFCalendar extends SMWResultPrinter {
 					// for this property.
 					$textForProperty = '';
 
-					while ( ( $object = $field->getNextDataValue() ) !== false ) {
+					while (
+						( $object = $field->getNextDataValue() ) !== false
+					) {
 						if ( $object->getTypeID() == '_dat' ) {
 							// Don't add date values to the display.
-						} elseif ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
+
+							// use shorter "LongText" for wikipage
+						} elseif ( $object->getTypeID() == '_wpg' ) {
 							if ( $i == 0 ) {
-								$title = Title::newFromText( $object->getShortWikiText( false ) );
+								$title = Title::newFromText(
+									$object->getShortWikiText( false )
+								);
 							} else {
 								$numNonDateProperties++;
 
 								// handling of "headers=" param
 								if ( $this->mShowHeaders == SMW_HEADERS_SHOW ) {
-									$textForProperty .= $pr->getHTMLText( smwfGetLinker() ) . ' ';
-								} elseif ( $this->mShowHeaders == SMW_HEADERS_PLAIN ) {
+									$textForProperty .= $pr->getHTMLText(
+										smwfGetLinker()
+									) . ' ';
+								} elseif (
+									$this->mShowHeaders == SMW_HEADERS_PLAIN
+								) {
 									$textForProperty .= $pr->getLabel() . ' ';
 								}
 
-								// If $this->mShowHeaders == SMW_HEADERS_HIDE, print nothing.
+								// If $this->mShowHeaders == SMW_HEADERS_HIDE,
+								//	print nothing.
 								// handling of "link=" param
 								if ( $this->mLinkOthers ) {
-									$textForProperty .= $object->getLongText( $outputmode, smwfGetLinker() );
+									$textForProperty .= $object->getLongText(
+										$outputmode, smwfGetLinker()
+									);
 								} else {
 									$textForProperty .= $object->getWikiValue();
 								}
 							}
 						} else {
 							$numNonDateProperties++;
-							$textForProperty .= $pr->getHTMLText( smwfGetLinker() ) . ' ' . $object->getShortText( $outputmode, smwfGetLinker() );
+							$textForProperty .=
+								$pr->getHTMLText( smwfGetLinker() )
+								. ' ' . $object->getShortText(
+									$outputmode, smwfGetLinker()
+								);
 						}
-						if ( $pr->getMode() == SMWPrintRequest::PRINT_PROP && $pr->getTypeID() == '_dat' ) {
+						if (
+							$pr->getMode() == SMWPrintRequest::PRINT_PROP &&
+							$pr->getTypeID() == '_dat'
+						) {
 							$datePropLabel = $pr->getLabel();
 							if ( !array_key_exists( $datePropLabel, $dates ) ) {
 								$dates[$datePropLabel] = array();
 							}
-							$dates[$datePropLabel][] = $this->formatDateStr( $object );
+							$dates[$datePropLabel][] =
+								$this->formatDateStr( $object );
 						}
 					}
 
@@ -186,14 +219,21 @@ class SRFCalendar extends SMWResultPrinter {
 			if ( count( $dates ) > 0 ) {
 				// Handle the 'color=' value, whether it came
 				// from a compound query or a regular one.
-				$res_subject = $field->getResultSubject();
-				if ( isset( $res_subject->display_options )
-					&& is_array( $res_subject->display_options ) ) {
-					if ( array_key_exists( 'color', $res_subject->display_options ) ) {
-						$color = $res_subject->display_options['color'];
+				$resSubject = $field->getResultSubject();
+				if ( isset( $resSubject->display_options )
+					&& is_array( $resSubject->display_options ) ) {
+					if ( array_key_exists(
+							'color', $resSubject->display_options )
+					) {
+						$color = $resSubject->display_options['color'];
 					}
-					if ( array_key_exists( 'colors', $res_subject->display_options ) ) {
-						$this->setColors( $res_subject->display_options['colors'] );
+					if (
+						array_key_exists( 'colors',
+							$resSubject->display_options )
+					) {
+						$this->setColors(
+							$resSubject->display_options['colors']
+						);
 					}
 				}
 
@@ -252,67 +292,75 @@ class SRFCalendar extends SMWResultPrinter {
 			'12' => 'december',
 		);
 
-		return wfMessage( array_key_exists( $int, $months ) ? $months[$int] : 'january' )->inContentLanguage()->text();
+		return wfMessage( array_key_exists( $int, $months )
+			? $months[$int]
+			: 'january' )->inContentLanguage()->text();
 	}
 
 	function formatDateStr( $object ) {
 		// For some reason, getMonth() and getDay() sometimes return a
 		// number with a leading zero - get rid of it using (int)
-		return $object->getYear() . '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
+		return $object->getYear()
+			. '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 	}
 
 	function displayCalendar( $events ) {
-		global $wgOut, $wgParser, $wgRequest;
+		global $wgParser;
 		global $srfgFirstDayOfWeek;
+		global $srfgScriptPath;
 
+		$context = RequestContext::getMain();
+		$request = $context->getRequest();
 		$wgParser->disableCache();
 
-		$wgOut->addLink( array(
+		$context->getOutput()->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
 			'media' => 'screen, print',
-			'href' => $GLOBALS['srfgScriptPath'] . '/formats/calendar/resources/ext.srf.calendar.css'
+			'href' => $srfgScriptPath
+			. '/formats/calendar/resources/ext.srf.calendar.css'
 		) );
 
 		// Set variables differently depending on whether this is
 		// being called from a regular page, via #ask, or from a
 		// special page: most likely either Special:Ask or
 		// Special:RunQuery.
-		$page_title = $wgParser->getTitle();
-		$additional_query_string = '';
-		$hidden_inputs = '';
-		$in_special_page = is_null( $page_title ) || $page_title->isSpecialPage();
+		$pageTitle = $context->getTitle();
+		if ( !$pageTitle ) {
+			$pageTitle = $wgParser->getTitle();
+		}
+		$additionalQueryString = '';
+		$hiddenInputs = '';
 
-		if ( $in_special_page ) {
-			global $wgTitle;
-			$page_title = $wgTitle;
-			$request_values = $wgRequest->getValues();
+		if ( $pageTitle->isSpecialPage() ) {
+			$requestValues = $request->getValues();
 			// Also go through the predefined PHP variable
-			// $_REQUEST, because $wgRequest->getValues() for
+			// $_REQUEST, because $request->getValues() for
 			// some reason doesn't return array values - is
 			// there a better (less hacky) way to do this?
 			foreach ( $_REQUEST as $key => $value ) {
 				if ( is_array( $value ) ) {
 					foreach ($value as $k2 => $v2 ) {
-						$new_key = $key . '[' . $k2 . ']';
-						$request_values[$new_key] = $v2;
+						$newKey = $key . '[' . $k2 . ']';
+						$requestValues[$newKey] = $v2;
 					}
 				}
 			}
 
-			foreach ( $request_values as $key => $value ) {
+			foreach ( $requestValues as $key => $value ) {
 				if ( $key != 'month' && $key != 'year'
 					// values from 'RunQuery'
 					&& $key != 'query' && $key != 'free_text'
 				) {
-					$additional_query_string .= "&$key=$value";
-					$hidden_inputs .= "<input type=\"hidden\" name=\"$key\" value=\"$value\" />";
+					$additionalQueryString .= "&$key=$value";
+					$hiddenInputs .= "<input type=\"hidden\" " .
+						"name=\"$key\" value=\"$value\" />";
 				}
 			}
 		}
 
 		// Set days of the week.
-		$week_day_names = array(
+		$weekDayNames = array(
 			1 => wfMessage( 'sunday' )->text(),
 			2 => wfMessage( 'monday' )->text(),
 			3 => wfMessage( 'tuesday' )->text(),
@@ -325,10 +373,12 @@ class SRFCalendar extends SMWResultPrinter {
 			$firstDayOfWeek = 1;
 			$lastDayOfWeek = 7;
 		} else {
-			$firstDayOfWeek = array_search( $srfgFirstDayOfWeek, $week_day_names );
+			$firstDayOfWeek =
+				array_search( $srfgFirstDayOfWeek, $weekDayNames );
 			if ( $firstDayOfWeek === false ) {
 				// Bad value for $srfgFirstDayOfWeek!
-				print 'Warning: Bad value for $srfgFirstDayOfWeek ("' . $srfgFirstDayOfWeek . '")';
+				print 'Warning: Bad value for $srfgFirstDayOfWeek "' .
+					'(' . $srfgFirstDayOfWeek . '")';
 				$firstDayOfWeek = 1;
 			}
 			if ( $firstDayOfWeek == 1 ) {
@@ -340,10 +390,10 @@ class SRFCalendar extends SMWResultPrinter {
 
 		// Now create the actual array of days of the week, based on
 		// the start day
-		$week_days = array();
+		$weekDays = array();
 		for ( $i = 1; $i <= 7; $i++ ) {
 			$curDay = ( ( $firstDayOfWeek + $i - 2 ) % 7 ) + 1;
-			$week_days[$i] = $week_day_names[$curDay];
+			$weekDays[$i] = $weekDayNames[$curDay];
 		}
 
 		// Get all the date-based values we need - the current month
@@ -354,101 +404,116 @@ class SRFCalendar extends SMWResultPrinter {
 		// previous and next months, etc.
 
 
-		if ( is_numeric( $this->mStartMonth ) && ( intval( $this->mStartMonth ) == $this->mStartMonth ) && $this->mStartMonth >= 1 && $this->mStartMonth <= 12 ) {
-			$cur_month_num = $this->mStartMonth;
+		if ( is_numeric( $this->mStartMonth ) &&
+			( intval( $this->mStartMonth ) == $this->mStartMonth ) &&
+			$this->mStartMonth >= 1 && $this->mStartMonth <= 12
+		) {
+			$curMonthNum = $this->mStartMonth;
 		} else {
-			$cur_month_num = date( 'n' );
+			$curMonthNum = date( 'n' );
 		}
-		if ( $wgRequest->getCheck( 'month' ) ) {
-			$query_month = $wgRequest->getVal( 'month' );
-			if ( is_numeric( $query_month ) && ( intval( $query_month ) == $query_month ) && $query_month >= 1 && $query_month <= 12 ) {
-				$cur_month_num = $wgRequest->getVal( 'month' );
+		if ( $request->getCheck( 'month' ) ) {
+			$queryMonth = $request->getVal( 'month' );
+			if ( is_numeric( $queryMonth ) &&
+				( intval( $queryMonth ) == $queryMonth ) &&
+				$queryMonth >= 1 && $queryMonth <= 12
+			) {
+				$curMonthNum = $request->getVal( 'month' );
 			}
 		}
 
-		$cur_month = self::intToMonth( $cur_month_num );
+		$curMonth = self::intToMonth( $curMonthNum );
 
-		if ( is_numeric( $this->mStartYear ) && ( intval( $this->mStartYear ) == $this->mStartYear ) ) {
-			$cur_year = $this->mStartYear;
+		if ( is_numeric( $this->mStartYear ) &&
+			( intval( $this->mStartYear ) == $this->mStartYear )
+		) {
+			$curYear = $this->mStartYear;
 		} else {
-			$cur_year = date( 'Y' );
+			$curYear = date( 'Y' );
 		}
-		if ( $wgRequest->getCheck( 'year' ) ) {
-			$query_year = $wgRequest->getVal( 'year' );
-			if ( is_numeric( $query_year ) && intval( $query_year ) == $query_year ) {
-				$cur_year = $wgRequest->getVal( 'year' );
+		if ( $request->getCheck( 'year' ) ) {
+			$queryYear = $request->getVal( 'year' );
+			if ( is_numeric( $queryYear ) &&
+				intval( $queryYear ) == $queryYear
+			) {
+				$curYear = $request->getVal( 'year' );
 			}
 		}
 
-		if ( $cur_month_num == '1' ) {
-			$prev_month_num = '12';
-			$prev_year = $cur_year - 1;
+		if ( $curMonthNum == '1' ) {
+			$prevMonthNum = '12';
+			$prevYear = $curYear - 1;
 		} else {
-			$prev_month_num = $cur_month_num - 1;
-			$prev_year = $cur_year;
+			$prevMonthNum = $curMonthNum - 1;
+			$prevYear = $curYear;
 		}
 
-		if ( $cur_month_num == '12' ) {
-			$next_month_num = '1';
-			$next_year = $cur_year + 1;
+		if ( $curMonthNum == '12' ) {
+			$nextMonthNum = '1';
+			$nextYear = $curYear + 1;
 		} else {
-			$next_month_num = $cur_month_num + 1;
-			$next_year = $cur_year;
+			$nextMonthNum = $curMonthNum + 1;
+			$nextYear = $curYear;
 		}
 
 		// There's no year '0' - change it to '1' or '-1'.
-		if ( $cur_year == '0' ) { $cur_year = '1'; }
-		if ( $next_year == '0' ) { $next_year = '1'; }
-		if ( $prev_year == '0' ) { $prev_year = '-1'; }
+		if ( $curYear == '0' ) { $curYear = '1'; }
+		if ( $nextYear == '0' ) { $nextYear = '1'; }
+		if ( $prevYear == '0' ) { $prevYear = '-1'; }
 
-		$prev_month_url = $page_title->getLocalURL( "month=$prev_month_num&year=$prev_year" . $additional_query_string );
-		$next_month_url = $page_title->getLocalURL( "month=$next_month_num&year=$next_year" . $additional_query_string );
-		$today_url = $page_title->getLocalURL( $additional_query_string );
+		$prevMonthUrl = $pageTitle->getLocalURL(
+			"month=$prevMonthNum&year=$prevYear" .
+			$additionalQueryString
+		);
+		$nextMonthUrl = $pageTitle->getLocalURL(
+			"month=$nextMonthNum&year=$nextYear" .
+			$additionalQueryString
+		);
+		$todayUrl = $pageTitle->getLocalURL( $additionalQueryString );
+		$pageName = $pageTitle->getPrefixedDbKey();
 
-		$today_text = wfMessage( 'srfc_today' )->text();
-		$prev_month_text = wfMessage( 'srfc_previousmonth' )->text();
-		$next_month_text = wfMessage( 'srfc_nextmonth' )->text();
-		$go_to_month_text = wfMessage( 'srfc_gotomonth' )->text();
+		$todayText = wfMessage( 'srfc_today' )->text();
+		$prevMonthText = wfMessage( 'srfc_previousmonth' )->text();
+		$nextMonthText = wfMessage( 'srfc_nextmonth' )->text();
+		$goToMonthText = wfMessage( 'srfc_gotomonth' )->text();
 
 		// Get day of the week that the first of this month falls on.
-		$first_day = new SRFCHistoricalDate();
-		$first_day->create( $cur_year, $cur_month_num, 1 );
-		$day_of_week_of_1 = $first_day->getDayOfWeek();
-		$start_day = $firstDayOfWeek - $day_of_week_of_1;
-		if ( $start_day > 0 ) { $start_day -= 7; }
-		$days_in_prev_month = SRFCHistoricalDate::daysInMonth( $prev_year, $prev_month_num );
-		$days_in_cur_month = SRFCHistoricalDate::daysInMonth( $cur_year, $cur_month_num );
-		$today_string = date( 'Y n j', time() );
-		$page_name = $page_title->getPrefixedDbKey();
+		$firstDay = new SRFCHistoricalDate();
+		$firstDay->create( $curYear, $curMonthNum, 1 );
+		$startDay = $firstDayOfWeek - $firstDay->getDayOfWeek();
+		if ( $startDay > 0 ) { $startDay -= 7; }
+		$daysInPrevMonth =
+			SRFCHistoricalDate::daysInMonth( $prevYear, $prevMonthNum );
+		$daysInCurMonth =
+			SRFCHistoricalDate::daysInMonth( $curYear, $curMonthNum );
+		$todayString = date( 'Y n j', time() );
+		$pageName = $pageTitle->getPrefixedDbKey();
 
 		// Create table for holding title and navigation information.
 		$text = <<<END
 <table class="navigation_table">
-<tr>
-<td class="month_name">$cur_month $cur_year</td>
-<td class="nav_links">
-<a href="$prev_month_url" title="$prev_month_text"><img src="{$GLOBALS['srfgScriptPath']}/formats/calendar/resources/images/left-arrow.png" border="0" /></a>
-&#160;
-<a href="$today_url">$today_text</a>
-&#160;
-<a href="$next_month_url" title="$next_month_text"><img src="{$GLOBALS['srfgScriptPath']}/formats/calendar/resources/images/right-arrow.png" border="0" /></a>
-</td>
-<td class="nav_form">
-<form>
-<input type="hidden" name="title" value="$page_name">
+<tr><td class="month_name">$curMonth $curYear</td>
+<td class="nav_links"><a href="$prevMonthUrl" title="$prevMonthText">
+<img src="{$srfgScriptPath}/formats/calendar/resources/images/left-arrow.png"
+border="0" /></a>&#160;<a href="$todayUrl">$todayText</a>&#160;
+<a href="$nextMonthUrl" title="$nextMonthText">
+<img src="{$srfgScriptPath}/formats/calendar/resources/images/right-arrow.png"
+ border="0" /></a></td><td class="nav_form"><form>
+<input type="hidden" name="title" value="$pageName">
 <select name="month">
 
 END;
 		for ( $i = 1; $i <= 12; $i++ ) {
-			$month_name = self::intToMonth( $i );
-			$selected_str = ( $i == $cur_month_num ) ? "selected" : "";
-			$text .= "<option value=\"$i\" $selected_str>$month_name</option>\n";
+			$monthName = self::intToMonth( $i );
+			$selectedStr = ( $i == $curMonthNum ) ? "selected" : "";
+			$text .= "<option value=\"$i\" $selectedStr>
+				$monthName</option>\n";
 		}
 		$text .= <<<END
 </select>
-<input name="year" type="text" value="$cur_year" size="4">
-$hidden_inputs
-<input type="submit" value="$go_to_month_text">
+<input name="year" type="text" value="$curYear" size="4">
+$hiddenInputs
+<input type="submit" value="$goToMonthText">
 </form>
 </td>
 </tr>
@@ -459,8 +524,8 @@ $hidden_inputs
 
 END;
 		// First row of the main table holds the days of the week
-		foreach ( $week_days as $week_day ) {
-			$text .= "<td>$week_day</td>";
+		foreach ( $weekDays as $weekDay ) {
+			$text .= "<td>$weekDay</td>";
 		}
 		$text .= "</tr>\n";
 
@@ -470,35 +535,43 @@ END;
 		// might be after the end of the month).
 		// "Sunday" and "Saturday" are in quotes because the actual
 		// start and end days of the week can be set by the admin.
-		$day_of_the_week = $firstDayOfWeek;
-		$is_last_week = false;
-		for ( $day = $start_day; ( ! $is_last_week || $day_of_the_week != $firstDayOfWeek ); $day++ ) {
-			if ( $day_of_the_week == $firstDayOfWeek ) {
+		$dayOfTheWeek = $firstDayOfWeek;
+		$isLastWeek = false;
+		for ( $day = $startDay;
+			  ( ! $isLastWeek || $dayOfTheWeek != $firstDayOfWeek );
+			  $day++ )
+			{
+			if ( $dayOfTheWeek == $firstDayOfWeek ) {
 				$text .= "<tr>\n";
 			}
-			if ( "$cur_year $cur_month_num $day" == $today_string ) {
+			if ( "$curYear $curMonthNum $day" == $todayString ) {
 				$text .= "<td class=\"today\">\n";
-			} elseif ( $day_of_the_week == 1 || $day_of_the_week == 7 ) {
+			} elseif ( $dayOfTheWeek == 1 || $dayOfTheWeek == 7 ) {
 				$text .= "<td class=\"weekend_day\">\n";
 			} else {
 				$text .= "<td>\n";
 			}
-			if ( $day == $days_in_cur_month || $day > 50 ) { $is_last_week = true; }
+			if ( $day == $daysInCurMonth || $day > 50 ) {
+				$isLastWeek = true;
+			}
 			// If this day is before or after the current month,
 			// set a "display day" to show on the calendar, and
 			// use a different CSS style for it.
-			if ( $day > $days_in_cur_month || $day < 1 ) {
+			if ( $day > $daysInCurMonth || $day < 1 ) {
 				if ( $day < 1 ) {
-					$display_day = $day + $days_in_prev_month;
-					$date_str = $prev_year . '-' . $prev_month_num . '-' . $display_day;
+					$displayDay = $day + $daysInPrevMonth;
+					$dateStr =
+						$prevYear . '-' . $prevMonthNum . '-' . $displayDay;
 				}
-				if ( $day > $days_in_cur_month ) {
-					$display_day = $day - $days_in_cur_month;
-					$date_str = $next_year . '-' . $next_month_num . '-' . $display_day;
+				if ( $day > $daysInCurMonth ) {
+					$displayDay = $day - $daysInCurMonth;
+					$dateStr =
+						$nextYear . '-' . $nextMonthNum . '-' . $displayDay;
 				}
-				$text .= "<div class=\"day day_other_month\">$display_day</div>\n";
+				$text .=
+					"<div class=\"day day_other_month\">$displayDay</div>\n";
 			} else {
-				$date_str = $cur_year . '-' . $cur_month_num . '-' . $day;
+				$dateStr = $curYear . '-' . $curMonthNum . '-' . $day;
 				$text .= "<div class=\"day\">$day</div>\n";
 			}
 			// Finally, the most important step - get the events
@@ -509,19 +582,24 @@ END;
 				$events = array();
 			}
 			foreach ( $events as $event ) {
-				list( $event_title, $other_text, $event_date, $color ) = $event;
-				if ( $event_date == $date_str ) {
+				list( $eventTitle, $otherText, $eventDate, $color ) = $event;
+				if ( $eventDate == $dateStr ) {
 					if ( $this->mTemplate != '' ) {
-						$templatetext = '{{' . $this->mTemplate . $other_text . '|thisdate=' . $date_str . '}}';
-						$templatetext = $wgParser->replaceVariables( $templatetext );
-						$templatetext = $wgParser->recursiveTagParse( $templatetext );
+						$templatetext = '{{' . $this->mTemplate . $otherText .
+							'|thisdate=' . $dateStr . '}}';
+						$templatetext =
+							$wgParser->replaceVariables( $templatetext );
+						$templatetext =
+							$wgParser->recursiveTagParse( $templatetext );
 						$text .= $templatetext;
 					} else {
-						$event_str = Linker::link( $event_title );
+						$eventStr = Linker::link( $eventTitle );
 						if ( $color != '' ) {
-							$text .= "<div class=\"colored-entry\"><p style=\"border-left: 7px $color solid;\">$event_str $other_text</p></div>\n";
+							$text .= "<div class=\"colored-entry\">
+								<p style=\"border-left: 7px $color solid;\">
+								$eventStr $otherText</p></div>\n";
 						} else {
-							$text .= "$event_str $other_text\n\n";
+							$text .= "$eventStr $otherText\n\n";
 						}
 					}
 				}
@@ -531,13 +609,13 @@ END;
 </td>
 
 END;
-			if ( $day_of_the_week == $lastDayOfWeek ) {
+			if ( $dayOfTheWeek == $lastDayOfWeek ) {
 				$text .= "</tr>\n";
 			}
-			if ( $day_of_the_week == 7 ) {
-				$day_of_the_week = 1;
+			if ( $dayOfTheWeek == 7 ) {
+				$dayOfTheWeek = 1;
 			} else {
-				$day_of_the_week++;
+				$dayOfTheWeek++;
 			}
 		}
 		$text .= "</table>\n";
@@ -587,12 +665,12 @@ END;
 			'message' => 'srf-paramdesc-calendar-startmonth',
 			'default' => date( 'n' ),
 		);
-		
+
 		$params['startyear'] = array(
 			'message' => 'srf-paramdesc-calendar-startyear',
 			'default' => date( 'Y' ),
 		);
-		
+
 		return $params;
 	}
 }
