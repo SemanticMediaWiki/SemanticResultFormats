@@ -109,7 +109,7 @@
 	"srf-paramdesc-chartclass": "Clase CSS adicional",
 	"srf-paramdesc-renderer": "Seleccione un representador tablas/gráficas",
 	"srf-paramdesc-filling": "Opción de rellenado individual",
-	"srf-paramdesc-theme": "Seleccione un tema de cuadrícula",
+	"srf-paramdesc-theme": "Selecciona un tema de cuadrícula",
 	"srf-paramdesc-chartcolor": "Asignar colores individuales al gráfico",
 	"srf-paramdesc-colorscheme": "Seleccione una combinación de colores",
 	"srf-paramdesc-valueformat": "Especifica una regla de formato para valores",

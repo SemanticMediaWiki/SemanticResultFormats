@@ -135,6 +135,7 @@
 	"srf-paramdesc-chartcursor": "Option d'affichage du curseur de diagramme",
 	"srf-paramdesc-trendline": "Active l'affichage simultané d'un diagramme et de sa tendance",
 	"srf-paramdesc-gridview": "Afficher le diagramme et les ensembles de données en même temps. Valeurs autorisées: « none » et « tabs ». Par défaut: « none »",
+	"srf-paramdesc-paneview": "Spécifier la position du panneau contenant un petit graphique en lignes. Valeurs permises : « bottom » (bas), « top » (haut) et « none » (aucun). Par défaut : « bottom »",
 	"srf-paramdesc-infotext": "Afficher les informations supplémentaires sur un tableau d'information correspondant",
 	"srf-ui-gridview-label-item": "Élément de donnée",
 	"srf-ui-gridview-label-value": "Valeur de donnée",
