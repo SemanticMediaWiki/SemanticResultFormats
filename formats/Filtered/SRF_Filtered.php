@@ -13,6 +13,7 @@ $wgAutoloadClasses['SRF_Filtered_Item'] = $formatDir . 'SRF_Filtered_Item.php';
 $wgAutoloadClasses['SRF_Filtered_View'] = $formatDir . 'views/SRF_Filtered_View.php';
 $wgAutoloadClasses['SRF_FV_List'] = $formatDir . 'views/SRF_FV_List.php';
 $wgAutoloadClasses['SRF_FV_Calendar'] = $formatDir . 'views/SRF_FV_Calendar.php';
+$wgAutoloadClasses['SRF_FV_Table'] = $formatDir . 'views/SRF_FV_Table.php';
 
 $wgAutoloadClasses['SRF_Filtered_Filter'] = $formatDir . 'filters/SRF_Filtered_Filter.php';
 $wgAutoloadClasses['SRF_FF_Value'] = $formatDir . 'filters/SRF_FF_Value.php';
@@ -60,6 +61,7 @@ class SRFFiltered extends SMWResultPrinter {
 	private $mViewTypes = array(
 		'list' => 'SRF_FV_List',
 		'calendar' => 'SRF_FV_Calendar',
+		'table' => 'SRF_FV_Table'
 	);
 
 	/**
@@ -293,6 +295,9 @@ class SRFFiltered extends SMWResultPrinter {
 			// 'islist' => false,
 		);
 
+		/*print_r($this->mViewTypes);
+		print_r($params);
+		print_r(get_declared_classes());*/
 		foreach ( $this->mViewTypes as $viewType ) {
 			$params = array_merge( $params, call_user_func( array( $viewType, 'getParameters' ) ) );
 		}

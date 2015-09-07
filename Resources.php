@@ -734,6 +734,15 @@ return array(
 			'ext.srf.filtered'
 		),
 	),
+		
+	'ext.srf.filtered.table-view' => $formatModule + array(
+			'scripts' => array(
+					'Filtered/libs/ext.srf.filtered.table-view.js',
+			),
+			'dependencies' => array(
+					'ext.srf.filtered'
+			),
+	),
 
 	//
 	'ext.srf.filtered.calendar-view' => $formatModule + $calendarMessages + array(
@@ -784,6 +793,7 @@ return array(
 	),
 
 	// Tagcanvas module
+
 	'ext.jquery.tagcanvas' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/jquery.tagcanvas.js'
 	),
