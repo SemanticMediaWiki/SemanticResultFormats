@@ -20,16 +20,16 @@
  */
 class SRF_FV_Table extends SRF_Filtered_View {
 
-	const VIEW_CONTAINER_HTML_TAG = 'div';
+//	const VIEW_CONTAINER_HTML_TAG = 'div';
 
 	private
 		$mFormat,
 		$mNamedArgs,
 		$mShowHeaders;
 
-	public static function getViewContainerHtmlTag(){
-		return self::VIEW_CONTAINER_HTML_TAG;
-	}
+//	public static function getViewContainerHtmlTag(){
+//		return self::VIEW_CONTAINER_HTML_TAG;
+//	}
 
 	public function __construct($id, &$results, &$params, SRFFiltered &$queryPrinter){
 		parent::__construct($id, $results, $params, $queryPrinter);
@@ -258,7 +258,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	 * @return String the selector label
 	 */
 	public function getSelectorLabel() {
-		Message::newFromKey( 'srf-filtered-selectorlabel-table' )->inContentLanguage()->text();
+		return Message::newFromKey( 'srf-filtered-selectorlabel-table' )->inContentLanguage()->text();
 	}
 
 }
