@@ -14,22 +14,12 @@
  *
  * Available parameters for this view:
  *   headers: (show)|hide|plain 
- *   list view named args: use named args for templates
  *
  * @ingroup SemanticResultFormats
  */
 class SRF_FV_Table extends SRF_Filtered_View {
 
-//	const VIEW_CONTAINER_HTML_TAG = 'div';
-
-	private
-		$mFormat,
-		$mNamedArgs,
-		$mShowHeaders;
-
-//	public static function getViewContainerHtmlTag(){
-//		return self::VIEW_CONTAINER_HTML_TAG;
-//	}
+	private	$mShowHeaders;
 
 	public function __construct($id, &$results, &$params, SRFFiltered &$queryPrinter){
 		parent::__construct($id, $results, $params, $queryPrinter);
@@ -42,8 +32,6 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	protected function handleParameters() {
 
 		$params = $this->getActualParameters();
-
-		$this->mFormat = 'table';
 
 		if ( $params['headers'] == 'hide' ) {
 			$this->mShowHeaders = SMW_HEADERS_HIDE;
@@ -65,32 +53,39 @@ class SRF_FV_Table extends SRF_Filtered_View {
 
 		// Initialise more values
 		$result = '';
-		$outputmode = SMW_OUTPUT_WIKI;
 		$columnClasses = array();
 
 		// Table Header		
-		if ( $this->mShowHeaders != SMW_HEADERS_HIDE ) { // building headers
+		if ( $this->mShowHeaders != SMW_HEADERS_HIDE ) { // no headers when headers=hide
 			$headers = array();
-			$aPrintRequests = array();
-			
-			list($id, $queryResultValue) = each( $this->getQueryResults());
-			
+			$aPrintRequests = array(); // "columns"
+
+			// Get first QueryResult and assign array members to variables
+			// $queryResultValue is of type SRF_Filtered_Item
+			list( $id, $queryResultValue ) = each( $this->getQueryResults() );
+
+			// get the result array			
 			$row = $queryResultValue->getValue();
+
+
 			foreach ( $row as $field ) {
-				$printRequest = $field->getPrintRequest();
+				$printRequest = $field->getPrintRequest();	// "column"
 				$aPrintRequests[] = $printRequest;
 			}
-					
+
 			foreach ( $aPrintRequests as $pr ) {
 				$attribs = array();
-				// build columnClass from header text
+				
+				// build class attributes from header text assigned to each column's cell
 				$columnClass = str_replace( array( ' ', '_' ), '-', strip_tags( $pr->getText( SMW_OUTPUT_WIKI ) ) );
 				$attribs['class'] = $columnClass;
+				
 				// Also add this to the array of classes, for
 				// use in displaying each row.
 				$columnClasses[] = $columnClass;
 				
-				$text = $pr->getText( $outputmode, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null :$this->getQueryPrinter()->getLinker(false,true) ) );
+				// get header text (and link to property)
+				$text = $pr->getText( SMW_OUTPUT_WIKI, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter()->getLinker( false, true ) ) );
 				
 				$headers[] = Html::rawElement(
 						'th',
@@ -98,28 +93,24 @@ class SRF_FV_Table extends SRF_Filtered_View {
 						$text === '' ? '&nbsp;' : $text
 				);
 			}
-				
-			$headers = '<tr>' . implode( "\n", $headers ) . '</tr>';
-			$headers = "\n$headers\n";
+			
+			$headers = "\n<tr>\n" . implode( "\n", $headers ) . "\n</tr>\n";
 			$result .= $headers;
 		}
 
 		// Table Body		
-		$tableRows = $this->getTableRows( $this->getQueryResults(), $outputmode, $columnClasses);		
+		$tableRows = $this->getTableRows( $this->getQueryResults(), SMW_OUTPUT_WIKI, $columnClasses );
 		$tableRows = implode( "\n", $tableRows );
 		$result .= $tableRows;
 		
-		// Put the <table> tag around the whole thing
+		// Put the <table> tag around the whole thing and optionally add CSS class
 		$class = '';
-		if(array_key_exists('class', $this->params)){
+		if ( array_key_exists( 'class', $this->params ) ){
 			$class = $this->params['class'];
 		}
 		$tableAttrs = array( 'class' => $class );
 		
 		$result = Xml::tags( 'table', $tableAttrs, $result );
-		
-		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
-		
 		
 		return $result;
 	}
@@ -238,7 +229,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 		$params[] = array(
 				'name' => 'class',
 				'message' => 'smw-paramdesc-table-class',
-				'default' => 'sortable wikitable smwtable',
+				'default' => '',
 		);
 
 		return $params;
