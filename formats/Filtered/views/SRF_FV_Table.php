@@ -229,7 +229,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 		$params[] = array(
 				'name' => 'class',
 				'message' => 'smw-paramdesc-table-class',
-				'default' => '',
+				'default' => 'wikitable sortable',
 		);
 
 		return $params;
