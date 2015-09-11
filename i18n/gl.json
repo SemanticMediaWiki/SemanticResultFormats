@@ -53,6 +53,8 @@
 	"srf_printername_calendar": "Calendario mensual",
 	"srf_paramdesc_calendarlang": "O código da lingua na que mostrar o calendario",
 	"srf_paramdesc_calendarcolors": "A cor na que mostrar cada propiedade de data (exemplo: \"Data de inicio=>green,Data de fin=>#09c\")",
+	"srf-paramdesc-calendar-startmonth": "O mes co cal se inicializa a pantalla de calendario (se se omite é o mes actual)",
+	"srf-paramdesc-calendar-startyear": "O ano co cal se inicializa a pantalla de calendario (se se omite é o ano actual)",
 	"srf_vcard_link": "vTarxeta",
 	"srf_printername_vcard": "Exportación en vCard",
 	"srf_icalendar_link": "iCalendario",
