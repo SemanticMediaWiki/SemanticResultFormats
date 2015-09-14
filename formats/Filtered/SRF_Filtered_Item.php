@@ -19,23 +19,30 @@ class SRF_Filtered_Item {
 	private $mItemData = array();
 	private $mQueryPrinter;
 
-	public function __construct( $resultArray, SRFFiltered &$queryPrinter ) {
+	/**
+	 * @param SMWResultArray[] $resultArray
+	 * @param SRFFiltered $queryPrinter
+	 */
+	public function __construct( array $resultArray, SRFFiltered &$queryPrinter ) {
 		$this->mResultArray = $resultArray;
 		$this->mQueryPrinter = $queryPrinter;
 	}
 
-	public function setData ( $viewOrFilterId, $data ) {
+	public function setData( $viewOrFilterId, $data ) {
 		$this->mItemData[$viewOrFilterId] = $data;
 	}
 
-	public function unsetData ( $viewOrFilterId ) {
+	public function unsetData( $viewOrFilterId ) {
 		unset( $this->mItemData[$viewOrFilterId] );
 	}
 
-	public function getData ( $viewOrFilterId ) {
+	public function getData( $viewOrFilterId ) {
 		return $this->mItemData[$viewOrFilterId];
 	}
 
+	/**
+	 * @return SMWResultArray[]
+	 */
 	public function getValue() {
 		return $this->mResultArray;
 	}

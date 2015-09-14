@@ -8,6 +8,7 @@
  * @file
  * @ingroup SemanticResultFormats
  */
+use SMW\Query\PrintRequest;
 
 /**
  * The SRF_FV_Table class defines the Table view.
@@ -20,6 +21,11 @@
 class SRF_FV_Table extends SRF_Filtered_View {
 
 	private	$mShowHeaders;
+
+	/**
+	 * @var string[]
+	 */
+	private $columnClasses;
 
 	public function __construct($id, &$results, &$params, SRFFiltered &$queryPrinter){
 		parent::__construct($id, $results, $params, $queryPrinter);
@@ -48,60 +54,19 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	 * @return string
 	 */
 	public function getResultText() {
-
 		$this->handleParameters();
 
 		// Initialise more values
 		$result = '';
-		$columnClasses = array();
+		$this->columnClasses = array();
 
 		// Table Header		
 		if ( $this->mShowHeaders != SMW_HEADERS_HIDE ) { // no headers when headers=hide
-			$headers = array();
-			$aPrintRequests = array(); // "columns"
-
-			// Get first QueryResult and assign array members to variables
-			// $queryResultValue is of type SRF_Filtered_Item
-			list( $id, $queryResultValue ) = each( $this->getQueryResults() );
-
-			// get the result array			
-			$row = $queryResultValue->getValue();
-
-
-			foreach ( $row as $field ) {
-				$printRequest = $field->getPrintRequest();	// "column"
-				$aPrintRequests[] = $printRequest;
-			}
-
-			foreach ( $aPrintRequests as $pr ) {
-				$attribs = array();
-				
-				// build class attributes from header text assigned to each column's cell
-				$columnClass = str_replace( array( ' ', '_' ), '-', strip_tags( $pr->getText( SMW_OUTPUT_WIKI ) ) );
-				$attribs['class'] = $columnClass;
-				
-				// Also add this to the array of classes, for
-				// use in displaying each row.
-				$columnClasses[] = $columnClass;
-				
-				// get header text (and link to property)
-				$text = $pr->getText( SMW_OUTPUT_WIKI, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter()->getLinker( false, true ) ) );
-				
-				$headers[] = Html::rawElement(
-						'th',
-						$attribs,
-						$text === '' ? '&nbsp;' : $text
-				);
-			}
-			
-			$headers = "\n<tr>\n" . implode( "\n", $headers ) . "\n</tr>\n";
-			$result .= $headers;
+			$result .= $this->getTableHeaders();
 		}
 
 		// Table Body		
-		$tableRows = $this->getTableRows( $this->getQueryResults(), SMW_OUTPUT_WIKI, $columnClasses );
-		$tableRows = implode( "\n", $tableRows );
-		$result .= $tableRows;
+		$result .= $this->getTableRowsHTML();
 		
 		// Put the <table> tag around the whole thing and optionally add CSS class
 		$class = '';
@@ -115,22 +80,70 @@ class SRF_FV_Table extends SRF_Filtered_View {
 		return $result;
 	}
 
-	/**
-	 * Get all table rows
-	 * 
-	 * @return string
-	 */
-	protected function getTableRows( $queryResults, $outputmode, $columnClasses) {
-		
+	private function getTableHeaders() {
+		$headers = array();
+
+		/**
+		 * Get first QueryResult and assign array members to variables
+		 * @var SRF_Filtered_Item $queryResultValue
+		 */
+		list( , $queryResultValue ) = each( $this->getQueryResults() );
+
+		foreach ( $queryResultValue->getValue() as $field ) {
+			$headers[] = $this->getTableHeader( $field->getPrintRequest() );
+		}
+
+		return "\n<tr>\n" . implode( "\n", $headers ) . "\n</tr>\n";
+	}
+
+	private function getTableHeader( PrintRequest $pr ) {
+		// build class attributes from header text assigned to each column's cell
+		$columnClass = $this->getColumnClass( $pr );
+
+		// Also add this to the array of classes, for
+		// use in displaying each row.
+		$this->columnClasses[] = $columnClass;
+
+		// get header text (and link to property)
+		$text = $pr->getText(
+			SMW_OUTPUT_WIKI,
+			$this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter()->getLinker( false, true )
+		);
+
+		return Html::rawElement(
+			'th',
+			array( 'class' => $columnClass ),
+			$text === '' ? '&nbsp;' : $text
+		);
+	}
+
+	private function getColumnClass( PrintRequest $pr ) {
+		return str_replace(
+			array( ' ', '_' ),
+			'-',
+			strip_tags( $pr->getText( SMW_OUTPUT_WIKI ) )
+		);
+	}
+
+	private function getTableRowsHTML() {
+		return implode(
+			"\n",
+			$this->getTableRows(
+				$this->getQueryResults(),
+				SMW_OUTPUT_WIKI,
+				$this->columnClasses
+			)
+		);
+	}
+
+	private function getTableRows( $queryResults, $outputmode, $columnClasses) {
 		$tableRows = array();
 		
 		foreach ( $queryResults as $id => $value ) {
-			
 			$cells = array();
 			$row = $value->getValue();
 			
-			foreach($row as $i => $field){
-				
+			foreach( $row as $i => $field ) {
 				if ( array_key_exists( $i, $columnClasses ) ) {
 					$columnClass = $columnClasses[$i];
 				} else {
