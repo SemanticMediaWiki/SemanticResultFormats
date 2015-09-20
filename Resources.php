@@ -736,6 +736,19 @@ return array(
 	),
 
 	//
+	'ext.srf.filtered.table-view' => $formatModule + array(
+		'scripts' => array(
+			'Filtered/libs/ext.srf.filtered.table-view.js',
+		),
+		'styles' => array(
+			'Filtered/skins/ext.srf.filtered.table-view.css',
+		),
+		'dependencies' => array(
+			'ext.srf.filtered'
+		),
+	),
+
+	//
 	'ext.srf.filtered.calendar-view' => $formatModule + $calendarMessages + array(
 		'scripts' => array(
 			'Filtered/libs/ext.srf.filtered.calendar-view.js',

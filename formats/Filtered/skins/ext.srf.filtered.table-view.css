@@ -1,0 +1,11 @@
+/*
+	Stylesheet for the table view
+*/
+
+.filtered-table-item > td {
+    overflow: hidden;
+}
+
+.filtered-table-item > td > div {
+    height: inherit;
+}
