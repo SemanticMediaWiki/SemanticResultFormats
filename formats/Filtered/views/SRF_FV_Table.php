@@ -173,6 +173,9 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	 * @return string
 	 */
 	protected function getCellForPropVals( SMWResultArray $resultArray, $outputmode, $columnClass ) {
+		
+		$resultArray->reset();
+		
 		$dataValues = array();
 		
 		while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
