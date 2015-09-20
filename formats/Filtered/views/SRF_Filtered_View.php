@@ -23,9 +23,10 @@ abstract class SRF_Filtered_View {
 	/**
 	 * Constructor for the view.
 	 *
-	 * @param $id the view id
-	 * @param $results array of SRF_Filtered_Item containing the query results
-	 * @param $params array of parameter values given as key-value-pairs
+	 * @param                     $id      the view id
+	 * @param SRF_Filtered_Item[] $results array of SRF_Filtered_Item containing the query results
+	 * @param                     $params  array of parameter values given as key-value-pairs
+	 * @param SRFFiltered         $queryPrinter
 	 */
 	public function __construct( $id, &$results, &$params, SRFFiltered &$queryPrinter ) {
 		$this->mId = $id;

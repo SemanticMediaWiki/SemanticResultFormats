@@ -12,6 +12,7 @@ $wgAutoloadClasses['SRF_Filtered_Item'] = $formatDir . 'SRF_Filtered_Item.php';
 
 $wgAutoloadClasses['SRF_Filtered_View'] = $formatDir . 'views/SRF_Filtered_View.php';
 $wgAutoloadClasses['SRF_FV_List'] = $formatDir . 'views/SRF_FV_List.php';
+$wgAutoloadClasses['SRF_FV_Table'] = $formatDir . 'views/SRF_FV_Table.php';
 $wgAutoloadClasses['SRF_FV_Calendar'] = $formatDir . 'views/SRF_FV_Calendar.php';
 
 $wgAutoloadClasses['SRF_Filtered_Filter'] = $formatDir . 'filters/SRF_Filtered_Filter.php';
@@ -59,6 +60,7 @@ class SRFFiltered extends SMWResultPrinter {
 	 */
 	private $mViewTypes = array(
 		'list' => 'SRF_FV_List',
+		'table' => 'SRF_FV_Table',
 		'calendar' => 'SRF_FV_Calendar',
 	);
 
@@ -120,7 +122,7 @@ class SRFFiltered extends SMWResultPrinter {
 		// collect the query results in an array
 		$result = array();
 		while ( $row = $res->getNext() ) {
-			$result[uniqid()] = new SRF_Filtered_Item( $row, $this );
+			$result[uniqid( 'item-' )] = new SRF_Filtered_Item( $row, $this );
 		}
 
 		$resourceModules = array();
@@ -234,7 +236,7 @@ class SRFFiltered extends SMWResultPrinter {
 			$resultAsArray[$id] = $value->getArrayRepresentation();
 		}
 
-		$id = uniqid();
+		$id = uniqid( 'filtered-' );
 		SMWOutputs::requireScript( 'srf_filtered_values' . $id,
 			Html::inlineScript(
 				'srf_filtered_values["' . $id .  '"] = { "values":' . json_encode( $resultAsArray ) .

@@ -19,6 +19,10 @@ class SRF_Filtered_Item {
 	private $mItemData = array();
 	private $mQueryPrinter;
 
+	/**
+	 * @param SMWResultArray[] $resultArray
+	 * @param SRFFiltered $queryPrinter
+	 */
 	public function __construct( $resultArray, SRFFiltered &$queryPrinter ) {
 		$this->mResultArray = $resultArray;
 		$this->mQueryPrinter = $queryPrinter;
@@ -36,6 +40,9 @@ class SRF_Filtered_Item {
 		return $this->mItemData[$viewOrFilterId];
 	}
 
+	/**
+	 * @return SMWResultArray[]
+	 */
 	public function getValue() {
 		return $this->mResultArray;
 	}
