@@ -494,11 +494,11 @@ class SRFCalendar extends SMWResultPrinter {
 <table class="navigation_table">
 <tr><td class="month_name">$curMonth $curYear</td>
 <td class="nav_links"><a href="$prevMonthUrl" title="$prevMonthText">
-<img src="{$srfgScriptPath}/formats/calendar/resources/images/left-arrow.png"
-border="0" /></a>&#160;<a href="$todayUrl">$todayText</a>&#160;
+<img src="{$srfgScriptPath}/formats/calendar/resources/images/left-arrow.png" border="0" />
+</a>&#160;<a href="$todayUrl">$todayText</a>&#160;
 <a href="$nextMonthUrl" title="$nextMonthText">
-<img src="{$srfgScriptPath}/formats/calendar/resources/images/right-arrow.png"
- border="0" /></a></td><td class="nav_form"><form>
+<img src="{$srfgScriptPath}/formats/calendar/resources/images/right-arrow.png" border="0" />
+</a></td><td class="nav_form"><form>
 <input type="hidden" name="title" value="$pageName">
 <select name="month">
 
