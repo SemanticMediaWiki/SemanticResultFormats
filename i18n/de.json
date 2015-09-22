@@ -234,7 +234,7 @@
 	"srf-paramdesc-filtered-calendar-title": "Die Ausgabe, die den Titel einer Veranstaltung enthält. Kann nicht zusammen mit einer Vorlage zur Ausgabe des Titels verwendet werden",
 	"srf-paramdesc-filtered-calendar-title-template": "Die Vorlage, die den Titel einer Veranstaltung enthält",
 	"srf-filtered-selectorlabel-list": "Liste",
-	"srf-filtered-selectorlabel-list": "Tabelle",
+	"srf-filtered-selectorlabel-table": "Tabelle",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-printername-d3chart": "Diagramm (D3)",
 	"srf-printername-timeseries": "Diagramm (Zeitreihe)",
