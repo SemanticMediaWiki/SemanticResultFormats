@@ -10,7 +10,8 @@
 			"Whym",
 			"青子守歌",
 			"Rxy",
-			"SkyDaisy9"
+			"SkyDaisy9",
+			"Sujiniku"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
@@ -151,6 +152,7 @@
 	"srf-paramdesc-filtered-list-outrotemplate": "問い合わせ結果がある場合、その後に表示するテンプレートの名前。",
 	"srf-paramdesc-filtered-calendar-title-template": "カレンダーでイベントのタイトルの整形に使用するテンプレート",
 	"srf-filtered-selectorlabel-list": "一覧",
+	"srf-filtered-selectorlabel-table": "テーブル",
 	"srf-filtered-selectorlabel-calendar": "カレンダー",
 	"srf-filtered-firstdayofweek": "0",
 	"srf-printername-d3chart": "D3 チャート",

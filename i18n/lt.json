@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hugo.arg"
+			"Hugo.arg",
+			"Zygimantus"
 		]
 	},
 	"srf-ui-common-label-refresh": "Atnaujinti",
 	"srfc_previousmonth": "Praeitas mėnuo",
 	"srfc_nextmonth": "Ateinantis mėnuo",
 	"srfc_today": "Šiandien",
-	"srfc_gotomonth": "Eiti į mėnesį"
+	"srfc_gotomonth": "Eiti į mėnesį",
+	"srf-filtered-selectorlabel-table": "Lentelė"
 }
