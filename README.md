@@ -13,7 +13,7 @@ installation independently. For more information, visit the [SRF homepage][srf] 
 
 ## Requirements
 
-- PHP 5.3 or later
+- PHP 5.3.2 or later
 - MediaWiki 1.19 or later
 - Semantic MediaWiki 2.x
 - MySQL 5 or later or SQLite 3 or later
@@ -26,7 +26,7 @@ following to the MediaWiki `composer.json` file and run the ``php composer.phar 
 ```json
 {
 	"require": {
-		"mediawiki/semantic-result-formats": "~2.0"
+		"mediawiki/semantic-result-formats": "~2.3"
 	}
 }
 ```
