@@ -1,7 +1,7 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 2.3 (NOT A RELEASE YET)
+## SRF 2.3 (2015-09-24)
 
 * Added table view to filtered format
 * Fixed eventcalendar format to return a truncated version of strings in tooltips
