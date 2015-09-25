@@ -5,7 +5,8 @@
 			"Malafaya",
 			"SandroHc",
 			"Waldir",
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Macofe"
 		]
 	},
 	"srf-desc": "Formatos adicionais para consultas de incorporação dinâmica ''(inline queries)'' do MediaWiki Semântico",
@@ -92,5 +93,6 @@
 	"srf-ui-datatables-label-placeholder-column-search": "Pesquisar...",
 	"srf-ui-datatables-label-sLoadingRecords": "A carregar...",
 	"srf-ui-datatables-label-sProcessing": "A processar...",
-	"srf-printername-filtered": "Filtrado"
+	"srf-printername-filtered": "Filtrado",
+	"srf-filtered-selectorlabel-table": "Tabela"
 }

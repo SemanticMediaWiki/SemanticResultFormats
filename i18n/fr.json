@@ -18,7 +18,8 @@
 			"Urhixidur",
 			"Verdy p",
 			"SnowedEarth",
-			"Wladek92"
+			"Wladek92",
+			"Macofe"
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
@@ -245,6 +246,7 @@
 	"srf-paramdesc-filtered-calendar-title": "L'imprimé contenant le titre d'un événement. Ne peux pas être utilisé en même temps qu'un modèle de titre.",
 	"srf-paramdesc-filtered-calendar-title-template": "Un modèle utilisé pour mettre en forme le titre de l'événement dans le calendrier",
 	"srf-filtered-selectorlabel-list": "Liste",
+	"srf-filtered-selectorlabel-table": "Tableau",
 	"srf-filtered-selectorlabel-calendar": "Calendrier",
 	"srf-printername-d3chart": "Graphique D3",
 	"srf-printername-timeseries": "Graphique de séries chronologiques",

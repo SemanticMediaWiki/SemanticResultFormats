@@ -227,6 +227,7 @@
 	"srf-paramdesc-filtered-calendar-title": "Исписот што го содржи насловот на настанот. Не може да се користи заедно со насловен шаблон.",
 	"srf-paramdesc-filtered-calendar-title-template": "Шаблон со кој се форматира насловот на настанот во календарот",
 	"srf-filtered-selectorlabel-list": "Список",
+	"srf-filtered-selectorlabel-table": "Табела",
 	"srf-filtered-selectorlabel-calendar": "Календар",
 	"srf-printername-d3chart": "D3-графикон",
 	"srf-printername-timeseries": "Графикон на временска низа",
