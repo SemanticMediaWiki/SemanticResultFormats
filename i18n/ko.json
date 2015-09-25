@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Keysuck",
-			"아라"
+			"아라",
+			"Hwangjy9"
 		]
 	},
 	"srf-module-loading": "불러오는 중…",
@@ -39,6 +40,7 @@
 	"srf_printername_median": "숫자의 중간 값",
 	"srf_printername_earliest": "가장 이른 시간",
 	"srf_printername_latest": "가장 늦은 시간",
+	"srf-filtered-selectorlabel-table": "표",
 	"srf-ui-eventcalendar-format-title-month": "yyyy년 MMMM",
 	"srf-ui-eventcalendar-format-title-week": "[ yyyy년][MMM] d일{ '&#8212;' yyyy년 MMM d일}",
 	"srf-ui-eventcalendar-format-title-day": "yyyy년 MMM d일 dddd",
