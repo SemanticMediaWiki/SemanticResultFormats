@@ -234,6 +234,7 @@
 	"srf-paramdesc-filtered-calendar-title": "包含事件标题的打印输出。不能与标题模板一起使用。",
 	"srf-paramdesc-filtered-calendar-title-template": "用于日历之中事件标题格式编排的模板",
 	"srf-filtered-selectorlabel-list": "列表",
+	"srf-filtered-selectorlabel-table": "表格",
 	"srf-filtered-selectorlabel-calendar": "日历",
 	"srf-printername-d3chart": "D3图表",
 	"srf-printername-timeseries": "时间序列图表",
