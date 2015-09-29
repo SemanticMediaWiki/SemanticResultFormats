@@ -231,6 +231,7 @@
 	"srf-paramdesc-filtered-calendar-title": "ההדפסה שכוללת את שם האירוע. לא יכול לשמש יחד עם תבנית הכותרת.",
 	"srf-paramdesc-filtered-calendar-title-template": "התבנית שתשמש לעיצוב כותרת האירוע בלוח השנה",
 	"srf-filtered-selectorlabel-list": "רשימה",
+	"srf-filtered-selectorlabel-table": "טבלה",
 	"srf-filtered-selectorlabel-calendar": "לוח שנה",
 	"srf-printername-d3chart": "תרשים D3",
 	"srf-printername-timeseries": "תרשים סדרת זמן",
