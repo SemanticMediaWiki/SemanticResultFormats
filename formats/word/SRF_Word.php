@@ -111,7 +111,7 @@ class SRFWord extends FileExportPrinter {
 	 * @param $res - the query result
 	 * @param $outputMode - how to output - HTML or to a file?
 	 */
-	private function getResultText( SMWQueryResult $res, $outputMode ) {
+  protected function getResultText( SMWQueryResult $res, $outputMode ) {
 		if ( $outputMode == SMW_OUTPUT_FILE ) {
 			if ( $this->isPHPWordInstalled() ) {
 				$document = $this->createWordDocument();
@@ -229,6 +229,16 @@ class SRFWord extends FileExportPrinter {
 		return $l_show;
 	}
 
+  /**
+   * check that a string starts with a given other string
+   * @param haystack - the string to search in
+   * @param needle - the string to search for
+   */	
+	function startsWith($haystack, $needle) {
+    // search backwards starting from haystack length characters from the end
+    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+  }
+
 	/**
 	 * get the Value for the given dataValue 
 	 * @param dataValue - the dataValue to read the value from
@@ -247,7 +257,35 @@ class SRFWord extends FileExportPrinter {
 		if ($this->debug) {
 			wfDebug("readValue from field: ".$l_name."(type:".$l_type."/ditype:".$l_ditype.")=".$l_value."\n");
 		}
-		$this->document->setValue($l_name,$l_value);
+		// check whether the field points to an image
+		$l_isimage=false;
+		// first check if it is a wiki page
+		if ($l_ditype==SMWDataItem::TYPE_WIKIPAGE ) {
+			$l_title = Title::newFromText($l_value);
+			$l_ns=$l_title->getNamespace();
+			// then check whether it's in the file namespace
+			if ($l_ns == NS_FILE) {
+				$l_image=$this->getImageFilePath($l_value);
+				// now we should check the mime type ...
+				// $l_finfo = new finfo(FILEINFO_MIME);
+        // $l_mimetype  = $finfo->file('path/filename');
+        $l_mimetype=mime_content_type($l_image);
+        if ($this->startsWith($l_mimetype,"image")) {
+				  $l_isimage=true;
+			    wfDebug("field ".$l_name." points to image rom FILE namespace with title: ".$l_title->getPrefixedText()."\n\tlocated at ".$l_image."\n\tmimetype ".$l_mimetype." asked for \n");
+			  }
+			}
+		}
+		if ($l_isimage) {
+			if ($this->debug) {
+				$l_rid=$this->document->searchImageId($l_name);
+				$l_imagefile=$this->document->getImgFileName($l_rid);
+				$this->document->setValue($l_name,$l_value."(".$l_rid."/".$l_imagefile.")");
+			}
+			$this->document->setImageValueAlt($l_name,$l_image);
+	  } else {
+ 		  $this->document->setValue($l_name,$l_value);
+ 		}
 	}
 
 	/**
