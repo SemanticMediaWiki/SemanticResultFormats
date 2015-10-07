@@ -240,6 +240,18 @@ class SRFWord extends FileExportPrinter {
   }
 
 	/**
+	 * set the Value for the given name and value in the word document
+	 * @param p_name the name of the field (needle)
+	 * @param p_value the content of the field (value)
+	 */
+	private function setValue($p_name,$p_value) {
+			if ($this->debug) {
+			    	wfDebug("setting word document field ".$p_name." with value '".$p_value."' \n");
+      }
+ 		  $this->document->setValue($p_name,$p_value);
+	}
+
+	/**
 	 * get the Value for the given dataValue 
 	 * @param dataValue - the dataValue to read the value from
 	 * @param plabel	- the label
@@ -272,7 +284,9 @@ class SRFWord extends FileExportPrinter {
         $l_mimetype=mime_content_type($l_image);
         if ($this->startsWith($l_mimetype,"image")) {
 				  $l_isimage=true;
-			    wfDebug("field ".$l_name." points to image rom FILE namespace with title: ".$l_title->getPrefixedText()."\n\tlocated at ".$l_image."\n\tmimetype ".$l_mimetype." asked for \n");
+					if ($this->debug) {
+			    	wfDebug("field ".$l_name." points to image rom FILE namespace with title: ".$l_title->getPrefixedText()."\n\tlocated at ".$l_image."\n\tmimetype ".$l_mimetype." asked for \n");
+					}
 			  }
 			}
 		}
@@ -280,11 +294,12 @@ class SRFWord extends FileExportPrinter {
 			if ($this->debug) {
 				$l_rid=$this->document->searchImageId($l_name);
 				$l_imagefile=$this->document->getImgFileName($l_rid);
-				$this->document->setValue($l_name,$l_value."(".$l_rid."/".$l_imagefile.")");
+				// only for debug
+				$this->setValue($l_name,$l_value."(".$l_rid."/".$l_imagefile.")");
 			}
 			$this->document->setImageValueAlt($l_name,$l_image);
 	  } else {
- 		  $this->document->setValue($l_name,$l_value);
+			$this->setValue($l_name,$l_value);
  		}
 	}
 
@@ -307,9 +322,18 @@ class SRFWord extends FileExportPrinter {
 			if ($this->debug) {
 				wfDebug("field label=".$l_label."\n");
 			}
+			// shall we display the content of the field with this label?
 			if( $this->showLabel($l_label)) {
+ 				// how many values did we set?
+        $l_printcount=0;
 				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
 					$this->readValue($dataValue,$l_label);
+					$l_printcount++;
+				}
+				// if no value was set yet
+				if ($l_printcount==0) {
+					// set an empty entry
+					$this->setValue($l_label,"");
 				}
 			}
 		}
