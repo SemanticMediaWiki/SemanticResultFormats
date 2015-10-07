@@ -7,7 +7,8 @@
 			"Rcdeboer",
 			"SPQRobin",
 			"Siebrand",
-			"Southparkfan"
+			"Southparkfan",
+			"Sjoerddebruin"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -184,6 +185,7 @@
 	"srf-paramdesc-filtered-list-outrotemplate": "De naam van een sjabloon om na de resultaten van de zoekopdracht weer te geven, als er resultaten zijn.",
 	"srf-paramdesc-filtered-calendar-title-template": "Een sjabloon dat wordt gebruikt om de naam van een gebeurtenis in de kalender weer te geven",
 	"srf-filtered-selectorlabel-list": "Lijst",
+	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-printername-d3chart": "D3-grafiek",
 	"srf-printername-timeseries": "Tijdseriegrafiek",
