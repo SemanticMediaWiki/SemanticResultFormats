@@ -3,7 +3,8 @@
 		"authors": [
 			"Rancher",
 			"Михајло Анђелковић",
-			"Milicevic01"
+			"Milicevic01",
+			"Сербијана"
 		]
 	},
 	"srf-ui-common-label-refresh": "Освежи",
@@ -20,5 +21,6 @@
 	"srf_printername_average": "Средња вредност бројева",
 	"srf_printername_max": "Највећи број",
 	"srf_printername_min": "Најмањи број",
-	"srf_printername_gallery": "Галерија"
+	"srf_printername_gallery": "Галерија",
+	"srf-filtered-selectorlabel-table": "Табела"
 }
