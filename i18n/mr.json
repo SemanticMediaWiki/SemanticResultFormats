@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mahitgar"
+			"Mahitgar",
+			"V.narsikar"
 		]
 	},
 	"srfc_previousmonth": "मागचा महीना",
 	"srfc_nextmonth": "पुढचा महीना",
 	"srfc_today": "आज",
 	"srfc_gotomonth": "महीन्याकडे चला",
-	"srf_icalendar_link": "इ-कैलेंडर"
+	"srf_icalendar_link": "इ-कैलेंडर",
+	"srf-filtered-selectorlabel-table": "तक्ता"
 }
