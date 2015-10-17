@@ -23,6 +23,7 @@ class SRFTimeline extends SMWResultPrinter {
 	protected $m_tlpos = ''; // position identifier (start, end, today, middle)
 	protected $mTemplate;
 	protected $mNamedArgs;
+	protected $mShowNamespaces;
 
 	/**
 	 * @see SMWResultPrinter::handleParameters
@@ -41,6 +42,7 @@ class SRFTimeline extends SMWResultPrinter {
 		$this->m_tlend = smwfNormalTitleDBKey( $params['timelineend'] );
 		$this->m_tlbands = $params['timelinebands'];
 		$this->m_tlpos = strtolower( trim( $params['timelineposition'] ) );
+		$this->mShowNamespaces = $params['show namespaces'] === 'true' ? true : false;
 		
 			// str_replace makes sure this is only one value, not mutliple CSS fields (prevent CSS attacks)
 			// / FIXME: this is either unsafe or redundant, since Timeline is Wiki-compatible. If the JavaScript makes user inputs to CSS then it is bad even if we block this injection path.
@@ -229,7 +231,7 @@ class SRFTimeline extends SMWResultPrinter {
 					) . $curdata
 				);
 			}
-			
+
 			if ( $isEventline ) {
 				foreach ( $events as $event ) {
 					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . str_replace( ' ', '_', $curarticle ) . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
@@ -298,7 +300,7 @@ class SRFTimeline extends SMWResultPrinter {
 			$l = null;
 		}
 		
-		if ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
+		if ( $object->getTypeID() == '_wpg' && $this->mShowNamespaces ) { // use shorter "LongText" for wikipage
 			$objectlabel = $object->getLongText( $outputmode, $l );
 		} else {
 			$objectlabel = $object->getShortText( $outputmode, $l );
@@ -350,7 +352,7 @@ class SRFTimeline extends SMWResultPrinter {
 				);
 
 				if ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) {
-					$curarticle = $object->getShortText( $outputmode, false );
+					$curarticle = $object->getShortText( $outputmode, !$this->mShowNamespaces );
 					$cururl = $object->getTitle()->getFullUrl();
 				}
 				
@@ -429,6 +431,11 @@ class SRFTimeline extends SMWResultPrinter {
 			'default' => false,
 		);
 
+
+		$params['show namespaces'] = array(
+			'message' => 'srf_paramdesc_shownamespaces',
+			'default' => 'true',
+		);
 
 		return $params;
 	}
