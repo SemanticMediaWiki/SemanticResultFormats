@@ -33,7 +33,11 @@ class SRFMath extends SMWResultPrinter {
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
 		global $wgLang;
-		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
+                $result=$this->getResultText( $results, SMW_OUTPUT_HTML );
+                if (is_numeric($result))
+		  return $wgLang->formatNum( $result);
+                else
+                  return $result;
 	}
 
 	/**
@@ -97,6 +101,9 @@ class SRFMath extends SMWResultPrinter {
 		switch ( $dataItem->getDIType() ) {
 			case SMWDataItem::TYPE_NUMBER:
 				$numbers[] = $dataItem->getNumber();
+				break;
+			case SMWDataItem::TYPE_BLOB:
+				$numbers[] = $dataItem->getString();
 				break;
 			case SMWDataItem::TYPE_CONTAINER:
 				foreach ( $dataItem->getDataItems() as $di ) {
