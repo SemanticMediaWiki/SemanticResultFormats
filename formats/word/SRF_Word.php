@@ -257,7 +257,8 @@ class SRFWord extends FileExportPrinter {
 	 * @param plabel	- the label
 	 */
 	private function readValue(/* SMWDataValue */ $dataValue,$plabel ) {
-		$l_value=$dataValue->getWikiValue();
+		$l_value=$dataValue->getShortWikiText();
+		#$l_value=$dataValue->getWikiValue();
 		$l_type=$dataValue->getTypeID();
 		$l_ditype="?";
 		$l_dataItem=$dataValue->getDataItem();
