@@ -266,7 +266,9 @@ class SRFWord extends FileExportPrinter {
 			// get the data item type
 			$l_ditype=$l_dataItem->getDIType();
 		}
-		$l_name=strtolower($plabel);
+                # uppercase/lower case handling? 
+		#$l_name=strtolower($plabel);
+                $l_name=$plabel;
 		if ($this->debug) {
 			wfDebug("readValue from field: ".$l_name."(type:".$l_type."/ditype:".$l_ditype.")=".$l_value."\n");
 		}
