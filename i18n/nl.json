@@ -169,7 +169,7 @@
 	"srf_printername_ultree": "Ongenummerde lijst",
 	"srf_printername_oltree": "Genummerde lijst",
 	"srf-noparentprop": "Er is geen bovenliggende eigenschap opgegeven. De boom kan niet opgebouwd worden zonder een bovenliggende eigenschap.",
-	"srf-rootinvalid": "$1 is geen geldige paginatitel.",
+	"srf-rootinvalid": "$1 is geen geldige paginanaam.",
 	"srf-paramdesc-parent": "De eigenschap die de bovenliggende pagina bevat",
 	"srf-printername-slideshow": "Diapresentatie",
 	"srf-paramdesc-delay": "De vertraging tussen dia's in seconden",
