@@ -53,6 +53,7 @@
 	"srf-ui-widgets-label-parameter-limit": "{{doc-smw-ui-label|parameter-limit}}",
 	"srf-error-option-mix": "This is an error message. Parameters:\n* $1 is a fixed entity name (name of the option) that cannot and should not be translated.",
 	"srf-error-option-link-all": "{{doc-important|Do not translate the parameter \"link\" and its possible value \"all\".}}\nThis is an error message. Parameters:\n* $1 is a fixed entitity name that cannot and should not be translated.",
+	"srf-error-jqplot-stackseries-data-length": "This is an error message.",
 	"srf-error-missing-layout": "This is an error message.",
 	"srf-warn-empy-chart": "This is an informatory message.",
 	"srfc_previousmonth": "A label describing a navigation control component.",
