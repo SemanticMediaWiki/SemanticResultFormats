@@ -4,7 +4,8 @@
 			"Consta",
 			"Omnipaedista",
 			"Protnet",
-			"ZaDiak"
+			"ZaDiak",
+			"Glavkos"
 		]
 	},
 	"srf-desc": "Πρόσθετες μορφές αποτελεσμάτων για ερωτήματα του Σημασιολογικού MediaWiki",
@@ -187,7 +188,7 @@
 	"srf-paramdesc-filtered-calendar-end": "Η εκτύπωση που περιέχει την ημερομηνία λήξης του συμβάντος",
 	"srf-paramdesc-filtered-calendar-title": "Η εκτύπωση που περιέχει τον τίτλο του συμβάντος. Δεν μπορεί να χρησιμοποιηθεί μαζί με τίτλο προτύπου.",
 	"srf-paramdesc-filtered-calendar-title-template": "Πρότυπο που χρησιμοποιείται για την μορφοποίηση του τίτλου του συμβάντος στο ημερολόγιο",
-	"srf-filtered-selectorlabel-list": "Λίστα",
+	"srf-filtered-selectorlabel-list": "Κατάλογος",
 	"srf-filtered-selectorlabel-calendar": "Ημερολόγιο",
 	"srf-printername-d3chart": "Γράφημα D3",
 	"srf-printername-timeseries": "Γράφημα χρονοσειράς",
