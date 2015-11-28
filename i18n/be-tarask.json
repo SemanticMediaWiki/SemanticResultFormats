@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"EugeneZelenko",
-			"Jim-by"
+			"Jim-by",
+			"Red Winged Duck"
 		]
 	},
-	"srf-desc": "Дадатковыя фарматы для ўбудаваных запытаў Semantic MediaWiki",
+	"srf-desc": "Дадатковыя фарматы вынікаў для запытаў Semantic MediaWiki",
 	"srf-name": "Фарматы сэмантычных вынікаў",
 	"srfc_previousmonth": "Папярэдні месяц",
 	"srfc_nextmonth": "Наступны месяц",
