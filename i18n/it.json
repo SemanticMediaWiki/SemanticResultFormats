@@ -27,7 +27,7 @@
 	"srf-ui-tooltip-title-options": "Opzioni",
 	"srf-error-option-mix": "Opzione ($1) non disponibile",
 	"srf-error-option-link-all": "L'opzione ($1) richiede che il parametro \"link\" sia impostato a \"all\"",
-	"srf-error-missing-layout": "Layout mancante",
+	"srf-error-missing-layout": "Il diagramma o grafico non può essere visualizzato perché il layout è mancante.",
 	"srfc_previousmonth": "Mese precedente",
 	"srfc_nextmonth": "Mese successivo",
 	"srfc_today": "Oggi",

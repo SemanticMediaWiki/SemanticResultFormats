@@ -42,7 +42,7 @@
 	"srf_paramdesc_lens": "Назва шаблёну для паказу ўласьцівасьцяў старонкі",
 	"srf_printername_googlebar": "Слупковая дыяграма Google",
 	"srf_printername_googlepie": "Кругавая дыяграма Google",
-	"srf_paramdesc_chartheight": "Вышыня дыяграмы ў піксэлях",
+	"srf_paramdesc_chartheight": "Пазначце вышыню (у піксэлях) дыяграмы ці графіку",
 	"srf_paramdesc_chartwidth": "Шырыня дыяграмы ў піксэлях",
 	"srf_paramdesc_charttitle": "Назва дыяграмы",
 	"srf_paramdesc_barcolor": "Колер слупкоў",

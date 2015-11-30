@@ -49,7 +49,7 @@
 	"srf-ui-widgets-label-parameter-limit": "Параметр лимита",
 	"srf-error-option-mix": "Параметр ( $1 ) не доступен",
 	"srf-error-option-link-all": "Опция ($1) требует, чтобы параметр «link» был задан как «all»",
-	"srf-error-missing-layout": "Макет отсутствует",
+	"srf-error-missing-layout": "Диаграмма или график не могут быть показаны, поскольку макет отсутствует.",
 	"srf-warn-empy-chart": "Диаграммы или графика пуст из-за недостающих данных",
 	"srfc_previousmonth": "Предыдущий месяц",
 	"srfc_nextmonth": "Следующий месяц",
