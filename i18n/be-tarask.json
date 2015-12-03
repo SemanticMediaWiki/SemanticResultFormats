@@ -46,7 +46,7 @@
 	"srf_paramdesc_chartwidth": "Вызначце шырыню (у піксэлях ці адсотках) дыяграмы або графіку",
 	"srf_paramdesc_charttitle": "Назва дыяграмы",
 	"srf_paramdesc_barcolor": "Колер слупкоў",
-	"srf_paramdesc_bardirection": "Накіраваньне слупкоў дыяграмы",
+	"srf_paramdesc_bardirection": "Вызначце кірунак дыяграмы",
 	"srf_paramdesc_barnumbersaxislabel": "Надпісы для лічбавых восяў",
 	"srf_printername_gallery": "Галерэя",
 	"srf_paramdesc_perrow": "Колькасьць выяваў у радку",
