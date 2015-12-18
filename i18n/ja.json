@@ -11,7 +11,8 @@
 			"青子守歌",
 			"Rxy",
 			"SkyDaisy9",
-			"Sujiniku"
+			"Sujiniku",
+			"Otokoume"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
@@ -34,7 +35,7 @@
 	"srf-ui-tooltip-title-legend": "凡例",
 	"srf-error-option-mix": "オプション ($1) は利用できません",
 	"srf-error-option-link-all": "オプション ($1) を使用するには、パラメーター「link」を「all」に設定する必要があります",
-	"srf-error-missing-layout": "レイアウトがありません",
+	"srf-error-missing-layout": "レイアウトがないため、チャートやグラフを表示することができません。",
 	"srf-warn-empy-chart": "データが足りないため、グラフは空です",
 	"srfc_previousmonth": "前の月",
 	"srfc_nextmonth": "次の月",
