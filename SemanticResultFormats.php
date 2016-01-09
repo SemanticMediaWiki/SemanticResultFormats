@@ -23,7 +23,7 @@ if ( version_compare( $GLOBALS['wgVersion'], '1.19c', '<' ) ) {
 	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.19 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
 }
 
-if ( !defined( 'SMW_VERSION' ) && is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 	include_once( __DIR__ . '/vendor/autoload.php' );
 }
 
