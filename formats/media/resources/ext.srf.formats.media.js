@@ -137,7 +137,8 @@
 		 * @return Object
 		 */
 		getData: function( source, mediaType ){
-			var data = [];
+			var data = [],
+			self = this;
 			$.each( source, function( index, value ) {
 
 				// Make sure we display a title
@@ -148,7 +149,7 @@
 				// Use a pseudo cover art in case audio and video display is mixed to avoid
 				// a black video screen for audio files with no cover art
 				if ( mediaType === 'video' && ( value.poster === undefined || value.poster.length === 0 ) ) {
-					value.poster = this.defaults.posterImage;
+					value.poster = self.defaults.posterImage;
 				}
 				data.push ( value );
 			} );
