@@ -8,8 +8,6 @@ use ParamProcessor\Definition\StringParam;
 use SMWQueryResult;
 use SMWDataItem;
 use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\IOFactory;
-use Sanitizer;
 use Title;
 
 /**
@@ -17,13 +15,16 @@ use Title;
  * @licence GNU GPL v2+
  *
  * @author Wolfgang Fahl < wf@bitplan.com >
- * @since 2.1.3
+ * @since 2.4
  */
 class SRFWord extends FileExportPrinter {
 	/**
 	 * set to true for debug output
 	 */
 	private $debug = true;
+	
+	// show imageinformation in the word file
+	private $imageDebug=false;
 	
 	/**
 	 *
@@ -312,13 +313,18 @@ class SRFWord extends FileExportPrinter {
 			}
 		}
 		if ($l_isimage) {
-			if ($this->debug) {
-				$l_rid = $this->document->searchImageId ( $l_name );
-				$l_imagefile = $this->document->getImgFileName ( $l_rid );
-				// only for debug
-				$this->setValue ( $l_name, $l_value . "(" . $l_rid . "/" . $l_imagefile . ")" );
+			if (method_exists($this->document, "setImageValueAlt")) {
+				$this->document->setImageValueAlt ( $l_name, $l_image );
+				if ($this->imageDebug) {
+					$l_rid = $this->document->searchImageId ( $l_name );
+					$l_imagefile = $this->document->getImgFileName ( $l_rid );
+					// only for debug
+					$this->setValue ( $l_name, $l_value . "(" . $l_rid . "/" . $l_imagefile . ")" );
+				} else {
+					// text field version of image label
+					$this->setValue ( $l_name, $l_value);
+				}
 			}
-			$this->document->setImageValueAlt ( $l_name, $l_image );
 		} else {
 			$this->setValue ( $l_name, $l_value );
 		}
