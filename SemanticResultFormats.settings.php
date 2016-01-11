@@ -88,7 +88,7 @@ if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && define
 if( class_exists( 'PHPExcel' ) ){
 	$GLOBALS['srfgFormats'][] = 'excel';
 }
-if( class_exists( 'PHPWord' ) ){
+if( class_exists( 'PhpOffice\PhpWord\PhpWord' ) ){
 	$GLOBALS['srfgFormats'][] = 'word';
 }
 
