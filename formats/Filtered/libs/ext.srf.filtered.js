@@ -14,8 +14,27 @@
 
 		init: function( args ){
 
+			var data = args['data'];
+
+			// If the displaytitle param is set to true, create a displaytitle map
+			// This allows to lookup the label for a page title
+			// E.g. Issue 0001: Title of the Issue
+			// TODO: Replace this, once this is included: https://github.com/SemanticMediaWiki/SemanticMediaWiki/pull/1227
+			if (data['data']['displaytitle']) {
+				data['data']['displaytitle-map'] = {};
+
+				data['data']['displaytitle-map'][mw.config.get('wgPageName')] = $('h1.firstHeading').text();
+
+				$('.filtered-views a').each(function() {
+					var title = $(this).attr('title');
+					if (title) {
+						data['data']['displaytitle-map'][title] = $(this).text();
+					}
+				});
+			}
+
 			return this.each( function() {
-				var data = args['data'];
+
 				$(this).data( 'ext.srf.filtered', data );
 
 				// take note of filters, views and sorters we expect to be loaded

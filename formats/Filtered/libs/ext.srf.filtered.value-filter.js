@@ -19,6 +19,9 @@
 				var values = filtered.data('ext.srf.filtered')['values'];
 				var selectedInputs = filtercontrols.children('div.filtered-value-option').children('input:checked');
 
+				console.info('value-filter.init()');
+
+
 				// show all if no value is checked
 				if ( selectedInputs.length == 0 ) {
 					for ( valueId in values ) {
@@ -268,9 +271,17 @@
 					}, 0);
 				});
 
+				var label = sortedDistinctValues[j];
+
+				// If displaytitle is enabled, use the displaytitleMap and make a lookup for the label
+				var displaytitleMap = filtered.data('ext.srf.filtered')['data']['displaytitle-map'];
+				if (displaytitleMap && displaytitleMap[label]) {
+					label = displaytitleMap[label];
+				}
+
 				option
 				.append(checkbox)
-				.append(sortedDistinctValues[j]);
+				.append(label);
 
 				filtercontrols
 				.append(option);
