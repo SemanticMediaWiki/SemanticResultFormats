@@ -1,5 +1,5 @@
 {
-	"name": "fannon/semantic-result-formats",
+	"name": "mediawiki/semantic-result-formats",
 	"type": "mediawiki-extension",
 	"description": "Additional result formats for Semantic MediaWiki queries",
 	"keywords": [
