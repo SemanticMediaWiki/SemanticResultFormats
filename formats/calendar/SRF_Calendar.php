@@ -311,7 +311,9 @@ class SRFCalendar extends SMWResultPrinter {
 
 		$context = RequestContext::getMain();
 		$request = $context->getRequest();
-		$wgParser->disableCache();
+		if ( ! $wgParser->mFirstCall ) {
+			$wgParser->disableCache();
+		}
 
 		$context->getOutput()->addLink( array(
 			'rel' => 'stylesheet',
