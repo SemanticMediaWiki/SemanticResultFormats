@@ -288,7 +288,7 @@ class SRFArray extends SMWResultPrinter {
 		 * for this since it would call hooks we don't want to call and won't return wiki text for inclusion!
 		 */
 		$frame = $wgParser->getPreprocessor()->newCustomFrame( $params );		
-		$text = $wgParser->preprocessToDom( $article->getRawText(), Parser::PTD_FOR_INCLUSION );
+		$text = $wgParser->preprocessToDom( $article->getContent( Revision::RAW ), Parser::PTD_FOR_INCLUSION );
 		$text = trim( $frame->expand( $text ) );
 		
 		return $text;
