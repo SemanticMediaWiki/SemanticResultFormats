@@ -287,8 +287,15 @@ class SRFArray extends SMWResultPrinter {
 		 * parse page as if it were included like a template. Never use Parser::recursiveTagParse() or similar 
 		 * for this since it would call hooks we don't want to call and won't return wiki text for inclusion!
 		 */
-		$frame = $wgParser->getPreprocessor()->newCustomFrame( $params );		
-		$text = $wgParser->preprocessToDom( $article->getContent( Revision::RAW ), Parser::PTD_FOR_INCLUSION );
+		$frame = $wgParser->getPreprocessor()->newCustomFrame( $params );
+		// compatibility for 1.19, getContent() was implemented in 1.21.
+		// FIXME: Remove when support for MediaWiki 1.19 is dropped
+		if ( method_exists( $article, 'getContent' ) ) {
+			$content = $article->getContent( Revision::RAW )->getNativeData();
+		} else {
+			$content = $article->getRawText();
+		}
+		$text = $wgParser->preprocessToDom( $content, Parser::PTD_FOR_INCLUSION );
 		$text = trim( $frame->expand( $text ) );
 		
 		return $text;
