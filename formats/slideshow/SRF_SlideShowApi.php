@@ -51,6 +51,9 @@ class SRFSlideShowApi extends ApiBase {
 			'outrotemplate' => '',
 			) );
 
+		// A bit of a hack since the parser isn't run, avoids [[SMW::off]]/[[SMW::on]]
+		$queryParams['import-annotation'] = 'true';
+
 		// transform query parameters into format suitable for SMWQueryProcessor
 		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, array() );
 
