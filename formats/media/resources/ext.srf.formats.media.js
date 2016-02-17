@@ -207,7 +207,7 @@
 			var media = new srf.formats.media();
 
 			var $this = $( this ),
-				container = $this.find( '.container' ),
+				container = $this.find( '.media-container' ),
 				ID = container.attr( 'id' ),
 				json = media.parse( mw.config.get( ID ) ),
 				mode = json.count === 1 ? 'single' : 'multi';

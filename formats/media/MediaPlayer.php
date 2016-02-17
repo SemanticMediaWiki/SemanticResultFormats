@@ -134,7 +134,7 @@ class MediaPlayer extends ResultPrinter {
 
 				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
 					// Get other data value item details
-					$value = $this->getDataValueItem( $propertyLabel, $dataValue->getDataItem()->getDIType(), $dataValue, $mediaType, $mimeType );
+					$value = $this->getDataValueItem( $propertyLabel, $dataValue->getDataItem()->getDIType(), $dataValue, $mediaType, $mimeType, $rowData );
 					$rowData[$propertyLabel] = $value;
 				}
 			}
@@ -198,7 +198,7 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @return mixed
 	 */
-	private function getDataValueItem( &$label, $type, SMWDataValue $dataValue, &$mediaType, &$mimeType ) {
+	private function getDataValueItem( &$label, $type, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
 
 		if ( $type == SMWDataItem::TYPE_WIKIPAGE && $dataValue->getTitle()->getNamespace() === NS_FILE ) {
 
@@ -217,7 +217,35 @@ class MediaPlayer extends ResultPrinter {
 				return $source->getUrl();
 			}
 		}
-			return $dataValue->getWikiValue();
+
+		if ( $type == SMWDataItem::TYPE_URI ) {
+
+			$source = $dataValue->getDataItem()->getURI();
+			$mimeType = '';
+
+			// Get file extension from the URI
+			$extension = strtolower( substr( $source, strrpos( $source, '.' ) + 1 ) );
+
+			// Xiph.Org recommends that .ogg only be used for Ogg Vorbis audio files
+			if ( in_array( $extension, array( 'ogg', 'oga', 'ogv' ) ) ) {
+				$mimeType = $extension === 'ogg' ? 'oga' : $extension;
+				$mediaType = $extension === 'ogv' ? 'video' : 'audio';
+			} elseif ( in_array( $extension, array( 'm4v', 'm4a', 'm4p' ) ) ) {
+				$mimeType = $extension;
+				$mediaType = $extension === 'm4v' ? 'video' : 'audio';
+			} else {
+				$mimeType = $extension;
+				$mediaType = strpos( $extension, 'v' ) !== false ? 'video' : 'audio';
+			}
+
+			if ( $mimeType !== '' ) {
+				$rowData[$mimeType] = $source;
+			}
+
+			return $source;
+		}
+
+		return $dataValue->getWikiValue();
 	}
 
 	/**
@@ -271,7 +299,7 @@ class MediaPlayer extends ResultPrinter {
 				'div',
 				array(
 					'id' => $ID,
-					'class' => 'container',
+					'class' => 'media-container',
 					'style' => 'display:none;'
 				),
 				null
