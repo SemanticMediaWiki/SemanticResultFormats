@@ -76,7 +76,7 @@
 				'360p' : { width: '640', height: '360', cssClass: 'jp-video-360p' }
 			},
 			jplayer : {
-				swfPath: srf.settings.get( 'srfgScriptPath' ) + '/resources/jquery/jplayer/Jplayer.swf',
+				swfPath: srf.settings.get( 'srfgScriptPath' ) + '/resources/jquery/jplayer/jquery.jplayer.swf',
 				backgroundColor: '#FFFFFF',
 				wmode: 'window',
 				errorAlerts: smw.debug()
