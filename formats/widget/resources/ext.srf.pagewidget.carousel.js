@@ -46,7 +46,7 @@
 		$( '.srf-pagewidget' ).each( function() {
 
 			var $this = $( this );
-			var container = $this.find( '.container' ),
+			var container = $this.find( '.pagewidget-container' ),
 				embedonly = container.data( 'embedonly' );
 
 			// Update navigation control with class that is a direct child

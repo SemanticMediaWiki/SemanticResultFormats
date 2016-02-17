@@ -42,7 +42,7 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 		// Container items
 		$result = Html::rawElement( 'div', array(
 			'id' => $widgetID,
-			'class' => 'container',
+			'class' => 'pagewidget-container',
 			'data-embedonly' => $this->params['embedonly'],
 			'style' => 'display:none;'
 			), $result
