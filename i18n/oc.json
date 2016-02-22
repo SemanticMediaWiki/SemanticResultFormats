@@ -63,5 +63,6 @@
 	"srf-rootinvalid": "$1 es pas un títol de pagina valida.",
 	"srf-paramdesc-root": "La pagina raiç de l’arbre",
 	"srf-paramdesc-filtered-list-type": "Lo tipe de la lista. Valors permesas: « list », « ul », « ol ». Per defaut : « list ».",
+	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-excel-link": "Excel"
 }
