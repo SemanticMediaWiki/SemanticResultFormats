@@ -20,7 +20,7 @@
 	////////////////////////// PUBLIC METHODS ////////////////////////
 
 	$.fn.srfListwidget = function() {
-		var widgetID = this.find( '.container' ).attr( 'id' ),
+		var widgetID = this.find( '.listwidget-container' ).attr( 'id' ),
 			listType   = this.data( 'listtype' ),
 			widget     = this.data( 'widget' ),
 			pageitems  = this.data( 'pageitems' ),
@@ -30,7 +30,7 @@
 		this.find( listType ).attr( { 'id': widgetID, 'class' : widget + '-container' } );
 
 		// Navigation class
-		var navClass = widget === 'pagination' ? '.container' : '.' + widget + '-container';
+		var navClass = widget === 'pagination' ? '.listwidget-container' : '.' + widget + '-container';
 
 		// Navigation element
 		var navigation  = '<div id="' + widgetID + '-nav" class="srf-listwidget-navigation"></div>';
@@ -65,7 +65,7 @@
 		// Release display
 		util.spinner.hide( { context: this } );
 		this.find( '.srf-listwidget-navigation' ).show();
-		this.find( '.container' ).show();
+		this.find( '.listwidget-container' ).show();
 	};
 
 	$(document).ready( function() {

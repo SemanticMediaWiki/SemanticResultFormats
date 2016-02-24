@@ -50,7 +50,7 @@ class SRFListWidget extends ListResultPrinter {
 		// OL/UL container items
 		$result = Html::rawElement( 'div', array(
 			'id' => $listwidgetID,
-			'class' => 'container',
+			'class' => 'listwidget-container',
 			'style' => 'display:none; position: relative; margin-bottom:5px; margin-top:5px;'
 			), $result
 		);
