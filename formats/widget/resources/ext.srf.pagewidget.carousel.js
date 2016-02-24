@@ -50,7 +50,7 @@
 				embedonly = container.data( 'embedonly' );
 
 			// Update navigation control with class that is a direct child
-			$this.find( '.container > ul' ).attr( 'class', 'slider' );
+			$this.find( '.pagewidget-container > ul' ).attr( 'class', 'slider' );
 			container.find( 'ul.slider > li' ).attr( 'class', 'slide' ).css( { 'list-style': 'none' } );
 
 			// Iterate over available container objects
