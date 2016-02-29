@@ -177,7 +177,7 @@
 						// Subject
 						if ( rowData.url === undefined && subject instanceof smw.dataItem.wikiPage ) {
 							rowData.url = parameters.link === 'none' ? null : subject.getUri();
-							rowData.title = subject.getName();
+							rowData.title = subject.getHtml();
 						}
 
 						if ( $.inArray( 'printouts', subject ) ) {
