@@ -19,9 +19,6 @@
 				var values = filtered.data('ext.srf.filtered')['values'];
 				var selectedInputs = filtercontrols.children('div.filtered-value-option').children('input:checked');
 
-				console.info('value-filter.init()');
-
-
 				// show all if no value is checked
 				if ( selectedInputs.length == 0 ) {
 					for ( valueId in values ) {

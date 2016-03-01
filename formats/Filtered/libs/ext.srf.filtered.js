@@ -29,6 +29,14 @@
 					var title = $(this).attr('title');
 					if (title) {
 						data['data']['displaytitle-map'][title] = $(this).text();
+
+						// Handle namespaces containing spaces/underscores
+						if (title.indexOf(':') > -1) {
+							titleArray = title.split(':');
+							titleArray[0] = titleArray[0].split(' ').join('_');
+							title = titleArray.join(':');
+							data['data']['displaytitle-map'][title] = $(this).text();
+						}
 					}
 				});
 			}
