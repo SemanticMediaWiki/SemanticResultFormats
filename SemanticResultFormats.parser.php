@@ -70,8 +70,8 @@ class SRFParserFunctions {
 		// Set the lower bound based on query string parameters if provided;
 		// otherwise fall back to defaults.
 		if ( $wgRequest->getCheck( 'year' ) && $wgRequest->getCheck( 'month' ) ) {
-			$query_year = $wgRequest->getVal( 'year' );
 
+			$query_year = $wgRequest->getVal( 'year' );
 			if ( is_numeric( $query_year ) && ( intval( $query_year ) == $query_year ) ) {
 				$lower_year = $query_year;
 			}
@@ -87,25 +87,24 @@ class SRFParserFunctions {
 				$lower_month = $default_month;
 			}
 
-			if ( $wgRequest->getCheck( 'day' ) ) {
-				$query_day = $wgRequest->getVal( 'day' );
+			$query_day = $wgRequest->getVal( 'day' );
+			if ( $wgRequest->getCheck( 'day' )
+				&& is_numeric( $query_day )
+				&& ( intval( $query_day ) == $query_day )
+				&& $query_day >= 1
+				&& $query_day <= 31 ) {
 
-				if ( is_numeric( $query_day ) && ( intval( $query_day ) == $query_day ) && $query_day >= 1 && $query_day <= 31 ) {
-					$lower_day = $query_day;
-				}
-				else {
-					$lower_day = '1';
-				}
-
-				$lower_day = $wgRequest->getVal( 'day' );
+				$lower_day = $query_day;
 			} elseif ( $calendar_type != 'month'
 				&& (int)$lower_year == (int)$default_year
 				&& (int)$lower_month == (int)$default_month ) {
-					$lower_day = $default_day;
-				}
+
+				$lower_day = $default_day;
+			}
 			else {
 				$lower_day = '1';
 			}
+
 		} else {
 			$lower_year = $default_year;
 			$lower_month = $default_month;
@@ -114,7 +113,7 @@ class SRFParserFunctions {
 				$lower_day = 1;
 			}
 			else {
-				$lower_month = $default_day;
+				$lower_day = $default_day;
 			}
 		}
 
