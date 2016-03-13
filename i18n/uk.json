@@ -5,7 +5,8 @@
 			"Steve.rusyn",
 			"SteveR",
 			"Ата",
-			"NataChe"
+			"NataChe",
+			"Piramidion"
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",
@@ -45,7 +46,8 @@
 	"srf-ui-widgets-label-parameter-limit": "Параметр ліміту",
 	"srf-error-option-mix": "Опція ($1) не доступна",
 	"srf-error-option-link-all": "Опція ($1) вимагає, щоб параметр «link» було встановлено як «all»",
-	"srf-error-missing-layout": "Макет відсутній",
+	"srf-error-missing-layout": "Діаграма або графік не можуть бути показані, оскільки відсутній макет.",
+	"srf-error-jqplot-stackseries-data-length": "Діаграма або графік не можуть бути показані, оскільки не кожен стовпчик або лінія має однакову кількість елементів.",
 	"srf-warn-empy-chart": "Діаграма або графік пусті через нестачу даних",
 	"srfc_previousmonth": "Попередній місяць",
 	"srfc_nextmonth": "Наступний місяць",
@@ -230,6 +232,7 @@
 	"srf-paramdesc-filtered-calendar-title": "Роздруківка містить назву події. Не може бути використано разом із шаблоном заголовка.",
 	"srf-paramdesc-filtered-calendar-title-template": "Шаблон, використаний для форматування назви події у колендарі",
 	"srf-filtered-selectorlabel-list": "Список",
+	"srf-filtered-selectorlabel-table": "Таблиця",
 	"srf-filtered-selectorlabel-calendar": "Календар",
 	"srf-printername-d3chart": "D3-діаграма",
 	"srf-printername-timeseries": "Діаграма часових рядів",
