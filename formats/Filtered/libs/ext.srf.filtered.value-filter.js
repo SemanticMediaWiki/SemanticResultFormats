@@ -272,8 +272,11 @@
 
 				// If displaytitle is enabled, use the displaytitleMap and make a lookup for the label
 				var displaytitleMap = filtered.data('ext.srf.filtered')['data']['displaytitle-map'];
-				if (displaytitleMap && displaytitleMap[label]) {
-					label = displaytitleMap[label];
+				var txt = document.createElement("textarea");
+			    txt.innerHTML = label;
+			    decodedLabel =  txt.value;
+				if (displaytitleMap && displaytitleMap[decodedLabel]) {
+					label = displaytitleMap[decodedLabel];
 				}
 
 				option
