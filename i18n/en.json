@@ -293,5 +293,7 @@
 	"srf-ui-mediaplayer-label-full-screen": "Full screen",
 	"srf-ui-mediaplayer-label-restore-screen": "Restore screen",
 	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Could not export for MS-Excel because extension [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] is not installed."
+	"srf-excel-missing-phpexcel": "Could not export for MS-Excel because extension [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] is not installed.",
+	"srf-paramdesc-excel-filename": "The download filename for the generated file",
+	"srf-paramdesc-excel-templatefile": "The name of an Excel file from the ''File'' namespace used for formatting the generated file"
 }
