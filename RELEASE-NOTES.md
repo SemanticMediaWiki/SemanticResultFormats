@@ -1,6 +1,10 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.4 (tbd)
+
+* Fixed RuntimeError when selecting excel format in Special:Ask
+
 ## SRF 2.3 (2015-09-24)
 
 * Added table view to filtered format

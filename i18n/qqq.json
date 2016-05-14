@@ -307,5 +307,7 @@
 	"srf-ui-mediaplayer-label-full-screen": "{{Doc-smw-ui-label-media|full-screen}}\n{{Identical|Full screen}}",
 	"srf-ui-mediaplayer-label-restore-screen": "{{Doc-smw-ui-label-media|restore-screen}}",
 	"srf-excel-link": "{{doc-smw-link}}",
-	"srf-excel-missing-phpexcel": "This is an error message."
+	"srf-excel-missing-phpexcel": "This is an error message.",
+	"srf-paramdesc-excel-filename": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-excel-templatefile": "{{doc-paramdesc|templatefile}}"
 }
