@@ -3,7 +3,21 @@ These are the release notes for the [Semantic Result Formats]
 
 ## SRF 2.4 (tbd)
 
-* Fixed RuntimeError when selecting excel format in Special:Ask
+### Enhancements
+
+* The media format now supports links (by MWJames)
+* Improved list and page widget CSS (by MWJames)
+* Updated jplayer to version 2.9.2 (by MWJames)
+* Improved compatibility with the latest versions of MediaWiki (by FlorianSW)
+* Improved internationalization (by Karsten Hoffmeyer)
+* Made installation via Composer more robust (by cicalese)
+
+### Bugfixes
+
+* Fixed RuntimeError when selecting excel format in Special:Ask (by Stephan Gambke)
+* Fixed bug causing occasional exceptions in the calendar format (by Mark A. Hershberger)
+* Fixed bug in timeseries format that caused the value 0 to be excluded (by MWJames)
+* Fixed bug in the calendar parser functions (by James Montalvo)
 
 ## SRF 2.3 (2015-09-24)
 
