@@ -8,7 +8,8 @@
 			"Rotsee",
 			"WikiPhoenix",
 			"Lokal Profil",
-			"Freked"
+			"Freked",
+			"McDutchie"
 		]
 	},
 	"srf-desc": "Extra resultatformat för Semantic MediaWiki-frågor",
@@ -81,7 +82,7 @@
 	"srf-printername-jqplotchart": "jqPlot diagram",
 	"srf-printername-jqplotseries": "jqPlot serier",
 	"srf_paramdesc_chartheight": "Ange höjden (i pixlar) för diagrammet",
-	"srf_paramdesc_chartwidth": "Ange bredden (i pixlar) för diagrammet",
+	"srf_paramdesc_chartwidth": "Ange bredden (i pixlar eller procent) för diagrammet",
 	"srf_paramdesc_charttitle": "Namnet på diagrammet (dess titel)",
 	"srf_paramdesc_barcolor": "Ange diagramfärger",
 	"srf_paramdesc_bardirection": "Ange riktning för diagrammet",

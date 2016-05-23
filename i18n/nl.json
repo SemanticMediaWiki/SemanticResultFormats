@@ -78,7 +78,7 @@
 	"srf-printername-jqplotchart": "jqPlotgrafiek",
 	"srf-printername-jqplotseries": "jqPlotserie",
 	"srf_paramdesc_chartheight": "Geef de hoogte op (in pixels) van een kaart of grafiek",
-	"srf_paramdesc_chartwidth": "Geef de breedte op (in pixels) van een kaart of grafiek",
+	"srf_paramdesc_chartwidth": "Geef de breedte op (in pixels of procent) van een kaart of grafiek",
 	"srf_paramdesc_charttitle": "Grafiektitel",
 	"srf_paramdesc_barcolor": "De kleur van de balken",
 	"srf_paramdesc_bardirection": "Geeft de richting van een grafiek aan",

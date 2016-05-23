@@ -293,5 +293,7 @@
 	"srf-ui-mediaplayer-label-full-screen": "Vollbild",
 	"srf-ui-mediaplayer-label-restore-screen": "Bildschirm wiederherstellen",
 	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Die Daten konnten nicht für MS-Excel exportiert werden, da die notwendige Softwareerweiterung [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nicht installiert ist."
+	"srf-excel-missing-phpexcel": "Die Daten konnten nicht für MS-Excel exportiert werden, da die notwendige Softwareerweiterung [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nicht installiert ist.",
+	"srf-paramdesc-excel-filename": "Der Download-Dateiname für die erzeugte Datei",
+	"srf-paramdesc-excel-templatefile": "Der Name einer Excel-Datei aus dem '''Datei'''-Namensraum, der zur Formatierung der erzeugten Datei verwendet werden soll."
 }

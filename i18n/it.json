@@ -7,7 +7,8 @@
 			"F. Cosoleto",
 			"පසිඳු කාවින්ද",
 			"Ankabel",
-			"Macofe"
+			"Macofe",
+			"McDutchie"
 		]
 	},
 	"srf-desc": "Formati addizionali per i risultati delle query di Semantic Mediawiki",
@@ -62,7 +63,7 @@
 	"srf_printername_googlebar": "Google bar chart",
 	"srf_printername_googlepie": "Google grafico a torta",
 	"srf_paramdesc_chartheight": "Specificare l'altezza (in pixel) della tabella o del grafico",
-	"srf_paramdesc_chartwidth": "Specificare la larghezza (in pixel) della tabella o del grafico",
+	"srf_paramdesc_chartwidth": "Specificare la larghezza (in pixel o percentuale) della tabella o del grafico",
 	"srf_paramdesc_charttitle": "Il titolo del grafico",
 	"srf_paramdesc_barcolor": "Specificare i colori del grafico",
 	"srf_paramdesc_bardirection": "Specificare la direzione del grafico",
@@ -96,6 +97,7 @@
 	"srf-printername-datatables": "Tabelle dati",
 	"srf-ui-datatables-label-conditions": "Condizioni",
 	"srf-ui-datatables-label-parameters": "Parametri",
+	"srf-ui-datatables-label-information": "Informazioni",
 	"srf-ui-datatables-label-placeholder-column-search": "Ricerca in corso...",
 	"srf-ui-datatables-label-sLoadingRecords": "Caricamento...",
 	"srf-ui-datatables-label-sProcessing": "Elaborazione...",
