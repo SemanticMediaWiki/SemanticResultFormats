@@ -286,5 +286,6 @@
 	"srf-ui-mediaplayer-label-full-screen": "Pantalla completa",
 	"srf-ui-mediaplayer-label-restore-screen": "Restablecer a pantalla",
 	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Non pode exportarse a MS-Excel porque a extensión [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] non está instalada."
+	"srf-excel-missing-phpexcel": "Non pode exportarse a MS-Excel porque a extensión [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] non está instalada.",
+	"srf-paramdesc-excel-filename": "O nome do ficheiro descargado correspondente ó ficheiro xerado"
 }
