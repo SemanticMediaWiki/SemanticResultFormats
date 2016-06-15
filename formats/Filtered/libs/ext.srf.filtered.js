@@ -282,7 +282,8 @@
 			} else if ( params['configvar'] == undefined ) {
 				return this.data('ext.srf.filtered')['data']['filterdata'][params['filter']][params['printout']];
 			} else {
-				if (this.data('ext.srf.filtered')['data']['filterdata'][params['filter']][params['printout']] != null) {
+				if ( this.data('ext.srf.filtered')['data']['filterdata'][params['filter']][params['printout']] != null &&
+					typeof this.data('ext.srf.filtered')['data']['filterdata'][params['filter']][params['printout']][params['configvar']] == 'string' ) {
 					return this.data('ext.srf.filtered')['data']['filterdata'][params['filter']][params['printout']][params['configvar']];
 				} else {
 					return null;

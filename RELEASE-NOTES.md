@@ -18,6 +18,8 @@ These are the release notes for the [Semantic Result Formats]
 * Fixed bug causing occasional exceptions in the calendar format (by Mark A. Hershberger)
 * Fixed bug in timeseries format that caused the value 0 to be excluded (by MWJames)
 * Fixed bug in the calendar parser functions (by James Montalvo)
+* Fixed bug in filtered format that broke the format on browsers supporting the
+  [Array.prototype.values()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/values) method
 
 ## SRF 2.3 (2015-09-24)
 
