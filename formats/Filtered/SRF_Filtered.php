@@ -248,6 +248,7 @@ class SRFFiltered extends SMWResultPrinter {
 				', "filterdata" : ' . json_encode( $filterData ) .
 				', "sorthandlers" : ' . json_encode( array() ) .
 				', "sorterdata" : ' . json_encode( array() ) .
+				', "displaytitle" : ' . json_encode( $this->mParams['displaytitle'] ) .
 //				', "sorterhandlers" : ' . json_encode( $sorterHandlers ) .
 //				', "sorterdata" : ' . json_encode( $sorterData ) .
 				'}};'
@@ -292,6 +293,14 @@ class SRFFiltered extends SMWResultPrinter {
 			'name' => 'filter position',
 			'message' => 'srf-paramdesc-filtered-filter-position',
 			'default' => 'top',
+			// 'islist' => false,
+		);
+
+		$params[] = array(
+			'type' => 'boolean',
+			'name' => 'displaytitle',
+			'message' => 'srf-paramdesc-filtered-displaytitle',
+			'default' => false,
 			// 'islist' => false,
 		);
 

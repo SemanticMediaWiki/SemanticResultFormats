@@ -232,6 +232,7 @@
 	"srf-paramdesc-effect": "{{doc-paramdesc|effect}}",
 	"srf-printername-filtered": "{{doc-smwformat|filtered}}",
 	"srf-paramdesc-filtered-views": "{{doc-paramdesc|views}}\n\nA view is how the queried information is shown to the user, e.g. as a table or a calendar, etc.",
+	"srf-paramdesc-filtered-displaytitle": "{{doc-paramdesc|srf_paramdesc_displaytitle}}\n\nCorresponds to the {{DISPLAYTITLE:title}} magic word",
 	"srf-paramdesc-filtered-filter-position": "{{doc-paramdesc|filter position}}\n{{doc-important|Do not translate the parameter values \"top\" and \"bottom\".}}",
 	"srf-paramdesc-filtered-list-type": "{{doc-paramdesc|list view type}}\n{{doc-important|Do not translate the parameter values \"list\", \"ul\" and \"ol\"}}",
 	"srf-paramdesc-filtered-list-template": "{{doc-paramdesc|list view template}}",
