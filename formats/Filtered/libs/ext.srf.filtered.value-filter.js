@@ -123,18 +123,31 @@
 			} );
 
 			var valueId; // just some valid value ID
+
+			/** Map of value => label distinct values */
+			var distinctValues = {};
+
+			/** Sorted array of distinct values */
+			var sortedDistinctValues = [];
+
 			if ( fixedValues == null ) {
 				// build filter values from available values in result set
 
 				// find distinct values and set visibility for all items that have
 				// some value for this printout
-				var distinctValues = [];
 
 				for ( valueId in values ) {
+
 					var printoutValues = values[valueId]['printouts'][target]['values'];
 
 					for (var j in printoutValues) {
-						distinctValues[ printoutValues[j] ] = true;
+						var formattedValue = values[valueId]['printouts'][target]['formatted values'][j];
+						var label = printoutValues[j] ;
+						// If the formatted Value is a link, it may contain a label (DISPLAYTITLE)
+						if (formattedValue.indexOf('<a') > -1) {
+							label = /<a.*>(.*?)<\/a>/.exec(formattedValue)[1];
+						}
+						distinctValues[ printoutValues[j] ] = label;
 					}
 
 					filtered.filtered( 'voteItemVisibility', {
@@ -145,13 +158,8 @@
 					});
 				}
 
-				var sortedDistinctValues = [];
+				sortedDistinctValues = Object.keys(distinctValues).sort()
 
-				for ( var i in distinctValues ) {
-					sortedDistinctValues.push(i);
-				}
-
-				sortedDistinctValues.sort();
 			} else {
 				// use given values
 				sortedDistinctValues = fixedValues.split(/\s*,\s*/);
@@ -254,11 +262,14 @@
 				filtercontrols.height( height );
 			}
 
-
 			// insert options (checkboxes and labels) and attach event handlers
 			// TODO: Do we need to wrap these in a form?
-			for ( var j in sortedDistinctValues ) {
+			for (var j = 0; j < sortedDistinctValues.length; j++) {
 				var option = $('<div class="filtered-value-option">');
+
+				// Try to get label, if not fall back to value id
+				var label = distinctValues[sortedDistinctValues[j]] || sortedDistinctValues[j];
+
 				var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + sortedDistinctValues[j] + '"  >');
 
 				// attach event handler
@@ -268,12 +279,9 @@
 					}, 0);
 				});
 
-				option
-				.append(checkbox)
-				.append(sortedDistinctValues[j]);
+				option.append(checkbox).append(label);
 
-				filtercontrols
-				.append(option);
+				filtercontrols.append(option);
 
 			}
 
