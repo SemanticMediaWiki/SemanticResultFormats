@@ -12,7 +12,8 @@
 			"Rxy",
 			"SkyDaisy9",
 			"Sujiniku",
-			"Otokoume"
+			"Otokoume",
+			"Ochaochaocha3"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
@@ -33,6 +34,7 @@
 	"srf-ui-tooltip-title-options": "オプション",
 	"srf-ui-tooltip-title-scope": "スコープ",
 	"srf-ui-tooltip-title-legend": "凡例",
+	"srf-ui-common-label-query": "問い合わせ",
 	"srf-error-option-mix": "オプション ($1) は利用できません",
 	"srf-error-option-link-all": "オプション ($1) を使用するには、パラメーター「link」を「all」に設定する必要があります",
 	"srf-error-missing-layout": "レイアウトがないため、チャートやグラフを表示することができません。",
@@ -140,8 +142,12 @@
 	"srf_paramdesc_graphcolor": "グラフの色",
 	"srf-printername-datatables": "データテーブル",
 	"srf-ui-datatables-label-placeholder-column-search": "検索...",
+	"srf-ui-datatables-label-sInfo": "_TOTAL_件中_START_から_END_件を表示中",
+	"srf-ui-datatables-label-sInfoEmpty": "0件中0から0件を表示中",
+	"srf-ui-datatables-label-sLengthMenu": "_MENU_ 件を表示",
 	"srf-ui-datatables-label-sLoadingRecords": "読み込み中...",
 	"srf-ui-datatables-label-sProcessing": "処理中...",
+	"srf-ui-datatables-label-sSearch": "検索：",
 	"srf-paramdesc-parent": "親ページを含むプロパティ",
 	"srf-printername-slideshow": "スライドショー",
 	"srf-paramdesc-delay": "スライド間の遅延 (秒)",
