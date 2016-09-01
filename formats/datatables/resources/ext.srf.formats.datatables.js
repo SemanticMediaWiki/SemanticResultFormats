@@ -144,11 +144,10 @@
 				}
 
 				// Transform results into a specific aaData format
-				function getResults( parameters, results ){
+				function getResults( parameters, results, printreqs ){
 
 					var aaData = [],
 						i = 0;
-
 					$.each( results, function( subjectName, subject ) {
 						var rowData = {},
 							linker = parameters.link === 'all' || false,
@@ -169,38 +168,46 @@
 						// Property printouts
 						if ( $.inArray( 'printouts', subject ) ) {
 							// Find column (properties)
-							$.each ( subject.printouts, function( property, values ) {
+							$.each( printreqs, function( index, propertyObj ) {
 								columnIndex++;
 								var collectedValueItem = '';
+								var property = propertyObj.label;
+								var values = subject.printouts[property];
+								if ( values == null ) {
+									rowData[property] = createLink( subject, linker, {
+										column: columnIndex,
+										row: rowIndex
+									} );
+								} else {
+									$.map ( values, function( DI, key ) {
+										// For multiple values within one row/column use a separator
+										collectedValueItem += collectedValueItem !== '' && key >= 0 ? '<br />' : '';
 
-								$.map ( values, function( DI, key ) {
-									// For multiple values within one row/column use a separator
-									collectedValueItem += collectedValueItem !== '' && key >= 0 ? '<br />' : '';
+										// dataItem
+										if ( DI instanceof smw.dataItem.time  ){
+											collectedValueItem += DI.getMediaWikiDate();
+										} else if ( DI instanceof smw.dataItem.wikiPage ){
+											collectedValueItem += createLink( DI, linker, {
+												column: columnIndex,
+												row: rowIndex
+											} );
+										} else if ( DI instanceof smw.dataItem.uri ){
+											collectedValueItem += DI.getHtml( linker );
+										} else if ( DI instanceof smw.dataItem.text ){
+											collectedValueItem += DI.getText();
+										} else if ( DI instanceof smw.dataItem.number ){
+											collectedValueItem += DI.getNumber();
+										} else if ( DI instanceof smw.dataValue.quantity ){
+											collectedValueItem += DI.getUnit() !== '' ? DI.getValue() + ' ' + DI.getUnit() : DI.getValue();
+										} else if ( DI instanceof smw.dataItem.unknown ){
+											collectedValueItem += DI.getValue();
+										}
 
-									// dataItem
-									if ( DI instanceof smw.dataItem.time  ){
-										collectedValueItem += DI.getMediaWikiDate();
-									} else if ( DI instanceof smw.dataItem.wikiPage ){
-										collectedValueItem += createLink( DI, linker, {
-											column: columnIndex,
-											row: rowIndex
-										} );
-									} else if ( DI instanceof smw.dataItem.uri ){
-										collectedValueItem += DI.getHtml( linker );
-									} else if ( DI instanceof smw.dataItem.text ){
-										collectedValueItem += DI.getText();
-									} else if ( DI instanceof smw.dataItem.number ){
-										collectedValueItem += DI.getNumber();
-									} else if ( DI instanceof smw.dataValue.quantity ){
-										collectedValueItem += DI.getUnit() !== '' ? DI.getValue() + ' ' + DI.getUnit() : DI.getValue();
-									} else if ( DI instanceof smw.dataItem.unknown ){
-										collectedValueItem += DI.getValue();
-									}
-
-								} );
-								// For empty values ensure to use "-" otherwise
-								// dataTables will show an error
-								rowData[property] = collectedValueItem !== '' ? collectedValueItem : '-';
+									} );
+									// For empty values ensure to use "-" otherwise
+									// dataTables will show an error
+									rowData[property] = collectedValueItem !== '' ? collectedValueItem : '-';
+								}
 							} );
 						}
 
@@ -216,7 +223,6 @@
 
 					return { 'aaData': aaData };
 				}
-
 				// Create column definitions (see aoColumnDefs)
 				// @see http://www.datatables.net/usage/columns
 				var aoColumnDefs = [];
@@ -229,9 +235,8 @@
 					} );
 				} );
 				data.aoColumnDefs = aoColumnDefs;
-
 				// Parse and return results
-				return getResults( data.query.ask.parameters, data.query.result.results );
+				return getResults( data.query.ask.parameters, data.query.result.results, data.query.result.printrequests );
 			}
 		},
 
@@ -607,7 +612,6 @@
 				'aaData': data.aaData,
 				'aoColumnDefs': data.aoColumnDefs
 			} );
-
 			// Bind the imageInfo trigger and update the appropriate table cell
 			context.on( 'srf.datatables.afterImageInfoFetch', function( event, handler ) {
 				// If the image/thumbnail info array was empty don't bother with an update
