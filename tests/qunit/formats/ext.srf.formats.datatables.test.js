@@ -94,8 +94,6 @@
 				"Data/1": data1,
 				"Data/2": data2
 				};
-			console.log( 'The results we built: ' );
-			console.debug( results );
 			var printReqs = [{"label":"Has value","key":"Has_value","redi":"","typeid":"_wpg","mode":1,"format":""},{"label":"Data","key":"","redi":"","typeid":"_wpg","mode":2,"format":""}];
 			
 			var data = {
