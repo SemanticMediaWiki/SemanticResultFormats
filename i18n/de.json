@@ -50,7 +50,7 @@
 	"srf-error-option-mix": "Option ($1) ist nicht verfügbar",
 	"srf-error-option-link-all": "Zur Option ($1) muss beim Paramenter „link“ der Wert „all“ gesetzt werden.",
 	"srf-error-missing-layout": "Das Diagramm oder die Grafik kann nicht angezeigt werden, da das Layout fehlt.",
-	"srf-error-jqplot-stackseries-data-length": "Das Diagramm oder die Grafik kann nicht angezeigt werden, da nicht jeder Balken oder nicht jede Linie die gleiche Elementanzahl aufweist.",
+	"srf-error-jqplot-stackseries-data-length": "Das Diagramm oder die Grafik kann nicht angezeigt werden, da nicht jeder Balken oder nicht jede Linie die gleiche Anzahl zu erzeugender Elemente aufweist.",
 	"srf-warn-empy-chart": "Es konnte kein Diagramm / keine Grafik erstellt werden, da keine ausreichenden Daten zum Erstellen vorhanden waren.",
 	"srfc_previousmonth": "Voriger Monat",
 	"srfc_nextmonth": "Nächster Monat",
@@ -294,6 +294,6 @@
 	"srf-ui-mediaplayer-label-restore-screen": "Bildschirm wiederherstellen",
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "Die Daten konnten nicht für MS-Excel exportiert werden, da die notwendige Softwareerweiterung [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nicht installiert ist.",
-	"srf-paramdesc-excel-filename": "Der Download-Dateiname für die erzeugte Datei",
-	"srf-paramdesc-excel-templatefile": "Der Name einer Excel-Datei aus dem '''Datei'''-Namensraum, der zur Formatierung der erzeugten Datei verwendet werden soll."
+	"srf-paramdesc-excel-filename": "Der Dateiname für die zum Herunterladen erzeugte Datei",
+	"srf-paramdesc-excel-templatefile": "Der Name einer MS-Excel-Datei aus dem Namensraum „Datei“, der zur Formatierung der erzeugten Datei verwendet werden soll"
 }
