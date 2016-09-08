@@ -71,5 +71,49 @@
 		assert.ok( container.find( 'table' ) , pass + 'table was updated' );
 
 	} );
+	
+	QUnit.test( 'Issue#172: table with subject printout', 1, function ( assert ) {
+		var oldAlert = window.alert;
+		try {
+			var alerts = [];
+			window.alert = function( msg ) {
+				alerts.push( msg );
+			};
+			var datatables = new srf.formats.datatables();
+			
+			var parameters = {"limit":50,"offset":0,"sortkeys":{"":"ASC"},"mainlabel":"-","querymode":1,"format":"datatables","source":"","link":"all","headers":"show","intro":"","outro":"","searchlabel":"... further results","default":"","class":"","theme":"bootstrap"};
+			var data1 = new smw.dataItem.wikiPage( "Data/1", "http://localhost/wiki/Data/1", 0, "1", "Data 1" );
+			data1.printouts = {
+				"Has value":{"0":new smw.dataItem.wikiPage( "Value 1","http://localhost/wiki/Value_1",0,"1",null),"property":"Has value"}
+				};
+			var data2 = new smw.dataItem.wikiPage( "Data/2", "http://localhost/wiki/Data/2", 0, "1", "Data 2" );
+			data2.printouts = {
+				"Has value":{"0":new smw.dataItem.wikiPage( "Value 2","http://localhost/wiki/Value_2",0,"1",null),"property":"Has value"}
+				};
+			var results = {
+				"Data/1": data1,
+				"Data/2": data2
+				};
+			var printReqs = [{"label":"Has value","key":"Has_value","redi":"","typeid":"_wpg","mode":1,"format":""},{"label":"Data","key":"","redi":"","typeid":"_wpg","mode":2,"format":""}];
+			
+			var data = {
+				"query" : {
+					"ask" : {
+						"parameters" : parameters
+					},
+					"result" : {
+						"results" : results,
+						"printrequests" : printReqs
+					}
+				}
+			};
+			assert.strictEqual( alerts.length, 0, "Shouldn't generate any alerts" );
+			var actual = datatables.test._parse.results( context, data );
+			var expected = {"aaData":[{"Has value":"<a href=\"http://localhost/wiki/Value_1\">Value 1</a>","Data":"<a href=\"http://localhost/wiki/Data/1\">Data 1</a>"},{"Has value":"<a href=\"http://localhost/wiki/Value_2\">Value 2</a>","Data":"<a href=\"http://localhost/wiki/Data/2\">Data 2</a>"}]};
+			assert.deepEqual( actual, expected, 'Generated results should look right' );
+		} finally {
+			window.alert = oldAlert;
+		}
+	} );
 
 }( jQuery, mediaWiki, semanticFormats ) );
