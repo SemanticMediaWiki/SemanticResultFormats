@@ -221,6 +221,4 @@ Notes on specific formats:
 * jqplotpie: requires Javascript to render.
 * process: in order to get the process format to run, you first must
   have the MediaWiki Graph extension running
-* ploticus: requires that the Ploticus application be installed on the
-  server.
 * timeline: requires Javascript to render.
