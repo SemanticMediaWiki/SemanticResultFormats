@@ -168,7 +168,7 @@
 	"srf_paramdesc_headersep": "当把\"headers\"设置为\"show\"或\"plain\"时，属性名称和取值之间的分隔符",
 	"srf_printername_hash": "哈希",
 	"srf_paramdesc_hashname": "如果已经给出，且HashTables可用，这将会创建一个带有指定名称的哈希表（没有任何可见的输出）",
-	"srf-printername-graph": "图形",
+	"srf-printername-graph": "图表",
 	"srf-paramdesc-graph-relation": "这些主题或名称属性是父节点或子节点吗？",
 	"srf-paramdesc-graph-nameprop": "允许设置一个属性，并将其作为主题来使用，而不是实际的主题",
 	"srf-paramdesc-graph-nodeshape": "图形上每个节点的形状",
