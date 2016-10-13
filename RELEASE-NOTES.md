@@ -5,12 +5,13 @@ These are the release notes for the [Semantic Result Formats]
 
 ### Enhancements
 
-* The media format now supports links (by MWJames)
+* Added link support to the media format (by MWJames)
 * Improved list and page widget CSS (by MWJames)
 * Updated jplayer to version 2.9.2 (by MWJames)
 * Improved compatibility with the latest versions of MediaWiki (by FlorianSW)
 * Improved internationalization (by Karsten Hoffmeyer)
 * Made installation via Composer more robust (by cicalese)
+* Removed the Ploticus format previously disabled due to security concerns (by Jeroen De Dauw)
 
 ### Bugfixes
 

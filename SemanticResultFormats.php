@@ -126,7 +126,6 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 		'jqplotseries' => 'SRFjqPlotSeries',
 		'graph' => 'SRFGraph',
 		'process' => 'SRFProcess',
-		'ploticusvbar' => 'SRFPloticusVBar',
 		'gallery' => 'SRF\Gallery',
 		'tagcloud' => 'SRF\TagCloud',
 		'valuerank' => 'SRFValueRank',
