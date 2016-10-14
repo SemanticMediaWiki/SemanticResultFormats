@@ -1,11 +1,12 @@
 These are the release notes for the [Semantic Result Formats]
 (https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 2.4 (tbd)
+## SRF 2.4 (2016-10-14)
 
 ### Enhancements
 
 * Added link support to the media format (by MWJames)
+* Added displaytitle label support to filtered format (by Simon Heimler)
 * Improved list and page widget CSS (by MWJames)
 * Updated jplayer to version 2.9.2 (by MWJames)
 * Improved compatibility with the latest versions of MediaWiki (by FlorianSW)
@@ -19,6 +20,7 @@ These are the release notes for the [Semantic Result Formats]
 * Fixed bug causing occasional exceptions in the calendar format (by Mark A. Hershberger)
 * Fixed bug in timeseries format that caused the value 0 to be excluded (by MWJames)
 * Fixed bug in the calendar parser functions (by James Montalvo)
+* Fixed bug in the datatables format when having empty printouts (by Fr Jeremy Krieg)
 * Fixed bug in filtered format that broke the format on browsers supporting the
   [Array.prototype.values()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/values) method
 
