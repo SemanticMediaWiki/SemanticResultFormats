@@ -1,24 +1,24 @@
 These are the release notes for the [Semantic Result Formats]
-(https://semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
+(https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
 ## SRF 2.4 (2016-10-14)
 
 ### Enhancements
 
-* Added link support to the media format (by MWJames)
+* Added link support to the media format (by James Hong Kong)
 * Added displaytitle label support to filtered format (by Simon Heimler)
-* Improved list and page widget CSS (by MWJames)
-* Updated jplayer to version 2.9.2 (by MWJames)
-* Improved compatibility with the latest versions of MediaWiki (by FlorianSW)
+* Improved list and page widget CSS (by James Hong Kong)
+* Updated jplayer to version 2.9.2 (by James Hong Kong)
+* Improved compatibility with the latest versions of MediaWiki (by Florian Schmidt)
 * Improved internationalization (by Karsten Hoffmeyer)
-* Made installation via Composer more robust (by cicalese)
+* Made installation via Composer more robust (by Cindy Cicalese)
 * Removed the Ploticus format previously disabled due to security concerns (by Jeroen De Dauw)
 
 ### Bugfixes
 
 * Fixed RuntimeError when selecting excel format in Special:Ask (by Stephan Gambke)
 * Fixed bug causing occasional exceptions in the calendar format (by Mark A. Hershberger)
-* Fixed bug in timeseries format that caused the value 0 to be excluded (by MWJames)
+* Fixed bug in timeseries format that caused the value 0 to be excluded (by James Hong Kong)
 * Fixed bug in the calendar parser functions (by James Montalvo)
 * Fixed bug in the datatables format when having empty printouts (by Fr Jeremy Krieg)
 * Fixed bug in filtered format that broke the format on browsers supporting the
@@ -57,10 +57,10 @@ These are the release notes for the [Semantic Result Formats]
 * #37 Fixed error in the timeline format for named arguments
 * #43 Fixed graphname parameter in the graphviz format
 * [14daff1](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/14daff10350190634b96f644961beb15d0b29e09)
-commit added support for date/time values to the [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
+commit added support for date/time values to the [excel format](https://www.semantic-mediawiki.org/wiki/Help:Excel_format)
 * #46 Added support for `format=graph` using Composer `mediawiki/graph-viz` package
 * #47 Added parameters 'filename' (the download file name for the generated file) and 'templatefile' (a template file
-      from the NS_FILE namespace used for formatting the generated file) to [excel format](https://semantic-mediawiki.org/wiki/Help:Excel_format)
+      from the NS_FILE namespace used for formatting the generated file) to [excel format](https://www.semantic-mediawiki.org/wiki/Help:Excel_format)
 * #51 Fixed null title issue in Gallery.php for MW 1.23+
 * #52 Fixed `format=process` exception that was caused by missing message parameters
 * #53 Updated jQuery blockUI plugin to v.2.66.0-2013.10.09
@@ -96,13 +96,13 @@ commit added support for date/time values to the [excel format](https://semantic
 
 ### New formats
 
-* [media](https://semantic-mediawiki.org/wiki/Help:Media_format) (Added by mwjames)
-* [excel](https://semantic-mediawiki.org/wiki/Help:Excel_format) (Requires PHPExcel, disabled by default) (Added by Kim Eik)
+* [media](https://www.semantic-mediawiki.org/wiki/Help:Media_format) (Added by James Hong Kong)
+* [excel](https://www.semantic-mediawiki.org/wiki/Help:Excel_format) (Requires PHPExcel, disabled by default) (Added by Kim Eik)
 
 ### New features
 
-* [EventCalendar](https://semantic-mediawiki.org/wiki/Help:Eventcalendar_format) SMWAPI/Ajax integration
-* [tree format](https://semantic-mediawiki.org/wiki/Help:Tree_format): new parameters 'root' and 'start level'
+* [EventCalendar](https://www.semantic-mediawiki.org/wiki/Help:Eventcalendar_format) SMWAPI/Ajax integration
+* [tree format](https://www.semantic-mediawiki.org/wiki/Help:Tree_format): new parameters 'root' and 'start level'
 
 ### Other improvements and changes
 
@@ -130,31 +130,31 @@ commit added support for date/time values to the [excel format](https://semantic
 ### New formats
 
 * slideshow (written by Stephan Gambke)
-* listwidget (bug 37721, I54660c15) (mwjames)
-* sparkline format (I911862ce) (mwjames)
-* timeseries printer (Ibad00690) (mwjames)
-* d3chart format (I4baa7df8) (mwjames)
-* jqplotseries format (I3c8847aa) (mwjames)
-* jqplotchart format (I3c8847aa) (mwjames)
-* incoming format (Ie5be9196) (mwjames)
-* syndication feed (atom, rss) (bug 38636, Ia3cdc243) (mwjames)
-* dygraphs chart format (Ibac4b753) (mwjames)
-* event calendar (Iaff44b71) (mwjames)
+* listwidget (bug 37721, I54660c15) (James Hong Kong)
+* sparkline format (I911862ce) (James Hong Kong)
+* timeseries printer (Ibad00690) (James Hong Kong)
+* d3chart format (I4baa7df8) (James Hong Kong)
+* jqplotseries format (I3c8847aa) (James Hong Kong)
+* jqplotchart format (I3c8847aa) (James Hong Kong)
+* incoming format (Ie5be9196) (James Hong Kong)
+* syndication feed (atom, rss) (bug 38636, Ia3cdc243) (James Hong Kong)
+* dygraphs chart format (Ibac4b753) (James Hong Kong)
+* event calendar (Iaff44b71) (James Hong Kong)
 * earliest format (written by Jeroen De Dauw, Nischay Nahata)
 * latest format (written by Jeroen De Dauw, Nischay Nahata)
 
 ### New features
 
 * (Ice7ba7ea) Enable tableview plugin support for timeseries, jqplotseries, and dygraphs format
-* (bug 38094) Tag cloud format added 'sphere widget' (mwjames)
-* (I6920ae49) Tag cloud format added 'wordcloud widget' (mwjames)
-* (bug 37695) Tag cloud format added template support (mwjames)
-* (bug 38184) Gallery format added 'slideshow widget' (mwjames)
-* (bug 38357) Gallery format added 'overlay' parameter enabling gallery slideshow/carousel image overlay  (mwjames)
-* (I7c49a644) Gallery format added redirects to enable images to be redirect to another target (mwjames)
-* (bug 38296, Ic9f5e186) Gallery format fixed Special:Ask gallery display error (mwjames)
+* (bug 38094) Tag cloud format added 'sphere widget' (James Hong Kong)
+* (I6920ae49) Tag cloud format added 'wordcloud widget' (James Hong Kong)
+* (bug 37695) Tag cloud format added template support (James Hong Kong)
+* (bug 38184) Gallery format added 'slideshow widget' (James Hong Kong)
+* (bug 38357) Gallery format added 'overlay' parameter enabling gallery slideshow/carousel image overlay  (James Hong Kong)
+* (I7c49a644) Gallery format added redirects to enable images to be redirect to another target (James Hong Kong)
+* (bug 38296, Ic9f5e186) Gallery format fixed Special:Ask gallery display error (James Hong Kong)
 * (I338b6b19, I7a0e663b) Gallery format added support for pointing to the subject property in the gallery property parameters using "-"
-* (I762cde6a) Value rank format added template support (mwjames)
+* (I762cde6a) Value rank format added template support (James Hong Kong)
 
 ### Other improvements
 
@@ -171,7 +171,7 @@ commit added support for date/time values to the [excel format](https://semantic
 
 * Fixed issue with the graphlenegd parameter in the graph format (bug 33745).
 * Added 'default' parameter to math formats (bug 34983).
-* Added 'galleryformat' parameter with carousel option (bug 34411) (mwjames)
+* Added 'galleryformat' parameter with carousel option (bug 34411) (James Hong Kong)
 
 New formats in this version are:
 * tree, ultree, oltree (written by Stephan Gambke)
@@ -186,13 +186,13 @@ New formats in this version are:
 * Added value distribution support to jqplotpie and jqplotbar.
 * Added min parameter to jqplotbar to set the minimun value for the Y-axis.
 * Added pointlabel parameter to jqplotbar and chartlegend, legendlocation,
-  datalabels and datalabeltype parameters to jqplotpie based on a patches by mwjames.
+  datalabels and datalabeltype parameters to jqplotpie based on a patches by James Hong Kong.
 * Made array and hash formats compatible with 'Array' extension 2.0 and 'HashTables' 1.0.
 * Added summary parameter to the icalendar format.
 
 New formats in this version are:
-* valuerank (written by DaSch)
-* D3Line, D3Bar and D3Treemap (written by mwjames) (requires MW 1.17 or later)
+* valuerank (written by Daniel Schuba)
+* D3Line, D3Bar and D3Treemap (written by James Hong Kong) (requires MW 1.17 or later)
 
 ## SRF 1.6.2 ##
 
