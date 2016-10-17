@@ -13,7 +13,8 @@
 			"Robby",
 			"Amire80",
 			"Liuxinyu970226",
-			"아라"
+			"아라",
+			"Hamilton Abreu"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -119,7 +120,7 @@
 	"srf-paramdesc-chartclass": "{{doc-paramdesc|class}}",
 	"srf-paramdesc-renderer": "{{doc-paramdesc|renderer}}",
 	"srf-paramdesc-filling": "{{doc-paramdesc|filling}}",
-	"srf-paramdesc-theme": "{{doc-paramdesc|theme}}",
+	"srf-paramdesc-theme": "{{doc-paramdesc|theme}}\n\n'''Related messages:'''\n*{{msg-mw|Bs-bssmwconnector-srf-printername-bsgrid}}",
 	"srf-paramdesc-chartcolor": "{{doc-paramdesc|chartcolor}}",
 	"srf-paramdesc-colorscheme": "{{doc-paramdesc|colorscheme}}",
 	"srf-paramdesc-valueformat": "{{doc-paramdesc|valueformat}}",
