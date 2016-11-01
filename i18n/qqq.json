@@ -139,7 +139,7 @@
 	"srf-ui-gridview-label-value": "{{doc-smw-ui-gridview}}",
 	"srf-ui-gridview-label-series": "{{doc-smw-ui-gridview}}",
 	"srf-ui-gridview-label-chart-tab": "{{doc-smw-ui-gridview}}",
-	"srf-ui-gridview-label-data-tab": "{{doc-smw-ui-gridview}}",
+	"srf-ui-gridview-label-data-tab": "{{doc-smw-ui-gridview}}\n{{Identical|Data}}",
 	"srf-ui-gridview-label-info-tab": "{{doc-smw-ui-gridview}}\n{{Identical|Info}}",
 	"srf_printername_gallery": "{{doc-smwformat|gallery}}\n{{Identical|Gallery}}",
 	"srf_paramdesc_perrow": "{{doc-paramdesc|perrow}}",

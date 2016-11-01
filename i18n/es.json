@@ -187,6 +187,7 @@
 	"srf-ui-datatables-label-parameters": "Parámetros",
 	"srf-ui-datatables-label-filters": "Filtros de columnas y búsqueda",
 	"srf-ui-datatables-label-information": "Información",
+	"srf-ui-datatables-label-update-success": "La actualización de la tabla se realizó correctamente",
 	"srf-ui-datatables-label-update-error": "Falló la actualización de la tabla.",
 	"srf-ui-datatables-label-placeholder-column-search": "Buscar…",
 	"srf-ui-datatables-label-content-cache": "El contenido se deriva de la caché local.",
