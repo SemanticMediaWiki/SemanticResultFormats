@@ -8,7 +8,8 @@
 			"SPQRobin",
 			"Siebrand",
 			"Southparkfan",
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"Hex"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -34,7 +35,7 @@
 	"srf-ui-tooltip-title-scope": "Scope",
 	"srf-error-option-mix": "De optie ($1) is niet beschikbaar",
 	"srf-error-option-link-all": "Voor optie ($1) moet de parameter \"link\" ingesteld worden op \"all\".",
-	"srf-error-missing-layout": "Vormgeving ontbreekt",
+	"srf-error-missing-layout": "Het diagram of de grafiek kan niet worden getoond omdat de vormgeving ontbreekt.",
 	"srf-warn-empy-chart": "De grafiek of kaart is leeg omdat er gegevens missen",
 	"srfc_previousmonth": "Vorige maand",
 	"srfc_nextmonth": "Volgende maand",

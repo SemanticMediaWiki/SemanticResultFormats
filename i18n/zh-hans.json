@@ -262,7 +262,7 @@
 	"srf-ui-eventcalendar-label-update-success": "活动日历成功更新。",
 	"srf-ui-eventcalendar-label-update-error": "活动日历更新失败。",
 	"srf-printername-dygraphs": "Dygraphs图表",
-	"srf-paramdesc-datasource": "可以访问的数据来源。允许取值：\"文件型\"、\"原始数据型\"和\"url型\"。默认值：\"文件型\"",
+	"srf-paramdesc-datasource": "可以访问的数据来源。允许取值：\"file\"、\"raw\"和\"url\"。默认值：\"file\"",
 	"srf-paramdesc-errorbar": "要使用的误差线。允许取值：\"fraction\"（取值的置信区间）、\"sigma\"(取值的标准偏差) 和\"range\"（自定义的取值范围）",
 	"srf-paramdesc-movingaverage": "显示若干天时间的均值 （零表示没有移动均值）",
 	"srf-paramdesc-yaxislabel": "Y轴上显示的说明",
