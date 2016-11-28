@@ -285,5 +285,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Desactivar repetición",
 	"srf-ui-mediaplayer-label-full-screen": "Pantalla completa",
 	"srf-ui-mediaplayer-label-restore-screen": "Restaurar la pantalla",
-	"srf-excel-link": "Excel"
+	"srf-excel-link": "Excel",
+	"srf-paramdesc-excel-templatefile": "El nombre de un archivo de Excel del espacio de nombres «Archivo» utilizado para dar formato al archivo generado"
 }
