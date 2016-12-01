@@ -4,7 +4,8 @@
 			"Nedergard",
 			"Nike",
 			"Silvonen",
-			"Str4nd"
+			"Str4nd",
+			"Pyscowicz"
 		]
 	},
 	"srf-desc": "Muita muotoja Semantic MediaWikin upotetuille kyselyille",
@@ -102,6 +103,10 @@
 	"srf_paramdesc_graphcolor": "Graafin väri",
 	"srf-printername-datatables": "Datataulukot",
 	"srf-ui-datatables-label-update-success": "Taulukon päivitys onnistui",
+	"srf-ui-datatables-label-oPaginate-sFirst": "Ensimmäinen",
+	"srf-ui-datatables-label-oPaginate-sLast": "Viimeinen",
+	"srf-ui-datatables-label-oPaginate-sNext": "Seuraava",
+	"srf-ui-datatables-label-oPaginate-sPrevious": "Edellinen",
 	"srf_printername_tree": "Puu",
 	"srf_printername_ultree": "Puu (luettelo)",
 	"srf_printername_oltree": "Puu (numeroitu)",
