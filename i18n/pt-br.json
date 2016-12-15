@@ -6,7 +6,8 @@
 			"Giro720",
 			"Jaideraf",
 			"Luckas Blade",
-			"Luckas"
+			"Luckas",
+			"!Silent"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultado para consultas do Semantic MediaWiki",
@@ -46,7 +47,8 @@
 	"srf-ui-widgets-label-parameter-limit": "Parâmetro limit",
 	"srf-error-option-mix": "A opção ($1) não está disponível",
 	"srf-error-option-link-all": "A opção ($1) requer o parâmetro \"link\" definido como \"all\"",
-	"srf-error-missing-layout": "O layout está faltando",
+	"srf-error-missing-layout": "O diagrama ou gráfico não pode ser mostrado porque o layout está faltando.",
+	"srf-error-jqplot-stackseries-data-length": "O diagrama ou gráfico não pode ser mostrado porque nem todas as barras ou linhas têm o mesmo número de elementos.",
 	"srf-warn-empy-chart": "O quadro ou gráfico está vazio devido à dados ausentes",
 	"srfc_previousmonth": "Mês anterior",
 	"srfc_nextmonth": "Mês seguinte",
@@ -285,5 +287,7 @@
 	"srf-ui-mediaplayer-label-full-screen": "Tela inteira",
 	"srf-ui-mediaplayer-label-restore-screen": "Restaurar tela",
 	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Não foi possível exportar para MS-Excel porque a extensão [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] não está instalada."
+	"srf-excel-missing-phpexcel": "Não foi possível exportar para MS-Excel porque a extensão [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] não está instalada.",
+	"srf-paramdesc-excel-filename": "O nome do arquivo para baixar do arquivo gerado",
+	"srf-paramdesc-excel-templatefile": "O nome de um arquivo Excel do domínio \"File (Arquivo)\", usado para formatar o arquivo gerado"
 }
