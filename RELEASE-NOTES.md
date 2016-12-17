@@ -1,7 +1,18 @@
 These are the release notes for the [Semantic Result Formats]
 (https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 2.4 (2016-10-14)
+## SRF 2.4.1
+
+Released on December 20, 2016.
+
+* Fixed excel format to throw an error if the required phpExcel library is missing (by Stephan Gambke)
+* Provided minor internal code changes to the excel format (by Stephan Gambke)
+* Fixed datatables format not reading property 'aTypes' of undefined TypeError (by James Hong Kong)
+* Provided translation updates (by translatewiki.net community)
+
+## SRF 2.4.0
+
+Released on October 10, 2016.
 
 ### Enhancements
 
@@ -13,6 +24,7 @@ These are the release notes for the [Semantic Result Formats]
 * Improved internationalization (by Karsten Hoffmeyer)
 * Made installation via Composer more robust (by Cindy Cicalese)
 * Removed the Ploticus format previously disabled due to security concerns (by Jeroen De Dauw)
+* Provided translation updates (by translatewiki.net community)
 
 ### Bugfixes
 
@@ -24,24 +36,34 @@ These are the release notes for the [Semantic Result Formats]
 * Fixed bug in filtered format that broke the format on browsers supporting the
   [Array.prototype.values()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/values) method
 
-## SRF 2.3 (2015-09-24)
+## SRF 2.3.0
+
+Released on September 24, 2015.
 
 * Added table view to filtered format
 * Fixed eventcalendar format to return a truncated version of strings in tooltips
 * Internal code cleanup concerning the calendar format
 * Internal code cleanup concerning the tagcould format
+* Provided translation updates (by translatewiki.net community)
 
-## SRF 2.2 (2015-07-30)
+## SRF 2.2.0
+
+Released on July 30, 2015.
 
 * Fixed filtered format so that filters work for ol/ul type lists
 * Fixed gallery format by adding a required dependency for the carousel option to the widget parameter
 * Enhanced calendar format by adding the startmonth and startyear parameters
+* Provided translation updates (by translatewiki.net community)
 
-## SRF 2.1.2 (2015-02-26)
+## SRF 2.1.2
+
+Released on February 26, 2015.
 
 * Fixed bug in the slideshow format API
 
-## SRF 2.1.1 (2015-02-04)
+## SRF 2.1.1
+
+Released on February 4, 2015.
 
 * Fixed various jQuery 1.9+ issues that appeared in connection with MW 1.24+ including `jquery.jqplot`, `jquery.fancybox`, and`jquery.jgrid`
 * Added replacement pattern for `%3A` in `gallery` overlay format (65abda9)
@@ -50,7 +72,9 @@ These are the release notes for the [Semantic Result Formats]
 * #79 Fixed `event calender` class parameter usage
 * #73 Fixed `icalendar` escaping issues (as per RFC)
 
-## SRF 2.0 (2014-08-06)
+## SRF 2.0.0
+
+Released on August 6, 2014.
 
 * #26 Fixed not showing up of graphvis legend when it should
 * #35 Fixed error in the gallary format for a null object
@@ -64,8 +88,11 @@ commit added support for date/time values to the [excel format](https://www.sema
 * #51 Fixed null title issue in Gallery.php for MW 1.23+
 * #52 Fixed `format=process` exception that was caused by missing message parameters
 * #53 Updated jQuery blockUI plugin to v.2.66.0-2013.10.09
+* Provided translation updates (by translatewiki.net community)
 
-## SRF 1.9.1 (2014-04-25)
+## SRF 1.9.1
+
+Released on April 25, 2014.
 
 * #13 Fixed PHP warning when running PHP >=5.1 in strict mode
 * #16 Improved handling of empty values in the filtered format
@@ -77,13 +104,15 @@ commit added support for date/time values to the [excel format](https://www.sema
 * #27 Fixed error in the tagcloud format occurring when referencing a non-existing page
 * #31 Added template parameter to the timeline format
 
-## SRF 1.9.0.1 (2014-01-17)
+## SRF 1.9.0.1
 
-### Bug fixes
+Released on January 17, 2014.
 
 * #7 Fix tagcloud rendering on special pages and when using templates
 
-## SRF 1.9 (2014-01-10)
+## SRF 1.9.0
+
+Released on January 10, 2014.
 
 ### Compatibility changes
 
@@ -116,7 +145,9 @@ commit added support for date/time values to the [excel format](https://www.sema
 
 * tree format: root elements not included
 
-## SRF 1.8 (2012-12-02)
+## SRF 1.8.0
+
+Released on December 2, 2012.
 
 ### Compatibility changes
 
@@ -167,18 +198,23 @@ commit added support for date/time values to the [excel format](https://www.sema
 
 * (bug 38258, I10be92c9) Fix authors/editors in bibtex
 
-## SRF 1.7.1 (2012-03-08)
+## SRF 1.7.1
+
+Released on March 8, 2012.
 
 * Fixed issue with the graphlenegd parameter in the graph format (bug 33745).
 * Added 'default' parameter to math formats (bug 34983).
 * Added 'galleryformat' parameter with carousel option (bug 34411) (James Hong Kong)
 
 New formats in this version are:
+
 * tree, ultree, oltree (written by Stephan Gambke)
 * JitGraph (still in alpha, disabled by default) (written by Alex Shapovalov) (bug 32877)
 * filtered (still in alpha, disabled by default) (written by Stephan Gambke)
 
-## SRF 1.7 (2012-01-01)
+## SRF 1.7.0
+
+Released on January 1, 2012.
 
 * Compatibility with SMW 1.7 and later.
 * Dropped support for MediaWiki 1.15.x and SMW < 1.7.
@@ -191,10 +227,11 @@ New formats in this version are:
 * Added summary parameter to the icalendar format.
 
 New formats in this version are:
+
 * valuerank (written by Daniel Schuba)
 * D3Line, D3Bar and D3Treemap (written by James Hong Kong) (requires MW 1.17 or later)
 
-## SRF 1.6.2 ##
+## SRF 1.6.2
 
 Released on September 18, 2011.
 
@@ -203,7 +240,7 @@ Released on September 18, 2011.
 * Fixed array compatibility with SMW 1.6 and later.
 * Added median and product formats to the list of default enabled formats.
 
-## SRF 1.6.1 ##
+## SRF 1.6.1
 
 Released on August 20, 2011.
 
@@ -212,11 +249,12 @@ Released on August 20, 2011.
 * Cleaned up the jqPlotBar format somewhat.
 * Dropped compatibility with SMW < 1.6 for the tagcloud format.
 
-## SRF 1.6 ##
+## SRF 1.6
 
 Released on July 30, 2011.
 
 Changes in this version:
+
 * Added compatibility with SMW 1.6.
 * Rewrote math formats for efficiency, correct recursion and handling of multiple numerical properties.
 * Cleaned up the graph format.
@@ -228,70 +266,80 @@ Changes in this version:
 * Added fileextensions parameter to the Gallery format and added missing parameter description messages.
 
 New formats in this version are:
+
 * product (written by Jeroen De Dauw)
 * median (written by Jeroen De Dauw)
 
-## SRF 1.5.3 ##
+## SRF 1.5.3
 
 Released on February 9, 2011.
 
 Changes in this version:
+
 * Support for images specified by properties in the gallery format.
 * Fixes to the calendar and jqplot formats.
 * Improvements to the timeline and eventline formats.
 
 New formats in this version are:
+
 * tagcloud (written by Jeroen De Dauw)
 
-## SRF 1.5.2 ##
+## SRF 1.5.2
 
-Released on January 11 2011.
+Released on January 11, 2011.
 
 Changes in this version:
+
 * Handling for ResourceLoader in MediaWiki 1.17+ added for
   'timeline', 'eventline', 'jqplotbar' and 'jqplotpie' formats.
 * Visualization improvements for 'process' format.
 
-## SRF 1.5.1 ##
+## SRF 1.5.1
 
-Released on August 26 2010.
+Released on August 26, 2010.
 
 New formats in this version are:
+
 * jqplotbar (written by Sanyam Goyal and Yaron Koren)
 * jqplotpie (written by Sanyam Goyal and Yaron Koren)
 
 Other changes:
+
 * Added support for 'semantic' extension type, added by SMW 1.5.2 and above.
 
-## SRF 1.5 ##
+## SRF 1.5.0
 
-Released on June 22 2010.
+Released on June 22, 2010.
 
 New formats in this version are:
+
 * gallery (written by Rowan Rodrik van der Molen)
 
 Changes in this version:
+
 * the functions getName() and getParameters() were added to most formats, for use in Special:Ask
 * a 'lang' parameter was added to the 'calendar' format
 * improvements in 'exhibit' result format
 ** new facet styles (slider and search)
 
-## SRF 1.4.5 ##
+## SRF 1.4.5
 
-Released on June 3 2009.
+Released on June 3, 2009.
 
 New formats in this version are:
+
 * outline (written by Yaron Koren)
 
 Other changes:
+
 * the 'ploticus' format was disabled, due to a security hole
 * the 'calendar' format no longer requires disabling of caching
 * imagemap links were fixed for the 'graph' format
 * handling was added for the Admin Links extension
 
-## SRF 1.4.4 ##
+## SRF 1.4.4
 
-Released on April 16 2009.
+Released on April 16, 2009.
 
 * improvements in 'exhibit' result format:
 ** required scripts, styles, images largely included (no remote server access needed)
@@ -309,9 +357,9 @@ Released on April 16 2009.
 ** SRF_ParserFunctions.php file added, holding parser functions for use by
 'calendar' format.
 
-## SRF 1.4.3 ##
+## SRF 1.4.3
 
-Released on March 2 2009.
+Released on March 2, 2009.
 
 New formats in this version are:
 * bibtex (written by Steren Giannini)
@@ -319,9 +367,9 @@ New formats in this version are:
 Also, handling of templates was added to the 'calendar' format by David
 Loomer.
 
-## SRF 1.4.2 ##
+## SRF 1.4.2
 
-Released on February 10 2009.
+Released on February 10, 2009.
 
 The initialization of formats was changed to use the global $srfgFormats
 variable, instead of the srfInit() function.
@@ -335,9 +383,9 @@ New formats in this version are:
 * sum (written by Nathan Yergler)
 * moved existing formats 'vcard' and 'icalendar' from SMW
 
-## SRF 1.4.0 ##
+## SRF 1.4.0
 
-Released on November 26 2008.
+Released on November 26, 2008.
 
 This is the initial release of Semantic Result Formats. The version number
 was chosen in order to be aligned to the Semantic MediaWiki core distribution.
