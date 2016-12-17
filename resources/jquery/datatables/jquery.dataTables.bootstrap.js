@@ -8,6 +8,14 @@
 ( function( $ ) {
 	'use strict';
 
+// https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/185
+$.fn.dataTableExt = $.fn.dataTableExt || {};
+$.fn.dataTableExt.oStdClasses = $.fn.dataTableExt.oStdClasses || {};
+$.fn.dataTableExt.oApi = $.fn.dataTableExt.oApi || {
+    'fnPagingInfo': function() {}
+};
+$.fn.dataTableExt.oPagination = $.fn.dataTableExt.oPagination || {};
+
 $.extend( $.fn.dataTableExt.oStdClasses, {
     'sSortAsc': 'header headerSortDown',
     'sSortDesc': 'header headerSortUp',
