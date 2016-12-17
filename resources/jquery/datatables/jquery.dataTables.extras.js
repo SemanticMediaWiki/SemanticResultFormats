@@ -8,13 +8,20 @@
 ( function( $ ) {
 	'use strict';
 
+// https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/185
+$.fn.dataTableExt = $.fn.dataTableExt || {};
+$.fn.dataTableExt.oSort = $.fn.dataTableExt.oSort || {};
+$.fn.dataTableExt.aTypes = $.fn.dataTableExt.aTypes || {
+    'unshift': function() {}
+};
+
 // Sorting Currency Columns
-$.fn.dataTableExt.aTypes.unshift(
-    function ( sData ) {
+$.extend( $.fn.dataTableExt.aTypes, {
+    'unshift': function ( sData ) {
         var sValidChars = "0123456789.-,";
         var Char;
 
-        if( sData !== undefined ) {
+        if( typeof sData === "object" ) {
             /* Check the numeric part */
             for ( var i=1 ; i < sData.length ; i++ ) {
                 Char = sData.charAt(i);
@@ -31,7 +38,7 @@ $.fn.dataTableExt.aTypes.unshift(
             return null;
         }
     }
-);
+} );
 
 $.fn.dataTableExt.oSort['currency-asc'] = function(a,b) {
     /* Remove any formatting */
