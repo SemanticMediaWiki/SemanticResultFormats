@@ -20,7 +20,8 @@
 			"SnowedEarth",
 			"Wladek92",
 			"Macofe",
-			"Yasten"
+			"Yasten",
+			"Dgstranz"
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
@@ -211,7 +212,7 @@
 	"srf-ui-datatables-label-sInfo": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
 	"srf-ui-datatables-label-sInfoEmpty": "Affichage de 0 à 0 sur 0 entrées",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtré par _MAX_ entrées au total)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
+	"srf-ui-datatables-label-sInfoThousands": "&nbsp;",
 	"srf-ui-datatables-label-sLengthMenu": "Afficher les entrées _MENU_",
 	"srf-ui-datatables-label-sLoadingRecords": "Chargement en cours…",
 	"srf-ui-datatables-label-sProcessing": "Traitement en cours…",

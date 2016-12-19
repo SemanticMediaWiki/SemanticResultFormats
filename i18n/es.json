@@ -16,7 +16,8 @@
 			"Fitoschido",
 			"Macofe",
 			"Indiralena",
-			"Lemondoge"
+			"Lemondoge",
+			"Dgstranz"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -199,6 +200,7 @@
 	"srf-ui-datatables-label-sInfo": "Se muestran _START_ a _END_ de _TOTAL_ entradas",
 	"srf-ui-datatables-label-sInfoEmpty": "Muestra: 0 a 0 de 0 entradas",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtradas de _MAX_ entradas en total)",
+	"srf-ui-datatables-label-sInfoThousands": "&nbsp;",
 	"srf-ui-datatables-label-sLengthMenu": "Mostrar _MENU_ entradas",
 	"srf-ui-datatables-label-sLoadingRecords": "Cargando…",
 	"srf-ui-datatables-label-sProcessing": "Procesando…",

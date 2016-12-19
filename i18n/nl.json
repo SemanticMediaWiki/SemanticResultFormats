@@ -9,7 +9,8 @@
 			"Siebrand",
 			"Southparkfan",
 			"Sjoerddebruin",
-			"Hex"
+			"Hex",
+			"Mainframe98"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -33,6 +34,10 @@
 	"srf-ui-common-label-help-section": "hulppagina",
 	"srf-ui-tooltip-title-options": "Opties",
 	"srf-ui-tooltip-title-scope": "Scope",
+	"srf-ui-tooltip-title-legend": "Legenda",
+	"srf-ui-tooltip-title-filter": "Filter",
+	"srf-ui-common-label-refresh": "Verversen",
+	"srf-ui-common-label-parameters": "Parameters",
 	"srf-error-option-mix": "De optie ($1) is niet beschikbaar",
 	"srf-error-option-link-all": "Voor optie ($1) moet de parameter \"link\" ingesteld worden op \"all\".",
 	"srf-error-missing-layout": "Het diagram of de grafiek kan niet worden getoond omdat de vormgeving ontbreekt.",
@@ -163,7 +168,10 @@
 	"srf_paramdesc_graphcolor": "Grafiekkleur",
 	"srf-paramdesc-graph-wwl": "Regellimiet (in aantal tekens)",
 	"srf-printername-datatables": "Gegevenstabellen",
+	"srf-ui-datatables-label-parameters": "Parameters",
 	"srf-ui-datatables-label-sLoadingRecords": "Bezig met laden...",
+	"srf-ui-datatables-label-oPaginate-sFirst": "Eerste",
+	"srf-ui-datatables-label-oPaginate-sLast": "Laatste",
 	"srf-ui-datatables-label-oPaginate-sNext": "Volgende",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Vorige",
 	"srf_printername_tree": "Boom",
