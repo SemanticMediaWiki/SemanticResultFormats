@@ -17,7 +17,7 @@ if ( defined( 'SRF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SRF_VERSION', '2.4.0' );
+define( 'SRF_VERSION', '2.4.1' );
 
 if ( version_compare( $GLOBALS['wgVersion'], '1.19c', '<' ) ) {
 	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.19 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
@@ -58,7 +58,7 @@ $GLOBALS['wgExtensionCredits']['semantic'][] = array(
 		'Yaron Koren',
 		'...'
 	),
-	'url' => 'https://semantic-mediawiki.org/wiki/Semantic_Result_Formats',
+	'url' => 'https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc',
 	'license-name'   => 'GPL-2.0+'
 );
