@@ -3,7 +3,8 @@
 		"authors": [
 			"Event",
 			"Nghtwlkr",
-			"Emilbk"
+			"Emilbk",
+			"Jon Harald Søby"
 		]
 	},
 	"srf-desc": "Tilleggsformater for Semantic MediaWiki-spørringer",
@@ -258,6 +259,11 @@
 	"srf-ui-eventcalendar-label-update-error": "Oppdateringen av hendelseskalenderen mislyktes.",
 	"srf-printername-dygraphs": "Dygraphs-diagram",
 	"srf-paramdesc-datasource": "Kilden der dataene er tilgjengelige. Tillatte verdier: \"file\", \"raw\" og \"url\". Standardverdi: \"file\"",
+	"srf-paramdesc-yaxislabel": "Beskrivelse som vises på y-aksen",
+	"srf-paramdesc-xaxislabel": "Beskrivelse som vises på x-aksen",
+	"srf-paramdesc-unit": "Enhet",
+	"srf-printername-media": "Mediespiller",
+	"srf-paramdesc-mediainspector": "Viser detaljert informasjon om et angitt medieelement",
 	"srf-ui-mediaplayer-label-previous": "Forrige",
 	"srf-ui-mediaplayer-label-play": "Spill av",
 	"srf-ui-mediaplayer-label-pause": "Pause",
@@ -270,5 +276,9 @@
 	"srf-ui-mediaplayer-label-shuffle-off": "Miks av",
 	"srf-ui-mediaplayer-label-repeat": "Repeter",
 	"srf-ui-mediaplayer-label-repeat-off": "Repeter av",
-	"srf-ui-mediaplayer-label-full-screen": "Fullskjerm"
+	"srf-ui-mediaplayer-label-full-screen": "Fullskjerm",
+	"srf-excel-link": "Excel",
+	"srf-excel-missing-phpexcel": "Kunne ikke eksportere for MS-Excel fordi utvidelsen [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] ikke er installert.",
+	"srf-paramdesc-excel-filename": "Nedlastingsfilnavnet for den genererte fila",
+	"srf-paramdesc-excel-templatefile": "Navnet på en Excel-fil fra «File»-navnerommet som brukes for å formatere den genererte fila"
 }
