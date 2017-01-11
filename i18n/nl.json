@@ -170,6 +170,7 @@
 	"srf-printername-datatables": "Gegevenstabellen",
 	"srf-ui-datatables-label-parameters": "Parameters",
 	"srf-ui-datatables-label-placeholder-column-search": "Zoeken...",
+	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Filterinstellingen",
 	"srf-ui-datatables-label-sInfoThousands": ".",
 	"srf-ui-datatables-label-sLoadingRecords": "Bezig met laden...",
 	"srf-ui-datatables-label-sProcessing": "Verwerken...",

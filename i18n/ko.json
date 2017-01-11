@@ -4,7 +4,8 @@
 			"Keysuck",
 			"아라",
 			"Hwangjy9",
-			"Ykhwong"
+			"Ykhwong",
+			"Jerrykim306"
 		]
 	},
 	"srf-desc": "시맨틱 미디어위키 쿼리용 추가 결과 포맷",
@@ -21,6 +22,7 @@
 	"srf-navigation-previous": "이전",
 	"srf-ui-navigation-prev": "이전",
 	"srf-ui-navigation-next": "다음",
+	"srf-ui-common-label-datasource": "데이터 원본",
 	"srf-ui-common-label-help-section": "도움말 문단",
 	"srf-ui-tooltip-title-options": "옵션",
 	"srf-ui-tooltip-title-scope": "범위",
@@ -120,6 +122,7 @@
 	"srf-paramdesc-navigation-controls": "탐색 컨트롤을 보이거나 보이지 않음",
 	"srf-paramdesc-effect": "슬라이드 전환에 사용할 효과",
 	"srf-printername-filtered": "필터됨",
+	"srf-filtered-selectorlabel-list": "목록",
 	"srf-filtered-selectorlabel-table": "표",
 	"srf-printername-d3chart": "D3 차트",
 	"srf-paramdesc-zoom": "크기 조절 사용",
@@ -135,6 +138,7 @@
 	"srf-ui-eventcalendar-format-title-day": "yyyy년 MMM d일 dddd",
 	"srf-ui-eventcalendar-format-column-week": "M/d ddd",
 	"srf-ui-eventcalendar-format-column-day": "M/d dddd",
+	"srf-paramdesc-unit": "단위",
 	"srf-paramdesc-min": "최소 또는 임계값",
 	"srf-printername-media": "미디어 플레이어",
 	"srf-paramdesc-mediainspector": "지정된 미디어 요소에 대한 자세한 정보를 보여줍니다",
