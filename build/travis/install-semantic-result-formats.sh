@@ -4,16 +4,23 @@ set -ex
 BASE_PATH=$(pwd)
 MW_INSTALL_PATH=$BASE_PATH/../mw
 
+function installPHPUnitWithComposer {
+	if [ "$PHPUNIT" != "" ]
+	then
+		composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
+	else
+		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
+	fi
+}
+
 # Run Composer installation from the MW root directory
 function installToMediaWikiRoot {
 	echo -e "Running MW root composer install build on $TRAVIS_BRANCH \n"
 
 	cd $MW_INSTALL_PATH
 
-	composer init --stability dev
-
-	composer require 'phpunit/phpunit=3.7.*' --prefer-source --update-with-dependencies
-	composer require mediawiki/semantic-result-formats "dev-master" --prefer-source --dev
+	installPHPUnitWithComposer
+	composer require mediawiki/semantic-result-formats "dev-master" ---dev
 
 	cd extensions
 	cd SemanticResultFormats
