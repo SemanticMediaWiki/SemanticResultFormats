@@ -20,7 +20,7 @@ function installToMediaWikiRoot {
 	cd $MW_INSTALL_PATH
 
 	installPHPUnitWithComposer
-	composer require mediawiki/semantic-result-formats "dev-master" ---dev
+	composer require mediawiki/semantic-result-formats "dev-master" --dev
 
 	cd extensions
 	cd SemanticResultFormats
