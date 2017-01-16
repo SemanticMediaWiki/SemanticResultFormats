@@ -224,7 +224,7 @@
 	"srf-paramdesc-effect": "所要采用的幻灯片切换效果",
 	"srf-printername-filtered": "已过滤",
 	"srf-paramdesc-filtered-views": "结果显示之中应当提供的视图。",
-	"srf-paramdesc-filtered-filter-position": "视图相关筛选器的位置。允许取值：\"顶部\"，\"底部\"。默认值：\"顶部\"。",
+	"srf-paramdesc-filtered-filter-position": "视图相关筛选器的位置。允许的值：“top”和“bottom”。默认值：“top”。",
 	"srf-paramdesc-filtered-list-type": "列表的类型。允许的值：“list”、“ul”、“ol”。默认值：“list”。",
 	"srf-paramdesc-filtered-list-template": "用于列表项格式编排的模板。",
 	"srf-paramdesc-filtered-list-named-args": "请指定传递给该模板的变量",

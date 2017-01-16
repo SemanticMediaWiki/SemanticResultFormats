@@ -197,7 +197,7 @@
 	"srf-ui-datatables-label-sInfo": "A mostrar entradas _START_ a _END_, de _TOTAL_",
 	"srf-ui-datatables-label-sInfoEmpty": "A mostrar entradas 0 a 0, de 0",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtradas de _MAX_ entradas no total)",
-	"srf-ui-datatables-label-sInfoThousands": ".",
+	"srf-ui-datatables-label-sInfoThousands": "&nbsp;",
 	"srf-ui-datatables-label-sLengthMenu": "Mostrar _MENU_ entradas",
 	"srf-ui-datatables-label-sLoadingRecords": "A carregar...",
 	"srf-ui-datatables-label-sProcessing": "A processar...",

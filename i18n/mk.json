@@ -5,8 +5,8 @@
 		]
 	},
 	"srf-desc": "Дополнителни формати на резултати за барања од Семантички МедијаВики",
-	"srf-name": "Формати на семантички резултати",
-	"prefs-srf": "Формати на семантички резултати",
+	"srf-name": "Формати на семантички исход",
+	"prefs-srf": "Формати на семантички исход",
 	"srf-prefs-intro-text": "Го воспоставивте додатокот „Формати на семантички резултати“. Дополнителна помош ќе добиете на страницата за [https://www.semantic-mediawiki.org/wiki/Help:Result_formats формати на резултатите].",
 	"prefs-srf-eventcalendar-options": "Поставки на Календарот на настани",
 	"srf-prefs-eventcalendar-options-update-default": "Овозможи [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates автоматска поднова] на настаните во календарот при превчитување на страницата",
