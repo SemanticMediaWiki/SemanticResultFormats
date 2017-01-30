@@ -301,7 +301,7 @@
 	"srf-ui-mediaplayer-label-mute": "{{Doc-smw-ui-label-media|mute}}",
 	"srf-ui-mediaplayer-label-unmute": "{{Doc-smw-ui-label-media|unmute}}",
 	"srf-ui-mediaplayer-label-volume-max": "{{Doc-smw-ui-label-media|volume-max}}",
-	"srf-ui-mediaplayer-label-shuffle": "{{Doc-smw-ui-label-media|shuffle}}",
+	"srf-ui-mediaplayer-label-shuffle": "{{Doc-smw-ui-label-media|shuffle}}\n{{Identical|Shuffle}}",
 	"srf-ui-mediaplayer-label-shuffle-off": "{{Doc-smw-ui-label-media|shuffle-off}}",
 	"srf-ui-mediaplayer-label-repeat": "{{Doc-smw-ui-label-media|repeat}}\n{{Identical|Repeat}}",
 	"srf-ui-mediaplayer-label-repeat-off": "{{Doc-smw-ui-label-media|repeat-off}}",
