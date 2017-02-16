@@ -46,6 +46,7 @@
 	"srf_printername_average": "Mejana dels nombres",
 	"srf_printername_max": "Nombre maximal",
 	"srf_printername_min": "Nombre minimal",
+	"srf_paramdesc_limit": "Lo nombre maximum de paginas de recercar",
 	"srf_printername_timeline": "Cronologia",
 	"srf_printername_eventline": "Cronologia dels eveniments",
 	"srf-timeline-allresults": "Autres resultats per aquesta requèsta.",
