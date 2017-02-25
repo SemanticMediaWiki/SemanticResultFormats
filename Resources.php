@@ -789,7 +789,7 @@ return array(
 	'ext.srf.slideshow' => $formatModule + array(
 		'scripts' => 'slideshow/resources/ext.srf.slideshow.js',
 		'styles'  => 'slideshow/resources/ext.srf.slideshow.css',
-		'dependencies' =>'mediawiki.legacy.ajax'
+		'dependencies' =>'mediawiki.util'
 	),
 
 	// Tagcanvas module

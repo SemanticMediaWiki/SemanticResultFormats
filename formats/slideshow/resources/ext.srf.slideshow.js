@@ -61,7 +61,12 @@
 				// Function to be called if the request succeeds
 				success: function ( result ){
 					// create element from returned text
-					var element = $( '<div class="slideshow-element">' + result[ pageId ] + '</div>' );
+					var element;
+					if ( "error" in result ) {
+						element = $( '<div class="slideshow-element error">' + result[ "error" ][ "info" ] + '</div>' );
+					} else {
+						element = $( '<div class="slideshow-element">' + result[ pageId ] + '</div>' );
+					}
 
 					// create wrapper, basically a mask to hide the overflow when animating
 					var wrapper = $( '<div class="slideshow-element-wrapper">' );
