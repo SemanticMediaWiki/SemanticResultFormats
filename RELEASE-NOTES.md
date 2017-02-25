@@ -1,6 +1,13 @@
 These are the release notes for the [Semantic Result Formats]
 (https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.4.2
+
+Released on February 25, 2017
+
+* Fixed slidshow format from using a dependancy removed with MediaWiki 1.26+ (by Stephan Gambke)
+* Provided translation updates (by translatewiki.net community)
+
 ## SRF 2.4.1
 
 Released on December 20, 2016.
