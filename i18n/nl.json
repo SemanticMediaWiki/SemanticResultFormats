@@ -169,6 +169,7 @@
 	"srf-paramdesc-graph-wwl": "Regellimiet (in aantal tekens)",
 	"srf-printername-datatables": "Gegevenstabellen",
 	"srf-ui-datatables-label-parameters": "Parameters",
+	"srf-ui-datatables-label-information": "Informatie",
 	"srf-ui-datatables-label-placeholder-column-search": "Zoeken...",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Filterinstellingen",
 	"srf-ui-datatables-label-sInfoThousands": ".",
