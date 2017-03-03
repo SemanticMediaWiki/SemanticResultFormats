@@ -1,6 +1,6 @@
 # Installation
 
-These are the installation and configuration instructions for [Semantic Result Formats](README.md) aka SRF.
+These are the installation and configuration instructions for [Semantic Result Formats](README.md) (SRF).
 
 ## Versions
 
