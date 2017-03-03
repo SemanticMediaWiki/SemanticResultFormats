@@ -2,7 +2,7 @@
 
 /**
  * Main entry point for the Semantic Result Formats (SRF) extension.
- * https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats
+ * https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats
  *
  * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -17,10 +17,10 @@ if ( defined( 'SRF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SRF_VERSION', '2.4.2' );
+define( 'SRF_VERSION', '2.5.0-alpha' );
 
-if ( version_compare( $GLOBALS['wgVersion'], '1.19c', '<' ) ) {
-	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.19 or above; use SRF 1.7.x or SRF 1.6.x for older versions.' );
+if ( version_compare( $GLOBALS['wgVersion'], '1.23c', '<' ) ) {
+	throw new Exception( 'This version of Semantic Result Formats requires MediaWiki 1.23 or above.' );
 }
 
 if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
@@ -58,7 +58,7 @@ $GLOBALS['wgExtensionCredits']['semantic'][] = array(
 		'Yaron Koren',
 		'...'
 	),
-	'url' => 'https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats',
+	'url' => 'https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats',
 	'descriptionmsg' => 'srf-desc',
 	'license-name'   => 'GPL-2.0+'
 );
