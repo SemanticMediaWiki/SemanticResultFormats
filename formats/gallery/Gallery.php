@@ -316,7 +316,18 @@ class Gallery extends ResultPrinter {
 		}
 		// Use image alt as helper for either text
 		$imgAlt =  $this->params['redirects'] === '' ? $imgCaption : $imgRedirect !== '' ? $imgRedirect : '' ;
-		$ig->add( $imgTitle, $imgCaption, $imgAlt );
+
+		if ($this->params['lightgallery']) {
+			$file = wfFindFile( $imgTitle );
+			if ( $file && $file->exists() ) {
+				$url = $file->getUrl();
+				$ig->add( $imgTitle, $imgCaption, $imgAlt, $url );
+			} else { // Not sure what to do here
+				// $ig->add( $imgTitle, $imgCaption, $imgAlt );
+			}
+		} else {
+			$ig->add( $imgTitle, $imgCaption, $imgAlt );
+		}
 	}
 
 	/**
@@ -330,6 +341,9 @@ class Gallery extends ResultPrinter {
 		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] == true ) {
 			SMWOutputs::requireResource( 'ext.srf.gallery.overlay' );
 			return ' srf-overlay';
+		} else if ( array_key_exists( 'lightgallery', $this->params ) && $this->params['lightgallery'] == true ) {
+			SMWOutputs::requireResource( 'ext.srf.gallery.lightgallery' );
+			return ' srf-lightgallery';
 		} else {
 			return '';
 		}
@@ -432,6 +446,12 @@ class Gallery extends ResultPrinter {
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-overlay'
+		);
+
+		$params['lightgallery'] = array(
+			'type' => 'boolean',
+			'default' => false,
+			'message' => 'srf-paramdesc-lightgallery'
 		);
 
 		$params['perrow'] = array(
