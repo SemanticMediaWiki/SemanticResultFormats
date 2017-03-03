@@ -69,80 +69,71 @@ These are the installation and configuration instructions for [Semantic Result F
 
 ### Platform compatibility
 
+The PHP and MediaWiki version ranges listed are those in which SRF is known to work. It might also
+work with more recent versions of PHP and MediaWiki, though this is not guaranteed. Increases of
+minimum requirements are indicated in bold.
+
 <table>
 	<tr>
 		<th></th>
 		<th>PHP</th>
 		<th>MediaWiki</th>
 		<th>Semantic MediaWiki</th>
-		<th>Composer</th>
 	</tr>
 	<tr>
 		<th>SRF 2.5.x</th>
-		<td>5.5.x - 7.0.x</td>
-		<td>1.23 - 1.29</td>
+		<td><strong>5.5.x</strong> - 7.0.x</td>
+		<td><strong>1.23</strong> - 1.29</td>
 		<td>2.x</td>
-		<td>Required</td>
 	<tr>
 		<th>SRF 2.4.x</th>
 		<td>5.3.2 - 7.0.x</td>
 		<td>1.19 - 1.28</td>
 		<td>2.x</td>
-		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 2.3.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.25</td>
 		<td>2.x</td>
-		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 2.2.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.25</td>
 		<td>2.x</td>
-		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 2.1.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.24</td>
 		<td>2.x</td>
-		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 2.0.x</th>
 		<td>5.3.2 - 5.5.x</td>
 		<td>1.19 - 1.23</td>
 		<td>2.x</td>
-		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 1.9.x</th>
-		<td>5.3.2 - 5.5.x</td>
-		<td>1.19 - 1.23</td>
+		<td><strong>5.3.2</strong> - 5.5.x</td>
+		<td><strong>1.19</strong> - 1.23</td>
 		<td>1.9.x</td>
-		<td>Required</td>
 	</tr>
 	<tr>
 		<th>SRF 1.8.x</th>
 		<td>5.2.0 - 5.5.x</td>
-		<td>1.17 - 1.22</td>
+		<td><strong>1.17</strong> - 1.22</td>
 		<td>1.8.x</td>
-		<td>Not supported</td>
 	</tr>
 	<tr>
 		<th>SRF 1.7.x</th>
 		<td>5.2.0 - 5.4.x</td>
 		<td>1.16 - 1.19</td>
 		<td>1.7.x</td>
-		<td>Not supported</td>
 	</tr>
 </table>
-
-The PHP and MediaWiki version ranges listed are those in which SRF is known to work. It might also
-work with more recent versions of PHP and MediaWiki, though this is not guaranteed.
 
 ## Download and installation
 
