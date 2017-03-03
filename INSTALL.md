@@ -1,6 +1,6 @@
-# SRF installation
+# Installation
 
-These are the installation and configuration instructions for [Semantic Result Formats](README.md).
+These are the installation and configuration instructions for [Semantic Result Formats](README.md) aka SRF.
 
 ## Versions
 
@@ -78,9 +78,15 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Composer</th>
 	</tr>
 	<tr>
+		<th>SRF 2.5.x</th>
+		<td>5.5.x - 7.0.x</td>
+		<td>1.23 - 1.29</td>
+		<td>2.x</td>
+		<td>Required</td>
+	<tr>
 		<th>SRF 2.4.x</th>
 		<td>5.3.2 - 7.0.x</td>
-		<td>1.19 - 1.27</td>
+		<td>1.19 - 1.28</td>
 		<td>2.x</td>
 		<td>Required</td>
 	</tr>
@@ -142,67 +148,59 @@ work with more recent versions of PHP and MediaWiki, though this is not guarante
 
 ### Composer Installation
 
-The recommended way to install Semantic Result Formats is with [Composer](http://getcomposer.org) using
-[MediaWiki 1.22 built-in support for Composer](https://www.mediawiki.org/wiki/Composer). MediaWiki
-versions prior to 1.22 can use Composer via the
-[Extension Installer](https://github.com/JeroenDeDauw/ExtensionInstaller/blob/master/README.md)
-extension.
+The recommended way to install Semantic Result Formats is with [Composer](http://getcomposer.org)
+using [MediaWiki's built-in support for Composer](https://www.mediawiki.org/wiki/Composer).
 
-##### Step 1
+#### Step 1
 
-If you have MediaWiki 1.22 or later, go to the root directory of your MediaWiki installation,
-and go to step 2. You do not need to install any extensions to support composer.
-
-For MediaWiki 1.21.x and earlier you need to install the
-[Extension Installer](https://github.com/JeroenDeDauw/ExtensionInstaller/blob/master/README.md) extension.
-
-Once you are done installing the Extension Installer extension, go to its directory so composer.phar
-is installed in the right place.
-
-    cd extensions/ExtensionInstaller
-
-##### Step 2
-
-If you have previously installed Composer skip to step 3.
+If you have previously installed Composer skip to step 2.
 
 To install Composer:
 
-    wget http://getcomposer.org/composer.phar
+    wget https://getcomposer.org/composer.phar
 
-##### Step 3
-    
-Now using Composer, install Semantic Result Formats.
+#### Step 2
 
-If you do not have a composer.json file yet, copy the composer-example.json file to composer.json.
-If you are using the Extension Installer extension, the file to copy will be named example.json,
-rather than composer-example.json. When this is done, run:
-    
-    php composer.phar require mediawiki/semantic-result-formats "~2.3"
+If you are using MediaWiki 1.25 or later continue to step 3.
 
-##### Verify installation success
+If you do not have a "composer.json" file yet, copy the "composer-example.json" file to
+"composer.json". When this is done, run in your shell:
 
-As final step, you can verify SRF got installed by looking at the "Special:Version" page on your wiki and verifying the
-Semantic Result Formats section is listed.
+    php composer.phar require mediawiki/semantic-result-formats "~2.5"
+
+#### Step 3
+
+Add the following line to the end of the "require" section in you "composer.local.json" file:
+
+    "mediawiki/semantic-result-formats": "~2.5"
+
+You should already have a "composer.local.json" file due to installing the required extension
+Semantic MediaWiki. If not you should install Semantic MediaWiki first before you continue.
+
+When this is done run in your shell:
+
+    php composer.phar update --no-dev --prefer-source
+
+#### Verify installation success
+
+As final step, you can verify SRF got installed by looking at the "Special:Version" page on your
+wiki and verifying the Semantic Result Formats section is listed.
 
 ## Configuration
 
-A default set of formats is enabled. These are the
-the formats that satisfy the following criteria:
+A default set of formats is enabled. These are the formats that satisfy the following criteria:
 
-* they do not require further software to be installed (besides SMW),
-* they do not transmit any data to external websites, not even by making client
-  browsers request any static external resources (such as an externally hosted
-  image file),
+* they do not require further software to be installed (besides Semantic MediaWiki),
+* they do not transmit any data to external websites, not even by making client browsers request
+  any static external resources (such as an externally hosted image file),
 * they are considered reasonably stable and secure.
 
 Currently, these default formats thus are:
-'vcard', 'icalendar', 'calendar', 'timeline', 'eventline', 'bibtex', 'outline',
-'gallery', 'jqplotbar', 'jqplotpie', 'sum', 'average', 'min', 'max', 'tagcloud',
-'median', 'product', 'valuerank', 'array', 'tree', 'ultree', 'oltree',
-'D3Line'¹, 'D3Bar'¹, 'D3Treemap'¹, 'hash'².
-
-¹ from MediaWiki 1.17 onwards
-² with HashTables extension installed
+'icalendar', 'vcard', 'bibtex', 'calendar', 'eventcalendar', 'eventline', 'timeline', 'outline',
+'gallery', 'jqplotchart', 'jqplotseries', 'sum', 'average', 'min', 'max', 'median', 'product',
+'tagcloud', 'valuerank', 'array', 'tree', 'ultree', 'oltree', 'd3chart', 'latest', 'earliest',
+'filtered', 'slideshow', 'timeseries', 'sparkline', 'listwidget', 'pagewidget', 'dygraphs', 'media',
+'datatables'
 
 To add more formats to this list, you can add lines like:
 
@@ -210,28 +208,19 @@ To add more formats to this list, you can add lines like:
 
 ... or you can override the set of formats entirely, with a call like:
 
-    $srfgFormats = array( 'calendar', 'timeline' );
+    $srfgFormats = [ 'calendar', 'timeline' ];
 
-There are some formats that you may not want to include because they may
-not follow certain policies within your wiki; the formats 'googlebar' and
-'googlepie', for instance, send data to external web services for rendering,
-which may be considered a data leak.
+There are some formats that you may not want to include because they may not follow certain policies
+within your wiki; the formats 'googlebar' and 'googlepie', for instance, send data to external web
+services for rendering, which may be considered a data leak.
 
 Notes on specific formats:
-* eventline: requires Javascript to render.
-* exhibit: requires Javascript to render; requires access to Javascript files
-  hosted by MIT (not locally included), but does not send any data to MIT
-  (besides the requester's IP and the URL of the site with the query). Some
-  subformats of Exhibit, like the Google Maps view, send data to Google for
-  rendering.
-* googlebar: sends data to Google for rendering.  Googlebar requires
+* array: requires the MediaWiki Arrays extension to work.
+* excel: requires the phpexcel library from phpoffice to work.
+* googlebar: sends data to Google for rendering. It also requires
   access to the Google servers in order to render.
-* googlepie: sends data to Google for rendering.  Googlepie requires
+* googlepie: sends data to Google for rendering. It also requires
   access to the Google servers in order to render.
-* graph: in order to get the graph format to run, you first must have
-  the MediaWiki Graph extension running.
-* jqplotbar: requires Javascript to render.
-* jqplotpie: requires Javascript to render.
-* process: in order to get the process format to run, you first must
-  have the MediaWiki Graph extension running
-* timeline: requires Javascript to render.
+* graph: requires the MediaWiki GraphViz extension to work.
+* hash: requires the MediaWiki HashTables extensions to work.
+* process: requires the MediaWiki GraphViz extension to work.
