@@ -31,18 +31,19 @@ if ( ! defined( 'SMW_VERSION' ) ) {
 	throw new Exception( 'You need to have Semantic MediaWiki installed in order to use Semantic Result Formats' );
 }
 
+// Internationalization
 $GLOBALS['wgMessagesDirs']['SemanticResultFormats'] = __DIR__ . '/i18n';
-$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
 $GLOBALS['srfgIP'] = __DIR__;
 
-// Require the settings file.
+// Require settings
 require __DIR__ . '/SemanticResultFormats.settings.php';
 
 // Resource definitions
 $GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include( __DIR__ . "/Resources.php" ) );
 
+// Extension credits
 $GLOBALS['wgExtensionCredits']['semantic'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Result Formats',
