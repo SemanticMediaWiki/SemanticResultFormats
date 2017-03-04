@@ -144,9 +144,9 @@ using [MediaWiki's built-in support for Composer](https://www.mediawiki.org/wiki
 
 #### Step 1
 
-If you have previously installed Composer skip to step 2.
-
-To install Composer:
+Change to the root directory of your MediaWiki installation. This is where the "LocalSettings.php"
+file is located. You should already have installed Composer while installing the required extension
+Semnatic MediaWiki. In this case continue to step 2. If not install Composer now:
 
     wget https://getcomposer.org/composer.phar
 
@@ -161,7 +161,7 @@ If you do not have a "composer.json" file yet, copy the "composer-example.json" 
 
 #### Step 3
 
-Add the following line to the end of the "require" section in you "composer.local.json" file:
+Add the following line to the end of the "require" section in your "composer.local.json" file:
 
     "mediawiki/semantic-result-formats": "~2.5"
 
@@ -186,7 +186,7 @@ A default set of formats is enabled. These are the formats that satisfy the foll
   any static external resources (such as an externally hosted image file),
 * they are considered reasonably stable and secure.
 
-Currently, these default formats thus are:
+Currently, these default formats thus are:  
 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventcalendar', 'eventline', 'timeline', 'outline',
 'gallery', 'jqplotchart', 'jqplotseries', 'sum', 'average', 'min', 'max', 'median', 'product',
 'tagcloud', 'valuerank', 'array', 'tree', 'ultree', 'oltree', 'd3chart', 'latest', 'earliest',
