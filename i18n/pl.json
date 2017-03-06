@@ -111,6 +111,7 @@
 	"srf_paramdesc_maxsize": "Rozmiar największych znaczników w procentach",
 	"srf_paramdesc_maxtags": "Maksymalna liczba znaczników w chmurze",
 	"srf_printername_array": "Tablica",
+	"srf-printername-graph": "Wykres",
 	"srf_paramdesc_graphname": "Tytuł",
 	"srf_paramdesc_graphsize": "Rozmiar wykresu (w pikselach)",
 	"srf_paramdesc_graphlegend": "Pokaż legendę wykresu lub nie",
