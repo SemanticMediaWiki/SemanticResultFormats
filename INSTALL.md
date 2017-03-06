@@ -18,9 +18,9 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.4.0</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.4.2</a></th>
 		<td>Stable version</td>
-		<td>2016-10-14</td>
+		<td>2017-02-25</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.4.0">2.4.0</a></td>
 	</tr>
 	<tr>
@@ -152,10 +152,8 @@ Semnatic MediaWiki. In this case continue to step 2. If not install Composer now
 
 #### Step 2
 
-If you are using MediaWiki 1.25 or later continue to step 3.
-
-If you do not have a "composer.json" file yet, copy the "composer-example.json" file to
-"composer.json". When this is done, run in your shell:
+If you are using MediaWiki 1.25 or later continue to step 3. If not run the following command in
+your shell:
 
     php composer.phar require mediawiki/semantic-result-formats "~2.5"
 
@@ -164,6 +162,8 @@ If you do not have a "composer.json" file yet, copy the "composer-example.json" 
 Add the following line to the end of the "require" section in your "composer.local.json" file:
 
     "mediawiki/semantic-result-formats": "~2.5"
+
+Remember to add a comma to the end of the preceding line in this section.
 
 You should already have a "composer.local.json" file due to installing the required extension
 Semantic MediaWiki. If not you should install Semantic MediaWiki first before you continue.
