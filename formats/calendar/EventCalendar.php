@@ -122,6 +122,10 @@ class EventCalendar extends ApiResultPrinter {
 			'values' => array ( 'basic', 'vector' )
 		);
 
+		$params['clicktarget'] = array(
+			'message' => 'srf-paramdesc-clicktarget',
+			'default' => 'none'
+		);		
 		return $params;
 	}
 }

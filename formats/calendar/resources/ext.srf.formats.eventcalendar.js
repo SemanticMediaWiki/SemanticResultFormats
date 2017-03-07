@@ -467,6 +467,34 @@
 							// If the day number (where available) is clicked then switch to the daily view
 							if ( allDay && data.query.ask.parameters.dayview && $( jsEvent.target ).is( 'div.fc-day-number' ) ) {
 								container.fullCalendar( 'changeView', 'agendaDay'/* or 'basicDay' */).fullCalendar( 'gotoDate', date );
+							} else {
+									var clicktarget = data.query.ask.parameters.clicktarget;
+									if( clicktarget !== "none" ){
+										clicktarget = clicktarget.replace(/%clickyear%/g, date.getFullYear() )
+																 .replace(/%clickmonth%/g, date.getMonth() + 1 )
+																.replace(/%clickday%/g, date.getDate()+ hms);
+
+										var h = date.getUTCHours() + 1;
+										var m = date.getUTCMinutes();
+										var s = date.getUTCSeconds();
+
+										var hms = "T"+ h + ":" + m + ":" + s;
+
+										var wgArticlePath = mw.config.get('wgArticlePath').replace('$1','').trim();
+										var wgServer = mw.config.get('wgServer');
+										var clicktarget = data.query.ask.parameters.clicktarget
+															.replace(/%clickyear%/g, date.getFullYear() )
+															.replace(/%clickmonth%/g, date.getMonth() + 1 )
+															.replace(/%clickday%/g, date.getDate()+ hms);
+										var clicktargetURL = wgServer + wgArticlePath + clicktarget;
+
+										// TODO: i18n
+										var r = confirm("Do you want to create a new event?");
+									
+									if (r == true) { window.open(clicktargetURL , '_self');  }
+									   
+								   }    
+
 							}
 						}
 					} );
