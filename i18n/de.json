@@ -127,6 +127,7 @@
 	"srf-paramdesc-gridview": "Das Diagramm und die Datensätze simultan anzeigen. Mögliche Parameterwerte: „none“ und „tabs“. Standardwert: „none“",
 	"srf-paramdesc-paneview": "Die Position des Fensters, das ein kleines Liniendiagramm enthält. Mögliche Werte: „bottom“, „top“ und „none“. Standardwert: „bottom“",
 	"srf-paramdesc-infotext": "Die zusätzlichen Informationen auf dem entsprechenden Inforeiter anzeigen",
+	"srf-paramdesc-clicktarget": "Definiert eine Zielseite / query string der bei Klick auf ein Datum an die Wiki URL angefügt wird. Beispiel: clicktarget=Special:FormEdit/Event?Event[Start Date]=%clickyear%-%clickmonth%-%clickday%&returnto={{FULLPAGENAME}}.",
 	"srf-ui-gridview-label-item": "Datenelement",
 	"srf-ui-gridview-label-value": "Datenwert",
 	"srf-ui-gridview-label-series": "Datenreihen",

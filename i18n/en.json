@@ -120,6 +120,7 @@
 	"srf-paramdesc-gridview": "Display chart and data sets simultaneously. Allowed values: \"none\" and \"tabs\". Default: \"none\"",
 	"srf-paramdesc-paneview": "Specify the position of the pane containing a small line chart. Allowed values: \"bottom\", \"top\" and \"none\". Default: \"bottom\"",
 	"srf-paramdesc-infotext": "Display additional information on a corresponding info tab",
+	"srf-paramdesc-clicktarget": "Define a target page / query string appended to the wiki URL that get's called when clicking on a calendar date. Example: clicktarget=Special:FormEdit/Event?Event[Start Date]=%clickyear%-%clickmonth%-%clickday%&returnto={{FULLPAGENAME}}.",
 	"srf-ui-gridview-label-item": "Data item",
 	"srf-ui-gridview-label-value": "Data value",
 	"srf-ui-gridview-label-series": "Data series",
