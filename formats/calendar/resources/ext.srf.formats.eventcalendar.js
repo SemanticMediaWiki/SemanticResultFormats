@@ -410,6 +410,9 @@
 				month: mw.msg( 'srf-ui-eventcalendar-format-column-month' ),
 				week: mw.msg( 'srf-ui-eventcalendar-format-column-week' ),
 				day: mw.msg( 'srf-ui-eventcalendar-format-column-day' )
+			},
+			clickPopup: {
+				popup: mw.msg( 'srf-ui-eventcalendar-click-popup' )
 			}
 		},
 
@@ -449,6 +452,7 @@
 						timeFormat: self.messages.timeFormat,
 						titleFormat: self.messages.titleFormat,
 						columnFormat: self.messages.columnFormat,
+						clickPopup: self.messages.clickPopup,
 						theme: self.defaults.theme === 'ui',
 						editable: false,
 						year: self.defaults.calendarStart.getFullYear(),
@@ -487,14 +491,10 @@
 															.replace(/%clickmonth%/g, date.getMonth() + 1 )
 															.replace(/%clickday%/g, date.getDate()+ hms);
 										var clicktargetURL = wgServer + wgArticlePath + clicktarget;
-
-										// TODO: i18n
-										var r = confirm("Do you want to create a new event?");
-									
-									if (r == true) { window.open(clicktargetURL , '_self');  }
-									   
+										/* DONE: i18n */
+									  	var r = confirm( self.messages.clickPopup.popup );  
+										if (r == true) { window.open(clicktargetURL , '_self');  }   
 								   }    
-
 							}
 						}
 					} );

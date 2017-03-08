@@ -37,6 +37,7 @@ $calendarMessages = array( 'messages' => array(
 		'srf-ui-common-label-refresh', 'srf-ui-eventcalendar-label-update-success',
 		'srf-ui-eventcalendar-label-update-error', 'srf-ui-common-label-parameters',
 		'srf-ui-common-label-paneview', 'smw_qui_limt', 'srf-ui-common-label-daterange',
+		'srf-ui-eventcalendar-click-popup',
 	)
 );
 

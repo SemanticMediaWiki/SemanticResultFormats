@@ -265,6 +265,7 @@
 	"srf-ui-eventcalendar-format-column-day": "dddd d.M.",
 	"srf-ui-eventcalendar-label-update-success": "Der Kalender wurde erfolgreich aktualisiert.",
 	"srf-ui-eventcalendar-label-update-error": "Die Aktualisierung der Kalenders ist gescheitert.",
+	"srf-ui-eventcalendar-click-popup": "Möchten Sie einen Termin erstellen?",
 	"srf-printername-dygraphs": "Diagramm (Digraph)",
 	"srf-paramdesc-datasource": "Die Quelle, die die abzurufenden Daten enthält. Mögliche Parameterwerte: „file“, „raw“ und „url“. Standardwert: „file“",
 	"srf-paramdesc-errorbar": "Der zu verwendende Fehlerbalken. Mögliche Parameterwerte: „fraction“ (Konfidenzintervall der Werte), „sigma“ (Standardabweichung der Werte) und „range“ (Wertebereich)",

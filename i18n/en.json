@@ -265,6 +265,7 @@
 	"srf-ui-eventcalendar-format-column-day": "dddd d/M",
 	"srf-ui-eventcalendar-label-update-success": "The event calendar update was successful.",
 	"srf-ui-eventcalendar-label-update-error": "The event calendar update failed.",
+	"srf-ui-eventcalendar-click-popup": "Do you want to create an event?",	
 	"srf-printername-dygraphs": "Dygraphs chart",
 	"srf-paramdesc-datasource": "The source from where the data is accessible. Allowed values: \"file\", \"raw\" and \"url\". Default: \"file\"",
 	"srf-paramdesc-errorbar": "The error bar to be used. Allowed values: \"fraction\" (confidence intervals for values), \"sigma\" (standard deviation of values) and \"range\" (custom value ranges)",
