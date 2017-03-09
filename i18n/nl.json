@@ -10,7 +10,8 @@
 			"Southparkfan",
 			"Sjoerddebruin",
 			"Hex",
-			"Mainframe98"
+			"Mainframe98",
+			"Hzjethro"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -38,7 +39,7 @@
 	"srf-ui-tooltip-title-filter": "Filter",
 	"srf-ui-common-label-refresh": "Verversen",
 	"srf-ui-common-label-parameters": "Parameters",
-	"srf-error-option-mix": "De optie ($1) is niet beschikbaar",
+	"srf-error-option-mix": "Optie ($1) is niet beschikbaar",
 	"srf-error-option-link-all": "Voor optie ($1) moet de parameter \"link\" ingesteld worden op \"all\".",
 	"srf-error-missing-layout": "Het diagram of de grafiek kan niet worden getoond omdat de vormgeving ontbreekt.",
 	"srf-warn-empy-chart": "De grafiek of kaart is leeg omdat er gegevens missen",
@@ -77,7 +78,7 @@
 	"srf-timeline-allresults": "Meer resultaten voor deze zoekopdracht.",
 	"srf-timeline-nojs": "U moet JavaScript ingeschakeld hebben om de interactieve tijdlijn te kunnen weergeven.",
 	"srf_paramdesc_views": "De weer te geven overzichten",
-	"srf_paramdesc_facets": "De op iedere pagina weer te geven eigenschappen",
+	"srf_paramdesc_facets": "De voor iedere pagina weer te geven eigenschappen",
 	"srf_paramdesc_lens": "De naam van de sjabloon waarmee de paginaeigenschappen weergegeven moeten worden",
 	"srf_printername_googlebar": "Google staafgrafiek",
 	"srf_printername_googlepie": "Google taartgrafiek",
@@ -172,7 +173,9 @@
 	"srf-ui-datatables-label-information": "Informatie",
 	"srf-ui-datatables-label-placeholder-column-search": "Zoeken...",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Filterinstellingen",
+	"srf-ui-datatables-label-sInfo": "Weergave _START_ tot _END_ van _TOTAL_ resultaten",
 	"srf-ui-datatables-label-sInfoThousands": ".",
+	"srf-ui-datatables-label-sLengthMenu": "Toon _MENU_ resultaten per pagina",
 	"srf-ui-datatables-label-sLoadingRecords": "Bezig met laden...",
 	"srf-ui-datatables-label-sProcessing": "Verwerken...",
 	"srf-ui-datatables-label-sSearch": "Zoek:",
