@@ -43,12 +43,14 @@
 				// @note The dropdown size behaves differently in some browsers
 				// therefore a css class is assigned for adjustments
 				var dropdown = '';
-				$.each( options.list, function( index, text ) {
-					if ( typeof text === 'object' ) {
-						text = text[0];
-					}
-					dropdown = dropdown + html.element( 'option', { 'value': index }, text );
-				} );
+				if ( typeof options.list === 'object' ) {
+					$.each( options.list, function( index, text ) {
+						if ( typeof text === 'object' ) {
+							text = text[0];
+						}
+						dropdown = dropdown + html.element( 'option', { 'value': index }, text );
+					} );
+				}
 
 				return html.element( 'div',{ 'class': 'select-wrap-' + options.browser || 'all' },
 					new html.Raw ( html.element( 'select', {'id': options.id, 'class': options.selectClass, 'disabled': options.disabled || false },
