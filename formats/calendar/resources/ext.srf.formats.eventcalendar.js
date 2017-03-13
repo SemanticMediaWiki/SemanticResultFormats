@@ -474,22 +474,25 @@
 							} else {
 									var clicktarget = data.query.ask.parameters.clicktarget;
 									if( clicktarget !== "none" ){
-										clicktarget = clicktarget.replace(/%clickyear%/g, date.getFullYear() )
-																 .replace(/%clickmonth%/g, date.getMonth() + 1 )
-																.replace(/%clickday%/g, date.getDate()+ hms);
 
 										var h = date.getUTCHours() + 1;
 										var m = date.getUTCMinutes();
 										var s = date.getUTCSeconds();
+										var hms = "";
+										
+										if( h == 24 ){
+											hms  = "T"+ "13" + ":" + m + ":" + s;
+										} else {
+											hms  = "T"+ h + ":" + m + ":" + s;
+										}
 
-										var hms = "T"+ h + ":" + m + ":" + s;
-
+										clicktarget = clicktarget.replace(/%clickyear%/g, date.getFullYear() )
+																 .replace(/%clickmonth%/g, date.getMonth() + 1 )
+																.replace(/%clickday%/g, date.getDate()+ hms);
+										
 										var wgArticlePath = mw.config.get('wgArticlePath').replace('$1','').trim();
 										var wgServer = mw.config.get('wgServer');
-										var clicktarget = data.query.ask.parameters.clicktarget
-															.replace(/%clickyear%/g, date.getFullYear() )
-															.replace(/%clickmonth%/g, date.getMonth() + 1 )
-															.replace(/%clickday%/g, date.getDate()+ hms);
+
 										var clicktargetURL = wgServer + wgArticlePath + clicktarget;
 										/* DONE: i18n */
 									  	var r = confirm( self.messages.clickPopup.popup );  
