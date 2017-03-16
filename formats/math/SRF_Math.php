@@ -32,8 +32,23 @@ class SRFMath extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
-		global $wgLang;
-		return $wgLang->formatNum( $this->getResultText( $results, SMW_OUTPUT_HTML ) );
+
+		$number = $this->getResultText( $results, SMW_OUTPUT_HTML );
+
+        if ( count( $results->getPrintRequests() ) > 1 ) {
+            $outputformat = $results->getPrintRequests()[1]->getOutputFormat();
+        } else {
+            // no mainlabel
+            $outputformat = $results->getPrintRequests()[0]->getOutputFormat();
+        }
+
+        // if raw-format ("-") than skip formatNum()
+		if ( $outputformat != "-" ) {
+            global $wgLang;
+            $number = $wgLang->formatNum( $number );
+        }
+
+        return (string)$number;
 	}
 
 	/**
