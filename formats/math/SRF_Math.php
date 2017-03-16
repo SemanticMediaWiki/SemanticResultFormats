@@ -4,7 +4,7 @@
  * Various mathematical functions - sum, product, average, min and max.
  *
  * @licence GNU GPL v3+
- * 
+ *
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren
  * @author Nathan Yergler
@@ -35,20 +35,20 @@ class SRFMath extends SMWResultPrinter {
 
 		$number = $this->getResultText( $results, SMW_OUTPUT_HTML );
 
-        if ( count( $results->getPrintRequests() ) > 1 ) {
-            $outputformat = $results->getPrintRequests()[1]->getOutputFormat();
-        } else {
-            // no mainlabel
-            $outputformat = $results->getPrintRequests()[0]->getOutputFormat();
-        }
+		if ( count( $results->getPrintRequests() ) > 1 ) {
+			$outputformat = $results->getPrintRequests()[1]->getOutputFormat();
+		} else {
+			// no mainlabel
+			$outputformat = $results->getPrintRequests()[0]->getOutputFormat();
+		}
 
-        // if raw-format ("-") than skip formatNum()
+		// if raw-format ("-") than skip formatNum()
 		if ( $outputformat != "-" ) {
-            global $wgLang;
-            $number = $wgLang->formatNum( $number );
-        }
+			global $wgLang;
+			$number = $wgLang->formatNum( $number );
+		}
 
-        return (string)$number;
+		return (string)$number;
 	}
 
 	/**
@@ -56,11 +56,11 @@ class SRFMath extends SMWResultPrinter {
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$numbers = $this->getNumbers( $res );
-		
+
 		if ( count( $numbers ) == 0 ) {
 			return $this->params['default'];
 		}
-		
+
 		switch ( $this->mFormat ) {
 			case 'max':
 				return max( $numbers );
@@ -80,21 +80,21 @@ class SRFMath extends SMWResultPrinter {
 			case 'median':
 				sort( $numbers, SORT_NUMERIC );
 				$position = ( count( $numbers ) + 1 ) / 2 - 1;
-				return ( $numbers[ceil( $position )] + $numbers[floor( $position )] ) / 2; 
+				return ( $numbers[ceil( $position )] + $numbers[floor( $position )] ) / 2;
 				break;
 		}
 	}
-	
+
 	/**
 	 * @param SMWQueryResult $res
-	 * 
+	 *
 	 * @return float[]
 	 */
 	private function getNumbers( SMWQueryResult $res ) {
 		$numbers = array();
 
 		while ( $row = $res->getNext() ) {
-			foreach( $row as $resultArray ) {
+			foreach ( $row as $resultArray ) {
 				foreach ( $resultArray->getContent() as $dataItem ) {
 					self::addNumbersForDataItem( $dataItem, $numbers );
 				}
@@ -103,7 +103,7 @@ class SRFMath extends SMWResultPrinter {
 
 		return $numbers;
 	}
-	
+
 	/**
 	 * @param SMWDataItem $dataItem
 	 * @param float[] $numbers
