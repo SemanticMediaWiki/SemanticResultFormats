@@ -121,6 +121,7 @@
 	"srf-ui-datatables-label-conditions": "Warunki",
 	"srf-ui-datatables-label-parameters": "Parametry",
 	"srf-ui-datatables-label-information": "Informacje",
+	"srf-ui-datatables-label-update-success": "Aktualizacja tabeli zakończona pomyślnie",
 	"srf-ui-datatables-label-update-error": "Aktualizacja tabeli nie powiodła się.",
 	"srf-ui-datatables-label-placeholder-column-search": "Wyszukiwanie...",
 	"srf-ui-datatables-label-content-cache": "Zawartość pochodzi z lokalnej pamięci podręcznej.",

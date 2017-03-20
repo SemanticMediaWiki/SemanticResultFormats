@@ -92,7 +92,7 @@
 	"srf_paramdesc_minsize": "A legkisebb címkék mérete százalékban",
 	"srf_paramdesc_maxsize": "A legnagyobb címkék mérete százalékban",
 	"srf_paramdesc_maxtags": "A felhőben lévő címkék maximális mennyisége",
-	"srf-paramdesc-excludetags": "Címkenevek kizárása (;)",
+	"srf-paramdesc-excludetags": "Címkenevek kizárása (elválasztójel: \";\")",
 	"srf_printername_array": "Tömb",
 	"srf_paramdesc_pagetitle": "Megjelenítse-e az oldalcímeket eredményekként, vagy hagyja ki őket?",
 	"srf_paramdesc_propsep": "A kért tulajdonságok közötti elválasztó",
