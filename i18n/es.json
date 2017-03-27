@@ -17,7 +17,8 @@
 			"Macofe",
 			"Indiralena",
 			"Lemondoge",
-			"Dgstranz"
+			"Dgstranz",
+			"Julián L"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -263,6 +264,7 @@
 	"srf-ui-eventcalendar-label-allday": "Todo el día",
 	"srf-ui-eventcalendar-label-update-success": "El calendario de eventos se actualizó correctamente.",
 	"srf-ui-eventcalendar-label-update-error": "El calendario de eventos de error de actualización.",
+	"srf-ui-eventcalendar-click-popup": "¿Deseas crear un evento?",
 	"srf-printername-dygraphs": "Gráfico Dygraphs",
 	"srf-paramdesc-datasource": "La fuente en la que están accesibles los datos. Valores permitidos: \"file\", \"raw\" y \"url\". Predeterminado: \"file\"",
 	"srf-paramdesc-errorbar": "La barra de error que se utilizará. Valores permitidos: \"fraction\" (intervalos de confianza para valores), \"sigma\" (desviación estándar de los valores) y \"range\" (rangos de valor personalizados)",

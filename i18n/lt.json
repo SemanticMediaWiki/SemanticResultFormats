@@ -150,6 +150,7 @@
 	"srf-ui-eventcalendar-label-allday": "Visa diena",
 	"srf-ui-eventcalendar-label-update-success": "Įvykių kalendoriaus atnaujinimas buvo sėkmingas.",
 	"srf-ui-eventcalendar-label-update-error": "Įvykių kalendoriaus atnaujinimas nepavyko.",
+	"srf-ui-eventcalendar-click-popup": "Ar norite sukurti įvykį?",
 	"srf-paramdesc-yaxislabel": "Aprašymas, rodomas ant y ašies",
 	"srf-paramdesc-xaxislabel": "Aprašymas, rodomas ant x ašies",
 	"srf-paramdesc-unit": "Vienetas",

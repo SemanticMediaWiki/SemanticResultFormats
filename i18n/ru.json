@@ -10,7 +10,8 @@
 			"Okras",
 			"Meshkov.a",
 			"Alexandr Efremov",
-			"Facenapalm"
+			"Facenapalm",
+			"Redredsonia"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -263,6 +264,7 @@
 	"srf-ui-eventcalendar-label-allday": "Весь день",
 	"srf-ui-eventcalendar-label-update-success": "Обновление событий календаря успешно выполнено.",
 	"srf-ui-eventcalendar-label-update-error": "Не удалось обновить календарь событий.",
+	"srf-ui-eventcalendar-click-popup": "Вы хотите создать событие?",
 	"srf-printername-dygraphs": "Диграфы",
 	"srf-paramdesc-datasource": "Источник, из которого доступны данные. Допустимые значения: «file», «raw» и «url». По умолчанию: «file».",
 	"srf-paramdesc-errorbar": "Величина ошибок, которые будут использоваться. Допустимые значения: \"fraction\" (доверительные интервалы для значений), \"sigma\" (стандартное отклонение значений) и \"range\" (диапазоны значений)",

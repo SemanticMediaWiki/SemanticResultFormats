@@ -138,6 +138,7 @@
 	"srf-ui-eventcalendar-format-title-day": "yyyy년 MMM d일 dddd",
 	"srf-ui-eventcalendar-format-column-week": "M/d ddd",
 	"srf-ui-eventcalendar-format-column-day": "M/d dddd",
+	"srf-ui-eventcalendar-click-popup": "이벤트를 만드시겠습니까?",
 	"srf-paramdesc-unit": "단위",
 	"srf-paramdesc-min": "최소 또는 임계값",
 	"srf-printername-media": "미디어 플레이어",

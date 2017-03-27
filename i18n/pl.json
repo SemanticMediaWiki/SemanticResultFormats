@@ -154,6 +154,7 @@
 	"srf-ui-eventcalendar-label-month": "Miesiąc",
 	"srf-ui-eventcalendar-label-week": "Tydzień",
 	"srf-ui-eventcalendar-label-day": "Dzień",
+	"srf-ui-eventcalendar-click-popup": "Chcesz utworzyć wydarzenie?",
 	"srf-paramdesc-yaxislabel": "Opis osi y",
 	"srf-paramdesc-xaxislabel": "Opis osi x",
 	"srf-paramdesc-unit": "Jednostka",
