@@ -169,9 +169,11 @@
 	"srf_paramdesc_graphcolor": "Grafiekkleur",
 	"srf-paramdesc-graph-wwl": "Regellimiet (in aantal tekens)",
 	"srf-printername-datatables": "Gegevenstabellen",
+	"srf-ui-datatables-label-conditions": "Voorwaarden",
 	"srf-ui-datatables-label-parameters": "Parameters",
 	"srf-ui-datatables-label-information": "Informatie",
 	"srf-ui-datatables-label-placeholder-column-search": "Zoeken...",
+	"srf-ui-datatables-label-multiselect-column-header": "Beschikbare kolommen",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Filterinstellingen",
 	"srf-ui-datatables-label-sInfo": "Weergave _START_ tot _END_ van _TOTAL_ resultaten",
 	"srf-ui-datatables-label-sInfoEmpty": "Weergave 0 van 0 resultaten",
@@ -256,5 +258,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Herhalen uit",
 	"srf-ui-mediaplayer-label-full-screen": "Volledig scherm",
 	"srf-ui-mediaplayer-label-restore-screen": "Scherm herstellen",
-	"srf-excel-link": "Excel"
+	"srf-excel-link": "Excel",
+	"srf-excel-missing-phpexcel": "Kan niet naar Microsoft Excel exporteren omdat de uitbreiding [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] niet is geïnstalleerd."
 }

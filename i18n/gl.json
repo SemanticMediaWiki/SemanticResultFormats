@@ -258,6 +258,7 @@
 	"srf-ui-eventcalendar-label-allday": "Todo o día",
 	"srf-ui-eventcalendar-label-update-success": "A actualización do calendario de eventos foi correcta.",
 	"srf-ui-eventcalendar-label-update-error": "Fallou a actualización do calendario de eventos.",
+	"srf-ui-eventcalendar-click-popup": "Queres crear un evento?",
 	"srf-printername-dygraphs": "Gráfica dupla",
 	"srf-paramdesc-datasource": "A fonte na que están accesibles os datos. Valores permitidos: ''file'', ''raw'' e ''url''. Predeterminado: ''file''",
 	"srf-paramdesc-errorbar": "A barra de erro a utilizar. Valores permitidos: ''fraction'' (intervalos de confianza dos valores), ''sigma'' (desviación típica dos valores) e ''range'' (rangos personalizados de valores)",

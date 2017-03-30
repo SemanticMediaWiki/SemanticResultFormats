@@ -220,6 +220,7 @@
 	"srf-ui-eventcalendar-label-week": "Vecka",
 	"srf-ui-eventcalendar-label-day": "Dag",
 	"srf-ui-eventcalendar-label-allday": "Hela dagen",
+	"srf-ui-eventcalendar-click-popup": "Vill du skapa en händelse?",
 	"srf-printername-dygraphs": "Dygraphs diagram",
 	"srf-paramdesc-datasource": "Källan varifrån data är tillgänglig. Tillåtna värden: \"file\", \"raw\" och \"url\". Standard: \"file\"",
 	"srf-paramdesc-errorbar": "De felstaplar som ska användas. Tillåtna värden: \"fraction\" (konfidensintervall för värden), \"sigma\" (standardavvikelsen för värden) och \"range\" (anpassad värdeintervall)",
