@@ -6,7 +6,8 @@
 			"Glanthor Reviol",
 			"TK-999",
 			"Csega",
-			"Misibacsi"
+			"Misibacsi",
+			"Tacsipacsi"
 		]
 	},
 	"srf-desc": "További formátumok a Szemantikus MediaWiki beépített lekérdezéseihez",
@@ -115,6 +116,7 @@
 	"srf-ui-eventcalendar-label-week": "Hét",
 	"srf-ui-eventcalendar-label-day": "Nap",
 	"srf-ui-eventcalendar-label-allday": "Egész nap",
+	"srf-ui-eventcalendar-click-popup": "Szeretnél létrehozni egy eseményt?",
 	"srf-printername-dygraphs": "Diagram ábra",
 	"srf-printername-incoming": "Bejövő tulajdonságok"
 }
