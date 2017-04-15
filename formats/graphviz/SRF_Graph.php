@@ -318,13 +318,13 @@ class SRFGraph extends SMWResultPrinter {
 		$params['graphcolor'] = array(
 			'type' => 'boolean',
 			'default' => false,
-			'message' => 'srf-paramdesc_graphcolor',
+			'message' => 'srf-paramdesc-graphcolor',
 		);
 
 		$params['arrowdirection'] = array(
 			'aliases' => 'rankdir',
 			'default' => 'LR',
-			'message' => 'srf_paramdesc-rankdir',
+			'message' => 'srf-paramdesc-rankdir',
 			'values' => array( 'LR', 'RL', 'TB', 'BT' ),
 		);
 
