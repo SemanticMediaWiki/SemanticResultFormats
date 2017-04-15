@@ -287,44 +287,44 @@ class SRFGraph extends SMWResultPrinter {
 
 		$params['graphname'] = array(
 			'default' => 'QueryResult',
-			'message' => 'srf_paramdesc_graphname',
+			'message' => 'srf-paramdesc-graphname',
 		);
 
 		$params['graphsize'] = array(
 			'type' => 'string',
 			'default' => '',
-			'message' => 'srf_paramdesc_graphsize',
+			'message' => 'srf-paramdesc-graphsize',
 			'manipulatedefault' => false,
 		);
 
 		$params['graphlegend'] = array(
 			'type' => 'boolean',
 			'default' => false,
-			'message' => 'srf_paramdesc_graphlegend',
+			'message' => 'srf-paramdesc-graphlegend',
 		);
 
 		$params['graphlabel'] = array(
 			'type' => 'boolean',
 			'default' => false,
-			'message' => 'srf_paramdesc_graphlabel',
+			'message' => 'srf-paramdesc-graphlabel',
 		);
 
 		$params['graphlink'] = array(
 			'type' => 'boolean',
 			'default' => false,
-			'message' => 'srf_paramdesc_graphlink',
+			'message' => 'srf-paramdesc-graphlink',
 		);
 
 		$params['graphcolor'] = array(
 			'type' => 'boolean',
 			'default' => false,
-			'message' => 'srf_paramdesc_graphcolor',
+			'message' => 'srf-paramdesc-graphcolor',
 		);
 
 		$params['arrowdirection'] = array(
 			'aliases' => 'rankdir',
 			'default' => 'LR',
-			'message' => 'srf_paramdesc_rankdir',
+			'message' => 'srf-paramdesc-rankdir',
 			'values' => array( 'LR', 'RL', 'TB', 'BT' ),
 		);
 
