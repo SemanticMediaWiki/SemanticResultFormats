@@ -52,6 +52,7 @@ $GLOBALS['srfgFormats'] = array(
 	'dygraphs',
 	'media',
 	'datatables',
+	'highcharts',
 
 	// Boilerplate
 	// Enable access to the format identifier

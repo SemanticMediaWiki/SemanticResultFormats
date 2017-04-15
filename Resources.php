@@ -960,6 +960,15 @@ return array(
 		'dependencies' => 'ext.srf.datatables'
 	),
 
+	//Highcharts
+	'ext.srf.highcharts' => $formatModule + array(
+		'scripts' => array(
+			'highcharts/lib/highcharts/js/highcharts.src.js',
+			'highcharts/lib/highcharts/js/modules/exporting.src.js',
+			'highcharts/js/srfhighcharts.js',
+		)
+	),
+
 	// Boilerplate example registration
 	/*
 		// Simple implementation
