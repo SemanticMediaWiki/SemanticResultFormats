@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"AnakngAraw",
-			"Sky Harbor"
+			"Sky Harbor",
+			"Emem.calist"
 		]
 	},
 	"srf-desc": "Dagdag na mga anyo para sa nasa loob ng guhit na mga pagtatanong na pang-Semantikong MediaWiki",
@@ -135,14 +136,16 @@
 	"srf-paramdesc-graph-relation": "Mga magulang ba o mga anak ang mga paksa o mga kaarian ng pangalan?",
 	"srf-paramdesc-graph-nameprop": "Nagpapahintulot ng pagtatakda ng isang pag-aari na gagamitin bilang paksa sa halip na ang talagang paksa",
 	"srf-paramdesc-graph-nodeshape": "Ang hugis ng bawat buko sa ibabaw ng talangguhit",
-	"srf_paramdesc_graphname": "Pamagat",
-	"srf_paramdesc_graphsize": "Sukat ng talangguhit (nasa px)",
-	"srf_paramdesc_graphlegend": "Ipakita ang alamat ng talangguhit o hindi",
-	"srf_paramdesc_graphlabel": "Tatak ng talangguhit",
-	"srf_paramdesc_rankdir": "Patutunguhan ng palaso",
-	"srf_paramdesc_graphlink": "Kawing ng talangguhit",
-	"srf_paramdesc_graphcolor": "Kulay ng talangguhit",
+	"srf-paramdesc-graphname": "Pamagat",
+	"srf-paramdesc-graphsize": "Sukat ng talangguhit (nasa px)",
+	"srf-paramdesc-graphlegend": "Ipakita ang alamat ng talangguhit o hindi",
+	"srf-paramdesc-graphlabel": "Tatak ng talangguhit",
+	"srf-paramdesc-rankdir": "Patutunguhan ng palaso",
+	"srf-paramdesc-graphlink": "Kawing ng talangguhit",
+	"srf-paramdesc-graphcolor": "Kulay ng talangguhit",
 	"srf-paramdesc-graph-wwl": "Hangganan ng balot ng salita (sa loob ng # mga panitik)",
+	"srf-paramdesc-showroles": "Ipinakikita ang mga sumusunod na lathala ( ..in graph )",
+	"srf-paramdesc-showresources": "Ipinakikita ang mga sumusunod na lathala ( ..in graph )",
 	"srf-printername-datatables": "Mga Talahanayan ng Dato",
 	"srf_printername_tree": "Puno",
 	"srf_printername_ultree": "Puno na ang listahan ay walang pagkakasunud-sunod",
