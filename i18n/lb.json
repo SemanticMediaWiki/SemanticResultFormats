@@ -82,6 +82,8 @@
 	"srf-paramdesc-graphlink": "Leet fest ob d'Kniet op hier Wikisäite verlinke sollen",
 	"srf-paramdesc-graphcolor": "Leet d'Faarf vun der Grafik fest",
 	"srf-paramdesc-redlinkcolor": "Leet d'Schrëftfaarf fir rout Linke fest",
+	"srf-paramdesc-showdiscussion": "Leet fest ob eng Diskussioun gerendert gi soll",
+	"srf-paramdesc-showredlinks": "Leet fest ob rout Linke sollen nogekuckt an ervirgehuewe ginn",
 	"srf-ui-datatables-label-conditions": "Bedingungen",
 	"srf-ui-datatables-label-parameters": "Parameteren",
 	"srf-ui-datatables-label-information": "Informatioun",
