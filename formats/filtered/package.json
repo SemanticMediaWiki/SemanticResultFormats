@@ -1,0 +1,31 @@
+{
+  "name": "filtered",
+  "version": "2.0.0",
+  "description": "Displays SMW query results in switchable views and offers client-side (JavaScript based) filtering",
+  "main": "ext.srf.filtered.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp"
+  },
+  "author": "Stephan Gambke",
+  "license": "GPL-2.0+",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jquery": "^2.0.41",
+    "@types/leaflet": "^1.0.60",
+    "@types/leaflet-markercluster": "^1.0.3",
+    "browserify": "^14.1.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-typescript": "^3.1.6",
+    "gulp-uglify": "^2.1.2",
+    "leaflet": "^1.0.3",
+    "leaflet.markercluster": "^1.0.4",
+    "tsify": "^3.0.1",
+    "typescript": "^2.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

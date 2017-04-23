@@ -101,6 +101,10 @@ class SemanticResultFormats {
 		$GLOBALS['wgHooks']['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
 		$GLOBALS['wgHooks']['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
 
+		// Format hooks
+		$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'SRF\Filtered\Hooks::onOutputPageParserOutput';
+		$GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript';
+
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
@@ -173,7 +177,7 @@ class SemanticResultFormats {
 			'tree' => 'SRFTree',
 			'ultree' => 'SRFTree',
 			'oltree' => 'SRFTree',
-			'filtered' => 'SRFFiltered',
+			'filtered' => 'SRF\Filtered\Filtered',
 			'latest' => 'SRFTime',
 			'earliest' => 'SRFTime',
 			'slideshow' => 'SRFSlideShow',

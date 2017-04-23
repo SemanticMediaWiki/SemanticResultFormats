@@ -53,7 +53,8 @@
 	},
 	"suggest": {
 		"phpoffice/phpexcel": "Required for 'format=excel'",
-		"mediawiki/graph-viz": "Required for 'format=graph' and 'format=process'"
+		"mediawiki/graph-viz": "Required for 'format=graph' and 'format=process'",
+		"data-values/geo": "Required for 'format=filtered' with map view and/or distance filter"
 	},
 	"autoload": {
 		"psr-4": {
