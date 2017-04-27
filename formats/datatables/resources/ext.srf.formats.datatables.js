@@ -196,9 +196,38 @@
 										} else if ( DI instanceof smw.dataItem.text ){
 											collectedValueItem += DI.getText();
 										} else if ( DI instanceof smw.dataItem.number ){
-											collectedValueItem += DI.getNumber();
+											var format = propertyObj.format;
+                                                                                        if ( format !== false ) {
+                                                                                                var rxDecPoints = new RegExp( '-(p)([0-9]+)' );
+                                                                                                var decNum = format.match( rxDecPoints );
+                                                                                                if ( decNum !== null && decNum[1] !== undefined && decNum[2] !== undefined ) {
+                                                                                                        collectedValueItem += Intl.NumberFormat( 'latn', {
+                                                                                                                minimumFractionDigits: decNum[2],
+                                                                                                                maximumFractionDigits: decNum[2]
+                                                                                                        } ).format( DI.getNumber() );
+                                                                                                } else {
+                                                                                                        collectedValueItem += DI.getNumber();
+                                                                                                }
+                                                                                        } else {
+                                                                                                collectedValueItem += DI.getNumber();
+                                                                                        }
 										} else if ( DI instanceof smw.dataValue.quantity ){
-											collectedValueItem += DI.getUnit() !== '' ? DI.getValue() + ' ' + DI.getUnit() : DI.getValue();
+											var format = propertyObj.format;
+                                                                                        if ( format !== false ) {
+                                                                                                var rxDecPoints = new RegExp( '-(p)([0-9]+)' );
+                                                                                                var decNum = format.match( rxDecPoints );
+                                                                                                if ( decNum !== null && decNum[1] !== undefined && decNum[2] !== undefined ) {
+                                                                                                        var diValue = Intl.NumberFormat( 'latn', {
+                                                                                                                minimumFractionDigits: decNum[2],
+                                                                                                                maximumFractionDigits: decNum[2]
+                                                                                                        } ).format( DI.getValue() );
+                                                                                                        collectedValueItem += DI.getUnit() !== '' ? diValue + ' ' + DI.getUnit() : diValue;
+                                                                                                } else {
+                                                                                                        collectedValueItem += DI.getUnit() !== '' ? DI.getValue() + ' ' + DI.getUnit() : DI.getValue();
+                                                                                                }
+                                                                                        } else {
+                                                                                                collectedValueItem += DI.getUnit() !== '' ? DI.getValue() + ' ' + DI.getUnit() : DI.getValue();
+                                                                                        }
 										} else if ( DI instanceof smw.dataItem.unknown ){
 											collectedValueItem += DI.getValue();
 										}
