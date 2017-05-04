@@ -567,27 +567,33 @@ return array(
 
 
 	// JitGraph
+	'ext.srf.jit.excanvas' => $formatModule + array(
+		'scripts' => array(
+			'JitGraph/resources/Jit/Extras/excanvas.js',
+		)
+	),
 	'ext.srf.jquery.progressbar' => $formatModule + array(
 		'scripts' => array(
-			'JitGraph/jquery.progressbar.js',
+			'JitGraph/resources/jquery.progressbar.js',
 		),
 	),
 	'ext.srf.jit' => $formatModule + array(
 		'scripts' => array(
-			'JitGraph/Jit/jit.js',
+			'JitGraph/resources/Jit/jit.js',
 		),
 	),
 	'ext.srf.jitgraph' => $formatModule + array(
 		'scripts' => array(
-			'JitGraph/SRF_JitGraph.js',
+			'JitGraph/resources/ext.srf.jitgraph.js',
 		),
 		'styles' => array(
-			'JitGraph/base.css',
+			'JitGraph/resources/base.css',
 		),
 		'dependencies' => array(
+			'ext.srf.jit.excanvas',
 			'mediawiki.legacy.wikibits',
 			'ext.srf.jquery.progressbar',
-			'ext.srf.jit',
+			'ext.srf.jit'
 		),
 		'position' => 'top',
 	),

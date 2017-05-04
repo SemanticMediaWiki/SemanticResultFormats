@@ -5,7 +5,9 @@ inline query results to be output in a form of interactive graphs.
 
 == Credits ==
 
-JitGraph PHP code has been written by Alex Shapovalov (shapov1@gmail.com).
+The alpha version of JitGraph was written by Alex Shapovalov (shapov1@gmail.com).
+
+JitGraph was turned into a production-ready release by Richard Banks (richard.banks84@gmail.com).
 
 The JitGraph result format employs a JavaScript library 
 provided by SenchaLabs (http://http://thejit.org/).
