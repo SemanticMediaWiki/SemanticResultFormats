@@ -1,6 +1,12 @@
 These are the release notes for the [Semantic Result Formats]
 (https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.4.3
+
+Released on May 7, 2017
+
+* Fixed Uncaught TypeError on 'in' operator (by gesinn.it)
+
 ## SRF 2.4.2
 
 Released on February 25, 2017
