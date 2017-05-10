@@ -57,6 +57,16 @@ return array(
 		)
 	),
 
+	// Lightgallery
+	'ext.jquery.lightgallery' => $moduleTemplate + array(
+		'scripts' => array(
+			'resources/jquery/lightgallery/lightgallery.min.js',
+			'resources/jquery/lightgallery/lg-thumbnail.min.js',
+			'resources/jquery/lightgallery/lg-fullscreen.min.js'
+		),
+		'styles'  => 'resources/jquery/lightgallery/lightgallery.min.css',
+	),
+
 	// Multiselect
 	'ext.jquery.multiselect' => $moduleTemplate + array(
 		'scripts' => 'resources/jquery/multiselect/jquery.multiselect.js',
@@ -648,6 +658,16 @@ return array(
 		'messages' => array(
 			'srf-gallery-overlay-count',
 			'srf-gallery-image-url-error'
+		),
+		'position' => 'top',
+	),
+
+	'ext.srf.gallery.lightgallery' => $formatModule + array(
+		'scripts' => 'gallery/resources/ext.srf.gallery.lightgallery.js',
+		'styles'  => 'gallery/resources/ext.srf.gallery.lightgallery.css',
+		'dependencies' => array(
+			'ext.srf.formats.gallery',
+			'ext.jquery.lightgallery'
 		),
 		'position' => 'top',
 	),
