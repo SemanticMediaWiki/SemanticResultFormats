@@ -185,7 +185,7 @@
 	"srf_paramdesc_hashname": "Si l'extension HashTables est disponible et fournie, ceci créera un hachage avec le nom spécifié (pas de sortie visible dans ce cas)",
 	"srf-printername-graph": "Graphe",
 	"srf-paramdesc-graph-relation": "Indique si les sujets ou les propriétés de nom sont des parents ou des enfants",
-	"srf-paramdesc-graph-nameprop": "Définit la propriété qui sera utilisée comme sujet au lieu de l’objet réel, c.-à-d. le nom de la page",
+	"srf-paramdesc-graph-nameprop": "Définit la propriété qui sera utilisée comme sujet au lieu de l’objet réel, c'est à dire le nom de la page",
 	"srf-paramdesc-graph-nodeshape": "Fixe la forme de chaque nœud sur le graphique",
 	"srf-paramdesc-graphname": "Définit le titre du graphique",
 	"srf-paramdesc-graphsize": "Fixe la taille du graphique en pixels",
