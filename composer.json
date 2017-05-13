@@ -55,6 +55,9 @@
 		"mediawiki/graph-viz": "Required for 'format=graph'"
 	},
 	"autoload": {
+		"psr-4": {
+			"SRF\\": "src/"
+		},
 		"files" : [
 			"SemanticResultFormats.php"
 		],
