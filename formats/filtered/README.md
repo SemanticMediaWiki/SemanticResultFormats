@@ -21,7 +21,7 @@ Unsupported:
 * searchlabel
 * default
 
-Format specific:
+## Format specific:
 * views
 * filter position
 
