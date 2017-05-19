@@ -1,11 +1,25 @@
 # Parameters
 
-## Generic
+Parameters to the `#ask` function can apply to the `filtered` format as a whole (format level) or to only one specific printout (printout level). On format level there are some generic parameters that are common to all result formats and some format specific parameters that are used only by the `filtered` format.
 
+Consider the following query:
+```
+{{#ask:[[SomeCondition]]
+|? SomePrintout |+filter=number
+|? Position
+|format=filtered
+|limit=100
+|views=map
+|mapviewmarkerpositionproperty=Position
+}}
+```
 
-## Format level
+In this query `limit=50` is on format level (generic), `views=map` is on format level (format specific) and `+filter=number` is on printout level.
+
+## Format level - Generic:
 
 Supported:
+* format
 * mainlabel
 * sort
 * order
@@ -15,13 +29,13 @@ Supported:
 * offset
 * headers (Table view)
 
-Unsupported:
+Not supported by the `filtered` format:
 * source
 * link
 * searchlabel
 * default
 
-## Format specific:
+## Format level - Format specific:
 * views
 * filter position
 
