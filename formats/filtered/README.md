@@ -14,7 +14,7 @@ Consider the following query:
 }}
 ```
 
-In this query `limit=50` is on format level (generic), `views=map` is on format level (format specific) and `+filter=number` is on printout level.
+In this query `limit=100` is on format level (generic), `views=map` is on format level (format specific) and `+filter=number` is on printout level.
 
 ## Format level - Generic:
 
