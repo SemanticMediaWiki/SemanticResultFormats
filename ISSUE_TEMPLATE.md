@@ -14,4 +14,4 @@ Detailed description of the issue and a [stack trace](https://www.semantic-media
 ```
 ```
 
-Steps to reproduce the observation (recommendation is to use the [sandbox](http://sandbox.semantic-mediawiki.org)):
+Steps to reproduce the observation (recommendation is to use the [sandbox](https://sandbox.semantic-mediawiki.org)):
