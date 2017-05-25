@@ -70,7 +70,7 @@ class SRFTree extends SMWListResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 
 		if ( $this->mTreeProp === '' ) {
-			$res->addErrors( array( wfMessage( 'srf-noparentprop' )->inContentLanguage()->text() ) );
+			$res->addErrors( [ wfMessage( 'srf-noparentprop' )->inContentLanguage()->text() ] );
 			return '';
 		}
 
@@ -81,7 +81,7 @@ class SRFTree extends SMWListResultPrinter {
 		// elements with more than one parent will be cloned for each parent,
 		// but only one instance will ever be inserted with the hash and
 		// only this instance will later be considered as a parent element in the tree
-		$tree = array( );
+		$tree = [ ];
 
 		while ( $row = $res->getNext() ) {
 
@@ -123,7 +123,7 @@ class SRFTree extends SMWListResultPrinter {
 			}
 		}
 
-		$rootElements = array();
+		$rootElements = [];
 
 		// build pointers from parents to children and remove pointers to parents that don't exist in the tree
 		foreach ( $tree as $hash => $element ) {
@@ -149,7 +149,7 @@ class SRFTree extends SMWListResultPrinter {
 			$rootTitle = Title::newFromText( $this->mRoot );
 
 			if ( $rootTitle === null ) {
-				$res->addErrors( array( wfMessage( 'srf-rootinvalid' )->params( $this->mRoot )->inContentLanguage()->text() ) );
+				$res->addErrors( [ wfMessage( 'srf-rootinvalid' )->params( $this->mRoot )->inContentLanguage()->text() ] );
 				return '';
 			}
 
@@ -258,21 +258,21 @@ class SRFTree extends SMWListResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['parent'] = array(
+		$params['parent'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-parent',
-		);
+		];
 
-		$params['root'] = array(
+		$params['root'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-root',
-		);
+		];
 
-		$params['start level'] = array(
+		$params['start level'] = [
 			'default' => 1,
 			'message' => 'srf-paramdesc-startlevel',
 			'type' => 'integer',
-		);
+		];
 
 		return $params;
 	}
@@ -281,7 +281,7 @@ class SRFTree extends SMWListResultPrinter {
 
 class SRFTreeElement {
 
-	var $mChildren = array( );
+	var $mChildren = [ ];
 	var $mParent = null;
 	var $mRow = null;
 

@@ -30,7 +30,7 @@ class DataTablesTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'datatables' );
+		return [ 'datatables' ];
 	}
 
 	/**

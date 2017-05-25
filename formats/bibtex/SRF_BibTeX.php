@@ -74,7 +74,7 @@ class SRFBibTeX extends SMWExportPrinter {
 				$this->m_title = $wgSitename;
 			}
 			
-			$items = array();
+			$items = [];
 			
 			while ( $row = $res->getNext() ) {
 				$items[] = $this->getItemForResultRow( $row )->text();
@@ -185,7 +185,7 @@ class SRFBibTeX extends SMWExportPrinter {
 			else {
 				switch ( $label ) {
 					case 'author': case 'authors': case 'editor' : case 'editors':
-						$wikiTexts = array();
+						$wikiTexts = [];
 						while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
 							$wikiTexts[] = $dataValue->getShortWikiText();
 						}
@@ -220,12 +220,12 @@ class SRFBibTeX extends SMWExportPrinter {
 class SMWBibTeXEntry {
 	private $bibTeXtype;
 	private $URI;
-	private $fields = array();
+	private $fields = [];
 
 	public function __construct( $type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year ) {
 		if ( $type ) $this->bibTeXtype = ucfirst( $type ); else $this->bibTeXtype = 'Book';
 
-		$fields = array();
+		$fields = [];
 
 		if ( $address ) $fields['address'] = $address;
 		if ( $annote ) $fields['annote'] = $annote;

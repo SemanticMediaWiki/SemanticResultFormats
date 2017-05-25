@@ -30,7 +30,7 @@ class DygraphsTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'dygraphs' );
+		return [ 'dygraphs' ];
 	}
 
 	/**

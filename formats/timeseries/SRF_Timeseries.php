@@ -34,8 +34,8 @@ class SRFTimeseries extends SMWResultPrinter {
 		$data = $this->getAggregatedTimeSeries( $result, $outputMode );
 
 		// Post-data processing check
-		if ( $data === array() ) {
-			return $result->addErrors( array( wfMessage( 'srf-warn-empy-chart' )->inContentLanguage()->text() ) );
+		if ( $data === [] ) {
+			return $result->addErrors( [ wfMessage( 'srf-warn-empy-chart' )->inContentLanguage()->text() ] );
 		} else {
 			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
 			return $this->getFormatOutput( $data, $options );
@@ -53,18 +53,18 @@ class SRFTimeseries extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getAggregatedTimeSeries( SMWQueryResult $result, $outputMode ) {
-		$values = array();
-		$aggregatedValues = array ();
+		$values = [];
+		$aggregatedValues =  [];
 
 		while ( /* array of SMWResultArray */ $row = $result->getNext() ) { // Objects (pages)
 			$timeStamp = '';
 			$value     = '';
-			$series = array();
+			$series = [];
 
 			foreach ( $row as /* SMWResultArray */ $field ) {
-				$value  = array();
-				$sum    = array();
-				$rowSum = array();
+				$value  = [];
+				$sum    = [];
+				$rowSum = [];
 
 				// Group by subject (page object)  or property
 				if ( $this->params['group'] == 'subject' ){
@@ -92,7 +92,7 @@ class SRFTimeseries extends SMWResultPrinter {
 
 				// Check the sum and threshold/min
 				if ( $timeStamp !== '' && $field->getPrintRequest()->getTypeID() !== '_dat' && $rowSum >= $this->params['min'] ) {
-					$series[$group] = array ( $timeStamp , $rowSum ) ;
+					$series[$group] =  [ $timeStamp , $rowSum ] ;
 				}
 			}
 				$values[] = $series ;
@@ -126,18 +126,18 @@ class SRFTimeseries extends SMWResultPrinter {
 
 		// Reorganize the raw data
 		foreach ( $data as $key => $values ) {
-			$dataObject[] = array ( 'label' => $key, 'data' => $values );
+			$dataObject[] =  [ 'label' => $key, 'data' => $values ];
 		}
 
 		// Series colour
-		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : array();
+		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : [];
 
 		// Prepare transfer array
-		$chartData = array (
+		$chartData =  [
 			'data' => $dataObject,
 			'fcolumntypeid' => '_dat',
 			'sask' => $options['sask'],
-			'parameters' => array (
+			'parameters' =>  [
 				'width'        => $this->params['width'],
 				'height'       => $this->params['height'],
 				'charttitle'   => $this->params['charttitle'],
@@ -147,11 +147,11 @@ class SRFTimeseries extends SMWResultPrinter {
 				'gridview'     => $this->params['gridview'],
 				'zoom'         => $this->params['zoompane'],
 				'seriescolors' => $seriescolors
-			)
-		);
+			]
+		];
 
 		// Array encoding and output
-		$requireHeadItem = array ( $chartID => FormatJson::encode( $chartData ) );
+		$requireHeadItem =  [ $chartID => FormatJson::encode( $chartData ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
@@ -162,11 +162,11 @@ class SRFTimeseries extends SMWResultPrinter {
 		}
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', array(
+		$chart = Html::rawElement( 'div', [
 			'id' => $chartID,
 			'class' => 'container',
 			'style' => "display:none;"
-			), null
+			], null
 		);
 
 		// Processing/loading image
@@ -176,9 +176,9 @@ class SRFTimeseries extends SMWResultPrinter {
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : ' flot-chart-common';
 
 		// General output marker
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'div', [
 			'class' => 'srf-timeseries' . $class
-			), $processing . $chart
+			], $processing . $chart
 		);
 	}
 
@@ -194,72 +194,72 @@ class SRFTimeseries extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['charttype'] = array(
+		$params['charttype'] = [
 			'message' => 'srf-paramdesc-layout',
 			'default' => 'line',
-			'values' => array( 'line', 'bar'),
-		);
+			'values' => [ 'line', 'bar'],
+		];
 
-		$params['min'] = array(
+		$params['min'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-minvalue',
 			'default' => '',
-		);
+		];
 
-		$params['gridview'] = array(
+		$params['gridview'] = [
 			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
-			'values' => array( 'none' , 'tabs' ),
-		);
+			'values' => [ 'none' , 'tabs' ],
+		];
 
-		$params['group'] = array(
+		$params['group'] = [
 			'message' => 'srf-paramdesc-group',
 			'default' => 'subject',
-			'values' => array( 'property' , 'subject' ),
-		);
+			'values' => [ 'property' , 'subject' ],
+		];
 
-		$params['zoompane'] = array(
+		$params['zoompane'] = [
 			'message' => 'srf-paramdesc-zoompane',
 			'default' => 'bottom',
-			'values' => array( 'none' , 'bottom', 'top' ),
-		);
+			'values' => [ 'none' , 'bottom', 'top' ],
+		];
 
-		$params['height'] = array(
+		$params['height'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_chartheight',
 			'default' => 400,
 			'lowerbound' => 1,
-		);
+		];
 
-		$params['width'] = array(
+		$params['width'] = [
 			'message' => 'srf_paramdesc_chartwidth',
 			'default' => '100%',
-		);
+		];
 
-		$params['charttitle'] = array(
+		$params['charttitle'] = [
 			'message' => 'srf_paramdesc_charttitle',
 			'default' => '',
-		);
+		];
 
-		$params['charttext'] = array(
+		$params['charttext'] = [
 			'message' => 'srf-paramdesc-charttext',
 			'default' => '',
-		);
+		];
 
-		$params['infotext'] = array(
+		$params['infotext'] = [
 			'message' => 'srf-paramdesc-infotext',
 			'default' => '',
-		);
+		];
 
-		$params['chartcolor'] = array(
+		$params['chartcolor'] = [
 			'message' => 'srf-paramdesc-chartcolor',
 			'default' => '',
-		);
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}

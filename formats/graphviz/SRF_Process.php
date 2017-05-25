@@ -101,93 +101,93 @@ class SRFProcess extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['graphname'] = array(
+		$params['graphname'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-graphname',
-		);
+		];
 
-		$params['rankdir'] = array(
+		$params['rankdir'] = [
 			'default' => 'TB',
 			'message' => 'srf-paramdesc-rankdir',
-		);
+		];
 
-		$params['graphsize'] = array(
+		$params['graphsize'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-graphsize',
-		);
+		];
 
-		$params['clustercolor'] = array(
+		$params['clustercolor'] = [
 			'default' => 'lightgrey',
 			'message' => 'srf-paramdesc-clustercolor',
-		);
+		];
 
-		$params['highlight'] = array(
+		$params['highlight'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-highlight',
-		);
+		];
 
-		$params['highlightcolor'] = array(
+		$params['highlightcolor'] = [
 			'default' => 'blue',
 			'message' => 'srf-paramdesc-highlightcolor',
-		);
+		];
 
-		$params['redlinkcolor'] = array(
+		$params['redlinkcolor'] = [
 			'default' => 'red',
 			'message' => 'srf-paramdesc-redlinkcolor',
-		);
+		];
 
-		$params['processcat'] = array(
+		$params['processcat'] = [
 			'default' => 'Process',
 			'message' => 'srf-paramdesc-processcategory',
-		);
+		];
 
-		$params['showroles'] = array(
+		$params['showroles'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-showroles',
-		);
+		];
 
-		$params['showstatus'] = array(
+		$params['showstatus'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-showstatus',
-		);
+		];
 
-		$params['showresources'] = array(
+		$params['showresources'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-showresources',
-		);
+		];
 
-		$params['showdiscussion'] = array(
+		$params['showdiscussion'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-showdiscussion',
-		);
+		];
 
-		$params['showredlinks'] = array(
+		$params['showredlinks'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-showredlinks',
-		);
+		];
 
-		$params['showcompound'] = array(
+		$params['showcompound'] = [
 			'type' => 'boolean',
 			'default' => true,
 			'message' => 'srf-paramdesc-showcompound',
-		);
+		];
 
-		$params['debug'] = array(
+		$params['debug'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-debug',
-		);
+		];
 
-		$params['graphvalidation'] = array(
+		$params['graphvalidation'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphvalidation',
-		);
+		];
 
 		return $params;
 	}
@@ -493,12 +493,12 @@ class ProcessGraph {
 	public $m_useHtmlNodes = true;			// Set to false if you do not want to use HTML table nodes
 
 	// instance variables
-	protected $m_nodes		= array();	// list of all nodes
-	protected $m_startnodes	= array();	// list of start nodes
-	protected $m_endnodes	= array();	// list of end nodes
-	protected $m_ressources	= array();	// list of ressources
-	protected $m_roles		= array();	// list of roles
-	protected $m_errors		= array();	// list of errors
+	protected $m_nodes		= [];	// list of all nodes
+	protected $m_startnodes	= [];	// list of start nodes
+	protected $m_endnodes	= [];	// list of end nodes
+	protected $m_ressources	= [];	// list of ressources
+	protected $m_roles		= [];	// list of roles
+	protected $m_errors		= [];	// list of errors
 
 
 	/**
@@ -793,8 +793,8 @@ abstract class ProcessElement {
 
 class ProcessRessource extends ProcessElement {
 
-	private $m_usedby		= array();
-	private	$m_producedby	= array();
+	private $m_usedby		= [];
+	private	$m_producedby	= [];
 
 	public function getProducers() {
 		return $this->m_producedby;
@@ -816,7 +816,7 @@ class ProcessRessource extends ProcessElement {
 
 class ProcessRole extends ProcessElement {
 
-	private $m_nodes	= array();
+	private $m_nodes	= [];
 
 	public function getNodes() {
 		return $this->m_nodes;
@@ -842,12 +842,12 @@ class ProcessNode extends ProcessElement {
 
 	private $m_fontColor = '';			// font color to render
 
-	private $m_usedressources 		= array();	// ressources used by this node
-	private $m_producedressources 	= array();	// ressources produces by this node
-	private $m_roles				= array();	// roles related to this node
+	private $m_usedressources 		= [];	// ressources used by this node
+	private $m_producedressources 	= [];	// ressources produces by this node
+	private $m_roles				= [];	// roles related to this node
 
 	private $m_edgeout;					// outgoing edge (can be only one)
-	private	$m_edgesin 	=	array();	// incoming edges (can be many)
+	private	$m_edgesin 	=	[];	// incoming edges (can be many)
 
 	public function setStatus( $status ) {
 		$this->m_status = $status;
@@ -870,7 +870,7 @@ class ProcessNode extends ProcessElement {
 	}
 
 	public function getPred() {
-		$res = array();
+		$res = [];
 
 		foreach ( $this->m_edgesin as $edge ) {
 			$res = array_merge( $res, $edge->getPred() );
@@ -880,7 +880,7 @@ class ProcessNode extends ProcessElement {
 	}
 
 	public function getSucc() {
-		$res = array();
+		$res = [];
 
 		if ( isset( $this->m_edgeout ) ) {
 			$res = $this->m_edgeout->getSucc();
@@ -1124,7 +1124,7 @@ abstract class ProcessEdge{
 abstract class SplitEdge extends ProcessEdge{
 
 	protected $m_from;
-	protected $m_to 	= array();
+	protected $m_to 	= [];
 
 	public function setFrom($node){
 		$this->m_from = $node;
@@ -1137,7 +1137,7 @@ abstract class SplitEdge extends ProcessEdge{
 	}
 
 	public function getPred(){
-		return array($this->m_from);
+		return [$this->m_from];
 	}
 
 	public function getSucc(){
@@ -1154,11 +1154,11 @@ class SplitConditionalOrEdge extends ProcessEdge{
 	protected $m_con_text = 'empty_condition';
 
 	public function getSucc(){
-		return array($this->m_to_false, $this->m_to_true);
+		return [$this->m_to_false, $this->m_to_true];
 	}
 
 	public function getPred(){
-		return array($this->m_from);
+		return [$this->m_from];
 	}
 
 	public function setFrom($node){
@@ -1321,11 +1321,11 @@ class SequentialEdge extends ProcessEdge{
 	}
 
 	public function getPred(){
-		return array($this->m_from);
+		return [$this->m_from];
 	}
 
 	public function getSucc(){
-		return array($this->m_to);
+		return [$this->m_to];
 	}
 
 	public function getGraphVizCode(){

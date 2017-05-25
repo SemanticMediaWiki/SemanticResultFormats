@@ -15,118 +15,118 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 
 	public static function getCommonParams() {
 
-		$params = array();
+		$params = [];
 
-		$params['min'] = array(
+		$params['min'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-minvalue',
 			'default' => false,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['direction'] = array(
+		$params['direction'] = [
 			'message' => 'srf-paramdesc-direction',
 			'default' => 'vertical',
-			'values' => array( 'horizontal', 'vertical'),
-		);
+			'values' => [ 'horizontal', 'vertical'],
+		];
 
-		$params['charttitle'] = array(
+		$params['charttitle'] = [
 			'message' => 'srf_paramdesc_charttitle',
 			'default' => '',
-		);
+		];
 
-		$params['charttext'] = array(
+		$params['charttext'] = [
 			'message' => 'srf-paramdesc-charttext',
 			'default' => '',
-		);
+		];
 
-		$params['numbersaxislabel'] = array(
+		$params['numbersaxislabel'] = [
 			'message' => 'srf_paramdesc_barnumbersaxislabel',
 			'default' => '',
-		);
+		];
 
-		$params['labelaxislabel'] = array(
+		$params['labelaxislabel'] = [
 			'message' => 'srf-paramdesc-labelaxislabel',
 			'default' => '',
-		);
+		];
 
-		$params['height'] = array(
+		$params['height'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_chartheight',
 			'default' => 400,
 			'lowerbound' => 1,
-		);
+		];
 
 		// TODO: this is a string to allow for %, but better handling would be nice
-		$params['width'] = array(
+		$params['width'] = [
 			'message' => 'srf_paramdesc_chartwidth',
 			'default' => '100%',
-		);
+		];
 
-		$params['smoothlines'] = array(
+		$params['smoothlines'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-smoothlines',
 			'default' => false,
-		);
+		];
 
 		// %.2f round number to 2 digits after decimal point e.g.  EUR %.2f, $ %.2f
 		// %d a signed integer, in decimal
-		$params['valueformat'] = array(
+		$params['valueformat'] = [
 			'message' => 'srf-paramdesc-valueformat',
 			'default' => '%d',
-		);
+		];
 
-		$params['ticklabels'] = array(
+		$params['ticklabels'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-ticklabels',
 			'default' => true,
-		);
+		];
 
-		$params['highlighter'] = array(
+		$params['highlighter'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-highlighter',
 			'default' => false,
-		);
+		];
 
-		$params['theme'] = array(
+		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => '',
-			'values' => array( '', 'vector', 'simple' ),
-		);
+			'values' => [ '', 'vector', 'simple' ],
+		];
 
-		$params['filling'] = array(
+		$params['filling'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-filling',
 			'default' => true,
-		);
+		];
 
-		$params['chartlegend'] = array(
+		$params['chartlegend'] = [
 			'message' => 'srf-paramdesc-chartlegend',
 			'default' => 'none',
-			'values' => array( 'none', 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ),
-		);
+			'values' => [ 'none', 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ],
+		];
 
-		$params['datalabels'] = array(
+		$params['datalabels'] = [
 			'message' => 'srf-paramdesc-datalabels',
 			'default' => 'none',
-			'values' => array(  'none', 'value', 'label', 'percent' ),
-		);
+			'values' => [  'none', 'value', 'label', 'percent' ],
+		];
 
-		$params['colorscheme'] = array(
+		$params['colorscheme'] = [
 			'message' => 'srf-paramdesc-colorscheme',
 			'default' => '',
 			'values' => $GLOBALS['srfgColorScheme'],
-		);
+		];
 
-		$params['chartcolor'] = array(
+		$params['chartcolor'] = [
 			'message' => 'srf-paramdesc-chartcolor',
 			'default' => '',
-		);
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}
@@ -143,7 +143,7 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 	 * @return array
 	 */
 	public static function getNumbersTicks( $minValue, $maxValue ){
-		$numbersticks = array();
+		$numbersticks = [];
 
 		// Calculate the tick values for the numbers, based on the
 		// lowest and highest number. jqPlot has its own option for

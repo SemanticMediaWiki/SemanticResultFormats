@@ -54,7 +54,7 @@ class SemanticResultFormats {
 		define( 'SRF_VERSION', '2.5.0-alpha' );
 
 		// Register the extension
-		$GLOBALS['wgExtensionCredits']['semantic'][] = array(
+		$GLOBALS['wgExtensionCredits']['semantic'][] = [
 			'path' => __FILE__,
 			'name' => 'Semantic Result Formats',
 			'version' => SRF_VERSION,
@@ -62,17 +62,17 @@ class SemanticResultFormats {
 			// it would be prohibitive to list them all in the credits. Instead,
 			// the current rule is to list anyone who has created, or contributed
 			// significantly to, at least three formats, or the overall extension.
-			'author' => array(
+			'author' => [
 				'James Hong Kong',
 				'Stephan Gambke',
 				'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
 				'Yaron Koren',
 				'...'
-			),
+			],
 			'url' => 'https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats',
 			'descriptionmsg' => 'srf-desc',
 			'license-name'   => 'GPL-2.0+'
-		);
+		];
 
 		// Register message files
 		$GLOBALS['wgMessagesDirs']['SemanticResultFormats'] = __DIR__ . '/i18n';
@@ -139,7 +139,7 @@ class SemanticResultFormats {
 
 		$GLOBALS['srfgScriptPath'] = ( $GLOBALS['wgExtensionAssetsPath'] === false ? $GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
 
-		$formatClasses = array(
+		$formatClasses = [
 			// Assign the Boilerplate class to a format identifier
 			// 'boilerplate' => 'SRFBoilerplate',
 			'timeline' => 'SRFTimeline',
@@ -186,17 +186,17 @@ class SemanticResultFormats {
 			'media' => 'SRF\MediaPlayer',
 			'excel' => 'SRF\SRFExcel',
 			'datatables' => 'SRF\DataTables'
-		);
+		];
 
-		$formatAliases = array(
-			'tagcloud'   => array( 'tag cloud' ),
-			'datatables'   => array( 'datatable' ),
-			'valuerank'  => array( 'value rank' ),
-			'd3chart'    => array( 'd3 chart' ),
-			'timeseries' => array ( 'time series' ),
-			'jqplotchart' => array( 'jqplot chart', 'jqplotpie', 'jqplotbar' ),
-			'jqplotseries' => array( 'jqplot series' ),
-		);
+		$formatAliases = [
+			'tagcloud'   => [ 'tag cloud' ],
+			'datatables'   => [ 'datatable' ],
+			'valuerank'  => [ 'value rank' ],
+			'd3chart'    => [ 'd3 chart' ],
+			'timeseries' =>  [ 'time series' ],
+			'jqplotchart' => [ 'jqplot chart', 'jqplotpie', 'jqplotbar' ],
+			'jqplotseries' => [ 'jqplot series' ],
+		];
 
 		foreach ( $GLOBALS['srfgFormats'] as $format ) {
 			if ( array_key_exists( $format, $formatClasses ) ) {

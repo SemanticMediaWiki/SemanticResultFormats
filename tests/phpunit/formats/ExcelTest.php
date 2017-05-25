@@ -28,7 +28,7 @@ class ExcelTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'excel' );
+		return [ 'excel' ];
 	}
 
 	/**

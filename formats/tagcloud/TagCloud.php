@@ -30,7 +30,7 @@ class TagCloud extends ResultPrinter {
 	 * Contains html generated tags
 	 * @var array
 	 */
-	protected $tagsHtml = array();
+	protected $tagsHtml = [];
 
 	/**
 	 * Get a human readable label for this printer.
@@ -53,8 +53,8 @@ class TagCloud extends ResultPrinter {
 
 		$tags = $this->getTags( $queryResult, $outputmode );
 
-		if ( $tags === array() ) {
-			$queryResult->addErrors( array( $this->msg( 'smw_result_noresults' )->inContentLanguage()->text() ) );
+		if ( $tags === [] ) {
+			$queryResult->addErrors( [ $this->msg( 'smw_result_noresults' )->inContentLanguage()->text() ] );
 			return '';
 		}
 
@@ -62,7 +62,7 @@ class TagCloud extends ResultPrinter {
 		if ( ( $this->params['widget'] == 'sphere' ) &&
 			( $this->params['link'] !== 'all' ) &&
 			( $this->params['template'] === '' ) ) {
-			$queryResult->addErrors( array( $this->msg( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ) );
+			$queryResult->addErrors( [ $this->msg( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ] );
 			return '';
 		}
 
@@ -71,7 +71,7 @@ class TagCloud extends ResultPrinter {
 		$this->isHTML = $this->isHTML();
 
 		// Register RL module
-		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
+		if ( in_array( $this->params['widget'], [ 'sphere', 'wordcloud' ] ) ) {
 			SMWOutputs::requireResource( 'ext.srf.formats.tagcloud' );
 		}
 
@@ -97,7 +97,7 @@ class TagCloud extends ResultPrinter {
 	 * @return array
 	 */
 	private function getTags( SMWQueryResult $queryResult, $outputMode ) {
-		$tags = array();
+		$tags = [];
 		$excludetags = explode( ';', $this->params['excludetags'] );
 
 		/**
@@ -205,7 +205,7 @@ class TagCloud extends ResultPrinter {
 			case 'alphabetical' :
 				$tagNames = array_keys( $tags );
 				natcasesort( $tagNames );
-				$newTags = array();
+				$newTags = [];
 
 				foreach ( $tagNames as $name ) {
 					$newTags[$name] = $tags[$name];
@@ -216,7 +216,7 @@ class TagCloud extends ResultPrinter {
 			case 'random' :
 				$tagSizes = $tags;
 				shuffle( $tagSizes );
-				$newTags = array();
+				$newTags = [];
 
 				foreach ( $tagSizes as $size ) {
 					foreach ( $tags as $tagName => $tagSize ) {
@@ -231,7 +231,7 @@ class TagCloud extends ResultPrinter {
 				break;
 			case 'unchanged' : default : // Restore the original order.
 				$changedTags = $tags;
-				$tags = array();
+				$tags = [];
 
 				foreach ( $unchangedTags as $name ) {
 					// Original tags might have been left out at this point, so only add remaining ones.
@@ -255,7 +255,7 @@ class TagCloud extends ResultPrinter {
 	private function getTagCloud( array $tags ) {
 
 		// Initialize
-		$htmlTags      = array();
+		$htmlTags      = [];
 		$processing    = '';
 		$htmlSTags     = '';
 		$htmlCTags     = '';
@@ -268,8 +268,8 @@ class TagCloud extends ResultPrinter {
 
 		// Add size information
 		foreach ( $tags as $name => $size ) {
-			$htmlTags[] = Html::rawElement( $element, array (
-				'style' => "font-size:$size%" ),
+			$htmlTags[] = Html::rawElement( $element,  [
+				'style' => "font-size:$size%" ],
 				$this->tagsHtml[$name]
 			);
 		}
@@ -278,29 +278,29 @@ class TagCloud extends ResultPrinter {
 		$htmlSTags = implode( ' ', $htmlTags );
 
 		// Handle sphere/canvas output objects
-		if ( in_array( $this->params['widget'], array( 'sphere', 'wordcloud' ) ) ) {
+		if ( in_array( $this->params['widget'], [ 'sphere', 'wordcloud' ] ) ) {
 
 			// Wrap LI/UL elements
-			$htmlCTags = Html::rawElement( 'ul', array (
+			$htmlCTags = Html::rawElement( 'ul',  [
 				'style' => 'display:none;'
-				), $htmlSTags
+				], $htmlSTags
 			);
 
 			// Wrap tags
-			$htmlCTags = Html::rawElement( 'div', array (
+			$htmlCTags = Html::rawElement( 'div',  [
 				'id'    => $tagId . '-tags',
 				'class' => 'srf-tags'
-				), $htmlCTags
+				], $htmlCTags
 			);
 
 			// Wrap everything in a container object
-			$htmlSTags = Html::rawElement( 'div', array (
+			$htmlSTags = Html::rawElement( 'div',  [
 				'id'     => $tagId . '-container',
 				'class'  => 'srf-container',
 				'data-width'  => $this->params['width'],
 				'data-height' => $this->params['height'],
 				'data-font'   => $this->params['font']
-				), $htmlCTags
+				], $htmlCTags
 			);
 
 			// Processing placeholder
@@ -312,11 +312,11 @@ class TagCloud extends ResultPrinter {
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
 
 		// General placeholder
-		$attribs = array (
+		$attribs =  [
 			'class'  => 'srf-tagcloud' . $class,
 			'data-version' => '0.4.1',
 			'align'  => 'justify'
-		);
+		];
 
 		return Html::rawElement( 'div', $attribs, $processing . $htmlSTags );
 	}
@@ -347,96 +347,96 @@ class TagCloud extends ResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['template'] = array(
+		$params['template'] = [
 			'message' => 'srf-paramdesc-template',
 			'default' => '',
-		);
+		];
 
-		$params['userparam'] = array(
+		$params['userparam'] = [
 			'message' => 'srf-paramdesc-userparam',
 			'default' => '',
-		);
+		];
 
-		$params['excludetags'] = array(
+		$params['excludetags'] = [
 			'message' => 'srf-paramdesc-excludetags',
 			'default' => '',
-		);
+		];
 
-		$params['includesubject'] = array(
+		$params['includesubject'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-includesubject',
 			'default' => false,
-		);
+		];
 
-		$params['tagorder'] = array(
+		$params['tagorder'] = [
 			'message' => 'srf_paramdesc_tagorder',
 			'default' => 'alphabetical',
-			'values' => array( 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ),
-		);
+			'values' => [ 'alphabetical', 'asc', 'desc', 'random', 'unchanged' ],
+		];
 
-		$params['increase'] = array(
+		$params['increase'] = [
 			'message' => 'srf_paramdesc_increase',
 			'default' => 'log',
-			'values' => array( 'linear', 'log' ),
-		);
+			'values' => [ 'linear', 'log' ],
+		];
 
-		$params['widget'] = array(
+		$params['widget'] = [
 			'message' => 'srf-paramdesc-widget',
 			'default' => '',
-			'values' => array( 'sphere', 'wordcloud' ),
-		);
+			'values' => [ 'sphere', 'wordcloud' ],
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['font'] = array(
+		$params['font'] = [
 			'message' => 'srf-paramdesc-font',
 			'default' => 'impact',
-		);
+		];
 
-		$params['height'] = array(
+		$params['height'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-height',
 			'default' => 400,
 			'lowerbound' => 1,
-		);
+		];
 
-		$params['width'] = array(
+		$params['width'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-width',
 			'default' => 400,
 			'lowerbound' => 1,
-		);
+		];
 
-		$params['mincount'] = array(
+		$params['mincount'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_mincount',
 			'default' => 1,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['minsize'] = array(
+		$params['minsize'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_minsize',
 			'default' => 77,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['maxsize'] = array(
+		$params['maxsize'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_maxsize',
 			'default' => 242,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['maxtags'] = array(
+		$params['maxtags'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_maxtags',
 			'default' => 1000,
 			'lowerbound' => 1,
-		);
+		];
 
 		return $params;
 	}

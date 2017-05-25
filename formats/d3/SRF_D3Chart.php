@@ -41,7 +41,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		// Reorganize the raw data
 		foreach ( $data as $name => $value ) {
 			if ( $value >= $this->params['min'] ) {
-				$dataObject[] = array( 'label' => $name , 'value' => $value );
+				$dataObject[] = [ 'label' => $name , 'value' => $value ];
 			}
 		}
 
@@ -49,18 +49,18 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		$width = strstr( $this->params['width'] ,"%") ? $this->params['width'] : $this->params['width'] . 'px';
 
 		// Prepare transfer objects
-		$d3data = array (
+		$d3data =  [
 			'data' => $dataObject,
-			'parameters' => array (
+			'parameters' =>  [
 				'colorscheme' => $this->params['colorscheme'] ? $this->params['colorscheme'] : null,
 				'charttitle'  => $this->params['charttitle'],
 				'charttext'   => $this->params['charttext'],
 				'datalabels'  => $this->params['datalabels']
-			)
-		);
+			]
+		];
 
 		// Encoding
-		$requireHeadItem = array ( $d3chartID => FormatJson::encode( $d3data ) );
+		$requireHeadItem =  [ $d3chartID => FormatJson::encode( $d3data ) ];
 		SMWOutputs::requireHeadItem( $d3chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
@@ -68,11 +68,11 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		SMWOutputs::requireResource( $resource );
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', array(
+		$chart = Html::rawElement( 'div', [
 			'id'    => $d3chartID,
 			'class' => 'container',
 			'style' => 'display:none;'
-			), null
+			], null
 		);
 
 		// Processing placeholder
@@ -83,10 +83,10 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' d3-chart-common';
 
 		// D3 wrappper
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'div', [
 			'class' => 'srf-d3-chart' . $class ,
 			'style' => "width:{$width}; height:{$this->params['height']}px;"
-			), $processing . $chart
+			], $processing . $chart
 		);
 	}
 
@@ -102,62 +102,62 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['min'] = array(
+		$params['min'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-minvalue',
 			'default' => false,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['charttype'] = array(
+		$params['charttype'] = [
 			'message' => 'srf-paramdesc-charttype',
 			'default' => 'treemap',
-			'values' => array( 'treemap', 'bubble' ),
-		);
+			'values' => [ 'treemap', 'bubble' ],
+		];
 
-		$params['height'] = array(
+		$params['height'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_chartheight',
 			'default' => 400,
 			'lowerbound' => 1,
-		);
+		];
 
-		$params['width'] = array(
+		$params['width'] = [
 			'message' => 'srf_paramdesc_chartwidth',
 			'default' => '100%',
-		);
+		];
 
-		$params['charttitle'] = array(
+		$params['charttitle'] = [
 			'message' => 'srf_paramdesc_charttitle',
 			'default' => '',
-		);
+		];
 
-		$params['charttext'] = array(
+		$params['charttext'] = [
 			'message' => 'srf-paramdesc-charttext',
 			'default' => '',
-		);
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['datalabels'] = array(
+		$params['datalabels'] = [
 			'message' => 'srf-paramdesc-datalabels',
 			'default' => 'none',
-			'values' => array( 'value', 'label' ),
-		);
+			'values' => [ 'value', 'label' ],
+		];
 
-		$params['colorscheme'] = array(
+		$params['colorscheme'] = [
 			'message' => 'srf-paramdesc-colorscheme',
 			'default' => '',
 			'values' => $GLOBALS['srfgColorScheme'],
-		);
+		];
 
-		$params['chartcolor'] = array(
+		$params['chartcolor'] = [
 			'message' => 'srf-paramdesc-chartcolor',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}

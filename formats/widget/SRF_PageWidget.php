@@ -40,12 +40,12 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 		$widgetID = 'pagewidget-' . ++$statNr;
 
 		// Container items
-		$result = Html::rawElement( 'div', array(
+		$result = Html::rawElement( 'div', [
 			'id' => $widgetID,
 			'class' => 'pagewidget-container',
 			'data-embedonly' => $this->params['embedonly'],
 			'style' => 'display:none;'
-			), $result
+			], $result
 		);
 
 		// Placeholder
@@ -58,9 +58,9 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : '';
 
 		// Wrap results
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'div', [
 			'class' => 'srf-pagewidget' . $class,
-			) , $processing . $result
+			] , $processing . $result
 		);
 	}
 
@@ -76,22 +76,22 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['embedformat'] = array(
+		$params['embedformat'] = [
 			'message' => 'smw-paramdesc-embedformat',
 			'default' => 'ul',
-			'values' => array( 'ul' ),
-		);
+			'values' => [ 'ul' ],
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['widget'] = array(
+		$params['widget'] = [
 			'message' => 'srf-paramdesc-widget',
 			'default' => 'carousel',
-			'values' =>  array( 'carousel' ),
-		);
+			'values' =>  [ 'carousel' ],
+		];
 
 		return $params;
 	}

@@ -91,7 +91,7 @@ class SRFMath extends SMWResultPrinter {
 	 * @return float[]
 	 */
 	private function getNumbers( SMWQueryResult $res ) {
-		$numbers = array();
+		$numbers = [];
 
 		while ( $row = $res->getNext() ) {
 			foreach ( $row as $resultArray ) {

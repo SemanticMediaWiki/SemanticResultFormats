@@ -13,7 +13,7 @@
  */
 class SRFExhibit extends SMWResultPrinter {
 	// /mapping between SMW's and Exhibit's the data types
-	protected $m_types = array( "_wpg" => "text", "_num" => "number", "_dat" => "date", "_geo" => "text", "_uri" => "url" );
+	protected $m_types = [ "_wpg" => "text", "_num" => "number", "_dat" => "date", "_geo" => "text", "_uri" => "url" ];
 
 	protected static $exhibitRunningNumber = 0; // not sufficient since there might be multiple pages rendered within one PHP run; but good enough now
 
@@ -71,7 +71,7 @@ class SRFExhibit extends SMWResultPrinter {
 			// fetch interwiki link
 			$dbr  = &wfGetDB( DB_SLAVE );
 			$cl   = $dbr->tableName( 'interwiki' );
-			$dbres  = $dbr->select( $cl, 'iw_url', "iw_prefix='" . $this->m_params['remote'] . "'", __METHOD__, array() );
+			$dbres  = $dbr->select( $cl, 'iw_url', "iw_prefix='" . $this->m_params['remote'] . "'", __METHOD__, [] );
 			$row = $dbr->fetchRow( $dbres );
 			$extlinkpattern = $row[iw_url];
 			$dbr->freeResult( $dbres );
@@ -115,7 +115,7 @@ class SRFExhibit extends SMWResultPrinter {
 		 The following code sequence creates these variables*/
 
 		// prepare sources (the sources holds information about the table which contains the information)
-		$colstack = array();
+		$colstack = [];
 		foreach ( $res->getPrintRequests() as $pr ) {
 			$colstack[] = $this->encodePropertyName( $pr->getLabel() ) . ':' . ( array_key_exists( $pr->getTypeID(), $this->m_types ) ? $this->m_types[$pr->getTypeID()]:'text' ) ;
 		}
@@ -134,9 +134,9 @@ class SRFExhibit extends SMWResultPrinter {
 		$facetcounter = 0;
 		if ( array_key_exists( 'facets', $this->m_params ) ) {
 			$facets = explode( ',', $this->m_params['facets'] );
-			$facetstack = array();
-			$params = array( 'height' );
-			$facparams = array();
+			$facetstack = [];
+			$params = [ 'height' ];
+			$facparams = [];
 			foreach ( $params as $param ) {
 				if ( array_key_exists( $param, $this->m_params ) ) $facparams[] = 'ex:' . $param . '="' . $this->encodePropertyName( $this->m_params[$param] ) . '" ';
 			}
@@ -176,7 +176,7 @@ class SRFExhibit extends SMWResultPrinter {
 		foreach ( $views as $view ) {
 			switch( trim( $view ) ) {
 				case 'tabular':// table view (the columns are automatically defined by the selected properties)
-					$thstack = array();
+					$thstack = [];
 					foreach ( $res->getPrintRequests() as $pr ) {
 						$thstack[] = "." . $this->encodePropertyName( $pr->getLabel() );
 					}
@@ -187,9 +187,9 @@ class SRFExhibit extends SMWResultPrinter {
 					break;
 				case 'timeline':// timeline view
 					$timeline = true;
-					$exparams = array( 'start', 'end', 'proxy', 'colorkey' ); // parameters expecting an Exhibit graph expression
-					$usparams = array( 'timelineheight', 'topbandheight', 'bottombandheight', 'bottombandunit', 'topbandunit' ); // parametes expecting a textual or numeric value
-					$tlparams = array();
+					$exparams = [ 'start', 'end', 'proxy', 'colorkey' ]; // parameters expecting an Exhibit graph expression
+					$usparams = [ 'timelineheight', 'topbandheight', 'bottombandheight', 'bottombandunit', 'topbandunit' ]; // parametes expecting a textual or numeric value
+					$tlparams = [];
 					foreach ( $exparams as $param ) {
 						if ( array_key_exists( $param, $this->m_params ) ) $tlparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
 					}
@@ -197,7 +197,7 @@ class SRFExhibit extends SMWResultPrinter {
 						if ( array_key_exists( $param, $this->m_params ) ) $tlparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
 					}
 					if ( !array_key_exists( 'start', $this->m_params ) ) {// find out if a start and/or end date is specified
-						$dates = array();
+						$dates = [];
 						foreach ( $res->getPrintRequests() as $pr ) {
 							if ( $pr->getTypeID() == '_dat' ) {
 								$dates[] = $pr;
@@ -217,9 +217,9 @@ class SRFExhibit extends SMWResultPrinter {
 				case 'map':// map view
 					if ( isset( $wgGoogleMapsKey ) ) {
 					   $map = true;
-					   $exparams = array( 'latlng', 'colorkey' );
-					   $usparams = array( 'type', 'center', 'zoom', 'size', 'scalecontrol', 'overviewcontrol', 'mapheight' );
-					   $mapparams = array();
+					   $exparams = [ 'latlng', 'colorkey' ];
+					   $usparams = [ 'type', 'center', 'zoom', 'size', 'scalecontrol', 'overviewcontrol', 'mapheight' ];
+					   $mapparams = [];
 					   foreach ( $exparams as $param ) {
 						if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
 					   }
@@ -388,7 +388,7 @@ class SRFExhibit extends SMWResultPrinter {
 			$result .= "\t<tr>\n";
 			foreach ( $row as $field ) {
 				$result .= "\t\t<td>";
-				$textstack = array();
+				$textstack = [];
 				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					switch( $object->getTypeID() ) {
 						case '_wpg':
@@ -458,9 +458,9 @@ class SRFExhibit extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params[] = array( 'name' => 'views', 'message' => 'srf_paramdesc_views', 'islist' => true, 'values' => array( 'tiles', 'tabular', 'timeline', 'maps' ) );
-		$params[] = array( 'name' => 'facets', 'message' => 'srf_paramdesc_facets' );
-		$params[] = array( 'name' => 'lens', 'message' => 'srf_paramdesc_lens' );
+		$params[] = [ 'name' => 'views', 'message' => 'srf_paramdesc_views', 'islist' => true, 'values' => [ 'tiles', 'tabular', 'timeline', 'maps' ] ];
+		$params[] = [ 'name' => 'facets', 'message' => 'srf_paramdesc_facets' ];
+		$params[] = [ 'name' => 'lens', 'message' => 'srf_paramdesc_lens' ];
 
 		return $params;
 	}

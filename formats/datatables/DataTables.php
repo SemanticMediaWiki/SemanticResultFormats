@@ -45,18 +45,18 @@ class DataTables extends SMW\ApiResultPrinter {
 		$this->addResources( 'ext.srf.datatables' );
 
 		// Element includes info, spinner, and container placeholder
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'div', [
 				'class' => 'srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 				'data-theme' => $this->params['theme'],
-			), Html::element( 'div', array(
+			], Html::element( 'div', [
 					'class' => 'top'
-					)
+					]
 				) . $this->loading() .
-				Html::element( 'div', array(
+				Html::element( 'div', [
 					'id' => $id,
 					'class' => 'container',
 					'style' => 'display:none;'
-					)
+					]
 				)
 		);
 	}
@@ -73,16 +73,16 @@ class DataTables extends SMW\ApiResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['theme'] = array(
+		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'bootstrap',
-			'values' => array ( 'bootstrap' ) // feel free to add more designs
-		);
+			'values' =>  [ 'bootstrap' ] // feel free to add more designs
+		];
 
 		return $params;
 	}

@@ -15,7 +15,7 @@
  */
 class SRFGraph extends SMWResultPrinter {
 	
-	public static $NODE_SHAPES = array(
+	public static $NODE_SHAPES = [
 		'box',
 		'box3d',
 		'circle',
@@ -50,7 +50,7 @@ class SRFGraph extends SMWResultPrinter {
 		'trapezium',
 		'triangle',
 		'tripleoctagon',
-	);
+	];
 	
 	protected $m_graphName;
 	protected $m_graphLabel;
@@ -59,8 +59,8 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_graphLink;
 	protected $m_rankdir;
 	protected $m_graphSize;
-	protected $m_labelArray = array();
-	protected $m_graphColors = array( 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' );
+	protected $m_labelArray = [];
+	protected $m_graphColors = [ 'black', 'red', 'green', 'blue', 'darkviolet', 'gold', 'deeppink', 'brown', 'bisque', 'darkgreen', 'yellow', 'darkblue', 'magenta', 'steelblue2' ];
 	protected $m_nameProperty;
 	protected $m_nodeShape;
 	protected $m_parentRelation;
@@ -147,7 +147,7 @@ class SRFGraph extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getGVForItem( array /* of SMWResultArray */ $row, $outputmode ) {	
-		$segments = array();
+		$segments = [];
 		
 		// Loop throught all fields of the record.
 		foreach ( $row as $i => $resultArray ) {
@@ -239,8 +239,8 @@ class SRFGraph extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getWordWrappedText( $text, $charLimit ) {
-		$charLimit = max( array( $charLimit, 1 ) );
-		$segments = array();
+		$charLimit = max( [ $charLimit, 1 ] );
+		$segments = [];
 		
 		while ( strlen( $text ) > $charLimit ) {
 			// Find the last space in the allowed range.
@@ -285,75 +285,75 @@ class SRFGraph extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['graphname'] = array(
+		$params['graphname'] = [
 			'default' => 'QueryResult',
 			'message' => 'srf-paramdesc-graphname',
-		);
+		];
 
-		$params['graphsize'] = array(
+		$params['graphsize'] = [
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf-paramdesc-graphsize',
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['graphlegend'] = array(
+		$params['graphlegend'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlegend',
-		);
+		];
 
-		$params['graphlabel'] = array(
+		$params['graphlabel'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlabel',
-		);
+		];
 
-		$params['graphlink'] = array(
+		$params['graphlink'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlink',
-		);
+		];
 
-		$params['graphcolor'] = array(
+		$params['graphcolor'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphcolor',
-		);
+		];
 
-		$params['arrowdirection'] = array(
+		$params['arrowdirection'] = [
 			'aliases' => 'rankdir',
 			'default' => 'LR',
 			'message' => 'srf-paramdesc-rankdir',
-			'values' => array( 'LR', 'RL', 'TB', 'BT' ),
-		);
+			'values' => [ 'LR', 'RL', 'TB', 'BT' ],
+		];
 
-		$params['nodeshape'] = array(
+		$params['nodeshape'] = [
 			'default' => false,
 			'message' => 'srf-paramdesc-graph-nodeshape',
 			'manipulatedefault' => false,
 			'values' => self::$NODE_SHAPES,
-		);
+		];
 
-		$params['relation'] = array(
+		$params['relation'] = [
 			'default' => 'child',
 			'message' => 'srf-paramdesc-graph-relation',
 			'manipulatedefault' => false,
-			'values' => array( 'parent', 'child' ),
-		);
+			'values' => [ 'parent', 'child' ],
+		];
 
-		$params['nameproperty'] = array(
+		$params['nameproperty'] = [
 			'default' => false,
 			'message' => 'srf-paramdesc-graph-nameprop',
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['wordwraplimit'] = array(
+		$params['wordwraplimit'] = [
 			'type' => 'integer',
 			'default' => 25,
 			'message' => 'srf-paramdesc-graph-wwl',
 			'manipulatedefault' => false,
-		);
+		];
 		
 		return $params;
 	}

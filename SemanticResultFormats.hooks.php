@@ -23,7 +23,7 @@ final class SRFHooks {
 	 */
 	public static function registerUnitTests( array &$files ) {
 		// Keep this in alphabetical order please!
-		$testFiles = array(
+		$testFiles = [
 
 			'Resources',
 
@@ -49,7 +49,7 @@ final class SRFHooks {
 			// Boilerplate
 			// Register your testclass
 			// 'formats/Boilerplate',
-		);
+		];
 
 		foreach ( $testFiles as $file ) {
 			$files[] = dirname( __FILE__ ) . '/tests/phpunit/' . $file . 'Test.php';
@@ -70,8 +70,8 @@ final class SRFHooks {
 	 * @return boolean
 	 */
 	public static function registerQUnitTests( array &$testModules, ResourceLoader &$resourceLoader ) {
-		$testModules['qunit']['ext.srf.tests'] = array(
-			'scripts' => array(
+		$testModules['qunit']['ext.srf.tests'] = [
+			'scripts' => [
 				// Base
 				'tests/qunit/ext.srf.test.js',
 				'tests/qunit/ext.srf.util.test.js',
@@ -89,8 +89,8 @@ final class SRFHooks {
 				'tests/qunit/widgets/ext.srf.widgets.panel.test.js',
 				'tests/qunit/widgets/ext.srf.widgets.parameters.test.js'
 
-			),
-			'dependencies' => array(
+			],
+			'dependencies' => [
 				'ext.srf',
 				'ext.srf.util',
 				'ext.srf.eventcalendar',
@@ -102,11 +102,11 @@ final class SRFHooks {
 				'ext.srf.gallery.redirect',
 				'ext.srf.formats.media',
 				'ext.srf.formats.tagcloud',
-			),
+			],
 			'position' => 'top',
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'SemanticResultFormats',
-		);
+		];
 
 		return true;
 	}
@@ -147,13 +147,13 @@ final class SRFHooks {
 	 */
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
 
-		$vars['srf-config'] = array(
+		$vars['srf-config'] = [
 			'version' => SRF_VERSION,
-			'settings' => array(
+			'settings' => [
 				'wgThumbLimits' => $GLOBALS['wgThumbLimits'],
 				'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
-			)
-		);
+			]
+		];
 
 		return true;
 	}
@@ -172,47 +172,47 @@ final class SRFHooks {
 		// Intro text, do not escape the message here as it contains
 		// href links
 		$preferences['srf-prefs-intro'] =
-			array(
+			[
 				'type' => 'info',
 				'label' => '&#160;',
 				'default' => Html::rawElement(
 					'span',
-					array( 'class' => 'srf-prefs-intro' ),
+					[ 'class' => 'srf-prefs-intro' ],
 					wfMessage( 'srf-prefs-intro-text' )->parseAsBlock()
 				),
 				'section' => 'smw/srf',
 				'raw' => 1,
 				'rawrow' => 1,
-			);
+			];
 
 		// Enable auto update during a page refresh
-		$preferences['srf-prefs-eventcalendar-options-update-default'] = array(
+		$preferences['srf-prefs-eventcalendar-options-update-default'] = [
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-eventcalendar-options-update-default',
 			'section' => 'smw/srf-eventcalendar-options',
-		);
+		];
 
 		// Enable paneView by default
-		$preferences['srf-prefs-eventcalendar-options-paneview-default'] = array(
+		$preferences['srf-prefs-eventcalendar-options-paneview-default'] = [
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-eventcalendar-options-paneview-default',
 			'section' => 'smw/srf-eventcalendar-options',
-		);
+		];
 
 
 		// Enable auto update during a page refresh
-		$preferences['srf-prefs-datatables-options-update-default'] = array(
+		$preferences['srf-prefs-datatables-options-update-default'] = [
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-datatables-options-update-default',
 			'section' => 'smw/srf-datatables-options',
-		);
+		];
 
 		// Enable local caching
-		$preferences['srf-prefs-datatables-options-cache-default'] = array(
+		$preferences['srf-prefs-datatables-options-cache-default'] = [
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-datatables-options-cache-default',
 			'section' => 'smw/srf-datatables-options',
-		);
+		];
 
 		return true;
 	}

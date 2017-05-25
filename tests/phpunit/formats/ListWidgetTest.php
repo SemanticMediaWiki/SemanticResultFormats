@@ -30,7 +30,7 @@ class ListWidgetTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'listwidget' );
+		return [ 'listwidget' ];
 	}
 
 	/**

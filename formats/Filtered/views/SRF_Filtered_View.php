@@ -55,7 +55,7 @@ abstract class SRF_Filtered_View {
 	 * @return array of Parameter
 	 */
 	public static function getParameters() {
-		return array();
+		return [];
 	}
 
 	/**

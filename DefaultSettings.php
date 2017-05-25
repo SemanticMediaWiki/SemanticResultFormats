@@ -16,7 +16,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 // The formats you want to be able to use.
 // See the INSTALL file or
 // http://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats#Installation
-$GLOBALS['srfgFormats'] = array(
+$GLOBALS['srfgFormats'] = [
 	'icalendar',
 	'vcard',
 	'bibtex',
@@ -73,7 +73,7 @@ $GLOBALS['srfgFormats'] = array(
 
 	// Unstable/broken:
 	// 'exhibit',
-);
+];
 
 // Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 // FIXME: According to the INSTALL file only formats should be enabled, that "do not require further software to be installed (besides SMW)"
@@ -107,19 +107,19 @@ $GLOBALS['srfgArrayHeaderSep'] = ' ';
  *
  * @var Array
  */
-$GLOBALS['srfgArraySepTextualFallbacks'] = array (
+$GLOBALS['srfgArraySepTextualFallbacks'] =  [
 	'sep'       => $GLOBALS['srfgArraySep'],
 	'propsep'   => $GLOBALS['srfgArrayPropSep'],
 	'manysep'   => $GLOBALS['srfgArrayManySep'],
 	'recordsep' => $GLOBALS['srfgArrayRecordSep'],
 	'headersep' => $GLOBALS['srfgArrayHeaderSep']
-);
+];
 
 // $srfgColorScheme
 // Color schems are used among v1.8 jqPlot, and other printers if change
 // those settings please ensure that the content of themes.js has to be
 // altered as well
-$GLOBALS['srfgColorScheme'] = array(
+$GLOBALS['srfgColorScheme'] = [
 	'cc124',
 	'cc128',
 	'cc129',
@@ -157,4 +157,4 @@ $GLOBALS['srfgColorScheme'] = array(
 	'rdylbu',
 	'spectral',
 	'rdylgn'
-);
+];

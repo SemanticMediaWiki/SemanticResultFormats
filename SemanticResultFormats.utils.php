@@ -23,10 +23,10 @@ final class SRFUtils {
 
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'srf-spinner mw-small-spinner' ),
+			[ 'class' => 'srf-spinner mw-small-spinner' ],
 			Html::element(
 				'span',
-				array( 'class' => 'srf-processing-text' ),
+				[ 'class' => 'srf-processing-text' ],
 				wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
 			)
 		);
@@ -38,12 +38,12 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function addGlobalJSVariables(){
-		$options = array (
+		$options =  [
 			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			'srfVersion' => SRF_VERSION
-		);
+		];
 
-		$requireHeadItem = array ( 'srf.options' => $options );
+		$requireHeadItem =  [ 'srf.options' => $options ];
 		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem ) );
 	}
 

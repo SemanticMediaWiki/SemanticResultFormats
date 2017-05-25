@@ -66,7 +66,7 @@ class SRF_FV_Calendar extends SRF_Filtered_View {
 		foreach ( $results as $rownum => $result ) {
 
 			$value = $result->getValue();
-			$data = array();
+			$data = [];
 			$wikitext = '';
 			$firstField = true;
 
@@ -181,37 +181,37 @@ class SRF_FV_Calendar extends SRF_Filtered_View {
 	public static function getParameters() {
 		$params = parent::getParameters();
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'calendar view start',
 			'message' => 'srf-paramdesc-filtered-calendar-start',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'calendar view end',
 			'message' => 'srf-paramdesc-filtered-calendar-end',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'calendar view title',
 			'message' => 'srf-paramdesc-filtered-calendar-title',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'calendar view title template',
 			'message' => 'srf-paramdesc-filtered-calendar-title-template',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
 		return $params;
 	}
@@ -234,17 +234,17 @@ class SRF_FV_Calendar extends SRF_Filtered_View {
 
 		return
 			$this->getParamHashes( $this->getQueryResults(), $this->getActualParameters()) +
-			array(
+			[
 				'firstDay' => ($wgAmericanDates?'0':Message::newFromKey( 'srf-filtered-firstdayofweek' )->inContentLanguage()->text()),
 				'isRTL' => wfGetLangObj( true )->isRTL(),
-			);
+			];
 	}
 
 	private function getParamHashes( $results, $params ) {
 
 		global $wgParser;
 
-		$ret = array();
+		$ret = [];
 
 		if ( $results !== null && count ( $results ) >= 1 ) {
 

@@ -40,22 +40,22 @@ class SRFjqPlotChart extends SRFjqPlot {
 		$this->isHTML = true;
 
 		// Prepare data objects
-		if ( in_array( $this->params['charttype'], array( 'bar', 'line' ) ) ) {
+		if ( in_array( $this->params['charttype'], [ 'bar', 'line' ] ) ) {
 			// Parse bar relevant data
 			$dataObject = $this->prepareBarData( $data );
-		} elseif ( in_array( $this->params['charttype'], array( 'pie', 'donut' ) ) ){
+		} elseif ( in_array( $this->params['charttype'], [ 'pie', 'donut' ] ) ){
 			//Parse pie/donut relevant data
 			$dataObject = $this->preparePieData( $data );
 		} else {
 			// Return with an error
-			return Html::rawElement( 'span', array(
+			return Html::rawElement( 'span', [
 				'class' => "error"
-				), wfMessage( 'srf-error-missing-layout' )->inContentLanguage()->text()
+				], wfMessage( 'srf-error-missing-layout' )->inContentLanguage()->text()
 			);
 		}
 
 		// Encode data objects
-		$requireHeadItem = array ( $chartID => FormatJson::encode( $dataObject ) );
+		$requireHeadItem =  [ $chartID => FormatJson::encode( $dataObject ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript($requireHeadItem ) );
 
 		// Processing placeholder
@@ -65,11 +65,11 @@ class SRFjqPlotChart extends SRFjqPlot {
 		$width = strstr( $this->params['width'] ,"%") ? $this->params['width'] : $this->params['width'] . 'px';
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', array(
+		$chart = Html::rawElement( 'div', [
 			'id'    => $chartID,
 			'class' => 'container',
 			'style' => "display:none; width: {$width}; height: {$this->params['height']}px;"
-			), null
+			], null
 		);
 
 		// Beautify class selector
@@ -77,9 +77,9 @@ class SRFjqPlotChart extends SRFjqPlot {
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' jqplot-common';
 
 		// Chart/graph wrappper
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'div', [
 			'class' => 'srf-jqplot' . $class,
-			), $processing . $chart
+			], $processing . $chart
 		);
 	}
 
@@ -99,7 +99,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 		// Reorganize the data in accordance with the pie chart req.
 		foreach ( $rawdata as $name => $value ) {
 			if ( $value >= $this->params['min'] ) {
-				$data[] = array( $name , $value );
+				$data[] = [ $name , $value ];
 			}
 		}
 
@@ -109,12 +109,12 @@ class SRFjqPlotChart extends SRFjqPlot {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.pie' );
 		}
 
-		return array (
-			'data'       => array ( $data ),
+		return  [
+			'data'       =>  [ $data ],
 			'renderer'   => $this->params['charttype'],
 			'mode'       => $mode,
 			'parameters' => $this->addCommonOptions()
-		);
+		];
 	}
 
 	/**
@@ -150,7 +150,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 		// Reorganize the data in accordance with the bar/line chart req.
 		foreach ( $rawdata as $key => $value ) {
 			if ( $value >= $this->params['min'] ) {
-				$data['series'][] = array ( $key, $value );
+				$data['series'][] =  [ $key, $value ];
 				$total = $total + $value;
 			}
 		}
@@ -164,22 +164,22 @@ class SRFjqPlotChart extends SRFjqPlot {
 		}
 
 		// Pointlabels plugin
-		if ( in_array( $this->params['datalabels'], array( 'value', 'label', 'percent' ) ) ) {
+		if ( in_array( $this->params['datalabels'], [ 'value', 'label', 'percent' ] ) ) {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.pointlabels' );
 		}
 
-		return array (
-			'data'      => array ( $data['series'] ),
+		return  [
+			'data'      =>  [ $data['series'] ],
 			'ticks'     => $data['numbersticks'],
 			'labels'    => array_keys( $data['series'] ),
 			'numbers'   => array_values( $data['series'] ),
 			'max'       => $maxValue,
 			'total'     => $total,
 			'mode'      => $mode,
-			'series'    => array(),
+			'series'    => [],
 			'renderer'  => $this->params['charttype'],
 			'parameters'=> $this->addCommonOptions()
-		);
+		];
 	}
 
 	/**
@@ -193,7 +193,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 		// Series colour
 		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( ",", $this->params['chartcolor'] ) ): null;
 
-		return array (
+		return  [
 			'numbersaxislabel' => $this->params['numbersaxislabel'],
 			'labelaxislabel' => $this->params['labelaxislabel'],
 			'charttitle'   => $this->params['charttitle'],
@@ -209,9 +209,9 @@ class SRFjqPlotChart extends SRFjqPlot {
 			'chartlegend'  => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
 			'colorscheme'  => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null ,
 			'pointlabels'  => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
-			'grid' => $this->params['theme'] === 'vector' ? array ( 'borderColor' => '#a7d7f9' ) : ( $this->params['theme'] === 'simple' ? array ( 'borderColor' => '#ddd' ) : null ),
+			'grid' => $this->params['theme'] === 'vector' ?  [ 'borderColor' => '#a7d7f9' ] : ( $this->params['theme'] === 'simple' ?  [ 'borderColor' => '#ddd' ] : null ),
 			'seriescolors' => $seriescolors
-		);
+		];
 	}
 
 	/**
@@ -226,11 +226,11 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 public function getParamDefinitions( array $definitions ) {
 		$params = self::getCommonParams();
 
-		$params['charttype'] = array(
+		$params['charttype'] = [
 			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
-			'values' => array( 'bar', 'line', 'pie', 'donut' ),
-		);
+			'values' => [ 'bar', 'line', 'pie', 'donut' ],
+		];
 
 		return array_merge( parent::getParamDefinitions( $definitions ), $params );
 	}

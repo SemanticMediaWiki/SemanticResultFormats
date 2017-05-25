@@ -25,7 +25,7 @@ class SRFValueRank extends SMWResultPrinter {
 	/**
 	 * @var array
 	 */
-	protected $tagsHtml = array();
+	protected $tagsHtml = [];
 
 	/**
 	 * @see SMWResultPrinter::getName
@@ -70,7 +70,7 @@ class SRFValueRank extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getResultValues( SMWQueryResult $results, $outputMode ) {
-		$tags = array();
+		$tags = [];
 
 		/**
 		 * @var $row SMWResultArray Objects (pages)
@@ -151,7 +151,7 @@ class SRFValueRank extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $tags ) {
-		$htmlTags = array();
+		$htmlTags = [];
 
 		if ( $this->params['introtemplate'] !== '' && $this->params['template'] !== '' ){
 			$htmlTags[] = "{{" . $this->params['introtemplate'] . "}}";
@@ -163,7 +163,7 @@ class SRFValueRank extends SMWResultPrinter {
 			} else {
 				$htmlTags[] = Html::rawElement(
 					( $this->params['liststyle'] === 'none' ? 'span' : 'li' ),
-					array( 'style' => "font-size:$size" ),
+					[ 'style' => "font-size:$size" ],
 					$this->tagsHtml[$name] . '&nbsp;(' . $size . ')'
 				);
 			}
@@ -175,7 +175,7 @@ class SRFValueRank extends SMWResultPrinter {
 
 		return Html::rawElement(
 			( $this->params['liststyle'] === 'none' ? 'div' : $this->params['liststyle'] ),
-			array( 'class' => $this->params['class']  ),
+			[ 'class' => $this->params['class']  ],
 			implode( '' , $htmlTags )
 		);
 	}
@@ -212,54 +212,54 @@ class SRFValueRank extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['includesubject'] = array(
+		$params['includesubject'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf_paramdesc_includesubject',
-		);
+		];
 
-		$params['min'] = array(
+		$params['min'] = [
 			'type' => 'integer',
 			'default' => 1,
 			'message' => 'srf_paramdesc_mincount',
-		);
+		];
 
-		$params['maxtags'] = array(
+		$params['maxtags'] = [
 			'type' => 'integer',
 			'default' => 1000,
 			'message' => 'srf_paramdesc_maxtags',
-		);
+		];
 
-		$params['template'] = array(
+		$params['template'] = [
 			'message' => 'srf-paramdesc-template',
 			'default' => '',
-		);
+		];
 
-		$params['userparam'] = array(
+		$params['userparam'] = [
 			'message' => 'srf-paramdesc-userparam',
 			'default' => '',
-		);
+		];
 
-		$params['introtemplate'] = array(
+		$params['introtemplate'] = [
 			'message' => 'smw-paramdesc-introtemplate',
 			'default' => '',
-		);
+		];
 
-		$params['outrotemplate'] = array(
+		$params['outrotemplate'] = [
 			'message' => 'smw-paramdesc-outrotemplate',
 			'default' => '',
-		);
+		];
 
-		$params['liststyle'] = array(
+		$params['liststyle'] = [
 			'message' => 'srf-paramdesc-liststyle',
 			'default' => 'ul',
-			'values' => array( 'ul', 'ol', 'none' ),
-		);
+			'values' => [ 'ul', 'ol', 'none' ],
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}

@@ -30,7 +30,7 @@ class GraphTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'graph' );
+		return [ 'graph' ];
 	}
 
 	/**

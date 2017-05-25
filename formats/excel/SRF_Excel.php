@@ -81,19 +81,19 @@ class SRFExcel extends FileExportPrinter {
 
 		$definitions[ 'searchlabel' ]->setDefault( wfMessage( 'srf-excel-link' )->inContentLanguage()->text() );
 
-		$params[ 'templatefile' ] = array(
+		$params[ 'templatefile' ] = [
 			'type' => 'string',
 			'name' => 'templatefile',
 			'default' => '',
 			'message' => 'srf-paramdesc-excel-templatefile',
-		);
+		];
 
-		$params[ 'filename' ] = array(
+		$params[ 'filename' ] = [
 			'type' => 'string',
 			'name' => 'filename',
 			'default' => '',
 			'message' => 'srf-paramdesc-excel-filename',
-		);
+		];
 
 		return $params;
 	}

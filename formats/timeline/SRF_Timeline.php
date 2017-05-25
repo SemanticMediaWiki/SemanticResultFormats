@@ -113,7 +113,7 @@ class SRFTimeline extends SMWResultPrinter {
 		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
 
 		// MediaWiki 1.17 introduces the Resource Loader.
-		$realFunction = array( 'SMWOutputs', 'requireResource' );
+		$realFunction = [ 'SMWOutputs', 'requireResource' ];
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) && is_callable( $realFunction ) ) {
 			SMWOutputs::requireResource( 'ext.srf.timeline' );
 		}
@@ -146,13 +146,13 @@ class SRFTimeline extends SMWResultPrinter {
 	protected function getEventsHTML( SMWQueryResult $res, $outputmode, $isEventline ) {
 		global $curarticle, $cururl; // why not, code flow has reached max insanity already
 		
-		$positions = array(); // possible positions, collected to select one for centering
+		$positions = []; // possible positions, collected to select one for centering
 		$curcolor = 0; // color cycling is used for eventline		
 		
 		$result = '';
 		
 		$output = false; // true if output for the popup was given on current line
-		if ( $isEventline ) $events = array(); // array of events that are to be printed
+		if ( $isEventline ) $events = []; // array of events that are to be printed
 
 		while ( $row = $res->getNext() ) { // Loop over the objcts (pages)
 			$hastime = false; // true as soon as some startdate value was found
@@ -221,10 +221,10 @@ class SRFTimeline extends SMWResultPrinter {
 			if ( $hastime ) {
 				$result .= Html::rawElement(
 					'span',
-					array( 'class' => 'smwtlevent', 'style' => 'display:none;' ),
+					[ 'class' => 'smwtlevent', 'style' => 'display:none;' ],
 					$curmeta . Html::element(
 						'span',
-						array( 'class' => 'smwtlcoloricon' ),
+						[ 'class' => 'smwtlcoloricon' ],
 						$curcolor
 					) . $curdata
 				);
@@ -237,7 +237,7 @@ class SRFTimeline extends SMWResultPrinter {
 					$result .=  $curdata . '</span>';
 					$positions[$event[2]] = $event[0];
 				}
-				$events = array();
+				$events = [];
 				$curcolor = ( $curcolor + 1 ) % 10;
 			}
 		}
@@ -321,7 +321,7 @@ class SRFTimeline extends SMWResultPrinter {
 				// NOTE: We can assume $object to be an SMWDataValue in this case.
 				$curmeta .= Html::element(
 					'span',
-					array( 'class' => 'smwtlstart' ),
+					[ 'class' => 'smwtlstart' ],
 					$object->getXMLSchemaDate()
 				);
 				$positions[$object->getHash()] = $object->getXMLSchemaDate();
@@ -334,7 +334,7 @@ class SRFTimeline extends SMWResultPrinter {
 				// NOTE: We can assume $object to be an SMWDataValue in this case.
 				$curmeta .= Html::element(
 					'span',
-					array( 'class' => 'smwtlend' ),
+					[ 'class' => 'smwtlend' ],
 					$object->getXMLSchemaDate( false )
 				);
 			}
@@ -343,9 +343,9 @@ class SRFTimeline extends SMWResultPrinter {
 			if ( !$hastitle ) {
 				$curmeta .= Html::element(
 					'span',
-					array(
+					[
 						'class' => $urlobject ? 'smwtlurl' : 'smwtltitle'
-					),
+					],
 					$objectlabel
 				);
 
@@ -368,11 +368,11 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 		
 		if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
-			$event = array(
+			$event = [
 				$object->getXMLSchemaDate(),
 				$pr->getLabel(),
 				$object->getDataItem()->getSortKey(),
-			);
+			];
 		}
 	
 		return $event;
@@ -390,44 +390,44 @@ class SRFTimeline extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['timelinesize'] = array(
+		$params['timelinesize'] = [
 			'default' => '300px',
 			'message' => 'srf_paramdesc_timelinesize',
-		);
+		];
 
-		$params['timelineposition'] = array(
+		$params['timelineposition'] = [
 			'default' => 'middle',
 			'message' => 'srf_paramdesc_timelineposition',
-			'values' => array( 'start', 'middle', 'end', 'today' ),
-		);
+			'values' => [ 'start', 'middle', 'end', 'today' ],
+		];
 
-		$params['timelinestart'] = array(
+		$params['timelinestart'] = [
 			'default' => '',
 			'message' => 'srf_paramdesc_timelinestart',
-		);
+		];
 
-		$params['timelineend'] = array(
+		$params['timelineend'] = [
 			'default' => '',
 			'message' => 'srf_paramdesc_timelineend',
-		);
+		];
 
-		$params['timelinebands'] = array(
+		$params['timelinebands'] = [
 			'islist' => true,
-			'default' => array( 'MONTH', 'YEAR' ),
+			'default' => [ 'MONTH', 'YEAR' ],
 			'message' => 'srf_paramdesc_timelinebands',
-			'values' => array( 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ),
-		);
+			'values' => [ 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ],
+		];
 
-		$params['template'] = array(
+		$params['template'] = [
 			'message' => 'smw-paramdesc-template',
 			'default' => '',
-		);
+		];
 		
-		$params['named args'] = array(
+		$params['named args'] = [
 			'type' => 'boolean',
 			'message' => 'smw-paramdesc-named_args',
 			'default' => false,
-		);
+		];
 
 
 		return $params;

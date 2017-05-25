@@ -30,7 +30,7 @@ class ArrayTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'array' );
+		return [ 'array' ];
 	}
 
 	/**

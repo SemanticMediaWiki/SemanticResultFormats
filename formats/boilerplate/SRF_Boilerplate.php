@@ -44,9 +44,9 @@ class SRFBoilerplate extends SMWResultPrinter {
 		$data = $this->getResultData( $result, $outputMode );
 
 		// Check if the data processing returned any results otherwise just bailout
-		if ( $data === array() ) {
+		if ( $data === [] ) {
 			// Add an error message to return method
-			return $result->addErrors( array( wfMessage( 'srf-no-results' )->inContentLanguage()->text() ) );
+			return $result->addErrors( [ wfMessage( 'srf-no-results' )->inContentLanguage()->text() ] );
 		} else {
 			// Add options if needed to format the output
 
@@ -61,9 +61,9 @@ class SRFBoilerplate extends SMWResultPrinter {
 			// but will have no influence in how a HTML representation is altered
 			// $this->hasTemplates = true;
 
-			$options = array(
+			$options = [
 				'mode' => $outputMode
-			);
+			];
 
 			// Return formatted results
 			return $this->getFormatOutput( $data, $options );
@@ -82,7 +82,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 */
 	protected function getResultData( SMWQueryResult $result, $outputMode ) {
 
-		$data = array();
+		$data = [];
 
 		// This is an example implementation on how to select available data from
 		// a result set. Please make appropriate adoptions necessary for your
@@ -111,7 +111,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 
 				// Initialize the array each time it passes a new row to avoid data from
 				// a previous row is remaining
-				$rowData = array();
+				$rowData = [];
 
 				// Get the label for the current property
 				$propertyLabel = $field->getPrintRequest()->getLabel();
@@ -151,7 +151,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 * @return array
 	 */
 	private function getSubjects( $result ) {
-		$subjects = array();
+		$subjects = [];
 
 		foreach ( $result as $wikiDIPage ) {
 			$subjects[] = $wikiDIPage->getTitle()->getText();
@@ -169,7 +169,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 * @return array
 	 */
 	private function getLabels( $result ) {
-		$printRequestsLabels = array();
+		$printRequestsLabels = [];
 
 		foreach ( $result as $printRequests ) {
 			$printRequestsLabels[] = $printRequests->getLabel();
@@ -233,7 +233,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 
 		// Assign the ID to make a data instance readly available and distinguishable
 		// from other content within the same page
-		$requireHeadItem = array ( $ID => FormatJson::encode( $data ) );
+		$requireHeadItem =  [ $ID => FormatJson::encode( $data ) ];
 		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// Add resource definitions that has been registered with SRF_Resource.php
@@ -255,16 +255,16 @@ class SRFBoilerplate extends SMWResultPrinter {
 		// unfinished visual content, to avoid screen clutter and improve user experience.
 		return Html::rawElement(
 			'div',
-			array(
+			[
 				'class' => 'srf-boilerplate'
-			),
+			],
 			$processing . Html::element(
 				'div',
-				array(
+				[
 					'id' => $ID,
 					'class' => 'container',
 					'style' => 'display:none;'
-				),
+				],
 				null
 			)
 		);
@@ -285,10 +285,10 @@ class SRFBoilerplate extends SMWResultPrinter {
 		// Add your parameters here
 
 		// Example of a unit paramter
-		$params['unit'] = array(
+		$params['unit'] = [
 			'message' => 'srf-paramdesc-unit',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}

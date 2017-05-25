@@ -58,7 +58,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 
 		// Initialise more values
 		$result = '';
-		$this->columnClasses = array();
+		$this->columnClasses = [];
 
 		// Table Header		
 		if ( $this->mShowHeaders != SMW_HEADERS_HIDE ) { // no headers when headers=hide
@@ -73,7 +73,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 		if ( array_key_exists( 'class', $this->params ) ){
 			$class = $this->params['class'];
 		}
-		$tableAttrs = array( 'class' => $class );
+		$tableAttrs = [ 'class' => $class ];
 		
 		$result = Xml::tags( 'table', $tableAttrs, $result );
 		
@@ -81,7 +81,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	}
 
 	private function getTableHeaders() {
-		$headers = array();
+		$headers = [];
 
 		/**
 		 * Get first QueryResult and assign array members to variables
@@ -112,14 +112,14 @@ class SRF_FV_Table extends SRF_Filtered_View {
 
 		return Html::rawElement(
 			'th',
-			array( 'class' => $columnClass ),
+			[ 'class' => $columnClass ],
 			$text === '' ? '&nbsp;' : $text
 		);
 	}
 
 	private function getColumnClass( PrintRequest $pr ) {
 		return str_replace(
-			array( ' ', '_' ),
+			[ ' ', '_' ],
 			'-',
 			strip_tags( $pr->getText( SMW_OUTPUT_WIKI ) )
 		);
@@ -137,10 +137,10 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	}
 
 	private function getTableRows( $queryResults, $outputmode, $columnClasses) {
-		$tableRows = array();
+		$tableRows = [];
 		
 		foreach ( $queryResults as $id => $value ) {
-			$cells = array();
+			$cells = [];
 			$row = $value->getValue();
 			
 			foreach( $row as $i => $field ) {
@@ -176,13 +176,13 @@ class SRF_FV_Table extends SRF_Filtered_View {
 		
 		$resultArray->reset();
 		
-		$dataValues = array();
+		$dataValues = [];
 		
 		while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 			$dataValues[] = $dv;
 		}
 		
-		$attribs = array();
+		$attribs = [];
 		$content = null;
 		
 		if ( count( $dataValues ) > 0 ) {
@@ -194,7 +194,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 			
 			$alignment = trim( $resultArray->getPrintRequest()->getParameter( 'align' ) );
 		
-			if ( in_array( $alignment, array( 'right', 'left', 'center' ) ) ) {
+			if ( in_array( $alignment, [ 'right', 'left', 'center' ] ) ) {
 				$attribs['style'] = "text-align:' . $alignment . ';";
 			}
 			$attribs['class'] = $columnClass;
@@ -225,7 +225,7 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	 * @return string
 	 */
 	protected function getCellContent( array /* of SMWDataValue */ $dataValues, $outputmode, $isSubject ) {
-		$values = array();
+		$values = [];
 		
 		foreach ( $dataValues as $dv ) {
 			$value = $dv->getShortText( $outputmode, $this->getQueryPrinter()->getLinker($isSubject ) );
@@ -242,11 +242,11 @@ class SRF_FV_Table extends SRF_Filtered_View {
 	public static function getParameters() {
 		$params = parent::getParameters();
 		
-		$params[] = array(
+		$params[] = [
 				'name' => 'class',
 				'message' => 'smw-paramdesc-table-class',
 				'default' => 'wikitable sortable',
-		);
+		];
 
 		return $params;
 	}
