@@ -1,7 +1,7 @@
 {
 	"name": "mediawiki/semantic-result-formats",
 	"type": "mediawiki-extension",
-	"description": "Additional result formats for Semantic MediaWiki queries",
+	"description": "Provides additional result formats for queries using Semantic MediaWiki",
 	"keywords": [
 		"SRF",
 		"Semantic Result Formats",
@@ -10,27 +10,28 @@
 		"Wiki",
 		"MediaWiki"
 	],
-	"homepage": "https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats",
+	"homepage": "https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats",
 	"license": "GPL-2.0+",
 	"authors": [
 		{
 			"name": "Jeroen De Dauw",
 			"email": "jeroendedauw@gmail.com",
-			"homepage": "http://jeroendedauw.com",
+			"homepage": "https://www.entropywins.wtf/",
 			"role": "Developer"
 		},
 		{
 			"name": "James Hong Kong",
-			"homepage": "https://semantic-mediawiki.org/wiki/User:MWJames",
+			"homepage": "https://www.semantic-mediawiki.org/wiki/User:MWJames",
 			"role": "Developer"
 		},
 		{
 			"name": "Stephan Gambke",
+			"homepage": "https://www.mediawiki.org/wiki/User:F.trott",
 			"role": "Developer"
 		},
 		{
 			"name": "Yaron Koren",
-			"homepage": "http://www.yaronkoren.com/",
+			"homepage": "https://www.yaronkoren.com/",
 			"role": "Developer"
 		}
 	],
@@ -38,12 +39,12 @@
 		"email": "semediawiki-user@lists.sourceforge.net",
 		"issues": "https://github.com/SemanticMediaWiki/SemanticResultFormats/issues",
 		"irc": "irc://irc.freenode.net/semantic-mediawiki",
-		"forum": "https://semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
-		"wiki": "https://semantic-mediawiki.org/wiki/",
+		"forum": "https://www.semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
+		"wiki": "https://www.semantic-mediawiki.org/wiki/",
 		"source": "https://github.com/SemanticMediaWiki/SemanticResultFormats"
 	},
 	"require": {
-		"php": ">=5.3.0",
+		"php": ">=5.5.0",
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/semantic-media-wiki": "~2.1|~3.0"
 	},
@@ -51,8 +52,8 @@
 		"mediawiki/semantic-media-wiki": "@dev"
 	},
 	"suggest": {
-		"phpoffice/phpexcel": "Used when exporting to excel format using 'format=excel'",
-		"mediawiki/graph-viz": "Required for 'format=graph'"
+		"phpoffice/phpexcel": "Required for 'format=excel'",
+		"mediawiki/graph-viz": "Required for 'format=graph' and 'format=process'"
 	},
 	"autoload": {
 		"psr-4": {
@@ -70,7 +71,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.3.x-dev"
+			"dev-master": "2.5.x-dev"
 		}
 	},
 	"config": {
