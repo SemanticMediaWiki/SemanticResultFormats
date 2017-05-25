@@ -16,7 +16,7 @@
 class SRF_Filtered_Item {
 
 	private $mResultArray;
-	private $mItemData = array();
+	private $mItemData = [];
 	private $mQueryPrinter;
 
 	/**
@@ -49,7 +49,7 @@ class SRF_Filtered_Item {
 
 	public function getArrayRepresentation() {
 
-		$printouts = array();
+		$printouts = [];
 		$isFirstColumn = true;
 
 		foreach ( $this->mResultArray as $field ) {
@@ -60,8 +60,8 @@ class SRF_Filtered_Item {
 			$type = $printRequest->getTypeID();
 			$params = $printRequest->getParameters();
 
-			$values = array(); // contains plain text
-			$formatted = array(); // may contain links
+			$values = []; // contains plain text
+			$formatted = []; // may contain links
 
 			$field->reset();
 			while ( ( $value = $field->getNextDataValue() ) !== false ) {
@@ -69,20 +69,20 @@ class SRF_Filtered_Item {
 				$formatted[] = $value->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
 			}
 
-			$printouts[ md5( $printRequest->getHash() ) ] = array(
+			$printouts[ md5( $printRequest->getHash() ) ] = [
 				'label' => $label,
 				'type' => $type,
 				'params' => $params,
 				'values' => $values,
 				'formatted values' => $formatted,
-			);
+			];
 
 			$isFirstColumn = false;
 		}
 
-		return array(
+		return [
 			'printouts' => $printouts,
 			'data' => $this->mItemData,
-		);
+		];
 	}
 }

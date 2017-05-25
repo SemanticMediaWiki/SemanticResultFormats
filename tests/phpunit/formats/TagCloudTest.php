@@ -35,7 +35,7 @@ class TagCloudTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'tagcloud' );
+		return [ 'tagcloud' ];
 	}
 
 	/**

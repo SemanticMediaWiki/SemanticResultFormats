@@ -16,7 +16,7 @@
  */
 class SRFArray extends SMWResultPrinter {
 	
-	protected static $mDefaultSeps = array();
+	protected static $mDefaultSeps = [];
 	protected $mSep;
 	protected $mPropSep;
 	protected $mManySep;
@@ -65,11 +65,11 @@ class SRFArray extends SMWResultPrinter {
 		 * SMWPrintRequest::getLable() always returns the property name even if no specific label is defined.
 		 */
 		 
-		$perPage_items = array();
+		$perPage_items = [];
 		
 		//for each page:
 		while( $row = $res->getNext() ) {
-			$perProperty_items = array();
+			$perProperty_items = [];
 			
 			/**
 			 * first field is always the page title, except, mainlabel is set to '-'
@@ -80,7 +80,7 @@ class SRFArray extends SMWResultPrinter {
 			
 			//for each property on that page:
 			foreach( $row as $field ) { // $row is array(), $field of type SMWResultArray
-				$manyValue_items = array();
+				$manyValue_items = [];
 				$isMissingProperty = false;
 				
 				$manyValues = $field->getContent();
@@ -94,7 +94,7 @@ class SRFArray extends SMWResultPrinter {
 				//otherwise collect property value (potentially many values):
 				while( $obj = $field->getNextDataValue() ) {
 					
-					$value_items = array();					
+					$value_items = [];					
 					$isRecord = false;
 					
 					// handle page Title:
@@ -135,7 +135,7 @@ class SRFArray extends SMWResultPrinter {
 		return $output;
 	}
 	
-	protected function fillDeliveryArray( $array = array(), $value = null ) {
+	protected function fillDeliveryArray( $array = [], $value = null ) {
 		if( ! is_null( $value ) ) { //don't create any empty entries
 			$array[] = $value;
 		}
@@ -259,7 +259,7 @@ class SRFArray extends SMWResultPrinter {
 			if( array_key_exists( 'args', $obj ) && is_array( $obj['args'] ) )
 				$params = $obj['args'];
 			else
-				$params = array(); // no arguments
+				$params = []; // no arguments
 			
 			// create title of page whose text should be used as separator:
 			$obj = Title::newFromText( $obj[0], ( array_key_exists( 1, $obj ) ? $obj[1] : NS_MAIN ) );
@@ -316,7 +316,7 @@ class SRFArray extends SMWResultPrinter {
 		// we wouldn't check, we would always end up with an array instead of visible output
 		if( $params['name'] !== false && ( $this->mInline || trim( $params['name'] ) !== '' ) ) {
 			$this->mArrayName = trim( $params['name'] );
-			$this->createArray( array() ); //create empty array in case we get no result so we won't have an undefined array in the end.
+			$this->createArray( [] ); //create empty array in case we get no result so we won't have an undefined array in the end.
 		}
 		
 		// if mainlabel set to '-', this will cause the titles not to appear, so make sure we catch this!
@@ -365,54 +365,54 @@ class SRFArray extends SMWResultPrinter {
 		
 		### new params: ###
 		
-		$params['titles'] = array(
+		$params['titles'] = [
 			'message' => 'srf_paramdesc_pagetitle',
-			'values' => array( 'show', 'hide' ),
-			'aliases' => array( 'pagetitle', 'pagetitles' ),
+			'values' => [ 'show', 'hide' ],
+			'aliases' => [ 'pagetitle', 'pagetitles' ],
 			'default' => 'show',
-		);
+		];
 
-		$params['hidegaps'] = array(
+		$params['hidegaps'] = [
 			'message' => 'srf_paramdesc_hidegaps',
-			'values' => array( 'none', 'all', 'property', 'record' ),
+			'values' => [ 'none', 'all', 'property', 'record' ],
 			'default' => 'none',
-		);
+		];
 
-		$params['name'] = array(
+		$params['name'] = [
 			'message' => 'srf_paramdesc_arrayname',
 			'default' => false,
 			'manipulatedefault' => false,
-		);
+		];
 
 		// separators (default values are defined in the following globals:)
 		global $srfgArraySep, $srfgArrayPropSep, $srfgArrayManySep, $srfgArrayRecordSep, $srfgArrayHeaderSep;
 
-		$params['sep'] = array(
+		$params['sep'] = [
 			'message' => 'smw_paramdesc_sep',
 			'default' => $this->initializeCfgValue( $srfgArraySep, 'sep' ),
-		);
+		];
 
-		$params['propsep'] = array(
+		$params['propsep'] = [
 			'message' => 'smw_paramdesc_propsep',
 			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
-		);
+		];
 
-		$params['manysep'] = array(
+		$params['manysep'] = [
 			'message' => 'srf_paramdesc_manysep',
 			'default' => $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ),
-		);
+		];
 
-		$params['recordsep'] = array(
+		$params['recordsep'] = [
 			'message' => 'srf_paramdesc_recordsep',
 			'default' => $this->initializeCfgValue( $srfgArrayRecordSep, 'recordsep' ),
-			'aliases' => array( 'narysep', 'rcrdsep', 'recsep' ),
-		);
+			'aliases' => [ 'narysep', 'rcrdsep', 'recsep' ],
+		];
 
-		$params['headersep'] = array(
+		$params['headersep'] = [
 			'message' => 'srf_paramdesc_headersep',
 			'default' => $this->initializeCfgValue( $srfgArrayHeaderSep, 'headersep' ),
-			'aliases' => array( 'narysep', 'rcrdsep', 'recsep' ),
-		);
+			'aliases' => [ 'narysep', 'rcrdsep', 'recsep' ],
+		];
 
 		return $params;
 	}

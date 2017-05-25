@@ -30,7 +30,7 @@ class TimeseriesTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'timeseries' );
+		return [ 'timeseries' ];
 	}
 
 	/**

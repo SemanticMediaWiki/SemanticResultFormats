@@ -166,9 +166,9 @@ class SRFiCalendar extends SMWExportPrinter {
 		$wikipage = $row[0]->getResultSubject(); // get the object
 		$wikipage = SMWDataValueFactory::newDataItemValue( $wikipage, null );
 
-		$params = array(
+		$params = [
 			'summary' => $wikipage->getShortWikiText()
-		);
+		];
 		
 		foreach ( $row as /* SMWResultArray */ $field ) {
 			// later we may add more things like a generic
@@ -258,7 +258,7 @@ class SRFiCalendar extends SMWExportPrinter {
 	 */
 	static private function escapeICalendarText( $text ) {
 		// Note that \\ is a PHP escaped single \ here
-		return str_replace( array( "\\", "\n", ";", "," ), array( "\\\\", "\\n", "\\;", "\\," ), $text );
+		return str_replace( [ "\\", "\n", ";", "," ], [ "\\\\", "\\n", "\\;", "\\," ], $text );
 	}
 
 
@@ -274,15 +274,15 @@ class SRFiCalendar extends SMWExportPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['title'] = array(
+		$params['title'] = [
 			'default' => '',
 			'message' => 'srf_paramdesc_icalendartitle',
-		);
+		];
 
-		$params['description'] = array(
+		$params['description'] = [
 			'default' => '',
 			'message' => 'srf_paramdesc_icalendardescription',
-		);
+		];
 
 		return $params;
 	}

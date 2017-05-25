@@ -30,7 +30,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'gallery' );
+		return [ 'gallery' ];
 	}
 
 	/**

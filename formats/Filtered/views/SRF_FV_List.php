@@ -191,45 +191,45 @@ class SRF_FV_List extends SRF_Filtered_View {
 	public static function getParameters() {
 		$params = parent::getParameters();
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'list view type',
 			'message' => 'srf-paramdesc-filtered-list-type',
 			'default' => 'list',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'list view template',
 			'message' => 'srf-paramdesc-filtered-list-template',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			'type' => 'boolean',
 			'name' => 'list view named args',
 			'message' => 'srf-paramdesc-filtered-list-named-args',
 			'default' => false,
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			//'type' => 'string',
 			'name' => 'list view introtemplate',
 			'message' => 'srf-paramdesc-filtered-list-introtemplate',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			//'type' => 'string',
 			'name' => 'list view outrotemplate',
 			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
 		return $params;
 	}

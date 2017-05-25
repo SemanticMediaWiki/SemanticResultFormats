@@ -30,7 +30,7 @@ class SparklineTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'sparkline' );
+		return [ 'sparkline' ];
 	}
 
 	/**

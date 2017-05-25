@@ -63,7 +63,7 @@ class SRFvCard extends SMWExportPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		global $wgSitename;
 		$result = '';
-		$items = array();
+		$items = [];
 		if ( $outputmode == SMW_OUTPUT_FILE ) { // make vCard file
 			if ( $this->m_title == '' ) {
 				$this->m_title = $wgSitename;
@@ -79,9 +79,9 @@ class SRFvCard extends SMWExportPrinter {
 				$suffix = ''; // things like "jun." or "sen."
 				$fullname = ''; // the "formatted name", may be independent from first/lastname & co.
 				// contacts
-				$emails = array();
-				$tels = array();
-				$addresses = array();
+				$emails = [];
+				$tels = [];
+				$addresses = [];
 				// organisational details:
 				$organization = ''; // any string
 				$jobtitle = '';
@@ -371,9 +371,9 @@ class SRFvCardEntry {
 	private $additionalname;
 	private $prefix;
 	private $suffix;
-	private $tels = array();
-	private $addresses = array();
-	private $emails = array();
+	private $tels = [];
+	private $addresses = [];
+	private $emails = [];
 	private $birthday;
 	private $dtstamp;
 	private $title;
@@ -473,7 +473,7 @@ class SRFvCardEntry {
 	}
 
 	public static function vCardEscape( $text ) {
-		return str_replace( array( '\\', ',', ':', ';' ), array( '\\\\', '\,', '\:', '\;' ), $text );
+		return str_replace( [ '\\', ',', ':', ';' ], [ '\\\\', '\,', '\:', '\;' ], $text );
 	}
 
 }

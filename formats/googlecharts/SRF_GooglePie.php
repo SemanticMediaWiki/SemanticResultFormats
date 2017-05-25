@@ -76,17 +76,17 @@ class SRFGooglePie extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 		
-		$params['height'] = array(
+		$params['height'] = [
 			'type' => 'integer',
 			'default' => 100,
 			'message' => 'srf_paramdesc_chartheight',
-		);
+		];
 
-		$params['width'] = array(
+		$params['width'] = [
 			'type' => 'integer',
 			'default' => 250,
 			'message' => 'srf_paramdesc_chartwidth',
-		);
+		];
 		
 		return $params;
 	}

@@ -58,20 +58,20 @@ class SRFFiltered extends SMWResultPrinter {
 	 * The available view types
 	 * @var array of Strings
 	 */
-	private $mViewTypes = array(
+	private $mViewTypes = [
 		'list' => 'SRF_FV_List',
 		'calendar' => 'SRF_FV_Calendar',
 		'table' => 'SRF_FV_Table'
-	);
+	];
 
 	/**
 	 * The available filter types
 	 * @var array of Strings
 	 */
-	private $mFilterTypes = array(
+	private $mFilterTypes = [
 		'value' => 'SRF_FF_Value',
 		'distance' => 'SRF_FF_Distance',
-	);
+	];
 
 	private $mViews;
 	private $mParams;
@@ -120,17 +120,17 @@ class SRFFiltered extends SMWResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 
 		// collect the query results in an array
-		$result = array();
+		$result = [];
 		while ( $row = $res->getNext() ) {
 			$result[uniqid()] = new SRF_Filtered_Item( $row, $this );
 		}
 
-		$resourceModules = array();
+		$resourceModules = [];
 
 		// prepare filter data for inclusion in HTML and  JS
 		$filterHtml = '';
-		$filterHandlers = array();
-		$filterData = array();
+		$filterHandlers = [];
+		$filterData = [];
 
 		foreach ( $res->getPrintRequests() as $printRequest ) {
 			$filter = $printRequest->getParameter( 'filter' );
@@ -152,7 +152,7 @@ class SRFFiltered extends SMWResultPrinter {
 						}
 
 						$printRequestHash = md5( $printRequest->getHash() );
-						$filterHtml .= Html::rawElement( 'div', array( 'class' => "filtered-$filterName $printRequestHash" ), $filter->getResultText() );
+						$filterHtml .= Html::rawElement( 'div', [ 'class' => "filtered-$filterName $printRequestHash" ], $filter->getResultText() );
 
 						$filterHandlers[$filterName] = null;
 						$filterData[$filterName][$printRequestHash] = $filter->getJsData();
@@ -163,14 +163,14 @@ class SRFFiltered extends SMWResultPrinter {
 		}
 
 		// wrap filters in a div
-		$filterHtml = Html::rawElement( 'div', array( 'class' => 'filtered-filters' ), $filterHtml );
+		$filterHtml = Html::rawElement( 'div', [ 'class' => 'filtered-filters' ], $filterHtml );
 
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
 		$viewSelectorsHtml = '';
-		$viewHandlers = array();
-		$viewElements = array(); // will contain the id of the html element to be used by the view
-		$viewData = array();
+		$viewHandlers = [];
+		$viewElements = []; // will contain the id of the html element to be used by the view
+		$viewData = [];
 
 		foreach ( $this->mViews as $viewName ) {
 
@@ -202,8 +202,8 @@ class SRFFiltered extends SMWResultPrinter {
 					SMWOutputs::requireResource( $resourceModules );
 				}
 
-				$viewHtml .= Html::rawElement( 'div', array( 'class' => "filtered-view filtered-$viewName filtered-view-id$viewid" ), $view->getResultText() );
-				$viewSelectorsHtml .= Html::rawElement( 'div', array( 'class' => "filtered-view-selector filtered-$viewName filtered-view-id$viewid" ), $viewSelectorLabel );
+				$viewHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view filtered-$viewName filtered-view-id$viewid" ], $view->getResultText() );
+				$viewSelectorsHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view-selector filtered-$viewName filtered-view-id$viewid" ], $viewSelectorLabel );
 
 				$viewHandlers[$viewName] = null;
 				$viewElements[$viewName][] = $viewid;
@@ -214,14 +214,14 @@ class SRFFiltered extends SMWResultPrinter {
 		// more than one view?
 		if ( count( $viewData ) > 1 ) {
 			// wrap views in a div
-			$viewHtml = Html::rawElement( 'div', array('class' => 'filtered-views', 'style' => 'display:none'),
-				Html::rawElement( 'div', array('class' => 'filtered-views-selectors-container'), $viewSelectorsHtml ) .
-				Html::rawElement( 'div', array('class' => 'filtered-views-container'), $viewHtml )
+			$viewHtml = Html::rawElement( 'div', ['class' => 'filtered-views', 'style' => 'display:none'],
+				Html::rawElement( 'div', ['class' => 'filtered-views-selectors-container'], $viewSelectorsHtml ) .
+				Html::rawElement( 'div', ['class' => 'filtered-views-container'], $viewHtml )
 			);
 		} else {
 			// wrap views in a div
-			$viewHtml = Html::rawElement( 'div', array('class' => 'filtered-views', 'style' => 'display:none'),
-				Html::rawElement( 'div', array('class' => 'filtered-views-container'), $viewHtml )
+			$viewHtml = Html::rawElement( 'div', ['class' => 'filtered-views', 'style' => 'display:none'],
+				Html::rawElement( 'div', ['class' => 'filtered-views-container'], $viewHtml )
 			);
 		}
 
@@ -231,7 +231,7 @@ class SRFFiltered extends SMWResultPrinter {
 			)
 		);
 
-		$resultAsArray = array();
+		$resultAsArray = [];
 		foreach ( $result as $id => $value ) {
 			$resultAsArray[$id] = $value->getArrayRepresentation();
 		}
@@ -246,8 +246,8 @@ class SRFFiltered extends SMWResultPrinter {
 				', "viewdata" : ' . json_encode( $viewData ) .
 				', "filterhandlers" : ' . json_encode( $filterHandlers ) .
 				', "filterdata" : ' . json_encode( $filterData ) .
-				', "sorthandlers" : ' . json_encode( array() ) .
-				', "sorterdata" : ' . json_encode( array() ) .
+				', "sorthandlers" : ' . json_encode( [] ) .
+				', "sorterdata" : ' . json_encode( [] ) .
 //				', "sorterhandlers" : ' . json_encode( $sorterHandlers ) .
 //				', "sorterdata" : ' . json_encode( $sorterData ) .
 				'}};'
@@ -258,9 +258,9 @@ class SRFFiltered extends SMWResultPrinter {
 
 		// wrap all in a div
 		if ( $this->mFiltersOnTop ) {
-			$html = Html::rawElement( 'div', array( 'class' => 'filtered ' . $id ), $filterHtml . $viewHtml );
+			$html = Html::rawElement( 'div', [ 'class' => 'filtered ' . $id ], $filterHtml . $viewHtml );
 		} else {
-			$html = Html::rawElement( 'div', array( 'class' => 'filtered ' . $id ), $viewHtml. $filterHtml );
+			$html = Html::rawElement( 'div', [ 'class' => 'filtered ' . $id ], $viewHtml. $filterHtml );
 		}
 
 		return $html;
@@ -279,27 +279,27 @@ class SRFFiltered extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'views',
 			'message' => 'srf-paramdesc-filtered-views',
 			'default' => '',
 			// 'islist' => false,
-		);
+		];
 
-		$params[] = array(
+		$params[] = [
 			// 'type' => 'string',
 			'name' => 'filter position',
 			'message' => 'srf-paramdesc-filtered-filter-position',
 			'default' => 'top',
 			// 'islist' => false,
-		);
+		];
 
 		/*print_r($this->mViewTypes);
 		print_r($params);
 		print_r(get_declared_classes());*/
 		foreach ( $this->mViewTypes as $viewType ) {
-			$params = array_merge( $params, call_user_func( array( $viewType, 'getParameters' ) ) );
+			$params = array_merge( $params, call_user_func( [ $viewType, 'getParameters' ] ) );
 		}
 
 		return $params;

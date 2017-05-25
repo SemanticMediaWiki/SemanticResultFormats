@@ -48,11 +48,11 @@ class SRFListWidget extends ListResultPrinter {
 		$listwidgetID = 'listwidget-' . ++$statNr;
 
 		// OL/UL container items
-		$result = Html::rawElement( 'div', array(
+		$result = Html::rawElement( 'div', [
 			'id' => $listwidgetID,
 			'class' => 'listwidget-container',
 			'style' => 'display:none; position: relative; margin-bottom:5px; margin-top:5px;'
-			), $result
+			], $result
 		);
 
 		// Placeholder
@@ -63,12 +63,12 @@ class SRFListWidget extends ListResultPrinter {
 		SMWOutputs::requireResource( $resource );
 
 		// Wrap results
-		return Html::rawElement( 'div', array(
+		return Html::rawElement( 'div', [
 			'class'          => 'srf-listwidget ' . htmlspecialchars ( $this->params['class'] ),
 			'data-listtype'  => $this->mFormat,
 			'data-widget'    => $this->params['widget'],
 			'data-pageitems' => $this->params['pageitems'],
-			) , $processing . $result
+			] , $processing . $result
 		);
 	}
 
@@ -84,32 +84,32 @@ class SRFListWidget extends ListResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['class'] = array(
+		$params['class'] = [
 			'name' => 'class',
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['listtype'] = array(
+		$params['listtype'] = [
 			'name' => 'listtype',
 			'message' => 'srf-paramdesc-listtype',
-			'values' =>  array( 'unordered', 'ordered' ),
+			'values' =>  [ 'unordered', 'ordered' ],
 			'default' => 'unordered'
-		);
+		];
 
-		$params['widget'] = array(
+		$params['widget'] = [
 			'name' => 'widget',
 			'message' => 'srf-paramdesc-widget',
-			'values' =>  array( 'alphabet', 'menu', 'pagination' ),
+			'values' =>  [ 'alphabet', 'menu', 'pagination' ],
 			'default' => 'alphabet'
-		);
+		];
 
-		$params['pageitems'] = array(
+		$params['pageitems'] = [
 			'type' => 'integer',
 			'name' => 'pageitems',
 			'message' => 'srf-paramdesc-pageitems',
 			'default' => 5,
-		);
+		];
 
 		return $params;
 	}

@@ -15,7 +15,7 @@
  */
 class SRFJitGraph extends SMWResultPrinter {
 
-	public static $NODE_SHAPES = array('circle', 'rectangle', 'square', 'ellipse', 'triangle', 'star');
+	public static $NODE_SHAPES = ['circle', 'rectangle', 'square', 'ellipse', 'triangle', 'star'];
 
 	protected $m_graphName = '227';
 	protected $m_graphLabel = false;
@@ -24,17 +24,17 @@ class SRFJitGraph extends SMWResultPrinter {
 	protected $m_graphLink = false;
 	protected $m_rankdir = "LR";
 	protected $m_graphSize = "";
-	protected $m_labelArray = array();
+	protected $m_labelArray = [];
 	protected $m_graphNodeType = 'circle';
 	protected $m_graphNodeSize = 12;
 	protected $m_graphRootNode = false;
-	protected $m_nodeTypes = array('circle', 'rectangle', 'square', 'ellipse', 'triangle', 'star');
+	protected $m_nodeTypes = ['circle', 'rectangle', 'square', 'ellipse', 'triangle', 'star'];
 	
-	protected $m_nodeColorArray = array('black'=>'#00FF00', 'red' => '#CF2A2A', 'green' => '#558800', 'blue' => '#005588');
+	protected $m_nodeColorArray = ['black'=>'#00FF00', 'red' => '#CF2A2A', 'green' => '#558800', 'blue' => '#005588'];
 	protected $m_rootNodeColor = '#CF2A2A'; //Red
 	protected $m_graphNodeColor = '#005588'; //Blue
 	
-	protected $m_settings = array(
+	protected $m_settings = [
 	    "divID" => "infovis",
 	    "edgeColor" => "#23A4FF",
 	    "edgeWidth" => 2,
@@ -43,10 +43,10 @@ class SRFJitGraph extends SMWResultPrinter {
 	    "zooming" => false,
 	    "panning" => "avoid nodes",
 	    "labelColor" => "#000000"
-	);
+	];
 	
-	protected $m_edgeColors = array();
-	protected $m_edgeNames = array();
+	protected $m_edgeColors = [];
+	protected $m_edgeNames = [];
 	
 	protected $debug_out = '';
 
@@ -341,41 +341,41 @@ class SRFJitGraph extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['graphname'] = array(
+		$params['graphname'] = [
 			'default' => 'GraphName',
 			'message' => 'srf_paramdesc_graphname',
-		);
+		];
 
-		$params['graphnodetype'] = array(
+		$params['graphnodetype'] = [
 			'default' => false,
 			'message' => 'srf-paramdesc-graph-graphnodetype',
 			'values' => self::$NODE_SHAPES,
-		);
+		];
 
-		$params['graphsize'] = array(
+		$params['graphsize'] = [
 			'type' => 'integer',
 			'default' => '',
 			'manipulatedefault' => false,
 			'message' => 'srf_paramdesc_graphsize',
-		);
+		];
 
-		$params['graphlegend'] = array(
+		$params['graphlegend'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf_paramdesc_graphlegend',
-		);
+		];
 
-		$params['graphlabel'] = array(
+		$params['graphlabel'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf_paramdesc_graphlabel',
-		);
+		];
 
-		$params['graphcolor'] = array(
+		$params['graphcolor'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf_paramdesc_graphcolor',
-		);
+		];
 
 		return $params;
 	}

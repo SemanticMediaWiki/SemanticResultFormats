@@ -25,17 +25,17 @@ class SRFSlideShowApi extends ApiBase {
 		$rp = new SMWListResultPrinter( 'template', true );
 
 		// get defaults of parameters for the 'template' result format as array of ParamDefinition
-		$paramDefinitions = ParamDefinition::getCleanDefinitions( $rp->getParamDefinitions( array() ) );
+		$paramDefinitions = ParamDefinition::getCleanDefinitions( $rp->getParamDefinitions( [] ) );
 
 		// transform into normal key-value array
-		$queryParams = array();
+		$queryParams = [];
 
 		foreach ( $paramDefinitions as $def ) {
 			$queryParams[ $def->getName() ] = $def->getDefault();
 		}
 
 		// add/set specific parameters for this call
-		$queryParams = array_merge( $queryParams, array(
+		$queryParams = array_merge( $queryParams, [
 			'format' => 'template',
 			'template' => $requestParams[ 'template' ],
 			'mainlabel' => '',
@@ -49,18 +49,18 @@ class SRFSlideShowApi extends ApiBase {
 			'headers' => null,
 			'introtemplate' => '',
 			'outrotemplate' => '',
-			) );
+			] );
 
 		// A bit of a hack since the parser isn't run, avoids [[SMW::off]]/[[SMW::on]]
 		$queryParams['import-annotation'] = 'true';
 
 		// transform query parameters into format suitable for SMWQueryProcessor
-		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, array() );
+		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, [] );
 
 		// build array of printouts
 
 		$printoutsRaw = json_decode( $requestParams[ 'printouts' ], true );
-		$printouts = array();
+		$printouts = [];
 
 		foreach ( $printoutsRaw as $printoutData ) {
 
@@ -90,10 +90,10 @@ class SRFSlideShowApi extends ApiBase {
 	 * @return mixed string or array of strings
 	 */
 	protected function getDescription() {
-		return array(
+		return [
 			'API module used by the SlideShow result printer to retrieve formatted results.',
 			'This module is should not be called directly.'
-			);
+			];
 	}
 
 	/**
@@ -114,24 +114,24 @@ class SRFSlideShowApi extends ApiBase {
 	 * @return array|bool
 	 */
 	protected function getAllowedParams() {
-		return array(
-			'pageid' => array(
+		return [
+			'pageid' => [
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_ISMULTI => false,
 				ApiBase::PARAM_REQUIRED => true,
-			),
-			'template' => array(
+			],
+			'template' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_ISMULTI => false,
 				ApiBase::PARAM_REQUIRED => true,
-			),
-			'printouts' => array(
+			],
+			'printouts' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_ISMULTI => false,
 				ApiBase::PARAM_REQUIRED => false,
 				ApiBase::PARAM_DFLT => '[]',
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -141,11 +141,11 @@ class SRFSlideShowApi extends ApiBase {
 	 * @return array|bool False on no parameter descriptions
 	 */
 	protected function getParamDescription() {
-		return array(
+		return [
 			'pageid' => 'Id of the page (subject) to be displayed',
 			'template' => 'Template to use for formatting',
 			'printouts' => 'Printouts to send to the template',
-		);
+		];
 	}
 
 	/**

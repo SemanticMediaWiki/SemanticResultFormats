@@ -38,7 +38,7 @@ class SRF_FF_Value extends SRF_Filtered_Filter {
 		
 		$params = $this->getActualParameters();
 		
-		$ret = array();
+		$ret = [];
 
 		if ( array_key_exists( 'value filter switches', $params ) ) {
 			$switches = explode( ',', $wgParser->recursiveTagParse( $params['value filter switches'] ) );

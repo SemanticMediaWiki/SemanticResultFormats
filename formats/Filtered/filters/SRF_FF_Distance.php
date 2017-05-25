@@ -40,7 +40,7 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 		if (  array_key_exists( 'distance filter origin', $params ) ) {
 			$origin = MapsGeocoders::attemptToGeocode( $wgParser->recursiveTagParse( $params['distance filter origin'] ) );
 		} else {
-			$origin = array( 'lat'=>'0', 'lon' => '0' );
+			$origin = [ 'lat'=>'0', 'lon' => '0' ];
 		}
 
 		if ( array_key_exists( 'distance filter unit', $params ) ) {
@@ -52,7 +52,7 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 		// Is the real position stored in a property?
 		if ( array_key_exists( 'distance filter property', $params ) ) {
 			$property = trim( $wgParser->recursiveTagParse( $params['distance filter property'] ) );
-			$locations = array();
+			$locations = [];
 		} else {
 			$property = null;
 			$locations = null;
@@ -96,7 +96,7 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 								
 								// query the position's page for the coordinates or address
 								$posText = SMWQueryProcessor::getResultFromFunctionParams(
-									array($posText, '?' . $property),
+									[$posText, '?' . $property],
 									SMW_OUTPUT_WIKI,
 									SMWQueryProcessor::INLINE_QUERY,
 									true
@@ -107,7 +107,7 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 									// geocode 
 									$pos = MapsGeocoders::attemptToGeocode( $posText );
 								} else {
-									$pos = array('lat' => '0', 'lon' => '0');
+									$pos = ['lat' => '0', 'lon' => '0'];
 								}
 								
 								// store coordinates in case we need them again
@@ -170,7 +170,7 @@ class SRF_FF_Distance extends SRF_Filtered_Filter {
 		
 		$params = $this->getActualParameters();
 		
-		$ret = array();
+		$ret = [];
 
 		$ret['unit'] = $this->mUnit;
 		$ret['max'] = $this->mMaxDistance;

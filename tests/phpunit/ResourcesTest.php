@@ -38,7 +38,7 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 		$context = ResourceLoaderContext::newDummyContext();
 		$modules = $this->getSRFResourceModules();
 
-		return array( array( $modules, $resourceLoader, $context ) );
+		return [ [ $modules, $resourceLoader, $context ] ];
 	}
 
 	/**

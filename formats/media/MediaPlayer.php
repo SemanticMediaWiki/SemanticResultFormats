@@ -46,7 +46,7 @@ class MediaPlayer extends ResultPrinter {
 	 * Specifies valid mime types supported by jPlayer
 	 * @var array
 	 */
-	protected $validMimeTypes = array( 'mp3', 'mp4', 'webm', 'webma', 'webmv', 'ogg', 'oga', 'ogv', 'm4v', 'm4a' );
+	protected $validMimeTypes = [ 'mp3', 'mp4', 'webm', 'webma', 'webmv', 'ogg', 'oga', 'ogv', 'm4v', 'm4a' ];
 
 	/**
 	 * @see SMWResultPrinter::getName
@@ -70,11 +70,11 @@ class MediaPlayer extends ResultPrinter {
 		$data = $this->getResultData( $result, $outputMode );
 
 		// Check if the data processing returned any results otherwise just bailout
-		if ( $data === array() ) {
+		if ( $data === [] ) {
 			if ( $this->params['default'] !== '' ) {
 				return $this->params['default'];
 			} else{
-				$result->addErrors( array( $this->msg( 'srf-no-results' )->inContentLanguage()->text() ) );
+				$result->addErrors( [ $this->msg( 'srf-no-results' )->inContentLanguage()->text() ] );
 				return '';
 			}
 		} else {
@@ -95,14 +95,14 @@ class MediaPlayer extends ResultPrinter {
 	 */
 	protected function getResultData( SMWQueryResult $result, $outputMode ) {
 
-		$data = array();
+		$data = [];
 
 		/**
 		 * Get all values for all rows that belong to the result set
 		 * @var SMWResultArray $rows
 		 */
 		while ( $rows = $result->getNext() ) {
-			$rowData = array();
+			$rowData = [];
 			$mediaType = null;
 			$mimeType = null;
 
@@ -166,21 +166,21 @@ class MediaPlayer extends ResultPrinter {
 			// this doesn't help much therefore we do it ourselves
 			$extension = $source->getExtension();
 
-			if ( in_array( $extension, array( 'ogg', 'oga', 'ogv' ) ) ) {
+			if ( in_array( $extension, [ 'ogg', 'oga', 'ogv' ] ) ) {
 				$extension = strtolower( substr( $source->getName(), strrpos( $source->getName(), '.' ) + 1 ) );
 
 				// Xiph.Org recommends that .ogg only be used for Ogg Vorbis audio files
 				$extension = $extension === 'ogg' ? 'oga' : $extension;
 
-				$params = array( $extension === 'ogv' ? 'video' : 'audio', $extension, $source->getUrl() );
-			} elseif ( in_array( $extension, array( 'm4v', 'm4a', 'm4p' ) ) ) {
-				$params = array( $extension === 'm4v' ? 'video' : 'audio', $extension, $source->getUrl() );
+				$params = [ $extension === 'ogv' ? 'video' : 'audio', $extension, $source->getUrl() ];
+			} elseif ( in_array( $extension, [ 'm4v', 'm4a', 'm4p' ] ) ) {
+				$params = [ $extension === 'm4v' ? 'video' : 'audio', $extension, $source->getUrl() ];
 			} else {
 				list( $major, $minor ) = File::splitMime( $source->getMimeType() );
-				$params = array( $major, $extension, $source->getUrl() );
+				$params = [ $major, $extension, $source->getUrl() ];
 			}
 		} else {
-			$params = array();
+			$params = [];
 		}
 		return $params;
 	}
@@ -227,10 +227,10 @@ class MediaPlayer extends ResultPrinter {
 			$extension = strtolower( substr( $source, strrpos( $source, '.' ) + 1 ) );
 
 			// Xiph.Org recommends that .ogg only be used for Ogg Vorbis audio files
-			if ( in_array( $extension, array( 'ogg', 'oga', 'ogv' ) ) ) {
+			if ( in_array( $extension, [ 'ogg', 'oga', 'ogv' ] ) ) {
 				$mimeType = $extension === 'ogg' ? 'oga' : $extension;
 				$mediaType = $extension === 'ogv' ? 'video' : 'audio';
-			} elseif ( in_array( $extension, array( 'm4v', 'm4a', 'm4p' ) ) ) {
+			} elseif ( in_array( $extension, [ 'm4v', 'm4a', 'm4p' ] ) ) {
 				$mimeType = $extension;
 				$mediaType = $extension === 'm4v' ? 'video' : 'audio';
 			} else {
@@ -274,15 +274,15 @@ class MediaPlayer extends ResultPrinter {
 		unset( $data['mimeTypes'] );
 
 		// Reassign output array
-		$output = array(
+		$output = [
 			'data'  => $data,
 			'count' => count( $data ),
 			'mediaType' => $mediaType,
 			'mimeTypes' => implode( ',', $mimeTypes ),
 			'inspector' => $this->params['inspector']
-		);
+		];
 
-		$requireHeadItem = array ( $ID => FormatJson::encode( $output ) );
+		$requireHeadItem =  [ $ID => FormatJson::encode( $output ) ];
 		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		SMWOutputs::requireResource( 'ext.jquery.jplayer.skin.' . $this->params['theme'] );
@@ -292,16 +292,16 @@ class MediaPlayer extends ResultPrinter {
 
 		return Html::rawElement(
 			'div',
-			array(
+			[
 				'class' => $this->params['class'] !== '' ? 'srf-media ' . $this->params['class'] : 'srf-media'
-			),
+			],
 			$processing . Html::element(
 				'div',
-				array(
+				[
 					'id' => $ID,
 					'class' => 'media-container',
 					'style' => 'display:none;'
-				),
+				],
 				null
 			)
 		);
@@ -319,22 +319,22 @@ class MediaPlayer extends ResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['theme'] = array(
+		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'blue.monday',
-			'values' => array( 'blue.monday', 'morning.light' ),
-		);
+			'values' => [ 'blue.monday', 'morning.light' ],
+		];
 
-		$params['inspector'] = array(
+		$params['inspector'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-mediainspector',
 			'default' => false,
-		);
+		];
 
 		return $params;
 	}

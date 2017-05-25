@@ -60,10 +60,10 @@ class EventCalendar extends ApiResultPrinter {
 		// Element includes info, spinner, and container placeholder
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'srf-eventcalendar', 'data-external-class' => ( $this->params['class'] ? $this->params['class'] : '' ) ),
-				Html::element( 'div', array( 'class' => 'srf-top' ), '' ) .  $this->loading() . Html::element(
+			[ 'class' => 'srf-eventcalendar', 'data-external-class' => ( $this->params['class'] ? $this->params['class'] : '' ) ],
+				Html::element( 'div', [ 'class' => 'srf-top' ], '' ) .  $this->loading() . Html::element(
 				'div',
-				array( 'id' => $id, 'class' => 'srf-container', 'style' => 'display:none;' ),
+				[ 'id' => $id, 'class' => 'srf-container', 'style' => 'display:none;' ],
 				''
 			)
 		);
@@ -81,51 +81,51 @@ class EventCalendar extends ApiResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['defaultview'] = array(
+		$params['defaultview'] = [
 			'message' => 'srf-paramdesc-calendardefaultview',
 			'default' => 'month',
-			'values' => array ( 'month', 'basicweek', 'basicday', 'agendaweek', 'agendaday' )
-		);
+			'values' =>  [ 'month', 'basicweek', 'basicday', 'agendaweek', 'agendaday' ]
+		];
 
-		$params['firstday'] = array(
+		$params['firstday'] = [
 			'message' => 'srf-paramdesc-calendarfirstday',
 			'default' => 'Sunday',
-			'values' => array ( "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" )
-		);
+			'values' =>  [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
+		];
 
-		$params['start'] = array(
+		$params['start'] = [
 			'message' => 'srf-paramdesc-calendarstart',
 			'default' => 'current',
-			'values' => array ( 'current', 'earliest', 'latest' )
-		);
+			'values' =>  [ 'current', 'earliest', 'latest' ]
+		];
 
-		$params['legend'] = array(
+		$params['legend'] = [
 			'message' => 'srf-paramdesc-calendarlegend',
 			'default' => 'none',
-			'values' => array ( 'none', 'top', 'bottom', 'tooltip', 'pane' )
-		);
+			'values' =>  [ 'none', 'top', 'bottom', 'tooltip', 'pane' ]
+		];
 
-		$params['dayview'] = array(
+		$params['dayview'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-dayview',
 			'default' => false
-		);
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
-		$params['theme'] = array(
+		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'basic',
-			'values' => array ( 'basic', 'vector' )
-		);
+			'values' =>  [ 'basic', 'vector' ]
+		];
 
-		$params['clicktarget'] = array(
+		$params['clicktarget'] = [
 			'message' => 'srf-paramdesc-clicktarget',
 			'default' => 'none'
-		);		
+		];		
 		return $params;
 	}
 }

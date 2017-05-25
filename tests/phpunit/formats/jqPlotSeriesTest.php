@@ -30,7 +30,7 @@ class jqPlotSeriesTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'jqplotseries' );
+		return [ 'jqplotseries' ];
 	}
 
 	/**

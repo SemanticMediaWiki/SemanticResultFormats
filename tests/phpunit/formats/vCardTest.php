@@ -30,7 +30,7 @@ class vCardTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'vcard' );
+		return [ 'vcard' ];
 	}
 
 	/**

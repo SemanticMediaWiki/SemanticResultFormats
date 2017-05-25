@@ -19,7 +19,7 @@ class SRFCalendar extends SMWResultPrinter {
 	protected $mStartYear;
 
 	protected function setColors( $colorsText ) {
-		$colors = array();
+		$colors = [];
 		$colorElements = explode( ',', $colorsText );
 		foreach ( $colorElements as $colorElem ) {
 			$propAndColor = explode( '=>', $colorElem );
@@ -79,11 +79,11 @@ class SRFCalendar extends SMWResultPrinter {
 	 * @todo Split up megamoth
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		$events = array();
+		$events = [];
 
 		// Print all result rows.
 		while ( $row = $res->getNext() ) {
-			$dates = array();
+			$dates = [];
 			$title = $text = $color = '';
 
 			if ( $this->mTemplate != '' ) {
@@ -123,7 +123,7 @@ class SRFCalendar extends SMWResultPrinter {
 						) {
 							$datePropLabel = $pr->getLabel();
 							if ( !array_key_exists( $datePropLabel, $dates ) ) {
-								$dates[$datePropLabel] = array();
+								$dates[$datePropLabel] = [];
 							}
 							$dates[$datePropLabel][] =
 								$this->formatDateStr( $object );
@@ -194,7 +194,7 @@ class SRFCalendar extends SMWResultPrinter {
 						) {
 							$datePropLabel = $pr->getLabel();
 							if ( !array_key_exists( $datePropLabel, $dates ) ) {
-								$dates[$datePropLabel] = array();
+								$dates[$datePropLabel] = [];
 							}
 							$dates[$datePropLabel][] =
 								$this->formatDateStr( $object );
@@ -252,7 +252,7 @@ class SRFCalendar extends SMWResultPrinter {
 						if ( array_key_exists( $label, $this->mColors ) ) {
 							$curColor = $this->mColors[$label];
 						}
-						$events[] = array( $title, $curText, $date, $curColor );
+						$events[] = [ $title, $curText, $date, $curColor ];
 					}
 				}
 			}
@@ -272,12 +272,12 @@ class SRFCalendar extends SMWResultPrinter {
 		if ( is_null( $wgParser->getTitle() ) ) {
 			return $result;
 		} else {
-			return array( $result, 'noparse' => 'true', 'isHTML' => 'true' );
+			return [ $result, 'noparse' => 'true', 'isHTML' => 'true' ];
 		}
 	}
 
 	protected static function intToMonth( $int ) {
-		$months = array(
+		$months = [
 			'1' => 'january',
 			'2' => 'february',
 			'3' => 'march',
@@ -290,7 +290,7 @@ class SRFCalendar extends SMWResultPrinter {
 			'10' => 'october',
 			'11' => 'november',
 			'12' => 'december',
-		);
+		];
 
 		return wfMessage( array_key_exists( $int, $months )
 			? $months[$int]
@@ -315,13 +315,13 @@ class SRFCalendar extends SMWResultPrinter {
 			$wgParser->disableCache();
 		}
 
-		$context->getOutput()->addLink( array(
+		$context->getOutput()->addLink( [
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
 			'media' => 'screen, print',
 			'href' => $srfgScriptPath
 			. '/formats/calendar/resources/ext.srf.calendar.css'
-		) );
+		] );
 
 		// Set variables differently depending on whether this is
 		// being called from a regular page, via #ask, or from a
@@ -362,7 +362,7 @@ class SRFCalendar extends SMWResultPrinter {
 		}
 
 		// Set days of the week.
-		$weekDayNames = array(
+		$weekDayNames = [
 			1 => wfMessage( 'sunday' )->text(),
 			2 => wfMessage( 'monday' )->text(),
 			3 => wfMessage( 'tuesday' )->text(),
@@ -370,7 +370,7 @@ class SRFCalendar extends SMWResultPrinter {
 			5 => wfMessage( 'thursday' )->text(),
 			6 => wfMessage( 'friday' )->text(),
 			7 => wfMessage( 'saturday' )->text()
-		);
+		];
 		if ( empty( $srfgFirstDayOfWeek ) ) {
 			$firstDayOfWeek = 1;
 			$lastDayOfWeek = 7;
@@ -392,7 +392,7 @@ class SRFCalendar extends SMWResultPrinter {
 
 		// Now create the actual array of days of the week, based on
 		// the start day
-		$weekDays = array();
+		$weekDays = [];
 		for ( $i = 1; $i <= 7; $i++ ) {
 			$curDay = ( ( $firstDayOfWeek + $i - 2 ) % 7 ) + 1;
 			$weekDays[$i] = $weekDayNames[$curDay];
@@ -581,7 +581,7 @@ END;
 			// and display them in this date's box.
 			$text .= "<div class=\"main\">\n";
 			if ( $events == null ) {
-				$events = array();
+				$events = [];
 			}
 			foreach ( $events as $event ) {
 				list( $eventTitle, $otherText, $eventDate, $color ) = $event;
@@ -637,41 +637,41 @@ END;
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['lang'] = array(
+		$params['lang'] = [
 			'message' => 'srf_paramdesc_calendarlang',
 			'default' => false,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['template'] = array(
+		$params['template'] = [
 			'message' => 'srf-paramdesc-template',
 			'default' => '',
-		);
+		];
 
-		$params['userparam'] = array(
+		$params['userparam'] = [
 			'message' => 'srf-paramdesc-userparam',
 			'default' => '',
-		);
+		];
 
-		$params['color'] = array(
+		$params['color'] = [
 			'message' => 'srf-paramdesc-color',
 			'default' => '',
-		);
+		];
 
-		$params['colors'] = array(
+		$params['colors'] = [
 			'message' => 'srf_paramdesc_calendarcolors',
 			'default' => '',
-		);
+		];
 
-		$params['startmonth'] = array(
+		$params['startmonth'] = [
 			'message' => 'srf-paramdesc-calendar-startmonth',
 			'default' => date( 'n' ),
-		);
+		];
 
-		$params['startyear'] = array(
+		$params['startyear'] = [
 			'message' => 'srf-paramdesc-calendar-startyear',
 			'default' => date( 'Y' ),
-		);
+		];
 
 		return $params;
 	}

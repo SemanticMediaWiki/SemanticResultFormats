@@ -45,9 +45,9 @@ class Gallery extends ResultPrinter {
 
 		// Intro/outro are not planned to work with the widget option
 		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ){
-			return $results->addErrors( array(
+			return $results->addErrors( [
 				$this->getContext()->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
-			) );
+			] );
 		};
 
 		return $this->getResultText( $results, $this->outputMode );
@@ -88,10 +88,10 @@ class Gallery extends ResultPrinter {
 		} else {
 
 			// Standard gallery attributes
-			$attribs = array(
+			$attribs = [
 				'id' => uniqid(),
 				'class' => $this->getImageOverlay(),
-			);
+			];
 
 			$ig->setAttributes( $attribs );
 		}
@@ -115,7 +115,7 @@ class Gallery extends ResultPrinter {
 			$ig->setHeights( $this->params['heights'] );
 		}
 
-		$printReqLabels = array();
+		$printReqLabels = [];
 		$redirectType = '';
 
 		/**
@@ -160,12 +160,12 @@ class Gallery extends ResultPrinter {
 
 		// Separate content from result output
 		if ( !$ig->isEmpty() ) {
-			$attribs = array (
+			$attribs =  [
 				'class'  => 'srf-gallery' . $class,
 				'align'  => 'justify',
 				'data-redirect-type' => $redirectType,
 				'data-ns-text' => $this->getFileNsTextForPageLanguage()
-			);
+			];
 
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
 		}
@@ -175,7 +175,7 @@ class Gallery extends ResultPrinter {
 			$html .= $this->getLink( $results, SMW_OUTPUT_HTML )->getText( SMW_OUTPUT_HTML, $this->mLinker );
 		}
 
-		return array( $html, 'nowiki' => true, 'isHTML' => true );
+		return [ $html, 'nowiki' => true, 'isHTML' => true ];
 	}
 
 	/**
@@ -192,9 +192,9 @@ class Gallery extends ResultPrinter {
 	 */
 	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
 		while ( /* array of SMWResultArray */ $rows = $results->getNext() ) { // Objects (pages)
-			$images = array();
-			$captions = array();
-			$redirects = array();
+			$images = [];
+			$captions = [];
+			$redirects = [];
 
 			for ( $i = 0, $n = count( $rows ); $i < $n; $i++ ) { // Properties
 				/**
@@ -345,11 +345,11 @@ class Gallery extends ResultPrinter {
 	private function getCarouselWidget() {
 
 		// Set attributes for jcarousel
-		$dataAttribs = array(
+		$dataAttribs = [
 			'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
 			'vertical' => 'false', // Orientation: vertical = false means horizontal
 			'rtl' => 'false', // Directionality: rtl = false means ltr
-		);
+		];
 
 		// Use the perrow parameter to determine the scroll sequence.
 		if ( empty( $this->params['perrow'] ) ) {
@@ -359,11 +359,11 @@ class Gallery extends ResultPrinter {
 			$dataAttribs['visible'] = $this->params['perrow'];
 		}
 
-		$attribs = array(
+		$attribs = [
 			'id' => uniqid(),
 			'class' => 'jcarousel jcarousel-skin-smw' . $this->getImageOverlay(),
 			'style' => 'display:none;',
-		);
+		];
 
 		foreach ( $dataAttribs as $name => $value ) {
 			$attribs['data-' . $name] = $value;
@@ -384,12 +384,12 @@ class Gallery extends ResultPrinter {
 	 */
 	private function getSlideshowWidget() {
 
-		$attribs = array(
+		$attribs = [
 			'id'    => uniqid(),
 			'class' => $this->getImageOverlay(),
 			'style' => 'display:none;',
 			'data-nav-control' => $this->params['navigation']
-		);
+		];
 
 		SMWOutputs::requireResource( 'ext.srf.gallery.slideshow' );
 
@@ -408,79 +408,79 @@ class Gallery extends ResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['class'] = array(
+		$params['class'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-class',
 			'default' => ''
-		);
+		];
 
-		$params['widget'] = array(
+		$params['widget'] = [
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf-paramdesc-widget',
-			'values' => array( 'carousel', 'slideshow', '' )
-		);
+			'values' => [ 'carousel', 'slideshow', '' ]
+		];
 
-		$params['navigation'] = array(
+		$params['navigation'] = [
 			'type' => 'string',
 			'default' => 'nav',
 			'message' => 'srf-paramdesc-navigation',
-			'values' => array( 'nav', 'pager', 'auto' )
-		);
+			'values' => [ 'nav', 'pager', 'auto' ]
+		];
 
-		$params['overlay'] = array(
+		$params['overlay'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-overlay'
-		);
+		];
 
-		$params['perrow'] = array(
+		$params['perrow'] = [
 			'type' => 'integer',
 			'default' => '',
 			'message' => 'srf_paramdesc_perrow'
-		);
+		];
 
-		$params['widths'] = array(
+		$params['widths'] = [
 			'type' => 'integer',
 			'default' => '',
 			'message' => 'srf_paramdesc_widths'
-		);
+		];
 
-		$params['heights'] = array(
+		$params['heights'] = [
 			'type' => 'integer',
 			'default' => '',
 			'message' => 'srf_paramdesc_heights'
-		);
+		];
 
-		$params['autocaptions'] = array(
+		$params['autocaptions'] = [
 			'type' => 'boolean',
 			'default' => true,
 			'message' => 'srf_paramdesc_autocaptions'
-		);
+		];
 
-		$params['fileextensions'] = array(
+		$params['fileextensions'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf_paramdesc_fileextensions'
-		);
+		];
 
-		$params['captionproperty'] = array(
+		$params['captionproperty'] = [
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf_paramdesc_captionproperty'
-		);
+		];
 
-		$params['imageproperty'] = array(
+		$params['imageproperty'] = [
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf_paramdesc_imageproperty'
-		);
+		];
 
-		$params['redirects'] = array(
+		$params['redirects'] = [
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf-paramdesc-redirects'
-		);
+		];
 
 		return $params;
 	}

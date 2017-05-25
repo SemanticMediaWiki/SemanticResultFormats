@@ -33,16 +33,16 @@ class SRFSlideShow extends SMWResultPrinter {
 		$id = uniqid();
 
 		// build an array of article IDs contained in the result set
-		$objects = array();
+		$objects = [];
 		foreach ( $res->getResults() as $key => $object ) {
 
-			$objects[] = array( $object->getTitle()->getArticleId() );
+			$objects[] = [ $object->getTitle()->getArticleId() ];
 
 			$html .= $key . ': ' . $object->getSerialization() . "<br>\n";
 		}
 
 		// build an array of data about the printrequests
-		$printrequests = array();
+		$printrequests = [];
 		foreach ( $res->getPrintRequests() as $key => $printrequest ) {
 			$data = $printrequest->getData();
 			if ( $data instanceof SMWPropertyValue ) {
@@ -50,13 +50,13 @@ class SRFSlideShow extends SMWResultPrinter {
 			} else {
 				$name = null;
 			}
-			$printrequests[] = array(
+			$printrequests[] = [
 				$printrequest->getMode(),
 				$printrequest->getLabel(),
 				$name,
 				$printrequest->getOutputFormat(),
 				$printrequest->getParameters(),
-			);
+			];
 
 		}
 
@@ -69,7 +69,7 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		SMWOutputs::requireScript( 'srf_slideshow' . $id, Html::inlineScript(
 				'srf_slideshow["' . $id . '"] = ' . json_encode(
-					array(
+					[
 						$objects,
 						$this->params['template'],
 						$this->params['delay'] * 1000,
@@ -78,7 +78,7 @@ class SRFSlideShow extends SMWResultPrinter {
 						$this->params['nav controls'],
 						$this->params['effect'],
 						json_encode( $printrequests ) ,
-					)
+					]
 				) . ';'
 			)
 		);
@@ -91,10 +91,10 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		return Html::element(
 			'div',
-			array(
+			[
 				'id' => $id,
 				'class' => 'srf-slideshow ' . $id . ' ' . $this->params['class']
-			)
+			]
 		);
 	}
 
@@ -122,46 +122,46 @@ class SRFSlideShow extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['template'] = array(
+		$params['template'] = [
 			'default' => '',
 			'message' => 'smw_paramdesc_template',
-		);
+		];
 
 		// TODO: Implement named args
 //		$params['named args'] = new Parameter( 'named args', Parameter::TYPE_BOOLEAN, false );
 //		$params['named args']->setMessage( 'smw_paramdesc_named_args' );
 
-		$params['class'] = array(
+		$params['class'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-class',
-		);
+		];
 
-		$params['height'] = array(
+		$params['height'] = [
 			'default' => '100px',
 			'message' => 'srf-paramdesc-height',
-		);
+		];
 
-		$params['width'] = array(
+		$params['width'] = [
 			'default' => '200px',
 			'message' => 'srf-paramdesc-width',
-		);
+		];
 
-		$params['delay'] = array(
+		$params['delay'] = [
 			'type' => 'integer',
 			'default' => 5,
 			'message' => 'srf-paramdesc-delay',
-		);
+		];
 
-		$params['nav controls'] = array(
+		$params['nav controls'] = [
 			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-navigation-controls',
-		);
+		];
 
-		$params['effect'] = array(
+		$params['effect'] = [
 			'default' => 'none',
 			'message' => 'srf-paramdesc-effect',
-			'values' => array(
+			'values' => [
 				'none',
 				'slide left',
 				'slide right',
@@ -169,8 +169,8 @@ class SRFSlideShow extends SMWResultPrinter {
 				'slide down',
 				'fade',
 				'hide',
-			),
-		);
+			],
+		];
 
 		return $params;
 	}

@@ -29,7 +29,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	protected function getFormatOutput( array $data ) {
 
 		//Init
-		$dataObject = array();
+		$dataObject = [];
 
 		static $statNr = 0;
 		$chartID = 'sparkline-' . $this->params['charttype'] . '-' . ++$statNr;
@@ -47,7 +47,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$dataObject['charttype'] = $this->params['charttype'];
 
 		// Encode data objects
-		$requireHeadItem = array ( $chartID => FormatJson::encode( $dataObject ) );
+		$requireHeadItem =  [ $chartID => FormatJson::encode( $dataObject ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript($requireHeadItem ) );
 
 		// RL module
@@ -57,20 +57,20 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$processing = SRFUtils::htmlProcessingElement( false );
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', array(
+		$chart = Html::rawElement( 'div', [
 			'id'    => $chartID,
 			'class' => 'sparkline-container',
 			'style' => "display:none;"
-			), null
+			], null
 		);
 
 		// Beautify class selector
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : '';
 
 		// Chart/graph wrappper
-		return Html::rawElement( 'span', array(
+		return Html::rawElement( 'span', [
 			'class' => 'srf-sparkline' . $class,
-			), $processing . $chart
+			], $processing . $chart
 		);
 	}
 
@@ -86,23 +86,23 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['min'] = array(
+		$params['min'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-minvalue',
 			'default' => false,
 			'manipulatedefault' => false,
-		);
+		];
 
-		$params['charttype'] = array(
+		$params['charttype'] = [
 			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
-			'values' => array ( 'bar', 'line', 'pie', 'discrete' )
-		);
+			'values' =>  [ 'bar', 'line', 'pie', 'discrete' ]
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}

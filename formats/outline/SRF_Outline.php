@@ -15,14 +15,14 @@ class SRFOutlineItem {
 
 	function __construct( $row ) {
 		$this->mRow = $row;
-		$this->mVals = array();
+		$this->mVals = [];
 	}
 
 	function addFieldValue( $field_name, $field_val ) {
 		if ( array_key_exists( $field_name, $this->mVals ) ) {
 			$this->mVals[$field_name][] = $field_val;
 		} else {
-			$this->mVals[$field_name] = array( $field_val );
+			$this->mVals[$field_name] = [ $field_val ];
 		}
 	}
 
@@ -30,7 +30,7 @@ class SRFOutlineItem {
 		if ( array_key_exists( $field_name, $this->mVals ) )
 			return $this->mVals[$field_name];
 		else {
-			return array( wfMessage( 'srf_outline_novalue' )->text() );
+			return [ wfMessage( 'srf_outline_novalue' )->text() ];
 		}
 	}
 }
@@ -42,8 +42,8 @@ class SRFOutlineTree {
 	var $mTree;
 	var $mUnsortedItems;
 
-	function __construct( $items = array() ) {
-		$this->mTree = array();
+	function __construct( $items = [] ) {
+		$this->mTree = [];
 		$this->mUnsortedItems = $items;
 	}
 
@@ -56,7 +56,7 @@ class SRFOutlineTree {
 			if ( array_key_exists( $val, $this->mTree ) ) {
 				$this->mTree[$val]->mUnsortedItems[] = $item;
 			} else {
-				$this->mTree[$val] = new SRFOutlineTree( array( $item ) );
+				$this->mTree[$val] = new SRFOutlineTree( [ $item ] );
 			}
 		}
 	}
@@ -77,7 +77,7 @@ class SRFOutlineTree {
 }
 
 class SRFOutline extends SMWResultPrinter {
-	protected $mOutlineProperties = array();
+	protected $mOutlineProperties = [];
 	protected $mInnerFormat = '';
 
 	protected function handleParameters( array $params, $outputmode ) {
@@ -98,7 +98,7 @@ class SRFOutline extends SMWResultPrinter {
 		$result = "";
 		foreach ( $item->mRow as $orig_ra ) {
 			// handling is somewhat simpler for SMW 1.5+
-			$realFunction = array( 'SMWQueryResult', 'getResults' );
+			$realFunction = [ 'SMWQueryResult', 'getResults' ];
 			if ( is_callable( $realFunction ) ) {
 				// make a new copy of this, so that the call to
 				// getNextText() will work again
@@ -172,7 +172,7 @@ class SRFOutline extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		$print_fields = array();
+		$print_fields = [];
 		foreach ( $res->getPrintRequests() as $pr ) {
 			$field_name = $pr->getText( $outputmode, $this->mLinker );
 			// only print it if it's not already part of the
@@ -235,11 +235,11 @@ class SRFOutline extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['outlineproperties'] = array(
+		$params['outlineproperties'] = [
 			'islist' => true,
-			'default' => array(),
+			'default' => [],
 			'message' => 'srf_paramdesc_outlineproperties',
-		);
+		];
 
 		return $params;
 	}

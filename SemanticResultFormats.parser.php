@@ -16,8 +16,8 @@
 class SRFParserFunctions {
 
 	static function registerFunctions( &$parser ) {
-		$parser->setFunctionHook( 'calendarstartdate', array( 'SRFParserFunctions', 'runCalendarStartDate' ) );
-		$parser->setFunctionHook( 'calendarenddate', array( 'SRFParserFunctions', 'runCalendarEndDate' ) );
+		$parser->setFunctionHook( 'calendarstartdate', [ 'SRFParserFunctions', 'runCalendarStartDate' ] );
+		$parser->setFunctionHook( 'calendarenddate', [ 'SRFParserFunctions', 'runCalendarEndDate' ] );
 		return true;
 	}
 
@@ -162,7 +162,7 @@ class SRFParserFunctions {
 		// Add a day since users will need to use < operator for upper date.
 		$upper_date += 86400;
 
-		return array( $lower_date, $upper_date, $return_date );
+		return [ $lower_date, $upper_date, $return_date ];
 	}
 
 }

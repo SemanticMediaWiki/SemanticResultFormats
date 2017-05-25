@@ -21,10 +21,10 @@ class SRFHash extends SRFArray {
 	protected function deliverPageProperties( $perProperty_items ) {
 		if( count( $perProperty_items ) < 1 )
 			return null;
-		return array( $this->mLastPageTitle, implode( $this->mPropSep, $perProperty_items ) );
+		return [ $this->mLastPageTitle, implode( $this->mPropSep, $perProperty_items ) ];
 	}
 	protected function deliverQueryResultPages( $perPage_items ) {
-		$hash = array();
+		$hash = [];
 		foreach( $perPage_items as $page ) {
 			$hash[ $page[0] ] = $page[1];  //name of page as key, Properties as value
 		}

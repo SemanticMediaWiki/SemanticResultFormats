@@ -30,7 +30,7 @@ class IncomingTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return array( 'incoming' );
+		return [ 'incoming' ];
 	}
 
 	/**

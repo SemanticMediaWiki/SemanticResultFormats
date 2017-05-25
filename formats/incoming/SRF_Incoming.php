@@ -34,11 +34,11 @@ class SRFIncoming extends SMWResultPrinter {
 		$data = $this->getResultData( $result, $outputmode );
 
 		// Bailout if we have no results
-		if ( $data === array() ){
+		if ( $data === [] ){
 			if ( $this->params['default'] !== '' ) {
 				return $this->escapeText( $this->params['default'], $outputmode );
 			} else {
-				$result->addErrors( array( wfMessage( 'smw_result_noresults' )->inContentLanguage()->text() ) );
+				$result->addErrors( [ wfMessage( 'smw_result_noresults' )->inContentLanguage()->text() ] );
 				return '';
 			}
 		} else {
@@ -56,7 +56,7 @@ class SRFIncoming extends SMWResultPrinter {
 	 */
 	protected function getResultData( SMWQueryResult $res, $outputMode ) {
 		// Init
-		$properties = array();
+		$properties = [];
 		$excludeProperties = explode( $this->params['sep'], $this->params['exclude'] );
 
 		// Options used when retrieving data from the store
@@ -142,7 +142,7 @@ class SRFIncoming extends SMWResultPrinter {
 		// Output
 		return Html::rawElement(
 			'div',
-			array ( 'class' => $class ),
+			 [ 'class' => $class ],
 			$result
 		);
 	}
@@ -159,36 +159,36 @@ class SRFIncoming extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['sep'] = array(
+		$params['sep'] = [
 			'message' => 'smw-paramdesc-sep',
 			'default' => ',',
-		);
+		];
 
-		$params['exclude'] = array(
+		$params['exclude'] = [
 			'message' => 'srf-paramdesc-excludeproperty',
 			'default' => '',
-		);
+		];
 
-		$params['min'] = array(
+		$params['min'] = [
 			'message' => 'srf-paramdesc-min',
 			'default' => '',
-		);
+		];
 
-		$params['template'] = array(
+		$params['template'] = [
 			'message' => 'smw-paramdesc-template',
 			'default' => '',
-		);
+		];
 
-		$params['userparam'] = array(
+		$params['userparam'] = [
 			'message' => 'smw-paramdesc-userparam',
 			'default' => '',
-		);
+		];
 
-		$params['count'] = array(
+		$params['count'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-count',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}

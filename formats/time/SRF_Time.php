@@ -57,7 +57,7 @@ class SRFTime extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getSortKeys( SMWQueryResult $res ) {
-		$seconds = array();
+		$seconds = [];
 
 		while ( $row = $res->getNext() ) {
 			foreach( $row as /* SMWResultArray */ $resultArray ) {
@@ -84,17 +84,17 @@ class SRFTime extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['limit'] = array(
+		$params['limit'] = [
 			'type' => 'integer',
 			'default' => 1000,
 			'message' => 'srf_paramdesc_limit',
-		);
+		];
 
-		$params['default'] = array(
+		$params['default'] = [
 			'type' => 'integer',
 			'default' => '',
 			'message' => 'srf-paramdesc-default',
-		);
+		];
 
 		return $params;
 	}

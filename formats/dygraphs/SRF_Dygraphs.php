@@ -37,8 +37,8 @@ class SRFDygraphs extends SMWResultPrinter {
 		$data = $this->getResultData( $result, $outputMode );
 
 		// Post-data processing check
-		if ( $data === array() ) {
-			return $result->addErrors( array( wfMessage( 'srf-warn-empy-chart' )->inContentLanguage()->text() ) );
+		if ( $data === [] ) {
+			return $result->addErrors( [ wfMessage( 'srf-warn-empy-chart' )->inContentLanguage()->text() ] );
 		} else {
 			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
 			return $this->getFormatOutput( $data, $options );
@@ -56,10 +56,10 @@ class SRFDygraphs extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getResultData( SMWQueryResult $result, $outputMode ) {
-		$aggregatedValues = array();
+		$aggregatedValues = [];
 		
 		while ( $rows = $result->getNext() ) { // Objects (pages)
-			$annotation = array();
+			$annotation = [];
 			$dataSource = false;
 
 			/**
@@ -113,7 +113,7 @@ class SRFDygraphs extends SMWResultPrinter {
 					// shortText -> Text that will appear as annotation flag
 					// text -> A longer description of the annotation
 					// @see  http://dygraphs.com/annotations.html
-					if ( in_array( $propertyLabel, array( 'series', 'x', 'shortText', 'text' ) ) ){
+					if ( in_array( $propertyLabel, [ 'series', 'x', 'shortText', 'text' ] ) ){
 						if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ){
 							// Set unit if available
 							$dataValue->setOutputFormat( $this->params['unit'] );
@@ -126,7 +126,7 @@ class SRFDygraphs extends SMWResultPrinter {
 				}
 			}
 			// Sum-up collected row items in a single array
-			if ( $annotation !== array() ){
+			if ( $annotation !== [] ){
 				$aggregatedValues['annotation'][] =  $annotation;
 			}
 		}
@@ -153,17 +153,17 @@ class SRFDygraphs extends SMWResultPrinter {
 		// Reorganize the raw data
 		if ( $this->params['datasource'] === 'page' ){
 			foreach ( $data as $key => $values ) {
-				$dataObject[] = array ( 'label' => $key, 'data' => $values );
+				$dataObject[] =  [ 'label' => $key, 'data' => $values ];
 			}
 		}else{
 				$dataObject['source'] = $data;
 		}
 
 		// Prepare transfer array
-		$chartData = array (
+		$chartData =  [
 			'data' => $dataObject,
 			'sask' => $options['sask'],
-			'parameters' => array (
+			'parameters' =>  [
 				'width'        => $this->params['width'],
 				'height'       => $this->params['height'],
 				'xlabel'       => $this->params['xlabel'],
@@ -175,11 +175,11 @@ class SRFDygraphs extends SMWResultPrinter {
 				'rollerperiod' => $this->params['mavg'],
 				'gridview'    => $this->params['gridview'],
 				'errorbar'     => $this->params['errorbar'],
-			)
-		);
+			]
+		];
 
 		// Array encoding and output
-		$requireHeadItem = array ( $chartID => FormatJson::encode( $chartData ) );
+		$requireHeadItem =  [ $chartID => FormatJson::encode( $chartData ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		SMWOutputs::requireResource( 'ext.srf.dygraphs' );
@@ -191,7 +191,7 @@ class SRFDygraphs extends SMWResultPrinter {
 		// Chart/graph placeholder
 		$chart = Html::rawElement(
 			'div',
-			array('id' => $chartID, 'class' => 'container', 'style' => "display:none;" ),
+			['id' => $chartID, 'class' => 'container', 'style' => "display:none;" ],
 			null
 		);
 
@@ -204,7 +204,7 @@ class SRFDygraphs extends SMWResultPrinter {
 		// General output marker
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'srf-dygraphs' . $class	),
+			[ 'class' => 'srf-dygraphs' . $class	],
 			$processing . $chart
 		);
 	}
@@ -221,88 +221,88 @@ class SRFDygraphs extends SMWResultPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params['datasource'] = array(
+		$params['datasource'] = [
 			'message' => 'srf-paramdesc-datasource',
 			'default' => 'file',
-			'values' => array( 'file', 'raw', 'url' ),
-		);
+			'values' => [ 'file', 'raw', 'url' ],
+		];
 
-		$params['errorbar'] = array(
+		$params['errorbar'] = [
 			'message' => 'srf-paramdesc-errorbar',
 			'default' => '',
-			'values' => array( 'fraction', 'sigma', 'range' ),
-		);
+			'values' => [ 'fraction', 'sigma', 'range' ],
+		];
 
-		$params['min'] = array(
+		$params['min'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-minvalue',
 			'default' => '',
-		);
+		];
 
-		$params['mavg'] = array(
+		$params['mavg'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-movingaverage',
 			'default' => 14,
 			'lowerbound' => 0,
-		);
+		];
 
-		$params['gridview'] = array(
+		$params['gridview'] = [
 			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
-			'values' => array( 'none' , 'tabs' ),
-		);
+			'values' => [ 'none' , 'tabs' ],
+		];
 
-		$params['infotext'] = array(
+		$params['infotext'] = [
 			'message' => 'srf-paramdesc-infotext',
 			'default' => '',
-		);
+		];
 
-		$params['unit'] = array(
+		$params['unit'] = [
 			'message' => 'srf-paramdesc-unit',
 			'default' => '',
-		);
+		];
 
-		$params['height'] = array(
+		$params['height'] = [
 			'type' => 'integer',
 			'message' => 'srf_paramdesc_chartheight',
 			'default' => 400,
 			'lowerbound' => 1,
-		);
+		];
 
-		$params['width'] = array(
+		$params['width'] = [
 			'message' => 'srf_paramdesc_chartwidth',
 			'default' => '100%',
-		);
+		];
 
-		$params['charttitle'] = array(
+		$params['charttitle'] = [
 			'message' => 'srf_paramdesc_charttitle',
 			'default' => '',
-		);
+		];
 
-		$params['charttext'] = array(
+		$params['charttext'] = [
 			'message' => 'srf-paramdesc-charttext',
 			'default' => '',
-		);
+		];
 
-		$params['infotext'] = array(
+		$params['infotext'] = [
 			'message' => 'srf-paramdesc-infotext',
 			'default' => '',
-		);
+		];
 
-		$params['ylabel'] = array(
+		$params['ylabel'] = [
 			'message' => 'srf-paramdesc-yaxislabel',
 			'default' => '',
-		);
+		];
 
-		$params['xlabel'] = array(
+		$params['xlabel'] = [
 			'message' => 'srf-paramdesc-xaxislabel',
 			'default' => '',
-		);
+		];
 
-		$params['class'] = array(
+		$params['class'] = [
 			'message' => 'srf-paramdesc-class',
 			'default' => '',
-		);
+		];
 
 		return $params;
 	}
