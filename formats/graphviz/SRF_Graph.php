@@ -112,7 +112,7 @@ class SRFGraph extends SMWResultPrinter {
 		$graphInput .= "}";
 		
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
-		$result = GraphViz::graphvizParserHook( $graphInput, "", $GLOBALS['wgParser'] );
+		$result = GraphViz::graphvizParserHook( $graphInput, "", $GLOBALS['wgParser'], "" );
 		
 		if ( $this->m_graphLegend && $this->m_graphColor ) {
 			$arrayCount = 0;
