@@ -834,7 +834,7 @@ return [
 
 	// Register the jplayer skin
 	'ext.jquery.jplayer.skin.morning.light' => $moduleTemplate + [
-		'styles' => 'resources/jquery/jplayer/skin/morning.light/css/jplayer.morning.light.css',
+		'styles' => 'resources/jquery/jplayer/skin/morning.light/jplayer.morning.light.css',
 	],
 
 	// Register the jplayer playlist js
