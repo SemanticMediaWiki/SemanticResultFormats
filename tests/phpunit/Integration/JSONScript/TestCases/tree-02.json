@@ -1,0 +1,48 @@
+{
+	"description": "Tree format: Simple one-page result",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has parent",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Part of",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Tree 1",
+			"contents": "[[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 02-01",
+			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "Tree 02-01 (Simple one-page result)",
+			"subject": "Example/Tree 02-01",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-tree\">\n<ul><li><a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a></li></ul>\n</div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

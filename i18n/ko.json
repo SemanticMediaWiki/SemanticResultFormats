@@ -123,7 +123,7 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "마지막",
 	"srf-ui-datatables-label-oPaginate-sNext": "다음",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "이전",
-	"srf-rootinvalid": "$1은 올바른 문서 제목이 아닙니다.",
+	"srf-tree-rootinvalid": "$1은 올바른 문서 제목이 아닙니다.",
 	"srf-printername-slideshow": "슬라이드쇼",
 	"srf-paramdesc-delay": "슬라이드 간 지연 (초 단위)",
 	"srf-paramdesc-navigation-controls": "탐색 컨트롤을 보이거나 보이지 않음",

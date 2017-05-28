@@ -44,6 +44,6 @@
 	"srf_paramdesc_chartwidth": "Dämm Dijajramm sing Breedt en Pixelle",
 	"srf_paramdesc_headersep": "Et Trännzeijschen zwesche dä nahme för Eijschaffte un däm Wäät för en Eijeschaff, wann dä Parramehter <code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">headers</code> obb ene Wäät „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">show</code>“ udder „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">plain</code>“ jesaz weed.",
 	"srf-printername-graph": "Dijajramm",
-	"srf_printername_ultree": "ene Boum met Leßte met Pongkte",
-	"srf_printername_oltree": "ene Boum met Leßte met Nommere"
+	"srf-printername-ultree": "ene Boum met Leßte met Pongkte",
+	"srf-printername-oltree": "ene Boum met Leßte met Nommere"
 }
