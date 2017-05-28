@@ -1,5 +1,3 @@
-///<reference types="jquery"/>
-
 import { View } from "./View";
 
 export class MapView extends View {

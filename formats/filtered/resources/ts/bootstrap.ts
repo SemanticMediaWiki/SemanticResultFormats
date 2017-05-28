@@ -1,5 +1,3 @@
-///<reference types="jquery"/>
-
 import { Filtered } from "./Filtered/Filtered";
 
 declare let mw: any;

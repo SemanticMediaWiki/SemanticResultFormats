@@ -1,5 +1,3 @@
-///<reference types="jquery"/>
-
 import { Options } from "../types";
 import { Controller } from "./Controller";
 import { ViewSelector } from "./ViewSelector";

@@ -1,6 +1,3 @@
-///<reference types="jquery"/>
-
-import { Options } from "../../types";
 import { Filter } from "./Filter";
 
 export class ValueFilter extends Filter {

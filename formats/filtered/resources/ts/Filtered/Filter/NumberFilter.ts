@@ -67,7 +67,7 @@ export class NumberFilter extends Filter {
 		let upperHandle = $( '<div class="ui-slider-handle ui-slider-handle-upper">' );
 		let selectHandle = $( '<div class="ui-slider-handle ui-slider-handle-select">' );
 
-		let slideroptions: any = {
+		let slideroptions: JQueryUI.SliderOptions = {
 			animate: true,
 			min: minValue,
 			max: maxValue,

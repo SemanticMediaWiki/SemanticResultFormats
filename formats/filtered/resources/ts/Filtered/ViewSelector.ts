@@ -1,5 +1,3 @@
-///<reference types="jquery"/>
-
 import { Controller } from "./Controller";
 export class ViewSelector {
 

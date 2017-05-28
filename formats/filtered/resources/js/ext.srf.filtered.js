@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
+var View_1 = require("./View/View");
 var Controller = (function () {
     function Controller(target, data) {
         this.target = undefined;
@@ -29,11 +30,17 @@ var Controller = (function () {
         }
         return this;
     };
+    Controller.prototype.getView = function (viewId) {
+        return this.views[viewId];
+    };
     Controller.prototype.attachFilter = function (filter) {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
         this.onFilterUpdated(filterId);
         return this;
+    };
+    Controller.prototype.getFilter = function (filterId) {
+        return this.filters[filterId];
     };
     Controller.prototype.show = function () {
         this.initializeFilters();
@@ -41,11 +48,13 @@ var Controller = (function () {
         this.switchToView(this.currentView);
     };
     Controller.prototype.switchToView = function (view) {
-        if (this.currentView !== undefined) {
+        if (this.currentView instanceof View_1.View) {
             this.currentView.hide();
         }
         this.currentView = view;
-        view.show();
+        if (this.currentView instanceof View_1.View) {
+            view.show();
+        }
     };
     Controller.prototype.initializeFilters = function () {
         var toShow = [];
@@ -115,7 +124,8 @@ var Controller = (function () {
     return Controller;
 }());
 exports.Controller = Controller;
-},{}],2:[function(require,module,exports){
+
+},{"./View/View":11}],2:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -169,22 +179,24 @@ var DistanceFilter = (function (_super) {
             '<td class="filtered-distance-max-cell">' + maxValue + '</td></tr>' +
             '<tr><td colspan=3 class="filtered-distance-unit-cell">' + unit + '</td></tr></tbody></table>');
         filtercontrols.append(table);
-        table
-            .find('.filtered-distance-slider').slider({
-            animate: true,
-            max: maxValue,
-            value: this.filterValue,
-            step: precision / 100
-        })
-            .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
-            eventObject.data.ui = ui;
-            eventObject.data.filter.onFilterUpdated(eventObject);
-        })
-            .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
-            readout.text(ui.value);
-        })
-            .find('.ui-slider-handle')
-            .append(readout);
+        mw.loader.using('jquery.ui.slider').then(function () {
+            table
+                .find('.filtered-distance-slider').slider({
+                animate: true,
+                max: maxValue,
+                value: this.filterValue,
+                step: precision / 100
+            })
+                .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
+                eventObject.data.ui = ui;
+                eventObject.data.filter.onFilterUpdated(eventObject);
+            })
+                .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
+                readout.text(ui.value);
+            })
+                .find('.ui-slider-handle')
+                .append(readout);
+        });
         return this;
     };
     DistanceFilter.prototype.updateDistances = function (origin) {
@@ -227,8 +239,8 @@ DistanceFilter.earthRadius = {
     Å: 63710088000000000
 };
 exports.DistanceFilter = DistanceFilter;
+
 },{"./Filter":3}],3:[function(require,module,exports){
-///<reference types="jquery"/>
 "use strict";
 exports.__esModule = true;
 var Filter = (function () {
@@ -257,7 +269,7 @@ var Filter = (function () {
             filtercontrols
                 .prepend(showControl_1)
                 .prepend(hideControl_1);
-            filtercontrols = $('<div class="filtered-value-collapsible">')
+            filtercontrols = $('<div class="filtered-collapsible">')
                 .appendTo(filtercontrols);
             var outercontrols_1 = filtercontrols;
             showControl_1.click(function () {
@@ -283,6 +295,7 @@ var Filter = (function () {
     return Filter;
 }());
 exports.Filter = Filter;
+
 },{}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -399,13 +412,15 @@ var NumberFilter = (function (_super) {
         table
             .find('.filtered-number-slider-cell')
             .append(sliderContainer);
-        sliderContainer.slider(slideroptions)
-            .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
-            eventObject.data.ui = ui;
-            eventObject.data.filter.onFilterUpdated(eventObject);
-        })
-            .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
-            ui.handle.firstElementChild.innerHTML = ui.value.toString();
+        mw.loader.using('jquery.ui.slider').then(function () {
+            sliderContainer.slider(slideroptions)
+                .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
+                eventObject.data.ui = ui;
+                eventObject.data.filter.onFilterUpdated(eventObject);
+            })
+                .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
+                ui.handle.firstElementChild.innerHTML = ui.value.toString();
+            });
         });
         return this;
     };
@@ -452,8 +467,8 @@ var NumberFilter = (function (_super) {
     return NumberFilter;
 }(Filter_1.Filter));
 exports.NumberFilter = NumberFilter;
+
 },{"./Filter":3}],5:[function(require,module,exports){
-///<reference types="jquery"/>
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -471,37 +486,35 @@ var ValueFilter = (function (_super) {
     __extends(ValueFilter, _super);
     function ValueFilter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.values = {};
         _this.visibleValues = [];
         _this._useOr = true;
         return _this;
     }
     ValueFilter.prototype.init = function () {
-        this.values = this.getSortedValues();
         this.buildControl();
     };
     ValueFilter.prototype.useOr = function (useOr) {
         this._useOr = useOr;
         this.controller.onFilterUpdated(this.getId());
     };
-    ValueFilter.prototype.getSortedValues = function () {
+    ValueFilter.prototype.getAllowedValues = function () {
         /** Map of value => label distinct values */
         var distinctValues = {};
         if (this.options.hasOwnProperty('values')) {
-            return this.options['values'];
+            this.options['values'].forEach(function (value) { distinctValues[value] = value; });
         }
         else {
             // build filter values from available values in result set
-            var data = this.controller.getData();
-            for (var id in data) {
-                var printoutValues = data[id]['printouts'][this.printrequestId]['values'];
-                var printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
-                for (var i in printoutValues) {
-                    var printoutFormattedValue = printoutFormattedValues[i];
+            var resultData = this.controller.getData();
+            for (var rowNumber in resultData) {
+                var printoutValues = resultData[rowNumber]['printouts'][this.printrequestId]['values'];
+                var printoutFormattedValues = resultData[rowNumber]['printouts'][this.printrequestId]['formatted values'];
+                for (var printoutValueId in printoutValues) {
+                    var printoutFormattedValue = printoutFormattedValues[printoutValueId];
                     if (printoutFormattedValue.indexOf('<a') > -1) {
                         printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
                     }
-                    distinctValues[printoutValues[i]] = printoutFormattedValue;
+                    distinctValues[printoutValues[printoutValueId]] = printoutFormattedValue;
                 }
             }
         }
@@ -520,17 +533,16 @@ var ValueFilter = (function (_super) {
             filtercontrols.height(height);
         }
         // insert options (checkboxes and labels) and attach event handlers
-        for (var _i = 0, _a = Object.keys(this.values).sort(); _i < _a.length; _i++) {
+        var values = this.getAllowedValues();
+        for (var _i = 0, _a = Object.keys(values).sort(); _i < _a.length; _i++) {
             var value = _a[_i];
             var option = $('<div class="filtered-value-option">');
             var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value + '"  >');
             // attach event handler
             checkbox
-                .on('change', undefined, { 'filter': this }, function (eventObject) {
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            });
+                .on('change', undefined, { 'filter': this }, function (eventObject) { return eventObject.data.filter.onFilterUpdated(eventObject); });
             // Try to get label, if not fall back to value id
-            var label = this.values[value] || value;
+            var label = values[value] || value;
             option.append(checkbox).append(label);
             filtercontrols.append(option);
         }
@@ -543,9 +555,9 @@ var ValueFilter = (function (_super) {
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
                 var andControl = $('<input type="radio" name="filtered-value-andor ' +
-                    this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="and">');
+                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
                 var orControl_1 = $('<input type="radio" name="filtered-value-andor ' +
-                    this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="or" checked>');
+                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
@@ -601,8 +613,8 @@ var ValueFilter = (function (_super) {
     return ValueFilter;
 }(Filter_1.Filter));
 exports.ValueFilter = ValueFilter;
+
 },{"./Filter":3}],6:[function(require,module,exports){
-///<reference types="jquery"/>
 "use strict";
 exports.__esModule = true;
 var Controller_1 = require("./Controller");
@@ -671,15 +683,15 @@ var Filtered = (function () {
     };
     Filtered.prototype.attachFilters = function (controller, filtersContainer) {
         for (var prId in this.config.printrequests) {
-            var pr = this.config.printrequests[prId];
-            if (pr.hasOwnProperty('filters')) {
-                for (var filterid in pr.filters) {
-                    if (pr.filters.hasOwnProperty(filterid) &&
-                        pr.filters[filterid].hasOwnProperty('type') &&
-                        this.filterTypes.hasOwnProperty(pr.filters[filterid].type)) {
+            var printrequest = this.config.printrequests[prId];
+            if (printrequest.hasOwnProperty('filters')) {
+                for (var filterid in printrequest.filters) {
+                    if (printrequest.filters.hasOwnProperty(filterid) &&
+                        printrequest.filters[filterid].hasOwnProperty('type') &&
+                        this.filterTypes.hasOwnProperty(printrequest.filters[filterid].type)) {
                         //  target: JQuery, printrequest: string,
                         // controller: Controller, options?: Options
-                        var filter = new this.filterTypes[pr.filters[filterid].type](filterid, filtersContainer.children('#' + filterid), prId, controller, pr.filters[filterid]);
+                        var filter = new this.filterTypes[printrequest.filters[filterid].type](filterid, filtersContainer.children('#' + filterid), prId, controller, printrequest.filters[filterid]);
                         filter.init();
                         controller.attachFilter(filter);
                     }
@@ -704,40 +716,8 @@ var Filtered = (function () {
     return Filtered;
 }());
 exports.Filtered = Filtered;
-},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":8,"./View/ListView":9,"./View/MapView":10,"./View/TableView":11,"./View/View":12,"./ViewSelector":7}],7:[function(require,module,exports){
-///<reference types="jquery"/>
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-},{}],8:[function(require,module,exports){
-///<reference types="jquery"/>
+
+},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":7,"./View/ListView":8,"./View/MapView":9,"./View/TableView":10,"./View/View":11,"./ViewSelector":12}],7:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -855,7 +835,8 @@ var CalendarView = (function (_super) {
     return CalendarView;
 }(View_1.View));
 exports.CalendarView = CalendarView;
-},{"./View":12}],9:[function(require,module,exports){
+
+},{"./View":11}],8:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -877,8 +858,8 @@ var ListView = (function (_super) {
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
-},{"./View":12}],10:[function(require,module,exports){
-///<reference types="jquery"/>
+
+},{"./View":11}],9:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -973,7 +954,8 @@ var MapView = (function (_super) {
     return MapView;
 }(View_1.View));
 exports.MapView = MapView;
-},{"./View":12}],11:[function(require,module,exports){
+
+},{"./View":11}],10:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -995,8 +977,8 @@ var TableView = (function (_super) {
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
-},{"./View":12}],12:[function(require,module,exports){
-///<reference types="jquery"/>
+
+},{"./View":11}],11:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -1036,8 +1018,40 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
+
+},{}],12:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+
 },{}],13:[function(require,module,exports){
-///<reference types="jquery"/>
 "use strict";
 exports.__esModule = true;
 var Filtered_1 = require("./Filtered/Filtered");
@@ -1048,6 +1062,7 @@ for (var id in config) {
         f.run();
     }
 }
+
 },{"./Filtered/Filtered":6}]},{},[13])
 
 //# sourceMappingURL=ext.srf.filtered.js.map
