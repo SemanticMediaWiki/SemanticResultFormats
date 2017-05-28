@@ -1,31 +1,26 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\TagCloud class.
- *
- * @since 1.8
+ * Tests for the SRF\jqPlotSeries class.
  *
  * @file
+ * @since 1.8
  *
- * @ingroup SRF
+ * @ingroup SemanticResultFormats
  * @ingroup Test
- *
- * @licence GNU GPL v2+
- * @author Jeroen De Dauw < jeroendedauw@gmail.com >
- */
-
-/**
- * Tests for the SRF\TagCloud class.
  *
  * @group SRF
  * @group SMWExtension
  * @group ResultPrinters
+ *
+ * @licence GNU GPL v2+
+ * @author mwjames
  */
-class TagCloudTest extends QueryPrinterRegistryTestCase {
+class jqPlotSeriesTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -35,7 +30,7 @@ class TagCloudTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'tagcloud' ];
+		return [ 'jqplotseries' ];
 	}
 
 	/**
@@ -46,7 +41,7 @@ class TagCloudTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRF\TagCloud';
+		return '\SRFjqPlotSeries';
 	}
 
 }

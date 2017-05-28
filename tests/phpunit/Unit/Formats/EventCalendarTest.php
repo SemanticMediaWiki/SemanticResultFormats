@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Dygraphs class.
+ * Tests for the SRF\EventCalendar class.
  *
  * @file
  * @since 1.8
@@ -20,7 +20,7 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class DygraphsTest extends QueryPrinterRegistryTestCase {
+class EventCalendarTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +30,7 @@ class DygraphsTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'dygraphs' ];
+		return [ 'eventcalendar' ];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class DygraphsTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRFDygraphs';
+		return 'SRF\EventCalendar';
 	}
 
 }

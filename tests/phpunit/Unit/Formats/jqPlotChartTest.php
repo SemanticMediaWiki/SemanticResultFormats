@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\jqPlotSeries class.
+ * Tests for the SRF\jqPlotChart class.
  *
  * @file
  * @since 1.8
@@ -20,7 +20,7 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class jqPlotSeriesTest extends QueryPrinterRegistryTestCase {
+class jqPlotChartTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +30,7 @@ class jqPlotSeriesTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'jqplotseries' ];
+		return [ 'jqplotchart' ];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class jqPlotSeriesTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFjqPlotSeries';
+		return '\SRFjqPlotChart';
 	}
 
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Gallery class.
+ *  Tests for the SRF\PageWidget class.
  *
  * @file
  * @since 1.8
@@ -18,9 +18,9 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group ResultPrinters
  *
  * @licence GNU GPL v2+
- * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author mwjames
  */
-class vCardTest extends QueryPrinterRegistryTestCase {
+class PageWidgetTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +30,7 @@ class vCardTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'vcard' ];
+		return [ 'pagewidget' ];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class vCardTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFvCard';
+		return '\SRFPageWidget';
 	}
 
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Sparkline class.
+ * Tests for the SRF\Dygraphs class.
  *
  * @file
  * @since 1.8
@@ -20,7 +20,7 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class TimeseriesTest extends QueryPrinterRegistryTestCase {
+class DygraphsTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +30,7 @@ class TimeseriesTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'timeseries' ];
+		return [ 'dygraphs' ];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class TimeseriesTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFTimeseries';
+		return 'SRFDygraphs';
 	}
 
 }
