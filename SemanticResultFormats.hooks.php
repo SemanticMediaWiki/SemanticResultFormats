@@ -79,6 +79,7 @@ final class SRFHooks {
 				// Formats
 				'tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js',
 				'tests/qunit/formats/ext.srf.formats.datatables.test.js',
+				'tests/qunit/formats/ext.srf.formats.filtered.test.js',
 				'tests/qunit/formats/ext.srf.formats.gallery.test.js',
 				'tests/qunit/formats/ext.srf.formats.media.test.js',
 				'tests/qunit/formats/ext.srf.formats.tagcloud.test.js',

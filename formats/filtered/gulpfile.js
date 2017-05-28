@@ -30,6 +30,27 @@ gulp.task( 'buildFiltered', function () {
 
 } );
 
+gulp.task( 'buildFilteredTests', function () {
+
+	return browserify( {
+		basedir: '.',
+		debug: false, // false, to disable source mapping
+		entries: [ 'tests/qunit/bootstrap.ts' ],
+		cache: {},
+		packageCache: {}
+	} )
+	// .exclude( 'jquery' )
+	.plugin( tsify )
+	.bundle()
+	.pipe( source( 'ext.srf.formats.filtered.test.js' ) )
+	.pipe( buffer() )
+	// .pipe( sourcemaps.init( { loadMaps: true } ) )
+	// .pipe( uglify() )
+	// .pipe( sourcemaps.write( './' ) )
+	.pipe( gulp.dest( '../../tests/qunit/formats' ) );
+
+} );
+
 gulp.task( 'buildLeafletJS', function () {
 
 	return gulp.src( [
@@ -63,4 +84,4 @@ gulp.task( 'copyLeafletIcons', function () {
 
 } );
 
-gulp.task( 'default', [ 'buildFiltered', 'buildLeafletJS', 'buildLeafletCSS', 'copyLeafletIcons' ] );
+gulp.task( 'default', [ 'buildFiltered', 'buildFilteredTests', 'buildLeafletJS', 'buildLeafletCSS', 'copyLeafletIcons' ] );
