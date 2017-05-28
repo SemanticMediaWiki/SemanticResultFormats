@@ -14,7 +14,7 @@
     <testsuites>
         <testsuite name="SemanicResultFormats">
             <directory>tests/phpunit</directory>
-            <exclude>tests/phpunit/ResourcesTest.php</exclude>
+            <!--<exclude>tests/phpunit/ResourcesTest.php</exclude>-->
         </testsuite>
     </testsuites>
     <filter>
