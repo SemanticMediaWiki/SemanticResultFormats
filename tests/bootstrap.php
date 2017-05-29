@@ -12,3 +12,5 @@ print sprintf( "\n%-20s%s\n", "Semantic Result Formats: ", SRF_VERSION );
 
 $autoloader = require $path;
 $autoloader->addPsr4( 'SRF\\Tests\\', __DIR__ . '/phpunit' );
+$autoloader->addPsr4( 'SMW\\Test\\', __DIR__ . '/../../SemanticMediaWiki/tests/phpunit' );
+$autoloader->addPsr4( 'SMW\\Tests\\', __DIR__ . '/../../SemanticMediaWiki/tests/phpunit' );
