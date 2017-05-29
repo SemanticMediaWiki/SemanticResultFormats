@@ -6,7 +6,8 @@
 			"SteveR",
 			"Ата",
 			"NataChe",
-			"Piramidion"
+			"Piramidion",
+			"Bunyk"
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",
@@ -176,7 +177,7 @@
 	"srf-paramdesc-graphlabel": "Підпис графу",
 	"srf-paramdesc-rankdir": "Напрямок стрілки",
 	"srf-paramdesc-graphlink": "Посилання графу",
-	"srf-paramdesc-graphcolor": "Колір графу",
+	"srf-paramdesc-graphcolor": "Задає колір графу",
 	"srf-paramdesc-graph-wwl": "Межа переносу слів (у # символів)",
 	"srf-printername-datatables": "Таблиці даних",
 	"srf-ui-datatables-label-conditions": "Умови",
