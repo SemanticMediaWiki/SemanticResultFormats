@@ -412,13 +412,14 @@ var NumberFilter = (function (_super) {
         table
             .find('.filtered-number-slider-cell')
             .append(sliderContainer);
+        var that = this;
         mw.loader.using('jquery.ui.slider').then(function () {
             sliderContainer.slider(slideroptions)
-                .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
+                .on('slidechange', undefined, { 'filter': that }, function (eventObject, ui) {
                 eventObject.data.ui = ui;
                 eventObject.data.filter.onFilterUpdated(eventObject);
             })
-                .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
+                .on('slide', undefined, { 'filter': that }, function (eventObject, ui) {
                 ui.handle.firstElementChild.innerHTML = ui.value.toString();
             });
         });
@@ -429,9 +430,11 @@ var NumberFilter = (function (_super) {
         var min = Infinity;
         var max = -Infinity;
         for (var rowId in rows) {
-            var values = rows[rowId].data[this.filterId].values;
-            min = Math.min.apply(Math, [min].concat(values));
-            max = Math.max.apply(Math, [max].concat(values));
+            if (rows[rowId].data.hasOwnProperty(this.filterId)) {
+                var values = rows[rowId].data[this.filterId].values;
+                min = Math.min.apply(Math, [min].concat(values));
+                max = Math.max.apply(Math, [max].concat(values));
+            }
         }
         return [min, max];
     };
@@ -455,11 +458,13 @@ var NumberFilter = (function (_super) {
         this.controller.onFilterUpdated(this.getId());
     };
     NumberFilter.prototype.isVisible = function (rowId) {
-        var filterData = this.controller.getData()[rowId].data[this.filterId];
-        for (var _i = 0, _a = filterData.values; _i < _a.length; _i++) {
-            var value = _a[_i];
-            if (value >= this.filterValueLower && value <= this.filterValueUpper) {
-                return true;
+        var rowdata = this.controller.getData()[rowId].data;
+        if (rowdata.hasOwnProperty(this.filterId)) {
+            for (var _i = 0, _a = rowdata[this.filterId].values; _i < _a.length; _i++) {
+                var value = _a[_i];
+                if (value >= this.filterValueLower && value <= this.filterValueUpper) {
+                    return true;
+                }
             }
         }
         return false;
@@ -926,6 +931,7 @@ var MapView = (function (_super) {
         return marker;
     };
     MapView.prototype.lateInit = function () {
+        var _this = this;
         if (this.initialized) {
             return;
         }
@@ -934,8 +940,9 @@ var MapView = (function (_super) {
             .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: ''
         }))
-            .addLayer(this.markerClusterGroup)
-            .fitBounds(this.bounds);
+            .addLayer(this.markerClusterGroup);
+        var map = this.map;
+        $(function () { return map.fitBounds(_this.bounds); });
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;

@@ -1,4 +1,5 @@
 import { View } from "./View";
+import Icon = L.Icon;
 
 export class MapView extends View {
 
@@ -11,12 +12,12 @@ export class MapView extends View {
 	public init() {
 
 		let data = this.controller.getData();
-		let markers: { [key: string]: L.Marker[] } = {};
+		let markers: { [rowId: string]: L.Marker[] } = {};
 		let bounds: L.LatLngBounds = undefined;
 
-		let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup({
-			animateAddingMarkers: true,
-		});
+		let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( {
+			animateAddingMarkers: true
+		} );
 
 		for ( let rowId in data ) {
 
@@ -59,6 +60,8 @@ export class MapView extends View {
 
 		let marker = L.marker( latLng, { title: title } );
 		marker.bindPopup( popup.join( '<br>' ) );
+
+		// FIXME: marker.setIcon( new Icon( { "iconUrl": ????????? } ));
 		return marker;
 	}
 
@@ -74,8 +77,11 @@ export class MapView extends View {
 		.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: ''
 		} ) )
-		.addLayer( this.markerClusterGroup )
-		.fitBounds( this.bounds );
+		.addLayer( this.markerClusterGroup );
+
+		let map = this.map;
+		$( () => map.fitBounds( this.bounds ) );
+
 	}
 
 	public showRows( rowIds: string[] ) {

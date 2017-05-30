@@ -50,16 +50,20 @@ class NumberFilter extends Filter {
 
 			if ( $printRequest->getData() instanceof SMWPropertyValue &&
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $propertyName &&
-				( $field->reset() instanceof \SMWDINumber )
+				( $field->reset() instanceof \SMWDINumber || $field->reset() instanceof \SMWDITime )
 			) {
 
 				$values = []; // contains plain text
 				$value = $field->getNextDataValue();
 
-				while ( $value instanceof \SMWNumberValue ) {
+				while ( $value instanceof \SMWNumberValue || $value instanceof \SMWTimeValue ) {
 
-					$cuv = $value->getConvertedUnitValues();
-					$values[] = $cuv[ $value->getCanonicalMainUnit() ];
+					if ($value instanceof \SMWNumberValue ) {
+						$cuv = $value->getConvertedUnitValues();
+						$values[] = $cuv[ $value->getCanonicalMainUnit() ];
+					} else {
+						$values[] = $value->getYear();
+					}
 					$value = $field->getNextDataItem();
 				}
 
@@ -76,7 +80,7 @@ class NumberFilter extends Filter {
 	 */
 	public function isValidFilterForPropertyType() {
 		$typeID = $this->getPrintRequest()->getTypeID();
-		return $typeID === '_num' || $typeID === '_qty';
+		return $typeID === '_num' || $typeID === '_qty' || '_dat';
 	}
 
 	protected function buildJsConfig() {

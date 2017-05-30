@@ -1,5 +1,7 @@
 import { Filter } from "./Filter";
 
+declare let mw: any;
+
 export class NumberFilter extends Filter {
 
 	private MODE_RANGE = 0;
@@ -127,13 +129,17 @@ export class NumberFilter extends Filter {
 		.find( '.filtered-number-slider-cell' )
 		.append( sliderContainer );
 
-		sliderContainer.slider( slideroptions )
-		.on( 'slidechange', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject, ui: any ) {
-			eventObject.data.ui = ui;
-			eventObject.data.filter.onFilterUpdated( eventObject );
-		} )
-		.on( 'slide', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject, ui: { handle: HTMLElement; value: number } ) {
-			ui.handle.firstElementChild.innerHTML = ui.value.toString();
+		let that: NumberFilter = this;
+
+		mw.loader.using( 'jquery.ui.slider' ).then( function () {
+			sliderContainer.slider( slideroptions )
+			.on( 'slidechange', undefined, { 'filter': that }, function ( eventObject: JQueryEventObject, ui: any ) {
+				eventObject.data.ui = ui;
+				eventObject.data.filter.onFilterUpdated( eventObject );
+			} )
+			.on( 'slide', undefined, { 'filter': that }, function ( eventObject: JQueryEventObject, ui: { handle: HTMLElement; value: number } ) {
+				ui.handle.firstElementChild.innerHTML = ui.value.toString();
+			} );
 		} );
 
 		return this;
@@ -147,9 +153,11 @@ export class NumberFilter extends Filter {
 
 		for ( let rowId in rows ) {
 
-			let values: number[] = rows[ rowId ].data[ this.filterId ].values;
-			min = Math.min( min, ...values );
-			max = Math.max( max, ...values );
+			if ( rows[ rowId ].data.hasOwnProperty( this.filterId ) ) {
+				let values: number[] = rows[ rowId ].data[ this.filterId ].values;
+				min = Math.min( min, ...values );
+				max = Math.max( max, ...values );
+			}
 		}
 
 		return [ min, max ];
@@ -176,12 +184,17 @@ export class NumberFilter extends Filter {
 	}
 
 	public isVisible( rowId: string ): boolean {
-		let filterData = this.controller.getData()[ rowId ].data[ this.filterId ];
-		for ( let value of filterData.values ) {
-			if ( value >= this.filterValueLower && value <= this.filterValueUpper ) {
-				return true;
+		let rowdata = this.controller.getData()[ rowId ].data;
+
+		if ( rowdata.hasOwnProperty( this.filterId ) ) {
+
+			for ( let value of rowdata[ this.filterId ].values ) {
+				if ( value >= this.filterValueLower && value <= this.filterValueUpper ) {
+					return true;
+				}
 			}
 		}
+
 		return false;
 	}
 
