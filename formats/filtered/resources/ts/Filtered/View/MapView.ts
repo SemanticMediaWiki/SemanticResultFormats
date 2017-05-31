@@ -4,6 +4,7 @@ import Icon = L.Icon;
 export class MapView extends View {
 
 	private map: L.Map = undefined;
+	private icon: L.Icon = undefined;
 	private markers: { [key: string]: L.Marker[] } = undefined;
 	private markerClusterGroup: L.MarkerClusterGroup = undefined;
 	private bounds: L.LatLngBounds = undefined;
@@ -41,6 +42,19 @@ export class MapView extends View {
 		return super.init();
 	}
 
+	private getIcon() {
+		if ( this.icon === undefined ) {
+			let iconPath = this.controller.getPath() + 'css/images/';
+			this.icon = new Icon( {
+				'iconUrl': iconPath + 'marker-icon.png',
+				'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+				'shadowUrl': iconPath + 'marker-shadow.png'
+			} );
+		}
+
+		return this.icon;
+	}
+
 	private getMarker( latLng: L.LatLngExpression, row: any ) {
 		let title = undefined;
 		let popup = [];
@@ -61,7 +75,7 @@ export class MapView extends View {
 		let marker = L.marker( latLng, { title: title } );
 		marker.bindPopup( popup.join( '<br>' ) );
 
-		// FIXME: marker.setIcon( new Icon( { "iconUrl": ????????? } ));
+		marker.setIcon( this.getIcon() );
 		return marker;
 	}
 

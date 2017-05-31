@@ -1,4 +1,5 @@
-declare let smw: any;
+import { ResultData } from "../types";
+declare let srf: any;
 
 import { View } from "./View/View";
 import { Filter } from "./Filter/Filter";
@@ -9,9 +10,9 @@ export class Controller {
 	private views: { [key: string]: View } = {};
 	private filters: { [key: string]: Filter } = {};
 	private currentView: View = undefined;
-	private data: any;
+	private data: ResultData;
 
-	public constructor( target: JQuery, data: any ) {
+	public constructor( target: JQuery, data: ResultData ) {
 		this.target = target;
 		this.data = data;
 
@@ -25,6 +26,10 @@ export class Controller {
 
 	public getData(): any {
 		return this.data;
+	}
+
+	public getPath() {
+		return srf.settings.get( 'srfgScriptPath' ) + '/formats/filtered/resources/';
 	}
 
 	public attachView( viewid: string, view: View ) {
@@ -41,6 +46,10 @@ export class Controller {
 		return this;
 	}
 
+	public getView( viewId: string ): View {
+		return this.views[ viewId ];
+	}
+
 	public attachFilter( filter: Filter ) {
 		let filterId = filter.getId();
 
@@ -48,6 +57,10 @@ export class Controller {
 		this.onFilterUpdated( filterId );
 
 		return this;
+	}
+
+	public getFilter( filterId: string ): Filter {
+		return this.filters[ filterId ];
 	}
 
 	public show() {
@@ -58,12 +71,15 @@ export class Controller {
 
 	private switchToView( view: View ) {
 
-		if ( this.currentView !== undefined ) {
+		if ( this.currentView instanceof View ) {
 			this.currentView.hide();
 		}
 
 		this.currentView = view;
-		view.show();
+
+		if ( this.currentView instanceof View ) {
+			view.show();
+		}
 
 	}
 

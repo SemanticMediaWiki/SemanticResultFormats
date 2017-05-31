@@ -19,6 +19,9 @@ var Controller = (function () {
     Controller.prototype.getData = function () {
         return this.data;
     };
+    Controller.prototype.getPath = function () {
+        return srf.settings.get('srfgScriptPath') + '/formats/filtered/resources/';
+    };
     Controller.prototype.attachView = function (viewid, view) {
         this.views[viewid] = view;
         if (this.currentView === undefined) {
@@ -878,11 +881,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
+var Icon = L.Icon;
 var MapView = (function (_super) {
     __extends(MapView, _super);
     function MapView() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.map = undefined;
+        _this.icon = undefined;
         _this.markers = undefined;
         _this.markerClusterGroup = undefined;
         _this.bounds = undefined;
@@ -912,6 +917,17 @@ var MapView = (function (_super) {
         this.bounds = bounds;
         return _super.prototype.init.call(this);
     };
+    MapView.prototype.getIcon = function () {
+        if (this.icon === undefined) {
+            var iconPath = this.controller.getPath() + 'css/images/';
+            this.icon = new Icon({
+                'iconUrl': iconPath + 'marker-icon.png',
+                'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+                'shadowUrl': iconPath + 'marker-shadow.png'
+            });
+        }
+        return this.icon;
+    };
     MapView.prototype.getMarker = function (latLng, row) {
         var title = undefined;
         var popup = [];
@@ -928,6 +944,7 @@ var MapView = (function (_super) {
         }
         var marker = L.marker(latLng, { title: title });
         marker.bindPopup(popup.join('<br>'));
+        marker.setIcon(this.getIcon());
         return marker;
     };
     MapView.prototype.lateInit = function () {

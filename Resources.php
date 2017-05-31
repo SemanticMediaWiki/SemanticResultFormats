@@ -725,7 +725,7 @@ return [
 				'filtered/resources/css/ext.srf.filtered.css',
 			],
 			'dependencies' => [
-				'ext.smw.api',
+				'ext.srf',
 			],
 		],
 
