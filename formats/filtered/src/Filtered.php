@@ -81,10 +81,6 @@ class Filtered extends ResultPrinter {
 
 	private $parser;
 
-	public function __construct( $format, $inline = true, $useValidator = false ) {
-		parent::__construct( $format, $inline, $useValidator );
-	}
-
 	/**
 	 * @return Parser | null
 	 */
@@ -364,7 +360,15 @@ class Filtered extends ResultPrinter {
 
 	private function addConfigToOutput( $id, $config ) {
 
-		$previousConfig = $this->getParser()->getOutput()->getExtensionData( 'srf-filtered-config' );
+		if ( $this->getParser()->getOutput() !== null ) {
+			$getter = [ $this->getParser()->getOutput(), 'getExtensionData' ];
+			$setter = [ $this->getParser()->getOutput(), 'setExtensionData' ];
+		} else {
+			$getter = [ $this->getOutput(), 'getProperty' ];
+			$setter = [ $this->getOutput(), 'setProperty' ];
+		}
+
+		$previousConfig = call_user_func( $getter, 'srf-filtered-config' );
 
 		if ( $previousConfig === null ) {
 			$previousConfig = [];
@@ -372,7 +376,7 @@ class Filtered extends ResultPrinter {
 
 		$previousConfig[ $id ] = $config;
 
-		$this->getParser()->getOutput()->setExtensionData( 'srf-filtered-config', $previousConfig );
+		call_user_func( $setter,'srf-filtered-config', $previousConfig );
 
 	}
 

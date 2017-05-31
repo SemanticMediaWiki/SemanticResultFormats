@@ -87,14 +87,15 @@ export class MapView extends View {
 
 		this.initialized = true;
 
-		this.map = L.map( this.getTargetElement().get( 0 ) )
-		.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: ''
-		} ) )
-		.addLayer( this.markerClusterGroup );
-
-		let map = this.map;
-		$( () => map.fitBounds( this.bounds ) );
+		let that = this;
+		setTimeout( () => {
+			that.map = L.map( that.getTargetElement().get( 0 ) )
+			.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: ''
+			} ) )
+			.addLayer( this.markerClusterGroup )
+			.fitBounds( this.bounds )
+		}, 0 );
 
 	}
 

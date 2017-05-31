@@ -953,13 +953,15 @@ var MapView = (function (_super) {
             return;
         }
         this.initialized = true;
-        this.map = L.map(this.getTargetElement().get(0))
-            .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: ''
-        }))
-            .addLayer(this.markerClusterGroup);
-        var map = this.map;
-        $(function () { return map.fitBounds(_this.bounds); });
+        var that = this;
+        setTimeout(function () {
+            that.map = L.map(that.getTargetElement().get(0))
+                .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: ''
+            }))
+                .addLayer(_this.markerClusterGroup)
+                .fitBounds(_this.bounds);
+        }, 0);
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
