@@ -327,10 +327,6 @@ var NumberFilter = (function (_super) {
         return _this;
     }
     NumberFilter.prototype.init = function () {
-        var caption = undefined;
-        if (this.options['caption']) {
-            caption = this.options['caption'];
-        }
         var _a = this.getRange(), minValue = _a[0], maxValue = _a[1];
         var precision = Math.pow(10, Math.floor(Math.log(maxValue - minValue) * Math.LOG10E));
         var requestedMax = this.options['max'];
@@ -360,11 +356,16 @@ var NumberFilter = (function (_super) {
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         var readoutLeft = $('<div class="filtered-number-readout">');
         var readoutRight = $('<div class="filtered-number-readout">');
+        var caption = '';
+        if (this.options['caption']) {
+            caption = '<tr><td colspan=3 class="filtered-number-caption-cell">' + this.options['caption'] + '</td></tr>';
+        }
         var table = $('<table class="filtered-number-table"><tbody><tr>' +
             '<td class="filtered-number-min-cell">' + minValue + '</td>' +
             '<td class="filtered-number-slider-cell"></td>' +
             '<td class="filtered-number-max-cell">' + maxValue + '</td></tr>' +
-            '<tr><td colspan=3 class="filtered-number-caption-cell">' + caption + '</td></tr></tbody></table>');
+            caption +
+            '</tbody></table>');
         var sliderContainer = $('<div class="filtered-number-slider">');
         var lowerHandle = $('<div class="ui-slider-handle ui-slider-handle-lower">');
         var upperHandle = $('<div class="ui-slider-handle ui-slider-handle-upper">');

@@ -45,12 +45,18 @@
 	border-collapse: collapse;
 }
 
-.filtered-filters .filtered-number .filtered-number-slider-cell { 
-	width: 100%;
-	height: 2.2em;
+.filtered-filters .filtered-number .filtered-number-min-cell,
+.filtered-filters .filtered-number .filtered-number-max-cell {
+	padding-bottom: 1em;
 }
 
-.filtered-filters .filtered-number .filtered-number-slider { 
+.filtered-filters .filtered-number .filtered-number-slider-cell {
+	width: 100%;
+	height: 2.2em;
+	padding: 0 1em 1em 1em;
+}
+
+.filtered-filters .filtered-number .filtered-number-slider {
 	border: 1px solid #aaa;
 	border-radius: 3px;
 	background: #f1f2ff;
@@ -58,7 +64,7 @@
 }
 
 .filtered-filters .filtered-number .filtered-number-caption-cell {
-	height: 2.2em;
+	height: 1.8em;
 	text-align: center;
 	vertical-align: bottom;
 }

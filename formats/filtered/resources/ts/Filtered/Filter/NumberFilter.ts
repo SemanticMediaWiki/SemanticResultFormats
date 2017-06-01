@@ -15,12 +15,6 @@ export class NumberFilter extends Filter {
 
 	public init() {
 
-		let caption = undefined;
-
-		if ( this.options[ 'caption' ] ) {
-			caption = this.options[ 'caption' ];
-		}
-
 		let [ minValue, maxValue ] : [ number, number ] = this.getRange();
 
 		let precision = 10 ** Math.floor( Math.log( maxValue - minValue ) * Math.LOG10E );
@@ -58,11 +52,18 @@ export class NumberFilter extends Filter {
 		let readoutLeft = $( '<div class="filtered-number-readout">' );
 		let readoutRight = $( '<div class="filtered-number-readout">' );
 
+		let caption = '';
+
+		if ( this.options[ 'caption' ] ) {
+			caption = '<tr><td colspan=3 class="filtered-number-caption-cell">' + this.options[ 'caption' ] + '</td></tr>';
+		}
+
 		let table = $( '<table class="filtered-number-table"><tbody><tr>' +
 			'<td class="filtered-number-min-cell">' + minValue + '</td>' +
 			'<td class="filtered-number-slider-cell"></td>' +
 			'<td class="filtered-number-max-cell">' + maxValue + '</td></tr>' +
-			'<tr><td colspan=3 class="filtered-number-caption-cell">' + caption + '</td></tr></tbody></table>' );
+			caption +
+			'</tbody></table>' );
 
 		let sliderContainer = $( '<div class="filtered-number-slider">' );
 		let lowerHandle = $( '<div class="ui-slider-handle ui-slider-handle-lower">' );
