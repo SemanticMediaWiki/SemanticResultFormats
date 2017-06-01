@@ -67,7 +67,7 @@ export class MapView extends View {
 				title = pr.values.join( ', ' );
 				popup.push( '<b>' + title + '</b>' );
 			} else {
-				popup.push( (pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr.values.join( ', ' ) )
+				popup.push( (pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr[ 'formatted values' ].join( ', ' ) )
 
 			}
 		}
@@ -79,7 +79,7 @@ export class MapView extends View {
 		return marker;
 	}
 
-	private lateInit() {
+	public lateInit() {
 
 		if ( this.initialized ) {
 			return;
@@ -88,14 +88,16 @@ export class MapView extends View {
 		this.initialized = true;
 
 		let that = this;
-		setTimeout( () => {
-			that.map = L.map( that.getTargetElement().get( 0 ) )
-			.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: ''
-			} ) )
-			.addLayer( this.markerClusterGroup )
-			.fitBounds( this.bounds )
-		}, 0 );
+		$( () => { // as soon as the document is ready
+			setTimeout( () => { // let everybody else do their job
+				that.map = L.map( that.getTargetElement().get( 0 ) )
+				.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: ''
+				} ) )
+				.addLayer( that.markerClusterGroup )
+				.fitBounds( that.bounds )
+			}, 0 );
+		} );
 
 	}
 

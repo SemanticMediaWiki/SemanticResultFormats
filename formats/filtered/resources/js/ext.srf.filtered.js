@@ -940,7 +940,7 @@ var MapView = (function (_super) {
                 popup.push('<b>' + title + '</b>');
             }
             else {
-                popup.push((pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr.values.join(', '));
+                popup.push((pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr['formatted values'].join(', '));
             }
         }
         var marker = L.marker(latLng, { title: title });
@@ -949,20 +949,21 @@ var MapView = (function (_super) {
         return marker;
     };
     MapView.prototype.lateInit = function () {
-        var _this = this;
         if (this.initialized) {
             return;
         }
         this.initialized = true;
         var that = this;
-        setTimeout(function () {
-            that.map = L.map(that.getTargetElement().get(0))
-                .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: ''
-            }))
-                .addLayer(_this.markerClusterGroup)
-                .fitBounds(_this.bounds);
-        }, 0);
+        $(function () {
+            setTimeout(function () {
+                that.map = L.map(that.getTargetElement().get(0))
+                    .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: ''
+                }))
+                    .addLayer(that.markerClusterGroup)
+                    .fitBounds(that.bounds);
+            }, 0);
+        });
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
