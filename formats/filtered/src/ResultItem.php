@@ -2,6 +2,9 @@
 
 namespace SRF\Filtered;
 
+use SMWDataValue;
+use SMWDIGeoCoord;
+use SMWErrorValue;
 use SMWResultArray;
 
 /**
@@ -69,30 +72,25 @@ class ResultItem {
 
 			$field->reset();
 
-			while ( ( $dataItem = current( $field->getContent() ) ) !== false ) {
-				$dataValue = $field->getNextDataValue();
+			while ( ( $dataValue = $field->getNextDataValue() ) instanceof SMWDataValue ) {
 
-				if ( $dataItem instanceof \SMWDIGeoCoord ) {
+				$dataItem = $dataValue->getDataItem();
 
-					$value = $dataItem->getCoordinateSet();
-					$value[ 'lng' ] = $value[ 'lon' ];
-					unset( $value[ 'lon' ] );
-					$values[] = $value;
-
-					if ( $dataValue instanceof \SMWErrorValue ) {
-						$formatted[] = $dataItem->getSerialization();
-					} else {
-						$formatted[] = $dataValue->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
-					}
-
+				if ( $dataItem instanceof SMWDIGeoCoord ) {
+					$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
 				} else {
 					$values[] = $dataValue->getShortHTMLText();
+				}
+
+				if ( $dataValue instanceof SMWErrorValue ) {
+					$formatted[] = $dataItem->getSerialization();
+				} else {
 					$formatted[] = $dataValue->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
 				}
 			}
 
 			$printouts[ $this->mQueryPrinter->uniqid( $printRequest->getHash() ) ] = [
-				'values'           => $values,
+				'values' => $values,
 				'formatted values' => $formatted,
 			];
 
@@ -101,7 +99,7 @@ class ResultItem {
 
 		return [
 			'printouts' => $printouts,
-			'data'      => $this->mItemData,
+			'data' => $this->mItemData,
 		];
 	}
 }
