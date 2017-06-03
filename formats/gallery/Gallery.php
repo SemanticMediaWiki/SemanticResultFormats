@@ -11,7 +11,6 @@ use SMWOutputs;
 use SRFUtils;
 
 use Html;
-use ImageGallery;
 use Title;
 
 /**
@@ -63,7 +62,9 @@ class Gallery extends ResultPrinter {
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
 
-		$ig = new ImageGallery();
+		// #224
+		$ig = class_exists( '\TraditionalImageGallery' ) ? new \TraditionalImageGallery() : new \ImageGallery();
+
 		$ig->setShowBytes( false );
 		$ig->setShowFilename( false );
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
@@ -190,7 +191,7 @@ class Gallery extends ResultPrinter {
 	 * @param string $redirectProperty
 	 * @param $outputMode
 	 */
-	protected function addImageProperties( SMWQueryResult $results, ImageGallery &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
+	protected function addImageProperties( SMWQueryResult $results, &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
 		while ( /* array of SMWResultArray */ $rows = $results->getNext() ) { // Objects (pages)
 			$images = [];
 			$captions = [];
@@ -257,7 +258,7 @@ class Gallery extends ResultPrinter {
 	 * @param SMWQueryResult $results
 	 * @param ImageGallery $ig
 	 */
-	protected function addImagePages( SMWQueryResult $results, ImageGallery &$ig ) {
+	protected function addImagePages( SMWQueryResult $results, &$ig ) {
 		while ( $row = $results->getNext() ) {
 			/**
 			 * @var SMWResultArray $firstField
@@ -297,7 +298,7 @@ class Gallery extends ResultPrinter {
 	 * @param string $imgCaption An optional caption for the image
 	 * @param string $imgRedirect
 	 */
-	protected function addImageToGallery( ImageGallery &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
+	protected function addImageToGallery( &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
 
 		if ( empty( $imgCaption ) ) {
 			if ( $this->m_params['autocaptions'] ) {
