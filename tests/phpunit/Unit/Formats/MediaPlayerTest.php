@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- *  Tests for the SRF\PageWidget class.
+ * Tests for the SRF\MediaPlayer class.
  *
  * @file
  * @since 1.8
@@ -20,7 +20,7 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @licence GNU GPL v2+
  * @author mwjames
  */
-class PageWidgetTest extends QueryPrinterRegistryTestCase {
+class MediaPlayerTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +30,7 @@ class PageWidgetTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'pagewidget' ];
+		return [ 'media' ];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class PageWidgetTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFPageWidget';
+		return 'SRF\MediaPlayer';
 	}
 
 }

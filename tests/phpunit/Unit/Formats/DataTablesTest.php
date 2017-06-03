@@ -1,12 +1,13 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Excel class.
+ * Tests for the SRF\DataTables class.
  *
+ * @file
  * @since 1.9
  *
  * @ingroup SemanticResultFormats
@@ -16,30 +17,31 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group SMWExtension
  * @group ResultPrinters
  *
- * @author Kim Eik
+ * @licence GNU GPL v2+
+ * @author mwjames
  */
-class ExcelTest extends QueryPrinterRegistryTestCase {
+class DataTablesTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
 	 *
-	 * @since 1.8
+	 * @since 1.9
 	 *
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'excel' ];
+		return [ 'datatables' ];
 	}
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getClass
 	 *
-	 * @since 1.8
+	 * @since 1.9
 	 *
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\SRFExcel';
+		return 'SRF\DataTables';
 	}
 
 }

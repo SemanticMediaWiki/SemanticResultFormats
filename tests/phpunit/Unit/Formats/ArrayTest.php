@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Gallery class.
+ * Tests for the SRF\Array class.
  *
  * @file
  * @since 1.8
@@ -20,28 +20,28 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GalleryTest extends QueryPrinterRegistryTestCase {
+class ArrayTest extends QueryPrinterRegistryTestCase {
 
 	/**
-	 * @see QueryPrinterRegistryTestCase::getFormats
+	 * @see ResultPrinterTest::getFormats
 	 *
 	 * @since 1.8
 	 *
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'gallery' ];
+		return [ 'array' ];
 	}
 
 	/**
-	 * @see QueryPrinterRegistryTestCase::getClass
+	 * @see ResultPrinterTest::getClass
 	 *
 	 * @since 1.8
 	 *
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\Gallery';
+		return '\SRFArray';
 	}
 
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Array class.
+ * Tests for the SRF\Sparkline class.
  *
  * @file
  * @since 1.8
@@ -18,30 +18,30 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group ResultPrinters
  *
  * @licence GNU GPL v2+
- * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author mwjames
  */
-class ArrayTest extends QueryPrinterRegistryTestCase {
+class TimeseriesTest extends QueryPrinterRegistryTestCase {
 
 	/**
-	 * @see ResultPrinterTest::getFormats
+	 * @see QueryPrinterRegistryTestCase::getFormats
 	 *
 	 * @since 1.8
 	 *
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'array' ];
+		return [ 'timeseries' ];
 	}
 
 	/**
-	 * @see ResultPrinterTest::getClass
+	 * @see QueryPrinterRegistryTestCase::getClass
 	 *
 	 * @since 1.8
 	 *
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFArray';
+		return '\SRFTimeseries';
 	}
 
 }

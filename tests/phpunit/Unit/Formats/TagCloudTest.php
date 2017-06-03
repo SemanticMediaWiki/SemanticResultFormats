@@ -1,26 +1,31 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\Array class.
+ * Tests for the SRF\TagCloud class.
  *
- * @file
  * @since 1.8
  *
- * @ingroup SemanticResultFormats
- * @ingroup Test
+ * @file
  *
- * @group SRF
- * @group SMWExtension
- * @group ResultPrinters
+ * @ingroup SRF
+ * @ingroup Test
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GraphTest extends QueryPrinterRegistryTestCase {
+
+/**
+ * Tests for the SRF\TagCloud class.
+ *
+ * @group SRF
+ * @group SMWExtension
+ * @group ResultPrinters
+ */
+class TagCloudTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +35,7 @@ class GraphTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'graph' ];
+		return [ 'tagcloud' ];
 	}
 
 	/**
@@ -41,7 +46,7 @@ class GraphTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFGraph';
+		return '\SRF\TagCloud';
 	}
 
 }

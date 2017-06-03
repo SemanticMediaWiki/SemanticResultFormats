@@ -1,11 +1,11 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
 /**
- * Tests for the SRF\EventCalendar class.
+ * Tests for the SRF\Array class.
  *
  * @file
  * @since 1.8
@@ -18,9 +18,9 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group ResultPrinters
  *
  * @licence GNU GPL v2+
- * @author mwjames
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EventCalendarTest extends QueryPrinterRegistryTestCase {
+class GraphTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -30,7 +30,7 @@ class EventCalendarTest extends QueryPrinterRegistryTestCase {
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'eventcalendar' ];
+		return [ 'graph' ];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class EventCalendarTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\EventCalendar';
+		return '\SRFGraph';
 	}
 
 }

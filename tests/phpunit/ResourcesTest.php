@@ -1,6 +1,6 @@
 <?php
 
-namespace SRF\Test;
+namespace SRF\Tests\Integration;
 
 use ResourceLoader;
 use ResourceLoaderModule;
@@ -15,7 +15,7 @@ use ResourceLoaderContext;
  * @ingroup SRF
  * @ingroup Test
  *
- * @group SRFExtension
+ * @group SRF
  * @group SMWExtension
  *
  * @licence GNU GPL v2+
