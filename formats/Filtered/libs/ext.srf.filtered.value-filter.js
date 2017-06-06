@@ -130,6 +130,9 @@
 			/** Sorted array of distinct values */
 			var sortedDistinctValues = [];
 
+			/** Map of value => sort value, if available */
+			var distinctSortValues = {};
+
 			if ( fixedValues == null ) {
 				// build filter values from available values in result set
 
@@ -148,6 +151,10 @@
 							label = /<a.*>(.*?)<\/a>/.exec(formattedValue)[1];
 						}
 						distinctValues[ printoutValues[j] ] = label;
+						// If sort values are specified, sort on those rather than the usual values
+						if(values[valueId]['printouts'][target].hasOwnProperty('sort values')) {
+							distinctSortValues[ printoutValues[j] ] = values[valueId]['printouts'][target]['sort values'][j];
+						}
 					}
 
 					filtered.filtered( 'voteItemVisibility', {
@@ -158,7 +165,21 @@
 					});
 				}
 
-				sortedDistinctValues = Object.keys(distinctValues).sort()
+				var sortedEntries = [];
+				for(val in distinctSortValues) {
+					sortedEntries.push({
+						val: val,
+						sort: distinctSortValues[val]
+					});
+				}
+				if(sortedEntries.length > 0) {
+					sortedEntries.sort(function(a, b) {
+						return a.sort.localeCompare(b.sort);
+					});
+					sortedDistinctValues = sortedEntries.map(function(v) { return v.val; });
+				} else {
+					sortedDistinctValues = Object.keys(distinctValues).sort();
+				}
 
 			} else {
 				// use given values

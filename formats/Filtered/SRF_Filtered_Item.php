@@ -51,6 +51,7 @@ class SRF_Filtered_Item {
 
 		$printouts = [];
 		$isFirstColumn = true;
+		$dbr = wfGetDB( DB_SLAVE ); // might need this soon
 
 		foreach ( $this->mResultArray as $field ) {
 
@@ -62,20 +63,42 @@ class SRF_Filtered_Item {
 
 			$values = []; // contains plain text
 			$formatted = []; // may contain links
+			$sortValues = []; // useful if value is a page name
+			$useDefaultSort = array_key_exists('value filter pagedefaultsort', $params);
 
 			$field->reset();
 			while ( ( $value = $field->getNextDataValue() ) !== false ) {
 				$values[] = $value->getShortHTMLText() ;
 				$formatted[] = $value->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
+				if($useDefaultSort) {
+					$title = Title::newFromText($value->getShortHTMLText());
+					if($title && $title->getArticleID() !== 0) {
+						$sortValue = $dbr->selectField('page_props',
+							'pp_value',
+							array('pp_page' => $title->getArticleID(), 'pp_propname' => "defaultsort"),
+							__METHOD__);
+						if($sortValue === false) {
+							$sortValues[] = $value->getShortHTMLText();
+						} else {
+							$sortValues[] = $sortValue;
+						}
+					} else {
+						$sortValues[] = $value->getShortHTMLText();
+					}
+				}
 			}
 
-			$printouts[ md5( $printRequest->getHash() ) ] = [
+			$printout = [
 				'label' => $label,
 				'type' => $type,
 				'params' => $params,
 				'values' => $values,
-				'formatted values' => $formatted,
+				'formatted values' => $formatted
 			];
+			if($useDefaultSort) {
+				$printout['sort values'] = $sortValues;
+			}
+			$printouts[ md5( $printRequest->getHash() ) ] = $printout;
 
 			$isFirstColumn = false;
 		}
