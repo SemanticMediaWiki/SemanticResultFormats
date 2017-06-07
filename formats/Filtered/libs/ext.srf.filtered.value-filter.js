@@ -166,17 +166,17 @@
 				}
 
 				var sortedEntries = [];
-				for(val in distinctSortValues) {
+				for(printoutValue in distinctSortValues) {
 					sortedEntries.push({
-						val: val,
-						sort: distinctSortValues[val]
+						printoutValue: printoutValue,
+						sortValue: distinctSortValues[printoutValue]
 					});
 				}
 				if(sortedEntries.length > 0) {
 					sortedEntries.sort(function(a, b) {
-						return a.sort.localeCompare(b.sort);
+						return a.sortValue.localeCompare(b.sortValue);
 					});
-					sortedDistinctValues = sortedEntries.map(function(v) { return v.val; });
+					sortedDistinctValues = sortedEntries.map(function(v) { return v.printoutValue; });
 				} else {
 					sortedDistinctValues = Object.keys(distinctValues).sort();
 				}
