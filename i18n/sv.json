@@ -9,7 +9,8 @@
 			"WikiPhoenix",
 			"Lokal Profil",
 			"Freked",
-			"McDutchie"
+			"McDutchie",
+			"Skalman"
 		]
 	},
 	"srf-desc": "Extra resultatformat för Semantic MediaWiki-frågor",
@@ -156,7 +157,7 @@
 	"srf-paramdesc-graph-relation": "Är objekten eller namnegenskaperna ärvda, eller ärvs de?",
 	"srf-paramdesc-graph-nameprop": "Möjliggör att en egenskap används som objekt istället för den faktiska egenskapen",
 	"srf-paramdesc-graph-nodeshape": "Formen på varje nod i diagrammet",
-	"srf-paramdesc-graphname": "Ändrar diagrammet titel",
+	"srf-paramdesc-graphname": "Ändrar diagrammets titel",
 	"srf-paramdesc-graphsize": "Diagramstorlek (i punkter)",
 	"srf-paramdesc-graphlegend": "Visa diagramets teckenförklaring (eller inte)",
 	"srf-paramdesc-graphlabel": "Diagrametikett",

@@ -95,7 +95,7 @@
 	"srf_printername_latest": "Dernière heure",
 	"srf_printername_timeline": "Chronologie",
 	"srf_printername_eventline": "Chronologie des événements",
-	"srf_paramdesc_timelinebands": "Définit quels groupes sont affichées dans les résultats.",
+	"srf_paramdesc_timelinebands": "Définit quels groupes sont affichés dans les résultats.",
 	"srf_paramdesc_timelineposition": "Définit la zone de la frise initialement centrée.",
 	"srf_paramdesc_timelinestart": "Un nom de propriété utilisé pour définir un point de démarrage",
 	"srf_paramdesc_timelineend": "Un nom de propriété utilisé pour définir un point de seconde date",
