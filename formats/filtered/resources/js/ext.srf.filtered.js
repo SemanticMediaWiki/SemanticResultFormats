@@ -182,24 +182,22 @@ var DistanceFilter = (function (_super) {
             '<td class="filtered-distance-max-cell">' + maxValue + '</td></tr>' +
             '<tr><td colspan=3 class="filtered-distance-unit-cell">' + unit + '</td></tr></tbody></table>');
         filtercontrols.append(table);
-        mw.loader.using('jquery.ui.slider').then(function () {
-            table
-                .find('.filtered-distance-slider').slider({
-                animate: true,
-                max: maxValue,
-                value: this.filterValue,
-                step: precision / 100
-            })
-                .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
-                eventObject.data.ui = ui;
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            })
-                .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
-                readout.text(ui.value);
-            })
-                .find('.ui-slider-handle')
-                .append(readout);
-        });
+        table
+            .find('.filtered-distance-slider').slider({
+            animate: true,
+            max: maxValue,
+            value: this.filterValue,
+            step: precision / 100
+        })
+            .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
+            eventObject.data.ui = ui;
+            eventObject.data.filter.onFilterUpdated(eventObject);
+        })
+            .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
+            readout.text(ui.value);
+        })
+            .find('.ui-slider-handle')
+            .append(readout);
         return this;
     };
     DistanceFilter.prototype.updateDistances = function (origin) {
@@ -272,7 +270,7 @@ var Filter = (function () {
             filtercontrols
                 .prepend(showControl_1)
                 .prepend(hideControl_1);
-            filtercontrols = $('<div class="filtered-collapsible">')
+            filtercontrols = $('<div class="filtered-value-collapsible">')
                 .appendTo(filtercontrols);
             var outercontrols_1 = filtercontrols;
             showControl_1.click(function () {
@@ -495,35 +493,37 @@ var ValueFilter = (function (_super) {
     __extends(ValueFilter, _super);
     function ValueFilter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.values = {};
         _this.visibleValues = [];
         _this._useOr = true;
         return _this;
     }
     ValueFilter.prototype.init = function () {
+        this.values = this.getSortedValues();
         this.buildControl();
     };
     ValueFilter.prototype.useOr = function (useOr) {
         this._useOr = useOr;
         this.controller.onFilterUpdated(this.getId());
     };
-    ValueFilter.prototype.getAllowedValues = function () {
+    ValueFilter.prototype.getSortedValues = function () {
         /** Map of value => label distinct values */
         var distinctValues = {};
         if (this.options.hasOwnProperty('values')) {
-            this.options['values'].forEach(function (value) { distinctValues[value] = value; });
+            return this.options['values'];
         }
         else {
             // build filter values from available values in result set
-            var resultData = this.controller.getData();
-            for (var rowNumber in resultData) {
-                var printoutValues = resultData[rowNumber]['printouts'][this.printrequestId]['values'];
-                var printoutFormattedValues = resultData[rowNumber]['printouts'][this.printrequestId]['formatted values'];
-                for (var printoutValueId in printoutValues) {
-                    var printoutFormattedValue = printoutFormattedValues[printoutValueId];
+            var data = this.controller.getData();
+            for (var id in data) {
+                var printoutValues = data[id]['printouts'][this.printrequestId]['values'];
+                var printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
+                for (var i in printoutValues) {
+                    var printoutFormattedValue = printoutFormattedValues[i];
                     if (printoutFormattedValue.indexOf('<a') > -1) {
                         printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
                     }
-                    distinctValues[printoutValues[printoutValueId]] = printoutFormattedValue;
+                    distinctValues[printoutValues[i]] = printoutFormattedValue;
                 }
             }
         }
@@ -542,16 +542,17 @@ var ValueFilter = (function (_super) {
             filtercontrols.height(height);
         }
         // insert options (checkboxes and labels) and attach event handlers
-        var values = this.getAllowedValues();
-        for (var _i = 0, _a = Object.keys(values).sort(); _i < _a.length; _i++) {
+        for (var _i = 0, _a = Object.keys(this.values).sort(); _i < _a.length; _i++) {
             var value = _a[_i];
             var option = $('<div class="filtered-value-option">');
             var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value + '"  >');
             // attach event handler
             checkbox
-                .on('change', undefined, { 'filter': this }, function (eventObject) { return eventObject.data.filter.onFilterUpdated(eventObject); });
+                .on('change', undefined, { 'filter': this }, function (eventObject) {
+                eventObject.data.filter.onFilterUpdated(eventObject);
+            });
             // Try to get label, if not fall back to value id
-            var label = values[value] || value;
+            var label = this.values[value] || value;
             option.append(checkbox).append(label);
             filtercontrols.append(option);
         }
@@ -564,9 +565,9 @@ var ValueFilter = (function (_super) {
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
                 var andControl = $('<input type="radio" name="filtered-value-andor ' +
-                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
+                    this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="and">');
                 var orControl_1 = $('<input type="radio" name="filtered-value-andor ' +
-                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
+                    this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="or" checked>');
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
@@ -692,15 +693,15 @@ var Filtered = (function () {
     };
     Filtered.prototype.attachFilters = function (controller, filtersContainer) {
         for (var prId in this.config.printrequests) {
-            var printrequest = this.config.printrequests[prId];
-            if (printrequest.hasOwnProperty('filters')) {
-                for (var filterid in printrequest.filters) {
-                    if (printrequest.filters.hasOwnProperty(filterid) &&
-                        printrequest.filters[filterid].hasOwnProperty('type') &&
-                        this.filterTypes.hasOwnProperty(printrequest.filters[filterid].type)) {
+            var pr = this.config.printrequests[prId];
+            if (pr.hasOwnProperty('filters')) {
+                for (var filterid in pr.filters) {
+                    if (pr.filters.hasOwnProperty(filterid) &&
+                        pr.filters[filterid].hasOwnProperty('type') &&
+                        this.filterTypes.hasOwnProperty(pr.filters[filterid].type)) {
                         //  target: JQuery, printrequest: string,
                         // controller: Controller, options?: Options
-                        var filter = new this.filterTypes[printrequest.filters[filterid].type](filterid, filtersContainer.children('#' + filterid), prId, controller, printrequest.filters[filterid]);
+                        var filter = new this.filterTypes[pr.filters[filterid].type](filterid, filtersContainer.children('#' + filterid), prId, controller, pr.filters[filterid]);
                         filter.init();
                         controller.attachFilter(filter);
                     }

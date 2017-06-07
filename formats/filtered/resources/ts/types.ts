@@ -1,3 +1,2 @@
-
-export type SMWApiResult = { 'printrequests': any[]; 'results': any[] };
 export type Options = { [key: string]: any };
+export type ResultData = { [ rowId: string ]:{ [ key: string ]: any } };
