@@ -936,7 +936,7 @@ var MapView = (function (_super) {
         for (var prId in row['printouts']) {
             var pr = row['printouts'][prId];
             if (title === undefined) {
-                title = pr.values.join(', ');
+                title = pr['formatted values'].join(', ');
                 popup.push('<b>' + title + '</b>');
             }
             else {

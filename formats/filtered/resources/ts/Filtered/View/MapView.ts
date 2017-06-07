@@ -64,7 +64,7 @@ export class MapView extends View {
 		for ( let prId in row[ 'printouts' ] ) {
 			let pr = row[ 'printouts' ][ prId ];
 			if ( title === undefined ) {
-				title = pr.values.join( ', ' );
+				title = pr[ 'formatted values' ].join( ', ' );
 				popup.push( '<b>' + title + '</b>' );
 			} else {
 				popup.push( (pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr[ 'formatted values' ].join( ', ' ) )
