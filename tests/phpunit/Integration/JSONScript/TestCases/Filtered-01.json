@@ -1,0 +1,86 @@
+{
+	"description": "Filtered format: ...",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/City name",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/City name",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/City name",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "City",
+			"contents": "[[Category:City]][[Filtered test/City name::{{{name|}}}]][[Filtered test/Location:: {{{latitude|}}}°, {{{longitude|}}}°]][[Filtered test/Country code::{{{country code|}}}]][[Filtered test/Population::{{{population|}}}]][[Filtered test/Elevation::{{{dem|}}} m]][[Filtered test/Timezone::{{{timezone|}}}]]"
+		},
+		{
+			"page": "Filtered test/Berlin",
+			"contents": "{{City |name=Berlin |latitude=52.52437 |longitude=13.41053 |country code=DE |population=3426354 |dem=43 |timezone=Europe/Berlin |modification date=2016-09-26 }}"
+		},
+		{
+			"page": "Filtered test/Cairo",
+			"contents": "{{City |name=Cairo |latitude=30.06263 |longitude=31.24967 |country code=EG |population=7734614 |dem=23 |timezone=Africa/Cairo |modification date=2015-06-03  }}"
+		},
+		{
+			"page": "Filtered test/London",
+			"contents": "{{City |name=London |latitude=51.50853 |longitude=-0.12574 |country code=GB |population=7556900 |dem=25 |timezone=Europe/London |modification date=2016-09-14 }}"
+		},
+		{
+			"page": "Filtered test/Madrid",
+			"contents": "{{City |name=Madrid |latitude=40.4165 |longitude=-3.70256 |country code=ES |population=3255944 |dem=665 |timezone=Europe/Madrid |modification date=2015-06-03 }}"
+		},
+		{
+			"page": "Filtered test/Paris",
+			"contents": "{{City |name=Paris |latitude=48.85341 |longitude=2.3488 |country code=FR |population=2138551 |dem=42 |timezone=Europe/Paris |modification date=2016-02-18  }}"
+		},
+		{
+			"page": "Filtered test/Sofia",
+			"contents": "{{City |name=Sofia |latitude=42.69751 |longitude=23.32415 |country code=BG |population=1152556 |dem=562 |timezone=Europe/Sofia |modification date=2011-06-16 }}"
+		},
+		{
+			"page": "Filtered test/Vienna",
+			"contents": "{{City |name=Vienna |latitude=48.20849 |longitude=16.37208 |country code=AT |population=1691468 |dem=193 |timezone=Europe/Vienna |modification date=2015-07-29 }}"
+		},
+		{
+			"page": "Filtered test/Yerevan",
+			"contents": "{{City |name=Yerevan |latitude=40.18111 |longitude=44.51361 |country code=AM |population=1093485 |dem=994 |timezone=Asia/Yerevan |modification date=2016-03-10 }}"
+		},
+		{
+			"page": "Example/Tree 02-01",
+			"contents": "{{#ask:[[Part of::Filtered test]]|format=filtered}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "Filtered 01-01 (...)",
+			"subject": "Example/Tree 01-01",
+			"assert-output": {
+				"to-contain": [
+					"..."
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

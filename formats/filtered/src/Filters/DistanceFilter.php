@@ -107,10 +107,10 @@ class DistanceFilter extends Filter {
 						try {
 							$latlng = $coordParser->parse( $value->getSerialization() );
 							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
-							$value = $field->getNextDataItem();
 						} catch ( \Exception $exception ) {
 							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
 						}
+						$value = $field->getNextDataItem();
 					}
 
 				}

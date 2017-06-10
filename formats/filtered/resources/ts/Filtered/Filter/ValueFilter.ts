@@ -24,7 +24,12 @@ export class ValueFilter extends Filter {
 
 		if ( this.options.hasOwnProperty( 'values' ) ) {
 
-			return this.options[ 'values' ];
+			return this.options[ 'values' ].reduce(
+
+				( values: { [key: string]: string }, item: string ) => {
+					values[ item ] = item;
+					return values;
+				}, {} );
 
 		} else {
 			// build filter values from available values in result set
@@ -103,11 +108,11 @@ export class ValueFilter extends Filter {
 
 				let andorControl = $( '<div class="filtered-value-andor">' );
 
-				let andControl = $( '<input type="radio" name="filtered-value-andor ' +
-					this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="and">' );
+				let andControl = $( '<input type="radio" name="filtered-value-and ' +
+					this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">' );
 
-				let orControl = $( '<input type="radio" name="filtered-value-andor ' +
-					this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="or" checked>' );
+				let orControl = $( '<input type="radio" name="filtered-value-or ' +
+					this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>' );
 
 				andControl
 				.add( orControl )

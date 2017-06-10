@@ -90,11 +90,15 @@ export class DistanceFilter extends Filter {
 
 		for ( let rowId in values ) {
 
-			let distances: number[] = values[ rowId ].data[ this.filterId ].positions.map( ( pos: L.LatLngLiteral ) => this.distance( origin, pos ) );
-			let dist = Math.min( ...distances );
+			if ( values[ rowId ].data.hasOwnProperty( this.filterId ) ) {
+				let distances: number[] = values[ rowId ].data[ this.filterId ].positions.map( ( pos: L.LatLngLiteral ) => this.distance( origin, pos ) );
+				let dist = Math.min( ...distances );
 
-			values[ rowId ].data[ this.filterId ].distance = dist;
-			max = Math.max( max, dist );
+				values[ rowId ].data[ this.filterId ].distance = dist;
+				max = Math.max( max, dist );
+			} else {
+				values[ rowId ].data[ this.filterId ].distance = Infinity;
+			}
 		}
 
 		return max;

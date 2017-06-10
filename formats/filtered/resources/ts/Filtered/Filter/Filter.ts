@@ -38,7 +38,7 @@ export abstract class Filter{
 			.prepend( showControl )
 			.prepend( hideControl );
 
-			filtercontrols = $( '<div class="filtered-value-collapsible">' )
+			filtercontrols = $( '<div class="filtered-collapsible">' )
 			.appendTo( filtercontrols );
 
 			let outercontrols = filtercontrols;

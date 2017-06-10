@@ -206,10 +206,15 @@ var DistanceFilter = (function (_super) {
         var max = 1;
         var prId = this.printrequestId;
         for (var rowId in values) {
-            var distances = values[rowId].data[this.filterId].positions.map(function (pos) { return _this.distance(origin, pos); });
-            var dist = Math.min.apply(Math, distances);
-            values[rowId].data[this.filterId].distance = dist;
-            max = Math.max(max, dist);
+            if (values[rowId].data.hasOwnProperty(this.filterId)) {
+                var distances = values[rowId].data[this.filterId].positions.map(function (pos) { return _this.distance(origin, pos); });
+                var dist = Math.min.apply(Math, distances);
+                values[rowId].data[this.filterId].distance = dist;
+                max = Math.max(max, dist);
+            }
+            else {
+                values[rowId].data[this.filterId].distance = Infinity;
+            }
         }
         return max;
     };
@@ -270,7 +275,7 @@ var Filter = (function () {
             filtercontrols
                 .prepend(showControl_1)
                 .prepend(hideControl_1);
-            filtercontrols = $('<div class="filtered-value-collapsible">')
+            filtercontrols = $('<div class="filtered-collapsible">')
                 .appendTo(filtercontrols);
             var outercontrols_1 = filtercontrols;
             showControl_1.click(function () {
@@ -510,7 +515,10 @@ var ValueFilter = (function (_super) {
         /** Map of value => label distinct values */
         var distinctValues = {};
         if (this.options.hasOwnProperty('values')) {
-            return this.options['values'];
+            return this.options['values'].reduce(function (values, item) {
+                values[item] = item;
+                return values;
+            }, {});
         }
         else {
             // build filter values from available values in result set
@@ -564,10 +572,10 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var andControl = $('<input type="radio" name="filtered-value-andor ' +
-                    this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="and">');
-                var orControl_1 = $('<input type="radio" name="filtered-value-andor ' +
-                    this.printrequestId + '"  class="filtered-value-andor ' + this.printrequestId + '" value="or" checked>');
+                var andControl = $('<input type="radio" name="filtered-value-and ' +
+                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
+                var orControl_1 = $('<input type="radio" name="filtered-value-or ' +
+                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
