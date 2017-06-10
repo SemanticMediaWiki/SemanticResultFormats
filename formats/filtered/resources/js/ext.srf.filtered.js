@@ -936,7 +936,12 @@ var MapView = (function (_super) {
             this.icon = new Icon({
                 'iconUrl': iconPath + 'marker-icon.png',
                 'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
-                'shadowUrl': iconPath + 'marker-shadow.png'
+                'shadowUrl': iconPath + 'marker-shadow.png',
+                'iconSize': [25, 41],
+                'iconAnchor': [12, 41],
+                'popupAnchor': [1, -34],
+                // 'tooltipAnchor': [16, -28],
+                'shadowSize': [41, 41]
             });
         }
         return this.icon;
@@ -946,16 +951,16 @@ var MapView = (function (_super) {
         var popup = [];
         // TODO: Use <div> instead of <b> and do CSS styling
         for (var prId in row['printouts']) {
-            var pr = row['printouts'][prId];
+            var printouts = row['printouts'][prId];
             if (title === undefined) {
-                title = pr['formatted values'].join(', ');
-                popup.push('<b>' + title + '</b>');
+                title = printouts['values'].join(', ');
+                popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
             }
             else {
-                popup.push((pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr['formatted values'].join(', '));
+                popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
             }
         }
-        var marker = L.marker(latLng, { title: title });
+        var marker = L.marker(latLng, { title: title, alt: title });
         marker.bindPopup(popup.join('<br>'));
         marker.setIcon(this.getIcon());
         return marker;

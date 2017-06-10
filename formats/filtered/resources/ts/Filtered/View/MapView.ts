@@ -44,11 +44,18 @@ export class MapView extends View {
 
 	private getIcon() {
 		if ( this.icon === undefined ) {
+
 			let iconPath = this.controller.getPath() + 'css/images/';
+
 			this.icon = new Icon( {
 				'iconUrl': iconPath + 'marker-icon.png',
 				'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
-				'shadowUrl': iconPath + 'marker-shadow.png'
+				'shadowUrl': iconPath + 'marker-shadow.png',
+				'iconSize':    [25, 41],
+				'iconAnchor':  [12, 41],
+				'popupAnchor': [1, -34],
+				// 'tooltipAnchor': [16, -28],
+				'shadowSize':  [41, 41]
 			} );
 		}
 
@@ -62,17 +69,18 @@ export class MapView extends View {
 		// TODO: Use <div> instead of <b> and do CSS styling
 
 		for ( let prId in row[ 'printouts' ] ) {
-			let pr = row[ 'printouts' ][ prId ];
-			if ( title === undefined ) {
-				title = pr[ 'formatted values' ].join( ', ' );
-				popup.push( '<b>' + title + '</b>' );
-			} else {
-				popup.push( (pr.label ? '<b>' + pr.label + ':</b> ' : '') + pr[ 'formatted values' ].join( ', ' ) )
 
+			let printouts = row[ 'printouts' ][ prId ];
+
+			if ( title === undefined ) {
+				title = printouts[ 'values' ].join( ', ' );
+				popup.push( '<b>' + printouts[ 'formatted values' ].join( ', ' ) + '</b>' );
+			} else {
+				popup.push( (printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts[ 'formatted values' ].join( ', ' ) )
 			}
 		}
 
-		let marker = L.marker( latLng, { title: title } );
+		let marker = L.marker( latLng, { title: title, alt: title } );
 		marker.bindPopup( popup.join( '<br>' ) );
 
 		marker.setIcon( this.getIcon() );
