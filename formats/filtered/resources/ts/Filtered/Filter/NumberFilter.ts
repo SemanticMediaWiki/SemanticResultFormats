@@ -17,7 +17,7 @@ export class NumberFilter extends Filter {
 
 		let [ minValue, maxValue ] : [ number, number ] = this.getRange();
 
-		let precision = 10 ** Math.floor( Math.log( maxValue - minValue ) * Math.LOG10E );
+		let precision = 10 ** ( Math.floor( Math.log( maxValue - minValue ) * Math.LOG10E ) - 1 );
 
 		let requestedMax = this.options[ 'max' ];
 		if ( requestedMax !== undefined && !isNaN( Number( requestedMax ) ) ) {

@@ -1,5 +1,7 @@
 import { Filter } from "./Filter";
 
+declare let mw: any;
+
 export class DistanceFilter extends Filter {
 
 	private static readonly earthRadius: { [key: string]: number } = {
@@ -34,7 +36,7 @@ export class DistanceFilter extends Filter {
 
 		let maxValue: number = this.updateDistances( origin );
 
-		let precision = 10 ** Math.floor( Math.log( maxValue ) * Math.LOG10E );
+		let precision = 10 ** ( Math.floor( Math.log( maxValue ) * Math.LOG10E ) - 1);
 
 		if ( this.options[ 'max' ] !== undefined && this.options[ 'max' ] > maxValue ) {
 			maxValue = this.options[ 'max' ];
@@ -61,22 +63,27 @@ export class DistanceFilter extends Filter {
 
 		filtercontrols.append( table );
 
-		table
-		.find( '.filtered-distance-slider' ).slider( {
-			animate: true,
-			max: maxValue,
-			value: this.filterValue,
-			step: precision / 100
-		} )
-		.on( 'slidechange', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject, ui: any ) {
-			eventObject.data.ui = ui;
-			eventObject.data.filter.onFilterUpdated( eventObject );
-		} )
-		.on( 'slide', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject, ui: any ) {
-			readout.text( ui.value );
-		} )
-		.find( '.ui-slider-handle' )
-		.append( readout );
+		let that = this;
+		mw.loader.using( 'jquery.ui.slider' ).then( function () {
+
+			table.find( '.filtered-distance-slider' )
+			.slider( {
+				animate: true,
+				max: maxValue,
+				value: that.filterValue,
+				step: precision / 100
+			} )
+			.on( 'slidechange', undefined, { 'filter': that }, function ( eventObject: JQueryEventObject, ui: any ) {
+				eventObject.data.ui = ui;
+				eventObject.data.filter.onFilterUpdated( eventObject );
+			} )
+			.on( 'slide', undefined, { 'filter': that }, function ( eventObject: JQueryEventObject, ui: any ) {
+				readout.text( ui.value );
+			} )
+			.find( '.ui-slider-handle' )
+			.append( readout );
+
+		} );
 
 		return this;
 	}

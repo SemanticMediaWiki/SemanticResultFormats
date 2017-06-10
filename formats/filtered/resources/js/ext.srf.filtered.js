@@ -163,7 +163,7 @@ var DistanceFilter = (function (_super) {
         }
         this.earthRadiusValue = DistanceFilter.earthRadius[unit];
         var maxValue = this.updateDistances(origin);
-        var precision = Math.pow(10, Math.floor(Math.log(maxValue) * Math.LOG10E));
+        var precision = Math.pow(10, (Math.floor(Math.log(maxValue) * Math.LOG10E) - 1));
         if (this.options['max'] !== undefined && this.options['max'] > maxValue) {
             maxValue = this.options['max'];
         }
@@ -182,22 +182,25 @@ var DistanceFilter = (function (_super) {
             '<td class="filtered-distance-max-cell">' + maxValue + '</td></tr>' +
             '<tr><td colspan=3 class="filtered-distance-unit-cell">' + unit + '</td></tr></tbody></table>');
         filtercontrols.append(table);
-        table
-            .find('.filtered-distance-slider').slider({
-            animate: true,
-            max: maxValue,
-            value: this.filterValue,
-            step: precision / 100
-        })
-            .on('slidechange', undefined, { 'filter': this }, function (eventObject, ui) {
-            eventObject.data.ui = ui;
-            eventObject.data.filter.onFilterUpdated(eventObject);
-        })
-            .on('slide', undefined, { 'filter': this }, function (eventObject, ui) {
-            readout.text(ui.value);
-        })
-            .find('.ui-slider-handle')
-            .append(readout);
+        var that = this;
+        mw.loader.using('jquery.ui.slider').then(function () {
+            table.find('.filtered-distance-slider')
+                .slider({
+                animate: true,
+                max: maxValue,
+                value: that.filterValue,
+                step: precision / 100
+            })
+                .on('slidechange', undefined, { 'filter': that }, function (eventObject, ui) {
+                eventObject.data.ui = ui;
+                eventObject.data.filter.onFilterUpdated(eventObject);
+            })
+                .on('slide', undefined, { 'filter': that }, function (eventObject, ui) {
+                readout.text(ui.value);
+            })
+                .find('.ui-slider-handle')
+                .append(readout);
+        });
         return this;
     };
     DistanceFilter.prototype.updateDistances = function (origin) {
@@ -331,7 +334,7 @@ var NumberFilter = (function (_super) {
     }
     NumberFilter.prototype.init = function () {
         var _a = this.getRange(), minValue = _a[0], maxValue = _a[1];
-        var precision = Math.pow(10, Math.floor(Math.log(maxValue - minValue) * Math.LOG10E));
+        var precision = Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
         var requestedMax = this.options['max'];
         if (requestedMax !== undefined && !isNaN(Number(requestedMax))) {
             maxValue = Math.max(requestedMax, maxValue);
