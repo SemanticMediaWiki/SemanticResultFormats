@@ -36,8 +36,8 @@ Not supported by the `filtered` format:
 * default
 
 ## Format level - Format specific:
-* views
-* filter position
+* views (`list`|`calendar`|`table`|`map`)
+* filter position (`top`|`bottom`)
 
 ### List view
 
@@ -64,6 +64,7 @@ Not supported by the `filtered` format:
 
 ## Printout level
 
+* filter (`value`|`distrance`|`number`)
 * hide (List view, Calendar view only)
 * align (`right`|`left`|`center`) (Table view only)
 

@@ -85,7 +85,51 @@
 		},
 		{
 			"page": "Example/Filtered 01-03",
-			"contents": "{{#ask:[[Category:Filtered test]]|format=filtered}}"
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=calendar}}"
+		},
+		{
+			"page": "Example/Filtered 01-04",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=table}}"
+		},
+		{
+			"page": "Example/Filtered 01-05",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=map}}"
+		},
+		{
+			"page": "Example/Filtered 01-06",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |+filter=value |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-07",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Elevation |+filter=number |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-08",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Location |+filter=distance |+distance filter origin=52.52437° 13.41053° |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-09",
+			"contents": "{{#ask:[[Category:Filtered test]] |format=filtered |filter position=top }}"
+		},
+		{
+			"page": "Example/Filtered 01-10",
+			"contents": "{{#ask:[[Category:Filtered test]] |format=filtered |filter position=bottom }}"
+		},
+		{
+			"page": "Example/Filtered 01-11",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=list |list view type=ul }}"
+		},
+		{
+			"page": "Example/Filtered 01-12",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=list |list view type=ol }}"
+		},
+		{
+			"page": "Example/Filtered 01-17",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Location |+filter=distance |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-18",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Elevation |+filter=distance |format=filtered }}"
 		}
 	],
 	"tests": [
@@ -96,6 +140,7 @@
 			"assert-output": {
 				"to-be-valid-html": 1,
 				"to-contain": [
+					[ "div.filtered", 1 ],
 					"div.filtered > div.filtered-filters:empty",
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
 					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
@@ -107,12 +152,163 @@
 			"about": "Filtered 01-02 (List view)",
 			"subject": "Example/Filtered 01-02",
 			"assert-output": {
+				"to-be-valid-html": 1,
 				"to-contain": [
 					"div.filtered > div.filtered-filters:empty",
 					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list", 1 ],
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list:contains('List')",
 					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list", 1 ],
-					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list div.filtered-list-item:not(:empty)", 8 ]
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list > div.filtered-list-item:not(:empty)", 8 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-03 (Calendar view)",
+			"subject": "Example/Filtered 01-03",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters:empty",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-calendar", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-calendar:contains('Calendar')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-calendar", 1 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-04 (Table view)",
+			"subject": "Example/Filtered 01-04",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters:empty",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table:contains('Table')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table", 1 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr > th:not(:empty)", 3 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr.filtered-table-item:not(:empty)", 8 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr.filtered-table-item > td", 24 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-05 (Map view)",
+			"subject": "Example/Filtered 01-05",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters:empty",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-map", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-map:contains('Map')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-map", 1 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-06 (Value filter)",
+			"subject": "Example/Filtered 01-06",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter.filtered-value",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-07 (Number filter)",
+			"subject": "Example/Filtered 01-07",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter.filtered-number",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-08 (Distance filter)",
+			"subject": "Example/Filtered 01-08",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter.filtered-distance",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-09 (Filters on top)",
+			"subject": "Example/Filtered 01-09",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered", 1 ],
+					"div.filtered > div.filtered-filters + div.filtered-views"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-10 (Filters at bottom)",
+			"subject": "Example/Filtered 01-10",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered", 1 ],
+					"div.filtered > div.filtered-views + div.filtered-filters "
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-11 (List view: Type ul)",
+			"subject": "Example/Filtered 01-11",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list > ul > li.filtered-list-item:not(:empty)", 8 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-12 (List view: Type ul)",
+			"subject": "Example/Filtered 01-12",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list > ol > li.filtered-list-item:not(:empty)", 8 ]
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Filtered 01-17 (Distance filter: Missing origin)",
+			"subject": "Example/Filtered 01-17",
+			"assert-output": {
+				"to-contain": [
+					"Missing origin for distance filter on 'Filtered test/Location'."
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Filtered 01-18 (Distance filter: Wrong printout type)",
+			"subject": "Example/Filtered 01-18",
+			"assert-output": {
+				"to-contain": [
+					"The 'distance' filter can not be used on the 'Filtered test/Elevation' printout."
 				]
 			}
 		}
