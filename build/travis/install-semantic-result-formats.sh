@@ -24,6 +24,7 @@ function installToMediaWikiRoot {
 
 	# FIXME: Remove once "symfony/css-selector" made it to packagist
 	composer require "symfony/css-selector" "^3.3"
+	composer require "data-values/geo" "^1.1"
 
 	cd extensions
 	cd SemanticResultFormats
