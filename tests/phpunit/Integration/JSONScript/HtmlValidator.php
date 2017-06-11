@@ -22,7 +22,7 @@ class HtmlValidator extends \PHPUnit_Framework_Assert {
 	public function assertThatHtmlIsValid( $actual, $message = '' ) {
 
 		$document = $this->loadHTML( $actual );
-		self::assertNotFalse( $document, "Failed test `{$message}` (assertion HtmlIsValid) for $actual" );
+		self::assertTrue( $document !== false, "Failed test `{$message}` (assertion HtmlIsValid) for $actual" );
 	}
 
 	/**
