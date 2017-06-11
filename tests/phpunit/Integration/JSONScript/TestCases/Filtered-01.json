@@ -8,26 +8,48 @@
 		},
 		{
 			"namespace": "SMW_NS_PROPERTY",
-			"page": "Filtered test/City name",
-			"contents": "[[Has type::Text]]"
+			"page": "Filtered test/Location",
+			"contents": "[[Has type::Geographic coordinates]]"
 		},
 		{
 			"namespace": "SMW_NS_PROPERTY",
-			"page": "Filtered test/City name",
-			"contents": "[[Has type::Text]]"
+			"page": "Filtered test/Country code",
+			"contents": "[[Has type::Page]]"
 		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Population",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Elevation",
+			"contents": "[[Has type::Quantity]][[Corresponds to::1 m]][[Corresponds to::0.001 km]][[Corresponds to::3.28084 ft]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Timezone",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Modification date",
+			"contents": "[[Has type::Date]]"
+		},
+
 		{
 			"namespace": "NS_TEMPLATE",
 			"page": "City",
-			"contents": "[[Category:City]][[Filtered test/City name::{{{name|}}}]][[Filtered test/Location:: {{{latitude|}}}°, {{{longitude|}}}°]][[Filtered test/Country code::{{{country code|}}}]][[Filtered test/Population::{{{population|}}}]][[Filtered test/Elevation::{{{dem|}}} m]][[Filtered test/Timezone::{{{timezone|}}}]]"
+			"contents": "[[Category:Filtered test]][[Category:City]][[Filtered test/City name::{{{name|}}}]][[Filtered test/Location:: {{{latitude|}}}°, {{{longitude|}}}°]][[Filtered test/Country code::{{{country code|}}}]][[Filtered test/Population::{{{population|}}}]][[Filtered test/Elevation::{{{dem|}}} m]][[Filtered test/Timezone::{{{timezone|}}}]][[Filtered test/Modification date::{{{modification date|}}}]]"
 		},
+
 		{
 			"page": "Filtered test/Berlin",
 			"contents": "{{City |name=Berlin |latitude=52.52437 |longitude=13.41053 |country code=DE |population=3426354 |dem=43 |timezone=Europe/Berlin |modification date=2016-09-26 }}"
 		},
 		{
 			"page": "Filtered test/Cairo",
-			"contents": "{{City |name=Cairo |latitude=30.06263 |longitude=31.24967 |country code=EG |population=7734614 |dem=23 |timezone=Africa/Cairo |modification date=2015-06-03  }}"
+			"contents": "{{City |name=Cairo |latitude=30.06263 |longitude=31.24967 |country code=EG |population=7734614 |dem=23 |timezone=Africa/Cairo |modification date=2015-06-03 }}"
 		},
 		{
 			"page": "Filtered test/London",
@@ -54,18 +76,43 @@
 			"contents": "{{City |name=Yerevan |latitude=40.18111 |longitude=44.51361 |country code=AM |population=1093485 |dem=994 |timezone=Asia/Yerevan |modification date=2016-03-10 }}"
 		},
 		{
-			"page": "Example/Tree 02-01",
-			"contents": "{{#ask:[[Part of::Filtered test]]|format=filtered}}"
+			"page": "Example/Filtered 01-01",
+			"contents": "{{#ask:[[Category:Filtered test]]|format=filtered}}"
+		},
+		{
+			"page": "Example/Filtered 01-02",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=list}}"
+		},
+		{
+			"page": "Example/Filtered 01-03",
+			"contents": "{{#ask:[[Category:Filtered test]]|format=filtered}}"
 		}
 	],
 	"tests": [
 		{
-			"type": "parser",
-			"about": "Filtered 01-01 (...)",
-			"subject": "Example/Tree 01-01",
+			"type": "parser-html",
+			"about": "Filtered 01-01 (Empty response)",
+			"subject": "Example/Filtered 01-01",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-02 (List view)",
+			"subject": "Example/Filtered 01-02",
 			"assert-output": {
 				"to-contain": [
-					"..."
+					"div.filtered > div.filtered-filters:empty",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list:contains('List')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list", 1 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list div.filtered-list-item:not(:empty)", 8 ]
 				]
 			}
 		}
