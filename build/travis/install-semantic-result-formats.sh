@@ -22,6 +22,9 @@ function installToMediaWikiRoot {
 	installPHPUnitWithComposer
 	composer require mediawiki/semantic-result-formats "dev-master" --dev
 
+	# FIXME: Remove once "symfony/css-selector" made it to packagist
+	composer require "symfony/css-selector" "^3.3"
+
 	cd extensions
 	cd SemanticResultFormats
 
