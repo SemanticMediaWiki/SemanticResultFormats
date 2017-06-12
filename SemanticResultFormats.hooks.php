@@ -42,6 +42,7 @@ final class SRFHooks {
 			'formats/Sparkline',
 			'formats/TagCloud',
 			'formats/Timeseries',
+			'formats/Tree',
 			'formats/vCard',
 			'formats/MediaPlayer',
 			'formats/DataTables',

@@ -22,16 +22,21 @@ function installToMediaWikiRoot {
 	installPHPUnitWithComposer
 	composer require mediawiki/semantic-result-formats "dev-master" --dev
 
-	# FIXME: Remove once "symfony/css-selector" made it to packagist
-	composer require "symfony/css-selector" "^3.3"
+  # Add optional packages
 	composer require "data-values/geo" "^1.1"
+
+  # FIXME: Remove once request for "symfony/css-selector" made it to packagist
+	composer require "symfony/css-selector" "^3.3"
+
+  # FIXME: Remove once request for "nicmart/tree" made it to packagist
+	composer require "nicmart/tree" "^0.2.7"
 
 	cd extensions
 	cd SemanticResultFormats
 
 	# Pull request number, "false" if it's not a pull request
-	# After the install via composer an additional get fetch is carried out to
-	# update th repository to make sure that the latests code changes are
+	# After the install via composer an additional git fetch is carried out to
+	# update the repository to make sure that the latest code changes are
 	# deployed for testing
 	if [ "$TRAVIS_PULL_REQUEST" != "false" ]
 	then

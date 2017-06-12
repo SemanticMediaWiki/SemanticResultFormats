@@ -30,7 +30,7 @@
 	"srf-gallery-navigation-previous": "Eelmine",
 	"srf-gallery-navigation-next": "Järgmine",
 	"srf_paramdesc_graphname": "Pealkiri",
-	"srf_printername_tree": "Puu",
+	"srf-printername-tree": "Puu",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-printername-eventcalendar": "Sündmuste kalender",
 	"srf-ui-eventcalendar-label-today": "Täna",
