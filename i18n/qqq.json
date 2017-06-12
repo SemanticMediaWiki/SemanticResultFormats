@@ -305,6 +305,7 @@
 	"srf-paramdesc-unit": "{{doc-paramdesc|unit}}",
 	"srf-printername-pagewidget": "{{doc-smwformat|pagewidget}}",
 	"srf-printername-incoming": "{{doc-smwformat|incoming}}",
+	"srf-paramdesc-count": "{{doc-paramdesc|count}}",
 	"srf-paramdesc-min": "{{doc-paramdesc|min}}",
 	"srf-paramdesc-excludeproperty": "{{doc-paramdesc|excludeproperty}}",
 	"srf-printername-media": "{{doc-smwformat|media}}",
