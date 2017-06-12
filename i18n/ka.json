@@ -24,6 +24,6 @@
 	"srf_paramdesc_graphsize": "გრაფიკის ზომა (პიქსელებში)",
 	"srf_paramdesc_graphlink": "გრაფიკის ბმული",
 	"srf_paramdesc_graphcolor": "გრაფიკის ფერი",
-	"srf_printername_tree": "ხე",
+	"srf-printername-tree": "ხე",
 	"srf-printername-slideshow": "სლაიდშოუ"
 }

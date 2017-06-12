@@ -91,8 +91,6 @@ class SemanticResultFormats {
 	public static function registerHooks() {
 		$formatDir = __DIR__ . '/formats/';
 
-		global $wgAutoloadClasses;
-
 		unset( $formatDir );
 
 		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
@@ -170,9 +168,9 @@ class SemanticResultFormats {
 			'array' => 'SRFArray',
 			'hash' => 'SRFHash',
 			'd3chart' => 'SRFD3Chart',
-			'tree' => 'SRFTree',
-			'ultree' => 'SRFTree',
-			'oltree' => 'SRFTree',
+			'tree' => 'SRF\Formats\Tree\TreeResultPrinter',
+			'ultree' => 'SRF\Formats\Tree\TreeResultPrinter',
+			'oltree' => 'SRF\Formats\Tree\TreeResultPrinter',
 			'filtered' => 'SRFFiltered',
 			'latest' => 'SRFTime',
 			'earliest' => 'SRFTime',

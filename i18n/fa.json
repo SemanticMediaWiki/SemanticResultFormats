@@ -60,7 +60,7 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "واپسین",
 	"srf-ui-datatables-label-oPaginate-sNext": "بعدی",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "قبلی",
-	"srf_printername_tree": "درخت",
+	"srf-printername-tree": "درخت",
 	"srf-paramdesc-filtered-list-named-args": "نام بحث‌های عبور داده‌ شده به الگو.",
 	"srf-paramdesc-filtered-list-introtemplate": "نام الگو برای نمایش قبل از نتایج پرس‌و‌جو، اگر وجود داشته باشد.",
 	"srf-paramdesc-filtered-list-outrotemplate": "نام الگو برای نمایش پس از نتایج پرس‌و‌جو، اگر وجود داشته باشد.",

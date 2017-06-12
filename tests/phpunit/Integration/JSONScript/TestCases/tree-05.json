@@ -1,0 +1,76 @@
+{
+	"description": "Tree format: Loop detection",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has parent",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Part of",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Tree 1",
+			"contents": "[[Has parent::Example/Tree 121]][[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 2",
+			"contents": "<!-- No parent -->[[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 3",
+			"contents": "<!-- No parent -->[[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 11",
+			"contents": "[[Has parent::Example/Tree 1]][[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 12",
+			"contents": "[[Has parent::Example/Tree 1]][[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 31",
+			"contents": "[[Has parent::Example/Tree 3]][[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 32",
+			"contents": "[[Has parent::Example/Tree 3]][[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 121",
+			"contents": "[[Has parent::Example/Tree 12]][[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 05-01",
+			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "Tree 05-01 (Loop detection)",
+			"subject": "Example/Tree 05-01",
+			"assert-output": {
+				"to-contain": [
+					"Circle detected when trying to insert Example/Tree 121 into the tree."
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": true
+	}
+}
