@@ -289,6 +289,7 @@
 	"srf-paramdesc-unit": "Unit",
 	"srf-printername-pagewidget": "Pagewidget",
 	"srf-printername-incoming": "Incoming properties",
+	"srf-paramdesc-count": "Sets whether the number of incoming properties should be counted",
 	"srf-paramdesc-min": "Minimum or threshold value",
 	"srf-paramdesc-excludeproperty": "Exclude property from result set",
 	"srf-printername-media": "Media player",
