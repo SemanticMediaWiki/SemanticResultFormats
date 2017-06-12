@@ -139,38 +139,45 @@ minimum requirements are indicated in bold.
 
 ### Composer Installation
 
-The recommended way to install Semantic Result Formats is with [Composer](http://getcomposer.org)
-using [MediaWiki's built-in support for Composer](https://www.mediawiki.org/wiki/Composer).
+The recommended way to install Semantic Result Formats is with
+[Composer](http://getcomposer.org) using [MediaWiki's built-in support for
+Composer](https://www.mediawiki.org/wiki/Composer).
 
 #### Step 1
 
-Change to the root directory of your MediaWiki installation. This is where the "LocalSettings.php"
-file is located. You should already have installed Composer while installing the required extension
-Semnatic MediaWiki. In this case continue to step 2. If not install Composer now:
-
-    wget https://getcomposer.org/composer.phar
+Change to the root directory of your MediaWiki installation. This is where the
+"LocalSettings.php" file is located.
 
 #### Step 2
 
-If you are using MediaWiki 1.25 or later continue to step 3. If not run the following command in
-your shell:
-
-    php composer.phar require mediawiki/semantic-result-formats "~2.5"
+If you already have Composer installed continue to step 3. If not install
+Composer now:
+``` bash
+    wget https://getcomposer.org/composer.phar
+```
 
 #### Step 3
 
 Add the following line to the end of the "require" section in your "composer.local.json" file:
-
+``` json
     "mediawiki/semantic-result-formats": "~2.5"
+```
 
-Remember to add a comma to the end of the preceding line in this section.
+   * Remark 1: Remember to add a comma to the end of the preceding line in this 
+     section.
 
-You should already have a "composer.local.json" file due to installing the required extension
-Semantic MediaWiki. If not you should install Semantic MediaWiki first before you continue.
+   * Remark 2: If you do not have a `composer.local.json` file (MediaWiki <1.25),
+     use `composer.json` instead.
+
+   * Remark 3: If you do not have a `composer.json` file (MediaWiki <1.23.5),
+     copy `composer.json.example` to `composer.json` first.
+
+#### Step 4
 
 When this is done run in your shell:
-
-    php composer.phar update --no-dev --prefer-source
+``` bash
+    php composer.phar update --no-dev --prefer-source "mediawiki/semantic-result-formats"
+```
 
 #### Verify installation success
 
