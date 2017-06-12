@@ -718,73 +718,87 @@ return [
 
 	// Filtered
 	'ext.srf.filtered' => $formatModule + [
-		'scripts' => [
-			'Filtered/libs/ext.srf.filtered.js',
-		],
-		'styles' => [
-			'Filtered/skins/ext.srf.filtered.css',
-		],
-	],
-
-	//
-	'ext.srf.filtered.list-view' => $formatModule + [
-		'scripts' => [
-			'Filtered/libs/ext.srf.filtered.list-view.js',
-		],
-		'dependencies' => [
-			'ext.srf.filtered'
-		],
-	],
-		
-	'ext.srf.filtered.table-view' => $formatModule + [
 			'scripts' => [
-					'Filtered/libs/ext.srf.filtered.table-view.js',
+				'filtered/resources/js/ext.srf.filtered.js',
+			],
+			'styles' => [
+				'filtered/resources/css/ext.srf.filtered.css',
 			],
 			'dependencies' => [
-					'ext.srf.filtered'
+				'ext.srf',
 			],
-	],
+		],
 
-	//
-	'ext.srf.filtered.calendar-view' => $formatModule + $calendarMessages + [
-		'scripts' => [
-			'Filtered/libs/ext.srf.filtered.calendar-view.js',
+	'ext.srf.filtered.list-view' => $formatModule + [
+			'dependencies' => [
+				'ext.srf.filtered',
+			],
 		],
-		'styles' => [
-			'Filtered/skins/ext.srf.filtered.calendar-view.css',
-		],
-		'dependencies' => [
-			'ext.srf.filtered',
-			'ext.jquery.fullcalendar'
-		],
-	],
 
-	//
+	'ext.srf.filtered.table-view' => $formatModule + [
+			'dependencies' => [
+				'ext.srf.filtered',
+			],
+		],
+
+	'ext.srf.filtered.calendar-view.messages' => $formatModule + $calendarMessages,
+
+	'ext.srf.filtered.calendar-view' => $formatModule +  array(
+			'styles' => array(
+				'filtered/resources/css/ext.srf.filtered.calendar-view.css',
+			),
+			'dependencies' => array(
+				'ext.srf.filtered',
+				'ext.srf.filtered.calendar-view.messages',
+				'ext.jquery.fullcalendar'
+			),
+		),
+
+	'ext.srf.filtered.map-view.leaflet' => $formatModule + [
+			'scripts' => [
+				'filtered/resources/js/ext.srf.filtered.leaflet.js',
+			],
+			'styles' => [
+				'filtered/resources/css/ext.srf.filtered.leaflet.css',
+			],
+		],
+
+	'ext.srf.filtered.map-view' => $formatModule + [
+			'styles' => [
+				'filtered/resources/css/ext.srf.filtered.map-view.css',
+			],
+			'dependencies' => [
+				'ext.srf.filtered',
+				'ext.srf.filtered.map-view.leaflet',
+			],
+		],
+
 	'ext.srf.filtered.value-filter' => $formatModule + [
-		'scripts' => [
-			'Filtered/libs/ext.srf.filtered.value-filter.js',
+			'styles' => [
+				'filtered/resources/css/ext.srf.filtered.value-filter.css',
+			],
+			'dependencies' => [
+				'ext.srf.filtered',
+			],
 		],
-		'styles' => [
-			'Filtered/skins/ext.srf.filtered.value-filter.css',
-		],
-		'dependencies' => [
-			'ext.srf.filtered'
-		],
-	],
 
-	//
 	'ext.srf.filtered.distance-filter' => $formatModule + [
-		'scripts' => [
-			'Filtered/libs/ext.srf.filtered.distance-filter.js',
+			'styles' => [ 'filtered/resources/css/ext.srf.filtered.distance-filter.css' ],
+			'dependencies' => [
+				'ext.srf.filtered',
+				'jquery.ui.slider',
+			],
 		],
-		'styles' => [
-			'Filtered/skins/ext.srf.filtered.distance-filter.css',
+
+	'ext.srf.filtered.number-filter' => $formatModule + [
+			'styles' => [
+				'filtered/resources/css/ext.srf.filtered.number-filter.css',
+			],
+			'dependencies' => [
+				'ext.srf.filtered',
+				'jquery.ui.slider',
+			],
 		],
-		'dependencies' => [
-			'ext.srf.filtered',
-			'jquery.ui.slider'
-		],
-	],
 
 	// Slideshow
 	'ext.srf.slideshow' => $formatModule + [

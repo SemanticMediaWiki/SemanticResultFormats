@@ -22,7 +22,13 @@ function installToMediaWikiRoot {
 	installPHPUnitWithComposer
 	composer require mediawiki/semantic-result-formats "dev-master" --dev
 
-	# FIXME: Remove once "nicmart/tree" made it to packagist
+  # Add optional packages
+	composer require "data-values/geo" "^1.1"
+
+  # FIXME: Remove once request for "symfony/css-selector" made it to packagist
+	composer require "symfony/css-selector" "^3.3"
+
+  # FIXME: Remove once request for "nicmart/tree" made it to packagist
 	composer require "nicmart/tree" "^0.2.7"
 
 	cd extensions
