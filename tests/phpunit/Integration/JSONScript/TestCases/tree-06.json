@@ -12,6 +12,11 @@
 			"contents": "[[Has type::Text]]"
 		},
 		{
+			"namespace": "NS_TEMPLATE",
+			"page": "Example/Tree format template",
+			"contents": "FOO{{{1|}}}BAR"
+		},
+		{
 			"page": "Example/Tree 1",
 			"contents": "<!-- No parent -->[[Part of::Tree test]]"
 		},
@@ -41,7 +46,11 @@
 		},
 		{
 			"page": "Example/Tree 06-01",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent}}"
+			"contents": "{{#ask:[[Part of::Tree test]] |format=tree |parent=Has parent }}"
+		},
+		{
+			"page": "Example/Tree 06-02",
+			"contents": "{{#ask:[[Part of::Tree test]] |format=tree |parent=Has parent |template=Example/Tree format template }}"
 		}
 	],
 	"tests": [
@@ -52,6 +61,16 @@
 			"assert-output": {
 				"to-contain": [
 					"<div class=\"srf-tree\">\n<ul><li><a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a>\n<ul><li><a href=\"/.*/Example/Tree_11\" title=\"Example/Tree 11\">Example/Tree 11</a></li>\n<li><a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>\n<ul><li><a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a></li></ul></li>\n<li><a href=\"/.*/Example/Tree_13\" title=\"Example/Tree 13\">Example/Tree 13</a></li></ul></li>\n<li><a href=\"/.*/Example/Tree_2\" title=\"Example/Tree 2\">Example/Tree 2</a>\n<ul><li><a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>\n<ul><li><a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a></li></ul></li></ul></li>\n<li><a href=\"/.*/Example/Tree_3\" title=\"Example/Tree 3\">Example/Tree 3</a></li></ul>\n</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Tree 06-02 (Insert elements with multiple parents multiple times (with template))",
+			"subject": "Example/Tree 06-02",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-tree\">\n<ul><li>FOO<a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_11\" title=\"Example/Tree 11\">Example/Tree 11</a>BAR</li>\n<li>FOO<a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a>BAR</li></ul></li>\n<li>FOO<a href=\"/.*/Example/Tree_13\" title=\"Example/Tree 13\">Example/Tree 13</a>BAR</li></ul></li>\n<li>FOO<a href=\"/.*/Example/Tree_2\" title=\"Example/Tree 2\">Example/Tree 2</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a>BAR</li></ul></li></ul></li>\n<li>FOO<a href=\"/.*/Example/Tree_3\" title=\"Example/Tree 3\">Example/Tree 3</a>BAR</li></ul>\n</div>"
 				]
 			}
 		}
