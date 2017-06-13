@@ -90,11 +90,6 @@ class TreeResultPrinter extends ListResultPrinter {
 		// Allow "_" for encoding spaces, as documented
 		$this->params[ 'sep' ] = str_replace( '_', ' ', $this->params[ 'sep' ] );
 
-		$this->hasTemplates =
-			$this->params[ 'introtemplate' ] !== '' ||
-			$this->params[ 'outrotemplate' ] !== '' ||
-			$this->params[ 'template' ] !== '';
-
 		if ( !ctype_digit( strval( $this->params[ 'start level' ] ) ) || $this->params[ 'start level' ] < 1 ) {
 			$this->params[ 'start level' ] = 1;
 		}
@@ -122,6 +117,11 @@ class TreeResultPrinter extends ListResultPrinter {
 			$this->addError( 'srf-tree-rootinvalid', $this->params[ 'root' ] );
 			return '';
 		}
+
+		$this->hasTemplates =
+			$this->params[ 'introtemplate' ] !== '' ||
+			$this->params[ 'outrotemplate' ] !== '' ||
+			$this->params[ 'template' ] !== '';
 
 		if ( $this->hasTemplates ) {
 			$this->initalizeStandardTemplateParameters();
@@ -160,7 +160,7 @@ class TreeResultPrinter extends ListResultPrinter {
 			return '';
 		}
 
-		return '{{' . $this->mIntroTemplate . join( '|', $params ) . $this->standardTemplateParameters . '}}';
+		return '{{' . $templateName . '|' . join( '|', $params ) . $this->standardTemplateParameters . '}}';
 	}
 
 	/**
