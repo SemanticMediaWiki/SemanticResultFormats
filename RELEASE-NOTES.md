@@ -1,9 +1,8 @@
-These are the release notes for the [Semantic Result Formats]
-(https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
+These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
 
 ## SRF 2.5.0
 
-This is not a release yet.
+Released on June 13, 2017.
 
 * Dropped compatibility with PHP 5.3 and 5.4
 * Dropped compatibility with MediaWiki 1.19 to 1.22
@@ -13,12 +12,13 @@ This is not a release yet.
 * Improved math format to recognize output format "-" (by Sebastian Schmid (gesinn.it))
 * Improved eventcalendar format:  Added parameter 'clicktarget' to allow users to define a target URL that get's called when clicking on a calendar date. (by Felix Aba)
 * Reworked tree format (by Stephan Gambke)
-* Reworked filtered format (by Stephan Gambke)
+* Reworked filtered format which is no longer available by default (by Stephan Gambke)
 * Fixed bug #199 in HTML utils JS script (by gesinn.it)
 * Fixed bug #207: Added missing system messages for the process format and improved existing system messages for the graph format (by Karsten Hoffmeyer)
 * Fixed bug #215: Added missing argument 4 for `GraphViz::graphvizParserHook()` (by Karsten Hoffmeyer)
 * Fixed jplayer file path used by media format (by Stephan Gambke)
 * Fixed gallery format to ensure compatibility with MW 1.23+ (by James Hong Kong)
+* Provided translation updates (by translatewiki.net community)
 
 ## SRF 2.4.2
 
