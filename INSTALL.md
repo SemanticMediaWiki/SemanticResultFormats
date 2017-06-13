@@ -11,7 +11,7 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Release date</th>
 		<th>Git branch</th>
 	</tr>
-		<tr>
+	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 3.0.x</a></th>
 		<td>Development version</td>
 		<td>-</td>
@@ -152,7 +152,7 @@ minimum requirements are indicated in bold.
 ### Composer Installation
 
 The recommended way to install Semantic Result Formats is with
-[Composer](http://getcomposer.org) using [MediaWiki's built-in support for
+[Composer](https://getcomposer.org) using [MediaWiki's built-in support for
 Composer](https://www.mediawiki.org/wiki/Composer).
 
 #### Step 1
