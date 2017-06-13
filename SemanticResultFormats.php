@@ -6,7 +6,7 @@
  * @defgroup SRF Semantic Result Formats
  */
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the SemanticResultFormats extension, it is not a valid entry point.' );
+	die( 'This file is part of the Semantic Result Formats extension, it is not a valid entry point.' );
 }
 
 if ( defined( 'SRF_VERSION' ) ) {
@@ -51,7 +51,7 @@ class SemanticResultFormats {
 	 */
 	public static function initExtension() {
 
-		define( 'SRF_VERSION', '2.5.0-alpha' );
+		define( 'SRF_VERSION', '2.5.0' );
 
 		// Register the extension
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
@@ -65,7 +65,7 @@ class SemanticResultFormats {
 			'author' => [
 				'James Hong Kong',
 				'Stephan Gambke',
-				'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
+				'Jeroen De Dauw',
 				'Yaron Koren',
 				'...'
 			],
@@ -120,7 +120,7 @@ class SemanticResultFormats {
 		}
 
 		if ( !defined( 'SMW_VERSION' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/">Semantic Result Formats</a> requires the <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a> extension, please enable or install the extension first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/">Semantic Result Formats</a> requires the <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a> extension. Please enable or install the extension first.' );
 		}
 	}
 
