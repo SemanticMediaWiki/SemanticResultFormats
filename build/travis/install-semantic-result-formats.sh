@@ -20,16 +20,13 @@ function installToMediaWikiRoot {
 	cd $MW_INSTALL_PATH
 
 	installPHPUnitWithComposer
-	composer require mediawiki/semantic-result-formats "dev-master" --dev
+	composer require mediawiki/semantic-result-formats "dev-master"
 
-  # Add optional packages
-	composer require "data-values/geo" "^1.1"
-
-  # FIXME: Remove once request for "symfony/css-selector" made it to packagist
+	# FIXME: Remove when "symfony/css-selector" has reached packagist
 	composer require "symfony/css-selector" "^3.3"
 
-  # FIXME: Remove once request for "nicmart/tree" made it to packagist
-	composer require "nicmart/tree" "^0.2.7"
+	# Add optional packages
+	composer require "data-values/geo" "^1.1"
 
 	cd extensions
 	cd SemanticResultFormats
@@ -64,6 +61,7 @@ function updateConfiguration {
 	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
+	echo '$GLOBALS["srfgFormats"][] = "filtered";' >> LocalSettings.php
 
 	php maintenance/update.php --skip-external-dependencies --quick
 }

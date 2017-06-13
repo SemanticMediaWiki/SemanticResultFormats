@@ -43,7 +43,7 @@ $GLOBALS['srfgFormats'] = [
 	'd3chart',
 	'latest',
 	'earliest',
-	'filtered',
+//	'filtered',
 	'slideshow',
 	'timeseries',
 	'sparkline',
