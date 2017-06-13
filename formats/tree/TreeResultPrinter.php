@@ -342,7 +342,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 */
 	protected function buildLinesFromTree( $tree ) {
 		$nodePrinterConfiguration = [
-			'format' => trim( $this->params[ 'template' ] ),
+			'format' => trim( $this->params[ 'format' ] ),
 			'template' => trim( $this->params[ 'template' ] ),
 			'headers' => $this->params[ 'headers' ],
 			'template arguments' => $this->params[ 'template arguments' ],
