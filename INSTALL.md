@@ -169,7 +169,7 @@ Add the following line to the end of the "require" section in your "composer.loc
    * Remark 2: If you do not have a `composer.local.json` file (MediaWiki <1.25),
      use `composer.json` instead.
 
-   * Remark 3: If you do not have a `composer.json` file (MediaWiki <1.23.5),
+   * Remark 3: If you do not have a `composer.json` file (MediaWiki <1.24),
      copy `composer.json.example` to `composer.json` first.
 
 #### Step 4
