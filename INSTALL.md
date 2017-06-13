@@ -11,15 +11,21 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Release date</th>
 		<th>Git branch</th>
 	</tr>
-	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.x</a></th>
+		<tr>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 3.0.x</a></th>
 		<td>Development version</td>
 		<td>-</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.0</a></th>
+		<td>Stabel version</td>
+		<td>2017-06-13</td>
+		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></td>
+	</tr>
+	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.4.2</a></th>
-		<td>Stable version</td>
+		<td>Obsolete version</td>
 		<td>2017-02-25</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.4.0">2.4.0</a></td>
 	</tr>
@@ -42,7 +48,7 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.1.2">2.1.2</a></td>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.0</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.0.0</a></th>
 		<td>Obsolete version</td>
 		<td>2014-08-06</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.0">2.0</a></td>
@@ -80,6 +86,12 @@ minimum requirements are indicated in bold.
 		<th>MediaWiki</th>
 		<th>Semantic MediaWiki</th>
 	</tr>
+	<tr>
+		<th>SRF 3.0.x</th>
+		<td><strong>5.6.x</strong> - latest</td>
+		<td><strong>1.27</strong> - latest</td>
+		<td>2.x</td>
+	<tr>
 	<tr>
 		<th>SRF 2.5.x</th>
 		<td><strong>5.5.x</strong> - 7.0.x</td>
