@@ -15,7 +15,8 @@
 			"Liuxinyu970226",
 			"아라",
 			"Hamilton Abreu",
-			"Nike"
+			"Nike",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -239,7 +240,7 @@
 	"srf-printername-oltree": "{{doc-smwformat|oltree}}",
 	"srf-tree-noparentprop": "This is an error message. See result format [http://www.semantic-mediawiki.org/wiki/Help:Tree_format tree] for further information.",
 	"srf-tree-rootinvalid": "This is an error message.\n\nSee result format [http://www.semantic-mediawiki.org/wiki/Help:Tree_format tree] for further information.\n\nParameters:\n* $1 - the specified page title",
-	"srf-tree-circledetected": "This is an error message.\n\nSee result format [http://www.semantic-mediawiki.org/wiki/Help:Tree_format tree] for further information.\n\nParameters:\n* $1 - the title of the page that was attempted to be inserted into the tree",
+	"srf-tree-circledetected": "This is an error message.\n\nSee result format [http://www.semantic-mediawiki.org/wiki/Help:Tree_format tree] for further information. Circle refers to a [https://en.wikipedia.org/wiki/Circular_reference circular reference].\n\nParameters:\n* $1 - the title of the page that was attempted to be inserted into the tree",
 	"srf-paramdesc-tree-parent": "{{doc-paramdesc|parent}}",
 	"srf-paramdesc-tree-root": "{{doc-paramdesc|root}}",
 	"srf-paramdesc-tree-startlevel": "{{doc-paramdesc|start level}}",
@@ -265,6 +266,8 @@
 	"srf-filtered-selectorlabel-calendar": "The label for the tab that selects the \"calendar\" view\n{{Identical|Calendar}}",
 	"srf-filtered-selectorlabel-map": "The label for the tab that selects the \"map\" view\n{{Identical|Map}}",
 	"srf-filtered-firstdayofweek": "{{optional}}\n0 - sunday, 1 - monday...",
+	"srf-filtered-noscript-error": "This is an informatory message.\n\nParameter:\n* $1 - holds the name of a page",
+	"srf-filtered-noscript-link-caption": "This is the caption of a link.",
 	"srf-printername-d3chart": "{{doc-smwformat|d3chart}}\nD3 is the name of the library used to generate the charts.",
 	"srf-printername-timeseries": "{{doc-smwformat|timeseries}}",
 	"srf-paramdesc-group": "{{doc-paramdesc|group}}",
