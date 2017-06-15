@@ -127,8 +127,7 @@ var Controller = (function () {
     return Controller;
 }());
 exports.Controller = Controller;
-
-},{"./View/View":11}],2:[function(require,module,exports){
+},{"./View/View":12}],2:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -248,7 +247,6 @@ DistanceFilter.earthRadius = {
     Å: 63710088000000000
 };
 exports.DistanceFilter = DistanceFilter;
-
 },{"./Filter":3}],3:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -304,7 +302,6 @@ var Filter = (function () {
     return Filter;
 }());
 exports.Filter = Filter;
-
 },{}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -482,7 +479,6 @@ var NumberFilter = (function (_super) {
     return NumberFilter;
 }(Filter_1.Filter));
 exports.NumberFilter = NumberFilter;
-
 },{"./Filter":3}],5:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -517,28 +513,45 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.getSortedValues = function () {
         /** Map of value => label distinct values */
         var distinctValues = {};
+        /** Map of value => sort value distinct values */
+        var distinctSortValues = {};
         if (this.options.hasOwnProperty('values')) {
-            return this.options['values'].reduce(function (values, item) {
-                values[item] = item;
-                return values;
-            }, {});
+            return this.options['values'].map(function (item) {
+                return {
+                    printoutValue: item,
+                    formattedValue: item
+                };
+            });
         }
         else {
             // build filter values from available values in result set
             var data = this.controller.getData();
+            var sortedEntries = [];
             for (var id in data) {
                 var printoutValues = data[id]['printouts'][this.printrequestId]['values'];
                 var printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
+                var printoutSortValues = data[id]['printouts'][this.printrequestId]['sort values'];
                 for (var i in printoutValues) {
                     var printoutFormattedValue = printoutFormattedValues[i];
                     if (printoutFormattedValue.indexOf('<a') > -1) {
                         printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
                     }
                     distinctValues[printoutValues[i]] = printoutFormattedValue;
+                    distinctSortValues[printoutValues[i]] = printoutSortValues[i];
                 }
             }
+            for (var printoutValue in distinctSortValues) {
+                sortedEntries.push({
+                    printoutValue: printoutValue,
+                    sortValue: distinctSortValues[printoutValue],
+                    formattedValue: distinctValues[printoutValue]
+                });
+            }
+            sortedEntries.sort(function (a, b) {
+                return a.sortValue.localeCompare(b.sortValue);
+            });
+            return sortedEntries;
         }
-        return distinctValues;
     };
     ValueFilter.prototype.buildControl = function () {
         var filtercontrols = this.target;
@@ -553,17 +566,17 @@ var ValueFilter = (function (_super) {
             filtercontrols.height(height);
         }
         // insert options (checkboxes and labels) and attach event handlers
-        for (var _i = 0, _a = Object.keys(this.values).sort(); _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
             var option = $('<div class="filtered-value-option">');
-            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value + '"  >');
+            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value.printoutValue + '"  >');
             // attach event handler
             checkbox
                 .on('change', undefined, { 'filter': this }, function (eventObject) {
                 eventObject.data.filter.onFilterUpdated(eventObject);
             });
             // Try to get label, if not fall back to value id
-            var label = this.values[value] || value;
+            var label = value.formattedValue || value.printoutValue; //this.values[ value ] || value;
             option.append(checkbox).append(label);
             filtercontrols.append(option);
         }
@@ -634,7 +647,6 @@ var ValueFilter = (function (_super) {
     return ValueFilter;
 }(Filter_1.Filter));
 exports.ValueFilter = ValueFilter;
-
 },{"./Filter":3}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -737,8 +749,38 @@ var Filtered = (function () {
     return Filtered;
 }());
 exports.Filtered = Filtered;
-
-},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":7,"./View/ListView":8,"./View/MapView":9,"./View/TableView":10,"./View/View":11,"./ViewSelector":12}],7:[function(require,module,exports){
+},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":8,"./View/ListView":9,"./View/MapView":10,"./View/TableView":11,"./View/View":12,"./ViewSelector":7}],7:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+},{}],8:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -856,8 +898,7 @@ var CalendarView = (function (_super) {
     return CalendarView;
 }(View_1.View));
 exports.CalendarView = CalendarView;
-
-},{"./View":11}],8:[function(require,module,exports){
+},{"./View":12}],9:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -879,8 +920,7 @@ var ListView = (function (_super) {
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
-
-},{"./View":11}],9:[function(require,module,exports){
+},{"./View":12}],10:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -998,8 +1038,7 @@ var MapView = (function (_super) {
     return MapView;
 }(View_1.View));
 exports.MapView = MapView;
-
-},{"./View":11}],10:[function(require,module,exports){
+},{"./View":12}],11:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1021,8 +1060,7 @@ var TableView = (function (_super) {
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
-
-},{"./View":11}],11:[function(require,module,exports){
+},{"./View":12}],12:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -1062,39 +1100,6 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
-
-},{}],12:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-
 },{}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -1106,7 +1111,6 @@ for (var id in config) {
         f.run();
     }
 }
-
 },{"./Filtered/Filtered":6}]},{},[13])
 
 //# sourceMappingURL=ext.srf.filtered.js.map
