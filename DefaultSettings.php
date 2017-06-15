@@ -43,7 +43,6 @@ $GLOBALS['srfgFormats'] = [
 	'd3chart',
 	'latest',
 	'earliest',
-	'filtered',
 	'slideshow',
 	'timeseries',
 	'sparkline',
@@ -61,8 +60,11 @@ $GLOBALS['srfgFormats'] = [
 
 	// This format can influence performance during execution due to potential
 	// large number of incoming properties assigned to each selected entity
-	// @see Help:Incoming format
+	// @see Help:Incoming_format
 	// 'incoming',
+	
+	// @see Help:Filtered_format
+	// 'filtered',
 
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.

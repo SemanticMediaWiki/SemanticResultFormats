@@ -7,7 +7,9 @@
 			"ToSter",
 			"Rzuwig",
 			"Alan ffm",
-			"Chrumps"
+			"Chrumps",
+			"Nemo bis",
+			"Woytecr"
 		]
 	},
 	"srf-desc": "Dodatkowe formaty dla zapytań Semantycznej MediaWiki",
@@ -115,9 +117,9 @@
 	"srf-paramdesc-graphname": "Tytuł",
 	"srf-paramdesc-graphsize": "Rozmiar wykresu (w pikselach)",
 	"srf-paramdesc-graphlegend": "Pokaż legendę wykresu lub nie",
-	"srf-paramdesc-graphlabel": "Etykieta wykresu",
-	"srf-paramdesc-rankdir": "Kierunek strzałki",
-	"srf-paramdesc-graphcolor": "Kolor wykresu",
+	"srf-paramdesc-graphlabel": "Ustawia etykietę wykresu",
+	"srf-paramdesc-rankdir": "Ustawia kierunek strzałki",
+	"srf-paramdesc-graphcolor": "Ustawia kolor wykresu",
 	"srf-ui-datatables-label-conditions": "Warunki",
 	"srf-ui-datatables-label-parameters": "Parametry",
 	"srf-ui-datatables-label-information": "Informacje",

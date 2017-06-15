@@ -894,7 +894,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
-var Icon = L.Icon;
 var MapView = (function (_super) {
     __extends(MapView, _super);
     function MapView() {
@@ -933,7 +932,7 @@ var MapView = (function (_super) {
     MapView.prototype.getIcon = function () {
         if (this.icon === undefined) {
             var iconPath = this.controller.getPath() + 'css/images/';
-            this.icon = new Icon({
+            this.icon = new L.Icon({
                 'iconUrl': iconPath + 'marker-icon.png',
                 'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
                 'shadowUrl': iconPath + 'marker-shadow.png',

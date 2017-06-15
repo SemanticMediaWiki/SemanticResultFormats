@@ -5,6 +5,7 @@
 	"keywords": [
 		"SRF",
 		"Semantic Result Formats",
+		"Result Formats",
 		"SMW",
 		"Semantic MediaWiki",
 		"Wiki",
@@ -47,10 +48,7 @@
 		"php": ">=5.5.0",
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/semantic-media-wiki": "~2.1|~3.0",
-		"nicmart/tree": "^0.2.7"
-	},
-	"require-dev": {
-		"mediawiki/semantic-media-wiki": "@dev",
+		"nicmart/tree": "^0.2.7",
 		"symfony/css-selector": "^3.3"
 	},
 	"suggest": {
@@ -74,7 +72,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.5.x-dev"
+			"dev-master": "3.0.x-dev"
 		}
 	},
 	"config": {

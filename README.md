@@ -22,8 +22,9 @@ installation independently. For more information, visit the [SRF homepage][srf] 
 
 ## Installation
 
-The recommended way to install this extension is by using [Composer][composer]. Just add the
-following to the MediaWiki `composer.json` file and run the ``php composer.phar install/update`` command.
+The recommended way to install this extension is by using [Composer][composer].
+Just add the following to the MediaWiki `composer.local.json` file and run the
+`php composer.phar install/update "mediawiki/semantic-result-formats"` command.
 
 ```json
 {
@@ -39,7 +40,7 @@ Information about compatibility, details about the installation, and its configu
 
 Development is coordinated by James Hong Kong and Jeroen De Dauw.
 
-If you have remarks, questions, or suggestions, please send them to semediawiki-users@lists.sourceforge.net.
+If you have remarks, questions, or suggestions, please ask them on semediawiki-users@lists.sourceforge.net.
 You can subscribe to this list [here](https://lists.sourceforge.net/lists/listinfo/semediawiki-user).
 
 If you want to contribute work to the project please subscribe to the

@@ -1,5 +1,4 @@
 import { View } from "./View";
-import Icon = L.Icon;
 
 export class MapView extends View {
 
@@ -47,7 +46,7 @@ export class MapView extends View {
 
 			let iconPath = this.controller.getPath() + 'css/images/';
 
-			this.icon = new Icon( {
+			this.icon = new L.Icon( {
 				'iconUrl': iconPath + 'marker-icon.png',
 				'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
 				'shadowUrl': iconPath + 'marker-shadow.png',
