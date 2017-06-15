@@ -21,23 +21,29 @@ export class ValueFilter extends Filter {
 
 		/** Map of value => label distinct values */
 		let distinctValues: any = {};
+		/** Map of value => sort value distinct values */
+		let distinctSortValues: any = {};
 
 		if ( this.options.hasOwnProperty( 'values' ) ) {
 
-			return this.options[ 'values' ].reduce(
-
-				( values: { [key: string]: string }, item: string ) => {
-					values[ item ] = item;
-					return values;
-				}, {} );
+			return this.options[ 'values' ].map(
+				( item: string ) => {
+					return {
+						printoutValue: item,
+						formattedValue: item
+					};
+				}
+			);
 
 		} else {
 			// build filter values from available values in result set
 			let data = this.controller.getData();
+			let sortedEntries: any[] = [];
 			for ( let id in data ) {
 
 				let printoutValues: any = data[ id ][ 'printouts' ][ this.printrequestId ][ 'values' ];
 				let printoutFormattedValues = data[ id ][ 'printouts' ][ this.printrequestId ][ 'formatted values' ];
+				let printoutSortValues: any = data[ id ][ 'printouts' ][ this.printrequestId ][ 'sort values' ];
 
 				for ( let i in printoutValues ) {
 					let printoutFormattedValue = printoutFormattedValues[ i ];
@@ -47,13 +53,27 @@ export class ValueFilter extends Filter {
 					}
 
 					distinctValues[ printoutValues[ i ] ] = printoutFormattedValue;
+					distinctSortValues[ printoutValues[ i ] ] = printoutSortValues[ i ];
 				}
 
 			}
 
+			for ( let printoutValue in distinctSortValues ) {
+				sortedEntries.push({
+					printoutValue: printoutValue,
+					sortValue: distinctSortValues[ printoutValue ],
+					formattedValue: distinctValues[ printoutValue ]
+				});
+			}
+
+			sortedEntries.sort(
+				( a: any, b: any ) => {
+					return a.sortValue.localeCompare( b.sortValue );
+				} );
+			return sortedEntries;
+
 		}
 
-		return distinctValues;
 	}
 
 	private buildControl() {
@@ -75,10 +95,10 @@ export class ValueFilter extends Filter {
 		}
 
 		// insert options (checkboxes and labels) and attach event handlers
-		for ( let value of Object.keys( this.values ).sort() ) {
+		for ( let value of this.values ) {
 			let option = $( '<div class="filtered-value-option">' );
 
-			let checkbox = $( '<input type="checkbox" class="filtered-value-value" value="' + value + '"  >' );
+			let checkbox = $( '<input type="checkbox" class="filtered-value-value" value="' + value.printoutValue + '"  >' );
 
 			// attach event handler
 			checkbox
@@ -87,7 +107,7 @@ export class ValueFilter extends Filter {
 			} );
 
 			// Try to get label, if not fall back to value id
-			let label = this.values[ value ] || value;
+			let label = value.formattedValue || value.printoutValue; //this.values[ value ] || value;
 
 			option.append( checkbox ).append( label );
 
