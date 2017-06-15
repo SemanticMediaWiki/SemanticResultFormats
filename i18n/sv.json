@@ -10,7 +10,8 @@
 			"Lokal Profil",
 			"Freked",
 			"McDutchie",
-			"Skalman"
+			"Skalman",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Extra resultatformat för Semantic MediaWiki-frågor",
@@ -201,6 +202,7 @@
 	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-filtered-selectorlabel-table": "Tabell",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
+	"srf-filtered-selectorlabel-map": "Karta",
 	"srf-printername-d3chart": "D3 diagram",
 	"srf-printername-timeseries": "Tidsserie diagram",
 	"srf-paramdesc-group": "Serie grupperad efter",

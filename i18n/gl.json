@@ -4,7 +4,8 @@
 			"Alma",
 			"Toliño",
 			"Elisardojm",
-			"Banjo"
+			"Banjo",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
@@ -241,6 +242,9 @@
 	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-filtered-selectorlabel-table": "Táboa",
 	"srf-filtered-selectorlabel-calendar": "Calendario",
+	"srf-filtered-selectorlabel-map": "Mapa",
+	"srf-filtered-noscript-error": "Os resultados non poden visualizarse porque o Javascript non está activado. Vaia a $1.",
+	"srf-filtered-noscript-link-caption": "resultados en forma de táboa",
 	"srf-printername-d3chart": "Gráfica D3",
 	"srf-printername-timeseries": "Gráfica de serie temporal",
 	"srf-paramdesc-group": "Serie agrupada por",

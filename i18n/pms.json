@@ -3,7 +3,8 @@
 		"authors": [
 			"Borichèt",
 			"Dragonòt",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Formà adissionaj për anterogassion an linia ëd Semantic MediaWiki",
@@ -158,8 +159,8 @@
 	"srf-paramdesc-graph-wwl": "Lìmit dl'a cap automàtich dla paròla (an nùmer ëd caràter)",
 	"srf-printername-datatables": "Tàule ëd dàit",
 	"srf-printername-tree": "Erbo",
-	"srf-printername-ultree": "Ultree",
-	"srf-printername-oltree": "Oltree",
+	"srf-printername-ultree": "Erbo UI",
+	"srf-printername-oltree": "Erbo Ol",
 	"srf-tree-noparentprop": "Gnun-a propietà a mont dàita. L'erbo a peul pa esse fàit sensa na propietà a mont specificà.",
 	"srf-paramdesc-tree-parent": "La propietà a conten la pàgina a mont",
 	"srf-printername-slideshow": "Sequensa ëd diapositive",
