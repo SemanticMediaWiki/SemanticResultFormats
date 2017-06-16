@@ -1,5 +1,11 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 3.0.0
+
+This is not a release yet.
+
+* Provided translation updates (by translatewiki.net community)
+
 ## SRF 2.5.0
 
 Released on June 13, 2017.
