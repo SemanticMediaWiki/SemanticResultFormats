@@ -279,6 +279,7 @@
 	"srf-paramdesc-unit": "Unidade",
 	"srf-printername-pagewidget": "Pagewidget",
 	"srf-printername-incoming": "Propiedades entrantes",
+	"srf-paramdesc-count": "Indica se o número de propiedades entrantes debería ser contado",
 	"srf-paramdesc-min": "Valor mínimo ou límite",
 	"srf-paramdesc-excludeproperty": "Excluír a propiedade do conxunto de resultados",
 	"srf-printername-media": "Reprodutor multimedia",

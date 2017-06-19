@@ -11,7 +11,8 @@
 			"Freked",
 			"McDutchie",
 			"Skalman",
-			"Nemo bis"
+			"Nemo bis",
+			"Josve05a"
 		]
 	},
 	"srf-desc": "Extra resultatformat för Semantic MediaWiki-frågor",
@@ -175,6 +176,7 @@
 	"srf-ui-datatables-label-placeholder-column-search": "Sök ...",
 	"srf-ui-datatables-label-multiselect-column-header": "Tillgängliga kolumner",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Filterinställningar",
+	"srf-ui-datatables-label-multiselect-column-selectedtext": "Kolonner är synliga",
 	"srf-ui-datatables-label-sInfo": "Visar _START_ till _END_ av _TOTAL_ poster",
 	"srf-ui-datatables-label-sInfoEmpty": "Visar 0 till 0 av 0 poster",
 	"srf-ui-datatables-label-sInfoThousands": ",",
@@ -236,6 +238,7 @@
 	"srf-printername-incoming": "Ingående egenskaper",
 	"srf-paramdesc-min": "Minsta värde eller tröskelvärdet",
 	"srf-paramdesc-excludeproperty": "Uteslut egenskap från resultatet",
+	"srf-printername-media": "Mediaspelare",
 	"srf-ui-mediaplayer-label-previous": "Föregående",
 	"srf-ui-mediaplayer-label-play": "Spela upp",
 	"srf-ui-mediaplayer-label-pause": "Pausa",
@@ -243,6 +246,7 @@
 	"srf-ui-mediaplayer-label-stop": "Stopp",
 	"srf-ui-mediaplayer-label-mute": "Ljud av",
 	"srf-ui-mediaplayer-label-unmute": "Ljud på",
+	"srf-ui-mediaplayer-label-volume-max": "Maxvolym",
 	"srf-ui-mediaplayer-label-shuffle": "Blanda",
 	"srf-ui-mediaplayer-label-repeat": "Upprepa",
 	"srf-ui-mediaplayer-label-full-screen": "Fullskärm",

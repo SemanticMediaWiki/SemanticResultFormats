@@ -132,6 +132,8 @@
 	"srf-printername-filtered": "필터됨",
 	"srf-filtered-selectorlabel-list": "목록",
 	"srf-filtered-selectorlabel-table": "표",
+	"srf-filtered-selectorlabel-map": "지도",
+	"srf-filtered-noscript-error": "자바스크립트를 사용하지 않고 있기 때문에 결과를 표시할 수 없습니다. $1 문서로 이동합니다.",
 	"srf-printername-d3chart": "D3 차트",
 	"srf-paramdesc-zoom": "크기 조절 사용",
 	"srf-paramdesc-datatable": "데이터베이스 사용",
