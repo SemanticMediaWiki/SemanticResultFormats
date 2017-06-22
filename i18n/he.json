@@ -7,7 +7,8 @@
 			"חיים",
 			"Inkbug",
 			"Guycn2",
-			"Nemo bis"
+			"Nemo bis",
+			"המקיסט"
 		]
 	},
 	"srf-desc": "תבניות תוצאה נוספות לשאילתות של מדיה־ויקי סמנטית",
@@ -235,6 +236,7 @@
 	"srf-filtered-selectorlabel-list": "רשימה",
 	"srf-filtered-selectorlabel-table": "טבלה",
 	"srf-filtered-selectorlabel-calendar": "לוח שנה",
+	"srf-filtered-selectorlabel-map": "מפה",
 	"srf-printername-d3chart": "תרשים D3",
 	"srf-printername-timeseries": "תרשים סדרת זמן",
 	"srf-paramdesc-group": "סדרות מקובצות לפי",
