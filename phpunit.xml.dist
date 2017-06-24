@@ -12,9 +12,11 @@
          stopOnSkipped="false"
          verbose="true">
     <testsuites>
-        <testsuite name="SemanicResultFormats">
-            <directory>tests/phpunit</directory>
-            <!--<exclude>tests/phpunit/ResourcesTest.php</exclude>-->
+        <testsuite name="semantic-result-formats-unit">
+            <directory>tests/phpunit/Unit</directory>
+        </testsuite>
+        <testsuite name="semantic-result-formats-integration">
+            <directory>tests/phpunit/Integration</directory>
         </testsuite>
     </testsuites>
     <filter>
