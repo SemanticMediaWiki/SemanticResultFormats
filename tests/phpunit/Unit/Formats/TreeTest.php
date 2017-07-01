@@ -24,6 +24,9 @@ use SRF\Formats\Tree\TreeResultPrinter;
  */
 class TreeTest extends QueryPrinterRegistryTestCase {
 
+	private $parser;
+	private $title;
+
 	/**
 	 * Returns the names of the formats being tested.
 	 * @return string[]
@@ -63,10 +66,17 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$this->assertEquals( '', $testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ), 'Result should be empty.' );
 
-
+		// Restore GLOBAL state to ensure that preceding tests do not use a
+		// mocked instance
+		$GLOBALS[ 'wgParser' ] = $this->parser;
+		$GLOBALS[ 'wgTitle' ] = $this->title;
 	}
 
 	protected function prepareGlobalState() {
+
+		// Store current state
+		$this->parser = $GLOBALS[ 'wgParser' ];
+		$this->title = $GLOBALS[ 'wgTitle' ];
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
 			->disableOriginalConstructor()
@@ -88,9 +98,9 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		// Careful!!
 		$GLOBALS[ 'wgParser' ] = $parser;
 		$GLOBALS[ 'wgTitle' ] = $title;
-
 	}
 
 	/**
