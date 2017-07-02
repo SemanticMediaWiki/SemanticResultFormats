@@ -261,6 +261,7 @@
 	"srf-paramdesc-filtered-calendar-title": "{{doc-paramdesc|calendar view title}}",
 	"srf-paramdesc-filtered-calendar-title-template": "{{doc-paramdesc|calendar view title template}}",
 	"srf-paramdesc-filtered-map-position": "{{doc-paramdesc|map view position}}",
+	"srf-paramdesc-filtered-map-position": "{{doc-paramdesc|map view height}}",
 	"srf-filtered-selectorlabel-list": "The label for the tab that selects the \"list\" view\n{{Identical|List}}",
 	"srf-filtered-selectorlabel-table": "{{Identical|Table}}",
 	"srf-filtered-selectorlabel-calendar": "The label for the tab that selects the \"calendar\" view\n{{Identical|Calendar}}",

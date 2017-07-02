@@ -128,7 +128,7 @@ var Controller = (function () {
 }());
 exports.Controller = Controller;
 
-},{"./View/View":5}],2:[function(require,module,exports){
+},{"./View/View":4}],2:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var Filter = (function () {
@@ -356,38 +356,6 @@ exports.ValueFilter = ValueFilter;
 },{"./Filter":2}],4:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-
-},{}],5:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
 var View = (function () {
     function View(id, target, c, options) {
         if (options === void 0) { options = {}; }
@@ -426,8 +394,41 @@ var View = (function () {
 }());
 exports.View = View;
 
+},{}],5:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+
 },{}],6:[function(require,module,exports){
 "use strict";
+/// <reference types="qunit" />
 exports.__esModule = true;
 var Controller_1 = require("../../../resources/ts/Filtered/Controller");
 var MockedFilter_1 = require("../Util/MockedFilter");
@@ -553,7 +554,7 @@ var ControllerTest = (function () {
 }());
 exports.ControllerTest = ControllerTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":5,"../Util/MockedFilter":9}],7:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":4,"../Util/MockedFilter":9}],7:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -641,7 +642,8 @@ exports.ValueFilterTest = ValueFilterTest;
 
 },{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":10}],8:[function(require,module,exports){
 "use strict";
-// /// <reference types="jquery" />
+/// <reference types="qunit" />
+/// <reference types="jquery" />
 exports.__esModule = true;
 var ViewSelector_1 = require("../../../resources/ts/Filtered/ViewSelector");
 var Controller_1 = require("../../../resources/ts/Filtered/Controller");
@@ -746,7 +748,7 @@ var ViewSelectorTest = (function () {
 }());
 exports.ViewSelectorTest = ViewSelectorTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":4}],9:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":5}],9:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||

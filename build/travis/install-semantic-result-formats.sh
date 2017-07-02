@@ -22,9 +22,6 @@ function installToMediaWikiRoot {
 	installPHPUnitWithComposer
 	composer require mediawiki/semantic-result-formats "dev-master"
 
-	# FIXME: Remove when "symfony/css-selector" has reached packagist
-	composer require "symfony/css-selector" "^3.3"
-
 	# Add optional packages
 	composer require "data-values/geo" "^1.1"
 

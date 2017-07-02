@@ -1,3 +1,5 @@
+/// <reference types="qunit" />
+
 import { Controller } from "../../../resources/ts/Filtered/Controller";
 import { MockedFilter } from "../Util/MockedFilter";
 import { View } from "../../../resources/ts/Filtered/View/View";

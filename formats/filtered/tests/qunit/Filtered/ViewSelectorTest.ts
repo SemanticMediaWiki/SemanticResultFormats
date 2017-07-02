@@ -1,4 +1,5 @@
-// /// <reference types="jquery" />
+/// <reference types="qunit" />
+/// <reference types="jquery" />
 
 import { ViewSelector } from "../../../resources/ts/Filtered/ViewSelector";
 import { Controller } from "../../../resources/ts/Filtered/Controller";
