@@ -60,6 +60,22 @@ class MapView extends View {
 		return null;
 	}
 
+	public function getJsConfig() {
+		$config = parent::getJsConfig();
+
+		$height = $this->getActualParameters()[ 'map view height' ];
+		if ( $height !== '' ) {
+			$config[ 'height' ] = $height;
+		}
+
+		return $config;
+	}
+
+	/**
+	 * A function to describe the allowed parameters of a query for this view.
+	 *
+	 * @return array of Parameter
+	 */
 	public static function getParameters() {
 
 		$params = parent::getParameters();
@@ -72,9 +88,22 @@ class MapView extends View {
 			// 'islist' => false,
 		];
 
+		$params[] = [
+			'type' => 'dimension',
+			'name'    => 'map view height',
+			'message' => 'srf-paramdesc-filtered-map-height',
+			'default' => 'auto',
+			// 'islist' => false,
+		];
+
 		return $params;
 	}
 
+	/**
+	 * Returns the name of the resourc module to load.
+	 *
+	 * @return string
+	 */
 	public function getResourceModules() {
 		return 'ext.srf.filtered.map-view';
 	}

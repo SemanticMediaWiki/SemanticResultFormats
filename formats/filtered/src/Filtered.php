@@ -79,6 +79,7 @@ class Filtered extends ResultPrinter {
 	private $filtersOnTop;
 	private $printrequests;
 
+	private $resourceModules = [];
 	private $parser;
 
 	/**
@@ -124,8 +125,15 @@ class Filtered extends ResultPrinter {
 		return wfMessage( 'srf-printername-filtered' )->text();
 	}
 
-	protected function handleParameters( array $params, $outputmode ) {
-		parent::handleParameters( $params, $outputmode );
+	/**
+	 * Does any additional parameter handling that needs to be done before the
+	 * actual result is build.
+	 *
+	 * @param array $params
+	 * @param $outputMode
+	 */
+	protected function handleParameters( array $params, $outputMode ) {
+		parent::handleParameters( $params, $outputMode );
 //
 //		// // Set in SMWResultPrinter:
 //		// $this->mIntro = $params['intro'];
@@ -177,7 +185,6 @@ class Filtered extends ResultPrinter {
 				'mode'         => $printRequest->getMode(),
 				'label'        => $printRequest->getLabel(),
 				'outputformat' => $printRequest->getOutputFormat(),
-//				'parameters'   => $printRequest->getParameters(),
 				'type'         => $printRequest->getTypeID(),
 			];
 
@@ -201,13 +208,7 @@ class Filtered extends ResultPrinter {
 
 						if ( $filter->isValidFilterForPropertyType() ) {
 
-							$resourceModules = $filter->getResourceModules();
-
-							if ( is_array( $resourceModules ) ) {
-								array_walk( $resourceModules, 'SMWOutputs::requireResource' );
-							} elseif ( is_string( $resourceModules ) ) {
-								SMWOutputs::requireResource( $resourceModules );
-							}
+							$this->registerResourceModules( $filter->getResourceModules() );
 
 							$filterid = $this->uniqid();
 							$filterHtml .= Html::rawElement( 'div', [ 'id' => $filterid, 'class' => "filtered-filter filtered-$filterName" ], $filter->getResultText() );
@@ -242,10 +243,7 @@ class Filtered extends ResultPrinter {
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
 		$viewSelectorsHtml = '';
-//		$viewHandlers = array();
-//		$viewElements = array(); // will contain the id of the html element to be used by the view
-//		$viewData = array();
-//
+
 		foreach ( $this->viewNames as $viewName ) {
 
 			// cut off the selector label (if one was specified) from the actual view name
@@ -310,15 +308,11 @@ class Filtered extends ResultPrinter {
 		$link->setCaption( Message::get( "srf-filtered-noscript-link-caption" ) );
 		$link->setParameter( 'table', 'format' );
 
+		SMWOutputs::requireResource( 'ext.srf.filtered' );
 
 		return $html;
 	}
 
-
-//	public function getQueryMode( $context ) {
-//		return SMWQuery::MODE_INSTANCES;
-//	}
-//
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions
 	 *

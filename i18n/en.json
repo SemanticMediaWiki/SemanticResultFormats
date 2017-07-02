@@ -244,6 +244,7 @@
 	"srf-paramdesc-filtered-calendar-title": "The printout containing the title of an event. Can not be used together with a title template.",
 	"srf-paramdesc-filtered-calendar-title-template": "A template used to format the event's title in the calendar",
 	"srf-paramdesc-filtered-map-position": "The printout containing the geographical position.",
+	"srf-paramdesc-filtered-map-height": "The height of the map.",
 	"srf-filtered-selectorlabel-list": "List",
 	"srf-filtered-selectorlabel-table": "Table",
 	"srf-filtered-selectorlabel-calendar": "Calendar",

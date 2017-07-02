@@ -127,7 +127,8 @@ var Controller = (function () {
     return Controller;
 }());
 exports.Controller = Controller;
-},{"./View/View":12}],2:[function(require,module,exports){
+
+},{"./View/View":11}],2:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -247,6 +248,7 @@ DistanceFilter.earthRadius = {
     Å: 63710088000000000
 };
 exports.DistanceFilter = DistanceFilter;
+
 },{"./Filter":3}],3:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -302,6 +304,7 @@ var Filter = (function () {
     return Filter;
 }());
 exports.Filter = Filter;
+
 },{}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -479,6 +482,7 @@ var NumberFilter = (function (_super) {
     return NumberFilter;
 }(Filter_1.Filter));
 exports.NumberFilter = NumberFilter;
+
 },{"./Filter":3}],5:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -647,6 +651,7 @@ var ValueFilter = (function (_super) {
     return ValueFilter;
 }(Filter_1.Filter));
 exports.ValueFilter = ValueFilter;
+
 },{"./Filter":3}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -749,38 +754,8 @@ var Filtered = (function () {
     return Filtered;
 }());
 exports.Filtered = Filtered;
-},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":8,"./View/ListView":9,"./View/MapView":10,"./View/TableView":11,"./View/View":12,"./ViewSelector":7}],7:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-},{}],8:[function(require,module,exports){
+
+},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":7,"./View/ListView":8,"./View/MapView":9,"./View/TableView":10,"./View/View":11,"./ViewSelector":12}],7:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -898,7 +873,8 @@ var CalendarView = (function (_super) {
     return CalendarView;
 }(View_1.View));
 exports.CalendarView = CalendarView;
-},{"./View":12}],9:[function(require,module,exports){
+
+},{"./View":11}],8:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -920,8 +896,10 @@ var ListView = (function (_super) {
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
-},{"./View":12}],10:[function(require,module,exports){
+
+},{"./View":11}],9:[function(require,module,exports){
 "use strict";
+/// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -944,29 +922,37 @@ var MapView = (function (_super) {
         _this.markerClusterGroup = undefined;
         _this.bounds = undefined;
         _this.initialized = false;
+        _this.leafletPromise = undefined;
         return _this;
     }
     MapView.prototype.init = function () {
+        var _this = this;
         var data = this.controller.getData();
         var markers = {};
-        var bounds = undefined;
-        var markerClusterGroup = L.markerClusterGroup({
-            animateAddingMarkers: true
-        });
-        for (var rowId in data) {
-            var positions = data[rowId]['data'][this.id]['positions'];
-            markers[rowId] = [];
-            for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
-                var pos = positions_1[_i];
-                bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
-                var marker = this.getMarker(pos, data[rowId]);
-                markers[rowId].push(marker);
-                markerClusterGroup.addLayer(marker);
-            }
+        if (this.options.hasOwnProperty('height') && this.options.height !== 'auto') {
+            this.target.height(this.options.height);
         }
-        this.markerClusterGroup = markerClusterGroup;
-        this.markers = markers;
-        this.bounds = bounds;
+        this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
+            .then(function () {
+            var bounds = undefined;
+            var markerClusterGroup = L.markerClusterGroup({
+                animateAddingMarkers: true
+            });
+            for (var rowId in data) {
+                var positions = data[rowId]['data'][_this.id]['positions'];
+                markers[rowId] = [];
+                for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+                    var pos = positions_1[_i];
+                    bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
+                    var marker = _this.getMarker(pos, data[rowId]);
+                    markers[rowId].push(marker);
+                    markerClusterGroup.addLayer(marker);
+                }
+            }
+            _this.markerClusterGroup = markerClusterGroup;
+            _this.markers = markers;
+            _this.bounds = bounds;
+        });
         return _super.prototype.init.call(this);
     };
     MapView.prototype.getIcon = function () {
@@ -1010,26 +996,28 @@ var MapView = (function (_super) {
         }
         this.initialized = true;
         var that = this;
-        $(function () {
-            setTimeout(function () {
-                that.map = L.map(that.getTargetElement().get(0))
-                    .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: ''
-                }))
-                    .addLayer(that.markerClusterGroup)
-                    .fitBounds(that.bounds);
-            }, 0);
+        this.leafletPromise.then(function () {
+            that.map = L.map(that.getTargetElement().get(0))
+                .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: ''
+            }))
+                .addLayer(that.markerClusterGroup)
+                .fitBounds(that.bounds);
         });
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
-        var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
-        this.markerClusterGroup.addLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        this.leafletPromise.then(function () {
+            var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
+            _this.markerClusterGroup.addLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        });
     };
     MapView.prototype.hideRows = function (rowIds) {
         var _this = this;
-        var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
-        this.markerClusterGroup.removeLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        this.leafletPromise.then(function () {
+            var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
+            _this.markerClusterGroup.removeLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        });
     };
     MapView.prototype.show = function () {
         _super.prototype.show.call(this);
@@ -1038,7 +1026,8 @@ var MapView = (function (_super) {
     return MapView;
 }(View_1.View));
 exports.MapView = MapView;
-},{"./View":12}],11:[function(require,module,exports){
+
+},{"./View":11}],10:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1060,7 +1049,8 @@ var TableView = (function (_super) {
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
-},{"./View":12}],12:[function(require,module,exports){
+
+},{"./View":11}],11:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -1100,6 +1090,39 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
+
+},{}],12:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+
 },{}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -1111,6 +1134,7 @@ for (var id in config) {
         f.run();
     }
 }
+
 },{"./Filtered/Filtered":6}]},{},[13])
 
 //# sourceMappingURL=ext.srf.filtered.js.map

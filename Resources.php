@@ -729,18 +729,6 @@ return [
 			],
 		],
 
-	'ext.srf.filtered.list-view' => $formatModule + [
-			'dependencies' => [
-				'ext.srf.filtered',
-			],
-		],
-
-	'ext.srf.filtered.table-view' => $formatModule + [
-			'dependencies' => [
-				'ext.srf.filtered',
-			],
-		],
-
 	'ext.srf.filtered.calendar-view.messages' => $formatModule + $calendarMessages,
 
 	'ext.srf.filtered.calendar-view' => $formatModule +  array(
@@ -748,7 +736,6 @@ return [
 				'filtered/resources/css/ext.srf.filtered.calendar-view.css',
 			),
 			'dependencies' => array(
-				'ext.srf.filtered',
 				'ext.srf.filtered.calendar-view.messages',
 				'ext.jquery.fullcalendar'
 			),
@@ -767,25 +754,17 @@ return [
 			'styles' => [
 				'filtered/resources/css/ext.srf.filtered.map-view.css',
 			],
-			'dependencies' => [
-				'ext.srf.filtered',
-				'ext.srf.filtered.map-view.leaflet',
-			],
 		],
 
 	'ext.srf.filtered.value-filter' => $formatModule + [
 			'styles' => [
 				'filtered/resources/css/ext.srf.filtered.value-filter.css',
 			],
-			'dependencies' => [
-				'ext.srf.filtered',
-			],
 		],
 
 	'ext.srf.filtered.distance-filter' => $formatModule + [
 			'styles' => [ 'filtered/resources/css/ext.srf.filtered.distance-filter.css' ],
 			'dependencies' => [
-				'ext.srf.filtered',
 				'jquery.ui.slider',
 			],
 		],
@@ -795,7 +774,6 @@ return [
 				'filtered/resources/css/ext.srf.filtered.number-filter.css',
 			],
 			'dependencies' => [
-				'ext.srf.filtered',
 				'jquery.ui.slider',
 			],
 		],
