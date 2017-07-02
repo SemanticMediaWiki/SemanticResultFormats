@@ -4,6 +4,7 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 This is not a release yet.
 
+* Filtered: New parameter `map view height`
 * Provided translation updates (by translatewiki.net community)
 
 ## SRF 2.5.0
