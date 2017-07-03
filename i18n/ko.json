@@ -130,6 +130,7 @@
 	"srf-paramdesc-navigation-controls": "탐색 컨트롤을 보이거나 보이지 않음",
 	"srf-paramdesc-effect": "슬라이드 전환에 사용할 효과",
 	"srf-printername-filtered": "필터됨",
+	"srf-paramdesc-filtered-map-height": "지도의 높이입니다.",
 	"srf-filtered-selectorlabel-list": "목록",
 	"srf-filtered-selectorlabel-table": "표",
 	"srf-filtered-selectorlabel-map": "지도",
