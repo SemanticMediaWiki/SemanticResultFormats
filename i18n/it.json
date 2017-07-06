@@ -109,6 +109,7 @@
 	"srf-ui-datatables-label-oPaginate-sNext": "Successivo",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Precedente",
 	"srf-paramdesc-delay": "Il ritardo tra le slide in secondi",
+	"srf-paramdesc-filtered-map-height": "L'altezza della mappa.",
 	"srf-filtered-selectorlabel-list": "Elenco",
 	"srf-filtered-selectorlabel-table": "Tabella",
 	"srf-filtered-selectorlabel-calendar": "Calendario",
