@@ -163,7 +163,6 @@ class Gallery extends ResultPrinter {
 		if ( !$ig->isEmpty() ) {
 			$attribs =  [
 				'class'  => 'srf-gallery' . $class,
-				'align'  => 'justify',
 				'data-redirect-type' => $redirectType,
 				'data-ns-text' => $this->getFileNsTextForPageLanguage()
 			];
