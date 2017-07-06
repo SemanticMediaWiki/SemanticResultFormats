@@ -314,8 +314,7 @@ class TagCloud extends ResultPrinter {
 		// General placeholder
 		$attribs =  [
 			'class'  => 'srf-tagcloud' . $class,
-			'data-version' => '0.4.1',
-			'align'  => 'justify'
+			'data-version' => '0.4.1'
 		];
 
 		return Html::rawElement( 'div', $attribs, $processing . $htmlSTags );
