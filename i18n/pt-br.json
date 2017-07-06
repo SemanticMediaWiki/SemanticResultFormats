@@ -8,7 +8,8 @@
 			"Luckas Blade",
 			"Luckas",
 			"!Silent",
-			"Nemo bis"
+			"Nemo bis",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultado para consultas do Semantic MediaWiki",
@@ -240,6 +241,7 @@
 	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-filtered-selectorlabel-table": "Tabela",
 	"srf-filtered-selectorlabel-calendar": "Calendário",
+	"srf-filtered-selectorlabel-map": "Mapa",
 	"srf-printername-d3chart": "Gráfico D3",
 	"srf-printername-timeseries": "Gráfico de séries temporais",
 	"srf-paramdesc-group": "Séries agrupadas por",
