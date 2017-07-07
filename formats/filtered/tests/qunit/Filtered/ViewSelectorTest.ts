@@ -20,9 +20,11 @@ export class ViewSelectorTest {
 	}
 
 	public testInitSingleView( assert: QUnitAssert ) {
+
 		// Setup
 		let callCount = 0;
 		let viewName = 'foo';
+
 		let target = $( '<div style="display:none">' );
 		target.append( '<div class="' + viewName + '">' );
 		target.on = function ( ...args: any[] ): JQuery {
@@ -30,12 +32,16 @@ export class ViewSelectorTest {
 			return target;
 		};
 		target.appendTo( 'body' );
+
 		let v = new ViewSelector( target, [ viewName ], undefined );
+
 		// Run
 		v.init();
+
 		// Assert
 		assert.strictEqual( callCount, 0, 'Registers no Click events.' );
 		assert.ok( target.is( ':hidden' ), 'Target element is NOT visible.' );
+
 		// Tear down
 		target.remove();
 	}
@@ -72,16 +78,20 @@ export class ViewSelectorTest {
 	}
 
 	public testSelectViews( assert: QUnitAssert ) {
+
 		// Setup
 		let target = $( '<div style="display:none">' );
 		let viewSelectors:{ [index: string]: JQuery } = {};
+
 		let viewIDs = [ 'foo', 'bar', 'baz' ];
 		for ( let _i = 0, viewIDs_2 = viewIDs; _i < viewIDs_2.length; _i++ ) {
 			let id = viewIDs_2[ _i ];
 			viewSelectors[ id ] = $( '<div class="' + id + '">' );
 			target.append( viewSelectors[ id ] );
 		}
+
 		target.appendTo( 'body' );
+
 		let c = new Controller( undefined, undefined );
 		c.onViewSelected = function ( viewID ) {
 			// Assert that the ViewSelector called the Controller when clicked

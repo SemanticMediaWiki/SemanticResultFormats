@@ -128,7 +128,7 @@ var Controller = (function () {
 }());
 exports.Controller = Controller;
 
-},{"./View/View":4}],2:[function(require,module,exports){
+},{"./View/View":5}],2:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var Filter = (function () {
@@ -355,6 +355,158 @@ exports.ValueFilter = ValueFilter;
 
 },{"./Filter":2}],4:[function(require,module,exports){
 "use strict";
+/// <reference types="leaflet" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var View_1 = require("./View");
+var MapView = (function (_super) {
+    __extends(MapView, _super);
+    function MapView() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.map = undefined;
+        _this.icon = undefined;
+        _this.markers = undefined;
+        _this.markerClusterGroup = undefined;
+        _this.bounds = undefined;
+        _this.initialized = false;
+        _this.zoom = -1;
+        _this.minZoom = -1;
+        _this.maxZoom = -1;
+        _this.leafletPromise = undefined;
+        return _this;
+    }
+    MapView.prototype.init = function () {
+        var _this = this;
+        var data = this.controller.getData();
+        var markers = {};
+        if (this.options.hasOwnProperty('height')) {
+            this.target.height(this.options.height);
+        }
+        this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
+            .then(function () {
+            var bounds = undefined;
+            var markerClusterGroup = L.markerClusterGroup({
+                animateAddingMarkers: true
+            });
+            for (var rowId in data) {
+                var positions = data[rowId]['data'][_this.id]['positions'];
+                markers[rowId] = [];
+                for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+                    var pos = positions_1[_i];
+                    bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
+                    var marker = _this.getMarker(pos, data[rowId]);
+                    markers[rowId].push(marker);
+                    markerClusterGroup.addLayer(marker);
+                }
+            }
+            _this.markerClusterGroup = markerClusterGroup;
+            _this.markers = markers;
+            _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
+        });
+        return _super.prototype.init.call(this);
+    };
+    MapView.prototype.getIcon = function () {
+        if (this.icon === undefined) {
+            var iconPath = this.controller.getPath() + 'css/images/';
+            this.icon = new L.Icon({
+                'iconUrl': iconPath + 'marker-icon.png',
+                'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+                'shadowUrl': iconPath + 'marker-shadow.png',
+                'iconSize': [25, 41],
+                'iconAnchor': [12, 41],
+                'popupAnchor': [1, -34],
+                // 'tooltipAnchor': [16, -28],
+                'shadowSize': [41, 41]
+            });
+        }
+        return this.icon;
+    };
+    MapView.prototype.getMarker = function (latLng, row) {
+        var title = undefined;
+        var popup = [];
+        // TODO: Use <div> instead of <b> and do CSS styling
+        for (var prId in row['printouts']) {
+            var printouts = row['printouts'][prId];
+            if (title === undefined) {
+                title = printouts['values'].join(', ');
+                popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
+            }
+            else {
+                popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+            }
+        }
+        var marker = L.marker(latLng, { title: title, alt: title });
+        marker.bindPopup(popup.join('<br>'));
+        marker.setIcon(this.getIcon());
+        return marker;
+    };
+    MapView.prototype.lateInit = function () {
+        if (this.initialized) {
+            return;
+        }
+        this.initialized = true;
+        var that = this;
+        this.leafletPromise.then(function () {
+            var mapOptions = that.getMapOptions();
+            that.map = L.map(that.getTargetElement().get(0), mapOptions)
+                .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: ''
+            }))
+                .addLayer(that.markerClusterGroup);
+            if (!mapOptions.hasOwnProperty('zoom')) {
+                that.map.fitBounds(that.bounds);
+            }
+        });
+    };
+    MapView.prototype.getMapOptions = function () {
+        var options = {
+            center: this.bounds !== undefined ? this.bounds.getCenter() : [0, 0]
+        };
+        var optionMap = {
+            'zoom': 'zoom',
+            'min zoom': 'minZoom',
+            'max zoom': 'maxZoom'
+        };
+        for (var key in optionMap) {
+            if (this.options.hasOwnProperty(key)) {
+                options[optionMap[key]] = this.options[key];
+            }
+        }
+        return options;
+    };
+    MapView.prototype.showRows = function (rowIds) {
+        var _this = this;
+        this.leafletPromise.then(function () {
+            var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
+            _this.markerClusterGroup.addLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        });
+    };
+    MapView.prototype.hideRows = function (rowIds) {
+        var _this = this;
+        this.leafletPromise.then(function () {
+            var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
+            _this.markerClusterGroup.removeLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        });
+    };
+    MapView.prototype.show = function () {
+        _super.prototype.show.call(this);
+        this.lateInit();
+    };
+    return MapView;
+}(View_1.View));
+exports.MapView = MapView;
+
+},{"./View":5}],5:[function(require,module,exports){
+"use strict";
 exports.__esModule = true;
 var View = (function () {
     function View(id, target, c, options) {
@@ -394,7 +546,7 @@ var View = (function () {
 }());
 exports.View = View;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var ViewSelector = (function () {
@@ -426,7 +578,7 @@ var ViewSelector = (function () {
 }());
 exports.ViewSelector = ViewSelector;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 exports.__esModule = true;
@@ -554,7 +706,7 @@ var ControllerTest = (function () {
 }());
 exports.ControllerTest = ControllerTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":4,"../Util/MockedFilter":9}],7:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":5,"../Util/MockedFilter":12}],8:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -640,7 +792,126 @@ var ValueFilterTest = (function (_super) {
 }(QUnitTest_1.QUnitTest));
 exports.ValueFilterTest = ValueFilterTest;
 
-},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":10}],8:[function(require,module,exports){
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":13}],9:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var ViewTest_1 = require("./ViewTest");
+var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
+var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
+var MapViewTest = (function (_super) {
+    __extends(MapViewTest, _super);
+    function MapViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // TODO:
+    MapViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        if (c === undefined) {
+            c = new Controller_1.Controller(undefined, undefined);
+        }
+        console.log('MapViewTest.getTestObject');
+        return new MapView_1.MapView(id, target, c, options);
+    };
+    ;
+    MapViewTest.prototype.runTests = function () {
+        _super.prototype.runTests.call(this);
+        return true;
+    };
+    ;
+    return MapViewTest;
+}(ViewTest_1.ViewTest));
+exports.MapViewTest = MapViewTest;
+
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/MapView":4,"./ViewTest":10}],10:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var QUnitTest_1 = require("../../Util/QUnitTest");
+var View_1 = require("../../../../resources/ts/Filtered/View/View");
+var ViewTest = (function (_super) {
+    __extends(ViewTest, _super);
+    function ViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // Coverage:
+    // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
+    // [x] public init()
+    // [x] public getTargetElement(): JQuery
+    // [ ] public showRows( rowIds: string[] )
+    // [ ] public hideRows( rowIds: string[] )
+    // [x] public show()
+    // [x] public hide()
+    ViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        console.log('ViewTest.getTestObject');
+        return new View_1.View(id, target, c, options);
+    };
+    ;
+    ViewTest.prototype.runTests = function () {
+        var className = this.getTestObject().constructor['name'];
+        var that = this;
+        QUnit.test(className + ": Can construct, init and knows target element", function (assert) { that.testBasics(assert, that); });
+        QUnit.test(className + ": Show and Hide", function (assert) { that.testShowAndHide(assert, that); });
+        return true;
+    };
+    ;
+    ViewTest.prototype.testBasics = function (assert, that) {
+        //Setup
+        var target = $('<div>');
+        // Run
+        var v = that.getTestObject('foo', target);
+        v.init();
+        // Assert
+        assert.ok(v instanceof View_1.View, 'Can construct View.');
+        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
+    };
+    ;
+    ViewTest.prototype.testShowAndHide = function (assert, that) {
+        // Setup
+        var target = $('<div>');
+        target.show = function () { assert.ok(true, 'Target element shown.'); return target; };
+        target.hide = function () { assert.ok(true, 'Target element hidden.'); return target; };
+        var v = that.getTestObject('foo', target);
+        v.init();
+        v.show();
+        v.hide();
+        assert.expect(2);
+    };
+    ;
+    return ViewTest;
+}(QUnitTest_1.QUnitTest));
+exports.ViewTest = ViewTest;
+
+},{"../../../../resources/ts/Filtered/View/View":5,"../../Util/QUnitTest":13}],11:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -748,7 +1019,7 @@ var ViewSelectorTest = (function () {
 }());
 exports.ViewSelectorTest = ViewSelectorTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":5}],9:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":6}],12:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -771,7 +1042,7 @@ var MockedFilter = (function (_super) {
 }(Filter_1.Filter));
 exports.MockedFilter = MockedFilter;
 
-},{"../../../resources/ts/Filtered/Filter/Filter":2}],10:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Filter/Filter":2}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var QUnitTest = (function () {
@@ -783,7 +1054,7 @@ var QUnitTest = (function () {
 }());
 exports.QUnitTest = QUnitTest;
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var QUnitTestHandler = (function () {
@@ -828,7 +1099,7 @@ var QUnitTestHandler = (function () {
 }());
 exports.QUnitTestHandler = QUnitTestHandler;
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 exports.__esModule = true;
@@ -836,12 +1107,16 @@ var ViewSelectorTest_1 = require("./Filtered/ViewSelectorTest");
 var ControllerTest_1 = require("./Filtered/ControllerTest");
 var ValueFilterTest_1 = require("./Filtered/Filter/ValueFilterTest");
 var QUnitTestHandler_1 = require("./Util/QUnitTestHandler");
+var ViewTest_1 = require("./Filtered/View/ViewTest");
+var MapViewTest_1 = require("./Filtered/View/MapViewTest");
 var testclasses = [
     ViewSelectorTest_1.ViewSelectorTest,
     ControllerTest_1.ControllerTest,
-    ValueFilterTest_1.ValueFilterTest
+    ValueFilterTest_1.ValueFilterTest,
+    ViewTest_1.ViewTest,
+    MapViewTest_1.MapViewTest,
 ];
 var testhandler = new QUnitTestHandler_1.QUnitTestHandler('ext.srf.formats.filtered', testclasses);
 testhandler.runTests();
 
-},{"./Filtered/ControllerTest":6,"./Filtered/Filter/ValueFilterTest":7,"./Filtered/ViewSelectorTest":8,"./Util/QUnitTestHandler":11}]},{},[12]);
+},{"./Filtered/ControllerTest":7,"./Filtered/Filter/ValueFilterTest":8,"./Filtered/View/MapViewTest":9,"./Filtered/View/ViewTest":10,"./Filtered/ViewSelectorTest":11,"./Util/QUnitTestHandler":14}]},{},[15]);
