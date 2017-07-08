@@ -1,0 +1,113 @@
+{
+	"description": "Test for math/sum result format in pt-br lang",
+	"setup": [
+		{
+			"page": "Has number",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"page": "Example/Math/1",
+			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]] "
+		},
+		{
+			"page": "Example/Math/Q.1",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=sum }}"
+		},
+		{
+			"page": "Example/Math/Q.2",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=max }}"
+		},
+		{
+			"page": "Example/Math/Q.3",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=min }}"
+		},
+		{
+			"page": "Example/Math/Q.4",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=product }}"
+		},
+		{
+			"page": "Example/Math/Q.5",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=average }}"
+		},
+		{
+			"page": "Example/Math/Q.6",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=median }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 format=sum (kilo and decimal separators)",
+			"subject": "Example/Math/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"30.030.025,75"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 format=max (kilo and decimal separators)",
+			"subject": "Example/Math/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"30.000.000"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 format=min (kilo and decimal separators)",
+			"subject": "Example/Math/Q.3",
+			"assert-output": {
+				"to-contain": [
+					"25,5"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 format=product (kilo and decimal separators)",
+			"subject": "Example/Math/Q.4",
+			"assert-output": {
+				"to-contain": [
+					"1,721279e+17"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 format=average (kilo and decimal separators)",
+			"subject": "Example/Math/Q.5",
+			"assert-output": {
+				"to-contain": [
+					"7.507.506,438"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 format=median (kilo and decimal separators)",
+			"subject": "Example/Math/Q.6",
+			"assert-output": {
+				"to-contain": [
+					"15.000,125"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "pt-br",
+		"wgLang": "pt-br",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
