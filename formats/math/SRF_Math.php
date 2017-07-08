@@ -44,8 +44,8 @@ class SRFMath extends SMWResultPrinter {
 
 		// if raw-format ("-") than skip formatNum()
 		if ( $outputformat != "-" ) {
-			global $wgLang;
-			$number = $wgLang->formatNum( $number );
+			$dataValue = \SMW\DataValueFactory::getInstance()->newDataValueByType( '_num' );
+			$number = $dataValue->getLocalizedFormattedNumber( $number );
 		}
 
 		return (string)$number;
