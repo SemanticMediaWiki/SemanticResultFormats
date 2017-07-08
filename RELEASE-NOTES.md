@@ -6,6 +6,7 @@ This is not a release yet.
 
 * Filtered: New parameter `map view height`
 * Provided translation updates (by translatewiki.net community)
+* #248 Fixed localized formatting of math results
 
 ## SRF 2.5.0
 
