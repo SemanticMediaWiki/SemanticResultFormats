@@ -8,6 +8,15 @@ This is not a release yet.
 * Provided translation updates (by translatewiki.net community)
 * #248 Fixed localized formatting of math results
 
+## SRF 2.5.1
+
+Released on July 11, 2017.
+
+* Fixed bug #235: Fix the `template` parameter to the "tree", "oltree" and "ultree" formats
+* Fixed bug #236: Make the "oltree" format to actually use `<ol>`
+* Fixed bug #253: Remove obsolete `"div"` element `align="justify"` from the "tagcloud" and "gallery" formats
+* Provided translation updates (by translatewiki.net community)
+
 ## SRF 2.5.0
 
 Released on June 13, 2017.
