@@ -18,8 +18,8 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.0</a></th>
-		<td>Stabel version</td>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.1</a></th>
+		<td>Stable version</td>
 		<td>2017-06-13</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></td>
 	</tr>
@@ -90,13 +90,13 @@ minimum requirements are indicated in bold.
 		<th>SRF 3.0.x</th>
 		<td><strong>5.6.x</strong> - latest</td>
 		<td><strong>1.27</strong> - latest</td>
-		<td>2.x</td>
+		<td><strong>3.x</strong></td>
 	<tr>
 	<tr>
 		<th>SRF 2.5.x</th>
 		<td><strong>5.5.x</strong> - 7.0.x</td>
 		<td><strong>1.23</strong> - 1.29</td>
-		<td>2.x</td>
+		<td>2.x - latest</td>
 	<tr>
 		<th>SRF 2.4.x</th>
 		<td>5.3.2 - 7.0.x</td>
@@ -172,17 +172,11 @@ Composer now:
 
 Add the following line to the end of the "require" section in your "composer.local.json" file:
 ``` json
-    "mediawiki/semantic-result-formats": "~2.5"
+    "mediawiki/semantic-result-formats": "~3.0"
 ```
 
-   * Remark 1: Remember to add a comma to the end of the preceding line in this 
+   * Remark: Remember to add a comma to the end of the preceding line in this
      section.
-
-   * Remark 2: If you do not have a `composer.local.json` file (MediaWiki <1.25),
-     use `composer.json` instead.
-
-   * Remark 3: If you do not have a `composer.json` file (MediaWiki <1.24),
-     copy `composer.json.example` to `composer.json` first.
 
 #### Step 4
 

@@ -8,8 +8,13 @@ function installPHPUnitWithComposer {
 	if [ "$PHPUNIT" != "" ]
 	then
 		composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
-	else
-		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
+	fi
+}
+
+function installSMWWithComposer {
+	if [ "$SMW" != "" ]
+	then
+		composer require 'mediawiki/semantic-media-wiki='$SMW --update-with-dependencies
 	fi
 }
 
@@ -20,6 +25,7 @@ function installToMediaWikiRoot {
 	cd $MW_INSTALL_PATH
 
 	installPHPUnitWithComposer
+	installSMWWithComposer
 	composer require mediawiki/semantic-result-formats "dev-master"
 
 	# Add optional packages

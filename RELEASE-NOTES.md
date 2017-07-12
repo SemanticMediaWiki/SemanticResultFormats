@@ -4,6 +4,8 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 This is not a release yet.
 
+* Raised minimum required version of PHP to 5.6
+* Raised minimum required version of MediaWiki to 1.27
 * Filtered: New parameter `map view height`
 * Provided translation updates (by translatewiki.net community)
 * #248 Fixed localized formatting of math results
