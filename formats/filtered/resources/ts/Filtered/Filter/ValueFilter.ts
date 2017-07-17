@@ -108,10 +108,10 @@ export class ValueFilter extends Filter {
 
 				let andorControl = $( '<div class="filtered-value-andor">' );
 
-				let andControl = $( '<input type="radio" name="filtered-value-and ' +
+				let andControl = $( '<input type="radio" name="filtered-value-' +
 					this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">' );
 
-				let orControl = $( '<input type="radio" name="filtered-value-or ' +
+				let orControl = $( '<input type="radio" name="filtered-value-' +
 					this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>' );
 
 				andControl
