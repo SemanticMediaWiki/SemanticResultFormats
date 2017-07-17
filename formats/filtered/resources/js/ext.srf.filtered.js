@@ -592,9 +592,9 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var andControl = $('<input type="radio" name="filtered-value-and ' +
+                var andControl = $('<input type="radio" name="filtered-value-' +
                     this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
-                var orControl_1 = $('<input type="radio" name="filtered-value-or ' +
+                var orControl_1 = $('<input type="radio" name="filtered-value-' +
                     this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
                 andControl
                     .add(orControl_1)
