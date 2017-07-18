@@ -66,7 +66,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 */
 	protected function postProcessParameters() {
 
-		// FIXME: Missing parent call?
+		parent::postProcessParameters();
 
 		// Don't support pagination in trees
 		$this->mSearchlabel = null;
@@ -278,7 +278,7 @@ class TreeResultPrinter extends ListResultPrinter {
 		$query = $this->getQueryResult()->getQuery();
 
 		$this->standardTemplateParameters =
-			( $this->params[ 'userparam' ] !== '' ? ( '|userparam' . $this->mUserParam ) : '' ) .
+			( $this->params[ 'userparam' ] !== '' ? ( '|userparam=' . $this->mUserParam ) : '' ) .
 			'|smw-resultquerycondition=' . $query->getQueryString() .
 			'|smw-resultquerylimit=' . $query->getLimit() .
 			'|smw-resultqueryoffset=' . $query->getOffset();
@@ -337,7 +337,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	/**
-	 * @param $tree
+	 * @param TreeNode $tree
 	 * @return mixed
 	 */
 	protected function buildLinesFromTree( $tree ) {
