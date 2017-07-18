@@ -1,5 +1,12 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.5.2
+
+Not a release yet.
+
+* Fixed bug #224: The and/or selectors can not be selected at the same time anymore in "filtered" format
+* Fixed bug #263: Fix the `link` and `userparam` parameters on the "tree" format
+
 ## SRF 2.5.1
 
 Released on July 11, 2017.
