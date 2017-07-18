@@ -9,7 +9,7 @@ use SRF\Filtered\ResultItem;
 
 class MapView extends View {
 
-	private $markerPositionPropertyId = null;
+	private static $viewParams = null;
 
 	/**
 	 * @param ResultItem $row
@@ -60,12 +60,15 @@ class MapView extends View {
 		return null;
 	}
 
+	/**
+	 * Returns an array of config data for this view to be stored in the JS
+	 * @return array
+	 */
 	public function getJsConfig() {
 		$config = parent::getJsConfig();
 
-		$height = $this->getActualParameters()[ 'map view height' ];
-		if ( $height !== '' ) {
-			$config[ 'height' ] = $height;
+		foreach ( [ 'height', 'zoom', 'min zoom', 'max zoom' ] as $key ) {
+			$this->addToConfig( $config, $key );
 		}
 
 		return $config;
@@ -78,25 +81,54 @@ class MapView extends View {
 	 */
 	public static function getParameters() {
 
-		$params = parent::getParameters();
+		if ( self::$viewParams === null ) {
 
-		$params[] = [
-			// 'type' => 'string',
-			'name'    => 'map view marker position property',
-			'message' => 'srf-paramdesc-filtered-map-position',
-			'default' => '',
-			// 'islist' => false,
-		];
+			$params = parent::getParameters();
 
-		$params[] = [
-			'type' => 'dimension',
-			'name'    => 'map view height',
-			'message' => 'srf-paramdesc-filtered-map-height',
-			'default' => 'auto',
-			// 'islist' => false,
-		];
+			$params[ 'marker position property' ] = [
+				// 'type' => 'string',
+				'name' => 'map view marker position property',
+				'message' => 'srf-paramdesc-filtered-map-position',
+				'default' => '',
+				// 'islist' => false,
+			];
 
-		return $params;
+			$params[ 'height' ] = [
+				'type' => 'dimension',
+				'name' => 'map view height',
+				'message' => 'srf-paramdesc-filtered-map-height',
+				'default' => 'auto',
+				// 'islist' => false,
+			];
+
+			$params[ 'zoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view zoom',
+				'message' => 'srf-paramdesc-filtered-map-zoom',
+				'default' => 14,
+				// 'islist' => false,
+			];
+
+			$params[ 'min zoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view min zoom',
+				'message' => 'srf-paramdesc-filtered-map-zoom',
+				'default' => -1,
+				// 'islist' => false,
+			];
+
+			$params[ 'max zoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view max zoom',
+				'message' => 'srf-paramdesc-filtered-map-zoom',
+				'default' => -1,
+				// 'islist' => false,
+			];
+
+			self::$viewParams = $params;
+		}
+
+		return self::$viewParams;
 	}
 
 	/**
@@ -106,6 +138,22 @@ class MapView extends View {
 	 */
 	public function getResourceModules() {
 		return 'ext.srf.filtered.map-view';
+	}
+
+	/**
+	 * @param array $config
+	 * @param string $key
+	 */
+	private function addToConfig( &$config, $key ) {
+
+		$paramDefinition = self::getParameters()[ $key ];
+
+		$param = $this->getActualParameters()[ $paramDefinition[ 'name' ] ];
+
+		if ( $param !== $paramDefinition[ 'default' ] ) {
+			$config[ $key ] = $param;
+		}
+
 	}
 
 }

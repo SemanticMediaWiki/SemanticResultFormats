@@ -1,6 +1,7 @@
 /// <reference types="leaflet" />
 
 import { View } from "./View";
+import LatLng = L.LatLng;
 declare let mw: any;
 
 export class MapView extends View {
@@ -12,6 +13,10 @@ export class MapView extends View {
 	private bounds: L.LatLngBounds = undefined;
 	private initialized: boolean = false;
 
+	private zoom: number = -1;
+	private minZoom: number = -1;
+	private maxZoom: number = -1;
+
 	private leafletPromise: Promise<any> = undefined;
 
 	public init() {
@@ -19,7 +24,7 @@ export class MapView extends View {
 		let data = this.controller.getData();
 		let markers: { [rowId: string]: L.Marker[] } = {};
 
-		if ( this.options.hasOwnProperty( 'height' ) && this.options.height !== 'auto' ) {
+		if ( this.options.hasOwnProperty( 'height' ) ) {
 			this.target.height( this.options.height );
 		}
 
@@ -49,7 +54,7 @@ export class MapView extends View {
 
 			this.markerClusterGroup = markerClusterGroup;
 			this.markers = markers;
-			this.bounds = bounds;
+			this.bounds = ( bounds === undefined ) ? new L.LatLngBounds( [ -180, -90 ], [ 180, 90 ] ) : bounds;
 		} );
 
 		return super.init();
@@ -109,15 +114,44 @@ export class MapView extends View {
 		this.initialized = true;
 
 		let that = this;
+
+
 		this.leafletPromise.then( () => {
-			that.map = L.map( that.getTargetElement().get( 0 ) )
+
+			let mapOptions = that.getMapOptions();
+			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions )
 			.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: ''
 			} ) )
-			.addLayer( that.markerClusterGroup )
-			.fitBounds( that.bounds )
+			.addLayer( that.markerClusterGroup );
+
+			if ( !mapOptions.hasOwnProperty( 'zoom' ) ) {
+				that.map.fitBounds( that.bounds );
+			}
+
 		} );
 
+	}
+
+	public getMapOptions() {
+
+		let options: any = {
+			center: this.bounds !== undefined ? this.bounds.getCenter() : [ 0, 0 ]
+		};
+
+		let optionMap: { [key: string]: string } = {
+			'zoom': 'zoom',
+			'min zoom': 'minZoom',
+			'max zoom': 'maxZoom'
+		};
+
+		for ( let key in optionMap ) {
+			if ( this.options.hasOwnProperty( key ) ) {
+				options[ optionMap[ key ] ] = this.options[ key ];
+			}
+		}
+
+		return options;
 	}
 
 	public showRows( rowIds: string[] ) {

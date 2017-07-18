@@ -922,6 +922,9 @@ var MapView = (function (_super) {
         _this.markerClusterGroup = undefined;
         _this.bounds = undefined;
         _this.initialized = false;
+        _this.zoom = -1;
+        _this.minZoom = -1;
+        _this.maxZoom = -1;
         _this.leafletPromise = undefined;
         return _this;
     }
@@ -929,7 +932,7 @@ var MapView = (function (_super) {
         var _this = this;
         var data = this.controller.getData();
         var markers = {};
-        if (this.options.hasOwnProperty('height') && this.options.height !== 'auto') {
+        if (this.options.hasOwnProperty('height')) {
             this.target.height(this.options.height);
         }
         this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
@@ -951,7 +954,7 @@ var MapView = (function (_super) {
             }
             _this.markerClusterGroup = markerClusterGroup;
             _this.markers = markers;
-            _this.bounds = bounds;
+            _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
         });
         return _super.prototype.init.call(this);
     };
@@ -997,13 +1000,32 @@ var MapView = (function (_super) {
         this.initialized = true;
         var that = this;
         this.leafletPromise.then(function () {
-            that.map = L.map(that.getTargetElement().get(0))
+            var mapOptions = that.getMapOptions();
+            that.map = L.map(that.getTargetElement().get(0), mapOptions)
                 .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: ''
             }))
-                .addLayer(that.markerClusterGroup)
-                .fitBounds(that.bounds);
+                .addLayer(that.markerClusterGroup);
+            if (!mapOptions.hasOwnProperty('zoom')) {
+                that.map.fitBounds(that.bounds);
+            }
         });
+    };
+    MapView.prototype.getMapOptions = function () {
+        var options = {
+            center: this.bounds !== undefined ? this.bounds.getCenter() : [0, 0]
+        };
+        var optionMap = {
+            'zoom': 'zoom',
+            'min zoom': 'minZoom',
+            'max zoom': 'maxZoom'
+        };
+        for (var key in optionMap) {
+            if (this.options.hasOwnProperty(key)) {
+                options[optionMap[key]] = this.options[key];
+            }
+        }
+        return options;
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
