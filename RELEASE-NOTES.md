@@ -9,7 +9,7 @@ This is not a release yet.
 * Filtered: New parameters `map view height`, `map view zoom`, `map view min zoom`, `map view max zoom`
 * Filtered: Improved testing
 * Provided translation updates (by translatewiki.net community)
-* #248 Fixed localized formatting of math results
+* (#248) Fixed localized formatting of math results
 
 ## SRF 2.5.1
 
