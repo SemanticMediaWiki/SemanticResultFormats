@@ -98,4 +98,13 @@ abstract class View {
 		return [];
 	}
 
+	/**
+	 * Check if the view is ready to run, e.g. all required environment
+	 * variables are set.
+	 *
+	 * @return string | null
+	 */
+	public function getInitError() {
+		return null;
+	}
 }

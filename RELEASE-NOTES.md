@@ -6,8 +6,7 @@ This is not a release yet.
 
 * Raised minimum required version of PHP to 5.6
 * Raised minimum required version of MediaWiki to 1.27
-* Filtered: New parameters `map view height`, `map view zoom`, `map view min zoom`, `map view max zoom`
-* Filtered: Improved testing
+* Improved filtered format: More options, better test coverage, re-enabled by default
 * Provided translation updates (by translatewiki.net community)
 * (#248) Fixed localized formatting of math results
 

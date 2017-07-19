@@ -55,9 +55,11 @@ gulp.task( 'buildLeafletJS', function () {
 
 	return gulp.src( [
 		'node_modules/leaflet/dist/leaflet-src.js',
-		'node_modules/leaflet.markercluster/dist/leaflet.markercluster-src.js'
+		'node_modules/leaflet.markercluster/dist/leaflet.markercluster-src.js',
+		'node_modules/leaflet-providers/leaflet-providers.js'
 	] )
 	.pipe( concat( 'ext.srf.filtered.leaflet.js' ) )
+	.pipe( uglify() )
 	.pipe( gulp.dest( 'resources/js' ) );
 
 } );

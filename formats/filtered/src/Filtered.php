@@ -79,7 +79,6 @@ class Filtered extends ResultPrinter {
 	private $filtersOnTop;
 	private $printrequests;
 
-	private $resourceModules = [];
 	private $parser;
 
 	/**
@@ -268,16 +267,23 @@ class Filtered extends ResultPrinter {
 				$viewClassName = '\SRF\Filtered\View\\' . $this->mViewTypes[ $viewName ];
 				$view = new $viewClassName( $result, $this->parameters, $this, $viewSelectorLabel );
 
-				$this->registerResourceModules( $view->getResourceModules() );
+				$initErrorMsg = $view->getInitError();
 
-				$viewHtml .= Html::rawElement( 'div', [ 'id' => $viewid, 'class' => "filtered-view filtered-$viewName $viewid" ], $view->getResultText() );
-				$viewSelectorsHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view-selector filtered-$viewName $viewid" ], $viewSelectorLabel );
+				if ( $initErrorMsg !== null ) {
+					$res->addErrors( [ $this->msg( $initErrorMsg )->inContentLanguage()->text() ] );
+				} else {
 
-				foreach ( $result as $row ) {
-					$row->setData( $viewid, $view->getJsDataForRow( $row ) );
+					$this->registerResourceModules( $view->getResourceModules() );
+
+					$viewHtml .= Html::rawElement( 'div', [ 'id' => $viewid, 'class' => "filtered-view filtered-$viewName $viewid" ], $view->getResultText() );
+					$viewSelectorsHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view-selector filtered-$viewName $viewid" ], $viewSelectorLabel );
+
+					foreach ( $result as $row ) {
+						$row->setData( $viewid, $view->getJsDataForRow( $row ) );
+					}
+
+					$config[ 'views' ][ $viewid ] = array_merge( [ 'type' => $viewName ], $view->getJsConfig() );
 				}
-
-				$config[ 'views' ][ $viewid ] = array_merge( [ 'type' => $viewName ], $view->getJsConfig() );
 			}
 		}
 
@@ -375,13 +381,11 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @param string | string[] $resourceModules
+	 * @param string | string[] | null $resourceModules
 	 */
 	protected function registerResourceModules( $resourceModules ) {
-		if ( !is_array( $resourceModules ) ) {
-			$resourceModules = [ $resourceModules ];
-		}
-		array_walk( $resourceModules, 'SMWOutputs::requireResource' );
+
+		array_map( 'SMWOutputs::requireResource', (array) $resourceModules );
 	}
 
 	/**
