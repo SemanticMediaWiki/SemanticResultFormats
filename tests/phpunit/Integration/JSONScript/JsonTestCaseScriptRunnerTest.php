@@ -29,4 +29,16 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 		return __DIR__ . '/TestCases';
 	}
 
+	/**
+	 * @return string[]
+	 * @since 3.0
+	 */
+	protected function getPermittedSettings() {
+		$settings = parent::getPermittedSettings();
+
+		$settings[] = 'srfgMapProvider';
+
+		return $settings;
+	}
+
 }
