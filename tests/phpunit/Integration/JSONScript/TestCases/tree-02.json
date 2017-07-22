@@ -31,22 +31,32 @@
 	],
 	"tests": [
 		{
-			"type": "parser",
+			"type": "parser-html",
 			"about": "Tree 02-01 (Simple one-page result)",
 			"subject": "Example/Tree 02-01",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-tree\">\n<ul><li><a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a></li></ul>\n</div>"
+					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Tree 02-02-1 (Simple one-page result with template - structure)",
+			"subject": "Example/Tree 02-02",
+			"assert-output": {
+				"to-contain": [
+					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
 				]
 			}
 		},
 		{
 			"type": "parser",
-			"about": "Tree 02-02 (Simple one-page result with template)",
+			"about": "Tree 02-02-2 (Simple one-page result with template - content)",
 			"subject": "Example/Tree 02-02",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-tree\">\n<ul><li>FOO<a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a>BAR</li></ul>\n</div>"
+					"FOO.*Example/Tree 1.*BAR"
 				]
 			}
 		}
