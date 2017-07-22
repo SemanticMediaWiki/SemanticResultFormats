@@ -242,6 +242,7 @@
 	"srf-filtered-selectorlabel-table": "Tabela",
 	"srf-filtered-selectorlabel-calendar": "Calendário",
 	"srf-filtered-selectorlabel-map": "Mapa",
+	"srf-filtered-noscript-link-caption": "Resultados em forma de tabela",
 	"srf-printername-d3chart": "Gráfico D3",
 	"srf-printername-timeseries": "Gráfico de séries temporais",
 	"srf-paramdesc-group": "Séries agrupadas por",
