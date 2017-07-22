@@ -18,12 +18,12 @@
 	],
 	"tests": [
 		{
-			"type": "parser",
+			"type": "parser-html",
 			"about": "Tree 04-01 (Empty resultset does not produce tree)",
 			"subject": "Example/Tree 04-01",
 			"assert-output": {
-				"not-contain": [
-					"<div class=\"srf-tree\">"
+				"to-contain": [
+					[ "div.srf-tree", 0 ]
 				]
 			}
 		}
