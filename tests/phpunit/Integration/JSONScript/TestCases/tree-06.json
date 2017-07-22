@@ -55,22 +55,58 @@
 	],
 	"tests": [
 		{
-			"type": "parser",
+			"type": "parser-html",
 			"about": "Tree 06-01 (Insert elements with multiple parents multiple times)",
 			"subject": "Example/Tree 06-01",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-tree\">\n<ul><li><a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a>\n<ul><li><a href=\"/.*/Example/Tree_11\" title=\"Example/Tree 11\">Example/Tree 11</a></li>\n<li><a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>\n<ul><li><a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a></li></ul></li>\n<li><a href=\"/.*/Example/Tree_13\" title=\"Example/Tree 13\">Example/Tree 13</a></li></ul></li>\n<li><a href=\"/.*/Example/Tree_2\" title=\"Example/Tree 2\">Example/Tree 2</a>\n<ul><li><a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>\n<ul><li><a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a></li></ul></li></ul></li>\n<li><a href=\"/.*/Example/Tree_3\" title=\"Example/Tree 3\">Example/Tree 3</a></li></ul>\n</div>"
+					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+
+					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:only-child > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+
+					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"]:only-child",
+
+					[ "div.srf-tree > ul > li", 3 ],
+					[ "div.srf-tree > ul > li > ul > li", 4 ],
+					[ "div.srf-tree > ul > li > ul > li > ul > li", 2 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Tree 06-02-1 (Insert elements with multiple parents multiple times (with template)) - structure",
+			"subject": "Example/Tree 06-02",
+			"assert-output": {
+				"to-contain": [
+					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+
+					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:only-child > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+
+					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"]:only-child",
+
+					[ "div.srf-tree > ul > li", 3 ],
+					[ "div.srf-tree > ul > li > ul > li", 4 ],
+					[ "div.srf-tree > ul > li > ul > li > ul > li", 2 ]
 				]
 			}
 		},
 		{
 			"type": "parser",
-			"about": "Tree 06-02 (Insert elements with multiple parents multiple times (with template))",
+			"about": "Tree 06-02-2 (Insert elements with multiple parents multiple times (with template)) - content",
 			"subject": "Example/Tree 06-02",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-tree\">\n<ul><li>FOO<a href=\"/.*/Example/Tree_1\" title=\"Example/Tree 1\">Example/Tree 1</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_11\" title=\"Example/Tree 11\">Example/Tree 11</a>BAR</li>\n<li>FOO<a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a>BAR</li></ul></li>\n<li>FOO<a href=\"/.*/Example/Tree_13\" title=\"Example/Tree 13\">Example/Tree 13</a>BAR</li></ul></li>\n<li>FOO<a href=\"/.*/Example/Tree_2\" title=\"Example/Tree 2\">Example/Tree 2</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_12\" title=\"Example/Tree 12\">Example/Tree 12</a>BAR\n<ul><li>FOO<a href=\"/.*/Example/Tree_121\" title=\"Example/Tree 121\">Example/Tree 121</a>BAR</li></ul></li></ul></li>\n<li>FOO<a href=\"/.*/Example/Tree_3\" title=\"Example/Tree 3\">Example/Tree 3</a>BAR</li></ul>\n</div>"
+					"FOO.*Example/Tree 1.*BAR",
+					"FOO.*Example/Tree 11.*BAR",
+					"FOO.*Example/Tree 12.*BAR",
+					"FOO.*Example/Tree 121.*BAR",
+					"FOO.*Example/Tree 13.*BAR",
+					"FOO.*Example/Tree 2.*BAR",
+					"FOO.*Example/Tree 3.*BAR"
 				]
 			}
 		}
