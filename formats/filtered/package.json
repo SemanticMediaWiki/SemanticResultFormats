@@ -15,22 +15,23 @@
     "@types/jquery": "^2.0.41",
     "@types/jqueryui": "^1.11.32",
     "@types/leaflet": "^1.0.60",
-    "@types/leaflet-markercluster": "^1.0.3",
+    "@types/leaflet.markercluster": "^1.0.0",
     "@types/leaflet-providers": "^1.1.0",
     "@types/qunit": "^1.16.31",
-    "browserify": "^14.1.0",
+
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
     "gulp-concat": "^2.6.1",
     "gulp-sourcemaps": "^2.4.1",
-    "gulp-typescript": "^3.1.6",
     "gulp-uglify": "^2.1.2",
-    "leaflet": "^1.0.3",
-    "leaflet-providers": "^1.1.17",
-    "leaflet.markercluster": "^1.0.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "browserify": "^14.1.0",
     "tsify": "^3.0.1",
     "typescript": "^2.2.1",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+
+    "leaflet": "^1.0.3",
+    "leaflet-providers": "^1.1.17",
+    "leaflet.markercluster": "^1.0.4"
   }
 }
