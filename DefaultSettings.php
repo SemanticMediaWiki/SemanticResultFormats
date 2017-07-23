@@ -43,6 +43,7 @@ $GLOBALS['srfgFormats'] = [
 	'd3chart',
 	'latest',
 	'earliest',
+	'filtered',
 	'slideshow',
 	'timeseries',
 	'sparkline',
@@ -63,9 +64,6 @@ $GLOBALS['srfgFormats'] = [
 	// @see Help:Incoming_format
 	// 'incoming',
 	
-	// @see Help:Filtered_format
-	// 'filtered',
-
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
 

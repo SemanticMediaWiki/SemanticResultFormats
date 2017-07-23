@@ -238,15 +238,15 @@ var DistanceFilter = (function (_super) {
     DistanceFilter.prototype.isVisible = function (rowId) {
         return this.controller.getData()[rowId].data[this.filterId].distance <= this.filterValue;
     };
+    DistanceFilter.earthRadius = {
+        m: 6371008.8,
+        km: 6371.0088,
+        mi: 3958.7613,
+        nm: 3440.0695,
+        Å: 63710088000000000
+    };
     return DistanceFilter;
 }(Filter_1.Filter));
-DistanceFilter.earthRadius = {
-    m: 6371008.8,
-    km: 6371.0088,
-    mi: 3958.7613,
-    nm: 3440.0695,
-    Å: 63710088000000000
-};
 exports.DistanceFilter = DistanceFilter;
 
 },{"./Filter":3}],3:[function(require,module,exports){
@@ -994,6 +994,7 @@ var MapView = (function (_super) {
         return marker;
     };
     MapView.prototype.lateInit = function () {
+        var _this = this;
         if (this.initialized) {
             return;
         }
@@ -1001,11 +1002,11 @@ var MapView = (function (_super) {
         var that = this;
         this.leafletPromise.then(function () {
             var mapOptions = that.getMapOptions();
-            that.map = L.map(that.getTargetElement().get(0), mapOptions)
-                .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: ''
-            }))
-                .addLayer(that.markerClusterGroup);
+            that.map = L.map(that.getTargetElement().get(0), mapOptions);
+            that.map.addLayer(that.markerClusterGroup);
+            if (_this.options.hasOwnProperty('map provider')) {
+                L.tileLayer.provider(_this.options['map provider']).addTo(that.map);
+            }
             if (!mapOptions.hasOwnProperty('zoom')) {
                 that.map.fitBounds(that.bounds);
             }

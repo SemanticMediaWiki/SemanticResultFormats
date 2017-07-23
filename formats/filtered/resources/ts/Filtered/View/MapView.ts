@@ -119,11 +119,12 @@ export class MapView extends View {
 		this.leafletPromise.then( () => {
 
 			let mapOptions = that.getMapOptions();
-			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions )
-			.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: ''
-			} ) )
-			.addLayer( that.markerClusterGroup );
+			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions );
+			that.map.addLayer( that.markerClusterGroup );
+
+			if ( this.options.hasOwnProperty( 'map provider' ) ) {
+				L.tileLayer.provider( this.options[ 'map provider' ] ).addTo( that.map );
+			}
 
 			if ( !mapOptions.hasOwnProperty( 'zoom' ) ) {
 				that.map.fitBounds( that.bounds );

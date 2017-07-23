@@ -11,6 +11,27 @@ class MapView extends View {
 
 	private static $viewParams = null;
 
+	private $mapProvider = null;
+
+
+	/**
+	 * @param null $mapProvider
+	 */
+	public function setMapProvider( $mapProvider ) {
+		$this->mapProvider = $mapProvider;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getMapProvider() {
+		if ( $this->mapProvider === null ) {
+			$this->setMapProvider( isset( $GLOBALS[ 'srfgMapProvider' ] ) ? $GLOBALS[ 'srfgMapProvider' ] : '' );
+		}
+
+		return $this->mapProvider;
+	}
+
 	/**
 	 * @param ResultItem $row
 	 * @return array|null
@@ -70,6 +91,8 @@ class MapView extends View {
 		foreach ( [ 'height', 'zoom', 'min zoom', 'max zoom' ] as $key ) {
 			$this->addToConfig( $config, $key );
 		}
+
+		$config[ 'map provider' ] = $this->getMapProvider();
 
 		return $config;
 	}
@@ -132,7 +155,7 @@ class MapView extends View {
 	}
 
 	/**
-	 * Returns the name of the resourc module to load.
+	 * Returns the name of the resource module to load.
 	 *
 	 * @return string
 	 */
@@ -154,6 +177,13 @@ class MapView extends View {
 			$config[ $key ] = $param;
 		}
 
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getInitError() {
+		return $this->getMapProvider() === ''? 'srf-filtered-map-provider-missing-error' : null;
 	}
 
 }

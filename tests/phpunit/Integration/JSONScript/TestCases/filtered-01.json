@@ -316,6 +316,7 @@
 	"settings": {
 		"wgContLang": "en",
 		"wgLang": "en",
+		"srfgMapProvider": "OpenStreetMap.Mapnik",
 		"smwgNamespacesWithSemanticLinks": {
 			"NS_MAIN": true,
 			"SMW_NS_PROPERTY": true

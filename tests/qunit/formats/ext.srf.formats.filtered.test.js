@@ -450,6 +450,7 @@ var MapView = (function (_super) {
         return marker;
     };
     MapView.prototype.lateInit = function () {
+        var _this = this;
         if (this.initialized) {
             return;
         }
@@ -457,11 +458,11 @@ var MapView = (function (_super) {
         var that = this;
         this.leafletPromise.then(function () {
             var mapOptions = that.getMapOptions();
-            that.map = L.map(that.getTargetElement().get(0), mapOptions)
-                .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: ''
-            }))
-                .addLayer(that.markerClusterGroup);
+            that.map = L.map(that.getTargetElement().get(0), mapOptions);
+            that.map.addLayer(that.markerClusterGroup);
+            if (_this.options.hasOwnProperty('map provider')) {
+                L.tileLayer.provider(_this.options['map provider']).addTo(that.map);
+            }
             if (!mapOptions.hasOwnProperty('zoom')) {
                 that.map.fitBounds(that.bounds);
             }
@@ -824,7 +825,6 @@ var MapViewTest = (function (_super) {
         if (c === undefined) {
             c = new Controller_1.Controller(undefined, undefined);
         }
-        console.log('MapViewTest.getTestObject');
         return new MapView_1.MapView(id, target, c, options);
     };
     ;
@@ -872,7 +872,6 @@ var ViewTest = (function (_super) {
         if (target === void 0) { target = undefined; }
         if (c === void 0) { c = undefined; }
         if (options === void 0) { options = {}; }
-        console.log('ViewTest.getTestObject');
         return new View_1.View(id, target, c, options);
     };
     ;
