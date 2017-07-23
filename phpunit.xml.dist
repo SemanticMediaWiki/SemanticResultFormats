@@ -22,6 +22,10 @@
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">formats</directory>
+            <file>SemanticResultFormats.hooks.php</file>
+            <file>SemanticResultFormats.parser.php</file>
+            <file>SemanticResultFormats.php</file>
+            <file>SemanticResultFormats.utils.php</file>
         </whitelist>
     </filter>
 </phpunit>

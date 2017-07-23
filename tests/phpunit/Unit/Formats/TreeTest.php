@@ -44,7 +44,6 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	}
 
 	/**
-	 * @covers \SRF\Formats\Tree\TreeResultPrinter::getResult()
 	 */
 	public function testGetResult_NoParentProperty() {
 
