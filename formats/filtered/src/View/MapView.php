@@ -38,7 +38,7 @@ class MapView extends View {
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
 
-		$markerPositionPropertyName = $this->getActualParameters()[ 'map view marker position property' ];
+		$markerPositionPropertyName = str_replace( ' ', '_', $this->getActualParameters()[ 'map view marker position property' ] );
 
 		foreach ( $row->getValue() as $field ) {
 

@@ -39,16 +39,18 @@ export class MapView extends View {
 
 			for ( let rowId in data ) {
 
-				let positions: L.LatLngLiteral[] = data[ rowId ][ 'data' ][ this.id ][ 'positions' ];
-				markers[ rowId ] = [];
+				if ( data[ rowId ][ 'data' ].hasOwnProperty( this.id ) ) {
+					let positions: L.LatLngLiteral[] = data[ rowId ][ 'data' ][ this.id ][ 'positions' ];
+					markers[ rowId ] = [];
 
-				for ( let pos of positions ) {
+					for ( let pos of positions ) {
 
-					bounds = ( bounds === undefined ) ? new L.LatLngBounds( pos, pos ) : bounds.extend( pos );
+						bounds = ( bounds === undefined ) ? new L.LatLngBounds( pos, pos ) : bounds.extend( pos );
 
-					let marker = this.getMarker( pos, data[ rowId ] );
-					markers[ rowId ].push( marker );
-					markerClusterGroup.addLayer( marker );
+						let marker = this.getMarker( pos, data[ rowId ] );
+						markers[ rowId ].push( marker );
+						markerClusterGroup.addLayer( marker );
+					}
 				}
 			}
 
@@ -157,17 +159,36 @@ export class MapView extends View {
 
 	public showRows( rowIds: string[] ) {
 		this.leafletPromise.then( () => {
-			let markers: L.Layer[][] = rowIds.map( ( rowId: string ) => this.markers[ rowId ] );
-			this.markerClusterGroup.addLayers( markers.reduce( ( result: L.Layer[], layers: L.Layer[] ) => result.concat( layers ) ) );
+			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => { this.markerClusterGroup.addLayers( layers ) } )
 		} );
-
 	}
 
 	public hideRows( rowIds: string[] ) {
 		this.leafletPromise.then( () => {
-			let markers: L.Layer[][] = rowIds.map( ( rowId: string ) => this.markers[ rowId ] );
-			this.markerClusterGroup.removeLayers( markers.reduce( ( result: L.Layer[], layers: L.Layer[] ) => result.concat( layers ) ) );
+			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => { this.markerClusterGroup.removeLayers( layers ) } )
 		} );
+	}
+
+	private manipulateLayers( rowIds: string[], cb: ( layers: L.Layer[] ) => void ) {
+
+		let layersFromRowIds = this.getLayersFromRowIds( rowIds );
+
+		if ( layersFromRowIds.length > 0 ) {
+			cb( layersFromRowIds );
+		}
+
+	}
+
+	private getLayersFromRowIds( rowIds: string[] ) {
+		return this.flatten( this.getLayersFromRowIdsRaw( rowIds ) );
+	}
+
+	private getLayersFromRowIdsRaw( rowIds: string[] ) {
+		return rowIds.map( ( rowId: string ) => this.markers[ rowId ] ? this.markers[ rowId ] : [] );
+	}
+
+	private flatten( markers: L.Layer[][] ): L.Layer[] {
+		return markers.reduce( ( result: L.Layer[], layers: L.Layer[] ) => result.concat( layers ), [] );
 	}
 
 	public show() {
