@@ -321,6 +321,7 @@ class Filtered extends ResultPrinter {
 
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see DefaultConfig.php of param-processor/param-processor for allowed types
 	 *
 	 * @since 1.8
 	 *

@@ -2,6 +2,7 @@
 
 import { View } from "./View";
 import LatLng = L.LatLng;
+
 declare let mw: any;
 
 export class MapView extends View {
@@ -32,9 +33,12 @@ export class MapView extends View {
 		.then( () => {
 
 			let bounds: L.LatLngBounds = undefined;
+			let disableClusteringAtZoom = this.getZoomForUnclustering();
 
 			let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( {
-				animateAddingMarkers: true
+				animateAddingMarkers: true,
+				disableClusteringAtZoom: disableClusteringAtZoom,
+				spiderfyOnMaxZoom: disableClusteringAtZoom === null
 			} );
 
 			for ( let rowId in data ) {
@@ -60,6 +64,16 @@ export class MapView extends View {
 		} );
 
 		return super.init();
+	}
+
+	private getZoomForUnclustering() {
+		if ( this.options.hasOwnProperty( 'marker cluster' ) && this.options[ 'marker cluster' ] === false ) {
+			return 0;
+		}
+
+		if ( this.options.hasOwnProperty( 'marker cluster max zoom' ) ) {
+			return this.options[ 'marker cluster max zoom' ] + 1;
+		}
 	}
 
 	private getIcon() {
@@ -117,7 +131,6 @@ export class MapView extends View {
 
 		let that = this;
 
-
 		this.leafletPromise.then( () => {
 
 			let mapOptions = that.getMapOptions();
@@ -142,15 +155,16 @@ export class MapView extends View {
 			center: this.bounds !== undefined ? this.bounds.getCenter() : [ 0, 0 ]
 		};
 
-		let optionMap: { [key: string]: string } = {
-			'zoom': 'zoom',
-			'min zoom': 'minZoom',
-			'max zoom': 'maxZoom'
+		// TODO: Limit zoom values to map max zoom
+		let optionMap: { [key: string]: [ string, ( value: number ) => any ] } = {
+			'zoom': [ 'zoom', ( value: number ) => Math.max( 0, value ) ],
+			'min zoom': [ 'minZoom', ( value: number ) => Math.max( 0, value ) ],
+			'max zoom': [ 'maxZoom', ( value: number ) => Math.max( 0, value) ]
 		};
 
 		for ( let key in optionMap ) {
 			if ( this.options.hasOwnProperty( key ) ) {
-				options[ optionMap[ key ] ] = this.options[ key ];
+				options[ optionMap[ key ][ 0 ] ] = (optionMap[ key ][ 1 ])( this.options[ key ] );
 			}
 		}
 
@@ -159,13 +173,17 @@ export class MapView extends View {
 
 	public showRows( rowIds: string[] ) {
 		this.leafletPromise.then( () => {
-			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => { this.markerClusterGroup.addLayers( layers ) } )
+			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => {
+				this.markerClusterGroup.addLayers( layers )
+			} )
 		} );
 	}
 
 	public hideRows( rowIds: string[] ) {
 		this.leafletPromise.then( () => {
-			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => { this.markerClusterGroup.removeLayers( layers ) } )
+			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => {
+				this.markerClusterGroup.removeLayers( layers )
+			} )
 		} );
 	}
 

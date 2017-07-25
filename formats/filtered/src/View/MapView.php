@@ -88,7 +88,9 @@ class MapView extends View {
 	public function getJsConfig() {
 		$config = parent::getJsConfig();
 
-		foreach ( [ 'height', 'zoom', 'min zoom', 'max zoom' ] as $key ) {
+		$jsConfigKeys = [ 'height', 'zoom', 'min zoom', 'max zoom', 'marker cluster', 'marker cluster max zoom' ];
+
+		foreach ( $jsConfigKeys as $key ) {
 			$this->addToConfig( $config, $key );
 		}
 
@@ -128,25 +130,46 @@ class MapView extends View {
 				'type' => 'integer',
 				'name' => 'map view zoom',
 				'message' => 'srf-paramdesc-filtered-map-zoom',
-				'default' => 14,
+				'default' => '',
 				// 'islist' => false,
 			];
 
 			$params[ 'min zoom' ] = [
 				'type' => 'integer',
 				'name' => 'map view min zoom',
-				'message' => 'srf-paramdesc-filtered-map-zoom',
-				'default' => -1,
+				'message' => 'srf-paramdesc-filtered-map-min-zoom',
+				'default' => '',
 				// 'islist' => false,
 			];
 
 			$params[ 'max zoom' ] = [
 				'type' => 'integer',
 				'name' => 'map view max zoom',
-				'message' => 'srf-paramdesc-filtered-map-zoom',
-				'default' => -1,
+				'message' => 'srf-paramdesc-filtered-map-max-zoom',
+				'default' => '',
 				// 'islist' => false,
 			];
+
+			//markercluster
+			$params[ 'marker cluster' ] = [
+				'type' => 'boolean',
+				'name' => 'map view marker cluster',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster',
+				'default' => true,
+				// 'islist' => false,
+			];
+
+			$params[ 'marker cluster max zoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view marker cluster max zoom',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster-max-zoom',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
+			//clustermaxzoom - disableClusteringAtZoom: at this zoom level and below, markers will not be clustered. This defaults to disabled.
+			//clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
 
 			self::$viewParams = $params;
 		}

@@ -938,8 +938,11 @@ var MapView = (function (_super) {
         this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
             .then(function () {
             var bounds = undefined;
+            var disableClusteringAtZoom = _this.getZoomForUnclustering();
             var markerClusterGroup = L.markerClusterGroup({
-                animateAddingMarkers: true
+                animateAddingMarkers: true,
+                disableClusteringAtZoom: disableClusteringAtZoom,
+                spiderfyOnMaxZoom: disableClusteringAtZoom === null
             });
             for (var rowId in data) {
                 if (data[rowId]['data'].hasOwnProperty(_this.id)) {
@@ -959,6 +962,14 @@ var MapView = (function (_super) {
             _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
         });
         return _super.prototype.init.call(this);
+    };
+    MapView.prototype.getZoomForUnclustering = function () {
+        if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
+            return 0;
+        }
+        if (this.options.hasOwnProperty('marker cluster max zoom')) {
+            return this.options['marker cluster max zoom'] + 1;
+        }
     };
     MapView.prototype.getIcon = function () {
         if (this.icon === undefined) {
@@ -1018,14 +1029,15 @@ var MapView = (function (_super) {
         var options = {
             center: this.bounds !== undefined ? this.bounds.getCenter() : [0, 0]
         };
+        // TODO: Limit zoom values to map max zoom
         var optionMap = {
-            'zoom': 'zoom',
-            'min zoom': 'minZoom',
-            'max zoom': 'maxZoom'
+            'zoom': ['zoom', function (value) { return Math.max(0, value); }],
+            'min zoom': ['minZoom', function (value) { return Math.max(0, value); }],
+            'max zoom': ['maxZoom', function (value) { return Math.max(0, value); }]
         };
         for (var key in optionMap) {
             if (this.options.hasOwnProperty(key)) {
-                options[optionMap[key]] = this.options[key];
+                options[optionMap[key][0]] = (optionMap[key][1])(this.options[key]);
             }
         }
         return options;
@@ -1033,13 +1045,17 @@ var MapView = (function (_super) {
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
         this.leafletPromise.then(function () {
-            _this.manipulateLayers(rowIds, function (layers) { _this.markerClusterGroup.addLayers(layers); });
+            _this.manipulateLayers(rowIds, function (layers) {
+                _this.markerClusterGroup.addLayers(layers);
+            });
         });
     };
     MapView.prototype.hideRows = function (rowIds) {
         var _this = this;
         this.leafletPromise.then(function () {
-            _this.manipulateLayers(rowIds, function (layers) { _this.markerClusterGroup.removeLayers(layers); });
+            _this.manipulateLayers(rowIds, function (layers) {
+                _this.markerClusterGroup.removeLayers(layers);
+            });
         });
     };
     MapView.prototype.manipulateLayers = function (rowIds, cb) {
