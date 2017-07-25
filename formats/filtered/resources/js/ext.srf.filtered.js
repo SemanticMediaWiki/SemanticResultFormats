@@ -942,14 +942,16 @@ var MapView = (function (_super) {
                 animateAddingMarkers: true
             });
             for (var rowId in data) {
-                var positions = data[rowId]['data'][_this.id]['positions'];
-                markers[rowId] = [];
-                for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
-                    var pos = positions_1[_i];
-                    bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
-                    var marker = _this.getMarker(pos, data[rowId]);
-                    markers[rowId].push(marker);
-                    markerClusterGroup.addLayer(marker);
+                if (data[rowId]['data'].hasOwnProperty(_this.id)) {
+                    var positions = data[rowId]['data'][_this.id]['positions'];
+                    markers[rowId] = [];
+                    for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+                        var pos = positions_1[_i];
+                        bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
+                        var marker = _this.getMarker(pos, data[rowId]);
+                        markers[rowId].push(marker);
+                        markerClusterGroup.addLayer(marker);
+                    }
                 }
             }
             _this.markerClusterGroup = markerClusterGroup;
@@ -1031,16 +1033,30 @@ var MapView = (function (_super) {
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
         this.leafletPromise.then(function () {
-            var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
-            _this.markerClusterGroup.addLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+            _this.manipulateLayers(rowIds, function (layers) { _this.markerClusterGroup.addLayers(layers); });
         });
     };
     MapView.prototype.hideRows = function (rowIds) {
         var _this = this;
         this.leafletPromise.then(function () {
-            var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
-            _this.markerClusterGroup.removeLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+            _this.manipulateLayers(rowIds, function (layers) { _this.markerClusterGroup.removeLayers(layers); });
         });
+    };
+    MapView.prototype.manipulateLayers = function (rowIds, cb) {
+        var layersFromRowIds = this.getLayersFromRowIds(rowIds);
+        if (layersFromRowIds.length > 0) {
+            cb(layersFromRowIds);
+        }
+    };
+    MapView.prototype.getLayersFromRowIds = function (rowIds) {
+        return this.flatten(this.getLayersFromRowIdsRaw(rowIds));
+    };
+    MapView.prototype.getLayersFromRowIdsRaw = function (rowIds) {
+        var _this = this;
+        return rowIds.map(function (rowId) { return _this.markers[rowId] ? _this.markers[rowId] : []; });
+    };
+    MapView.prototype.flatten = function (markers) {
+        return markers.reduce(function (result, layers) { return result.concat(layers); }, []);
     };
     MapView.prototype.show = function () {
         _super.prototype.show.call(this);

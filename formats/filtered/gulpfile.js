@@ -21,6 +21,7 @@ gulp.task( 'buildFiltered', function () {
 	.exclude( 'jquery' )
 	.plugin( tsify )
 	.bundle()
+
 	.pipe( source( 'ext.srf.filtered.js' ) )
 	.pipe( buffer() )
 	.pipe( sourcemaps.init( { loadMaps: true } ) )
@@ -42,6 +43,7 @@ gulp.task( 'buildFilteredTests', function () {
 	// .exclude( 'jquery' )
 	.plugin( tsify )
 	.bundle()
+
 	.pipe( source( 'ext.srf.formats.filtered.test.js' ) )
 	.pipe( buffer() )
 	// .pipe( sourcemaps.init( { loadMaps: true } ) )
