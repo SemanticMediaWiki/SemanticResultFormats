@@ -64,6 +64,8 @@ abstract class View {
 	/**
 	 * A function to describe the allowed parameters of a query for this view.
 	 *
+	 * @see DefaultConfig.php of param-processor/param-processor for allowed types
+	 *
 	 * @return array of Parameter
 	 */
 	public static function getParameters() {
