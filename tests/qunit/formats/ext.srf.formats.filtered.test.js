@@ -395,11 +395,13 @@ var MapView = (function (_super) {
             .then(function () {
             var bounds = undefined;
             var disableClusteringAtZoom = _this.getZoomForUnclustering();
-            var markerClusterGroup = L.markerClusterGroup({
+            var clusterOptions = {
                 animateAddingMarkers: true,
                 disableClusteringAtZoom: disableClusteringAtZoom,
                 spiderfyOnMaxZoom: disableClusteringAtZoom === null
-            });
+            };
+            clusterOptions = _this.getOptions(['maxClusterRadius', 'zoomToBoundsOnClick'], clusterOptions);
+            var markerClusterGroup = L.markerClusterGroup(clusterOptions);
             for (var rowId in data) {
                 if (data[rowId]['data'].hasOwnProperty(_this.id)) {
                     var positions = data[rowId]['data'][_this.id]['positions'];
@@ -426,6 +428,7 @@ var MapView = (function (_super) {
         if (this.options.hasOwnProperty('marker cluster max zoom')) {
             return this.options['marker cluster max zoom'] + 1;
         }
+        return null;
     };
     MapView.prototype.getIcon = function () {
         if (this.icon === undefined) {
@@ -470,7 +473,11 @@ var MapView = (function (_super) {
         this.initialized = true;
         var that = this;
         this.leafletPromise.then(function () {
-            var mapOptions = that.getMapOptions();
+            var mapOptions = {
+                center: _this.bounds !== undefined ? _this.bounds.getCenter() : [0, 0]
+            };
+            mapOptions = that.getOptions(['zoom', 'minZoom', 'maxZoom'], mapOptions);
+            // TODO: Limit zoom values to map max zoom
             that.map = L.map(that.getTargetElement().get(0), mapOptions);
             that.map.addLayer(that.markerClusterGroup);
             if (_this.options.hasOwnProperty('map provider')) {
@@ -481,22 +488,15 @@ var MapView = (function (_super) {
             }
         });
     };
-    MapView.prototype.getMapOptions = function () {
-        var options = {
-            center: this.bounds !== undefined ? this.bounds.getCenter() : [0, 0]
-        };
-        // TODO: Limit zoom values to map max zoom
-        var optionMap = {
-            'zoom': ['zoom', function (value) { return Math.max(0, value); }],
-            'min zoom': ['minZoom', function (value) { return Math.max(0, value); }],
-            'max zoom': ['maxZoom', function (value) { return Math.max(0, value); }]
-        };
-        for (var key in optionMap) {
+    MapView.prototype.getOptions = function (keys, defaults) {
+        if (defaults === void 0) { defaults = {}; }
+        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+            var key = keys_1[_i];
             if (this.options.hasOwnProperty(key)) {
-                options[optionMap[key][0]] = (optionMap[key][1])(this.options[key]);
+                defaults[key] = this.options[key];
             }
         }
-        return options;
+        return defaults;
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
