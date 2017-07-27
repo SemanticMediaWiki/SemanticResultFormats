@@ -400,7 +400,7 @@ var MapView = (function (_super) {
                 disableClusteringAtZoom: disableClusteringAtZoom,
                 spiderfyOnMaxZoom: disableClusteringAtZoom === null
             };
-            clusterOptions = _this.getMapOptions(['maxClusterRadius', 'zoomToBoundsOnClick'], clusterOptions);
+            clusterOptions = _this.getOptions(['maxClusterRadius', 'zoomToBoundsOnClick'], clusterOptions);
             var markerClusterGroup = L.markerClusterGroup(clusterOptions);
             for (var rowId in data) {
                 if (data[rowId]['data'].hasOwnProperty(_this.id)) {
@@ -476,7 +476,7 @@ var MapView = (function (_super) {
             var mapOptions = {
                 center: _this.bounds !== undefined ? _this.bounds.getCenter() : [0, 0]
             };
-            mapOptions = that.getMapOptions(['zoom', 'minZoom', 'maxZoom'], mapOptions);
+            mapOptions = that.getOptions(['zoom', 'minZoom', 'maxZoom'], mapOptions);
             // TODO: Limit zoom values to map max zoom
             that.map = L.map(that.getTargetElement().get(0), mapOptions);
             that.map.addLayer(that.markerClusterGroup);
@@ -488,7 +488,7 @@ var MapView = (function (_super) {
             }
         });
     };
-    MapView.prototype.getMapOptions = function (keys, defaults) {
+    MapView.prototype.getOptions = function (keys, defaults) {
         if (defaults === void 0) { defaults = {}; }
         for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
             var key = keys_1[_i];

@@ -1,7 +1,7 @@
 /// <reference types="leaflet" />
 
 import { View } from "./View";
-import LatLng = L.LatLng;
+import { Options } from "../../types"
 
 declare let mw: any;
 
@@ -35,13 +35,13 @@ export class MapView extends View {
 			let bounds: L.LatLngBounds = undefined;
 			let disableClusteringAtZoom = this.getZoomForUnclustering();
 
-			let clusterOptions : { [ key: string ] : any } = {
+			let clusterOptions: Options = {
 				animateAddingMarkers: true,
 				disableClusteringAtZoom: disableClusteringAtZoom,
 				spiderfyOnMaxZoom: disableClusteringAtZoom === null
 			};
 
-			clusterOptions = this.getMapOptions( [ 'maxClusterRadius', 'zoomToBoundsOnClick' ], clusterOptions );
+			clusterOptions = this.getOptions( [ 'maxClusterRadius', 'zoomToBoundsOnClick' ], clusterOptions );
 
 			let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( clusterOptions );
 
@@ -140,11 +140,11 @@ export class MapView extends View {
 
 		this.leafletPromise.then( () => {
 
-			let mapOptions : { [ key: string] : any } = {
+			let mapOptions: Options = {
 				center: this.bounds !== undefined ? this.bounds.getCenter() : [ 0, 0 ]
 			};
 
-			mapOptions = that.getMapOptions( [ 'zoom', 'minZoom', 'maxZoom' ], mapOptions );
+			mapOptions = that.getOptions( [ 'zoom', 'minZoom', 'maxZoom' ], mapOptions );
 
 			// TODO: Limit zoom values to map max zoom
 
@@ -163,7 +163,7 @@ export class MapView extends View {
 
 	}
 
-	public getMapOptions( keys : string[], defaults : { [ key: string] : any } = {} ) {
+	public getOptions( keys: string[], defaults: Options = {} ) {
 
 		for ( let key of keys ) {
 			if ( this.options.hasOwnProperty( key ) ) {
