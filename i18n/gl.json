@@ -253,6 +253,7 @@
 	"srf-filtered-selectorlabel-map": "Mapa",
 	"srf-filtered-noscript-error": "Os resultados non poden visualizarse porque o Javascript non está activado. Vaia a $1.",
 	"srf-filtered-noscript-link-caption": "resultados en forma de táboa",
+	"srf-filtered-map-provider-missing-error": "Non se indicou o provedor de mapa para a vista \"mapa\".",
 	"srf-printername-d3chart": "Gráfica D3",
 	"srf-printername-timeseries": "Gráfica de serie temporal",
 	"srf-paramdesc-group": "Serie agrupada por",
