@@ -182,6 +182,7 @@
 	"srf-paramdesc-graphlink": "Legt fest, ob die Verzweigungspunkte auf ihre Wikiseiten verlinken sollen",
 	"srf-paramdesc-graphcolor": "Legt die Farbe der Grafik fest",
 	"srf-paramdesc-graph-wwl": "Legt die Wortumbruchgrenze fest (in Anzahl der Zeichen)",
+	"srf-paramdesc-graph-arrowhead": "Legt das Aussehen der Pfeilspitze fest",
 	"srf-paramdesc-clustercolor": "Legt die Farben der Clusterkästen fest",
 	"srf-paramdesc-highlight": "Legt den hervorzuhebenden Verzweigungspunkt fest",
 	"srf-paramdesc-highlightcolor": "Legt die Schriftfarbe für den hervorgehobenen Verzweigungspunkt fest",
