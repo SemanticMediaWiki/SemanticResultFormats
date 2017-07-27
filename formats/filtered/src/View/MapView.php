@@ -88,7 +88,16 @@ class MapView extends View {
 	public function getJsConfig() {
 		$config = parent::getJsConfig();
 
-		$jsConfigKeys = [ 'height', 'zoom', 'min zoom', 'max zoom', 'marker cluster', 'marker cluster max zoom' ];
+		$jsConfigKeys = [
+			'height',
+			'zoom',
+			'minZoom',
+			'maxZoom',
+			'marker cluster',
+			'marker cluster max zoom',
+			'maxClusterRadius',
+			'zoomToBoundsOnClick',
+		];
 
 		foreach ( $jsConfigKeys as $key ) {
 			$this->addToConfig( $config, $key );
@@ -134,7 +143,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'min zoom' ] = [
+			$params[ 'minZoom' ] = [
 				'type' => 'integer',
 				'name' => 'map view min zoom',
 				'message' => 'srf-paramdesc-filtered-map-min-zoom',
@@ -142,7 +151,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'max zoom' ] = [
+			$params[ 'maxZoom' ] = [
 				'type' => 'integer',
 				'name' => 'map view max zoom',
 				'message' => 'srf-paramdesc-filtered-map-max-zoom',
@@ -167,9 +176,23 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
-			//clustermaxzoom - disableClusteringAtZoom: at this zoom level and below, markers will not be clustered. This defaults to disabled.
 			//clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
+			$params[ 'maxClusterRadius' ] = [
+				'type' => 'integer',
+				'name' => 'map view marker cluster radius',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster-max-radius',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
+			$params[ 'zoomToBoundsOnClick' ] = [
+				'type' => 'boolean',
+				'name' => 'map view marker cluster zoom on click',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster-zoom-on-click',
+				'default' => true,
+				// 'islist' => false,
+			];
 
 			self::$viewParams = $params;
 		}

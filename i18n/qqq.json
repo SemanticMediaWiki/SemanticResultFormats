@@ -267,6 +267,8 @@
 	"srf-paramdesc-filtered-map-max-zoom": "{{doc-paramdesc|map view max zoom}}",
 	"srf-paramdesc-filtered-map-marker-cluster": "{{doc-paramdesc|map view marker cluster}}",
 	"srf-paramdesc-filtered-map-marker-cluster-max-zoom": "{{doc-paramdesc|map view marker cluster max zoom}}",
+	"srf-paramdesc-filtered-map-marker-cluster-max-radius": "{{doc-paramdesc|map view marker cluster radius}}",
+	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "{{doc-paramdesc|map view marker cluster zoom on click}}",
 	"srf-filtered-selectorlabel-list": "The label for the tab that selects the \"list\" view\n{{Identical|List}}",
 	"srf-filtered-selectorlabel-table": "{{Identical|Table}}",
 	"srf-filtered-selectorlabel-calendar": "The label for the tab that selects the \"calendar\" view\n{{Identical|Calendar}}",

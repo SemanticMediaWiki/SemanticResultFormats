@@ -35,11 +35,15 @@ export class MapView extends View {
 			let bounds: L.LatLngBounds = undefined;
 			let disableClusteringAtZoom = this.getZoomForUnclustering();
 
-			let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( {
+			let clusterOptions : { [ key: string ] : any } = {
 				animateAddingMarkers: true,
 				disableClusteringAtZoom: disableClusteringAtZoom,
 				spiderfyOnMaxZoom: disableClusteringAtZoom === null
-			} );
+			};
+
+			clusterOptions = this.getMapOptions( [ 'maxClusterRadius', 'zoomToBoundsOnClick' ], clusterOptions );
+
+			let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( clusterOptions );
 
 			for ( let rowId in data ) {
 
@@ -67,6 +71,7 @@ export class MapView extends View {
 	}
 
 	private getZoomForUnclustering() {
+
 		if ( this.options.hasOwnProperty( 'marker cluster' ) && this.options[ 'marker cluster' ] === false ) {
 			return 0;
 		}
@@ -74,6 +79,8 @@ export class MapView extends View {
 		if ( this.options.hasOwnProperty( 'marker cluster max zoom' ) ) {
 			return this.options[ 'marker cluster max zoom' ] + 1;
 		}
+
+		return null;
 	}
 
 	private getIcon() {
@@ -133,7 +140,14 @@ export class MapView extends View {
 
 		this.leafletPromise.then( () => {
 
-			let mapOptions = that.getMapOptions();
+			let mapOptions : { [ key: string] : any } = {
+				center: this.bounds !== undefined ? this.bounds.getCenter() : [ 0, 0 ]
+			};
+
+			mapOptions = that.getMapOptions( [ 'zoom', 'minZoom', 'maxZoom' ], mapOptions );
+
+			// TODO: Limit zoom values to map max zoom
+
 			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions );
 			that.map.addLayer( that.markerClusterGroup );
 
@@ -149,26 +163,15 @@ export class MapView extends View {
 
 	}
 
-	public getMapOptions() {
+	public getMapOptions( keys : string[], defaults : { [ key: string] : any } = {} ) {
 
-		let options: any = {
-			center: this.bounds !== undefined ? this.bounds.getCenter() : [ 0, 0 ]
-		};
-
-		// TODO: Limit zoom values to map max zoom
-		let optionMap: { [key: string]: [ string, ( value: number ) => any ] } = {
-			'zoom': [ 'zoom', ( value: number ) => Math.max( 0, value ) ],
-			'min zoom': [ 'minZoom', ( value: number ) => Math.max( 0, value ) ],
-			'max zoom': [ 'maxZoom', ( value: number ) => Math.max( 0, value) ]
-		};
-
-		for ( let key in optionMap ) {
+		for ( let key of keys ) {
 			if ( this.options.hasOwnProperty( key ) ) {
-				options[ optionMap[ key ][ 0 ] ] = (optionMap[ key ][ 1 ])( this.options[ key ] );
+				defaults[ key ] = this.options[ key ];
 			}
 		}
 
-		return options;
+		return defaults;
 	}
 
 	public showRows( rowIds: string[] ) {
