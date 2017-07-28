@@ -59,8 +59,19 @@ Not supported by the `filtered` format:
 * table view class
 
 ### Map view
+$srfgMapProvider to be set in Localsettings.php
+e. g. $srfgMapProvider='OpenStreetMap.HOT'
+A list of available providers is here http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 
 * map view marker position property
+* map view height 
+* map view zoom
+* map view min zoom
+* map view max zoom
+* map view marker cluster (`true`|`false`)
+* map view marker cluster max zoom
+* map view marker cluster max radius
+* map view marker cluster zoom on click (`true`|`false`)
 
 ## Printout level
 
