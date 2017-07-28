@@ -161,12 +161,14 @@ class SRFGraph extends SMWResultPrinter {
 		///////////////////////////////////
 		foreach ( $this->m_nodes as $node ) {
 
+			// Create main Node with Name
+			$nodeName = ( empty( $node->getLabel1() ) ) ? $node->getID() : $node->getLabel1();
+			$graphInput .= "\"" . $nodeName . "\"";
+
 			if ( $this->m_graphLink ) {
 				$nodeLinkURL = "[[" . $node->getID() . "]]";
-				$nodeName = ( empty( $node->getLabel1() ) ) ? $node->getID() : $node->getLabel1();
-				$graphInput .= " \"" . $nodeName . "\" [URL = \"$nodeLinkURL\"]";
+				$graphInput .= "[URL = \"$nodeLinkURL\"] ";
 			}
-
 			if ( ( $node->getLabel2() != "" || $node->getLabel3() != "" ) &&
 			     ( $this->m_nodeShape == "record" || $this->m_nodeShape == "Mrecord" )
 			) {
