@@ -12,6 +12,7 @@
  * @licence GNU GPL v2+
  * @author Frank Dengler
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author Sebastian Schmid
  */
 class SRFGraph extends SMWResultPrinter {
 
@@ -139,36 +140,51 @@ class SRFGraph extends SMWResultPrinter {
 
 		$this->isHTML = true;
 
+        ///////////////////////////////////
+        // GRAPH OPTIONS
+		///////////////////////////////////        
+        
 		$graphInput = "digraph $this->m_graphName {";
+        
+        // fontsize and fontname
+        $graphInput .= "graph [fontsize=10, fontname=\"Verdana\"]\nnode [fontsize=10, fontname=\"Verdana\"];\nedge [fontsize=10, fontname=\"Verdana\"];";
+        
+        // size
 		if ( $this->m_graphSize != '' ) {
 			$graphInput .= "size=\"$this->m_graphSize\";";
 		}
-		if ( $this->m_nodeShape ) {
+		
+        // shape
+        if ( $this->m_nodeShape ) {
 			$graphInput .= "node [shape=$this->m_nodeShape];";
 		}
-		$graphInput .= "rankdir=$this->m_rankdir;";
+		
+        // rankdir
+        $graphInput .= "rankdir=$this->m_rankdir;";
 
-		///////////////////////////////////
-		// Get all Nodes
-		///////////////////////////////////
-
+        // iterate query result
 		while ( $row = $res->getNext() ) {
-			$this->getGVForItem( $row, $outputmode, $this->m_nodes );
+			$this->processResultRow( $row, $outputmode, $this->m_nodes );
 		}
 
 		///////////////////////////////////
-		// Rendering Nodes
+        // NODES  
 		///////////////////////////////////
+        
 		foreach ( $this->m_nodes as $node ) {
 
-			// Create main Node with Name
+			// take node ID (title) if we don't have a label1
 			$nodeName = ( empty( $node->getLabel1() ) ) ? $node->getID() : $node->getLabel1();
+            
+            // add the node
 			$graphInput .= "\"" . $nodeName . "\"";
 
 			if ( $this->m_graphLink ) {
 				$nodeLinkURL = "[[" . $node->getID() . "]]";
 				$graphInput .= "[URL = \"$nodeLinkURL\"] ";
 			}
+            
+            // build the additional labels only for record or Mrecord
 			if ( ( $node->getLabel2() != "" || $node->getLabel3() != "" ) &&
 			     ( $this->m_nodeShape == "record" || $this->m_nodeShape == "Mrecord" )
 			) {
@@ -191,8 +207,9 @@ class SRFGraph extends SMWResultPrinter {
 		}
 
 		///////////////////////////////////
-		// Rendering Node Links
+		// EDGES
 		///////////////////////////////////
+        
 		foreach ( $this->m_nodes as $node ) {
 
 			if ( count( $node->getParentNode() ) > 0 ) {
@@ -239,9 +256,12 @@ class SRFGraph extends SMWResultPrinter {
 		}
 		$graphInput .= "}";
 
-		// Calls graphvizParserHook function from MediaWiki GraphViz extension
+        
+		// calls graphvizParserHook from GraphViz extension
 		$result = GraphViz::graphvizParserHook( $graphInput, "", $GLOBALS['wgParser'], true );
 
+        
+        // append legend
 		if ( $this->m_graphLegend && $this->m_graphColor ) {
 			$arrayCount = 0;
 			$arraySize = count( $this->m_graphColors );
@@ -265,7 +285,7 @@ class SRFGraph extends SMWResultPrinter {
 	}
 
 	/**
-	 * Create an object for a Node.
+	 * Process a result row and create SRFGraphNodes
 	 *
 	 * @since 2.5.0
 	 *
@@ -274,16 +294,17 @@ class SRFGraph extends SMWResultPrinter {
 	 * @param array $nodes
 	 *
 	 */
-	protected function getGVForItem( array /* of SMWResultArray */
+	protected function processResultRow( array /* of SMWResultArray */
 	$row, $outputmode, $nodes ) {
 
-		// Loop through all fields of the record.
+		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
 
-			// Loop through all values of a multivalue field
+			// loop through all values of a multivalue field
 			while ( ( /* SMWDataValue */
 			        $object = $resultArray->getNextDataValue() ) !== false ) {
 
+                // create SRFGraphNode for column 0
 				if ( $i == 0 ) {
 					$node = new SRFGraphNode( str_replace( '_', ' ', $object->getShortText( $outputmode ) ) );
 
@@ -292,6 +313,7 @@ class SRFGraph extends SMWResultPrinter {
 					}
 				} else {
 
+                    // special handling for labels, all other printout statements will add links to parent nodes
 					switch ( $resultArray->getPrintRequest()->getLabel() ) {
 						case 'label1':
 							if ( $object instanceof SMWWikiPageValue ) {
@@ -315,7 +337,8 @@ class SRFGraph extends SMWResultPrinter {
 							}
 							break;
 						default:
-							// Add Object (Parent Node) and Predicate (Graph Label) of Current Node
+							// add Object (Parent Node) and Predicate (Graph Label) to current node
+                            // <this node> <is part of> <other node>
 							$node->addParentNode( $resultArray->getPrintRequest()->getLabel(),
 								str_replace( '_', ' ', $object->getDBkey() ) );
 							break;
@@ -466,75 +489,56 @@ class SRFGraph extends SMWResultPrinter {
 }
 
 /*
- * Stores informations of a single Node
+ * Represents a graph node 
  *
  * @author Sebastian Schmid
  */
 
 class SRFGraphNode {
-
-	/**
-	 * @var string $m_id : Node ID
-	 * @example 'Article:Node1'
-	 */
 	private $m_id;
-
-	/**
-	 * @var string $m_label1 : Displaytitle of Node without NS
-	 * @example 'Node1'
-	 */
 	private $m_label1;
-
-	/**
-	 * @var string $m_label2 : concatenate a String of Elements by Property
-	 *                        and adds an '/l' for left align
-	 *                        the label2 is displayed in the first row of a record
-	 * @example 'Member/l'
-	 */
 	private $m_label2;
-
-	/**
-	 * @var string $m_label3 : concatenate a String of Elements by Property
-	 *                        and adds an '/l' for left align
-	 *                        the label3 is displayed in the second row of a record
-	 * @example 'Sub Member/l'
-	 */
 	private $m_label3;
-
-	/**
-	 * @var string $m_parent : Parent node of current
-	 *
-	 * @example 'Main Node'
-	 */
 	private $m_parent = array();
 
 	/**
-	 * @var string $m_parent : Parent node of current
-	 *
-	 * @example 'Sub Member/l'
-	 */
-	//private $m_graphLabel = array(); // Part of team
-
+	 * @var string $id : Node ID including namespace
+	 */      
 	function __construct( $id ) {
 		$this->m_id = $id;
 	}
-
-	public function addLabel1( $row ) {
-		$this->m_label1 = $row;
+    
+	/**
+	 * @var string $label : A label, e.g. Display Title, used instead of $m_id
+	 */
+	public function addLabel1( $label ) {
+		$this->m_label1 = $label;
 	}
 
-	public function addLabel2( $row ) {
-		$this->m_label2 .= $row . "\l";
+    /**
+	 * @var string $label : append to label2 plus an '/l' for left align
+	 *                     the label2 is displayed in the second row of a record shape
+	 */
+	public function addLabel2( $label ) {
+		$this->m_label2 .= $label . "\l";
 	}
 
-	public function addLabel3( $row ) {
-		$this->m_label3 .= $row . "\l";
+    /**
+	 * @var string $label : append to label3 plus an '/l' for left align
+	 *                     the label3 is displayed in the third row of a record shape
+	 */
+	public function addLabel3( $label ) {
+		$this->m_label3 .= $label . "\l";
 	}
 
-	public function addParentNode( $graphLabel, $parentNode ) {
+    /**
+	 * @var string $predicate : the "predicate" linking an object to a subject
+     * @var srting $object: the object, linked to this node
+	 */
+	public function addParentNode( $predicate, $object ) {
 		$this->m_parent[] = array(
-			"predicate" => $graphLabel,
-			"object"    => $parentNode
+			"predicate" => $predicate,
+			"object"    => $object
 		);
 	}
 
