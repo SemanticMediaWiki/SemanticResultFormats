@@ -271,6 +271,8 @@
 	"srf-paramdesc-filtered-map-max-zoom": "Le niveau de zoom maximal sélectionnable de la carte",
 	"srf-paramdesc-filtered-map-marker-cluster": "Passe le marqueur d’agrégation à oui ou non",
 	"srf-paramdesc-filtered-map-marker-cluster-max-zoom": "Niveau de zoom maximal auquel les marqueurs de la carte sont encore agrégés. Au-dessus de ce niveau, les marqueurs seront toujours distincts.",
+	"srf-paramdesc-filtered-map-marker-cluster-max-radius": "Le rayon maximal qu’une agrégation couvrira depuis le marqueur central (en pixels). 80 par défaut.",
+	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "Quand il est activé, cliquer sur l’agrégat zoomera jusqu’à ses limites.",
 	"srf-filtered-selectorlabel-list": "Liste",
 	"srf-filtered-selectorlabel-table": "Tableau",
 	"srf-filtered-selectorlabel-calendar": "Calendrier",
