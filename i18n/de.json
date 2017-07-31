@@ -257,6 +257,8 @@
 	"srf-paramdesc-filtered-map-max-zoom": "Die größte auswählbare Vergrößerungsstufe der Karte",
 	"srf-paramdesc-filtered-map-marker-cluster": "Schaltet die Markerclusterung an oder aus.",
 	"srf-paramdesc-filtered-map-marker-cluster-max-zoom": "Maximale Vergrößerungsstufe, bei der die Kartenmarker geclustert bleiben. Oberhalb dieser Stufe werden Marker immer nicht geclustert.",
+	"srf-paramdesc-filtered-map-marker-cluster-max-radius": "Der maximale Radius, den ein Cluster vom zentralen Marker (in Pixeln) abdecken wird. Standard ist 80.",
+	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "Falls aktiviert, führt das Anklicken des Clusters zur Vergrößerung auf seine Abgrenzungen.",
 	"srf-filtered-selectorlabel-list": "Liste",
 	"srf-filtered-selectorlabel-table": "Tabelle",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
