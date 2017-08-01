@@ -4,6 +4,7 @@ namespace SRF\Filtered;
 
 use SMWDataValue;
 use SMWDIGeoCoord;
+use SMWDIWikiPage;
 use SMWErrorValue;
 use SMWResultArray;
 
@@ -69,6 +70,7 @@ class ResultItem {
 
 			$values = []; // contains plain text
 			$formatted = []; // may contain links
+			$sorted = []; // uses DEFAULTSORT when available
 
 			$field->reset();
 
@@ -78,8 +80,13 @@ class ResultItem {
 
 				if ( $dataItem instanceof SMWDIGeoCoord ) {
 					$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
+					$sorted[] = $dataItem->getSortKey();
+				} elseif ( $dataItem instanceof SMWDIWikiPage ) {
+					$values[] = $dataValue->getShortHTMLText();
+					$sorted[] = $dataValue->getSortKey();
 				} else {
 					$values[] = $dataValue->getShortHTMLText();
+					$sorted[] = $dataValue->getShortHTMLText();
 				}
 
 				if ( $dataValue instanceof SMWErrorValue ) {
@@ -92,6 +99,7 @@ class ResultItem {
 			$printouts[ $this->mQueryPrinter->uniqid( $printRequest->getHash() ) ] = [
 				'values' => $values,
 				'formatted values' => $formatted,
+				'sort values' => $sorted,
 			];
 
 			$isFirstColumn = false;

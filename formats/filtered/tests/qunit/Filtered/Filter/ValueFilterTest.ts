@@ -30,7 +30,7 @@ export class ValueFilterTest extends QUnitTest {
 	public testInit( assert: QUnitAssert ) {
 
 		// Setup
-		let controller = new Controller( $(), {} );
+		let controller = new Controller( $(), {}, {} );
 		let options = {
 			'switches': [
 				'and or'
@@ -62,7 +62,7 @@ export class ValueFilterTest extends QUnitTest {
 	public testUseOr( assert: QUnitAssert ) {
 
 		// Setup
-		let controller = new Controller( $(), {} );
+		let controller = new Controller( $(), {}, {} );
 		controller.onFilterUpdated = function ( filterId ) {
 			// Assert
 			assert.ok( true, 'Filter updated.' );
