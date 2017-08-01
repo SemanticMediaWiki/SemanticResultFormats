@@ -13,7 +13,7 @@ export class MapViewTest extends ViewTest {
 	public getTestObject( id: string = 'foo', target: JQuery = undefined, c: Controller = undefined, options: Options = {} ) {
 
 		if ( c === undefined ) {
-			c = new Controller( undefined, undefined );
+			c = new Controller( undefined, undefined, undefined );
 		}
 
 		return new MapView( id, target, c, options );

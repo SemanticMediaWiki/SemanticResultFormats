@@ -59,9 +59,9 @@ Not supported by the `filtered` format:
 * table view class
 
 ### Map view
-$srfgMapProvider to be set in Localsettings.php
-e. g. $srfgMapProvider='OpenStreetMap.HOT'
-A list of available providers is here http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+
+This view is only available if `$srfgMapProvider` is set in `LocalSettings.php`, e.g. `$srfgMapProvider='OpenStreetMap.HOT';`<br>
+See the [list of available providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 * map view marker position property
 * map view height 
@@ -76,7 +76,7 @@ A list of available providers is here http://leaflet-extras.github.io/leaflet-pr
 ## Printout level
 
 * filter (`value`|`distrance`|`number`)
-* hide (List view, Calendar view only)
+* hide (`yes`|`no`)
 * align (`right`|`left`|`center`) (Table view only)
 
 ### Value filter

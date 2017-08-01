@@ -92,7 +92,7 @@ export class ViewSelectorTest {
 
 		target.appendTo( 'body' );
 
-		let c = new Controller( undefined, undefined );
+		let c = new Controller( undefined, undefined, undefined );
 		c.onViewSelected = function ( viewID ) {
 			// Assert that the ViewSelector called the Controller when clicked
 			assert.ok( true, "Controller was called to select view \"" + viewID + "\"." );

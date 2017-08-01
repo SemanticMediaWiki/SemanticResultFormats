@@ -3,13 +3,14 @@
 exports.__esModule = true;
 var View_1 = require("./View/View");
 var Controller = (function () {
-    function Controller(target, data) {
+    function Controller(target, data, printRequests) {
         this.target = undefined;
         this.views = {};
         this.filters = {};
         this.currentView = undefined;
         this.target = target;
         this.data = data;
+        this.printRequests = printRequests;
         for (var rowId in this.data) {
             if (!this.data[rowId].hasOwnProperty('visible')) {
                 this.data[rowId].visible = {};
@@ -18,6 +19,9 @@ var Controller = (function () {
     }
     Controller.prototype.getData = function () {
         return this.data;
+    };
+    Controller.prototype.getPrintRequests = function () {
+        return this.printRequests;
     };
     Controller.prototype.getPath = function () {
         return srf.settings.get('srfgScriptPath') + '/formats/filtered/resources/';
@@ -451,13 +455,16 @@ var MapView = (function (_super) {
         var popup = [];
         // TODO: Use <div> instead of <b> and do CSS styling
         for (var prId in row['printouts']) {
-            var printouts = row['printouts'][prId];
-            if (title === undefined) {
-                title = printouts['values'].join(', ');
-                popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
-            }
-            else {
-                popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+            var printrequest = (this.controller.getPrintRequests())[prId];
+            if (!printrequest.hasOwnProperty('hide') || printrequest.hide === false) {
+                var printouts = row['printouts'][prId];
+                if (title === undefined) {
+                    title = printouts['values'].join(', ');
+                    popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
+                }
+                else {
+                    popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+                }
             }
         }
         var marker = L.marker(latLng, { title: title, alt: title });
@@ -636,7 +643,7 @@ var ControllerTest = (function () {
         // Setup
         var data = { 'foo': {} };
         // Run
-        var c = new Controller_1.Controller(undefined, data);
+        var c = new Controller_1.Controller(undefined, data, {});
         // Assert: Can construct
         assert.ok(c instanceof Controller_1.Controller, 'Can construct Controller.');
         // Assert: Data correctly attached and retained
@@ -649,7 +656,7 @@ var ControllerTest = (function () {
      */
     ControllerTest.prototype.testAttachViewsAndSwitchToViews = function (assert) {
         // Setup
-        var c = new Controller_1.Controller(undefined, undefined);
+        var c = new Controller_1.Controller(undefined, undefined, undefined);
         var viewIds = ['foo', 'bar', 'baz'];
         var viewsShown = [];
         var viewsHidden = [];
@@ -707,7 +714,7 @@ var ControllerTest = (function () {
             return targetElement;
         };
         // Run
-        new Controller_1.Controller(targetElement, undefined).show();
+        new Controller_1.Controller(targetElement, undefined, undefined).show();
         // Assert
         assert.ok(targetShown, 'Container made visible.');
     };
@@ -718,7 +725,7 @@ var ControllerTest = (function () {
     ControllerTest.prototype.testAttachFilter = function (assert) {
         // Setup
         var data = { 'foo': {} };
-        var controller = new Controller_1.Controller(undefined, data);
+        var controller = new Controller_1.Controller(undefined, data, {});
         var filterIds = ['foo', 'bar', 'baz'];
         filterIds.forEach(function (filterId) {
             var visibilityWasQueried = false;
@@ -781,7 +788,7 @@ var ValueFilterTest = (function (_super) {
     ;
     ValueFilterTest.prototype.testInit = function (assert) {
         // Setup
-        var controller = new Controller_1.Controller($(), {});
+        var controller = new Controller_1.Controller($(), {}, {});
         var options = {
             'switches': [
                 'and or'
@@ -810,7 +817,7 @@ var ValueFilterTest = (function (_super) {
     ;
     ValueFilterTest.prototype.testUseOr = function (assert) {
         // Setup
-        var controller = new Controller_1.Controller($(), {});
+        var controller = new Controller_1.Controller($(), {}, {});
         controller.onFilterUpdated = function (filterId) {
             // Assert
             assert.ok(true, 'Filter updated.');
@@ -855,7 +862,7 @@ var MapViewTest = (function (_super) {
         if (c === void 0) { c = undefined; }
         if (options === void 0) { options = {}; }
         if (c === undefined) {
-            c = new Controller_1.Controller(undefined, undefined);
+            c = new Controller_1.Controller(undefined, undefined, undefined);
         }
         return new MapView_1.MapView(id, target, c, options);
     };
@@ -1029,7 +1036,7 @@ var ViewSelectorTest = (function () {
             target.append(viewSelectors[id]);
         }
         target.appendTo('body');
-        var c = new Controller_1.Controller(undefined, undefined);
+        var c = new Controller_1.Controller(undefined, undefined, undefined);
         c.onViewSelected = function (viewID) {
             // Assert that the ViewSelector called the Controller when clicked
             assert.ok(true, "Controller was called to select view \"" + viewID + "\".");

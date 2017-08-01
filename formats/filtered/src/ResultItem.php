@@ -72,29 +72,29 @@ class ResultItem {
 			$formatted = []; // may contain links
 			$sorted = []; // uses DEFAULTSORT when available
 
-			$field->reset();
+				$field->reset();
 
-			while ( ( $dataValue = $field->getNextDataValue() ) instanceof SMWDataValue ) {
+				while ( ( $dataValue = $field->getNextDataValue() ) instanceof SMWDataValue ) {
 
-				$dataItem = $dataValue->getDataItem();
+					$dataItem = $dataValue->getDataItem();
 
-				if ( $dataItem instanceof SMWDIGeoCoord ) {
-					$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
-					$sorted[] = $dataItem->getSortKey();
-				} elseif ( $dataItem instanceof SMWDIWikiPage ) {
-					$values[] = $dataValue->getShortHTMLText();
-					$sorted[] = $dataValue->getSortKey();
-				} else {
-					$values[] = $dataValue->getShortHTMLText();
-					$sorted[] = $dataValue->getShortHTMLText();
+					if ( $dataItem instanceof SMWDIGeoCoord ) {
+						$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
+						$sorted[] = $dataItem->getSortKey();
+					} elseif ( $dataItem instanceof SMWDIWikiPage ) {
+						$values[] = $dataValue->getShortHTMLText();
+						$sorted[] = $dataValue->getSortKey();
+					} else {
+						$values[] = $dataValue->getShortHTMLText();
+						$sorted[] = $dataValue->getShortHTMLText();
+					}
+
+					if ( $dataValue instanceof SMWErrorValue ) {
+						$formatted[] = $dataItem->getSerialization();
+					} else {
+						$formatted[] = $dataValue->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
+					}
 				}
-
-				if ( $dataValue instanceof SMWErrorValue ) {
-					$formatted[] = $dataItem->getSerialization();
-				} else {
-					$formatted[] = $dataValue->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
-				}
-			}
 
 			$printouts[ $this->mQueryPrinter->uniqid( $printRequest->getHash() ) ] = [
 				'values' => $values,

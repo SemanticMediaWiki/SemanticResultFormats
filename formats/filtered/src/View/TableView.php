@@ -92,7 +92,10 @@ class TableView extends View {
 		list( , $queryResultValue ) = each( $this->getQueryResults() );
 
 		foreach ( $queryResultValue->getValue() as $field ) {
-			$headers[] = $this->getTableHeader( $field->getPrintRequest() );
+			$printRequest = $field->getPrintRequest();
+			if ( filter_var( $printRequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
+				$headers[] = $this->getTableHeader( $printRequest );
+			}
 		}
 
 		return "\n<tr>\n" . implode( "\n", $headers ) . "\n</tr>\n";
@@ -152,13 +155,18 @@ class TableView extends View {
 			$row = $value->getValue();
 
 			foreach ( $row as $fieldId => $field ) {
-				if ( array_key_exists( $fieldId, $columnClasses ) ) {
-					$columnClass = $columnClasses[ $fieldId ];
-				} else {
-					$columnClass = null;
-				}
 
-				$cells[] = $this->getCellForPropVals( $field, $outputmode, $columnClass );
+
+				if ( filter_var( $field->getPrintRequest()->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
+
+					if ( array_key_exists( $fieldId, $columnClasses ) ) {
+						$columnClass = $columnClasses[ $fieldId ];
+					} else {
+						$columnClass = null;
+					}
+
+					$cells[] = $this->getCellForPropVals( $field, $outputmode, $columnClass );
+				}
 			}
 
 			$rowClass = 'filtered-table-item';

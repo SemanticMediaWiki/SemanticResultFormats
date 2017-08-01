@@ -74,7 +74,7 @@ class CalendarView extends View {
 			}
 
 			// only add to title template if requested and if not hidden
-			if ( $this->titleTemplate !== null && $printRequest->getParameter( 'hide' ) === false ) {
+			if ( $this->titleTemplate !== null && filter_var( $printRequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
 
 				$params = [];
 				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $valueId === 0 ) ) ) !== false ) {
