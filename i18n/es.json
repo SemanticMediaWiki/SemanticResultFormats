@@ -243,6 +243,7 @@
 	"srf-paramdesc-filtered-calendar-end": "La impresión que contiene la fecha final de un evento",
 	"srf-paramdesc-filtered-calendar-title": "La impresión que contiene el título de un evento. No puede utilizarse junto con una plantilla de título.",
 	"srf-paramdesc-filtered-calendar-title-template": "Una plantilla que se utiliza para dar formato al título de un evento en el calendario",
+	"srf-paramdesc-filtered-map-height": "La altura del mapa.",
 	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-filtered-selectorlabel-table": "Tabla",
 	"srf-filtered-selectorlabel-calendar": "Calendario",
