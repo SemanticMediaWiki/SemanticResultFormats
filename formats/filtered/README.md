@@ -60,23 +60,12 @@ Not supported by the `filtered` format:
 
 ### Map view
 
-This view is only available if `$srfgMapProvider` is set in `LocalSettings.php`, e.g. `$srfgMapProvider='OpenStreetMap.HOT';`<br>
-See the [list of available providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
-
 * map view marker position property
-* map view height 
-* map view zoom
-* map view min zoom
-* map view max zoom
-* map view marker cluster (`true`|`false`)
-* map view marker cluster max zoom
-* map view marker cluster max radius
-* map view marker cluster zoom on click (`true`|`false`)
 
 ## Printout level
 
 * filter (`value`|`distrance`|`number`)
-* hide (`yes`|`no`)
+* hide (List view, Calendar view only)
 * align (`right`|`left`|`center`) (Table view only)
 
 ### Value filter

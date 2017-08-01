@@ -130,8 +130,7 @@ class ListView extends View {
 				$printrequest = $field->getPrintRequest();
 
 				// only print value if not hidden
-				if ( filter_var( $printrequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
-
+				if ( $printrequest->getParameter( 'hide' ) === false ) {
 					$wikitext .= '|' . ( $this->mNamedArgs ? '?' . $printrequest->getLabel() : $fieldNumber + 1 ) . '=';
 					$isFirstValue = true;
 
@@ -163,7 +162,7 @@ class ListView extends View {
 				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $firstCol ) ) ) !== false ) {
 
 					// only print value if not hidden
-					if ( filter_var( $printrequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
+					if ( $printrequest->getParameter( 'hide' ) === false ) {
 
 						if ( !$firstCol && !$foundValues ) { // first values after first column
 							$result .= ' (';

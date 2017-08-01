@@ -68,7 +68,7 @@ export class Filtered {
 	}
 
 	private start() {
-		let controller = new Controller( this.target, this.config.data, this.config.printrequests );
+		let controller = new Controller( this.target, this.config.data );
 
 		this.attachFilters( controller, this.target.find( 'div.filtered-filters' ) );
 		this.attachViewSelector( controller, this.target.find( 'div.filtered-views-selectors-container' ) );

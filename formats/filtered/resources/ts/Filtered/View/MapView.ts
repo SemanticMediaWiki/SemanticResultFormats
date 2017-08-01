@@ -68,17 +68,14 @@ export class MapView extends View {
 		// TODO: Use <div> instead of <b> and do CSS styling
 
 		for ( let prId in row[ 'printouts' ] ) {
-			let printrequest = (this.controller.getPrintRequests())[ prId ];
 
-			if ( ! printrequest.hasOwnProperty('hide') || printrequest.hide === false ) {
-				let printouts = row[ 'printouts' ][ prId ];
+			let printouts = row[ 'printouts' ][ prId ];
 
-				if ( title === undefined ) {
-					title = printouts[ 'values' ].join( ', ' );
-					popup.push( '<b>' + printouts[ 'formatted values' ].join( ', ' ) + '</b>' );
-				} else {
-					popup.push( (printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts[ 'formatted values' ].join( ', ' ) )
-				}
+			if ( title === undefined ) {
+				title = printouts[ 'values' ].join( ', ' );
+				popup.push( '<b>' + printouts[ 'formatted values' ].join( ', ' ) + '</b>' );
+			} else {
+				popup.push( (printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts[ 'formatted values' ].join( ', ' ) )
 			}
 		}
 

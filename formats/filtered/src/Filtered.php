@@ -185,10 +185,6 @@ class Filtered extends ResultPrinter {
 				$prConfig[ 'property' ] = $printRequest->getData()->getInceptiveProperty()->getKey();
 			}
 
-			if ( filter_var( $printRequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) ) {
-				$prConfig[ 'hide' ] = true;
-			}
-
 			$filtersParam = $printRequest->getParameter( 'filter' );
 
 			if ( $filtersParam ) {
