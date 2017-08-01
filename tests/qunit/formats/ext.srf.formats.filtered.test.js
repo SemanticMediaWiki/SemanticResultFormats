@@ -3,13 +3,14 @@
 exports.__esModule = true;
 var View_1 = require("./View/View");
 var Controller = (function () {
-    function Controller(target, data) {
+    function Controller(target, data, printRequests) {
         this.target = undefined;
         this.views = {};
         this.filters = {};
         this.currentView = undefined;
         this.target = target;
         this.data = data;
+        this.printRequests = printRequests;
         for (var rowId in this.data) {
             if (!this.data[rowId].hasOwnProperty('visible')) {
                 this.data[rowId].visible = {};
@@ -18,6 +19,9 @@ var Controller = (function () {
     }
     Controller.prototype.getData = function () {
         return this.data;
+    };
+    Controller.prototype.getPrintRequests = function () {
+        return this.printRequests;
     };
     Controller.prototype.getPath = function () {
         return srf.settings.get('srfgScriptPath') + '/formats/filtered/resources/';
@@ -128,7 +132,7 @@ var Controller = (function () {
 }());
 exports.Controller = Controller;
 
-},{"./View/View":4}],2:[function(require,module,exports){
+},{"./View/View":5}],2:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var Filter = (function () {
@@ -218,28 +222,45 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.getSortedValues = function () {
         /** Map of value => label distinct values */
         var distinctValues = {};
+        /** Map of value => sort value distinct values */
+        var distinctSortValues = {};
         if (this.options.hasOwnProperty('values')) {
-            return this.options['values'].reduce(function (values, item) {
-                values[item] = item;
-                return values;
-            }, {});
+            return this.options['values'].map(function (item) {
+                return {
+                    printoutValue: item,
+                    formattedValue: item
+                };
+            });
         }
         else {
             // build filter values from available values in result set
             var data = this.controller.getData();
+            var sortedEntries = [];
             for (var id in data) {
                 var printoutValues = data[id]['printouts'][this.printrequestId]['values'];
                 var printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
+                var printoutSortValues = data[id]['printouts'][this.printrequestId]['sort values'];
                 for (var i in printoutValues) {
                     var printoutFormattedValue = printoutFormattedValues[i];
                     if (printoutFormattedValue.indexOf('<a') > -1) {
                         printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
                     }
                     distinctValues[printoutValues[i]] = printoutFormattedValue;
+                    distinctSortValues[printoutValues[i]] = printoutSortValues[i];
                 }
             }
+            for (var printoutValue in distinctSortValues) {
+                sortedEntries.push({
+                    printoutValue: printoutValue,
+                    sortValue: distinctSortValues[printoutValue],
+                    formattedValue: distinctValues[printoutValue]
+                });
+            }
+            sortedEntries.sort(function (a, b) {
+                return a.sortValue.localeCompare(b.sortValue);
+            });
+            return sortedEntries;
         }
-        return distinctValues;
     };
     ValueFilter.prototype.buildControl = function () {
         var filtercontrols = this.target;
@@ -254,17 +275,17 @@ var ValueFilter = (function (_super) {
             filtercontrols.height(height);
         }
         // insert options (checkboxes and labels) and attach event handlers
-        for (var _i = 0, _a = Object.keys(this.values).sort(); _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
             var option = $('<div class="filtered-value-option">');
-            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value + '"  >');
+            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value.printoutValue + '"  >');
             // attach event handler
             checkbox
                 .on('change', undefined, { 'filter': this }, function (eventObject) {
                 eventObject.data.filter.onFilterUpdated(eventObject);
             });
             // Try to get label, if not fall back to value id
-            var label = this.values[value] || value;
+            var label = value.formattedValue || value.printoutValue; //this.values[ value ] || value;
             option.append(checkbox).append(label);
             filtercontrols.append(option);
         }
@@ -338,6 +359,194 @@ exports.ValueFilter = ValueFilter;
 
 },{"./Filter":2}],4:[function(require,module,exports){
 "use strict";
+/// <reference types="leaflet" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var View_1 = require("./View");
+var MapView = (function (_super) {
+    __extends(MapView, _super);
+    function MapView() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.map = undefined;
+        _this.icon = undefined;
+        _this.markers = undefined;
+        _this.markerClusterGroup = undefined;
+        _this.bounds = undefined;
+        _this.initialized = false;
+        _this.zoom = -1;
+        _this.minZoom = -1;
+        _this.maxZoom = -1;
+        _this.leafletPromise = undefined;
+        return _this;
+    }
+    MapView.prototype.init = function () {
+        var _this = this;
+        var data = this.controller.getData();
+        var markers = {};
+        if (this.options.hasOwnProperty('height')) {
+            this.target.height(this.options.height);
+        }
+        this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
+            .then(function () {
+            var bounds = undefined;
+            var disableClusteringAtZoom = _this.getZoomForUnclustering();
+            var clusterOptions = {
+                animateAddingMarkers: true,
+                disableClusteringAtZoom: disableClusteringAtZoom,
+                spiderfyOnMaxZoom: disableClusteringAtZoom === null
+            };
+            clusterOptions = _this.getOptions(['maxClusterRadius', 'zoomToBoundsOnClick'], clusterOptions);
+            var markerClusterGroup = L.markerClusterGroup(clusterOptions);
+            for (var rowId in data) {
+                if (data[rowId]['data'].hasOwnProperty(_this.id)) {
+                    var positions = data[rowId]['data'][_this.id]['positions'];
+                    markers[rowId] = [];
+                    for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+                        var pos = positions_1[_i];
+                        bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
+                        var marker = _this.getMarker(pos, data[rowId]);
+                        markers[rowId].push(marker);
+                        markerClusterGroup.addLayer(marker);
+                    }
+                }
+            }
+            _this.markerClusterGroup = markerClusterGroup;
+            _this.markers = markers;
+            _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
+        });
+        return _super.prototype.init.call(this);
+    };
+    MapView.prototype.getZoomForUnclustering = function () {
+        if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
+            return 0;
+        }
+        if (this.options.hasOwnProperty('marker cluster max zoom')) {
+            return this.options['marker cluster max zoom'] + 1;
+        }
+        return null;
+    };
+    MapView.prototype.getIcon = function () {
+        if (this.icon === undefined) {
+            var iconPath = this.controller.getPath() + 'css/images/';
+            this.icon = new L.Icon({
+                'iconUrl': iconPath + 'marker-icon.png',
+                'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+                'shadowUrl': iconPath + 'marker-shadow.png',
+                'iconSize': [25, 41],
+                'iconAnchor': [12, 41],
+                'popupAnchor': [1, -34],
+                // 'tooltipAnchor': [16, -28],
+                'shadowSize': [41, 41]
+            });
+        }
+        return this.icon;
+    };
+    MapView.prototype.getMarker = function (latLng, row) {
+        var title = undefined;
+        var popup = [];
+        // TODO: Use <div> instead of <b> and do CSS styling
+        for (var prId in row['printouts']) {
+            var printrequest = (this.controller.getPrintRequests())[prId];
+            if (!printrequest.hasOwnProperty('hide') || printrequest.hide === false) {
+                var printouts = row['printouts'][prId];
+                if (title === undefined) {
+                    title = printouts['values'].join(', ');
+                    popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
+                }
+                else {
+                    popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+                }
+            }
+        }
+        var marker = L.marker(latLng, { title: title, alt: title });
+        marker.bindPopup(popup.join('<br>'));
+        marker.setIcon(this.getIcon());
+        return marker;
+    };
+    MapView.prototype.lateInit = function () {
+        var _this = this;
+        if (this.initialized) {
+            return;
+        }
+        this.initialized = true;
+        var that = this;
+        this.leafletPromise.then(function () {
+            var mapOptions = {
+                center: _this.bounds !== undefined ? _this.bounds.getCenter() : [0, 0]
+            };
+            mapOptions = that.getOptions(['zoom', 'minZoom', 'maxZoom'], mapOptions);
+            // TODO: Limit zoom values to map max zoom
+            that.map = L.map(that.getTargetElement().get(0), mapOptions);
+            that.map.addLayer(that.markerClusterGroup);
+            if (_this.options.hasOwnProperty('map provider')) {
+                L.tileLayer.provider(_this.options['map provider']).addTo(that.map);
+            }
+            if (!mapOptions.hasOwnProperty('zoom')) {
+                that.map.fitBounds(that.bounds);
+            }
+        });
+    };
+    MapView.prototype.getOptions = function (keys, defaults) {
+        if (defaults === void 0) { defaults = {}; }
+        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+            var key = keys_1[_i];
+            if (this.options.hasOwnProperty(key)) {
+                defaults[key] = this.options[key];
+            }
+        }
+        return defaults;
+    };
+    MapView.prototype.showRows = function (rowIds) {
+        var _this = this;
+        this.leafletPromise.then(function () {
+            _this.manipulateLayers(rowIds, function (layers) {
+                _this.markerClusterGroup.addLayers(layers);
+            });
+        });
+    };
+    MapView.prototype.hideRows = function (rowIds) {
+        var _this = this;
+        this.leafletPromise.then(function () {
+            _this.manipulateLayers(rowIds, function (layers) {
+                _this.markerClusterGroup.removeLayers(layers);
+            });
+        });
+    };
+    MapView.prototype.manipulateLayers = function (rowIds, cb) {
+        var layersFromRowIds = this.getLayersFromRowIds(rowIds);
+        if (layersFromRowIds.length > 0) {
+            cb(layersFromRowIds);
+        }
+    };
+    MapView.prototype.getLayersFromRowIds = function (rowIds) {
+        return this.flatten(this.getLayersFromRowIdsRaw(rowIds));
+    };
+    MapView.prototype.getLayersFromRowIdsRaw = function (rowIds) {
+        var _this = this;
+        return rowIds.map(function (rowId) { return _this.markers[rowId] ? _this.markers[rowId] : []; });
+    };
+    MapView.prototype.flatten = function (markers) {
+        return markers.reduce(function (result, layers) { return result.concat(layers); }, []);
+    };
+    MapView.prototype.show = function () {
+        _super.prototype.show.call(this);
+        this.lateInit();
+    };
+    return MapView;
+}(View_1.View));
+exports.MapView = MapView;
+
+},{"./View":5}],5:[function(require,module,exports){
+"use strict";
 exports.__esModule = true;
 var View = (function () {
     function View(id, target, c, options) {
@@ -377,7 +586,7 @@ var View = (function () {
 }());
 exports.View = View;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var ViewSelector = (function () {
@@ -409,8 +618,9 @@ var ViewSelector = (function () {
 }());
 exports.ViewSelector = ViewSelector;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
+/// <reference types="qunit" />
 exports.__esModule = true;
 var Controller_1 = require("../../../resources/ts/Filtered/Controller");
 var MockedFilter_1 = require("../Util/MockedFilter");
@@ -433,7 +643,7 @@ var ControllerTest = (function () {
         // Setup
         var data = { 'foo': {} };
         // Run
-        var c = new Controller_1.Controller(undefined, data);
+        var c = new Controller_1.Controller(undefined, data, {});
         // Assert: Can construct
         assert.ok(c instanceof Controller_1.Controller, 'Can construct Controller.');
         // Assert: Data correctly attached and retained
@@ -446,7 +656,7 @@ var ControllerTest = (function () {
      */
     ControllerTest.prototype.testAttachViewsAndSwitchToViews = function (assert) {
         // Setup
-        var c = new Controller_1.Controller(undefined, undefined);
+        var c = new Controller_1.Controller(undefined, undefined, undefined);
         var viewIds = ['foo', 'bar', 'baz'];
         var viewsShown = [];
         var viewsHidden = [];
@@ -504,7 +714,7 @@ var ControllerTest = (function () {
             return targetElement;
         };
         // Run
-        new Controller_1.Controller(targetElement, undefined).show();
+        new Controller_1.Controller(targetElement, undefined, undefined).show();
         // Assert
         assert.ok(targetShown, 'Container made visible.');
     };
@@ -515,7 +725,7 @@ var ControllerTest = (function () {
     ControllerTest.prototype.testAttachFilter = function (assert) {
         // Setup
         var data = { 'foo': {} };
-        var controller = new Controller_1.Controller(undefined, data);
+        var controller = new Controller_1.Controller(undefined, data, {});
         var filterIds = ['foo', 'bar', 'baz'];
         filterIds.forEach(function (filterId) {
             var visibilityWasQueried = false;
@@ -536,7 +746,7 @@ var ControllerTest = (function () {
 }());
 exports.ControllerTest = ControllerTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":4,"../Util/MockedFilter":9}],7:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":5,"../Util/MockedFilter":12}],8:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -578,7 +788,7 @@ var ValueFilterTest = (function (_super) {
     ;
     ValueFilterTest.prototype.testInit = function (assert) {
         // Setup
-        var controller = new Controller_1.Controller($(), {});
+        var controller = new Controller_1.Controller($(), {}, {});
         var options = {
             'switches': [
                 'and or'
@@ -607,7 +817,7 @@ var ValueFilterTest = (function (_super) {
     ;
     ValueFilterTest.prototype.testUseOr = function (assert) {
         // Setup
-        var controller = new Controller_1.Controller($(), {});
+        var controller = new Controller_1.Controller($(), {}, {});
         controller.onFilterUpdated = function (filterId) {
             // Assert
             assert.ok(true, 'Filter updated.');
@@ -622,9 +832,127 @@ var ValueFilterTest = (function (_super) {
 }(QUnitTest_1.QUnitTest));
 exports.ValueFilterTest = ValueFilterTest;
 
-},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":10}],8:[function(require,module,exports){
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":13}],9:[function(require,module,exports){
 "use strict";
-// /// <reference types="jquery" />
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var ViewTest_1 = require("./ViewTest");
+var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
+var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
+var MapViewTest = (function (_super) {
+    __extends(MapViewTest, _super);
+    function MapViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // TODO:
+    MapViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        if (c === undefined) {
+            c = new Controller_1.Controller(undefined, undefined, undefined);
+        }
+        return new MapView_1.MapView(id, target, c, options);
+    };
+    ;
+    MapViewTest.prototype.runTests = function () {
+        _super.prototype.runTests.call(this);
+        return true;
+    };
+    ;
+    return MapViewTest;
+}(ViewTest_1.ViewTest));
+exports.MapViewTest = MapViewTest;
+
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/MapView":4,"./ViewTest":10}],10:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var QUnitTest_1 = require("../../Util/QUnitTest");
+var View_1 = require("../../../../resources/ts/Filtered/View/View");
+var ViewTest = (function (_super) {
+    __extends(ViewTest, _super);
+    function ViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // Coverage:
+    // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
+    // [x] public init()
+    // [x] public getTargetElement(): JQuery
+    // [ ] public showRows( rowIds: string[] )
+    // [ ] public hideRows( rowIds: string[] )
+    // [x] public show()
+    // [x] public hide()
+    ViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        return new View_1.View(id, target, c, options);
+    };
+    ;
+    ViewTest.prototype.runTests = function () {
+        var className = this.getTestObject().constructor['name'];
+        var that = this;
+        QUnit.test(className + ": Can construct, init and knows target element", function (assert) { that.testBasics(assert, that); });
+        QUnit.test(className + ": Show and Hide", function (assert) { that.testShowAndHide(assert, that); });
+        return true;
+    };
+    ;
+    ViewTest.prototype.testBasics = function (assert, that) {
+        //Setup
+        var target = $('<div>');
+        // Run
+        var v = that.getTestObject('foo', target);
+        v.init();
+        // Assert
+        assert.ok(v instanceof View_1.View, 'Can construct View.');
+        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
+    };
+    ;
+    ViewTest.prototype.testShowAndHide = function (assert, that) {
+        // Setup
+        var target = $('<div>');
+        target.show = function () { assert.ok(true, 'Target element shown.'); return target; };
+        target.hide = function () { assert.ok(true, 'Target element hidden.'); return target; };
+        var v = that.getTestObject('foo', target);
+        v.init();
+        v.show();
+        v.hide();
+        assert.expect(2);
+    };
+    ;
+    return ViewTest;
+}(QUnitTest_1.QUnitTest));
+exports.ViewTest = ViewTest;
+
+},{"../../../../resources/ts/Filtered/View/View":5,"../../Util/QUnitTest":13}],11:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
 exports.__esModule = true;
 var ViewSelector_1 = require("../../../resources/ts/Filtered/ViewSelector");
 var Controller_1 = require("../../../resources/ts/Filtered/Controller");
@@ -708,7 +1036,7 @@ var ViewSelectorTest = (function () {
             target.append(viewSelectors[id]);
         }
         target.appendTo('body');
-        var c = new Controller_1.Controller(undefined, undefined);
+        var c = new Controller_1.Controller(undefined, undefined, undefined);
         c.onViewSelected = function (viewID) {
             // Assert that the ViewSelector called the Controller when clicked
             assert.ok(true, "Controller was called to select view \"" + viewID + "\".");
@@ -729,7 +1057,7 @@ var ViewSelectorTest = (function () {
 }());
 exports.ViewSelectorTest = ViewSelectorTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":5}],9:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":6}],12:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -752,7 +1080,7 @@ var MockedFilter = (function (_super) {
 }(Filter_1.Filter));
 exports.MockedFilter = MockedFilter;
 
-},{"../../../resources/ts/Filtered/Filter/Filter":2}],10:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Filter/Filter":2}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var QUnitTest = (function () {
@@ -764,7 +1092,7 @@ var QUnitTest = (function () {
 }());
 exports.QUnitTest = QUnitTest;
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var QUnitTestHandler = (function () {
@@ -809,7 +1137,7 @@ var QUnitTestHandler = (function () {
 }());
 exports.QUnitTestHandler = QUnitTestHandler;
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 exports.__esModule = true;
@@ -817,12 +1145,16 @@ var ViewSelectorTest_1 = require("./Filtered/ViewSelectorTest");
 var ControllerTest_1 = require("./Filtered/ControllerTest");
 var ValueFilterTest_1 = require("./Filtered/Filter/ValueFilterTest");
 var QUnitTestHandler_1 = require("./Util/QUnitTestHandler");
+var ViewTest_1 = require("./Filtered/View/ViewTest");
+var MapViewTest_1 = require("./Filtered/View/MapViewTest");
 var testclasses = [
     ViewSelectorTest_1.ViewSelectorTest,
     ControllerTest_1.ControllerTest,
-    ValueFilterTest_1.ValueFilterTest
+    ValueFilterTest_1.ValueFilterTest,
+    ViewTest_1.ViewTest,
+    MapViewTest_1.MapViewTest,
 ];
 var testhandler = new QUnitTestHandler_1.QUnitTestHandler('ext.srf.formats.filtered', testclasses);
 testhandler.runTests();
 
-},{"./Filtered/ControllerTest":6,"./Filtered/Filter/ValueFilterTest":7,"./Filtered/ViewSelectorTest":8,"./Util/QUnitTestHandler":11}]},{},[12]);
+},{"./Filtered/ControllerTest":7,"./Filtered/Filter/ValueFilterTest":8,"./Filtered/View/MapViewTest":9,"./Filtered/View/ViewTest":10,"./Filtered/ViewSelectorTest":11,"./Util/QUnitTestHandler":14}]},{},[15]);
