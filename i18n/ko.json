@@ -131,6 +131,7 @@
 	"srf-paramdesc-effect": "슬라이드 전환에 사용할 효과",
 	"srf-printername-filtered": "필터됨",
 	"srf-paramdesc-filtered-map-height": "지도의 높이입니다.",
+	"srf-paramdesc-filtered-map-max-zoom": "지도의 선택 가능한 최대 확대/축소 수준",
 	"srf-filtered-selectorlabel-list": "목록",
 	"srf-filtered-selectorlabel-table": "표",
 	"srf-filtered-selectorlabel-map": "지도",

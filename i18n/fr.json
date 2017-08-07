@@ -269,7 +269,7 @@
 	"srf-paramdesc-filtered-map-zoom": "Le niveau de zoom avec lequel la carte sera chargée. Il peut être modifié l’utilisateur.<br>Voir : <i>zoom minimal d’affichage de la carte</i> et <i>zoom maximal d’affichage de la carte</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "Le niveau de zoom minimal sélectionnable de la carte",
 	"srf-paramdesc-filtered-map-max-zoom": "Le niveau de zoom maximal sélectionnable de la carte",
-	"srf-paramdesc-filtered-map-marker-cluster": "Passe le marqueur d’agrégation à oui ou non",
+	"srf-paramdesc-filtered-map-marker-cluster": "Passe le marqueur d’agrégation à oui ou non.",
 	"srf-paramdesc-filtered-map-marker-cluster-max-zoom": "Niveau de zoom maximal auquel les marqueurs de la carte sont encore agrégés. Au-dessus de ce niveau, les marqueurs seront toujours distincts.",
 	"srf-paramdesc-filtered-map-marker-cluster-max-radius": "Le rayon maximal qu’une agrégation couvrira depuis le marqueur central (en pixels). 80 par défaut.",
 	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "Quand il est activé, cliquer sur l’agrégat zoomera jusqu’à ses limites.",
