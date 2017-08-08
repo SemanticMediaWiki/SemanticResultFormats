@@ -762,20 +762,19 @@ return [
 			],
 		],
 
+	'ext.srf.filtered.slider' => $formatModule + [
+			'scripts' => [ 'filtered/resources/js/ext.srf.filtered.slider.js' ],
+			'styles' => [ 'filtered/resources/css/ext.srf.filtered.slider.css' ],
+		],
+
 	'ext.srf.filtered.distance-filter' => $formatModule + [
 			'styles' => [ 'filtered/resources/css/ext.srf.filtered.distance-filter.css' ],
-			'dependencies' => [
-				'jquery.ui.slider',
-			],
+			'dependencies' => [ 'ext.srf.filtered.slider' ],
 		],
 
 	'ext.srf.filtered.number-filter' => $formatModule + [
-			'styles' => [
-				'filtered/resources/css/ext.srf.filtered.number-filter.css',
-			],
-			'dependencies' => [
-				'jquery.ui.slider',
-			],
+			'styles' => [ 'filtered/resources/css/ext.srf.filtered.number-filter.less' ],
+			'dependencies' => [ 'ext.srf.filtered.slider' ],
 		],
 
 	// Slideshow

@@ -43,6 +43,7 @@ var Controller = (function () {
     Controller.prototype.attachFilter = function (filter) {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
+        filter.init();
         this.onFilterUpdated(filterId);
         return this;
     };

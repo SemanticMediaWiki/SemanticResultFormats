@@ -1,6 +1,9 @@
 # Parameters
 
-Parameters to the `#ask` function can apply to the `filtered` format as a whole (format level) or to only one specific printout (printout level). On format level there are some generic parameters that are common to all result formats and some format specific parameters that are used only by the `filtered` format.
+Parameters to the `#ask` function can apply to the `filtered` format as a whole
+(format level) or to only one specific printout (printout level). On format
+level there are some generic parameters that are common to all result formats
+and some format specific parameters that are used only by the `filtered` format.
 
 Consider the following query:
 ```
@@ -14,7 +17,8 @@ Consider the following query:
 }}
 ```
 
-In this query `limit=100` is on format level (generic), `views=map` is on format level (format specific) and `+filter=number` is on printout level.
+In this query `limit=100` is on format level (generic), `views=map` is on format
+level (format specific) and `+filter=number` is on printout level.
 
 ## Format level - Generic:
 
@@ -60,8 +64,10 @@ Not supported by the `filtered` format:
 
 ### Map view
 
-This view is only available if `$srfgMapProvider` is set in `LocalSettings.php`, e.g. `$srfgMapProvider='OpenStreetMap.HOT';`<br>
-See the [list of available providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
+This view is only available if `$srfgMapProvider` is set in `LocalSettings.php`,
+e.g. `$srfgMapProvider='OpenStreetMap.HOT';`<br>
+See the [list of available
+providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 * map view marker position property
 * map view height 
@@ -88,7 +94,7 @@ See the [list of available providers](http://leaflet-extras.github.io/leaflet-pr
 
 ### Distance filter
 
-* distance filter origin (lat lon) *Required*
+* distance filter origin (lat lon): *Required*
 * distance filter collapsible (`collapsed`|`uncollapsed`)
 * distance filter initial value (number)
 * distance filter max distance (number)
@@ -97,10 +103,12 @@ See the [list of available providers](http://leaflet-extras.github.io/leaflet-pr
 ### Number filter
 
 * number filter collapsible (`collapsed`|`uncollapsed`)
-* number filter max value (number)
 * number filter min value (number)
+* number filter max value (number)
 * number filter step (number)
-* number filter sliders (`min`|`max`|`select`|`range`)
+* number filter values (`auto`|list of values): If this parameter is specified,
+min, max and step will be ignored.
+* number filter sliders (`min`|`max`|`range`|`select`)
 * number filter label (string)
 
 # Building
@@ -146,6 +154,20 @@ force-stopped.
 See https://developers.google.com/web/updates/2017/04/headless-chrome for
 details on headless Chrome.
  
- ## PHP
+## PHP
  
- Not yet available.
+PHP tests use PHPUnit. The easiest way to run all SRF tests including the tests
+for the Filtered format is to run `composer phpunit` from the SRF directory.
+However, for the tests to run it has to be ensured, that the `$srfgMapProvider`
+configuration variable is not set in `LocalSettings.php`. 
+   
+#Credits
+
+The Filtered format contains the following software libraries:
+* Leaflet by Vladimir Agafonkin (http://leafletjs.com/)
+* Leaflet Marker Cluster Plugin by Dave Leaver (https://github.com/Leaflet/Leaflet.markercluster)
+* Leaflet Providers Plugin by Leaflet Providers contributors (https://github.com/leaflet-extras/leaflet-providers)
+* Ion.RangeSlider by Denis Ineshin (http://ionden.com)
+
+Several other libraries are used for the build process. See the devDependencies
+in the package.json file.
