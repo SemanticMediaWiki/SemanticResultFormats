@@ -133,10 +133,15 @@ abstract class Filter {
 		$params = $this->getActualParameters();
 
 		if ( array_key_exists( $paramName, $params ) ) {
+
 			$parsedValue = trim( $this->getQueryPrinter()->getParser()->recursiveTagParse( $params[ $paramName ] ) );
+
 			$this->jsConfig[ $configName ] = ( $callback !== null ) ? call_user_func( $callback, $parsedValue ) : $parsedValue;
+
 		} elseif ( $default !== null ) {
+
 			$this->jsConfig[ $configName ] = $default;
+
 		}
 
 	}

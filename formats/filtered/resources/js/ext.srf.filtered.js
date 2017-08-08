@@ -43,6 +43,7 @@ var Controller = (function () {
     Controller.prototype.attachFilter = function (filter) {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
+        filter.init();
         this.onFilterUpdated(filterId);
         return this;
     };
@@ -337,109 +338,135 @@ var NumberFilter = (function (_super) {
         return _this;
     }
     NumberFilter.prototype.init = function () {
-        var _a = this.getRange(), minValue = _a[0], maxValue = _a[1];
-        var precision = Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
-        var requestedMax = this.options['max'];
-        if (requestedMax !== undefined && !isNaN(Number(requestedMax))) {
-            maxValue = Math.max(requestedMax, maxValue);
-        }
-        else {
-            maxValue = Math.ceil(maxValue / precision) * precision;
-        }
-        var requestedMin = this.options['min'];
-        if (requestedMin !== undefined && !isNaN(Number(requestedMin))) {
-            minValue = Math.min(requestedMin, minValue);
-        }
-        else {
-            minValue = Math.floor(minValue / precision) * precision;
-        }
-        var step = this.options['step'];
-        if (step === undefined || isNaN(Number(step))) {
-            step = precision / 10;
-        }
-        this.filterValueUpper = maxValue;
-        this.filterValueLower = minValue;
-        // build filter controls
-        var filtercontrols = this.target;
-        filtercontrols
-            .append('<div class="filtered-number-label"><span>' + this.options['label'] + '</span></div>');
-        filtercontrols = this.addControlForCollapsing(filtercontrols);
-        var readoutLeft = $('<div class="filtered-number-readout">');
-        var readoutRight = $('<div class="filtered-number-readout">');
-        var caption = '';
-        if (this.options['caption']) {
-            caption = '<tr><td colspan=3 class="filtered-number-caption-cell">' + this.options['caption'] + '</td></tr>';
-        }
-        var table = $('<table class="filtered-number-table"><tbody><tr>' +
-            '<td class="filtered-number-min-cell">' + minValue + '</td>' +
-            '<td class="filtered-number-slider-cell"></td>' +
-            '<td class="filtered-number-max-cell">' + maxValue + '</td></tr>' +
-            caption +
-            '</tbody></table>');
-        var sliderContainer = $('<div class="filtered-number-slider">');
-        var lowerHandle = $('<div class="ui-slider-handle ui-slider-handle-lower">');
-        var upperHandle = $('<div class="ui-slider-handle ui-slider-handle-upper">');
-        var selectHandle = $('<div class="ui-slider-handle ui-slider-handle-select">');
-        var slideroptions = {
-            animate: true,
-            min: minValue,
-            max: maxValue,
-            step: step
+        var values = this.getValues();
+        var _a = this.getRangeParameters(values), minValue = _a.minValue, maxValue = _a.maxValue, precision = _a.precision;
+        var sliderOptions = {
+            prettify_enabled: false,
+            force_edges: true,
+            grid: true
         };
-        switch (this.options['sliders']) {
-            case 'max':
-                this.mode = this.MODE_MAX;
-                slideroptions.range = 'min';
-                slideroptions.value = maxValue;
-                readoutLeft.text(maxValue);
-                upperHandle.append(readoutLeft);
-                sliderContainer.append(upperHandle);
-                break;
-            case 'min':
-                this.mode = this.MODE_MIN;
-                slideroptions.range = 'max';
-                slideroptions.value = minValue;
-                readoutLeft.text(minValue);
-                lowerHandle.append(readoutLeft);
-                sliderContainer.append(lowerHandle);
-                break;
-            case 'select':
-                this.mode = this.MODE_SELECT;
-                slideroptions.value = maxValue;
-                readoutLeft.text(maxValue);
-                selectHandle.append(readoutLeft);
-                sliderContainer.append(selectHandle);
-                this.filterValueUpper = maxValue;
-                this.filterValueLower = maxValue;
-                break;
-            default:
-                this.mode = this.MODE_RANGE;
-                slideroptions.range = true;
-                slideroptions.values = [minValue, maxValue];
-                readoutLeft.text(minValue);
-                lowerHandle.append(readoutLeft);
-                readoutRight.text(maxValue);
-                upperHandle.append(readoutRight);
-                sliderContainer.append(lowerHandle).append(upperHandle);
+        if (this.options.hasOwnProperty('values')) {
+            sliderOptions = this.adjustSliderOptionsFromValues(sliderOptions, values);
         }
-        filtercontrols.append(table);
-        table
-            .find('.filtered-number-slider-cell')
-            .append(sliderContainer);
-        var that = this;
-        mw.loader.using('jquery.ui.slider').then(function () {
-            sliderContainer.slider(slideroptions)
-                .on('slidechange', undefined, { 'filter': that }, function (eventObject, ui) {
-                eventObject.data.ui = ui;
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            })
-                .on('slide', undefined, { 'filter': that }, function (eventObject, ui) {
-                ui.handle.firstElementChild.innerHTML = ui.value.toString();
-            });
-        });
+        else {
+            sliderOptions = this.adjustSliderOptionsFromRangeParameters(sliderOptions, minValue, maxValue, precision);
+        }
+        switch (this.options['sliders']) {
+            case "min":
+                this.mode = this.MODE_MIN;
+                sliderOptions.type = 'single';
+                break;
+            case "max":
+                this.mode = this.MODE_MAX;
+                sliderOptions.from = sliderOptions.to;
+                sliderOptions.type = 'single';
+                break;
+            case "select":
+                this.mode = this.MODE_SELECT;
+                maxValue = minValue;
+                sliderOptions.type = 'single';
+                break;
+            default:// == case "range"
+                this.mode = this.MODE_RANGE;
+                sliderOptions.type = 'double';
+        }
+        console.log(JSON.stringify(sliderOptions, null, '\t'));
+        this.buildFilterControls(sliderOptions);
+        this.filterValueLower = minValue;
+        this.filterValueUpper = maxValue;
         return this;
     };
-    NumberFilter.prototype.getRange = function () {
+    NumberFilter.prototype.adjustSliderOptionsFromRangeParameters = function (sliderOptions, minValue, maxValue, precision) {
+        var _this = this;
+        sliderOptions.min = minValue;
+        sliderOptions.max = maxValue;
+        sliderOptions.step = this.getStep(precision);
+        sliderOptions.from = minValue;
+        sliderOptions.to = maxValue;
+        sliderOptions.onFinish = function (data) { return _this.onFilterUpdated(data.from, data.to); };
+        return sliderOptions;
+    };
+    NumberFilter.prototype.adjustSliderOptionsFromValues = function (sliderOptions, values) {
+        var _this = this;
+        sliderOptions.values = values;
+        sliderOptions.from = 0;
+        sliderOptions.to = values.length - 1;
+        sliderOptions.onFinish = function (data) { return _this.onFilterUpdated(data.from_value, data.to_value); };
+        return sliderOptions;
+    };
+    NumberFilter.prototype.getRangeParameters = function (values) {
+        var minValue = values[0];
+        var maxValue = values[values.length - 1];
+        var precision = this.getPrecision(minValue, maxValue);
+        if (!this.options.hasOwnProperty('values')) {
+            minValue = this.getMinSliderValue(minValue, precision);
+            maxValue = this.getMaxSliderValue(maxValue, precision);
+        }
+        return { minValue: minValue, maxValue: maxValue, precision: precision };
+    };
+    NumberFilter.prototype.getValues = function () {
+        var values;
+        if (this.options.hasOwnProperty('values') && this.options['values'][0] !== 'auto') {
+            values = this.options['values'];
+        }
+        else {
+            values = this.getSortedValues();
+        }
+        if (values.length === 0) {
+            values = [0, 0];
+        }
+        else if (values.length === 1) {
+            values.push(values[0]);
+        }
+        return values;
+    };
+    NumberFilter.prototype.buildFilterControls = function (sliderOptions) {
+        var filterClassNames = {};
+        filterClassNames[this.MODE_MIN.toString()] = "mode-min";
+        filterClassNames[this.MODE_MAX] = "mode-max";
+        filterClassNames[this.MODE_RANGE] = "mode-range";
+        filterClassNames[this.MODE_SELECT] = "mode-select";
+        var filtercontrols = this.target;
+        var label = $("<div class=\"filtered-number-label\"><span>" + this.options['label'] + "</span></div>");
+        filtercontrols.append(label);
+        filtercontrols = this.addControlForCollapsing(filtercontrols);
+        var slider = $('<input type="text" value="" />');
+        var sliderContainer = $("<div class=\"filtered-number-slider " + filterClassNames[this.mode] + "\" />").append(slider);
+        filtercontrols.append(sliderContainer);
+        if (this.options.hasOwnProperty('caption')) {
+            var caption = "<div class=\"filtered-number-caption\">" + this.options['caption'] + "</div>";
+            filtercontrols.append(caption);
+        }
+        slider.ionRangeSlider(sliderOptions);
+    };
+    NumberFilter.prototype.getMinSliderValue = function (minValue, precision) {
+        var requestedMin = this.options['min'];
+        if (requestedMin === undefined || isNaN(Number(requestedMin))) {
+            return Math.floor(minValue / precision) * precision;
+        }
+        return Math.min(requestedMin, minValue);
+    };
+    NumberFilter.prototype.getMaxSliderValue = function (maxValue, precision) {
+        var requestedMax = this.options['max'];
+        if (requestedMax === undefined || isNaN(Number(requestedMax))) {
+            return Math.ceil(maxValue / precision) * precision;
+        }
+        return Math.max(requestedMax, maxValue);
+    };
+    NumberFilter.prototype.getPrecision = function (minValue, maxValue) {
+        return Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
+    };
+    NumberFilter.prototype.getStep = function (precision) {
+        var step = this.options['step'];
+        if (step !== undefined) {
+            step = Number(step);
+            if (!isNaN(step)) {
+                return step;
+            }
+        }
+        return precision / 10;
+    };
+    NumberFilter.prototype.getRangeFromValues = function () {
         var rows = this.controller.getData();
         var min = Infinity;
         var max = -Infinity;
@@ -452,22 +479,38 @@ var NumberFilter = (function (_super) {
         }
         return [min, max];
     };
-    NumberFilter.prototype.onFilterUpdated = function (eventObject) {
+    NumberFilter.prototype.getSortedValues = function () {
+        var valueArray = [];
+        var rows = this.controller.getData();
+        for (var rowId in rows) {
+            var cells = rows[rowId].data;
+            if (cells.hasOwnProperty(this.filterId)) {
+                var values = cells[this.filterId].values;
+                for (var valueId in values) {
+                    var value = Number(values[valueId]);
+                    if (valueArray.indexOf(value) === -1) {
+                        valueArray.push(value);
+                    }
+                }
+            }
+        }
+        return valueArray.sort(function (a, b) { return a - b; });
+    };
+    NumberFilter.prototype.onFilterUpdated = function (from, to) {
         switch (this.mode) {
-            case this.MODE_RANGE:
-                this.filterValueLower = eventObject.data.ui.values[0];
-                this.filterValueUpper = eventObject.data.ui.values[1];
-                break;
             case this.MODE_MIN:
-                this.filterValueLower = eventObject.data.ui.value;
+                this.filterValueLower = from;
                 break;
             case this.MODE_MAX:
-                this.filterValueUpper = eventObject.data.ui.value;
+                this.filterValueUpper = from;
                 break;
             case this.MODE_SELECT:
-                this.filterValueLower = eventObject.data.ui.value;
-                this.filterValueUpper = eventObject.data.ui.value;
+                this.filterValueLower = from;
+                this.filterValueUpper = from;
                 break;
+            default:// case this.MODE_RANGE:
+                this.filterValueLower = from;
+                this.filterValueUpper = to;
         }
         this.controller.onFilterUpdated(this.getId());
     };
@@ -734,7 +777,6 @@ var Filtered = (function () {
                         //  target: JQuery, printrequest: string,
                         // controller: Controller, options?: Options
                         var filter = new this.filterTypes[pr.filters[filterid].type](filterid, filtersContainer.children('#' + filterid), prId, controller, pr.filters[filterid]);
-                        filter.init();
                         controller.attachFilter(filter);
                     }
                 }

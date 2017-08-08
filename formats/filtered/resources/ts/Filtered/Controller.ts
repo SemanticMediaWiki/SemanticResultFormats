@@ -60,6 +60,9 @@ export class Controller {
 		let filterId = filter.getId();
 
 		this.filters[ filterId ] = filter;
+
+		filter.init();
+
 		this.onFilterUpdated( filterId );
 
 		return this;
