@@ -9,7 +9,8 @@
 			"Luckas",
 			"!Silent",
 			"Nemo bis",
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Trigonometria87"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultado para consultas do Semantic MediaWiki",
@@ -184,6 +185,7 @@
 	"srf-paramdesc-highlight": "Configura o nó a ser destacado",
 	"srf-paramdesc-highlightcolor": "Configura a cor da fonte para o nó destacado",
 	"srf-paramdesc-redlinkcolor": "Configura a cor da fonte para os links em vermelho",
+	"srf-paramdesc-showresources": "Mostra os recursos correspondentes no gráfico",
 	"srf-printername-datatables": "DataTables",
 	"srf-ui-datatables-label-conditions": "Condições",
 	"srf-ui-datatables-label-parameters": "Parâmetros",
