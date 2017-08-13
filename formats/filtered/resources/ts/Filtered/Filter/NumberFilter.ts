@@ -1,3 +1,4 @@
+///<reference path="../../../../node_modules/@types/ion.rangeslider/index.d.ts"/>
 import { Filter } from "./Filter";
 import { Options } from "../../types";
 
@@ -175,7 +176,11 @@ export class NumberFilter extends Filter {
 	}
 
 	private getPrecision( minValue: number, maxValue: number ): number {
-		return 10 ** ( Math.floor( Math.log( maxValue - minValue ) * Math.LOG10E ) - 1 );
+		if ( maxValue - minValue > 0 ) {
+			return 10 ** ( Math.floor( Math.log( maxValue - minValue ) * Math.LOG10E ) - 1 );
+		} else {
+			return 1;
+		}
 	}
 
 	private getStep( precision: number ): number {
