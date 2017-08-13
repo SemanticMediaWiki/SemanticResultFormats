@@ -277,6 +277,7 @@
 	"srf-filtered-noscript-error": "This is an informatory message.\n\nParameter:\n* $1 - holds the name of a page",
 	"srf-filtered-noscript-link-caption": "This is the caption of a link.",
 	"srf-filtered-map-provider-missing-error": "This is an error message for a missing setting.",
+	"srf-filtered-map-geocoordinateparser-missing-error": "This is an error message when the 'data-values/geo' is missing.",
 	"srf-printername-d3chart": "{{doc-smwformat|d3chart}}\nD3 is the name of the library used to generate the charts.",
 	"srf-printername-timeseries": "{{doc-smwformat|timeseries}}",
 	"srf-paramdesc-group": "{{doc-paramdesc|group}}",

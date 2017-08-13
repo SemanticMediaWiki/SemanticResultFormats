@@ -132,8 +132,7 @@ var Controller = (function () {
     return Controller;
 }());
 exports.Controller = Controller;
-
-},{"./View/View":11}],2:[function(require,module,exports){
+},{"./View/View":12}],2:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -253,7 +252,6 @@ var DistanceFilter = (function (_super) {
     return DistanceFilter;
 }(Filter_1.Filter));
 exports.DistanceFilter = DistanceFilter;
-
 },{"./Filter":3}],3:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -309,7 +307,6 @@ var Filter = (function () {
     return Filter;
 }());
 exports.Filter = Filter;
-
 },{}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -323,6 +320,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+///<reference path="../../../../node_modules/@types/ion.rangeslider/index.d.ts"/>
 var Filter_1 = require("./Filter");
 var NumberFilter = (function (_super) {
     __extends(NumberFilter, _super);
@@ -370,7 +368,6 @@ var NumberFilter = (function (_super) {
                 this.mode = this.MODE_RANGE;
                 sliderOptions.type = 'double';
         }
-        console.log(JSON.stringify(sliderOptions, null, '\t'));
         this.buildFilterControls(sliderOptions);
         this.filterValueLower = minValue;
         this.filterValueUpper = maxValue;
@@ -454,7 +451,12 @@ var NumberFilter = (function (_super) {
         return Math.max(requestedMax, maxValue);
     };
     NumberFilter.prototype.getPrecision = function (minValue, maxValue) {
-        return Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
+        if (maxValue - minValue > 0) {
+            return Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
+        }
+        else {
+            return 1;
+        }
     };
     NumberFilter.prototype.getStep = function (precision) {
         var step = this.options['step'];
@@ -529,7 +531,6 @@ var NumberFilter = (function (_super) {
     return NumberFilter;
 }(Filter_1.Filter));
 exports.NumberFilter = NumberFilter;
-
 },{"./Filter":3}],5:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -698,7 +699,6 @@ var ValueFilter = (function (_super) {
     return ValueFilter;
 }(Filter_1.Filter));
 exports.ValueFilter = ValueFilter;
-
 },{"./Filter":3}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -800,8 +800,38 @@ var Filtered = (function () {
     return Filtered;
 }());
 exports.Filtered = Filtered;
-
-},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":7,"./View/ListView":8,"./View/MapView":9,"./View/TableView":10,"./View/View":11,"./ViewSelector":12}],7:[function(require,module,exports){
+},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":8,"./View/ListView":9,"./View/MapView":10,"./View/TableView":11,"./View/View":12,"./ViewSelector":7}],7:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+},{}],8:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -919,8 +949,7 @@ var CalendarView = (function (_super) {
     return CalendarView;
 }(View_1.View));
 exports.CalendarView = CalendarView;
-
-},{"./View":11}],8:[function(require,module,exports){
+},{"./View":12}],9:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -942,8 +971,7 @@ var ListView = (function (_super) {
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
-
-},{"./View":11}],9:[function(require,module,exports){
+},{"./View":12}],10:[function(require,module,exports){
 "use strict";
 /// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
@@ -1130,8 +1158,7 @@ var MapView = (function (_super) {
     return MapView;
 }(View_1.View));
 exports.MapView = MapView;
-
-},{"./View":11}],10:[function(require,module,exports){
+},{"./View":12}],11:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1153,8 +1180,7 @@ var TableView = (function (_super) {
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
-
-},{"./View":11}],11:[function(require,module,exports){
+},{"./View":12}],12:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -1194,39 +1220,6 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
-
-},{}],12:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-
 },{}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -1238,7 +1231,6 @@ for (var id in config) {
         f.run();
     }
 }
-
 },{"./Filtered/Filtered":6}]},{},[13])
 
 //# sourceMappingURL=ext.srf.filtered.js.map
