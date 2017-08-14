@@ -211,6 +211,7 @@
 	"srf-filtered-selectorlabel-list": "Lijst",
 	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
+	"srf-filtered-noscript-error": "De resulaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
 	"srf-printername-d3chart": "D3-grafiek",
 	"srf-printername-timeseries": "Tijdseriegrafiek",
 	"srf-paramdesc-group": "Series groepen op",
