@@ -19,7 +19,7 @@ These are the installation and configuration instructions for [Semantic Result F
 	</tr>
 	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.2</a></th>
-		<td>Stabel version</td>
+		<td>Stable version</td>
 		<td>2017-08-17</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></td>
 	</tr>
