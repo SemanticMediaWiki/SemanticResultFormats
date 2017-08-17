@@ -6,7 +6,7 @@
  * @defgroup SRF Semantic Result Formats
  */
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the Semantic Result Formats extension, it is not a valid entry point.' );
+	die( 'This file is part of the Semantic Result Formats extension. It is not a valid entry point.' );
 }
 
 if ( defined( 'SRF_VERSION' ) ) {
@@ -51,7 +51,7 @@ class SemanticResultFormats {
 	 */
 	public static function initExtension() {
 
-		define( 'SRF_VERSION', '2.5.1' );
+		define( 'SRF_VERSION', '2.5.2' );
 
 		// Register the extension
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
@@ -69,7 +69,7 @@ class SemanticResultFormats {
 				'Yaron Koren',
 				'...'
 			],
-			'url' => 'https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats',
+			'url' => 'https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats',
 			'descriptionmsg' => 'srf-desc',
 			'license-name'   => 'GPL-2.0+'
 		];
