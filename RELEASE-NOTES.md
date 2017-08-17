@@ -2,17 +2,21 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 2.5.2
 
-Not a release yet.
+Released on August 17, 2017.
 
-* Fixed bug #224: The and/or selectors can not be selected at the same time anymore in "filtered" format
-* Fixed bug #263: Fix the `link` and `userparam` parameters on the "tree" format
+* #266: Fixed bug #224: The and/or selectors can not be selected at the same time anymore in "filtered" format (by Stephan Gambke)
+* #269: Fixed bug #263: Fix the `link` and `userparam` parameters on the "tree" format and provide tests for it (by Stephan Gambke)
+* #276: Use type `parser-html` for JsonScript tests of the "tree" format (by Stephan Gambke)
+* #284: Fixed rendering of the "calendar" format in Internet Explorer (by kwji)
+*	#285: Add `+hide` for all views of the "filtered" format (by Stephan Gambke)
+* Provided translation updates (by translatewiki.net community)
 
 ## SRF 2.5.1
 
 Released on July 11, 2017.
 
-* Fixed bug #235: Fix the `template` parameter to the "tree", "oltree" and "ultree" formats
-* Fixed bug #236: Make the "oltree" format to actually use `<ol>`
+* #236: Fixed bug #234: Make the "oltree" format to actually use `<ol>`
+* #237: Fixed bug #235: Fix the `template` parameter to the "tree", "oltree" and "ultree" formats
 * Fixed bug #253: Remove obsolete `"div"` element `align="justify"` from the "tagcloud" and "gallery" formats
 * Provided translation updates (by translatewiki.net community)
 
@@ -26,7 +30,7 @@ Released on June 13, 2017.
 * Changed bootstrapping of SRF to make it work with SMW 3.0+ (by James Hong Kong)
 * Re-organized file layout unit testing and added JSONScript integration testing facility from SMW (by Stephan Gambke) 
 * Improved math format to recognize output format "-" (by Sebastian Schmid (gesinn.it))
-* Improved eventcalendar format:  Added parameter 'clicktarget' to allow users to define a target URL that get's called when clicking on a calendar date. (by Felix Aba)
+* Improved eventcalendar format: Added parameter 'clicktarget' to allow users to define a target URL that get's called when clicking on a calendar date. (by Felix Aba)
 * Reworked tree format (by Stephan Gambke)
 * Reworked filtered format which is no longer available by default (by Stephan Gambke)
 * Fixed bug #199 in HTML utils JS script (by gesinn.it)
