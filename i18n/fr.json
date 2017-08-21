@@ -26,10 +26,10 @@
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
-	"srf-name": "Formatage des résultats sémantiques",
+	"srf-name": "Formats des résultats sémantiques",
 	"prefs-srf": "Formats des résultats sémantiques",
 	"srf-prefs-intro-text": "Vous avez installé l'extension Formats de résultats sémantiques qui, pour l'instant, n'a pas d'option paramétrable par l'utilisateur. Pour plus d’aide, veuillez regarder la page d'aide [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formats de résultat].",
-	"prefs-srf-eventcalendar-options": "Options de calendrier d'événements",
+	"prefs-srf-eventcalendar-options": "Options du calendrier d'événements",
 	"srf-prefs-eventcalendar-options-update-default": "Activer les [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates mises à jour automatiques] des événements du calendrier lors d’un rafraîchissement de page",
 	"srf-prefs-eventcalendar-options-paneview-default": "Activer l’affichage du volet par défaut",
 	"prefs-srf-datatables-options": "Options des plages de données",
