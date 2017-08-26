@@ -202,7 +202,7 @@ class SRFTimeline extends SMWResultPrinter {
 
 			if ( $isEventline ) {
 				foreach ( $events as $event ) {
-					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . str_replace( ' ', '_', $curarticle ) . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
+					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $curarticle . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
 					if ( $curarticle != '' ) $result .= '<span class="smwtlprefix">' . $curarticle . ' </span>';
 					$result .=  $curdata . '</span>';
 					$positions[$event[2]] = $event[0];
@@ -311,7 +311,7 @@ class SRFTimeline extends SMWResultPrinter {
 
 			// find title for displaying event
 			if ( !$hastitle ) {
-				$curmeta .= Html::element(
+				$curmeta .= Html::rawElement(
 					'span',
 					[
 						'class' => $urlobject ? 'smwtlurl' : 'smwtltitle'
@@ -320,7 +320,7 @@ class SRFTimeline extends SMWResultPrinter {
 				);
 
 				if ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) {
-					$curarticle = $object->getShortText( $outputmode, false );
+					$curarticle = $object->getLongText( $outputmode, $l );
 					$cururl = $object->getTitle()->getFullUrl();
 				}
 

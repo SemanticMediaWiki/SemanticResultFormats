@@ -190,13 +190,24 @@ function smw_add_event(evspan,evs) {
 					evspan.removeChild(childs[i]);
 				break;
 				case "smwtlurl": // accept both plain text and <a>, use text of <a> for title
-					if (childs[i].firstChild.nodeType == 3)
+					if (childs[i].firstChild.nodeType == 3) {
 						linkurl = childs[i].firstChild.data;
-					else {
+					} else {
 						linkurl = childs[i].firstChild.getAttribute("href");
+
 						if (childs[i].firstChild.hasChildNodes())
 							ttl = childs[i].firstChild.firstChild.data;
 					}
+
+					if ( linkurl === null && childs[i].firstChild.hasChildNodes() ) {
+						if ( childs[i].firstChild.firstChild.nodeType == 1 ) {
+							linkurl = childs[i].firstChild.firstChild.getAttribute( "href" );
+							ttl = childs[i].firstChild.firstChild.innerHTML;
+						} else {
+							ttl = childs[i].firstChild.firstChild.data;
+						}
+					};
+
 					evspan.removeChild(childs[i]);
 				break;
 				case "smwtlcoloricon":
