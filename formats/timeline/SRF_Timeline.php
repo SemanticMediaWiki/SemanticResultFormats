@@ -79,11 +79,8 @@ class SRFTimeline extends SMWResultPrinter {
 		}
 
 		// print header
-		$link = $res->getQueryLink( wfMessage( 'srf-timeline-allresults' )->inContentLanguage()->text() );
-		$result = "<div id=\"smwtimeline-$id\" class=\"smwtimeline\" style=\"height: $this->m_tlsize\">";
-		$result .= '<span class="smwtlcomment">'
-			. wfMessage( 'srf-timeline-nojs' )->inContentLanguage()->escaped()
-			. ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
+		$result = "<div id=\"smwtimeline-$id\" class=\"smwtimeline is-disabled\" style=\"height: $this->m_tlsize\">";
+		$result .= '<span class="smw-overlay-spinner medium" style="top:40%; transform: translate(-50%, -50%);"></span>';
 
 		foreach ( $this->m_tlbands as $band ) {
 			$result .= '<span class="smwtlband" style="display:none;">' . htmlspecialchars( $band ) . '</span>';
@@ -388,7 +385,7 @@ class SRFTimeline extends SMWResultPrinter {
 			'islist' => true,
 			'default' => [ 'MONTH', 'YEAR' ],
 			'message' => 'srf_paramdesc_timelinebands',
-			'values' => [ 'DECADE', 'YEAR', 'MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE' ],
+			'values' => [ 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR', 'DECADE' ],
 		];
 
 		$params['template'] = [
