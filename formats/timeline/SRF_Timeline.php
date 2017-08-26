@@ -54,11 +54,12 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $smwgIQRunningNumber;
 
-		$this->includeJS();
+		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
+		SMWOutputs::requireResource( 'ext.srf.timeline' );
 
 		$isEventline = 'eventline' == $this->mFormat;
+		$id = uniqid();
 
 		if ( !$isEventline && ( $this->m_tlstart == '' ) ) { // seek defaults
 			foreach ( $res->getPrintRequests() as $pr ) {
@@ -79,7 +80,7 @@ class SRFTimeline extends SMWResultPrinter {
 
 		// print header
 		$link = $res->getQueryLink( wfMessage( 'srf-timeline-allresults' )->inContentLanguage()->text() );
-		$result = "<div class=\"smwtimeline\" id=\"smwtimeline$smwgIQRunningNumber\" style=\"height: $this->m_tlsize\">";
+		$result = "<div id=\"smwtimeline-$id\" class=\"smwtimeline\" style=\"height: $this->m_tlsize\">";
 		$result .= '<span class="smwtlcomment">'
 			. wfMessage( 'srf-timeline-nojs' )->inContentLanguage()->escaped()
 			. ' ' . $link->getText( $outputmode, $this->mLinker ) . '</span>'; // note for people without JavaScript
@@ -102,34 +103,6 @@ class SRFTimeline extends SMWResultPrinter {
 		$this->isHTML = $outputmode == SMW_OUTPUT_HTML;
 
 		return $result;
-	}
-
-	/**
-	 * Includes the JavaScript required for the timeline and eventline formats.
-	 *
-	 * @since 1.5.3
-	 */
-	protected function includeJS() {
-		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
-
-		// MediaWiki 1.17 introduces the Resource Loader.
-		$realFunction = [ 'SMWOutputs', 'requireResource' ];
-		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) && is_callable( $realFunction ) ) {
-			SMWOutputs::requireResource( 'ext.srf.timeline' );
-		}
-		else {
-			global $srfgScriptPath;
-			SMWOutputs::requireHeadItem(
-				'smw_tlhelper',
-				'<script type="text/javascript" src="' . $srfgScriptPath .
-					'/timeline/resources/ext.srf.timeline.js"></script>'
-			);
-			SMWOutputs::requireHeadItem(
-				'smw_tl',
-				'<script type="text/javascript" src="' . $srfgScriptPath .
-					'/timeline/resources/SimileTimeline/timeline-api.js"></script>'
-			);
-		}
 	}
 
 	/**
