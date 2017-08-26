@@ -3,21 +3,25 @@
  * for inserting the required Simile scripts if needed.
  */
 
-var smwtl;
+( function( $, mw ) {
 
-jQuery(smw_timeline_init);
+	'use strict';
 
-function smw_timeline_init() {
-	if (!document.getElementsByName) return;
-	tbls = document.getElementsByTagName("div");
+	mw.loader.using( [ 'ext.smile.timeline', 'ext.smile.timeline.core' ] ).then( function () {
 
-	for (ti=0;ti<tbls.length;ti++) {
-		thisTbl = tbls[ti];
-		if (((' '+thisTbl.className+' ').indexOf("smwtimeline") != -1) && (thisTbl.id)) {
-			smw_make_timeline(thisTbl);
-		}
-	}
-}
+		$( document ).ready( function() {
+			$( '.smwtimeline' ).each( function() {
+
+				var context = $( this );
+				context.removeClass( 'is-disabled' );
+
+				smw_make_timeline( context[0] );
+			} );
+		} );
+
+	} );
+
+}( jQuery, mediaWiki ) );
 
 function smw_make_timeline(div) {
 	// extract relevant event data:
@@ -116,7 +120,7 @@ function smw_make_timeline(div) {
 		})
 	}
 
-	smwtl = Timeline.create(div, bandInfos);
+	Timeline.create(div, bandInfos);
 }
 
 function smw_get_bandwidth(number,count) {
