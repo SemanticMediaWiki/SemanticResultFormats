@@ -758,6 +758,11 @@ return [
 
 	'ext.srf.filtered.value-filter' => $formatModule + [
 			'styles' => [ 'filtered/resources/css/ext.srf.filtered.value-filter.css' ],
+			'messages' => [
+				'srf-filtered-value-filter-placeholder',
+				'srf-filtered-value-filter-and',
+				'srf-filtered-value-filter-or',
+				],
 			'dependencies' => [ 'ext.srf.filtered.value-filter.select' ],
 		],
 

@@ -132,7 +132,8 @@ var Controller = (function () {
     return Controller;
 }());
 exports.Controller = Controller;
-},{"./View/View":12}],2:[function(require,module,exports){
+
+},{"./View/View":11}],2:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -252,6 +253,7 @@ var DistanceFilter = (function (_super) {
     return DistanceFilter;
 }(Filter_1.Filter));
 exports.DistanceFilter = DistanceFilter;
+
 },{"./Filter":3}],3:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -307,6 +309,7 @@ var Filter = (function () {
     return Filter;
 }());
 exports.Filter = Filter;
+
 },{}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -531,8 +534,10 @@ var NumberFilter = (function (_super) {
     return NumberFilter;
 }(Filter_1.Filter));
 exports.NumberFilter = NumberFilter;
+
 },{"./Filter":3}],5:[function(require,module,exports){
 "use strict";
+///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -629,18 +634,25 @@ var ValueFilter = (function (_super) {
             var label = value.formattedValue || value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        select.select2({
-            multiple: true,
-            placeholder: 'Select a filter value',
-            data: data
-        });
-        select.on("select2:select", function (e) {
-            _this.onFilterUpdated(e.params.data.id, true);
-        });
-        select.on("select2:unselect", function (e) {
-            _this.onFilterUpdated(e.params.data.id, false);
-        });
-        $('input.select2-search__field', select).on('select', function (e) { return select.select2('open'); });
+        // To correctly calculate element sizes Select2 needs a settled DOM
+        // before being attached. filtercontrols.append returns before the DOM
+        // is settled, so setTimeout is used to asynchronously attach Select2
+        // when the DOM is ready.
+        setTimeout(function () {
+            select.select2({
+                multiple: true,
+                placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
+                minimumResultsForSearch: 5,
+                data: data
+            });
+            select.on("select2:select", function (e) {
+                _this.onFilterUpdated(e.params.data.id, true);
+            });
+            select.on("select2:unselect", function (e) {
+                _this.onFilterUpdated(e.params.data.id, false);
+            });
+        }, 0);
+        // $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
@@ -649,10 +661,8 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var andControl = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
-                var orControl_1 = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
+                var orControl_1 = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-or\" id=\"filtered-value-or-" + this.printrequestId + "\" value=\"or\" checked>");
+                var andControl = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\" class=\"filtered-value-and\" id=\"filtered-value-and-" + this.printrequestId + "\" value=\"and\">");
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
@@ -660,9 +670,9 @@ var ValueFilter = (function (_super) {
                 });
                 andorControl
                     .append(orControl_1)
-                    .append(' OR ')
+                    .append("<label for=\"filtered-value-or-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-or').text() + "</label>")
                     .append(andControl)
-                    .append(' AND ')
+                    .append("<label for=\"filtered-value-and-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-and').text() + "</label>")
                     .appendTo(switchControls);
             }
             filtercontrols.append(switchControls);
@@ -705,6 +715,7 @@ var ValueFilter = (function (_super) {
     return ValueFilter;
 }(Filter_1.Filter));
 exports.ValueFilter = ValueFilter;
+
 },{"./Filter":3}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -806,38 +817,8 @@ var Filtered = (function () {
     return Filtered;
 }());
 exports.Filtered = Filtered;
-},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":8,"./View/ListView":9,"./View/MapView":10,"./View/TableView":11,"./View/View":12,"./ViewSelector":7}],7:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-},{}],8:[function(require,module,exports){
+
+},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":7,"./View/ListView":8,"./View/MapView":9,"./View/TableView":10,"./View/View":11,"./ViewSelector":12}],7:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -955,7 +936,8 @@ var CalendarView = (function (_super) {
     return CalendarView;
 }(View_1.View));
 exports.CalendarView = CalendarView;
-},{"./View":12}],9:[function(require,module,exports){
+
+},{"./View":11}],8:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -977,7 +959,8 @@ var ListView = (function (_super) {
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
-},{"./View":12}],10:[function(require,module,exports){
+
+},{"./View":11}],9:[function(require,module,exports){
 "use strict";
 /// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
@@ -1164,7 +1147,8 @@ var MapView = (function (_super) {
     return MapView;
 }(View_1.View));
 exports.MapView = MapView;
-},{"./View":12}],11:[function(require,module,exports){
+
+},{"./View":11}],10:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1186,7 +1170,8 @@ var TableView = (function (_super) {
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
-},{"./View":12}],12:[function(require,module,exports){
+
+},{"./View":11}],11:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -1226,6 +1211,39 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
+
+},{}],12:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+
 },{}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -1237,6 +1255,7 @@ for (var id in config) {
         f.run();
     }
 }
+
 },{"./Filtered/Filtered":6}]},{},[13])
 
 //# sourceMappingURL=ext.srf.filtered.js.map

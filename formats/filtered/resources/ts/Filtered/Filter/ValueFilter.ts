@@ -1,4 +1,8 @@
+///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
+
 import { Filter } from "./Filter";
+
+declare let mw: any;
 
 export class ValueFilter extends Filter {
 
@@ -107,20 +111,27 @@ export class ValueFilter extends Filter {
 
 		}
 
-		select.select2( {
-			multiple: true,
-			placeholder: 'Select a filter value',
-			data: data
-		} );
+		// To correctly calculate element sizes Select2 needs a settled DOM
+		// before being attached. filtercontrols.append returns before the DOM
+		// is settled, so setTimeout is used to asynchronously attach Select2
+		// when the DOM is ready.
+		setTimeout( () => {
+			select.select2( {
+				multiple: true,
+				placeholder: mw.message( 'srf-filtered-value-filter-placeholder' ).text(),
+				minimumResultsForSearch: 5,
+				data: data
+			} );
 
-		select.on("select2:select", ( e: any ) => {
-			this.onFilterUpdated( e.params.data.id, true );
-		});
-		select.on("select2:unselect", ( e: any ) => {
-			this.onFilterUpdated( e.params.data.id, false );
-		});
+			select.on( "select2:select", ( e: any ) => {
+				this.onFilterUpdated( e.params.data.id, true );
+			} );
+			select.on( "select2:unselect", ( e: any ) => {
+				this.onFilterUpdated( e.params.data.id, false );
+			} );
+		}, 0);
 
-		$( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
+		// $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
 	}
 
 	private addControlForSwitches( filtercontrols: JQuery ) {
@@ -134,11 +145,8 @@ export class ValueFilter extends Filter {
 
 				let andorControl = $( '<div class="filtered-value-andor">' );
 
-				let andControl = $( '<input type="radio" name="filtered-value-' +
-					this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">' );
-
-				let orControl = $( '<input type="radio" name="filtered-value-' +
-					this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>' );
+				let orControl = $( `<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-or" id="filtered-value-or-${this.printrequestId}" value="or" checked>` );
+				let andControl = $( `<input type="radio" name="filtered-value-${this.printrequestId}" class="filtered-value-and" id="filtered-value-and-${this.printrequestId}" value="and">` );
 
 				andControl
 				.add( orControl )
@@ -148,9 +156,9 @@ export class ValueFilter extends Filter {
 
 				andorControl
 				.append( orControl )
-				.append( ' OR ' )
+				.append( `<label for="filtered-value-or-${this.printrequestId}">${mw.message( 'srf-filtered-value-filter-or' ).text()}</label>` )
 				.append( andControl )
-				.append( ' AND ' )
+				.append( `<label for="filtered-value-and-${this.printrequestId}">${mw.message( 'srf-filtered-value-filter-and' ).text()}</label>` )
 				.appendTo( switchControls );
 
 			}

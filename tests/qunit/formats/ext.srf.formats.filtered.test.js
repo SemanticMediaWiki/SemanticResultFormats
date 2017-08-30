@@ -133,7 +133,7 @@ var Controller = (function () {
 }());
 exports.Controller = Controller;
 
-},{"./View/View":6}],2:[function(require,module,exports){
+},{"./View/View":5}],2:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var Filter = (function () {
@@ -191,6 +191,7 @@ exports.Filter = Filter;
 
 },{}],3:[function(require,module,exports){
 "use strict";
+///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -287,18 +288,25 @@ var ValueFilter = (function (_super) {
             var label = value.formattedValue || value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        select.select2({
-            multiple: true,
-            placeholder: 'Select a filter value',
-            data: data
-        });
-        select.on("select2:select", function (e) {
-            _this.onFilterUpdated(e.params.data.id, true);
-        });
-        select.on("select2:unselect", function (e) {
-            _this.onFilterUpdated(e.params.data.id, false);
-        });
-        $('input.select2-search__field', select).on('select', function (e) { return select.select2('open'); });
+        // To correctly calculate element sizes Select2 needs a settled DOM
+        // before being attached. filtercontrols.append returns before the DOM
+        // is settled, so setTimeout is used to asynchronously attach Select2
+        // when the DOM is ready.
+        setTimeout(function () {
+            select.select2({
+                multiple: true,
+                placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
+                minimumResultsForSearch: 5,
+                data: data
+            });
+            select.on("select2:select", function (e) {
+                _this.onFilterUpdated(e.params.data.id, true);
+            });
+            select.on("select2:unselect", function (e) {
+                _this.onFilterUpdated(e.params.data.id, false);
+            });
+        }, 0);
+        // $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
@@ -307,10 +315,8 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var andControl = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
-                var orControl_1 = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
+                var orControl_1 = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-or\" id=\"filtered-value-or-" + this.printrequestId + "\" value=\"or\" checked>");
+                var andControl = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\" class=\"filtered-value-and\" id=\"filtered-value-and-" + this.printrequestId + "\" value=\"and\">");
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
@@ -318,9 +324,9 @@ var ValueFilter = (function (_super) {
                 });
                 andorControl
                     .append(orControl_1)
-                    .append(' OR ')
+                    .append("<label for=\"filtered-value-or-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-or').text() + "</label>")
                     .append(andControl)
-                    .append(' AND ')
+                    .append("<label for=\"filtered-value-and-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-and').text() + "</label>")
                     .appendTo(switchControls);
             }
             filtercontrols.append(switchControls);
@@ -365,38 +371,6 @@ var ValueFilter = (function (_super) {
 exports.ValueFilter = ValueFilter;
 
 },{"./Filter":2}],4:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-
-},{}],5:[function(require,module,exports){
 "use strict";
 /// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
@@ -584,7 +558,7 @@ var MapView = (function (_super) {
 }(View_1.View));
 exports.MapView = MapView;
 
-},{"./View":6}],6:[function(require,module,exports){
+},{"./View":5}],5:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -624,6 +598,38 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
+
+},{}],6:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
 
 },{}],7:[function(require,module,exports){
 "use strict";
@@ -753,7 +759,7 @@ var ControllerTest = (function () {
 }());
 exports.ControllerTest = ControllerTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":6,"../Util/MockedFilter":12}],8:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":5,"../Util/MockedFilter":12}],8:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -815,11 +821,13 @@ var ValueFilterTest = (function (_super) {
         // Assert
         assert.strictEqual(target.find('.filtered-collapsible').length, 1, 'Added container for collapsable content.');
         assert.strictEqual(target.find('.filtered-value-andor').length, 1, 'Added container for and/or switch.');
-        // Assert: One input added per value
-        for (var _i = 0, _a = options.values; _i < _a.length; _i++) {
-            var value = _a[_i];
-            assert.strictEqual(target.find("input[value=\"" + value + "\"]").length, 1, "Added input for value \"" + value + "\".");
-        }
+        setTimeout(function () {
+            // Assert: One input added per value
+            for (var _i = 0, _a = options.values; _i < _a.length; _i++) {
+                var value = _a[_i];
+                assert.strictEqual(target.find("option[value=\"" + value + "\"]").length, 1, "Added option for value \"" + value + "\".");
+            }
+        }, 100);
     };
     ;
     ValueFilterTest.prototype.testUseOr = function (assert) {
@@ -840,6 +848,123 @@ var ValueFilterTest = (function (_super) {
 exports.ValueFilterTest = ValueFilterTest;
 
 },{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":13}],9:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var ViewTest_1 = require("./ViewTest");
+var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
+var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
+var MapViewTest = (function (_super) {
+    __extends(MapViewTest, _super);
+    function MapViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // TODO:
+    MapViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        if (c === undefined) {
+            c = new Controller_1.Controller(undefined, undefined, undefined);
+        }
+        return new MapView_1.MapView(id, target, c, options);
+    };
+    ;
+    MapViewTest.prototype.runTests = function () {
+        _super.prototype.runTests.call(this);
+        return true;
+    };
+    ;
+    return MapViewTest;
+}(ViewTest_1.ViewTest));
+exports.MapViewTest = MapViewTest;
+
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/MapView":4,"./ViewTest":10}],10:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var QUnitTest_1 = require("../../Util/QUnitTest");
+var View_1 = require("../../../../resources/ts/Filtered/View/View");
+var ViewTest = (function (_super) {
+    __extends(ViewTest, _super);
+    function ViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // Coverage:
+    // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
+    // [x] public init()
+    // [x] public getTargetElement(): JQuery
+    // [ ] public showRows( rowIds: string[] )
+    // [ ] public hideRows( rowIds: string[] )
+    // [x] public show()
+    // [x] public hide()
+    ViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        return new View_1.View(id, target, c, options);
+    };
+    ;
+    ViewTest.prototype.runTests = function () {
+        var className = this.getTestObject().constructor['name'];
+        var that = this;
+        QUnit.test(className + ": Can construct, init and knows target element", function (assert) { that.testBasics(assert, that); });
+        QUnit.test(className + ": Show and Hide", function (assert) { that.testShowAndHide(assert, that); });
+        return true;
+    };
+    ;
+    ViewTest.prototype.testBasics = function (assert, that) {
+        //Setup
+        var target = $('<div>');
+        // Run
+        var v = that.getTestObject('foo', target);
+        v.init();
+        // Assert
+        assert.ok(v instanceof View_1.View, 'Can construct View.');
+        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
+    };
+    ;
+    ViewTest.prototype.testShowAndHide = function (assert, that) {
+        // Setup
+        var target = $('<div>');
+        target.show = function () { assert.ok(true, 'Target element shown.'); return target; };
+        target.hide = function () { assert.ok(true, 'Target element hidden.'); return target; };
+        var v = that.getTestObject('foo', target);
+        v.init();
+        v.show();
+        v.hide();
+        assert.expect(2);
+    };
+    ;
+    return ViewTest;
+}(QUnitTest_1.QUnitTest));
+exports.ViewTest = ViewTest;
+
+},{"../../../../resources/ts/Filtered/View/View":5,"../../Util/QUnitTest":13}],11:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -947,124 +1072,7 @@ var ViewSelectorTest = (function () {
 }());
 exports.ViewSelectorTest = ViewSelectorTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":4}],10:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
-var ViewTest_1 = require("./ViewTest");
-var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
-var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
-var MapViewTest = (function (_super) {
-    __extends(MapViewTest, _super);
-    function MapViewTest() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // TODO:
-    MapViewTest.prototype.getTestObject = function (id, target, c, options) {
-        if (id === void 0) { id = 'foo'; }
-        if (target === void 0) { target = undefined; }
-        if (c === void 0) { c = undefined; }
-        if (options === void 0) { options = {}; }
-        if (c === undefined) {
-            c = new Controller_1.Controller(undefined, undefined, undefined);
-        }
-        return new MapView_1.MapView(id, target, c, options);
-    };
-    ;
-    MapViewTest.prototype.runTests = function () {
-        _super.prototype.runTests.call(this);
-        return true;
-    };
-    ;
-    return MapViewTest;
-}(ViewTest_1.ViewTest));
-exports.MapViewTest = MapViewTest;
-
-},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/MapView":5,"./ViewTest":11}],11:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
-var QUnitTest_1 = require("../../Util/QUnitTest");
-var View_1 = require("../../../../resources/ts/Filtered/View/View");
-var ViewTest = (function (_super) {
-    __extends(ViewTest, _super);
-    function ViewTest() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // Coverage:
-    // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
-    // [x] public init()
-    // [x] public getTargetElement(): JQuery
-    // [ ] public showRows( rowIds: string[] )
-    // [ ] public hideRows( rowIds: string[] )
-    // [x] public show()
-    // [x] public hide()
-    ViewTest.prototype.getTestObject = function (id, target, c, options) {
-        if (id === void 0) { id = 'foo'; }
-        if (target === void 0) { target = undefined; }
-        if (c === void 0) { c = undefined; }
-        if (options === void 0) { options = {}; }
-        return new View_1.View(id, target, c, options);
-    };
-    ;
-    ViewTest.prototype.runTests = function () {
-        var className = this.getTestObject().constructor['name'];
-        var that = this;
-        QUnit.test(className + ": Can construct, init and knows target element", function (assert) { that.testBasics(assert, that); });
-        QUnit.test(className + ": Show and Hide", function (assert) { that.testShowAndHide(assert, that); });
-        return true;
-    };
-    ;
-    ViewTest.prototype.testBasics = function (assert, that) {
-        //Setup
-        var target = $('<div>');
-        // Run
-        var v = that.getTestObject('foo', target);
-        v.init();
-        // Assert
-        assert.ok(v instanceof View_1.View, 'Can construct View.');
-        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
-    };
-    ;
-    ViewTest.prototype.testShowAndHide = function (assert, that) {
-        // Setup
-        var target = $('<div>');
-        target.show = function () { assert.ok(true, 'Target element shown.'); return target; };
-        target.hide = function () { assert.ok(true, 'Target element hidden.'); return target; };
-        var v = that.getTestObject('foo', target);
-        v.init();
-        v.show();
-        v.hide();
-        assert.expect(2);
-    };
-    ;
-    return ViewTest;
-}(QUnitTest_1.QUnitTest));
-exports.ViewTest = ViewTest;
-
-},{"../../../../resources/ts/Filtered/View/View":6,"../../Util/QUnitTest":13}],12:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":6}],12:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1164,4 +1172,4 @@ var testclasses = [
 var testhandler = new QUnitTestHandler_1.QUnitTestHandler('ext.srf.formats.filtered', testclasses);
 testhandler.runTests();
 
-},{"./Filtered/ControllerTest":7,"./Filtered/Filter/ValueFilterTest":8,"./Filtered/View/MapViewTest":10,"./Filtered/View/ViewTest":11,"./Filtered/ViewSelectorTest":9,"./Util/QUnitTestHandler":14}]},{},[15]);
+},{"./Filtered/ControllerTest":7,"./Filtered/Filter/ValueFilterTest":8,"./Filtered/View/MapViewTest":9,"./Filtered/View/ViewTest":10,"./Filtered/ViewSelectorTest":11,"./Util/QUnitTestHandler":14}]},{},[15]);
