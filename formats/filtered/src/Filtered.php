@@ -18,6 +18,7 @@ use SMW\ResultPrinter;
 use SMWOutputs;
 use SMWPropertyValue;
 use SMWQueryResult;
+use SMWResultArray;
 
 /**
  * Result printer that displays results in switchable views and offers
@@ -164,6 +165,7 @@ class Filtered extends ResultPrinter {
 		$result = [];
 		while ( $row = $res->getNext() ) {
 			$result[ $this->uniqid() ] = new ResultItem( $row, $this );
+			usleep( 1 );
 		}
 
 		$config = [

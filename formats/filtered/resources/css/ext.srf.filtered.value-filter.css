@@ -41,3 +41,7 @@
 .filtered-filters .filtered-value .filtered-value-scrollable {
 	overflow: auto;
 }
+
+.filtered-filters .filtered-value .select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: solid #777 1px;
+}
