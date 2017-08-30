@@ -606,32 +606,41 @@ var ValueFilter = (function (_super) {
         }
     };
     ValueFilter.prototype.buildControl = function () {
+        var _this = this;
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
         filtercontrols.append('<div class="filtered-value-label"><span>' + this.options['label'] + '</span></div>');
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
-        var height = this.options.hasOwnProperty('height') ? this.options['height'] : undefined;
-        if (height !== undefined) {
-            filtercontrols = $('<div class="filtered-value-scrollable">')
-                .appendTo(filtercontrols);
-            filtercontrols.height(height);
-        }
+        // let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
+        // if ( height !== undefined ) {
+        // 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
+        // 	.appendTo( filtercontrols );
+        //
+        // 	filtercontrols.height( height );
+        // }
+        var select = $('<select class="filtered-value-select" style="width: 100%;">');
+        filtercontrols.append(select);
+        var data = [];
         // insert options (checkboxes and labels) and attach event handlers
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
-            var option = $('<div class="filtered-value-option">');
-            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value.printoutValue + '"  >');
-            // attach event handler
-            checkbox
-                .on('change', undefined, { 'filter': this }, function (eventObject) {
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            });
             // Try to get label, if not fall back to value id
-            var label = value.formattedValue || value.printoutValue; //this.values[ value ] || value;
-            option.append(checkbox).append(label);
-            filtercontrols.append(option);
+            var label = value.formattedValue || value.printoutValue;
+            data.push({ id: value.printoutValue, text: label });
         }
+        select.select2({
+            multiple: true,
+            placeholder: 'Select a filter value',
+            data: data
+        });
+        select.on("select2:select", function (e) {
+            _this.onFilterUpdated(e.params.data.id, true);
+        });
+        select.on("select2:unselect", function (e) {
+            _this.onFilterUpdated(e.params.data.id, false);
+        });
+        $('input.select2-search__field', select).on('select', function (e) { return select.select2('open'); });
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
@@ -683,11 +692,8 @@ var ValueFilter = (function (_super) {
             return true;
         }
     };
-    ValueFilter.prototype.onFilterUpdated = function (eventObject) {
-        var target = $(eventObject.target);
-        var value = target.val();
+    ValueFilter.prototype.onFilterUpdated = function (value, isChecked) {
         var index = this.visibleValues.indexOf(value);
-        var isChecked = target.is(':checked');
         if (isChecked && index === -1) {
             this.visibleValues.push(value);
         }

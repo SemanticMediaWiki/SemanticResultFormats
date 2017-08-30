@@ -86,35 +86,41 @@ export class ValueFilter extends Filter {
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
 		this.addControlForSwitches( filtercontrols );
 
-		let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
-		if ( height !== undefined ) {
-			filtercontrols = $( '<div class="filtered-value-scrollable">' )
-			.appendTo( filtercontrols );
+		// let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
+		// if ( height !== undefined ) {
+		// 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
+		// 	.appendTo( filtercontrols );
+		//
+		// 	filtercontrols.height( height );
+		// }
 
-			filtercontrols.height( height );
-		}
+		let select = $( '<select class="filtered-value-select" style="width: 100%;">' );
+		filtercontrols.append( select );
+
+		let data: IdTextPair[] = [];
 
 		// insert options (checkboxes and labels) and attach event handlers
 		for ( let value of this.values ) {
-			let option = $( '<div class="filtered-value-option">' );
-
-			let checkbox = $( '<input type="checkbox" class="filtered-value-value" value="' + value.printoutValue + '"  >' );
-
-			// attach event handler
-			checkbox
-			.on( 'change', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject ) {
-				eventObject.data.filter.onFilterUpdated( eventObject );
-			} );
-
 			// Try to get label, if not fall back to value id
-			let label = value.formattedValue || value.printoutValue; //this.values[ value ] || value;
-
-			option.append( checkbox ).append( label );
-
-			filtercontrols.append( option );
+			let label = value.formattedValue || value.printoutValue;
+			data.push( { id: value.printoutValue, text: label });
 
 		}
 
+		select.select2( {
+			multiple: true,
+			placeholder: 'Select a filter value',
+			data: data
+		} );
+
+		select.on("select2:select", ( e: any ) => {
+			this.onFilterUpdated( e.params.data.id, true );
+		});
+		select.on("select2:unselect", ( e: any ) => {
+			this.onFilterUpdated( e.params.data.id, false );
+		});
+
+		$( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
 	}
 
 	private addControlForSwitches( filtercontrols: JQuery ) {
@@ -178,12 +184,8 @@ export class ValueFilter extends Filter {
 		}
 	}
 
-	public onFilterUpdated( eventObject: JQueryEventObject ) {
-		let target = $( eventObject.target );
-
-		let value = target.val();
+	public onFilterUpdated( value: string, isChecked: boolean ) {
 		let index = this.visibleValues.indexOf( value );
-		let isChecked = target.is( ':checked' );
 
 		if ( isChecked && index === -1 ) {
 			this.visibleValues.push( value );

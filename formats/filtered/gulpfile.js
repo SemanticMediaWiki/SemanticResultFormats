@@ -64,6 +64,9 @@ gulp.task( 'buildExternalJS', function () {
 		],
 		'ext.srf.filtered.slider.js': [
 			'node_modules/ion-rangeslider/js/ion.rangeSlider.js'
+		],
+		'ext.srf.filtered.select.js': [
+			'node_modules/select2/dist/js/select2.js'
 		]
 	};
 
@@ -82,41 +85,46 @@ gulp.task( 'buildExternalJS', function () {
 
 } );
 
+gulp.task( 'buildLeafletCSS', function () {
 
-gulp.task( 'buildExternalCSS', function () {
-
-	var config = {
-		'ext.srf.filtered.leaflet.css': [
+	return gulp
+		.src( [
 			'node_modules/leaflet/dist/leaflet.css',
 			'node_modules/leaflet.markercluster/dist/MarkerCluster.css',
 			'node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css'
-		],
-		'ext.srf.filtered.slider.css': [
+		] )
+		.pipe( concat( 'ext.srf.filtered.leaflet.css' ) )
+		.pipe( gulp.dest( 'resources/css' ) );
+
+} );
+
+gulp.task( 'buildSliderCSS', function () {
+
+	return gulp
+		.src( [
 			'node_modules/ion-rangeslider/css/ion.rangeSlider.css',
 			'node_modules/ion-rangeslider/css/ion.rangeSlider.skinNice.css'
-		]
-	};
+		] )
+		.pipe( concat( 'ext.srf.filtered.slider.css' ) )
+		// Need to remove some upstream CSS:
+		.pipe( replace( '.irs-line-mid,\n' +
+			'.irs-line-left,\n' +
+			'.irs-line-right,\n' +
+			'.irs-bar,\n' +
+			'.irs-bar-edge,\n' +
+			'.irs-slider {\n' +
+			'    background: url(../img/sprite-skin-nice.png) repeat-x;\n' +
+			'}\n' +
+			'\n', '' ) )
+		.pipe( gulp.dest( 'resources/css' ) );
+} );
 
-	var ret = true;
+gulp.task( 'buildSelectCSS', function () {
 
-	ret = gulp.src( config[ 'ext.srf.filtered.leaflet.css' ] )
-	.pipe( concat( 'ext.srf.filtered.leaflet.css' ) )
-	.pipe( gulp.dest( 'resources/css' ) );
-
-	ret = ret && gulp.src( config[ 'ext.srf.filtered.slider.css' ] )
-	.pipe( concat( 'ext.srf.filtered.slider.css' ) )
-	.pipe( replace( '.irs-line-mid,\n' +
-		'.irs-line-left,\n' +
-		'.irs-line-right,\n' +
-		'.irs-bar,\n' +
-		'.irs-bar-edge,\n' +
-		'.irs-slider {\n' +
-		'    background: url(../img/sprite-skin-nice.png) repeat-x;\n' +
-		'}\n' +
-		'\n', '' ) )
-	.pipe( gulp.dest( 'resources/css' ) );
-
-	return ret;
+	return gulp
+		.src( [ 'node_modules/select2/dist/css/select2.css' ] )
+		.pipe( concat( 'ext.srf.filtered.select.css' ) )
+		.pipe( gulp.dest( 'resources/css' ) );
 
 } );
 
@@ -142,4 +150,5 @@ gulp.task( 'copyExternalImages', function () {
 	return ret;
 } );
 
+gulp.task( 'buildExternalCSS', [ 'buildLeafletCSS', 'buildSliderCSS', 'buildSelectCSS' ] );
 gulp.task( 'default', [ 'buildFiltered', 'buildFilteredTests', 'buildExternalJS', 'buildExternalCSS', 'copyExternalImages' ] );
