@@ -168,6 +168,7 @@ The Filtered format contains the following software libraries:
 * Leaflet Marker Cluster Plugin by Dave Leaver (https://github.com/Leaflet/Leaflet.markercluster)
 * Leaflet Providers Plugin by Leaflet Providers contributors (https://github.com/leaflet-extras/leaflet-providers)
 * Ion.RangeSlider by Denis Ineshin (http://ionden.com)
+* Select2 by Kevin Brown, Igor Vaynberg, and Select2 contributors (https://select2.github.io/)
 
 Several other libraries are used for the build process. See the devDependencies
 in the package.json file.

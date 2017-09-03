@@ -796,9 +796,23 @@ return [
 		],
 
 	'ext.srf.filtered.value-filter' => $formatModule + [
-			'styles' => [
-				'filtered/resources/css/ext.srf.filtered.value-filter.css',
-			],
+			'styles' => [ 'filtered/resources/css/ext.srf.filtered.value-filter.css' ],
+			'messages' => [
+				'srf-filtered-value-filter-placeholder',
+				'srf-filtered-value-filter-and',
+				'srf-filtered-value-filter-or',
+				],
+			'dependencies' => [ 'ext.srf.filtered.value-filter.select' ],
+		],
+
+	'ext.srf.filtered.value-filter.select' => $formatModule + [
+			'scripts' => [ 'filtered/resources/js/ext.srf.filtered.select.js' ],
+			'styles' => [ 'filtered/resources/css/ext.srf.filtered.select.css' ],
+		],
+
+	'ext.srf.filtered.slider' => $formatModule + [
+			'scripts' => [ 'filtered/resources/js/ext.srf.filtered.slider.js' ],
+			'styles' => [ 'filtered/resources/css/ext.srf.filtered.slider.css' ],
 		],
 
 	'ext.srf.filtered.slider' => $formatModule + [
