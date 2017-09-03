@@ -1,0 +1,50 @@
+{
+	"description": "Test for timeline result format",
+	"setup": [
+		{
+			"page": "Has date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Example/Timeline/1",
+			"contents": "[[Has date::1 Jan 1970]] [[Category:Timeline]]"
+		},
+		{
+			"page": "Example/Timeline/2",
+			"contents": "[[Has date::3 Jan 1970]] [[Category:Timeline]]"
+		},
+		{
+			"page": "Example/Timeline/Q.1",
+			"contents": "{{#ask: [[Category:Timeline]] |?Has date |format=timeline }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 default bands",
+			"subject": "Example/Timeline/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<div id=\"smwtimeline.* class=\"smwtimeline is-disabled\" style=\"height: 300px\">",
+					"<span class=\"smwtlband\" style=\"display:none;\">MONTH</span><span class=\"smwtlband\" style=\"display:none;\">YEAR</span>",
+					"<span class=\"smwtlurl\"><a .* title=\"Example/Timeline/1\">Example/Timeline/1</a></span><span class=\"smwtlstart\">1970-01-01</span>",
+					"<span class=\"smwtlurl\"><a .* title=\"Example/Timeline/2\">Example/Timeline/2</a></span><span class=\"smwtlstart\">1970-01-03</span>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

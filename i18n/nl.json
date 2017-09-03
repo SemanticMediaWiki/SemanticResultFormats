@@ -12,7 +12,8 @@
 			"Hex",
 			"Mainframe98",
 			"Hzjethro",
-			"Nemo bis"
+			"Nemo bis",
+			"Festina90"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -116,6 +117,7 @@
 	"srf-paramdesc-trendline": "Gelijktijdige weergave van een tabel en de trendlijn inschakelen",
 	"srf-paramdesc-gridview": "Tabel en gegevensets gelijktijdig weergeven. Toegestane waarden: \"none\" en \"tabs\". Standaard: \"none\".",
 	"srf-paramdesc-infotext": "Extra informatie in een bijbehorend informatietabblad weergeven",
+	"srf-paramdesc-clicktarget": "Definieer een pagina of tekenreeks als doel bij het aanklikken van een kalender datum.",
 	"srf-ui-gridview-label-item": "Gegevensitem",
 	"srf-ui-gridview-label-value": "Gegevenswaarde",
 	"srf-ui-gridview-label-series": "Gegevensseries",
@@ -211,6 +213,7 @@
 	"srf-filtered-selectorlabel-list": "Lijst",
 	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
+	"srf-filtered-noscript-error": "De resulaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
 	"srf-printername-d3chart": "D3-grafiek",
 	"srf-printername-timeseries": "Tijdseriegrafiek",
 	"srf-paramdesc-group": "Series groepen op",
