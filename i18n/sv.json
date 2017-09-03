@@ -203,6 +203,7 @@
 	"srf-paramdesc-filtered-list-named-args": "Namnge de argument som skickas till mallen.",
 	"srf-paramdesc-filtered-calendar-title-template": "En mall som används för att formatera evenemangets rubrik i kalendern",
 	"srf-paramdesc-filtered-map-height": "Karthöjden",
+	"srf-paramdesc-filtered-map-min-zoom": "Den minimala zoomnivån att välja för kartan",
 	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-filtered-selectorlabel-table": "Tabell",
 	"srf-filtered-selectorlabel-calendar": "Kalender",

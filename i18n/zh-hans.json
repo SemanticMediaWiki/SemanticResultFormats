@@ -257,6 +257,8 @@
 	"srf-paramdesc-filtered-map-max-zoom": "地图的最高可选缩放级别",
 	"srf-paramdesc-filtered-map-marker-cluster": "启用或关闭标记聚合。",
 	"srf-paramdesc-filtered-map-marker-cluster-max-zoom": "地图标记仍然聚集时的最高缩放级别。此级别以上的标记将必定不会聚集。",
+	"srf-paramdesc-filtered-map-marker-cluster-max-radius": "群集从中心点开始覆盖的最大半径（像素）。默认值80。",
+	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "当启用时，点击群集将放大到其界限。",
 	"srf-filtered-selectorlabel-list": "列表",
 	"srf-filtered-selectorlabel-table": "表格",
 	"srf-filtered-selectorlabel-calendar": "日历",

@@ -1,4 +1,4 @@
-import { ResultData } from "../types";
+import { Options, ResultData } from "../types";
 declare let srf: any;
 
 import { View } from "./View/View";
@@ -11,10 +11,12 @@ export class Controller {
 	private filters: { [key: string]: Filter } = {};
 	private currentView: View = undefined;
 	private data: ResultData;
+	private printRequests: Options;
 
-	public constructor( target: JQuery, data: ResultData ) {
+	public constructor( target: JQuery, data: ResultData, printRequests: Options ) {
 		this.target = target;
 		this.data = data;
+		this.printRequests = printRequests;
 
 		for ( let rowId in this.data ) {
 			if ( !this.data[ rowId ].hasOwnProperty( 'visible' ) ) {
@@ -26,6 +28,10 @@ export class Controller {
 
 	public getData(): any {
 		return this.data;
+	}
+
+	public getPrintRequests(): Options {
+		return this.printRequests;
 	}
 
 	public getPath() {

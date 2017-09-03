@@ -3,13 +3,14 @@
 exports.__esModule = true;
 var View_1 = require("./View/View");
 var Controller = (function () {
-    function Controller(target, data) {
+    function Controller(target, data, printRequests) {
         this.target = undefined;
         this.views = {};
         this.filters = {};
         this.currentView = undefined;
         this.target = target;
         this.data = data;
+        this.printRequests = printRequests;
         for (var rowId in this.data) {
             if (!this.data[rowId].hasOwnProperty('visible')) {
                 this.data[rowId].visible = {};
@@ -18,6 +19,9 @@ var Controller = (function () {
     }
     Controller.prototype.getData = function () {
         return this.data;
+    };
+    Controller.prototype.getPrintRequests = function () {
+        return this.printRequests;
     };
     Controller.prototype.getPath = function () {
         return srf.settings.get('srfgScriptPath') + '/formats/filtered/resources/';
@@ -695,7 +699,7 @@ var Filtered = (function () {
         setTimeout(this.start(), 0);
     };
     Filtered.prototype.start = function () {
-        var controller = new Controller_1.Controller(this.target, this.config.data);
+        var controller = new Controller_1.Controller(this.target, this.config.data, this.config.printrequests);
         this.attachFilters(controller, this.target.find('div.filtered-filters'));
         this.attachViewSelector(controller, this.target.find('div.filtered-views-selectors-container'));
         this.attachViews(controller, this.target.find('div.filtered-views-container'));
@@ -950,13 +954,16 @@ var MapView = (function (_super) {
         var popup = [];
         // TODO: Use <div> instead of <b> and do CSS styling
         for (var prId in row['printouts']) {
-            var printouts = row['printouts'][prId];
-            if (title === undefined) {
-                title = printouts['values'].join(', ');
-                popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
-            }
-            else {
-                popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+            var printrequest = (this.controller.getPrintRequests())[prId];
+            if (!printrequest.hasOwnProperty('hide') || printrequest.hide === false) {
+                var printouts = row['printouts'][prId];
+                if (title === undefined) {
+                    title = printouts['values'].join(', ');
+                    popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
+                }
+                else {
+                    popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+                }
             }
         }
         var marker = L.marker(latLng, { title: title, alt: title });

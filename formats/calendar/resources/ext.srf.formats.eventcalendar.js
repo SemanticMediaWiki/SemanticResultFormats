@@ -418,7 +418,7 @@
 		/**
 		 * Handles redirect to a clicktarget URL.  
 		 */
-		onDayClick( date, data, clickPopup ){
+		onDayClick: function( date, data, clickPopup ){
 			var clicktarget = data.query.ask.parameters.clicktarget;
 			if( clicktarget !== 'none' ){
 				var h = date.getUTCHours() + 1;
