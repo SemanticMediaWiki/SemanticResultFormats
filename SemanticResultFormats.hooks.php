@@ -104,6 +104,7 @@ final class SRFHooks {
 				'ext.srf.gallery.redirect',
 				'ext.srf.formats.media',
 				'ext.srf.formats.tagcloud',
+				'ext.srf.filtered.value-filter.select',
 			],
 			'position' => 'top',
 			'localBasePath' => __DIR__,

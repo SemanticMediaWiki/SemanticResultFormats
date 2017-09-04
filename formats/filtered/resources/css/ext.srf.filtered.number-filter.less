@@ -1,0 +1,99 @@
+/*
+	Stylesheet for the value filter
+*/
+
+.filtered-filters .filtered-number { 
+	overflow: visible;
+	border: 1px solid #aaa;
+	padding: 1em 1em 0.5em;
+	margin: 1em;
+}
+
+.filtered-filters .filtered-number .filtered-number-label {
+	height: 0;
+}
+
+.filtered-filters .filtered-number .filtered-number-label span { 
+	background-color: white;
+	font-weight: bold;
+
+	position: relative;
+	top: -1.8em;
+	left: 0;
+	
+	padding: 0 1em;
+}
+
+.filtered-filters .filtered-number .filtered-number-caption {
+	line-height: 2em;
+	text-align: center;
+}
+
+.filtered-filters .filtered-number-slider .irs-line-mid,
+.filtered-filters .filtered-number-slider .irs-line-left,
+.filtered-filters .filtered-number-slider .irs-line-right,
+.filtered-filters .filtered-number-slider .irs-bar,
+.filtered-filters .filtered-number-slider .irs-bar-edge,
+.filtered-filters .filtered-number-slider .irs-slider
+{
+	background: none;
+}
+
+.filtered-filters .filtered-number-slider .irs-line {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+}
+
+.filtered-filters .filtered-number-slider .irs-bar,
+.filtered-filters .filtered-number-slider .irs-bar-edge {
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+}
+
+.filtered-filters .filtered-number-slider .irs-bar-edge {
+	border-radius: 3px 0 0 3px;
+	border-left: 1px solid #aaa;
+}
+
+.filtered-filters .filtered-number-slider.mode-min .irs-line,
+.filtered-filters .filtered-number-slider.mode-max .irs-bar,
+.filtered-filters .filtered-number-slider.mode-max .irs-bar-edge,
+.filtered-filters .filtered-number-slider.mode-range .irs-bar,
+.filtered-filters .filtered-number-slider.mode-range .irs-bar-edge {
+	background: #ddd;
+}
+
+.filtered-filters .filtered-number-slider.mode-max .irs-line,
+.filtered-filters .filtered-number-slider.mode-range .irs-line,
+.filtered-filters .filtered-number-slider.mode-select .irs-line,
+.filtered-filters .filtered-number-slider.mode-min .irs-bar,
+.filtered-filters .filtered-number-slider.mode-min .irs-bar-edge {
+	background: #fff;
+}
+
+.filtered-filters .filtered-number-slider .irs-slider {
+	width: 20px;
+	height: 20px;
+	top: 18px;
+
+	background-position: 0 -120px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background: #fff;
+}
+
+.irs-slider::after {
+	content: '';
+	background: #9aa4bd;
+	position: absolute;
+	display: block;
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	border-radius: 5px;
+}
+
+.filtered-filters .filtered-number-slider .irs-slider:hover::after {
+	background: #b00;
+}

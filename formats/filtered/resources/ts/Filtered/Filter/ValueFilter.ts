@@ -1,4 +1,8 @@
+///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
+
 import { Filter } from "./Filter";
+
+declare let mw: any;
 
 export class ValueFilter extends Filter {
 
@@ -21,23 +25,29 @@ export class ValueFilter extends Filter {
 
 		/** Map of value => label distinct values */
 		let distinctValues: any = {};
+		/** Map of value => sort value distinct values */
+		let distinctSortValues: any = {};
 
 		if ( this.options.hasOwnProperty( 'values' ) ) {
 
-			return this.options[ 'values' ].reduce(
-
-				( values: { [key: string]: string }, item: string ) => {
-					values[ item ] = item;
-					return values;
-				}, {} );
+			return this.options[ 'values' ].map(
+				( item: string ) => {
+					return {
+						printoutValue: item,
+						formattedValue: item
+					};
+				}
+			);
 
 		} else {
 			// build filter values from available values in result set
 			let data = this.controller.getData();
+			let sortedEntries: any[] = [];
 			for ( let id in data ) {
 
 				let printoutValues: any = data[ id ][ 'printouts' ][ this.printrequestId ][ 'values' ];
 				let printoutFormattedValues = data[ id ][ 'printouts' ][ this.printrequestId ][ 'formatted values' ];
+				let printoutSortValues: any = data[ id ][ 'printouts' ][ this.printrequestId ][ 'sort values' ];
 
 				for ( let i in printoutValues ) {
 					let printoutFormattedValue = printoutFormattedValues[ i ];
@@ -47,13 +57,27 @@ export class ValueFilter extends Filter {
 					}
 
 					distinctValues[ printoutValues[ i ] ] = printoutFormattedValue;
+					distinctSortValues[ printoutValues[ i ] ] = printoutSortValues[ i ];
 				}
 
 			}
 
+			for ( let printoutValue in distinctSortValues ) {
+				sortedEntries.push({
+					printoutValue: printoutValue,
+					sortValue: distinctSortValues[ printoutValue ],
+					formattedValue: distinctValues[ printoutValue ]
+				});
+			}
+
+			sortedEntries.sort(
+				( a: any, b: any ) => {
+					return a.sortValue.localeCompare( b.sortValue );
+				} );
+			return sortedEntries;
+
 		}
 
-		return distinctValues;
 	}
 
 	private buildControl() {
@@ -66,35 +90,48 @@ export class ValueFilter extends Filter {
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
 		this.addControlForSwitches( filtercontrols );
 
-		let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
-		if ( height !== undefined ) {
-			filtercontrols = $( '<div class="filtered-value-scrollable">' )
-			.appendTo( filtercontrols );
+		// let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
+		// if ( height !== undefined ) {
+		// 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
+		// 	.appendTo( filtercontrols );
+		//
+		// 	filtercontrols.height( height );
+		// }
 
-			filtercontrols.height( height );
-		}
+		let select = $( '<select class="filtered-value-select" style="width: 100%;">' );
+		filtercontrols.append( select );
+
+		let data: IdTextPair[] = [];
 
 		// insert options (checkboxes and labels) and attach event handlers
-		for ( let value of Object.keys( this.values ).sort() ) {
-			let option = $( '<div class="filtered-value-option">' );
-
-			let checkbox = $( '<input type="checkbox" class="filtered-value-value" value="' + value + '"  >' );
-
-			// attach event handler
-			checkbox
-			.on( 'change', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject ) {
-				eventObject.data.filter.onFilterUpdated( eventObject );
-			} );
-
+		for ( let value of this.values ) {
 			// Try to get label, if not fall back to value id
-			let label = this.values[ value ] || value;
-
-			option.append( checkbox ).append( label );
-
-			filtercontrols.append( option );
+			let label = value.formattedValue || value.printoutValue;
+			data.push( { id: value.printoutValue, text: label });
 
 		}
 
+		// To correctly calculate element sizes Select2 needs a settled DOM
+		// before being attached. filtercontrols.append returns before the DOM
+		// is settled, so setTimeout is used to asynchronously attach Select2
+		// when the DOM is ready.
+		setTimeout( () => {
+			select.select2( {
+				multiple: true,
+				placeholder: mw.message( 'srf-filtered-value-filter-placeholder' ).text(),
+				minimumResultsForSearch: 5,
+				data: data
+			} );
+
+			select.on( "select2:select", ( e: any ) => {
+				this.onFilterUpdated( e.params.data.id, true );
+			} );
+			select.on( "select2:unselect", ( e: any ) => {
+				this.onFilterUpdated( e.params.data.id, false );
+			} );
+		}, 0);
+
+		// $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
 	}
 
 	private addControlForSwitches( filtercontrols: JQuery ) {
@@ -108,11 +145,8 @@ export class ValueFilter extends Filter {
 
 				let andorControl = $( '<div class="filtered-value-andor">' );
 
-				let andControl = $( '<input type="radio" name="filtered-value-' +
-					this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">' );
-
-				let orControl = $( '<input type="radio" name="filtered-value-' +
-					this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>' );
+				let orControl = $( `<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-or" id="filtered-value-or-${this.printrequestId}" value="or" checked>` );
+				let andControl = $( `<input type="radio" name="filtered-value-${this.printrequestId}" class="filtered-value-and" id="filtered-value-and-${this.printrequestId}" value="and">` );
 
 				andControl
 				.add( orControl )
@@ -122,9 +156,9 @@ export class ValueFilter extends Filter {
 
 				andorControl
 				.append( orControl )
-				.append( ' OR ' )
+				.append( `<label for="filtered-value-or-${this.printrequestId}">${mw.message( 'srf-filtered-value-filter-or' ).text()}</label>` )
 				.append( andControl )
-				.append( ' AND ' )
+				.append( `<label for="filtered-value-and-${this.printrequestId}">${mw.message( 'srf-filtered-value-filter-and' ).text()}</label>` )
 				.appendTo( switchControls );
 
 			}
@@ -158,12 +192,8 @@ export class ValueFilter extends Filter {
 		}
 	}
 
-	public onFilterUpdated( eventObject: JQueryEventObject ) {
-		let target = $( eventObject.target );
-
-		let value = target.val();
+	public onFilterUpdated( value: string, isChecked: boolean ) {
 		let index = this.visibleValues.indexOf( value );
-		let isChecked = target.is( ':checked' );
 
 		if ( isChecked && index === -1 ) {
 			this.visibleValues.push( value );
