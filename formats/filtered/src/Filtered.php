@@ -18,6 +18,7 @@ use SMW\ResultPrinter;
 use SMWOutputs;
 use SMWPropertyValue;
 use SMWQueryResult;
+use SMWResultArray;
 
 /**
  * Result printer that displays results in switchable views and offers
@@ -124,8 +125,15 @@ class Filtered extends ResultPrinter {
 		return wfMessage( 'srf-printername-filtered' )->text();
 	}
 
-	protected function handleParameters( array $params, $outputmode ) {
-		parent::handleParameters( $params, $outputmode );
+	/**
+	 * Does any additional parameter handling that needs to be done before the
+	 * actual result is build.
+	 *
+	 * @param array $params
+	 * @param $outputMode
+	 */
+	protected function handleParameters( array $params, $outputMode ) {
+		parent::handleParameters( $params, $outputMode );
 //
 //		// // Set in SMWResultPrinter:
 //		// $this->mIntro = $params['intro'];
@@ -157,6 +165,7 @@ class Filtered extends ResultPrinter {
 		$result = [];
 		while ( $row = $res->getNext() ) {
 			$result[ $this->uniqid() ] = new ResultItem( $row, $this );
+			usleep( 1 );
 		}
 
 		$config = [
@@ -177,7 +186,6 @@ class Filtered extends ResultPrinter {
 				'mode'         => $printRequest->getMode(),
 				'label'        => $printRequest->getLabel(),
 				'outputformat' => $printRequest->getOutputFormat(),
-//				'parameters'   => $printRequest->getParameters(),
 				'type'         => $printRequest->getTypeID(),
 			];
 
@@ -205,13 +213,7 @@ class Filtered extends ResultPrinter {
 
 						if ( $filter->isValidFilterForPropertyType() ) {
 
-							$resourceModules = $filter->getResourceModules();
-
-							if ( is_array( $resourceModules ) ) {
-								array_walk( $resourceModules, 'SMWOutputs::requireResource' );
-							} elseif ( is_string( $resourceModules ) ) {
-								SMWOutputs::requireResource( $resourceModules );
-							}
+							$this->registerResourceModules( $filter->getResourceModules() );
 
 							$filterid = $this->uniqid();
 							$filterHtml .= Html::rawElement( 'div', [ 'id' => $filterid, 'class' => "filtered-filter filtered-$filterName" ], $filter->getResultText() );
@@ -246,10 +248,7 @@ class Filtered extends ResultPrinter {
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
 		$viewSelectorsHtml = '';
-//		$viewHandlers = array();
-//		$viewElements = array(); // will contain the id of the html element to be used by the view
-//		$viewData = array();
-//
+
 		foreach ( $this->viewNames as $viewName ) {
 
 			// cut off the selector label (if one was specified) from the actual view name
@@ -274,16 +273,23 @@ class Filtered extends ResultPrinter {
 				$viewClassName = '\SRF\Filtered\View\\' . $this->mViewTypes[ $viewName ];
 				$view = new $viewClassName( $result, $this->parameters, $this, $viewSelectorLabel );
 
-				$this->registerResourceModules( $view->getResourceModules() );
+				$initErrorMsg = $view->getInitError();
 
-				$viewHtml .= Html::rawElement( 'div', [ 'id' => $viewid, 'class' => "filtered-view filtered-$viewName $viewid" ], $view->getResultText() );
-				$viewSelectorsHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view-selector filtered-$viewName $viewid" ], $viewSelectorLabel );
+				if ( $initErrorMsg !== null ) {
+					$res->addErrors( [ $this->msg( $initErrorMsg )->inContentLanguage()->text() ] );
+				} else {
 
-				foreach ( $result as $row ) {
-					$row->setData( $viewid, $view->getJsDataForRow( $row ) );
+					$this->registerResourceModules( $view->getResourceModules() );
+
+					$viewHtml .= Html::rawElement( 'div', [ 'id' => $viewid, 'class' => "filtered-view filtered-$viewName $viewid" ], $view->getResultText() );
+					$viewSelectorsHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view-selector filtered-$viewName $viewid" ], $viewSelectorLabel );
+
+					foreach ( $result as $row ) {
+						$row->setData( $viewid, $view->getJsDataForRow( $row ) );
+					}
+
+					$config[ 'views' ][ $viewid ] = array_merge( [ 'type' => $viewName ], $view->getJsConfig() );
 				}
-
-				$config[ 'views' ][ $viewid ] = array_merge( [ 'type' => $viewName ], $view->getJsConfig() );
 			}
 		}
 
@@ -314,17 +320,14 @@ class Filtered extends ResultPrinter {
 		$link->setCaption( Message::get( "srf-filtered-noscript-link-caption" ) );
 		$link->setParameter( 'table', 'format' );
 
+		SMWOutputs::requireResource( 'ext.srf.filtered' );
 
 		return $html;
 	}
 
-
-//	public function getQueryMode( $context ) {
-//		return SMWQuery::MODE_INSTANCES;
-//	}
-//
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see DefaultConfig.php of param-processor/param-processor for allowed types
 	 *
 	 * @since 1.8
 	 *
@@ -385,13 +388,11 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @param string | string[] $resourceModules
+	 * @param string | string[] | null $resourceModules
 	 */
 	protected function registerResourceModules( $resourceModules ) {
-		if ( !is_array( $resourceModules ) ) {
-			$resourceModules = [ $resourceModules ];
-		}
-		array_walk( $resourceModules, 'SMWOutputs::requireResource' );
+
+		array_map( 'SMWOutputs::requireResource', (array) $resourceModules );
 	}
 
 	/**

@@ -1,4 +1,9 @@
+/// <reference types="leaflet" />
+
 import { View } from "./View";
+import { Options } from "../../types"
+
+declare let mw: any;
 
 export class MapView extends View {
 
@@ -9,36 +14,73 @@ export class MapView extends View {
 	private bounds: L.LatLngBounds = undefined;
 	private initialized: boolean = false;
 
+	private zoom: number = -1;
+	private minZoom: number = -1;
+	private maxZoom: number = -1;
+
+	private leafletPromise: Promise<any> = undefined;
+
 	public init() {
 
 		let data = this.controller.getData();
 		let markers: { [rowId: string]: L.Marker[] } = {};
-		let bounds: L.LatLngBounds = undefined;
 
-		let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( {
-			animateAddingMarkers: true
-		} );
-
-		for ( let rowId in data ) {
-
-			let positions: L.LatLngLiteral[] = data[ rowId ][ 'data' ][ this.id ][ 'positions' ];
-			markers[ rowId ] = [];
-
-			for ( let pos of positions ) {
-
-				bounds = ( bounds === undefined ) ? new L.LatLngBounds( pos, pos ) : bounds.extend( pos );
-
-				let marker = this.getMarker( pos, data[ rowId ] );
-				markers[ rowId ].push( marker );
-				markerClusterGroup.addLayer( marker );
-			}
+		if ( this.options.hasOwnProperty( 'height' ) ) {
+			this.target.height( this.options.height );
 		}
 
-		this.markerClusterGroup = markerClusterGroup;
-		this.markers = markers;
-		this.bounds = bounds;
+		this.leafletPromise = mw.loader.using( 'ext.srf.filtered.map-view.leaflet' )
+		.then( () => {
+
+			let bounds: L.LatLngBounds = undefined;
+			let disableClusteringAtZoom = this.getZoomForUnclustering();
+
+			let clusterOptions: Options = {
+				animateAddingMarkers: true,
+				disableClusteringAtZoom: disableClusteringAtZoom,
+				spiderfyOnMaxZoom: disableClusteringAtZoom === null
+			};
+
+			clusterOptions = this.getOptions( [ 'maxClusterRadius', 'zoomToBoundsOnClick' ], clusterOptions );
+
+			let markerClusterGroup: L.MarkerClusterGroup = L.markerClusterGroup( clusterOptions );
+
+			for ( let rowId in data ) {
+
+				if ( data[ rowId ][ 'data' ].hasOwnProperty( this.id ) ) {
+					let positions: L.LatLngLiteral[] = data[ rowId ][ 'data' ][ this.id ][ 'positions' ];
+					markers[ rowId ] = [];
+
+					for ( let pos of positions ) {
+
+						bounds = ( bounds === undefined ) ? new L.LatLngBounds( pos, pos ) : bounds.extend( pos );
+
+						let marker = this.getMarker( pos, data[ rowId ] );
+						markers[ rowId ].push( marker );
+						markerClusterGroup.addLayer( marker );
+					}
+				}
+			}
+
+			this.markerClusterGroup = markerClusterGroup;
+			this.markers = markers;
+			this.bounds = ( bounds === undefined ) ? new L.LatLngBounds( [ -180, -90 ], [ 180, 90 ] ) : bounds;
+		} );
 
 		return super.init();
+	}
+
+	private getZoomForUnclustering() {
+
+		if ( this.options.hasOwnProperty( 'marker cluster' ) && this.options[ 'marker cluster' ] === false ) {
+			return 0;
+		}
+
+		if ( this.options.hasOwnProperty( 'marker cluster max zoom' ) ) {
+			return this.options[ 'marker cluster max zoom' ] + 1;
+		}
+
+		return null;
 	}
 
 	private getIcon() {
@@ -50,11 +92,11 @@ export class MapView extends View {
 				'iconUrl': iconPath + 'marker-icon.png',
 				'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
 				'shadowUrl': iconPath + 'marker-shadow.png',
-				'iconSize':    [25, 41],
-				'iconAnchor':  [12, 41],
-				'popupAnchor': [1, -34],
+				'iconSize': [ 25, 41 ],
+				'iconAnchor': [ 12, 41 ],
+				'popupAnchor': [ 1, -34 ],
 				// 'tooltipAnchor': [16, -28],
-				'shadowSize':  [41, 41]
+				'shadowSize': [ 41, 41 ]
 			} );
 		}
 
@@ -98,27 +140,79 @@ export class MapView extends View {
 		this.initialized = true;
 
 		let that = this;
-		$( () => { // as soon as the document is ready
-			setTimeout( () => { // let everybody else do their job
-				that.map = L.map( that.getTargetElement().get( 0 ) )
-				.addLayer( L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-					attribution: ''
-				} ) )
-				.addLayer( that.markerClusterGroup )
-				.fitBounds( that.bounds )
-			}, 0 );
+
+		this.leafletPromise.then( () => {
+
+			let mapOptions: Options = {
+				center: this.bounds !== undefined ? this.bounds.getCenter() : [ 0, 0 ]
+			};
+
+			mapOptions = that.getOptions( [ 'zoom', 'minZoom', 'maxZoom' ], mapOptions );
+
+			// TODO: Limit zoom values to map max zoom
+
+			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions );
+			that.map.addLayer( that.markerClusterGroup );
+
+			if ( this.options.hasOwnProperty( 'map provider' ) ) {
+				L.tileLayer.provider( this.options[ 'map provider' ] ).addTo( that.map );
+			}
+
+			if ( !mapOptions.hasOwnProperty( 'zoom' ) ) {
+				that.map.fitBounds( that.bounds );
+			}
+
 		} );
 
 	}
 
+	public getOptions( keys: string[], defaults: Options = {} ) {
+
+		for ( let key of keys ) {
+			if ( this.options.hasOwnProperty( key ) ) {
+				defaults[ key ] = this.options[ key ];
+			}
+		}
+
+		return defaults;
+	}
+
 	public showRows( rowIds: string[] ) {
-		let markers: L.Layer[][] = rowIds.map( ( rowId: string ) => this.markers[ rowId ] );
-		this.markerClusterGroup.addLayers( markers.reduce( ( result: L.Layer[], layers: L.Layer[] ) => result.concat( layers ) ) );
+		this.leafletPromise.then( () => {
+			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => {
+				this.markerClusterGroup.addLayers( layers )
+			} )
+		} );
 	}
 
 	public hideRows( rowIds: string[] ) {
-		let markers: L.Layer[][] = rowIds.map( ( rowId: string ) => this.markers[ rowId ] );
-		this.markerClusterGroup.removeLayers( markers.reduce( ( result: L.Layer[], layers: L.Layer[] ) => result.concat( layers ) ) );
+		this.leafletPromise.then( () => {
+			this.manipulateLayers( rowIds, ( layers: L.Layer[] ) => {
+				this.markerClusterGroup.removeLayers( layers )
+			} )
+		} );
+	}
+
+	private manipulateLayers( rowIds: string[], cb: ( layers: L.Layer[] ) => void ) {
+
+		let layersFromRowIds = this.getLayersFromRowIds( rowIds );
+
+		if ( layersFromRowIds.length > 0 ) {
+			cb( layersFromRowIds );
+		}
+
+	}
+
+	private getLayersFromRowIds( rowIds: string[] ) {
+		return this.flatten( this.getLayersFromRowIdsRaw( rowIds ) );
+	}
+
+	private getLayersFromRowIdsRaw( rowIds: string[] ) {
+		return rowIds.map( ( rowId: string ) => this.markers[ rowId ] ? this.markers[ rowId ] : [] );
+	}
+
+	private flatten( markers: L.Layer[][] ): L.Layer[] {
+		return markers.reduce( ( result: L.Layer[], layers: L.Layer[] ) => result.concat( layers ), [] );
 	}
 
 	public show() {

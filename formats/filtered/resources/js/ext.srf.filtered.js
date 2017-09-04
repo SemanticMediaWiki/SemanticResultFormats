@@ -43,6 +43,7 @@ var Controller = (function () {
     Controller.prototype.attachFilter = function (filter) {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
+        filter.init();
         this.onFilterUpdated(filterId);
         return this;
     };
@@ -242,15 +243,15 @@ var DistanceFilter = (function (_super) {
     DistanceFilter.prototype.isVisible = function (rowId) {
         return this.controller.getData()[rowId].data[this.filterId].distance <= this.filterValue;
     };
+    DistanceFilter.earthRadius = {
+        m: 6371008.8,
+        km: 6371.0088,
+        mi: 3958.7613,
+        nm: 3440.0695,
+        Å: 63710088000000000
+    };
     return DistanceFilter;
 }(Filter_1.Filter));
-DistanceFilter.earthRadius = {
-    m: 6371008.8,
-    km: 6371.0088,
-    mi: 3958.7613,
-    nm: 3440.0695,
-    Å: 63710088000000000
-};
 exports.DistanceFilter = DistanceFilter;
 
 },{"./Filter":3}],3:[function(require,module,exports){
@@ -322,6 +323,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+///<reference path="../../../../node_modules/@types/ion.rangeslider/index.d.ts"/>
 var Filter_1 = require("./Filter");
 var NumberFilter = (function (_super) {
     __extends(NumberFilter, _super);
@@ -337,109 +339,139 @@ var NumberFilter = (function (_super) {
         return _this;
     }
     NumberFilter.prototype.init = function () {
-        var _a = this.getRange(), minValue = _a[0], maxValue = _a[1];
-        var precision = Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
-        var requestedMax = this.options['max'];
-        if (requestedMax !== undefined && !isNaN(Number(requestedMax))) {
-            maxValue = Math.max(requestedMax, maxValue);
-        }
-        else {
-            maxValue = Math.ceil(maxValue / precision) * precision;
-        }
-        var requestedMin = this.options['min'];
-        if (requestedMin !== undefined && !isNaN(Number(requestedMin))) {
-            minValue = Math.min(requestedMin, minValue);
-        }
-        else {
-            minValue = Math.floor(minValue / precision) * precision;
-        }
-        var step = this.options['step'];
-        if (step === undefined || isNaN(Number(step))) {
-            step = precision / 10;
-        }
-        this.filterValueUpper = maxValue;
-        this.filterValueLower = minValue;
-        // build filter controls
-        var filtercontrols = this.target;
-        filtercontrols
-            .append('<div class="filtered-number-label"><span>' + this.options['label'] + '</span></div>');
-        filtercontrols = this.addControlForCollapsing(filtercontrols);
-        var readoutLeft = $('<div class="filtered-number-readout">');
-        var readoutRight = $('<div class="filtered-number-readout">');
-        var caption = '';
-        if (this.options['caption']) {
-            caption = '<tr><td colspan=3 class="filtered-number-caption-cell">' + this.options['caption'] + '</td></tr>';
-        }
-        var table = $('<table class="filtered-number-table"><tbody><tr>' +
-            '<td class="filtered-number-min-cell">' + minValue + '</td>' +
-            '<td class="filtered-number-slider-cell"></td>' +
-            '<td class="filtered-number-max-cell">' + maxValue + '</td></tr>' +
-            caption +
-            '</tbody></table>');
-        var sliderContainer = $('<div class="filtered-number-slider">');
-        var lowerHandle = $('<div class="ui-slider-handle ui-slider-handle-lower">');
-        var upperHandle = $('<div class="ui-slider-handle ui-slider-handle-upper">');
-        var selectHandle = $('<div class="ui-slider-handle ui-slider-handle-select">');
-        var slideroptions = {
-            animate: true,
-            min: minValue,
-            max: maxValue,
-            step: step
+        var values = this.getValues();
+        var _a = this.getRangeParameters(values), minValue = _a.minValue, maxValue = _a.maxValue, precision = _a.precision;
+        var sliderOptions = {
+            prettify_enabled: false,
+            force_edges: true,
+            grid: true
         };
-        switch (this.options['sliders']) {
-            case 'max':
-                this.mode = this.MODE_MAX;
-                slideroptions.range = 'min';
-                slideroptions.value = maxValue;
-                readoutLeft.text(maxValue);
-                upperHandle.append(readoutLeft);
-                sliderContainer.append(upperHandle);
-                break;
-            case 'min':
-                this.mode = this.MODE_MIN;
-                slideroptions.range = 'max';
-                slideroptions.value = minValue;
-                readoutLeft.text(minValue);
-                lowerHandle.append(readoutLeft);
-                sliderContainer.append(lowerHandle);
-                break;
-            case 'select':
-                this.mode = this.MODE_SELECT;
-                slideroptions.value = maxValue;
-                readoutLeft.text(maxValue);
-                selectHandle.append(readoutLeft);
-                sliderContainer.append(selectHandle);
-                this.filterValueUpper = maxValue;
-                this.filterValueLower = maxValue;
-                break;
-            default:
-                this.mode = this.MODE_RANGE;
-                slideroptions.range = true;
-                slideroptions.values = [minValue, maxValue];
-                readoutLeft.text(minValue);
-                lowerHandle.append(readoutLeft);
-                readoutRight.text(maxValue);
-                upperHandle.append(readoutRight);
-                sliderContainer.append(lowerHandle).append(upperHandle);
+        if (this.options.hasOwnProperty('values')) {
+            sliderOptions = this.adjustSliderOptionsFromValues(sliderOptions, values);
         }
-        filtercontrols.append(table);
-        table
-            .find('.filtered-number-slider-cell')
-            .append(sliderContainer);
-        var that = this;
-        mw.loader.using('jquery.ui.slider').then(function () {
-            sliderContainer.slider(slideroptions)
-                .on('slidechange', undefined, { 'filter': that }, function (eventObject, ui) {
-                eventObject.data.ui = ui;
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            })
-                .on('slide', undefined, { 'filter': that }, function (eventObject, ui) {
-                ui.handle.firstElementChild.innerHTML = ui.value.toString();
-            });
-        });
+        else {
+            sliderOptions = this.adjustSliderOptionsFromRangeParameters(sliderOptions, minValue, maxValue, precision);
+        }
+        switch (this.options['sliders']) {
+            case "min":
+                this.mode = this.MODE_MIN;
+                sliderOptions.type = 'single';
+                break;
+            case "max":
+                this.mode = this.MODE_MAX;
+                sliderOptions.from = sliderOptions.to;
+                sliderOptions.type = 'single';
+                break;
+            case "select":
+                this.mode = this.MODE_SELECT;
+                maxValue = minValue;
+                sliderOptions.type = 'single';
+                break;
+            default:// == case "range"
+                this.mode = this.MODE_RANGE;
+                sliderOptions.type = 'double';
+        }
+        this.buildFilterControls(sliderOptions);
+        this.filterValueLower = minValue;
+        this.filterValueUpper = maxValue;
         return this;
     };
-    NumberFilter.prototype.getRange = function () {
+    NumberFilter.prototype.adjustSliderOptionsFromRangeParameters = function (sliderOptions, minValue, maxValue, precision) {
+        var _this = this;
+        sliderOptions.min = minValue;
+        sliderOptions.max = maxValue;
+        sliderOptions.step = this.getStep(precision);
+        sliderOptions.from = minValue;
+        sliderOptions.to = maxValue;
+        sliderOptions.onFinish = function (data) { return _this.onFilterUpdated(data.from, data.to); };
+        return sliderOptions;
+    };
+    NumberFilter.prototype.adjustSliderOptionsFromValues = function (sliderOptions, values) {
+        var _this = this;
+        sliderOptions.values = values;
+        sliderOptions.from = 0;
+        sliderOptions.to = values.length - 1;
+        sliderOptions.onFinish = function (data) { return _this.onFilterUpdated(data.from_value, data.to_value); };
+        return sliderOptions;
+    };
+    NumberFilter.prototype.getRangeParameters = function (values) {
+        var minValue = values[0];
+        var maxValue = values[values.length - 1];
+        var precision = this.getPrecision(minValue, maxValue);
+        if (!this.options.hasOwnProperty('values')) {
+            minValue = this.getMinSliderValue(minValue, precision);
+            maxValue = this.getMaxSliderValue(maxValue, precision);
+        }
+        return { minValue: minValue, maxValue: maxValue, precision: precision };
+    };
+    NumberFilter.prototype.getValues = function () {
+        var values;
+        if (this.options.hasOwnProperty('values') && this.options['values'][0] !== 'auto') {
+            values = this.options['values'];
+        }
+        else {
+            values = this.getSortedValues();
+        }
+        if (values.length === 0) {
+            values = [0, 0];
+        }
+        else if (values.length === 1) {
+            values.push(values[0]);
+        }
+        return values;
+    };
+    NumberFilter.prototype.buildFilterControls = function (sliderOptions) {
+        var filterClassNames = {};
+        filterClassNames[this.MODE_MIN.toString()] = "mode-min";
+        filterClassNames[this.MODE_MAX] = "mode-max";
+        filterClassNames[this.MODE_RANGE] = "mode-range";
+        filterClassNames[this.MODE_SELECT] = "mode-select";
+        var filtercontrols = this.target;
+        var label = $("<div class=\"filtered-number-label\"><span>" + this.options['label'] + "</span></div>");
+        filtercontrols.append(label);
+        filtercontrols = this.addControlForCollapsing(filtercontrols);
+        var slider = $('<input type="text" value="" />');
+        var sliderContainer = $("<div class=\"filtered-number-slider " + filterClassNames[this.mode] + "\" />").append(slider);
+        filtercontrols.append(sliderContainer);
+        if (this.options.hasOwnProperty('caption')) {
+            var caption = "<div class=\"filtered-number-caption\">" + this.options['caption'] + "</div>";
+            filtercontrols.append(caption);
+        }
+        slider.ionRangeSlider(sliderOptions);
+    };
+    NumberFilter.prototype.getMinSliderValue = function (minValue, precision) {
+        var requestedMin = this.options['min'];
+        if (requestedMin === undefined || isNaN(Number(requestedMin))) {
+            return Math.floor(minValue / precision) * precision;
+        }
+        return Math.min(requestedMin, minValue);
+    };
+    NumberFilter.prototype.getMaxSliderValue = function (maxValue, precision) {
+        var requestedMax = this.options['max'];
+        if (requestedMax === undefined || isNaN(Number(requestedMax))) {
+            return Math.ceil(maxValue / precision) * precision;
+        }
+        return Math.max(requestedMax, maxValue);
+    };
+    NumberFilter.prototype.getPrecision = function (minValue, maxValue) {
+        if (maxValue - minValue > 0) {
+            return Math.pow(10, (Math.floor(Math.log(maxValue - minValue) * Math.LOG10E) - 1));
+        }
+        else {
+            return 1;
+        }
+    };
+    NumberFilter.prototype.getStep = function (precision) {
+        var step = this.options['step'];
+        if (step !== undefined) {
+            step = Number(step);
+            if (!isNaN(step)) {
+                return step;
+            }
+        }
+        return precision / 10;
+    };
+    NumberFilter.prototype.getRangeFromValues = function () {
         var rows = this.controller.getData();
         var min = Infinity;
         var max = -Infinity;
@@ -452,22 +484,38 @@ var NumberFilter = (function (_super) {
         }
         return [min, max];
     };
-    NumberFilter.prototype.onFilterUpdated = function (eventObject) {
+    NumberFilter.prototype.getSortedValues = function () {
+        var valueArray = [];
+        var rows = this.controller.getData();
+        for (var rowId in rows) {
+            var cells = rows[rowId].data;
+            if (cells.hasOwnProperty(this.filterId)) {
+                var values = cells[this.filterId].values;
+                for (var valueId in values) {
+                    var value = Number(values[valueId]);
+                    if (valueArray.indexOf(value) === -1) {
+                        valueArray.push(value);
+                    }
+                }
+            }
+        }
+        return valueArray.sort(function (a, b) { return a - b; });
+    };
+    NumberFilter.prototype.onFilterUpdated = function (from, to) {
         switch (this.mode) {
-            case this.MODE_RANGE:
-                this.filterValueLower = eventObject.data.ui.values[0];
-                this.filterValueUpper = eventObject.data.ui.values[1];
-                break;
             case this.MODE_MIN:
-                this.filterValueLower = eventObject.data.ui.value;
+                this.filterValueLower = from;
                 break;
             case this.MODE_MAX:
-                this.filterValueUpper = eventObject.data.ui.value;
+                this.filterValueUpper = from;
                 break;
             case this.MODE_SELECT:
-                this.filterValueLower = eventObject.data.ui.value;
-                this.filterValueUpper = eventObject.data.ui.value;
+                this.filterValueLower = from;
+                this.filterValueUpper = from;
                 break;
+            default:// case this.MODE_RANGE:
+                this.filterValueLower = from;
+                this.filterValueUpper = to;
         }
         this.controller.onFilterUpdated(this.getId());
     };
@@ -489,6 +537,7 @@ exports.NumberFilter = NumberFilter;
 
 },{"./Filter":3}],5:[function(require,module,exports){
 "use strict";
+///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -521,56 +570,89 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.getSortedValues = function () {
         /** Map of value => label distinct values */
         var distinctValues = {};
+        /** Map of value => sort value distinct values */
+        var distinctSortValues = {};
         if (this.options.hasOwnProperty('values')) {
-            return this.options['values'].reduce(function (values, item) {
-                values[item] = item;
-                return values;
-            }, {});
+            return this.options['values'].map(function (item) {
+                return {
+                    printoutValue: item,
+                    formattedValue: item
+                };
+            });
         }
         else {
             // build filter values from available values in result set
             var data = this.controller.getData();
+            var sortedEntries = [];
             for (var id in data) {
                 var printoutValues = data[id]['printouts'][this.printrequestId]['values'];
                 var printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
+                var printoutSortValues = data[id]['printouts'][this.printrequestId]['sort values'];
                 for (var i in printoutValues) {
                     var printoutFormattedValue = printoutFormattedValues[i];
                     if (printoutFormattedValue.indexOf('<a') > -1) {
                         printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
                     }
                     distinctValues[printoutValues[i]] = printoutFormattedValue;
+                    distinctSortValues[printoutValues[i]] = printoutSortValues[i];
                 }
             }
+            for (var printoutValue in distinctSortValues) {
+                sortedEntries.push({
+                    printoutValue: printoutValue,
+                    sortValue: distinctSortValues[printoutValue],
+                    formattedValue: distinctValues[printoutValue]
+                });
+            }
+            sortedEntries.sort(function (a, b) {
+                return a.sortValue.localeCompare(b.sortValue);
+            });
+            return sortedEntries;
         }
-        return distinctValues;
     };
     ValueFilter.prototype.buildControl = function () {
+        var _this = this;
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
         filtercontrols.append('<div class="filtered-value-label"><span>' + this.options['label'] + '</span></div>');
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
-        var height = this.options.hasOwnProperty('height') ? this.options['height'] : undefined;
-        if (height !== undefined) {
-            filtercontrols = $('<div class="filtered-value-scrollable">')
-                .appendTo(filtercontrols);
-            filtercontrols.height(height);
-        }
+        // let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
+        // if ( height !== undefined ) {
+        // 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
+        // 	.appendTo( filtercontrols );
+        //
+        // 	filtercontrols.height( height );
+        // }
+        var select = $('<select class="filtered-value-select" style="width: 100%;">');
+        filtercontrols.append(select);
+        var data = [];
         // insert options (checkboxes and labels) and attach event handlers
-        for (var _i = 0, _a = Object.keys(this.values).sort(); _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
-            var option = $('<div class="filtered-value-option">');
-            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value + '"  >');
-            // attach event handler
-            checkbox
-                .on('change', undefined, { 'filter': this }, function (eventObject) {
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            });
             // Try to get label, if not fall back to value id
-            var label = this.values[value] || value;
-            option.append(checkbox).append(label);
-            filtercontrols.append(option);
+            var label = value.formattedValue || value.printoutValue;
+            data.push({ id: value.printoutValue, text: label });
         }
+        // To correctly calculate element sizes Select2 needs a settled DOM
+        // before being attached. filtercontrols.append returns before the DOM
+        // is settled, so setTimeout is used to asynchronously attach Select2
+        // when the DOM is ready.
+        setTimeout(function () {
+            select.select2({
+                multiple: true,
+                placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
+                minimumResultsForSearch: 5,
+                data: data
+            });
+            select.on("select2:select", function (e) {
+                _this.onFilterUpdated(e.params.data.id, true);
+            });
+            select.on("select2:unselect", function (e) {
+                _this.onFilterUpdated(e.params.data.id, false);
+            });
+        }, 0);
+        // $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
@@ -579,10 +661,8 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var andControl = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
-                var orControl_1 = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
+                var orControl_1 = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-or\" id=\"filtered-value-or-" + this.printrequestId + "\" value=\"or\" checked>");
+                var andControl = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\" class=\"filtered-value-and\" id=\"filtered-value-and-" + this.printrequestId + "\" value=\"and\">");
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
@@ -590,9 +670,9 @@ var ValueFilter = (function (_super) {
                 });
                 andorControl
                     .append(orControl_1)
-                    .append(' OR ')
+                    .append("<label for=\"filtered-value-or-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-or').text() + "</label>")
                     .append(andControl)
-                    .append(' AND ')
+                    .append("<label for=\"filtered-value-and-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-and').text() + "</label>")
                     .appendTo(switchControls);
             }
             filtercontrols.append(switchControls);
@@ -622,11 +702,8 @@ var ValueFilter = (function (_super) {
             return true;
         }
     };
-    ValueFilter.prototype.onFilterUpdated = function (eventObject) {
-        var target = $(eventObject.target);
-        var value = target.val();
+    ValueFilter.prototype.onFilterUpdated = function (value, isChecked) {
         var index = this.visibleValues.indexOf(value);
-        var isChecked = target.is(':checked');
         if (isChecked && index === -1) {
             this.visibleValues.push(value);
         }
@@ -717,7 +794,6 @@ var Filtered = (function () {
                         //  target: JQuery, printrequest: string,
                         // controller: Controller, options?: Options
                         var filter = new this.filterTypes[pr.filters[filterid].type](filterid, filtersContainer.children('#' + filterid), prId, controller, pr.filters[filterid]);
-                        filter.init();
                         controller.attachFilter(filter);
                     }
                 }
@@ -886,6 +962,7 @@ exports.ListView = ListView;
 
 },{"./View":11}],9:[function(require,module,exports){
 "use strict";
+/// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -908,30 +985,57 @@ var MapView = (function (_super) {
         _this.markerClusterGroup = undefined;
         _this.bounds = undefined;
         _this.initialized = false;
+        _this.zoom = -1;
+        _this.minZoom = -1;
+        _this.maxZoom = -1;
+        _this.leafletPromise = undefined;
         return _this;
     }
     MapView.prototype.init = function () {
+        var _this = this;
         var data = this.controller.getData();
         var markers = {};
-        var bounds = undefined;
-        var markerClusterGroup = L.markerClusterGroup({
-            animateAddingMarkers: true
-        });
-        for (var rowId in data) {
-            var positions = data[rowId]['data'][this.id]['positions'];
-            markers[rowId] = [];
-            for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
-                var pos = positions_1[_i];
-                bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
-                var marker = this.getMarker(pos, data[rowId]);
-                markers[rowId].push(marker);
-                markerClusterGroup.addLayer(marker);
-            }
+        if (this.options.hasOwnProperty('height')) {
+            this.target.height(this.options.height);
         }
-        this.markerClusterGroup = markerClusterGroup;
-        this.markers = markers;
-        this.bounds = bounds;
+        this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
+            .then(function () {
+            var bounds = undefined;
+            var disableClusteringAtZoom = _this.getZoomForUnclustering();
+            var clusterOptions = {
+                animateAddingMarkers: true,
+                disableClusteringAtZoom: disableClusteringAtZoom,
+                spiderfyOnMaxZoom: disableClusteringAtZoom === null
+            };
+            clusterOptions = _this.getOptions(['maxClusterRadius', 'zoomToBoundsOnClick'], clusterOptions);
+            var markerClusterGroup = L.markerClusterGroup(clusterOptions);
+            for (var rowId in data) {
+                if (data[rowId]['data'].hasOwnProperty(_this.id)) {
+                    var positions = data[rowId]['data'][_this.id]['positions'];
+                    markers[rowId] = [];
+                    for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+                        var pos = positions_1[_i];
+                        bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
+                        var marker = _this.getMarker(pos, data[rowId]);
+                        markers[rowId].push(marker);
+                        markerClusterGroup.addLayer(marker);
+                    }
+                }
+            }
+            _this.markerClusterGroup = markerClusterGroup;
+            _this.markers = markers;
+            _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
+        });
         return _super.prototype.init.call(this);
+    };
+    MapView.prototype.getZoomForUnclustering = function () {
+        if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
+            return 0;
+        }
+        if (this.options.hasOwnProperty('marker cluster max zoom')) {
+            return this.options['marker cluster max zoom'] + 1;
+        }
+        return null;
     };
     MapView.prototype.getIcon = function () {
         if (this.icon === undefined) {
@@ -972,31 +1076,69 @@ var MapView = (function (_super) {
         return marker;
     };
     MapView.prototype.lateInit = function () {
+        var _this = this;
         if (this.initialized) {
             return;
         }
         this.initialized = true;
         var that = this;
-        $(function () {
-            setTimeout(function () {
-                that.map = L.map(that.getTargetElement().get(0))
-                    .addLayer(L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: ''
-                }))
-                    .addLayer(that.markerClusterGroup)
-                    .fitBounds(that.bounds);
-            }, 0);
+        this.leafletPromise.then(function () {
+            var mapOptions = {
+                center: _this.bounds !== undefined ? _this.bounds.getCenter() : [0, 0]
+            };
+            mapOptions = that.getOptions(['zoom', 'minZoom', 'maxZoom'], mapOptions);
+            // TODO: Limit zoom values to map max zoom
+            that.map = L.map(that.getTargetElement().get(0), mapOptions);
+            that.map.addLayer(that.markerClusterGroup);
+            if (_this.options.hasOwnProperty('map provider')) {
+                L.tileLayer.provider(_this.options['map provider']).addTo(that.map);
+            }
+            if (!mapOptions.hasOwnProperty('zoom')) {
+                that.map.fitBounds(that.bounds);
+            }
         });
+    };
+    MapView.prototype.getOptions = function (keys, defaults) {
+        if (defaults === void 0) { defaults = {}; }
+        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+            var key = keys_1[_i];
+            if (this.options.hasOwnProperty(key)) {
+                defaults[key] = this.options[key];
+            }
+        }
+        return defaults;
     };
     MapView.prototype.showRows = function (rowIds) {
         var _this = this;
-        var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
-        this.markerClusterGroup.addLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        this.leafletPromise.then(function () {
+            _this.manipulateLayers(rowIds, function (layers) {
+                _this.markerClusterGroup.addLayers(layers);
+            });
+        });
     };
     MapView.prototype.hideRows = function (rowIds) {
         var _this = this;
-        var markers = rowIds.map(function (rowId) { return _this.markers[rowId]; });
-        this.markerClusterGroup.removeLayers(markers.reduce(function (result, layers) { return result.concat(layers); }));
+        this.leafletPromise.then(function () {
+            _this.manipulateLayers(rowIds, function (layers) {
+                _this.markerClusterGroup.removeLayers(layers);
+            });
+        });
+    };
+    MapView.prototype.manipulateLayers = function (rowIds, cb) {
+        var layersFromRowIds = this.getLayersFromRowIds(rowIds);
+        if (layersFromRowIds.length > 0) {
+            cb(layersFromRowIds);
+        }
+    };
+    MapView.prototype.getLayersFromRowIds = function (rowIds) {
+        return this.flatten(this.getLayersFromRowIdsRaw(rowIds));
+    };
+    MapView.prototype.getLayersFromRowIdsRaw = function (rowIds) {
+        var _this = this;
+        return rowIds.map(function (rowId) { return _this.markers[rowId] ? _this.markers[rowId] : []; });
+    };
+    MapView.prototype.flatten = function (markers) {
+        return markers.reduce(function (result, layers) { return result.concat(layers); }, []);
     };
     MapView.prototype.show = function () {
         _super.prototype.show.call(this);

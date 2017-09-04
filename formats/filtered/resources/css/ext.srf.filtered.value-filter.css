@@ -41,3 +41,23 @@
 .filtered-filters .filtered-value .filtered-value-scrollable {
 	overflow: auto;
 }
+
+.filtered-filters .filtered-value .select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: solid #777 1px;
+}
+
+.filtered-value-andor input[type="radio"]:not(:first-child) {
+	margin-left: 1em;
+}
+
+.filtered-value-andor input[type="radio"] {
+	margin-right: .5em;
+}
+
+.filtered-value-andor input[type="radio"],
+.filtered-value-andor label {
+	vertical-align: bottom;
+	margin-top: 0;
+	margin-bottom: 0;
+	line-height: 100%;
+}

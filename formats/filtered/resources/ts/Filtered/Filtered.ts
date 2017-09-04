@@ -96,7 +96,6 @@ export class Filtered {
 						//  target: JQuery, printrequest: string,
 						// controller: Controller, options?: Options
 						let filter: Filter = new this.filterTypes[ pr.filters[ filterid ].type ]( filterid, filtersContainer.children( '#' + filterid ), prId, controller, pr.filters[ filterid ] );
-						filter.init();
 
 						controller.attachFilter( filter );
 

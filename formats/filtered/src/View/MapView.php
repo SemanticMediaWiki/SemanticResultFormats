@@ -4,12 +4,34 @@ namespace SRF\Filtered\View;
 
 use DataValues\Geo\Parsers\GeoCoordinateParser;
 use Exception;
+use Message;
 use SMWPropertyValue;
 use SRF\Filtered\ResultItem;
 
 class MapView extends View {
 
-	private $markerPositionPropertyId = null;
+	private static $viewParams = null;
+
+	private $mapProvider = null;
+
+
+	/**
+	 * @param null $mapProvider
+	 */
+	public function setMapProvider( $mapProvider ) {
+		$this->mapProvider = $mapProvider;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getMapProvider() {
+		if ( $this->mapProvider === null ) {
+			$this->setMapProvider( isset( $GLOBALS[ 'srfgMapProvider' ] ) ? $GLOBALS[ 'srfgMapProvider' ] : '' );
+		}
+
+		return $this->mapProvider;
+	}
 
 	/**
 	 * @param ResultItem $row
@@ -17,7 +39,7 @@ class MapView extends View {
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
 
-		$markerPositionPropertyName = $this->getActualParameters()[ 'map view marker position property' ];
+		$markerPositionPropertyName = str_replace( ' ', '_', $this->getActualParameters()[ 'map view marker position property' ] );
 
 		foreach ( $row->getValue() as $field ) {
 
@@ -38,7 +60,7 @@ class MapView extends View {
 						$value = $field->getNextDataItem();
 					}
 
-				} else {
+				} elseif ( class_exists( 'DataValues\Geo\Parsers\GeoCoordinateParser' ) ) {
 
 					$coordParser = new GeoCoordinateParser();
 					while ( $value instanceof \SMWDataItem ) {
@@ -51,6 +73,8 @@ class MapView extends View {
 						}
 					}
 
+				} else {
+					$this->getQueryPrinter()->addError( Message::newFromKey( 'srf-filtered-map-geocoordinateparser-missing-error' )->inContentLanguage()->text() );
 				}
 
 				return [ 'positions' => $values, ];
@@ -60,23 +84,155 @@ class MapView extends View {
 		return null;
 	}
 
-	public static function getParameters() {
+	/**
+	 * Returns an array of config data for this view to be stored in the JS
+	 * @return array
+	 */
+	public function getJsConfig() {
+		$config = parent::getJsConfig();
 
-		$params = parent::getParameters();
-
-		$params[] = [
-			// 'type' => 'string',
-			'name'    => 'map view marker position property',
-			'message' => 'srf-paramdesc-filtered-map-position',
-			'default' => '',
-			// 'islist' => false,
+		$jsConfigKeys = [
+			'height',
+			'zoom',
+			'minZoom',
+			'maxZoom',
+			'marker cluster',
+			'marker cluster max zoom',
+			'maxClusterRadius',
+			'zoomToBoundsOnClick',
 		];
 
-		return $params;
+		foreach ( $jsConfigKeys as $key ) {
+			$this->addToConfig( $config, $key );
+		}
+
+		$config[ 'map provider' ] = $this->getMapProvider();
+
+		return $config;
 	}
 
+	/**
+	 * A function to describe the allowed parameters of a query for this view.
+	 *
+	 * @return array of Parameter
+	 */
+	public static function getParameters() {
+
+		if ( self::$viewParams === null ) {
+
+			$params = parent::getParameters();
+
+			$params[ 'marker position property' ] = [
+				// 'type' => 'string',
+				'name' => 'map view marker position property',
+				'message' => 'srf-paramdesc-filtered-map-position',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			$params[ 'height' ] = [
+				'type' => 'dimension',
+				'name' => 'map view height',
+				'message' => 'srf-paramdesc-filtered-map-height',
+				'default' => 'auto',
+				// 'islist' => false,
+			];
+
+			$params[ 'zoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view zoom',
+				'message' => 'srf-paramdesc-filtered-map-zoom',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			$params[ 'minZoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view min zoom',
+				'message' => 'srf-paramdesc-filtered-map-min-zoom',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			$params[ 'maxZoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view max zoom',
+				'message' => 'srf-paramdesc-filtered-map-max-zoom',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			//markercluster
+			$params[ 'marker cluster' ] = [
+				'type' => 'boolean',
+				'name' => 'map view marker cluster',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster',
+				'default' => true,
+				// 'islist' => false,
+			];
+
+			$params[ 'marker cluster max zoom' ] = [
+				'type' => 'integer',
+				'name' => 'map view marker cluster max zoom',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster-max-zoom',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			//clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
+			$params[ 'maxClusterRadius' ] = [
+				'type' => 'integer',
+				'name' => 'map view marker cluster radius',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster-max-radius',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
+			$params[ 'zoomToBoundsOnClick' ] = [
+				'type' => 'boolean',
+				'name' => 'map view marker cluster zoom on click',
+				'message' => 'srf-paramdesc-filtered-map-marker-cluster-zoom-on-click',
+				'default' => true,
+				// 'islist' => false,
+			];
+
+			self::$viewParams = $params;
+		}
+
+		return self::$viewParams;
+	}
+
+	/**
+	 * Returns the name of the resource module to load.
+	 *
+	 * @return string
+	 */
 	public function getResourceModules() {
 		return 'ext.srf.filtered.map-view';
+	}
+
+	/**
+	 * @param array $config
+	 * @param string $key
+	 */
+	private function addToConfig( &$config, $key ) {
+
+		$paramDefinition = self::getParameters()[ $key ];
+
+		$param = $this->getActualParameters()[ $paramDefinition[ 'name' ] ];
+
+		if ( $param !== $paramDefinition[ 'default' ] ) {
+			$config[ $key ] = $param;
+		}
+
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getInitError() {
+		return $this->getMapProvider() === ''? 'srf-filtered-map-provider-missing-error' : null;
 	}
 
 }

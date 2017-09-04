@@ -91,5 +91,6 @@ class NumberFilter extends Filter {
 		$this->addValueToJsConfig( 'number filter step', 'step' );
 		$this->addValueToJsConfig( 'number filter sliders', 'sliders' );
 		$this->addValueToJsConfig( 'number filter label', 'caption', $this->getPrintRequest()->getOutputFormat() );
+		$this->addValueListToJsConfig('number filter values', 'values' );
 	}
 }

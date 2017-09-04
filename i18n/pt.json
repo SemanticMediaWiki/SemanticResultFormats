@@ -265,6 +265,7 @@
 	"srf-filtered-noscript-error": "Os resultados não podem ser apresentados porque o Javascript não está ativado. Visite $1.",
 	"srf-filtered-noscript-link-caption": "resultados em forma de tabela",
 	"srf-filtered-map-provider-missing-error": "Não foi especificado um fornecedor de mapas para a vista \"mapa\".",
+	"srf-filtered-map-geocoordinateparser-missing-error": "Não foi encontrado o analisador de geocoordenadas. Precisa de instalar 'data_values/geo'.",
 	"srf-printername-d3chart": "Gráfico D3",
 	"srf-printername-timeseries": "Gráfico de séries temporais",
 	"srf-paramdesc-group": "Séries agrupadas por",

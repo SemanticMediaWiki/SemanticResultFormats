@@ -248,15 +248,6 @@ class ListView extends View {
 	}
 
 	/**
-	 * Returns the name of the resource module to load for this view.
-	 *
-	 * @return string|array
-	 */
-	public function getResourceModules() {
-		return 'ext.srf.filtered.list-view';
-	}
-
-	/**
 	 * Returns the label of the selector for this view.
 	 * @return String the selector label
 	 */
