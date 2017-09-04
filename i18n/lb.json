@@ -111,6 +111,8 @@
 	"srf-filtered-selectorlabel-table": "Tabell",
 	"srf-filtered-selectorlabel-calendar": "Kalenner",
 	"srf-filtered-selectorlabel-map": "Kaart",
+	"srf-filtered-value-filter-and": "AN",
+	"srf-filtered-value-filter-or": "ODER",
 	"srf-printername-d3chart": "D3 Grafik",
 	"srf-paramdesc-zoom": "Zoom aschalten",
 	"srf-paramdesc-pageitems": "Objete pro Säit:",
