@@ -8,7 +8,7 @@ Released on August 17, 2017.
 * #269: Fixed bug #263: Fix the `link` and `userparam` parameters on the "tree" format and provide tests for it (by Stephan Gambke)
 * #276: Use type `parser-html` for JsonScript tests of the "tree" format (by Stephan Gambke)
 * #284: Fixed rendering of the "calendar" format in Internet Explorer (by kwji)
-*	#285: Add `+hide` for all views of the "filtered" format (by Stephan Gambke)
+* #285: Add `+hide` for all views of the "filtered" format (by Stephan Gambke)
 * Provided translation updates (by translatewiki.net community)
 
 ## SRF 2.5.1

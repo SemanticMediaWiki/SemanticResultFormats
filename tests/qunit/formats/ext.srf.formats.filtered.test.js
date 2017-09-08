@@ -43,6 +43,7 @@ var Controller = (function () {
     Controller.prototype.attachFilter = function (filter) {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
+        filter.init();
         this.onFilterUpdated(filterId);
         return this;
     };
@@ -190,6 +191,7 @@ exports.Filter = Filter;
 
 },{}],3:[function(require,module,exports){
 "use strict";
+///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -263,32 +265,48 @@ var ValueFilter = (function (_super) {
         }
     };
     ValueFilter.prototype.buildControl = function () {
+        var _this = this;
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
         filtercontrols.append('<div class="filtered-value-label"><span>' + this.options['label'] + '</span></div>');
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
-        var height = this.options.hasOwnProperty('height') ? this.options['height'] : undefined;
-        if (height !== undefined) {
-            filtercontrols = $('<div class="filtered-value-scrollable">')
-                .appendTo(filtercontrols);
-            filtercontrols.height(height);
-        }
+        // let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
+        // if ( height !== undefined ) {
+        // 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
+        // 	.appendTo( filtercontrols );
+        //
+        // 	filtercontrols.height( height );
+        // }
+        var select = $('<select class="filtered-value-select" style="width: 100%;">');
+        filtercontrols.append(select);
+        var data = [];
         // insert options (checkboxes and labels) and attach event handlers
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
-            var option = $('<div class="filtered-value-option">');
-            var checkbox = $('<input type="checkbox" class="filtered-value-value" value="' + value.printoutValue + '"  >');
-            // attach event handler
-            checkbox
-                .on('change', undefined, { 'filter': this }, function (eventObject) {
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            });
             // Try to get label, if not fall back to value id
-            var label = value.formattedValue || value.printoutValue; //this.values[ value ] || value;
-            option.append(checkbox).append(label);
-            filtercontrols.append(option);
+            var label = value.formattedValue || value.printoutValue;
+            data.push({ id: value.printoutValue, text: label });
         }
+        // To correctly calculate element sizes Select2 needs a settled DOM
+        // before being attached. filtercontrols.append returns before the DOM
+        // is settled, so setTimeout is used to asynchronously attach Select2
+        // when the DOM is ready.
+        setTimeout(function () {
+            select.select2({
+                multiple: true,
+                placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
+                minimumResultsForSearch: 5,
+                data: data
+            });
+            select.on("select2:select", function (e) {
+                _this.onFilterUpdated(e.params.data.id, true);
+            });
+            select.on("select2:unselect", function (e) {
+                _this.onFilterUpdated(e.params.data.id, false);
+            });
+        }, 0);
+        // $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
@@ -297,10 +315,8 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var andControl = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-and ' + this.printrequestId + '" value="and">');
-                var orControl_1 = $('<input type="radio" name="filtered-value-' +
-                    this.printrequestId + '"  class="filtered-value-or ' + this.printrequestId + '" value="or" checked>');
+                var orControl_1 = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-or\" id=\"filtered-value-or-" + this.printrequestId + "\" value=\"or\" checked>");
+                var andControl = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\" class=\"filtered-value-and\" id=\"filtered-value-and-" + this.printrequestId + "\" value=\"and\">");
                 andControl
                     .add(orControl_1)
                     .on('change', undefined, { 'filter': this }, function (eventObject) {
@@ -308,9 +324,9 @@ var ValueFilter = (function (_super) {
                 });
                 andorControl
                     .append(orControl_1)
-                    .append(' OR ')
+                    .append("<label for=\"filtered-value-or-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-or').text() + "</label>")
                     .append(andControl)
-                    .append(' AND ')
+                    .append("<label for=\"filtered-value-and-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-and').text() + "</label>")
                     .appendTo(switchControls);
             }
             filtercontrols.append(switchControls);
@@ -340,11 +356,8 @@ var ValueFilter = (function (_super) {
             return true;
         }
     };
-    ValueFilter.prototype.onFilterUpdated = function (eventObject) {
-        var target = $(eventObject.target);
-        var value = target.val();
+    ValueFilter.prototype.onFilterUpdated = function (value, isChecked) {
         var index = this.visibleValues.indexOf(value);
-        var isChecked = target.is(':checked');
         if (isChecked && index === -1) {
             this.visibleValues.push(value);
         }
@@ -808,11 +821,13 @@ var ValueFilterTest = (function (_super) {
         // Assert
         assert.strictEqual(target.find('.filtered-collapsible').length, 1, 'Added container for collapsable content.');
         assert.strictEqual(target.find('.filtered-value-andor').length, 1, 'Added container for and/or switch.');
-        // Assert: One input added per value
-        for (var _i = 0, _a = options.values; _i < _a.length; _i++) {
-            var value = _a[_i];
-            assert.strictEqual(target.find("input[value=\"" + value + "\"]").length, 1, "Added input for value \"" + value + "\".");
-        }
+        setTimeout(function () {
+            // Assert: One input added per value
+            for (var _i = 0, _a = options.values; _i < _a.length; _i++) {
+                var value = _a[_i];
+                assert.strictEqual(target.find("option[value=\"" + value + "\"]").length, 1, "Added option for value \"" + value + "\".");
+            }
+        }, 100);
     };
     ;
     ValueFilterTest.prototype.testUseOr = function (assert) {

@@ -32,12 +32,9 @@ abstract class View {
 	 */
 	public function __construct( array &$results, array &$params, Filtered &$queryPrinter ) {
 		$this->mResults = $results;
-//		$this->mSelectorLabel = $selectorLabel;
 		$this->mParameters = $params;
 		$this->mQueryPrinter = $queryPrinter;
 	}
-
-//	public function getId() { return $this->mId; }
 
 	/**
 	 * @return ResultItem[]
@@ -67,6 +64,8 @@ abstract class View {
 	/**
 	 * A function to describe the allowed parameters of a query for this view.
 	 *
+	 * @see DefaultConfig.php of param-processor/param-processor for allowed types
+	 *
 	 * @return array of Parameter
 	 */
 	public static function getParameters() {
@@ -85,6 +84,10 @@ abstract class View {
 		return '';
 	}
 
+	/**
+	 * @param ResultItem $row
+	 * @return null
+	 */
 	public function getJsDataForRow( ResultItem $row ) {
 		return null;
 	}
@@ -97,4 +100,13 @@ abstract class View {
 		return [];
 	}
 
+	/**
+	 * Check if the view is ready to run, e.g. all required environment
+	 * variables are set.
+	 *
+	 * @return string | null
+	 */
+	public function getInitError() {
+		return null;
+	}
 }
