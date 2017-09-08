@@ -1,23 +1,20 @@
-/* @preserve
- * Leaflet 1.2.0, a JS library for interactive maps. http://leafletjs.com
+/*
+ * Leaflet 1.1.0, a JS library for interactive maps. http://leafletjs.com
  * (c) 2010-2017 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.L = {})));
+	(factory((global.L = global.L || {})));
 }(this, (function (exports) { 'use strict';
 
-var version = "1.2.0";
+var version = "1.1.0";
 
 /*
  * @namespace Util
  *
  * Various utility functions, used by Leaflet internally.
  */
-
-var freeze = Object.freeze;
-Object.freeze = function (obj) { return obj; };
 
 // @function extend(dest: Object, src?: Object): Object
 // Merges the properties of the `src` object (or multiple objects) into `dest` object and returns the latter. Has an `L.extend` shortcut.
@@ -254,7 +251,6 @@ function cancelAnimFrame(id) {
 
 
 var Util = (Object.freeze || Object)({
-	freeze: freeze,
 	extend: extend,
 	create: create,
 	bind: bind,
@@ -2218,8 +2214,6 @@ function off(obj, types, fn, context) {
 		}
 		delete obj[eventsKey];
 	}
-
-	return this;
 }
 
 function addOne(obj, type, fn, context) {
@@ -2329,8 +2323,7 @@ function stopPropagation(e) {
 // @function disableScrollPropagation(el: HTMLElement): this
 // Adds `stopPropagation` to the element's `'mousewheel'` events (plus browser variants).
 function disableScrollPropagation(el) {
-	addOne(el, 'mousewheel', stopPropagation);
-	return this;
+	return addOne(el, 'mousewheel', stopPropagation);
 }
 
 // @function disableClickPropagation(el: HTMLElement): this
@@ -4919,6 +4912,13 @@ var Layers = Control.extend({
 			on(link, 'focus', this.expand, this);
 		}
 
+		// work around for Firefox Android issue https://github.com/Leaflet/Leaflet/issues/2033
+		on(form, 'click', function () {
+			setTimeout(bind(this._onInputClick, this), 0);
+		}, this);
+
+		// TODO keyboard accessibility
+
 		if (!collapsed) {
 			this.expand();
 		}
@@ -4951,7 +4951,7 @@ var Layers = Control.extend({
 		});
 
 		if (this.options.sortLayers) {
-			this._layers.sort(bind(function (a, b) {
+			this._layers.sort(L.bind(function (a, b) {
 				return this.options.sortFunction(a.layer, b.layer, a.name, b.name);
 			}, this));
 		}
@@ -5068,7 +5068,7 @@ var Layers = Control.extend({
 
 	_onInputClick: function () {
 		var inputs = this._layerControlInputs,
-		    input, layer;
+		    input, layer, hasLayer;
 		var addedLayers = [],
 		    removedLayers = [];
 
@@ -5077,24 +5077,22 @@ var Layers = Control.extend({
 		for (var i = inputs.length - 1; i >= 0; i--) {
 			input = inputs[i];
 			layer = this._getLayer(input.layerId).layer;
+			hasLayer = this._map.hasLayer(layer);
 
-			if (input.checked) {
+			if (input.checked && !hasLayer) {
 				addedLayers.push(layer);
-			} else if (!input.checked) {
+
+			} else if (!input.checked && hasLayer) {
 				removedLayers.push(layer);
 			}
 		}
 
 		// Bugfix issue 2318: Should remove all old layers before readding new ones
 		for (i = 0; i < removedLayers.length; i++) {
-			if (this._map.hasLayer(removedLayers[i])) {
-				this._map.removeLayer(removedLayers[i]);
-			}
+			this._map.removeLayer(removedLayers[i]);
 		}
 		for (i = 0; i < addedLayers.length; i++) {
-			if (!this._map.hasLayer(addedLayers[i])) {
-				this._map.addLayer(addedLayers[i]);
-			}
+			this._map.addLayer(addedLayers[i]);
 		}
 
 		this._handlingClick = false;
@@ -5604,6 +5602,7 @@ var Mixin = {Events: Events};
  * ```
  */
 
+var _dragging = false;
 var START = touch ? 'touchstart mousedown' : 'mousedown';
 var END = {
 	mousedown: 'mouseup',
@@ -5657,7 +5656,7 @@ var Draggable = Evented.extend({
 
 		// If we're currently dragging this draggable,
 		// disabling it counts as first ending the drag.
-		if (Draggable._dragging === this) {
+		if (L.Draggable._dragging === this) {
 			this.finishDrag();
 		}
 
@@ -5679,8 +5678,8 @@ var Draggable = Evented.extend({
 
 		if (hasClass(this._element, 'leaflet-zoom-anim')) { return; }
 
-		if (Draggable._dragging || e.shiftKey || ((e.which !== 1) && (e.button !== 1) && !e.touches)) { return; }
-		Draggable._dragging = this;  // Prevent dragging multiple objects at once.
+		if (_dragging || e.shiftKey || ((e.which !== 1) && (e.button !== 1) && !e.touches)) { return; }
+		_dragging = this;  // Prevent dragging multiple objects at once.
 
 		if (this._preventOutline) {
 			preventOutline(this._element);
@@ -5804,7 +5803,7 @@ var Draggable = Evented.extend({
 		}
 
 		this._moving = false;
-		Draggable._dragging = false;
+		_dragging = false;
 	}
 
 });
@@ -6037,15 +6036,9 @@ function _sqClosestPointOnSegment(p, p1, p2, sqDist) {
 }
 
 
-// @function isFlat(latlngs: LatLng[]): Boolean
-// Returns true if `latlngs` is a flat array, false is nested.
-function isFlat(latlngs) {
-	return !isArray(latlngs[0]) || (typeof latlngs[0][0] !== 'object' && typeof latlngs[0][0] !== 'undefined');
-}
-
 function _flat(latlngs) {
-	console.warn('Deprecated use of _flat, please use L.LineUtil.isFlat instead.');
-	return isFlat(latlngs);
+	// true if it's a flat array of latlngs; false if nested
+	return !isArray(latlngs[0]) || (typeof latlngs[0][0] !== 'object' && typeof latlngs[0][0] !== 'undefined');
 }
 
 
@@ -6057,7 +6050,6 @@ var LineUtil = (Object.freeze || Object)({
 	_getEdgeIntersection: _getEdgeIntersection,
 	_getBitCode: _getBitCode,
 	_sqClosestPointOnSegment: _sqClosestPointOnSegment,
-	isFlat: isFlat,
 	_flat: _flat
 });
 
@@ -6336,8 +6328,8 @@ var Layer = Evented.extend({
 	/* @section
 	 * Classes extending `L.Layer` will inherit the following methods:
 	 *
-	 * @method addTo(map: Map|LayerGroup): this
-	 * Adds the layer to the given map or layer group.
+	 * @method addTo(map: Map): this
+	 * Adds the layer to the given map
 	 */
 	addTo: function (map) {
 		map.addLayer(this);
@@ -6446,10 +6438,6 @@ Map.include({
 	// @method addLayer(layer: Layer): this
 	// Adds the given layer to the map
 	addLayer: function (layer) {
-		if (!layer._layerAdd) {
-			throw new Error('The provided object is not a Layer.');
-		}
-
 		var id = stamp(layer);
 		if (this._layers[id]) { return this; }
 		this._layers[id] = layer;
@@ -6726,7 +6714,7 @@ var LayerGroup = Layer.extend({
 });
 
 
-// @factory L.layerGroup(layers?: Layer[])
+// @factory L.layerGroup(layers: Layer[])
 // Create a layer group, optionally given an initial set of layers.
 var layerGroup = function (layers) {
 	return new LayerGroup(layers);
@@ -7996,13 +7984,13 @@ var Polyline = Path.extend({
 	},
 
 	_defaultShape: function () {
-		return isFlat(this._latlngs) ? this._latlngs : this._latlngs[0];
+		return _flat(this._latlngs) ? this._latlngs : this._latlngs[0];
 	},
 
 	// recursively convert latlngs input into actual LatLng instances; calculate bounds along the way
 	_convertLatLngs: function (latlngs) {
 		var result = [],
-		    flat = isFlat(latlngs);
+		    flat = _flat(latlngs);
 
 		for (var i = 0, len = latlngs.length; i < len; i++) {
 			if (flat) {
@@ -8142,9 +8130,6 @@ function polyline(latlngs, options) {
 	return new Polyline(latlngs, options);
 }
 
-// Retrocompat. Allow plugins to support Leaflet versions before and after 1.1.
-Polyline._flat = _flat;
-
 /*
  * @class Polygon
  * @aka L.Polygon
@@ -8249,13 +8234,13 @@ var Polygon = Polyline.extend({
 
 	_setLatLngs: function (latlngs) {
 		Polyline.prototype._setLatLngs.call(this, latlngs);
-		if (isFlat(this._latlngs)) {
+		if (_flat(this._latlngs)) {
 			this._latlngs = [this._latlngs];
 		}
 	},
 
 	_defaultShape: function () {
-		return isFlat(this._latlngs[0]) ? this._latlngs[0] : this._latlngs[0][0];
+		return _flat(this._latlngs[0]) ? this._latlngs[0] : this._latlngs[0][0];
 	},
 
 	_clipPoints: function () {
@@ -8627,7 +8612,7 @@ CircleMarker.include(PointToGeoJSON);
 // Returns a [`GeoJSON`](http://en.wikipedia.org/wiki/GeoJSON) representation of the polyline (as a GeoJSON `LineString` or `MultiLineString` Feature).
 Polyline.include({
 	toGeoJSON: function (precision) {
-		var multi = !isFlat(this._latlngs);
+		var multi = !_flat(this._latlngs);
 
 		var coords = latLngsToCoords(this._latlngs, multi ? 1 : 0, false, precision);
 
@@ -8643,8 +8628,8 @@ Polyline.include({
 // Returns a [`GeoJSON`](http://en.wikipedia.org/wiki/GeoJSON) representation of the polygon (as a GeoJSON `Polygon` or `MultiPolygon` Feature).
 Polygon.include({
 	toGeoJSON: function (precision) {
-		var holes = !isFlat(this._latlngs),
-		    multi = holes && !isFlat(this._latlngs[0]);
+		var holes = !_flat(this._latlngs),
+		    multi = holes && !_flat(this._latlngs[0]);
 
 		var coords = latLngsToCoords(this._latlngs, multi ? 2 : holes ? 1 : 0, true, precision);
 
@@ -8863,7 +8848,7 @@ var ImageOverlay = Layer.extend({
 	// @method setBounds(bounds: LatLngBounds): this
 	// Update the bounds that this ImageOverlay covers
 	setBounds: function (bounds) {
-		this._bounds = toLatLngBounds(bounds);
+		this._bounds = bounds;
 
 		if (this._map) {
 			this._reset();
@@ -8994,8 +8979,8 @@ var imageOverlay = function (url, bounds, options) {
  *
  * ```js
  * var videoUrl = 'https://www.mapbox.com/bites/00188/patricia_nasa.webm',
- * 	videoBounds = [[ 32, -130], [ 13, -100]];
- * L.VideoOverlay(videoUrl, videoBounds ).addTo(map);
+ * 	imageBounds = [[ 32, -130], [ 13, -100]];
+ * L.imageOverlay(imageUrl, imageBounds).addTo(map);
  * ```
  */
 
@@ -9014,11 +8999,8 @@ var VideoOverlay = ImageOverlay.extend({
 	},
 
 	_initImage: function () {
-		var wasElementSupplied = this._url.tagName === 'VIDEO';
-		var vid = this._image = wasElementSupplied ? this._url : create$1('video');
-
-		vid.class = vid.class || '';
-		vid.class += 'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : '');
+		var vid = this._image = create$1('video',
+			'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));
 
 		vid.onselectstart = falseFn;
 		vid.onmousemove = falseFn;
@@ -9026,8 +9008,6 @@ var VideoOverlay = ImageOverlay.extend({
 		// @event load: Event
 		// Fired when the video has finished loading the first frame
 		vid.onloadeddata = bind(this.fire, this, 'load');
-
-		if (wasElementSupplied) { return; }
 
 		if (!isArray(this._url)) { this._url = [this._url]; }
 
@@ -9046,12 +9026,11 @@ var VideoOverlay = ImageOverlay.extend({
 });
 
 
-// @factory L.videoOverlay(video: String|Array|HTMLVideoElement, bounds: LatLngBounds, options?: VideoOverlay options)
-// Instantiates an image overlay object given the URL of the video (or array of URLs, or even a video element) and the
+// @factory L.videoOverlay(videoUrl: String|Array, bounds: LatLngBounds, options?: VideoOverlay options)
+// Instantiates an image overlay object given the URL of the video (or array of URLs) and the
 // geographical bounds it is tied to.
-
-function videoOverlay(video, bounds, options) {
-	return new VideoOverlay(video, bounds, options);
+function videoOverlay(url, bounds, options) {
+	return new VideoOverlay(url, bounds, options);
 }
 
 /*
@@ -9609,7 +9588,7 @@ Layer.include({
 
 	// @method bindPopup(content: String|HTMLElement|Function|Popup, options?: Popup options): this
 	// Binds a popup to the layer with the passed `content` and sets up the
-	// necessary event listeners. If a `Function` is passed it will receive
+	// neccessary event listeners. If a `Function` is passed it will receive
 	// the layer as the first argument and should return a `String` or `HTMLElement`.
 	bindPopup: function (content, options) {
 
@@ -10012,7 +9991,7 @@ Layer.include({
 
 	// @method bindTooltip(content: String|HTMLElement|Function|Tooltip, options?: Tooltip options): this
 	// Binds a tooltip to the layer with the passed `content` and sets up the
-	// necessary event listeners. If a `Function` is passed it will receive
+	// neccessary event listeners. If a `Function` is passed it will receive
 	// the layer as the first argument and should return a `String` or `HTMLElement`.
 	bindTooltip: function (content, options) {
 
@@ -10325,11 +10304,8 @@ var GridLayer = Layer.extend({
 		// Opacity of the tiles. Can be used in the `createTile()` function.
 		opacity: 1,
 
-		// @option updateWhenIdle: Boolean = (depends)
-		// Load new tiles only when panning ends.
-		// `true` by default on mobile browsers, in order to avoid too many requests and keep smooth navigation.
-		// `false` otherwise in order to display new tiles _during_ panning, since it is easy to pan outside the
-		// [`keepBuffer`](#gridlayer-keepbuffer) option in desktop browsers.
+		// @option updateWhenIdle: Boolean = depends
+		// If `false`, new tiles are loaded during panning, otherwise only after it (for better performance). `true` by default on mobile browsers, otherwise `false`.
 		updateWhenIdle: mobile,
 
 		// @option updateWhenZooming: Boolean = true
@@ -11181,7 +11157,7 @@ function gridLayer(options) {
  * 'http://{s}.somedomain.com/blabla/{z}/{x}/{y}{r}.png'
  * ```
  *
- * `{s}` means one of the available subdomains (used sequentially to help with browser parallel requests per domain limitation; subdomain values are specified in options; `a`, `b` or `c` by default, can be omitted), `{z}` — zoom level, `{x}` and `{y}` — tile coordinates. `{r}` can be used to add "&commat;2x" to the URL to load retina tiles.
+ * `{s}` means one of the available subdomains (used sequentially to help with browser parallel requests per domain limitation; subdomain values are specified in options; `a`, `b` or `c` by default, can be omitted), `{z}` — zoom level, `{x}` and `{y}` — tile coordinates. `{r}` can be used to add @2x to the URL to load retina tiles.
  *
  * You can use custom keys in the template, which will be [evaluated](#util-template) from TileLayer options, like this:
  *
@@ -13524,8 +13500,6 @@ function noConflict() {
 
 // Always export us to window global (see #2364)
 window.L = exports;
-
-Object.freeze = freeze;
 
 exports.version = version;
 exports.noConflict = noConflict;
