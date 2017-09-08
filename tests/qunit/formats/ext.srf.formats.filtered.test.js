@@ -133,7 +133,7 @@ var Controller = (function () {
 }());
 exports.Controller = Controller;
 
-},{"./View/View":6}],2:[function(require,module,exports){
+},{"./View/View":5}],2:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var Filter = (function () {
@@ -265,21 +265,38 @@ var ValueFilter = (function (_super) {
         }
     };
     ValueFilter.prototype.buildControl = function () {
-        var _this = this;
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
-        filtercontrols.append('<div class="filtered-value-label"><span>' + this.options['label'] + '</span></div>');
+        filtercontrols.append("<div class=\"filtered-value-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
-        // let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
-        // if ( height !== undefined ) {
-        // 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
-        // 	.appendTo( filtercontrols );
-        //
-        // 	filtercontrols.height( height );
-        // }
+        var maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;
+        if (this.values.length > maxCheckboxes) {
+            filtercontrols.append(this.getSelected2Control());
+        }
+        else {
+            filtercontrols.append(this.getCheckboxesControl());
+        }
+    };
+    ValueFilter.prototype.getCheckboxesControl = function () {
+        var _this = this;
+        var checkboxes = $('<div class="filtered-value-checkboxes" style="width: 100%;">');
+        // insert options (checkboxes and labels)
+        for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
+            var value = _a[_i];
+            checkboxes.append("<div class=\"filtered-value-option\"><input type=\"checkbox\" class=\"filtered-value-value\" value=\"" + value.printoutValue + "\" ><label>" + (value.formattedValue || value.printoutValue) + "</label></div>");
+        }
+        // attach event handler
+        checkboxes
+            .on('change', ':checkbox', function (eventObject) {
+            var checkboxElement = eventObject.currentTarget;
+            _this.onFilterUpdated(checkboxElement.value, checkboxElement.checked);
+        });
+        return checkboxes;
+    };
+    ValueFilter.prototype.getSelected2Control = function () {
+        var _this = this;
         var select = $('<select class="filtered-value-select" style="width: 100%;">');
-        filtercontrols.append(select);
         var data = [];
         // insert options (checkboxes and labels) and attach event handlers
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
@@ -288,15 +305,10 @@ var ValueFilter = (function (_super) {
             var label = value.formattedValue || value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        // To correctly calculate element sizes Select2 needs a settled DOM
-        // before being attached. filtercontrols.append returns before the DOM
-        // is settled, so setTimeout is used to asynchronously attach Select2
-        // when the DOM is ready.
-        setTimeout(function () {
+        mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
             select.select2({
                 multiple: true,
                 placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
-                minimumResultsForSearch: 5,
                 data: data
             });
             select.on("select2:select", function (e) {
@@ -305,8 +317,8 @@ var ValueFilter = (function (_super) {
             select.on("select2:unselect", function (e) {
                 _this.onFilterUpdated(e.params.data.id, false);
             });
-        }, 0);
-        // $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
+        });
+        return select;
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
@@ -371,38 +383,6 @@ var ValueFilter = (function (_super) {
 exports.ValueFilter = ValueFilter;
 
 },{"./Filter":2}],4:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-
-},{}],5:[function(require,module,exports){
 "use strict";
 /// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
@@ -590,7 +570,7 @@ var MapView = (function (_super) {
 }(View_1.View));
 exports.MapView = MapView;
 
-},{"./View":6}],6:[function(require,module,exports){
+},{"./View":5}],5:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = (function () {
@@ -630,6 +610,38 @@ var View = (function () {
     return View;
 }());
 exports.View = View;
+
+},{}],6:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
 
 },{}],7:[function(require,module,exports){
 "use strict";
@@ -759,7 +771,7 @@ var ControllerTest = (function () {
 }());
 exports.ControllerTest = ControllerTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":6,"../Util/MockedFilter":12}],8:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/View/View":5,"../Util/MockedFilter":12}],8:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -848,6 +860,123 @@ var ValueFilterTest = (function (_super) {
 exports.ValueFilterTest = ValueFilterTest;
 
 },{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/Filter/ValueFilter":3,"../../Util/QUnitTest":13}],9:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var ViewTest_1 = require("./ViewTest");
+var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
+var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
+var MapViewTest = (function (_super) {
+    __extends(MapViewTest, _super);
+    function MapViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // TODO:
+    MapViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        if (c === undefined) {
+            c = new Controller_1.Controller(undefined, undefined, undefined);
+        }
+        return new MapView_1.MapView(id, target, c, options);
+    };
+    ;
+    MapViewTest.prototype.runTests = function () {
+        _super.prototype.runTests.call(this);
+        return true;
+    };
+    ;
+    return MapViewTest;
+}(ViewTest_1.ViewTest));
+exports.MapViewTest = MapViewTest;
+
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/MapView":4,"./ViewTest":10}],10:[function(require,module,exports){
+"use strict";
+/// <reference types="qunit" />
+/// <reference types="jquery" />
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var QUnitTest_1 = require("../../Util/QUnitTest");
+var View_1 = require("../../../../resources/ts/Filtered/View/View");
+var ViewTest = (function (_super) {
+    __extends(ViewTest, _super);
+    function ViewTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // Coverage:
+    // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
+    // [x] public init()
+    // [x] public getTargetElement(): JQuery
+    // [ ] public showRows( rowIds: string[] )
+    // [ ] public hideRows( rowIds: string[] )
+    // [x] public show()
+    // [x] public hide()
+    ViewTest.prototype.getTestObject = function (id, target, c, options) {
+        if (id === void 0) { id = 'foo'; }
+        if (target === void 0) { target = undefined; }
+        if (c === void 0) { c = undefined; }
+        if (options === void 0) { options = {}; }
+        return new View_1.View(id, target, c, options);
+    };
+    ;
+    ViewTest.prototype.runTests = function () {
+        var className = this.getTestObject().constructor['name'];
+        var that = this;
+        QUnit.test(className + ": Can construct, init and knows target element", function (assert) { that.testBasics(assert, that); });
+        QUnit.test(className + ": Show and Hide", function (assert) { that.testShowAndHide(assert, that); });
+        return true;
+    };
+    ;
+    ViewTest.prototype.testBasics = function (assert, that) {
+        //Setup
+        var target = $('<div>');
+        // Run
+        var v = that.getTestObject('foo', target);
+        v.init();
+        // Assert
+        assert.ok(v instanceof View_1.View, 'Can construct View.');
+        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
+    };
+    ;
+    ViewTest.prototype.testShowAndHide = function (assert, that) {
+        // Setup
+        var target = $('<div>');
+        target.show = function () { assert.ok(true, 'Target element shown.'); return target; };
+        target.hide = function () { assert.ok(true, 'Target element hidden.'); return target; };
+        var v = that.getTestObject('foo', target);
+        v.init();
+        v.show();
+        v.hide();
+        assert.expect(2);
+    };
+    ;
+    return ViewTest;
+}(QUnitTest_1.QUnitTest));
+exports.ViewTest = ViewTest;
+
+},{"../../../../resources/ts/Filtered/View/View":5,"../../Util/QUnitTest":13}],11:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
@@ -955,124 +1084,7 @@ var ViewSelectorTest = (function () {
 }());
 exports.ViewSelectorTest = ViewSelectorTest;
 
-},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":4}],10:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
-var ViewTest_1 = require("./ViewTest");
-var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
-var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
-var MapViewTest = (function (_super) {
-    __extends(MapViewTest, _super);
-    function MapViewTest() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // TODO:
-    MapViewTest.prototype.getTestObject = function (id, target, c, options) {
-        if (id === void 0) { id = 'foo'; }
-        if (target === void 0) { target = undefined; }
-        if (c === void 0) { c = undefined; }
-        if (options === void 0) { options = {}; }
-        if (c === undefined) {
-            c = new Controller_1.Controller(undefined, undefined, undefined);
-        }
-        return new MapView_1.MapView(id, target, c, options);
-    };
-    ;
-    MapViewTest.prototype.runTests = function () {
-        _super.prototype.runTests.call(this);
-        return true;
-    };
-    ;
-    return MapViewTest;
-}(ViewTest_1.ViewTest));
-exports.MapViewTest = MapViewTest;
-
-},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/MapView":5,"./ViewTest":11}],11:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
-var QUnitTest_1 = require("../../Util/QUnitTest");
-var View_1 = require("../../../../resources/ts/Filtered/View/View");
-var ViewTest = (function (_super) {
-    __extends(ViewTest, _super);
-    function ViewTest() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // Coverage:
-    // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
-    // [x] public init()
-    // [x] public getTargetElement(): JQuery
-    // [ ] public showRows( rowIds: string[] )
-    // [ ] public hideRows( rowIds: string[] )
-    // [x] public show()
-    // [x] public hide()
-    ViewTest.prototype.getTestObject = function (id, target, c, options) {
-        if (id === void 0) { id = 'foo'; }
-        if (target === void 0) { target = undefined; }
-        if (c === void 0) { c = undefined; }
-        if (options === void 0) { options = {}; }
-        return new View_1.View(id, target, c, options);
-    };
-    ;
-    ViewTest.prototype.runTests = function () {
-        var className = this.getTestObject().constructor['name'];
-        var that = this;
-        QUnit.test(className + ": Can construct, init and knows target element", function (assert) { that.testBasics(assert, that); });
-        QUnit.test(className + ": Show and Hide", function (assert) { that.testShowAndHide(assert, that); });
-        return true;
-    };
-    ;
-    ViewTest.prototype.testBasics = function (assert, that) {
-        //Setup
-        var target = $('<div>');
-        // Run
-        var v = that.getTestObject('foo', target);
-        v.init();
-        // Assert
-        assert.ok(v instanceof View_1.View, 'Can construct View.');
-        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
-    };
-    ;
-    ViewTest.prototype.testShowAndHide = function (assert, that) {
-        // Setup
-        var target = $('<div>');
-        target.show = function () { assert.ok(true, 'Target element shown.'); return target; };
-        target.hide = function () { assert.ok(true, 'Target element hidden.'); return target; };
-        var v = that.getTestObject('foo', target);
-        v.init();
-        v.show();
-        v.hide();
-        assert.expect(2);
-    };
-    ;
-    return ViewTest;
-}(QUnitTest_1.QUnitTest));
-exports.ViewTest = ViewTest;
-
-},{"../../../../resources/ts/Filtered/View/View":6,"../../Util/QUnitTest":13}],12:[function(require,module,exports){
+},{"../../../resources/ts/Filtered/Controller":1,"../../../resources/ts/Filtered/ViewSelector":6}],12:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1172,4 +1184,4 @@ var testclasses = [
 var testhandler = new QUnitTestHandler_1.QUnitTestHandler('ext.srf.formats.filtered', testclasses);
 testhandler.runTests();
 
-},{"./Filtered/ControllerTest":7,"./Filtered/Filter/ValueFilterTest":8,"./Filtered/View/MapViewTest":10,"./Filtered/View/ViewTest":11,"./Filtered/ViewSelectorTest":9,"./Util/QUnitTestHandler":14}]},{},[15]);
+},{"./Filtered/ControllerTest":7,"./Filtered/Filter/ValueFilterTest":8,"./Filtered/View/MapViewTest":9,"./Filtered/View/ViewTest":10,"./Filtered/ViewSelectorTest":11,"./Util/QUnitTestHandler":14}]},{},[15]);

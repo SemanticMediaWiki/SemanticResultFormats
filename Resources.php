@@ -802,7 +802,6 @@ return [
 				'srf-filtered-value-filter-and',
 				'srf-filtered-value-filter-or',
 				],
-			'dependencies' => [ 'ext.srf.filtered.value-filter.select' ],
 		],
 
 	'ext.srf.filtered.value-filter.select' => $formatModule + [

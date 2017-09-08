@@ -154,7 +154,7 @@ abstract class Filter {
 	protected function addValueListToJsConfig( $paramName, $configName, $default = null, $callback = null ) {
 
 		$this->addValueToJsConfig( $paramName, $configName, $default, function ( $valueList ) use ( $callback ) {
-			$parsedValues = array_map( 'trim', explode( ',', $valueList ) );
+			$parsedValues = $this->getQueryPrinter()->getArrayFromValueList( $valueList );
 			return ( $callback !== null ) ? array_map( $callback, $parsedValues ) : $parsedValues;
 		} );
 
