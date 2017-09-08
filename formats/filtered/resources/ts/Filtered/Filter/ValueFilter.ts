@@ -63,11 +63,11 @@ export class ValueFilter extends Filter {
 			}
 
 			for ( let printoutValue in distinctSortValues ) {
-				sortedEntries.push({
+				sortedEntries.push( {
 					printoutValue: printoutValue,
 					sortValue: distinctSortValues[ printoutValue ],
 					formattedValue: distinctValues[ printoutValue ]
-				});
+				} );
 			}
 
 			sortedEntries.sort(
@@ -85,21 +85,43 @@ export class ValueFilter extends Filter {
 		let filtercontrols = this.target;
 
 		// insert the label of the printout this filter filters on
-		filtercontrols.append( '<div class="filtered-value-label"><span>' + this.options[ 'label' ] + '</span></div>' );
+		filtercontrols.append( `<div class="filtered-value-label"><span>${this.options[ 'label' ]}</span></div>` );
 
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
 		this.addControlForSwitches( filtercontrols );
 
-		// let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
-		// if ( height !== undefined ) {
-		// 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
-		// 	.appendTo( filtercontrols );
-		//
-		// 	filtercontrols.height( height );
-		// }
+		let maxCheckboxes = this.options.hasOwnProperty( 'max checkboxes' ) ? this.options[ 'max checkboxes' ] : 5;
+
+		if ( this.values.length > maxCheckboxes ) {
+			filtercontrols.append( this.getSelected2Control() );
+		} else {
+			filtercontrols.append( this.getCheckboxesControl() );
+		}
+
+	}
+
+	private getCheckboxesControl() {
+
+		let checkboxes = $( '<div class="filtered-value-checkboxes" style="width: 100%;">' );
+
+		// insert options (checkboxes and labels)
+		for ( let value of this.values ) {
+			checkboxes.append( `<div class="filtered-value-option"><input type="checkbox" class="filtered-value-value" value="${value.printoutValue}" ><label>${value.formattedValue || value.printoutValue}</label></div>` );
+		}
+
+		// attach event handler
+		checkboxes
+		.on( 'change', ':checkbox', ( eventObject: JQueryEventObject ) => {
+			let checkboxElement = <HTMLInputElement> eventObject.currentTarget;
+			this.onFilterUpdated( checkboxElement.value, checkboxElement.checked );
+		} );
+
+		return checkboxes;
+	}
+
+	private getSelected2Control() {
 
 		let select = $( '<select class="filtered-value-select" style="width: 100%;">' );
-		filtercontrols.append( select );
 
 		let data: IdTextPair[] = [];
 
@@ -107,31 +129,29 @@ export class ValueFilter extends Filter {
 		for ( let value of this.values ) {
 			// Try to get label, if not fall back to value id
 			let label = value.formattedValue || value.printoutValue;
-			data.push( { id: value.printoutValue, text: label });
+			data.push( { id: value.printoutValue, text: label } );
 
 		}
 
-		// To correctly calculate element sizes Select2 needs a settled DOM
-		// before being attached. filtercontrols.append returns before the DOM
-		// is settled, so setTimeout is used to asynchronously attach Select2
-		// when the DOM is ready.
-		setTimeout( () => {
+		mw.loader.using( 'ext.srf.filtered.value-filter.select' ).then( () => {
+
 			select.select2( {
 				multiple: true,
 				placeholder: mw.message( 'srf-filtered-value-filter-placeholder' ).text(),
-				minimumResultsForSearch: 5,
 				data: data
 			} );
 
 			select.on( "select2:select", ( e: any ) => {
 				this.onFilterUpdated( e.params.data.id, true );
 			} );
+
 			select.on( "select2:unselect", ( e: any ) => {
 				this.onFilterUpdated( e.params.data.id, false );
 			} );
-		}, 0);
 
-		// $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
+		} );
+
+		return select;
 	}
 
 	private addControlForSwitches( filtercontrols: JQuery ) {

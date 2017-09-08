@@ -611,21 +611,38 @@ var ValueFilter = (function (_super) {
         }
     };
     ValueFilter.prototype.buildControl = function () {
-        var _this = this;
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
-        filtercontrols.append('<div class="filtered-value-label"><span>' + this.options['label'] + '</span></div>');
+        filtercontrols.append("<div class=\"filtered-value-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
-        // let height = this.options.hasOwnProperty( 'height' ) ? this.options[ 'height' ] : undefined;
-        // if ( height !== undefined ) {
-        // 	filtercontrols = $( '<div class="filtered-value-scrollable">' )
-        // 	.appendTo( filtercontrols );
-        //
-        // 	filtercontrols.height( height );
-        // }
+        var maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;
+        if (this.values.length > maxCheckboxes) {
+            filtercontrols.append(this.getSelected2Control());
+        }
+        else {
+            filtercontrols.append(this.getCheckboxesControl());
+        }
+    };
+    ValueFilter.prototype.getCheckboxesControl = function () {
+        var _this = this;
+        var checkboxes = $('<div class="filtered-value-checkboxes" style="width: 100%;">');
+        // insert options (checkboxes and labels)
+        for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
+            var value = _a[_i];
+            checkboxes.append("<div class=\"filtered-value-option\"><input type=\"checkbox\" class=\"filtered-value-value\" value=\"" + value.printoutValue + "\" ><label>" + (value.formattedValue || value.printoutValue) + "</label></div>");
+        }
+        // attach event handler
+        checkboxes
+            .on('change', ':checkbox', function (eventObject) {
+            var checkboxElement = eventObject.currentTarget;
+            _this.onFilterUpdated(checkboxElement.value, checkboxElement.checked);
+        });
+        return checkboxes;
+    };
+    ValueFilter.prototype.getSelected2Control = function () {
+        var _this = this;
         var select = $('<select class="filtered-value-select" style="width: 100%;">');
-        filtercontrols.append(select);
         var data = [];
         // insert options (checkboxes and labels) and attach event handlers
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
@@ -634,15 +651,10 @@ var ValueFilter = (function (_super) {
             var label = value.formattedValue || value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        // To correctly calculate element sizes Select2 needs a settled DOM
-        // before being attached. filtercontrols.append returns before the DOM
-        // is settled, so setTimeout is used to asynchronously attach Select2
-        // when the DOM is ready.
-        setTimeout(function () {
+        mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
             select.select2({
                 multiple: true,
                 placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
-                minimumResultsForSearch: 5,
                 data: data
             });
             select.on("select2:select", function (e) {
@@ -651,8 +663,8 @@ var ValueFilter = (function (_super) {
             select.on("select2:unselect", function (e) {
                 _this.onFilterUpdated(e.params.data.id, false);
             });
-        }, 0);
-        // $( 'input.select2-search__field', select ).on( 'select', ( e ) => select.select2( 'open' ) );
+        });
+        return select;
     };
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches

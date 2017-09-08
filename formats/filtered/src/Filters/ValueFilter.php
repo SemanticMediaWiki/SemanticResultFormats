@@ -24,7 +24,7 @@ class ValueFilter extends Filter {
 	 * Returns the name (string) or names (array of strings) of the resource
 	 * modules to load.
 	 *
-	 * @return string|array
+	 * @return string|string[]
 	 */
 	public function getResourceModules() {
 		return 'ext.srf.filtered.value-filter';
@@ -32,10 +32,12 @@ class ValueFilter extends Filter {
 
 	protected function buildJsConfig() {
 		parent::buildJsConfig();
+
 		$this->addValueListToJsConfig( 'value filter switches', 'switches' );
 		$this->addValueListToJsConfig( 'value filter values', 'values' );
+		$this->addValueListToJsConfig( 'value filter max checkboxes', 'max checkboxes' );
 		$this->addValueToJsConfig( 'value filter collapsible', 'collapsible' );
-		$this->addValueToJsConfig( 'value filter height', 'height' );
+
 	}
 
 }
