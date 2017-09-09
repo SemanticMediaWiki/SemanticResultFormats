@@ -81,7 +81,7 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 ## Printout level
 
-* filter (`value`|`distrance`|`number`)
+* filter (`value`|`distance`|`number`)
 * hide (`yes`|`no`)
 * align (`right`|`left`|`center`) (Table view only)
 
@@ -90,7 +90,7 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 * value filter collapsible (`collapsed`|`uncollapsed`)
 * value filter switches (`and or`)
 * value filter values (list of strings)
-* value filter height (HTML-compliant height value)
+* value filter max checkboxes (number. Default: 5)
 
 ### Distance filter
 

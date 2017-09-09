@@ -83,6 +83,15 @@ class Filtered extends ResultPrinter {
 	private $parser;
 
 	/**
+	 * @param string $valueList
+	 * @param string $delimiter
+	 * @return string[]
+	 */
+	public function getArrayFromValueList( $valueList, $delimiter = ',' ) {
+		return array_map( 'trim', explode( $delimiter, $valueList ) );
+	}
+
+	/**
 	 * @return Parser | null
 	 */
 	public function getParser() {
@@ -201,7 +210,7 @@ class Filtered extends ResultPrinter {
 
 			if ( $filtersParam ) {
 
-				$filtersForPrintout = array_map( 'trim', explode( ',', $filtersParam ) );
+				$filtersForPrintout = $this->getArrayFromValueList( $filtersParam );
 
 				foreach ( $filtersForPrintout as $filterName ) {
 
