@@ -249,6 +249,8 @@
 	"srf-filtered-selectorlabel-calendar": "Calendario",
 	"srf-filtered-selectorlabel-map": "Mapa",
 	"srf-filtered-noscript-error": "No se pueden mostrar los resultados porque JavaScript está desactivado. Visita $1.",
+	"srf-filtered-value-filter-and": "Y",
+	"srf-filtered-value-filter-or": "O",
 	"srf-printername-d3chart": "Gráfico D3",
 	"srf-printername-timeseries": "Gráfico de series temporales",
 	"srf-paramdesc-group": "Serie agrupada por",
