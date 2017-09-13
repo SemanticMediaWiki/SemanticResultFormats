@@ -41,7 +41,7 @@ class GraphTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRFGraph';
+		return 'SRF\Graph';
 	}
 
 }
