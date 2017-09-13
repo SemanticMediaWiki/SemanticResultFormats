@@ -26,6 +26,7 @@ $GLOBALS['srfgFormats'] = [
 	'timeline',
 	'outline',
 	'gallery',
+	'graph',
 	'jqplotchart',
 	'jqplotseries',
 	'sum',
