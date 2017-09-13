@@ -300,22 +300,24 @@ class Graph extends ResultPrinter {
 	 *
 	 * @since 2.5.0
 	 *
-	 * @param array of SMWResultArray $row
+	 * @param array $row
 	 * @param $outputmode
 	 * @param array $nodes
 	 *
 	 */
-	protected function processResultRow( array $row, $outputmode, $nodes ) {
+	protected function processResultRow( array /* of SMWResultArray */
+										 $row, $outputmode, $nodes ) {
 
 		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
 
 			// loop through all values of a multivalue field
-			while ( ( /* SMWDataValue */ $object = $resultArray->getNextDataValue() ) !== false ) {
+			while ( ( /* SMWDataValue */
+					$object = $resultArray->getNextDataValue() ) !== false ) {
 
-				$node = new GraphNode( str_replace( '_', ' ', $object->getShortText( $outputmode ) ) );
 				// create SRFGraphNode for column 0
 				if ( $i == 0 ) {
+					$node = new GraphNode( str_replace( '_', ' ', $object->getShortText( $outputmode ) ) );
 					if ( !in_array( $node, $nodes, true ) ) {
 						$this->nodes[] = $node;
 					}
