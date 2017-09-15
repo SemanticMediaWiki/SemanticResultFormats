@@ -45,7 +45,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // global variable defining picture path
 
-$srfgPicturePath = "formats/graphviz/images/";
+$srfgPicturePath = "formats/process/images/";
 
 
 
@@ -950,8 +950,8 @@ class ProcessNode extends ProcessElement {
 
 			if ( file_exists( $IP . "/images/p000.png" ) ) {
 				$PicturePath = $IP . "/images/";
-			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/p000.png" ) ) {
-				$PicturePath = $srfgIP . "/formats/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/process/images/p000.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/process/images/";
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
@@ -982,8 +982,8 @@ class ProcessNode extends ProcessElement {
 
 			if ( file_exists( $IP . "/images/discuss_icon.png" ) ) {
 				$PicturePath = $IP . "/images/";
-			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/discuss_icon.png" ) ) {
-				$PicturePath = $srfgIP . "/formats/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/process/images/discuss_icon.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/process/images/";
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
@@ -1008,8 +1008,8 @@ class ProcessNode extends ProcessElement {
 		if ($this->getProcess()->getShowCompound()){
 			if ( file_exists( $IP . "/images/subprocess.png" ) ) {
 				$PicturePath = $IP . "/images/";
-			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
-				$PicturePath = $srfgIP . "/formats/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/process/images/subprocess.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/process/images/";
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
