@@ -28,9 +28,6 @@ function installToMediaWikiRoot {
 	installSMWWithComposer
 	composer require mediawiki/semantic-result-formats "dev-master"
 
-	# Add optional packages
-	composer require "data-values/geo" "^1.1"
-
 	cd extensions
 	cd SemanticResultFormats
 
