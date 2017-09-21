@@ -22,7 +22,8 @@
 			"Macofe",
 			"Yasten",
 			"Dgstranz",
-			"Nemo bis"
+			"Nemo bis",
+			"DePlusJean"
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
@@ -170,7 +171,7 @@
 	"srf_paramdesc_tagorder": "L'ordre des tags",
 	"srf_paramdesc_mincount": "Le nombre minimal de fois qu'une valeur doit être utilisée pour être listée",
 	"srf_paramdesc_minsize": "La taille du plus petit tag en pourcent",
-	"srf_paramdesc_maxsize": "La taille du plus grand tag en pourcent",
+	"srf_paramdesc_maxsize": "La taille des plus gros tags en pourcentage",
 	"srf_paramdesc_maxtags": "Le nombre maximal de tags dans le nuage",
 	"srf-paramdesc-excludetags": "Exclure les noms de balise (délimiteur : ';')",
 	"srf_printername_valuerank": "Valeur du rang",
@@ -296,7 +297,7 @@
 	"srf-paramdesc-widget": "Widget disponible",
 	"srf-paramdesc-pageitems": "Éléments par page",
 	"srf-printername-eventcalendar": "Calendrier des événements",
-	"srf-paramdesc-calendarfirstday": "Le jour de démarrage de la semaine",
+	"srf-paramdesc-calendarfirstday": "Le jour du début de la semaine",
 	"srf-paramdesc-calendardefaultview": "La vue initiale quand le calendrier est chargé",
 	"srf-paramdesc-calendarstart": "Le démarrage du calendrier initial (valeurs de date ou d'horodatage)",
 	"srf-paramdesc-calendarlegend": "Spécifie la position de la légende et les options du filtre assigné",
@@ -314,7 +315,7 @@
 	"srf-paramdesc-errorbar": "La barre d'erreur à utiliser. Valeurs autorisées: « fraction » (intervalles de confiance pour les valeurs), « sigma » (écart-type des valeurs) et « range » (intervalles de valeurs personnalisés)",
 	"srf-paramdesc-movingaverage": "Affiche la moyenne sur un nombre donné de jours (zéro indiquera aucune moyenne mobile)",
 	"srf-paramdesc-yaxislabel": "Légende apparaissant sur l'axe y",
-	"srf-paramdesc-xaxislabel": "Légende apparaissant sur l'axe y",
+	"srf-paramdesc-xaxislabel": "Légende apparaissant sur l'axe x",
 	"srf-paramdesc-unit": "Unité",
 	"srf-printername-pagewidget": "Widget de page",
 	"srf-printername-incoming": "Propriétés entrantes",

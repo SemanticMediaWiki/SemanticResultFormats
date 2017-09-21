@@ -136,6 +136,7 @@
 	"srf-ui-datatables-label-sInfoThousands": "&nbsp;",
 	"srf-ui-datatables-label-sLoadingRecords": "Wczytywanie...",
 	"srf-ui-datatables-label-sProcessing": "Przetwarzanie...",
+	"srf-ui-datatables-label-sSearch": "Szukaj:",
 	"srf-ui-datatables-label-sZeroRecords": "Nie znaleziono pasujących pozycji",
 	"srf-ui-datatables-label-oPaginate-sFirst": "Początek",
 	"srf-ui-datatables-label-oPaginate-sLast": "Koniec",
