@@ -393,7 +393,7 @@ class SRFArray extends SMWResultPrinter {
 		];
 
 		$params['propsep'] = [
-			'message' => 'smw_paramdesc_propsep',
+			'message' => 'srf_paramdesc_propsep',
 			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
 		];
 
