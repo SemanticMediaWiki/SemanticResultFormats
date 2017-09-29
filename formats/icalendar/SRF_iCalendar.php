@@ -78,6 +78,8 @@ class SRFiCalendar extends SMWExportPrinter {
 	 * @return string
 	 */
 	protected function getIcal( SMWQueryResult $res ) {
+        global $wgLocalTimezone;
+        
 		$result = '';
 		
 		if ( $this->m_title == '' ) {
@@ -95,17 +97,20 @@ class SRFiCalendar extends SMWExportPrinter {
 			$result .= "X-WR-CALDESC:" . $this->m_description . "\r\n";
 		}
 		
-		// TODO: http://www.kanzaki.com/docs/ical/vtimezone.html
-		// $result .= "BEGIN:VTIMEZONE\r\n";
-		// $result .= "TZID:\r\n";
+		$timezone = ($wgLocalTimezone !== null) ? $wgLocalTimezone : date_default_timezone_get();
+		$from = $to = null;
 
+		$events = '';
 		$row = $res->getNext();
 		while ( $row !== false ) {
-			$result .= $this->getIcalForItem( $row );
+			$events .= $this->getIcalForItem( $row, $from, $to );
+			
 			$row = $res->getNext();
 		}
 		
-		// $result .= "END:VTIMEZONE\r\n";
+		$result .= $this->getIcalForTimezone( $timezone, $from, $to );
+		
+		$result .= $events;
 		
 		$result .= "END:VCALENDAR\r\n";
 
@@ -160,7 +165,7 @@ class SRFiCalendar extends SMWExportPrinter {
 	 * 
 	 * @return string
 	 */
-	protected function getIcalForItem( array $row ) {
+	protected function getIcalForItem( array $row, &$from, &$to ) {
 		$result = '';
 		
 		$wikipage = $row[0]->getResultSubject(); // get the object
@@ -186,7 +191,13 @@ class SRFiCalendar extends SMWExportPrinter {
 							unset( $params[$label] );
 						}
 						else {
-							$params[$label] = $dataValue;
+							$params[$label] = $this->parsedate( $dataValue, $label == 'end' );
+							
+							$timestamp = strtotime( $params[$label] );
+							if ( $from === null || $timestamp < $from )
+								$from = $timestamp;
+							if ( $to === null || $timestamp > $to )
+								$to = $timestamp;
 						}
 					}
 					break;
@@ -208,8 +219,8 @@ class SRFiCalendar extends SMWExportPrinter {
 		$result .= "URL:$url\r\n";
 		$result .= "UID:$url\r\n";
 		
-		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $this->parsedate( $params['start'] ) . "\r\n";
-		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $this->parsedate( $params['end'], true ) . "\r\n";
+		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $params['start'] . "\r\n";
+		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $params['end'] . "\r\n";
 		if ( array_key_exists( 'location', $params ) ) {
 			$result .= "LOCATION:" . $this->escapeICalendarText( $params['location'] ) . "\r\n";
 		}
@@ -251,7 +262,84 @@ class SRFiCalendar extends SMWExportPrinter {
 		
 		return $result;
 	}
+	
+	/**
+	 * Generate all the timezone's transitions that are needed by the events.
+	 *
+	 * @param string $tzid The timezone identifier (e.g. Europe/London)
+	 * @param int $from The minimum timestamp in the list of events
+	 * @param int $to The maximum timestamp in the list of events
+	 */
+	protected function getIcalForTimezone( $tzid, $from, $to ) {
+		if ( $from === null || $to === null )
+			return false;
+			
+		try {
+			$timezone = new DateTimeZone( $tzid );
+		} catch( Exception $e ) {
+			return false;
+		}
+		
+		$transitions = $timezone->getTransitions();
+		
+		$min = 0;
+		$max = 1;
+		foreach ( $transitions as $i => $transition ) {
+			if ( $transition['ts'] < $from ) {
+				$min = $i;
+				continue;
+			}
 
+			if ( $transition['ts'] > $to ) {
+				$max = $i;
+				break;
+			}
+		}
+		
+		// cf. http://www.kanzaki.com/docs/ical/vtimezone.html
+		$result = "BEGIN:VTIMEZONE\r\n";
+		$result .= "TZID:$tzid\r\n";
+		
+		$transition = ( $min > 0 ) ? $transitions[$min-1] : $transitions[0];
+		$tzfrom = $transition['offset'] / 3600;
+		
+		foreach ( array_slice( $transitions, $min, $max - $min ) as $transition) {
+			$dst = ( $transition['isdst'] ) ? "DAYLIGHT" : "STANDARD";
+			$result .= "BEGIN:$dst\r\n";
+			
+			$start_date = date( 'Ymd\THis', $transition['ts'] );
+			$result .= "DTSTART:$start_date\r\n";
+			
+			$offset = $transition['offset'] / 3600;
+			
+			$offset_from = $this->formatTimezoneOffset( $tzfrom );
+			$result .= "TZOFFSETFROM:$offset_from\r\n";
+
+			$offset_to = $this->formatTimezoneOffset( $offset );
+			$result .= "TZOFFSETTO:$offset_to\r\n";
+			
+			if ( !empty( $transition['abbr'] ) )
+				$result .= "TZNAME:{$transition['abbr']}\r\n";
+			
+			$result .= "END:$dst\r\n";
+			
+			$tzfrom = $offset;
+		}
+		
+		$result .= "END:VTIMEZONE\r\n";
+		
+		return $result;
+	}
+
+	/**
+	 * Format an integer offset to '+hhii', where hh are the hours, and ii the minutes
+	 *
+	 * @param int $offset
+	 */
+	static private function formatTimezoneOffset( $offset ) {
+		return sprintf('%s%02d%02d', $offset >= 0 ? '+' : '', floor($offset), ($offset - floor($offset)) * 60);
+	}
+	
 	/**
 	 * Implements esaping of special characters for iCalendar properties of type TEXT. This is defined
 	 * in RFC2445 Section 4.3.11.
