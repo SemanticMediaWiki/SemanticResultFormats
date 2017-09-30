@@ -3,21 +3,25 @@
  * for inserting the required Simile scripts if needed.
  */
 
-var smwtl;
+( function( $, mw ) {
 
-jQuery(smw_timeline_init);
+	'use strict';
 
-function smw_timeline_init() {
-	if (!document.getElementsByName) return;
-	tbls = document.getElementsByTagName("div");
+	mw.loader.using( [ 'ext.smile.timeline', 'ext.smile.timeline.core' ] ).then( function () {
 
-	for (ti=0;ti<tbls.length;ti++) {
-		thisTbl = tbls[ti];
-		if (((' '+thisTbl.className+' ').indexOf("smwtimeline") != -1) && (thisTbl.id)) {
-			smw_make_timeline(thisTbl);
-		}
-	}
-}
+		$( document ).ready( function() {
+			$( '.smwtimeline' ).each( function() {
+
+				var context = $( this );
+				context.removeClass( 'is-disabled' );
+
+				smw_make_timeline( context[0] );
+			} );
+		} );
+
+	} );
+
+}( jQuery, mediaWiki ) );
 
 function smw_make_timeline(div) {
 	// extract relevant event data:
@@ -116,7 +120,7 @@ function smw_make_timeline(div) {
 		})
 	}
 
-	smwtl = Timeline.create(div, bandInfos);
+	Timeline.create(div, bandInfos);
 }
 
 function smw_get_bandwidth(number,count) {
@@ -186,13 +190,24 @@ function smw_add_event(evspan,evs) {
 					evspan.removeChild(childs[i]);
 				break;
 				case "smwtlurl": // accept both plain text and <a>, use text of <a> for title
-					if (childs[i].firstChild.nodeType == 3)
+					if (childs[i].firstChild.nodeType == 3) {
 						linkurl = childs[i].firstChild.data;
-					else {
+					} else {
 						linkurl = childs[i].firstChild.getAttribute("href");
+
 						if (childs[i].firstChild.hasChildNodes())
 							ttl = childs[i].firstChild.firstChild.data;
 					}
+
+					if ( linkurl === null && childs[i].firstChild.hasChildNodes() ) {
+						if ( childs[i].firstChild.firstChild.nodeType == 1 ) {
+							linkurl = childs[i].firstChild.firstChild.getAttribute( "href" );
+							ttl = childs[i].firstChild.firstChild.innerHTML;
+						} else {
+							ttl = childs[i].firstChild.firstChild.data;
+						}
+					};
+
 					evspan.removeChild(childs[i]);
 				break;
 				case "smwtlcoloricon":

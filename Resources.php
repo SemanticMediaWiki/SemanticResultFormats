@@ -516,9 +516,47 @@ return [
 	],
 
 	// Timeline
-	'ext.smile.timeline' => $formatModule + [
-		'scripts' => 'timeline/resources/SimileTimeline/timeline-api.js'
+	// Copied from timeline-api.js
+	'ext.smile.timeline.core' => $formatModule + [
+		'scripts' => [
+			'timeline/resources/SimileTimeline/scripts/timeline.js',
+			'timeline/resources/SimileTimeline/scripts/util/platform.js',
+			'timeline/resources/SimileTimeline/scripts/util/debug.js',
+			'timeline/resources/SimileTimeline/scripts/util/xmlhttp.js',
+			'timeline/resources/SimileTimeline/scripts/util/dom.js',
+			'timeline/resources/SimileTimeline/scripts/util/graphics.js',
+			'timeline/resources/SimileTimeline/scripts/util/date-time.js',
+			'timeline/resources/SimileTimeline/scripts/util/data-structure.js',
+			'timeline/resources/SimileTimeline/scripts/units.js',
+			'timeline/resources/SimileTimeline/scripts/themes.js',
+			'timeline/resources/SimileTimeline/scripts/ethers.js',
+			'timeline/resources/SimileTimeline/scripts/ether-painters.js',
+			'timeline/resources/SimileTimeline/scripts/labellers.js',
+			'timeline/resources/SimileTimeline/scripts/sources.js',
+			'timeline/resources/SimileTimeline/scripts/layouts.js',
+			'timeline/resources/SimileTimeline/scripts/painters.js',
+			'timeline/resources/SimileTimeline/scripts/decorators.js',
+			'timeline/resources/SimileTimeline/scripts/labellers.js',
+
+			// Keep this with in the same load sequence
+			'timeline/resources/SimileTimeline/scripts/l10n/en/labellers.js',
+			'timeline/resources/SimileTimeline/scripts/l10n/en/timeline.js'
+		],
+		'styles'  => [
+			'timeline/resources/SimileTimeline/styles/timeline.css',
+			'timeline/resources/SimileTimeline/styles/ethers.css',
+			'timeline/resources/SimileTimeline/styles/events.css',
+		],
+		'targets' => [ 'mobile', 'desktop' ]
 	],
+
+	'ext.smile.timeline' => $formatModule + [
+		'scripts' => [
+			'timeline/resources/SimileTimeline/timeline-api.js',
+		],
+		'targets' => [ 'mobile', 'desktop' ]
+	],
+
 	'ext.srf.timeline' => $formatModule + [
 		'scripts' => 'timeline/resources/ext.srf.timeline.js',
 		'dependencies' => [
@@ -526,6 +564,7 @@ return [
 			'mediawiki.legacy.wikibits'
 		],
 		'position' => 'top',
+		'targets' => [ 'mobile', 'desktop' ]
 	],
 
 	// D3
@@ -763,7 +802,6 @@ return [
 				'srf-filtered-value-filter-and',
 				'srf-filtered-value-filter-or',
 				],
-			'dependencies' => [ 'ext.srf.filtered.value-filter.select' ],
 		],
 
 	'ext.srf.filtered.value-filter.select' => $formatModule + [

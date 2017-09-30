@@ -2,9 +2,9 @@
 	Stylesheet for the value filter
 */
 
-.filtered-filters .filtered-value { 
+.filtered-filters .filtered-value {
 	overflow: visible;
-	border: 1px solid #aaa;
+	border: 1px solid #aaaaaa;
 	padding: 1em;
 	margin: 1em;
 }
@@ -13,37 +13,23 @@
 	height: 0;
 }
 
-.filtered-filters .filtered-value .filtered-value-label span { 
+.filtered-filters .filtered-value .filtered-value-label span {
 	background-color: white;
 	font-weight: bold;
 
 	position: relative;
 	top: -1.8em;
 	left: 0;
-	
+
 	padding: 0 1em;
 }
 
-.filtered-filters .filtered-value .filtered-value-switches { 
-	border-bottom: 1px solid #aaa;
+.filtered-filters .filtered-value .filtered-value-switches {
+	border-bottom: 1px solid #aaaaaa;
 	font-weight: bold;
 	padding: 0.5em 1em;
-	
+
 	margin-bottom: 1em;
-}
-
-.filtered-filters .filtered-value .filtered-value-option { 
-	display: inline-block;
-	padding: 0 1em;
-	width: 20%;
-}
-
-.filtered-filters .filtered-value .filtered-value-scrollable {
-	overflow: auto;
-}
-
-.filtered-filters .filtered-value .select2-container--default.select2-container--focus .select2-selection--multiple {
-	border: solid #777 1px;
 }
 
 .filtered-value-andor input[type="radio"]:not(:first-child) {
@@ -61,3 +47,21 @@
 	margin-bottom: 0;
 	line-height: 100%;
 }
+
+/* styles for checkboxes */
+.filtered-filters .filtered-value .filtered-value-option {
+	display: inline-block;
+	padding: 0 1em;
+	width: 20%;
+}
+
+.filtered-filters .filtered-value .filtered-value-option label {
+	vertical-align: text-bottom;
+	margin: 0 0 0 1em;
+}
+
+/* styles for Select2 */
+.filtered-filters .filtered-value .select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: solid #777777 1px;
+}
+
