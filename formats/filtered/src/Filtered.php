@@ -10,7 +10,6 @@ namespace SRF\Filtered;
 
 use Exception;
 use Html;
-use Parser;
 use SMW\Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryLinker;
@@ -18,7 +17,6 @@ use SMW\ResultPrinter;
 use SMWOutputs;
 use SMWPropertyValue;
 use SMWQueryResult;
-use SMWResultArray;
 
 /**
  * Result printer that displays results in switchable views and offers
@@ -92,7 +90,7 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @return Parser | null
+	 * @return \Parser | \StubObject | null
 	 */
 	public function getParser() {
 
@@ -104,9 +102,9 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @param mixed $parser
+	 * @param \Parser | \StubObject $parser
 	 */
-	public function setParser( Parser $parser ) {
+	public function setParser( $parser ) {
 		$this->parser = $parser;
 	}
 
