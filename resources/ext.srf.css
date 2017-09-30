@@ -52,14 +52,12 @@
 fieldset#mw-prefsection-smw-srf {
 	border: 0px solid #2a4b8d;
 	border-top: 1px solid #2a4b8d;
-	margin: 5px;
 	margin-top: -5px;
 }
 
 fieldset#mw-prefsection-smw-srf-eventcalendar-options, fieldset#mw-prefsection-smw-srf-datatables-options {
 	border: 0px solid #2a4b8d;
 	border-top: 1px solid #ddd;
-	margin: 5px;
 	margin-top: -5px;
 }
 
