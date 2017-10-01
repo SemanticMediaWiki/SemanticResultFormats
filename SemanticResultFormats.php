@@ -107,7 +107,10 @@ class SemanticResultFormats {
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
 		// User preference
-		$GLOBALS['wgHooks']['GetPreferences'][] = 'SRFHooks::onGetPreferences';
+		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
+
+		// Allows last minute changes to the output page, e.g. adding of CSS or JavaScript by extensions
+		$GLOBALS['wgHooks']['BeforePageDisplay'][] = 'SRFHooks::onBeforePageDisplay';
 	}
 
 	/**

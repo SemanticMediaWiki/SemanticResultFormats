@@ -126,6 +126,14 @@ return [
 		'group' => 'ext.srf'
 	],
 
+	'ext.srf.styles' => $moduleTemplate + [
+		'styles'  => [
+			'resources/ext.srf.css',
+		],
+		'position' => 'top',
+		'group' => 'ext.srf'
+	],
+
 	// SMW/SRF query/result api module
 	'ext.srf.api' => $moduleTemplate + [
 		'scripts' => [

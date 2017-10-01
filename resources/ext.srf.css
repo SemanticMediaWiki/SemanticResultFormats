@@ -45,3 +45,22 @@
 	padding: 2px;
 	text-align: left;
 }
+
+/**
+ * User preference
+ */
+fieldset#mw-prefsection-smw-srf {
+	border: 0px solid #2a4b8d;
+	border-top: 1px solid #2a4b8d;
+	margin-top: -5px;
+}
+
+fieldset#mw-prefsection-smw-srf-eventcalendar-options, fieldset#mw-prefsection-smw-srf-datatables-options {
+	border: 0px solid #2a4b8d;
+	border-top: 1px solid #ddd;
+	margin-top: -5px;
+}
+
+#mw-prefsection-smw-srf legend::before {
+	content: "▼ ";
+}
