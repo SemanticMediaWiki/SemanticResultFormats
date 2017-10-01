@@ -284,7 +284,7 @@ class Filtered extends ResultPrinter {
 				$initErrorMsg = $view->getInitError();
 
 				if ( $initErrorMsg !== null ) {
-					$res->addErrors( [ $this->msg( $initErrorMsg )->inContentLanguage()->text() ] );
+					$res->addErrors( [ $this->msg( $initErrorMsg )->text() ] );
 				} else {
 
 					$this->registerResourceModules( $view->getResourceModules() );
