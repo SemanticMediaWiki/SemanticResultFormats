@@ -302,7 +302,7 @@ var ValueFilter = (function (_super) {
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
             // Try to get label, if not fall back to value id
-            var label = value.formattedValue || value.printoutValue;
+            var label = value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
         mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
