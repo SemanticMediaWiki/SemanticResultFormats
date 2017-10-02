@@ -15,7 +15,7 @@
 	},
 	"srf-desc": "用于Semantic MediaWiki的附加结果格式",
 	"srf-name": "语义结果格式",
-	"prefs-srf": "语义结果格式",
+	"prefs-srf": "扩展：语义结果格式",
 	"srf-prefs-intro-text": "您已安装语义结果格式拓展。额外帮助请参见[https://www.semantic-mediawiki.org/wiki/Help:Result_formats 此拓展的帮助页]。",
 	"prefs-srf-eventcalendar-options": "事件日历选项",
 	"srf-prefs-eventcalendar-options-update-default": "在页面刷新时启用日历活动的[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates 自动更新]",
