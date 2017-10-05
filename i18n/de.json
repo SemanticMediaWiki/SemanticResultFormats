@@ -15,7 +15,7 @@
 	},
 	"srf-desc": "Stellt zusätzliche Ergebnisformate bereit",
 	"srf-name": "Semantische Ergebnisformate",
-	"prefs-srf": "Erweiterung:Semantic Result Formats",
+	"prefs-srf": "Erweiterung „Semantic Result Formats“",
 	"srf-prefs-intro-text": "Du hast die Programmerweiterung „Semantic Result Formats“ installiert. Besuch bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen.",
 	"prefs-srf-eventcalendar-options": "Optionen zum Veranstaltungskalender",
 	"srf-prefs-eventcalendar-options-update-default": "[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates Automatische Aktualisierung] des Kalenders beim Neuladen der Seite aktivieren",
