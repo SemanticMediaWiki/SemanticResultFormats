@@ -149,7 +149,7 @@ class SemanticResultFormats {
 			// 'boilerplate' => 'SRFBoilerplate',
 			'timeline' => 'SRFTimeline',
 			'eventline' => 'SRFTimeline',
-			'vcard' => 'SRFvCard',
+			'vcard' => 'SRF\vCard\vCardResultPrinter',
 			'icalendar' => 'SRFiCalendar',
 			'bibtex' => 'SRFBibTeX',
 			'calendar' => 'SRFCalendar',
