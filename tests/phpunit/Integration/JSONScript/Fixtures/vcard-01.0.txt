@@ -3,6 +3,7 @@ VERSION:3.0
 N;CHARSET=UTF-8:Example/Vcard-01/0;;;;
 FN;CHARSET=UTF-8:Example/Vcard-01/0
 CLASS:PUBLIC
+CATEGORIES;CHARSET=UTF-8:Category:Vcard-00
 SOURCE;CHARSET=UTF-8:.*/Example/Vcard-01/0
 PRODID:-////Semantic MediaWiki
 REV:.*
