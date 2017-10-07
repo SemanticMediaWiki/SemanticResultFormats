@@ -30,7 +30,7 @@ class vCard {
 	private $text;
 
 	/**
-	 * @var string
+	 * @var array
 	 */
 	private $vcard = [];
 
