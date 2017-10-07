@@ -3,7 +3,7 @@
 
 ## TestCases
 
-Contains 13 files with a total of 47 tests:
+Contains 14 files with a total of 50 tests:
 
 ### F
 * [filtered-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/filtered-01.json) Filtered format: ...
@@ -26,7 +26,10 @@ Contains 13 files with a total of 47 tests:
 * [tree-06.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/tree-06.json) Tree format: Insert elements with multiple parents multiple times
 * [tree-07.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/tree-07.json) Tree format: Simple one-page result
 
--- Last updated on 2017-10-06 by `readmeContentsBuilder.php`
+### V
+* [vcard-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/vcard-01.json) Test `format=vcard`
+
+-- Last updated on 2017-10-07 by `readmeContentsBuilder.php`
 
 <!-- End of generated contents by readmeContentsBuilder.php -->
 
