@@ -18,7 +18,7 @@ class DataTables extends SMW\ApiResultPrinter {
 	 *
 	 */
 	public function getName() {
-		return $this->getContext()->msg( 'srf-printername-datatables' )->text();
+		return $this->msg( 'srf-printername-datatables' )->text();
 	}
 
 	/**
