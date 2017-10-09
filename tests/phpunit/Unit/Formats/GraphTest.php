@@ -3,7 +3,7 @@
 namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
-use SRF\GraphNode;
+use SRF\Graph\GraphNode;
 
 
 /**
@@ -43,7 +43,7 @@ class GraphTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\Graph';
+		return 'SRF\Graph\GraphResultPrinter';
 	}
 
 	/**
@@ -62,15 +62,15 @@ class GraphTest extends QueryPrinterRegistryTestCase {
 
 		$this->assertEquals( 'Team:Beta', $node->getID() );
 
-		$node->addLabel1( "Fossil Power Generation" );
-		$this->assertEquals( "Fossil Power Generation", $node->getLabel1() );
+		$node->addLabel( 1, "Fossil Power Generation" );
+		$this->assertEquals( "Fossil Power Generation", $node->getLabel(1) );
 
-		$node->addLabel2( "Gonzo the Great" );
-		$this->assertEquals( "Gonzo the Great\l", $node->getLabel2() );
+		$node->addLabel( 2, "Gonzo the Great" );
+		$this->assertEquals( "Gonzo the Great\l", $node->getLabel(2) );
 
-		$node->addLabel3( "Miss Piggy" );
-		$node->addLabel3( "Rowlf the Dog" );
-		$this->assertEquals( "Miss Piggy\lRowlf the Dog\l", $node->getLabel3() );
+		$node->addLabel( 3, "Miss Piggy" );
+		$node->addLabel( 3, "Rowlf the Dog" );
+		$this->assertEquals( "Miss Piggy\lRowlf the Dog\l", $node->getLabel(3) );
 
 		$mockParentNode1[] = [
 			"predicate" => 'Part Of Team',

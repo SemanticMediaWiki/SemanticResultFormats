@@ -25,7 +25,8 @@ class GraphNode {
 			$this->label[$labelIndex] = $label;
 		} else {
 			// append to support multivalue
-			$this->label[$labelIndex] .= $label . "\l";
+			// (a simple ".=" failed with offset error during testing)
+			$this->label[$labelIndex] = array_key_exists($labelIndex, $this->label) ? $this->label[$labelIndex] . $label . "\l" : $label . "\l";
 		}
 	}
 
