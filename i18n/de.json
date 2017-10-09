@@ -177,7 +177,7 @@
 	"srf-paramdesc-graphname": "Legt den Titel der Grafik fest",
 	"srf-paramdesc-graphsize": "Legt die Größe der Grafik in Pixeln fest",
 	"srf-paramdesc-graphlegend": "Legt fest, ob eine Legende zur Grafik angezeigt werden soll",
-	"srf-paramdesc-graphlabel": "Legt die Beschriftung der Grafik fest",
+	"srf-paramdesc-graphlabel": "Pfeil-Beschriftung anzeigen",
 	"srf-paramdesc-rankdir": "Legt die Richtung der Pfeile fest",
 	"srf-paramdesc-graphlink": "Legt fest, ob die Verzweigungspunkte auf ihre Wikiseiten verlinken sollen",
 	"srf-paramdesc-graphcolor": "Legt die Farbe der Grafik fest",

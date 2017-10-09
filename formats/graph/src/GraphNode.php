@@ -1,12 +1,10 @@
 <?php
 
-namespace SRF;
+namespace SRF\Graph;
 
 class GraphNode {
 	private $id;
-	private $label1;
-	private $label2;
-	private $label3;
+	private $label = [];
 	private $parent = [];
 
 	/**
@@ -17,26 +15,18 @@ class GraphNode {
 	}
 
 	/**
-	 * @var string $label : A label, e.g. Display Title, used instead of $m_id
+	 * @param integer $labelIndex : label index
+	 * @param string $label : a label, e.g. Display Title, used instead of $id. Left align (\l) from label2 onwards
 	 */
-	public function addLabel1( $label ) {
-		$this->label1 = $label;
-	}
+	public function addLabel( $labelIndex, $label ) {
 
-	/**
-	 * @var string $label : append to label2 plus an '/l' for left align
-	 *                     the label2 is displayed in the second row of a record shape
-	 */
-	public function addLabel2( $label ) {
-		$this->label2 .= $label . "\l";
-	}
-
-	/**
-	 * @var string $label : append to label3 plus an '/l' for left align
-	 *                     the label3 is displayed in the third row of a record shape
-	 */
-	public function addLabel3( $label ) {
-		$this->label3 .= $label . "\l";
+		if ( $labelIndex == 1 ) {
+			// label1 is always single value!
+			$this->label[$labelIndex] = $label;
+		} else {
+			// append to support multivalue
+			$this->label[$labelIndex] .= $label . "\l";
+		}
 	}
 
 	/**
@@ -50,20 +40,22 @@ class GraphNode {
 		];
 	}
 
+	/**
+	 * @return array Of parent nodes
+	 */
 	public function getParentNode() {
 		return $this->parent;
 	}
 
-	public function getLabel1() {
-		return $this->label1;
+	/**
+	 * @return array: of labels
+	 */
+	public function getLabels() {
+		return $this->label;
 	}
 
-	public function getLabel2() {
-		return $this->label2;
-	}
-
-	public function getLabel3() {
-		return $this->label3;
+	public function getLabel( $labelIndex ) {
+		return $this->label[$labelIndex];
 	}
 
 	public function getID() {

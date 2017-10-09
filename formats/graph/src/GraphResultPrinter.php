@@ -1,11 +1,12 @@
 <?php
 
-namespace SRF;
+namespace SRF\Graph;
 
 use SMW\ResultPrinter;
 use SMWQueryResult;
 use SMWWikiPageValue;
 use GraphViz;
+use Html;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -21,7 +22,7 @@ use GraphViz;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Sebastian Schmid
  */
-class Graph extends ResultPrinter {
+class GraphResultPrinter extends ResultPrinter {
 
 	public static $ARROW_HEAD = [
 		'none',
@@ -92,7 +93,7 @@ class Graph extends ResultPrinter {
 	protected $graphLink;
 	protected $rankdir;
 	protected $graphSize;
-	protected $labelArray = [];
+	protected $legendItem = [];
 	protected $graphColors = [
 		'black',
 		'red',
@@ -138,12 +139,18 @@ class Graph extends ResultPrinter {
 		$this->graphColor = $params['graphcolor'];
 		$this->arrowHead = $params['arrowhead'];
 		$this->nameProperty = $params['nameproperty'] === false ? false : trim( $params['nameproperty'] );
-		$this->parentRelation = strtolower( trim( $params['relation'] ) ) == 'parent';
+		$this->parentRelation =
+			strtolower( trim( $params['relation'] ) ) == 'parent';        // false if anything other than 'parent'
 		$this->nodeShape = $params['nodeshape'];
 		$this->wordWrapLimit = $params['wordwraplimit'];
 	}
 
 
+	/**
+	 * @param SMWQueryResult $res
+	 * @param $outputmode
+	 * @return string
+	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		if ( !is_callable( 'GraphViz::graphvizParserHook' ) ) {
 			wfWarn( 'The SRF Graph printer needs the GraphViz extension to be installed.' );
@@ -175,19 +182,20 @@ class Graph extends ResultPrinter {
 		// rankdir
 		$graphInput .= "rankdir=$this->rankdir;";
 
-		// iterate query result
-		while ( $row = $res->getNext() ) {
-			$this->processResultRow( $row, $outputmode, $this->nodes );
-		}
-
 		///////////////////////////////////
 		// NODES
 		///////////////////////////////////
 
+		// iterate query result and create GraphNodes
+		while ( $row = $res->getNext() ) {
+			$this->processResultRow( $row, $outputmode, $this->nodes );
+		}
+
+		/** @var \SRF\GraphNode $node */
 		foreach ( $this->nodes as $node ) {
 
 			// take node ID (title) if we don't have a label1
-			$nodeName = ( empty( $node->getLabel1() ) ) ? $node->getID() : $node->getLabel1();
+			$nodeName = ( empty( $node->getLabel( 1 ) ) ) ? $node->getID() : $node->getLabel( 1 );
 
 			// add the node
 			$graphInput .= "\"" . $nodeName . "\"";
@@ -198,19 +206,22 @@ class Graph extends ResultPrinter {
 			}
 
 			// build the additional labels only for record or Mrecord
-			if ( ( $node->getLabel2() != "" || $node->getLabel3() != "" ) &&
+			if ( ( $node->getLabel( 2 ) != "" || $node->getLabel( 3 ) != "" ) &&
 				 ( $this->nodeShape == "record" || $this->nodeShape == "Mrecord" )
 			) {
 
-				$label = ( empty( $node->getLabel1() ) ) ? $node->getID() : $node->getLabel1();
+				// label1
+				$label = ( empty( $node->getLabel( 1 ) ) ) ? $node->getID() : $node->getLabel( 1 );
 				$graphInput .= "[label=\"{" . $label;
 
-				if ( $node->getLabel2() != "" ) {
-					$graphInput .= "|" . $node->getLabel2();
-				}
-
-				if ( $node->getLabel3() != "" ) {
-					$graphInput .= "|" . $node->getLabel3();
+				// label2 onwards
+				foreach ( $node->getLabels() as $labelIndex => $label ) {
+					if ( $labelIndex < 2 ) {
+						continue;
+					}
+					if ( $label != "" ) {
+						$graphInput .= "|" . $label;
+					}
 				}
 
 				$graphInput .= " }\"];";
@@ -227,27 +238,28 @@ class Graph extends ResultPrinter {
 
 			if ( count( $node->getParentNode() ) > 0 ) {
 
-				$nodeName = ( empty( $node->getLabel1() ) ) ? $node->getID() : $node->getLabel1();
+				$nodeName = ( empty( $node->getLabel( 1 ) ) ) ? $node->getID() : $node->getLabel( 1 );
 
-				//was handled with param "relation" type string, child/parent
-				$i = 0;
 				foreach ( $node->getParentNode() as $parentNode ) {
 
+					// handle parent/child switch (parentRelation)
 					$graphInput .= $this->parentRelation ? " \"" . $parentNode['object'] . "\" -> \"" . $nodeName . "\""
 						: " \"" . $nodeName . "\" -> \"" . $parentNode['object'] . "\" ";
 
-					// Add ArrowHead for every Arrow of Node
 					$graphInput .= "[arrowhead = " . $this->arrowHead . "]";
 
 					if ( $this->graphLabel || $this->graphColor ) {
 						$graphInput .= ' [';
 
-						if ( array_search( $parentNode['predicate'], $this->labelArray, true ) === false ) {
-							$this->labelArray[] = $parentNode['predicate'];
+						// add legend item only if missing
+						if ( array_search( $parentNode['predicate'], $this->legendItem, true ) === false ) {
+							$this->legendItem[] = $parentNode['predicate'];
 						}
 
-						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->labelArray, true )];
+						// assign color
+						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
 
+						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
 						if ( $this->graphLabel ) {
 							$graphInput .= "label=\"" . $parentNode['predicate'] . "\"";
 							if ( $this->graphColor ) {
@@ -255,12 +267,12 @@ class Graph extends ResultPrinter {
 							}
 						}
 
+						// colorize arrow
 						if ( $this->graphColor ) {
 							$graphInput .= "color=$color";
 						}
 						$graphInput .= ']';
 					}
-					$i ++;
 				}
 				$graphInput .= ';';
 			}
@@ -274,29 +286,31 @@ class Graph extends ResultPrinter {
 
 		// append legend
 		if ( $this->graphLegend && $this->graphColor ) {
-			$arrayCount = 0;
+			$itemsHtml = '';
+			$colorCount = 0;
 			$arraySize = count( $this->graphColors );
-			$result .= "<P>";
 
-			foreach ( $this->labelArray as $m_label ) {
-				if ( $arrayCount >= $arraySize ) {
-					$arrayCount = 0;
+			foreach ( $this->legendItem as $m_label ) {
+				if ( $colorCount >= $arraySize ) {
+					$colorCount = 0;
 				}
 
-				$color = $this->graphColors[$arrayCount];
-				$result .= "<font color=$color>$color: $m_label </font><br />";
+				$color = $this->graphColors[$colorCount];
+				$itemsHtml .= Html::rawElement( 'div', [ 'class' => 'graphlegenditem', 'style' => "color: $color" ],
+					"$color: $m_label" );
 
-				$arrayCount += 1;
+				$colorCount ++;
 			}
 
-			$result .= "</P>";
+			$result .= Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml" );
+
 		}
 
 		return $result;
 	}
 
 	/**
-	 * Process a result row and create SRFGraphNodes
+	 * Process a result row and create SRF\GraphNodes
 	 *
 	 * @since 2.5.0
 	 *
@@ -315,34 +329,23 @@ class Graph extends ResultPrinter {
 			while ( ( /* SMWDataValue */
 					$object = $resultArray->getNextDataValue() ) !== false ) {
 
-				// create SRFGraphNode for column 0
+				// create SRF\GraphNode for column 0
 				if ( $i == 0 ) {
 					$node = new GraphNode( str_replace( '_', ' ', $object->getShortText( $outputmode ) ) );
-					if ( !in_array( $node, $nodes, true ) ) {
-						$this->nodes[] = $node;
-					}
+					$this->nodes[] = $node;
 				} else {
-					// special handling for labels, all other printout statements will add links to parent nodes
-					switch ( $resultArray->getPrintRequest()->getLabel() ) {
+					// special handling for labels1-3, all other printout statements will add links to parent nodes
+					$label = $resultArray->getPrintRequest()->getLabel();
+					switch ( $label ) {
+						// fixed to three labels
 						case 'label1':
-							if ( $object instanceof SMWWikiPageValue ) {
-								$node->addLabel1( $object->getDisplayTitle() );
-							} else {
-								$node->addLabel1( $object->getShortText( $outputmode ) );
-							}
-							break;
 						case 'label2':
-							if ( $object instanceof SMWWikiPageValue ) {
-								$node->addLabel2( $object->getDisplayTitle() );
-							} else {
-								$node->addLabel2( $object->getShortText( $outputmode ) );
-							}
-							break;
 						case 'label3':
+							$labelIndex = intval( explode( 'label', $label, 2 )[1] );
 							if ( $object instanceof SMWWikiPageValue ) {
-								$node->addLabel3( $object->getDisplayTitle() );
+								$node->addLabel( $labelIndex, $object->getDisplayTitle() );
 							} else {
-								$node->addLabel3( $object->getShortText( $outputmode ) );
+								$node->addLabel( $labelIndex, $object->getShortText( $outputmode ) );
 							}
 							break;
 						default:
@@ -483,7 +486,8 @@ class Graph extends ResultPrinter {
 			'type'              => 'string',
 			'default'           => 'normal',
 			'message'           => 'srf-paramdesc-graph-arrowhead',
-			'manipulatedefault' => false
+			'manipulatedefault' => false,
+			'values'            => self::$ARROW_HEAD,
 		];
 
 		return $params;

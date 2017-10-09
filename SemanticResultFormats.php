@@ -164,7 +164,7 @@ class SemanticResultFormats {
 			'jitgraph' => 'SRFJitGraph',
 			'jqplotchart' => 'SRFjqPlotChart',
 			'jqplotseries' => 'SRFjqPlotSeries',
-			'graph' => 'SRF\Graph',
+			'graph' => 'SRF\Graph\GraphResultPrinter',
 			'process' => 'SRFProcess',
 			'gallery' => 'SRF\Gallery',
 			'tagcloud' => 'SRF\TagCloud',
