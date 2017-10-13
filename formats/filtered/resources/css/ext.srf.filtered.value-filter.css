@@ -32,12 +32,12 @@
 	margin-bottom: 1em;
 }
 
-.filtered-value-andor input[type="radio"]:not(:first-child) {
-	margin-left: 1em;
+.filtered-value-andor label {
+	margin-right: 3em;
 }
 
-.filtered-value-andor input[type="radio"] {
-	margin-right: .5em;
+.filtered-value-andor input {
+	margin-right: 1em;
 }
 
 .filtered-value-andor input[type="radio"],
@@ -55,9 +55,16 @@
 	width: 20%;
 }
 
-.filtered-filters .filtered-value .filtered-value-option label {
-	vertical-align: text-bottom;
-	margin: 0 0 0 1em;
+.filtered-filters .filtered-value .filtered-value-option .filtered-value-option-label {
+	display: inline-block;
+	vertical-align: bottom;
+	margin: 0;
+	line-height: 100%;
+}
+
+.filtered-filters .filtered-value .filtered-value-option input {
+	vertical-align: bottom;
+	margin-right: 1em;
 }
 
 /* styles for Select2 */
