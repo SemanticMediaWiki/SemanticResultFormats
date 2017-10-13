@@ -630,7 +630,7 @@ var ValueFilter = (function (_super) {
         // insert options (checkboxes and labels)
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
-            checkboxes.append("<div class=\"filtered-value-option\"><input type=\"checkbox\" class=\"filtered-value-value\" value=\"" + value.printoutValue + "\" ><label>" + (value.formattedValue || value.printoutValue) + "</label></div>");
+            checkboxes.append("<div class=\"filtered-value-option\"><label><input type=\"checkbox\" value=\"" + value.printoutValue + "\" ><div class=\"filtered-value-option-label\">" + (value.formattedValue || value.printoutValue) + "</div></label></div>");
         }
         // attach event handler
         checkboxes
@@ -673,22 +673,29 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var orControl_1 = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-or\" id=\"filtered-value-or-" + this.printrequestId + "\" value=\"or\" checked>");
-                var andControl = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\" class=\"filtered-value-and\" id=\"filtered-value-and-" + this.printrequestId + "\" value=\"and\">");
-                andControl
-                    .add(orControl_1)
-                    .on('change', undefined, { 'filter': this }, function (eventObject) {
-                    eventObject.data.filter.useOr(orControl_1.is(':checked'));
-                });
+                var orControl = this.getRadioControl('or', true);
+                var andControl = this.getRadioControl('and');
                 andorControl
-                    .append(orControl_1)
-                    .append("<label for=\"filtered-value-or-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-or').text() + "</label>")
+                    .append(orControl)
                     .append(andControl)
-                    .append("<label for=\"filtered-value-and-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-and').text() + "</label>")
                     .appendTo(switchControls);
+                andorControl
+                    .find('input')
+                    .on('change', undefined, { 'filter': this }, function (eventObject) {
+                    return eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or');
+                });
             }
             filtercontrols.append(switchControls);
         }
+    };
+    ValueFilter.prototype.getRadioControl = function (type, isChecked) {
+        if (isChecked === void 0) { isChecked = false; }
+        var checkedAttr = isChecked ? 'checked' : '';
+        var labelText = mw.message('srf-filtered-value-filter-' + type).text();
+        var controlText = "<label for=\"filtered-value-" + type + "-" + this.printrequestId + "\">" +
+            ("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-" + type + "\" id=\"filtered-value-" + type + "-" + this.printrequestId + "\" value=\"" + type + "\" " + checkedAttr + ">") +
+            (labelText + "</label>");
+        return $(controlText);
     };
     ValueFilter.prototype.isVisible = function (rowId) {
         if (this.visibleValues.length === 0) {

@@ -106,7 +106,7 @@ export class ValueFilter extends Filter {
 
 		// insert options (checkboxes and labels)
 		for ( let value of this.values ) {
-			checkboxes.append( `<div class="filtered-value-option"><input type="checkbox" class="filtered-value-value" value="${value.printoutValue}" ><label>${value.formattedValue || value.printoutValue}</label></div>` );
+			checkboxes.append( `<div class="filtered-value-option"><label><input type="checkbox" value="${value.printoutValue}" ><div class="filtered-value-option-label">${value.formattedValue || value.printoutValue}</div></label></div>` );
 		}
 
 		// attach event handler
@@ -165,26 +165,37 @@ export class ValueFilter extends Filter {
 
 				let andorControl = $( '<div class="filtered-value-andor">' );
 
-				let orControl = $( `<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-or" id="filtered-value-or-${this.printrequestId}" value="or" checked>` );
-				let andControl = $( `<input type="radio" name="filtered-value-${this.printrequestId}" class="filtered-value-and" id="filtered-value-and-${this.printrequestId}" value="and">` );
-
-				andControl
-				.add( orControl )
-				.on( 'change', undefined, { 'filter': this }, function ( eventObject: JQueryEventObject ) {
-					eventObject.data.filter.useOr( orControl.is( ':checked' ) );
-				} );
+				let orControl = this.getRadioControl( 'or', true );
+				let andControl = this.getRadioControl( 'and' );
 
 				andorControl
 				.append( orControl )
-				.append( `<label for="filtered-value-or-${this.printrequestId}">${mw.message( 'srf-filtered-value-filter-or' ).text()}</label>` )
 				.append( andControl )
-				.append( `<label for="filtered-value-and-${this.printrequestId}">${mw.message( 'srf-filtered-value-filter-and' ).text()}</label>` )
 				.appendTo( switchControls );
+
+				andorControl
+				.find( 'input' )
+				.on( 'change', undefined, { 'filter': this }, ( eventObject: JQueryEventObject ) =>
+					eventObject.data.filter.useOr( eventObject.target.getAttribute('value' ) === 'or' )
+				);
 
 			}
 
 			filtercontrols.append( switchControls );
 		}
+	}
+
+	private getRadioControl( type: string, isChecked: boolean = false ) {
+
+		let checkedAttr = isChecked?'checked':'';
+		let labelText = mw.message( 'srf-filtered-value-filter-' + type ).text();
+
+		let controlText =
+			`<label for="filtered-value-${type}-${this.printrequestId}">` +
+			`<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-${type}" id="filtered-value-${type}-${this.printrequestId}" value="${type}" ${checkedAttr}>` +
+			`${labelText}</label>`;
+
+		return $( controlText );
 	}
 
 	public isVisible( rowId: string ): boolean {
