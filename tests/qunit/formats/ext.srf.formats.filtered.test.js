@@ -1,14 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
+/// <reference types="jquery" />
 exports.__esModule = true;
 var View_1 = require("./View/View");
 var Controller = (function () {
     function Controller(target, data, printRequests) {
         this.target = undefined;
+        this.spinner = undefined;
         this.views = {};
         this.filters = {};
         this.currentView = undefined;
         this.target = target;
+        if (this.target !== undefined) {
+            this.spinner = this.target.find('div.filtered-filter-spinner');
+        }
         this.data = data;
         this.printRequests = printRequests;
         for (var rowId in this.data) {
@@ -44,8 +49,7 @@ var Controller = (function () {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
         filter.init();
-        this.onFilterUpdated(filterId);
-        return this;
+        return this.onFilterUpdated(filterId);
     };
     Controller.prototype.getFilter = function (filterId) {
         return this.filters[filterId];
@@ -85,25 +89,31 @@ var Controller = (function () {
         this.switchToView(this.views[viewID]);
     };
     Controller.prototype.onFilterUpdated = function (filterId) {
-        var toShow = [];
-        var toHide = [];
-        for (var rowId in this.data) {
-            var oldVisible = this.data[rowId].visible[filterId];
-            var newVisible = this.filters[filterId].isVisible(rowId);
-            if (oldVisible !== newVisible) {
-                this.data[rowId].visible[filterId] = newVisible;
-                if (newVisible && this.isVisible(rowId)) {
-                    toShow.push(rowId);
-                    // controller.showRow( rowId );
-                }
-                else {
-                    toHide.push(rowId);
-                    // controller.hideRow( rowId );
+        var _this = this;
+        return this.showSpinner()
+            .then(function () {
+            // TODO: Optimize this!
+            var toShow = [];
+            var toHide = [];
+            for (var rowId in _this.data) {
+                var oldVisible = _this.data[rowId].visible[filterId];
+                var newVisible = _this.filters[filterId].isVisible(rowId);
+                if (oldVisible !== newVisible) {
+                    _this.data[rowId].visible[filterId] = newVisible;
+                    if (newVisible && _this.isVisible(rowId)) {
+                        toShow.push(rowId);
+                        // controller.showRow( rowId );
+                    }
+                    else {
+                        toHide.push(rowId);
+                        // controller.hideRow( rowId );
+                    }
                 }
             }
-        }
-        this.hideRows(toHide);
-        this.showRows(toShow);
+            _this.hideRows(toHide);
+            _this.showRows(toShow);
+        })
+            .then(function () { _this.hideSpinner(); });
     };
     Controller.prototype.isVisible = function (rowId) {
         for (var filterId in this.data[rowId].visible) {
@@ -128,6 +138,22 @@ var Controller = (function () {
         for (var viewId in this.views) {
             this.views[viewId].showRows(rowIds);
         }
+    };
+    Controller.prototype.showSpinner = function () {
+        return this.animateSpinner();
+    };
+    Controller.prototype.hideSpinner = function () {
+        return this.animateSpinner(false);
+    };
+    Controller.prototype.animateSpinner = function (show) {
+        if (show === void 0) { show = true; }
+        if (this.spinner === undefined) {
+            return jQuery.when();
+        }
+        if (show) {
+            return this.spinner.fadeIn(200).promise();
+        }
+        return this.spinner.fadeOut(200).promise();
     };
     return Controller;
 }());
@@ -759,6 +785,8 @@ var ControllerTest = (function () {
         var data = { 'foo': {} };
         var controller = new Controller_1.Controller(undefined, data, {});
         var filterIds = ['foo', 'bar', 'baz'];
+        var done = assert.async();
+        var promises = [];
         filterIds.forEach(function (filterId) {
             var visibilityWasQueried = false;
             var filter = new MockedFilter_1.MockedFilter(filterId, undefined, undefined, controller);
@@ -767,12 +795,16 @@ var ControllerTest = (function () {
                 return true;
             };
             // Run
-            controller.attachFilter(filter);
-            // Assert: Filter was queried for the visibility of result items
-            assert.ok(visibilityWasQueried, "Filter \"" + filterId + "\" was queried after attaching.");
+            var promise = controller.attachFilter(filter)
+                .then(function () {
+                // Assert: Filter was queried for the visibility of result items
+                assert.ok(visibilityWasQueried, "Filter \"" + filterId + "\" was queried after attaching.");
+            });
+            promises.push(promise);
             // Assert: Filter correctly attached and retained.
             assert.deepEqual(controller.getFilter(filterId), filter, "Controller knows \"" + filterId + "\" filter.");
         });
+        jQuery.when.apply(jQuery, promises).then(done);
     };
     return ControllerTest;
 }());
@@ -855,6 +887,9 @@ var ValueFilterTest = (function (_super) {
         controller.onFilterUpdated = function (filterId) {
             // Assert
             assert.ok(true, 'Filter updated.');
+            var d = jQuery.Deferred();
+            d.resolve();
+            return d.promise();
         };
         var f = new ValueFilter_1.ValueFilter('foo', $(), 'fooPR', controller, {});
         assert.expect(1);

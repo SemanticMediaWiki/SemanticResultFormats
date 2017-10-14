@@ -17,6 +17,18 @@
 	left: 0;
 }
 
+.filtered-filters .filtered-filter-spinner {
+	/* display: none; */
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	height: 100%;
+	width: 100%;
+	z-index: 2;
+	opacity: .7;
+}
+
 .filtered-views {
     height: 60%;
 	overflow: auto;
