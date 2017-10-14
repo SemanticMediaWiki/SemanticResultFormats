@@ -1,0 +1,330 @@
+{
+	"description": "Filtered format: ...",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/City name",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Location",
+			"contents": "[[Has type::Geographic coordinates]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Country code",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Population",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Elevation",
+			"contents": "[[Has type::Quantity]][[Corresponds to::1 m]][[Corresponds to::0.001 km]][[Corresponds to::3.28084 ft]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Timezone",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Modification date",
+			"contents": "[[Has type::Date]]"
+		},
+
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "City",
+			"contents": "[[Category:Filtered test]][[Category:City]][[Filtered test/City name::{{{name|}}}]][[Filtered test/Location:: {{{latitude|}}}°, {{{longitude|}}}°]][[Filtered test/Country code::{{{country code|}}}]][[Filtered test/Population::{{{population|}}}]][[Filtered test/Elevation::{{{dem|}}} m]][[Filtered test/Timezone::{{{timezone|}}}]][[Filtered test/Modification date::{{{modification date|}}}]]"
+		},
+
+		{
+			"page": "Filtered test/Berlin",
+			"contents": "{{City |name=Berlin |latitude=52.52437 |longitude=13.41053 |country code=DE |population=3426354 |dem=43 |timezone=Europe/Berlin |modification date=2016-09-26 }}"
+		},
+		{
+			"page": "Filtered test/Cairo",
+			"contents": "{{City |name=Cairo |latitude=30.06263 |longitude=31.24967 |country code=EG |population=7734614 |dem=23 |timezone=Africa/Cairo |modification date=2015-06-03 }}"
+		},
+		{
+			"page": "Filtered test/London",
+			"contents": "{{City |name=London |latitude=51.50853 |longitude=-0.12574 |country code=GB |population=7556900 |dem=25 |timezone=Europe/London |modification date=2016-09-14 }}"
+		},
+		{
+			"page": "Filtered test/Madrid",
+			"contents": "{{City |name=Madrid |latitude=40.4165 |longitude=-3.70256 |country code=ES |population=3255944 |dem=665 |timezone=Europe/Madrid |modification date=2015-06-03 }}"
+		},
+		{
+			"page": "Filtered test/Paris",
+			"contents": "{{City |name=Paris |latitude=48.85341 |longitude=2.3488 |country code=FR |population=2138551 |dem=42 |timezone=Europe/Paris |modification date=2016-02-18  }}"
+		},
+		{
+			"page": "Filtered test/Sofia",
+			"contents": "{{City |name=Sofia |latitude=42.69751 |longitude=23.32415 |country code=BG |population=1152556 |dem=562 |timezone=Europe/Sofia |modification date=2011-06-16 }}"
+		},
+		{
+			"page": "Filtered test/Vienna",
+			"contents": "{{City |name=Vienna |latitude=48.20849 |longitude=16.37208 |country code=AT |population=1691468 |dem=193 |timezone=Europe/Vienna |modification date=2015-07-29 }}"
+		},
+		{
+			"page": "Filtered test/Yerevan",
+			"contents": "{{City |name=Yerevan |latitude=40.18111 |longitude=44.51361 |country code=AM |population=1093485 |dem=994 |timezone=Asia/Yerevan |modification date=2016-03-10 }}"
+		},
+		{
+			"page": "Example/Filtered 01-01",
+			"contents": "{{#ask:[[Category:Filtered test]]|format=filtered}}"
+		},
+		{
+			"page": "Example/Filtered 01-02",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=list}}"
+		},
+		{
+			"page": "Example/Filtered 01-03",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=calendar}}"
+		},
+		{
+			"page": "Example/Filtered 01-04",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=table}}"
+		},
+		{
+			"page": "Example/Filtered 01-05",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=map}}"
+		},
+		{
+			"page": "Example/Filtered 01-06",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |+filter=value |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-07",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Elevation |+filter=number |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-08",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Location |+filter=distance |+distance filter origin=52.52437° 13.41053° |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-09",
+			"contents": "{{#ask:[[Category:Filtered test]] |format=filtered |filter position=top }}"
+		},
+		{
+			"page": "Example/Filtered 01-10",
+			"contents": "{{#ask:[[Category:Filtered test]] |format=filtered |filter position=bottom }}"
+		},
+		{
+			"page": "Example/Filtered 01-11",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=list |list view type=ul }}"
+		},
+		{
+			"page": "Example/Filtered 01-12",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=list |list view type=ol }}"
+		},
+		{
+			"page": "Example/Filtered 01-17",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Location |+filter=distance |format=filtered }}"
+		},
+		{
+			"page": "Example/Filtered 01-18",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/Elevation |+filter=distance |format=filtered }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-01 (Empty response)",
+			"subject": "Example/Filtered 01-01",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered", 1 ],
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-02 (List view)",
+			"subject": "Example/Filtered 01-02",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list:contains('List')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list", 1 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list > div.filtered-list-item:not(:empty)", 8 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-03 (Calendar view)",
+			"subject": "Example/Filtered 01-03",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-calendar", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-calendar:contains('Calendar')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-calendar", 1 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-04 (Table view)",
+			"subject": "Example/Filtered 01-04",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table:contains('Table')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table", 1 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr > th:not(:empty)", 3 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr.filtered-table-item:not(:empty)", 8 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr.filtered-table-item > td", 24 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-05 (Map view)",
+			"subject": "Example/Filtered 01-05",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
+					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-map", 1 ],
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-map:contains('Map')",
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-map", 1 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-06 (Value filter)",
+			"subject": "Example/Filtered 01-06",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter.filtered-value",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-07 (Number filter)",
+			"subject": "Example/Filtered 01-07",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter.filtered-number",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-08 (Distance filter)",
+			"subject": "Example/Filtered 01-08",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered > div.filtered-filters > div.filtered-filter.filtered-distance",
+					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
+					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-09 (Filters on top)",
+			"subject": "Example/Filtered 01-09",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered", 1 ],
+					"div.filtered > div.filtered-filters + div.filtered-views"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-10 (Filters at bottom)",
+			"subject": "Example/Filtered 01-10",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered", 1 ],
+					"div.filtered > div.filtered-views + div.filtered-filters "
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-11 (List view: Type ul)",
+			"subject": "Example/Filtered 01-11",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list > ul > li.filtered-list-item:not(:empty)", 8 ]
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Filtered 01-12 (List view: Type ul)",
+			"subject": "Example/Filtered 01-12",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list > ol > li.filtered-list-item:not(:empty)", 8 ]
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Filtered 01-17 (Distance filter: Missing origin)",
+			"subject": "Example/Filtered 01-17",
+			"assert-output": {
+				"to-contain": [
+					"Missing origin for distance filter on 'Filtered test/Location'."
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Filtered 01-18 (Distance filter: Wrong printout type)",
+			"subject": "Example/Filtered 01-18",
+			"assert-output": {
+				"to-contain": [
+					"The 'distance' filter can not be used on the 'Filtered test/Elevation' printout."
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"srfgMapProvider": "OpenStreetMap.Mapnik",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
