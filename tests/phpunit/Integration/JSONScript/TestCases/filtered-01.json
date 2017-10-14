@@ -141,7 +141,7 @@
 				"to-be-valid-html": 1,
 				"to-contain": [
 					[ "div.filtered", 1 ],
-					"div.filtered > div.filtered-filters:empty",
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container:empty",
 					"div.filtered > div.filtered-views > div.filtered-views-container:empty"
 				]
@@ -154,7 +154,7 @@
 			"assert-output": {
 				"to-be-valid-html": 1,
 				"to-contain": [
-					"div.filtered > div.filtered-filters:empty",
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
 					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list", 1 ],
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-list:contains('List')",
 					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-list", 1 ],
@@ -169,7 +169,7 @@
 			"assert-output": {
 				"to-be-valid-html": 1,
 				"to-contain": [
-					"div.filtered > div.filtered-filters:empty",
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
 					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-calendar", 1 ],
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-calendar:contains('Calendar')",
 					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-calendar", 1 ]
@@ -183,7 +183,7 @@
 			"assert-output": {
 				"to-be-valid-html": 1,
 				"to-contain": [
-					"div.filtered > div.filtered-filters:empty",
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
 					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table", 1 ],
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table:contains('Table')",
 					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table", 1 ],
@@ -200,7 +200,7 @@
 			"assert-output": {
 				"to-be-valid-html": 1,
 				"to-contain": [
-					"div.filtered > div.filtered-filters:empty",
+					"div.filtered > div.filtered-filters > div.filtered-filter-spinner",
 					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-map", 1 ],
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-map:contains('Map')",
 					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-map", 1 ]
