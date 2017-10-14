@@ -1,0 +1,47 @@
+{
+	"description": "Test `format=datatables` html output (no JS validation)",
+	"setup": [
+		{
+			"page": "Has date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Example/Datatables/1",
+			"contents": "[[Has date::1 Jan 1970]] [[Category:Datatables]]"
+		},
+		{
+			"page": "Example/Datatables/2",
+			"contents": "[[Has date::3 Jan 1970]] [[Category:Datatables]]"
+		},
+		{
+			"page": "Test/Datatables/Q.1",
+			"contents": "{{#ask: [[Category:Datatables]] |?Has date |format=datatables }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0",
+			"subject": "Test/Datatables/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-datatables\" data-theme=\"bootstrap\"><div class=\"top\">"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
