@@ -204,7 +204,12 @@ export class ValueFilter extends Filter {
 			return true;
 		}
 
-		let values = this.controller.getData()[ rowId ].printouts[ this.printrequestId ].values;
+		let values: string[] = this.controller.getData()[ rowId ].printouts[ this.printrequestId ].values;
+
+		if ( values.length === 0 ) {
+			return super.isVisible( rowId );
+		}
+
 
 		if ( this._useOr ) {
 			for ( let expectedValue of this.visibleValues ) {
