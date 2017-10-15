@@ -84,6 +84,7 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 * filter (`value`|`distance`|`number`)
 * hide (`yes`|`no`)
 * align (`right`|`left`|`center`) (Table view only)
+* show if undefined (`yes`|`no`)
 
 ### Value filter
 

@@ -20,7 +20,7 @@ export abstract class Filter{
 	public init() {};
 
 	public isVisible( rowId: string ): boolean {
-		return true;
+		return this.options.hasOwnProperty( 'show if undefined' ) && this.options[ 'show if undefined' ] === true;
 	}
 
 	public getId() {
