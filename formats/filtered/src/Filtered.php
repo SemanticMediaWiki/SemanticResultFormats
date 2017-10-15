@@ -13,7 +13,7 @@ use Html;
 use SMW\Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryLinker;
-use SMW\Query\ResultPrinters\ResultPrinter;
+use SMWResultPrinter;
 use SMWOutputs;
 use SMWPropertyValue;
 use SMWQueryResult;
@@ -51,7 +51,7 @@ use SMWResultArray;
  * parameter empty probably does not make much sense.
  *
  */
-class Filtered extends ResultPrinter {
+class Filtered extends SMWResultPrinter {
 
 	/**
 	 * The available view types
