@@ -267,7 +267,11 @@ var DistanceFilter = (function (_super) {
         return this.earthRadiusValue * 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
     };
     DistanceFilter.prototype.isVisible = function (rowId) {
-        return this.controller.getData()[rowId].data[this.filterId].distance <= this.filterValue;
+        var rowdata = this.controller.getData()[rowId].data;
+        if (rowdata.hasOwnProperty(this.filterId)) {
+            return rowdata[this.filterId].distance <= this.filterValue;
+        }
+        return _super.prototype.isVisible.call(this, rowId);
     };
     DistanceFilter.earthRadius = {
         m: 6371008.8,
@@ -296,7 +300,7 @@ var Filter = (function () {
     Filter.prototype.init = function () { };
     ;
     Filter.prototype.isVisible = function (rowId) {
-        return true;
+        return this.options.hasOwnProperty('show if undefined') && this.options['show if undefined'] === true;
     };
     Filter.prototype.getId = function () {
         return this.filterId;
@@ -547,15 +551,16 @@ var NumberFilter = (function (_super) {
     };
     NumberFilter.prototype.isVisible = function (rowId) {
         var rowdata = this.controller.getData()[rowId].data;
-        if (rowdata.hasOwnProperty(this.filterId)) {
+        if (rowdata.hasOwnProperty(this.filterId) && rowdata[this.filterId].values.length > 0) {
             for (var _i = 0, _a = rowdata[this.filterId].values; _i < _a.length; _i++) {
                 var value = _a[_i];
                 if (value >= this.filterValueLower && value <= this.filterValueUpper) {
                     return true;
                 }
             }
+            return false;
         }
-        return false;
+        return _super.prototype.isVisible.call(this, rowId);
     };
     return NumberFilter;
 }(Filter_1.Filter));
@@ -728,6 +733,9 @@ var ValueFilter = (function (_super) {
             return true;
         }
         var values = this.controller.getData()[rowId].printouts[this.printrequestId].values;
+        if (values.length === 0) {
+            return _super.prototype.isVisible.call(this, rowId);
+        }
         if (this._useOr) {
             for (var _i = 0, _a = this.visibleValues; _i < _a.length; _i++) {
                 var expectedValue = _a[_i];

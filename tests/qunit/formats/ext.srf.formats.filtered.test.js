@@ -175,7 +175,7 @@ var Filter = (function () {
     Filter.prototype.init = function () { };
     ;
     Filter.prototype.isVisible = function (rowId) {
-        return true;
+        return this.options.hasOwnProperty('show if undefined') && this.options['show if undefined'] === true;
     };
     Filter.prototype.getId = function () {
         return this.filterId;
@@ -382,6 +382,9 @@ var ValueFilter = (function (_super) {
             return true;
         }
         var values = this.controller.getData()[rowId].printouts[this.printrequestId].values;
+        if (values.length === 0) {
+            return _super.prototype.isVisible.call(this, rowId);
+        }
         if (this._useOr) {
             for (var _i = 0, _a = this.visibleValues; _i < _a.length; _i++) {
                 var expectedValue = _a[_i];
