@@ -276,16 +276,18 @@ export class NumberFilter extends Filter {
 	public isVisible( rowId: string ): boolean {
 		let rowdata = this.controller.getData()[ rowId ].data;
 
-		if ( rowdata.hasOwnProperty( this.filterId ) ) {
+		if ( rowdata.hasOwnProperty( this.filterId ) && rowdata[ this.filterId ].values.length > 0 ) {
 
 			for ( let value of rowdata[ this.filterId ].values ) {
 				if ( value >= this.filterValueLower && value <= this.filterValueUpper ) {
 					return true;
 				}
 			}
+
+			return false;
 		}
 
-		return false;
+		return super.isVisible( rowId );
 	}
 
 }

@@ -1,3 +1,5 @@
+/// <reference types="jquery" />
+
 import { Options, ResultData } from "../types";
 declare let srf: any;
 
@@ -6,6 +8,7 @@ import { Filter } from "./Filter/Filter";
 
 export class Controller {
 	private target: JQuery = undefined;
+	private spinner: JQuery = undefined;
 
 	private views: { [key: string]: View } = {};
 	private filters: { [key: string]: Filter } = {};
@@ -15,6 +18,11 @@ export class Controller {
 
 	public constructor( target: JQuery, data: ResultData, printRequests: Options ) {
 		this.target = target;
+
+		if ( this.target !== undefined ) {
+			this.spinner = this.target.find( 'div.filtered-filter-spinner' );
+		}
+
 		this.data = data;
 		this.printRequests = printRequests;
 
@@ -22,7 +30,6 @@ export class Controller {
 			if ( !this.data[ rowId ].hasOwnProperty( 'visible' ) ) {
 				this.data[ rowId ].visible = {};
 			}
-
 		}
 	}
 
@@ -56,16 +63,14 @@ export class Controller {
 		return this.views[ viewId ];
 	}
 
-	public attachFilter( filter: Filter ) {
+	public attachFilter( filter: Filter ): JQueryPromise< void > {
 		let filterId = filter.getId();
 
 		this.filters[ filterId ] = filter;
 
 		filter.init();
 
-		this.onFilterUpdated( filterId );
-
-		return this;
+		return this.onFilterUpdated( filterId );
 	}
 
 	public getFilter( filterId: string ): Filter {
@@ -115,30 +120,38 @@ export class Controller {
 		this.switchToView( this.views[ viewID ] );
 	}
 
-	public onFilterUpdated( filterId: string ) {
-		let toShow: string[] = [];
-		let toHide: string[] = [];
+	public onFilterUpdated( filterId: string ): JQueryPromise< void > {
 
-		for ( let rowId in this.data ) {
-			let oldVisible: boolean = this.data[ rowId ].visible[ filterId ];
-			let newVisible: boolean = this.filters[ filterId ].isVisible( rowId );
+		return this.showSpinner()
+		.then(() => {
 
-			if ( oldVisible !== newVisible ) {
+			// TODO: Optimize this!
 
-				this.data[ rowId ].visible[ filterId ] = newVisible;
+			let toShow: string[] = [];
+			let toHide: string[] = [];
 
-				if ( newVisible && this.isVisible( rowId ) ) {
-					toShow.push( rowId );
-					// controller.showRow( rowId );
-				} else {
-					toHide.push( rowId );
-					// controller.hideRow( rowId );
+			for ( let rowId in this.data ) {
+				let oldVisible: boolean = this.data[ rowId ].visible[ filterId ];
+				let newVisible: boolean = this.filters[ filterId ].isVisible( rowId );
+
+				if ( oldVisible !== newVisible ) {
+
+					this.data[ rowId ].visible[ filterId ] = newVisible;
+
+					if ( newVisible && this.isVisible( rowId ) ) {
+						toShow.push( rowId );
+						// controller.showRow( rowId );
+					} else {
+						toHide.push( rowId );
+						// controller.hideRow( rowId );
+					}
 				}
 			}
-		}
 
-		this.hideRows( toHide );
-		this.showRows( toShow );
+			this.hideRows( toHide );
+			this.showRows( toShow );
+		})
+		.then( () => { this.hideSpinner() } );
 	}
 
 	public isVisible( rowId: any ) {
@@ -167,4 +180,26 @@ export class Controller {
 			this.views[ viewId ].showRows( rowIds );
 		}
 	}
+
+	private showSpinner(): JQueryPromise< void > {
+		return this.animateSpinner();
+	}
+
+	private hideSpinner(): JQueryPromise< void > {
+		return this.animateSpinner( false );
+	}
+
+	private animateSpinner( show: boolean = true ): JQueryPromise< void > {
+
+		if ( this.spinner === undefined ) {
+			return jQuery.when();
+		}
+
+		if ( show ) {
+			return this.spinner.fadeIn( 200 ).promise();
+		}
+
+		return this.spinner.fadeOut( 200 ).promise();
+	}
+
 }

@@ -65,9 +65,14 @@ export class ValueFilterTest extends QUnitTest {
 
 		// Setup
 		let controller = new Controller( $(), {}, {} );
-		controller.onFilterUpdated = function ( filterId ) {
+		controller.onFilterUpdated = function ( filterId ): JQueryPromise< void > {
 			// Assert
 			assert.ok( true, 'Filter updated.' );
+
+			let d: JQueryDeferred< void > = jQuery.Deferred();
+			d.resolve();
+
+			return d.promise();
 		};
 
 		let f = new ValueFilter( 'foo', $(), 'fooPR', controller, {} );
