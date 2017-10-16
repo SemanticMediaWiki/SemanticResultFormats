@@ -13,7 +13,7 @@
 	},
 	"srf-desc": "Formatos adicionais de resultados para consultas do MediaWiki Semântico",
 	"srf-name": "Formatos dos resultados semânticos",
-	"prefs-srf": "Formatos dos resultados semânticos",
+	"prefs-srf": "Extension:Formatos dos resultados semânticos",
 	"srf-prefs-intro-text": "Tem instalada a extensão Formatos dos Resultados Semânticos. Para ajuda adicional, visite a página de ajuda [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de resultados], por favor.",
 	"prefs-srf-eventcalendar-options": "Opções do calendário de eventos",
 	"srf-prefs-eventcalendar-options-update-default": "Ativar as [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates atualizações automáticas] dos eventos de calendário durante a atualização da página",
