@@ -75,6 +75,7 @@ export class NumberFilter extends Filter {
 		sliderOptions.min = minValue;
 		sliderOptions.max = maxValue;
 		sliderOptions.step = this.getStep( precision );
+		sliderOptions.grid_num = Math.min( 4, Math.round( ( maxValue - minValue ) / sliderOptions.step ) );
 
 		sliderOptions.from = minValue;
 		sliderOptions.to = maxValue;
