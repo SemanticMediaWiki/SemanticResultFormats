@@ -75,6 +75,7 @@ export class NumberFilter extends Filter {
 		sliderOptions.min = minValue;
 		sliderOptions.max = maxValue;
 		sliderOptions.step = this.getStep( precision );
+		sliderOptions.grid_num = Math.min( 4, Math.round( ( maxValue - minValue ) / sliderOptions.step ) );
 
 		sliderOptions.from = minValue;
 		sliderOptions.to = maxValue;
@@ -152,7 +153,7 @@ export class NumberFilter extends Filter {
 			filtercontrols.append( caption );
 		}
 
-		slider.ionRangeSlider( sliderOptions );
+		mw.loader.using( 'ext.srf.filtered.slider' ).then( () => slider.ionRangeSlider( sliderOptions ) );
 	}
 
 	private getMinSliderValue( minValue: number, precision: number ) {

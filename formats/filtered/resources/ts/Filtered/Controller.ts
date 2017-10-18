@@ -8,7 +8,7 @@ import { Filter } from "./Filter/Filter";
 
 export class Controller {
 	private target: JQuery = undefined;
-	private spinner: JQuery = undefined;
+	private filterSpinner: JQuery = undefined;
 
 	private views: { [key: string]: View } = {};
 	private filters: { [key: string]: Filter } = {};
@@ -20,7 +20,7 @@ export class Controller {
 		this.target = target;
 
 		if ( this.target !== undefined ) {
-			this.spinner = this.target.find( 'div.filtered-filter-spinner' );
+			this.filterSpinner = this.target.find( 'div.filtered-filter-spinner' );
 		}
 
 		this.data = data;
@@ -79,7 +79,8 @@ export class Controller {
 
 	public show() {
 		this.initializeFilters();
-		this.target.show();
+		this.target.children( '.filtered-spinner' ).remove();
+		this.target.children().show();
 		this.switchToView( this.currentView );
 	}
 
@@ -191,15 +192,15 @@ export class Controller {
 
 	private animateSpinner( show: boolean = true ): JQueryPromise< void > {
 
-		if ( this.spinner === undefined ) {
+		if ( this.filterSpinner === undefined ) {
 			return jQuery.when();
 		}
 
 		if ( show ) {
-			return this.spinner.fadeIn( 200 ).promise();
+			return this.filterSpinner.fadeIn( 200 ).promise();
 		}
 
-		return this.spinner.fadeOut( 200 ).promise();
+		return this.filterSpinner.fadeOut( 200 ).promise();
 	}
 
 }

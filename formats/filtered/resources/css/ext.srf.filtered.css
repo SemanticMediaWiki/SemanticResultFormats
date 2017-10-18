@@ -5,6 +5,7 @@
 
 .filtered {
     height: 100%;
+	position: relative;
 }
 
 .filtered-filters {
@@ -25,8 +26,18 @@
 	background: #fff;
 	height: 100%;
 	width: 100%;
-	z-index: 2;
+	z-index: 1001; /* raise it above the map view */
 	opacity: .7;
+}
+
+.filtered-spinner {
+	height: 100px;
+	width: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+	/*border: 1px solid #aaa;*/
+	margin: 1em;
 }
 
 .filtered-views {
