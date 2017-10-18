@@ -153,7 +153,7 @@ export class NumberFilter extends Filter {
 			filtercontrols.append( caption );
 		}
 
-		slider.ionRangeSlider( sliderOptions );
+		mw.loader.using( 'ext.srf.filtered.slider' ).then( () => slider.ionRangeSlider( sliderOptions ) );
 	}
 
 	private getMinSliderValue( minValue: number, precision: number ) {

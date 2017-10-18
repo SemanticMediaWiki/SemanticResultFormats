@@ -111,10 +111,18 @@ export class ControllerTest {
 		let targetElement = $();
 		let targetShown = false;
 
-		targetElement.show = function () {
-			targetShown = true;
-			return targetElement;
+		targetElement.children = function( selector?: string ) {
+
+			let targetChild = $();
+
+			targetChild.show = function () {
+				targetShown = true;
+				return targetChild;
+			};
+
+			return targetChild;
 		};
+
 
 		// Run
 		new Controller( targetElement, undefined, undefined ).show();

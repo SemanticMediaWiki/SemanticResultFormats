@@ -774,6 +774,7 @@ return [
 			'dependencies' => [
 				'ext.srf',
 			],
+			'position' => 'top',
 		],
 
 	'ext.srf.filtered.calendar-view.messages' => $formatModule + $calendarMessages,
