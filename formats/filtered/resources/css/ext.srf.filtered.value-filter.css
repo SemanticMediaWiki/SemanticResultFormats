@@ -53,17 +53,22 @@
 	display: inline-block;
 	padding: 0 1em;
 	width: 20%;
+	min-width: -moz-min-content;
+	min-width: -webkit-min-content;
+	min-width: min-content;
+	white-space: nowrap;
 }
 
 .filtered-filters .filtered-value .filtered-value-option .filtered-value-option-label {
 	display: inline-block;
-	vertical-align: bottom;
+	vertical-align: middle;
 	margin: 0;
 	line-height: 100%;
+	white-space: normal;
 }
 
 .filtered-filters .filtered-value .filtered-value-option input {
-	vertical-align: bottom;
+	vertical-align: sub;
 	margin-right: 1em;
 }
 

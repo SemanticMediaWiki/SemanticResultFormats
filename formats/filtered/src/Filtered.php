@@ -193,8 +193,9 @@ class Filtered extends ResultPrinter {
 
 		$id = $this->uniqid();
 		// wrap all in a div
-		$html = $this->filtersOnTop ? $filterHtml . $viewHtml : $viewHtml . $filterHtml;
-		$html = Html::rawElement( 'div', [ 'class' => 'filtered ' . $id, 'id' => $id, 'style' => 'display:none' ], $html );
+		$html = '<div class="filtered-spinner"><div class="smw-overlay-spinner"></div></div>';
+		$html .= $this->filtersOnTop ? $filterHtml . $viewHtml : $viewHtml . $filterHtml;
+		$html = Html::rawElement( 'div', [ 'class' => 'filtered ' . $id, 'id' => $id ], $html );
 
 		$config[ 'data' ] = $this->getResultsForJs( $resultItems );
 
@@ -212,6 +213,7 @@ class Filtered extends ResultPrinter {
 		$link->setParameter( 'table', 'format' );
 
 		SMWOutputs::requireResource( 'ext.srf.filtered' );
+		$this->getParser()->getOutput()->addModuleStyles( 'ext.srf.filtered' );
 
 		return $html;
 	}
@@ -386,7 +388,7 @@ class Filtered extends ResultPrinter {
 		$filterHtml .= '<div class="filtered-filter-spinner" style="display: none;"><div class="smw-overlay-spinner"></div></div>';
 
 		// wrap filters in a div
-		$filterHtml = Html::rawElement( 'div', [ 'class' => 'filtered-filters' ], $filterHtml );
+		$filterHtml = Html::rawElement( 'div', [ 'class' => 'filtered-filters', 'style' => 'display:none' ], $filterHtml );
 
 		return [ $filterHtml, $printrequests ];
 	}
@@ -447,7 +449,7 @@ class Filtered extends ResultPrinter {
 			}
 		}
 
-		$viewHtml = Html::rawElement( 'div', [ 'class' => 'filtered-views' ],
+		$viewHtml = Html::rawElement( 'div', [ 'class' => 'filtered-views', 'style' => 'display:none' ],
 			Html::rawElement( 'div', [ 'class' => 'filtered-views-selectors-container', 'style' => 'display:none' ], $viewSelectorsHtml ) .
 			Html::rawElement( 'div', [ 'class' => 'filtered-views-container' ], $viewHtml )
 		);
