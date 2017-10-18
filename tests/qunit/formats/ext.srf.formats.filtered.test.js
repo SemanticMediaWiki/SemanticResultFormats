@@ -6,13 +6,13 @@ var View_1 = require("./View/View");
 var Controller = (function () {
     function Controller(target, data, printRequests) {
         this.target = undefined;
-        this.spinner = undefined;
+        this.filterSpinner = undefined;
         this.views = {};
         this.filters = {};
         this.currentView = undefined;
         this.target = target;
         if (this.target !== undefined) {
-            this.spinner = this.target.find('div.filtered-filter-spinner');
+            this.filterSpinner = this.target.find('div.filtered-filter-spinner');
         }
         this.data = data;
         this.printRequests = printRequests;
@@ -56,7 +56,8 @@ var Controller = (function () {
     };
     Controller.prototype.show = function () {
         this.initializeFilters();
-        this.target.show();
+        this.target.children('.filtered-spinner').remove();
+        this.target.children().show();
         this.switchToView(this.currentView);
     };
     Controller.prototype.switchToView = function (view) {
@@ -147,13 +148,13 @@ var Controller = (function () {
     };
     Controller.prototype.animateSpinner = function (show) {
         if (show === void 0) { show = true; }
-        if (this.spinner === undefined) {
+        if (this.filterSpinner === undefined) {
             return jQuery.when();
         }
         if (show) {
-            return this.spinner.fadeIn(200).promise();
+            return this.filterSpinner.fadeIn(200).promise();
         }
-        return this.spinner.fadeOut(200).promise();
+        return this.filterSpinner.fadeOut(200).promise();
     };
     return Controller;
 }());
@@ -770,9 +771,13 @@ var ControllerTest = (function () {
         // Setup
         var targetElement = $();
         var targetShown = false;
-        targetElement.show = function () {
-            targetShown = true;
-            return targetElement;
+        targetElement.children = function (selector) {
+            var targetChild = $();
+            targetChild.show = function () {
+                targetShown = true;
+                return targetChild;
+            };
+            return targetChild;
         };
         // Run
         new Controller_1.Controller(targetElement, undefined, undefined).show();
