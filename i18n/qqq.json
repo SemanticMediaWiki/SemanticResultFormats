@@ -334,7 +334,7 @@
 	"srf-ui-mediaplayer-label-pause": "{{Doc-smw-ui-label-media|pause}}\n{{Identical|Pause}}",
 	"srf-ui-mediaplayer-label-next": "{{Doc-smw-ui-label-media|next}}\n{{Identical|Next}}",
 	"srf-ui-mediaplayer-label-stop": "{{Doc-smw-ui-label-media|stop}}\n{{Identical|Stop}}",
-	"srf-ui-mediaplayer-label-mute": "{{Doc-smw-ui-label-media|mute}}",
+	"srf-ui-mediaplayer-label-mute": "{{Doc-smw-ui-label-media|mute}}\n{{Identical|Mute}}",
 	"srf-ui-mediaplayer-label-unmute": "{{Doc-smw-ui-label-media|unmute}}",
 	"srf-ui-mediaplayer-label-volume-max": "{{Doc-smw-ui-label-media|volume-max}}",
 	"srf-ui-mediaplayer-label-shuffle": "{{Doc-smw-ui-label-media|shuffle}}\n{{Identical|Shuffle}}",
