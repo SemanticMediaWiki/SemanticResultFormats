@@ -1,0 +1,70 @@
+{
+	"description": "Test `format=tagcloud` html output",
+	"setup": [
+		{
+			"page": "Has date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "TagcloudTemplate",
+			"namespace": "NS_TEMPLATE",
+			"contents": "<includeonly>T: {{{1}}}</includeonly>"
+		},
+		{
+			"page": "Example/Tagcloud/1",
+			"contents": "[[Has date::1 Jan 1970]] [[Category:Tagcloud]]"
+		},
+		{
+			"page": "Example/Tagcloud/2",
+			"contents": "[[Has date::3 Jan 1970]] [[Category:Tagcloud]]"
+		},
+		{
+			"page": "Example/Tagcloud/3",
+			"contents": "[[Has date::3 Jan 1970]] [[Has date::4 Jan 1970]] [[Category:Tagcloud]]"
+		},
+		{
+			"page": "Test/Tagcloud/Q.1",
+			"contents": "{{#ask: [[Category:Tagcloud]] |?Has date |format=tagcloud }}"
+		},
+		{
+			"page": "Test/Tagcloud/Q.2",
+			"contents": "{{#ask: [[Category:Tagcloud]] |?Has date |template=TagcloudTemplate |format=tagcloud }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0",
+			"subject": "Test/Tagcloud/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-tagcloud\" data-version=\"0.4.1\"><span style=\"font-size:77%\">1 January 1970</span> <span style=\"font-size:242%\">3 January 1970</span> <span style=\"font-size:77%\">4 January 1970</span></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#0 with template",
+			"subject": "Test/Tagcloud/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-tagcloud\" data-version=\"0.4.1\"><span style=\"font-size:77%\">T: 1 January 1970</span> <span style=\"font-size:242%\">T: 3 January 1970</span> <span style=\"font-size:77%\">T: 4 January 1970</span></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
