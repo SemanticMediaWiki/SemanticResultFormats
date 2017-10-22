@@ -1,6 +1,5 @@
 import { Options } from "../../types";
 import { Controller } from "../Controller";
-import removeClass = L.DomUtil.removeClass;
 
 export abstract class Filter{
 
