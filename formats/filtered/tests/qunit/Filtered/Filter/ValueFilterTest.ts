@@ -50,13 +50,13 @@ export class ValueFilterTest extends QUnitTest {
 		f.init();
 
 		// Assert
-		assert.strictEqual( target.find( '.filtered-collapsible' ).length, 1, 'Added container for collapsable content.' );
+		assert.strictEqual( target.find( '.filtered-filter-container' ).length, 1, 'Added container for collapsable content.' );
 		assert.strictEqual( target.find( '.filtered-value-andor' ).length, 1, 'Added container for and/or switch.' );
 
 		setTimeout( () => {
 			// Assert: One input added per value
 			for ( let value of options.values ) {
-				assert.strictEqual( target.find( "option[value=\"" + value + "\"]" ).length, 1, "Added option for value \"" + value + "\"." );
+				assert.strictEqual( target.find( "input[value=\"" + value + "\"]" ).length, 1, "Added option for value \"" + value + "\"." );
 			}
 		}, 100);
 	};

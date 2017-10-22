@@ -104,7 +104,7 @@ export class Controller {
 
 		for ( let rowId in this.data ) {
 			for ( let filterId in this.filters ) {
-				this.data[ rowId ].visible[ filterId ] = this.filters[ filterId ].isVisible( rowId );
+				this.data[ rowId ].visible[ filterId ] = this.filters[ filterId ].isDisabled() || this.filters[ filterId ].isVisible( rowId );
 			}
 			if ( this.isVisible( rowId ) ) {
 				toShow.push( rowId );
@@ -133,7 +133,7 @@ export class Controller {
 
 			for ( let rowId in this.data ) {
 				let oldVisible: boolean = this.data[ rowId ].visible[ filterId ];
-				let newVisible: boolean = this.filters[ filterId ].isVisible( rowId );
+				let newVisible: boolean = this.filters[ filterId ].isDisabled() || this.filters[ filterId ].isVisible( rowId );
 
 				if ( oldVisible !== newVisible ) {
 

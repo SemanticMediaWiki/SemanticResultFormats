@@ -81,7 +81,7 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 ## Printout level
 
-* filter (`value`|`distance`|`number`)
+* filter (comma-separated list of `value`, `distance`, and/or `number`)
 * hide (`yes`|`no`)
 * align (`right`|`left`|`center`) (Table view only)
 * show if undefined (`yes`|`no`)
@@ -89,7 +89,7 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 ### Value filter
 
 * value filter collapsible (`collapsed`|`uncollapsed`)
-* value filter switches (`and or`)
+* value filter switches (comma-separated list of `and or` and/or `on off`)
 * value filter values (list of strings)
 * value filter max checkboxes (number. Default: 5)
 
@@ -97,6 +97,7 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 * distance filter origin (lat lon): *Required*
 * distance filter collapsible (`collapsed`|`uncollapsed`)
+* distance filter switches (`on off`)
 * distance filter initial value (number)
 * distance filter max distance (number)
 * distance filter unit (`m`|`km`|`mi`|`nm`)
@@ -104,11 +105,12 @@ providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 ### Number filter
 
 * number filter collapsible (`collapsed`|`uncollapsed`)
+* number filter switches (`on off`)
 * number filter min value (number)
 * number filter max value (number)
 * number filter step (number)
-* number filter values (`auto`|list of values): If this parameter is specified,
-min, max and step will be ignored.
+* number filter values (`auto`|comma-separated list of values):
+  If this parameter is specified, min, max and step will be ignored.
 * number filter sliders (`min`|`max`|`range`|`select`)
 * number filter label (string)
 
