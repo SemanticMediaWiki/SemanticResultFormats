@@ -17,7 +17,6 @@ use SMWResultPrinter;
 use SMWOutputs;
 use SMWPropertyValue;
 use SMWQueryResult;
-use SMWResultArray;
 
 /**
  * Result printer that displays results in switchable views and offers

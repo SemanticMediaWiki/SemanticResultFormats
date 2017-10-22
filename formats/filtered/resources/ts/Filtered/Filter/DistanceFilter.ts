@@ -47,12 +47,7 @@ export class DistanceFilter extends Filter {
 		this.filterValue = this.options[ 'initial value' ] ? Math.min( this.options[ 'initial value' ], maxValue ) : maxValue;
 
 		// build filter controls
-		let filtercontrols = this.target;
-
-		filtercontrols
-		.append( '<div class="filtered-filter-label"><span>' + this.options[ 'label' ] + '</span></div>' );
-
-		filtercontrols = this.addControlForCollapsing( filtercontrols );
+		let filtercontrols = this.buildEmptyControl();
 
 		let readout = $( '<div class="filtered-distance-readout">' + this.filterValue + '</div>' );
 
