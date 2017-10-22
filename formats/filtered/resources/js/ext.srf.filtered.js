@@ -1,14 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
+/// <reference types="jquery" />
 exports.__esModule = true;
 var View_1 = require("./View/View");
 var Controller = (function () {
     function Controller(target, data, printRequests) {
         this.target = undefined;
+        this.filterSpinner = undefined;
         this.views = {};
         this.filters = {};
         this.currentView = undefined;
         this.target = target;
+        if (this.target !== undefined) {
+            this.filterSpinner = this.target.find('div.filtered-filter-spinner');
+        }
         this.data = data;
         this.printRequests = printRequests;
         for (var rowId in this.data) {
@@ -44,15 +49,15 @@ var Controller = (function () {
         var filterId = filter.getId();
         this.filters[filterId] = filter;
         filter.init();
-        this.onFilterUpdated(filterId);
-        return this;
+        return this.onFilterUpdated(filterId);
     };
     Controller.prototype.getFilter = function (filterId) {
         return this.filters[filterId];
     };
     Controller.prototype.show = function () {
         this.initializeFilters();
-        this.target.show();
+        this.target.children('.filtered-spinner').remove();
+        this.target.children().show();
         this.switchToView(this.currentView);
     };
     Controller.prototype.switchToView = function (view) {
@@ -85,25 +90,31 @@ var Controller = (function () {
         this.switchToView(this.views[viewID]);
     };
     Controller.prototype.onFilterUpdated = function (filterId) {
-        var toShow = [];
-        var toHide = [];
-        for (var rowId in this.data) {
-            var oldVisible = this.data[rowId].visible[filterId];
-            var newVisible = this.filters[filterId].isVisible(rowId);
-            if (oldVisible !== newVisible) {
-                this.data[rowId].visible[filterId] = newVisible;
-                if (newVisible && this.isVisible(rowId)) {
-                    toShow.push(rowId);
-                    // controller.showRow( rowId );
-                }
-                else {
-                    toHide.push(rowId);
-                    // controller.hideRow( rowId );
+        var _this = this;
+        return this.showSpinner()
+            .then(function () {
+            // TODO: Optimize this!
+            var toShow = [];
+            var toHide = [];
+            for (var rowId in _this.data) {
+                var oldVisible = _this.data[rowId].visible[filterId];
+                var newVisible = _this.filters[filterId].isVisible(rowId);
+                if (oldVisible !== newVisible) {
+                    _this.data[rowId].visible[filterId] = newVisible;
+                    if (newVisible && _this.isVisible(rowId)) {
+                        toShow.push(rowId);
+                        // controller.showRow( rowId );
+                    }
+                    else {
+                        toHide.push(rowId);
+                        // controller.hideRow( rowId );
+                    }
                 }
             }
-        }
-        this.hideRows(toHide);
-        this.showRows(toShow);
+            _this.hideRows(toHide);
+            _this.showRows(toShow);
+        })
+            .then(function () { _this.hideSpinner(); });
     };
     Controller.prototype.isVisible = function (rowId) {
         for (var filterId in this.data[rowId].visible) {
@@ -128,6 +139,22 @@ var Controller = (function () {
         for (var viewId in this.views) {
             this.views[viewId].showRows(rowIds);
         }
+    };
+    Controller.prototype.showSpinner = function () {
+        return this.animateSpinner();
+    };
+    Controller.prototype.hideSpinner = function () {
+        return this.animateSpinner(false);
+    };
+    Controller.prototype.animateSpinner = function (show) {
+        if (show === void 0) { show = true; }
+        if (this.filterSpinner === undefined) {
+            return jQuery.when();
+        }
+        if (show) {
+            return this.filterSpinner.fadeIn(200).promise();
+        }
+        return this.filterSpinner.fadeOut(200).promise();
     };
     return Controller;
 }());
@@ -179,7 +206,7 @@ var DistanceFilter = (function (_super) {
         // build filter controls
         var filtercontrols = this.target;
         filtercontrols
-            .append('<div class="filtered-distance-label"><span>' + this.options['label'] + '</span></div>');
+            .append('<div class="filtered-filter-label"><span>' + this.options['label'] + '</span></div>');
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         var readout = $('<div class="filtered-distance-readout">' + this.filterValue + '</div>');
         var table = $('<table class="filtered-distance-table"><tbody><tr><td class="filtered-distance-min-cell">0</td>' +
@@ -241,7 +268,11 @@ var DistanceFilter = (function (_super) {
         return this.earthRadiusValue * 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
     };
     DistanceFilter.prototype.isVisible = function (rowId) {
-        return this.controller.getData()[rowId].data[this.filterId].distance <= this.filterValue;
+        var rowdata = this.controller.getData()[rowId].data;
+        if (rowdata.hasOwnProperty(this.filterId)) {
+            return rowdata[this.filterId].distance <= this.filterValue;
+        }
+        return _super.prototype.isVisible.call(this, rowId);
     };
     DistanceFilter.earthRadius = {
         m: 6371008.8,
@@ -270,7 +301,7 @@ var Filter = (function () {
     Filter.prototype.init = function () { };
     ;
     Filter.prototype.isVisible = function (rowId) {
-        return true;
+        return this.options.hasOwnProperty('show if undefined') && this.options['show if undefined'] === true;
     };
     Filter.prototype.getId = function () {
         return this.filterId;
@@ -381,6 +412,7 @@ var NumberFilter = (function (_super) {
         sliderOptions.min = minValue;
         sliderOptions.max = maxValue;
         sliderOptions.step = this.getStep(precision);
+        sliderOptions.grid_num = Math.min(4, Math.round((maxValue - minValue) / sliderOptions.step));
         sliderOptions.from = minValue;
         sliderOptions.to = maxValue;
         sliderOptions.onFinish = function (data) { return _this.onFilterUpdated(data.from, data.to); };
@@ -427,7 +459,7 @@ var NumberFilter = (function (_super) {
         filterClassNames[this.MODE_RANGE] = "mode-range";
         filterClassNames[this.MODE_SELECT] = "mode-select";
         var filtercontrols = this.target;
-        var label = $("<div class=\"filtered-number-label\"><span>" + this.options['label'] + "</span></div>");
+        var label = $("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols.append(label);
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         var slider = $('<input type="text" value="" />');
@@ -437,7 +469,7 @@ var NumberFilter = (function (_super) {
             var caption = "<div class=\"filtered-number-caption\">" + this.options['caption'] + "</div>";
             filtercontrols.append(caption);
         }
-        slider.ionRangeSlider(sliderOptions);
+        mw.loader.using('ext.srf.filtered.slider').then(function () { return slider.ionRangeSlider(sliderOptions); });
     };
     NumberFilter.prototype.getMinSliderValue = function (minValue, precision) {
         var requestedMin = this.options['min'];
@@ -521,15 +553,16 @@ var NumberFilter = (function (_super) {
     };
     NumberFilter.prototype.isVisible = function (rowId) {
         var rowdata = this.controller.getData()[rowId].data;
-        if (rowdata.hasOwnProperty(this.filterId)) {
+        if (rowdata.hasOwnProperty(this.filterId) && rowdata[this.filterId].values.length > 0) {
             for (var _i = 0, _a = rowdata[this.filterId].values; _i < _a.length; _i++) {
                 var value = _a[_i];
                 if (value >= this.filterValueLower && value <= this.filterValueUpper) {
                     return true;
                 }
             }
+            return false;
         }
-        return false;
+        return _super.prototype.isVisible.call(this, rowId);
     };
     return NumberFilter;
 }(Filter_1.Filter));
@@ -613,7 +646,7 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.buildControl = function () {
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
-        filtercontrols.append("<div class=\"filtered-value-label\"><span>" + this.options['label'] + "</span></div>");
+        filtercontrols.append("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
         var maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;
@@ -630,7 +663,7 @@ var ValueFilter = (function (_super) {
         // insert options (checkboxes and labels)
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
-            checkboxes.append("<div class=\"filtered-value-option\"><input type=\"checkbox\" class=\"filtered-value-value\" value=\"" + value.printoutValue + "\" ><label>" + (value.formattedValue || value.printoutValue) + "</label></div>");
+            checkboxes.append("<div class=\"filtered-value-option\"><label><input type=\"checkbox\" value=\"" + value.printoutValue + "\" ><div class=\"filtered-value-option-label\">" + (value.formattedValue || value.printoutValue) + "</div></label></div>");
         }
         // attach event handler
         checkboxes
@@ -648,7 +681,7 @@ var ValueFilter = (function (_super) {
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
             // Try to get label, if not fall back to value id
-            var label = value.formattedValue || value.printoutValue;
+            var label = value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
         mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
@@ -673,28 +706,38 @@ var ValueFilter = (function (_super) {
             var switchControls = $('<div class="filtered-value-switches">');
             if ($.inArray('and or', switches) >= 0) {
                 var andorControl = $('<div class="filtered-value-andor">');
-                var orControl_1 = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-or\" id=\"filtered-value-or-" + this.printrequestId + "\" value=\"or\" checked>");
-                var andControl = $("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\" class=\"filtered-value-and\" id=\"filtered-value-and-" + this.printrequestId + "\" value=\"and\">");
-                andControl
-                    .add(orControl_1)
-                    .on('change', undefined, { 'filter': this }, function (eventObject) {
-                    eventObject.data.filter.useOr(orControl_1.is(':checked'));
-                });
+                var orControl = this.getRadioControl('or', true);
+                var andControl = this.getRadioControl('and');
                 andorControl
-                    .append(orControl_1)
-                    .append("<label for=\"filtered-value-or-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-or').text() + "</label>")
+                    .append(orControl)
                     .append(andControl)
-                    .append("<label for=\"filtered-value-and-" + this.printrequestId + "\">" + mw.message('srf-filtered-value-filter-and').text() + "</label>")
                     .appendTo(switchControls);
+                andorControl
+                    .find('input')
+                    .on('change', undefined, { 'filter': this }, function (eventObject) {
+                    return eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or');
+                });
             }
             filtercontrols.append(switchControls);
         }
+    };
+    ValueFilter.prototype.getRadioControl = function (type, isChecked) {
+        if (isChecked === void 0) { isChecked = false; }
+        var checkedAttr = isChecked ? 'checked' : '';
+        var labelText = mw.message('srf-filtered-value-filter-' + type).text();
+        var controlText = "<label for=\"filtered-value-" + type + "-" + this.printrequestId + "\">" +
+            ("<input type=\"radio\" name=\"filtered-value-" + this.printrequestId + "\"  class=\"filtered-value-" + type + "\" id=\"filtered-value-" + type + "-" + this.printrequestId + "\" value=\"" + type + "\" " + checkedAttr + ">") +
+            (labelText + "</label>");
+        return $(controlText);
     };
     ValueFilter.prototype.isVisible = function (rowId) {
         if (this.visibleValues.length === 0) {
             return true;
         }
         var values = this.controller.getData()[rowId].printouts[this.printrequestId].values;
+        if (values.length === 0) {
+            return _super.prototype.isVisible.call(this, rowId);
+        }
         if (this._useOr) {
             for (var _i = 0, _a = this.visibleValues; _i < _a.length; _i++) {
                 var expectedValue = _a[_i];
@@ -767,29 +810,9 @@ var Filtered = (function () {
         this.config = config;
         this.target = target;
     }
-    /**
-     *
-     */
     Filtered.prototype.run = function () {
-        this.showStartupMessage();
-        this.startDeferred();
-    };
-    /**
-     *
-     */
-    Filtered.prototype.showStartupMessage = function () {
-        // this.target.text( "Loading..." );
-        // TODO: Use spinner from srf.util
-    };
-    /**
-     *
-     */
-    Filtered.prototype.startDeferred = function () {
-        setTimeout(this.start(), 0);
-    };
-    Filtered.prototype.start = function () {
         var controller = new Controller_1.Controller(this.target, this.config.data, this.config.printrequests);
-        this.attachFilters(controller, this.target.find('div.filtered-filters'));
+        this.attachFilters(controller, this.target.children('div.filtered-filters'));
         this.attachViewSelector(controller, this.target.find('div.filtered-views-selectors-container'));
         this.attachViews(controller, this.target.find('div.filtered-views-container'));
         // lift-off

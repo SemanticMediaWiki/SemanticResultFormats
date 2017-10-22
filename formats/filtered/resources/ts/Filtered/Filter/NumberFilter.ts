@@ -75,6 +75,7 @@ export class NumberFilter extends Filter {
 		sliderOptions.min = minValue;
 		sliderOptions.max = maxValue;
 		sliderOptions.step = this.getStep( precision );
+		sliderOptions.grid_num = Math.min( 4, Math.round( ( maxValue - minValue ) / sliderOptions.step ) );
 
 		sliderOptions.from = minValue;
 		sliderOptions.to = maxValue;
@@ -137,7 +138,7 @@ export class NumberFilter extends Filter {
 
 		let filtercontrols = this.target;
 
-		let label = $( `<div class="filtered-number-label"><span>${this.options[ 'label' ]}</span></div>` );
+		let label = $( `<div class="filtered-filter-label"><span>${this.options[ 'label' ]}</span></div>` );
 		filtercontrols.append( label );
 
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
@@ -152,7 +153,7 @@ export class NumberFilter extends Filter {
 			filtercontrols.append( caption );
 		}
 
-		slider.ionRangeSlider( sliderOptions );
+		mw.loader.using( 'ext.srf.filtered.slider' ).then( () => slider.ionRangeSlider( sliderOptions ) );
 	}
 
 	private getMinSliderValue( minValue: number, precision: number ) {
@@ -276,16 +277,18 @@ export class NumberFilter extends Filter {
 	public isVisible( rowId: string ): boolean {
 		let rowdata = this.controller.getData()[ rowId ].data;
 
-		if ( rowdata.hasOwnProperty( this.filterId ) ) {
+		if ( rowdata.hasOwnProperty( this.filterId ) && rowdata[ this.filterId ].values.length > 0 ) {
 
 			for ( let value of rowdata[ this.filterId ].values ) {
 				if ( value >= this.filterValueLower && value <= this.filterValueUpper ) {
 					return true;
 				}
 			}
+
+			return false;
 		}
 
-		return false;
+		return super.isVisible( rowId );
 	}
 
 }

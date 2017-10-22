@@ -162,6 +162,21 @@ final class SRFHooks {
 	}
 
 	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
+	 *
+	 * @param OutputPage $outputPage
+	 * @param Skin $skin
+	 *
+	 * @return true
+	 */
+	public static function onBeforePageDisplay ( &$outputPage, &$skin ) {
+
+		$outputPage->addModuleStyles( 'ext.srf.styles' );
+
+		return true;
+	}
+
+	/**
 	 * Hook: GetPreferences adds user preference
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
 	 *
@@ -180,7 +195,7 @@ final class SRFHooks {
 				'label' => '&#160;',
 				'default' => Html::rawElement(
 					'span',
-					[ 'class' => 'srf-prefs-intro' ],
+					[ 'class' => 'srf-prefs-intro plainlinks' ],
 					wfMessage( 'srf-prefs-intro-text' )->parseAsBlock()
 				),
 				'section' => 'smw/srf',

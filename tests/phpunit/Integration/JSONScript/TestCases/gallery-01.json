@@ -1,0 +1,60 @@
+{
+	"description": "Test `format=gallery` with file upload",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has text",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery01.png",
+			"contents": {
+				"upload": {
+					"file" : "/../Fixtures/image-upload-480.png",
+					"text" : "[[Has file::{{FULLPAGENAME}}]] [[Has caption::123]]"
+				}
+			}
+		},
+		{
+			"page": "Example/Gallery-01/Q.1",
+			"contents": "{{#ask: [[Has caption::123]] |?Has file |format=gallery |limit=1 }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 (simple)",
+			"subject": "Example/Gallery-01/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-gallery\" data-redirect-type=\"_wpg\">",
+					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery01.png\" class=\"image\">"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"wgEnableUploads": true,
+		"wgFileExtensions": [
+			"png"
+		],
+		"wgDefaultUserOptions": {
+			"thumbsize": 5
+		},
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		],
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_FILE": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

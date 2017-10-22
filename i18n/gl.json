@@ -10,7 +10,7 @@
 	},
 	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
 	"srf-name": "Formatos dos resultados semánticos",
-	"prefs-srf": "Formatos dos resultados semánticos",
+	"prefs-srf": "Extensiónː Formatos dos resultados semánticos",
 	"srf-prefs-intro-text": "Ten instalada a extensión para dar formato aos resultados semánticos, pero nestes intres non ten opcións de personalización. Para obter axuda aducuibak, visite a páxina de axuda sobre os [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos dos rexultados].",
 	"prefs-srf-eventcalendar-options": "Opcións de calendario de eventos",
 	"srf-prefs-eventcalendar-options-update-default": "Activa as [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates actualizacións automáticas] dos eventos do calendario durante a actualización da páxina",

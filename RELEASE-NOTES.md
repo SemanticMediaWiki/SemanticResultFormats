@@ -9,6 +9,7 @@ This is not a release yet.
 * Improved filtered format: More options, better test coverage, re-enabled by default
 * (#248) Fixed localized formatting of math results
 * Provided translation updates (by translatewiki.net community)
+* [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests
 
 ## SRF 2.5.2
 

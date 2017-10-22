@@ -50,7 +50,7 @@ export class DistanceFilter extends Filter {
 		let filtercontrols = this.target;
 
 		filtercontrols
-		.append( '<div class="filtered-distance-label"><span>' + this.options[ 'label' ] + '</span></div>' );
+		.append( '<div class="filtered-filter-label"><span>' + this.options[ 'label' ] + '</span></div>' );
 
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
 
@@ -133,7 +133,15 @@ export class DistanceFilter extends Filter {
 	}
 
 	public isVisible( rowId: string ): boolean {
-		return this.controller.getData()[ rowId ].data[ this.filterId ].distance <= this.filterValue;
+
+		let rowdata = this.controller.getData()[ rowId ].data;
+
+		if ( rowdata.hasOwnProperty( this.filterId ) ) {
+			return rowdata[ this.filterId ].distance <= this.filterValue;
+		}
+
+		return super.isVisible( rowId );
+
 	}
 
 }

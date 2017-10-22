@@ -1,0 +1,17 @@
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=UTF-8:Doe;John;;;
+FN;CHARSET=UTF-8:John Doe
+CLASS:PUBLIC
+BDAY:1952-01-01
+EMAIL;TYPE=INTERNET:johnDoe@example.org
+ADR;TYPE=HOME;CHARSET=UTF-8:;;Example Avenue;Anytown;;;
+TEL;TYPE=CELL:+1 781 555 1212
+TEL;TYPE=HOME:+1 202 555 1212
+NOTE;CHARSET=UTF-8:John Doe has a long and varied history\, being documented on more ...
+SOURCE;CHARSET=UTF-8:.*/Example/Vcard-01/1
+PRODID:-////Semantic MediaWiki
+REV:.*
+URL:http://www.example/com/doe
+UID:.*/Example/Vcard-01/1
+END:VCARD

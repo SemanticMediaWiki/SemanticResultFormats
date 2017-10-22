@@ -82,11 +82,11 @@ class ResultItem {
 						$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
 						$sorted[] = $dataItem->getSortKey();
 					} elseif ( $dataItem instanceof SMWDIWikiPage ) {
-						$values[] = $dataValue->getShortHTMLText();
+						$values[] = $dataValue->getShortWikiText();
 						$sorted[] = $dataValue->getSortKey();
 					} else {
-						$values[] = $dataValue->getShortHTMLText();
-						$sorted[] = $dataValue->getShortHTMLText();
+						$values[] = $dataValue->getShortWikiText();
+						$sorted[] = $dataValue->getShortWikiText();
 					}
 
 					if ( $dataValue instanceof SMWErrorValue ) {

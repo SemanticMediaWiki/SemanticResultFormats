@@ -111,10 +111,18 @@ export class ControllerTest {
 		let targetElement = $();
 		let targetShown = false;
 
-		targetElement.show = function () {
-			targetShown = true;
-			return targetElement;
+		targetElement.children = function( selector?: string ) {
+
+			let targetChild = $();
+
+			targetChild.show = function () {
+				targetShown = true;
+				return targetChild;
+			};
+
+			return targetChild;
 		};
+
 
 		// Run
 		new Controller( targetElement, undefined, undefined ).show();
@@ -134,6 +142,10 @@ export class ControllerTest {
 		let controller = new Controller( undefined, data, {} );
 		let filterIds = [ 'foo', 'bar', 'baz' ];
 
+		let done = assert.async();
+
+		let promises: JQueryPromise< void >[] = [];
+
 		filterIds.forEach( ( filterId ) => {
 
 			let visibilityWasQueried = false;
@@ -146,14 +158,20 @@ export class ControllerTest {
 			};
 
 			// Run
-			controller.attachFilter( filter );
 
-			// Assert: Filter was queried for the visibility of result items
-			assert.ok( visibilityWasQueried, `Filter "${filterId}" was queried after attaching.` );
+			let promise = controller.attachFilter( filter )
+			.then( () => {
+				// Assert: Filter was queried for the visibility of result items
+				assert.ok( visibilityWasQueried, `Filter "${filterId}" was queried after attaching.` );
+			} );
+
+			promises.push( promise );
 
 			// Assert: Filter correctly attached and retained.
 			assert.deepEqual( controller.getFilter( filterId ), filter, `Controller knows "${filterId}" filter.` );
 		} );
+
+		jQuery.when( ...promises ).then( done );
 	}
 
 }

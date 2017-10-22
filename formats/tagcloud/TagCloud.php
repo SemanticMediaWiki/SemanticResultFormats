@@ -79,13 +79,13 @@ class TagCloud extends ResultPrinter {
 	}
 
 	private function isHTML() {
-		$title = $this->getTitle();
+		$title = $GLOBALS['wgTitle'];
 
-		if ( !( $title instanceof Title ) ) {
-			return false;
+		if ( $title instanceof Title ) {
+			return $title->isSpecialPage() && !$this->hasTemplates;
 		}
 
-		return $title->isSpecialPage() && !$this->hasTemplates;
+		return false;
 	}
 
 	/**

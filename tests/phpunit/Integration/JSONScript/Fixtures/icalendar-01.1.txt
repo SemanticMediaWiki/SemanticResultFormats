@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+PRODID:-//SMW Project//Semantic Result Formats
+VERSION:2.0
+METHOD:PUBLISH
+X-WR-CALNAME:.*
+X-WR-CALDESC:Simple description
+BEGIN:VEVENT
+SUMMARY:Example/ICalendar-01/1
+URL:.*/Example/ICalendar-01/1
+UID:.*/Example/ICalendar-01/1
+DTSTAMP:.*
+SEQUENCE:.*
+END:VEVENT
+END:VCALENDAR

@@ -119,6 +119,13 @@ abstract class Filter {
 
 	protected function buildJsConfig() {
 		$this->jsConfig = [];
+
+		$this->addValueToJsConfig(
+			'show if undefined',
+			'show if undefined',
+			null,
+			function ( $value ) { return filter_var( $value, FILTER_VALIDATE_BOOLEAN ); }
+		);
 	}
 
 
