@@ -206,7 +206,7 @@ var DistanceFilter = (function (_super) {
         // build filter controls
         var filtercontrols = this.target;
         filtercontrols
-            .append('<div class="filtered-distance-label"><span>' + this.options['label'] + '</span></div>');
+            .append('<div class="filtered-filter-label"><span>' + this.options['label'] + '</span></div>');
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         var readout = $('<div class="filtered-distance-readout">' + this.filterValue + '</div>');
         var table = $('<table class="filtered-distance-table"><tbody><tr><td class="filtered-distance-min-cell">0</td>' +
@@ -459,7 +459,7 @@ var NumberFilter = (function (_super) {
         filterClassNames[this.MODE_RANGE] = "mode-range";
         filterClassNames[this.MODE_SELECT] = "mode-select";
         var filtercontrols = this.target;
-        var label = $("<div class=\"filtered-number-label\"><span>" + this.options['label'] + "</span></div>");
+        var label = $("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols.append(label);
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         var slider = $('<input type="text" value="" />');
@@ -646,7 +646,7 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.buildControl = function () {
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
-        filtercontrols.append("<div class=\"filtered-value-label\"><span>" + this.options['label'] + "</span></div>");
+        filtercontrols.append("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
         var maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;
