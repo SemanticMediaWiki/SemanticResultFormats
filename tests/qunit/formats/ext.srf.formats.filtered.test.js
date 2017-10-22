@@ -294,7 +294,7 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.buildControl = function () {
         var filtercontrols = this.target;
         // insert the label of the printout this filter filters on
-        filtercontrols.append("<div class=\"filtered-value-label\"><span>" + this.options['label'] + "</span></div>");
+        filtercontrols.append("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
         filtercontrols = this.addControlForCollapsing(filtercontrols);
         this.addControlForSwitches(filtercontrols);
         var maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;

@@ -50,7 +50,7 @@ export class DistanceFilter extends Filter {
 		let filtercontrols = this.target;
 
 		filtercontrols
-		.append( '<div class="filtered-distance-label"><span>' + this.options[ 'label' ] + '</span></div>' );
+		.append( '<div class="filtered-filter-label"><span>' + this.options[ 'label' ] + '</span></div>' );
 
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
 

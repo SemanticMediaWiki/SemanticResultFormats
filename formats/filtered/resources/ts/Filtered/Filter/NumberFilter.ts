@@ -138,7 +138,7 @@ export class NumberFilter extends Filter {
 
 		let filtercontrols = this.target;
 
-		let label = $( `<div class="filtered-number-label"><span>${this.options[ 'label' ]}</span></div>` );
+		let label = $( `<div class="filtered-filter-label"><span>${this.options[ 'label' ]}</span></div>` );
 		filtercontrols.append( label );
 
 		filtercontrols = this.addControlForCollapsing( filtercontrols );

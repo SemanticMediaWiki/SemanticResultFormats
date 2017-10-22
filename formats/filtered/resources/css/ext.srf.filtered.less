@@ -1,0 +1,135 @@
+/*
+	Main stylesheet for the filtered query printer
+*/
+.filtered {
+
+	height: 100%;
+	position: relative;
+
+	.filtered-filters {
+
+		height: 40%;
+		overflow: auto;
+		border: 1px solid #aaaaaa;
+		margin: 1em;
+		position: relative;
+		top: 0;
+		left: 0;
+
+		&:empty {
+			display: none;
+		}
+
+		.filtered-filter-label {
+
+			height: 0;
+
+			span {
+				background-color: #ffffff;
+				font-weight: bold;
+				position: relative;
+				top: -1.8em;
+				left: 0;
+				padding: 0 1em;
+			}
+		}
+
+		.filtered-filter-spinner {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: #ffffff;
+			height: 100%;
+			width: 100%;
+			z-index: 1001;
+			opacity: .7;
+		}
+
+		.filtered-filter {
+			position: relative;
+		}
+
+		.filtered-show:before,
+		.filtered-hide:before {
+			margin: 0;
+			background-color: #ffffff;
+			width: 1.5em;
+			float: right;
+			position: absolute;
+			top: -0.8em;
+			right: 1em;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.filtered-show:before {
+			content: '[+]';
+		}
+
+		.filtered-hide:before {
+			content: '[-]';
+		}
+	}
+
+	.filtered-views {
+
+		height: 60%;
+		overflow: auto;
+		border: 1px solid #aaaaaa;
+		margin: 1em;
+
+		.filtered-views-selectors-container {
+
+			border-bottom: 1px solid #aaaaaa;
+			overflow: hidden;
+
+			&:empty {
+				display: none;
+			}
+
+			.filtered-view-selector {
+
+				border-right: 1px solid #aaaaaa;
+				padding: 1em;
+				float: left;
+				cursor: pointer;
+
+				&.selected {
+					background-color: #f3f3f3;
+				}
+
+				&.active {
+					background-color: #f0f7ff;
+				}
+			}
+		}
+
+		.filtered-views-container {
+
+			padding: 1em;
+
+			&:empty {
+				display: none;
+			}
+
+			.filtered-view {
+				&.active {
+					display: block;
+				}
+
+				&.inactive {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.filtered-spinner {
+		height: 100px;
+		width: auto;
+		position: relative;
+		top: 0;
+		left: 0;
+		margin: 1em;
+	}
+}
