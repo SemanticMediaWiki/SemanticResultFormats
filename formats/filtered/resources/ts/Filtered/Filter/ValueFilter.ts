@@ -85,7 +85,7 @@ export class ValueFilter extends Filter {
 		let filtercontrols = this.target;
 
 		// insert the label of the printout this filter filters on
-		filtercontrols.append( `<div class="filtered-value-label"><span>${this.options[ 'label' ]}</span></div>` );
+		filtercontrols.append( `<div class="filtered-filter-label"><span>${this.options[ 'label' ]}</span></div>` );
 
 		filtercontrols = this.addControlForCollapsing( filtercontrols );
 		this.addControlForSwitches( filtercontrols );
