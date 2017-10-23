@@ -82,13 +82,9 @@ export class ValueFilter extends Filter {
 
 	private buildControl() {
 
-		let filtercontrols = this.target;
+		let filtercontrols = this.buildEmptyControl();
 
-		// insert the label of the printout this filter filters on
-		filtercontrols.append( `<div class="filtered-filter-label"><span>${this.options[ 'label' ]}</span></div>` );
-
-		filtercontrols = this.addControlForCollapsing( filtercontrols );
-		this.addControlForSwitches( filtercontrols );
+		filtercontrols = this.addControlForSwitches( filtercontrols );
 
 		let maxCheckboxes = this.options.hasOwnProperty( 'max checkboxes' ) ? this.options[ 'max checkboxes' ] : 5;
 
@@ -154,7 +150,7 @@ export class ValueFilter extends Filter {
 		return select;
 	}
 
-	private addControlForSwitches( filtercontrols: JQuery ) {
+	private addControlForSwitches( filtercontrols: JQuery ): JQuery {
 		// insert switches
 		let switches = this.options.hasOwnProperty( 'switches' ) ? this.options[ 'switches' ] : undefined;
 		if ( switches !== undefined && switches.length > 0 ) {
@@ -183,6 +179,8 @@ export class ValueFilter extends Filter {
 
 			filtercontrols.append( switchControls );
 		}
+
+		return filtercontrols;
 	}
 
 	private getRadioControl( type: string, isChecked: boolean = false ) {

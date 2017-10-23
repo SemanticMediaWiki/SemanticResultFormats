@@ -136,13 +136,7 @@ export class NumberFilter extends Filter {
 		filterClassNames[ this.MODE_RANGE ] = "mode-range";
 		filterClassNames[ this.MODE_SELECT ] = "mode-select";
 
-		let filtercontrols = this.target;
-
-		let label = $( `<div class="filtered-filter-label"><span>${this.options[ 'label' ]}</span></div>` );
-		filtercontrols.append( label );
-
-		filtercontrols = this.addControlForCollapsing( filtercontrols );
-
+		let filtercontrols = this.buildEmptyControl();
 
 		let slider = $( '<input type="text" value="" />' );
 		let sliderContainer = $( `<div class="filtered-number-slider ${filterClassNames[ this.mode ]}" />` ).append( slider );

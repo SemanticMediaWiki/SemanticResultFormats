@@ -74,7 +74,7 @@ var Controller = (function () {
         var toHide = [];
         for (var rowId in this.data) {
             for (var filterId in this.filters) {
-                this.data[rowId].visible[filterId] = this.filters[filterId].isVisible(rowId);
+                this.data[rowId].visible[filterId] = this.filters[filterId].isDisabled() || this.filters[filterId].isVisible(rowId);
             }
             if (this.isVisible(rowId)) {
                 toShow.push(rowId);
@@ -98,7 +98,7 @@ var Controller = (function () {
             var toHide = [];
             for (var rowId in _this.data) {
                 var oldVisible = _this.data[rowId].visible[filterId];
-                var newVisible = _this.filters[filterId].isVisible(rowId);
+                var newVisible = _this.filters[filterId].isDisabled() || _this.filters[filterId].isVisible(rowId);
                 if (oldVisible !== newVisible) {
                     _this.data[rowId].visible[filterId] = newVisible;
                     if (newVisible && _this.isVisible(rowId)) {
@@ -204,10 +204,7 @@ var DistanceFilter = (function (_super) {
         }
         this.filterValue = this.options['initial value'] ? Math.min(this.options['initial value'], maxValue) : maxValue;
         // build filter controls
-        var filtercontrols = this.target;
-        filtercontrols
-            .append('<div class="filtered-filter-label"><span>' + this.options['label'] + '</span></div>');
-        filtercontrols = this.addControlForCollapsing(filtercontrols);
+        var filtercontrols = this.buildEmptyControl();
         var readout = $('<div class="filtered-distance-readout">' + this.filterValue + '</div>');
         var table = $('<table class="filtered-distance-table"><tbody><tr><td class="filtered-distance-min-cell">0</td>' +
             '<td class="filtered-distance-slider-cell"><div class="filtered-distance-slider"></div></td>' +
@@ -290,9 +287,14 @@ exports.DistanceFilter = DistanceFilter;
 exports.__esModule = true;
 var Filter = (function () {
     function Filter(filterId, target, printrequestId, controller, options) {
+        this.outerTarget = undefined;
         this.target = undefined;
         this.options = undefined;
+        this.disabled = false;
+        this.collapsed = false;
+        this.uncollapsedCss = {};
         this.target = target;
+        this.outerTarget = target;
         this.filterId = filterId;
         this.printrequestId = printrequestId;
         this.controller = controller;
@@ -300,42 +302,110 @@ var Filter = (function () {
     }
     Filter.prototype.init = function () { };
     ;
+    Filter.prototype.isDisabled = function () {
+        return this.disabled;
+    };
+    Filter.prototype.disable = function () {
+        var _this = this;
+        this.disabled = true;
+        this.outerTarget
+            .removeClass('enabled')
+            .addClass('disabled');
+        this.collapse();
+        this.target.promise().then(function () { return _this.controller.onFilterUpdated(_this.filterId); });
+    };
+    Filter.prototype.enable = function () {
+        var _this = this;
+        this.disabled = false;
+        this.outerTarget
+            .removeClass('disabled')
+            .addClass('enabled');
+        if (!this.collapsed) {
+            this.uncollapse();
+        }
+        this.target.promise().then(function () { return _this.controller.onFilterUpdated(_this.filterId); });
+    };
+    Filter.prototype.collapse = function () {
+        if (!this.collapsed) {
+            this.uncollapsedCss = this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
+            this.target.slideUp();
+            this.outerTarget.animate({ 'padding-top': 0, 'padding-bottom': 0, 'margin-bottom': '2em' });
+        }
+    };
+    Filter.prototype.uncollapse = function () {
+        this.target.slideDown();
+        this.outerTarget.animate(this.uncollapsedCss);
+        return;
+    };
     Filter.prototype.isVisible = function (rowId) {
         return this.options.hasOwnProperty('show if undefined') && this.options['show if undefined'] === true;
     };
     Filter.prototype.getId = function () {
         return this.filterId;
     };
-    Filter.prototype.addControlForCollapsing = function (filtercontrols) {
-        var collapsible = this.options.hasOwnProperty('collapsible') ? this.options['collapsible'] : undefined;
-        if (collapsible === 'collapsed' || collapsible === 'uncollapsed') {
-            var showControl_1 = $('<span class="filtered-show">');
-            var hideControl_1 = $('<span class="filtered-hide">');
-            filtercontrols
-                .prepend(showControl_1)
-                .prepend(hideControl_1);
-            filtercontrols = $('<div class="filtered-collapsible">')
-                .appendTo(filtercontrols);
-            var outercontrols_1 = filtercontrols;
-            showControl_1.click(function () {
-                outercontrols_1.slideDown();
-                showControl_1.hide();
-                hideControl_1.show();
-            });
-            hideControl_1.click(function () {
-                outercontrols_1.slideUp();
-                showControl_1.show();
-                hideControl_1.hide();
-            });
-            if (collapsible === 'collapsed') {
-                hideControl_1.hide();
-                outercontrols_1.slideUp(0);
-            }
-            else {
-                showControl_1.hide();
+    Filter.prototype.buildEmptyControl = function () {
+        this.target = $('<div class="filtered-filter-container">');
+        this.outerTarget
+            .append(this.target)
+            .addClass('enabled');
+        this.addOnOffSwitch();
+        this.addLabel();
+        this.addControlForCollapsing();
+        return this.target;
+    };
+    Filter.prototype.addLabel = function () {
+        // insert the label of the printout this filter filters on
+        this.target.before("<div class=\"filtered-filter-label\">" + this.options['label'] + "</div>");
+    };
+    Filter.prototype.addOnOffSwitch = function () {
+        var _this = this;
+        if (this.options.hasOwnProperty('switches')) {
+            var switches = this.options['switches'];
+            if (switches.length > 0 && $.inArray('on off', switches) >= 0) {
+                var onOffControl = $("<div class=\"filtered-filter-onoff on\"></div>");
+                this.target.before(onOffControl);
+                onOffControl.click(function () {
+                    if (_this.outerTarget.hasClass('enabled')) {
+                        _this.disable();
+                    }
+                    else {
+                        _this.enable();
+                    }
+                });
             }
         }
-        return filtercontrols;
+    };
+    Filter.prototype.addControlForCollapsing = function () {
+        var _this = this;
+        var collapsible = this.options.hasOwnProperty('collapsible') ? this.options['collapsible'] : undefined;
+        if (collapsible === 'collapsed' || collapsible === 'uncollapsed') {
+            var collapseControl_1 = $('<span class="filtered-filter-collapse">');
+            this.target.before(collapseControl_1);
+            collapseControl_1.click(function () {
+                if (collapseControl_1.hasClass('collapsed')) {
+                    _this.uncollapse();
+                    _this.collapsed = false;
+                    collapseControl_1
+                        .removeClass('collapsed')
+                        .addClass('uncollapsed');
+                }
+                else {
+                    _this.collapse();
+                    _this.collapsed = true;
+                    collapseControl_1
+                        .removeClass('uncollapsed')
+                        .addClass('collapsed');
+                }
+            });
+            if (collapsible === 'collapsed') {
+                this.collapse();
+                this.collapsed = true;
+                collapseControl_1.addClass('collapsed');
+            }
+            else {
+                collapseControl_1.addClass('uncollapsed');
+            }
+        }
     };
     return Filter;
 }());
@@ -458,10 +528,7 @@ var NumberFilter = (function (_super) {
         filterClassNames[this.MODE_MAX] = "mode-max";
         filterClassNames[this.MODE_RANGE] = "mode-range";
         filterClassNames[this.MODE_SELECT] = "mode-select";
-        var filtercontrols = this.target;
-        var label = $("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
-        filtercontrols.append(label);
-        filtercontrols = this.addControlForCollapsing(filtercontrols);
+        var filtercontrols = this.buildEmptyControl();
         var slider = $('<input type="text" value="" />');
         var sliderContainer = $("<div class=\"filtered-number-slider " + filterClassNames[this.mode] + "\" />").append(slider);
         filtercontrols.append(sliderContainer);
@@ -644,11 +711,8 @@ var ValueFilter = (function (_super) {
         }
     };
     ValueFilter.prototype.buildControl = function () {
-        var filtercontrols = this.target;
-        // insert the label of the printout this filter filters on
-        filtercontrols.append("<div class=\"filtered-filter-label\"><span>" + this.options['label'] + "</span></div>");
-        filtercontrols = this.addControlForCollapsing(filtercontrols);
-        this.addControlForSwitches(filtercontrols);
+        var filtercontrols = this.buildEmptyControl();
+        filtercontrols = this.addControlForSwitches(filtercontrols);
         var maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;
         if (this.values.length > maxCheckboxes) {
             filtercontrols.append(this.getSelected2Control());
@@ -720,6 +784,7 @@ var ValueFilter = (function (_super) {
             }
             filtercontrols.append(switchControls);
         }
+        return filtercontrols;
     };
     ValueFilter.prototype.getRadioControl = function (type, isChecked) {
         if (isChecked === void 0) { isChecked = false; }
