@@ -116,7 +116,7 @@
 	"srf_printername_array": "Tablica",
 	"srf-printername-graph": "Wykres",
 	"srf-paramdesc-graphname": "Tytuł",
-	"srf-paramdesc-graphsize": "Rozmiar wykresu (w pikselach)",
+	"srf-paramdesc-graphsize": "Ustawia rozmiar wykresu w pikselach",
 	"srf-paramdesc-graphlegend": "Pokaż legendę wykresu lub nie",
 	"srf-paramdesc-graphlabel": "Ustawia etykietę wykresu",
 	"srf-paramdesc-rankdir": "Ustawia kierunek strzałki",
