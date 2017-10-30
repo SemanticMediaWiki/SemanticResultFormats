@@ -11,6 +11,32 @@ This is not a release yet.
 * Provided translation updates (by translatewiki.net community)
 * [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests
 
+## SRF 2.5.3
+
+Released on October 25, 2017.
+
+* #293: Fixes resource loading for the "timeline" format (by James Hong Kong)
+* #295: Fixes issues with subobject for the "timeline" format (by James Hong Kong)
+* #299: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)
+    - #224: Makes radio buttons belong to the same button group
+    - #278: Adds a multi-select dropdown or similar for value filters
+    - #286: Brings a reworked number filter
+    - #291: Fixes `list view template` to actually show the template instead of defaulting to a table
+* #300: Brings improvements and fixes to the "filtered" format: (by Stephan Gambke)
+    - Brings back checkboxes for value filter with only few values  
+    - Brings new query parameter ` |+value filter max checkboxes`  
+    - Allows for easier installation of "data-values/geo"
+* #302: Fixes error messages shown in the instance language instead of the user language for the "filtered" format (by Stephan Gambke)
+* #305: Fixes "SRF\Filtered\Filtered::setParser() must be an instance of Parser..." for the "filtered" format (by Stephan Gambke)
+* Fixes issues with HTML-encoded values sent by JavaScript for the "filtered" format (by Stephan Gambke)
+* #324: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)  
+    - #318: Wrap input elements of the Value filter (checkboxes and radioboxes) in label elements. This way they will also be triggered when only the label text is clicked.
+    - #322: Show a spinner while filtering. This will block users from triggering further filter events while filtering is still ongoing.
+    - #323: Adds printout parameter`|+show if undefined`. Setting it makes filters show a result item even if the printout does not contain a value.
+* #328: Brings useability fixes to the "filtered" foramat like the fix for the styling of Value filter for long labels as well as the fix for the slider grid when showing less than 4 step values (by Stephan Gambke)
+* #331: Switches the "filtered" format to use Less instead of CSS (by Stephan Gambke)
+* #334: Adds an On/Off switch for filters to the "filtered" format (by Stephan Gambke)
+
 ## SRF 2.5.2
 
 Released on August 17, 2017.
