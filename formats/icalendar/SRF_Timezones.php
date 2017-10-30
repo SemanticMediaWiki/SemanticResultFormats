@@ -18,12 +18,15 @@ class SRFTimezones {
 	private $offsets;
 
 	public function __construct() {
-		global $wgSRFTimezones;
+		global $srfgTimezones;
+		global $wgLocalTimezone;
 		
-		if ( empty( $wgSRFTimezones ) )
+		if ( empty( $srfgTimezones ) )
 			$this->localTimezones = [];
-		elseif ( is_array( $wgSRFTimezones ) )
-			$this->localTimezones = $wgSRFTimezones;
+		elseif ( is_array( $srfgTimezones ) )
+			$this->localTimezones = $srfgTimezones;
+		elseif ( isset( $wgLocalTimezone ) )
+			$this->localTimezones = [ $wgLocalTimezone ];
 		else
 			$this->localTimezones = [ date_default_timezone_get() ];
 	}
