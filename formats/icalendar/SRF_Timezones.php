@@ -8,83 +8,135 @@
  * @ingroup SemanticResultFormats
  */
 class SRFTimezones {
-	private $m_tzid;
+	private $localTimezones;
 	
-	private $m_from;
-	private $m_to;
+	private $transitions;
+	
+	private $dateFrom;
+	private $dateTo;
+	
+	private $offsets;
 
-	public function __construct( $from, $to ) {
-		global $wgLocalTimezone;
+	public function __construct() {
+		global $wgSRFTimezones;
 		
-		$this->m_tzid = ($wgLocalTimezone !== null) ? $wgLocalTimezone : date_default_timezone_get();
-		
-		$this->m_from = $from;
-		$this->m_to = $to;
+		if ( empty( $wgSRFTimezones ) )
+			$this->localTimezones = [];
+		elseif ( is_array( $wgSRFTimezones ) )
+			$this->localTimezones = $wgSRFTimezones;
+		else
+			$this->localTimezones = [ date_default_timezone_get() ];
 	}
 	
 	/**
-	 * Generate all the timezone's transitions that are needed by the events.
-	 *
-	 * @param int $from The minimum timestamp in the list of events
-	 * @param int $to The maximum timestamp in the list of events
+	 * @param array $localTimezones A list of local timezones.
 	 */
-	public function getIcalForTimezone() {
-		if ( $this->m_from === null || $this->m_to === null )
-			return false;
-			
-		try {
-			$timezone = new DateTimeZone( $this->m_tzid );
-		} catch( Exception $e ) {
-			return false;
-		}
+	public function setLocalTimezones( $localTimezones ) {
+		$this->localTimezones = $localTimezones;
+	}
+	
+	/**
+	 * Set a new range for the generated transitions.
+	 * 
+	 * @param $from Timestamp from which transitions are generated.
+	 * @param $to Timestamp until which transitions are generated.
+	 */
+	public function setRange( $from, $to ) {
+		$this->dateFrom = $from;
+		$this->dateTo = $to;
+	}
+	
+	/**
+	 * Increase the range of the generated transitions. 
+	 *
+	 * @param int $from Timestamp from which transitions are generated.
+	 * @param int $to Timestamp until which transitions are generated.
+	 */
+	public function updateRange( $from, $to ) {
+		if ( $this->dateFrom === null || $from < $this->dateFrom )
+			$this->dateFrom = $from;
 		
-		$transitions = $timezone->getTransitions();
+		if ( $this->dateTo === null || $to > $this->dateTo )
+			$this->dateTo = $to;
+	}
+	
+	/**
+	 * Calculate transitions for each timezone.
+	 */
+	public function calcTransitions() {
+		$this->transitions = [];
+	
+		if ( $this->dateFrom === null || $this->dateTo === null )
+			return false;
 		
-		$min = 0;
-		$max = 1;
-		foreach ( $transitions as $i => $transition ) {
-			if ( $transition['ts'] < $this->m_from ) {
-				$min = $i;
+		foreach ( $this->localTimezones as $timezone ) {
+			try {
+				$dateTimezone = new DateTimeZone( $timezone );
+			} catch( Exception $e ) {
 				continue;
 			}
+			
+			$transitions = $dateTimezone->getTransitions();
+			
+			$min = 0;
+			$max = 1;
+			foreach ( $transitions as $i => $transition ) {
+				if ( $transition['ts'] < $this->dateFrom ) {
+					$min = $i;
+					continue;
+				}
 
-			if ( $transition['ts'] > $this->m_to ) {
-				$max = $i;
-				break;
+				if ( $transition['ts'] > $this->dateTo ) {
+					$max = $i;
+					break;
+				}
 			}
+			
+			$this->offsets[$timezone] = $transitions[max( $min-1, 0 )]['offset'];
+			$this->transitions[$timezone] = array_slice( $transitions, $min, $max - $min );
 		}
+	}
+	
+	/**
+	 * Generate the transitions for a given range, for each timezones, in the iCalendar format.
+	 */
+	public function getIcalForTimezone() {
+		if ( $this->transitions === null )
+			return false;
 		
-		// cf. http://www.kanzaki.com/docs/ical/vtimezone.html
-		$result = "BEGIN:VTIMEZONE\r\n";
-		$result .= "TZID:{$this->m_tzid}\r\n";
+		$result = '';
 		
-		$transition = ( $min > 0 ) ? $transitions[$min-1] : $transitions[0];
-		$tzfrom = $transition['offset'] / 3600;
+		foreach ( $this->transitions as $timezone => $transitions ) {
+			// cf. http://www.kanzaki.com/docs/ical/vtimezone.html
+			$result .= "BEGIN:VTIMEZONE\r\n";
+			$result .= "TZID:$timezone\r\n";
 		
-		foreach ( array_slice( $transitions, $min, $max - $min ) as $transition) {
-			$dst = ( $transition['isdst'] ) ? "DAYLIGHT" : "STANDARD";
-			$result .= "BEGIN:$dst\r\n";
-			
-			$start_date = date( 'Ymd\THis', $transition['ts'] );
-			$result .= "DTSTART:$start_date\r\n";
-			
-			$offset = $transition['offset'] / 3600;
-			
-			$offset_from = $this->formatTimezoneOffset( $tzfrom );
-			$result .= "TZOFFSETFROM:$offset_from\r\n";
+			$tzfrom = $this->offsets[$timezone] / 3600;
+			foreach ( $transitions as $transition ) {
+				$dst = ( $transition['isdst'] ) ? "DAYLIGHT" : "STANDARD";
+				$result .= "BEGIN:$dst\r\n";
+				
+				$start_date = date( 'Ymd\THis', $transition['ts'] );
+				$result .= "DTSTART:$start_date\r\n";
+				
+				$offset = $transition['offset'] / 3600;
+				
+				$offset_from = $this->formatTimezoneOffset( $tzfrom );
+				$result .= "TZOFFSETFROM:$offset_from\r\n";
 
-			$offset_to = $this->formatTimezoneOffset( $offset );
-			$result .= "TZOFFSETTO:$offset_to\r\n";
+				$offset_to = $this->formatTimezoneOffset( $offset );
+				$result .= "TZOFFSETTO:$offset_to\r\n";
+				
+				if ( !empty( $transition['abbr'] ) )
+					$result .= "TZNAME:{$transition['abbr']}\r\n";
+				
+				$result .= "END:$dst\r\n";
+				
+				$tzfrom = $offset;
+			}
 			
-			if ( !empty( $transition['abbr'] ) )
-				$result .= "TZNAME:{$transition['abbr']}\r\n";
-			
-			$result .= "END:$dst\r\n";
-			
-			$tzfrom = $offset;
+			$result .= "END:VTIMEZONE\r\n";
 		}
-		
-		$result .= "END:VTIMEZONE\r\n";
 		
 		return $result;
 	}

@@ -4,7 +4,6 @@
  * @file
  * @ingroup SemanticResultFormats
  */
-$wgAutoloadClasses['SRFTimezones'] = __DIR__ . '/SRF_Timezones.php';
 
 /**
  * Printer class for creating iCalendar exports
@@ -81,6 +80,10 @@ class SRFiCalendar extends SMWExportPrinter {
 	 * @return string
 	 */
 	protected function getIcal( SMWQueryResult $res ) {
+		global $wgSRFTimezoneTransitions;
+		
+		$this->m_timezones = new SRFTimezones();
+		
 		$result = '';
 		
 		if ( $this->m_title == '' ) {
@@ -106,6 +109,7 @@ class SRFiCalendar extends SMWExportPrinter {
 			$row = $res->getNext();
 		}
 		
+		$this->m_timezones->calcTransitions();
 		$result .= $this->m_timezones->getIcalForTimezone();
 		
 		$result .= $events;
@@ -210,7 +214,7 @@ class SRFiCalendar extends SMWExportPrinter {
 			}
 		}
 		
-		$this->m_timezones = new SRFTimezones( $from, $to );
+		$this->m_timezones->updateRange( $from, $to );
 		
 		$title = $wikipage->getTitle();
 		$article = new Article( $title );
