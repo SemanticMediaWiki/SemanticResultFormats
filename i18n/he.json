@@ -233,6 +233,7 @@
 	"srf-paramdesc-filtered-calendar-end": "ההדפסה שכוללת את תאריך סיום האירוע",
 	"srf-paramdesc-filtered-calendar-title": "ההדפסה שכוללת את שם האירוע. לא יכול לשמש יחד עם תבנית הכותרת.",
 	"srf-paramdesc-filtered-calendar-title-template": "התבנית שתשמש לעיצוב כותרת האירוע בלוח השנה",
+	"srf-paramdesc-filtered-map-height": "גובה המפה.",
 	"srf-filtered-selectorlabel-list": "רשימה",
 	"srf-filtered-selectorlabel-table": "טבלה",
 	"srf-filtered-selectorlabel-calendar": "לוח שנה",
