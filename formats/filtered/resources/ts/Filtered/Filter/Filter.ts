@@ -54,19 +54,33 @@ export abstract class Filter{
 		this.target.promise().then( () =>	this.controller.onFilterUpdated( this.filterId ) );
 	}
 
-	private collapse() {
+	private collapse( duration : number = 400 ) {
 
 		if ( ! this.collapsed ) {
-			this.uncollapsedCss = this.outerTarget.css( [ 'padding-top', 'padding-bottom', 'margin-bottom' ] );
-			this.target.slideUp();
-			this.outerTarget.animate( { 'padding-top': 0, 'padding-bottom': 0, 'margin-bottom': '2em' } );
+
+			this.outerTarget.promise()
+			.then( () => {
+
+				this.target.slideUp( duration );
+
+				this.outerTarget.removeAttr( 'style' );
+				this.uncollapsedCss = this.outerTarget.css( [ 'padding-top', 'padding-bottom', 'margin-bottom' ] );
+
+				this.outerTarget.animate( {
+					'padding-top': 0,
+					'padding-bottom': 0,
+					'margin-bottom': '2em'
+				}, duration );
+			} );
 		}
 	}
 
 	private uncollapse() {
-		this.target.slideDown();
-		this.outerTarget.animate( this.uncollapsedCss );
-		return
+		this.outerTarget.promise()
+		.then( () => {
+			this.target.slideDown();
+			this.outerTarget.animate( this.uncollapsedCss );
+		} );
 	}
 
 	public isVisible( rowId: string ): boolean {
@@ -151,7 +165,7 @@ export abstract class Filter{
 
 			if ( collapsible === 'collapsed' ) {
 
-				this.collapse();
+				this.collapse( 0 );
 				this.collapsed = true;
 				collapseControl.addClass('collapsed');
 
