@@ -325,17 +325,30 @@ var Filter = (function () {
         }
         this.target.promise().then(function () { return _this.controller.onFilterUpdated(_this.filterId); });
     };
-    Filter.prototype.collapse = function () {
+    Filter.prototype.collapse = function (duration) {
+        var _this = this;
+        if (duration === void 0) { duration = 400; }
         if (!this.collapsed) {
-            this.uncollapsedCss = this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
-            this.target.slideUp();
-            this.outerTarget.animate({ 'padding-top': 0, 'padding-bottom': 0, 'margin-bottom': '2em' });
+            this.outerTarget.promise()
+                .then(function () {
+                _this.target.slideUp(duration);
+                _this.outerTarget.removeAttr('style');
+                _this.uncollapsedCss = _this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
+                _this.outerTarget.animate({
+                    'padding-top': 0,
+                    'padding-bottom': 0,
+                    'margin-bottom': '2em'
+                }, duration);
+            });
         }
     };
     Filter.prototype.uncollapse = function () {
-        this.target.slideDown();
-        this.outerTarget.animate(this.uncollapsedCss);
-        return;
+        var _this = this;
+        this.outerTarget.promise()
+            .then(function () {
+            _this.target.slideDown();
+            _this.outerTarget.animate(_this.uncollapsedCss);
+        });
     };
     Filter.prototype.isVisible = function (rowId) {
         return this.options.hasOwnProperty('show if undefined') && this.options['show if undefined'] === true;
@@ -398,7 +411,7 @@ var Filter = (function () {
                 }
             });
             if (collapsible === 'collapsed') {
-                this.collapse();
+                this.collapse(0);
                 this.collapsed = true;
                 collapseControl_1.addClass('collapsed');
             }
