@@ -219,7 +219,7 @@
 	"srf-printername-oltree": "Oltree",
 	"srf-tree-noparentprop": "Не указано родительского свойства. Дерево не может быть построено без указания родительского свойства.",
 	"srf-tree-rootinvalid": "«$1» — некорректный заголовок страницы.",
-	"srf-paramdesc-tree-parent": "Свойство, которое содержит родительскую страницу",
+	"srf-paramdesc-tree-parent": "Свойство, содержащее родительскую страницу",
 	"srf-paramdesc-tree-root": "Корневая страниа дерева",
 	"srf-paramdesc-tree-startlevel": "Начальный уровень дерева, напр. Для интегрирования его в другое дерево",
 	"srf-printername-slideshow": "Слайд-шоу",
