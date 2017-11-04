@@ -11,7 +11,6 @@ export abstract class Filter{
 	protected options: Options = undefined;
 	protected disabled: boolean = false;
 	protected collapsed: boolean = false;
-	protected uncollapsedCss: {} = {};
 
 	public constructor( filterId: string, target: JQuery, printrequestId: string, controller: Controller, options?: Options ) {
 		this.target = target;
@@ -63,9 +62,6 @@ export abstract class Filter{
 
 				this.target.slideUp( duration );
 
-				this.outerTarget.removeAttr( 'style' );
-				this.uncollapsedCss = this.outerTarget.css( [ 'padding-top', 'padding-bottom', 'margin-bottom' ] );
-
 				this.outerTarget.animate( {
 					'padding-top': 0,
 					'padding-bottom': 0,
@@ -79,7 +75,13 @@ export abstract class Filter{
 		this.outerTarget.promise()
 		.then( () => {
 			this.target.slideDown();
-			this.outerTarget.animate( this.uncollapsedCss );
+
+			let style = this.outerTarget.attr( 'style' );
+			this.outerTarget.removeAttr( 'style' );
+			let uncollapsedCss = this.outerTarget.css( [ 'padding-top', 'padding-bottom', 'margin-bottom' ] );
+			this.outerTarget.attr( 'style', style );
+
+			this.outerTarget.animate( uncollapsedCss );
 		} );
 	}
 
