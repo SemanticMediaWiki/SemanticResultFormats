@@ -1,0 +1,131 @@
+{
+	"description": "Test `format=icalendar` with timezone using `Special:Ask`",
+	"setup": [
+		{
+			"page": "Has planned start",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has planned finish",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has conference",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has description",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has location",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"page": "Example/ICalendar-03/1",
+			"contents": "[[Has conference::A]] [[Has planned start::1 Jan 1970]] [[Has location::LOC-A]] [[Has description::Something about A]] [[Category:ICalendar-03]]"
+		},
+		{
+			"page": "Example/ICalendar-03/2",
+			"contents": "[[Has conference::B]] [[Has planned start::2 Jan 1970 12:00]] [[Has planned finish::2 Jan 1970 15:00]] [[Has location::LOC-B]] [[Has description::Something about B]] [[Category:ICalendar-03]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "special",
+			"about": "#0 single timezone (UTC)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "icalendar",
+						"title": "SRF integration",
+						"timezone": "UTC",
+						"description": "Simple description"
+					},
+					"q": "[[Category:ICalendar-03]]",
+					"po": "?Has conference=summary|?Has planned start=start|?Has planned finish=end|?Has location=location|?Has description=description"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/icalendar-03.0.txt"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#1 multiple timezones (UTC,America/New_York)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "icalendar",
+						"title": "SRF integration",
+						"timezone": "UTC,America/New_York",
+						"description": "Simple description"
+					},
+					"q": "[[Category:ICalendar-03]]",
+					"po": "?Has conference=summary|?Has planned start=start|?Has planned finish=end|?Has location=location|?Has description=description"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/icalendar-03.1.txt"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#2 unknown timezone",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "icalendar",
+						"title": "SRF integration",
+						"timezone": "UTC,Foo",
+						"description": "Simple description"
+					},
+					"q": "[[Category:ICalendar-03]]",
+					"po": "?Has conference=summary|?Has planned start=start|?Has planned finish=end|?Has location=location|?Has description=description"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/icalendar-03.0.txt"
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

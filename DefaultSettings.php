@@ -158,8 +158,3 @@ $GLOBALS['srfgColorScheme'] = [
 	'spectral',
 	'rdylgn'
 ];
-
-// Indicates which timezones to use for the iCalendar format. 
-// Can be an array of timezones, or a boolean indicating if we want to use timezones or not. 
-// If set to true, the value from $wgLocalTimezone is used. 
-$GLOBALS['srfgTimezones'] = false;
