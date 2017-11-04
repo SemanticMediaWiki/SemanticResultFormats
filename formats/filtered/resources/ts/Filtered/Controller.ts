@@ -126,25 +126,23 @@ export class Controller {
 		return this.showSpinner()
 		.then(() => {
 
-			// TODO: Optimize this!
-
 			let toShow: string[] = [];
 			let toHide: string[] = [];
 
-			for ( let rowId in this.data ) {
-				let oldVisible: boolean = this.data[ rowId ].visible[ filterId ];
-				let newVisible: boolean = this.filters[ filterId ].isDisabled() || this.filters[ filterId ].isVisible( rowId );
+			let disabled = this.filters[ filterId ].isDisabled();
 
-				if ( oldVisible !== newVisible ) {
+			for ( let rowId in this.data ) {
+
+				let newVisible: boolean = disabled || this.filters[ filterId ].isVisible( rowId );
+
+				if ( this.data[ rowId ].visible[ filterId ] !== newVisible ) {
 
 					this.data[ rowId ].visible[ filterId ] = newVisible;
 
 					if ( newVisible && this.isVisible( rowId ) ) {
 						toShow.push( rowId );
-						// controller.showRow( rowId );
 					} else {
 						toHide.push( rowId );
-						// controller.hideRow( rowId );
 					}
 				}
 			}

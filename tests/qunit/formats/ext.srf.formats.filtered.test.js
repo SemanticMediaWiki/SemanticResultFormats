@@ -93,21 +93,18 @@ var Controller = (function () {
         var _this = this;
         return this.showSpinner()
             .then(function () {
-            // TODO: Optimize this!
             var toShow = [];
             var toHide = [];
+            var disabled = _this.filters[filterId].isDisabled();
             for (var rowId in _this.data) {
-                var oldVisible = _this.data[rowId].visible[filterId];
-                var newVisible = _this.filters[filterId].isDisabled() || _this.filters[filterId].isVisible(rowId);
-                if (oldVisible !== newVisible) {
+                var newVisible = disabled || _this.filters[filterId].isVisible(rowId);
+                if (_this.data[rowId].visible[filterId] !== newVisible) {
                     _this.data[rowId].visible[filterId] = newVisible;
                     if (newVisible && _this.isVisible(rowId)) {
                         toShow.push(rowId);
-                        // controller.showRow( rowId );
                     }
                     else {
                         toHide.push(rowId);
-                        // controller.hideRow( rowId );
                     }
                 }
             }
@@ -416,7 +413,7 @@ var ValueFilter = (function (_super) {
             var label = value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        mw.loader.using(['ext.srf.filtered.value-filter.select']).then(function () {
+        mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
             select.select2({
                 multiple: true,
                 placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
@@ -700,32 +697,54 @@ var View = (function () {
         this.target = undefined;
         this.controller = undefined;
         this.options = undefined;
+        this.visible = false;
+        this.rows = {};
         this.id = id;
         this.target = target;
         this.controller = c;
         this.options = options;
     }
-    View.prototype.init = function () { };
+    View.prototype.init = function () {
+        for (var rowId in this.controller.getData()) {
+            this.rows[rowId] = this.target.find('.' + rowId);
+        }
+    };
     View.prototype.getTargetElement = function () {
         return this.target;
     };
     View.prototype.showRows = function (rowIds) {
         var _this = this;
-        rowIds.forEach(function (rowId) {
-            _this.target.find('.' + rowId).slideDown(400);
-        });
+        if (this.visible && rowIds.length < 200) {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].slideDown(400);
+            });
+        }
+        else {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].css('display', '');
+            });
+        }
     };
     View.prototype.hideRows = function (rowIds) {
         var _this = this;
-        rowIds.forEach(function (rowId) {
-            _this.target.find('.' + rowId).slideUp(400);
-        });
+        if (this.visible && rowIds.length < 200) {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].slideUp(400);
+            });
+        }
+        else {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].css('display', 'none');
+            });
+        }
     };
     View.prototype.show = function () {
         this.target.show();
+        this.visible = true;
     };
     View.prototype.hide = function () {
         this.target.hide();
+        this.visible = false;
     };
     return View;
 }());
@@ -1053,6 +1072,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var QUnitTest_1 = require("../../Util/QUnitTest");
 var View_1 = require("../../../../resources/ts/Filtered/View/View");
+var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
 var ViewTest = (function (_super) {
     __extends(ViewTest, _super);
     function ViewTest() {
@@ -1071,6 +1091,7 @@ var ViewTest = (function (_super) {
         if (target === void 0) { target = undefined; }
         if (c === void 0) { c = undefined; }
         if (options === void 0) { options = {}; }
+        c = c || new Controller_1.Controller(undefined, undefined, undefined);
         return new View_1.View(id, target, c, options);
     };
     ;
@@ -1109,7 +1130,7 @@ var ViewTest = (function (_super) {
 }(QUnitTest_1.QUnitTest));
 exports.ViewTest = ViewTest;
 
-},{"../../../../resources/ts/Filtered/View/View":5,"../../Util/QUnitTest":13}],11:[function(require,module,exports){
+},{"../../../../resources/ts/Filtered/Controller":1,"../../../../resources/ts/Filtered/View/View":5,"../../Util/QUnitTest":13}],11:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
