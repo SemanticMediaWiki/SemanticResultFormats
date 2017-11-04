@@ -153,29 +153,27 @@ export class ValueFilter extends Filter {
 	private addControlForSwitches( filtercontrols: JQuery ): JQuery {
 		// insert switches
 		let switches = this.options.hasOwnProperty( 'switches' ) ? this.options[ 'switches' ] : undefined;
-		if ( switches !== undefined && switches.length > 0 ) {
+
+		if ( switches !== undefined && $.inArray( 'and or', switches ) >= 0 ) {
 
 			let switchControls = $( '<div class="filtered-value-switches">' );
 
-			if ( $.inArray( 'and or', switches ) >= 0 ) {
+			let andorControl = $( '<div class="filtered-value-andor">' );
 
-				let andorControl = $( '<div class="filtered-value-andor">' );
+			let orControl = this.getRadioControl( 'or', true );
+			let andControl = this.getRadioControl( 'and' );
 
-				let orControl = this.getRadioControl( 'or', true );
-				let andControl = this.getRadioControl( 'and' );
+			andorControl
+			.append( orControl )
+			.append( andControl )
+			.appendTo( switchControls );
 
-				andorControl
-				.append( orControl )
-				.append( andControl )
-				.appendTo( switchControls );
+			andorControl
+			.find( 'input' )
+			.on( 'change', undefined, { 'filter': this }, ( eventObject: JQueryEventObject ) =>
+				eventObject.data.filter.useOr( eventObject.target.getAttribute( 'value' ) === 'or' )
+			);
 
-				andorControl
-				.find( 'input' )
-				.on( 'change', undefined, { 'filter': this }, ( eventObject: JQueryEventObject ) =>
-					eventObject.data.filter.useOr( eventObject.target.getAttribute('value' ) === 'or' )
-				);
-
-			}
 
 			filtercontrols.append( switchControls );
 		}
