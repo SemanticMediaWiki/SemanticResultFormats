@@ -93,21 +93,18 @@ var Controller = (function () {
         var _this = this;
         return this.showSpinner()
             .then(function () {
-            // TODO: Optimize this!
             var toShow = [];
             var toHide = [];
+            var disabled = _this.filters[filterId].isDisabled();
             for (var rowId in _this.data) {
-                var oldVisible = _this.data[rowId].visible[filterId];
-                var newVisible = _this.filters[filterId].isDisabled() || _this.filters[filterId].isVisible(rowId);
-                if (oldVisible !== newVisible) {
+                var newVisible = disabled || _this.filters[filterId].isVisible(rowId);
+                if (_this.data[rowId].visible[filterId] !== newVisible) {
                     _this.data[rowId].visible[filterId] = newVisible;
                     if (newVisible && _this.isVisible(rowId)) {
                         toShow.push(rowId);
-                        // controller.showRow( rowId );
                     }
                     else {
                         toHide.push(rowId);
-                        // controller.hideRow( rowId );
                     }
                 }
             }
@@ -292,7 +289,6 @@ var Filter = (function () {
         this.options = undefined;
         this.disabled = false;
         this.collapsed = false;
-        this.uncollapsedCss = {};
         this.target = target;
         this.outerTarget = target;
         this.filterId = filterId;
@@ -332,8 +328,6 @@ var Filter = (function () {
             this.outerTarget.promise()
                 .then(function () {
                 _this.target.slideUp(duration);
-                _this.outerTarget.removeAttr('style');
-                _this.uncollapsedCss = _this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
                 _this.outerTarget.animate({
                     'padding-top': 0,
                     'padding-bottom': 0,
@@ -347,7 +341,11 @@ var Filter = (function () {
         this.outerTarget.promise()
             .then(function () {
             _this.target.slideDown();
-            _this.outerTarget.animate(_this.uncollapsedCss);
+            var style = _this.outerTarget.attr('style');
+            _this.outerTarget.removeAttr('style');
+            var uncollapsedCss = _this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
+            _this.outerTarget.attr('style', style);
+            _this.outerTarget.animate(uncollapsedCss);
         });
     };
     Filter.prototype.isVisible = function (rowId) {
@@ -779,22 +777,20 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
         var switches = this.options.hasOwnProperty('switches') ? this.options['switches'] : undefined;
-        if (switches !== undefined && switches.length > 0) {
+        if (switches !== undefined && $.inArray('and or', switches) >= 0) {
             var switchControls = $('<div class="filtered-value-switches">');
-            if ($.inArray('and or', switches) >= 0) {
-                var andorControl = $('<div class="filtered-value-andor">');
-                var orControl = this.getRadioControl('or', true);
-                var andControl = this.getRadioControl('and');
-                andorControl
-                    .append(orControl)
-                    .append(andControl)
-                    .appendTo(switchControls);
-                andorControl
-                    .find('input')
-                    .on('change', undefined, { 'filter': this }, function (eventObject) {
-                    return eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or');
-                });
-            }
+            var andorControl = $('<div class="filtered-value-andor">');
+            var orControl = this.getRadioControl('or', true);
+            var andControl = this.getRadioControl('and');
+            andorControl
+                .append(orControl)
+                .append(andControl)
+                .appendTo(switchControls);
+            andorControl
+                .find('input')
+                .on('change', undefined, { 'filter': this }, function (eventObject) {
+                return eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or');
+            });
             filtercontrols.append(switchControls);
         }
         return filtercontrols;
@@ -1294,32 +1290,54 @@ var View = (function () {
         this.target = undefined;
         this.controller = undefined;
         this.options = undefined;
+        this.visible = false;
+        this.rows = {};
         this.id = id;
         this.target = target;
         this.controller = c;
         this.options = options;
     }
-    View.prototype.init = function () { };
+    View.prototype.init = function () {
+        for (var rowId in this.controller.getData()) {
+            this.rows[rowId] = this.target.find('.' + rowId);
+        }
+    };
     View.prototype.getTargetElement = function () {
         return this.target;
     };
     View.prototype.showRows = function (rowIds) {
         var _this = this;
-        rowIds.forEach(function (rowId) {
-            _this.target.find('.' + rowId).slideDown(400);
-        });
+        if (this.visible && rowIds.length < 200) {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].slideDown(400);
+            });
+        }
+        else {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].css('display', '');
+            });
+        }
     };
     View.prototype.hideRows = function (rowIds) {
         var _this = this;
-        rowIds.forEach(function (rowId) {
-            _this.target.find('.' + rowId).slideUp(400);
-        });
+        if (this.visible && rowIds.length < 200) {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].slideUp(400);
+            });
+        }
+        else {
+            rowIds.forEach(function (rowId) {
+                _this.rows[rowId].css('display', 'none');
+            });
+        }
     };
     View.prototype.show = function () {
         this.target.show();
+        this.visible = true;
     };
     View.prototype.hide = function () {
         this.target.hide();
+        this.visible = false;
     };
     return View;
 }());
