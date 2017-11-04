@@ -150,7 +150,7 @@ class SemanticResultFormats {
 			'timeline' => 'SRFTimeline',
 			'eventline' => 'SRFTimeline',
 			'vcard' => 'SRF\vCard\vCardResultPrinter',
-			'icalendar' => 'SRFiCalendar',
+			'icalendar' => 'SRF\iCalendar\iCalendarFileExportPrinter',
 			'bibtex' => 'SRFBibTeX',
 			'calendar' => 'SRFCalendar',
 			'eventcalendar' => 'SRF\EventCalendar',
