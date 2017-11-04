@@ -170,7 +170,6 @@ var Filter = (function () {
         this.options = undefined;
         this.disabled = false;
         this.collapsed = false;
-        this.uncollapsedCss = {};
         this.target = target;
         this.outerTarget = target;
         this.filterId = filterId;
@@ -210,8 +209,6 @@ var Filter = (function () {
             this.outerTarget.promise()
                 .then(function () {
                 _this.target.slideUp(duration);
-                _this.outerTarget.removeAttr('style');
-                _this.uncollapsedCss = _this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
                 _this.outerTarget.animate({
                     'padding-top': 0,
                     'padding-bottom': 0,
@@ -225,7 +222,11 @@ var Filter = (function () {
         this.outerTarget.promise()
             .then(function () {
             _this.target.slideDown();
-            _this.outerTarget.animate(_this.uncollapsedCss);
+            var style = _this.outerTarget.attr('style');
+            _this.outerTarget.removeAttr('style');
+            var uncollapsedCss = _this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
+            _this.outerTarget.attr('style', style);
+            _this.outerTarget.animate(uncollapsedCss);
         });
     };
     Filter.prototype.isVisible = function (rowId) {
@@ -415,7 +416,7 @@ var ValueFilter = (function (_super) {
             var label = value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
+        mw.loader.using(['ext.srf.filtered.value-filter.select']).then(function () {
             select.select2({
                 multiple: true,
                 placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
@@ -433,22 +434,20 @@ var ValueFilter = (function (_super) {
     ValueFilter.prototype.addControlForSwitches = function (filtercontrols) {
         // insert switches
         var switches = this.options.hasOwnProperty('switches') ? this.options['switches'] : undefined;
-        if (switches !== undefined && switches.length > 0) {
+        if (switches !== undefined && $.inArray('and or', switches) >= 0) {
             var switchControls = $('<div class="filtered-value-switches">');
-            if ($.inArray('and or', switches) >= 0) {
-                var andorControl = $('<div class="filtered-value-andor">');
-                var orControl = this.getRadioControl('or', true);
-                var andControl = this.getRadioControl('and');
-                andorControl
-                    .append(orControl)
-                    .append(andControl)
-                    .appendTo(switchControls);
-                andorControl
-                    .find('input')
-                    .on('change', undefined, { 'filter': this }, function (eventObject) {
-                    return eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or');
-                });
-            }
+            var andorControl = $('<div class="filtered-value-andor">');
+            var orControl = this.getRadioControl('or', true);
+            var andControl = this.getRadioControl('and');
+            andorControl
+                .append(orControl)
+                .append(andControl)
+                .appendTo(switchControls);
+            andorControl
+                .find('input')
+                .on('change', undefined, { 'filter': this }, function (eventObject) {
+                return eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or');
+            });
             filtercontrols.append(switchControls);
         }
         return filtercontrols;

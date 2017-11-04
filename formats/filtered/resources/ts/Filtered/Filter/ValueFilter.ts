@@ -153,11 +153,10 @@ export class ValueFilter extends Filter {
 	private addControlForSwitches( filtercontrols: JQuery ): JQuery {
 		// insert switches
 		let switches = this.options.hasOwnProperty( 'switches' ) ? this.options[ 'switches' ] : undefined;
-		if ( switches !== undefined && switches.length > 0 ) {
 
-			let switchControls = $( '<div class="filtered-value-switches">' );
+		if ( switches !== undefined && $.inArray( 'and or', switches ) >= 0 ) {
 
-			if ( $.inArray( 'and or', switches ) >= 0 ) {
+				let switchControls = $( '<div class="filtered-value-switches">' );
 
 				let andorControl = $( '<div class="filtered-value-andor">' );
 
@@ -175,9 +174,8 @@ export class ValueFilter extends Filter {
 					eventObject.data.filter.useOr( eventObject.target.getAttribute('value' ) === 'or' )
 				);
 
-			}
 
-			filtercontrols.append( switchControls );
+				filtercontrols.append( switchControls );
 		}
 
 		return filtercontrols;
