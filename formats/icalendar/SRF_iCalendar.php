@@ -1,4 +1,7 @@
 <?php
+
+use SRF\iCalendar\IcalTimezoneFormatter;
+
 /**
  * Create iCalendar exports
  * @file
@@ -7,23 +10,26 @@
 
 /**
  * Printer class for creating iCalendar exports
- * 
+ *
  * @author Markus Krötzsch
  * @author Denny Vrandecic
  * @author Jeroen De Dauw
- * 
+ *
  * @ingroup SemanticResultFormats
  */
 class SRFiCalendar extends SMWExportPrinter {
-	
+
 	protected $m_title;
 	protected $m_description;
-	
-	protected $m_timezones;
+
+	/**
+	 * @var IcalTimezoneFormatter
+	 */
+	private $icalTimezoneFormatter;
 
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
-		
+
 		$this->m_title = trim( $params['title'] );
 		$this->m_description = trim( $params['description'] );
 	}
@@ -69,34 +75,37 @@ class SRFiCalendar extends SMWExportPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		return $outputmode == SMW_OUTPUT_FILE ? $this->getIcal( $res ) : $this->getIcalLink( $res, $outputmode );
 	}
-	
+
 	/**
 	 * Returns the query result in iCal.
-	 * 
+	 *
 	 * @since 1.5.2
-	 *  
+	 *
 	 * @param SMWQueryResult $res
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getIcal( SMWQueryResult $res ) {
-		global $wgSRFTimezoneTransitions;
-		
-		$this->m_timezones = new SRFTimezones();
-		
+
+		$this->icalTimezoneFormatter = new IcalTimezoneFormatter();
+
+		$this->icalTimezoneFormatter->setLocalTimezones(
+			isset( $this->params['timezone'] ) ? $this->params['timezone'] : []
+		);
+
 		$result = '';
-		
+
 		if ( $this->m_title == '' ) {
 			global $wgSitename;
 			$this->m_title = $wgSitename;
 		}
-		
+
 		$result .= "BEGIN:VCALENDAR\r\n";
 		$result .= "PRODID:-//SMW Project//Semantic Result Formats\r\n";
 		$result .= "VERSION:2.0\r\n";
 		$result .= "METHOD:PUBLISH\r\n";
 		$result .= "X-WR-CALNAME:" . $this->m_title . "\r\n";
-		
+
 		if ( $this->m_description !== '' ) {
 			$result .= "X-WR-CALDESC:" . $this->m_description . "\r\n";
 		}
@@ -105,15 +114,12 @@ class SRFiCalendar extends SMWExportPrinter {
 		$row = $res->getNext();
 		while ( $row !== false ) {
 			$events .= $this->getIcalForItem( $row );
-			
+
 			$row = $res->getNext();
 		}
-		
-		$this->m_timezones->calcTransitions();
-		$result .= $this->m_timezones->getIcalForTimezone();
-		
+
+		$result .= $this->icalTimezoneFormatter->getTransitions();
 		$result .= $events;
-		
 		$result .= "END:VCALENDAR\r\n";
 
 		return $result;
@@ -121,32 +127,32 @@ class SRFiCalendar extends SMWExportPrinter {
 
 	/**
 	 * Returns html for a link to a query that returns the iCal.
-	 * 
+	 *
 	 * @since 1.5.2
-	 *  
+	 *
 	 * @param SMWQueryResult $res
 	 * @param $outputmode
-	 * 
+	 *
 	 * @return string
-	 */	
+	 */
 	protected function getIcalLink( SMWQueryResult $res, $outputmode ) {
 		if ( $this->getSearchLabel( $outputmode ) ) {
 			$label = $this->getSearchLabel( $outputmode );
 		} else {
 			$label = wfMessage( 'srf_icalendar_link' )->inContentLanguage()->text();
 		}
-		
+
 		$link = $res->getQueryLink( $label );
 		$link->setParameter( 'icalendar', 'format' );
-		
+
 		if ( $this->m_title !== '' ) {
 			$link->setParameter( $this->m_title, 'title' );
 		}
-		
+
 		if ( $this->m_description !== '' ) {
 			$link->setParameter( $this->m_description, 'description' );
 		}
-		
+
 		if ( array_key_exists( 'limit', $this->params ) ) {
 			$link->setParameter( $this->params['limit'], 'limit' );
 		} else { // use a reasonable default limit
@@ -154,29 +160,29 @@ class SRFiCalendar extends SMWExportPrinter {
 		}
 
 		// yes, our code can be viewed as HTML if requested, no more parsing needed
-		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); 
+		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML );
 		return $link->getText( $outputmode, $this->mLinker );
 	}
-	
+
 	/**
 	 * Returns the iCal for a single item.
-	 * 
+	 *
 	 * @since 1.5.2
-	 * 
+	 *
 	 * @param array $row
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getIcalForItem( array $row ) {
 		$result = '';
-		
+
 		$wikipage = $row[0]->getResultSubject(); // get the object
 		$wikipage = SMWDataValueFactory::newDataItemValue( $wikipage, null );
 
 		$params = [
 			'summary' => $wikipage->getShortWikiText()
 		];
-		
+
 		$from = null;
 		$to = null;
 		foreach ( $row as /* SMWResultArray */ $field ) {
@@ -185,7 +191,7 @@ class SRFiCalendar extends SMWExportPrinter {
 			// could include funny things like geo, description etc. though
 			$req = $field->getPrintRequest();
 			$label = strtolower( $req->getLabel() );
-			
+
 			switch ( $label ) {
 				case 'start': case 'end':
 					if ( $req->getTypeID() == '_dat' ) {
@@ -196,7 +202,7 @@ class SRFiCalendar extends SMWExportPrinter {
 						}
 						else {
 							$params[$label] = $this->parsedate( $dataValue, $label == 'end' );
-							
+
 							$timestamp = strtotime( $params[$label] );
 							if ( $from === null || $timestamp < $from )
 								$from = $timestamp;
@@ -213,18 +219,18 @@ class SRFiCalendar extends SMWExportPrinter {
 					break;
 			}
 		}
-		
-		$this->m_timezones->updateRange( $from, $to );
-		
+
+		$this->icalTimezoneFormatter->calcTransitions( $from, $to );
+
 		$title = $wikipage->getTitle();
 		$article = new Article( $title );
 		$url = $title->getFullURL();
-		
+
 		$result .= "BEGIN:VEVENT\r\n";
 		$result .= "SUMMARY:" . $this->escapeICalendarText( $params['summary'] ) . "\r\n";
 		$result .= "URL:$url\r\n";
 		$result .= "UID:$url\r\n";
-		
+
 		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $params['start'] . "\r\n";
 		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $params['end'] . "\r\n";
 		if ( array_key_exists( 'location', $params ) ) {
@@ -233,12 +239,12 @@ class SRFiCalendar extends SMWExportPrinter {
 		if ( array_key_exists( 'description', $params ) ) {
 			$result .= "DESCRIPTION:" . $this->escapeICalendarText( $params['description'] ) . "\r\n";
 		}
-		
+
 		$t = strtotime( str_replace( 'T', ' ', $article->getTimestamp() ) );
 		$result .= "DTSTAMP:" . date( "Ymd", $t ) . "T" . date( "His", $t ) . "\r\n";
 		$result .= "SEQUENCE:" . $title->getLatestRevID() . "\r\n";
 		$result .= "END:VEVENT\r\n";
-		
+
 		return $result;
 	}
 
@@ -248,27 +254,27 @@ class SRFiCalendar extends SMWExportPrinter {
 	static private function parsedate( SMWTimeValue $dv, $isend = false ) {
 		$year = $dv->getYear();
 		if ( ( $year > 9999 ) || ( $year < -9998 ) ) return ''; // ISO range is limited to four digits
-		
+
 		$year = number_format( $year, 0, '.', '' );
 		$time = str_replace( ':', '', $dv->getTimeString( false ) );
-		
+
 		if ( ( $time == false ) && ( $isend ) ) { // increment by one day, compute date to cover leap years etc.
 			$dv = SMWDataValueFactory::newTypeIDValue( '_dat', $dv->getWikiValue() . 'T00:00:00-24:00' );
 		}
-		
+
 		$month = $dv->getMonth();
 		if ( strlen( $month ) == 1 ) $month = '0' . $month;
-		
+
 		$day = $dv->getDay();
 		if ( strlen( $day ) == 1 ) $day = '0' . $day;
-		
+
 		$result = $year . $month . $day;
-		
+
 		if ( $time != false ) $result .= "T$time";
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Implements esaping of special characters for iCalendar properties of type TEXT. This is defined
 	 * in RFC2445 Section 4.3.11.
@@ -298,6 +304,11 @@ class SRFiCalendar extends SMWExportPrinter {
 		$params['description'] = [
 			'default' => '',
 			'message' => 'srf_paramdesc_icalendardescription',
+		];
+
+		$params['timezone'] = [
+			'default' => '',
+			'message' => 'srf-paramdesc-icalendar-timezone',
 		];
 
 		return $params;
