@@ -759,7 +759,7 @@ var ValueFilter = (function (_super) {
             var label = value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
-        mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
+        mw.loader.using(['ext.srf.filtered.value-filter.select']).then(function () {
             select.select2({
                 multiple: true,
                 placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
