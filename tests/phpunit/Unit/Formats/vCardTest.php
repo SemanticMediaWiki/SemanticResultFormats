@@ -41,7 +41,7 @@ class vCardTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRF\vCard\vCardResultPrinter';
+		return '\SRF\vCard\vCardFileExportPrinter';
 	}
 
 }

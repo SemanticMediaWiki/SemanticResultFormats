@@ -23,7 +23,7 @@ use WikiPage;
  * @author Denny Vrandecic
  * @author Frank Dengler
  */
-class vCardResultPrinter extends FileExportPrinter {
+class vCardFileExportPrinter extends FileExportPrinter {
 
 	/**
 	 * @see FileExportPrinter::getName
