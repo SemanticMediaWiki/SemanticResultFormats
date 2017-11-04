@@ -18,6 +18,8 @@ class SRFiCalendar extends SMWExportPrinter {
 	
 	protected $m_title;
 	protected $m_description;
+	
+	protected $m_timezones;
 
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
@@ -78,6 +80,10 @@ class SRFiCalendar extends SMWExportPrinter {
 	 * @return string
 	 */
 	protected function getIcal( SMWQueryResult $res ) {
+		global $wgSRFTimezoneTransitions;
+		
+		$this->m_timezones = new SRFTimezones();
+		
 		$result = '';
 		
 		if ( $this->m_title == '' ) {
@@ -94,18 +100,19 @@ class SRFiCalendar extends SMWExportPrinter {
 		if ( $this->m_description !== '' ) {
 			$result .= "X-WR-CALDESC:" . $this->m_description . "\r\n";
 		}
-		
-		// TODO: http://www.kanzaki.com/docs/ical/vtimezone.html
-		// $result .= "BEGIN:VTIMEZONE\r\n";
-		// $result .= "TZID:\r\n";
 
+		$events = '';
 		$row = $res->getNext();
 		while ( $row !== false ) {
-			$result .= $this->getIcalForItem( $row );
+			$events .= $this->getIcalForItem( $row );
+			
 			$row = $res->getNext();
 		}
 		
-		// $result .= "END:VTIMEZONE\r\n";
+		$this->m_timezones->calcTransitions();
+		$result .= $this->m_timezones->getIcalForTimezone();
+		
+		$result .= $events;
 		
 		$result .= "END:VCALENDAR\r\n";
 
@@ -170,6 +177,8 @@ class SRFiCalendar extends SMWExportPrinter {
 			'summary' => $wikipage->getShortWikiText()
 		];
 		
+		$from = null;
+		$to = null;
 		foreach ( $row as /* SMWResultArray */ $field ) {
 			// later we may add more things like a generic
 			// mechanism to add whatever you want :)
@@ -186,7 +195,13 @@ class SRFiCalendar extends SMWExportPrinter {
 							unset( $params[$label] );
 						}
 						else {
-							$params[$label] = $dataValue;
+							$params[$label] = $this->parsedate( $dataValue, $label == 'end' );
+							
+							$timestamp = strtotime( $params[$label] );
+							if ( $from === null || $timestamp < $from )
+								$from = $timestamp;
+							if ( $to === null || $timestamp > $to )
+								$to = $timestamp;
 						}
 					}
 					break;
@@ -199,6 +214,8 @@ class SRFiCalendar extends SMWExportPrinter {
 			}
 		}
 		
+		$this->m_timezones->updateRange( $from, $to );
+		
 		$title = $wikipage->getTitle();
 		$article = new Article( $title );
 		$url = $title->getFullURL();
@@ -208,8 +225,8 @@ class SRFiCalendar extends SMWExportPrinter {
 		$result .= "URL:$url\r\n";
 		$result .= "UID:$url\r\n";
 		
-		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $this->parsedate( $params['start'] ) . "\r\n";
-		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $this->parsedate( $params['end'], true ) . "\r\n";
+		if ( array_key_exists( 'start', $params ) ) $result .= "DTSTART:" . $params['start'] . "\r\n";
+		if ( array_key_exists( 'end', $params ) )   $result .= "DTEND:" . $params['end'] . "\r\n";
 		if ( array_key_exists( 'location', $params ) ) {
 			$result .= "LOCATION:" . $this->escapeICalendarText( $params['location'] ) . "\r\n";
 		}
@@ -251,7 +268,7 @@ class SRFiCalendar extends SMWExportPrinter {
 		
 		return $result;
 	}
-
+	
 	/**
 	 * Implements esaping of special characters for iCalendar properties of type TEXT. This is defined
 	 * in RFC2445 Section 4.3.11.
@@ -260,7 +277,6 @@ class SRFiCalendar extends SMWExportPrinter {
 		// Note that \\ is a PHP escaped single \ here
 		return str_replace( [ "\\", "\n", ";", "," ], [ "\\\\", "\\n", "\\;", "\\," ], $text );
 	}
-
 
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions
