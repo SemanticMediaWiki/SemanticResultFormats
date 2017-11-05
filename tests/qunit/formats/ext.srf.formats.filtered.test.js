@@ -565,7 +565,6 @@ var MapView = (function (_super) {
             _this.markers = markers;
             _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
         });
-        return _super.prototype.init.call(this);
     };
     MapView.prototype.getZoomForUnclustering = function () {
         if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
@@ -705,9 +704,20 @@ var View = (function () {
         this.options = options;
     }
     View.prototype.init = function () {
-        for (var rowId in this.controller.getData()) {
-            this.rows[rowId] = this.target.find('.' + rowId);
-        }
+        var _this = this;
+        var rowIds = Object.keys(this.controller.getData());
+        var rows = this.target.find(this.getItemClassName());
+        rows.each(function (index, elem) {
+            var classes = elem.classList;
+            for (var i = 0; i < classes.length; i++) {
+                if (rowIds.indexOf(classes[i]) >= 0) {
+                    _this.rows[classes[i]] = $(rows[index]);
+                }
+            }
+        });
+    };
+    View.prototype.getItemClassName = function () {
+        return '.filtered-item';
     };
     View.prototype.getTargetElement = function () {
         return this.target;
@@ -1040,9 +1050,7 @@ var MapViewTest = (function (_super) {
         if (target === void 0) { target = undefined; }
         if (c === void 0) { c = undefined; }
         if (options === void 0) { options = {}; }
-        if (c === undefined) {
-            c = new Controller_1.Controller(undefined, undefined, undefined);
-        }
+        c = c || new Controller_1.Controller(undefined, {}, undefined);
         return new MapView_1.MapView(id, target, c, options);
     };
     ;
@@ -1091,7 +1099,7 @@ var ViewTest = (function (_super) {
         if (target === void 0) { target = undefined; }
         if (c === void 0) { c = undefined; }
         if (options === void 0) { options = {}; }
-        c = c || new Controller_1.Controller(undefined, undefined, undefined);
+        c = c || new Controller_1.Controller(undefined, {}, undefined);
         return new View_1.View(id, target, c, options);
     };
     ;

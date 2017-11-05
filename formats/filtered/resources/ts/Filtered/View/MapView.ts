@@ -66,8 +66,6 @@ export class MapView extends View {
 			this.markers = markers;
 			this.bounds = ( bounds === undefined ) ? new L.LatLngBounds( [ -180, -90 ], [ 180, 90 ] ) : bounds;
 		} );
-
-		return super.init();
 	}
 
 	private getZoomForUnclustering() {
