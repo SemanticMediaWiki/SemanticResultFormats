@@ -18,9 +18,22 @@ export class View {
 	}
 
 	public init() {
-		for ( let rowId in this.controller.getData() ) {
-			this.rows[ rowId ] = this.target.find( '.' + rowId );
-		}
+
+		let rowIds = Object.keys( this.controller.getData() );
+		let rows = this.target.find( this.getItemClassName() );
+
+		rows.each( ( index, elem ) => {
+			let classes = elem.classList;
+			for ( let i = 0; i < classes.length; i++ ) {
+				if ( rowIds.indexOf( classes[ i ] ) >= 0 ) {
+					this.rows[ classes[ i ] ] = $( rows[ index ] );
+				}
+			}
+		} );
+	}
+
+	protected getItemClassName() {
+		return '.filtered-item';
 	}
 
 	public getTargetElement(): JQuery {

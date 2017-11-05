@@ -1065,6 +1065,9 @@ var ListView = (function (_super) {
     function ListView() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    ListView.prototype.getItemClassName = function () {
+        return '.filtered-list-item';
+    };
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
@@ -1135,7 +1138,6 @@ var MapView = (function (_super) {
             _this.markers = markers;
             _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
         });
-        return _super.prototype.init.call(this);
     };
     MapView.prototype.getZoomForUnclustering = function () {
         if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
@@ -1276,6 +1278,9 @@ var TableView = (function (_super) {
     function TableView() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    TableView.prototype.getItemClassName = function () {
+        return '.filtered-table-item';
+    };
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
@@ -1298,9 +1303,20 @@ var View = (function () {
         this.options = options;
     }
     View.prototype.init = function () {
-        for (var rowId in this.controller.getData()) {
-            this.rows[rowId] = this.target.find('.' + rowId);
-        }
+        var _this = this;
+        var rowIds = Object.keys(this.controller.getData());
+        var rows = this.target.find(this.getItemClassName());
+        rows.each(function (index, elem) {
+            var classes = elem.classList;
+            for (var i = 0; i < classes.length; i++) {
+                if (rowIds.indexOf(classes[i]) >= 0) {
+                    _this.rows[classes[i]] = $(rows[index]);
+                }
+            }
+        });
+    };
+    View.prototype.getItemClassName = function () {
+        return '.filtered-item';
     };
     View.prototype.getTargetElement = function () {
         return this.target;
@@ -1380,11 +1396,14 @@ exports.ViewSelector = ViewSelector;
 exports.__esModule = true;
 var Filtered_1 = require("./Filtered/Filtered");
 var config = mw.config.get('srfFilteredConfig');
-for (var id in config) {
+var _loop_1 = function (id) {
     if (config.hasOwnProperty(id)) {
-        var f = new Filtered_1.Filtered($('#' + id), config[id]);
-        f.run();
+        var f_1 = new Filtered_1.Filtered($('#' + id), config[id]);
+        mw.hook('wikipage.content').add(function () { return f_1.run(); });
     }
+};
+for (var id in config) {
+    _loop_1(id);
 }
 
 },{"./Filtered/Filtered":6}]},{},[13])

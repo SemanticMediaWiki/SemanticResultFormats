@@ -18,7 +18,7 @@ export class ViewTest extends QUnitTest {
 	// [x] public hide()
 
 	public getTestObject( id: string = 'foo', target: JQuery = undefined, c: Controller = undefined, options: Options = {} ) {
-		c = c || new Controller( undefined, undefined, undefined );
+		c = c || new Controller( undefined, {}, undefined );
 		return new View( id, target, c, options );
 	};
 
