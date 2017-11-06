@@ -341,5 +341,6 @@
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "Impossible d’exporter vers MS-Excel car l’extension [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] n’est pas installée.",
 	"srf-paramdesc-excel-filename": "Nom cible du fichier téléchargé correspondant au fichier généré",
-	"srf-paramdesc-excel-templatefile": "Le nom d'un fichier Excel à partir de l'espace de noms \"File\" utilisé pour la mise en forme du fichier généré"
+	"srf-paramdesc-excel-templatefile": "Le nom d'un fichier Excel à partir de l'espace de noms \"File\" utilisé pour la mise en forme du fichier généré",
+	"srf-paramdesc-icalendar-timezone": "Une liste de fuseaux horaires séparés par des virgules"
 }

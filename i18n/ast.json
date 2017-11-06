@@ -6,7 +6,7 @@
 	},
 	"srf-desc": "Formatos de resultancies adicionales pa consultes de Semantic MediaWiki",
 	"srf-name": "Formatos de resultancia semántica",
-	"prefs-srf": "Formatos de resultancia semántica",
+	"prefs-srf": "Estensión:Formatos de resultancies semántiques",
 	"srf-prefs-intro-text": "Tienes instalada la estensión Formatos de resultancia semántica. Pa llograr ayuda adicional, visita la páxina d'ayuda sobre los [https://@www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de les resultancies].",
 	"prefs-srf-eventcalendar-options": "Opciones de calendariu d'actividaes",
 	"srf-prefs-eventcalendar-options-update-default": "Activar les [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates actualizaciones automátiques] de les actividaes del calendariu durante l'actualización de la páxina",
@@ -317,5 +317,6 @@
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "Nun pudo esportase a MS-Excel porque la estensión [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nun ta instalada.",
 	"srf-paramdesc-excel-filename": "El nome de ficheru de la descarga pal ficheru xeneráu",
-	"srf-paramdesc-excel-templatefile": "El nome d'un ficheru d'Excel del espaciu de nomes «Ficheru» utilizáu pa dar formatu al ficheru xeneráu"
+	"srf-paramdesc-excel-templatefile": "El nome d'un ficheru d'Excel del espaciu de nomes «Ficheru» utilizáu pa dar formatu al ficheru xeneráu",
+	"srf-paramdesc-icalendar-timezone": "Llista d'estayes horaries separaes con comes"
 }

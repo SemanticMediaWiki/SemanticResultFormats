@@ -182,5 +182,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Powtarzanie wyłączone",
 	"srf-ui-mediaplayer-label-full-screen": "Pełny ekran",
 	"srf-ui-mediaplayer-label-restore-screen": "Przywróć ekran",
-	"srf-excel-link": "Excel"
+	"srf-excel-link": "Excel",
+	"srf-paramdesc-icalendar-timezone": "Lista stref czasowych przedzielana przecinkami"
 }

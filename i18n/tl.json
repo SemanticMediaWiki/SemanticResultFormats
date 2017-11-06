@@ -172,5 +172,6 @@
 	"srf-printername-eventcalendar": "Kalendaryo ng pangyayari",
 	"srf-paramdesc-calendarfirstday": "Ang araw na pinagsisimulan ng bawat isang linggo",
 	"srf-paramdesc-calendardefaultview": "Ang paunang pagpapatanaw kapag kumarga na ang kalendaryo",
-	"srf-paramdesc-dayview": "Paganahin ang pagpapatanaw ng araw sa pamamagitan ng paglagitik sa bilang ng araw"
+	"srf-paramdesc-dayview": "Paganahin ang pagpapatanaw ng araw sa pamamagitan ng paglagitik sa bilang ng araw",
+	"srf-paramdesc-icalendar-timezone": "Kuwit para maihiwalay ang Listahan ng mga 'timezones'"
 }

@@ -21,7 +21,8 @@
 			"Julián L",
 			"Luzcaru",
 			"Peter Bowman",
-			"Nemo bis"
+			"Nemo bis",
+			"KATRINE1992"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -311,5 +312,6 @@
 	"srf-ui-mediaplayer-label-restore-screen": "Restaurar la pantalla",
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "No se ha podido exportar a MS-Excel porque la extensión [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] no está instalada.",
-	"srf-paramdesc-excel-templatefile": "El nombre de un archivo de Excel del espacio de nombres «Archivo» utilizado para dar formato al archivo generado"
+	"srf-paramdesc-excel-templatefile": "El nombre de un archivo de Excel del espacio de nombres «Archivo» utilizado para dar formato al archivo generado",
+	"srf-paramdesc-icalendar-timezone": "Una lista de zona de horas separada por comas"
 }

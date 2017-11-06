@@ -330,5 +330,6 @@
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "Die Daten konnten nicht für MS-Excel exportiert werden, da die notwendige Softwareerweiterung [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nicht installiert ist.",
 	"srf-paramdesc-excel-filename": "Der Dateiname für die zum Herunterladen erzeugte Datei",
-	"srf-paramdesc-excel-templatefile": "Der Name einer MS-Excel-Datei aus dem Namensraum „Datei“, der zur Formatierung der erzeugten Datei verwendet werden soll"
+	"srf-paramdesc-excel-templatefile": "Der Name einer MS-Excel-Datei aus dem Namensraum „Datei“, der zur Formatierung der erzeugten Datei verwendet werden soll",
+	"srf-paramdesc-icalendar-timezone": "Eine durch Kommata getrennte Liste mit Zeitzonen"
 }
