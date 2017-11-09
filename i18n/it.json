@@ -132,5 +132,6 @@
 	"srf-paramdesc-datasource": "La fonte da dove il dato è accessibile. Valori consentiti: \"file\", \"raw\" e \"url\". Predefinito: \"file\".",
 	"srf-paramdesc-yaxislabel": "Descrizione visualizzata sull'asse y",
 	"srf-paramdesc-xaxislabel": "Descrizione visualizzata sull'asse x",
-	"srf-ui-mediaplayer-label-shuffle": "Mescola"
+	"srf-ui-mediaplayer-label-shuffle": "Mescola",
+	"srf-paramdesc-icalendar-timezone": "Un elenco di fusi orari separati da virgole"
 }

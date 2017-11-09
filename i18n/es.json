@@ -203,7 +203,7 @@
 	"srf-ui-datatables-label-update-success": "La actualización de la tabla se realizó correctamente",
 	"srf-ui-datatables-label-update-error": "Falló la actualización de la tabla.",
 	"srf-ui-datatables-label-placeholder-column-search": "Buscar…",
-	"srf-ui-datatables-label-content-cache": "El contenido se deriva de la caché local.",
+	"srf-ui-datatables-label-content-cache": "El contenido se deriva de la antememoria local.",
 	"srf-ui-datatables-label-content-server": "El contenido se deriva de la del servidor.",
 	"srf-ui-datatables-label-multiselect-column-header": "Columnas disponibles",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Configuración de filtros",
@@ -313,5 +313,5 @@
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "No se ha podido exportar a MS-Excel porque la extensión [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] no está instalada.",
 	"srf-paramdesc-excel-templatefile": "El nombre de un archivo de Excel del espacio de nombres «Archivo» utilizado para dar formato al archivo generado",
-	"srf-paramdesc-icalendar-timezone": "Una lista de zona de horas separada por comas"
+	"srf-paramdesc-icalendar-timezone": "Una lista de husos horarios separados por comas"
 }
