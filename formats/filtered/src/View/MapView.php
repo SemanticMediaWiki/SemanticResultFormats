@@ -106,6 +106,8 @@ class MapView extends View {
 			$this->addToConfig( $config, $key );
 		}
 
+		$this->addMarkerIconSetupToConfig( $config );
+
 		$config[ 'map provider' ] = $this->getMapProvider();
 
 		return $config;
@@ -128,6 +130,22 @@ class MapView extends View {
 				'message' => 'srf-paramdesc-filtered-map-position',
 				'default' => '',
 				// 'islist' => false,
+			];
+
+			$params[ 'marker icon property' ] = [
+				// 'type' => 'string',
+				'name' => 'map view marker icon property',
+				'message' => 'srf-paramdesc-filtered-map-icon',
+				'default' => '',
+				// 'islist' => false,
+			];
+
+			$params[ 'marker icons' ] = [
+				// 'type' => 'string',
+				'name' => 'map view marker icons',
+				'message' => 'srf-paramdesc-filtered-map-icons',
+				'default' => [],
+				'islist' => true,
 			];
 
 			$params[ 'height' ] = [
@@ -226,6 +244,71 @@ class MapView extends View {
 			$config[ $key ] = $param;
 		}
 
+	}
+
+	/**
+	 * @param $config
+	 */
+	protected function addMarkerIconSetupToConfig( &$config ) {
+
+		$param = $this->getActualParameters()[ 'map view marker icon property' ];
+
+		if ( $param !== '' ) {
+			$config[ 'marker icon property' ] = $this->getPropertyId( $param );
+		}
+
+		$config[ 'marker icons' ] = $this->getMarkerIcons();
+	}
+
+	/**
+	 * @param $prop
+	 * @return array
+	 */
+	protected function getPropertyId( $prop ) {
+
+		$prop = strtr( $prop, ' ', '_' );
+
+		$printrequests = $this->getQueryPrinter()->getPrintrequests();
+		$cur = reset( $printrequests );
+
+		while ( $cur !== false && ( !array_key_exists( 'property', $cur ) || $cur[ 'property' ] !== $prop ) ) {
+			$cur = next( $printrequests );
+		}
+
+		return key( $printrequests );
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getMarkerIcons() {
+
+		$ret = [];
+
+		$actualParameters = self::getActualParameters()[ 'map view marker icons' ];
+
+		foreach ( $actualParameters as $relation ) {
+
+			$relation = explode( '=', $relation, 2 );
+
+			if ( count( $relation ) === 1 ) {
+				$key = 'default';
+				$icon = $relation[0];
+			} else {
+				$key = $relation[0];
+				$icon = $relation[1];
+			}
+
+			$file = \WikiPage::factory( \Title::newFromText( $icon, NS_FILE ) )->getFile();
+
+			if ( $file->exists() ) {
+				$ret[ $key ] = $file->getUrl();
+			} else {
+				// TODO: $this->getQueryPrinter()->addError( NO_SUCH_FILE );
+			}
+		}
+
+		return $ret;
 	}
 
 	/**

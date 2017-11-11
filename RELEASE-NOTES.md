@@ -11,6 +11,12 @@ This is not a release yet.
 * Provided translation updates (by translatewiki.net community)
 * [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests
 
+## SRF 2.5.4
+
+This is not a release yet.
+
+* #350: Improves "filtered"format: Add `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value 
+
 ## SRF 2.5.3
 
 Released on October 25, 2017.

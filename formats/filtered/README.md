@@ -70,6 +70,8 @@ See the [list of available
 providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 * map view marker position property
+* map view marker icon property
+* map view marker icons
 * map view height 
 * map view zoom
 * map view min zoom
