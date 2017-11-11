@@ -1,0 +1,61 @@
+{
+	"description": "Test for `format=earliest`",
+	"setup": [
+		{
+			"page": "Has date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Example/Earliest/1",
+			"contents": "[[Has date::1 Jan 1970]] [[Category:Earliest]]"
+		},
+		{
+			"page": "Example/Earliest/2",
+			"contents": "[[Has date::3 Jan 1970]] [[Category:Earliest]]"
+		},
+		{
+			"page": "Example/Earliest/Q.1",
+			"contents": "{{#ask: [[Category:Earliest]] |?Has date |format=earliest }}"
+		},
+		{
+			"page": "Example/Earliest/Q.2",
+			"contents": "{{#ask: [[Category:Earliest/default]] |?Has date |format=earliest |default=No date }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0",
+			"subject": "Example/Earliest/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"1 January 1970"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 default output",
+			"subject": "Example/Earliest/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"No date"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

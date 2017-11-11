@@ -90,12 +90,6 @@ class SRFTime extends SMWResultPrinter {
 			'message' => 'srf_paramdesc_limit',
 		];
 
-		$params['default'] = [
-			'type' => 'integer',
-			'default' => '',
-			'message' => 'srf-paramdesc-default',
-		];
-
 		return $params;
 	}
 
