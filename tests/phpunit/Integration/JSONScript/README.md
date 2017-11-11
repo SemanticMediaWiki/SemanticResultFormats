@@ -3,20 +3,35 @@
 
 ## TestCases
 
-Contains 14 files with a total of 50 tests:
+Contains 21 files with a total of 62 tests:
+
+### D
+* [datatables-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/datatables-01.json) Test `format=datatables` html output (no JS validation)
+
+### E
+* [earliest-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/earliest-01.json) Test for `format=earliest`
+* [eventcalendar-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/eventcalendar-01.json) Test `format=eventcalendar` html output (no JS validation)
 
 ### F
 * [filtered-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/filtered-01.json) Filtered format: ...
 * [filtered-02.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/filtered-02.json) Filtered format: ...
 
+### G
+* [gallery-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/gallery-01.json) Test `format=gallery` with file upload
+
 ### I
 * [icalendar-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/icalendar-01.json) Test `format=icalendar`
 * [icalendar-02.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/icalendar-02.json) Test `format=icalendar` on iCalendar specific labels using `Special:Ask`
+* [icalendar-03.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/icalendar-03.json) Test `format=icalendar` with timezone using `Special:Ask`
+
+### L
+* [latest-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/latest-01.json) Test for `format=latest`
 
 ### M
 * [math-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/math-01.json) Test for math/sum result format in pt-br lang
 
 ### T
+* [tagcloud-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/tagcloud-01.json) Test `format=tagcloud` html output
 * [timeline-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/timeline-01.json) Test for timeline result format
 * [tree-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/tree-01.json) Tree format: Multi-page results
 * [tree-02.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/tree-02.json) Tree format: Simple one-page result
@@ -29,7 +44,7 @@ Contains 14 files with a total of 50 tests:
 ### V
 * [vcard-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/vcard-01.json) Test `format=vcard`
 
--- Last updated on 2017-10-07 by `readmeContentsBuilder.php`
+-- Last updated on 2017-11-11 by `readmeContentsBuilder.php`
 
 <!-- End of generated contents by readmeContentsBuilder.php -->
 
