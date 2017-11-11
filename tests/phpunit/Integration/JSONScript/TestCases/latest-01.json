@@ -1,0 +1,61 @@
+{
+	"description": "Test for `format=latest`",
+	"setup": [
+		{
+			"page": "Has date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Example/Latest/1",
+			"contents": "[[Has date::1 Jan 1970]] [[Category:Latest]]"
+		},
+		{
+			"page": "Example/Latest/2",
+			"contents": "[[Has date::3 Jan 1970]] [[Category:Latest]]"
+		},
+		{
+			"page": "Example/Latest/Q.1",
+			"contents": "{{#ask: [[Category:Latest]] |?Has date |format=latest }}"
+		},
+		{
+			"page": "Example/Latest/Q.2",
+			"contents": "{{#ask: [[Category:Latest/default]] |?Has date |format=latest |default=No date }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0",
+			"subject": "Example/Latest/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"3 January 1970"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 default output",
+			"subject": "Example/Latest/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"No date"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
