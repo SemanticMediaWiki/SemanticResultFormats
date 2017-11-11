@@ -8,7 +8,7 @@ declare let mw: any;
 export class MapView extends View {
 
 	private map: L.Map = undefined;
-	private icon: L.Icon = undefined;
+	private icon: { [key: string]: L.Icon } = undefined;
 	private markers: { [key: string]: L.Marker[] } = undefined;
 	private markerClusterGroup: L.MarkerClusterGroup = undefined;
 	private bounds: L.LatLngBounds = undefined;
@@ -81,24 +81,56 @@ export class MapView extends View {
 		return null;
 	}
 
-	private getIcon() {
+	private getIcon( row: any ) {
+
 		if ( this.icon === undefined ) {
-
-			let iconPath = this.controller.getPath() + 'css/images/';
-
-			this.icon = new L.Icon( {
-				'iconUrl': iconPath + 'marker-icon.png',
-				'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
-				'shadowUrl': iconPath + 'marker-shadow.png',
-				'iconSize': [ 25, 41 ],
-				'iconAnchor': [ 12, 41 ],
-				'popupAnchor': [ 1, -34 ],
-				// 'tooltipAnchor': [16, -28],
-				'shadowSize': [ 41, 41 ]
-			} );
+			this.buildIconList();
 		}
 
-		return this.icon;
+		if ( this.options.hasOwnProperty( 'marker icon property' ) ) {
+
+			let vals: string[] = row[ 'printouts' ][ this.options[ 'marker icon property' ] ][ 'values' ];
+
+			if ( vals.length > 0 && this.icon.hasOwnProperty( vals[ 0 ] ) ) {
+				return this.icon[ vals[ 0 ] ];
+			}
+		}
+
+		return this.icon[ 'default' ];
+	}
+
+	private buildIconList() {
+		this.icon = {};
+
+		let iconPath = this.controller.getPath() + 'css/images/';
+
+		this.icon[ 'default' ] = new L.Icon( {
+			'iconUrl': iconPath + 'marker-icon.png',
+			'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+			'shadowUrl': iconPath + 'marker-shadow.png',
+			'iconSize': [ 25, 41 ],
+			'iconAnchor': [ 12, 41 ],
+			'popupAnchor': [ 1, -34 ],
+			// 'tooltipAnchor': [16, -28],
+			'shadowSize': [ 41, 41 ]
+		} );
+
+		if ( this.options.hasOwnProperty( 'marker icons' ) ) {
+
+			for ( let value in this.options[ 'marker icons' ] ) {
+				this.icon[ value ] = new L.Icon( {
+					'iconUrl': this.options[ 'marker icons' ][ value ],
+					// 'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+					'shadowUrl': iconPath + 'marker-shadow.png',
+					'iconSize': [ 32, 32 ],
+					'iconAnchor': [ 16, 32 ],
+					'popupAnchor': [ 1, -30 ],
+					// 'tooltipAnchor': [16, -28],
+					'shadowSize': [ 41, 41 ],
+					'shadowAnchor': [ 12, 41 ]
+				} );
+			}
+		}
 	}
 
 	private getMarker( latLng: L.LatLngExpression, row: any ) {
@@ -125,7 +157,7 @@ export class MapView extends View {
 		let marker = L.marker( latLng, { title: title, alt: title } );
 		marker.bindPopup( popup.join( '<br>' ) );
 
-		marker.setIcon( this.getIcon() );
+		marker.setIcon( this.getIcon( row ) );
 		return marker;
 	}
 
