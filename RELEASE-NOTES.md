@@ -1,5 +1,11 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 2.5.4
+
+This is not a release yet.
+
+* #350: Improves "filtered"format: Add `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value 
+
 ## SRF 2.5.3
 
 Released on October 25, 2017.

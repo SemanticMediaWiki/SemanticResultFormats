@@ -763,6 +763,11 @@ return [
 			'styles' => [
 				'filtered/resources/css/ext.srf.filtered.less',
 			],
+			'messages' => [
+				'srf-filtered-value-filter-placeholder',
+				'srf-filtered-value-filter-and',
+				'srf-filtered-value-filter-or',
+			],
 			'dependencies' => [
 				'ext.srf',
 			],
@@ -798,11 +803,6 @@ return [
 
 	'ext.srf.filtered.value-filter' => $formatModule + [
 			'styles' => [ 'filtered/resources/css/ext.srf.filtered.value-filter.less' ],
-			'messages' => [
-				'srf-filtered-value-filter-placeholder',
-				'srf-filtered-value-filter-and',
-				'srf-filtered-value-filter-or',
-				],
 		],
 
 	'ext.srf.filtered.value-filter.select' => $formatModule + [
