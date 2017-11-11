@@ -575,21 +575,46 @@ var MapView = (function (_super) {
         }
         return null;
     };
-    MapView.prototype.getIcon = function () {
+    MapView.prototype.getIcon = function (row) {
         if (this.icon === undefined) {
-            var iconPath = this.controller.getPath() + 'css/images/';
-            this.icon = new L.Icon({
-                'iconUrl': iconPath + 'marker-icon.png',
-                'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
-                'shadowUrl': iconPath + 'marker-shadow.png',
-                'iconSize': [25, 41],
-                'iconAnchor': [12, 41],
-                'popupAnchor': [1, -34],
-                // 'tooltipAnchor': [16, -28],
-                'shadowSize': [41, 41]
-            });
+            this.buildIconList();
         }
-        return this.icon;
+        if (this.options.hasOwnProperty('marker icon property')) {
+            var vals = row['printouts'][this.options['marker icon property']]['values'];
+            if (vals.length > 0 && this.icon.hasOwnProperty(vals[0])) {
+                return this.icon[vals[0]];
+            }
+        }
+        return this.icon['default'];
+    };
+    MapView.prototype.buildIconList = function () {
+        this.icon = {};
+        var iconPath = this.controller.getPath() + 'css/images/';
+        this.icon['default'] = new L.Icon({
+            'iconUrl': iconPath + 'marker-icon.png',
+            'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+            'shadowUrl': iconPath + 'marker-shadow.png',
+            'iconSize': [25, 41],
+            'iconAnchor': [12, 41],
+            'popupAnchor': [1, -34],
+            // 'tooltipAnchor': [16, -28],
+            'shadowSize': [41, 41]
+        });
+        if (this.options.hasOwnProperty('marker icons')) {
+            for (var value in this.options['marker icons']) {
+                this.icon[value] = new L.Icon({
+                    'iconUrl': this.options['marker icons'][value],
+                    // 'iconRetinaUrl': iconPath + 'marker-icon-2x.png',
+                    'shadowUrl': iconPath + 'marker-shadow.png',
+                    'iconSize': [32, 32],
+                    'iconAnchor': [16, 32],
+                    'popupAnchor': [1, -30],
+                    // 'tooltipAnchor': [16, -28],
+                    'shadowSize': [41, 41],
+                    'shadowAnchor': [12, 41]
+                });
+            }
+        }
     };
     MapView.prototype.getMarker = function (latLng, row) {
         var title = undefined;
@@ -610,7 +635,7 @@ var MapView = (function (_super) {
         }
         var marker = L.marker(latLng, { title: title, alt: title });
         marker.bindPopup(popup.join('<br>'));
-        marker.setIcon(this.getIcon());
+        marker.setIcon(this.getIcon(row));
         return marker;
     };
     MapView.prototype.lateInit = function () {

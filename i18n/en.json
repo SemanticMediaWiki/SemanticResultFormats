@@ -244,6 +244,8 @@
 	"srf-paramdesc-filtered-calendar-title": "The printout containing the title of an event. Can not be used together with a title template.",
 	"srf-paramdesc-filtered-calendar-title-template": "A template used to format the event's title in the calendar",
 	"srf-paramdesc-filtered-map-position": "The printout containing the geographical position.",
+	"srf-paramdesc-filtered-map-icon": "The printout which decides the map icon to be used.",
+	"srf-paramdesc-filtered-map-icons": "A map of values to icons to be used for these values on the map.",
 	"srf-paramdesc-filtered-map-height": "The height of the map.",
 	"srf-paramdesc-filtered-map-zoom": "The zoom level when the map is loaded. This may be changed by the user.<br>See: <i>map view min zoom</i> and <i>map view max zoom</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "The minimum selectable zoom level of the map",

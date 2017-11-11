@@ -261,6 +261,8 @@
 	"srf-paramdesc-filtered-calendar-title": "{{doc-paramdesc|calendar view title}}",
 	"srf-paramdesc-filtered-calendar-title-template": "{{doc-paramdesc|calendar view title template}}",
 	"srf-paramdesc-filtered-map-position": "{{doc-paramdesc|map view position}}",
+	"srf-paramdesc-filtered-map-icon": "{{doc-paramdesc|map view marker icon property}}",
+	"srf-paramdesc-filtered-map-icons": "{{doc-paramdesc|map view marker icons}}",
 	"srf-paramdesc-filtered-map-height": "{{doc-paramdesc|map view height}}",
 	"srf-paramdesc-filtered-map-zoom": "{{doc-paramdesc|map view zoom}}",
 	"srf-paramdesc-filtered-map-min-zoom": "{{doc-paramdesc|map view min zoom}}",
