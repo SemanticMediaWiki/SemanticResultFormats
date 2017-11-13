@@ -206,6 +206,8 @@
 	"srf-paramdesc-filtered-calendar-end": "Η εκτύπωση που περιέχει την ημερομηνία λήξης του συμβάντος",
 	"srf-paramdesc-filtered-calendar-title": "Η εκτύπωση που περιέχει τον τίτλο του συμβάντος. Δεν μπορεί να χρησιμοποιηθεί μαζί με τίτλο προτύπου.",
 	"srf-paramdesc-filtered-calendar-title-template": "Πρότυπο που χρησιμοποιείται για την μορφοποίηση του τίτλου του συμβάντος στο ημερολόγιο",
+	"srf-paramdesc-filtered-map-icon": "Η εκτύπωση που καθορίζει την χρήση της εικόνας χάρτη",
+	"srf-paramdesc-filtered-map-icons": "Ένας χάρτης τιμών για εικόνες για να χρησιμοποιηθεί για αυτές τις τιμές στον χάρτη.",
 	"srf-filtered-selectorlabel-list": "Κατάλογος",
 	"srf-filtered-selectorlabel-calendar": "Ημερολόγιο",
 	"srf-filtered-selectorlabel-map": "Χάρτης",

@@ -251,6 +251,8 @@
 	"srf-paramdesc-filtered-calendar-title": "Die Ausgabe, die den Titel einer Veranstaltung enthält. Kann nicht zusammen mit einer Vorlage zur Ausgabe des Titels verwendet werden",
 	"srf-paramdesc-filtered-calendar-title-template": "Die Vorlage, die den Titel einer Veranstaltung enthält",
 	"srf-paramdesc-filtered-map-position": "Legt die Ansicht fest, die die geografische Position enthält",
+	"srf-paramdesc-filtered-map-icon": "Der Ausdruck, der entscheidet, welches Kartensymbol verwendet werden soll.",
+	"srf-paramdesc-filtered-map-icons": "Eine Karte der Werte für die Symbole, die für diese Werte auf der Karte verwendet werden sollen.",
 	"srf-paramdesc-filtered-map-height": "Die Höhe der Karte.",
 	"srf-paramdesc-filtered-map-zoom": "Legt die Vergrößerungsstufe beim Laden der Karte fest. Diese kann durch den Benutzer geändert werden.<br>Siehe: <code>map view min zoom</code> und <code>map view max zoom</code>",
 	"srf-paramdesc-filtered-map-min-zoom": "Legt die kleinste auswählbare Vergrößerungsstufe der Karte fest",

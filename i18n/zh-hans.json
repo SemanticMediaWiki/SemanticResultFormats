@@ -251,6 +251,8 @@
 	"srf-paramdesc-filtered-calendar-title": "包含事件标题的打印输出。不能与标题模板一起使用。",
 	"srf-paramdesc-filtered-calendar-title-template": "用于日历之中事件标题格式编排的模板",
 	"srf-paramdesc-filtered-map-position": "打印输出包含地理位置。",
+	"srf-paramdesc-filtered-map-icon": "决定使用的地图图标的打印输出。",
+	"srf-paramdesc-filtered-map-icons": "要为这些地图上的值使用的图标值映射。",
 	"srf-paramdesc-filtered-map-height": "地图高度。",
 	"srf-paramdesc-filtered-map-zoom": "地图加载时的缩放级别。这可以由用户更改。<br>参见<i>地图视图最低缩放值</i>与<i>最高缩放值</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "地图的最低可选缩放级别",

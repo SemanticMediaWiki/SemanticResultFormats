@@ -248,6 +248,8 @@
 	"srf-paramdesc-filtered-calendar-end": "La impresión que contiene la fecha final de un evento",
 	"srf-paramdesc-filtered-calendar-title": "La impresión que contiene el título de un evento. No puede utilizarse junto con una plantilla de título.",
 	"srf-paramdesc-filtered-calendar-title-template": "Una plantilla que se utiliza para dar formato al título de un evento en el calendario",
+	"srf-paramdesc-filtered-map-icon": "El printout que decide el icono del mapa para ser utilizado",
+	"srf-paramdesc-filtered-map-icons": "Un mapa de valores a iconos para ser utilizado para estas valores en el mapa",
 	"srf-paramdesc-filtered-map-height": "La altura del mapa.",
 	"srf-paramdesc-filtered-map-min-zoom": "La escala mínima seleccionable del mapa",
 	"srf-paramdesc-filtered-map-max-zoom": "La escala máxima seleccionable del mapa",
