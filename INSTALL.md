@@ -18,9 +18,9 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.3</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.4</a></th>
 		<td>Stable version</td>
-		<td>2017-10-25</td>
+		<td>2017-11-13</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></td>
 	</tr>
 	<tr>
@@ -90,36 +90,36 @@ minimum requirements are indicated in bold.
 		<th>SRF 3.0.x</th>
 		<td><strong>5.6.x</strong> - latest</td>
 		<td><strong>1.27</strong> - latest</td>
-		<td>2.x</td>
+		<td>3.x</td>
 	<tr>
 	<tr>
 		<th>SRF 2.5.x</th>
 		<td><strong>5.5.x</strong> - 7.0.x</td>
 		<td><strong>1.23</strong> - 1.29</td>
-		<td>2.x</td>
+		<td>2.1.x</td>
 	<tr>
 		<th>SRF 2.4.x</th>
 		<td>5.3.2 - 7.0.x</td>
 		<td>1.19 - 1.28</td>
-		<td>2.x</td>
+		<td>2.1.x</td>
 	</tr>
 	<tr>
 		<th>SRF 2.3.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.25</td>
-		<td>2.x</td>
+		<td>2.1.x</td>
 	</tr>
 	<tr>
 		<th>SRF 2.2.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.25</td>
-		<td>2.x</td>
+		<td>2.1.x</td>
 	</tr>
 	<tr>
 		<th>SRF 2.1.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.24</td>
-		<td>2.x</td>
+		<td>2.1.x</td>
 	</tr>
 	<tr>
 		<th>SRF 2.0.x</th>
@@ -146,6 +146,10 @@ minimum requirements are indicated in bold.
 		<td>1.7.x</td>
 	</tr>
 </table>
+
+**Note:**
+* It is strongly recommended to also always upgrade the underlying MediaWiki software to supported versions. See the [version lifecycle](https://www.mediawiki.org/wiki/Version_lifecycle) for current information on supported versions.
+* It is strongly recommended to also always upgrade the underlying Semantic MediaWiki software to supported versions. See the page on [compatibility](https://www.semantic-mediawiki.org/wiki/Help:Compatibility) for current information on supported versions.
 
 ## Download and installation
 
