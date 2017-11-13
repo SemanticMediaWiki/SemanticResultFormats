@@ -6,16 +6,21 @@ This is not a release yet.
 
 * Raised minimum required version of PHP to 5.6
 * Raised minimum required version of MediaWiki to 1.27
-* Improved filtered format: More options, better test coverage, re-enabled by default
-* (#248) Fixed localized formatting of math results
+* Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
+* (#248) Fixed localized formatting of math results (by James Hong Kong)
 * Provided translation updates (by translatewiki.net community)
-* [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests
+* [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests (by James Hong Kong)
 
 ## SRF 2.5.4
 
-This is not a release yet.
+Released on November 13, 2017.
 
-* #350: Improves "filtered"format: Add `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value 
+* #337: Fixes style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
+* #343: Fixes style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
+* #346: Brings more performance improvements and adds missing system messages for the value filter of the "filtered" format (by Stephan Gambke)
+* #349: Removes `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
+* #351: Adds `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
+* Makes map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
 
 ## SRF 2.5.3
 
