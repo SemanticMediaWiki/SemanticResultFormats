@@ -2,9 +2,14 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 2.5.4
 
-This is not a release yet.
+Released on November 13, 2017.
 
-* #350: Improves "filtered"format: Add `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value 
+* #337: Fixes style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
+* #343: Fixes style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
+* #346: Brings more performance improvements and adds missing system messages for the value filter of the "filtered" format (by Stephan Gambke)
+* #349: Removes `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
+* #351: Adds `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
+* Makes map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
 
 ## SRF 2.5.3
 
