@@ -266,6 +266,8 @@
 	"srf-paramdesc-filtered-calendar-title": "L'imprimé contenant le titre d'un événement. Ne peux pas être utilisé en même temps qu'un modèle de titre.",
 	"srf-paramdesc-filtered-calendar-title-template": "Un modèle utilisé pour mettre en forme le titre de l'événement dans le calendrier",
 	"srf-paramdesc-filtered-map-position": "L'affichage contenant la position géographique.",
+	"srf-paramdesc-filtered-map-icon": "L’impression qui décide de l’icône de carte à utiliser.",
+	"srf-paramdesc-filtered-map-icons": "Une correspondance valeurs-icônes à utiliser pour ces valeurs sur la carte.",
 	"srf-paramdesc-filtered-map-height": "La hauteur de la carte.",
 	"srf-paramdesc-filtered-map-zoom": "Le niveau de zoom avec lequel la carte sera chargée. Il peut être modifié l’utilisateur.<br>Voir : <i>zoom minimal d’affichage de la carte</i> et <i>zoom maximal d’affichage de la carte</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "Le niveau de zoom minimal sélectionnable de la carte",
