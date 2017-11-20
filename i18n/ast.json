@@ -242,6 +242,8 @@
 	"srf-paramdesc-filtered-calendar-title": "La impresión que contien el títulu d'un socesu. Nun puede utilizase xunto con una plantía de títulu.",
 	"srf-paramdesc-filtered-calendar-title-template": "Una plantía que s'utiliza pa dar formatu al títulu d'un socesu nel calendariu",
 	"srf-paramdesc-filtered-map-position": "La impresión que contien la posición xeográfica.",
+	"srf-paramdesc-filtered-map-icon": "La llista que decide qué iconu del mapa utilizar.",
+	"srf-paramdesc-filtered-map-icons": "Un mapa de valores de los iconos a utilizar pa estos valores nel mapa",
 	"srf-paramdesc-filtered-map-height": "L'altor del mapa.",
 	"srf-paramdesc-filtered-map-zoom": "El nivel d'ampliación al cargar el mapa. Puede cambiase pol usuariu. <br>Consultaː <i>ampliación mínima de la vista de mapa</i> y <i>ampliación máxima de la vista de mapa</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "El mínimu nivel d'ampliación seleicionable nel mapa",
