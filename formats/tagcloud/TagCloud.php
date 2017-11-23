@@ -118,7 +118,7 @@ class TagCloud extends ResultPrinter {
 
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $dataValue->getTypeID() === '_wpg' && $dataValue->getTitle() instanceof Title ) {
-						$value = $dataValue->getTitle()->getText();
+						$value = $dataValue->getTitle()->getPrefixedText();
 						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
 					} else {
 						$html = $dataValue->getShortText( $outputMode, $this->getLinker( false ) );
