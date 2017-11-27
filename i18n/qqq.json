@@ -183,7 +183,7 @@
 	"srf-paramdesc-graph-relation": "{{doc-paramdesc|graphrelation}}",
 	"srf-paramdesc-graph-nameprop": "{{doc-paramdesc|nameprop}}",
 	"srf-paramdesc-graph-nodeshape": "{{doc-paramdesc|nodeshape}}",
-	"srf-paramdesc-graphname": "{{doc-smwformat|graphname}}\n{{Identical|Title}}",
+	"srf-paramdesc-graphname": "{{doc-smwformat|graphname}}",
 	"srf-paramdesc-graphsize": "{{doc-paramdesc|graphsize}}",
 	"srf-paramdesc-graphlegend": "{{doc-paramdesc|graphlegend}}",
 	"srf-paramdesc-graphlabel": "{{doc-paramdesc|graphlabel}}",
