@@ -248,6 +248,8 @@
 	"srf-paramdesc-filtered-calendar-title": "A impresión que contén o título dun acontecemento. Non se pode empregar á vez que un modelo de título.",
 	"srf-paramdesc-filtered-calendar-title-template": "Un modelo utilizado para dar formato ao título dun acontecemento no calendario",
 	"srf-paramdesc-filtered-map-position": "A impresión que contén a posición xeográfica.",
+	"srf-paramdesc-filtered-map-icon": "A impresión que decide a icona de mapa a ser usado.",
+	"srf-paramdesc-filtered-map-icons": "Un mapa de valores a iconas para ser utilizado para estes valores no mapa.",
 	"srf-paramdesc-filtered-map-height": "A altura do mapa.",
 	"srf-paramdesc-filtered-map-zoom": "O nivel do zoom cando se carga o mapa. Pode ser modificado polo usuario. <br>Consulteː <i>zoom mínimo da vista do mapa</i> e <i>zoom máximo da vista do mapa</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "O mínimo nivel de zoom seleccionable no mapa",
