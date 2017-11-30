@@ -68,8 +68,6 @@ export class CalendarView extends View {
 			titleFormat: _i18n.titleFormat,
 			columnFormat: _i18n.columnFormat
 		} );
-
-		return this;
 	}
 
 	private getEvent( rowId: any, rowData: any ) {
