@@ -37,11 +37,22 @@ export class ViewTest extends QUnitTest {
 
 		// Run
 		let v = that.getTestObject( 'foo', target );
-		v.init();
+		let ret : Promise<any>|void = v.init();
 
-		// Assert
-		assert.ok( v instanceof View, 'Can construct View.' );
-		assert.strictEqual( v.getTargetElement(), target, 'View retains target element.' );
+		if ( ret !== undefined ) {
+			let done = assert.async();
+
+			(<Promise<any>>ret).then( () => {
+				assert.ok( v instanceof View, 'Can construct View. (P)' );
+				assert.strictEqual( v.getTargetElement(), target, 'View retains target element. (P)' );
+				done();
+			} );
+
+		} else {
+			// Assert
+			assert.ok( v instanceof View, 'Can construct View.' );
+			assert.strictEqual( v.getTargetElement(), target, 'View retains target element.' );
+		}
 	};
 
 	public testShowAndHide( assert: QUnitAssert, that: ViewTest ) {
