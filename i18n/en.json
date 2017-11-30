@@ -40,6 +40,7 @@
 	"srf-error-option-mix": "Option ($1) is not available",
 	"srf-error-option-link-all": "Option ($1) requires parameter \"link\" to be set \"all\"",
 	"srf-error-missing-layout": "The chart or graph cannot be shown because the layout is missing.",
+	"srf-error-jqplot-bubble-data-length": "The chart or graph cannot be shown because data are missing.",
 	"srf-error-jqplot-stackseries-data-length": "The chart or graph cannot be shown because not every bar or line has the same amount of elements.",
 	"srf-warn-empy-chart": "The chart or graph is empty due to missing data",
 	"srfc_previousmonth": "Previous month",
