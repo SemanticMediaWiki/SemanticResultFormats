@@ -20,7 +20,7 @@ export class MapView extends View {
 
 	private leafletPromise: Promise<any> = undefined;
 
-	public init() {
+	public init(): Promise<any> {
 
 		let data = this.controller.getData();
 		let markers: { [rowId: string]: L.Marker[] } = {};
@@ -66,6 +66,8 @@ export class MapView extends View {
 			this.markers = markers;
 			this.bounds = ( bounds === undefined ) ? new L.LatLngBounds( [ -180, -90 ], [ 180, 90 ] ) : bounds;
 		} );
+
+		return this.leafletPromise;
 	}
 
 	private getZoomForUnclustering() {

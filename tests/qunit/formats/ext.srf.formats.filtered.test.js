@@ -410,7 +410,7 @@ var ValueFilter = (function (_super) {
         for (var _i = 0, _a = this.values; _i < _a.length; _i++) {
             var value = _a[_i];
             // Try to get label, if not fall back to value id
-            var label = value.printoutValue;
+            var label = value.formattedValue || value.printoutValue;
             data.push({ id: value.printoutValue, text: label });
         }
         mw.loader.using('ext.srf.filtered.value-filter.select').then(function () {
@@ -565,6 +565,7 @@ var MapView = (function (_super) {
             _this.markers = markers;
             _this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
         });
+        return this.leafletPromise;
     };
     MapView.prototype.getZoomForUnclustering = function () {
         if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
@@ -1017,12 +1018,14 @@ var ValueFilterTest = (function (_super) {
         // Assert
         assert.strictEqual(target.find('.filtered-filter-container').length, 1, 'Added container for collapsable content.');
         assert.strictEqual(target.find('.filtered-value-andor').length, 1, 'Added container for and/or switch.');
+        var done = assert.async();
         setTimeout(function () {
             // Assert: One input added per value
             for (var _i = 0, _a = options.values; _i < _a.length; _i++) {
                 var value = _a[_i];
                 assert.strictEqual(target.find("input[value=\"" + value + "\"]").length, 1, "Added option for value \"" + value + "\".");
             }
+            done();
         }, 100);
     };
     ;
@@ -1141,10 +1144,24 @@ var ViewTest = (function (_super) {
         var target = $('<div>');
         // Run
         var v = that.getTestObject('foo', target);
-        v.init();
-        // Assert
-        assert.ok(v instanceof View_1.View, 'Can construct View.');
-        assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
+        var ret = v.init();
+        if (ret !== undefined) {
+            var done_1 = assert.async();
+            // setTimeout( () => {
+            ret.then(function () {
+                assert.ok(v instanceof View_1.View, 'Can construct View. (P)');
+                // 			assert.strictEqual( v.getTargetElement(), target, 'View retains target element. (P)' );
+                done_1();
+            });
+            // 	}
+            // 	, 1000 );
+        }
+        else {
+            // Assert
+            assert.ok(v instanceof View_1.View, 'Can construct View.');
+            assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
+            // done();
+        }
     };
     ;
     ViewTest.prototype.testShowAndHide = function (assert, that) {

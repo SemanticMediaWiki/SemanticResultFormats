@@ -17,7 +17,7 @@ export class View {
 		this.options = options;
 	}
 
-	public init() {
+	public init(): Promise<any>|void {
 
 		let rowIds = Object.keys( this.controller.getData() );
 		let rows = this.target.find( this.getItemClassName() );
