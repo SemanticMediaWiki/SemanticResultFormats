@@ -43,6 +43,7 @@
 	"srf-ui-common-label-daterange": "Εύρος ημερομηνίας",
 	"srf-ui-widgets-label-parameter-limit": "Όριο παραμέτρου",
 	"srf-error-option-mix": "Η επιλογή ($1) δεν είναι διαθέσιμη",
+	"srf-error-jqplot-bubble-data-length": "Ο χάρτης ή η γραφική παράσταση δεν μπορούν να προβληθούν διότι λείπουν στοιχεία.",
 	"srf-warn-empy-chart": "Το διάγραμμα ή γράφημα είναι κενό λόγω ελλειπών δεδομένων",
 	"srfc_previousmonth": "Προηγούμενος μήνας",
 	"srfc_nextmonth": "Επόμενος μήνας",

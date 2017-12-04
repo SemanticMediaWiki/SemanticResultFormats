@@ -64,6 +64,7 @@
 	"srf-error-option-mix": "L'option ($1) n'est pas disponible",
 	"srf-error-option-link-all": "L'option ($1) nécessite le paramètre « link » pour être mise à « all »",
 	"srf-error-missing-layout": "Le diagramme ou le graphique ne peuvent être affichés car la mise en page est absente.",
+	"srf-error-jqplot-bubble-data-length": "Le diagramme ou le graphique ne peuvent pas être affichés car il manque des données.",
 	"srf-error-jqplot-stackseries-data-length": "Le diagramme ou le graphique ne peuvent être affichés car chaque barre ou ligne n’a pas le même nombre d’éléments.",
 	"srf-warn-empy-chart": "L’histogramme ou le graphe sont vides car il n’y a pas de données",
 	"srfc_previousmonth": "Mois précédent",
