@@ -60,6 +60,7 @@
 	"srf-error-option-mix": "La opción ($1) no está disponible",
 	"srf-error-option-link-all": "La opción ($1) necesita que el parámetro \"link\" esté definido como \"all\"",
 	"srf-error-missing-layout": "No se puede mostrar el gráfico porque falta el diseño.",
+	"srf-error-jqplot-bubble-data-length": "No es posible mostrar el diagrama o el gráfico por falta de datos.",
 	"srf-error-jqplot-stackseries-data-length": "No se puede mostrar el gráfico porque no todas las barras o líneas tienen la misma cantidad de elementos.",
 	"srf-warn-empy-chart": "La tabla/gráfica está vacía porque faltan datos",
 	"srfc_previousmonth": "Mes anterior",

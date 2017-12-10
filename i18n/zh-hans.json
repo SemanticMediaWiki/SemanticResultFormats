@@ -51,6 +51,7 @@
 	"srf-error-option-mix": "选项（$1）不可用",
 	"srf-error-option-link-all": "选项（$1）需要参数\"link\"设置为\"all\"",
 	"srf-error-missing-layout": "无法显示图表，因为布局丢失。",
+	"srf-error-jqplot-bubble-data-length": "无法显示图纸或图标，因为数据丢失。",
 	"srf-error-jqplot-stackseries-data-length": "无法显示图表，因为不是所有行都有相同的元素数量。",
 	"srf-warn-empy-chart": "由于丢失数据，该图表或曲线图是空的",
 	"srfc_previousmonth": "上月",

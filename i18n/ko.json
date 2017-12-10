@@ -35,6 +35,7 @@
 	"srf-ui-common-label-daterange": "날짜 범위",
 	"srf-ui-widgets-label-parameter-limit": "제한 변수",
 	"srf-error-option-mix": "옵션 ($1)은 사용할 수 없습니다",
+	"srf-error-jqplot-bubble-data-length": "데이터가 없기 때문에 차트나 그래프를 표시할 수 없습니다.",
 	"srfc_previousmonth": "이전 달",
 	"srfc_nextmonth": "다음 달",
 	"srfc_today": "오늘",
