@@ -10,7 +10,7 @@
 	},
 	"srf-desc": "Tilleggsformater for Semantic MediaWiki-spørringer",
 	"srf-name": "Semantisk resultatformat",
-	"prefs-srf": "Semantic Result Formats",
+	"prefs-srf": "Extenison:Semantic Result Formats",
 	"srf-prefs-intro-text": "Du har installert utvidelsen Semantic Result Formats. For ytterligere assistanse kan du se på [https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats] hjelpsiden.",
 	"prefs-srf-eventcalendar-options": "Valgmuligheter i hendelseskalenderen.",
 	"srf-prefs-eventcalendar-options-update-default": "Aktiviser [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates automatiske oppdateringer] av kalenderhendelser ved sideoppdatering",
