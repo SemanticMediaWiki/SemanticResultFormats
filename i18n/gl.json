@@ -46,6 +46,7 @@
 	"srf-error-option-mix": "A opción ($1) non está dispoñible",
 	"srf-error-option-link-all": "A opción ($1) necesita que o parámetro \"link\" estea definido como \"all\"",
 	"srf-error-missing-layout": "Non se pode amosar o gráfico porque falta o deseño.",
+	"srf-error-jqplot-bubble-data-length": "Non é posible amosar o diagrama ou o gráfico por falta de datos.",
 	"srf-error-jqplot-stackseries-data-length": "Non se pode amosar diagrama ou o gráfico porque non todas as barras ou liñas teñen a mesma cantidade de elementos.",
 	"srf-warn-empy-chart": "A gráfica está baleira porque non hai datos suficientes",
 	"srfc_previousmonth": "Mes anterior",
