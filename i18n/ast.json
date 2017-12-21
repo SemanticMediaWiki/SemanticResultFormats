@@ -42,6 +42,7 @@
 	"srf-error-option-mix": "La opción ($1) nun ta disponible",
 	"srf-error-option-link-all": "La opción ($1) precisa que'l parámetru «link» tea definíu como «all»",
 	"srf-error-missing-layout": "Nun puede amosase la gráfica porque falta'l diseñu.",
+	"srf-error-jqplot-bubble-data-length": "Nun puede amosase'l diagrama o la gráfica porque falten los datos.",
 	"srf-error-jqplot-stackseries-data-length": "Nun puede amosase la gráfica porque non toles barres o llinies tienen la mesma cantidá d'elementos.",
 	"srf-warn-empy-chart": "La gráfica ta vacida porque falten datos",
 	"srfc_previousmonth": "Mes anterior",
