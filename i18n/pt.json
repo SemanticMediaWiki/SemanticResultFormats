@@ -179,7 +179,7 @@
 	"srf-paramdesc-graphlegend": "Define se deve ser mostrada uma legenda do grafo",
 	"srf-paramdesc-graphlabel": "Define o título do grafo",
 	"srf-paramdesc-rankdir": "Define a direção das setas",
-	"srf-paramdesc-graphlink": "Define se os vértices deve ser hiperligações para as suas páginas na wiki",
+	"srf-paramdesc-graphlink": "Define se os vértices deve ser hiperligações para as respetivas páginas na wiki",
 	"srf-paramdesc-graphcolor": "Define a cor do grafo",
 	"srf-paramdesc-graph-wwl": "Define o limite para forçar nova linha (em nº de caracteres)",
 	"srf-paramdesc-clustercolor": "Define as cores das caixas de agrupamento",
