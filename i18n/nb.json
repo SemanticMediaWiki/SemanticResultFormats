@@ -5,7 +5,8 @@
 			"Nghtwlkr",
 			"Emilbk",
 			"Jon Harald Søby",
-			"Nemo bis"
+			"Nemo bis",
+			"Jeblad"
 		]
 	},
 	"srf-desc": "Tilleggsformater for Semantic MediaWiki-spørringer",
@@ -248,7 +249,7 @@
 	"srf-paramdesc-filtered-calendar-title-template": "En mal som brukes til å formatere hendelsens tittel i kalenderen",
 	"srf-paramdesc-filtered-map-position": "Utskriften som inneholder geografisk posisjon",
 	"srf-paramdesc-filtered-map-height": "Karthøyden",
-	"srf-paramdesc-filtered-map-zoom": "Zoom-nivået når kartet lastes. Dette kan endres av brukeren.<br>Se: <i>min. zoop</i> og <i>maks. zoom</i>",
+	"srf-paramdesc-filtered-map-zoom": "Zoom-nivået når kartet lastes. Dette kan endres av brukeren.<br>Se: <i>kartnivå min. zoom</i> og <i>kartnivå maks. zoom</i>",
 	"srf-filtered-selectorlabel-list": "Liste",
 	"srf-filtered-selectorlabel-table": "Tabell",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
