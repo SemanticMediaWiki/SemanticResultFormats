@@ -230,6 +230,7 @@
 	"srf-printername-oltree": "Árbol OL",
 	"srf-tree-noparentprop": "No se ha especificado ninguna propiedad padre. No se puede construir el árbol sin especificar una propiedad padre.",
 	"srf-tree-rootinvalid": "El título de la página «$1» no es válido.",
+	"srf-tree-circledetected": "Se detectó una referencia circular al tratar de insertar $1 en el árbol.",
 	"srf-paramdesc-tree-parent": "La propiedad que contiene la página padre",
 	"srf-paramdesc-tree-root": "Página raíz del árbol",
 	"srf-paramdesc-tree-startlevel": "El nivel de inicio del árbol, por ejemplo, para integrarlo en otro árbol",
@@ -260,6 +261,7 @@
 	"srf-filtered-selectorlabel-calendar": "Calendario",
 	"srf-filtered-selectorlabel-map": "Mapa",
 	"srf-filtered-noscript-error": "No se pueden mostrar los resultados porque JavaScript está desactivado. Visita $1.",
+	"srf-filtered-noscript-link-caption": "resultados en formato tabular",
 	"srf-filtered-value-filter-and": "Y",
 	"srf-filtered-value-filter-or": "O",
 	"srf-filtered-value-filter-placeholder": "Seleccionar un valor de filtro",
@@ -317,6 +319,7 @@
 	"srf-ui-mediaplayer-label-restore-screen": "Restaurar la pantalla",
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "No se ha podido exportar a MS-Excel porque la extensión [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] no está instalada.",
+	"srf-paramdesc-excel-filename": "El nombre de archivo de descarga del archivo generado",
 	"srf-paramdesc-excel-templatefile": "El nombre de un archivo de Excel del espacio de nombres «Archivo» utilizado para dar formato al archivo generado",
 	"srf-paramdesc-icalendar-timezone": "Una lista de husos horarios separados por comas"
 }
