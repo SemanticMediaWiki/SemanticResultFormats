@@ -10,6 +10,7 @@ This is not a release yet.
 * (#248) Fixed localized formatting of math results (by James Hong Kong)
 * Provided translation updates (by translatewiki.net community)
 * [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests (by James Hong Kong)
+* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Update for new versions of the GraphViz extension
 
 ## SRF 2.5.4
 
