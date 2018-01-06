@@ -93,7 +93,7 @@ class SRFGraph extends SMWResultPrinter {
 	}
 	
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgParser;
+
 		if ( !class_exists( 'GraphViz' )
 			&& !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' )
 		) {
@@ -115,7 +115,7 @@ class SRFGraph extends SMWResultPrinter {
 		$graphInput .= "}";
 		
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
-		$result = $wgParser->recursiveTagParse( "<graphviz>$graphInput</graphviz>" );
+		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>$graphInput</graphviz>" );
 		
 		if ( $this->m_graphLegend && $this->m_graphColor ) {
 			$arrayCount = 0;
