@@ -12,7 +12,7 @@
 		"MediaWiki"
 	],
 	"homepage": "https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "Jeroen De Dauw",
