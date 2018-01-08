@@ -8,7 +8,7 @@
     "postinstall": "gulp"
   },
   "author": "Stephan Gambke",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "dependencies": {},
   "devDependencies": {
     "@types/fullcalendar": "^2.7.42",

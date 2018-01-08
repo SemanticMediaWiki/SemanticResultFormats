@@ -71,7 +71,7 @@ class SemanticResultFormats {
 			],
 			'url' => 'https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats',
 			'descriptionmsg' => 'srf-desc',
-			'license-name'   => 'GPL-2.0+'
+			'license-name'   => 'GPL-2.0-or-later'
 		];
 
 		// Register message files
