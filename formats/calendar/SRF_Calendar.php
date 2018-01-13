@@ -644,12 +644,12 @@ END;
 		];
 
 		$params['template'] = [
-			'message' => 'srf-paramdesc-template',
+			'message' => 'smw-paramdesc-template',
 			'default' => '',
 		];
 
 		$params['userparam'] = [
-			'message' => 'srf-paramdesc-userparam',
+			'message' => 'smw-paramdesc-userparam',
 			'default' => '',
 		];
 
