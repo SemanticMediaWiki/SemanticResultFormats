@@ -60,6 +60,7 @@
 	"srf-error-jqplot-bubble-data-length": "This is an error message.",
 	"srf-error-jqplot-stackseries-data-length": "This is an error message.",
 	"srf-warn-empy-chart": "This is an informatory message.",
+	"srf-paramdesc-color": "{{doc-paramdesc|color}}",
 	"srfc_previousmonth": "A label describing a navigation control component.",
 	"srfc_nextmonth": "A label describing a navigation control component.",
 	"srfc_today": "A label describing a navigation control component.\n{{Identical|Today}}",
