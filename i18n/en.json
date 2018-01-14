@@ -43,6 +43,7 @@
 	"srf-error-jqplot-bubble-data-length": "The chart or graph cannot be shown because data are missing.",
 	"srf-error-jqplot-stackseries-data-length": "The chart or graph cannot be shown because not every bar or line has the same amount of elements.",
 	"srf-warn-empy-chart": "The chart or graph is empty due to missing data",
+	"srf-paramdesc-color": "The color to mark calendar entries",
 	"srfc_previousmonth": "Previous month",
 	"srfc_nextmonth": "Next month",
 	"srfc_today": "Today",
