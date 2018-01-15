@@ -54,6 +54,7 @@
 	"srf-error-jqplot-bubble-data-length": "无法显示图纸或图标，因为数据丢失。",
 	"srf-error-jqplot-stackseries-data-length": "无法显示图表，因为不是所有行都有相同的元素数量。",
 	"srf-warn-empy-chart": "由于丢失数据，该图表或曲线图是空的",
+	"srf-paramdesc-color": "标记日历项的颜色",
 	"srfc_previousmonth": "上月",
 	"srfc_nextmonth": "下月",
 	"srfc_today": "今天",

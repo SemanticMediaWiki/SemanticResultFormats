@@ -8,7 +8,8 @@
 			"Vitorvicentevalente",
 			"Macofe",
 			"Ngl2016",
-			"Nemo bis"
+			"Nemo bis",
+			"Athena in Wonderland"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultados para consultas do MediaWiki Semântico",
@@ -52,6 +53,7 @@
 	"srf-error-jqplot-bubble-data-length": "Não é possível mostrar o diagrama ou o gráfico por falta de dados.",
 	"srf-error-jqplot-stackseries-data-length": "Não é possível mostrar o diagrama ou o gráfico porque nem todas as barras ou linhas têm o mesmo número de elementos.",
 	"srf-warn-empy-chart": "O diagrama ou gráfico está vazio devido a falta de dados",
+	"srf-paramdesc-color": "A cor para marcar as entradas do calendário",
 	"srfc_previousmonth": "Mês anterior",
 	"srfc_nextmonth": "Mês seguinte",
 	"srfc_today": "Hoje",

@@ -54,6 +54,7 @@
 	"srf-error-jqplot-bubble-data-length": "Die Tabelle oder Grafik kann nicht angezeigt werden, da Daten fehlen.",
 	"srf-error-jqplot-stackseries-data-length": "Das Diagramm oder die Grafik kann nicht angezeigt werden, da nicht jeder Balken oder nicht jede Linie die gleiche Anzahl zu erzeugender Elemente aufweist.",
 	"srf-warn-empy-chart": "Es konnte kein Diagramm / keine Grafik erstellt werden, da keine ausreichenden Daten zum Erstellen vorhanden waren.",
+	"srf-paramdesc-color": "Die Farbe zur Markierung von Kalendereinträgen",
 	"srfc_previousmonth": "Voriger Monat",
 	"srfc_nextmonth": "Nächster Monat",
 	"srfc_today": "Heute",
