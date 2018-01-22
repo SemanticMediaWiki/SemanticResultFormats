@@ -54,6 +54,7 @@
 	"srf-error-jqplot-bubble-data-length": "Não é possível mostrar o diagrama ou o gráfico por falta de dados.",
 	"srf-error-jqplot-stackseries-data-length": "O diagrama ou gráfico não pode ser mostrado porque nem todas as barras ou linhas têm o mesmo número de elementos.",
 	"srf-warn-empy-chart": "O quadro ou gráfico está vazio devido à dados ausentes",
+	"srf-paramdesc-color": "A cor para marcar as entradas do calendário",
 	"srfc_previousmonth": "Mês anterior",
 	"srfc_nextmonth": "Mês seguinte",
 	"srfc_today": "Hoje",
