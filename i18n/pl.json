@@ -115,7 +115,7 @@
 	"srf_paramdesc_maxtags": "Maksymalna liczba znaczników w chmurze",
 	"srf_printername_array": "Tablica",
 	"srf-printername-graph": "Wykres",
-	"srf-paramdesc-graphname": "Tytuł",
+	"srf-paramdesc-graphname": "Ustawia tytuł wykresu",
 	"srf-paramdesc-graphsize": "Ustawia rozmiar wykresu w pikselach",
 	"srf-paramdesc-graphlegend": "Pokaż legendę wykresu lub nie",
 	"srf-paramdesc-graphlabel": "Ustawia etykietę wykresu",

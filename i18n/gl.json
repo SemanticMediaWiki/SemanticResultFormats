@@ -49,6 +49,7 @@
 	"srf-error-jqplot-bubble-data-length": "Non é posible amosar o diagrama ou o gráfico por falta de datos.",
 	"srf-error-jqplot-stackseries-data-length": "Non se pode amosar diagrama ou o gráfico porque non todas as barras ou liñas teñen a mesma cantidade de elementos.",
 	"srf-warn-empy-chart": "A gráfica está baleira porque non hai datos suficientes",
+	"srf-paramdesc-color": "A cor para marcar as entradas de calendario",
 	"srfc_previousmonth": "Mes anterior",
 	"srfc_nextmonth": "Mes seguinte",
 	"srfc_today": "Hoxe",
