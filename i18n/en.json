@@ -169,7 +169,7 @@
 	"srf-paramdesc-graph-nameprop": "Sets the property that will be used as subject instead of the actual subject, i.e. page name",
 	"srf-paramdesc-graph-nodeshape": "Sets the shape of each node on the graph",
 	"srf-paramdesc-graphname": "Sets the title of the graph",
-	"srf-paramdesc-graphsize": "Sets the size of the grapht in pixels",
+	"srf-paramdesc-graphsize": "Sets the size of the graph in pixels",
 	"srf-paramdesc-graphlegend": "Sets whether a graph legend should be shown",
 	"srf-paramdesc-graphlabel": "Sets the label of the graph",
 	"srf-paramdesc-rankdir": "Sets the direction of the arrows",
