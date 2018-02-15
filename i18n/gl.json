@@ -5,7 +5,8 @@
 			"Toliño",
 			"Elisardojm",
 			"Banjo",
-			"Nemo bis"
+			"Nemo bis",
+			"McDutchie"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
@@ -171,7 +172,7 @@
 	"srf_paramdesc_hashname": "En caso de que fose aclarado e que a extensión HashTables estea dispoñible, isto creará un hash co nome especificado (sen saída visible)",
 	"srf-printername-graph": "Gráfica",
 	"srf-paramdesc-graph-relation": "Indique se os asuntos ou as propiedades dos nomes son pais ou fillos",
-	"srf-paramdesc-graph-nameprop": "Define a propiedade que se usará como asunto no canto do asunto real, p. ex. o nome da páxina",
+	"srf-paramdesc-graph-nameprop": "Define a propiedade que se usará como asunto no canto do asunto real, é dicir, o nome da páxina",
 	"srf-paramdesc-graph-nodeshape": "Fixa a forma de cada nodo na gráfica",
 	"srf-paramdesc-graphname": "Define o título do gráfico",
 	"srf-paramdesc-graphsize": "Fixa o tamaño da gráfica en píxeles",
