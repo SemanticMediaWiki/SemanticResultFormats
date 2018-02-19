@@ -12,7 +12,8 @@
 			"Alexandr Efremov",
 			"Facenapalm",
 			"Redredsonia",
-			"Nemo bis"
+			"Nemo bis",
+			"Putnik"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -280,7 +281,7 @@
 	"srf-printername-incoming": "Входящие свойства",
 	"srf-paramdesc-min": "Минимальное или пороговое значение",
 	"srf-paramdesc-excludeproperty": "Исключить свойство из набора результатов",
-	"srf-printername-media": "Медиа-проигрыватель",
+	"srf-printername-media": "Медиапроигрыватель",
 	"srf-paramdesc-mediainspector": "Показывать детальную информацию об указанном элементе медиа",
 	"srf-ui-mediaplayer-label-previous": "Назад",
 	"srf-ui-mediaplayer-label-play": "Воспроизвести",
