@@ -6,7 +6,8 @@
 			"Liuxinyu970226",
 			"LNDDYL",
 			"Cwlin0416",
-			"Nemo bis"
+			"Nemo bis",
+			"Hello903hello"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki嵌入式查詢的附加格式",
@@ -108,7 +109,7 @@
 	"srf-paramdesc-graphlabel": "圖形標籤",
 	"srf-paramdesc-rankdir": "箭頭方向",
 	"srf-paramdesc-graphlink": "圖形連結",
-	"srf-paramdesc-graphcolor": "圖形顏色",
+	"srf-paramdesc-graphcolor": "設定圖表顔色",
 	"srf-paramdesc-graph-wwl": "Word自動換行限制（以字元計）",
 	"srf-printername-datatables": "資料表",
 	"srf-ui-datatables-label-conditions": "條件",
