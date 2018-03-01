@@ -51,10 +51,10 @@
 	"srf-error-option-mix": "Option ($1) ist nicht verfügbar",
 	"srf-error-option-link-all": "Zur Option ($1) muss beim Paramenter „link“ der Wert „all“ gesetzt werden.",
 	"srf-error-missing-layout": "Das Diagramm oder die Grafik kann nicht angezeigt werden, da das Layout fehlt.",
-	"srf-error-jqplot-bubble-data-length": "Die Tabelle oder Grafik kann nicht angezeigt werden, da Daten fehlen.",
+	"srf-error-jqplot-bubble-data-length": "Die Tabelle oder Grafik kann nicht angezeigt werden, da erforderliche Daten fehlen.",
 	"srf-error-jqplot-stackseries-data-length": "Das Diagramm oder die Grafik kann nicht angezeigt werden, da nicht jeder Balken oder nicht jede Linie die gleiche Anzahl zu erzeugender Elemente aufweist.",
 	"srf-warn-empy-chart": "Es konnte kein Diagramm / keine Grafik erstellt werden, da keine ausreichenden Daten zum Erstellen vorhanden waren.",
-	"srf-paramdesc-color": "Die Farbe zur Markierung von Kalendereinträgen",
+	"srf-paramdesc-color": "Legt die Farbe zur Markierung von Kalendereinträgen fest",
 	"srfc_previousmonth": "Voriger Monat",
 	"srfc_nextmonth": "Nächster Monat",
 	"srfc_today": "Heute",
@@ -253,8 +253,8 @@
 	"srf-paramdesc-filtered-calendar-title": "Die Ausgabe, die den Titel einer Veranstaltung enthält. Kann nicht zusammen mit einer Vorlage zur Ausgabe des Titels verwendet werden",
 	"srf-paramdesc-filtered-calendar-title-template": "Die Vorlage, die den Titel einer Veranstaltung enthält",
 	"srf-paramdesc-filtered-map-position": "Legt die Ansicht fest, die die geografische Position enthält",
-	"srf-paramdesc-filtered-map-icon": "Der Ausdruck, der entscheidet, welches Kartensymbol verwendet werden soll.",
-	"srf-paramdesc-filtered-map-icons": "Eine Karte der Werte für die Symbole, die für diese Werte auf der Karte verwendet werden sollen.",
+	"srf-paramdesc-filtered-map-icon": "Legt die Ausgabeanweisung fest, mit der das zu verwendende Kartensymbol bestimmt wird",
+	"srf-paramdesc-filtered-map-icons": "Legt die Zuordnungen von Datenwerten zu Symbolen fest, die auf der Karte für betreffende Datenwerte verwendet werden sollen",
 	"srf-paramdesc-filtered-map-height": "Die Höhe der Karte.",
 	"srf-paramdesc-filtered-map-zoom": "Legt die Vergrößerungsstufe beim Laden der Karte fest. Diese kann durch den Benutzer geändert werden.<br>Siehe: <code>map view min zoom</code> und <code>map view max zoom</code>",
 	"srf-paramdesc-filtered-map-min-zoom": "Legt die kleinste auswählbare Vergrößerungsstufe der Karte fest",
@@ -335,5 +335,5 @@
 	"srf-excel-missing-phpexcel": "Die Daten konnten nicht für MS-Excel exportiert werden, da die notwendige Softwareerweiterung [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nicht installiert ist.",
 	"srf-paramdesc-excel-filename": "Der Dateiname für die zum Herunterladen erzeugte Datei",
 	"srf-paramdesc-excel-templatefile": "Der Name einer MS-Excel-Datei aus dem Namensraum „Datei“, der zur Formatierung der erzeugten Datei verwendet werden soll",
-	"srf-paramdesc-icalendar-timezone": "Eine durch Kommata getrennte Liste mit Zeitzonen"
+	"srf-paramdesc-icalendar-timezone": "Legt eine durch Kommata getrennte Liste mit Zeitzonen fest"
 }

@@ -9,7 +9,8 @@
 			"Ankabel",
 			"Macofe",
 			"McDutchie",
-			"Kaspo"
+			"Kaspo",
+			"S4b1nuz E.656"
 		]
 	},
 	"srf-desc": "Formati addizionali per i risultati delle query di Semantic Mediawiki",
@@ -27,6 +28,11 @@
 	"srf-ui-navigation-next": "Successivo",
 	"srf-ui-common-label-source": "Fonte",
 	"srf-ui-tooltip-title-options": "Opzioni",
+	"srf-ui-tooltip-title-scope": "Scopo",
+	"srf-ui-tooltip-title-legend": "Legenda",
+	"srf-ui-tooltip-title-filter": "Filtro",
+	"srf-ui-common-label-refresh": "Aggiorna",
+	"srf-ui-common-label-parameters": "Parametri",
 	"srf-error-option-mix": "Opzione ($1) non disponibile",
 	"srf-error-option-link-all": "L'opzione ($1) richiede che il parametro \"link\" sia impostato a \"all\"",
 	"srf-error-missing-layout": "Il diagramma o grafico non può essere visualizzato perché il layout è mancante.",

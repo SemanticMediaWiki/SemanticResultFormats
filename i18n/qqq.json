@@ -264,7 +264,7 @@
 	"srf-paramdesc-filtered-calendar-title-template": "{{doc-paramdesc|calendar view title template}}",
 	"srf-paramdesc-filtered-map-position": "{{doc-paramdesc|map view position}}",
 	"srf-paramdesc-filtered-map-icon": "{{doc-paramdesc|map view marker icon property}}",
-	"srf-paramdesc-filtered-map-icons": "{{doc-paramdesc|map view marker icons}}",
+	"srf-paramdesc-filtered-map-icons": "{{doc-paramdesc|map view marker icons}}\n\n{{doc-important|The first occurrence of the word \"map\" refers to a datavalue symbol mapping while the second occurance of the word \"map\" refers to an actual geographic map.}}",
 	"srf-paramdesc-filtered-map-height": "{{doc-paramdesc|map view height}}",
 	"srf-paramdesc-filtered-map-zoom": "{{doc-paramdesc|map view zoom}}",
 	"srf-paramdesc-filtered-map-min-zoom": "{{doc-paramdesc|map view min zoom}}",
