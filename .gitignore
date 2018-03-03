@@ -11,5 +11,4 @@ composer.phar
 npm-debug.log
 
 vendor/
-extensions/
 node_modules/
