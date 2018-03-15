@@ -6,7 +6,8 @@
 			"Hwangjy9",
 			"Ykhwong",
 			"Jerrykim306",
-			"Nemo bis"
+			"Nemo bis",
+			"Garam"
 		]
 	},
 	"srf-desc": "시맨틱 미디어위키 쿼리용 추가 결과 포맷",
@@ -76,7 +77,7 @@
 	"srf-paramdesc-chartclass": "추가적인 CSS 클래스",
 	"srf-paramdesc-renderer": "그래프/차트 렌더러 선택",
 	"srf-paramdesc-filling": "개별 채우기 옵션",
-	"srf-paramdesc-theme": "그리드 테마 선택",
+	"srf-paramdesc-theme": "격자무늬 테마 선택",
 	"srf-paramdesc-chartcolor": "개별 차트 색 할당",
 	"srf-paramdesc-colorscheme": "컬러 스킴 선택",
 	"srf-ui-gridview-label-value": "데이터 값",
