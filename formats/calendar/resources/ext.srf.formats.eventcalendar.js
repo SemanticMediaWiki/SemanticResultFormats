@@ -69,18 +69,28 @@
 					that = {};
 
 				// Set theme
-				that.theme = data.query.ask.parameters.theme === 'vector' ? 'ui' : 'fc';
+				var parameters = data.query.ask.parameters;
+				that.theme = parameters.theme === 'vector' ? 'ui' : 'fc';
+				that.themeSystem = parameters.theme === 'vector' ? 'jquery-ui' : 'standard';
 
-				that.defaultView = data.query.ask.parameters.defaultview.replace('day', 'Day').replace( 'week', 'Week' );
+				that.defaultView = parameters.defaultview
+					.replace( 'day', 'Day')
+					.replace( 'week', 'Week' )
+					.replace( 'tmonth', 'tMonth' );
 
-				that.view = data.query.ask.parameters.views;
-				that.firstday = $.inArray( data.query.ask.parameters.firstday, weekDay );
+				that.view = parameters.views
+					.replace( 'day', 'Day')
+					.replace( 'week', 'Week' )
+					.replace( 'tmonth', 'tMonth' )
+					.replace( 'Month', 'month' );
+
+				that.firstday = $.inArray( parameters.firstday, weekDay );
 
 				// Set calendar start
-				that.calendarStart = _calendar.data.startDate( data.dates ).get( data.query.ask.parameters.start );
+				that.calendarStart = _calendar.data.startDate( data.dates ).get( parameters.start );
 
 				// Google holiday calendar url
-				that.holiday = data.query.ask.parameters.gcalurl === null ? '' : data.query.ask.parameters.gcalurl;
+				that.holiday = parameters.gcalurl === null ? '' : parameters.gcalurl;
 
 				$.extend( this, that );
 			}
@@ -399,10 +409,7 @@
 				listDay: mw.msg( 'srf-ui-eventcalendar-label-listday' )
 			},
 			allDayText : mw.msg( 'srf-ui-eventcalendar-label-allday' ),
-			timeFormat : {
-				'': mw.msg( 'srf-ui-eventcalendar-format-time' ),
-				agenda: mw.msg( 'srf-ui-eventcalendar-format-time-agenda' )
-			},
+			timeFormat : mw.msg( 'srf-ui-eventcalendar-format-time' ),
 			axisFormat: mw.msg( 'srf-ui-eventcalendar-format-axis' ),
 			titleFormat: {
 				month: mw.msg( 'srf-ui-eventcalendar-format-title-month' ),
@@ -423,6 +430,12 @@
 		 */
 		onDayClick: function( date, data, clickPopup ){
 			var clicktarget = data.query.ask.parameters.clicktarget;
+
+			// Moment.js
+			if ( typeof date.getUTCHours !== 'function' ) {
+				date = new Date( date.toDate() );
+			};
+
 			if( clicktarget !== 'none' ){
 				var h = date.getUTCHours() + 1;
 				var m = date.getUTCMinutes();
@@ -491,27 +504,41 @@
 						allDayText: self.messages.allDayText,
 						timeFormat: self.messages.timeFormat,
 						views: {
+							basic: {
+								titleFormat: self.messages.titleFormat.day,
+								columnHeaderFormat: self.messages.columnFormat.day
+							},
 							month: {
 								titleFormat: self.messages.titleFormat.month,
 								columnHeaderFormat: self.messages.columnFormat.month
 							},
+							agendaWeek: {
+								titleFormat: self.messages.titleFormat.week,
+								columnHeaderFormat: self.messages.columnFormat.week
+							},
 							week: {
 								titleFormat: self.messages.titleFormat.week,
-                                                                columnHeaderFormat: self.messages.columnFormat.week
+								columnHeaderFormat: self.messages.columnFormat.week
 							},
 							day: {
 								titleFormat: self.messages.titleFormat.day,
-                                                                columnHeaderFormat: self.messages.columnFormat.day
+								columnHeaderFormat: self.messages.columnFormat.day
+							},
+							agendaDay: {
+								titleFormat: self.messages.titleFormat.day,
+								columnHeaderFormat: self.messages.columnFormat.day
+							},
+							agenda: {
+								titleFormat: self.messages.titleFormat.agenda,
+								columnHeaderFormat: self.messages.columnFormat.agenda
 							}
 						},
 						clickPopup: self.messages.clickPopup,
-						theme: self.defaults.theme === 'ui',
+						themeSystem: self.defaults.themeSystem,
 						editable: false,
-						year: self.defaults.calendarStart.getFullYear(),
-						month: self.defaults.calendarStart.getMonth(),
-						date: self.defaults.calendarStart.getDate(),
+						defaultDate: self.defaults.calendarStart.toISOString(),
 						eventColor: self.defaults.color,
-						eventSources: [ data.events , holidays ],
+						eventSources: [ {'events': data.events, 'holidays' : holidays } ],
 						eventRender: function( event, element, view ) {
 							that.event( event, element, view ).icon();
 							that.event( event, element, view ).description();
@@ -519,6 +546,7 @@
 							// Custom event hook
 							container.trigger( 'srf.eventcalendar.eventRender', { event: event, element: element, data: data } );
 						},
+						navLinks: data.query.ask.parameters.dayview,
 						dayClick: function( date, allDay, jsEvent ) {
 							// If the day number (where available) is clicked then switch to the daily view
 							if ( allDay && data.query.ask.parameters.dayview && $( jsEvent.target ).is( 'div.fc-day-number' ) ) {
@@ -559,8 +587,10 @@
 				 */
 				resize: function(){
 
+					var offset = mw.config.get( 'wgCanonicalNamespace' ) === 'Special' ? 8 : 1;
+
 					if ( context.find( '.srf-top' ).calendarpane( 'context' ).css( 'display' ) !== 'none' ){
-						var height = context.find( '.srf-top' ).calendarpane( 'context' ).height() - 1;
+						var height = context.find( '.srf-top' ).calendarpane( 'context' ).height() - offset;
 						container.fullCalendar('option', 'height', height );
 						context.height( ( height > container.height() ? height : container.height() ) );
 					} else if( context.data( 'height' ) !== null ) {
@@ -693,7 +723,7 @@
 		init: function( context, container, data ) {
 
 			// Hide loading spinner
-			context.find( '.smw-spinner' ).hide();
+			context.find( '.srf-loading-dots' ).hide();
 
 			// Show container
 			container.css( { 'display' : 'block' , overflow: 'hidden' } );
@@ -714,9 +744,13 @@
 
 			// Add buttons using the calendarbutton $.widget
 			// Add paneView button
-			var header = context.find( '.fc-header-right' );
-			header.calendarbutton( {
+			context.find( '.fc-right' ).append( '<div class="fc-button-group srf-button-group" ></div>' );
+			var group = context.find( '.srf-button-group' );
+
+			group.calendarbutton( {
 				'class': 'pane',
+				left: true,
+				right: false,
 				icon : 'ui-icon ui-icon-bookmark',
 				title:  mw.msg( 'srf-ui-common-label-paneview' ),
 				theme: _calendar.defaults.theme
@@ -728,8 +762,10 @@
 			} );
 
 			// Add refresh button
-			header.calendarbutton( {
+			group.calendarbutton( {
 				'class': 'refresh',
+				left: false,
+				right: true,
 				icon : 'ui-icon ui-icon-refresh',
 				title:  mw.msg( 'srf-ui-common-label-refresh' ),
 				theme: _calendar.defaults.theme
@@ -889,7 +925,7 @@
 
 			// Attach click event on the fc-buttons to ensure that
 			// a resize is being carried out each time the view is changed
-			container.find( '.fc-button' ).click( function() {
+			container.find( '.fc-button-group' ).click( function() {
 				_calendar.fullCalendar( context, container ).resize();
 			} );
 		},
@@ -1022,7 +1058,13 @@
 			}
 
 			// Whether a fixed height has been defined
-			context.data( 'height', context.data( 'external-class' ) !== '' ? context.height() : 600 );
+			if ( context.data( 'external-class' ) === '' ) {
+				context.data( 'height', 600 );
+			};
+
+			if ( data.query.ask.parameters.defaultview.indexOf( 'list' ) == 0 && context.height() < 350 ) {
+				context.data( 'height', 350 );
+			};
 
 			// Add bottom element to clear preceding elements and avoid display clutter
 			context.after( html.element( 'div', { 'class': 'srf-eventcalendar-clear srf-bottom', 'style': 'clear:both' } ) );
@@ -1034,7 +1076,7 @@
 			// Precautionary measure to make sure that no old content is used
 			if ( ( data === null || data.version === undefined || data.version < '0.8' ) ||
 				( profile.name === 'msie' && profile.versionNumber < 9 ) ){
-					context.find( '.smw-spinner' ).hide();
+					context.find( '.srf-loading-dots' ).hide();
 				_calendar.util.message.exception( {
 					context: context.find( '.srf-top' ),
 					message: ( profile.name === 'msie' && profile.versionNumber < 9 ) ? 'Your IE (' + profile.versionNumber + ') version is not supported!' : 'Please update your page content! This is required due to some internal changes.'
@@ -1049,7 +1091,7 @@
 
 				// Seen some race-conditions in 1.22 ResourceLoader therefore
 				// make sure that CSS/JS dependencies are "really" loaded before
-				// further processing
+				// continuing
 				mw.loader.using( 'ext.srf.eventcalendar', function(){
 					calendar.init( context, container, data );
 
@@ -1062,7 +1104,7 @@
 				} );
 
 			} else {
-				context.find( '.smw-spinner' ).hide();
+				context.find( '.srf-loading-dots' ).hide();
 				_calendar.util.message.set( {
 					context: context.find( '.srf-top' ),
 					message: 'No results'

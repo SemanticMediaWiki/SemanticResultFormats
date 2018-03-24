@@ -21,7 +21,7 @@
 
 .srf-ui-legendList, .srf-ui-legendList-sel {
 	color: #222;
-	line-height: 30px;
+	/*line-height: 30px;*/
 	/* background-color: #eee; */
 }
 
@@ -78,15 +78,15 @@
 .srf-ui-legend-square {
 	list-style-type: square;
 	background: white;
-	border: 1px solid gainsboro;
+	/*border: 1px solid gainsboro;*/
 	height: 10px;
 	margin-right: 4px;
 	position: relative;
-	top: 2px;
+	top: 3px;
 	width: 10px;
 	-moz-border-radius: 1px;
 	-webkit-border-radius: 1px;
-	border-radius: 1px;
+	border-radius: 10px;
 	float: left;
 	padding: 1px;
 }
@@ -341,4 +341,12 @@
 	margin-left: 5px;
 	margin-top: 10px;
 	margin-bottom:5px;
+}
+
+.srf-calendarpane .mini-calendar .options input#to {
+	margin-left: 5px;
+}
+
+fieldset input#max {
+	margin-left: 5px;
 }
