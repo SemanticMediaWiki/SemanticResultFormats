@@ -72,8 +72,8 @@
 				that.theme = data.query.ask.parameters.theme === 'vector' ? 'ui' : 'fc';
 
 				that.defaultView = data.query.ask.parameters.defaultview.replace('day', 'Day').replace( 'week', 'Week' );
-				that.view = 'month,' + ( that.defaultView.indexOf( 'Week' ) === -1 ? 'basicWeek' : that.defaultView ) + ',' + ( that.defaultView.indexOf( 'Day' ) === -1 ? 'agendaDay' : that.defaultView );
 
+				that.view = data.query.ask.parameters.views;
 				that.firstday = $.inArray( data.query.ask.parameters.firstday, weekDay );
 
 				// Set calendar start
@@ -393,7 +393,10 @@
 				today:  mw.msg( 'srf-ui-eventcalendar-label-today' ),
 				month: mw.msg( 'srf-ui-eventcalendar-label-month' ),
 				week: mw.msg( 'srf-ui-eventcalendar-label-week' ),
-				day: mw.msg( 'srf-ui-eventcalendar-label-day' )
+				day: mw.msg( 'srf-ui-eventcalendar-label-day' ),
+				listMonth: mw.msg( 'srf-ui-eventcalendar-label-listmonth' ),
+				listWeek: mw.msg( 'srf-ui-eventcalendar-label-listweek' ),
+				listDay: mw.msg( 'srf-ui-eventcalendar-label-listday' )
 			},
 			allDayText : mw.msg( 'srf-ui-eventcalendar-label-allday' ),
 			timeFormat : {
@@ -457,7 +460,10 @@
 		 */
 		fullCalendar: function( context, container, data  ){
 			var self = this;
-
+			var holidays = [];
+			if ( typeof( self.defaults.holiday ) != 'undefined' ) {
+				holidays = self.defaults.holiday;
+			}
 			return {
 				/**
 				 * Get the calendar rolling
@@ -484,8 +490,20 @@
 						buttonText: self.messages.buttonText,
 						allDayText: self.messages.allDayText,
 						timeFormat: self.messages.timeFormat,
-						titleFormat: self.messages.titleFormat,
-						columnFormat: self.messages.columnFormat,
+						views: {
+							month: {
+								titleFormat: self.messages.titleFormat.month,
+								columnHeaderFormat: self.messages.columnFormat.month
+							},
+							week: {
+								titleFormat: self.messages.titleFormat.week,
+                                                                columnHeaderFormat: self.messages.columnFormat.week
+							},
+							day: {
+								titleFormat: self.messages.titleFormat.day,
+                                                                columnHeaderFormat: self.messages.columnFormat.day
+							}
+						},
 						clickPopup: self.messages.clickPopup,
 						theme: self.defaults.theme === 'ui',
 						editable: false,
@@ -493,7 +511,7 @@
 						month: self.defaults.calendarStart.getMonth(),
 						date: self.defaults.calendarStart.getDate(),
 						eventColor: self.defaults.color,
-						eventSources: [ data.events , self.defaults.holiday ],
+						eventSources: [ data.events , holidays ],
 						eventRender: function( event, element, view ) {
 							that.event( event, element, view ).icon();
 							that.event( event, element, view ).description();

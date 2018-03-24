@@ -28,6 +28,8 @@ $calendarMessages = [ 'messages' => [
 		'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat',
 		'srf-ui-eventcalendar-label-today', 'srf-ui-eventcalendar-label-month',
 		'srf-ui-eventcalendar-label-week', 'srf-ui-eventcalendar-label-day',
+		'srf-ui-eventcalendar-label-listmonth', 'srf-ui-eventcalendar-label-listweek',
+		'srf-ui-eventcalendar-label-listday',
 		'srf-ui-eventcalendar-label-allday', 'srf-ui-eventcalendar-format-time',
 		'srf-ui-eventcalendar-format-time-agenda', 'srf-ui-eventcalendar-format-axis',
 		'srf-ui-eventcalendar-format-title-month', 'srf-ui-eventcalendar-format-title-week',
@@ -712,7 +714,10 @@ return [
 
 	// fullCalendar
 	'ext.jquery.fullcalendar' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/fullcalendar/fullcalendar.js',
+		'scripts' => [
+			'resources/jquery/fullcalendar/moment.js',
+			'resources/jquery/fullcalendar/fullcalendar.js'
+		],
 		'styles' => 'resources/jquery/fullcalendar/fullcalendar.css',
 	// If you have MW 1.20+ the definitions below will work but not for earlier
 	// MW installations
