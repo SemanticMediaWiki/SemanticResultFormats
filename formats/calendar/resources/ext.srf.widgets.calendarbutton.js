@@ -33,7 +33,7 @@
 			// Returns button element
 			function _element ( buttonClass, contentClass, title, theme ) {
 				return html.element( 'span', { 'class': buttonClass, 'title': title }, new html.Raw(
-					html.element( 'span', { 'class': 'fc-button ' + theme + '-state-default ' + ( self.options.left ? theme + '-corner-left ' : '' ) + ( self.options.right ? theme + '-corner-right' : '' ) }, new html.Raw(
+					html.element( 'button', { 'class': 'fc-button ' + theme + '-state-default ' + ( self.options.left ? theme + '-corner-left ' : '' ) + ( self.options.right ? theme + '-corner-right' : '' ) }, new html.Raw(
 						html.element( 'span', { 'class': 'fc-button-inner' },  new html.Raw(
 							html.element( 'span', { 'class': 'fc-button-content' }, new html.Raw(
 							html.element( 'span', { 'class': 'fc-icon-wrap' }, new html.Raw(

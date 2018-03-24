@@ -49,7 +49,7 @@ class EventCalendar extends ResultPrinter {
 		$params['defaultview'] = [
 			'message' => 'srf-paramdesc-calendardefaultview',
 			'default' => 'month',
-			'values' =>  [ 'month', 'basicweek', 'basicday', 'agendaweek', 'agendaday', 'listDay', 'listWeek', 'listMonth' ]
+			'values' =>  [ 'month', 'basicweek', 'basicday', 'agendaweek', 'agendaday', 'listday', 'listweek', 'listmonth' ]
 		];
 
 		$params['views'] = [
