@@ -14,7 +14,8 @@
 			"Hzjethro",
 			"Nemo bis",
 			"Festina90",
-			"Mar(c)"
+			"Mar(c)",
+			"Patio"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -235,6 +236,9 @@
 	"srf-ui-eventcalendar-label-month": "Maand",
 	"srf-ui-eventcalendar-label-week": "Week",
 	"srf-ui-eventcalendar-label-day": "Dag",
+	"srf-ui-eventcalendar-label-listmonth": "Maand (lijst)",
+	"srf-ui-eventcalendar-label-listweek": "Week (lijst)",
+	"srf-ui-eventcalendar-label-listday": "Dag (lijst)",
 	"srf-ui-eventcalendar-label-allday": "Hele dag",
 	"srf-printername-dygraphs": "Dygraphsgrafiek",
 	"srf-paramdesc-datasource": "De bron op waar de gegevens toegankelijk zijn. Toegestane waarden: \"file\", \"raw\" en \"url\". Standaard: \"file\".",

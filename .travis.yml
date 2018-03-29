@@ -16,6 +16,8 @@ matrix:
     - env: DB=mysql; MW=1.23.17; SMW=~3.0@dev; PHPUNIT=4.8.*
       php: 5.6
   allow_failures:
+    # Broken due to https://phabricator.wikimedia.org/T188840
+    - env: DB=mysql; MW=master; SMW=~3.0@dev
     # Test previous versions to get an indication of actual loss of compatibility
     - env: DB=mysql; MW=1.23.17; SMW=~3.0@dev; PHPUNIT=4.8.*
       php: 5.6

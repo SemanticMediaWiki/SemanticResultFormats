@@ -6,7 +6,8 @@
 			"Silvonen",
 			"Str4nd",
 			"Pyscowicz",
-			"Nemo bis"
+			"Nemo bis",
+			"Pahkiqaz"
 		]
 	},
 	"srf-desc": "Muita muotoja Semantic MediaWikin upotetuille kyselyille",
@@ -105,11 +106,11 @@
 	"srf_paramdesc_headersep": "Erotin ominaisuuden nimen ja arvon välissä, jos \"headers\" on \"show\" tai \"plain\"",
 	"srf-printername-graph": "Graafi",
 	"srf-paramdesc-graph-relation": "Ovatko kohteet tai nimiominaisuudet ylätasolla vai alatasolla?",
-	"srf-paramdesc-graphname": "Otsikko",
-	"srf-paramdesc-graphsize": "Graafin koko (pikseleinä)",
-	"srf-paramdesc-rankdir": "Nuolen suunta",
+	"srf-paramdesc-graphname": "Asettaa taulukon otsikon",
+	"srf-paramdesc-graphsize": "Asettaa graafin koon (pikseleinä)",
+	"srf-paramdesc-rankdir": "Asettaa nuolien suunnan",
 	"srf-paramdesc-graphlink": "Graafin linkki",
-	"srf-paramdesc-graphcolor": "Graafin väri",
+	"srf-paramdesc-graphcolor": "Asettaa graafin värin",
 	"srf-printername-datatables": "Datataulukot",
 	"srf-ui-datatables-label-update-success": "Taulukon päivitys onnistui",
 	"srf-ui-datatables-label-oPaginate-sFirst": "Ensimmäinen",
@@ -148,5 +149,6 @@
 	"srf-paramdesc-unit": "Yksikkö",
 	"srf-printername-incoming": "Saapuvat ominaisuudet",
 	"srf-paramdesc-min": "Vähimmäis- tai kynnysarvo",
-	"srf-paramdesc-excludeproperty": "Poista ominaisuus tulosten joukosta"
+	"srf-paramdesc-excludeproperty": "Poista ominaisuus tulosten joukosta",
+	"srf-ui-mediaplayer-label-next": "Seuraava"
 }
