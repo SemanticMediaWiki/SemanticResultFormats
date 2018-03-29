@@ -1,9 +1,9 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 "use strict";
 /// <reference types="jquery" />
 exports.__esModule = true;
 var View_1 = require("./View/View");
-var Controller = (function () {
+var Controller = /** @class */ (function () {
     function Controller(target, data, printRequests) {
         this.target = undefined;
         this.filterSpinner = undefined;
@@ -160,7 +160,7 @@ exports.Controller = Controller;
 },{"./View/View":5}],2:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var Filter = (function () {
+var Filter = /** @class */ (function () {
     function Filter(filterId, target, printrequestId, controller, options) {
         this.outerTarget = undefined;
         this.target = undefined;
@@ -315,7 +315,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var Filter_1 = require("./Filter");
-var ValueFilter = (function (_super) {
+var ValueFilter = /** @class */ (function (_super) {
     __extends(ValueFilter, _super);
     function ValueFilter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -514,7 +514,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
-var MapView = (function (_super) {
+var MapView = /** @class */ (function (_super) {
     __extends(MapView, _super);
     function MapView() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -715,7 +715,7 @@ exports.MapView = MapView;
 },{"./View":5}],5:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var View = (function () {
+var View = /** @class */ (function () {
     function View(id, target, c, options) {
         if (options === void 0) { options = {}; }
         this.id = undefined;
@@ -789,7 +789,7 @@ exports.View = View;
 },{}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var ViewSelector = (function () {
+var ViewSelector = /** @class */ (function () {
     function ViewSelector(target, viewIDs, controller) {
         this.target = undefined;
         this.viewIDs = undefined;
@@ -825,7 +825,7 @@ exports.__esModule = true;
 var Controller_1 = require("../../../resources/ts/Filtered/Controller");
 var MockedFilter_1 = require("../Util/MockedFilter");
 var View_1 = require("../../../resources/ts/Filtered/View/View");
-var ControllerTest = (function () {
+var ControllerTest = /** @class */ (function () {
     function ControllerTest() {
     }
     ControllerTest.prototype.runTests = function () {
@@ -974,7 +974,7 @@ exports.__esModule = true;
 var ValueFilter_1 = require("../../../../resources/ts/Filtered/Filter/ValueFilter");
 var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
 var QUnitTest_1 = require("../../Util/QUnitTest");
-var ValueFilterTest = (function (_super) {
+var ValueFilterTest = /** @class */ (function (_super) {
     __extends(ValueFilterTest, _super);
     function ValueFilterTest() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1067,7 +1067,7 @@ exports.__esModule = true;
 var ViewTest_1 = require("./ViewTest");
 var MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
 var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
-var MapViewTest = (function (_super) {
+var MapViewTest = /** @class */ (function (_super) {
     __extends(MapViewTest, _super);
     function MapViewTest() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1109,7 +1109,7 @@ exports.__esModule = true;
 var QUnitTest_1 = require("../../Util/QUnitTest");
 var View_1 = require("../../../../resources/ts/Filtered/View/View");
 var Controller_1 = require("../../../../resources/ts/Filtered/Controller");
-var ViewTest = (function (_super) {
+var ViewTest = /** @class */ (function (_super) {
     __extends(ViewTest, _super);
     function ViewTest() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1147,20 +1147,16 @@ var ViewTest = (function (_super) {
         var ret = v.init();
         if (ret !== undefined) {
             var done_1 = assert.async();
-            // setTimeout( () => {
             ret.then(function () {
                 assert.ok(v instanceof View_1.View, 'Can construct View. (P)');
-                // 			assert.strictEqual( v.getTargetElement(), target, 'View retains target element. (P)' );
+                assert.strictEqual(v.getTargetElement(), target, 'View retains target element. (P)');
                 done_1();
             });
-            // 	}
-            // 	, 1000 );
         }
         else {
             // Assert
             assert.ok(v instanceof View_1.View, 'Can construct View.');
             assert.strictEqual(v.getTargetElement(), target, 'View retains target element.');
-            // done();
         }
     };
     ;
@@ -1187,7 +1183,7 @@ exports.ViewTest = ViewTest;
 exports.__esModule = true;
 var ViewSelector_1 = require("../../../resources/ts/Filtered/ViewSelector");
 var Controller_1 = require("../../../resources/ts/Filtered/Controller");
-var ViewSelectorTest = (function () {
+var ViewSelectorTest = /** @class */ (function () {
     function ViewSelectorTest() {
     }
     ViewSelectorTest.prototype.runTests = function () {
@@ -1302,7 +1298,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var Filter_1 = require("../../../resources/ts/Filtered/Filter/Filter");
-var MockedFilter = (function (_super) {
+var MockedFilter = /** @class */ (function (_super) {
     __extends(MockedFilter, _super);
     function MockedFilter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1314,7 +1310,7 @@ exports.MockedFilter = MockedFilter;
 },{"../../../resources/ts/Filtered/Filter/Filter":2}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var QUnitTest = (function () {
+var QUnitTest = /** @class */ (function () {
     function QUnitTest() {
     }
     QUnitTest.prototype.runTests = function () { };
@@ -1326,7 +1322,7 @@ exports.QUnitTest = QUnitTest;
 },{}],14:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var QUnitTestHandler = (function () {
+var QUnitTestHandler = /** @class */ (function () {
     function QUnitTestHandler(moduleName, testclasses) {
         this.isInitialised = false;
         this.moduleName = moduleName;
