@@ -8,7 +8,8 @@
 			"Glavkos",
 			"Thodoris",
 			"Nemo bis",
-			"KATRINE1992"
+			"KATRINE1992",
+			"Nikosgranturismogt"
 		]
 	},
 	"srf-desc": "Πρόσθετες μορφές αποτελεσμάτων για ερωτήματα του Σημασιολογικού MediaWiki",
@@ -232,6 +233,9 @@
 	"srf-ui-eventcalendar-label-month": "Μήνας",
 	"srf-ui-eventcalendar-label-week": "Εβδομάδα",
 	"srf-ui-eventcalendar-label-day": "Ημέρα",
+	"srf-ui-eventcalendar-label-listmonth": "Μήνας (κατάλογος)",
+	"srf-ui-eventcalendar-label-listweek": "Εβδομάδα (κατάλογος)",
+	"srf-ui-eventcalendar-label-listday": "Ημέρα (κατάλογος)",
 	"srf-ui-eventcalendar-label-allday": "Όλη μέρα",
 	"srf-ui-eventcalendar-label-update-success": "Η ενημέρωση του ημερολογίου εκδηλώσεων ήταν επιτυχής.",
 	"srf-ui-eventcalendar-label-update-error": "Η ενημέρωση του ημερολογίου εκδηλώσεων απέτυχε.",
