@@ -1,9 +1,9 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 /// <reference types="jquery" />
 exports.__esModule = true;
 var View_1 = require("./View/View");
-var Controller = (function () {
+var Controller = /** @class */ (function () {
     function Controller(target, data, printRequests) {
         this.target = undefined;
         this.filterSpinner = undefined;
@@ -171,7 +171,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var Filter_1 = require("./Filter");
-var DistanceFilter = (function (_super) {
+var DistanceFilter = /** @class */ (function (_super) {
     __extends(DistanceFilter, _super);
     function DistanceFilter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -282,7 +282,7 @@ exports.DistanceFilter = DistanceFilter;
 },{"./Filter":3}],3:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var Filter = (function () {
+var Filter = /** @class */ (function () {
     function Filter(filterId, target, printrequestId, controller, options) {
         this.outerTarget = undefined;
         this.target = undefined;
@@ -437,7 +437,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 ///<reference path="../../../../node_modules/@types/ion.rangeslider/index.d.ts"/>
 var Filter_1 = require("./Filter");
-var NumberFilter = (function (_super) {
+var NumberFilter = /** @class */ (function (_super) {
     __extends(NumberFilter, _super);
     function NumberFilter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -479,7 +479,7 @@ var NumberFilter = (function (_super) {
                 maxValue = minValue;
                 sliderOptions.type = 'single';
                 break;
-            default:// == case "range"
+            default: // == case "range"
                 this.mode = this.MODE_RANGE;
                 sliderOptions.type = 'double';
         }
@@ -623,7 +623,7 @@ var NumberFilter = (function (_super) {
                 this.filterValueLower = from;
                 this.filterValueUpper = from;
                 break;
-            default:// case this.MODE_RANGE:
+            default: // case this.MODE_RANGE:
                 this.filterValueLower = from;
                 this.filterValueUpper = to;
         }
@@ -661,7 +661,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var Filter_1 = require("./Filter");
-var ValueFilter = (function (_super) {
+var ValueFilter = /** @class */ (function (_super) {
     __extends(ValueFilter, _super);
     function ValueFilter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -863,7 +863,7 @@ var NumberFilter_1 = require("./Filter/NumberFilter");
  *
  * Factory to setup everyhting else
  */
-var Filtered = (function () {
+var Filtered = /** @class */ (function () {
     /**
      *
      * @param target
@@ -941,7 +941,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
-var CalendarView = (function (_super) {
+var CalendarView = /** @class */ (function (_super) {
     __extends(CalendarView, _super);
     function CalendarView() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1059,7 +1059,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
-var ListView = (function (_super) {
+var ListView = /** @class */ (function (_super) {
     __extends(ListView, _super);
     function ListView() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1086,7 +1086,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
-var MapView = (function (_super) {
+var MapView = /** @class */ (function (_super) {
     __extends(MapView, _super);
     function MapView() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -1298,7 +1298,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var View_1 = require("./View");
-var TableView = (function (_super) {
+var TableView = /** @class */ (function (_super) {
     __extends(TableView, _super);
     function TableView() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1313,7 +1313,7 @@ exports.TableView = TableView;
 },{"./View":11}],11:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var View = (function () {
+var View = /** @class */ (function () {
     function View(id, target, c, options) {
         if (options === void 0) { options = {}; }
         this.id = undefined;
@@ -1387,7 +1387,7 @@ exports.View = View;
 },{}],12:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
-var ViewSelector = (function () {
+var ViewSelector = /** @class */ (function () {
     function ViewSelector(target, viewIDs, controller) {
         this.target = undefined;
         this.viewIDs = undefined;
