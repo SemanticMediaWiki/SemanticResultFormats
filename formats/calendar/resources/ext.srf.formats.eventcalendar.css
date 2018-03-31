@@ -215,7 +215,7 @@
 }
 
 .srf-calendarpane .select-wrap-chrome, .srfcalendar-pane .select-wrap-safari {
-	padding: 2px;
+	padding-bottom: 4px;
 }
 
 .srf-calendarpane .select-wrap-firefox {
@@ -228,7 +228,7 @@
 	padding: 2px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
-	border-radius: 4px;
+	border-radius: 2px;
 	border: 1px solid #CECECE;
 	outline: none;
 	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -288,6 +288,7 @@
 .srf-calendarpane .parameters .slider {
 	margin-left: 0px;
 	margin-right: 0px;
+	margin-top: 3px;
 }
 
 .srf-ui-legendList.pane {
@@ -319,6 +320,13 @@
 /* Datepicker uses auto width */
 .srf-calendarpane .ui-datepicker {
  width: auto;
+}
+
+.srf-calendarpane .slider.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all, .srf-calendarpane a.ui-slider-handle {
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-top-left-radius: 2px;
 }
 
 .srf-calendarpane .parameter-section {
