@@ -213,7 +213,7 @@ class Filtered extends ResultPrinter {
 		$link->setParameter( 'table', 'format' );
 
 		SMWOutputs::requireResource( 'ext.srf.filtered' );
-		$this->getParser()->getOutput()->addModuleStyles( 'ext.srf.filtered' );
+		$this->registerResources( [], [ 'ext.srf.filtered' ] );
 
 		return $html;
 	}
@@ -264,8 +264,8 @@ class Filtered extends ResultPrinter {
 			$getter = [ $this->getParser()->getOutput(), 'getExtensionData' ];
 			$setter = [ $this->getParser()->getOutput(), 'setExtensionData' ];
 		} else {
-			$getter = [ $this->getOutput(), 'getProperty' ];
-			$setter = [ $this->getOutput(), 'setProperty' ];
+			$getter = [ \RequestContext::getMain()->getOutput(), 'getProperty' ];
+			$setter = [ \RequestContext::getMain()->getOutput(), 'setProperty' ];
 		}
 
 		$previousConfig = call_user_func( $getter, 'srf-filtered-config' );
