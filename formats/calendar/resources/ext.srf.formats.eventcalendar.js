@@ -79,9 +79,9 @@
 					.replace( 'tmonth', 'tMonth' );
 
 				that.view = parameters.views
-					.replace( 'day', 'Day')
-					.replace( 'week', 'Week' )
-					.replace( 'tmonth', 'tMonth' );
+					.replace( /day/g, 'Day')
+					.replace( /week/g, 'Week' )
+					.replace( /tmonth/g, 'tMonth' );
 
 				that.firstday = $.inArray( parameters.firstday, weekDay );
 
