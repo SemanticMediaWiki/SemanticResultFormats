@@ -32,7 +32,7 @@
     "leaflet-providers": "^1.1.17",
     "leaflet.markercluster": "~1.2",
     "nouislider": "^10.1.0",
-    "select2": "^4.0.3",
+    "select2": "4.0.3",
     "tsify": "^3.0.1",
     "typescript": "^2.8",
     "vinyl-buffer": "^1.0.0",
