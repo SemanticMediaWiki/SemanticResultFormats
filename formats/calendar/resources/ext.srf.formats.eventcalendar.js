@@ -590,13 +590,13 @@
 
 					if ( context.find( '.srf-top' ).calendarpane( 'context' ).css( 'display' ) !== 'none' ){
 						var height = context.find( '.srf-top' ).calendarpane( 'context' ).height() - offset;
-						container.fullCalendar('option', 'height', height );
-						context.height( ( height > container.height() ? height : container.height() ) );
+						container.fullCalendar('option', 'height', Math.round( height ) );
+						context.height( ( height > container.height() ? height : container.height() ) + offset );
 					} else if( context.data( 'height' ) !== null ) {
-						container.fullCalendar( 'option', 'height', context.data( 'height' ) );
+						container.fullCalendar( 'option', 'height', Math.round( context.data( 'height' ) ) );
 						context.height( ( context.data( 'height' ) > container.height() ? context.data( 'height' ) : container.height() ) );
 					} else {
-						container.fullCalendar( 'option', 'height', context.height() );
+						container.fullCalendar( 'option', 'height', Math.round( context.height() ) );
 					}
 
 					container.resize();
