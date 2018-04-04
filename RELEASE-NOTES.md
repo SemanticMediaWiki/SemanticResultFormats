@@ -26,12 +26,12 @@ Released on April 4, 2018.
 
 Released on November 13, 2017.
 
-* #337: Fixes style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
-* #343: Fixes style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
+* #337: Fixed style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
+* #343: Fixed style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
 * #346: Brings more performance improvements and adds missing system messages for the value filter of the "filtered" format (by Stephan Gambke)
-* #349: Removes `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
-* #351: Adds `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
-* Makes map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
+* #349: Removed `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
+* #351: Added `map view marker icon property` and `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
+* Made map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
 
 ## SRF 2.5.3
 
