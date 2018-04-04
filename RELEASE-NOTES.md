@@ -12,6 +12,17 @@ This is not a release yet.
 * [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests (by James Hong Kong)
 * [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Update for new versions of the GraphViz extension
 
+## SRF 2.5.5
+
+Released on April 4, 2018.
+
+* #354: Fixes value filter labels for the "filtered" format (by Stephan Gambke)
+* #355: Fixes missing namespace in the "tagcloud" format (by Cindy Cicalese)
+* #361: Sets stacking context for srf-gallery-slideshow in the "gallery" format (by Stephan Gambke)
+* #374: Fixes "select2" list elements rendering outside of containing element for the "filtered" format (by Matthew A.Thompson)
+* #379: Fixes result printers still using the Google Chart API ("googlechart", "googlepie") via http (by Karsten Hoffmeyer)
+* #383: Updates some "leaflet" and "select2" modules and fixes "package-lock.json" for the "fitered" format (by Stephan Gambke)
+
 ## SRF 2.5.4
 
 Released on November 13, 2017.
