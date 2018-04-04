@@ -99,6 +99,12 @@ Released on June 13, 2017.
 * Fixed gallery format to ensure compatibility with MW 1.23+ (by James Hong Kong)
 * Provided translation updates (by translatewiki.net community)
 
+## SRF 2.4.3
+
+Released on May 7, 2017
+
+* #199: Fixed uncaught TypeError on 'in' operator to search for 'length' for "eventcalendar" format (by gesinn.it)
+
 ## SRF 2.4.2
 
 Released on February 25, 2017
