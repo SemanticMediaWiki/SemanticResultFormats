@@ -7,10 +7,9 @@ This is not a release yet.
 * Raised minimum required version of PHP to 5.6
 * Raised minimum required version of MediaWiki to 1.27
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
-* (#248) Fixed localized formatting of math results (by James Hong Kong)
-* Provided translation updates (by translatewiki.net community)
-* [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests (by James Hong Kong)
-* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Update for new versions of the GraphViz extension
+* #248 Fixed localization of numbers in the math result formats (by James Hong Kong)
+* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension
+* Updated translations (by translatewiki.net community)
 
 ## SRF 2.5.5
 
