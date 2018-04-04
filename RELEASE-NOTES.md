@@ -15,12 +15,12 @@ This is not a release yet.
 
 Released on April 4, 2018.
 
-* #354: Fixes value filter labels for the "filtered" format (by Stephan Gambke)
-* #355: Fixes missing namespace in the "tagcloud" format (by Cindy Cicalese)
-* #361: Sets stacking context for srf-gallery-slideshow in the "gallery" format (by Stephan Gambke)
-* #374: Fixes "select2" list elements rendering outside of containing element for the "filtered" format (by Matthew A.Thompson)
-* #379: Fixes result printers still using the Google Chart API ("googlechart", "googlepie") via http (by Karsten Hoffmeyer)
-* #383: Updates some "leaflet" and "select2" modules and fixes "package-lock.json" for the "fitered" format (by Stephan Gambke)
+* #354: Fixed value filter labels for the "filtered" format (by Stephan Gambke)
+* #355: Fixed missing namespace in the "tagcloud" format (by Cindy Cicalese)
+* #361: Set stacking context for srf-gallery-slideshow in the "gallery" format (by Stephan Gambke)
+* #374: Fixed "select2" list elements rendering outside of containing element for the "filtered" format (by Matthew A.Thompson)
+* #379: Fixed result printers still using the Google Chart API ("googlechart", "googlepie") via http (by Karsten Hoffmeyer)
+* #383: Updated some "leaflet" and "select2" modules and fixed "package-lock.json" for the "fitered" format (by Stephan Gambke)
 
 ## SRF 2.5.4
 
