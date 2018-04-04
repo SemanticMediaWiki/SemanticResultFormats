@@ -51,7 +51,7 @@ class SemanticResultFormats {
 	 */
 	public static function initExtension() {
 
-		define( 'SRF_VERSION', '2.5.5-alpha' );
+		define( 'SRF_VERSION', '2.5.5' );
 
 		// Register the extension
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
