@@ -7,7 +7,8 @@
 			"LNDDYL",
 			"Cwlin0416",
 			"Nemo bis",
-			"Hello903hello"
+			"Hello903hello",
+			"Kly"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki嵌入式查詢的附加格式",
@@ -106,8 +107,8 @@
 	"srf-paramdesc-graphname": "設定圖表標題",
 	"srf-paramdesc-graphsize": "圖形尺寸（以像素計）",
 	"srf-paramdesc-graphlegend": "顯示或不顯示圖形圖例",
-	"srf-paramdesc-graphlabel": "圖形標籤",
-	"srf-paramdesc-rankdir": "箭頭方向",
+	"srf-paramdesc-graphlabel": "設定圖形標籤",
+	"srf-paramdesc-rankdir": "設定箭頭方向",
 	"srf-paramdesc-graphlink": "圖形連結",
 	"srf-paramdesc-graphcolor": "設定圖表顔色",
 	"srf-paramdesc-graph-wwl": "Word自動換行限制（以字元計）",
