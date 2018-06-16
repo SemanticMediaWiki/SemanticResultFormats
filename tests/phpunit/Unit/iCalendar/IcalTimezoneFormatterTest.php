@@ -51,12 +51,16 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 
 		// DTSTART can be different pending the OS hence use .*
 
-		yield [
+		return [[
 			'UTC',
 			1,
 			2,
 			"BEGIN:VTIMEZONE\r\nTZID:UTC\r\nBEGIN:STANDARD\r\nDTSTART:.*\r\nTZOFFSETFROM:+0000\r\nTZOFFSETTO:+0000\r\nTZNAME:UTC\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
-		];
+		], [
+			'America/New_York',
+			1,
+			2,
+			"BEGIN:VTIMEZONE\r\nTZID:UTC\r\nBEGIN:STANDARD\r\nDTSTART:.*\r\nTZOFFSETFROM:-0400\r\nTZOFFSETTO:-0400\r\nTZNAME:UTC\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
+		]];
 	}
-
 }
