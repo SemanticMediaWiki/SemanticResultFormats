@@ -6,7 +6,8 @@
 			"Gwendal",
 			"Gwenn-Ael",
 			"Y-M D",
-			"Nemo bis"
+			"Nemo bis",
+			"Dishual"
 		]
 	},
 	"srf-desc": "Furmadoù ouzhpenn evit ar rekedoù Semantic MediaWiki",
@@ -14,6 +15,7 @@
 	"srf-module-loading": "O kargañ...",
 	"srf-paramdesc-height": "Uhelder",
 	"srf-paramdesc-width": "Ledander",
+	"srf-module-nomatch": "N'eus bet kavet netra.",
 	"srf-navigation-previous": "Kent",
 	"srf-ui-navigation-prev": "Kent",
 	"srf-ui-navigation-next": "War-lerc'h",
