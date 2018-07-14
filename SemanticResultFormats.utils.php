@@ -44,7 +44,7 @@ final class SRFUtils {
 		];
 
 		$requireHeadItem =  [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem, false ) );
 	}
 
 	/**

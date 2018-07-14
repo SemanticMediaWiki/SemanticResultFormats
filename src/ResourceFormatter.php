@@ -70,7 +70,8 @@ class ResourceFormatter {
 			\Skin::makeVariablesScript(
 				[
 					$id => json_encode( $data )
-				]
+				],
+				false
 			)
 		);
 	}
