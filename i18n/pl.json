@@ -166,6 +166,7 @@
 	"srf-filtered-value-filter-or": "LUB",
 	"srf-filtered-value-filter-placeholder": "Wybierz wartość filtra",
 	"srf-printername-d3chart": "Wykres D3",
+	"srf-printername-timeseries": "Wykres szeregów czasowych",
 	"srf-paramdesc-group": "Serii pogrupowane według",
 	"srf-paramdesc-pageitems": "Elementów na stronie",
 	"srf-printername-eventcalendar": "Kalendarz wydarzeń",
