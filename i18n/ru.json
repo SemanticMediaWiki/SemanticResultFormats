@@ -13,7 +13,8 @@
 			"Facenapalm",
 			"Redredsonia",
 			"Nemo bis",
-			"Putnik"
+			"Putnik",
+			"Vlad5250"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -54,6 +55,7 @@
 	"srf-error-option-mix": "Параметр ( $1 ) не доступен",
 	"srf-error-option-link-all": "Опция ($1) требует, чтобы параметр «link» был задан как «all»",
 	"srf-error-missing-layout": "Диаграмма или график не могут быть показаны, поскольку макет отсутствует.",
+	"srf-error-jqplot-bubble-data-length": "Таблица или график не могут быть показаны, поскольку данные отсутствуют.",
 	"srf-error-jqplot-stackseries-data-length": "Диаграмма или график не могут быть показаны, поскольку не каждый столбик или линия имеет одинаковое количество элементов.",
 	"srf-warn-empy-chart": "Диаграммы или графика пуст из-за недостающих данных",
 	"srfc_previousmonth": "Предыдущий месяц",
@@ -175,7 +177,7 @@
 	"srf_paramdesc_hashname": "Если указано, и доступно расширение Hash Tables, это создаст хэш поданному названием (ни видимого выхода)",
 	"srf-printername-graph": "График",
 	"srf-paramdesc-graph-relation": "Предметы или свойства названий родительские или дочерние?",
-	"srf-paramdesc-graph-nameprop": "Позволяет устанавливать свойство, будет использована как предмет вместо нынешнего предмета",
+	"srf-paramdesc-graph-nameprop": "Позволяет установить свойство, которое будет использовано как предмет вместо нынешнего предмета",
 	"srf-paramdesc-graph-nodeshape": "Устанавливает форму каждого узла графа",
 	"srf-paramdesc-graphname": "Устанавливает заголовок графа",
 	"srf-paramdesc-graphsize": "Устанавливает размер графа (в пикселях)",
@@ -185,6 +187,7 @@
 	"srf-paramdesc-graphlink": "Ссылка графы",
 	"srf-paramdesc-graphcolor": "Цвет графы",
 	"srf-paramdesc-graph-wwl": "Предел переноса слов (в # символов)",
+	"srf-paramdesc-redlinkcolor": "Задать цвет шрифта для красных ссылок",
 	"srf-printername-datatables": "Таблицы данных",
 	"srf-ui-datatables-label-conditions": "Условия",
 	"srf-ui-datatables-label-parameters": "Параметры",
