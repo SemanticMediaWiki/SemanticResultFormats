@@ -56,7 +56,11 @@ class GraphNode {
 	}
 
 	public function getLabel( $labelIndex ) {
-		return $this->label[$labelIndex];
+		if ( array_key_exists( $labelIndex, $this->label ) ) {
+			return $this->label[$labelIndex];
+		} else {
+			return '';
+		}
 	}
 
 	public function getID() {
