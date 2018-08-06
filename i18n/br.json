@@ -6,7 +6,8 @@
 			"Gwendal",
 			"Gwenn-Ael",
 			"Y-M D",
-			"Nemo bis"
+			"Nemo bis",
+			"Dishual"
 		]
 	},
 	"srf-desc": "Furmadoù ouzhpenn evit ar rekedoù Semantic MediaWiki",
@@ -14,6 +15,7 @@
 	"srf-module-loading": "O kargañ...",
 	"srf-paramdesc-height": "Uhelder",
 	"srf-paramdesc-width": "Ledander",
+	"srf-module-nomatch": "N'eus bet kavet netra.",
 	"srf-navigation-previous": "Kent",
 	"srf-ui-navigation-prev": "Kent",
 	"srf-ui-navigation-next": "War-lerc'h",
@@ -113,6 +115,9 @@
 	"srf-filtered-selectorlabel-list": "Roll",
 	"srf-filtered-selectorlabel-table": "Taolenn",
 	"srf-filtered-selectorlabel-calendar": "Deiziadur",
+	"srf-filtered-selectorlabel-map": "Kartenn",
+	"srf-filtered-value-filter-and": "HA",
+	"srf-filtered-value-filter-or": "PE",
 	"srf-printername-d3chart": "Grafik 3M",
 	"srf-paramdesc-zoom": "Gweredekaat ar zoum",
 	"srf-ui-eventcalendar-label-today": "Hiziv",
@@ -120,6 +125,7 @@
 	"srf-ui-eventcalendar-label-week": "Sizhun",
 	"srf-ui-eventcalendar-label-day": "Deiz",
 	"srf-ui-eventcalendar-label-allday": "A-hed an deiz",
+	"srf-paramdesc-unit": "Unvez",
 	"srf-ui-mediaplayer-label-previous": "Kent",
 	"srf-ui-mediaplayer-label-play": "Lenn",
 	"srf-ui-mediaplayer-label-pause": "Ehanañ",

@@ -53,12 +53,7 @@ class ResourceFormatter {
 
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'smw-spinner left mw-small-spinner' ),
-			Html::element(
-				'p',
-				array( 'class' => 'text' ),
-				wfMessage( 'smw-livepreview-loading' )->text()
-			)
+			array( 'class' => 'srf-loading-dots' )
 		);
 	}
 
@@ -75,7 +70,8 @@ class ResourceFormatter {
 			\Skin::makeVariablesScript(
 				[
 					$id => json_encode( $data )
-				]
+				],
+				false
 			)
 		);
 	}

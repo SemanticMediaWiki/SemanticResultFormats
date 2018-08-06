@@ -7,21 +7,31 @@ This is not a release yet.
 * Raised minimum required version of PHP to 5.6
 * Raised minimum required version of MediaWiki to 1.27
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
-* (#248) Fixed localized formatting of math results (by James Hong Kong)
-* Provided translation updates (by translatewiki.net community)
-* [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests (by James Hong Kong)
-* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Update for new versions of the GraphViz extension
+* #248 Fixed localization of numbers in the math result formats (by James Hong Kong)
+* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension
+* Updated translations (by translatewiki.net community)
+
+## SRF 2.5.5
+
+Released on April 4, 2018.
+
+* #354: Fixed value filter labels for the "filtered" format (by Stephan Gambke)
+* #355: Fixed missing namespace in the "tagcloud" format (by Cindy Cicalese)
+* #361: Set stacking context for srf-gallery-slideshow in the "gallery" format (by Stephan Gambke)
+* #374: Fixed "select2" list elements rendering outside of containing element for the "filtered" format (by Matthew A.Thompson)
+* #379: Fixed result printers still using the Google Chart API ("googlechart", "googlepie") via http (by Karsten Hoffmeyer)
+* #383: Updated some "leaflet" and "select2" modules and fixed "package-lock.json" for the "fitered" format (by Stephan Gambke)
 
 ## SRF 2.5.4
 
 Released on November 13, 2017.
 
-* #337: Fixes style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
-* #343: Fixes style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
+* #337: Fixed style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
+* #343: Fixed style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
 * #346: Brings more performance improvements and adds missing system messages for the value filter of the "filtered" format (by Stephan Gambke)
-* #349: Removes `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
-* #351: Adds `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
-* Makes map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
+* #349: Removed `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
+* #351: Added `map view marker icon property` and `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
+* Made map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
 
 ## SRF 2.5.3
 
@@ -88,6 +98,12 @@ Released on June 13, 2017.
 * Fixed jplayer file path used by media format (by Stephan Gambke)
 * Fixed gallery format to ensure compatibility with MW 1.23+ (by James Hong Kong)
 * Provided translation updates (by translatewiki.net community)
+
+## SRF 2.4.3
+
+Released on May 7, 2017
+
+* #199: Fixed uncaught TypeError on 'in' operator to search for 'length' for "eventcalendar" format (by gesinn.it)
 
 ## SRF 2.4.2
 

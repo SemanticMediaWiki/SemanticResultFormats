@@ -579,7 +579,7 @@
 			var self = this;
 
 			// Hide loading spinner
-			context.find( '.smw-spinner' ).hide();
+			context.find( '.srf-loading-dots' ).hide();
 
 			// Show container
 			container.css( { 'display' : 'block' , overflow: 'hidden' } );

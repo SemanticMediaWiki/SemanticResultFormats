@@ -6,7 +6,8 @@
 			"Emilbk",
 			"Jon Harald Søby",
 			"Nemo bis",
-			"Jeblad"
+			"Jeblad",
+			"Imre Eilertsen"
 		]
 	},
 	"srf-desc": "Tilleggsformater for Semantic MediaWiki-spørringer",
@@ -274,6 +275,9 @@
 	"srf-ui-eventcalendar-label-month": "Måned",
 	"srf-ui-eventcalendar-label-week": "Uke",
 	"srf-ui-eventcalendar-label-day": "Dag",
+	"srf-ui-eventcalendar-label-listmonth": "Måned (liste)",
+	"srf-ui-eventcalendar-label-listweek": "Uke (liste)",
+	"srf-ui-eventcalendar-label-listday": "Dag (liste)",
 	"srf-ui-eventcalendar-label-allday": "Hele dagen",
 	"srf-ui-eventcalendar-label-update-success": "Oppdateringen av hendelseskalenderen var vellykket.",
 	"srf-ui-eventcalendar-label-update-error": "Oppdateringen av hendelseskalenderen mislyktes.",

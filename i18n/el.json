@@ -8,12 +8,13 @@
 			"Glavkos",
 			"Thodoris",
 			"Nemo bis",
-			"KATRINE1992"
+			"KATRINE1992",
+			"Nikosgranturismogt"
 		]
 	},
 	"srf-desc": "Πρόσθετες μορφές αποτελεσμάτων για ερωτήματα του Σημασιολογικού MediaWiki",
 	"srf-name": "Μορφές σημασιολογικών αποτελεσμάτων",
-	"prefs-srf": "Μορφές σημασιολογικών αποτελεσμάτων",
+	"prefs-srf": "Επέκταση:Μορφές σημασιολογικών αποτελεσμάτων",
 	"srf-prefs-intro-text": "Έχετε εγκαταστήσει την επέκταση Μορφές σημασιολογικών αποτελεσμάτων. Για πρόσθετη βοήθεια, παρακαλούμε επισκεφθείτε τη σελίδα βοήθειας σχετικά με τις [https://www.semantic-mediawiki.org/wiki/Help:Result_formats μορφές αποτελεσμάτων].",
 	"prefs-srf-eventcalendar-options": "Επιλογές ημερολογίου εκδηλώσεων",
 	"srf-prefs-eventcalendar-options-update-default": "Ενεργοποίηση [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates αυτόματων ενημερώσεων] ημερολογίου εκδηλώσεων κατά την ανανέωση της σελίδας",
@@ -232,6 +233,9 @@
 	"srf-ui-eventcalendar-label-month": "Μήνας",
 	"srf-ui-eventcalendar-label-week": "Εβδομάδα",
 	"srf-ui-eventcalendar-label-day": "Ημέρα",
+	"srf-ui-eventcalendar-label-listmonth": "Μήνας (κατάλογος)",
+	"srf-ui-eventcalendar-label-listweek": "Εβδομάδα (κατάλογος)",
+	"srf-ui-eventcalendar-label-listday": "Ημέρα (κατάλογος)",
 	"srf-ui-eventcalendar-label-allday": "Όλη μέρα",
 	"srf-ui-eventcalendar-label-update-success": "Η ενημέρωση του ημερολογίου εκδηλώσεων ήταν επιτυχής.",
 	"srf-ui-eventcalendar-label-update-error": "Η ενημέρωση του ημερολογίου εκδηλώσεων απέτυχε.",

@@ -4,7 +4,8 @@
 			"An13sa",
 			"Subi",
 			"Mikel Ibaiba",
-			"Sator"
+			"Sator",
+			"Amaia"
 		]
 	},
 	"srf-name": "Emaitza semantikoen formatuak",
@@ -125,6 +126,9 @@
 	"srf-ui-eventcalendar-label-month": "Hilabetea",
 	"srf-ui-eventcalendar-label-week": "Astea",
 	"srf-ui-eventcalendar-label-day": "Eguna",
+	"srf-ui-eventcalendar-label-listmonth": "Hilabetea (zerrenda)",
+	"srf-ui-eventcalendar-label-listweek": "Astea (zerrenda)",
+	"srf-ui-eventcalendar-label-listday": "Eguna (zerrenda)",
 	"srf-ui-eventcalendar-label-allday": "Egun osoa",
 	"srf-paramdesc-unit": "Unitatea",
 	"srf-ui-mediaplayer-label-previous": "Aurrekoa",

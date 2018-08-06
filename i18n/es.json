@@ -22,7 +22,8 @@
 			"Luzcaru",
 			"Peter Bowman",
 			"Nemo bis",
-			"KATRINE1992"
+			"KATRINE1992",
+			"Amaia"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -30,8 +31,10 @@
 	"prefs-srf": "Extensión:Formatos de resultados semánticos",
 	"srf-prefs-intro-text": "Tienes instalada la extensión para dar formato a los resultados semánticos. Para obtener ayuda adicional, visita la página de ayuda sobre los [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de los resultados].",
 	"prefs-srf-eventcalendar-options": "Opciones de eventos de calendario",
+	"srf-prefs-eventcalendar-options-update-default": "Desactivar [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates automatic updates] de eventos de calendario durante la recarga de las páginas",
 	"srf-prefs-eventcalendar-options-paneview-default": "Activar el panel de vista de manera predeterminada",
 	"prefs-srf-datatables-options": "Opciones de DataTables",
+	"srf-prefs-datatables-options-cache-default": "Desactivar [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage local storage] para mejorar el tiempo de respuesta",
 	"srf-module-loading": "Cargando...",
 	"srf-paramdesc-layout": "Diseño disponible",
 	"srf-paramdesc-height": "Altura",
@@ -263,6 +266,7 @@
 	"srf-filtered-selectorlabel-map": "Mapa",
 	"srf-filtered-noscript-error": "No se pueden mostrar los resultados porque JavaScript está desactivado. Visita $1.",
 	"srf-filtered-noscript-link-caption": "resultados en formato tabular",
+	"srf-filtered-map-provider-missing-error": "No se especificó ningún proveedor de mapas para la vista «map».",
 	"srf-filtered-map-geocoordinateparser-missing-error": "No se encontró el analizador de coordenadas geográficas. Es necesario instalar «data-values/geo».",
 	"srf-filtered-value-filter-and": "Y",
 	"srf-filtered-value-filter-or": "O",
@@ -288,6 +292,9 @@
 	"srf-ui-eventcalendar-label-month": "Mes",
 	"srf-ui-eventcalendar-label-week": "Semana",
 	"srf-ui-eventcalendar-label-day": "Día",
+	"srf-ui-eventcalendar-label-listmonth": "Mes (lista)",
+	"srf-ui-eventcalendar-label-listweek": "Semana (lista)",
+	"srf-ui-eventcalendar-label-listday": "Día (lista)",
 	"srf-ui-eventcalendar-label-allday": "Todo el día",
 	"srf-ui-eventcalendar-label-update-success": "El calendario de eventos se actualizó correctamente.",
 	"srf-ui-eventcalendar-label-update-error": "El calendario de eventos de error de actualización.",

@@ -14,7 +14,9 @@
 			"Hzjethro",
 			"Nemo bis",
 			"Festina90",
-			"Mar(c)"
+			"Mar(c)",
+			"Patio",
+			"KlaasZ4usV"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -215,6 +217,8 @@
 	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-filtered-noscript-error": "De resulaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
+	"srf-filtered-value-filter-and": "EN",
+	"srf-filtered-value-filter-or": "OF",
 	"srf-printername-d3chart": "D3-grafiek",
 	"srf-printername-timeseries": "Tijdseriegrafiek",
 	"srf-paramdesc-group": "Series groepen op",
@@ -235,6 +239,9 @@
 	"srf-ui-eventcalendar-label-month": "Maand",
 	"srf-ui-eventcalendar-label-week": "Week",
 	"srf-ui-eventcalendar-label-day": "Dag",
+	"srf-ui-eventcalendar-label-listmonth": "Maand (lijst)",
+	"srf-ui-eventcalendar-label-listweek": "Week (lijst)",
+	"srf-ui-eventcalendar-label-listday": "Dag (lijst)",
 	"srf-ui-eventcalendar-label-allday": "Hele dag",
 	"srf-printername-dygraphs": "Dygraphsgrafiek",
 	"srf-paramdesc-datasource": "De bron op waar de gegevens toegankelijk zijn. Toegestane waarden: \"file\", \"raw\" en \"url\". Standaard: \"file\".",

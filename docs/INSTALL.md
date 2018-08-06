@@ -18,9 +18,9 @@ These are the installation and configuration instructions for [Semantic Result F
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.4</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.5</a></th>
 		<td>Stable version</td>
-		<td>2017-11-13</td>
+		<td>2018-04-04</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></td>
 	</tr>
 	<tr>

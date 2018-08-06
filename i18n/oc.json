@@ -3,7 +3,8 @@
 		"authors": [
 			"Boulaur",
 			"Cedric31",
-			"Nemo bis"
+			"Nemo bis",
+			"Unuaiga"
 		]
 	},
 	"srf-desc": "Formats adicionals d'afichatge de resultat per las requèstas de Semantic MediaWiki",
@@ -115,6 +116,9 @@
 	"srf-ui-eventcalendar-label-month": "Mes",
 	"srf-ui-eventcalendar-label-week": "Setmana",
 	"srf-ui-eventcalendar-label-day": "Jorn",
+	"srf-ui-eventcalendar-label-listmonth": "Mes (lista)",
+	"srf-ui-eventcalendar-label-listweek": "Setmana (lista)",
+	"srf-ui-eventcalendar-label-listday": "Jorn (lista)",
 	"srf-ui-eventcalendar-label-allday": "Tota la jornada",
 	"srf-paramdesc-unit": "Unitat",
 	"srf-printername-pagewidget": "Widget de pagina",
