@@ -1,0 +1,136 @@
+{
+	"description": "Test `format=vcard`",
+	"setup": [
+		{
+			"page": "Has birthday",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has address",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has cellphone",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Phone]]"
+		},
+		{
+			"page": "Has homephone",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Phone]]"
+		},
+		{
+			"page": "Has note",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has homepage",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::URL]]"
+		},
+		{
+			"page": "Has email",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Email]]"
+		},
+		{
+			"page": "Example/Vcard-01/0",
+			"contents": "[[Category:Vcard-00]]"
+		},
+		{
+			"page": "Example/Vcard-01/1",
+			"contents": "[[Category:Vcard-01]] [[Has name::John Doe]] [[Has birthday::1 Jan 1952]] [[Has email::johnDoe@example.org]] [[Has homepage::http://www.example/com/doe]] [[Has address::Example Avenue]] [[Has town::Anytown]] [[Has cellphone::+1 781 555 1212]] [[Has homephone::+1 202 555 1212]] [[Has note::John Doe has a long and varied history, being documented on more ...]]"
+		},
+		{
+			"page": "Example/Vcard-01/2",
+			"contents": "{{#subobject: |Has name=John Doe |Has birthday=1 Jan 1952 |Has email=johnDoe@example.org |Has homepage=http://www.example/com/doe |Has address=Example Avenue |Has town=Anytown |Has cellphone=+1 781 555 1212 |Has homephone=+1 202 555 1212 |Has note=John Doe has a long and varied history, being documented on more ... |@category=Vcard-02}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "special",
+			"about": "#0 `format=vcard` empty",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "vcard"
+					},
+					"q": "[[Category:Vcard-00]]",
+					"po": "?Category=category"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/vcard-01.0.txt"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#1 `format=vcard` name + address",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "vcard"
+					},
+					"q": "[[Category:Vcard-01]]",
+					"po": "?Has name=name|?Has birthday=birthday|?Has email=email|?Has homepage=homepage|?Has address=homestreet|?has town=homelocality|?Has cellphone=cellphone|?Has homephone=homephone|?Has note=note"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/vcard-01.1.txt"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#2 `format=vcard` name + address (subobject)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "vcard"
+					},
+					"q": "[[Category:Vcard-02]]",
+					"po": "?Has name=name|?Has birthday=birthday|?Has email=email|?Has homepage=homepage|?Has address=homestreet|?has town=homelocality|?Has cellphone=cellphone|?Has homephone=homephone|?Has note=note"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/vcard-01.2.txt"
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

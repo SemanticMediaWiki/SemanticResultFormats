@@ -1,0 +1,96 @@
+/*
+	Stylesheet for the number filter
+*/
+.filtered-filters .filtered-number {
+
+	overflow: visible;
+	border: 1px solid #aaaaaa;
+	padding: 1em 1em 0.5em;
+	margin: 1em;
+
+	.filtered-number-caption {
+		line-height: 2em;
+		text-align: center;
+	}
+
+	.filtered-number-slider {
+
+		.irs-line-mid,
+		.irs-line-left,
+		.irs-line-right,
+		.irs-bar,
+		.irs-bar-edge,
+		.irs-slider {
+			background: none;
+		}
+
+		.irs-bar,
+		.irs-bar-edge {
+			border-top: 1px solid #aaaaaa;
+			border-bottom: 1px solid #aaaaaa;
+		}
+
+		.irs-bar-edge {
+			border-radius: 3px 0 0 3px;
+			border-left: 1px solid #aaaaaa;
+		}
+
+		.irs-line {
+			border: 1px solid #aaaaaa;
+			border-radius: 3px;
+		}
+
+		&.mode-min {
+			.irs-bar,
+			.irs-bar-edge {
+				background: #ffffff;
+			}
+			.irs-line {
+				background: #dddddd;
+			}
+		}
+
+		&.mode-max,
+		&.mode-range {
+			.irs-bar,
+			.irs-bar-edge {
+				background: #dddddd;
+			}
+			.irs-line {
+				background: #ffffff;
+			}
+		}
+
+		&.mode-select {
+			.irs-line {
+				background: #ffffff;
+			}
+		}
+
+		.irs-slider {
+			width: 20px;
+			height: 20px;
+			top: 18px;
+			background-position: 0 -120px;
+			border: 1px solid #cccccc;
+			border-radius: 10px;
+			background: #ffffff;
+
+			&::after {
+				content: '';
+				background: #9aa4bd;
+				position: absolute;
+				display: block;
+				top: 5px;
+				left: 5px;
+				right: 5px;
+				bottom: 5px;
+				border-radius: 5px;
+			}
+
+			&:hover::after {
+				background: #bb0000;
+			}
+		}
+	}
+}

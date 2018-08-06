@@ -8,8 +8,13 @@ function installPHPUnitWithComposer {
 	if [ "$PHPUNIT" != "" ]
 	then
 		composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
-	else
-		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
+	fi
+}
+
+function installSMWWithComposer {
+	if [ "$SMW" != "" ]
+	then
+		composer require 'mediawiki/semantic-media-wiki='$SMW --update-with-dependencies
 	fi
 }
 
@@ -20,14 +25,15 @@ function installToMediaWikiRoot {
 	cd $MW_INSTALL_PATH
 
 	installPHPUnitWithComposer
-	composer require mediawiki/semantic-result-formats "dev-master" --dev
+	installSMWWithComposer
+	composer require mediawiki/semantic-result-formats "dev-master"
 
 	cd extensions
 	cd SemanticResultFormats
 
 	# Pull request number, "false" if it's not a pull request
-	# After the install via composer an additional get fetch is carried out to
-	# update th repository to make sure that the latests code changes are
+	# After the install via composer an additional git fetch is carried out to
+	# update the repository to make sure that the latest code changes are
 	# deployed for testing
 	if [ "$TRAVIS_PULL_REQUEST" != "false" ]
 	then
@@ -55,6 +61,7 @@ function updateConfiguration {
 	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
+	echo '$GLOBALS["srfgFormats"][] = "filtered";' >> LocalSettings.php
 
 	php maintenance/update.php --skip-external-dependencies --quick
 }

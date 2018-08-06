@@ -1,0 +1,68 @@
+{
+	"description": "Test `format=icalendar`",
+	"setup": [
+		{
+			"page": "Has date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Example/ICalendar-01/1",
+			"contents": "[[Has date::1 Jan 1970]] [[Category:ICalendar-01]]"
+		},
+		{
+			"page": "Example/ICalendar/Q.1",
+			"contents": "{{#ask: [[Category:ICalendar-01]] |?Has date |title=SRF integration |description=Simple description |format=icalendar }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 `format=icalendar` embedded",
+			"subject": "Example/ICalendar/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"Special:Ask/-5B-5BCategory:ICalendar-2D01-5D-5D/-3FHas-20date/mainlabel%3D/limit%3D50/offset%3D0/format%3Dicalendar/title%3DSRF-20integration/description%3DSimple-20description"
+				]
+			}
+		},
+		{
+			"type": "special",
+			"about": "#1 `format=icalendar` raw output via `Special:Ask`",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "icalendar",
+						"title": "SRF integration",
+						"description": "Simple description"
+					},
+					"q": "[[Category:ICalendar-01]]",
+					"po": "?Has date"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/icalendar-01.1.txt"
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

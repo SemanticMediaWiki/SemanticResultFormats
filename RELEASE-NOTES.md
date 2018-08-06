@@ -1,12 +1,93 @@
-These are the release notes for the [Semantic Result Formats]
-(https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
+These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
 
-## SRF 2.5.0
+## SRF 3.0.0
 
 This is not a release yet.
 
+* Raised minimum required version of PHP to 5.6
+* Raised minimum required version of MediaWiki to 1.27
+* Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
+* (#248) Fixed localized formatting of math results (by James Hong Kong)
+* Provided translation updates (by translatewiki.net community)
+* [#314](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/314) Moved `vCard` to the `SRF\vCard` namespace together with some unit and integration tests (by James Hong Kong)
+* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Update for new versions of the GraphViz extension
+
+## SRF 2.5.4
+
+Released on November 13, 2017.
+
+* #337: Fixes style issues when collapsing filters for the "filtered" format (by Stephan Gambke)
+* #343: Fixes style and layout fixes and optimise performance of the "filtered" format (by Stephan Gambke)
+* #346: Brings more performance improvements and adds missing system messages for the value filter of the "filtered" format (by Stephan Gambke)
+* #349: Removes `default` parameter from "earliest" and "latest" formats (by James Hong Kong)
+* #351: Adds `map view marker icon property`, `map view marker icons` parameters to allow map icons depending on a printout value to the "filtered" format (by Stephan Gambke)
+* Makes map assets load over HTTPS for the "exhibit" format (by Máté Szabó)
+
+## SRF 2.5.3
+
+Released on October 25, 2017.
+
+* #293: Fixes resource loading for the "timeline" format (by James Hong Kong)
+* #295: Fixes issues with subobject for the "timeline" format (by James Hong Kong)
+* #299: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)
+    - #224: Makes radio buttons belong to the same button group
+    - #278: Adds a multi-select dropdown or similar for value filters
+    - #286: Brings a reworked number filter
+    - #291: Fixes `list view template` to actually show the template instead of defaulting to a table
+* #300: Brings improvements and fixes to the "filtered" format: (by Stephan Gambke)
+    - Brings back checkboxes for value filter with only few values  
+    - Brings new query parameter ` |+value filter max checkboxes`  
+    - Allows for easier installation of "data-values/geo"
+* #302: Fixes error messages shown in the instance language instead of the user language for the "filtered" format (by Stephan Gambke)
+* #305: Fixes "SRF\Filtered\Filtered::setParser() must be an instance of Parser..." for the "filtered" format (by Stephan Gambke)
+* Fixes issues with HTML-encoded values sent by JavaScript for the "filtered" format (by Stephan Gambke)
+* #324: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)  
+    - #318: Wrap input elements of the Value filter (checkboxes and radioboxes) in label elements. This way they will also be triggered when only the label text is clicked.
+    - #322: Show a spinner while filtering. This will block users from triggering further filter events while filtering is still ongoing.
+    - #323: Adds printout parameter`|+show if undefined`. Setting it makes filters show a result item even if the printout does not contain a value.
+* #328: Brings useability fixes to the "filtered" foramat like the fix for the styling of Value filter for long labels as well as the fix for the slider grid when showing less than 4 step values (by Stephan Gambke)
+* #331: Switches the "filtered" format to use Less instead of CSS (by Stephan Gambke)
+* #334: Adds an On/Off switch for filters to the "filtered" format (by Stephan Gambke)
+
+## SRF 2.5.2
+
+Released on August 17, 2017.
+
+* #266: Fixed bug #224: The and/or selectors can not be selected at the same time anymore in "filtered" format (by Stephan Gambke)
+* #269: Fixed bug #263: Fix the `link` and `userparam` parameters on the "tree" format and provide tests for it (by Stephan Gambke)
+* #276: Use type `parser-html` for JsonScript tests of the "tree" format (by Stephan Gambke)
+* #284: Fixed rendering of the "calendar" format in Internet Explorer (by kwji)
+* #285: Add `+hide` for all views of the "filtered" format (by Stephan Gambke)
+* Provided translation updates (by translatewiki.net community)
+
+## SRF 2.5.1
+
+Released on July 11, 2017.
+
+* #236: Fixed bug #234: Make the "oltree" format to actually use `<ol>`
+* #237: Fixed bug #235: Fix the `template` parameter to the "tree", "oltree" and "ultree" formats
+* Fixed bug #253: Remove obsolete `"div"` element `align="justify"` from the "tagcloud" and "gallery" formats
+* Provided translation updates (by translatewiki.net community)
+
+## SRF 2.5.0
+
+Released on June 13, 2017.
+
 * Dropped compatibility with PHP 5.3 and 5.4
 * Dropped compatibility with MediaWiki 1.19 to 1.22
+* Updated installation instructions in [INSTALL.md](INSTALL.md)
+* Changed bootstrapping of SRF to make it work with SMW 3.0+ (by James Hong Kong)
+* Re-organized file layout unit testing and added JSONScript integration testing facility from SMW (by Stephan Gambke) 
+* Improved math format to recognize output format "-" (by Sebastian Schmid (gesinn.it))
+* Improved eventcalendar format: Added parameter 'clicktarget' to allow users to define a target URL that get's called when clicking on a calendar date. (by Felix Aba)
+* Reworked tree format (by Stephan Gambke)
+* Reworked filtered format which is no longer available by default (by Stephan Gambke)
+* Fixed bug #199 in HTML utils JS script (by gesinn.it)
+* Fixed bug #207: Added missing system messages for the process format and improved existing system messages for the graph format (by Karsten Hoffmeyer)
+* Fixed bug #215: Added missing argument 4 for `GraphViz::graphvizParserHook()` (by Karsten Hoffmeyer)
+* Fixed jplayer file path used by media format (by Stephan Gambke)
+* Fixed gallery format to ensure compatibility with MW 1.23+ (by James Hong Kong)
+* Provided translation updates (by translatewiki.net community)
 
 ## SRF 2.4.2
 

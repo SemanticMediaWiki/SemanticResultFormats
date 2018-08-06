@@ -5,7 +5,8 @@
 			"Nike",
 			"Silvonen",
 			"Str4nd",
-			"Pyscowicz"
+			"Pyscowicz",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Muita muotoja Semantic MediaWikin upotetuille kyselyille",
@@ -115,10 +116,10 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "Viimeinen",
 	"srf-ui-datatables-label-oPaginate-sNext": "Seuraava",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Edellinen",
-	"srf_printername_tree": "Puu",
-	"srf_printername_ultree": "Puu (luettelo)",
-	"srf_printername_oltree": "Puu (numeroitu)",
-	"srf-noparentprop": "Ylätason ominaisuus puuttuu. Puuta ei voi rakentaa, jos ylätason ominaisuutta ei ole määritetty.",
+	"srf-printername-tree": "Puu",
+	"srf-printername-ultree": "Puu (luettelo)",
+	"srf-printername-oltree": "Puu (numeroitu)",
+	"srf-tree-noparentprop": "Ylätason ominaisuus puuttuu. Puuta ei voi rakentaa, jos ylätason ominaisuutta ei ole määritetty.",
 	"srf-paramdesc-navigation-controls": "Näytä navigointiohjaimet tai ei",
 	"srf-printername-filtered": "Suodatettu",
 	"srf-paramdesc-filtered-list-type": "Luettelotyypit. Sallitut arvot: list, ul, ol. Oletusarvo: list.",

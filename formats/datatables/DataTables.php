@@ -1,7 +1,10 @@
 <?php
 
 namespace SRF;
-use SMW, Html;
+
+use SMW\ResultPrinter;
+use SMWQueryResult as QueryResult;
+use Html;
 
 /**
  * DataTables and SMWAPI.
@@ -11,64 +14,23 @@ use SMW, Html;
  *
  * @author mwjames
  */
-class DataTables extends SMW\ApiResultPrinter {
+class DataTables extends ResultPrinter {
 
 	/**
-	 * Corresponding message name
+	 * @see ResultPrinter::getName
 	 *
+	 * {@inheritDoc}
 	 */
 	public function getName() {
-		return $this->getContext()->msg( 'srf-printername-datatables' )->text();
+		return $this->msg( 'srf-printername-datatables' )->text();
 	}
 
 	/**
-	 * Prepare html output
-	 *
-	 * @since 1.9
-	 *
-	 * @param array $data
-	 * @return string
-	 */
-	protected function getHtml( array $data ) {
-
-		// Init
-		$this->isHTML = true;
-		$id = $this->getId();
-
-		// Add options
-		$data['version'] = '0.2.5';
-
-		// Encode data object
-		$this->encode( $id, $data );
-
-		// Init RL module
-		$this->addResources( 'ext.srf.datatables' );
-
-		// Element includes info, spinner, and container placeholder
-		return Html::rawElement( 'div', [
-				'class' => 'srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
-				'data-theme' => $this->params['theme'],
-			], Html::element( 'div', [
-					'class' => 'top'
-					]
-				) . $this->loading() .
-				Html::element( 'div', [
-					'id' => $id,
-					'class' => 'container',
-					'style' => 'display:none;'
-					]
-				)
-		);
-	}
-
-	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
-	 * @param $definitions array of IParamDefinition
-	 *
-	 * @return array of IParamDefinition|array
+	 * {@inheritDoc}
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
@@ -86,4 +48,51 @@ class DataTables extends SMW\ApiResultPrinter {
 
 		return $params;
 	}
+
+	/**
+	 * @see ResultPrinter::getResultText
+	 *
+	 * {@inheritDoc}
+	 */
+	protected function getResultText( QueryResult $res, $outputmode ) {
+
+		$resourceFormatter = new ResourceFormatter();
+		$data = $resourceFormatter->getData( $res, $outputmode, $this->params );
+
+		$this->isHTML = true;
+		$id = $resourceFormatter->session();
+
+		// Add options
+		$data['version'] = '0.2.5';
+
+		// Encode data object
+		$resourceFormatter->encode( $id, $data );
+
+		// Init RL module
+		$resourceFormatter->registerResources( [ 'ext.srf.datatables' ] );
+
+		// Element includes info, spinner, and container placeholder
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
+				'data-theme' => $this->params['theme'],
+			],
+			Html::element(
+				'div',
+				[
+					'class' => 'top'
+				],
+				''
+			) . $resourceFormatter->placeholder() .	Html::element(
+				'div',
+				[
+					'id' => $id,
+					'class' => 'container',
+					'style' => 'display:none;'
+				]
+			)
+		);
+	}
+
 }

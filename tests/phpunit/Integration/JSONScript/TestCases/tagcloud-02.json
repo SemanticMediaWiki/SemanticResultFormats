@@ -1,0 +1,78 @@
+{
+	"description": "Test `format=tagcloud` html output, namespaced",
+	"setup": [
+		{
+			"page": "Has page",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"page": "TagcloudTemplate",
+			"namespace": "NS_TEMPLATE",
+			"contents": "<includeonly>{{{1}}}</includeonly>"
+		},
+		{
+			"page": "Example/Tagcloud/1",
+			"namespace": "NS_HELP",
+			"contents": "[[Has page::Help:Test1]] [[Category:Tagcloud-2]]"
+		},
+		{
+			"page": "Example/Tagcloud/2",
+			"namespace": "NS_HELP",
+			"contents": "[[Has page::Help:Test2]] [[Category:Tagcloud-2]]"
+		},
+		{
+			"page": "Example/Tagcloud/3",
+			"namespace": "NS_HELP",
+			"contents": "[[Has page::Help:Test3]] [[Category:Tagcloud-2]]"
+		},
+		{
+			"page": "Test/Tagcloud/Q.1",
+			"contents": "{{#ask: [[Category:Tagcloud-2]] |?Has page |format=tagcloud }}"
+		},
+		{
+			"page": "Test/Tagcloud/Q.2",
+			"contents": "{{#ask: [[Category:Tagcloud-2]] |?Has page |template=TagcloudTemplate |format=tagcloud }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 (namespaced page value)",
+			"subject": "Test/Tagcloud/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<a href=.* class=\"new\" title=\"Help:Test1.*\">Help:Test1</a>",
+					"<a href=.* class=\"new\" title=\"Help:Test2.*\">Help:Test2</a>",
+					"<a href=.* class=\"new\" title=\"Help:Test3.*\">Help:Test3</a>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 (#355, template namespaced page value)",
+			"subject": "Test/Tagcloud/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"<span style=\"font-size:77%\">Help:Test1</span>",
+					"<span style=\"font-size:77%\">Help:Test2</span>",
+					"<span style=\"font-size:77%\">Help:Test3</span>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_HELP":true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

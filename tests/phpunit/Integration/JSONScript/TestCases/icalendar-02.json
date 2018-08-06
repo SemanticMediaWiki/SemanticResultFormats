@@ -1,0 +1,78 @@
+{
+	"description": "Test `format=icalendar` on iCalendar specific labels using `Special:Ask`",
+	"setup": [
+		{
+			"page": "Has planned start",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has planned finish",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has conference",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has description",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has location",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"page": "Example/ICalendar-02/1",
+			"contents": "[[Has conference::A]] [[Has planned start::1 Jan 1970]] [[Has location::LOC-A]] [[Has description::Something about A]] [[Category:ICalendar-02]]"
+		},
+		{
+			"page": "Example/ICalendar-02/2",
+			"contents": "[[Has conference::B]] [[Has planned start::2 Jan 1970 12:00]] [[Has planned finish::2 Jan 1970 15:00]] [[Has location::LOC-B]] [[Has description::Something about B]] [[Category:ICalendar-02]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "special",
+			"about": "#0 `format=icalendar`, match iCalendar specific labels",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "icalendar",
+						"title": "SRF integration",
+						"description": "Simple description"
+					},
+					"q": "[[Category:ICalendar-02]]",
+					"po": "?Has conference=summary|?Has planned start=start|?Has planned finish=end|?Has location=location|?Has description=description"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/icalendar-02.0.txt"
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

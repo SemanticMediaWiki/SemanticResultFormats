@@ -388,12 +388,12 @@ class SRFArray extends SMWResultPrinter {
 		global $srfgArraySep, $srfgArrayPropSep, $srfgArrayManySep, $srfgArrayRecordSep, $srfgArrayHeaderSep;
 
 		$params['sep'] = [
-			'message' => 'smw_paramdesc_sep',
+			'message' => 'smw-paramdesc-sep',
 			'default' => $this->initializeCfgValue( $srfgArraySep, 'sep' ),
 		];
 
 		$params['propsep'] = [
-			'message' => 'smw_paramdesc_propsep',
+			'message' => 'srf_paramdesc_propsep',
 			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
 		];
 

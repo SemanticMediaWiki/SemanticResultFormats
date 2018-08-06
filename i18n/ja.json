@@ -14,7 +14,8 @@
 			"Sujiniku",
 			"Otokoume",
 			"Ochaochaocha3",
-			"Omotecho"
+			"Omotecho",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
@@ -149,7 +150,7 @@
 	"srf-ui-datatables-label-sLoadingRecords": "読み込み中...",
 	"srf-ui-datatables-label-sProcessing": "処理中...",
 	"srf-ui-datatables-label-sSearch": "検索：",
-	"srf-paramdesc-parent": "親ページを含むプロパティ",
+	"srf-paramdesc-tree-parent": "親ページを含むプロパティ",
 	"srf-printername-slideshow": "スライドショー",
 	"srf-paramdesc-delay": "スライド間の遅延 (秒)",
 	"srf-paramdesc-navigation-controls": "ナビゲーション コントロールを表示するかどうか",

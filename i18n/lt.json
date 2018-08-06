@@ -3,7 +3,8 @@
 		"authors": [
 			"Hugo.arg",
 			"Zygimantus",
-			"Eitvys200"
+			"Eitvys200",
+			"Nemo bis"
 		]
 	},
 	"srf-module-loading": "Kraunama...",
@@ -121,8 +122,8 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Ankstesnis",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": aktyvuokite, kad rūšiuotumėte stulpelius didėjimo tvarka",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": aktyvuokite, kad rūšiuotumėte stulpelius mažėjimo tvarka",
-	"srf_printername_tree": "Medis",
-	"srf-rootinvalid": "$1 nėra galimas puslapio pavadinimas.",
+	"srf-printername-tree": "Medis",
+	"srf-tree-rootinvalid": "$1 nėra galimas puslapio pavadinimas.",
 	"srf-printername-slideshow": "Skaidrių peržiūra",
 	"srf-paramdesc-delay": "Pauzė tarp skaidrių sekundėmis",
 	"srf-paramdesc-navigation-controls": "Ar rodyti navigacijos valdiklius",

@@ -1,0 +1,43 @@
+{
+	"description": "Tree format: Raising error: Missing 'parent' parameter",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Part of",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Boostrap",
+			"contents": "[[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 03-01",
+			"contents": "{{#ask:[[Part of::Tree test]]|format=tree}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "Tree 03-01 (Raising error: Missing 'parent' parameter)",
+			"subject": "Example/Tree 03-01",
+			"assert-output": {
+				"to-contain": [
+					"No parent property given. The tree can not be built without a specified parent property."
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

@@ -50,7 +50,7 @@
 	"srf_paramdesc_graphlabel": "Popisek grafu",
 	"srf_paramdesc_rankdir": "Směr šipky",
 	"srf_paramdesc_graphcolor": "Barva grafu",
-	"srf_printername_tree": "Strom",
+	"srf-printername-tree": "Strom",
 	"srf-printername-slideshow": "Prezentace",
 	"srf-filtered-selectorlabel-list": "Seznam",
 	"srf-filtered-selectorlabel-calendar": "Kalendář",

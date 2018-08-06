@@ -1,0 +1,56 @@
+{
+	"description": "Filtered format: ...",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/City name",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/Location",
+			"contents": "[[Has type::Geographic coordinates]]"
+		},
+
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "City",
+			"contents": "[[Category:Filtered test]][[Category:City]][[Filtered test/City name::{{{name|}}}]][[Filtered test/Location:: {{{latitude|}}}°, {{{longitude|}}}°]]"
+		},
+
+		{
+			"page": "Filtered test/Berlin",
+			"contents": "{{City |name=Berlin |latitude=52.52437 |longitude=13.41053 }}"
+		},
+		{
+			"page": "Example/Filtered 02-01",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |?Filtered test/Location |format=filtered |views=map}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "Filtered 02-01 (Map view: No srfgMapProvider specified)",
+			"subject": "Example/Filtered 02-01",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"div.filtered + span.smw-highlighter[data-title=\"Warning\"][title='No map provider specified for \"map\" view.']"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

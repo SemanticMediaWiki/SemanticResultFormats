@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Nemo bis"
 		]
 	},
 	"srf-name": "අර්ථ විචාර ප්‍රතිඑල ආකෘතීන්",
@@ -108,10 +109,10 @@
 	"srf-paramdesc-graphcolor": "ප්‍රස්තාර වර්ණය",
 	"srf-paramdesc-graph-wwl": "වචන පොරෝන සීමාව (# අක්ෂර වලින්)",
 	"srf-printername-datatables": "දත්තවගු",
-	"srf_printername_tree": "වෘක්ෂය",
-	"srf_printername_ultree": "අල්ට්‍රි",
-	"srf_printername_oltree": "ඔල්ට්‍රි",
-	"srf-paramdesc-parent": "මාපිය පිටුව අන්තර්ගත වන වත්කම",
+	"srf-printername-tree": "වෘක්ෂය",
+	"srf-printername-ultree": "අල්ට්‍රි",
+	"srf-printername-oltree": "ඔල්ට්‍රි",
+	"srf-paramdesc-tree-parent": "මාපිය පිටුව අන්තර්ගත වන වත්කම",
 	"srf-printername-slideshow": "පැතිදර්ශනය",
 	"srf-paramdesc-delay": "පැති අතර පමාව තත්පර වලින්",
 	"srf-paramdesc-navigation-controls": "යාත්‍රණ පාලක පෙන්වන්න හෝ එපා",

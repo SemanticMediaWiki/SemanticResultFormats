@@ -28,7 +28,7 @@ class Gallery extends ResultPrinter {
 	 * @return string
 	 */
 	public function getName() {
-		return $this->getContext()->msg( 'srf_printername_gallery' )->text();
+		return $this->msg( 'srf_printername_gallery' )->text();
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Gallery extends ResultPrinter {
 		// Intro/outro are not planned to work with the widget option
 		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ){
 			return $results->addErrors( [
-				$this->getContext()->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
+				$this->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
 			] );
 		};
 
@@ -163,7 +163,6 @@ class Gallery extends ResultPrinter {
 		if ( !$ig->isEmpty() ) {
 			$attribs =  [
 				'class'  => 'srf-gallery' . $class,
-				'align'  => 'justify',
 				'data-redirect-type' => $redirectType,
 				'data-ns-text' => $this->getFileNsTextForPageLanguage()
 			];
@@ -487,12 +486,12 @@ class Gallery extends ResultPrinter {
 	}
 
 	private function isSpecialPage() {
-		$title = $this->getContext()->getTitle();
+		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title && $title->isSpecialPage();
 	}
 
 	private function getFileNsTextForPageLanguage() {
-		$title = $this->getContext()->getTitle();
+		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
 	}
 

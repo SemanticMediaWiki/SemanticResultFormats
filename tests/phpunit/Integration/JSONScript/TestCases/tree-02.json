@@ -1,0 +1,77 @@
+{
+	"description": "Tree format: Simple one-page result",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has parent",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Part of",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "Example/Tree format template",
+			"contents": "FOO{{{1|}}}BAR"
+		},
+		{
+			"page": "Example/Tree 1",
+			"contents": "[[Part of::Tree test]]"
+		},
+		{
+			"page": "Example/Tree 02-01",
+			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent}}"
+		},
+		{
+			"page": "Example/Tree 02-02",
+			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent|template=Example/Tree format template }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "Tree 02-01 (Simple one-page result)",
+			"subject": "Example/Tree 02-01",
+			"assert-output": {
+				"to-contain": [
+					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Tree 02-02-1 (Simple one-page result with template - structure)",
+			"subject": "Example/Tree 02-02",
+			"assert-output": {
+				"to-contain": [
+					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Tree 02-02-2 (Simple one-page result with template - content)",
+			"subject": "Example/Tree 02-02",
+			"assert-output": {
+				"to-contain": [
+					"FOO.*Example/Tree 1.*BAR"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

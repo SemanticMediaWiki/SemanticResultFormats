@@ -79,13 +79,13 @@ class TagCloud extends ResultPrinter {
 	}
 
 	private function isHTML() {
-		$title = $this->getTitle();
+		$title = $GLOBALS['wgTitle'];
 
-		if ( !( $title instanceof Title ) ) {
-			return false;
+		if ( $title instanceof Title ) {
+			return $title->isSpecialPage() && !$this->hasTemplates;
 		}
 
-		return $title->isSpecialPage() && !$this->hasTemplates;
+		return false;
 	}
 
 	/**
@@ -118,7 +118,7 @@ class TagCloud extends ResultPrinter {
 
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $dataValue->getTypeID() === '_wpg' && $dataValue->getTitle() instanceof Title ) {
-						$value = $dataValue->getTitle()->getText();
+						$value = $dataValue->getTitle()->getPrefixedText();
 						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
 					} else {
 						$html = $dataValue->getShortText( $outputMode, $this->getLinker( false ) );
@@ -314,8 +314,7 @@ class TagCloud extends ResultPrinter {
 		// General placeholder
 		$attribs =  [
 			'class'  => 'srf-tagcloud' . $class,
-			'data-version' => '0.4.1',
-			'align'  => 'justify'
+			'data-version' => '0.4.1'
 		];
 
 		return Html::rawElement( 'div', $attribs, $processing . $htmlSTags );

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Boulaur",
-			"Cedric31"
+			"Cedric31",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Formats adicionals d'afichatge de resultat per las requèstas de Semantic MediaWiki",
@@ -95,11 +96,11 @@
 	"srf-ui-datatables-label-oPaginate-sNext": "Seguent",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Precedent",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": activar per triar la colomna en òrdre creissent",
-	"srf_printername_tree": "Arbre",
-	"srf_printername_ultree": "Arbre UL",
-	"srf_printername_oltree": "Arbre OL",
-	"srf-rootinvalid": "$1 es pas un títol de pagina valid.",
-	"srf-paramdesc-root": "La pagina raiç de l’arbre",
+	"srf-printername-tree": "Arbre",
+	"srf-printername-ultree": "Arbre UL",
+	"srf-printername-oltree": "Arbre Ol",
+	"srf-tree-rootinvalid": "$1 es pas un títol de pagina valid.",
+	"srf-paramdesc-tree-root": "La pagina raiç de l’arbre",
 	"srf-printername-slideshow": "Diaporama",
 	"srf-printername-filtered": "Filtrat",
 	"srf-paramdesc-filtered-list-type": "Lo tipe de la lista. Valors permesas: « list », « ul », « ol ». Per defaut : « list ».",

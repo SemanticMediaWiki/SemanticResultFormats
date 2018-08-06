@@ -6,7 +6,7 @@
  * @defgroup SRF Semantic Result Formats
  */
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the SemanticResultFormats extension, it is not a valid entry point.' );
+	die( 'This file is part of the Semantic Result Formats extension, it is not a valid entry point.' );
 }
 
 if ( defined( 'SRF_VERSION' ) ) {
@@ -51,7 +51,7 @@ class SemanticResultFormats {
 	 */
 	public static function initExtension() {
 
-		define( 'SRF_VERSION', '2.5.0-alpha' );
+		define( 'SRF_VERSION', '3.0.0-alpha' );
 
 		// Register the extension
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
@@ -65,13 +65,13 @@ class SemanticResultFormats {
 			'author' => [
 				'James Hong Kong',
 				'Stephan Gambke',
-				'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
+				'Jeroen De Dauw',
 				'Yaron Koren',
 				'...'
 			],
 			'url' => 'https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats',
 			'descriptionmsg' => 'srf-desc',
-			'license-name'   => 'GPL-2.0+'
+			'license-name'   => 'GPL-2.0-or-later'
 		];
 
 		// Register message files
@@ -91,8 +91,6 @@ class SemanticResultFormats {
 	public static function registerHooks() {
 		$formatDir = __DIR__ . '/formats/';
 
-		global $wgAutoloadClasses;
-
 		unset( $formatDir );
 
 		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
@@ -101,11 +99,18 @@ class SemanticResultFormats {
 		$GLOBALS['wgHooks']['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
 		$GLOBALS['wgHooks']['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
 
+		// Format hooks
+		$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'SRF\Filtered\Hooks::onOutputPageParserOutput';
+		$GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript';
+
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
 		// User preference
-		$GLOBALS['wgHooks']['GetPreferences'][] = 'SRFHooks::onGetPreferences';
+		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
+
+		// Allows last minute changes to the output page, e.g. adding of CSS or JavaScript by extensions
+		$GLOBALS['wgHooks']['BeforePageDisplay'][] = 'SRFHooks::onBeforePageDisplay';
 	}
 
 	/**
@@ -118,7 +123,7 @@ class SemanticResultFormats {
 		}
 
 		if ( !defined( 'SMW_VERSION' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/">Semantic Result Formats</a> requires the <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a> extension, please enable or install the extension first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/">Semantic Result Formats</a> requires the <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a> extension. Please enable or install the extension first.' );
 		}
 	}
 
@@ -144,8 +149,8 @@ class SemanticResultFormats {
 			// 'boilerplate' => 'SRFBoilerplate',
 			'timeline' => 'SRFTimeline',
 			'eventline' => 'SRFTimeline',
-			'vcard' => 'SRFvCard',
-			'icalendar' => 'SRFiCalendar',
+			'vcard' => 'SRF\vCard\vCardFileExportPrinter',
+			'icalendar' => 'SRF\iCalendar\iCalendarFileExportPrinter',
 			'bibtex' => 'SRFBibTeX',
 			'calendar' => 'SRFCalendar',
 			'eventcalendar' => 'SRF\EventCalendar',
@@ -170,10 +175,10 @@ class SemanticResultFormats {
 			'array' => 'SRFArray',
 			'hash' => 'SRFHash',
 			'd3chart' => 'SRFD3Chart',
-			'tree' => 'SRFTree',
-			'ultree' => 'SRFTree',
-			'oltree' => 'SRFTree',
-			'filtered' => 'SRFFiltered',
+			'tree' => 'SRF\Formats\Tree\TreeResultPrinter',
+			'ultree' => 'SRF\Formats\Tree\TreeResultPrinter',
+			'oltree' => 'SRF\Formats\Tree\TreeResultPrinter',
+			'filtered' => 'SRF\Filtered\Filtered',
 			'latest' => 'SRFTime',
 			'earliest' => 'SRFTime',
 			'slideshow' => 'SRFSlideShow',

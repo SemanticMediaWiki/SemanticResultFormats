@@ -1,0 +1,44 @@
+{
+	"description": "Tree format: Empty resultset does not produce tree",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has parent",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Part of",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Tree 04-01",
+			"contents": "{{#ask:[[Part of::+]]|format=tree|parent=Has example}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "Tree 04-01 (Empty resultset does not produce tree)",
+			"subject": "Example/Tree 04-01",
+			"assert-output": {
+				"to-contain": [
+					[ "div.srf-tree", 0 ]
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

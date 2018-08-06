@@ -3,7 +3,8 @@
 		"authors": [
 			"AnakngAraw",
 			"Sky Harbor",
-			"Emem.calist"
+			"Emem.calist",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Dagdag na mga anyo para sa nasa loob ng guhit na mga pagtatanong na pang-Semantikong MediaWiki",
@@ -147,11 +148,11 @@
 	"srf-paramdesc-showroles": "Ipinakikita ang mga sumusunod na lathala ( ..in graph )",
 	"srf-paramdesc-showresources": "Ipinakikita ang mga sumusunod na lathala ( ..in graph )",
 	"srf-printername-datatables": "Mga Talahanayan ng Dato",
-	"srf_printername_tree": "Puno",
-	"srf_printername_ultree": "Puno na ang listahan ay walang pagkakasunud-sunod",
-	"srf_printername_oltree": "Puno na ang listahan ay may pagkakasunud-sunod",
-	"srf-noparentprop": "Walang ibinigay na magulang na kaarian. Ang puno ay hindi maaaring buuin na wala ang isang tinukoy na magulang na kaarian.",
-	"srf-paramdesc-parent": "Ang pag-aari na naglalaman ng magulang na pahina",
+	"srf-printername-tree": "Puno",
+	"srf-printername-ultree": "Puno na ang listahan ay walang pagkakasunud-sunod",
+	"srf-printername-oltree": "Puno na ang listahan ay may pagkakasunud-sunod",
+	"srf-tree-noparentprop": "Walang ibinigay na magulang na kaarian. Ang puno ay hindi maaaring buuin na wala ang isang tinukoy na magulang na kaarian.",
+	"srf-paramdesc-tree-parent": "Ang pag-aari na naglalaman ng magulang na pahina",
 	"srf-printername-slideshow": "Palabas na Dumudulas",
 	"srf-paramdesc-delay": "Ang pag-antala sa pagitan ng mga padulas na nasa mga segundo",
 	"srf-paramdesc-navigation-controls": "Ipakita o huwag ipakita ang mga pantaban ng paglilibot",
@@ -171,5 +172,6 @@
 	"srf-printername-eventcalendar": "Kalendaryo ng pangyayari",
 	"srf-paramdesc-calendarfirstday": "Ang araw na pinagsisimulan ng bawat isang linggo",
 	"srf-paramdesc-calendardefaultview": "Ang paunang pagpapatanaw kapag kumarga na ang kalendaryo",
-	"srf-paramdesc-dayview": "Paganahin ang pagpapatanaw ng araw sa pamamagitan ng paglagitik sa bilang ng araw"
+	"srf-paramdesc-dayview": "Paganahin ang pagpapatanaw ng araw sa pamamagitan ng paglagitik sa bilang ng araw",
+	"srf-paramdesc-icalendar-timezone": "Kuwit para maihiwalay ang Listahan ng mga 'timezones'"
 }

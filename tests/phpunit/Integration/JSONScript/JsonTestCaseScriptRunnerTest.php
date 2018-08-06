@@ -11,19 +11,13 @@ use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTest
  * format to create test definitions with the objective to compose "real" content
  * and test integration with MediaWiki, Semantic MediaWiki, and Scribunto.
  *
- * The focus is on describing test definitions with its content and specify assertions
- * to control the expected base line.
- *
- * `JsonTestCaseScriptRunner` will handle the tearDown process and ensures that no test
- * data are leaked into a production system but requires an active DB connection.
- *
  * @group SRF
  * @group SMWExtension
  *
  * @license GNU GPL v2+
  * @since 2.5
  *
- * @author mwjames
+ * @author Stephan Gambke
  */
 class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 
@@ -34,4 +28,17 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 	protected function getTestCaseLocation() {
 		return __DIR__ . '/TestCases';
 	}
+
+	/**
+	 * @return string[]
+	 * @since 3.0
+	 */
+	protected function getPermittedSettings() {
+		$settings = parent::getPermittedSettings();
+
+		$settings[] = 'srfgMapProvider';
+
+		return $settings;
+	}
+
 }

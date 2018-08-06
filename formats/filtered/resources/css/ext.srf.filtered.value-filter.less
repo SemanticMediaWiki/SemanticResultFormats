@@ -1,0 +1,79 @@
+/*
+	Stylesheet for the value filter
+*/
+.filtered-filters .filtered-value {
+
+	overflow: visible;
+	border: 1px solid #aaaaaa;
+	padding: 1em;
+	margin: 1em;
+
+	.filtered-value-switches {
+
+		border-bottom: 1px solid #aaaaaa;
+		font-weight: bold;
+		padding: 0.5em 1em;
+		margin-bottom: 1em;
+
+		.filtered-value-andor {
+
+			label {
+				margin-right: 3em;
+				vertical-align: bottom;
+				margin-top: 0;
+				margin-bottom: 0;
+				line-height: 100%;
+			}
+
+			input {
+				margin-right: 1em;
+			}
+
+			input[type="radio"] {
+				vertical-align: bottom;
+				margin-top: 0;
+				margin-bottom: 0;
+				line-height: 100%;
+			}
+		}
+	}
+
+	/* styles for checkboxes */
+	.filtered-value-option {
+		display: inline-block;
+		padding: 0 1em;
+		width: 20%;
+		min-width: -moz-min-content;
+		min-width: -webkit-min-content;
+		min-width: min-content;
+		white-space: nowrap;
+
+		.filtered-value-option-label {
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0;
+			line-height: 100%;
+			white-space: normal;
+		}
+
+		input {
+			vertical-align: sub;
+			margin-right: 1em;
+		}
+	}
+
+	/* styles for Select2 */
+	.select2-container--default.select2-container--focus {
+		.select2-selection--multiple {
+			border: solid #777777 1px;
+		}
+	}
+
+	.select2-container .select2-search--inline {
+		float: none;
+	}
+
+	.select2-search__field {
+		width: 100% !important;
+	}
+}

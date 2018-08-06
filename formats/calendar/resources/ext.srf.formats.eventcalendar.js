@@ -416,16 +416,16 @@
 			}
 		},
 		/**
-		 * Handles redirect to a clicktarget URL.  
+		 * Handles redirect to a clicktarget URL.
 		 */
-		onDayClick( date, data, clickPopup ){
+		onDayClick: function( date, data, clickPopup ){
 			var clicktarget = data.query.ask.parameters.clicktarget;
 			if( clicktarget !== 'none' ){
 				var h = date.getUTCHours() + 1;
 				var m = date.getUTCMinutes();
 				var s = date.getUTCSeconds();
 				var hms;
-				
+
 				if( h == 24 ){
 					// avoid switch to next day
 					hms  = "T"+ "13" + ":" + m + ":" + s;
@@ -437,18 +437,18 @@
 										 .replace( /%clickmonth%/g, date.getMonth() + 1 )
 										 .replace( /%clickday%/g, date.getDate() )
 										 .replace( /%clicktime%/g, hms );
-				
+
 				var wgArticlePath = mw.config.get( 'wgArticlePath' ).replace( '$1', '' ).trim();
 				var wgServer = mw.config.get( 'wgServer' );
 
 				var clicktargetURL = wgServer + wgArticlePath + clicktarget;
 				/* DONE: i18n */
-				var r = confirm( clickPopup.popup );  
+				var r = confirm( clickPopup.popup );
 				if ( r == true ){
 					window.open( clicktargetURL, '_self' );
-				}   
-		   } 
-			
+				}
+		   }
+
 		},
 		/**
 		 * Handles fullCalendar tasks
@@ -506,8 +506,8 @@
 							if ( allDay && data.query.ask.parameters.dayview && $( jsEvent.target ).is( 'div.fc-day-number' ) ) {
 								container.fullCalendar( 'changeView', 'agendaDay'/* or 'basicDay' */).fullCalendar( 'gotoDate', date );
 							} else {
-								// redirect to a clicktarget URL if defined. 
-								 self.onDayClick( date, data, self.messages.clickPopup );	   
+								// redirect to a clicktarget URL if defined.
+								 self.onDayClick( date, data, self.messages.clickPopup );
 							}
 						}
 					} );
@@ -915,8 +915,17 @@
 					'offset': data.query.ask.parameters.offset
 				};
 
+			if ( data.query.ask.parameters.hasOwnProperty( 'sort' ) ) {
+				parameters.sort = data.query.ask.parameters.sort;
+			};
+
+			if ( data.query.ask.parameters.hasOwnProperty( 'order' ) ) {
+				parameters.order = data.query.ask.parameters.order;
+			};
+
 			// Stringify the query
 			var query = new smw.query( printouts, parameters, conditions ).toString();
+
 			var startDate = new Date();
 			srf.log( 'Query: ' + query );
 

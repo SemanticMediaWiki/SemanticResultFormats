@@ -41,6 +41,7 @@
 
 .srf-gallery-slideshow .rslides {
 	position: relative;
+	z-index: 0;
 	list-style: none;
 	overflow: hidden;
 	width: 100%;
