@@ -137,7 +137,7 @@
 				if ( $.isFunction( options.change ) ){
 					options.change( event, {
 						selected: that.is( ':selected' ),
-						value: that.attr( 'value' )
+						value: that.val()
 					} );
 				}
 			} );
