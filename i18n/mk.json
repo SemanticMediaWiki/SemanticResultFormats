@@ -43,8 +43,10 @@
 	"srf-error-option-mix": "Можноста ($1) не е достапна",
 	"srf-error-option-link-all": "Можноста ($1) бара параметарот „link“ да биде ставен на „all“",
 	"srf-error-missing-layout": "Табелата/графиконот не може да се прикаже бидејќи недостасува распоредот.",
+	"srf-error-jqplot-bubble-data-length": "Табелата/графиконот не може да се прикаже бидејќи недостасуваат податоци.",
 	"srf-error-jqplot-stackseries-data-length": "Табелата/графиконот не може да се прикаже бидејќи не секој столб/ред има ист број на ставки.",
 	"srf-warn-empy-chart": "Дијаграмот/графиконот е празен или недостасуваат податоци",
+	"srf-paramdesc-color": "Со која боја да се означат календарските ставки",
 	"srfc_previousmonth": "Претходен месец",
 	"srfc_nextmonth": "Следен месец",
 	"srfc_today": "Денес",
@@ -256,6 +258,9 @@
 	"srf-ui-eventcalendar-label-month": "Месец",
 	"srf-ui-eventcalendar-label-week": "Недела",
 	"srf-ui-eventcalendar-label-day": "Ден",
+	"srf-ui-eventcalendar-label-listmonth": "Месец (список)",
+	"srf-ui-eventcalendar-label-listweek": "Недела (список)",
+	"srf-ui-eventcalendar-label-listday": "Ден (список)",
 	"srf-ui-eventcalendar-label-allday": "Цел ден",
 	"srf-ui-eventcalendar-format-title-month": "MMMM yyyy г.",
 	"srf-ui-eventcalendar-format-title-week": "d [MMM][ yyyy]{ '&#8212;' d MMM yyyy} г.",
@@ -293,5 +298,6 @@
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "Не можев да извезам за MS-Excel бидејќи не е воспоставен додатокот [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel].",
 	"srf-paramdesc-excel-filename": "Податотечното име за преземање на создадената податотека.",
-	"srf-paramdesc-excel-templatefile": "Назив на Excel-податотеката од именскиот простор „Податотека“ што служи за форматирање на создадената податотека"
+	"srf-paramdesc-excel-templatefile": "Назив на Excel-податотеката од именскиот простор „Податотека“ што служи за форматирање на создадената податотека",
+	"srf-paramdesc-icalendar-timezone": "Список на часовни појаси одделени со запирки"
 }
