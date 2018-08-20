@@ -111,6 +111,8 @@
 	"srf_paramdesc_widths": "Szerokość obrazków",
 	"srf_paramdesc_heights": "Wysokość obrazków",
 	"srf_paramdesc_autocaptions": "Użyj nazwy pliku jako podpisu, jeśli nie został podany",
+	"srf_paramdesc_captionproperty": "Nazwa właściwości semantycznej występującej na stronach z zapytaniami, używana jako podpis",
+	"srf-paramdesc-redirects": "Nazwa właściwości semantycznej występującej na stronach z zapytaniami, zawierającymi cel przekierowania",
 	"srf-paramdesc-overlay": "Zezwól na nakładanie się obrazków",
 	"srf-gallery-navigation-previous": "Poprzedni",
 	"srf-gallery-navigation-next": "Następny",
@@ -213,5 +215,6 @@
 	"srf-ui-mediaplayer-label-full-screen": "Pełny ekran",
 	"srf-ui-mediaplayer-label-restore-screen": "Przywróć ekran",
 	"srf-excel-link": "Excel",
+	"srf-excel-missing-phpexcel": "Nie można eksportować do MS Excel, ponieważ rozszerzenie [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nie jest zainstalowane.",
 	"srf-paramdesc-icalendar-timezone": "Lista stref czasowych przedzielana przecinkami"
 }

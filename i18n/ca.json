@@ -72,7 +72,7 @@
 	"srf_paramdesc_recordsep": "Separador entre els valors de les propietats de registre",
 	"srf-printername-graph": "Gràfic",
 	"srf-paramdesc-graph-nodeshape": "La forma de cada node en el gràfic",
-	"srf-paramdesc-graphname": "Títol",
+	"srf-paramdesc-graphname": "Defineix el títol del gràfic",
 	"srf-paramdesc-graphsize": "Mida del gràfic (en px)",
 	"srf-paramdesc-graphlabel": "Etiqueta del gràfic",
 	"srf-paramdesc-rankdir": "Direcció de la fletxa",

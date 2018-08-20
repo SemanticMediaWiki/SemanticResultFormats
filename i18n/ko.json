@@ -163,6 +163,8 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "마지막",
 	"srf-ui-datatables-label-oPaginate-sNext": "다음",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "이전",
+	"srf-ui-datatables-label-oAria-sSortAscending": ": 오름차순 정렬 활성화",
+	"srf-ui-datatables-label-oAria-sSortDescending": ": 내림차순 정렬 활성화",
 	"srf-printername-tree": "트리",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",

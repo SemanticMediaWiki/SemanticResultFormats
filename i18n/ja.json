@@ -15,7 +15,8 @@
 			"Otokoume",
 			"Ochaochaocha3",
 			"Omotecho",
-			"Nemo bis"
+			"Nemo bis",
+			"Suyama"
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
@@ -155,6 +156,10 @@
 	"srf-ui-datatables-label-sLoadingRecords": "読み込み中...",
 	"srf-ui-datatables-label-sProcessing": "処理中...",
 	"srf-ui-datatables-label-sSearch": "検索：",
+	"srf-ui-datatables-label-oPaginate-sFirst": "先頭",
+	"srf-ui-datatables-label-oPaginate-sLast": "最後",
+	"srf-ui-datatables-label-oPaginate-sNext": "次へ",
+	"srf-ui-datatables-label-oPaginate-sPrevious": "前へ",
 	"srf-paramdesc-tree-parent": "親ページを含むプロパティ",
 	"srf-printername-slideshow": "スライドショー",
 	"srf-paramdesc-delay": "スライド間の遅延 (秒)",
@@ -222,5 +227,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "連続再生解除",
 	"srf-ui-mediaplayer-label-full-screen": "全画面表示",
 	"srf-ui-mediaplayer-label-restore-screen": "全画面表示解除",
-	"srf-excel-link": "Excel"
+	"srf-excel-link": "Excel",
+	"srf-paramdesc-icalendar-timezone": "タイムゾーンのカンマ区切りリスト"
 }
