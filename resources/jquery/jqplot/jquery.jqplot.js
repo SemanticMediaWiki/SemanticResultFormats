@@ -315,7 +315,7 @@
                 var canvas = $.jqplot.CanvasManager.canvases[idx];
                 canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
                 $(canvas).unbind().removeAttr('class').removeAttr('style');
-                // Style attributes seemed to be still hanging around.  wierd.  Some ticks
+                // Style attributes seemed to be still hanging around weird. Some ticks
                 // still retained a left: 0px attribute after reusing a canvas.
                 $(canvas).css({left: '', top: '', position: ''});
                 // setting size to 0 may save memory of unused canvases?
