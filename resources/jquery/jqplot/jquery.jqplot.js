@@ -10631,7 +10631,7 @@
      * @returns {Integer} Number of days in the month.
     */
     //
-    // handy utility method Borrowed right from Ken Snyder's Date Instance Mehtods.
+    // handy utility method Borrowed right from Ken Snyder's Date Instance Methods.
     // 
     jsDate.daysInMonth = function(year, month) {
         if (month == 2) {
