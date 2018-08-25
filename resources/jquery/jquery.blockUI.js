@@ -192,7 +192,7 @@
 			// enable if you want key and mouse events to be disabled for content that is blocked
 			bindEvents: true,
 
-			// be default blockUI will supress tab navigation from leaving blocking content
+			// be default blockUI will suppress tab navigation from leaving blocking content
 			// (if bindEvents is true)
 			constrainTabKey: true,
 
