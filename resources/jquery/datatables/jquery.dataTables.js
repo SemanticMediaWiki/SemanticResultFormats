@@ -2307,7 +2307,7 @@
 					_fnBuildSearchArray( oSettings, 1 );
 					
 					/* Search through all records to populate the search array
-					 * The the oSettings.aiDisplayMaster and asDataSearch arrays have 1 to 1 
+					 * the oSettings.aiDisplayMaster and asDataSearch arrays have 1 to 1 
 					 * mapping
 					 */
 					for ( i=0 ; i<oSettings.aiDisplayMaster.length ; i++ )
@@ -9413,7 +9413,7 @@
 			/**
 			 * When using Ajax sourced data and during the first draw when DataTables is
 			 * gathering the data, this message is shown in an empty row in the table to
-			 * indicate to the end user the the data is being loaded. Note that this
+			 * indicate to the end user the data is being loaded. Note that this
 			 * parameter is not used when loading data by server-side processing, just
 			 * Ajax sourced data with client-side processing.
 			 *  @type string
