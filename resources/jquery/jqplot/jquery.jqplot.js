@@ -1899,7 +1899,7 @@
         // series data.
         this._stackData = [];
         // array that holds the data to be plotted. This will be the series data
-        // merged with the the appropriate data from _stackData according to the stackAxis.
+        // merged with the appropriate data from _stackData according to the stackAxis.
         this._plotData = [];
         this._width = null;
         this._height = null; 

@@ -335,7 +335,7 @@ return [
 		'scripts' => 'resources/jquery/jqplot/excanvas.js'
 	],
 
-	// JSON data formatting according the the City Index API spec
+	// JSON data formatting according the City Index API spec
 	'ext.jquery.jqplot.json' => $moduleTemplate + [
 		'scripts' =>  [
 			'resources/jquery/jqplot/jqplot.json2.js',
