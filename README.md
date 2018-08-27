@@ -27,7 +27,7 @@ Just add the following to the MediaWiki `composer.local.json` file and run the
 ```json
 {
 	"require": {
-		"mediawiki/semantic-result-formats": "~3.0"
+		"mediawiki/semantic-result-formats": "~2.0"
 	}
 }
 ```
