@@ -472,7 +472,6 @@ class SRFCalendar extends SMWResultPrinter {
 			$additionalQueryString
 		);
 		$todayUrl = $pageTitle->getLocalURL( $additionalQueryString );
-		$pageName = $pageTitle->getPrefixedDbKey();
 
 		$todayText = wfMessage( 'srfc_today' )->text();
 		$prevMonthText = wfMessage( 'srfc_previousmonth' )->text();
