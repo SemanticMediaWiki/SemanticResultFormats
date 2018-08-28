@@ -194,6 +194,11 @@ class TreeResultPrinter extends ListResultPrinter {
 			'message' => 'smw-paramdesc-sep',
 		];
 
+		$params[ 'template arguments' ] = [
+			'default' => '',
+			'message' => 'smw-paramdesc-template-arguments',
+		];
+
 		return $params;
 	}
 
@@ -276,7 +281,7 @@ class TreeResultPrinter extends ListResultPrinter {
 		$query = $this->getQueryResult()->getQuery();
 
 		$this->standardTemplateParameters =
-			( $this->params[ 'userparam' ] !== '' ? ( '|userparam=' . $this->mUserParam ) : '' ) .
+			( trim( $this->params[ 'userparam' ] ) !== '' ? ( '|userparam=' . trim( $this->params['userparam'] ) ) : '' ) .
 			'|smw-resultquerycondition=' . $query->getQueryString() .
 			'|smw-resultquerylimit=' . $query->getLimit() .
 			'|smw-resultqueryoffset=' . $query->getOffset();
@@ -364,5 +369,6 @@ class TreeResultPrinter extends ListResultPrinter {
 				->inContentLanguage()->text()
 			);
 	}
+
 }
 
