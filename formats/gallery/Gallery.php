@@ -75,8 +75,6 @@ class Gallery extends ResultPrinter {
 			$ig->setParser( $GLOBALS['wgParser'] );
 		}
 
-		// Initialize
-		static $statNr = 0;
 		$html          = '';
 		$processing    = '';
 
