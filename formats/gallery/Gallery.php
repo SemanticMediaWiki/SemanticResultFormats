@@ -300,10 +300,10 @@ class Gallery extends ResultPrinter {
 	protected function addImageToGallery( &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
 
 		if ( empty( $imgCaption ) ) {
-			if ( $this->m_params['autocaptions'] ) {
+			if ( $this->params['autocaptions'] ) {
 				$imgCaption = $imgTitle->getBaseText();
 
-				if ( !$this->m_params['fileextensions'] ) {
+				if ( !$this->params['fileextensions'] ) {
 					$imgCaption = preg_replace( '#\.[^.]+$#', '', $imgCaption );
 				}
 			} else {

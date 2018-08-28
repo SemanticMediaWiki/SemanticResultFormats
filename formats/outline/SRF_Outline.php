@@ -215,8 +215,8 @@ class SRFOutline extends SMWResultPrinter {
 				$link->setCaption( $this->getSearchLabel( $outputmode ) );
 			}
 			$link->setParameter( 'outline', 'format' );
-			if ( array_key_exists( 'outlineproperties', $this->m_params ) ) {
-				$link->setParameter( $this->m_params['outlineproperties'], 'outlineproperties' );
+			if ( array_key_exists( 'outlineproperties', $this->params ) ) {
+				$link->setParameter( $this->params['outlineproperties'], 'outlineproperties' );
 			}
 			$result .= $link->getText( $outputmode, $this->mLinker ) . "\n";
 		}

@@ -64,14 +64,14 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// in case the remote parameter is set, a link to the JSON export of the remote wiki is included in the header as data source for Exhibit
 		// this section creates the link
-		if ( array_key_exists( 'remote', $this->m_params ) && srfgExhibitRemote == true ) {
+		if ( array_key_exists( 'remote', $this->params ) && srfgExhibitRemote == true ) {
 
 			$remote = true;
 
 			// fetch interwiki link
 			$dbr  = &wfGetDB( DB_SLAVE );
 			$cl   = $dbr->tableName( 'interwiki' );
-			$dbres  = $dbr->select( $cl, 'iw_url', "iw_prefix='" . $this->m_params['remote'] . "'", __METHOD__, [] );
+			$dbres  = $dbr->select( $cl, 'iw_url', "iw_prefix='" . $this->params['remote'] . "'", __METHOD__, [] );
 			$row = $dbr->fetchRow( $dbres );
 			$extlinkpattern = $row[iw_url];
 			$dbr->freeResult( $dbres );
@@ -80,14 +80,14 @@ class SRFExhibit extends SMWResultPrinter {
 			$link = $res->getQueryLink( 'JSON Link' );
 			$link->setParameter( 'json', 'format' );
 
-			if ( array_key_exists( 'callback', $this->m_params ) ) { // check if a special name for the callback function is set, if not stick with 'callback'
-				$callbackfunc = $this->m_params['callback'];
+			if ( array_key_exists( 'callback', $this->params ) ) { // check if a special name for the callback function is set, if not stick with 'callback'
+				$callbackfunc = $this->params['callback'];
 			} else {
 				$callbackfunc = 'callback';
 			}
 
-			if ( array_key_exists( 'limit', $this->m_params ) ) {
-				$link->setParameter( $this->m_params['limit'], 'limit' );
+			if ( array_key_exists( 'limit', $this->params ) ) {
+				$link->setParameter( $this->params['limit'], 'limit' );
 			}
 
 			$link->setParameter( $callbackfunc, 'callback' );
@@ -132,13 +132,13 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// prepare facets
 		$facetcounter = 0;
-		if ( array_key_exists( 'facets', $this->m_params ) ) {
-			$facets = explode( ',', $this->m_params['facets'] );
+		if ( array_key_exists( 'facets', $this->params ) ) {
+			$facets = explode( ',', $this->params['facets'] );
 			$facetstack = [];
 			$params = [ 'height' ];
 			$facparams = [];
 			foreach ( $params as $param ) {
-				if ( array_key_exists( $param, $this->m_params ) ) $facparams[] = 'ex:' . $param . '="' . $this->encodePropertyName( $this->m_params[$param] ) . '" ';
+				if ( array_key_exists( $param, $this->params ) ) $facparams[] = 'ex:' . $param . '="' . $this->encodePropertyName( $this->params[$param] ) . '" ';
 			}
 			foreach ( $facets as $facet ) {
 				$facet = trim( $facet );
@@ -170,7 +170,7 @@ class SRFExhibit extends SMWResultPrinter {
 		// prepare views
 		$stylesrc = '';
 		$viewcounter = 0;
-		if ( array_key_exists( 'views', $this->m_params ) ) $views = explode( ',', $this->m_params['views'] );
+		if ( array_key_exists( 'views', $this->params ) ) $views = explode( ',', $this->params['views'] );
 		else $views[] = 'tiles';
 
 		foreach ( $views as $view ) {
@@ -191,12 +191,12 @@ class SRFExhibit extends SMWResultPrinter {
 					$usparams = [ 'timelineheight', 'topbandheight', 'bottombandheight', 'bottombandunit', 'topbandunit' ]; // parametes expecting a textual or numeric value
 					$tlparams = [];
 					foreach ( $exparams as $param ) {
-						if ( array_key_exists( $param, $this->m_params ) ) $tlparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
+						if ( array_key_exists( $param, $this->params ) ) $tlparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->params[$param] ) . '\' ';
 					}
 					foreach ( $usparams as $param ) {
-						if ( array_key_exists( $param, $this->m_params ) ) $tlparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
+						if ( array_key_exists( $param, $this->params ) ) $tlparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->params[$param] ) . '\' ';
 					}
-					if ( !array_key_exists( 'start', $this->m_params ) ) {// find out if a start and/or end date is specified
+					if ( !array_key_exists( 'start', $this->params ) ) {// find out if a start and/or end date is specified
 						$dates = [];
 						foreach ( $res->getPrintRequests() as $pr ) {
 							if ( $pr->getTypeID() == '_dat' ) {
@@ -221,12 +221,12 @@ class SRFExhibit extends SMWResultPrinter {
 					   $usparams = [ 'type', 'center', 'zoom', 'size', 'scalecontrol', 'overviewcontrol', 'mapheight' ];
 					   $mapparams = [];
 					   foreach ( $exparams as $param ) {
-						if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
+						if ( array_key_exists( $param, $this->params ) ) $mapparams[] = 'ex:' . $param . '=\'.' . $this->encodePropertyName( $this->params[$param] ) . '\' ';
 					   }
 					   foreach ( $usparams as $param ) {
-						if ( array_key_exists( $param, $this->m_params ) ) $mapparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->m_params[$param] ) . '\' ';
+						if ( array_key_exists( $param, $this->params ) ) $mapparams[] = 'ex:' . $param . '=\'' . $this->encodePropertyName( $this->params[$param] ) . '\' ';
 					   }
-					   if ( !array_key_exists( 'start', $this->m_params ) && !array_key_exists( 'end', $this->m_params ) ) { // find out if a geographic coordinate is available
+					   if ( !array_key_exists( 'start', $this->params ) && !array_key_exists( 'end', $this->params ) ) { // find out if a geographic coordinate is available
 						foreach ( $res->getPrintRequests() as $pr ) {
 							if ( $pr->getTypeID() == '_geo' ) {
 								$mapparams[] = 'ex:latlng=\'.' . $this->encodePropertyName( $pr->getLabel() ) . '\' ';
@@ -239,14 +239,14 @@ class SRFExhibit extends SMWResultPrinter {
 					break;
 				default: case 'tiles':// tile view
 					$sortstring = '';
-					if ( array_key_exists( 'sort', $this->m_params ) ) {
-						$sortfields = explode( ",", $this->m_params['sort'] );
+					if ( array_key_exists( 'sort', $this->params ) ) {
+						$sortfields = explode( ",", $this->params['sort'] );
 						foreach ( $sortfields as $field ) {
 							$sortkeys[] = "." . $this->encodePropertyName( trim( $field ) );
 						}
 						$sortstring = 'ex:orders=\'' . implode( ",", $sortkeys ) . '\' ';
-						if ( array_key_exists( 'order', $this->m_params ) ) $sortstring .= ' ex:directions=\'' . $this->encodePropertyName( $this->m_params['order'] ) . '\'';
-						if ( array_key_exists( 'grouped', $this->m_params ) ) $sortstring .= ' ex:grouped=\'' . $this->encodePropertyName( $this->m_params['grouped'] ) . '\'';
+						if ( array_key_exists( 'order', $this->params ) ) $sortstring .= ' ex:directions=\'' . $this->encodePropertyName( $this->params['order'] ) . '\'';
+						if ( array_key_exists( 'grouped', $this->params ) ) $sortstring .= ' ex:grouped=\'' . $this->encodePropertyName( $this->params['grouped'] ) . '\'';
 					}
 					$viewstack[] = 'ex:role=\'view\' ex:showSummary=\'false\' ' . $sortstring;
 					break;
@@ -264,8 +264,8 @@ class SRFExhibit extends SMWResultPrinter {
 		$linkcounter = 0;
 		$imagecounter = 0;
 
-		if ( array_key_exists( 'lens', $this->m_params ) ) {// a customized lens is specified via the lens parameter within the query
-			$lenstitle    = Title::newFromText( "Template:" . $this->m_params['lens'] );
+		if ( array_key_exists( 'lens', $this->params ) ) {// a customized lens is specified via the lens parameter within the query
+			$lenstitle    = Title::newFromText( "Template:" . $this->params['lens'] );
 			$lensarticle  = new Article( $lenstitle );
 			$lenswikitext = $lensarticle->getContent();
 
@@ -330,7 +330,7 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// Handling special formats like date
 		$formatssrc = 'var formats =\'\'';
-		if ( array_key_exists( 'date', $this->m_params ) ) $formatssrc = 'var formats = \'ex:formats="date { mode:' . $this->m_params['date'] . '; show:date }"\';';
+		if ( array_key_exists( 'date', $this->params ) ) $formatssrc = 'var formats = \'ex:formats="date { mode:' . $this->params['date'] . '; show:date }"\';';
 
 		// create a URL pointing to the corresponding JSON feed
         $label = '';
@@ -338,8 +338,8 @@ class SRFExhibit extends SMWResultPrinter {
 		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) { // used as a file name
 			$link->setParameter( $this->getSearchLabel( SMW_OUTPUT_WIKI ), 'searchlabel' );
 		}
-		if ( array_key_exists( 'limit', $this->m_params ) ) {
-			$JSONlink->setParameter( htmlspecialchars( $this->m_params['limit'] ), 'limit' );
+		if ( array_key_exists( 'limit', $this->params ) ) {
+			$JSONlink->setParameter( htmlspecialchars( $this->params['limit'] ), 'limit' );
 		}
 		$JSONlink->setParameter( 'json', 'format' );
 		$stringtoedit = explode( "|", $JSONlink->getText( $outputmode, $this->mLinker ) );
