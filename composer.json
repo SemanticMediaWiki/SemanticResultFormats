@@ -49,7 +49,7 @@
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/semantic-media-wiki": "~3.0@dev",
 		"nicmart/tree": "^0.2.7",
-		"data-values/geo": "~2.0",
+		"data-values/geo": "~4.0|~3.0|~2.0",
 		"symfony/css-selector": "^3.3"
 	},
 	"suggest": {
