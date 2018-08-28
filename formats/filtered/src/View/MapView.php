@@ -2,7 +2,7 @@
 
 namespace SRF\Filtered\View;
 
-use DataValues\Geo\Parsers\GeoCoordinateParser;
+use DataValues\Geo\Parsers\LatLongParser;
 use Exception;
 use Message;
 use SMWPropertyValue;
@@ -62,7 +62,7 @@ class MapView extends View {
 
 				} elseif ( class_exists( 'DataValues\Geo\Parsers\GeoCoordinateParser' ) ) {
 
-					$coordParser = new GeoCoordinateParser();
+					$coordParser = new LatLongParser();
 					while ( $value instanceof \SMWDataItem ) {
 						try {
 							$latlng = $coordParser->parse( $value->getSerialization() );

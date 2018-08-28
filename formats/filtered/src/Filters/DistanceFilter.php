@@ -10,7 +10,7 @@ namespace SRF\Filtered\Filter;
  * @ingroup SemanticResultFormats
  */
 
-use DataValues\Geo\Parsers\GeoCoordinateParser;
+use DataValues\Geo\Parsers\LatLongParser;
 use \Exception;
 use SMWPropertyValue;
 use SRF\Filtered\ResultItem;
@@ -51,7 +51,7 @@ class DistanceFilter extends Filter {
 
 		try {
 
-			$geoCoordinateParser = new GeoCoordinateParser();
+			$geoCoordinateParser = new LatLongParser();
 
 			$callback = function ( $value ) use ($geoCoordinateParser) {
 				$latlng = $geoCoordinateParser->parse( $value );
@@ -103,7 +103,7 @@ class DistanceFilter extends Filter {
 
 				} else {
 
-					$coordParser = new GeoCoordinateParser();
+					$coordParser = new LatLongParser();
 					while ( $value instanceof \SMWDataItem ) {
 						try {
 							$latlng = $coordParser->parse( $value->getSerialization() );
