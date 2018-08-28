@@ -128,8 +128,6 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $smwgIQRunningNumber;
-		
 		global $wgTitle, $wgOut;
 
 		if ( class_exists( 'ResourceLoader' ) ) {
@@ -139,13 +137,8 @@ class SRFJitGraph extends SMWResultPrinter {
 			//Include javascript files in the HTML header
 			$this->includeJS();
 		}
-	
-	    $key = 0;
-		// Create text graph
-		$legendInput = '';
-		
+
 		$json = "[";
-		$debug = "";
 		$jsonLeafs = "";
 			
 		while ( $row = $res->getNext() ) {
@@ -172,7 +165,6 @@ class SRFJitGraph extends SMWResultPrinter {
 						
 						//Different color options and formatting for the page currently on.
 						if( strcmp($thisPageTitle, $text) == 0 && $this->m_graphRootNode) {
-							$rootNodeSize = $this->m_graphNodeSize + 5;
 							$json .= "{ \"id\":\"$text\", ";
 							$json .= "\"name\":\"$text\", ";
 							$json .= "\"data\":{\"\$color\": \"$this->m_rootNodeColor\", ";
@@ -212,7 +204,6 @@ class SRFJitGraph extends SMWResultPrinter {
 								$this->m_labelArray[] = $labelName;
 							}
 								$key = array_search( $labelName, $this->m_labelArray, true );
-								$color = $this->m_graphColors[$key];
 
 							if ( $this->m_graphLabel == true ) {
 							
