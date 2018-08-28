@@ -1,11 +1,7 @@
 <?php
 
 /**
- * Formats that return a time.
- * @since 1.8
- *
- * @file SRF_Time.php
- * @ingroup SemanticResultFormats
+ * Formats that returns a time.
  *
  * @licence GNU GPL v3+
  * @author nischayn22
@@ -45,7 +41,7 @@ class SRFTime extends SMWResultPrinter {
 				break;
 		}
 
-		$dataValue = SMWDataValueFactory::newDataItemValue( $dataItems[$result], null );
+		$dataValue = SMWDataValueFactory::getInstance()->newDataValueByItem( $dataItems[$result], null );
 		return $dataValue->getLongHTMLText();
 	}
 
