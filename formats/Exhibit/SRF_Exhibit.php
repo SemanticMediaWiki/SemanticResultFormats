@@ -142,7 +142,6 @@ class SRFExhibit extends SMWResultPrinter {
 			}
 			foreach ( $facets as $facet ) {
 				$facet = trim( $facet );
-				$fieldcounter = 0;
 				if ( strtolower( $facet ) == "search" ) { // special facet (text search)
 					$facetstack[] = ' facet' . $facetcounter++ . ': { position : "right", innerHTML: \'ex:role="facet" ex:showMissing="false" ex:facetClass="TextSearch" ex:facetLabel="' . $facet . '"\'}';
 				} else { // usual facet
@@ -159,7 +158,6 @@ class SRFExhibit extends SMWResultPrinter {
 
 					}
 				}
-				$fieldcounter++;
 			}
 			$facetstring = implode( ',', $facetstack );
 		}
@@ -169,7 +167,6 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// prepare views
 		$stylesrc = '';
-		$viewcounter = 0;
 		if ( array_key_exists( 'views', $this->params ) ) $views = explode( ',', $this->params['views'] );
 		else $views[] = 'tiles';
 
@@ -370,8 +367,6 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// print input table
 		// print header
-		if ( 'broadtable' == $this->mFormat ) $widthpara = ' width="100%"';
-		else $widthpara = '';
 		$result = "<table style=\"display:none\" class=\"smwtable\" id=\"querytable" . $smwgIQRunningNumber . "\">\n";
 		if ( $this->mShowHeaders ) { // building headers
 			$result .= "\t<tr>\n";
