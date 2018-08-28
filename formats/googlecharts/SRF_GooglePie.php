@@ -16,8 +16,8 @@ class SRFGooglePie extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
-		$this->m_width = $this->m_params['width'];
-		$this->m_height = $this->m_params['height'];
+		$this->m_width = $this->params['width'];
+		$this->m_height = $this->params['height'];
 	}
 
 	public function getName() {

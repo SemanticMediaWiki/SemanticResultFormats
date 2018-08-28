@@ -98,8 +98,8 @@ class vCardFileExportPrinter extends FileExportPrinter {
 				$link->setParameter( $this->getSearchLabel( SMW_OUTPUT_WIKI ), 'searchlabel' );
 			}
 
-			if ( array_key_exists( 'limit', $this->m_params ) ) {
-				$link->setParameter( $this->m_params['limit'], 'limit' );
+			if ( array_key_exists( 'limit', $this->params ) ) {
+				$link->setParameter( $this->params['limit'], 'limit' );
 			} else { // use a reasonable default limit
 				$link->setParameter( 20, 'limit' );
 			}

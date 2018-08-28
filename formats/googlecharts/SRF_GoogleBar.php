@@ -16,7 +16,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 		
-		$this->m_width = $this->m_params['width'];
+		$this->m_width = $this->params['width'];
 	}
 
 	public function getName() {
