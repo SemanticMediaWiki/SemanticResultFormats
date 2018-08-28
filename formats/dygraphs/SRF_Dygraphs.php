@@ -71,7 +71,7 @@ class SRFDygraphs extends SMWResultPrinter {
 				// Use the subject marker to identify a possible data file
 				$subject = $field->getResultSubject(); 
 				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace() === NS_FILE && !$dataSource ){
-					$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $subject->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+					$aggregatedValues['subject'] = $this->makePageFromTitle( $subject->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
 					$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
 					$dataSource = true;
 				}
@@ -89,13 +89,13 @@ class SRFDygraphs extends SMWResultPrinter {
 					// Jump the column (indicated by continue) because we don't want the data source being part of the annotation array
 					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'raw' && !$dataSource ){
 						// Support data source = raw which pulls the url from a wikipage in raw format
-						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+						$aggregatedValues['subject'] = $this->makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
 						$aggregatedValues['url'] = $dataValue->getTitle()->getLocalURL( 'action=raw' );
 						$dataSource = true;
 						continue;
 					} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'file' && $dataValue->getTitle()->getNamespace() === NS_FILE && !$dataSource ) {
 						// Support data source = file which pulls the url from a uploaded file
-						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+						$aggregatedValues['subject'] = $this->makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
 						$aggregatedValues['url'] = wfFindFile( $dataValue->getTitle() )->getUrl();
 						$dataSource = true;
 						continue;
@@ -131,6 +131,13 @@ class SRFDygraphs extends SMWResultPrinter {
 			}
 		}
 		return $aggregatedValues;
+	}
+
+	private function makePageFromTitle( \Title $title ) {
+		$dataValue = new SMWWikiPageValue( '_wpg' );
+		$dataItem = SMWDIWikiPage::newFromTitle( $title );
+		$dataValue->setDataItem( $dataItem );
+		return $dataValue;
 	}
 
 	/**
