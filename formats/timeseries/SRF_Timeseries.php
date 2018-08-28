@@ -58,13 +58,10 @@ class SRFTimeseries extends SMWResultPrinter {
 
 		while ( /* array of SMWResultArray */ $row = $result->getNext() ) { // Objects (pages)
 			$timeStamp = '';
-			$value     = '';
 			$series = [];
 
 			foreach ( $row as /* SMWResultArray */ $field ) {
-				$value  = [];
 				$sum    = [];
-				$rowSum = [];
 
 				// Group by subject (page object)  or property
 				if ( $this->params['group'] == 'subject' ){

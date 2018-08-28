@@ -323,12 +323,9 @@ class TreeResultPrinter extends ListResultPrinter {
 
 					try {
 						if ( array_key_exists( $parentHash, $nodes ) ) {
-							$errorCode = $nodes[ $parentHash ]->addChild( $node );
+							$nodes[ $parentHash ]->addChild( $node );
 						} elseif ( !$isRootSpecified ) {
-							$errorCode = $root->addChild( $node );
-						} else {
-							// Drop node. It is not part of the tree.
-							$errorCode = null;
+							$root->addChild( $node );
 						}
 					} catch ( Exception $e ) {
 						$this->addError( $e->getMessage(), $node->getResultSubject()->getTitle()->getPrefixedText() );

@@ -211,9 +211,7 @@ class SRFProcess extends SMWResultPrinter {
 		//
 		//	GraphViz settings
 		//
-		global $wgGraphVizSettings;
 		$this->isHTML 		= true;
-
 
 		//
 		//	Iterate all rows in result set
