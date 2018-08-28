@@ -9,6 +9,7 @@ This is not a release yet.
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
 * #248 Fixed localization of numbers in the math result formats (by James Hong Kong)
 * [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension
+* Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
 * Updated translations (by translatewiki.net community)
 
 ## SRF 2.5.5
