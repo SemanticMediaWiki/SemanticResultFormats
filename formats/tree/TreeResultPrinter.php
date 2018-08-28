@@ -71,20 +71,18 @@ class TreeResultPrinter extends ListResultPrinter {
 		// Don't support pagination in trees
 		$this->mSearchlabel = null;
 
-		if ( $this->params[ 'template arguments' ] !== 'numbered' ) {
+		if ( array_key_exists( 'template arguments', $this->params )
+			&& $this->params['template arguments'] !== 'numbered' ) {
 
 			if ( filter_var( $this->params[ 'named args' ], FILTER_VALIDATE_BOOLEAN ) === true ) {
-
-				$this->params[ 'template arguments' ] = 'legacy';
-
+				$this->params['template arguments'] = 'legacy';
 			} elseif (
-				$this->params[ 'template arguments' ] !== 'named' &&
-				$this->params[ 'template arguments' ] !== 'legacy'
+				$this->params['template arguments'] !== 'named' &&
+				$this->params['template arguments'] !== 'legacy'
 			) {
 				// default
-				$this->params[ 'template arguments' ] = 'numbered';
+				$this->params['template arguments'] = 'numbered';
 			}
-
 		}
 
 		// Allow "_" for encoding spaces, as documented
@@ -345,7 +343,7 @@ class TreeResultPrinter extends ListResultPrinter {
 			'format' => trim( $this->params[ 'format' ] ),
 			'template' => trim( $this->params[ 'template' ] ),
 			'headers' => $this->params[ 'headers' ],
-			'template arguments' => $this->params[ 'template arguments' ],
+			'template arguments' => $this->params['template arguments'],
 			'sep' => $this->params[ 'sep' ],
 		];
 
