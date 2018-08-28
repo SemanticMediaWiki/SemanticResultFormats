@@ -189,7 +189,6 @@ class SRFOutline extends SMWResultPrinter {
 		while ( $row = $res->getNext() ) {
 			$item = new SRFOutlineItem( $row );
 			foreach ( $row as $field ) {
-				$first = true;
 				$field_name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
 				if ( in_array( $field_name, $this->mOutlineProperties ) ) {
 					while ( ( $object = $field->getNextDataValue() ) !== false ) {

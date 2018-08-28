@@ -135,7 +135,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		// Init
 		$dataSet =  [];
-		$grid =  [];
 		$options['mode'] = 'series';
 		$options['autoscale'] = false;
 

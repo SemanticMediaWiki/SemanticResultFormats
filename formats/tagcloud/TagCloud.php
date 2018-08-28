@@ -257,8 +257,6 @@ class TagCloud extends ResultPrinter {
 		// Initialize
 		$htmlTags      = [];
 		$processing    = '';
-		$htmlSTags     = '';
-		$htmlCTags     = '';
 
 		// Count actual output and store div identifier
 		$tagId = 'srf-' . uniqid();

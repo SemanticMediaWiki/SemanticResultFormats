@@ -136,7 +136,6 @@ class SRFTimeline extends SMWResultPrinter {
 			if ( $this->mTemplate != '' ) {
 				$this->hasTemplates = true;
 				$template_text = '';
-				$wikitext = '';
 				$i = 0;
 			}
 
