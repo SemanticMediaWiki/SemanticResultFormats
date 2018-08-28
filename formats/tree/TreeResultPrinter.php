@@ -194,6 +194,11 @@ class TreeResultPrinter extends ListResultPrinter {
 			'message' => 'smw-paramdesc-sep',
 		];
 
+		$params[ 'template arguments' ] = [
+			'default' => '',
+			'message' => 'smw-paramdesc-template-arguments',
+		];
+
 		return $params;
 	}
 
@@ -364,5 +369,6 @@ class TreeResultPrinter extends ListResultPrinter {
 				->inContentLanguage()->text()
 			);
 	}
+
 }
 
