@@ -828,13 +828,8 @@ class ProcessRole extends ProcessElement {
 
 }
 
-/**
- * Class reperesning a process node
- */
 class ProcessNode extends ProcessElement {
 
-	private $m_is_startnode	= false;	// explicit statement if this is a start node
-	private $m_is_endnode	= false;	// explicit statement if this is a termination node
 	private $m_status;					// status value
 	private $m_is_atomic	= true;		// set false if this is a compound node
 
