@@ -110,7 +110,7 @@ class SRFArray extends SMWResultPrinter {
 						$recordItems = $obj->getDataItems();
 						// walk all single values of the record set:
 						foreach( $recordItems as $dataItem ) {							
-							$recordField = $dataItem !== null ? SMWDataValueFactory::newDataItemValue( $dataItem, null ) : null;
+							$recordField = $dataItem !== null ? SMWDataValueFactory::getInstance()->newDataValueByItem( $dataItem, null ) : null;
 							$value_items = $this->fillDeliveryArray( $value_items, $this->deliverRecordField( $recordField, $this->mLinkOthers ) );
 						}
 						$isRecord = true;
