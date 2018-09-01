@@ -75,14 +75,15 @@ class IcalTimezoneFormatter {
 			return false;
 		}
 
-		if ( $from === null || $to === null ){
+		if ( $from === null || $to === null ) {
 			return false;
 		}
 
 		foreach ( $this->localTimezones as $timezone ) {
 			try {
 				$dateTimezone = new DateTimeZone( $timezone );
-			} catch( Exception $e ) {
+			}
+			catch ( Exception $e ) {
 				continue;
 			}
 
@@ -107,7 +108,7 @@ class IcalTimezoneFormatter {
 				}
 			}
 
-			$this->offsets[$timezone] = $transitions[max( $min-1, 0 )]['offset'];
+			$this->offsets[$timezone] = $transitions[max( $min - 1, 0 )]['offset'];
 			$this->transitions[$timezone] = array_slice( $transitions, $min, $max - $min );
 		}
 
@@ -151,8 +152,9 @@ class IcalTimezoneFormatter {
 				$offset_to = $this->formatTimezoneOffset( $offset );
 				$result .= "TZOFFSETTO:$offset_to\r\n";
 
-				if ( !empty( $transition['abbr'] ) )
+				if ( !empty( $transition['abbr'] ) ) {
 					$result .= "TZNAME:{$transition['abbr']}\r\n";
+				}
 
 				$result .= "END:$dst\r\n";
 
@@ -175,7 +177,7 @@ class IcalTimezoneFormatter {
 	 * @param int $offset
 	 */
 	private function formatTimezoneOffset( $offset ) {
-		return sprintf('%s%02d%02d', $offset >= 0 ? '+' : '', floor($offset), ($offset - floor($offset)) * 60);
+		return sprintf( '%s%02d%02d', $offset >= 0 ? '+' : '', floor( $offset ), ( $offset - floor( $offset ) ) * 60 );
 	}
 
 }

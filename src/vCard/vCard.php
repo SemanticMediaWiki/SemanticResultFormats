@@ -2,8 +2,8 @@
 
 namespace SRF\vCard;
 
-use Title;
 use Article;
+use Title;
 
 /**
  * Represents a single entry in an vCard
@@ -105,7 +105,7 @@ class vCard {
 
 		$vcard = $this->prepareCard( $this->vcard );
 
-		$text  = "BEGIN:VCARD\r\n";
+		$text = "BEGIN:VCARD\r\n";
 		$text .= "VERSION:3.0\r\n";
 
 		// N and FN are required properties in vCard 3.0, we need to write something there
@@ -119,26 +119,26 @@ class vCard {
 		$text .= "FN;CHARSET=UTF-8:" .
 			$vcard['label'] . "\r\n";
 
-		$text .= ( $this->isPublic ? 'CLASS:PUBLIC':'CLASS:CONFIDENTIAL' ) . "\r\n";
+		$text .= ( $this->isPublic ? 'CLASS:PUBLIC' : 'CLASS:CONFIDENTIAL' ) . "\r\n";
 
 		if ( $vcard['birthday'] !== "" ) {
-			$text .= "BDAY:" . $vcard['birthday'] ."\r\n";
+			$text .= "BDAY:" . $vcard['birthday'] . "\r\n";
 		}
 
 		if ( $vcard['title'] !== "" ) {
-			$text .= "TITLE;CHARSET=UTF-8:" . $vcard['title'] ."\r\n";
+			$text .= "TITLE;CHARSET=UTF-8:" . $vcard['title'] . "\r\n";
 		}
 
 		if ( $vcard['role'] !== "" ) {
-			$text .= "ROLE;CHARSET=UTF-8:" . $vcard['role'] ."\r\n";
+			$text .= "ROLE;CHARSET=UTF-8:" . $vcard['role'] . "\r\n";
 		}
 
 		if ( $vcard['organization'] !== "" ) {
-			$text .= "ORG;CHARSET=UTF-8:" . $vcard['organization'] . ';' . $vcard['department'] ."\r\n";
+			$text .= "ORG;CHARSET=UTF-8:" . $vcard['organization'] . ';' . $vcard['department'] . "\r\n";
 		}
 
 		if ( $vcard['category'] !== "" ) {
-			$text .= "CATEGORIES;CHARSET=UTF-8:" . $vcard['category'] ."\r\n";
+			$text .= "CATEGORIES;CHARSET=UTF-8:" . $vcard['category'] . "\r\n";
 		}
 
 		foreach ( $vcard['email'] as $e ) {
@@ -154,7 +154,7 @@ class vCard {
 		}
 
 		if ( $vcard['note'] !== "" ) {
-			$text .= "NOTE;CHARSET=UTF-8:" . $vcard['note'] ."\r\n";
+			$text .= "NOTE;CHARSET=UTF-8:" . $vcard['note'] . "\r\n";
 		}
 
 		$text .= "SOURCE;CHARSET=UTF-8:$this->uri\r\n";
@@ -191,7 +191,7 @@ class vCard {
 		if ( $vcard['fullname'] != '' ) {
 			$vcard['label'] = $vcard['fullname'];
 		} elseif ( $vcard['firstname'] . $vcard['lastname'] != '' ) {
-			$vcard['label'] = $vcard['firstname'] . ( ( ( $vcard['firstname'] != '' ) && ( $vcard['lastname'] != '' ) ) ? ' ':'' ) . $vcard['lastname'];
+			$vcard['label'] = $vcard['firstname'] . ( ( ( $vcard['firstname'] != '' ) && ( $vcard['lastname'] != '' ) ) ? ' ' : '' ) . $vcard['lastname'];
 		} else {
 			$vcard['label'] = $this->text;
 		}
@@ -212,14 +212,14 @@ class vCard {
 			}
 
 			foreach ( $nameparts as $name ) {
-				$vcard['additionalname'] .= ( $vcard['additionalname'] != '' ? ',':'' ) . self::escape( $name );
+				$vcard['additionalname'] .= ( $vcard['additionalname'] != '' ? ',' : '' ) . self::escape( $name );
 			}
 		} else {
 			$vcard['firstname'] = self::escape( $vcard['firstname'] );
 			$vcard['lastname'] = self::escape( $vcard['lastname'] );
 		}
 
- 		// no escape, can be a value list
+		// no escape, can be a value list
 		if ( $additionalname != '' ) {
 			$vcard['additionalname'] = $additionalname;
 		}

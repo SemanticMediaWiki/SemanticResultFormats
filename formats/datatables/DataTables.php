@@ -2,9 +2,9 @@
 
 namespace SRF;
 
+use Html;
 use SMW\ResultPrinter;
 use SMWQueryResult as QueryResult;
-use Html;
 
 /**
  * DataTables and SMWAPI.
@@ -43,7 +43,7 @@ class DataTables extends ResultPrinter {
 		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'bootstrap',
-			'values' =>  [ 'bootstrap' ] // feel free to add more designs
+			'values' => [ 'bootstrap' ] // feel free to add more designs
 		];
 
 		return $params;
@@ -84,7 +84,7 @@ class DataTables extends ResultPrinter {
 					'class' => 'top'
 				],
 				''
-			) . $resourceFormatter->placeholder() .	Html::element(
+			) . $resourceFormatter->placeholder() . Html::element(
 				'div',
 				[
 					'id' => $id,

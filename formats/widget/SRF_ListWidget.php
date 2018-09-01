@@ -48,27 +48,33 @@ class SRFListWidget extends ListResultPrinter {
 		$listwidgetID = 'listwidget-' . ++$statNr;
 
 		// OL/UL container items
-		$result = Html::rawElement( 'div', [
-			'id' => $listwidgetID,
-			'class' => 'listwidget-container',
-			'style' => 'display:none; position: relative; margin-bottom:5px; margin-top:5px;'
-			], $result
+		$result = Html::rawElement(
+			'div',
+			[
+				'id' => $listwidgetID,
+				'class' => 'listwidget-container',
+				'style' => 'display:none; position: relative; margin-bottom:5px; margin-top:5px;'
+			],
+			$result
 		);
 
 		// Placeholder
 		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 
 		// RL module
-		$resource =  'ext.srf.listwidget.' . $this->params['widget'];
+		$resource = 'ext.srf.listwidget.' . $this->params['widget'];
 		SMWOutputs::requireResource( $resource );
 
 		// Wrap results
-		return Html::rawElement( 'div', [
-			'class'          => 'srf-listwidget ' . htmlspecialchars ( $this->params['class'] ),
-			'data-listtype'  => $this->mFormat,
-			'data-widget'    => $this->params['widget'],
-			'data-pageitems' => $this->params['pageitems'],
-			] , $processing . $result
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'srf-listwidget ' . htmlspecialchars( $this->params['class'] ),
+				'data-listtype' => $this->mFormat,
+				'data-widget' => $this->params['widget'],
+				'data-pageitems' => $this->params['pageitems'],
+			],
+			$processing . $result
 		);
 	}
 
@@ -93,14 +99,14 @@ class SRFListWidget extends ListResultPrinter {
 		$params['listtype'] = [
 			'name' => 'listtype',
 			'message' => 'srf-paramdesc-listtype',
-			'values' =>  [ 'unordered', 'ordered' ],
+			'values' => [ 'unordered', 'ordered' ],
 			'default' => 'unordered'
 		];
 
 		$params['widget'] = [
 			'name' => 'widget',
 			'message' => 'srf-paramdesc-widget',
-			'values' =>  [ 'alphabet', 'menu', 'pagination' ],
+			'values' => [ 'alphabet', 'menu', 'pagination' ],
 			'default' => 'alphabet'
 		];
 

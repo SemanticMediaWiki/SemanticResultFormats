@@ -44,19 +44,23 @@ class SRFCHistoricalDate {
 	}
 
 	static protected function leap_jul_greg( $year ) {
-		return ( ( $year < 1582 ) ? SRFCHistoricalDate::leap_julian( $year ) : SRFCHistoricalDate::leap_gregorian( $year ) );
+		return ( ( $year < 1582 ) ? SRFCHistoricalDate::leap_julian( $year ) : SRFCHistoricalDate::leap_gregorian(
+			$year
+		) );
 	}
 
 	protected function createFromGregorian( $year, $month, $day ) {
 		$this->m_date = ( self::GREGORIAN_EPOCH - 1 ) +
 			( 365 * ( $year - 1 ) ) +
 			floor( ( $year - 1 ) / 4 ) +
-			( - floor( ( $year - 1 ) / 100 ) ) +
+			( -floor( ( $year - 1 ) / 100 ) ) +
 			floor( ( $year - 1 ) / 400 ) +
-			floor( ( ( ( 367 * $month ) - 362 ) / 12 ) +
-			( ( $month <= 2 ) ? 0 :
-				( SRFCHistoricalDate::leap_gregorian( $year ) ? - 1 : - 2 )
-			) + $day );
+			floor(
+				( ( ( 367 * $month ) - 362 ) / 12 ) +
+				( ( $month <= 2 ) ? 0 :
+					( SRFCHistoricalDate::leap_gregorian( $year ) ? -1 : -2 )
+				) + $day
+			);
 	}
 
 	protected function createFromJulian( $year, $month, $day ) {
@@ -73,8 +77,8 @@ class SRFCHistoricalDate {
 		}
 
 		$this->m_date = ( ( floor( ( 365.25 * ( $year + 4716 ) ) ) +
-			floor( ( 30.6001 * ( $month + 1 ) ) ) +
-			$day ) - 1524.5 );
+				floor( ( 30.6001 * ( $month + 1 ) ) ) +
+				$day ) - 1524.5 );
 	}
 
 	public function getDayOfWeek() {
@@ -82,10 +86,12 @@ class SRFCHistoricalDate {
 	}
 
 	static function daysInMonth( $year, $month ) {
-		if ( $month == 4 || $month == 6 || $month == 9 || $month == 11 )
+		if ( $month == 4 || $month == 6 || $month == 9 || $month == 11 ) {
 			return 30;
-		if ( $month == 2 )
+		}
+		if ( $month == 2 ) {
 			return ( SRFCHistoricalDate::leap_jul_greg( $year ) ) ? 29 : 28;
+		}
 		return 31;
 	}
 

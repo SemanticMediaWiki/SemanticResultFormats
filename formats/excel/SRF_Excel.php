@@ -3,13 +3,12 @@
 namespace SRF;
 
 use ImagePage;
-use SMW\FileExportPrinter;
-use ParamProcessor\Definition\StringParam;
-use SMWQueryResult;
 use PHPExcel;
-use PHPExcel_IOFactory;
 use PHPExcel_Cell_DataType;
+use PHPExcel_IOFactory;
 use Sanitizer;
+use SMW\FileExportPrinter;
+use SMWQueryResult;
 use Title;
 
 /**
@@ -59,7 +58,7 @@ class SRFExcel extends FileExportPrinter {
 
 	public function getFileName( SMWQueryResult $queryResult ) {
 
-		return $this->params[ 'filename' ] ? $this->params[ 'filename' ] : round( microtime( true ) * 1000 ) . '.xls';
+		return $this->params['filename'] ? $this->params['filename'] : round( microtime( true ) * 1000 ) . '.xls';
 	}
 
 	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
@@ -79,16 +78,16 @@ class SRFExcel extends FileExportPrinter {
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$definitions[ 'searchlabel' ]->setDefault( wfMessage( 'srf-excel-link' )->inContentLanguage()->text() );
+		$definitions['searchlabel']->setDefault( wfMessage( 'srf-excel-link' )->inContentLanguage()->text() );
 
-		$params[ 'templatefile' ] = [
+		$params['templatefile'] = [
 			'type' => 'string',
 			'name' => 'templatefile',
 			'default' => '',
 			'message' => 'srf-paramdesc-excel-templatefile',
 		];
 
-		$params[ 'filename' ] = [
+		$params['filename'] = [
 			'type' => 'string',
 			'name' => 'filename',
 			'default' => '',
@@ -116,13 +115,14 @@ class SRFExcel extends FileExportPrinter {
 	 */
 	/**
 	 * @param $document
+	 *
 	 * @return string
 	 */
 	protected function writeDocumentToString( $document ) {
 		$objWriter = PHPExcel_IOFactory::createWriter( $document, 'Excel5' );
 
 		ob_start();
-		$objWriter->save('php://output');
+		$objWriter->save( 'php://output' );
 		return ob_get_clean();
 	}
 
@@ -135,12 +135,13 @@ class SRFExcel extends FileExportPrinter {
 		while ( $row = $res->getNext() ) {
 			$this->rowNum++;
 			$this->colNum = 0;
-			$this->readRowData($row);
+			$this->readRowData( $row );
 		}
 	}
 
 	/**
 	 * @param SMWQueryResult $res
+	 *
 	 * @return string
 	 */
 	protected function getResultFileContents( SMWQueryResult $res ) {
@@ -228,7 +229,7 @@ class SRFExcel extends FileExportPrinter {
 	 *
 	 * @param \SMWTimeValue $object the raw data value object
 	 */
-	protected function setTimeDataValue ( \SMWTimeValue $object ) {
+	protected function setTimeDataValue( \SMWTimeValue $object ) {
 		$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
 		$value = \PHPExcel_Shared_Date::stringToExcel( str_replace( 'T', ' ', $object->getISO8601Date() ) );
 
@@ -240,7 +241,7 @@ class SRFExcel extends FileExportPrinter {
 			$this->sheet
 				->getStyleByColumnAndRow( $this->colNum, $this->rowNum )
 				->getNumberFormat()
-				->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
+				->setFormatCode( \PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY );
 		}
 	}
 
@@ -253,7 +254,7 @@ class SRFExcel extends FileExportPrinter {
 		$this->colNum = 0;
 		foreach ( $res->getPrintRequests() as $pr ) {
 			$header = $pr->getLabel();
-			if($this->showLabel($header) ){
+			if ( $this->showLabel( $header ) ) {
 				$this->sheet->setCellValueByColumnAndRow( $this->colNum, self::HEADER_ROW_OFFSET, $header )
 					->getStyleByColumnAndRow( $this->colNum, self::HEADER_ROW_OFFSET )
 					->getFont()
@@ -270,16 +271,16 @@ class SRFExcel extends FileExportPrinter {
 	 */
 	protected function createExcelDocument() {
 
-		$fileTitle = Title::newFromText( $this->params[ 'templatefile' ], NS_FILE );
+		$fileTitle = Title::newFromText( $this->params['templatefile'], NS_FILE );
 
 		if ( $fileTitle !== null && $fileTitle->exists() ) {
 
 			$filePage = new ImagePage( $fileTitle, $this );
 
 			$virtualFile = $filePage->getDisplayedFile();
-			$virtualFilePath =  $virtualFile->getPath();
+			$virtualFilePath = $virtualFile->getPath();
 
-			$localFile= $virtualFile->getRepo()->getLocalReference( $virtualFilePath );
+			$localFile = $virtualFile->getRepo()->getLocalReference( $virtualFilePath );
 			$localFilePath = $localFile->getPath();
 
 			$objPHPExcel = PHPExcel_IOFactory::load( $localFilePath );
@@ -300,20 +301,22 @@ class SRFExcel extends FileExportPrinter {
 
 	/**
 	 * Check for the existence of the extra mainlabel.
+	 *
 	 * @param $label
+	 *
 	 * @return bool
 	 */
 	private function showLabel( $label ) {
-		return !(array_key_exists("mainlabel", $this->params) && $label === $this->params[ "mainlabel" ] . '#');
+		return !( array_key_exists( "mainlabel", $this->params ) && $label === $this->params["mainlabel"] . '#' );
 	}
 
 	protected function readFieldValue( $field ) {
 		$valueCount = 0;
 		while ( ( $object = $field->getNextDataValue() ) !== false ) {
-			if( $valueCount === 0 ) {
-				$this->setValueAccordingToType($object);
+			if ( $valueCount === 0 ) {
+				$this->setValueAccordingToType( $object );
 			} else {
-				$this->setOrAppendStringDataValue($object);
+				$this->setOrAppendStringDataValue( $object );
 			}
 			$valueCount++;
 		}
@@ -321,18 +324,23 @@ class SRFExcel extends FileExportPrinter {
 
 	/**
 	 * Checks the type of the value, and set's it in the sheet accordingly
+	 *
 	 * @param $object
 	 */
 	protected function setValueAccordingToType( $object ) {
 		//NOTE: must check against subclasses before superclasses
-		if( $object instanceof \SMWQuantityValue ) {
-			$this->setQuantityDataValue($object);
-		} else if( $object instanceof \SMWNumberValue ) {
-			$this->setNumberDataValue($object);
-		} else if ( $object instanceof \SMWTimeValue ) {
-			$this->setTimeDataValue( $object );
+		if ( $object instanceof \SMWQuantityValue ) {
+			$this->setQuantityDataValue( $object );
 		} else {
-			$this->setOrAppendStringDataValue($object);
+			if ( $object instanceof \SMWNumberValue ) {
+				$this->setNumberDataValue( $object );
+			} else {
+				if ( $object instanceof \SMWTimeValue ) {
+					$this->setTimeDataValue( $object );
+				} else {
+					$this->setOrAppendStringDataValue( $object );
+				}
+			}
 		}
 	}
 
@@ -341,8 +349,8 @@ class SRFExcel extends FileExportPrinter {
 	 */
 	protected function readRowData( $row ) {
 		foreach ( $row as $field ) {
-			if( $this->showLabel($field->getPrintRequest()->getLabel()) ) {
-				$this->readFieldValue($field);
+			if ( $this->showLabel( $field->getPrintRequest()->getLabel() ) ) {
+				$this->readFieldValue( $field );
 				$this->colNum++;
 			}
 		}

@@ -10,6 +10,7 @@
  * SMWResultArray and an array of some of its values, for easier aggregation
  */
 class SRFOutlineItem {
+
 	var $mRow;
 	var $mVals;
 
@@ -27,9 +28,9 @@ class SRFOutlineItem {
 	}
 
 	function getFieldValues( $field_name ) {
-		if ( array_key_exists( $field_name, $this->mVals ) )
+		if ( array_key_exists( $field_name, $this->mVals ) ) {
 			return $this->mVals[$field_name];
-		else {
+		} else {
 			return [ wfMessage( 'srf_outline_novalue' )->text() ];
 		}
 	}
@@ -39,6 +40,7 @@ class SRFOutlineItem {
  * A tree structure for holding the outline data
  */
 class SRFOutlineTree {
+
 	var $mTree;
 	var $mUnsortedItems;
 
@@ -77,6 +79,7 @@ class SRFOutlineTree {
 }
 
 class SRFOutline extends SMWResultPrinter {
+
 	protected $mOutlineProperties = [];
 	protected $mInnerFormat = '';
 
@@ -118,7 +121,7 @@ class SRFOutline extends SMWResultPrinter {
 					$result .= ' (';
 					$found_values = true;
 				} elseif ( $found_values || !$first_value ) {
-				// any value after '(' or non-first values on first column
+					// any value after '(' or non-first values on first column
 					$result .= ', ';
 				}
 				if ( $first_value ) { // first value in any column, print header
@@ -131,43 +134,51 @@ class SRFOutline extends SMWResultPrinter {
 			}
 			$first_col = false;
 		}
-		if ( $found_values ) $result .= ')';
+		if ( $found_values ) {
+			$result .= ')';
+		}
 		return $result;
 	}
 
 	function printTree( $outline_tree, $level = 0 ) {
 		$text = "";
-		if ( ! is_null( $outline_tree->mUnsortedItems ) ) {
+		if ( !is_null( $outline_tree->mUnsortedItems ) ) {
 			$text .= "<ul>\n";
 			foreach ( $outline_tree->mUnsortedItems as $item ) {
 				$text .= "<li>{$this->printItem($item)}</li>\n";
 			}
 			$text .= "</ul>\n";
 		}
-		if ( $level > 0 ) $text .= "<ul>\n";
+		if ( $level > 0 ) {
+			$text .= "<ul>\n";
+		}
 		$num_levels = count( $this->mOutlineProperties );
 		// set font size and weight depending on level we're at
 		$font_level = $level;
 		if ( $num_levels < 4 ) {
 			$font_level += ( 4 - $num_levels );
 		}
-		if ( $font_level == 0 )
+		if ( $font_level == 0 ) {
 			$font_size = 'x-large';
-		elseif ( $font_level == 1 )
+		} elseif ( $font_level == 1 ) {
 			$font_size = 'large';
-		elseif ( $font_level == 2 )
+		} elseif ( $font_level == 2 ) {
 			$font_size = 'medium';
-		else
+		} else {
 			$font_size = 'small';
-		if ( $font_level == 3 )
+		}
+		if ( $font_level == 3 ) {
 			$font_weight = 'bold';
-		else
+		} else {
 			$font_weight = 'regular';
+		}
 		foreach ( $outline_tree->mTree as $key => $node ) {
 			$text .= "<p style=\"font-size: $font_size; font-weight: $font_weight;\">$key</p>\n";
 			$text .= $this->printTree( $node, $level + 1 );
 		}
-		if ( $level > 0 ) $text .= "</ul>\n";
+		if ( $level > 0 ) {
+			$text .= "</ul>\n";
+		}
 		return $text;
 	}
 
@@ -177,7 +188,7 @@ class SRFOutline extends SMWResultPrinter {
 			$field_name = $pr->getText( $outputmode, $this->mLinker );
 			// only print it if it's not already part of the
 			// outline
-			if ( ! in_array( $field_name, $this->mOutlineProperties ) ) {
+			if ( !in_array( $field_name, $this->mOutlineProperties ) ) {
 				$print_fields[] = $field_name;
 			}
 		}

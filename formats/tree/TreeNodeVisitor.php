@@ -49,9 +49,9 @@ class TreeNodePrinter implements Visitor {
 			return '';
 		}
 
-		$textForNode = str_repeat( ( $this->configuration[ 'format' ] === 'oltree' ) ? '#' : '*', $this->depth );
+		$textForNode = str_repeat( ( $this->configuration['format'] === 'oltree' ) ? '#' : '*', $this->depth );
 
-		if ( $this->configuration[ 'template' ] === '' ) {
+		if ( $this->configuration['template'] === '' ) {
 			// build simple list
 			$textForNode .= $this->getTextForRowNoTemplate( $row );
 		} else {
@@ -65,6 +65,7 @@ class TreeNodePrinter implements Visitor {
 
 	/**
 	 * @param \SMWResultArray[] $row
+	 *
 	 * @return string
 	 */
 	protected function getTextForRowNoTemplate( $row ) {
@@ -87,7 +88,7 @@ class TreeNodePrinter implements Visitor {
 			$result = array_shift( $cellTexts );
 
 			if ( count( $cellTexts ) > 0 ) {
-				$result .= ' (' . join( $this->configuration[ 'sep' ], $cellTexts ) . ')';
+				$result .= ' (' . join( $this->configuration['sep'], $cellTexts ) . ')';
 			}
 
 		} else {
@@ -99,6 +100,7 @@ class TreeNodePrinter implements Visitor {
 
 	/**
 	 * @param \SMWResultArray[] $row
+	 *
 	 * @return string
 	 */
 	protected function getTextForRowWithTemplate( $row ) {
@@ -114,12 +116,13 @@ class TreeNodePrinter implements Visitor {
 
 		$templateParams[] = "#=$this->rowNumber ";
 
-		return $this->resultPrinter->getTemplateCall( $this->configuration[ 'template' ], $templateParams );
+		return $this->resultPrinter->getTemplateCall( $this->configuration['template'], $templateParams );
 	}
 
 	/**
 	 * @param \SMWResultArray $cell
 	 * @param int $columnNumber
+	 *
 	 * @return string
 	 */
 	protected function getValuesTextForCell( \SMWResultArray $cell, $columnNumber ) {
@@ -133,13 +136,14 @@ class TreeNodePrinter implements Visitor {
 			$valueTexts[] = $text;
 		}
 
-		$valuesText = join( $this->configuration[ 'sep' ], $valueTexts );
+		$valuesText = join( $this->configuration['sep'], $valueTexts );
 		return $valuesText;
 	}
 
 	/**
 	 * @param \SMWResultArray $cell
 	 * @param int $columnNumber
+	 *
 	 * @return string
 	 */
 	protected function getParamNameForCell( $cell, $columnNumber ) {
@@ -148,40 +152,44 @@ class TreeNodePrinter implements Visitor {
 
 			$label = $cell->getPrintRequest()->getLabel();
 
-			if ( $this->configuration[ 'template arguments' ] === 'numbered' || ( $label === '' ) ) {
+			if ( $this->configuration['template arguments'] === 'numbered' || ( $label === '' ) ) {
 				$paramName = $columnNumber + 1;
-			} elseif ( $this->configuration[ 'template arguments' ] === 'legacy' ) {
+			} elseif ( $this->configuration['template arguments'] === 'legacy' ) {
 				$paramName = '?' . $label;
 			} else { // $this->configuration[ 'template arguments' ] === 'named'
 				$paramName = $label;
 			}
 
-			$this->columnLabels[ $columnNumber ] = $paramName;
+			$this->columnLabels[$columnNumber] = $paramName;
 		}
 
-		return $this->columnLabels[ $columnNumber ];
+		return $this->columnLabels[$columnNumber];
 	}
 
 	/**
 	 * @param \SMWResultArray $cell
+	 *
 	 * @return string
 	 */
 	protected function getLabelForCell( $cell, $columnNumber ) {
 
 		if ( !array_key_exists( $columnNumber, $this->columnLabels ) ) {
 
-			if ( $this->configuration[ 'headers' ] === 'hide' || $cell->getPrintRequest()->getLabel() === '' ) {
+			if ( $this->configuration['headers'] === 'hide' || $cell->getPrintRequest()->getLabel() === '' ) {
 				$labelText = '';
-			} elseif ( $this->configuration[ 'headers' ] === 'plain' ) {
+			} elseif ( $this->configuration['headers'] === 'plain' ) {
 				$labelText = $cell->getPrintRequest()->getText( SMW_OUTPUT_WIKI ) . ': ';
 			} else { // $this->configuration[ 'headers' ] === 'link'
-				$labelText = $cell->getPrintRequest()->getText( SMW_OUTPUT_WIKI, $this->resultPrinter->getLinker() ) . ': ';
+				$labelText = $cell->getPrintRequest()->getText(
+						SMW_OUTPUT_WIKI,
+						$this->resultPrinter->getLinker()
+					) . ': ';
 			}
 
-			$this->columnLabels[ $columnNumber ] = $labelText;
+			$this->columnLabels[$columnNumber] = $labelText;
 		}
 
-		return $this->columnLabels[ $columnNumber ];
+		return $this->columnLabels[$columnNumber];
 	}
 
 }

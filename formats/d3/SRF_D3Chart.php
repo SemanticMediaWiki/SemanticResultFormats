@@ -28,6 +28,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	 * @since 1.8
 	 *
 	 * @param array $data label => value
+	 *
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
@@ -41,26 +42,26 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		// Reorganize the raw data
 		foreach ( $data as $name => $value ) {
 			if ( $value >= $this->params['min'] ) {
-				$dataObject[] = [ 'label' => $name , 'value' => $value ];
+				$dataObject[] = [ 'label' => $name, 'value' => $value ];
 			}
 		}
 
 		// Ensure right conversion
-		$width = strstr( $this->params['width'] ,"%") ? $this->params['width'] : $this->params['width'] . 'px';
+		$width = strstr( $this->params['width'], "%" ) ? $this->params['width'] : $this->params['width'] . 'px';
 
 		// Prepare transfer objects
-		$d3data =  [
+		$d3data = [
 			'data' => $dataObject,
-			'parameters' =>  [
+			'parameters' => [
 				'colorscheme' => $this->params['colorscheme'] ? $this->params['colorscheme'] : null,
-				'charttitle'  => $this->params['charttitle'],
-				'charttext'   => $this->params['charttext'],
-				'datalabels'  => $this->params['datalabels']
+				'charttitle' => $this->params['charttitle'],
+				'charttext' => $this->params['charttext'],
+				'datalabels' => $this->params['datalabels']
 			]
 		];
 
 		// Encoding
-		$requireHeadItem =  [ $d3chartID => FormatJson::encode( $d3data ) ];
+		$requireHeadItem = [ $d3chartID => FormatJson::encode( $d3data ) ];
 		SMWOutputs::requireHeadItem( $d3chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
@@ -68,25 +69,31 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 		SMWOutputs::requireResource( $resource );
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', [
-			'id'    => $d3chartID,
-			'class' => 'container',
-			'style' => 'display:none;'
-			], null
+		$chart = Html::rawElement(
+			'div',
+			[
+				'id' => $d3chartID,
+				'class' => 'container',
+				'style' => 'display:none;'
+			],
+			null
 		);
 
 		// Processing placeholder
 		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 
 		// Beautify class selector
-		$class = $this->params['charttype'] ?  '-' . $this->params['charttype'] : '';
+		$class = $this->params['charttype'] ? '-' . $this->params['charttype'] : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' d3-chart-common';
 
 		// D3 wrappper
-		return Html::rawElement( 'div', [
-			'class' => 'srf-d3-chart' . $class ,
-			'style' => "width:{$width}; height:{$this->params['height']}px;"
-			], $processing . $chart
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'srf-d3-chart' . $class,
+				'style' => "width:{$width}; height:{$this->params['height']}px;"
+			],
+			$processing . $chart
 		);
 	}
 
