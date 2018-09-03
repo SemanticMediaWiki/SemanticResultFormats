@@ -23,7 +23,8 @@
 			"Peter Bowman",
 			"Nemo bis",
 			"KATRINE1992",
-			"Amaia"
+			"Amaia",
+			"AVIADOR71"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -34,6 +35,7 @@
 	"srf-prefs-eventcalendar-options-update-default": "Desactivar [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates automatic updates] de eventos de calendario durante la recarga de las páginas",
 	"srf-prefs-eventcalendar-options-paneview-default": "Activar el panel de vista de manera predeterminada",
 	"prefs-srf-datatables-options": "Opciones de DataTables",
+	"srf-prefs-datatables-options-update-default": "Activar [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates actualizaciones automáticas] del contenido de la tabla durante la actualización de la página",
 	"srf-prefs-datatables-options-cache-default": "Desactivar [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage local storage] para mejorar el tiempo de respuesta",
 	"srf-module-loading": "Cargando...",
 	"srf-paramdesc-layout": "Diseño disponible",
