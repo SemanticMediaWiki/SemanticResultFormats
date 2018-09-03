@@ -9,6 +9,7 @@ namespace SRF\Filtered\View;
  * @file
  * @ingroup SemanticResultFormats
  */
+
 use Message;
 use SRF\Filtered\ResultItem;
 
@@ -33,6 +34,7 @@ class CalendarView extends View {
 
 	/**
 	 * @param ResultItem $row
+	 *
 	 * @return array
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
@@ -49,35 +51,47 @@ class CalendarView extends View {
 			$datavalue = $field->getNextDataValue();
 
 			if ( $datavalue instanceof \SMWTimeValue &&
-				( $printRequest->getLabel() === $this->start || $this->start === null && !array_key_exists( 'start', $data ) )
+				( $printRequest->getLabel() === $this->start || $this->start === null && !array_key_exists(
+						'start',
+						$data
+					) )
 			) {
 				// found specified column for start date
 				// OR no column for start date specified, take first available date value
-				$data[ 'start' ] = $datavalue->getISO8601Date();
+				$data['start'] = $datavalue->getISO8601Date();
 			}
 
 			if ( $datavalue instanceof \SMWTimeValue && $printRequest->getLabel() === $this->end ) {
 				// found specified column for end date
-				$data[ 'end' ] = $datavalue->getISO8601Date();
+				$data['end'] = $datavalue->getISO8601Date();
 			}
 
 			if ( $this->titleTemplate === null &&
-				( $printRequest->getLabel() === $this->title || $this->title === null && !array_key_exists( 'title', $data ) )
+				( $printRequest->getLabel() === $this->title || $this->title === null && !array_key_exists(
+						'title',
+						$data
+					) )
 			) {
 				// found specified column for title
 				if ( $datavalue !== false ) {
 					if ( $datavalue instanceof \SMWWikiPageValue ) {
-						$data[ 'url' ] = $datavalue->getTitle()->getLocalURL();
+						$data['url'] = $datavalue->getTitle()->getLocalURL();
 					}
-					$data[ 'title' ] = $datavalue->getShortHTMLText();
+					$data['title'] = $datavalue->getShortHTMLText();
 				}
 			}
 
 			// only add to title template if requested and if not hidden
-			if ( $this->titleTemplate !== null && filter_var( $printRequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
+			if ( $this->titleTemplate !== null && filter_var(
+					$printRequest->getParameter( 'hide' ),
+					FILTER_VALIDATE_BOOLEAN
+				) === false ) {
 
 				$params = [];
-				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $valueId === 0 ) ) ) !== false ) {
+				while ( ( $text = $field->getNextText(
+						SMW_OUTPUT_WIKI,
+						$this->getQueryPrinter()->getLinker( $valueId === 0 )
+					) ) !== false ) {
 					$params[] = $text;
 				}
 				$wikitext .= '|' . ( $valueId + 1 ) . '=' . join( ',', $params );
@@ -88,8 +102,12 @@ class CalendarView extends View {
 		// only add to title template if requested and if not hidden
 		if ( $this->titleTemplate !== null ) {
 //			$wikitext .= "|#=$rownum";
-			$data[ 'title' ] = trim( $this->getQueryPrinter()->getParser()->recursiveTagParse( '{{' . $this->titleTemplate . $wikitext . '}}' ) );
-			$this->getQueryPrinter()->getParser()->replaceLinkHolders( $data[ 'title' ] );
+			$data['title'] = trim(
+				$this->getQueryPrinter()->getParser()->recursiveTagParse(
+					'{{' . $this->titleTemplate . $wikitext . '}}'
+				)
+			);
+			$this->getQueryPrinter()->getParser()->replaceLinkHolders( $data['title'] );
 		}
 
 		return $data;
@@ -104,23 +122,23 @@ class CalendarView extends View {
 		$parser = $this->getQueryPrinter()->getParser();
 
 		// find the hash for the printout containing the start date
-		if ( $params[ 'calendar view start' ] !== '' ) {
-			$this->start = trim( $parser->recursiveTagParse( $params[ 'calendar view start' ] ) );
+		if ( $params['calendar view start'] !== '' ) {
+			$this->start = trim( $parser->recursiveTagParse( $params['calendar view start'] ) );
 		}
 
 		// find the hash for the printout containing the start date
-		if ( $params[ 'calendar view end' ] !== '' ) {
-			$this->end = trim( $parser->recursiveTagParse( $params[ 'calendar view end' ] ) );
+		if ( $params['calendar view end'] !== '' ) {
+			$this->end = trim( $parser->recursiveTagParse( $params['calendar view end'] ) );
 		}
 
 		// find the hash for the printout containing the title of the element
-		if ( $params[ 'calendar view title' ] !== '' ) {
-			$this->title = trim( $parser->recursiveTagParse( $params[ 'calendar view title' ] ) );
+		if ( $params['calendar view title'] !== '' ) {
+			$this->title = trim( $parser->recursiveTagParse( $params['calendar view title'] ) );
 		}
 
 		// find the hash for the printout containing the title of the element
-		if ( $params[ 'calendar view title template' ] !== '' ) {
-			$this->titleTemplate = trim( $parser->recursiveTagParse( $params[ 'calendar view title template' ] ) );
+		if ( $params['calendar view title template'] !== '' ) {
+			$this->titleTemplate = trim( $parser->recursiveTagParse( $params['calendar view title template'] ) );
 		}
 
 //		$this->mTemplate = $params['list view template'];
@@ -191,6 +209,7 @@ class CalendarView extends View {
 
 	/**
 	 * Returns an array of config data for this filter to be stored in the JS
+	 *
 	 * @return string[]
 	 */
 	public function getJsConfig() {
@@ -199,7 +218,9 @@ class CalendarView extends View {
 		return
 			$this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
 			[
-				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey( 'srf-filtered-firstdayofweek' )->inContentLanguage()->text() ),
+				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey(
+					'srf-filtered-firstdayofweek'
+				)->inContentLanguage()->text() ),
 				'isRTL' => wfGetLangObj( true )->isRTL(),
 			];
 	}
@@ -207,6 +228,7 @@ class CalendarView extends View {
 	/**
 	 * @param ResultItem[] $results
 	 * @param string[] $params
+	 *
 	 * @return string[]
 	 */
 	private function getParamHashes( $results, $params ) {
@@ -215,9 +237,11 @@ class CalendarView extends View {
 			return [];
 		}
 
-		if ( $params[ 'calendar view title' ] !== '' ) {
+		if ( $params['calendar view title'] !== '' ) {
 
-			$titleLabel = trim( $this->getQueryPrinter()->getParser()->recursiveTagParse( $params[ 'calendar view title' ] ) );
+			$titleLabel = trim(
+				$this->getQueryPrinter()->getParser()->recursiveTagParse( $params['calendar view title'] )
+			);
 
 			// find the hash for the printout containing the title of the element
 			foreach ( reset( $results )->getValue() as $printout ) {
@@ -227,17 +251,17 @@ class CalendarView extends View {
 				}
 			}
 
-		} elseif ( $params[ 'mainlabel' ] !== '-' ) { // first column not suppressed
+		} elseif ( $params['mainlabel'] !== '-' ) { // first column not suppressed
 			$value = reset( $results )->getValue();
 			return [ 'title' => $this->getQueryPrinter()->uniqid( reset( $value )->getPrintRequest()->getHash() ) ];
 		}
-
 
 		return [];
 	}
 
 	/**
 	 * Returns the label of the selector for this view.
+	 *
 	 * @return String the selector label
 	 */
 	public function getSelectorLabel() {

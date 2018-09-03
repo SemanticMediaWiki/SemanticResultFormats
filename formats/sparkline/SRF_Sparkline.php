@@ -47,8 +47,8 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$dataObject['charttype'] = $this->params['charttype'];
 
 		// Encode data objects
-		$requireHeadItem =  [ $chartID => FormatJson::encode( $dataObject ) ];
-		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript($requireHeadItem ) );
+		$requireHeadItem = [ $chartID => FormatJson::encode( $dataObject ) ];
+		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
 		SMWOutputs::requireResource( 'ext.srf.sparkline' );
@@ -57,20 +57,26 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$processing = SRFUtils::htmlProcessingElement( false );
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', [
-			'id'    => $chartID,
-			'class' => 'sparkline-container',
-			'style' => "display:none;"
-			], null
+		$chart = Html::rawElement(
+			'div',
+			[
+				'id' => $chartID,
+				'class' => 'sparkline-container',
+				'style' => "display:none;"
+			],
+			null
 		);
 
 		// Beautify class selector
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : '';
 
 		// Chart/graph wrappper
-		return Html::rawElement( 'span', [
-			'class' => 'srf-sparkline' . $class,
-			], $processing . $chart
+		return Html::rawElement(
+			'span',
+			[
+				'class' => 'srf-sparkline' . $class,
+			],
+			$processing . $chart
 		);
 	}
 
@@ -96,7 +102,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 		$params['charttype'] = [
 			'message' => 'srf-paramdesc-charttype',
 			'default' => 'bar',
-			'values' =>  [ 'bar', 'line', 'pie', 'discrete' ]
+			'values' => [ 'bar', 'line', 'pie', 'discrete' ]
 		];
 
 		$params['class'] = [

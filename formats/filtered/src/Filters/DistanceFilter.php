@@ -11,7 +11,7 @@ namespace SRF\Filtered\Filter;
  */
 
 use DataValues\Geo\Parsers\LatLongParser;
-use \Exception;
+use Exception;
 use SMWPropertyValue;
 use SRF\Filtered\ResultItem;
 
@@ -53,14 +53,15 @@ class DistanceFilter extends Filter {
 
 			$geoCoordinateParser = new LatLongParser();
 
-			$callback = function ( $value ) use ($geoCoordinateParser) {
+			$callback = function ( $value ) use ( $geoCoordinateParser ) {
 				$latlng = $geoCoordinateParser->parse( $value );
 				return [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
 			};
 
 			$this->addValueToJsConfig( 'distance filter origin', 'origin', null, $callback );
 
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			$label = $this->getPrintRequest()->getLabel();
 			$this->getQueryPrinter()->addError( "Distance filter on $label: " . $exception->getMessage() );
 			return [];
@@ -76,6 +77,7 @@ class DistanceFilter extends Filter {
 
 	/**
 	 * @param ResultItem $row
+	 *
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
@@ -108,7 +110,8 @@ class DistanceFilter extends Filter {
 						try {
 							$latlng = $coordParser->parse( $value->getSerialization() );
 							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
-						} catch ( \Exception $exception ) {
+						}
+						catch ( \Exception $exception ) {
 							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
 						}
 						$value = $field->getNextDataItem();
@@ -122,7 +125,6 @@ class DistanceFilter extends Filter {
 
 		return null;
 	}
-
 
 	/**
 	 * @return bool

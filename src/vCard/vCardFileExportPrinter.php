@@ -2,10 +2,10 @@
 
 namespace SRF\vCard;
 
-use SMWQueryResult  as QueryResult;
-use SMWQueryProcessor as QueryProcessor;
-use SMWQuery as Query;
 use SMWExportPrinter as FileExportPrinter;
+use SMWQuery as Query;
+use SMWQueryProcessor as QueryProcessor;
+use SMWQueryResult as QueryResult;
 use SMWTimeValue as TimeValue;
 use WikiPage;
 
@@ -122,7 +122,7 @@ class vCardFileExportPrinter extends FileExportPrinter {
 		$isPublic = $this->isPublic();
 
 		while ( $row !== false ) {
-			 // Subject of the Result
+			// Subject of the Result
 			$subject = $row[0]->getResultSubject();
 			$title = $subject->getTitle();
 
@@ -193,141 +193,141 @@ class vCardFileExportPrinter extends FileExportPrinter {
 			// (could include funny things like geo, description etc.)
 			$req = $field->getPrintRequest();
 
-			switch( strtolower( $req->getLabel() ) ) {
+			switch ( strtolower( $req->getLabel() ) ) {
 				case "name":
 					$fullname = $this->getFieldValue( $field );
-				break;
+					break;
 				case "prefix":
 					$prefix = $this->getFieldCommaList( $field );
-				break;
+					break;
 				case "suffix":
 					$suffix = $this->getFieldCommaList( $field );
-				break;
+					break;
 				case "firstname":
 					// save only the first
 					$firstname = $this->getFieldValue( $field );
-				break;
+					break;
 				case "extraname":
 					$additionalname = $this->getFieldCommaList( $field );
-				break;
+					break;
 				case "lastname":
 					// save only the first
 					$lastname = $this->getFieldValue( $field );
-				break;
+					break;
 				case "note":
 					$note = $this->getFieldCommaList( $field );
-				break;
+					break;
 				case "category":
 					$category = $this->getFieldCommaList( $field );
 				case "email":
-					while( $value = $field->getNextDataValue() ) {
+					while ( $value = $field->getNextDataValue() ) {
 						$emails[] = new Email( 'INTERNET', $value->getShortWikiText() );
 					}
-				break;
+					break;
 				case "workphone":
-					while( $value = $field->getNextDataValue() ) {
+					while ( $value = $field->getNextDataValue() ) {
 						$tels[] = new Tel( 'WORK', $value->getShortWikiText() );
 					}
-				break;
+					break;
 				case "cellphone":
-					while( $value = $field->getNextDataValue() ) {
+					while ( $value = $field->getNextDataValue() ) {
 						$tels[] = new Tel( 'CELL', $value->getShortWikiText() );
 					}
-				break;
+					break;
 				case "homephone":
-					while( $value = $field->getNextDataValue() ) {
+					while ( $value = $field->getNextDataValue() ) {
 						$tels[] = new Tel( 'HOME', $value->getShortWikiText() );
 					}
-				break;
+					break;
 				case "organization":
 					$organization = $this->getFieldValue( $field );
-				break;
+					break;
 				case "workpostofficebox":
 					if ( ( $workpostofficebox = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "workextendedaddress":
 					if ( ( $workextendedaddress = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "workstreet":
 					if ( ( $workstreet = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "worklocality":
 					if ( ( $worklocality = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "workregion":
 					if ( ( $workregion = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "workpostalcode":
 					if ( ( $workpostalcode = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "workcountry":
 					if ( ( $workcountry = $this->getFieldValue( $field ) ) !== '' ) {
 						$workaddress = true;
 					}
-				break;
+					break;
 				case "homepostofficebox":
 					if ( ( $homepostofficebox = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "homeextendedaddress":
 					if ( ( $homeextendedaddress = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "homestreet":
 					if ( ( $homestreet = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "homelocality":
 					if ( ( $homelocality = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "homeregion":
 					if ( ( $homeregion = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "homepostalcode":
 					if ( ( $homepostalcode = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "homecountry":
 					if ( ( $homecountry = $this->getFieldValue( $field ) ) !== '' ) {
 						$homeaddress = true;
 					}
-				break;
+					break;
 				case "birthday":
-					if ( $req->getTypeID() == TimeValue::TYPE_ID )  {
+					if ( $req->getTypeID() == TimeValue::TYPE_ID ) {
 						$value = $field->getNextDataValue();
 						if ( $value !== false ) {
-							$birthday =  $value->getISO8601Date();
+							$birthday = $value->getISO8601Date();
 						}
 					}
-				break;
+					break;
 				case "homepage":
-					if ( $req->getTypeID() == "_uri" )  {
+					if ( $req->getTypeID() == "_uri" ) {
 						$value = $field->getNextDataValue();
 						if ( $value !== false ) {
 							$url = $value->getWikiValue();
 						}
 					}
-				break;
+					break;
 			}
 		}
 
@@ -395,8 +395,8 @@ class vCardFileExportPrinter extends FileExportPrinter {
 
 		$list = '';
 
-		while( $value = $field->getNextDataValue() ) {
-			$list .= ( $list ? ',': '' ) . $value->getShortWikiText();
+		while ( $value = $field->getNextDataValue() ) {
+			$list .= ( $list ? ',' : '' ) . $value->getShortWikiText();
 		}
 
 		return $list;
@@ -417,7 +417,10 @@ class vCardFileExportPrinter extends FileExportPrinter {
 		// heuristic for setting confidentiality level of vCard:
 		global $wgGroupPermissions;
 
-		if ( ( array_key_exists( '*', $wgGroupPermissions ) ) && ( array_key_exists( 'read', $wgGroupPermissions['*'] ) ) ) {
+		if ( ( array_key_exists( '*', $wgGroupPermissions ) ) && ( array_key_exists(
+				'read',
+				$wgGroupPermissions['*']
+			) ) ) {
 			return $wgGroupPermissions['*']['read'];
 		}
 

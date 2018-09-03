@@ -2,15 +2,13 @@
 
 namespace SRF;
 
+use Html;
 use SMW\ResultPrinter;
-
-use SMWQueryResult;
-use SMWPrintRequest;
 use SMWDataItem;
 use SMWOutputs;
+use SMWPrintRequest;
+use SMWQueryResult;
 use SRFUtils;
-
-use Html;
 use Title;
 
 /**
@@ -43,10 +41,12 @@ class Gallery extends ResultPrinter {
 	protected function buildResult( SMWQueryResult $results ) {
 
 		// Intro/outro are not planned to work with the widget option
-		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ){
-			return $results->addErrors( [
-				$this->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
-			] );
+		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ) {
+			return $results->addErrors(
+				[
+					$this->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
+				]
+			);
 		};
 
 		return $this->getResultText( $results, $this->outputMode );
@@ -75,8 +75,8 @@ class Gallery extends ResultPrinter {
 			$ig->setParser( $GLOBALS['wgParser'] );
 		}
 
-		$html          = '';
-		$processing    = '';
+		$html = '';
+		$processing = '';
 
 		if ( $this->params['widget'] == 'carousel' ) {
 			// Carousel widget
@@ -97,7 +97,7 @@ class Gallery extends ResultPrinter {
 
 		// Only use redirects where the overlay option is not used and redirect
 		// thumb images towards a different target
-		if ( $this->params['redirects'] !== '' && !$this->params['overlay'] ){
+		if ( $this->params['redirects'] !== '' && !$this->params['overlay'] ) {
 			SMWOutputs::requireResource( 'ext.srf.gallery.redirect' );
 		}
 
@@ -124,8 +124,8 @@ class Gallery extends ResultPrinter {
 			$printReqLabels[] = $printReq->getLabel();
 
 			// Get redirect type
-			if ( $this->params['redirects'] === $printReq->getLabel() ){
-			 $redirectType = $printReq->getTypeID();
+			if ( $this->params['redirects'] === $printReq->getLabel() ) {
+				$redirectType = $printReq->getTypeID();
 			}
 		}
 
@@ -153,14 +153,14 @@ class Gallery extends ResultPrinter {
 		}
 
 		// Beautify the class selector
-		$class = $this->params['widget'] ?  '-' . $this->params['widget'] . ' ' : '';
-		$class = $this->params['redirects'] !== '' && $this->params['overlay'] === false ? $class . ' srf-redirect' . ' ': $class;
-		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
+		$class = $this->params['widget'] ? '-' . $this->params['widget'] . ' ' : '';
+		$class = $this->params['redirects'] !== '' && $this->params['overlay'] === false ? $class . ' srf-redirect' . ' ' : $class;
+		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class;
 
 		// Separate content from result output
 		if ( !$ig->isEmpty() ) {
-			$attribs =  [
-				'class'  => 'srf-gallery' . $class,
+			$attribs = [
+				'class' => 'srf-gallery' . $class,
 				'data-redirect-type' => $redirectType,
 				'data-ns-text' => $this->getFileNsTextForPageLanguage()
 			];
@@ -189,7 +189,8 @@ class Gallery extends ResultPrinter {
 	 * @param $outputMode
 	 */
 	protected function addImageProperties( SMWQueryResult $results, &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
-		while ( /* array of SMWResultArray */ $rows = $results->getNext() ) { // Objects (pages)
+		while ( /* array of SMWResultArray */
+		$rows = $results->getNext() ) { // Objects (pages)
 			$images = [];
 			$captions = [];
 			$redirects = [];
@@ -219,8 +220,8 @@ class Gallery extends ResultPrinter {
 					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // Property values
 						if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
 							$redirects[] = $dataValue->getTitle();
-						} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI  ) {
-						  $redirects[] = $dataValue->getURL();
+						} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI ) {
+							$redirects[] = $dataValue->getURL();
 						}
 					}
 				}
@@ -313,7 +314,7 @@ class Gallery extends ResultPrinter {
 			}
 		}
 		// Use image alt as helper for either text
-		$imgAlt =  $this->params['redirects'] === '' ? $imgCaption : $imgRedirect !== '' ? $imgRedirect : '' ;
+		$imgAlt = $this->params['redirects'] === '' ? $imgCaption : $imgRedirect !== '' ? $imgRedirect : '';
 		$ig->add( $imgTitle, $imgCaption, $imgAlt );
 	}
 
@@ -372,7 +373,6 @@ class Gallery extends ResultPrinter {
 		return $attribs;
 	}
 
-
 	/**
 	 * Init slideshow widget
 	 *
@@ -383,7 +383,7 @@ class Gallery extends ResultPrinter {
 	private function getSlideshowWidget() {
 
 		$attribs = [
-			'id'    => uniqid(),
+			'id' => uniqid(),
 			'class' => $this->getImageOverlay(),
 			'style' => 'display:none;',
 			'data-nav-control' => $this->params['navigation']

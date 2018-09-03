@@ -8,7 +8,6 @@
 
 namespace SRF\Filtered;
 
-
 use OutputPage;
 use ParserOutput;
 
@@ -20,7 +19,7 @@ class Hooks {
 	}
 
 	public static function onMakeGlobalVariablesScript( &$vars, OutputPage $output ) {
-		$vars[ 'srfFilteredConfig' ] = $output->getProperty( 'srf-filtered-config' );
+		$vars['srfFilteredConfig'] = $output->getProperty( 'srf-filtered-config' );
 		return true;
 	}
 

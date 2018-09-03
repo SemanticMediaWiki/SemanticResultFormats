@@ -11,6 +11,7 @@
  * @file
  */
 class SRFPageWidget extends SMWEmbeddedResultPrinter {
+
 	/**
 	 * Get a human readable label for this printer.
 	 *
@@ -40,12 +41,15 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 		$widgetID = 'pagewidget-' . ++$statNr;
 
 		// Container items
-		$result = Html::rawElement( 'div', [
-			'id' => $widgetID,
-			'class' => 'pagewidget-container',
-			'data-embedonly' => $this->params['embedonly'],
-			'style' => 'display:none;'
-			], $result
+		$result = Html::rawElement(
+			'div',
+			[
+				'id' => $widgetID,
+				'class' => 'pagewidget-container',
+				'data-embedonly' => $this->params['embedonly'],
+				'style' => 'display:none;'
+			],
+			$result
 		);
 
 		// Placeholder
@@ -58,9 +62,12 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : '';
 
 		// Wrap results
-		return Html::rawElement( 'div', [
-			'class' => 'srf-pagewidget' . $class,
-			] , $processing . $result
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'srf-pagewidget' . $class,
+			],
+			$processing . $result
 		);
 	}
 
@@ -90,7 +97,7 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 		$params['widget'] = [
 			'message' => 'srf-paramdesc-widget',
 			'default' => 'carousel',
-			'values' =>  [ 'carousel' ],
+			'values' => [ 'carousel' ],
 		];
 
 		return $params;

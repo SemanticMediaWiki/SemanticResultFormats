@@ -26,13 +26,13 @@ class AddressTest extends \PHPUnit_Framework_TestCase {
 	public function testText() {
 
 		$adr = [
-			'pobox'    => '',
-			'ext'      => '',
-			'street'   => '2 Example Avenue',
+			'pobox' => '',
+			'ext' => '',
+			'street' => '2 Example Avenue',
 			'locality' => 'Anytown',
-			'region'   => 'Foo',
-			'code'     => '01111',
-			'country'  => 'Bar'
+			'region' => 'Foo',
+			'code' => '01111',
+			'country' => 'Bar'
 		];
 
 		$instance = new Address( '', $adr );

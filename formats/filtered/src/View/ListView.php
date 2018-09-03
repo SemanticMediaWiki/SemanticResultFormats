@@ -9,7 +9,8 @@ namespace SRF\Filtered\View;
  * @file
  * @ingroup SemanticResultFormats
  */
-use \Message;
+
+use Message;
 
 /**
  * The ListView class defines the List view.
@@ -34,20 +35,20 @@ class ListView extends View {
 
 		$params = $this->getActualParameters();
 
-		$this->mFormat = $params[ 'list view type' ];
-		$this->mTemplate = $params[ 'list view template' ];
-		$this->mIntroTemplate = $params[ 'list view introtemplate' ];
-		$this->mOutroTemplate = $params[ 'list view outrotemplate' ];
-		$this->mNamedArgs = $params[ 'list view named args' ];
+		$this->mFormat = $params['list view type'];
+		$this->mTemplate = $params['list view template'];
+		$this->mIntroTemplate = $params['list view introtemplate'];
+		$this->mOutroTemplate = $params['list view outrotemplate'];
+		$this->mNamedArgs = $params['list view named args'];
 
-		$this->mShowHeaders = $params[ 'headers' ];
+		$this->mShowHeaders = $params['headers'];
 	}
 
 	public function getJsConfig() {
 		$this->handleParameters();
 		return [
-			'format'       => $this->mFormat,
-			'named args'   => $this->mNamedArgs,
+			'format' => $this->mFormat,
+			'named args' => $this->mNamedArgs,
 			'show headers' => $this->mShowHeaders
 		];
 	}
@@ -106,6 +107,7 @@ class ListView extends View {
 
 	/**
 	 * Prints one row of a list view.
+	 *
 	 * @param \SMWResultArray[] $row
 	 * @param $rownum
 	 * @param $rowstart
@@ -136,7 +138,10 @@ class ListView extends View {
 					$isFirstValue = true;
 
 					$field->reset();
-					while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $fieldNumber == 0 ) ) ) !== false ) {
+					while ( ( $text = $field->getNextText(
+							SMW_OUTPUT_WIKI,
+							$this->getQueryPrinter()->getLinker( $fieldNumber == 0 )
+						) ) !== false ) {
 						if ( $isFirstValue ) {
 							$isFirstValue = false;
 						} else {
@@ -160,7 +165,10 @@ class ListView extends View {
 				$printrequest = $field->getPrintRequest();
 
 				$field->reset();
-				while ( ( $text = $field->getNextText( SMW_OUTPUT_WIKI, $this->getQueryPrinter()->getLinker( $firstCol ) ) ) !== false ) {
+				while ( ( $text = $field->getNextText(
+						SMW_OUTPUT_WIKI,
+						$this->getQueryPrinter()->getLinker( $firstCol )
+					) ) !== false ) {
 
 					// only print value if not hidden
 					if ( filter_var( $printrequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
@@ -176,8 +184,13 @@ class ListView extends View {
 						if ( $isFirstValue ) { // first value in any column, print header
 							$isFirstValue = false;
 
-							if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel() !== '' ) ) {
-								$result .= $field->getPrintRequest()->getText( SMW_OUTPUT_WIKI, ( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter()->getLinker( true, true ) ) ) . ' ';
+							if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel(
+									) !== '' ) ) {
+								$result .= $field->getPrintRequest()->getText(
+										SMW_OUTPUT_WIKI,
+										( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter(
+										)->getLinker( true, true ) )
+									) . ' ';
 							}
 						}
 
@@ -206,7 +219,7 @@ class ListView extends View {
 
 		$params[] = [
 			// 'type' => 'string',
-			'name'    => 'list view type',
+			'name' => 'list view type',
 			'message' => 'srf-paramdesc-filtered-list-type',
 			'default' => 'list',
 			// 'islist' => false,
@@ -214,15 +227,15 @@ class ListView extends View {
 
 		$params[] = [
 			// 'type' => 'string',
-			'name'    => 'list view template',
+			'name' => 'list view template',
 			'message' => 'srf-paramdesc-filtered-list-template',
 			'default' => '',
 			// 'islist' => false,
 		];
 
 		$params[] = [
-			'type'    => 'boolean',
-			'name'    => 'list view named args',
+			'type' => 'boolean',
+			'name' => 'list view named args',
 			'message' => 'srf-paramdesc-filtered-list-named-args',
 			'default' => false,
 			// 'islist' => false,
@@ -230,7 +243,7 @@ class ListView extends View {
 
 		$params[] = [
 			//'type' => 'string',
-			'name'    => 'list view introtemplate',
+			'name' => 'list view introtemplate',
 			'message' => 'srf-paramdesc-filtered-list-introtemplate',
 			'default' => '',
 			// 'islist' => false,
@@ -238,7 +251,7 @@ class ListView extends View {
 
 		$params[] = [
 			//'type' => 'string',
-			'name'    => 'list view outrotemplate',
+			'name' => 'list view outrotemplate',
 			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
 			'default' => '',
 			// 'islist' => false,
@@ -249,6 +262,7 @@ class ListView extends View {
 
 	/**
 	 * Returns the label of the selector for this view.
+	 *
 	 * @return String the selector label
 	 */
 	public function getSelectorLabel() {

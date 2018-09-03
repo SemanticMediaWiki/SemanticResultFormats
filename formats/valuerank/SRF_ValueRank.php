@@ -94,8 +94,7 @@ class SRFValueRank extends SMWResultPrinter {
 					if ( $dataValue->getTypeID() == '_wpg' ) {
 						$value = $dataValue->getTitle()->getText();
 						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
-					}
-					else {
+					} else {
 						$html = $dataValue->getShortText( $outputMode, $this->getLinker( false ) );
 						$value = $html;
 					}
@@ -153,12 +152,12 @@ class SRFValueRank extends SMWResultPrinter {
 	protected function getFormatOutput( array $tags ) {
 		$htmlTags = [];
 
-		if ( $this->params['introtemplate'] !== '' && $this->params['template'] !== '' ){
+		if ( $this->params['introtemplate'] !== '' && $this->params['template'] !== '' ) {
 			$htmlTags[] = "{{" . $this->params['introtemplate'] . "}}";
 		}
 
 		foreach ( $tags as $name => $size ) {
-			if ( $this->params['template'] !== '' ){
+			if ( $this->params['template'] !== '' ) {
 				$htmlTags[] = $this->addTemplateOutput( $name, $size, $rownum );
 			} else {
 				$htmlTags[] = Html::rawElement(
@@ -169,14 +168,14 @@ class SRFValueRank extends SMWResultPrinter {
 			}
 		}
 
-		if ( $this->params['outrotemplate'] !== '' && $this->params['template'] !== '' ){
+		if ( $this->params['outrotemplate'] !== '' && $this->params['template'] !== '' ) {
 			$htmlTags[] = "{{" . $this->params['outrotemplate'] . "}}";
 		}
 
 		return Html::rawElement(
 			( $this->params['liststyle'] === 'none' ? 'div' : $this->params['liststyle'] ),
-			[ 'class' => $this->params['class']  ],
-			implode( '' , $htmlTags )
+			[ 'class' => $this->params['class'] ],
+			implode( '', $htmlTags )
 		);
 	}
 
@@ -193,11 +192,11 @@ class SRFValueRank extends SMWResultPrinter {
 	 */
 	protected function addTemplateOutput( $name, $rank, &$rownum ) {
 		$rownum++;
-		$wikitext  = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
+		$wikitext = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
 		$wikitext .= "|" . $name;
 		$wikitext .= "|rank=" . $rank;
 		$wikitext .= "|#=$rownum";
-		return '{{' . trim ( $this->params['template'] ) . $wikitext . '}}';
+		return '{{' . trim( $this->params['template'] ) . $wikitext . '}}';
 	}
 
 	/**

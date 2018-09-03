@@ -3,8 +3,8 @@
 namespace SRF\Tests\Integration;
 
 use ResourceLoader;
-use ResourceLoaderModule;
 use ResourceLoaderContext;
+use ResourceLoaderModule;
 
 /**
  * Tests for resource definitions and files
@@ -44,8 +44,8 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider moduleDataProvider
 	 */
-	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ){
-		foreach ( $modules as $name => $values ){
+	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
+		foreach ( $modules as $name => $values ) {
 			$module = $resourceLoader->getModule( $name );
 			$scripts = $module->getScript( $context );
 			$this->assertInternalType( 'string', $scripts );
@@ -57,9 +57,9 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider moduleDataProvider
 	 */
-	public function testModulesStylesFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context  ){
+	public function testModulesStylesFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
 
-		foreach ( $modules as $name => $values ){
+		foreach ( $modules as $name => $values ) {
 
 			// Get module details
 			$module = $resourceLoader->getModule( $name );

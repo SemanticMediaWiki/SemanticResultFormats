@@ -2,13 +2,12 @@
 
 namespace SRF\iCalendar;
 
-use SRF\iCalendar\IcalTimezoneFormatter;
-use SMWQueryResult  as QueryResult;
-use SMWQueryProcessor as QueryProcessor;
-use SMWQuery as Query;
-use SMWExportPrinter as FileExportPrinter;
-use SMWTimeValue as TimeValue;
 use SMWDataValueFactory as DataValueFactory;
+use SMWExportPrinter as FileExportPrinter;
+use SMWQuery as Query;
+use SMWQueryProcessor as QueryProcessor;
+use SMWQueryResult as QueryResult;
+use SMWTimeValue as TimeValue;
 use WikiPage;
 
 /**
@@ -233,7 +232,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 
 		$from = null;
 		$to = null;
-		foreach ( $row as /* SMWResultArray */ $field ) {
+		foreach ( $row as /* SMWResultArray */
+				  $field ) {
 			// later we may add more things like a generic
 			// mechanism to add whatever you want :)
 			// could include funny things like geo, description etc. though
@@ -241,7 +241,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 			$label = strtolower( $req->getLabel() );
 
 			switch ( $label ) {
-				case 'start': case 'end':
+				case 'start':
+				case 'end':
 					if ( $req->getTypeID() == '_dat' ) {
 						$dataValue = $field->getNextDataValue();
 
@@ -251,14 +252,18 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 							$params[$label] = $this->parsedate( $dataValue, $label == 'end' );
 
 							$timestamp = strtotime( $params[$label] );
-							if ( $from === null || $timestamp < $from )
+							if ( $from === null || $timestamp < $from ) {
 								$from = $timestamp;
-							if ( $to === null || $timestamp > $to )
+							}
+							if ( $to === null || $timestamp > $to ) {
 								$to = $timestamp;
+							}
 						}
 					}
 					break;
-				case 'location': case 'description': case 'summary':
+				case 'location':
+				case 'description':
+				case 'summary':
 					$value = $field->getNextDataValue();
 					if ( $value !== false ) {
 						$params[$label] = $value->getShortWikiText();
@@ -308,9 +313,9 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	private function parsedate( TimeValue $dv, $isend = false ) {
 		$year = $dv->getYear();
 
-		 // ISO range is limited to four digits
+		// ISO range is limited to four digits
 		if ( ( $year > 9999 ) || ( $year < -9998 ) ) {
-			 return '';
+			return '';
 		}
 
 		$year = number_format( $year, 0, '.', '' );
@@ -318,7 +323,10 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 
 		// increment by one day, compute date to cover leap years etc.
 		if ( ( $time == false ) && ( $isend ) ) {
-			$dv = DataValueFactoryg::getInstance()->newDataValueByType( '_dat', $dv->getWikiValue() . 'T00:00:00-24:00' );
+			$dv = DataValueFactoryg::getInstance()->newDataValueByType(
+				'_dat',
+				$dv->getWikiValue() . 'T00:00:00-24:00'
+			);
 		}
 
 		$month = $dv->getMonth();

@@ -10,9 +10,7 @@ namespace SRF\Filtered\Filter;
  * @ingroup SemanticResultFormats
  */
 
-use SMW\DataValues\TemperatureValue;
 use SMWPropertyValue;
-use SMWQuantityValue;
 use SRF\Filtered\ResultItem;
 
 /**
@@ -39,6 +37,7 @@ class NumberFilter extends Filter {
 
 	/**
 	 * @param ResultItem $row
+	 *
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
@@ -58,9 +57,9 @@ class NumberFilter extends Filter {
 
 				while ( $value instanceof \SMWNumberValue || $value instanceof \SMWTimeValue ) {
 
-					if ($value instanceof \SMWNumberValue ) {
+					if ( $value instanceof \SMWNumberValue ) {
 						$cuv = $value->getConvertedUnitValues();
-						$values[] = $cuv[ $value->getCanonicalMainUnit() ];
+						$values[] = $cuv[$value->getCanonicalMainUnit()];
 					} else {
 						$values[] = $value->getYear();
 					}
@@ -73,7 +72,6 @@ class NumberFilter extends Filter {
 
 		return null;
 	}
-
 
 	/**
 	 * @return bool
@@ -91,7 +89,7 @@ class NumberFilter extends Filter {
 		$this->addValueToJsConfig( 'number filter step', 'step' );
 		$this->addValueToJsConfig( 'number filter sliders', 'sliders' );
 		$this->addValueToJsConfig( 'number filter label', 'caption', $this->getPrintRequest()->getOutputFormat() );
-		$this->addValueListToJsConfig('number filter values', 'values' );
+		$this->addValueListToJsConfig( 'number filter values', 'values' );
 		$this->addValueListToJsConfig( 'number filter switches', 'switches' );
 	}
 }

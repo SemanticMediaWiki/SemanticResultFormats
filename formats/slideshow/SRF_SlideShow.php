@@ -62,12 +62,16 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		// write out results and query params into JS arrays
 		// Define the srf_filtered_values array
-		SMWOutputs::requireScript( 'srf_slideshow', Html::inlineScript(
+		SMWOutputs::requireScript(
+			'srf_slideshow',
+			Html::inlineScript(
 				'srf_slideshow = {};'
 			)
 		);
 
-		SMWOutputs::requireScript( 'srf_slideshow' . $id, Html::inlineScript(
+		SMWOutputs::requireScript(
+			'srf_slideshow' . $id,
+			Html::inlineScript(
 				'srf_slideshow["' . $id . '"] = ' . json_encode(
 					[
 						$objects,
@@ -77,7 +81,7 @@ class SRFSlideShow extends SMWResultPrinter {
 						$this->params['width'],
 						$this->params['nav controls'],
 						$this->params['effect'],
-						json_encode( $printrequests ) ,
+						json_encode( $printrequests ),
 					]
 				) . ';'
 			)
