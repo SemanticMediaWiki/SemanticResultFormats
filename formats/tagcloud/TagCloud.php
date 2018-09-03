@@ -2,14 +2,14 @@
 
 namespace SRF;
 
+use Html;
 use SMW\ResultPrinter;
 use SMWDataValue;
-use SMWQueryResult;
+use SMWOutputs;
 use SMWPrintRequest;
+use SMWQueryResult;
 use SMWResultArray;
 use SRFUtils;
-use SMWOutputs;
-use Html;
 use Title;
 
 /**
@@ -28,6 +28,7 @@ class TagCloud extends ResultPrinter {
 
 	/**
 	 * Contains html generated tags
+	 *
 	 * @var array
 	 */
 	protected $tagsHtml = [];
@@ -62,7 +63,9 @@ class TagCloud extends ResultPrinter {
 		if ( ( $this->params['widget'] == 'sphere' ) &&
 			( $this->params['link'] !== 'all' ) &&
 			( $this->params['template'] === '' ) ) {
-			$queryResult->addErrors( [ $this->msg( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ] );
+			$queryResult->addErrors(
+				[ $this->msg( 'srf-error-option-link-all', 'sphere' )->inContentLanguage()->text() ]
+			);
 			return '';
 		}
 
@@ -131,7 +134,7 @@ class TagCloud extends ResultPrinter {
 					}
 
 					// Replace content with template inclusion
-					$html = $this->params['template'] !== '' ? $this->addTemplateOutput ( $value , $rownum ) : $html;
+					$html = $this->params['template'] !== '' ? $this->addTemplateOutput( $value, $rownum ) : $html;
 
 					// Store the HTML separately, so sorting can be done easily
 					if ( !array_key_exists( $value, $tags ) ) {
@@ -185,12 +188,13 @@ class TagCloud extends ResultPrinter {
 		foreach ( $tags as &$tag ) {
 			switch ( $this->params['increase'] ) {
 				case 'linear':
-					$divisor = ($max == $min) ? 1 : $max - $min;
+					$divisor = ( $max == $min ) ? 1 : $max - $min;
 					$tag = $this->params['minsize'] + $maxSizeIncrease * ( $tag - $min ) / $divisor;
 					break;
-				case 'log' : default :
-					$divisor = ($max == $min) ? 1 : log( $max ) - log( $min );
-					$tag = $this->params['minsize'] + $maxSizeIncrease * ( log( $tag ) - log( $min ) ) / $divisor ;
+				case 'log' :
+				default :
+					$divisor = ( $max == $min ) ? 1 : log( $max ) - log( $min );
+					$tag = $this->params['minsize'] + $maxSizeIncrease * ( log( $tag ) - log( $min ) ) / $divisor;
 					break;
 			}
 		}
@@ -221,7 +225,7 @@ class TagCloud extends ResultPrinter {
 				foreach ( $tagSizes as $size ) {
 					foreach ( $tags as $tagName => $tagSize ) {
 						if ( $tagSize == $size ) {
-							$newTags[$tagName] =  $tags[$tagName];
+							$newTags[$tagName] = $tags[$tagName];
 							break;
 						}
 					}
@@ -229,7 +233,8 @@ class TagCloud extends ResultPrinter {
 
 				$tags = $newTags;
 				break;
-			case 'unchanged' : default : // Restore the original order.
+			case 'unchanged' :
+			default : // Restore the original order.
 				$changedTags = $tags;
 				$tags = [];
 
@@ -255,8 +260,8 @@ class TagCloud extends ResultPrinter {
 	private function getTagCloud( array $tags ) {
 
 		// Initialize
-		$htmlTags      = [];
-		$processing    = '';
+		$htmlTags = [];
+		$processing = '';
 
 		// Count actual output and store div identifier
 		$tagId = 'srf-' . uniqid();
@@ -266,8 +271,10 @@ class TagCloud extends ResultPrinter {
 
 		// Add size information
 		foreach ( $tags as $name => $size ) {
-			$htmlTags[] = Html::rawElement( $element,  [
-				'style' => "font-size:$size%" ],
+			$htmlTags[] = Html::rawElement(
+				$element,
+				[
+					'style' => "font-size:$size%" ],
 				$this->tagsHtml[$name]
 			);
 		}
@@ -279,26 +286,35 @@ class TagCloud extends ResultPrinter {
 		if ( in_array( $this->params['widget'], [ 'sphere', 'wordcloud' ] ) ) {
 
 			// Wrap LI/UL elements
-			$htmlCTags = Html::rawElement( 'ul',  [
-				'style' => 'display:none;'
-				], $htmlSTags
+			$htmlCTags = Html::rawElement(
+				'ul',
+				[
+					'style' => 'display:none;'
+				],
+				$htmlSTags
 			);
 
 			// Wrap tags
-			$htmlCTags = Html::rawElement( 'div',  [
-				'id'    => $tagId . '-tags',
-				'class' => 'srf-tags'
-				], $htmlCTags
+			$htmlCTags = Html::rawElement(
+				'div',
+				[
+					'id' => $tagId . '-tags',
+					'class' => 'srf-tags'
+				],
+				$htmlCTags
 			);
 
 			// Wrap everything in a container object
-			$htmlSTags = Html::rawElement( 'div',  [
-				'id'     => $tagId . '-container',
-				'class'  => 'srf-container',
-				'data-width'  => $this->params['width'],
-				'data-height' => $this->params['height'],
-				'data-font'   => $this->params['font']
-				], $htmlCTags
+			$htmlSTags = Html::rawElement(
+				'div',
+				[
+					'id' => $tagId . '-container',
+					'class' => 'srf-container',
+					'data-width' => $this->params['width'],
+					'data-height' => $this->params['height'],
+					'data-font' => $this->params['font']
+				],
+				$htmlCTags
 			);
 
 			// Processing placeholder
@@ -306,12 +322,12 @@ class TagCloud extends ResultPrinter {
 		}
 
 		// Beautify class selector
-		$class = $this->params['widget'] ?  '-' . $this->params['widget'] . ' ' : '';
-		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class ;
+		$class = $this->params['widget'] ? '-' . $this->params['widget'] . ' ' : '';
+		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class;
 
 		// General placeholder
-		$attribs =  [
-			'class'  => 'srf-tagcloud' . $class,
+		$attribs = [
+			'class' => 'srf-tagcloud' . $class,
 			'data-version' => '0.4.1'
 		];
 
@@ -326,10 +342,10 @@ class TagCloud extends ResultPrinter {
 	 */
 	private function addTemplateOutput( $value, &$rowNumber ) {
 		$rowNumber++;
-		$wikitext  = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
+		$wikitext = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
 		$wikitext .= "|" . $value;
 		$wikitext .= "|#=$rowNumber";
-		return '{{' . trim ( $this->params['template'] ) . $wikitext . '}}';
+		return '{{' . trim( $this->params['template'] ) . $wikitext . '}}';
 	}
 
 	/**

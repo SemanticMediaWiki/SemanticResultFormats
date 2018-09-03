@@ -9,6 +9,7 @@ namespace SRF\Filtered\View;
  * @file
  * @ingroup SemanticResultFormats
  */
+
 use SRF\Filtered\Filtered;
 use SRF\Filtered\ResultItem;
 
@@ -86,6 +87,7 @@ abstract class View {
 
 	/**
 	 * @param ResultItem $row
+	 *
 	 * @return null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
@@ -94,6 +96,7 @@ abstract class View {
 
 	/**
 	 * Returns an array of config data for this view to be stored in the JS
+	 *
 	 * @return array
 	 */
 	public function getJsConfig() {

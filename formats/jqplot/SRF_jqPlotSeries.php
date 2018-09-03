@@ -6,9 +6,10 @@
  * @since 1.8
  * @licence GNU GPL v2 or later
  *
- * @author mwjames 
+ * @author mwjames
  */
 class SRFjqPlotSeries extends SMWResultPrinter {
+
 	/**
 	 * @see SMWResultPrinter::getName
 	 */
@@ -32,8 +33,11 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		// Check data availability
 		if ( $data['series'] === [] ) {
-			return $result->addErrors( [ wfMessage( 'srf-warn-empy-chart' )
-					->inContentLanguage()->text() ] );
+			return $result->addErrors(
+				[
+					wfMessage( 'srf-warn-empy-chart' )
+						->inContentLanguage()->text() ]
+			);
 		} else {
 			$options['sask'] = SRFUtils::htmlQueryResultLink( $this->getLink( $result, SMW_OUTPUT_HTML ) );
 			return $this->getFormatOutput( $this->getFormatSettings( $this->getNumbersTicks( $data ), $options ) );
@@ -59,12 +63,13 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			$label = '';
 			$i = 0;
 
-			foreach ( $row as /* SMWResultArray */ $field ) {
+			foreach ( $row as /* SMWResultArray */
+					  $field ) {
 				$i++;
 				$rowNumbers = [];
 
 				// Grouping by subject (page object) or property
-				if ( $this->params['group'] === 'subject' ){
+				if ( $this->params['group'] === 'subject' ) {
 					$groupedBy = $field->getResultSubject()->getTitle()->getText();
 				} else {
 					$groupedBy = $field->getPrintRequest()->getLabel();
@@ -77,31 +82,32 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 				$i == 1 ? $data['fcolumntypeid'] = $field->getPrintRequest()->getTypeID() : '';
 
 				// Loop over all values for the property.
-				while ( ( /* SMWDataValue */ $object = $field->getNextDataValue() ) !== false ) {
+				while ( ( /* SMWDataValue */
+					$object = $field->getNextDataValue() ) !== false ) {
 
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ) {
-						$number =  $object->getNumber();
+						$number = $object->getNumber();
 
 						// Checking against the row and in case the first column is a numeric
 						// value it is handled as label with the remaining steps continue to work
 						// as it were a text label
 						// The first column container will not be part of the series container
-						if ( $i == 1 ){
+						if ( $i == 1 ) {
 							$label = $number;
 							continue;
 						}
 
-						if ( $label !== '' && $number >= $this->params['min'] ){
+						if ( $label !== '' && $number >= $this->params['min'] ) {
 
 							// Reference array summarize all items per row
-							$rowNumbers +=  [ 'subject' => $label, 'value' => $number, 'property' => $property ];
+							$rowNumbers += [ 'subject' => $label, 'value' => $number, 'property' => $property ];
 
 							// Store plain numbers for simpler handling
 							$data['series'][$groupedBy][] = $number;
 						}
-					}elseif ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_TIME ){
+					} elseif ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_TIME ) {
 						$label = $object->getShortWikiText();
-					}else{
+					} else {
 						$label = $object->getWikiValue();
 					}
 				}
@@ -111,10 +117,10 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 					// For cases where mainlabel=- we assume that the subject should not be
 					// used as identifier and therefore we try to match the groupby
 					// with the first available text label
-					if ( $this->params['mainlabel'] == '-' && $this->params['group'] === 'subject' ){
-						$data[$this->params['group']][$label][]= $rowNumbers;
+					if ( $this->params['mainlabel'] == '-' && $this->params['group'] === 'subject' ) {
+						$data[$this->params['group']][$label][] = $rowNumbers;
 					} else {
-						$data[$this->params['group']][$groupedBy][]= $rowNumbers;
+						$data[$this->params['group']][$groupedBy][] = $rowNumbers;
 					}
 				}
 			}
@@ -129,90 +135,93 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @param array $data label => value
 	 *
-	 *@return array
+	 * @return array
 	 */
 	private function getFormatSettings( $data, $options ) {
 
 		// Init
-		$dataSet =  [];
+		$dataSet = [];
 		$options['mode'] = 'series';
 		$options['autoscale'] = false;
 
 		// Available markers
-		$marker =  [ 'circle', 'diamond', 'square', 'filledCircle', 'filledDiamond', 'filledSquare' ];
+		$marker = [ 'circle', 'diamond', 'square', 'filledCircle', 'filledDiamond', 'filledSquare' ];
 
 		// Series colour(has to be null otherwise jqplot runs with a type error)
-		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : null;
+		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter(
+			explode( ",", $this->params['chartcolor'] )
+		) : null;
 
 		// Re-grouping
 		foreach ( $data[$this->params['group']] as $rowKey => $row ) {
-			$values= [];
+			$values = [];
 
 			foreach ( $row as $key => $value ) {
 				// Switch labels according to the group parameter
 				$label = $this->params['grouplabel'] === 'property' ? $value['property'] : $value['subject'];
-				$values[] =  [ $label , $value['value'] ];
+				$values[] = [ $label, $value['value'] ];
 			}
 			$dataSet[] = $values;
 		}
 
 		// Series plotting parameters
 		foreach ( $data[$this->params['group']] as $key => $row ) {
-			$series[] =  ['label' => $key,
-			'xaxis' => 'xaxis', // xaxis could also be xaxis2 or ...
-			'yaxis' => 'yaxis',
-			'fill'  => $this->params['stackseries'],
-			'showLine' => $this->params['charttype'] !== 'scatter',
-			'showMarker' => true,
-			'trendline' =>  [
-				'show' => in_array( $this->params['trendline'], [ 'exp', 'linear' ] ),
-				'shadow' => $this->params['theme'] !== 'simple',
-				'type' => $this->params['trendline'],
-			],
-			'markerOptions' =>  [
-				'style' => $marker[array_rand( $marker )],
-				'shadow' => $this->params['theme'] !== 'simple'
-			],
-			'rendererOptions' =>  ['barDirection' => $this->params['direction'] ]
+			$series[] = [
+				'label' => $key,
+				'xaxis' => 'xaxis', // xaxis could also be xaxis2 or ...
+				'yaxis' => 'yaxis',
+				'fill' => $this->params['stackseries'],
+				'showLine' => $this->params['charttype'] !== 'scatter',
+				'showMarker' => true,
+				'trendline' => [
+					'show' => in_array( $this->params['trendline'], [ 'exp', 'linear' ] ),
+					'shadow' => $this->params['theme'] !== 'simple',
+					'type' => $this->params['trendline'],
+				],
+				'markerOptions' => [
+					'style' => $marker[array_rand( $marker )],
+					'shadow' => $this->params['theme'] !== 'simple'
+				],
+				'rendererOptions' => [ 'barDirection' => $this->params['direction'] ]
 			];
 		};
 
 		// Basic parameters
-		$parameters =  [
+		$parameters = [
 			'numbersaxislabel' => $this->params['numbersaxislabel'],
-			'labelaxislabel'   => $this->params['labelaxislabel'],
-			'charttitle'   => $this->params['charttitle'],
-			'charttext'    => $this->params['charttext'],
-			'infotext'     => $this->params['infotext'],
-			'theme'        => $this->params['theme'] ? $this->params['theme'] : null,
-			'valueformat'  => $this->params['datalabels'] === 'label' ? '' : $this->params['valueformat'],
-			'ticklabels'   => $this->params['ticklabels'],
-			'highlighter'  => $this->params['highlighter'],
-			'autoscale'    => $options['autoscale'],
-			'gridview'     => $this->params['gridview'],
-			'direction'    => $this->params['direction'],
-			'smoothlines'  => $this->params['smoothlines'],
-			'cursor'       => $this->params['cursor'],
-			'chartlegend'  => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
-			'colorscheme'  => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null,
-			'pointlabels'  => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
-			'datalabels'   => $this->params['datalabels'],
-			'stackseries'  => $this->params['stackseries'],
-			'grid'         => $this->params['theme'] === 'vector' ?  [ 'borderColor' => '#a7d7f9' ] : ( $this->params['theme'] === 'simple' ?  [ 'borderColor' => '#ddd' ] : null ),
+			'labelaxislabel' => $this->params['labelaxislabel'],
+			'charttitle' => $this->params['charttitle'],
+			'charttext' => $this->params['charttext'],
+			'infotext' => $this->params['infotext'],
+			'theme' => $this->params['theme'] ? $this->params['theme'] : null,
+			'valueformat' => $this->params['datalabels'] === 'label' ? '' : $this->params['valueformat'],
+			'ticklabels' => $this->params['ticklabels'],
+			'highlighter' => $this->params['highlighter'],
+			'autoscale' => $options['autoscale'],
+			'gridview' => $this->params['gridview'],
+			'direction' => $this->params['direction'],
+			'smoothlines' => $this->params['smoothlines'],
+			'cursor' => $this->params['cursor'],
+			'chartlegend' => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
+			'colorscheme' => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null,
+			'pointlabels' => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
+			'datalabels' => $this->params['datalabels'],
+			'stackseries' => $this->params['stackseries'],
+			'grid' => $this->params['theme'] === 'vector' ? [ 'borderColor' => '#a7d7f9' ] : ( $this->params['theme'] === 'simple' ? [ 'borderColor' => '#ddd' ] : null ),
 			'seriescolors' => $seriescolors
 		];
 
-		return  [
-			'data'          => $dataSet,
+		return [
+			'data' => $dataSet,
 			//'rawdata'      => $data , // control array
-			'series'        => $series,
-			'ticks'         => $data['numbersticks'],
-			'total'         => $data['total'],
+			'series' => $series,
+			'ticks' => $data['numbersticks'],
+			'total' => $data['total'],
 			'fcolumntypeid' => $data['fcolumntypeid'],
-			'sask'          => $options['sask'],
-			'mode'          => $options['mode'],
-			'renderer'      => $this->params['charttype'],
-			'parameters'    => $parameters
+			'sask' => $options['sask'],
+			'mode' => $options['mode'],
+			'renderer' => $this->params['charttype'],
+			'parameters' => $parameters
 		];
 	}
 
@@ -317,7 +326,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$chartID = 'jqplot-series-' . ++$statNr;
 
 		// Encoding
-		$requireHeadItem =  [ $chartID => FormatJson::encode( $data )  ];
+		$requireHeadItem = [ $chartID => FormatJson::encode( $data ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// Add RL resources
@@ -327,24 +336,30 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$processing = SRFUtils::htmlProcessingElement( $this->isHTML );
 
 		// Conversion due to a string as value that can contain %
-		$width = strstr( $this->params['width'] ,"%") ? $this->params['width'] : $this->params['width'] . 'px';
+		$width = strstr( $this->params['width'], "%" ) ? $this->params['width'] : $this->params['width'] . 'px';
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', [
-			'id'    => $chartID,
-			'class' => 'container',
-			'style' => "display:none; width: {$width}; height: {$this->params['height']}px;"
-			], null
+		$chart = Html::rawElement(
+			'div',
+			[
+				'id' => $chartID,
+				'class' => 'container',
+				'style' => "display:none; width: {$width}; height: {$this->params['height']}px;"
+			],
+			null
 		);
 
 		// Beautify class selector
-		$class = $this->params['charttype'] ?  '-' . $this->params['charttype'] : '';
+		$class = $this->params['charttype'] ? '-' . $this->params['charttype'] : '';
 		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class . ' jqplot-common';
 
 		// Chart/graph wrappper
-		return Html::rawElement( 'div', [
-			'class' => 'srf-jqplot' . $class,
-			], $processing . $chart
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'srf-jqplot' . $class,
+			],
+			$processing . $chart
 		);
 	}
 
@@ -374,13 +389,13 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$params['group'] = [
 			'message' => 'srf-paramdesc-group',
 			'default' => 'subject',
-			'values' => [ 'property' , 'subject' ],
+			'values' => [ 'property', 'subject' ],
 		];
 
 		$params['grouplabel'] = [
 			'message' => 'srf-paramdesc-grouplabel',
 			'default' => 'subject',
-			'values' => [ 'property' , 'subject' ],
+			'values' => [ 'property', 'subject' ],
 		];
 
 		$params['charttype'] = [
@@ -404,9 +419,9 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		$params['gridview'] = [
 			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
-			'values' => [ 'none' , 'tabs' ],
+			'values' => [ 'none', 'tabs' ],
 		];
 
 		return $params;
-	}	
+	}
 }

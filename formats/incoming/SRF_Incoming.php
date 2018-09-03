@@ -11,6 +11,7 @@
  * @file SRF_Incoming.php
  */
 class SRFIncoming extends SMWResultPrinter {
+
 	/**
 	 * Get a human readable label for this printer.
 	 *
@@ -34,7 +35,7 @@ class SRFIncoming extends SMWResultPrinter {
 		$data = $this->getResultData( $result, $outputmode );
 
 		// Bailout if we have no results
-		if ( $data === [] ){
+		if ( $data === [] ) {
 			if ( $this->params['default'] !== '' ) {
 				return $this->escapeText( $this->params['default'], $outputmode );
 			} else {
@@ -60,14 +61,14 @@ class SRFIncoming extends SMWResultPrinter {
 		$excludeProperties = explode( $this->params['sep'], $this->params['exclude'] );
 
 		// Options used when retrieving data from the store
-		$reqOptions        = new SMWRequestOptions();
-		$reqOptions->sort  = true;
+		$reqOptions = new SMWRequestOptions();
+		$reqOptions->sort = true;
 		$reqOptions->limit = $this->params['limit'];
 
 		foreach ( $res->getResults() as $key => $page ) {
 
 			// Find properties assigned to selected subject page
-			foreach( $res->getStore()->getInProperties( $page, $reqOptions ) as $property ) {
+			foreach ( $res->getStore()->getInProperties( $page, $reqOptions ) as $property ) {
 
 				$propertyLabel = $property->getLabel();
 
@@ -82,7 +83,7 @@ class SRFIncoming extends SMWResultPrinter {
 				// would like to see a counting method available but to counter
 				// any potential inefficiencies we curb the selection by using
 				// SMWRequestOptions -> limit as boundary
-				$count = count ( $res->getStore()->getPropertySubjects( $property, $page, $reqOptions ) );
+				$count = count( $res->getStore()->getPropertySubjects( $property, $page, $reqOptions ) );
 
 				// Limit ouput by threshold
 				if ( $this->params['min'] <= $count ) {
@@ -106,12 +107,12 @@ class SRFIncoming extends SMWResultPrinter {
 	 */
 	protected function initTemplateOutput( $label, $count, &$rownum, &$result ) {
 		$rownum++;
-		$wikitext  = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
+		$wikitext = $this->params['userparam'] ? "|userparam=" . $this->params['userparam'] : '';
 		$wikitext .= $this->params['count'] ? "|count=" . $count : '';
 		$wikitext .= $this->params['sep'] ? "|sep=" . $this->params['sep'] : '';
 		$wikitext .= "|" . $label;
 		$wikitext .= "|#=$rownum";
-		$result   .= '{{' . trim ( $this->params['template'] ) . $wikitext . '}}';
+		$result .= '{{' . trim( $this->params['template'] ) . $wikitext . '}}';
 	}
 
 	/**
@@ -129,20 +130,24 @@ class SRFIncoming extends SMWResultPrinter {
 		if ( $this->params['template'] !== '' ) {
 			$this->hasTemplates = true;
 			foreach ( $data as $propLabel => $propCount ) {
-				$this->initTemplateOutput ( $propLabel , $propCount, $rownum, $result);
+				$this->initTemplateOutput( $propLabel, $propCount, $rownum, $result );
 			}
 		} else {
 			// Plain list output
-			$result = implode( $this->params['sep'] , array_keys( $data ) ) ;
+			$result = implode( $this->params['sep'], array_keys( $data ) );
 		}
 
 		// Beautify class selector
-		$class = $this->params['template'] ? 'srf-incoming ' .  str_replace( " ","-", $this->params['template'] ) : 'srf-incoming';
+		$class = $this->params['template'] ? 'srf-incoming ' . str_replace(
+				" ",
+				"-",
+				$this->params['template']
+			) : 'srf-incoming';
 
 		// Output
 		return Html::rawElement(
 			'div',
-			 [ 'class' => $class ],
+			[ 'class' => $class ],
 			$result
 		);
 	}

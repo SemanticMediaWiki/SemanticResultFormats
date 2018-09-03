@@ -2,8 +2,8 @@
 
 namespace SRF\Tests\iCalendar;
 
-use SRF\iCalendar\IcalTimezoneFormatter;
 use SMW\Tests\TestEnvironment;
+use SRF\iCalendar\IcalTimezoneFormatter;
 
 /**
  * @covers \SRF\iCalendar\IcalTimezoneFormatter
@@ -39,7 +39,7 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new IcalTimezoneFormatter();
 		$instance->setLocalTimezones( $tz );
-		$instance->calcTransitions(  $from, $to );
+		$instance->calcTransitions( $from, $to );
 
 		$this->stringValidator->assertThatStringContains(
 			$expected,

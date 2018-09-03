@@ -42,7 +42,7 @@ class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
 		$bulkFileProvider->searchByFileExtension( 'json' );
 
 		foreach ( $bulkFileProvider->getFiles() as $file ) {
-			$provider[ basename($file) ] = [ $file ];
+			$provider[basename( $file )] = [ $file ];
 		}
 
 		asort( $provider );

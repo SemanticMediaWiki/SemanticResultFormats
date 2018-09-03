@@ -14,7 +14,6 @@ class MapView extends View {
 
 	private $mapProvider = null;
 
-
 	/**
 	 * @param null $mapProvider
 	 */
@@ -27,7 +26,7 @@ class MapView extends View {
 	 */
 	public function getMapProvider() {
 		if ( $this->mapProvider === null ) {
-			$this->setMapProvider( isset( $GLOBALS[ 'srfgMapProvider' ] ) ? $GLOBALS[ 'srfgMapProvider' ] : '' );
+			$this->setMapProvider( isset( $GLOBALS['srfgMapProvider'] ) ? $GLOBALS['srfgMapProvider'] : '' );
 		}
 
 		return $this->mapProvider;
@@ -35,11 +34,16 @@ class MapView extends View {
 
 	/**
 	 * @param ResultItem $row
+	 *
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
 
-		$markerPositionPropertyName = str_replace( ' ', '_', $this->getActualParameters()[ 'map view marker position property' ] );
+		$markerPositionPropertyName = str_replace(
+			' ',
+			'_',
+			$this->getActualParameters()['map view marker position property']
+		);
 
 		foreach ( $row->getValue() as $field ) {
 
@@ -68,13 +72,17 @@ class MapView extends View {
 							$latlng = $coordParser->parse( $value->getSerialization() );
 							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
 							$value = $field->getNextDataItem();
-						} catch ( Exception $exception ) {
+						}
+						catch ( Exception $exception ) {
 							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
 						}
 					}
 
 				} else {
-					$this->getQueryPrinter()->addError( Message::newFromKey( 'srf-filtered-map-geocoordinateparser-missing-error' )->inContentLanguage()->text() );
+					$this->getQueryPrinter()->addError(
+						Message::newFromKey( 'srf-filtered-map-geocoordinateparser-missing-error' )->inContentLanguage(
+						)->text()
+					);
 				}
 
 				return [ 'positions' => $values, ];
@@ -86,6 +94,7 @@ class MapView extends View {
 
 	/**
 	 * Returns an array of config data for this view to be stored in the JS
+	 *
 	 * @return array
 	 */
 	public function getJsConfig() {
@@ -108,7 +117,7 @@ class MapView extends View {
 
 		$this->addMarkerIconSetupToConfig( $config );
 
-		$config[ 'map provider' ] = $this->getMapProvider();
+		$config['map provider'] = $this->getMapProvider();
 
 		return $config;
 	}
@@ -124,7 +133,7 @@ class MapView extends View {
 
 			$params = parent::getParameters();
 
-			$params[ 'marker position property' ] = [
+			$params['marker position property'] = [
 				// 'type' => 'string',
 				'name' => 'map view marker position property',
 				'message' => 'srf-paramdesc-filtered-map-position',
@@ -132,7 +141,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'marker icon property' ] = [
+			$params['marker icon property'] = [
 				// 'type' => 'string',
 				'name' => 'map view marker icon property',
 				'message' => 'srf-paramdesc-filtered-map-icon',
@@ -140,7 +149,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'marker icons' ] = [
+			$params['marker icons'] = [
 				// 'type' => 'string',
 				'name' => 'map view marker icons',
 				'message' => 'srf-paramdesc-filtered-map-icons',
@@ -148,7 +157,7 @@ class MapView extends View {
 				'islist' => true,
 			];
 
-			$params[ 'height' ] = [
+			$params['height'] = [
 				'type' => 'dimension',
 				'name' => 'map view height',
 				'message' => 'srf-paramdesc-filtered-map-height',
@@ -156,7 +165,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'zoom' ] = [
+			$params['zoom'] = [
 				'type' => 'integer',
 				'name' => 'map view zoom',
 				'message' => 'srf-paramdesc-filtered-map-zoom',
@@ -164,7 +173,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'minZoom' ] = [
+			$params['minZoom'] = [
 				'type' => 'integer',
 				'name' => 'map view min zoom',
 				'message' => 'srf-paramdesc-filtered-map-min-zoom',
@@ -172,7 +181,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'maxZoom' ] = [
+			$params['maxZoom'] = [
 				'type' => 'integer',
 				'name' => 'map view max zoom',
 				'message' => 'srf-paramdesc-filtered-map-max-zoom',
@@ -181,7 +190,7 @@ class MapView extends View {
 			];
 
 			//markercluster
-			$params[ 'marker cluster' ] = [
+			$params['marker cluster'] = [
 				'type' => 'boolean',
 				'name' => 'map view marker cluster',
 				'message' => 'srf-paramdesc-filtered-map-marker-cluster',
@@ -189,7 +198,7 @@ class MapView extends View {
 				// 'islist' => false,
 			];
 
-			$params[ 'marker cluster max zoom' ] = [
+			$params['marker cluster max zoom'] = [
 				'type' => 'integer',
 				'name' => 'map view marker cluster max zoom',
 				'message' => 'srf-paramdesc-filtered-map-marker-cluster-max-zoom',
@@ -198,7 +207,7 @@ class MapView extends View {
 			];
 
 			//clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
-			$params[ 'maxClusterRadius' ] = [
+			$params['maxClusterRadius'] = [
 				'type' => 'integer',
 				'name' => 'map view marker cluster radius',
 				'message' => 'srf-paramdesc-filtered-map-marker-cluster-max-radius',
@@ -207,7 +216,7 @@ class MapView extends View {
 			];
 
 			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
-			$params[ 'zoomToBoundsOnClick' ] = [
+			$params['zoomToBoundsOnClick'] = [
 				'type' => 'boolean',
 				'name' => 'map view marker cluster zoom on click',
 				'message' => 'srf-paramdesc-filtered-map-marker-cluster-zoom-on-click',
@@ -236,12 +245,12 @@ class MapView extends View {
 	 */
 	private function addToConfig( &$config, $key ) {
 
-		$paramDefinition = self::getParameters()[ $key ];
+		$paramDefinition = self::getParameters()[$key];
 
-		$param = $this->getActualParameters()[ $paramDefinition[ 'name' ] ];
+		$param = $this->getActualParameters()[$paramDefinition['name']];
 
-		if ( $param !== $paramDefinition[ 'default' ] ) {
-			$config[ $key ] = $param;
+		if ( $param !== $paramDefinition['default'] ) {
+			$config[$key] = $param;
 		}
 
 	}
@@ -251,17 +260,18 @@ class MapView extends View {
 	 */
 	protected function addMarkerIconSetupToConfig( &$config ) {
 
-		$param = $this->getActualParameters()[ 'map view marker icon property' ];
+		$param = $this->getActualParameters()['map view marker icon property'];
 
 		if ( $param !== '' ) {
-			$config[ 'marker icon property' ] = $this->getPropertyId( $param );
+			$config['marker icon property'] = $this->getPropertyId( $param );
 		}
 
-		$config[ 'marker icons' ] = $this->getMarkerIcons();
+		$config['marker icons'] = $this->getMarkerIcons();
 	}
 
 	/**
 	 * @param $prop
+	 *
 	 * @return array
 	 */
 	protected function getPropertyId( $prop ) {
@@ -271,7 +281,7 @@ class MapView extends View {
 		$printrequests = $this->getQueryPrinter()->getPrintrequests();
 		$cur = reset( $printrequests );
 
-		while ( $cur !== false && ( !array_key_exists( 'property', $cur ) || $cur[ 'property' ] !== $prop ) ) {
+		while ( $cur !== false && ( !array_key_exists( 'property', $cur ) || $cur['property'] !== $prop ) ) {
 			$cur = next( $printrequests );
 		}
 
@@ -285,7 +295,7 @@ class MapView extends View {
 
 		$ret = [];
 
-		$actualParameters = self::getActualParameters()[ 'map view marker icons' ];
+		$actualParameters = self::getActualParameters()['map view marker icons'];
 
 		foreach ( $actualParameters as $relation ) {
 
@@ -302,7 +312,7 @@ class MapView extends View {
 			$file = \WikiPage::factory( \Title::newFromText( $icon, NS_FILE ) )->getFile();
 
 			if ( $file->exists() ) {
-				$ret[ $key ] = $file->getUrl();
+				$ret[$key] = $file->getUrl();
 			} else {
 				// TODO: $this->getQueryPrinter()->addError( NO_SUCH_FILE );
 			}
@@ -315,7 +325,7 @@ class MapView extends View {
 	 * @return bool
 	 */
 	public function getInitError() {
-		return $this->getMapProvider() === ''? 'srf-filtered-map-provider-missing-error' : null;
+		return $this->getMapProvider() === '' ? 'srf-filtered-map-provider-missing-error' : null;
 	}
 
 }

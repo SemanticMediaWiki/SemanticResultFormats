@@ -11,6 +11,7 @@ class TreeNode extends Node {
 
 	/**
 	 * SRFTreeElement constructor.
+	 *
 	 * @param \SMWResultArray[] | null $row
 	 */
 	public function __construct( $row = null ) {
@@ -39,7 +40,7 @@ class TreeNode extends Node {
 		$row = $this->getValue();
 
 		if ( $row !== null ) {
-			return $row[ 0 ]->getResultSubject();
+			return $row[0]->getResultSubject();
 		}
 
 		return null;
@@ -47,6 +48,7 @@ class TreeNode extends Node {
 
 	/**
 	 * @param NodeInterface $child
+	 *
 	 * @return NodeTrait
 	 * @throws Exception
 	 */
@@ -60,7 +62,6 @@ class TreeNode extends Node {
 
 		return parent::addChild( $child );
 	}
-
 
 }
 

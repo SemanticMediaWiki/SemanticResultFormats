@@ -6,7 +6,7 @@
  */
 
 class SRFGoogleBar extends SMWResultPrinter {
-	
+
 	protected $m_width;
 
 	/**
@@ -15,7 +15,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
-		
+
 		$this->m_width = $this->params['width'];
 	}
 
@@ -30,18 +30,20 @@ class SRFGoogleBar extends SMWResultPrinter {
 		$n = "";
 
 		// if there is only one column in the results then stop right away
-		if ($res->getColumnCount() == 1) return "";
+		if ( $res->getColumnCount() == 1 ) {
+			return "";
+		}
 
 		// print all result rows
 		$first = true;
 		$count = 0; // How many bars will they be? Needed to calculate the height of the image
 		$max = 0; // the biggest value. needed for scaling
-		
+
 		while ( $row = $res->getNext() ) {
 			$name = $row[0]->getNextDataValue()->getShortWikiText();
 			foreach ( $row as $field ) {
 				while ( ( $object = $field->getNextDataValue() ) !== false ) {
-					
+
 					// use numeric sortkey
 					if ( $object->isNumeric() ) {
 						$nr = $object->getDataItem()->getSortKey();
@@ -61,12 +63,12 @@ class SRFGoogleBar extends SMWResultPrinter {
 				}
 			}
 		}
-		
+
 		$barwidth = 20; // width of each bar
 		$bardistance = 4; // distance between two bars
 		$height = $count * ( $barwidth + $bardistance ) + 15; // calculates the height of the image
-		
-		return 	'<img src="https://chart.apis.google.com/chart?cht=bhs&chbh=' . $barwidth . ',' . $bardistance . '&chs=' . $this->m_width . 'x' . $height . '&chds=0,' . $max . '&chd=t:' . $t . '&chxt=y&chxl=0:|' . $n . '" width="' . $this->m_width . '" height="' . $height . '" />';
+
+		return '<img src="https://chart.apis.google.com/chart?cht=bhs&chbh=' . $barwidth . ',' . $bardistance . '&chs=' . $this->m_width . 'x' . $height . '&chds=0,' . $max . '&chd=t:' . $t . '&chxt=y&chxl=0:|' . $n . '" width="' . $this->m_width . '" height="' . $height . '" />';
 
 	}
 
@@ -81,7 +83,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-		
+
 		$params['width'] = [
 			'type' => 'integer',
 			'default' => 250,
