@@ -146,7 +146,7 @@ class SRFJitGraph extends SMWResultPrinter {
 			$firstcol = true;
 			
 			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextObject() ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					
 					$text = $object->getShortText( $outputmode );
 					
