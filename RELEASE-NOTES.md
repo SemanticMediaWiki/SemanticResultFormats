@@ -1,5 +1,12 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (SRF) extension.
 
+## SRF 2.5.6
+
+Released on September 7, 2018.
+
+* 399: Fixes columnsearchinput field being always disabled for the "datatables" format (by Matthew A.Thompson)
+* 410: Allow installation with "data-values/geo" versions 3.x and 4.x
+
 ## SRF 2.5.5
 
 Released on April 4, 2018.
