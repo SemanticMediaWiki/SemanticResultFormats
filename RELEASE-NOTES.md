@@ -17,7 +17,7 @@ This is not a release yet.
 Released on September 7, 2018.
 
 * 399: Fixes columnsearchinput field being always disabled for the "datatables" format (by Matthew A.Thompson)
-* 410: Allow installation with "data-values/geo" versions 3.x and 4.x (by Jeroen De Dauw)
+* 410 Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
 
 ## SRF 2.5.5
 
