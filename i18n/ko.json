@@ -239,7 +239,7 @@
 	"srf-ui-mediaplayer-label-repeat": "반복",
 	"srf-ui-mediaplayer-label-repeat-off": "반복 해제",
 	"srf-ui-mediaplayer-label-full-screen": "전체 화면",
-	"srf-ui-mediaplayer-label-restore-screen": "화면 복원",
+	"srf-ui-mediaplayer-label-restore-screen": "화면 복구",
 	"srf-excel-link": "엑셀",
 	"srf-excel-missing-phpexcel": "확장 기능 [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel]이 설치되어 있지 않으므로 MS 액셀로 내보낼 수 없습니다.",
 	"srf-paramdesc-excel-filename": "생성된 파일의 다운로드 파일 이름",
