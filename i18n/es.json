@@ -24,7 +24,8 @@
 			"Nemo bis",
 			"KATRINE1992",
 			"Amaia",
-			"AVIADOR71"
+			"AVIADOR71",
+			"Yllelder"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -142,7 +143,9 @@
 	"srf-paramdesc-chartcursor": "Opción de visualización del cursor de tabla",
 	"srf-paramdesc-trendline": "Activar la visualización simultánea de un gráfico y su línea de tendencia",
 	"srf-paramdesc-gridview": "Mostrar simultáneamente gráfico y conjunto de datos. Valores permitidos: \"none\" y \"tabs\". Predeterminado: \"none\"",
+	"srf-paramdesc-paneview": "Indica la posición del panel que contiene un pequeño gráfico de líneas. Valores permitidos: \"abajo\", \"arriba\" y \"ninguno\". Predeterminado: \"abajo\"",
 	"srf-paramdesc-infotext": "Mostrar información adicional en una ficha de información correspondiente",
+	"srf-paramdesc-clicktarget": "Define una página o cadena de consulta como destino al hacer clic en una fecha del calendario.",
 	"srf-ui-gridview-label-item": "Elemento de datos",
 	"srf-ui-gridview-label-value": "Valor de los datos",
 	"srf-ui-gridview-label-series": "Serie de datos",
@@ -201,6 +204,10 @@
 	"srf-paramdesc-highlightcolor": "Establece el color de letra del nodo resaltado",
 	"srf-paramdesc-redlinkcolor": "Establece el color de letra de los enlaces rojos",
 	"srf-paramdesc-processcategory": "Establece la categoría del wiki que recogerá los pasos del proceso",
+	"srf-paramdesc-showroles": "Muestra los roles correspondientes en el gráfico",
+	"srf-paramdesc-showstatus": "Determina si se debe mostrar un estado de etapa del proceso",
+	"srf-paramdesc-showresources": "Muestra los recursos correspondientes en el gráfico",
+	"srf-paramdesc-showdiscussion": "Determina si se debe mostrar una discusión",
 	"srf-printername-datatables": "Tablas de datos",
 	"srf-ui-datatables-label-conditions": "Condiciones",
 	"srf-ui-datatables-label-parameters": "Parámetros",
