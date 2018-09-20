@@ -49,8 +49,10 @@
 	"srf-error-option-mix": "Опція ($1) не доступна",
 	"srf-error-option-link-all": "Опція ($1) вимагає, щоб параметр «link» було встановлено як «all»",
 	"srf-error-missing-layout": "Діаграма або графік не можуть бути показані, оскільки відсутній макет.",
+	"srf-error-jqplot-bubble-data-length": "Діаграма або графік не можуть бути показані, оскільки відсутні дані.",
 	"srf-error-jqplot-stackseries-data-length": "Діаграма або графік не можуть бути показані, оскільки не кожен стовпчик або лінія має однакову кількість елементів.",
 	"srf-warn-empy-chart": "Діаграма або графік пусті через нестачу даних",
+	"srf-paramdesc-color": "Колір для виділення записів у календарі",
 	"srfc_previousmonth": "Попередній місяць",
 	"srfc_nextmonth": "Наступний місяць",
 	"srfc_today": "Сьогодні",
@@ -249,6 +251,8 @@
 	"srf-paramdesc-filtered-calendar-title": "Роздруківка містить назву події. Не може бути використано разом із шаблоном заголовка.",
 	"srf-paramdesc-filtered-calendar-title-template": "Шаблон, використаний для форматування назви події у колендарі",
 	"srf-paramdesc-filtered-map-position": "Виведені дані, що містять географічну позицію.",
+	"srf-paramdesc-filtered-map-icon": "Вивід, що вирішує, яку іконку карти буде використано.",
+	"srf-paramdesc-filtered-map-icons": "Мапа значень для іконок, що будуть використані для цих значень на мапі.",
 	"srf-paramdesc-filtered-map-height": "Висота мапи.",
 	"srf-paramdesc-filtered-map-zoom": "Рівень масштабування при завантаженні мапи. Користувач може це змінити.<br>Див.: <i>map view min zoom</i> та <i>map view max zoom</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "Мінімальний рівень масштабування мапи, який можна вибрати",
@@ -289,6 +293,9 @@
 	"srf-ui-eventcalendar-label-month": "Місяць",
 	"srf-ui-eventcalendar-label-week": "Тиждень",
 	"srf-ui-eventcalendar-label-day": "День",
+	"srf-ui-eventcalendar-label-listmonth": "Місяць (список)",
+	"srf-ui-eventcalendar-label-listweek": "Тиждень (список)",
+	"srf-ui-eventcalendar-label-listday": "День (список)",
 	"srf-ui-eventcalendar-label-allday": "Весь день",
 	"srf-ui-eventcalendar-label-update-success": "Оновлення календаря подій було успішним.",
 	"srf-ui-eventcalendar-label-update-error": "Не вдалося оновити календар подій.",
@@ -324,5 +331,6 @@
 	"srf-excel-link": "Excel",
 	"srf-excel-missing-phpexcel": "Не вдалося експортувати в MS-Excel, оскільки розширення [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] не встановлене.",
 	"srf-paramdesc-excel-filename": "Назва файлу для завантаження генерованого файлу",
-	"srf-paramdesc-excel-templatefile": "Назва файлу Excel з простору назв ''File'', що використовується для форматування генерованого файлу"
+	"srf-paramdesc-excel-templatefile": "Назва файлу Excel з простору назв ''File'', що використовується для форматування генерованого файлу",
+	"srf-paramdesc-icalendar-timezone": "Список часових поясів через кому"
 }
