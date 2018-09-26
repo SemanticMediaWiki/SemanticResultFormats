@@ -67,6 +67,11 @@ class Gallery extends ResultPrinter {
 
 		$ig->setShowBytes( false );
 		$ig->setShowFilename( false );
+		
+		if ( method_exists( $ig, 'setShowDimensions' ) ) {
+			$ig->setShowDimensions( false );
+		}
+		
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
 		// No need for a special page to use the parser but for the "normal" page
