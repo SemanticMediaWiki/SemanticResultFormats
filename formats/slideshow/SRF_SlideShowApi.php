@@ -1,6 +1,7 @@
 <?php
 
 use ParamProcessor\ParamDefinition;
+use SMW\DataValueFactory;
 
 /**
  * API module to retrieve formatted results for a given page, printouts and template.
@@ -70,7 +71,7 @@ class SRFSlideShowApi extends ApiBase {
 			// if printout mode is PRINT_PROP
 			if ( $printoutData[0] == SMWPrintRequest::PRINT_PROP ) {
 				// create property from property key
-				$data = SMWPropertyValue::makeUserProperty( $printoutData[2] );
+				$data = DataValueFactory::getInstance()->newPropertyValueByLabel( $printoutData[2] );
 			} else {
 				$data = null;
 			}
