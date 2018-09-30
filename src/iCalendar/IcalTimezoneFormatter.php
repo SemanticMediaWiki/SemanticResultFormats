@@ -87,7 +87,7 @@ class IcalTimezoneFormatter {
 				continue;
 			}
 
-			$transitions = $dateTimezone->getTransitions();
+			$transitions = $dateTimezone->getTransitions( $from, $to );
 
 			if ( $transitions === false ) {
 				continue;
@@ -177,7 +177,7 @@ class IcalTimezoneFormatter {
 	 * @param int $offset
 	 */
 	private function formatTimezoneOffset( $offset ) {
-		return sprintf( '%s%02d%02d', $offset >= 0 ? '+' : '', floor( $offset ), ( $offset - floor( $offset ) ) * 60 );
+		return sprintf( '%s%02d%02d', $offset >= 0 ? '+' : '-', abs( floor( $offset ) ), ( $offset - floor( $offset ) ) * 60 );
 	}
 
 }
