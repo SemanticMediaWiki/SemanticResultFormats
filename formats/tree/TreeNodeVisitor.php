@@ -152,11 +152,9 @@ class TreeNodePrinter implements Visitor {
 
 			$label = $cell->getPrintRequest()->getLabel();
 
-			if ( $this->configuration['template arguments'] === 'numbered' || ( $label === '' ) ) {
+			if ( $this->configuration[ 'named args' ] === true || ( $label === '' ) ) {
 				$paramName = $columnNumber + 1;
-			} elseif ( $this->configuration['template arguments'] === 'legacy' ) {
-				$paramName = '?' . $label;
-			} else { // $this->configuration[ 'template arguments' ] === 'named'
+			} else {
 				$paramName = $label;
 			}
 

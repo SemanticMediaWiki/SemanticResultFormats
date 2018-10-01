@@ -7,9 +7,10 @@ This is not a release yet.
 * Raised minimum required version of PHP to 5.6
 * Raised minimum required version of MediaWiki to 1.27
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
-* #248 Fixed localization of numbers in the math result formats (by James Hong Kong)
+* [#248](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/248) Fixed localization of numbers in the math result formats (by James Hong Kong)
 * [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension
 * [#375](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/375) Fixed exposing of file dimensions in captions for the "gallery" format
+* Tree format: Removed `template arguments` parameter
 * Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
 * Updated translations (by translatewiki.net community)
 
