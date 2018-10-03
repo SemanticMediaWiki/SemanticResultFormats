@@ -6,7 +6,8 @@
 			"Elisardojm",
 			"Banjo",
 			"Nemo bis",
-			"McDutchie"
+			"McDutchie",
+			"Navhy"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
@@ -198,7 +199,7 @@
 	"srf-printername-datatables": "Táboas de datos",
 	"srf-ui-datatables-label-conditions": "Condicións",
 	"srf-ui-datatables-label-parameters": "Parámetros",
-	"srf-ui-datatables-label-filters": "Filtros de columnas e busca",
+	"srf-ui-datatables-label-filters": "Filtros de columnas e procura",
 	"srf-ui-datatables-label-information": "Información",
 	"srf-ui-datatables-panel-disclaimer": "Os parámetros e as condicións poden modificarse, pero calquera modificación é temporal e será descartada despois de refrescar a páxina.",
 	"srf-ui-datatables-label-update-success": "A actualización da táboa foi correcta",
