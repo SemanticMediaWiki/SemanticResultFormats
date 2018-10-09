@@ -353,5 +353,6 @@
 	"srf-excel-link": "{{doc-smw-link}}",
 	"srf-excel-missing-phpexcel": "This is an error message.",
 	"srf-paramdesc-excel-filename": "{{doc-paramdesc|filename}}",
-	"srf-paramdesc-excel-templatefile": "{{doc-paramdesc|templatefile}}"
+	"srf-paramdesc-excel-templatefile": "{{doc-paramdesc|templatefile}}",
+	"srf-paramdesc-icalendar-timezone": "{{doc-paramdesc|timezone}}"
 }
