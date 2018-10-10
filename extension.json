@@ -1,0 +1,30 @@
+{
+    "name": "SemanticResultFormats",
+	"version": "3.0.0-alpha",
+	"author": [
+		"James Hong Kong",
+		"Stephan Gambke",
+		"Jeroen De Dauw",
+		"Yaron Koren",
+		"..."
+	],
+	"url": "https://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats",
+	"descriptionmsg": "srf-desc",
+	"namemsg": "srf-name",
+	"license-name": "GPL-2.0-or-later",
+	"type": "semantic",
+	"requires": {
+		"MediaWiki": ">= 1.27"
+	},
+	"MessagesDirs": {
+		"SemanticResultFormats": [
+			"i18n"
+		]
+	},
+	"callback": "SemanticResultFormats::initExtension",
+	"ExtensionFunctions": [
+		"SemanticResultFormats::onExtensionFunction"
+	],
+	"load_composer_autoloader":true,
+	"manifest_version": 1
+}
