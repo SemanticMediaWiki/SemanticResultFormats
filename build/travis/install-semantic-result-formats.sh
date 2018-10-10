@@ -57,7 +57,7 @@ function updateConfiguration {
 	# SMW#1732
 	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
 
-	echo 'require_once( __DIR__ . "/extensions/SemanticResultFormats/SemanticResultFormats.php" );' >> LocalSettings.php
+	echo 'wfLoadExtension( "SemanticResultFormats" );' >> LocalSettings.php
 
 	echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
 	echo 'ini_set("display_errors", 1);' >> LocalSettings.php
