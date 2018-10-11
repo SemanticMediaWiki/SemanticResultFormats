@@ -12,12 +12,13 @@ Released on October 11, 2018.
   → Now you have to use `wfLoadExtension( 'SemanticResultFormats' );` in the "LocalSettings.php" file to invoke the extension
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
 * Refactored vcard format: Mostly code improvements (by James Hong Kong)
-* #248 Fixed localization of numbers in the math result formats (by James Hong Kong)
+* [#248](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/248) Fixed localization of numbers in the math result formats (by James Hong Kong)
 * [#311](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Improved display of user preference options on special page "Preferences" (by James Hong Kong)
 * [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension (by Sam Wilson)
 * [#375](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/375) Fixed exposing of file dimensions in captions for the "gallery" format (by James Hong Kong)
 * [#384](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/384) Updated "fullcalendar" library as well as added the "list views" feature for the "eventcalendar" format (by Nischay Nahata and James Hong Kong)
 * [#435](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/435) Fixed time zone transitions (by James Hong Kong)
+* Tree format: Removed `template arguments` parameter
 * Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
 * Provided general code improvements as well as additional integrations tests for several result formats
 * Updated translations (by translatewiki.net community)
