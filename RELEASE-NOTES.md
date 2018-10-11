@@ -2,7 +2,7 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 3.0.0
 
-Released on October 11, 2018.
+Released on October 12, 2018.
 
 * Minimum requirement for
   * PHP changed to version 5.6 and later
