@@ -18,7 +18,7 @@ Released on October 11, 2018.
 * [#375](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/375) Fixed exposing of file dimensions in captions for the "gallery" format (by James Hong Kong)
 * [#384](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/384) Updated "fullcalendar" library as well as added the "list views" feature for the "eventcalendar" format (by Nischay Nahata and James Hong Kong)
 * [#435](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/435) Fixed time zone transitions (by James Hong Kong)
-* Tree format: Removed `template arguments` parameter
+* [#436](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/436) Removed the `template arguments` parameter of the "gallery" format (by Stephan Gambke)
 * Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
 * Provided general code improvements as well as additional integrations tests for several result formats
 * Updated translations (by translatewiki.net community)
