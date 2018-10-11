@@ -73,20 +73,6 @@ class TreeResultPrinter extends ListResultPrinter {
 		// Don't support pagination in trees
 		$this->mSearchlabel = null;
 
-		if ( array_key_exists( 'template arguments', $this->params )
-			&& $this->params['template arguments'] !== 'numbered' ) {
-
-			if ( filter_var( $this->params['named args'], FILTER_VALIDATE_BOOLEAN ) === true ) {
-				$this->params['template arguments'] = 'legacy';
-			} elseif (
-				$this->params['template arguments'] !== 'named' &&
-				$this->params['template arguments'] !== 'legacy'
-			) {
-				// default
-				$this->params['template arguments'] = 'numbered';
-			}
-		}
-
 		// Allow "_" for encoding spaces, as documented
 		$this->params['sep'] = str_replace( '_', ' ', $this->params['sep'] );
 
@@ -177,6 +163,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param $definitions array of IParamDefinition
 	 *
 	 * @return array of IParamDefinition|array
+	 * @throws Exception
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
@@ -290,11 +277,10 @@ class TreeResultPrinter extends ListResultPrinter {
 	private function initalizeStandardTemplateParameters() {
 
 		$query = $this->getQueryResult()->getQuery();
+		$userparam = trim( $this->params[ 'userparam' ] );
 
 		$this->standardTemplateParameters =
-			( trim( $this->params['userparam'] ) !== '' ? ( '|userparam=' . trim(
-					$this->params['userparam']
-				) ) : '' ) .
+			( $userparam !== '' ? ( '|userparam=' . $userparam ) : '' ) .
 			'|smw-resultquerycondition=' . $query->getQueryString() .
 			'|smw-resultquerylimit=' . $query->getLimit() .
 			'|smw-resultqueryoffset=' . $query->getOffset();
@@ -306,6 +292,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param TreeNode[] $nodes
 	 *
 	 * @return TreeNode
+	 * @throws \Exception
 	 */
 	protected function buildTreeFromNodeList( $rootHash, $nodes ) {
 
@@ -362,7 +349,7 @@ class TreeResultPrinter extends ListResultPrinter {
 			'format' => trim( $this->params['format'] ),
 			'template' => trim( $this->params['template'] ),
 			'headers' => $this->params['headers'],
-			'template arguments' => $this->params['template arguments'],
+			'named args' => $this->params['named args'],
 			'sep' => $this->params['sep'],
 		];
 
