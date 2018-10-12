@@ -65,27 +65,27 @@
 		},
 		{
 			"page": "Example/Tree 01-01",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent}}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent}}</div>"
 		},
 		{
 			"page": "Example/Tree 01-02",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent|root=Example/Tree 1}}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent|root=Example/Tree 1}}</div>"
 		},
 		{
 			"page": "Example/Tree 01-03",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=ultree|parent=Has parent}}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]]|format=ultree|parent=Has parent}}</div>"
 		},
 		{
 			"page": "Example/Tree 01-04",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=ultree|parent=Has parent|root=Example/Tree 3}}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]]|format=ultree|parent=Has parent|root=Example/Tree 3}}</div>"
 		},
 		{
 			"page": "Example/Tree 01-05",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=oltree|parent=Has parent}}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]]|format=oltree|parent=Has parent}}</div>"
 		},
 		{
 			"page": "Example/Tree 01-06",
-			"contents": "{{#ask:[[Part of::Tree test]]|format=oltree|parent=Has parent|root=Example/Tree 2}}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]]|format=oltree|parent=Has parent|root=Example/Tree 2}}</div>"
 		}
 	],
 	"tests": [
@@ -95,21 +95,21 @@
 			"subject": "Example/Tree 01-01",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
+					"div > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
+					"div > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ul > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ul > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
 
-					[ "div.srf-tree > ul:only-child", 1 ],
-					[ "div.srf-tree > ul > li", 3 ],
-					[ "div.srf-tree > ul > li > ul > li", 8 ],
-					[ "div.srf-tree > ul > li > ul > li > ul > li", 2 ]
+					[ "div > ul:only-child", 1 ],
+					[ "div > ul > li", 3 ],
+					[ "div > ul > li > ul > li", 8 ],
+					[ "div > ul > li > ul > li > ul > li", 2 ]
 				]
 			}
 		},
@@ -119,13 +119,13 @@
 			"subject": "Example/Tree 01-02",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+					"div > ul > li:only-child > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div > ul > li:only-child > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:only-child > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
 
-					[ "div.srf-tree > ul > li", 1 ],
-					[ "div.srf-tree > ul > li > ul > li", 3 ],
-					[ "div.srf-tree > ul > li > ul > li > ul > li", 1 ]
+					[ "div > ul > li", 1 ],
+					[ "div > ul > li > ul > li", 3 ],
+					[ "div > ul > li > ul > li > ul > li", 1 ]
 				]
 			}
 		},
@@ -135,20 +135,20 @@
 			"subject": "Example/Tree 01-03",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
+					"div > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
+					"div > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ul > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ul > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
 
-					[ "div.srf-tree > ul > li", 3 ],
-					[ "div.srf-tree > ul > li > ul > li", 8 ],
-					[ "div.srf-tree > ul > li > ul > li > ul > li", 2 ]
+					[ "div > ul > li", 3 ],
+					[ "div > ul > li > ul > li", 8 ],
+					[ "div > ul > li > ul > li > ul > li", 2 ]
 				]
 			}
 		},
@@ -158,13 +158,13 @@
 			"subject": "Example/Tree 01-04",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 3\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 3\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ul > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 3\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
+					"div > ul > li:only-child > a[title=\"Example/Tree 3\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
+					"div > ul > li:only-child > a[title=\"Example/Tree 3\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ul > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
+					"div > ul > li:only-child > a[title=\"Example/Tree 3\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
 
-					[ "div.srf-tree > ul > li", 1 ],
-					[ "div.srf-tree > ul > li > ul > li", 3 ],
-					[ "div.srf-tree > ul > li > ul > li > ul > li", 1 ]
+					[ "div > ul > li", 1 ],
+					[ "div > ul > li > ul > li", 3 ],
+					[ "div > ul > li > ul > li > ul > li", 1 ]
 				]
 			}
 		},
@@ -174,20 +174,20 @@
 			"subject": "Example/Tree 01-05",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ol > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
-					"div.srf-tree > ol > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ol > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
-					"div.srf-tree > ol > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ol > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+					"div > ol > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div > ol > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ol > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ol > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ol > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
 
-					"div.srf-tree > ol > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
-					"div.srf-tree > ol > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
+					"div > ol > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
+					"div > ol > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
 
-					"div.srf-tree > ol > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
-					"div.srf-tree > ol > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ol > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
-					"div.srf-tree > ol > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ol > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
+					"div > ol > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 31\"]:only-child",
+					"div > ol > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 32\"] + ol > li:only-child > a[title=\"Example/Tree 321\"]:only-child",
+					"div > ol > li:nth-child(3) > a[title=\"Example/Tree 3\"] + ol > li:nth-child(3) > a[title=\"Example/Tree 33\"]:only-child",
 
-					[ "div.srf-tree > ol > li", 3 ],
-					[ "div.srf-tree > ol > li > ol > li", 8 ],
-					[ "div.srf-tree > ol > li > ol > li > ol > li", 2 ]
+					[ "div > ol > li", 3 ],
+					[ "div > ol > li > ol > li", 8 ],
+					[ "div > ol > li > ol > li > ol > li", 2 ]
 				]
 			}
 		},
@@ -197,11 +197,11 @@
 			"subject": "Example/Tree 01-06",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ol > li:only-child > a[title=\"Example/Tree 2\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
-					"div.srf-tree > ol > li:only-child > a[title=\"Example/Tree 2\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
+					"div > ol > li:only-child > a[title=\"Example/Tree 2\"] + ol > li:nth-child(1) > a[title=\"Example/Tree 21\"]:only-child",
+					"div > ol > li:only-child > a[title=\"Example/Tree 2\"] + ol > li:nth-child(2) > a[title=\"Example/Tree 22\"]:only-child",
 					
-					[ "div.srf-tree > ol > li", 1 ],
-					[ "div.srf-tree > ol > li > ol > li", 2 ]
+					[ "div > ol > li", 1 ],
+					[ "div > ol > li > ol > li", 2 ]
 				]
 			}
 		}

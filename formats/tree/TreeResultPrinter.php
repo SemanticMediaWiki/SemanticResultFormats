@@ -137,7 +137,7 @@ class TreeResultPrinter extends ListResultPrinter {
 
 		$this->setQueryResult( null );
 
-		return Html::rawElement( 'div', [ 'class' => 'srf-tree' ], $resultText );
+		return $this->params[ 'class' ] ? Html::rawElement( 'div', [ 'class' => $this->params[ 'class' ] ], $resultText ) : $resultText;
 	}
 
 	/**
@@ -192,6 +192,11 @@ class TreeResultPrinter extends ListResultPrinter {
 		$params['template arguments'] = [
 			'default' => '',
 			'message' => 'smw-paramdesc-template-arguments',
+		];
+
+		$params['class'] = [
+			'default' => '',
+			'message' => 'srf-paramdesc-class',
 		];
 
 		return $params;

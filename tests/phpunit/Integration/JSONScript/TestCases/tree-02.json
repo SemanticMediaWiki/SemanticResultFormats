@@ -27,6 +27,10 @@
 		{
 			"page": "Example/Tree 02-02",
 			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent|template=Example/Tree format template }}"
+		},
+		{
+			"page": "Example/Tree 02-03",
+			"contents": "{{#ask:[[Part of::Tree test]]|format=tree|parent=Has parent|class=some-class}}"
 		}
 	],
 	"tests": [
@@ -36,7 +40,7 @@
 			"subject": "Example/Tree 02-01",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
+					"ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
 				]
 			}
 		},
@@ -46,7 +50,7 @@
 			"subject": "Example/Tree 02-02",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
+					"ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
 				]
 			}
 		},
@@ -57,6 +61,16 @@
 			"assert-output": {
 				"to-contain": [
 					"FOO.*Example/Tree 1.*BAR"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "Tree 02-03 (Simple one-page result with class parameter)",
+			"subject": "Example/Tree 02-03",
+			"assert-output": {
+				"to-contain": [
+					"div.some-class > ul > li:only-child > a[title=\"Example/Tree 1\"]:only-child"
 				]
 			}
 		}

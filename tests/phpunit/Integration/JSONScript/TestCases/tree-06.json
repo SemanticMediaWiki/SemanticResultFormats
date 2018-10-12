@@ -46,11 +46,11 @@
 		},
 		{
 			"page": "Example/Tree 06-01",
-			"contents": "{{#ask:[[Part of::Tree test]] |format=tree |parent=Has parent }}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]] |format=tree |parent=Has parent }}</div>"
 		},
 		{
 			"page": "Example/Tree 06-02",
-			"contents": "{{#ask:[[Part of::Tree test]] |format=tree |parent=Has parent |template=Example/Tree format template }}"
+			"contents": "<div>{{#ask:[[Part of::Tree test]] |format=tree |parent=Has parent |template=Example/Tree format template }}</div>"
 		}
 	],
 	"tests": [
@@ -60,17 +60,17 @@
 			"subject": "Example/Tree 06-01",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:only-child > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:only-child > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"]:only-child",
 
-					[ "div.srf-tree > ul > li", 3 ],
-					[ "div.srf-tree > ul > li > ul > li", 4 ],
-					[ "div.srf-tree > ul > li > ul > li > ul > li", 2 ]
+					[ "div > ul > li", 3 ],
+					[ "div > ul > li > ul > li", 4 ],
+					[ "div > ul > li > ul > li > ul > li", 2 ]
 				]
 			}
 		},
@@ -80,17 +80,17 @@
 			"subject": "Example/Tree 06-02",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
-					"div.srf-tree > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(1) > a[title=\"Example/Tree 11\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(2) > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:nth-child(1) > a[title=\"Example/Tree 1\"] + ul > li:nth-child(3) > a[title=\"Example/Tree 13\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:only-child > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
+					"div > ul > li:nth-child(2) > a[title=\"Example/Tree 2\"] + ul > li:only-child > a[title=\"Example/Tree 12\"] + ul > li:only-child > a[title=\"Example/Tree 121\"]:only-child",
 
-					"div.srf-tree > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"]:only-child",
+					"div > ul > li:nth-child(3) > a[title=\"Example/Tree 3\"]:only-child",
 
-					[ "div.srf-tree > ul > li", 3 ],
-					[ "div.srf-tree > ul > li > ul > li", 4 ],
-					[ "div.srf-tree > ul > li > ul > li > ul > li", 2 ]
+					[ "div > ul > li", 3 ],
+					[ "div > ul > li > ul > li", 4 ],
+					[ "div > ul > li > ul > li > ul > li", 2 ]
 				]
 			}
 		},
