@@ -13,13 +13,13 @@ These are the installation and configuration instructions for [Semantic Result F
 	</tr>
 	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 3.0.x</a></th>
-		<td>Development version</td>
-		<td>-</td>
-		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master">master</a></td>
+		<td>Stable version</td>
+		<td>2018-10-11</td>
+		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/3.0.x">3.0.x</a></td>
 	</tr>
 	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 2.5.6</a></th>
-		<td>Stable version</td>
+		<td>Obsolete version</td>
 		<td>2018-09-07</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></td>
 	</tr>
@@ -96,7 +96,7 @@ minimum requirements are indicated in bold.
 		<th>SRF 2.5.x</th>
 		<td><strong>5.5.x</strong> - 7.0.x</td>
 		<td><strong>1.23</strong> - 1.29</td>
-		<td>2.1.x - latest</td>
+		<td>2.1.x - 2.5.x</td>
 	<tr>
 		<th>SRF 2.4.x</th>
 		<td>5.3.2 - 7.0.x</td>
@@ -148,51 +148,67 @@ minimum requirements are indicated in bold.
 </table>
 
 **Note:**
-* It is strongly recommended to also always upgrade the underlying MediaWiki software to supported versions. See the [version lifecycle](https://www.mediawiki.org/wiki/Version_lifecycle) for current information on supported versions.
-* It is strongly recommended to also always upgrade the underlying Semantic MediaWiki software to supported versions. See the page on [compatibility](https://www.semantic-mediawiki.org/wiki/Help:Compatibility) for current information on supported versions.
+* It is strongly recommended to also always upgrade the underlying MediaWiki software to supported versions.
+See the [version lifecycle](https://www.mediawiki.org/wiki/Version_lifecycle) for current information on
+supported versions.
+* It is strongly recommended to also always upgrade the underlying Semantic MediaWiki software to supported
+versions. See the page on [compatibility](https://www.semantic-mediawiki.org/wiki/Help:Compatibility) for
+current information on supported versions.
 
-## Download and installation
+## Installation
 
-### Composer Installation
+The recommended way to install Semantic Result Formats is using [Composer](http://getcomposer.org) with
+[MediaWiki's built-in support for Composer](https://www.mediawiki.org/wiki/Composer).
 
-The recommended way to install Semantic Result Formats is with
-[Composer](https://getcomposer.org) using [MediaWiki's built-in support for
-Composer](https://www.mediawiki.org/wiki/Composer).
+Note that the required extension Semantic MediaWiki must be installed first according to the installation
+instructions provided.
 
-#### Step 1
+### Step 1
 
-Change to the root directory of your MediaWiki installation. This is where the
-"LocalSettings.php" file is located.
+Change to the base directory of your MediaWiki installation. This is where the "LocalSettings.php"
+file is located. If you have not yet installed Composer do it now by running the following command
+in your shell:
 
-#### Step 2
-
-If you already have Composer installed continue to step 3. If not install
-Composer now:
-``` bash
     wget https://getcomposer.org/composer.phar
+
+### Step 2
+    
+If you do not have a "composer.local.json" file yet, create one and add the following content to it:
+
+```
+{
+	"require": {
+		"mediawiki/semantic-result-formats": "~3.0"
+	}
+}
 ```
 
-#### Step 3
+If you already have a "composer.local.json" file add the following line to the end of the "require"
+section in your file:
 
-Add the following line to the end of the "require" section in your "composer.local.json" file:
-``` json
     "mediawiki/semantic-result-formats": "~3.0"
-```
 
-   * Remark: Remember to add a comma to the end of the preceding line in this
-     section.
+Remember to add a comma to the end of the preceding line in this section.
 
-#### Step 4
+### Step 3
 
-When this is done run in your shell:
-``` bash
-    php composer.phar update --no-dev --prefer-source "mediawiki/semantic-result-formats"
-```
+Run the following command in your shell:
 
-#### Verify installation success
+    php composer.phar update --no-dev
 
-As final step, you can verify SRF got installed by looking at the "Special:Version" page on your
-wiki and verifying the Semantic Result Formats section is listed.
+Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
+note that it may be necessary to run this command twice. If unsure do it twice right away.
+
+### Step 4
+
+Add the following line to the end of your "LocalSettings.php" file:
+
+    wfLoadExtension( 'SemanticResultFormats' );
+    
+### Verify installation success
+
+As final step, you can verify SRF got installed by looking at the "Special:Version" page on your wiki and
+check that it is listed in the semantic extensions section.
 
 ## Configuration
 
@@ -203,7 +219,8 @@ A default set of formats is enabled. These are the formats that satisfy the foll
   any static external resources (such as an externally hosted image file),
 * they are considered reasonably stable and secure.
 
-Currently, these default formats thus are:  
+Currently, these default formats are:  
+
 'icalendar', 'vcard', 'bibtex', 'calendar', 'eventcalendar', 'eventline', 'timeline', 'outline',
 'gallery', 'jqplotchart', 'jqplotseries', 'sum', 'average', 'min', 'max', 'median', 'product',
 'tagcloud', 'valuerank', 'array', 'tree', 'ultree', 'oltree', 'd3chart', 'latest', 'earliest',

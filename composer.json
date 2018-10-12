@@ -39,7 +39,6 @@
 	"support": {
 		"email": "semediawiki-user@lists.sourceforge.net",
 		"issues": "https://github.com/SemanticMediaWiki/SemanticResultFormats/issues",
-		"irc": "irc://irc.freenode.net/semantic-mediawiki",
 		"forum": "https://www.semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
 		"wiki": "https://www.semantic-mediawiki.org/wiki/",
 		"source": "https://github.com/SemanticMediaWiki/SemanticResultFormats"
@@ -47,7 +46,7 @@
 	"require": {
 		"php": ">=5.6.0",
 		"composer/installers": "1.*,>=1.0.1",
-		"mediawiki/semantic-media-wiki": "~3.0@dev",
+		"mediawiki/semantic-media-wiki": "~3.0",
 		"nicmart/tree": "^0.2.7",
 		"data-values/geo": "~4.0|~3.0|~2.0",
 		"symfony/css-selector": "^3.3"
