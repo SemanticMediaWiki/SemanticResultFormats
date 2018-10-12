@@ -183,7 +183,7 @@ export class MapView extends View {
 
 			// TODO: Limit zoom values to map max zoom
 
-			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions );
+			that.map = L.map( <HTMLElement> that.getTargetElement().get( 0 ), mapOptions );
 			that.map.addLayer( that.markerClusterGroup );
 
 			if ( this.options.hasOwnProperty( 'map provider' ) ) {
