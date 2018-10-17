@@ -350,9 +350,9 @@
 	"srf-ui-mediaplayer-label-repeat-off": "{{Doc-smw-ui-label-media|repeat-off}}",
 	"srf-ui-mediaplayer-label-full-screen": "{{Doc-smw-ui-label-media|full-screen}}\n{{Identical|Full screen}}",
 	"srf-ui-mediaplayer-label-restore-screen": "{{Doc-smw-ui-label-media|restore-screen}}",
-	"srf-excel-link": "{{doc-smw-link}}",
-	"srf-excel-missing-phpexcel": "This is an error message.",
-	"srf-paramdesc-excel-filename": "{{doc-paramdesc|filename}}",
-	"srf-paramdesc-excel-templatefile": "{{doc-paramdesc|templatefile}}",
+	"srf-spreadsheet-link": "{{doc-smw-link}}",
+	"srf-paramdesc-spreadsheet-filename": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-spreadsheet-fileformat": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-spreadsheet-templatefile": "{{doc-paramdesc|templatefile}}",
 	"srf-paramdesc-icalendar-timezone": "{{doc-paramdesc|timezone}}"
 }
