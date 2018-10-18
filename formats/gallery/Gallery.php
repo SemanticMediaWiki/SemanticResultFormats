@@ -10,6 +10,7 @@ use SMWPrintRequest;
 use SMWQueryResult;
 use SRFUtils;
 use Title;
+use TraditionalImageGallery;
 
 /**
  * Result printer that outputs query results as a image gallery.
@@ -42,11 +43,13 @@ class Gallery extends ResultPrinter {
 
 		// Intro/outro are not planned to work with the widget option
 		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ) {
-			return $results->addErrors(
+			$results->addErrors(
 				[
 					$this->msg( 'srf-error-option-mix', 'widget' )->inContentLanguage()->text()
 				]
 			);
+
+			return '';
 		};
 
 		return $this->getResultText( $results, $this->outputMode );
@@ -58,20 +61,19 @@ class Gallery extends ResultPrinter {
 	 * @param $results SMWQueryResult
 	 * @param $outputmode integer
 	 *
-	 * @return string
+	 * @return string | array
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
 
-		// #224
-		$ig = class_exists( '\TraditionalImageGallery' ) ? new \TraditionalImageGallery() : new \ImageGallery();
+		$ig = new TraditionalImageGallery();
 
 		$ig->setShowBytes( false );
 		$ig->setShowFilename( false );
-		
+
 		if ( method_exists( $ig, 'setShowDimensions' ) ) {
 			$ig->setShowDimensions( false );
 		}
-		
+
 		$ig->setCaption( $this->mIntro ); // set caption to IQ header
 
 		// No need for a special page to use the parser but for the "normal" page
@@ -187,7 +189,7 @@ class Gallery extends ResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $results
-	 * @param ImageGallery $ig
+	 * @param TraditionalImageGallery $ig
 	 * @param string $imageProperty
 	 * @param string $captionProperty
 	 * @param string $redirectProperty
@@ -202,8 +204,8 @@ class Gallery extends ResultPrinter {
 
 			for ( $i = 0, $n = count( $rows ); $i < $n; $i++ ) { // Properties
 				/**
-				 * @var SMWResultArray $resultArray
-				 * @var SMWDataValue $dataValue
+				 * @var \SMWResultArray $resultArray
+				 * @var \SMWDataValue $dataValue
 				 */
 				$resultArray = $rows[$i];
 
@@ -259,18 +261,18 @@ class Gallery extends ResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $results
-	 * @param ImageGallery $ig
+	 * @param TraditionalImageGallery $ig
 	 */
 	protected function addImagePages( SMWQueryResult $results, &$ig ) {
 		while ( $row = $results->getNext() ) {
 			/**
-			 * @var SMWResultArray $firstField
+			 * @var \SMWResultArray $firstField
 			 */
 			$firstField = $row[0];
 			$nextObject = $firstField->getNextDataValue();
 
 			if ( $nextObject !== false ) {
-				$imgTitle = $nextObject->getTitle();
+				$imgTitle = method_exists( $nextObject, 'getTitle' ) ? $nextObject->getTitle() : null;
 
 				// Ensure the title belongs to the image namespace
 				if ( $imgTitle instanceof Title && $imgTitle->getNamespace() === NS_FILE ) {
@@ -296,7 +298,7 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param ImageGallery $ig The gallery to add the image to
+	 * @param TraditionalImageGallery $ig The gallery to add the image to
 	 * @param Title $imgTitle The title object of the page of the image
 	 * @param string $imgCaption An optional caption for the image
 	 * @param string $imgRedirect
@@ -344,7 +346,7 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @return string
+	 * @return string[]
 	 */
 	private function getCarouselWidget() {
 
@@ -383,7 +385,7 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @return string
+	 * @return string[]
 	 */
 	private function getSlideshowWidget() {
 
@@ -488,11 +490,17 @@ class Gallery extends ResultPrinter {
 		return $params;
 	}
 
+	/**
+	 * @return bool
+	 */
 	private function isSpecialPage() {
 		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title && $title->isSpecialPage();
 	}
 
+	/**
+	 * @return bool|null|string
+	 */
 	private function getFileNsTextForPageLanguage() {
 		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
