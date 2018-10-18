@@ -147,7 +147,7 @@ class SemanticResultFormats {
 			'dygraphs' => 'SRFDygraphs',
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
-			'excel' => 'SRF\SRFExcel',
+			'spreadsheet' => 'SRF\SpreadsheetPrinter',
 			'datatables' => 'SRF\DataTables'
 		];
 
@@ -159,6 +159,7 @@ class SemanticResultFormats {
 			'timeseries' =>  [ 'time series' ],
 			'jqplotchart' => [ 'jqplot chart', 'jqplotpie', 'jqplotbar' ],
 			'jqplotseries' => [ 'jqplot series' ],
+			'spreadsheet' => [ 'excel' ],
 		];
 
 		foreach ( $GLOBALS['srfgFormats'] as $format ) {
