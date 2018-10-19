@@ -56,7 +56,7 @@
 			"subject": "Example/Tree 07-01",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"] + a[title=\"Property:Has parent\"] + a[title=\"Example/Tree 1\"]"
+					"ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"] + a[title=\"Property:Has parent\"] + a[title=\"Example/Tree 1\"]"
 				]
 			}
 		},
@@ -66,7 +66,7 @@
 			"subject": "Example/Tree 07-02",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"] + a[title=\"Property:Has parent\"] + a[title=\"Example/Tree 1\"]"
+					"ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"] + a[title=\"Property:Has parent\"] + a[title=\"Example/Tree 1\"]"
 				]
 			}
 		},
@@ -76,7 +76,7 @@
 			"subject": "Example/Tree 07-03",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"]:first-of-type + a[title=\"Property:Has parent\"]:last-of-type"
+					"ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"]:first-of-type + a[title=\"Property:Has parent\"]:last-of-type"
 
 				]
 			}
@@ -87,7 +87,7 @@
 			"subject": "Example/Tree 07-04",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li > ul:only-child > li > a[title=\"Property:Has parent\"]:only-child"
+					"ul > li > ul:only-child > li > a[title=\"Property:Has parent\"]:only-child"
 				]
 			}
 		},
@@ -107,7 +107,7 @@
 			"subject": "Example/Tree 07-05",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-tree > ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"]"
+					"ul > li > a[title=\"Example/Tree 1\"] + ul > li > a[title=\"Example/Tree 11\"]"
 				]
 			}
 		},
