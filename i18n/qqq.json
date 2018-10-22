@@ -352,7 +352,6 @@
 	"srf-ui-mediaplayer-label-restore-screen": "{{Doc-smw-ui-label-media|restore-screen}}",
 	"srf-spreadsheet-link": "{{doc-smw-link}}",
 	"srf-paramdesc-spreadsheet-filename": "{{doc-paramdesc|filename}}",
-	"srf-paramdesc-spreadsheet-fileformat": "{{doc-paramdesc|filename}}",
 	"srf-paramdesc-spreadsheet-templatefile": "{{doc-paramdesc|templatefile}}",
 	"srf-paramdesc-icalendar-timezone": "{{doc-paramdesc|timezone}}"
 }

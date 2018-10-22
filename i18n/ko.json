@@ -240,8 +240,8 @@
 	"srf-ui-mediaplayer-label-repeat-off": "반복 해제",
 	"srf-ui-mediaplayer-label-full-screen": "전체 화면",
 	"srf-ui-mediaplayer-label-restore-screen": "화면 복구",
-	"srf-excel-link": "엑셀",
-	"srf-excel-missing-phpexcel": "확장 기능 [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel]이 설치되어 있지 않으므로 MS 액셀로 내보낼 수 없습니다.",
-	"srf-paramdesc-excel-filename": "생성된 파일의 다운로드 파일 이름",
+	"srf-spreadsheet-link": "스프레드시트",
+	"srf-paramdesc-spreadsheet-filename": "생성할 파일 포맷입니다. 허용되는 값: xlsx, xls, ods, csv. 기본값: xlsx",
+	"srf-paramdesc-spreadsheet-templatefile": "생성된 파일의 서식을 제공하기 위한 \"파일\" 이름공간의 스프레드시트 파일의 이름입니다",
 	"srf-paramdesc-icalendar-timezone": "쉼표 구분 시간대 목록"
 }

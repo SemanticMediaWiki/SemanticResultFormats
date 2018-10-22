@@ -301,9 +301,5 @@
 	"srf-ui-mediaplayer-label-shuffle-off": "Miks av",
 	"srf-ui-mediaplayer-label-repeat": "Repeter",
 	"srf-ui-mediaplayer-label-repeat-off": "Repeter av",
-	"srf-ui-mediaplayer-label-full-screen": "Fullskjerm",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Kunne ikke eksportere for MS-Excel fordi utvidelsen [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] ikke er installert.",
-	"srf-paramdesc-excel-filename": "Nedlastingsfilnavnet for den genererte fila",
-	"srf-paramdesc-excel-templatefile": "Navnet på en Excel-fil fra «File»-navnerommet som brukes for å formatere den genererte fila"
+	"srf-ui-mediaplayer-label-full-screen": "Fullskjerm"
 }

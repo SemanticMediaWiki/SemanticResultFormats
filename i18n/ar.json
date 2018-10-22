@@ -327,9 +327,8 @@
 	"srf-ui-mediaplayer-label-repeat-off": "كرر",
 	"srf-ui-mediaplayer-label-full-screen": "ملء الشاشة",
 	"srf-ui-mediaplayer-label-restore-screen": "استعادة الشاشة",
-	"srf-excel-link": "إكسل",
-	"srf-excel-missing-phpexcel": "تعذر تصدير MS-Excel لأنه لم يتم تثبيت الإضافة [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel].",
-	"srf-paramdesc-excel-filename": "اسم ملف التنزيل للملف الذي تم إنشاؤه",
-	"srf-paramdesc-excel-templatefile": "اسم ملف إكسيل من نطاق ''ملف'' المستخدم لتنسيق الملف الذي تم إنشاؤه",
+	"srf-spreadsheet-link": "جدول ممتد",
+	"srf-paramdesc-spreadsheet-filename": "تنسيق الملف المراد إنتاجه، القيم المسموح بها: xlsx وxls وods وcsv، الافتراضي: xlsx",
+	"srf-paramdesc-spreadsheet-templatefile": "اسم ملف جدول ممتد من نطاق ''ملف'' المستخدمة لتنسيق الملف المنشأ",
 	"srf-paramdesc-icalendar-timezone": "قائمة مفصولة بفواصل بالمناطق الزمنية"
 }

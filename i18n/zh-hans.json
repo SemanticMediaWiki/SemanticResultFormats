@@ -330,9 +330,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "关闭重复",
 	"srf-ui-mediaplayer-label-full-screen": "全屏",
 	"srf-ui-mediaplayer-label-restore-screen": "还原屏幕",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "无法导出成MS-Excel因为[https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel]拓展未安装。",
-	"srf-paramdesc-excel-filename": "用于生成文件的下载文件名",
-	"srf-paramdesc-excel-templatefile": "来自“File”名字空间的Excel文件名，用于格式化生成的文件",
 	"srf-paramdesc-icalendar-timezone": "时区的逗号分隔列表"
 }

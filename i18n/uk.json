@@ -328,9 +328,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Вимкнути повторення",
 	"srf-ui-mediaplayer-label-full-screen": "Повноекранний режим",
 	"srf-ui-mediaplayer-label-restore-screen": "Відновити екран",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Не вдалося експортувати в MS-Excel, оскільки розширення [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] не встановлене.",
-	"srf-paramdesc-excel-filename": "Назва файлу для завантаження генерованого файлу",
-	"srf-paramdesc-excel-templatefile": "Назва файлу Excel з простору назв ''File'', що використовується для форматування генерованого файлу",
 	"srf-paramdesc-icalendar-timezone": "Список часових поясів через кому"
 }

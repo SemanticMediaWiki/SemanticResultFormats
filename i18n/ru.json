@@ -306,8 +306,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Повторение выкл",
 	"srf-ui-mediaplayer-label-full-screen": "На весь экран",
 	"srf-ui-mediaplayer-label-restore-screen": "Восстановить экран",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Не удалось экспортировать в MS Excel, потому что не установлено расширение [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel].",
-	"srf-paramdesc-excel-filename": "Имя скачиваемого файла для создаваемого файла",
-	"srf-paramdesc-excel-templatefile": "Название файла Excel из пространства имён «Файл», используемого для форматирования создаваемого файла"
+	"srf-spreadsheet-link": "Таблица",
+	"srf-paramdesc-spreadsheet-templatefile": "Название файла таблицы из пространства имён «Файл», используемого для форматирования создаваемого файла"
 }

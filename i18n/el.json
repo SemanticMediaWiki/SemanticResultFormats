@@ -266,7 +266,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Απενεργοποίηση επανάληψης",
 	"srf-ui-mediaplayer-label-full-screen": "Πλήρης οθόνη",
 	"srf-ui-mediaplayer-label-restore-screen": "Επαναφορά οθόνης",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Δεν ήταν δυνατή η εξαγωγή για MS-Excel, επειδή η επέκταση [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] δεν είναι εγκατεστημένη.",
 	"srf-paramdesc-icalendar-timezone": "Μια λίστα τοπικών ωρών χωρισμένη με κόμμα?"
 }

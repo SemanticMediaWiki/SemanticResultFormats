@@ -288,9 +288,5 @@
 	"srf-ui-mediaplayer-label-repeat": "חזרה",
 	"srf-ui-mediaplayer-label-repeat-off": "ביטול חזרה",
 	"srf-ui-mediaplayer-label-full-screen": "מסך מלא",
-	"srf-ui-mediaplayer-label-restore-screen": "שחזור מסך",
-	"srf-excel-link": "אקסל",
-	"srf-excel-missing-phpexcel": "ייצוא למיקרוסופט אקסל לא יכול להתבצע, כי ההרחבה [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] אינה מותקנת.",
-	"srf-paramdesc-excel-filename": "השם לקובץ המחולל להורדה",
-	"srf-paramdesc-excel-templatefile": "שם קובץ האקסל מתוך מרחב קובץ לעיצוב הקובץ המחולל"
+	"srf-ui-mediaplayer-label-restore-screen": "שחזור מסך"
 }

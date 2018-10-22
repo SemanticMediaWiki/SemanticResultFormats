@@ -295,9 +295,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Искл. повторување",
 	"srf-ui-mediaplayer-label-full-screen": "На цел екран",
 	"srf-ui-mediaplayer-label-restore-screen": "Поврати екран",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Не можев да извезам за MS-Excel бидејќи не е воспоставен додатокот [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel].",
-	"srf-paramdesc-excel-filename": "Податотечното име за преземање на создадената податотека.",
-	"srf-paramdesc-excel-templatefile": "Назив на Excel-податотеката од именскиот простор „Податотека“ што служи за форматирање на создадената податотека",
 	"srf-paramdesc-icalendar-timezone": "Список на часовни појаси одделени со запирки"
 }

@@ -330,9 +330,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Não repetir",
 	"srf-ui-mediaplayer-label-full-screen": "Ecrã completo",
 	"srf-ui-mediaplayer-label-restore-screen": "Restaurar o ecrã",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Não foi possível exportar para MS-Excel porque a extensão [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] não está instalada.",
-	"srf-paramdesc-excel-filename": "O nome de ficheiro para descarregamento do ficheiro gerado",
-	"srf-paramdesc-excel-templatefile": "O nome de um ficheiro Excel do espaço nominal \"Ficheiro\", usado para formatar o ficheiro gerado",
 	"srf-paramdesc-icalendar-timezone": "Uma lista de fusos horários, separados por vírgulas"
 }
