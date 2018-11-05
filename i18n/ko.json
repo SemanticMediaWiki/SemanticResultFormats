@@ -217,6 +217,7 @@
 	"srf-ui-eventcalendar-format-column-week": "M/d ddd",
 	"srf-ui-eventcalendar-format-column-day": "M/d dddd",
 	"srf-ui-eventcalendar-click-popup": "이벤트를 만드시겠습니까?",
+	"srf-paramdesc-datasource": "데이터 접근이 가능한 출처입니다. 허용된 값: \"file\", \"raw\", \"url\". 기본값: \"file\"",
 	"srf-paramdesc-yaxislabel": "y축에 표시되는 설명",
 	"srf-paramdesc-xaxislabel": "x축에 표시되는 설명",
 	"srf-paramdesc-unit": "단위",
