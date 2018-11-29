@@ -8,7 +8,8 @@
 			"Pyscowicz",
 			"Nemo bis",
 			"Pahkiqaz",
-			"01miki10"
+			"01miki10",
+			"Valtlait"
 		]
 	},
 	"srf-desc": "Muita tulosten muotoja Semantic MediaWikin kyselyille",
@@ -106,7 +107,7 @@
 	"srf_paramdesc_maxtags": "Tunnisteiden enimmäismäärä pilvessä",
 	"srf_paramdesc_propsep": "Erotin pyydettyjen ominaisuuksien välissä",
 	"srf_paramdesc_manysep": "Erotin moniarvoisen ominaisuuden arvojen välillä",
-	"srf_paramdesc_headersep": "Erotin ominaisuuden nimen ja arvon välissä, jos \"headers\" on \"show\" tai \"plain\"",
+	"srf_paramdesc_headersep": "Erotin ominaisuuden nimen ja arvon välissä, jos ”headers” on ”show” tai ”plain”",
 	"srf-printername-graph": "Graafi",
 	"srf-paramdesc-graph-relation": "Ovatko kohteet tai nimiominaisuudet ylätasolla vai alatasolla?",
 	"srf-paramdesc-graphname": "Asettaa taulukon otsikon",
@@ -129,6 +130,7 @@
 	"srf-printername-ultree": "Puu (luettelo)",
 	"srf-printername-oltree": "Puu (numeroitu)",
 	"srf-tree-noparentprop": "Ylätason ominaisuus puuttuu. Puuta ei voi rakentaa, jos ylätason ominaisuutta ei ole määritetty.",
+	"srf-tree-rootinvalid": "$1 ei ole kelvollinen sivun nimi.",
 	"srf-printername-slideshow": "Diaesitys",
 	"srf-paramdesc-navigation-controls": "Näytä navigointiohjaimet tai ei",
 	"srf-printername-filtered": "Suodatettu",
@@ -156,7 +158,7 @@
 	"srf-ui-eventcalendar-label-allday": "Koko päivä",
 	"srf-ui-eventcalendar-click-popup": "Haluatko luoda tapahtuman?",
 	"srf-printername-dygraphs": "Dygraphs-kaavio",
-	"srf-paramdesc-datasource": "Määritä datan tietolähteen sijainti. Sallitut arvot: \"file\", \"raw\" ja \"url\". Oletusarvo: \"file\"",
+	"srf-paramdesc-datasource": "Määritä datan tietolähteen sijainti. Sallitut arvot: ”file”, ”raw” ja ”url”. Oletusarvo: ”file”",
 	"srf-paramdesc-yaxislabel": "Y-akselin selite",
 	"srf-paramdesc-xaxislabel": "X-akselin selite",
 	"srf-paramdesc-unit": "Yksikkö",
