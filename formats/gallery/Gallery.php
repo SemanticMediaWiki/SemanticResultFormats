@@ -505,5 +505,21 @@ class Gallery extends ResultPrinter {
 		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
 	}
-
+	/**
+	 * @param SMWDataItem $dataItem
+	 * @param float[] $numbers
+	 */
+	private function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
+		switch ( $dataItem->getDIType() ) {
+			case SMWDataItem::TYPE_NUMBER:
+				$numbers[] = $dataItem->getNumber();
+				break;
+			case SMWDataItem::TYPE_CONTAINER:
+				foreach ( $dataItem->getDataItems() as $di ) {
+					self::addNumbersForDataItem( $di, $numbers );
+				}
+				break;
+			default:
+		}
+	}
 }
