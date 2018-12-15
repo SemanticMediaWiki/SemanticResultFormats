@@ -65,6 +65,11 @@ class Gallery extends ResultPrinter {
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
 
+		$numbers = $this->getNumbers( $results );
+				if ( count( $numbers ) == 0 ) {
+					return $this->params['default'];
+				}
+
 		$ig = new TraditionalImageGallery();
 
 		$ig->setShowBytes( false );
@@ -505,5 +510,20 @@ class Gallery extends ResultPrinter {
 		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
 	}
-
+	/**
+	 * @param SMWQueryResult $res
+	 * 
+	 * @return float[]
+	 */
+	private function getNumbers( SMWQueryResult $res ) {
+		$numbers = [];
+		while ( $row = $res->getNext() ) {
+			foreach ( $row as $resultArray ) {
+				foreach ( $resultArray->getContent() as $dataItem ) {
+					self::addNumbersForDataItem( $dataItem, $numbers );
+				}
+			}
+		}
+		return $numbers;
+	}
 }
