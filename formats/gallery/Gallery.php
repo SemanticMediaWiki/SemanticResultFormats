@@ -64,7 +64,10 @@ class Gallery extends ResultPrinter {
 	 * @return string | array
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-
+		$numbers = $this->getNumbers( $results );
+				if ( count( $numbers ) == 0 ) {
+					return $this->params['default'];
+				}
 		$ig = new TraditionalImageGallery();
 
 		$ig->setShowBytes( false );
@@ -505,5 +508,37 @@ class Gallery extends ResultPrinter {
 		$title = $GLOBALS['wgTitle'];
 		return $title instanceof Title ? $title->getPageLanguage()->getNsText( NS_FILE ) : null;
 	}
-
+	/**
+	 * @param SMWQueryResult $res
+	 * #396
+	 * @return float[]
+	 */
+	private function getNumbers( SMWQueryResult $res ) {
+		$numbers = [];
+		while ( $row = $res->getNext() ) {
+			foreach ( $row as $resultArray ) {
+				foreach ( $resultArray->getContent() as $dataItem ) {
+					self::addNumbersForDataItem( $dataItem, $numbers );
+				}
+			}
+		}
+		return $numbers;
+	}
+	/**
+	 * @param SMWDataItem $dataItem
+	 * @param float[] $numbers
+	 */
+	private function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
+		switch ( $dataItem->getDIType() ) {
+			case SMWDataItem::TYPE_NUMBER:
+				$numbers[] = $dataItem->getNumber();
+				break;
+			case SMWDataItem::TYPE_CONTAINER:
+				foreach ( $dataItem->getDataItems() as $di ) {
+					self::addNumbersForDataItem( $di, $numbers );
+				}
+				break;
+			default:
+		}
+	}
 }
