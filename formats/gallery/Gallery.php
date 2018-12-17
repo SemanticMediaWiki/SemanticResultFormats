@@ -65,7 +65,7 @@ class Gallery extends ResultPrinter {
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
 		$numbers = $this->getNumbers( $results );
-				if ( count( $numbers ) == 0 ) {
+				if ( $results->getCount() === 0 ) {
 					return $this->params['default'];
 				}
 		$ig = new TraditionalImageGallery();
