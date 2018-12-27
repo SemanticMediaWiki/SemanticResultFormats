@@ -134,7 +134,7 @@
 	"srf-printername-slideshow": "Diaesitys",
 	"srf-paramdesc-navigation-controls": "Näytä navigointiohjaimet tai ei",
 	"srf-printername-filtered": "Suodatettu",
-	"srf-paramdesc-filtered-list-type": "Luettelotyypit. Sallitut arvot: list, ul, ol. Oletusarvo: list.",
+	"srf-paramdesc-filtered-list-type": "Luettelotyypit. Sallitut arvot: \"list\", \"ul\", \"ol\". Oletusarvo: \"list\".",
 	"srf-paramdesc-filtered-list-template": "Malline, jolla luettelokohdat muotoillaan.",
 	"srf-paramdesc-filtered-list-introtemplate": "Ennen kyselytuloksia näytettävä mallineen nimi, jos sellaista on.",
 	"srf-paramdesc-filtered-list-outrotemplate": "Kyselytulosten jälkeen näytettävä mallineen nimi, jos sellaista on.",

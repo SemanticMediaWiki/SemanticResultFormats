@@ -189,6 +189,8 @@
 	"srf-paramdesc-graphlink": "Ссылка графы",
 	"srf-paramdesc-graphcolor": "Цвет графы",
 	"srf-paramdesc-graph-wwl": "Предел переноса слов (в # символов)",
+	"srf-paramdesc-clustercolor": "Устанавливает цвета блоков кластера",
+	"srf-paramdesc-highlightcolor": "Устанавливает цвет шрифта для выделенного узла",
 	"srf-paramdesc-redlinkcolor": "Задать цвет шрифта для красных ссылок",
 	"srf-printername-datatables": "Таблицы данных",
 	"srf-ui-datatables-label-conditions": "Условия",
