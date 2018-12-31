@@ -82,7 +82,7 @@
 	"srf-paramdesc-valueformat": "Määritä arvojen muotoilusäännöt",
 	"srf-paramdesc-stackseries": "Näytä kaavio pinottuna sarjana",
 	"srf-paramdesc-seriesgroup": "Valitse sarjan ryhmittely",
-	"srf-paramdesc-gridview": "Näytän kaavio ja datajoukot samanaikaisesti. Sallitut arvot: none ja tabs. Oletusarvo: none.",
+	"srf-paramdesc-gridview": "Näytän kaavio ja datajoukot samanaikaisesti. Sallitut arvot: \"none\" ja \"tabs\". Oletusarvo: \"none\".",
 	"srf-ui-gridview-label-item": "Kohteen tiedot",
 	"srf-ui-gridview-label-value": "Data-arvo",
 	"srf-ui-gridview-label-series": "Datasarja",

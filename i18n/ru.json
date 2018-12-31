@@ -255,7 +255,7 @@
 	"srf-paramdesc-filtered-map-marker-cluster": "\nВключить или отключить кластеризацию маркеров.",
 	"srf-paramdesc-filtered-map-marker-cluster-max-zoom": "\nМаксимальный уровень масштабирования, при котором маркеры карты все еще группируются. Выше этого уровня маркеры всегда будут кластеризованы.",
 	"srf-paramdesc-filtered-map-marker-cluster-max-radius": "\nМаксимальный радиус, который кластер будет охватывать от центрального маркера (в пикселях). По умолчанию 80.",
-	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "При нажатии кластер приблизится к своим границам.",
+	"srf-paramdesc-filtered-map-marker-cluster-zoom-on-click": "Если включено, при нажатии кластер приблизится к своим границам.",
 	"srf-filtered-selectorlabel-list": "Список",
 	"srf-filtered-selectorlabel-table": "Таблица",
 	"srf-filtered-selectorlabel-calendar": "Календарь",

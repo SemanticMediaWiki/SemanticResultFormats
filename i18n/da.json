@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saederup92"
+			"Saederup92",
+			"Kranix"
 		]
 	},
 	"srf-module-loading": "Indlæser...",
@@ -44,11 +45,13 @@
 	"srf-gallery-navigation-next": "Næste",
 	"srf-gallery-overlay-count": "Billede $1 af $2",
 	"srf-gallery-image-url-error": "Billedet blev ikke fundet.",
+	"srf_printername_array": "Array",
 	"srf-printername-graph": "Graf",
 	"srf-ui-datatables-label-parameters": "Parametre",
 	"srf-ui-datatables-label-information": "Information",
 	"srf-ui-datatables-label-placeholder-column-search": "Søg...",
 	"srf-ui-datatables-label-multiselect-column-header": "Tilgængelige kolonner",
+	"srf-ui-datatables-label-multiselect-column-selectedtext": "Kolonner er synlige",
 	"srf-ui-datatables-label-sLoadingRecords": "Indlæser...",
 	"srf-ui-datatables-label-sProcessing": "Bearbejder...",
 	"srf-ui-datatables-label-sSearch": "Søg:",
@@ -67,6 +70,9 @@
 	"srf-filtered-value-filter-or": "ELLER",
 	"srf-paramdesc-zoom": "Aktiver zoom",
 	"srf-paramdesc-datatable": "Aktiver en datatabel",
+	"srf-paramdesc-widget": "Tilgængelig widget",
+	"srf-printername-eventcalendar": "Begivenhedskalender",
+	"srf-paramdesc-calendarfirstday": "Første dag i ugen",
 	"srf-ui-eventcalendar-label-today": "I dag",
 	"srf-ui-eventcalendar-label-month": "Måned",
 	"srf-ui-eventcalendar-label-week": "Uge",
@@ -75,6 +81,7 @@
 	"srf-ui-eventcalendar-label-listweek": "Uge (liste)",
 	"srf-ui-eventcalendar-label-listday": "Dag (liste)",
 	"srf-ui-eventcalendar-label-allday": "Hele dagen",
+	"srf-ui-eventcalendar-click-popup": "Ønsker du at oprette en begivenhed?",
 	"srf-paramdesc-unit": "Enhed",
 	"srf-printername-media": "Medieafspiller",
 	"srf-ui-mediaplayer-label-previous": "Forrige",
