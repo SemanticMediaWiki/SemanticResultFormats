@@ -1,6 +1,9 @@
+## General documentation
 
-* [Installation](INSTALL.md)
-* [Extension:Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats)
+* [Release series](VERSIONS.md)
+* [Compatibility](COMPATIBILITY.md)
+* [Installation and configuration](INSTALL.md)
+* [Homepage](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats)
 
 ## Technical documentation
 
