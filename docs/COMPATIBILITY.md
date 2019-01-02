@@ -1,6 +1,6 @@
 This document holds the **compatibility information** for the Semantic Result Formats (SRF) extension.
 
-- For a full list of the release series, see the [version overview](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/VERSIONS.md).
+- For information on the release series, see the [version overview](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/VERSIONS.md).
 - For a full list of changes in each release, see the [release notes](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/RELEASE-NOTES.md).
 - For instructions on how to install the latest version, see the [installation instructions](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/INSTALL.md).
 
