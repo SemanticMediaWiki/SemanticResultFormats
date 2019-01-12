@@ -1,5 +1,7 @@
 <?php
 
+use SRF\Outline\TemplateBuilder;
+
 /**
  * A class to print query results in an outline format, along with some
  * helper classes to handle the aggregation
@@ -43,6 +45,8 @@ class SRFOutlineTree {
 
 	var $mTree;
 	var $mUnsortedItems;
+	var $itemCount = 0;
+	var $leafCount = 0;
 
 	function __construct( $items = [] ) {
 		$this->mTree = [];
@@ -51,14 +55,17 @@ class SRFOutlineTree {
 
 	function addItem( $item ) {
 		$this->mUnsortedItems[] = $item;
+		$this->itemCount++;
 	}
 
 	function categorizeItem( $vals, $item ) {
 		foreach ( $vals as $val ) {
 			if ( array_key_exists( $val, $this->mTree ) ) {
 				$this->mTree[$val]->mUnsortedItems[] = $item;
+				$this->mTree[$val]->leafCount++;
 			} else {
 				$this->mTree[$val] = new SRFOutlineTree( [ $item ] );
+				$this->mTree[$val]->leafCount++;
 			}
 		}
 	}
@@ -82,11 +89,6 @@ class SRFOutline extends SMWResultPrinter {
 
 	protected $mOutlineProperties = [];
 	protected $mInnerFormat = '';
-
-	protected function handleParameters( array $params, $outputmode ) {
-		parent::handleParameters( $params, $outputmode );
-		$this->mOutlineProperties = $params['outlineproperties'];
-	}
 
 	public function getName() {
 		return wfMessage( 'srf_printername_outline' )->text();
@@ -112,7 +114,7 @@ class SRFOutline extends SMWResultPrinter {
 				$ra = new SMWResultArray( $orig_ra->getContent(), $orig_ra->getPrintRequest() );
 			}
 			$val = $ra->getPrintRequest()->getText( SMW_OUTPUT_WIKI, null );
-			if ( in_array( $val, $this->mOutlineProperties ) ) {
+			if ( in_array( $val, $this->params['outlineproperties'] ) ) {
 				continue;
 			}
 			$first_value = true;
@@ -152,7 +154,7 @@ class SRFOutline extends SMWResultPrinter {
 		if ( $level > 0 ) {
 			$text .= "<ul>\n";
 		}
-		$num_levels = count( $this->mOutlineProperties );
+		$num_levels = count( $this->params['outlineproperties'] );
 		// set font size and weight depending on level we're at
 		$font_level = $level;
 		if ( $num_levels < 4 ) {
@@ -188,7 +190,7 @@ class SRFOutline extends SMWResultPrinter {
 			$field_name = $pr->getText( $outputmode, $this->mLinker );
 			// only print it if it's not already part of the
 			// outline
-			if ( !in_array( $field_name, $this->mOutlineProperties ) ) {
+			if ( !in_array( $field_name, $this->params['outlineproperties'] ) ) {
 				$print_fields[] = $field_name;
 			}
 		}
@@ -201,7 +203,7 @@ class SRFOutline extends SMWResultPrinter {
 			$item = new SRFOutlineItem( $row );
 			foreach ( $row as $field ) {
 				$field_name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
-				if ( in_array( $field_name, $this->mOutlineProperties ) ) {
+				if ( in_array( $field_name, $this->params['outlineproperties'] ) ) {
 					while ( ( $object = $field->getNextDataValue() ) !== false ) {
 						$field_val = $object->getLongWikiText( $this->mLinker );
 						$item->addFieldValue( $field_name, $field_val );
@@ -213,23 +215,28 @@ class SRFOutline extends SMWResultPrinter {
 
 		// now, cycle through the outline properties, creating the
 		// tree
-		foreach ( $this->mOutlineProperties as $outline_prop ) {
+		foreach ( $this->params['outlineproperties'] as $outline_prop ) {
 			$outline_tree->addProperty( $outline_prop );
 		}
-		$result = $this->printTree( $outline_tree );
 
-		// print further results footer
+		if ( $this->params['template'] !== '' ) {
+			$this->hasTemplates = true;
+			$templateBuilder = new TemplateBuilder(
+				$this->params
+			);
+
+			$templateBuilder->setLinker( $this->mLinker );
+			$result = $templateBuilder->build( $outline_tree );
+		} else {
+			$result = $this->printTree( $outline_tree );
+		}
+
 		if ( $this->linkFurtherResults( $res ) ) {
-			$link = $res->getQueryLink();
-			if ( $this->getSearchLabel( $outputmode ) ) {
-				$link->setCaption( $this->getSearchLabel( $outputmode ) );
-			}
-			$link->setParameter( 'outline', 'format' );
-			if ( array_key_exists( 'outlineproperties', $this->params ) ) {
-				$link->setParameter( $this->params['outlineproperties'], 'outlineproperties' );
-			}
+			$link = $this->getFurtherResultsLink( $res, $outputmode );
+
 			$result .= $link->getText( $outputmode, $this->mLinker ) . "\n";
 		}
+
 		return $result;
 	}
 
@@ -249,6 +256,25 @@ class SRFOutline extends SMWResultPrinter {
 			'islist' => true,
 			'default' => [],
 			'message' => 'srf_paramdesc_outlineproperties',
+		];
+
+		$params[] = [
+			'name' => 'template',
+			'message' => 'smw-paramdesc-template',
+			'default' => '',
+		];
+
+		$params[] = [
+			'name' => 'userparam',
+			'message' => 'smw-paramdesc-userparam',
+			'default' => '',
+		];
+
+		$params[] = [
+			'name' => 'named args',
+			'type' => 'boolean',
+			'message' => 'smw-paramdesc-named_args',
+			'default' => true,
 		];
 
 		return $params;
