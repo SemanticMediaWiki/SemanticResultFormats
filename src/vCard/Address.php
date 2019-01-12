@@ -30,9 +30,28 @@ class Address {
 	 * @param string $type
 	 * @param array $adr
 	 */
-	public function __construct( $type, array $adr ) {
+	public function __construct( $type, array $adr = [] ) {
 		$this->type = $type;
 		$this->adr = $adr;
+	}
+
+	/**
+	 * @since 3.1
+	 *
+	 * @return boolean
+	 */
+	public function hasAddress() {
+		return $this->adr !== [];
+	}
+
+	/**
+	 * @since 3.1
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+	public function set( $key, $value ) {
+		$this->adr[$key] = $value;
 	}
 
 	/**
