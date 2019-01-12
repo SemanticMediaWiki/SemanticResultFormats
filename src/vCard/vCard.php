@@ -79,6 +79,16 @@ class vCard {
 	}
 
 	/**
+	 * @since 3.1
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+	public function set( $key, $value ) {
+		$this->vcard[$key] = $value;
+	}
+
+	/**
 	 * @since 3.0
 	 *
 	 * @param boolean $isPublic
@@ -146,7 +156,9 @@ class vCard {
 		}
 
 		foreach ( $vcard['address'] as $a ) {
-			$text .= $a->text();
+			if ( $a->hasAddress() ) {
+				$text .= $a->text();
+			}
 		}
 
 		foreach ( $vcard['tel'] as $t ) {
