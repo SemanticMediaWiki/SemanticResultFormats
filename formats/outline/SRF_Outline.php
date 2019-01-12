@@ -1,243 +1,28 @@
 <?php
 
 use SRF\Outline\TemplateBuilder;
+use SRF\Outline\ListTreeBuilder;
+use SRF\Outline\OutlineTree;
+use SRF\Outline\OutlineItem;
 
 /**
  * A class to print query results in an outline format, along with some
  * helper classes to handle the aggregation
+ *
+ * @license GNU GPL v2+
+ * @since 1.4.3
+ *
+ * @author Yaron Koren
  */
-
-/**
- * Represents a single item, or page, in the outline - contains both the
- * SMWResultArray and an array of some of its values, for easier aggregation
- */
-class SRFOutlineItem {
-
-	var $mRow;
-	var $mVals;
-
-	function __construct( $row ) {
-		$this->mRow = $row;
-		$this->mVals = [];
-	}
-
-	function addFieldValue( $field_name, $field_val ) {
-		if ( array_key_exists( $field_name, $this->mVals ) ) {
-			$this->mVals[$field_name][] = $field_val;
-		} else {
-			$this->mVals[$field_name] = [ $field_val ];
-		}
-	}
-
-	function getFieldValues( $field_name ) {
-		if ( array_key_exists( $field_name, $this->mVals ) ) {
-			return $this->mVals[$field_name];
-		} else {
-			return [ wfMessage( 'srf_outline_novalue' )->text() ];
-		}
-	}
-}
-
-/**
- * A tree structure for holding the outline data
- */
-class SRFOutlineTree {
-
-	var $mTree;
-	var $mUnsortedItems;
-	var $itemCount = 0;
-	var $leafCount = 0;
-
-	function __construct( $items = [] ) {
-		$this->mTree = [];
-		$this->mUnsortedItems = $items;
-	}
-
-	function addItem( $item ) {
-		$this->mUnsortedItems[] = $item;
-		$this->itemCount++;
-	}
-
-	function categorizeItem( $vals, $item ) {
-		foreach ( $vals as $val ) {
-			if ( array_key_exists( $val, $this->mTree ) ) {
-				$this->mTree[$val]->mUnsortedItems[] = $item;
-				$this->mTree[$val]->leafCount++;
-			} else {
-				$this->mTree[$val] = new SRFOutlineTree( [ $item ] );
-				$this->mTree[$val]->leafCount++;
-			}
-		}
-	}
-
-	function addProperty( $property ) {
-		if ( count( $this->mUnsortedItems ) > 0 ) {
-			foreach ( $this->mUnsortedItems as $item ) {
-				$cur_vals = $item->getFieldValues( $property );
-				$this->categorizeItem( $cur_vals, $item );
-			}
-			$this->mUnsortedItems = null;
-		} else {
-			foreach ( $this->mTree as $i => $node ) {
-				$this->mTree[$i]->addProperty( $property );
-			}
-		}
-	}
-}
-
 class SRFOutline extends SMWResultPrinter {
 
-	protected $mOutlineProperties = [];
-	protected $mInnerFormat = '';
-
+	/**
+	 * @see ResultPrinter::getName
+	 *
+	 * {@inheritDoc}
+	 */
 	public function getName() {
 		return wfMessage( 'srf_printername_outline' )->text();
-	}
-
-	/**
-	 * Code mostly copied from SMW's SMWListResultPrinter::getResultText()
-	 */
-	function printItem( $item ) {
-		$first_col = true;
-		$found_values = false; // has anything but the first column been printed?
-		$result = "";
-		foreach ( $item->mRow as $orig_ra ) {
-			// handling is somewhat simpler for SMW 1.5+
-			$realFunction = [ 'SMWQueryResult', 'getResults' ];
-			if ( is_callable( $realFunction ) ) {
-				// make a new copy of this, so that the call to
-				// getNextText() will work again
-				$ra = clone ( $orig_ra );
-			} else {
-				// make a new copy of this, so that the call to
-				// getNextText() will work again
-				$ra = new SMWResultArray( $orig_ra->getContent(), $orig_ra->getPrintRequest() );
-			}
-			$val = $ra->getPrintRequest()->getText( SMW_OUTPUT_WIKI, null );
-			if ( in_array( $val, $this->params['outlineproperties'] ) ) {
-				continue;
-			}
-			$first_value = true;
-			while ( ( $text = $ra->getNextText( SMW_OUTPUT_WIKI, $this->mLinker ) ) !== false ) {
-				if ( !$first_col && !$found_values ) { // first values after first column
-					$result .= ' (';
-					$found_values = true;
-				} elseif ( $found_values || !$first_value ) {
-					// any value after '(' or non-first values on first column
-					$result .= ', ';
-				}
-				if ( $first_value ) { // first value in any column, print header
-					$first_value = false;
-					if ( $this->mShowHeaders && ( '' != $ra->getPrintRequest()->getLabel() ) ) {
-						$result .= $ra->getPrintRequest()->getText( SMW_OUTPUT_WIKI, $this->mLinker ) . ' ';
-					}
-				}
-				$result .= $text; // actual output value
-			}
-			$first_col = false;
-		}
-		if ( $found_values ) {
-			$result .= ')';
-		}
-		return $result;
-	}
-
-	function printTree( $outline_tree, $level = 0 ) {
-		$text = "";
-		if ( !is_null( $outline_tree->mUnsortedItems ) ) {
-			$text .= "<ul>\n";
-			foreach ( $outline_tree->mUnsortedItems as $item ) {
-				$text .= "<li>{$this->printItem($item)}</li>\n";
-			}
-			$text .= "</ul>\n";
-		}
-		if ( $level > 0 ) {
-			$text .= "<ul>\n";
-		}
-		$num_levels = count( $this->params['outlineproperties'] );
-		// set font size and weight depending on level we're at
-		$font_level = $level;
-		if ( $num_levels < 4 ) {
-			$font_level += ( 4 - $num_levels );
-		}
-		if ( $font_level == 0 ) {
-			$font_size = 'x-large';
-		} elseif ( $font_level == 1 ) {
-			$font_size = 'large';
-		} elseif ( $font_level == 2 ) {
-			$font_size = 'medium';
-		} else {
-			$font_size = 'small';
-		}
-		if ( $font_level == 3 ) {
-			$font_weight = 'bold';
-		} else {
-			$font_weight = 'regular';
-		}
-		foreach ( $outline_tree->mTree as $key => $node ) {
-			$text .= "<p style=\"font-size: $font_size; font-weight: $font_weight;\">$key</p>\n";
-			$text .= $this->printTree( $node, $level + 1 );
-		}
-		if ( $level > 0 ) {
-			$text .= "</ul>\n";
-		}
-		return $text;
-	}
-
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		$print_fields = [];
-		foreach ( $res->getPrintRequests() as $pr ) {
-			$field_name = $pr->getText( $outputmode, $this->mLinker );
-			// only print it if it's not already part of the
-			// outline
-			if ( !in_array( $field_name, $this->params['outlineproperties'] ) ) {
-				$print_fields[] = $field_name;
-			}
-		}
-
-		// for each result row, create an array of the row itself
-		// and all its sorted-on fields, and add it to the initial
-		// 'tree'
-		$outline_tree = new SRFOutlineTree();
-		while ( $row = $res->getNext() ) {
-			$item = new SRFOutlineItem( $row );
-			foreach ( $row as $field ) {
-				$field_name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
-				if ( in_array( $field_name, $this->params['outlineproperties'] ) ) {
-					while ( ( $object = $field->getNextDataValue() ) !== false ) {
-						$field_val = $object->getLongWikiText( $this->mLinker );
-						$item->addFieldValue( $field_name, $field_val );
-					}
-				}
-			}
-			$outline_tree->addItem( $item );
-		}
-
-		// now, cycle through the outline properties, creating the
-		// tree
-		foreach ( $this->params['outlineproperties'] as $outline_prop ) {
-			$outline_tree->addProperty( $outline_prop );
-		}
-
-		if ( $this->params['template'] !== '' ) {
-			$this->hasTemplates = true;
-			$templateBuilder = new TemplateBuilder(
-				$this->params
-			);
-
-			$templateBuilder->setLinker( $this->mLinker );
-			$result = $templateBuilder->build( $outline_tree );
-		} else {
-			$result = $this->printTree( $outline_tree );
-		}
-
-		if ( $this->linkFurtherResults( $res ) ) {
-			$link = $this->getFurtherResultsLink( $res, $outputmode );
-
-			$result .= $link->getText( $outputmode, $this->mLinker ) . "\n";
-		}
-
-		return $result;
 	}
 
 	/**
@@ -245,9 +30,7 @@ class SRFOutline extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param $definitions array of IParamDefinition
-	 *
-	 * @return array of IParamDefinition|array
+	 * {@inheritDoc}
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
@@ -278,6 +61,66 @@ class SRFOutline extends SMWResultPrinter {
 		];
 
 		return $params;
+	}
+
+	/**
+	 * @see ResultPrinter::getResultText
+	 *
+	 * {@inheritDoc}
+	 */
+	protected function getResultText( SMWQueryResult $res, $outputMode ) {
+
+		// for each result row, create an array of the row itself
+		// and all its sorted-on fields, and add it to the initial
+		// 'tree'
+		$outlineTree = new OutlineTree();
+		while ( $row = $res->getNext() ) {
+			$outlineItem = new OutlineItem( $row );
+
+			foreach ( $row as $field ) {
+				$field_name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
+
+				if ( in_array( $field_name, $this->params['outlineproperties'] ) ) {
+					while ( ( $object = $field->getNextDataValue() ) !== false ) {
+						$field_val = $object->getLongWikiText( $this->getLinker() );
+						$outlineItem->addFieldValue( $field_name, $field_val );
+					}
+				}
+			}
+
+			$outlineTree->addItem( $outlineItem );
+		}
+
+		// now, cycle through the outline properties, creating the
+		// tree
+		foreach ( $this->params['outlineproperties'] as $property ) {
+			$outlineTree->addProperty( $property );
+		}
+
+		if ( $this->params['template'] !== '' ) {
+			$this->hasTemplates = true;
+			$templateBuilder = new TemplateBuilder(
+				$this->params
+			);
+
+			$templateBuilder->setLinker( $this->mLinker );
+			$result = $templateBuilder->build( $outlineTree );
+		} else {
+			$listTreeBuilder = new ListTreeBuilder(
+				$this->params + [ 'showHeaders' => $this->mShowHeaders ]
+			);
+
+			$listTreeBuilder->setLinker( $this->mLinker );
+			$result = $listTreeBuilder->build( $outlineTree );
+		}
+
+		if ( $this->linkFurtherResults( $res ) ) {
+			$link = $this->getFurtherResultsLink( $res, $outputMode );
+
+			$result .= $link->getText( $outputMode, $this->mLinker ) . "\n";
+		}
+
+		return $result;
 	}
 
 }
