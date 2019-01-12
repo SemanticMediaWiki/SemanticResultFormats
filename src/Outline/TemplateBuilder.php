@@ -3,6 +3,7 @@
 namespace SRF\Outline;
 
 use SMW\Query\PrintRequest;
+use SRF\Outline\OutlineTree;
 
 /**
  * @license GNU GPL v2+
@@ -50,21 +51,21 @@ class TemplateBuilder {
 	 *
 	 * @return string
 	 */
-	public function build( $tree ) {
-		$this->tree( $tree );
+	public function build( OutlineTree $outlineTree ) {
+		$this->tree( $outlineTree );
 
 		return $this->template;
 	}
 
-	private function tree( $tree, $level = 0 ) {
+	private function tree( $outlineTree, $level = 0 ) {
 
-		if ( $tree->mUnsortedItems !== null ) {
-			foreach ( $tree->mUnsortedItems as $i => $item ) {
+		if ( $outlineTree->items !== null ) {
+			foreach ( $outlineTree->items as $i => $item ) {
 				$this->template .= $this->item( $i, $item );
 			}
 		}
 
-		foreach ( $tree->mTree as $key => $node ) {
+		foreach ( $outlineTree->tree as $key => $node ) {
 			$property = $this->params['outlineproperties'][$level];
 			$class = $this->params['template'] . '-section-' . strtolower( str_replace( ' ', '-', $property ) );
 
@@ -89,7 +90,7 @@ class TemplateBuilder {
 		$linker = $this->params['link'] === 'all' ? $this->linker : null;
 		$itemnumber = 0;
 
-		foreach ( $item->mRow as $resultArray ) {
+		foreach ( $item->row as $resultArray ) {
 
 			$printRequest = $resultArray->getPrintRequest();
 			$val = $printRequest->getText( SMW_OUTPUT_WIKI, null );

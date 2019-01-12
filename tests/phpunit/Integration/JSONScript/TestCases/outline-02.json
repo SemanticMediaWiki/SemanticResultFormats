@@ -1,0 +1,105 @@
+{
+	"description": "Test `format=outline` list output",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Assigned to",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Severity",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "SRF/Outline/1",
+			"contents": "[[Assigned to::John]] [[Severity::Normal]] [[Category:Outline]]"
+		},
+		{
+			"page": "SRF/Outline/2",
+			"contents": "[[Assigned to::Jane]] [[Severity::Urgent]] [[Category:Outline]]"
+		},
+		{
+			"page": "SRF/Outline/3",
+			"contents": "[[Assigned to::田中]] [[Severity::Urgent]] [[Category:Outline]]"
+		},
+		{
+			"page": "SRF/Outline/Q.1",
+			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |sort=Severity,Assigned to |outlineproperties=Severity |link=none }}"
+		},
+		{
+			"page": "SRF/Outline/Q.2",
+			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 (`outlineproperties=Severity`)",
+			"subject": "SRF/Outline/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<p style=\"font-size: small; font-weight: bold;\">Normal</p>",
+					"<ul>",
+					"<li>SRF/Outline/1 (Assigned to John)</li>",
+					"</ul>",
+					"<ul>",
+					"</ul>",
+					"<p style=\"font-size: small; font-weight: bold;\">Urgent</p>",
+					"<ul>",
+					"<li>SRF/Outline/2 (Assigned to Jane)</li>",
+					"<li>SRF/Outline/3 (Assigned to 田中)</li>",
+					"</ul>",
+					"<ul>",
+					"</ul>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 (`outlineproperties=Severity,Assigned to`)",
+			"subject": "SRF/Outline/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"<p style=\"font-size: medium; font-weight: regular;\">Normal</p>",
+					"<ul>",
+					"<p style=\"font-size: small; font-weight: bold;\">John</p>",
+					"<ul>",
+					"<li>SRF/Outline/1</li>",
+					"</ul>",
+					"<ul>",
+					"</ul>",
+					"</ul>",
+					"<p style=\"font-size: medium; font-weight: regular;\">Urgent</p>",
+					"<ul>",
+					"<p style=\"font-size: small; font-weight: bold;\">Jane</p>",
+					"<ul>",
+					"<li>SRF/Outline/2</li>",
+					"</ul>",
+					"<ul>",
+					"</ul>",
+					"<p style=\"font-size: small; font-weight: bold;\">田中</p>",
+					"<ul>",
+					"<li>SRF/Outline/3</li>",
+					"</ul>",
+					"<ul>",
+					"</ul>",
+					"</ul>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

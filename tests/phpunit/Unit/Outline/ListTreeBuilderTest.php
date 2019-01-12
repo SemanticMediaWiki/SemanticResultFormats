@@ -2,11 +2,11 @@
 
 namespace SRF\Tests\Outline;
 
-use SRF\Outline\TemplateBuilder;
+use SRF\Outline\ListTreeBuilder;
 use SRF\Outline\OutlineTree;
 
 /**
- * @covers \SRF\Outline\TemplateBuilder
+ * @covers \SRF\Outline\ListTreeBuilder
  * @group semantic-result-formats
  *
  * @license GNU GPL v2+
@@ -14,25 +14,23 @@ use SRF\Outline\OutlineTree;
  *
  * @author mwjames
  */
-class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
+class ListTreeBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			TemplateBuilder::class,
-			new TemplateBuilder( [] )
+			ListTreeBuilder::class,
+			new ListTreeBuilder( [] )
 		);
 	}
 
 	public function testBuildForEmptyTree() {
 
 		$params = [
-			'outlineproperties' => [ 'Foo' ],
-			'template' => 'Bar',
-			'userparam' => ''
+			'outlineproperties' => [ 'Foo' ]
 		];
 
-		$instance = new TemplateBuilder( $params );
+		$instance = new ListTreeBuilder( $params );
 
 		$this->assertInternalType(
 			'string',
