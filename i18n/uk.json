@@ -328,5 +328,8 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Вимкнути повторення",
 	"srf-ui-mediaplayer-label-full-screen": "Повноекранний режим",
 	"srf-ui-mediaplayer-label-restore-screen": "Відновити екран",
+	"srf-spreadsheet-link": "Електронна таблиця",
+	"srf-paramdesc-spreadsheet-filename": "Файловий формат, який треба створити. Прийнятні значення: xlsx, xls, ods, csv. Стандартно: xlsx",
+	"srf-paramdesc-spreadsheet-templatefile": "Назва електронної таблиці з простору назв «Файл», яка використовується для форматування згенерованого файлу",
 	"srf-paramdesc-icalendar-timezone": "Список часових поясів через кому"
 }
