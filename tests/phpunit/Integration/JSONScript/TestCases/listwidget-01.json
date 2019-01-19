@@ -1,0 +1,103 @@
+{
+	"description": "Listwidget format: widgets - unordered (#449 - `wgContLang=fr`, `wgLang=en`)",
+	"setup": [
+		{
+			"namespace": "NS_CATEGORY",
+			"page": "Listwidget example",
+			"contents": "Holds listwidget examples."
+		},
+		{
+			"page": "May 2000",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2001",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2002",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2003",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2004",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2005",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2006",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "Listwidget - alphabet - unordered",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=alphabet |sep= }}"
+		},
+		{
+			"page": "Listwidget - menu - unordered",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=menu |sep= }}"
+		},
+		{
+			"page": "Listwidget - pagination - unordered",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=pagination |sep= }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "#0 Listwidget - alphabet - unordered",
+			"subject": "Listwidget - alphabet - unordered",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"_ ln-disabled\" href=\"#\">0-9</a>",
+					"<a class=\"m ln-selected\" href=\"#\">M</a>",
+					"<ul class=\"alphabet-container\" id=\"listwidget-6\">",
+					"<li class=\"smw-row ln-m\" style=\"\"><span class=\"smw-field\"><span class=\"smw-value\"><a href=\"/May 2006\" data-hasqtip=\"7\" oldtitle=\"May 2006\" title=\"\">May 2006</a></span></span></li>"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#1 Listwidget - menu - unordered",
+			"subject": "Listwidget - menu - unordered",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"lm-letters\"><a class=\"_ lm-disabled\" href=\"#\">0-9</a>",
+					"<a class=\"l lm-disabled\" href=\"#\">L</a><a class=\"m\" href=\"#\">M</a>",
+					"<div class=\"lm-menu\" style=\"width: 1649px; display: none;\">"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#2 Listwidget - pagination - unordered",
+			"subject": "Listwidget - pagination - unordered",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"first_link no_more\" href=\"\">First</a>",
+					"<a class=\"page_link first active_page\" href=\"\" longdesc=\"0\" style=\"\">1</a>",
+					"<ul class=\"pagination-container\" id=\"listwidget-2\">",
+					"<li class=\"smw-row\" style=\"\"><span class=\"smw-field\"><span class=\"smw-value\"><a href=\"/May 2000\" data-hasqtip=\"2\" oldtitle=\"May 2000\" title=\"\">May 2000</a>"
+				]
+			}
+		}
+
+	],
+	"settings": {
+		"wgContLang": "fr",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": true
+	}
+}
