@@ -39,7 +39,7 @@ class SRFListWidget extends ListResultPrinter {
 		//$this->isHTML = true;
 
 		// Set output type for the parent
-		$this->mFormat = $this->params['listtype'] == 'ordered' || $this->params['listtype'] == 'ol' ? 'ol' : 'ul';
+		$this->params['format'] = $this->params['listtype'] == 'ordered' || $this->params['listtype'] == 'ol' ? 'ol' : 'ul';
 
 		// Get results from SMWListResultPrinter
 		$result = parent::getResultText( $res, $outputmode );
@@ -70,7 +70,7 @@ class SRFListWidget extends ListResultPrinter {
 			'div',
 			[
 				'class' => 'srf-listwidget ' . htmlspecialchars( $this->params['class'] ),
-				'data-listtype' => $this->mFormat,
+				'data-listtype' => $this->params['format'],
 				'data-widget' => $this->params['widget'],
 				'data-pageitems' => $this->params['pageitems'],
 			],
