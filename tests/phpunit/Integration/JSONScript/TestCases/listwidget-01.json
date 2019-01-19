@@ -49,7 +49,7 @@
 	],
 	"tests": [
 		{
-			"type": "parser-html",
+			"type": "parser",
 			"about": "#0 Listwidget - alphabet - unordered",
 			"subject": "Listwidget - alphabet - unordered",
 			"assert-output": {
@@ -62,7 +62,7 @@
 			}
 		},
 		{
-			"type": "parser-html",
+			"type": "parser",
 			"about": "#1 Listwidget - menu - unordered",
 			"subject": "Listwidget - menu - unordered",
 			"assert-output": {
@@ -74,7 +74,7 @@
 			}
 		},
 		{
-			"type": "parser-html",
+			"type": "parser",
 			"about": "#2 Listwidget - pagination - unordered",
 			"subject": "Listwidget - pagination - unordered",
 			"assert-output": {
