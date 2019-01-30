@@ -12,7 +12,6 @@
 		]
 	},
 	"srf-desc": "用於 Semantic MediaWiki 查詢的附加結果格式",
-	"srf-name": "語義結果格式",
 	"prefs-srf": "擴充：語意結果格式",
 	"srf-prefs-intro-text": "您已安裝 Semantic Result Formats 擴充功能。額外幫助內容請查看[https://www.semantic-mediawiki.org/wiki/Help:Result_formats 結果格式]的說明頁面.",
 	"prefs-srf-eventcalendar-options": "事件行事曆選項",

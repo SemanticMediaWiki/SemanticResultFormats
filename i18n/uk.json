@@ -12,7 +12,6 @@
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",
-	"srf-name": "Формати семантичних результатів",
 	"prefs-srf": "Extension:Semantic Result Formats",
 	"srf-prefs-intro-text": "Ви встановили розширення Semantic Result Formats. За отримання допомоги, відвідайте, будь ласка, [http://www.semantic-mediawiki.org/wiki/Help:Result_formats довідкову сторінку форматів результатів].",
 	"prefs-srf-eventcalendar-options": "Налаштування календаря подій",

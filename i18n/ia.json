@@ -6,7 +6,6 @@
 		]
 	},
 	"srf-desc": "Additional formatos de resultato pro consultas de Semantic MediaWiki",
-	"srf-name": "Formatos de resultatos semantic",
 	"srf-paramdesc-height": "Altitude",
 	"srf-paramdesc-width": "Latitude",
 	"srf-paramdesc-class": "Specifica un classe de stilos in cascada (CSS) additional",
