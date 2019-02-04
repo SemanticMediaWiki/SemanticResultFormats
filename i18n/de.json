@@ -337,5 +337,19 @@
 	"srf-spreadsheet-link": "Tabellenkalkulation",
 	"srf-paramdesc-spreadsheet-filename": "Das zu erzeugende Dateiformat. Erlaubte Werte: xlsx, xls, ods, csv. Standard: xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "Der Name einer Tabellenkalkulationsdatei aus dem Namensraum ''Datei'', die zur Formatierung der erzeugten Datei verwendet wird.",
-	"srf-paramdesc-icalendar-timezone": "Legt eine durch Kommata getrennte Liste mit Zeitzonen fest"
+	"srf-paramdesc-icalendar-timezone": "Legt eine durch Kommata getrennte Liste mit Zeitzonen fest",
+	"srf-paramdesc-diagramtitle": "Name des Diagramms",
+	"srf-paramdesc-diagramtheme": "Farbmotiv des Diagrams",
+	"srf-paramdesc-axisformat": "Formatierung der X-Achse",
+	"srf-paramdesc-sortkey": "Sortierschlüssel",
+	"srf-paramdesc-titletopmargin": "Obere Abstand des Diagrammtitels",
+	"srf-paramdesc-barheight": "Höhe der Tasks",
+	"srf-paramdesc-leftpadding": "Breite des Titels der Sections",
+	"srf-paramdesc-bargap": "Vertikaler Abstand der Tasks",
+	"srf-error-charttype": "Der angegebene Diagrammtyp wird nicht unterstützt",
+	"srf-error-theme" : "Diese '''theme''' wird nicht unterstützt",
+	"srf-error-sortkey" : "Dieser '''sortkey''' wird nicht unterstützt",
+	"srf-error-mapping-assignment": "Falsche Zuweisung der Werte in '''$1'''",
+	"srf-error-mapping-keywords": "Der verwendete Schlüssel in deinem Mapping wird nicht unterstüzt",
+	"srf-printername-mermaid": "Mermaid Erweiterung"
 }

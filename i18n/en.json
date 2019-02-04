@@ -337,5 +337,19 @@
 	"srf-paramdesc-spreadsheet-filename": "The download filename for the generated file",
 	"srf-paramdesc-spreadsheet-filename": "The file format to be produced. Allowed values: xlsx, xls, ods, csv. Default: xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "The name of a spreadsheet file from the ''File'' namespace used for formatting the generated file",
-	"srf-paramdesc-icalendar-timezone": "A comma separated list of timezones"
+	"srf-paramdesc-icalendar-timezone": "A comma separated list of timezones",
+	"srf-paramdesc-diagramtitle": "Diagram name",
+	"srf-paramdesc-diagramtheme": "Diagram theme",
+	"srf-paramdesc-axisformat": "X-axis: Date format",
+	"srf-paramdesc-sortkey": "Key to sort sections and tasks",
+	"srf-paramdesc-titletopmargin": "Top margin of the diagram title",
+	"srf-paramdesc-barheight": "Height of task bars",
+	"srf-paramdesc-leftpadding": "Width of section title",
+	"srf-paramdesc-bargap": "Vertical distance of tasks bars from the margin",
+	"srf-error-mapping-assignment": "Wrong assignment of mapped values in '''$1'''",
+	"srf-error-mapping-keywords": "The key used in your mapping parameter is not supported",
+	"srf-error-charttype": "The '''charttype''' you have choosen is not supported",
+	"srf-error-theme" : "The '''theme''' you have choosen is not supported",
+	"srf-error-sortkey" : "The '''sortkey''' you have choosen is not supported",
+	"srf-printername-mermaid": "Mermaid Extension"
 }
