@@ -1,6 +1,7 @@
 <?php
 
-use SMW\ListResultPrinter;
+use SMW\Query\ResultPrinters\ListResultPrinter\ListResultBuilder;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * Extends the list result printer (SMW_QP_List.php) with a JavaScript
@@ -13,7 +14,7 @@ use SMW\ListResultPrinter;
  * @ingroup SemanticResultFormats
  * @file SRF_ListWidget.php
  */
-class SRFListWidget extends ListResultPrinter {
+class SRFListWidget extends ResultPrinter {
 
 	/**
 	 * Get a human readable label for this printer.
@@ -38,11 +39,20 @@ class SRFListWidget extends ListResultPrinter {
 		static $statNr = 0;
 		//$this->isHTML = true;
 
-		// Set output type for the parent
-		$this->params['format'] = $this->params['listtype'] == 'ordered' || $this->params['listtype'] == 'ol' ? 'ol' : 'ul';
+		$listType = $this->params[ 'listtype' ] === 'ordered' || $this->params[ 'listtype' ] === 'ol' ? 'ol' : 'ul';
+
+		$builder = new ListResultBuilder( $res, $this->mLinker );
+
+		$builder->set( $this->params );
+		$builder->set( [
+			'format' => $listType,
+			'link-first' => $this->mLinkFirst,
+			'link-others' => $this->mLinkOthers,
+			'show-headers' => $this->mShowHeaders,
+		] );
 
 		// Get results from SMWListResultPrinter
-		$result = parent::getResultText( $res, $outputmode );
+		$result = $builder->getResultText();
 
 		// Count widgets
 		$listwidgetID = 'listwidget-' . ++$statNr;
@@ -70,7 +80,7 @@ class SRFListWidget extends ListResultPrinter {
 			'div',
 			[
 				'class' => 'srf-listwidget ' . htmlspecialchars( $this->params['class'] ),
-				'data-listtype' => $this->params['format'],
+				'data-listtype' => $listType,
 				'data-widget' => $this->params['widget'],
 				'data-pageitems' => $this->params['pageitems'],
 			],
