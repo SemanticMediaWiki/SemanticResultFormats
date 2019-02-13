@@ -36,53 +36,45 @@
 		},
 		{
 			"page": "Listwidget - alphabet - unordered",
-			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=alphabet |sep= }}"
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=alphabet |pageitems=6}}"
 		},
 		{
-			"page": "Listwidget - menu - unordered",
-			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=menu |sep= }}"
+			"page": "Listwidget - menu - listtype unspecified",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |widget=menu }}"
 		},
 		{
-			"page": "Listwidget - pagination - unordered",
-			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=pagination |sep= }}"
+			"page": "Listwidget - pagination - ordered",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=ordered |widget=pagination }}"
 		}
 	],
 	"tests": [
 		{
-			"type": "parser",
+			"type": "parser-html",
 			"about": "#0 Listwidget - alphabet - unordered",
 			"subject": "Listwidget - alphabet - unordered",
 			"assert-output": {
 				"to-contain": [
-					"<a class=\"_ ln-disabled\" href=\"#\">0-9</a>",
-					"<a class=\"m ln-selected\" href=\"#\">M</a>",
-					"<ul class=\"alphabet-container\" id=\"listwidget-6\">",
-					"<li class=\"smw-row ln-m\" style=\"\"><span class=\"smw-field\"><span class=\"smw-value\"><a href=\"/May 2006\" data-hasqtip=\"7\" oldtitle=\"May 2006\" title=\"\">May 2006</a></span></span></li>"
+					".srf-listwidget[data-listtype=\"ul\"][data-widget=\"alphabet\"][data-pageitems=\"6\"] .listwidget-container[id]"
 				]
 			}
 		},
 		{
-			"type": "parser",
-			"about": "#1 Listwidget - menu - unordered",
-			"subject": "Listwidget - menu - unordered",
+			"type": "parser-html",
+			"about": "#1 Listwidget - menu - listtype unspecified",
+			"subject": "Listwidget - menu - listtype unspecified",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"lm-letters\"><a class=\"_ lm-disabled\" href=\"#\">0-9</a>",
-					"<a class=\"l lm-disabled\" href=\"#\">L</a><a class=\"m\" href=\"#\">M</a>",
-					"<div class=\"lm-menu\" style=\"width: 1649px; display: none;\">"
+					".srf-listwidget[data-listtype=\"ul\"][data-widget=\"menu\"][data-pageitems=\"5\"] .listwidget-container[id]"
 				]
 			}
 		},
 		{
-			"type": "parser",
-			"about": "#2 Listwidget - pagination - unordered",
-			"subject": "Listwidget - pagination - unordered",
+			"type": "parser-html",
+			"about": "#2 Listwidget - pagination - ordered",
+			"subject": "Listwidget - pagination - ordered",
 			"assert-output": {
 				"to-contain": [
-					"<a class=\"first_link no_more\" href=\"\">First</a>",
-					"<a class=\"page_link first active_page\" href=\"\" longdesc=\"0\" style=\"\">1</a>",
-					"<ul class=\"pagination-container\" id=\"listwidget-2\">",
-					"<li class=\"smw-row\" style=\"\"><span class=\"smw-field\"><span class=\"smw-value\"><a href=\"/May 2000\" data-hasqtip=\"2\" oldtitle=\"May 2000\" title=\"\">May 2000</a>"
+					".srf-listwidget[data-listtype=\"ol\"][data-widget=\"pagination\"][data-pageitems=\"5\"] .listwidget-container[id]"
 				]
 			}
 		}
