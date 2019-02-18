@@ -1,5 +1,5 @@
 {
-  "description": "Test the mermaid format",
+  "description": "Test the gantt format",
   "setup": [
     {
       "namespace": "SMW_NS_PROPERTY",
@@ -37,40 +37,52 @@
       "contents": "[[Category:Task]][[Display Title::{{{title|}}}]][[Start Date::{{{start|}}}]][[End Date::{{{end|}}}]][[Status::{{{status|}}}]][[Priority::{{{priority|}}}]][[Related To Section::{{{section|}}}]]"
     },
     {
-      "page": "Mermaid Test/Task1",
+      "page": "Gantt Test/Task1",
       "contents": "{{Task |title=Task01 |start=2019-01-01 |end=2019-01-15 |status=completed |priority=high |section=First Section }}"
     },
     {
-      "page": "Mermaid Test/Task2",
+      "page": "Gantt Test/Task2",
       "contents": "{{Task |title=Task02 |start=2019-01-15 |end=2019-01-31 |status=backlog |priority=low |section=Second Section }}"
     },
     {
-      "page": "Mermaid Test/Task3",
+      "page": "Gantt Test/Task3",
       "contents": "{{Task |title=Task03 |start=2019-02-01 |end=2019-02-15 |status=open |priority=critical |section=First Section }}"
     },
     {
-      "page": "Mermaid Test/Task4",
+      "page": "Gantt Test/Task4",
       "contents": "{{Task |title=Task04 |start=2019-02-15 |end=2019-02-28 |status=done |priority=very high |section=First Section }}"
     },
     {
       "page": "Example/Gantt Diagram min config",
-      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=mermaid |charttype=gantt}}"
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=gantt }}"
     },
     {
       "page": "Example/Gantt Diagram config all",
-      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=mermaid |charttype=gantt |theme=forest |sortkey=title |bargap=15 |barheight=40 |titletopmargin=30 |leftpadding=130}}"
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=gantt |theme=forest |sortkey=title |bargap=15 |barheight=40 |titletopmargin=30 |leftpadding=130}}"
     },
     {
       "page": "Example/Gantt Diagram test axis format 1",
-      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=mermaid |charttype=gantt | axisformat=%m/%d/%Y}}"
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=gantt | axisformat=%m/%d/%Y}}"
     },
     {
       "page": "Example/Gantt Diagram test axis format 2",
-      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=mermaid |charttype=gantt | axisformat=%m/%Y}}"
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=gantt | axisformat=%m/%Y}}"
     },
     {
       "page": "Example/Gantt Diagram test axis format 3",
-      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=mermaid |charttype=gantt | axisformat=%B-%Y}}"
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=gantt | axisformat=%B-%Y}}"
+    },
+    {
+      "page": "Example/Gantt Diagram mapping test 1",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority| format=gantt |theme=forest |sortkey=title |bargap=15 |barheight=40 |titletopmargin=30 |leftpadding=130}}"
+    },
+    {
+      "page": "Example/Gantt priority mapping test",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Status=status |?Priority=priority| |prioritymapping=critical=>crit; very high=>crit| format=gantt |theme=forest |sortkey=title |bargap=15 |barheight=40 |titletopmargin=30 |leftpadding=130}}"
+    },
+    {
+      "page": "Example/Gantt status mapping test",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Status=status |?Priority=priority| |statusmapping=backlog=>active;open=>active;done=>done| format=gantt |theme=forest |sortkey=title |bargap=15 |barheight=40 |titletopmargin=30 |leftpadding=130}}"
     }
   ],
   "tests": [
@@ -81,13 +93,13 @@
       "assert-output": {
         "to-be-valid-html": 1,
         "to-contain": [
-          ["div.mw-parser-output > div.srf-mermaid",1]
+          ["div.mw-parser-output > div.srf-gantt",1]
         ]
       }
     },
     {
       "type": "parser",
-      "about": "Test mermaid min config",
+      "about": "Test gantt min config",
       "subject": "Example/Gantt Diagram min config",
       "assert-output": {
         "to-be-valid-html": 1,
@@ -98,7 +110,7 @@
     },
     {
       "type": "parser",
-      "about": "Test mermaid when all config params set",
+      "about": "Test gantt when all config params set",
       "subject": "Example/Gantt Diagram config all",
       "assert-output": {
         "to-be-valid-html": 1,
@@ -115,6 +127,28 @@
         "to-be-valid-html": 1,
         "to-contain": [
           "axisFormat&#160;%m\\/%d\\/%Y"
+        ]
+      }
+    },
+    {
+      "type": "parser",
+      "about": "Test priority mapping",
+      "subject": "Example/Gantt priority mapping test",
+      "assert-output": {
+        "to-be-valid-html": 1,
+        "to-contain": [
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:crit, 2019-02-01, 2019-02-15\\nTask04\\t&#160;:crit, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
+        ]
+      }
+    },
+    {
+      "type": "parser",
+      "about": "Test priority mapping",
+      "subject": "Example/Gantt status mapping test",
+      "assert-output": {
+        "to-be-valid-html": 1,
+        "to-contain": [
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:active, 2019-02-01, 2019-02-15\\nTask04\\t&#160;:done, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:active, 2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
         ]
       }
     }
