@@ -7,14 +7,14 @@
  * the Mermaid MediaWiki extension installed.
  * https://www.mediawiki.org/wiki/Extension:Mermaid
  *
- * @file Mermaid.php
+ * @file Gantt.php
  * @ingroup SemanticResultFormats
  *
  * @licence GNU GPL v2+
  * @author Sebastian Schmid
  */
 
-namespace SRF\Mermaid;
+namespace SRF\Gantt;
 
 use SMWOutputs;
 use SMWQueryResult;
@@ -23,7 +23,7 @@ use SMWDITime;
 use SMWDIBlob;
 use Html;
 
-class Mermaid extends SMWResultPrinter {
+class GanttPrinter extends SMWResultPrinter {
 
 	protected $mParams = [];
 	protected $mGantt = null;
@@ -31,7 +31,7 @@ class Mermaid extends SMWResultPrinter {
 
 	public function getName() {
 		// Give grep a chance to find the usage
-		return wfMessage( 'srf-printername-mermaid' )->text();
+		return wfMessage( 'srf-printername-gantt' )->text();
 	}
 
 	public function getParamDefinitions( array $definitions ) {
@@ -59,12 +59,6 @@ class Mermaid extends SMWResultPrinter {
 			'name'    => 'sortkey',
 			'message' => 'srf-paramdesc-sortkey',
 			'default' => 'startdate'
-		];
-
-		$params[] = [
-			'name'    => 'charttype',
-			'message' => 'srf-paramdesc-charttype',
-			'default' => 'gantt'
 		];
 
 		$params[] = [
@@ -133,12 +127,6 @@ class Mermaid extends SMWResultPrinter {
 			array_push( $this->mErrors, wfMessage( 'srf-error-sortkey' )->text() );
 		}
 
-		// Validate chart type
-		// At the moment only gantt is available as chart type
-		if ( $this->params['charttype'] != "gantt" ) {
-			array_push( $this->mErrors, wfMessage( 'srf-error-charttype' )->text() );
-		}
-
 		//Validate mapping
 		if ( !empty( trim( $params['statusmapping'] ) ) ) {
 
@@ -205,7 +193,10 @@ class Mermaid extends SMWResultPrinter {
 
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
-			wfWarn( 'The SRF Mermaid format needs the Mermaid extension to be installed.' );
+			//wfWarn( 'The SRF Mermaid format needs the Mermaid extension to be installed.' );
+		//catch ( Exception $exception ) {
+				$queryResult->addErrors( ["Error: Mermaid Extension needs to be installed."] );
+			//}
 			return '';
 		}
 
@@ -213,7 +204,7 @@ class Mermaid extends SMWResultPrinter {
 		// First load the dependent modules of Mermaid ext
 		SMWOutputs::requireResource( 'ext.mermaid' );
 		SMWOutputs::requireResource( 'ext.mermaid.styles' );
-		SMWOutputs::requireResource( 'ext.srf.mermaid' );
+		SMWOutputs::requireResource( 'ext.srf.gantt' );
 
 		//Add Tasks & Sections
 		while ( $row = $queryResult->getNext() ) {
@@ -274,9 +265,9 @@ class Mermaid extends SMWResultPrinter {
 				$this->mGantt->addTask( $taskID, $taskTitle, $status, $priority, $startDate, $endDate );
 
 				// If no section was found, put task into a dummy section object
-				// "mermaid-no-section#21780240" is used to identify Tasks that with no section (dummy section)
+				// "gantt-no-section#21780240" is used to identify Tasks that with no section (dummy section)
 				if ( count( $sections ) == 0 ) {
-					$this->mGantt->addSection( "mermaid-no-section#21780240", "", $startDate, $endDate, $taskID );
+					$this->mGantt->addSection( "gantt-no-section#21780240", "", $startDate, $endDate, $taskID );
 				} else {
 					foreach ( $sections as $sectionID => $sectionTitle ) {
 						$this->mGantt->addSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID );
@@ -286,9 +277,9 @@ class Mermaid extends SMWResultPrinter {
 		}
 
 		// Improve unique id by adding a random number
-		$id = uniqid( 'srf-mermaid-' . rand( 1, 10000 ) );
+		$id = uniqid( 'srf-gantt-' . rand( 1, 10000 ) );
 
-		// Add Mermaid configurations
+		// Add gantt configurations
 		$config = [
 			'theme' => $this->params['theme'],
 			'gantt' => [
@@ -305,7 +296,7 @@ class Mermaid extends SMWResultPrinter {
 		} else {
 			return Html::rawElement( 'div', [
 				'id'           => $id,
-				'class'        => 'srf-mermaid',
+				'class'        => 'srf-gantt',
 				'data-mermaid' => json_encode( [
 					'content' => $this->mGantt->getGanttOutput(),
 					'config'  => $config

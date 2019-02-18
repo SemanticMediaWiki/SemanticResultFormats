@@ -149,7 +149,7 @@ class SemanticResultFormats {
 			'media' => 'SRF\MediaPlayer',
 			'spreadsheet' => 'SRF\SpreadsheetPrinter',
 			'datatables' => 'SRF\DataTables',
-			'mermaid' => 'SRF\Mermaid\Mermaid'
+			'gantt' => 'SRF\Gantt\GanttPrinter'
 		];
 
 		$formatAliases = [

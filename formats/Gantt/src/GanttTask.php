@@ -9,7 +9,7 @@
  * @ingroup SemanticResultFormats
  */
 
-namespace SRF\Mermaid;
+namespace SRF\Gantt;
 
 
 class GanttTask {
@@ -38,6 +38,14 @@ class GanttTask {
 		return $this->mID;
 	}
 
+	public function setStatus($status){
+		$this->mStatus = $this->mStatus . $status . ', ';
+	}
+
+	public function setPriority($priority){
+		$this->mPriority = $this->mPriority . $priority . ', ';
+	}
+
 	/**
 	 * Either set the status or priority of the task
 	 *
@@ -48,9 +56,6 @@ class GanttTask {
 	 */
 	public function setTaskParam( $params, $paramMapping, $type ) {
 
-		$this->mPriority = "";
-		$this->mStatus = "";
-
 		// skip if $paramMapping is empty and
 		// output errormessage if wrong mapping
 		if ( !empty( $paramMapping ) ) {
@@ -60,17 +65,17 @@ class GanttTask {
 
 			foreach ( $paramMapping as $pm ) {
 				$pmKeyVal = explode( '=>', $pm );
-				$mapping[$pmKeyVal[0]] = $pmKeyVal[1];
+				$mapping[trim($pmKeyVal[0])] = trim($pmKeyVal[1]);
 			}
 
 			//validate Params
 			foreach ( $mapping as $mappedValue => $realParam ) {
 				if ( in_array( $mappedValue, $params ) ) {
 					if ( $type == "status" ) {
-						$this->mStatus .= $realParam . ", ";
+						$this->setStatus($realParam);
 					} else {
 						if ( $type == "priority" ) {
-							$this->mPriority .= $realParam . ", ";
+							$this->setPriority($realParam);
 						}
 					}
 				}

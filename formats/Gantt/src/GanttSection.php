@@ -9,7 +9,7 @@
  * @ingroup SemanticResultFormats
  */
 
-namespace SRF\Mermaid;
+namespace SRF\Gantt;
 
 class GanttSection {
 

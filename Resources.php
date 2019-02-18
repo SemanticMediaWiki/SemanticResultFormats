@@ -1013,8 +1013,8 @@ return [
 	],
 
 	// Mermaid Format
-	'ext.srf.mermaid' => $formatModule + [
-			'scripts' => 'Mermaid/resources/ext.mermaid.js',
+	'ext.srf.gantt' => $formatModule + [
+			'scripts' => 'Gantt/resources/ext.gantt.js',
 	]
 
 	// Boilerplate example registration

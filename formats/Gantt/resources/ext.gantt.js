@@ -17,7 +17,7 @@
 
         $(document).ready(function () {
 
-            $('.srf-mermaid').each(function () {
+            $('.srf-gantt').each(function () {
 
                 var id = $(this).attr('id') + '-diagram';
                 var data = $(this).data('mermaid');
