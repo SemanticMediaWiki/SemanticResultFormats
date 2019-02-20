@@ -1,0 +1,95 @@
+{
+	"description": "Listwidget format: widgets - unordered (#449 - `wgContLang=fr`, `wgLang=en`)",
+	"setup": [
+		{
+			"namespace": "NS_CATEGORY",
+			"page": "Listwidget example",
+			"contents": "Holds listwidget examples."
+		},
+		{
+			"page": "May 2000",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2001",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2002",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2003",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2004",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2005",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "May 2006",
+			"contents": "[[Category:Listwidget example]]"
+		},
+		{
+			"page": "Listwidget - alphabet - unordered",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=unordered |widget=alphabet |pageitems=6}}"
+		},
+		{
+			"page": "Listwidget - menu - listtype unspecified",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |widget=menu }}"
+		},
+		{
+			"page": "Listwidget - pagination - ordered",
+			"contents": "{{#ask: [[Category:Listwidget example]] |format=listwidget |link=all |headers=show |listtype=ordered |widget=pagination }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "#0 Listwidget - alphabet - unordered",
+			"subject": "Listwidget - alphabet - unordered",
+			"assert-output": {
+				"to-contain": [
+					".srf-listwidget[data-listtype=\"ul\"][data-widget=\"alphabet\"][data-pageitems=\"6\"] .listwidget-container[id]"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#1 Listwidget - menu - listtype unspecified",
+			"subject": "Listwidget - menu - listtype unspecified",
+			"assert-output": {
+				"to-contain": [
+					".srf-listwidget[data-listtype=\"ul\"][data-widget=\"menu\"][data-pageitems=\"5\"] .listwidget-container[id]"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#2 Listwidget - pagination - ordered",
+			"subject": "Listwidget - pagination - ordered",
+			"assert-output": {
+				"to-contain": [
+					".srf-listwidget[data-listtype=\"ol\"][data-widget=\"pagination\"][data-pageitems=\"5\"] .listwidget-container[id]"
+				]
+			}
+		}
+
+	],
+	"settings": {
+		"wgContLang": "fr",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": true
+	}
+}
