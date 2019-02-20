@@ -1,10 +1,10 @@
 <?php
 
-namespace SRF\Tests\Mermaid;
+namespace SRF\Tests\Gantt;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
-class MermaidTest extends QueryPrinterRegistryTestCase{
+class GanttTest extends QueryPrinterRegistryTestCase{
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -14,7 +14,7 @@ class MermaidTest extends QueryPrinterRegistryTestCase{
 	 * @return array
 	 */
 	public function getFormats() {
-		return [ 'mermaid' ];
+		return [ 'gantt' ];
 	}
 
 	/**
@@ -25,6 +25,6 @@ class MermaidTest extends QueryPrinterRegistryTestCase{
 	 * @return string
 	 */
 	public function getClass() {
-		return '\SRF\Mermaid\Mermaid';
+		return '\SRF\Gantt\GanttPrinter';
 	}
 }
