@@ -354,13 +354,18 @@
 	"srf-paramdesc-spreadsheet-filename": "{{doc-paramdesc|filename}}",
 	"srf-paramdesc-spreadsheet-templatefile": "{{doc-paramdesc|templatefile}}",
 	"srf-paramdesc-icalendar-timezone": "{{doc-paramdesc|timezone}}",
+	"srf-paramdesc-gantt-diagramtitle": "{{doc-paramdesc|diagram}}",
+	"srf-paramdesc-gantt-diagramtheme": "{{doc-paramdesc|theme}}",
+	"srf-paramdesc-gantt-axisformat": "{{doc-paramdesc|axisformat}}",
+	"srf-paramdesc-gantt-sortkey": "{{doc-paramdesc|sortkey}}",
+	"srf-paramdesc-gantt-titletopmargin": "{{doc-paramdesc|titletopmargin}}",
+	"srf-paramdesc-gantt-barheight": "{{doc-paramdesc|barheight}}",
+	"srf-paramdesc-gantt-leftpadding": "{{doc-paramdesc|leftpadding}}",
+	"srf-paramdesc-gantt-bargap": "{{doc-paramdesc|bargap}}",
+	"srf-error-gantt-theme" : "This is an error message.",
+	"srf-error-gantt-sortkey" : "This is an error message.",
+	"srf-error-gantt-mapping-assignment": "This is an error message.",
+	"srf-error-gantt-mapping-keywords": "This is an error message.",
+	"srf-printername-gantt": "{{doc-smwformat|vcard}}"
 
-	"srf-paramdesc-diagramtitle": "{{doc-paramdesc|diagram}}",
-	"srf-paramdesc-diagramtheme": "{{doc-paramdesc|theme}}",
-	"srf-paramdesc-axisformat": "{{doc-paramdesc|axisformat}}",
-	"srf-paramdesc-sortkey": "{{doc-paramdesc|sortkey}}",
-	"srf-paramdesc-titletopmargin": "{{doc-paramdesc|titletopmargin}}",
-	"srf-paramdesc-barheight": "{{doc-paramdesc|barheight}}",
-	"srf-paramdesc-leftpadding": "{{doc-paramdesc|leftpadding}}",
-	"srf-paramdesc-bargap": "{{doc-paramdesc|bargap}}"
 }

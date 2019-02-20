@@ -39,61 +39,61 @@ class GanttPrinter extends SMWResultPrinter {
 
 		$params[] = [
 			'name'    => 'diagramtitle',
-			'message' => 'srf-paramdesc-diagramtitle',
+			'message' => 'srf-paramdesc-gantt-diagramtitle',
 			'default' => ''
 		];
 
 		$params[] = [
 			'name'    => 'theme',
-			'message' => 'srf-paramdesc-diagramtheme',
+			'message' => 'srf-paramdesc-gantt-diagramtheme',
 			'default' => 'default'
 		];
 
 		$params[] = [
 			'name'    => 'axisformat',
-			'message' => 'srf-paramdesc-axisformat',
+			'message' => 'srf-paramdesc-gantt-axisformat',
 			'default' => '%m/%d/%Y'
 		];
 
 		$params[] = [
 			'name'    => 'sortkey',
-			'message' => 'srf-paramdesc-sortkey',
+			'message' => 'srf-paramdesc-gantt-sortkey',
 			'default' => 'startdate'
 		];
 
 		$params[] = [
 			'name'    => 'statusmapping',
-			'message' => 'srf-paramdesc-statusmapping',
+			'message' => 'srf-paramdesc-gantt-statusmapping',
 			'default' => ''
 		];
 
 		$params[] = [
 			'name'    => 'prioritymapping',
-			'message' => 'srf-paramdesc-prioritymapping',
+			'message' => 'srf-paramdesc-gantt-prioritymapping',
 			'default' => ''
 		];
 
 		$params[] = [
 			'name'    => 'titletopmargin',
-			'message' => 'srf-paramdesc-titletopmargin',
+			'message' => 'srf-paramdesc-gantt-titletopmargin',
 			'default' => 25
 		];
 
 		$params[] = [
 			'name'    => 'barheight',
-			'message' => 'srf-paramdesc-barheight',
+			'message' => 'srf-paramdesc-gantt-barheight',
 			'default' => 20
 		];
 
 		$params[] = [
 			'name'    => 'leftpadding',
-			'message' => 'srf-paramdesc-leftpadding',
+			'message' => 'srf-paramdesc-gantt-leftpadding',
 			'default' => 75
 		];
 
 		$params[] = [
 			'name'    => 'bargap',
-			'message' => 'srf-paramdesc-bargap',
+			'message' => 'srf-paramdesc-gantt-bargap',
 			'default' => 4
 		];
 
@@ -119,12 +119,12 @@ class GanttPrinter extends SMWResultPrinter {
 
 		//Validate Theme
 		if ( !in_array( $this->params['theme'], [ "default", "neutral", "dark", "forest" ] ) ) {
-			array_push( $this->mErrors, wfMessage( 'srf-error-theme' )->text() );
+			array_push( $this->mErrors, wfMessage( 'srf-error-gantt-theme' )->text() );
 		}
 
 		//Validate sortkey
 		if ( !in_array( strtolower( $this->params['sortkey'] ), [ "title", "startdate", "enddate" ] ) ) {
-			array_push( $this->mErrors, wfMessage( 'srf-error-sortkey' )->text() );
+			array_push( $this->mErrors, wfMessage( 'srf-error-gantt-sortkey' )->text() );
 		}
 
 		//Validate mapping
@@ -136,18 +136,18 @@ class GanttPrinter extends SMWResultPrinter {
 
 				// if no "=>" pattern was found
 				if ( !strpos( $pm, '=>' ) ) {
-					array_push( $this->mErrors, wfMessage( 'srf-error-mapping-assignment', 'statusmapping' )->text() );
+					array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
 				} else {
 					$pmKeyVal = explode( '=>', $pm );
 					// if no key value pair
 					if ( count( $pmKeyVal ) % 2 != 0 ) {
 						array_push( $this->mErrors,
-							wfMessage( 'srf-error-mapping-assignment', 'statusmapping' )->text() );
+							wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
 					} else {
 						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 						// check if the common status keys are used
 						if ( trim( $pmKeyVal[1] ) != "active" && trim( $pmKeyVal[1] ) != "done" ) {
-							array_push( $this->mErrors, wfMessage( 'srf-error-mapping-keywords' )->text() );
+							array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-keywords' )->text() );
 						}
 					}
 				}
@@ -162,18 +162,18 @@ class GanttPrinter extends SMWResultPrinter {
 				// if no "=>" pattern was found
 				if ( !strpos( $pm, '=>' ) ) {
 					array_push( $this->mErrors,
-						wfMessage( 'srf-error-mapping-assignment', 'prioritymapping' )->text() );
+						wfMessage( 'srf-error-gantt-mapping-assignment', 'prioritymapping' )->text() );
 				} else {
 					$pmKeyVal = explode( '=>', $pm );
 					// if no key value pair
 					if ( count( $pmKeyVal ) % 2 != 0 ) {
 						array_push( $this->mErrors,
-							wfMessage( 'srf-error-mapping-assignment', 'statusmapping' )->text() );
+							wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
 					} else {
 						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 						// check if the common status keys are used
 						if ( trim( $pmKeyVal[1] ) != "crit" ) {
-							array_push( $this->mErrors, wfMessage( 'srf-error-mapping-keywords' )->text() );
+							array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-keywords' )->text() );
 						}
 					}
 				}
@@ -194,9 +194,7 @@ class GanttPrinter extends SMWResultPrinter {
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
 			//wfWarn( 'The SRF Mermaid format needs the Mermaid extension to be installed.' );
-		//catch ( Exception $exception ) {
 				$queryResult->addErrors( ["Error: Mermaid Extension needs to be installed."] );
-			//}
 			return '';
 		}
 
