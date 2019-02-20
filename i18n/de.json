@@ -350,5 +350,5 @@
 	"srf-error-gantt-sortkey" : "Dieser '''sortkey''' wird nicht unterstützt",
 	"srf-error-gantt-mapping-assignment": "Falsche Zuweisung der Werte in '''$1'''",
 	"srf-error-gantt-mapping-keywords": "Der verwendete Schlüssel in deinem Mapping wird nicht unterstüzt",
-	"srf-printername-gantt": "Gantt Chart"
+	"srf-printername-gantt": "Gantt"
 }
