@@ -1,5 +1,14 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
 
+## SRF 3.0.1
+
+Released on February 27, 2019
+
+* [#391](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/391) Updates build tools, thus fixing a security issue for the "filtered" format (by Stephan Gambke)
+* [#444](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/444) Removed a feature switch, now always using `TraditionalImageGallery`; fixes a potential "method not found" warning both for the "gallery" format (by Stephan Gambke)
+* [#462](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/462) Removed usage of `$this->mFormat` which was no longer taken into account thus fixing the "listwidget" format (by Stephan Gambke)
+* Updated translations (by translatewiki.net community)
+
 ## SRF 3.0.0
 
 Released on October 12, 2018.
