@@ -12,9 +12,9 @@ These are the installation and configuration instructions for [Semantic Result F
 		<th>Git branch</th>
 	</tr>
 	<tr>
-		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 3.0.x</a></th>
+		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/RELEASE-NOTES.md">SRF 3.0.1</a></th>
 		<td>Stable version</td>
-		<td>2018-10-11</td>
+		<td>2019-02-27</td>
 		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/3.0.x">3.0.x</a></td>
 	</tr>
 	<tr>
