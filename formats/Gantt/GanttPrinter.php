@@ -25,7 +25,6 @@ use Html;
 
 class GanttPrinter extends SMWResultPrinter {
 
-	protected $mParams = [];
 	protected $mGantt = null;
 	protected $mErrors = [];
 
@@ -109,14 +108,12 @@ class GanttPrinter extends SMWResultPrinter {
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
 
-		parent::handleParameters( $params, $outputmode );
-
 		//Set header params
-		$this->mParams['title'] = trim( $params['diagramtitle'] );
-		$this->mParams['axisformat'] = trim( $params['axisformat'] );
-		$this->mParams['statusmapping'] = trim( $params['statusmapping'] );
-		$this->mParams['prioritymapping'] = trim( $params['prioritymapping'] );
-		$this->mParams['theme'] = trim( $params['theme'] );
+		$this->params['title'] = trim( $params['diagramtitle'] );
+		$this->params['axisformat'] = trim( $params['axisformat'] );
+		$this->params['statusmapping'] = trim( $params['statusmapping'] );
+		$this->params['prioritymapping'] = trim( $params['prioritymapping'] );
+		$this->params['theme'] = trim( $params['theme'] );
 
 		//Validate Theme
 		if ( !in_array( $this->params['theme'], [ 'default', 'neutral', 'dark', 'forest' ] ) ) {
@@ -288,6 +285,6 @@ class GanttPrinter extends SMWResultPrinter {
 	}
 
 	private function getGantt(){
-		return new Gantt( $this->mParams );
+		return new Gantt( $this->params );
 	}
 }
