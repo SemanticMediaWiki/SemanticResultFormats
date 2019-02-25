@@ -50,6 +50,7 @@
             var chars = node.firstChild.nodeValue.split(' '),
                 x = parseInt(node.getAttribute('x'), 10),
                 y = parseInt(node.getAttribute('y'), 10),
+                nodeBB = node.getBBox(),
                 index = 0,
                 tspan, tspanWidth, textNode;
 
@@ -60,7 +61,7 @@
                     tspanWidth = tspan == null ? 0 : tspan.getComputedTextLength();
                     if (tspanWidth > width || tspanWidth === 0) {
                         if(index !== 0){
-                            y = y + 10;
+                            y = y + nodeBB.height;
                         }
                         tspan = document.createElementNS(svgns, 'tspan');
                         tspan.setAttribute('x', x);
