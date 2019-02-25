@@ -3,11 +3,8 @@
  * @ingroup SMW
  *
  * @licence GNU GPL v2+
- * @author mwjames
+ * @author Sebastian Schmid
  */
-
-/*global jQuery, mediaWiki, smw */
-/*jslint white: true */
 
 ( function ($, mw) {
 
@@ -28,7 +25,7 @@
                 mermaid.init(undefined, $("#" + id));
 
                 // replace <esc>35</esc> with # Tag
-                $("svg text:contains('<esc>35</esc>')").each(function () {
+                $(".srf-gantt svg text:contains('<esc>35</esc>')").each(function () {
                     var text = $(this).text().replace('<esc>35</esc>', '#');
                     $(this).text(text);
                 });
