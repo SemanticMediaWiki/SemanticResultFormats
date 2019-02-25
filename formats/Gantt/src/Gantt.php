@@ -20,24 +20,14 @@ class Gantt {
 	private $mAxisFormat;
 	private $mSections = [];
 	private $mTasks = [];
-	private $mSortKey;
 	private $mPriorityMapping;
 	private $mStatusMapping;
 
 	public function __construct( $headerParam ) {
 		$this->setTitle( $headerParam['title'] );
 		$this->setAxisFormat( $headerParam['axisformat'] );
-		$this->setSortKey( $headerParam['sortkey'] );
 		$this->setStatusMapping( $headerParam['statusmapping'] );
 		$this->setPriorityMapping( $headerParam['prioritymapping'] );
-	}
-
-	private function setSortKey( $sortkey ) {
-		$this->mSortKey = strtolower( $sortkey );
-	}
-
-	private function getSortKey() {
-		return $this->mSortKey;
 	}
 
 	private function setPriorityMapping( $priorityMapping ) {
@@ -96,11 +86,10 @@ class Gantt {
 		$task = new GanttTask();
 		$task->setID( $taskID );
 		$task->setTitle( $taskTitle );
-		$task->setTaskParam( $status, $this->getStatusMapping(), "status" );
-		$task->setTaskParam( $priority, $this->getPriorityMapping(), "priority" );
+		$task->setTaskParam( $status, $this->getStatusMapping(), 'status' );
+		$task->setTaskParam( $priority, $this->getPriorityMapping(), 'priority' );
 		$task->setStartDate( $startDate );
 		$task->setEndDate( $endDate );
-
 		$this->mTasks[$taskID] = $task;
 	}
 
@@ -118,7 +107,7 @@ class Gantt {
 	public function addSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
 
 		$sections = $this->getSections();
-		if ( count( $sections ) != 0 ) {
+		if ( count( $sections ) !== 0 ) {
 
 			if ( array_key_exists( $sectionID, $sections ) ) {
 
@@ -144,61 +133,16 @@ class Gantt {
 	}
 
 	/**
-	 * Sort Tasks based on the sortkey
-	 *
-	 * @param GanttTask $a
-	 * @param GanttTask $b
-	 *
-	 * @return integer
-	 */
-	public function sortTasks( $a, $b ) {
-
-		$sortKey = $this->getSortKey();
-
-		// sort based on start/end date or title
-		if ( $sortKey == 'title' ) {
-			// sort based on title
-			return strcmp( $a->getTitle(), $b->getTitle() );
-		} else {
-			if ( strpos( $sortKey, 'date' ) !== false ) {
-				if ( strpos( $sortKey, 'start' ) !== false ) {
-					// sort based on startDate
-					return strcmp( $a->getStartDate(), $b->getStartDate() );
-				} else {
-					// sort based on endDate
-					return strcmp( $b->getEndDate(), $a->getEndDate() );
-				}
-			}
-		}
-	}
-
-
-	/**
 	 * Sort Sections based on the sortkey
 	 *
 	 * @param GanttSection $a
 	 * @param GanttSection $b
 	 *
 	 */
+
 	public function sortSections( $a, $b ) {
-
-		$sortKey = $this->getSortKey();
-
-		// sort based on start/end date or title
-		if ( $sortKey == 'title' ) {
-			// sort based on title
-			return strcmp( $a->getTitle(), $b->getTitle() );
-		} else {
-			if ( strpos( $sortKey, 'date' ) !== false ) {
-				if ( strpos( $sortKey, 'start' ) !== false ) {
-					// sort based on startDate
-					return strcmp( $a->getEarliestStartDate(), $b->getEarliestStartDate() );
-				} else {
-					// sort based on endDate
-					return strcmp( $b->getLatestEndDate(), $a->getLatestEndDate() );
-				}
-			}
-		}
+		// sort based on title
+		return strcmp( $a->getTitle(), $b->getTitle() );
 	}
 
 	private function createNewSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
@@ -222,31 +166,27 @@ class Gantt {
 
 		$sections = $this->getSections();
 		$tasks = $this->getTasks();
-		$sortKey = $this->getSortKey();
 
-		if ( !empty( $sortKey ) ) {
-			// Order Sections
-			usort( $sections, [ $this, "sortSections" ] );
-			usort( $tasks, [ $this, "sortTasks" ] );
+		// Sort Sections
+		usort( $sections, [ $this, 'sortSections' ] );
 
-			// reorder TaskArray of current section
-			foreach ( $sections as $section ) {
-				$orderedTasks = [];
-				foreach ( $tasks as $task ) {
+		// reorder TaskArray of current section
+		foreach ( $sections as $section ) {
+			$orderedTasks = [];
+			foreach ( $tasks as $task ) {
 
-					// check if $section->getTasks() holds ID of current task
-					if ( in_array( $task->getID(), $section->getTasks() ) ) {
-						$sectionTasks = $section->getTasks();
-						//loop through tasks of current section
-						foreach ( $sectionTasks as $taskKey => $sectionTask ) {
-							if ( $task->getID() == $sectionTask ) {
-								array_push( $orderedTasks, $sectionTask );
-							}
+				// check if $section->getTasks() holds ID of current task
+				if ( in_array( $task->getID(), $section->getTasks() ) ) {
+					$sectionTasks = $section->getTasks();
+					//loop through tasks of current section
+					foreach ( $sectionTasks as $taskKey => $sectionTask ) {
+						if ( $task->getID() === $sectionTask ) {
+							array_push( $orderedTasks, $sectionTask );
 						}
 					}
 				}
-				$section->setTasks( $orderedTasks );
 			}
+			$section->setTasks( $orderedTasks );
 		}
 
 		/*
@@ -255,7 +195,7 @@ class Gantt {
 		 * If we don't display it at the beginning we have to put them into a dummy section
 		 */
 		foreach ( $sections as $key => $section ) {
-			if ( $section->getTitle() == "" ) {
+			if ( $section->getTitle() === '' ) {
 				$noSection = $section;
 				unset( $sections[$key] );
 			}
@@ -270,13 +210,13 @@ class Gantt {
 
 		$mermaidOut = "gantt\n";
 		$mermaidOut .= "dateFormat YYYY-MM-DD\n";
-		$mermaidOut .= ( !empty( $title ) ) ? "title $title\n" : "";
+		$mermaidOut .= ( !empty( $title ) ) ? "title $title\n" : '';
 		$mermaidOut .= "axisFormat $axisFormat\n";
 
 		// Output section and all related Issues
 		foreach ( $sections as $section ) {
-			if ( $section->getTitle() != "" ) {
-				$mermaidOut .= "section " . $section->getTitle() . "\n";
+			if ( $section->getTitle() !== "" ) {
+				$mermaidOut .= 'section ' . $section->getTitle() . "\n";
 			}
 
 			//loop through related section tasks
@@ -289,7 +229,7 @@ class Gantt {
 						// Get Date from timestamp
 						$date = date_create();
 						date_timestamp_set( $date, $taskObj->getStartDate() );
-						$startDate = date_format( $date, 'Y-m-d' ) . ", ";
+						$startDate = date_format( $date, 'Y-m-d' ) . ', ';
 						date_timestamp_set( $date, $taskObj->getEndDate() );
 						$endDate = date_format( $date, 'Y-m-d' );
 
@@ -304,7 +244,7 @@ class Gantt {
 		}
 
 		//Hashtags mark a Comment in Mermaid, so we need to replace it with <esc>35</esc> to replace it again after rendering
-		$mermaidOut = str_replace( "#", "<esc>35</esc>", $mermaidOut );
+		$mermaidOut = str_replace( '#', '<esc>35</esc>', $mermaidOut );
 
 		return $mermaidOut;
 	}

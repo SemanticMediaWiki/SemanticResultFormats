@@ -16,8 +16,8 @@ class GanttTask {
 
 	private $mTitle;
 	private $mID;
-	private $mStatus = "";
-	private $mPriority = "";
+	private $mStatus = '';
+	private $mPriority = '';
 	private $mStartDate;
 	private $mEndDate;
 
@@ -71,10 +71,10 @@ class GanttTask {
 			//validate Params
 			foreach ( $mapping as $mappedValue => $realParam ) {
 				if ( in_array( $mappedValue, $params ) ) {
-					if ( $type == "status" ) {
+					if ( $type === 'status' ) {
 						$this->setStatus($realParam);
 					} else {
-						if ( $type == "priority" ) {
+						if ( $type === 'priority' ) {
 							$this->setPriority($realParam);
 						}
 					}

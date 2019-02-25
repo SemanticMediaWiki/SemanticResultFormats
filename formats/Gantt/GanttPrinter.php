@@ -56,12 +56,6 @@ class GanttPrinter extends SMWResultPrinter {
 		];
 
 		$params[] = [
-			'name'    => 'sortkey',
-			'message' => 'srf-paramdesc-gantt-sortkey',
-			'default' => 'startdate'
-		];
-
-		$params[] = [
 			'name'    => 'statusmapping',
 			'message' => 'srf-paramdesc-gantt-statusmapping',
 			'default' => ''
@@ -112,19 +106,13 @@ class GanttPrinter extends SMWResultPrinter {
 		//Set header params
 		$this->mParams['title'] = trim( $params['diagramtitle'] );
 		$this->mParams['axisformat'] = trim( $params['axisformat'] );
-		$this->mParams['sortkey'] = trim( $params['sortkey'] );
 		$this->mParams['statusmapping'] = trim( $params['statusmapping'] );
 		$this->mParams['prioritymapping'] = trim( $params['prioritymapping'] );
 		$this->mParams['theme'] = trim( $params['theme'] );
 
 		//Validate Theme
-		if ( !in_array( $this->params['theme'], [ "default", "neutral", "dark", "forest" ] ) ) {
+		if ( !in_array( $this->params['theme'], [ 'default', 'neutral', 'dark', 'forest' ] ) ) {
 			array_push( $this->mErrors, wfMessage( 'srf-error-gantt-theme' )->text() );
-		}
-
-		//Validate sortkey
-		if ( !in_array( strtolower( $this->params['sortkey'] ), [ "title", "startdate", "enddate" ] ) ) {
-			array_push( $this->mErrors, wfMessage( 'srf-error-gantt-sortkey' )->text() );
 		}
 
 		//Validate mapping
@@ -140,13 +128,13 @@ class GanttPrinter extends SMWResultPrinter {
 				} else {
 					$pmKeyVal = explode( '=>', $pm );
 					// if no key value pair
-					if ( count( $pmKeyVal ) % 2 != 0 ) {
+					if ( count( $pmKeyVal ) % 2 !== 0 ) {
 						array_push( $this->mErrors,
 							wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
 					} else {
 						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 						// check if the common status keys are used
-						if ( trim( $pmKeyVal[1] ) != "active" && trim( $pmKeyVal[1] ) != "done" ) {
+						if ( trim( $pmKeyVal[1] ) !== 'active' && trim( $pmKeyVal[1] ) !== 'done' ) {
 							array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-keywords' )->text() );
 						}
 					}
@@ -166,13 +154,13 @@ class GanttPrinter extends SMWResultPrinter {
 				} else {
 					$pmKeyVal = explode( '=>', $pm );
 					// if no key value pair
-					if ( count( $pmKeyVal ) % 2 != 0 ) {
+					if ( count( $pmKeyVal ) % 2 !== 0 ) {
 						array_push( $this->mErrors,
 							wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
 					} else {
 						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 						// check if the common status keys are used
-						if ( trim( $pmKeyVal[1] ) != "crit" ) {
+						if ( trim( $pmKeyVal[1] ) !== 'crit' ) {
 							array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-keywords' )->text() );
 						}
 					}
@@ -194,7 +182,7 @@ class GanttPrinter extends SMWResultPrinter {
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
 			//wfWarn( 'The SRF Mermaid format needs the Mermaid extension to be installed.' );
-				$queryResult->addErrors( ["Error: Mermaid Extension needs to be installed."] );
+				$queryResult->addErrors( ['Error: Mermaid Extension needs to be installed.'] );
 			return '';
 		}
 
@@ -209,10 +197,10 @@ class GanttPrinter extends SMWResultPrinter {
 
 			$status = [];
 			$priority = [];
-			$startDate = "";
-			$endDate = "";
-			$taskID = "";
-			$taskTitle = "";
+			$startDate = '';
+			$endDate = '';
+			$taskID = '';
+			$taskTitle = '';
 			$sections = [];
 
 			// Loop through all field of a row
@@ -224,31 +212,31 @@ class GanttPrinter extends SMWResultPrinter {
 				foreach ( $field->getContent() as $dataItem ) {
 
 					switch ( $fieldLabel ) {
-						case "section":
+						case 'section':
 							$sections[$dataItem->getTitle()->getPrefixedDBKey()] = $dataItem->getSortKey();
 							break;
-						case "task":
+						case 'task':
 							if ( $dataItem instanceof SMWDIBlob ) {
 								$taskTitle = $dataItem->getString();
 								$taskID = $field->getResultSubject()->getTitle()->getPrefixedDBKey();
 							}
 							break;
-						case "startdate":
+						case 'startdate':
 							if ( $dataItem instanceof SMWDITime ) {
 								$startDate = $dataItem->getMwTimestamp();
 							}
 							break;
-						case "enddate":
+						case 'enddate':
 							if ( $dataItem instanceof SMWDITime ) {
 								$endDate = $dataItem->getMwTimestamp();
 							}
 							break;
-						case "status":
+						case 'status':
 							if ( $dataItem instanceof SMWDIBlob ) {
 								array_push( $status, $dataItem->getString() );
 							}
 							break;
-						case "priority":
+						case 'priority':
 							if ( $dataItem instanceof SMWDIBlob ) {
 								array_push( $priority, $dataItem->getString() );
 							}
@@ -259,13 +247,13 @@ class GanttPrinter extends SMWResultPrinter {
 
 			// Add section/Task
 			// Title, TaskID, StartDate and EndDate are required
-			if ( $taskID != "" && $taskTitle != "" && $startDate != "" && $endDate != "" ) {
+			if ( $taskID !== '' && $taskTitle !== '' && $startDate !== '' && $endDate !== '' ) {
 				$this->mGantt->addTask( $taskID, $taskTitle, $status, $priority, $startDate, $endDate );
 
 				// If no section was found, put task into a dummy section object
 				// "gantt-no-section#21780240" is used to identify Tasks that with no section (dummy section)
 				if ( count( $sections ) == 0 ) {
-					$this->mGantt->addSection( "gantt-no-section#21780240", "", $startDate, $endDate, $taskID );
+					$this->mGantt->addSection( 'gantt-no-section#21780240', '', $startDate, $endDate, $taskID );
 				} else {
 					foreach ( $sections as $sectionID => $sectionTitle ) {
 						$this->mGantt->addSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID );
