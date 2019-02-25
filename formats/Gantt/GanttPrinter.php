@@ -112,7 +112,7 @@ class GanttPrinter extends SMWResultPrinter {
 
 		//Validate Theme
 		if ( !in_array( $this->params['theme'], [ 'default', 'neutral', 'dark', 'forest' ] ) ) {
-			array_push( $this->mErrors, wfMessage( 'srf-error-gantt-theme' )->text() );
+			$this->mErrors[] = wfMessage( 'srf-error-gantt-theme' )->text();
 		}
 
 		//Validate mapping
@@ -124,18 +124,17 @@ class GanttPrinter extends SMWResultPrinter {
 
 				// if no "=>" pattern was found
 				if ( !strpos( $pm, '=>' ) ) {
-					array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
+					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
 				} else {
 					$pmKeyVal = explode( '=>', $pm );
 					// if no key value pair
 					if ( count( $pmKeyVal ) % 2 !== 0 ) {
-						array_push( $this->mErrors,
-							wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
+						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
 					} else {
 						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 						// check if the common status keys are used
 						if ( trim( $pmKeyVal[1] ) !== 'active' && trim( $pmKeyVal[1] ) !== 'done' ) {
-							array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-keywords' )->text() );
+							$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 						}
 					}
 				}
@@ -149,19 +148,17 @@ class GanttPrinter extends SMWResultPrinter {
 
 				// if no "=>" pattern was found
 				if ( !strpos( $pm, '=>' ) ) {
-					array_push( $this->mErrors,
-						wfMessage( 'srf-error-gantt-mapping-assignment', 'prioritymapping' )->text() );
+					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'prioritymapping' )->text();
 				} else {
 					$pmKeyVal = explode( '=>', $pm );
 					// if no key value pair
 					if ( count( $pmKeyVal ) % 2 !== 0 ) {
-						array_push( $this->mErrors,
-							wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text() );
+						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
 					} else {
 						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 						// check if the common status keys are used
 						if ( trim( $pmKeyVal[1] ) !== 'crit' ) {
-							array_push( $this->mErrors, wfMessage( 'srf-error-gantt-mapping-keywords' )->text() );
+							$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 						}
 					}
 				}
@@ -233,12 +230,12 @@ class GanttPrinter extends SMWResultPrinter {
 							break;
 						case 'status':
 							if ( $dataItem instanceof SMWDIBlob ) {
-								array_push( $status, $dataItem->getString() );
+								$status[] = $dataItem->getString();
 							}
 							break;
 						case 'priority':
 							if ( $dataItem instanceof SMWDIBlob ) {
-								array_push( $priority, $dataItem->getString() );
+								$priority[] = $dataItem->getString();
 							}
 							break;
 					}

@@ -61,6 +61,6 @@ class GanttSection {
 	}
 
 	public function addTask( $task ) {
-		array_push( $this->mTasks, $task );
+		$this->mTasks[] = $task;
 	}
 }

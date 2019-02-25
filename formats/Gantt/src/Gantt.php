@@ -181,7 +181,7 @@ class Gantt {
 					//loop through tasks of current section
 					foreach ( $sectionTasks as $taskKey => $sectionTask ) {
 						if ( $task->getID() === $sectionTask ) {
-							array_push( $orderedTasks, $sectionTask );
+							$orderedTasks[] = $sectionTask;
 						}
 					}
 				}
