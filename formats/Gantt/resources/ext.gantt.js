@@ -39,6 +39,11 @@
         });
     });
 
+    /*
+     * Credits
+     * Project: https://gist.github.com/jkappers/3892971
+     * Author jkappers (Joshua Kappers)
+     */
     function forceTextWrappingOn(node, width) {
         var svgns = "http://www.w3.org/2000/svg";
 
