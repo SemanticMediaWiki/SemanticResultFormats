@@ -31,10 +31,9 @@
                 });
 
                 // word wrapping in <text>
-                var sectionTitleNodes = document.querySelectorAll('text.sectionTitle');
-                for (var n in sectionTitleNodes)
-                    if (sectionTitleNodes.hasOwnProperty(n))
-                        forceTextWrappingOn(sectionTitleNodes[n], data.config.gantt.leftPadding - 37);
+                $('.srf-gantt text.sectionTitle').each(function(index, value){
+                        forceTextWrappingOn( this, data.config.gantt.leftPadding);
+                });
             });
         });
     });
