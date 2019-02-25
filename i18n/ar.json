@@ -127,7 +127,7 @@
 	"srf-paramdesc-paneview": "حدد موضع الجزء الذي يحتوي على مخطط سطر صغي،. القيم المسموح بها: \"أسفل\" و\"أعلى\" و\"لا شيء\"، الافتراضي: \"أسفل\"",
 	"srf-paramdesc-infotext": "عرض معلومات إضافية على علامة التبويب معلومات المقابلة",
 	"srf-paramdesc-clicktarget": "حدد صفحة أو سلسلة استعلام كهدف عند النقر على تاريخ التقويم.",
-	"srf-ui-gridview-label-item": "بند البيانات",
+	"srf-ui-gridview-label-item": "عنصر البيانات",
 	"srf-ui-gridview-label-value": "قيمة البيانات",
 	"srf-ui-gridview-label-series": "سلسلة البيانات",
 	"srf-ui-gridview-label-chart-tab": "رسم بياني",
