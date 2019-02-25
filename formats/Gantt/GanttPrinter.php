@@ -179,15 +179,11 @@ class GanttPrinter extends SMWResultPrinter {
 
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
-			//wfWarn( 'The SRF Mermaid format needs the Mermaid extension to be installed.' );
-				$queryResult->addErrors( [wfMessage('')->text()] );
+			$queryResult->addErrors( [wfMessage('')->text()] );
 			return '';
 		}
 
 		// Load general Modules
-		// First load the dependent modules of Mermaid ext
-		SMWOutputs::requireResource( 'ext.mermaid' );
-		SMWOutputs::requireResource( 'ext.mermaid.styles' );
 		SMWOutputs::requireResource( 'ext.srf.gantt' );
 
 		//Add Tasks & Sections
