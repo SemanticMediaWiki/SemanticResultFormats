@@ -350,5 +350,6 @@
 	"srf-error-gantt-mapping-keywords": "The key used in your mapping parameter is not supported",
 	"srf-error-gantt-theme" : "The '''theme''' you have choosen is not supported",
 	"srf-error-gantt-sortkey" : "The '''sortkey''' you have choosen is not supported",
+	"srf-error-gantt-mermaid-not-installed": "Mermaid Extension needs to be installed.",
 	"srf-printername-gantt": "Gantt"
 }

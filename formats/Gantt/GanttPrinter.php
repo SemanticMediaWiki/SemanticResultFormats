@@ -165,7 +165,8 @@ class GanttPrinter extends SMWResultPrinter {
 			}
 		}
 
-		$this->mGantt = new Gantt( $this->mParams );
+		$this->mGantt = $this->getGantt();
+
 	}
 
 	/**
@@ -179,7 +180,7 @@ class GanttPrinter extends SMWResultPrinter {
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
 			//wfWarn( 'The SRF Mermaid format needs the Mermaid extension to be installed.' );
-				$queryResult->addErrors( ['Error: Mermaid Extension needs to be installed.'] );
+				$queryResult->addErrors( [wfMessage('')->text()] );
 			return '';
 		}
 
@@ -288,5 +289,9 @@ class GanttPrinter extends SMWResultPrinter {
 				'class' => 'mermaid-dots',
 			] ) );
 		}
+	}
+
+	private function getGantt(){
+		return new Gantt( $this->mParams );
 	}
 }

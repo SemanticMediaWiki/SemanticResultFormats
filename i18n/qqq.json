@@ -366,6 +366,7 @@
 	"srf-error-gantt-sortkey" : "This is an error message.",
 	"srf-error-gantt-mapping-assignment": "This is an error message.",
 	"srf-error-gantt-mapping-keywords": "This is an error message.",
+	"srf-error-gantt-mermaid-not-installed": "This is an error message.",
 	"srf-printername-gantt": "{{doc-smwformat|vcard}}"
 
 }
