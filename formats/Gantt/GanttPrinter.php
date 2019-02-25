@@ -30,7 +30,6 @@ class GanttPrinter extends SMWResultPrinter {
 	protected $mErrors = [];
 
 	public function getName() {
-		// Give grep a chance to find the usage
 		return wfMessage( 'srf-printername-gantt' )->text();
 	}
 
@@ -38,54 +37,63 @@ class GanttPrinter extends SMWResultPrinter {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params[] = [
+			'type'    => 'string',
 			'name'    => 'diagramtitle',
 			'message' => 'srf-paramdesc-gantt-diagramtitle',
 			'default' => ''
 		];
 
 		$params[] = [
+			'type'    => 'string',
 			'name'    => 'theme',
 			'message' => 'srf-paramdesc-gantt-diagramtheme',
 			'default' => 'default'
 		];
 
 		$params[] = [
+			'type'    => 'string',
 			'name'    => 'axisformat',
 			'message' => 'srf-paramdesc-gantt-axisformat',
 			'default' => '%m/%d/%Y'
 		];
 
 		$params[] = [
+			'type'    => 'string',
 			'name'    => 'statusmapping',
 			'message' => 'srf-paramdesc-gantt-statusmapping',
 			'default' => ''
 		];
 
 		$params[] = [
+			'type'    => 'string',
 			'name'    => 'prioritymapping',
 			'message' => 'srf-paramdesc-gantt-prioritymapping',
 			'default' => ''
 		];
 
 		$params[] = [
+			'type'    => 'integer',
 			'name'    => 'titletopmargin',
 			'message' => 'srf-paramdesc-gantt-titletopmargin',
 			'default' => 25
 		];
 
 		$params[] = [
+			'type'    => 'integer',
 			'name'    => 'barheight',
 			'message' => 'srf-paramdesc-gantt-barheight',
 			'default' => 20
 		];
 
 		$params[] = [
+			'type'    => 'integer',
 			'name'    => 'leftpadding',
 			'message' => 'srf-paramdesc-gantt-leftpadding',
 			'default' => 75
 		];
 
 		$params[] = [
+			'type'    => 'integer',
 			'name'    => 'bargap',
 			'message' => 'srf-paramdesc-gantt-bargap',
 			'default' => 4
@@ -115,51 +123,43 @@ class GanttPrinter extends SMWResultPrinter {
 			$this->mErrors[] = wfMessage( 'srf-error-gantt-theme' )->text();
 		}
 
+		$mapping = [];
+
 		//Validate mapping
 		if ( !empty( trim( $params['statusmapping'] ) ) ) {
-
 			$paramMapping = explode( ';', trim( $params['statusmapping'] ) );
 
 			foreach ( $paramMapping as $pm ) {
+				$pmKeyVal = explode( '=>', $pm, 2);
 
-				// if no "=>" pattern was found
-				if ( !strpos( $pm, '=>' ) ) {
+				// if no key value pair
+				if ( count( $pmKeyVal ) !== 2 ) {
 					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
 				} else {
-					$pmKeyVal = explode( '=>', $pm );
-					// if no key value pair
-					if ( count( $pmKeyVal ) % 2 !== 0 ) {
-						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
-					} else {
-						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
-						// check if the common status keys are used
-						if ( trim( $pmKeyVal[1] ) !== 'active' && trim( $pmKeyVal[1] ) !== 'done' ) {
-							$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
-						}
+					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
+
+					// check if the common status keys are used
+					if ( trim( $pmKeyVal[1] ) !== 'active' && trim( $pmKeyVal[1] ) !== 'done' ) {
+						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 					}
 				}
 			}
 		}
 		if ( !empty( trim( $params['prioritymapping'] ) ) ) {
-
 			$paramMapping = explode( ';', trim( $params['prioritymapping'] ) );
 
 			foreach ( $paramMapping as $pm ) {
+				$pmKeyVal = explode( '=>', $pm, 2 );
 
-				// if no "=>" pattern was found
-				if ( !strpos( $pm, '=>' ) ) {
+				// if no key value pair
+				if ( count( $pmKeyVal ) !== 2 ) {
 					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'prioritymapping' )->text();
 				} else {
-					$pmKeyVal = explode( '=>', $pm );
-					// if no key value pair
-					if ( count( $pmKeyVal ) % 2 !== 0 ) {
-						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
-					} else {
-						$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
-						// check if the common status keys are used
-						if ( trim( $pmKeyVal[1] ) !== 'crit' ) {
-							$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
-						}
+					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
+
+					// check if the common status keys are used
+					if ( trim( $pmKeyVal[1] ) !== 'crit' ) {
+						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 					}
 				}
 			}
