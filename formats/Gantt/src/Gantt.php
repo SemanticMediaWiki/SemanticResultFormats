@@ -107,27 +107,21 @@ class Gantt {
 	public function addSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
 
 		$sections = $this->getSections();
-		if ( count( $sections ) !== 0 ) {
 
-			if ( array_key_exists( $sectionID, $sections ) ) {
+		if ( array_key_exists( $sectionID, $sections ) ) {
 
-				foreach ( $sections as $sectionObj ) {
-					if ( $sectionObj->getID() == $sectionID ) {
-						if ( $sectionObj->getEarliestStartDate() > $startDate ) {
-							$sectionObj->setEarliestStartDate( $startDate );
-						}
-						if ( $sectionObj->getLatestEndDate() < $endDate ) {
-							$sectionObj->setLatestEndDate( $endDate );
-						}
-						$sectionObj->addTask( $taskID );
+			foreach ( $sections as $sectionObj ) {
+				if ( $sectionObj->getID() == $sectionID ) {
+					if ( $sectionObj->getEarliestStartDate() > $startDate ) {
+						$sectionObj->setEarliestStartDate( $startDate );
 					}
+					if ( $sectionObj->getLatestEndDate() < $endDate ) {
+						$sectionObj->setLatestEndDate( $endDate );
+					}
+					$sectionObj->addTask( $taskID );
 				}
-			} else {
-				$this->createNewSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID );
 			}
-
 		} else {
-			// initialize GanttSection Array
 			$this->createNewSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID );
 		}
 	}
