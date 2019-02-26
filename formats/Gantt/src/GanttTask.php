@@ -61,26 +61,18 @@ class GanttTask {
 		if ( !empty( $paramMapping ) ) {
 
 			$paramMapping = explode( ';', $paramMapping );
-			$mapping = [];
 
 			foreach ( $paramMapping as $pm ) {
-				$pmKeyVal = explode( '=>', $pm );
-				$mapping[trim($pmKeyVal[0])] = trim($pmKeyVal[1]);
-			}
-
-			//validate Params
-			foreach ( $mapping as $mappedValue => $realParam ) {
-				if ( in_array( $mappedValue, $params ) ) {
+				$pmKeyVal = explode( '=>', $pm, 2 );
+				if ( in_array( trim($pmKeyVal[0]), $params ) ) {
 					if ( $type === 'status' ) {
-						$this->setStatus($realParam);
-					} else {
-						if ( $type === 'priority' ) {
-							$this->setPriority($realParam);
-						}
+						$this->setStatus( trim( $pmKeyVal[1] ) );
+					}
+					if ( $type === 'priority' ) {
+						$this->setPriority( trim( $pmKeyVal[1] ) );
 					}
 				}
 			}
-
 		}
 	}
 
