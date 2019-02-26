@@ -123,19 +123,6 @@ class Gantt {
 		}
 	}
 
-	/**
-	 * Sort Sections based on the sortkey
-	 *
-	 * @param GanttSection $a
-	 * @param GanttSection $b
-	 *
-	 */
-
-	public function sortSections( $a, $b ) {
-		// sort based on title
-		return strcmp( $a->getTitle(), $b->getTitle() );
-	}
-
 	private function createNewSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
 		$ganttSection = new GanttSection();
 		//check if the id in the object is realy needed or is it enough to have it as array key
@@ -157,28 +144,6 @@ class Gantt {
 
 		$sections = $this->getSections();
 		$tasks = $this->getTasks();
-
-		// Sort Sections
-		usort( $sections, [ $this, 'sortSections' ] );
-
-		// reorder TaskArray of current section
-		foreach ( $sections as $section ) {
-			$orderedTasks = [];
-			foreach ( $tasks as $task ) {
-
-				// check if $section->getTasks() holds ID of current task
-				if ( in_array( $task->getID(), $section->getTasks() ) ) {
-					$sectionTasks = $section->getTasks();
-					//loop through tasks of current section
-					foreach ( $sectionTasks as $taskKey => $sectionTask ) {
-						if ( $task->getID() === $sectionTask ) {
-							$orderedTasks[] = $sectionTask;
-						}
-					}
-				}
-			}
-			$section->setTasks( $orderedTasks );
-		}
 
 		/*
 		 * Bring the "section" with no title to the first position.
