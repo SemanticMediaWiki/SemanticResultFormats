@@ -176,26 +176,22 @@ class Gantt {
 			}
 
 			//loop through related section tasks
-			foreach ( $section->getTasks() as $sectionTaskValue ) {
-				foreach ( $tasks as $taskObj ) {
-					if ( $taskObj->getID() === $sectionTaskValue ) {
+			foreach ( $section->getTasks() as $sectionTask ) {
 
-						$status = $taskObj->getStatus();
+						$status = $tasks[$sectionTask]->getStatus();
 
 						// Get Date from timestamp
 						$date = date_create();
-						date_timestamp_set( $date, $taskObj->getStartDate() );
+						date_timestamp_set( $date, $tasks[$sectionTask]->getStartDate() );
 						$startDate = date_format( $date, 'Y-m-d' ) . ', ';
-						date_timestamp_set( $date, $taskObj->getEndDate() );
+						date_timestamp_set( $date, $tasks[$sectionTask]->getEndDate() );
 						$endDate = date_format( $date, 'Y-m-d' );
 
 						//get Priority
-						$priority = $taskObj->getPriority();
+						$priority = $tasks[$sectionTask]->getPriority();
 
-						$mermaidOut .= $taskObj->getTitle() . "\t :" . $priority . $status . $startDate . $endDate .
+						$mermaidOut .= $tasks[$sectionTask]->getTitle() . "\t :" . $priority . $status . $startDate . $endDate .
 									   "\n";
-					}
-				}
 			}
 		}
 

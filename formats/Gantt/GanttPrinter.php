@@ -277,10 +277,8 @@ class GanttPrinter extends SMWResultPrinter {
 				'data-mermaid' => json_encode( [
 					'content' => $this->mGantt->getGanttOutput(),
 					'config'  => $config
-				], JSON_UNESCAPED_UNICODE )
-			], Html::rawElement( 'div', [
-				'class' => 'mermaid-dots',
-			] ) );
+				])
+			], Html::rawElement( 'div', [ 'class' => 'mermaid-dots' ]));
 		}
 	}
 
