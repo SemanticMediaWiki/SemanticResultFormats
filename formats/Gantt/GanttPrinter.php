@@ -113,13 +113,7 @@ class GanttPrinter extends SMWResultPrinter {
 		$this->params['axisformat'] = trim( $params['axisformat'] );
 		$this->params['statusmapping'] = trim( $params['statusmapping'] );
 		$this->params['prioritymapping'] = trim( $params['prioritymapping'] );
-		$this->params['theme'] = trim( $params['theme'] );
-
-		//Validate Theme
-		if ( !in_array( $this->params['theme'], [ 'default', 'neutral', 'dark', 'forest' ] ) ) {
-			$this->mErrors[] = wfMessage( 'srf-error-gantt-theme' )->text();
-		}
-
+		$this->params['theme'] = $this->getValidatedTheme($params['theme']);
 		$mapping = [];
 
 		//Validate mapping
@@ -284,5 +278,21 @@ class GanttPrinter extends SMWResultPrinter {
 
 	private function getGantt(){
 		return new Gantt( $this->params );
+	}
+
+	/**
+	 * Return valid theme as string
+	 * @param String $theme
+	 *
+	 * @return string
+	 */
+	private function getValidatedTheme( $theme ) {
+		$theme = trim( $theme );
+
+		if ( !in_array( $this->params['theme'], [ 'default', 'neutral', 'dark', 'forest' ] ) ) {
+			$this->mErrors[] = wfMessage( 'srf-error-gantt-theme' )->text();
+		}
+
+		return $theme;
 	}
 }
