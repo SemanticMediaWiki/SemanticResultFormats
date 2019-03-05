@@ -111,53 +111,11 @@ class GanttPrinter extends SMWResultPrinter {
 		//Set header params
 		$this->params['title'] = trim( $params['diagramtitle'] );
 		$this->params['axisformat'] = trim( $params['axisformat'] );
-		$this->params['statusmapping'] = trim( $params['statusmapping'] );
-		$this->params['prioritymapping'] = trim( $params['prioritymapping'] );
+		$this->params['statusmapping'] =  $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
+		$this->params['prioritymapping'] = $this->getValidatedMapping( $params[ 'prioritymapping' ], 'prioritymapping', [ 'crit' ] );
 		$this->params['theme'] = $this->getValidatedTheme($params['theme']);
-		$mapping = [];
-
-		//Validate mapping
-		if ( !empty( trim( $params['statusmapping'] ) ) ) {
-			$paramMapping = explode( ';', trim( $params['statusmapping'] ) );
-
-			foreach ( $paramMapping as $pm ) {
-				$pmKeyVal = explode( '=>', $pm, 2);
-
-				// if no key value pair
-				if ( count( $pmKeyVal ) !== 2 ) {
-					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'statusmapping' )->text();
-				} else {
-					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
-
-					// check if the common status keys are used
-					if ( trim( $pmKeyVal[1] ) !== 'active' && trim( $pmKeyVal[1] ) !== 'done' ) {
-						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
-					}
-				}
-			}
-		}
-		if ( !empty( trim( $params['prioritymapping'] ) ) ) {
-			$paramMapping = explode( ';', trim( $params['prioritymapping'] ) );
-
-			foreach ( $paramMapping as $pm ) {
-				$pmKeyVal = explode( '=>', $pm, 2 );
-
-				// if no key value pair
-				if ( count( $pmKeyVal ) !== 2 ) {
-					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', 'prioritymapping' )->text();
-				} else {
-					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
-
-					// check if the common status keys are used
-					if ( trim( $pmKeyVal[1] ) !== 'crit' ) {
-						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
-					}
-				}
-			}
-		}
 
 		$this->mGantt = $this->getGantt();
-
 	}
 
 	/**
@@ -294,5 +252,32 @@ class GanttPrinter extends SMWResultPrinter {
 		}
 
 		return $theme;
+	}
+
+
+	private function getValidatedMapping( $params, $mappingType, array $mappingKeys){
+		//Validate mapping
+		$mapping = [];
+
+		if ( !empty( $params ) ) {
+			$paramMapping = explode( ';', trim( $params ) );
+
+			foreach ( $paramMapping as $pm ) {
+				$pmKeyVal = explode( '=>', $pm, 2);
+
+				// if no key value pair
+				if ( count( $pmKeyVal ) !== 2 ) {
+					$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-assignment', $mappingType )->text();
+				} else {
+					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
+
+					if(!in_array(trim( $pmKeyVal[1] ), $mappingKeys)){
+						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
+					}
+				}
+			}
+			return $mapping;
+		}
+		return '';
 	}
 }

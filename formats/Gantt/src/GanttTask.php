@@ -60,16 +60,13 @@ class GanttTask {
 		// output errormessage if wrong mapping
 		if ( !empty( $paramMapping ) ) {
 
-			$paramMapping = explode( ';', $paramMapping );
-
-			foreach ( $paramMapping as $pm ) {
-				$pmKeyVal = explode( '=>', $pm, 2 );
-				if ( in_array( trim($pmKeyVal[0]), $params ) ) {
+			foreach ( $paramMapping as $pKey => $pVal ) {
+				if ( in_array( $pKey, $params ) ) {
 					if ( $type === 'status' ) {
-						$this->setStatus( trim( $pmKeyVal[1] ) );
+						$this->setStatus( trim( $pVal ) );
 					}
 					if ( $type === 'priority' ) {
-						$this->setPriority( trim( $pmKeyVal[1] ) );
+						$this->setPriority( trim( $pVal ) );
 					}
 				}
 			}
