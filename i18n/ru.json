@@ -15,7 +15,8 @@
 			"Nemo bis",
 			"Putnik",
 			"Vlad5250",
-			"Nk88"
+			"Nk88",
+			"Romanko Mikhail"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -186,7 +187,7 @@
 	"srf-paramdesc-graphlabel": "Подпись графы",
 	"srf-paramdesc-rankdir": "Устанавливает направление стрелок",
 	"srf-paramdesc-graphlink": "Ссылка графы",
-	"srf-paramdesc-graphcolor": "Цвет графы",
+	"srf-paramdesc-graphcolor": "Устанавливает цвет графа",
 	"srf-paramdesc-graph-wwl": "Предел переноса слов (в # символов)",
 	"srf-paramdesc-clustercolor": "Устанавливает цвета блоков кластера",
 	"srf-paramdesc-highlightcolor": "Устанавливает цвет шрифта для выделенного узла",
