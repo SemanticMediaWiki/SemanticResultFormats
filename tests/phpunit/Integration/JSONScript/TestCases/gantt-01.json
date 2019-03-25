@@ -1,5 +1,8 @@
 {
   "description": "Test the gantt format",
+  "requires": {
+    "Mermaid": ">= 2.0"
+  },
   "setup": [
     {
       "namespace": "SMW_NS_PROPERTY",

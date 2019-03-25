@@ -1,8 +1,13 @@
 <?php
 
-namespace SRF\Tests\Integration\JSONScript;
-
-use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTestCaseScriptRunnerTest;
+namespace SMW\Tests\Integration\JSONScript;
+use SMW\ApplicationFactory;
+use SMW\DataValueFactory;
+use SMW\EventHandler;
+use SMW\PropertySpecificationLookup;
+use SMW\SPARQLStore\TurtleTriplesBuilder;
+use SMW\Tests\JsonTestCaseFileHandler;
+use SMW\Tests\JsonTestCaseScriptRunner;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -19,7 +24,7 @@ use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTest
  *
  * @author Stephan Gambke
  */
-class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
+class JsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
 
 	/**
 	 * @see \SMW\Tests\JsonTestCaseScriptRunner::getTestCaseLocation
@@ -39,6 +44,48 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 		$settings[] = 'srfgMapProvider';
 
 		return $settings;
+	}
+
+	/**
+	 * @see JsonTestCaseScriptRunner::getDependencyDefinitions
+	 */
+	protected function getDependencyDefinitions() {
+		return [
+			'Mermaid' => function( $val, &$reason ) {
+				if ( !defined( 'SM_VERSION' ) ) {
+					$reason = "Dependency: Mermaid as requirement is not available!";
+					return false;
+				}
+				list( $compare, $requiredVersion ) = explode( ' ', $val );
+				$version = SM_VERSION;
+				if ( !version_compare( $version, $requiredVersion, $compare ) ) {
+					$reason = "Dependency: Required version of Mermaid ($requiredVersion $compare $version) is not available!";
+					return false;
+				}
+				return true;
+			}
+		];
+	}
+
+
+	/**
+	 * @see JsonTestCaseScriptRunner::runTestCaseFile
+	 *
+	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
+	 */
+	protected function runTestCaseFile( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
+		$this->checkEnvironmentToSkipCurrentTest( $jsonTestCaseFileHandler );
+		// Setup
+		$this->prepareTest( $jsonTestCaseFileHandler );
+		// Before test execution
+		$this->doRunBeforeTest( $jsonTestCaseFileHandler );
+		// Run test cases
+		$this->doRunParserTests( $jsonTestCaseFileHandler );
+		$this->doRunSpecialTests( $jsonTestCaseFileHandler );
+		$this->doRunRdfTests( $jsonTestCaseFileHandler );
+		$this->doRunQueryTests( $jsonTestCaseFileHandler );
+		$this->doRunParserHtmlTests( $jsonTestCaseFileHandler );
+		$this->doRunApiTests( $jsonTestCaseFileHandler );
 	}
 
 }
