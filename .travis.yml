@@ -19,6 +19,7 @@ matrix:
 
 install:
   - bash ./build/travis/install-mediawiki.sh
+  - bash ./build/travis/install-mermaid.sh
   - bash ./build/travis/install-semantic-result-formats.sh
 
 script:

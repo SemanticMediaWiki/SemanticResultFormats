@@ -14,7 +14,7 @@ function installToMediaWikiRoot {
 	then
 		composer require 'phpunit/phpunit='$PHPUNIT --prefer-source --update-with-dependencies
 	else
-		composer require 'phpunit/phpunit=4.8.*' --prefer-source --update-with-dependencies
+		composer require 'phpunit/phpunit=3.7.*' --prefer-source --update-with-dependencies
 	fi
 
 	if [ "$MERMAID" != "" ]
