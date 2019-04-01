@@ -12,17 +12,17 @@ function installToMediaWikiRoot {
 
 	if [ "$PHPUNIT" != "" ]
 	then
-		composer require 'phpunit/phpunit='$PHPUNIT --prefer-source --update-with-dependencies
+		composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
 	else
-		composer require 'phpunit/phpunit=3.7.*' --prefer-source --update-with-dependencies
+		composer require 'phpunit/phpunit=4.8.*' --update-with-dependencies
 	fi
 
 	if [ "$MERMAID" != "" ]
 	then
-		composer require 'mediawiki/mermaid='$MERMAID --prefer-source --update-with-dependencies
+		composer require 'mediawiki/mermaid='$MERMAID --update-with-dependencies
 	else
 		composer init --stability dev
-		composer require "mediawiki/mermaid:dev-master" --prefer-source --dev --update-with-dependencies
+		composer require "mediawiki/mermaid:dev-master" --dev --update-with-dependencies
 
 		cd extensions
 		cd Mermaid
@@ -63,7 +63,7 @@ function updateConfiguration {
 	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
 
-	echo 'wfLoadExtension( "Mermaid" );' >> LocalSettings.php
+	echo "wfLoadExtension( 'Mermaid' );" >> LocalSettings.php
 
 	php maintenance/update.php --quick
 }
