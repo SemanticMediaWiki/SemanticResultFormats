@@ -1,6 +1,7 @@
 <?php
 
 namespace SMW\Tests\Integration\JSONScript;
+
 use SMW\ApplicationFactory;
 use SMW\DataValueFactory;
 use SMW\EventHandler;
@@ -35,57 +36,37 @@ class JsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
 	}
 
 	/**
-	 * @return string[]
-	 * @since 3.0
-	 */
-	protected function getPermittedSettings() {
-		$settings = parent::getPermittedSettings();
-
-		$settings[] = 'srfgMapProvider';
-
-		return $settings;
-	}
-
-	/**
 	 * @see JsonTestCaseScriptRunner::getDependencyDefinitions
 	 */
 	protected function getDependencyDefinitions() {
 		return [
-			'Mermaid' => function( $val, &$reason ) {
-				if ( !defined( 'SM_VERSION' ) ) {
-					$reason = "Dependency: Mermaid as requirement is not available!";
-					return false;
-				}
-				list( $compare, $requiredVersion ) = explode( ' ', $val );
-				$version = SM_VERSION;
-				if ( !version_compare( $version, $requiredVersion, $compare ) ) {
-					$reason = "Dependency: Required version of Mermaid ($requiredVersion $compare $version) is not available!";
-					return false;
-				}
-				return true;
-			}
+			'Mermaid' => [ $this, 'checkMermaidDependency' ]
 		];
 	}
 
+	public function checkMermaidDependency( $val, &$reason ) {
+
+		if ( !defined( 'MERMAID_VERSION' ) ) {
+			$reason = "Dependency: Mermaid as requirement is not available!";
+			return false;
+		}
+
+		list( $compare, $requiredVersion ) = explode( ' ', $val );
+		$version = MERMAID_VERSION;
+
+		if ( !version_compare( $version, $requiredVersion, $compare ) ) {
+			$reason = "Dependency: Required version of Mermaid ($requiredVersion $compare $version) is not available!";
+			return false;
+		}
+
+		return true;
+	}
 
 	/**
 	 * @see JsonTestCaseScriptRunner::runTestCaseFile
 	 *
 	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
 	 */
-	protected function runTestCaseFile( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
-		$this->checkEnvironmentToSkipCurrentTest( $jsonTestCaseFileHandler );
-		// Setup
-		$this->prepareTest( $jsonTestCaseFileHandler );
-		// Before test execution
-		$this->doRunBeforeTest( $jsonTestCaseFileHandler );
-		// Run test cases
-		$this->doRunParserTests( $jsonTestCaseFileHandler );
-		$this->doRunSpecialTests( $jsonTestCaseFileHandler );
-		$this->doRunRdfTests( $jsonTestCaseFileHandler );
-		$this->doRunQueryTests( $jsonTestCaseFileHandler );
-		$this->doRunParserHtmlTests( $jsonTestCaseFileHandler );
-		$this->doRunApiTests( $jsonTestCaseFileHandler );
-	}
+	protected function runTestCaseFile( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) { }
 
 }
