@@ -14,7 +14,7 @@ function installPHPUnitWithComposer {
 function installMermaidWithComposer {
 	if [ "$MERMAID" != "" ]
 	then
-		composer require mediawiki/semantic-result-formats "dev-master"
+		composer require 'mediawiki/mermaid='$MERMAID --update-with-dependencies
 	fi
 }
 
