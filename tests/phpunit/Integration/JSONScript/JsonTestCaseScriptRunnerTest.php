@@ -1,15 +1,6 @@
 <?php
-
-namespace SMW\Tests\Integration\JSONScript;
-
-use SMW\ApplicationFactory;
-use SMW\DataValueFactory;
-use SMW\EventHandler;
-use SMW\PropertySpecificationLookup;
-use SMW\SPARQLStore\TurtleTriplesBuilder;
-use SMW\Tests\JsonTestCaseFileHandler;
-use SMW\Tests\JsonTestCaseScriptRunner;
-
+namespace SRF\Tests\Integration\JSONScript;
+use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTestCaseScriptRunnerTest;
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
  *
@@ -25,14 +16,22 @@ use SMW\Tests\JsonTestCaseScriptRunner;
  *
  * @author Stephan Gambke
  */
-class JsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
-
+class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 	/**
 	 * @see \SMW\Tests\JsonTestCaseScriptRunner::getTestCaseLocation
 	 * @return string
 	 */
 	protected function getTestCaseLocation() {
 		return __DIR__ . '/TestCases';
+	}
+	/**
+	 * @return string[]
+	 * @since 3.0
+	 */
+	protected function getPermittedSettings() {
+		$settings = parent::getPermittedSettings();
+		$settings[] = 'srfgMapProvider';
+		return $settings;
 	}
 
 	/**
@@ -43,7 +42,6 @@ class JsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
 			'Mermaid' => [ $this, 'checkMermaidDependency' ]
 		];
 	}
-
 	public function checkMermaidDependency( $val, &$reason ) {
 
 		if ( !defined( 'MERMAID_VERSION' ) ) {
@@ -55,18 +53,11 @@ class JsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
 		$version = MERMAID_VERSION;
 
 		if ( !version_compare( $version, $requiredVersion, $compare ) ) {
-			$reason = "Dependency: Required version of Mermaid ($requiredVersion $compare $version) is not available!";
+			$reason = "Dependency: Required version of Mermaid($requiredVersion $compare $version) is not available!";
 			return false;
 		}
 
 		return true;
 	}
-
-	/**
-	 * @see JsonTestCaseScriptRunner::runTestCaseFile
-	 *
-	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
-	 */
-	protected function runTestCaseFile( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) { }
 
 }
