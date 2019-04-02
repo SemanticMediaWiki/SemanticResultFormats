@@ -11,6 +11,13 @@ function installPHPUnitWithComposer {
 	fi
 }
 
+function installMermaidWithComposer {
+	if [ "$MERMAID" != "" ]
+	then
+		composer require mediawiki/semantic-result-formats "dev-master"
+	fi
+}
+
 function installSMWWithComposer {
 	if [ "$SMW" != "" ]
 	then
@@ -26,7 +33,7 @@ function installToMediaWikiRoot {
 
 	installPHPUnitWithComposer
 	installSMWWithComposer
-	composer require mediawiki/semantic-result-formats "dev-master"
+	installMermaidWithComposer
 
 	cd extensions
 	cd SemanticResultFormats
