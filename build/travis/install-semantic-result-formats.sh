@@ -11,16 +11,6 @@ function installPHPUnitWithComposer {
 	fi
 }
 
-function installMermaidWithComposer {
-	if [ "$MERMAID" != "" ]
-	then
-		composer require 'mediawiki/mermaid='$MERMAID --update-with-dependencies
-	else
-	    composer init --stability dev
-        composer require "mediawiki/mermaid:dev-master" --prefer-source --dev --update-with-dependencies
-    fi
-}
-
 function installSMWWithComposer {
 	if [ "$SMW" != "" ]
 	then
@@ -36,7 +26,12 @@ function installToMediaWikiRoot {
 
 	installPHPUnitWithComposer
 	installSMWWithComposer
-	installMermaidWithComposer
+
+	if [ "$MERMAID" != "" ]
+    then
+    	composer require 'mediawiki/mermaid='$MERMAID --update-with-dependencies
+	fi
+
 	composer require mediawiki/semantic-result-formats "dev-master"
 
 	cd extensions
@@ -68,7 +63,10 @@ function updateConfiguration {
 	# SMW#1732
 	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
 
-	echo 'wfLoadExtension( "Mermaid" );' >> LocalSettings.php
+	if [ "$MERMAID" != "" ]
+    then
+	    echo 'wfLoadExtension( "Mermaid" );' >> LocalSettings.php
+    fi
 
 	echo 'wfLoadExtension( "SemanticResultFormats" );' >> LocalSettings.php
 
