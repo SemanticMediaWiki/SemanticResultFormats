@@ -15,7 +15,10 @@ function installMermaidWithComposer {
 	if [ "$MERMAID" != "" ]
 	then
 		composer require 'mediawiki/mermaid='$MERMAID --update-with-dependencies
-	fi
+	else
+	    composer init --stability dev
+        composer require "mediawiki/mermaid:dev-master" --prefer-source --dev --update-with-dependencies
+    fi
 }
 
 function installSMWWithComposer {
