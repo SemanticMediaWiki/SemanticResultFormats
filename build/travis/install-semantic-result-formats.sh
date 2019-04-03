@@ -33,7 +33,8 @@ function installToMediaWikiRoot {
 
 	installPHPUnitWithComposer
 	installSMWWithComposer
-	#installMermaidWithComposer
+	installMermaidWithComposer
+	composer require mediawiki/semantic-result-formats "dev-master"
 
 	cd extensions
 	cd SemanticResultFormats
