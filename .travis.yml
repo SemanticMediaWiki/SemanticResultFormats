@@ -3,7 +3,9 @@ language: php
 matrix:
   fast_finish: true
   include:
-    - env: DB=mysql; MW=master; SMW=~3.0@dev; MERMAID=2.1
+    - env: DB=mysql; MW=1.31.1; SMW=~3.0@dev; MERMAID=dev-master
+      php: 7.2
+    - env: DB=mysql; MW=master; SMW=~3.0@dev; MERMAID=dev-master
       php: 7.1
     - env: DB=mysql; MW=1.28.2; SMW=~3.0@dev; TYPE=coverage;
       php: 7.0
