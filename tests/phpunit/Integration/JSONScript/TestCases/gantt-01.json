@@ -1,7 +1,7 @@
 {
   "description": "Test the gantt format",
   "requires": {
-      "Mermaid": ">= 2.0"
+    "Mermaid": ">= 2.0"
   },
   "setup": [
     {
@@ -105,9 +105,8 @@
       "about": "Test gantt min config",
       "subject": "Example/Gantt Diagram min config",
       "assert-output": {
-        "to-be-valid-html": 1,
         "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :2019-02-01, 2019-02-15\\nTask04\\t :2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;default&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:75,&quot;titleTopMargin&quot;:25,&quot;barHeight&quot;:20,&quot;barGap&quot;:4&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:2019-02-01, 2019-02-15\\nTask04\\t&#160;:2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;default&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:75,&quot;titleTopMargin&quot;:25,&quot;barHeight&quot;:20,&quot;barGap&quot;:4&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
         ]
       }
     },
@@ -116,9 +115,8 @@
       "about": "Test gantt when all config params set",
       "subject": "Example/Gantt Diagram config all",
       "assert-output": {
-        "to-be-valid-html": 1,
         "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :2019-02-01, 2019-02-15\\nTask04\\t :2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:2019-02-01, 2019-02-15\\nTask04\\t&#160;:2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
         ]
       }
     },
@@ -127,9 +125,8 @@
       "about": "Test axis forma %m/%d/%Y",
       "subject": "Example/Gantt Diagram test axis format 1",
       "assert-output": {
-        "to-be-valid-html": 1,
         "to-contain": [
-          "axisFormat %m\\/%d\\/%Y"
+          "axisFormat&#160;%m\\/%d\\/%Y"
         ]
       }
     },
@@ -138,9 +135,8 @@
       "about": "Test priority mapping",
       "subject": "Example/Gantt priority mapping test",
       "assert-output": {
-        "to-be-valid-html": 1,
         "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :crit, 2019-02-01, 2019-02-15\\nTask04\\t :crit, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:crit, 2019-02-01, 2019-02-15\\nTask04\\t&#160;:crit, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
         ]
       }
     },
@@ -149,9 +145,8 @@
       "about": "Test priority mapping",
       "subject": "Example/Gantt status mapping test",
       "assert-output": {
-        "to-be-valid-html": 1,
         "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :active, 2019-02-01, 2019-02-15\\nTask04\\t :done, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :active, 2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:active, 2019-02-01, 2019-02-15\\nTask04\\t&#160;:done, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:active, 2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
         ]
       }
     }
