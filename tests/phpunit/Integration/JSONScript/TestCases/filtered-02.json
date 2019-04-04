@@ -35,7 +35,7 @@
 			"assert-output": {
 				"to-be-valid-html": 1,
 				"to-contain": [
-					"div.filtered + span.smw-highlighter[data-title=\"Warning\"][title='No map provider specified for \"map\" view.']"
+					"div.filtered + span.smw-highlighter[data-title=\"Warning\"][title='No map provider specified for \"map\" view.'], div.filtered + p span.smw-highlighter[data-title=\"Warning\"][title='No map provider specified for \"map\" view.']"
 				]
 			}
 		}
