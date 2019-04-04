@@ -219,6 +219,7 @@ class GanttPrinter extends SMWResultPrinter {
 			]
 		];
 
+
 		// Manage Output
 		if ( !empty( $this->mErrors ) ) {
 			return $queryResult->addErrors( $this->mErrors );
@@ -226,10 +227,10 @@ class GanttPrinter extends SMWResultPrinter {
 			return Html::rawElement( 'div', [
 				'id'           => $id,
 				'class'        => 'srf-gantt',
-				'data-mermaid' => json_encode( [
+				'data-mermaid' => html_entity_decode( json_encode( [
 					'content' => $this->mGantt->getGanttOutput(),
 					'config'  => $config
-				])
+				]))
 			], Html::rawElement( 'div', [ 'class' => 'mermaid-dots' ]));
 		}
 	}
