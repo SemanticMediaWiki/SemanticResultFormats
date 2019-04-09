@@ -5,7 +5,6 @@
 		]
 	},
 	"srf-desc": "Formatos de resultancies adicionales pa consultes de Semantic MediaWiki",
-	"srf-name": "Formatos de resultancia semántica",
 	"prefs-srf": "Estensión:Formatos de resultancies semántiques",
 	"srf-prefs-intro-text": "Tienes instalada la estensión Formatos de resultancia semántica. Pa llograr ayuda adicional, visita la páxina d'ayuda sobre los [https://@www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de les resultancies].",
 	"prefs-srf-eventcalendar-options": "Opciones de calendariu d'actividaes",

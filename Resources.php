@@ -235,7 +235,7 @@ return [
 		'styles' => 'dygraphs/resources/ext.srf.dygraphs.css',
 		'dependencies' => [
 			'jquery.client',
-			'jquery.async',
+			'ext.jquery.async',
 			'ext.srf.util',
 			'ext.smw.tooltip',
 			'ext.dygraphs.combined',
@@ -473,7 +473,7 @@ return [
 		'styles'  => 'jqplot/resources/ext.srf.jqlpot.chart.css',
 		'dependencies' => [
 			'ext.jquery.jqplot.core',
-			'jquery.async',
+			'ext.jquery.async',
 			'ext.srf.util',
 			'ext.srf.jqplot.themes'
 		]
@@ -866,7 +866,7 @@ return [
 	'ext.srf.timeseries.flot' => $formatModule + [
 		'scripts' => 'timeseries/resources/ext.srf.timeseries.flot.js',
 		'dependencies' => [
-			'jquery.async',
+			'ext.jquery.async',
 			'ext.jquery.flot',
 			'ext.srf.util',
 			'ext.srf.flot.core'

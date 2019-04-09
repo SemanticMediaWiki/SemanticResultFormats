@@ -12,7 +12,6 @@
 		]
 	},
 	"srf-desc": "תבניות תוצאה נוספות לשאילתות של מדיה־ויקי סמנטית",
-	"srf-name": "תבניות של תוצאות סמנטיות",
 	"prefs-srf": "תבניות תוצאה סמנטיות",
 	"srf-prefs-intro-text": "התקנת את ההרחבה תבניות תוצאה סמנטיות (Semantic Result Formats). לעזרה נוספת נא לבקר בדף העזרה [https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats].",
 	"prefs-srf-eventcalendar-options": "אפשרויות יומן אירועים",

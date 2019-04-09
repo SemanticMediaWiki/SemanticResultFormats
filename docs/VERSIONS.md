@@ -14,9 +14,9 @@ This document holds the **version information** for the Semantic Result Formats 
 	</tr>
 	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/3.0.x">3.0.x</a></th>
-		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/RELEASE-NOTES.md#srf-300">3.0.0</a></td>
+		<td><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/RELEASE-NOTES.md#srf-300">3.0.1</a></td>
 		<td>Current</td>
-		<td>2018-10-11</td>
+		<td>2019-03-27</td>
 	</tr>
 	<tr>
 		<th><a href="https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/2.5.x">2.5.x</a></th>

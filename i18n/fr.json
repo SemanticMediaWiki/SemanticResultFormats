@@ -27,7 +27,6 @@
 		]
 	},
 	"srf-desc": "Formats  additionnels d'affichage de résultat pour les requêtes de Semantic MediaWiki",
-	"srf-name": "Formats des résultats sémantiques",
 	"prefs-srf": "Formats des résultats Extension:Semantic",
 	"srf-prefs-intro-text": "Vous avez installé l'extension Formats de résultats sémantiques. Pour plus d’aide, veuillez consulter la page [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formats de résultat].",
 	"prefs-srf-eventcalendar-options": "Options du calendrier d’événements",
