@@ -25,7 +25,8 @@
 			"KATRINE1992",
 			"Amaia",
 			"AVIADOR71",
-			"Yllelder"
+			"Yllelder",
+			"Ciencia Al Poder"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionales para consultas de Semantic MediaWiki",
@@ -216,7 +217,7 @@
 	"srf-ui-datatables-label-update-success": "La actualización de la tabla se realizó correctamente",
 	"srf-ui-datatables-label-update-error": "Falló la actualización de la tabla.",
 	"srf-ui-datatables-label-placeholder-column-search": "Buscar…",
-	"srf-ui-datatables-label-content-cache": "El contenido se deriva de la antememoria local.",
+	"srf-ui-datatables-label-content-cache": "El contenido se deriva de la caché local.",
 	"srf-ui-datatables-label-content-server": "El contenido se deriva de la del servidor.",
 	"srf-ui-datatables-label-multiselect-column-header": "Columnas disponibles",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Configuración de filtros",
