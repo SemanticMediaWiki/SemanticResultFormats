@@ -50,7 +50,8 @@
 		"nicmart/tree": "^0.2.7",
 		"data-values/geo": "~4.0|~3.0|~2.0",
 		"phpoffice/phpspreadsheet": "^1.4",
-		"symfony/css-selector": "^3.3"
+		"symfony/css-selector": "^3.3",
+		"mediawiki/mermaid": "~2.1"
 	},
 	"suggest": {
 		"phpoffice/phpexcel": "Required for 'format=excel'",

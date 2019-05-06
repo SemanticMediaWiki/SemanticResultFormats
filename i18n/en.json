@@ -337,5 +337,19 @@
 	"srf-paramdesc-spreadsheet-filename": "The download filename for the generated file",
 	"srf-paramdesc-spreadsheet-filename": "The file format to be produced. Allowed values: xlsx, xls, ods, csv. Default: xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "The name of a spreadsheet file from the ''File'' namespace used for formatting the generated file",
-	"srf-paramdesc-icalendar-timezone": "A comma separated list of timezones"
+	"srf-paramdesc-icalendar-timezone": "A comma separated list of timezones",
+	"srf-paramdesc-gantt-diagramtitle": "Diagram name",
+	"srf-paramdesc-gantt-diagramtheme": "Diagram theme",
+	"srf-paramdesc-gantt-axisformat": "X-axis: Date format",
+	"srf-paramdesc-gantt-sortkey": "Key to sort sections and tasks",
+	"srf-paramdesc-gantt-titletopmargin": "Top margin of the diagram title",
+	"srf-paramdesc-gantt-barheight": "Height of task bars",
+	"srf-paramdesc-gantt-leftpadding": "Width of section title",
+	"srf-paramdesc-gantt-bargap": "Vertical distance of tasks bars from the margin",
+	"srf-error-gantt-mapping-assignment": "Wrong assignment of mapped values in '''$1'''",
+	"srf-error-gantt-mapping-keywords": "The key used in your mapping parameter is not supported",
+	"srf-error-gantt-theme" : "The '''theme''' you have choosen is not supported",
+	"srf-error-gantt-sortkey" : "The '''sortkey''' you have choosen is not supported",
+	"srf-error-gantt-mermaid-not-installed": "Mermaid Extension needs to be installed.",
+	"srf-printername-gantt": "Gantt"
 }

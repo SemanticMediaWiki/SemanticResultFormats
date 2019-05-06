@@ -1012,6 +1012,12 @@ return [
 		'dependencies' => 'ext.srf.datatables'
 	],
 
+	// Mermaid Format
+	'ext.srf.gantt' => $formatModule + [
+			'scripts' => 'Gantt/resources/ext.gantt.js',
+			'dependencies' => 'ext.mermaid'
+	]
+
 	// Boilerplate example registration
 	/*
 		// Simple implementation
