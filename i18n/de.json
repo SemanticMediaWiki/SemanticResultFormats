@@ -345,10 +345,10 @@
 	"srf-paramdesc-gantt-barheight": "Höhe der Tasks",
 	"srf-paramdesc-gantt-leftpadding": "Breite des Titels der Sections",
 	"srf-paramdesc-gantt-bargap": "Vertikaler Abstand der Tasks",
-	"srf-error-gantt-theme" : "Diese '''theme''' wird nicht unterstützt",
-	"srf-error-gantt-sortkey" : "Dieser '''sortkey''' wird nicht unterstützt",
 	"srf-error-gantt-mapping-assignment": "Falsche Zuweisung der Werte in '''$1'''",
 	"srf-error-gantt-mapping-keywords": "Der verwendete Schlüssel in deinem Mapping wird nicht unterstüzt",
+	"srf-error-gantt-theme": "Diese '''theme''' wird nicht unterstützt",
+	"srf-error-gantt-sortkey": "Dieser '''sortkey''' wird nicht unterstützt",
 	"srf-error-gantt-mermaid-not-installed": "Die Mermaid Extension muss installiert sein.",
 	"srf-printername-gantt": "Gantt"
 }

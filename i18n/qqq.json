@@ -362,11 +362,10 @@
 	"srf-paramdesc-gantt-barheight": "{{doc-paramdesc|barheight}}",
 	"srf-paramdesc-gantt-leftpadding": "{{doc-paramdesc|leftpadding}}",
 	"srf-paramdesc-gantt-bargap": "{{doc-paramdesc|bargap}}",
-	"srf-error-gantt-theme" : "This is an error message.",
-	"srf-error-gantt-sortkey" : "This is an error message.",
 	"srf-error-gantt-mapping-assignment": "This is an error message.",
 	"srf-error-gantt-mapping-keywords": "This is an error message.",
+	"srf-error-gantt-theme": "This is an error message.",
+	"srf-error-gantt-sortkey": "This is an error message.",
 	"srf-error-gantt-mermaid-not-installed": "This is an error message.",
 	"srf-printername-gantt": "{{doc-smwformat|gantt}}"
-
 }
