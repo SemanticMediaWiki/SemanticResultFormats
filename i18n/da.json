@@ -93,5 +93,7 @@
 	"srf-ui-mediaplayer-label-unmute": "Slå lyd til",
 	"srf-ui-mediaplayer-label-repeat": "Gentag",
 	"srf-ui-mediaplayer-label-full-screen": "Fuldskærm",
-	"srf-spreadsheet-link": "Regneark"
+	"srf-spreadsheet-link": "Regneark",
+	"srf-paramdesc-gantt-diagramtitle": "Diagramnavn",
+	"srf-paramdesc-gantt-diagramtheme": "Diagramtema"
 }

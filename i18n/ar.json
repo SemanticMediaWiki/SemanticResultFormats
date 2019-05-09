@@ -329,5 +329,19 @@
 	"srf-spreadsheet-link": "جدول ممتد",
 	"srf-paramdesc-spreadsheet-filename": "تنسيق الملف المراد إنتاجه، القيم المسموح بها: xlsx وxls وods وcsv، الافتراضي: xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "اسم ملف جدول ممتد من نطاق ''ملف'' المستخدمة لتنسيق الملف المنشأ",
-	"srf-paramdesc-icalendar-timezone": "قائمة مفصولة بفواصل بالمناطق الزمنية"
+	"srf-paramdesc-icalendar-timezone": "قائمة مفصولة بفواصل بالمناطق الزمنية",
+	"srf-paramdesc-gantt-diagramtitle": "اسم المخطط",
+	"srf-paramdesc-gantt-diagramtheme": "موضوع الرسم البياني",
+	"srf-paramdesc-gantt-axisformat": "المحور السيني: صيغة التاريخ",
+	"srf-paramdesc-gantt-sortkey": "مفتاح لفرز الأقسام والمهام",
+	"srf-paramdesc-gantt-titletopmargin": "الهامش العلوي من عنوان المخطط",
+	"srf-paramdesc-gantt-barheight": "ارتفاع أشرطة المهام",
+	"srf-paramdesc-gantt-leftpadding": "عرض عنوان القسم",
+	"srf-paramdesc-gantt-bargap": "المسافة العمودية لشريط المهام من الهامش",
+	"srf-error-gantt-mapping-assignment": "تعيين خاطئ للقيم المعينة في '''$1'''",
+	"srf-error-gantt-mapping-keywords": "المفتاح المستخدم في وسيط التعيين غير معتمد",
+	"srf-error-gantt-theme": "'''السمة''' التي اخترتها غير مدعومة",
+	"srf-error-gantt-sortkey": "'''مفتاح الفرز''' الذي اخترته غير مدعوم",
+	"srf-error-gantt-mermaid-not-installed": "امتداد Mermaid يحتاج إلى تثبيت.",
+	"srf-printername-gantt": "جانت"
 }

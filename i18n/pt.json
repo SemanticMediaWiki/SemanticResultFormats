@@ -332,5 +332,19 @@
 	"srf-spreadsheet-link": "Folha de cálculo",
 	"srf-paramdesc-spreadsheet-filename": "O formato do ficheiro a ser produzido. Valores permitidos: xlsx, xls, ods, csv. Por omissão: xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "O nome de ficheiro de uma folha de cálculo no espaço nominal/domínio ''Ficheiro'', usado para formatar o ficheiro gerado",
-	"srf-paramdesc-icalendar-timezone": "Uma lista de fusos horários, separados por vírgulas"
+	"srf-paramdesc-icalendar-timezone": "Uma lista de fusos horários, separados por vírgulas",
+	"srf-paramdesc-gantt-diagramtitle": "Nome do diagrama",
+	"srf-paramdesc-gantt-diagramtheme": "Tema do diagrama",
+	"srf-paramdesc-gantt-axisformat": "Eixo dos x: Formato de data",
+	"srf-paramdesc-gantt-sortkey": "Chave para ordenar secções e tarefas",
+	"srf-paramdesc-gantt-titletopmargin": "Margem superior do título do diagrama",
+	"srf-paramdesc-gantt-barheight": "Altura das barras de tarefas",
+	"srf-paramdesc-gantt-leftpadding": "Largura do título da secção",
+	"srf-paramdesc-gantt-bargap": "Distância vertical das barras de tarefas para a margem",
+	"srf-error-gantt-mapping-assignment": "Atribuição errada de valores mapeados em '''$1'''",
+	"srf-error-gantt-mapping-keywords": "A chave usada no seu parâmetro de mapeamento não é suportada",
+	"srf-error-gantt-theme": "O '''tema''' que escolheu não é suportado",
+	"srf-error-gantt-sortkey": "A '''chave de ordenação''' que escolheu não é suportada",
+	"srf-error-gantt-mermaid-not-installed": "A extensão Mermaid precisa de ser instalada.",
+	"srf-printername-gantt": "Gantt"
 }

@@ -140,5 +140,9 @@
 	"srf-ui-mediaplayer-label-shuffle": "Mescola",
 	"srf-spreadsheet-link": "Foglio di calcolo",
 	"srf-paramdesc-spreadsheet-filename": "Il formato del file da produrre. Valori ammessi: xlsx, xls, ods, csv. Predefinito: xlsx",
-	"srf-paramdesc-icalendar-timezone": "Un elenco di fusi orari separati da virgole"
+	"srf-paramdesc-icalendar-timezone": "Un elenco di fusi orari separati da virgole",
+	"srf-paramdesc-gantt-diagramtitle": "Nome del diagramma",
+	"srf-paramdesc-gantt-diagramtheme": "Tema del diagramma",
+	"srf-paramdesc-gantt-axisformat": "Asse-X: Formato data",
+	"srf-printername-gantt": "Gantt"
 }

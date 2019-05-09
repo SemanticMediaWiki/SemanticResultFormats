@@ -347,5 +347,19 @@
 	"srf-spreadsheet-link": "Feuille de calcul",
 	"srf-paramdesc-spreadsheet-filename": "Le format du fichier à produire. Valeurs autorisées : xlsx, xls, ods, csv. Par défaut : xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "Le nom d’un fichier feuille de calcul de l’espace de noms « Fichier » utilisé pour mettre en forme le fichier généré",
-	"srf-paramdesc-icalendar-timezone": "Une liste de fuseaux horaires séparés par des virgules"
+	"srf-paramdesc-icalendar-timezone": "Une liste de fuseaux horaires séparés par des virgules",
+	"srf-paramdesc-gantt-diagramtitle": "Nom du diagramme",
+	"srf-paramdesc-gantt-diagramtheme": "Thème du diagramme",
+	"srf-paramdesc-gantt-axisformat": "Axe X : Format de la date",
+	"srf-paramdesc-gantt-sortkey": "Clé pour trier les sections et les tâches",
+	"srf-paramdesc-gantt-titletopmargin": "Marge en haut du titre du diagramme",
+	"srf-paramdesc-gantt-barheight": "Hauteur des barres de tâche",
+	"srf-paramdesc-gantt-leftpadding": "Largeur du titre de la section",
+	"srf-paramdesc-gantt-bargap": "Distance verticale des barres de tâche depuis la marge",
+	"srf-error-gantt-mapping-assignment": "Mauvaise affectation des valeurs associées dans '''$1'''",
+	"srf-error-gantt-mapping-keywords": "La clé utilisée dans votre paramètre de correspondance n’est pas supportée",
+	"srf-error-gantt-theme": "Le '''thème''' que vous avez choisi n’est pas supporté",
+	"srf-error-gantt-sortkey": "La '''clé de tri''' que vous avez choisie n’est pas supportée",
+	"srf-error-gantt-mermaid-not-installed": "L’extension Mermaid doit être installée.",
+	"srf-printername-gantt": "Gantt"
 }

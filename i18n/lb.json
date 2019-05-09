@@ -130,5 +130,6 @@
 	"srf-paramdesc-unit": "Eenheet",
 	"srf-ui-mediaplayer-label-previous": "Vireg",
 	"srf-ui-mediaplayer-label-pause": "Paus",
-	"srf-ui-mediaplayer-label-stop": "Stopp"
+	"srf-ui-mediaplayer-label-stop": "Stopp",
+	"srf-printername-gantt": "Gantt"
 }
