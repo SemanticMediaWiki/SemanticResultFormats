@@ -330,5 +330,10 @@
 	"srf-spreadsheet-link": "試算表",
 	"srf-paramdesc-spreadsheet-filename": "生成的檔案格式。允許值為：xlsx、xls、ods、csv。預設值為：xlsx",
 	"srf-paramdesc-spreadsheet-templatefile": "來自「File」命名空間的試算表檔案名稱，用於格式所產生的檔案",
-	"srf-paramdesc-icalendar-timezone": "逗號分隔的時區清單"
+	"srf-paramdesc-icalendar-timezone": "逗號分隔的時區清單",
+	"srf-paramdesc-gantt-diagramtitle": "圖表名稱",
+	"srf-paramdesc-gantt-diagramtheme": "圖表主題",
+	"srf-paramdesc-gantt-axisformat": "X 軸：日期格式",
+	"srf-error-gantt-mermaid-not-installed": "需要安裝 Mermaid 擴充。",
+	"srf-printername-gantt": "甘特圖"
 }

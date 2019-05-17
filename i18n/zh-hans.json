@@ -10,7 +10,8 @@
 			"Hudafu",
 			"Fengchao",
 			"Yfdyh000",
-			"Nemo bis"
+			"Nemo bis",
+			"科劳"
 		]
 	},
 	"srf-desc": "用于Semantic MediaWiki的附加结果格式",
@@ -329,5 +330,11 @@
 	"srf-ui-mediaplayer-label-repeat-off": "关闭重复",
 	"srf-ui-mediaplayer-label-full-screen": "全屏",
 	"srf-ui-mediaplayer-label-restore-screen": "还原屏幕",
-	"srf-paramdesc-icalendar-timezone": "时区的逗号分隔列表"
+	"srf-paramdesc-icalendar-timezone": "时区的逗号分隔列表",
+	"srf-paramdesc-gantt-diagramtitle": "数据图名称",
+	"srf-paramdesc-gantt-diagramtheme": "数据图主题",
+	"srf-paramdesc-gantt-axisformat": "横轴：日期格式",
+	"srf-paramdesc-gantt-titletopmargin": "数据图标题的内上边距",
+	"srf-paramdesc-gantt-barheight": "任务栏高度",
+	"srf-printername-gantt": "甘特图"
 }
