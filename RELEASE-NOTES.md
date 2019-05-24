@@ -1,5 +1,9 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 3.0.2
+
+* [#400](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/391) Fix Timeseries format: `uncaught exception: Invalid dimensions for plot` (by Christian Zagrodnick)
+
 ## SRF 3.0.1
 
 Released on March 27, 2019.
