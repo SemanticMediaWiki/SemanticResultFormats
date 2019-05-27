@@ -247,5 +247,6 @@
 	"srf-paramdesc-gantt-diagramtitle": "다이어그램 이름",
 	"srf-paramdesc-gantt-diagramtheme": "다이어그램 테마",
 	"srf-paramdesc-gantt-axisformat": "X축: 날짜 형식",
+	"srf-error-gantt-mermaid-not-installed": "Mermaid 확장 기능의 설치가 필요합니다.",
 	"srf-printername-gantt": "간트"
 }
