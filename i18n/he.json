@@ -8,11 +8,12 @@
 			"Inkbug",
 			"Guycn2",
 			"Nemo bis",
-			"המקיסט"
+			"המקיסט",
+			"Steeve815"
 		]
 	},
 	"srf-desc": "תבניות תוצאה נוספות לשאילתות של מדיה־ויקי סמנטית",
-	"prefs-srf": "תבניות תוצאה סמנטיות",
+	"prefs-srf": "הרחבה:תבניות תוצאה סמנטיות",
 	"srf-prefs-intro-text": "התקנת את ההרחבה תבניות תוצאה סמנטיות (Semantic Result Formats). לעזרה נוספת נא לבקר בדף העזרה [https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats].",
 	"prefs-srf-eventcalendar-options": "אפשרויות יומן אירועים",
 	"srf-prefs-eventcalendar-options-update-default": "הפעלת [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates עדכונים אוטומטיים] של אירועים ביומן בזמן רענון דף",

@@ -13,13 +13,14 @@
 			"Skalman",
 			"Nemo bis",
 			"Josve05a",
-			"Umeaboy"
+			"Umeaboy",
+			"Mjälten"
 		]
 	},
 	"srf-desc": "Extra resultatformat för Semantic MediaWiki-frågor",
 	"srf-prefs-datatables-options-cache-default": "Aktivera [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage lokal lagring] för att förbättra svarstiden",
 	"srf-module-loading": "Laddar...",
-	"srf-paramdesc-layout": "Tillgänglig layout",
+	"srf-paramdesc-layout": "Tillgänglig utformningar",
 	"srf-paramdesc-height": "Höjd",
 	"srf-paramdesc-width": "Bredd",
 	"srf-paramdesc-class": "Ange ytterligare en CSS-klass som ska gälla för formatet",
@@ -129,7 +130,7 @@
 	"srf_paramdesc_captionproperty": "Namnet på den semantiska egenskap (som är närvarande på de efterfrågade sidorna) som ska användas som figurtext",
 	"srf_paramdesc_imageproperty": "Namnet på en semantisk egenskap på den efterfrågade sidan som pekar på bilder som ska användas. När den här parametern är angiven så kommer de efterfrågade sidorna själv inte att visas som bilder",
 	"srf-paramdesc-redirects": "Namnet på den semantiska egenskap som är närvarande på de efterfrågade sidorna som innehåller förflyttningsmålet",
-	"srf-paramdesc-navigation": "Specificera navigation för layout",
+	"srf-paramdesc-navigation": "Specificera navigation för utformning",
 	"srf-paramdesc-overlay": "Möjliggör bilder ovanpå",
 	"srf-gallery-navigation-previous": "Föregående",
 	"srf-gallery-navigation-next": "Nästa",
