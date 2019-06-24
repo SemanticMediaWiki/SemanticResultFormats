@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Bjankuloski06",
-			"Nemo bis"
+			"Nemo bis",
+			"Vlad5250"
 		]
 	},
 	"srf-desc": "Дополнителни формати на исходот за барања од Семантички МедијаВики",
@@ -166,9 +167,9 @@
 	"srf_paramdesc_hashname": "Ако е зададено, а на располагање е додатокот зе тарабни табели (HashTables), ова ќе создаде тараба со наведеното име (тогаш нема да има видлив извод)",
 	"srf-printername-graph": "Графикон",
 	"srf-paramdesc-graph-relation": "Дали предметите или именските својства се матични или зависни?",
-	"srf-paramdesc-graph-nameprop": "Овозможува задавање на својство што ќе се користи како предмет наместо фактичкиот предмет",
-	"srf-paramdesc-graph-nodeshape": "Обликот на секој јазол во графиконот",
-	"srf-paramdesc-graphname": "Наслов",
+	"srf-paramdesc-graph-nameprop": "Го задава својството што ќе се користи како предмет наместо фактичкиот предмет, т.е. име на страницата",
+	"srf-paramdesc-graph-nodeshape": "Го задава обликот на секој јазол во графиконот",
+	"srf-paramdesc-graphname": "Го задава насловот на графиконот",
 	"srf-paramdesc-graphsize": "Големина на графиконот (во пиксели)",
 	"srf-paramdesc-graphlegend": "Дали да се прикажува легенда за графиконот",
 	"srf-paramdesc-graphlabel": "Натпис на графиконот",
