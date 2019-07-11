@@ -301,6 +301,8 @@
 	"srf-ui-eventcalendar-label-listweek": "Semana (lista)",
 	"srf-ui-eventcalendar-label-listday": "Dia (lista)",
 	"srf-ui-eventcalendar-label-allday": "O dia todo",
+	"srf-ui-eventcalendar-format-title-week": "MMM D, AAAA",
+	"srf-ui-eventcalendar-format-title-day": "MMMM D, AAAA",
 	"srf-ui-eventcalendar-label-update-success": "A atualização do calendário de eventos foi executada com êxito.",
 	"srf-ui-eventcalendar-label-update-error": "A atualização do calendário de eventos falhou.",
 	"srf-ui-eventcalendar-click-popup": "Deseja criar um evento?",
