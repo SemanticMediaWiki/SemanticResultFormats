@@ -83,7 +83,7 @@ class ResultItem {
 					$sorted[] = $dataItem->getSortKey();
 				} elseif ( $dataItem instanceof SMWDIWikiPage ) {
 					$values[] = $dataValue->getShortWikiText();
-					$sorted[] = $dataValue->getSortKey();
+					$sorted[] = $dataValue->getDataItem()->getSortKey();
 				} else {
 					$values[] = $dataValue->getShortWikiText();
 					$sorted[] = $dataValue->getShortWikiText();
