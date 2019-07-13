@@ -75,7 +75,7 @@ class CalendarView extends View {
 				// found specified column for title
 				if ( $datavalue !== false ) {
 					if ( $datavalue instanceof \SMWWikiPageValue ) {
-						$data['url'] = $datavalue->getTitle()->getLocalURL();
+						$data['url'] = $datavalue->getDataItem()->getTitle()->getLocalURL();
 					}
 					$data['title'] = $datavalue->getShortHTMLText();
 				}
