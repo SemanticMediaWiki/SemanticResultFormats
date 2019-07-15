@@ -351,5 +351,6 @@
 	"srf-error-gantt-theme" : "The '''theme''' you have choosen is not supported",
 	"srf-error-gantt-sortkey" : "The '''sortkey''' you have choosen is not supported",
 	"srf-error-gantt-mermaid-not-installed": "Mermaid Extension needs to be installed.",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Gantt",
+	"srf-paramdesc-nodelabel": "Use a graph node label. Allowed values: displaytitle."
 }
