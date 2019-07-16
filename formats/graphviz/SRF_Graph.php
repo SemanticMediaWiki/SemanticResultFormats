@@ -15,6 +15,12 @@
  */
 class SRFGraph extends SMWResultPrinter {
 
+	const NODELABEL_DISPLAYTITLE = 'displaytitle';
+
+	public static $NODE_LABELS = [
+		self::NODELABEL_DISPLAYTITLE,
+	];
+
 	public static $NODE_SHAPES = [
 		'box',
 		'box3d',
@@ -219,7 +225,7 @@ class SRFGraph extends SMWResultPrinter {
 
 		$text = $this->getWordWrappedText( $text, $this->m_wordWrapLimit );
 
-		if ( $this->m_nodeLabel === 'displaytitle' && $object instanceof SMWWikiPageValue ) {
+		if ( $this->m_nodeLabel === self::NODELABEL_DISPLAYTITLE && $object instanceof SMWWikiPageValue ) {
 			$objectDisplayTitle = $object->getDisplayTitle();
 			if ( !empty( $objectDisplayTitle )) {
 				$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle, $this->m_wordWrapLimit );
@@ -228,9 +234,9 @@ class SRFGraph extends SMWResultPrinter {
 
 		if ( $this->m_graphLink ) {
 			if( $nodeLabel === '' ) {
-                $graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
+				$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
 			} else {
-                $graphInput .= " \"$text\" [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]; ";
+				$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]; ";
 			}
 		}
 
@@ -395,9 +401,9 @@ class SRFGraph extends SMWResultPrinter {
 		];
 
 		$params['nodelabel'] = [
-			'type' => 'string',
-			'default' => '',
+			'default' => [],
 			'message' => 'srf-paramdesc-nodelabel',
+			'values' => self::$NODE_LABELS,
 		];
 
 		return $params;
