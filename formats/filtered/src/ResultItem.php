@@ -86,7 +86,7 @@ class ResultItem {
 					$sorted[] = $dataItem->getSortKey();
 				} else {
 					$values[] = $dataValue->getShortWikiText();
-					$sorted[] = $dataItem->getSortKey();
+					$sorted[] = $dataValue->getShortWikiText();
 				}
 
 				if ( $dataValue instanceof SMWErrorValue ) {
