@@ -119,11 +119,20 @@ class TagCloud extends ResultPrinter {
 						continue;
 					}
 
+					$value = null;
+
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
-					if ( $dataValue->getTypeID() === '_wpg' && $dataValue->getTitle() instanceof Title ) {
-						$value = $dataValue->getTitle()->getPrefixedText();
-						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
-					} else {
+					if ( $dataValue->getTypeID() === '_wpg' ) {
+
+						$title = $dataValue->getDataItem()->getTitle();
+
+						if ( $title instanceof Title ) {
+							$value = $title->getPrefixedText();
+							$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
+						}
+					}
+
+					if ( $value === null ) {
 						$html = $dataValue->getShortText( $outputMode, $this->getLinker( false ) );
 						$value = $html;
 					}

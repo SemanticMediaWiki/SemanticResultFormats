@@ -139,7 +139,6 @@ class MediaPlayer extends ResultPrinter {
 					// Get other data value item details
 					$value = $this->getDataValueItem(
 						$propertyLabel,
-						$dataValue->getDataItem()->getDIType(),
 						$dataValue,
 						$mediaType,
 						$mimeType,
@@ -208,29 +207,37 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @return mixed
 	 */
-	private function getDataValueItem( &$label, $type, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
+	private function getDataValueItem( &$label, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
 
-		if ( $type == SMWDataItem::TYPE_WIKIPAGE && $dataValue->getTitle()->getNamespace() === NS_FILE ) {
+		$dataItem = $dataValue->getDataItem();
+		$type = $dataItem->getDIType();
 
-			if ( $label === 'source' && $mimeType === null ) {
+		if ( $type === SMWDataItem::TYPE_WIKIPAGE ) {
 
-				// Identify the media source
-				// and get media information
-				list( $mediaType, $mimeType, $source ) = $this->getMediaSource( $dataValue->getTitle() );
-				$label = $mimeType;
-				return $source;
-			} elseif ( $label === 'poster' ) {
-				$mediaType = 'video';
+			$title = $dataItem->getTitle();
 
-				// Get the cover art image url
-				$source = wfFindFile( $dataValue->getTitle() );
-				return $source->getUrl();
+			if ( $title instanceof Title && $title->getNamespace() === NS_FILE ) {
+
+				if ( $label === 'source' && $mimeType === null ) {
+
+					// Identify the media source
+					// and get media information
+					list( $mediaType, $mimeType, $source ) = $this->getMediaSource( $title );
+					$label = $mimeType;
+					return $source;
+				} elseif ( $label === 'poster' ) {
+					$mediaType = 'video';
+
+					// Get the cover art image url
+					$source = wfFindFile( $title );
+					return $source->getUrl();
+				}
 			}
 		}
 
 		if ( $type == SMWDataItem::TYPE_URI ) {
 
-			$source = $dataValue->getDataItem()->getURI();
+			$source = $dataItem->getURI();
 			$mimeType = '';
 
 			// Get file extension from the URI

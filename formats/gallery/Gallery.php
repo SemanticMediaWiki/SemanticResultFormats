@@ -216,7 +216,7 @@ class Gallery extends ResultPrinter {
 				if ( $resultArray->getPrintRequest()->getLabel() == $imageProperty ) {
 					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // Property values
 						if ( $dataValue->getTypeID() == '_wpg' ) {
-							$images[] = $dataValue->getTitle();
+							$images[] = $dataValue->getDataItem()->getTitle();
 						}
 					}
 				} elseif ( $label == $captionProperty ) {
@@ -269,10 +269,13 @@ class Gallery extends ResultPrinter {
 			 * @var \SMWResultArray $firstField
 			 */
 			$firstField = $row[0];
+
+			/** @var \SMWDataValue $nextObject */
 			$nextObject = $firstField->getNextDataValue();
 
 			if ( $nextObject !== false ) {
-				$imgTitle = method_exists( $nextObject, 'getTitle' ) ? $nextObject->getTitle() : null;
+				$dataItem = $nextObject->getDataItem();
+				$imgTitle = method_exists( $dataItem, 'getTitle' ) ? $dataItem->getTitle() : null;
 
 				// Ensure the title belongs to the image namespace
 				if ( $imgTitle instanceof Title && $imgTitle->getNamespace() === NS_FILE ) {

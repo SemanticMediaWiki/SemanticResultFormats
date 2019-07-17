@@ -2,6 +2,7 @@
 
 namespace SRF\iCalendar;
 
+use SMW\Query\Result\ResultArray;
 use SMWDataValueFactory as DataValueFactory;
 use SMWExportPrinter as FileExportPrinter;
 use SMWQuery as Query;
@@ -219,15 +220,20 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 
 	/**
 	 * Returns the iCal for a single item.
+	 *
+	 * @param ResultArray[] $row
+	 *
+	 * @return string
+	 * @throws \MWException
 	 */
 	private function getIcalForItem( array $row ) {
 		$result = '';
 
-		$subject = $row[0]->getResultSubject(); // get the object
-		$subject = DataValueFactory::getInstance()->newDataValueByItem( $subject, null );
+		$subjectDI = $row[0]->getResultSubject(); // get the object
+		$subjectDV = DataValueFactory::getInstance()->newDataValueByItem( $subjectDI, null );
 
 		$params = [
-			'summary' => $subject->getShortWikiText()
+			'summary' => $subjectDV->getShortWikiText()
 		];
 
 		$from = null;
@@ -274,7 +280,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 
 		$this->icalTimezoneFormatter->calcTransitions( $from, $to );
 
-		$title = $subject->getTitle();
+		$title = $subjectDI->getTitle();
 		$timestamp = WikiPage::factory( $title )->getTimestamp();
 		$url = $title->getFullURL();
 

@@ -117,6 +117,12 @@ class vCardFileExportPrinter extends FileExportPrinter {
 		return $link->getText( $outputMode, $this->mLinker );
 	}
 
+	/**
+	 * @param QueryResult $res
+	 *
+	 * @return string
+	 * @throws \MWException
+	 */
 	private function getVCardContent( $res ) {
 
 		$result = '';

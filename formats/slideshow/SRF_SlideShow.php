@@ -34,11 +34,11 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		// build an array of article IDs contained in the result set
 		$objects = [];
-		foreach ( $res->getResults() as $key => $object ) {
+		foreach ( $res->getResults() as $key => $dataItem ) {
 
-			$objects[] = [ $object->getTitle()->getArticleId() ];
+			$objects[] = [ $dataItem->getTitle()->getArticleId() ];
 
-			$html .= $key . ': ' . $object->getSerialization() . "<br>\n";
+			$html .= $key . ': ' . $dataItem->getSerialization() . "<br>\n";
 		}
 
 		// build an array of data about the printrequests
