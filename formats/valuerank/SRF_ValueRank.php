@@ -92,7 +92,7 @@ class SRFValueRank extends SMWResultPrinter {
 
 					// Get the HTML for the tag content. Pages are linked, other stuff is just plaintext.
 					if ( $dataValue->getTypeID() == '_wpg' ) {
-						$value = $dataValue->getTitle()->getText();
+						$value = $dataValue->getDataItem()->getTitle()->getText();
 						$html = $dataValue->getLongText( $outputMode, $this->getLinker( $isSubject ) );
 					} else {
 						$html = $dataValue->getShortText( $outputMode, $this->getLinker( false ) );
