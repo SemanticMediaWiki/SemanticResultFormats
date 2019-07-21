@@ -34,7 +34,15 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function moduleDataProvider() {
-		$resourceLoader = new ResourceLoader();
+		
+		// #501
+		// MW 1.33+
+		if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getResourceLoader' ) ) {
+			$resourceLoader = \MediaWiki\MediaWikiServices::getInstance()->getResourceLoader();
+		} else {
+			$resourceLoader = new ResourceLoader();
+		}
+
 		$context = ResourceLoaderContext::newDummyContext();
 		$modules = $this->getSRFResourceModules();
 
