@@ -15,6 +15,12 @@
  */
 class SRFGraph extends SMWResultPrinter {
 
+	const NODELABEL_DISPLAYTITLE = 'displaytitle';
+
+	public static $NODE_LABELS = [
+		self::NODELABEL_DISPLAYTITLE,
+	];
+
 	public static $NODE_SHAPES = [
 		'box',
 		'box3d',
@@ -79,6 +85,7 @@ class SRFGraph extends SMWResultPrinter {
 	protected $m_nodeShape;
 	protected $m_parentRelation;
 	protected $m_wordWrapLimit;
+	protected $m_nodeLabel;
 
 	/**
 	 * (non-PHPdoc)
@@ -104,6 +111,8 @@ class SRFGraph extends SMWResultPrinter {
 
 		$this->m_nodeShape = $params['nodeshape'];
 		$this->m_wordWrapLimit = $params['wordwraplimit'];
+
+		$this->m_nodeLabel = $params['nodelabel'];
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -207,6 +216,7 @@ class SRFGraph extends SMWResultPrinter {
 	 */
 	protected function getGVForDataValue( SMWDataValue $object, $outputmode, $isName, $name, $labelName ) {
 		$graphInput = '';
+		$nodeLabel = '';
 		$text = $object->getShortText( $outputmode );
 
 		if ( $this->m_graphLink ) {
@@ -215,8 +225,19 @@ class SRFGraph extends SMWResultPrinter {
 
 		$text = $this->getWordWrappedText( $text, $this->m_wordWrapLimit );
 
+		if ( $this->m_nodeLabel === self::NODELABEL_DISPLAYTITLE && $object instanceof SMWWikiPageValue ) {
+			$objectDisplayTitle = $object->getDisplayTitle();
+			if ( !empty( $objectDisplayTitle )) {
+				$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle, $this->m_wordWrapLimit );
+			}
+		}
+
 		if ( $this->m_graphLink ) {
-			$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
+			if( $nodeLabel === '' ) {
+				$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
+			} else {
+				$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]; ";
+			}
 		}
 
 		if ( !$isName ) {
@@ -377,6 +398,12 @@ class SRFGraph extends SMWResultPrinter {
 			'default' => 25,
 			'message' => 'srf-paramdesc-graph-wwl',
 			'manipulatedefault' => false,
+		];
+
+		$params['nodelabel'] = [
+			'default' => [],
+			'message' => 'srf-paramdesc-nodelabel',
+			'values' => self::$NODE_LABELS,
 		];
 
 		return $params;
