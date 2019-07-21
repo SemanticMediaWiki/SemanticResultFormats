@@ -74,7 +74,7 @@ class OutlineTree {
 	 * @param $property
 	 */
 	public function addProperty( $property ) {
-		if ( count( $this->items ) > 0 ) {
+		if ( $this->items !== null && count( $this->items ) > 0 ) {
 			foreach ( $this->items as $item ) {
 				$cur_vals = $item->getFieldValues( $property );
 				$this->categorizeItem( $cur_vals, $item );
