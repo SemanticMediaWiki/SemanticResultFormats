@@ -347,5 +347,6 @@
 	"srf-error-gantt-theme": "O '''tema''' que escolheu não é suportado",
 	"srf-error-gantt-sortkey": "A '''chave de ordenação''' que escolheu não é suportada",
 	"srf-error-gantt-mermaid-not-installed": "A extensão Mermaid precisa de ser instalada.",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Gantt",
+	"srf-paramdesc-nodelabel": "Usar um rótulo de vértice de grafo. Valores permitidos: displaytitle."
 }

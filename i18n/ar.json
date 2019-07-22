@@ -343,5 +343,6 @@
 	"srf-error-gantt-theme": "'''السمة''' التي اخترتها غير مدعومة",
 	"srf-error-gantt-sortkey": "'''مفتاح الفرز''' الذي اخترته غير مدعوم",
 	"srf-error-gantt-mermaid-not-installed": "امتداد Mermaid يحتاج إلى تثبيت.",
-	"srf-printername-gantt": "جانت"
+	"srf-printername-gantt": "جانت",
+	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض."
 }

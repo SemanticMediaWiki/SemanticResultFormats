@@ -361,5 +361,6 @@
 	"srf-error-gantt-theme": "Le '''thème''' que vous avez choisi n’est pas supporté",
 	"srf-error-gantt-sortkey": "La '''clé de tri''' que vous avez choisie n’est pas supportée",
 	"srf-error-gantt-mermaid-not-installed": "L’extension Mermaid doit être installée.",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Gantt",
+	"srf-paramdesc-nodelabel": "Utiliser un libellé de nœud de graphe. Valeurs autorisées : displaytitle."
 }
