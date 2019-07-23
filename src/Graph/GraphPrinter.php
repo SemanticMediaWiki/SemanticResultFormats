@@ -1,5 +1,12 @@
 <?php
 
+namespace SRF\Graph;
+
+use SMWResultPrinter;
+use SMWQueryResult;
+use SMWDataValue;
+use SMWWikiPageValue;
+
 /**
  * SMW result printer for graphs using graphViz.
  * In order to use this printer you need to have both
@@ -13,7 +20,7 @@
  * @author Frank Dengler
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class SRFGraph extends SMWResultPrinter {
+class GraphPrinter extends SMWResultPrinter {
 
 	const NODELABEL_DISPLAYTITLE = 'displaytitle';
 
