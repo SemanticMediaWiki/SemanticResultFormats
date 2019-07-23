@@ -53,7 +53,8 @@ $GLOBALS['srfgFormats'] = [
 	'media',
 	'datatables',
 	'spreadsheet',
-	'gantt'
+	'gantt',
+	'graph'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',
