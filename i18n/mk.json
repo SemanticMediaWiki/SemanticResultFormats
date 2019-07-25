@@ -296,5 +296,7 @@
 	"srf-ui-mediaplayer-label-full-screen": "На цел екран",
 	"srf-ui-mediaplayer-label-restore-screen": "Поврати екран",
 	"srf-spreadsheet-link": "Табела",
-	"srf-paramdesc-icalendar-timezone": "Список на часовни појаси одделени со запирки"
+	"srf-paramdesc-icalendar-timezone": "Список на часовни појаси одделени со запирки",
+	"srf-paramdesc-gantt-diagramtitle": "Име на дијаграмот",
+	"srf-paramdesc-gantt-diagramtheme": "Тема на дијаграмот"
 }
