@@ -2,10 +2,11 @@
 
 namespace SRF\Graph;
 
-use SMWResultPrinter;
+use SMW\ResultPrinter;
 use SMWQueryResult;
-use SMWDataValue;
 use SMWWikiPageValue;
+use GraphViz;
+use Html;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -19,11 +20,11 @@ use SMWWikiPageValue;
  * @licence GNU GPL v2+
  * @author Frank Dengler
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author Sebastian Schmid
  */
-class GraphPrinter extends SMWResultPrinter {
+class GraphPrinter extends ResultPrinter {
 
 	const NODELABEL_DISPLAYTITLE = 'displaytitle';
-
 	public static $NODE_LABELS = [
 		self::NODELABEL_DISPLAYTITLE,
 	];
@@ -64,16 +65,14 @@ class GraphPrinter extends SMWResultPrinter {
 		'triangle',
 		'tripleoctagon',
 	];
+	protected $nodeShape;
+	protected $nodes = [];
+	protected $nodeLabel;
+	protected $parentRelation;
 
-	protected $m_graphName;
-	protected $m_graphLabel;
-	protected $m_graphColor;
-	protected $m_graphLegend;
-	protected $m_graphLink;
-	protected $m_rankdir;
-	protected $m_graphSize;
-	protected $m_labelArray = [];
-	protected $m_graphColors = [
+	protected $graphName;
+	protected $graphSize;
+	protected $graphColors = [
 		'black',
 		'red',
 		'green',
@@ -87,12 +86,24 @@ class GraphPrinter extends SMWResultPrinter {
 		'yellow',
 		'darkblue',
 		'magenta',
-		'steelblue2' ];
-	protected $m_nameProperty;
-	protected $m_nodeShape;
-	protected $m_parentRelation;
-	protected $m_wordWrapLimit;
-	protected $m_nodeLabel;
+		'steelblue2'
+	];
+
+	protected $showGraphColor;
+	protected $showGraphLabel;
+	protected $showGraphLegend;
+	protected $enableGraphLink;
+
+	protected $rankdir;
+	protected $legendItem = [];
+	protected $nameProperty;
+	protected $wordWrapLimit;
+
+
+	public function getName() {
+		return $this->msg( 'srf-printername-graph' )->text();
+	}
+
 
 	/**
 	 * (non-PHPdoc)
@@ -101,29 +112,28 @@ class GraphPrinter extends SMWResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
-		$this->m_graphName = trim( $params['graphname'] );
-		$this->m_graphSize = trim( $params['graphsize'] );
-
-		$this->m_graphLegend = $params['graphlegend'];
-		$this->m_graphLabel = $params['graphlabel'];
-
-		$this->m_rankdir = strtoupper( trim( $params['arrowdirection'] ) );
-
-		$this->m_graphLink = $params['graphlink'];
-		$this->m_graphColor = $params['graphcolor'];
-
-		$this->m_nameProperty = $params['nameproperty'] === false ? false : trim( $params['nameproperty'] );
-
-		$this->m_parentRelation = strtolower( trim( $params['relation'] ) ) == 'parent';
-
-		$this->m_nodeShape = $params['nodeshape'];
-		$this->m_wordWrapLimit = $params['wordwraplimit'];
-
-		$this->m_nodeLabel = $params['nodelabel'];
+		$this->graphName = trim( $params['graphname'] );
+		$this->graphSize = trim( $params['graphsize'] );
+		$this->showGraphLegend = $params['graphlegend'];
+		$this->showGraphLabel = $params['graphlabel'];
+		$this->enableGraphLink = $params['graphlink'];
+		$this->showGraphColor = $params['graphcolor'];
+		$this->rankdir = strtoupper( trim( $params['arrowdirection'] ) );
+		$this->nameProperty = $params['nameproperty'] === false ? false : trim( $params['nameproperty'] );
+		$this->parentRelation =
+			strtolower( trim( $params['relation'] ) ) == 'parent';        // false if anything other than 'parent'
+		$this->nodeShape = $params['nodeshape'];
+		$this->wordWrapLimit = $params['wordwraplimit'];
+		$this->nodeLabel = $params['nodelabel'];
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 
+	/**
+	 * @param SMWQueryResult $res
+	 * @param $outputmode
+	 * @return string
+	 */
+	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		if ( !class_exists( 'GraphViz' )
 			&& !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' )
 		) {
@@ -131,153 +141,174 @@ class GraphPrinter extends SMWResultPrinter {
 			return '';
 		}
 
-		$this->isHTML = true;
+		///////////////////////////////////
+		// GRAPH OPTIONS
+		///////////////////////////////////
 
-		$graphInput = "digraph $this->m_graphName {";
-		if ( $this->m_graphSize != '' ) {
-			$graphInput .= "size=\"$this->m_graphSize\";";
-		}
-		if ( $this->m_nodeShape ) {
-			$graphInput .= "node [shape=$this->m_nodeShape];";
-		}
-		$graphInput .= "rankdir=$this->m_rankdir;";
+		$graphInput = "digraph $this->graphName {";
 
+		// fontsize and fontname
+		$graphInput .= "graph [fontsize=10, fontname=\"Verdana\"]\nnode [fontsize=10, fontname=\"Verdana\"];\nedge [fontsize=10, fontname=\"Verdana\"];";
+
+		// size
+		if ( $this->graphSize != '' ) {
+			$graphInput .= "size=\"$this->graphSize\";";
+		}
+
+		// shape
+		if ( $this->nodeShape ) {
+			$graphInput .= "node [shape=$this->nodeShape];";
+		}
+
+		// rankdir / arrowdirection
+		$graphInput .= "rankdir=$this->rankdir;";
+
+		///////////////////////////////////
+		// NODES
+		///////////////////////////////////
+		$nodeLabel = '';
+
+		// iterate query result and create SRF\GraphNodes
 		while ( $row = $res->getNext() ) {
-			$graphInput .= $this->getGVForItem( $row, $outputmode );
+			$this->processResultRow( $row );
 		}
 
+		/** @var \SRF\GraphNode $node */
+		foreach ( $this->nodes as $node ) {
+
+			$nodeName = $node->getID();
+
+			// take "displaytitle" as node-label if it is set
+			if ( $this->nodeLabel === self::NODELABEL_DISPLAYTITLE) {
+				$objectDisplayTitle = $node->getLabel();
+				if ( !empty( $objectDisplayTitle )) {
+					$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle,
+						$this->wordWrapLimit );
+				}
+			}
+
+			// add the node
+			$graphInput .= "\"" . $nodeName . "\"";
+
+			if ( $this->enableGraphLink ) {
+
+				$nodeLinkURL = "[[" . $nodeName . "]]";
+
+				if( $nodeLabel === '' ) {
+					$graphInput .= " [URL = \"$nodeLinkURL\"]";
+				} else {
+					$graphInput .= " [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]";
+				}
+			}
+			$graphInput .= "; ";
+		}
+
+		///////////////////////////////////
+		// EDGES
+		///////////////////////////////////
+
+		foreach ( $this->nodes as $node ) {
+
+			if ( count( $node->getParentNode() ) > 0 ) {
+
+				$nodeName = $node->getID();
+
+				foreach ( $node->getParentNode() as $parentNode ) {
+
+					// handle parent/child switch (parentRelation)
+					$graphInput .= $this->parentRelation ? " \"" . $parentNode['object'] . "\" -> \"" . $nodeName . "\""
+						: " \"" . $nodeName . "\" -> \"" . $parentNode['object'] . "\" ";
+
+					if ( $this->showGraphLabel || $this->showGraphColor ) {
+						$graphInput .= ' [';
+
+						// add legend item only if missing
+						if ( array_search( $parentNode['predicate'], $this->legendItem, true ) === false ) {
+							$this->legendItem[] = $parentNode['predicate'];
+						}
+
+						// assign color
+						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
+
+						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
+						if ( $this->showGraphLabel ) {
+							$graphInput .= "label=\"" . $parentNode['predicate'] . "\"";
+							if ( $this->showGraphColor ) {
+								$graphInput .= ",fontcolor=$color,";
+							}
+						}
+
+						// colorize arrow
+						if ( $this->showGraphColor ) {
+							$graphInput .= "color=$color";
+						}
+						$graphInput .= ']';
+					}
+				}
+				$graphInput .= ';';
+			}
+		}
 		$graphInput .= "}";
+
 
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
 		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>$graphInput</graphviz>" );
 
-		if ( $this->m_graphLegend && $this->m_graphColor ) {
-			$arrayCount = 0;
-			$arraySize = count( $this->m_graphColors );
-			$result .= "<P>";
 
-			foreach ( $this->m_labelArray as $m_label ) {
-				if ( $arrayCount >= $arraySize ) {
-					$arrayCount = 0;
+		// append legend
+		if ( $this->showGraphLegend && $this->showGraphColor ) {
+			$itemsHtml = '';
+			$colorCount = 0;
+			$arraySize = count( $this->graphColors );
+
+			foreach ( $this->legendItem as $legendLabel ) {
+				if ( $colorCount >= $arraySize ) {
+					$colorCount = 0;
 				}
 
-				$color = $this->m_graphColors[$arrayCount];
-				$result .= "<font color=$color>$color: $m_label </font><br />";
+				$color = $this->graphColors[$colorCount];
+				$itemsHtml .= Html::rawElement( 'div', [ 'class' => 'graphlegenditem', 'style' => "color: $color" ],
+					"$color: $legendLabel" );
 
-				$arrayCount += 1;
+				$colorCount ++;
 			}
 
-			$result .= "</P>";
+			$result .= Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml" );
 		}
-
 		return $result;
 	}
 
 	/**
-	 * Returns the GV for a single subject.
+	 * Process a result row and create SRF\GraphNodes
 	 *
-	 * @since 1.5.4
+	 * @since 2.5.0
 	 *
 	 * @param array $row
 	 * @param $outputmode
+	 * @param array $nodes
 	 *
-	 * @return string
 	 */
-	protected function getGVForItem( array /* of SMWResultArray */
-	$row, $outputmode ) {
-		$segments = [];
+	protected function processResultRow( array /* of SMWResultArray */ $row ) {
 
-		// Loop throught all fields of the record.
+		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
 
-			// Loop throught all the parts of the field value.
-			while ( ( $object = $resultArray->getNextDataValue() ) !== false ) {
-				$propName = $resultArray->getPrintRequest()->getLabel();
-				$isName = $this->m_nameProperty ? ( $i != 0 && $this->m_nameProperty === $propName ) : $i == 0;
+			// loop through all values of a multivalue field
+			while ( ( /* SMWWikiPageValue */
+				$object = $resultArray->getNextDataValue() ) !== false ) {
 
-				if ( $isName ) {
-					$name = $this->getWordWrappedText( $object->getShortText( $outputmode ), $this->m_wordWrapLimit );
-				}
-
-				if ( !( $this->m_nameProperty && $i == 0 ) ) {
-					$segments[] = $this->getGVForDataValue( $object, $outputmode, $isName, $name, $propName );
+				// create SRF\GraphNode for column 0
+				if ( $i == 0 ) {
+					$node = new GraphNode( $object->getShortWikiText() );
+					$node->setLabel($object->getDisplayTitle());
+					$this->nodes[] = $node;
+				} else {
+					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
 				}
 			}
 		}
 
-		return implode( "\n", $segments );
-	}
-
-	/**
-	 * Returns the GV for a single SMWDataValue.
-	 *
-	 * @since 1.5.4
-	 *
-	 * @param SMWDataValue $object
-	 * @param $outputmode
-	 * @param boolean $isName Is this the name that should be used for the node?
-	 * @param string $name
-	 * @param string $labelName
-	 *
-	 * @return string
-	 */
-	protected function getGVForDataValue( SMWDataValue $object, $outputmode, $isName, $name, $labelName ) {
-		$graphInput = '';
-		$nodeLabel = '';
-		$text = $object->getShortText( $outputmode );
-
-		if ( $this->m_graphLink ) {
-			$nodeLinkURL = "[[" . $text . "]]";
-		}
-
-		$text = $this->getWordWrappedText( $text, $this->m_wordWrapLimit );
-
-		if ( $this->m_nodeLabel === self::NODELABEL_DISPLAYTITLE && $object instanceof SMWWikiPageValue ) {
-			$objectDisplayTitle = $object->getDisplayTitle();
-			if ( !empty( $objectDisplayTitle )) {
-				$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle, $this->m_wordWrapLimit );
-			}
-		}
-
-		if ( $this->m_graphLink ) {
-			if( $nodeLabel === '' ) {
-				$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\"]; ";
-			} else {
-				$graphInput .= " \"$text\" [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]; ";
-			}
-		}
-
-		if ( !$isName ) {
-			$graphInput .= $this->m_parentRelation ? " \"$text\" -> \"$name\" " : " \"$name\" -> \"$text\" ";
-
-			if ( $this->m_graphLabel || $this->m_graphColor ) {
-				$graphInput .= ' [';
-
-				if ( array_search( $labelName, $this->m_labelArray, true ) === false ) {
-					$this->m_labelArray[] = $labelName;
-				}
-
-				$color = $this->m_graphColors[array_search( $labelName, $this->m_labelArray, true )];
-
-				if ( $this->m_graphLabel ) {
-					$graphInput .= "label=\"$labelName\"";
-					if ( $this->m_graphColor ) {
-						$graphInput .= ",fontcolor=$color,";
-					}
-				}
-
-				if ( $this->m_graphColor ) {
-					$graphInput .= "color=$color";
-				}
-
-				$graphInput .= ']';
-
-			}
-
-			$graphInput .= ';';
-		}
-
-		return $graphInput;
+		return true;
 	}
 
 	/**
@@ -317,13 +348,6 @@ class GraphPrinter extends SMWResultPrinter {
 		return implode( '\n', $segments );
 	}
 
-	/**
-	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getName()
-	 */
-	public function getName() {
-		return wfMessage( 'srf-printername-graph' )->text();
-	}
 
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions
@@ -343,32 +367,32 @@ class GraphPrinter extends SMWResultPrinter {
 		];
 
 		$params['graphsize'] = [
-			'type' => 'string',
-			'default' => '',
-			'message' => 'srf-paramdesc-graphsize',
+			'type'              => 'string',
+			'default'           => '',
+			'message'           => 'srf-paramdesc-graphsize',
 			'manipulatedefault' => false,
 		];
 
 		$params['graphlegend'] = [
-			'type' => 'boolean',
+			'type'    => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlegend',
 		];
 
 		$params['graphlabel'] = [
-			'type' => 'boolean',
+			'type'    => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlabel',
 		];
 
 		$params['graphlink'] = [
-			'type' => 'boolean',
+			'type'    => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlink',
 		];
 
 		$params['graphcolor'] = [
-			'type' => 'boolean',
+			'type'    => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphcolor',
 		];
@@ -377,33 +401,33 @@ class GraphPrinter extends SMWResultPrinter {
 			'aliases' => 'rankdir',
 			'default' => 'LR',
 			'message' => 'srf-paramdesc-rankdir',
-			'values' => [ 'LR', 'RL', 'TB', 'BT' ],
+			'values'  => [ 'LR', 'RL', 'TB', 'BT' ],
 		];
 
 		$params['nodeshape'] = [
-			'default' => false,
-			'message' => 'srf-paramdesc-graph-nodeshape',
+			'default'           => false,
+			'message'           => 'srf-paramdesc-graph-nodeshape',
 			'manipulatedefault' => false,
-			'values' => self::$NODE_SHAPES,
+			'values'            => self::$NODE_SHAPES,
 		];
 
 		$params['relation'] = [
-			'default' => 'child',
-			'message' => 'srf-paramdesc-graph-relation',
+			'default'           => 'child',
+			'message'           => 'srf-paramdesc-graph-relation',
 			'manipulatedefault' => false,
-			'values' => [ 'parent', 'child' ],
+			'values'            => [ 'parent', 'child' ],
 		];
 
 		$params['nameproperty'] = [
-			'default' => false,
-			'message' => 'srf-paramdesc-graph-nameprop',
+			'default'           => false,
+			'message'           => 'srf-paramdesc-graph-nameprop',
 			'manipulatedefault' => false,
 		];
 
 		$params['wordwraplimit'] = [
-			'type' => 'integer',
-			'default' => 25,
-			'message' => 'srf-paramdesc-graph-wwl',
+			'type'              => 'integer',
+			'default'           => 25,
+			'message'           => 'srf-paramdesc-graph-wwl',
 			'manipulatedefault' => false,
 		];
 
@@ -415,5 +439,4 @@ class GraphPrinter extends SMWResultPrinter {
 
 		return $params;
 	}
-
 }
