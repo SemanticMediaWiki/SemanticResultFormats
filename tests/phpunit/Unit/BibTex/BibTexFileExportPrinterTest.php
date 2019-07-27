@@ -40,10 +40,11 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider filenameProvider
 	 */
-	public function testGetFileName( $filename, $expected ) {
+	public function testGetFileName( $filename, $searchlabel, $expected ) {
 
 		$parameters = [
-			'filename' => $filename
+			'filename' => $filename,
+			'searchlabel' => $searchlabel
 		];
 
 		$instance = new BibTexFileExportPrinter(
@@ -70,21 +71,68 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testGetResult_LinkOnNonFileOutput() {
+
+		$link = $this->getMockBuilder( '\SMWInfolink' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$link->expects( $this->any() )
+			->method( 'getText' )
+			->will( $this->returnValue( 'foo_link' ) );
+
+		$this->queryResult->expects( $this->any() )
+			->method( 'getErrors' )
+			->will( $this->returnValue( [] ) );
+
+		$this->queryResult->expects( $this->any() )
+			->method( 'getCount' )
+			->will( $this->returnValue( 1 ) );
+
+		$this->queryResult->expects( $this->once() )
+			->method( 'getQueryLink' )
+			->will( $this->returnValue( $link ) );
+
+		$instance = new BibTexFileExportPrinter(
+			'bibtex'
+		);
+
+		$this->assertEquals(
+			'foo_link',
+			$instance->getResult( $this->queryResult, [], SMW_OUTPUT_HTML )
+		);
+	}
+
 	public function filenameProvider() {
 
 		yield[
+			'',
 			'',
 			'BibTeX.bib'
 		];
 
 		yield[
+			'',
+			'foo bar',
+			'foo_bar.bib'
+		];
+
+		yield[
 			'foo',
+			'',
 			'foo.bib'
 		];
 
 		yield[
 			'foo.bib',
+			'',
 			'foo.bib'
+		];
+
+		yield[
+			'foo bar.bib',
+			'',
+			'foo_bar.bib'
 		];
 	}
 
