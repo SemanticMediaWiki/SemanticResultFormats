@@ -408,7 +408,7 @@ class GraphPrinter extends SMWResultPrinter {
 		];
 
 		$params['nodelabel'] = [
-			'default' => [],
+			'default' => '',
 			'message' => 'srf-paramdesc-nodelabel',
 			'values' => self::$NODE_LABELS,
 		];
