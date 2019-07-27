@@ -1,6 +1,7 @@
 <?php
 
-use SRF\BibTex\Item;
+namespace SRF\BibTex;
+
 use SMWTimeValue as TimeValue;
 use SMWQueryResult as QueryResult;
 use SMW\Query\ResultPrinters\FileExportPrinter;
@@ -21,15 +22,15 @@ use SMW\Query\ResultPrinters\FileExportPrinter;
  *   edition =     "ninth Dover printing, tenth GPO printing"
  * }
  *
- * @file
- * @ingroup SemanticResultFormats
+ * @license GNU GPL v2+
+ * @since 1.5
  *
  * @author Markus Krötzsch
  * @author Denny Vrandecic
  * @author Frank Dengler
  * @author Steren Giannini
  */
-class SRFBibTeX extends FileExportPrinter {
+class BibTexFileExportPrinter extends FileExportPrinter {
 
 	/**
 	 * @see ResultPrinter::getName
