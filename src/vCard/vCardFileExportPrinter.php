@@ -57,7 +57,14 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	 */
 	public function getFileName( QueryResult $queryResult ) {
 
-		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
+		if ( $this->params['filename'] !== '' ) {
+
+			if ( strpos( $this->params['filename'], '.vcf' ) === false ) {
+				$this->params['filename'] .= '.vcf';
+			}
+
+			return str_replace( ' ', '_', $this->params['filename'] );
+		} elseif ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
 			return str_replace( ' ', '_', $this->getSearchLabel( SMW_OUTPUT_WIKI ) ) . '.vcf';
 		}
 
@@ -73,6 +80,24 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	 */
 	public function getQueryMode( $context ) {
 		return ( $context == QueryProcessor::SPECIAL_PAGE ) ? Query::MODE_INSTANCES : Query::MODE_NONE;
+	}
+
+	/**
+	 * @see ResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * {@inheritDoc}
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
+
+		$params['filename'] = [
+			'message' => 'smw-paramdesc-filename',
+			'default' => 'vCard.vcf',
+		];
+
+		return $params;
 	}
 
 	/**
