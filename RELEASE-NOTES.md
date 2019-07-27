@@ -1,5 +1,19 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 3.1.0
+
+Not yet released.
+
+- [#513](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/513) Added `filename` as parameter to `format=vcard`
+- [#510](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/510)
+- [#500](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/500)
+- [#492](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/492)
+- [#467](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/467)
+- [#457](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/457)
+- [#459](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/459)
+- [#445](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/445)
+- [#443](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/443)
+
 ## SRF 3.0.2
 
 * [#400](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/391) Fix Timeseries format: `uncaught exception: Invalid dimensions for plot` (by Christian Zagrodnick)
