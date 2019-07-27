@@ -14,3 +14,7 @@ $autoloader = require $path;
 $autoloader->addPsr4( 'SRF\\Tests\\', __DIR__ . '/phpunit' );
 $autoloader->addPsr4( 'SMW\\Test\\', __DIR__ . '/../../SemanticMediaWiki/tests/phpunit' );
 $autoloader->addPsr4( 'SMW\\Tests\\', __DIR__ . '/../../SemanticMediaWiki/tests/phpunit' );
+
+$autoloader->addClassMap( [
+	'SRF\Tests\ResultPrinterReflector'             => __DIR__ . '/phpunit/ResultPrinterReflector.php',
+] );

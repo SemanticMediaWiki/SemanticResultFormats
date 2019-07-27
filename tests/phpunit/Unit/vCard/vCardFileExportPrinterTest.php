@@ -1,12 +1,12 @@
 <?php
 
-namespace SRF\Tests\BibTex;
+namespace SRF\Tests\vCard;
 
-use SRF\BibTex\BibTexFileExportPrinter;
+use SRF\vCard\vCardFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
 
 /**
- * @covers \SRF\BibTex\BibTexFileExportPrinter
+ * @covers \SRF\vCard\vCardFileExportPrinter
  * @group semantic-result-formats
  *
  * @license GNU GPL v2+
@@ -14,7 +14,7 @@ use SRF\Tests\ResultPrinterReflector;
  *
  * @author mwjames
  */
-class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
+class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	private $queryResult;
 	private $resultPrinterReflector;
@@ -32,8 +32,8 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			BibTexFileExportPrinter::class,
-			new BibTexFileExportPrinter( 'bibtex' )
+			vCardFileExportPrinter::class,
+			new vCardFileExportPrinter( 'vcard' )
 		);
 	}
 
@@ -46,8 +46,8 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			'filename' => $filename
 		];
 
-		$instance = new BibTexFileExportPrinter(
-			'bibtex'
+		$instance = new vCardFileExportPrinter(
+			'vcard'
 		);
 
 		$this->resultPrinterReflector->addParameters( $instance, $parameters );
@@ -60,12 +60,12 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetMimeType() {
 
-		$instance = new BibTexFileExportPrinter(
-			'bibtex'
+		$instance = new vCardFileExportPrinter(
+			'vcard'
 		);
 
 		$this->assertEquals(
-			'text/bibtex',
+			'text/x-vcard',
 			$instance->getMimeType( $this->queryResult )
 		);
 	}
@@ -74,17 +74,17 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		yield[
 			'',
-			'BibTeX.bib'
+			'vCard.vcf'
 		];
 
 		yield[
 			'foo',
-			'foo.bib'
+			'foo.vcf'
 		];
 
 		yield[
-			'foo.bib',
-			'foo.bib'
+			'foo.vcf',
+			'foo.vcf'
 		];
 	}
 
