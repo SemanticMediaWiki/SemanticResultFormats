@@ -1,5 +1,10 @@
 <?php
 
+use SRF\BibTex\Item;
+use SMWTimeValue as TimeValue;
+use SMWQueryResult as QueryResult;
+use SMW\Query\ResultPrinters\FileExportPrinter;
+
 /**
  * Printer class for creating BibTeX exports
  *
@@ -23,422 +28,162 @@
  * @author Denny Vrandecic
  * @author Frank Dengler
  * @author Steren Giannini
- * @ingroup SemanticResultFormats
  */
-class SRFBibTeX extends SMWExportPrinter {
-
-	protected $m_title = '';
-	protected $m_description = '';
+class SRFBibTeX extends FileExportPrinter {
 
 	/**
-	 * @see SMWIExportPrinter::getMimeType
+	 * @see ResultPrinter::getName
 	 *
-	 * @since 1.8
-	 *
-	 * @param SMWQueryResult $queryResult
-	 *
-	 * @return string
+	 * {@inheritDoc}
 	 */
-	public function getMimeType( SMWQueryResult $queryResult ) {
-		return 'text/bibtex';
-	}
-
-	/**
-	 * @see SMWIExportPrinter::getFileName
-	 *
-	 * @since 1.8
-	 *
-	 * @param SMWQueryResult $queryResult
-	 *
-	 * @return string|boolean
-	 */
-	public function getFileName( SMWQueryResult $queryResult ) {
-		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
-			return str_replace( ' ', '_', $this->getSearchLabel( SMW_OUTPUT_WIKI ) ) . '.bib';
-		} else {
-			return 'BibTeX.bib';
-		}
-	}
-
-	public function getQueryMode( $context ) {
-		return ( $context == SMWQueryProcessor::SPECIAL_PAGE ) ? SMWQuery::MODE_INSTANCES : SMWQuery::MODE_NONE;
-	}
-
 	public function getName() {
 		return wfMessage( 'srf_printername_bibtex' )->text();
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgSitename;
-		$result = '';
-
-		if ( $outputmode == SMW_OUTPUT_FILE ) { // make file
-			if ( $this->m_title == '' ) {
-				$this->m_title = $wgSitename;
-			}
-
-			$items = [];
-
-			while ( $row = $res->getNext() ) {
-				$items[] = $this->getItemForResultRow( $row )->text();
-			}
-
-			$result = implode( '', $items );
-		} else { // just make link to export
-			if ( $this->getSearchLabel( $outputmode ) ) {
-				$label = $this->getSearchLabel( $outputmode );
-			} else {
-				$label = wfMessage( 'srf_bibtex_link' )->inContentLanguage()->text();
-			}
-
-			$link = $res->getQueryLink( $label );
-			$link->setParameter( 'bibtex', 'format' );
-
-			if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
-				$link->setParameter( $this->getSearchLabel( SMW_OUTPUT_WIKI ), 'searchlabel' );
-			}
-
-			$result .= $link->getText( $outputmode, $this->mLinker );
-			$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
-		}
-
-		return $result;
+	/**
+	 * @see FileExportPrinter::getMimeType
+	 *
+	 * @since 1.8
+	 *
+	 * {@inheritDoc}
+	 */
+	public function getMimeType( QueryResult $queryResult ) {
+		return 'text/bibtex';
 	}
 
 	/**
-	 * Gets a SMWBibTeXEntry for the row.
+	 * @see FileExportPrinter::getFileName
 	 *
-	 * @since 1.6
+	 * @since 1.8
+	 *
+	 * {@inheritDoc}
+	 */
+	public function getFileName( QueryResult $queryResult ) {
+
+		if ( $this->params['filename'] !== '' ) {
+
+			if ( strpos( $this->params['filename'], '.bib' ) === false ) {
+				$this->params['filename'] .= '.bib';
+			}
+
+			return str_replace( ' ', '_', $this->params['filename'] );
+		} elseif ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
+			return str_replace( ' ', '_', $this->getSearchLabel( SMW_OUTPUT_WIKI ) ) . '.bib';
+		}
+
+		return 'BibTeX.bib';
+	}
+
+	/**
+	 * @see ResultPrinter::getParamDefinitions
+	 *
+	 * @since 1.8
+	 *
+	 * {@inheritDoc}
+	 */
+	public function getParamDefinitions( array $definitions ) {
+		$params = parent::getParamDefinitions( $definitions );
+
+		$params['filename'] = [
+			'message' => 'smw-paramdesc-filename',
+			'default' => 'bibtex.bib',
+		];
+
+		return $params;
+	}
+
+	/**
+	 * @since 3.1
+	 *
+	 * @param array $list
+	 *
+	 * @return string
+	 */
+	public function getFormattedList( $key, array $values ) {
+		return $GLOBALS['wgLang']->listToText( $values );
+	}
+
+	/**
+	 * @see ResultPrinter::getResultText
+	 *
+	 * {@inheritDoc}
+	 */
+	protected function getResultText( QueryResult $res, $outputMode ) {
+
+		if ( $outputMode !== SMW_OUTPUT_FILE ) {
+			return $this->getBibTexLink( $res, $outputMode );
+		}
+
+		$items = [];
+
+		while ( $row = $res->getNext() ) {
+			$items[] = $this->newItem( $row )->text();
+		}
+
+		return implode( "\r\n\r\n", $items );
+	}
+
+	private function getBibTexLink( QueryResult $res, $outputMode ) {
+
+		// Can be viewed as HTML if requested, no more parsing needed
+		$this->isHTML = $outputMode == SMW_OUTPUT_HTML;
+
+		$link = $this->getLink(
+			$res,
+			$outputMode
+		);
+
+		return $link->getText( $outputMode, $this->mLinker );
+	}
+
+	/**
+	 * @since 3.1
 	 *
 	 * @param $row array of SMWResultArray
 	 *
-	 * @return SMWBibTeXEntry
+	 * @return bibTexItem
 	 */
-	protected function getItemForResultRow( array /* of SMWResultArray */
-	$row ) {
-		$address = '';
-		$annote = '';
-		$author = '';
-		$booktitle = '';
-		$chapter = '';
-		$crossref = '';
-		$doi = '';
-		$edition = '';
-		$editor = '';
-		$eprint = '';
-		$howpublished = '';
-		$institution = '';
-		$journal = '';
-		$key = '';
-		$month = '';
-		$note = '';
-		$number = '';
-		$organization = '';
-		$pages = '';
-		$publisher = '';
-		$school = '';
-		$series = '';
-		$title = '';
-		$type = '';
-		$url = '';
-		$volume = '';
-		$year = '';
+	private function newItem( array /* of SMWResultArray */ $row ) {
 
-		foreach ( $row as /* SMWResultArray */
-				  $field ) {
-			$req = $field->getPrintRequest();
-			$label = strtolower( $req->getLabel() );
-			$var = false;
+		$item = new Item();
+		$item->setFormatterCallback( [ $this, 'getFormattedList' ] );
 
-			switch ( $label ) {
-				case 'type':
-					$var =& $type;
-					break;
-				case 'address':
-					$var =& $address;
-					break;
-				case 'annote':
-					$var =& $annote;
-					break;
-				case 'booktitle':
-					$var =& $booktitle;
-					break;
-				case 'chapter':
-					$var =& $chapter;
-					break;
-				case 'crossref':
-					$var =& $crossref;
-					break;
-				case 'doi':
-					$var =& $doi;
-					break;
-				case 'edition':
-					$var =& $edition;
-					break;
-				case 'eprint':
-					$var =& $eprint;
-					break;
-				case 'howpublished':
-					$var =& $howpublished;
-					break;
-				case 'institution':
-					$var =& $institution;
-					break;
-				case 'journal':
-					$var =& $journal;
-					break;
-				case 'key':
-					$var =& $key;
-					break;
-				case 'note':
-					$var =& $note;
-					break;
-				case 'number':
-					$var =& $number;
-					break;
-				case 'organization':
-					$var =& $organization;
-					break;
-				case 'pages':
-					$var =& $pages;
-					break;
-				case 'publisher':
-					$var =& $publisher;
-					break;
-				case 'school':
-					$var =& $school;
-					break;
-				case 'series':
-					$var =& $series;
-					break;
-				case 'title':
-					$var =& $title;
-					break;
-				case 'url':
-					$var =& $url;
-					break;
-				case 'year':
-					$var =& $year;
-					break;
-				case 'month':
-					$var =& $month;
-					break;
-				case 'volume':
-				case 'journal_volume':
-					$var =& $volume;
-					break;
+		foreach ( $row as /* SMWResultArray */ $field ) {
+			$printRequest = $field->getPrintRequest();
+			$values = [];
+
+			$label = strtolower( $printRequest->getLabel() );
+			$dataValue = $field->getNextDataValue();
+
+			if ( $dataValue === false ) {
+				continue;
 			}
 
-			if ( $var !== false ) {
-				$dataValue = $field->getNextDataValue();
+			if ( $label === 'date' && $dataValue instanceof TimeValue ) {
+				$item->set( 'year', $dataValue->getYear() );
+				$item->set( 'month', $dataValue->getMonth() );
+			} elseif ( $label === 'author' || $label === 'authors' ) {
+				$values[] = $dataValue->getShortWikiText();
 
-				if ( $dataValue !== false ) {
-					$var = $dataValue->getShortWikiText();
+				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
+					$values[] = $dataValue->getShortWikiText();
 				}
 
-				unset( $var );
+				$item->set( 'author', $values );
+			} elseif ( $label === 'editor' || $label === 'editors' ) {
+				$values[] = $dataValue->getShortWikiText();
+
+				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
+					$values[] = $dataValue->getShortWikiText();
+				}
+
+				$item->set( 'editor', $values );
 			} else {
-				switch ( $label ) {
-					case 'author':
-					case 'authors':
-					case 'editor' :
-					case 'editors':
-						$wikiTexts = [];
-						while ( ( /* SMWDataValue */
-							$dataValue = $field->getNextDataValue() ) !== false ) {
-							$wikiTexts[] = $dataValue->getShortWikiText();
-						}
-						$wikiText = $GLOBALS['wgLang']->listToText( $wikiTexts );
-
-						if ( $label == 'author' || $label == 'authors' ) {
-							$author = $wikiText;
-						} else {
-							$editor = $wikiText;
-						}
-						break;
-					case 'date':
-						$dataValue = $field->getNextDataValue();
-
-						if ( $dataValue !== false && get_class( $dataValue ) == 'SMWTimeValue' ) {
-							$year = $dataValue->getYear();
-							$month = $dataValue->getMonth();
-						}
-						break;
-				}
+				$item->set( $label, $dataValue->getShortWikiText() );
 			}
 		}
 
-		return new SMWBibTeXEntry(
-			$type,
-			$address,
-			$annote,
-			$author,
-			$booktitle,
-			$chapter,
-			$crossref,
-			$doi,
-			$edition,
-			$editor,
-			$eprint,
-			$howpublished,
-			$institution,
-			$journal,
-			$key,
-			$month,
-			$note,
-			$number,
-			$organization,
-			$pages,
-			$publisher,
-			$school,
-			$series,
-			$title,
-			$url,
-			$volume,
-			$year
-		);
-	}
-}
-
-/**
- * Represents a single entry in an BibTeX
- *
- * @ingroup SMWQuery
- */
-class SMWBibTeXEntry {
-
-	private $bibTeXtype;
-	private $URI;
-	private $fields = [];
-
-	public function __construct( $type, $address, $annote, $author, $booktitle, $chapter, $crossref, $doi, $edition, $editor, $eprint, $howpublished, $institution, $journal, $key, $month, $note, $number, $organization, $pages, $publisher, $school, $series, $title, $url, $volume, $year ) {
-		if ( $type ) {
-			$this->bibTeXtype = ucfirst( $type );
-		} else {
-			$this->bibTeXtype = 'Book';
-		}
-
-		$fields = [];
-
-		if ( $address ) {
-			$fields['address'] = $address;
-		}
-		if ( $annote ) {
-			$fields['annote'] = $annote;
-		}
-		if ( $author ) {
-			$fields['author'] = $author;
-		}
-		if ( $booktitle ) {
-			$fields['booktitle'] = $booktitle;
-		}
-		if ( $chapter ) {
-			$fields['chapter'] = $chapter;
-		}
-		if ( $crossref ) {
-			$fields['crossref'] = $crossref;
-		}
-		if ( $doi ) {
-			$fields['doi'] = $doi;
-		}
-		if ( $edition ) {
-			$fields['edition'] = $edition;
-		}
-		if ( $editor ) {
-			$fields['editor'] = $editor;
-		}
-		if ( $eprint ) {
-			$fields['eprint'] = $eprint;
-		}
-		if ( $howpublished ) {
-			$fields['howpublished'] = $howpublished;
-		}
-		if ( $institution ) {
-			$fields['institution'] = $institution;
-		}
-		if ( $journal ) {
-			$fields['journal'] = $journal;
-		}
-		if ( $key ) {
-			$fields['key'] = $key;
-		}
-		if ( $month ) {
-			$fields['month'] = $month;
-		}
-		if ( $note ) {
-			$fields['note'] = $note;
-		}
-		if ( $number ) {
-			$fields['number'] = $number;
-		}
-		if ( $organization ) {
-			$fields['organization'] = $organization;
-		}
-		if ( $pages ) {
-			$fields['pages'] = $pages;
-		}
-		if ( $publisher ) {
-			$fields['publisher'] = $publisher;
-		}
-		if ( $school ) {
-			$fields['school'] = $school;
-		}
-		if ( $series ) {
-			$fields['series'] = $series;
-		}
-		if ( $title ) {
-			$fields['title'] = $title;
-		}
-		if ( $url ) {
-			$fields['url'] = $url;
-		}
-		if ( $volume ) {
-			$fields['volume'] = $volume;
-		}
-		if ( $year ) {
-			$fields['year'] = $year;
-		}
-
-		$this->fields = $fields;
-
-		// generating the URI: author last name + year + first letters of title
-		$URI = '';
-		if ( $author ) {
-			$authors = explode( ',', $author );
-			$authors = explode( wfMessage( 'and' )->text(), $authors[0] );
-			$arrayAuthor = explode( ' ', $authors[0], 2 );
-			$URI .= str_replace( ' ', '', $arrayAuthor[array_key_exists( 1, $arrayAuthor ) ? 1 : 0] );
-		}
-
-		if ( $year ) {
-			$URI .= $year;
-		}
-
-		if ( $title ) {
-			foreach ( explode( ' ', $title ) as $titleWord ) {
-				$charsTitleWord = preg_split( '//', $titleWord, -1, PREG_SPLIT_NO_EMPTY );
-
-				if ( !empty( $charsTitleWord ) ) {
-					$URI .= $charsTitleWord[0];
-				}
-			}
-		}
-
-		$this->URI = strtolower( $URI );
+		return $item;
 	}
 
-	/**
-	 * Creates the BibTeX output for a single item.
-	 */
-	public function text() {
-		$text = '@' . $this->bibTeXtype . '{' . $this->URI . ",\r\n";
-
-		foreach ( $this->fields as $key => $value ) {
-			$text .= '  ' . $key . ' = "' . $value . '", ' . "\r\n";
-		}
-
-		$text .= "}\r\n\r\n";
-
-		return $text;
-	}
 }
