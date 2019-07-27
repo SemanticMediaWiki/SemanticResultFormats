@@ -1,9 +1,9 @@
 <?php
 
-use SRF\Outline\TemplateBuilder;
-use SRF\Outline\ListTreeBuilder;
-use SRF\Outline\OutlineTree;
-use SRF\Outline\OutlineItem;
+namespace SRF\Outline;
+
+use SMWResultPrinter as ResultPrinter;
+use SMWQueryResult as QueryResult;
 
 /**
  * A class to print query results in an outline format, along with some
@@ -14,7 +14,7 @@ use SRF\Outline\OutlineItem;
  *
  * @author Yaron Koren
  */
-class SRFOutline extends SMWResultPrinter {
+class OutlineResultPrinter extends ResultPrinter {
 
 	/**
 	 * @see ResultPrinter::getName
@@ -68,27 +68,15 @@ class SRFOutline extends SMWResultPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputMode ) {
+	protected function getResultText( QueryResult $res, $outputMode ) {
 
 		// for each result row, create an array of the row itself
 		// and all its sorted-on fields, and add it to the initial
 		// 'tree'
 		$outlineTree = new OutlineTree();
+
 		while ( $row = $res->getNext() ) {
-			$outlineItem = new OutlineItem( $row );
-
-			foreach ( $row as $field ) {
-				$field_name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
-
-				if ( in_array( $field_name, $this->params['outlineproperties'] ) ) {
-					while ( ( $object = $field->getNextDataValue() ) !== false ) {
-						$field_val = $object->getLongWikiText( $this->getLinker() );
-						$outlineItem->addFieldValue( $field_name, $field_val );
-					}
-				}
-			}
-
-			$outlineTree->addItem( $outlineItem );
+			$outlineTree->addItem( $this->newOutlineItem( $row ) );
 		}
 
 		// now, cycle through the outline properties, creating the
@@ -115,12 +103,37 @@ class SRFOutline extends SMWResultPrinter {
 		}
 
 		if ( $this->linkFurtherResults( $res ) ) {
-			$link = $this->getFurtherResultsLink( $res, $outputMode );
+			$link = $this->getFurtherResultsLink(
+				$res,
+				$outputMode
+			);
 
 			$result .= $link->getText( $outputMode, $this->mLinker ) . "\n";
 		}
 
 		return $result;
+	}
+
+	private function newOutlineItem( $row ) {
+
+		$outlineItem = new OutlineItem( $row );
+
+		foreach ( $row as $field ) {
+			$name = $field->getPrintRequest()->getText( SMW_OUTPUT_HTML );
+
+			if ( !in_array( $name, $this->params['outlineproperties'] ) ) {
+				continue;
+			}
+
+			while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
+				$outlineItem->addFieldValue(
+					$name,
+					$dataValue->getLongWikiText( $this->getLinker() )
+				);
+			}
+		}
+
+		return $outlineItem;
 	}
 
 }

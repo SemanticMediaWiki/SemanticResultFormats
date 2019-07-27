@@ -112,7 +112,7 @@ class SemanticResultFormats {
 			'bibtex' => 'SRF\BibTex\BibTexFileExportPrinter',
 			'calendar' => 'SRFCalendar',
 			'eventcalendar' => 'SRF\EventCalendar',
-			'outline' => 'SRFOutline',
+			'outline' => 'SRF\Outline\OutlineResultPrinter',
 			'sum' => 'SRFMath',
 			'product' => 'SRFMath',
 			'average' => 'SRFMath',
