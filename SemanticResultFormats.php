@@ -109,7 +109,7 @@ class SemanticResultFormats {
 			'eventline' => 'SRFTimeline',
 			'vcard' => 'SRF\vCard\vCardFileExportPrinter',
 			'icalendar' => 'SRF\iCalendar\iCalendarFileExportPrinter',
-			'bibtex' => 'SRFBibTeX',
+			'bibtex' => 'SRF\BibTex\BibTexFileExportPrinter',
 			'calendar' => 'SRFCalendar',
 			'eventcalendar' => 'SRF\EventCalendar',
 			'outline' => 'SRFOutline',
