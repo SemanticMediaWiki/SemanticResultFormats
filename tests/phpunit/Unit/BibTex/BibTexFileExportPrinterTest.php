@@ -19,14 +19,6 @@ use SRF\Tests\ResultPrinterReflector;
  */
 class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
-	private $resultPrinterReflector;
-
-	protected function setUp() {
-		parent::setUp();
-
-		$this->resultPrinterReflector = new ResultPrinterReflector();
-	}
-
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
@@ -49,7 +41,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			'bibtex'
 		);
 
-		$this->resultPrinterReflector->addParameters( $instance, $parameters );
+		( new ResultPrinterReflector() )->addParameters( $instance, $parameters );
 
 		$this->assertEquals(
 			$expected,
