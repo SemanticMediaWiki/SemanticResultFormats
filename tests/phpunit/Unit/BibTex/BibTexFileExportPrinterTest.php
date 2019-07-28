@@ -2,6 +2,8 @@
 
 namespace SRF\Tests\BibTex;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use SMWQueryResult;
 use SRF\BibTex\BibTexFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
 
@@ -16,17 +18,12 @@ use SRF\Tests\ResultPrinterReflector;
  */
 class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
-	private $queryResult;
 	private $resultPrinterReflector;
 
 	protected function setUp() {
 		parent::setUp();
 
 		$this->resultPrinterReflector = new ResultPrinterReflector();
-
-		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 	public function testCanConstruct() {
@@ -55,8 +52,17 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			$expected,
-			$instance->getFileName( $this->queryResult )
+			$instance->getFileName( $this->newMockQueryResult() )
 		);
+	}
+
+	/**
+	 * @return MockObject|SMWQueryResult
+	 */
+	private function newMockQueryResult() {
+		return $this->getMockBuilder( SMWQueryResult::class )
+			->disableOriginalConstructor()
+			->getMock();
 	}
 
 	public function testGetMimeType() {
@@ -67,7 +73,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'text/bibtex',
-			$instance->getMimeType( $this->queryResult )
+			$instance->getMimeType( $this->newMockQueryResult() )
 		);
 	}
 
@@ -81,15 +87,17 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getText' )
 			->will( $this->returnValue( 'foo_link' ) );
 
-		$this->queryResult->expects( $this->any() )
+		$queryResult = $this->newMockQueryResult();
+
+		$queryResult->expects( $this->any() )
 			->method( 'getErrors' )
 			->will( $this->returnValue( [] ) );
 
-		$this->queryResult->expects( $this->any() )
+		$queryResult->expects( $this->any() )
 			->method( 'getCount' )
 			->will( $this->returnValue( 1 ) );
 
-		$this->queryResult->expects( $this->once() )
+		$queryResult->expects( $this->once() )
 			->method( 'getQueryLink' )
 			->will( $this->returnValue( $link ) );
 
@@ -99,7 +107,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'foo_link',
-			$instance->getResult( $this->queryResult, [], SMW_OUTPUT_HTML )
+			$instance->getResult( $queryResult, [], SMW_OUTPUT_HTML )
 		);
 	}
 
