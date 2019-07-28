@@ -53,7 +53,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			$expected,
-			$instance->getFileName( $this->newMockQueryResult() )
+			$instance->getFileName( $this->newQueryResultMock() )
 		);
 	}
 
@@ -93,7 +93,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @return MockObject|SMWQueryResult
 	 */
-	private function newMockQueryResult() {
+	private function newQueryResultMock() {
 		return $this->getMockBuilder( SMWQueryResult::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -107,21 +107,12 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'text/bibtex',
-			$instance->getMimeType( $this->newMockQueryResult() )
+			$instance->getMimeType( $this->newQueryResultMock() )
 		);
 	}
 
 	public function testGetResult_LinkOnNonFileOutput() {
-
-		$link = $this->getMockBuilder( SMWInfolink::class )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$link->expects( $this->any() )
-			->method( 'getText' )
-			->will( $this->returnValue( 'foo_link' ) );
-
-		$queryResult = $this->newMockQueryResult();
+		$queryResult = $this->newQueryResultMock();
 
 		$queryResult->expects( $this->any() )
 			->method( 'getErrors' )
@@ -133,7 +124,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$queryResult->expects( $this->once() )
 			->method( 'getQueryLink' )
-			->will( $this->returnValue( $link ) );
+			->will( $this->returnValue( $this->newInfoLinkMock() ) );
 
 		$bibTexPrinter = new BibTexFileExportPrinter(
 			'bibtex'
@@ -143,6 +134,18 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			'foo_link',
 			$bibTexPrinter->getResult( $queryResult, [], SMW_OUTPUT_HTML )
 		);
+	}
+
+	private function newInfoLinkMock() {
+		$link = $this->getMockBuilder( SMWInfolink::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$link->expects( $this->any() )
+			->method( 'getText' )
+			->will( $this->returnValue( 'foo_link' ) );
+
+		return $link;
 	}
 
 }
