@@ -37,15 +37,13 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			'searchlabel' => $searchlabel
 		];
 
-		$instance = new BibTexFileExportPrinter(
-			'bibtex'
-		);
+		$bibTexPrinter = new BibTexFileExportPrinter( 'bibtex' );
 
-		( new ResultPrinterReflector() )->addParameters( $instance, $parameters );
+		( new ResultPrinterReflector() )->addParameters( $bibTexPrinter, $parameters );
 
 		$this->assertEquals(
 			$expected,
-			$instance->getFileName( $this->newQueryResultDummy() )
+			$bibTexPrinter->getFileName( $this->newQueryResultDummy() )
 		);
 	}
 
