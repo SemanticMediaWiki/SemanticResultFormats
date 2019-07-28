@@ -53,7 +53,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			$expected,
-			$instance->getFileName( $this->newQueryResultMock() )
+			$instance->getFileName( $this->newQueryResultDummy() )
 		);
 	}
 
@@ -93,7 +93,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @return MockObject|SMWQueryResult
 	 */
-	private function newQueryResultMock() {
+	private function newQueryResultDummy() {
 		return $this->getMockBuilder( SMWQueryResult::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -107,7 +107,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'text/bibtex',
-			$instance->getMimeType( $this->newQueryResultMock() )
+			$instance->getMimeType( $this->newQueryResultDummy() )
 		);
 	}
 
@@ -119,15 +119,15 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 			'foo_link',
 			$bibTexPrinter->getResult(
-				$this->newQueryResultWithLink(),
+				$this->newMockQueryResultWithLink(),
 				[],
 				SMW_OUTPUT_HTML
 			)
 		);
 	}
 
-	private function newQueryResultWithLink() {
-		$queryResult = $this->newQueryResultMock();
+	private function newMockQueryResultWithLink() {
+		$queryResult = $this->newQueryResultDummy();
 
 		$queryResult->expects( $this->any() )
 			->method( 'getErrors' )
@@ -139,12 +139,12 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$queryResult->expects( $this->once() )
 			->method( 'getQueryLink' )
-			->will( $this->returnValue( $this->newInfoLinkMock() ) );
+			->will( $this->returnValue( $this->newInfoLinkStub() ) );
 
 		return $queryResult;
 	}
 
-	private function newInfoLinkMock() {
+	private function newInfoLinkStub() {
 		$link = $this->getMockBuilder( SMWInfolink::class )
 			->disableOriginalConstructor()
 			->getMock();
