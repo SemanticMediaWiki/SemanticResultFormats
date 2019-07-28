@@ -56,6 +56,39 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function filenameProvider() {
+
+		yield[
+			'',
+			'',
+			'BibTeX.bib'
+		];
+
+		yield[
+			'',
+			'foo bar',
+			'foo_bar.bib'
+		];
+
+		yield[
+			'foo',
+			'',
+			'foo.bib'
+		];
+
+		yield[
+			'foo.bib',
+			'',
+			'foo.bib'
+		];
+
+		yield[
+			'foo bar.bib',
+			'',
+			'foo_bar.bib'
+		];
+	}
+
 	/**
 	 * @return MockObject|SMWQueryResult
 	 */
@@ -109,39 +142,6 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			'foo_link',
 			$instance->getResult( $queryResult, [], SMW_OUTPUT_HTML )
 		);
-	}
-
-	public function filenameProvider() {
-
-		yield[
-			'',
-			'',
-			'BibTeX.bib'
-		];
-
-		yield[
-			'',
-			'foo bar',
-			'foo_bar.bib'
-		];
-
-		yield[
-			'foo',
-			'',
-			'foo.bib'
-		];
-
-		yield[
-			'foo.bib',
-			'',
-			'foo.bib'
-		];
-
-		yield[
-			'foo bar.bib',
-			'',
-			'foo_bar.bib'
-		];
 	}
 
 }
