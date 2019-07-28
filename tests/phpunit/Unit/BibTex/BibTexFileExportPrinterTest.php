@@ -3,6 +3,7 @@
 namespace SRF\Tests\BibTex;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use SMWInfolink;
 use SMWQueryResult;
 use SRF\BibTex\BibTexFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
@@ -112,7 +113,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetResult_LinkOnNonFileOutput() {
 
-		$link = $this->getMockBuilder( '\SMWInfolink' )
+		$link = $this->getMockBuilder( SMWInfolink::class )
 			->disableOriginalConstructor()
 			->getMock();
 
