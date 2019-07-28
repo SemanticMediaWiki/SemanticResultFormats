@@ -135,13 +135,13 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getQueryLink' )
 			->will( $this->returnValue( $link ) );
 
-		$instance = new BibTexFileExportPrinter(
+		$bibTexPrinter = new BibTexFileExportPrinter(
 			'bibtex'
 		);
 
 		$this->assertEquals(
 			'foo_link',
-			$instance->getResult( $queryResult, [], SMW_OUTPUT_HTML )
+			$bibTexPrinter->getResult( $queryResult, [], SMW_OUTPUT_HTML )
 		);
 	}
 
