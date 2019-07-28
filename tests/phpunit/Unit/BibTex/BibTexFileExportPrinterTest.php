@@ -112,6 +112,21 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResult_LinkOnNonFileOutput() {
+		$bibTexPrinter = new BibTexFileExportPrinter(
+			'bibtex'
+		);
+
+		$this->assertEquals(
+			'foo_link',
+			$bibTexPrinter->getResult(
+				$this->newQueryResultWithLink(),
+				[],
+				SMW_OUTPUT_HTML
+			)
+		);
+	}
+
+	private function newQueryResultWithLink() {
 		$queryResult = $this->newQueryResultMock();
 
 		$queryResult->expects( $this->any() )
@@ -126,14 +141,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getQueryLink' )
 			->will( $this->returnValue( $this->newInfoLinkMock() ) );
 
-		$bibTexPrinter = new BibTexFileExportPrinter(
-			'bibtex'
-		);
-
-		$this->assertEquals(
-			'foo_link',
-			$bibTexPrinter->getResult( $queryResult, [], SMW_OUTPUT_HTML )
-		);
+		return $queryResult;
 	}
 
 	private function newInfoLinkMock() {
