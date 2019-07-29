@@ -264,7 +264,6 @@
 	"srf-filtered-noscript-error": "Results can not be displayed because Javascript is not enabled. Go to $1.",
 	"srf-filtered-noscript-link-caption": "results in tabular form",
 	"srf-filtered-map-provider-missing-error": "No map provider specified for \"map\" view.",
-	"srf-filtered-map-geocoordinateparser-missing-error": "Geocoordinate parser not found. You need to install 'data-values/geo'.",
 	"srf-filtered-value-filter-and": "AND",
 	"srf-filtered-value-filter-or": "OR",
 	"srf-filtered-value-filter-placeholder": "Select a filter value",
