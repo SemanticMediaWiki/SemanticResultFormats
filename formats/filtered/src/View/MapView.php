@@ -64,7 +64,7 @@ class MapView extends View {
 						$value = $field->getNextDataItem();
 					}
 
-				} elseif ( class_exists( 'DataValues\Geo\Parsers\GeoCoordinateParser' ) ) {
+				} elseif ( class_exists( LatLongParser::class ) ) {
 
 					$coordParser = new LatLongParser();
 					while ( $value instanceof \SMWDataItem ) {
