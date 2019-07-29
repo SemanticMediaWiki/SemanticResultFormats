@@ -4,7 +4,6 @@ namespace SRF\Filtered\View;
 
 use DataValues\Geo\Parsers\LatLongParser;
 use Exception;
-use Message;
 use SMWPropertyValue;
 use SRF\Filtered\ResultItem;
 
@@ -64,7 +63,7 @@ class MapView extends View {
 						$value = $field->getNextDataItem();
 					}
 
-				} elseif ( class_exists( LatLongParser::class ) ) {
+				} else {
 
 					$coordParser = new LatLongParser();
 					while ( $value instanceof \SMWDataItem ) {
@@ -78,11 +77,6 @@ class MapView extends View {
 						}
 					}
 
-				} else {
-					$this->getQueryPrinter()->addError(
-						Message::newFromKey( 'srf-filtered-map-geocoordinateparser-missing-error' )->inContentLanguage(
-						)->text()
-					);
 				}
 
 				return [ 'positions' => $values, ];
