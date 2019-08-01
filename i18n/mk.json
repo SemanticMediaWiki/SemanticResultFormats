@@ -237,6 +237,7 @@
 	"srf-filtered-selectorlabel-map": "Карта",
 	"srf-filtered-value-filter-and": "И",
 	"srf-filtered-value-filter-or": "ИЛИ",
+	"srf-filtered-value-filter-placeholder": "Изберете филтерска вредност",
 	"srf-printername-d3chart": "D3-графикон",
 	"srf-printername-timeseries": "Графикон на временска низа",
 	"srf-paramdesc-group": "Групирање на низата според",

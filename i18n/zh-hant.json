@@ -267,7 +267,6 @@
 	"srf-filtered-noscript-error": "因 Javascript 未啟用而無法顯示結果。前至$1。",
 	"srf-filtered-noscript-link-caption": "表格式表單的結果",
 	"srf-filtered-map-provider-missing-error": "沒有替「map」視圖指定地圖提供方。",
-	"srf-filtered-map-geocoordinateparser-missing-error": "找不到地理座標解析器。您必須安裝「data-values/geo」。",
 	"srf-filtered-value-filter-and": "與",
 	"srf-filtered-value-filter-or": "或",
 	"srf-filtered-value-filter-placeholder": "選擇一個篩選值",

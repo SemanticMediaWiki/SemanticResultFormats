@@ -264,7 +264,6 @@
 	"srf-filtered-noscript-error": "Výsledky nelze zobrazit, protože není zapnutý Javascript. Přejděte na $1.",
 	"srf-filtered-noscript-link-caption": "výsledky v tabulkovém formátu",
 	"srf-filtered-map-provider-missing-error": "Pro zobrazení mapy není zadán žádný poskytovatel.",
-	"srf-filtered-map-geocoordinateparser-missing-error": "Nebyl nalezen syntaktický analyzátor zeměpisných souřadnic. Je nutné instalovat modul 'data-values/geo'.",
 	"srf-filtered-value-filter-and": "A",
 	"srf-filtered-value-filter-or": "NEBO",
 	"srf-filtered-value-filter-placeholder": "Vyberte hodnotu filtru",

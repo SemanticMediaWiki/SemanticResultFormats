@@ -187,7 +187,6 @@
 	"srf-filtered-noscript-error": "자바스크립트를 사용하지 않고 있기 때문에 결과를 표시할 수 없습니다. $1 문서로 이동합니다.",
 	"srf-filtered-noscript-link-caption": "표 형식의 결과",
 	"srf-filtered-map-provider-missing-error": "\"map\" 뷰에 지도 제공자를 지정하지 않았습니다.",
-	"srf-filtered-map-geocoordinateparser-missing-error": "지리좌표 파서를 찾을 수 없습니다. 'data-values/geo'를 설치해야 합니다.",
 	"srf-filtered-value-filter-and": "그리고",
 	"srf-filtered-value-filter-or": "또는",
 	"srf-filtered-value-filter-placeholder": "필터 값을 선택하세요",

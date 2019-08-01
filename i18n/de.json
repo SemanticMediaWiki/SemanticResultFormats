@@ -269,7 +269,6 @@
 	"srf-filtered-noscript-error": "Die Ergebnisse können nicht angezeigt werden, da JavaScript nicht aktiviert ist. Zu „$1“ gehen.",
 	"srf-filtered-noscript-link-caption": "Ergebnisse in Form einer Tabelle",
 	"srf-filtered-map-provider-missing-error": "Für die Kartenansicht wurde kein Kartenanbieter angegeben.",
-	"srf-filtered-map-geocoordinateparser-missing-error": "Der Parser für Geokoordinaten wurde nicht gefunden. Die Bibliothek „data-values/geo“ muss hierzu installiert werden.",
 	"srf-filtered-value-filter-and": "UND",
 	"srf-filtered-value-filter-or": "ODER",
 	"srf-filtered-value-filter-placeholder": "Einen Wert zum Filtern auswählen",
@@ -333,9 +332,9 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Wiederholen beenden",
 	"srf-ui-mediaplayer-label-full-screen": "Vollbild",
 	"srf-ui-mediaplayer-label-restore-screen": "Bildschirm wiederherstellen",
-	"srf-spreadsheet-link": "Tabellenkalkulation",
-	"srf-paramdesc-spreadsheet-filename": "Das zu erzeugende Dateiformat. Erlaubte Werte: xlsx, xls, ods, csv. Standard: xlsx",
-	"srf-paramdesc-spreadsheet-templatefile": "Der Name einer Tabellenkalkulationsdatei aus dem Namensraum ''Datei'', die zur Formatierung der erzeugten Datei verwendet wird.",
+	"srf-spreadsheet-link": "Datei (Tabellenkalkulation)",
+	"srf-paramdesc-spreadsheet-filename": "Legt fest, welches Dateiformat die zu erstellende Datei haben soll. Mögliche Werte: xlsx, xls, ods, csv. Standardwert: xlsx",
+	"srf-paramdesc-spreadsheet-templatefile": "Legt fest, wie die Tabellenkalkulationsdatei im Namensraum ''Datei'' heißt, die zur Formatierung der zu erstellende Datei verwendet werden soll.",
 	"srf-paramdesc-icalendar-timezone": "Legt eine durch Kommata getrennte Liste mit Zeitzonen fest",
 	"srf-paramdesc-gantt-diagramtitle": "Name des Diagramms",
 	"srf-paramdesc-gantt-diagramtheme": "Farbmotiv des Diagrams",
@@ -350,5 +349,6 @@
 	"srf-error-gantt-theme": "Diese '''theme''' wird nicht unterstützt",
 	"srf-error-gantt-sortkey": "Dieser '''sortkey''' wird nicht unterstützt",
 	"srf-error-gantt-mermaid-not-installed": "Die Mermaid Extension muss installiert sein.",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Diagramm (Gantt)",
+	"srf-paramdesc-nodelabel": "Legt fest, ob die Knoten der Grafik ein Beschriftung erhalten sollen. Möglicher Wert: displaytitle"
 }

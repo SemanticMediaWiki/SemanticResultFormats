@@ -270,7 +270,6 @@
 	"srf-filtered-noscript-error": "Os resultados não podem ser apresentados porque o Javascript não está ativado. Visite $1.",
 	"srf-filtered-noscript-link-caption": "resultados em forma de tabela",
 	"srf-filtered-map-provider-missing-error": "Não foi especificado um fornecedor de mapas para a vista \"mapa\".",
-	"srf-filtered-map-geocoordinateparser-missing-error": "Não foi encontrado o analisador de geocoordenadas. Precisa de instalar 'data-values/geo'.",
 	"srf-filtered-value-filter-and": "E",
 	"srf-filtered-value-filter-or": "OU",
 	"srf-filtered-value-filter-placeholder": "Selecionar um valor de filtro",

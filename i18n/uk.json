@@ -267,7 +267,6 @@
 	"srf-filtered-noscript-error": "Результати неможливо відтворити, оскільки JavaScript не увімкнено. Перейдіть до $1.",
 	"srf-filtered-noscript-link-caption": "результати в табличній формі",
 	"srf-filtered-map-provider-missing-error": "Не вказано провайдера мапи для перегляду у форматі «мапа».",
-	"srf-filtered-map-geocoordinateparser-missing-error": "Парсера геокординат не знайдено. Вам треба встановити 'data-values/geo'.",
 	"srf-filtered-value-filter-and": "ТА",
 	"srf-filtered-value-filter-or": "АБО",
 	"srf-filtered-value-filter-placeholder": "Виберіть значення фільтра",

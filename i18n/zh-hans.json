@@ -270,7 +270,6 @@
 	"srf-filtered-noscript-error": "因为Javascript未启用，所以不能显示结果。前往$1。",
 	"srf-filtered-noscript-link-caption": "表格窗体中的结果",
 	"srf-filtered-map-provider-missing-error": "没有为“地图”视图指定地图提供者。",
-	"srf-filtered-map-geocoordinateparser-missing-error": "找不到地理坐标解析器。您需要安装“data-values/geo”。",
 	"srf-filtered-value-filter-and": "和",
 	"srf-filtered-value-filter-or": "或",
 	"srf-filtered-value-filter-placeholder": "选择过滤器值",

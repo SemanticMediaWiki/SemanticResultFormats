@@ -260,7 +260,6 @@
 	"srf-filtered-noscript-error": "Nun pueden amosase los resultaos porque nun ta activáu Javascript. Visita $1.",
 	"srf-filtered-noscript-link-caption": "resultaos en forma de tabla",
 	"srf-filtered-map-provider-missing-error": "Nun s'indicó un orixe de mapa pa la vista «mapa».",
-	"srf-filtered-map-geocoordinateparser-missing-error": "Nun s'alcontró l'analizador de coordenaes xeográfiques. Precises instalar 'data-values/geo'.",
 	"srf-filtered-value-filter-and": "Y",
 	"srf-filtered-value-filter-or": "O",
 	"srf-filtered-value-filter-placeholder": "Seleccionar un valor de filtru",

@@ -276,7 +276,6 @@
 	"srf-filtered-noscript-error": "No se pueden mostrar los resultados porque JavaScript está desactivado. Visita $1.",
 	"srf-filtered-noscript-link-caption": "resultados en formato tabular",
 	"srf-filtered-map-provider-missing-error": "No se especificó ningún proveedor de mapas para la vista «map».",
-	"srf-filtered-map-geocoordinateparser-missing-error": "No se encontró el analizador de coordenadas geográficas. Es necesario instalar «data-values/geo».",
 	"srf-filtered-value-filter-and": "Y",
 	"srf-filtered-value-filter-or": "O",
 	"srf-filtered-value-filter-placeholder": "Seleccionar un valor de filtro",
