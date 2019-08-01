@@ -571,7 +571,6 @@ return [
 		'scripts' => 'timeline/resources/ext.srf.timeline.js',
 		'dependencies' => [
 			'ext.smile.timeline',
-			'mediawiki.legacy.wikibits'
 		],
 		'position' => 'top',
 		'targets' => [ 'mobile', 'desktop' ]
@@ -634,7 +633,6 @@ return [
 			'JitGraph/base.css',
 		],
 		'dependencies' => [
-			'mediawiki.legacy.wikibits',
 			'ext.srf.jquery.progressbar',
 			'ext.srf.jit',
 		],
