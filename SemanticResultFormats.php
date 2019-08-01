@@ -147,7 +147,6 @@ class SemanticResultFormats {
 			'dygraphs' => 'SRFDygraphs',
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
-			'spreadsheet' => 'SRF\SpreadsheetPrinter',
 			'datatables' => 'SRF\DataTables',
 			'gantt' => 'SRF\Gantt\GanttPrinter'
 		];
@@ -160,8 +159,12 @@ class SemanticResultFormats {
 			'timeseries' =>  [ 'time series' ],
 			'jqplotchart' => [ 'jqplot chart', 'jqplotpie', 'jqplotbar' ],
 			'jqplotseries' => [ 'jqplot series' ],
-			'spreadsheet' => [ 'excel' ],
 		];
+
+		if ( class_exists( '\PhpOffice\PhpSpreadsheet\Spreadsheet' ) ) {
+			$formatClasses['spreadsheet'] = 'SRF\SpreadsheetPrinter';
+			$formatAliases['spreadsheet'] = [ 'excel' ];
+		}
 
 		foreach ( $GLOBALS['srfgFormats'] as $format ) {
 			if ( array_key_exists( $format, $formatClasses ) ) {
