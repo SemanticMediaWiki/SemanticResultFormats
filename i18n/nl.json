@@ -16,7 +16,8 @@
 			"Festina90",
 			"Mar(c)",
 			"Patio",
-			"KlaasZ4usV"
+			"KlaasZ4usV",
+			"Elderson"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
@@ -269,5 +270,7 @@
 	"srf-ui-mediaplayer-label-repeat": "Herhalen",
 	"srf-ui-mediaplayer-label-repeat-off": "Herhalen uit",
 	"srf-ui-mediaplayer-label-full-screen": "Volledig scherm",
-	"srf-ui-mediaplayer-label-restore-screen": "Scherm herstellen"
+	"srf-ui-mediaplayer-label-restore-screen": "Scherm herstellen",
+	"srf-paramdesc-spreadsheet-filename": "De bestandsnaam voor het downloaden van de gegenereerde speadsheet",
+	"srf-paramdesc-spreadsheet-fileformat": "De bestandsindeling voor de spreadsheet. Mogelijke waarden: xlsx, xls, ods en csv. Standaard: xlsx."
 }
