@@ -309,6 +309,8 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 		if ( count( $dataItems ) > 1 ) {
 
+			$values = [];
+
 			while ( $value = $field->getNextText( SMW_OUTPUT_FILE ) ) {
 				$values[] = $value;
 			}
