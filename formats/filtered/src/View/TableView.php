@@ -91,7 +91,13 @@ class TableView extends View {
 		 *
 		 * @var \SRF\Filtered\ResultItem $queryResultValue
 		 */
-		list( , $queryResultValue ) = each( $this->getQueryResults() );
+		$queryResults = $this->getQueryResults();
+
+		if ( count( $queryResults) === 0 ) {
+			return '';
+		}
+
+		$queryResultValue = $queryResults[ 0 ];
 
 		foreach ( $queryResultValue->getValue() as $field ) {
 			$printRequest = $field->getPrintRequest();
