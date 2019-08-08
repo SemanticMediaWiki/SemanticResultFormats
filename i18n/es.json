@@ -334,5 +334,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Desactivar repetición",
 	"srf-ui-mediaplayer-label-full-screen": "Pantalla completa",
 	"srf-ui-mediaplayer-label-restore-screen": "Restaurar la pantalla",
+	"srf-paramdesc-spreadsheet-filename": "El nombre de descarga del archivo de hoja de cálculo generado",
 	"srf-paramdesc-icalendar-timezone": "Una lista de husos horarios separados por comas"
 }

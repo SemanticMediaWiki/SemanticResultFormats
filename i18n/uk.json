@@ -8,7 +8,8 @@
 			"NataChe",
 			"Piramidion",
 			"Bunyk",
-			"Nemo bis"
+			"Nemo bis",
+			"Vlad5250"
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",
@@ -329,5 +330,6 @@
 	"srf-spreadsheet-link": "Електронна таблиця",
 	"srf-paramdesc-spreadsheet-filename": "Назва файлу для завантаження згенерованого файлу-таблиці",
 	"srf-paramdesc-spreadsheet-templatefile": "Назва електронної таблиці з простору назв «Файл», яка використовується для форматування згенерованого файлу",
-	"srf-paramdesc-icalendar-timezone": "Список часових поясів через кому"
+	"srf-paramdesc-icalendar-timezone": "Список часових поясів через кому",
+	"srf-printername-gantt": "Ґант"
 }
