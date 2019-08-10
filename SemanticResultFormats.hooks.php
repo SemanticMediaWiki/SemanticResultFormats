@@ -189,19 +189,13 @@ final class SRFHooks {
 
 		// Intro text, do not escape the message here as it contains
 		// href links
-		$preferences['srf-prefs-intro'] =
-			[
-				'type' => 'info',
-				'label' => '&#160;',
-				'default' => Html::rawElement(
-					'span',
-					[ 'class' => 'srf-prefs-intro plainlinks' ],
-					wfMessage( 'srf-prefs-intro-text' )->parseAsBlock()
-				),
-				'section' => 'smw/srf',
-				'raw' => 1,
-				'rawrow' => 1,
-			];
+		$preferences['srf-prefs-intro'] = [
+			'type' => 'info',
+			'label' => '&#160;',
+			'default' => wfMessage( 'srf-prefs-intro-text' )->parseAsBlock(),
+			'section' => 'smw/srf',
+			'raw' => 1,
+		];
 
 		// Enable auto update during a page refresh
 		$preferences['srf-prefs-eventcalendar-options-update-default'] = [
