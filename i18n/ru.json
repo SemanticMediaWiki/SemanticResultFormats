@@ -17,7 +17,8 @@
 			"Vlad5250",
 			"Nk88",
 			"Romanko Mikhail",
-			"Diralik"
+			"Diralik",
+			"Movses"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -185,7 +186,7 @@
 	"srf-paramdesc-graphname": "Устанавливает заголовок графа",
 	"srf-paramdesc-graphsize": "Устанавливает размер графа (в пикселях)",
 	"srf-paramdesc-graphlegend": "Показывать легенду или нет?",
-	"srf-paramdesc-graphlabel": "Подпись графы",
+	"srf-paramdesc-graphlabel": "Устанавливает подпись графа",
 	"srf-paramdesc-rankdir": "Устанавливает направление стрелок",
 	"srf-paramdesc-graphlink": "Ссылка графы",
 	"srf-paramdesc-graphcolor": "Устанавливает цвет графа",
