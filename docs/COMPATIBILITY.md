@@ -18,9 +18,15 @@ minimum requirements are indicated in bold.
 		<th>Semantic MediaWiki</th>
 	</tr>
 	<tr>
+		<th>3.1.x</th>
+		<td>5.6.x - 7.3</td>
+		<td>1.27 - 1.33</td>
+		<td>3.0.x - 3.1.x</td>
+	<tr>
+	<tr>
 		<th>3.0.x</th>
-		<td><strong>5.6.x</strong> - latest</td>
-		<td><strong>1.27</strong> - latest</td>
+		<td><strong>5.6.x</strong> - 7.1</td>
+		<td><strong>1.27</strong> - 1.33</td>
 		<td><strong>3.0.x</strong></td>
 	<tr>
 	<tr>
