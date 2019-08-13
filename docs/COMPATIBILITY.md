@@ -16,77 +16,90 @@ minimum requirements are indicated in bold.
 		<th>PHP</th>
 		<th>MediaWiki</th>
 		<th>Semantic MediaWiki</th>
+		<th>Release status</th>
 	</tr>
 	<tr>
-		<th>3.2.x (planned)</th>
+		<th>3.2.x</th>
 		<td><strong>7.1.0</strong> - 7.4.x</td>
 		<td><strong>1.31</strong> - 1.33+</td>
 		<td>3.0.x - 3.1.x+</td>
+		<td>Planned</td>
 	<tr>
 	<tr>
 		<th>3.1.x</th>
 		<td>5.6.0 - 7.3.x</td>
 		<td>1.27 - 1.33</td>
 		<td>3.0.x - 3.1.x</td>
+		<td><strong>Stable release</strong></td>
 	<tr>
 	<tr>
 		<th>3.0.x</th>
 		<td><strong>5.6.0</strong> - 7.1.x</td>
 		<td><strong>1.27</strong> - 1.33</td>
 		<td><strong>3.0.x</strong></td>
+		<td>Obsolete release</td>
 	<tr>
 	<tr>
 		<th>2.5.x</th>
 		<td><strong>5.5.0</strong> - 7.0.x</td>
 		<td><strong>1.23</strong> - 1.29</td>
 		<td>2.1.x - 2.5.x</td>
+		<td>Obsolete release, no support</td>
 	<tr>
 		<th>2.4.x</th>
 		<td>5.3.2 - 7.0.x</td>
 		<td>1.19 - 1.28</td>
 		<td>2.1.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>2.3.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.25</td>
 		<td>2.1.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>2.2.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.25</td>
 		<td>2.1.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>2.1.x</th>
 		<td>5.3.2 - 5.6.x</td>
 		<td>1.19 - 1.24</td>
 		<td>2.1.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>2.0.x</th>
 		<td>5.3.2 - 5.5.x</td>
 		<td>1.19 - 1.23</td>
 		<td>2.0.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>1.9.x</th>
 		<td><strong>5.3.2</strong> - 5.5.x</td>
 		<td><strong>1.19</strong> - 1.23</td>
 		<td>1.9.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>1.8.x</th>
 		<td>5.2.0 - 5.5.x</td>
 		<td><strong>1.17</strong> - 1.22</td>
 		<td>1.8.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 	<tr>
 		<th>1.7.x</th>
 		<td>5.2.0 - 5.4.x</td>
 		<td>1.16 - 1.19</td>
 		<td>1.7.x</td>
+		<td>Obsolete release, no support</td>
 	</tr>
 </table>
 
