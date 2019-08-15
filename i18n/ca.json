@@ -10,6 +10,7 @@
 		]
 	},
 	"srf-desc": "Formats addicionals per a les consultes en línia del Semantic MediaWiki.",
+	"prefs-srf": "Formats de resultats semàntics",
 	"srf-module-loading": "S'està carregant...",
 	"srf-paramdesc-height": "Alçada",
 	"srf-paramdesc-width": "Amplada",

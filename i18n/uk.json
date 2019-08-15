@@ -13,8 +13,8 @@
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",
-	"prefs-srf": "Extension:Semantic Result Formats",
-	"srf-prefs-intro-text": "Ви встановили розширення Semantic Result Formats. За отримання допомоги, відвідайте, будь ласка, [http://www.semantic-mediawiki.org/wiki/Help:Result_formats довідкову сторінку форматів результатів].",
+	"prefs-srf": "Формати семантичних результатів",
+	"srf-prefs-intro-text": "Ви встановили розширення Semantic Result Formats. Відвідайте, будь ласка, [http://www.semantic-mediawiki.org/wiki/Help:Result_formats довідкову сторінку форматів результатів] для отримання допомоги відносно налаштувань користувача.",
 	"prefs-srf-eventcalendar-options": "Налаштування календаря подій",
 	"srf-prefs-eventcalendar-options-update-default": "Увімкнути [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates автоматичні оновлення] календаря подій під час оновлення сторінки",
 	"srf-prefs-eventcalendar-options-paneview-default": "Увімкнути за замовчуванням вигляд клітинками",
@@ -331,5 +331,8 @@
 	"srf-paramdesc-spreadsheet-filename": "Назва файлу для завантаження згенерованого файлу-таблиці",
 	"srf-paramdesc-spreadsheet-templatefile": "Назва електронної таблиці з простору назв «Файл», яка використовується для форматування згенерованого файлу",
 	"srf-paramdesc-icalendar-timezone": "Список часових поясів через кому",
+	"srf-paramdesc-gantt-diagramtitle": "Назва діаграми",
+	"srf-paramdesc-gantt-diagramtheme": "Тема діаграми",
+	"srf-paramdesc-gantt-axisformat": "X-вісь: Формат дати",
 	"srf-printername-gantt": "Ґант"
 }
