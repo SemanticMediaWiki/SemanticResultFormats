@@ -14,20 +14,13 @@ instructions provided.
 
 ### Step 1
 
-Change to the base directory of your MediaWiki installation. This is where the "LocalSettings.php"
-file is located. If you have not yet installed Composer do it now by running the following command
-in your shell:
-
-    wget https://getcomposer.org/composer.phar
-
-### Step 2
-    
-If you do not have a "composer.local.json" file yet, create one and add the following content to it:
+Change to the base directory of your MediaWiki installation. If you do not have a "composer.local.json" file yet,
+create one and add the following content to it:
 
 ```
 {
 	"require": {
-		"mediawiki/semantic-result-formats": "~3.0"
+		"mediawiki/semantic-result-formats": "~3.1"
 	}
 }
 ```
@@ -35,11 +28,11 @@ If you do not have a "composer.local.json" file yet, create one and add the foll
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-result-formats": "~3.0"
+    "mediawiki/semantic-result-formats": "~3.1"
 
 Remember to add a comma to the end of the preceding line in this section.
 
-### Step 3
+### Step 2
 
 Run the following command in your shell:
 
@@ -48,17 +41,12 @@ Run the following command in your shell:
 Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
 note that it may be necessary to run this command twice. If unsure do it twice right away.
 
-### Step 4
+### Step 3
 
 Add the following line to the end of your "LocalSettings.php" file:
 
     wfLoadExtension( 'SemanticResultFormats' );
     
-### Verify installation success
-
-As final step, you can verify SRF got installed by looking at the "Special:Version" page on your wiki and
-check that it is listed in the semantic extensions section.
-
 ## Configuration
 
 A default set of formats is enabled. These are the formats that satisfy the following criteria:

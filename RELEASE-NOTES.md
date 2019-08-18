@@ -2,21 +2,25 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 3.1.0
 
-Not yet released.
+Released on August 18, 2019.
 
-- [#513](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/513) Added `filename` as parameter to `format=vcard`
-- [#510](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/510)
-- [#500](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/500)
-- [#492](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/492)
-- [#467](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/467)
-- [#457](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/457)
-- [#459](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/459)
-- [#445](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/445)
-- [#443](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/443)
-
-## SRF 3.0.2
-
-* [#400](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/391) Fix Timeseries format: `uncaught exception: Invalid dimensions for plot` (by Christian Zagrodnick)
+* Minimum requirement for
+  * PHP changed to version 7.0 and later
+  * MediaWiki changed to version 1.31 and later
+* Added compatibility with Semantic MediaWiki 3.1.x
+* Improved compatibility with PHP 7.2+
+* Added `spreadsheet` format (by Stephan Gambke)
+* Deprecated `excel` format (by Stephan Gambke)
+* Added `gantt` result format (by Sebastian Schmid)
+* Added `filename` parameter to the `vcard` format (by James Hong Kong)
+* Added `template` parameter to the `outline` format (by James Hong Kong)
+* Added css `class` parameter to the `tree` format (by Stephan Gambke)
+* Improved `timeseries` format (by Christian Zagrodnick)
+  * Fixed `uncaught exception: Invalid dimensions for plot` 
+  * Only correct plot height when there are tabs
+* Other bug fixes and code improvements
+* Made the extension installable without the `php-gd` PHP extension
+* Updated translations (by translatewiki.net community)
 
 ## SRF 3.0.1
 
