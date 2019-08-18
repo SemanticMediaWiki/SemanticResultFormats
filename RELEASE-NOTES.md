@@ -2,19 +2,25 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 3.1.0
 
-Released on August 13, 2019.
+Released on August 18, 2019.
 
+* Minimum requirement for
+  * PHP changed to version 7.0 and later
+  * MediaWiki changed to version 1.31 and later
+* Added compatibility with Semantic MediaWiki 3.1.x
+* Improved compatibility with PHP 7.2+
 * Added `spreadsheet` format (by Stephan Gambke)
-* Added `gantt` result format (requires Mermaid extension)
-* Added `filename` parameter to the `vcard` format
-* Added `template` parameter to the `outline` format (by @mwjames)
+* Deprecated `excel` format (by Stephan Gambke)
+* Added `gantt` result format (by Sebastian Schmid)
+* Added `filename` parameter to the `vcard` format (by James Hong Kong)
+* Added `template` parameter to the `outline` format (by James Hong Kong)
 * Added css `class` parameter to the `tree` format (by Stephan Gambke)
 * Improved `timeseries` format (by Christian Zagrodnick)
   * Fixed `uncaught exception: Invalid dimensions for plot` 
   * Only correct plot height when there are tabs
-* Added compatibility with Semantic MediaWiki 3.1.x
-* Improved compatibility with PHP 7.2+
+* Other bug fixes and code improvements
 * Made the extension installable without the `php-gd` PHP extension
+* Updated translations (by translatewiki.net community)
 
 ## SRF 3.0.1
 
