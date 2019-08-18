@@ -13,10 +13,9 @@ installation independently. For more information, visit the [SRF homepage][srf] 
 
 ## Requirements
 
-- PHP 5.6 or later
-- MediaWiki 1.27 or later
+- PHP 7.0 or later
+- MediaWiki 1.31 or later
 - Semantic MediaWiki 3.0 or later
-- MySQL 5 or later or SQLite 3 or later
 
 ## Installation
 
