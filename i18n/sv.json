@@ -258,6 +258,6 @@
 	"srf-ui-mediaplayer-label-repeat": "Upprepa",
 	"srf-ui-mediaplayer-label-full-screen": "Fullskärm",
 	"srf-spreadsheet-link": "Kalkylblad",
-	"srf-paramdesc-spreadsheet-filename": "Filformatet att producera. Tillåtna värden: xlsx, xls, ods, csv. Standard: xlsx",
+	"srf-paramdesc-spreadsheet-filename": "Filnamnet för nedladdningen av den genererade kalkylarksfilen",
 	"srf-paramdesc-spreadsheet-templatefile": "Namnet på kalkylbladsfilen från namnrymden \"File\" som används för att formatera den genererade filen"
 }
