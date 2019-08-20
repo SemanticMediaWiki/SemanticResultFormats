@@ -38,8 +38,7 @@ Run the following command in your shell:
 
     php composer.phar update --no-dev
 
-Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
-note that it may be necessary to run this command twice. If unsure do it twice right away.
+Note if you have Git installed on your system add the `--prefer-source` flag to the above command.
 
 ### Step 3
 
@@ -78,7 +77,7 @@ services for rendering, which may be considered a data leak.
 
 Notes on specific formats:
 * array: requires the MediaWiki Arrays extension to work.
-* excel: requires the phpexcel library from phpoffice to work.
+* gantt: requires the MediaWiki Mermaid extension to work.
 * googlebar: sends data to Google for rendering. It also requires
   access to the Google servers in order to render.
 * googlepie: sends data to Google for rendering. It also requires
@@ -86,3 +85,4 @@ Notes on specific formats:
 * graph: requires the MediaWiki GraphViz extension to work.
 * hash: requires the MediaWiki HashTables extensions to work.
 * process: requires the MediaWiki GraphViz extension to work.
+* spreadsheet: requires the phpspreadsheet library from phpoffice to work.
