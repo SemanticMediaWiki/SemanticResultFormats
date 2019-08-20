@@ -106,7 +106,6 @@ class GraphPrinter extends ResultPrinter {
 
 
 	/**
-	 * (non-PHPdoc)
 	 * @see SMWResultPrinter::handleParameters()
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
@@ -166,6 +165,7 @@ class GraphPrinter extends ResultPrinter {
 		///////////////////////////////////
 		// NODES
 		///////////////////////////////////
+
 		$nodeLabel = '';
 
 		// iterate query result and create SRF\GraphNodes
@@ -281,11 +281,9 @@ class GraphPrinter extends ResultPrinter {
 	/**
 	 * Process a result row and create SRF\GraphNodes
 	 *
-	 * @since 2.5.0
+	 * @since 3.1
 	 *
 	 * @param array $row
-	 * @param $outputmode
-	 * @param array $nodes
 	 *
 	 */
 	protected function processResultRow( array /* of SMWResultArray */ $row ) {
@@ -307,8 +305,6 @@ class GraphPrinter extends ResultPrinter {
 				}
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -367,32 +363,32 @@ class GraphPrinter extends ResultPrinter {
 		];
 
 		$params['graphsize'] = [
-			'type'              => 'string',
-			'default'           => '',
-			'message'           => 'srf-paramdesc-graphsize',
+			'type' => 'string',
+			'default' => '',
+			'message' => 'srf-paramdesc-graphsize',
 			'manipulatedefault' => false,
 		];
 
 		$params['graphlegend'] = [
-			'type'    => 'boolean',
+			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlegend',
 		];
 
 		$params['graphlabel'] = [
-			'type'    => 'boolean',
+			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlabel',
 		];
 
 		$params['graphlink'] = [
-			'type'    => 'boolean',
+			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphlink',
 		];
 
 		$params['graphcolor'] = [
-			'type'    => 'boolean',
+			'type' => 'boolean',
 			'default' => false,
 			'message' => 'srf-paramdesc-graphcolor',
 		];
@@ -405,29 +401,29 @@ class GraphPrinter extends ResultPrinter {
 		];
 
 		$params['nodeshape'] = [
-			'default'           => false,
-			'message'           => 'srf-paramdesc-graph-nodeshape',
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-nodeshape',
 			'manipulatedefault' => false,
-			'values'            => self::$NODE_SHAPES,
+			'values' => self::$NODE_SHAPES,
 		];
 
 		$params['relation'] = [
-			'default'           => 'child',
-			'message'           => 'srf-paramdesc-graph-relation',
+			'default' => 'child',
+			'message' => 'srf-paramdesc-graph-relation',
 			'manipulatedefault' => false,
-			'values'            => [ 'parent', 'child' ],
+			'values' => [ 'parent', 'child' ],
 		];
 
 		$params['nameproperty'] = [
-			'default'           => false,
-			'message'           => 'srf-paramdesc-graph-nameprop',
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-nameprop',
 			'manipulatedefault' => false,
 		];
 
 		$params['wordwraplimit'] = [
-			'type'              => 'integer',
-			'default'           => 25,
-			'message'           => 'srf-paramdesc-graph-wwl',
+			'type' => 'integer',
+			'default' => 25,
+			'message' => 'srf-paramdesc-graph-wwl',
 			'manipulatedefault' => false,
 		];
 
