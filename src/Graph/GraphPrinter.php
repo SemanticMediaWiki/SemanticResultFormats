@@ -140,31 +140,24 @@ class GraphPrinter extends ResultPrinter {
 			return '';
 		}
 
-		///////////////////////////////////
-		// GRAPH OPTIONS
-		///////////////////////////////////
-
+		// set name of current graph
 		$graphInput = "digraph $this->graphName {";
 
-		// fontsize and fontname
-		$graphInput .= "graph [fontsize=10, fontname=\"Verdana\"]\nnode [fontsize=10, fontname=\"Verdana\"];\nedge [fontsize=10, fontname=\"Verdana\"];";
+		// set fontsize and fontname of graph, nodes and edges
+		$graphInput .= "graph [fontsize=10, fontname=\"Verdana\"]\n";
+		$graphInput .= "node [fontsize=10, fontname=\"Verdana\"];\n";
+		$graphInput .= "edge [fontsize=10, fontname=\"Verdana\"];\n";
 
-		// size
+		// choose graphsize, nodeshapes and rank direction
 		if ( $this->graphSize != '' ) {
 			$graphInput .= "size=\"$this->graphSize\";";
 		}
 
-		// shape
 		if ( $this->nodeShape ) {
 			$graphInput .= "node [shape=$this->nodeShape];";
 		}
 
-		// rankdir / arrowdirection
 		$graphInput .= "rankdir=$this->rankdir;";
-
-		///////////////////////////////////
-		// NODES
-		///////////////////////////////////
 
 		$nodeLabel = '';
 
@@ -202,10 +195,6 @@ class GraphPrinter extends ResultPrinter {
 			}
 			$graphInput .= "; ";
 		}
-
-		///////////////////////////////////
-		// EDGES
-		///////////////////////////////////
 
 		foreach ( $this->nodes as $node ) {
 
@@ -250,12 +239,24 @@ class GraphPrinter extends ResultPrinter {
 		}
 		$graphInput .= "}";
 
-
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
 		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>$graphInput</graphviz>" );
 
-
 		// append legend
+		$result .= $this->getGraphLegend();
+
+		return $result;
+	}
+
+	/**
+	 * Creates the graph legend
+	 *
+	 * @since 3.1
+	 *
+	 * @return string Html::rawElement
+	 *
+	 */
+	protected function getGraphLegend(){
 		if ( $this->showGraphLegend && $this->showGraphColor ) {
 			$itemsHtml = '';
 			$colorCount = 0;
@@ -273,9 +274,8 @@ class GraphPrinter extends ResultPrinter {
 				$colorCount ++;
 			}
 
-			$result .= Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml" );
+			return Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml" );
 		}
-		return $result;
 	}
 
 	/**
