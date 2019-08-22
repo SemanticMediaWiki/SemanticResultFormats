@@ -44,7 +44,7 @@
 		"source": "https://github.com/SemanticMediaWiki/SemanticResultFormats"
 	},
 	"require": {
-		"php": ">=7.0",
+		"php": ">=7.1",
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/semantic-media-wiki": "~3.0",
 		"nicmart/tree": "^0.2.7",
