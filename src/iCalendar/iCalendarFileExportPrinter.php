@@ -42,6 +42,11 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	private $icalTimezoneFormatter;
 
 	/**
+	 * @var DateParser
+	 */
+	private $dateParser;
+
+	/**
 	 * @see ResultPrinter::getName
 	 *
 	 * @since 1.8
@@ -149,6 +154,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 */
 	private function getIcal( QueryResult $res ) {
 
+		$this->dateParser = new DateParser();
+
 		$this->icalTimezoneFormatter = new IcalTimezoneFormatter();
 
 		$this->icalTimezoneFormatter->setLocalTimezones(
@@ -255,7 +262,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 						if ( $dataValue === false ) {
 							unset( $params[$label] );
 						} else {
-							$params[$label] = $this->parsedate( $dataValue, $label == 'end' );
+							$params[$label] = $this->dateParser->parseDate( $dataValue, $label == 'end' );
 
 							$timestamp = strtotime( $params[$label] );
 							if ( $from === null || $timestamp < $from ) {
@@ -309,49 +316,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 		$result .= "DTSTAMP:" . date( "Ymd", $t ) . "T" . date( "His", $t ) . "\r\n";
 		$result .= "SEQUENCE:" . $title->getLatestRevID() . "\r\n";
 		$result .= "END:VEVENT\r\n";
-
-		return $result;
-	}
-
-	/**
-	 * Extract a date string formatted for iCalendar from a SMWTimeValue object.
-	 */
-	private function parsedate( TimeValue $dv, $isend = false ) {
-		$year = $dv->getYear();
-
-		// ISO range is limited to four digits
-		if ( ( $year > 9999 ) || ( $year < -9998 ) ) {
-			return '';
-		}
-
-		$year = number_format( $year, 0, '.', '' );
-		$time = str_replace( ':', '', $dv->getTimeString( false ) );
-
-		// increment by one day, compute date to cover leap years etc.
-		if ( ( $time == false ) && ( $isend ) ) {
-			$dv = DataValueFactoryg::getInstance()->newDataValueByType(
-				'_dat',
-				$dv->getWikiValue() . 'T00:00:00-24:00'
-			);
-		}
-
-		$month = $dv->getMonth();
-
-		if ( strlen( $month ) == 1 ) {
-			$month = '0' . $month;
-		}
-
-		$day = $dv->getDay();
-
-		if ( strlen( $day ) == 1 ) {
-			$day = '0' . $day;
-		}
-
-		$result = $year . $month . $day;
-
-		if ( $time != false ) {
-			$result .= "T$time";
-		}
 
 		return $result;
 	}
