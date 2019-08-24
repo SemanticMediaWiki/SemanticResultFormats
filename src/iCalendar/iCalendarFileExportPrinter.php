@@ -227,57 +227,28 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 * @return []
 	 */
 	private function getEventParams( array $row ) {
+
 		$result = '';
 
 		$subject = $row[0]->getResultSubject(); // get the object
-		$dv = DataValueFactory::getInstance()->newDataValueByItem( $subject, null );
+		$dataValue = DataValueFactory::getInstance()->newDataValueByItem( $subject, null );
 
 		$params = [
-			'summary' => $dv->getShortWikiText()
+			'summary' => $dataValue->getShortWikiText()
 		];
 
-		$from = null;
-		$to = null;
+		$params['from'] = null;
+		$params['to'] = null;
+
 		foreach ( $row as /* SMWResultArray */ $field ) {
-			// later we may add more things like a generic
-			// mechanism to add whatever you want :)
-			// could include funny things like geo, description etc. though
-			$printRequest = $field->getPrintRequest();
-			$label = strtolower( $printRequest->getLabel() );
-
-			switch ( $label ) {
-				case 'start':
-				case 'end':
-					if ( $printRequest->getTypeID() == '_dat' ) {
-						$dataValue = $field->getNextDataValue();
-
-						if ( $dataValue === false ) {
-							unset( $params[$label] );
-						} else {
-							$params[$label] = $this->dateParser->parseDate( $dataValue, $label == 'end' );
-
-							$timestamp = strtotime( $params[$label] );
-							if ( $from === null || $timestamp < $from ) {
-								$from = $timestamp;
-							}
-							if ( $to === null || $timestamp > $to ) {
-								$to = $timestamp;
-							}
-						}
-					}
-					break;
-				case 'location':
-				case 'description':
-				case 'summary':
-					$value = $field->getNextDataValue();
-					if ( $value !== false ) {
-						$params[$label] = $value->getShortWikiText();
-					}
-					break;
-			}
+			$this->filterField( $field, $params );
 		}
 
-		$this->icalTimezoneFormatter->calcTransitions( $from, $to );
+		$this->icalTimezoneFormatter->calcTransitions(
+			$params['from'],
+			$params['to']
+		);
+
 		$title = $subject->getTitle();
 
 		$params['url'] = $title->getFullURL();
@@ -285,6 +256,51 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 		$params['sequence'] = $title->getLatestRevID();
 
 		return $params;
+	}
+
+	private function filterField( $field, &$params ) {
+
+		// later we may add more things like a generic
+		// mechanism to add whatever you want :)
+		// could include funny things like geo, description etc. though
+		$printRequest = $field->getPrintRequest();
+		$label = strtolower( $printRequest->getLabel() );
+
+		switch ( $label ) {
+			case 'start':
+			case 'end':
+				if ( $printRequest->getTypeID() == '_dat' ) {
+					$dataValue = $field->getNextDataValue();
+
+					if ( $dataValue === false ) {
+						unset( $params[$label] );
+					} else {
+						$params[$label] = $this->dateParser->parseDate(
+							$dataValue,
+							$label == 'end'
+						);
+
+						$timestamp = strtotime( $params[$label] );
+
+						if ( $params['from'] === null || $timestamp < $params['from'] ) {
+							$params['from'] = $timestamp;
+						}
+
+						if ( $params['to'] === null || $timestamp > $params['to'] ) {
+							$params['to'] = $timestamp;
+						}
+					}
+				}
+				break;
+			case 'location':
+			case 'description':
+			case 'summary':
+				$value = $field->getNextDataValue();
+				if ( $value !== false ) {
+					$params[$label] = $value->getShortWikiText();
+				}
+				break;
+		}
 	}
 
 }
