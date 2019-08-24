@@ -9,7 +9,7 @@ use SRF\iCalendar\DateParser;
  * @group semantic-result-formats
  *
  * @license GNU GPL v2+
- * @since 3.1
+ * @since 3.2
  *
  * @author mwjames
  */
