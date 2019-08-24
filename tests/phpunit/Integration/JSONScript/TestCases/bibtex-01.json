@@ -2,9 +2,16 @@
 	"description": "Test `format=bibtex`",
 	"setup": [
 		{
+			"namespace": "SMW_NS_SCHEMA",
+			"page": "Profile:AuthorSequence",
+			"contents": {
+				"import-from": "/../Fixtures/bibtex-sequence-map.json"
+			}
+		},
+		{
 			"page": "Has author",
 			"namespace": "SMW_NS_PROPERTY",
-			"contents": "[[Has type::Text]]"
+			"contents": "[[Has type::Text]] [[Profile schema::Profile:AuthorSequence]]"
 		},
 		{
 			"page": "Has title",
@@ -148,7 +155,8 @@
 		"wgLang": "en",
 		"smwgNamespacesWithSemanticLinks": {
 			"NS_MAIN": true,
-			"SMW_NS_PROPERTY": true
+			"SMW_NS_PROPERTY": true,
+			"SMW_NS_SCHEMA": true
 		}
 	},
 	"meta": {
