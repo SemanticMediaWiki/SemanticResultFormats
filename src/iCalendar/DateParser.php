@@ -7,14 +7,14 @@ use SMWTimeValue as TimeValue;
 
 /**
  * @license GNU GPL v2+
- * @since 3.1
+ * @since 3.2
  */
 class DateParser {
 
 	/**
 	 * Extract a date string formatted for iCalendar from a SMWTimeValue object.
 	 *
-	 * @since 3.1
+	 * @since 3.2
 	 *
 	 * @param TimeValue $dataValue
 	 * @param boolean $isEnd
