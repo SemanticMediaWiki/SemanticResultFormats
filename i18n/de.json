@@ -173,7 +173,6 @@
 	"srf_paramdesc_hashname": "Sofern die Erweiterung HashTables vorhanden ist, wird anstelle einer sichtbaren Ergebnisausgabe ein assoziatives Datenfeld (Hash) dieses Namens angelegt",
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graph-relation": "Legt fest, ob die Bezeichnungen oder Namensattribute über- oder untergeordnete Objekte sind",
-	"srf-paramdesc-graph-nameprop": "Legt das Attribut fest, dessen Wert als Bezeichnung anstelle der eigentlichen Bezeichnung für den Verweis auf eine Seite genutzt werden soll",
 	"srf-paramdesc-graph-nodeshape": "Legt die Form der Verzweigungspunkte in der Grafik fest",
 	"srf-paramdesc-graphname": "Legt den Titel der Grafik fest",
 	"srf-paramdesc-graphsize": "Legt die Größe der Grafik in Pixeln fest",

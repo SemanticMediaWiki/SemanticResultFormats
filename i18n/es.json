@@ -189,7 +189,6 @@
 	"srf_paramdesc_hashname": "Si se da una extensión HashTables y está disponible, esto creará un \"hash\" con el nombre indicado (sin salida visible, en ese caso)",
 	"srf-printername-graph": "Gráfico",
 	"srf-paramdesc-graph-relation": "Establece si los sujetos o las propiedades del nombre son padres o hijos",
-	"srf-paramdesc-graph-nameprop": "Establece la propiedad que se usará como asunto en vez del asunto real. O sea, el nombre de la página",
 	"srf-paramdesc-graph-nodeshape": "Establece la forma de cada nodo en el gráfico",
 	"srf-paramdesc-graphname": "Establece el título del gráfico",
 	"srf-paramdesc-graphsize": "Establece el tamaño del gráfico en píxeles",

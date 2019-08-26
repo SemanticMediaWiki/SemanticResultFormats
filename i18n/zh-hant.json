@@ -171,7 +171,6 @@
 	"srf_paramdesc_hashname": "如果已經給出，且 HashTables 擴展可用，這將會建立一個帶有指定名稱的哈希表（沒有任何可見的輸出）",
 	"srf-printername-graph": "圖形",
 	"srf-paramdesc-graph-relation": "設定這些主題或名稱屬性是否為父級或子級",
-	"srf-paramdesc-graph-nameprop": "設定一個屬性，並將其作為主題來使用，而不是實際的主題，例如：頁面名稱",
 	"srf-paramdesc-graph-nodeshape": "設定圖形上各節點的形狀",
 	"srf-paramdesc-graphname": "設定圖表標題",
 	"srf-paramdesc-graphsize": "設定圖形大小（以像素計）",

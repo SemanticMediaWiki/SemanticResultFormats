@@ -158,7 +158,6 @@
 	"srf_paramdesc_hashname": "Skapar en \"hash\" med namnet om tillägget HashTables är installerat (inget syns då).",
 	"srf-printername-graph": "Diagram",
 	"srf-paramdesc-graph-relation": "Är objekten eller namnegenskaperna ärvda, eller ärvs de?",
-	"srf-paramdesc-graph-nameprop": "Möjliggör att en egenskap används som objekt istället för den faktiska egenskapen",
 	"srf-paramdesc-graph-nodeshape": "Formen på varje nod i diagrammet",
 	"srf-paramdesc-graphname": "Ändrar diagrammets titel",
 	"srf-paramdesc-graphsize": "Diagramstorlek (i punkter)",

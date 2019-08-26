@@ -169,7 +169,6 @@
 	"srf_paramdesc_hashname": "Hvis angitt samt at HashTables-utvidelsen er tilgjengelig, vil dette opprette en hashkode med det angitte navnet",
 	"srf-printername-graph": "Graf",
 	"srf-paramdesc-graph-relation": "Angir om subjektene eller navnegenskapene er foreldre eller barn?",
-	"srf-paramdesc-graph-nameprop": "Angir egenskapen som blir brukt som subjekt istedenfor det egentlige subjektet, dvs. sidenavnet",
 	"srf-paramdesc-graph-nodeshape": "Angir formen på hver node i grafen",
 	"srf-paramdesc-graphname": "Angir graftittelen",
 	"srf-paramdesc-graphsize": "Angir grafstørrelsen (i piksler)",

@@ -138,7 +138,6 @@
 	"srf_paramdesc_headersep": "Διαχωριστικό μεταξύ ονόματος ιδιότητας και τιμής αν το «headers» έχει οριστεί σε «show» ή «plain»",
 	"srf-printername-graph": "Γράφημα",
 	"srf-paramdesc-graph-relation": "Καθορίζει εάν τα θέματα ή οι ιδιότητες των όνομάτων είναι γονείς ή παιδια",
-	"srf-paramdesc-graph-nameprop": "Ορίζει την ιδιότητα που θα χρησιμοποιηθεί ως αντικείμενο, αντί του πραγματικού θέματος, δηλαδή το όνομα της σελίδας",
 	"srf-paramdesc-graph-nodeshape": "Ορίζει το σχήμα του κάθε κόμβου στο γράφημα",
 	"srf-paramdesc-graphname": "Sets the title of the graph",
 	"srf-paramdesc-graphsize": "Ρυθμίζει το μέγεθος του γραφήματος σε pixels",

@@ -166,7 +166,6 @@
 	"srf_paramdesc_hashname": "If given and the HashTables extension is available this will create a hash with the specified name (no visible output then)",
 	"srf-printername-graph": "Graph",
 	"srf-paramdesc-graph-relation": "Sets whether the subjects or nameproperties are parents or childs",
-	"srf-paramdesc-graph-nameprop": "Sets the property that will be used as subject instead of the actual subject, i.e. page name",
 	"srf-paramdesc-graph-nodeshape": "Sets the shape of each node on the graph",
 	"srf-paramdesc-graphname": "Sets the title of the graph",
 	"srf-paramdesc-graphsize": "Sets the size of the graph in pixels",

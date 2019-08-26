@@ -169,7 +169,6 @@
 	"srf_paramdesc_hashname": "אם זה ניתן ואם ההרחבה HashTables זמינה, זה ייצור גיבוב עם עם השם המוגדר (ואז לא יהיה פלט נראה לעין)",
 	"srf-printername-graph": "תרשים",
 	"srf-paramdesc-graph-relation": "האם הנושאים או מאפייני שם (nameproperties) הורים או ילדים?",
-	"srf-paramdesc-graph-nameprop": "מאפשר הגדרת מאפיין שישמש נושא במקום הנושא הנוכחי",
 	"srf-paramdesc-graph-nodeshape": "הצורה של כל צומת בגרף",
 	"srf-paramdesc-graphname": "כותרת",
 	"srf-paramdesc-graphsize": "גודל הגרף (בפיקסלים)",
