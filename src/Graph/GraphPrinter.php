@@ -66,7 +66,7 @@ class GraphPrinter extends ResultPrinter {
 		'tripleoctagon',
 	];
 	private $nodes = [];
-	private $options;
+	private $options = [];
 
 	public function getName() {
 		return $this->msg( 'srf-printername-graph' )->text();
