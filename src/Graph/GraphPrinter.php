@@ -80,17 +80,17 @@ class GraphPrinter extends ResultPrinter {
 		parent::handleParameters( $params, $outputmode );
 
 		$this->options = [
-			"graphName" => trim( $params['graphname'] ),
-			"graphSize" => trim( $params['graphsize'] ),
-			"nodeShape" => $params['nodeshape'],
-			"nodeLabel" => $params['nodelabel'],
-			"rankDir" => strtoupper( trim( $params['arrowdirection'] ) ),
-			"wordWrapLimit" => $params['wordwraplimit'],
-			"parentRelation" => strtolower( trim( $params['relation'] ) ) == 'parent',
-			"enableGraphLink" => $params['graphlink'],
-			"showGraphLabel" => $params['graphlabel'],
-			"showGraphColor" => $params['graphcolor'],
-			"showGraphLegend" => $params['graphlegend']
+			'graphName' => trim( $params['graphname'] ),
+			'graphSize' => trim( $params['graphsize'] ),
+			'nodeShape' => $params['nodeshape'],
+			'nodeLabel' => $params['nodelabel'],
+			'rankDir' => strtoupper( trim( $params['arrowdirection'] ) ),
+			'wordWrapLimit' => $params['wordwraplimit'],
+			'parentRelation' => strtolower( trim( $params['relation'] ) ) == 'parent',
+			'enableGraphLink' => $params['graphlink'],
+			'showGraphLabel' => $params['graphlabel'],
+			'showGraphColor' => $params['graphcolor'],
+			'showGraphLegend' => $params['graphlegend']
 		];
 	}
 
