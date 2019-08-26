@@ -164,7 +164,6 @@
 	"srf_paramdesc_hashname": "Als opgegeven en de uitbreiding HashTables is beschikbaar, dan wordt een hash met de aangegeven naam gemaakt (er is dan geen zichtbare uitvoer)",
 	"srf-printername-graph": "Grafiek",
 	"srf-paramdesc-graph-relation": "Zijn de onderwerpen of naameigenschappen ouders of kinderen?",
-	"srf-paramdesc-graph-nameprop": "Maakt het mogelijk een eigenschap in te stellen die wordt gebruikt als onderwerp in plaats van het eigenlijke onderwerp",
 	"srf-paramdesc-graph-nodeshape": "De vorm van de knooppunten in de grafiek.",
 	"srf-paramdesc-graphname": "Naam",
 	"srf-paramdesc-graphsize": "Grafiekgrootte (in pixels)",

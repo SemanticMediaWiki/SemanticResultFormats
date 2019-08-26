@@ -174,7 +174,6 @@
 	"srf_paramdesc_hashname": "Se especificado e a extensão HashTables estiver disponível, isto cria um resumo criptográfico (\"hash\") com o nome especificado (neste caso, sem resultado visível)",
 	"srf-printername-graph": "Grafo",
 	"srf-paramdesc-graph-relation": "Define se os assuntos ou as propriedades dos nomes (\"nameproperties\") são pais ou filhos",
-	"srf-paramdesc-graph-nameprop": "Define a propriedade que será usada como assunto em vez do verdadeiro assunto, isto é, o nome da página",
 	"srf-paramdesc-graph-nodeshape": "Define a forma de cada vértice no grafo",
 	"srf-paramdesc-graphname": "Define o título do grafo",
 	"srf-paramdesc-graphsize": "Define o tamanho do grafo (em pixéis)",

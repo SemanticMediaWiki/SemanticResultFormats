@@ -168,7 +168,6 @@
 	"srf_paramdesc_hashname": "Je-li zadáno a je-li dostupné rozšíření HashTables, vytvoří se hash se zadaným názvem (bez viditelného výstupu)",
 	"srf-printername-graph": "Graf",
 	"srf-paramdesc-graph-relation": "Určuje, zda předměty nebo vlastnosti názvů jsou nadřízené či podřízené prvky",
-	"srf-paramdesc-graph-nameprop": "Nastaví vlastnost, která bude použita jako předmět namísto skutečného předmětu, např. název stránky",
 	"srf-paramdesc-graph-nodeshape": "Nastaví tvar všech uzlů ve grafu",
 	"srf-paramdesc-graphname": "Nastaví název grafu",
 	"srf-paramdesc-graphsize": "Nastaví velikost grafu v pixelech",

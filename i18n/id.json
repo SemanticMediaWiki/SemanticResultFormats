@@ -75,7 +75,6 @@
 	"srf_paramdesc_hashname": "Jika diberikan dan ekstensi HashTables tersedia, parameter ini akan membuat hash dengan nama yang diberikan",
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graph-relation": "Apakah subjek atau properti nama merupakan induk atau turunan?",
-	"srf-paramdesc-graph-nameprop": "Memungkinkan pengaturan properti yang akan digunakan sebagai subjek, alih-alih subjek yang sebenarnya",
 	"srf-paramdesc-graph-nodeshape": "Bentuk masing-masing nodus (node) pada grafik",
 	"srf_paramdesc_graphname": "Judul",
 	"srf_paramdesc_graphsize": "Besar grafik (dalam px)",

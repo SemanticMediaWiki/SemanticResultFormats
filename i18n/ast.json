@@ -164,7 +164,6 @@
 	"srf_paramdesc_hashname": "Si se da y la estensión HashTables ta disponible, esto va crear un \"hash\" col nome indicáu (ensin salida visible, nesi casu)",
 	"srf-printername-graph": "Gráfica",
 	"srf-paramdesc-graph-relation": "Establez si los suxetos o les propiedaes del nome son padres o fíos",
-	"srf-paramdesc-graph-nameprop": "Establez la propiedá que se va usar como asuntu en llugar del asuntu real, esto ye, el nome de la páxina",
 	"srf-paramdesc-graph-nodeshape": "Establez la forma de cada nodiu nel gráficu",
 	"srf-paramdesc-graphname": "Establez el títulu de la gráfica",
 	"srf-paramdesc-graphsize": "Establez el tamañu de la gráfica en pixels",
