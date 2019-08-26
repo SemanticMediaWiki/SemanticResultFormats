@@ -113,15 +113,16 @@ class GraphPrinter extends ResultPrinter {
 			$this->processResultRow( $row );
 		}
 
+		// use GraphFormater to build the graph
 		$graphFormatter = new GraphFormatter( $this->options );
-		$graphFormatter->buildGraph($this->nodes);
+		$graphFormatter->buildGraph( $this->nodes );
 
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
 		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
 				() . "</graphviz>" );
 
 		// append legend
-		$result .= $this->getGraphLegend();
+		$result .= $graphFormatter->getGraphLegend();
 
 		return $result;
 	}
