@@ -96,7 +96,6 @@ class GraphPrinter extends ResultPrinter {
 
 	protected $rankdir;
 	protected $legendItem = [];
-	protected $nameProperty;
 	protected $wordWrapLimit;
 
 
@@ -118,7 +117,6 @@ class GraphPrinter extends ResultPrinter {
 		$this->enableGraphLink = $params['graphlink'];
 		$this->showGraphColor = $params['graphcolor'];
 		$this->rankdir = strtoupper( trim( $params['arrowdirection'] ) );
-		$this->nameProperty = $params['nameproperty'] === false ? false : trim( $params['nameproperty'] );
 		$this->parentRelation =
 			strtolower( trim( $params['relation'] ) ) == 'parent';        // false if anything other than 'parent'
 		$this->nodeShape = $params['nodeshape'];
@@ -298,7 +296,7 @@ class GraphPrinter extends ResultPrinter {
 				// create SRF\GraphNode for column 0
 				if ( $i == 0 ) {
 					$node = new GraphNode( $object->getShortWikiText() );
-					$node->setLabel($object->getDisplayTitle());
+					$node->setLabel( $object->getDisplayTitle() );
 					$this->nodes[] = $node;
 				} else {
 					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
@@ -412,12 +410,6 @@ class GraphPrinter extends ResultPrinter {
 			'message' => 'srf-paramdesc-graph-relation',
 			'manipulatedefault' => false,
 			'values' => [ 'parent', 'child' ],
-		];
-
-		$params['nameproperty'] = [
-			'default' => false,
-			'message' => 'srf-paramdesc-graph-nameprop',
-			'manipulatedefault' => false,
 		];
 
 		$params['wordwraplimit'] = [
