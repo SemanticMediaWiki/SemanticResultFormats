@@ -37,6 +37,7 @@ class GraphFormatter {
 		'steelblue2'
 	];
 	private $legendItem = [];
+	private $options = [];
 
 	public function __construct( $options ){
 		$this->options = $options;
@@ -65,12 +66,12 @@ class GraphFormatter {
 	@param SRF\Graph\GraphNodes[] $nodes
 	*/
 	public function buildGraph($nodes){
-		$this->add("digraph " . $this->options['graphName'] . " {");
+		$this->add( "digraph " . $this->options['graphName'] . " {" );
 
 		// set fontsize and fontname of graph, nodes and edges
-		$this->add("graph [fontsize=10, fontname=\"Verdana\"]\n");
-		$this->add("node [fontsize=10, fontname=\"Verdana\"];\n");
-		$this->add("edge [fontsize=10, fontname=\"Verdana\"];\n");
+		$this->add( "graph [fontsize=10, fontname=\"Verdana\"]\n" );
+		$this->add( "node [fontsize=10, fontname=\"Verdana\"];\n" );
+		$this->add( "edge [fontsize=10, fontname=\"Verdana\"];\n" );
 
 		// choose graphsize, nodeshapes and rank direction
 		if ( $this->options['graphSize'] != '' ) {
@@ -78,10 +79,10 @@ class GraphFormatter {
 		}
 
 		if ( $this->options['nodeShape'] != '' ) {
-			$this->add("node [shape=" . $this->options['nodeShape'] . "];");
+			$this->add( "node [shape=" . $this->options['nodeShape'] . "];" );
 		}
 
-		$this->add("rankdir=" . $this->options['rankDir'] . ";");
+		$this->add( "rankdir=" . $this->options['rankDir'] . ";" );
 
 		/** @var \SRF\GraphNode $node */
 		foreach ( $nodes as $node ) {
@@ -199,7 +200,7 @@ class GraphFormatter {
 	 *
 	 * @return string
 	 */
-	private function getWordWrappedText( $text, $charLimit ) {
+	public static function getWordWrappedText( $text, $charLimit ) {
 		$charLimit = max( [ $charLimit, 1 ] );
 		$segments = [];
 
