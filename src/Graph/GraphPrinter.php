@@ -65,39 +65,8 @@ class GraphPrinter extends ResultPrinter {
 		'triangle',
 		'tripleoctagon',
 	];
-	protected $nodeShape;
-	protected $nodes = [];
-	protected $nodeLabel;
-	protected $parentRelation;
-
-	protected $graphName;
-	protected $graphSize;
-	protected $graphColors = [
-		'black',
-		'red',
-		'green',
-		'blue',
-		'darkviolet',
-		'gold',
-		'deeppink',
-		'brown',
-		'bisque',
-		'darkgreen',
-		'yellow',
-		'darkblue',
-		'magenta',
-		'steelblue2'
-	];
-
-	protected $showGraphColor;
-	protected $showGraphLabel;
-	protected $showGraphLegend;
-	protected $enableGraphLink;
-
-	protected $rankdir;
-	protected $legendItem = [];
-	protected $wordWrapLimit;
-
+	private $nodes = [];
+	private $options;
 
 	public function getName() {
 		return $this->msg( 'srf-printername-graph' )->text();
@@ -110,18 +79,19 @@ class GraphPrinter extends ResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
-		$this->graphName = trim( $params['graphname'] );
-		$this->graphSize = trim( $params['graphsize'] );
-		$this->showGraphLegend = $params['graphlegend'];
-		$this->showGraphLabel = $params['graphlabel'];
-		$this->enableGraphLink = $params['graphlink'];
-		$this->showGraphColor = $params['graphcolor'];
-		$this->rankdir = strtoupper( trim( $params['arrowdirection'] ) );
-		$this->parentRelation =
-			strtolower( trim( $params['relation'] ) ) == 'parent';        // false if anything other than 'parent'
-		$this->nodeShape = $params['nodeshape'];
-		$this->wordWrapLimit = $params['wordwraplimit'];
-		$this->nodeLabel = $params['nodelabel'];
+		$this->options = [
+			"graphName" => trim( $params['graphname'] ),
+			"graphSize" => trim( $params['graphsize'] ),
+			"nodeShape" => $params['nodeshape'],
+			"nodeLabel" => $params['nodelabel'],
+			"rankDir" => strtoupper( trim( $params['arrowdirection'] ) ),
+			"wordWrapLimit" => $params['wordwraplimit'],
+			"parentRelation" => strtolower( trim( $params['relation'] ) ) == 'parent',
+			"enableGraphLink" => $params['graphlink'],
+			"showGraphLabel" => $params['graphlabel'],
+			"showGraphColor" => $params['graphcolor'],
+			"showGraphLegend" => $params['graphlegend']
+		];
 	}
 
 
@@ -138,107 +108,17 @@ class GraphPrinter extends ResultPrinter {
 			return '';
 		}
 
-		// set name of current graph
-		$graphInput = "digraph $this->graphName {";
-
-		// set fontsize and fontname of graph, nodes and edges
-		$graphInput .= "graph [fontsize=10, fontname=\"Verdana\"]\n";
-		$graphInput .= "node [fontsize=10, fontname=\"Verdana\"];\n";
-		$graphInput .= "edge [fontsize=10, fontname=\"Verdana\"];\n";
-
-		// choose graphsize, nodeshapes and rank direction
-		if ( $this->graphSize != '' ) {
-			$graphInput .= "size=\"$this->graphSize\";";
-		}
-
-		if ( $this->nodeShape ) {
-			$graphInput .= "node [shape=$this->nodeShape];";
-		}
-
-		$graphInput .= "rankdir=$this->rankdir;";
-
-		$nodeLabel = '';
-
 		// iterate query result and create SRF\GraphNodes
 		while ( $row = $res->getNext() ) {
 			$this->processResultRow( $row );
 		}
 
-		/** @var \SRF\GraphNode $node */
-		foreach ( $this->nodes as $node ) {
-
-			$nodeName = $node->getID();
-
-			// take "displaytitle" as node-label if it is set
-			if ( $this->nodeLabel === self::NODELABEL_DISPLAYTITLE) {
-				$objectDisplayTitle = $node->getLabel();
-				if ( !empty( $objectDisplayTitle )) {
-					$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle,
-						$this->wordWrapLimit );
-				}
-			}
-
-			// add the node
-			$graphInput .= "\"" . $nodeName . "\"";
-
-			if ( $this->enableGraphLink ) {
-
-				$nodeLinkURL = "[[" . $nodeName . "]]";
-
-				if( $nodeLabel === '' ) {
-					$graphInput .= " [URL = \"$nodeLinkURL\"]";
-				} else {
-					$graphInput .= " [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]";
-				}
-			}
-			$graphInput .= "; ";
-		}
-
-		foreach ( $this->nodes as $node ) {
-
-			if ( count( $node->getParentNode() ) > 0 ) {
-
-				$nodeName = $node->getID();
-
-				foreach ( $node->getParentNode() as $parentNode ) {
-
-					// handle parent/child switch (parentRelation)
-					$graphInput .= $this->parentRelation ? " \"" . $parentNode['object'] . "\" -> \"" . $nodeName . "\""
-						: " \"" . $nodeName . "\" -> \"" . $parentNode['object'] . "\" ";
-
-					if ( $this->showGraphLabel || $this->showGraphColor ) {
-						$graphInput .= ' [';
-
-						// add legend item only if missing
-						if ( array_search( $parentNode['predicate'], $this->legendItem, true ) === false ) {
-							$this->legendItem[] = $parentNode['predicate'];
-						}
-
-						// assign color
-						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
-
-						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
-						if ( $this->showGraphLabel ) {
-							$graphInput .= "label=\"" . $parentNode['predicate'] . "\"";
-							if ( $this->showGraphColor ) {
-								$graphInput .= ",fontcolor=$color,";
-							}
-						}
-
-						// colorize arrow
-						if ( $this->showGraphColor ) {
-							$graphInput .= "color=$color";
-						}
-						$graphInput .= ']';
-					}
-				}
-				$graphInput .= ';';
-			}
-		}
-		$graphInput .= "}";
+		$graphFormatter = new GraphFormatter( $this->options );
+		$graphFormatter->buildGraph($this->nodes);
 
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
-		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>$graphInput</graphviz>" );
+		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
+				() . "</graphviz>" );
 
 		// append legend
 		$result .= $this->getGraphLegend();
@@ -246,35 +126,6 @@ class GraphPrinter extends ResultPrinter {
 		return $result;
 	}
 
-	/**
-	 * Creates the graph legend
-	 *
-	 * @since 3.1
-	 *
-	 * @return string Html::rawElement
-	 *
-	 */
-	protected function getGraphLegend(){
-		if ( $this->showGraphLegend && $this->showGraphColor ) {
-			$itemsHtml = '';
-			$colorCount = 0;
-			$arraySize = count( $this->graphColors );
-
-			foreach ( $this->legendItem as $legendLabel ) {
-				if ( $colorCount >= $arraySize ) {
-					$colorCount = 0;
-				}
-
-				$color = $this->graphColors[$colorCount];
-				$itemsHtml .= Html::rawElement( 'div', [ 'class' => 'graphlegenditem', 'style' => "color: $color" ],
-					"$color: $legendLabel" );
-
-				$colorCount ++;
-			}
-
-			return Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml" );
-		}
-	}
 
 	/**
 	 * Process a result row and create SRF\GraphNodes
@@ -303,43 +154,6 @@ class GraphPrinter extends ResultPrinter {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Returns the word wrapped version of the provided text.
-	 *
-	 * @since 1.5.4
-	 *
-	 * @param string $text
-	 * @param integer $charLimit
-	 *
-	 * @return string
-	 */
-	protected function getWordWrappedText( $text, $charLimit ) {
-		$charLimit = max( [ $charLimit, 1 ] );
-		$segments = [];
-
-		while ( strlen( $text ) > $charLimit ) {
-			// Find the last space in the allowed range.
-			$splitPosition = strrpos( substr( $text, 0, $charLimit ), ' ' );
-
-			if ( $splitPosition === false ) {
-				// If there is no space (lond word), find the next space.
-				$splitPosition = strpos( $text, ' ' );
-
-				if ( $splitPosition === false ) {
-					// If there are no spaces, everything goes on one line.
-					$splitPosition = strlen( $text ) - 1;
-				}
-			}
-
-			$segments[] = substr( $text, 0, $splitPosition + 1 );
-			$text = substr( $text, $splitPosition + 1 );
-		}
-
-		$segments[] = $text;
-
-		return implode( '\n', $segments );
 	}
 
 
