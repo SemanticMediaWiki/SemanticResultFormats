@@ -72,7 +72,6 @@ class GraphPrinter extends ResultPrinter {
 		return $this->msg( 'srf-printername-graph' )->text();
 	}
 
-
 	/**
 	 * @see SMWResultPrinter::handleParameters()
 	 */
@@ -94,10 +93,10 @@ class GraphPrinter extends ResultPrinter {
 		];
 	}
 
-
 	/**
 	 * @param SMWQueryResult $res
 	 * @param $outputmode
+	 *
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -127,7 +126,6 @@ class GraphPrinter extends ResultPrinter {
 		return $result;
 	}
 
-
 	/**
 	 * Process a result row and create SRF\GraphNodes
 	 *
@@ -156,7 +154,6 @@ class GraphPrinter extends ResultPrinter {
 			}
 		}
 	}
-
 
 	/**
 	 * @see SMWResultPrinter::getParamDefinitions

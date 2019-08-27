@@ -10,7 +10,7 @@ use Html;
  * @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
  *
  * @license GNU GPL v2+
- * @since 3.1
+ * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
  *
@@ -56,14 +56,13 @@ class GraphFormatter {
 		$this->graph .= $line;
 	}
 
-
 	/*
 	* Creates the DOT (graph description language) which can be processed by the graphviz lib
 	*
 	* @see https://www.graphviz.org/
-	* @since 3.1
+	* @since 3.2
 	*
-	@param SRF\Graph\GraphNodes[] $nodes
+	* @param SRF\Graph\GraphNodes[] $nodes
 	*/
 	public function buildGraph($nodes){
 		$this->add( "digraph " . $this->options['graphName'] . " {" );
@@ -168,7 +167,6 @@ class GraphFormatter {
 	 * Creates the graph legend
 	 *
 	 * @return string Html::rawElement
-	 *
 	 */
 	public function getGraphLegend(){
 		$itemsHtml = '';

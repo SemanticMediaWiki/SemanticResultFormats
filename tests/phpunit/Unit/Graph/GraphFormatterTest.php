@@ -11,7 +11,6 @@ use SRF\Graph\GraphNode;
  * @group semantic-result-formats
  *
  * @license GNU GPL v2+
- * @since 3.1
  *
  * @author Sebastian Schmid (gesinn.it)
  */
@@ -20,7 +19,6 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 	/*
 	* @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
 	*/
-
 	private $options = [
 		'graphName' => "Unit Test",
 		'graphSize' => "100",
@@ -65,7 +63,6 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( GraphFormatter::class, new GraphFormatter( $this->options ) );
 	}
 
-
 	public function testGetWordWrappedText() {
 		$text = 'Lorem ipsum dolor sit amet';
 		$expected = 'Lorem \nipsum \ndolor sit \namet';
@@ -79,24 +76,4 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals( $this->graphFormatter->getGraphLegend(), $expected );
 	}
-
-
-	/*
-	public function testBuildGraph() {
-		$expected = "digraph Unit Test {graph [fontsize=10, fontname=\"Verdana\"]\nnode [fontsize=10, fontname=\"Verdana\"];\nedge [fontsize=10, fontname=\"Verdana\"];\nsize=\"100\";node [shape=rect];rankdir=TB;\"Team:Alpha\" [URL = \"[[Team:Alpha]]\", label = \"Alpha\"]; \"Team:Beta\" [URL = \"[[Team:Beta]]\", label = \"Beta\"];  \"Person:Alexander Gesinn\" -> \"Team:Alpha\" [label=\"Casted\",fontcolor=black,color=black]; \"Person:Sebastian Schmid\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,color=black]; \"Person:Alexander Gesinn\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,color=black]; \"Team:Alpha\" -> \"Team:Beta\" [label=\"Part of Team \",fontcolor=red,color=red];}\n";
-
-
-		print('----------actual------------');
-		print($this->graphFormatter->getGraph());
-		print('-------------');
-
-
-		print('------expected-------');
-		print($expected);
-		print('-------------');
-
-
-		$this->assertEquals( $this->graphFormatter->getGraph(), $expected );
-	}
-	*/
 }
