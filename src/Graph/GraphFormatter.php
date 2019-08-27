@@ -37,7 +37,7 @@ class GraphFormatter {
 		'steelblue2'
 	];
 	private $legendItem = [];
-	private $options = [];
+	private $options;
 
 	public function __construct( $options ){
 		$this->options = $options;
@@ -65,7 +65,7 @@ class GraphFormatter {
 	* @param SRF\Graph\GraphNodes[] $nodes
 	*/
 	public function buildGraph($nodes){
-		$this->add( "digraph " . $this->options['graphName'] . " {" );
+		$this->add( "digraph " . $this->options->graphName . " {" );
 
 		// set fontsize and fontname of graph, nodes and edges
 		$this->add( "graph [fontsize=10, fontname=\"Verdana\"]\n" );
@@ -73,25 +73,25 @@ class GraphFormatter {
 		$this->add( "edge [fontsize=10, fontname=\"Verdana\"];\n" );
 
 		// choose graphsize, nodeshapes and rank direction
-		if ( $this->options['graphSize'] != '' ) {
-			$this->add("size=\"" . $this->options['graphSize'] . "\";");
+		if ( $this->options->graphSize != '' ) {
+			$this->add("size=\"" . $this->options->graphSize . "\";");
 		}
 
-		if ( $this->options['nodeShape'] != '' ) {
-			$this->add( "node [shape=" . $this->options['nodeShape'] . "];" );
+		if ( $this->options->nodeShape != '' ) {
+			$this->add( "node [shape=" . $this->options->nodeShape . "];" );
 		}
 
-		$this->add( "rankdir=" . $this->options['rankDir'] . ";" );
+		$this->add( "rankdir=" . $this->options->rankDir . ";" );
 
 		/** @var \SRF\GraphNode $node */
 		foreach ( $nodes as $node ) {
 
 			// take "displaytitle" as node-label if it is set
-			if ( $this->options['nodeLabel'] === GraphPrinter::NODELABEL_DISPLAYTITLE) {
+			if ( $this->options->nodeLabel === GraphPrinter::NODELABEL_DISPLAYTITLE) {
 				$objectDisplayTitle = $node->getLabel();
 				if ( !empty( $objectDisplayTitle )) {
 					$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle,
-						$this->options['wordWrapLimit'] );
+						$this->options->wordWrapLimit );
 				}
 			}
 
@@ -102,7 +102,7 @@ class GraphFormatter {
 			 */
 			$this->add( "\"" . $node->getID() . "\"" );
 
-			if ( $this->options['enableGraphLink'] ) {
+			if ( $this->options->enableGraphLink ) {
 
 				$nodeLinkURL = "[[" . $node->getID() . "]]";
 
@@ -127,11 +127,11 @@ class GraphFormatter {
 				foreach ( $node->getParentNode() as $parentNode ) {
 
 					// handle parent/child switch (parentRelation)
-					$this->add( $this->options['parentRelation'] ? " \"" . $parentNode['object']
+					$this->add( $this->options->parentRelation ? " \"" . $parentNode['object']
 						. "\" -> \"" . $node->getID() . "\""
 						: " \"" . $node->getID() . "\" -> \"" . $parentNode['object'] . "\" " );
 
-					if ( $this->options['showGraphLabel'] || $this->options['showGraphColor'] ) {
+					if ( $this->options->showGraphLabel || $this->options->showGraphColor ) {
 						$this->add( ' [' );
 
 						// add legend item only if missing
@@ -143,15 +143,15 @@ class GraphFormatter {
 						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
 
 						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
-						if ( $this->options['showGraphLabel'] ) {
+						if ( $this->options->showGraphLabel ) {
 							$this->add( "label=\"" . $parentNode['predicate'] . "\"" );
-							if ( $this->options['showGraphColor'] ) {
+							if ( $this->options->showGraphColor ) {
 								$this->add( ",fontcolor=$color," );
 							}
 						}
 
 						// colorize arrow
-						if ( $this->options['showGraphColor'] ) {
+						if ( $this->options->showGraphColor ) {
 							$this->add( "color=$color" );
 						}
 						$this->add( "]" );
@@ -173,7 +173,7 @@ class GraphFormatter {
 		$colorCount = 0;
 		$arraySize = count( $this->graphColors );
 
-		if ( $this->options['showGraphLegend'] && $this->options['showGraphColor'] ) {
+		if ( $this->options->showGraphLegend && $this->options->showGraphColor ) {
 			foreach ( $this->legendItem as $legendLabel ) {
 				if ( $colorCount >= $arraySize ) {
 					$colorCount = 0;

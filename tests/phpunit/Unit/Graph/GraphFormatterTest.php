@@ -19,19 +19,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 	/*
 	* @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
 	*/
-	private $options = [
-		'graphName' => "Unit Test",
-		'graphSize' => "100",
-		'nodeShape' => "rect",
-		'nodeLabel' => "displaytitle",
-		'rankDir' => "TB",
-		'wordWrapLimit' => "20",
-		'parentRelation' => "parent",
-		'enableGraphLink' => "yes",
-		'showGraphLabel' => "yes",
-		'showGraphColor' => "yes",
-		'showGraphLegend' => "yes",
-	];
+	private $options;
 
 	private $graphFormatter;
 
@@ -39,6 +27,18 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 		parent::setUp();
+
+		$this->options->graphName =  'Unit Test';
+		$this->options->graphSize = '100';
+		$this->options->nodeShape = 'rect';
+		$this->options->nodeLabel = 'displaytitle';
+		$this->options->rankDir = 'TB';
+		$this->options->wordWrapLimit = '20';
+		$this->options->parentRelation = 'parent';
+		$this->options->enableGraphLink = 'yes';
+		$this->options->showGraphLabel = 'yes';
+		$this->options->showGraphColor = 'yes';
+		$this->options->showGraphLegend = 'yes';
 
 		$this->graphFormatter = new GraphFormatter( $this->options );
 
