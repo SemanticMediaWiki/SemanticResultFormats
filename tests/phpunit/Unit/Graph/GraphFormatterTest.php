@@ -71,9 +71,26 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetGraphLegend() {
-		$expected =
-			'<div class="graphlegend"><div class="graphlegenditem" style="color: black">black: Casted</div><div class="graphlegenditem" style="color: red">red: Part of Team </div></div>';
+		$expected = "<div class=\"graphlegend\">".
+					"<div class=\"graphlegenditem\" style=\"color: black\">black: Casted</div>".
+					"<div class=\"graphlegenditem\" style=\"color: red\">red: Part of Team </div>".
+					"</div>";
 
 		$this->assertEquals( $this->graphFormatter->getGraphLegend(), $expected );
+	}
+
+	public function testBuildGraph(){
+		$expected = "digraph Unit Test {graph [fontsize=10, fontname=\"Verdana\"]\n".
+					"node [fontsize=10, fontname=\"Verdana\"];\n".
+					"edge [fontsize=10, fontname=\"Verdana\"];\n".
+					"size=\"100\";node [shape=rect];rankdir=TB;".
+					"\"Team:Alpha\" [URL = \"[[Team:Alpha]]\", label = \"Alpha\"]; ".
+					"\"Team:Beta\" [URL = \"[[Team:Beta]]\", label = \"Beta\"];  ".
+					"\"Person:Alexander Gesinn\" -> \"Team:Alpha\" [label=\"Casted\",fontcolor=black,color=black]; ".
+					"\"Person:Sebastian Schmid\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,color=black]; ".
+					"\"Person:Alexander Gesinn\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,color=black]; ".
+					"\"Team:Alpha\" -> \"Team:Beta\" [label=\"Part of Team \",fontcolor=red,color=red];}";
+
+		$this->assertEquals( $this->graphFormatter->getGraph(), $expected);
 	}
 }
