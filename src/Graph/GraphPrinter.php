@@ -66,7 +66,7 @@ class GraphPrinter extends ResultPrinter {
 		'tripleoctagon',
 	];
 	private $nodes = [];
-	private $options = [];
+	private $options;
 
 	public function getName() {
 		return $this->msg( 'srf-printername-graph' )->text();
@@ -78,19 +78,17 @@ class GraphPrinter extends ResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
-		$this->options = [
-			'graphName' => trim( $params['graphname'] ),
-			'graphSize' => trim( $params['graphsize'] ),
-			'nodeShape' => $params['nodeshape'],
-			'nodeLabel' => $params['nodelabel'],
-			'rankDir' => strtoupper( trim( $params['arrowdirection'] ) ),
-			'wordWrapLimit' => $params['wordwraplimit'],
-			'parentRelation' => strtolower( trim( $params['relation'] ) ) == 'parent',
-			'enableGraphLink' => $params['graphlink'],
-			'showGraphLabel' => $params['graphlabel'],
-			'showGraphColor' => $params['graphcolor'],
-			'showGraphLegend' => $params['graphlegend']
-		];
+		$this->options->graphName = trim( $params['graphname'] );
+		$this->options->graphSize = trim( $params['graphsize'] );
+		$this->options->nodeShape = trim( $params['nodeshape'] );
+		$this->options->nodeLabel = trim( $params['nodelabel'] );
+		$this->options->rankDir = strtoupper( trim( $params['arrowdirection'] ) );
+		$this->options->wordWrapLimit = trim( $params['wordwraplimit'] );
+		$this->options->parentRelation = strtolower( trim( $params['relation'] ) ) == 'parent';
+		$this->options->enableGraphLink = trim($params['graphlink']);
+		$this->options->showGraphLabel = trim($params['graphlabel']);
+		$this->options->showGraphColor = trim($params['graphcolor']);
+		$this->options->showGraphLegend = trim( $params['graphlegend'] );
 	}
 
 	/**
