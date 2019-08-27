@@ -46,5 +46,4 @@ class GraphNode {
 	public function getLabel() {
 		return $this->label;
 	}
-
 }

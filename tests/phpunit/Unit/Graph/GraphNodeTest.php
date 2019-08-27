@@ -18,7 +18,6 @@ use SRF\Graph\GraphNode;
 class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			GraphNode::class,
 			new GraphNode( "graphnode:id" )
@@ -26,7 +25,6 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGraphNode(){
-
 		$node = new GraphNode( 'Team:Beta' );
 		$this->assertEquals( 'Team:Beta', $node->getID() );
 
@@ -35,7 +33,6 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddParentNode(){
-
 		$mockParentNode1[] = [
 			"predicate" => 'Part Of Team',
 			"object"    => 'Alpha Team'
