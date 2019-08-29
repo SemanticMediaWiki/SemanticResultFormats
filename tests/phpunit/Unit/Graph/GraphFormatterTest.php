@@ -4,6 +4,7 @@ namespace SRF\Tests\Unit\Formats;
 
 use SRF\Graph\GraphFormatter;
 use SRF\Graph\GraphNode;
+use SRF\Graph\GraphOptions;
 
 
 /**
@@ -28,21 +29,23 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->options->graphName =  'Unit Test';
-		$this->options->graphSize = '100';
-		$this->options->nodeShape = 'rect';
-		$this->options->nodeLabel = 'displaytitle';
-		$this->options->rankDir = 'TB';
-		$this->options->wordWrapLimit = '20';
-		$this->options->parentRelation = 'parent';
-		$this->options->enableGraphLink = 'yes';
-		$this->options->showGraphLabel = 'yes';
-		$this->options->showGraphColor = 'yes';
-		$this->options->showGraphLegend = 'yes';
+		$params = [
+			'graphname' =>  'Unit Test',
+			'graphsize' => '100',
+			'nodeshape' => 'rect',
+			'nodelabel' => 'displaytitle',
+			'arrowdirection' => 'LR',
+			'wordwraplimit' => 20,
+			'relation' => 'parent',
+			'graphlink' => true,
+			'graphlabel' => true,
+			'graphcolor' => true,
+			'graphlegend' => true,
+			];
+
+		$this->options = new GraphOptions($params);
 
 		$this->graphFormatter = new GraphFormatter( $this->options );
-
-		$this->nodes = [];
 
 		$node1 = new GraphNode( 'Team:Alpha' );
 		$node1->setLabel( "Alpha" );
@@ -83,7 +86,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 		$expected = "digraph Unit Test {graph [fontsize=10, fontname=\"Verdana\"]\n".
 					"node [fontsize=10, fontname=\"Verdana\"];\n".
 					"edge [fontsize=10, fontname=\"Verdana\"];\n".
-					"size=\"100\";node [shape=rect];rankdir=TB;".
+					"size=\"100\";node [shape=rect];rankdir=LR;".
 					"\"Team:Alpha\" [URL = \"[[Team:Alpha]]\", label = \"Alpha\"]; ".
 					"\"Team:Beta\" [URL = \"[[Team:Beta]]\", label = \"Beta\"];  ".
 					"\"Person:Alexander Gesinn\" -> \"Team:Alpha\" [label=\"Casted\",fontcolor=black,color=black]; ".

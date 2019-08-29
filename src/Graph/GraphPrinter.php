@@ -78,17 +78,7 @@ class GraphPrinter extends ResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
-		$this->options->graphName = trim( $params['graphname'] );
-		$this->options->graphSize = trim( $params['graphsize'] );
-		$this->options->nodeShape = trim( $params['nodeshape'] );
-		$this->options->nodeLabel = trim( $params['nodelabel'] );
-		$this->options->rankDir = strtoupper( trim( $params['arrowdirection'] ) );
-		$this->options->wordWrapLimit = trim( $params['wordwraplimit'] );
-		$this->options->parentRelation = strtolower( trim( $params['relation'] ) ) == 'parent';
-		$this->options->enableGraphLink = trim($params['graphlink']);
-		$this->options->showGraphLabel = trim($params['graphlabel']);
-		$this->options->showGraphColor = trim($params['graphcolor']);
-		$this->options->showGraphLegend = trim( $params['graphlegend'] );
+		$this->options = new GraphOptions($params);
 	}
 
 	/**
