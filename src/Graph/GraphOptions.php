@@ -16,59 +16,26 @@ namespace SRF\Graph;
 
 class GraphOptions {
 
-	/**
-	 * @var string
-	 */
 	private $graphName;
 
-	/**
-	 * @var string
-	 */
 	private $graphSize;
 
-	/**
-	 * @var string
-	 */
 	private $nodeShape;
 
-	/**
-	 * @var string
-	 */
 	private $nodeLabel;
 
-	/**
-	 * @var string
-	 */
 	private $rankDir;
 
-	/**
-	 * @var int
-	 */
 	private $wordWrapLimit;
 
-	/**
-	 * @var string
-	 */
 	private $parentRelation;
 
-	/**
-	 * @var boolean
-	 */
 	private $enableGraphLink;
 
-	/**
-	 * @var boolean
-	 */
 	private $showGraphLabel;
 
-	/**
-	 * @var boolean
-	 */
 	private $showGraphColor;
 
-	/**
-	 * @var boolean
-	 */
 	private $showGraphLegend;
 
 	public function __construct( $options ) {
