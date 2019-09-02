@@ -160,7 +160,7 @@ class GraphPrinter extends ResultPrinter {
 				// create SRF\GraphNode for column 0
 				if ( $i == 0 ) {
 					$node = new GraphNode( $object->getShortWikiText() );
-					$node->setLabel( $object->getDisplayTitle() );
+					$node->setLabel( $object->getPreferredCaption() );
 					$this->nodes[] = $node;
 				} else {
 					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
