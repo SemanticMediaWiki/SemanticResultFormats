@@ -167,6 +167,7 @@
 	"srf-printername-graph": "Graph",
 	"srf-paramdesc-graph-relation": "Sets whether the subjects or nameproperties are parents or childs",
 	"srf-paramdesc-graph-nodeshape": "Sets the shape of each node on the graph",
+	"srf-paramdesc-graph-arrowhead": "Sets the style of arrowhead on the head node of an edge",
 	"srf-paramdesc-graphname": "Sets the title of the graph",
 	"srf-paramdesc-graphsize": "Sets the size of the graph in pixels",
 	"srf-paramdesc-graphlegend": "Sets whether a graph legend should be shown",
