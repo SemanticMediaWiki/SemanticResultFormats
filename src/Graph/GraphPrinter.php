@@ -90,7 +90,7 @@ class GraphPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	public function hasMissingDependency() {
-		return !class_exists( 'GraphViz' ) || !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' );
+		return !class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' );
 	}
 
 	/**
