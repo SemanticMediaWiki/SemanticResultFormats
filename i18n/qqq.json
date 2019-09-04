@@ -184,6 +184,7 @@
 	"srf-printername-graph": "{{doc-smwformat|graph}}\n{{Identical|Graph}}",
 	"srf-paramdesc-graph-relation": "{{doc-paramdesc|graphrelation}}",
 	"srf-paramdesc-graph-nodeshape": "{{doc-paramdesc|nodeshape}}",
+	"srf-paramdesc-graph-arrowhead": "{{doc-paramdesc|arrowhead}}",
 	"srf-paramdesc-graphname": "{{doc-smwformat|graphname}}",
 	"srf-paramdesc-graphsize": "{{doc-paramdesc|graphsize}}",
 	"srf-paramdesc-graphlegend": "{{doc-paramdesc|graphlegend}}",

@@ -151,6 +151,11 @@ class GraphFormatter {
 							}
 						}
 
+						// change arrowhead of edges
+						if( $this->options->getArrowHead() ){
+							$this->add( "arrowhead=".$this->options->getArrowHead()."," );
+						}
+
 						// colorize arrow
 						if ( $this->options->isGraphColor() ) {
 							$this->add( "color=$color" );

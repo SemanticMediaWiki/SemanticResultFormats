@@ -26,6 +26,8 @@ class GraphOptions {
 
 	private $rankDir;
 
+	private $arrowHead;
+
 	private $wordWrapLimit;
 
 	private $parentRelation;
@@ -45,6 +47,7 @@ class GraphOptions {
 		$this->nodeShape = trim( $options['nodeshape'] );
 		$this->nodeLabel = trim( $options['nodelabel'] );
 		$this->rankDir = strtoupper( trim( $options['arrowdirection'] ) );
+		$this->arrowHead = trim( $options['arrowhead'] );
 		$this->wordWrapLimit = trim( $options['wordwraplimit'] );
 		$this->parentRelation = strtolower( trim( $options['relation'] ) ) == 'parent';
 		$this->enableGraphLink = trim($options['graphlink']);
@@ -86,6 +89,13 @@ class GraphOptions {
 	 */
 	public function getRankDir(): string {
 		return $this->rankDir;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getArrowHead(): string {
+		return $this->arrowHead;
 	}
 
 	/**

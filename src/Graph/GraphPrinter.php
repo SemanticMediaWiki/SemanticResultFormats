@@ -70,6 +70,21 @@ class GraphPrinter extends ResultPrinter {
 		'triangle',
 		'tripleoctagon',
 	];
+
+	public static $ARROW_SHAPES = [
+		'box',
+		'crow',
+		'curve',
+		'icurve',
+		'diamond',
+		'dot',
+		'inv',
+		'none',
+		'normal',
+		'tee',
+		'vee',
+	];
+
 	private $nodes = [];
 	private $options;
 
@@ -224,6 +239,12 @@ class GraphPrinter extends ResultPrinter {
 			'default' => 'LR',
 			'message' => 'srf-paramdesc-rankdir',
 			'values'  => [ 'LR', 'RL', 'TB', 'BT' ],
+		];
+
+		$params['arrowhead'] = [
+			'default' => 'normal',
+			'message' => 'srf-paramdesc-arrowhead', // TODO: add to i18n en.json de.json qqq.json
+			'values' => self::$ARROW_SHAPES,
 		];
 
 		$params['nodeshape'] = [

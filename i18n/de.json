@@ -174,6 +174,7 @@
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graph-relation": "Legt fest, ob die Bezeichnungen oder Namensattribute über- oder untergeordnete Objekte sind",
 	"srf-paramdesc-graph-nodeshape": "Legt die Form der Verzweigungspunkte in der Grafik fest",
+	"srf-paramdesc-graph-arrowhead": "Legt den Stil der Pfeilspitze an einer Kante fest",
 	"srf-paramdesc-graphname": "Legt den Titel der Grafik fest",
 	"srf-paramdesc-graphsize": "Legt die Größe der Grafik in Pixeln fest",
 	"srf-paramdesc-graphlegend": "Legt fest, ob eine Legende zur Grafik angezeigt werden soll",
