@@ -35,6 +35,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 			'nodeshape' => 'rect',
 			'nodelabel' => 'displaytitle',
 			'arrowdirection' => 'LR',
+			'arrowhead' => 'diamond',
 			'wordwraplimit' => 20,
 			'relation' => 'parent',
 			'graphlink' => true,
@@ -89,10 +90,10 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 					"size=\"100\";node [shape=rect];rankdir=LR;".
 					"\"Team:Alpha\" [URL = \"[[Team:Alpha]]\", label = \"Alpha\"]; ".
 					"\"Team:Beta\" [URL = \"[[Team:Beta]]\", label = \"Beta\"];  ".
-					"\"Person:Alexander Gesinn\" -> \"Team:Alpha\" [label=\"Casted\",fontcolor=black,color=black]; ".
-					"\"Person:Sebastian Schmid\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,color=black]; ".
-					"\"Person:Alexander Gesinn\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,color=black]; ".
-					"\"Team:Alpha\" -> \"Team:Beta\" [label=\"Part of Team \",fontcolor=red,color=red];}";
+					"\"Person:Alexander Gesinn\" -> \"Team:Alpha\" [label=\"Casted\",fontcolor=black,arrowhead=diamond,color=black]; ".
+					"\"Person:Sebastian Schmid\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,arrowhead=diamond,color=black]; ".
+					"\"Person:Alexander Gesinn\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,arrowhead=diamond,color=black]; ".
+					"\"Team:Alpha\" -> \"Team:Beta\" [label=\"Part of Team \",fontcolor=red,arrowhead=diamond,color=red];}";
 
 		$this->assertEquals( $this->graphFormatter->getGraph(), $expected);
 	}
