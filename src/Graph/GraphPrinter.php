@@ -243,7 +243,7 @@ class GraphPrinter extends ResultPrinter {
 
 		$params['arrowhead'] = [
 			'default' => 'normal',
-			'message' => 'srf-paramdesc-arrowhead', // TODO: add to i18n en.json de.json qqq.json
+			'message' => 'srf-paramdesc-arrowhead',
 			'values' => self::$ARROW_SHAPES,
 		];
 
