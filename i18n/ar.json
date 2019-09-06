@@ -171,6 +171,7 @@
 	"srf-printername-graph": "رسم بياني",
 	"srf-paramdesc-graph-relation": "يحدد ما إذا كانت الموضوعات أو خصائص الاسم آباء أم أطفال",
 	"srf-paramdesc-graph-nodeshape": "تعيين شكل كل عقدة على الرسم البياني",
+	"srf-paramdesc-graph-arrowhead": "يضبط نمط رأس السهم على عقدة الرأس لحافة",
 	"srf-paramdesc-graphname": "تعيين عنوان الرسم البياني",
 	"srf-paramdesc-graphsize": "تعيين حجم الرسم البياني بالبكسل",
 	"srf-paramdesc-graphlegend": "تحديد ما إذا كان يجب عرض العنوان التفسيري للرسم البياني",
