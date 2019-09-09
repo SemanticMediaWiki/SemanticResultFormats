@@ -177,6 +177,7 @@
 	"srf-printername-graph": "Gráfico",
 	"srf-paramdesc-graph-relation": "Configura se os sujeitos ou as propriedades dos nomes são pais ou filhos",
 	"srf-paramdesc-graph-nodeshape": "Configura a forma de cada nó no gráfico",
+	"srf-paramdesc-graph-arrowhead": "Define o estilo da ponta da seta no nó principal de uma aresta",
 	"srf-paramdesc-graphname": "Configura o título do gráfico",
 	"srf-paramdesc-graphsize": "Configura o tamanho do gráfico em pixels",
 	"srf-paramdesc-graphlegend": "Configura se uma legenda para o gráfico deve ser exibida",
