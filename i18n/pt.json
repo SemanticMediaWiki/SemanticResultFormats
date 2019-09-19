@@ -10,12 +10,13 @@
 			"Ngl2016",
 			"Nemo bis",
 			"Athena in Wonderland",
-			"Waldyrious"
+			"Waldyrious",
+			"Mansil alfalb"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultados para consultas do MediaWiki Semântico",
-	"prefs-srf": "Extension:Formatos dos resultados semânticos",
-	"srf-prefs-intro-text": "Tem instalada a extensão Formatos dos Resultados Semânticos. Para ajuda adicional, visite a página de ajuda [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de resultados], por favor.",
+	"prefs-srf": "Formatos dos Resultados Semânticos",
+	"srf-prefs-intro-text": "Tem instalada a extensão 'Formatos dos Resultados Semânticos'. Por favor, visite a página de ajuda dos [https://www.semantic-mediawiki.org/wiki/Help:Result_formats formatos de resultados] para assistência adicional em relação às preferências do utilizador.",
 	"prefs-srf-eventcalendar-options": "Opções do calendário de eventos",
 	"srf-prefs-eventcalendar-options-update-default": "Ativar as [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates atualizações automáticas] dos eventos de calendário durante a atualização da página",
 	"srf-prefs-eventcalendar-options-paneview-default": "Ativar a vista do painel por padrão",
