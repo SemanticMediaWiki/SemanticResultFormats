@@ -16,10 +16,7 @@ matrix:
     - env: DB=postgres; MW=REL1_32; SMW=~3.0@dev
       php: 7.2
     - env: DB=mysql; MW=REL1_33; SMW=~3.0@dev
-      php: 7.2
-  allow_failures:
-    # postgres broken due to https://phabricator.wikimedia.org/T188840
-    - env: DB=postgres; MW=REL1_32; SMW=~3.0@dev
+      php: 7.3
 
 install:
   - bash ./build/travis/install-mediawiki.sh
