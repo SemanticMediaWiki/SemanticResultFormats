@@ -9,7 +9,7 @@ The PHP and MediaWiki version ranges listed are those in which SRF is known to w
 work with more recent versions of PHP and MediaWiki, though this is not guaranteed. Increases of
 minimum requirements are indicated in bold.
 
-<table>
+<table class="compatibility">
 	<tr>
 		<th>SRF</th>
 		<th>PHP</th>
