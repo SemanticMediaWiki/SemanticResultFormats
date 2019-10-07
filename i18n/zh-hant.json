@@ -8,7 +8,8 @@
 			"Cwlin0416",
 			"Nemo bis",
 			"Hello903hello",
-			"Kly"
+			"Kly",
+			"Winston Sung"
 		]
 	},
 	"srf-desc": "用於 Semantic MediaWiki 查詢的附加結果格式",
@@ -333,6 +334,8 @@
 	"srf-paramdesc-gantt-diagramtitle": "圖表名稱",
 	"srf-paramdesc-gantt-diagramtheme": "圖表主題",
 	"srf-paramdesc-gantt-axisformat": "X 軸：日期格式",
+	"srf-paramdesc-gantt-leftpadding": "段落標題寬度",
+	"srf-error-gantt-theme": "不支援您選擇的'''主題'''",
 	"srf-error-gantt-mermaid-not-installed": "需要安裝 Mermaid 擴充。",
 	"srf-printername-gantt": "甘特圖"
 }

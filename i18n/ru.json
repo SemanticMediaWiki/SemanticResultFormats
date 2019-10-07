@@ -18,7 +18,8 @@
 			"Nk88",
 			"Romanko Mikhail",
 			"Diralik",
-			"Movses"
+			"Movses",
+			"Katunchik"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -182,6 +183,7 @@
 	"srf-printername-graph": "График",
 	"srf-paramdesc-graph-relation": "Определяет, являются ли предметы или свойства названий родительскими или дочерними",
 	"srf-paramdesc-graph-nodeshape": "Устанавливает форму каждого узла графа",
+	"srf-paramdesc-graph-arrowhead": "Устанавливает стиль стрелки головного узла крайнего элемента",
 	"srf-paramdesc-graphname": "Устанавливает заголовок графа",
 	"srf-paramdesc-graphsize": "Устанавливает размер графа (в пикселях)",
 	"srf-paramdesc-graphlegend": "Определяет, следует ли показывать легенду",
