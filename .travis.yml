@@ -7,7 +7,7 @@ services:
 matrix:
   fast_finish: true
   include:
-    - env: DB=sqlite; MW=master; SMW=~3.0@dev; TYPE=coverage
+    - env: DB=sqlite; MW=master; SMW=~3.1@dev; TYPE=coverage
       php: 7.3
     - env: DB=sqlite; MW=REL1_31; SMW=~3.0; MERMAID=dev-master
       php: 7.1
