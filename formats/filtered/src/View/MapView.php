@@ -12,6 +12,7 @@ class MapView extends View {
 	private static $viewParams = null;
 
 	private $mapProvider = null;
+	private $mapProviderDark = null;
 
 	/**
 	 * @param null $mapProvider
@@ -29,6 +30,21 @@ class MapView extends View {
 		}
 
 		return $this->mapProvider;
+	}
+
+	/**
+	 * @param null $mapProviderDark
+	 */
+	public function setMapProviderDark( $mapProviderDark ) {
+		$this->mapProviderDark = $mapProviderDark;
+	}
+
+	public function getMapProviderDark() {
+		if ( $this->mapProviderDark === null ) {
+			$this->setMapProviderDark( isset( $GLOBALS['srfgMapProviderDark'] ) ? $GLOBALS['srfgMapProviderDark'] : '' );
+		}
+
+		return $this->mapProviderDark;
 	}
 
 	/**
@@ -112,6 +128,7 @@ class MapView extends View {
 		$this->addMarkerIconSetupToConfig( $config );
 
 		$config['map provider'] = $this->getMapProvider();
+		$config['map provider dark'] = $this->getMapProviderDark();
 
 		return $config;
 	}

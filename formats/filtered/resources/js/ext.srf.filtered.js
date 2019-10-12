@@ -1156,6 +1156,13 @@ var MapView = /** @class */ (function (_super) {
         });
         return this.leafletPromise;
     };
+    /**
+     * Detects if user uses dark theme
+     * @returns {boolean}
+     */
+    MapView.prototype.isUserUsesDarkMode = function () {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    };
     MapView.prototype.getZoomForUnclustering = function () {
         if (this.options.hasOwnProperty('marker cluster') && this.options['marker cluster'] === false) {
             return 0;
@@ -1243,8 +1250,15 @@ var MapView = /** @class */ (function (_super) {
             // TODO: Limit zoom values to map max zoom
             that.map = L.map(that.getTargetElement().get(0), mapOptions);
             that.map.addLayer(that.markerClusterGroup);
+            var mapProvider = null;
             if (_this.options.hasOwnProperty('map provider')) {
-                L.tileLayer.provider(_this.options['map provider']).addTo(that.map);
+                mapProvider = _this.options['map provider'];
+            }
+            if (_this.isUserUsesDarkMode() && _this.options.hasOwnProperty('map provider dark')) {
+                mapProvider = _this.options['map provider dark'];
+            }
+            if (mapProvider) {
+                L.tileLayer.provider(mapProvider).addTo(that.map);
             }
             if (!mapOptions.hasOwnProperty('zoom')) {
                 that.map.fitBounds(that.bounds);
