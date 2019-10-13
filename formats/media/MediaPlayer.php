@@ -174,7 +174,7 @@ class MediaPlayer extends ResultPrinter {
 	private function getMediaSource( Title $title ) {
 
 		// Find the file source
-		$source = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		$source = $this->findFile( $title );
 
 		if ( $source ) {
 			// $source->getExtension() returns ogg even though it is a ogv/oga (same goes for m4p) file
@@ -236,7 +236,7 @@ class MediaPlayer extends ResultPrinter {
 					$mediaType = 'video';
 
 					// Get the cover art image url
-					$source = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+					$source = $this->findFile( $title );
 
 					return $source->getUrl();
 				}
@@ -362,5 +362,19 @@ class MediaPlayer extends ResultPrinter {
 		];
 
 		return $params;
+	}
+
+	/**
+	 * @param Title $title
+	 *
+	 * @return bool|File
+	 */
+	private function findFile( Title $title ) {
+
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			return MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		}
+
+		return wfFindFile( $title ); // TODO: Remove when min MW version is 1.34
 	}
 }
