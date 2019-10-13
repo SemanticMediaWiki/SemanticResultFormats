@@ -308,7 +308,7 @@ class MediaPlayer extends ResultPrinter {
 		];
 
 		$requireHeadItem = [ $ID => FormatJson::encode( $output ) ];
-		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem, false ) );
 
 		SMWOutputs::requireResource( 'ext.jquery.jplayer.skin.' . $this->params['theme'] );
 		SMWOutputs::requireResource( 'ext.srf.formats.media' );
