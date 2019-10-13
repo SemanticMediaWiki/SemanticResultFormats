@@ -69,6 +69,9 @@ e.g. `$srfgMapProvider='OpenStreetMap.HOT';`<br>
 See the [list of available
 providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
+It's also possible to set alternative provider for users with dark appearance
+enabled on their systems via `$srfgMapProviderDark`.
+
 * map view marker position property
 * map view marker icon property
 * map view marker icons
