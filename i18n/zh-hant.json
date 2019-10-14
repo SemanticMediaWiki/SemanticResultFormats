@@ -173,6 +173,7 @@
 	"srf-printername-graph": "圖形",
 	"srf-paramdesc-graph-relation": "設定這些主題或名稱屬性是否為父級或子級",
 	"srf-paramdesc-graph-nodeshape": "設定圖形上各節點的形狀",
+	"srf-paramdesc-graph-arrowhead": "設定在邊的頭節點的箭頭樣式",
 	"srf-paramdesc-graphname": "設定圖表標題",
 	"srf-paramdesc-graphsize": "設定圖形大小（以像素計）",
 	"srf-paramdesc-graphlegend": "設定是否顯示圖形圖例",
@@ -334,8 +335,16 @@
 	"srf-paramdesc-gantt-diagramtitle": "圖表名稱",
 	"srf-paramdesc-gantt-diagramtheme": "圖表主題",
 	"srf-paramdesc-gantt-axisformat": "X 軸：日期格式",
+	"srf-paramdesc-gantt-sortkey": "排序段落和任務的鍵值",
+	"srf-paramdesc-gantt-titletopmargin": "圖表標題的頂端邊緣",
+	"srf-paramdesc-gantt-barheight": "工作列高度",
 	"srf-paramdesc-gantt-leftpadding": "段落標題寬度",
+	"srf-paramdesc-gantt-bargap": "工作列邊緣的垂直距離",
+	"srf-error-gantt-mapping-assignment": "在'''$1'''裡的錯誤對應值分配",
+	"srf-error-gantt-mapping-keywords": "不支援在您對應參數裡使用到的鍵值",
 	"srf-error-gantt-theme": "不支援您選擇的'''主題'''",
+	"srf-error-gantt-sortkey": "不支援您選擇的'''排序鍵'''",
 	"srf-error-gantt-mermaid-not-installed": "需要安裝 Mermaid 擴充。",
-	"srf-printername-gantt": "甘特圖"
+	"srf-printername-gantt": "甘特圖",
+	"srf-paramdesc-nodelabel": "使用頂點標籤，允許值為：displaytitle。"
 }
