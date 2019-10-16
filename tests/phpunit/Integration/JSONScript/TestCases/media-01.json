@@ -1,0 +1,78 @@
+{
+	"description": "Test `format=media` with file upload",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Dummy.mp3",
+			"contents": {
+				"upload": {
+					"file": "/../Fixtures/dummy.mp3",
+					"text": "[[Category:Mediaplayer test]]"
+				}
+			}
+		},
+		{
+			"page": "Setup/Mediaplayer test 01",
+			"contents": "[[Has source::File:Dummy.mp3]]"
+		},
+		{
+			"page": "Test/Mediaplayer test 01",
+			"contents": "{{#ask: [[Category:Mediaplayer test]] |?Title=title |?Has cover art=poster |?Has artists=artist |default=''No valid media found.'' |format=media}}"
+		},
+		{
+			"page": "Test/Mediaplayer test 02",
+			"contents": "{{#ask: [[Has source::+]] |?Has source=source |?Has title=title |?Has artist=artist |default=''No valid media found.'' |format=media}}"
+		},
+		{
+			"page": "Test/Mediaplayer test 03",
+			"contents": "{{#ask: [[File:Dummy.mp3]] |default=''No valid media found.'' |format=media}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#1 (Media source is the subject itself)",
+			"subject": "Test/Mediaplayer test 01",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-media\"><div class=\"srf-spinner mw-small-spinner\"><span class=\"srf-processing-text\">Loading...</span></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 (Media source is not the subject itself)",
+			"subject": "Test/Mediaplayer test 02",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-media\"><div class=\"srf-spinner mw-small-spinner\"><span class=\"srf-processing-text\">Loading...</span></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 (Single mode)",
+			"subject": "Test/Mediaplayer test 03",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-media\"><div class=\"srf-spinner mw-small-spinner\"><span class=\"srf-processing-text\">Loading...</span></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_FILE": true,
+			"SMW_NS_PROPERTY": true
+		},
+		"wgFileExtensions": [ "mp3" ]
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
