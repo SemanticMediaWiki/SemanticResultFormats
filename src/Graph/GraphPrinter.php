@@ -171,16 +171,18 @@ class GraphPrinter extends ResultPrinter {
 		foreach ( $row as $i => $resultArray ) {
 
 			// loop through all values of a multivalue field
-			while ( ( /* SMWWikiPageValue */
-				$object = $resultArray->getNextDataValue() ) !== false ) {
+			while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) {
 
 				// create SRF\GraphNode for column 0
-				if ( $i == 0 ) {
-					$node = new GraphNode( $object->getShortWikiText() );
-					$node->setLabel( $object->getPreferredCaption() );
+				if ( $i == 0 && $dataValue->getShortWikiText() !== '' ) {
+					$node = new GraphNode( $dataValue->getShortWikiText() );
+					$node->setLabel( $dataValue->getPreferredCaption() );
 					$this->nodes[] = $node;
 				} else {
-					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
+					if ( !empty( $node ) ) {
+						$node->addParentNode( $resultArray->getPrintRequest()->getLabel(),
+							$dataValue->getShortWikiText() );
+					}
 				}
 			}
 		}
