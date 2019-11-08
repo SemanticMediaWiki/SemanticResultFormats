@@ -18,6 +18,7 @@ table.navigation_table tr td.nav_form {
 }
 table.month_calendar {
 	border-collapse: collapse;
+	width:100%;
 }
 table.month_calendar tr {
 }
