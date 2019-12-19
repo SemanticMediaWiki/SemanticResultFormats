@@ -245,7 +245,7 @@
 	"srf-printername-tree": "Arbre",
 	"srf-printername-ultree": "Arbre Ul",
 	"srf-printername-oltree": "Arbre Ol",
-	"srf-tree-noparentprop": "Aucune propriété parente fournie. L'arbre ne peut pas être construit sans une propriété parente spécifiée.",
+	"srf-tree-noparentprop": "Aucune propriété parente fournie. L’arbre ne peut pas être construit sans une propriété parente spécifiée.",
 	"srf-tree-rootinvalid": "$1 n’est pas un titre de page valide.",
 	"srf-tree-circledetected": "Relations circulaires détectées en essayant d'insérer $1 dans l'arbre.",
 	"srf-paramdesc-tree-parent": "La propriété contenant la page parent",
