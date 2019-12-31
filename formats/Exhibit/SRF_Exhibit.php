@@ -71,7 +71,7 @@ class SRFExhibit extends SMWResultPrinter {
 			$remote = true;
 
 			// fetch interwiki link
-			$dbr = &wfGetDB( DB_SLAVE );
+			$dbr = &wfGetDB( DB_REPLICA );
 			$cl = $dbr->tableName( 'interwiki' );
 			$dbres = $dbr->select( $cl, 'iw_url', "iw_prefix='" . $this->params['remote'] . "'", __METHOD__, [] );
 			$row = $dbr->fetchRow( $dbres );
