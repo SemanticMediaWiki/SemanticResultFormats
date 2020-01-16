@@ -139,6 +139,7 @@
 	"srf-paramdesc-gridview": "{{doc-paramdesc|gridview}}\n{{doc-important|Do not translate the possible parameters \"none\" and \"tabs\".}}",
 	"srf-paramdesc-paneview": "{{doc-paramdesc|paneview}}\n{{doc-important|Do not translate the possible parameters \"bottom\", \"top\" and \"none\" and \"tabs\".}}\n\nSee [https://www.semantic-mediawiki.org/wiki/Help:SMW_-_Number_of_downloads this page] for an example (pane below the actual chart).",
 	"srf-paramdesc-infotext": "{{doc-paramdesc|infotext}}",
+	"srf-paramdesc-hidezeroes": "{{doc-paramdesc|hidezeroes}}",
 	"srf-paramdesc-clicktarget": "{{doc-paramdesc|clicktarget}}",
 	"srf-ui-gridview-label-item": "{{doc-smw-ui-gridview}}",
 	"srf-ui-gridview-label-value": "{{doc-smw-ui-gridview}}",
