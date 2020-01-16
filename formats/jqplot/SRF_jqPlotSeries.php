@@ -209,7 +209,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'stackseries' => $this->params['stackseries'],
 			'grid' => $this->params['theme'] === 'vector' ? [ 'borderColor' => '#a7d7f9' ] : ( $this->params['theme'] === 'simple' ? [ 'borderColor' => '#ddd' ] : null ),
 			'seriescolors' => $seriescolors,
-			'hideZeroes' => $this->params['hidezeroes'] === false
+			'hideZeroes' => $this->params['hidezeroes']
 		];
 
 		return [
