@@ -111,7 +111,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 						$label = $object->getWikiValue();
 					}
 				}
-				// Only for array's with numbers 
+				// Only for array's with numbers
 				if ( count( $rowNumbers ) > 0 ) {
 
 					// For cases where mainlabel=- we assume that the subject should not be
@@ -208,7 +208,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'datalabels' => $this->params['datalabels'],
 			'stackseries' => $this->params['stackseries'],
 			'grid' => $this->params['theme'] === 'vector' ? [ 'borderColor' => '#a7d7f9' ] : ( $this->params['theme'] === 'simple' ? [ 'borderColor' => '#ddd' ] : null ),
-			'seriescolors' => $seriescolors
+			'seriescolors' => $seriescolors,
+			'hideZeroes' => $this->params['hidezeroes']
 		];
 
 		return [
@@ -420,6 +421,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
 			'values' => [ 'none', 'tabs' ],
+		];
+
+		$params['hidezeroes'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-hidezeroes',
+			'default' => false,
 		];
 
 		return $params;
