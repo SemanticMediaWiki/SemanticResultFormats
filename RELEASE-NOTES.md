@@ -1,5 +1,11 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 3.2.0
+
+Under development
+
+* Added `hidezeroes` parameter to the `jqplotseries` format (by [Professional.Wiki][ProWiki])
+
 ## SRF 3.1.0
 
 Released on August 18, 2019.
@@ -560,3 +566,5 @@ The initial sets of Semantic Result Formats are:
 * googlepie (written by Denny Vrandecic)
 * graph (written by Frank Dengler)
 * timeline (written by Markus Krötzsch and based on code by MIT's Simile group)
+
+[ProWiki]: https://professional.wiki
