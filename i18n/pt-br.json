@@ -132,6 +132,7 @@
 	"srf-paramdesc-gridview": "Exibe simultaneamente o gráfico e os conjuntos de dados. Valores permitidos: \"none\" e \"tabs\". Padrão: \"none\".",
 	"srf-paramdesc-paneview": "Especifica a posição do quadro que contém um pequeno gráfico de linha. Os valores permitidos são: \"bottom\", \"top\" e \"none\". Padrão: \"bottom\"",
 	"srf-paramdesc-infotext": "Exibe informações adicionais em uma aba correspondente",
+	"srf-paramdesc-hidezeroes": "Ocultar zero valores do gráfico",
 	"srf-paramdesc-clicktarget": "Definir uma página ou seqüência de consulta como alvo ao clicar em uma data de calendário.",
 	"srf-ui-gridview-label-item": "Item dos dados",
 	"srf-ui-gridview-label-value": "Valor dos dados",

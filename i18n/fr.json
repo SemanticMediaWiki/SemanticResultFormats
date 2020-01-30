@@ -24,7 +24,8 @@
 			"Dgstranz",
 			"Nemo bis",
 			"DePlusJean",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Derugon"
 		]
 	},
 	"srf-desc": "Formats supplémentaires d’affichage des résultats pour les requêtes de Semantic MediaWiki",
@@ -145,6 +146,7 @@
 	"srf-paramdesc-gridview": "Permet d’afficher les jeux de données en plus du diagramme. Valeurs permises : « none » (aucun) et « tabs » (tabulaire). Par défaut : « none ».",
 	"srf-paramdesc-paneview": "Spécifier la position du panneau contenant un petit diagramme en lignes. Valeurs permises : « bottom » (bas), « top » (haut) ou « none » (aucun). Par défaut : « bottom ».",
 	"srf-paramdesc-infotext": "Afficher des informations supplémentaires dans un onglet correspondant",
+	"srf-paramdesc-hidezeroes": "Masquer les valeurs nulles du graphique",
 	"srf-paramdesc-clicktarget": "Définir une page ou une chaîne de requête comme cible lors d’un clic sur une date du calendrier.",
 	"srf-ui-gridview-label-item": "Élément de donnée",
 	"srf-ui-gridview-label-value": "Valeur de donnée",

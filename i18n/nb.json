@@ -127,6 +127,7 @@
 	"srf-paramdesc-gridview": "Vis diagram og datasett samtidig. Tillatte verdier: \"none\" og \"tabs\". Standardverdi: \"none\".",
 	"srf-paramdesc-paneview": "Angi posisjonen for panelet som inneholder en liten graf. Tillate verdier er \"bottom\", \"top\" og \"none\". Standardverdi: \"bottom\"",
 	"srf-paramdesc-infotext": "Vis tilleggsinformasjon på en tilhørende info-fane",
+	"srf-paramdesc-hidezeroes": "Skjul nullverdier fra oversikten",
 	"srf-paramdesc-clicktarget": "Angi en side eller en spørrestreng som mål når det klikkes på en kalenderdato.",
 	"srf-ui-gridview-label-item": "Dataelement",
 	"srf-ui-gridview-label-value": "Dataverdi",

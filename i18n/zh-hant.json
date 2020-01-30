@@ -128,6 +128,7 @@
 	"srf-paramdesc-gridview": "同時顯示圖表與資料集。允許的值為：「none」和「tabs」，預設為：「none」",
 	"srf-paramdesc-paneview": "指定包含小型線狀圖的方格位置。允許的值為：「top」、「bottom」、「none」，預設為：「bottom」。",
 	"srf-paramdesc-infotext": "顯示在對應資訊分頁的額外資訊。",
+	"srf-paramdesc-hidezeroes": "隱藏圖表裡的零值",
 	"srf-paramdesc-clicktarget": "定義當點擊行事曆日期時，作為目標的頁面或查詢字串。",
 	"srf-ui-gridview-label-item": "資料項目",
 	"srf-ui-gridview-label-value": "資料值",
