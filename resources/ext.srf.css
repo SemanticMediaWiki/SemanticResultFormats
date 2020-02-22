@@ -75,7 +75,7 @@ fieldset#mw-prefsection-smw-srf-datatables-options {
 }
 
 #mw-prefsection-smw-srf .oo-ui-fieldsetLayout-header .oo-ui-labelElement-label:before {
-	content: "⯈ ";
+	content: "◉ ";
 }
 
 #mw-prefsection-smw-srf .oo-ui-fieldsetLayout-header .oo-ui-labelElement-label {
