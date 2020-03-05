@@ -334,5 +334,6 @@
 	"srf-paramdesc-gantt-diagramtitle": "Назва діаграми",
 	"srf-paramdesc-gantt-diagramtheme": "Тема діаграми",
 	"srf-paramdesc-gantt-axisformat": "X-вісь: Формат дати",
+	"srf-paramdesc-gantt-sortkey": "Ключ сортування розділів і завдань",
 	"srf-printername-gantt": "Ґант"
 }
