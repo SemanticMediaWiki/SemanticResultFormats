@@ -190,6 +190,7 @@
 	"srf-paramdesc-graphsize": "{{doc-paramdesc|graphsize}}",
 	"srf-paramdesc-graphlegend": "{{doc-paramdesc|graphlegend}}",
 	"srf-paramdesc-graphlabel": "{{doc-paramdesc|graphlabel}}",
+	"srf-paramdesc-graphfontsize": "{{doc-paramdesc|graphfontsize}}",
 	"srf-paramdesc-rankdir": "{{doc-paramdesc|rankdir}}",
 	"srf-paramdesc-graphlink": "{{doc-paramdesc|graphlink}}",
 	"srf-paramdesc-graphcolor": "{{doc-paramdesc|graphcolor}}",
