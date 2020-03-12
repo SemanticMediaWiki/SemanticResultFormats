@@ -210,6 +210,13 @@ class GraphPrinter extends ResultPrinter {
 			'manipulatedefault' => false,
 		];
 
+		$params['graphfontsize'] = [
+			'type' => 'integer',
+			'default' => 10,
+			'message' => 'srf-paramdesc-graphfontsize',
+			'manipulatedefault' => false,
+		];
+
 		$params['graphlegend'] = [
 			'type' => 'boolean',
 			'default' => false,

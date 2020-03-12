@@ -4,7 +4,7 @@
 namespace SRF\Graph;
 
 /**
- * Represents a set of Options for the Graph Printer
+ * Represents a set of options for the Graph Printer
  *
  *
  * @license GNU GPL v2+
@@ -15,127 +15,84 @@ namespace SRF\Graph;
  */
 
 class GraphOptions {
-
 	private $graphName;
-
 	private $graphSize;
-
+	private $graphFontSize;
 	private $nodeShape;
-
 	private $nodeLabel;
-
 	private $rankDir;
-
 	private $arrowHead;
-
 	private $wordWrapLimit;
-
 	private $parentRelation;
-
 	private $enableGraphLink;
-
 	private $showGraphLabel;
-
 	private $showGraphColor;
-
 	private $showGraphLegend;
 
 	public function __construct( $options ) {
-		
 		$this->graphName = trim( $options['graphname'] );
 		$this->graphSize = trim( $options['graphsize'] );
+		$this->graphFontSize = trim( $options['graphfontsize'] );
 		$this->nodeShape = trim( $options['nodeshape'] );
 		$this->nodeLabel = trim( $options['nodelabel'] );
 		$this->rankDir = strtoupper( trim( $options['arrowdirection'] ) );
 		$this->arrowHead = trim( $options['arrowhead'] );
 		$this->wordWrapLimit = trim( $options['wordwraplimit'] );
 		$this->parentRelation = strtolower( trim( $options['relation'] ) ) == 'parent';
-		$this->enableGraphLink = trim($options['graphlink']);
-		$this->showGraphLabel = trim($options['graphlabel']);
-		$this->showGraphColor = trim($options['graphcolor']);
+		$this->enableGraphLink = trim( $options['graphlink'] );
+		$this->showGraphLabel = trim( $options['graphlabel'] );
+		$this->showGraphColor = trim( $options['graphcolor'] );
 		$this->showGraphLegend = trim( $options['graphlegend'] );
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getGraphName(): string {
 		return $this->graphName;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getGraphSize(): string {
 		return $this->graphSize;
 	}
 
-	/**
-	 * @return string
-	 */
+	public function getGraphFontSize(): int {
+		return $this->graphFontSize;
+	}
+
 	public function getNodeShape(): string {
 		return $this->nodeShape;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getNodeLabel(): string {
 		return $this->nodeLabel;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getRankDir(): string {
 		return $this->rankDir;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getArrowHead(): string {
 		return $this->arrowHead;
 	}
 
-	/**
-	 * @return int
-	 */
 	public function getWordWrapLimit(): int {
 		return $this->wordWrapLimit;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getParentRelation(): string {
 		return $this->parentRelation;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function isGraphLink(): bool {
 		return $this->enableGraphLink;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function isGraphLabel(): bool {
 		return $this->showGraphLabel;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function isGraphColor(): bool {
 		return $this->showGraphColor;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function isGraphLegend(): bool {
 		return $this->showGraphLegend;
 	}

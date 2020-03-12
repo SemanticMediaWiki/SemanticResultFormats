@@ -68,9 +68,9 @@ class GraphFormatter {
 		$this->add( "digraph " . $this->options->getGraphName() . " {" );
 
 		// set fontsize and fontname of graph, nodes and edges
-		$this->add( "graph [fontsize=10, fontname=\"Verdana\"]\n" );
-		$this->add( "node [fontsize=10, fontname=\"Verdana\"];\n" );
-		$this->add( "edge [fontsize=10, fontname=\"Verdana\"];\n" );
+		$this->add( "graph [fontsize=" . $this->options->getGraphFontSize() . ", fontname=\"Verdana\"]\n" );
+		$this->add( "node [fontsize=" . $this->options->getGraphFontSize() . ", fontname=\"Verdana\"];\n" );
+		$this->add( "edge [fontsize=" . $this->options->getGraphFontSize() . ", fontname=\"Verdana\"];\n" );
 
 		// choose graphsize, nodeshapes and rank direction
 		if ( $this->options->getGraphSize() != '' ) {
