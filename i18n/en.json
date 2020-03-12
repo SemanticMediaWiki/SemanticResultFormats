@@ -173,6 +173,7 @@
 	"srf-paramdesc-graphsize": "Sets the size of the graph in pixels",
 	"srf-paramdesc-graphlegend": "Sets whether a graph legend should be shown",
 	"srf-paramdesc-graphlabel": "Sets the label of the graph",
+	"srf-paramdesc-graphlabel": "Sets the font size in pixels",
 	"srf-paramdesc-rankdir": "Sets the direction of the arrows",
 	"srf-paramdesc-graphlink": "Sets whether nodes should link to their wiki pages",
 	"srf-paramdesc-graphcolor": "Sets the color of the graph",
