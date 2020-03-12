@@ -3,6 +3,7 @@
 namespace SRF\Graph;
 
 use Html;
+use SRF\Graph\GraphNode;
 
 /**
  *
@@ -15,7 +16,6 @@ use Html;
  * @author Sebastian Schmid (gesinn.it)
  *
  */
-
 class GraphFormatter {
 
 	private $graph = "";
@@ -39,11 +39,11 @@ class GraphFormatter {
 	private $legendItem = [];
 	private $options;
 
-	public function __construct( $options ){
+	public function __construct( GraphOptions $options ) {
 		$this->options = $options;
 	}
 
-	public function getGraph(){
+	public function getGraph() {
 		return $this->graph;
 	}
 
@@ -52,7 +52,7 @@ class GraphFormatter {
 	 *
 	 * @param string $line
 	 */
-	private function add( $line ){
+	private function add( $line ) {
 		$this->graph .= $line;
 	}
 
@@ -64,7 +64,7 @@ class GraphFormatter {
 	*
 	* @param SRF\Graph\GraphNodes[] $nodes
 	*/
-	public function buildGraph($nodes){
+	public function buildGraph( $nodes ) {
 		$this->add( "digraph " . $this->options->getGraphName() . " {" );
 
 		// set fontsize and fontname of graph, nodes and edges
@@ -74,7 +74,7 @@ class GraphFormatter {
 
 		// choose graphsize, nodeshapes and rank direction
 		if ( $this->options->getGraphSize() != '' ) {
-			$this->add("size=\"" . $this->options->getGraphSize() . "\";");
+			$this->add( "size=\"" . $this->options->getGraphSize() . "\";" );
 		}
 
 		if ( $this->options->getNodeShape() != '' ) {
@@ -83,15 +83,16 @@ class GraphFormatter {
 
 		$this->add( "rankdir=" . $this->options->getRankDir() . ";" );
 
-		/** @var \SRF\GraphNode $node */
+		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 
+			$nodeLabel = '';
+
 			// take "displaytitle" as node-label if it is set
-			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE) {
+			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
 				$objectDisplayTitle = $node->getLabel();
-				if ( !empty( $objectDisplayTitle )) {
-					$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle,
-						$this->options->getWordWrapLimit() );
+				if ( !empty( $objectDisplayTitle ) ) {
+					$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle, $this->options->getWordWrapLimit() );
 				}
 			}
 
@@ -106,13 +107,13 @@ class GraphFormatter {
 
 				$nodeLinkURL = "[[" . $node->getID() . "]]";
 
-				if( $nodeLabel === '' ) {
+				if ( $nodeLabel === '' ) {
 					$this->add( " [URL = \"$nodeLinkURL\"]" );
 				} else {
 					$this->add( " [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]" );
 				}
 			}
-			$this->add( "; ");
+			$this->add( "; " );
 		}
 
 		/**
@@ -127,12 +128,11 @@ class GraphFormatter {
 				foreach ( $node->getParentNode() as $parentNode ) {
 
 					// handle parent/child switch (parentRelation)
-					$this->add( $this->options->getParentRelation() ? " \"" . $parentNode['object']
-						. "\" -> \"" . $node->getID() . "\""
+					$this->add( $this->options->getParentRelation() ? " \"" . $parentNode['object'] . "\" -> \"" .
+																	  $node->getID() . "\""
 						: " \"" . $node->getID() . "\" -> \"" . $parentNode['object'] . "\" " );
 
-					if ( $this->options->isGraphLabel() || $this->options->isGraphColor()
-					) {
+					if ( $this->options->isGraphLabel() || $this->options->isGraphColor() ) {
 						$this->add( ' [' );
 
 						// add legend item only if missing
@@ -152,8 +152,8 @@ class GraphFormatter {
 						}
 
 						// change arrowhead of edges
-						if( $this->options->getArrowHead() ){
-							$this->add( "arrowhead=".$this->options->getArrowHead()."," );
+						if ( $this->options->getArrowHead() ) {
+							$this->add( "arrowhead=" . $this->options->getArrowHead() . "," );
 						}
 
 						// colorize arrow
@@ -174,7 +174,7 @@ class GraphFormatter {
 	 *
 	 * @return string Html::rawElement
 	 */
-	public function getGraphLegend(){
+	public function getGraphLegend() {
 		$itemsHtml = '';
 		$colorCount = 0;
 		$arraySize = count( $this->graphColors );
@@ -193,7 +193,7 @@ class GraphFormatter {
 			}
 		}
 
-		return Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml");
+		return Html::rawElement( 'div', [ 'class' => 'graphlegend' ], "$itemsHtml" );
 	}
 
 	/**

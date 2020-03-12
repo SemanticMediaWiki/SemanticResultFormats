@@ -20,7 +20,7 @@ class GraphNode {
 
 	/**
 	 * @var string $predicate : the "predicate" linking an object to a subject
-	 * @var srting $object : the object, linked to this node
+	 * @var string $object : the object, linked to this node
 	 */
 	public function addParentNode( $predicate, $object ) {
 		$this->parent[] = [
