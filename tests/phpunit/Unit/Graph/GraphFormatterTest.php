@@ -32,6 +32,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			'graphname' =>  'Unit Test',
 			'graphsize' => '100',
+			'graphfontsize' => 10,
 			'nodeshape' => 'rect',
 			'nodelabel' => 'displaytitle',
 			'arrowdirection' => 'LR',
