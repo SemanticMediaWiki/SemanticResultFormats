@@ -8,7 +8,6 @@
 		]
 	},
 	"srf-desc": "Formà adissionaj për anterogassion an linia ëd Semantic MediaWiki",
-	"srf-name": "Formà dj'Arzultà Semàntich",
 	"prefs-srf": "Formà dj'Arzultà Semàntich",
 	"srf-prefs-intro-text": "A l'ha anstalà l'estension Formà dj'Arzultà Semàntich che al moment a l'ha gnun-e opsion utent përsonalisabij. Për assistensa, për piasì, ch'a vìsita la pagina d'agiut [http://www.semantic-mediawiki.org/wiki/Help:Result_formats formà dj'arzultà]",
 	"srf-module-loading": "A caria ...",
@@ -147,7 +146,6 @@
 	"srf_paramdesc_hashname": "Se dàit e l'estension HashTables a l'é disponìbil sòn a creerà un taj con ël nòm ëspessìfich (gnun-a stampa visìbil antlora)",
 	"srf-printername-graph": "Gràfich",
 	"srf-paramdesc-graph-relation": "Ij soget o le propietà ëd nòm son-ne dij pare o dij fieuj?",
-	"srf-paramdesc-graph-nameprop": "A përmët d'amposté na propietà che a sarà dovrà com soget al pòst dël soget atual",
 	"srf-paramdesc-graph-nodeshape": "La forma ëd minca vértes ant ël gràf",
 	"srf-paramdesc-graphname": "Tìtol",
 	"srf-paramdesc-graphsize": "Dimension dël graf (an pontin)",

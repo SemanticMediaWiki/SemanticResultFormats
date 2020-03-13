@@ -1,6 +1,7 @@
 <?php
 
 use ParamProcessor\ParamDefinition;
+use SMW\DataValueFactory;
 
 /**
  * API module to retrieve formatted results for a given page, printouts and template.
@@ -20,7 +21,7 @@ class SRFSlideShowApi extends ApiBase {
 		// get request parameters
 		$requestParams = $this->extractRequestParams();
 
-		$title = Title::newFromID( $requestParams[ 'pageid' ] )->getPrefixedText();
+		$title = Title::newFromID( $requestParams['pageid'] )->getPrefixedText();
 
 		$rp = new SMWListResultPrinter( 'template', true );
 
@@ -31,25 +32,28 @@ class SRFSlideShowApi extends ApiBase {
 		$queryParams = [];
 
 		foreach ( $paramDefinitions as $def ) {
-			$queryParams[ $def->getName() ] = $def->getDefault();
+			$queryParams[$def->getName()] = $def->getDefault();
 		}
 
 		// add/set specific parameters for this call
-		$queryParams = array_merge( $queryParams, [
-			'format' => 'template',
-			'template' => $requestParams[ 'template' ],
-			'mainlabel' => '',
-			'sort' => '',
-			'order' => '',
-			'intro' => null,
-			'outro' => null,
-			'searchlabel' => null,
-			'link' => null,
-			'default' => null,
-			'headers' => null,
-			'introtemplate' => '',
-			'outrotemplate' => '',
-			] );
+		$queryParams = array_merge(
+			$queryParams,
+			[
+				'format' => 'template',
+				'template' => $requestParams['template'],
+				'mainlabel' => '',
+				'sort' => '',
+				'order' => '',
+				'intro' => null,
+				'outro' => null,
+				'searchlabel' => null,
+				'link' => null,
+				'default' => null,
+				'headers' => null,
+				'introtemplate' => '',
+				'outrotemplate' => '',
+			]
+		);
 
 		// A bit of a hack since the parser isn't run, avoids [[SMW::off]]/[[SMW::on]]
 		$queryParams['import-annotation'] = 'true';
@@ -59,7 +63,7 @@ class SRFSlideShowApi extends ApiBase {
 
 		// build array of printouts
 
-		$printoutsRaw = json_decode( $requestParams[ 'printouts' ], true );
+		$printoutsRaw = json_decode( $requestParams['printouts'], true );
 		$printouts = [];
 
 		foreach ( $printoutsRaw as $printoutData ) {
@@ -67,37 +71,52 @@ class SRFSlideShowApi extends ApiBase {
 			// if printout mode is PRINT_PROP
 			if ( $printoutData[0] == SMWPrintRequest::PRINT_PROP ) {
 				// create property from property key
-				$data = SMWPropertyValue::makeUserProperty( $printoutData[2] );
+				$data = DataValueFactory::getInstance()->newPropertyValueByLabel( $printoutData[2] );
 			} else {
 				$data = null;
 			}
 
 			// create printrequest from request mode, label, property name, output format, parameters
-			$printouts[] = new SMWPrintRequest( $printoutData[0], $printoutData[1], $data, $printoutData[3], $printoutData[4] );
+			$printouts[] = new SMWPrintRequest(
+				$printoutData[0],
+				$printoutData[1],
+				$data,
+				$printoutData[3],
+				$printoutData[4]
+			);
 		}
 
 		// query SMWQueryProcessor and set query result as API call result
-		$this->getResult()->addValue(
-			null,
-			$requestParams[ 'pageid' ],
-			SMWQueryProcessor::getResultFromQueryString( '[[' . $title . ']]', $queryParams, $printouts, SMW_OUTPUT_HTML, SMWQueryProcessor::INLINE_QUERY )
+		$query = SMWQueryProcessor::createQuery(
+			'[[' . $title . ']]',
+			$queryParams,
+			SMWQueryProcessor::INLINE_QUERY,
+			'',
+			$printouts
 		);
 
+		$this->getResult()->addValue(
+			null,
+			$requestParams['pageid'],
+			SMWQueryProcessor::getResultFromQuery( $query, $queryParams, SMW_OUTPUT_HTML, SMWQueryProcessor::INLINE_QUERY )
+		);
 	}
 
 	/**
 	 * Returns the description string for this module
+	 *
 	 * @return mixed string or array of strings
 	 */
 	protected function getDescription() {
 		return [
 			'API module used by the SlideShow result printer to retrieve formatted results.',
 			'This module is should not be called directly.'
-			];
+		];
 	}
 
 	/**
 	 * Returns usage examples for this module. Return false if no examples are available.
+	 *
 	 * @return bool|string|array
 	 */
 	protected function getExamples() {
@@ -136,8 +155,9 @@ class SRFSlideShowApi extends ApiBase {
 
 	/**
 	 * Returns an array of parameter descriptions.
-	 * Don't call this functon directly: use getFinalParamDescription() to
+	 * Don't call this function directly: use getFinalParamDescription() to
 	 * allow hooks to modify descriptions as needed.
+	 *
 	 * @return array|bool False on no parameter descriptions
 	 */
 	protected function getParamDescription() {
@@ -152,12 +172,13 @@ class SRFSlideShowApi extends ApiBase {
 	 * Returns a string that identifies the version of the extending class.
 	 * Typically includes the class name, the svn revision, timestamp, and
 	 * last author. Usually done with SVN's Id keyword
+	 *
 	 * @return string
 	 */
 	public function getVersion() {
 		global $srfgIP;
 		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfgIP );
-		return __CLASS__ . '-' . SRF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
+		return __CLASS__ . '-' . SRF_VERSION . ( $gitSha1 !== false ) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
 
 }

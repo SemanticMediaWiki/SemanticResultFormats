@@ -1,23 +1,23 @@
 <?php
 /*******************************************************************************
-*	This file contains the Process Printer for SemanticResultFormats
-*   (https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats)
-*
-*	Copyright (c) 2008 - 2009 Frank Dengler and Hans-Jörg Happel
-*
-*   Process Printer is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-*
-*   Process Printer is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Process Printer. If not, see <http://www.gnu.org/licenses/>.
-*******************************************************************************/
+ *    This file contains the Process Printer for SemanticResultFormats
+ *   (https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats)
+ *
+ *    Copyright (c) 2008 - 2009 Frank Dengler and Hans-Jörg Happel
+ *
+ *   Process Printer is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   Process Printer is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Process Printer. If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
@@ -47,17 +47,15 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 $srfgPicturePath = "formats/graphviz/images/";
 
-
-
 class SRFProcess extends SMWResultPrinter {
 
 	// configuration variables
-	protected $m_graphValidation 	= false;
-	protected $m_isDebugSet 		= false;
-	protected $m_processCategory	= 'Process'; // Category for processes - required for rendering compound nodes
+	protected $m_graphValidation = false;
+	protected $m_isDebugSet = false;
+	protected $m_processCategory = 'Process'; // Category for processes - required for rendering compound nodes
 
 	// internal variables
-	protected $m_process;	// process to be rendered
+	protected $m_process;    // process to be rendered
 
 	/**
 	 * (non-PHPdoc)
@@ -193,11 +191,12 @@ class SRFProcess extends SMWResultPrinter {
 	}
 
 	/**
-	 *	This method renders the result set provided by SMW according to the printer
+	 *    This method renders the result set provided by SMW according to the printer
 	 *
-	 *  @param res				SMWQueryResult, result set of the ask query provided by SMW
-	 *  @param outputmode		?
-	 *  @return				String, rendered HTML output of this printer for the ask-query
+	 * @param res                SMWQueryResult, result set of the ask query provided by SMW
+	 * @param outputmode        ?
+	 *
+	 * @return                String, rendered HTML output of this printer for the ask-query
 	 *
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -211,9 +210,7 @@ class SRFProcess extends SMWResultPrinter {
 		//
 		//	GraphViz settings
 		//
-		global $wgGraphVizSettings;
-		$this->isHTML 		= true;
-
+		$this->isHTML = true;
 
 		//
 		//	Iterate all rows in result set
@@ -222,15 +219,19 @@ class SRFProcess extends SMWResultPrinter {
 		$row = $res->getNext(); // get initial row (i.e. array of SMWResultArray)
 
 		while ( $row !== false ) {
-			/* SMWDataItem */ $subject = $row[0]->getResultSubject(); // get Subject of the Result
+			/* SMWDataItem */
+			$subject = $row[0]->getResultSubject(); // get Subject of the Result
 			// creates a new node if $val has type wikipage
 			if ( $subject->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
 				$wikiPageValue = new SMWWikiPageValue( '_wpg' );
 				$wikiPageValue->setDataItem( $subject );
-				$node = $this->m_process->makeNode( $wikiPageValue->getShortWikiText(), $wikiPageValue->getShortWikiText() );
+				$node = $this->m_process->makeNode(
+					$wikiPageValue->getShortWikiText(),
+					$wikiPageValue->getShortWikiText()
+				);
 			}
 
-     		//
+			//
 			//	Iterate all colums of the row (which describe properties of the proces node)
 			//
 
@@ -259,19 +260,19 @@ class SRFProcess extends SMWResultPrinter {
 							}
 						}
 
-	 					break;
+						break;
 
-	 				case "haslabel":
-	 					$value = current($field->getContent()); // save only the first
+					case "haslabel":
+						$value = current( $field->getContent() ); // save only the first
 
-						if (($value !== false)) {
+						if ( ( $value !== false ) ) {
 							$wikiPageValue = new SMWWikiPageValue( '_wpg' );
 							$wikiPageValue->setDataItem( $value );
 							$val = $wikiPageValue->getLongWikiText();
 
-							if ($this->m_process->getUseOtherLabels()) {
-								$val = str_replace("&","and",$val);
-								$node->setLabel($val);
+							if ( $this->m_process->getUseOtherLabels() ) {
+								$val = str_replace( "&", "and", $val );
+								$node->setLabel( $val );
 							}
 						}
 						break;
@@ -385,7 +386,7 @@ class SRFProcess extends SMWResultPrinter {
 
 						if ( count( $field->getContent() ) > 0 ) {
 
-					 		// SplitConditional
+							// SplitConditional
 							if ( !isset( $cond_edge ) ) {
 								$cond_edge = new SplitConditionalOrEdge();
 								$cond_edge->setFrom( $node );
@@ -407,7 +408,7 @@ class SRFProcess extends SMWResultPrinter {
 
 						if ( count( $field->getContent() ) > 0 ) {
 
-					 		// SplitConditional
+							// SplitConditional
 							if ( !isset( $cond_edge ) ) {
 								$cond_edge = new SplitConditionalOrEdge();
 								$cond_edge->setFrom( $node );
@@ -443,14 +444,14 @@ class SRFProcess extends SMWResultPrinter {
 
 						// TODO - redundant column in result
 
-	 			}
+				}
 			}
 
 			// reset row variables
 			unset( $node );
 			unset( $cond_edge );
 
-		  	$row = $res->getNext();		// switch to next row
+			$row = $res->getNext();        // switch to next row
 		}
 
 		//
@@ -464,7 +465,9 @@ class SRFProcess extends SMWResultPrinter {
 		$result = renderGraphviz( $graphInput );
 
 		$debug = '';
-		if ( $this->m_isDebugSet ) $debug = '<pre>' . $graphInput . '</pre>';
+		if ( $this->m_isDebugSet ) {
+			$debug = '<pre>' . $graphInput . '</pre>';
+		}
 
 		return $result . $debug;
 	}
@@ -476,38 +479,38 @@ class SRFProcess extends SMWResultPrinter {
 class ProcessGraph {
 
 	// configuration variables
-	protected $m_graphName 		= '';
-	protected $m_rankdir		= 'TB';
-	protected $m_graphSize		= '';
-	protected $m_clusterColor	= 'lightgrey';
-	protected $m_showStatus		= false;	// should status be rendered?
-	protected $m_showRoles		= false;	// should roles be rendered?
-	protected $m_showRessources	= false;	// should ressources be rendered?
-	protected $m_showDiscussion	= false;	// should discussion be rendered?
-	protected $m_highlightNode	= '';		// node to be highlighted
-	protected $m_highlightColor = 'blue';	// highlight font color
-	protected $m_showRedLinks	= false;	// check and highlight red links?
-	protected $m_redLinkColor	= 'red';	// red link font color
-	protected $m_showCompound	= true;		// highlight compound nodes (=subprocesses)
+	protected $m_graphName = '';
+	protected $m_rankdir = 'TB';
+	protected $m_graphSize = '';
+	protected $m_clusterColor = 'lightgrey';
+	protected $m_showStatus = false;    // should status be rendered?
+	protected $m_showRoles = false;    // should roles be rendered?
+	protected $m_showRessources = false;    // should ressources be rendered?
+	protected $m_showDiscussion = false;    // should discussion be rendered?
+	protected $m_highlightNode = '';        // node to be highlighted
+	protected $m_highlightColor = 'blue';    // highlight font color
+	protected $m_showRedLinks = false;    // check and highlight red links?
+	protected $m_redLinkColor = 'red';    // red link font color
+	protected $m_showCompound = true;        // highlight compound nodes (=subprocesses)
 
-	public $m_useHtmlNodes = true;			// Set to false if you do not want to use HTML table nodes
+	public $m_useHtmlNodes = true;            // Set to false if you do not want to use HTML table nodes
 
 	// instance variables
-	protected $m_nodes		= [];	// list of all nodes
-	protected $m_startnodes	= [];	// list of start nodes
-	protected $m_endnodes	= [];	// list of end nodes
-	protected $m_ressources	= [];	// list of ressources
-	protected $m_roles		= [];	// list of roles
-	protected $m_errors		= [];	// list of errors
-
+	protected $m_nodes = [];    // list of all nodes
+	protected $m_startnodes = [];    // list of start nodes
+	protected $m_endnodes = [];    // list of end nodes
+	protected $m_ressources = [];    // list of ressources
+	protected $m_roles = [];    // list of roles
+	protected $m_errors = [];    // list of errors
 
 	/**
 	 * This method should be used for getting new or existing nodes
 	 * If a node does not exist yet, it will be created
 	 *
-	 * @param $id			string, node id
-	 * @param $label		string, node label
- 	 * @return				Object of type ProcessNode
+	 * @param $id            string, node id
+	 * @param $label        string, node label
+	 *
+	 * @return                Object of type ProcessNode
 	 */
 	public function makeNode( $id, $label ) {
 		// check if node exists
@@ -524,14 +527,16 @@ class ProcessGraph {
 			$node->setProcess( $this );
 
 			// is actual node name the same like the one to highlight?
-			if ( strcasecmp( $id , $this->m_highlightNode ) == 0 ) {
+			if ( strcasecmp( $id, $this->m_highlightNode ) == 0 ) {
 				$node->setFontColor( $this->m_highlightColor );
 			}
 
 			// is the node a red link (i.e. corresponding wiki page does not yet exist)?
 			if ( $this->m_showRedLinks ) {
 				$title = Title::newFromDBkey( $id );
-				if ( isset( $title ) && ( !$title->exists() ) ) $node->setFontColor( $this->m_redLinkColor );
+				if ( isset( $title ) && ( !$title->exists() ) ) {
+					$node->setFontColor( $this->m_redLinkColor );
+				}
 			}
 
 			// add new node to process
@@ -584,7 +589,9 @@ class ProcessGraph {
 	public function getEndNodes() {
 		if ( count( $this->m_endnodes ) == 0 ) {
 			foreach ( $this->m_nodes as $node ) {
-				if ( count( $node->getSucc() ) == 0 ) $this->m_endnodes[] = $node;
+				if ( count( $node->getSucc() ) == 0 ) {
+					$this->m_endnodes[] = $node;
+				}
 			}
 		}
 
@@ -628,11 +635,11 @@ class ProcessGraph {
 		return $this->m_showCompound;
 	}
 
-	public function setShowDiscussion($show){
+	public function setShowDiscussion( $show ) {
 		$this->m_showDiscussion = $show;
 	}
 
-	public function getShowDiscussion(){
+	public function getShowDiscussion() {
 		return $this->m_showDiscussion;
 	}
 
@@ -649,7 +656,9 @@ class ProcessGraph {
 	}
 
 	public function getGraphName() {
-		if ( $this->m_graphName == '' ) $this->m_graphName = 'ProcessQueryResult' . rand( 1, 99999 );
+		if ( $this->m_graphName == '' ) {
+			$this->m_graphName = 'ProcessQueryResult' . rand( 1, 99999 );
+		}
 		return $this->m_graphName;
 	}
 
@@ -696,8 +705,10 @@ class ProcessGraph {
 		$res = 'digraph ' . $this->getGraphName() . ' {
 
 	ranksep="0.5";';
-		if ( $this->m_graphSize != '' ) $res .= '
+		if ( $this->m_graphSize != '' ) {
+			$res .= '
 	size="' . $this->m_graphSize . '";';
+		}
 		$res .= '
 	rankdir=' . $this->m_rankdir . ';
 	';
@@ -712,7 +723,7 @@ class ProcessGraph {
 
 		foreach ( $this->getStartNodes() as $node ) {
 			$res .= '
-		"Start" -> "' . $node->getId() .'":port1:n;';
+		"Start" -> "' . $node->getId() . '":port1:n;';
 		}
 
 		$res .= '
@@ -746,7 +757,7 @@ class ProcessGraph {
 		// add final stuff
 		//
 		$res .=
-	'
+			'
 	}';
 
 		return $res;
@@ -758,21 +769,28 @@ class ProcessGraph {
 abstract class ProcessElement {
 
 	// TODO I18N
-	private $m_id		 = 'no_id';
-	private $m_label	 = 'unlabeled';
+	private $m_id = 'no_id';
+	private $m_label = 'unlabeled';
 	private $m_uid;
 
-	public function getUUID(){
-		if (!isset($this->m_uid)){
-			$this->m_uid = sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-				mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-				mt_rand(0, 0x0fff) | 0x4000,
-				mt_rand(0, 0x3fff) | 0x8000,
-				mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+	public function getUUID() {
+		if ( !isset( $this->m_uid ) ) {
+			$this->m_uid = sprintf(
+				'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0x0fff ) | 0x4000,
+				mt_rand( 0, 0x3fff ) | 0x8000,
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff )
+			);
 		}
 
 		return $this->m_uid;
 	}
+
 	public function getId() {
 		return $this->m_id;
 	}
@@ -793,8 +811,8 @@ abstract class ProcessElement {
 
 class ProcessRessource extends ProcessElement {
 
-	private $m_usedby		= [];
-	private	$m_producedby	= [];
+	private $m_usedby = [];
+	private $m_producedby = [];
 
 	public function getProducers() {
 		return $this->m_producedby;
@@ -816,7 +834,7 @@ class ProcessRessource extends ProcessElement {
 
 class ProcessRole extends ProcessElement {
 
-	private $m_nodes	= [];
+	private $m_nodes = [];
 
 	public function getNodes() {
 		return $this->m_nodes;
@@ -828,26 +846,21 @@ class ProcessRole extends ProcessElement {
 
 }
 
-/**
- * Class reperesning a process node
- */
 class ProcessNode extends ProcessElement {
 
-	private $m_is_startnode	= false;	// explicit statement if this is a start node
-	private $m_is_endnode	= false;	// explicit statement if this is a termination node
-	private $m_status;					// status value
-	private $m_is_atomic	= true;		// set false if this is a compound node
+	private $m_status;                    // status value
+	private $m_is_atomic = true;        // set false if this is a compound node
 
-	private $m_process;					// reference to parent process
+	private $m_process;                    // reference to parent process
 
-	private $m_fontColor = '';			// font color to render
+	private $m_fontColor = '';            // font color to render
 
-	private $m_usedressources 		= [];	// ressources used by this node
-	private $m_producedressources 	= [];	// ressources produces by this node
-	private $m_roles				= [];	// roles related to this node
+	private $m_usedressources = [];    // ressources used by this node
+	private $m_producedressources = [];    // ressources produces by this node
+	private $m_roles = [];    // roles related to this node
 
-	private $m_edgeout;					// outgoing edge (can be only one)
-	private	$m_edgesin 	=	[];	// incoming edges (can be many)
+	private $m_edgeout;                    // outgoing edge (can be only one)
+	private $m_edgesin = [];    // incoming edges (can be many)
 
 	public function setStatus( $status ) {
 		$this->m_status = $status;
@@ -862,7 +875,7 @@ class ProcessNode extends ProcessElement {
 	}
 
 	public function setProcess( $proc ) {
-		$this->m_process =  $proc;
+		$this->m_process = $proc;
 	}
 
 	public function getProcess() {
@@ -960,21 +973,26 @@ class ProcessNode extends ProcessElement {
 			// $status = ',style=filled,color=' . $color;
 			if ( $this->getStatus() != '' ) {
 				if ( $this->getStatus() < 25 ) {
-					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status '.$this->getStatus().'%"><IMG SRC="' . $PicturePath .'p000.png" /';
+					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status ' . $this->getStatus(
+						) . '%"><IMG SRC="' . $PicturePath . 'p000.png" /';
 				} elseif ( $this->getStatus() < 50 ) {
-					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status '.$this->getStatus().'%"><IMG SRC="' . $PicturePath .'p025.png" /';
+					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status ' . $this->getStatus(
+						) . '%"><IMG SRC="' . $PicturePath . 'p025.png" /';
 				} elseif ( $this->getStatus() < 75 ) {
-					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status '.$this->getStatus().'%"><IMG SRC="' . $PicturePath .'p050.png" /';
+					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status ' . $this->getStatus(
+						) . '%"><IMG SRC="' . $PicturePath . 'p050.png" /';
 				} elseif ( $this->getStatus() < 100 ) {
-					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status '.$this->getStatus().'%"><IMG SRC="' . $PicturePath .'p075.png" /';
+					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status ' . $this->getStatus(
+						) . '%"><IMG SRC="' . $PicturePath . 'p075.png" /';
 				} elseif ( $this->getStatus() == 100 ) {
-					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status '.$this->getStatus().'%"><IMG SRC="' . $PicturePath .'p100.png" /';
+					$status = ' HREF="[[' . $this->getId() . ']]" TOOLTIP="status ' . $this->getStatus(
+						) . '%"><IMG SRC="' . $PicturePath . 'p100.png" /';
 				}
 			}
 
 		}
 
-	//
+		//
 		// show discussion page
 		//
 		$discussion = '';
@@ -987,13 +1005,14 @@ class ProcessNode extends ProcessElement {
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
-			$discussionTitle = Title::newFromText('Talk:'.$this->getId().'');
-			if ($discussionTitle->isKnown()) {
-				$discussion = ' HREF="[[Talk:' . $this->getId() . ']]" TOOLTIP="Talk:' . $this->getId() . '"><IMG SRC="' . $PicturePath .'discuss_icon.png" /';
+			$discussionTitle = Title::newFromText( 'Talk:' . $this->getId() . '' );
+			if ( $discussionTitle->isKnown() ) {
+				$discussion = ' HREF="[[Talk:' . $this->getId() . ']]" TOOLTIP="Talk:' . $this->getId(
+					) . '"><IMG SRC="' . $PicturePath . 'discuss_icon.png" /';
 			} else {
-				$discussion = ' HREF="[[Talk:' . $this->getId() . ']]" TOOLTIP="Talk:' . $this->getId() . '"><IMG SRC="' . $PicturePath .'discuss_icon_grey.png" /';
+				$discussion = ' HREF="[[Talk:' . $this->getId() . ']]" TOOLTIP="Talk:' . $this->getId(
+					) . '"><IMG SRC="' . $PicturePath . 'discuss_icon_grey.png" /';
 			}
-
 
 		}
 
@@ -1005,7 +1024,7 @@ class ProcessNode extends ProcessElement {
 
 		// insert icon for non-atomic nodes (i.e. subprocesses)
 		$compound = '<TR><TD ALIGN="LEFT" BORDER="0" WIDTH="20px">';
-		if ($this->getProcess()->getShowCompound()){
+		if ( $this->getProcess()->getShowCompound() ) {
 			if ( file_exists( $IP . "/images/subprocess.png" ) ) {
 				$PicturePath = $IP . "/images/";
 			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
@@ -1013,29 +1032,34 @@ class ProcessNode extends ProcessElement {
 			} else {
 				$PicturePath = $IP . $srfgPicturePath;
 			}
-			if (!$this->isAtomic()) $compound = '<TR><TD ALIGN="LEFT" BORDER="0" WIDTH="20px" HREF="[['. $this->getId() . ']]" TOOLTIP="sub process"><IMG SRC="' . $PicturePath .'subprocess.png"/>';
+			if ( !$this->isAtomic() ) {
+				$compound = '<TR><TD ALIGN="LEFT" BORDER="0" WIDTH="20px" HREF="[[' . $this->getId(
+					) . ']]" TOOLTIP="sub process"><IMG SRC="' . $PicturePath . 'subprocess.png"/>';
+			}
 		}
-
-
 
 		//
 		// render node itself
 		//
-		if ($this->m_process->m_useHtmlNodes){
+		if ( $this->m_process->m_useHtmlNodes ) {
 			$res =
-			'"' . $this->getId() . '" [shape=plaintext,label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">' . $compound . '</TD><TD BORDER="0" WIDTH="80%"></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $status . '></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $discussion . '></TD></TR><TR><TD COLSPAN="4" PORT="port1" HREF="[[' . $this->getId() . ']]" TOOLTIP="' . $this->getLabel() .'"><FONT' . $high .'>' . $this->getLabel() . '</FONT></TD> </TR></TABLE>>];
+				'"' . $this->getId(
+				) . '" [shape=plaintext,label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">' . $compound . '</TD><TD BORDER="0" WIDTH="80%"></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $status . '></TD><TD ALIGN="RIGHT" BORDER="0" WIDTH="20px"' . $discussion . '></TD></TR><TR><TD COLSPAN="4" PORT="port1" HREF="[[' . $this->getId(
+				) . ']]" TOOLTIP="' . $this->getLabel() . '"><FONT' . $high . '>' . $this->getLabel() . '</FONT></TD> </TR></TABLE>>];
 			';
 		} else {
 			$res =
-			'"' . $this->getId() . '"[label="' . $this->getLabel() . '",shape=rect, height=1.5, URL="[[' . $this->getId() . ']]"];
+				'"' . $this->getId() . '"[label="' . $this->getLabel(
+				) . '",shape=rect, height=1.5, URL="[[' . $this->getId() . ']]"];
 			';
 		}
 
 		//
 		// render outgoing node
 		//
-		if ( isset( $this->m_edgeout ) ) $res .= $this->m_edgeout->getGraphVizCode();
-
+		if ( isset( $this->m_edgeout ) ) {
+			$res .= $this->m_edgeout->getGraphVizCode();
+		}
 
 		//
 		// show cluster for roles and ressources
@@ -1049,7 +1073,8 @@ class ProcessNode extends ProcessElement {
 			foreach ( $this->getRoles() as $role ) {
 				$rrcluster = true;
 				$rrcode .= '
-				"' . $role->getId() . '"[label="' . $role->getLabel() . '",shape=doubleoctagon, color=red, URL="[[' . $role->getId() . ']]"];
+				"' . $role->getId() . '"[label="' . $role->getLabel(
+					) . '",shape=doubleoctagon, color=red, URL="[[' . $role->getId() . ']]"];
 				"' . $role->getId() . '" -> "' . $this->getId() . '":port1 [color=red,arrowhead = none,constraint=false];
 				';
 
@@ -1061,7 +1086,8 @@ class ProcessNode extends ProcessElement {
 			foreach ( $this->getUsedRessources() as $xres ) {
 				$rrcluster = true;
 				$rrcode .= '
-			"' . $xres->getId() . '"[label="' . $xres->getLabel() . '",shape=folder, color=blue, URL="[[' . $xres->getId() . ']]"];
+			"' . $xres->getId() . '"[label="' . $xres->getLabel(
+					) . '",shape=folder, color=blue, URL="[[' . $xres->getId() . ']]"];
 			"' . $xres->getId() . '" -> "' . $this->getId() . '":port1 [color=blue,constraint=false];
 				';
 			}
@@ -1069,14 +1095,17 @@ class ProcessNode extends ProcessElement {
 			foreach ( $this->getProducedRessources() as $xres ) {
 				$rrcluster = true;
 				$rrcode .= '
-			"' . $xres->getId() . '"[label="' . $xres->getLabel() . '",shape=folder, color=blue, URL="[[' . $xres->getId() . ']]"];
+			"' . $xres->getId() . '"[label="' . $xres->getLabel(
+					) . '",shape=folder, color=blue, URL="[[' . $xres->getId() . ']]"];
 			"' . $this->getId() . '":port1 -> "' . $xres->getId() . '" [color=blue,constraint=false];
 				';
-				}
+			}
 
 		}
 
-		if ( $rrcluster ) $res .= $rrcode . '}';
+		if ( $rrcluster ) {
+			$res .= $rrcode . '}';
+		}
 
 		$res .= '
 	';
@@ -1086,139 +1115,143 @@ class ProcessNode extends ProcessElement {
 
 }
 
-
 /**
  * Abstract base class for edges in a process graph
  */
-abstract class ProcessEdge{
+abstract class ProcessEdge {
 
 	private $m_id;
 	private $m_uid;
 
-	public function getId(){
-		if (!isset($this->m_id)){
-			$this->m_id = 'edge' . rand(1, 99999);
+	public function getId() {
+		if ( !isset( $this->m_id ) ) {
+			$this->m_id = 'edge' . rand( 1, 99999 );
 		}
 
 		return $this->m_id;
 	}
 
-	public function getUUID(){
-		if (!isset($this->m_uid)){
-			$this->m_uid = sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-    	mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-    	mt_rand(0, 0x0fff) | 0x4000,
-    	mt_rand(0, 0x3fff) | 0x8000,
-    	mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+	public function getUUID() {
+		if ( !isset( $this->m_uid ) ) {
+			$this->m_uid = sprintf(
+				'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0x0fff ) | 0x4000,
+				mt_rand( 0, 0x3fff ) | 0x8000,
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0xffff )
+			);
 		}
 
 		return $this->m_uid;
 	}
 
 	abstract public function getSucc();
+
 	abstract public function getPred();
 
 	abstract public function getGraphVizCode();
 }
 
-abstract class SplitEdge extends ProcessEdge{
+abstract class SplitEdge extends ProcessEdge {
 
 	protected $m_from;
-	protected $m_to 	= [];
+	protected $m_to = [];
 
-	public function setFrom($node){
+	public function setFrom( $node ) {
 		$this->m_from = $node;
-		$node->setEdgeOut($this);
+		$node->setEdgeOut( $this );
 	}
 
-	public function addTo($node){
+	public function addTo( $node ) {
 		$this->m_to[] = $node;
-		$node->addEdgeIn($this);
+		$node->addEdgeIn( $this );
 	}
 
-	public function getPred(){
-		return [$this->m_from];
+	public function getPred() {
+		return [ $this->m_from ];
 	}
 
-	public function getSucc(){
+	public function getSucc() {
 		return $this->m_to;
 	}
 
 }
 
-class SplitConditionalOrEdge extends ProcessEdge{
+class SplitConditionalOrEdge extends ProcessEdge {
 
 	protected $m_from;
 	protected $m_to_true;
 	protected $m_to_false;
 	protected $m_con_text = 'empty_condition';
 
-	public function getSucc(){
-		return [$this->m_to_false, $this->m_to_true];
+	public function getSucc() {
+		return [ $this->m_to_false, $this->m_to_true ];
 	}
 
-	public function getPred(){
-		return [$this->m_from];
+	public function getPred() {
+		return [ $this->m_from ];
 	}
 
-	public function setFrom($node){
+	public function setFrom( $node ) {
 		$this->m_from = $node;
-		$node->setEdgeOut($this);
+		$node->setEdgeOut( $this );
 	}
 
-	public function setToFalse($node){
+	public function setToFalse( $node ) {
 		$this->m_to_false = $node;
-		$node->addEdgeIn($this);
+		$node->addEdgeIn( $this );
 	}
 
-	public function setToTrue($node){
+	public function setToTrue( $node ) {
 		$this->m_to_true = $node;
-		$node->addEdgeIn($this);
+		$node->addEdgeIn( $this );
 	}
 
-	public function setConditionText($cond){
+	public function setConditionText( $cond ) {
 		$this->m_con_text = $cond;
 	}
 
-	public function getGraphVizCode(){
+	public function getGraphVizCode() {
 
 		$p = $this->m_from;
 
-		if ((!isset($this->m_from)) || (!isset($this->m_to_false)) || (!isset($this->m_to_true))){
+		if ( ( !isset( $this->m_from ) ) || ( !isset( $this->m_to_false ) ) || ( !isset( $this->m_to_true ) ) ) {
 
 			echo "error with SplitConditionalOrEdge"; // TODO
 			exit;
 		}
 
-
 		$res =
-	'subgraph "clus_' . $this->getId() . '" {
+			'subgraph "clus_' . $this->getId() . '" {
 		';
 
 		// cond-Shape
-		$con = 'con' .  rand(1, 99999);
+		$con = 'con' . rand( 1, 99999 );
 		$res .=
-		'"'. $con . '"[shape=diamond,label="' . $this->m_con_text . '",style=filled,color=skyblue];
-		"' . $p->getId() . '":port1:s -> "'. $con . '";
+			'"' . $con . '"[shape=diamond,label="' . $this->m_con_text . '",style=filled,color=skyblue];
+		"' . $p->getId() . '":port1:s -> "' . $con . '";
 		';
 
 		// True Succ
 		$res .=
-		'"' . $this->m_to_true->getId() . '" [URL = "[['. $this->m_to_true->getId() . ']]"];
+			'"' . $this->m_to_true->getId() . '" [URL = "[[' . $this->m_to_true->getId() . ']]"];
 		';
 
 		$res .=
-		'"'. $con .'" -> "' . $this->m_to_true->getId() .'":port1:n [label="true"];
+			'"' . $con . '" -> "' . $this->m_to_true->getId() . '":port1:n [label="true"];
 		';
 
 		// False Succ
 		$res .=
-		'"' . $this->m_to_false->getId() . '" [URL = "[['. $this->m_to_false->getId() . ']]"];
+			'"' . $this->m_to_false->getId() . '" [URL = "[[' . $this->m_to_false->getId() . ']]"];
 		';
 
 		$res .=
-		'"'. $con .'" -> "' . $this->m_to_false->getId() .'":port1:n [label="false"];';
-
+			'"' . $con . '" -> "' . $this->m_to_false->getId() . '":port1:n [label="false"];';
 
 		$res .= '
 	}
@@ -1229,31 +1262,33 @@ class SplitConditionalOrEdge extends ProcessEdge{
 
 }
 
-class SplitExclusiveOrEdge extends SplitEdge{
+class SplitExclusiveOrEdge extends SplitEdge {
 
-	public function getGraphVizCode(){
+	public function getGraphVizCode() {
 		global $srfgShapeStyle;
 		$p = $this->getPred();
 		$p = $p[0];
-		if ($srfgShapeStyle=='') $srfgShapeStyle="box";
+		if ( $srfgShapeStyle == '' ) {
+			$srfgShapeStyle = "box";
+		}
 		$res =
-	'subgraph "clus_' . $this->getId() . '" {
+			'subgraph "clus_' . $this->getId() . '" {
 		';
 
 		// add OR-Shape
-		$orx = 'or' .  rand(1, 99999);
+		$orx = 'or' . rand( 1, 99999 );
 		$res .=
-		'"'. $orx . '"[shape=' . $srfgShapeStyle . ',label="+",style=filled,color=gold];
-		"' . $p->getId() . '":port1:s -> "'. $orx . '";
+			'"' . $orx . '"[shape=' . $srfgShapeStyle . ',label="+",style=filled,color=gold];
+		"' . $p->getId() . '":port1:s -> "' . $orx . '";
 		';
 
-		foreach ($this->getSucc() as $s){
+		foreach ( $this->getSucc() as $s ) {
 			$res .=
-		'"' . $s->getId() . '" [URL="[['. $s->getId() . ']]"];
+				'"' . $s->getId() . '" [URL="[[' . $s->getId() . ']]"];
 		';
 
 			$res .=
-		'"'. $orx .'" -> "' . $s->getId() .'":port1:n;
+				'"' . $orx . '" -> "' . $s->getId() . '":port1:n;
 		';
 		}
 
@@ -1266,33 +1301,34 @@ class SplitExclusiveOrEdge extends SplitEdge{
 
 }
 
-class SplitParallelEdge extends SplitEdge{
+class SplitParallelEdge extends SplitEdge {
 
-
-	public function getGraphVizCode(){
+	public function getGraphVizCode() {
 		global $srfgShapeStyle;
-		if ($srfgShapeStyle=='') $srfgShapeStyle="box";
+		if ( $srfgShapeStyle == '' ) {
+			$srfgShapeStyle = "box";
+		}
 		$p = $this->getPred();
 		$p = $p[0];
 
 		$res =
-	'subgraph "clus_' . $this->getId() . '" {
+			'subgraph "clus_' . $this->getId() . '" {
 		';
 
 		// add AND-Shape
-		$and = 'and' .  rand(1, 99999);
+		$and = 'and' . rand( 1, 99999 );
 		$res .=
-		'"'. $and . '"[shape=' . $srfgShapeStyle . ',label="||",style=filled,color=palegreen];
-		"' . $p->getId() . '":port1:s -> "'. $and . '";
+			'"' . $and . '"[shape=' . $srfgShapeStyle . ',label="||",style=filled,color=palegreen];
+		"' . $p->getId() . '":port1:s -> "' . $and . '";
 		';
 
-		foreach ($this->getSucc() as $s){
+		foreach ( $this->getSucc() as $s ) {
 			$res .=
-		'"' . $s->getId() . '" [URL = "[['. $s->getId() . ']]"];
+				'"' . $s->getId() . '" [URL = "[[' . $s->getId() . ']]"];
 		';
 
 			$res .=
-		'"'. $and .'" -> "' . $s->getId() .'":port1:n;
+				'"' . $and . '" -> "' . $s->getId() . '":port1:n;
 		';
 		}
 
@@ -1305,44 +1341,44 @@ class SplitParallelEdge extends SplitEdge{
 
 }
 
-class SequentialEdge extends ProcessEdge{
+class SequentialEdge extends ProcessEdge {
 
 	private $m_from;
 	private $m_to;
 
-	public function setFrom($node){
+	public function setFrom( $node ) {
 		$this->m_from = $node;
-		$node->setEdgeOut($this);
+		$node->setEdgeOut( $this );
 	}
 
-	public function setTo($node){
+	public function setTo( $node ) {
 		$this->m_to = $node;
-		$node->addEdgeIn($this);
+		$node->addEdgeIn( $this );
 	}
 
-	public function getPred(){
-		return [$this->m_from];
+	public function getPred() {
+		return [ $this->m_from ];
 	}
 
-	public function getSucc(){
-		return [$this->m_to];
+	public function getSucc() {
+		return [ $this->m_to ];
 	}
 
-	public function getGraphVizCode(){
+	public function getGraphVizCode() {
 
 		$p = $this->m_from;
 		$s = $this->m_to;
 
 		$res =
-	'subgraph "clus_' . $this->getId() . '" {
+			'subgraph "clus_' . $this->getId() . '" {
 		';
 
 		$res .=
-		'"' . $s->getId() . '" [URL = "[['. $s->getId() . ']]"];
+			'"' . $s->getId() . '" [URL = "[[' . $s->getId() . ']]"];
 		';
 
 		$res .=
-		'"'. $p->getId() .'":port1:s -> "' . $s->getId() .'":port1:n;';
+			'"' . $p->getId() . '":port1:s -> "' . $s->getId() . '":port1:n;';
 
 		$res .= '
 	}

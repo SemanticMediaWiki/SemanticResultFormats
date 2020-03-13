@@ -99,6 +99,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 
 		/**
 		 * Get all values for all rows that belong to the result set
+		 *
 		 * @var SMWResultArray $rows
 		 */
 		while ( $rows = $result->getNext() ) {
@@ -130,9 +131,9 @@ class SRFBoilerplate extends SMWResultPrinter {
 					$rowData[] = $this->getDataValueItem( $dataValue->getDataItem()->getDIType(), $dataValue );
 				}
 
-			// Example how to build a hierarchical array by collecting all values
-			// belonging to one subject/row using labels as array key representation
-			$data[$subjectLabel][$propertyLabel][] = $rowData;
+				// Example how to build a hierarchical array by collecting all values
+				// belonging to one subject/row using labels as array key representation
+				$data[$subjectLabel][$propertyLabel][] = $rowData;
 			}
 		}
 
@@ -189,14 +190,14 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 */
 	private function getDataValueItem( $type, SMWDataValue $dataValue ) {
 
-		if ( $type == SMWDataItem::TYPE_NUMBER ){
+		if ( $type == SMWDataItem::TYPE_NUMBER ) {
 
 			// Set unit if available
 			$dataValue->setOutputFormat( $this->params['unit'] );
 
 			// Check if unit is available and return the converted value otherwise
 			// just return a plain number
-			return $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText() : $dataValue->getNumber() ;
+			return $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText() : $dataValue->getNumber();
 		} else {
 
 			// For all other data types return the wikivalue
@@ -233,7 +234,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 
 		// Assign the ID to make a data instance readly available and distinguishable
 		// from other content within the same page
-		$requireHeadItem =  [ $ID => FormatJson::encode( $data ) ];
+		$requireHeadItem = [ $ID => FormatJson::encode( $data ) ];
 		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// Add resource definitions that has been registered with SRF_Resource.php

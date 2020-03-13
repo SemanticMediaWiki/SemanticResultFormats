@@ -48,6 +48,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * Returns the names of the formats being tested.
+	 *
 	 * @return string[]
 	 */
 	public function getFormats() {
@@ -56,6 +57,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * Returns the name of the class being tested.
+	 *
 	 * @return string
 	 */
 	public function getClass() {
@@ -82,19 +84,23 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$testObject = new TreeResultPrinter( 'tree' );
 
-		$this->assertEquals( '', $testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ), 'Result should be empty.' );
+		$this->assertEquals(
+			'',
+			$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
+			'Result should be empty.'
+		);
 
 		// Restore GLOBAL state to ensure that preceding tests do not use a
 		// mocked instance
-		$GLOBALS[ 'wgParser' ] = $this->parser;
-		$GLOBALS[ 'wgTitle' ] = $this->title;
+		$GLOBALS['wgParser'] = $this->parser;
+		$GLOBALS['wgTitle'] = $this->title;
 	}
 
 	protected function prepareGlobalState() {
 
 		// Store current state
-		$this->parser = $GLOBALS[ 'wgParser' ];
-		$this->title = $GLOBALS[ 'wgTitle' ];
+		$this->parser = $GLOBALS['wgParser'];
+		$this->title = $GLOBALS['wgTitle'];
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
 			->disableOriginalConstructor()
@@ -117,8 +123,8 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 			->getMock();
 
 		// Careful!!
-		$GLOBALS[ 'wgParser' ] = $parser;
-		$GLOBALS[ 'wgTitle' ] = $title;
+		$GLOBALS['wgParser'] = $parser;
+		$GLOBALS['wgTitle'] = $title;
 	}
 
 	/**
@@ -140,19 +146,23 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 		/** @var array(SMWResultArray[]|false) $resultSet */
 		$resultSet[] = false;
 
-		$queryResult = $mockBuilder->newObject( 'QueryResult', [
-			'getCount' => 1,
-		] );
+		$queryResult = $mockBuilder->newObject(
+			'QueryResult',
+			[
+				'getCount' => 1,
+			]
+		);
 
 		$queryResult->expects( $this->any() )
 			->method( 'getNext' )
 			->will( call_user_func( [ $this, 'onConsecutiveCalls' ], $resultSet ) );
 
-
-		$queryResult = $mockBuilder->newObject( 'QueryResult', [
-			'getCount' => 1,
-		] );
-
+		$queryResult = $mockBuilder->newObject(
+			'QueryResult',
+			[
+				'getCount' => 1,
+			]
+		);
 
 		$params = SMWQueryProcessor::getProcessedParams( [ 'format' => 'tree' ], [] );
 

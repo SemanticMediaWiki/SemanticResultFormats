@@ -6,7 +6,6 @@
 		]
 	},
 	"srf-desc": "Přidatne formaty za wotprašowanja Semantic MediaWiki",
-	"srf-name": "Formaty semantiskich wuslědkow",
 	"prefs-srf": "Formaty semantiskich wuslědkow",
 	"srf-module-loading": "Začituje so...",
 	"srf-paramdesc-layout": "K dispoziciji stejacy layout",
@@ -135,7 +134,6 @@
 	"srf_printername_hash": "Asociatiwne datowe polo (hash)",
 	"srf-printername-graph": "Grafika",
 	"srf-paramdesc-graph-relation": "Su temy abo mjenowe kajkosće nadrjadowane abo podrjadowane elementy?",
-	"srf-paramdesc-graph-nameprop": "Zmóžnja kajkosć stajić, kotraž so jako tema wužiwa, město poprawneje temy",
 	"srf-paramdesc-graph-nodeshape": "Forma kóždeho suka na grafice",
 	"srf-paramdesc-graphname": "Titul",
 	"srf-paramdesc-graphsize": "Wulkosć grafiki (w pikselach)",
@@ -197,6 +195,5 @@
 	"srf-paramdesc-excludeproperty": "Kajkosć z wuslědka wuzamknyć",
 	"srf-ui-mediaplayer-label-play": "Wothrać",
 	"srf-ui-mediaplayer-label-repeat": "Wospjetować",
-	"srf-ui-mediaplayer-label-full-screen": "Połna wobrazowka",
-	"srf-excel-link": "Excel"
+	"srf-ui-mediaplayer-label-full-screen": "Połna wobrazowka"
 }

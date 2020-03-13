@@ -6,7 +6,6 @@
 		]
 	},
 	"srf-desc": "Additional formatos de resultato pro consultas de Semantic MediaWiki",
-	"srf-name": "Formatos de resultatos semantic",
 	"srf-paramdesc-height": "Altitude",
 	"srf-paramdesc-width": "Latitude",
 	"srf-paramdesc-class": "Specifica un classe de stilos in cascada (CSS) additional",
@@ -108,7 +107,6 @@
 	"srf_paramdesc_hashname": "Si isto es specificate e le extension HashTables es disponibile, isto creara un hash con le nomine specificate (sin producer un resultato visibile)",
 	"srf-printername-graph": "Graphico",
 	"srf-paramdesc-graph-relation": "Indica si le subjectos o proprietates de nomines es genitores o infantes",
-	"srf-paramdesc-graph-nameprop": "Defini le proprietate que essera usate como subjecto in loco del ver subjecto, i.e. le nomine del pagina",
 	"srf-paramdesc-graph-nodeshape": "Defini le forma de cata nodo in le graphico",
 	"srf-paramdesc-graphname": "Defini le titulo del graphico",
 	"srf-paramdesc-graphsize": "Defini le dimension del graphico in pixels",

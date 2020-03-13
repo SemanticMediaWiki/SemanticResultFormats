@@ -1110,6 +1110,13 @@
 				} );
 			}
 
+			// Allow to fetch the `srf.eventcalendar.fullCalendarRefresh` and trigger a click
+			// event to restore the fullCalendar in case the instance was part of tab (hidden
+			// during initialization)
+			$( document ).on( 'srf.eventcalendar.fullCalendarRefresh', function( event ) {
+				context.find( '.srf-calendarbutton-refresh' ).trigger( 'click' );
+			} );
+
 			// console.log( 'Data', data, 'Objects', _calendar );
 
 		} );

@@ -10,13 +10,14 @@
 			"Hudafu",
 			"Fengchao",
 			"Yfdyh000",
-			"Nemo bis"
+			"Nemo bis",
+			"科劳",
+			"Looong"
 		]
 	},
 	"srf-desc": "用于Semantic MediaWiki的附加结果格式",
-	"srf-name": "语义结果格式",
-	"prefs-srf": "扩展：语义结果格式",
-	"srf-prefs-intro-text": "您已安装语义结果格式拓展。额外帮助请参见[https://www.semantic-mediawiki.org/wiki/Help:Result_formats 此拓展的帮助页]。",
+	"prefs-srf": "语义结果格式",
+	"srf-prefs-intro-text": "您已安装带有语义的结果格式拓展应用。请访问[https://www.semantic-mediawiki.org/wiki/Help:Result_formats result formats]来获取用户喜好相关的额外帮助。",
 	"prefs-srf-eventcalendar-options": "事件日历选项",
 	"srf-prefs-eventcalendar-options-update-default": "在页面刷新时启用日历活动的[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates 自动更新]",
 	"srf-prefs-eventcalendar-options-paneview-default": "默认启用窗格视图",
@@ -174,7 +175,6 @@
 	"srf_paramdesc_hashname": "如果已经给出，且HashTables可用，这将会创建一个带有指定名称的哈希表（没有任何可见的输出）",
 	"srf-printername-graph": "图表",
 	"srf-paramdesc-graph-relation": "这些主题或名称属性是父节点或子节点吗？",
-	"srf-paramdesc-graph-nameprop": "允许设置一个属性，并将其作为主题来使用，而不是实际的主题",
 	"srf-paramdesc-graph-nodeshape": "图形上每个节点的形状",
 	"srf-paramdesc-graphname": "设置图表的标题",
 	"srf-paramdesc-graphsize": "设置grapht的大小（像素）",
@@ -270,7 +270,6 @@
 	"srf-filtered-noscript-error": "因为Javascript未启用，所以不能显示结果。前往$1。",
 	"srf-filtered-noscript-link-caption": "表格窗体中的结果",
 	"srf-filtered-map-provider-missing-error": "没有为“地图”视图指定地图提供者。",
-	"srf-filtered-map-geocoordinateparser-missing-error": "找不到地理坐标解析器。您需要安装“data-values/geo”。",
 	"srf-filtered-value-filter-and": "和",
 	"srf-filtered-value-filter-or": "或",
 	"srf-filtered-value-filter-placeholder": "选择过滤器值",
@@ -330,9 +329,11 @@
 	"srf-ui-mediaplayer-label-repeat-off": "关闭重复",
 	"srf-ui-mediaplayer-label-full-screen": "全屏",
 	"srf-ui-mediaplayer-label-restore-screen": "还原屏幕",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "无法导出成MS-Excel因为[https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel]拓展未安装。",
-	"srf-paramdesc-excel-filename": "用于生成文件的下载文件名",
-	"srf-paramdesc-excel-templatefile": "来自“File”名字空间的Excel文件名，用于格式化生成的文件",
-	"srf-paramdesc-icalendar-timezone": "时区的逗号分隔列表"
+	"srf-paramdesc-icalendar-timezone": "时区的逗号分隔列表",
+	"srf-paramdesc-gantt-diagramtitle": "数据图名称",
+	"srf-paramdesc-gantt-diagramtheme": "数据图主题",
+	"srf-paramdesc-gantt-axisformat": "横轴：日期格式",
+	"srf-paramdesc-gantt-titletopmargin": "数据图标题的内上边距",
+	"srf-paramdesc-gantt-barheight": "任务栏高度",
+	"srf-printername-gantt": "甘特图"
 }

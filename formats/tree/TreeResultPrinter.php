@@ -4,9 +4,11 @@ namespace SRF\Formats\Tree;
 
 /**
  * File holding the Tree class.
+ *
  * @author Stephan Gambke
  */
-use \Exception;
+
+use Exception;
 use Html;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
@@ -48,7 +50,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	public function getQueryResult() {
 
 		if ( $this->queryResult === null ) {
-			throw new Exception( __METHOD__ . ' called outside of ' . __CLASS__ . '::getResultText().');
+			throw new Exception( __METHOD__ . ' called outside of ' . __CLASS__ . '::getResultText().' );
 		}
 
 		return $this->queryResult;
@@ -71,42 +73,28 @@ class TreeResultPrinter extends ListResultPrinter {
 		// Don't support pagination in trees
 		$this->mSearchlabel = null;
 
-		if ( $this->params[ 'template arguments' ] !== 'numbered' ) {
-
-			if ( filter_var( $this->params[ 'named args' ], FILTER_VALIDATE_BOOLEAN ) === true ) {
-
-				$this->params[ 'template arguments' ] = 'legacy';
-
-			} elseif (
-				$this->params[ 'template arguments' ] !== 'named' &&
-				$this->params[ 'template arguments' ] !== 'legacy'
-			) {
-				// default
-				$this->params[ 'template arguments' ] = 'numbered';
-			}
-
-		}
-
 		// Allow "_" for encoding spaces, as documented
-		$this->params[ 'sep' ] = str_replace( '_', ' ', $this->params[ 'sep' ] );
+		$this->params['sep'] = str_replace( '_', ' ', $this->params['sep'] );
 
-		if ( !ctype_digit( strval( $this->params[ 'start level' ] ) ) || $this->params[ 'start level' ] < 1 ) {
-			$this->params[ 'start level' ] = 1;
+		if ( !ctype_digit( strval( $this->params['start level'] ) ) || $this->params['start level'] < 1 ) {
+			$this->params['start level'] = 1;
 		}
 
 	}
 
 	/**
 	 * Return serialised results in specified format.
+	 *
 	 * @param SMWQueryResult $queryResult
 	 * @param $outputmode
+	 *
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
 
 		$this->setQueryResult( $queryResult );
 
-		if ( $this->params[ 'parent' ] === '' ) {
+		if ( $this->params['parent'] === '' ) {
 			$this->addError( 'srf-tree-noparentprop' );
 			return '';
 		}
@@ -114,14 +102,14 @@ class TreeResultPrinter extends ListResultPrinter {
 		$rootHash = $this->getRootHash();
 
 		if ( $rootHash === false ) {
-			$this->addError( 'srf-tree-rootinvalid', $this->params[ 'root' ] );
+			$this->addError( 'srf-tree-rootinvalid', $this->params['root'] );
 			return '';
 		}
 
 		$this->hasTemplates =
-			$this->params[ 'introtemplate' ] !== '' ||
-			$this->params[ 'outrotemplate' ] !== '' ||
-			$this->params[ 'template' ] !== '';
+			$this->params['introtemplate'] !== '' ||
+			$this->params['outrotemplate'] !== '' ||
+			$this->params['template'] !== '';
 
 		if ( $this->hasTemplates ) {
 			$this->initalizeStandardTemplateParameters();
@@ -132,26 +120,34 @@ class TreeResultPrinter extends ListResultPrinter {
 
 		// Display default if the result is empty
 		if ( count( $lines ) === 0 ) {
-			return $this->params[ 'default' ];
+			return $this->params['default'];
 		}
 
 		// FIXME: Linking to further events ($this->linkFurtherResults())
 		// does not make sense for tree format. But maybe display a warning?
 
-		$resultText = join( "\n", array_merge(
-			[ $this->getTemplateCall( $this->params[ 'introtemplate' ] ) ],
-			$lines,
-			[ $this->getTemplateCall( $this->params[ 'outrotemplate' ] ) ]
-		) );
+		$resultText = join(
+			"\n",
+			array_merge(
+				[ $this->getTemplateCall( $this->params['introtemplate'] ) ],
+				$lines,
+				[ $this->getTemplateCall( $this->params['outrotemplate'] ) ]
+			)
+		);
 
 		$this->setQueryResult( null );
 
-		return Html::rawElement( 'div', [ 'class' => 'srf-tree' ], $resultText );
+		if ( trim( $this->params[ 'class' ] ) === '' ) {
+			return $resultText;
+		}
+		
+		return Html::rawElement( 'div', [ 'class' => $this->params[ 'class' ] ], $resultText );
 	}
 
 	/**
 	 * @param string $templateName
 	 * @param string[] $params
+	 *
 	 * @return string
 	 */
 	public function getTemplateCall( $templateName, $params = [] ) {
@@ -171,29 +167,40 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param $definitions array of IParamDefinition
 	 *
 	 * @return array of IParamDefinition|array
+	 * @throws Exception
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
 
-		$params[ 'parent' ] = [
+		$params['parent'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-tree-parent',
 		];
 
-		$params[ 'root' ] = [
+		$params['root'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-tree-root',
 		];
 
-		$params[ 'start level' ] = [
+		$params['start level'] = [
 			'default' => 1,
 			'message' => 'srf-paramdesc-tree-startlevel',
 			'type' => 'integer',
 		];
 
-		$params[ 'sep' ] = [
+		$params['sep'] = [
 			'default' => ', ',
 			'message' => 'smw-paramdesc-sep',
+		];
+
+		$params['template arguments'] = [
+			'default' => '',
+			'message' => 'smw-paramdesc-template-arguments',
+		];
+
+		$params['class'] = [
+			'default' => '',
+			'message' => 'srf-paramdesc-class',
 		];
 
 		return $params;
@@ -201,6 +208,7 @@ class TreeResultPrinter extends ListResultPrinter {
 
 	/**
 	 * @param string $rootHash
+	 *
 	 * @return TreeNode
 	 */
 	protected function buildTreeFromQueryResult( $rootHash ) {
@@ -219,12 +227,12 @@ class TreeResultPrinter extends ListResultPrinter {
 	 */
 	protected function getRootHash() {
 
-		if ( $this->params[ 'root' ] === '' ) {
+		if ( $this->params['root'] === '' ) {
 			return '';
 		}
 
 		// get the title object of the root page
-		$rootTitle = Title::newFromText( $this->params[ 'root' ] );
+		$rootTitle = Title::newFromText( $this->params['root'] );
 
 		if ( $rootTitle !== null ) {
 			return DIWikiPage::newFromTitle( $rootTitle )->getSerialization();
@@ -247,7 +255,7 @@ class TreeResultPrinter extends ListResultPrinter {
 		$row = $queryResult->getNext();
 		while ( $row !== false ) {
 			$node = new TreeNode( $row );
-			$nodes[ $node->getHash() ] = $node;
+			$nodes[$node->getHash()] = $node;
 			$row = $queryResult->getNext();
 		}
 
@@ -256,6 +264,7 @@ class TreeResultPrinter extends ListResultPrinter {
 
 	/**
 	 * Returns a linker object for making hyperlinks
+	 *
 	 * @return \Linker
 	 */
 	public function getLinker( $firstcol = false ) {
@@ -267,6 +276,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * for making hyperlinks or NULL if no links should be created.
 	 *
 	 * @param int $column Column number
+	 *
 	 * @return \Linker|null
 	 */
 	public function getLinkerForColumn( $column ) {
@@ -276,9 +286,10 @@ class TreeResultPrinter extends ListResultPrinter {
 	private function initalizeStandardTemplateParameters() {
 
 		$query = $this->getQueryResult()->getQuery();
+		$userparam = trim( $this->params[ 'userparam' ] );
 
 		$this->standardTemplateParameters =
-			( $this->params[ 'userparam' ] !== '' ? ( '|userparam=' . $this->mUserParam ) : '' ) .
+			( $userparam !== '' ? ( '|userparam=' . $userparam ) : '' ) .
 			'|smw-resultquerycondition=' . $query->getQueryString() .
 			'|smw-resultquerylimit=' . $query->getLimit() .
 			'|smw-resultqueryoffset=' . $query->getOffset();
@@ -288,7 +299,9 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * @param string $rootHash
 	 * @param TreeNode[] $nodes
+	 *
 	 * @return TreeNode
+	 * @throws \Exception
 	 */
 	protected function buildTreeFromNodeList( $rootHash, $nodes ) {
 
@@ -296,16 +309,17 @@ class TreeResultPrinter extends ListResultPrinter {
 
 		$root = new TreeNode();
 		if ( $isRootSpecified ) {
-			$root->addChild( $nodes[ $rootHash ] );
+			$root->addChild( $nodes[$rootHash] );
 		}
 
 		$store = $this->getQueryResult()->getStore();
-		$parentPointerProperty = DIProperty::newFromUserLabel( $this->params[ 'parent' ] );
+		$parentPointerProperty = DIProperty::newFromUserLabel( $this->params['parent'] );
 
 		foreach ( $nodes as $hash => $node ) {
 
 			$parents = $store->getPropertyValues(
-				$node->getResultSubject(), $parentPointerProperty
+				$node->getResultSubject(),
+				$parentPointerProperty
 			);
 
 			if ( empty( $parents ) && !$isRootSpecified ) {
@@ -320,14 +334,12 @@ class TreeResultPrinter extends ListResultPrinter {
 
 					try {
 						if ( array_key_exists( $parentHash, $nodes ) ) {
-							$errorCode = $nodes[ $parentHash ]->addChild( $node );
+							$nodes[$parentHash]->addChild( $node );
 						} elseif ( !$isRootSpecified ) {
-							$errorCode = $root->addChild( $node );
-						} else {
-							// Drop node. It is not part of the tree.
-							$errorCode = null;
+							$root->addChild( $node );
 						}
-					} catch ( Exception $e ) {
+					}
+					catch ( Exception $e ) {
 						$this->addError( $e->getMessage(), $node->getResultSubject()->getTitle()->getPrefixedText() );
 					}
 				}
@@ -338,15 +350,16 @@ class TreeResultPrinter extends ListResultPrinter {
 
 	/**
 	 * @param TreeNode $tree
+	 *
 	 * @return mixed
 	 */
 	protected function buildLinesFromTree( $tree ) {
 		$nodePrinterConfiguration = [
-			'format' => trim( $this->params[ 'format' ] ),
-			'template' => trim( $this->params[ 'template' ] ),
-			'headers' => $this->params[ 'headers' ],
-			'template arguments' => $this->params[ 'template arguments' ],
-			'sep' => $this->params[ 'sep' ],
+			'format' => trim( $this->params['format'] ),
+			'template' => trim( $this->params['template'] ),
+			'headers' => $this->params['headers'],
+			'named args' => $this->params['named args'],
+			'sep' => $this->params['sep'],
 		];
 
 		$visitor = new TreeNodePrinter( $this, $nodePrinterConfiguration );
@@ -364,7 +377,8 @@ class TreeResultPrinter extends ListResultPrinter {
 			\Message::newFromKey( $msgkey )
 				->params( $params )
 				->inContentLanguage()->text()
-			);
+		);
 	}
+
 }
 

@@ -13,25 +13,15 @@ installation independently. For more information, visit the [SRF homepage][srf] 
 
 ## Requirements
 
-- PHP 5.6 or later
-- MediaWiki 1.27 or later
+- PHP 7.0 or later
+- MediaWiki 1.31 or later
 - Semantic MediaWiki 3.0 or later
-- MySQL 5 or later or SQLite 3 or later
 
 ## Installation
 
-The recommended way to install this extension is by using [Composer][composer].
-Just add the following to the MediaWiki `composer.local.json` file and run the
-`php composer.phar install/update "mediawiki/semantic-result-formats"` command.
-
-```json
-{
-	"require": {
-		"mediawiki/semantic-result-formats": "~3.0"
-	}
-}
-```
-Information about compatibility, details about the installation, and its configuration can be found [here](docs/INSTALL.md).
+The recommended way to install this extension is by using [Composer][composer]. See the detailed
+[installation guide](docs/INSTALL.md) which also contains information about compatibility and
+configuration.
 
 ## Contribution and support
 
@@ -47,7 +37,6 @@ A list of people who have made contributions in the past can be found [here][con
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues)
 * [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticResultFormats/pulls)
 * Ask a question on [the mailing list](https://www.semantic-mediawiki.org/wiki/Mailing_list)
-* Ask a question on the #semantic-mediawiki IRC channel on Freenode.
 
 ## Tests
 

@@ -11,7 +11,6 @@
 		]
 	},
 	"srf-desc": "Furmadoù ouzhpenn evit ar rekedoù Semantic MediaWiki",
-	"srf-name": "Furmadoù an disoc'hoù semantek",
 	"srf-module-loading": "O kargañ...",
 	"srf-paramdesc-height": "Uhelder",
 	"srf-paramdesc-width": "Ledander",
@@ -135,6 +134,5 @@
 	"srf-ui-mediaplayer-label-unmute": "Gant son",
 	"srf-ui-mediaplayer-label-repeat": "Adober",
 	"srf-ui-mediaplayer-label-full-screen": "Skramm leun",
-	"srf-ui-mediaplayer-label-restore-screen": "Assevel ar skramm",
-	"srf-excel-link": "Excel"
+	"srf-ui-mediaplayer-label-restore-screen": "Assevel ar skramm"
 }

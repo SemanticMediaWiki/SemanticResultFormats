@@ -187,9 +187,9 @@
 					[ "div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table", 1 ],
 					"div.filtered > div.filtered-views > div.filtered-views-selectors-container > div.filtered-view-selector.filtered-table:contains('Table')",
 					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table", 1 ],
-					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr > th:not(:empty)", 3 ],
-					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr.filtered-table-item:not(:empty)", 8 ],
-					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table > tr.filtered-table-item > td", 24 ]
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table tr > th:not(:empty)", 3 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table tr.filtered-table-item:not(:empty)", 8 ],
+					[ "div.filtered > div.filtered-views > div.filtered-views-container > div.filtered-view.filtered-table > table tr.filtered-table-item > td", 24 ]
 				]
 			}
 		},

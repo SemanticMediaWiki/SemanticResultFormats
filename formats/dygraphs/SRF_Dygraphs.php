@@ -57,7 +57,7 @@ class SRFDygraphs extends SMWResultPrinter {
 	 */
 	protected function getResultData( SMWQueryResult $result, $outputMode ) {
 		$aggregatedValues = [];
-		
+
 		while ( $rows = $result->getNext() ) { // Objects (pages)
 			$annotation = [];
 			$dataSource = false;
@@ -69,37 +69,50 @@ class SRFDygraphs extends SMWResultPrinter {
 			foreach ( $rows as $field ) {
 
 				// Use the subject marker to identify a possible data file
-				$subject = $field->getResultSubject(); 
-				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace() === NS_FILE && !$dataSource ){
-					$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $subject->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+				$subject = $field->getResultSubject();
+				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace(
+					) === NS_FILE && !$dataSource ) {
+					$aggregatedValues['subject'] = $this->makePageFromTitle( $subject->getTitle() )->getLongHTMLText(
+						$this->getLinker( $field->getResultSubject() )
+					);
 					$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
 					$dataSource = true;
 				}
 
 				// Proceed only where a label is known otherwise items are of no use
 				// for being a potential object identifier
-				if ( $field->getPrintRequest()->getLabel() !== '' ){
+				if ( $field->getPrintRequest()->getLabel() !== '' ) {
 					$propertyLabel = $field->getPrintRequest()->getLabel();
-				}else{
+				} else {
 					continue;
 				}
 
 				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // Data values
 
 					// Jump the column (indicated by continue) because we don't want the data source being part of the annotation array
-					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'raw' && !$dataSource ){
+					$dataItem = $dataValue->getDataItem();
+
+					if ( $dataItem->getDIType() === SMWDataItem::TYPE_WIKIPAGE ) {
+						$title = $dataItem->getTitle();
+					}
+
+					if ( $dataItem->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'raw' && !$dataSource ) {
 						// Support data source = raw which pulls the url from a wikipage in raw format
-						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
-						$aggregatedValues['url'] = $dataValue->getTitle()->getLocalURL( 'action=raw' );
+						$aggregatedValues['subject'] = $this->makePageFromTitle(
+							$title
+						)->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+						$aggregatedValues['url'] = $title->getLocalURL( 'action=raw' );
 						$dataSource = true;
 						continue;
-					} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'file' && $dataValue->getTitle()->getNamespace() === NS_FILE && !$dataSource ) {
+					} elseif ( $dataItem->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'file' && $title->getNamespace() === NS_FILE && !$dataSource ) {
 						// Support data source = file which pulls the url from a uploaded file
-						$aggregatedValues['subject'] = SMWWikiPageValue::makePageFromTitle( $dataValue->getTitle() )->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
-						$aggregatedValues['url'] = wfFindFile( $dataValue->getTitle() )->getUrl();
+						$aggregatedValues['subject'] = $this->makePageFromTitle(
+							$title
+						)->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
+						$aggregatedValues['url'] = wfFindFile( $title )->getUrl();
 						$dataSource = true;
 						continue;
-					} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI && $this->params['datasource'] === 'url'  && !$dataSource ){
+					} elseif ( $dataItem->getDIType() == SMWDataItem::TYPE_URI && $this->params['datasource'] === 'url' && !$dataSource ) {
 						// Support data source = url, pointing to an url data source
 						$aggregatedValues['link'] = $dataValue->getShortHTMLText( $this->getLinker( false ) );
 						$aggregatedValues['url'] = $dataValue->getURL();
@@ -113,12 +126,13 @@ class SRFDygraphs extends SMWResultPrinter {
 					// shortText -> Text that will appear as annotation flag
 					// text -> A longer description of the annotation
 					// @see  http://dygraphs.com/annotations.html
-					if ( in_array( $propertyLabel, [ 'series', 'x', 'shortText', 'text' ] ) ){
-						if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ){
+					if ( in_array( $propertyLabel, [ 'series', 'x', 'shortText', 'text' ] ) ) {
+						if ( $dataItem->getDIType() == SMWDataItem::TYPE_NUMBER ) {
 							// Set unit if available
 							$dataValue->setOutputFormat( $this->params['unit'] );
 							// Check if unit is available
-							$annotation[$propertyLabel] = $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText() : $dataValue->getNumber() ;
+							$annotation[$propertyLabel] = $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText(
+							) : $dataValue->getNumber();
 						} else {
 							$annotation[$propertyLabel] = $dataValue->getWikiValue();
 						}
@@ -126,11 +140,18 @@ class SRFDygraphs extends SMWResultPrinter {
 				}
 			}
 			// Sum-up collected row items in a single array
-			if ( $annotation !== [] ){
-				$aggregatedValues['annotation'][] =  $annotation;
+			if ( $annotation !== [] ) {
+				$aggregatedValues['annotation'][] = $annotation;
 			}
 		}
 		return $aggregatedValues;
+	}
+
+	private function makePageFromTitle( \Title $title ) {
+		$dataValue = new SMWWikiPageValue( '_wpg' );
+		$dataItem = SMWDIWikiPage::newFromTitle( $title );
+		$dataValue->setDataItem( $dataItem );
+		return $dataValue;
 	}
 
 	/**
@@ -151,35 +172,35 @@ class SRFDygraphs extends SMWResultPrinter {
 		$this->isHTML = true;
 
 		// Reorganize the raw data
-		if ( $this->params['datasource'] === 'page' ){
+		if ( $this->params['datasource'] === 'page' ) {
 			foreach ( $data as $key => $values ) {
-				$dataObject[] =  [ 'label' => $key, 'data' => $values ];
+				$dataObject[] = [ 'label' => $key, 'data' => $values ];
 			}
-		}else{
-				$dataObject['source'] = $data;
+		} else {
+			$dataObject['source'] = $data;
 		}
 
 		// Prepare transfer array
-		$chartData =  [
+		$chartData = [
 			'data' => $dataObject,
 			'sask' => $options['sask'],
-			'parameters' =>  [
-				'width'        => $this->params['width'],
-				'height'       => $this->params['height'],
-				'xlabel'       => $this->params['xlabel'],
-				'ylabel'       => $this->params['ylabel'],
-				'charttitle'   => $this->params['charttitle'],
-				'charttext'    => $this->params['charttext'],
-				'infotext'     => $this->params['infotext'],
-				'datasource'   => $this->params['datasource'],
+			'parameters' => [
+				'width' => $this->params['width'],
+				'height' => $this->params['height'],
+				'xlabel' => $this->params['xlabel'],
+				'ylabel' => $this->params['ylabel'],
+				'charttitle' => $this->params['charttitle'],
+				'charttext' => $this->params['charttext'],
+				'infotext' => $this->params['infotext'],
+				'datasource' => $this->params['datasource'],
 				'rollerperiod' => $this->params['mavg'],
-				'gridview'    => $this->params['gridview'],
-				'errorbar'     => $this->params['errorbar'],
+				'gridview' => $this->params['gridview'],
+				'errorbar' => $this->params['errorbar'],
 			]
 		];
 
 		// Array encoding and output
-		$requireHeadItem =  [ $chartID => FormatJson::encode( $chartData ) ];
+		$requireHeadItem = [ $chartID => FormatJson::encode( $chartData ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		SMWOutputs::requireResource( 'ext.srf.dygraphs' );
@@ -191,7 +212,7 @@ class SRFDygraphs extends SMWResultPrinter {
 		// Chart/graph placeholder
 		$chart = Html::rawElement(
 			'div',
-			['id' => $chartID, 'class' => 'container', 'style' => "display:none;" ],
+			[ 'id' => $chartID, 'class' => 'container', 'style' => "display:none;" ],
 			null
 		);
 
@@ -204,7 +225,7 @@ class SRFDygraphs extends SMWResultPrinter {
 		// General output marker
 		return Html::rawElement(
 			'div',
-			[ 'class' => 'srf-dygraphs' . $class	],
+			[ 'class' => 'srf-dygraphs' . $class ],
 			$processing . $chart
 		);
 	}
@@ -249,7 +270,7 @@ class SRFDygraphs extends SMWResultPrinter {
 		$params['gridview'] = [
 			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
-			'values' => [ 'none' , 'tabs' ],
+			'values' => [ 'none', 'tabs' ],
 		];
 
 		$params['infotext'] = [

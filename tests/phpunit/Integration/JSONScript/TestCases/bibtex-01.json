@@ -1,0 +1,167 @@
+{
+	"description": "Test `format=bibtex`",
+	"setup": [
+		{
+			"namespace": "SMW_NS_SCHEMA",
+			"page": "Profile:AuthorSequence",
+			"contents": {
+				"import-from": "/../Fixtures/bibtex-sequence-map.json"
+			}
+		},
+		{
+			"page": "Has author",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]] [[Profile schema::Profile:AuthorSequence]]"
+		},
+		{
+			"page": "Has title",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has publisher",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has year",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has address",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has edition",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Has email",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Email]]"
+		},
+		{
+			"page": "BibTex/00",
+			"contents": "[[Category:Bibtex-00]]"
+		},
+		{
+			"page": "BibTex/01",
+			"contents": "[[Category:Bibtex-01]] [[Type::incollection]] [[Has author:: Eric S. Maskin]] [[Has editor::Leonid Hurwicz]] [[Has editor::David Schmeidler]] [[Has editor::Hugo Sonnenschein]] [[Has title::The theory of implementation in nash equilibrium: a survey]] [[Has booktitle::Social Goals and Social Organization]] [[Has year::1985]] [[Has publisher::Cambridge University Press]] [[Has address::Cambridge]] [[Has pages::173-204]]"
+		},
+		{
+			"page": "BibTex/02",
+			"contents": "[[Category:Bibtex-02]] [[Has author::Milton Abramowitz]] [[Has author::Irene A. Stegun]] [[Has title::Handbook of Mathematical Functions]] [[Has year::1964]] [[Has publisher::Dover]] [[Has address::New York]] [[Has edition::ninth Dover printing, tenth GPO printing]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "special",
+			"about": "#0 `format=bibtex` empty (bibtex-01-0.bib)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "bibtex"
+					},
+					"q": "[[Category:Bibtex-00]]",
+					"po": "?Has author=author|?Has title=title|?Has publisher=publisher|?Has year=year|?Has address=address|?Has edition=edition"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/bibtex-01-0.bib"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#1 `format=bibtex` single author, editor (bibtex-01-1.bib)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "bibtex"
+					},
+					"q": "[[Category:Bibtex-01]]",
+					"po": "?Type=type|?Has author=author|?Has title=title|?Has publisher=publisher|?Has year=year|?Has address=address|?Has edition=edition|?Has editor=editor|?Has pages=pages|?Has booktitle=booktitle"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/bibtex-01-1.bib"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#2 `format=bibtex` multiple authors (bibtex-01-2.bib)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "bibtex"
+					},
+					"q": "[[Category:Bibtex-02]]",
+					"po": "?Has author=author|?Has title=title|?Has publisher=publisher|?Has year=year|?Has address=address|?Has edition=edition"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/bibtex-01-2.bib"
+				}
+			}
+		},
+		{
+			"type": "special",
+			"about": "#3 `format=bibtex` multiple records (bibtex-01-3.bib)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "bibtex"
+					},
+					"q": "[[Category:Bibtex-02]] OR [[Category:Bibtex-01]]",
+					"po": "?Has author=author|+order=desc|?Has title=title|?Has publisher=publisher|?Has year=year|?Has address=address|?Has edition=edition"
+				}
+			},
+			"assert-output": {
+				"to-contain": {
+					"contents-file" : "/../Fixtures/bibtex-01-3.bib"
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true,
+			"SMW_NS_SCHEMA": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

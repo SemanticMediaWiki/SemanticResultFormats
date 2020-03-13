@@ -13,7 +13,6 @@
 		]
 	},
 	"srf-desc": "Πρόσθετες μορφές αποτελεσμάτων για ερωτήματα του Σημασιολογικού MediaWiki",
-	"srf-name": "Μορφές σημασιολογικών αποτελεσμάτων",
 	"prefs-srf": "Επέκταση:Μορφές σημασιολογικών αποτελεσμάτων",
 	"srf-prefs-intro-text": "Έχετε εγκαταστήσει την επέκταση Μορφές σημασιολογικών αποτελεσμάτων. Για πρόσθετη βοήθεια, παρακαλούμε επισκεφθείτε τη σελίδα βοήθειας σχετικά με τις [https://www.semantic-mediawiki.org/wiki/Help:Result_formats μορφές αποτελεσμάτων].",
 	"prefs-srf-eventcalendar-options": "Επιλογές ημερολογίου εκδηλώσεων",
@@ -139,7 +138,6 @@
 	"srf_paramdesc_headersep": "Διαχωριστικό μεταξύ ονόματος ιδιότητας και τιμής αν το «headers» έχει οριστεί σε «show» ή «plain»",
 	"srf-printername-graph": "Γράφημα",
 	"srf-paramdesc-graph-relation": "Καθορίζει εάν τα θέματα ή οι ιδιότητες των όνομάτων είναι γονείς ή παιδια",
-	"srf-paramdesc-graph-nameprop": "Ορίζει την ιδιότητα που θα χρησιμοποιηθεί ως αντικείμενο, αντί του πραγματικού θέματος, δηλαδή το όνομα της σελίδας",
 	"srf-paramdesc-graph-nodeshape": "Ορίζει το σχήμα του κάθε κόμβου στο γράφημα",
 	"srf-paramdesc-graphname": "Sets the title of the graph",
 	"srf-paramdesc-graphsize": "Ρυθμίζει το μέγεθος του γραφήματος σε pixels",
@@ -266,7 +264,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Απενεργοποίηση επανάληψης",
 	"srf-ui-mediaplayer-label-full-screen": "Πλήρης οθόνη",
 	"srf-ui-mediaplayer-label-restore-screen": "Επαναφορά οθόνης",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Δεν ήταν δυνατή η εξαγωγή για MS-Excel, επειδή η επέκταση [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] δεν είναι εγκατεστημένη.",
 	"srf-paramdesc-icalendar-timezone": "Μια λίστα τοπικών ωρών χωρισμένη με κόμμα?"
 }

@@ -8,7 +8,6 @@
 		]
 	},
 	"srf-desc": "Dagdag na mga anyo para sa nasa loob ng guhit na mga pagtatanong na pang-Semantikong MediaWiki",
-	"srf-name": "Mga Anyo ng Resultang Semantiko",
 	"srf-module-loading": "Ikinakarga...",
 	"srf-paramdesc-layout": "Makukuhang kalatagan",
 	"srf-paramdesc-height": "Taas",
@@ -135,7 +134,6 @@
 	"srf_paramdesc_hashname": "Kapag ibinigay at kung makukuha ang Talahanayan ng Kahaluan, lilikha ito ng isang kahaluan na mayroong tinukoy na pangalan (wala pang makikitang kinalabasan noon)",
 	"srf-printername-graph": "Talangguhit",
 	"srf-paramdesc-graph-relation": "Mga magulang ba o mga anak ang mga paksa o mga kaarian ng pangalan?",
-	"srf-paramdesc-graph-nameprop": "Nagpapahintulot ng pagtatakda ng isang pag-aari na gagamitin bilang paksa sa halip na ang talagang paksa",
 	"srf-paramdesc-graph-nodeshape": "Ang hugis ng bawat buko sa ibabaw ng talangguhit",
 	"srf-paramdesc-graphname": "Pamagat",
 	"srf-paramdesc-graphsize": "Sukat ng talangguhit (nasa px)",

@@ -16,11 +16,12 @@
 			"Festina90",
 			"Mar(c)",
 			"Patio",
-			"KlaasZ4usV"
+			"KlaasZ4usV",
+			"Elderson",
+			"Klaas van Buiten"
 		]
 	},
 	"srf-desc": "Extra resultaatopmaken voor zoekopdrachten van Semantic MediaWiki",
-	"srf-name": "Semantische resultaatopmaken",
 	"prefs-srf": "Semantische resultaatopmaken",
 	"srf-prefs-intro-text": "U hebt de uitbreiding Semantic Result Formats geïnstalleerd. Raadpleeg de hulppagina voor [https://www.semantic-mediawiki.org/wiki/Help:Result_formats resultaatopmaken] voor meer informatie.",
 	"srf-module-loading": "Bezig met laden…",
@@ -164,7 +165,6 @@
 	"srf_paramdesc_hashname": "Als opgegeven en de uitbreiding HashTables is beschikbaar, dan wordt een hash met de aangegeven naam gemaakt (er is dan geen zichtbare uitvoer)",
 	"srf-printername-graph": "Grafiek",
 	"srf-paramdesc-graph-relation": "Zijn de onderwerpen of naameigenschappen ouders of kinderen?",
-	"srf-paramdesc-graph-nameprop": "Maakt het mogelijk een eigenschap in te stellen die wordt gebruikt als onderwerp in plaats van het eigenlijke onderwerp",
 	"srf-paramdesc-graph-nodeshape": "De vorm van de knooppunten in de grafiek.",
 	"srf-paramdesc-graphname": "Naam",
 	"srf-paramdesc-graphsize": "Grafiekgrootte (in pixels)",
@@ -216,6 +216,7 @@
 	"srf-filtered-selectorlabel-list": "Lijst",
 	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
+	"srf-filtered-selectorlabel-map": "Kaart",
 	"srf-filtered-noscript-error": "De resulaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
 	"srf-filtered-value-filter-and": "EN",
 	"srf-filtered-value-filter-or": "OF",
@@ -270,6 +271,6 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Herhalen uit",
 	"srf-ui-mediaplayer-label-full-screen": "Volledig scherm",
 	"srf-ui-mediaplayer-label-restore-screen": "Scherm herstellen",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Kan niet naar Microsoft Excel exporteren omdat de uitbreiding [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] niet is geïnstalleerd."
+	"srf-paramdesc-spreadsheet-filename": "De bestandsnaam voor het downloaden van de gegenereerde speadsheet",
+	"srf-paramdesc-spreadsheet-fileformat": "De bestandsindeling voor de spreadsheet. Mogelijke waarden: xlsx, xls, ods en csv. Standaard: xlsx."
 }

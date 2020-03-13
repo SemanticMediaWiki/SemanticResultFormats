@@ -2,9 +2,9 @@
 
 namespace SRF;
 
+use Html;
 use SMW\ResultPrinter;
 use SMWQueryResult as QueryResult;
-use Html;
 
 /**
  * An event calendar printer using the FullCalendar JavaScript library
@@ -49,7 +49,15 @@ class EventCalendar extends ResultPrinter {
 		$params['defaultview'] = [
 			'message' => 'srf-paramdesc-calendardefaultview',
 			'default' => 'month',
-			'values' =>  [ 'month', 'basicweek', 'basicday', 'agendaweek', 'agendaday', 'listday', 'listweek', 'listmonth' ]
+			'values' => [
+				'month',
+				'basicweek',
+				'basicday',
+				'agendaweek',
+				'agendaday',
+				'listday',
+				'listweek',
+				'listmonth' ]
 		];
 
 		$params['views'] = [
@@ -59,19 +67,19 @@ class EventCalendar extends ResultPrinter {
 		$params['firstday'] = [
 			'message' => 'srf-paramdesc-calendarfirstday',
 			'default' => 'Sunday',
-			'values' =>  [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
+			'values' => [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
 		];
 
 		$params['start'] = [
 			'message' => 'srf-paramdesc-calendarstart',
 			'default' => 'current',
-			'values' =>  [ 'current', 'earliest', 'latest' ]
+			'values' => [ 'current', 'earliest', 'latest' ]
 		];
 
 		$params['legend'] = [
 			'message' => 'srf-paramdesc-calendarlegend',
 			'default' => 'none',
-			'values' =>  [ 'none', 'top', 'bottom', 'tooltip', 'pane' ]
+			'values' => [ 'none', 'top', 'bottom', 'tooltip', 'pane' ]
 		];
 
 		$params['dayview'] = [
@@ -88,7 +96,7 @@ class EventCalendar extends ResultPrinter {
 		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'basic',
-			'values' =>  [ 'basic', 'vector' ]
+			'values' => [ 'basic', 'vector' ]
 		];
 
 		$params['clicktarget'] = [
@@ -134,7 +142,7 @@ class EventCalendar extends ResultPrinter {
 					'class' => 'srf-top'
 				],
 				''
-			) .  $resourceFormatter->placeholder() . Html::element(
+			) . $resourceFormatter->placeholder() . Html::element(
 				'div',
 				[
 					'id' => $id,

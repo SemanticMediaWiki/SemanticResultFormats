@@ -23,9 +23,10 @@ class vCardTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTextOnEmptyCard() {
+	public function testEmptyCard() {
 
 		$instance = new vCard( 'http://example.org/Foo', 'Foo', [] );
+		$instance->set( 'url', 'http://example.org/Bar' );
 
 		$this->assertSame(
 			"BEGIN:VCARD\r\n" .
@@ -36,7 +37,7 @@ class vCardTest extends \PHPUnit_Framework_TestCase {
 			"SOURCE;CHARSET=UTF-8:http://example.org/Foo\r\n" .
 			"PRODID:-////Semantic MediaWiki\r\n" .
 			"REV:\r\n" .
-			"URL:http://example.org/Foo\r\n" .
+			"URL:http://example.org/Bar\r\n" .
 			"UID:http://example.org/Foo\r\n" .
 			"END:VCARD\r\n",
 			$instance->text()

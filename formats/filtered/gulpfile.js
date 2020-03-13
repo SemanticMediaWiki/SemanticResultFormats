@@ -150,5 +150,5 @@ gulp.task( 'copyExternalImages', function () {
 	return ret;
 } );
 
-gulp.task( 'buildExternalCSS', [ 'buildLeafletCSS', 'buildSliderCSS', 'buildSelectCSS' ] );
-gulp.task( 'default', [ 'buildFiltered', 'buildFilteredTests', 'buildExternalJS', 'buildExternalCSS', 'copyExternalImages' ] );
+gulp.task( 'buildExternalCSS', gulp.parallel( 'buildLeafletCSS', 'buildSliderCSS', 'buildSelectCSS' ) );
+gulp.task( 'default', gulp.parallel( 'buildFiltered', 'buildFilteredTests', 'buildExternalJS', 'buildExternalCSS', 'copyExternalImages' ) );

@@ -52,7 +52,9 @@ $GLOBALS['srfgFormats'] = [
 	'dygraphs',
 	'media',
 	'datatables',
-
+	'spreadsheet',
+	'gantt',
+	'graph'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',
@@ -67,7 +69,7 @@ $GLOBALS['srfgFormats'] = [
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
 
-	// Disabled by default sicne they contact external sites:
+	// Disabled by default since they contact external sites:
 	// 'googlebar',
 	// 'googlepie',
 
@@ -82,11 +84,6 @@ if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && define
 	|| isset( $GLOBALS['wgHashTables'] ) // Version < 1.0 alpha
 ) {
 	$GLOBALS['srfgFormats'][] = 'hash';
-}
-
-// Enable the excel format only if PHPExcel can be loaded.
-if( class_exists( 'PHPExcel' ) ){
-	$GLOBALS['srfgFormats'][] = 'excel';
 }
 
 // Used for Array and Hash formats.

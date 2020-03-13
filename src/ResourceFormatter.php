@@ -53,7 +53,7 @@ class ResourceFormatter {
 
 		return Html::rawElement(
 			'div',
-			array( 'class' => 'srf-loading-dots' )
+			[ 'class' => 'srf-loading-dots' ]
 		);
 	}
 
@@ -94,12 +94,12 @@ class ResourceFormatter {
 		}
 
 		// Combine all data into one object
-		$data = array(
-			'query' => array(
+		$data = [
+			'query' => [
 				'result' => $queryResult->toArray(),
-				'ask'    => $ask
-			)
-		);
+				'ask' => $ask
+			]
+		];
 
 		return $data;
 	}

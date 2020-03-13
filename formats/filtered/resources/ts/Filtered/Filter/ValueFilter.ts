@@ -1,6 +1,5 @@
-///<reference path="../../../../node_modules/@types/select2/index.d.ts"/>
-
 import { Filter } from "./Filter";
+import { IdTextPair } from "select2";
 
 declare let mw: any;
 

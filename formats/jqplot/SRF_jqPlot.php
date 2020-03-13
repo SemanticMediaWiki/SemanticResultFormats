@@ -27,7 +27,7 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 		$params['direction'] = [
 			'message' => 'srf-paramdesc-direction',
 			'default' => 'vertical',
-			'values' => [ 'horizontal', 'vertical'],
+			'values' => [ 'horizontal', 'vertical' ],
 		];
 
 		$params['charttitle'] = [
@@ -103,13 +103,13 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 		$params['chartlegend'] = [
 			'message' => 'srf-paramdesc-chartlegend',
 			'default' => 'none',
-			'values' => [ 'none', 'nw','n', 'ne', 'e', 'se', 's', 'sw', 'w' ],
+			'values' => [ 'none', 'nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w' ],
 		];
 
 		$params['datalabels'] = [
 			'message' => 'srf-paramdesc-datalabels',
 			'default' => 'none',
-			'values' => [  'none', 'value', 'label', 'percent' ],
+			'values' => [ 'none', 'value', 'label', 'percent' ],
 		];
 
 		$params['colorscheme'] = [
@@ -142,7 +142,7 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 	 *
 	 * @return array
 	 */
-	public static function getNumbersTicks( $minValue, $maxValue ){
+	public static function getNumbersTicks( $minValue, $maxValue ) {
 		$numbersticks = [];
 
 		// Calculate the tick values for the numbers, based on the
@@ -162,8 +162,8 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 			$maxValue += .001;
 		}
 
-		if ( $minValue < 0 ) { 
-			$minValue -= .001; 
+		if ( $minValue < 0 ) {
+			$minValue -= .001;
 		}
 
 		if ( $maxValue == 0 ) {
@@ -187,7 +187,7 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 		$highestTick = ceil( $maxAxis / $biggerMultipleOf10 - .001 );
 
 		for ( $i = $lowestTick; $i <= $highestTick; $i++ ) {
-			$numbersticks[] = ($i * $biggerMultipleOf10) ;
+			$numbersticks[] = ( $i * $biggerMultipleOf10 );
 		}
 
 		return $numbersticks;

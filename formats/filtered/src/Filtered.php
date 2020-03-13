@@ -2,6 +2,7 @@
 
 /**
  * File holding the SRFFiltered class.
+ *
  * @author Stephan Gambke
  *
  */
@@ -54,21 +55,23 @@ class Filtered extends ResultPrinter {
 
 	/**
 	 * The available view types
+	 *
 	 * @var array of Strings
 	 */
 	private $mViewTypes = [
-		'list'     => 'ListView',
+		'list' => 'ListView',
 		'calendar' => 'CalendarView',
-		'table'    => 'TableView',
-		'map'      => 'MapView',
+		'table' => 'TableView',
+		'map' => 'MapView',
 	];
 
 	/**
 	 * The available filter types
+	 *
 	 * @var array of Strings
 	 */
 	private $mFilterTypes = [
-		'value'    => 'ValueFilter',
+		'value' => 'ValueFilter',
 		'distance' => 'DistanceFilter',
 		'number' => 'NumberFilter',
 	];
@@ -83,6 +86,7 @@ class Filtered extends ResultPrinter {
 	/**
 	 * @param string $valueList
 	 * @param string $delimiter
+	 *
 	 * @return string[]
 	 */
 	public function getArrayFromValueList( $valueList, $delimiter = ',' ) {
@@ -95,7 +99,7 @@ class Filtered extends ResultPrinter {
 	public function getParser() {
 
 		if ( $this->parser === null ) {
-			$this->setParser( $GLOBALS[ 'wgParser' ] );
+			$this->setParser( $GLOBALS['wgParser'] );
 		}
 
 		return $this->parser;
@@ -154,15 +158,17 @@ class Filtered extends ResultPrinter {
 		$this->mSearchlabel = null;
 
 		$this->parameters = $params;
-		$this->viewNames = explode( ',', $params[ 'views' ] );
-		$this->filtersOnTop = $params[ 'filter position' ] === 'top';
+		$this->viewNames = explode( ',', $params['views'] );
+		$this->filtersOnTop = $params['filter position'] === 'top';
 
 	}
 
 	/**
 	 * Return serialised results in specified format.
+	 *
 	 * @param SMWQueryResult $res
 	 * @param $outputmode
+	 *
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -171,21 +177,21 @@ class Filtered extends ResultPrinter {
 		/** @var ResultItem[] $resultItems */
 		$resultItems = [];
 		while ( $row = $res->getNext() ) {
-			$resultItems[ $this->uniqid() ] = new ResultItem( $row, $this );
+			$resultItems[$this->uniqid()] = new ResultItem( $row, $this );
 			usleep( 1 ); // This is ugly, but for now th opnly way to get all resultItems. See #288.
 		}
 
 		$config = [
-			'query'         => $res->getQueryString(),
+			'query' => $res->getQueryString(),
 			'printrequests' => [],
-			'views'         => [],
-			'data'          => [],
+			'views' => [],
+			'data' => [],
 		];
 
 		list( $filterHtml, $printrequests ) = $this->getFilterHtml( $res, $resultItems );
 
 		$this->printrequests = $printrequests;
-		$config[ 'printrequests' ] = $printrequests;
+		$config['printrequests'] = $printrequests;
 
 		list( $viewHtml, $config ) = $this->getViewHtml( $res, $resultItems, $config );
 
@@ -197,14 +203,15 @@ class Filtered extends ResultPrinter {
 		$html .= $this->filtersOnTop ? $filterHtml . $viewHtml : $viewHtml . $filterHtml;
 		$html = Html::rawElement( 'div', [ 'class' => 'filtered ' . $id, 'id' => $id ], $html );
 
-		$config[ 'data' ] = $this->getResultsForJs( $resultItems );
+		$config['data'] = $this->getResultsForJs( $resultItems );
 
-		$config[ 'filtersOnTop' ] = $this->filtersOnTop;
+		$config['filtersOnTop'] = $this->filtersOnTop;
 		$this->addConfigToOutput( $id, $config );
 
 		try {
-			$this->fullParams[ 'limit' ]->getOriginalValue();
-		} catch ( Exception $exception ) {
+			$this->fullParams['limit']->getOriginalValue();
+		}
+		catch ( Exception $exception ) {
 			$res->getQuery()->setLimit( 0 );
 		}
 
@@ -233,7 +240,7 @@ class Filtered extends ResultPrinter {
 
 		$params[] = [
 			// 'type' => 'string',
-			'name'    => 'views',
+			'name' => 'views',
 			'message' => 'srf-paramdesc-filtered-views',
 			'default' => '',
 			// 'islist' => false,
@@ -241,7 +248,7 @@ class Filtered extends ResultPrinter {
 
 		$params[] = [
 			// 'type' => 'string',
-			'name'    => 'filter position',
+			'name' => 'filter position',
 			'message' => 'srf-paramdesc-filtered-filter-position',
 			'default' => 'top',
 			// 'islist' => false,
@@ -274,9 +281,9 @@ class Filtered extends ResultPrinter {
 			$previousConfig = [];
 		}
 
-		$previousConfig[ $id ] = $config;
+		$previousConfig[$id] = $config;
 
-		call_user_func( $setter,'srf-filtered-config', $previousConfig );
+		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
 
 	}
 
@@ -285,11 +292,12 @@ class Filtered extends ResultPrinter {
 	 */
 	protected function registerResourceModules( $resourceModules ) {
 
-		array_map( 'SMWOutputs::requireResource', (array) $resourceModules );
+		array_map( 'SMWOutputs::requireResource', (array)$resourceModules );
 	}
 
 	/**
 	 * @param string|null $id
+	 *
 	 * @return string
 	 */
 	public function uniqid( $id = null ) {
@@ -299,12 +307,13 @@ class Filtered extends ResultPrinter {
 
 	/**
 	 * @param ResultItem[] $result
+	 *
 	 * @return array
 	 */
 	protected function getResultsForJs( $result ) {
 		$resultAsArray = [];
 		foreach ( $result as $id => $row ) {
-			$resultAsArray[ $id ] = $row->getArrayRepresentation();
+			$resultAsArray[$id] = $row->getArrayRepresentation();
 		}
 		return $resultAsArray;
 	}
@@ -316,6 +325,7 @@ class Filtered extends ResultPrinter {
 	/**
 	 * @param SMWQueryResult $res
 	 * @param $result
+	 *
 	 * @return array
 	 */
 	protected function getFilterHtml( SMWQueryResult $res, $result ) {
@@ -336,11 +346,11 @@ class Filtered extends ResultPrinter {
 			];
 
 			if ( $printRequest->getData() instanceof SMWPropertyValue ) {
-				$prConfig[ 'property' ] = $printRequest->getData()->getInceptiveProperty()->getKey();
+				$prConfig['property'] = $printRequest->getData()->getInceptiveProperty()->getKey();
 			}
 
 			if ( filter_var( $printRequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) ) {
-				$prConfig[ 'hide' ] = true;
+				$prConfig['hide'] = true;
 			}
 
 			$filtersParam = $printRequest->getParameter( 'filter' );
@@ -354,7 +364,7 @@ class Filtered extends ResultPrinter {
 					if ( array_key_exists( $filterName, $this->mFilterTypes ) ) {
 
 						/** @var \SRF\Filtered\Filter\Filter $filter */
-						$filterClassName = '\SRF\Filtered\Filter\\' . $this->mFilterTypes[ $filterName ];
+						$filterClassName = '\SRF\Filtered\Filter\\' . $this->mFilterTypes[$filterName];
 						$filter = new  $filterClassName( $result, $printRequest, $this );
 
 						if ( $filter->isValidFilterForPropertyType() ) {
@@ -362,33 +372,43 @@ class Filtered extends ResultPrinter {
 							$this->registerResourceModules( $filter->getResourceModules() );
 
 							$filterid = $this->uniqid();
-							$filterHtml .= Html::rawElement( 'div', [ 'id' => $filterid, 'class' => "filtered-filter filtered-$filterName" ], $filter->getResultText() );
+							$filterHtml .= Html::rawElement(
+								'div',
+								[ 'id' => $filterid, 'class' => "filtered-filter filtered-$filterName" ],
+								$filter->getResultText()
+							);
 
 							$filterdata = $filter->getJsConfig();
-							$filterdata[ 'type' ] = $filterName;
-							$filterdata[ 'label' ] = $printRequest->getLabel();
+							$filterdata['type'] = $filterName;
+							$filterdata['label'] = $printRequest->getLabel();
 
-							$prConfig[ 'filters' ][ $filterid ] = $filterdata;
+							$prConfig['filters'][$filterid] = $filterdata;
 
 							foreach ( $result as $row ) {
 								$row->setData( $filterid, $filter->getJsDataForRow( $row ) );
 							}
 						} else {
 							// TODO: I18N
-							$this->addError( "The '$filterName' filter can not be used on the '{$printRequest->getLabel()}' printout." );
+							$this->addError(
+								"The '$filterName' filter can not be used on the '{$printRequest->getLabel()}' printout."
+							);
 						}
 
 					}
 				}
 			}
 
-			$printrequests[ $this->uniqid( $printRequest->getHash() ) ] = $prConfig;
+			$printrequests[$this->uniqid( $printRequest->getHash() )] = $prConfig;
 		}
 
 		$filterHtml .= '<div class="filtered-filter-spinner" style="display: none;"><div class="smw-overlay-spinner"></div></div>';
 
 		// wrap filters in a div
-		$filterHtml = Html::rawElement( 'div', [ 'class' => 'filtered-filters', 'style' => 'display:none' ], $filterHtml );
+		$filterHtml = Html::rawElement(
+			'div',
+			[ 'class' => 'filtered-filters', 'style' => 'display:none' ],
+			$filterHtml
+		);
 
 		return [ $filterHtml, $printrequests ];
 	}
@@ -397,6 +417,7 @@ class Filtered extends ResultPrinter {
 	 * @param SMWQueryResult $res
 	 * @param $resultItems
 	 * @param $config
+	 *
 	 * @return array
 	 */
 	protected function getViewHtml( SMWQueryResult $res, $resultItems, $config ) {
@@ -410,7 +431,7 @@ class Filtered extends ResultPrinter {
 			// cut off the selector label (if one was specified) from the actual view name
 			$viewnameComponents = explode( '=', $viewName, 2 );
 
-			$viewName = trim( $viewnameComponents[ 0 ] );
+			$viewName = trim( $viewnameComponents[0] );
 
 			if ( array_key_exists( $viewName, $this->mViewTypes ) ) {
 
@@ -419,14 +440,14 @@ class Filtered extends ResultPrinter {
 
 				if ( count( $viewnameComponents ) > 1 ) {
 					// a selector label was specified in the wiki text
-					$viewSelectorLabel = trim( $viewnameComponents[ 1 ] );
+					$viewSelectorLabel = trim( $viewnameComponents[1] );
 				} else {
 					// use the default selector label
 					$viewSelectorLabel = Message::get( 'srf-filtered-selectorlabel-' . $viewName );
 				}
 
 				/** @var \SRF\Filtered\View\View $view */
-				$viewClassName = '\SRF\Filtered\View\\' . $this->mViewTypes[ $viewName ];
+				$viewClassName = '\SRF\Filtered\View\\' . $this->mViewTypes[$viewName];
 				$view = new $viewClassName( $resultItems, $this->parameters, $this, $viewSelectorLabel );
 
 				$initErrorMsg = $view->getInitError();
@@ -437,20 +458,34 @@ class Filtered extends ResultPrinter {
 
 					$this->registerResourceModules( $view->getResourceModules() );
 
-					$viewHtml .= Html::rawElement( 'div', [ 'id' => $viewid, 'class' => "filtered-view filtered-$viewName $viewid" ], $view->getResultText() );
-					$viewSelectorsHtml .= Html::rawElement( 'div', [ 'class' => "filtered-view-selector filtered-$viewName $viewid" ], $viewSelectorLabel );
+					$viewHtml .= Html::rawElement(
+						'div',
+						[ 'id' => $viewid, 'class' => "filtered-view filtered-$viewName $viewid" ],
+						$view->getResultText()
+					);
+					$viewSelectorsHtml .= Html::rawElement(
+						'div',
+						[ 'class' => "filtered-view-selector filtered-$viewName $viewid" ],
+						$viewSelectorLabel
+					);
 
 					foreach ( $resultItems as $row ) {
 						$row->setData( $viewid, $view->getJsDataForRow( $row ) );
 					}
 
-					$config[ 'views' ][ $viewid ] = array_merge( [ 'type' => $viewName ], $view->getJsConfig() );
+					$config['views'][$viewid] = array_merge( [ 'type' => $viewName ], $view->getJsConfig() );
 				}
 			}
 		}
 
-		$viewHtml = Html::rawElement( 'div', [ 'class' => 'filtered-views', 'style' => 'display:none' ],
-			Html::rawElement( 'div', [ 'class' => 'filtered-views-selectors-container', 'style' => 'display:none' ], $viewSelectorsHtml ) .
+		$viewHtml = Html::rawElement(
+			'div',
+			[ 'class' => 'filtered-views', 'style' => 'display:none' ],
+			Html::rawElement(
+				'div',
+				[ 'class' => 'filtered-views-selectors-container', 'style' => 'display:none' ],
+				$viewSelectorsHtml
+			) .
 			Html::rawElement( 'div', [ 'class' => 'filtered-views-container' ], $viewHtml )
 		);
 		return [ $viewHtml, $config ];

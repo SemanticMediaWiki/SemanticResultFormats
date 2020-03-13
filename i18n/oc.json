@@ -8,7 +8,6 @@
 		]
 	},
 	"srf-desc": "Formats adicionals d'afichatge de resultat per las requèstas de Semantic MediaWiki",
-	"srf-name": "Formatatge dels resultats semantics",
 	"prefs-srf-datatables-options": "Opcions de las plajas de donadas",
 	"srf-module-loading": "Cargament…",
 	"srf-paramdesc-layout": "Mesa en pagina disponibla",
@@ -132,6 +131,5 @@
 	"srf-ui-mediaplayer-label-unmute": "Pas mut",
 	"srf-ui-mediaplayer-label-volume-max": "Volum maximal",
 	"srf-ui-mediaplayer-label-shuffle": "Lectura aleatòria",
-	"srf-ui-mediaplayer-label-repeat": "Repetir",
-	"srf-excel-link": "Excel"
+	"srf-ui-mediaplayer-label-repeat": "Repetir"
 }

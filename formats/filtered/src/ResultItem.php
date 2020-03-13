@@ -40,16 +40,16 @@ class ResultItem {
 		if ( $data === null ) {
 			$this->unsetData( $viewOrFilterId );
 		} else {
-			$this->mItemData[ $viewOrFilterId ] = $data;
+			$this->mItemData[$viewOrFilterId] = $data;
 		}
 	}
 
 	public function unsetData( $viewOrFilterId ) {
-		unset( $this->mItemData[ $viewOrFilterId ] );
+		unset( $this->mItemData[$viewOrFilterId] );
 	}
 
 	public function getData( $viewOrFilterId ) {
-		return $this->mItemData[ $viewOrFilterId ];
+		return $this->mItemData[$viewOrFilterId];
 	}
 
 	/**
@@ -72,31 +72,31 @@ class ResultItem {
 			$formatted = []; // may contain links
 			$sorted = []; // uses DEFAULTSORT when available
 
-				$field->reset();
+			$field->reset();
 
-				while ( ( $dataValue = $field->getNextDataValue() ) instanceof SMWDataValue ) {
+			while ( ( $dataValue = $field->getNextDataValue() ) instanceof SMWDataValue ) {
 
-					$dataItem = $dataValue->getDataItem();
+				$dataItem = $dataValue->getDataItem();
 
-					if ( $dataItem instanceof SMWDIGeoCoord ) {
-						$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
-						$sorted[] = $dataItem->getSortKey();
-					} elseif ( $dataItem instanceof SMWDIWikiPage ) {
-						$values[] = $dataValue->getShortWikiText();
-						$sorted[] = $dataValue->getSortKey();
-					} else {
-						$values[] = $dataValue->getShortWikiText();
-						$sorted[] = $dataValue->getShortWikiText();
-					}
-
-					if ( $dataValue instanceof SMWErrorValue ) {
-						$formatted[] = $dataItem->getSerialization();
-					} else {
-						$formatted[] = $dataValue->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
-					}
+				if ( $dataItem instanceof SMWDIGeoCoord ) {
+					$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
+					$sorted[] = $dataItem->getSortKey();
+				} elseif ( $dataItem instanceof SMWDIWikiPage ) {
+					$values[] = $dataValue->getShortWikiText();
+					$sorted[] = $dataItem->getSortKey();
+				} else {
+					$values[] = $dataValue->getShortWikiText();
+					$sorted[] = $dataValue->getShortWikiText();
 				}
 
-			$printouts[ $this->mQueryPrinter->uniqid( $printRequest->getHash() ) ] = [
+				if ( $dataValue instanceof SMWErrorValue ) {
+					$formatted[] = $dataItem->getSerialization();
+				} else {
+					$formatted[] = $dataValue->getShortHTMLText( $this->mQueryPrinter->getLinker( $isFirstColumn ) );
+				}
+			}
+
+			$printouts[$this->mQueryPrinter->uniqid( $printRequest->getHash() )] = [
 				'values' => $values,
 				'formatted values' => $formatted,
 				'sort values' => $sorted,

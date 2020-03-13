@@ -54,36 +54,36 @@ class SRFTimeseries extends SMWResultPrinter {
 	 */
 	protected function getAggregatedTimeSeries( SMWQueryResult $result, $outputMode ) {
 		$values = [];
-		$aggregatedValues =  [];
+		$aggregatedValues = [];
 
-		while ( /* array of SMWResultArray */ $row = $result->getNext() ) { // Objects (pages)
+		while ( /* array of SMWResultArray */
+		$row = $result->getNext() ) { // Objects (pages)
 			$timeStamp = '';
-			$value     = '';
 			$series = [];
 
-			foreach ( $row as /* SMWResultArray */ $field ) {
-				$value  = [];
-				$sum    = [];
-				$rowSum = [];
+			foreach ( $row as /* SMWResultArray */
+					  $field ) {
+				$sum = [];
 
 				// Group by subject (page object)  or property
-				if ( $this->params['group'] == 'subject' ){
+				if ( $this->params['group'] == 'subject' ) {
 					$group = $field->getResultSubject()->getTitle()->getText();
 				} else {
 					$group = $field->getPrintRequest()->getLabel();
 				}
 
-				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) { // Data values
+				while ( ( /* SMWDataValue */
+					$dataValue = $field->getNextDataValue() ) !== false ) { // Data values
 
 					// Find the timestamp
-					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_TIME ){
+					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_TIME ) {
 						// We work with a timestamp, we have to use intval because DataItem
 						// returns a string but we want a numeric representation of the timestamp
 						$timeStamp = intval( $dataValue->getDataItem()->getMwTimestamp() );
 					}
 
 					// Find the values (numbers only)
-					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ){
+					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ) {
 						$sum[] = $dataValue->getNumber();
 					}
 				}
@@ -91,17 +91,18 @@ class SRFTimeseries extends SMWResultPrinter {
 				$rowSum = array_sum( $sum );
 
 				// Check the sum and threshold/min
-				if ( $timeStamp !== '' && $field->getPrintRequest()->getTypeID() !== '_dat' && $rowSum >= $this->params['min'] ) {
-					$series[$group] =  [ $timeStamp , $rowSum ] ;
+				if ( $timeStamp !== '' && $field->getPrintRequest()->getTypeID(
+					) !== '_dat' && $rowSum >= $this->params['min'] ) {
+					$series[$group] = [ $timeStamp, $rowSum ];
 				}
 			}
-				$values[] = $series ;
+			$values[] = $series;
 		}
 
 		// Re-assign values according to their group
 		foreach ( $values as $key => $value ) {
 			foreach ( $values[$key] as $row => $rowvalue ) {
-					$aggregatedValues[$row][] = $rowvalue;
+				$aggregatedValues[$row][] = $rowvalue;
 			}
 		}
 		return $aggregatedValues;
@@ -126,32 +127,34 @@ class SRFTimeseries extends SMWResultPrinter {
 
 		// Reorganize the raw data
 		foreach ( $data as $key => $values ) {
-			$dataObject[] =  [ 'label' => $key, 'data' => $values ];
+			$dataObject[] = [ 'label' => $key, 'data' => $values ];
 		}
 
 		// Series colour
-		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter( explode( "," , $this->params['chartcolor'] ) ) : [];
+		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter(
+			explode( ",", $this->params['chartcolor'] )
+		) : [];
 
 		// Prepare transfer array
-		$chartData =  [
+		$chartData = [
 			'data' => $dataObject,
 			'fcolumntypeid' => '_dat',
 			'sask' => $options['sask'],
-			'parameters' =>  [
-				'width'        => $this->params['width'],
-				'height'       => $this->params['height'],
-				'charttitle'   => $this->params['charttitle'],
-				'charttext'    => $this->params['charttext'],
-				'infotext'     => $this->params['infotext'],
-				'charttype'    => $this->params['charttype'],
-				'gridview'     => $this->params['gridview'],
-				'zoom'         => $this->params['zoompane'],
+			'parameters' => [
+				'width' => $this->params['width'],
+				'height' => $this->params['height'],
+				'charttitle' => $this->params['charttitle'],
+				'charttext' => $this->params['charttext'],
+				'infotext' => $this->params['infotext'],
+				'charttype' => $this->params['charttype'],
+				'gridview' => $this->params['gridview'],
+				'zoom' => $this->params['zoompane'],
 				'seriescolors' => $seriescolors
 			]
 		];
 
 		// Array encoding and output
-		$requireHeadItem =  [ $chartID => FormatJson::encode( $chartData ) ];
+		$requireHeadItem = [ $chartID => FormatJson::encode( $chartData ) ];
 		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
@@ -162,11 +165,14 @@ class SRFTimeseries extends SMWResultPrinter {
 		}
 
 		// Chart/graph placeholder
-		$chart = Html::rawElement( 'div', [
-			'id' => $chartID,
-			'class' => 'container',
-			'style' => "display:none;"
-			], null
+		$chart = Html::rawElement(
+			'div',
+			[
+				'id' => $chartID,
+				'class' => 'container',
+				'style' => "display:none;"
+			],
+			null
 		);
 
 		// Processing/loading image
@@ -176,9 +182,12 @@ class SRFTimeseries extends SMWResultPrinter {
 		$class = $this->params['class'] ? ' ' . $this->params['class'] : ' flot-chart-common';
 
 		// General output marker
-		return Html::rawElement( 'div', [
-			'class' => 'srf-timeseries' . $class
-			], $processing . $chart
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'srf-timeseries' . $class
+			],
+			$processing . $chart
 		);
 	}
 
@@ -197,7 +206,7 @@ class SRFTimeseries extends SMWResultPrinter {
 		$params['charttype'] = [
 			'message' => 'srf-paramdesc-layout',
 			'default' => 'line',
-			'values' => [ 'line', 'bar'],
+			'values' => [ 'line', 'bar' ],
 		];
 
 		$params['min'] = [
@@ -209,19 +218,19 @@ class SRFTimeseries extends SMWResultPrinter {
 		$params['gridview'] = [
 			'message' => 'srf-paramdesc-gridview',
 			'default' => 'none',
-			'values' => [ 'none' , 'tabs' ],
+			'values' => [ 'none', 'tabs' ],
 		];
 
 		$params['group'] = [
 			'message' => 'srf-paramdesc-group',
 			'default' => 'subject',
-			'values' => [ 'property' , 'subject' ],
+			'values' => [ 'property', 'subject' ],
 		];
 
 		$params['zoompane'] = [
 			'message' => 'srf-paramdesc-zoompane',
 			'default' => 'bottom',
-			'values' => [ 'none' , 'bottom', 'top' ],
+			'values' => [ 'none', 'bottom', 'top' ],
 		];
 
 		$params['height'] = [

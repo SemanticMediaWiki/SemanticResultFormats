@@ -5,7 +5,6 @@
 			"Nemo bis"
 		]
 	},
-	"srf-name": "Formate vu semantesche Resultater",
 	"prefs-srf-eventcalendar-options": "Optioune vum Kalenner vun den Eventementer",
 	"prefs-srf-datatables-options": "Optioune vun den Tabelle vun Donnéeën",
 	"srf-module-loading": "Lueden...",
@@ -132,5 +131,6 @@
 	"srf-ui-mediaplayer-label-previous": "Vireg",
 	"srf-ui-mediaplayer-label-pause": "Paus",
 	"srf-ui-mediaplayer-label-stop": "Stopp",
-	"srf-excel-link": "Excel"
+	"srf-paramdesc-gantt-diagramtitle": "Numm vum Diagramm",
+	"srf-printername-gantt": "Gantt"
 }

@@ -1,15 +1,72 @@
-These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) MediaWiki extension.
+These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
+
+## SRF 3.2.0
+
+Under development
+
+* Added `hidezeroes` parameter to the `jqplotseries` format (by [Professional.Wiki][ProWiki])
+
+## SRF 3.1.0
+
+Released on August 18, 2019.
+
+* Minimum requirement for
+  * PHP changed to version 7.0 and later
+  * MediaWiki changed to version 1.31 and later
+* Added compatibility with Semantic MediaWiki 3.1.x
+* Improved compatibility with PHP 7.2+
+* Added `spreadsheet` format (by Stephan Gambke)
+* Deprecated `excel` format (by Stephan Gambke)
+* Added `gantt` result format (by Sebastian Schmid)
+* Added `filename` parameter to the `vcard` format (by James Hong Kong)
+* Added `template` parameter to the `outline` format (by James Hong Kong)
+* Added css `class` parameter to the `tree` format (by Stephan Gambke)
+* Improved `timeseries` format (by Christian Zagrodnick)
+  * Fixed `uncaught exception: Invalid dimensions for plot` 
+  * Only correct plot height when there are tabs
+* Other bug fixes and code improvements
+* Made the extension installable without the `php-gd` PHP extension
+* Updated translations (by translatewiki.net community)
+
+## SRF 3.0.1
+
+Released on March 27, 2019.
+
+* [#391](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/391) Updates build tools, thus fixing a security issue for the "filtered" format (by Stephan Gambke)
+* [#444](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/444) Removed a feature switch, now always using `TraditionalImageGallery`; fixes a potential "method not found" warning both for the "gallery" format (by Stephan Gambke)
+* [#462](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/462) Removed usage of `$this->mFormat` which was no longer taken into account thus fixing the "listwidget" format (by Stephan Gambke)
+* [#471](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/471) Updated to secure versions of dependencies for the "filtered" format (by Stephan Gambke)
+* Updated translations (by translatewiki.net community)
 
 ## SRF 3.0.0
 
-This is not a release yet.
+Released on October 12, 2018.
 
-* Raised minimum required version of PHP to 5.6
-* Raised minimum required version of MediaWiki to 1.27
+* Minimum requirement for
+  * PHP changed to version 5.6 and later
+  * MediaWiki changed to version 1.27 and later
+  * Semantic MediaWiki changed to version 3.0 and later
+* #438 Added support for extension registration via "extension.json" (by James Hong Kong)  
+  → Now you have to use `wfLoadExtension( 'SemanticResultFormats' );` in the "LocalSettings.php" file to invoke the extension
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
-* #248 Fixed localization of numbers in the math result formats (by James Hong Kong)
-* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension
+* Refactored vcard format: Mostly code improvements (by James Hong Kong)
+* [#248](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/248) Fixed localization of numbers in the math result formats (by James Hong Kong)
+* [#311](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Improved display of user preference options on special page "Preferences" (by James Hong Kong)
+* [#365](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/365) Added support for the latest versions of the GraphViz extension (by Sam Wilson)
+* [#375](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/375) Fixed exposing of file dimensions in captions for the "gallery" format (by James Hong Kong)
+* [#384](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/384) Updated "fullcalendar" library as well as added the "list views" feature for the "eventcalendar" format (by Nischay Nahata and James Hong Kong)
+* [#435](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/435) Fixed time zone transitions (by James Hong Kong)
+* [#436](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/436) Removed the `template arguments` parameter of the "gallery" format (by Stephan Gambke)
+* Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
+* Provided general code improvements as well as additional integrations tests for several result formats
 * Updated translations (by translatewiki.net community)
+
+## SRF 2.5.6
+
+Released on September 7, 2018.
+
+* 399: Fixes columnsearchinput field being always disabled for the "datatables" format (by Matthew A.Thompson)
+* 410 Added support for installation together with the latest versions of the Maps extension (by Jeroen De Dauw)
 
 ## SRF 2.5.5
 
@@ -509,3 +566,5 @@ The initial sets of Semantic Result Formats are:
 * googlepie (written by Denny Vrandecic)
 * graph (written by Frank Dengler)
 * timeline (written by Markus Krötzsch and based on code by MIT's Simile group)
+
+[ProWiki]: https://professional.wiki

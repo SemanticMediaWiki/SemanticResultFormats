@@ -4,7 +4,7 @@
 			"Joetaras"
 		]
 	},
-	"prefs-srf": "Extension:Semantic Result Formats",
+	"prefs-srf": "Formate d'u resultate semandeche",
 	"srf-module-loading": "Stoche a scareche…",
 	"srf-paramdesc-height": "Altezze",
 	"srf-paramdesc-width": "Larghezze",
@@ -83,5 +83,15 @@
 	"srf-ui-mediaplayer-label-unmute": "Cu 'a vôsce",
 	"srf-ui-mediaplayer-label-volume-max": "Volume massime",
 	"srf-ui-mediaplayer-label-shuffle": "Miscke",
-	"srf-excel-link": "Excel"
+	"srf-spreadsheet-link": "Fogghie de calcole",
+	"srf-paramdesc-gantt-diagramtitle": "Nome d'u diagramme",
+	"srf-paramdesc-gantt-diagramtheme": "Teme d'u diagramme",
+	"srf-paramdesc-gantt-axisformat": "Asse de le X: Formate de le date",
+	"srf-paramdesc-gantt-sortkey": "Chiave pe ordenà le seziune e le attività",
+	"srf-paramdesc-gantt-titletopmargin": "Margine de sus d'u titole d'u diagramme",
+	"srf-paramdesc-gantt-barheight": "Iertezze de le barre de le attività",
+	"srf-paramdesc-gantt-bargap": "Distanze verticale de le barre de le attività da 'u margine",
+	"srf-error-gantt-mapping-keywords": "'A chiave ausate jndr'à 'u parametre de mappature non g'è supportate",
+	"srf-error-gantt-sortkey": "'A '''chiave de ordinamende''' ca è scacchiate non g'è supportate",
+	"srf-printername-gantt": "Gantt"
 }

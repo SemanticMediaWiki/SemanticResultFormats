@@ -70,6 +70,14 @@ export class MapView extends View {
 		return this.leafletPromise;
 	}
 
+	/**
+	 * Detects if user uses dark theme
+	 * @returns {boolean}
+	 */
+	private isUserUsesDarkMode() {
+		return window.matchMedia("(prefers-color-scheme: dark)").matches;
+	}
+
 	private getZoomForUnclustering() {
 
 		if ( this.options.hasOwnProperty( 'marker cluster' ) && this.options[ 'marker cluster' ] === false ) {
@@ -183,11 +191,21 @@ export class MapView extends View {
 
 			// TODO: Limit zoom values to map max zoom
 
-			that.map = L.map( that.getTargetElement().get( 0 ), mapOptions );
+			that.map = L.map( <HTMLElement> that.getTargetElement().get( 0 ), mapOptions );
 			that.map.addLayer( that.markerClusterGroup );
 
+			let mapProvider = null;
+
 			if ( this.options.hasOwnProperty( 'map provider' ) ) {
-				L.tileLayer.provider( this.options[ 'map provider' ] ).addTo( that.map );
+				mapProvider = this.options['map provider'];
+			}
+
+			if( this.isUserUsesDarkMode() && this.options.hasOwnProperty('map provider dark') ) {
+				mapProvider = this.options['map provider dark'];
+			}
+
+			if( mapProvider ) {
+				L.tileLayer.provider( mapProvider ).addTo(that.map);
 			}
 
 			if ( !mapOptions.hasOwnProperty( 'zoom' ) ) {

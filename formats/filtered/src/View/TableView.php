@@ -10,6 +10,7 @@ namespace SRF\Filtered\View;
  * @file
  * @ingroup SemanticResultFormats
  */
+
 use Html;
 use Message;
 use SMW\Query\PrintRequest;
@@ -42,9 +43,9 @@ class TableView extends View {
 
 		$params = $this->getActualParameters();
 
-		if ( $params[ 'headers' ] === 'hide' ) {
+		if ( $params['headers'] === 'hide' ) {
 			$this->mShowHeaders = SMW_HEADERS_HIDE;
-		} elseif ( $params[ 'headers' ] === 'plain' ) {
+		} elseif ( $params['headers'] === 'plain' ) {
 			$this->mShowHeaders = SMW_HEADERS_PLAIN;
 		} else {
 			$this->mShowHeaders = SMW_HEADERS_SHOW;
@@ -74,7 +75,7 @@ class TableView extends View {
 		// Put the <table> tag around the whole thing and optionally add CSS class
 		$tableAttrs = null;
 		if ( array_key_exists( 'table view class', $this->getActualParameters() ) ) {
-			$tableAttrs = [ 'class' => $this->getActualParameters()[ 'table view class' ] ];
+			$tableAttrs = [ 'class' => $this->getActualParameters()['table view class'] ];
 		}
 
 		$resultText = Xml::tags( 'table', $tableAttrs, $resultText );
@@ -85,11 +86,12 @@ class TableView extends View {
 	private function getTableHeaders() {
 		$headers = [];
 
-		/**
-		 * Get first QueryResult and assign array members to variables
-		 * @var \SRF\Filtered\ResultItem $queryResultValue
-		 */
-		list( , $queryResultValue ) = each( $this->getQueryResults() );
+		$queryResults = $this->getQueryResults();
+		$queryResultValue = reset( $queryResults );
+
+		if ( !is_a( $queryResultValue, ResultItem::class ) ) {
+			return '';
+		}
 
 		foreach ( $queryResultValue->getValue() as $field ) {
 			$printRequest = $field->getPrintRequest();
@@ -145,6 +147,7 @@ class TableView extends View {
 	 * @param ResultItem[] $queryResults
 	 * @param int $outputmode
 	 * @param string[] $columnClasses
+	 *
 	 * @return array
 	 */
 	private function getTableRows( $queryResults, $outputmode, $columnClasses ) {
@@ -156,11 +159,13 @@ class TableView extends View {
 
 			foreach ( $row as $fieldId => $field ) {
 
-
-				if ( filter_var( $field->getPrintRequest()->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
+				if ( filter_var(
+						$field->getPrintRequest()->getParameter( 'hide' ),
+						FILTER_VALIDATE_BOOLEAN
+					) === false ) {
 
 					if ( array_key_exists( $fieldId, $columnClasses ) ) {
-						$columnClass = $columnClasses[ $fieldId ];
+						$columnClass = $columnClasses[$fieldId];
 					} else {
 						$columnClass = null;
 					}
@@ -175,7 +180,6 @@ class TableView extends View {
 
 		return $tableRows;
 
-
 	}
 
 	/**
@@ -186,6 +190,7 @@ class TableView extends View {
 	 * @param SMWResultArray $resultArray
 	 * @param $outputmode
 	 * @param string | null $columnClass
+	 *
 	 * @return string
 	 */
 	protected function getCellForPropVals( SMWResultArray $resultArray, $outputmode, $columnClass ) {
@@ -202,20 +207,20 @@ class TableView extends View {
 		$content = null;
 
 		if ( count( $dataValues ) > 0 ) {
-			$sortkey = $dataValues[ 0 ]->getDataItem()->getSortKey();
+			$sortkey = $dataValues[0]->getDataItem()->getSortKey();
 
 			if ( is_numeric( $sortkey ) ) {
-				$attribs[ 'data-sort-value' ] = $sortkey;
+				$attribs['data-sort-value'] = $sortkey;
 			}
 
 			$alignment = trim( $resultArray->getPrintRequest()->getParameter( 'align' ) );
 
 			if ( in_array( $alignment, [ 'right', 'left', 'center' ] ) ) {
-				$attribs[ 'style' ] = "text-align: $alignment;";
+				$attribs['style'] = "text-align: $alignment;";
 			}
 
 			if ( $columnClass !== null ) {
-				$attribs[ 'class' ] = $columnClass;
+				$attribs['class'] = $columnClass;
 			}
 
 			$content = $this->getCellContent(
@@ -262,7 +267,7 @@ class TableView extends View {
 		$params = parent::getParameters();
 
 		$params[] = [
-			'name'    => 'table view class',
+			'name' => 'table view class',
 			'message' => 'smw-paramdesc-table-class',
 			'default' => 'wikitable sortable',
 		];
@@ -272,6 +277,7 @@ class TableView extends View {
 
 	/**
 	 * Returns the label of the selector for this view.
+	 *
 	 * @return String the selector label
 	 */
 	public function getSelectorLabel() {

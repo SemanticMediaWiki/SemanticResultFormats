@@ -171,6 +171,5 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Nekartoti",
 	"srf-ui-mediaplayer-label-full-screen": "Visas ekranas",
 	"srf-ui-mediaplayer-label-restore-screen": "Atkurti ekraną",
-	"srf-excel-missing-phpexcel": "Nepavyko eksportuoti MS-Excel, nes plėtinys [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] nėra instaliuotas.",
-	"srf-paramdesc-excel-filename": "Sugeneruoto failo atsiuntimo pavadinimas"
+	"srf-spreadsheet-link": "Skaičiuoklė"
 }
