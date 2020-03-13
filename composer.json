@@ -49,13 +49,13 @@
 		"mediawiki/semantic-media-wiki": "~3.0",
 		"nicmart/tree": "^0.2.7",
 		"data-values/geo": "~4.0|~3.0|~2.0",
-		"symfony/css-selector": "^3.3",
-		"mediawiki/mermaid": "~2.1"
+		"symfony/css-selector": "^3.3"
 	},
 	"suggest": {
 		"phpoffice/phpspreadsheet": "Required for 'format=spreadsheet'",
 		"phpoffice/phpexcel": "Required for 'format=excel'",
-		"mediawiki/graph-viz": "Required for 'format=graph' and 'format=process'"
+		"mediawiki/graph-viz": "Required for 'format=graph' and 'format=process'",
+		"mediawiki/mermaid": "Required for 'format=gantt'"
 	},
 	"autoload": {
 		"psr-4": {
