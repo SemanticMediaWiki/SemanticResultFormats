@@ -7,7 +7,7 @@ services:
 matrix:
   fast_finish: true
   include:
-    - env: DB=mysql; MW=REL1_34; SMW=~3.1@dev; TYPE=coverage
+    - env: DB=mysql; MW=REL1_33; SMW=~3.1@dev; TYPE=coverage
       php: 7.3
     - env: DB=sqlite; MW=REL1_31; SMW=~3.0; MERMAID=2.1.0
       php: 7.1
@@ -15,7 +15,7 @@ matrix:
       php: 7.1
     - env: DB=postgres; MW=REL1_32; SMW=~3.0@dev
       php: 7.2
-    - env: DB=mysql; MW=REL1_33; SMW=~3.0@dev; MERMAID=dev-master
+    - env: DB=mysql; MW=REL1_33; SMW=~3.0@dev; MERMAID=2.2.0
       php: 7.3
 
 install:
