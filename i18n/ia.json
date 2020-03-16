@@ -111,7 +111,7 @@
 	"srf-paramdesc-graphname": "Defini le titulo del graphico",
 	"srf-paramdesc-graphsize": "Defini le dimension del graphico in pixels",
 	"srf-paramdesc-graphlegend": "Indica si le legenda del graphico debe esser monstrate",
-	"srf-paramdesc-graphlabel": "Defini le etiquetta del graphico",
+	"srf-paramdesc-graphlabel": "Defini le dimension del typo de litteras in pixels",
 	"srf-paramdesc-rankdir": "Defini le direction del sagittas",
 	"srf-paramdesc-graphlink": "Indica si le nodos debe ligar a lor paginas wiki",
 	"srf-paramdesc-graphcolor": "Defini le color del graphico",

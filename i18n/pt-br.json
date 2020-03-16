@@ -11,7 +11,8 @@
 			"Nemo bis",
 			"Eduardo Addad de Oliveira",
 			"Trigonometria87",
-			"Andrecpe"
+			"Andrecpe",
+			"Rodrigo codignoli"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultado para consultas do Semantic MediaWiki",
@@ -182,7 +183,7 @@
 	"srf-paramdesc-graphname": "Configura o título do gráfico",
 	"srf-paramdesc-graphsize": "Configura o tamanho do gráfico em pixels",
 	"srf-paramdesc-graphlegend": "Configura se uma legenda para o gráfico deve ser exibida",
-	"srf-paramdesc-graphlabel": "Configura o rótulo do gráfico",
+	"srf-paramdesc-graphlabel": "Configura o tamanho da fonte em pixels",
 	"srf-paramdesc-rankdir": "Configura a direção das setas",
 	"srf-paramdesc-graphlink": "Configura se os nós devem receber links para suas respectivas páginas wiki.",
 	"srf-paramdesc-graphcolor": "Configura a cor do gráfico",

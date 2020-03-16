@@ -196,7 +196,7 @@
 	"srf-paramdesc-graphname": "Définit le titre du graphique",
 	"srf-paramdesc-graphsize": "Fixe la taille du graphique en pixels",
 	"srf-paramdesc-graphlegend": "Indique si la légende d’un graphique devrait être affichée",
-	"srf-paramdesc-graphlabel": "Définit le titre du graphique",
+	"srf-paramdesc-graphlabel": "Définit la taille de la fonte en pixels",
 	"srf-paramdesc-rankdir": "Définit la direction des flèches",
 	"srf-paramdesc-graphlink": "Indique si les nœuds doivent être liés à leur page wiki",
 	"srf-paramdesc-graphcolor": "Définit la couleur du graphe",

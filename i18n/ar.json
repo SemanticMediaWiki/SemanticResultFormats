@@ -4,7 +4,8 @@
 			"Meno25",
 			"OsamaK",
 			"روخو",
-			"ديفيد"
+			"ديفيد",
+			"NEHAOUA"
 		]
 	},
 	"srf-desc": "صيغ نتائج إضافية لاستعلامات ميدياويكي الدلالية",
@@ -175,7 +176,7 @@
 	"srf-paramdesc-graphname": "تعيين عنوان الرسم البياني",
 	"srf-paramdesc-graphsize": "تعيين حجم الرسم البياني بالبكسل",
 	"srf-paramdesc-graphlegend": "تحديد ما إذا كان يجب عرض العنوان التفسيري للرسم البياني",
-	"srf-paramdesc-graphlabel": "تعيين تسمية الرسم البياني",
+	"srf-paramdesc-graphlabel": "يضبط حجم الخط بالبكسل",
 	"srf-paramdesc-rankdir": "تعيين اتجاه الأسهم",
 	"srf-paramdesc-graphlink": "تحديد ما إذا كان يجب ربط العقد بصفحات الويكي الخاصة بها",
 	"srf-paramdesc-graphcolor": "تعيين لون الرسم البياني",

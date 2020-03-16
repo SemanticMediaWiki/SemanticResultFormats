@@ -99,7 +99,7 @@
 	"srf-paramdesc-graphname": "Imposta il titolo del grafico",
 	"srf-paramdesc-graphsize": "Imposta la dimensione del grafico in pixel",
 	"srf-paramdesc-graphlegend": "Imposta se la legenda del grafico va mostrata",
-	"srf-paramdesc-graphlabel": "Imposta l'etichetta del grafico",
+	"srf-paramdesc-graphlabel": "Imposta la dimensione dei caratteri in pixel",
 	"srf-paramdesc-graphcolor": "Imposta il colore del grafico",
 	"srf-printername-datatables": "Tabelle dati",
 	"srf-ui-datatables-label-conditions": "Condizioni",

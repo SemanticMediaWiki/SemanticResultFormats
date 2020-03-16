@@ -172,7 +172,7 @@
 	"srf-paramdesc-graphname": "Nastaví název grafu",
 	"srf-paramdesc-graphsize": "Nastaví velikost grafu v pixelech",
 	"srf-paramdesc-graphlegend": "Určuje, zda bude zobrazena legenda grafu",
-	"srf-paramdesc-graphlabel": "Nastaví popisek grafu",
+	"srf-paramdesc-graphlabel": "Nastaví velikost písma v pixelech",
 	"srf-paramdesc-rankdir": "Nastaví směr šipek",
 	"srf-paramdesc-graphlink": "Určuje, zda mají uzly odkazovat na příslušné wiki stránky",
 	"srf-paramdesc-graphcolor": "Nastaví barvu grafu",
