@@ -5,6 +5,8 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 Under development
 
 * Added `hidezeroes` parameter to the `jqplotseries` format (by [Professional.Wiki][ProWiki])
+* Added `graphfontsize` parameter to the `graph` format
+* Improved compatibility with upcomming MediaWiki versions
 
 ## SRF 3.1.0
 
