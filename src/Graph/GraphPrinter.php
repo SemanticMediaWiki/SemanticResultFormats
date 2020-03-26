@@ -165,15 +165,14 @@ class GraphPrinter extends ResultPrinter {
 	 * @param array $row
 	 *
 	 */
-	protected function processResultRow( array /* of SMWResultArray */
-										 $row ) {
+	protected function processResultRow( array /* of SMWResultArray */ $row ) {
 
 		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
 
 			// loop through all values of a multivalue field
 			while ( ( /* SMWWikiPageValue */
-					$object = $resultArray->getNextDataValue() ) !== false ) {
+				$object = $resultArray->getNextDataValue() ) !== false ) {
 
 				$id = $object->getShortWikiText();
 				$nodeExists = false;
