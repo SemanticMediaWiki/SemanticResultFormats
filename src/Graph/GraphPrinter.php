@@ -165,22 +165,38 @@ class GraphPrinter extends ResultPrinter {
 	 * @param array $row
 	 *
 	 */
-	protected function processResultRow( array /* of SMWResultArray */ $row ) {
+	protected function processResultRow( array /* of SMWResultArray */
+										 $row ) {
 
 		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
 
 			// loop through all values of a multivalue field
 			while ( ( /* SMWWikiPageValue */
-				$object = $resultArray->getNextDataValue() ) !== false ) {
+					$object = $resultArray->getNextDataValue() ) !== false ) {
 
-				// create SRF\GraphNode for column 0
-				if ( $i == 0 ) {
-					$node = new GraphNode( $object->getShortWikiText() );
+				$id = $object->getShortWikiText();
+				$nodeExists = false;
+
+				// check, if node has already been created
+				/** @var GraphNode $node */
+				foreach ( $this->nodes as $node ) {
+					if ( $node->getID() == $id ) {
+						$nodeExists = true;
+						break;
+					}
+				}
+
+				if ( !$nodeExists ) {
+					$node = new GraphNode( $id );
 					$node->setLabel( $object->getPreferredCaption() );
-					$this->nodes[] = $node;
+					$this->nodes[$id] = $node;
+				}
+
+				if ( $i == 0 ) {
+					$parentId = $id;
 				} else {
-					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
+					$this->nodes[$id]->addParentNode( $resultArray->getPrintRequest()->getLabel(), $parentId );
 				}
 			}
 		}
