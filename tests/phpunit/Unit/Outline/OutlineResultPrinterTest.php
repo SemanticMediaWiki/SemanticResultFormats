@@ -82,9 +82,37 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getValue' )
 			->will( $this->returnValue( '' ) );
 
+		$introtemplate = $this->getMockBuilder( '\stdClass' )
+			->disableOriginalConstructor()
+			->setMethods( [ 'getName', 'getValue' ] )
+			->getMock();
+
+		$introtemplate->expects( $this->any() )
+			->method( 'getName' )
+			->will( $this->returnValue( 'introtemplate' ) );
+
+		$introtemplate->expects( $this->any() )
+			->method( 'getValue' )
+			->will( $this->returnValue( '' ) );
+
+		$outrotemplate = $this->getMockBuilder( '\stdClass' )
+			->disableOriginalConstructor()
+			->setMethods( [ 'getName', 'getValue' ] )
+			->getMock();
+
+		$outrotemplate->expects( $this->any() )
+			->method( 'getName' )
+			->will( $this->returnValue( 'outrotemplate' ) );
+
+		$outrotemplate->expects( $this->any() )
+			->method( 'getValue' )
+			->will( $this->returnValue( '' ) );
+
 		$parameters = [
 			$outlineproperties,
-			$template
+			$template,
+			$introtemplate,
+			$outrotemplate
 		];
 
 		$this->assertContains(
