@@ -48,6 +48,18 @@ class OutlineResultPrinter extends ResultPrinter {
 		];
 
 		$params[] = [
+			'name' => 'introtemplate',
+			'message' => 'smw-paramdesc-introtemplate',
+			'default' => ''
+		];
+
+		$params[] = [
+			'name' => 'outrotemplate',
+			'message' => 'smw-paramdesc-outrotemplate',
+			'default' => ''
+		];
+
+		$params[] = [
 			'name' => 'userparam',
 			'message' => 'smw-paramdesc-userparam',
 			'default' => '',
@@ -109,6 +121,21 @@ class OutlineResultPrinter extends ResultPrinter {
 			);
 
 			$result .= $link->getText( $outputMode, $this->mLinker ) . "\n";
+		}
+
+
+		// Add introtemplate
+		if ( $this->params['introtemplate'] !== '' ) {
+			$introtemplate = "{{" . $this->params['introtemplate'] . "}}";
+
+			$result = $introtemplate . $result;
+		}
+
+		// Add outrotemplate
+		if ( $this->params['outrotemplate'] !== '' ) {
+			$outrotemplate = "{{" . $this->params['outrotemplate'] . "}}";
+
+			$result .= $outrotemplate;
 		}
 
 		return $result;
