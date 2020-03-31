@@ -124,6 +124,7 @@
 	"srf-paramdesc-infotext": "Display additional information on a corresponding info tab",
 	"srf-paramdesc-hidezeroes": "Hide zero values from the chart",
 	"srf-paramdesc-clicktarget": "Define a page or query string as target when clicking on a calendar date.",
+	"srf-paramdesc-includeend": "Include end date in multi-day events",
 	"srf-ui-gridview-label-item": "Data item",
 	"srf-ui-gridview-label-value": "Data value",
 	"srf-ui-gridview-label-series": "Data series",

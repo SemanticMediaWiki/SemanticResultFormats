@@ -201,7 +201,11 @@
 											dates.push( value.getMwTimestamp() );
 											rowData.allDay = true;
 										} else {
-											rowData.end = value.getDate().toISOString();
+											var dataDate = value.getDate();
+											if(data.query.ask.parameters.includeend && ( value.precision & 8 ) == 0 ) {
+												dataDate.setDate(dataDate.getDate() + 1);
+											}
+											rowData.end = dataDate.toISOString();
 											dates.push( value.getMwTimestamp() );
 											var test = value.getISO8601Date();
 											rowData.allDay = test.indexOf( '00:00:00' ) !== -1 || false;
