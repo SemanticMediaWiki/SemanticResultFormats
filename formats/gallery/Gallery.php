@@ -324,7 +324,7 @@ class Gallery extends ResultPrinter {
 			}
 		}
 		// Use image alt as helper for either text
-		$imgAlt = $this->params['redirects'] === '' ? $imgCaption : $imgRedirect !== '' ? $imgRedirect : '';
+		$imgAlt = $this->params['redirects'] === '' ? $imgCaption : ( $imgRedirect !== '' ? $imgRedirect : '' );
 		$ig->add( $imgTitle, $imgCaption, $imgAlt );
 	}
 

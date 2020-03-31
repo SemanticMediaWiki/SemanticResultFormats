@@ -162,7 +162,7 @@
 	"srf-paramdesc-graphname": "Ändrar diagrammets titel",
 	"srf-paramdesc-graphsize": "Diagramstorlek (i punkter)",
 	"srf-paramdesc-graphlegend": "Visa diagramets teckenförklaring (eller inte)",
-	"srf-paramdesc-graphlabel": "Diagrametikett",
+	"srf-paramdesc-graphlabel": "Ändrar teckenstorleken i bildpunkter",
 	"srf-paramdesc-rankdir": "Pilriktning",
 	"srf-paramdesc-graphlink": "Diagramlänk",
 	"srf-paramdesc-graphcolor": "Ställer in grafens färg",

@@ -175,7 +175,7 @@
 	"srf-paramdesc-graphname": "Grafiğin başlığını ayarlar",
 	"srf-paramdesc-graphsize": "Grafiğin boyutunu piksel olarak ayarlar",
 	"srf-paramdesc-graphlegend": "Bir grafik göstergesinin gösterilip gösterilmeyeceğini ayarlar",
-	"srf-paramdesc-graphlabel": "Grafiğin etiketini ayarlar",
+	"srf-paramdesc-graphlabel": "Yazı tipi boyutunu piksel cinsinden ayarlar",
 	"srf-paramdesc-rankdir": "Okların yönünü ayarlar",
 	"srf-paramdesc-graphlink": "Düğümlerin viki sayfalarına bağlanıp bağlanmayacağını ayarlar",
 	"srf-paramdesc-graphcolor": "Grafiğin rengini ayarlar",

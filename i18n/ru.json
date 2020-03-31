@@ -19,7 +19,8 @@
 			"Romanko Mikhail",
 			"Diralik",
 			"Movses",
-			"Katunchik"
+			"Katunchik",
+			"Alexander Yukal"
 		]
 	},
 	"srf-desc": "Дополнительные форматы вывода для запросов Semantic MediaWiki",
@@ -187,7 +188,7 @@
 	"srf-paramdesc-graphname": "Устанавливает заголовок графа",
 	"srf-paramdesc-graphsize": "Устанавливает размер графа (в пикселях)",
 	"srf-paramdesc-graphlegend": "Определяет, следует ли показывать легенду",
-	"srf-paramdesc-graphlabel": "Устанавливает подпись графа",
+	"srf-paramdesc-graphlabel": "Устанавливает размер шрифта в пикселях",
 	"srf-paramdesc-rankdir": "Устанавливает направление стрелок",
 	"srf-paramdesc-graphlink": "Определяет, должны ли узлы ссылаться на их вики-страницы",
 	"srf-paramdesc-graphcolor": "Устанавливает цвет графа",
