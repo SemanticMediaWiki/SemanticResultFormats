@@ -48,6 +48,18 @@ class OutlineResultPrinter extends ResultPrinter {
 		];
 
 		$params[] = [
+			'name' => 'introtemplate',
+			'message' => 'smw-paramdesc-introtemplate',
+			'default' => ''
+		];
+
+		$params[] = [
+			'name' => 'outrotemplate',
+			'message' => 'smw-paramdesc-outrotemplate',
+			'default' => ''
+		];
+
+		$params[] = [
 			'name' => 'userparam',
 			'message' => 'smw-paramdesc-userparam',
 			'default' => '',
@@ -135,5 +147,4 @@ class OutlineResultPrinter extends ResultPrinter {
 
 		return $outlineItem;
 	}
-
 }

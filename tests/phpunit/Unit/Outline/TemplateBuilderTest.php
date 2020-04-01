@@ -29,7 +29,9 @@ class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			'outlineproperties' => [ 'Foo' ],
 			'template' => 'Bar',
-			'userparam' => ''
+			'userparam' => '',
+			'introtemplate' => 'Intro',
+			'outrotemplate' => 'Outro'
 		];
 
 		$instance = new TemplateBuilder( $params );

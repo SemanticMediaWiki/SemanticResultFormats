@@ -10,6 +10,8 @@ The format is to display pages in a hierarchical outline form, using one or more
  |format=outline
  |outlineproperties=Severity, Assigned to
  |template=phab-view
+ |introtemplate=intro
+ |outrotemplate=outro
 }}
 ```
 
@@ -27,6 +29,7 @@ The `...-item` template will also provide additional information such as:
 - `#itemsubject` the subject (aka page) of the item processed
 - `#userparam` content provided by a user via the `#ask` `userparam` parameter
 
+Use `introtemplate` \ `outrotemplate` to display a template before or after the query results. These can only be used in combination with the `template` paramter 
 
 ## Examples
 
