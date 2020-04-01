@@ -123,14 +123,6 @@ class OutlineResultPrinter extends ResultPrinter {
 			$result .= $link->getText( $outputMode, $this->mLinker ) . "\n";
 		}
 
-		if( $this->params['introtemplate'] !== '' || $this->params['introtemplate'] !== ''){
-			$this->hasTemplates = true;
-		}
-
-		$result = $this->getIntroTemplate() . $result;
-
-		$result .= $this->getOutroTemplate();
-
 		return $result;
 	}
 
@@ -154,19 +146,5 @@ class OutlineResultPrinter extends ResultPrinter {
 		}
 
 		return $outlineItem;
-	}
-
-	function getIntroTemplate(): string {
-		if ( $this->params['introtemplate'] !== '' ) {
-			return "{{" . $this->params['introtemplate'] . "}}";
-		}
-		return "";
-	}
-
-	function getOutroTemplate(): string {
-		if ( $this->params['outrotemplate'] !== '' ) {
-			return "{{" . $this->params['outrotemplate'] . "}}";
-		}
-		return "";
 	}
 }

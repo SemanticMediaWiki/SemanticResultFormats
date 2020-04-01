@@ -12,16 +12,6 @@
 			"contents": "[[Has type::Text]]"
 		},
 		{
-			"namespace": "NS_TEMPLATE",
-			"page": "intro",
-			"contents": "<includeonly><div class=\"wrapper\"></includeonly>"
-		},
-		{
-			"namespace": "NS_TEMPLATE",
-			"page": "outro",
-			"contents": "<includeonly></div></includeonly>"
-		},
-		{
 			"page": "SRF/Outline/1",
 			"contents": "[[Assigned to::John]] [[Severity::Normal]] [[Category:Outline]]"
 		},
@@ -40,10 +30,6 @@
 		{
 			"page": "SRF/Outline/Q.2",
 			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none }}"
-		},
-		{
-			"page": "SRF/Outline/Q.3",
-			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |sort=Severity,Assigned to |outlineproperties=Severity |link=none |introtemplate=intro |outrotemplate=outro}}"
 		}
 	],
 	"tests": [
@@ -99,30 +85,6 @@
 					"<ul>",
 					"</ul>",
 					"</ul>"
-				]
-			}
-		},
-		{
-			"type": "parser",
-			"about": "#2 (`introtemplate=intro, outrotemplate=outro`)",
-			"subject": "SRF/Outline/Q.3",
-			"assert-output": {
-				"to-contain": [
-					"<div class=\"wrapper\">",
-					"<p style=\"font-size: small; font-weight: bold;\">Normal</p>",
-					"<ul>",
-					"<li>SRF/Outline/1 (Assigned to John)</li>",
-					"</ul>",
-					"<ul>",
-					"</ul>",
-					"<p style=\"font-size: small; font-weight: bold;\">Urgent</p>",
-					"<ul>",
-					"<li>SRF/Outline/2 (Assigned to Jane)</li>",
-					"<li>SRF/Outline/3 (Assigned to 田中)</li>",
-					"</ul>",
-					"<ul>",
-					"</ul>",
-					"</div>"
 				]
 			}
 		}
