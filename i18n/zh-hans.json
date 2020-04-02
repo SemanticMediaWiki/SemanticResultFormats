@@ -12,7 +12,8 @@
 			"Yfdyh000",
 			"Nemo bis",
 			"科劳",
-			"Looong"
+			"Looong",
+			"铁桶"
 		]
 	},
 	"srf-desc": "用于Semantic MediaWiki的附加结果格式",
@@ -179,7 +180,7 @@
 	"srf-paramdesc-graphname": "设置图表的标题",
 	"srf-paramdesc-graphsize": "设置grapht的大小（像素）",
 	"srf-paramdesc-graphlegend": "设置是否应显示图形图例",
-	"srf-paramdesc-graphlabel": "设置图表的标签",
+	"srf-paramdesc-graphlabel": "以像素为单位设置字体大小",
 	"srf-paramdesc-rankdir": "设置箭头的方向",
 	"srf-paramdesc-graphlink": "设置节点是否应链接到其wiki页面",
 	"srf-paramdesc-graphcolor": "设置图表的颜色",

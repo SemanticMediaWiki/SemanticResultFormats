@@ -125,7 +125,7 @@
 	"srf-paramdesc-graphname": "그래프의 제목 설정",
 	"srf-paramdesc-graphsize": "그래프 크기를 픽셀 단위로 설정합니다",
 	"srf-paramdesc-graphlegend": "그래프 범례를 보이거나 보이지 않게 설정",
-	"srf-paramdesc-graphlabel": "그래프의 레이블 설정",
+	"srf-paramdesc-graphlabel": "픽셀 단위로 글꼴 크기 설정",
 	"srf-paramdesc-rankdir": "화살표의 방향 설정",
 	"srf-paramdesc-graphlink": "노드가 자신의 위키 페이지로 링크할지 설정합니다",
 	"srf-paramdesc-graphcolor": "그래프의 색 설정",

@@ -74,7 +74,7 @@
 	"srf-paramdesc-graph-nodeshape": "La forma de cada node en el gràfic",
 	"srf-paramdesc-graphname": "Defineix el títol del gràfic",
 	"srf-paramdesc-graphsize": "Mida del gràfic (en px)",
-	"srf-paramdesc-graphlabel": "Etiqueta del gràfic",
+	"srf-paramdesc-graphlabel": "Defineix la mida de la lletra en píxels",
 	"srf-paramdesc-rankdir": "Direcció de la fletxa",
 	"srf-paramdesc-graphlink": "Enllaç del gràfic",
 	"srf-paramdesc-graphcolor": "Defineix el color del gràfic",
