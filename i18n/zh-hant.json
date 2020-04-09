@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki",
-			"Wrightbus",
-			"Liuxinyu970226",
-			"LNDDYL",
 			"Cwlin0416",
-			"Nemo bis",
 			"Hello903hello",
 			"Kly",
-			"Winston Sung"
+			"LNDDYL",
+			"Liuxinyu970226",
+			"Nemo bis",
+			"Shirayuki",
+			"Winston Sung",
+			"Wrightbus"
 		]
 	},
 	"srf-desc": "用於 Semantic MediaWiki 查詢的附加結果格式",

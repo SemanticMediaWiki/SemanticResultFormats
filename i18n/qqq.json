@@ -1,22 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"EugeneZelenko",
 			"F.trott",
+			"Hamilton Abreu",
 			"Kghbln",
+			"Liuxinyu970226",
+			"Nemo bis",
+			"Nike",
 			"Purodha",
 			"Raymond",
+			"Robby",
 			"Shirayuki",
 			"Siebrand",
 			"Toliño",
 			"Umherirrender",
-			"Robby",
-			"Amire80",
-			"Liuxinyu970226",
-			"아라",
-			"Hamilton Abreu",
-			"Nike",
-			"Nemo bis"
+			"아라"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",

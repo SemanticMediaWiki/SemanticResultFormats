@@ -2,14 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Base",
+			"Bunyk",
+			"NataChe",
+			"Nemo bis",
+			"Piramidion",
 			"Steve.rusyn",
 			"SteveR",
-			"Ата",
-			"NataChe",
-			"Piramidion",
-			"Bunyk",
-			"Nemo bis",
-			"Vlad5250"
+			"Vlad5250",
+			"Ата"
 		]
 	},
 	"srf-desc": "Додаткові формати результатів для запитів Semantic MediaWiki",

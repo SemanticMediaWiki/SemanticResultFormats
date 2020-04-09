@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Event",
-			"Nghtwlkr",
 			"Emilbk",
+			"Event",
+			"Imre Eilertsen",
+			"Jeblad",
 			"Jon Harald Søby",
 			"Nemo bis",
-			"Jeblad",
-			"Imre Eilertsen"
+			"Nghtwlkr"
 		]
 	},
 	"srf-desc": "Tilleggsformater for Semantic MediaWiki-spørringer",
