@@ -155,7 +155,7 @@
 	"srf_paramdesc_maxtags": "The maximum amount of tags in the cloud",
 	"srf-paramdesc-excludetags": "Exclude tags (delimiter: \";\")",
 	"srf_printername_valuerank": "Value rank",
-	"srf-paramdesc-liststyle": "The stile to display the list",
+	"srf-paramdesc-liststyle": "The style to display the list",
 	"srf_printername_array": "Array",
 	"srf_paramdesc_pagetitle": "Whether to show page titles as result entries or to leave them out",
 	"srf_paramdesc_hidegaps": "Whether to print requested, but unavailable property and record values separated by separators or leaving them out",
