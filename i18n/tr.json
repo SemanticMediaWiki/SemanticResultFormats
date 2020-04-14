@@ -158,6 +158,7 @@
 	"srf_paramdesc_maxtags": "Buluttaki maksimum etiket miktarı",
 	"srf-paramdesc-excludetags": "Etiketleri hariç tut (ayırıcı: \";\")",
 	"srf_printername_valuerank": "Değer sıralaması",
+	"srf-paramdesc-liststyle": "Listeyi görüntüleme stili",
 	"srf_printername_array": "Dizi",
 	"srf_paramdesc_pagetitle": "Sayfa başlıklarını sonuç girişleri olarak gösterme veya dışarıda bırakma",
 	"srf_paramdesc_hidegaps": "İstenen ancak kullanılamayan özelliklerin yazdırılması ve ayırıcılarla ayrılmış değerlerin kaydedilmesi veya dışarıda bırakılması",

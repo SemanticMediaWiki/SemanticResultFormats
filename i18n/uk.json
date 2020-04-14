@@ -3,6 +3,7 @@
 		"authors": [
 			"Base",
 			"Bunyk",
+			"Movses",
 			"NataChe",
 			"Nemo bis",
 			"Piramidion",
@@ -161,6 +162,7 @@
 	"srf_paramdesc_maxtags": "Максимальна кількість теґів у хмарці",
 	"srf-paramdesc-excludetags": "Виключити теги (розділювач: \";\")",
 	"srf_printername_valuerank": "Оцінити ранг",
+	"srf-paramdesc-liststyle": "Стиль показу списків",
 	"srf_printername_array": "Масив",
 	"srf_paramdesc_pagetitle": "Чи слід відображати заголовки сторінок як результуючі записи або пропускати їх",
 	"srf_paramdesc_hidegaps": "Чи друкувати запитану, але недоступну властивісь і значення записів, розділених розділювачами, чи пропускати їх",

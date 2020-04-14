@@ -146,6 +146,7 @@
 	"srf_paramdesc_maxtags": "Den största mängden ord i molnet",
 	"srf-paramdesc-excludetags": "Ord som ska uteslutas (avgränsare: \";\")",
 	"srf_printername_valuerank": "Value rank",
+	"srf-paramdesc-liststyle": "Stilsättningen att visa listan på",
 	"srf_printername_array": "Array",
 	"srf_paramdesc_pagetitle": "Om man ska visa sidtitlar i resultatet eller inte",
 	"srf_paramdesc_hidegaps": "Om man ska visa efterfrågade egenskaper och datavärden som saknas eller om de ska utelämnas",

@@ -161,6 +161,7 @@
 	"srf_paramdesc_maxtags": "雲中標籤的最大數量",
 	"srf-paramdesc-excludetags": "排除標籤（分隔符號：「;」）",
 	"srf_printername_valuerank": "取值排名",
+	"srf-paramdesc-liststyle": "顯示清單的樣式",
 	"srf_printername_array": "數組",
 	"srf_paramdesc_pagetitle": "究竟是把頁面標題顯示為結果條目，還是略去它們",
 	"srf_paramdesc_hidegaps": "究竟是打印輸出所請求的但不可用的屬性以及採用分隔符分隔的記錄取值，還是略去它們",

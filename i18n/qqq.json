@@ -172,6 +172,7 @@
 	"srf_paramdesc_maxtags": "{{doc-paramdesc|maxtags}}",
 	"srf-paramdesc-excludetags": "{{doc-paramdesc|excludetags}}",
 	"srf_printername_valuerank": "{{doc-smwformat|valuerank}}",
+	"srf-paramdesc-liststyle": "{{doc-paramdesc|liststyle}}",
 	"srf_printername_array": "{{doc-smwformat|array}}\n{{Identical|Array}}",
 	"srf_paramdesc_pagetitle": "{{doc-paramdesc|pagetitle}}",
 	"srf_paramdesc_hidegaps": "{{doc-paramdesc|hidegaps}}",

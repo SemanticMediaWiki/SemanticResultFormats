@@ -179,6 +179,7 @@
 	"srf_paramdesc_maxtags": "Le nombre maximal d’étiquettes dans le nuage",
 	"srf-paramdesc-excludetags": "Étiquettes à exclure (séparées par un « ; »)",
 	"srf_printername_valuerank": "Valeur du rang",
+	"srf-paramdesc-liststyle": "Style pour afficher la liste",
 	"srf_printername_array": "Tableau",
 	"srf_paramdesc_pagetitle": "S’il faut afficher les titres de page comme entrées de résultat ou les omettre",
 	"srf_paramdesc_hidegaps": "S’il faut afficher les valeurs de propriété ou d’enregistrement demandées mais indisponibles, délimitées par des séparateurs paramétrables, ou bien les omettre",
