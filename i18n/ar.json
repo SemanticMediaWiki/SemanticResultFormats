@@ -4,6 +4,7 @@
 			"Meno25",
 			"NEHAOUA",
 			"OsamaK",
+			"Tala Ali",
 			"ديفيد",
 			"روخو"
 		]
@@ -159,6 +160,7 @@
 	"srf_paramdesc_maxtags": "الحد الأقصى لعدد العلامات في السحابة",
 	"srf-paramdesc-excludetags": "استبعاد العلامات (المحدد: \";\")",
 	"srf_printername_valuerank": "قيمة الترتيب",
+	"srf-paramdesc-liststyle": "النمط لعرض القائمة",
 	"srf_printername_array": "نسق",
 	"srf_paramdesc_pagetitle": "ما إذا كان سيتم عرض عناوين الصفحات كإدخالات نتيجة أم تركها",
 	"srf_paramdesc_hidegaps": "سواء كانت الطباعة المطلوبة، ولكن قيم سجل وخواص غير متوفرة مفصولة بفواصل أو تركها",
