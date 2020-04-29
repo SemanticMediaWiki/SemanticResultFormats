@@ -230,12 +230,12 @@ class SRFValueRank extends SMWResultPrinter {
 		];
 
 		$params['template'] = [
-			'message' => 'srf-paramdesc-template',
+			'message' => 'smw-paramdesc-template',
 			'default' => '',
 		];
 
 		$params['userparam'] = [
-			'message' => 'srf-paramdesc-userparam',
+			'message' => 'smw-paramdesc-userparam',
 			'default' => '',
 		];
 
@@ -256,7 +256,7 @@ class SRFValueRank extends SMWResultPrinter {
 		];
 
 		$params['class'] = [
-			'message' => 'srf-paramdesc-class',
+			'message' => 'smw-paramdesc-class',
 			'default' => '',
 		];
 

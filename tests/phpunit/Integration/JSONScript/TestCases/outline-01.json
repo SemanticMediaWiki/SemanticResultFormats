@@ -22,6 +22,16 @@
 			"contents": "<includeonly> #itemsubject: {{{#itemsubject}}}, #itemsection: {{{#itemsection}}}, #itemnumber: {{{#itemnumber}}}, Assigned to: {{{Assigned to}}}</includeonly>"
 		},
 		{
+			"namespace": "NS_TEMPLATE",
+			"page": "intro",
+			"contents": "<includeonly><div class=\"wrapper\"></includeonly>"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "outro",
+			"contents": "<includeonly></div></includeonly>"
+		},
+		{
 			"page": "SRF/Outline/1",
 			"contents": "[[Assigned to::John]] [[Severity::Normal]] [[Category:Outline]]"
 		},
@@ -40,6 +50,10 @@
 		{
 			"page": "SRF/Outline/Q.2",
 			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none }}"
+		},
+		{
+			"page": "SRF/Outline/Q.3",
+			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none |introtemplate=intro |outrotemplate=outro}}"
 		}
 	],
 	"tests": [
@@ -81,6 +95,30 @@
 					"<div class=\"outline-test-section-assigned-to\"> #outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
 					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
 					"#itemsubject: SRF/Outline/3, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div></div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 (`introtemplate=intro, outrotemplate=outro`)",
+			"subject": "SRF/Outline/Q.3",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"wrapper\">",
+					"<div class=\"outline-test-section-severity\"> #outlinelevel: 0, #itemcount: 1, Severity: Normal",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-section-assigned-to\">",
+					"#outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
+					"#itemsubject: SRF/Outline/1, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div></div></div>",
+					"<div class=\"outline-test-section-severity\"> #outlinelevel: 0, #itemcount: 2, Severity: Urgent",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-section-assigned-to\">",
+					"#outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
+					"#itemsubject: SRF/Outline/2, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div>",
+					"<div class=\"outline-test-section-assigned-to\"> #outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
+					"#itemsubject: SRF/Outline/3, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div></div></div>",
+					"</div>"
 				]
 			}
 		}

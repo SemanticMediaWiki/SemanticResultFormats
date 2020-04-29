@@ -1,16 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mjbmr",
-			"Tofighi",
-			"Reza1615",
-			"Ebraminio",
 			"Alifakoor",
 			"Alirezaaa",
+			"Ebraminio",
+			"FarsiNevis",
 			"Huji",
 			"Mahdy Saffar",
+			"Mjbmr",
 			"Nemo bis",
-			"Ommmmid"
+			"Ommmmid",
+			"Reza1615",
+			"Tofighi"
 		]
 	},
 	"prefs-srf-eventcalendar-options": "گزینه‌های تقویم وقایع",
@@ -101,6 +102,7 @@
 	"srf-gallery-navigation-previous": "قبلی",
 	"srf-gallery-navigation-next": "بعدی",
 	"srf-gallery-overlay-count": "تصویر $1 از $2",
+	"srf-paramdesc-liststyle": "سبک نمایش فهرست",
 	"srf_printername_array": "آرایه",
 	"srf_printername_hash": "هش",
 	"srf-printername-graph": "گراف",
@@ -112,11 +114,12 @@
 	"srf-ui-datatables-label-parameters": "پارامترها",
 	"srf-ui-datatables-label-filters": "پالایش‌ها و جستجوی ستون",
 	"srf-ui-datatables-label-information": "اطلاعات",
+	"srf-ui-datatables-label-update-error": "روزآمدسازی جدول با شکست مواجه شد.",
 	"srf-ui-datatables-label-placeholder-column-search": "جستجو...",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "تنظیمات پالایش",
 	"srf-ui-datatables-label-sInfoThousands": "،",
 	"srf-ui-datatables-label-sLoadingRecords": "در حال بارگیری...",
-	"srf-ui-datatables-label-sProcessing": "درحال پردازش...",
+	"srf-ui-datatables-label-sProcessing": "در حال پردازش...",
 	"srf-ui-datatables-label-sSearch": "جستجو:",
 	"srf-ui-datatables-label-sZeroRecords": "هیچ پیشینه مشابهی یافت نشد",
 	"srf-ui-datatables-label-oPaginate-sFirst": "نخستین",
@@ -137,6 +140,7 @@
 	"srf-ui-eventcalendar-label-week": "هفته",
 	"srf-ui-eventcalendar-label-day": "روز",
 	"srf-ui-eventcalendar-label-allday": "همه روز",
+	"srf-ui-eventcalendar-label-update-error": "روزآمدسازی تقویم رویدادها با شکست مواجه شد.",
 	"srf-paramdesc-unit": "واحد",
 	"srf-ui-mediaplayer-label-previous": "قبلی",
 	"srf-ui-mediaplayer-label-play": "پخش",

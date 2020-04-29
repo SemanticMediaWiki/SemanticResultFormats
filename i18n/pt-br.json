@@ -1,18 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
+			"!Silent",
+			"Andrecpe",
+			"Eduardo Addad de Oliveira",
 			"Eduardo.mps",
 			"GKnedo",
 			"Giro720",
 			"Jaideraf",
-			"Luckas Blade",
 			"Luckas",
-			"!Silent",
+			"Luckas Blade",
 			"Nemo bis",
-			"Eduardo Addad de Oliveira",
-			"Trigonometria87",
-			"Andrecpe",
-			"Rodrigo codignoli"
+			"Rodrigo codignoli",
+			"Trigonometria87"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultado para consultas do Semantic MediaWiki",
@@ -166,6 +166,7 @@
 	"srf_paramdesc_maxtags": "A quantidade máxima de tags na nuvem",
 	"srf-paramdesc-excludetags": "Excluir tags (delimitador: \";\")",
 	"srf_printername_valuerank": "Ranking de valores",
+	"srf-paramdesc-liststyle": "O estilo para exibir a lista",
 	"srf_printername_array": "Array",
 	"srf_paramdesc_pagetitle": "Se deseja apresentar os títulos das páginas como resultados ou omiti-los",
 	"srf_paramdesc_hidegaps": "Se deseja exibir os valores das propriedades e registros vazios separados por separadores ou omiti-los",

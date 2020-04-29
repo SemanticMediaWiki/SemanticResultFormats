@@ -1,17 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hamilton Abreu",
-			"Malafaya",
-			"SandroHc",
-			"Waldir",
-			"Vitorvicentevalente",
-			"Macofe",
-			"Ngl2016",
-			"Nemo bis",
 			"Athena in Wonderland",
-			"Waldyrious",
-			"Mansil alfalb"
+			"Hamilton Abreu",
+			"Macofe",
+			"Malafaya",
+			"Mansil alfalb",
+			"Nemo bis",
+			"Ngl2016",
+			"SandroHc",
+			"Vitorvicentevalente",
+			"Waldir",
+			"Waldyrious"
 		]
 	},
 	"srf-desc": "Formatos adicionais de resultados para consultas do MediaWiki Semântico",

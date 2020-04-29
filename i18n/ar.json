@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Meno25",
+			"NEHAOUA",
 			"OsamaK",
-			"روخو",
+			"Tala Ali",
 			"ديفيد",
-			"NEHAOUA"
+			"روخو"
 		]
 	},
 	"srf-desc": "صيغ نتائج إضافية لاستعلامات ميدياويكي الدلالية",
@@ -159,6 +160,7 @@
 	"srf_paramdesc_maxtags": "الحد الأقصى لعدد العلامات في السحابة",
 	"srf-paramdesc-excludetags": "استبعاد العلامات (المحدد: \";\")",
 	"srf_printername_valuerank": "قيمة الترتيب",
+	"srf-paramdesc-liststyle": "النمط لعرض القائمة",
 	"srf_printername_array": "نسق",
 	"srf_paramdesc_pagetitle": "ما إذا كان سيتم عرض عناوين الصفحات كإدخالات نتيجة أم تركها",
 	"srf_paramdesc_hidegaps": "سواء كانت الطباعة المطلوبة، ولكن قيم سجل وخواص غير متوفرة مفصولة بفواصل أو تركها",

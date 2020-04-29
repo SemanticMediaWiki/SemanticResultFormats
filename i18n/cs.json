@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vks",
-			"XenoPheX",
 			"Dvorapa",
 			"Jaroslav Cerny",
-			"Nemo bis"
+			"Nemo bis",
+			"Vks",
+			"XenoPheX"
 		]
 	},
 	"srf-desc": "Další formáty inline požadavků rozšíření Semantic MediaWiki",
