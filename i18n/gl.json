@@ -2,13 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Alma",
-			"Toliño",
-			"Elisardojm",
 			"Banjo",
-			"Nemo bis",
+			"Elisardojm",
+			"Iváns",
 			"McDutchie",
-			"Navhy",
-			"Iváns"
+			"Nemo bis",
+			"Toliño"
 		]
 	},
 	"srf-desc": "Formatos de resultados adicionais para as pescudas de Semantic MediaWiki",
@@ -243,7 +242,7 @@
 	"srf-paramdesc-filtered-filter-position": "A posición dos filtros en relación coas visitas. Valores permitidos: ''top'', ''bottom''. Predeterminado: ''top''.",
 	"srf-paramdesc-filtered-list-type": "O tipo de lista. Valores permitidos: ''list'', ''ul'', ''ol''. Predeterminado: ''list''.",
 	"srf-paramdesc-filtered-list-template": "O modelo empregado para dar formato ás entradas da lista.",
-	"srf-paramdesc-filtered-list-named-args": "Dea nome aos argumentos que se lle pasan ao modelo.",
+	"srf-paramdesc-filtered-list-named-args": "Dalle nome ós argumentos pasados ó modelo.",
 	"srf-paramdesc-filtered-list-introtemplate": "O nome dun modelo a amosar antes dos resultados da pescuda, se houbese algún.",
 	"srf-paramdesc-filtered-list-outrotemplate": "O nome dun modelo a amosar despois dos resultados da pescuda, se houbese algún.",
 	"srf-paramdesc-filtered-calendar-start": "A impresión que contén a data de inicio dun acontecemento",

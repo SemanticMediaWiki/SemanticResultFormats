@@ -54,7 +54,7 @@ class TemplateBuilder {
 	public function build( OutlineTree $outlineTree ) {
 		$this->tree( $outlineTree );
 
-		return $this->template;
+		return $this->getIntroTemplate() . $this->template . $this->getOutroTemplate();
 	}
 
 	private function tree( $outlineTree, $level = 0 ) {
@@ -151,6 +151,20 @@ class TemplateBuilder {
 
 	private function close() {
 		return "}}";
+	}
+
+	function getIntroTemplate(): string {
+		if ( $this->params['introtemplate'] === '' ) {
+			return "";
+		}
+		return $this->open( $this->params['introtemplate'] ) . $this->close();
+	}
+
+	function getOutroTemplate(): string {
+		if ( $this->params['outrotemplate'] === '' ) {
+			return "";
+		}
+		return $this->open( $this->params['outrotemplate'] ) . $this->close();
 	}
 
 }
