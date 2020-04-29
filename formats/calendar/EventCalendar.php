@@ -107,7 +107,7 @@ class EventCalendar extends ResultPrinter {
 		$params['includeend'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-includeend',
-			'default' => false
+			'default' => true
 		];
 
 		return $params;
