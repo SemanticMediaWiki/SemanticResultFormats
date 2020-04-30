@@ -253,7 +253,7 @@
 	"srf-paramdesc-filtered-map-icon": "Kullanılacak harita simgesine karar veren çıktı.",
 	"srf-paramdesc-filtered-map-icons": "Haritada bu değerler için kullanılacak simgelerin değerlerinin haritası.",
 	"srf-paramdesc-filtered-map-height": "Haritanın yüksekliği.",
-	"srf-paramdesc-filtered-map-zoom": "Harita yüklendiğinde zoom seviyesi. Bu kullanıcı tarafından değiştirilebilir. <br>Bkz: <i>harita görünümü minimum zoom</i> ve <i>harita görünümü maksimum zoom</i>",
+	"srf-paramdesc-filtered-map-zoom": "Harita yüklendiğinde zoom seviyesi. Bu kullanıcı tarafından değiştirilebilir.<br>Bakınız: <i>harita görünümü minimum zoom</i> ve <i>harita görünümü maksimum zoom</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "Haritanın seçilebilir minimum zoom seviyesi",
 	"srf-paramdesc-filtered-map-max-zoom": "Haritanın seçilebilir maksimum zoom seviyesi",
 	"srf-paramdesc-filtered-map-marker-cluster": "İşaret kümesini aç veya kapat.",
