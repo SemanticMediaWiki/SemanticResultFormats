@@ -7,6 +7,8 @@
  * @ingroup SMWQuery
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Result printer using Exhibit to display query results
  *
@@ -335,7 +337,6 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// prepare automatic lenses
 
-		global $wgParser;
 		$lenscounter = 0;
 		$linkcounter = 0;
 		$imagecounter = 0;
@@ -404,9 +405,10 @@ class SRFExhibit extends SMWResultPrinter {
 				}
 			}
 
-			$lenshtml = $wgParser->internalParse(
+			$parser = MediaWikiServices::getInstance()->getParser();
+			$lenshtml = $parser->internalParse(
 				$lenswikitext
-			);// $wgParser->parse($lenswikitext, $lenstitle, new ParserOptions(), true, true)->getText();
+			);// $parser->parse($lenswikitext, $lenstitle, new ParserOptions(), true, true)->getText();
 
 			$lenssrc = "var ex_lens = '" . str_replace(
 					"\n",

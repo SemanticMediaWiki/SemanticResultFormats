@@ -12,6 +12,8 @@
  * Arrays 2.0+ and HashTables 1.0+ are recommended but not necessary.
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Array format
  */
@@ -242,9 +244,9 @@ class SRFArray extends SMWResultPrinter {
 
 		if ( defined( 'ExtArrays::VERSION' ) ) {
 			// 'Arrays' extension 2+
-			global $wgParser;
 			/** ToDo: is there a way to get the actual parser which has started the query? */
-			ExtArrays::get( $wgParser )->createArray( $arrayId, $array );
+			$parser = MediaWikiServices::getInstance()->getParser();
+			ExtArrays::get( $parser )->createArray( $arrayId, $array );
 			return true;
 		}
 
@@ -309,13 +311,13 @@ class SRFArray extends SMWResultPrinter {
 			return $obj; //only text
 		}
 
-		global $wgParser;
 		/*
 		 * Feature to use page value as separator only works if Parser::parse() is running!
 		 * That's not the case on semantic search special page for example!
 		 */
 		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!		
-		if ( !isset( $wgParser->mOptions ) ) {
+		$parser = MediaWikiServices::getInstance()->getParser();
+		if ( !isset( $parser->mOptions ) ) {
 			//if( ! $this->mInline ) {
 			return null;
 		}
@@ -324,15 +326,9 @@ class SRFArray extends SMWResultPrinter {
 		 * parse page as if it were included like a template. Never use Parser::recursiveTagParse() or similar 
 		 * for this since it would call hooks we don't want to call and won't return wiki text for inclusion!
 		 */
-		$frame = $wgParser->getPreprocessor()->newCustomFrame( $params );
-		// compatibility for 1.19, getContent() was implemented in 1.21.
-		// FIXME: Remove when support for MediaWiki 1.19 is dropped
-		if ( method_exists( $article, 'getContent' ) ) {
-			$content = $article->getContent( Revision::RAW )->getNativeData();
-		} else {
-			$content = $article->getRawText();
-		}
-		$text = $wgParser->preprocessToDom( $content, Parser::PTD_FOR_INCLUSION );
+		$frame = $parser->getPreprocessor()->newCustomFrame( $params );
+		$content = $article->getContent( Revision::RAW )->getNativeData();
+		$text = $parser->preprocessToDom( $content, Parser::PTD_FOR_INCLUSION );
 		$text = trim( $frame->expand( $text ) );
 
 		return $text;
