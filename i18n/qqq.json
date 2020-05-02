@@ -141,6 +141,7 @@
 	"srf-paramdesc-infotext": "{{doc-paramdesc|infotext}}",
 	"srf-paramdesc-hidezeroes": "{{doc-paramdesc|hidezeroes}}",
 	"srf-paramdesc-clicktarget": "{{doc-paramdesc|clicktarget}}",
+	"srf-paramdesc-includeend": "{{doc-paramdesc|includeend}}",
 	"srf-ui-gridview-label-item": "{{doc-smw-ui-gridview}}",
 	"srf-ui-gridview-label-value": "{{doc-smw-ui-gridview}}",
 	"srf-ui-gridview-label-series": "{{doc-smw-ui-gridview}}",

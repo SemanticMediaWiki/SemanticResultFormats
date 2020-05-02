@@ -201,7 +201,14 @@
 											dates.push( value.getMwTimestamp() );
 											rowData.allDay = true;
 										} else {
-											rowData.end = value.getDate().toISOString();
+											var dataDate = value.getDate();
+											// value.precision is a bitmask indicating what parts of the date and time exist
+											// 1: Year, 2: Month, 4: Day, 8: Time
+											// see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/res/smw/data/ext.smw.dataItem.time.js
+											if(data.query.ask.parameters.includeend && ( value.precision & 8 ) == 0 ) {
+												dataDate.setDate(dataDate.getDate() + 1);
+											}
+											rowData.end = dataDate.toISOString();
 											dates.push( value.getMwTimestamp() );
 											var test = value.getISO8601Date();
 											rowData.allDay = test.indexOf( '00:00:00' ) !== -1 || false;
