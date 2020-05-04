@@ -130,6 +130,7 @@
 	"srf-paramdesc-infotext": "顯示在對應資訊分頁的額外資訊。",
 	"srf-paramdesc-hidezeroes": "隱藏圖表裡的零值",
 	"srf-paramdesc-clicktarget": "定義當點擊行事曆日期時，作為目標的頁面或查詢字串。",
+	"srf-paramdesc-includeend": "在多日事件裡包含結束日期",
 	"srf-ui-gridview-label-item": "資料項目",
 	"srf-ui-gridview-label-value": "資料值",
 	"srf-ui-gridview-label-series": "資料序列",

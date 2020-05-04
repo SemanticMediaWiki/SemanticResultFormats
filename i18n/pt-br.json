@@ -135,6 +135,7 @@
 	"srf-paramdesc-infotext": "Exibe informações adicionais em uma aba correspondente",
 	"srf-paramdesc-hidezeroes": "Ocultar zero valores do gráfico",
 	"srf-paramdesc-clicktarget": "Definir uma página ou seqüência de consulta como alvo ao clicar em uma data de calendário.",
+	"srf-paramdesc-includeend": "Incluir data de término em eventos de vários dias",
 	"srf-ui-gridview-label-item": "Item dos dados",
 	"srf-ui-gridview-label-value": "Valor dos dados",
 	"srf-ui-gridview-label-series": "Série de dados",

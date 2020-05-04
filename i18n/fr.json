@@ -148,6 +148,7 @@
 	"srf-paramdesc-infotext": "Afficher des informations supplémentaires dans un onglet correspondant",
 	"srf-paramdesc-hidezeroes": "Masquer les valeurs nulles du graphique",
 	"srf-paramdesc-clicktarget": "Définir une page ou une chaîne de requête comme cible lors d’un clic sur une date du calendrier.",
+	"srf-paramdesc-includeend": "Inclure la date de fin dans les événements couvrant plusieurs jours",
 	"srf-ui-gridview-label-item": "Élément de donnée",
 	"srf-ui-gridview-label-value": "Valeur de donnée",
 	"srf-ui-gridview-label-series": "Série de données",

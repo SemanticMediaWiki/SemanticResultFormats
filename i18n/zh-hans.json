@@ -13,6 +13,7 @@
 			"Yfdyh000",
 			"乌拉跨氪",
 			"科劳",
+			"邢家朋",
 			"铁桶"
 		]
 	},
@@ -133,6 +134,7 @@
 	"srf-paramdesc-paneview": "指定面板内含的小折线图的位置。允许取值：\"bottom\"、\"top\"和\"none\"。默认值：\"bottom\"",
 	"srf-paramdesc-infotext": "在相应的信息选项卡上显示附加信息",
 	"srf-paramdesc-clicktarget": "当点击日历上的日期时，定义页面或查询字符作为目标。",
+	"srf-paramdesc-includeend": "在多日活动中包括结束日期",
 	"srf-ui-gridview-label-item": "数据项",
 	"srf-ui-gridview-label-value": "数据值",
 	"srf-ui-gridview-label-series": "数据系列",

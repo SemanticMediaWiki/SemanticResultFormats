@@ -127,6 +127,7 @@
 	"srf-paramdesc-infotext": "İlgili bilgi sekmesinde ek bilgi görüntüle",
 	"srf-paramdesc-hidezeroes": "Grafikten sıfır değerlerini gizle",
 	"srf-paramdesc-clicktarget": "Bir takvim tarihini tıklarken bir sayfayı veya sorgu dizesini hedef olarak tanımlayın.",
+	"srf-paramdesc-includeend": "Bitiş tarihini çok günlük etkinliklere dahil et",
 	"srf-ui-gridview-label-item": "Veri öğesi",
 	"srf-ui-gridview-label-value": "Veri değeri",
 	"srf-ui-gridview-label-series": "Veri serileri",
