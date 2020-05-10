@@ -70,6 +70,8 @@ function updateConfiguration {
 
 	echo 'wfLoadExtension( "SemanticResultFormats" );' >> LocalSettings.php
 
+	echo 'define("SMW_PHPUNIT_PULL_VERSION_FROM_GITHUB", true);' >> LocalSettings.php
+
 	echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
 	echo 'ini_set("display_errors", 1);' >> LocalSettings.php
 	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
