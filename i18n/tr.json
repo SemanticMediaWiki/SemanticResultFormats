@@ -77,7 +77,7 @@
 	"srf-paramdesc-default": "Sayısal sonuç olmadığında görüntülenecek varsayılan değer",
 	"srf_printername_earliest": "En erken zaman",
 	"srf_printername_latest": "En son zaman",
-	"srf_printername_timeline": "Zaman çizgisi",
+	"srf_printername_timeline": "Zaman çizelgesi",
 	"srf_printername_eventline": "Olay hattı",
 	"srf_paramdesc_timelinebands": "Sonuçta hangi bantların görüntüleneceğini tanımlar.",
 	"srf_paramdesc_timelineposition": "Zaman çizelgesinin başlangıçta nereye odaklandığını tanımlar.",
