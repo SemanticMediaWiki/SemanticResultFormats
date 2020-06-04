@@ -106,6 +106,8 @@ class TemplateBuilder {
 				$template .= $this->parameter( "#itemnumber", $itemnumber );
 				$template .= $this->parameter( "#userparam", $this->params['userparam'] );
 
+				$template .= $this->itemRaw($dv);
+
 				$template .= $this->itemText( $dv, $linker, $printRequest, $first_col );
 				$template .= $this->close();
 
@@ -139,6 +141,12 @@ class TemplateBuilder {
 		);
 
 		return $this->parameter( $printRequest->getLabel(), $text );
+	}
+
+	private function itemRaw( $dv ){
+		$rawText = $dv->getShortText( SMW_OUTPUT_WIKI );
+
+		return $this->parameter( "#itemsubjectraw", $rawText );
 	}
 
 	private function open( $v ) {
