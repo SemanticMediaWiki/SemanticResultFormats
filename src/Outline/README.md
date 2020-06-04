@@ -27,6 +27,7 @@ The `...-item` template will also provide additional information such as:
 
 - `#itemsection` section number of the item
 - `#itemsubject` the subject (aka page) of the item processed
+- `#itemsubjectraw` the raw page title which can be used for further processing
 - `#userparam` content provided by a user via the `#ask` `userparam` parameter
 
 Use `introtemplate` \ `outrotemplate` to display a template before or after the query results. These can only be used in combination with the `template` paramter 
