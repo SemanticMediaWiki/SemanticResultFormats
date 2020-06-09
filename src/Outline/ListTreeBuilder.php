@@ -122,6 +122,7 @@ class ListTreeBuilder {
 				$linker = $this->linker;
 			}
 
+			$resultArray->reset();
 			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 
 				if ( !$first_col && !$found_values ) { // first values after first column
