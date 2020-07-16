@@ -82,6 +82,46 @@ class SRFMath extends SMWResultPrinter {
 				$position = ( count( $numbers ) + 1 ) / 2 - 1;
 				return ( $numbers[ceil( $position )] + $numbers[floor( $position )] ) / 2;
 				break;
+			case 'variance':
+				$average = array_sum($numbers) / count($numbers);
+				$space = NULL;
+				for($i = 0; $i < count($numbers); $i++)
+				{
+					$space += pow($numbers[$i], 2);
+				}
+				$result = ($space / count($numbers) - pow($average, 2));
+				return $result;
+				break;
+			case 'samplevariance':
+				$average = array_sum($numbers) / count($numbers);
+				$space = NULL;
+				for($i = 0; $i < count($numbers); $i++)
+				{
+					$space += pow(($numbers[$i] - $average), 2);
+				}
+				$result = ($space / (count($numbers) - 1));
+				return $result;
+				break;
+			case 'samplestandarddeviation':
+				$average = array_sum($numbers) / count($numbers);
+				$space = NULL;
+				for($i = 0; $i < count($numbers); $i++)
+				{
+					$space += pow(($numbers[$i] - $average), 2);
+				}
+				$result = sqrt($space / (count($numbers) - 1));
+				return $result;
+				break;
+			case 'standarddeviation':
+				$average = array_sum($numbers) / count($numbers);
+				$space = NULL;
+				for($i = 0; $i < count($numbers); $i++)
+				{
+					$space += pow($numbers[$i], 2);
+				}
+				$result = sqrt($space / count($numbers) - pow($average, 2));
+				return $result;
+				break;
 		}
 	}
 
