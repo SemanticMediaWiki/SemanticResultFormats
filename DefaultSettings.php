@@ -55,10 +55,10 @@ $GLOBALS['srfgFormats'] = [
 	'spreadsheet',
 	'gantt',
 	'graph',
-	"variance",
-	"samplevariance",
-	"standarddeviation",
-	"samplestandarddeviation"
+	'variance',
+	'samplevariance',
+	'standarddeviation',
+	'samplestandarddeviation'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',
