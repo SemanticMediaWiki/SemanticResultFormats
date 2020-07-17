@@ -122,6 +122,9 @@ class SRFMath extends SMWResultPrinter {
 				$result = sqrt($space / count($numbers) - pow($average, 2));
 				return $result;
 				break;
+			case 'range':
+				return (max($numbers) - min($numbers));
+				break;
 		}
 	}
 

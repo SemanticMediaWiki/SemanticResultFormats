@@ -123,6 +123,7 @@ class SemanticResultFormats {
 			'variance' => 'SRFMath',
 			'standarddeviation' => 'SRFMath',
 			'samplestandarddeviation' => 'SRFMath',
+			'range' => 'SRFMath',
 			'exhibit' => 'SRFExhibit',
 			'googlebar' => 'SRFGoogleBar',
 			'googlepie' => 'SRFGooglePie',
