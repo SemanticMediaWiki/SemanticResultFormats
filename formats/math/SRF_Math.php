@@ -125,6 +125,50 @@ class SRFMath extends SMWResultPrinter {
 			case 'range':
 				return (max($numbers) - min($numbers));
 				break;
+			case 'quartillower':
+				$n = count($numbers);
+    			sort($numbers, SORT_NUMERIC);
+				if($n <= 3)
+				{
+					return $numbers[0];
+				}
+				else if($n == 4)
+				{
+					return (($numbers[1] - $numbers[0])/2)+ $numbers[0];
+				}
+				else if($n%2 == 0)
+				{
+					$position = ceil((25/100)*$n);
+					return $numbers[$position-1];
+				}
+				else
+				{
+					$position = ceil((25/100)*$n);
+					return (($numbers[$position-1] - $numbers[$position-2])/2)+ $numbers[$position-2];
+				}
+				break;
+			case 'quartilupper':
+				$n = count($numbers);
+    			sort($numbers, SORT_NUMERIC);
+				if($n <= 3)
+				{
+					return end($numbers);
+				}
+				else if($n == 4)
+				{
+					return (($numbers[2] - $numbers[3])/2)+ $numbers[3];
+				}
+				else if($n%2 == 0)
+				{
+					$position = ceil((75/100)*$n);
+					return $numbers[$position-1];
+				}
+				else
+				{
+					$position = ceil((75/100)*$n);
+					return (($numbers[$position-1] - $numbers[$position-2])/2)+ $numbers[$position-2];
+				}
+				break;
 		}
 	}
 
