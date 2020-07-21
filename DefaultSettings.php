@@ -59,7 +59,9 @@ $GLOBALS['srfgFormats'] = [
 	'samplevariance',
 	'standarddeviation',
 	'samplestandarddeviation',
-	'range'
+	'range',
+	'quartillower',
+	'quartilupper'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',

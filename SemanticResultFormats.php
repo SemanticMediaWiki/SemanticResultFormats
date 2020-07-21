@@ -124,6 +124,8 @@ class SemanticResultFormats {
 			'standarddeviation' => 'SRFMath',
 			'samplestandarddeviation' => 'SRFMath',
 			'range' => 'SRFMath',
+			'quartillower' => 'SRFMath',
+			'quartilupper' => 'SRFMath',
 			'exhibit' => 'SRFExhibit',
 			'googlebar' => 'SRFGoogleBar',
 			'googlepie' => 'SRFGooglePie',
