@@ -62,7 +62,10 @@ $GLOBALS['srfgFormats'] = [
 	'range',
 	'quartillower.inkl',
 	'quartilupper.inkl',
-	'median.inkl'
+	'median.inkl',
+	'quartillower.exkl',
+	'median.exkl',
+	'quartilupper.exkl'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',
