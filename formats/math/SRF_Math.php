@@ -125,48 +125,46 @@ class SRFMath extends SMWResultPrinter {
 			case 'range':
 				return (max($numbers) - min($numbers));
 				break;
-			case 'quartillower':
-				$n = count($numbers);
-    			sort($numbers, SORT_NUMERIC);
-				if($n <= 3)
+			case 'quartillower.inkl':
+				sort($numbers, SORT_NUMERIC);
+				$Q1_position = ((sizeof($numbers) - 1) * 0.25);
+				if(is_float($Q1_position) == TRUE)
 				{
-					return $numbers[0];
-				}
-				else if($n == 4)
-				{
-					return (($numbers[1] - $numbers[0])/2)+ $numbers[0];
-				}
-				else if($n%2 == 0)
-				{
-					$position = ceil((25/100)*$n);
-					return $numbers[$position-1];
+					$Q1_position_y = floor($Q1_position);
+					$Q1_position_x = ceil($Q1_position);
+					return ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.25);
 				}
 				else
 				{
-					$position = ceil((25/100)*$n);
-					return (($numbers[$position-1] - $numbers[$position-2])/2)+ $numbers[$position-2];
+					return $numbers[$Q1_position];
 				}
 				break;
-			case 'quartilupper':
-				$n = count($numbers);
-    			sort($numbers, SORT_NUMERIC);
-				if($n <= 3)
+			case 'median.inkl';
+				sort($numbers, SORT_NUMERIC);
+				$Q2_position = ((sizeof($numbers) - 1) * 0.5);
+				if(is_float($Q2_position) == TRUE)
 				{
-					return end($numbers);
-				}
-				else if($n == 4)
-				{
-					return (($numbers[2] - $numbers[3])/2)+ $numbers[3];
-				}
-				else if($n%2 == 0)
-				{
-					$position = ceil((75/100)*$n);
-					return $numbers[$position-1];
+					$Q2_position_y = floor($Q2_position);
+					$Q2_position_x = ceil($Q2_position);
+					return (($numbers[$Q2_position_x] + $numbers[$Q2_position_y]) / 2);
 				}
 				else
 				{
-					$position = ceil((75/100)*$n);
-					return (($numbers[$position-1] - $numbers[$position-2])/2)+ $numbers[$position-2];
+					return $numbers[$Q2_position];
+				}
+				break;
+			case 'quartilupper.inkl';
+				sort($numbers, SORT_NUMERIC);
+				$Q3_position = ((sizeof($numbers) - 1) * 0.75);
+				if(is_float($Q3_position) == TRUE)
+				{
+					$Q3_position_y = floor($Q3_position);
+					$Q3_position_x = ceil($Q3_position);
+					return ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.75);
+				}
+				else
+				{
+					return $numbers[$Q3_position];
 				}
 				break;
 		}
