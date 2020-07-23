@@ -209,6 +209,58 @@ class SRFMath extends SMWResultPrinter {
 					return $numbers[$Q3_position];
 				}
 				break;
+			case 'interquartilerange.inkl':
+				sort($numbers, SORT_NUMERIC);
+				$Q1_position = ((sizeof($numbers) - 1) * 0.25);
+				if(is_float($Q1_position) == TRUE)
+				{
+					$Q1_position_y = floor($Q1_position);
+					$Q1_position_x = ceil($Q1_position);
+					$Q1 = ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.25);
+				}
+				else
+				{
+					$Q1 = $numbers[$Q1_position];
+				}
+				$Q3_position = ((sizeof($numbers) - 1) * 0.75);
+				if(is_float($Q3_position) == TRUE)
+				{
+					$Q3_position_y = floor($Q3_position);
+					$Q3_position_x = ceil($Q3_position);
+					$Q3 = ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.75);
+				}
+				else
+				{
+					$Q3 = $numbers[$Q3_position];
+				}
+				return ($Q3 - $Q1);
+				break;
+			case 'interquartilerange.exkl';
+				sort($numbers, SORT_NUMERIC);
+				$Q1_position = ((sizeof($numbers) + 1) * 0.25);
+				if(is_float($Q1_position) == TRUE)
+				{
+					$Q1_position_y = floor($Q1_position)-1;
+					$Q1_position_x = ceil($Q1_position)-1;
+					$Q1 = ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.75);
+				}
+				else
+				{
+					$Q1 = $numbers[$Q1_position];
+				}
+				$Q3_position = ((sizeof($numbers) + 1) * 0.75);
+				if(is_float($Q3_position) == TRUE)
+				{
+					$Q3_position_y = floor($Q3_position)-1;
+					$Q3_position_x = ceil($Q3_position)-1;
+					$Q3 = ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.25);
+				}
+				else
+				{
+					$Q3 = $numbers[$Q3_position];
+				}
+				return ($Q3 - $Q1);
+				break;
 		}
 	}
 
