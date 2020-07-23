@@ -130,6 +130,8 @@ class SemanticResultFormats {
 			'quartillower.exkl' => 'SRFMath',
 			'median.exkl' => 'SRFMath',
 			'quartilupper.exkl' => 'SRFMath',
+			'interquartilerange.inkl' => 'SRFMath',
+			'interquartilerange.exkl' => 'SRFMath',
 			'exhibit' => 'SRFExhibit',
 			'googlebar' => 'SRFGoogleBar',
 			'googlepie' => 'SRFGooglePie',
