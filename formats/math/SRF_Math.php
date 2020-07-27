@@ -84,6 +84,7 @@ class SRFMath extends SMWResultPrinter {
 				break;
 			case 'variance':
 				$average = array_sum($numbers) / count($numbers);
+				// create space to store values
 				$space = NULL;
 				for($i = 0; $i < count($numbers); $i++)
 				{
@@ -94,6 +95,7 @@ class SRFMath extends SMWResultPrinter {
 				break;
 			case 'samplevariance':
 				$average = array_sum($numbers) / count($numbers);
+				// create space to store values
 				$space = NULL;
 				for($i = 0; $i < count($numbers); $i++)
 				{
@@ -104,6 +106,7 @@ class SRFMath extends SMWResultPrinter {
 				break;
 			case 'samplestandarddeviation':
 				$average = array_sum($numbers) / count($numbers);
+				// create space to store values
 				$space = NULL;
 				for($i = 0; $i < count($numbers); $i++)
 				{
@@ -114,6 +117,7 @@ class SRFMath extends SMWResultPrinter {
 				break;
 			case 'standarddeviation':
 				$average = array_sum($numbers) / count($numbers);
+				// create space to store values
 				$space = NULL;
 				for($i = 0; $i < count($numbers); $i++)
 				{
@@ -125,9 +129,11 @@ class SRFMath extends SMWResultPrinter {
 			case 'range':
 				return (max($numbers) - min($numbers));
 				break;
-			case 'quartillower.inkl':
+			case 'quartillower':
 				sort($numbers, SORT_NUMERIC);
+				// get position
 				$Q1_position = ((sizeof($numbers) - 1) * 0.25);
+				// check if position is between two numbers
 				if(is_float($Q1_position) == TRUE)
 				{
 					$Q1_position_y = floor($Q1_position);
@@ -139,23 +145,11 @@ class SRFMath extends SMWResultPrinter {
 					return $numbers[$Q1_position];
 				}
 				break;
-			case 'median.inkl';
+			case 'quartilupper';
 				sort($numbers, SORT_NUMERIC);
-				$Q2_position = ((sizeof($numbers) - 1) * 0.5);
-				if(is_float($Q2_position) == TRUE)
-				{
-					$Q2_position_y = floor($Q2_position);
-					$Q2_position_x = ceil($Q2_position);
-					return (($numbers[$Q2_position_x] + $numbers[$Q2_position_y]) / 2);
-				}
-				else
-				{
-					return $numbers[$Q2_position];
-				}
-				break;
-			case 'quartilupper.inkl';
-				sort($numbers, SORT_NUMERIC);
+				// get position
 				$Q3_position = ((sizeof($numbers) - 1) * 0.75);
+				// check if position is between two numbers
 				if(is_float($Q3_position) == TRUE)
 				{
 					$Q3_position_y = floor($Q3_position);
@@ -167,9 +161,11 @@ class SRFMath extends SMWResultPrinter {
 					return $numbers[$Q3_position];
 				}
 				break;
-			case 'quartillower.exkl';
+			case 'quartillower.exc';
 				sort($numbers, SORT_NUMERIC);
+				// get position
 				$Q1_position = ((sizeof($numbers) + 1) * 0.25);
+				// check if position is between two numbers
 				if(is_float($Q1_position) == TRUE)
 				{
 					$Q1_position_y = floor($Q1_position)-1;
@@ -181,23 +177,11 @@ class SRFMath extends SMWResultPrinter {
 					return $numbers[$Q1_position];
 				}
 				break;
-			case 'median.exkl';
+			case 'quartilupper.exc';
 				sort($numbers, SORT_NUMERIC);
-				$Q2_position = ((sizeof($numbers) + 1) * 0.5);
-				if(is_float($Q2_position) == TRUE)
-				{
-					$Q2_position_y = floor($Q2_position)-1;
-					$Q2_position_x = ceil($Q2_position)-1;
-					return (($numbers[$Q2_position_x] + $numbers[$Q2_position_y]) / 2);
-				}
-				else
-				{
-					return $numbers[$Q2_position];
-				}
-				break;
-			case 'quartilupper.exkl';
-				sort($numbers, SORT_NUMERIC);
+				// get position
 				$Q3_position = ((sizeof($numbers) + 1) * 0.75);
+				// check if position is between two numbers
 				if(is_float($Q3_position) == TRUE)
 				{
 					$Q3_position_y = floor($Q3_position)-1;
@@ -209,9 +193,11 @@ class SRFMath extends SMWResultPrinter {
 					return $numbers[$Q3_position];
 				}
 				break;
-			case 'interquartilerange.inkl':
+			case 'interquartilerange':
 				sort($numbers, SORT_NUMERIC);
+				// get position of Q1
 				$Q1_position = ((sizeof($numbers) - 1) * 0.25);
+				// check if position is between two numbers
 				if(is_float($Q1_position) == TRUE)
 				{
 					$Q1_position_y = floor($Q1_position);
@@ -222,7 +208,9 @@ class SRFMath extends SMWResultPrinter {
 				{
 					$Q1 = $numbers[$Q1_position];
 				}
+				// get position of Q3
 				$Q3_position = ((sizeof($numbers) - 1) * 0.75);
+				// check if position is between two numbers
 				if(is_float($Q3_position) == TRUE)
 				{
 					$Q3_position_y = floor($Q3_position);
@@ -235,9 +223,11 @@ class SRFMath extends SMWResultPrinter {
 				}
 				return ($Q3 - $Q1);
 				break;
-			case 'interquartilerange.exkl';
+			case 'interquartilerange.exc';
 				sort($numbers, SORT_NUMERIC);
+				// get position of Q1
 				$Q1_position = ((sizeof($numbers) + 1) * 0.25);
+				// check if position is between two numbers
 				if(is_float($Q1_position) == TRUE)
 				{
 					$Q1_position_y = floor($Q1_position)-1;
@@ -248,7 +238,9 @@ class SRFMath extends SMWResultPrinter {
 				{
 					$Q1 = $numbers[$Q1_position];
 				}
+				// get position of Q3
 				$Q3_position = ((sizeof($numbers) + 1) * 0.75);
+				// check if position is between two numbers
 				if(is_float($Q3_position) == TRUE)
 				{
 					$Q3_position_y = floor($Q3_position)-1;
@@ -260,6 +252,100 @@ class SRFMath extends SMWResultPrinter {
 					$Q3 = $numbers[$Q3_position];
 				}
 				return ($Q3 - $Q1);
+				break;
+			case 'mode';
+				// array temp
+				$array_temp = array();
+				// convert array
+				for($i = 0; $i < sizeof($numbers); $i++)
+				{
+					$converted_value = strval($numbers[$i]);
+					$array_temp += [$i => $converted_value];
+				}
+				$array_counted_values = array_count_values($array_temp);
+				// max
+				$max = max($array_counted_values);
+				// count
+				$count = NULL;
+				// filter
+				for($i = 0; $i < sizeof($array_counted_values); $i++)
+				{
+					if ($array_counted_values[array_keys($array_counted_values)[$i]] == $max)
+					{
+						$count += 1;
+					}
+				}
+				// check if there are more than one max
+				if($count == 1)
+				{
+					return $max;
+				}
+				break;
+			case 'interquartilemean';
+				// sort numbers
+				sort($numbers,SORT_NUMERIC);
+					// check if size of numbers is divisble by 4
+					if(sizeof($numbers)%4 == 0)
+					{
+						// split array into 4 groups (2D array)
+						$array_split = (array_chunk($numbers, sizeof($numbers)/4));
+						// creating store_string
+						$store_string = NULL;
+						for($i = 0; $i < sizeof($array_split[1]); $i++)
+						{
+							$store_string += $array_split[1][$i];
+						}
+						for($i = 0; $i < sizeof($array_split[2]); $i++)
+						{
+							$store_string += $array_split[2][$i];
+						}
+						return $store_string/(sizeof($array_split[1])+sizeof($array_split[2]));
+					}
+					else
+					{
+						// position of array split
+						$position_of_split = sizeof($numbers)/4;
+						// remove values of array behind the position
+						for($i = 0; $i < floor($position_of_split); $i++)
+						{
+							unset($numbers[$i]);
+							array_pop($numbers);
+						}
+						// create store array
+						$store_array = array_values($numbers);
+						// numbers in the interquartile range
+						$iqr = $position_of_split * 2;
+						// create temp array
+						$temp_array = array();
+						// remove values of array behind the iqr but store them for later
+						for($i = 0; $i < ((sizeof($store_array)-floor($iqr))/2); $i++)
+						{
+							array_push($temp_array, $store_array[$i], $store_array[sizeof($store_array)+(-$i-1)]);
+							unset($store_array[$i]);
+							array_pop($store_array);
+						}
+						// get decimal place
+						$deciaml_number = explode(".", $iqr);
+						$deciaml_place = $iqr - $deciaml_number[0];
+						// multiply the numbers outside of iqr and store them into new_numbers array
+						$new_numbers = array();
+						for($i = 0; $i < sizeof($temp_array); $i++)
+						{
+							array_push($new_numbers,$temp_array[$i] * ($deciaml_place/2));
+						}
+						// create result array
+						$result_array = array();
+						// create result string
+						$result_string = NULL;
+						// convert story_array and new_numbers array into one (result_array)
+						$result_array = array_merge($store_array, $new_numbers);
+						// add the values
+						for($i = 0; $i < sizeof($result_array); $i++)
+						{
+							$result_string += $result_array[$i];
+						}
+						return $result_string/$iqr;
+					}
 				break;
 		}
 	}
