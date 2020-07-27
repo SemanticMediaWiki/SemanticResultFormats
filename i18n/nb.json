@@ -177,7 +177,7 @@
 	"srf-paramdesc-graphname": "Angir graftittelen",
 	"srf-paramdesc-graphsize": "Angir grafstørrelsen (i piksler)",
 	"srf-paramdesc-graphlegend": "Angir om en grafbeskrivelse skal vises",
-	"srf-paramdesc-graphlabel": "Angir grafetiketten",
+	"srf-paramdesc-graphlabel": "Angir skriftstørrelsen i piksler",
 	"srf-paramdesc-rankdir": "Angir pilretningen",
 	"srf-paramdesc-graphlink": "Angir om nodene skal ha lenke til sine wikisider",
 	"srf-paramdesc-graphcolor": "Angir graffargen",
