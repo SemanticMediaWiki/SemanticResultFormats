@@ -303,48 +303,23 @@ class SRFMath extends SMWResultPrinter {
 					}
 					else
 					{
-						// position of array split
-						$position_of_split = sizeof($numbers)/4;
-						// remove values of array behind the position
-						for($i = 0; $i < floor($position_of_split); $i++)
+						// get positon of split
+						$position = sizeof($numbers)/4;
+						// remove values out of split
+						for($i = 0; $i < floor($position); $i++)
 						{
 							unset($numbers[$i]);
 							array_pop($numbers);
 						}
-						// create store array
-						$store_array = array_values($numbers);
-						// numbers in the interquartile range
-						$iqr = $position_of_split * 2;
-						// create temp array
-						$temp_array = array();
-						// remove values of array behind the iqr but store them for later
-						for($i = 0; $i < ((sizeof($store_array)-floor($iqr))/2); $i++)
+						// reset array keys
+						$store_array = array_merge($numbers);
+						// add values
+						$store_values = NULL;
+						for($i = 1; $i < sizeof($store_array)-1; $i++)
 						{
-							array_push($temp_array, $store_array[$i], $store_array[sizeof($store_array)+(-$i-1)]);
-							unset($store_array[$i]);
-							array_pop($store_array);
+							$store_values += $store_array[$i];
 						}
-						// get decimal place
-						$deciaml_number = explode(".", $iqr);
-						$deciaml_place = $iqr - $deciaml_number[0];
-						// multiply the numbers outside of iqr and store them into new_numbers array
-						$new_numbers = array();
-						for($i = 0; $i < sizeof($temp_array); $i++)
-						{
-							array_push($new_numbers,$temp_array[$i] * ($deciaml_place/2));
-						}
-						// create result array
-						$result_array = array();
-						// create result string
-						$result_string = NULL;
-						// convert story_array and new_numbers array into one (result_array)
-						$result_array = array_merge($store_array, $new_numbers);
-						// add the values
-						for($i = 0; $i < sizeof($result_array); $i++)
-						{
-							$result_string += $result_array[$i];
-						}
-						return $result_string/$iqr;
+						return ($store_values + ((ceil($position) - $position) * ($store_array[0] + $store_array[sizeof($store_array)-1]))) / ($position*2);
 					}
 				break;
 		}
