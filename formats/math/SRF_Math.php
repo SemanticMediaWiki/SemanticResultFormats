@@ -8,6 +8,7 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren
  * @author Nathan Yergler
+ * @author Florian Breitenlacher
  */
 
 class MathFormats
