@@ -4,6 +4,7 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Under development
 
+* Added new statistical result formats `median`, `mode`, `variance`, `samplevariance`, `standarddeviation`, `samplestandarddeviation`, `quartilupper`, `quartilupper.exc`, `quartillower`, `quartillower.exc`, `interquartilerange`, `interquartilerange.exc`, `interquartilemean` (by [KDZ](https://www.kdz.eu))
 * Added `hidezeroes` parameter to the `jqplotseries` format (by [Professional.Wiki][ProWiki])
 * Added `graphfontsize` parameter to the `graph` format
 * Improved compatibility with upcomming MediaWiki versions
