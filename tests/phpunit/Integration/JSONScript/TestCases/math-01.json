@@ -33,6 +33,58 @@
 		{
 			"page": "Example/Math/Q.6",
 			"contents": "{{#show: Example/Math/1 |?Has number|format=median }}"
+		},
+		{
+			"page": "Example/Math/Q.7",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=variance }}"
+		},
+		{
+			"page": "Example/Math/Q.8",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=samplevariance }}"
+		},
+		{
+			"page": "Example/Math/Q.9",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=samplestandarddeviation }}"
+		},
+		{
+			"page": "Example/Math/Q.10",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=standarddeviation }}"
+		},
+		{
+			"page": "Example/Math/Q.11",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=range }}"
+		},
+		{
+			"page": "Example/Math/Q.12",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=quartillower }}"
+		},
+		{
+			"page": "Example/Math/Q.13",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=quartilupper }}"
+		},
+		{
+			"page": "Example/Math/Q.14",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=quartillower.exc }}"
+		},
+		{
+			"page": "Example/Math/Q.15",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=quartilupper.exc }}"
+		},
+		{
+			"page": "Example/Math/Q.16",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilerange }}"
+		},
+		{
+			"page": "Example/Math/Q.17",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilerange.exc }}"
+		},
+		{
+			"page": "Example/Math/Q.18",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=mode }}"
+		},
+		{
+			"page": "Example/Math/Q.19",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilemean }}"
 		}
 	],
 	"tests": [
@@ -93,6 +145,56 @@
 			"assert-output": {
 				"to-contain": [
 					"15.000,125"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 format=variance (kilo and decimal separators)",
+			"subject": "Example/Math/Q.7",
+			"assert-output": {
+				"to-contain": [
+					"168,637,459,592,933.625"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 format=samplevariance (kilo and decimal separators)",
+			"subject": "Example/Math/Q.8",
+			"assert-output": {
+				"to-contain": [
+					"224,849,946,123,911.5"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#7 format=samplestandarddeviation (kilo and decimal separators)",
+			"subject": "Example/Math/Q.9",
+			"assert-output": {
+				"to-contain": [
+					"12,986,048.652"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#8 format=standarddeviation (kilo and decimal separators)",
+			"subject": "Example/Math/Q.10",
+			"assert-output": {
+				"to-contain": [
+					"14,994,997.37"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#9 format=range (kilo and decimal separators)",
+			"subject": "Example/Math/Q.11",
+			"assert-output": {
+				"to-contain": [
+					"29,999,974.5"
 				]
 			}
 		}
