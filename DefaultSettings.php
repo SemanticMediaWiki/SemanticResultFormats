@@ -9,10 +9,6 @@
  * @author Daniel Werner < danweetz@web.de >
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-  die( "This file is part of the Semantic Result Formats extension. It is not a valid entry point.\n" );
-}
-
 // The formats you want to be able to use.
 // See the INSTALL file or
 // http://www.semantic-mediawiki.org/wiki/Semantic_Result_Formats#Installation
