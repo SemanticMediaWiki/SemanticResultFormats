@@ -79,12 +79,16 @@
 			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilerange.exc }}"
 		},
 		{
-			"page": "Example/Math/Q.18",
-			"contents": "{{#show: Example/Math/1 |?Has number|format=mode }}"
+			"page": "Example/Math/18",
+			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilemean }}"
+		},
+		{
+			"page": "Example/Math/2",
+			"contents": "[[Has number::3]] [[Has number::3]] [[Has number::3]] [[Has number::2]] [[Has number::1]]"
 		},
 		{
 			"page": "Example/Math/Q.19",
-			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilemean }}"
+			"contents": "{{#show: Example/Math/2 |?Has number|format=mode }}"
 		}
 	],
 	"tests": [
@@ -160,7 +164,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#6 format=samplevariance (kilo and decimal separators)",
+			"about": "#7 format=samplevariance (kilo and decimal separators)",
 			"subject": "Example/Math/Q.8",
 			"assert-output": {
 				"to-contain": [
@@ -170,7 +174,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#7 format=samplestandarddeviation (kilo and decimal separators)",
+			"about": "#8 format=samplestandarddeviation (kilo and decimal separators)",
 			"subject": "Example/Math/Q.9",
 			"assert-output": {
 				"to-contain": [
@@ -180,7 +184,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#8 format=standarddeviation (kilo and decimal separators)",
+			"about": "#9 format=standarddeviation (kilo and decimal separators)",
 			"subject": "Example/Math/Q.10",
 			"assert-output": {
 				"to-contain": [
@@ -190,11 +194,91 @@
 		},
 		{
 			"type": "parser",
-			"about": "#9 format=range (kilo and decimal separators)",
+			"about": "#10 format=range (kilo and decimal separators)",
 			"subject": "Example/Math/Q.11",
 			"assert-output": {
 				"to-contain": [
 					"29,999,974.5"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#11 format=quartillower (kilo and decimal separators)",
+			"subject": "Example/Math/Q.12",
+			"assert-output": {
+				"to-contain": [
+					"3,769.125"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#12 format=quartilupper (kilo and decimal separators)",
+			"subject": "Example/Math/Q.13",
+			"assert-output": {
+				"to-contain": [
+					"22,503,750.063"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#13 format=quartillower.exc (kilo and decimal separators)",
+			"subject": "Example/Math/Q.14",
+			"assert-output": {
+				"to-contain": [
+					"11,256.375"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#14 format=quartilupper.exc (kilo and decimal separators)",
+			"subject": "Example/Math/Q.15",
+			"assert-output": {
+				"to-contain": [
+					"7,511,250.188"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#15 format=interquartilerange (kilo and decimal separators)",
+			"subject": "Example/Math/Q.16",
+			"assert-output": {
+				"to-contain": [
+					"22,499,980.938"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#16 format=interquartilerange.exc (kilo and decimal separators)",
+			"subject": "Example/Math/Q.17",
+			"assert-output": {
+				"to-contain": [
+					"7,499,993.813"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#17 format=interquartilemean (kilo and decimal separators)",
+			"subject": "Example/Math/Q.18",
+			"assert-output": {
+				"to-contain": [
+					"15,000.125"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#18 format=mode",
+			"subject": "Example/Math/Q.19",
+			"assert-output": {
+				"to-contain": [
+					"3"
 				]
 			}
 		}
