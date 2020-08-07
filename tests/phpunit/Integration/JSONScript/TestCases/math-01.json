@@ -8,7 +8,7 @@
 		},
 		{
 			"page": "Example/Math/1",
-			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]] "
+			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]]"
 		},
 		{
 			"page": "Example/Math/Q.1",
@@ -89,6 +89,38 @@
 		{
 			"page": "Example/Math/Q.19",
 			"contents": "{{#show: Example/Math/2 |?Has number|format=mode }}"
+		},
+		{
+			"page": "Example/Math/3",
+			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]] [[Has number::333]]"
+		},
+		{
+			"page": "Example/Math/Q.20",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=quartillower }}"
+		},
+		{
+			"page": "Example/Math/Q.21",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=quartilupper }}"
+		},
+		{
+			"page": "Example/Math/Q.22",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=quartillower.exc }}"
+		},
+		{
+			"page": "Example/Math/Q.23",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=quartilupper.exc }}"
+		},
+		{
+			"page": "Example/Math/Q.24",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=interquartilerange }}"
+		},
+		{
+			"page": "Example/Math/Q.25",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=interquartilerange.exc }}"
+		},
+		{
+			"page": "Example/Math/Q.26",
+			"contents": "{{#show: Example/Math/3 |?Has number|format=interquartilemean }}"
 		}
 	],
 	"tests": [
@@ -279,6 +311,76 @@
 			"assert-output": {
 				"to-contain": [
 					"3"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#19 format=quartillower (kilo and decimal separators)",
+			"subject": "Example/Math/Q.20",
+			"assert-output": {
+				"to-contain": [
+					"333"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#20 format=quartilupper (kilo and decimal separators)",
+			"subject": "Example/Math/Q.21",
+			"assert-output": {
+				"to-contain": [
+					"15,000.25"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#21 format=quartillower.exc (kilo and decimal separators)",
+			"subject": "Example/Math/Q.22",
+			"assert-output": {
+				"to-contain": [
+					"256.125"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#22 format=quartilupper.exc (kilo and decimal separators)",
+			"subject": "Example/Math/Q.23",
+			"assert-output": {
+				"to-contain": [
+					"7,511,250.188"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#23 format=interquartilerange (kilo and decimal separators)",
+			"subject": "Example/Math/Q.24",
+			"assert-output": {
+				"to-contain": [
+					"14,667.25"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#24 format=interquartilerange.exc (kilo and decimal separators)",
+			"subject": "Example/Math/Q.25",
+			"assert-output": {
+				"to-contain": [
+					"7,510,994.063s"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#25 format=interquartilemean (kilo and decimal separators)",
+			"subject": "Example/Math/Q.26",
+			"assert-output": {
+				"to-contain": [
+					"10,599.975"
 				]
 			}
 		}
