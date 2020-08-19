@@ -328,7 +328,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		// Encoding
 		$requireHeadItem = [ $chartID => FormatJson::encode( $data ) ];
-		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $chartID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		// Add RL resources
 		$this->addResources();

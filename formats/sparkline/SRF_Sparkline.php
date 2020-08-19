@@ -48,7 +48,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 
 		// Encode data objects
 		$requireHeadItem = [ $chartID => FormatJson::encode( $dataObject ) ];
-		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $chartID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
 		SMWOutputs::requireResource( 'ext.srf.sparkline' );

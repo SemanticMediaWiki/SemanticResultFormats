@@ -235,7 +235,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 		// Assign the ID to make a data instance readly available and distinguishable
 		// from other content within the same page
 		$requireHeadItem = [ $ID => FormatJson::encode( $data ) ];
-		SMWOutputs::requireHeadItem( $ID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $ID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		// Add resource definitions that has been registered with SRF_Resource.php
 		// Resource definitions contain scripts, styles, messages etc.
