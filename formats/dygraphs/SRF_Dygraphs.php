@@ -201,7 +201,7 @@ class SRFDygraphs extends SMWResultPrinter {
 
 		// Array encoding and output
 		$requireHeadItem = [ $chartID => FormatJson::encode( $chartData ) ];
-		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $chartID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		SMWOutputs::requireResource( 'ext.srf.dygraphs' );
 

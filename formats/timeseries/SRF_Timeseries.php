@@ -155,7 +155,7 @@ class SRFTimeseries extends SMWResultPrinter {
 
 		// Array encoding and output
 		$requireHeadItem = [ $chartID => FormatJson::encode( $chartData ) ];
-		SMWOutputs::requireHeadItem( $chartID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $chartID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
 		SMWOutputs::requireResource( 'ext.srf.timeseries.flot' );

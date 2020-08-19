@@ -44,7 +44,7 @@ final class SRFUtils {
 		];
 
 		$requireHeadItem =  [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', Skin::makeVariablesScript( $requireHeadItem, false ) );
+		SMWOutputs::requireHeadItem( 'srf.options', SRFUtils::makeVariablesScript( $requireHeadItem, false ) );
 	}
 
 	/**
@@ -69,6 +69,21 @@ final class SRFUtils {
 		$link->setParameter( '' , 'class' );
 		$link->setParameter( '' , 'searchlabel' );
 		return $link->getText( SMW_OUTPUT_HTML, $linker );
+	}
+
+	/**
+	 * @since 3.2.0
+	 *
+	 * @param array $data
+	 *
+	 * @param string|null|bool $nonce
+	 *
+	 * @return string|WrappedString HTML
+	 */
+	public static function makeVariablesScript( $data, $nonce = null ) {
+		$script = ResourceLoader::makeConfigSetScript( $data );
+
+		return ResourceLoader::makeInlineScript( $script, $nonce );
 	}
 
 }

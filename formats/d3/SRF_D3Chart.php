@@ -62,7 +62,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 
 		// Encoding
 		$requireHeadItem = [ $d3chartID => FormatJson::encode( $d3data ) ];
-		SMWOutputs::requireHeadItem( $d3chartID, Skin::makeVariablesScript( $requireHeadItem ) );
+		SMWOutputs::requireHeadItem( $d3chartID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		// RL module
 		$resource = 'ext.srf.d3.chart.' . $this->params['charttype'];
