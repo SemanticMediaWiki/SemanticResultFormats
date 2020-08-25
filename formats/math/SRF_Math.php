@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Various mathematical functions - sum, product, average, min and max.
+ * Various mathematical functions - sum, product, average, min, max, median, variance, samplevariance, samplestandarddeviation, standarddeviation, range, quartillower, quartilupper, quartillower.exc, quartilupper.exc, interquartilerange, interquartilerange.exc, mode and interquartilemean
  *
  * @licence GNU GPL v3+
  *
