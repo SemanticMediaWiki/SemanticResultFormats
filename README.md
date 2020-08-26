@@ -1,5 +1,5 @@
 # Semantic Result Formats
-
+  
 [![Build Status](https://secure.travis-ci.org/SemanticMediaWiki/SemanticResultFormats.svg?branch=master)](http://travis-ci.org/SemanticMediaWiki/SemanticResultFormats)
 [![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/?branch=master)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/quality-score.png?s=a2f091e91cb9c8aa297e028f2f30d99153446796)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/)
