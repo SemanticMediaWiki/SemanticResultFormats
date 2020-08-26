@@ -79,7 +79,7 @@
 			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilerange.exc }}"
 		},
 		{
-			"page": "Example/Math/18",
+			"page": "Example/Math/Q.18",
 			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilemean }}"
 		},
 		{
