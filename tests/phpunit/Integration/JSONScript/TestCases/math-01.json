@@ -298,16 +298,6 @@
 		},
 		{
 			"type": "parser",
-			"about": "#18 format=mode",
-			"subject": "Example/Math/Q.19",
-			"assert-output": {
-				"to-contain": [
-					"3"
-				]
-			}
-		},
-		{
-			"type": "parser",
 			"about": "#19 format=quartillower (kilo and decimal separators)",
 			"subject": "Example/Math/Q.20",
 			"assert-output": {
