@@ -4,7 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 
-Semantic Result Formats is a MediaWiki extension that provides extra visualizations (result formats) for [Semantic MediaWiki's][smw] inline queries. For more information, see the [Semantic Result Formats documentation][srf] or consult the
+Semantic Result Formats is a MediaWiki extension that provides extra visualizations (result formats) for [Semantic MediaWiki][smw] queries. For more information, see the [Semantic Result Formats documentation][srf] or consult the
 [release notes](RELEASE-NOTES.md).
 
 ## Requirements
