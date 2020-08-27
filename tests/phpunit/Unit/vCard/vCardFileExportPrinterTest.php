@@ -22,6 +22,12 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		if ( version_compare( phpversion(), '7.4', '>=' ) ) {
+			// ResultPrinterReflector creates notices on PHP 7.4+
+			$this->markTestSkipped();
+			return;
+		}
+
 		$this->resultPrinterReflector = new ResultPrinterReflector();
 
 		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
