@@ -11,6 +11,10 @@
 			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]]"
 		},
 		{
+			"page": "Example/Math/2",
+			"contents": "[[Has number::333]]"
+		},
+		{
 			"page": "Example/Math/3",
 			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]] [[Has number::333]]"
 		},
@@ -85,6 +89,10 @@
 		{
 			"page": "Example/Math/Q.18",
 			"contents": "{{#show: Example/Math/1 |?Has number|format=interquartilemean }}"
+		},
+		{
+			"page": "Example/Math/Q.19",
+			"contents": "{{#show: Example/Math/2 |?Has number|format=mode }}"
 		},
 		{
 			"page": "Example/Math/Q.20",
@@ -293,6 +301,16 @@
 			"assert-output": {
 				"to-contain": [
 					"15.000,125"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#18 format=mode",
+			"subject": "Example/Math/Q.19",
+			"assert-output": {
+				"to-contain": [
+					"1"
 				]
 			}
 		},
