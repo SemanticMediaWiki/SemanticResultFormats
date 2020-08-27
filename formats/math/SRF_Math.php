@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Various mathematical functions - sum, product, average, min and max.
+ * Various mathematical functions - sum, product, average, min, max, median, variance, samplevariance, samplestandarddeviation, standarddeviation, range, quartillower, quartilupper, quartillower.exc, quartilupper.exc, interquartilerange, interquartilerange.exc, mode and interquartilemean
  *
  * @licence GNU GPL v3+
  *
@@ -31,7 +31,7 @@ class MathFormats
 		return array_sum($numbers);
 	}
 
-	public static function pruduct_function(array $numbers)
+	public static function product_function(array $numbers)
 	{
 		// result
 		return array_product($numbers);
@@ -110,6 +110,7 @@ class MathFormats
 
 	public static function range_function(array $numbers)
 	{
+		// result
 		return (max($numbers) - min($numbers));
 	}
 
@@ -123,10 +124,12 @@ class MathFormats
 		{
 			$Q1_position_y = floor($Q1_position);
 			$Q1_position_x = ceil($Q1_position);
+			// result
 			return ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.25);
 		}
 		else
 		{
+			// result
 			return $numbers[$Q1_position];
 		}
 	}
@@ -141,10 +144,12 @@ class MathFormats
 		{
 			$Q3_position_y = floor($Q3_position);
 			$Q3_position_x = ceil($Q3_position);
+			// result
 			return ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.75);
 		}
 		else
 		{
+			// result
 			return $numbers[$Q3_position];
 		}
 	}
@@ -159,10 +164,12 @@ class MathFormats
 		{
 			$Q1_position_y = floor($Q1_position)-1;
 			$Q1_position_x = ceil($Q1_position)-1;
+			// result
 			return ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.75);
 		}
 		else
 		{
+			// result
 			return $numbers[$Q1_position];
 		}
 	}
@@ -177,21 +184,25 @@ class MathFormats
 		{
 			$Q3_position_y = floor($Q3_position)-1;
 			$Q3_position_x = ceil($Q3_position)-1;
+			// result
 			return ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.25);
 		}
 		else
 		{
+			// result
 			return $numbers[$Q3_position];
 		}
 	}
 
 	public static function interquartilerange_inc_function(array $numbers)
 	{
+		// result
 		return MathFormats::quartilupper_inc_function($numbers) - MathFormats::quartillower_inc_function($numbers);
 	}
 
 	public static function interquartilerange_exc_function(array $numbers)
 	{
+		// result
 		return MathFormats::quartilupper_exc_function($numbers) - MathFormats::quartillower_exc_function($numbers);
 	}
 
@@ -221,6 +232,7 @@ class MathFormats
 		// check if there are more than one max
 		if($count == 1)
 		{
+			// result
 			return $max;
 		}
 	}
@@ -229,7 +241,7 @@ class MathFormats
 	{
 		// sort numbers
 		sort($numbers,SORT_NUMERIC);
-		// check if size of numbers is divisble by 4
+		// check if size of numbers is divisible by 4
 		if(sizeof($numbers)%4 == 0)
 		{
 			// split array into 4 groups (2D array)
@@ -244,11 +256,12 @@ class MathFormats
 			{
 				$store_string += $array_split[2][$i];
 			}
+			// result
 			return $store_string/(sizeof($array_split[1])+sizeof($array_split[2]));
 		}
 		else
 		{
-			// get positon of split
+			// get position of split
 			$position = sizeof($numbers)/4;
 			// remove values out of split
 			for($i = 0; $i < floor($position); $i++)
@@ -264,6 +277,7 @@ class MathFormats
 			{
 				$store_values += $store_array[$i];
 			}
+			// result
 			return ($store_values + ((ceil($position) - $position) * ($store_array[0] + $store_array[sizeof($store_array)-1]))) / ($position*2);
 		}
 	}
@@ -332,7 +346,7 @@ class SRFMath extends SMWResultPrinter {
 				return MathFormats::sum_function($numbers);
 				break;
 			case 'product':
-				return MathFormats::pruduct_function($numbers);
+				return MathFormats::product_function($numbers);
 				break;
 			case 'average':
 				return MathFormats::average_function($numbers);
