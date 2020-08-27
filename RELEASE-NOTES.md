@@ -2,12 +2,12 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 3.2.0
 
-Under development
+Released on August 27, 2020.
 
 * Added new statistical result formats `mode`, `variance`, `samplevariance`, `standarddeviation`, `samplestandarddeviation`, `quartilupper`, `quartilupper.exc`, `quartillower`, `quartillower.exc`, `interquartilerange`, `interquartilerange.exc`, `interquartilemean` (by [KDZ](https://www.kdz.eu))
 * Added `hidezeroes` parameter to the `jqplotseries` format (by [Professional.Wiki][ProWiki])
 * Added `graphfontsize` parameter to the `graph` format
-* Improved compatibility with upcomming MediaWiki versions
+* Improved compatibility with upcoming MediaWiki versions
 
 ## SRF 3.1.0
 
