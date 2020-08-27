@@ -34,12 +34,12 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	 * Keep the global state and restore it on tearDown to avoid influencing
 	 * other tests in case this one fails in between.
 	 */
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		self::$initial_parser = $GLOBALS['wgParser'];
 		self::$initial_title = $GLOBALS['wgTitle'];
 	}
 
-	protected function tearDown() {
+	protected function tearDown(): void {
 		$GLOBALS['wgParser'] = self::$initial_parser;
 		$GLOBALS['wgTitle'] = self::$initial_title;
 

@@ -17,7 +17,7 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	private $queryResult;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )

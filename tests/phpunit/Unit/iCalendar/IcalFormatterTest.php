@@ -19,7 +19,7 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	private $stringValidator;
 	private $icalTimezoneFormatter;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->icalTimezoneFormatter = $this->getMockBuilder( '\SRF\iCalendar\IcalTimezoneFormatter' )
