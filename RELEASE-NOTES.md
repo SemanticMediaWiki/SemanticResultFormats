@@ -9,6 +9,7 @@ Released on August 27, 2020.
 * Added support for `introtemplate`, `outrotemplate` and `{{#itemsubjectraw}}` for Outline format (by [gesinn.it](https://gesinn.it))
 * Added `graphfontsize` parameter to the `graph` format
 * Improved compatibility with upcoming MediaWiki versions
+* Updated translations (by translatewiki.net community)
 
 ## SRF 3.1.0
 
