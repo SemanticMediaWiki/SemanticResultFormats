@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ameisenigel",
 			"DaSch",
 			"Imre",
 			"Kghbln",
@@ -14,8 +15,8 @@
 		]
 	},
 	"srf-desc": "Stellt zusätzliche Ergebnisformate bereit",
-	"prefs-srf": "Erweiterung „Semantic Result Formats“",
-	"srf-prefs-intro-text": "Die Erweiterung „Semantic Result Formats“ ist installiert. Besuch bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen.",
+	"prefs-srf": "Semantic Ergebnisformate",
+	"srf-prefs-intro-text": "Die Erweiterung „Semantic Result Formats“ ist installiert. Besuche bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen in Bezug auf die Benutzereinstellungen.",
 	"prefs-srf-eventcalendar-options": "Optionen zum Veranstaltungskalender",
 	"srf-prefs-eventcalendar-options-update-default": "[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates Automatische Aktualisierung] des Kalenders beim Neuladen der Seite aktivieren",
 	"srf-prefs-eventcalendar-options-paneview-default": "Übersichtsansicht als Standardansicht aktivieren",
