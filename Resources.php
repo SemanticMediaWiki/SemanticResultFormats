@@ -64,8 +64,7 @@ return [
 		'scripts' => 'resources/jquery/multiselect/jquery.multiselect.js',
 		'styles'  => 'resources/jquery/multiselect/jquery.multiselect.css',
 		'dependencies' => [
-			'jquery.ui.core',
-			'jquery.ui.widget'
+			'jquery.ui'
 		]
 	],
 
@@ -89,7 +88,7 @@ return [
 		],
 		'styles' => 'resources/jquery/jqgrid/ui.jqgrid.css',
 		'dependencies' => [
-			'jquery.ui.core',
+			'jquery.ui',
 			'ext.jquery.migration.browser'
 		]
 	],
@@ -172,10 +171,7 @@ return [
 		],
 		'dependencies' => [
 			'ext.srf',
-			'jquery.ui.core',
-			'jquery.ui.widget',
-			'jquery.ui.button',
-			'jquery.ui.slider',
+			'jquery.ui',
 			'ext.jquery.multiselect'
 		],
 		'messages' => [
@@ -188,7 +184,7 @@ return [
 		'scripts' => 'resources/ext.srf.util.grid.js',
 		'styles'  => 'resources/ext.srf.util.grid.css',
 		'dependencies' => [
-			'jquery.ui.tabs',
+			'jquery.ui',
 			'ext.srf.util',
 			'ext.jquery.jqgrid',
 		],
@@ -739,10 +735,7 @@ return [
 			'calendar/resources/ext.srf.widgets.calendarlegend.js',
 		],
 		'dependencies' =>  [
-			'jquery.ui.core',
-			'jquery.ui.widget',
-			'jquery.ui.datepicker',
-			'jquery.ui.slider',
+			'jquery.ui',
 			'ext.smw.tooltip',
 			'ext.srf.util',
 			'ext.srf.api',
@@ -951,9 +944,7 @@ return [
 		'dependencies' => [
 			'jquery.dataTables',
 			'jquery.dataTables.extras',
-			'jquery.ui.core',
-			'jquery.ui.widget',
-			'jquery.ui.button',
+			'jquery.ui',
 			'ext.smw.dataItem',
 			'ext.smw.api',
 			'ext.srf.api',
