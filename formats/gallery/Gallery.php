@@ -180,6 +180,13 @@ class Gallery extends ResultPrinter {
 			$html .= $this->getLink( $results, SMW_OUTPUT_HTML )->getText( SMW_OUTPUT_HTML, $this->mLinker );
 		}
 
+		// If available and no results, return default message
+
+		if ( $results == '' && $this->params[ 'default' ] !== '' ) {
+			$html = $this->params[ 'default' ];
+		}
+
+
 		return [ $html, 'nowiki' => true, 'isHTML' => true ];
 	}
 
