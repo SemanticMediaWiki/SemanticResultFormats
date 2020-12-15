@@ -330,6 +330,15 @@ class Gallery extends ResultPrinter {
 				$imgCaption = $ig->mParser->recursiveTagParse( $imgCaption );
 			}
 		}
+
+		if ( $this->params['captiontemplate'] !== '' ) {
+			$templateCode = "{{" . $this->params['captiontemplate'] .
+				"|imageraw=".$imgTitle->getPrefixedText()."|imagecaption=$imgCaption|imageredirect=$imgRedirect}}";
+
+			$imgCaption = $ig->mParser->recursiveTagParse( $templateCode );
+
+		}
+
 		// Use image alt as helper for either text
 		$imgAlt = $this->params['redirects'] === '' ? $imgCaption : ( $imgRedirect !== '' ? $imgRedirect : '' );
 		$ig->add( $imgTitle, $imgCaption, $imgAlt );
@@ -483,6 +492,12 @@ class Gallery extends ResultPrinter {
 			'type' => 'string',
 			'default' => '',
 			'message' => 'srf_paramdesc_captionproperty'
+		];
+
+		$params['captiontemplate'] = [
+			'type' => 'string',
+			'default' => '',
+			'message' => 'srf-paramdesc-captiontemplate'
 		];
 
 		$params['imageproperty'] = [
