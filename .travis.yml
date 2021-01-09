@@ -21,6 +21,10 @@ jobs:
     - env: DB=mysql; MW=REL1_33; SMW=~3.0@dev; MERMAID=2.2.0
       php: 7.3
 
+before_install:
+  # MW is not yet compatible with Composer 2.x, see https://phabricator.wikimedia.org/T266417
+  - composer self-update --1
+
 install:
   - bash ./build/travis/install-mediawiki.sh
   - bash ./build/travis/install-semantic-result-formats.sh
