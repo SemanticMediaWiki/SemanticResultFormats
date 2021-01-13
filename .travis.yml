@@ -24,7 +24,8 @@ jobs:
       php: 7.2
     # 3) mysql, current MW LTS stable, current SMW stable, COVERAGE
     # temp run against cherry-pick SMW until SMW 3.2.3 is available
-    - env: DB=mysql; MW=REL1_35; SMW='dev-master#28a03f0 as 3.2.2'; TYPE=coverage
+    # temp stay with MW 1.34 until all SMW test are passing for 1.35
+    - env: DB=mysql; MW=REL1_34; SMW='dev-master#229e166 as 3.2.2'; TYPE=coverage
       php: 7.3
 
 before_install:
