@@ -84,13 +84,10 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	 * @return MockObject|SMWQueryResult
 	 */
 	private function newQueryResultDummy() {
-		return $this->getMockBuilder( SMWQueryResult::class )
-			->disableOriginalConstructor()
-			->getMock();
+		return $this->createMock( SMWQueryResult::class );
 	}
 
 	public function testGetMimeType() {
-
 		$instance = new BibTexFileExportPrinter(
 			'bibtex'
 		);

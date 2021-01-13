@@ -73,9 +73,7 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetResult_LinkOnNonFileOutput() {
 
-		$link = $this->getMockBuilder( '\SMWInfolink' )
-			->disableOriginalConstructor()
-			->getMock();
+		$link = $this->createMock( \SMWInfolink::class );
 
 		$link->expects( $this->any() )
 			->method( 'getText' )
