@@ -258,6 +258,7 @@
 	"srf-paramdesc-filtered-filter-position": "{{doc-paramdesc|filter position}}\n{{doc-important|Do not translate the parameter values \"top\" and \"bottom\".}}",
 	"srf-paramdesc-filtered-list-type": "{{doc-paramdesc|list view type}}\n{{doc-important|Do not translate the parameter values \"list\", \"ul\" and \"ol\"}}",
 	"srf-paramdesc-filtered-list-template": "{{doc-paramdesc|list view template}}",
+	"srf-paramdesc-filtered-list-userparam": "{{doc-paramdesc|list view userparam}}",
 	"srf-paramdesc-filtered-list-named-args": "{{doc-paramdesc|list view named args}}\n\nSee this page for [https://www.semantic-mediawiki.org/wiki/Help:Template_format#Usage_for_named_args detailed information on named argruments].",
 	"srf-paramdesc-filtered-list-introtemplate": "{{doc-paramdesc|list view introtemplate}}\n\nSimilar to {{msg-mw|srf-paramdesc-filtered-list-outrotemplate}}.",
 	"srf-paramdesc-filtered-list-outrotemplate": "{{doc-paramdesc|list view outrotemplate}}\n\nSimilar to {{msg-mw|srf-paramdesc-filtered-list-introtemplate}}.",

@@ -40,6 +40,7 @@ class ListView extends View {
 		$this->mIntroTemplate = $params['list view introtemplate'];
 		$this->mOutroTemplate = $params['list view outrotemplate'];
 		$this->mNamedArgs = $params['list view named args'];
+		$this->mUserParam = $params['list view userparam'];
 
 		$this->mShowHeaders = $params['headers'];
 	}
@@ -124,8 +125,8 @@ class ListView extends View {
 		if ( $this->mTemplate !== '' ) { // build template code
 			$this->getQueryPrinter()->hasTemplates( true );
 
-			// $wikitext = ( $this->mUserParam ) ? "|userparam=$this->mUserParam" : '';
-			$wikitext = '';
+			$wikitext = ( $this->mUserParam ) ? "|#userparam=$this->mUserParam" : '';
+			//$wikitext = '';
 
 			foreach ( $row as $fieldNumber => $field ) {
 
@@ -253,6 +254,14 @@ class ListView extends View {
 			//'type' => 'string',
 			'name' => 'list view outrotemplate',
 			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
+			'default' => '',
+			// 'islist' => false,
+		];
+
+		$params[] = [
+			//'type' => 'string',
+			'name' => 'list view userparam',
+			'message' => 'srf-paramdesc-filtered-list-userparam',
 			'default' => '',
 			// 'islist' => false,
 		];

@@ -242,6 +242,7 @@
 	"srf-paramdesc-filtered-filter-position": "The position of the filters in relation to the views. Allowed values: \"top\", \"bottom\". Default: \"top\".",
 	"srf-paramdesc-filtered-list-type": "The type of the list. Allowed values: \"list\", \"ul\", \"ol\". Default: \"list\".",
 	"srf-paramdesc-filtered-list-template": "The template that is to be used to format the list entries.",
+	"srf-paramdesc-filtered-list-userparam": "The userparam that is passed to the template.",
 	"srf-paramdesc-filtered-list-named-args": "Name the arguments passed to the template.",
 	"srf-paramdesc-filtered-list-introtemplate": "The name of a template to display before the query results, if there are any.",
 	"srf-paramdesc-filtered-list-outrotemplate": "The name of a template to display after the query results, if there are any.",
