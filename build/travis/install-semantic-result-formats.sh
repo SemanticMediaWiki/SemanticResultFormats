@@ -14,7 +14,7 @@ function installPHPUnitWithComposer {
 function installSMWWithComposer {
 	if [ "$SMW" != "" ]
 	then
-		composer require 'mediawiki/semantic-media-wiki='$SMW --update-with-dependencies
+		composer require "mediawiki/semantic-media-wiki=$SMW" --update-with-dependencies
 	fi
 }
 
