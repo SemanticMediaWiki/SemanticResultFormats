@@ -19,7 +19,7 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	private $queryResult;
 	private $resultPrinterReflector;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->resultPrinterReflector = new ResultPrinterReflector();

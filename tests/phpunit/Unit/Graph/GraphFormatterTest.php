@@ -26,7 +26,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	private $nodes = [];
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$params = [
