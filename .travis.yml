@@ -3,6 +3,12 @@ language: php
 os:
   - linux
 
+env:
+  global:
+    # fix "Xdebug 3 is installed by default, breaking builds"
+    # see https://travis-ci.community/t/xdebug-3-is-installed-by-default-breaking-builds/10748
+    - XDEBUG_MODE=coverage
+
 services:
   - mysql
   - postgresql
