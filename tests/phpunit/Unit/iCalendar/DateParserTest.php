@@ -15,19 +15,9 @@ use SRF\iCalendar\DateParser;
  */
 class DateParserTest extends \PHPUnit_Framework_TestCase {
 
-	public function testCanConstruct() {
-
-		$this->assertInstanceOf(
-			DateParser::class,
-			new DateParser()
-		);
-	}
-
 	public function testParseDate_Year() {
 
-		$timeValue = $this->getMockBuilder( '\SMWTimeValue' )
-			->disableOriginalConstructor()
-			->getMock();
+		$timeValue = $this->createMock( \SMWTimeValue::class );
 
 		$timeValue->expects( $this->any() )
 			->method( 'getYear' )
@@ -43,9 +33,7 @@ class DateParserTest extends \PHPUnit_Framework_TestCase {
 
 	public function testParseDate_Year_Month_Day_Time() {
 
-		$timeValue = $this->getMockBuilder( '\SMWTimeValue' )
-			->disableOriginalConstructor()
-			->getMock();
+		$timeValue = $this->createMock( \SMWTimeValue::class );
 
 		$timeValue->expects( $this->any() )
 			->method( 'getYear' )

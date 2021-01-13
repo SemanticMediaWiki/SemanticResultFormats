@@ -19,8 +19,14 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	private $queryResult;
 	private $resultPrinterReflector;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
+
+		if ( version_compare( phpversion(), '7.4', '>=' ) ) {
+			// ResultPrinterReflector creates notices on PHP 7.4+
+			$this->markTestSkipped();
+			return;
+		}
 
 		$this->resultPrinterReflector = new ResultPrinterReflector();
 
@@ -73,9 +79,7 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetResult_LinkOnNonFileOutput() {
 
-		$link = $this->getMockBuilder( '\SMWInfolink' )
-			->disableOriginalConstructor()
-			->getMock();
+		$link = $this->createMock( \SMWInfolink::class );
 
 		$link->expects( $this->any() )
 			->method( 'getText' )
