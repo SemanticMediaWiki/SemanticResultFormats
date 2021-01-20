@@ -8,7 +8,7 @@
 		},
 		{
 			"namespace": "NS_FILE",
-			"page": "Gallery01.png",
+			"page": "Gallery02.png",
 			"contents": {
 				"upload": {
 					"file" : "/../Fixtures/image-upload-480.png",
@@ -34,8 +34,8 @@
 			"assert-output": {
 				"to-contain": [
 					"<div class=\"srf-gallery\" data-redirect-type=\"_wpg\">",
-					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery01.png\" class=\"image\">",
-					"<div class=\"imageraw\">File:Gallery01.png</div>"
+					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery02.png\" class=\"image\">",
+					"<div class=\"imageraw\">File:Gallery02.png</div>"
 				]
 			}
 		}
