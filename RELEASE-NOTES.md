@@ -1,5 +1,11 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 3.3.0
+
+not yet released
+
+* [Filtered] added "list view userparam" (by [gesinn.it](https://gesinn.it))
+
 ## SRF 3.2.0
 
 Released on August 27, 2020.
