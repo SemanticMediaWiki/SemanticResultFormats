@@ -1,0 +1,104 @@
+{
+	"description": "Filtered format: List view tests",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered test/City name",
+			"contents": "[[Has type::Text]]"
+		},
+
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "City",
+			"contents": "[[Category:Filtered test]][[Category:City]][[Filtered test/City name::{{{Name|}}}]]"
+		},
+
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "RT City",
+			"contents": "Name: {{{1|}}}"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "RT City Intro",
+			"contents": "INTRO"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "RT City Outro",
+			"contents": "OUTRO"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "RT City Userparam",
+			"contents": "{{{#userparam}}}"
+		},
+
+		{
+			"page": "Filtered test/Berlin",
+			"contents": "{{City|Name=Berlin}}"
+		},
+		{
+			"page": "Example/Filtered 03-01",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |format=filtered |views=list |list view template=RT City |link=none}}"
+		},
+		{
+			"page": "Example/Filtered 03-02",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |format=filtered |views=list |list view userparam=USERPARAM |list view template=RT City Userparam |link=none}}"
+		},
+		{
+			"page": "Example/Filtered 03-03",
+			"contents": "{{#ask:[[Category:Filtered test]] |?Filtered test/City name |format=filtered |views=list |list view template=RT City |list view introtemplate=RT City Intro |list view outrotemplate=RT City Outro |link=none}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "Filtered 03-01 (List view: template)",
+			"subject": "Example/Filtered 03-01",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"Name: Filtered test/Berlin"
+				]
+			}
+		},
+		
+		{
+			"type": "parser",
+			"about": "Filtered 03-02 (List view: template with userparam)",
+			"subject": "Example/Filtered 03-02",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"USERPARAM"
+				]
+			}
+		},
+		
+		{
+			"type": "parser",
+			"about": "Filtered 03-03 (List view: template with intro/outro template)",
+			"subject": "Example/Filtered 03-03",
+			"assert-output": {
+				"to-be-valid-html": 1,
+				"to-contain": [
+					"INTRO", "Name: Filtered test/Berlin", "OUTRO"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
