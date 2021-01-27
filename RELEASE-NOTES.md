@@ -5,6 +5,7 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 not yet released
 
 * [Filtered] added "list view userparam" (by [gesinn.it](https://gesinn.it))
+* [Gallery] added "captiontemplate" parameter to allow wrapping of image captions with a template
 
 ## SRF 3.2.0
 
