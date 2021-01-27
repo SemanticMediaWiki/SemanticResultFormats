@@ -155,6 +155,7 @@
 	"srf_paramdesc_autocaptions": "{{doc-paramdesc|autocaptions}}",
 	"srf_paramdesc_fileextensions": "{{doc-paramdesc|fileextensions}}",
 	"srf_paramdesc_captionproperty": "{{doc-paramdesc|captionproperty}}",
+	"srf-paramdesc-captiontemplate": "{{doc-paramdesc|captiontemplate}}",
 	"srf_paramdesc_imageproperty": "{{doc-paramdesc|imageproperty}}",
 	"srf-paramdesc-redirects": "{{doc-paramdesc|redirects}}",
 	"srf-paramdesc-navigation": "{{doc-paramdesc|navigation}}",

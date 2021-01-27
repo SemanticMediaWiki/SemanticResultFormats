@@ -1,0 +1,66 @@
+{
+	"description": "Test `format=gallery` with file upload and captiontemplate",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has text",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery02.png",
+			"contents": {
+				"upload": {
+					"file" : "/../Fixtures/image-upload-480.png",
+					"text" : "[[Has file::{{FULLPAGENAME}}]] [[Has caption::123]]"
+				}
+			}
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "CTemplate",
+			"contents": "<div class=\"imageraw\">{{{imageraw|}}}</div>"
+		},
+		{
+			"page": "Example/Gallery-02/Q.2",
+			"contents": "{{#ask: [[Has caption::123]] |?Has file |format=gallery |captiontemplate=CTemplate |captionproperty=Has file |limit=1 }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 (imageraw)",
+			"subject": "Example/Gallery-02/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-gallery\" data-redirect-type=\"_wpg\">",
+					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery02.png\" class=\"image\">",
+					"<div class=\"imageraw\">File:Gallery02.png</div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"wgEnableUploads": true,
+		"wgFileExtensions": [
+			"png"
+		],
+		"wgDefaultUserOptions": {
+			"thumbsize": 5
+		},
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		],
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_FILE": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
