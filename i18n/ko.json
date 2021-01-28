@@ -177,6 +177,7 @@
 	"srf-paramdesc-effect": "슬라이드 전환에 사용할 효과",
 	"srf-printername-filtered": "필터됨",
 	"srf-paramdesc-filtered-list-type": "목록의 유형입니다. 허용되는 값: \"list\", \"ul\", \"ol\". 기본값: \"list\".",
+	"srf-paramdesc-filtered-list-userparam": "틀에 넘겨줄 userparam입니다.",
 	"srf-paramdesc-filtered-map-height": "지도의 높이입니다.",
 	"srf-paramdesc-filtered-map-min-zoom": "최소로 선택 가능한 지도의 확대/축소 수준",
 	"srf-paramdesc-filtered-map-max-zoom": "지도의 선택 가능한 최대 확대/축소 수준",
