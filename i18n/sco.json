@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"John Reid"
+			"John Reid",
+			"Nemo bis"
 		]
 	},
 	"srf-desc": "Addeetional ootcome formats fer Semantic MediaWiki speirins",
@@ -61,7 +62,5 @@
 	"srf-ui-eventcalendar-label-update-success": "The event calendair update wis successfu.",
 	"srf-ui-eventcalendar-label-update-error": "The event calendair update failed.",
 	"srf-paramdesc-datasource": "The soorce fae whaur the data is accessible. The permitit values ar: \"file\", \"raw\" n \"url\". The default is: \"file\"",
-	"srf-paramdesc-errorbar": "The mistak baur tae be uised. The permitit values ar: \"fraction\" (confidance intervals fer values), \"sigma\" (staundairt deviation o values) n \"range\" (custom value ranges)",
-	"srf-excel-link": "Excel",
-	"srf-excel-missing-phpexcel": "Coudna export fer MS-Excel cause the extension [https://www.mediawiki.org/wiki/Extension:PHPExcel PHPExcel] isna instawed."
+	"srf-paramdesc-errorbar": "The mistak baur tae be uised. The permitit values ar: \"fraction\" (confidance intervals fer values), \"sigma\" (staundairt deviation o values) n \"range\" (custom value ranges)"
 }

@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"ElangoRamanujam",
 			"Karthi.dr",
-			"Shanmugamp7",
-			"ElangoRamanujam"
+			"Shanmugamp7"
 		]
 	},
 	"srf-module-loading": "ஏற்றப்படுகிறது...",
@@ -54,7 +54,7 @@
 	"srf_paramdesc_heights": "படங்களின் உயரம்",
 	"srf-gallery-navigation-previous": "முந்தைய",
 	"srf-gallery-navigation-next": "அடுத்தது",
-	"srf_paramdesc_graphname": "தலைப்பு",
+	"srf-paramdesc-graphname": "தலைப்பு",
 	"srf-ui-datatables-label-conditions": "கட்டுப்பாடுகள்",
 	"srf-ui-datatables-label-information": "தகவல்",
 	"srf-ui-datatables-label-placeholder-column-search": "தேடுக...",

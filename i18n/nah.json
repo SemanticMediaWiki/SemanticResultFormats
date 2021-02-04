@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Akapochtli",
 			"Fluence",
 			"Taresi"
 		]
@@ -9,5 +10,7 @@
 	"srfc_nextmonth": "Niman mētztli",
 	"srfc_today": "Āxcān",
 	"srfc_gotomonth": "Yāuh mētzhuīc",
+	"srf-ui-datatables-label-placeholder-column-search": "Tlatemoliztli...",
+	"srf-ui-datatables-label-sSearch": "Tlatemoliztli:",
 	"srf-filtered-selectorlabel-table": "Tlapechtli"
 }

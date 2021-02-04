@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Meursault2004"
+			"Meursault2004",
+			"NoiX180"
 		]
 	},
-	"srfc_previousmonth": "Sasi sadurungé",
-	"srfc_nextmonth": "Sasi sabanjuré",
+	"srfc_previousmonth": "Wulan sadurungé",
+	"srfc_nextmonth": "Wulan sabanjuré",
 	"srfc_today": "Dina iki",
-	"srfc_gotomonth": "Tumuju menyang sasi",
-	"srf_icalendar_link": "iKalèndher"
+	"srfc_gotomonth": "Menyang wulan",
+	"srf_icalendar_link": "iKalèndher",
+	"srf_paramdesc_timelinesize": "Dhuwuring garis kala"
 }

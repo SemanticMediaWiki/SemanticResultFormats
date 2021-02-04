@@ -1,11 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ibrahim"
+			"Ibrahim",
+			"ToJack"
 		]
 	},
 	"srfc_previousmonth": "Моҳи қаблӣ",
 	"srfc_nextmonth": "Моҳи баъдӣ",
 	"srfc_today": "Имрӯз",
-	"srfc_gotomonth": "Рафтан ба моҳ"
+	"srfc_gotomonth": "Рафтан ба моҳ",
+	"srf-ui-datatables-label-placeholder-column-search": "Ҷустуҷӯ...",
+	"srf-ui-datatables-label-sSearch": "Ҷустуҷӯ:"
 }

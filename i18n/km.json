@@ -8,5 +8,7 @@
 	"srfc_previousmonth": "ខែមុន",
 	"srfc_nextmonth": "ខែបន្ទាប់",
 	"srfc_today": "ថ្ងៃនេះ",
-	"srfc_gotomonth": "ទៅកាន់ខែ"
+	"srfc_gotomonth": "ទៅកាន់ខែ",
+	"srf_printername_calendar": "ប្រតិទិនប្រចាំខែ",
+	"srf-filtered-selectorlabel-map": "ផែនទី"
 }

@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Joris Darlington Quarshie",
 			"SPQRobin"
 		]
 	},
 	"srfc_gotomonth": "Gaan na maand",
-	"srf_icalendar_link": "iKalender"
+	"srf_icalendar_link": "iKalender",
+	"srf-paramdesc-hidezeroes": "Verberg nulwaardes op die kaart"
 }

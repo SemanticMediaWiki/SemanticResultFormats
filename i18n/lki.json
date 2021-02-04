@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hosseinblue"
+			"Hosseinblue",
+			"Lakzon"
 		]
 	},
-	"srf-ui-common-label-source": "بِنچۀک/مۀنبۀع",
+	"srf-ui-common-label-source": "بنچەک(منبع)",
 	"srf-ui-eventcalendar-label-month": "مانگ"
 }

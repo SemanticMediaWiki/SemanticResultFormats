@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kwisha"
+			"Kwisha",
+			"Yasen igra"
 		]
 	},
+	"srf-paramdesc-height": "Urefu",
+	"srf-paramdesc-width": "Upana",
 	"srf-ui-tooltip-title-legend": "Simulizi"
 }

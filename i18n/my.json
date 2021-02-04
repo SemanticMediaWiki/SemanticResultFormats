@@ -1,8 +1,41 @@
 {
 	"@metadata": {
 		"authors": [
+			"Dr Lotus Black",
 			"Ninjastrikers"
 		]
 	},
-	"srfc_today": "ယနေ့"
+	"srf-module-loading": "ဝန်ဆွဲတင်နေသည်...",
+	"srf-paramdesc-height": "အမြင့်",
+	"srf-paramdesc-width": "အကျယ်",
+	"srf-navigation-previous": "ယခင်",
+	"srf-ui-navigation-prev": "ယခုမတိုင်မီ",
+	"srf-ui-navigation-next": "ရှေ့သို့",
+	"srf-ui-common-label-source": "ရင်းမြစ်",
+	"srf-ui-common-label-datasource": "ဒေတာ ရင်းမြစ်",
+	"srf-ui-tooltip-title-options": "ရွေးချယ်စရာများ",
+	"srf-ui-tooltip-title-legend": "အညွှန်း",
+	"srf-ui-tooltip-title-filter": "စိစစ်မှု",
+	"srf-ui-common-label-refresh": "ပြန်လည်ဆန်းသစ်ရန်",
+	"srfc_previousmonth": "ယခင်လ",
+	"srfc_nextmonth": "နောက်လ",
+	"srfc_today": "ယနေ့",
+	"srf_printername_calendar": "လစဉ် ပြက္ခဒိန်",
+	"srf-ui-gridview-label-data-tab": "ဒေတာ",
+	"srf-ui-gridview-label-info-tab": "အချက်အလက်",
+	"srf_printername_gallery": "ပြခန်း",
+	"srf-gallery-navigation-previous": "ယခင်",
+	"srf-gallery-navigation-next": "ရှေ့သို့",
+	"srf-ui-datatables-label-conditions": "အခြေနေများ",
+	"srf-ui-datatables-label-parameters": "ပါရာမီတာများ",
+	"srf-ui-datatables-label-information": "သတင်းအချက်အလက်",
+	"srf-ui-datatables-label-placeholder-column-search": "ရှာဖွေရန်...",
+	"srf-ui-datatables-label-sLoadingRecords": "ဝန်ဆွဲတင်နေသည်...",
+	"srf-ui-datatables-label-sProcessing": "လုပ်ဆောင်နေသည်...",
+	"srf-ui-datatables-label-sSearch": "ရှာဖွေရန်:",
+	"srf-ui-datatables-label-sZeroRecords": "ကိုက်ညီသော မှတ်တမ်းများ မတွေ့ပါ",
+	"srf-ui-datatables-label-oPaginate-sFirst": "ပထမဆုံး",
+	"srf-ui-datatables-label-oPaginate-sLast": "နောက်ဆုံး",
+	"srf-ui-datatables-label-oPaginate-sNext": "ရှေ့သို့",
+	"srf-ui-datatables-label-oPaginate-sPrevious": "ယခင်"
 }

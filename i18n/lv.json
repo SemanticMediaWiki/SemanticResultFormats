@@ -2,7 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"GreenZeb",
-			"Papuass"
+			"Papuass",
+			"Peridot Nation",
+			"Silraks"
 		]
 	},
 	"srf-module-loading": "Ielādē…",
@@ -11,6 +13,7 @@
 	"srf-ui-common-label-source": "Avots",
 	"srf-ui-common-label-datasource": "Datu avots",
 	"srf-ui-common-label-help-section": "palīdzības sadaļa",
+	"srf-ui-tooltip-title-legend": "Apzīmējumi",
 	"srfc_previousmonth": "Iepriekšējais mēnesis",
 	"srfc_nextmonth": "Nākamais mēnesis",
 	"srfc_today": "Šodiena",
@@ -19,8 +22,12 @@
 	"srf_printername_icalendar": "iCalendar eksports",
 	"srf_printername_bibtex": "BibTeX eksports",
 	"srf_printername_gallery": "Galerija",
+	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Filtru iestatījumi",
+	"srf-paramdesc-filtered-map-height": "Kartes augstums.",
 	"srf-filtered-selectorlabel-list": "Saraksts",
 	"srf-filtered-selectorlabel-calendar": "Kalendārs",
+	"srf-filtered-value-filter-and": "UN",
+	"srf-filtered-value-filter-or": "VAI",
 	"srf-printername-d3chart": "D3 diagramma",
 	"srf-ui-eventcalendar-label-today": "Šodiena",
 	"srf-ui-eventcalendar-label-month": "Mēnesis",
@@ -30,5 +37,7 @@
 	"srf-printername-dygraphs": "Dygraphs diagramma",
 	"srf-paramdesc-datasource": "Avots, no kurienes dati ir pieejami. Atļautās vērtības: fails, izejas dati un URL. Noklusētais: fails",
 	"srf-paramdesc-unit": "Vienība",
-	"srf-ui-mediaplayer-label-repeat": "Atkārtot"
+	"srf-ui-mediaplayer-label-repeat": "Atkārtot",
+	"srf-spreadsheet-link": "Izklājlapa",
+	"srf-paramdesc-gantt-leftpadding": "Sadaļas nosaukuma platums"
 }

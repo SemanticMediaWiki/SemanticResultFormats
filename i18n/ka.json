@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"David1010"
+			"David1010",
+			"Nemo bis"
 		]
 	},
 	"srf-module-loading": "იტვირთება…",
 	"srf-paramdesc-height": "სიმაღლე",
 	"srf-paramdesc-width": "სიგანე",
+	"srf-ui-navigation-next": "შემდეგი",
 	"srfc_previousmonth": "წინა თვე",
 	"srfc_nextmonth": "შემდეგი თვე",
 	"srfc_today": "დღეს",
@@ -20,10 +22,12 @@
 	"srf-gallery-navigation-previous": "წინა",
 	"srf-gallery-navigation-next": "შემდეგი",
 	"srf-printername-graph": "გრაფიკი",
-	"srf_paramdesc_graphname": "სათაური",
-	"srf_paramdesc_graphsize": "გრაფიკის ზომა (პიქსელებში)",
-	"srf_paramdesc_graphlink": "გრაფიკის ბმული",
-	"srf_paramdesc_graphcolor": "გრაფიკის ფერი",
+	"srf-paramdesc-graphname": "სათაური",
+	"srf-paramdesc-graphsize": "გრაფიკის ზომა (პიქსელებში)",
+	"srf-paramdesc-graphlink": "გრაფიკის ბმული",
+	"srf-paramdesc-graphcolor": "გრაფიკის ფერი",
+	"srf-ui-datatables-label-oPaginate-sNext": "შემდეგი",
 	"srf-printername-tree": "ხე",
-	"srf-printername-slideshow": "სლაიდშოუ"
+	"srf-printername-slideshow": "სლაიდშოუ",
+	"srf-ui-mediaplayer-label-next": "შემდეგი"
 }

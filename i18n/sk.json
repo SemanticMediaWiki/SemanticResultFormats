@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Helix84"
+			"Helix84",
+			"Luky001"
 		]
 	},
-	"srf-desc": "Ďalšie formáty inline požiadaviek Semantic MediaWiki",
-	"srf-name": "Formáty sémantických výsledkov",
+	"srf-desc": "Ďalšie formáty výsledkov pre dopyty Sémantickej MediaWiki",
 	"srfc_previousmonth": "Predošlý mesiac",
 	"srfc_nextmonth": "Ďalší mesiac",
 	"srfc_today": "Dnes",

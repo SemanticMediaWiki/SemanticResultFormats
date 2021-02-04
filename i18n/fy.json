@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robin0van0der0vliet",
-			"Robin van der Vliet"
+			"PiefPafPier",
+			"Robin van der Vliet",
+			"Robin0van0der0vliet"
 		]
 	},
 	"srf-ui-navigation-prev": "Foarige",
@@ -10,11 +11,23 @@
 	"srf-ui-tooltip-title-options": "Opsjes",
 	"srf-ui-tooltip-title-legend": "Leginda",
 	"srfc_today": "Hjoed",
+	"srf-printername-graph": "Grafyk",
 	"srf-ui-datatables-label-placeholder-column-search": "Sykje...",
 	"srf-ui-datatables-label-sSearch": "Sykje:",
 	"srf-ui-datatables-label-oPaginate-sNext": "Folgjende",
 	"srf-ui-eventcalendar-label-today": "Hjoed",
 	"srf-ui-mediaplayer-label-previous": "Foarige",
+	"srf-ui-mediaplayer-label-play": "Ofspylje",
+	"srf-ui-mediaplayer-label-pause": "Underbrekke",
 	"srf-ui-mediaplayer-label-next": "Folgjende",
-	"srf-ui-mediaplayer-label-full-screen": "Folsleinskerm"
+	"srf-ui-mediaplayer-label-stop": "Stopje",
+	"srf-ui-mediaplayer-label-mute": "Lûd út",
+	"srf-ui-mediaplayer-label-unmute": "Lûd oan",
+	"srf-ui-mediaplayer-label-volume-max": "Maks. folume",
+	"srf-ui-mediaplayer-label-shuffle": "Trochinoar",
+	"srf-ui-mediaplayer-label-shuffle-off": "Trochinoar út",
+	"srf-ui-mediaplayer-label-repeat": "Werhelje",
+	"srf-ui-mediaplayer-label-repeat-off": "Werheljen út",
+	"srf-ui-mediaplayer-label-full-screen": "Folslein skerm",
+	"srf-ui-mediaplayer-label-restore-screen": "Skerm werombringe"
 }

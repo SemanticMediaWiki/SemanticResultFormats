@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"Amjad Khan"
 		]
 	},
 	"srf-module-loading": "رابرسېرېږي...",
@@ -14,9 +15,11 @@
 	"srf_printername_gallery": "انځورتون",
 	"srf-gallery-navigation-previous": "پخوانی",
 	"srf-gallery-navigation-next": "راتلونکی",
+	"srf-printername-graph": "گراف",
 	"srf-ui-datatables-label-placeholder-column-search": "پلټل...",
 	"srf-ui-datatables-label-sSearch": "پلټل:",
 	"srf-filtered-selectorlabel-list": "لړليک",
+	"srf-filtered-firstdayofweek": "١",
 	"srf-ui-eventcalendar-label-today": "نن",
 	"srf-ui-eventcalendar-label-month": "مياشت",
 	"srf-ui-eventcalendar-label-week": "اونۍ",

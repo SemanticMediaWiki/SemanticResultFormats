@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"ChrisPtDe"
+			"ChrisPtDe",
+			"Nemo bis"
 		]
 	},
-	"srf-name": "Formatâjo des rèsultats sèmanticos",
 	"srf-module-loading": "Chargement...",
 	"srf-paramdesc-height": "Hôtior (en pixèls)",
 	"srf-paramdesc-width": "Largior",
@@ -52,13 +52,13 @@
 	"srf_printername_array": "Tablô",
 	"srf_printername_hash": "Chaplâjo",
 	"srf-printername-graph": "Diagramo",
-	"srf_paramdesc_graphname": "Titro",
-	"srf_paramdesc_graphsize": "Talye du diagramo (en px)",
-	"srf_paramdesc_graphlegend": "Fâre vêre la lègenda du diagramo ou ben pas",
-	"srf_paramdesc_graphlabel": "Lambél du diagramo",
-	"srf_paramdesc_rankdir": "Dirèccion de la flèche",
-	"srf_paramdesc_graphlink": "Lim de vers lo diagramo",
-	"srf_paramdesc_graphcolor": "Color du diagramo",
+	"srf-paramdesc-graphname": "Titro",
+	"srf-paramdesc-graphsize": "Talye du diagramo (en px)",
+	"srf-paramdesc-graphlegend": "Fâre vêre la lègenda du diagramo ou ben pas",
+	"srf-paramdesc-graphlabel": "Lambél du diagramo",
+	"srf-paramdesc-rankdir": "Dirèccion de la flèche",
+	"srf-paramdesc-graphlink": "Lim de vers lo diagramo",
+	"srf-paramdesc-graphcolor": "Color du diagramo",
 	"srf-paramdesc-graph-wwl": "Limita de retôrn ôtomatico (en nombro de caractèros)",
 	"srf-printername-datatables": "Grelyes de donâs",
 	"srf-printername-tree": "Âbro",

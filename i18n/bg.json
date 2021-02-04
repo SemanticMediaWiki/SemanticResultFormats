@@ -2,23 +2,41 @@
 	"@metadata": {
 		"authors": [
 			"DCLXVI",
+			"StanProg",
+			"Vodnokon4e",
+			"Лорд Бъмбъри",
 			"පසිඳු කාවින්ද"
 		]
 	},
+	"srf-module-loading": "Зареждане...",
+	"srf-paramdesc-height": "Височина",
+	"srf-paramdesc-width": "Ширина",
 	"srf-navigation-previous": "Предишна",
+	"srf-ui-navigation-prev": "Предишна",
 	"srf-ui-navigation-next": "Следваща",
 	"srf-ui-common-label-source": "Източник",
+	"srf-ui-tooltip-title-legend": "Легенда",
+	"srf-ui-tooltip-title-filter": "Филтър",
+	"srf-ui-common-label-refresh": "Опресняване",
+	"srf-ui-common-label-parameters": "Параметри",
+	"srf-ui-common-label-query": "Заявка",
 	"srfc_previousmonth": "Предходен месец",
 	"srfc_nextmonth": "Следващ месец",
 	"srfc_today": "Днес",
 	"srf-ui-gridview-label-data-tab": "Данни",
 	"srf-gallery-navigation-next": "Следваща",
-	"srf_paramdesc_graphname": "Заглавие",
+	"srf-printername-graph": "Графика",
+	"srf-paramdesc-graphname": "Установява заглавието на графиката",
+	"srf-ui-datatables-label-information": "Информация",
+	"srf-ui-datatables-label-placeholder-column-search": "Търсене...",
+	"srf-ui-datatables-label-sSearch": "Търсене:",
+	"srf-ui-datatables-label-oPaginate-sNext": "Следваща",
 	"srf-filtered-selectorlabel-list": "Списък",
 	"srf-filtered-selectorlabel-calendar": "Календар",
 	"srf-ui-eventcalendar-label-today": "Днес",
 	"srf-ui-eventcalendar-label-month": "Месец",
 	"srf-ui-eventcalendar-label-week": "Седмица",
 	"srf-ui-eventcalendar-label-day": "Ден",
-	"srf-paramdesc-unit": "Единица"
+	"srf-paramdesc-unit": "Единица",
+	"srf-ui-mediaplayer-label-next": "Следваща"
 }

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Avjoska",
+			"Nemo bis",
 			"Pikne"
 		]
 	},
@@ -29,7 +30,7 @@
 	"srf_printername_gallery": "Galerii",
 	"srf-gallery-navigation-previous": "Eelmine",
 	"srf-gallery-navigation-next": "Järgmine",
-	"srf_paramdesc_graphname": "Pealkiri",
+	"srf-paramdesc-graphname": "Määrab graafi pealkirja",
 	"srf-printername-tree": "Puu",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-printername-eventcalendar": "Sündmuste kalender",

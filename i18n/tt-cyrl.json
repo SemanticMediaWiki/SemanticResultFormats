@@ -1,8 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ilnur efende"
+			"Ilnur efende",
+			"Ерней",
+			"Ильнар"
 		]
 	},
-	"srfc_today": "Бүген"
+	"srf-ui-tooltip-title-legend": "Аңлатма",
+	"srf-ui-tooltip-title-filter": "Сөзгеч",
+	"srf-ui-common-label-refresh": "Яңарту",
+	"srfc_today": "Бүген",
+	"srf-filtered-selectorlabel-map": "Харита"
 }

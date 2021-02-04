@@ -7,7 +7,6 @@
 		]
 	},
 	"srf-desc": "Các định dạng bổ sung cho các câu truy vấn trong dòng lệnh của MediaWiki Ngữ nghĩa",
-	"srf-name": "Định dạng Kết quả Ngữ nghĩa",
 	"srf-module-loading": "Đang tải…",
 	"srfc_previousmonth": "Tháng trước",
 	"srfc_nextmonth": "Tháng sau",
@@ -27,5 +26,5 @@
 	"srf_printername_eventline": "Sự kiện biểu",
 	"srf-gallery-navigation-previous": "Trước",
 	"srf-gallery-navigation-next": "Tiếp theo",
-	"srf_paramdesc_graphname": "Tựa đề"
+	"srf-paramdesc-graphname": "Tựa đề"
 }

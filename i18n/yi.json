@@ -4,8 +4,19 @@
 			"פוילישער"
 		]
 	},
+	"srf-module-loading": "לאָדט…",
+	"srf-paramdesc-height": "הייך",
+	"srf-paramdesc-width": "ברייט",
+	"srf-ui-common-label-source": "מקור",
+	"srf-ui-common-label-datasource": "דאטן־קוואל",
+	"srf-ui-common-label-refresh": "דערפֿרישן",
+	"srf-ui-common-label-parameters": "פאַראַמעטערס",
+	"srf-ui-common-label-query": "פֿראגע",
 	"srfc_previousmonth": "פֿאריגער חודש",
 	"srfc_nextmonth": "נעקסטער חודש",
 	"srfc_today": "הײַנט",
-	"srf_paramdesc_graphname": "טיטל"
+	"srf-paramdesc-graphname": "שטעלט טיטל פֿונעם גראפֿיק",
+	"srf-paramdesc-unit": "איינהייט",
+	"srf-ui-mediaplayer-label-mute": "שטום",
+	"srf-ui-mediaplayer-label-unmute": "נישט שטום"
 }

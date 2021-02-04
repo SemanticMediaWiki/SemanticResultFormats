@@ -10,5 +10,7 @@
 	"srf_printername_googlebar": "Ngwa nkuzie Google",
 	"srf_printername_googlepie": "Orịrị nkuzie Google",
 	"srf_paramdesc_chartheight": "Ógólógó ihü nkuzie, na ogụgụ pixel",
-	"srf_paramdesc_chartwidth": "Íbụ ihü nkuzie, na ogụgụ pixel"
+	"srf_paramdesc_chartwidth": "Íbụ ihü nkuzie, na ogụgụ pixel",
+	"srf-ui-datatables-label-placeholder-column-search": "Tùwe...",
+	"srf-ui-datatables-label-sSearch": "Tùwe:"
 }

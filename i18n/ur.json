@@ -1,11 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"පසිඳු කාවින්ද",
-			"عثمان خان شاہ"
+			"Abdulq",
+			"BukhariSaeed",
+			"Obaid Raza",
+			"عثمان خان شاہ",
+			"පසිඳු කාවින්ද"
 		]
 	},
 	"srf-module-loading": "لوڈ ہو رہا ہے...",
+	"srf-ui-navigation-next": "اگلا",
 	"srfc_previousmonth": "پچھلے ماہ",
 	"srfc_nextmonth": "اگلے ماہ",
 	"srfc_today": "آج",
@@ -14,5 +18,8 @@
 	"srf_paramdesc_autocaptions": "ملف نام کو بطور کیپشن استعمال کریں جب کچھ نہیں دیا گیا ہو",
 	"srf-gallery-navigation-previous": "پچھلے",
 	"srf-gallery-navigation-next": "اگلے",
-	"srf_paramdesc_graphname": "عنوان"
+	"srf-paramdesc-graphname": "عنوان",
+	"srf-paramdesc-filtered-map-icon": "پرنٹ آؤٹ جو نقشے میں استعمال ہونے والے آئیکن کا فیصلہ کرتا ہے۔",
+	"srf-ui-eventcalendar-label-listmonth": "مہینہ (فہرست)",
+	"srf-ui-eventcalendar-label-listweek": "ہفتہ (فہرست)"
 }

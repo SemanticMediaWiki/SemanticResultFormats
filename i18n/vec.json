@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Candalua"
+			"Candalua",
+			"Fierodelveneto"
 		]
 	},
+	"srf-ui-tooltip-title-legend": "Lejenda",
 	"srfc_previousmonth": "Mese preçedente",
 	"srfc_nextmonth": "Mese sucessivo",
 	"srfc_today": "Ancuó",

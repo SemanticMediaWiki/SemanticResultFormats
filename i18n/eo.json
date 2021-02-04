@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Robin van der Vliet",
 			"Yekrats"
 		]
 	},
+	"srf-ui-navigation-next": "Sekva",
 	"srfc_previousmonth": "Antaŭa monato",
 	"srfc_nextmonth": "Posta monato",
 	"srfc_today": "Hodiaŭ",
@@ -17,5 +19,9 @@
 	"srf_printername_min": "Minimuma nombro",
 	"srf_printername_timeline": "Templinio",
 	"srf_printername_eventline": "Eventlinio",
-	"srf_printername_gallery": "Galerio"
+	"srf_printername_gallery": "Galerio",
+	"srf-ui-datatables-label-placeholder-column-search": "Serĉi...",
+	"srf-ui-datatables-label-sSearch": "Serĉi:",
+	"srf-ui-datatables-label-oPaginate-sNext": "Sekva",
+	"srf-ui-mediaplayer-label-next": "Sekva"
 }

@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"BadDog",
+			"Kizule",
+			"Milicevic01",
+			"Obsuser",
 			"Rancher",
 			"Михајло Анђелковић",
-			"Milicevic01",
 			"Сербијана"
 		]
 	},
@@ -21,6 +24,37 @@
 	"srf_printername_average": "Средња вредност бројева",
 	"srf_printername_max": "Највећи број",
 	"srf_printername_min": "Најмањи број",
+	"srf-paramdesc-hidezeroes": "Сакриј нулте вредности са графикона",
+	"srf-paramdesc-clicktarget": "Дефинишите циљну страницу или квери стринг као циљ када кликнете на датум календара.",
 	"srf_printername_gallery": "Галерија",
-	"srf-filtered-selectorlabel-table": "Табела"
+	"srf-paramdesc-graph-relation": "Одређивање да ли су субјекти или својства имена родитељи или деца",
+	"srf-paramdesc-graph-nodeshape": "Одређивање облика сваке ноде на графу",
+	"srf-paramdesc-graphname": "Одређивање наслова графа",
+	"srf-paramdesc-graphsize": "Одређивање величине графа у пикселима",
+	"srf-paramdesc-graphlegend": "Одређивање да ли ће се легенда графа приказати",
+	"srf-paramdesc-graphlabel": "Одређивање величине фонта у пикселима",
+	"srf-paramdesc-rankdir": "Одређивање смера стрелица",
+	"srf-paramdesc-graphlink": "Одређивање да ли ће ноде водити до својих вики страница",
+	"srf-paramdesc-graphcolor": "Одређивање боје графа",
+	"srf-paramdesc-graph-wwl": "Одређивање лимита преламања речи (у броју карактера)",
+	"srf-paramdesc-clustercolor": "Одређивање боје у кластер кутијама",
+	"srf-paramdesc-highlight": "Одређивање означавања нода",
+	"srf-paramdesc-highlightcolor": "Одређивање боје фонта за означену ноду",
+	"srf-paramdesc-redlinkcolor": "Одређивање боје фонта за црвене везе",
+	"srf-paramdesc-processcategory": "Одређивање вики категорије за праћење корака процеса",
+	"srf-paramdesc-showroles": "Одређивање одговарајућих улога на графу",
+	"srf-paramdesc-showstatus": "Одређивање да ли ће се статус корака процеса рендеровати",
+	"srf-paramdesc-showresources": "Приказ одговарајућих ресурса на графу",
+	"srf-paramdesc-showdiscussion": "Одређивање да ли ће се разговор рендеровати",
+	"srf-paramdesc-showredlinks": "Одређивање да ли ће се црвене везе проверавати и означавати",
+	"srf-paramdesc-showcompound": "Одређивање да ли ће се заједничке ноде од. потпроцеси означити",
+	"srf-paramdesc-debug": "Одређивање да ли ће се код графа процеса приказати између pre тагова",
+	"srf-paramdesc-graphvalidation": "Приказ корака процеса црвеном бојом који немају приписану улогу",
+	"srf-ui-datatables-label-placeholder-column-search": "Претражи...",
+	"srf-ui-datatables-label-sSearch": "Претражи:",
+	"srf-filtered-selectorlabel-table": "Табела",
+	"srf-filtered-selectorlabel-calendar": "Календар",
+	"srf-paramdesc-widget": "Доступан виџет",
+	"srf-ui-eventcalendar-click-popup": "Желите ли да направите догађај?",
+	"srf-spreadsheet-link": "Унакрсна табела"
 }
