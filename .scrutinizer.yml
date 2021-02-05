@@ -2,7 +2,7 @@ inherit: true
 
 tools:
     external_code_coverage:
-        timeout: 1800
+        timeout: 3600
     php_code_coverage: false
     php_code_sniffer: true
     php_cpd: true
