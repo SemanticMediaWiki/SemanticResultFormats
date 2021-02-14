@@ -102,6 +102,12 @@ $magicWords['nl'] = [
 	'calendarenddate' => [ 0, 'einddatumkalender' ],
 ];
 
+/** Polish (Polski) */
+$magicWords['en'] = [
+	'calendarstartdate' => [ 0, 'kalendarzdatapoczątkowa' ],
+	'calendarenddate' => [ 0, 'kalendarzdatakońcowa' ],
+];
+
 /** Quechua (Runa Simi) */
 $magicWords['qu'] = [
 	'calendarstartdate' => [ 0, 'watapiqallarinapunchaw', 'watapiqallariypunchaw' ],
