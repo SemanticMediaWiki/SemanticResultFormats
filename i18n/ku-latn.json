@@ -4,7 +4,8 @@
 			"Bikarhêner",
 			"Cûndûllah el-Kurdî",
 			"George Animal",
-			"Ghybu"
+			"Ghybu",
+			"Guherto"
 		]
 	},
 	"srf-module-loading": "Tê barkirin...",
@@ -15,7 +16,7 @@
 	"srfc_today": "Îro",
 	"srf-ui-gridview-label-info-tab": "Agahî",
 	"srf-gallery-image-url-error": "Wêne nehat dîtin.",
-	"srf-paramdesc-graphname": "Sernava grafîkê eyar dike",
+	"srf-paramdesc-graphname": "Sernavê grafîkê eyar dike",
 	"srf-ui-datatables-label-parameters": "Parametre",
 	"srf-ui-datatables-label-oPaginate-sNext": "Pêşve",
 	"srf-filtered-value-filter-and": "Û",
