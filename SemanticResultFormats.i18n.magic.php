@@ -103,7 +103,7 @@ $magicWords['nl'] = [
 ];
 
 /** Polish (Polski) */
-$magicWords['en'] = [
+$magicWords['pl'] = [
 	'calendarstartdate' => [ 0, 'kalendarzdatapoczątkowa' ],
 	'calendarenddate' => [ 0, 'kalendarzdatakońcowa' ],
 ];
