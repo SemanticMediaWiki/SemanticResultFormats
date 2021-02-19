@@ -31,9 +31,16 @@ jobs:
 before_install:
   # MW is not yet compatible with Composer 2.x, see https://phabricator.wikimedia.org/T266417
   - composer self-update --1
+  - wget https://raw.githubusercontent.com/SemanticMediaWiki/CIScripts/main/travis/install-mediawiki.sh
+  - wget https://raw.githubusercontent.com/SemanticMediaWiki/CIScripts/main/travis/install-phpunit.sh
+  - wget https://raw.githubusercontent.com/SemanticMediaWiki/CIScripts/main/travis/install-mermaid.sh
+  - wget https://raw.githubusercontent.com/SemanticMediaWiki/CIScripts/main/travis/install-semantic-mediawiki.sh
 
 install:
-  - bash ./build/travis/install-mediawiki.sh
+  - bash ./install-mediawiki.sh
+  - bash ./install-phpunit.sh
+  - bash ./install-mermaid.sh
+  - bash ./install-semantic-mediawiki.sh
   - bash ./build/travis/install-semantic-result-formats.sh
 
 script:
