@@ -1,0 +1,122 @@
+{
+	"description": "Test `format=gallery` with different different parameters like widget, redirects, overlay",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has text",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has redirect",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Demo",
+			"contents": ""
+		},
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery_Img1.png",
+			"contents": {
+				"upload": {
+					"file" : "/../Fixtures/image-upload-480.png",
+					"text" : "[[Has file::{{FULLPAGENAME}}]] [[Has caption::Gallery Image 1]] [[Has redirect::Demo]]"
+				}
+			}
+		},
+		{
+			"page": "Example/Gallery-03/Q.1",
+			"contents": "{{#ask: [[Has caption::+]] |?Has file |format=gallery |widget=slideshow }}"
+		},
+		{
+			"page": "Example/Gallery-03/Q.2",
+			"contents": "{{#ask: [[Has caption::+]] |?Has file |format=gallery |widget=carousel }}"
+		},
+		{
+			"page": "Example/Gallery-03/Q.3",
+			"contents": "{{#ask: [[Has caption::+]] |?Has file |?Has redirect |format=gallery |widths=150 |heights=150 |redirects=Has redirect }}"
+		},
+		{
+			"page": "Example/Gallery-03/Q.4",
+			"contents": "{{#ask: [[Has caption::+]] |?Has file |format=gallery |overlay=yes}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 Widget:Slideshow",
+			"subject": "Example/Gallery-03/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-gallery-slideshow\" data-redirect-type=\"_wpg\">"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 Widget:Carousel",
+			"subject": "Example/Gallery-03/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-gallery-carousel\" data-redirect-type=\"_wpg\">"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 Redirects",
+			"subject": "Example/Gallery-03/Q.3",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"srf-gallery srf-redirect\" data-redirect-type=\"_wpg\">"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#3 Widths and Heights",
+			"subject": "Example/Gallery-03/Q.3",
+			"assert-output": {
+				"to-contain": [
+					"div.srf-gallery.srf-redirect > ul.gallery.mw-gallery-traditional > li.gallerybox > div > div.thumb > div > a.image > img[width=\"150\"]",
+					"div.srf-gallery.srf-redirect > ul.gallery.mw-gallery-traditional > li.gallerybox > div > div.thumb > div > a.image > img[height=\"150\"]"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#4 Enable Image Overlay",
+			"subject": "Example/Gallery-03/Q.4",
+			"assert-output": {
+				"to-contain": [
+					"div.srf-gallery > ul.gallery.mw-gallery-traditional.srf-overlay"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"wgEnableUploads": true,
+		"wgFileExtensions": [
+			"png"
+		],
+		"wgDefaultUserOptions": {
+			"thumbsize": 5
+		},
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		],
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_FILE": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
