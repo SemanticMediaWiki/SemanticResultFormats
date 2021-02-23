@@ -1,0 +1,216 @@
+{
+	"description": "Test `format=valuerank` with all related parameters",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Located in",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "City",
+			"contents": "[[Located in::{{{Located in|}}}]] [[Category:City]]"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "ValRank",
+			"contents": "<div class=\"valrank-item\">{{{rank|}}} {{{userparam}}} {{{1}}} </div>"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "ValRank.intro",
+			"contents": "<div class=\"valrank-wrapper\">"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "ValRank.outro",
+			"contents": "</div>"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Germany",
+			"contents": "{{FULLPAGENAME}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Austria",
+			"contents": "{{FULLPAGENAME}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "France",
+			"contents": "{{FULLPAGENAME}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Sweden",
+			"contents": "{{FULLPAGENAME}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Berlin",
+			"contents": "{{City|Located in=Germany}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Hamburg",
+			"contents": "{{City|Located in=Germany}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Regensburg",
+			"contents": "{{City|Located in=Germany}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Paris",
+			"contents": "{{City|Located in=France}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Vienna",
+			"contents": "{{City|Located in=Austria}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Stockholm",
+			"contents": "{{City|Located in=Sweden}}"
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Göteborg",
+			"contents": "{{City|Located in=Sweden}}"
+		},
+		{
+			"page": "Example/ValRank/MinRequirements",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |limit=10}}"
+		},
+		{
+			"page": "Example/ValRank/Includesubject",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |includesubject=yes |limit=10}}"
+		},
+		{
+			"page": "Example/ValRank/Min",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |min=2 |limit=10}}"
+		},
+		{
+			"page": "Example/ValRank/Min",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |min=2 |limit=10}}"
+		},
+		{
+			"page": "Example/ValRank/Maxtags",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |maxtags=3 |limit=10}}"
+		},
+		{
+			"page": "Example/ValRank/Template",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |template=ValRank |introtemplate=ValRank.intro |outrotemplate=ValRank.outro |userparam=:|limit=10}}"
+		},
+		{
+			"page": "Example/ValRank/Liststyle",
+			"contents": "{{#ask: [[Category:City]] |?Located in |format=valuerank |liststyle=ol |class=valrank |limit=10}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser-html",
+			"about": "#0 Min test of structure",
+			"subject": "Example/ValRank/MinRequirements",
+			"assert-output": {
+				"to-contain": [
+					"ul > li > a[title=\"Germany\"]",
+					"ul > li > a[title=\"Sweden\"]",
+					"ul > li > a[title=\"France\"]",
+					"ul > li > a[title=\"Austria\"]"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 Min test values",
+			"subject": "Example/ValRank/MinRequirements",
+			"assert-output": {
+				"to-contain": [
+					"title=\"Germany\">Germany</a>&#160;(3)</li>",
+					"title=\"Sweden\">Sweden</a>&#160;(2)</li>",
+					"title=\"France\">France</a>&#160;(1)</li>",
+					"title=\"Austria\">Austria</a>&#160;(1)</li>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 `includesubject` should also contain subject like `Berlin`",
+			"subject": "Example/ValRank/Includesubject",
+			"assert-output": {
+				"to-contain": [
+					"title=\"Germany\">Germany</a>&#160;(3)</li>",
+					"title=\"Berlin\">Berlin</a>&#160;(1)</li>"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#3 `min=2` should only display results if it has more than 2 cities",
+			"subject": "Example/ValRank/Min",
+			"assert-output": {
+				"to-contain": [
+					"ul > li > a[title=\"Germany\"]",
+					"ul > li > a[title=\"Sweden\"]"
+				],
+				"not-contain": [
+					"ul > li > a[title=\"France\"]",
+					"ul > li > a[title=\"Austria\"]"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#4 `maxtags=3` the maximum amount of tags in the cloud should be 3",
+			"subject": "Example/ValRank/Maxtags",
+			"assert-output": {
+				"to-contain": [
+					"ul > li > a[title=\"Germany\"]",
+					"ul > li > a[title=\"Sweden\"]",
+					"ul > li > a[title=\"France\"]"
+				],
+				"not-contain": [
+					"ul > li > a[title=\"Austria\"]"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 Testing template paramter (template, introtemplat, outrotemplate and userparam)",
+			"subject": "Example/ValRank/Template",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"valrank-wrapper\"><div class=\"valrank-item\">3&#160;: Germany </div><div class=\"valrank-item\">2&#160;: Sweden </div><div class=\"valrank-item\">1&#160;: France </div><div class=\"valrank-item\">1&#160;: Austria </div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser-html",
+			"about": "#5 Testing liststyle with class param",
+			"subject": "Example/ValRank/Liststyle",
+			"assert-output": {
+				"to-contain": [
+					"ol.valrank > li > a"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_TEMPLATE": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
