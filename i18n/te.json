@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Chaduvari",
 			"Veeven"
 		]
 	},
@@ -26,6 +27,7 @@
 	"srf_paramdesc_chartwidth": "చార్టు యొక్క వెడల్పు, పిక్సెళ్ళలో",
 	"srf-gallery-navigation-previous": "మునుపటి",
 	"srf-gallery-navigation-next": "తదుపరి",
+	"srf-printername-graph": "గ్రాఫు",
 	"srf-paramdesc-graphname": "శీర్షిక",
 	"srf-ui-datatables-label-information": "సమాచారం",
 	"srf-ui-datatables-label-oPaginate-sFirst": "మొదటి",
