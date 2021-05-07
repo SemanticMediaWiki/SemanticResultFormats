@@ -13,7 +13,7 @@
 	"srf-ui-tooltip-title-options": "Параметраш",
 	"srf-ui-tooltip-title-legend": "Легенда",
 	"srf-ui-tooltip-title-filter": "Луьттург",
-	"srf-ui-common-label-refresh": "Карлаяккха",
+	"srf-ui-common-label-refresh": "Карлайаккха",
 	"srf-ui-common-label-parameters": "Параметраш",
 	"srf-ui-common-label-query": "Дехар",
 	"srf-ui-common-label-paneview": "Панелан тайпа",
@@ -40,7 +40,7 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Хьалхара",
 	"srf-filtered-selectorlabel-table": "Таблица",
 	"srf-filtered-value-filter-and": ",",
-	"srf-filtered-value-filter-or": "Я",
+	"srf-filtered-value-filter-or": "ЙА",
 	"srf-ui-mediaplayer-label-play": "Йолаялита",
 	"srf-ui-mediaplayer-label-next": "Кхин дӀа"
 }
