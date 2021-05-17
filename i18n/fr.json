@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Brunoperel",
 			"Crochet.david",
 			"DavidL",
@@ -206,7 +207,7 @@
 	"srf-paramdesc-graphcolor": "Définit la couleur du graphe",
 	"srf-paramdesc-graph-wwl": "Définit la limite du retour automatique (en nombre de caractères)",
 	"srf-paramdesc-clustercolor": "Définit les couleurs des boîtes de groupe",
-	"srf-paramdesc-highlight": "Définit le noeud à mettre en surbrillance",
+	"srf-paramdesc-highlight": "Définit le nœud à mettre en surbrillance",
 	"srf-paramdesc-highlightcolor": "Définit la couleur de police pour le nœud en surbrillance",
 	"srf-paramdesc-redlinkcolor": "Définit la couleur de police pour les liens rouges",
 	"srf-paramdesc-processcategory": "Définit la catégorie du wiki contenant les étapes du processus",
