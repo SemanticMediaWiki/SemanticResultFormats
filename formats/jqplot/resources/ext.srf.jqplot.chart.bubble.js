@@ -72,9 +72,9 @@
 			seriesColors: data.parameters.seriescolors ? data.parameters.seriescolors : ( data.parameters.colorscheme === null ? null : colorscheme[data.parameters.colorscheme][9] ),
 			grid: data.parameters.grid,
 			axes: {
-                                xaxis: data.parameters.labelaxislabel ? { label: data.parameters.labelaxislabel } : {},
-                                yaxis: data.parameters.numbersaxislabel ? { label: data.parameters.numbersaxislabel } : {}
-                        },
+				xaxis: data.parameters.labelaxislabel ? { label: data.parameters.labelaxislabel } : { },
+				yaxis: data.parameters.numbersaxislabel ? { label: data.parameters.numbersaxislabel } : { }
+			},
 			seriesDefaults: {
 				renderer: data.renderer === 'bubble' ? $.jqplot.BubbleRenderer : $.jqplot.PieRenderer,
 				shadow: data.parameters.theme !== 'simple',
