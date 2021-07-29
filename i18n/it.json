@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Ankabel",
 			"Beta16",
 			"Civvì",
@@ -113,6 +114,7 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "Ultimo",
 	"srf-ui-datatables-label-oPaginate-sNext": "Successivo",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Precedente",
+	"srf-printername-tree": "Albero",
 	"srf-paramdesc-delay": "Il ritardo tra le slide in secondi",
 	"srf-paramdesc-filtered-map-height": "L'altezza della mappa.",
 	"srf-filtered-selectorlabel-list": "Elenco",
