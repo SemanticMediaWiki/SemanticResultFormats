@@ -13,6 +13,7 @@
 			"Shirayuki",
 			"Yfdyh000",
 			"乌拉跨氪",
+			"星海",
 			"科劳",
 			"邢家朋",
 			"铁桶"
@@ -287,7 +288,7 @@
 	"srf-printername-sparkline": "Sparkline图表",
 	"srf-printername-listwidget": "列表小工具",
 	"srf-paramdesc-listtype": "指定列表类型",
-	"srf-paramdesc-widget": "可用组件",
+	"srf-paramdesc-widget": "可用小部件",
 	"srf-paramdesc-pageitems": "项每页",
 	"srf-printername-eventcalendar": "事件日历",
 	"srf-paramdesc-calendarfirstday": "作为每星期开始的第一天",

@@ -16,6 +16,7 @@
 			"Patio",
 			"PonkoSasuke",
 			"Rcdeboer",
+			"Romaine",
 			"SPQRobin",
 			"Siebrand",
 			"Sjoerddebruin",
@@ -215,6 +216,7 @@
 	"srf-paramdesc-filtered-list-introtemplate": "De naam van een sjabloon om voor de resultaten van de zoekopdracht weer te geven, als er resultaten zijn.",
 	"srf-paramdesc-filtered-list-outrotemplate": "De naam van een sjabloon om na de resultaten van de zoekopdracht weer te geven, als er resultaten zijn.",
 	"srf-paramdesc-filtered-calendar-title-template": "Een sjabloon dat wordt gebruikt om de naam van een gebeurtenis in de kalender weer te geven",
+	"srf-paramdesc-filtered-map-height": "De hoogte van de kaart.",
 	"srf-filtered-selectorlabel-list": "Lijst",
 	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
@@ -222,6 +224,7 @@
 	"srf-filtered-noscript-error": "De resulaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
 	"srf-filtered-value-filter-and": "EN",
 	"srf-filtered-value-filter-or": "OF",
+	"srf-filtered-value-filter-placeholder": "Selecteer een filterwaarde",
 	"srf-printername-d3chart": "D3-grafiek",
 	"srf-printername-timeseries": "Tijdseriegrafiek",
 	"srf-paramdesc-group": "Series groepen op",
@@ -273,6 +276,10 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Herhalen uit",
 	"srf-ui-mediaplayer-label-full-screen": "Volledig scherm",
 	"srf-ui-mediaplayer-label-restore-screen": "Scherm herstellen",
+	"srf-spreadsheet-link": "Spreadsheet",
 	"srf-paramdesc-spreadsheet-filename": "De bestandsnaam voor het downloaden van de gegenereerde speadsheet",
-	"srf-paramdesc-spreadsheet-fileformat": "De bestandsindeling voor de spreadsheet. Mogelijke waarden: xlsx, xls, ods en csv. Standaard: xlsx."
+	"srf-paramdesc-spreadsheet-fileformat": "De bestandsindeling voor de spreadsheet. Mogelijke waarden: xlsx, xls, ods en csv. Standaard: xlsx.",
+	"srf-paramdesc-gantt-diagramtitle": "Diagramnaam",
+	"srf-paramdesc-gantt-diagramtheme": "Diagramthema",
+	"srf-paramdesc-gantt-axisformat": "X-as: datumformaat"
 }

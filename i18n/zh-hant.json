@@ -9,7 +9,8 @@
 			"Nemo bis",
 			"Shirayuki",
 			"Winston Sung",
-			"Wrightbus"
+			"Wrightbus",
+			"星海"
 		]
 	},
 	"srf-desc": "用於 Semantic MediaWiki 查詢的附加結果格式",
@@ -283,7 +284,7 @@
 	"srf-printername-sparkline": "走勢圖表",
 	"srf-printername-listwidget": "清單小工具",
 	"srf-paramdesc-listtype": "指定清單類型",
-	"srf-paramdesc-widget": "可用小工具",
+	"srf-paramdesc-widget": "可用小部件",
 	"srf-paramdesc-pageitems": "各頁項目",
 	"srf-printername-eventcalendar": "事件行事曆",
 	"srf-paramdesc-calendarfirstday": "每週開始的第一天",
