@@ -148,7 +148,8 @@ class GraphPrinter extends ResultPrinter {
 		$graphFormatter->buildGraph( $this->nodes );
 
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
-		$result = $GLOBALS['wgParser']->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
+		$parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
+		$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
 				() . "</graphviz>" );
 
 		// append legend
