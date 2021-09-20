@@ -101,7 +101,7 @@ class GraphFormatter {
 			 *
 			 * @var \SRF\Graph\GraphNode $node
 			 */
-			$this->add( "\"" . $node->getID() . "\"" );
+			$this->add( "\"" . addslashes( $node->getID() ) . "\"" );
 
 			if ( $this->options->isGraphLink() ) {
 
