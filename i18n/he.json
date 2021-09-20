@@ -9,7 +9,8 @@
 			"StuB",
 			"YaronSh",
 			"המקיסט",
-			"חיים"
+			"חיים",
+			"נדב ס"
 		]
 	},
 	"srf-desc": "תבניות תוצאה נוספות לשאילתות של מדיה־ויקי סמנטית",
@@ -215,7 +216,7 @@
 	"srf-tree-rootinvalid": "$1 אינה כותרת דף תקינה.",
 	"srf-paramdesc-tree-parent": "המאפיין שמכיל את דף ההורה",
 	"srf-paramdesc-tree-root": "דף השורש של העץ",
-	"srf-paramdesc-tree-startlevel": "רמת ההתחלה של העץ, למשל לצורך שילוב לתוך עץ אחר",
+	"srf-paramdesc-tree-startlevel": "רמת ההתחלה של העץ, למשל לצורך שילובו לתוך עץ אחר",
 	"srf-printername-slideshow": "מצגת שקופיות",
 	"srf-paramdesc-delay": "זמן המעבר בין שקופיות בשניות",
 	"srf-paramdesc-navigation-controls": "הצג פקדי ניווט או לא",
