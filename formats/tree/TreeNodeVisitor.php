@@ -49,7 +49,7 @@ class TreeNodePrinter implements Visitor {
 			return '';
 		}
 
-		$textForNode = str_repeat( ( $this->configuration['format'] === 'oltree' ) ? '#' : '*', $this->depth );
+		$textForNode = str_repeat( ( $this->configuration['format'] === 'oltree' ) ? '#' : '*', $this->depth ) . ' ';
 
 		if ( $this->configuration['template'] === '' ) {
 			// build simple list
