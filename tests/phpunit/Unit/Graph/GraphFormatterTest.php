@@ -43,7 +43,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 			'graphlabel' => true,
 			'graphcolor' => true,
 			'graphlegend' => true,
-			];
+		];
 
 		$this->options = new GraphOptions($params);
 
@@ -77,25 +77,28 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetGraphLegend() {
 		$expected = "<div class=\"graphlegend\">".
-					"<div class=\"graphlegenditem\" style=\"color: black\">black: Casted</div>".
-					"<div class=\"graphlegenditem\" style=\"color: red\">red: Part of Team </div>".
-					"</div>";
+			"<div class=\"graphlegenditem\" style=\"color: black\">black: Casted</div>".
+			"<div class=\"graphlegenditem\" style=\"color: red\">red: Part of Team </div>".
+			"</div>";
 
 		$this->assertEquals( $this->graphFormatter->getGraphLegend(), $expected );
 	}
 
 	public function testBuildGraph(){
-		$expected = "digraph Unit Test {graph [fontsize=10, fontname=\"Verdana\"]\n".
-					"node [fontsize=10, fontname=\"Verdana\"];\n".
-					"edge [fontsize=10, fontname=\"Verdana\"];\n".
-					"size=\"100\";node [shape=rect];rankdir=LR;".
-					"\"Team:Alpha\" [URL = \"[[Team:Alpha]]\", label = \"Alpha\"]; ".
-					"\"Team:Beta\" [URL = \"[[Team:Beta]]\", label = \"Beta\"];  ".
-					"\"Person:Alexander Gesinn\" -> \"Team:Alpha\" [label=\"Casted\",fontcolor=black,arrowhead=diamond,color=black]; ".
-					"\"Person:Sebastian Schmid\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,arrowhead=diamond,color=black]; ".
-					"\"Person:Alexander Gesinn\" -> \"Team:Beta\" [label=\"Casted\",fontcolor=black,arrowhead=diamond,color=black]; ".
-					"\"Team:Alpha\" -> \"Team:Beta\" [label=\"Part of Team \",fontcolor=red,arrowhead=diamond,color=red];}";
-
+		$expected = <<<'DOT'
+digraph Unit Test {graph [fontsize=10, fontname="Verdana"]
+node [fontsize=10, fontname="Verdana"];
+edge [fontsize=10, fontname="Verdana"];
+size="100";node [shape=rect];rankdir=LR;
+"Team:Alpha" [URL = "[[Team:Alpha]]", label = "Alpha"];
+"Team:Beta" [URL = "[[Team:Beta]]", label = "Beta"];
+"Person:Alexander Gesinn" -> "Team:Alpha" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
+"Person:Sebastian Schmid" -> "Team:Beta" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
+"Person:Alexander Gesinn" -> "Team:Beta" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
+"Team:Alpha" -> "Team:Beta" [label="Part of Team ",fontcolor=red,arrowhead=diamond,color=red];
+}
+DOT;
 		$this->assertEquals( $this->graphFormatter->getGraph(), $expected);
 	}
 }
+
