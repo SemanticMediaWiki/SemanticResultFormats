@@ -86,14 +86,43 @@ class GraphFormatter {
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 
-			$nodeLabel = '';
+			$nodeLabel = $node->getLabel();
 
 			// take "displaytitle" as node-label if it is set
 			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
-				$objectDisplayTitle = $node->getLabel();
-				if ( !empty( $objectDisplayTitle ) ) {
-					$nodeLabel = $this->getWordWrappedText( $objectDisplayTitle, $this->options->getWordWrapLimit() );
+				if ( !empty( $nodeLabel ) ) {
+					$nodeLabel = $this->getWordWrappedText( $nodeLabel, $this->options->getWordWrapLimit() );
 				}
+			}
+
+			// URL.
+			$nodeLinkURL = $this->options->isGraphLink() ? "[[" . $node->getID() . "]]" : null;
+
+			// Display fields, if any.
+			$fields = $node->getFields();
+			if ( count( $node->getFields() ) > 0 ) {
+				$label = $nodeLabel
+					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
+					          [ '\n' => '<br/>' ] );
+				$nodeTooltip = $nodeLabel ?: $node->getID();
+				// Label in HTML form enclosed with <>.
+				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
+							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
+							. implode( "\n", array_map( static function ( $field ) {
+								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ])
+									? 'right'
+									: 'left';
+								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
+									. $field['name'] . '</td>'
+									. '<td align="' . $alignment . '">' . $field['value'] . '</td></tr>';
+							}, $fields ) ) . "\n</table>\n>";
+				$nodeLinkURL = null; // the value at the top is already hyperlinked.
+			} else {
+				if ( $nodeLabel ) {
+					// Label, if any, is enclosed with "".
+					$nodeLabel = '"' . htmlspecialchars( $nodeLabel ) . '"';
+				}
+				$nodeTooltip = null;
 			}
 
 			/**
@@ -101,19 +130,23 @@ class GraphFormatter {
 			 *
 			 * @var \SRF\Graph\GraphNode $node
 			 */
-			$this->add( "\"" . addslashes( $node->getID() ) . "\"" );
+			$this->add( '"' . htmlspecialchars( $node->getID() ) . '"' );
 
-			if ( $this->options->isGraphLink() ) {
-
-				$nodeLinkURL = "[[" . $node->getID() . "]]";
-
-				if ( $nodeLabel === '' ) {
-					$this->add( " [URL = \"$nodeLinkURL\"]" );
-				} else {
-					$this->add( " [URL = \"$nodeLinkURL\", label = \"$nodeLabel\"]" );
-				}
+			$inBrackets = [];
+			if ( $nodeLinkURL ) {
+				$inBrackets[] = 'URL = "' . $nodeLinkURL . '"';
 			}
-			$this->add( "; " );
+			if ( $nodeLabel ) {
+				$inBrackets[] = 'label = ' . $nodeLabel;
+			}
+			if ( $nodeTooltip ) {
+				$inBrackets[] = 'tooltip = "' .  htmlspecialchars( $nodeTooltip ) . '"';
+			}
+			if ( count( $inBrackets ) > 0 ) {
+				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
+			}
+
+			$this->add( ";\n" );
 		}
 
 		/**
@@ -162,7 +195,7 @@ class GraphFormatter {
 						}
 						$this->add( "]" );
 					}
-					$this->add( ";" );
+					$this->add( ";\n" );
 				}
 			}
 		}
@@ -231,3 +264,4 @@ class GraphFormatter {
 		return implode( '\n', $segments );
 	}
 }
+

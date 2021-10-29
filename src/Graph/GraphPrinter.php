@@ -149,6 +149,8 @@ class GraphPrinter extends ResultPrinter {
 
 		// Calls graphvizParserHook function from MediaWiki GraphViz extension
 		$parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
+		$oldStripState = $parser->getStripState();
+
 		$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
 				() . "</graphviz>" );
 
@@ -175,13 +177,29 @@ class GraphPrinter extends ResultPrinter {
 			while ( ( /* SMWWikiPageValue */
 				$object = $resultArray->getNextDataValue() ) !== false ) {
 
-				// create SRF\GraphNode for column 0
-				if ( $i == 0 ) {
-					$node = new GraphNode( $object->getShortWikiText() );
-					$node->setLabel( $object->getPreferredCaption() );
-					$this->nodes[] = $node;
+				// @todo Process non-pages here.
+				$type = $object->getTypeID();
+				if ( in_array( $type, [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ] ) ) {
+					// This is a page. A new node and an edge have to be created.
+					// create SRF\GraphNode for column 0
+					if ( $i === 0 ) {
+						$node = new GraphNode( $object->getShortWikiText() );
+						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
+						$this->nodes[] = $node;
+					} else {
+						$node->addParentNode(
+							$resultArray->getPrintRequest()->getLabel(),
+							$object->getShortWikiText()
+						);
+					}
 				} else {
-					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
+					// A non-page property.
+					$node->addField(
+						$resultArray->getPrintRequest()->getOutputFormat(),
+						$object->getShortWikiText(),
+						$type,
+						$resultArray->getPrintRequest()->getLabel()
+					);
 				}
 			}
 		}
@@ -285,3 +303,4 @@ class GraphPrinter extends ResultPrinter {
 		return $params;
 	}
 }
+
