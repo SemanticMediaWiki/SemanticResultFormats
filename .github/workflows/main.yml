@@ -15,11 +15,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - mediawiki_version: 1.31
+          - mediawiki_version: legacylts
             semantic_mediawiki_version: 3.2.3
             coverage: true
             experimental: false
-          - mediawiki_version: 1.35
+          - mediawiki_version: lts
+            semantic_mediawiki_version: 3.2.3
+            coverage: false
+            experimental: true
+          - mediawiki_version: latest
             semantic_mediawiki_version: dev-master
             coverage: false
             experimental: true
