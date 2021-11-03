@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
@@ -17,6 +18,11 @@ jobs:
           - mediawiki_version: 1.31
             semantic_mediawiki_version: 3.2.3
             coverage: true
+            experimental: false
+          - mediawiki_version: 1.35
+            semantic_mediawiki_version: dev-master
+            coverage: false
+            experimental: true
 
     container:
       image: mediawiki:${{ matrix.mediawiki_version }}
