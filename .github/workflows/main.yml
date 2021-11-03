@@ -17,6 +17,7 @@ jobs:
         include:
           - mediawiki_version: 'legacylts'
             semantic_mediawiki_version: 3.2.3
+            mermaid_version: 2.2.0
             coverage: true
             experimental: false
           - mediawiki_version: 'lts'
@@ -82,6 +83,13 @@ jobs:
           echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
           php ${{ env.MW_INST_PATH }}/maintenance/update.php --skip-external-dependencies --quick
+
+      - name: Install Mermaid
+        run: |
+          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/mermaid ${{ matrix.mermaid_version }}
+          composer update --working-dir ${{ env.MW_INST_PATH }}
+          echo "wfLoadExtension( 'Mermaid' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
 
       - name: Checkout Extension
         uses: actions/checkout@v2
