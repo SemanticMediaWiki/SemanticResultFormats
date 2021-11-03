@@ -47,7 +47,7 @@ jobs:
 
       - name: Downgrade to Composer 1.x
         run: composer self-update --1
-        if: matrix.mediawiki_version == 1.31
+        if: matrix.mediawiki_version == legacylts || matrix.mediawiki_version == lts
 
       - name: Install Xdebug (for coverage)
         run: |
