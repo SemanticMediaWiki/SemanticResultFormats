@@ -6,6 +6,7 @@ not yet released
 
 * [Filtered] added "list view userparam" (by [gesinn.it](https://gesinn.it))
 * [Gallery] added "captiontemplate" parameter to allow wrapping of image captions with a template
+* [GraphViz] fields of data type other than 'page' are now displayed not as separate nodes connected by edges but as parts of labels of nodes of the type 'record' and similar
 
 ## SRF 3.2.0
 
