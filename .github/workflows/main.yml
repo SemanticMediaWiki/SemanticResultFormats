@@ -67,11 +67,11 @@ jobs:
 
       - name: Install SemanticMediaWiki
         run: |
-          COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki ${{ matrix.semantic_mediawiki_version }}
+          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki ${{ matrix.semantic_mediawiki_version }}
           composer update --working-dir ${{ env.MW_INST_PATH }}
           echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
-          php ${{ env.MW_INST_PATH }}/maintenance/update.php --quick
+          php ${{ env.MW_INST_PATH }}/maintenance/update.php --skip-external-dependencies --quick
 
       - name: Checkout Extension
         uses: actions/checkout@v2
