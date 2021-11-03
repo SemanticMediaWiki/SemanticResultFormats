@@ -1,0 +1,144 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    continue-on-error: ${{ matrix.experimental }}
+
+    strategy:
+      matrix:
+        include:
+          - mediawiki_version: 'legacylts'
+            semantic_mediawiki_version: 3.2.3
+            mermaid_version: 2.1.0
+            coverage: true
+            experimental: false
+          - mediawiki_version: 'lts'
+            semantic_mediawiki_version: 3.2.3
+            mermaid_version: 3.0.1
+            coverage: false
+            experimental: true
+          - mediawiki_version: 'latest'
+            semantic_mediawiki_version: dev-master
+            mermaid_version: dev-master
+            coverage: false
+            experimental: true
+
+    container:
+      image: mediawiki:${{ matrix.mediawiki_version }}
+      options: --env XDEBUG_ENABLE=true --env XHPROF_ENABLE=true
+
+    env:
+      EXT_NAME: SemanticResultFormats
+      COMPOSER_VERSION: 1
+      MW_INST_PATH: /var/www/html
+      MW_DB_PATH: /var/www/data
+      MW_EXT_PATH: /var/www/html/extensions
+      XDEBUG_ENABLE: true
+      XHPROF_ENABLE: true
+
+    steps:
+      - name: Get Composer
+        uses: nanasess/composer-installer-action@v2.0.3
+
+      - name: Downgrade to Composer 1.x
+        run: composer self-update --1
+        if: ${{ (matrix.mediawiki_version == 'legacylts') || (matrix.mediawiki_version == 'lts') }}
+
+      - name: Install Xdebug (for coverage)
+        run: |
+          pecl install xdebug
+          echo 'zend_extension=xdebug' >> /usr/local/etc/php/conf.d/99-xdebug.ini
+          echo 'xdebug.mode=coverage' >> /usr/local/etc/php/conf.d/99-xdebug.ini
+          php -v
+        if: matrix.coverage == true
+
+      - name: MediaWiki Install
+        run: >-
+          apt update &&
+
+          apt install -y unzip &&
+
+          composer update
+          --working-dir ${{ env.MW_INST_PATH }} &&
+
+          php ${{ env.MW_INST_PATH }}/maintenance/install.php
+          --dbtype=sqlite
+          --dbname=wiki
+          --pass=Password123456
+          --scriptpath=""
+          --dbpath=${{ env.MW_DB_PATH }}
+          --server="http://localhost:8000"
+          ${{ env.EXT_NAME }}-test WikiSysop
+
+      - name: Install SemanticMediaWiki
+        run: |
+          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki ${{ matrix.semantic_mediawiki_version }}
+          composer update --working-dir ${{ env.MW_INST_PATH }}
+          echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
+          php ${{ env.MW_INST_PATH }}/maintenance/update.php --skip-external-dependencies --quick
+
+      - name: Install Mermaid
+        run: |
+          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/mermaid ${{ matrix.mermaid_version }}
+          composer update --working-dir ${{ env.MW_INST_PATH }}
+          echo "wfLoadExtension( 'Mermaid' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
+
+      - name: Checkout Extension
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.EXT_NAME }}
+
+      # Setting actions/checkout@v2 path to env.MW_EXT_PATH fails with "Repository path '/var/www/html/extensions' is not under ..."
+      # See also open PR https://github.com/actions/checkout/pull/388
+      - name: Move Extension
+        run: |
+          mkdir -p ${{ env.MW_EXT_PATH }}
+          mv ${{ env.EXT_NAME }} ${{ env.MW_EXT_PATH }}
+
+      - name: Enable Debug Output
+        run: |
+          echo 'error_reporting(E_ALL| E_STRICT);' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          echo 'ini_set("display_errors", 1);' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          echo '$wgShowExceptionDetails = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          echo '$wgDevelopmentWarnings = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+
+      - name: Install SemanticResultFormats
+        run: |
+          COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-result-formats @dev
+          COMPOSER=composer.local.json composer config repositories.semantic-result-formats '{"type": "path", "url": "extensions/SemanticResultFormats"}' --working-dir ${{ env.MW_INST_PATH }}
+          composer update --working-dir ${{ env.MW_INST_PATH }}
+          echo "wfLoadExtension( '${{ env.EXT_NAME }}' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
+          php ${{ env.MW_INST_PATH }}/maintenance/update.php --quick
+
+      - name: Run Tests
+        run: >
+          php ${{ env.MW_INST_PATH }}/tests/phpunit/phpunit.php
+          --configuration ${{ env.MW_EXT_PATH }}/${{ env.EXT_NAME }}
+          --testdox
+        if: matrix.coverage == false
+
+      - name: Run Tests With Coverage
+        run: >
+          php ${{ env.MW_INST_PATH }}/tests/phpunit/phpunit.php
+          --configuration ${{ env.MW_EXT_PATH }}/${{ env.EXT_NAME }}
+          --testdox
+          --coverage-clover ${{ env.MW_INST_PATH }}/docs/coverage.xml
+        if: matrix.coverage == true
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ env.MW_INST_PATH }}/docs/coverage.xml
+        if: matrix.coverage == true

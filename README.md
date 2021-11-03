@@ -1,7 +1,6 @@
 # Semantic Result Formats
-[![Build Status](https://travis-ci.com/SemanticMediaWiki/SemanticResultFormats.svg?branch=master)](https://travis-ci.com/SemanticMediaWiki/SemanticResultFormats)
-[![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/?branch=master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/badges/quality-score.png?s=a2f091e91cb9c8aa297e028f2f30d99153446796)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticResultFormats/)
+![CI](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/main.yml/badge.svg)
+[![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticResultFormats/branch/master/graph/badge.svg?token=Si45N9MsGq)](https://codecov.io/gh/SemanticMediaWiki/SemanticResultFormats)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 
