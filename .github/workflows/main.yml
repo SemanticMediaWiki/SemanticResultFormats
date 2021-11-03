@@ -17,15 +17,17 @@ jobs:
         include:
           - mediawiki_version: 'legacylts'
             semantic_mediawiki_version: 3.2.3
-            mermaid_version: 2.2.0
+            mermaid_version: 2.1.0
             coverage: true
             experimental: false
           - mediawiki_version: 'lts'
             semantic_mediawiki_version: 3.2.3
+            mermaid_version: 3.0.1
             coverage: false
             experimental: true
           - mediawiki_version: 'latest'
             semantic_mediawiki_version: dev-master
+            mermaid_version: dev-master
             coverage: false
             experimental: true
 
