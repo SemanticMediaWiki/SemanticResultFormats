@@ -40,7 +40,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'init', 6, function ( assert ) {
+	QUnit.test( 'init', function ( assert ) {
+		assert.expect( 6 );
 
 		assert.ok( srf instanceof Object, 'srf namespace and instance was accessible' );
 		assert.equal( $.type( srf.log ), 'function', '.log() was accessible' );
@@ -56,8 +57,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'settings', 4, function ( assert ) {
-
+	QUnit.test( 'settings', function ( assert ) {
+		assert.expect( 4 );
 		assert.equal( $.type( srf.settings.getList() ), 'object', '.getList() returned a list of objects' );
 		assert.equal( $.type( srf.settings.get( 'srfgScriptPath' ) ), 'string', '.get( "srfgScriptPath" ) returned a value' );
 		assert.equal( srf.settings.get( 'lula' ), undefined, '.get( "lula" ) returned undefined for an unknown key' );
@@ -70,8 +71,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'version', 1, function ( assert ) {
-
+	QUnit.test( 'version', function ( assert ) {
+		assert.expect( 1 );
 		assert.equal( $.type( srf.version() ), 'string', '.version() returned a string' );
 
 	} );

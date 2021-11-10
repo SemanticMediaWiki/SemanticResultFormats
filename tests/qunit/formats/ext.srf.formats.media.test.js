@@ -42,7 +42,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'init', 8, function ( assert ) {
+	QUnit.test( 'init', function ( assert ) {
+		assert.expect( 8 );
 		var media = new srf.formats.media();
 
 		assert.ok( media instanceof Object, 'srf.formats.media() instance was accessible' );
@@ -61,7 +62,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'template', 3, function ( assert ) {
+	QUnit.test( 'template', function ( assert ) {
+		assert.expect( 3 );
 
 		assert.equal( $.type( srf.template.jplayer.inspector ), 'function', '.jplayer.inspector() was accessible' );
 		assert.equal( $.type( srf.template.jplayer.audio ), 'object', '.jplayer.audio returned an object' );
@@ -74,27 +76,28 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.asyncTest( 'defaults', 2, function ( assert ) {
+	QUnit.test( 'defaults', function ( assert ) {
+		assert.expect( 2 );
 		var media = new srf.formats.media();
 
+		const done1 = assert.async();
 		$.get( media.defaults.posterImage )
 		.done( function() {
-			QUnit.start();
 			assert.ok( true, media.defaults.posterImage + ' verified' );
+			done1();
 		} )
 		.fail( function() {
 			// doesn't exists
-			QUnit.start();
 		} );
 
+		const done2 = assert.async();
 		$.get( media.defaults.jplayer.swfPath )
 		.done( function() {
-			QUnit.start();
 			assert.ok( true, media.defaults.jplayer.swfPath + ' verified' );
+			done2();
 		} )
 		.fail( function() {
 			// doesn't exists
-			QUnit.start();
 		} );
 
 	} );
@@ -104,7 +107,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'parse', 1, function ( assert ) {
+	QUnit.test( 'parse', function ( assert ) {
+		assert.expect( 1 );
 		var media = new srf.formats.media();
 
 		assert.equal( $.type( media.parse( jsonString ) ), 'object', '.parse() returned an object' );
@@ -116,7 +120,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'getData', 2, function ( assert ) {
+	QUnit.test( 'getData', function ( assert ) {
+		assert.expect( 2 );
 		var media = new srf.formats.media();
 		var json = media.parse( jsonString );
 		var result = media.getData( json.data, json.mediaType );

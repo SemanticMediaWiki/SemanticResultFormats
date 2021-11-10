@@ -40,7 +40,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'init', 5, function ( assert ) {
+	QUnit.test( 'init', function ( assert ) {
+		assert.expect( 5 );
 		var gallery = new srf.formats.gallery();
 
 		assert.ok( gallery instanceof Object, 'gallery instance was accessible' );
@@ -56,7 +57,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'overlay', 2, function ( assert ) {
+	QUnit.test( 'overlay', function ( assert ) {
+		assert.expect( 2 );
 
 		var context = $( '<div class="srf-overlay"</div>', '#qunit-fixture' );
 		var gallery = new srf.formats.gallery();

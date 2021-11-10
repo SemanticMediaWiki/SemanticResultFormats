@@ -23,7 +23,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'calendarpane widget', 4, function ( assert ) {
+	QUnit.test( 'calendarpane widget', function ( assert ) {
+		assert.expect( 4 );
 		var pane = context.find( '.info' );
 
 		// Set visibility
@@ -67,7 +68,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'calendarbutton widget', 1, function ( assert ) {
+	QUnit.test( 'calendarbutton widget', function ( assert ) {
+		assert.expect( 1 );
 		var button = context.find( '.info' );
 
 		button.calendarbutton( {
@@ -89,7 +91,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'calendarparameters widget - eventStart', 4, function ( assert ) {
+	QUnit.test( 'calendarparameters widget - eventStart', function ( assert ) {
+		assert.expect( 4 );
 		var pane = context.find( '.info' );
 
 		// Set visibility

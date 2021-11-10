@@ -43,7 +43,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'init', 4, function ( assert ) {
+	QUnit.test( 'init', function ( assert ) {
+		assert.expect( 4 );
 		var tagcloud = new srf.formats.tagcloud();
 
 		assert.equal( $.type( tagcloud.defaults ), 'object', '.defaults was accessible' );
@@ -58,8 +59,9 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'dependencies', 4, function ( assert ) {
-			var util = new srf.util();
+	QUnit.test( 'dependencies', function ( assert ) {
+		assert.expect( 4 );
+		var util = new srf.util();
 
 		assert.equal( $.type( util.assert ), 'function', 'util.assert was accessible' );
 		assert.equal( $.type( smw.async.load ), 'function', 'smw.async.load was accessible' );
@@ -73,7 +75,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.test( 'load', 4, function ( assert ) {
+	QUnit.test( 'load', function ( assert ) {
+		assert.expect( 4 );
 		var tagcloud = new srf.formats.tagcloud();
 		var result,
 			options;
@@ -130,7 +133,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.asyncTest( 'sphere', 1, function ( assert ) {
+	QUnit.test( 'sphere', function ( assert ) {
+		assert.expect( 1 );
 		var tagcloud = new srf.formats.tagcloud();
 
 		context.find( '.srf-container' ).data( {
@@ -141,14 +145,13 @@
 
 		// Tagcanvas dies during testing for some reasons,
 		// QUnit returns with a time-out
+		assert.timeout(5000)
+		const done = assert.async();
 		mw.loader.using( 'ext.jquery.tagcanvas', function() {
-			QUnit.start();
 			tagcloud.sphere( context );
 			assert.ok( context.find( 'canvas' ), 'canvas element was found' );
+			done();
 		} );
-
-		// As of now mark this test as OK because of the above issue
-		assert.ok( true, 'Not really true but for now we pass' );
 	} );
 
 	/**
@@ -156,7 +159,8 @@
 	 *
 	 * @since: 1.9
 	 */
-	QUnit.asyncTest( 'wordcloud', 2, function ( assert ) {
+	QUnit.test( 'wordcloud', function ( assert ) {
+		assert.expect(2);
 		var tagcloud = new srf.formats.tagcloud();
 
 		context.find( '.srf-container' ).data( {
@@ -165,11 +169,12 @@
 			'font': 'sans'
 		} );
 
+		const done = assert.async();
 		mw.loader.using( 'ext.d3.wordcloud', function() {
-			QUnit.start();
 			var result = tagcloud.wordcloud( context );
 			assert.ok( result, 'function returned true' );
 			assert.ok( context.find( 'svg' ), 'svg element was found' );
+			done();
 		} );
 
 	} );

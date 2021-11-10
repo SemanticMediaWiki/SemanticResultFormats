@@ -23,7 +23,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'instance', 1, function ( assert ) {
+	QUnit.test( 'instance', function ( assert ) {
+		assert.expect( 1 );
 		var context = $( '<div class="test"></div>', '#qunit-fixture' );
 
 		context.optionslist();
@@ -42,7 +43,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'checklist click event', 2, function ( assert ) {
+	QUnit.test( 'checklist click event', function ( assert ) {
+		assert.expect( 2 );
 		var result ;
 		var context;
 
@@ -82,7 +84,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'checklist show/hide ', 3, function ( assert ) {
+	QUnit.test( 'checklist show/hide', function ( assert ) {
+		assert.expect( 3 );
 		var result;
 		var context = $( '<div class="test"></div>', '#qunit-fixture' );
 
@@ -92,14 +95,14 @@
 				list: list,
 				'class': 'listTest'
 		} );
-		assert.equal( result.css( 'display' ) , 'block', pass + 'option resulted in a visible list' );
+		assert.notEqual( result.css( 'display' ) , 'none', pass + 'option resulted in a visible list' );
 
 		context.optionslist();
 		result = context.optionslist( 'checklist', {
 				list: list,
 				'class': 'listTest'
 		} );
-		assert.equal( result.css( 'display' ) , 'block', pass + 'option resulted in a visible list' );
+		assert.notEqual( result.css( 'display' ) , 'none', pass + 'option resulted in a visible list' );
 
 		context.optionslist();
 		result = context.optionslist( 'checklist', {
@@ -116,7 +119,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'selectlist change event', 2, function ( assert ) {
+	QUnit.test( 'selectlist change event', function ( assert ) {
+		assert.expect( 2 );
 		var result ;
 		var context;
 

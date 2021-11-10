@@ -21,7 +21,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( '.prototype', 1, function ( assert ) {
+	QUnit.test( '.prototype', function ( assert ) {
+		assert.expect( 1 );
 		var util;
 
 		util = new srf.util();
@@ -35,7 +36,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( '.message', 3, function ( assert ) {
+	QUnit.test( '.message', function ( assert ) {
+		assert.expect( 3 );
 		var util;
 		var fixture = $( '#qunit-fixture' );
 
@@ -46,10 +48,9 @@
 		util.message.set( { context: fixture, message: 'Test' } );
 		assert.equal( $( '.ui-widget', fixture ).length, 1, pass + 'message.set() created an object' );
 
-		QUnit.raises( function() {
+		assert.throws( function() {
 			util.message.exception( { context: fixture, message: 'Test' } );
 		}, pass + 'message.exception() thrown an exception' );
-
 
 	} );
 
@@ -58,7 +59,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'spinner', 2, function ( assert ) {
+	QUnit.test( 'spinner', function ( assert ) {
+		assert.expect( 2 );
 		var context;
 		var util = new srf.util();
 
@@ -77,7 +79,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'notification', 3, function ( assert ) {
+	QUnit.test( 'notification', function ( assert ) {
+		assert.expect( 3 );
 		var util;
 
 		util = new srf.util();
@@ -93,7 +96,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( '.getImageURL()', 1, function ( assert ) {
+	QUnit.test( '.getImageURL()', function ( assert ) {
+		assert.expect( 1 );
 		var util;
 
 		util = new srf.util();
@@ -107,7 +111,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( '.getTitleURL()', 1, function ( assert ) {
+	QUnit.test( '.getTitleURL()', function ( assert ) {
+		assert.expect( 1 );
 		var util;
 
 		util = new srf.util();

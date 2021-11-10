@@ -27,7 +27,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'instance', 1, function ( assert ) {
+	QUnit.test( 'instance', function ( assert ) {
+		assert.expect( 1 );
 
 		var calendar = new srf.formats.eventcalendar();
 		assert.ok( calendar instanceof srf.formats.eventcalendar, pass + 'the srf.formats.eventcalendar instance was accessible' );
@@ -39,7 +40,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'parse', 8, function ( assert ) {
+	QUnit.test( 'parse', function ( assert ) {
+		assert.expect( 8 );
 		var calendar = new srf.formats.eventcalendar();
 
 		assert.equal( $.type( calendar.test._parse ), 'object', pass + 'the parse object was accessible' );
@@ -98,7 +100,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'startDate', 10, function ( assert ) {
+	QUnit.test( 'startDate', function ( assert ) {
+		assert.expect( 10 );
 
 		var calendar = new srf.formats.eventcalendar();
 
@@ -139,7 +142,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'update', 2, function ( assert ) {
+	QUnit.test( 'update', function ( assert ) {
+		assert.expect( 2 );
 		var calendar = new srf.formats.eventcalendar();
 
 		assert.equal( $.type( calendar.update ), 'function', pass + 'the function was accessible' );
