@@ -15,69 +15,32 @@ jobs:
     strategy:
       matrix:
         include:
-          - mediawiki_version: 'legacylts'
+          - mediawiki_version: '1.31'
             semantic_mediawiki_version: 3.2.3
             mermaid_version: 2.1.0
             coverage: true
             experimental: false
-          - mediawiki_version: 'lts'
+          - mediawiki_version: '1.35'
             semantic_mediawiki_version: 3.2.3
             mermaid_version: 3.0.1
             coverage: false
             experimental: true
-          - mediawiki_version: 'latest'
+          - mediawiki_version: '1.36'
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
             coverage: false
             experimental: true
 
     container:
-      image: mediawiki:${{ matrix.mediawiki_version }}
-      options: --env XDEBUG_ENABLE=true --env XHPROF_ENABLE=true
+      image: gesinn/docker-mediawiki:${{ matrix.mediawiki_version }}
 
     env:
       EXT_NAME: SemanticResultFormats
-      COMPOSER_VERSION: 1
       MW_INST_PATH: /var/www/html
       MW_DB_PATH: /var/www/data
       MW_EXT_PATH: /var/www/html/extensions
-      XDEBUG_ENABLE: true
-      XHPROF_ENABLE: true
 
     steps:
-      - name: Get Composer
-        uses: nanasess/composer-installer-action@v2.0.3
-
-      - name: Downgrade to Composer 1.x
-        run: composer self-update --1
-        if: ${{ (matrix.mediawiki_version == 'legacylts') || (matrix.mediawiki_version == 'lts') }}
-
-      - name: Install Xdebug (for coverage)
-        run: |
-          pecl install xdebug
-          echo 'zend_extension=xdebug' >> /usr/local/etc/php/conf.d/99-xdebug.ini
-          echo 'xdebug.mode=coverage' >> /usr/local/etc/php/conf.d/99-xdebug.ini
-          php -v
-        if: matrix.coverage == true
-
-      - name: MediaWiki Install
-        run: >-
-          apt update &&
-
-          apt install -y unzip &&
-
-          composer update
-          --working-dir ${{ env.MW_INST_PATH }} &&
-
-          php ${{ env.MW_INST_PATH }}/maintenance/install.php
-          --dbtype=sqlite
-          --dbname=wiki
-          --pass=Password123456
-          --scriptpath=""
-          --dbpath=${{ env.MW_DB_PATH }}
-          --server="http://localhost:8000"
-          ${{ env.EXT_NAME }}-test WikiSysop
-
       - name: Install SemanticMediaWiki
         run: |
           COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki ${{ matrix.semantic_mediawiki_version }}
@@ -104,13 +67,6 @@ jobs:
         run: |
           mkdir -p ${{ env.MW_EXT_PATH }}
           mv ${{ env.EXT_NAME }} ${{ env.MW_EXT_PATH }}
-
-      - name: Enable Debug Output
-        run: |
-          echo 'error_reporting(E_ALL| E_STRICT);' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          echo 'ini_set("display_errors", 1);' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          echo '$wgShowExceptionDetails = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          echo '$wgDevelopmentWarnings = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
 
       - name: Install SemanticResultFormats
         run: |
