@@ -21,7 +21,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'instance', 1, function ( assert ) {
+	QUnit.test( 'instance', function ( assert ) {
+		assert.expect( 1 );
 		var result;
 		var context = $( '<div class="test"></div>', '#qunit-fixture' );
 
@@ -37,7 +38,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'add portlet', 1, function ( assert ) {
+	QUnit.test( 'add portlet', function ( assert ) {
+		assert.expect( 1 );
 		var result;
 		var context = $( '<div class="test"></div>', '#qunit-fixture' );
 

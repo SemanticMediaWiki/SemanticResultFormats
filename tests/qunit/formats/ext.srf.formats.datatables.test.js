@@ -23,7 +23,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'instance', 1, function ( assert ) {
+	QUnit.test( 'instance', function ( assert ) {
+		assert.expect( 1 );
 
 		var datatables = new srf.formats.datatables();
 		assert.ok( datatables instanceof srf.formats.datatables, pass + 'the srf.formats.datatables instance was accessible' );
@@ -35,7 +36,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'parse', 3, function ( assert ) {
+	QUnit.test( 'parse', function ( assert ) {
+		assert.expect( 3 );
 		var datatables = new srf.formats.datatables();
 
 		var _uriTestCase = '{\"query\":{\"result\":{\"printrequests\":[{\"label\":\"\",\"typeid\":\"_wpg\",\"mode\":2},{\"label\":\"Has url\",\"typeid\":\"_uri\",\"mode\":1}],\"results\":{\"Data\\/1\":{\"printouts\":{\"Has url\":[\"http:\\/\\/localhost\\/mw\\/index.php?title=Data\\/\"]},\"fulltext\":\"Data\\/1\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Data\\/1\"},\"Main Page\":{\"printouts\":{\"Has url\":[\"http:\\/\\/localhost\\/mw\\/test\\/testcase\"]},\"fulltext\":\"Main Page\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Main_Page\"}},\"meta\":{\"hash\":\"c957c73b571d202b08f1385faf7550ec\",\"count\":2,\"offset\":0}},\"ask\":{\"conditions\":\"[[Has url::+]]\",\"parameters\":{\"limit\":50,\"offset\":0,\"format\":\"datatables\",\"link\":\"all\",\"headers\":\"show\",\"mainlabel\":\"\",\"intro\":\"\",\"outro\":\"\",\"searchlabel\":\"\\u2026 further results\",\"default\":\"\",\"class\":\"sortable wikitable smwtable\",\"theme\":\"bootstrap\"},\"printouts\":[\"?Has url\"]}},\"version\":\"0.1\"}';
@@ -54,7 +56,8 @@
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'table init and update test', 3, function ( assert ) {
+	QUnit.test( 'table init and update', function ( assert ) {
+		assert.expect( 3 );
 		var datatables = new srf.formats.datatables();
 
 		assert.equal( $.type( datatables.update ), 'function', pass + 'the function was accessible' );
@@ -71,8 +74,9 @@
 		assert.ok( container.find( 'table' ) , pass + 'table was updated' );
 
 	} );
-	
-	QUnit.test( 'Issue#172: table with subject printout', 1, function ( assert ) {
+
+	QUnit.test( 'Issue#172: table with subject printout', function ( assert ) {
+		assert.expect( 2 );
 		var oldAlert = window.alert;
 		try {
 			var alerts = [];
@@ -80,7 +84,7 @@
 				alerts.push( msg );
 			};
 			var datatables = new srf.formats.datatables();
-			
+
 			var parameters = {"limit":50,"offset":0,"sortkeys":{"":"ASC"},"mainlabel":"-","querymode":1,"format":"datatables","source":"","link":"all","headers":"show","intro":"","outro":"","searchlabel":"... further results","default":"","class":"","theme":"bootstrap"};
 			var data1 = new smw.dataItem.wikiPage( "Data/1", "http://localhost/wiki/Data/1", 0, "1", "Data 1" );
 			data1.printouts = {
@@ -95,7 +99,7 @@
 				"Data/2": data2
 				};
 			var printReqs = [{"label":"Has value","key":"Has_value","redi":"","typeid":"_wpg","mode":1,"format":""},{"label":"Data","key":"","redi":"","typeid":"_wpg","mode":2,"format":""}];
-			
+
 			var data = {
 				"query" : {
 					"ask" : {
