@@ -211,7 +211,7 @@ var DistanceFilter = /** @class */ (function (_super) {
             '<tr><td colspan=3 class="filtered-distance-unit-cell">' + unit + '</td></tr></tbody></table>');
         filtercontrols.append(table);
         var that = this;
-        mw.loader.using('jquery.ui.slider').then(function () {
+        mw.loader.using('jquery.ui').then(function () {
             table.find('.filtered-distance-slider')
                 .slider({
                 animate: true,
