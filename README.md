@@ -1,5 +1,5 @@
 # Semantic Result Formats
-![CI](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/main.yml/badge.svg)
+[![CI](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/main.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticResultFormats/branch/master/graph/badge.svg?token=Si45N9MsGq)](https://codecov.io/gh/SemanticMediaWiki/SemanticResultFormats)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
