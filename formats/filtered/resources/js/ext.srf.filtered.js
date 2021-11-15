@@ -156,8 +156,7 @@ var Controller = /** @class */ (function () {
     return Controller;
 }());
 exports.Controller = Controller;
-
-},{"./View/View":11}],2:[function(require,module,exports){
+},{"./View/View":12}],2:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -212,7 +211,7 @@ var DistanceFilter = /** @class */ (function (_super) {
             '<tr><td colspan=3 class="filtered-distance-unit-cell">' + unit + '</td></tr></tbody></table>');
         filtercontrols.append(table);
         var that = this;
-        mw.loader.using('jquery.ui.slider').then(function () {
+        mw.loader.using('jquery.ui').then(function () {
             table.find('.filtered-distance-slider')
                 .slider({
                 animate: true,
@@ -281,7 +280,6 @@ var DistanceFilter = /** @class */ (function (_super) {
     return DistanceFilter;
 }(Filter_1.Filter));
 exports.DistanceFilter = DistanceFilter;
-
 },{"./Filter":3}],3:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -424,7 +422,6 @@ var Filter = /** @class */ (function () {
     return Filter;
 }());
 exports.Filter = Filter;
-
 },{}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -651,7 +648,6 @@ var NumberFilter = /** @class */ (function (_super) {
     return NumberFilter;
 }(Filter_1.Filter));
 exports.NumberFilter = NumberFilter;
-
 },{"./Filter":3}],5:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -852,7 +848,6 @@ var ValueFilter = /** @class */ (function (_super) {
     return ValueFilter;
 }(Filter_1.Filter));
 exports.ValueFilter = ValueFilter;
-
 },{"./Filter":3}],6:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -934,8 +929,38 @@ var Filtered = /** @class */ (function () {
     return Filtered;
 }());
 exports.Filtered = Filtered;
-
-},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":7,"./View/ListView":8,"./View/MapView":9,"./View/TableView":10,"./View/View":11,"./ViewSelector":12}],7:[function(require,module,exports){
+},{"./Controller":1,"./Filter/DistanceFilter":2,"./Filter/NumberFilter":4,"./Filter/ValueFilter":5,"./View/CalendarView":8,"./View/ListView":9,"./View/MapView":10,"./View/TableView":11,"./View/View":12,"./ViewSelector":7}],7:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
+var ViewSelector = /** @class */ (function () {
+    function ViewSelector(target, viewIDs, controller) {
+        this.target = undefined;
+        this.viewIDs = undefined;
+        this.controller = undefined;
+        this.target = target;
+        this.viewIDs = viewIDs;
+        this.controller = controller;
+    }
+    ViewSelector.prototype.init = function () {
+        var _this = this;
+        if (this.viewIDs.length > 1) {
+            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.target.children().first().addClass('selected');
+            this.target.show();
+        }
+    };
+    ViewSelector.onSelectorSelected = function (event) {
+        event.data.controller.onViewSelected(event.data.target);
+        $(event.target)
+            .addClass('selected')
+            .siblings().removeClass('selected');
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    return ViewSelector;
+}());
+exports.ViewSelector = ViewSelector;
+},{}],8:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1055,8 +1080,7 @@ var CalendarView = /** @class */ (function (_super) {
     return CalendarView;
 }(View_1.View));
 exports.CalendarView = CalendarView;
-
-},{"./View":11}],8:[function(require,module,exports){
+},{"./View":12}],9:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1084,8 +1108,7 @@ var ListView = /** @class */ (function (_super) {
     return ListView;
 }(View_1.View));
 exports.ListView = ListView;
-
-},{"./View":11}],9:[function(require,module,exports){
+},{"./View":12}],10:[function(require,module,exports){
 "use strict";
 /// <reference types="leaflet" />
 var __extends = (this && this.__extends) || (function () {
@@ -1314,8 +1337,7 @@ var MapView = /** @class */ (function (_super) {
     return MapView;
 }(View_1.View));
 exports.MapView = MapView;
-
-},{"./View":11}],10:[function(require,module,exports){
+},{"./View":12}],11:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1343,8 +1365,7 @@ var TableView = /** @class */ (function (_super) {
     return TableView;
 }(View_1.View));
 exports.TableView = TableView;
-
-},{"./View":11}],11:[function(require,module,exports){
+},{"./View":12}],12:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
 var View = /** @class */ (function () {
@@ -1417,39 +1438,6 @@ var View = /** @class */ (function () {
     return View;
 }());
 exports.View = View;
-
-},{}],12:[function(require,module,exports){
-"use strict";
-exports.__esModule = true;
-var ViewSelector = /** @class */ (function () {
-    function ViewSelector(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    ViewSelector.prototype.init = function () {
-        var _this = this;
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    };
-    ViewSelector.onSelectorSelected = function (event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    };
-    return ViewSelector;
-}());
-exports.ViewSelector = ViewSelector;
-
 },{}],13:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
@@ -1464,7 +1452,6 @@ var _loop_1 = function (id) {
 for (var id in config) {
     _loop_1(id);
 }
-
 },{"./Filtered/Filtered":6}]},{},[13])
 
 //# sourceMappingURL=ext.srf.filtered.js.map

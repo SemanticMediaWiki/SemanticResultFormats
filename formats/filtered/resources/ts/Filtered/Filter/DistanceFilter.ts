@@ -59,7 +59,7 @@ export class DistanceFilter extends Filter {
 		filtercontrols.append( table );
 
 		let that = this;
-		mw.loader.using( 'jquery.ui.slider' ).then( function () {
+		mw.loader.using( 'jquery.ui' ).then( function () {
 
 			table.find( '.filtered-distance-slider' )
 			.slider( {
