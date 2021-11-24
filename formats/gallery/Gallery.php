@@ -92,15 +92,12 @@ class Gallery extends ResultPrinter {
 			// Slideshow widget
 			$ig->setAttributes( $this->getSlideshowWidget() );
 		} else {
-
 			// Standard gallery attributes
-			$attribs = [
-				'id' => uniqid(),
-				'class' => $this->getImageOverlay(),
-			];
-
-			$ig->setAttributes( $attribs );
+			$ig->setAttributes( $this->getStandardWidget() );
 		}
+
+		// In any case we depend on mediawiki.page.gallery.styles
+		SMWOutputs::requireStyle('mediawiki.page.gallery.styles');
 
 		// Only use redirects where the overlay option is not used and redirect
 		// thumb images towards a different target
@@ -358,6 +355,16 @@ class Gallery extends ResultPrinter {
 		} else {
 			return '';
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getStandardWidget() {
+		return [
+			'id' => uniqid(),
+			'class' => $this->getImageOverlay()
+		];
 	}
 
 	/**
