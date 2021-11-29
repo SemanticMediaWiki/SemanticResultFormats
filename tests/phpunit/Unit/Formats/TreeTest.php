@@ -2,7 +2,7 @@
 
 namespace SRF\Test;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SMW\Tests\Utils\Mock\CoreMockObjectRepository;
 use SMW\Tests\Utils\Mock\MockObjectBuilder;
 use SMWQueryProcessor;

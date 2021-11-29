@@ -2,7 +2,7 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 
 /**
  *  Tests for the SRF\Math class.

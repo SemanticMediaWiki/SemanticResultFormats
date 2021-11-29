@@ -5,7 +5,7 @@ namespace SRF\Tests\Unit\Formats;
 use SRF\Gallery;
 use TraditionalImageGallery;
 use Title;
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 
 /**
  * Tests for the SRF\Gallery class.
