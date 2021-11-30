@@ -1,8 +1,10 @@
+!.*
 *~
 *.kate-swp
 .*.swp
+.envrc
+.phpunit.result.cache
 
-!.*
 .idea/
 
 composer.lock
@@ -10,6 +12,8 @@ composer.phar
 
 npm-debug.log
 
+conf/
+makeutil/
 vendor/
 extensions/
 node_modules/
