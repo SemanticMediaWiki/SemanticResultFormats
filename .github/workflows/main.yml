@@ -31,26 +31,26 @@ jobs:
 
     env:
       EXT_NAME: SemanticResultFormats
-      MW_INST_PATH: /var/www/html
+      MW_INSTALL_PATH: /var/www/html
       MW_DB_PATH: /var/www/data
       MW_EXT_PATH: /var/www/html/extensions
 
     steps:
       - name: Install SemanticMediaWiki
         run: |
-          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki ${{ matrix.semantic_mediawiki_version }}
-          composer update --working-dir ${{ env.MW_INST_PATH }}
-          echo "wfLoadExtension( 'SemanticMediaWiki' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
-          php ${{ env.MW_INST_PATH }}/maintenance/update.php --skip-external-dependencies --quick
+          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INSTALL_PATH }} mediawiki/semantic-media-wiki ${{ matrix.semantic_mediawiki_version }}
+          composer update --working-dir ${{ env.MW_INSTALL_PATH }}
+          echo "wfLoadExtension( 'SemanticMediaWiki' );" >> ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
+          echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
+          php ${{ env.MW_INSTALL_PATH }}/maintenance/update.php --skip-external-dependencies --quick
 
       - name: Install Mermaid
         run: |
-          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INST_PATH }} mediawiki/mermaid ${{ matrix.mermaid_version }}
-          composer update --working-dir ${{ env.MW_INST_PATH }}
-          echo "wfLoadExtension( 'Mermaid' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
+          COMPOSER=composer.local.json composer require --update-with-dependencies --working-dir ${{ env.MW_INSTALL_PATH }} mediawiki/mermaid ${{ matrix.mermaid_version }}
+          composer update --working-dir ${{ env.MW_INSTALL_PATH }}
+          echo "wfLoadExtension( 'Mermaid' );" >> ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
 
       - name: Checkout Extension
         uses: actions/checkout@v2
@@ -66,31 +66,31 @@ jobs:
 
       - name: Install SemanticResultFormats
         run: |
-          COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-result-formats @dev
-          COMPOSER=composer.local.json composer config repositories.semantic-result-formats '{"type": "path", "url": "extensions/SemanticResultFormats"}' --working-dir ${{ env.MW_INST_PATH }}
-          composer update --working-dir ${{ env.MW_INST_PATH }}
-          echo "wfLoadExtension( '${{ env.EXT_NAME }}' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
-          tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
-          php ${{ env.MW_INST_PATH }}/maintenance/update.php --quick
+          COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INSTALL_PATH }} mediawiki/semantic-result-formats @dev
+          COMPOSER=composer.local.json composer config repositories.semantic-result-formats '{"type": "path", "url": "extensions/SemanticResultFormats"}' --working-dir ${{ env.MW_INSTALL_PATH }}
+          composer update --working-dir ${{ env.MW_INSTALL_PATH }}
+          echo "wfLoadExtension( '${{ env.EXT_NAME }}' );" >> ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
+          tail -n5 ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
+          php ${{ env.MW_INSTALL_PATH }}/maintenance/update.php --quick
 
       - name: Run Tests
         run: >
-          php ${{ env.MW_INST_PATH }}/tests/phpunit/phpunit.php
+          php ${{ env.MW_INSTALL_PATH }}/tests/phpunit/phpunit.php
           --configuration ${{ env.MW_EXT_PATH }}/${{ env.EXT_NAME }}
           --testdox
         if: matrix.coverage == false
 
       - name: Run Tests With Coverage
         run: >
-          php ${{ env.MW_INST_PATH }}/tests/phpunit/phpunit.php
+          php ${{ env.MW_INSTALL_PATH }}/tests/phpunit/phpunit.php
           --configuration ${{ env.MW_EXT_PATH }}/${{ env.EXT_NAME }}
           --testdox
-          --coverage-clover ${{ env.MW_INST_PATH }}/docs/coverage.xml
+          --coverage-clover ${{ env.MW_INSTALL_PATH }}/docs/coverage.xml
         if: matrix.coverage == true
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{ env.MW_INST_PATH }}/docs/coverage.xml
+          files: ${{ env.MW_INSTALL_PATH }}/docs/coverage.xml
         if: matrix.coverage == true
