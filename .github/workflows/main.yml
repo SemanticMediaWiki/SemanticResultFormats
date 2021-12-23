@@ -25,6 +25,11 @@ jobs:
             mermaid_version: dev-master
             coverage: false
             experimental: true
+          - mediawiki_version: '1.37'
+            semantic_mediawiki_version: dev-master
+            mermaid_version: dev-master
+            coverage: false
+            experimental: true
 
     container:
       image: gesinn/docker-mediawiki:${{ matrix.mediawiki_version }}
