@@ -3,6 +3,7 @@
 namespace SRF;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use SMW\ResultPrinter;
 use SMWDataItem;
 use SMWOutputs;
@@ -79,7 +80,7 @@ class Gallery extends ResultPrinter {
 		// No need for a special page to use the parser but for the "normal" page
 		// view we have to ensure caption text is parsed correctly through the parser
 		if ( !$this->isSpecialPage() ) {
-			$ig->setParser( $GLOBALS['wgParser'] );
+			$ig->setParser( MediaWikiServices::getInstance()->getParser() );
 		}
 
 		$html = '';

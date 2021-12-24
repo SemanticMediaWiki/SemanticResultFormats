@@ -11,6 +11,7 @@ namespace SRF\Filtered;
 
 use Exception;
 use Html;
+use MediaWiki\MediaWikiServices;
 use SMW\Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryLinker;
@@ -99,7 +100,7 @@ class Filtered extends ResultPrinter {
 	public function getParser() {
 
 		if ( $this->parser === null ) {
-			$this->setParser( $GLOBALS['wgParser'] );
+			$this->setParser( MediaWikiServices::getInstance()->getParser() );
 		}
 
 		return $this->parser;
