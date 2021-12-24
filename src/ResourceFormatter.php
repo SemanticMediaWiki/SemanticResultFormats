@@ -67,10 +67,12 @@ class ResourceFormatter {
 	public static function encode( $id, $data ) {
 		ResourceManager::requireHeadItem(
 			$id,
-			\Skin::makeVariablesScript(
-				[
-					$id => json_encode( $data )
-				],
+			\ResourceLoader::makeInlineScript(
+				\ResourceLoader::makeConfigSetScript(
+					[
+						$id => json_encode( $data )
+					]
+				),
 				false
 			)
 		);
