@@ -2,6 +2,7 @@
 
 namespace SRF\Tests;
 
+use SMW\Tests\PHPUnitCompat;
 use SRF\ResourceFormatter;
 
 /**
@@ -14,6 +15,8 @@ use SRF\ResourceFormatter;
  * @author mwjames
  */
 class ResourceFormatterTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	public function testSession() {
 

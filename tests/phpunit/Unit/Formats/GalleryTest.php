@@ -6,6 +6,7 @@ use SRF\Gallery;
 use TraditionalImageGallery;
 use Title;
 use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\PHPUnitCompat;
 
 /**
  * Tests for the SRF\Gallery class.
@@ -24,6 +25,8 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class GalleryTest extends QueryPrinterRegistryTestCase {
+
+	use PHPUnitCompat;
 
 	private $queryResult;
 	private $title;

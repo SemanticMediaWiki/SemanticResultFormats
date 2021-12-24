@@ -2,6 +2,7 @@
 
 namespace SRF\Tests\Integration;
 
+use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\Utils\UtilityFactory;
 
 /**
@@ -14,6 +15,8 @@ use SMW\Tests\Utils\UtilityFactory;
  * @author mwjames
  */
 class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	/**
 	 * @dataProvider i18nFileProvider
