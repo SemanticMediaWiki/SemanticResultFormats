@@ -2,6 +2,7 @@
 
 namespace SRF\Tests\Outline;
 
+use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\TemplateBuilder;
 use SRF\Outline\OutlineTree;
 
@@ -15,6 +16,8 @@ use SRF\Outline\OutlineTree;
  * @author mwjames
  */
 class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 
