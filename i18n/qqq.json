@@ -16,7 +16,8 @@
 			"Siebrand",
 			"Toliño",
 			"Umherirrender",
-			"아라"
+			"아라",
+			"Marco Falda"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -373,5 +374,11 @@
 	"srf-error-gantt-sortkey": "This is an error message.",
 	"srf-error-gantt-mermaid-not-installed": "This is an error message.",
 	"srf-printername-gantt": "{{doc-smwformat|gantt}}",
+	"srf-printername-prolog": "{{doc-smwformat|prolog}}",
+	"srf-paramdesc-prolog-filename": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-prolog-fileformat": "{{doc-paramdesc|fileformat}}",
+	"srf-paramdesc-prolog-pname": "The name of the generated predicates. Default: predicate",
+	"srf-paramdesc-prolog-navalue": "The value for missing data. Default: 'NA'",
+	"srf-prolog-link": "{{doc-smw-link}}",
 	"srf-paramdesc-nodelabel": "{{doc-paramdesc|nodelabel}}\n{{doc-important|Do not translate the possible parameters: \"displaytitle\".}}"
 }
