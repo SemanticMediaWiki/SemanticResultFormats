@@ -4,6 +4,7 @@
 			"Fryed-peach",
 			"Hosiryuhosi",
 			"JtFuruhata",
+			"Marine-Blue",
 			"Naohiro19",
 			"Nemo bis",
 			"Ochaochaocha3",
@@ -21,7 +22,7 @@
 		]
 	},
 	"srf-desc": "Semantic MediaWiki のクエリのための追加的な結果の形式",
-	"prefs-srf": "セマンティック 結果の形式",
+	"prefs-srf": "意味的結果の形式",
 	"prefs-srf-eventcalendar-options": "イベントカレンダーオプション",
 	"srf-prefs-eventcalendar-options-update-default": "ページ更新中のカレンダーイベントの[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates 自動更新]を有効にする",
 	"prefs-srf-datatables-options": "データテーブルオプション",
