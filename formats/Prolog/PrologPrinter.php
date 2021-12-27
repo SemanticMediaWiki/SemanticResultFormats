@@ -1,6 +1,6 @@
 <?php
 
-namespace SRF;
+namespace SRF\Prolog;
 
 use SMW\FileExportPrinter;
 use SMWQueryResult;
@@ -71,8 +71,13 @@ class PrologPrinter extends FileExportPrinter {
      */
     public function outputAsFile( SMWQueryResult $queryResult, array $params )
     {
-        $this->fileFormat = $this->fileFormats[ 'R' ];
-        parent::outputAsFile( $queryResult, $params );
+		if ( array_key_exists( 'fileformat', $params) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats )) {
+			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
+		} else {
+			$this->fileFormat = $this->fileFormats[ 'pl' ];
+		}
+
+		parent::outputAsFile( $queryResult, $params );
     }
 
     /**
@@ -187,9 +192,9 @@ class PrologPrinter extends FileExportPrinter {
                                 $rowData = "'$nextDataValue'";
                             }
                         } else
-                            $rowData = wfMessage( 'srf-paramdesc-prolog-navalue' )->inContentLanguage()->text();
+                            $rowData = $this->params['navalue'];
                     }
-                    $preds[] = wfMessage( 'srf-paramdesc-prolog-pname' )->inContentLanguage()->text() . "('$subject', '$propertyLabel', $rowData).";
+                    $preds[] = $this->params['pname'] . "('$subject', '$propertyLabel', $rowData).";
                 }
 
                 $i++;
