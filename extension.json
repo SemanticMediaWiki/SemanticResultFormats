@@ -28,6 +28,38 @@
 	"ExtensionFunctions": [
 		"SemanticResultFormats::onExtensionFunction"
 	],
+	"QUnitTestModule": {
+		"localBasePath": "",
+		"remoteExtPath": "SemanticResultFormats",
+		"scripts": [
+			"tests/qunit/ext.srf.test.js",
+			"tests/qunit/ext.srf.util.test.js",
+			"tests/qunit/formats/ext.srf.formats.datatables.test.js",
+			"tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js",
+			"tests/qunit/formats/ext.srf.formats.filtered.test.js",
+			"tests/qunit/formats/ext.srf.formats.gallery.test.js",
+			"tests/qunit/formats/ext.srf.formats.media.test.js",
+			"tests/qunit/formats/ext.srf.formats.tagcloud.test.js",
+			"tests/qunit/widgets/ext.srf.widgets.eventcalendar.tests.js",
+			"tests/qunit/widgets/ext.srf.widgets.optionslist.test.js",
+			"tests/qunit/widgets/ext.srf.widgets.panel.test.js",
+			"tests/qunit/widgets/ext.srf.widgets.parameters.test.js"
+		],
+		"dependencies": [
+			"ext.srf",
+			"ext.srf.util",
+			"ext.srf.eventcalendar",
+			"ext.srf.datatables",
+			"ext.srf.widgets",
+			"ext.srf.gallery.overlay",
+			"ext.srf.gallery.carousel",
+			"ext.srf.gallery.slideshow",
+			"ext.srf.gallery.redirect",
+			"ext.srf.formats.media",
+			"ext.srf.formats.tagcloud",
+			"ext.srf.filtered.value-filter.select"
+		]
+	},
 	"load_composer_autoloader":true,
 	"manifest_version": 2
 }
