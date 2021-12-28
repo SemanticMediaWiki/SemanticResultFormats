@@ -155,5 +155,9 @@
 	"srf-paramdesc-prolog-fileformat": "Il formato file dei predicati da produrre: pl, pro. Predefinito: pl",
 	"srf-paramdesc-prolog-pname": "Il nome dei predicati. Predefinito: predicate",
 	"srf-paramdesc-prolog-navalue": "Il valore da inserire se il dato e` assente. Predefinito: 'NA'",
-	"srf-prolog-link": "Predicati"
+	"srf-prolog-link": "Predicati",
+	"srf-printername-dataframe": "Dataframe di R",
+	"srf-paramdesc-dataframe-filename": "Il nome del file per il download del dataframe generato",
+	"srf-paramdesc-dataframe-fileformat": "Il formato file del dataframe da produrre: R.",
+	"srf-dataframe-link": "Dataframe"
 }

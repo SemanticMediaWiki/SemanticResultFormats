@@ -380,5 +380,9 @@
 	"srf-paramdesc-prolog-pname": "The name of the generated predicates. Default: predicate",
 	"srf-paramdesc-prolog-navalue": "The value for missing data. Default: 'NA'",
 	"srf-prolog-link": "{{doc-smw-link}}",
+	"srf-printername-dataframe": "{{doc-smwformat|dataframe}}",
+	"srf-paramdesc-dataframe-filename": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-dataframe-fileformat": "{{doc-paramdesc|fileformat}}",
+	"srf-dataframe-link": "{{doc-smw-link}}",
 	"srf-paramdesc-nodelabel": "{{doc-paramdesc|nodelabel}}\n{{doc-important|Do not translate the possible parameters: \"displaytitle\".}}"
 }

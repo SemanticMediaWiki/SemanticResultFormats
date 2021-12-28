@@ -64,7 +64,8 @@ $GLOBALS['srfgFormats'] = [
 	'interquartilerange.exc',
 	'mode',
 	'interquartilemean',
-    'prolog'
+	'prolog',
+	'dataframe'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',
@@ -75,7 +76,7 @@ $GLOBALS['srfgFormats'] = [
 	// large number of incoming properties assigned to each selected entity
 	// @see Help:Incoming_format
 	// 'incoming',
-	
+
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
 

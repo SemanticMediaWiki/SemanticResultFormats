@@ -162,7 +162,8 @@ class SemanticResultFormats {
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
 			'gantt' => 'SRF\Gantt\GanttPrinter',
-			'prolog' => 'SRF\Prolog\PrologPrinter'
+			'prolog' => 'SRF\Prolog\PrologPrinter',
+			'dataframe' => 'SRF\dataframe\DataframePrinter'
 		];
 
 		$formatAliases = [
