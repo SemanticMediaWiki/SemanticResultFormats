@@ -60,7 +60,6 @@ class SemanticResultFormats {
 		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
 		$GLOBALS['wgHooks']['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
 
-		$GLOBALS['wgHooks']['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
 		$GLOBALS['wgHooks']['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
 
 		// Format hooks

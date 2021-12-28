@@ -60,61 +60,6 @@ final class SRFHooks {
 	}
 
 	/**
-	 * Add new JavaScript/QUnit testing modules
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderTestModules
-	 *
-	 * @since: 1.9
-	 *
-	 * @param  array $testModules array of JavaScript testing modules
-	 * @param  ResourceLoader $resourceLoader object
-	 *
-	 * @return boolean
-	 */
-	public static function registerQUnitTests( array &$testModules, ResourceLoader &$resourceLoader ) {
-		$testModules['qunit']['ext.srf.tests'] = [
-			'scripts' => [
-				// Base
-				'tests/qunit/ext.srf.test.js',
-				'tests/qunit/ext.srf.util.test.js',
-
-				// Formats
-				'tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js',
-				'tests/qunit/formats/ext.srf.formats.datatables.test.js',
-				'tests/qunit/formats/ext.srf.formats.filtered.test.js',
-				'tests/qunit/formats/ext.srf.formats.gallery.test.js',
-				'tests/qunit/formats/ext.srf.formats.media.test.js',
-				'tests/qunit/formats/ext.srf.formats.tagcloud.test.js',
-
-				// Widgets
-				'tests/qunit/widgets/ext.srf.widgets.eventcalendar.tests.js',
-				'tests/qunit/widgets/ext.srf.widgets.optionslist.test.js',
-				'tests/qunit/widgets/ext.srf.widgets.panel.test.js',
-				'tests/qunit/widgets/ext.srf.widgets.parameters.test.js'
-
-			],
-			'dependencies' => [
-				'ext.srf',
-				'ext.srf.util',
-				'ext.srf.eventcalendar',
-				'ext.srf.datatables',
-				'ext.srf.widgets',
-				'ext.srf.gallery.overlay',
-				'ext.srf.gallery.carousel',
-				'ext.srf.gallery.slideshow',
-				'ext.srf.gallery.redirect',
-				'ext.srf.formats.media',
-				'ext.srf.formats.tagcloud',
-				'ext.srf.filtered.value-filter.select',
-			],
-			'position' => 'top',
-			'localBasePath' => __DIR__,
-			'remoteExtPath' => 'SemanticResultFormats',
-		];
-
-		return true;
-	}
-
-	/**
 	 * Adds a link to Admin Links page.
 	 *
 	 * @since 1.7
