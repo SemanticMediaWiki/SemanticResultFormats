@@ -2,6 +2,7 @@
 
 namespace SRF\Tests\Outline;
 
+use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\OutlineResultPrinter;
 
 /**
@@ -14,6 +15,8 @@ use SRF\Outline\OutlineResultPrinter;
  * @author mwjames
  */
 class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	private $queryResult;
 
