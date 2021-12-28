@@ -1,5 +1,7 @@
 <?php
 namespace SRF\Tests\Integration\JSONScript;
+
+use ExtensionRegistry;
 use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTestCaseScriptRunnerTest;
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -44,13 +46,13 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 	}
 	public function checkMermaidDependency( $val, &$reason ) {
 
-		if ( !defined( 'MERMAID_VERSION' ) ) {
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Mermaid' ) ) {
 			$reason = "Dependency: Mermaid as requirement is not available!";
 			return false;
 		}
 
 		list( $compare, $requiredVersion ) = explode( ' ', $val );
-		$version = MERMAID_VERSION;
+		$version = ExtensionRegistry::getInstance()->getAllThings()['Mermaid']['version'];
 
 		if ( !version_compare( $version, $requiredVersion, $compare ) ) {
 			$reason = "Dependency: Required version of Mermaid($requiredVersion $compare $version) is not available!";
