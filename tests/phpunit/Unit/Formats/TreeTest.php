@@ -2,6 +2,9 @@
 
 namespace SRF\Test;
 
+use ExtensionRegistry;
+use MediaWiki\MediaWikiServices;
+use Parser;
 use SMW\Test\QueryPrinterRegistryTestCase;
 use SMW\Tests\Utils\Mock\CoreMockObjectRepository;
 use SMW\Tests\Utils\Mock\MockObjectBuilder;
@@ -35,12 +38,12 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	 * other tests in case this one fails in between.
 	 */
 	public static function setUpBeforeClass(): void {
-		self::$initial_parser = $GLOBALS['wgParser'];
+		self::$initial_parser = MediaWikiServices::getInstance()->getParser();
 		self::$initial_title = $GLOBALS['wgTitle'];
 	}
 
 	protected function tearDown(): void {
-		$GLOBALS['wgParser'] = self::$initial_parser;
+		$this->replaceParser( self::$initial_parser );
 		$GLOBALS['wgTitle'] = self::$initial_title;
 
 		parent::tearDown();
@@ -92,14 +95,14 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		// Restore GLOBAL state to ensure that preceding tests do not use a
 		// mocked instance
-		$GLOBALS['wgParser'] = $this->parser;
+		$this->replaceParser( $this->parser );
 		$GLOBALS['wgTitle'] = $this->title;
 	}
 
 	protected function prepareGlobalState() {
 
 		// Store current state
-		$this->parser = $GLOBALS['wgParser'];
+		$this->parser = MediaWikiServices::getInstance()->getParser();
 		$this->title = $GLOBALS['wgTitle'];
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
@@ -123,8 +126,28 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 			->getMock();
 
 		// Careful!!
-		$GLOBALS['wgParser'] = $parser;
+		$this->replaceParser( $parser );
 		$GLOBALS['wgTitle'] = $title;
+	}
+
+	/**
+	 * Replaces the global Parser service.
+	 *
+	 * @param Parser $parser
+	 */
+	protected function replaceParser( Parser $parser ) {
+		// Direct access to the wgParser global was removed in SMW 4.0.0.
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '<4.0.0') ) {
+			$GLOBALS['wgParser'] = $parser;
+		} else {
+			MediaWikiServices::getInstance()->disableService( 'Parser' );
+			MediaWikiServices::getInstance()->redefineService(
+				'Parser',
+				function () use ( $parser ) {
+					return $parser;
+				}
+			);
+		}
 	}
 
 	/**
