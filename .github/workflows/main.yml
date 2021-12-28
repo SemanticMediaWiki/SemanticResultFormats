@@ -18,17 +18,17 @@ jobs:
           - mediawiki_version: '1.35'
             semantic_mediawiki_version: 3.2.3
             mermaid_version: 3.0.1
-            coverage: true
+            coverage: false
             experimental: false
           - mediawiki_version: '1.35'
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
-            coverage: true
+            coverage: false
             experimental: false
           - mediawiki_version: '1.36'
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
-            coverage: true
+            coverage: false
             experimental: false
           - mediawiki_version: '1.37'
             semantic_mediawiki_version: dev-master
