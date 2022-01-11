@@ -74,7 +74,7 @@ $GLOBALS['srfgFormats'] = [
 	// large number of incoming properties assigned to each selected entity
 	// @see Help:Incoming_format
 	// 'incoming',
-	
+
 	// Still in alpha:
 	// 'jitgraph', // Several issues need to be fixed before this can be enabled, most notably it does not work properly with the RL.
 
@@ -88,7 +88,7 @@ $GLOBALS['srfgFormats'] = [
 
 // Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 // FIXME: According to the INSTALL file only formats should be enabled, that "do not require further software to be installed (besides SMW)"
-if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && defined( 'ExtHashTables::VERSION' )
+if(	isset( $GLOBALS['wgAutoloadClasses']['ExtHashTables'] ) && defined( 'ExtHashTables::VERSION' )
 	&& version_compare( ExtHashTables::VERSION, '0.999', '>=' )
 	|| isset( $GLOBALS['wgHashTables'] ) // Version < 1.0 alpha
 ) {
