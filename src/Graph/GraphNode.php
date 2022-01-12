@@ -65,4 +65,3 @@ class GraphNode {
 		return $this->label;
 	}
 }
-

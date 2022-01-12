@@ -100,4 +100,3 @@ DOT;
 		$this->assertEquals( $this->graphFormatter->getGraph(), $expected );
 	}
 }
-
