@@ -113,7 +113,7 @@ final class SRFHooks {
 	 *
 	 * @return true
 	 */
-	public static function onBeforePageDisplay ( &$outputPage, &$skin ) {
+	public static function onBeforePageDisplay( &$outputPage, &$skin ) {
 		$outputPage->addModuleStyles( 'ext.srf.styles' );
 
 		return true;

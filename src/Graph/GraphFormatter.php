@@ -109,7 +109,7 @@ class GraphFormatter {
 				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
 							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
 							. implode( "\n", array_map( static function ( $field ) {
-								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ])
+								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
 									? 'right'
 									: 'left';
 								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'

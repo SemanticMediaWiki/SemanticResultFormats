@@ -98,7 +98,7 @@ class GraphPrinter extends ResultPrinter {
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
 
-		$this->options = new GraphOptions($params);
+		$this->options = new GraphOptions( $params );
 	}
 
 	/**

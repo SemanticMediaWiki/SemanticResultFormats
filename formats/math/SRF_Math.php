@@ -13,119 +13,119 @@
 
 class MathFormats
 {
-	public static function max_function(array $numbers)
+	public static function max_function( array $numbers )
 	{
 		// result
-		return max($numbers);
+		return max( $numbers );
 	}
 
-	public static function min_function(array $numbers)
+	public static function min_function( array $numbers )
 	{
 		// result
-		return min($numbers);
+		return min( $numbers );
 	}
 
-	public static function sum_function(array $numbers)
+	public static function sum_function( array $numbers )
 	{
 		// result
-		return array_sum($numbers);
+		return array_sum( $numbers );
 	}
 
-	public static function product_function(array $numbers)
+	public static function product_function( array $numbers )
 	{
 		// result
-		return array_product($numbers);
+		return array_product( $numbers );
 	}
 
-	public static function average_function(array $numbers)
+	public static function average_function( array $numbers )
 	{
 		// result
-		return array_sum($numbers) / count($numbers);
+		return array_sum( $numbers ) / count( $numbers );
 	}
 
-	public static function median_function(array $numbers)
+	public static function median_function( array $numbers )
 	{
 		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$position = (count($numbers) + 1 ) / 2 - 1;
+		$position = ( count( $numbers ) + 1 ) / 2 - 1;
 		// result
-		return ( $numbers[ceil($position)] + $numbers[floor($position)]) / 2;
+		return ( $numbers[ceil( $position )] + $numbers[floor( $position )] ) / 2;
 	}
 
-	public static function variance_function(array $numbers)
+	public static function variance_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function($numbers);
+		$average = MathFormats::average_function( $numbers );
 		// space
 		$space = NULL;
-		for($i = 0; $i < count($numbers); $i++)
+		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
-			$space += pow($numbers[$i], 2);
+			$space += pow( $numbers[$i], 2 );
 		}
 		// result
-		return ($space / count($numbers) - pow($average, 2));
+		return ( $space / count( $numbers ) - pow( $average, 2 ) );
 	}
 
-	public static function samplevariance_function(array $numbers)
+	public static function samplevariance_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function($numbers);
+		$average = MathFormats::average_function( $numbers );
 		// space
 		$space = NULL;
-		for($i = 0; $i < count($numbers); $i++)
+		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
-			$space += pow(($numbers[$i] - $average), 2);
+			$space += pow( ( $numbers[$i] - $average ), 2 );
 		}
 		// result
-		return ($space / (count($numbers) - 1));
+		return ( $space / ( count( $numbers ) - 1 ) );
 	}
 
-	public static function standarddeviation_function(array $numbers)
+	public static function standarddeviation_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function($numbers);
+		$average = MathFormats::average_function( $numbers );
 		// space
 		$space = NULL;
-		for($i = 0; $i < count($numbers); $i++)
+		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
-			$space += pow(($numbers[$i] - $average), 2);
+			$space += pow( ( $numbers[$i] - $average ), 2 );
 		}
 		// result
-		return sqrt($space / (count($numbers) - 1));
+		return sqrt( $space / ( count( $numbers ) - 1 ) );
 	}
 
-	public static function samplestandarddeviation_function(array $numbers)
+	public static function samplestandarddeviation_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function($numbers);
+		$average = MathFormats::average_function( $numbers );
 		// space
 		$space = NULL;
-		for($i = 0; $i < count($numbers); $i++)
+		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
-			$space += pow($numbers[$i], 2);
+			$space += pow( $numbers[$i], 2 );
 		}
 		// result
-		return sqrt($space / count($numbers) - pow($average, 2));
+		return sqrt( $space / count( $numbers ) - pow( $average, 2 ) );
 	}
 
-	public static function range_function(array $numbers)
+	public static function range_function( array $numbers )
 	{
 		// result
-		return (max($numbers) - min($numbers));
+		return ( max( $numbers ) - min( $numbers ) );
 	}
 
-	public static function quartillower_inc_function(array $numbers)
+	public static function quartillower_inc_function( array $numbers )
 	{
-		sort($numbers, SORT_NUMERIC);
+		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q1_position = ((sizeof($numbers) - 1) * 0.25);
+		$Q1_position = ( ( sizeof( $numbers ) - 1 ) * 0.25 );
 		// check if position is between two numbers
-		if(is_float($Q1_position) == TRUE)
+		if( is_float( $Q1_position ) == TRUE )
 		{
-			$Q1_position_y = floor($Q1_position);
-			$Q1_position_x = ceil($Q1_position);
+			$Q1_position_y = floor( $Q1_position );
+			$Q1_position_x = ceil( $Q1_position );
 			// result
-			return ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.25);
+			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.25 );
 		}
 		else
 		{
@@ -134,18 +134,18 @@ class MathFormats
 		}
 	}
 
-	public static function quartilupper_inc_function(array $numbers)
+	public static function quartilupper_inc_function( array $numbers )
 	{
-		sort($numbers, SORT_NUMERIC);
+		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q3_position = ((sizeof($numbers) - 1) * 0.75);
+		$Q3_position = ( ( sizeof( $numbers ) - 1 ) * 0.75 );
 		// check if position is between two numbers
-		if(is_float($Q3_position) == TRUE)
+		if( is_float( $Q3_position ) == TRUE )
 		{
-			$Q3_position_y = floor($Q3_position);
-			$Q3_position_x = ceil($Q3_position);
+			$Q3_position_y = floor( $Q3_position );
+			$Q3_position_x = ceil( $Q3_position );
 			// result
-			return ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.75);
+			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.75 );
 		}
 		else
 		{
@@ -154,18 +154,18 @@ class MathFormats
 		}
 	}
 
-	public static function quartillower_exc_function(array $numbers)
+	public static function quartillower_exc_function( array $numbers )
 	{
-		sort($numbers, SORT_NUMERIC);
+		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q1_position = ((sizeof($numbers) + 1) * 0.25);
+		$Q1_position = ( ( sizeof( $numbers ) + 1 ) * 0.25 );
 		// check if position is between two numbers
-		if(is_float($Q1_position) == TRUE)
+		if( is_float( $Q1_position ) == TRUE )
 		{
-			$Q1_position_y = floor($Q1_position)-1;
-			$Q1_position_x = ceil($Q1_position)-1;
+			$Q1_position_y = floor( $Q1_position )-1;
+			$Q1_position_x = ceil( $Q1_position )-1;
 			// result
-			return ($numbers[$Q1_position_y] + ($numbers[$Q1_position_x] - $numbers[$Q1_position_y]) * 0.75);
+			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.75 );
 		}
 		else
 		{
@@ -174,18 +174,18 @@ class MathFormats
 		}
 	}
 
-	public static function quartilupper_exc_function(array $numbers)
+	public static function quartilupper_exc_function( array $numbers )
 	{
-		sort($numbers, SORT_NUMERIC);
+		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q3_position = ((sizeof($numbers) + 1) * 0.75);
+		$Q3_position = ( ( sizeof( $numbers ) + 1 ) * 0.75 );
 		// check if position is between two numbers
-		if(is_float($Q3_position) == TRUE)
+		if( is_float( $Q3_position ) == TRUE )
 		{
-			$Q3_position_y = floor($Q3_position)-1;
-			$Q3_position_x = ceil($Q3_position)-1;
+			$Q3_position_y = floor( $Q3_position )-1;
+			$Q3_position_x = ceil( $Q3_position )-1;
 			// result
-			return ($numbers[$Q3_position_y] + ($numbers[$Q3_position_x] - $numbers[$Q3_position_y]) * 0.25);
+			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.25 );
 		}
 		else
 		{
@@ -194,91 +194,91 @@ class MathFormats
 		}
 	}
 
-	public static function interquartilerange_inc_function(array $numbers)
+	public static function interquartilerange_inc_function( array $numbers )
 	{
 		// result
-		return MathFormats::quartilupper_inc_function($numbers) - MathFormats::quartillower_inc_function($numbers);
+		return MathFormats::quartilupper_inc_function( $numbers ) - MathFormats::quartillower_inc_function( $numbers );
 	}
 
-	public static function interquartilerange_exc_function(array $numbers)
+	public static function interquartilerange_exc_function( array $numbers )
 	{
 		// result
-		return MathFormats::quartilupper_exc_function($numbers) - MathFormats::quartillower_exc_function($numbers);
+		return MathFormats::quartilupper_exc_function( $numbers ) - MathFormats::quartillower_exc_function( $numbers );
 	}
 
-	public static function mode_function(array $numbers)
+	public static function mode_function( array $numbers )
 	{
 		// array temp
 		$array_temp = array();
 		// convert array
-		for($i = 0; $i < sizeof($numbers); $i++)
+		for( $i = 0; $i < sizeof( $numbers ); $i++ )
 		{
-			$converted_value = strval($numbers[$i]);
-			$array_temp += [$i => $converted_value];
+			$converted_value = strval( $numbers[$i] );
+			$array_temp += [ $i => $converted_value ];
 		}
-		$array_counted_values = array_count_values($array_temp);
+		$array_counted_values = array_count_values( $array_temp );
 		// max
-		$max = max($array_counted_values);
+		$max = max( $array_counted_values );
 		// count
 		$count = NULL;
 		// filter
-		for($i = 0; $i < sizeof($array_counted_values); $i++)
+		for( $i = 0; $i < sizeof( $array_counted_values ); $i++ )
 		{
-			if ($array_counted_values[array_keys($array_counted_values)[$i]] == $max)
+			if ( $array_counted_values[array_keys( $array_counted_values )[$i]] == $max )
 			{
 				$count += 1;
 			}
 		}
 		// check if there are more than one max
-		if($count == 1)
+		if( $count == 1 )
 		{
 			// result
 			return $max;
 		}
 	}
 
-	public static function interquartilemean_function(array $numbers)
+	public static function interquartilemean_function( array $numbers )
 	{
 		// sort numbers
-		sort($numbers,SORT_NUMERIC);
+		sort( $numbers,SORT_NUMERIC );
 		// check if size of numbers is divisible by 4
-		if(sizeof($numbers)%4 == 0)
+		if( sizeof( $numbers )%4 == 0 )
 		{
 			// split array into 4 groups (2D array)
-			$array_split = (array_chunk($numbers, sizeof($numbers)/4));
+			$array_split = ( array_chunk( $numbers, sizeof( $numbers )/4 ) );
 			// creating store_string
 			$store_string = NULL;
-			for($i = 0; $i < sizeof($array_split[1]); $i++)
+			for( $i = 0; $i < sizeof( $array_split[1] ); $i++ )
 			{
 				$store_string += $array_split[1][$i];
 			}
-			for($i = 0; $i < sizeof($array_split[2]); $i++)
+			for( $i = 0; $i < sizeof( $array_split[2] ); $i++ )
 			{
 				$store_string += $array_split[2][$i];
 			}
 			// result
-			return $store_string/(sizeof($array_split[1])+sizeof($array_split[2]));
+			return $store_string/( sizeof( $array_split[1] )+sizeof( $array_split[2] ) );
 		}
 		else
 		{
 			// get position of split
-			$position = sizeof($numbers)/4;
+			$position = sizeof( $numbers )/4;
 			// remove values out of split
-			for($i = 0; $i < floor($position); $i++)
+			for( $i = 0; $i < floor( $position ); $i++ )
 			{
-				unset($numbers[$i]);
-				array_pop($numbers);
+				unset( $numbers[$i] );
+				array_pop( $numbers );
 			}
 			// reset array keys
-			$store_array = array_merge($numbers);
+			$store_array = array_merge( $numbers );
 			// add values
 			$store_values = NULL;
-			for($i = 1; $i < sizeof($store_array)-1; $i++)
+			for( $i = 1; $i < sizeof( $store_array )-1; $i++ )
 			{
 				$store_values += $store_array[$i];
 			}
 			// result
-			return ($store_values + ((ceil($position) - $position) * ($store_array[0] + $store_array[sizeof($store_array)-1]))) / ($position*2);
+			return ( $store_values + ( ( ceil( $position ) - $position ) * ( $store_array[0] + $store_array[sizeof( $store_array )-1] ) ) ) / ( $position*2 );
 		}
 	}
 }
@@ -336,61 +336,61 @@ class SRFMath extends SMWResultPrinter {
 
 		switch ( $this->mFormat ) {
 			case 'max':
-				return MathFormats::max_function($numbers);
+				return MathFormats::max_function( $numbers );
 				break;
 			case 'min':
-				return MathFormats::min_function($numbers);
+				return MathFormats::min_function( $numbers );
 				break;
 			case 'sum':
-				return MathFormats::sum_function($numbers);
+				return MathFormats::sum_function( $numbers );
 				break;
 			case 'product':
-				return MathFormats::product_function($numbers);
+				return MathFormats::product_function( $numbers );
 				break;
 			case 'average':
-				return MathFormats::average_function($numbers);
+				return MathFormats::average_function( $numbers );
 				break;
 			case 'median':
-				return MathFormats::median_function($numbers);
+				return MathFormats::median_function( $numbers );
 				break;
 			case 'variance':
-				return MathFormats::variance_function($numbers);
+				return MathFormats::variance_function( $numbers );
 				break;
 			case 'samplevariance':
-				return MathFormats::samplevariance_function($numbers);
+				return MathFormats::samplevariance_function( $numbers );
 				break;
 			case 'samplestandarddeviation':
-				return MathFormats::samplestandarddeviation_function($numbers);
+				return MathFormats::samplestandarddeviation_function( $numbers );
 				break;
 			case 'standarddeviation':
-				return MathFormats::standarddeviation_function($numbers);
+				return MathFormats::standarddeviation_function( $numbers );
 				break;
 			case 'range':
-				return MathFormats::range_function($numbers);
+				return MathFormats::range_function( $numbers );
 				break;
 			case 'quartillower':
-				return MathFormats::quartillower_inc_function($numbers);
+				return MathFormats::quartillower_inc_function( $numbers );
 				break;
 			case 'quartilupper';
-				return MathFormats::quartilupper_inc_function($numbers);
+				return MathFormats::quartilupper_inc_function( $numbers );
 				break;
 			case 'quartillower.exc';
-				return MathFormats::quartillower_exc_function($numbers);
+				return MathFormats::quartillower_exc_function( $numbers );
 				break;
 			case 'quartilupper.exc';
-				return MathFormats::quartilupper_exc_function($numbers);
+				return MathFormats::quartilupper_exc_function( $numbers );
 				break;
 			case 'interquartilerange':
-				return MathFormats::interquartilerange_inc_function($numbers);
+				return MathFormats::interquartilerange_inc_function( $numbers );
 				break;
 			case 'interquartilerange.exc';
-				return MathFormats::interquartilerange_exc_function($numbers);
+				return MathFormats::interquartilerange_exc_function( $numbers );
 				break;
 			case 'mode';
-				return MathFormats::mode_function($numbers);
+				return MathFormats::mode_function( $numbers );
 				break;
 			case 'interquartilemean';
-				return MathFormats::interquartilemean_function($numbers);
+				return MathFormats::interquartilemean_function( $numbers );
 				break;
 		}
 	}

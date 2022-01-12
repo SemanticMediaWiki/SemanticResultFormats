@@ -38,11 +38,11 @@ class GanttTask {
 		return $this->mID;
 	}
 
-	public function setStatus($status){
+	public function setStatus( $status ){
 		$this->mStatus = $this->mStatus . $status . ', ';
 	}
 
-	public function setPriority($priority){
+	public function setPriority( $priority ){
 		$this->mPriority = $this->mPriority . $priority . ', ';
 	}
 

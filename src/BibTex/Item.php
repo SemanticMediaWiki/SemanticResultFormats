@@ -89,7 +89,7 @@ class Item {
 				[ 'Ae', 'ae', 'Oe', 'oe', 'Ue', 'ue', 'ss' ],
 				$text
 			);
-			$text = preg_replace("/[^a-zA-Z0-9]+/", "", $text );
+			$text = preg_replace( "/[^a-zA-Z0-9]+/", "", $text );
 		}
 
 		return $text;

@@ -324,7 +324,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		// NOTE: mFirstCall is never false in MW >= 1.35
 		if ( !$parser->mFirstCall ) {
-			$parser->getOutput()->updateCacheExpiry(0);
+			$parser->getOutput()->updateCacheExpiry( 0 );
 		}
 
 		$context->getOutput()->addLink(
