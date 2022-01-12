@@ -96,7 +96,7 @@ class Gallery extends ResultPrinter {
 		}
 
 		// In any case we depend on mediawiki.page.gallery.styles
-		SMWOutputs::requireStyle('mediawiki.page.gallery.styles');
+		SMWOutputs::requireStyle( 'mediawiki.page.gallery.styles' );
 
 		// Only use redirects where the overlay option is not used and redirect
 		// thumb images towards a different target

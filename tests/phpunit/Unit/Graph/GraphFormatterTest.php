@@ -45,7 +45,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 			'graphlegend' => true,
 		];
 
-		$this->options = new GraphOptions($params);
+		$this->options = new GraphOptions( $params );
 
 		$this->graphFormatter = new GraphFormatter( $this->options );
 
@@ -98,7 +98,7 @@ size="100";node [shape=rect];rankdir=LR;
 "Team:Alpha" -> "Team:Beta" [label="Part of Team ",fontcolor=red,arrowhead=diamond,color=red];
 }
 DOT;
-		$this->assertEquals( $this->graphFormatter->getGraph(), $expected);
+		$this->assertEquals( $this->graphFormatter->getGraph(), $expected );
 	}
 }
 

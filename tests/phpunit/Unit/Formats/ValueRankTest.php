@@ -53,7 +53,7 @@ class ValueRankTest extends QueryPrinterRegistryTestCase {
 			'valuerank'
 		);
 
-		$this->assertInternalType('string', $instance->getName());
+		$this->assertInternalType( 'string', $instance->getName() );
 
 	}
 

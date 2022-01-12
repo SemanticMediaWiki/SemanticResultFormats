@@ -104,7 +104,7 @@ class TemplateBuilder {
 				$template .= $this->parameter( "#itemnumber", $itemnumber );
 				$template .= $this->parameter( "#userparam", $this->params['userparam'] );
 
-				$template .= $this->itemRaw($dv);
+				$template .= $this->itemRaw( $dv );
 
 				$template .= $this->itemText( $dv, $linker, $printRequest, $first_col );
 				$template .= $this->close();

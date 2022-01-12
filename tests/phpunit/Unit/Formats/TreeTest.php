@@ -135,7 +135,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	 */
 	protected function replaceParser( Parser $parser ) {
 		// Direct access to the wgParser global was removed in SMW 4.0.0.
-		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '<4.0.0') ) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '<4.0.0' ) ) {
 			$GLOBALS['wgParser'] = $parser;
 		} else {
 			MediaWikiServices::getInstance()->disableService( 'Parser' );

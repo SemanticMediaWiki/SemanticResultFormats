@@ -112,7 +112,7 @@ class GanttPrinter extends SMWResultPrinter {
 		$this->params['axisformat'] = trim( $params['axisformat'] );
 		$this->params['statusmapping'] =  $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
 		$this->params['prioritymapping'] = $this->getValidatedMapping( $params[ 'prioritymapping' ], 'prioritymapping', [ 'crit' ] );
-		$this->params['theme'] = $this->getValidatedTheme($params['theme']);
+		$this->params['theme'] = $this->getValidatedTheme( $params['theme'] );
 
 		$this->mGantt = $this->getGantt();
 	}
@@ -126,7 +126,7 @@ class GanttPrinter extends SMWResultPrinter {
 	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
-			$queryResult->addErrors( [wfMessage('')->text()] );
+			$queryResult->addErrors( [ wfMessage( '' )->text() ] );
 			return '';
 		}
 
@@ -228,8 +228,8 @@ class GanttPrinter extends SMWResultPrinter {
 				'data-mermaid' => html_entity_decode( json_encode( [
 					'content' => $this->mGantt->getGanttOutput(),
 					'config'  => $config
-				]))
-			], Html::rawElement( 'div', [ 'class' => 'mermaid-dots' ]));
+				] ) )
+			], Html::rawElement( 'div', [ 'class' => 'mermaid-dots' ] ) );
 		}
 	}
 
@@ -254,7 +254,7 @@ class GanttPrinter extends SMWResultPrinter {
 	}
 
 
-	private function getValidatedMapping( $params, $mappingType, array $mappingKeys){
+	private function getValidatedMapping( $params, $mappingType, array $mappingKeys ){
 		//Validate mapping
 		$mapping = [];
 
@@ -262,7 +262,7 @@ class GanttPrinter extends SMWResultPrinter {
 			$paramMapping = explode( ';', trim( $params ) );
 
 			foreach ( $paramMapping as $pm ) {
-				$pmKeyVal = explode( '=>', $pm, 2);
+				$pmKeyVal = explode( '=>', $pm, 2 );
 
 				// if no key value pair
 				if ( count( $pmKeyVal ) !== 2 ) {
@@ -270,7 +270,7 @@ class GanttPrinter extends SMWResultPrinter {
 				} else {
 					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 
-					if(!in_array(trim( $pmKeyVal[1] ), $mappingKeys)){
+					if( !in_array( trim( $pmKeyVal[1] ), $mappingKeys ) ){
 						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 					}
 				}
