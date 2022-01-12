@@ -182,7 +182,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 				],
 				'rendererOptions' => [ 'barDirection' => $this->params['direction'] ]
 			];
-		};
+		}
 
 		// Basic parameters
 		$parameters = [

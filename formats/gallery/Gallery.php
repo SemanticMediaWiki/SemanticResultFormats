@@ -50,7 +50,7 @@ class Gallery extends ResultPrinter {
 			);
 
 			return '';
-		};
+		}
 
 		return $this->getResultText( $results, $this->outputMode );
 	}
