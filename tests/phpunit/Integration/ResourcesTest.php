@@ -4,7 +4,6 @@ namespace SRF\Tests\Integration;
 
 use ResourceLoader;
 use ResourceLoaderContext;
-use ResourceLoaderModule;
 
 /**
  * Tests for resource definitions and files

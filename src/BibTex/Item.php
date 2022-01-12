@@ -2,7 +2,6 @@
 
 namespace SRF\BibTex;
 
-use SMWDataValue as DataValue;
 
 /**
  * @see http://www.semantic-mediawiki.org/wiki/BibTex

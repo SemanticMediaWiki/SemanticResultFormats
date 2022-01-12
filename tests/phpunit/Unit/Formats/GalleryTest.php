@@ -3,8 +3,6 @@
 namespace SRF\Tests\Unit\Formats;
 
 use SRF\Gallery;
-use TraditionalImageGallery;
-use Title;
 use SMW\Test\QueryPrinterRegistryTestCase;
 use SMW\Tests\PHPUnitCompat;
 

@@ -3,7 +3,6 @@
 namespace SRF\Outline;
 
 use SMW\Query\PrintRequest;
-use SRF\Outline\OutlineTree;
 use SMWDataItem as DataItem;
 
 /**

@@ -3,7 +3,6 @@
 namespace SRF\Graph;
 
 use Html;
-use SRF\Graph\GraphNode;
 
 /**
  *
