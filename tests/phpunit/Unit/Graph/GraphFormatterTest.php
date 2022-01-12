@@ -75,9 +75,9 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetGraphLegend() {
-		$expected = "<div class=\"graphlegend\">".
-			"<div class=\"graphlegenditem\" style=\"color: black\">black: Casted</div>".
-			"<div class=\"graphlegenditem\" style=\"color: red\">red: Part of Team </div>".
+		$expected = "<div class=\"graphlegend\">" .
+			"<div class=\"graphlegenditem\" style=\"color: black\">black: Casted</div>" .
+			"<div class=\"graphlegenditem\" style=\"color: red\">red: Part of Team </div>" .
 			"</div>";
 
 		$this->assertEquals( $this->graphFormatter->getGraphLegend(), $expected );

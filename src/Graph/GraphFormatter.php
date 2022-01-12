@@ -140,7 +140,7 @@ class GraphFormatter {
 				$inBrackets[] = 'label = ' . $nodeLabel;
 			}
 			if ( $nodeTooltip ) {
-				$inBrackets[] = 'tooltip = "' .  htmlspecialchars( $nodeTooltip ) . '"';
+				$inBrackets[] = 'tooltip = "' . htmlspecialchars( $nodeTooltip ) . '"';
 			}
 			if ( count( $inBrackets ) > 0 ) {
 				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
