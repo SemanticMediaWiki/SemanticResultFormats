@@ -264,4 +264,3 @@ class GraphFormatter {
 		return implode( '\n', $segments );
 	}
 }
-

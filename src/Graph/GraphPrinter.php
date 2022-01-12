@@ -299,4 +299,3 @@ class GraphPrinter extends ResultPrinter {
 		return $params;
 	}
 }
-
