@@ -96,7 +96,6 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			->method( 'getValue' )
 			->will( $this->returnValue( 'carousel' ) );
 
-
 		$intro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
 			->setMethods( [ 'getName', 'getValue' ] )
@@ -109,7 +108,6 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		$intro->expects( $this->any() )
 			->method( 'getValue' )
 			->will( $this->returnValue( '<div class="gallery-intro">' ) );
-
 
 		$outro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()

@@ -93,7 +93,6 @@ class Gantt {
 		$this->mTasks[$taskID] = $task;
 	}
 
-
 	/**
 	 * Creats a new Section with related tasks
 	 *

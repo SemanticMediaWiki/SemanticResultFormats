@@ -153,7 +153,6 @@ final class SRFHooks {
 			'section' => 'smw/srf-eventcalendar-options',
 		];
 
-
 		// Enable auto update during a page refresh
 		$preferences['srf-prefs-datatables-options-update-default'] = [
 			'type' => 'toggle',

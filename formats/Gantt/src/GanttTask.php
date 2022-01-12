@@ -11,7 +11,6 @@
 
 namespace SRF\Gantt;
 
-
 class GanttTask {
 
 	private $mTitle;
@@ -20,7 +19,6 @@ class GanttTask {
 	private $mPriority = '';
 	private $mStartDate;
 	private $mEndDate;
-
 
 	public function setTitle( $title ) {
 		$this->mTitle = $title;
