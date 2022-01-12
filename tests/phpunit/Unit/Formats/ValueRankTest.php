@@ -19,7 +19,7 @@ use SRFValueRank;
  * @group SMWExtension
  * @group ResultPrinters
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author Sebastian Schmid < sebastian.schmid@geinn.it >
  */
 class ValueRankTest extends QueryPrinterRegistryTestCase {

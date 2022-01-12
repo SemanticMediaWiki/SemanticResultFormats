@@ -4,7 +4,7 @@
  * A query printer for timeseries using the flot plotting JavaScript library
  *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Flot_timeseries_chart
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  *
  * @since 1.8
  *

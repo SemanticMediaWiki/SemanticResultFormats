@@ -8,7 +8,7 @@
  *
  * @file SRF_jqPlotChart.php
  * @ingroup SemanticResultFormats
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  *
  * @author mwjames
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

@@ -20,7 +20,7 @@ use Title;
  * @ingroup SRF
  * @ingroup QueryPrinter
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
  */
