@@ -9,7 +9,7 @@ use SRF\Graph\GraphNode;
  * @covers \SRF\Graph\GraphNode
  * @group semantic-result-formats
  *
- * @licence GNU GPL v2+
+ * @licence GPL-2.0-or-later
  * @since 3.1
  *
  * @author Sebastian Schmid < sebastian.schmid@gesinn.it >

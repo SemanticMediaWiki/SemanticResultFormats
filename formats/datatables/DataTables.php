@@ -10,7 +10,7 @@ use SMWQueryResult as QueryResult;
  * DataTables and SMWAPI.
  *
  * @since 1.9
- * @licence GNU GPL v2 or later
+ * @licence GPL-2.0-or-later
  *
  * @author mwjames
  */

@@ -8,7 +8,7 @@ use SRF\vCard\vCard;
  * @covers \SRF\vCard\vCard
  * @group semantic-result-formats
  *
- * @license GNU GPL v2"
+ * @license GPL-2.0-only
  * @since 3.0
  *
  * @author mwjames

@@ -6,7 +6,7 @@
  *
  * @file SRF_D3Chart.php
  * @ingroup SemanticResultFormats
- * @licence GNU GPL v2 or later
+ * @licence GPL-2.0-or-later
  *
  * @since 1.8
  *

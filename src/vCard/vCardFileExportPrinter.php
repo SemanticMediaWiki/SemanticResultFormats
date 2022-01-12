@@ -16,7 +16,7 @@ use WikiPage;
  * @see https://tools.ietf.org/html/rfc6350
  * @see https://www.w3.org/2002/12/cal/vcard-notes.html
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.5
  *
  * @author Markus Krötzsch
