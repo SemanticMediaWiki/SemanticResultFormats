@@ -102,8 +102,8 @@ class SRFIncoming extends SMWResultPrinter {
 	 *
 	 * @param $label
 	 * @param $count
-	 * @param $rownum
-	 * @param $result
+	 * @param &$rownum
+	 * @param &$result
 	 */
 	protected function initTemplateOutput( $label, $count, &$rownum, &$result ) {
 		$rownum++;

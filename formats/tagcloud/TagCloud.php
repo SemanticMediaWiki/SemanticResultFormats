@@ -343,7 +343,7 @@ class TagCloud extends ResultPrinter {
 
 	/**
 	 * @param string $value
-	 * @param int $rowNumber
+	 * @param int &$rowNumber
 	 *
 	 * @return string
 	 */

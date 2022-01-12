@@ -63,10 +63,10 @@ class IcalTimezoneFormatter {
 	 *
 	 * @since 3.0
 	 *
-	 * @param integer $from Timestamp from which transitions are generated.
-	 * @param integer $to Timestamp until which transitions are generated.
+	 * @param int|null $from Timestamp from which transitions are generated.
+	 * @param int|null $to Timestamp until which transitions are generated.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function calcTransitions( $from = null, $to = null ) {
 		if ( $this->localTimezones === [] ) {

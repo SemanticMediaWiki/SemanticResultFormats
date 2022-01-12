@@ -191,7 +191,7 @@ class Gallery extends ResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $results
-	 * @param TraditionalImageGallery $ig
+	 * @param TraditionalImageGallery &$ig
 	 * @param string $imageProperty
 	 * @param string $captionProperty
 	 * @param string $redirectProperty
@@ -263,7 +263,7 @@ class Gallery extends ResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $results
-	 * @param TraditionalImageGallery $ig
+	 * @param TraditionalImageGallery &$ig
 	 */
 	protected function addImagePages( SMWQueryResult $results, &$ig ) {
 		while ( $row = $results->getNext() ) {
@@ -303,7 +303,7 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param TraditionalImageGallery $ig The gallery to add the image to
+	 * @param TraditionalImageGallery &$ig The gallery to add the image to
 	 * @param Title $imgTitle The title object of the page of the image
 	 * @param string $imgCaption An optional caption for the image
 	 * @param string $imgRedirect

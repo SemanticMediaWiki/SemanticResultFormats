@@ -14,7 +14,7 @@ final class SRFUtils {
 	 * Helper function that generates a html element, representing a
 	 * processing/loading image as long as jquery is inactive
 	 *
-	 * @param boolean $isHtml
+	 * @param bool $isHtml
 	 *
 	 * @since 1.8
 	 */

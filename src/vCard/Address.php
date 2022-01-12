@@ -38,7 +38,7 @@ class Address {
 	/**
 	 * @since 3.1
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasAddress() {
 		return $this->adr !== [];

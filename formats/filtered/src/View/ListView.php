@@ -108,10 +108,10 @@ class ListView extends View {
 	 * Prints one row of a list view.
 	 *
 	 * @param \SMWResultArray[] $row
-	 * @param $rownum
+	 * @param &$rownum
 	 * @param $rowstart
 	 * @param $rowend
-	 * @param $result
+	 * @param &$result
 	 * @param $listsep
 	 */
 	protected function printRow( $row, &$rownum, $rowstart, $rowend, &$result, $listsep ) {
@@ -269,7 +269,7 @@ class ListView extends View {
 	/**
 	 * Returns the label of the selector for this view.
 	 *
-	 * @return String the selector label
+	 * @return string the selector label
 	 */
 	public function getSelectorLabel() {
 		return Message::newFromKey( 'srf-filtered-selectorlabel-list' )->inContentLanguage()->text();

@@ -233,7 +233,7 @@ class GraphFormatter {
 	 * Returns the word wrapped version of the provided text.
 	 *
 	 * @param string $text
-	 * @param integer $charLimit
+	 * @param int $charLimit
 	 *
 	 * @return string
 	 */

@@ -107,7 +107,7 @@ class SRFSlideShow extends SMWResultPrinter {
 	 *
 	 * @param SMWQueryResult $results
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function linkFurtherResults( SMWQueryResult $results ) {
 		return false;

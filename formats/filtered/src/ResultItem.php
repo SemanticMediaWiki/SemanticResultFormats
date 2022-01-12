@@ -29,7 +29,7 @@ class ResultItem {
 
 	/**
 	 * @param SMWResultArray[] $resultArray
-	 * @param Filtered $queryPrinter
+	 * @param Filtered &$queryPrinter
 	 */
 	public function __construct( array $resultArray, Filtered &$queryPrinter ) {
 		$this->mResultArray = $resultArray;

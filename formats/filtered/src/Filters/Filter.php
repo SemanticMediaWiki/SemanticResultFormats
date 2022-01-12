@@ -29,9 +29,9 @@ abstract class Filter {
 	/**
 	 * Filter constructor.
 	 *
-	 * @param ResultItem[] $results
+	 * @param ResultItem[] &$results
 	 * @param SMWPrintRequest $printRequest
-	 * @param Filtered $queryPrinter
+	 * @param Filtered &$queryPrinter
 	 */
 	public function __construct( array &$results, SMWPrintRequest $printRequest, Filtered &$queryPrinter ) {
 		$this->resultItems = $results;
@@ -132,8 +132,8 @@ abstract class Filter {
 	/**
 	 * @param string $paramName
 	 * @param string $configName
-	 * @param mixed | null $default
-	 * @param callable | null $callback
+	 * @param mixed | null|null $default
+	 * @param callable | null|null $callback
 	 */
 	protected function addValueToJsConfig( $paramName, $configName, $default = null, $callback = null ) {
 		$params = $this->getActualParameters();
