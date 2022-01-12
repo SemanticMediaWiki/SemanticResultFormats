@@ -38,7 +38,6 @@ class CalendarView extends View {
 	 * @return array
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-
 		$value = $row->getValue();
 		$data = [];
 		$wikitext = '';
@@ -117,7 +116,6 @@ class CalendarView extends View {
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
-
 		$params = $this->getActualParameters();
 		$parser = $this->getQueryPrinter()->getParser();
 
@@ -232,7 +230,6 @@ class CalendarView extends View {
 	 * @return string[]
 	 */
 	private function getParamHashes( $results, $params ) {
-
 		if ( $results === null || count( $results ) < 1 ) {
 			return [];
 		}

@@ -39,7 +39,6 @@ class Email {
 	 * Creates the vCard output for a single email item.
 	 */
 	public function text() {
-
 		if ( $this->type == "" ) {
 			$this->type = "INTERNET";
 		}

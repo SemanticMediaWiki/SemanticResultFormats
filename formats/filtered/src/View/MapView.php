@@ -53,7 +53,6 @@ class MapView extends View {
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-
 		$markerPositionPropertyName = str_replace(
 			' ',
 			'_',
@@ -139,7 +138,6 @@ class MapView extends View {
 	 * @return array of Parameter
 	 */
 	public static function getParameters() {
-
 		if ( self::$viewParams === null ) {
 
 			$params = parent::getParameters();
@@ -247,7 +245,6 @@ class MapView extends View {
 	 * @param string $key
 	 */
 	private function addToConfig( &$config, $key ) {
-
 		$paramDefinition = self::getParameters()[$key];
 
 		$param = $this->getActualParameters()[$paramDefinition['name']];
@@ -262,7 +259,6 @@ class MapView extends View {
 	 * @param $config
 	 */
 	protected function addMarkerIconSetupToConfig( &$config ) {
-
 		$param = $this->getActualParameters()['map view marker icon property'];
 
 		if ( $param !== '' ) {
@@ -278,7 +274,6 @@ class MapView extends View {
 	 * @return array
 	 */
 	protected function getPropertyId( $prop ) {
-
 		$prop = strtr( $prop, ' ', '_' );
 
 		$printrequests = $this->getQueryPrinter()->getPrintrequests();
@@ -295,7 +290,6 @@ class MapView extends View {
 	 * @return array
 	 */
 	private function getMarkerIcons() {
-
 		$ret = [];
 
 		$actualParameters = self::getActualParameters()['map view marker icons'];

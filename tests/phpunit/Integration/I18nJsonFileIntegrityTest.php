@@ -22,7 +22,6 @@ class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider i18nFileProvider
 	 */
 	public function testI18NJsonDecodeEncode( $file ) {
-
 		$jsonFileReader = UtilityFactory::getInstance()->newJsonFileReader( $file );
 
 		$this->assertInternalType(
@@ -37,7 +36,6 @@ class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function i18nFileProvider() {
-
 		$provider = [];
 		$location = $GLOBALS['wgMessagesDirs']['SemanticResultFormats'];
 

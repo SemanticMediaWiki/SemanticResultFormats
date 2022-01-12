@@ -21,7 +21,6 @@ class ResourceFormatter {
 	 * @param array $styleModules
 	 */
 	public static function registerResources( array $modules = [], array $styleModules = [] ) {
-
 		foreach ( $modules as $module ) {
 			ResourceManager::requireResource( $module );
 		}
@@ -85,7 +84,6 @@ class ResourceFormatter {
 	 * @return string
 	 */
 	public static function getData( QueryResult $queryResult, $outputMode, $parameters = [] ) {
-
 		// Add parameters that are only known to the specific printer
 		$ask = $queryResult->getQuery()->toArray();
 

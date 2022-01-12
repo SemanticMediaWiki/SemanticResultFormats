@@ -51,7 +51,6 @@ class OutlineItem {
 	 * @param $row
 	 */
 	public function getFieldValues( $key ) {
-
 		if ( array_key_exists( $key, $this->vals ) ) {
 			return $this->vals[$key];
 		}

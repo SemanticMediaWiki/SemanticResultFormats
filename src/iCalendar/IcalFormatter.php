@@ -63,7 +63,6 @@ class IcalFormatter {
 	 * @param array $params
 	 */
 	public function addEvent( array $params ) {
-
 		$event = '';
 		$event .= "BEGIN:VEVENT\r\n";
 
@@ -112,7 +111,6 @@ class IcalFormatter {
 	 * @return string
 	 */
 	public function getIcal() {
-
 		$result = '';
 
 		$result .= "BEGIN:VCALENDAR\r\n";

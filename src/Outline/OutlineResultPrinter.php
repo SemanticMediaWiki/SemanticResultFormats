@@ -81,7 +81,6 @@ class OutlineResultPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
-
 		// for each result row, create an array of the row itself
 		// and all its sorted-on fields, and add it to the initial
 		// 'tree'
@@ -127,7 +126,6 @@ class OutlineResultPrinter extends ResultPrinter {
 	}
 
 	private function newOutlineItem( $row ) {
-
 		$outlineItem = new OutlineItem( $row );
 
 		foreach ( $row as $field ) {

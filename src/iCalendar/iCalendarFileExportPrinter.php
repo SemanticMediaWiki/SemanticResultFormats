@@ -76,7 +76,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	public function getFileName( QueryResult $queryResult ) {
-
 		if ( $this->title != '' ) {
 			return str_replace( ' ', '_', $this->title ) . '.ics';
 		}
@@ -141,7 +140,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
-
 		if ( $outputMode == SMW_OUTPUT_FILE ) {
 			return $this->getIcal( $res );
 		}
@@ -153,7 +151,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 * Returns the query result in iCal.
 	 */
 	private function getIcal( QueryResult $res ) {
-
 		if ( $this->title == '' ) {
 			$this->title = $GLOBALS['wgSitename'];
 		}
@@ -189,7 +186,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 * Returns html for a link to a query that returns the iCal.
 	 */
 	private function getIcalLink( QueryResult $res, $outputMode ) {
-
 		if ( $this->getSearchLabel( $outputMode ) ) {
 			$label = $this->getSearchLabel( $outputMode );
 		} else {
@@ -227,7 +223,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 * @return []
 	 */
 	private function getEventParams( array $row ) {
-
 		$result = '';
 
 		$subject = $row[0]->getResultSubject(); // get the object
@@ -259,7 +254,6 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function filterField( $field, &$params ) {
-
 		// later we may add more things like a generic
 		// mechanism to add whatever you want :)
 		// could include funny things like geo, description etc. though

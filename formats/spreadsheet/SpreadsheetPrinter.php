@@ -84,7 +84,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @param array $params
 	 */
 	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
-
 		if ( array_key_exists( 'fileformat', $params) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats )) {
 			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
 		} else {
@@ -140,7 +139,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
 	 */
 	protected function getResultText( SMWQueryResult $queryResult, $outputMode ) {
-
 		if ( $outputMode === SMW_OUTPUT_FILE ) {
 			return $this->getResultFileContents( $queryResult );
 		}
@@ -157,7 +155,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
 	 */
 	protected function getResultFileContents( SMWQueryResult $queryResult ) {
-
 		$spreadsheet = $this->createSpreadsheet();
 		$worksheet = $spreadsheet->getSheet( 0 );
 
@@ -180,7 +177,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
 	 */
 	protected function createSpreadsheet() {
-
 		$fileTitle = Title::newFromText( $this->params[ 'templatefile' ], NS_FILE );
 
 		if ( $fileTitle !== null && $fileTitle->exists() ) {
@@ -226,7 +222,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function populateWorksheet( Worksheet $worksheet, SMWQueryResult $queryResult ) {
-
 		$rowIterator = $worksheet->getRowIterator( self::HEADER_ROW_OFFSET );
 
 		//Get headers
@@ -253,7 +248,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function populateHeaderRow( Row $row, SMWQueryResult $queryResult ) {
-
 		$printRequests = $queryResult->getPrintRequests();
 		$cellIterator = $row->getCellIterator();
 
@@ -283,7 +277,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function populateRow( Row $row, $resultRow ) {
-
 		$cellIterator = $row->getCellIterator();
 
 		foreach ( $resultRow as $resultField ) {
@@ -300,7 +293,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function populateCell( Cell $cell, SMWResultArray $field ) {
-
 		$dataItems = $field->getContent();
 
 		if ( $dataItems === false ) {
@@ -337,7 +329,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function populateCellAccordingToType( Cell $cell, SMWDataValue $value ) {
-
 		//NOTE: must check against subclasses before superclasses
 		if ( $value instanceof \SMWQuantityValue ) {
 
@@ -368,7 +359,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function setQuantityDataValue( Cell $cell, \SMWQuantityValue $value ) {
-
 		$type = DataType::TYPE_NUMERIC;
 		$unit = $value->getUnit();
 		$number = $value->getNumber();
@@ -391,7 +381,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function setNumberDataValue( Cell $cell, \SMWNumberValue $value ) {
-
 		$type = DataType::TYPE_NUMERIC;
 		$number = $value->getNumber();
 
@@ -407,7 +396,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function setTimeDataValue( Cell $cell, \SMWTimeValue $value ) {
-
 		$type = DataType::TYPE_NUMERIC;
 		$number = DateTime::DATEVALUE( str_replace( 'T', ' ', $value->getISO8601Date() ) );
 
@@ -433,7 +421,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function setStringDataValue( Cell $cell, SMWDataValue $value ) {
-
 		$type = DataType::TYPE_STRING;
 		$text = $value->getWikiValue();
 		$text = Sanitizer::decodeCharReferences( $text );
@@ -449,7 +436,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
 	 */
 	protected function getStringFromSpreadsheet( Spreadsheet $spreadsheet ) {
-
 		$writer = IOFactory::createWriter( $spreadsheet, $this->fileFormat[ 'writer' ] );
 
 		ob_start();

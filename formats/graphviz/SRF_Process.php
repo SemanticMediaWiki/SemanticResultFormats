@@ -599,7 +599,6 @@ class ProcessGraph {
 	}
 
 	public function getStartNodes() {
-
 		if ( count( $this->m_startnodes ) == 0 ) {
 			foreach ( $this->m_nodes as $node ) {
 				if ( count( $node->getPred() ) == 0 ) {
@@ -1216,7 +1215,6 @@ class SplitConditionalOrEdge extends ProcessEdge {
 	}
 
 	public function getGraphVizCode() {
-
 		$p = $this->m_from;
 
 		if ( ( !isset( $this->m_from ) ) || ( !isset( $this->m_to_false ) ) || ( !isset( $this->m_to_true ) ) ) {
@@ -1365,7 +1363,6 @@ class SequentialEdge extends ProcessEdge {
 	}
 
 	public function getGraphVizCode() {
-
 		$p = $this->m_from;
 		$s = $this->m_to;
 

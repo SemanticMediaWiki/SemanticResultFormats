@@ -306,7 +306,6 @@ class SRFMath extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
-
 		$number = $this->getResultText( $results, SMW_OUTPUT_HTML );
 
 		if ( count( $results->getPrintRequests() ) > 1 ) {

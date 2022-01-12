@@ -53,7 +53,6 @@ class SRFExhibit extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		global $smwgIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $srfgScriptPath;
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {

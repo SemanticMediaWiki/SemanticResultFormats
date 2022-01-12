@@ -112,7 +112,6 @@ class vCard {
 	 * @return string
 	 */
 	public function text() {
-
 		$vcard = $this->prepareCard( $this->vcard );
 
 		$text = "BEGIN:VCARD\r\n";
@@ -193,7 +192,6 @@ class vCard {
 	}
 
 	private function prepareCard( $vcard ) {
-
 		$vcard['label'] = '';
 
 		$additionalname = $vcard['additionalname'];

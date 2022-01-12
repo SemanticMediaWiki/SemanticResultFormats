@@ -32,7 +32,6 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		// Object count
 		static $statNr = 0;
 		$d3chartID = 'd3-chart-' . ++$statNr;

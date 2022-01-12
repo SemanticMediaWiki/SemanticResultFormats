@@ -105,7 +105,6 @@ class Gantt {
 	 *
 	 */
 	public function addSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
-
 		$sections = $this->getSections();
 
 		if ( array_key_exists( $sectionID, $sections ) ) {
@@ -141,7 +140,6 @@ class Gantt {
 	 * @return string
 	 */
 	public function getGanttOutput() {
-
 		$sections = $this->getSections();
 		$tasks = $this->getTasks();
 

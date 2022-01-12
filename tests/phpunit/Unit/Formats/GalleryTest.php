@@ -70,7 +70,6 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	}
 
 	public function testGetName() {
-
 		$instance = new Gallery(
 			'gallery'
 		);
@@ -80,7 +79,6 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	}
 
 	public function testBuildResult(){
-
 		$instance = new Gallery(
 			'gallery'
 		);

@@ -70,7 +70,6 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	/**
 	 */
 	public function testGetResult_NoParentProperty() {
-
 		$this->prepareGlobalState();
 
 		$mockBuilder = new MockObjectBuilder();
@@ -100,7 +99,6 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	}
 
 	protected function prepareGlobalState() {
-
 		// Store current state
 		$this->parser = MediaWikiServices::getInstance()->getParser();
 		$this->title = $GLOBALS['wgTitle'];

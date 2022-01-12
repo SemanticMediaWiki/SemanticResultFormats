@@ -20,7 +20,6 @@ class ListTreeBuilderTest extends \PHPUnit_Framework_TestCase {
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			ListTreeBuilder::class,
 			new ListTreeBuilder( [] )
@@ -28,7 +27,6 @@ class ListTreeBuilderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testBuildForEmptyTree() {
-
 		$params = [
 			'outlineproperties' => [ 'Foo' ]
 		];

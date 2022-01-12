@@ -29,7 +29,6 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			OutlineResultPrinter::class,
 			new OutlineResultPrinter( 'outline' )
@@ -37,7 +36,6 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResult_LinkOnNonFileOutput() {
-
 		$link = $this->createMock( \SMWInfolink::class );
 
 		$link->expects( $this->any() )

@@ -16,7 +16,6 @@ use SRF\vCard\vCard;
 class vCardTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			vCard::class,
 			new vCard( '', '', [] )
@@ -24,7 +23,6 @@ class vCardTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyCard() {
-
 		$instance = new vCard( 'http://example.org/Foo', 'Foo', [] );
 		$instance->set( 'url', 'http://example.org/Bar' );
 

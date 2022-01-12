@@ -16,7 +16,6 @@ use SRF\BibTex\Item;
 class ItemTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Item::class,
 			new Item()
@@ -27,7 +26,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider fieldsProvider
 	 */
 	public function testText( $fields, $expected ) {
-
 		$instance = new Item();
 
 		foreach ( $fields as $key => $value ) {
@@ -44,7 +42,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider formatterCallbackFieldsProvider
 	 */
 	public function testFormatterCallback( $fields, $expected ) {
-
 		$instance = new Item();
 		$instance->setFormatterCallback( function( $key, $values ) {
 			return implode( '#', $values );
@@ -64,7 +61,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider replaceTextProvider
 	 */
 	public function testReplace( $key, $text, $expected ) {
-
 		$instance = new Item();
 
 		$this->assertEquals(
@@ -74,7 +70,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function fieldsProvider() {
-
 		yield [
 			[ 'foo' => 'test', 'author' => [ 'abc', 'def', '123' ] ],
 			"@Book{abc,\r\n  author = \"abc, def, 123\", \r\n}"
@@ -87,7 +82,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function formatterCallbackFieldsProvider() {
-
 		yield [
 			[ 'foo' => 'test', 'author' => [ 'abc', 'def', '123' ] ],
 			"@Book{abc,\r\n  author = \"abc#def#123\", \r\n}"
@@ -100,7 +94,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function replaceTextProvider() {
-
 		yield [
 			'uri',
 			'abc-_+ÄäÖ',

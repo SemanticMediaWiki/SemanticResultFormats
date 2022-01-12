@@ -60,7 +60,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	public function getFileName( QueryResult $queryResult ) {
-
 		if ( $this->params['filename'] !== '' ) {
 
 			if ( strpos( $this->params['filename'], '.bib' ) === false ) {
@@ -110,7 +109,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
-
 		if ( $outputMode !== SMW_OUTPUT_FILE ) {
 			return $this->getBibTexLink( $res, $outputMode );
 		}
@@ -125,7 +123,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function getBibTexLink( QueryResult $res, $outputMode ) {
-
 		// Can be viewed as HTML if requested, no more parsing needed
 		$this->isHTML = $outputMode == SMW_OUTPUT_HTML;
 
@@ -145,7 +142,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 * @return bibTexItem
 	 */
 	private function newItem( array /* of SMWResultArray */ $row ) {
-
 		$item = new Item();
 		$item->setFormatterCallback( [ $this, 'getFormattedList' ] );
 

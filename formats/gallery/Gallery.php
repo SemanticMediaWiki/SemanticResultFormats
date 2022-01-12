@@ -41,7 +41,6 @@ class Gallery extends ResultPrinter {
 	 * @return string
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
-
 		// Intro/outro are not planned to work with the widget option
 		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ) {
 			$results->addErrors(
@@ -65,7 +64,6 @@ class Gallery extends ResultPrinter {
 	 * @return string | array
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-
 		$ig = new TraditionalImageGallery();
 
 		$ig->setShowBytes( false );
@@ -312,7 +310,6 @@ class Gallery extends ResultPrinter {
 	 * @param string $imgRedirect
 	 */
 	protected function addImageToGallery( &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
-
 		if ( empty( $imgCaption ) ) {
 			if ( $this->params['autocaptions'] ) {
 				$imgCaption = $imgTitle->getBaseText();
@@ -376,7 +373,6 @@ class Gallery extends ResultPrinter {
 	 * @return string[]
 	 */
 	private function getCarouselWidget() {
-
 		// Set attributes for jcarousel
 		$dataAttribs = [
 			'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
@@ -415,7 +411,6 @@ class Gallery extends ResultPrinter {
 	 * @return string[]
 	 */
 	private function getSlideshowWidget() {
-
 		$attribs = [
 			'id' => uniqid(),
 			'class' => $this->getImageOverlay(),

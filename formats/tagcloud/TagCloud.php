@@ -51,7 +51,6 @@ class TagCloud extends ResultPrinter {
 	 * @return string
 	 */
 	public function getResultText( SMWQueryResult $queryResult, $outputmode ) {
-
 		$tags = $this->getTags( $queryResult, $outputmode );
 
 		if ( $tags === [] ) {
@@ -267,7 +266,6 @@ class TagCloud extends ResultPrinter {
 	 * @return string
 	 */
 	private function getTagCloud( array $tags ) {
-
 		// Initialize
 		$htmlTags = [];
 		$processing = '';

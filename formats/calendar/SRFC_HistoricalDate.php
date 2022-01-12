@@ -64,7 +64,6 @@ class SRFCHistoricalDate {
 	}
 
 	protected function createFromJulian( $year, $month, $day ) {
-
 		/* Adjust negative common era years to the zero-based notation we use.  */
 		if ( $year < 1 ) {
 			$year++;

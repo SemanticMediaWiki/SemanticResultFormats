@@ -94,7 +94,6 @@ final class SRFHooks {
 	 * @return true
 	 */
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
-
 		$vars['srf-config'] = [
 			'version' => SRF_VERSION,
 			'settings' => [
@@ -115,7 +114,6 @@ final class SRFHooks {
 	 * @return true
 	 */
 	public static function onBeforePageDisplay ( &$outputPage, &$skin ) {
-
 		$outputPage->addModuleStyles( 'ext.srf.styles' );
 
 		return true;
@@ -131,7 +129,6 @@ final class SRFHooks {
 	 * @return true
 	 */
 	public static function onGetPreferences( $user, &$preferences ) {
-
 		// Intro text, do not escape the message here as it contains
 		// href links
 		$preferences['srf-prefs-intro'] = [

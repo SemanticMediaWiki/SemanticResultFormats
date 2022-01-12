@@ -16,7 +16,6 @@ use SRF\Outline\OutlineItem;
 class OutlineItemTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			OutlineItem::class,
 			new OutlineItem( [] )
@@ -24,7 +23,6 @@ class OutlineItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPropertyAccess() {
-
 		$instance = new OutlineItem( [ 'Foo' ] );
 
 		$this->assertEquals(

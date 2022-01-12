@@ -132,7 +132,6 @@ class GraphPrinter extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		// Remove this once SRF requires 3.1+
 		if ( $this->hasMissingDependency() ) {
 			return $this->getDependencyError();
@@ -168,7 +167,6 @@ class GraphPrinter extends ResultPrinter {
 	 *
 	 */
 	protected function processResultRow( array /* of SMWResultArray */ $row ) {
-
 		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
 

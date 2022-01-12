@@ -49,7 +49,6 @@ class ValueRankTest extends QueryPrinterRegistryTestCase {
 	}
 
 	public function testGetName() {
-
 		$instance = new SRFValueRank(
 			'valuerank'
 		);

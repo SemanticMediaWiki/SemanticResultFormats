@@ -29,7 +29,6 @@ class SRFDygraphs extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Output mode is fixed
 		$outputMode = SMW_OUTPUT_HTML;
 
@@ -164,7 +163,6 @@ class SRFDygraphs extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( $data, $options ) {
-
 		// Object count
 		static $statNr = 0;
 		$chartID = 'srf-dygraphs-' . ++$statNr;

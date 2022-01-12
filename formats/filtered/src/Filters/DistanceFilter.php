@@ -40,7 +40,6 @@ class DistanceFilter extends Filter {
 	}
 
 	protected function buildJsConfig() {
-
 		parent::buildJsConfig();
 
 		if ( !array_key_exists( 'distance filter origin', $this->getActualParameters() ) ) {
@@ -81,7 +80,6 @@ class DistanceFilter extends Filter {
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-
 		$markerPositionPropertyName = $this->getPrintRequest()->getData()->getInceptiveProperty()->getKey();
 
 		foreach ( $row->getValue() as $field ) {
