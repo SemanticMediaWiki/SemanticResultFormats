@@ -17,7 +17,7 @@ use Html;
  * @file SRF_Graph.php
  * @ingroup SemanticResultFormats
  *
- * @licence GNU GPL v2+
+ * @licence GPL-2.0-or-later
  * @author Frank Dengler
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Sebastian Schmid

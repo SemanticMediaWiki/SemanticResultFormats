@@ -11,7 +11,7 @@ use SRF\Graph\GraphOptions;
  * @covers \SRF\Graph\GraphFormatter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  *
  * @author Sebastian Schmid (gesinn.it)
  */

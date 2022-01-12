@@ -7,7 +7,7 @@ namespace SRF\Graph;
  * Represents a set of options for the Graph Printer
  *
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)

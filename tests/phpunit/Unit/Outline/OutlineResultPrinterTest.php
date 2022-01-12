@@ -9,7 +9,7 @@ use SRF\Outline\OutlineResultPrinter;
  * @covers \SRF\Outline\OutlineResultPrinter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames

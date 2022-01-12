@@ -10,7 +10,7 @@ use SRF\Graph\GraphNode;
  *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)

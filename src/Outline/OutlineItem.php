@@ -6,7 +6,7 @@ namespace SRF\Outline;
  * Represents a single item, or page, in the outline - contains both the
  * SMWResultArray and an array of some of its values, for easier aggregation
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  */
 class OutlineItem {

@@ -17,7 +17,7 @@ use WikiPage;
  * @see https://en.wikipedia.org/wiki/ICalendar
  * @see https://tools.ietf.org/html/rfc5545
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.5
  *
  * @author Markus Krötzsch

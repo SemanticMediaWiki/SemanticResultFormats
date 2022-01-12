@@ -3,7 +3,7 @@
 /**
  * Formats that returns a time.
  *
- * @licence GNU GPL v3+
+ * @licence GPL-3.0-or-later
  * @author nischayn22
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */

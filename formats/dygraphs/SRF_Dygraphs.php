@@ -4,7 +4,7 @@
  * A query printer that uses the dygraphs JavaScript library
  *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Flot_timeseries_chart
- * @licence GNU GPL v2 or later
+ * @licence GPL-2.0-or-later
  *
  * @since 1.8
  *

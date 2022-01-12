@@ -5,7 +5,7 @@
  *
  * @since 1.8
  *
- * @licence GNU GPL v2+
+ * @licence GPL-2.0-or-later
  * @author mwjames
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren

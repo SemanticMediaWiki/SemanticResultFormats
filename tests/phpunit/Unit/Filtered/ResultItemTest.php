@@ -15,7 +15,7 @@ use SRF\Filtered\ResultItem;
  * @covers \SRF\Filtered\ResultItem
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 4.0.0
  *
  * @author gesinn-it-wam

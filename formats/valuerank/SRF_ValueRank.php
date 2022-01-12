@@ -16,7 +16,7 @@
  *
  * @since 1.7
  *
- * @licence GNU GPL v2
+ * @licence GPL-2.0-only
  * @author DaSch < dasch@daschmedia.de >
  * @author mwjames
  */

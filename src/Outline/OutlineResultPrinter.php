@@ -9,7 +9,7 @@ use SMWQueryResult as QueryResult;
  * A class to print query results in an outline format, along with some
  * helper classes to handle the aggregation
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.4.3
  *
  * @author Yaron Koren
