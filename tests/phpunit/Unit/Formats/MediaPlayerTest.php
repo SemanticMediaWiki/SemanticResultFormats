@@ -17,7 +17,7 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group SMWExtension
  * @group ResultPrinters
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 class MediaPlayerTest extends QueryPrinterRegistryTestCase {

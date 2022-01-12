@@ -5,7 +5,7 @@
  * JavaScript library.
  *
  * @since 1.8
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  *
  * @author mwjames
  */

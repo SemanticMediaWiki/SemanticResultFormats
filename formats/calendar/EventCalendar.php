@@ -15,7 +15,7 @@ use SMWQueryResult as QueryResult;
  * @file
  * @ingroup QueryPrinter
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 

@@ -4,7 +4,7 @@
  * A query printer for charts series using the jqPlot JavaScript library.
  *
  * @since 1.8
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  *
  * @author mwjames
  */

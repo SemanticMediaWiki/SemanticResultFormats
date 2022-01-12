@@ -3,7 +3,7 @@
 /**
  * Various mathematical functions - sum, product, average, min, max, median, variance, samplevariance, samplestandarddeviation, standarddeviation, range, quartillower, quartilupper, quartillower.exc, quartilupper.exc, interquartilerange, interquartilerange.exc, mode and interquartilemean
  *
- * @licence GPL-3.0-or-later
+ * @license GPL-3.0-or-later
  *
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren

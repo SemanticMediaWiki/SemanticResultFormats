@@ -10,7 +10,7 @@
  * @file Gantt.php
  * @ingroup SemanticResultFormats
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author Sebastian Schmid
  */
 

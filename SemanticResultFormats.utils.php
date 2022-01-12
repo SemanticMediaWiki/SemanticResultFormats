@@ -2,7 +2,7 @@
 
 /**
  * Common libray of independent functions that are shared among different printers
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  *
  * @since 1.8
  *

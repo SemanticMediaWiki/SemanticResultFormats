@@ -18,7 +18,7 @@ use ResourceLoaderModule;
  * @group SRF
  * @group SMWExtension
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 class ResourcesTest extends \PHPUnit_Framework_TestCase {
