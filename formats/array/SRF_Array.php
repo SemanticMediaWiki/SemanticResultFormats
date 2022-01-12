@@ -462,4 +462,3 @@ class SRFArray extends SMWResultPrinter {
 }
 
 
-

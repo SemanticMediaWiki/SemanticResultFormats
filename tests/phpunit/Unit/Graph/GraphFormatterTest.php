@@ -6,7 +6,6 @@ use SRF\Graph\GraphFormatter;
 use SRF\Graph\GraphNode;
 use SRF\Graph\GraphOptions;
 
-
 /**
  * @covers \SRF\Graph\GraphFormatter
  * @group semantic-result-formats

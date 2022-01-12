@@ -182,7 +182,6 @@ class Gallery extends ResultPrinter {
 			$html = $this->params[ 'default' ];
 		}
 
-
 		return [ $html, 'nowiki' => true, 'isHTML' => true ];
 	}
 

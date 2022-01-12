@@ -4,7 +4,6 @@ namespace SRF\Tests\Unit\Formats;
 
 use SRF\Graph\GraphNode;
 
-
 /**
  * @covers \SRF\Graph\GraphNode
  * @group semantic-result-formats

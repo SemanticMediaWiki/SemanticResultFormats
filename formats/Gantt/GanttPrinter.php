@@ -217,7 +217,6 @@ class GanttPrinter extends SMWResultPrinter {
 			]
 		];
 
-
 		// Manage Output
 		if ( !empty( $this->mErrors ) ) {
 			return $queryResult->addErrors( $this->mErrors );
@@ -252,7 +251,6 @@ class GanttPrinter extends SMWResultPrinter {
 
 		return $theme;
 	}
-
 
 	private function getValidatedMapping( $params, $mappingType, array $mappingKeys ){
 		//Validate mapping

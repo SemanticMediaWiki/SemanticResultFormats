@@ -609,7 +609,6 @@ return [
 		'position'     => 'top',
 	],
 
-
 	// JitGraph
 	'ext.srf.jquery.progressbar' => $formatModule + [
 		'scripts' => [
