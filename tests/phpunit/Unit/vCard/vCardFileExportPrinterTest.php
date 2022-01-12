@@ -36,7 +36,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			vCardFileExportPrinter::class,
 			new vCardFileExportPrinter( 'vcard' )
@@ -47,7 +46,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider filenameProvider
 	 */
 	public function testGetFileName( $filename, $searchlabel, $expected ) {
-
 		$parameters = [
 			'filename' => $filename,
 			'searchlabel' => $searchlabel
@@ -66,7 +64,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetMimeType() {
-
 		$instance = new vCardFileExportPrinter(
 			'vcard'
 		);
@@ -78,7 +75,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResult_LinkOnNonFileOutput() {
-
 		$link = $this->createMock( \SMWInfolink::class );
 
 		$link->expects( $this->any() )
@@ -108,7 +104,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function filenameProvider() {
-
 		yield[
 			'',
 			'foo bar',

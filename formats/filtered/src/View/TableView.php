@@ -40,7 +40,6 @@ class TableView extends View {
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
-
 		$params = $this->getActualParameters();
 
 		if ( $params['headers'] === 'hide' ) {
@@ -194,7 +193,6 @@ class TableView extends View {
 	 * @return string
 	 */
 	protected function getCellForPropVals( SMWResultArray $resultArray, $outputmode, $columnClass ) {
-
 		$resultArray->reset();
 
 		$dataValues = [];

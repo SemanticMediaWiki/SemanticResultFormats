@@ -27,7 +27,6 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	 * @param array $data label => value
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		//Init
 		$dataObject = [];
 

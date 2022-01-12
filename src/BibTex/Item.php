@@ -83,7 +83,6 @@ class Item {
 	 * @return string
 	 */
 	public function replace( $key, $text ) {
-
 		if ( $key === 'uri' ) {
 			$text = str_replace(
 				[ "Ä", "ä", "Ö", "ö", "Ü", "ü", "ß" ],
@@ -103,7 +102,6 @@ class Item {
 	 * @param mixed $value
 	 */
 	public function set( $key, $value ) {
-
 		$key = strtolower( $key );
 
 		if ( $key === 'type' ) {
@@ -121,7 +119,6 @@ class Item {
 	 * @return string
 	 */
 	public function text() {
-
 		$formatterCallback = $this->formatterCallback;
 
 		$text = '@' . $this->type . '{' . $this->buildURI() . ",\r\n";
@@ -154,7 +151,6 @@ class Item {
 	 * @return string
 	 */
 	protected function buildURI() {
-
 		$uri = '';
 
 		if ( isset( $this->fields['author'] ) ) {

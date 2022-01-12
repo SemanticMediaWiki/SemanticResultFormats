@@ -55,7 +55,6 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
 		SMWOutputs::requireResource( 'ext.srf.timeline' );
 

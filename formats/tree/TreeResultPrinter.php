@@ -48,7 +48,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @throws Exception
 	 */
 	public function getQueryResult() {
-
 		if ( $this->queryResult === null ) {
 			throw new Exception( __METHOD__ . ' called outside of ' . __CLASS__ . '::getResultText().' );
 		}
@@ -67,7 +66,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @see ResultPrinter::postProcessParameters()
 	 */
 	protected function postProcessParameters() {
-
 		parent::postProcessParameters();
 
 		// Don't support pagination in trees
@@ -91,7 +89,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
-
 		$this->setQueryResult( $queryResult );
 
 		if ( $this->params['parent'] === '' ) {
@@ -151,7 +148,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return string
 	 */
 	public function getTemplateCall( $templateName, $params = [] ) {
-
 		if ( $templateName === '' ) {
 			return '';
 		}
@@ -212,7 +208,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return TreeNode
 	 */
 	protected function buildTreeFromQueryResult( $rootHash ) {
-
 		$nodes = $this->getHashOfNodes();
 
 		if ( $rootHash !== '' && !array_key_exists( $rootHash, $nodes ) ) {
@@ -226,7 +221,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return string | false
 	 */
 	protected function getRootHash() {
-
 		if ( $this->params['root'] === '' ) {
 			return '';
 		}
@@ -246,7 +240,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return TreeNode[]
 	 */
 	protected function getHashOfNodes() {
-
 		/** @var TreeNode[] $nodes */
 		$nodes = [];
 
@@ -284,7 +277,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	private function initalizeStandardTemplateParameters() {
-
 		$query = $this->getQueryResult()->getQuery();
 		$userparam = trim( $this->params[ 'userparam' ] );
 
@@ -304,7 +296,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @throws \Exception
 	 */
 	protected function buildTreeFromNodeList( $rootHash, $nodes ) {
-
 		$isRootSpecified = $rootHash !== '';
 
 		$root = new TreeNode();
@@ -372,7 +363,6 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param string | string[] $params
 	 */
 	protected function addError( $msgkey, $params = [] ) {
-
 		parent::addError(
 			\Message::newFromKey( $msgkey )
 				->params( $params )

@@ -58,7 +58,6 @@ class TemplateBuilder {
 	}
 
 	private function tree( $outlineTree, $level = 0 ) {
-
 		if ( $outlineTree->items !== null ) {
 			foreach ( $outlineTree->items as $i => $item ) {
 				$this->template .= $this->item( $i, $item );
@@ -84,7 +83,6 @@ class TemplateBuilder {
 	}
 
 	private function item( $i, $item ) {
-
 		$first_col = true;
 		$template = '';
 		$linker = $this->params['link'] === 'all' ? $this->linker : null;
@@ -119,7 +117,6 @@ class TemplateBuilder {
 	}
 
 	private function itemText( $dv, $linker, $printRequest, &$first_col ) {
-
 		if ( $first_col && $printRequest->isMode( PrintRequest::PRINT_THIS ) ) {
 			$first_col = false;
 

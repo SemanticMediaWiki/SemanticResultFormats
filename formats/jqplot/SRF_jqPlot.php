@@ -14,7 +14,6 @@
 abstract class SRFjqPlot extends SMWAggregatablePrinter {
 
 	public static function getCommonParams() {
-
 		$params = [];
 
 		$params['min'] = [

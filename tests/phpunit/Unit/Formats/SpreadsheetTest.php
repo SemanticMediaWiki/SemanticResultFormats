@@ -23,7 +23,6 @@ class SpreadsheetTest extends QueryPrinterRegistryTestCase {
 	}
 
 	public function testLink() {
-
 		$link = $this->getMockBuilder( '\SMWInfolink' )
 			->disableOriginalConstructor()
 			->getMock();

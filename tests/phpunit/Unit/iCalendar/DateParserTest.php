@@ -16,7 +16,6 @@ use SRF\iCalendar\DateParser;
 class DateParserTest extends \PHPUnit_Framework_TestCase {
 
 	public function testParseDate_Year() {
-
 		$timeValue = $this->createMock( \SMWTimeValue::class );
 
 		$timeValue->expects( $this->any() )
@@ -32,7 +31,6 @@ class DateParserTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParseDate_Year_Month_Day_Time() {
-
 		$timeValue = $this->createMock( \SMWTimeValue::class );
 
 		$timeValue->expects( $this->any() )

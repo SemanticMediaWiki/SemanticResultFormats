@@ -55,7 +55,6 @@ class GanttTask {
 	 *
 	 */
 	public function setTaskParam( $params, $paramMapping, $type ) {
-
 		// skip if $paramMapping is empty and
 		// output errormessage if wrong mapping
 		if ( !empty( $paramMapping ) ) {

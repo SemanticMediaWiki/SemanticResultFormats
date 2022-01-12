@@ -22,7 +22,6 @@ class TreeNode extends Node {
 	 * @return string
 	 */
 	public function getHash() {
-
 		$resultSubject = $this->getResultSubject();
 
 		if ( $resultSubject !== null ) {
@@ -53,7 +52,6 @@ class TreeNode extends Node {
 	 * @throws Exception
 	 */
 	public function addChild( NodeInterface $child ) {
-
 		foreach ( $this->getAncestorsAndSelf() as $ancestor ) {
 			if ( $ancestor->getHash() === $child->getHash() ) {
 				throw new Exception( 'srf-tree-circledetected' );

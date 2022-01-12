@@ -45,7 +45,6 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 		];
 	}
 	public function checkMermaidDependency( $val, &$reason ) {
-
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Mermaid' ) ) {
 			$reason = "Dependency: Mermaid as requirement is not available!";
 			return false;

@@ -33,7 +33,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * @param array $data label => value
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		static $statNr = 0;
 		$chartID = 'jqplot-' . $this->params['charttype'] . '-' . ++$statNr;
 
@@ -102,7 +101,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * @return array
 	 */
 	private function preparePieData( $rawdata ) {
-
 		// Init
 		$mode = 'single';
 
@@ -141,7 +139,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * @return array
 	 */
 	private function prepareBarData( $rawdata ) {
-
 		// Init
 		$total = 0;
 		$mode = 'single';
@@ -200,7 +197,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 *
 	 */
 	private function addCommonOptions() {
-
 		// Series colour
 		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter(
 			explode( ",", $this->params['chartcolor'] )

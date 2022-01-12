@@ -25,7 +25,6 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			IcalTimezoneFormatter::class,
 			new IcalTimezoneFormatter()
@@ -36,7 +35,6 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider transitionsProvider
 	 */
 	public function testGetTransitions( $tz, $from, $to, $expected ) {
-
 		$instance = new IcalTimezoneFormatter();
 		$instance->setLocalTimezones( $tz );
 		$instance->calcTransitions( $from, $to );
@@ -48,7 +46,6 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function transitionsProvider() {
-
 		// DTSTART can be different pending the OS hence use .*
 
 		yield [

@@ -32,7 +32,6 @@ class ListView extends View {
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
-
 		$params = $this->getActualParameters();
 
 		$this->mFormat = $params['list view type'];
@@ -60,7 +59,6 @@ class ListView extends View {
 	 * @return string
 	 */
 	public function getResultText() {
-
 		$this->handleParameters();
 
 		// Determine mark-up strings used around list items:
@@ -117,7 +115,6 @@ class ListView extends View {
 	 * @param $listsep
 	 */
 	protected function printRow( $row, &$rownum, $rowstart, $rowend, &$result, $listsep ) {
-
 		$rownum++;
 
 		$result .= $rowstart;

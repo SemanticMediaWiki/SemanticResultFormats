@@ -16,7 +16,6 @@ use SRF\vCard\Address;
 class AddressTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Address::class,
 			new Address( '', [] )
@@ -24,7 +23,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testHasAddress() {
-
 		$instance = new Address( '', [] );
 
 		$this->assertFalse(
@@ -33,7 +31,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testText() {
-
 		$adr = [
 			'pobox' => '',
 			'ext' => '',

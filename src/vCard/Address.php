@@ -58,7 +58,6 @@ class Address {
 	 * @return string
 	 */
 	public function text() {
-
 		if ( $this->type == "" ) {
 			$this->type = "WORK";
 		}

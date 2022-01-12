@@ -47,7 +47,6 @@ class SRFValueRank extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getResultText( SMWQueryResult $results, $outputMode ) {
-
 		// Template support
 		$this->hasTemplates = $this->params['template'] !== '';
 

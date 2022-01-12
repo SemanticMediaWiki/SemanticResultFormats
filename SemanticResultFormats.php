@@ -21,7 +21,6 @@ class SemanticResultFormats {
 	 * the extension is activated.
 	 */
 	public static function load() {
-
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
@@ -34,7 +33,6 @@ class SemanticResultFormats {
 	 * @since 2.5
 	 */
 	public static function initExtension( $credits = [] ) {
-
 		// See https://phabricator.wikimedia.org/T151136
 		define( 'SRF_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
 
@@ -80,7 +78,6 @@ class SemanticResultFormats {
 	 * @since 2.5
 	 */
 	public static function onExtensionFunction() {
-
 		if ( !defined( 'SMW_VERSION' ) ) {
 
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {

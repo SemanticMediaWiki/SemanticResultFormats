@@ -119,7 +119,6 @@ class EventCalendar extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputmode ) {
-
 		$resourceFormatter = new ResourceFormatter();
 		$data = $resourceFormatter->getData( $res, $outputmode, $this->params );
 

@@ -60,7 +60,6 @@ class ResultItem {
 	}
 
 	public function getArrayRepresentation() {
-
 		$printouts = [];
 		$isFirstColumn = true;
 

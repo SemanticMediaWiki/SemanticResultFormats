@@ -28,7 +28,6 @@ class SRFSlideShow extends SMWResultPrinter {
 	 * Implemented by subclasses.
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		$html = '';
 		$id = uniqid();
 

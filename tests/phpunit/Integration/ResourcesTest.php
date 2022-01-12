@@ -34,7 +34,6 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function moduleDataProvider() {
-
 		// #501
 		// MW 1.33+
 		if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getResourceLoader' ) ) {
@@ -66,7 +65,6 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesStylesFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
-
 		foreach ( $modules as $name => $values ) {
 
 			// Get module details

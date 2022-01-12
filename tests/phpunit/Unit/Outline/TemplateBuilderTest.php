@@ -20,7 +20,6 @@ class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			TemplateBuilder::class,
 			new TemplateBuilder( [] )
@@ -28,7 +27,6 @@ class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testBuildForEmptyTree() {
-
 		$params = [
 			'outlineproperties' => [ 'Foo' ],
 			'template' => 'Bar',

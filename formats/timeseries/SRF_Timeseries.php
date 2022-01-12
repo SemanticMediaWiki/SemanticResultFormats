@@ -29,7 +29,6 @@ class SRFTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Data processing
 		$data = $this->getAggregatedTimeSeries( $result, $outputMode );
 
@@ -118,7 +117,6 @@ class SRFTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data, $options ) {
-
 		// Object count
 		static $statNr = 0;
 		$chartID = 'timeseries-' . ++$statNr;

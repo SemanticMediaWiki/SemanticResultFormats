@@ -20,7 +20,6 @@ use SRF\Tests\ResultPrinterReflector;
 class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			BibTexFileExportPrinter::class,
 			new BibTexFileExportPrinter( 'bibtex' )
@@ -53,7 +52,6 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function filenameProvider() {
-
 		yield[
 			'',
 			'',

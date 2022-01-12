@@ -16,7 +16,6 @@ use SRF\Outline\OutlineTree;
 class OutlineTreeTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			OutlineTree::class,
 			new OutlineTree( [] )
@@ -24,7 +23,6 @@ class OutlineTreeTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPropertyAccess() {
-
 		$instance = new OutlineTree();
 
 		$this->assertEmpty(

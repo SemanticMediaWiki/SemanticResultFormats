@@ -27,7 +27,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Get data set
 		$data = $this->getResultData( $result, $outputMode );
 
@@ -138,7 +137,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @return array
 	 */
 	private function getFormatSettings( $data, $options ) {
-
 		// Init
 		$dataSet = [];
 		$options['mode'] = 'series';
@@ -234,7 +232,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @param array $data
 	 */
 	protected function getNumbersTicks( array $data ) {
-
 		// Only look for numeric values that have been stored
 		$numerics = array_values( $data['series'] );
 
@@ -320,7 +317,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		$this->isHTML = true;
 
 		static $statNr = 0;

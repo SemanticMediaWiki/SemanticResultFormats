@@ -30,7 +30,6 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			IcalFormatter::class,
 			new IcalFormatter( $this->icalTimezoneFormatter )
@@ -41,7 +40,6 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider paramsProvider
 	 */
 	public function testGetIcal( $params, $events, $expected ) {
-
 		$instance = new IcalFormatter(
 			$this->icalTimezoneFormatter
 		);
@@ -60,7 +58,6 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function paramsProvider() {
-
 		yield [
 			[
 				'calendarname' => 'FooCalendar',

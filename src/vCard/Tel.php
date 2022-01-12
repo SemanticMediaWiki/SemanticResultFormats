@@ -39,7 +39,6 @@ class Tel {
 	 * Creates the vCard output for a single telephone item.
 	 */
 	public function text() {
-
 		if ( $this->type == "" ) {
 			$this->type = "WORK";
 		}

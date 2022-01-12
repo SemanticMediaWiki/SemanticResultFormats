@@ -16,7 +16,6 @@ use SRF\vCard\Tel;
 class TelTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Tel::class,
 			new Tel( '', '' )
@@ -24,7 +23,6 @@ class TelTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testText() {
-
 		$instance = new Tel( '', '+1 781 555 1212' );
 
 		$this->assertSame(

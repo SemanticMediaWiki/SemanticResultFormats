@@ -19,7 +19,6 @@ class ResourceFormatterTest extends \PHPUnit_Framework_TestCase {
 	use PHPUnitCompat;
 
 	public function testSession() {
-
 		$this->assertContains(
 			'smw-',
 			ResourceFormatter::session()
@@ -27,7 +26,6 @@ class ResourceFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPlaceholder() {
-
 		$this->assertInternalType(
 			'string',
 			ResourceFormatter::placeholder()

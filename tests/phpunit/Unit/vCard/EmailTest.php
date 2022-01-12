@@ -16,7 +16,6 @@ use SRF\vCard\Email;
 class EmailTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Email::class,
 			new Email( '', '' )
@@ -24,7 +23,6 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testText() {
-
 		$instance = new Email( '', 'johnDoe@example.org' );
 
 		$this->assertSame(

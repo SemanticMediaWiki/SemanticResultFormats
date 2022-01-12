@@ -98,7 +98,6 @@ class Filtered extends ResultPrinter {
 	 * @return \Parser | \StubObject | null
 	 */
 	public function getParser() {
-
 		if ( $this->parser === null ) {
 			$this->setParser( MediaWikiServices::getInstance()->getParser() );
 		}
@@ -173,7 +172,6 @@ class Filtered extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		// collect the query results in an array
 		/** @var ResultItem[] $resultItems */
 		$resultItems = [];
@@ -267,7 +265,6 @@ class Filtered extends ResultPrinter {
 	}
 
 	private function addConfigToOutput( $id, $config ) {
-
 		if ( $this->getParser()->getOutput() !== null ) {
 			$getter = [ $this->getParser()->getOutput(), 'getExtensionData' ];
 			$setter = [ $this->getParser()->getOutput(), 'setExtensionData' ];
@@ -292,7 +289,6 @@ class Filtered extends ResultPrinter {
 	 * @param string | string[] | null $resourceModules
 	 */
 	protected function registerResourceModules( $resourceModules ) {
-
 		array_map( 'SMWOutputs::requireResource', (array)$resourceModules );
 	}
 
@@ -330,7 +326,6 @@ class Filtered extends ResultPrinter {
 	 * @return array
 	 */
 	protected function getFilterHtml( SMWQueryResult $res, $result ) {
-
 		// prepare filter data for inclusion in HTML and  JS
 		$filterHtml = '';
 
@@ -422,7 +417,6 @@ class Filtered extends ResultPrinter {
 	 * @return array
 	 */
 	protected function getViewHtml( SMWQueryResult $res, $resultItems, $config ) {
-
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
 		$viewSelectorsHtml = '';

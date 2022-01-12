@@ -111,7 +111,6 @@ abstract class Filter {
 	 * @return string[]
 	 */
 	public function getJsConfig() {
-
 		if ( $this->jsConfig === null ) {
 			$this->buildJsConfig();
 		}
@@ -137,7 +136,6 @@ abstract class Filter {
 	 * @param callable | null $callback
 	 */
 	protected function addValueToJsConfig( $paramName, $configName, $default = null, $callback = null ) {
-
 		$params = $this->getActualParameters();
 
 		if ( array_key_exists( $paramName, $params ) ) {
@@ -163,7 +161,6 @@ abstract class Filter {
 	 * @param null $default
 	 */
 	protected function addValueListToJsConfig( $paramName, $configName, $default = null, $callback = null ) {
-
 		$this->addValueToJsConfig(
 			$paramName,
 			$configName,
