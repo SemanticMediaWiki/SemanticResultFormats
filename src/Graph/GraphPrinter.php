@@ -4,8 +4,6 @@ namespace SRF\Graph;
 
 use SMW\ResultPrinter;
 use SMWQueryResult;
-use SMWWikiPageValue;
-use GraphViz;
 use Html;
 
 /**

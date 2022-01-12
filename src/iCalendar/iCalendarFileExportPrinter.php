@@ -8,7 +8,6 @@ use SMWExportPrinter as FileExportPrinter;
 use SMWQuery as Query;
 use SMWQueryProcessor as QueryProcessor;
 use SMWQueryResult as QueryResult;
-use SMWTimeValue as TimeValue;
 use WikiPage;
 
 /**

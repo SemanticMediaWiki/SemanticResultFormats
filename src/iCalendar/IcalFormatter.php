@@ -2,7 +2,6 @@
 
 namespace SRF\iCalendar;
 
-use Exception;
 
 /**
  * @license GPL-2.0-or-later

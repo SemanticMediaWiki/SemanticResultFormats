@@ -3,7 +3,6 @@
 namespace SRF\Outline;
 
 use SMW\Query\PrintRequest;
-use SRF\Outline\OutlineTree;
 
 /**
  * @license GPL-2.0-or-later

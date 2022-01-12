@@ -2,8 +2,6 @@
 
 namespace SRF\vCard;
 
-use Article;
-use Title;
 
 /**
  * Represents a single entry in an vCard

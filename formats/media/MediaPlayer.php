@@ -6,7 +6,6 @@ use File;
 use FormatJson;
 use Html;
 use MediaWiki\MediaWikiServices;
-use Skin;
 use SMW\ResultPrinter;
 use SMWDataItem;
 use SMWDataValue;
