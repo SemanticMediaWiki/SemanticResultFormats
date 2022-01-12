@@ -416,7 +416,7 @@ class SRFMath extends SMWResultPrinter {
 
 	/**
 	 * @param SMWDataItem $dataItem
-	 * @param float[] $numbers
+	 * @param float[] &$numbers
 	 */
 	private function addNumbersForDataItem( SMWDataItem $dataItem, array &$numbers ) {
 		switch ( $dataItem->getDIType() ) {

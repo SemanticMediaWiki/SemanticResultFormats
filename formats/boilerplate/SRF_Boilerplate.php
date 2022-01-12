@@ -181,7 +181,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param integer $type
+	 * @param int $type
 	 * @param SMWDataValue $dataValue
 	 *
 	 * @return mixed

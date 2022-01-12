@@ -184,8 +184,8 @@ class SRFValueRank extends SMWResultPrinter {
 	 * @since 1.8
 	 *
 	 * @param string $name
-	 * @param integer $rank
-	 * @param integer $rownum
+	 * @param int $rank
+	 * @param int &$rownum
 	 *
 	 * @return string
 	 */

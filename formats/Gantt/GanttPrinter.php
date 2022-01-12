@@ -238,7 +238,7 @@ class GanttPrinter extends SMWResultPrinter {
 
 	/**
 	 * Return valid theme as string
-	 * @param String $theme
+	 * @param string $theme
 	 *
 	 * @return string
 	 */

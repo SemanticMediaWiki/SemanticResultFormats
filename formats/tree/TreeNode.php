@@ -12,7 +12,7 @@ class TreeNode extends Node {
 	/**
 	 * SRFTreeElement constructor.
 	 *
-	 * @param \SMWResultArray[] | null $row
+	 * @param \SMWResultArray[] | null|null $row
 	 */
 	public function __construct( $row = null ) {
 		parent::__construct( $row );

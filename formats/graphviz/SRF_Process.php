@@ -196,7 +196,7 @@ class SRFProcess extends SMWResultPrinter {
 	 * @param res                SMWQueryResult, result set of the ask query provided by SMW
 	 * @param outputmode        ?
 	 *
-	 * @return                String, rendered HTML output of this printer for the ask-query
+	 * @return string rendered HTML output of this printer for the ask-query
 	 *
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
@@ -507,10 +507,10 @@ class ProcessGraph {
 	 * This method should be used for getting new or existing nodes
 	 * If a node does not exist yet, it will be created
 	 *
-	 * @param $id            string, node id
-	 * @param $label        string, node label
+	 * @param $id string, node id
+	 * @param $label string, node label
 	 *
-	 * @return                Object of type ProcessNode
+	 * @return object of type ProcessNode
 	 */
 	public function makeNode( $id, $label ) {
 		// check if node exists

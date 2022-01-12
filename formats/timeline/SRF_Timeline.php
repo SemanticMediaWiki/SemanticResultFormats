@@ -109,7 +109,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 *
 	 * @param SMWQueryResult $res
 	 * @param $outputmode
-	 * @param boolean $isEventline
+	 * @param bool $isEventline
 	 *
 	 * @return string
 	 */
@@ -261,15 +261,15 @@ class SRFTimeline extends SMWResultPrinter {
 	 * @param SMWDataValue $object
 	 * @param $outputmode
 	 * @param SMWPrintRequest $pr
-	 * @param boolean $first_col
-	 * @param boolean &$hastitle
-	 * @param boolean &$hastime
-	 * @param boolean $first_value
-	 * @param boolean $isEventline
+	 * @param bool $first_col
+	 * @param bool &$hastitle
+	 * @param bool &$hastime
+	 * @param bool $first_value
+	 * @param bool $isEventline
 	 * @param string &$curmeta
 	 * @param string &$curdata
-	 * @param &$date_value
-	 * @param boolean &$output
+	 * @param $date_value
+	 * @param bool &$output
 	 * @param array &$positions
 	 *
 	 * @return false or array

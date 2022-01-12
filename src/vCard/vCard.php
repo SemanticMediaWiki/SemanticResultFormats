@@ -91,7 +91,7 @@ class vCard {
 	/**
 	 * @since 3.0
 	 *
-	 * @param boolean $isPublic
+	 * @param bool $isPublic
 	 */
 	public function isPublic( $isPublic ) {
 		$this->isPublic = $isPublic;
@@ -100,7 +100,7 @@ class vCard {
 	/**
 	 * @since 3.0
 	 *
-	 * @param integer $timestamp
+	 * @param int $timestamp
 	 */
 	public function setTimestamp( $timestamp ) {
 		$this->timestamp = $timestamp;

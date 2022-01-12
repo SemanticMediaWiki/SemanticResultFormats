@@ -17,9 +17,9 @@ final class SRFHooks {
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $files
+	 * @param array &$files
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function registerUnitTests( array &$files ) {
 		// Keep this in alphabetical order please!
@@ -64,9 +64,9 @@ final class SRFHooks {
 	 *
 	 * @since 1.7
 	 *
-	 * @param ALTree $admin_links_tree
+	 * @param ALTree &$admin_links_tree
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function addToAdminLinks( ALTree &$admin_links_tree ) {
 		$displaying_data_section = $admin_links_tree->getSection( wfMessage( 'smw_adminlinks_displayingdata' )->text() );
@@ -108,8 +108,8 @@ final class SRFHooks {
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
 	 *
-	 * @param OutputPage $outputPage
-	 * @param Skin $skin
+	 * @param OutputPage &$outputPage
+	 * @param Skin &$skin
 	 *
 	 * @return true
 	 */
@@ -124,7 +124,7 @@ final class SRFHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
 	 *
 	 * @param User $user
-	 * @param array $preferences
+	 * @param array &$preferences
 	 *
 	 * @return true
 	 */

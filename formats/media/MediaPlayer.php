@@ -200,12 +200,12 @@ class MediaPlayer extends ResultPrinter {
 	/**
 	 * Returns single data value item
 	 *
-	 * @param string $label
+	 * @param string &$label
 	 * @param SMWDataValue $dataValue
-	 * @param string $mediaType
-	 * @param string $mimeType
+	 * @param string &$mediaType
+	 * @param string &$mimeType
 	 *
-	 * @param $rowData
+	 * @param &$rowData
 	 *
 	 * @return mixed
 	 * @since 1.9

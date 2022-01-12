@@ -40,18 +40,18 @@ class SRFParserFunctions {
 	 *
 	 * @param $calendar_type string Values: 'month' (the default) for monthly
 	 *	calendar such as SRF Calendar; others not yet defined.
-	 * @param $calendar_start_day int Optionally force the lower bound date to be a certain
+	 * @param null $calendar_start_day int Optionally force the lower bound date to be a certain
 	 *	day of the week (0 for Sunday, 6 for Saturday).  If using a $calendar_type
 	 *	of 'month' this parameter is ignored, as the start day of week for a monthly
 	 *	calendar is currently always set as Sunday.  Ohterwise defaults to either the day
 	 *	supplied in the query string, or the current day.
 	 * @param $calendar_days int The number of days to display.  Ignored if using a
 	 *	$calendar_type of 'month'; otherwise defaults to 7.
-	 * @param $default_year int (Optional) Default year if none is specified in
+	 * @param null $default_year int (Optional) Default year if none is specified in
 	 *	the query string.  If parameter is not supplied, will fall back to current year.
-	 * @param $default_month int (Optional) Default month if none is specified in
+	 * @param null $default_month int (Optional) Default month if none is specified in
 	 *	the query string.  If parameter is not supplied, will fall back to current month.
-	 * @param $default_day int (Optional) Default day of month if none is specified in
+	 * @param null $default_day int (Optional) Default day of month if none is specified in
 	 *	the query string.  If parameter is not supplied, will fall back to current day of month.
 	 * @return array First element contains the lower bound date, second
 	 *	element contains the upper bound, third element contains a date indicating

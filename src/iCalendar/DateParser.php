@@ -17,7 +17,7 @@ class DateParser {
 	 * @since 3.2
 	 *
 	 * @param TimeValue $dataValue
-	 * @param boolean $isEnd
+	 * @param bool $isEnd
 	 *
 	 * @return string
 	 */

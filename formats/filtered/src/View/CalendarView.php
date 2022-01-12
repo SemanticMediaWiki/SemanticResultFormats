@@ -259,7 +259,7 @@ class CalendarView extends View {
 	/**
 	 * Returns the label of the selector for this view.
 	 *
-	 * @return String the selector label
+	 * @return string the selector label
 	 */
 	public function getSelectorLabel() {
 		return Message::newFromKey( 'srf-filtered-selectorlabel-calendar' )->inContentLanguage()->text();

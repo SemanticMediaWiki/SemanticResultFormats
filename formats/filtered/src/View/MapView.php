@@ -241,7 +241,7 @@ class MapView extends View {
 	}
 
 	/**
-	 * @param array $config
+	 * @param array &$config
 	 * @param string $key
 	 */
 	private function addToConfig( &$config, $key ) {
@@ -256,7 +256,7 @@ class MapView extends View {
 	}
 
 	/**
-	 * @param $config
+	 * @param &$config
 	 */
 	protected function addMarkerIconSetupToConfig( &$config ) {
 		$param = $this->getActualParameters()['map view marker icon property'];
