@@ -2,7 +2,6 @@
 
 namespace SRF\vCard;
 
-
 /**
  * Represents a single entry in an vCard
  *
