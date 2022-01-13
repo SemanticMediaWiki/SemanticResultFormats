@@ -83,7 +83,7 @@ class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( $this->graphFormatter->getGraphLegend(), $expected );
 	}
 
-	public function testBuildGraph(){
+	public function testBuildGraph() {
 		$expected = <<<'DOT'
 digraph Unit Test {graph [fontsize=10, fontname="Verdana"]
 node [fontsize=10, fontname="Verdana"];

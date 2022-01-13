@@ -23,7 +23,7 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testGraphNode(){
+	public function testGraphNode() {
 		$node = new GraphNode( 'Team:Beta' );
 		$this->assertEquals( 'Team:Beta', $node->getID() );
 
@@ -31,7 +31,7 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( "Fossil Power Generation", $node->getLabel() );
 	}
 
-	public function testAddParentNode(){
+	public function testAddParentNode() {
 		$mockParentNode1[] = [
 			"predicate" => 'Part Of Team',
 			"object"    => 'Alpha Team'

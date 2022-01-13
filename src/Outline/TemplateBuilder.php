@@ -139,7 +139,7 @@ class TemplateBuilder {
 		return $this->parameter( $printRequest->getLabel(), $text );
 	}
 
-	private function itemRaw( $dv ){
+	private function itemRaw( $dv ) {
 		$rawText = $dv->getShortText( SMW_OUTPUT_WIKI );
 
 		return $this->parameter( "#itemsubjectraw", $rawText );

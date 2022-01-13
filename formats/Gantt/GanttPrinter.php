@@ -232,7 +232,7 @@ class GanttPrinter extends SMWResultPrinter {
 		}
 	}
 
-	private function getGantt(){
+	private function getGantt() {
 		return new Gantt( $this->params );
 	}
 
@@ -252,7 +252,7 @@ class GanttPrinter extends SMWResultPrinter {
 		return $theme;
 	}
 
-	private function getValidatedMapping( $params, $mappingType, array $mappingKeys ){
+	private function getValidatedMapping( $params, $mappingType, array $mappingKeys ) {
 		// Validate mapping
 		$mapping = [];
 
