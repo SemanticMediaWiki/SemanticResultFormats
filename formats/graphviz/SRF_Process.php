@@ -17,7 +17,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with Process Printer. If not, see <http://www.gnu.org/licenses/>.
- *******************************************************************************/
+ */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
