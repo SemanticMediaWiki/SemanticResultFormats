@@ -13,7 +13,7 @@ use SRF\Outline\OutlineItem;
  *
  * @author mwjames
  */
-class OutlineItemTest extends \PHPUnit_Framework_TestCase {
+class OutlineItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

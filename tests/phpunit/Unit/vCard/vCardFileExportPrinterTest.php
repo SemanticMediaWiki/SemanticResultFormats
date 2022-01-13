@@ -14,7 +14,7 @@ use SRF\vCard\vCardFileExportPrinter;
  *
  * @author mwjames
  */
-class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
+class vCardFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 	private $queryResult;
 	private $resultPrinterReflector;

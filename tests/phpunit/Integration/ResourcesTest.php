@@ -20,7 +20,7 @@ use ResourceLoaderContext;
  * @license GPL-2.0-or-later
  * @author mwjames
  */
-class ResourcesTest extends \PHPUnit_Framework_TestCase {
+class ResourcesTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * Helper method to load resources only valid for this extension

@@ -14,7 +14,7 @@ use SRF\ResourceFormatter;
  *
  * @author mwjames
  */
-class ResourceFormatterTest extends \PHPUnit_Framework_TestCase {
+class ResourceFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 

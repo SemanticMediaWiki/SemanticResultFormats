@@ -17,7 +17,7 @@ use SRF\Tests\ResultPrinterReflector;
  *
  * @author mwjames
  */
-class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
+class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

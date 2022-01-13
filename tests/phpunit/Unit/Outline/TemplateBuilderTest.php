@@ -15,7 +15,7 @@ use SRF\Outline\TemplateBuilder;
  *
  * @author mwjames
  */
-class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
+class TemplateBuilderTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 

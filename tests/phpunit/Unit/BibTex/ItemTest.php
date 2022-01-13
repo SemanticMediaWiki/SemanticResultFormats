@@ -13,7 +13,7 @@ use SRF\BibTex\Item;
  *
  * @author mwjames
  */
-class ItemTest extends \PHPUnit_Framework_TestCase {
+class ItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

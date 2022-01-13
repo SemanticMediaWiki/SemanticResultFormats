@@ -13,7 +13,7 @@ use SRF\vCard\Address;
  *
  * @author mwjames
  */
-class AddressTest extends \PHPUnit_Framework_TestCase {
+class AddressTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
