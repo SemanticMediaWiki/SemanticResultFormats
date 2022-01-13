@@ -47,7 +47,7 @@ class SRFCalendar extends SMWResultPrinter {
 			global $wgLang;
 			// Store the actual user's language, so we can revert
 			// back to it after printing the calendar.
-			$this->mRealUserLang = clone ( $wgLang );
+			$this->mRealUserLang = clone $wgLang;
 			$wgLang = Language::factory( trim( $params['lang'] ) );
 		}
 
