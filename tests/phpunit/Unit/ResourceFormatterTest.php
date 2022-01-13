@@ -27,7 +27,7 @@ class ResourceFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPlaceholder() {
 		$this->assertIsString(
-			
+
 			ResourceFormatter::placeholder()
 		);
 	}
