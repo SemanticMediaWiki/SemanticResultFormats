@@ -33,12 +33,12 @@ class vCard {
 	private $vcard = [];
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $isPublic = true;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	private $timestamp;
 

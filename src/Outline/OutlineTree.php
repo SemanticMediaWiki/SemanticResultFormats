@@ -11,22 +11,22 @@ namespace SRF\Outline;
 class OutlineTree {
 
 	/**
-	 * @var []
+	 * @var 
 	 */
 	public $tree;
 
 	/**
-	 * @var []
+	 * @var 
 	 */
 	public $items;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	public $itemCount = 0;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	public $leafCount = 0;
 
