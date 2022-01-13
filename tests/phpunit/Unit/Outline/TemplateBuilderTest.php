@@ -3,8 +3,8 @@
 namespace SRF\Tests\Outline;
 
 use SMW\Tests\PHPUnitCompat;
-use SRF\Outline\TemplateBuilder;
 use SRF\Outline\OutlineTree;
+use SRF\Outline\TemplateBuilder;
 
 /**
  * @covers \SRF\Outline\TemplateBuilder

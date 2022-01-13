@@ -2,8 +2,8 @@
 
 namespace SRF\Outline;
 
-use SMWResultPrinter as ResultPrinter;
 use SMWQueryResult as QueryResult;
+use SMWResultPrinter as ResultPrinter;
 
 /**
  * A class to print query results in an outline format, along with some
