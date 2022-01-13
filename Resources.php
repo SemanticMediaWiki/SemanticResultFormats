@@ -779,15 +779,15 @@ return [
 
 	'ext.srf.filtered.calendar-view.messages' => $formatModule + $calendarMessages,
 
-	'ext.srf.filtered.calendar-view' => $formatModule + array(
-			'styles' => array(
+	'ext.srf.filtered.calendar-view' => $formatModule + [
+			'styles' => [
 				'filtered/resources/css/ext.srf.filtered.calendar-view.less',
-			),
-			'dependencies' => array(
+			],
+			'dependencies' => [
 				'ext.srf.filtered.calendar-view.messages',
 				'ext.jquery.fullcalendar'
-			),
-		),
+			],
+		],
 
 	'ext.srf.filtered.map-view.leaflet' => $formatModule + [
 			'scripts' => [

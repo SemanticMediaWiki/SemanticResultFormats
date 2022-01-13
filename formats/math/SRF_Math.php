@@ -174,7 +174,7 @@ class MathFormats {
 
 	public static function mode_function( array $numbers ) {
 		// array temp
-		$array_temp = array();
+		$array_temp = [];
 		// convert array
 		for ( $i = 0; $i < count( $numbers ); $i++ ) {
 			$converted_value = strval( $numbers[$i] );
