@@ -52,7 +52,7 @@ class DistanceFilter extends Filter {
 
 			$geoCoordinateParser = new LatLongParser();
 
-			$callback = function ( $value ) use ( $geoCoordinateParser ) {
+			$callback = static function ( $value ) use ( $geoCoordinateParser ) {
 				$latlng = $geoCoordinateParser->parse( $value );
 				return [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
 			};

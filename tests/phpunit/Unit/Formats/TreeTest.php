@@ -141,7 +141,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 			MediaWikiServices::getInstance()->disableService( 'Parser' );
 			MediaWikiServices::getInstance()->redefineService(
 				'Parser',
-				function () use ( $parser ) {
+				static function () use ( $parser ) {
 					return $parser;
 				}
 			);

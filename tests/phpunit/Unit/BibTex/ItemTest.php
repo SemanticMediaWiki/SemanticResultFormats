@@ -43,7 +43,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testFormatterCallback( $fields, $expected ) {
 		$instance = new Item();
-		$instance->setFormatterCallback( function( $key, $values ) {
+		$instance->setFormatterCallback( static function( $key, $values ) {
 			return implode( '#', $values );
 		} );
 
