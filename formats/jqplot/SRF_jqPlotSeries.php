@@ -212,7 +212,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		return [
 			'data' => $dataSet,
-			//'rawdata'      => $data , // control array
+			// 'rawdata'      => $data , // control array
 			'series' => $series,
 			'ticks' => $data['numbersticks'],
 			'total' => $data['total'],

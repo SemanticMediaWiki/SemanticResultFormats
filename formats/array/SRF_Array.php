@@ -38,7 +38,7 @@ class SRFArray extends SMWResultPrinter {
 
 	public function __construct( $format, $inline = true ) {
 		parent::__construct( $format, $inline );
-		//overwrite parent default behavior for linking:
+		// overwrite parent default behavior for linking:
 		$this->mLinkFirst = false;
 		$this->mLinkOthers = false;
 	}
@@ -70,7 +70,7 @@ class SRFArray extends SMWResultPrinter {
 
 		$perPage_items = [];
 
-		//for each page:
+		// for each page:
 		while ( $row = $res->getNext() ) {
 			$perProperty_items = [];
 
@@ -82,19 +82,19 @@ class SRFArray extends SMWResultPrinter {
 			 */
 			$isPageTitle = !$this->mMainLabelHack;
 
-			//for each property on that page:
+			// for each property on that page:
 			foreach ( $row as $field ) { // $row is array(), $field of type SMWResultArray
 				$manyValue_items = [];
 				$isMissingProperty = false;
 
 				$manyValues = $field->getContent();
 
-				//If property is not set (has no value) on a page:
+				// If property is not set (has no value) on a page:
 				if ( empty( $manyValues ) ) {
 					$delivery = $this->deliverMissingProperty( $field );
 					$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					$isMissingProperty = true;
-				} else //otherwise collect property value (potentially many values):
+				} else // otherwise collect property value (potentially many values):
 				{
 					while ( $obj = $field->getNextDataValue() ) {
 
@@ -105,7 +105,7 @@ class SRFArray extends SMWResultPrinter {
 						if ( $isPageTitle ) {
 							if ( !$this->mShowPageTitles ) {
 								$isPageTitle = false;
-								continue 2; //next property
+								continue 2; // next property
 							}
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
@@ -154,7 +154,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function fillDeliveryArray( $array = [], $value = null ) {
-		if ( !is_null( $value ) ) { //don't create any empty entries
+		if ( !is_null( $value ) ) { // don't create any empty entries
 			$array[] = $value;
 		}
 		return $array;
@@ -177,7 +177,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function deliverSingleValue( $value, $link = false ) {
-		//return trim( $value->getShortWikiText( $link ) );
+		// return trim( $value->getShortWikiText( $link ) );
 		return trim(
 			Sanitizer::decodeCharReferences( $value->getShortWikiText( $link ) )
 		); // decode: better for further processing with array extension
@@ -189,13 +189,13 @@ class SRFArray extends SMWResultPrinter {
 			return null;
 		} else {
 			return '';
-		} //empty string will make sure that array separator will be generated
+		} // empty string will make sure that array separator will be generated
 		/** @ToDo: System for Default values?... * */
 	}
 
-	//represented by an array of record fields or just a single array value:
+	// represented by an array of record fields or just a single array value:
 	protected function deliverSingleManyValuesData( $value_items, $containsRecord, $isPageTitle ) {
-		if ( empty( $value_items ) ) //happens when one of the higher functions delivers null
+		if ( empty( $value_items ) ) // happens when one of the higher functions delivers null
 		{
 			return null;
 		}
@@ -226,7 +226,7 @@ class SRFArray extends SMWResultPrinter {
 
 	protected function deliverQueryResultPages( $perPage_items ) {
 		if ( $this->mArrayName !== null ) {
-			$this->createArray( $perPage_items ); //create Array
+			$this->createArray( $perPage_items ); // create Array
 			return '';
 		} else {
 			return implode( $this->mSep, $perPage_items );
@@ -253,7 +253,7 @@ class SRFArray extends SMWResultPrinter {
 		// compatbility to 'ArrayExtension' extension before 2.0:
 
 		if ( !isset( $wgArrayExtension ) ) {
-			//Hash extension is not installed in this wiki
+			// Hash extension is not installed in this wiki
 			return false;
 		}
 		$version = null;
@@ -308,7 +308,7 @@ class SRFArray extends SMWResultPrinter {
 		} elseif ( $obj instanceof Article ) {
 			$article = $obj;
 		} else {
-			return $obj; //only text
+			return $obj; // only text
 		}
 
 		/*
@@ -318,7 +318,7 @@ class SRFArray extends SMWResultPrinter {
 		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!
 		$parser = MediaWikiServices::getInstance()->getParser();
 		if ( !isset( $parser->mOptions ) ) {
-			//if( ! $this->mInline ) {
+			// if( ! $this->mInline ) {
 			return null;
 		}
 
@@ -338,7 +338,7 @@ class SRFArray extends SMWResultPrinter {
 		// does the link parameter:
 		parent::handleParameters( $params, $outputmode );
 
-		//separators:
+		// separators:
 		$this->mSep = $params['sep'];
 		$this->mPropSep = $params['propsep'];
 		$this->mManySep = $params['manysep'];
@@ -351,7 +351,7 @@ class SRFArray extends SMWResultPrinter {
 			$this->mArrayName = trim( $params['name'] );
 			$this->createArray(
 				[]
-			); //create empty array in case we get no result so we won't have an undefined array in the end.
+			); // create empty array in case we get no result so we won't have an undefined array in the end.
 		}
 
 		// if mainlabel set to '-', this will cause the titles not to appear, so make sure we catch this!

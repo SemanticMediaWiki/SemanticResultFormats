@@ -37,7 +37,7 @@ class SRFListWidget extends ResultPrinter {
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		// Initialize
 		static $statNr = 0;
-		//$this->isHTML = true;
+		// $this->isHTML = true;
 
 		$listType = $this->params[ 'listtype' ] === 'ordered' || $this->params[ 'listtype' ] === 'ol' ? 'ol' : 'ul';
 

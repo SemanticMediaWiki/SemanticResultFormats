@@ -123,7 +123,7 @@ class ListView extends View {
 			$this->getQueryPrinter()->hasTemplates( true );
 
 			$wikitext = ( $this->mUserParam ) ? "|#userparam=$this->mUserParam" : '';
-			//$wikitext = '';
+			// $wikitext = '';
 
 			foreach ( $row as $fieldNumber => $field ) {
 
@@ -240,7 +240,7 @@ class ListView extends View {
 		];
 
 		$params[] = [
-			//'type' => 'string',
+			// 'type' => 'string',
 			'name' => 'list view introtemplate',
 			'message' => 'srf-paramdesc-filtered-list-introtemplate',
 			'default' => '',
@@ -248,7 +248,7 @@ class ListView extends View {
 		];
 
 		$params[] = [
-			//'type' => 'string',
+			// 'type' => 'string',
 			'name' => 'list view outrotemplate',
 			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
 			'default' => '',
@@ -256,7 +256,7 @@ class ListView extends View {
 		];
 
 		$params[] = [
-			//'type' => 'string',
+			// 'type' => 'string',
 			'name' => 'list view userparam',
 			'message' => 'srf-paramdesc-filtered-list-userparam',
 			'default' => '',

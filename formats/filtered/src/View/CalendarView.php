@@ -100,7 +100,7 @@ class CalendarView extends View {
 
 		// only add to title template if requested and if not hidden
 		if ( $this->titleTemplate !== null ) {
-//			$wikitext .= "|#=$rownum";
+// $wikitext .= "|#=$rownum";
 			$data['title'] = trim(
 				$this->getQueryPrinter()->getParser()->recursiveTagParse(
 					'{{' . $this->titleTemplate . $wikitext . '}}'
@@ -139,7 +139,7 @@ class CalendarView extends View {
 			$this->titleTemplate = trim( $parser->recursiveTagParse( $params['calendar view title template'] ) );
 		}
 
-//		$this->mTemplate = $params['list view template'];
+// $this->mTemplate = $params['list view template'];
 //		$this->mIntroTemplate = $params['list view introtemplate'];
 //		$this->mOutroTemplate = $params['list view outrotemplate'];
 //		$this->mNamedArgs = $params['list view named args'];
