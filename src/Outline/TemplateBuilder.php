@@ -13,7 +13,7 @@ use SMW\Query\PrintRequest;
 class TemplateBuilder {
 
 	/**
-	 * @var 
+	 * @var
 	 */
 	private $params = [];
 

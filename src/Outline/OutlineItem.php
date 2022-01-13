@@ -17,7 +17,7 @@ class OutlineItem {
 	public $row;
 
 	/**
-	 * @var 
+	 * @var
 	 */
 	private $vals;
 
