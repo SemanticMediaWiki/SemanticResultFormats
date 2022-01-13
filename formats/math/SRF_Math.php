@@ -200,7 +200,7 @@ class MathFormats {
 
 	public static function interquartilemean_function( array $numbers ) {
 		// sort numbers
-		sort( $numbers,SORT_NUMERIC );
+		sort( $numbers, SORT_NUMERIC );
 		// check if size of numbers is divisible by 4
 		if ( count( $numbers ) % 4 == 0 ) {
 			// split array into 4 groups (2D array)
