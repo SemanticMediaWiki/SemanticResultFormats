@@ -133,7 +133,6 @@ class SRFJitGraph extends SMWResultPrinter {
 			}
 
 		}
-
 	}
 
 	public function getName() {

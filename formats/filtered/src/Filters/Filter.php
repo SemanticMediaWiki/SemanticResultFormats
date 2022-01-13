@@ -152,7 +152,6 @@ abstract class Filter {
 			$this->jsConfig[$configName] = $default;
 
 		}
-
 	}
 
 	/**
@@ -170,6 +169,5 @@ abstract class Filter {
 				return ( $callback !== null ) ? array_map( $callback, $parsedValues ) : $parsedValues;
 			}
 		);
-
 	}
 }

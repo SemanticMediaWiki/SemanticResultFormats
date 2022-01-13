@@ -69,7 +69,6 @@ class SRFGoogleBar extends SMWResultPrinter {
 		$height = $count * ( $barwidth + $bardistance ) + 15; // calculates the height of the image
 
 		return '<img src="https://chart.apis.google.com/chart?cht=bhs&chbh=' . $barwidth . ',' . $bardistance . '&chs=' . $this->m_width . 'x' . $height . '&chds=0,' . $max . '&chd=t:' . $t . '&chxt=y&chxl=0:|' . $n . '" width="' . $this->m_width . '" height="' . $height . '" />';
-
 	}
 
 	/**

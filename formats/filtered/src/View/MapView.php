@@ -252,7 +252,6 @@ class MapView extends View {
 		if ( $param !== $paramDefinition['default'] ) {
 			$config[$key] = $param;
 		}
-
 	}
 
 	/**
