@@ -53,7 +53,7 @@ class ListTreeBuilder {
 	private function tree( $outline_tree, $level = 0 ) {
 		$text = "";
 
-		if ( !is_null( $outline_tree->items ) ) {
+		if ( $outline_tree->items !== null ) {
 			$text .= "<ul>\n";
 			foreach ( $outline_tree->items as $item ) {
 				$text .= "<li>{$this->item($item)}</li>\n";

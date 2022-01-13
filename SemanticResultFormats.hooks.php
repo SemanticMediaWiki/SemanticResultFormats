@@ -72,7 +72,7 @@ final class SRFHooks {
 		$displaying_data_section = $admin_links_tree->getSection( wfMessage( 'smw_adminlinks_displayingdata' )->text() );
 
 		// Escape is SMW hasn't added links.
-		if ( is_null( $displaying_data_section ) ) {
+		if ( $displaying_data_section === null ) {
 			return true;
 		}
 

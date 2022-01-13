@@ -271,13 +271,13 @@ class SRFCalendar extends SMWResultPrinter {
 
 		// Go back to the actual user's language, in case a different
 		// language had been specified for this calendar.
-		if ( !is_null( $this->mRealUserLang ) ) {
+		if ( $this->mRealUserLang !== null ) {
 			global $wgLang;
 			$wgLang = $this->mRealUserLang;
 		}
 
 		$parser = MediaWikiServices::getInstance()->getParser();
-		if ( is_null( $parser->getTitle() ) ) {
+		if ( $parser->getTitle() === null ) {
 			// Backward compatibility; getTitle never returns null in MW 1.35
 			return $result;
 		} else {
