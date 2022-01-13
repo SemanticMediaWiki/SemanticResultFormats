@@ -11,8 +11,7 @@
  * @author Florian Breitenlacher
  */
 
-class MathFormats
-{
+class MathFormats {
 	public static function max_function( array $numbers ) {
 		// result
 		return max( $numbers );
