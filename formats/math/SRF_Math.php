@@ -114,9 +114,7 @@ class MathFormats
 			$Q1_position_x = ceil( $Q1_position );
 			// result
 			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.25 );
-		}
-		else
-		{
+		} else {
 			// result
 			return $numbers[$Q1_position];
 		}
@@ -133,9 +131,7 @@ class MathFormats
 			$Q3_position_x = ceil( $Q3_position );
 			// result
 			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.75 );
-		}
-		else
-		{
+		} else {
 			// result
 			return $numbers[$Q3_position];
 		}
@@ -152,9 +148,7 @@ class MathFormats
 			$Q1_position_x = ceil( $Q1_position )-1;
 			// result
 			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.75 );
-		}
-		else
-		{
+		} else {
 			// result
 			return $numbers[$Q1_position];
 		}
@@ -171,9 +165,7 @@ class MathFormats
 			$Q3_position_x = ceil( $Q3_position )-1;
 			// result
 			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.25 );
-		}
-		else
-		{
+		} else {
 			// result
 			return $numbers[$Q3_position];
 		}
@@ -239,9 +231,7 @@ class MathFormats
 			}
 			// result
 			return $store_string/( count( $array_split[1] )+count( $array_split[2] ) );
-		}
-		else
-		{
+		} else {
 			// get position of split
 			$position = count( $numbers )/4;
 			// remove values out of split

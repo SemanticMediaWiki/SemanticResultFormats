@@ -112,7 +112,7 @@ class SRFArray extends SMWResultPrinter {
 								$this->deliverPageTitle( $obj, $this->mLinkFirst )
 							);
 						} // handle record values:
-						elseif ( $obj instanceof SMWRecordValue ) {
+ elseif ( $obj instanceof SMWRecordValue ) {
 							$recordItems = $obj->getDataItems();
 							// walk all single values of the record set:
 							foreach ( $recordItems as $dataItem ) {
@@ -125,7 +125,7 @@ class SRFArray extends SMWResultPrinter {
 							}
 							$isRecord = true;
 						} // handle normal data values:
-						else {
+ else {
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
 								$this->deliverSingleValue( $obj, $this->mLinkOthers )
@@ -171,7 +171,7 @@ class SRFArray extends SMWResultPrinter {
 		} elseif ( $this->mHideRecordGaps ) {
 			return null;
 		} // hide gap
-		else {
+ else {
 			return '';
 		} // empty string will make sure that record value separators are generated
 	}
