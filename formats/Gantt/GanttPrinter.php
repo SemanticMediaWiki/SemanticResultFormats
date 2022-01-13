@@ -268,7 +268,7 @@ class GanttPrinter extends SMWResultPrinter {
 				} else {
 					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 
-					if ( !in_array( trim( $pmKeyVal[1] ), $mappingKeys ) ){
+					if ( !in_array( trim( $pmKeyVal[1] ), $mappingKeys ) ) {
 						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 					}
 				}
