@@ -72,7 +72,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			'gallery'
 		);
 
-		$this->assertInternalType( 'string', $instance->getName() );
+		$this->assertIsString(  $instance->getName() );
 	}
 
 	public function testBuildResult() {
