@@ -2,8 +2,8 @@
 
 namespace SRF\Tests\vCard;
 
-use SRF\vCard\vCardFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
+use SRF\vCard\vCardFileExportPrinter;
 
 /**
  * @covers \SRF\vCard\vCardFileExportPrinter

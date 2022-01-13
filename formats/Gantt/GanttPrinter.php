@@ -16,12 +16,12 @@
 
 namespace SRF\Gantt;
 
+use Html;
+use SMWDIBlob;
+use SMWDITime;
 use SMWOutputs;
 use SMWQueryResult;
 use SMWResultPrinter;
-use SMWDITime;
-use SMWDIBlob;
-use Html;
 
 class GanttPrinter extends SMWResultPrinter {
 

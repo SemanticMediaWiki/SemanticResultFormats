@@ -2,9 +2,9 @@
 
 namespace SRF\Graph;
 
+use Html;
 use SMW\ResultPrinter;
 use SMWQueryResult;
-use Html;
 
 /**
  * SMW result printer for graphs using graphViz.

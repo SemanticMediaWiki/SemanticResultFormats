@@ -2,9 +2,9 @@
 
 namespace SRF\BibTex;
 
-use SMWTimeValue as TimeValue;
-use SMWQueryResult as QueryResult;
 use SMW\Query\ResultPrinters\FileExportPrinter;
+use SMWQueryResult as QueryResult;
+use SMWTimeValue as TimeValue;
 
 /**
  * Printer class for creating BibTeX exports

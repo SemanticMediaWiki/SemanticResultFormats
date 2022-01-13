@@ -2,9 +2,9 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SRF\Gallery;
 use SMW\Test\QueryPrinterRegistryTestCase;
 use SMW\Tests\PHPUnitCompat;
+use SRF\Gallery;
 
 /**
  * Tests for the SRF\Gallery class.
