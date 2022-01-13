@@ -71,7 +71,6 @@ class DistanceFilter extends Filter {
 		$this->addValueToJsConfig( 'distance filter max distance', 'max' );
 		$this->addValueToJsConfig( 'distance filter unit', 'unit' );
 		$this->addValueListToJsConfig( 'distance filter switches', 'switches' );
-
 	}
 
 	/**

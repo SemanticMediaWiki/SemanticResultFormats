@@ -37,7 +37,6 @@ class ValueFilter extends Filter {
 		$this->addValueListToJsConfig( 'value filter values', 'values' );
 		$this->addValueListToJsConfig( 'value filter max checkboxes', 'max checkboxes' );
 		$this->addValueToJsConfig( 'value filter collapsible', 'collapsible' );
-
 	}
 
 }

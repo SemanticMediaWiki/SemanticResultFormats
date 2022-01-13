@@ -544,7 +544,6 @@ class ProcessGraph {
 		}
 
 		return $node;
-
 	}
 
 	public function makeRole( $id, $label ) {
@@ -563,7 +562,6 @@ class ProcessGraph {
 		}
 
 		return $role;
-
 	}
 
 	public function makeRessource( $id, $label ) {
@@ -583,7 +581,6 @@ class ProcessGraph {
 		}
 
 		return $res;
-
 	}
 
 	public function getEndNodes() {
@@ -760,7 +757,6 @@ class ProcessGraph {
 	}';
 
 		return $res;
-
 	}
 
 }

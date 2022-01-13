@@ -347,7 +347,6 @@ class SpreadsheetPrinter extends FileExportPrinter {
 			$this->setStringDataValue( $cell, $value );
 
 		}
-
 	}
 
 	/**

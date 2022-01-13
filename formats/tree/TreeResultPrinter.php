@@ -77,7 +77,6 @@ class TreeResultPrinter extends ListResultPrinter {
 		if ( !ctype_digit( strval( $this->params['start level'] ) ) || $this->params['start level'] < 1 ) {
 			$this->params['start level'] = 1;
 		}
-
 	}
 
 	/**
@@ -233,7 +232,6 @@ class TreeResultPrinter extends ListResultPrinter {
 		}
 
 		return false;
-
 	}
 
 	/**
@@ -285,7 +283,6 @@ class TreeResultPrinter extends ListResultPrinter {
 			'|smw-resultquerycondition=' . $query->getQueryString() .
 			'|smw-resultquerylimit=' . $query->getLimit() .
 			'|smw-resultqueryoffset=' . $query->getOffset();
-
 	}
 
 	/**

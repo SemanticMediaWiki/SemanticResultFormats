@@ -160,7 +160,6 @@ class Filtered extends ResultPrinter {
 		$this->parameters = $params;
 		$this->viewNames = explode( ',', $params['views'] );
 		$this->filtersOnTop = $params['filter position'] === 'top';
-
 	}
 
 	/**
@@ -282,7 +281,6 @@ class Filtered extends ResultPrinter {
 		$previousConfig[$id] = $config;
 
 		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
-
 	}
 
 	/**

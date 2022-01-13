@@ -178,7 +178,6 @@ class TableView extends View {
 		}
 
 		return $tableRows;
-
 	}
 
 	/**

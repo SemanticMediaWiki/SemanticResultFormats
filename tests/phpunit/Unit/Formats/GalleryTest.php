@@ -73,7 +73,6 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		);
 
 		$this->assertInternalType( 'string', $instance->getName() );
-
 	}
 
 	public function testBuildResult(){
