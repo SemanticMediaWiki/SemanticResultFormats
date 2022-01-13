@@ -213,8 +213,7 @@ class CalendarView extends View {
 	public function getJsConfig() {
 		global $wgAmericanDates;
 
-		return
-			$this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
+		return $this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
 			[
 				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey(
 					'srf-filtered-firstdayofweek'

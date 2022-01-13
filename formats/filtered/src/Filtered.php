@@ -359,7 +359,7 @@ class Filtered extends ResultPrinter {
 
 						/** @var \SRF\Filtered\Filter\Filter $filter */
 						$filterClassName = '\SRF\Filtered\Filter\\' . $this->mFilterTypes[$filterName];
-						$filter = new  $filterClassName( $result, $printRequest, $this );
+						$filter = new $filterClassName( $result, $printRequest, $this );
 
 						if ( $filter->isValidFilterForPropertyType() ) {
 

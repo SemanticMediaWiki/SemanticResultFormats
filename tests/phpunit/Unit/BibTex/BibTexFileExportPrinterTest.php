@@ -52,31 +52,31 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function filenameProvider() {
-		yield[
+		yield [
 			'',
 			'',
 			'BibTeX.bib'
 		];
 
-		yield[
+		yield [
 			'',
 			'foo bar',
 			'foo_bar.bib'
 		];
 
-		yield[
+		yield [
 			'foo',
 			'',
 			'foo.bib'
 		];
 
-		yield[
+		yield [
 			'foo.bib',
 			'',
 			'foo.bib'
 		];
 
-		yield[
+		yield [
 			'foo bar.bib',
 			'',
 			'foo_bar.bib'

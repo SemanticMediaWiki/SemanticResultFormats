@@ -104,25 +104,25 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function filenameProvider() {
-		yield[
+		yield [
 			'',
 			'foo bar',
 			'foo_bar.vcf'
 		];
 
-		yield[
+		yield [
 			'foo',
 			'',
 			'foo.vcf'
 		];
 
-		yield[
+		yield [
 			'foo.vcf',
 			'',
 			'foo.vcf'
 		];
 
-		yield[
+		yield [
 			'foo bar.vcf',
 			'',
 			'foo_bar.vcf'
