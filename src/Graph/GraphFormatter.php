@@ -102,7 +102,7 @@ class GraphFormatter {
 			if ( count( $node->getFields() ) > 0 ) {
 				$label = $nodeLabel
 					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
-					          [ '\n' => '<br/>' ] );
+							  [ '\n' => '<br/>' ] );
 				$nodeTooltip = $nodeLabel ?: $node->getID();
 				// Label in HTML form enclosed with <>.
 				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
