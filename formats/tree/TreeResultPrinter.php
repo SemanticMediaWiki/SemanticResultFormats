@@ -136,7 +136,7 @@ class TreeResultPrinter extends ListResultPrinter {
 		if ( trim( $this->params[ 'class' ] ) === '' ) {
 			return $resultText;
 		}
-		
+
 		return Html::rawElement( 'div', [ 'class' => $this->params[ 'class' ] ], $resultText );
 	}
 

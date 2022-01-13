@@ -40,19 +40,19 @@ abstract class View {
 	/**
 	 * @return ResultItem[]
 	 */
-	public function &getQueryResults() { return $this->mResults; 
+	public function &getQueryResults() { return $this->mResults;
     }
 
 	/**
 	 * @return string[]
 	 */
-	public function &getActualParameters() { return $this->mParameters; 
+	public function &getActualParameters() { return $this->mParameters;
     }
 
 	/**
 	 * @return Filtered
 	 */
-	public function &getQueryPrinter() { return $this->mQueryPrinter; 
+	public function &getQueryPrinter() { return $this->mQueryPrinter;
     }
 
 	/**
