@@ -23,7 +23,7 @@ class SRFParserFunctions {
 
 	static function runCalendarStartDate( &$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null ) {
 		if ( $calendar_type == '' ) { $calendar_type = 'month';
-        }
+		}
 		list( $lower_date, $upper_date, $query_date ) =
 			self::getBoundaryDates( $calendar_type, $calendar_start_day, $calendar_days, $default_year, $default_month, $default_day );
 		return date( "Y", $lower_date ) . '-' . date( "m", $lower_date ) . '-' . date( "d", $lower_date );
@@ -31,7 +31,7 @@ class SRFParserFunctions {
 
 	static function runCalendarEndDate( &$parser, $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null ) {
 		if ( $calendar_type == '' ) { $calendar_type = 'month';
-        }
+		}
 		list( $lower_date, $upper_date, $query_date ) =
 			self::getBoundaryDates( $calendar_type, $calendar_start_day, $calendar_days, $default_year, $default_month, $default_day );
 		return date( "Y", $upper_date ) . '-' . date( "m", $upper_date ) . '-' . date( "d", $upper_date );
@@ -62,14 +62,14 @@ class SRFParserFunctions {
 	 */
 	static function getBoundaryDates( $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null ) {
 		if ( $calendar_type == 'month' ) { $calendar_start_day = 0;
-        }
+		}
 
 		if ( $default_year == null ) { $default_year = date( "Y", time() );
-        }
+		}
 		if ( $default_month == null ) { $default_month = date( "n", time() );
-        }
+		}
 		if ( $default_day == null ) { $default_day = date( "j", time() );
-        }
+		}
 
 		global $wgRequest;
 
