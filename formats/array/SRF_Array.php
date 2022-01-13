@@ -165,8 +165,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function deliverRecordField( $value, $link = false ) {
-		if ( $value !== null ) // contains value
-		{
+		if ( $value !== null ) {
 			return $this->deliverSingleValue( $value, $link );
 		} elseif ( $this->mHideRecordGaps ) {
 			return null;
@@ -195,8 +194,7 @@ class SRFArray extends SMWResultPrinter {
 
 	// represented by an array of record fields or just a single array value:
 	protected function deliverSingleManyValuesData( $value_items, $containsRecord, $isPageTitle ) {
-		if ( empty( $value_items ) ) // happens when one of the higher functions delivers null
-		{
+		if ( empty( $value_items ) ) {
 			return null;
 		}
 		return implode( $this->mRecordSep, $value_items );
