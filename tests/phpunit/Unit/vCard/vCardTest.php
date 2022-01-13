@@ -13,7 +13,7 @@ use SRF\vCard\vCard;
  *
  * @author mwjames
  */
-class vCardTest extends \PHPUnit_Framework_TestCase {
+class vCardTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

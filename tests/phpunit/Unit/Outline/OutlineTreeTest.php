@@ -13,7 +13,7 @@ use SRF\Outline\OutlineTree;
  *
  * @author mwjames
  */
-class OutlineTreeTest extends \PHPUnit_Framework_TestCase {
+class OutlineTreeTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

@@ -14,7 +14,7 @@ use SRF\Graph\GraphOptions;
  *
  * @author Sebastian Schmid (gesinn.it)
  */
-class GraphFormatterTest extends \PHPUnit_Framework_TestCase {
+class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	/*
 	* @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format

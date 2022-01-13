@@ -20,7 +20,7 @@ use SRF\Filtered\ResultItem;
  *
  * @author gesinn-it-wam
  */
-class ResultItemTest extends \PHPUnit_Framework_TestCase {
+class ResultItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testArray_representation_is_JSON_serializable_for_UCA_collation_Issue568() {
 		// arrange

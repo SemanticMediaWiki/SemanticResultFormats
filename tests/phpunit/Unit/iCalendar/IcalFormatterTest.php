@@ -14,7 +14,7 @@ use SRF\iCalendar\IcalFormatter;
  *
  * @author mwjames
  */
-class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
+class IcalFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	private $stringValidator;
 	private $icalTimezoneFormatter;

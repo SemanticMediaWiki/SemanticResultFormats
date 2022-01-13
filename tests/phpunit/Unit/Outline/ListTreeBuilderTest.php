@@ -15,7 +15,7 @@ use SRF\Outline\OutlineTree;
  *
  * @author mwjames
  */
-class ListTreeBuilderTest extends \PHPUnit_Framework_TestCase {
+class ListTreeBuilderTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 

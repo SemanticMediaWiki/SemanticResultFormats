@@ -13,7 +13,7 @@ use SRF\vCard\Tel;
  *
  * @author mwjames
  */
-class TelTest extends \PHPUnit_Framework_TestCase {
+class TelTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

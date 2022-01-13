@@ -14,7 +14,7 @@ use SRF\Outline\OutlineResultPrinter;
  *
  * @author mwjames
  */
-class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
+class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 

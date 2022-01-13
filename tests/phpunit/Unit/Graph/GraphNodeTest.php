@@ -14,7 +14,7 @@ use SRF\Graph\GraphNode;
  * @author Sebastian Schmid < sebastian.schmid@gesinn.it >
  */
 
-class GraphNodeTest extends \PHPUnit_Framework_TestCase {
+class GraphNodeTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
