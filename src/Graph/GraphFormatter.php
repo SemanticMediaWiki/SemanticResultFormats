@@ -221,7 +221,7 @@ class GraphFormatter {
 				$itemsHtml .= Html::rawElement( 'div', [ 'class' => 'graphlegenditem', 'style' => "color: $color" ],
 					"$color: $legendLabel" );
 
-				$colorCount ++;
+				$colorCount++;
 			}
 		}
 
