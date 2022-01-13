@@ -2,7 +2,6 @@
 
 namespace SRF\iCalendar;
 
-
 /**
  * @license GPL-2.0-or-later
  * @since 3.2

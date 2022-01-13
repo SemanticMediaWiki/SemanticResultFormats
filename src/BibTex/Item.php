@@ -2,7 +2,6 @@
 
 namespace SRF\BibTex;
 
-
 /**
  * @see http://www.semantic-mediawiki.org/wiki/BibTex
  *
