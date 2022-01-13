@@ -158,7 +158,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 		/** @var \SMWResultArray[]|false $resultRow */
 		$resultRow = $mockBuilder->newObject( 'ResultArray' );
 
-		//$resultRow->add( $resultCell );
+		// $resultRow->add( $resultCell );
 
 		$resultSet[] = [];
 

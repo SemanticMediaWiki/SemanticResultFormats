@@ -160,7 +160,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 		$this->populateWorksheet( $worksheet, $queryResult );
 
-		//$spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight();
+		// $spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight();
 
 		for ( $i = 0; $i < count( $queryResult->getPrintRequests() ); $i++ ) {
 			$worksheet->getColumnDimensionByColumn( $i )->setAutoSize( true );
@@ -224,7 +224,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	protected function populateWorksheet( Worksheet $worksheet, SMWQueryResult $queryResult ) {
 		$rowIterator = $worksheet->getRowIterator( self::HEADER_ROW_OFFSET );
 
-		//Get headers
+		// Get headers
 		if ( $this->mShowHeaders ) {
 			$this->populateHeaderRow( $rowIterator->current(), $queryResult );
 			$rowIterator->next();
@@ -232,7 +232,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 		while ( $resultRow = $queryResult->getNext() ) {
 
-			//Get data rows
+			// Get data rows
 			$this->populateRow( $rowIterator->current(), $resultRow );
 			$rowIterator->next();
 		}
@@ -329,7 +329,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
 	protected function populateCellAccordingToType( Cell $cell, SMWDataValue $value ) {
-		//NOTE: must check against subclasses before superclasses
+		// NOTE: must check against subclasses before superclasses
 		if ( $value instanceof \SMWQuantityValue ) {
 
 			$this->setQuantityDataValue( $cell, $value );

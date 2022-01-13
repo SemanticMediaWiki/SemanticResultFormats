@@ -107,7 +107,7 @@ class GanttPrinter extends SMWResultPrinter {
 	 * @see SMWResultPrinter::handleParameters()
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
-		//Set header params
+		// Set header params
 		$this->params['title'] = trim( $params['diagramtitle'] );
 		$this->params['axisformat'] = trim( $params['axisformat'] );
 		$this->params['statusmapping'] =  $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
@@ -133,7 +133,7 @@ class GanttPrinter extends SMWResultPrinter {
 		// Load general Modules
 		SMWOutputs::requireResource( 'ext.srf.gantt' );
 
-		//Add Tasks & Sections
+		// Add Tasks & Sections
 		while ( $row = $queryResult->getNext() ) {
 
 			$status = [];
@@ -149,7 +149,7 @@ class GanttPrinter extends SMWResultPrinter {
 
 				$fieldLabel = $field->getPrintRequest()->getLabel();
 
-				//get values
+				// get values
 				foreach ( $field->getContent() as $dataItem ) {
 
 					switch ( $fieldLabel ) {
@@ -253,7 +253,7 @@ class GanttPrinter extends SMWResultPrinter {
 	}
 
 	private function getValidatedMapping( $params, $mappingType, array $mappingKeys ){
-		//Validate mapping
+		// Validate mapping
 		$mapping = [];
 
 		if ( !empty( $params ) ) {

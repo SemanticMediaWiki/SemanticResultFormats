@@ -194,7 +194,7 @@ class MapView extends View {
 				'default' => '',
 			];
 
-			//markercluster
+			// markercluster
 			$params['marker cluster'] = [
 				'type' => 'boolean',
 				'name' => 'map view marker cluster',
@@ -209,7 +209,7 @@ class MapView extends View {
 				'default' => '',
 			];
 
-			//clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
+			// clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
 			$params['maxClusterRadius'] = [
 				'type' => 'integer',
 				'name' => 'map view marker cluster radius',
@@ -217,7 +217,7 @@ class MapView extends View {
 				'default' => '',
 			];
 
-			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
+			// clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
 			$params['zoomToBoundsOnClick'] = [
 				'type' => 'boolean',
 				'name' => 'map view marker cluster zoom on click',

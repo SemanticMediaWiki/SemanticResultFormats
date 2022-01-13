@@ -43,7 +43,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 			// Parse bar relevant data
 			$dataObject = $this->prepareBarData( $data );
 		} elseif ( in_array( $this->params['charttype'], [ 'pie', 'donut' ] ) ) {
-			//Parse pie/donut relevant data
+			// Parse pie/donut relevant data
 			$dataObject = $this->preparePieData( $data );
 		} else {
 			// Return with an error

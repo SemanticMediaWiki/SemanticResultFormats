@@ -61,7 +61,7 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 			1,
 			2,
 			"BEGIN:VTIMEZONE\r\nTZID:Asia/Bangkok\r\nBEGIN:STANDARD\r\nDTSTART:.*\r\n" .
-		//  Travis-CI PHP 7 issue, outputs `TZNAME:+07`
+		// Travis-CI PHP 7 issue, outputs `TZNAME:+07`
 		//	"TZOFFSETFROM:+0700\r\nTZOFFSETTO:+0700\r\nTZNAME:ICT\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 			"TZOFFSETFROM:+0700\r\nTZOFFSETTO:+0700\r\nTZNAME:.*\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 		];

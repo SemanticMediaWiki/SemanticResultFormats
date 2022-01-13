@@ -44,7 +44,7 @@ $calendarMessages = [ 'messages' => [
 ];
 
 return [
-	//SRF common and non printer specific resources
+	// SRF common and non printer specific resources
 	'ext.jquery.easing' => $moduleTemplate + [
 		'scripts' => 'resources/jquery/jquery.easing.js'
 	],

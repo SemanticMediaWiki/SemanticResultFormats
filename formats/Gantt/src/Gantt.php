@@ -123,7 +123,7 @@ class Gantt {
 
 	private function createNewSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
 		$ganttSection = new GanttSection();
-		//check if the id in the object is realy needed or is it enough to have it as array key
+		// check if the id in the object is realy needed or is it enough to have it as array key
 		$ganttSection->setID( $sectionID );
 		$ganttSection->setTitle( $sectionTitle );
 		$ganttSection->setEarliestStartDate( $startDate );
@@ -172,7 +172,7 @@ class Gantt {
 				$mermaidOut .= 'section ' . $section->getTitle() . "\n";
 			}
 
-			//loop through related section tasks
+			// loop through related section tasks
 			foreach ( $section->getTasks() as $sectionTask ) {
 
 						$status = $tasks[$sectionTask]->getStatus();
@@ -184,7 +184,7 @@ class Gantt {
 						date_timestamp_set( $date, $tasks[$sectionTask]->getEndDate() );
 						$endDate = date_format( $date, 'Y-m-d' );
 
-						//get Priority
+						// get Priority
 						$priority = $tasks[$sectionTask]->getPriority();
 
 						$mermaidOut .= $tasks[$sectionTask]->getTitle() . "\t :" . $priority . $status . $startDate . $endDate .
@@ -192,7 +192,7 @@ class Gantt {
 			}
 		}
 
-		//Hashtags mark a Comment in Mermaid, so we need to replace it with <esc>35</esc> to replace it again after rendering
+		// Hashtags mark a Comment in Mermaid, so we need to replace it with <esc>35</esc> to replace it again after rendering
 		$mermaidOut = str_replace( '#', '<esc>35</esc>', $mermaidOut );
 
 		return $mermaidOut;
