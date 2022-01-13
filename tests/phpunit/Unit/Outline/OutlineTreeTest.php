@@ -33,12 +33,12 @@ class OutlineTreeTest extends \PHPUnit\Framework\TestCase {
 			$instance->items
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->itemCount
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->leafCount
 		);
