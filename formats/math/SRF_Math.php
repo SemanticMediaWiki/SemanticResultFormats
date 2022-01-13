@@ -50,7 +50,7 @@ class MathFormats
 		// average
 		$average = self::average_function( $numbers );
 		// space
-		$space = NULL;
+		$space = null;
 		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
 			$space += pow( $numbers[$i], 2 );
@@ -63,7 +63,7 @@ class MathFormats
 		// average
 		$average = self::average_function( $numbers );
 		// space
-		$space = NULL;
+		$space = null;
 		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
 			$space += pow( ( $numbers[$i] - $average ), 2 );
@@ -76,7 +76,7 @@ class MathFormats
 		// average
 		$average = self::average_function( $numbers );
 		// space
-		$space = NULL;
+		$space = null;
 		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
 			$space += pow( ( $numbers[$i] - $average ), 2 );
@@ -89,7 +89,7 @@ class MathFormats
 		// average
 		$average = self::average_function( $numbers );
 		// space
-		$space = NULL;
+		$space = null;
 		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
 			$space += pow( $numbers[$i], 2 );
@@ -108,7 +108,7 @@ class MathFormats
 		// get position
 		$Q1_position = ( ( count( $numbers ) - 1 ) * 0.25 );
 		// check if position is between two numbers
-		if( is_float( $Q1_position ) == TRUE )
+		if( is_float( $Q1_position ) == true )
 		{
 			$Q1_position_y = floor( $Q1_position );
 			$Q1_position_x = ceil( $Q1_position );
@@ -127,7 +127,7 @@ class MathFormats
 		// get position
 		$Q3_position = ( ( count( $numbers ) - 1 ) * 0.75 );
 		// check if position is between two numbers
-		if( is_float( $Q3_position ) == TRUE )
+		if( is_float( $Q3_position ) == true )
 		{
 			$Q3_position_y = floor( $Q3_position );
 			$Q3_position_x = ceil( $Q3_position );
@@ -146,7 +146,7 @@ class MathFormats
 		// get position
 		$Q1_position = ( ( count( $numbers ) + 1 ) * 0.25 );
 		// check if position is between two numbers
-		if( is_float( $Q1_position ) == TRUE )
+		if( is_float( $Q1_position ) == true )
 		{
 			$Q1_position_y = floor( $Q1_position )-1;
 			$Q1_position_x = ceil( $Q1_position )-1;
@@ -165,7 +165,7 @@ class MathFormats
 		// get position
 		$Q3_position = ( ( count( $numbers ) + 1 ) * 0.75 );
 		// check if position is between two numbers
-		if( is_float( $Q3_position ) == TRUE )
+		if( is_float( $Q3_position ) == true )
 		{
 			$Q3_position_y = floor( $Q3_position )-1;
 			$Q3_position_x = ceil( $Q3_position )-1;
@@ -202,7 +202,7 @@ class MathFormats
 		// max
 		$max = max( $array_counted_values );
 		// count
-		$count = NULL;
+		$count = null;
 		// filter
 		for( $i = 0; $i < count( $array_counted_values ); $i++ )
 		{
@@ -228,7 +228,7 @@ class MathFormats
 			// split array into 4 groups (2D array)
 			$array_split = ( array_chunk( $numbers, count( $numbers )/4 ) );
 			// creating store_string
-			$store_string = NULL;
+			$store_string = null;
 			for( $i = 0; $i < count( $array_split[1] ); $i++ )
 			{
 				$store_string += $array_split[1][$i];
@@ -253,7 +253,7 @@ class MathFormats
 			// reset array keys
 			$store_array = array_merge( $numbers );
 			// add values
-			$store_values = NULL;
+			$store_values = null;
 			for( $i = 1; $i < count( $store_array )-1; $i++ )
 			{
 				$store_values += $store_array[$i];
