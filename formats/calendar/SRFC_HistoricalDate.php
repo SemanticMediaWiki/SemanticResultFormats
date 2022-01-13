@@ -35,15 +35,15 @@ class SRFCHistoricalDate {
 		}
 	}
 
-	static protected function leap_gregorian( $year ) {
+	protected static function leap_gregorian( $year ) {
 		return ( ( $year % 4 ) == 0 ) && ( !( ( ( $year % 100 ) == 0 ) && ( ( $year % 400 ) != 0 ) ) );
 	}
 
-	static protected function leap_julian( $year ) {
+	protected static function leap_julian( $year ) {
 		return ( ( $year % 4 ) == ( ( $year > 0 ) ? 0 : 3 ) );
 	}
 
-	static protected function leap_jul_greg( $year ) {
+	protected static function leap_jul_greg( $year ) {
 		return ( ( $year < 1582 ) ? self::leap_julian( $year ) : self::leap_gregorian(
 			$year
 		) );
