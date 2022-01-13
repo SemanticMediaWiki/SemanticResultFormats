@@ -75,7 +75,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		$this->assertInternalType( 'string', $instance->getName() );
 	}
 
-	public function testBuildResult(){
+	public function testBuildResult() {
 		$instance = new Gallery(
 			'gallery'
 		);
