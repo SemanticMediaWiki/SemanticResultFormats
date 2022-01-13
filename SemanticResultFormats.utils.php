@@ -66,8 +66,8 @@ final class SRFUtils {
 		$link->setCaption( '[+]' );
 
 		// Set parameters
-		$link->setParameter( '' , 'class' );
-		$link->setParameter( '' , 'searchlabel' );
+		$link->setParameter( '', 'class' );
+		$link->setParameter( '', 'searchlabel' );
 		return $link->getText( SMW_OUTPUT_HTML, $linker );
 	}
 
