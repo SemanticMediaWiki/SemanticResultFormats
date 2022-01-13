@@ -124,13 +124,13 @@ class SRFArray extends SMWResultPrinter {
 								);
 							}
 							$isRecord = true;
-						} // handle normal data values:
+ } // handle normal data values:
  else {
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
 								$this->deliverSingleValue( $obj, $this->mLinkOthers )
 							);
-						}
+ }
 						$delivery = $this->deliverSingleManyValuesData( $value_items, $isRecord, $isPageTitle );
 						$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					}
@@ -172,7 +172,7 @@ class SRFArray extends SMWResultPrinter {
 		} // hide gap
  else {
 			return '';
-		} // empty string will make sure that record value separators are generated
+ } // empty string will make sure that record value separators are generated
 	}
 
 	protected function deliverSingleValue( $value, $link = false ) {
