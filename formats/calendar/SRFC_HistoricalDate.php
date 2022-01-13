@@ -44,7 +44,7 @@ class SRFCHistoricalDate {
 	}
 
 	static protected function leap_jul_greg( $year ) {
-		return ( ( $year < 1582 ) ? SRFCHistoricalDate::leap_julian( $year ) : SRFCHistoricalDate::leap_gregorian(
+		return ( ( $year < 1582 ) ? self::leap_julian( $year ) : self::leap_gregorian(
 			$year
 		) );
 	}
@@ -58,7 +58,7 @@ class SRFCHistoricalDate {
 			floor(
 				( ( ( 367 * $month ) - 362 ) / 12 ) +
 				( ( $month <= 2 ) ? 0 :
-					( SRFCHistoricalDate::leap_gregorian( $year ) ? -1 : -2 )
+					( self::leap_gregorian( $year ) ? -1 : -2 )
 				) + $day
 			);
 	}
@@ -89,7 +89,7 @@ class SRFCHistoricalDate {
 			return 30;
 		}
 		if ( $month == 2 ) {
-			return ( SRFCHistoricalDate::leap_jul_greg( $year ) ) ? 29 : 28;
+			return ( self::leap_jul_greg( $year ) ) ? 29 : 28;
 		}
 		return 31;
 	}
