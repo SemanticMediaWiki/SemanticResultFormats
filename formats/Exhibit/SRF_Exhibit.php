@@ -128,7 +128,7 @@ class SRFExhibit extends SMWResultPrinter {
 		array_shift( $colstack );
 		array_unshift( $colstack, 'label' );
 
-		if ( SRFExhibit::$exhibitRunningNumber == 0 ) {
+		if ( self::$exhibitRunningNumber == 0 ) {
 			$sourcesrc = "var ex_sources = { source" . ( $smwgIQRunningNumber - 1 ) . ": { id:  'querytable" . $smwgIQRunningNumber . "' , columns: '" . implode(
 					',',
 					$colstack
@@ -595,11 +595,11 @@ class SRFExhibit extends SMWResultPrinter {
 			$result .= "</table>\n";
 		}
 
-		if ( SRFExhibit::$exhibitRunningNumber == 0 ) {
+		if ( self::$exhibitRunningNumber == 0 ) {
 			$result .= "<div id=\"exhibitLocation\"></div>";
 		} // print placeholder (just print it one time)
 		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
-		SRFExhibit::$exhibitRunningNumber++;
+		self::$exhibitRunningNumber++;
 		return $result;
 	}
 

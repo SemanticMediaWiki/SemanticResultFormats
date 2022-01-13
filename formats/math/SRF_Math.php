@@ -55,7 +55,7 @@ class MathFormats
 	public static function variance_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function( $numbers );
+		$average = self::average_function( $numbers );
 		// space
 		$space = NULL;
 		for( $i = 0; $i < count( $numbers ); $i++ )
@@ -69,7 +69,7 @@ class MathFormats
 	public static function samplevariance_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function( $numbers );
+		$average = self::average_function( $numbers );
 		// space
 		$space = NULL;
 		for( $i = 0; $i < count( $numbers ); $i++ )
@@ -83,7 +83,7 @@ class MathFormats
 	public static function standarddeviation_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function( $numbers );
+		$average = self::average_function( $numbers );
 		// space
 		$space = NULL;
 		for( $i = 0; $i < count( $numbers ); $i++ )
@@ -97,7 +97,7 @@ class MathFormats
 	public static function samplestandarddeviation_function( array $numbers )
 	{
 		// average
-		$average = MathFormats::average_function( $numbers );
+		$average = self::average_function( $numbers );
 		// space
 		$space = NULL;
 		for( $i = 0; $i < count( $numbers ); $i++ )
@@ -197,13 +197,13 @@ class MathFormats
 	public static function interquartilerange_inc_function( array $numbers )
 	{
 		// result
-		return MathFormats::quartilupper_inc_function( $numbers ) - MathFormats::quartillower_inc_function( $numbers );
+		return self::quartilupper_inc_function( $numbers ) - self::quartillower_inc_function( $numbers );
 	}
 
 	public static function interquartilerange_exc_function( array $numbers )
 	{
 		// result
-		return MathFormats::quartilupper_exc_function( $numbers ) - MathFormats::quartillower_exc_function( $numbers );
+		return self::quartilupper_exc_function( $numbers ) - self::quartillower_exc_function( $numbers );
 	}
 
 	public static function mode_function( array $numbers )
