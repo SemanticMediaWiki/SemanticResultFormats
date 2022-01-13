@@ -78,7 +78,7 @@ class SRFArray extends SMWResultPrinter {
 			 * first field is always the page title, except, mainlabel is set to '-'
 			 *
 			 * @todo Is there some other way to check the data value directly for being the
-			 *        page title or not? SMWs behavior could change on mainlabel handling...
+			 *		  page title or not? SMWs behavior could change on mainlabel handling...
 			 */
 			$isPageTitle = !$this->mMainLabelHack;
 
@@ -143,7 +143,7 @@ class SRFArray extends SMWResultPrinter {
 				);
 				$perProperty_items = $this->fillDeliveryArray( $perProperty_items, $delivery );
 				$isPageTitle = false; // next one could be record or normal value
-			} // foreach...			
+			} // foreach...
 			$delivery = $this->deliverPageProperties( $perProperty_items );
 			$perPage_items = $this->fillDeliveryArray( $perPage_items, $delivery );
 		} // while...
@@ -293,7 +293,7 @@ class SRFArray extends SMWResultPrinter {
 				return null;
 			}
 
-			// check for config-defined arguments to pass to the page before processing it:			
+			// check for config-defined arguments to pass to the page before processing it:
 			if ( array_key_exists( 'args', $obj ) && is_array( $obj['args'] ) ) {
 				$params = $obj['args'];
 			} else {
@@ -315,7 +315,7 @@ class SRFArray extends SMWResultPrinter {
 		 * Feature to use page value as separator only works if Parser::parse() is running!
 		 * That's not the case on semantic search special page for example!
 		 */
-		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!		
+		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!
 		$parser = MediaWikiServices::getInstance()->getParser();
 		if ( !isset( $parser->mOptions ) ) {
 			//if( ! $this->mInline ) {
@@ -323,7 +323,7 @@ class SRFArray extends SMWResultPrinter {
 		}
 
 		/*
-		 * parse page as if it were included like a template. Never use Parser::recursiveTagParse() or similar 
+		 * parse page as if it were included like a template. Never use Parser::recursiveTagParse() or similar
 		 * for this since it would call hooks we don't want to call and won't return wiki text for inclusion!
 		 */
 		$frame = $parser->getPreprocessor()->newCustomFrame( $params );
