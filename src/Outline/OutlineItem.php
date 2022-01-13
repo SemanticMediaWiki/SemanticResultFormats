@@ -12,12 +12,12 @@ namespace SRF\Outline;
 class OutlineItem {
 
 	/**
-	 * @var [type]
+	 * @var type
 	 */
 	public $row;
 
 	/**
-	 * @var []
+	 * @var 
 	 */
 	private $vals;
 

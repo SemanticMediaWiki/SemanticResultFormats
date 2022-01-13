@@ -21,7 +21,7 @@ class Item {
 	private $type = '';
 
 	/**
-	 * @var []
+	 * @var 
 	 */
 	protected $fields = [
 		'address' => '',

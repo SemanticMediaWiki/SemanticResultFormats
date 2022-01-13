@@ -32,7 +32,7 @@ class SRFArray extends SMWResultPrinter {
 	protected $mHidePropertyGaps;
 
 	/**
-	 * @var Boolean true if 'mainlabel' parameter is set to '-'
+	 * @var bool true if 'mainlabel' parameter is set to '-'
 	 */
 	protected $mMainLabelHack = false;
 

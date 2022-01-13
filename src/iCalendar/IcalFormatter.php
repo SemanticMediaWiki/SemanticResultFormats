@@ -27,7 +27,7 @@ class IcalFormatter {
 	private $description;
 
 	/**
-	 * @var []
+	 * @var 
 	 */
 	private $events = [];
 
