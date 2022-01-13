@@ -1,6 +1,6 @@
 <?php
 
-$wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ )
+$wgAutoloadClasses['SRFCHistoricalDate'] = __DIR__
 	. '/SRFC_HistoricalDate.php';
 
 use MediaWiki\MediaWikiServices;
