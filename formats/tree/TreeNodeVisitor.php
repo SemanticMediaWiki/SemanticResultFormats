@@ -85,7 +85,7 @@ class TreeNodePrinter implements Visitor {
 			$result = array_shift( $cellTexts );
 
 			if ( count( $cellTexts ) > 0 ) {
-				$result .= ' (' . join( $this->configuration['sep'], $cellTexts ) . ')';
+				$result .= ' (' . implode( $this->configuration['sep'], $cellTexts ) . ')';
 			}
 
 		} else {
@@ -131,7 +131,7 @@ class TreeNodePrinter implements Visitor {
 			$valueTexts[] = $text;
 		}
 
-		$valuesText = join( $this->configuration['sep'], $valueTexts );
+		$valuesText = implode( $this->configuration['sep'], $valueTexts );
 		return $valuesText;
 	}
 

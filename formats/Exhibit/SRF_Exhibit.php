@@ -244,14 +244,14 @@ class SRFExhibit extends SMWResultPrinter {
 						foreach ( $res->getPrintRequests() as $pr ) {
 							if ( $pr->getTypeID() == '_dat' ) {
 								$dates[] = $pr;
-								if ( sizeof( $dates ) > 2 ) {
+								if ( count( $dates ) > 2 ) {
 									break;
 								}
 							}
 						}
-						if ( sizeof( $dates ) == 1 ) {
+						if ( count( $dates ) == 1 ) {
 							$tlparams[] = 'ex:start=\'.' . $this->encodePropertyName( $dates[0]->getLabel() ) . '\' ';
-						} elseif ( sizeof( $dates ) == 2 ) {
+						} elseif ( count( $dates ) == 2 ) {
 							$tlparams[] = 'ex:start=\'.' . $this->encodePropertyName( $dates[0]->getLabel() ) . '\' ';
 							$tlparams[] = 'ex:end=\'.' . $this->encodePropertyName( $dates[1]->getLabel() ) . '\' ';
 						}
