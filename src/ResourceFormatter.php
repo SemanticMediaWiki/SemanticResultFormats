@@ -88,7 +88,7 @@ class ResourceFormatter {
 		$ask = $queryResult->getQuery()->toArray();
 
 		foreach ( $parameters as $key => $value ) {
-			if ( is_string( $value ) || is_integer( $value ) || is_bool( $value ) ) {
+			if ( is_string( $value ) || is_int( $value ) || is_bool( $value ) ) {
 				$ask['parameters'][$key] = $value;
 			}
 		}

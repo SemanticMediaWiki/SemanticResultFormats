@@ -93,7 +93,7 @@ class CalendarView extends View {
 					) ) !== false ) {
 					$params[] = $text;
 				}
-				$wikitext .= '|' . ( $valueId + 1 ) . '=' . join( ',', $params );
+				$wikitext .= '|' . ( $valueId + 1 ) . '=' . implode( ',', $params );
 			}
 
 		}

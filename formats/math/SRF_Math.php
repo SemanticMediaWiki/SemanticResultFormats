@@ -118,7 +118,7 @@ class MathFormats
 	{
 		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q1_position = ( ( sizeof( $numbers ) - 1 ) * 0.25 );
+		$Q1_position = ( ( count( $numbers ) - 1 ) * 0.25 );
 		// check if position is between two numbers
 		if( is_float( $Q1_position ) == TRUE )
 		{
@@ -138,7 +138,7 @@ class MathFormats
 	{
 		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q3_position = ( ( sizeof( $numbers ) - 1 ) * 0.75 );
+		$Q3_position = ( ( count( $numbers ) - 1 ) * 0.75 );
 		// check if position is between two numbers
 		if( is_float( $Q3_position ) == TRUE )
 		{
@@ -158,7 +158,7 @@ class MathFormats
 	{
 		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q1_position = ( ( sizeof( $numbers ) + 1 ) * 0.25 );
+		$Q1_position = ( ( count( $numbers ) + 1 ) * 0.25 );
 		// check if position is between two numbers
 		if( is_float( $Q1_position ) == TRUE )
 		{
@@ -178,7 +178,7 @@ class MathFormats
 	{
 		sort( $numbers, SORT_NUMERIC );
 		// get position
-		$Q3_position = ( ( sizeof( $numbers ) + 1 ) * 0.75 );
+		$Q3_position = ( ( count( $numbers ) + 1 ) * 0.75 );
 		// check if position is between two numbers
 		if( is_float( $Q3_position ) == TRUE )
 		{
@@ -211,7 +211,7 @@ class MathFormats
 		// array temp
 		$array_temp = array();
 		// convert array
-		for( $i = 0; $i < sizeof( $numbers ); $i++ )
+		for( $i = 0; $i < count( $numbers ); $i++ )
 		{
 			$converted_value = strval( $numbers[$i] );
 			$array_temp += [ $i => $converted_value ];
@@ -222,7 +222,7 @@ class MathFormats
 		// count
 		$count = NULL;
 		// filter
-		for( $i = 0; $i < sizeof( $array_counted_values ); $i++ )
+		for( $i = 0; $i < count( $array_counted_values ); $i++ )
 		{
 			if ( $array_counted_values[array_keys( $array_counted_values )[$i]] == $max )
 			{
@@ -242,27 +242,27 @@ class MathFormats
 		// sort numbers
 		sort( $numbers,SORT_NUMERIC );
 		// check if size of numbers is divisible by 4
-		if( sizeof( $numbers )%4 == 0 )
+		if( count( $numbers )%4 == 0 )
 		{
 			// split array into 4 groups (2D array)
-			$array_split = ( array_chunk( $numbers, sizeof( $numbers )/4 ) );
+			$array_split = ( array_chunk( $numbers, count( $numbers )/4 ) );
 			// creating store_string
 			$store_string = NULL;
-			for( $i = 0; $i < sizeof( $array_split[1] ); $i++ )
+			for( $i = 0; $i < count( $array_split[1] ); $i++ )
 			{
 				$store_string += $array_split[1][$i];
 			}
-			for( $i = 0; $i < sizeof( $array_split[2] ); $i++ )
+			for( $i = 0; $i < count( $array_split[2] ); $i++ )
 			{
 				$store_string += $array_split[2][$i];
 			}
 			// result
-			return $store_string/( sizeof( $array_split[1] )+sizeof( $array_split[2] ) );
+			return $store_string/( count( $array_split[1] )+count( $array_split[2] ) );
 		}
 		else
 		{
 			// get position of split
-			$position = sizeof( $numbers )/4;
+			$position = count( $numbers )/4;
 			// remove values out of split
 			for( $i = 0; $i < floor( $position ); $i++ )
 			{
@@ -273,12 +273,12 @@ class MathFormats
 			$store_array = array_merge( $numbers );
 			// add values
 			$store_values = NULL;
-			for( $i = 1; $i < sizeof( $store_array )-1; $i++ )
+			for( $i = 1; $i < count( $store_array )-1; $i++ )
 			{
 				$store_values += $store_array[$i];
 			}
 			// result
-			return ( $store_values + ( ( ceil( $position ) - $position ) * ( $store_array[0] + $store_array[sizeof( $store_array )-1] ) ) ) / ( $position*2 );
+			return ( $store_values + ( ( ceil( $position ) - $position ) * ( $store_array[0] + $store_array[count( $store_array )-1] ) ) ) / ( $position*2 );
 		}
 	}
 }

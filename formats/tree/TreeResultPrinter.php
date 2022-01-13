@@ -122,7 +122,7 @@ class TreeResultPrinter extends ListResultPrinter {
 		// FIXME: Linking to further events ($this->linkFurtherResults())
 		// does not make sense for tree format. But maybe display a warning?
 
-		$resultText = join(
+		$resultText = implode(
 			"\n",
 			array_merge(
 				[ $this->getTemplateCall( $this->params['introtemplate'] ) ],
@@ -151,7 +151,7 @@ class TreeResultPrinter extends ListResultPrinter {
 			return '';
 		}
 
-		return '{{' . $templateName . '|' . join( '|', $params ) . $this->standardTemplateParameters . '}}';
+		return '{{' . $templateName . '|' . implode( '|', $params ) . $this->standardTemplateParameters . '}}';
 	}
 
 	/**

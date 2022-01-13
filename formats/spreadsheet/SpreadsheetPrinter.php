@@ -307,7 +307,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 				$values[] = $value;
 			}
 
-			$cell->setValueExplicit( join( ', ', $values ), DataType::TYPE_STRING );
+			$cell->setValueExplicit( implode( ', ', $values ), DataType::TYPE_STRING );
 
 		} else {
 
