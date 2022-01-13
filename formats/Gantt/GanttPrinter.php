@@ -110,7 +110,7 @@ class GanttPrinter extends SMWResultPrinter {
 		// Set header params
 		$this->params['title'] = trim( $params['diagramtitle'] );
 		$this->params['axisformat'] = trim( $params['axisformat'] );
-		$this->params['statusmapping'] =  $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
+		$this->params['statusmapping'] = $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
 		$this->params['prioritymapping'] = $this->getValidatedMapping( $params[ 'prioritymapping' ], 'prioritymapping', [ 'crit' ] );
 		$this->params['theme'] = $this->getValidatedTheme( $params['theme'] );
 

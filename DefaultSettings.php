@@ -113,7 +113,7 @@ $GLOBALS['srfgArrayHeaderSep'] = ' ';
  *
  * @var Array
  */
-$GLOBALS['srfgArraySepTextualFallbacks'] =  [
+$GLOBALS['srfgArraySepTextualFallbacks'] = [
 	'sep'       => $GLOBALS['srfgArraySep'],
 	'propsep'   => $GLOBALS['srfgArrayPropSep'],
 	'manysep'   => $GLOBALS['srfgArrayManySep'],

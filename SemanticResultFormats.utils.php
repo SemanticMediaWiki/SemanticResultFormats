@@ -38,12 +38,12 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function addGlobalJSVariables() {
-		$options =  [
+		$options = [
 			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			'srfVersion' => SRF_VERSION
 		];
 
-		$requireHeadItem =  [ 'srf.options' => $options ];
+		$requireHeadItem = [ 'srf.options' => $options ];
 		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem, false ) );
 	}
 
