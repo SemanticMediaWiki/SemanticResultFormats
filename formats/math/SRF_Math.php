@@ -143,8 +143,8 @@ class MathFormats {
 		// check if position is between two numbers
 		if ( is_float( $Q1_position ) == true )
 		{
-			$Q1_position_y = floor( $Q1_position )-1;
-			$Q1_position_x = ceil( $Q1_position )-1;
+			$Q1_position_y = floor( $Q1_position ) - 1;
+			$Q1_position_x = ceil( $Q1_position ) - 1;
 			// result
 			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.75 );
 		} else {
@@ -160,8 +160,8 @@ class MathFormats {
 		// check if position is between two numbers
 		if ( is_float( $Q3_position ) == true )
 		{
-			$Q3_position_y = floor( $Q3_position )-1;
-			$Q3_position_x = ceil( $Q3_position )-1;
+			$Q3_position_y = floor( $Q3_position ) - 1;
+			$Q3_position_x = ceil( $Q3_position ) - 1;
 			// result
 			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.25 );
 		} else {
@@ -214,10 +214,10 @@ class MathFormats {
 		// sort numbers
 		sort( $numbers,SORT_NUMERIC );
 		// check if size of numbers is divisible by 4
-		if ( count( $numbers )%4 == 0 )
+		if ( count( $numbers ) % 4 == 0 )
 		{
 			// split array into 4 groups (2D array)
-			$array_split = ( array_chunk( $numbers, count( $numbers )/4 ) );
+			$array_split = ( array_chunk( $numbers, count( $numbers ) / 4 ) );
 			// creating store_string
 			$store_string = null;
 			for ( $i = 0; $i < count( $array_split[1] ); $i++ )
@@ -229,10 +229,10 @@ class MathFormats {
 				$store_string += $array_split[2][$i];
 			}
 			// result
-			return $store_string/( count( $array_split[1] )+count( $array_split[2] ) );
+			return $store_string / ( count( $array_split[1] ) + count( $array_split[2] ) );
 		} else {
 			// get position of split
-			$position = count( $numbers )/4;
+			$position = count( $numbers ) / 4;
 			// remove values out of split
 			for ( $i = 0; $i < floor( $position ); $i++ )
 			{
@@ -243,12 +243,12 @@ class MathFormats {
 			$store_array = array_merge( $numbers );
 			// add values
 			$store_values = null;
-			for ( $i = 1; $i < count( $store_array )-1; $i++ )
+			for ( $i = 1; $i < count( $store_array ) - 1; $i++ )
 			{
 				$store_values += $store_array[$i];
 			}
 			// result
-			return ( $store_values + ( ( ceil( $position ) - $position ) * ( $store_array[0] + $store_array[count( $store_array )-1] ) ) ) / ( $position*2 );
+			return ( $store_values + ( ( ceil( $position ) - $position ) * ( $store_array[0] + $store_array[count( $store_array ) - 1] ) ) ) / ( $position * 2 );
 		}
 	}
 }

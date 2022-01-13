@@ -152,7 +152,7 @@ return [
 			'resources/ext.srf.util.js',
 			'resources/ext.srf.util.html.js',
 		],
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf',
 			'ext.jquery.jStorage',
 			'ext.jquery.blockUI',
@@ -236,7 +236,7 @@ return [
 			'ext.smw.tooltip',
 			'ext.dygraphs.combined',
 		],
-		'messages' =>  [
+		'messages' => [
 			'srf-ui-common-label-datasource',
 			'srf-ui-common-label-request-object',
 			'srf-ui-common-label-ajax-error',
@@ -271,21 +271,21 @@ return [
 		]
 	],
 	'ext.srf.listwidget.alphabet' => $formatModule + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.listwidget',
 			'ext.jquery.listnav'
 		],
 		'position' => 'top'
 	],
 	'ext.srf.listwidget.menu' => $formatModule + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.listwidget',
 			'ext.jquery.listmenu'
 		],
 		'position' => 'top'
 	],
 	'ext.srf.listwidget.pagination' => $formatModule + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.listwidget',
 			'ext.jquery.pajinate'
 		],
@@ -333,7 +333,7 @@ return [
 
 	// JSON data formatting according the the City Index API spec
 	'ext.jquery.jqplot.json' => $moduleTemplate + [
-		'scripts' =>  [
+		'scripts' => [
 			'resources/jquery/jqplot/jqplot.json2.js',
 			'resources/jquery/jqplot/jqplot.ciParser.js'
 		]
@@ -351,7 +351,7 @@ return [
 
 	// Plugin class to render a mekko style chart
 	'ext.jquery.jqplot.mekko' => $moduleTemplate + [
-		'scripts' =>  [
+		'scripts' => [
 			'resources/jquery/jqplot/jqplot.mekkoRenderer.js',
 			'resources/jquery/jqplot/jqplot.mekkoAxisRenderer.js'
 		]
@@ -383,7 +383,7 @@ return [
 
 	// Plugin class to render a donut style chart
 	 'ext.jquery.jqplot.donut' => $moduleTemplate + [
-		'scripts' =>'resources/jquery/jqplot/jqplot.donutRenderer.js',
+		'scripts' => 'resources/jquery/jqplot/jqplot.donutRenderer.js',
 		'dependencies' => 'ext.jquery.jqplot.pie'
 	],
 
@@ -416,7 +416,7 @@ return [
 
 	//
 	'ext.srf.jqplot.cursor' => $moduleTemplate + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.jqplot.bar',
 			'ext.jquery.jqplot.cursor',
 		],
@@ -425,7 +425,7 @@ return [
 
 	//
 	'ext.srf.jqplot.enhancedlegend' => $moduleTemplate + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.jqplot.bar',
 			'ext.jquery.jqplot.enhancedlegend',
 		],
@@ -434,7 +434,7 @@ return [
 
 	//
 	'ext.srf.jqplot.pointlabels' => $moduleTemplate + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.jqplot.bar',
 			'ext.jquery.jqplot.pointlabels',
 		],
@@ -443,7 +443,7 @@ return [
 
 	//
 	'ext.srf.jqplot.highlighter' => $moduleTemplate + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.jqplot.bar',
 			'ext.jquery.jqplot.highlighter',
 		],
@@ -452,7 +452,7 @@ return [
 
 	//
 	'ext.srf.jqplot.trendline' => $moduleTemplate + [
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.jqplot.bar',
 			'ext.jquery.jqplot.trendline',
 		],
@@ -478,11 +478,11 @@ return [
 	//
 	'ext.srf.jqplot.bar' => $formatModule + [
 		'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.bar.js',
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.jquery.jqplot.bar',
 			'ext.srf.jqplot.chart'
 		],
-		'messages' =>  [
+		'messages' => [
 			'srf-error-jqplot-stackseries-data-length'
 		],
 		'position' => 'top',
@@ -491,7 +491,7 @@ return [
 	//
 	'ext.srf.jqplot.pie' => $formatModule + [
 		'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.pie.js',
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.jquery.jqplot.pie',
 			'ext.srf.jqplot.chart'
 		],
@@ -501,11 +501,11 @@ return [
 	//
 	'ext.srf.jqplot.bubble' => $formatModule + [
 		'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.bubble.js',
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.jquery.jqplot.bubble',
 			'ext.srf.jqplot.chart'
 		],
-		'messages' =>  [
+		'messages' => [
 			'srf-error-jqplot-bubble-data-length'
 		],
 		'position' => 'top',
@@ -514,7 +514,7 @@ return [
 	//
 	'ext.srf.jqplot.donut' => $formatModule + [
 		'scripts' => 'jqplot/resources/ext.srf.jqplot.chart.pie.js',
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.jquery.jqplot.donut',
 			'ext.srf.jqplot.chart'
 		],
@@ -587,7 +587,7 @@ return [
 	// Wordcloud
 	'ext.d3.wordcloud' => $moduleTemplate + [
 		'scripts' => 'resources/jquery/d3/d3.layout.cloud.js',
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.d3.core',
 			'ext.srf.d3.common'
 		]
@@ -597,7 +597,7 @@ return [
 	'ext.srf.d3.chart.treemap' => $formatModule + [
 		'scripts' => 'd3/resources/ext.srf.d3.chart.treemap.js',
 		'styles'  => 'd3/resources/ext.srf.d3.chart.treemap.css',
-		'dependencies' =>  [ 'ext.d3.core', 'ext.srf.d3.common' ],
+		'dependencies' => [ 'ext.d3.core', 'ext.srf.d3.common' ],
 		'position'     => 'top',
 	],
 
@@ -605,7 +605,7 @@ return [
 	'ext.srf.d3.chart.bubble' => $formatModule + [
 		'scripts' => 'd3/resources/ext.srf.d3.chart.bubble.js',
 		'styles'  => 'd3/resources/ext.srf.d3.chart.bubble.css',
-		'dependencies' =>  [ 'ext.d3.core', 'ext.srf.d3.common' ],
+		'dependencies' => [ 'ext.d3.core', 'ext.srf.d3.common' ],
 		'position'     => 'top',
 	],
 
@@ -733,7 +733,7 @@ return [
 			'calendar/resources/ext.srf.widgets.calendarparameters.js',
 			'calendar/resources/ext.srf.widgets.calendarlegend.js',
 		],
-		'dependencies' =>  [
+		'dependencies' => [
 			'jquery.ui',
 			'ext.smw.tooltip',
 			'ext.srf.util',
@@ -751,7 +751,7 @@ return [
 	'ext.srf.eventcalendar' => $formatModule + $calendarMessages + [
 		'scripts' => 'calendar/resources/ext.srf.formats.eventcalendar.js',
 		'styles' => 'calendar/resources/ext.srf.formats.eventcalendar.css',
-		'dependencies' =>  [
+		'dependencies' => [
 			'ext.srf.widgets.eventcalendar',
 			'ext.srf.hooks.eventcalendar',
 			'ext.jquery.fullcalendar',
@@ -779,7 +779,7 @@ return [
 
 	'ext.srf.filtered.calendar-view.messages' => $formatModule + $calendarMessages,
 
-	'ext.srf.filtered.calendar-view' => $formatModule +  array(
+	'ext.srf.filtered.calendar-view' => $formatModule + array(
 			'styles' => array(
 				'filtered/resources/css/ext.srf.filtered.calendar-view.less',
 			),
@@ -832,7 +832,7 @@ return [
 	'ext.srf.slideshow' => $formatModule + [
 		'scripts' => 'slideshow/resources/ext.srf.slideshow.js',
 		'styles'  => 'slideshow/resources/ext.srf.slideshow.css',
-		'dependencies' =>'mediawiki.util'
+		'dependencies' => 'mediawiki.util'
 	],
 
 	// Tagcanvas module

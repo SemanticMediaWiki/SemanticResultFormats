@@ -165,7 +165,7 @@ class SemanticResultFormats {
 			'datatables'   => [ 'datatable' ],
 			'valuerank'  => [ 'value rank' ],
 			'd3chart'    => [ 'd3 chart' ],
-			'timeseries' =>  [ 'time series' ],
+			'timeseries' => [ 'time series' ],
 			'jqplotchart' => [ 'jqplot chart', 'jqplotpie', 'jqplotbar' ],
 			'jqplotseries' => [ 'jqplot series' ],
 		];
