@@ -74,16 +74,14 @@ class SRFParserFunctions {
 			$query_year = $wgRequest->getVal( 'year' );
 			if ( is_numeric( $query_year ) && ( intval( $query_year ) == $query_year ) ) {
 				$lower_year = $query_year;
-			}
-			else {
+			} else {
 				$lower_year = $default_year;
 			}
 
 			$query_month = $wgRequest->getVal( 'month' );
 			if ( is_numeric( $query_month ) && ( intval( $query_month ) == $query_month ) && $query_month >= 1 && $query_month <= 12 ) {
 				$lower_month = $query_month;
-			}
-			else {
+			} else {
 				$lower_month = $default_month;
 			}
 
@@ -100,8 +98,7 @@ class SRFParserFunctions {
 				&& (int)$lower_month == (int)$default_month ) {
 
 				$lower_day = $default_day;
-			}
-			else {
+			} else {
 				$lower_day = '1';
 			}
 
@@ -111,8 +108,7 @@ class SRFParserFunctions {
 
 			if ( $calendar_type == 'month' ) {
 				$lower_day = 1;
-			}
-			else {
+			} else {
 				$lower_day = $default_day;
 			}
 		}
