@@ -311,7 +311,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hassuccessor":
-
 						if ( count( $field->getContent() ) > 1 ) {
 
 							// SplitParallel
@@ -342,7 +341,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hasorsuccessor":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitExclusiveOr
@@ -360,7 +358,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hascontruesuccessor":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitConditional
@@ -383,7 +380,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hasconfalsesuccessor":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitConditional
@@ -405,7 +401,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hascondition":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitConditional
@@ -428,7 +423,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hasstatus":
-
 						// should be only one
 						foreach ( $field->getContent() as $value ) {
 							$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
@@ -441,7 +435,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					default:
-
 						// TODO - redundant column in result
 
 				}

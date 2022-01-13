@@ -199,8 +199,8 @@ class TagCloud extends ResultPrinter {
 					$divisor = ( $max == $min ) ? 1 : $max - $min;
 					$tag = $this->params['minsize'] + $maxSizeIncrease * ( $tag - $min ) / $divisor;
 					break;
-				case 'log' :
-				default :
+				case 'log':
+				default:
 					$divisor = ( $max == $min ) ? 1 : log( $max ) - log( $min );
 					$tag = $this->params['minsize'] + $maxSizeIncrease * ( log( $tag ) - log( $min ) ) / $divisor;
 					break;
@@ -208,13 +208,13 @@ class TagCloud extends ResultPrinter {
 		}
 
 		switch ( $this->params['tagorder'] ) {
-			case 'desc' :
+			case 'desc':
 				// Tags are already sorted desc
 				break;
-			case 'asc' :
+			case 'asc':
 				asort( $tags );
 				break;
-			case 'alphabetical' :
+			case 'alphabetical':
 				$tagNames = array_keys( $tags );
 				natcasesort( $tagNames );
 				$newTags = [];
@@ -225,7 +225,7 @@ class TagCloud extends ResultPrinter {
 
 				$tags = $newTags;
 				break;
-			case 'random' :
+			case 'random':
 				$tagSizes = $tags;
 				shuffle( $tagSizes );
 				$newTags = [];
@@ -241,8 +241,8 @@ class TagCloud extends ResultPrinter {
 
 				$tags = $newTags;
 				break;
-			case 'unchanged' :
-			default : // Restore the original order.
+			case 'unchanged':
+			default: // Restore the original order.
 				$changedTags = $tags;
 				$tags = [];
 
