@@ -154,7 +154,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function fillDeliveryArray( $array = [], $value = null ) {
-		if ( !is_null( $value ) ) { // don't create any empty entries
+		if ( $value !== null ) { // don't create any empty entries
 			$array[] = $value;
 		}
 		return $array;

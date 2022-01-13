@@ -37,7 +37,7 @@ final class SRFUtils {
 	 *
 	 * @since 1.8
 	 */
-	public static function addGlobalJSVariables(){
+	public static function addGlobalJSVariables() {
 		$options =  [
 			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			'srfVersion' => SRF_VERSION
