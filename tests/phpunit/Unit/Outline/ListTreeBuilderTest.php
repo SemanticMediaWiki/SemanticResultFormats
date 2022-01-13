@@ -33,8 +33,8 @@ class ListTreeBuilderTest extends \PHPUnit\Framework\TestCase {
 
 		$instance = new ListTreeBuilder( $params );
 
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+			
 			$instance->build( new OutlineTree() )
 		);
 	}

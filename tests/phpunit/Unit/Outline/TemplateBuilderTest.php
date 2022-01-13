@@ -37,8 +37,8 @@ class TemplateBuilderTest extends \PHPUnit\Framework\TestCase {
 
 		$instance = new TemplateBuilder( $params );
 
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+			
 			$instance->build( new OutlineTree() )
 		);
 	}

@@ -26,8 +26,8 @@ class ResourceFormatterTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testPlaceholder() {
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+			
 			ResourceFormatter::placeholder()
 		);
 	}

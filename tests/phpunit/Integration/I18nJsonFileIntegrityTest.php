@@ -24,13 +24,13 @@ class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 	public function testI18NJsonDecodeEncode( $file ) {
 		$jsonFileReader = UtilityFactory::getInstance()->newJsonFileReader( $file );
 
-		$this->assertInternalType(
-			'integer',
+		$this->assertIsInt(
+			
 			$jsonFileReader->getModificationTime()
 		);
 
-		$this->assertInternalType(
-			'array',
+		$this->assertIsArray(
+			
 			$jsonFileReader->read()
 		);
 	}
