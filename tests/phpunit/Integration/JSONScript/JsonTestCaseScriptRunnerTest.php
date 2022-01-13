@@ -27,6 +27,7 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 	protected function getTestCaseLocation() {
 		return __DIR__ . '/TestCases';
 	}
+
 	/**
 	 * @return string[]
 	 * @since 3.0
@@ -45,6 +46,7 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 			'Mermaid' => [ $this, 'checkMermaidDependency' ]
 		];
 	}
+
 	public function checkMermaidDependency( $val, &$reason ) {
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Mermaid' ) ) {
 			$reason = "Dependency: Mermaid as requirement is not available!";
