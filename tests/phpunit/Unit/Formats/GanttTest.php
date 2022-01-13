@@ -4,7 +4,7 @@ namespace SRF\Tests\Gantt;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
-class GanttTest extends QueryPrinterRegistryTestCase{
+class GanttTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
