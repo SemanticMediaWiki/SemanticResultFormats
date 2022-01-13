@@ -125,7 +125,7 @@ abstract class Filter {
 			'show if undefined',
 			'show if undefined',
 			null,
-			function ( $value ) { return filter_var( $value, FILTER_VALIDATE_BOOLEAN ); }
+			static function ( $value ) { return filter_var( $value, FILTER_VALIDATE_BOOLEAN ); }
 		);
 	}
 
