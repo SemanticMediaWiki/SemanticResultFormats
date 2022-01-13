@@ -86,7 +86,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$testObject = new TreeResultPrinter( 'tree' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
 			'Result should be empty.'
