@@ -16,7 +16,7 @@ jobs:
       matrix:
         include:
           - mediawiki_version: '1.35'
-            semantic_mediawiki_version: 3.2.3
+            semantic_mediawiki_version: 4.0.0
             mermaid_version: 3.0.1
             coverage: false
             experimental: false
