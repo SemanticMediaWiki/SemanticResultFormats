@@ -21,7 +21,7 @@ configuration.
 
 ## Contribution and support
 
-Development is coordinated by James Hong Kong and Jeroen De Dauw.
+Semantic Result Formats is maintained by @JeroenDeDauw.
 
 If you have remarks, questions, or suggestions, please ask them on semediawiki-users@lists.sourceforge.net.
 You can subscribe to this list [here](https://lists.sourceforge.net/lists/listinfo/semediawiki-user).
