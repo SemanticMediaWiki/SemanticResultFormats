@@ -4,9 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on January 25, 2022.
 
-* Minimum requirement for
-  * PHP changed to version 7.3 and later
-  * MediaWiki changed to version 1.35 and later
+* Minimum PHP version changed from 7.0 to 7.3
+* Minimum MediaWiki version changed from 1.31 to 1.35
+* Added compatibility with Semantic MediaWiki 4.x
+* Improved compatibility with recent versions of MediaWiki
 * [Filtered] added "list view userparam" (by [gesinn.it](https://gesinn.it))
 * [Gallery] added "captiontemplate" parameter to allow wrapping of image captions with a template
 * [GraphViz] fields of data type other than 'page' are now displayed not as separate nodes connected by edges but as parts of labels of nodes of the type 'record' and similar
