@@ -2,8 +2,11 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 4.0.0
 
-not yet released
+Released on January 25, 2022.
 
+* Minimum requirement for
+  * PHP changed to version 7.3 and later
+  * MediaWiki changed to version 1.35 and later
 * [Filtered] added "list view userparam" (by [gesinn.it](https://gesinn.it))
 * [Gallery] added "captiontemplate" parameter to allow wrapping of image captions with a template
 * [GraphViz] fields of data type other than 'page' are now displayed not as separate nodes connected by edges but as parts of labels of nodes of the type 'record' and similar
@@ -35,7 +38,7 @@ Released on August 18, 2019.
 * Added `template` parameter to the `outline` format (by James Hong Kong)
 * Added css `class` parameter to the `tree` format (by Stephan Gambke)
 * Improved `timeseries` format (by Christian Zagrodnick)
-  * Fixed `uncaught exception: Invalid dimensions for plot` 
+  * Fixed `uncaught exception: Invalid dimensions for plot`
   * Only correct plot height when there are tabs
 * Other bug fixes and code improvements
 * Made the extension installable without the `php-gd` PHP extension
@@ -59,7 +62,7 @@ Released on October 12, 2018.
   * PHP changed to version 5.6 and later
   * MediaWiki changed to version 1.27 and later
   * Semantic MediaWiki changed to version 3.0 and later
-* #438 Added support for extension registration via "extension.json" (by James Hong Kong)  
+* #438 Added support for extension registration via "extension.json" (by James Hong Kong)
   → Now you have to use `wfLoadExtension( 'SemanticResultFormats' );` in the "LocalSettings.php" file to invoke the extension
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
 * Refactored vcard format: Mostly code improvements (by James Hong Kong)
@@ -115,13 +118,13 @@ Released on October 25, 2017.
     - #286: Brings a reworked number filter
     - #291: Fixes `list view template` to actually show the template instead of defaulting to a table
 * #300: Brings improvements and fixes to the "filtered" format: (by Stephan Gambke)
-    - Brings back checkboxes for value filter with only few values  
-    - Brings new query parameter ` |+value filter max checkboxes`  
+    - Brings back checkboxes for value filter with only few values
+    - Brings new query parameter ` |+value filter max checkboxes`
     - Allows for easier installation of "data-values/geo"
 * #302: Fixes error messages shown in the instance language instead of the user language for the "filtered" format (by Stephan Gambke)
 * #305: Fixes "SRF\Filtered\Filtered::setParser() must be an instance of Parser..." for the "filtered" format (by Stephan Gambke)
 * Fixes issues with HTML-encoded values sent by JavaScript for the "filtered" format (by Stephan Gambke)
-* #324: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)  
+* #324: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)
     - #318: Wrap input elements of the Value filter (checkboxes and radioboxes) in label elements. This way they will also be triggered when only the label text is clicked.
     - #322: Show a spinner while filtering. This will block users from triggering further filter events while filtering is still ongoing.
     - #323: Adds printout parameter`|+show if undefined`. Setting it makes filters show a result item even if the printout does not contain a value.
@@ -157,7 +160,7 @@ Released on June 13, 2017.
 * Dropped compatibility with MediaWiki 1.19 to 1.22
 * Updated installation instructions in [INSTALL.md](INSTALL.md)
 * Changed bootstrapping of SRF to make it work with SMW 3.0+ (by James Hong Kong)
-* Re-organized file layout unit testing and added JSONScript integration testing facility from SMW (by Stephan Gambke) 
+* Re-organized file layout unit testing and added JSONScript integration testing facility from SMW (by Stephan Gambke)
 * Improved math format to recognize output format "-" (by Sebastian Schmid (gesinn.it))
 * Improved eventcalendar format: Added parameter 'clicktarget' to allow users to define a target URL that get's called when clicking on a calendar date. (by Felix Aba)
 * Reworked tree format (by Stephan Gambke)
