@@ -3,6 +3,7 @@
 		"authors": [
 			"Akapochtli",
 			"Fluence",
+			"Languaeditor",
 			"Taresi"
 		]
 	},
@@ -11,6 +12,6 @@
 	"srfc_today": "Āxcān",
 	"srfc_gotomonth": "Yāuh mētzhuīc",
 	"srf-ui-datatables-label-placeholder-column-search": "Tlatemoliztli...",
-	"srf-ui-datatables-label-sSearch": "Tlatemoliztli:",
+	"srf-ui-datatables-label-sSearch": "Xiktemo:",
 	"srf-filtered-selectorlabel-table": "Tlapechtli"
 }
