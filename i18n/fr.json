@@ -241,7 +241,7 @@
 	"srf-ui-datatables-label-sLengthMenu": "Afficher les entrées _MENU_",
 	"srf-ui-datatables-label-sLoadingRecords": "Chargement en cours...",
 	"srf-ui-datatables-label-sProcessing": "Traitement en cours...",
-	"srf-ui-datatables-label-sSearch": "Rechercher :",
+	"srf-ui-datatables-label-sSearch": "Rechercher :",
 	"srf-ui-datatables-label-sZeroRecords": "Aucun enregistrement correspondant trouvé",
 	"srf-ui-datatables-label-oPaginate-sFirst": "Premier",
 	"srf-ui-datatables-label-oPaginate-sLast": "Dernier",
