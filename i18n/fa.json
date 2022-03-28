@@ -3,6 +3,7 @@
 		"authors": [
 			"Alifakoor",
 			"Alirezaaa",
+			"Beginneruser",
 			"Ebraminio",
 			"FarsiNevis",
 			"Huji",
@@ -72,7 +73,7 @@
 	"srf_printername_eventline": "خط رویداد",
 	"srf_paramdesc_timelinebands": "یاندهایی که در نتایج نمایش داده می‌شوند را مشخص می‌کند",
 	"srf_paramdesc_timelineposition": "نقطه تمرکز اولیه نوار زمان را تعیین می‌کند",
-	"srf_paramdesc_timelinestart": "نام مشخصه‌ای برای تعیین اولین نقطه زمان",
+	"srf_paramdesc_timelinestart": "نام ویژگی برای تعیین اولین نقطه زمان",
 	"srf_paramdesc_timelineend": "نام مشخصه‌ای برای تعیین دومین نقطه زمان",
 	"srf_paramdesc_timelinesize": "ارتفاع نوار زمان",
 	"srf-timeline-allresults": "یافتههای بیشتر برای این پرسمان",
