@@ -16,28 +16,32 @@ jobs:
       matrix:
         include:
           - mediawiki_version: '1.35'
-            semantic_mediawiki_version: 4.0.0
+            database_type: sqlite
+            semantic_mediawiki_version: 4.0.1
             mermaid_version: 3.0.1
             coverage: false
             experimental: false
           - mediawiki_version: '1.35'
+            database_type: sqlite
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
             coverage: false
             experimental: false
           - mediawiki_version: '1.36'
+            database_type: sqlite
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
             coverage: false
             experimental: false
           - mediawiki_version: '1.37'
+            database_type: sqlite
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
             coverage: true
             experimental: false
 
     container:
-      image: gesinn/docker-mediawiki:${{ matrix.mediawiki_version }}
+      image: gesinn/docker-mediawiki-${{ matrix.database_type }}:${{ matrix.mediawiki_version }}
 
     env:
       EXT_NAME: SemanticResultFormats
