@@ -1,5 +1,12 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 4.0.2
+
+In development
+
+* Fix Outline format sometimes not showing all values (by @Seb35)
+* Solved potential `symfony/css-selector` package conflict (by @rvogel)
+
 ## SRF 4.0.0
 
 Released on January 25, 2022.
