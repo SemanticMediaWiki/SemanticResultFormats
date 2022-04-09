@@ -7,6 +7,7 @@ In development
 * Fix Outline format sometimes not showing all values (by @Seb35)
 * Solved potential `symfony/css-selector` package conflict (by @rvogel)
 * Bump moment from 2.24.0 to 2.29.2 in /formats/filtered
+* Bump tar from 4.4.8 to 4.4.19 in /formats/filtered
 
 ## SRF 4.0.0
 
