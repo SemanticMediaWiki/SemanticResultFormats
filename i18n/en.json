@@ -267,7 +267,7 @@
 	"srf-filtered-selectorlabel-calendar": "Calendar",
 	"srf-filtered-selectorlabel-map": "Map",
 	"srf-filtered-firstdayofweek": "1",
-	"srf-filtered-noscript-error": "Results can not be displayed because Javascript is not enabled. Go to $1.",
+	"srf-filtered-noscript-error": "Results can not be displayed because JavaScript is not enabled. Go to $1.",
 	"srf-filtered-noscript-link-caption": "results in tabular form",
 	"srf-filtered-map-provider-missing-error": "No map provider specified for \"map\" view.",
 	"srf-filtered-value-filter-and": "AND",
