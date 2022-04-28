@@ -221,7 +221,7 @@
 	"srf-filtered-selectorlabel-table": "Tabel",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-filtered-selectorlabel-map": "Kaart",
-	"srf-filtered-noscript-error": "De resulaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
+	"srf-filtered-noscript-error": "De resultaten kunnen niet worden weergegeven omdat JavaScript niet is ingeschakeld. Ga naar $1.",
 	"srf-filtered-value-filter-and": "EN",
 	"srf-filtered-value-filter-or": "OF",
 	"srf-filtered-value-filter-placeholder": "Selecteer een filterwaarde",
