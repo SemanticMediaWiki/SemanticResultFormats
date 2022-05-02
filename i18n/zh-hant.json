@@ -269,7 +269,7 @@
 	"srf-filtered-selectorlabel-table": "表格",
 	"srf-filtered-selectorlabel-calendar": "行事曆",
 	"srf-filtered-selectorlabel-map": "地圖",
-	"srf-filtered-noscript-error": "因 Javascript 未啟用而無法顯示結果。前至$1。",
+	"srf-filtered-noscript-error": "因 JavaScript 未啟用而無法顯示結果。前往$1。",
 	"srf-filtered-noscript-link-caption": "表格式表單的結果",
 	"srf-filtered-map-provider-missing-error": "沒有替「map」視圖指定地圖提供方。",
 	"srf-filtered-value-filter-and": "與",
