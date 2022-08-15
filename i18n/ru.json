@@ -223,7 +223,7 @@
 	"srf-ui-datatables-label-sInfoFiltered": "(отфильтровано по _MAX_ всего записей)",
 	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Показать _MENU_ записей",
-	"srf-ui-datatables-label-sLoadingRecords": "Загрузка…",
+	"srf-ui-datatables-label-sLoadingRecords": "Загружается...",
 	"srf-ui-datatables-label-sProcessing": "Обработка…",
 	"srf-ui-datatables-label-sSearch": "Поиск:",
 	"srf-ui-datatables-label-sZeroRecords": "Соответствующие записи не найдены",
