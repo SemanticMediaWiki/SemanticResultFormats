@@ -440,7 +440,7 @@
 
 		if ( navControls ) {
 			var slideshow = this;
-			mw.loader.using( 'jquery.ui.slider', function (){
+			mw.loader.using( 'jquery.ui', function (){
 			var readout = $( '<div class="slideshow-nav-readout">' + 1 + '</div>' );
 			nav = $( '<div class="slideshow-nav" >' );
 
