@@ -25,7 +25,7 @@
 		return this;
 	};
 	
-	$.fn.carousel = function(config) {
+	$.fn.dynamicCarousel = function(config) {
 		
 		// Prevent re-init:
 		if( this.data( "carousel-initialized" ) ) { return; }
