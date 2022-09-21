@@ -55,7 +55,7 @@
 
 			// Iterate over available container objects
 			container.each( function() {
-				$( this ).carousel( {
+				$( this ).dynamicCarousel( {
 					namespace: 'srf-pagewidget-carousel',
 					slider: '.slider',
 					slide: '.slide'
