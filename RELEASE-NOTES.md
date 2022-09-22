@@ -4,6 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 In development
 
+* [724](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/724) Fix problem in pagewidget carousel when bootstrap is used (by @thomas-topway-it, KM-A)
+* [188](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/188#) Fix for datatables format (by @harugon )
+* Fix minor error in filtered format (by @Semantisch, KM-A)
+* Fix error in slideshow format (by @Semantisch, KM-A)
 * Fix Outline format sometimes not showing all values (by @Seb35)
 * Solved potential `symfony/css-selector` package conflict (by @rvogel)
 * Bump moment from 2.24.0 to 2.29.2 in /formats/filtered
