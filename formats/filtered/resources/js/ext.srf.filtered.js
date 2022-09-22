@@ -944,7 +944,17 @@ var ViewSelector = /** @class */ (function () {
     ViewSelector.prototype.init = function () {
         var _this = this;
         if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach(function (id) { _this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); });
+            this.viewIDs.forEach(function (id) {
+				_this.target.on('click', '.' + id, { 'target': id, 'controller': _this.controller }, ViewSelector.onSelectorSelected); 
+
+				_this.target.on('keydown', '.' + id, { 'target': id, 'controller': _this.controller }, function( e ) {
+					if ( e.keyCode == 13 ) {	
+						ViewSelector.onSelectorSelected(e);
+					}
+				});
+
+			});
+
             this.target.children().first().addClass('selected');
             this.target.show();
         }
