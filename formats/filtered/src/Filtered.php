@@ -458,7 +458,11 @@ class Filtered extends ResultPrinter {
 					);
 					$viewSelectorsHtml .= Html::rawElement(
 						'div',
-						[ 'class' => "filtered-view-selector filtered-$viewName $viewid" ],
+						[
+							'class' => "filtered-view-selector filtered-$viewName $viewid",
+							'role' => "button",
+							'tabindex' => "0"
+						],
 						$viewSelectorLabel
 					);
 
