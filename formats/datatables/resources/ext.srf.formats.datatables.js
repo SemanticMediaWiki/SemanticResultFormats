@@ -169,6 +169,7 @@
 						if ( $.inArray( 'printouts', subject ) ) {
 							// Find column (properties)
 							$.each( printreqs, function( index, propertyObj ) {
+								columnIndex++;
 								var collectedValueItem = '';
 								var property = propertyObj.label;
 								var values = subject.printouts[property];
@@ -207,7 +208,6 @@
 									// dataTables will show an error
 									rowData[property] = collectedValueItem !== '' ? collectedValueItem : '-';
 								}
-								columnIndex++;
 							} );
 						}
 
@@ -257,8 +257,10 @@
 			$.extend( true, parameters, data.query.ask.parameters );
 
 			// Only columns that are visible are supposed to be part of the export links
-			$.each( data.table.fnSettings().aoColumns, function( index, column ) {
-				if ( column.bVisible ){
+			// $.each( data.table.fnSettings().aoColumns, function( index, column ) {
+			$.each( data.table.settings().columns, function( index, column ) {
+				// if ( column.bVisible ){
+				if ( column.visible ){
 					printouts.push( data.query.ask.printouts[index] );
 				}
 			} ) ;
@@ -347,9 +349,11 @@
 
 			// Map available columns
 			var columnList = [];
-			$.each( data.table.fnSettings().aoColumns, function( key, item ) {
+			// $.each( data.table.fnSettings().aoColumns, function( key, item ) {
+			$.each( data.table.settings().columns, function( key, item ) {
 				if ( key !== '' ) {
-					columnList.push( item.mData !== '' ? item.mData : '#' );
+					// columnList.push( item.mData !== '' ? item.mData : '#' );
+					columnList.push( item.data !== '' ? item.data : '#' );
 				}
 			} );
 
@@ -381,8 +385,10 @@
 				height: columnList.length > 5 ? undefined : 'auto',
 				minWidth: 'auto',
 				click: function( event, ui ) {
-					var bVis = data.table.fnSettings().aoColumns[ui.value].bVisible;
-					data.table.fnSetColumnVis( ui.value, !bVis );
+					// var bVis = data.table.fnSettings().aoColumns[ui.value].bVisible;
+					// data.table.fnSetColumnVis( ui.value, !bVis );
+					var bVis = data.table.settings().columns[ui.value].visible;
+					data.table.column( ui.value ).visible( !bVis) ;
 
 					// Update export links
 					_datatables.exportlinks( context, data );
@@ -401,7 +407,12 @@
 				'null': true,
 				change: function( event, ui ) {
 					// Clear previous fields before storing a new filter set
-					data.table.fnFilter( '', columnSearchFilter );
+					//data.table.fnFilter( '', columnSearchFilter );
+					if ( !columnSearchFilter ) {
+						data.table.search( '' ).draw();
+					} else {
+						data.table.column( columnSearchFilter ).search( '' ).draw();
+					}
 					columnSearchFilter = ui.value;
 					var disabled = columnSearchFilter ? '' : 'disabled';
 					columnFilter.find( '#columnsearchinput' ).prop( 'disabled', disabled ).val( '' );
@@ -419,10 +430,16 @@
 				columnSearchInput = $( this ).val();
 				if( columnSearchInput !== '' && columnSearchFilter !== '' ){
 					// Apply search to the selected column
-					data.table.fnFilter( columnSearchInput, columnSearchFilter );
+					// data.table.fnFilter( columnSearchInput, columnSearchFilter );
+					data.table.column( columnSearchFilter ).search( columnSearchInput ).draw();
 				} else {
 					// Reset the search term to null
-					data.table.fnFilter( '', columnSearchFilter );
+					// data.table.fnFilter( '', columnSearchFilter );
+					if ( !columnSearchFilter ) {
+						data.table.search( '' ).draw();
+					} else {
+						data.table.column( columnSearchFilter ).search( '' ).draw();
+					}
 				}
 			} );
 
@@ -604,19 +621,32 @@
 
 			// Init dataTables
 			var sDom = context.data( 'theme' ) === 'bootstrap'? "<'row'<'span-select'l><'span-search'f>r>t<'row'<'span-list'i><'span-page'p>>" : 'lfrtip';
-			data.table = container.find( 'table' ).dataTable( {
-				'sDom': sDom,
-				'sPaginationType': context.data( 'theme' ) === 'bootstrap' ? 'bootstrap' : 'full_numbers',
-				'bAutoWidth': false,
-				'oLanguage': _datatables.oLanguage,
-				'aaData': data.aaData,
-				'aoColumnDefs': data.aoColumnDefs
-			} );
+
+			// data.table = container.find( 'table' ).dataTable( {
+			//	'sDom': sDom,
+			//	'sPaginationType': context.data( 'theme' ) === 'bootstrap' ? 'bootstrap' : 'full_numbers',
+			//	'bAutoWidth': false,
+			//	'oLanguage': _datatables.oLanguage,
+			//	'aaData': data.aaData,
+			//	'aoColumnDefs': data.aoColumnDefs
+			// } );
+
+			data.table = container.find( 'table' ).DataTable({
+				dom: sDom,
+				pagingType: context.data( 'theme' ) === 'bootstrap' ? 'bootstrap' : 'full_numbers',
+				autoWidth: false,
+				data: data.aaData,
+				language: _datatables.oLanguage,
+				columns: data.aoColumnDefs,
+			});
+
+
 			// Bind the imageInfo trigger and update the appropriate table cell
 			context.on( 'srf.datatables.afterImageInfoFetch', function( event, handler ) {
 				// If the image/thumbnail info array was empty don't bother with an update
 				if( handler.info.imageinfo ){
-					data.table.fnUpdate( _datatables.parse.thumbnail( handler.info ), handler.row, handler.column );
+					// data.table.fnUpdate( _datatables.parse.thumbnail( handler.info ), handler.row, handler.column );
+					data.table.cell( handler.row, handler.column ).data( _datatables.parse.thumbnail( handler.info ) ).draw();
 				}
 			} );
 
@@ -673,9 +703,13 @@
 				$.extend( data, _datatables.parse.results( context, data ) );
 
 				// Refresh datatables
-				data.table.fnClearTable();
-				data.table.fnAddData( data.aaData );
-				data.table.fnDraw();
+				// data.table.fnClearTable();
+				// data.table.fnAddData( data.aaData );
+				// data.table.fnDraw();
+
+				data.table.clear();
+				data.table.rows.add( data.aaData );
+				data.table.draw();
 
 				// Update information from where the content was derived
 				context.find( '#srf-panel-information .content-source' )
