@@ -927,7 +927,8 @@ return [
 
 	// jQuery DataTables
 	'jquery.dataTables' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/datatables/jquery.dataTables.js',
+		// 'scripts' => 'resources/jquery/datatables/jquery.dataTables.js',
+		'scripts' => 'resources/jquery/datatables/datatables.min.js',
 		'position' => 'top'
 	],
 
@@ -994,8 +995,9 @@ return [
 	// DataTables basic
 	'ext.srf.datatables.basic' => $moduleTemplate + [
 		'styles'  => [
-			'resources/jquery/datatables/jquery.dataTables.css',
-			'resources/jquery/datatables/jquery.dataTables.images.css'
+			'resources/jquery/datatables/datatables.min.css',
+			// 'resources/jquery/datatables/jquery.dataTables.css',
+			// 'resources/jquery/datatables/jquery.dataTables.images.css'
 		],
 		'dependencies' => 'ext.srf.datatables'
 	],
@@ -1016,7 +1018,6 @@ return [
 				'srf-boilerplate-message'
 			),
 		);
-
 		// Using the semanticFormats namespace class implementation
 		'ext.srf.boilerplate.namespace' => $formatModule + array(
 			'scripts' => 'boilerplate/resources/ext.srf.boilerplate.namespace.js',
