@@ -228,11 +228,18 @@
 				var aoColumnDefs = [];
 				$.map ( data.query.result.printrequests, function( property, index ) {
 					aoColumnDefs.push( {
-						'mData': property.label,
-						'sTitle': property.label,
-						'sClass': 'smwtype' + property.typeid,
-						'aTargets': [index]
+						// 'mData': property.label,
+						// 'sTitle': property.label,
+						// 'sClass': 'smwtype' + property.typeid,
+						// 'aTargets': [index]
+
+						// https://datatables.net/reference/option/columnDefs
+						'data': property.label,
+						'title': property.label,
+						'className': 'smwtype' + property.typeid,
+						'targets': [index]
 					} );
+
 				} );
 				data.aoColumnDefs = aoColumnDefs;
 				// Parse and return results
@@ -258,9 +265,9 @@
 
 			// Only columns that are visible are supposed to be part of the export links
 			// $.each( data.table.fnSettings().aoColumns, function( index, column ) {
-			$.each( data.table.settings().columns, function( index, column ) {
+			$.each( data.table.settings().columns(), function( index, column ) {
 				// if ( column.bVisible ){
-				if ( column.visible ){
+				if ( data.table.column( index ).visible() ) {
 					printouts.push( data.query.ask.printouts[index] );
 				}
 			} ) ;
@@ -349,12 +356,16 @@
 
 			// Map available columns
 			var columnList = [];
-			// $.each( data.table.fnSettings().aoColumns, function( key, item ) {
-			$.each( data.table.settings().columns, function( key, item ) {
-				if ( key !== '' ) {
-					// columnList.push( item.mData !== '' ? item.mData : '#' );
-					columnList.push( item.data !== '' ? item.data : '#' );
-				}
+
+			//$.each( data.table.fnSettings().aoColumns, function( key, item ) {
+			//	if ( key !== '' ) {
+			//		columnList.push( item.mData !== '' ? item.mData : '#' );
+			//	}
+			//} );
+			
+			$.each( data.aoColumnDefs, function( key, item ) {
+				// "data" is the label
+				columnList.push( item.data !== '' ? item.data : '#' );
 			} );
 
 			// Column filter
@@ -387,8 +398,8 @@
 				click: function( event, ui ) {
 					// var bVis = data.table.fnSettings().aoColumns[ui.value].bVisible;
 					// data.table.fnSetColumnVis( ui.value, !bVis );
-					var bVis = data.table.settings().columns[ui.value].visible;
-					data.table.column( ui.value ).visible( !bVis) ;
+					var bVis = data.table.settings().column(ui.value).visible();
+					data.table.column( ui.value ).visible( !bVis ) ;
 
 					// Update export links
 					_datatables.exportlinks( context, data );
@@ -637,7 +648,7 @@
 				autoWidth: false,
 				data: data.aaData,
 				language: _datatables.oLanguage,
-				columns: data.aoColumnDefs,
+				columnDefs: data.aoColumnDefs,	// *** this will modify the original array
 			});
 
 
