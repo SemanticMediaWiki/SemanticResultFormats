@@ -957,6 +957,8 @@ return [
 			'srf-ui-datatables-label-filters',
 			'srf-ui-datatables-label-information',
 			'srf-ui-datatables-panel-disclaimer',
+			'srf-ui-datatables-refresh-button-title',
+			'srf-ui-datatables-panel-switch-button-title',
 			'srf-ui-datatables-label-update-success',
 			'srf-ui-datatables-label-update-error',
 			'srf-ui-datatables-label-sEmptyTable',
