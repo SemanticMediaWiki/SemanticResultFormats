@@ -169,8 +169,12 @@
 						if ( $.inArray( 'printouts', subject ) ) {
 							// Find column (properties)
 							$.each( printreqs, function( index, propertyObj ) {
-								var collectedValueItem = '';
 								var property = propertyObj.label;
+								if ( !property ) {
+									return;
+								}
+								columnIndex++;
+
 								var values = subject.printouts[property];
 								if ( values == null ) {
 									rowData[property] = createLink( subject, linker, {
@@ -178,6 +182,7 @@
 										row: rowIndex
 									} );
 								} else {
+									var collectedValueItem = '';
 									$.map ( values, function( DI, key ) {
 										// For multiple values within one row/column use a separator
 										collectedValueItem += collectedValueItem !== '' && key >= 0 ? '<br />' : '';
@@ -208,7 +213,6 @@
 									rowData[property] = collectedValueItem !== '' ? collectedValueItem : '-';
 								}
 							} );
-							columnIndex++;
 						}
 
 						// Only care for entries that are not empty
@@ -517,6 +521,7 @@
 				icons: { primary: 'ui-icon-refresh' },
 				text: false
 			} )
+			.attr("title", mw.msg( 'srf-ui-datatables-refresh-button-title' ))
 			.removeClass( 'ui-corner-all' )
 			.addClass( 'ui-corner-right' )
 			.on( 'click', function( event ){
@@ -530,6 +535,7 @@
 				icons: { primary: 'ui-icon-bookmark' },
 				text: false
 			} )
+			.attr("title", mw.msg( 'srf-ui-datatables-panel-switch-button-title' ))
 			.removeClass( 'ui-corner-all' )
 			.addClass( 'ui-corner-left' )
 			.on( 'click', function( event ){
