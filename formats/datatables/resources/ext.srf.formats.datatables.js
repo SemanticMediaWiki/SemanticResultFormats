@@ -169,7 +169,6 @@
 						if ( $.inArray( 'printouts', subject ) ) {
 							// Find column (properties)
 							$.each( printreqs, function( index, propertyObj ) {
-								columnIndex++;
 								var collectedValueItem = '';
 								var property = propertyObj.label;
 								var values = subject.printouts[property];
@@ -209,6 +208,7 @@
 									rowData[property] = collectedValueItem !== '' ? collectedValueItem : '-';
 								}
 							} );
+							columnIndex++;
 						}
 
 						// Only care for entries that are not empty
