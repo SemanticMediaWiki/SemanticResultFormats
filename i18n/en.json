@@ -108,6 +108,8 @@
 	"srf-paramdesc-renderer": "Select a graph/chart renderer",
 	"srf-paramdesc-filling": "Individual filling option",
 	"srf-paramdesc-theme": "Select a grid theme",
+	"srf-paramdesc-pagelength": "define datatable page length",
+	"srf-paramdesc-lengthmenu": "efine datatable length menu",
 	"srf-paramdesc-chartcolor": "Assign individual chart colors",
 	"srf-paramdesc-colorscheme": "Select a color scheme",
 	"srf-paramdesc-valueformat": "Specify formatting rule for values",
