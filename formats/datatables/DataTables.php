@@ -46,6 +46,17 @@ class DataTables extends ResultPrinter {
 			'values' => [ 'bootstrap' ] // feel free to add more designs
 		];
 
+		$params['pagelength'] = [
+			'message' => 'srf-paramdesc-pagelength',
+			'default' => '20',
+		];
+
+		$params['lengthmenu'] = [
+			'message' => 'srf-paramdesc-lengthmenu',
+			'default' => null,
+		];
+
+
 		return $params;
 	}
 
