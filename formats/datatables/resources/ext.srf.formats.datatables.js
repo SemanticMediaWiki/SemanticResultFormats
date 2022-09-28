@@ -651,15 +651,26 @@
 			//	'aoColumnDefs': data.aoColumnDefs
 			// } );
 
-			data.table = container.find( 'table' ).DataTable({
+			var parameters = data.query.ask.parameters
+
+			var conf = {
 				dom: sDom,
 				pagingType: context.data( 'theme' ) === 'bootstrap' ? 'bootstrap' : 'full_numbers',
 				autoWidth: false,
 				data: data.aaData,
 				language: _datatables.oLanguage,
 				columnDefs: data.aoColumnDefs,	// *** this will modify the original array
-			});
+			}
 
+			if ( 'pagelength' in parameters ) {
+				conf['pageLength'] = parseInt(parameters['pagelength'])
+			}
+
+			if ( 'lengthmenu' in parameters ) {
+				conf['lengthMenu'] = parameters['lengthmenu'].split(',').map(x => parseInt(x))				
+			}
+
+			data.table = container.find( 'table' ).DataTable( conf );
 
 			// Bind the imageInfo trigger and update the appropriate table cell
 			context.on( 'srf.datatables.afterImageInfoFetch', function( event, handler ) {
