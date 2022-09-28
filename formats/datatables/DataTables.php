@@ -56,7 +56,6 @@ class DataTables extends ResultPrinter {
 			'default' => null,
 		];
 
-
 		return $params;
 	}
 
