@@ -727,10 +727,16 @@
 
 			// Fetch data via Ajax/SMWAPI
 			smwApi.fetch( queryString, datatables.defaults.cacheApi )
-			.done( function ( result ) {
+			.done( function ( result ) {			
+
+				// *** use the initial printrequests also for subsequent
+				// calls of the api, since it seems that the api returns
+				// a wrong mainlabel value
+				var printreqs = data.query.result.printrequests
 
 				// Copy result query data and run a result parse
-				$.extend( data.query.result, result.query );
+				$.extend( data.query.result, result.query, { printrequests: printreqs } );
+
 				$.extend( data, _datatables.parse.results( context, data ) );
 
 				// Refresh datatables
