@@ -145,7 +145,6 @@
 
 				// Transform results into a specific aaData format
 				function getResults( parameters, results, printreqs ){
-
 					var aaData = [],
 						i = 0;
 					$.each( results, function( subjectName, subject ) {
@@ -162,20 +161,23 @@
 									column: columnIndex,
 									row: rowIndex
 								} );
+								columnIndex++;
 							}
 						}
 
 						// Property printouts
 						if ( $.inArray( 'printouts', subject ) ) {
-							// Find column (properties)
-							$.each( printreqs, function( index, propertyObj ) {
-								var property = propertyObj.label;
-								if ( !property ) {
-									return;
-								}
-								columnIndex++;
 
+							// loop columns (properties)
+							$.each( printreqs, function( index, propertyObj ) {
+								if ( propertyObj.label === parameters.mainlabel ) {
+									return
+								}
+
+								var property = propertyObj.label;						
 								var values = subject.printouts[property];
+
+								// *** not sure in what cases this is required
 								if ( values == null ) {
 									rowData[property] = createLink( subject, linker, {
 										column: columnIndex,
@@ -212,6 +214,7 @@
 									// dataTables will show an error
 									rowData[property] = collectedValueItem !== '' ? collectedValueItem : '-';
 								}
+								columnIndex++;
 							} );
 						}
 
