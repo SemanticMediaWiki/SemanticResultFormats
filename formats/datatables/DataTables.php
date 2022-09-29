@@ -13,6 +13,7 @@ use SMWQueryResult as QueryResult;
  * @license GPL-2.0-or-later
  *
  * @author mwjames
+ * @author thomas-topway-it
  */
 class DataTables extends ResultPrinter {
 
