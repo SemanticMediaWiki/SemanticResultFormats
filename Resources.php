@@ -927,7 +927,6 @@ return [
 
 	// jQuery DataTables
 	'jquery.dataTables' => $moduleTemplate + [
-		// 'scripts' => 'resources/jquery/datatables/jquery.dataTables.js',
 		'scripts' => 'resources/jquery/datatables/datatables.min.js',
 		'position' => 'top'
 	],
@@ -990,18 +989,14 @@ return [
 	// DataTables bootstrap
 	'ext.srf.datatables.bootstrap' => $moduleTemplate + [
 		'scripts' => 'resources/jquery/datatables/jquery.dataTables.bootstrap.js',
-		'styles'  => 'resources/jquery/datatables/jquery.dataTables.bootstrap.css',
-		'dependencies' => 'ext.srf.datatables'
+		'styles'  => 'resources/jquery/datatables/jquery.dataTables.bootstrap.css'
 	],
 
 	// DataTables basic
 	'ext.srf.datatables.basic' => $moduleTemplate + [
 		'styles'  => [
-			'resources/jquery/datatables/datatables.min.css',
-			// 'resources/jquery/datatables/jquery.dataTables.css',
-			// 'resources/jquery/datatables/jquery.dataTables.images.css'
-		],
-		'dependencies' => 'ext.srf.datatables'
+			'resources/jquery/datatables/datatables.min.css'
+		]
 	],
 
 	// Mermaid Format
