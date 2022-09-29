@@ -177,7 +177,10 @@
 								var property = propertyObj.label;						
 								var values = subject.printouts[property];
 
-								// *** not sure in what cases this is required
+								// *** this seems related to a wrong api response on update
+								// (printrequests calling the api are different from the
+								// initial printrequests) -- it should have been now fixed
+								// and the following condition shouldn't be required
 								if ( values == null ) {
 									rowData[property] = createLink( subject, linker, {
 										column: columnIndex,
@@ -623,7 +626,7 @@
 
 			// Setup a raw table
 			container.html( html.element( 'table', {
-				'class': 'bordered-table zebra-striped',
+				'class': ( context.data( 'theme' ) === 'bootstrap'? 'bordered-table zebra-striped' : 'display' ),
 				'cellpadding': '0',
 				'cellspacing': '0',
 				'border': '0'
@@ -640,7 +643,8 @@
 			}
 
 			// Init dataTables
-			var sDom = context.data( 'theme' ) === 'bootstrap'? "<'row'<'span-select'l><'span-search'f>r>t<'row'<'span-list'i><'span-page'p>>" : 'lfrtip';
+
+			// var sDom = context.data( 'theme' ) === 'bootstrap'? "<'row'<'span-select'l><'span-search'f>r>t<'row'<'span-list'i><'span-page'p>>" : 'lfrtip';
 
 			// data.table = container.find( 'table' ).dataTable( {
 			//	'sDom': sDom,
@@ -653,13 +657,31 @@
 
 			var parameters = data.query.ask.parameters
 
+			var queryPanel = context.find( '.top' );
+
 			var conf = {
-				dom: sDom,
+				dom: ( context.data( 'theme' ) === 'bootstrap' ? "<'row'<'span-select'l><'span-search'f>r>t<'row'<'span-list'i><'span-page'p>>" : 'lfrBtip' ),
 				pagingType: context.data( 'theme' ) === 'bootstrap' ? 'bootstrap' : 'full_numbers',
 				autoWidth: false,
 				data: data.aaData,
 				language: _datatables.oLanguage,
 				columnDefs: data.aoColumnDefs,	// *** this will modify the original array
+
+				// @todo
+				// https://datatables.net/reference/option/buttons.buttons
+				//buttons: [
+				//	{
+				//		text: 'panel',
+				//		className: 'ui-corner-left',
+				//		action: queryPanel.panel( 'toggle' )
+				//	},
+				//	{
+				//		text: 'refresh',
+				//		className: 'ui-corner-right',
+				//		action: datatables.update( context, data )
+				//	}
+				//
+				//],
 			}
 
 			if ( 'pagelength' in parameters ) {
@@ -672,6 +694,7 @@
 
 			data.table = container.find( 'table' ).DataTable( conf );
 
+
 			// Bind the imageInfo trigger and update the appropriate table cell
 			context.on( 'srf.datatables.afterImageInfoFetch', function( event, handler ) {
 				// If the image/thumbnail info array was empty don't bother with an update
@@ -682,7 +705,11 @@
 			} );
 
 			// Add UI components
-			_datatables.ui( context, container, data );
+
+			// @todo: control rather using a parameter and datatables buttons
+			if ( context.data( 'theme' ) === 'bootstrap' ) {
+				_datatables.ui( context, container, data );
+			}
 		},
 
 		/**
@@ -823,16 +850,23 @@
 			context.prop( 'dir', $( 'html' ).attr( 'dir' ) );
 			context.prop( 'lang', $( 'html' ).attr( 'lang' ) );
 
+			datatables.init( context, container, data );
+
+			// Do an auto update if enabled via user-preferences
+			if ( datatables.defaults.autoUpdate ) {
+				datatables.update( context, data );
+			}
+
 			// Ensures that CSS/JS dependencies are "really" loaded before
 			// dataTables gets initialized
-			mw.loader.using( 'ext.srf.datatables.' + context.data( 'theme' ), function(){
-				datatables.init( context, container, data );
-
-				// Do an auto update if enabled via user-preferences
-				if ( datatables.defaults.autoUpdate ) {
-					datatables.update( context, data );
-				}
-			} );
+			//mw.loader.using( 'ext.srf.datatables.' + context.data( 'theme' ), function(){
+			//	datatables.init( context, container, data );
+			//
+			//	// Do an auto update if enabled via user-preferences
+			//	if ( datatables.defaults.autoUpdate ) {
+			//		datatables.update( context, data );
+			//	}
+			// } );
 
 		} );
 	} );
