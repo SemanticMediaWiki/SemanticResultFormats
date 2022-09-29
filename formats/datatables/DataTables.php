@@ -42,8 +42,8 @@ class DataTables extends ResultPrinter {
 
 		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
-			'default' => 'bootstrap',
-			'values' => [ 'bootstrap' ] // feel free to add more designs
+			'default' => 'basic',
+			'values' => [ 'bootstrap', 'basic' ] // feel free to add more designs
 		];
 
 		$params['pagelength'] = [
@@ -78,7 +78,10 @@ class DataTables extends ResultPrinter {
 		$resourceFormatter->encode( $id, $data );
 
 		// Init RL module
-		$resourceFormatter->registerResources( [ 'ext.srf.datatables' ] );
+		$resourceFormatter->registerResources( [
+			'ext.srf.datatables',
+			'ext.srf.datatables.' . $this->params['theme']
+		] );
 
 		// Element includes info, spinner, and container placeholder
 		return Html::rawElement(
