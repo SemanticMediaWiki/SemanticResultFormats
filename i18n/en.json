@@ -342,6 +342,7 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Repeat off",
 	"srf-ui-mediaplayer-label-full-screen": "Full screen",
 	"srf-ui-mediaplayer-label-restore-screen": "Restore screen",
+	"srf-ui-slideshow-slide-button-title": "play/pause",
 	"srf-spreadsheet-link": "Spreadsheet",
 	"srf-paramdesc-spreadsheet-filename": "The filename for the download of the generated spreadsheet file",
 	"srf-paramdesc-spreadsheet-fileformat": "The format to be produced for the spreadsheet file. Allowed values: xlsx, xls, ods, csv. Default: xlsx",
