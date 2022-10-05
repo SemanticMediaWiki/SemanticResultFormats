@@ -832,7 +832,10 @@ return [
 	'ext.srf.slideshow' => $formatModule + [
 		'scripts' => 'slideshow/resources/ext.srf.slideshow.js',
 		'styles'  => 'slideshow/resources/ext.srf.slideshow.css',
-		'dependencies' => 'mediawiki.util'
+		'dependencies' => 'mediawiki.util',
+		'messages' => [
+			'srf-ui-slideshow-slide-button-title'
+		]
 	],
 
 	// Tagcanvas module
