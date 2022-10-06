@@ -572,66 +572,65 @@
 			var slideshow = this;
 
 			// *** resource 'jquery.ui.slider' has been removed from recent Mediawiki versions
-			// mw.loader.using( 'jquery.ui', function () {
-			var readout = $('<div class="slideshow-nav-readout">' + 1 + "</div>");
-			nav = $('<div class="slideshow-nav" >');
+			mw.loader.using("jquery.ui", function () {
+				var readout = $('<div class="slideshow-nav-readout">' + 1 + "</div>");
+				nav = $('<div class="slideshow-nav" >');
 
-			nav.slider({
-				animate: true,
-				min: 1,
-				max: results.length,
-				value: 1,
-				slide: function (event, ui) {
-					readout.empty().append(ui.value);
-					switchTo(ui.value - 1, requestedIndex < ui.value - 1);
-				},
-				change: function (event, ui) {
-					readout.empty().append(ui.value);
-				},
-			});
-
-			nav.find(".ui-slider-handle").append(readout);
-
-			nav.appendTo(slideshow);
-
-			var paused = false;
-
-			var wrapDiv = nav
-				.wrap("<div class='slideshow-nav-wrapper'></div>")
-				.parent();
-
-			var html = mw.html;
-			$(html.element("span", { class: "button" }))
-				.insertAfter(nav)
-				.button({
-					icons: { primary: "ui-icon-play" },
-					text: false,
-				})
-				.attr("title", mw.msg( 'srf-ui-slideshow-slide-button-title' ))
-				.removeClass("ui-corner-all")
-				.addClass("ui-corner-right")
-				.on("click", function (event) {
-					if (!paused) {
-						window.clearTimeout(timeout);
-					} else {
-						restartTimer();
-					}
-
-					paused = !paused;
-
-					$(this)
-						.find(".ui-button-icon-primary")
-						.first()
-						.attr(
-							"class",
-							"ui-button-icon-primary ui-icon ui-icon-" +
-								(paused ? "pause" : "play")
-						);
-
-					// console.log("paused", paused);
+				nav.slider({
+					animate: true,
+					min: 1,
+					max: results.length,
+					value: 1,
+					slide: function (event, ui) {
+						readout.empty().append(ui.value);
+						switchTo(ui.value - 1, requestedIndex < ui.value - 1);
+					},
+					change: function (event, ui) {
+						readout.empty().append(ui.value);
+					},
 				});
 
-			// } );
+				nav.find(".ui-slider-handle").append(readout);
+
+				nav.appendTo(slideshow);
+
+				var paused = false;
+
+				var wrapDiv = nav
+					.wrap("<div class='slideshow-nav-wrapper'></div>")
+					.parent();
+
+				var html = mw.html;
+				$(html.element("span", { class: "button" }))
+					.insertAfter(nav)
+					.button({
+						icons: { primary: "ui-icon-play" },
+						text: false,
+					})
+					.attr("title", mw.msg("srf-ui-slideshow-slide-button-title"))
+					.removeClass("ui-corner-all")
+					.addClass("ui-corner-right")
+					.on("click", function (event) {
+						if (!paused) {
+							window.clearTimeout(timeout);
+						} else {
+							restartTimer();
+						}
+
+						paused = !paused;
+
+						$(this)
+							.find(".ui-button-icon-primary")
+							.first()
+							.attr(
+								"class",
+								"ui-button-icon-primary ui-icon ui-icon-" +
+									(paused ? "pause" : "play")
+							);
+
+						// console.log("paused", paused);
+					});
+			});
 		}
 
 		// start the show
@@ -649,4 +648,3 @@
 		}
 	});
 })(jQuery, mediaWiki);
-
