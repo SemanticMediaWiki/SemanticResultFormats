@@ -956,7 +956,7 @@
 				for (var label of uriColumns) {
 					for (var ii in data.query.result.results[i].printouts[label]) {
 						try {
-							new URL(data.query.result.results[i].printouts[label][ii]);
+							new Uri(data.query.result.results[i].printouts[label][ii]);
 						} catch (error) {
 							data.query.result.results[i].printouts[label][ii] = "";
 						}
