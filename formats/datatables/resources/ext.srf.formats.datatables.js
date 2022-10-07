@@ -221,7 +221,7 @@
 											// prevent the datatable from working
 											// the file to be fixed is the following:
 											// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
-											if ( rowIndex in removedURIs) {
+											if ( (rowIndex in removedURIs) && (key in removedURIs[rowIndex]) ) {
 												DI.fullurl = removedURIs[rowIndex][key]
 											}
 
