@@ -608,7 +608,7 @@
 						text: false,
 					})
 					.attr("tabindex", "0" )
-					.attr("aria-label", mw.msg("srf-ui-slideshow-slide-button-play" ))
+					.attr("aria-label", mw.msg("srf-ui-slideshow-slide-button-pause" ))
 					.removeClass("ui-corner-all")
 					.addClass("ui-corner-right")
 					.on("keypress click", function (event) {
