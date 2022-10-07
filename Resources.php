@@ -834,7 +834,8 @@ return [
 		'styles'  => 'slideshow/resources/ext.srf.slideshow.css',
 		'dependencies' => 'mediawiki.util',
 		'messages' => [
-			'srf-ui-slideshow-slide-button-title'
+			'srf-ui-slideshow-slide-button-play',
+			'srf-ui-slideshow-slide-button-pause'
 		]
 	],
 
