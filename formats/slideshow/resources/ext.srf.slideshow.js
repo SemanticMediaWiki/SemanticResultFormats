@@ -604,29 +604,34 @@
 				$(html.element("span", { class: "button" }))
 					.insertAfter(nav)
 					.button({
-						icons: { primary: "ui-icon-play" },
+						icons: { primary: "ui-icon-pause" },
 						text: false,
 					})
-					.attr("title", mw.msg("srf-ui-slideshow-slide-button-title"))
+					.attr("tabindex", "0" )
+					.attr("aria-label", mw.msg("srf-ui-slideshow-slide-button-play" ))
 					.removeClass("ui-corner-all")
 					.addClass("ui-corner-right")
-					.on("click", function (event) {
-						if (!paused) {
-							window.clearTimeout(timeout);
-						} else {
-							restartTimer();
+					.on("keypress click", function (event) {
+						if (event.which === 13 || event.type === "click") {
+							if (!paused) {
+								window.clearTimeout(timeout);
+							} else {
+								restartTimer();
+							}
+
+							paused = !paused;
+
+							$(this).attr("aria-label", mw.msg("srf-ui-slideshow-slide-button-" + (paused ? "play" : "pause") ) )
+
+							$(this)
+								.find(".ui-button-icon-primary")
+								.first()
+								.attr(
+									"class",
+									"ui-button-icon-primary ui-icon ui-icon-" +
+										(paused ? "play" : "pause")
+								);
 						}
-
-						paused = !paused;
-
-						$(this)
-							.find(".ui-button-icon-primary")
-							.first()
-							.attr(
-								"class",
-								"ui-button-icon-primary ui-icon ui-icon-" +
-									(paused ? "pause" : "play")
-							);
 
 						// console.log("paused", paused);
 					});
@@ -648,3 +653,4 @@
 		}
 	});
 })(jQuery, mediaWiki);
+
