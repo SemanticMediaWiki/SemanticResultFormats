@@ -32,6 +32,9 @@
 		smwApi = new smw.api(),
 		util = new srf.util();
 
+		
+	var removedURIs;
+
 	/**
 	 * Container for all non-public objects and methods
 	 *
@@ -213,6 +216,15 @@
 												row: rowIndex,
 											});
 										} else if (DI instanceof smw.dataItem.uri) {
+
+											// *** this is a work-around to handle invalid URIs which
+											// prevent the datatable from working
+											// the file to be fixed is the following:
+											// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
+											if ( rowIndex in removedURIs) {
+												DI.fullurl = removedURIs[rowIndex][key]
+											}
+
 											collectedValueItem += DI.getHtml(linker);
 										} else if (DI instanceof smw.dataItem.text) {
 											collectedValueItem += DI.getText();
@@ -937,7 +949,7 @@
 
 			// data = smwApi.parse( _datatables.getData( container ) );
 
-			// *** this is a work-around to remove invalid urls which
+			// *** this is a work-around to remove invalid URIs which
 			// prevent the datatable from working
 			// the file to be fixed is the following:
 			// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js			
@@ -952,16 +964,23 @@
 				}
 			}
 
+			removedURIs = {}
+			var n = 0
 			for (var i in data.query.result.results) {
 				for (var label of uriColumns) {
 					for (var ii in data.query.result.results[i].printouts[label]) {
 						try {
 							new Uri(data.query.result.results[i].printouts[label][ii]);
 						} catch (error) {
+							if (!removedURIs[n] ) {
+								removedURIs[n] = {}
+							}
+							removedURIs[n][ii] = data.query.result.results[i].printouts[label][ii]
 							data.query.result.results[i].printouts[label][ii] = "";
 						}
 					}
 				}
+				n++
 			}
 
 			// _datatables.getData( container )
