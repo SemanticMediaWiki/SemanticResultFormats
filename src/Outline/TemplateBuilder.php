@@ -96,6 +96,7 @@ class TemplateBuilder {
 				continue;
 			}
 
+			$resultArray->reset();
 			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 				$template .= $this->open( $this->params['template'] . '-item' );
 				$template .= $this->parameter( "#itemsection", $i );
