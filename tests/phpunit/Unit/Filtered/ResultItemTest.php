@@ -3,6 +3,7 @@
 namespace SRF\Tests\Filtered;
 
 use Collation;
+use MediaWiki\MediaWikiServices;
 use SMW\MediaWiki\Collator;
 use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
@@ -23,8 +24,14 @@ use SRF\Filtered\ResultItem;
 class ResultItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testArray_representation_is_JSON_serializable_for_UCA_collation_Issue568() {
+		// TODO When SRF will only support MW 1.37+, remove this backward compatibility switch
+		if( method_exists( '\MediaWiki\MediaWikiServices', 'getCollationFactory' ) ) {
+			$collation = MediaWikiServices::getInstance()->getCollationFactory()->makeCollation( "uca-de-u-kn" );
+		} else {
+			$collation = Collation::factory( "uca-de-u-kn" );
+		}
 		// arrange
-		$sortKey = ( new Collator( Collation::factory( "uca-de-u-kn" ) ) )->getSortKey( 'A' );
+		$sortKey = ( new Collator( $collation ) )->getSortKey( 'A' );
 
 		$resultArray = $this->createStub( ResultArray::class );
 
