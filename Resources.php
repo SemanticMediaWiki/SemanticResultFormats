@@ -940,6 +940,32 @@ return [
 		'scripts'  => 'resources/jquery/datatables/jquery.dataTables.extras.js',
 	],
 
+	'ext.srf.carousel.module' => $moduleTemplate + [
+		'styles' => [
+			'resources/slick/slick.css',
+			'resources/slick/slick-theme.css',
+		],
+		'scripts' => [
+			'resources/slick/slick.js'
+		]
+	],
+
+	'ext.srf.carousel' => $formatModule + [
+		'scripts' => [
+			'carousel/resources/ext.srf.formats.carousel.js'
+		],
+		'styles' => [
+			'carousel/resources/ext.srf.formats.carousel.css'
+		],
+		'dependencies' => [
+			'ext.smw.dataItem',
+			'ext.smw.api',
+			'ext.srf.api',
+			'ext.srf.util',
+			'ext.srf.widgets'
+		],
+	],
+
 	// DataTables implementation
 	'ext.srf.datatables' => $formatModule + [
 		'scripts' => 'datatables/resources/ext.srf.formats.datatables.js',

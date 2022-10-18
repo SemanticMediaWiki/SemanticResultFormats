@@ -1,6 +1,6 @@
 {
     "name": "SemanticResultFormats",
-	"version": "4.0.2",
+	"version": "4.0.1",
 	"author": [
 		"James Hong Kong",
 		"Stephan Gambke",
@@ -28,6 +28,9 @@
 	"ExtensionFunctions": [
 		"SemanticResultFormats::onExtensionFunction"
 	],
+	"AutoloadNamespaces": {
+		"SRF\\": "formats/carousel"
+	},
 	"QUnitTestModule": {
 		"localBasePath": "",
 		"remoteExtPath": "SemanticResultFormats",
