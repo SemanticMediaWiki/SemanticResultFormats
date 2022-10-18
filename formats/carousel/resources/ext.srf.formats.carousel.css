@@ -14,3 +14,9 @@
 	right: 26px;
 	z-index: 10;
 }
+
+.slick-slide  {
+	position: relative;
+}
+
+
