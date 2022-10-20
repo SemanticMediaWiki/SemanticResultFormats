@@ -32,3 +32,8 @@
 	font-size: larger;
 }
 
+.slick-slide .slick-slide-content.caption-text a {
+	color: white;
+	text-decoration: underline;
+}
+
