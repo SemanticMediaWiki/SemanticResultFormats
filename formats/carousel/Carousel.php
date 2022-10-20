@@ -403,6 +403,7 @@ class Carousel extends ResultPrinter {
 			$printReqLabels[ $value['label'] ] = $value['typeid'];
 		}
 
+		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
 		foreach( $data['query']['result']['results'] as $titleText => $value ) {
 			$title_ = \Title::newFromText( $titleText );
@@ -435,8 +436,6 @@ class Carousel extends ResultPrinter {
 			$titleValue = $this->getFirstValid( $titles );
 			$linkValue = $this->getFirstValid( $links );
 			$imageValue = $this->getFirstValid( $images );
-
-			$parser = MediaWikiServices::getInstance()->getParser();
 
 			// if one or more value is empty infer them from the property type
 			foreach( $value['printouts'] as $name => $values ) {
