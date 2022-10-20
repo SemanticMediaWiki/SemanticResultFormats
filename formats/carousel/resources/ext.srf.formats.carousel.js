@@ -1,5 +1,5 @@
 /**
- * SRF Carousel JavaScript Printer using the SMWAPI
+ * SRF Carousel using slick https://github.com/kenwheeler/slick
  *
  * @licence GPL-2.0-or-later
  * @author thomas-topway-it
@@ -77,42 +77,14 @@
 	/* Public methods */
 
 	srf.formats.carousel.prototype = {
-		init: function (context, container) {
-			var self = this;
-
-			// Hide loading spinner
-			// context.find(".srf-loading-dots").hide();
-
-			$(".slick-slider").slick({
-				dots: true,
-				infinite: true,
-				speed: 300,
-				autoplay: true,
-				arrows: true,
-
-				// https://codepen.io/thetruth219/pen/ReVKBM
-				dots: true,
-				//	fade: true,
-				arrows: true,
-				infinite: true,
-
-				// 	autoplaySpeed: 1000,
-				speed: 300,
-				//	slidesToShow: 1,
-				adaptiveHeight: false,
-				
-     			pauseOnHover: true,
-				focusOnSelect: true,
-				// slidesToShow: 1,
-				//  centerMode: true,
-				// variableWidth: true
-			});
+		init: function ( $slide ) {
+			$slide.slick( $slide.data().slick );
 
 			$(".slick-slider .slick-slide").each(function () {
 				if ( $(this).attr('data-url') ) {
-					$(this).attr('title', $(this).attr('data-title') )
+					// $(this).attr('title', $(this).attr('data-title') )
 					$(this).css('cursor', 'pointer')
-					$(this).click(function(){
+					$(this).click(function() {
   						window.location = $(this).attr('data-url');
 					});
 				}	
@@ -140,10 +112,12 @@
 	var carousel = new srf.formats.carousel();
 
 	$(document).ready(function () {
-		var context = $(this),
-			container = context.find(".container");
+		
+		$(".slick-slider").each(function () {
+			carousel.init( $(this) );
+		});
 
-		carousel.init(context, container);
+		
 	});
 })(jQuery, mediaWiki, semanticFormats);
 

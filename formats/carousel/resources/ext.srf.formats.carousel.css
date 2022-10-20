@@ -19,4 +19,16 @@
 	position: relative;
 }
 
+.slick-slide .slick-slide-content.caption {
+    bottom: 0;
+    position: absolute;
+    padding: 12px;
+    background: rgba(0,0,0,.65);
+    color: white;
+    font-size: smaller;
+}
+
+.slick-slide .slick-slide-content.caption-title {
+	font-size: larger;
+}
 
