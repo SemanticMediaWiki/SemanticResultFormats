@@ -12,6 +12,7 @@ use Html;
 use SMW\ResultPrinter;
 use SMWPrintRequest;
 use SMWQueryResult;
+use MediaWiki\MediaWikiServices;
 
 class Carousel extends ResultPrinter {
 
@@ -404,6 +405,7 @@ class Carousel extends ResultPrinter {
 
 		$items = [];
 		foreach( $data['query']['result']['results'] as $titleText => $value ) {
+			$title_ = \Title::newFromText( $titleText );
 			$captions = [];
 			$titles = [];
 			$images = [];
@@ -433,6 +435,8 @@ class Carousel extends ResultPrinter {
 			$titleValue = $this->getFirstValid( $titles );
 			$linkValue = $this->getFirstValid( $links );
 			$imageValue = $this->getFirstValid( $images );
+
+			$parser = MediaWikiServices::getInstance()->getParser();
 
 			// if one or more value is empty infer them from the property type
 			foreach( $value['printouts'] as $name => $values ) {
@@ -465,9 +469,8 @@ class Carousel extends ResultPrinter {
 				}
 
 			} else if ( !$imageValue || !$linkValue ) {
-				$title_ = \Title::newFromText( $titleText );
 				if ( !$imageValue && $title_->getNamespace() === NS_FILE ) {
-						$imageValue = $this->getImage( [ 'fullurl' => $title_->getFullUrl(), 'fulltext' => $title_->getFullText(), 'namespace' => $title_->getNamespace() ] );
+					$imageValue = $this->getImage( [ 'fullurl' => $title_->getFullUrl(), 'fulltext' => $title_->getFullText(), 'namespace' => $title_->getNamespace() ] );
 				}
 				if ( !$linkValue ) {
 					$linkValue = $title_->getFullUrl();
@@ -478,8 +481,13 @@ class Carousel extends ResultPrinter {
 				continue;
 			}
 
+			if ( $captionValue ) {
+				$captionValue = $parser->recursiveTagParse( $captionValue );
+			}
+
 			$innerContent = Html::rawElement( 'img', [
 					'src' => $imageValue,
+					'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
 					'style' => "max-width:" . ( !empty( $this->params['width'] ) ? $this->params['width'] : "none" ),
 					'class' => "slick-slide-content img"
 				] );
