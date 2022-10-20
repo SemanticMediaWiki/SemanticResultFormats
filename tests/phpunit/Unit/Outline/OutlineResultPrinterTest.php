@@ -57,7 +57,7 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 		// IParam is an empty interface !!! so we use stdClass
 		$outlineproperties = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$outlineproperties->expects( $this->any() )
@@ -70,7 +70,7 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$template = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$template->expects( $this->any() )
@@ -83,7 +83,7 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$introtemplate = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$introtemplate->expects( $this->any() )
@@ -96,7 +96,7 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$outrotemplate = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$outrotemplate->expects( $this->any() )

@@ -30,12 +30,6 @@ class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider filenameProvider
 	 */
 	public function testGetFileName( $filename, $searchlabel, $expected ) {
-		if ( version_compare( phpversion(), '7.4', '>=' ) ) {
-			// ResultPrinterReflector creates notices on PHP 7.4+
-			$this->markTestSkipped();
-			return;
-		}
-
 		$parameters = [
 			'filename' => $filename,
 			'searchlabel' => $searchlabel

@@ -82,7 +82,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$widget = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$widget->expects( $this->any() )
@@ -95,7 +95,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$intro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$intro->expects( $this->any() )
@@ -108,7 +108,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$outro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$outro->expects( $this->any() )

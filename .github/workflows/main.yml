@@ -27,18 +27,18 @@ jobs:
             mermaid_version: dev-master
             coverage: false
             experimental: false
-          - mediawiki_version: '1.36'
-            database_type: sqlite
-            semantic_mediawiki_version: dev-master
-            mermaid_version: dev-master
-            coverage: false
-            experimental: false
           - mediawiki_version: '1.37'
             database_type: sqlite
             semantic_mediawiki_version: dev-master
             mermaid_version: dev-master
             coverage: true
             experimental: false
+          - mediawiki_version: '1.38'
+            database_type: sqlite
+            semantic_mediawiki_version: dev-master
+            mermaid_version: dev-master
+            coverage: false
+            experimental: false            
 
     container:
       image: gesinn/docker-mediawiki-${{ matrix.database_type }}:${{ matrix.mediawiki_version }}
