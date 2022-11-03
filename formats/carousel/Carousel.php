@@ -154,12 +154,6 @@ class Carousel extends ResultPrinter {
 			'default' => "slick-dots",
 		];
 
-		$params['slick-dotsClass'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-option',
-			'default' => "slick-dots",
-		];
-
 		$params['slick-draggable'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-carousel-slick-option',
@@ -550,6 +544,8 @@ class Carousel extends ResultPrinter {
 	}
 
 	protected function getFirstValid( $array ) {
+		// *** or use array_filter with no arguments, then
+		// retrieve the first entry
 		foreach( $array as $value ) {
 			if ( !empty( $value ) ) {
 				return $value;
