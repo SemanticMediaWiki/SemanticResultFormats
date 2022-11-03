@@ -4,7 +4,7 @@
  *
  * @license GPL-2.0-or-later
  *
- * @author thomas-topway-it
+ * @author thomas-topway-it <thomas.topway.it@mail.com>
  */
 namespace SRF;
 
@@ -41,6 +41,12 @@ class Carousel extends ResultPrinter {
 			'default' => '',
 		];
 
+		$params['height'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-carousel-height',
+			'default' => '',
+		];
+
 		$params['captionproperty'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-carousel-captionproperty',
@@ -67,299 +73,299 @@ class Carousel extends ResultPrinter {
 
 		$params['slick-accessibility'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-accessibility',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-adaptiveHeight'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-adaptiveHeight',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		// $params['slick-appendArrows'] = [
 		// 	'type' => 'string',
-		// 	'message' => 'srf-paramdesc-carousel-slick-appendArrows',
+		// 	'message' => 'srf-paramdesc-carousel-slick-option',
 		// 	'default' => '$(element)',
 		// ];
 
 		// $params['slick-appendDots'] = [
 		// 	'type' => 'string',
-		// 	'message' => 'srf-paramdesc-carousel-slick-appendDots',
+		// 	'message' => 'srf-paramdesc-carousel-slick-option',
 		// 	'default' => '$(element)',
 		// ];
 
 		$params['slick-arrows'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-arrows',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		// $params['slick-asNavFor'] = [
 		// 	'type' => 'string',
-		// 	'message' => 'srf-paramdesc-carousel-slick-asNavFor',
+		// 	'message' => 'srf-paramdesc-carousel-slick-option',
 		// 	'default' => '$(element)',
 		// ];
 
 		$params['slick-autoplay'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-autoplay',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-autoplaySpeed'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-autoplaySpeed',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 3000,
 		];
 
 		$params['slick-centerMode'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-centerMode',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-centerPadding'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-centerPadding',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "50px",
 		];
 
 		$params['slick-cssEase'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-cssEase',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "ease",
 		];
 
 		// $params['slick-customPaging'] = [
-		//	'message' => 'srf-paramdesc-carousel-slick-customPaging',
+		//	'message' => 'srf-paramdesc-carousel-slick-option',
 		//	'default' => "",
 		// ];
 
 		$params['slick-dots'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-dots',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-dotsClass'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-dotsClass',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "slick-dots",
 		];
 
 		$params['slick-dotsClass'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-dotsClass',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "slick-dots",
 		];
 
 		$params['slick-draggable'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-draggable',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-easing'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-easing',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "linear",
 		];
 
 		$params['slick-edgeFriction'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-edgeFriction',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 0.15,
 		];
 
 		$params['slick-fade'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-fade',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-focusOnSelect'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-focusOnSelect',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-focusOnChange'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-focusOnChange',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-infinite'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-infinite',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-initialSlide'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-initialSlide',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 0,
 		];
 
 		$params['slick-lazyLoad'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-lazyLoad',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "ondemand",
 		];
 
 		$params['slick-mobileFirst'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-mobileFirst',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-nextArrow'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-nextArrow',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => '<button type="button" class="slick-next">Next</button>',
 		];
 
 		$params['slick-pauseOnDotsHover'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-pauseOnDotsHover',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-pauseOnFocus'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-pauseOnFocus',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-pauseOnHover'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-pauseOnHover',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-prevArrow'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-prevArrow',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => '<button type="button" class="slick-prev">Previous</button>',
 		];
 
 		$params['slick-respondTo'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-respondTo',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => "window",
 		];
 
 		$params['slick-responsive'] = [
-		 	'message' => 'srf-paramdesc-carousel-slick-responsive',
+		 	'message' => 'srf-paramdesc-carousel-slick-option',
 		 	'default' => null,
 		];
 
 		$params['slick-rows'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-rows',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 1,
 		];
 
 		$params['slick-rtl'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-rtl',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-slide'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-carousel-slick-slide',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => '',
 		];
 
 		$params['slick-slidesPerRow'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-slidesPerRow',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 1,
 		];
 
 		$params['slick-slidesToScroll'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-slidesToScroll',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 1,
 		];
 
 		$params['slick-slidesToShow'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-slidesToShow',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 1,
 		];
 
 		$params['slick-speed'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-speed',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 300,
 		];
 
 		$params['slick-swipe'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-swipe',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-swipeToSlide'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-swipeToSlide',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-touchMove'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-touchMove',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-touchThreshold'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-touchThreshold',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 5,
 		];
 
 		$params['slick-useCSS'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-useCSS',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-useTransform'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-useTransform',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-variableWidth'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-variableWidth',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-vertical'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-vertical',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-verticalSwiping'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-vertical',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => false,
 		];
 
 		$params['slick-waitForAnimate'] = [
 			'type' => 'boolean',
-			'message' => 'srf-paramdesc-carousel-slick-waitForAnimate',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => true,
 		];
 
 		$params['slick-zIndex'] = [
 			'type' => 'integer',
-			'message' => 'srf-paramdesc-carousel-slick-zIndex',
+			'message' => 'srf-paramdesc-carousel-slick-option',
 			'default' => 1000,
 		];
 
@@ -402,6 +408,18 @@ class Carousel extends ResultPrinter {
 			// _uri, _txt, _wpg
 			$printReqLabels[ $value['label'] ] = $value['typeid'];
 		}
+
+		$styleAttr = [ 'width', 'height' ];
+		$style = [];
+		foreach( $styleAttr as $attr ) {
+			if ( !empty( $this->params[$attr] ) ) {
+				$style[] = "$attr:" . $this->params[$attr];
+			}
+		}
+
+		$styleImg = implode( ';', array_map( static function ( $value ) {
+			return 'max-' . $value;
+		}, $style ) );
 
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
@@ -487,7 +505,7 @@ class Carousel extends ResultPrinter {
 			$innerContent = Html::rawElement( 'img', [
 					'src' => $imageValue,
 					'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
-					'style' => "max-width:" . ( !empty( $this->params['width'] ) ? $this->params['width'] : "none" ),
+					'style' => $styleImg,
 					'class' => "slick-slide-content img"
 				] );
 
@@ -511,8 +529,8 @@ class Carousel extends ResultPrinter {
 
 		$attr = [ 'class' => 'slick-slider' ];
 
-		if ( !empty( $this->params['width'] ) ) {
-			$attr['style'] = "width:" . $this->params['width'];
+		if ( count( $style ) ) {
+			$attr['style'] = implode( '; ',  $style );
 		}
 
 		$slick_attr = [];
