@@ -282,6 +282,7 @@
 	"srf-printername-timeseries": "Timeseries chart",
 	"srf-paramdesc-group": "Series grouped by",
 	"srf-paramdesc-zoom": "Enable zoom",
+	"srf-paramdesc-carousel-class": "carousel class",
 	"srf-paramdesc-carousel-width": "carousel width",
 	"srf-paramdesc-carousel-height": "carousel height",
 	"srf-paramdesc-carousel-captionproperty": "carousel captionproperty",

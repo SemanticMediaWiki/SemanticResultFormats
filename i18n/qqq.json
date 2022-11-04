@@ -299,6 +299,7 @@
 	"srf-printername-timeseries": "{{doc-smwformat|timeseries}}",
 	"srf-paramdesc-group": "{{doc-paramdesc|group}}",
 	"srf-paramdesc-zoom": "{{doc-paramdesc|zoom}}",
+	"srf-paramdesc-carousel-class": "{{doc-paramdesc|class}}",
 	"srf-paramdesc-carousel-width": "{{doc-paramdesc|width}}",
 	"srf-paramdesc-carousel-height": "{{doc-paramdesc|height}}",
 	"srf-paramdesc-carousel-captionproperty": "{{doc-paramdesc|captionproperty}}",
