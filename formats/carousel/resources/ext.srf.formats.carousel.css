@@ -29,11 +29,18 @@
 }
 
 .slick-slide .slick-slide-content.caption-title {
-	font-size: larger;
+	font-size: xx-large !important;
 }
 
 .slick-slide .slick-slide-content.caption-text a {
 	color: white;
 	text-decoration: underline;
 }
+
+@media screen and (max-width: 800px) {
+  .slick-slider .caption-text {
+    display: none !important;
+  }
+}
+
 
