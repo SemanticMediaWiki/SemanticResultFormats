@@ -47,6 +47,12 @@ class Carousel extends ResultPrinter {
 			'default' => '',
 		];
 
+		$params['class'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-carousel-class',
+			'default' => '',
+		];
+
 		$params['captionproperty'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-carousel-captionproperty',
@@ -529,7 +535,7 @@ class Carousel extends ResultPrinter {
 
 		} // loop through pages
 
-		$attr = [ 'class' => 'slick-slider' ];
+		$attr = [ 'class' => 'slick-slider' . ( empty( $this->params['class'] ) ? '' : ' ' . $this->params['class'] ) ];
 
 		if ( count( $style ) ) {
 			$attr['style'] = implode( '; ',  $style );
