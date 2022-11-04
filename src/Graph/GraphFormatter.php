@@ -85,7 +85,7 @@ class GraphFormatter {
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 
-			$nodeLabel = $node->getLabel();
+			$nodeLabel = htmlspecialchars( $node->getLabel() );
 
 			// take "displaytitle" as node-label if it is set
 			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
