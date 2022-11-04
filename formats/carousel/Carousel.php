@@ -407,13 +407,21 @@ class Carousel extends ResultPrinter {
 		$style = [];
 		foreach( $styleAttr as $attr ) {
 			if ( !empty( $this->params[$attr] ) ) {
-				$style[] = "$attr:" . $this->params[$attr];
+				$style[ $attr ] = "$attr: " . $this->params[$attr];
 			}
 		}
 
-		$styleImg = implode( ';', array_map( static function ( $value ) {
-			return 'max-' . $value;
-		}, $style ) );
+		if ( !array_key_exists( 'width', $style ) ) {
+			$style[ 'width' ] = 'width: 100%';
+		}
+
+		$styleImg = array_map( static function ( $value ) {
+			// return 'max-' . $value;
+			return $value;
+		}, $style );
+
+		$styleImg[] = 'object-fit: cover';
+		$styleImg = implode( '; ', $styleImg );
 
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
