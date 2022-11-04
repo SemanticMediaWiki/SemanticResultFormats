@@ -167,33 +167,39 @@ class GraphPrinter extends ResultPrinter {
 	protected function processResultRow( array /* of SMWResultArray */ $row ) {
 		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
-
-			// loop through all values of a multivalue field
-			while ( ( /* SMWWikiPageValue */
-				$object = $resultArray->getNextDataValue() ) !== false ) {
-
+			$node = null;
+			$fields = [];
+			// Loop through all values of a multivalue field.
+			while ( ( /* SMWWikiPageValue */ $object = $resultArray->getNextDataValue() ) !== false ) {
 				$type = $object->getTypeID();
 				if ( in_array( $type, [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ] ) ) {
-					// This is a page. A new node and an edge have to be created.
-					// create SRF\GraphNode for column 0
-					if ( $i === 0 ) {
+					// This is a property of the type 'Page'.
+					if ( !$node ) {
+						// The graph node for the current record has not been created, so, create it now.
 						$node = new GraphNode( $object->getShortWikiText() );
 						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
 						$this->nodes[] = $node;
 					} else {
+						// Add an edge representing a property of the type 'Page'.
 						$node->addParentNode(
 							$resultArray->getPrintRequest()->getLabel(),
 							$object->getShortWikiText()
 						);
 					}
 				} else {
-					// A non-page property.
-					$node->addField(
-						$resultArray->getPrintRequest()->getOutputFormat(),
-						$object->getShortWikiText(),
-						$type,
-						$resultArray->getPrintRequest()->getLabel()
-					);
+					// A non-Page property, no edge for it. Remember the field to add at the end of the row.
+					$fields[] = [
+						'name' => $resultArray->getPrintRequest()->getOutputFormat(),
+						'value' => $object->getShortWikiText(),
+						'type' => $type,
+						'page' => $resultArray->getPrintRequest()->getLabel()
+					];
+				}
+			}
+			// Add the fields for non-Page properties to the current edge, if any.
+			if ( $node ) {
+				foreach ( $fields as $field ) {
+					$node->addField( $field['name'], $field['value'], $field['type'], $field['page'] );
 				}
 			}
 		}
