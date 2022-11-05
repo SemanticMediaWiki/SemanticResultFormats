@@ -56,9 +56,9 @@ class GraphFormatter {
 	}
 
 	/*
-	* Creates the DOT (graph description language) which can be processed by the graphviz lib
+	* Creates the DOT (graph description language) which can be processed by the Diagrams extension
 	*
-	* @see https://www.graphviz.org/
+	* @see https://www.graphviz.org/ for documentation about the DOT language
 	* @since 3.2
 	*
 	* @param SRF\Graph\GraphNodes[] $nodes
@@ -84,7 +84,7 @@ class GraphFormatter {
 
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
-
+			$instance = $this;
 			$nodeLabel = $node->getLabel();
 
 			// take "displaytitle" as node-label if it is set
@@ -104,16 +104,22 @@ class GraphFormatter {
 					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
 							  [ '\n' => '<br/>' ] );
 				$nodeTooltip = $nodeLabel ?: $node->getID();
+				$nodeTooltip = str_replace( "<br />", "", $nodeTooltip );
 				// Label in HTML form enclosed with <>.
 				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
 							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
-							. implode( "\n", array_map( static function ( $field ) {
+							. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
 								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
 									? 'right'
 									: 'left';
 								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
 									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '">' . $field['value'] . '</td></tr>';
+									. '<td align="' . $alignment . '">' .
+										$instance->getWordWrappedText(
+											$field['value'],
+											$instance->options->getWordWrapLimit()
+										)
+									. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
 				$nodeLinkURL = null; // the value at the top is already hyperlinked.
 			} else {
@@ -260,6 +266,6 @@ class GraphFormatter {
 
 		$segments[] = $text;
 
-		return implode( '\n', $segments );
+		return implode( '<br />', $segments );
 	}
 }
