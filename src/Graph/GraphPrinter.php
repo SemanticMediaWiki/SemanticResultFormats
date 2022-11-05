@@ -105,7 +105,7 @@ class GraphPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	public function hasMissingDependency() {
-		return !class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' );
+		return !\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class GraphPrinter extends ResultPrinter {
 			[
 				'class' => 'smw-callout smw-callout-error'
 			],
-			'The SRF Graph printer requires the GraphViz extension to be installed.'
+			'The SRF Graph printer requires the Diagrams extension to be installed.'
 		);
 	}
 
@@ -130,30 +130,24 @@ class GraphPrinter extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		// Remove this once SRF requires 3.1+
-		if ( $this->hasMissingDependency() ) {
-			return $this->getDependencyError();
-		}
-
 		// iterate query result and create SRF\GraphNodes
 		while ( $row = $res->getNext() ) {
 			$this->processResultRow( $row );
 		}
 
-		// use GraphFormater to build the graph
+		// use GraphFormatter to build the graph
 		$graphFormatter = new GraphFormatter( $this->options );
 		$graphFormatter->buildGraph( $this->nodes );
 
-		// Calls graphvizParserHook function from MediaWiki GraphViz extension
-		$parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
-
-		$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
-				() . "</graphviz>" );
-
-		// append legend
+		$result = "<graphviz>{$graphFormatter->getGraph()}</graphviz>";
 		$result .= $graphFormatter->getGraphLegend();
 
-		return $result;
+		if ( $outputmode === SMW_OUTPUT_HTML ) {
+			return $result;
+		}
+
+		return MediaWikiServices::getInstance()->getParser()->recursiveTagParse( $result );
+
 	}
 
 	/**
