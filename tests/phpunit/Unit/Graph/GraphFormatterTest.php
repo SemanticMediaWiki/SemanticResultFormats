@@ -69,7 +69,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetWordWrappedText() {
 		$text = 'Lorem ipsum dolor sit amet';
-		$expected = 'Lorem \nipsum \ndolor sit \namet';
+		$expected = 'Lorem <br />ipsum <br />dolor sit <br />amet';
 
 		$this->assertEquals( GraphFormatter::getWordWrappedText( $text, 10 ), $expected );
 	}
