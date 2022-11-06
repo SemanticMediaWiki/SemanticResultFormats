@@ -56,7 +56,7 @@ class GraphFormatter {
 	}
 
 	/*
-	* Creates the DOT (graph description language) which can be processed by the Diagrams extension
+	* Creates the DOT (graph description language) which can be processed by the Diagrams or GraphViz extension
 	*
 	* @see https://www.graphviz.org/ for documentation about the DOT language
 	* @since 3.2
@@ -64,6 +64,7 @@ class GraphFormatter {
 	* @param SRF\Graph\GraphNodes[] $nodes
 	*/
 	public function buildGraph( $nodes ) {
+		global $wgVersion;
 		$this->add( "digraph " . $this->options->getGraphName() . " {" );
 
 		// set fontsize and fontname of graph, nodes and edges
@@ -104,7 +105,14 @@ class GraphFormatter {
 					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
 							  [ '\n' => '<br/>' ] );
 				$nodeTooltip = $nodeLabel ?: $node->getID();
-				$nodeTooltip = str_replace( "<br />", "", $nodeTooltip );
+
+				// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+				// and formatting is a little different from the GraphViz extension
+				if ( version_compare( $wgVersion, '1.33', '>=' ) &&
+					\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+					$nodeTooltip = str_replace( "<br />", "", $nodeTooltip );
+				}
+
 				// Label in HTML form enclosed with <>.
 				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
 							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
@@ -266,6 +274,12 @@ class GraphFormatter {
 
 		$segments[] = $text;
 
-		return implode( '<br />', $segments );
+		global $wgVersion;
+		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+		// and formatting is a little different from the GraphViz extension
+		$implodeChar = version_compare( $wgVersion, '1.33', '>=' ) &&
+			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? '<br />' : '\n';
+
+		return implode( $implodeChar, $segments );
 	}
 }
