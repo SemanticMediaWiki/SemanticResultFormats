@@ -200,8 +200,9 @@ class SRFProcess extends SMWResultPrinter {
 	 *
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
-			wfWarn( 'The SRF Graph printer needs the Diagrams extension to be installed.' );
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) &&
+			!is_callable( 'renderGraphviz' ) ) {
+			wfWarn( 'The SRF Graph printer needs the Diagrams or GraphViz extension to be installed.' );
 			return '';
 		}
 
