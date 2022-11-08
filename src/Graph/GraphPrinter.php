@@ -2,6 +2,7 @@
 
 namespace SRF\Graph;
 
+Use MediaWiki\MediaWikiServices;
 use Html;
 use SMW\ResultPrinter;
 use SMWQueryResult;
@@ -10,7 +11,8 @@ use SMWQueryResult;
  * SMW result printer for graphs using graphViz.
  * In order to use this printer you need to have both
  * the graphViz library installed on your system and
- * have the graphViz MediaWiki extension installed.
+ * have the graphViz or Diagrams MediaWiki extension
+ * installed.
  *
  * @file SRF_Graph.php
  * @ingroup SemanticResultFormats
@@ -105,7 +107,8 @@ class GraphPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	public function hasMissingDependency() {
-		return !class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' );
+		return !\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
+			|| !class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' );
 	}
 
 	/**
@@ -119,7 +122,7 @@ class GraphPrinter extends ResultPrinter {
 			[
 				'class' => 'smw-callout smw-callout-error'
 			],
-			'The SRF Graph printer requires the GraphViz extension to be installed.'
+			'The SRF Graph printer requires the Diagrams or GraphViz extension to be installed.'
 		);
 	}
 
@@ -130,30 +133,36 @@ class GraphPrinter extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		// Remove this once SRF requires 3.1+
-		if ( $this->hasMissingDependency() ) {
-			return $this->getDependencyError();
-		}
+		global $wgVersion;
 
 		// iterate query result and create SRF\GraphNodes
 		while ( $row = $res->getNext() ) {
 			$this->processResultRow( $row );
 		}
 
-		// use GraphFormater to build the graph
+		// use GraphFormatter to build the graph
 		$graphFormatter = new GraphFormatter( $this->options );
 		$graphFormatter->buildGraph( $this->nodes );
 
-		// Calls graphvizParserHook function from MediaWiki GraphViz extension
-		$parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
+		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+		// and formatting is a little different from the GraphViz extension
+		if ( version_compare( $wgVersion, '1.33', '>=' ) &&
+			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+			$result = "<graphviz>{$graphFormatter->getGraph()}</graphviz>";
+		} else {
+			// Calls graphvizParserHook function from MediaWiki GraphViz extension
+			$parser = MediaWikiServices::getInstance()->getParser();
+			$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph() . "</graphviz>" );
+		}
 
-		$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph
-				() . "</graphviz>" );
-
-		// append legend
 		$result .= $graphFormatter->getGraphLegend();
 
-		return $result;
+		if ( $outputmode === SMW_OUTPUT_HTML ) {
+			return $result;
+		}
+
+		return MediaWikiServices::getInstance()->getParser()->recursiveTagParse( $result );
+
 	}
 
 	/**
