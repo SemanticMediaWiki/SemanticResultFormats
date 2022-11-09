@@ -95,7 +95,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testBuildGraph() {
 		$expected = <<<'DOT'
-digraph Unit Test {graph [fontsize=10, fontname="Verdana"]
+digraph UnitTest {graph [fontsize=10, fontname="Verdana"]
 node [fontsize=10, fontname="Verdana"];
 edge [fontsize=10, fontname="Verdana"];
 size="100";node [shape=rect];rankdir=LR;
