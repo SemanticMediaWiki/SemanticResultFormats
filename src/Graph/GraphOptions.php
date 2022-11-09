@@ -14,18 +14,44 @@ namespace SRF\Graph;
  */
 
 class GraphOptions {
+
+	/** @var string */
 	private $graphName;
+
+	/** @var string */
 	private $graphSize;
+
+	/** @var string */
 	private $graphFontSize;
+
+	/** @var string */
 	private $nodeShape;
+
+	/** @var string */
 	private $nodeLabel;
+
+	/** @var string */
 	private $rankDir;
+
+	/** @var string */
 	private $arrowHead;
+
+	/** @var string */
 	private $wordWrapLimit;
+
+	/** @var bool */
 	private $parentRelation;
+
+	/** @var string */
 	private $enableGraphLink;
+
+	/** @var string */
 	private $showGraphLabel;
+
+	/** @var string */
 	private $showGraphColor;
+
+	/** @var string */
 	private $showGraphLegend;
 
 	public function __construct( $options ) {
@@ -44,8 +70,15 @@ class GraphOptions {
 		$this->showGraphLegend = trim( $options['graphlegend'] );
 	}
 
+	/**
+	 * Returns a string representation of the graph name.
+	 *
+	 * @return string
+	 */
 	public function getGraphName(): string {
-		return $this->graphName;
+		// Remove all special characters from the string to prevent the digraph from being
+		// invalid and causing an error.
+		return preg_replace('/[^A-Za-z0-9]/', '', $this->graphName );
 	}
 
 	public function getGraphSize(): string {
