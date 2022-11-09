@@ -29,7 +29,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 		parent::setUp();
 
 		$params = [
-			'graphname' => 'Unit Test',
+			'graphname' => 'Test!+Graph',
 			'graphsize' => '100',
 			'graphfontsize' => 10,
 			'nodeshape' => 'rect',
@@ -68,11 +68,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGraphNameText() {
-		$graphIllegalName = 'Test!+Graph';
-		$dummyGraphOptions = new GraphOptions( [
-			'graphname' => $graphIllegalName,
-		] ) ;
-		$this->asserEquals( $dummyGraphOptions->getGraphName(), 'TestGraph' );
+		$this->asserEquals( $this->options->getGraphName(), 'TestGraph' );
 	}
 
 	public function testGetWordWrappedText() {
