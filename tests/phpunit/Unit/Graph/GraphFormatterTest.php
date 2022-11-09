@@ -67,6 +67,14 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 		$this->assertInstanceOf( GraphFormatter::class, new GraphFormatter( $this->options ) );
 	}
 
+	public function testGraphNameText() {
+		$graphIllegalName = 'Test!+Graph';
+		$dummyGraphOptions = new GraphOptions( [
+			'graphname' => $graphIllegalName,
+		] ) ;
+		$this->asserEquals( $dummyGraphOptions->getGraphName(), 'TestGraph' );
+	}
+
 	public function testGetWordWrappedText() {
 		$text = 'Lorem ipsum dolor sit amet';
 		$expected =  \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
