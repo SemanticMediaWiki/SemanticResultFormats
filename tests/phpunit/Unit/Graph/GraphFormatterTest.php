@@ -68,7 +68,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGraphNameText() {
-		$this->asserEquals( $this->options->getGraphName(), 'TestGraph' );
+		$this->assertEquals( $this->options->getGraphName(), 'TestGraph' );
 	}
 
 	public function testGetWordWrappedText() {
