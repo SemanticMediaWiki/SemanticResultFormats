@@ -274,12 +274,6 @@ class GraphFormatter {
 
 		$segments[] = $text;
 
-		global $wgVersion;
-		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
-		// and formatting is a little different from the GraphViz extension
-		$implodeChar = version_compare( $wgVersion, '1.33', '>=' ) &&
-			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? '<br />' : '\n';
-
-		return implode( $implodeChar, $segments );
+		return implode( '\n', $segments );
 	}
 }
