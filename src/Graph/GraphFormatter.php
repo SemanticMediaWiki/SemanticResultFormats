@@ -100,7 +100,7 @@ class GraphFormatter {
 
 			// Display fields, if any.
 			$fields = $node->getFields();
-			if ( count( $node->getFields() ) > 0 ) {
+			if ( count( $fields ) > 0 && $this->options->showGraphFields() ) {
 				$label = $nodeLabel
 					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
 							  [ '\n' => '<br/>' ] );

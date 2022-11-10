@@ -42,6 +42,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 			'graphlabel' => true,
 			'graphcolor' => true,
 			'graphlegend' => true,
+			'graphfields' => false
 		];
 
 		$this->options = new GraphOptions( $params );

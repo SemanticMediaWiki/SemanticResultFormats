@@ -4,6 +4,7 @@ namespace SRF\Graph;
 
 Use MediaWiki\MediaWikiServices;
 use Html;
+use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
 
@@ -85,7 +86,10 @@ class GraphPrinter extends ResultPrinter {
 		'vee',
 	];
 
+	/** @var GraphNode[]  */
 	private $nodes = [];
+
+	/** @var GraphOptions */
 	private $options;
 
 	public function getName() {
@@ -170,38 +174,32 @@ class GraphPrinter extends ResultPrinter {
 	 *
 	 * @since 3.1
 	 *
-	 * @param array $row
+	 * @param ResultArray[] $row
 	 *
 	 */
-	protected function processResultRow( array /* of SMWResultArray */ $row ) {
+	protected function processResultRow( array $row ) {
+		$node = null;
 		// loop through all row fields
 		foreach ( $row as $i => $resultArray ) {
-
-			// loop through all values of a multivalue field
-			while ( ( /* SMWWikiPageValue */
-				$object = $resultArray->getNextDataValue() ) !== false ) {
-
-				$type = $object->getTypeID();
-				if ( in_array( $type, [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ] ) ) {
-					// This is a page. A new node and an edge have to be created.
-					// create SRF\GraphNode for column 0
-					if ( $i === 0 ) {
-						$node = new GraphNode( $object->getShortWikiText() );
-						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
-						$this->nodes[] = $node;
-					} else {
-						$node->addParentNode(
-							$resultArray->getPrintRequest()->getLabel(),
-							$object->getShortWikiText()
-						);
-					}
+			while ( ( $object = $resultArray->getNextDataValue() ) !== false ) {
+				// create SRF\GraphNode for column 0
+				if ( $i == 0 ) {
+					$node = new GraphNode( $object->getShortWikiText() );
+					$node->setLabel( $object->getPreferredCaption() );
+					$this->nodes[] = $node;
 				} else {
-					// A non-page property.
+					$node->addParentNode( $resultArray->getPrintRequest()->getLabel(), $object->getShortWikiText() );
+				}
+
+				$allowedFieldTypes = [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ];
+				$type = $object->getTypeID();
+				$fieldName = $resultArray->getPrintRequest()->getLabel();
+				if ( $node && !in_array( $type, $allowedFieldTypes ) && !empty( $fieldName ) ) {
 					$node->addField(
-						$resultArray->getPrintRequest()->getOutputFormat(),
-						$object->getShortWikiText(),
-						$type,
-						$resultArray->getPrintRequest()->getLabel()
+						$resultArray->getPrintRequest()->getOutputFormat(), // field name
+						$object->getShortWikiText(), // field value
+						$type, // field type
+						$resultArray->getPrintRequest()->getLabel() // page
 					);
 				}
 			}
@@ -301,6 +299,13 @@ class GraphPrinter extends ResultPrinter {
 			'default' => '',
 			'message' => 'srf-paramdesc-nodelabel',
 			'values' => self::$NODE_LABELS,
+		];
+
+		$params['graphfields'] = [
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-fields',
+			'manipluatedefault' => false,
+			'type' => 'boolean'
 		];
 
 		return $params;
