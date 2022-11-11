@@ -111,11 +111,16 @@ class GraphPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	public function hasMissingDependency() {
+		$registry = \ExtensionRegistry::getInstance();
 		return (
-			!\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ||
+			// <graphviz> can be provided by Diagrams.
+			!$registry->isLoaded( 'Diagrams' ) ||
 			!class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' )
-			// <graphviz can also be added by External Data.
-		) && !in_array( 'graphviz', MediaWikiServices::getInstance()->getParser()->getTags() );
+		) && !(
+			// <graphviz can also be added by External Data in Tag emulation mode.
+			$registry->isLoaded( 'External Data' ) &&
+			in_array( 'graphviz', MediaWikiServices::getInstance()->getParser()->getTags() )
+		);
 	}
 
 	/**
@@ -129,7 +134,8 @@ class GraphPrinter extends ResultPrinter {
 			[
 				'class' => 'smw-callout smw-callout-error'
 			],
-			'The SRF Graph printer requires the GraphViz extension to be installed.'
+			'The SRF Graph printer requires the GraphViz or Diagrams or External Data ' .
+			'(with <graphviz> tag defined in Tag emulation mode ) extension to be installed.'
 		);
 	}
 
