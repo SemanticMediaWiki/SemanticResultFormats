@@ -27,6 +27,8 @@ class GraphOptions {
 	private $showGraphLabel;
 	private $showGraphColor;
 	private $showGraphLegend;
+	/** @var bool Show non-Page properties as fields within nodes rather than edges. */
+	private $showGraphFields;
 
 	public function __construct( $options ) {
 		$this->graphName = trim( $options['graphname'] );
@@ -42,6 +44,7 @@ class GraphOptions {
 		$this->showGraphLabel = trim( $options['graphlabel'] );
 		$this->showGraphColor = trim( $options['graphcolor'] );
 		$this->showGraphLegend = trim( $options['graphlegend'] );
+		$this->showGraphFields = trim( $options['graphfields'] );
 	}
 
 	public function getGraphName(): string {
@@ -94,5 +97,9 @@ class GraphOptions {
 
 	public function isGraphLegend(): bool {
 		return $this->showGraphLegend;
+	}
+
+	public function showGraphFields(): bool {
+		return $this->showGraphFields;
 	}
 }
