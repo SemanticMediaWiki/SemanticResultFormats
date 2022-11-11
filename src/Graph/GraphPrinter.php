@@ -2,8 +2,8 @@
 
 namespace SRF\Graph;
 
-Use MediaWiki\MediaWikiServices;
 use Html;
+Use MediaWiki\MediaWikiServices;
 use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
@@ -12,8 +12,7 @@ use SMWQueryResult;
  * SMW result printer for graphs using graphViz.
  * In order to use this printer you need to have both
  * the graphViz library installed on your system and
- * have the graphViz or Diagrams MediaWiki extension
- * installed.
+ * have the graphViz, Diagrams or ExternalData MediaWiki extension installed.
  *
  * @file SRF_Graph.php
  * @ingroup SemanticResultFormats
@@ -28,12 +27,12 @@ class GraphPrinter extends ResultPrinter {
 	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/pull/4273
 	// Implement `ResultPrinterDependency` once SMW 3.1 becomes mandatory
 
-	/** @const string[] PAGETYPES SMW types that represent SMW pages and should always be displayed as nodes. */
-	private const PAGETYPES = [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ];
 	const NODELABEL_DISPLAYTITLE = 'displaytitle';
 	public static $NODE_LABELS = [
 		self::NODELABEL_DISPLAYTITLE,
 	];
+	/** @const string[] PAGETYPES SMW types that represent SMW pages and should always be displayed as nodes. */
+	private const PAGETYPES = [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ];
 
 	public static $NODE_SHAPES = [
 		'box',
@@ -111,8 +110,11 @@ class GraphPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	public function hasMissingDependency() {
-		return !\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
-			|| !class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' );
+		return (
+			!\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ||
+			!class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' )
+			// <graphviz can also be added by External Data.
+		) && !in_array( 'graphviz', MediaWikiServices::getInstance()->getParser()->getTags() );
 	}
 
 	/**
@@ -126,7 +128,7 @@ class GraphPrinter extends ResultPrinter {
 			[
 				'class' => 'smw-callout smw-callout-error'
 			],
-			'The SRF Graph printer requires the Diagrams or GraphViz extension to be installed.'
+			'The SRF Graph printer requires the GraphViz extension to be installed.'
 		);
 	}
 
@@ -137,28 +139,33 @@ class GraphPrinter extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgVersion;
+		// Remove this once SRF requires 3.1+
+		if ( $this->hasMissingDependency() ) {
+			return $this->getDependencyError();
+		}
 
 		// iterate query result and create SRF\GraphNodes
 		while ( $row = $res->getNext() ) {
 			$this->processResultRow( $row );
 		}
 
-		// use GraphFormatter to build the graph
+		// use GraphFormater to build the graph
 		$graphFormatter = new GraphFormatter( $this->options );
 		$graphFormatter->buildGraph( $this->nodes );
 
 		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
 		// and formatting is a little different from the GraphViz extension
+		global $wgVersion;
 		if ( version_compare( $wgVersion, '1.33', '>=' ) &&
 			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
 			$result = "<graphviz>{$graphFormatter->getGraph()}</graphviz>";
 		} else {
-			// Calls graphvizParserHook function from MediaWiki GraphViz extension
+			// Calls graphvizParserHook function from MediaWiki GraphViz or External Data extension
 			$parser = MediaWikiServices::getInstance()->getParser();
 			$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph() . "</graphviz>" );
 		}
 
+		// Append legend
 		$result .= $graphFormatter->getGraphLegend();
 
 		if ( $outputmode === SMW_OUTPUT_HTML ) {
@@ -166,7 +173,6 @@ class GraphPrinter extends ResultPrinter {
 		}
 
 		return MediaWikiServices::getInstance()->getParser()->recursiveTagParse( $result );
-
 	}
 
 	/**
@@ -186,9 +192,7 @@ class GraphPrinter extends ResultPrinter {
 			// Loop through all values of a multivalue field.
 			while ( ( /* SMWWikiPageValue */ $object = $resultArray->getNextDataValue() ) !== false ) {
 				$type = $object->getTypeID();
-				if (
-					!$this->options->showGraphFields() || in_array( $type, self::PAGETYPES )
-				) {
+				if ( !$this->options->showGraphFields() || in_array( $type, self::PAGETYPES ) ) {
 					// All properties are shown as edges anyway OR this is a property of the type 'Page'.
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,
@@ -321,7 +325,7 @@ class GraphPrinter extends ResultPrinter {
 			'message' => 'srf-paramdesc-nodelabel',
 			'values' => self::$NODE_LABELS,
 		];
-		
+
 		$params['graphfields'] = [
 			'default' => false,
 			'message' => 'srf-paramdesc-graph-fields',
