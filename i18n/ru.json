@@ -347,5 +347,6 @@
 	"srf-paramdesc-gantt-barheight": "Высота панелей задач",
 	"srf-paramdesc-gantt-leftpadding": "Ширина заголовка секции",
 	"srf-error-gantt-mermaid-not-installed": "Расширение Mermaid должно быть установлено.",
-	"srf-printername-gantt": "Диаграмма Ганта"
+	"srf-printername-gantt": "Диаграмма Ганта",
+	"srf-paramdesc-graphfields": "Display non-page property values within graph nodes rather than as edges."
 }
