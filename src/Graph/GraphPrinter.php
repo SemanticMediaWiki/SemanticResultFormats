@@ -4,6 +4,7 @@ namespace SRF\Graph;
 
 Use MediaWiki\MediaWikiServices;
 use Html;
+use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
 
@@ -27,6 +28,8 @@ class GraphPrinter extends ResultPrinter {
 	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/pull/4273
 	// Implement `ResultPrinterDependency` once SMW 3.1 becomes mandatory
 
+	/** @const string[] PAGETYPES SMW types that represent SMW pages and should always be displayed as nodes. */
+	private const PAGETYPES = [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ];
 	const NODELABEL_DISPLAYTITLE = 'displaytitle';
 	public static $NODE_LABELS = [
 		self::NODELABEL_DISPLAYTITLE,
@@ -85,6 +88,7 @@ class GraphPrinter extends ResultPrinter {
 		'vee',
 	];
 
+	/** @var GraphNode[] */
 	private $nodes = [];
 	private $options;
 
@@ -170,10 +174,10 @@ class GraphPrinter extends ResultPrinter {
 	 *
 	 * @since 3.1
 	 *
-	 * @param array $row
+	 * @param ResultArray[] $row
 	 *
 	 */
-	protected function processResultRow( array /* of SMWResultArray */ $row ) {
+	protected function processResultRow( array $row ) {
 		$node = null;
 		$fields = [];
 		$parents = [];
@@ -183,24 +187,24 @@ class GraphPrinter extends ResultPrinter {
 			while ( ( /* SMWWikiPageValue */ $object = $resultArray->getNextDataValue() ) !== false ) {
 				$type = $object->getTypeID();
 				if (
-					in_array( $type, [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ] ) ||
-					!$this->options->showGraphFields()
+					!$this->options->showGraphFields() || in_array( $type, self::PAGETYPES )
 				) {
-					// This is a property of the type 'Page' OR all properties are shown as edges.
+					// All properties are shown as edges anyway OR this is a property of the type 'Page'.
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,
 						// and this is the printout '?'. So, create it now.
 						$node = new GraphNode( $object->getShortWikiText() );
 						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
 					} else {
-						// Remember a parent node to add.
+						// Remember a parent node to add after the row is processed.
 						$parents[] = [
 							'predicate' => $resultArray->getPrintRequest()->getLabel(),
 							'object' => $object->getShortWikiText()
 						];
 					}
 				} else {
-					// A non-Page property, no edge for it. Remember the field to add at the end of the row.
+					// A non-Page property and 'graphfields' is set,
+					// so display it as a field after the row has been processed.
 					$fields[] = [
 						'name' => $resultArray->getPrintRequest()->getOutputFormat(),
 						'value' => $object->getShortWikiText(),
@@ -316,6 +320,13 @@ class GraphPrinter extends ResultPrinter {
 			'default' => '',
 			'message' => 'srf-paramdesc-nodelabel',
 			'values' => self::$NODE_LABELS,
+		];
+		
+		$params['graphfields'] = [
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-fields',
+			'manipluatedefault' => false,
+			'type' => 'boolean'
 		];
 
 		return $params;
