@@ -156,7 +156,7 @@ class GraphPrinter extends ResultPrinter {
 			$this->processResultRow( $row );
 		}
 
-		// use GraphFormater to build the graph
+		// use GraphFormatter to build the graph
 		$graphFormatter = new GraphFormatter( $this->options );
 		$graphFormatter->buildGraph( $this->nodes );
 
