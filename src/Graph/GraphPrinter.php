@@ -156,15 +156,16 @@ class GraphPrinter extends ResultPrinter {
 			$this->processResultRow( $row );
 		}
 
-		// use GraphFormater to build the graph
+		// use GraphFormatter to build the graph
 		$graphFormatter = new GraphFormatter( $this->options );
 		$graphFormatter->buildGraph( $this->nodes );
 
-		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams or External Data extension
 		// and formatting is a little different from the GraphViz extension
 		global $wgVersion;
 		if ( version_compare( $wgVersion, '1.33', '>=' ) &&
 			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+			// Using Diagrams extension.
 			$result = "<graphviz>{$graphFormatter->getGraph()}</graphviz>";
 		} else {
 			// Calls graphvizParserHook function from MediaWiki GraphViz or External Data extension
