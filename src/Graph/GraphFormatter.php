@@ -263,8 +263,15 @@ class GraphFormatter {
 			$lines[$line][] = $word;
 			$length += 1 + mb_strlen( $word ); // 1 is for the space between the words.
 		}
+		global $wgVersion;
+
+		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+		// and formatting is a little different from the GraphViz extension
+		$implodeChar = version_compare( $wgVersion, '1.33', '>=' ) &&
+		\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? '<br />' : PHP_EOL;
+
 		// Glue lines by newline and words in lines by space.
-		return implode( PHP_EOL, array_map( static function ( array $words ) {
+		return implode( $implodeChar, array_map( static function ( array $words ) {
 			return implode( ' ', $words );
 		}, $lines ) );
 	}
