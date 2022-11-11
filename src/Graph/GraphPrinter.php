@@ -182,8 +182,11 @@ class GraphPrinter extends ResultPrinter {
 			// Loop through all values of a multivalue field.
 			while ( ( /* SMWWikiPageValue */ $object = $resultArray->getNextDataValue() ) !== false ) {
 				$type = $object->getTypeID();
-				if ( in_array( $type, [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ] ) ) {
-					// This is a property of the type 'Page'.
+				if (
+					in_array( $type, [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ] ) ||
+					!$this->options->showGraphFields()
+				) {
+					// This is a property of the type 'Page' OR all properties are shown as edges.
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,
 						// and this is the printout '?'. So, create it now.
