@@ -7,6 +7,7 @@ Use MediaWiki\MediaWikiServices;
 use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
+use SMW\Query\PrintRequest;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -188,11 +189,17 @@ class GraphPrinter extends ResultPrinter {
 		$fields = [];
 		$parents = [];
 		// loop through all row fields
-		foreach ( $row as $resultArray ) {
+		foreach ( $row as $result_array ) {
+			$request = $result_array->getPrintRequest();
+			$type = $request->getTypeID();
+			// Whether this printout should be shown as an edge.
+			$show_as_edge = !$this->options->showGraphFields() // no fields at all.
+				|| in_array( $type, self::PAGETYPES ) // property of the type 'Page'.
+				|| $request->isMode( PrintRequest::PRINT_CHAIN ); // property chain, treated like 'Page'.
+
 			// Loop through all values of a multivalue field.
-			while ( ( /* SMWWikiPageValue */ $object = $resultArray->getNextDataValue() ) !== false ) {
-				$type = $object->getTypeID();
-				if ( !$this->options->showGraphFields() || in_array( $type, self::PAGETYPES ) ) {
+			while ( ( /* SMWWikiPageValue */ $object = $result_array->getNextDataValue() ) !== false ) {
+				if ( $show_as_edge ) {
 					// All properties are shown as edges anyway OR this is a property of the type 'Page'.
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,
@@ -202,7 +209,7 @@ class GraphPrinter extends ResultPrinter {
 					} else {
 						// Remember a parent node to add after the row is processed.
 						$parents[] = [
-							'predicate' => $resultArray->getPrintRequest()->getLabel(),
+							'predicate' => $request->getLabel(),
 							'object' => $object->getShortWikiText()
 						];
 					}
@@ -210,10 +217,10 @@ class GraphPrinter extends ResultPrinter {
 					// A non-Page property and 'graphfields' is set,
 					// so display it as a field after the row has been processed.
 					$fields[] = [
-						'name' => $resultArray->getPrintRequest()->getOutputFormat(),
+						'name' => $request->getOutputFormat(),
 						'value' => $object->getShortWikiText(),
 						'type' => $type,
-						'page' => $resultArray->getPrintRequest()->getLabel()
+						'page' => $request->getLabel()
 					];
 				}
 			}
