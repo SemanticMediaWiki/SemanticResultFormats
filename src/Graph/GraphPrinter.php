@@ -28,6 +28,8 @@ class GraphPrinter extends ResultPrinter {
 	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/pull/4273
 	// Implement `ResultPrinterDependency` once SMW 3.1 becomes mandatory
 
+	/** @const string[] PAGETYPES SMW types that represent SMW pages and should always be displayed as nodes. */
+	private const PAGETYPES = [ '_wpg', '_wpp', '_wps', '_wpu', '__sup', '__sin', '__suc', '__con' ];
 	const NODELABEL_DISPLAYTITLE = 'displaytitle';
 	public static $NODE_LABELS = [
 		self::NODELABEL_DISPLAYTITLE,
@@ -337,6 +339,13 @@ class GraphPrinter extends ResultPrinter {
 			'default' => '',
 			'message' => 'srf-paramdesc-nodelabel',
 			'values' => self::$NODE_LABELS,
+		];
+		
+		$params['graphfields'] = [
+			'default' => false,
+			'message' => 'srf-paramdesc-graph-fields',
+			'manipluatedefault' => false,
+			'type' => 'boolean'
 		];
 
 		$params['graphfields'] = [
