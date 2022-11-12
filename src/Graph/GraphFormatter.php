@@ -261,18 +261,12 @@ class GraphFormatter {
 	 * @return string
 	 */
 	public function getWordWrappedText( $text, $charLimit ) {
-		return implode( $this->lineSeparator, array_reduce(
-			preg_split( '/\s+/', $text ),
-			static function ( array $wrapped, $word ) use ( $charLimit ) {
-				$last = count( $wrapped ) - 1;
-				if ( $last < 0 || mb_strlen( $wrapped[$last] ) + 1 + mb_strlen( $word ) > $charLimit ) {
-					$wrapped[] = $word;
-				} else {
-					$wrapped[$last] .= ' ' . $word;
-				}
-				return $wrapped;
-			},
-			[]
-		) );
+		preg_match_all(
+			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)/u',
+			$text,
+			$matches,
+			PREG_PATTERN_ORDER
+		);
+		return implode( $this->lineSeparator, $matches[0] );
 	}
 }
