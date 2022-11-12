@@ -92,7 +92,6 @@ size="100";node [shape=rect];rankdir=LR;
 }
 FIELDS
 		]
-
 	];
 
 	/** @const array BASE_PARAMS A non-changing subset of parameters. */
@@ -189,7 +188,10 @@ WRAPPED0
 	 * @return void
 	 */
 	public function testGetWordWrappedText( $unwrapped, $wrapped ) {
-		$this->assertEquals( $wrapped, GraphFormatter::getWordWrappedText( $unwrapped, 10 ) );
+		$formatter = new GraphFormatter(
+			new GraphOptions( GraphFormatterTest::BASE_PARAMS + ['graphfields' => false] )
+		);
+		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
 	}
 
 	/**
