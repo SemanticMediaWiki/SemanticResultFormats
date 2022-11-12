@@ -37,9 +37,19 @@ class GraphFormatter {
 	];
 	private $legendItem = [];
 	private $options;
+	/** @var string $lineSeparator Line separator for line wrapped long text. */
+	private $lineSeparator;
 
 	public function __construct( GraphOptions $options ) {
 		$this->options = $options;
+
+		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+		// and formatting is a little different from the GraphViz extension
+		global $wgVersion;
+		$this->lineSeparator
+			= version_compare( $wgVersion, '1.33', '>=' ) && \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
+			? '<br />'
+			: PHP_EOL;
 	}
 
 	public function getGraph() {
@@ -102,7 +112,7 @@ class GraphFormatter {
 
 			// Display fields, if any.
 			$fields = $node->getFields();
-			if ( count( $node->getFields() ) > 0 ) {
+			if ( count( $fields ) > 0 ) {
 				$label = $nodeLabel
 					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
 							  [ '\n' => '<br/>' ] );
@@ -250,29 +260,19 @@ class GraphFormatter {
 	 *
 	 * @return string
 	 */
-	public static function getWordWrappedText( $text, $charLimit ) {
-		$words = preg_split( '/\s+/', $text );
-		$lines = [];
-		$line = -1; // will advance to 0 on the first loop.
-		foreach( $words as $word ) {
-			if ( $line < 0 || $length + 1 + mb_strlen( $word ) > $charLimit ) {
-				// First word, or the line is getting too long. Begin a new line.
-				$lines[++$line] = []; // add new line.
-				$length = -1; // reset current line's length. No space before the first word is needed.
-			}
-			$lines[$line][] = $word;
-			$length += 1 + mb_strlen( $word ); // 1 is for the space between the words.
-		}
-		global $wgVersion;
-
-		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
-		// and formatting is a little different from the GraphViz extension
-		$implodeChar = version_compare( $wgVersion, '1.33', '>=' ) &&
-		\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? '<br />' : PHP_EOL;
-
-		// Glue lines by newline and words in lines by space.
-		return implode( $implodeChar, array_map( static function ( array $words ) {
-			return implode( ' ', $words );
-		}, $lines ) );
+	public function getWordWrappedText( $text, $charLimit ) {
+		return implode( $this->lineSeparator, array_reduce(
+			preg_split( '/\s+/', $text ),
+			static function ( array $wrapped, $word ) use ( $charLimit ) {
+				$last = count( $wrapped ) - 1;
+				if ( $last < 0 || mb_strlen( $wrapped[$last] ) + 1 + mb_strlen( $word ) > $charLimit ) {
+					$wrapped[] = $word;
+				} else {
+					$wrapped[$last] .= ' ' . $word;
+				}
+				return $wrapped;
+			},
+			[]
+		) );
 	}
 }
