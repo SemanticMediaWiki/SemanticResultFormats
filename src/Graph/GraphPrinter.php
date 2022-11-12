@@ -134,8 +134,8 @@ class GraphPrinter extends ResultPrinter {
 			[
 				'class' => 'smw-callout smw-callout-error'
 			],
-			'The SRF Graph printer requires the GraphViz or Diagrams or External Data ' .
-			'(with <graphviz> tag defined in Tag emulation mode ) extension to be installed.'
+			'The SRF Graph printer requires the GraphViz, Diagrams or External Data ' .
+			'(with &lt;graphviz&gt; tag defined in Tag emulation mode) extension to be installed.'
 		);
 	}
 
@@ -170,7 +170,7 @@ class GraphPrinter extends ResultPrinter {
 		} else {
 			// Calls graphvizParserHook function from MediaWiki GraphViz or External Data extension
 			$parser = MediaWikiServices::getInstance()->getParser();
-			$result = $parser->recursiveTagParse( "<graphviz>" . $graphFormatter->getGraph() . "</graphviz>" );
+			$result = $parser->recursiveTagParse( '<graphviz>' . $graphFormatter->getGraph() . '</graphviz>' );
 		}
 
 		// Append legend
@@ -207,7 +207,6 @@ class GraphPrinter extends ResultPrinter {
 			// Loop through all values of a multivalue field.
 			while ( ( /* SMWWikiPageValue */ $object = $result_array->getNextDataValue() ) !== false ) {
 				if ( $show_as_edge ) {
-					// All properties are shown as edges anyway OR this is a property of the type 'Page'.
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,
 						// and this is the printout '?'. So, create it now.
@@ -224,10 +223,10 @@ class GraphPrinter extends ResultPrinter {
 					// A non-Page property and 'graphfields' is set,
 					// so display it as a field after the row has been processed.
 					$fields[] = [
-						'name' => $request->getOutputFormat(),
+						'name' => $request->getLabel(),
 						'value' => $object->getShortWikiText(),
 						'type' => $type,
-						'page' => $request->getLabel()
+						'page' => $request->getCanonicalLabel()
 					];
 				}
 			}
