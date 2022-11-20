@@ -16,78 +16,26 @@ use SRF\Graph\GraphOptions;
  */
 class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 
-	/*
-	* @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
-	*/
-	private $options;
-
-	private $graphFormatter;
-
-	private $nodes = [];
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		$params = [
-			'graphname' => 'Unit Test',
-			'graphsize' => '100',
-			'graphfontsize' => 10,
-			'nodeshape' => 'rect',
-			'nodelabel' => 'displaytitle',
-			'arrowdirection' => 'LR',
-			'arrowhead' => 'diamond',
-			'wordwraplimit' => 20,
-			'relation' => 'parent',
-			'graphlink' => true,
-			'graphlabel' => true,
-			'graphcolor' => true,
-			'graphlegend' => true,
-		];
-
-		$this->options = new GraphOptions( $params );
-
-		$this->graphFormatter = new GraphFormatter( $this->options );
-
-		$node1 = new GraphNode( 'Team:Alpha' );
-		$node1->setLabel( "Alpha" );
-		$node1->addParentNode( "Casted", "Person:Alexander Gesinn" );
-		$this->nodes[] = $node1;
-
-		$node2 = new GraphNode( 'Team:Beta' );
-		$node2->setLabel( "Beta" );
-		$node2->addParentNode( "Casted", "Person:Sebastian Schmid" );
-		$node2->addParentNode( "Casted", "Person:Alexander Gesinn" );
-		$node2->addParentNode( "Part of Team ", "Team:Alpha" );
-		$this->nodes[] = $node2;
-
-		$this->graphFormatter->buildGraph( $this->nodes );
-	}
-
-	public function testCanConstruct() {
-		$this->assertInstanceOf( GraphFormatter::class, new GraphFormatter( $this->options ) );
-	}
-
-	public function testGetWordWrappedText() {
-		$text = 'Lorem ipsum dolor sit amet';
-		$expected =  \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
-		 	? 'Lorem <br />ipsum <br />dolor sit <br />amet'
-			: 'Lorem \nipsum \ndolor sit \namet';
-
-		$this->assertEquals( GraphFormatter::getWordWrappedText( $text, 10 ), $expected );
-	}
-
-	public function testGetGraphLegend() {
-		$expected = "<div class=\"graphlegend\">" .
-			"<div class=\"graphlegenditem\" style=\"color: black\">black: Casted</div>" .
-			"<div class=\"graphlegenditem\" style=\"color: red\">red: Part of Team </div>" .
-			"</div>";
-
-		$this->assertEquals( $this->graphFormatter->getGraphLegend(), $expected );
-	}
-
-	public function testBuildGraph() {
-		$expected = <<<'DOT'
-digraph Unit Test {graph [fontsize=10, fontname="Verdana"]
+	/** @var array $cases An array of test cases. */
+	private $cases = [
+		'Simple' => [
+			'params' => [ 'graphfields' => false ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			'nodes' => [
+				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
+					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
+				] ],
+				[ 'name' => 'Team:Beta', 'label' => 'Beta', 'parents' => [
+					[ 'predicate' => 'Casted', 'object' => 'Person:Sebastian Schmid' ],
+					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ],
+					[ 'predicate' => 'Part of Team', 'object' => 'Team:Alpha' ],
+				] ]
+			],
+			'legend' => '<div class="graphlegend">' .
+				'<div class="graphlegenditem" style="color: black">black: Casted</div>' .
+				'<div class="graphlegenditem" style="color: red">red: Part of Team</div>' .
+				'</div>',
+			'dot' => <<<'SIMPLE'
+digraph "Unit Test" {graph [fontsize=10, fontname="Verdana"]
 node [fontsize=10, fontname="Verdana"];
 edge [fontsize=10, fontname="Verdana"];
 size="100";node [shape=rect];rankdir=LR;
@@ -96,9 +44,197 @@ size="100";node [shape=rect];rankdir=LR;
 "Person:Alexander Gesinn" -> "Team:Alpha" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
 "Person:Sebastian Schmid" -> "Team:Beta" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
 "Person:Alexander Gesinn" -> "Team:Beta" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
-"Team:Alpha" -> "Team:Beta" [label="Part of Team ",fontcolor=red,arrowhead=diamond,color=red];
+"Team:Alpha" -> "Team:Beta" [label="Part of Team",fontcolor=red,arrowhead=diamond,color=red];
 }
-DOT;
-		$this->assertEquals( $this->graphFormatter->getGraph(), $expected );
+SIMPLE
+		],
+		'With fields' => [
+			'params' => [ 'graphfields' => true ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			'nodes' => [
+				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
+					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
+				], 'fields' => [
+					[ 'name' => 'Rated as', 'value' => 10, 'type' => '_num', 'page' => 'Rating' ]
+				] ],
+				[ 'name' => 'Team:Beta', 'label' => 'Beta', 'parents' => [
+					[ 'predicate' => 'Casted', 'object' => 'Person:Sebastian Schmid' ],
+					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ],
+					[ 'predicate' => 'Part of Team', 'object' => 'Team:Alpha' ],
+				], 'fields' => [
+					[ 'name' => 'Rated as', 'value' => 20, 'type' => '_num', 'page' => 'Rating' ]
+				] ]
+			],
+			'legend' => '<div class="graphlegend">' .
+				'<div class="graphlegenditem" style="color: black">black: Casted</div>' .
+				'<div class="graphlegenditem" style="color: red">red: Part of Team</div>' .
+				'</div>',
+			'dot' => <<<'FIELDS'
+digraph "Unit Test" {graph [fontsize=10, fontname="Verdana"]
+node [fontsize=10, fontname="Verdana"];
+edge [fontsize=10, fontname="Verdana"];
+size="100";node [shape=rect];rankdir=LR;
+"Team:Alpha" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Alpha]]">Alpha</td></tr><hr/>
+<tr><td align="left" href="[[Property:Rating]]">Rated as</td><td align="right">10</td></tr>
+</table>
+>, tooltip = "Alpha"];
+"Team:Beta" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Beta]]">Beta</td></tr><hr/>
+<tr><td align="left" href="[[Property:Rating]]">Rated as</td><td align="right">20</td></tr>
+</table>
+>, tooltip = "Beta"];
+"Person:Alexander Gesinn" -> "Team:Alpha" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
+"Person:Sebastian Schmid" -> "Team:Beta" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
+"Person:Alexander Gesinn" -> "Team:Beta" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
+"Team:Alpha" -> "Team:Beta" [label="Part of Team",fontcolor=red,arrowhead=diamond,color=red];
+}
+FIELDS
+		]
+	];
+
+	/** @const array BASE_PARAMS A non-changing subset of parameters. */
+	/** @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format */
+	private const BASE_PARAMS = [
+		'graphname' => 'Unit Test',
+		'graphsize' => '100',
+		'graphfontsize' => 10,
+		'nodeshape' => 'rect',
+		'nodelabel' => 'displaytitle',
+		'arrowdirection' => 'LR',
+		'arrowhead' => 'diamond',
+		'wordwraplimit' => 20,
+		'relation' => 'parent',
+		'graphlink' => true,
+		'graphlabel' => true,
+		'graphcolor' => true,
+		'graphlegend' => true,
+	];
+
+	/**
+	 * Create a complete graph for the test case.
+	 * @var array $case
+	 * @return GraphFormatter
+	 */
+	private static function graph( array $case ): GraphFormatter {
+		$graph = new GraphFormatter( new GraphOptions( GraphFormatterTest::BASE_PARAMS + $case['params'] ) );
+		$nodes = [];
+		foreach ( $case['nodes'] as $node ) {
+			$graph_node = new GraphNode( $node['name'] );
+			$graph_node->setLabel( $node['label'] );
+			if ( isset( $node['parents'] ) ) {
+				foreach ( $node['parents'] as $parent ) {
+					$graph_node->addParentNode( $parent['predicate'], $parent['object'] );
+				}
+			}
+			if ( isset( $node['fields'] ) ) {
+				foreach ( $node['fields'] as $field ) {
+					$graph_node->addField( $field['name'], $field['value'], $field['type'], $field['page'] );
+				}
+			}
+			$nodes[] = $graph_node;
+		}
+		$graph->buildGraph( $nodes );
+		return $graph;
+	}
+
+	/**
+	 * @return array Test cases.
+	 */
+	public function provideCanConstruct(): array {
+		$cases = [];
+		foreach ( $this->cases as $name => $case ) {
+			$cases[$name] = [ self::BASE_PARAMS + $case['params'] ];
+		}
+		return $cases;
+	}
+
+	/**
+	 * @covers GraphFormatter::__construct()
+	 * @dataProvider provideCanConstruct
+	 * @param array $params
+	 * @return void
+	 */
+	public function testCanConstruct( array $params ) {
+		$this->assertInstanceOf( GraphFormatter::class, new GraphFormatter( new GraphOptions( $params ) ) );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function provideGetWordWrappedText(): array {
+		return [
+			'Simple wrap' => [
+				'Lorem ipsum dolor sit amet',
+				<<<'WRAPPED0'
+Lorem
+ipsum
+dolor sit
+amet
+WRAPPED0
+			],
+			'Unwrappable' => [ 'Supercalifragilisticexpialidocious', 'Supercalifragilisticexpialidocious' ],
+			'One line' => [ 'One line', 'One line' ],
+			'Empty' => [ '', '' ]
+		];
+	}
+
+	/**
+	 * @covers GraphFormatter::getWordWrappedText()
+	 * @dataProvider provideGetWordWrappedText
+	 * @param string $unwrapped
+	 * @param string $wrapped
+	 * @return void
+	 */
+	public function testGetWordWrappedText( $unwrapped, $wrapped ) {
+		$formatter = new GraphFormatter(
+			new GraphOptions( GraphFormatterTest::BASE_PARAMS + ['graphfields' => false] )
+		);
+		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function provideGetGraphLegend(): array {
+		$cases = [];
+		foreach ( $this->cases as $name => $case ) {
+			$cases[$name] = [ $case, $case['legend'] ];
+		}
+		return $cases;
+	}
+
+	/**
+	 * @covers GraphFormatter::getGraphLegend()
+	 * @dataProvider provideGetGraphLegend
+	 * @param array $params
+	 * @param string $expected The expected legend.
+	 * @return void
+	 */
+	public function testGetGraphLegend( array $params, $expected ) {
+		$this->assertEquals( $expected, self::graph( $params )->getGraphLegend() );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function provideBuildGraph(): array {
+		$cases = [];
+		foreach ( $this->cases as $name => $case ) {
+			$cases[$name] = [ $case, $case['dot'] ];
+		}
+		return $cases;
+	}
+
+	/**
+	 * @covers GraphFormatter::buildGraph()
+	 * @dataProvider provideBuildGraph
+	 * @param array $params
+	 * @param string $expected The expected DOT code.
+	 * @return void
+	 */
+	public function testBuildGraph( array $params, $expected ) {
+		$this->assertEquals( $expected, self::graph( $params )->getGraph() );
 	}
 }

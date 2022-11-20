@@ -373,5 +373,6 @@
 	"srf-error-gantt-sortkey": "This is an error message.",
 	"srf-error-gantt-mermaid-not-installed": "This is an error message.",
 	"srf-printername-gantt": "{{doc-smwformat|gantt}}",
-	"srf-paramdesc-nodelabel": "{{doc-paramdesc|nodelabel}}\n{{doc-important|Do not translate the possible parameters: \"displaytitle\".}}"
+	"srf-paramdesc-nodelabel": "{{doc-paramdesc|nodelabel}}\n{{doc-important|Do not translate the possible parameters: \"displaytitle\".}}",
+	"srf-paramdesc-graphfields": "Display non-page property values within graph nodes rather than as edges."
 }
