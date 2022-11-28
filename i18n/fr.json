@@ -381,5 +381,6 @@
 	"srf-error-gantt-sortkey": "La '''clé de tri''' que vous avez choisie n’est pas prise en charge",
 	"srf-error-gantt-mermaid-not-installed": "L’extension Mermaid doit être installée.",
 	"srf-printername-gantt": "Gantt",
-	"srf-paramdesc-nodelabel": "Utiliser un libellé de nœud de graphe. Valeurs autorisées : « displaytitle »."
+	"srf-paramdesc-nodelabel": "Utiliser un libellé de nœud de graphe. Valeurs autorisées : « displaytitle ».",
+	"srf-paramdesc-graphfields": "Afficher les valeurs de propriété hors page dans les nœuds du graphique plutôt que sous forme d’arêtes."
 }

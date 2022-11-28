@@ -72,7 +72,7 @@
 	"srf_printername_bibtex": "exportação BibTeX",
 	"srf_outline_novalue": "Nenhum valor",
 	"srf_printername_outline": "Lista estruturada",
-	"srf_paramdesc_outlineproperties": "A lista das propriedades apresentadas como cabeçalhos das listas estruturadas, separadas por vírgulas",
+	"srf_paramdesc_outlineproperties": "A lista das propriedades a serem apresentadas como cabeçalhos das listas estruturadas, separadas por vírgulas",
 	"srf_printername_sum": "Soma dos números",
 	"srf_printername_average": "Média dos números",
 	"srf_printername_max": "Número máximo",
@@ -354,5 +354,6 @@
 	"srf-error-gantt-sortkey": "A '''chave de ordenação''' que escolheu não é suportada",
 	"srf-error-gantt-mermaid-not-installed": "A extensão Mermaid precisa de ser instalada.",
 	"srf-printername-gantt": "Gantt",
-	"srf-paramdesc-nodelabel": "Usar um rótulo de vértice de grafo. Valores permitidos: displaytitle."
+	"srf-paramdesc-nodelabel": "Usar um rótulo de vértice de grafo. Valores permitidos: displaytitle.",
+	"srf-paramdesc-graphfields": "Apresentar os valores de propriedades que não são da página dentro dos vértices do gráfico, em vez de como arestas."
 }
