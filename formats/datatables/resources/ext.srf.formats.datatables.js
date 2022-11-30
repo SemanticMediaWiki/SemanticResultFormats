@@ -32,8 +32,8 @@
 		smwApi = new smw.api(),
 		util = new srf.util();
 
-		
-	var removedURIs;
+	var removedURIs = {};
+	var testSmwApiResult = null;
 
 	/**
 	 * Container for all non-public objects and methods
@@ -216,13 +216,15 @@
 												row: rowIndex,
 											});
 										} else if (DI instanceof smw.dataItem.uri) {
-
 											// *** this is a work-around to handle invalid URIs which
 											// prevent the datatable from working
 											// the file to be fixed is the following:
 											// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
-											if ( (rowIndex in removedURIs) && (key in removedURIs[rowIndex]) ) {
-												DI.fullurl = removedURIs[rowIndex][key]
+											if (
+												rowIndex in removedURIs &&
+												key in removedURIs[rowIndex]
+											) {
+												DI.fullurl = removedURIs[rowIndex][key];
 											}
 
 											collectedValueItem += DI.getHtml(linker);
@@ -820,26 +822,6 @@
 		update: function (context, data) {
 			var self = this;
 
-			// Lock the current context to avoid queuing issues during the update
-			// process (e.g another button is pressed )
-			context.block({
-				message: html.element("span", { class: "mw-ajax-loader" }, ""),
-				css: {
-					border: "2px solid #DDD",
-					height: "20px",
-					"padding-top": "35px",
-					opacity: 0.8,
-					"-webkit-border-radius": "5px",
-					"-moz-border-radius": "5px",
-					"border-radius": "5px",
-				},
-				overlayCSS: {
-					backgroundColor: "#fff",
-					opacity: 0.6,
-					cursor: "wait",
-				},
-			});
-
 			// Collect query information
 			var conditions = data.query.ask.conditions,
 				printouts = data.query.ask.printouts,
@@ -856,70 +838,100 @@
 			).toString();
 
 			// Fetch data via Ajax/SMWAPI
-			smwApi
-				.fetch(queryString, datatables.defaults.cacheApi)
-				.done(function (result) {
-					// *** use the initial printrequests also for subsequent
-					// calls of the api, since it seems that the api returns
-					// a wrong mainlabel value
-					var printreqs = data.query.result.printrequests;
 
-					// Copy result query data and run a result parse
-					$.extend(data.query.result, result.query, {
-						printrequests: printreqs,
-					});
+			var callback = function (result) {
+				// *** use the initial printrequests also for subsequent
+				// calls of the api, since it seems that the api returns
+				// a wrong mainlabel value
+				var printreqs = data.query.result.printrequests;
 
-					$.extend(data, _datatables.parse.results(context, data));
-
-					// Refresh datatables
-					// data.table.fnClearTable();
-					// data.table.fnAddData( data.aaData );
-					// data.table.fnDraw();
-
-					data.table.clear();
-					data.table.rows.add(data.aaData);
-					data.table.draw();
-
-					// Update information from where the content was derived
-					context
-						.find("#srf-panel-information .content-source")
-						.toggleClass("cache", result.isCached)
-						.text(
-							result.isCached
-								? mw.msg("srf-ui-datatables-label-content-cache")
-								: mw.msg("srf-ui-datatables-label-content-server")
-						);
-
-					// Update conditions text-field content
-					context.find("#condition").val(data.query.ask.conditions);
-
-					// Update limit parameter (widget)
-					context.find(".parameters > fieldset").parameters("option", "limit", {
-						limit: data.query.ask.parameters.limit,
-						count: data.query.result.meta.count,
-					});
-
-					// Update export links
-					_datatables.exportlinks(context, data);
-
-					context.unblock({
-						onUnblock: function () {
-							util.notification.create({
-								content: mw.msg("srf-ui-datatables-label-update-success"),
-							});
-						},
-					});
-				})
-				.fail(function (error) {
-					context.unblock({
-						onUnblock: function () {
-							util.notification.create({
-								content: mw.msg("srf-ui-datatables-label-update-error"),
-								color: "#BF381A",
-							});
-						},
-					});
+				// Copy result query data and run a result parse
+				$.extend(data.query.result, result.query, {
+					printrequests: printreqs,
 				});
+
+				$.extend(data, _datatables.parse.results(context, data));
+
+				// Refresh datatables
+				// data.table.fnClearTable();
+				// data.table.fnAddData( data.aaData );
+				// data.table.fnDraw();
+
+				data.table.clear();
+				data.table.rows.add(data.aaData);
+				data.table.draw();
+
+				// Update information from where the content was derived
+				context
+					.find("#srf-panel-information .content-source")
+					.toggleClass("cache", result.isCached)
+					.text(
+						result.isCached
+							? mw.msg("srf-ui-datatables-label-content-cache")
+							: mw.msg("srf-ui-datatables-label-content-server")
+					);
+
+				// Update conditions text-field content
+				context.find("#condition").val(data.query.ask.conditions);
+
+				// Update limit parameter (widget)
+				context.find(".parameters > fieldset").parameters("option", "limit", {
+					limit: data.query.ask.parameters.limit,
+					count: data.query.result.meta.count,
+				});
+
+				// Update export links
+				_datatables.exportlinks(context, data);
+
+				context.trigger("srf.datatables.updateAfterParse");
+
+				context.unblock({
+					onUnblock: function () {
+						util.notification.create({
+							content: mw.msg("srf-ui-datatables-label-update-success"),
+						});
+					},
+				});
+			};
+
+			// @see https://www.mediawiki.org/wiki/Manual:JavaScript_unit_testing/QUnit_guidelines#Data_sourcing/seeding_in_Ajax_requests
+			if (testSmwApiResult) {
+				callback(testSmwApiResult);
+			} else {
+				// Lock the current context to avoid queuing issues during the update
+				// process (e.g another button is pressed )
+				context.block({
+					message: html.element("span", { class: "mw-ajax-loader" }, ""),
+					css: {
+						border: "2px solid #DDD",
+						height: "20px",
+						"padding-top": "35px",
+						opacity: 0.8,
+						"-webkit-border-radius": "5px",
+						"-moz-border-radius": "5px",
+						"border-radius": "5px",
+					},
+					overlayCSS: {
+						backgroundColor: "#fff",
+						opacity: 0.6,
+						cursor: "wait",
+					},
+				});
+
+				smwApi
+					.fetch(queryString, datatables.defaults.cacheApi)
+					.done(callback)
+					.fail(function (error) {
+						context.unblock({
+							onUnblock: function () {
+								util.notification.create({
+									content: mw.msg("srf-ui-datatables-label-update-error"),
+									color: "#BF381A",
+								});
+							},
+						});
+					});
+			}
 		},
 
 		/**
@@ -932,6 +944,11 @@
 		 */
 		test: {
 			_parse: _datatables.parse,
+
+			// used to mock-up ajax result on QUnit tests
+			setTestSmwApiResult: function (data) {
+				testSmwApiResult = data;
+			},
 		},
 	};
 
@@ -952,7 +969,7 @@
 			// *** this is a work-around to remove invalid URIs which
 			// prevent the datatable from working
 			// the file to be fixed is the following:
-			// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js			
+			// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
 			var smwData = new smw.Data();
 
 			var data = JSON.parse(_datatables.getData(container));
@@ -964,26 +981,28 @@
 				}
 			}
 
-			removedURIs = {}
-			var n = 0
+			removedURIs = {};
+			var n = 0;
 			for (var i in data.query.result.results) {
 				for (var label of uriColumns) {
 					for (var ii in data.query.result.results[i].printouts[label]) {
 						try {
 							new Uri(data.query.result.results[i].printouts[label][ii]);
 						} catch (error) {
-							if (!removedURIs[n] ) {
-								removedURIs[n] = {}
+							if (!removedURIs[n]) {
+								removedURIs[n] = {};
 							}
-							removedURIs[n][ii] = data.query.result.results[i].printouts[label][ii]
+							removedURIs[n][ii] =
+								data.query.result.results[i].printouts[label][ii];
 							data.query.result.results[i].printouts[label][ii] = "";
 						}
 					}
 				}
-				n++
+				n++;
 			}
 
 			// _datatables.getData( container )
+
 			var data = JSON.parse(JSON.stringify(data), function (key, value) {
 				return smwData.factory(key, value);
 			});
@@ -1021,4 +1040,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
