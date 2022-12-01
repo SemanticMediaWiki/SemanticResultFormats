@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ernác",
-			"Iltever"
+			"Iltever",
+			"Къарачайлы"
 		]
 	},
 	"srf-ui-tooltip-title-filter": "Фильтр",
@@ -12,5 +13,6 @@
 	"srf-ui-datatables-label-sSearch": "Изле:",
 	"srf-ui-datatables-label-oPaginate-sFirst": "Биринчи",
 	"srf-ui-datatables-label-oPaginate-sLast": "Ахыргъы",
-	"srf-ui-datatables-label-oPaginate-sNext": "Эндиги"
+	"srf-ui-datatables-label-oPaginate-sNext": "Эндиги",
+	"srf-paramdesc-graphfields": "\"Бет болмагъан\" типлени юсюнде болгъанын, къабыргъача тюл, графны тюйюмчеклеринде кёргюзт."
 }
