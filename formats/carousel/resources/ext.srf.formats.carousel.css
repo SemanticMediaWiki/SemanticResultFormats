@@ -38,9 +38,10 @@
 }
 
 @media screen and (max-width: 800px) {
-  .slick-slider .caption-text {
+  .slick-slide .slick-slide-content.caption-text {
     display: none;
   }
+  .slick-slide .slick-slide-content.caption-title {
+    font-size: smaller;
+  }
 }
-
-
