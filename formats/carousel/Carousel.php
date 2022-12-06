@@ -460,12 +460,14 @@ class Carousel extends ResultPrinter {
 
 			$captionValue = $this->getFirstValid( $captions );
 			$titleValue = $this->getFirstValid( $titles );
+
 			$linkValue = $this->getFirstValid( $links );
 			$imageValue = $this->getFirstValid( $images );
 
 			// if one or more value is empty infer them from the property type
 			foreach( $value['printouts'] as $name => $values ) {
-				if ( !$captionValue && $printReqLabels[ $name ] === '_txt' ) {
+				// && $this->params['titleproperty'] !== $name
+				if ( !$captionValue && !$titleValue && $printReqLabels[ $name ] === '_txt' ) {
 					$captionValue = $this->getFirstValid( $values );
 				}
 				if ( !$linkValue && $printReqLabels[ $name ] === '_uri' ) {
@@ -486,7 +488,8 @@ class Carousel extends ResultPrinter {
 				}
 
 				if ( !$titleValue && $value['namespace'] !== NS_FILE ) {
-					$titleValue = $value['fulltext'];
+					$arr_ = explode( "/", $value['fulltext'] );
+					$titleValue = end( $arr_ );
 				}
 
 				if ( !$linkValue  ) {
@@ -562,7 +565,7 @@ class Carousel extends ResultPrinter {
 		// retrieve the first entry
 		foreach( $array as $value ) {
 			if ( !empty( $value ) ) {
-				return $value;
+				return ( is_array( $value ) ? $value['fulltext'] : $value );
 			}
 		}
 		return null;
