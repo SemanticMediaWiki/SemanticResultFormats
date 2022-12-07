@@ -16,6 +16,11 @@ use MediaWiki\MediaWikiServices;
 
 class Carousel extends ResultPrinter {
 
+	/*
+	 * camelCase params
+	 */
+	protected static $camelCaseParamsKeys = [];
+
 	/**
 	 * @see ResultPrinter::getName
 	 *
@@ -369,7 +374,15 @@ class Carousel extends ResultPrinter {
 			'default' => 1000,
 		];
 
-		return $params;
+		// *** work-around to allow camelCase parameters
+		$ret = [];
+		foreach ( $params as $key => $value ) {
+			$strlower = strtolower($key);
+			self::$camelCaseParamsKeys[$strlower] = $key;
+			$ret[$strlower] = $value;
+		}
+
+		return $ret;
 	}
 
 	/**
@@ -547,7 +560,7 @@ class Carousel extends ResultPrinter {
 		$slick_attr = [];
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'slick-')  === 0 ) {
-				$slick_attr[ str_replace( 'slick-', '', $key ) ] = $value ;
+				$slick_attr[ str_replace( 'slick-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
 			}
 		}
 
