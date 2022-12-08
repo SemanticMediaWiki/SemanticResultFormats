@@ -264,13 +264,11 @@
 				}
 
 				// @see https://datatables.net/reference/option/columns.type
-				var columnstypePar = context.data("columnstype");
-				if (columnstypePar) {
-					columnstypePar = columnstypePar
-						.split(",")
-						.map((x) => x.trim())
-						.filter((x) => x !== "");
-				}
+				var columnstypePar = context.data("columnstype") || "";
+				columnstypePar = columnstypePar
+					.split(",")
+					.map((x) => x.trim())
+					.filter((x) => x !== "");
 
 				var entityCollation =
 					mw.config.get("smwgEntityCollation") ||
@@ -1065,4 +1063,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
