@@ -1006,11 +1006,6 @@
 				}
 			}
 
-			/*
-	var managePropertiesSpecialPage = mw.config.get(
-		"pageproperties-managePropertiesSpecialPage"
-	);
-*/
 			removedURIs = {};
 			var n = 0;
 			for (var i in data.query.result.results) {
