@@ -779,7 +779,7 @@
 				pagingType:
 					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
 				// autoWidth: false,
-				scrollX: true,
+				// scrollX: true,
 				data: data.aaData,
 				language: _datatables.oLanguage,
 				columnDefs: data.aoColumnDefs, // *** this will modify the original array
