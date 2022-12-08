@@ -730,7 +730,7 @@
 			context.find(".srf-loading-dots").hide();
 
 			// Show container
-			container.css({ display: "block", overflow: "hidden" });
+			container.css({ display: "block" });
 
 			// Setup a raw table
 			container.html(
