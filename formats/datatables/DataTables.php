@@ -53,8 +53,15 @@ class DataTables extends ResultPrinter {
 		];
 
 		$params['lengthmenu'] = [
+			'type' => 'string',
 			'message' => 'srf-paramdesc-lengthmenu',
-			'default' => null,
+			'default' => '',
+		];
+
+		$params['columnstype'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-columnstype',
+			'default' => '',
 		];
 
 		return $params;
@@ -71,6 +78,14 @@ class DataTables extends ResultPrinter {
 
 		$this->isHTML = true;
 		$id = $resourceFormatter->session();
+
+		$context = \RequestContext::getMain();
+
+		// $parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
+		$context->getOutput()->addJsConfigVars( [
+			'wgCategoryCollation' => $GLOBALS['wgCategoryCollation'],
+			'smwgEntityCollation' => $GLOBALS['smwgEntityCollation'],
+		]);
 
 		// Add options
 		$data['version'] = '0.2.5';
@@ -90,6 +105,7 @@ class DataTables extends ResultPrinter {
 			[
 				'class' => 'srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 				'data-theme' => $this->params['theme'],
+				'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
 			],
 			Html::element(
 				'div',
