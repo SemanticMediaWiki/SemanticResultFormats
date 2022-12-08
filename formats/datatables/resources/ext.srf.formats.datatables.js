@@ -800,11 +800,11 @@
 				//],
 			};
 
-			if ("pagelength" in parameters) {
+			if (parameters["pagelength"]) {
 				conf["pageLength"] = parseInt(parameters["pagelength"]);
 			}
 
-			if ("lengthmenu" in parameters) {
+			if (parameters["lengthmenu"] ) {
 				conf["lengthMenu"] = parameters["lengthmenu"]
 					.split(",")
 					.map((x) => parseInt(x));
