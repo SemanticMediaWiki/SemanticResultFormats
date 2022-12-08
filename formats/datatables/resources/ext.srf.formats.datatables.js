@@ -281,10 +281,11 @@
 				// @see http://www.datatables.net/usage/columns
 				var aoColumnDefs = [];
 				$.map(data.query.result.printrequests, function (property, index) {
+
 					if (columnstypePar[index]) {
 						columnsType =
 							columnstypePar[index] === "auto" ? null : columnstypePar[index];
-					} else if (entityCollation) {
+					} else if (entityCollation && property.typeid === '_wpg') {
 						columnsType = entityCollation === "numeric" ? "html-num-fmt" : null;
 					}
 
