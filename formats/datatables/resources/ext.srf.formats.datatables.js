@@ -221,8 +221,8 @@
 											// the file to be fixed is the following:
 											// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
 											if (
-												( rowIndex in removedURIs ) &&
-												( key in removedURIs[rowIndex] )
+												rowIndex in removedURIs &&
+												key in removedURIs[rowIndex]
 											) {
 												DI.fullurl = removedURIs[rowIndex][key];
 											}
@@ -262,10 +262,34 @@
 
 					return { aaData: aaData };
 				}
+
+				// @see https://datatables.net/reference/option/columns.type
+				var columnstypePar = context.data("columnstype");
+				if (columnstypePar) {
+					columnstypePar = columnstypePar
+						.split(",")
+						.map((x) => x.trim())
+						.filter((x) => x !== "");
+				}
+
+				var entityCollation =
+					mw.config.get("smwgEntityCollation") ||
+					mw.config.get("mw.config.wgCategoryCollation");
+
+				// use the latest set value if one or more column is missing
+				var columnsType = null;
+
 				// Create column definitions (see aoColumnDefs)
 				// @see http://www.datatables.net/usage/columns
 				var aoColumnDefs = [];
 				$.map(data.query.result.printrequests, function (property, index) {
+					if (columnstypePar[index]) {
+						columnsType =
+							columnstypePar[index] === "auto" ? null : columnstypePar[index];
+					} else if (entityCollation) {
+						columnsType = entityCollation === "numeric" ? "html-num-fmt" : null;
+					}
+
 					aoColumnDefs.push({
 						// 'mData': property.label,
 						// 'sTitle': property.label,
@@ -275,6 +299,7 @@
 						// https://datatables.net/reference/option/columnDefs
 						data: property.label,
 						title: property.label,
+						type: columnsType,
 						className: "smwtype" + property.typeid,
 						targets: [index],
 					});
@@ -981,6 +1006,11 @@
 				}
 			}
 
+			/*
+	var managePropertiesSpecialPage = mw.config.get(
+		"pageproperties-managePropertiesSpecialPage"
+	);
+*/
 			removedURIs = {};
 			var n = 0;
 			for (var i in data.query.result.results) {
@@ -1040,3 +1070,4 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
+
