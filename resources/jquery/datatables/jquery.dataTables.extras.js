@@ -15,6 +15,39 @@ $.fn.dataTableExt.aTypes = $.fn.dataTableExt.aTypes || {
     'unshift': function() {}
 };
 
+// table sorting https://datatables.net/reference/option/columns.type
+var _anyNumberSort = function(a, b, high) {
+	// https://datatables.net/plug-ins/sorting/any-number
+    var tmpA = document.createElement("DIV");
+    tmpA.innerHTML = a;
+    a = tmpA.textContent || tmpA.innerText || "";
+ 
+    var tmpB = document.createElement("DIV");
+    tmpB.innerHTML = b;
+    b = tmpB.textContent || tmpB.innerText || "";
+ 
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+
+	// this returns alwasy 0 on subsequent executions after init ?
+/*
+	var reg = /[+-]?((\d+(\.\d*)?)|\.\d+)([eE][+-]?[0-9]+)?/;        
+	a = a.replace(',','.').match(reg);
+	a = a !== null ? parseFloat(a[0]) : high;
+	b = b.replace(',','.').match(reg);
+	b = b !== null ? parseFloat(b[0]) : high;
+	return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+*/
+}
+
+$.extend( $.fn.dataTableExt.oSort, {
+	"any-number-asc": function (a, b) {
+		return _anyNumberSort(a, b, Number.POSITIVE_INFINITY);
+	},
+	"any-number-desc": function (a, b) {
+		return _anyNumberSort(a, b, Number.NEGATIVE_INFINITY) * -1;
+	}
+});
+
 // Sorting Currency Columns
 $.extend( $.fn.dataTableExt.aTypes, {
     'unshift': function ( sData ) {
