@@ -290,3 +290,20 @@
 	padding: 0.5em 0.5em 0.5em 0.5em;
 	font-weight: normal;
 }
+
+.srf-datatables .row {
+	display: block;
+}
+
+.form-inline {
+	display: block;
+}
+
+.srf-datatables .ui-button-icon-only {
+    width: auto;
+}
+
+.srf-datatables .button {
+    width: auto;
+    height: auto;   
+}
