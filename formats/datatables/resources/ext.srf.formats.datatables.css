@@ -296,7 +296,7 @@
 }
 
 .form-inline {
-	display: block;
+	/* display: block; */
 }
 
 .srf-datatables .ui-button-icon-only {
