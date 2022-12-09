@@ -307,3 +307,7 @@
     width: auto;
     height: auto;   
 }
+
+.srf-datatables .container {
+	margin-left: 0;
+}
