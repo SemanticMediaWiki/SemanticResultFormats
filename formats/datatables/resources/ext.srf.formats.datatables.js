@@ -286,7 +286,8 @@
 						columnsType =
 							columnstypePar[index] === "auto" ? null : columnstypePar[index];
 					} else if (entityCollation) {
-						columnsType = entityCollation === "numeric" && property.typeid === '_wpg' ? "html-num-fmt" : null;
+						// html-num-fmt
+						columnsType = entityCollation === "numeric" && property.typeid === '_wpg' ? "any-number" : null;
 					}
 
 					aoColumnDefs.push({
