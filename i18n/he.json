@@ -353,5 +353,6 @@
 	"srf-error-gantt-sortkey": "'''מפתח המיון''' שבחרת בן אינו נתמך",
 	"srf-error-gantt-mermaid-not-installed": "ההרחבה Mermaid צריכה להיות מותקנת.",
 	"srf-printername-gantt": "גאנט",
-	"srf-paramdesc-nodelabel": "יש להשתמש בתווית צומת גרף. ערכים מותרים: displaytitle."
+	"srf-paramdesc-nodelabel": "יש להשתמש בתווית צומת גרף. ערכים מותרים: displaytitle.",
+	"srf-paramdesc-graphfields": "הצגת ערכי מאפיינים שאינם דפים בתוך צומתי גרף ולא כקצוות."
 }
