@@ -10,6 +10,7 @@
 			"Shirayuki",
 			"Winston Sung",
 			"Wrightbus",
+			"捍粵者",
 			"星海"
 		]
 	},
@@ -88,7 +89,7 @@
 	"srf_paramdesc_timelinestart": "用來定義第一個時間點的屬性名稱",
 	"srf_paramdesc_timelineend": "用來定義第二個時間點的屬性名稱",
 	"srf_paramdesc_timelinesize": "時間軸高度",
-	"srf-timeline-allresults": "此查詢的進一步結果。",
+	"srf-timeline-allresults": "此查詢的更多結果。",
 	"srf-timeline-nojs": "要檢視互動式的時間軸，您需要啟用JavaScript。",
 	"srf_paramdesc_views": "所要顯示的視圖",
 	"srf_paramdesc_facets": "為每個頁面所要顯示的那套屬性",
