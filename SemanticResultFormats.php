@@ -157,6 +157,7 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
+			'carousel' => 'SRF\Carousel',
 			'gantt' => 'SRF\Gantt\GanttPrinter'
 		];
 

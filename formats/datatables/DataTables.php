@@ -13,6 +13,7 @@ use SMWQueryResult as QueryResult;
  * @license GPL-2.0-or-later
  *
  * @author mwjames
+ * @author thomas-topway-it
  */
 class DataTables extends ResultPrinter {
 
@@ -42,8 +43,25 @@ class DataTables extends ResultPrinter {
 
 		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
-			'default' => 'bootstrap',
-			'values' => [ 'bootstrap' ] // feel free to add more designs
+			'default' => 'basic',
+			'values' => [ 'bootstrap', 'basic' ] // feel free to add more designs
+		];
+
+		$params['pagelength'] = [
+			'message' => 'srf-paramdesc-pagelength',
+			'default' => '20',
+		];
+
+		$params['lengthmenu'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-lengthmenu',
+			'default' => '',
+		];
+
+		$params['columnstype'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-columnstype',
+			'default' => '',
 		];
 
 		return $params;
@@ -61,6 +79,14 @@ class DataTables extends ResultPrinter {
 		$this->isHTML = true;
 		$id = $resourceFormatter->session();
 
+		$context = \RequestContext::getMain();
+
+		// $parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
+		$context->getOutput()->addJsConfigVars( [
+			'wgCategoryCollation' => $GLOBALS['wgCategoryCollation'],
+			'smwgEntityCollation' => $GLOBALS['smwgEntityCollation'],
+		]);
+
 		// Add options
 		$data['version'] = '0.2.5';
 
@@ -68,7 +94,10 @@ class DataTables extends ResultPrinter {
 		$resourceFormatter->encode( $id, $data );
 
 		// Init RL module
-		$resourceFormatter->registerResources( [ 'ext.srf.datatables' ] );
+		$resourceFormatter->registerResources( [
+			'ext.srf.datatables',
+			'ext.srf.datatables.' . $this->params['theme']
+		] );
 
 		// Element includes info, spinner, and container placeholder
 		return Html::rawElement(
@@ -76,6 +105,7 @@ class DataTables extends ResultPrinter {
 			[
 				'class' => 'srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 				'data-theme' => $this->params['theme'],
+				'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
 			],
 			Html::element(
 				'div',

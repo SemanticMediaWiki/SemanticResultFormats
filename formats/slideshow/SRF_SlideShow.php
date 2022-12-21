@@ -88,9 +88,11 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		SMWOutputs::requireResource( 'ext.srf.slideshow' );
 
-		if ( $this->params['nav controls'] ) {
-			SMWOutputs::requireResource( 'jquery.ui.slider' );
-		}
+		// if ( $this->params['nav controls'] ) {
+			// *** this resource has been removed from recent Mediawiki versions
+			// SMWOutputs::requireResource( 'jquery.ui.slider' );
+			// SMWOutputs::requireResource( 'jquery.ui' );
+		// }
 
 		return Html::element(
 			'div',

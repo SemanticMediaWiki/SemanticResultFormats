@@ -62,16 +62,22 @@
 
 		assert.equal( $.type( datatables.update ), 'function', pass + 'the function was accessible' );
 
-		var _modDateCase= '{\"query\":{\"result\":{\"printrequests\":[{\"label\":\"\",\"typeid\":\"_wpg\",\"mode\":2},{\"label\":\"Modification date\",\"typeid\":\"_dat\",\"mode\":1}],\"results\":{\"File:5025159-view-of-the-golden-gate-bridge-san-francisco.jpg\":{\"printouts\":{\"Modification date\":[\"1360064258\"]},\"fulltext\":\"File:5025159-view-of-the-golden-gate-bridge-san-francisco.jpg\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/File:5025159-view-of-the-golden-gate-bridge-san-francisco.jpg\",\"namespace\":6,\"exists\":true},\"Concepttest3\":{\"printouts\":{\"Modification date\":[\"1358906761\"]},\"fulltext\":\"Concepttest3\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Concepttest3\",\"namespace\":0,\"exists\":true},\"Concepttest4\":{\"printouts\":{\"Modification date\":[\"1358905485\"]},\"fulltext\":\"Concepttest4\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Concepttest4\",\"namespace\":0,\"exists\":true}},\"meta\":{\"hash\":\"f790045e40c932332c73b3c8bf7139a8\",\"count\":3,\"offset\":0}},\"ask\":{\"conditions\":\"[[Modification date::+]]\",\"parameters\":{\"limit\":3,\"offset\":0,\"format\":\"datatables\",\"link\":\"all\",\"headers\":\"show\",\"mainlabel\":\"\",\"intro\":\"\",\"outro\":\"\",\"searchlabel\":\"\\u2026 further results\",\"default\":\"\",\"class\":\"\",\"theme\":\"bootstrap\"},\"printouts\":[\"?Modification date\"]}},\"version\":\"0.1\"}';
-
+		var _modDateCase = "{\"query\":{\"result\":{\"printrequests\":[{\"label\":\"\",\"key\":\"\",\"redi\":\"\",\"typeid\":\"_wpg\",\"mode\":2,\"format\":false},{\"label\":\"Assigned to\",\"key\":\"Assigned_to\",\"redi\":\"\",\"typeid\":\"_wpg\",\"mode\":1,\"format\":\"\"},{\"label\":\"Boolean prop\",\"key\":\"Boolean_prop\",\"redi\":\"\",\"typeid\":\"_wpg\",\"mode\":1,\"format\":\"\"}],\"results\":{\"My page#mysubobjectb\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"My page#mysubobjectb\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/My_page#mysubobjectb\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"My page#mysubobject\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"My page#mysubobject\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/My_page#mysubobject\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"My page b#mysubobjectb\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"My page b#mysubobjectb\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/My_page_b#mysubobjectb\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"Main Page b\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:A\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:A\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"Main Page b\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/Main_Page_b\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"Carousel test\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"Carousel test\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/Carousel_test\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"}},\"serializer\":\"SMW\\\\Serializers\\\\QueryResultSerializer\",\"version\":2,\"meta\":{\"hash\":\"6d7015d9df6e7fcc97a5335b055ff5ee\",\"count\":5,\"offset\":0,\"source\":\"\",\"time\":\"0.018219\"}},\"ask\":{\"conditions\":\"[[Assigned to::+]]\",\"parameters\":{\"limit\":5000,\"offset\":0,\"sortkeys\":{\"\":\"DESC\"},\"mainlabel\":\"\",\"querymode\":1,\"format\":\"datatables\",\"source\":\"\",\"link\":\"all\",\"headers\":\"plain\",\"intro\":\"\",\"outro\":\"\",\"searchlabel\":\"... further results\",\"default\":\"\",\"import-annotation\":false,\"class\":\"datatable\",\"theme\":\"bootstrap\",\"pagelength\":\"20\"},\"printouts\":[\"?Assigned to\",\"?Boolean prop\"]}},\"version\":\"0.2.5\"}"
 		var smwAPI = new smw.api();
 		var data = smwAPI.parse( _modDateCase );
 
 		datatables.init( context, container, data );
 		assert.ok( container.find( 'table' ) , pass + 'table was created' );
+		
+		datatables.test.setTestSmwApiResult(data);
+		const done = assert.async();
+
+		context.on( "srf.datatables.updateAfterParse", function() {
+			assert.ok( true,  pass + 'table was updated' );
+			done();
+		} );
 
 		datatables.update( context, data );
-		assert.ok( container.find( 'table' ) , pass + 'table was updated' );
 
 	} );
 

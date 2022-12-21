@@ -1,6 +1,6 @@
 {
     "name": "SemanticResultFormats",
-	"version": "4.0.2",
+	"version": "4.0.1",
 	"author": [
 		"James Hong Kong",
 		"Stephan Gambke",
@@ -28,6 +28,9 @@
 	"ExtensionFunctions": [
 		"SemanticResultFormats::onExtensionFunction"
 	],
+	"AutoloadNamespaces": {
+		"SRF\\": "formats/carousel"
+	},
 	"QUnitTestModule": {
 		"localBasePath": "",
 		"remoteExtPath": "SemanticResultFormats",
@@ -35,6 +38,7 @@
 			"tests/qunit/ext.srf.test.js",
 			"tests/qunit/ext.srf.util.test.js",
 			"tests/qunit/formats/ext.srf.formats.datatables.test.js",
+			"tests/qunit/formats/ext.srf.formats.carousel.test.js",
 			"tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js",
 			"tests/qunit/formats/ext.srf.formats.filtered.test.js",
 			"tests/qunit/formats/ext.srf.formats.gallery.test.js",
@@ -50,6 +54,8 @@
 			"ext.srf.util",
 			"ext.srf.eventcalendar",
 			"ext.srf.datatables",
+			"ext.srf.carousel.module",
+			"ext.srf.carousel",
 			"ext.srf.widgets",
 			"ext.srf.gallery.overlay",
 			"ext.srf.gallery.carousel",
