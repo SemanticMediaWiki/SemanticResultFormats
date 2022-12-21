@@ -4,6 +4,7 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 In development
 
+* Improved compatibility with recent versions of MediaWiki, especially 1.37, 1.38 and 1.39
 * [724](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/724) Fix problem in pagewidget carousel when bootstrap is used (by @thomas-topway-it, KM-A)
 * [188](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/188#) Fix for datatables format (by @harugon )
 * Fix minor error in filtered format (by @Semantisch, KM-A)
