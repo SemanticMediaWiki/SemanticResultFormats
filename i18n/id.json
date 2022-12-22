@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Agam Riyandana",
 			"Bennylin",
 			"Daud I.F. Argana",
 			"Farras",
@@ -103,5 +104,6 @@
 	"srf-filtered-selectorlabel-calendar": "Kalender",
 	"srf-ui-eventcalendar-label-today": "Hari ini",
 	"srf-ui-eventcalendar-label-month": "Bulan",
-	"srf-ui-eventcalendar-label-day": "Hari"
+	"srf-ui-eventcalendar-label-day": "Hari",
+	"srf-paramdesc-graphfields": "Tampilkan nilai properti non-laman di dalam simpul grafik, bukan sebagai tepi."
 }

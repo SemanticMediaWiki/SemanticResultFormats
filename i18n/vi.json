@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Minh Nguyen",
+			"Nguyenphutrong2",
 			"Vinhtantran",
 			"පසිඳු කාවින්ද"
 		]
@@ -24,7 +25,24 @@
 	"srf_printername_min": "Số nhỏ nhất",
 	"srf_printername_timeline": "Thời gian biểu",
 	"srf_printername_eventline": "Sự kiện biểu",
+	"srf-paramdesc-pagelength": "xác định độ dài trang dữ liệu",
+	"srf-paramdesc-lengthmenu": "xác định menu độ dài dữ liệu",
+	"srf-paramdesc-datatables-columnstype": "xác định loại cột dữ liệu",
+	"srf_printername_carousel": "băng chuyền",
 	"srf-gallery-navigation-previous": "Trước",
 	"srf-gallery-navigation-next": "Tiếp theo",
-	"srf-paramdesc-graphname": "Tựa đề"
+	"srf-paramdesc-graphname": "Tựa đề",
+	"srf-ui-datatables-refresh-button-title": "làm mới bảng",
+	"srf-ui-datatables-panel-switch-button-title": "bảng chuyển đổi",
+	"srf-filtered-noscript-error": "Không thể hiển thị kết quả vì Javascript chưa được bật. Chuyển đến $1 .",
+	"srf-paramdesc-carousel-class": "lớp băng chuyền",
+	"srf-paramdesc-carousel-width": "chiều rộng băng chuyền",
+	"srf-paramdesc-carousel-height": "chiều cao băng chuyền",
+	"srf-paramdesc-carousel-captionproperty": "chú thích băng chuyền thuộc tính",
+	"srf-paramdesc-carousel-titleproperty": "thuộc tính tiêu đề băng chuyền",
+	"srf-paramdesc-carousel-linkproperty": "tài sản liên kết băng chuyền",
+	"srf-paramdesc-carousel-imageproperty": "thuộc tính hình ảnh băng chuyền",
+	"srf-paramdesc-carousel-slick-option": "tùy chọn băng chuyền bóng mượt",
+	"srf-ui-slideshow-slide-button-play": "chơi",
+	"srf-ui-slideshow-slide-button-pause": "tạm ngừng"
 }
