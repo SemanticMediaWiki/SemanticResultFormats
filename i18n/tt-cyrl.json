@@ -3,6 +3,7 @@
 		"authors": [
 			"Ilnur efende",
 			"Ерней",
+			"Ильгиз",
 			"Ильнар"
 		]
 	},
@@ -10,5 +11,21 @@
 	"srf-ui-tooltip-title-filter": "Сөзгеч",
 	"srf-ui-common-label-refresh": "Яңарту",
 	"srfc_today": "Бүген",
-	"srf-filtered-selectorlabel-map": "Харита"
+	"srf-paramdesc-pagelength": "мәгълүмат таблицасы битенең озынлыгын билгеләү",
+	"srf-paramdesc-lengthmenu": "мәгълүмат таблицасы озынлыгы менюсын билгеләү",
+	"srf-paramdesc-datatables-columnstype": "мәгълүмат таблицасы баганалары төрен билгеләү",
+	"srf_printername_carousel": "Карусель",
+	"srf-ui-datatables-refresh-button-title": "таблицаны яңарту",
+	"srf-ui-datatables-panel-switch-button-title": "панельны алыштыру",
+	"srf-filtered-selectorlabel-map": "Харита",
+	"srf-filtered-noscript-error": "Нәтиҗәне күрсәтеп булмый, чөнки Javascript кушылмаган. $1 турына барыгыз.",
+	"srf-paramdesc-carousel-class": "Карусельның CSS классын билгели",
+	"srf-paramdesc-carousel-width": "Карусельның киңлеген билгели",
+	"srf-paramdesc-carousel-height": "Карусельның биеклеген билгели",
+	"srf-paramdesc-carousel-captionproperty": "карусельның captionproperty",
+	"srf-paramdesc-carousel-titleproperty": "карусельның titleproperty",
+	"srf-paramdesc-carousel-linkproperty": "карусельның linkproperty",
+	"srf-paramdesc-carousel-imageproperty": "карусельның imageproperty",
+	"srf-ui-slideshow-slide-button-play": "уйнау",
+	"srf-ui-slideshow-slide-button-pause": "тыныш"
 }

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Fengchao",
+			"GuoPC",
 			"Gzdavidwong",
 			"Hudafu",
 			"LeijieWang",
@@ -274,7 +275,7 @@
 	"srf-filtered-selectorlabel-table": "表格",
 	"srf-filtered-selectorlabel-calendar": "日历",
 	"srf-filtered-selectorlabel-map": "地图",
-	"srf-filtered-noscript-error": "因为Javascript未启用，所以不能显示结果。前往$1。",
+	"srf-filtered-noscript-error": "因为JavaScript未启用，所以不能显示结果。前往$1。",
 	"srf-filtered-noscript-link-caption": "表格窗体中的结果",
 	"srf-filtered-map-provider-missing-error": "没有为“地图”视图指定地图提供者。",
 	"srf-filtered-value-filter-and": "和",

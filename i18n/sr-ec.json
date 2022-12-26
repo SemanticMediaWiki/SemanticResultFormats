@@ -56,5 +56,7 @@
 	"srf-filtered-selectorlabel-calendar": "Календар",
 	"srf-paramdesc-widget": "Доступан виџет",
 	"srf-ui-eventcalendar-click-popup": "Желите ли да направите догађај?",
+	"srf-ui-slideshow-slide-button-play": "пусти",
+	"srf-ui-slideshow-slide-button-pause": "пауза",
 	"srf-spreadsheet-link": "Унакрсна табела"
 }
