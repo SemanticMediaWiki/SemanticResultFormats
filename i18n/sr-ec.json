@@ -50,6 +50,8 @@
 	"srf-paramdesc-showcompound": "Одређивање да ли ће се заједничке ноде од. потпроцеси означити",
 	"srf-paramdesc-debug": "Одређивање да ли ће се код графа процеса приказати између pre тагова",
 	"srf-paramdesc-graphvalidation": "Приказ корака процеса црвеном бојом који немају приписану улогу",
+	"srf-ui-datatables-refresh-button-title": "освежи табелу",
+	"srf-ui-datatables-panel-switch-button-title": "промени панел",
 	"srf-ui-datatables-label-placeholder-column-search": "Претражи...",
 	"srf-ui-datatables-label-sSearch": "Претражи:",
 	"srf-filtered-selectorlabel-table": "Табела",

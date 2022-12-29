@@ -69,5 +69,6 @@
 	"srf-ui-mediaplayer-label-play": "চালান",
 	"srf-ui-mediaplayer-label-next": "পরবর্তী",
 	"srf-ui-mediaplayer-label-stop": "থামান",
-	"srf-ui-mediaplayer-label-full-screen": "পূর্ণ পর্দা"
+	"srf-ui-mediaplayer-label-full-screen": "পূর্ণ পর্দা",
+	"srf-ui-slideshow-slide-button-play": "চালান"
 }
