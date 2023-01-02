@@ -256,7 +256,7 @@
 	"srf-paramdesc-filtered-map-zoom": "O nivel do zoom cando se carga o mapa. Pode ser modificado polo usuario. <br>Consulteː <i>zoom mínimo da vista do mapa</i> e <i>zoom máximo da vista do mapa</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "O mínimo nivel de zoom seleccionable no mapa",
 	"srf-paramdesc-filtered-map-max-zoom": "O máximo nivel de zoom seleccionable no mapa",
-	"srf-paramdesc-filtered-map-marker-cluster": "Activa ou desactiva o marcador de agrupación.",
+	"srf-paramdesc-filtered-map-marker-cluster": "Activa ou desactiva a agrupación de marcadores.",
 	"srf-filtered-selectorlabel-list": "Lista",
 	"srf-filtered-selectorlabel-table": "Táboa",
 	"srf-filtered-selectorlabel-calendar": "Calendario",
