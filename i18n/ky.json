@@ -7,5 +7,7 @@
 	},
 	"srf-module-loading": "Жүктөлүүдө...",
 	"srf-ui-common-label-source": "Булак",
-	"srf_printername_gallery": "Галерея"
+	"srf_printername_gallery": "Галерея",
+	"srf-ui-datatables-label-placeholder-column-search": "Издөө...",
+	"srf-ui-datatables-label-sSearch": "Издөө:"
 }
