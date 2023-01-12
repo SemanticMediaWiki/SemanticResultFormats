@@ -147,7 +147,7 @@
 	"srf-paramdesc-captiontemplate": "Predloga, ki se uporablja za oblikovanje napisov slik v galeriji. Ponuja imenovane argumente, kot so »imageraw«, »imageception« in »imageredirect«.",
 	"srf_paramdesc_imageproperty": "Ime semantične lastnosti na poizvedovanih straneh, ki kaže na slike za uporabo. Ko je nastavljeno, poizvedovane strani same ne bodo prikazane kot slike.",
 	"srf-paramdesc-redirects": "Ime semantične lastnosti, ki je prisotna na poizvedovanih straneh, ki vsebujejo cilj preusmeritve.",
-	"srf-paramdesc-navigation": "Krmarjenje po postavitvi",
+	"srf-paramdesc-navigation": "Nadzor navigacije po postavitvi",
 	"srf-paramdesc-overlay": "Vklopi prekrivanje slike",
 	"srf-gallery-navigation-previous": "Nazaj",
 	"srf-gallery-navigation-next": "Naprej",
