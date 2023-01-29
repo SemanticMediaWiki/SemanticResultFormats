@@ -51,7 +51,7 @@
 		defaults: {
 			color: '#48a0d5',
 			dateFormat: 'yy-mm-dd',
-			descriptionLength: 100,
+			descriptionLength: 500,
 			paneView: mw.user.options.get( 'srf-prefs-eventcalendar-options-paneview-default' ),
 			slider: {
 				max: 1000,
@@ -226,7 +226,7 @@
 												'option': ( data.query.ask.parameters.filterType === 'filter' ? true: false )
 											};
 										} else if ( property !== '' ) {
-											rowDesc.push( parameters.headers === 'hide' ? value.getFullText() : property + ':' + value.getFullText() );
+											rowDesc.push( parameters.headers === 'hide' ? value.getFullText() : '<div class="fc-event-popup-row"><span class="fc-event-popup-label">' + property + '</span>: ' + value.getFullText() + '</div>');
 										}
 
 									} else if ( $.type( value ) === 'object' ) {
@@ -243,14 +243,14 @@
 											};
 										} else if ( property !== '' ) {
 											// Items without fixed identifiers remain part of a description
-											rowDesc.push( parameters.headers === 'hide' ? value.getValue() : property + ':' + value.getValue() );
+											rowDesc.push( parameters.headers === 'hide' ? value.getValue() : '<div class="fc-event-popup-row"><span class="fc-event-popup-label">' + property + '</span>: ' + value.getValue() + '</div>' );
 										}
 									}
 
 								} );
 							} );
 							// Collect all descriptions
-							rowData.description = rowDesc.join(',');
+							rowData.description = rowDesc.join('');
 						}
 
 						// Only care for entries that have at least a start date
