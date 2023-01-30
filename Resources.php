@@ -131,8 +131,7 @@ return [
 		'styles'  => [
 			'resources/ext.srf.css',
 		],
-		'position' => 'top',
-		'group' => 'ext.srf'
+		'position' => 'top'
 	],
 
 	// SMW/SRF query/result api module
