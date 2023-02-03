@@ -270,9 +270,7 @@
 					.map((x) => x.trim())
 					.filter((x) => x !== "");
 
-				var entityCollation =
-					mw.config.get("smwgEntityCollation") ||
-					mw.config.get("mw.config.wgCategoryCollation");
+				var entityCollation = context.data("collation");
 
 				// use the latest set value if one or more column is missing
 				var columnsType = null;
