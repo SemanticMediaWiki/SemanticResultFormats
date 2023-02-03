@@ -80,12 +80,13 @@ class DataTables extends ResultPrinter {
 		$id = $resourceFormatter->session();
 
 		$context = \RequestContext::getMain();
-
-		// $parser = \MediaWiki\MediaWikiServices::getInstance()->getParser();
-		$context->getOutput()->addJsConfigVars( [
-			'wgCategoryCollation' => $GLOBALS['wgCategoryCollation'],
-			'smwgEntityCollation' => $GLOBALS['smwgEntityCollation'],
-		]);
+	
+		// the following unfortunately does not work with $wgCachePages
+		// so we append it in the html elements' attribute below
+		// $context->getOutput()->addJsConfigVars( [
+		// 	'wgCategoryCollation' => $GLOBALS['wgCategoryCollation'],
+		// 	'smwgEntityCollation' => $GLOBALS['smwgEntityCollation'],
+		// ]);
 
 		// Add options
 		$data['version'] = '0.2.5';
@@ -106,6 +107,7 @@ class DataTables extends ResultPrinter {
 				'class' => 'srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 				'data-theme' => $this->params['theme'],
 				'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
+				'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation']
 			],
 			Html::element(
 				'div',
