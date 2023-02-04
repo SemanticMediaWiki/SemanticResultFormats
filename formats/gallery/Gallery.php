@@ -325,7 +325,7 @@ class Gallery extends ResultPrinter {
 			}
 		}
 
-		if ( $this->params['captiontemplate'] !== '' ) {
+		if ( $this->params['captiontemplate'] !== '' && gettype($ig->mParser) == "object" ) {
 			$templateCode = "{{" . $this->params['captiontemplate'] .
 				"|imageraw=" . $imgTitle->getPrefixedText() . "|imagecaption=$imgCaption|imageredirect=$imgRedirect}}";
 
