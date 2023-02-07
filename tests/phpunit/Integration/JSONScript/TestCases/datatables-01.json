@@ -26,7 +26,7 @@
 			"subject": "Test/Datatables/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-datatables\" data-theme=\"basic\"><div class=\"top\">"
+					"<div class=\"srf-datatables\" data-theme=\"basic\" data-collation=\"identity\"><div class=\"top\">"
 				]
 			}
 		}
