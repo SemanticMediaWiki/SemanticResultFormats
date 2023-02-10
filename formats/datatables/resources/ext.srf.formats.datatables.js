@@ -86,14 +86,15 @@
 			noTrace = '|@notrace';
 		};
 
-
-// console.log( {
+/*
+console.log( {
 			action: "parse",
 			title: self.title,
 			contentmodel: 'wikitext',
 			prop: 'text|modules|jsconfigvars',
 			text: '{{#' + self.cmd + ':' +  query + noTrace + '}}'
 		})
+*/
 		// API notes "modules: Gives the ResourceLoader modules used on the page.
 		// Either jsconfigvars or encodedjsconfigvars must be requested jointly
 		// with modules. 1.24+"
@@ -105,7 +106,7 @@
 			text: '{{#' + self.cmd + ':' +  query + noTrace + '}}'
 		} ).done( function( data ) {
 
-// console.log("data", data)
+console.log("data", data)
 			if ( self.init === true ) {
 				self.initControls();
 				self.replaceOutput( '' );
