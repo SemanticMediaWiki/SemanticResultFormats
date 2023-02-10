@@ -29,7 +29,8 @@
 		"SemanticResultFormats::onExtensionFunction"
 	],
 	"AutoloadNamespaces": {
-		"SRF\\": "formats/carousel"
+		"SRF\\": "formats/carousel",
+		"SRF\\DataTables\\": "formats/datatables"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",

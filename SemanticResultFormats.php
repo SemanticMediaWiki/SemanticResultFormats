@@ -64,6 +64,8 @@ class SemanticResultFormats {
 		$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'SRF\Filtered\Hooks::onOutputPageParserOutput';
 		$GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript';
 
+		$GLOBALS['wgHooks']['SMW::Store::BeforeQueryResultLookupComplete'][] = 'SRF\DataTables\Hooks::onSMWStoreBeforeQueryResultLookupComplete';
+
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 
