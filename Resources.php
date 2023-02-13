@@ -965,6 +965,27 @@ return [
 		],
 	],
 
+	'ext.srf.datatables.v2.format' => $formatModule + [
+		'scripts' => [
+			'datatables/resources/ext.srf.formats.datatables.js'
+		],
+		'styles'  => [
+			 'datatables/resources/ext.srf.formats.datatables.css'
+		],
+		'dependencies' => [
+			'ext.smw.api'
+		]
+	],
+
+	'ext.srf.datatables.v2.module' => $moduleTemplate + [
+		'scripts' => [
+			'resources/jquery/datatables/datatables.min.js',
+		],
+		'styles'  => [
+			'resources/jquery/datatables/datatables.min.css',
+		]
+	],
+
 	// DataTables implementation
 	'ext.srf.datatables' => $formatModule + [
 		'scripts' => 'datatables/resources/ext.srf.formats.datatables.js',
