@@ -276,7 +276,6 @@
 	"srf-filtered-selectorlabel-table": "Таблиця",
 	"srf-filtered-selectorlabel-calendar": "Календар",
 	"srf-filtered-selectorlabel-map": "Мапа",
-	"srf-filtered-firstdayofweek": "1",
 	"srf-filtered-noscript-error": "Результати неможливо відтворити, оскільки JavaScript не увімкнено. Перейдіть до $1.",
 	"srf-filtered-noscript-link-caption": "результати в табличній формі",
 	"srf-filtered-map-provider-missing-error": "Не вказано провайдера мапи для перегляду у форматі «мапа».",

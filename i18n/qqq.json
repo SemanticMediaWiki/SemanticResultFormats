@@ -235,7 +235,7 @@
 	"srf-ui-datatables-label-sInfoEmpty": "{{doc-smw-ui-label-datatables|sInfoEmpty}}",
 	"srf-ui-datatables-label-sInfoFiltered": "{{doc-smw-ui-label-datatables|sInfoFiltered}}\n{{doc-important|Do not localise the variable <code>__MAX__.</code>}}",
 	"srf-ui-datatables-label-sInfoPostFix": "{{doc-smw-ui-label-datatables|sInfoPostFix}}",
-	"srf-ui-datatables-label-sInfoThousands": "{{doc-smw-ui-label-datatables|sInfoThousands}}\n{{optional}}\nThis message is as a separator symbol for thousands in numbers, like \",\" in English 1,234.56.",
+	"srf-ui-datatables-label-sInfoThousands": "{{optional}}\n{{doc-smw-ui-label-datatables|sInfoThousands}}\nThis message is as a separator symbol for thousands in numbers, like \",\" in English 1,234.56.",
 	"srf-ui-datatables-label-sLengthMenu": "{{doc-smw-ui-label-datatables|sLengthMenu}}",
 	"srf-ui-datatables-label-sLoadingRecords": "{{doc-smw-ui-label-datatables|sLoadingRecords}}\n{{Identical|Loading}}",
 	"srf-ui-datatables-label-sProcessing": "{{doc-smw-ui-label-datatables|sProcessing}}\n{{Identical|Processing}}",

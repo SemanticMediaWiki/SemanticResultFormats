@@ -272,7 +272,6 @@
 	"srf-filtered-selectorlabel-table": "Tabela",
 	"srf-filtered-selectorlabel-calendar": "Koledar",
 	"srf-filtered-selectorlabel-map": "Zemljevid",
-	"srf-filtered-firstdayofweek": "1",
 	"srf-filtered-noscript-error": "Zadetkov ni mogoče prikazati, ker JavaScript ni omogočen. Pojdite na $1.",
 	"srf-filtered-noscript-link-caption": "zadetki v obliki tabele",
 	"srf-filtered-map-provider-missing-error": "Za pogled »zemljevid« ni določen noben ponudnik zemljevidov.",

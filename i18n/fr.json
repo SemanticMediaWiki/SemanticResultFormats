@@ -296,7 +296,6 @@
 	"srf-filtered-selectorlabel-table": "Tableau",
 	"srf-filtered-selectorlabel-calendar": "Calendrier",
 	"srf-filtered-selectorlabel-map": "Carte",
-	"srf-filtered-firstdayofweek": "1",
 	"srf-filtered-noscript-error": "Les résultats ne peuvent pas être affichés parce que JavaScript n’est pas activé. Allez à $1.",
 	"srf-filtered-noscript-link-caption": "résultats sous forme de tableau",
 	"srf-filtered-map-provider-missing-error": "Aucun fournisseur de carte spécifié pour la vue « carte ».",
