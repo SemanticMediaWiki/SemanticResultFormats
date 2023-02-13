@@ -16,15 +16,20 @@ use SMWQueryResult as QueryResult;
 use SMWResultArray as ResultArray;
 
 /**
- * DataTables and SMWAPI.
+ * DataTables v2.
  *
  * @since 1.9
  * @license GPL-2.0-or-later
  *
- * @author mwjames
- * @author thomas-topway-it
+ * @see credits of TableResultPrinter
+ * @author thomas-topway-it <business@topway.it>
  */
 class DataTables extends TableResultPrinter {
+
+	/*
+	 * camelCase params
+	 */
+	protected static $camelCaseParamsKeys = [];
 
 	/**
 	 * @var HtmlTable
@@ -59,18 +64,7 @@ class DataTables extends TableResultPrinter {
 		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'basic',
-			'values' => [ 'bootstrap', 'basic' ] // feel free to add more designs
-		];
-
-		$params['pagelength'] = [
-			'message' => 'srf-paramdesc-pagelength',
-			'default' => '20',
-		];
-
-		$params['lengthmenu'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-lengthmenu',
-			'default' => '',
+			'values' => [ 'bootstrap', 'basic' ]
 		];
 
 		$params['columnstype'] = [
@@ -85,7 +79,147 @@ class DataTables extends TableResultPrinter {
 			'values' => [ 'all', 'subject', 'none', 'auto' ],
 		];
 
-		return $params;
+		// https://datatables.net/reference/option/
+
+		$params['datatables-autoWidth'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-deferRender'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-info'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-lengthChange'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-ordering'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-paging'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-processing'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-scrollX'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-scrollY'] = [
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => null,
+		];
+
+		$params['datatables-searching'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-serverSide'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-stateSave'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		////////////////////
+
+
+		$params['datatables-pageLength'] = [
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 20,
+		];
+
+		$params['datatables-LengthMenu'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => '10, 25, 50, 100',
+		];
+
+		$params['datatables-scrollCollapse'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-scroller'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-buttons'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => null,
+		];
+
+		$params['datatables-dom'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 'lfrtip',
+		];
+
+		$params['datatables-fixedHeader'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-responsive'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-keys'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+
+		// *** work-around to allow camelCase parameters
+		$ret = [];
+		foreach ( $params as $key => $value ) {
+			$strlower = strtolower($key);
+			self::$camelCaseParamsKeys[$strlower] = $key;
+			$ret[$strlower] = $value;
+		}
+
+		return $ret;
 	}
 
 	/**
@@ -95,6 +229,8 @@ class DataTables extends TableResultPrinter {
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
 		$query = $res->getQuery();
+
+		// retrieved from the hook
 		$this->countValue = $query->getOption( 'max' );
 		$this->prefixParameterProcessor = new PrefixParameterProcessor( $query, $this->params['prefix'] );
 
@@ -118,7 +254,10 @@ class DataTables extends TableResultPrinter {
 
 		// building headers
 		if ( $this->mShowHeaders != SMW_HEADERS_HIDE ) {
-			$isPlain = $this->mShowHeaders == SMW_HEADERS_PLAIN;
+			// ***edited
+			// $isPlain $this->mShowHeaders == SMW_HEADERS_PLAIN;
+			$isPlain = true;
+
 			foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $pr ) {
 				$attributes = [];
 				$columnClass = str_replace( [ ' ', '_' ], '-', strip_tags( $pr->getText( SMW_OUTPUT_WIKI ) ) );
@@ -131,6 +270,7 @@ class DataTables extends TableResultPrinter {
 				$mode = $this->isHTML && $isPlain ? SMW_OUTPUT_WIKI : $outputMode;
 				$text = $pr->getText( $mode, ( $isPlain ? null : $this->mLinker ) );
 				$headerList[] = $pr->getCanonicalLabel();
+
 				$this->htmlTable->header( ( $text === '' ? '&nbsp;' : $text ), $attributes );
 			}
 		}
@@ -318,8 +458,9 @@ class DataTables extends TableResultPrinter {
 				$value = $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
 			}
 
-
+			// ***edited
 			$values[] = $value === '' ? '&nbsp;' : $value;
+			// $values[] = $value === '' ? '' : $value;
 		}
 
 		$sep = strtolower( $this->params['sep'] );
@@ -340,41 +481,14 @@ class DataTables extends TableResultPrinter {
 	 */
 	protected function getResources() {
 
-/*
-		$resourceFormatter = new ResourceFormatter();
-		$resourceFormatter->registerResources( [
-			'ext.srf.datatables',
-			'ext.srf.datatables.' . $this->params['theme']
-		] );
-*/
-
 		return [
 			'modules' => [
-				'ext.srf.datatables',
-				'ext.srf.datatables.' . $this->params['theme'],
-				// 'smw.tableprinter.datatable.styles'
-				// 'ext.smw.deferred'
+				'ext.srf.datatables.v2.module',
+				'ext.srf.datatables.v2.format'
 			],
 			'styles' => [
 			],
 			'messages' => [
-				"smw-format-datatable-emptytable",
-				"smw-format-datatable-info",
-				"smw-format-datatable-infoempty",
-				"smw-format-datatable-infofiltered",
-				"smw-format-datatable-infothousands",
-				"smw-format-datatable-lengthmenu",
-				"smw-format-datatable-loadingrecords",
-				"smw-format-datatable-processing",
-				"smw-format-datatable-search",
-				"smw-format-datatable-zerorecords",
-				"smw-format-datatable-first",
-				"smw-format-datatable-last",
-				"smw-format-datatable-next",
-				"smw-format-datatable-previous",
-				"smw-format-datatable-sortascending",
-				"smw-format-datatable-sortdescending",
-				"smw-format-datatable-toolbar-export"
 			],
 			'targets' => [ 'mobile', 'desktop' ]
 		];
@@ -422,6 +536,15 @@ class DataTables extends TableResultPrinter {
 		$tableAttrs['data-query'] = QueryStringifier::toJson(
 			$res->getQuery()
 		);
+
+		$datatablesOptions = [];
+		foreach ( $this->params as $key => $value ) {
+			if ( strpos( $key, 'datatables-')  === 0 ) {
+				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
+			}
+		}
+
+		$tableAttrs['data-datatables'] = json_encode( $datatablesOptions, true );
 
 		$tableAttrs['data-count'] = $this->countValue;
 		$tableAttrs['data-theme'] = $this->params['theme'];
