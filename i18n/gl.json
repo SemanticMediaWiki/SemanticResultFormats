@@ -212,7 +212,6 @@
 	"srf-ui-datatables-label-sInfo": "Amosando _START_ to _END_ of _TOTAL_ entradas",
 	"srf-ui-datatables-label-sInfoEmpty": "Amosa de 0 a 0 de 0 entradas",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtrado de _MAX_ entradas do total)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Amosar as entradas _MENU_",
 	"srf-ui-datatables-label-sLoadingRecords": "Cargando...",
 	"srf-ui-datatables-label-sProcessing": "Procesando...",

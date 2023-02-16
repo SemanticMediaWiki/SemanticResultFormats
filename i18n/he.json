@@ -226,7 +226,6 @@
 	"srf-ui-datatables-label-sInfo": "מוצגות רשומות מ־_START_ עד _END_ מתוך _TOTAL_",
 	"srf-ui-datatables-label-sInfoEmpty": "הצגת 0 עד 0 מתוך 0 ערכים",
 	"srf-ui-datatables-label-sInfoFiltered": "(מסונן מתוך _MAX_ רשומות סה\"כ)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "להציג רשומות _MENU_",
 	"srf-ui-datatables-label-sLoadingRecords": "טעינה...",
 	"srf-ui-datatables-label-sProcessing": "עיבוד...",

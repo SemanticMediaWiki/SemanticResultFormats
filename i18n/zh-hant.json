@@ -218,7 +218,6 @@
 	"srf-ui-datatables-label-sInfo": "顯示 _TOTAL_ 項目從 _START_ 至 _END_ 的內容",
 	"srf-ui-datatables-label-sInfoEmpty": "顯示 0 項目從 0 到 0 的內容",
 	"srf-ui-datatables-label-sInfoFiltered": "（從 _MAX_ total 項目篩選）",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "顯示 _MENU_ 項目",
 	"srf-ui-datatables-label-sLoadingRecords": "正在載入...",
 	"srf-ui-datatables-label-sProcessing": "處理中...",

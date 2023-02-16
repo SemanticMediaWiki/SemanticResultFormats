@@ -42,7 +42,6 @@
 	"srf-ui-datatables-label-sInfo": "Shawin _STAIRT_ til _END_ o _TOTAL_ entries",
 	"srf-ui-datatables-label-sInfoEmpty": "Shawin 0 til 0 o 0 entries",
 	"srf-ui-datatables-label-sInfoFiltered": "(filterit fae _MAX_ total entries)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Shaw _MENU_ entries",
 	"srf-ui-datatables-label-sLoadingRecords": "Laidin...",
 	"srf-ui-datatables-label-sProcessing": "Processin…",

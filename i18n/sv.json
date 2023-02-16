@@ -182,7 +182,6 @@
 	"srf-ui-datatables-label-multiselect-column-selectedtext": "Kolonner är synliga",
 	"srf-ui-datatables-label-sInfo": "Visar _START_ till _END_ av _TOTAL_ poster",
 	"srf-ui-datatables-label-sInfoEmpty": "Visar 0 till 0 av 0 poster",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Visar _MENU_ poster",
 	"srf-ui-datatables-label-sLoadingRecords": "Läser in...",
 	"srf-ui-datatables-label-sProcessing": "Bearbetar...",
