@@ -7,11 +7,31 @@ use SMW\Services\ServicesFactory as ApplicationFactory;
 class Hooks {
 
 	public static function onSMWStoreBeforeQueryResultLookupComplete( $store, $query, &$result, $queryEngine ) {
-		$count = self::getCount( $query, $queryEngine );
-		$inlineLimit = $query->getLimit();
+		$params = $query->getOption( 'query.params' );
+		if ( !empty( $params['defer-each'] ) ) {
+			$deferEach = $params['defer-each'];
 
-		$query->setUnboundLimit( min( $inlineLimit, $count ) );
-		$query->setOption('max', $count );
+		} elseif ( is_numeric( $GLOBALS['smwgSRFDatatablesLimitEach'] ) ) {
+			$deferEach = $GLOBALS['smwgSRFDatatablesLimitEach'];
+
+		} else {
+			$deferEach = min( 500, $GLOBALS['smwgQDefaultLimit'] );
+		}
+
+		$inlineLimit = $query->getLimit();
+		$count = self::getCount( $query, $queryEngine );
+
+		if ( $inlineLimit < $deferEach ) {
+			$deferEach = $inlineLimit;
+			$max = $count;
+
+		} else {
+			$max = $inlineLimit;
+		}
+
+		$query->setUnboundLimit( min( $deferEach, $count ) );
+		$query->setOption('defer-each', min( $deferEach, $count ) );
+		$query->setOption('max', min( $max, $count ) );
 
 		$queryResult = $queryEngine->getQueryResult( $query );
 

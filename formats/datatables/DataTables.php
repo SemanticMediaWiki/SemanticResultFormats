@@ -4,7 +4,6 @@ namespace SRF;
 
 use Html;
 use SMW\Query\ResultPrinters\TableResultPrinter;
-use SMW\Query\ResultPrinters\PrefixParameterProcessor;
 use SMW\DIWikiPage;
 use SMW\Message;
 use SMW\Query\PrintRequest;
@@ -38,10 +37,9 @@ class DataTables extends TableResultPrinter {
 
 	private $prefixParameterProcessor;
 
-	private $countValue;
+	private $query;
 
 	public function getParamDefinitions( array $definitions ) {
-
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['class'] = [
@@ -77,6 +75,18 @@ class DataTables extends TableResultPrinter {
 			'message' => 'smw-paramdesc-prefix',
 			'default' => 'none',
 			'values' => [ 'all', 'subject', 'none', 'auto' ],
+		];
+
+		$params['defer-each'] = [
+			'type' => 'integer',
+			'message' => 'smw-paramdesc-defer-each',
+			'default' => 0,
+		];
+
+		$params['mode'] = [
+			'type' => 'string',
+			'message' => 'smw-paramdesc-mode',
+			'default' => 'abc',
 		];
 
 		// https://datatables.net/reference/option/
@@ -132,7 +142,7 @@ class DataTables extends TableResultPrinter {
 		$params['datatables-scrollY'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => null,
+			'default' => -1,
 		];
 
 		$params['datatables-searching'] = [
@@ -183,7 +193,7 @@ class DataTables extends TableResultPrinter {
 		$params['datatables-buttons'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => null,
+			'default' => '',
 		];
 
 		$params['datatables-dom'] = [
@@ -222,6 +232,7 @@ class DataTables extends TableResultPrinter {
 		return $ret;
 	}
 
+
 	/**
 	 * @see ResultPrinter::getResultText
 	 *
@@ -230,17 +241,18 @@ class DataTables extends TableResultPrinter {
 	protected function getResultText( QueryResult $res, $outputMode ) {
 		$query = $res->getQuery();
 
-		// retrieved from the hook
-		$this->countValue = $query->getOption( 'max' );
-		$this->prefixParameterProcessor = new PrefixParameterProcessor( $query, $this->params['prefix'] );
+		if ( class_exists( '\\SMW\Query\\ResultPrinters\\PrefixParameterProcessor' ) ) {
+			$this->prefixParameterProcessor = new \SMW\Query\ResultPrinters\PrefixParameterProcessor( $query, $this->params['prefix'] );
+		}
 
+		if ( $this->params['mode'] === 'json' ) {
+ 			return $this->getResultJson( $res, $outputMode );
+		}
+
+		$this->query = $query;
 		$this->isHTML = ( $outputMode === SMW_OUTPUT_HTML );
 		$this->isDataTable = true;
 		$class = isset( $this->params['class'] ) ? $this->params['class'] : '';
-
-		// if ( strpos( $class, 'datatable' ) !== false && $this->mShowHeaders !== SMW_HEADERS_HIDE ) {
-		// 	$this->isDataTable = true;
-		// }
 
 		$this->htmlTable = new HtmlTable();
 
@@ -274,6 +286,26 @@ class DataTables extends TableResultPrinter {
 				$this->htmlTable->header( ( $text === '' ? '&nbsp;' : $text ), $attributes );
 			}
 		}
+
+		
+		$printrequests = [];
+		foreach ( $res->getPrintRequests() as $key => $printrequest ) {
+			$data = $printrequest->getData();
+			if ( $data instanceof SMWPropertyValue ) {
+				$name = $data->getDataItem()->getKey();
+			} else {
+				$name = null;
+			}
+			$printrequests[] = [
+				$printrequest->getMode(),
+				$printrequest->getLabel(),
+				$name,
+				$printrequest->getOutputFormat(),
+				$printrequest->getParameters(),
+			];
+
+		}
+
 
 		$rowNumber = 0;
 
@@ -311,7 +343,8 @@ class DataTables extends TableResultPrinter {
 			$this->addDataTableAttrs(
 				$res,
 				$headerList,
-				$tableAttrs
+				$tableAttrs,
+				$printrequests
 			);
 		}
 
@@ -349,6 +382,41 @@ class DataTables extends TableResultPrinter {
 
 		return $html;
 	}
+
+
+	public function getResultJson( QueryResult $res, $outputMode ) {
+		// force html
+		$outputMode = SMW_OUTPUT_HTML;
+
+		$ret = [];
+		while ( $subject = $res->getNext() ) {
+
+			$row = [];
+			foreach ( $subject as $i => $field ) {
+				$dataValues = [];
+
+				$resultArray = $field;
+				$printRequest = $resultArray->getPrintRequest();
+
+				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
+					$dataValues[] = $dv;
+				}
+
+				$content = $this->getCellContent(
+					$dataValues,
+					$outputMode,
+					$printRequest->getMode() == PrintRequest::PRINT_THIS
+				);
+
+				$row[] = $content;
+			}
+
+			$ret[] = $row;
+		}
+
+		return json_encode( $ret );
+	}
+
 
 	/**
 	 * Gets a table cell for all values of a property of a subject.
@@ -438,11 +506,15 @@ class DataTables extends TableResultPrinter {
 	 * @return string
 	 */
 	protected function getCellContent( array $dataValues, $outputMode, $isSubject ) {
+		if ( !$this->prefixParameterProcessor ) {
+			$dataValueMethod = 'getLongText';
+		} else {
+			$dataValueMethod = $this->prefixParameterProcessor->useLongText( $isSubject ) ? 'getLongText' : 'getShortText';
+		}
+
 		$values = [];
 
 		foreach ( $dataValues as $dv ) {
-			$dataValueMethod = $this->prefixParameterProcessor->useLongText( $isSubject ) ? 'getLongText' : 'getShortText';
-
 			// Restore output in Special:Ask on:
 			// - file/image parsing
 			// - text formatting on string elements including italic, bold etc.
@@ -480,15 +552,10 @@ class DataTables extends TableResultPrinter {
 	 * @see ResultPrinter::getResources
 	 */
 	protected function getResources() {
-
 		return [
 			'modules' => [
 				'ext.srf.datatables.v2.module',
 				'ext.srf.datatables.v2.format'
-			],
-			'styles' => [
-			],
-			'messages' => [
 			],
 			'targets' => [ 'mobile', 'desktop' ]
 		];
@@ -519,9 +586,8 @@ class DataTables extends TableResultPrinter {
 		}
 	}
 
-	private function addDataTableAttrs( $res, $headerList, &$tableAttrs ) {
-
-		$tableAttrs['class'] = 'datatable smw-deferred-query';
+	private function addDataTableAttrs( $res, $headerList, &$tableAttrs, $printrequests ) {
+		$tableAttrs['class'] = 'datatable';
 		$tableAttrs['width'] = '100%';
 		$tableAttrs['style'] = 'opacity:.0; display:none;';
 
@@ -533,10 +599,6 @@ class DataTables extends TableResultPrinter {
 			]
 		);
 
-		$tableAttrs['data-query'] = QueryStringifier::toJson(
-			$res->getQuery()
-		);
-
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'datatables-')  === 0 ) {
@@ -544,12 +606,16 @@ class DataTables extends TableResultPrinter {
 			}
 		}
 
+		$tableAttrs['data-query'] = QueryStringifier::toJson( $res->getQuery() );
 		$tableAttrs['data-datatables'] = json_encode( $datatablesOptions, true );
-
-		$tableAttrs['data-count'] = $this->countValue;
+		$tableAttrs['data-printrequests'] = json_encode( $printrequests, true );
+		$tableAttrs['data-mode'] = $this->params['mode'];
+		$tableAttrs['data-max'] = $this->query->getOption( 'max' );
+		$tableAttrs['data-defer-each'] = $this->query->getOption( 'defer-each' );
 		$tableAttrs['data-theme'] = $this->params['theme'];
 		$tableAttrs['data-columnstype'] = ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null );
 		$tableAttrs['data-collation'] = !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'];
+
 	}
 
 }
