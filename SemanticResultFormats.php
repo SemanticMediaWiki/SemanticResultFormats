@@ -53,6 +53,7 @@ class SemanticResultFormats {
 	public static function registerHooks() {
 		$formatDir = __DIR__ . '/formats/';
 
+
 		unset( $formatDir );
 
 		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
@@ -68,6 +69,7 @@ class SemanticResultFormats {
 
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
+		$GLOBALS['wgAPIModules']['ext.srf.datatables.json'] = 'SRF\DataTables\Api';
 
 		// User preference
 		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
