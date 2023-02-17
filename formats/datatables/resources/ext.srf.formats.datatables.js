@@ -2,147 +2,13 @@
  * @license GNU GPL v2+
  * @since 3.0
  *
- * @author mwjames
+ * @author thomas-topway-it <business@topway.it>
+ * @credits mwjames (ext.smw.tableprinter.js)
  */
 
 /* global jQuery, mediaWiki, mw */
 (function ($, mw) {
 	"use strict";
-
-	/**
-	 * @since 3.0
-	 * @constructor
-	 *
-	 * @param container {Object}
-	 * @param api {Object}
-	 */
-	var Query = function (container, api) {
-		this.VERSION = "3.0";
-
-		this.container = container;
-		this.mwApi = api;
-
-		this.title = mw.config.get("wgPageName");
-		this.data = container.data("query");
-		this.query = this.data.query;
-
-		this.cmd = this.data.cmd;
-		this.control = container.find("#deferred-control").data("control");
-
-		this.limit = this.data.limit;
-		this.offset = this.data.offset;
-
-		this.rangeLimit = this.limit;
-		this.rangeOffset = this.offset;
-		this.init = true;
-
-		this.max = this.data.max;
-		this.step = 5;
-		this.postfix = "";
-
-		// console.log("this.query",this.query)
-
-		// Ensure to have a limit, offset parameter for queries that use
-		// the default setting
-		if (this.query.indexOf("|limit=") == -1) {
-			this.query = this.query + "|limit=" + this.limit;
-		}
-
-		if (this.query.indexOf("|offset=") == -1) {
-			this.query = this.query + "|offset=" + this.offset;
-		}
-
-		if (this.query.indexOf("|default=") == -1) {
-			this.query = this.query + "|default=" + mw.msg("smw_result_noresults");
-		}
-	};
-
-	/**
-	 * Request and parse a #ask/#show query using the MediaWiki API back-end
-	 *
-	 * @since 3.0
-	 */
-	Query.prototype.doApiRequest = function () {
-		return;
-
-		var self = this,
-			noTrace = "";
-
-		// Replace limit, offset with altered values
-		var query = self.query
-			.replace("limit=" + self.limit, "limit=" + self.rangeLimit)
-			.replace("offset=" + self.offset, "offset=" + self.rangeOffset);
-
-		// In case the query was altered from its original request, signal
-		// to the QueryDependencyLinksStore to disable any tracking
-		if (self.query !== query) {
-			noTrace = "|@notrace";
-		}
-
-		/*
-console.log( {
-			action: "parse",
-			title: self.title,
-			contentmodel: 'wikitext',
-			prop: 'text|modules|jsconfigvars',
-			text: '{{#' + self.cmd + ':' +  query + noTrace + '}}'
-		})
-*/
-		// API notes "modules: Gives the ResourceLoader modules used on the page.
-		// Either jsconfigvars or encodedjsconfigvars must be requested jointly
-		// with modules. 1.24+"
-		self.mwApi
-			.post({
-				action: "parse",
-				title: self.title,
-				contentmodel: "wikitext",
-				prop: "text|modules|jsconfigvars",
-				text: "{{#" + self.cmd + ":" + query + noTrace + "}}",
-			})
-			.done(function (data) {
-				console.log("data", data);
-				if (self.init === true) {
-					self.initControls();
-					self.replaceOutput("");
-				}
-
-				// Remove any comments retrieved from the API parse
-				var text = data.parse.text["*"].replace(/<!--[\S\s]*?-->/gm, "");
-
-				// Remove any remaining placeholder loading classes
-				if (self.control !== "") {
-					text = text.replace("smw-loading-image-dots", "");
-				}
-
-				// Remove any <p> element to avoid line breakages
-				if (self.cmd === "show") {
-					text = text.replace(/(?:^<p[^>]*>)|(?:<\/p>$)/gim, "");
-				}
-
-				self.replaceOutput(text, "", data.parse.modules);
-			})
-			.fail(function (code, failure) {
-				var error = code + ": " + failure.textStatus;
-
-				if (
-					failure.hasOwnProperty("exception") &&
-					failure.hasOwnProperty("xhr")
-				) {
-					error = failure.xhr.responseText;
-				} else if (
-					failure.hasOwnProperty("error") &&
-					failure.error.hasOwnProperty("info")
-				) {
-					error = failure.error.info;
-				}
-
-				self.container
-					.find("#deferred-control")
-					.replaceWith("<div id='deferred-control'></div>");
-				self.container.find(".irs").hide();
-				self.replaceOutput(error, "smw-callout smw-callout-error");
-			});
-	};
 
 	var dataTable = {
 		/**
@@ -225,9 +91,12 @@ console.log( {
 		 * @param {Object} context
 		 */
 		addHeader: function (context) {
+			// console.log("addHeader");
 			// Copy the thead to a position the DataTable plug-in can transform
 			// and display
 			if (context.find("thead").length === 0) {
+				// console.log("addHeader--");
+
 				var head = context.find("tbody tr");
 				context.prepend("<thead>" + head.html() + "</thead>");
 				head.eq(0).remove();
@@ -252,6 +121,8 @@ console.log( {
 		 * @param {Object} context
 		 */
 		addFooter: function (context) {
+			// console.log("addFooter");
+
 			// As a transposed table, move the footer column to the bottom
 			// and remove any footer-cell from the table matrix to
 			// ensure a proper formatted table
@@ -259,6 +130,8 @@ console.log( {
 				context.data("transpose") === 1 &&
 				context.find("tbody .sortbottom").length === 1
 			) {
+				// console.log("addFooter--");
+
 				var footer = context.find("tbody .sortbottom");
 				context.append(
 					"<tfoot><tr><td colspan=" +
@@ -379,8 +252,6 @@ console.log( {
 			// DataTables default display class
 			context.addClass("display");
 
-			//mw.loader.using( 'onoi.dataTables' ).done( function () {
-
 			self.initColumnSort(context);
 
 			// MediaWiki table output is missing some standard formatting hence
@@ -394,7 +265,7 @@ console.log( {
 				return;
 			}
 
-			console.log("context.data", context.data());
+			// console.log("context.data", context.data());
 
 			var options = context.data("datatables");
 
@@ -404,6 +275,7 @@ console.log( {
 				// ...
 			];
 
+			// transform csv to array
 			for (var i in options) {
 				if (arrayTypes.indexOf(i) !== -1) {
 					options[i] = options[i]
@@ -413,91 +285,147 @@ console.log( {
 				}
 			}
 
-			console.log("options", options);
+			// console.log("options", options);
 
+			// add the button placeholder if any button is required
 			if (options.buttons.length && options.dom.indexOf("B") === -1) {
 				options.dom = "B" + options.dom;
 			}
 
-			/*
-            deferRender:    true,
-            scrollY:        200,
-            scrollCollapse: true,
-            scroller:       true
+			if (options.scrollY === -1) {
+				delete options.scrollY;
+			}
+
+			if (options.scroller === true) {
+				options.scroller = { loadingIndicator: true };
+			}
+
+			// console.log("max", context.data("max"));
+			// console.log("order", context.data("order"));
+
+			// console.log("query", context.data("query"));
+
+			var query = context.data("query");
+
+			var printouts = context.data("printouts");
+
+			// console.log("printouts", printouts);
+
+			var queryString = query.conditions;
+			// console.log("queryString", queryString);
+
+			var printrequests = context.data("printrequests");
+
+			// @see https://datatables.net/reference/option/columns.type
+			var columnstypePar = context.data("columnstype") || "";
+			columnstypePar = columnstypePar
+				.split(",")
+				.map((x) => x.trim())
+				.filter((x) => x !== "");
+
+			var entityCollation = context.data("collation");
+
+			// use the latest set value if one or more column is missing
+			var columnsType = null;
+
+			var columnDefs = [];
+			$.map(printrequests, function (property, index) {
+				if (columnstypePar[index]) {
+					columnsType =
+						columnstypePar[index] === "auto" ? null : columnstypePar[index];
+				} else if (entityCollation) {
+					// html-num-fmt
+					columnsType =
+						entityCollation === "numeric" && property.typeid === "_wpg"
+							? "any-number"
+							: null;
+				}
+
+				columnDefs.push({
+					// 'mData': property.label,
+					// 'sTitle': property.label,
+					// 'sClass': 'smwtype' + property.typeid,
+					// 'aTargets': [index]
+
+					// https://datatables.net/reference/option/columnDefs
+					data: property.label,
+					title: property.label,
+					// type: columnsType,
+					className: "smwtype" + property.typeid,
+					targets: [index],
+				});
+			});
+
+			// console.log("columnDefs", columnDefs);
+/*
+			$.ajax({
+				url: mw.util.wikiScript("api"),
+				dataType: "json",
+				data: {
+					action: "ext.srf.datatables.json",
+					format: "json",
+					query: queryString,
+					printouts: JSON.stringify(printouts),
+					datatable: JSON.stringify({ start: 0, draw: 1 }),
+					settings: JSON.stringify({
+						max: context.data("max"),
+						deferEach: context.data("defer-each"),
+					}),
+				},
+			})
+				.done(function (results) {
+					console.log("results", results);
+				})
+				.fail(function (error) {
+					console.log("error", error);
+				});
 */
+
 			var table = context.DataTable(
-				$.extend(
-					{
-						//	order: 1,
-						//	pageLength: 20,
-						// https://datatables.net/reference/option/dom
-						//	dom: 'B<"srf-datatable-left"f><"srf-datatable-right"l>rtip',
-						//	lengthMenu: [10, 20, 50, 100, 200],
-						//buttons: [
-						//           'copy', 'csv', 'excel', 'pdf', 'print'
-						//       ]
+				$.extend(options, {
+					columnDefs: columnDefs,
+					processing: true,
+					order: context.data("order"),
+					deferRender: true,
+					deferLoading: context.data("max"),
+					serverSide: true,
+					ajax: {
+						url: mw.util.wikiScript("api"),
+						data: function (d) {
+							// console.log("d", d);
+							return {
+								action: "ext.srf.datatables.json",
+								format: "json",
+								query: queryString,
+								printouts: JSON.stringify(printouts),
+								datatable: JSON.stringify(d),
+								settings: JSON.stringify({
+									max: context.data("max"),
+									deferEach: context.data("defer-each"),
+								}),
+							};
+						},
+						dataFilter: function (json) {
+							json = JSON.parse(json);
+							// console.log("json", json["datatables-json"]);
+							var json = json["datatables-json"];
+
+							json.data = json.data.map((x) => {
+								var ret = {};
+								for (var i in x) {
+									ret[columnDefs[i].data] = x[i];
+								}
+								return ret;
+							});
+
+							// console.log("json", json);
+							return JSON.stringify(json);
+						},
 					},
-					options
-				)
+				})
 			);
 
-			console.log("options", options);
-
-			return;
-
-			/*
-
-					dom: 'l<"smw-datatable-toolbar float-right">frtip',
-					searchHighlight: true,
-					
-  //      processing: true,
-  //      serverSide: true,
-// https://datatables.net/examples/server_side/defer_loading.html
-   //    				deferLoading: context.data( 'count' ) * 1,
-//ajax: 'scripts/server_processing.php',
-					language: {
-						"sProcessing": mw.msg( 'smw-format-datatable-processing' ),
-						"sLengthMenu": mw.msg( 'smw-format-datatable-lengthmenu' ),
-						"sZeroRecords": mw.msg( 'smw-format-datatable-zerorecords' ),
-						"sEmptyTable": mw.msg( 'smw-format-datatable-emptytable' ),
-						"sInfo": mw.msg( 'smw-format-datatable-info' ),
-						"sInfoEmpty": mw.msg( 'smw-format-datatable-infoempty' ),
-						"sInfoFiltered": mw.msg( 'smw-format-datatable-infofiltered' ),
-						"sSearch": mw.msg( 'smw-format-datatable-search' ),
-						"sInfoThousands": mw.msg( 'smw-format-datatable-infothousands' ),
-						"sLoadingRecords": mw.msg( 'smw-format-datatable-loadingrecords' ),
-						"oPaginate": {
-							"sFirst": mw.msg( 'smw-format-datatable-first' ),
-							"sLast": mw.msg( 'smw-format-datatable-last' ),
-							"sNext": mw.msg( 'smw-format-datatable-next' ),
-							"sPrevious": mw.msg( 'smw-format-datatable-previous' )
-						},
-						"oAria": {
-							"sSortAscending": mw.msg( 'smw-format-datatable-sortascending' ),
-							"sSortDescending": mw.msg( 'smw-format-datatable-sortdescending' )
-						}
-					}
-*/
-			// Remove accented characters from the search input
-			context
-				.parent()
-				.find("input")
-				.on("keyup", function () {
-					table
-						.search($.fn.DataTable.ext.type.search.string($.trim(this.value)))
-						.draw();
-				});
-
-			self.addToolbarExportLinks(context);
-
-			// Fire to instantiate the tooltip after the DT has been generated
-			mw.hook("smw.tooltip").fire(context);
-
-			var q = new Query(context, new mw.Api());
-
-			q.doApiRequest();
-
-			// } );
+			// console.log("options", options);
 		},
 
 		/**
