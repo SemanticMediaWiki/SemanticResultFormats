@@ -287,25 +287,27 @@ class DataTables extends TableResultPrinter {
 			}
 		}
 
-		
-		$printrequests = [];
-		foreach ( $res->getPrintRequests() as $key => $printrequest ) {
-			$data = $printrequest->getData();
+		// print_r($res->getPrintRequests());
+		// @TODO use only one between printouts and printrequests
+		$resultArray = $res->toArray();
+		$printrequests = $resultArray['printrequests'];
+
+		$printouts = [];
+		foreach ( $res->getPrintRequests() as $key => $value ) {
+			$data = $value->getData();
 			if ( $data instanceof SMWPropertyValue ) {
 				$name = $data->getDataItem()->getKey();
 			} else {
 				$name = null;
 			}
-			$printrequests[] = [
-				$printrequest->getMode(),
-				$printrequest->getLabel(),
+			$printouts[] = [
+				$value->getMode(),
+				$value->getLabel(),
 				$name,
-				$printrequest->getOutputFormat(),
-				$printrequest->getParameters(),
+				$value->getOutputFormat(),
+				$value->getParameters(),
 			];
-
 		}
-
 
 		$rowNumber = 0;
 
@@ -344,7 +346,8 @@ class DataTables extends TableResultPrinter {
 				$res,
 				$headerList,
 				$tableAttrs,
-				$printrequests
+				$printrequests,
+				$printouts
 			);
 		}
 
@@ -414,7 +417,7 @@ class DataTables extends TableResultPrinter {
 			$ret[] = $row;
 		}
 
-		return json_encode( $ret );
+		return $ret;
 	}
 
 
@@ -530,9 +533,7 @@ class DataTables extends TableResultPrinter {
 				$value = $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
 			}
 
-			// ***edited
 			$values[] = $value === '' ? '&nbsp;' : $value;
-			// $values[] = $value === '' ? '' : $value;
 		}
 
 		$sep = strtolower( $this->params['sep'] );
@@ -586,7 +587,7 @@ class DataTables extends TableResultPrinter {
 		}
 	}
 
-	private function addDataTableAttrs( $res, $headerList, &$tableAttrs, $printrequests ) {
+	private function addDataTableAttrs( $res, $headerList, &$tableAttrs, $printrequests, $printouts ) {
 		$tableAttrs['class'] = 'datatable';
 		$tableAttrs['width'] = '100%';
 		$tableAttrs['style'] = 'opacity:.0; display:none;';
@@ -609,6 +610,7 @@ class DataTables extends TableResultPrinter {
 		$tableAttrs['data-query'] = QueryStringifier::toJson( $res->getQuery() );
 		$tableAttrs['data-datatables'] = json_encode( $datatablesOptions, true );
 		$tableAttrs['data-printrequests'] = json_encode( $printrequests, true );
+		$tableAttrs['data-printouts'] = json_encode( $printouts, true );
 		$tableAttrs['data-mode'] = $this->params['mode'];
 		$tableAttrs['data-max'] = $this->query->getOption( 'max' );
 		$tableAttrs['data-defer-each'] = $this->query->getOption( 'defer-each' );

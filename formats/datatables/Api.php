@@ -26,6 +26,91 @@ class Api extends ApiBase {
 		// get request parameters
 		$requestParams = $this->extractRequestParams();
 
+		// @see https://datatables.net/reference/option/ajax
+		$datatableData = json_decode( $requestParams['datatable'], true );
+
+
+/*
+
+{
+    "draw": 3,
+    "columns": [
+        {
+            "data": {
+                "_": "0.display",
+                "sort": "0.@data-order",
+                "type": "0.@data-order"
+            },
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": {
+                "_": "1.display",
+                "sort": "1.@data-order",
+                "type": "1.@data-order"
+            },
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": 2,
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": 3,
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": 4,
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        }
+    ],
+    "order": [
+        {
+            "column": 0,
+            "dir": "asc"
+        }
+    ],
+    "start": 0,
+    "length": 81,
+    "search": {
+        "value": "",
+        "regex": false
+    }
+}
+*/
+		// max, deferEach
+		$settings = json_decode( $requestParams['settings'], true );
+
 		$printer = new Datatables( 'datatables', true );
 
 		// get defaults of parameters for the 'template' result format as array of ParamDefinition
@@ -46,6 +131,9 @@ class Api extends ApiBase {
 				'format' => 'datatables',
 
 				"mode" => 'json',
+				// @see https://datatables.net/manual/server-side
+				"limit" => max( $datatableData['length'], $settings['deferEach'] ),
+				"offset" => $datatableData['start'],
 			]
 		);
 
@@ -80,6 +168,9 @@ class Api extends ApiBase {
 			);
 		}
 
+		//  @TODO search
+		// . ( !empty($requestParams['datatableData']['search']['value'] ) ?
+
 		// query SMWQueryProcessor and set query result as API call result
 		$query = SMWQueryProcessor::createQuery(
 			$requestParams['query'],
@@ -95,12 +186,15 @@ class Api extends ApiBase {
 		// or SMW_OUTPUT_RAW
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
 
-		$this->getResult()->addValue(
-			null,
-			"datatables-json",
-			$res
-		);
+		// @see https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html
+		$ret = [
+			'draw' => $datatableData['draw'],
+			'data' => $res,
+			'recordsTotal' => $settings['max'],
+			'recordsFiltered' => $settings['max']
+		];
 
+		$this->getResult()->addValue( null, "datatables-json", $ret );
 	}
 
 	/**
@@ -140,6 +234,14 @@ class Api extends ApiBase {
 				ApiBase::PARAM_REQUIRED => true,
 			],
 			'printouts' => [
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true,
+			],
+			'settings' => [
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true,
+			],
+			'datatable' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true,
 			],
