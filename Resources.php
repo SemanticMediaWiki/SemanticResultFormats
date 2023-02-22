@@ -973,7 +973,44 @@ return [
 			 'datatables/resources/ext.srf.formats.datatables.css'
 		],
 		'dependencies' => [
-			'ext.smw.api'
+			'ext.smw.api',
+			'ext.srf.api',
+			'ext.srf.util',
+			'ext.srf.widgets'
+		],
+		'messages' => [
+			'srf-ui-datatables-label-conditions',
+			'srf-ui-datatables-label-parameters',
+			'srf-ui-datatables-label-filters',
+			'srf-ui-datatables-label-information',
+			'srf-ui-datatables-panel-disclaimer',
+			'srf-ui-datatables-refresh-button-title',
+			'srf-ui-datatables-panel-switch-button-title',
+			'srf-ui-datatables-label-update-success',
+			'srf-ui-datatables-label-update-error',
+			'srf-ui-datatables-label-sEmptyTable',
+			'srf-ui-datatables-label-sInfo',
+			'srf-ui-datatables-label-sInfoEmpty',
+			'srf-ui-datatables-label-sInfoFiltered',
+			'srf-ui-datatables-label-sInfoPostFix',
+			'srf-ui-datatables-label-sInfoThousands',
+			'srf-ui-datatables-label-sLengthMenu',
+			'srf-ui-datatables-label-sLoadingRecords',
+			'srf-ui-datatables-label-sProcessing',
+			'srf-ui-datatables-label-sSearch',
+			'srf-ui-datatables-label-sZeroRecords',
+			'srf-ui-datatables-label-oPaginate-sFirst',
+			'srf-ui-datatables-label-oPaginate-sLast',
+			'srf-ui-datatables-label-oPaginate-sNext',
+			'srf-ui-datatables-label-oPaginate-sPrevious',
+			'srf-ui-datatables-label-oAria-sSortAscending',
+			'srf-ui-datatables-label-oAria-sSortDescending',
+			'srf-ui-datatables-label-multiselect-column-header',
+			'srf-ui-datatables-label-multiselect-column-noneselectedtext',
+			'srf-ui-datatables-label-multiselect-column-selectedtext',
+			'srf-ui-datatables-label-placeholder-column-search',
+			'srf-ui-datatables-label-content-cache',
+			'srf-ui-datatables-label-content-server'
 		]
 	],
 
