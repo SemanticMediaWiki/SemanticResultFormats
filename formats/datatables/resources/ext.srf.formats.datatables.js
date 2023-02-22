@@ -1,16 +1,61 @@
-/*!
- * @license GNU GPL v2+
- * @since 3.0
+/**
+ * SRF DataTables JavaScript Printer using the SMWAPI
  *
- * @author thomas-topway-it <business@topway.it>
+ * @see http://datatables.net/
+ *
+ * @since 1.9
+ * @version 0.2.5
+ *
+ * @file
+ * @ingroup SRF
+ *
+ * @licence GPL-2.0-or-later
+ * @author thomas-topway-it
  * @credits mwjames (ext.smw.tableprinter.js)
  */
-
-/* global jQuery, mediaWiki, mw */
-(function ($, mw) {
+(function ($, mw, srf) {
 	"use strict";
 
-	var dataTable = {
+	/* Private methods and objects */
+
+	/**
+	 * Helper objects
+	 *
+	 * @since 1.9
+	 *
+	 * @ignore
+	 * @private
+	 * @static
+	 */
+	var html = mw.html;
+
+	/**
+	 * Container for all non-public objects and methods
+	 *
+	 * @private
+	 * @member srf.formats.datatables
+	 */
+	var _datatables = {
+		/**
+		 * Returns ID
+		 *
+		 * @private
+		 * @return {string}
+		 */
+		getID: function (container) {
+			return container.attr("id");
+		},
+
+		/**
+		 * Returns container data
+		 *
+		 * @private
+		 * @return {object}
+		 */
+		getData: function (container) {
+			return mw.config.get(this.getID(container));
+		},
+
 		/**
 		 * Adds the initial sort/order from the #ask request that is available as
 		 * `data-column-sort` attribute with something like:
@@ -82,191 +127,137 @@
 			}
 		},
 
+		parse: {
+			// ...
+		},
+
+		exportlinks: function (context, data) {
+			// ...
+		},
+
 		/**
-		 * @since 3.0
+		 * Internationalization
+		 * @see  http://datatables.net/usage/i18n
 		 *
 		 * @private
-		 * @static
-		 *
-		 * @param {Object} context
+		 * @return {object}
 		 */
-		addHeader: function (context) {
-			// console.log("addHeader");
-			// Copy the thead to a position the DataTable plug-in can transform
-			// and display
-			if (context.find("thead").length === 0) {
-				// console.log("addHeader--");
-
-				var head = context.find("tbody tr");
-				context.prepend("<thead>" + head.html() + "</thead>");
-				head.eq(0).remove();
-
-				// In case of a transposed, turn any td into a th
-				context.find("thead td").wrapInner("<th />").contents().unwrap();
-			}
-
-			// Ensure that any link in the header stops the propagation of the
-			// click sorting event
-			context.find("thead tr a").on("click.sorting", function (event) {
-				event.stopPropagation();
-			});
+		oLanguage: {
+			oAria: {
+				sSortAscending: mw.msg("srf-ui-datatables-label-oAria-sSortAscending"),
+				sSortDescending: mw.msg(
+					"srf-ui-datatables-label-oAria-sSortDescending"
+				),
+			},
+			oPaginate: {
+				sFirst: mw.msg("srf-ui-datatables-label-oPaginate-sFirst"),
+				sLast: mw.msg("srf-ui-datatables-label-oPaginate-sLast"),
+				sNext: mw.msg("srf-ui-datatables-label-oPaginate-sNext"),
+				sPrevious: mw.msg("srf-ui-datatables-label-oPaginate-sPrevious"),
+			},
+			sEmptyTable: mw.msg("srf-ui-datatables-label-sEmptyTable"),
+			sInfo: mw.msg("srf-ui-datatables-label-sInfo"),
+			sInfoEmpty: mw.msg("srf-ui-datatables-label-sInfoEmpty"),
+			sInfoFiltered: mw.msg("srf-ui-datatables-label-sInfoFiltered"),
+			sInfoPostFix: mw.msg("srf-ui-datatables-label-sInfoPostFix"),
+			sInfoThousands: mw.msg("srf-ui-datatables-label-sInfoThousands"),
+			sLengthMenu: mw.msg("srf-ui-datatables-label-sLengthMenu"),
+			sLoadingRecords: mw.msg("srf-ui-datatables-label-sLoadingRecords"),
+			sProcessing: mw.msg("srf-ui-datatables-label-sProcessing"),
+			sSearch: mw.msg("srf-ui-datatables-label-sSearch"),
+			sZeroRecords: mw.msg("srf-ui-datatables-label-sZeroRecords"),
 		},
 
 		/**
-		 * @since 3.0
+		 * UI components
 		 *
 		 * @private
-		 * @static
-		 *
-		 * @param {Object} context
+		 * @param  {array} context
+		 * @param  {array} container
+		 * @param  {array} data
 		 */
-		addFooter: function (context) {
-			// console.log("addFooter");
+		ui: function (context, container, data) {
+			// ...
+		},
+	};
 
-			// As a transposed table, move the footer column to the bottom
-			// and remove any footer-cell from the table matrix to
-			// ensure a proper formatted table
-			if (
-				context.data("transpose") === 1 &&
-				context.find("tbody .sortbottom").length === 1
-			) {
-				// console.log("addFooter--");
+	/**
+	 * Inheritance class for the srf.formats constructor
+	 *
+	 * @since 1.9
+	 *
+	 * @class
+	 * @abstract
+	 */
+	srf.formats = srf.formats || {};
 
-				var footer = context.find("tbody .sortbottom");
-				context.append(
-					"<tfoot><tr><td colspan=" +
-						footer.index() +
-						">" +
-						footer.html() +
-						"</td></tr></tfoot>"
-				);
-				footer.eq(0).remove();
+	/**
+	 * Class that contains the DataTables JavaScript result printer
+	 *
+	 * @since 1.9
+	 *
+	 * @class
+	 * @constructor
+	 * @extends srf.formats
+	 */
+	srf.formats.datatables = function () {};
 
-				// Remove remaining footer cells to avoid an uneven table
-				context.find("tbody .footer-cell").each(function () {
-					$(this).remove();
-				});
-			}
+	/* Public methods */
 
-			// Copy the tbody to a position the DataTable plug-in can transform
-			// and display
-			if (context.find("tbody .smwfooter").length == 1) {
-				var footer = context.find("tbody .smwfooter");
-				context.append("<tfoot>" + footer.html() + "</tfoot>");
-				footer.eq(0).remove();
-			}
-
-			context.find(".sortbottom").addClass("plainlinks");
+	srf.formats.datatables.prototype = {
+		/**
+		 * Default settings
+		 *
+		 * @note MW 1.21 vs MW 1.20
+		 * Apparently mw.config.get( 'srf' )/mw.config.get( 'smw' ) does only work
+		 * in MW 1.21 therefore instead of being customizable those settings are
+		 * going to be fixed
+		 *
+		 * TTL (if enabled) cache for resultObject is set to be 15 min by default
+		 * TTL (if enabled) cache for imageInfo is set to be 24 h
+		 *
+		 * @since  1.9
+		 *
+		 * @property
+		 */
+		defaults: {
+			// ...
 		},
 
 		/**
-		 * @since 3.0
+		 * Initializes the DataTables instance
 		 *
-		 * @param {Object} context
-		 */
-		addToolbarExportLinks: function (context) {
-			var toolbar = context.parent().find(".smw-datatable-toolbar"),
-				query = context.data("query"),
-				exportFormats = {
-					JSON: {
-						format: "json",
-						searchlabel: "JSON",
-						type: "simple",
-						prettyprint: true,
-						unescape: true,
-					},
-					CSV: {
-						format: "csv",
-						searchlabel: "CSV",
-					},
-					RSS: {
-						format: "rss",
-						searchlabel: "RSS",
-					},
-					RDF: {
-						format: "rdf",
-						searchlabel: "RDF",
-					},
-				};
-
-			if (!query instanceof Object || query === undefined) {
-				return;
-			}
-
-			var items = "";
-
-			Object.keys(exportFormats).forEach(function (key) {
-				// https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
-				var conf = exportFormats[key],
-					parameters = $.extend({}, query.parameters);
-
-				// Modify the default query with that of the configuration
-				Object.keys(conf).forEach(function (k) {
-					parameters[k] = conf[k];
-				});
-
-				var q = new smw.query(query.printouts, parameters, query.conditions);
-
-				q.setLinkAttributes({
-					title: key,
-				});
-
-				if (key === "RDF") {
-					items += '<li class="divider"></li>';
-				}
-
-				items += '<li class="action">' + q.getLink(key) + "</li>";
-			});
-
-			toolbar.append(
-				'<span class="smw-dropdown">' +
-					"<button>" +
-					mw.msg("smw-format-datatable-toolbar-export") +
-					"</button>" +
-					'<label><input type="checkbox">' +
-					'<ul class="smw-dropdown-menu">' +
-					items +
-					"</ul></label></span>"
-			);
-
-			toolbar.find(".action a").on("click", function (e) {
-				toolbar.find(".smw-dropdown input").prop("checked", false);
-			});
-		},
-
-		/**
-		 * @since 3.0
+		 * @since 1.9
 		 *
-		 * @param {Object} context
+		 * @param  {array} context
+		 * @param  {array} container
+		 * @param  {array} data
 		 */
-		attach: function (context) {
+		init: function (context, container, data) {
 			var self = this;
-			context.show();
 
-			// Remove any class that may interfere due to some external JS or CSS
-			context.removeClass("jquery-tablesorter");
-			context.removeClass("sortable");
-			context.removeClass("is-disabled");
-			context.removeClass("wikitable");
+			// Hide loading spinner
+			context.find(".srf-loading-dots").hide();
 
-			// DataTables default display class
-			context.addClass("display");
+			// Show container
+			container.css({ display: "block" });
 
-			self.initColumnSort(context);
+			_datatables.initColumnSort(context);
 
-			// MediaWiki table output is missing some standard formatting hence
-			// add a footer and header
-			self.addFooter(context);
-			self.addHeader(context);
+			var order = context.data("order");
 
-			// https://datatables.net/manual/tech-notes/3
-			// Ensure the object initialization only happens once
-			if ($.fn.dataTable.isDataTable(context)) {
-				return;
-			}
-
-			// console.log("context.data", context.data());
-
+			// Setup a raw table
+			container.html(
+				html.element("table", {
+					class:
+						context.data("theme") === "bootstrap"
+							? "bordered-table zebra-striped"
+							: "display",
+					cellpadding: "0",
+					cellspacing: "0",
+					border: "0",
+				})
+			);
 			var options = context.data("datatables");
 
 			var arrayTypes = [
@@ -285,35 +276,24 @@
 				}
 			}
 
-			// console.log("options", options);
-
 			// add the button placeholder if any button is required
 			if (options.buttons.length && options.dom.indexOf("B") === -1) {
 				options.dom = "B" + options.dom;
 			}
 
-			if (options.scrollY === -1) {
+			if (options.scroller === true) {
+				options.scroller = { loadingIndicator: true };
+
+				if (!("scrollY" in options) || options.scrollY < 1) {
+					options.scrollY = 300;
+				}
+			} else if (options.scrollY === -1) {
 				delete options.scrollY;
 			}
 
-			if (options.scroller === true) {
-				options.scroller = { loadingIndicator: true };
-			}
-
-			// console.log("max", context.data("max"));
-			// console.log("order", context.data("order"));
-
-			// console.log("query", context.data("query"));
-
-			var query = context.data("query");
-
+			var query = data.query.ask;
 			var printouts = context.data("printouts");
-
-			// console.log("printouts", printouts);
-
 			var queryString = query.conditions;
-			// console.log("queryString", queryString);
-
 			var printrequests = context.data("printrequests");
 
 			// @see https://datatables.net/reference/option/columns.type
@@ -326,27 +306,24 @@
 			var entityCollation = context.data("collation");
 
 			// use the latest set value if one or more column is missing
+			// *** this couldn't be anymore necessary
+			// since sorting is done server-side
 			var columnsType = null;
 
 			var columnDefs = [];
 			$.map(printrequests, function (property, index) {
-				if (columnstypePar[index]) {
-					columnsType =
-						columnstypePar[index] === "auto" ? null : columnstypePar[index];
-				} else if (entityCollation) {
-					// html-num-fmt
-					columnsType =
-						entityCollation === "numeric" && property.typeid === "_wpg"
-							? "any-number"
-							: null;
-				}
+				// if (columnstypePar[index]) {
+				// 	columnsType =
+				// 		columnstypePar[index] === "auto" ? null : columnstypePar[index];
+				// } else if (entityCollation) {
+				// 	// html-num-fmt
+				// 	columnsType =
+				// 		entityCollation === "numeric" && property.typeid === "_wpg"
+				// 			? "any-number"
+				// 			: null;
+				// }
 
 				columnDefs.push({
-					// 'mData': property.label,
-					// 'sTitle': property.label,
-					// 'sClass': 'smwtype' + property.typeid,
-					// 'aTargets': [index]
-
 					// https://datatables.net/reference/option/columnDefs
 					data: property.label,
 					title: property.label,
@@ -356,106 +333,158 @@
 				});
 			});
 
-			// console.log("columnDefs", columnDefs);
-/*
-			$.ajax({
-				url: mw.util.wikiScript("api"),
-				dataType: "json",
-				data: {
+			var columnToObj = function (x) {
+				var ret = {};
+				for (var i in x) {
+					ret[columnDefs[i].data] = x[i];
+				}
+				return ret;
+			};
+
+			var conf = $.extend(options, {
+				columnDefs: columnDefs,
+				language: _datatables.oLanguage,
+				order: context.data("order"),
+				deferRender: context.data("count") > 1000,
+				// pagingType:
+				// 	context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
+			});
+
+			if (query.parameters["defer-each"] >= context.data("count")) {
+				conf.serverSide = false;
+				// scroller requires Ajax
+				conf.scroller = false;
+				conf.data = data.query.result.map(columnToObj);
+
+				// use Ajax only when required
+			} else {
+				var preloadData = {};
+
+				// cache using the column index and sorting
+				// method, as pseudo-multidimensional array
+				// column index + dir (asc/desc)
+				preloadData[order[0][0] + order[0][1]] = data.query.result;
+
+				var payload = {
 					action: "ext.srf.datatables.json",
 					format: "json",
 					query: queryString,
 					printouts: JSON.stringify(printouts),
-					datatable: JSON.stringify({ start: 0, draw: 1 }),
-					settings: JSON.stringify({
-						max: context.data("max"),
-						deferEach: context.data("defer-each"),
-					}),
-				},
-			})
-				.done(function (results) {
-					console.log("results", results);
-				})
-				.fail(function (error) {
-					console.log("error", error);
-				});
-*/
+					settings: JSON.stringify(
+						$.extend({ count: context.data("count") }, query.parameters)
+					),
+				};
 
-			var table = context.DataTable(
-				$.extend(options, {
-					columnDefs: columnDefs,
+				conf = $.extend(conf, {
+					// *** attention! deferLoading if used in conjunction with
+					// ajax, expects only the first page of data, if the preloaded
+					// data contain more rows, datatables will show a wrong rows
+					// counter. For this reason we renounce to use deferRender, and
+					// instead we use the following hack: the Ajax function returns
+					// the preloaded data as long they are available for the requested
+					// slice, and then it uses an ajax call for not available data.
+					// @TODO the retrieved data could be easily cached so the callback
+					// will use it instead then querying the server again, but that
+					// should take into account the filter as well
+					// deferLoading: context.data("count"),
+
 					processing: true,
-					order: context.data("order"),
-					deferRender: true,
-					deferLoading: context.data("max"),
 					serverSide: true,
-					ajax: {
-						url: mw.util.wikiScript("api"),
-						data: function (d) {
-							// console.log("d", d);
-							return {
-								action: "ext.srf.datatables.json",
-								format: "json",
-								query: queryString,
-								printouts: JSON.stringify(printouts),
-								datatable: JSON.stringify(d),
-								settings: JSON.stringify({
-									max: context.data("max"),
-									deferEach: context.data("defer-each"),
-								}),
-							};
-						},
-						dataFilter: function (json) {
-							json = JSON.parse(json);
-							// console.log("json", json["datatables-json"]);
-							var json = json["datatables-json"];
+					ajax: function (datatableData, callback, settings) {
+						var key =
+							datatableData.order[0].column + datatableData.order[0].dir;
 
-							json.data = json.data.map((x) => {
-								var ret = {};
-								for (var i in x) {
-									ret[columnDefs[i].data] = x[i];
-								}
-								return ret;
+						if (!(key in preloadData)) {
+							preloadData[key] = [];
+						}
+
+						// returned cached data for the required
+						// dimension (order column/dir)
+						if (
+							datatableData.start + datatableData.length <=
+							preloadData[key].length
+						) {							
+							return callback({
+								draw: datatableData.draw,
+								data: preloadData[key]
+									.slice(
+										datatableData.start,
+										datatableData.start + datatableData.length
+									)
+									.map(columnToObj),
+								recordsTotal: context.data("count"),
+								recordsFiltered: context.data("count"),
 							});
+						}
 
-							// console.log("json", json);
-							return JSON.stringify(json);
-						},
+						// flush cache each 1 million row
+						// @TODO this is only one of the possible
+						// methods !
+						var totalSize = 0;
+						for (var i in preloadData) {
+							totalSize = preloadData[i].length;
+						}
+
+						if (totalSize > 1000000) {
+							console.log("flushing datatables cache!");
+							preloadData = {};
+						}
+
+						$.ajax({
+							url: mw.util.wikiScript("api"),
+							dataType: "json",
+							data: $.extend(payload, {
+								datatable: JSON.stringify(datatableData),
+							}),
+						})
+							.done(function (results) {
+								var json = results["datatables-json"];
+
+								// cache all retrieved rows for each sorting
+								// dimension (column/dir), up to a global
+								// threshold (1,000,000 rows)
+								preloadData[key] = preloadData[key]
+									.slice(0, datatableData.start)
+									.concat(json.data);
+
+								json.data = json.data.map(columnToObj);
+								callback(json);
+							})
+							.fail(function (error) {
+								console.log("error", error);
+							});
 					},
-				})
-			);
+				});
+			}
 
-			// console.log("options", options);
+			data.table = container.find("table").DataTable(conf);
 		},
 
-		/**
-		 * @since 3.0
-		 *
-		 * @private
-		 * @static
-		 *
-		 * @param {Object} context
-		 */
-		init: function (context) {
-			context.removeClass("is-disabled");
-			context.removeClass("smw-flex-center");
+		update: function (context, data) {
+			// ...
+		},
 
-			context.css("background-color", "transparent");
-			context.css("height", "");
-			context.find(".smw-overlay-spinner").hide();
-
-			context.find(".datatable").css("opacity", "1");
-			context.removeClass("smw-extra-margin");
-
-			context.find(".smw-datatable").removeClass("smw-extra-margin");
-			this.attach(context.find(".datatable"));
+		test: {
+			// ...
 		},
 	};
 
+	/**
+	 * dataTables implementation
+	 *
+	 * @ignore
+	 */
+	var datatables = new srf.formats.datatables();
+
 	$(document).ready(function () {
-		$(".smw-datatable").each(function () {
-			dataTable.init($(this));
+		$(".srf-datatables").each(function () {
+			var context = $(this),
+				container = context.find(".container");
+
+			var data = JSON.parse(_datatables.getData(container));
+
+			datatables.init(context, container, data);
 		});
 	});
-})(jQuery, mediaWiki);
+})(jQuery, mediaWiki, semanticFormats);
 
