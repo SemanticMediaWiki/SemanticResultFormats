@@ -12,7 +12,7 @@ use SMW\Services\ServicesFactory;
 use SRF\DataTables;
 
 /**
- * @author thomas-topway-it <business@topway.it>
+ * @author thomas-topway-it
  * @credits Stephan Gambke (SRFSlideShowApi)
  */
 class Api extends ApiBase {
@@ -28,7 +28,6 @@ class Api extends ApiBase {
 
 		// @see https://datatables.net/reference/option/ajax
 		$datatableData = json_decode( $requestParams['datatable'], true );
-
 
 /*
 
@@ -108,12 +107,23 @@ class Api extends ApiBase {
     }
 }
 */
-		// max, deferEach
 		$settings = json_decode( $requestParams['settings'], true );
+
+		if ( empty( $datatableData['length'] ) ) {
+			$datatableData['length'] = $settings['defer-each'];
+		}
+
+		if ( empty( $datatableData['start'] ) ) {
+			$datatableData['start'] = 0;
+		}
+
+		if ( empty( $datatableData['draw'] ) ) {
+			$datatableData['draw'] = 0;
+		}
 
 		$printer = new Datatables( 'datatables', true );
 
-		// get defaults of parameters for the 'template' result format as array of ParamDefinition
+		// get defaults of parameters for the 'datatable' result format as array of ParamDefinition
 		$paramDefinitions = ParamDefinition::getCleanDefinitions( $printer->getParamDefinitions( [] ) );
 
 		// transform into normal key-value array
@@ -123,6 +133,13 @@ class Api extends ApiBase {
 			$queryParams[$def->getName()] = $def->getDefault();
 		}
 
+		$printoutsRaw = json_decode( $requestParams['printouts'], true );
+
+		$columnIndex = $datatableData['order'][0]['column'];
+
+		// or $printoutsRaw[$columnIndex][1]
+		$columnSortName = $datatableData['columns'][$columnIndex]['data'];
+
 		// add/set specific parameters for this call
 		$queryParams = array_merge(
 			$queryParams,
@@ -130,10 +147,12 @@ class Api extends ApiBase {
 				// *** important !!
 				'format' => 'datatables',
 
-				"mode" => 'json',
+				"ajax" => "ajax",
 				// @see https://datatables.net/manual/server-side
-				"limit" => max( $datatableData['length'], $settings['deferEach'] ),
+				"limit" => $datatableData['length'],	// max( $datatableData['length'], $settings['defer-each'] ),
 				"offset" => $datatableData['start'],
+				"sort" => $columnSortName,
+				"order" => $datatableData['order'][0]['dir']
 			]
 		);
 
@@ -144,10 +163,7 @@ class Api extends ApiBase {
 		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, [] );
 
 		// build array of printouts
-
-		$printoutsRaw = json_decode( $requestParams['printouts'], true );
 		$printouts = [];
-
 		foreach ( $printoutsRaw as $printoutData ) {
 
 			// if printout mode is PRINT_PROP
@@ -168,10 +184,11 @@ class Api extends ApiBase {
 			);
 		}
 
-		//  @TODO search
-		// . ( !empty($requestParams['datatableData']['search']['value'] ) ?
+		//  @TODO search string
+		// if ( !empty($requestParams['datatableData']['search']['value'] ) ) {
+			// ... 
+		// }
 
-		// query SMWQueryProcessor and set query result as API call result
 		$query = SMWQueryProcessor::createQuery(
 			$requestParams['query'],
 			$queryParams,
@@ -190,8 +207,8 @@ class Api extends ApiBase {
 		$ret = [
 			'draw' => $datatableData['draw'],
 			'data' => $res,
-			'recordsTotal' => $settings['max'],
-			'recordsFiltered' => $settings['max']
+			'recordsTotal' => $settings['count'],
+			'recordsFiltered' => $settings['count']
 		];
 
 		$this->getResult()->addValue( null, "datatables-json", $ret );

@@ -4,25 +4,13 @@ namespace SRF;
 
 use Html;
 use SMW\Query\ResultPrinters\TableResultPrinter;
+use SMW\ResultPrinter;
 use SMW\DIWikiPage;
 use SMW\Message;
 use SMW\Query\PrintRequest;
-use SMW\Query\QueryStringifier;
-use SMW\Utils\HtmlTable;
-use SMWDataValue;
-use SMWDIBlob as DIBlob;
 use SMWQueryResult as QueryResult;
-use SMWResultArray as ResultArray;
 
-/**
- * DataTables v2.
- *
- * @since 1.9
- * @license GPL-2.0-or-later
- *
- * @see credits of TableResultPrinter
- * @author thomas-topway-it <business@topway.it>
- */
+
 class DataTables extends TableResultPrinter {
 
 	/*
@@ -38,6 +26,15 @@ class DataTables extends TableResultPrinter {
 	private $prefixParameterProcessor;
 
 	private $query;
+
+	/**
+	 * @see ResultPrinter::getName
+	 *
+	 * {@inheritDoc}
+	 */
+	public function getName() {
+		return $this->msg( 'srf-printername-datatables' )->text();
+	}
 
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
@@ -83,10 +80,10 @@ class DataTables extends TableResultPrinter {
 			'default' => 0,
 		];
 
-		$params['mode'] = [
+		$params['ajax'] = [
 			'type' => 'string',
-			'message' => 'smw-paramdesc-mode',
-			'default' => 'abc',
+			'message' => 'smw-paramdesc-ajax',
+			'default' => "",
 		];
 
 		// https://datatables.net/reference/option/
@@ -220,7 +217,6 @@ class DataTables extends TableResultPrinter {
 			'default' => false,
 		];
 
-
 		// *** work-around to allow camelCase parameters
 		$ret = [];
 		foreach ( $params as $key => $value ) {
@@ -232,62 +228,76 @@ class DataTables extends TableResultPrinter {
 		return $ret;
 	}
 
-
 	/**
 	 * @see ResultPrinter::getResultText
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function getResultText( QueryResult $res, $outputMode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		$query = $res->getQuery();
 
 		if ( class_exists( '\\SMW\Query\\ResultPrinters\\PrefixParameterProcessor' ) ) {
 			$this->prefixParameterProcessor = new \SMW\Query\ResultPrinters\PrefixParameterProcessor( $query, $this->params['prefix'] );
 		}
 
-		if ( $this->params['mode'] === 'json' ) {
+		if ( $this->params['ajax'] === "ajax" ) {
  			return $this->getResultJson( $res, $outputMode );
 		}
 
-		$this->query = $query;
-		$this->isHTML = ( $outputMode === SMW_OUTPUT_HTML );
-		$this->isDataTable = true;
-		$class = isset( $this->params['class'] ) ? $this->params['class'] : '';
+		$resourceFormatter = new ResourceFormatter();
+		// $data = $resourceFormatter->getData( $res, $outputmode, $this->params );
 
-		$this->htmlTable = new HtmlTable();
+		// @see src/ResourceFormatter.php -> getData
+		$ask = $query->toArray();
 
-		$columnClasses = [];
-		$headerList = [];
-
-		// Default cell value separator
-		if ( !isset( $this->params['sep'] ) || $this->params['sep'] === '' ) {
-			$this->params['sep'] = '<br>';
-		}
-
-		// building headers
-		if ( $this->mShowHeaders != SMW_HEADERS_HIDE ) {
-			// ***edited
-			// $isPlain $this->mShowHeaders == SMW_HEADERS_PLAIN;
-			$isPlain = true;
-
-			foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $pr ) {
-				$attributes = [];
-				$columnClass = str_replace( [ ' ', '_' ], '-', strip_tags( $pr->getText( SMW_OUTPUT_WIKI ) ) );
-				$attributes['class'] = $columnClass;
-				// Also add this to the array of classes, for
-				// use in displaying each row.
-				$columnClasses[] = $columnClass;
-
-				// #2702 Use a fixed output on a requested plain printout
-				$mode = $this->isHTML && $isPlain ? SMW_OUTPUT_WIKI : $outputMode;
-				$text = $pr->getText( $mode, ( $isPlain ? null : $this->mLinker ) );
-				$headerList[] = $pr->getCanonicalLabel();
-
-				$this->htmlTable->header( ( $text === '' ? '&nbsp;' : $text ), $attributes );
+		foreach ( $this->params as $key => $value ) {
+			if ( strpos( $key, 'datatables-')  === 0 ) {
+				continue;
+			}
+			if ( is_string( $value ) || is_int( $value ) || is_bool( $value ) ) {
+				$ask['parameters'][$key] = $value;
 			}
 		}
 
-		// print_r($res->getPrintRequests());
+		$result = $this->getResultJson( $res, $outputmode );
+		// $tableAttrs['data-query'] = QueryStringifier::toJson( $query );
+
+		// Combine all data into one object
+		$data = [
+			'query' => [
+				// 'result' => $queryResult->toArray(),
+				'ask' => $ask,
+				'result' => $result
+			]
+		];
+	
+		$this->isHTML = true;
+		$id = $resourceFormatter->session();
+
+		// Add options
+		$data['version'] = '0.2.5';
+
+		// Encode data object
+		$resourceFormatter->encode( $id, $data );
+
+		// Init RL module
+		// $resourceFormatter->registerResources( [
+		// 	'ext.srf.datatables.v2.module',
+		// 	'ext.srf.datatables.v2.format'
+		// ] );
+
+		$headerList = [];
+		foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $pr ) {
+			$headerList[] = $pr->getCanonicalLabel();
+		}
+
+		$datatablesOptions = [];
+		foreach ( $this->params as $key => $value ) {
+			if ( strpos( $key, 'datatables-')  === 0 ) {
+				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
+			}
+		}
+
 		// @TODO use only one between printouts and printrequests
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];
@@ -309,84 +319,49 @@ class DataTables extends TableResultPrinter {
 			];
 		}
 
-		$rowNumber = 0;
+		$tableAttrs = [
+			'class' => 'datatable srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
+			'data-theme' => $this->params['theme'],
+			'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
+			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
 
-		while ( $subject = $res->getNext() ) {
-			$rowNumber++;
-			$this->getRowForSubject( $subject, $outputMode, $columnClasses );
+			'data-column-sort' => json_encode( [
+				'list'  => $headerList,
+				'sort'  => $this->params['sort'],
+				'order' => $this->params['order']
+			] ),
+			'data-datatables' => json_encode( $datatablesOptions, true ),
+			'data-printrequests' => json_encode( $printrequests, true ),
+			'data-printouts' => json_encode( $printouts, true ),
+			'data-count' => $query->getOption( 'count' ),
+		];
 
-			$this->htmlTable->row(
-				[
-					'data-row-number' => $rowNumber
-				]
-			);
-		}
-
-		// print further results footer
-		if ( $this->linkFurtherResults( $res ) ) {
-			$link = $this->getFurtherResultsLink( $res, $outputMode );
-
-			$this->htmlTable->cell(
-					$link->getText( $outputMode, $this->mLinker ),
-					[ 'class' => 'sortbottom', 'colspan' => $res->getColumnCount() ]
-			);
-
-			$this->htmlTable->row( [ 'class' => 'smwfooter' ] );
-		}
-
-		$tableAttrs = [ 'class' => $class ];
-
-		if ( $this->mFormat == 'broadtable' ) {
-			$tableAttrs['width'] = '100%';
-			$tableAttrs['class'] .= ' broadtable';
-		}
-
-		if ( $this->isDataTable ) {
-			$this->addDataTableAttrs(
-				$res,
-				$headerList,
-				$tableAttrs,
-				$printrequests,
-				$printouts
-			);
-		}
-
-		$transpose = $this->mShowHeaders !== SMW_HEADERS_HIDE && ( $this->params['transpose'] ?? false );
-
-		$html = $this->htmlTable->table(
+		// Element includes info, spinner, and container placeholder
+		return Html::rawElement(
+			'div',
 			$tableAttrs,
-			$transpose,
-			$this->isHTML
-		);
-
-		if ( $this->isDataTable ) {
-
-			// Simple approximation to avoid a massive text reflow once the DT JS
-			// has finished processing the HTML table
-			$count = ( $this->params['transpose'] ?? false ) ? $res->getColumnCount() : $res->getCount();
-			$height = ( min( ( $count + ( $res->hasFurtherResults() ? 1 : 0 ) ), 10 ) * 50 ) + 40;
-
-			$html = Html::rawElement(
+			Html::element(
 				'div',
 				[
-					'class' => 'smw-datatable smw-placeholder is-disabled smw-flex-center' . (
-						$this->params['class'] !== '' ? ' ' . $this->params['class'] : ''
-					),
-					'style'     => "height:{$height}px;"
+					'class' => 'top'
 				],
-				Html::rawElement(
-					'span',
-					[
-						'class' => 'smw-overlay-spinner medium flex'
-					]
-				) . $html
-			);
-		}
-
-		return $html;
+				''
+			) . $resourceFormatter->placeholder() . Html::element(
+				'div',
+				[
+					'id' => $id,
+					'class' => 'container',
+					'style' => 'display:none;'
+				]
+			)
+		);
 	}
 
-
+	/**
+	 * @param QueryResult $res
+	 * @param int $outputMode
+	 * @return array
+	 */
 	public function getResultJson( QueryResult $res, $outputMode ) {
 		// force html
 		$outputMode = SMW_OUTPUT_HTML;
@@ -420,94 +395,7 @@ class DataTables extends TableResultPrinter {
 		return $ret;
 	}
 
-
-	/**
-	 * Gets a table cell for all values of a property of a subject.
-	 *
-	 * @since 1.6.1
-	 *
-	 * @param SMWResultArray $resultArray
-	 * @param int $outputMode
-	 * @param string $columnClass
-	 *
-	 * @return string
-	 */
-	protected function getCellForPropVals( ResultArray $resultArray, $outputMode, $columnClass ) {
-		/** @var SMWDataValue[] $dataValues */
-		$dataValues = [];
-
-		while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
-			$dataValues[] = $dv;
-		}
-
-		$printRequest = $resultArray->getPrintRequest();
-		$printRequestType = $printRequest->getTypeID();
-
-		$cellTypeClass = " smwtype$printRequestType";
-
-		// We would like the cell class to always be defined, even if the cell itself is empty
-		$attributes = [
-			'class' => $columnClass . $cellTypeClass
-		];
-
-		$content = null;
-
-		if ( count( $dataValues ) > 0 ) {
-			$sortKey = $dataValues[0]->getDataItem()->getSortKey();
-			$dataValueType = $dataValues[0]->getTypeID();
-
-			// The data value type might differ from the print request type - override in this case
-			if ( $dataValueType !== '' && $dataValueType !== $printRequestType ) {
-				$attributes['class'] = "$columnClass smwtype$dataValueType";
-			}
-
-			if ( is_numeric( $sortKey ) ) {
-				$attributes['data-sort-value'] = $sortKey;
-			}
-
-			if ( $this->isDataTable && $sortKey !== '' ) {
-				$attributes['data-order'] = $sortKey;
-			}
-
-			$alignment = trim( $printRequest->getParameter( 'align' ) );
-
-			if ( in_array( $alignment, [ 'right', 'left', 'center' ] ) ) {
-				$attributes['style'] = "text-align:$alignment;";
-			}
-
-			$width = htmlspecialchars(
-				trim( $printRequest->getParameter( 'width' ) ),
-				ENT_QUOTES
-			);
-
-			if ( $width ) {
-				$attributes['style'] = ( isset( $attributes['style'] ) ? $attributes['style'] . ' ' : '' ) . "width:$width;";
-			}
-
-			$content = $this->getCellContent(
-				$dataValues,
-				$outputMode,
-				$printRequest->getMode() == PrintRequest::PRINT_THIS
-			);
-		}
-
-		// Sort the cell HTML attributes, to make test behavior more deterministic
-		ksort( $attributes );
-
-		$this->htmlTable->cell( $content, $attributes );
-	}
-
-	/**
-	 * Gets the contents for a table cell for all values of a property of a subject.
-	 *
-	 * @since 1.6.1
-	 *
-	 * @param SMWDataValue[] $dataValues
-	 * @param $outputMode
-	 * @param boolean $isSubject
-	 *
-	 * @return string
-	 */
+	/** @inheritDoc */
 	protected function getCellContent( array $dataValues, $outputMode, $isSubject ) {
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getLongText';
@@ -560,64 +448,6 @@ class DataTables extends TableResultPrinter {
 			],
 			'targets' => [ 'mobile', 'desktop' ]
 		];
-	}
-
-	/**
-	 * Gets a single table row for a subject, ie page.
-	 *
-	 * @since 1.6.1
-	 *
-	 * @param SMWResultArray[] $subject
-	 * @param int $outputMode
-	 * @param string[] $columnClasses
-	 *
-	 * @return string
-	 */
-	private function getRowForSubject( array $subject, $outputMode, array $columnClasses ) {
-		foreach ( $subject as $i => $field ) {
-			// $columnClasses will be empty if "headers=hide"
-			// was set.
-			if ( array_key_exists( $i, $columnClasses ) ) {
-				$columnClass = $columnClasses[$i];
-			} else {
-				$columnClass = null;
-			}
-
-			$this->getCellForPropVals( $field, $outputMode, $columnClass );
-		}
-	}
-
-	private function addDataTableAttrs( $res, $headerList, &$tableAttrs, $printrequests, $printouts ) {
-		$tableAttrs['class'] = 'datatable';
-		$tableAttrs['width'] = '100%';
-		$tableAttrs['style'] = 'opacity:.0; display:none;';
-
-		$tableAttrs['data-column-sort'] = json_encode(
-			[
-				'list'  => $headerList,
-				'sort'  => $this->params['sort'],
-				'order' => $this->params['order']
-			]
-		);
-
-		$datatablesOptions = [];
-		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-')  === 0 ) {
-				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
-			}
-		}
-
-		$tableAttrs['data-query'] = QueryStringifier::toJson( $res->getQuery() );
-		$tableAttrs['data-datatables'] = json_encode( $datatablesOptions, true );
-		$tableAttrs['data-printrequests'] = json_encode( $printrequests, true );
-		$tableAttrs['data-printouts'] = json_encode( $printouts, true );
-		$tableAttrs['data-mode'] = $this->params['mode'];
-		$tableAttrs['data-max'] = $this->query->getOption( 'max' );
-		$tableAttrs['data-defer-each'] = $this->query->getOption( 'defer-each' );
-		$tableAttrs['data-theme'] = $this->params['theme'];
-		$tableAttrs['data-columnstype'] = ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null );
-		$tableAttrs['data-collation'] = !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'];
-
 	}
 
 }

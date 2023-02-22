@@ -8,30 +8,12 @@ class Hooks {
 
 	public static function onSMWStoreBeforeQueryResultLookupComplete( $store, $query, &$result, $queryEngine ) {
 		$params = $query->getOption( 'query.params' );
-		if ( !empty( $params['defer-each'] ) ) {
-			$deferEach = $params['defer-each'];
-
-		} elseif ( is_numeric( $GLOBALS['smwgSRFDatatablesLimitEach'] ) ) {
-			$deferEach = $GLOBALS['smwgSRFDatatablesLimitEach'];
-
-		} else {
-			$deferEach = min( 500, $GLOBALS['smwgQDefaultLimit'] );
-		}
-
 		$inlineLimit = $query->getLimit();
 		$count = self::getCount( $query, $queryEngine );
+		$limit = ( !empty( $params['defer-each'] ) ? $params['defer-each'] : $inlineLimit );
 
-		if ( $inlineLimit < $deferEach ) {
-			$deferEach = $inlineLimit;
-			$max = $count;
-
-		} else {
-			$max = $inlineLimit;
-		}
-
-		$query->setUnboundLimit( min( $deferEach, $count ) );
-		$query->setOption('defer-each', min( $deferEach, $count ) );
-		$query->setOption('max', min( $max, $count ) );
+		$query->setUnboundLimit( min( $limit , $count ) );
+		$query->setOption('count', $count );
 
 		$queryResult = $queryEngine->getQueryResult( $query );
 
