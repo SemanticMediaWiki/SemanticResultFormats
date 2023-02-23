@@ -346,8 +346,8 @@
 				language: _datatables.oLanguage,
 				order: context.data("order"),
 				deferRender: context.data("count") > 1000,
-				// pagingType:
-				// 	context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
+				pagingType:
+					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
 			});
 
 			if (query.parameters["defer-each"] >= context.data("count")) {
@@ -363,7 +363,8 @@
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc)
-				preloadData[order[0][0] + order[0][1]] = data.query.result;
+				var cacheKey = order[0][0] + order[0][1];
+				preloadData[cacheKey] = data.query.result;
 
 				var payload = {
 					action: "ext.srf.datatables.json",
@@ -403,7 +404,7 @@
 						if (
 							datatableData.start + datatableData.length <=
 							preloadData[key].length
-						) {							
+						) {
 							return callback({
 								draw: datatableData.draw,
 								data: preloadData[key]
@@ -447,7 +448,12 @@
 									.slice(0, datatableData.start)
 									.concat(json.data);
 
-								json.data = json.data.map(columnToObj);
+								// we retrieve more than "length"
+								// expected by datatables, so return the
+								// sliced result
+								json.data = json.data
+									.slice(0, datatableData.length)
+									.map(columnToObj);
 								callback(json);
 							})
 							.fail(function (error) {
