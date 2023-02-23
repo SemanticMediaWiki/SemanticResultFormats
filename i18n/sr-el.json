@@ -42,11 +42,15 @@
 	"srf-paramdesc-showcompound": "Određivanje da li će se zajedničke node od. potprocesi označiti",
 	"srf-paramdesc-debug": "Određivanje da li će se kod grafa procesa prikazati između pre tagova",
 	"srf-paramdesc-graphvalidation": "Prikaz koraka procesa crvenom bojom koji nemaju pripisanu ulogu",
+	"srf-ui-datatables-refresh-button-title": "osveži tabelu",
+	"srf-ui-datatables-panel-switch-button-title": "promeni panel",
 	"srf-ui-datatables-label-placeholder-column-search": "Pretraži...",
 	"srf-ui-datatables-label-sSearch": "Pretraži:",
 	"srf-filtered-selectorlabel-table": "Tabela",
 	"srf-filtered-selectorlabel-calendar": "Kalendar",
 	"srf-paramdesc-widget": "Dostupan vidžet",
 	"srf-ui-eventcalendar-click-popup": "Želite li da napravite događaj?",
+	"srf-ui-slideshow-slide-button-play": "pusti",
+	"srf-ui-slideshow-slide-button-pause": "pauza",
 	"srf-spreadsheet-link": "Unakrsna tabela"
 }
