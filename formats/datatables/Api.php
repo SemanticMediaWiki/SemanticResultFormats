@@ -149,7 +149,9 @@ class Api extends ApiBase {
 
 				"ajax" => "ajax",
 				// @see https://datatables.net/manual/server-side
-				"limit" => $datatableData['length'],	// max( $datatableData['length'], $settings['defer-each'] ),
+				// array length will be sliced client side if greater
+				// than the required datatables length
+				"limit" => max( $datatableData['length'], $settings['defer-each'] ),
 				"offset" => $datatableData['start'],
 				"sort" => $columnSortName,
 				"order" => $datatableData['order'][0]['dir']
