@@ -85,6 +85,7 @@
 		 */
 		initColumnSort: function (context) {
 			var column = context.data("column-sort");
+
 			var order = [];
 
 			// SMW allows descending and ascending but those are unknown to DataTables
@@ -125,6 +126,9 @@
 			if (order.length > 0) {
 				context.data("order", order);
 			}
+
+			// default @see https://datatables.net/reference/option/order
+			context.data("order", [[0, 'asc']]);
 		},
 
 		parse: {
@@ -344,8 +348,8 @@
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
-				order: context.data("order"),
-				deferRender: context.data("count") > 1000,
+				order: order,
+				// deferRender: context.data("count") > 1000,
 				pagingType:
 					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
 			});
