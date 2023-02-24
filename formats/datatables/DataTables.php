@@ -288,7 +288,13 @@ class DataTables extends TableResultPrinter {
 
 		$headerList = [];
 		foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $pr ) {
-			$headerList[] = $pr->getCanonicalLabel();
+			$value = $pr->getCanonicalLabel();
+
+			// mainlabel in the form: mainlabel=abc
+			if ( $ask['parameters']['mainlabel'] === $value ) {
+				$value = '';
+			}
+			$headerList[] = $value;
 		}
 
 		$datatablesOptions = [];
