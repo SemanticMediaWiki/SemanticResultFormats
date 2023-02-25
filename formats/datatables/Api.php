@@ -164,10 +164,13 @@ class Api extends ApiBase {
 		// transform query parameters into format suitable for SMWQueryProcessor
 		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, [] );
 
+		// @TODO use printrequests for printouts as well
+		// printrequests seems to lack of the "parameters"
+		// parameter only
+
 		// build array of printouts
 		$printouts = [];
 		foreach ( $printoutsRaw as $printoutData ) {
-
 			// if printout mode is PRINT_PROP
 			if ( $printoutData[0] == SMWPrintRequest::PRINT_PROP ) {
 				// create property from property key
@@ -178,21 +181,28 @@ class Api extends ApiBase {
 
 			// create printrequest from request mode, label, property name, output format, parameters
 			$printouts[] = new SMWPrintRequest(
-				$printoutData[0],
-				$printoutData[1],
-				$data,
-				$printoutData[3],
-				$printoutData[4]
+				$printoutData[0],	// mode
+				$printoutData[1],	// label
+				$data,				// property name
+				$printoutData[3],	// output format
+				$printoutData[4]	// parameters
 			);
 		}
 
-		//  @TODO search string
-		// if ( !empty($requestParams['datatableData']['search']['value'] ) ) {
-			// ... 
-		// }
+		$printrequests = json_decode( $requestParams['printrequests'], true );
+
+		$searchPrintouts = [];
+		$allowedTypes = [ '_wpg', '_txt', '_cod', '_uri' ];
+		if ( !empty( $datatableData['search']['value'] ) ) {
+			foreach ( $printrequests as $value ) {
+				if ( in_array( $value['typeid'], $allowedTypes ) ) {
+					$searchPrintouts[] = '[[' . ( !empty( $value['label'] ) ? $value['label'] . '::' : '' ) . '~*' . $datatableData['search']['value'] . '*]]';
+				}
+			}
+		}
 
 		$query = SMWQueryProcessor::createQuery(
-			$requestParams['query'],
+			$requestParams['query'] . implode( '||', $searchPrintouts),
 			$queryParams,
 			SMWQueryProcessor::INLINE_QUERY,
 			'',
@@ -210,7 +220,7 @@ class Api extends ApiBase {
 			'draw' => $datatableData['draw'],
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
-			'recordsFiltered' => $settings['count']
+			'recordsFiltered' => $results->getCount()
 		];
 
 		$this->getResult()->addValue( null, "datatables-json", $ret );
@@ -253,6 +263,10 @@ class Api extends ApiBase {
 				ApiBase::PARAM_REQUIRED => true,
 			],
 			'printouts' => [
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true,
+			],
+			'printrequests' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true,
 			],

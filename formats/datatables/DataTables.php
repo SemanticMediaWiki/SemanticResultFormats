@@ -77,7 +77,7 @@ class DataTables extends TableResultPrinter {
 		$params['defer-each'] = [
 			'type' => 'integer',
 			'message' => 'smw-paramdesc-defer-each',
-			'default' => 0,
+			'default' => 0,	//$GLOBALS['smwgQMaxLimit'],
 		];
 
 		$params['ajax'] = [
