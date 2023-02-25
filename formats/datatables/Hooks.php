@@ -11,7 +11,8 @@ class Hooks {
 		$inlineLimit = $query->getLimit();
 		$count = self::getCount( $query, $queryEngine );
 		// $limit = ( !empty( $params['defer-each'] ) ? $params['defer-each'] : $inlineLimit );
-		$limit = max( $params['defer-each'], $inlineLimit );
+
+		$limit = max( $params['datatables-pagelength'], $params['defer-each'], $inlineLimit );
 
 		$query->setUnboundLimit( min( $limit , $count ) );
 		$query->setOption('count', $count );
