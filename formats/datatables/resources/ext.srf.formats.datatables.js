@@ -264,9 +264,6 @@
 				})
 			);
 
-
-
-
 			var options = context.data("datatables");
 
 			var arrayTypes = [
