@@ -253,15 +253,20 @@
 			// Setup a raw table
 			container.html(
 				html.element("table", {
+					style: "width: 100%",
 					class:
 						context.data("theme") === "bootstrap"
 							? "bordered-table zebra-striped"
-							: "display",
+							: "display nowrap",
 					cellpadding: "0",
 					cellspacing: "0",
 					border: "0",
 				})
 			);
+
+
+
+
 			var options = context.data("datatables");
 
 			var arrayTypes = [
@@ -286,7 +291,7 @@
 			}
 
 			if (options.scroller === true) {
-				options.scroller = { loadingIndicator: true };
+				// options.scroller = { loadingIndicator: true };
 
 				if (!("scrollY" in options) || options.scrollY < 1) {
 					options.scrollY = 300;
@@ -332,7 +337,7 @@
 					data: property.label,
 					title: property.label,
 					// type: columnsType,
-					className: "smwtype" + property.typeid,
+					// className: "smwtype" + property.typeid,
 					targets: [index],
 				});
 			});
@@ -354,10 +359,10 @@
 					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
 			});
 
-			if (query.parameters["defer-each"] >= context.data("count")) {
+			if (data.query.result.length === context.data("count")) {
 				conf.serverSide = false;
-				// scroller requires Ajax
-				conf.scroller = false;
+				// conf.scroller = false;
+				// conf.deferRender = true;
 				conf.data = data.query.result.map(columnToObj);
 
 				// use Ajax only when required
@@ -375,6 +380,7 @@
 					format: "json",
 					query: queryString,
 					printouts: JSON.stringify(printouts),
+					printrequests: JSON.stringify(printrequests),
 					settings: JSON.stringify(
 						$.extend({ count: context.data("count") }, query.parameters)
 					),
@@ -405,7 +411,7 @@
 
 						// returned cached data for the required
 						// dimension (order column/dir)
-						if (
+						if (datatableData.search.value === '' && 
 							datatableData.start + datatableData.length <=
 							preloadData[key].length
 						) {
