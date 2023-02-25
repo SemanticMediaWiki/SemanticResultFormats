@@ -337,7 +337,7 @@
 					data: property.label,
 					title: property.label,
 					// type: columnsType,
-					// className: "smwtype" + property.typeid,
+					className: "smwtype" + property.typeid,
 					targets: [index],
 				});
 			});
