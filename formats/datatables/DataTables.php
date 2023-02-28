@@ -11,7 +11,7 @@ use SMW\Query\PrintRequest;
 use SMWQueryResult as QueryResult;
 
 
-class DataTables extends TableResultPrinter {
+class DataTables extends ResultPrinter {
 
 	/*
 	 * camelCase params
@@ -26,6 +26,8 @@ class DataTables extends TableResultPrinter {
 	private $prefixParameterProcessor;
 
 	private $query;
+
+	private $parser;
 
 	/**
 	 * @see ResultPrinter::getName
@@ -169,10 +171,10 @@ class DataTables extends TableResultPrinter {
 			'default' => 20,
 		];
 
-		$params['datatables-LengthMenu'] = [
+		$params['datatables-lengthMenu'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => '10, 25, 50, 100',
+			'default' => '10, 20, 50, 100, 200',
 		];
 
 		$params['datatables-scrollCollapse'] = [
@@ -229,6 +231,91 @@ class DataTables extends TableResultPrinter {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function buildResult( QueryResult $results ) {
+		$this->isHTML = true;
+		$this->hasTemplates = false;
+
+		$this->parser = $this->copyParser();
+
+		$outputMode = SMW_OUTPUT_WIKI;
+
+		// Get output from printer:
+		$result = $this->getResultText( $results, $outputMode );
+
+		if ( $outputMode !== SMW_OUTPUT_FILE ) {
+			$result = $this->handleNonFileResult( $result, $results, $outputMode );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function handleNonFileResult( $result, QueryResult $results, $outputmode ) {
+
+		// append errors
+		$result .= $this->getErrorString( $results );
+
+		if ( $this->recursiveTextProcessor === null ) {
+			$this->recursiveTextProcessor = new RecursiveTextProcessor();
+		}
+
+		$this->recursiveTextProcessor->uniqid();
+
+		$this->recursiveTextProcessor->setMaxRecursionDepth(
+			self::$maxRecursionDepth
+		);
+
+		$this->recursiveTextProcessor->transcludeAnnotation(
+			$this->transcludeAnnotation
+		);
+
+		$this->recursiveTextProcessor->setRecursiveAnnotation(
+			$this->recursiveAnnotation
+		);
+
+		// Apply intro parameter
+		if ( ( $this->mIntro ) && ( $results->getCount() > 0 ) ) {
+			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
+				$result = Message::get( [ 'smw-parse', $this->mIntro ], Message::PARSE ) . $result;
+			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
+				$result = $this->parser->recursiveTagParseFully( $this->mIntro ) . $result;
+			}
+		}
+
+		// Apply outro parameter
+		if ( ( $this->mOutro ) && ( $results->getCount() > 0 ) ) {
+			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
+				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
+			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
+				$result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
+			}
+		}
+
+		// Preprocess embedded templates if needed
+		if ( ( !$this->isHTML ) && ( $this->hasTemplates ) ) {
+			$result = $this->recursiveTextProcessor->recursivePreprocess( $result );
+		}
+
+		if ( ( $this->isHTML ) && ( $outputmode == SMW_OUTPUT_WIKI ) ) {
+			$result = [ $result, 'isHTML' => true ];
+		} elseif ( ( !$this->isHTML ) && ( $outputmode == SMW_OUTPUT_HTML ) ) {
+			$result = $this->recursiveTextProcessor->recursiveTagParse( $result );
+		}
+
+		if ( $this->mShowErrors && $this->recursiveTextProcessor->getError() !== [] ) {
+			$result .= Message::get( $this->recursiveTextProcessor->getError(), Message::TEXT, Message::USER_LANGUAGE );
+		}
+
+		$this->recursiveTextProcessor->releaseAnnotationBlock();
+
+		return $result;
+	}
+
+	/**
 	 * @see ResultPrinter::getResultText
 	 *
 	 * {@inheritDoc}
@@ -270,8 +357,7 @@ class DataTables extends TableResultPrinter {
 				'result' => $result
 			]
 		];
-	
-		$this->isHTML = true;
+
 		$id = $resourceFormatter->session();
 
 		// Add options
@@ -326,11 +412,11 @@ class DataTables extends TableResultPrinter {
 		}
 
 		$tableAttrs = [
-			'class' => 'datatable srf-datatables' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
+			'class' => 'datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 			'data-theme' => $this->params['theme'],
 			'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
 			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
-
+			'data-nocase' => ( $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE ? true : false ),
 			'data-column-sort' => json_encode( [
 				'list'  => $headerList,
 				'sort'  => $this->params['sort'],
@@ -356,11 +442,20 @@ class DataTables extends TableResultPrinter {
 				'div',
 				[
 					'id' => $id,
-					'class' => 'container',
+					'class' => 'datatables-container',
 					'style' => 'display:none;'
 				]
 			)
 		);
+	}
+
+	/**
+	 * @see ResultPrinter::isDeferrable
+	 *
+	 * {@inheritDoc}
+	 */
+	public function isDeferrable() {
+		return false;
 	}
 
 	/**
@@ -370,7 +465,7 @@ class DataTables extends TableResultPrinter {
 	 */
 	public function getResultJson( QueryResult $res, $outputMode ) {
 		// force html
-		$outputMode = SMW_OUTPUT_HTML;
+		// $outputMode = SMW_OUTPUT_HTML;
 
 		$ret = [];
 		while ( $subject = $res->getNext() ) {
@@ -424,7 +519,7 @@ class DataTables extends TableResultPrinter {
 					Message::PARSE
 				);
 			} else {
-				$value = $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
+				$value =  $this->parser->recursiveTagParseFully( $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) ) );
 			}
 
 			$values[] = $value === '' ? '&nbsp;' : $value;
