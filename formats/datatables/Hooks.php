@@ -1,4 +1,4 @@
-<?php
+<?php		
 
 namespace SRF\DataTables;
 
@@ -8,6 +8,11 @@ class Hooks {
 
 	public static function onSMWStoreBeforeQueryResultLookupComplete( $store, $query, &$result, $queryEngine ) {
 		$params = $query->getOption( 'query.params' );
+
+		if ( $params['format'] !== 'datatables' ) {
+			return true;
+		}
+
 		$inlineLimit = $query->getLimit();
 		$count = self::getCount( $query, $queryEngine );
 		// $limit = ( !empty( $params['defer-each'] ) ? $params['defer-each'] : $inlineLimit );

@@ -30,6 +30,11 @@ class DataTables extends ResultPrinter {
 	private $parser;
 
 	/**
+	 * @var boolean
+	 */
+	private $recursiveAnnotation = false;
+
+	/**
 	 * @see ResultPrinter::getName
 	 *
 	 * {@inheritDoc}
@@ -239,10 +244,16 @@ class DataTables extends ResultPrinter {
 
 		$this->parser = $this->copyParser();
 
-		$outputMode = SMW_OUTPUT_WIKI;
+		if ( $this->params['ajax'] === "ajax" ) {
+			$outputMode = $this->outputMode;
+		} else {
+			$outputMode = SMW_OUTPUT_HTML;
+		}
 
 		// Get output from printer:
 		$result = $this->getResultText( $results, $outputMode );
+
+		// $outputMode = SMW_OUTPUT_WIKI;
 
 		if ( $outputMode !== SMW_OUTPUT_FILE ) {
 			$result = $this->handleNonFileResult( $result, $results, $outputMode );
@@ -279,20 +290,12 @@ class DataTables extends ResultPrinter {
 
 		// Apply intro parameter
 		if ( ( $this->mIntro ) && ( $results->getCount() > 0 ) ) {
-			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
-				$result = Message::get( [ 'smw-parse', $this->mIntro ], Message::PARSE ) . $result;
-			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
-				$result = $this->parser->recursiveTagParseFully( $this->mIntro ) . $result;
-			}
+			$result = $this->parser->recursiveTagParseFully( $this->mIntro ) . $result;
 		}
 
 		// Apply outro parameter
 		if ( ( $this->mOutro ) && ( $results->getCount() > 0 ) ) {
-			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
-				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
-			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
-				$result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
-			}
+			$result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
 		}
 
 		// Preprocess embedded templates if needed
@@ -300,9 +303,7 @@ class DataTables extends ResultPrinter {
 			$result = $this->recursiveTextProcessor->recursivePreprocess( $result );
 		}
 
-		if ( ( $this->isHTML ) && ( $outputmode == SMW_OUTPUT_WIKI ) ) {
-			$result = [ $result, 'isHTML' => true ];
-		} elseif ( ( !$this->isHTML ) && ( $outputmode == SMW_OUTPUT_HTML ) ) {
+		if ( ( !$this->isHTML ) && ( $outputmode == SMW_OUTPUT_HTML ) ) {
 			$result = $this->recursiveTextProcessor->recursiveTagParse( $result );
 		}
 
@@ -312,7 +313,7 @@ class DataTables extends ResultPrinter {
 
 		$this->recursiveTextProcessor->releaseAnnotationBlock();
 
-		return $result;
+		return [ $result, 'isHTML' => true ];
 	}
 
 	/**
@@ -465,7 +466,7 @@ class DataTables extends ResultPrinter {
 	 */
 	public function getResultJson( QueryResult $res, $outputMode ) {
 		// force html
-		// $outputMode = SMW_OUTPUT_HTML;
+		$outputMode = SMW_OUTPUT_HTML;
 
 		$ret = [];
 		while ( $subject = $res->getNext() ) {
@@ -519,7 +520,7 @@ class DataTables extends ResultPrinter {
 					Message::PARSE
 				);
 			} else {
-				$value =  $this->parser->recursiveTagParseFully( $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) ) );
+				$value =  $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
 			}
 
 			$values[] = $value === '' ? '&nbsp;' : $value;
