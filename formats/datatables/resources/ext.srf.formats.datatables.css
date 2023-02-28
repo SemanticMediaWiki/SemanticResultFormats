@@ -1,8 +1,23 @@
 
-.srf-datatable-left {
+.srf-datatable .srf-datatable-left {
 	float: left;
 }
 
-.srf-datatable-right {
+.srf-datatable .srf-datatable-right {
 	float: right;
 }
+
+
+.srf-datatable .dataTables_filter {
+	float: left;
+
+}
+
+.srf-datatable .dataTables_length {
+	float: right;	
+}
+
+.srf-datatable .dt-buttons {
+	margin-right: 6px;
+}
+

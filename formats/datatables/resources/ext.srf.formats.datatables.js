@@ -128,7 +128,7 @@
 			}
 
 			// default @see https://datatables.net/reference/option/order
-			context.data("order", [[0, 'asc']]);
+			context.data("order", [[0, "asc"]]);
 		},
 
 		parse: {
@@ -266,19 +266,31 @@
 
 			var options = context.data("datatables");
 
-			var arrayTypes = [
-				"LengthMenu",
-				"buttons",
+			var arrayTypes = {
+				lengthMenu: "number",
+				buttons: "string",
 				// ...
-			];
+			};
+
+			// function isNumeric(str) {
+			// 	if (typeof str != "string") {
+			// 		return false;
+			// 	}
+			//
+			// 	return !isNaN(str) && !isNaN(parseFloat(str));
+			// }
 
 			// transform csv to array
 			for (var i in options) {
-				if (arrayTypes.indexOf(i) !== -1) {
+				if (i in arrayTypes) {
 					options[i] = options[i]
 						.split(",")
 						.map((x) => x.trim())
 						.filter((x) => x !== "");
+
+					if (arrayTypes[i] === "number") {
+						options[i] = options[i].map((x) => x * 1);
+					}
 				}
 			}
 
@@ -295,6 +307,13 @@
 				}
 			} else if (options.scrollY === -1) {
 				delete options.scrollY;
+			}
+
+			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
+				options.lengthMenu.push(options.pageLength);
+				options.lengthMenu.sort(function (a, b) {
+					return a - b;
+				});
 			}
 
 			var query = data.query.ask;
@@ -335,6 +354,11 @@
 					title: property.label,
 					// type: columnsType,
 					className: "smwtype" + property.typeid,
+
+					// https://datatables.net/reference/option/columns.searchPanes.initCollapsed
+					searchPanes: {
+						initCollapsed: true,
+					},
 					targets: [index],
 				});
 			});
@@ -351,6 +375,9 @@
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
 				order: order,
+				search: {
+					caseInsensitive: context.data("nocase"),
+				},
 				// deferRender: context.data("count") > 1000,
 				pagingType:
 					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
@@ -408,9 +435,10 @@
 
 						// returned cached data for the required
 						// dimension (order column/dir)
-						if (datatableData.search.value === '' && 
+						if (
+							datatableData.search.value === "" &&
 							datatableData.start + datatableData.length <=
-							preloadData[key].length
+								preloadData[key].length
 						) {
 							return callback({
 								draw: datatableData.draw,
@@ -490,9 +518,9 @@
 	var datatables = new srf.formats.datatables();
 
 	$(document).ready(function () {
-		$(".srf-datatables").each(function () {
+		$(".srf-datatable").each(function () {
 			var context = $(this),
-				container = context.find(".container");
+				container = context.find(".datatables-container");
 
 			var data = JSON.parse(_datatables.getData(container));
 
@@ -500,4 +528,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
