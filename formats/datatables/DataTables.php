@@ -83,8 +83,9 @@ class DataTables extends ResultPrinter {
 
 		$params['defer-each'] = [
 			'type' => 'integer',
-			'message' => 'smw-paramdesc-defer-each',
-			'default' => 0,	//$GLOBALS['smwgQMaxLimit'],
+			'message' => 'smw-paramdesc-defer-each',	
+			// $GLOBALS['smwgQMaxLimit']
+			'default' => 0,
 		];
 
 		$params['ajax'] = [
@@ -244,11 +245,7 @@ class DataTables extends ResultPrinter {
 
 		$this->parser = $this->copyParser();
 
-		if ( $this->params['ajax'] === "ajax" ) {
-			$outputMode = $this->outputMode;
-		} else {
-			$outputMode = SMW_OUTPUT_HTML;
-		}
+		$outputMode = ( $this->params['ajax'] !== "ajax" ? SMW_OUTPUT_HTML : $this->outputMode );
 
 		// Get output from printer:
 		$result = $this->getResultText( $results, $outputMode );
@@ -317,8 +314,6 @@ class DataTables extends ResultPrinter {
 	}
 
 	/**
-	 * @see ResultPrinter::getResultText
-	 *
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputmode ) {
@@ -451,8 +446,6 @@ class DataTables extends ResultPrinter {
 	}
 
 	/**
-	 * @see ResultPrinter::isDeferrable
-	 *
 	 * {@inheritDoc}
 	 */
 	public function isDeferrable() {
@@ -497,10 +490,12 @@ class DataTables extends ResultPrinter {
 		return $ret;
 	}
 
-	/** @inheritDoc */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function getCellContent( array $dataValues, $outputMode, $isSubject ) {
 		if ( !$this->prefixParameterProcessor ) {
-			$dataValueMethod = 'getLongText';
+			$dataValueMethod = 'getShortText';
 		} else {
 			$dataValueMethod = $this->prefixParameterProcessor->useLongText( $isSubject ) ? 'getLongText' : 'getShortText';
 		}
@@ -540,12 +535,11 @@ class DataTables extends ResultPrinter {
 	}
 
 	/**
-	 * @see ResultPrinter::getResources
+	 * {@inheritDoc}
 	 */
 	protected function getResources() {
 		return [
 			'modules' => [
-				'ext.srf.datatables.v2.module',
 				'ext.srf.datatables.v2.format'
 			],
 			'targets' => [ 'mobile', 'desktop' ]
