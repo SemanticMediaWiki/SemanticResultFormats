@@ -18,6 +18,10 @@
 }
 
 .srf-datatable .dt-buttons {
-	margin-right: 6px;
+	margin-right: 0.334em;
+}
+
+.srf-datatable .dataTables_filter {
+	margin-right: 0.334em;
 }
 
