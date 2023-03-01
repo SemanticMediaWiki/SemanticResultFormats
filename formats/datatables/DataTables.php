@@ -49,7 +49,7 @@ class DataTables extends ResultPrinter {
 		$params['class'] = [
 			'name' => 'class',
 			'message' => 'smw-paramdesc-table-class',
-			'default' => 'srf-datatable',
+			'default' => '',
 		];
 
 		$params['transpose'] = [
@@ -431,7 +431,7 @@ class DataTables extends ResultPrinter {
 		}
 
 		$tableAttrs = [
-			'class' => 'datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
+			'class' => 'srf-datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 			'data-theme' => $this->params['theme'],
 			'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
 			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
