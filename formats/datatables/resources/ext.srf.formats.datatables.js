@@ -13,6 +13,8 @@
  * @author thomas-topway-it
  * @credits mwjames (ext.smw.tableprinter.js)
  */
+
+
 (function ($, mw, srf) {
 	"use strict";
 
@@ -336,23 +338,32 @@
 			var columnsType = null;
 
 			var columnDefs = [];
+			var labelsCount = {};
 			$.map(printrequests, function (property, index) {
-				// if (columnstypePar[index]) {
-				// 	columnsType =
-				// 		columnstypePar[index] === "auto" ? null : columnstypePar[index];
-				// } else if (entityCollation) {
-				// 	// html-num-fmt
-				// 	columnsType =
-				// 		entityCollation === "numeric" && property.typeid === "_wpg"
-				// 			? "any-number"
-				// 			: null;
-				// }
+				if (columnstypePar[index]) {
+					columnsType =
+						columnstypePar[index] === "auto" ? null : columnstypePar[index];
+				} else if (entityCollation) {
+					// html-num-fmt
+					columnsType =
+						entityCollation === "numeric" && property.typeid === "_wpg"
+							? "any-number"
+							: null;
+				}
+
+				if (!(property.label in labelsCount)) {
+					labelsCount[property.label] = 0;
+				}
 
 				columnDefs.push({
 					// https://datatables.net/reference/option/columnDefs
-					data: property.label,
+					data:
+						property.label +
+						(labelsCount[property.label] == 0
+							? ""
+							: "_" + labelsCount[property.label]),
 					title: property.label,
-					// type: columnsType,
+					type: columnsType,
 					className: "smwtype" + property.typeid,
 
 					// https://datatables.net/reference/option/columns.searchPanes.initCollapsed
@@ -361,6 +372,8 @@
 					},
 					targets: [index],
 				});
+
+				labelsCount[property.label]++;
 			});
 
 			var columnToObj = function (x) {
@@ -385,8 +398,6 @@
 
 			if (data.query.result.length === context.data("count")) {
 				conf.serverSide = false;
-				// conf.scroller = false;
-				// conf.deferRender = true;
 				conf.data = data.query.result.map(columnToObj);
 
 				// use Ajax only when required
@@ -528,3 +539,4 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
+
