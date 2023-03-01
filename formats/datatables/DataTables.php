@@ -145,9 +145,9 @@ class DataTables extends ResultPrinter {
 		];
 
 		$params['datatables-scrollY'] = [
-			'type' => 'integer',
+			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => -1,
+			'default' => '',
 		];
 
 		$params['datatables-searching'] = [
@@ -168,8 +168,19 @@ class DataTables extends ResultPrinter {
 			'default' => false,
 		];
 
-		////////////////////
+		$params['datatables-displayStart'] = [
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 0,
+		];
 
+		$params['datatables-pagingType'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 'full_numbers',
+		];
+
+		////////////////////
 
 		$params['datatables-pageLength'] = [
 			'type' => 'integer',
@@ -190,6 +201,18 @@ class DataTables extends ResultPrinter {
 		];
 
 		$params['datatables-scroller'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
+		$params['datatables-scroller.displayBuffer'] = [
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 50,
+		];
+
+		$params['datatables-scroller.loadingIndicator'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
