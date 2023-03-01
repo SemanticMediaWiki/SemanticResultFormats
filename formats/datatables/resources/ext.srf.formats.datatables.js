@@ -259,7 +259,7 @@
 					class:
 						context.data("theme") === "bootstrap"
 							? "bordered-table zebra-striped"
-							: "display nowrap",
+							: "display",	// nowrap
 					cellpadding: "0",
 					cellspacing: "0",
 					border: "0",
@@ -302,13 +302,18 @@
 			}
 
 			if (options.scroller === true) {
-				// options.scroller = { loadingIndicator: true };
-
-				if (!("scrollY" in options) || options.scrollY < 1) {
-					options.scrollY = 300;
+				var scrollerOptions = ['displayBuffer', 'loadingIndicator'];
+				options.scroller = {};
+				for ( var scrollerOption of scrollerOptions ) {
+					if ( 'scroller.' + scrollerOption in options ) {
+						options.scroller[scrollerOption] = options['scroller.' + scrollerOption];
+						delete options['scroller.' + scrollerOption];
+					}
 				}
-			} else if (options.scrollY === -1) {
-				delete options.scrollY;
+
+				if (!("scrollY" in options) || options.scrollY === '') {
+					options.scrollY = '300px';
+				}
 			}
 
 			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
@@ -392,8 +397,8 @@
 					caseInsensitive: context.data("nocase"),
 				},
 				// deferRender: context.data("count") > 1000,
-				pagingType:
-					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
+				// pagingType:
+				// 	context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
 			});
 
 			if (data.query.result.length === context.data("count")) {
