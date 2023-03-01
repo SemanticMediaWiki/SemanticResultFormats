@@ -12,6 +12,7 @@
 	"prefs-srf-datatables-options": "DataTables options",
 	"srf-prefs-datatables-options-update-default": "Enable [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates automatic updates] of table content during page refresh",
 	"srf-prefs-datatables-options-cache-default": "Enable [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage local storage] to improve response time",
+	"srf-paramdesc-datatables-library-option": "native datatables option",
 	"srf-module-loading": "Loading...",
 	"srf-paramdesc-layout": "Available layout",
 	"srf-paramdesc-height": "Height",

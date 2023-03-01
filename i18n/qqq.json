@@ -29,6 +29,7 @@
 	"prefs-srf-datatables-options": "This is a section header text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].",
 	"srf-prefs-datatables-options-update-default": "This is the description of an user preference for the \"Datatables\" format on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].",
 	"srf-prefs-datatables-options-cache-default": "This is the description of an user preference for the \"Datatables\" format on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].",
+	"srf-paramdesc-datatables-library-option": "This is the description of an ask query parameter for the \"Datatables\" format",
 	"srf-module-loading": "This is an informatory message.\n{{Identical|Loading}}",
 	"srf-paramdesc-layout": "{{doc-paramdesc|layout}}",
 	"srf-paramdesc-height": "{{doc-paramdesc|height}}\n{{Identical|Height}}",
