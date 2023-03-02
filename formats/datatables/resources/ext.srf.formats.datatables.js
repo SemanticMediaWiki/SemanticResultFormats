@@ -3,17 +3,10 @@
  *
  * @see http://datatables.net/
  *
- * @since 1.9
- * @version 0.2.5
- *
- * @file
- * @ingroup SRF
- *
  * @licence GPL-2.0-or-later
- * @author thomas-topway-it
+ * @author thomas-topway-it for KM-A
  * @credits mwjames (ext.smw.tableprinter.js)
  */
-
 
 (function ($, mw, srf) {
 	"use strict";
@@ -259,7 +252,7 @@
 					class:
 						context.data("theme") === "bootstrap"
 							? "bordered-table zebra-striped"
-							: "display",	// nowrap
+							: "display", // nowrap
 					cellpadding: "0",
 					cellspacing: "0",
 					border: "0",
@@ -271,6 +264,7 @@
 			var arrayTypes = {
 				lengthMenu: "number",
 				buttons: "string",
+				"searchPanes.columns": "number",
 				// ...
 			};
 
@@ -301,21 +295,31 @@
 				options.dom = "B" + options.dom;
 			}
 
-			if (options.scroller === true) {
-				var scrollerOptions = ['displayBuffer', 'loadingIndicator'];
-				options.scroller = {};
-				for ( var scrollerOption of scrollerOptions ) {
-					if ( 'scroller.' + scrollerOption in options ) {
-						options.scroller[scrollerOption] = options['scroller.' + scrollerOption];
-						delete options['scroller.' + scrollerOption];
+			// @todo, use a reducer to handle nested properties
+			function addSubOption(property, subOptions) {
+				options[property] = {};
+				for (var subOption of subOptions) {
+					var key = property + "." + subOption;
+					if (key in options) {
+						options[property][subOption] = options[key];
+						delete options[key];
 					}
-				}
-
-				if (!("scrollY" in options) || options.scrollY === '') {
-					options.scrollY = '300px';
 				}
 			}
 
+			if (options.scroller === true) {
+				addSubOption("scroller", ["displayBuffer", "loadingIndicator"]);
+
+				if (!("scrollY" in options) || !options.scrollY) {
+					options.scrollY = "300px";
+				}
+			}
+
+			if (options.dom.indexOf("P") !== -1) {
+				addSubOption("searchPanes", ["initCollapsed", "collapse", "columns"]);
+			}
+
+			// add the pagelength at the proper place in the length menu
 			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
 				options.lengthMenu.push(options.pageLength);
 				options.lengthMenu.sort(function (a, b) {
@@ -338,8 +342,6 @@
 			var entityCollation = context.data("collation");
 
 			// use the latest set value if one or more column is missing
-			// *** this couldn't be anymore necessary
-			// since sorting is done server-side
 			var columnsType = null;
 
 			var columnDefs = [];
@@ -370,11 +372,6 @@
 					title: property.label,
 					type: columnsType,
 					className: "smwtype" + property.typeid,
-
-					// https://datatables.net/reference/option/columns.searchPanes.initCollapsed
-					searchPanes: {
-						initCollapsed: true,
-					},
 					targets: [index],
 				});
 
@@ -396,9 +393,6 @@
 				search: {
 					caseInsensitive: context.data("nocase"),
 				},
-				// deferRender: context.data("count") > 1000,
-				// pagingType:
-				// 	context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
 			});
 
 			if (data.query.result.length === context.data("count")) {
@@ -408,6 +402,12 @@
 				// use Ajax only when required
 			} else {
 				var preloadData = {};
+
+				// remove panes because this is tricky to
+				// be implemented in conjunction with SMW
+
+				// @TODO show a notice to the editor
+				conf.dom = conf.dom.replace("P", "");
 
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
@@ -513,6 +513,8 @@
 					},
 				});
 			}
+
+console.log("conf", conf)
 
 			data.table = container.find("table").DataTable(conf);
 		},
