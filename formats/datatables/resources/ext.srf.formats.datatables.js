@@ -514,8 +514,6 @@
 				});
 			}
 
-console.log("conf", conf)
-
 			data.table = container.find("table").DataTable(conf);
 		},
 
