@@ -1,4 +1,13 @@
 <?php
+/**
+ * SRF DataTables and SMWAPI.
+ *
+ * @see http://datatables.net/
+ *
+ * @licence GPL-2.0-or-later
+ * @author thomas-topway-it for KM-A
+ * @credits Stephan Gambke (SRFSlideShowApi)
+ */
 
 namespace SRF\DataTables;
 
@@ -11,10 +20,6 @@ use SMWQuery;
 use SMW\Services\ServicesFactory;
 use SRF\DataTables;
 
-/**
- * @author thomas-topway-it
- * @credits Stephan Gambke (SRFSlideShowApi)
- */
 class Api extends ApiBase {
 
 	/**
@@ -28,85 +33,6 @@ class Api extends ApiBase {
 
 		// @see https://datatables.net/reference/option/ajax
 		$datatableData = json_decode( $requestParams['datatable'], true );
-
-/*
-
-{
-    "draw": 3,
-    "columns": [
-        {
-            "data": {
-                "_": "0.display",
-                "sort": "0.@data-order",
-                "type": "0.@data-order"
-            },
-            "name": "",
-            "searchable": true,
-            "orderable": true,
-            "search": {
-                "value": "",
-                "regex": false
-            }
-        },
-        {
-            "data": {
-                "_": "1.display",
-                "sort": "1.@data-order",
-                "type": "1.@data-order"
-            },
-            "name": "",
-            "searchable": true,
-            "orderable": true,
-            "search": {
-                "value": "",
-                "regex": false
-            }
-        },
-        {
-            "data": 2,
-            "name": "",
-            "searchable": true,
-            "orderable": true,
-            "search": {
-                "value": "",
-                "regex": false
-            }
-        },
-        {
-            "data": 3,
-            "name": "",
-            "searchable": true,
-            "orderable": true,
-            "search": {
-                "value": "",
-                "regex": false
-            }
-        },
-        {
-            "data": 4,
-            "name": "",
-            "searchable": true,
-            "orderable": true,
-            "search": {
-                "value": "",
-                "regex": false
-            }
-        }
-    ],
-    "order": [
-        {
-            "column": 0,
-            "dir": "asc"
-        }
-    ],
-    "start": 0,
-    "length": 81,
-    "search": {
-        "value": "",
-        "regex": false
-    }
-}
-*/
 		$settings = json_decode( $requestParams['settings'], true );
 
 		if ( empty( $datatableData['length'] ) ) {
@@ -191,6 +117,7 @@ class Api extends ApiBase {
 
 		$printrequests = json_decode( $requestParams['printrequests'], true );
 
+		// filter the query
 		$searchPrintouts = [];
 		$allowedTypes = [ '_wpg', '_txt', '_cod', '_uri' ];
 		if ( !empty( $datatableData['search']['value'] ) ) {

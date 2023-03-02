@@ -1,4 +1,13 @@
-<?php		
+<?php
+
+/**
+ * SRF DataTables and SMWAPI.
+ *
+ * @see http://datatables.net/
+ *
+ * @licence GPL-2.0-or-later
+ * @author thomas-topway-it for KM-A
+ */
 
 namespace SRF\DataTables;
 
@@ -13,10 +22,21 @@ class Hooks {
 			return true;
 		}
 
+		// if ( $query->getMainLabel() === '-' ) {
+		// 	$printouts = [];
+		// 	foreach ( $query->getExtraPrintouts() as $printout ) {
+		// 		$printouts[] = $printout->getLabel();
+		// 	}
+		// 	if ( count( $printouts ) ) {
+		// 		$query->setSortKeys( [$printouts[0] => "ASC"] );
+		// 	}
+		// }
+
 		$inlineLimit = $query->getLimit();
 		$count = self::getCount( $query, $queryEngine );
 		// $limit = ( !empty( $params['defer-each'] ) ? $params['defer-each'] : $inlineLimit );
 
+		// $lengthmenuMax = max( $params['datatables-lengthmenu'] );
 		$limit = max( $params['datatables-pagelength'], $params['defer-each'], $inlineLimit );
 
 		$query->setUnboundLimit( min( $limit , $count ) );

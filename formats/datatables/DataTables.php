@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * SRF DataTables and SMWAPI.
+ *
+ * @see http://datatables.net/
+ *
+ * @licence GPL-2.0-or-later
+ * @author thomas-topway-it for KM-A
+ * @credits mwjames
+ */
+
 namespace SRF;
 
 use Html;
@@ -248,7 +258,27 @@ class DataTables extends ResultPrinter {
 			'default' => false,
 		];
 
-		// *** work-around to allow camelCase parameters
+		////////////////
+
+		$params['datatables-searchPanes.initCollapsed'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-searchPanes.collapse'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+
+		$params['datatables-searchPanes.columns'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => '',
+		];
+
+		// *** workaround to allow camelCase parameters
 		$ret = [];
 		foreach ( $params as $key => $value ) {
 			$strlower = strtolower($key);
@@ -351,7 +381,6 @@ class DataTables extends ResultPrinter {
 		}
 
 		$resourceFormatter = new ResourceFormatter();
-		// $data = $resourceFormatter->getData( $res, $outputmode, $this->params );
 
 		// @see src/ResourceFormatter.php -> getData
 		$ask = $query->toArray();
@@ -366,12 +395,10 @@ class DataTables extends ResultPrinter {
 		}
 
 		$result = $this->getResultJson( $res, $outputmode );
-		// $tableAttrs['data-query'] = QueryStringifier::toJson( $query );
 
 		// Combine all data into one object
 		$data = [
 			'query' => [
-				// 'result' => $queryResult->toArray(),
 				'ask' => $ask,
 				'result' => $result
 			]
@@ -387,8 +414,7 @@ class DataTables extends ResultPrinter {
 
 		// Init RL module
 		// $resourceFormatter->registerResources( [
-		// 	'ext.srf.datatables.v2.module',
-		// 	'ext.srf.datatables.v2.format'
+		// 	'ext.srf.datatables.v2.format',
 		// ] );
 
 		$headerList = [];
