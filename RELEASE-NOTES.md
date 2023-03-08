@@ -2,17 +2,21 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 4.0.2
 
-In development
+Released on March 9, 2023.
 
 * Improved compatibility with recent versions of MediaWiki, especially 1.37, 1.38 and 1.39
 * [724](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/724) Fix problem in pagewidget carousel when bootstrap is used (by @thomas-topway-it, KM-A)
-* [188](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/188#) Fix for datatables format (by @harugon )
+* [188](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/188#) Fix for datatables format (by @harugon)
 * Fix minor error in filtered format (by @Semantisch, KM-A)
 * Fix error in slideshow format (by @Semantisch, KM-A)
 * Fix Outline format sometimes not showing all values (by @Seb35)
 * Solved potential `symfony/css-selector` package conflict (by @rvogel)
 * Bump moment from 2.24.0 to 2.29.2 in /formats/filtered
 * Bump tar from 4.4.8 to 4.4.19 in /formats/filtered
+
+## SRF 4.0.1
+
+Released on January 26, 2022.
 
 ## SRF 4.0.0
 
