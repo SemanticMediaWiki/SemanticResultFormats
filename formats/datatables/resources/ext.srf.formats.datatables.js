@@ -91,16 +91,6 @@
 				desc: "desc",
 			};
 
-			// In case of a transposed table, don't try to match a column or its order
-			if (
-				column === undefined ||
-				!column.hasOwnProperty("sort") ||
-				column.sort.length === 0 ||
-				context.attr("data-transpose")
-			) {
-				return;
-			}
-
 			// https://datatables.net/reference/api/order()
 			// [1, 'asc'], [2, 'desc']
 			$.map(column.sort, function (val, i) {
@@ -116,14 +106,16 @@
 					$.inArray(val, column.list), // Find matchable index from the list
 					column.order[i] === undefined ? "asc" : orderMap[column.order[i]],
 				]);
+
 			});
 
 			if (order.length > 0) {
 				context.data("order", order);
-			}
 
-			// default @see https://datatables.net/reference/option/order
-			context.data("order", [[0, "asc"]]);
+			} else {
+				// default @see https://datatables.net/reference/option/order
+				context.data("order", [[0, "asc"]]);
+			}
 		},
 
 		parse: {
@@ -276,18 +268,51 @@
 			// 	return !isNaN(str) && !isNaN(parseFloat(str));
 			// }
 
-			// transform csv to array
-			for (var i in options) {
-				if (i in arrayTypes) {
-					options[i] = options[i]
-						.split(",")
-						.map((x) => x.trim())
-						.filter((x) => x !== "");
+			function csvToArray(str, numeric) {
+				var arr = str
+					.split(",")
+					.map((x) => x.trim())
+					.filter((x) => x !== "");
 
-					if (arrayTypes[i] === "number") {
-						options[i] = options[i].map((x) => x * 1);
-					}
+				if (!numeric) {
+					return arr;
 				}
+
+				return arr.map((x) => x * 1);
+			}
+
+			for (var i in options) {
+				// transform csv to array
+				if (i in arrayTypes) {
+					options[i] = csvToArray(options[i], arrayTypes[i] === "number");
+				}
+
+				// convert strings like columns.searchPanes.show
+				// to nested objects
+				var arr = i.split(".");
+				if (arr.length === 1) {
+					continue;
+				}
+
+				arr.reduce(function (acc, value, index, arr) {
+					// if value of parent parameter is false,
+					// for istance scroller = false, then ignore
+					// all children
+					if (index === 0 && options[value] === false) {
+						delete options[i];
+						arr.splice(index + 1);
+						return {};
+					}
+
+					if (index < arr.length - 1) {
+						acc[value] = $.extend({}, acc[value]);
+					} else {
+						acc[value] = options[i];
+						delete options[i];
+					}
+
+					return acc[value];
+				}, options);
 			}
 
 			// add the button placeholder if any button is required
@@ -295,28 +320,34 @@
 				options.dom = "B" + options.dom;
 			}
 
-			// @todo, use a reducer to handle nested properties
-			function addSubOption(property, subOptions) {
-				options[property] = {};
-				for (var subOption of subOptions) {
-					var key = property + "." + subOption;
-					if (key in options) {
-						options[property][subOption] = options[key];
-						delete options[key];
-					}
-				}
+			function isObject(obj) {
+				return obj !== null && typeof obj === "object" && !Array.isArray(obj);
 			}
 
-			if (options.scroller === true) {
-				addSubOption("scroller", ["displayBuffer", "loadingIndicator"]);
-
+			if (options.scroller === true || isObject(options.scroller)) {
 				if (!("scrollY" in options) || !options.scrollY) {
 					options.scrollY = "300px";
 				}
 			}
 
-			if (options.dom.indexOf("P") !== -1) {
-				addSubOption("searchPanes", ["initCollapsed", "collapse", "columns"]);
+			var useAjax = data.query.result.length < context.data("count");
+
+			if (options.searchPanes === true || isObject(options.searchPanes)) {
+				if (useAjax) {
+					// remove panes because this is tricky to
+					// be implemented in conjunction with SMW
+
+					// @TODO show a notice to the editor
+					// conf.dom = conf.dom.replace("P", "");
+					options.searchPanes = false;
+
+					if (options.dom.indexOf("P") !== -1) {
+						options.dom = options.dom.replace("P", "");
+						// @TODO show notice to editor
+					}
+				} else if (options.dom.indexOf("P") === -1) {
+					options.dom = "P" + options.dom;
+				}
 			}
 
 			// add the pagelength at the proper place in the length menu
@@ -332,59 +363,88 @@
 			var queryString = query.conditions;
 			var printrequests = context.data("printrequests");
 
-			// @see https://datatables.net/reference/option/columns.type
-			var columnstypePar = context.data("columnstype") || "";
-			columnstypePar = columnstypePar
-				.split(",")
-				.map((x) => x.trim())
-				.filter((x) => x !== "");
-
 			var entityCollation = context.data("collation");
 
-			// use the latest set value if one or more column is missing
-			var columnsType = null;
+			// @see https://datatables.net/reference/option/
+			var arrayTypesColumns = {
+				orderable: "boolean",
+				searchable: "boolean",
+				visible: "boolean",
+				orderData: "numeric-array",
+				// ...
+			};
 
 			var columnDefs = [];
 			var labelsCount = {};
 			$.map(printrequests, function (property, index) {
-				if (columnstypePar[index]) {
-					columnsType =
-						columnstypePar[index] === "auto" ? null : columnstypePar[index];
-				} else if (entityCollation) {
-					// html-num-fmt
-					columnsType =
+				// value for all columns
+				if (!options.columns.type) {
+					options.columns.type =
 						entityCollation === "numeric" && property.typeid === "_wpg"
 							? "any-number"
 							: null;
 				}
 
+				var coulumnDatatablesOptions = {};
+				if (printouts[index] && isObject(printouts[index][4])) {
+					for (var i in printouts[index][4]) {
+						if (i.indexOf("datatables-") === 0) {
+							var optionKey = i.replace(/datatables-(columns\.)?/, "");
+
+							coulumnDatatablesOptions[optionKey] =
+								printouts[index][4][i].trim();
+
+							if (optionKey in arrayTypesColumns) {
+								switch (arrayTypesColumns[optionKey]) {
+									case "boolean":
+										coulumnDatatablesOptions[optionKey] =
+											coulumnDatatablesOptions[optionKey].toLowerCase() ===
+												"true" ||
+											parseInt(coulumnDatatablesOptions[optionKey]) === 1;
+										break;
+									case "numeric-array":
+										coulumnDatatablesOptions[optionKey] = csvToArray(
+											coulumnDatatablesOptions[optionKey],
+											true
+										);
+										break;
+									// ...
+								}
+							}
+						}
+					}
+				}
+
+				// this is to avoid duplicate data/keys
 				if (!(property.label in labelsCount)) {
 					labelsCount[property.label] = 0;
 				}
 
-				columnDefs.push({
-					// https://datatables.net/reference/option/columnDefs
-					data:
-						property.label +
-						(labelsCount[property.label] == 0
-							? ""
-							: "_" + labelsCount[property.label]),
-					title: property.label,
-					type: columnsType,
-					className: "smwtype" + property.typeid,
-					targets: [index],
-				});
+				columnDefs.push(
+					$.extend(
+						{
+							// https://datatables.net/reference/option/columnDefs
+							/*
+							data:
+								property.label +
+								(labelsCount[property.label] == 0
+									? ""
+									: "_" + labelsCount[property.label]),
+*/
+							title: property.label,
+
+							// get canonical label or empty string if mainlabel
+							name: printrequests[index].key !== "" ? printouts[index][1] : "",
+							className: "smwtype" + property.typeid,
+							targets: [index],
+						},
+						options.columns,
+						coulumnDatatablesOptions
+					)
+				);
 
 				labelsCount[property.label]++;
 			});
-
-			var columnToObj = function (x) {
-				var ret = {};
-				for (var i in x) {
-					ret[columnDefs[i].data] = x[i];
-				}
-				return ret;
-			};
 
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
@@ -395,30 +455,26 @@
 				},
 			});
 
-			if (data.query.result.length === context.data("count")) {
+			if (!useAjax) {
 				conf.serverSide = false;
-				conf.data = data.query.result.map(columnToObj);
+				conf.data = data.query.result;
 
 				// use Ajax only when required
 			} else {
 				var preloadData = {};
 
-				// remove panes because this is tricky to
-				// be implemented in conjunction with SMW
-
-				// @TODO show a notice to the editor
-				conf.dom = conf.dom.replace("P", "");
-
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc)
-				var cacheKey = order[0][0] + order[0][1];
+				var cacheKey = JSON.stringify(order);
+
 				preloadData[cacheKey] = data.query.result;
 
 				var payload = {
-					action: "ext.srf.datatables.json",
+					action: "ext.srf.datatables.api",
 					format: "json",
 					query: queryString,
+					columndefs: JSON.stringify(columnDefs),
 					printouts: JSON.stringify(printouts),
 					printrequests: JSON.stringify(printrequests),
 					settings: JSON.stringify(
@@ -434,16 +490,15 @@
 					// instead we use the following hack: the Ajax function returns
 					// the preloaded data as long they are available for the requested
 					// slice, and then it uses an ajax call for not available data.
-					// @TODO the retrieved data could be easily cached so the callback
-					// will use it instead then querying the server again, but that
-					// should take into account the filter as well
 					// deferLoading: context.data("count"),
 
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
-						var key =
-							datatableData.order[0].column + datatableData.order[0].dir;
+						// must match cacheKey
+						var key = JSON.stringify(
+							datatableData.order.map((x) => [x.column, x.dir])
+						);
 
 						if (!(key in preloadData)) {
 							preloadData[key] = [];
@@ -458,12 +513,10 @@
 						) {
 							return callback({
 								draw: datatableData.draw,
-								data: preloadData[key]
-									.slice(
-										datatableData.start,
-										datatableData.start + datatableData.length
-									)
-									.map(columnToObj),
+								data: preloadData[key].slice(
+									datatableData.start,
+									datatableData.start + datatableData.length
+								),
 								recordsTotal: context.data("count"),
 								recordsFiltered: context.data("count"),
 							});
@@ -502,9 +555,7 @@
 								// we retrieve more than "length"
 								// expected by datatables, so return the
 								// sliced result
-								json.data = json.data
-									.slice(0, datatableData.length)
-									.map(columnToObj);
+								json.data = json.data.slice(0, datatableData.length);
 								callback(json);
 							})
 							.fail(function (error) {
