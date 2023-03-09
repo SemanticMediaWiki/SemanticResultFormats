@@ -18,6 +18,7 @@ use SMW\ResultPrinter;
 use SMW\DIWikiPage;
 use SMW\Message;
 use SMW\Query\PrintRequest;
+use SMWPrintRequest;
 use SMWQueryResult as QueryResult;
 
 
@@ -35,6 +36,8 @@ class DataTables extends ResultPrinter {
 
 	private $prefixParameterProcessor;
 
+	private $printoutsParameters = [];
+
 	private $query;
 
 	private $parser;
@@ -43,6 +46,7 @@ class DataTables extends ResultPrinter {
 	 * @var boolean
 	 */
 	private $recursiveAnnotation = false;
+
 
 	/**
 	 * @see ResultPrinter::getName
@@ -57,32 +61,28 @@ class DataTables extends ResultPrinter {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['class'] = [
-			'name' => 'class',
+			'type' => 'string',
 			'message' => 'smw-paramdesc-table-class',
 			'default' => '',
 		];
 
-		$params['transpose'] = [
+		// use instead |?=my label |+ template = my template
+		$params['mainlabel-template'] = [
+			'type' => 'string',
+			'message' => 'smw-paramdesc-table-mainlabel-template',
+			'default' => '',
+		];
+
+		$params['noajax'] = [
 			'type' => 'boolean',
+			'message' => 'smw-paramdesc-table-noajax',
 			'default' => false,
-			'message' => 'smw-paramdesc-table-transpose',
 		];
 
 		$params['sep'] = [
-			'message' => 'smw-paramdesc-sep',
-			'default' => '',
-		];
-
-		$params['theme'] = [
-			'message' => 'srf-paramdesc-theme',
-			'default' => 'basic',
-			'values' => [ 'bootstrap', 'basic' ]
-		];
-
-		$params['columnstype'] = [
 			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-columnstype',
-			'default' => '',
+			'message' => 'smw-paramdesc-sep',
+			'default' => '&#32;',
 		];
 
 		$params['prefix'] = [
@@ -98,13 +98,14 @@ class DataTables extends ResultPrinter {
 			'default' => 0,
 		];
 
-		$params['ajax'] = [
+		// *** only used internally, do not use in query
+		$params['apicall'] = [
 			'type' => 'string',
-			'message' => 'smw-paramdesc-ajax',
+			'message' => 'smw-paramdesc-apicall',
 			'default' => "",
 		];
 
-		// https://datatables.net/reference/option/
+		//////////////// datatables native options https://datatables.net/reference/option/
 
 		$params['datatables-autoWidth'] = [
 			'type' => 'boolean',
@@ -119,9 +120,9 @@ class DataTables extends ResultPrinter {
 		];
 
 		$params['datatables-info'] = [
-			'type' => 'boolean',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => true,
+		 	'type' => 'boolean',
+		 	'message' => 'srf-paramdesc-datatables-library-option',
+		 	'default' => true,
 		];
 
 		$params['datatables-lengthChange'] = [
@@ -166,11 +167,11 @@ class DataTables extends ResultPrinter {
 			'default' => true,
 		];
 
-		$params['datatables-serverSide'] = [
-			'type' => 'boolean',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => false,
-		];
+		// $params['datatables-serverSide'] = [
+		// 	'type' => 'boolean',
+		// 	'message' => 'srf-paramdesc-datatables-library-option',
+		// 		'default' => false,
+		// ];
 
 		$params['datatables-stateSave'] = [
 			'type' => 'boolean',
@@ -189,8 +190,6 @@ class DataTables extends ResultPrinter {
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => 'full_numbers',
 		];
-
-		////////////////////
 
 		$params['datatables-pageLength'] = [
 			'type' => 'integer',
@@ -258,7 +257,31 @@ class DataTables extends ResultPrinter {
 			'default' => false,
 		];
 
-		////////////////
+		//////////////// datatables columns
+
+		// only the options whose value has a sense to
+		// use for all columns, otherwise use (for single printouts)
+		// |?printout name |+ datatables-columns.type = string
+
+		$params['datatables-columns.type'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => '',
+		];
+
+		$params['datatables-columns.width'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => '',
+		];
+
+		//////////////// datatables searchPanes
+
+		$params['datatables-searchPanes'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
 
 		$params['datatables-searchPanes.initCollapsed'] = [
 			'type' => 'boolean',
@@ -276,6 +299,19 @@ class DataTables extends ResultPrinter {
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => '',
+		];
+
+		$params['datatables-searchPanes.threshold'] = [
+			'type' => 'float',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 0.6,
+		];
+		
+		// only single value
+		$params['datatables-columns.searchPanes.show'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => null,
 		];
 
 		// *** workaround to allow camelCase parameters
@@ -298,7 +334,7 @@ class DataTables extends ResultPrinter {
 
 		$this->parser = $this->copyParser();
 
-		$outputMode = ( $this->params['ajax'] !== "ajax" ? SMW_OUTPUT_HTML : $this->outputMode );
+		$outputMode = ( $this->params['apicall'] !== "apicall" ? SMW_OUTPUT_HTML : $this->outputMode );
 
 		// Get output from printer:
 		$result = $this->getResultText( $results, $outputMode );
@@ -376,8 +412,8 @@ class DataTables extends ResultPrinter {
 			$this->prefixParameterProcessor = new \SMW\Query\ResultPrinters\PrefixParameterProcessor( $query, $this->params['prefix'] );
 		}
 
-		if ( $this->params['ajax'] === "ajax" ) {
- 			return $this->getResultJson( $res, $outputMode );
+		if ( $this->params['apicall'] === "apicall" ) {
+ 			return $this->getResultJson( $res, $outputmode );
 		}
 
 		$resourceFormatter = new ResourceFormatter();
@@ -393,6 +429,29 @@ class DataTables extends ResultPrinter {
 				$ask['parameters'][$key] = $value;
 			}
 		}
+
+		$printouts = [];
+		$printoutsParameters = [];
+		foreach ( $res->getPrintRequests() as $key => $value ) {
+			$data = $value->getData();
+			if ( $data instanceof SMWPropertyValue ) {
+				$name = $data->getDataItem()->getKey();
+			} else {
+				$name = null;
+			}
+			$label = $value->getCanonicalLabel();
+			$parameters = $value->getParameters();
+			$printouts[] = [
+				$value->getMode(),
+				$label,
+				$name,
+				$value->getOutputFormat(),
+				$parameters
+			];
+			$printoutsParameters[$label] = $parameters;
+		}
+		
+		$this->printoutsParameters = $printoutsParameters;
 
 		$result = $this->getResultJson( $res, $outputmode );
 
@@ -418,11 +477,11 @@ class DataTables extends ResultPrinter {
 		// ] );
 
 		$headerList = [];
-		foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $pr ) {
-			$value = $pr->getCanonicalLabel();
+		foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $printRequest ) {
+			$value = $printRequest->getCanonicalLabel();
 
-			// mainlabel in the form: mainlabel=abc
-			if ( $ask['parameters']['mainlabel'] === $value ) {
+			// *** is PRINT_THIS always appropriate to match the mainLabel ?
+			if ( $printRequest->getMode() === SMWPrintRequest::PRINT_THIS ) {
 				$value = '';
 			}
 			$headerList[] = $value;
@@ -439,27 +498,9 @@ class DataTables extends ResultPrinter {
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];
 
-		$printouts = [];
-		foreach ( $res->getPrintRequests() as $key => $value ) {
-			$data = $value->getData();
-			if ( $data instanceof SMWPropertyValue ) {
-				$name = $data->getDataItem()->getKey();
-			} else {
-				$name = null;
-			}
-			$printouts[] = [
-				$value->getMode(),
-				$value->getLabel(),
-				$name,
-				$value->getOutputFormat(),
-				$value->getParameters(),
-			];
-		}
-
 		$tableAttrs = [
 			'class' => 'srf-datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
-			'data-theme' => $this->params['theme'],
-			'data-columnstype' => ( !empty( $this->params['columnstype'] ) ? $this->params['columnstype'] : null ),
+			// 'data-theme' => $this->params['theme'],
 			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
 			'data-nocase' => ( $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE ? true : false ),
 			'data-column-sort' => json_encode( [
@@ -525,6 +566,7 @@ class DataTables extends ResultPrinter {
 				}
 
 				$content = $this->getCellContent(
+					$printRequest->getLabel(),
 					$dataValues,
 					$outputMode,
 					$printRequest->getMode() == PrintRequest::PRINT_THIS
@@ -539,18 +581,26 @@ class DataTables extends ResultPrinter {
 		return $ret;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getCellContent( array $dataValues, $outputMode, $isSubject ) {
+	protected function getCellContent( string $label, array $dataValues, $outputMode, $isSubject ) {
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getShortText';
 		} else {
 			$dataValueMethod = $this->prefixParameterProcessor->useLongText( $isSubject ) ? 'getLongText' : 'getShortText';
 		}
 
-		$values = [];
+		$template = null;
+		if ( !empty( $this->printoutsParameters[$label]['template'] ) ) {
+			$template = $this->printoutsParameters[$label]['template'];
 
+		} elseif ( $isSubject && !empty( $this->params['mainlabel-template'] ) ) {
+			$template = $this->params['mainlabel-template'];
+		}
+
+		if ( $template ) {
+			$outputMode = SMW_OUTPUT_WIKI;
+		}
+
+		$values = [];
 		foreach ( $dataValues as $dv ) {
 			// Restore output in Special:Ask on:
 			// - file/image parsing
@@ -564,7 +614,11 @@ class DataTables extends ResultPrinter {
 					Message::PARSE
 				);
 			} else {
-				$value =  $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
+				$value = $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
+			}
+
+			if ( $template ) {
+				$value = $this->parser->recursiveTagParseFully( '{{' . $template . '|' . $value . '}}' );
 			}
 
 			$values[] = $value === '' ? '&nbsp;' : $value;
