@@ -216,6 +216,7 @@
 	"srf-paramdesc-debug": "{{doc-paramdesc|debug}}",
 	"srf-paramdesc-graphvalidation": "{{doc-paramdesc|graphvalidation}}",
 	"srf-printername-datatables": "{{doc-smwformat|datatables}}\n\nAlso used in {{msg-mw|Prefs-srf-datatables-options}}.",
+	"srf-printername-datatables-legacy": "{{doc-smwformat|datatables-legacy}} DataTables (legacy)",
 	"srf-ui-datatables-label-conditions": "{{doc-smw-ui-label-datatables|conditions}}\n{{Identical|Condition}}",
 	"srf-ui-datatables-label-parameters": "{{doc-smw-ui-label-datatables|parameters}}\n\n{{Identical|Parameter|Plural}}",
 	"srf-ui-datatables-label-filters": "{{doc-smw-ui-label-datatables|filters}}",

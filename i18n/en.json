@@ -200,6 +200,7 @@
 	"srf-paramdesc-debug": "Sets whether the process graph code should be shown wrapped pre tags",
 	"srf-paramdesc-graphvalidation": "Displays the process steps in red which do not have a assigned role",
 	"srf-printername-datatables": "DataTables",
+	"srf-printername-datatables-legacy": "DataTables (legacy)",
 	"srf-ui-datatables-label-conditions": "Conditions",
 	"srf-ui-datatables-label-parameters": "Parameters",
 	"srf-ui-datatables-label-filters": "Column filters and search",
