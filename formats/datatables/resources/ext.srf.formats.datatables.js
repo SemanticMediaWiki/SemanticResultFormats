@@ -106,12 +106,10 @@
 					$.inArray(val, column.list), // Find matchable index from the list
 					column.order[i] === undefined ? "asc" : orderMap[column.order[i]],
 				]);
-
 			});
 
 			if (order.length > 0) {
 				context.data("order", order);
-
 			} else {
 				// default @see https://datatables.net/reference/option/order
 				context.data("order", [[0, "asc"]]);
@@ -332,7 +330,11 @@
 
 			var useAjax = data.query.result.length < context.data("count");
 
-			if (options.searchPanes === true || isObject(options.searchPanes)) {
+			if (
+				options.searchPanes === true ||
+				isObject(options.searchPanes) ||
+				options.dom.indexOf("P") !== -1
+			) {
 				if (useAjax) {
 					// remove panes because this is tricky to
 					// be implemented in conjunction with SMW
@@ -595,4 +597,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
