@@ -69,7 +69,7 @@ class SemanticResultFormats {
 
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
-		$GLOBALS['wgAPIModules']['ext.srf.datatables.json'] = 'SRF\DataTables\Api';
+		$GLOBALS['wgAPIModules']['ext.srf.datatables.api'] = 'SRF\DataTables\Api';
 
 		// User preference
 		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
@@ -161,6 +161,7 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
+			'datatables-legacy' => 'SRF\DataTablesLegacy',
 			'carousel' => 'SRF\Carousel',
 			'gantt' => 'SRF\Gantt\GanttPrinter'
 		];
@@ -168,6 +169,7 @@ class SemanticResultFormats {
 		$formatAliases = [
 			'tagcloud'   => [ 'tag cloud' ],
 			'datatables'   => [ 'datatable' ],
+			'datatables-legacy'   => [ 'datatable-legacy' ],
 			'valuerank'  => [ 'value rank' ],
 			'd3chart'    => [ 'd3 chart' ],
 			'timeseries' => [ 'time series' ],

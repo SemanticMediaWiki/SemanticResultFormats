@@ -28,8 +28,11 @@
 	"ExtensionFunctions": [
 		"SemanticResultFormats::onExtensionFunction"
 	],
+	"AutoloadClasses": {
+		"SRF\\DataTablesLegacy": "formats/datatables-legacy/DataTablesLegacy.php",
+		"SRF\\Carousel": "formats/carousel/Carousel.php"
+	},
 	"AutoloadNamespaces": {
-		"SRF\\": "formats/carousel",
 		"SRF\\DataTables\\": "formats/datatables"
 	},
 	"QUnitTestModule": {

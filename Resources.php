@@ -1027,8 +1027,8 @@ return [
 
 	// DataTables implementation
 	'ext.srf.datatables' => $formatModule + [
-		'scripts' => 'datatables/resources/ext.srf.formats.datatables.js',
-		'styles'  => 'datatables/resources/ext.srf.formats.datatables.css',
+		'scripts' => 'datatables-legacy/resources/ext.srf.formats.datatables.js',
+		'styles'  => 'datatables-legacy/resources/ext.srf.formats.datatables.css',
 		'dependencies' => [
 			'jquery.dataTables',
 			'jquery.dataTables.extras',
@@ -1077,14 +1077,14 @@ return [
 
 	// DataTables bootstrap
 	'ext.srf.datatables.bootstrap' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/datatables/jquery.dataTables.bootstrap.js',
-		'styles'  => 'resources/jquery/datatables/jquery.dataTables.bootstrap.css'
+		'scripts' => 'resources/jquery/datatables-legacy/jquery.dataTables.bootstrap.js',
+		'styles'  => 'resources/jquery/datatables-legacy/jquery.dataTables.bootstrap.css'
 	],
 
 	// DataTables basic
 	'ext.srf.datatables.basic' => $moduleTemplate + [
 		'styles'  => [
-			'resources/jquery/datatables/datatables.min.css'
+			'resources/jquery/datatables-legacy/datatables.min.css'
 		]
 	],
 
