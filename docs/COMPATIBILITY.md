@@ -18,18 +18,18 @@ minimum requirements are indicated in bold.
 		<th>Release status</th>
 	</tr>
 	<tr>
-		<th>3.3.x</th>
-		<td>7.1.0 - 7.4.x+</td>
-		<td>1.31 - 1.35+</td>
-		<td>3.0.x - 3.2.x+</td>
-		<td>Future release</td>
+		<th>4.0.x</th>
+		<td><strong>7.3.0</strong> - 8.0.x+</td>
+		<td><strong>1.35</strong> - 1.37+</td>
+		<td><strong>3.2.x</strong> - 4.0+</td>
+		<td><strong>Stable release</strong></td>
 	<tr>
 	<tr>
 		<th>3.2.x</th>
 		<td><strong>7.1.0</strong> - 7.4.x</td>
 		<td>1.31 - 1.35</td>
 		<td>3.0.x - 3.2.x</td>
-		<td><strong>Stable release</strong></td>
+		<td>Obsolete release, no support</td>
 	<tr>
 	<tr>
 		<th>3.1.x</th>
