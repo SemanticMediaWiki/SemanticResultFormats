@@ -532,7 +532,7 @@
 							totalSize = preloadData[i].length;
 						}
 
-						if (totalSize > 1000000) {
+						if (totalSize > 100000) {
 							console.log("flushing datatables cache!");
 							preloadData = {};
 						}
@@ -549,10 +549,13 @@
 
 								// cache all retrieved rows for each sorting
 								// dimension (column/dir), up to a global
-								// threshold (1,000,000 rows)
-								preloadData[key] = preloadData[key]
-									.slice(0, datatableData.start)
-									.concat(json.data);
+								// threshold (100,000 rows)
+
+								if ( datatableData.search.value === "" ) {
+									preloadData[key] = preloadData[key]
+										.slice(0, datatableData.start)
+										.concat(json.data);
+								}
 
 								// we retrieve more than "length"
 								// expected by datatables, so return the
