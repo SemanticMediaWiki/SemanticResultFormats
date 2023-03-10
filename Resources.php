@@ -974,6 +974,9 @@ return [
 		],
 		'dependencies' => [
 			'ext.srf.datatables.v2.module',
+			'mediawiki.cookie',
+			'oojs-ui-core',
+			'oojs-ui-widgets',
 			'ext.smw.api',
 			'ext.srf.api',
 			'ext.srf.util',
@@ -1011,7 +1014,8 @@ return [
 			'srf-ui-datatables-label-multiselect-column-selectedtext',
 			'srf-ui-datatables-label-placeholder-column-search',
 			'srf-ui-datatables-label-content-cache',
-			'srf-ui-datatables-label-content-server'
+			'srf-ui-datatables-label-content-server',
+			'srf-ui-datatables-searchpanes-noajax'
 		]
 	],
 
