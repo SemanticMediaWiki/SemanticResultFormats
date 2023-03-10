@@ -426,7 +426,7 @@
 			};
 
 			var columnDefs = [];
-			var labelsCount = {};
+			// var labelsCount = {};
 			$.map(printrequests, function (property, index) {
 				// value for all columns
 				if (!options.columns.type) {
@@ -467,9 +467,9 @@
 				}
 
 				// this is to avoid duplicate data/keys
-				if (!(property.label in labelsCount)) {
-					labelsCount[property.label] = 0;
-				}
+				// if (!(property.label in labelsCount)) {
+				// 	labelsCount[property.label] = 0;
+				// }
 
 				columnDefs.push(
 					$.extend(
@@ -494,7 +494,7 @@
 					)
 				);
 
-				labelsCount[property.label]++;
+				// labelsCount[property.label]++;
 			});
 
 			var conf = $.extend(options, {
@@ -573,7 +573,7 @@
 							});
 						}
 
-						// flush cache each 1 million row
+						// flush cache each 100,000 rows
 						// @TODO this is only one of the possible
 						// methods !
 						var totalSize = 0;
