@@ -25,3 +25,14 @@
 	margin-right: 0.334em;
 }
 
+.oo-ui-messageWidget.oo-ui-messageWidget-block.oo-ui-messageWidget-showClose {
+	padding-right: 56px;
+}
+
+.oo-ui-messageWidget.oo-ui-messageWidget-block > .oo-ui-messageWidget-close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
+

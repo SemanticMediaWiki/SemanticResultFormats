@@ -168,6 +168,52 @@
 		ui: function (context, container, data) {
 			// ...
 		},
+
+		showNotice: function (context, container, msg) {
+			if (
+				mw.config.get("wgUserName") != context.data("editor") ||
+				mw.cookie.get(
+					"srf-ui-datatables-searchpanes-notice-" + mw.config.get("wgArticleId")
+				)
+			) {
+				return;
+			}
+
+			var messageWidget = new OO.ui.MessageWidget({
+				type: "warning",
+				label: new OO.ui.HtmlSnippet(mw.msg(msg)),
+				// *** this does not work before ooui v0.43.0
+				showClose: true,
+			});
+			var closeFunction = function () {
+				// 1 month
+				var expires = 1 * 30 * 24 * 3600;
+				mw.cookie.set(
+					"srf-ui-datatables-searchpanes-notice-" +
+						mw.config.get("wgArticleId"),
+					true,
+					{
+						path: "/",
+						expires: expires,
+					}
+				);
+				$(messageWidget.$element).parent().remove();
+			};
+			messageWidget.on("close", closeFunction);
+			$(context).prepend($("<div><br/></div>").prepend(messageWidget.$element));
+			if (!messageWidget.$element.hasClass("oo-ui-messageWidget-showClose")) {
+				messageWidget.$element.addClass("oo-ui-messageWidget-showClose");
+				var closeButton = new OO.ui.ButtonWidget({
+					classes: ["oo-ui-messageWidget-close"],
+					framed: false,
+					icon: "close",
+					label: OO.ui.msg("ooui-popup-widget-close-button-aria-label"),
+					invisibleLabel: true,
+				});
+				closeButton.on("click", closeFunction);
+				messageWidget.$element.append(closeButton.$element);
+			}
+		},
 	};
 
 	/**
@@ -279,6 +325,11 @@
 				return arr.map((x) => x * 1);
 			}
 
+			// enable searchPanes if the symbol is in the dom
+			if (options.dom.indexOf("P") !== -1) {
+				options.searchPanes = true;
+			}
+
 			for (var i in options) {
 				// transform csv to array
 				if (i in arrayTypes) {
@@ -330,23 +381,23 @@
 
 			var useAjax = data.query.result.length < context.data("count");
 
-			if (
-				options.searchPanes === true ||
-				isObject(options.searchPanes) ||
-				options.dom.indexOf("P") !== -1
-			) {
+			if (options.searchPanes === true || isObject(options.searchPanes)) {
 				if (useAjax) {
 					// remove panes because this is tricky to
 					// be implemented in conjunction with SMW
 
-					// @TODO show a notice to the editor
-					// conf.dom = conf.dom.replace("P", "");
 					options.searchPanes = false;
 
 					if (options.dom.indexOf("P") !== -1) {
 						options.dom = options.dom.replace("P", "");
-						// @TODO show notice to editor
 					}
+
+					_datatables.showNotice(
+						context,
+						container,
+						"srf-ui-datatables-searchpanes-noajax"
+					);
+
 				} else if (options.dom.indexOf("P") === -1) {
 					options.dom = "P" + options.dom;
 				}
@@ -551,7 +602,7 @@
 								// dimension (column/dir), up to a global
 								// threshold (100,000 rows)
 
-								if ( datatableData.search.value === "" ) {
+								if (datatableData.search.value === "") {
 									preloadData[key] = preloadData[key]
 										.slice(0, datatableData.start)
 										.concat(json.data);
@@ -569,7 +620,6 @@
 					},
 				});
 			}
-
 			data.table = container.find("table").DataTable(conf);
 		},
 
