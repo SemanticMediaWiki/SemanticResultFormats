@@ -13,6 +13,7 @@
 namespace SRF;
 
 use Html;
+use RequestContext;
 use SMW\Query\ResultPrinters\TableResultPrinter;
 use SMW\ResultPrinter;
 use SMW\DIWikiPage;
@@ -498,6 +499,8 @@ class DataTables extends ResultPrinter {
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];
 
+		$performer = RequestContext::getMain()->getUser();
+
 		$tableAttrs = [
 			'class' => 'srf-datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 			// 'data-theme' => $this->params['theme'],
@@ -512,6 +515,7 @@ class DataTables extends ResultPrinter {
 			'data-printrequests' => json_encode( $printrequests, true ),
 			'data-printouts' => json_encode( $printouts, true ),
 			'data-count' => $query->getOption( 'count' ),
+			'data-editor' => $performer->getName(),
 		];
 
 		// Element includes info, spinner, and container placeholder
