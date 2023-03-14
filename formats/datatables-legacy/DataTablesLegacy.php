@@ -96,8 +96,8 @@ class DataTablesLegacy extends ResultPrinter {
 
 		// Init RL module
 		$resourceFormatter->registerResources( [
-			'ext.srf.datatables',
-			'ext.srf.datatables.' . $this->params['theme']
+			'ext.srf.datatablesLegacy',
+			'ext.srf.datatablesLegacy.' . $this->params['theme']
 		] );
 
 		// Element includes info, spinner, and container placeholder
