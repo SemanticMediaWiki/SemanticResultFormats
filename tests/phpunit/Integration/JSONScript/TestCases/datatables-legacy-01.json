@@ -1,5 +1,5 @@
 {
-	"description": "Test `format=datatables` html output (no JS validation)",
+	"description": "Test `format=datatables-legacy` html output (no JS validation)",
 	"setup": [
 		{
 			"page": "Has date",
@@ -16,7 +16,7 @@
 		},
 		{
 			"page": "Test/Datatables/Q.1",
-			"contents": "{{#ask: [[Category:Datatables]] |?Has date |format=datatables }}"
+			"contents": "{{#ask: [[Category:Datatables]] |?Has date |format=datatables-legacy }}"
 		}
 	],
 	"tests": [
@@ -26,7 +26,7 @@
 			"subject": "Test/Datatables/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"<div .*data-collation.*data-datatables.*data-count.*data-editor.*datatables-container"
+					"<div class=\"srf-datatables\" data-theme=\"basic\" data-collation=\"identity\"><div class=\"top\">"
 				]
 			}
 		}
