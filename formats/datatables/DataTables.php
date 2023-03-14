@@ -585,6 +585,7 @@ class DataTables extends ResultPrinter {
 		return $ret;
 	}
 
+	// @see SMW\Query\ResultPrinters\TableResultPrinter
 	protected function getCellContent( string $label, array $dataValues, $outputMode, $isSubject ) {
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getShortText';
