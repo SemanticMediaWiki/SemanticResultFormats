@@ -422,6 +422,15 @@
 				searchable: "boolean",
 				visible: "boolean",
 				orderData: "numeric-array",
+				"searchPanes.collapse": "boolean",
+				"searchPanes.combiner": "boolean",
+				"searchPanes.controls": "boolean",
+				"searchPanes.hideCount": "boolean",
+				"searchPanes.orderable": "boolean",
+				"searchPanes.initCollapsed": "boolean",
+				"searchPanes.show": "boolean",
+				"searchPanes.threshold": "number",
+				"searchPanes.viewCount": "boolean",
 				// ...
 			};
 
@@ -440,28 +449,41 @@
 				if (printouts[index] && isObject(printouts[index][4])) {
 					for (var i in printouts[index][4]) {
 						if (i.indexOf("datatables-") === 0) {
-							var optionKey = i.replace(/datatables-(columns\.)?/, "");
+							var printoutValue = printouts[index][4][i].trim();
 
-							coulumnDatatablesOptions[optionKey] =
-								printouts[index][4][i].trim();
+							var optionKey = i.replace(/datatables-(columns\.)?/, "");
 
 							if (optionKey in arrayTypesColumns) {
 								switch (arrayTypesColumns[optionKey]) {
 									case "boolean":
-										coulumnDatatablesOptions[optionKey] =
-											coulumnDatatablesOptions[optionKey].toLowerCase() ===
-												"true" ||
-											parseInt(coulumnDatatablesOptions[optionKey]) === 1;
+										printoutValue =
+											printoutValue.toLowerCase() === "true" ||
+											parseInt(printoutValue) === 1;
 										break;
 									case "numeric-array":
-										coulumnDatatablesOptions[optionKey] = csvToArray(
-											coulumnDatatablesOptions[optionKey],
-											true
-										);
+										printoutValue = csvToArray(printoutValue, true);
+										break;
+									case "number":
+										printoutValue = printoutValue * 1;
 										break;
 									// ...
 								}
 							}
+
+							// convert strings like columns.searchPanes.show
+							// to nested objects
+							var arr = optionKey.split(".");
+
+							arr.reduce(function (acc, value, index_, arr) {
+								if (index_ < arr.length - 1) {
+									acc[value] = $.extend({}, acc[value]);
+								} else {
+									acc[value] = printoutValue;
+									delete options[i];
+								}
+
+								return acc[value];
+							}, coulumnDatatablesOptions);
 						}
 					}
 				}
@@ -618,6 +640,7 @@
 					},
 				});
 			}
+			console.log("conf", conf);
 			data.table = container.find("table").DataTable(conf);
 		},
 
