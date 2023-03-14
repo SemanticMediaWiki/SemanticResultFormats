@@ -570,7 +570,7 @@ class DataTables extends ResultPrinter {
 				}
 
 				$content = $this->getCellContent(
-					$printRequest->getLabel(),
+					$printRequest->getCanonicalLabel(),
 					$dataValues,
 					$outputMode,
 					$printRequest->getMode() == PrintRequest::PRINT_THIS
