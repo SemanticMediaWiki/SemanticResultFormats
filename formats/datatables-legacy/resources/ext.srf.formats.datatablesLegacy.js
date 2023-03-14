@@ -39,7 +39,7 @@
 	 * Container for all non-public objects and methods
 	 *
 	 * @private
-	 * @member srf.formats.datatables
+	 * @member srf.formats.datatablesLegacy
 	 */
 	var _datatables = {
 		/**
@@ -673,11 +673,11 @@
 	 * @constructor
 	 * @extends srf.formats
 	 */
-	srf.formats.datatables = function () {};
+	srf.formats.datatablesLegacy = function () {};
 
 	/* Public methods */
 
-	srf.formats.datatables.prototype = {
+	srf.formats.datatablesLegacy.prototype = {
 		/**
 		 * Default settings
 		 *
@@ -981,7 +981,7 @@
 	 *
 	 * @ignore
 	 */
-	var datatables = new srf.formats.datatables();
+	var datatables = new srf.formats.datatablesLegacy();
 
 	$(document).ready(function () {
 		$(".srf-datatables").each(function () {
