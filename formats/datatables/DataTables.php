@@ -431,6 +431,7 @@ class DataTables extends ResultPrinter {
 			}
 		}
 
+		// @see SRFSlideShow
 		$printouts = [];
 		$printoutsParameters = [];
 		foreach ( $res->getPrintRequests() as $key => $value ) {
@@ -477,6 +478,7 @@ class DataTables extends ResultPrinter {
 		// 	'ext.srf.datatables.v2.format',
 		// ] );
 
+		// @see TableResultPrinter
 		$headerList = [];
 		foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $printRequest ) {
 			$value = $printRequest->getCanonicalLabel();
