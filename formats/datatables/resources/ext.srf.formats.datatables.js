@@ -3,16 +3,11 @@
  *
  * @see http://datatables.net/
  *
- * @since 1.9
- * @version 0.2.5
- *
- * @file
- * @ingroup SRF
- *
  * @licence GPL-2.0-or-later
- * @author mwjames
- * @author thomas-topway-it
+ * @author thomas-topway-it for KM-A
+ * @credits mwjames (ext.smw.tableprinter.js)
  */
+
 (function ($, mw, srf) {
 	"use strict";
 
@@ -27,13 +22,7 @@
 	 * @private
 	 * @static
 	 */
-	var html = mw.html,
-		profile = $.client.profile(),
-		smwApi = new smw.api(),
-		util = new srf.util();
-
-	var removedURIs = {};
-	var testSmwApiResult = null;
+	var html = mw.html;
 
 	/**
 	 * Container for all non-public objects and methods
@@ -63,306 +52,76 @@
 		},
 
 		/**
-		 * Contains methods linked to the parsing of objects
+		 * Adds the initial sort/order from the #ask request that is available as
+		 * `data-column-sort` attribute with something like:
+		 *
+		 * {
+		 *  "list":["","Foo","Bar"]
+		 *  "sort":["Foo"],
+		 *  "order":["asc"]
+		 * }
+		 *
+		 * on
+		 *
+		 * {{#ask: ...
+		 *  |?Foo
+		 *  |?Bar
+		 *  |sort=Foo
+		 *  |order=asc
+		 *  ...
+		 * }}
+		 *
+		 * @since 3.0
 		 *
 		 * @private
-		 * @type {object}
-		 * @return void
+		 * @static
+		 *
+		 * @param {Object} context
 		 */
-		parse: {
-			/**
-			 * Returns a html element from the MWAPI imageinfo prop
-			 *
-			 * @private
-			 * @param  {object}
-			 * @return {html|null}
-			 */
-			thumbnail: function (info) {
-				if ($.type(info.imageinfo) === "array") {
-					var imageInfo = info ? info.imageinfo[0] : null;
-					if ($.inArray("thumburl", imageInfo)) {
-						return html.element(
-							"a",
-							{
-								href: imageInfo.descriptionurl,
-							},
-							new html.Raw(
-								html.element("img", {
-									src: imageInfo.thumburl,
-								})
-							)
-						);
-					}
-				}
-				return null;
-			},
+		initColumnSort: function (context) {
+			var column = context.data("column-sort");
 
-			/**
-			 * Returns a parsed result object that was received
-			 * using the SMWAPI
-			 *
-			 * @private
-			 * @param  {object}
-			 * @param  {object}
-			 * @return {array}
-			 */
-			results: function (context, data) {
-				var self = this;
+			var order = [];
 
-				// Returns a text or a href element
-				// Try to resolve image/thumbnail information by fetching its
-				// imageInfo from the back-end
-				function createLink(wikiPage, linker, options) {
-					if (wikiPage.getNamespaceId() === 6 && linker) {
-						var imageInfo = getImageInfo(wikiPage.getName(), options);
-						if (imageInfo !== null && imageInfo !== undefined) {
-							var imageLink = self.thumbnail(imageInfo);
-							return imageLink !== null ? imageLink : wikiPage.getHtml(linker);
-						}
-					}
-					return wikiPage.getHtml(linker);
+			// SMW allows descending and ascending but those are unknown to DataTables
+			var orderMap = {
+				descending: "desc",
+				ascending: "asc",
+				asc: "asc",
+				desc: "desc",
+			};
+
+			// https://datatables.net/reference/api/order()
+			// [1, 'asc'], [2, 'desc']
+			$.map(column.sort, function (val, i) {
+				if (val === "") {
+					i = 0;
 				}
 
-				// Returns a thumbnail image location and in case the info was
-				// cached the result is returned immediately otherwise an event
-				// is triggered to ensure that result parsing is responsive
-				// and without any delay
-				function getImageInfo(title, options) {
-					var imageInfo = null;
-
-					util.image.imageInfo(
-						{
-							cache: datatables.defaults.cacheImageInfo,
-							width: datatables.defaults.thumbSize,
-							title: title,
-						},
-						function (isCached, info) {
-							if (isCached) {
-								imageInfo = info;
-							} else {
-								// This info wasn't in cache so we can't wait on the response
-								// and sent therefore a trigger event
-								context.trigger("srf.datatables.afterImageInfoFetch", {
-									column: options.column,
-									row: options.row,
-									info: info,
-								});
-							}
-						}
-					);
-					return imageInfo;
+				if ($.inArray(val, column.list) < 0) {
+					return;
 				}
 
-				// Transform results into a specific aaData format
-				function getResults(parameters, results, printreqs) {
-					var aaData = [],
-						i = 0;
-					$.each(results, function (subjectName, subject) {
-						var rowData = {},
-							linker = parameters.link === "all" || false,
-							columnIndex = 0,
-							rowIndex = i++;
+				order.push([
+					$.inArray(val, column.list), // Find matchable index from the list
+					column.order[i] === undefined ? "asc" : orderMap[column.order[i]],
+				]);
+			});
 
-						// Subject
-						if (parameters.mainlabel !== "-") {
-							var mainLabel =
-								parameters.mainlabel !== "" ? parameters.mainlabel : "";
-							if (subject instanceof smw.dataItem.wikiPage) {
-								rowData[mainLabel] = createLink(
-									subject,
-									linker || parameters.link === "subject",
-									{
-										column: columnIndex,
-										row: rowIndex,
-									}
-								);
-								columnIndex++;
-							}
-						}
-
-						// Property printouts
-						if ($.inArray("printouts", subject)) {
-							// loop columns (properties)
-							$.each(printreqs, function (index, propertyObj) {
-								if (propertyObj.label === parameters.mainlabel) {
-									return;
-								}
-
-								var property = propertyObj.label;
-								var values = subject.printouts[property];
-
-								// *** this seems related to a wrong api response on update
-								// (printrequests calling the api are different from the
-								// initial printrequests) -- it should have been now fixed
-								// and the following condition shouldn't be required
-								if (values == null) {
-									rowData[property] = createLink(subject, linker, {
-										column: columnIndex,
-										row: rowIndex,
-									});
-								} else {
-									var collectedValueItem = "";
-									$.map(values, function (DI, key) {
-										// For multiple values within one row/column use a separator
-										collectedValueItem +=
-											collectedValueItem !== "" && key >= 0 ? "<br />" : "";
-
-										// dataItem
-										if (DI instanceof smw.dataItem.time) {
-											collectedValueItem += DI.getMediaWikiDate();
-										} else if (DI instanceof smw.dataItem.wikiPage) {
-											collectedValueItem += createLink(DI, linker, {
-												column: columnIndex,
-												row: rowIndex,
-											});
-										} else if (DI instanceof smw.dataItem.uri) {
-											// *** this is a work-around to handle invalid URIs which
-											// prevent the datatable from working
-											// the file to be fixed is the following:
-											// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
-											if (
-												rowIndex in removedURIs &&
-												key in removedURIs[rowIndex]
-											) {
-												DI.fullurl = removedURIs[rowIndex][key];
-											}
-
-											collectedValueItem += DI.getHtml(linker);
-										} else if (DI instanceof smw.dataItem.text) {
-											collectedValueItem += DI.getText();
-										} else if (DI instanceof smw.dataItem.number) {
-											collectedValueItem += DI.getNumber();
-										} else if (DI instanceof smw.dataValue.quantity) {
-											collectedValueItem +=
-												DI.getUnit() !== ""
-													? DI.getValue() + " " + DI.getUnit()
-													: DI.getValue();
-										} else if (DI instanceof smw.dataItem.unknown) {
-											collectedValueItem += DI.getValue();
-										}
-									});
-									// For empty values ensure to use "-" otherwise
-									// dataTables will show an error
-									rowData[property] =
-										collectedValueItem !== "" ? collectedValueItem : "-";
-								}
-								columnIndex++;
-							});
-						}
-
-						// Only care for entries that are not empty
-						if (!$.isEmptyObject(rowData)) {
-							// Collect events
-							aaData.push(rowData);
-						} else {
-							// In case the array was empty reset the row counter
-							rowIndex--;
-						}
-					});
-
-					return { aaData: aaData };
-				}
-
-				// @see https://datatables.net/reference/option/columns.type
-				var columnstypePar = context.data("columnstype") || "";
-				columnstypePar = columnstypePar
-					.split(",")
-					.map((x) => x.trim())
-					.filter((x) => x !== "");
-
-				var entityCollation = context.data("collation");
-
-				// use the latest set value if one or more column is missing
-				var columnsType = null;
-
-				// Create column definitions (see aoColumnDefs)
-				// @see http://www.datatables.net/usage/columns
-				var aoColumnDefs = [];
-				$.map(data.query.result.printrequests, function (property, index) {
-
-					if (columnstypePar[index]) {
-						columnsType =
-							columnstypePar[index] === "auto" ? null : columnstypePar[index];
-					} else if (entityCollation) {
-						// html-num-fmt
-						columnsType = entityCollation === "numeric" && property.typeid === '_wpg' ? "any-number" : null;
-					}
-
-					aoColumnDefs.push({
-						// 'mData': property.label,
-						// 'sTitle': property.label,
-						// 'sClass': 'smwtype' + property.typeid,
-						// 'aTargets': [index]
-
-						// https://datatables.net/reference/option/columnDefs
-						data: property.label,
-						title: property.label,
-						type: columnsType,
-						className: "smwtype" + property.typeid,
-						targets: [index],
-					});
-				});
-				data.aoColumnDefs = aoColumnDefs;
-				// Parse and return results
-				return getResults(
-					data.query.ask.parameters,
-					data.query.result.results,
-					data.query.result.printrequests
-				);
-			},
+			if (order.length > 0) {
+				context.data("order", order);
+			} else {
+				// default @see https://datatables.net/reference/option/order
+				context.data("order", [[0, "asc"]]);
+			}
 		},
 
-		/**
-		 * Export links
-		 *
-		 * Depending on the event that invokes a change, adopt the link query
-		 *
-		 * @private
-		 * @return void
-		 */
+		parse: {
+			// ...
+		},
+
 		exportlinks: function (context, data) {
-			var exportLinks = context.find("#srf-panel-export > .center"),
-				parameters = {},
-				printouts = [];
-
-			// Clone data into new object in order to keep it local
-			$.extend(true, parameters, data.query.ask.parameters);
-
-			// Only columns that are visible are supposed to be part of the export links
-			// $.each( data.table.fnSettings().aoColumns, function( index, column ) {
-			$.each(data.table.settings().columns(), function (index, column) {
-				// if ( column.bVisible ){
-				if (data.table.column(index).visible()) {
-					printouts.push(data.query.ask.printouts[index]);
-				}
-			});
-
-			// Manage individual links
-			$.each(datatables.defaults.exportFormats, function (format, name) {
-				var formatLink = exportLinks.find("." + format);
-
-				// Create element if it doesn't exists
-				if (formatLink.length === 0) {
-					formatLink = exportLinks
-						.append(html.element("span", { class: format }))
-						.find("." + format);
-				}
-
-				// Set name and format
-				parameters.format = format;
-				parameters.searchlabel = name;
-
-				// Create link
-				var link = new smw.Query(
-					printouts,
-					parameters,
-					data.query.ask.conditions
-				).getLink();
-
-				// Remove previous link and append with an updated one
-				formatLink.find("a").remove();
-				formatLink.append(link);
-			});
+			// ...
 		},
 
 		/**
@@ -407,250 +166,52 @@
 		 * @param  {array} data
 		 */
 		ui: function (context, container, data) {
-			// Setup the query panel
-			var queryPanel = context.find(".top");
-			queryPanel.panel({
-				show: false,
+			// ...
+		},
+
+		showNotice: function (context, container, msg) {
+			var cookieKey =
+				"srf-ui-datatables-searchpanes-notice-" +
+				mw.config.get("wgUserName") +
+				"-" +
+				mw.config.get("wgArticleId");
+
+			if (
+				mw.config.get("wgUserName") != context.data("editor") ||
+				mw.cookie.get(cookieKey)
+			) {
+				return;
+			}
+
+			var messageWidget = new OO.ui.MessageWidget({
+				type: "warning",
+				label: new OO.ui.HtmlSnippet(mw.msg(msg)),
+				// *** this does not work before ooui v0.43.0
+				showClose: true,
 			});
-
-			// Add exportFormat portlet
-			queryPanel
-				.panel("portlet", {
-					class: "export",
-					fieldset: false,
-				})
-				.append(html.element("div", { class: "center" }));
-
-			// Init export links
-			_datatables.exportlinks(context, data);
-
-			// Map available columns
-			var columnList = [];
-
-			//$.each( data.table.fnSettings().aoColumns, function( key, item ) {
-			//	if ( key !== '' ) {
-			//		columnList.push( item.mData !== '' ? item.mData : '#' );
-			//	}
-			//} );
-
-			$.each(data.aoColumnDefs, function (key, item) {
-				// "data" is the label
-				columnList.push(item.data !== "" ? item.data : "#");
-			});
-
-			// Column filter
-			var columnFilter, columnSearchFilter, columnSearchInput;
-
-			// Add column portlet
-			columnFilter = queryPanel
-				.panel("portlet", {
-					class: "columnfilter",
-					title: mw.msg("srf-ui-datatables-label-filters"),
-					fieldset: true,
-				})
-				.find("fieldset");
-
-			// Add column visibility select options list
-			columnFilter
-				.optionslist()
-				.optionslist("selectlist", {
-					list: columnList,
-					class: "columnfilter",
-					multiple: true,
-					selectedAll: true,
-					null: false,
-				})
-				.multiselect({
-					header: mw.msg("srf-ui-datatables-label-multiselect-column-header"),
-					noneSelectedText: mw.msg(
-						"srf-ui-datatables-label-multiselect-column-noneselectedtext"
-					),
-					selectedText:
-						"# " +
-						mw.msg("srf-ui-datatables-label-multiselect-column-selectedtext"),
-					height: columnList.length > 5 ? undefined : "auto",
-					minWidth: "auto",
-					click: function (event, ui) {
-						// var bVis = data.table.fnSettings().aoColumns[ui.value].bVisible;
-						// data.table.fnSetColumnVis( ui.value, !bVis );
-						var bVis = data.table.settings().column(ui.value).visible();
-						data.table.column(ui.value).visible(!bVis);
-
-						// Update export links
-						_datatables.exportlinks(context, data);
-					},
+			var closeFunction = function () {
+				// 1 month
+				var expires = 1 * 30 * 24 * 3600;
+				mw.cookie.set(cookieKey, true, {
+					path: "/",
+					expires: expires,
 				});
-
-			// Multiselect minWidth didn't work in FF therefore we fix it here
-			columnFilter.find(".ui-multiselect").css("width", "205px");
-
-			// Add column search filter
-			columnFilter.append("<br>").optionslist("selectlist", {
-				list: columnList,
-				class: "columnsearchfilter",
-				selectedAll: false,
-				null: true,
-				change: function (event, ui) {
-					// Clear previous fields before storing a new filter set
-					//data.table.fnFilter( '', columnSearchFilter );
-					if (!columnSearchFilter) {
-						data.table.search("").draw();
-					} else {
-						data.table.column(columnSearchFilter).search("").draw();
-					}
-					columnSearchFilter = ui.value;
-					var disabled = columnSearchFilter ? "" : "disabled";
-					columnFilter
-						.find("#columnsearchinput")
-						.prop("disabled", disabled)
-						.val("");
-				},
-			});
-
-			// Add column search input
-			columnFilter
-				.append("<br>")
-				.append(
-					html.element(
-						"input",
-						{
-							id: "columnsearchinput",
-							placeholder: mw.msg(
-								"srf-ui-datatables-label-placeholder-column-search"
-							),
-							disabled: "disabled",
-						},
-						""
-					) + "<br>"
-				)
-				.on("input propertychange", "#columnsearchinput", function (event) {
-					columnSearchInput = $(this).val();
-					if (columnSearchInput !== "" && columnSearchFilter !== "") {
-						// Apply search to the selected column
-						// data.table.fnFilter( columnSearchInput, columnSearchFilter );
-						data.table
-							.column(columnSearchFilter)
-							.search(columnSearchInput)
-							.draw();
-					} else {
-						// Reset the search term to null
-						// data.table.fnFilter( '', columnSearchFilter );
-						if (!columnSearchFilter) {
-							data.table.search("").draw();
-						} else {
-							data.table.column(columnSearchFilter).search("").draw();
-						}
-					}
+				$(messageWidget.$element).parent().remove();
+			};
+			messageWidget.on("close", closeFunction);
+			$(context).prepend($("<div><br/></div>").prepend(messageWidget.$element));
+			if (!messageWidget.$element.hasClass("oo-ui-messageWidget-showClose")) {
+				messageWidget.$element.addClass("oo-ui-messageWidget-showClose");
+				var closeButton = new OO.ui.ButtonWidget({
+					classes: ["oo-ui-messageWidget-close"],
+					framed: false,
+					icon: "close",
+					label: OO.ui.msg("ooui-popup-widget-close-button-aria-label"),
+					invisibleLabel: true,
 				});
-
-			// Query conditions portlet
-			var conditionsPortlet = queryPanel.panel("portlet", {
-				class: "conditions",
-				title: mw.msg("srf-ui-datatables-label-conditions"),
-				fieldset: true,
-			});
-
-			// Only allow logged-in users to alter query conditions via the
-			// text input
-			$(
-				html.element(
-					"textarea",
-					{
-						id: "condition",
-						disabled: !datatables.defaults.userIsKnown,
-					},
-					data.query.ask.conditions
-				)
-			)
-				.insertAfter(conditionsPortlet.find("fieldset > legend"))
-				.on("input propertychange", function (event) {
-					var conditions = $(this).val();
-					// Store the input only where it contains content
-					data.query.ask.conditions =
-						conditions !== "" ? conditions : data.query.ask.conditions;
-				});
-
-			// Parameters portlet
-			var parametersPortlet = queryPanel
-				.panel("portlet", {
-					class: "parameters",
-					title: mw.msg("srf-ui-datatables-label-parameters"),
-					fieldset: true,
-				})
-				.find("fieldset")
-				.parameters();
-
-			// Limit parameter
-			parametersPortlet.parameters("limit", {
-				limit: data.query.ask.parameters.limit,
-				count: data.query.result.meta.count,
-				max: datatables.defaults.inlineLimit,
-				step:
-					datatables.defaults.inlineLimit /
-					(datatables.defaults.inlineLimit > 1000 ? 100 : 10),
-				change: function (event, ui) {
-					data.query.ask.parameters.limit = ui.value;
-					// As soon as the limit changes, trigger an update
-					datatables.update(context, data);
-					event.preventDefault();
-				},
-			});
-
-			// Disclaimer and content source text
-			queryPanel
-				.panel("portlet", {
-					class: "information",
-					title: mw.msg("srf-ui-datatables-label-information"),
-					fieldset: true,
-				})
-				.find("fieldset > legend")
-				.after(
-					html.element(
-						"p",
-						{ class: "disclaimer" },
-						mw.msg("srf-ui-datatables-panel-disclaimer")
-					)
-				)
-				.after(
-					html.element(
-						"p",
-						{ class: "content-source" },
-						mw.msg("srf-ui-datatables-label-content-server")
-					)
-				);
-
-			// Refresh button
-			$(html.element("span", { class: "button" }))
-				.insertBefore(container.find(".span-select"))
-				.button({
-					icons: { primary: "ui-icon-refresh" },
-					text: false,
-				})
-				.attr("title", mw.msg("srf-ui-datatables-refresh-button-title"))
-				.removeClass("ui-corner-all")
-				.addClass("ui-corner-right")
-				.on("click", function (event) {
-					datatables.update(context, data);
-				});
-
-			// Panel switch button
-			$(html.element("span", { class: "button" }))
-				.insertBefore(container.find(".span-select"))
-				.button({
-					icons: { primary: "ui-icon-bookmark" },
-					text: false,
-				})
-				.attr("title", mw.msg("srf-ui-datatables-panel-switch-button-title"))
-				.removeClass("ui-corner-all")
-				.addClass("ui-corner-left")
-				.on("click", function (event) {
-					queryPanel.panel("toggle");
-				});
-
-			// Insert space between search field and button
-			$(html.element("span", { class: "button-space" })).insertBefore(
-				container.find(".span-select")
-			);
+				closeButton.on("click", closeFunction);
+				messageWidget.$element.append(closeButton.$element);
+			}
 		},
 	};
 
@@ -694,23 +255,7 @@
 		 * @property
 		 */
 		defaults: {
-			autoUpdate: mw.user.options.get(
-				"srf-prefs-datatables-options-update-default"
-			),
-			userIsKnown: mw.config.get("wgUserName"),
-			cacheImageInfo: mw.user.options.get(
-				"srf-prefs-datatables-options-cache-default"
-			)
-				? 86400000
-				: false,
-			cacheApi: mw.user.options.get(
-				"srf-prefs-datatables-options-cache-default"
-			),
-			// thumbSize: mw.config.get( 'srf' ).options.thumbsize[mw.user.options.get( 'thumbsize' )],
-			// inlineLimit: mw.config.get( 'smw' ).options['QMaxInlineLimit']
-			thumbSize: 180,
-			inlineLimit: 750,
-			exportFormats: { csv: "CSV", rss: "RSS", json: "JSON", rdf: "RDF" },
+			// ...
 		},
 
 		/**
@@ -731,248 +276,380 @@
 			// Show container
 			container.css({ display: "block" });
 
+			_datatables.initColumnSort(context);
+
+			var order = context.data("order");
+
 			// Setup a raw table
 			container.html(
 				html.element("table", {
+					style: "width: 100%",
 					class:
 						context.data("theme") === "bootstrap"
 							? "bordered-table zebra-striped"
-							: "display",
+							: "display", // nowrap
 					cellpadding: "0",
 					cellspacing: "0",
 					border: "0",
 				})
 			);
 
-			// Parse JS array and merge with the data array
-			$.extend(data, _datatables.parse.results(context, data));
+			var options = context.data("datatables");
 
-			//console.log( 'Data', data, 'Objects', _datatables );
-
-			if (data.aaData.length > 0) {
-				//@note Do something here
-			}
-
-			// Init dataTables
-
-			// var sDom = context.data( 'theme' ) === 'bootstrap'? "<'row'<'span-select'l><'span-search'f>r>t<'row'<'span-list'i><'span-page'p>>" : 'lfrtip';
-
-			// data.table = container.find( 'table' ).dataTable( {
-			//	'sDom': sDom,
-			//	'sPaginationType': context.data( 'theme' ) === 'bootstrap' ? 'bootstrap' : 'full_numbers',
-			//	'bAutoWidth': false,
-			//	'oLanguage': _datatables.oLanguage,
-			//	'aaData': data.aaData,
-			//	'aoColumnDefs': data.aoColumnDefs
-			// } );
-
-			var parameters = data.query.ask.parameters;
-
-			var queryPanel = context.find(".top");
-
-			var conf = {
-				dom:
-					context.data("theme") === "bootstrap"
-						? "<'row'<'span-select'l><'span-search'f>r>t<'row'<'span-list'i><'span-page'p>>"
-						: "lfrBtip",
-				pagingType:
-					context.data("theme") === "bootstrap" ? "bootstrap" : "full_numbers",
-				// autoWidth: false,
-				// scrollX: true,
-				data: data.aaData,
-				language: _datatables.oLanguage,
-				columnDefs: data.aoColumnDefs, // *** this will modify the original array
-
-				// @todo
-				// https://datatables.net/reference/option/buttons.buttons
-				//buttons: [
-				//	{
-				//		text: 'panel',
-				//		className: 'ui-corner-left',
-				//		action: queryPanel.panel( 'toggle' )
-				//	},
-				//	{
-				//		text: 'refresh',
-				//		className: 'ui-corner-right',
-				//		action: datatables.update( context, data )
-				//	}
-				//
-				//],
+			var arrayTypes = {
+				lengthMenu: "number",
+				buttons: "string",
+				"searchPanes.columns": "number",
+				// ...
 			};
 
-			if (parameters["pagelength"]) {
-				conf["pageLength"] = parseInt(parameters["pagelength"]);
-			}
+			// function isNumeric(str) {
+			// 	if (typeof str != "string") {
+			// 		return false;
+			// 	}
+			//
+			// 	return !isNaN(str) && !isNaN(parseFloat(str));
+			// }
 
-			if (parameters["lengthmenu"] ) {
-				conf["lengthMenu"] = parameters["lengthmenu"]
+			function csvToArray(str, numeric) {
+				var arr = str
 					.split(",")
-					.map((x) => parseInt(x));
+					.map((x) => x.trim())
+					.filter((x) => x !== "");
+
+				if (!numeric) {
+					return arr;
+				}
+
+				return arr.map((x) => x * 1);
 			}
 
-			data.table = container.find("table").DataTable(conf);
+			// enable searchPanes if the symbol is in the dom
+			if (options.dom.indexOf("P") !== -1) {
+				options.searchPanes = true;
+			}
 
-			// Bind the imageInfo trigger and update the appropriate table cell
-			context.on(
-				"srf.datatables.afterImageInfoFetch",
-				function (event, handler) {
-					// If the image/thumbnail info array was empty don't bother with an update
-					if (handler.info.imageinfo) {
-						// data.table.fnUpdate( _datatables.parse.thumbnail( handler.info ), handler.row, handler.column );
-						data.table
-							.cell(handler.row, handler.column)
-							.data(_datatables.parse.thumbnail(handler.info))
-							.draw();
+			for (var i in options) {
+				// transform csv to array
+				if (i in arrayTypes) {
+					options[i] = csvToArray(options[i], arrayTypes[i] === "number");
+				}
+
+				// convert strings like columns.searchPanes.show
+				// to nested objects
+				var arr = i.split(".");
+				if (arr.length === 1) {
+					continue;
+				}
+
+				arr.reduce(function (acc, value, index, arr) {
+					// if value of parent parameter is false,
+					// for istance scroller = false, then ignore
+					// all children
+					if (index === 0 && options[value] === false) {
+						delete options[i];
+						arr.splice(index + 1);
+						return {};
+					}
+
+					if (index < arr.length - 1) {
+						acc[value] = $.extend({}, acc[value]);
+					} else {
+						acc[value] = options[i];
+						delete options[i];
+					}
+
+					return acc[value];
+				}, options);
+			}
+
+			// add the button placeholder if any button is required
+			if (options.buttons.length && options.dom.indexOf("B") === -1) {
+				options.dom = "B" + options.dom;
+			}
+
+			function isObject(obj) {
+				return obj !== null && typeof obj === "object" && !Array.isArray(obj);
+			}
+
+			if (options.scroller === true || isObject(options.scroller)) {
+				if (!("scrollY" in options) || !options.scrollY) {
+					options.scrollY = "300px";
+				}
+			}
+
+			var useAjax = data.query.result.length < context.data("count");
+
+			if (options.searchPanes === true || isObject(options.searchPanes)) {
+				if (useAjax) {
+					// remove panes because this is tricky to
+					// be implemented in conjunction with SMW
+
+					options.searchPanes = false;
+
+					if (options.dom.indexOf("P") !== -1) {
+						options.dom = options.dom.replace("P", "");
+					}
+
+					_datatables.showNotice(
+						context,
+						container,
+						"srf-ui-datatables-searchpanes-noajax"
+					);
+				} else if (options.dom.indexOf("P") === -1) {
+					options.dom = "P" + options.dom;
+				}
+			}
+
+			// add the pagelength at the proper place in the length menu
+			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
+				options.lengthMenu.push(options.pageLength);
+				options.lengthMenu.sort(function (a, b) {
+					return a - b;
+				});
+			}
+
+			var query = data.query.ask;
+			var printouts = context.data("printouts");
+			var queryString = query.conditions;
+			var printrequests = context.data("printrequests");
+
+			var entityCollation = context.data("collation");
+
+			// @see https://datatables.net/reference/option/
+			var arrayTypesColumns = {
+				orderable: "boolean",
+				searchable: "boolean",
+				visible: "boolean",
+				orderData: "numeric-array",
+				"searchPanes.collapse": "boolean",
+				"searchPanes.combiner": "boolean",
+				"searchPanes.controls": "boolean",
+				"searchPanes.hideCount": "boolean",
+				"searchPanes.orderable": "boolean",
+				"searchPanes.initCollapsed": "boolean",
+				"searchPanes.show": "boolean",
+				"searchPanes.threshold": "number",
+				"searchPanes.viewCount": "boolean",
+				// ...
+			};
+
+			var columnDefs = [];
+			// var labelsCount = {};
+			$.map(printrequests, function (property, index) {
+				// value for all columns
+				if (!options.columns.type) {
+					options.columns.type =
+						entityCollation === "numeric" && property.typeid === "_wpg"
+							? "any-number"
+							: null;
+				}
+
+				var coulumnDatatablesOptions = {};
+				if (printouts[index] && isObject(printouts[index][4])) {
+					for (var i in printouts[index][4]) {
+						if (i.indexOf("datatables-") === 0) {
+							var printoutValue = printouts[index][4][i].trim();
+
+							var optionKey = i.replace(/datatables-(columns\.)?/, "");
+
+							if (optionKey in arrayTypesColumns) {
+								switch (arrayTypesColumns[optionKey]) {
+									case "boolean":
+										printoutValue =
+											printoutValue.toLowerCase() === "true" ||
+											parseInt(printoutValue) === 1;
+										break;
+									case "numeric-array":
+										printoutValue = csvToArray(printoutValue, true);
+										break;
+									case "number":
+										printoutValue = printoutValue * 1;
+										break;
+									// ...
+								}
+							}
+
+							// convert strings like columns.searchPanes.show
+							// to nested objects
+							var arr = optionKey.split(".");
+
+							arr.reduce(function (acc, value, index_, arr) {
+								if (index_ < arr.length - 1) {
+									acc[value] = $.extend({}, acc[value]);
+								} else {
+									acc[value] = printoutValue;
+									delete options[i];
+								}
+
+								return acc[value];
+							}, coulumnDatatablesOptions);
+						}
 					}
 				}
-			);
 
-			// Add UI components
+				// this is to avoid duplicate data/keys
+				// if (!(property.label in labelsCount)) {
+				// 	labelsCount[property.label] = 0;
+				// }
 
-			// @todo: control rather using a parameter and datatables buttons
-			if (context.data("theme") === "bootstrap") {
-				_datatables.ui(context, container, data);
-			}
-		},
+				columnDefs.push(
+					$.extend(
+						{
+							// https://datatables.net/reference/option/columnDefs
+							/*
+							data:
+								property.label +
+								(labelsCount[property.label] == 0
+									? ""
+									: "_" + labelsCount[property.label]),
+*/
+							title: property.label,
 
-		/**
-		 * Handles updates via Ajax
-		 *
-		 * @since  1.9
-		 *
-		 * @param  {array} context
-		 * @param  {array} data
-		 */
-		update: function (context, data) {
-			var self = this;
+							// get canonical label or empty string if mainlabel
+							name: printrequests[index].key !== "" ? printouts[index][1] : "",
+							className: "smwtype" + property.typeid,
+							targets: [index],
+						},
+						options.columns,
+						coulumnDatatablesOptions
+					)
+				);
 
-			// Collect query information
-			var conditions = data.query.ask.conditions,
-				printouts = data.query.ask.printouts,
-				parameters = {
-					limit: data.query.ask.parameters.limit,
-					offset: data.query.ask.parameters.offset,
+				// labelsCount[property.label]++;
+			});
+
+			var conf = $.extend(options, {
+				columnDefs: columnDefs,
+				language: _datatables.oLanguage,
+				order: order,
+				search: {
+					caseInsensitive: context.data("nocase"),
+				},
+			});
+
+			if (!useAjax) {
+				conf.serverSide = false;
+				conf.data = data.query.result;
+
+				// use Ajax only when required
+			} else {
+				var preloadData = {};
+
+				// cache using the column index and sorting
+				// method, as pseudo-multidimensional array
+				// column index + dir (asc/desc)
+				var cacheKey = JSON.stringify(order);
+
+				preloadData[cacheKey] = data.query.result;
+
+				var payload = {
+					action: "ext.srf.datatables.api",
+					format: "json",
+					query: queryString,
+					columndefs: JSON.stringify(columnDefs),
+					printouts: JSON.stringify(printouts),
+					printrequests: JSON.stringify(printrequests),
+					settings: JSON.stringify(
+						$.extend({ count: context.data("count") }, query.parameters)
+					),
 				};
 
-			// Stringify the query
-			var queryString = new smw.Query(
-				printouts,
-				parameters,
-				conditions
-			).toString();
+				conf = $.extend(conf, {
+					// *** attention! deferLoading if used in conjunction with
+					// ajax, expects only the first page of data, if the preloaded
+					// data contain more rows, datatables will show a wrong rows
+					// counter. For this reason we renounce to use deferRender, and
+					// instead we use the following hack: the Ajax function returns
+					// the preloaded data as long they are available for the requested
+					// slice, and then it uses an ajax call for not available data.
+					// deferLoading: context.data("count"),
 
-			// Fetch data via Ajax/SMWAPI
+					processing: true,
+					serverSide: true,
+					ajax: function (datatableData, callback, settings) {
+						// must match cacheKey
+						var key = JSON.stringify(
+							datatableData.order.map((x) => [x.column, x.dir])
+						);
 
-			var callback = function (result) {
-				// *** use the initial printrequests also for subsequent
-				// calls of the api, since it seems that the api returns
-				// a wrong mainlabel value
-				var printreqs = data.query.result.printrequests;
+						if (!(key in preloadData)) {
+							preloadData[key] = [];
+						}
 
-				// Copy result query data and run a result parse
-				$.extend(data.query.result, result.query, {
-					printrequests: printreqs,
-				});
+						// returned cached data for the required
+						// dimension (order column/dir)
+						if (
+							datatableData.search.value === "" &&
+							datatableData.start + datatableData.length <=
+								preloadData[key].length
+						) {
+							return callback({
+								draw: datatableData.draw,
+								data: preloadData[key].slice(
+									datatableData.start,
+									datatableData.start + datatableData.length
+								),
+								recordsTotal: context.data("count"),
+								recordsFiltered: context.data("count"),
+							});
+						}
 
-				$.extend(data, _datatables.parse.results(context, data));
+						// flush cache each 100,000 rows
+						// @TODO this is only one of the possible
+						// methods !
+						var totalSize = 0;
+						for (var i in preloadData) {
+							totalSize = preloadData[i].length;
+						}
 
-				// Refresh datatables
-				// data.table.fnClearTable();
-				// data.table.fnAddData( data.aaData );
-				// data.table.fnDraw();
+						if (totalSize > 100000) {
+							console.log("flushing datatables cache!");
+							preloadData = {};
+						}
 
-				data.table.clear();
-				data.table.rows.add(data.aaData);
-				data.table.draw();
+						$.ajax({
+							url: mw.util.wikiScript("api"),
+							dataType: "json",
+							data: $.extend(payload, {
+								datatable: JSON.stringify(datatableData),
+							}),
+						})
+							.done(function (results) {
+								var json = results["datatables-json"];
 
-				// Update information from where the content was derived
-				context
-					.find("#srf-panel-information .content-source")
-					.toggleClass("cache", result.isCached)
-					.text(
-						result.isCached
-							? mw.msg("srf-ui-datatables-label-content-cache")
-							: mw.msg("srf-ui-datatables-label-content-server")
-					);
+								// cache all retrieved rows for each sorting
+								// dimension (column/dir), up to a global
+								// threshold (100,000 rows)
 
-				// Update conditions text-field content
-				context.find("#condition").val(data.query.ask.conditions);
+								if (datatableData.search.value === "") {
+									preloadData[key] = preloadData[key]
+										.slice(0, datatableData.start)
+										.concat(json.data);
+								}
 
-				// Update limit parameter (widget)
-				context.find(".parameters > fieldset").parameters("option", "limit", {
-					limit: data.query.ask.parameters.limit,
-					count: data.query.result.meta.count,
-				});
-
-				// Update export links
-				_datatables.exportlinks(context, data);
-
-				context.trigger("srf.datatables.updateAfterParse");
-
-				context.unblock({
-					onUnblock: function () {
-						util.notification.create({
-							content: mw.msg("srf-ui-datatables-label-update-success"),
-						});
+								// we retrieve more than "length"
+								// expected by datatables, so return the
+								// sliced result
+								json.data = json.data.slice(0, datatableData.length);
+								callback(json);
+							})
+							.fail(function (error) {
+								console.log("error", error);
+							});
 					},
 				});
-			};
-
-			// @see https://www.mediawiki.org/wiki/Manual:JavaScript_unit_testing/QUnit_guidelines#Data_sourcing/seeding_in_Ajax_requests
-			if (testSmwApiResult) {
-				callback(testSmwApiResult);
-			} else {
-				// Lock the current context to avoid queuing issues during the update
-				// process (e.g another button is pressed )
-				context.block({
-					message: html.element("span", { class: "mw-ajax-loader" }, ""),
-					css: {
-						border: "2px solid #DDD",
-						height: "20px",
-						"padding-top": "35px",
-						opacity: 0.8,
-						"-webkit-border-radius": "5px",
-						"-moz-border-radius": "5px",
-						"border-radius": "5px",
-					},
-					overlayCSS: {
-						backgroundColor: "#fff",
-						opacity: 0.6,
-						cursor: "wait",
-					},
-				});
-
-				smwApi
-					.fetch(queryString, datatables.defaults.cacheApi)
-					.done(callback)
-					.fail(function (error) {
-						context.unblock({
-							onUnblock: function () {
-								util.notification.create({
-									content: mw.msg("srf-ui-datatables-label-update-error"),
-									color: "#BF381A",
-								});
-							},
-						});
-					});
 			}
+			// console.log("conf", conf);
+			data.table = container.find("table").DataTable(conf);
 		},
 
-		/**
-		 * Test interface which enables some internal methods / objects
-		 * to be tested via qunit
-		 *
-		 * @since 1.9
-		 *
-		 * @ignore
-		 */
-		test: {
-			_parse: _datatables.parse,
+		update: function (context, data) {
+			// ...
+		},
 
-			// used to mock-up ajax result on QUnit tests
-			setTestSmwApiResult: function (data) {
-				testSmwApiResult = data;
-			},
+		test: {
+			// ...
 		},
 	};
 
@@ -984,83 +661,14 @@
 	var datatables = new srf.formats.datatables();
 
 	$(document).ready(function () {
-		$(".srf-datatables").each(function () {
+		$(".srf-datatable").each(function () {
 			var context = $(this),
-				container = context.find(".container");
-
-			// data = smwApi.parse( _datatables.getData( container ) );
-
-			// *** this is a work-around to remove invalid URIs which
-			// prevent the datatable from working
-			// the file to be fixed is the following:
-			// SemanticMediaWiki/res/smw/data/ext.smw.dataItem.uri.js
-			var smwData = new smw.Data();
+				container = context.find(".datatables-container");
 
 			var data = JSON.parse(_datatables.getData(container));
 
-			var uriColumns = [];
-			for (var i in data.query.result.printrequests) {
-				if (data.query.result.printrequests[i].typeid === "_uri") {
-					uriColumns.push(data.query.result.printrequests[i].label);
-				}
-			}
-
-			removedURIs = {};
-			var n = 0;
-			for (var i in data.query.result.results) {
-				for (var label of uriColumns) {
-					for (var ii in data.query.result.results[i].printouts[label]) {
-						try {
-							new Uri(data.query.result.results[i].printouts[label][ii]);
-						} catch (error) {
-							if (!removedURIs[n]) {
-								removedURIs[n] = {};
-							}
-							removedURIs[n][ii] =
-								data.query.result.results[i].printouts[label][ii];
-							data.query.result.results[i].printouts[label][ii] = "";
-						}
-					}
-				}
-				n++;
-			}
-
-			// _datatables.getData( container )
-
-			var data = JSON.parse(JSON.stringify(data), function (key, value) {
-				return smwData.factory(key, value);
-			});
-
-			// Add bottom element to avoid display clutter on succeeding elements
-			$(
-				html.element("div", {
-					class: "bottom",
-					style: "clear:both",
-				})
-			).appendTo(context);
-
-			// Adopt directionality which ensures that all elements within its context
-			// are appropriately displayed
-			context.prop("dir", $("html").attr("dir"));
-			context.prop("lang", $("html").attr("lang"));
-
 			datatables.init(context, container, data);
-
-			// Do an auto update if enabled via user-preferences
-			if (datatables.defaults.autoUpdate) {
-				datatables.update(context, data);
-			}
-
-			// Ensures that CSS/JS dependencies are "really" loaded before
-			// dataTables gets initialized
-			//mw.loader.using( 'ext.srf.datatables.' + context.data( 'theme' ), function(){
-			//	datatables.init( context, container, data );
-			//
-			//	// Do an auto update if enabled via user-preferences
-			//	if ( datatables.defaults.autoUpdate ) {
-			//		datatables.update( context, data );
-			//	}
-			// } );
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
+

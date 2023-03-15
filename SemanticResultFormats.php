@@ -53,6 +53,7 @@ class SemanticResultFormats {
 	public static function registerHooks() {
 		$formatDir = __DIR__ . '/formats/';
 
+
 		unset( $formatDir );
 
 		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
@@ -64,8 +65,11 @@ class SemanticResultFormats {
 		$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'SRF\Filtered\Hooks::onOutputPageParserOutput';
 		$GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript';
 
+		$GLOBALS['wgHooks']['SMW::Store::BeforeQueryResultLookupComplete'][] = 'SRF\DataTables\Hooks::onSMWStoreBeforeQueryResultLookupComplete';
+
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
+		$GLOBALS['wgAPIModules']['ext.srf.datatables.api'] = 'SRF\DataTables\Api';
 
 		// User preference
 		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
@@ -157,6 +161,7 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
+			'datatables-legacy' => 'SRF\DataTablesLegacy',
 			'carousel' => 'SRF\Carousel',
 			'gantt' => 'SRF\Gantt\GanttPrinter'
 		];
@@ -164,6 +169,7 @@ class SemanticResultFormats {
 		$formatAliases = [
 			'tagcloud'   => [ 'tag cloud' ],
 			'datatables'   => [ 'datatable' ],
+			'datatables-legacy'   => [ 'datatable-legacy' ],
 			'valuerank'  => [ 'value rank' ],
 			'd3chart'    => [ 'd3 chart' ],
 			'timeseries' => [ 'time series' ],

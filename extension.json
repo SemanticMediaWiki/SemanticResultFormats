@@ -28,8 +28,12 @@
 	"ExtensionFunctions": [
 		"SemanticResultFormats::onExtensionFunction"
 	],
+	"AutoloadClasses": {
+		"SRF\\DataTablesLegacy": "formats/datatables-legacy/DataTablesLegacy.php",
+		"SRF\\Carousel": "formats/carousel/Carousel.php"
+	},
 	"AutoloadNamespaces": {
-		"SRF\\": "formats/carousel"
+		"SRF\\DataTables\\": "formats/datatables"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",
@@ -37,6 +41,7 @@
 		"scripts": [
 			"tests/qunit/ext.srf.test.js",
 			"tests/qunit/ext.srf.util.test.js",
+			"tests/qunit/formats/ext.srf.formats.datatables-legacy.test.js",
 			"tests/qunit/formats/ext.srf.formats.datatables.test.js",
 			"tests/qunit/formats/ext.srf.formats.carousel.test.js",
 			"tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js",
@@ -53,7 +58,8 @@
 			"ext.srf",
 			"ext.srf.util",
 			"ext.srf.eventcalendar",
-			"ext.srf.datatables",
+			"ext.srf.datatablesLegacy",
+			"ext.srf.datatables.v2.format",
 			"ext.srf.carousel.module",
 			"ext.srf.carousel",
 			"ext.srf.widgets",
