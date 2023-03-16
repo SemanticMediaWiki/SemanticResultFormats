@@ -375,6 +375,10 @@
 			if (options.scroller === true || isObject(options.scroller)) {
 				if (!("scrollY" in options) || !options.scrollY) {
 					options.scrollY = "300px";
+
+				// expected type is string
+				} else if ( !isNaN ( options.scrollY ) ) {
+					options.scrollY = options.scrollY + 'px';
 				}
 			}
 
