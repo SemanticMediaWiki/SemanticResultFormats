@@ -47,7 +47,7 @@ class Hooks {
 		}
 
 		$query->setUnboundLimit( min( $limit , $count ) );
-		$query->setOption('count', $count );
+		$query->setOption('count', (int)$count );
 
 		$queryResult = $queryEngine->getQueryResult( $query );
 
