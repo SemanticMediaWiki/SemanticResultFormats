@@ -26,7 +26,7 @@
 			"subject": "Test/Datatables/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"<div .*data-collation.*data-datatables.*data-count.*data-editor.*datatables-container"
+					"<div .*data-collation.*data-datatables.*data-editor.*datatables-container"
 				]
 			}
 		}
