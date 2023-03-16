@@ -30,16 +30,9 @@ class DataTables extends ResultPrinter {
 	 */
 	protected static $camelCaseParamsKeys = [];
 
-	/**
-	 * @var HtmlTable
-	 */
-	private $htmlTable;
-
 	private $prefixParameterProcessor;
 
 	private $printoutsParameters = [];
-
-	private $query;
 
 	private $parser;
 
