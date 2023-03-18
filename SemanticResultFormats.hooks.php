@@ -46,6 +46,7 @@ final class SRFHooks {
 			'formats/vCard',
 			'formats/MediaPlayer',
 			'formats/DataTables',
+			'formats/DataTablesLegacy',
 
 			// Boilerplate
 			// Register your testclass

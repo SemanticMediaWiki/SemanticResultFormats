@@ -48,6 +48,7 @@ $GLOBALS['srfgFormats'] = [
 	'dygraphs',
 	'media',
 	'datatables',
+	'datatables-legacy',
 	'carousel',
 	'spreadsheet',
 	'gantt',
