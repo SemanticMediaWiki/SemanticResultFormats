@@ -376,19 +376,20 @@
 				if (!("scrollY" in options) || !options.scrollY) {
 					options.scrollY = "300px";
 
-				// expected type is string
-				} else if ( !isNaN ( options.scrollY ) ) {
-					options.scrollY = options.scrollY + 'px';
+					// expected type is string
+				} else if (!isNaN(options.scrollY)) {
+					options.scrollY = options.scrollY + "px";
 				}
 			}
 
-			var useAjax = data.query.result.length < context.data("count");
+			var queryResult = data.query.result;
+			var useAjax = queryResult.length < context.data("count");
 
-			if (options.searchPanes === true || isObject(options.searchPanes)) {
+			var searchPanes = false;
+			if (isObject(options.searchPanes)) {
 				if (useAjax) {
 					// remove panes because this is tricky to
 					// be implemented in conjunction with SMW
-
 					options.searchPanes = false;
 
 					if (options.dom.indexOf("P") !== -1) {
@@ -400,8 +401,14 @@
 						container,
 						"srf-ui-datatables-searchpanes-noajax"
 					);
-				} else if (options.dom.indexOf("P") === -1) {
-					options.dom = "P" + options.dom;
+				} else {
+					// we force serverSide in order to
+					// access to the api
+					useAjax = true;
+					searchPanes = true;
+					if (options.dom.indexOf("P") === -1) {
+						options.dom = "P" + options.dom;
+					}
 				}
 			}
 
@@ -441,6 +448,7 @@
 			var columnDefs = [];
 			// var labelsCount = {};
 			$.map(printrequests, function (property, index) {
+				// @see https://datatables.net/reference/option/columns.type
 				// value for all columns
 				if (!options.columns.type) {
 					options.columns.type =
@@ -532,9 +540,162 @@
 				},
 			});
 
+			if (searchPanes) {
+				var searchPanesOptions = (function () {
+					var data = queryResult;
+					var ret = {};
+
+					// filter columns
+					var columns = Object.keys(data[0]).filter(function (x) {
+						if (
+							"searchPanes" in columnDefs[x] &&
+							"show" in columnDefs[x].searchPanes &&
+							columnDefs[x].searchPanes.show === false
+						) {
+							return false;
+						}
+
+						if (
+							searchPanes &&
+							options.searchPanes.columns.length &&
+							$.inArray(x * 1, options.searchPanes.columns) < 0
+						) {
+							return false;
+						}
+
+						return true;
+					});
+
+					for (var i of columns) {
+						ret[i] = {};
+					}
+
+					var div = document.createElement("div");
+					for (var i in data) {
+						for (var ii of columns) {
+							div.innerHTML = data[i][ii];
+							var text = div.textContent || div.innerText || "";
+
+							// this will exclude images as well,
+							// otherwise use data[i][ii]
+							if (text === "") {
+								continue;
+							}
+
+							if (!(data[i][ii] in ret[ii])) {
+								ret[ii][data[i][ii]] = {
+									label: text,
+									value: data[i][ii],
+									total: 0,
+									count: 0,
+								};
+							}
+
+							ret[ii][data[i][ii]].count++;
+							ret[ii][data[i][ii]].total = ret[ii][data[i][ii]].count;
+						}
+					}
+
+					for (var i in ret) {
+						var threshold =
+							"searchPanes" in conf.columnDefs[i] &&
+							"threshold" in conf.columnDefs[i].searchPanes
+								? conf.columnDefs[i].searchPanes.threshold
+								: conf.searchPanes.threshold;
+
+						// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
+						// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
+						// _uniqueRatio
+						var binLength = Object.keys(ret[i]).length;
+						var uniqueRatio = binLength / queryResult.length;
+
+						if (uniqueRatio > threshold || binLength <= 1) {
+							if (!("searchPanes" in conf.columnDefs[i])) {
+								conf.columnDefs[i].searchPanes = {};
+							}
+							conf.columnDefs[i].searchPanes.show = false;
+							continue;
+						}
+
+						ret[i] = Object.values(ret[i]).filter(
+							(x) => x.count >= conf.searchPanes.minCount
+						);
+					}
+
+					return ret;
+				})();
+			}
+
+			function searchPanesData(datatableData, settings) {
+				var data = queryResult;
+				var filteredLength = data.length;
+
+				// sorting
+				// this could be moved within the block below
+				// however if the following sorting does not
+				// match Datatables initial sorting, it will produce
+				// an inconsistency on sorting
+				for (var i in datatableData.order) {
+					var column = datatableData.order[i].column;
+
+					// @TODO, use the code from here https://github.com/DataTables/DataTablesSrc/blob/master/js/core/core.sort.js
+					// (function _fnSort)
+					var type = conf.columnDefs[column].type
+						? conf.columnDefs[column].type
+						: "string";
+
+					data.sort(function (a, b) {
+						return $.fn.dataTableExt.oSort[
+							type + "-" + datatableData.order[i].dir
+						](a[column], b[column]);
+					});
+				}
+
+				if (Object.keys(datatableData.searchPanes).length) {
+
+					// filtering
+					if (datatableData.search.value !== "") {
+						data = data.filter(function (column) {
+							for (var i in column) {
+								if (column[i].indexOf(datatableData.search.value) !== -1) {
+									return true;
+								}
+							}
+							return false;
+						});
+					}
+
+					// searchPanes filtering
+					data = data.filter(function (column) {
+						for (var i in column) {
+							if (!(i in datatableData.searchPanes)) {
+								continue;
+							}
+							var values = Object.values(datatableData.searchPanes[i]);
+							if (values.length && $.inArray(column[i], values) === -1) {
+								return false;
+							}
+						}
+						return true;
+					});
+					filteredLength = data.length;
+				}
+
+				return {
+					searchPanes: { options: searchPanesOptions },
+					draw: datatableData.draw,
+					data: data.slice(
+						datatableData.start,
+						datatableData.start + datatableData.length
+					),
+					recordsTotal: context.data("count"),
+					recordsFiltered: filteredLength,
+				};
+			}
+
 			if (!useAjax) {
 				conf.serverSide = false;
-				conf.data = data.query.result;
+				conf.data = queryResult;
 
 				// use Ajax only when required
 			} else {
@@ -544,8 +705,7 @@
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc)
 				var cacheKey = JSON.stringify(order);
-
-				preloadData[cacheKey] = data.query.result;
+				preloadData[cacheKey] = queryResult;
 
 				var payload = {
 					action: "ext.srf.datatables.api",
@@ -572,6 +732,10 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
+						if (searchPanes) {
+							return callback(searchPanesData(datatableData, settings));
+						}
+
 						// must match cacheKey
 						var key = JSON.stringify(
 							datatableData.order.map((x) => [x.column, x.dir])
@@ -644,7 +808,7 @@
 					},
 				});
 			}
-			// console.log("conf", conf);
+			console.log("conf", conf);
 			data.table = container.find("table").DataTable(conf);
 		},
 
@@ -675,4 +839,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
