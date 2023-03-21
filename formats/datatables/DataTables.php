@@ -300,6 +300,12 @@ class DataTables extends ResultPrinter {
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => 0.6,
 		];
+
+		$params['datatables-searchPanes.minCount'] = [
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 2,
+		];
 		
 		// only single value
 		$params['datatables-columns.searchPanes.show'] = [
