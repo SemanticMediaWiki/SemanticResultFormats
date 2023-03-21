@@ -233,7 +233,7 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Previous",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": activate to sort column ascending",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": activate to sort column descending",
-	"srf-ui-datatables-searchpanes-noajax": "Datatables (v2) doesn't yet support searchPanes when Ajax is required and have been disabled",
+	"srf-ui-datatables-searchpanes-noajax": "Datatables (v2) doesn't yet support searchPanes when Ajax is required: to enable it set \"nojax\" to false provided that the data-set contains a limited number of rows.",
 	"srf-printername-tree": "Tree",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",
