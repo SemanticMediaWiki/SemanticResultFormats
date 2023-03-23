@@ -699,6 +699,7 @@
 						caseInsensitive: context.data("nocase"),
 						search: datatableData.search.value,
 					},
+					deferRender: true,
 				});
 
 				// @see https://datatables.net/reference/type/selector-modifier
