@@ -540,7 +540,20 @@
 				},
 			});
 
+			var mockupTableId = "mockupTable-" + Date.now();
 			if (searchPanes) {
+				// create a mockup table to retrieve sorting
+				container.after(
+					$("<div>")
+						.css({
+							display: "none",
+							position: "absolute",
+							top: "-10000px",
+							left: "-10000px",
+						})
+						.append($("<table>").attr({ id: mockupTableId }))
+				);
+
 				var searchPanesOptions = (function () {
 					var data = queryResult;
 					var ret = {};
@@ -628,42 +641,33 @@
 
 			function searchPanesData(datatableData, settings) {
 				var data = queryResult;
-				var filteredLength = data.length;
 
-				// sorting
-				// this could be moved within the block below
-				// however if the following sorting does not
-				// match Datatables initial sorting, it will produce
-				// an inconsistency on sorting
-				for (var i in datatableData.order) {
-					var column = datatableData.order[i].column;
-
-					// @TODO, use the code from here https://github.com/DataTables/DataTablesSrc/blob/master/js/core/core.sort.js
-					// (function _fnSort)
-					var type = conf.columnDefs[column].type
-						? conf.columnDefs[column].type
-						: "string";
-
-					data.sort(function (a, b) {
-						return $.fn.dataTableExt.oSort[
-							type + "-" + datatableData.order[i].dir
-						](a[column], b[column]);
-					});
-				}
+				// this doesn't match perfectly the Datatable's sorting
+				// so we use instead the trick below
+				// for (var i in datatableData.order) {
+				// 	var column = datatableData.order[i].column;
+				// 	// @see https://github.com/DataTables/DataTablesSrc/blob/master/js/core/core.sort.js
+				// 	var type = conf.columnDefs[column].type || "string";
+				// 	data.sort(function (a, b) {
+				// 		return $.fn.dataTableExt.oSort[
+				// 			type + "-" + datatableData.order[i].dir
+				// 		](a[column], b[column]);
+				// 	});
+				// }
 
 				if (Object.keys(datatableData.searchPanes).length) {
-
 					// filtering
-					if (datatableData.search.value !== "") {
-						data = data.filter(function (column) {
-							for (var i in column) {
-								if (column[i].indexOf(datatableData.search.value) !== -1) {
-									return true;
-								}
-							}
-							return false;
-						});
-					}
+					// as above, we use the trick below
+					// if (datatableData.search.value !== "") {
+					// 	data = data.filter(function (column) {
+					// 		for (var i in column) {
+					// 			if (column[i].indexOf(datatableData.search.value) !== -1) {
+					// 				return true;
+					// 			}
+					// 		}
+					// 		return false;
+					// 	});
+					// }
 
 					// searchPanes filtering
 					data = data.filter(function (column) {
@@ -678,18 +682,40 @@
 						}
 						return true;
 					});
-					filteredLength = data.length;
 				}
+
+				var mockupTable;
+				if ($.fn.dataTable.isDataTable("#" + mockupTableId)) {
+					mockupTable = $("#" + mockupTableId).DataTable();
+					mockupTable.destroy();
+					$("#" + mockupTableId).empty();
+				}
+
+				mockupTable = $("#" + mockupTableId).DataTable({
+					order: datatableData.order.map((x) => [x.column, x.dir]),
+					columnDefs: columnDefs,
+					data: data,
+					search: {
+						caseInsensitive: context.data("nocase"),
+						search: datatableData.search.value,
+					},
+				});
+
+				// @see https://datatables.net/reference/type/selector-modifier
+				var sortedData = mockupTable
+					.rows({ search: "applied", order: "current" })
+					.data()
+					.toArray();
 
 				return {
 					searchPanes: { options: searchPanesOptions },
 					draw: datatableData.draw,
-					data: data.slice(
+					data: sortedData.slice(
 						datatableData.start,
 						datatableData.start + datatableData.length
 					),
 					recordsTotal: context.data("count"),
-					recordsFiltered: filteredLength,
+					recordsFiltered: sortedData.length,
 				};
 			}
 
@@ -732,6 +758,9 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
+
+						// @TODO is there a better way to manipulate
+						// searchPanes options than using the serverSide api ?
 						if (searchPanes) {
 							return callback(searchPanesData(datatableData, settings));
 						}
@@ -808,8 +837,8 @@
 					},
 				});
 			}
-			console.log("conf", conf);
-			data.table = container.find("table").DataTable(conf);
+			// console.log("conf", conf);
+			container.find("table").DataTable(conf);
 		},
 
 		update: function (context, data) {
