@@ -280,7 +280,7 @@ class DataTables extends ResultPrinter {
 		$params['datatables-searchPanes.initCollapsed'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => true,
+			'default' => false,
 		];
 
 		$params['datatables-searchPanes.collapse'] = [
