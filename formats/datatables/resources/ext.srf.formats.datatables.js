@@ -116,6 +116,117 @@
 			}
 		},
 
+		searchPanesOptions: function (data, options, columnDefs) {
+			var ret = {};
+
+			// filter columns
+			var columns = Object.keys(data[0]).filter(function (x) {
+				if (
+					"searchPanes" in columnDefs[x] &&
+					"show" in columnDefs[x].searchPanes &&
+					columnDefs[x].searchPanes.show === false
+				) {
+					return false;
+				}
+
+				if (
+					"columns" in options.searchPanes &&
+					options.searchPanes.columns.length &&
+					$.inArray(x * 1, options.searchPanes.columns) < 0
+				) {
+					return false;
+				}
+
+				return true;
+			});
+
+			for (var i of columns) {
+				ret[i] = {};
+			}
+
+			var div = document.createElement("div");
+			for (var i in data) {
+				for (var ii of columns) {
+					div.innerHTML = data[i][ii];
+					var text = div.textContent || div.innerText || "";
+
+					// this will exclude images as well,
+					// otherwise use data[i][ii]
+					if (text === "") {
+						continue;
+					}
+
+					if (!(data[i][ii] in ret[ii])) {
+						ret[ii][data[i][ii]] = {
+							label: text,
+							value: data[i][ii],
+							count: 0,
+						};
+					}
+
+					ret[ii][data[i][ii]].count++;
+				}
+			}
+
+			for (var i in ret) {
+				if (!("searchPanes" in columnDefs[i])) {
+					columnDefs[i].searchPanes = {};
+				}
+
+				var threshold =
+					"threshold" in columnDefs[i].searchPanes
+						? columnDefs[i].searchPanes.threshold
+						: options.searchPanes.threshold;
+
+				// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
+				// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
+				// _uniqueRatio
+				var binLength = Object.keys(ret[i]).length;
+				var uniqueRatio = binLength / data.length;
+
+				if (uniqueRatio > threshold || binLength <= 1) {
+					delete ret[i];
+					continue;
+				}
+
+				ret[i] = Object.values(ret[i]).filter(
+					(x) => x.count >= options.searchPanes.minCount
+				);
+
+				if (!ret[i].length) {
+					delete ret[i];
+				}
+			}
+
+			for (let i in ret) {
+				// @see https://datatables.net/reference/option/columns.searchPanes.combiner
+				columnDefs[i].searchPanes.combiner =
+					"combiner" in columnDefs[i].searchPanes
+						? columnDefs[i].searchPanes.combiner
+						: "or";
+				columnDefs[i].searchPanes.options = [];
+
+				// @see https://datatables.net/reference/option/columns.searchPanes.options
+				for (let ii in ret[i]) {
+					columnDefs[i].searchPanes.options.push({
+						label: ret[i][ii].label,
+						value: function (rowData, rowIdx) {
+							return rowData[i] === ret[i][ii].value;
+						},
+					});
+				}
+			}
+
+			for (var i in columnDefs) {
+				if (
+					!("options" in columnDefs[i].searchPanes) ||
+					!columnDefs[i].searchPanes.options.length
+				) {
+					columnDefs[i].searchPanes.show = false;
+				}
+			}
+		},
+
 		parse: {
 			// ...
 		},
@@ -325,9 +436,9 @@
 			}
 
 			// enable searchPanes if the symbol is in the dom
-			if (options.dom.indexOf("P") !== -1) {
-				options.searchPanes = true;
-			}
+			// if (options.dom.indexOf("P") !== -1) {
+			//   options.searchPanes = true;
+			// }
 
 			for (var i in options) {
 				// transform csv to array
@@ -402,14 +513,15 @@
 						"srf-ui-datatables-searchpanes-noajax"
 					);
 				} else {
-					// we force serverSide in order to
-					// access to the api
-					useAjax = true;
 					searchPanes = true;
 					if (options.dom.indexOf("P") === -1) {
 						options.dom = "P" + options.dom;
 					}
 				}
+			}
+
+			if (searchPanes === false) {
+				options.dom = options.dom.replace("P", "");
 			}
 
 			// add the pagelength at the proper place in the length menu
@@ -434,7 +546,6 @@
 				visible: "boolean",
 				orderData: "numeric-array",
 				"searchPanes.collapse": "boolean",
-				"searchPanes.combiner": "boolean",
 				"searchPanes.controls": "boolean",
 				"searchPanes.hideCount": "boolean",
 				"searchPanes.orderable": "boolean",
@@ -446,7 +557,6 @@
 			};
 
 			var columnDefs = [];
-			// var labelsCount = {};
 			$.map(printrequests, function (property, index) {
 				// @see https://datatables.net/reference/option/columns.type
 				// value for all columns
@@ -464,6 +574,13 @@
 							var printoutValue = printouts[index][4][i].trim();
 
 							var optionKey = i.replace(/datatables-(columns\.)?/, "");
+
+							if (
+								searchPanes === false &&
+								optionKey.indexOf("searchPanes.") === 0
+							) {
+								continue;
+							}
 
 							if (optionKey in arrayTypesColumns) {
 								switch (arrayTypesColumns[optionKey]) {
@@ -500,11 +617,6 @@
 					}
 				}
 
-				// this is to avoid duplicate data/keys
-				// if (!(property.label in labelsCount)) {
-				// 	labelsCount[property.label] = 0;
-				// }
-
 				columnDefs.push(
 					$.extend(
 						{
@@ -531,6 +643,10 @@
 				// labelsCount[property.label]++;
 			});
 
+			if (searchPanes) {
+				_datatables.searchPanesOptions(queryResult, options, columnDefs);
+			}
+
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
@@ -539,186 +655,6 @@
 					caseInsensitive: context.data("nocase"),
 				},
 			});
-
-			var mockupTableId = "mockupTable-" + Date.now();
-			if (searchPanes) {
-				// create a mockup table to retrieve sorting
-				container.after(
-					$("<div>")
-						.css({
-							display: "none",
-							position: "absolute",
-							top: "-10000px",
-							left: "-10000px",
-						})
-						.append($("<table>").attr({ id: mockupTableId }))
-				);
-
-				var searchPanesOptions = (function () {
-					var data = queryResult;
-					var ret = {};
-
-					// filter columns
-					var columns = Object.keys(data[0]).filter(function (x) {
-						if (
-							"searchPanes" in columnDefs[x] &&
-							"show" in columnDefs[x].searchPanes &&
-							columnDefs[x].searchPanes.show === false
-						) {
-							return false;
-						}
-
-						if (
-							searchPanes &&
-							options.searchPanes.columns.length &&
-							$.inArray(x * 1, options.searchPanes.columns) < 0
-						) {
-							return false;
-						}
-
-						return true;
-					});
-
-					for (var i of columns) {
-						ret[i] = {};
-					}
-
-					var div = document.createElement("div");
-					for (var i in data) {
-						for (var ii of columns) {
-							div.innerHTML = data[i][ii];
-							var text = div.textContent || div.innerText || "";
-
-							// this will exclude images as well,
-							// otherwise use data[i][ii]
-							if (text === "") {
-								continue;
-							}
-
-							if (!(data[i][ii] in ret[ii])) {
-								ret[ii][data[i][ii]] = {
-									label: text,
-									value: data[i][ii],
-									total: 0,
-									count: 0,
-								};
-							}
-
-							ret[ii][data[i][ii]].count++;
-							ret[ii][data[i][ii]].total = ret[ii][data[i][ii]].count;
-						}
-					}
-
-					for (var i in ret) {
-						var threshold =
-							"searchPanes" in conf.columnDefs[i] &&
-							"threshold" in conf.columnDefs[i].searchPanes
-								? conf.columnDefs[i].searchPanes.threshold
-								: conf.searchPanes.threshold;
-
-						// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
-						// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
-						// _uniqueRatio
-						var binLength = Object.keys(ret[i]).length;
-						var uniqueRatio = binLength / queryResult.length;
-
-						if (uniqueRatio > threshold || binLength <= 1) {
-							if (!("searchPanes" in conf.columnDefs[i])) {
-								conf.columnDefs[i].searchPanes = {};
-							}
-							conf.columnDefs[i].searchPanes.show = false;
-							continue;
-						}
-
-						ret[i] = Object.values(ret[i]).filter(
-							(x) => x.count >= conf.searchPanes.minCount
-						);
-					}
-
-					return ret;
-				})();
-			}
-
-			function searchPanesData(datatableData, settings) {
-				var data = queryResult;
-
-				// this doesn't match perfectly the Datatable's sorting
-				// so we use instead the trick below
-				// for (var i in datatableData.order) {
-				// 	var column = datatableData.order[i].column;
-				// 	// @see https://github.com/DataTables/DataTablesSrc/blob/master/js/core/core.sort.js
-				// 	var type = conf.columnDefs[column].type || "string";
-				// 	data.sort(function (a, b) {
-				// 		return $.fn.dataTableExt.oSort[
-				// 			type + "-" + datatableData.order[i].dir
-				// 		](a[column], b[column]);
-				// 	});
-				// }
-
-				if (Object.keys(datatableData.searchPanes).length) {
-					// filtering
-					// as above, we use the trick below
-					// if (datatableData.search.value !== "") {
-					// 	data = data.filter(function (column) {
-					// 		for (var i in column) {
-					// 			if (column[i].indexOf(datatableData.search.value) !== -1) {
-					// 				return true;
-					// 			}
-					// 		}
-					// 		return false;
-					// 	});
-					// }
-
-					// searchPanes filtering
-					data = data.filter(function (column) {
-						for (var i in column) {
-							if (!(i in datatableData.searchPanes)) {
-								continue;
-							}
-							var values = Object.values(datatableData.searchPanes[i]);
-							if (values.length && $.inArray(column[i], values) === -1) {
-								return false;
-							}
-						}
-						return true;
-					});
-				}
-
-				var mockupTable;
-				if ($.fn.dataTable.isDataTable("#" + mockupTableId)) {
-					mockupTable = $("#" + mockupTableId).DataTable();
-					mockupTable.destroy();
-					$("#" + mockupTableId).empty();
-				}
-
-				mockupTable = $("#" + mockupTableId).DataTable({
-					order: datatableData.order.map((x) => [x.column, x.dir]),
-					columnDefs: columnDefs,
-					data: data,
-					search: {
-						caseInsensitive: context.data("nocase"),
-						search: datatableData.search.value,
-					},
-					deferRender: true,
-				});
-
-				// @see https://datatables.net/reference/type/selector-modifier
-				var sortedData = mockupTable
-					.rows({ search: "applied", order: "current" })
-					.data()
-					.toArray();
-
-				return {
-					searchPanes: { options: searchPanesOptions },
-					draw: datatableData.draw,
-					data: sortedData.slice(
-						datatableData.start,
-						datatableData.start + datatableData.length
-					),
-					recordsTotal: context.data("count"),
-					recordsFiltered: sortedData.length,
-				};
-			}
 
 			if (!useAjax) {
 				conf.serverSide = false;
@@ -759,13 +695,6 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
-
-						// @TODO is there a better way to manipulate
-						// searchPanes options than using the serverSide api ?
-						if (searchPanes) {
-							return callback(searchPanesData(datatableData, settings));
-						}
-
 						// must match cacheKey
 						var key = JSON.stringify(
 							datatableData.order.map((x) => [x.column, x.dir])
