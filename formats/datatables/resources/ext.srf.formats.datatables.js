@@ -119,10 +119,15 @@
 		searchPanesOptions: function (data, options, columnDefs) {
 			var ret = {};
 
+			for (var i in columnDefs) {
+				if (!("searchPanes" in columnDefs[i])) {
+					columnDefs[i].searchPanes = {};
+				}
+			}
+
 			// filter columns
 			var columns = Object.keys(data[0]).filter(function (x) {
 				if (
-					"searchPanes" in columnDefs[x] &&
 					"show" in columnDefs[x].searchPanes &&
 					columnDefs[x].searchPanes.show === false
 				) {
@@ -169,10 +174,6 @@
 			}
 
 			for (var i in ret) {
-				if (!("searchPanes" in columnDefs[i])) {
-					columnDefs[i].searchPanes = {};
-				}
-
 				var threshold =
 					"threshold" in columnDefs[i].searchPanes
 						? columnDefs[i].searchPanes.threshold
@@ -798,3 +799,4 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
+
