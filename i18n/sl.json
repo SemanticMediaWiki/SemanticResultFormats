@@ -63,7 +63,7 @@
 	"srf_printername_bibtex": "Izvoz BibTeX",
 	"srf_outline_novalue": "Brez vrednosti",
 	"srf_printername_outline": "Oris",
-	"srf_paramdesc_outlineproperties": "Seznam lastnosti, ki bodo prikazane kot orisne glave, ločene z vejicami",
+	"srf_paramdesc_outlineproperties": "Seznam z vejicami ločenih lastnosti, ki bodo prikazane kot orisne glave",
 	"srf_printername_sum": "Vsota števil",
 	"srf_printername_average": "Povprečje števil",
 	"srf_printername_max": "Največje število",
