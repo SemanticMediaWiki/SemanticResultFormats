@@ -17,10 +17,16 @@ use RequestContext;
 use SMW\Query\ResultPrinters\TableResultPrinter;
 use SMW\ResultPrinter;
 use SMW\DIWikiPage;
+use SMW\Exception\PredefinedPropertyLabelMismatchException;
 use SMW\Message;
+use SMW\QueryFactory;
 use SMW\Query\PrintRequest;
+use SMWDataItem as DataItem;
 use SMWPrintRequest;
+use SMWPropertyValue;
+use SMWQueryProcessor;
 use SMWQueryResult as QueryResult;
+
 
 
 class DataTables extends ResultPrinter {
@@ -41,6 +47,15 @@ class DataTables extends ResultPrinter {
 	 */
 	private $recursiveAnnotation = false;
 
+	private $queryEngineFactory;
+
+	private $store;
+
+	private $query;
+
+	private $connection;
+
+	private $queryFactory;
 
 	/**
 	 * @see ResultPrinter::getName
@@ -280,7 +295,7 @@ class DataTables extends ResultPrinter {
 		$params['datatables-searchPanes.initCollapsed'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => true,
+			'default' => false,
 		];
 
 		$params['datatables-searchPanes.collapse'] = [
@@ -299,6 +314,12 @@ class DataTables extends ResultPrinter {
 			'type' => 'float',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => 0.6,
+		];
+
+		$params['datatables-searchPanes.minCount'] = [
+			'type' => 'integer',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 1,
 		];
 		
 		// only single value
@@ -400,20 +421,19 @@ class DataTables extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputmode ) {
-		$query = $res->getQuery();
+		$this->query = $res->getQuery();
+		$this->store = $res->getStore();
 
 		if ( class_exists( '\\SMW\Query\\ResultPrinters\\PrefixParameterProcessor' ) ) {
-			$this->prefixParameterProcessor = new \SMW\Query\ResultPrinters\PrefixParameterProcessor( $query, $this->params['prefix'] );
+			$this->prefixParameterProcessor = new \SMW\Query\ResultPrinters\PrefixParameterProcessor( $this->query, $this->params['prefix'] );
 		}
 
 		if ( $this->params['apicall'] === "apicall" ) {
  			return $this->getResultJson( $res, $outputmode );
 		}
 
-		$resourceFormatter = new ResourceFormatter();
-
 		// @see src/ResourceFormatter.php -> getData
-		$ask = $query->toArray();
+		$ask = $this->query->toArray();
 
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'datatables-')  === 0 ) {
@@ -426,63 +446,36 @@ class DataTables extends ResultPrinter {
 
 		// @see SRFSlideShow
 		$printouts = [];
-		$printoutsParameters = [];
-		foreach ( $res->getPrintRequests() as $key => $value ) {
-			$data = $value->getData();
-			if ( $data instanceof SMWPropertyValue ) {
-				$name = $data->getDataItem()->getKey();
-			} else {
-				$name = null;
-			}
-			$label = $value->getCanonicalLabel();
-			$parameters = $value->getParameters();
+		// $printoutsOptions = [];
+		$headerList = [];
+		$printRequests = $res->getPrintRequests();
+		foreach ( $printRequests as $key => $printRequest ) {
+			$canonicalLabel = $printRequest->getCanonicalLabel();
+
+			$headerList[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
+				$canonicalLabel : '' );
+
+			$data = $printRequest->getData();
+
+			$name = ( $data instanceof SMWPropertyValue ?
+				$data->getDataItem()->getKey() : null );
+
+			$parameters = $printRequest->getParameters();
+
+			// $printoutsOptions[$canonicalLabel] = $this->getPrintoutsOptions( $parameters );
+
 			$printouts[] = [
-				$value->getMode(),
-				$label,
+				$printRequest->getMode(),
+				$canonicalLabel,
 				$name,
-				$value->getOutputFormat(),
+				$printRequest->getOutputFormat(),
 				$parameters
 			];
-			$printoutsParameters[$label] = $parameters;
-		}
-		
-		$this->printoutsParameters = $printoutsParameters;
 
-		$result = $this->getResultJson( $res, $outputmode );
-
-		// Combine all data into one object
-		$data = [
-			'query' => [
-				'ask' => $ask,
-				'result' => $result
-			]
-		];
-
-		$id = $resourceFormatter->session();
-
-		// Add options
-		$data['version'] = '0.2.5';
-
-		// Encode data object
-		$resourceFormatter->encode( $id, $data );
-
-		// Init RL module
-		// $resourceFormatter->registerResources( [
-		// 	'ext.srf.datatables.v2.format',
-		// ] );
-
-		// @see TableResultPrinter
-		$headerList = [];
-		foreach ( $res->getPrintRequests() as /* SMWPrintRequest */ $printRequest ) {
-			$value = $printRequest->getCanonicalLabel();
-
-			// *** is PRINT_THIS always appropriate to match the mainLabel ?
-			if ( $printRequest->getMode() === SMWPrintRequest::PRINT_THIS ) {
-				$value = '';
-			}
-			$headerList[] = $value;
+			$this->printoutsParameters[$canonicalLabel] = $parameters;
 		}
 
+		// @TODO put inside $this->formatOptions
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'datatables-')  === 0 ) {
@@ -490,11 +483,32 @@ class DataTables extends ResultPrinter {
 			}
 		}
 
+		// @TODO use $formattedOptions client side
+		$formattedOptions = $this->formatOptions( $datatablesOptions );
+
 		// @TODO use only one between printouts and printrequests
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];
+		$result = $this->getResultJson( $res, $outputmode );
 
-		$performer = RequestContext::getMain()->getUser();
+		$searchpanes = ( $this->query->getOption( 'count' ) > count( $result ) ?
+			$this->getSearchPanes( $printRequests, $formattedOptions ) : [] );
+
+		$resourceFormatter = new ResourceFormatter();
+		$id = $resourceFormatter->session();
+
+		$data = [
+			'query' => [
+				'ask' => $ask,
+				'result' => $result
+			],
+			'searchPanes' => $searchpanes
+		];
+
+		// Encode data object
+		$resourceFormatter->encode( $id, $data );
+
+		// $performer = RequestContext::getMain()->getUser();
 
 		$tableAttrs = [
 			'class' => 'srf-datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
@@ -509,8 +523,9 @@ class DataTables extends ResultPrinter {
 			'data-datatables' => json_encode( $datatablesOptions, true ),
 			'data-printrequests' => json_encode( $printrequests, true ),
 			'data-printouts' => json_encode( $printouts, true ),
-			'data-count' => $query->getOption( 'count' ),
-			'data-editor' => $performer->getName(),
+			'data-count' => $this->query->getOption( 'count' ),
+			// 'data-editor' => $performer->getName(),
+			'data-searchpanes' => json_encode( $searchpanes, true ),
 		];
 
 		// Element includes info, spinner, and container placeholder
@@ -532,6 +547,422 @@ class DataTables extends ResultPrinter {
 				]
 			)
 		);
+	}
+
+	/**
+	 * @param array $parameters
+	 * @return array
+	 */
+	private function getPrintoutsOptions( $parameters ) {
+		$arrayTypesColumns = [
+			'orderable' => 'boolean',
+			'searchable' => 'boolean',
+			'visible' => 'boolean',
+			'orderData' => 'numeric-array',
+			'searchPanes.collapse' => 'boolean',
+			'searchPanes.controls' => 'boolean',
+			'searchPanes.hideCount' => 'boolean',
+			'searchPanes.orderable' => 'boolean',
+			'searchPanes.initCollapsed' => 'boolean',
+			'searchPanes.show' => 'boolean',
+			'searchPanes.threshold' => 'number',
+			'searchPanes.viewCount' => 'boolean',
+			// ...
+		];
+
+		$ret = [];
+		foreach ( $parameters as $key => $value ) {
+			$key = preg_replace( '/datatables-(columns\.)?/', '', $key );
+
+			if ( array_key_exists( $key, $arrayTypesColumns ) ) {
+				switch ( $arrayTypesColumns[$key] ) {
+					case "boolean":
+						$value = strtolower( $value ) === "true"
+							|| ( is_numeric( $value ) && $value == 1 );
+						break;
+
+					case "numeric-array":
+						$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
+						break;
+
+					case "number":
+						$value = $value * 1;
+						break;
+					
+					// ...
+				}
+			}
+
+			// convert strings like columns.searchPanes.show
+			// to nested objects
+			$arr = explode( '.', $key );
+
+			$ret = array_merge_recursive( $this->plainToNestedObj( $arr, $value ),
+				$ret );
+		}
+	
+		return $ret;
+	}
+
+	/**
+	 * @param array $arr
+	 * @param string $value
+	 * @return array
+	 */
+	private function plainToNestedObj( $arr, $value ) {
+		$ret = [];
+
+		// link to first level
+		$t = &$ret;
+		foreach ( $arr as $key => $k ) {
+			if ( !array_key_exists( $k, $t ) ) {
+				$t[$k] = [];
+			}
+			// link to deepest level
+			$t = &$t[$k];
+			if ( $key === count( $arr ) - 1 ) {
+				$t = $value;
+			}
+		}
+		return $ret;
+	}
+
+	/**
+	 * @param array $printRequests
+	 * @param array $printoutsOptions
+	 * @return array
+	 */
+	private function getSearchPanes( $printRequests, $datatablesOptions ) {
+		$searchPanesOptions = $datatablesOptions['searchPanes'];
+
+		// searchPanes are disabled
+		if ( $searchPanesOptions[0] == false && !empty( $this->params['noajax'] ) ) {
+			return [];
+		}
+
+		$this->queryEngineFactory = new \SMW\SQLStore\QueryEngineFactory( $this->store );
+		$this->connection = $this->store->getConnection( 'mw.db.queryengine' );		
+		$this->queryFactory = new QueryFactory();
+
+		$ret = [];
+		foreach ( $printRequests as $i => $printRequest ) {
+			if ( count( $searchPanesOptions['columns'] ) && !in_array( $i, $searchPanesOptions['columns'] ) ) {
+				continue;
+			}
+
+			$parameters = $printRequest->getParameters();
+
+			// @TODO use $parameterOptions client side
+			$parameterOptions = $this->getPrintoutsOptions( $parameters );
+
+			if ( array_key_exists( 'show', $parameterOptions ) && $parameterOptions['show'] === false ) {
+				continue;
+			}
+
+			$canonicalLabel = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
+				$printRequest->getCanonicalLabel() : '' );
+
+			$ret[$i] = $this->getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions );
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * @param PrintRequest $printRequest
+	 * @param string $canonicalLabel
+	 * @param array $searchPanesOptions
+	 * @return array
+	 */
+	private function getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions ) {
+
+		// create a new query for each printout/pane
+		// and retrieve the query segment related to
+		// it, then perform actually the query to
+		// get the results
+
+		$queryParams = [
+			'limit' => $this->query->getLimit(),
+			'offset' => $this->query->getOffset(),
+			'mainlabel' => $this->query->getMainlabel()
+		];
+		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, [] );
+
+		// @TODO
+		// get original description and add a conjunction
+		// $queryDescription = $query->getDescription();
+		// $queryCount = new \SMWQuery($queryDescription);
+		// ...
+
+		$newQuery = SMWQueryProcessor::createQuery(
+			$this->query->getQueryString() . '[[' . $canonicalLabel . '::+]]',
+			$queryParams,
+			SMWQueryProcessor::INLINE_QUERY,
+			''
+		);
+
+		$queryDescription = $newQuery->getDescription();
+
+		$queryDescription->setPrintRequests( [$printRequest] );
+
+		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
+
+		$tableAliasAndColumn = $this->getTableAliasAndColumn( $queryDescription, $canonicalLabel, $conditionBuilder );
+
+		if ( !$tableAliasAndColumn ) {
+			return [];
+		}
+
+		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
+
+		$rootid = $conditionBuilder->buildCondition( $newQuery );
+
+		\SMW\SQLStore\QueryEngine\QuerySegment::$qnum = 0;
+		$querySegmentList = $conditionBuilder->getQuerySegmentList();
+
+		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+
+		$querySegmentListProcessor->setQuerySegmentList( $querySegmentList );
+
+		// execute query tree, resolve all dependencies
+		$querySegmentListProcessor->process( $rootid );
+
+		$qobj = $querySegmentList[$rootid];
+
+		$sql_options = [
+			'GROUP BY' => 'value',
+			'LIMIT' => 500,
+			'ORDER BY' => 'count DESC',
+			'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
+		];
+
+		// Selecting those is required in standard SQL (but MySQL does not require it).
+		$sortfields = implode( ',', $qobj->sortfields );
+		$sortfields = $sortfields ? ',' . $sortfields : '';
+
+		// @see QueryEngine
+		$res = $this->connection->select(
+			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
+			"DISTINCT $tableAliasAndColumn as value, COUNT(*) as count," . 
+			"$qobj->alias.smw_id AS id," .
+			"$qobj->alias.smw_title AS t," .
+			"$qobj->alias.smw_namespace AS ns," .
+			"$qobj->alias.smw_iw AS iw," .
+			"$qobj->alias.smw_subobject AS so," .
+			"$qobj->alias.smw_sortkey AS sortkey" .
+			"$sortfields",
+			$qobj->where,
+			__METHOD__,
+			$sql_options
+		);
+
+		$sql_options = [ 'LIMIT' => 500 ];
+
+		// SELECT COUNT(*) as count FROM `smw_object_ids` AS t0
+		// INNER JOIN (`smw_fpt_mdat` AS t2 INNER JOIN `smw_di_wikipage` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
+		// WHERE ((t3.p_id=517)) LIMIT 500
+
+		$dataLength = (int)$this->connection->selectField(
+			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
+			"COUNT(*) as count",
+			$qobj->where,
+			__METHOD__,
+			$sql_options
+		);
+
+		// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
+		// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
+
+		// @TODO take into account "HAVING" clause
+		$binLength = $res->numRows();
+		$uniqueRatio = $binLength / $dataLength;
+	
+		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
+			$searchPanesParameterOptions['threshold'] : $searchPanesOptions['threshold'];
+
+		if ( $uniqueRatio > $threshold || $binLength <= 1 ) {
+			return [];
+		}
+
+		$queryResults = $this->getInstanceQueryResult( $newQuery, $res, $sql_options );
+
+		return $this->getResultJson( $queryResults, null );
+	}
+
+	/*
+	 * @see QueryEngine
+	 * @param Query $query
+	 * @param res $res
+	 * @param array $sql_options
+	 * @return QueryResult
+	 */
+	private function getInstanceQueryResult( $query, $res, $sql_options ) {
+		$results = [];
+		$dataItemCache = [];
+
+		$logToTable = [];
+		$hasFurtherResults = false;
+
+		// Number of fetched results ( != number of valid results in
+		// array $results)
+		$count = 0;
+		$missedCount = 0;
+
+		$diHandler = $this->store->getDataItemHandlerForDIType(
+			DataItem::TYPE_WIKIPAGE
+		);
+
+		while ( ( $count < $sql_options['LIMIT'] ) && ( $row = $res->fetchObject() ) ) {
+			if ( $row->iw === '' || $row->iw[0] != ':' )  {
+
+				// Catch exception for non-existing predefined properties that
+				// still registered within non-updated pages (@see bug 48711)
+				try {
+					$dataItem = $diHandler->dataItemFromDBKeys( [
+						$row->t,
+						intval( $row->ns ),
+						$row->iw,
+						'',
+						$row->so
+					] );
+
+					// Register the ID in an event the post-proceesing
+					// fails (namespace no longer valid etc.)
+					$dataItem->setId( $row->id );
+				} catch ( PredefinedPropertyLabelMismatchException $e ) {
+					$logToTable[$row->t] = "issue creating a {$row->t} dataitem from a database row";
+					// $this->log( __METHOD__ . ' ' . $e->getMessage() );
+					$dataItem = '';
+				}
+
+				if ( $dataItem instanceof DIWikiPage && !isset( $dataItemCache[$dataItem->getHash()] ) ) {
+					$count++;
+					$dataItemCache[$dataItem->getHash()] = true;
+					$results[] = $dataItem;
+					// These IDs are usually needed for displaying the page (esp. if more property values are displayed):
+					$this->store->smwIds->setCache( $row->t, $row->ns, $row->iw, $row->so, $row->id, $row->sortkey );
+				} else {
+					$missedCount++;
+					// $logToTable[$row->t] = "skip result for {$row->t} existing cache entry / query " . $query->getHash();
+				}
+			} else {
+				$missedCount++;
+				// $logToTable[$row->t] = "skip result for {$row->t} due to an internal `{$row->iw}` pointer / query " . $query->getHash();
+			}
+		}
+
+		if ( $res->fetchObject() ) {
+			$count++;
+		}
+
+		$res->free();
+
+		$queryResult = $this->queryFactory->newQueryResult(
+			$this->store,
+			// new \SMWQuery(),
+			$query,
+			$results,
+			$hasFurtherResults
+		);
+
+		return $queryResult;
+	}
+
+	/**
+	 * @param array $params
+	 * @return string
+	 */
+	private function getTableAliasAndColumn( $queryDescription, $canonicalLabel, $conditionBuilder ) {
+		// skip the root segment
+		\SMW\SQLStore\QueryEngine\QuerySegment::$qnum = 1;
+
+		// *** this is always true
+		if ( $queryDescription instanceof \SMW\Query\Language\Conjunction ) {
+			$descriptions = $queryDescription->getDescriptions();
+
+			foreach ( $descriptions as $subDescription ) {
+				$subQueryId = $conditionBuilder->buildFromDescription($subDescription);
+
+				// @see SomePropertyInterpreter.php
+				if ( $subDescription instanceof \SMW\Query\Language\SomeProperty
+					&& $canonicalLabel === $subDescription->getProperty()->getCanonicalLabel() ) {
+					$querySegmentList = array_reverse( $conditionBuilder->getQuerySegmentList() );
+
+					foreach ( $querySegmentList as $segment ) {
+						if ( $segment->type === \SMW\SQLStore\QueryEngine\QuerySegment::Q_PROP_HIERARCHY ) {
+							$tableid = $this->store->findPropertyTableID($subDescription->getProperty() );
+							$field = $this->tableField( $tableid );
+
+							return $segment->alias . '.' . $field;
+						}
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	// @see ByGroupPropertyValuesLookup
+	private function tableField($tableid) {
+		switch ( $tableid ) {
+			case 'smw_di_number':
+				return 'o_serialized';
+
+			case 'smw_di_wikipage':
+				return 'o_id';
+
+			case 'smw_di_uri':
+				return 'o_serialized';	// 'o_blob';
+
+			case 'smw_di_blob':
+				return 'o_blob';
+
+			case 'smw_di_bool':
+				return 'o_value';
+
+			case 'smw_di_coords':
+				return 'o_serialized';
+
+			case 'smw_di_number':
+				return 'o_serialized';
+
+			case 'smw_di_time':
+				return 'o_serialized';
+		}
+
+		return 'o_serialized';
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 */
+	private function formatOptions( $params ) {
+		$arrayTypes = [
+			'lengthMenu' => "number",
+			'buttons' => "string",
+			'searchPanes.columns' => "number",
+			// ...
+		];
+
+		$ret = [];
+		foreach ($params as $key => $value) {
+
+			// transform csv to array
+			if ( array_key_exists( $key, $arrayTypes ) ) {
+				$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
+			}
+
+			// convert strings like columns.searchPanes.show
+			// to nested objects
+			$arr = explode('.', $key);
+
+			$ret = array_merge_recursive( $this->plainToNestedObj( $arr, $value ),
+				$ret );
+
+		}
+		return $ret;
 	}
 
 	/**
