@@ -707,11 +707,21 @@ class DataTables extends ResultPrinter {
 
 		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
 
+		// first run "manually" the query builder in order to 
+		// retrieve the correct querySegment related to the
+		// wanted printout, and identify the related table alias
+		// and column
+
 		$tableAliasAndColumn = $this->getTableAliasAndColumn( $queryDescription, $canonicalLabel, $conditionBuilder );
 
 		if ( !$tableAliasAndColumn ) {
 			return [];
 		}
+
+		// ... then perform a custom query running again the
+		// query builder and using the retrieved table
+		// alias and column in order to perform a custom
+		// query
 
 		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
 
