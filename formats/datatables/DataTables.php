@@ -444,38 +444,16 @@ class DataTables extends ResultPrinter {
 			}
 		}
 
-		// @see SRFSlideShow
-		$printouts = [];
-		// $printoutsOptions = [];
-		$headerList = [];
 		$printRequests = $res->getPrintRequests();
-		foreach ( $printRequests as $key => $printRequest ) {
-			$canonicalLabel = $printRequest->getCanonicalLabel();
-
-			$headerList[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
-				$canonicalLabel : '' );
-
-			$data = $printRequest->getData();
-
-			$name = ( $data instanceof SMWPropertyValue ?
-				$data->getDataItem()->getKey() : null );
-
-			$parameters = $printRequest->getParameters();
-
-			// $printoutsOptions[$canonicalLabel] = $this->getPrintoutsOptions( $parameters );
-
-			$printouts[] = [
-				$printRequest->getMode(),
-				$canonicalLabel,
-				$name,
-				$printRequest->getOutputFormat(),
-				$parameters
-			];
-
-			$this->printoutsParameters[$canonicalLabel] = $parameters;
+		$printouts = $this->getPrintouts( $printRequests );
+		
+		$headerList = [];
+		foreach ( $printouts as $printout ) {
+			$headerList[] = ( $printout[0] !== SMWPrintRequest::PRINT_THIS ? $printout[1] : '' );
 		}
 
 		// @TODO put inside $this->formatOptions
+		// and remove from $tableAttrs
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'datatables-')  === 0 ) {
@@ -494,9 +472,6 @@ class DataTables extends ResultPrinter {
 		$searchpanes = ( $this->query->getOption( 'count' ) > count( $result ) ?
 			$this->getSearchPanes( $printRequests, $formattedOptions ) : [] );
 
-		$resourceFormatter = new ResourceFormatter();
-		$id = $resourceFormatter->session();
-
 		$data = [
 			'query' => [
 				'ask' => $ask,
@@ -505,7 +480,21 @@ class DataTables extends ResultPrinter {
 			'searchPanes' => $searchpanes
 		];
 
-		// Encode data object
+		return $this->printContainer( $data, $headerList, $datatablesOptions,
+			$printrequests, $printouts );
+	}
+
+	/**
+	 * @param array $data
+	 * @param array $headerList
+	 * @param array $datatablesOptions
+	 * @param array $printrequests
+	 * @param array $printouts
+	 * @return string
+	 */
+	private function printContainer( $data, $headerList, $datatablesOptions, $printrequests, $printouts ) {
+		$resourceFormatter = new ResourceFormatter();
+		$id = $resourceFormatter->session();
 		$resourceFormatter->encode( $id, $data );
 
 		// $performer = RequestContext::getMain()->getUser();
@@ -525,7 +514,6 @@ class DataTables extends ResultPrinter {
 			'data-printouts' => json_encode( $printouts, true ),
 			'data-count' => $this->query->getOption( 'count' ),
 			// 'data-editor' => $performer->getName(),
-			'data-searchpanes' => json_encode( $searchpanes, true ),
 		];
 
 		// Element includes info, spinner, and container placeholder
@@ -547,6 +535,36 @@ class DataTables extends ResultPrinter {
 				]
 			)
 		);
+	}
+
+	/**
+	 * @see SRFSlideShow
+	 * @param array $printRequests
+	 * @return array
+	 */
+	private function getPrintouts( $printRequests ) {
+		foreach ( $printRequests as $key => $printRequest ) {
+			$canonicalLabel = $printRequest->getCanonicalLabel();
+
+			$data = $printRequest->getData();
+
+			$name = ( $data instanceof SMWPropertyValue ?
+				$data->getDataItem()->getKey() : null );
+
+			$parameters = $printRequest->getParameters();
+
+			$printouts[] = [
+				$printRequest->getMode(),
+				$canonicalLabel,
+				$name,
+				$printRequest->getOutputFormat(),
+				$parameters
+			];
+
+			$this->printoutsParameters[$canonicalLabel] = $parameters;
+		}
+
+		return $printouts;
 	}
 
 	/**
