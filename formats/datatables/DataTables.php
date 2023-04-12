@@ -14,13 +14,16 @@ namespace SRF;
 
 use Html;
 use RequestContext;
+use SMW\DataValueFactory;
 use SMW\Query\ResultPrinters\TableResultPrinter;
 use SMW\ResultPrinter;
 use SMW\DIWikiPage;
+use SMW\DIProperty;
 use SMW\Exception\PredefinedPropertyLabelMismatchException;
 use SMW\Message;
 use SMW\QueryFactory;
 use SMW\Query\PrintRequest;
+use SMW\TypesRegistry;
 use SMWDataItem as DataItem;
 use SMWPrintRequest;
 use SMWPropertyValue;
@@ -657,7 +660,6 @@ class DataTables extends ResultPrinter {
 		if ( $searchPanesOptions[0] == false && !empty( $this->params['noajax'] ) ) {
 			return [];
 		}
-
 		$this->queryEngineFactory = new \SMW\SQLStore\QueryEngineFactory( $this->store );
 		$this->connection = $this->store->getConnection( 'mw.db.queryengine' );		
 		$this->queryFactory = new QueryFactory();
@@ -667,20 +669,22 @@ class DataTables extends ResultPrinter {
 			if ( count( $searchPanesOptions['columns'] ) && !in_array( $i, $searchPanesOptions['columns'] ) ) {
 				continue;
 			}
-
 			$parameters = $printRequest->getParameters();
 
 			// @TODO use $parameterOptions client side
 			$parameterOptions = $this->getPrintoutsOptions( $parameters );
 
-			if ( array_key_exists( 'show', $parameterOptions ) && $parameterOptions['show'] === false ) {
+			$searchPanesParameterOptions = ( array_key_exists( 'searchPanes', $parameterOptions ) ?
+				$parameterOptions['searchPanes'] : [] );
+
+			if ( array_key_exists( 'show', $searchPanesParameterOptions ) && $searchPanesParameterOptions['show'] === false ) {
 				continue;
 			}
 
 			$canonicalLabel = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
 				$printRequest->getCanonicalLabel() : '' );
 
-			$ret[$i] = $this->getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions );
+			$ret[$i] = $this->getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions );
 		}
 
 		return $ret;
@@ -690,9 +694,13 @@ class DataTables extends ResultPrinter {
 	 * @param PrintRequest $printRequest
 	 * @param string $canonicalLabel
 	 * @param array $searchPanesOptions
+	 * @param array $searchPanesParameterOptions
 	 * @return array
 	 */
-	private function getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions ) {
+	private function getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions ) {
+		if ( empty( $canonicalLabel ) ) {
+			return array_merge( ['case Mainlabel' ] , $this->searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) );
+		}
 
 		// create a new query for each printout/pane
 		// and retrieve the query segment related to
@@ -720,7 +728,6 @@ class DataTables extends ResultPrinter {
 		);
 
 		$queryDescription = $newQuery->getDescription();
-
 		$queryDescription->setPrintRequests( [$printRequest] );
 
 		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
@@ -732,8 +739,10 @@ class DataTables extends ResultPrinter {
 
 		$tableAliasAndColumn = $this->getTableAliasAndColumn( $queryDescription, $canonicalLabel, $conditionBuilder );
 
+		// the printrequest is included in the original query
 		if ( !$tableAliasAndColumn ) {
-			return [];
+			// @TODO @FIXME this is a temporary solution !!
+			return array_merge(['case Unknown'] , $this->searchPanesUnknownTableAlias( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) );
 		}
 
 		// ... then perform a custom query running again the
@@ -757,33 +766,10 @@ class DataTables extends ResultPrinter {
 
 		$qobj = $querySegmentList[$rootid];
 
-		$sql_options = [
-			'GROUP BY' => 'value',
-			'LIMIT' => 500,
-			'ORDER BY' => 'count DESC',
-			'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
-		];
+		// data-length without the GROUP BY clause
 
-		// Selecting those is required in standard SQL (but MySQL does not require it).
-		$sortfields = implode( ',', $qobj->sortfields );
-		$sortfields = $sortfields ? ',' . $sortfields : '';
-
-		// @see QueryEngine
-		$res = $this->connection->select(
-			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
-			"DISTINCT $tableAliasAndColumn as value, COUNT(*) as count," . 
-			"$qobj->alias.smw_id AS id," .
-			"$qobj->alias.smw_title AS t," .
-			"$qobj->alias.smw_namespace AS ns," .
-			"$qobj->alias.smw_iw AS iw," .
-			"$qobj->alias.smw_subobject AS so," .
-			"$qobj->alias.smw_sortkey AS sortkey" .
-			"$sortfields",
-			$qobj->where,
-			__METHOD__,
-			$sql_options
-		);
-
+		// @TODO should we take into account the "HAVING" clause
+		// used for the real query ?
 		$sql_options = [ 'LIMIT' => 500 ];
 
 		// SELECT COUNT(*) as count FROM `smw_object_ids` AS t0
@@ -798,11 +784,210 @@ class DataTables extends ResultPrinter {
 			$sql_options
 		);
 
+		// real query
+
+		$typeId = $printRequest->getTypeID();
+
+		$sql_options = [
+			'GROUP BY' => ( $typeId == '_txt' ? 'value, hash ' : 'value' ),
+			'LIMIT' => 500,
+			'ORDER BY' => 'count DESC',
+			'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
+		];
+		// Selecting those is required in standard SQL (but MySQL does not require it).
+		$sortfields = implode( ',', $qobj->sortfields );
+		$sortfields = $sortfields ? ',' . $sortfields : '';
+
+		// @see QueryEngine
+		$res = $this->connection->select(
+			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
+			"DISTINCT " . "$tableAliasAndColumn as value, COUNT(*) as count," .
+			"$qobj->alias.smw_id AS id," .
+			"$qobj->alias.smw_title AS t," .
+			"$qobj->alias.smw_namespace AS ns," .
+			"$qobj->alias.smw_iw AS iw," .
+			"$qobj->alias.smw_subobject AS so," .
+			"$qobj->alias.smw_sortkey AS sortkey" .
+			"$sortfields",
+			$qobj->where,
+			__METHOD__,
+			$sql_options
+		);
+
+		// verify uniqueRatio
+
 		// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
 		// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
 
-		// @TODO take into account "HAVING" clause
 		$binLength = $res->numRows();
+		$uniqueRatio = $binLength / $dataLength;
+	
+		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
+			$searchPanesParameterOptions['threshold'] : $searchPanesOptions['threshold'];
+
+		if ( $uniqueRatio > $threshold || $binLength <= 1 ) {
+		//	return [];
+		}
+
+		// get actual cell contents
+
+		$dataValueFactory = DataValueFactory::getInstance();
+
+		$typeId = $printRequest->getTypeID();
+		$caption = false;
+		$property = null;
+		// $contextPage = new DIWikiPage( $row->t, $row->ns );
+		$contextPage = null;
+
+		$ret = [];
+
+		$diHandler = $this->store->getDataItemHandlerForDIType(
+			DataItem::TYPE_WIKIPAGE
+		);
+
+		foreach ( $res as $row ) {
+			$valueString = ( $typeId !== '_wpg' ? false : $row->value );
+
+			$dataValue = $dataValueFactory->newDataValueByType(
+				$typeId,
+				$valueString,
+				$caption,
+				$property,
+				$contextPage
+			);
+
+			if ( $typeId !== '_wpg' ) {
+				$value = $row->value;
+				if ( $typeId === '_txt' ) {
+					$value = $row->value ?? $row->hash;
+				}
+				$typeList = TypesRegistry::getDataTypeList();
+				// @TODO how precisely the correct dataitem is retrieved
+				// using dataItemFromDBKeys and then getNextDataItem ?
+				// @see QueryEngine and ResultArray
+				$dataItem = DataItem::newFromSerialization( $typeList[$typeId][1], $value );
+
+			} else {
+				// @TODO  @FIXME this is not correct because it
+				// selects the subject use instead row->value (o_id)
+				//  check PropertySubjectsLookup ?
+				$dataItem = $diHandler->dataItemFromDBKeys( [
+					$row->t,
+					intval( $row->ns ),
+					$row->iw,
+					'',
+					$row->so
+				] );
+			}
+
+			$res = $dataValue->setDataItem( $dataItem );
+
+			// @see ResultArray
+			// *** attention !! in order to work, the dataItem
+			// must be set besided the dataValue !
+			if ( $printRequest->getOutputFormat() ) {
+				// @FIXME sometimes unit is wrong ? check table mw_fpt_unit
+				$dataValue->setOutputFormat( $printRequest->getOutputFormat() );
+			}
+
+			$outputMode = SMW_OUTPUT_HTML;
+			$isSubject = false;
+			$ret[] = [
+				'value' => $this->getCellContent(
+					$printRequest->getCanonicalLabel(),
+					[ $dataValue ],
+					$outputMode,
+					$isSubject
+				),
+				'count' => $row->count
+			];
+
+
+		}
+		return array_merge([ 'case standard' ] , $ret );
+	}
+
+	/**
+	 * @param PrintRequest $printRequest
+	 * @param array $searchPanesOptions
+	 * @param array $searchPanesParameterOptions
+	 * @return array
+	 */
+	private function searchPanesUnknownTableAlias( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) {
+		// use original query
+		$newQuery = $this->query;
+		$queryDescription = $newQuery->getDescription();
+		$queryDescription->setPrintRequests( [$printRequest] );
+	
+		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
+
+		$rootid = $conditionBuilder->buildCondition( $newQuery );
+
+		\SMW\SQLStore\QueryEngine\QuerySegment::$qnum = 0;
+		$querySegmentList = $conditionBuilder->getQuerySegmentList();
+
+		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+
+		$querySegmentListProcessor->setQuerySegmentList( $querySegmentList );
+
+		// execute query tree, resolve all dependencies
+		$querySegmentListProcessor->process( $rootid );
+
+		$qobj = $querySegmentList[$rootid];
+
+		$sql_options = [
+			'LIMIT' => 500
+		];
+
+		// Selecting those is required in standard SQL (but MySQL does not require it).
+		$sortfields = implode( ',', $qobj->sortfields );
+		$sortfields = $sortfields ? ',' . $sortfields : '';
+
+		// @see QueryEngine
+		$res = $this->connection->select(
+			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
+			"$qobj->alias.smw_id AS id," .
+			"$qobj->alias.smw_title AS t," .
+			"$qobj->alias.smw_namespace AS ns," .
+			"$qobj->alias.smw_iw AS iw," .
+			"$qobj->alias.smw_subobject AS so," .
+			"$qobj->alias.smw_sortkey AS sortkey" .
+			"$sortfields",
+			$qobj->where,
+			__METHOD__,
+			$sql_options
+		);
+
+		$numRows = $res->numRows();
+
+		$queryResults = $this->getInstanceQueryResult( $newQuery, $res, $sql_options );
+		$rows = $this->getResultJson( $queryResults, null );
+
+		$count = [];
+		foreach ( $rows as $value ) {
+			if ( !array_key_exists( $value[0], $count ) ) {
+				$count[$value[0]] = 0;
+			}
+			$count[$value[0]]++;
+		}
+
+		$ret = [];
+		foreach ( $count as $key => $value ) {
+			if ( $key < $searchPanesOptions['minCount'] ) {
+				continue;
+			}
+			$ret[] = [
+				'value' => $key,
+				'count' => $value,
+			];
+		}
+
+		$dataLength = $numRows;
+		$binLength = count( $ret );
+
+		// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
+		// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
+
 		$uniqueRatio = $binLength / $dataLength;
 	
 		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
@@ -812,8 +997,73 @@ class DataTables extends ResultPrinter {
 			return [];
 		}
 
-		$queryResults = $this->getInstanceQueryResult( $newQuery, $res, $sql_options );
+		return $ret;		
+	}
 
+	/**
+	 * @param PrintRequest $printRequest
+	 * @param array $searchPanesOptions
+	 * @param array $searchPanesParameterOptions
+	 * @return array
+	 */
+	private function searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) {
+
+		// mainlabel consists only of unique values,
+		// so do not display if settings don't allow that
+		if ( $searchPanesOptions['minCount'] > 1 ) {
+			return [];
+		}
+		
+		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
+			$searchPanesParameterOptions['threshold'] : $searchPanesOptions['threshold'];
+
+		if ( $threshold < 1 ) {
+			return [];
+		}
+
+		$query = $this->query;
+		$queryDescription = $query->getDescription();
+		$queryDescription->setPrintRequests( [$printRequest] );
+
+		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
+		$rootid = $conditionBuilder->buildCondition( $query );
+
+		\SMW\SQLStore\QueryEngine\QuerySegment::$qnum = 0;
+		$querySegmentList = $conditionBuilder->getQuerySegmentList();
+
+		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+
+		$querySegmentListProcessor->setQuerySegmentList( $querySegmentList );
+
+		// execute query tree, resolve all dependencies
+		$querySegmentListProcessor->process( $rootid );
+
+		$qobj = $querySegmentList[$rootid];
+
+		$sql_options = [
+			'LIMIT' => 500
+		];
+
+		// Selecting those is required in standard SQL (but MySQL does not require it).
+		$sortfields = implode( ',', $qobj->sortfields );
+		$sortfields = $sortfields ? ',' . $sortfields : '';
+
+		// @see QueryEngine
+		$res = $this->connection->select(
+			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
+			"$qobj->alias.smw_id AS id," .
+			"$qobj->alias.smw_title AS t," .
+			"$qobj->alias.smw_namespace AS ns," .
+			"$qobj->alias.smw_iw AS iw," .
+			"$qobj->alias.smw_subobject AS so," .
+			"$qobj->alias.smw_sortkey AS sortkey" .
+			"$sortfields",
+			$qobj->where,
+			__METHOD__,
+			$sql_options
+		);
+
+		$queryResults = $this->getInstanceQueryResult( $this->query, $res, $sql_options );
 		return $this->getResultJson( $queryResults, null );
 	}
 
@@ -828,7 +1078,7 @@ class DataTables extends ResultPrinter {
 		$results = [];
 		$dataItemCache = [];
 
-		$logToTable = [];
+		// $logToTable = [];
 		$hasFurtherResults = false;
 
 		// Number of fetched results ( != number of valid results in
@@ -858,7 +1108,7 @@ class DataTables extends ResultPrinter {
 					// fails (namespace no longer valid etc.)
 					$dataItem->setId( $row->id );
 				} catch ( PredefinedPropertyLabelMismatchException $e ) {
-					$logToTable[$row->t] = "issue creating a {$row->t} dataitem from a database row";
+					// $logToTable[$row->t] = "issue creating a {$row->t} dataitem from a database row";
 					// $this->log( __METHOD__ . ' ' . $e->getMessage() );
 					$dataItem = '';
 				}
@@ -909,7 +1159,7 @@ class DataTables extends ResultPrinter {
 			$descriptions = $queryDescription->getDescriptions();
 
 			foreach ( $descriptions as $subDescription ) {
-				$subQueryId = $conditionBuilder->buildFromDescription($subDescription);
+				$subQueryId = $conditionBuilder->buildFromDescription( $subDescription );
 
 				// @see SomePropertyInterpreter.php
 				if ( $subDescription instanceof \SMW\Query\Language\SomeProperty
@@ -918,10 +1168,12 @@ class DataTables extends ResultPrinter {
 
 					foreach ( $querySegmentList as $segment ) {
 						if ( $segment->type === \SMW\SQLStore\QueryEngine\QuerySegment::Q_PROP_HIERARCHY ) {
-							$tableid = $this->store->findPropertyTableID($subDescription->getProperty() );
-							$field = $this->tableField( $tableid );
-
-							return $segment->alias . '.' . $field;
+							$tableid = $this->store->findPropertyTableID( $subDescription->getProperty() );
+							$fields = $this->tableField( $tableid );
+							$alias = $segment->alias;
+							return implode( ', ', array_map( static function ( $value ) use ( $alias ) {
+								return $alias . '.' . $value;
+							}, $fields ) );
 						}
 					}
 				}
@@ -932,34 +1184,33 @@ class DataTables extends ResultPrinter {
 	}
 
 	// @see ByGroupPropertyValuesLookup
-	private function tableField($tableid) {
+	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/data/config/db-primary-keys.php
+	private function tableField( $tableid ) {
 		switch ( $tableid ) {
 			case 'smw_di_number':
-				return 'o_serialized';
+				return [ 'o_serialized' ];
 
 			case 'smw_di_wikipage':
-				return 'o_id';
+				return [ 'o_id' ];
 
 			case 'smw_di_uri':
-				return 'o_serialized';	// 'o_blob';
+				return [ 'o_serialized' ];	// 'o_blob';
 
+			// @see DIBlobHandler
 			case 'smw_di_blob':
-				return 'o_blob';
+				return [ 'o_hash as hash', 'o_blob', ];
 
 			case 'smw_di_bool':
-				return 'o_value';
+				return [ 'o_value' ];
 
 			case 'smw_di_coords':
-				return 'o_serialized';
-
-			case 'smw_di_number':
-				return 'o_serialized';
+				return [ 'o_serialized' ];
 
 			case 'smw_di_time':
-				return 'o_serialized';
+				return [ 'o_serialized' ];
 		}
 
-		return 'o_serialized';
+		return [ 'o_serialized' ];
 	}
 
 	/**
