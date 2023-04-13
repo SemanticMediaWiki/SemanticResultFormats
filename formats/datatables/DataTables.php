@@ -699,7 +699,7 @@ class DataTables extends ResultPrinter {
 	 */
 	private function getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions ) {
 		if ( empty( $canonicalLabel ) ) {
-			return array_merge( ['case Mainlabel' ] , $this->searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) );
+			return $this->searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions );
 		}
 
 		// create a new query for each printout/pane
@@ -742,7 +742,7 @@ class DataTables extends ResultPrinter {
 		// the printrequest is included in the original query
 		if ( !$tableAliasAndColumn ) {
 			// @TODO @FIXME this is a temporary solution !!
-			return array_merge(['case Unknown'] , $this->searchPanesUnknownTableAlias( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) );
+			return $this->searchPanesUnknownTableAlias( $printRequest, $searchPanesOptions, $searchPanesParameterOptions );
 		}
 
 		// ... then perform a custom query running again the
@@ -841,6 +841,8 @@ class DataTables extends ResultPrinter {
 
 		$ret = [];
 
+		// @TODO use code from ByGroupPropertyValuesLookup instead
+
 		$diHandler = $this->store->getDataItemHandlerForDIType(
 			DataItem::TYPE_WIKIPAGE
 		);
@@ -904,7 +906,7 @@ class DataTables extends ResultPrinter {
 
 
 		}
-		return array_merge([ 'case standard' ] , $ret );
+		return $ret;
 	}
 
 	/**
@@ -1270,6 +1272,10 @@ class DataTables extends ResultPrinter {
 				$resultArray = $field;
 				$printRequest = $resultArray->getPrintRequest();
 
+				// *** the path is the following:
+				// ResultArray loadContent -> fieldItemFinder findFor -> getResultsForProperty
+				// -> fetchContent -> ItemFetcher fetch -> (prefetchCache/EntityLookup)->getPropertyValues 
+				// -> $semanticData->getPropertyValues -> $this->store->applyRequestOptions !!
 				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 					$dataValues[] = $dv;
 				}
