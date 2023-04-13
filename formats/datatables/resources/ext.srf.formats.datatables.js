@@ -116,6 +116,118 @@
 			}
 		},
 
+		searchPanesOptions: function (data, options, columnDefs) {
+			var ret = {};
+
+			for (var i in columnDefs) {
+				if (!("searchPanes" in columnDefs[i])) {
+					columnDefs[i].searchPanes = {};
+				}
+			}
+
+			// filter columns
+			var columns = Object.keys(data[0]).filter(function (x) {
+				if (
+					"show" in columnDefs[x].searchPanes &&
+					columnDefs[x].searchPanes.show === false
+				) {
+					return false;
+				}
+
+				if (
+					"columns" in options.searchPanes &&
+					options.searchPanes.columns.length &&
+					$.inArray(x * 1, options.searchPanes.columns) < 0
+				) {
+					return false;
+				}
+
+				return true;
+			});
+
+			for (var i of columns) {
+				ret[i] = {};
+			}
+
+			var div = document.createElement("div");
+			for (var i in data) {
+				for (var ii of columns) {
+					div.innerHTML = data[i][ii];
+					var text = div.textContent || div.innerText || "";
+
+					// this will exclude images as well,
+					// otherwise use data[i][ii]
+					if (text === "") {
+						continue;
+					}
+
+					if (!(data[i][ii] in ret[ii])) {
+						ret[ii][data[i][ii]] = {
+							label: text,
+							value: data[i][ii],
+							count: 0,
+						};
+					}
+
+					ret[ii][data[i][ii]].count++;
+				}
+			}
+
+			for (var i in ret) {
+				var threshold =
+					"threshold" in columnDefs[i].searchPanes
+						? columnDefs[i].searchPanes.threshold
+						: options.searchPanes.threshold;
+
+				// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
+				// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
+				// _uniqueRatio
+				var binLength = Object.keys(ret[i]).length;
+				var uniqueRatio = binLength / data.length;
+
+				if (uniqueRatio > threshold || binLength <= 1) {
+					delete ret[i];
+					continue;
+				}
+
+				ret[i] = Object.values(ret[i]).filter(
+					(x) => x.count >= options.searchPanes.minCount
+				);
+
+				if (!ret[i].length) {
+					delete ret[i];
+				}
+			}
+
+			for (let i in ret) {
+				// @see https://datatables.net/reference/option/columns.searchPanes.combiner
+				columnDefs[i].searchPanes.combiner =
+					"combiner" in columnDefs[i].searchPanes
+						? columnDefs[i].searchPanes.combiner
+						: "or";
+				columnDefs[i].searchPanes.options = [];
+
+				// @see https://datatables.net/reference/option/columns.searchPanes.options
+				for (let ii in ret[i]) {
+					columnDefs[i].searchPanes.options.push({
+						label: ret[i][ii].label,
+						value: function (rowData, rowIdx) {
+							return rowData[i] === ret[i][ii].value;
+						},
+					});
+				}
+			}
+
+			for (var i in columnDefs) {
+				if (
+					!("options" in columnDefs[i].searchPanes) ||
+					!columnDefs[i].searchPanes.options.length
+				) {
+					columnDefs[i].searchPanes.show = false;
+				}
+			}
+		},
+
 		parse: {
 			// ...
 		},
@@ -325,9 +437,9 @@
 			}
 
 			// enable searchPanes if the symbol is in the dom
-			if (options.dom.indexOf("P") !== -1) {
-				options.searchPanes = true;
-			}
+			// if (options.dom.indexOf("P") !== -1) {
+			//   options.searchPanes = true;
+			// }
 
 			for (var i in options) {
 				// transform csv to array
@@ -376,33 +488,47 @@
 				if (!("scrollY" in options) || !options.scrollY) {
 					options.scrollY = "300px";
 
-				// expected type is string
-				} else if ( !isNaN ( options.scrollY ) ) {
-					options.scrollY = options.scrollY + 'px';
+					// expected type is string
+				} else if (!isNaN(options.scrollY)) {
+					options.scrollY = options.scrollY + "px";
 				}
 			}
 
-			var useAjax = data.query.result.length < context.data("count");
+			var queryResult = data.query.result;
+			var useAjax = queryResult.length < context.data("count");
 
-			if (options.searchPanes === true || isObject(options.searchPanes)) {
+			var searchPanes = false;
+			if (isObject(options.searchPanes)) {
 				if (useAjax) {
 					// remove panes because this is tricky to
 					// be implemented in conjunction with SMW
+					// options.searchPanes = false;
 
-					options.searchPanes = false;
+					// if (options.dom.indexOf("P") !== -1) {
+					// 	options.dom = options.dom.replace("P", "");
+					// }
 
-					if (options.dom.indexOf("P") !== -1) {
-						options.dom = options.dom.replace("P", "");
+					// _datatables.showNotice(
+					// 	context,
+					// 	container,
+					// 	"srf-ui-datatables-searchpanes-noajax"
+					// );
+				} else {
+					// searchPanes = true;
+					// if (options.dom.indexOf("P") === -1) {
+					// 	options.dom = "P" + options.dom;
+					// }
+				}
+
+				searchPanes = true;
+					if (options.dom.indexOf("P") === -1) {
+						options.dom = "P" + options.dom;
 					}
 
-					_datatables.showNotice(
-						context,
-						container,
-						"srf-ui-datatables-searchpanes-noajax"
-					);
-				} else if (options.dom.indexOf("P") === -1) {
-					options.dom = "P" + options.dom;
-				}
+			}
+
+			if (searchPanes === false) {
+				options.dom = options.dom.replace("P", "");
 			}
 
 			// add the pagelength at the proper place in the length menu
@@ -417,6 +543,7 @@
 			var printouts = context.data("printouts");
 			var queryString = query.conditions;
 			var printrequests = context.data("printrequests");
+			var searchPanesOptions = data.searchPanes;
 
 			var entityCollation = context.data("collation");
 
@@ -427,7 +554,6 @@
 				visible: "boolean",
 				orderData: "numeric-array",
 				"searchPanes.collapse": "boolean",
-				"searchPanes.combiner": "boolean",
 				"searchPanes.controls": "boolean",
 				"searchPanes.hideCount": "boolean",
 				"searchPanes.orderable": "boolean",
@@ -439,8 +565,8 @@
 			};
 
 			var columnDefs = [];
-			// var labelsCount = {};
 			$.map(printrequests, function (property, index) {
+				// @see https://datatables.net/reference/option/columns.type
 				// value for all columns
 				if (!options.columns.type) {
 					options.columns.type =
@@ -456,6 +582,13 @@
 							var printoutValue = printouts[index][4][i].trim();
 
 							var optionKey = i.replace(/datatables-(columns\.)?/, "");
+
+							if (
+								searchPanes === false &&
+								optionKey.indexOf("searchPanes.") === 0
+							) {
+								continue;
+							}
 
 							if (optionKey in arrayTypesColumns) {
 								switch (arrayTypesColumns[optionKey]) {
@@ -492,11 +625,6 @@
 					}
 				}
 
-				// this is to avoid duplicate data/keys
-				// if (!(property.label in labelsCount)) {
-				// 	labelsCount[property.label] = 0;
-				// }
-
 				columnDefs.push(
 					$.extend(
 						{
@@ -523,6 +651,42 @@
 				// labelsCount[property.label]++;
 			});
 
+			if (searchPanes) {
+				// _datatables.searchPanesOptions(queryResult, options, columnDefs);
+			}
+
+
+		// console.log("searchPanesOptions",searchPanesOptions)
+		
+			
+			var div = document.createElement("div");
+			for ( var i in searchPanesOptions ) {
+				if ( !("searchPanes" in columnDefs[i] ) ) {
+					columnDefs[i].searchPanes = {};
+				}
+				columnDefs[i].searchPanes.show = true;
+				// columnDefs[i].searchPanes.options = {};
+				
+				for ( var ii in searchPanesOptions[i] ) {
+					div.innerHTML = searchPanesOptions[i][ii].value;
+					var text = div.textContent || div.innerText || "";
+
+					searchPanesOptions[i][ii].total = searchPanesOptions[i][ii].count;
+					searchPanesOptions[i][ii].label = text;
+
+					// columnDefs[i].searchPanes.options[ii] = searchPanesOptions[i][ii];
+				}
+			}
+
+			for ( var i in columnDefs ) {
+				if ( ("searchPanes" in columnDefs[i] ) && !(i in searchPanesOptions ) ) {
+					delete columnDefs[i].searchPanes;
+				}
+			}
+
+
+		// console.log("columnDefs",columnDefs)
+
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
@@ -534,7 +698,7 @@
 
 			if (!useAjax) {
 				conf.serverSide = false;
-				conf.data = data.query.result;
+				conf.data = queryResult;
 
 				// use Ajax only when required
 			} else {
@@ -544,8 +708,7 @@
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc)
 				var cacheKey = JSON.stringify(order);
-
-				preloadData[cacheKey] = data.query.result;
+				preloadData[cacheKey] = queryResult;
 
 				var payload = {
 					action: "ext.srf.datatables.api",
@@ -572,6 +735,10 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
+
+// console.log("datatableData",datatableData)
+// console.log("settings",settings)
+
 						// must match cacheKey
 						var key = JSON.stringify(
 							datatableData.order.map((x) => [x.column, x.dir])
@@ -596,6 +763,10 @@
 								),
 								recordsTotal: context.data("count"),
 								recordsFiltered: context.data("count"),
+								searchPanes: {
+									options: searchPanesOptions
+								}
+
 							});
 						}
 
@@ -636,6 +807,7 @@
 								// expected by datatables, so return the
 								// sliced result
 								json.data = json.data.slice(0, datatableData.length);
+								json.searchPanes = searchPanesOptions;
 								callback(json);
 							})
 							.fail(function (error) {
@@ -644,8 +816,8 @@
 					},
 				});
 			}
-			// console.log("conf", conf);
-			data.table = container.find("table").DataTable(conf);
+			console.log("conf", conf);
+			container.find("table").DataTable(conf);
 		},
 
 		update: function (context, data) {
