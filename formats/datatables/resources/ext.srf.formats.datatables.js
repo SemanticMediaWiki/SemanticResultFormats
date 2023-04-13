@@ -656,7 +656,7 @@
 			}
 
 
-		// console.log("searchPanesOptions",searchPanesOptions)
+		console.log("searchPanesOptions",searchPanesOptions)
 		
 			
 			var div = document.createElement("div");
