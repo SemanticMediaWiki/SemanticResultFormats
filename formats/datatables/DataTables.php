@@ -766,14 +766,13 @@ class DataTables extends ResultPrinter {
 
 		// real query
 
-		$typeId = $printRequest->getTypeID();
-
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
 
 		$tableid = $this->store->findPropertyTableID( $property );
 
 		$querySegmentList = array_reverse( $querySegmentList );
 
+		// get aliases
 		$p_alias = null;
 		foreach ( $querySegmentList as $segment ) {			
 			if ( $segment->joinTable === $tableid ) {
@@ -834,8 +833,9 @@ class DataTables extends ResultPrinter {
 
 		$fields = $diHandler->getFetchFields();
 
-		$dataItems = [];
-		$counts = [];
+		$outputMode = SMW_OUTPUT_HTML;
+		$isSubject = false;
+		$ret = [];
 		foreach ( $res as $row ) {
 			$dbKeys = [];
 
@@ -859,19 +859,14 @@ class DataTables extends ResultPrinter {
 				$dbKeys
 			);
 
-			$dataItems[] = $dataItem;
-			$counts[] = $row->count;
-		}
-
-
-		$outputMode = SMW_OUTPUT_HTML;
-		$isSubject = false;
-		$ret = [];
-		foreach ( $dataItems as $k => $dataItem ) {
 			$dataValue = DataValueFactory::getInstance()->newDataValueByItem(
 				$dataItem,
 				$property
 			);
+
+			if ( $printRequest->getOutputFormat() ) {
+				$dataValue->setOutputFormat( $printRequest->getOutputFormat() );
+			}
 
 			$ret[] = [
 				'value' => $this->getCellContent(
@@ -880,14 +875,20 @@ class DataTables extends ResultPrinter {
 					$outputMode,
 					$isSubject
 				),
-				'count' => $counts[$k]
+				'count' => $row->count
 			];
 		}
 
 		return $ret;
 	}
 
-	// @see ByGroupPropertyValuesLookup
+	/**
+	 * @see ByGroupPropertyValuesLookup
+	 * @param DIProperty $property
+	 * @param string $p_alias
+	 * @param string $i_alias
+	 * @return array
+	 */
 	private function fetchValuesByGroup( DIProperty $property, $p_alias, $i_alias ) {
 
 		$tableid = $this->store->findPropertyTableID( $property );
@@ -955,9 +956,9 @@ class DataTables extends ResultPrinter {
 			$fields = [ "$groupBy", "COUNT( $groupBy ) as count" ];
 		}
 
-		if ( !$propTable->isFixedPropertyTable() ) {
-			$pid = $entityIdManager->getSMWPropertyID( $property );
-		}
+		// if ( !$propTable->isFixedPropertyTable() ) {
+		// 	$pid = $entityIdManager->getSMWPropertyID( $property );
+		// }
 
 		return [ $fields, $groupBy, $orderBy ];
 	}
@@ -985,7 +986,7 @@ class DataTables extends ResultPrinter {
 
 		$query = $this->query;
 		$queryDescription = $query->getDescription();
-		$queryDescription->setPrintRequests( [$printRequest] );
+		$queryDescription->setPrintRequests( [] );
 
 		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
 		$rootid = $conditionBuilder->buildCondition( $query );
@@ -1003,7 +1004,8 @@ class DataTables extends ResultPrinter {
 		$qobj = $querySegmentList[$rootid];
 
 		$sql_options = [
-			'LIMIT' => 500
+			'LIMIT' => 500,
+			'ORDER BY' => 't'
 		];
 
 		// Selecting those is required in standard SQL (but MySQL does not require it).
@@ -1025,87 +1027,42 @@ class DataTables extends ResultPrinter {
 			$sql_options
 		);
 
-		$queryResults = $this->getInstanceQueryResult( $this->query, $res, $sql_options );
-		return $this->getResultJson( $queryResults, null );
-	}
-
-	/*
-	 * @see QueryEngine
-	 * @param Query $query
-	 * @param res $res
-	 * @param array $sql_options
-	 * @return QueryResult
-	 */
-	private function getInstanceQueryResult( $query, $res, $sql_options ) {
-		$results = [];
-		$dataItemCache = [];
-
-		// $logToTable = [];
-		$hasFurtherResults = false;
-
-		// Number of fetched results ( != number of valid results in
-		// array $results)
-		$count = 0;
-		$missedCount = 0;
-
 		$diHandler = $this->store->getDataItemHandlerForDIType(
 			DataItem::TYPE_WIKIPAGE
 		);
 
-		while ( ( $count < $sql_options['LIMIT'] ) && ( $row = $res->fetchObject() ) ) {
-			if ( $row->iw === '' || $row->iw[0] != ':' )  {
+		$outputMode = SMW_OUTPUT_HTML;
+		$isSubject = false;
+		foreach( $res as $row) {
 
-				// Catch exception for non-existing predefined properties that
-				// still registered within non-updated pages (@see bug 48711)
-				try {
-					$dataItem = $diHandler->dataItemFromDBKeys( [
-						$row->t,
-						intval( $row->ns ),
-						$row->iw,
-						'',
-						$row->so
-					] );
+			$dataItem = $diHandler->dataItemFromDBKeys( [
+				$row->t,
+				intval( $row->ns ),
+				$row->iw,
+				'',
+				$row->so
+			] );
 
-					// Register the ID in an event the post-proceesing
-					// fails (namespace no longer valid etc.)
-					$dataItem->setId( $row->id );
-				} catch ( PredefinedPropertyLabelMismatchException $e ) {
-					// $logToTable[$row->t] = "issue creating a {$row->t} dataitem from a database row";
-					// $this->log( __METHOD__ . ' ' . $e->getMessage() );
-					$dataItem = '';
-				}
+			$dataValue = DataValueFactory::getInstance()->newDataValueByItem(
+				$dataItem
+			);
 
-				if ( $dataItem instanceof DIWikiPage && !isset( $dataItemCache[$dataItem->getHash()] ) ) {
-					$count++;
-					$dataItemCache[$dataItem->getHash()] = true;
-					$results[] = $dataItem;
-					// These IDs are usually needed for displaying the page (esp. if more property values are displayed):
-					$this->store->smwIds->setCache( $row->t, $row->ns, $row->iw, $row->so, $row->id, $row->sortkey );
-				} else {
-					$missedCount++;
-					// $logToTable[$row->t] = "skip result for {$row->t} existing cache entry / query " . $query->getHash();
-				}
-			} else {
-				$missedCount++;
-				// $logToTable[$row->t] = "skip result for {$row->t} due to an internal `{$row->iw}` pointer / query " . $query->getHash();
+			if ( $printRequest->getOutputFormat() ) {
+				$dataValue->setOutputFormat( $printRequest->getOutputFormat() );
 			}
+
+			$ret[] = [
+				'value' => $this->getCellContent(
+					$printRequest->getCanonicalLabel(),
+					[ $dataValue ],
+					$outputMode,
+					$isSubject
+				),
+				'count' => 1
+			];
 		}
 
-		if ( $res->fetchObject() ) {
-			$count++;
-		}
-
-		$res->free();
-
-		$queryResult = $this->queryFactory->newQueryResult(
-			$this->store,
-			// new \SMWQuery(),
-			$query,
-			$results,
-			$hasFurtherResults
-		);
-
-		return $queryResult;
+		return $ret;
 	}
 
 	/**
