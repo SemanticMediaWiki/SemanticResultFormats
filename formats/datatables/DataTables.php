@@ -835,7 +835,7 @@ class DataTables extends ResultPrinter {
 
 		$outputMode = SMW_OUTPUT_HTML;
 		$isSubject = false;
-		$ret = [];
+		$groups = [];
 		foreach ( $res as $row ) {
 			$dbKeys = [];
 
@@ -868,15 +868,24 @@ class DataTables extends ResultPrinter {
 				$dataValue->setOutputFormat( $printRequest->getOutputFormat() );
 			}
 
-			$ret[] = [
-				'value' => $this->getCellContent(
-					$printRequest->getCanonicalLabel(),
-					[ $dataValue ],
-					$outputMode,
-					$isSubject
-				),
-				'count' => $row->count
-			];
+			$cellContent = $this->getCellContent(
+				$printRequest->getCanonicalLabel(),
+				[ $dataValue ],
+				$outputMode,
+				$isSubject
+			);
+		
+			if ( !array_key_exists( $cellContent, $groups ) ) {
+				$groups[$cellContent] = 0;
+			}
+
+			$groups[$cellContent] += $row->count;
+		}
+		arsort( $groups, SORT_NUMERIC);
+
+		$ret = [];
+		foreach( $groups as $content => $count ) {
+			$ret[] = [ 'value' => $content, 'count' => $count ];
 		}
 
 		return $ret;
@@ -1033,6 +1042,7 @@ class DataTables extends ResultPrinter {
 
 		$outputMode = SMW_OUTPUT_HTML;
 		$isSubject = false;
+		$groups = [];
 		foreach( $res as $row) {
 
 			$dataItem = $diHandler->dataItemFromDBKeys( [
@@ -1051,15 +1061,25 @@ class DataTables extends ResultPrinter {
 				$dataValue->setOutputFormat( $printRequest->getOutputFormat() );
 			}
 
-			$ret[] = [
-				'value' => $this->getCellContent(
-					$printRequest->getCanonicalLabel(),
-					[ $dataValue ],
-					$outputMode,
-					$isSubject
-				),
-				'count' => 1
-			];
+			$cellContent = $this->getCellContent(
+				$printRequest->getCanonicalLabel(),
+				[ $dataValue ],
+				$outputMode,
+				$isSubject
+			);
+		
+			if ( !array_key_exists( $cellContent, $groups ) ) {
+				$groups[$cellContent] = 0;
+			}
+
+			$groups[$cellContent]++;
+		}
+
+		arsort( $groups, SORT_NUMERIC );
+
+		$ret = [];
+		foreach( $groups as $content => $count ) {
+			$ret[] = [ 'value' => $content, 'count' => $count ];
 		}
 
 		return $ret;
