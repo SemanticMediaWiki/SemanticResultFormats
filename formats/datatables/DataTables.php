@@ -21,6 +21,7 @@ use SMW\DIWikiPage;
 use SMW\DIProperty;
 use SMW\Exception\PredefinedPropertyLabelMismatchException;
 use SMW\Message;
+use SMW\SQLStore\SQLStore;
 use SMW\SQLStore\TableBuilder\FieldType;
 use SMW\QueryFactory;
 use SMW\Query\PrintRequest;
@@ -815,7 +816,7 @@ class DataTables extends ResultPrinter {
 		// @see QueryEngine
 		$res = $this->connection->select(
 			 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-			. ( $isIdField ?  " JOIN `smw_object_ids` as `i` ON (($p_alias.o_id=i.smw_id))  " : "" ),
+			. ( $isIdField ?  " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " as `i` ON (($p_alias.o_id=i.smw_id))  " : "" ),
 			implode( ',', $fields ),
 			$qobj->where ,
 			__METHOD__,
