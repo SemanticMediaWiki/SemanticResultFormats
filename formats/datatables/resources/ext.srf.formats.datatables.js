@@ -228,6 +228,36 @@
 			}
 		},
 
+		searchPanesOptionsServer: function (searchPanesOptions, columnDefs) {
+			var div = document.createElement("div");
+			for (var i in searchPanesOptions) {
+				if (!("searchPanes" in columnDefs[i])) {
+					columnDefs[i].searchPanes = {};
+				}
+				columnDefs[i].searchPanes.show =
+					Object.keys(searchPanesOptions[i]).length > 0;
+				// columnDefs[i].searchPanes.options = {};
+
+				for (var ii in searchPanesOptions[i]) {
+					div.innerHTML = searchPanesOptions[i][ii].value;
+					var text = div.textContent || div.innerText || "";
+
+					searchPanesOptions[i][ii].total = searchPanesOptions[i][ii].count;
+					searchPanesOptions[i][ii].label = text;
+
+					// columnDefs[i].searchPanes.options[ii] = searchPanesOptions[i][ii];
+				}
+			}
+
+			for (var i in columnDefs) {
+				if ("searchPanes" in columnDefs[i] && !(i in searchPanesOptions)) {
+					delete columnDefs[i].searchPanes;
+				}
+			}
+
+			return searchPanesOptions;
+		},
+
 		parse: {
 			// ...
 		},
@@ -503,11 +533,9 @@
 					// remove panes because this is tricky to
 					// be implemented in conjunction with SMW
 					// options.searchPanes = false;
-
 					// if (options.dom.indexOf("P") !== -1) {
 					// 	options.dom = options.dom.replace("P", "");
 					// }
-
 					// _datatables.showNotice(
 					// 	context,
 					// 	container,
@@ -521,10 +549,9 @@
 				}
 
 				searchPanes = true;
-					if (options.dom.indexOf("P") === -1) {
-						options.dom = "P" + options.dom;
-					}
-
+				if (options.dom.indexOf("P") === -1) {
+					options.dom = "P" + options.dom;
+				}
 			}
 
 			if (searchPanes === false) {
@@ -544,6 +571,11 @@
 			var queryString = query.conditions;
 			var printrequests = context.data("printrequests");
 			var searchPanesOptions = data.searchPanes;
+			var searchPanesLog = data.searchPanesLog;
+
+			if (mw.config.get("wgUserName") === context.data("editor")) {
+				console.log("searchPanesLog", searchPanesLog);
+			}
 
 			var entityCollation = context.data("collation");
 
@@ -651,41 +683,16 @@
 				// labelsCount[property.label]++;
 			});
 
-			if (searchPanes) {
-				// _datatables.searchPanesOptions(queryResult, options, columnDefs);
+			if (searchPanes && !useAjax) {
+				_datatables.searchPanesOptions(queryResult, options, columnDefs);
+			} else {
+				searchPanesOptions = _datatables.searchPanesOptionsServer(
+					searchPanesOptions,
+					columnDefs
+				);
 			}
 
-
-		console.log("searchPanesOptions",searchPanesOptions)
-		
-			
-			var div = document.createElement("div");
-			for ( var i in searchPanesOptions ) {
-				if ( !("searchPanes" in columnDefs[i] ) ) {
-					columnDefs[i].searchPanes = {};
-				}
-				columnDefs[i].searchPanes.show = true;
-				// columnDefs[i].searchPanes.options = {};
-				
-				for ( var ii in searchPanesOptions[i] ) {
-					div.innerHTML = searchPanesOptions[i][ii].value;
-					var text = div.textContent || div.innerText || "";
-
-					searchPanesOptions[i][ii].total = searchPanesOptions[i][ii].count;
-					searchPanesOptions[i][ii].label = text;
-
-					// columnDefs[i].searchPanes.options[ii] = searchPanesOptions[i][ii];
-				}
-			}
-
-			for ( var i in columnDefs ) {
-				if ( ("searchPanes" in columnDefs[i] ) && !(i in searchPanesOptions ) ) {
-					delete columnDefs[i].searchPanes;
-				}
-			}
-
-
-		// console.log("columnDefs",columnDefs)
+			// console.log("columnDefs",columnDefs)
 
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
@@ -735,9 +742,8 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
-
-// console.log("datatableData",datatableData)
-// console.log("settings",settings)
+						// console.log("datatableData",datatableData)
+						// console.log("settings",settings)
 
 						// must match cacheKey
 						var key = JSON.stringify(
@@ -764,9 +770,8 @@
 								recordsTotal: context.data("count"),
 								recordsFiltered: context.data("count"),
 								searchPanes: {
-									options: searchPanesOptions
-								}
-
+									options: searchPanesOptions,
+								},
 							});
 						}
 
@@ -847,4 +852,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
