@@ -59,6 +59,8 @@ class DataTables extends ResultPrinter {
 
 	private $queryFactory;
 
+	private $searchPanesLog;
+
 	/**
 	 * @see ResultPrinter::getName
 	 *
@@ -479,7 +481,8 @@ class DataTables extends ResultPrinter {
 				'ask' => $ask,
 				'result' => $result
 			],
-			'searchPanes' => $searchpanes
+			'searchPanes' => $searchpanes,
+			'searchPanesLog' => $this->searchPanesLog,
 		];
 
 		return $this->printContainer( $data, $headerList, $datatablesOptions,
@@ -499,7 +502,7 @@ class DataTables extends ResultPrinter {
 		$id = $resourceFormatter->session();
 		$resourceFormatter->encode( $id, $data );
 
-		// $performer = RequestContext::getMain()->getUser();
+		$performer = RequestContext::getMain()->getUser();
 
 		$tableAttrs = [
 			'class' => 'srf-datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
@@ -515,7 +518,7 @@ class DataTables extends ResultPrinter {
 			'data-printrequests' => json_encode( $printrequests, true ),
 			'data-printouts' => json_encode( $printouts, true ),
 			'data-count' => $this->query->getOption( 'count' ),
-			// 'data-editor' => $performer->getName(),
+			'data-editor' => $performer->getName(),
 		];
 
 		// Element includes info, spinner, and container placeholder
@@ -749,9 +752,7 @@ class DataTables extends ResultPrinter {
 
 		// data-length without the GROUP BY clause
 
-		// @TODO should we take into account the "HAVING" clause
-		// used for the real query ?
-		$sql_options = [ 'LIMIT' => 500 ];
+		$sql_options = [ 'LIMIT' => 1 ];
 
 		// SELECT COUNT(*) as count FROM `smw_object_ids` AS t0
 		// INNER JOIN (`smw_fpt_mdat` AS t2 INNER JOIN `smw_di_wikipage` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
@@ -786,13 +787,20 @@ class DataTables extends ResultPrinter {
 			}
 		}
 
-		$i_alias = null;
-		foreach ( $querySegmentList as $segment ) {
-			if ( $segment->joinTable === 'smw_object_ids' ) {
-				$i_alias = $segment->alias;
-				break;
-			}
+		// @TODO log error
+		if ( empty( $p_alias ) ) {
+			return [];
 		}
+
+		$i_alias = null;
+		// *** we use a fixed alias for that, so we don't
+		// need the following
+		// foreach ( $querySegmentList as $segment ) {
+		// 	if ( $segment->joinTable === 'smw_object_ids' ) {
+		// 		$i_alias = $segment->alias;
+		// 		break;
+		// 	}
+		// }
 
 		list( $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias, $i_alias );
 
@@ -805,10 +813,17 @@ class DataTables extends ResultPrinter {
 		SELECT i.smw_id,i.smw_title,i.smw_namespace,i.smw_iw,i.smw_subobject,i.smw_hash,i.smw_sort,COUNT( p.o_id ) as count FROM `smw_object_ids` `o` INNER JOIN `smw_di_wikipage` `p` ON ((p.s_id=o.smw_id)) JOIN `smw_object_ids` `i` ON ((p.o_id=i.smw_id)) WHERE o.smw_hash IN ('1_-_A','1_-_Ab','1_-_Abc','10_-_Abcd','11_-_Abc') AND (o.smw_iw!=':smw') AND (o.smw_iw!=':smw-delete') AND p.p_id = 517 GROUP BY p.o_id, i.smw_id ORDER BY count DESC, i.smw_sort ASC
 
 		*/
+		
+		global $smwgQMaxLimit;
 
 		$sql_options = [
 			'GROUP BY' => $groupBy,
-			'LIMIT' => 500,
+			// the following means that if the user sets a threshold
+			// close or equal to 1, and there are too many unique values,
+			// the page will break, however the user has responsibility
+			// for using searchPanes only for data reasonably grouped
+			// shouldn't be 'LIMIT' => $smwgQMaxLimit, ?
+			'LIMIT' => $dataLength,
 			'ORDER BY' => $orderBy,
 			'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
 		];
@@ -834,8 +849,22 @@ class DataTables extends ResultPrinter {
 		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
 			$searchPanesParameterOptions['threshold'] : $searchPanesOptions['threshold'];
 	
-		//  || $binLength <= 1
+		$this->searchPanesLog[] = [
+			'canonicalLabel' => $printRequest->getCanonicalLabel(),
+			'dataLength' => $dataLength,
+			'binLength' => $binLength,
+			'uniqueRatio' => $uniqueRatio,
+			'threshold' => $threshold,
+		];
+
+		// *** Attention !! sometimes the threshold is not
+		// exceeded after grouping by printout format, like the
+		// following: ?Modification date #-F[F Y]
+		// in this case the user must use |+datatables-columns.searchPanes.threshold=1
+		// to force searchPanes for that specific column !
+
 		// @TODO hide pane
+		//  || $binLength <= 1
 		if ( $uniqueRatio > $threshold ) {
 			return [];
 		}
@@ -855,16 +884,18 @@ class DataTables extends ResultPrinter {
 		$isSubject = false;
 		$groups = [];
 		foreach ( $res as $row ) {
-			$dbKeys = [];
 
 			if ( $isIdField ) {
-				$dbKeys[] = $row->smw_title;
-				$dbKeys[] = $row->smw_namespace;
-				$dbKeys[] = $row->smw_iw;
-				$dbKeys[] = $row->smw_sort;
-				$dbKeys[] = $row->smw_subobject;
+				$dbKeys = [
+					$row->smw_title,
+					$row->smw_namespace,
+					$row->smw_iw,
+					$row->smw_sort,
+					$row->smw_subobject
+				];
 
 			} else {
+				$dbKeys = [];
 				foreach ( $fields as $field => $fieldType ) {
 					$dbKeys[] = $row->$field;
 				}
@@ -967,8 +998,8 @@ class DataTables extends ResultPrinter {
 				"COUNT( $groupBy ) as count"
 			];
 
-			$groupBy = "$p_alias.o_id, $i_alias.smw_id";
-			$orderBy = "count DESC, $i_alias.smw_sort ASC";
+			$groupBy = "$p_alias.o_id, i.smw_id";
+			$orderBy = "count DESC, i.smw_sort ASC";
 		} elseif ( $diType === DataItem::TYPE_BLOB ) {
 			$fields = [ "$p_alias.o_hash, $p_alias.o_blob", "COUNT( $p_alias.o_hash ) as count" ];
 			$groupBy = "$p_alias.o_hash, $p_alias.o_blob";
@@ -1007,6 +1038,11 @@ class DataTables extends ResultPrinter {
 		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
 			$searchPanesParameterOptions['threshold'] : $searchPanesOptions['threshold'];
 
+		$this->searchPanesLog[] = [
+			'canonicalLabel' => 'mainLabel',
+			'threshold' => $threshold,
+		];
+
 		if ( $threshold < 1 ) {
 			return [];
 		}
@@ -1030,8 +1066,14 @@ class DataTables extends ResultPrinter {
 
 		$qobj = $querySegmentList[$rootid];
 
+		global $smwgQMaxLimit;
+
 		$sql_options = [
-			'LIMIT' => 500,
+			// *** should we set a limit here ?
+			// it makes sense to show the pane for
+			// mainlabel only when it is 
+			// 'LIMIT' => $smwgQMaxLimit,
+			// title
 			'ORDER BY' => 't'
 		];
 
