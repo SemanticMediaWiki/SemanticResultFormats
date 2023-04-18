@@ -787,8 +787,12 @@ class DataTables extends ResultPrinter {
 			}
 		}
 
-		// @TODO log error
 		if ( empty( $p_alias ) ) {
+			$this->searchPanesLog[] = [
+				'canonicalLabel' => $printRequest->getCanonicalLabel(),
+				'error' => '$p_alias is null',
+			];
+
 			return [];
 		}
 
@@ -863,7 +867,6 @@ class DataTables extends ResultPrinter {
 		// in this case the user must use |+datatables-columns.searchPanes.threshold=1
 		// to force searchPanes for that specific column !
 
-		// @TODO hide pane
 		//  || $binLength <= 1
 		if ( $uniqueRatio > $threshold ) {
 			return [];
@@ -1071,7 +1074,8 @@ class DataTables extends ResultPrinter {
 		$sql_options = [
 			// *** should we set a limit here ?
 			// it makes sense to show the pane for
-			// mainlabel only when it is 
+			// mainlabel only when page titles are grouped
+			// through the printout format or even the printout template
 			// 'LIMIT' => $smwgQMaxLimit,
 			// title
 			'ORDER BY' => 't'
