@@ -197,7 +197,7 @@ class Api extends ApiBase {
 			'draw' => $datatableData['draw'],
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
-			'recordsFiltered' => ( empty( $datatableData['search']['value'] ) ? $settings['count'] : $results->getCount() )
+			'recordsFiltered' => ( empty( $datatableData['search']['value'] ) && !count( $queryConjunction ) ? $settings['count'] : $results->getCount() )
 		];
 
 		$this->getResult()->addValue( null, "datatables-json", $ret );
