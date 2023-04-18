@@ -714,7 +714,8 @@
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc)
-				var cacheKey = JSON.stringify(order);
+				var cacheKey = JSON.stringify(order) + JSON.stringify({});
+
 				preloadData[cacheKey] = queryResult;
 
 				var payload = {
@@ -742,13 +743,11 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
-						// console.log("datatableData",datatableData)
-						// console.log("settings",settings)
-
 						// must match cacheKey
-						var key = JSON.stringify(
-							datatableData.order.map((x) => [x.column, x.dir])
-						);
+						var key =
+							JSON.stringify(
+								datatableData.order.map((x) => [x.column, x.dir])
+							) + JSON.stringify(datatableData.searchPanes);
 
 						if (!(key in preloadData)) {
 							preloadData[key] = [];
@@ -788,13 +787,12 @@
 							preloadData = {};
 						}
 
-						$.ajax({
-							url: mw.util.wikiScript("api"),
-							dataType: "json",
-							data: $.extend(payload, {
-								datatable: JSON.stringify(datatableData),
-							}),
-						})
+						new mw.Api()
+							.post(
+								$.extend(payload, {
+									datatable: JSON.stringify(datatableData),
+								})
+							)
 							.done(function (results) {
 								var json = results["datatables-json"];
 
@@ -812,7 +810,10 @@
 								// expected by datatables, so return the
 								// sliced result
 								json.data = json.data.slice(0, datatableData.length);
-								json.searchPanes = searchPanesOptions;
+
+								json.searchPanes = {
+									options: searchPanesOptions,
+								};
 								callback(json);
 							})
 							.fail(function (error) {
