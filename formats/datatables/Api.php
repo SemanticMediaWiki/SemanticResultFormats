@@ -140,7 +140,7 @@ class Api extends ApiBase {
 		};
 
 		// filter the query
-		$searchPrintouts = [];
+		$queryDisjunction = [];
 		$allowedTypes = [ '_wpg', '_txt', '_cod', '_uri' ];
 		if ( !empty( $datatableData['search']['value'] ) ) {
 			foreach ( $printoutsRaw as $key => $value ) {
@@ -155,13 +155,31 @@ class Api extends ApiBase {
 				$searchable = $getColumnAttribute( $label, 'searchable' );
 
 				if ( $searchable === null || $searchable === true ) {
-					$searchPrintouts[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . '~*' . $datatableData['search']['value'] . '*]]';
+					$queryDisjunction[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . '~*' . $datatableData['search']['value'] . '*]]';
 				}
 			}
 		}
 
+		$queryConjunction = [];
+		foreach ( $printoutsRaw as $key => $value ) {
+			if ( !empty( $datatableData['searchPanes'][$key] ) ) {
+				$label = ( $printrequest['key'] !== '' ? $value[1] : '' );
+				// @TODO consider combiner
+				// https://www.semantic-mediawiki.org/wiki/Help:Unions_of_results#User_manual
+				$queryConjunction[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . implode( '||', $datatableData['searchPanes'][$key] ) . ']]';
+			}
+		}
+
+		$query = $requestParams['query'] . implode( '', $queryConjunction );
+		
+		$queryStr = implode( 'OR', array_map( static function( $value ) use ( $query ) {
+			return $query . $value;
+		}, count( $queryDisjunction ) ? $queryDisjunction : [''] ) );
+
+		// trigger_error('queryStr ' . $queryStr);
+
 		$query = SMWQueryProcessor::createQuery(
-			$requestParams['query'] . implode( '||', $searchPrintouts),
+			$queryStr,
 			$queryParams,
 			SMWQueryProcessor::INLINE_QUERY,
 			'',
