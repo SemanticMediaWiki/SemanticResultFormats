@@ -228,6 +228,36 @@
 			}
 		},
 
+		searchPanesOptionsServer: function (searchPanesOptions, columnDefs) {
+			var div = document.createElement("div");
+			for (var i in searchPanesOptions) {
+				if (!("searchPanes" in columnDefs[i])) {
+					columnDefs[i].searchPanes = {};
+				}
+				columnDefs[i].searchPanes.show =
+					Object.keys(searchPanesOptions[i]).length > 0;
+				// columnDefs[i].searchPanes.options = {};
+
+				for (var ii in searchPanesOptions[i]) {
+					div.innerHTML = searchPanesOptions[i][ii].value;
+					var text = div.textContent || div.innerText || "";
+
+					searchPanesOptions[i][ii].total = searchPanesOptions[i][ii].count;
+					searchPanesOptions[i][ii].label = text;
+
+					// columnDefs[i].searchPanes.options[ii] = searchPanesOptions[i][ii];
+				}
+			}
+
+			for (var i in columnDefs) {
+				if ("searchPanes" in columnDefs[i] && !(i in searchPanesOptions)) {
+					delete columnDefs[i].searchPanes;
+				}
+			}
+
+			return searchPanesOptions;
+		},
+
 		parse: {
 			// ...
 		},
@@ -502,22 +532,25 @@
 				if (useAjax) {
 					// remove panes because this is tricky to
 					// be implemented in conjunction with SMW
-					options.searchPanes = false;
-
-					if (options.dom.indexOf("P") !== -1) {
-						options.dom = options.dom.replace("P", "");
-					}
-
-					_datatables.showNotice(
-						context,
-						container,
-						"srf-ui-datatables-searchpanes-noajax"
-					);
+					// options.searchPanes = false;
+					// if (options.dom.indexOf("P") !== -1) {
+					// 	options.dom = options.dom.replace("P", "");
+					// }
+					// _datatables.showNotice(
+					// 	context,
+					// 	container,
+					// 	"srf-ui-datatables-searchpanes-noajax"
+					// );
 				} else {
-					searchPanes = true;
-					if (options.dom.indexOf("P") === -1) {
-						options.dom = "P" + options.dom;
-					}
+					// searchPanes = true;
+					// if (options.dom.indexOf("P") === -1) {
+					// 	options.dom = "P" + options.dom;
+					// }
+				}
+
+				searchPanes = true;
+				if (options.dom.indexOf("P") === -1) {
+					options.dom = "P" + options.dom;
 				}
 			}
 
@@ -537,6 +570,12 @@
 			var printouts = context.data("printouts");
 			var queryString = query.conditions;
 			var printrequests = context.data("printrequests");
+			var searchPanesOptions = data.searchPanes;
+			var searchPanesLog = data.searchPanesLog;
+
+			if (mw.config.get("wgUserName") === context.data("editor")) {
+				console.log("searchPanesLog", searchPanesLog);
+			}
 
 			var entityCollation = context.data("collation");
 
@@ -644,9 +683,16 @@
 				// labelsCount[property.label]++;
 			});
 
-			if (searchPanes) {
+			if (searchPanes && !useAjax) {
 				_datatables.searchPanesOptions(queryResult, options, columnDefs);
+			} else {
+				searchPanesOptions = _datatables.searchPanesOptionsServer(
+					searchPanesOptions,
+					columnDefs
+				);
 			}
+
+			// console.log("columnDefs",columnDefs)
 
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
@@ -668,7 +714,8 @@
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc)
-				var cacheKey = JSON.stringify(order);
+				var cacheKey = JSON.stringify(order) + JSON.stringify({});
+
 				preloadData[cacheKey] = queryResult;
 
 				var payload = {
@@ -697,9 +744,10 @@
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
 						// must match cacheKey
-						var key = JSON.stringify(
-							datatableData.order.map((x) => [x.column, x.dir])
-						);
+						var key =
+							JSON.stringify(
+								datatableData.order.map((x) => [x.column, x.dir])
+							) + JSON.stringify(datatableData.searchPanes);
 
 						if (!(key in preloadData)) {
 							preloadData[key] = [];
@@ -720,6 +768,9 @@
 								),
 								recordsTotal: context.data("count"),
 								recordsFiltered: context.data("count"),
+								searchPanes: {
+									options: searchPanesOptions,
+								},
 							});
 						}
 
@@ -736,15 +787,19 @@
 							preloadData = {};
 						}
 
-						$.ajax({
-							url: mw.util.wikiScript("api"),
-							dataType: "json",
-							data: $.extend(payload, {
-								datatable: JSON.stringify(datatableData),
-							}),
-						})
+						new mw.Api()
+							.post(
+								$.extend(payload, {
+									datatable: JSON.stringify(datatableData),
+								})
+							)
 							.done(function (results) {
+
 								var json = results["datatables-json"];
+
+								if (mw.config.get("wgUserName") === context.data("editor")) {
+									console.log("results log",json.log)
+								}
 
 								// cache all retrieved rows for each sorting
 								// dimension (column/dir), up to a global
@@ -760,6 +815,10 @@
 								// expected by datatables, so return the
 								// sliced result
 								json.data = json.data.slice(0, datatableData.length);
+
+								json.searchPanes = {
+									options: searchPanesOptions,
+								};
 								callback(json);
 							})
 							.fail(function (error) {
@@ -768,7 +827,7 @@
 					},
 				});
 			}
-			// console.log("conf", conf);
+			console.log("conf", conf);
 			container.find("table").DataTable(conf);
 		},
 
@@ -799,4 +858,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
