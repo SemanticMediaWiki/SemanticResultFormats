@@ -661,7 +661,7 @@ class DataTables extends ResultPrinter {
 		$searchPanesOptions = $datatablesOptions['searchPanes'];
 
 		// searchPanes are disabled
-		if ( $searchPanesOptions[0] == false && !empty( $this->params['noajax'] ) ) {
+		if ( $searchPanesOptions[0] == false || !empty( $this->params['noajax'] ) ) {
 			return [];
 		}
 		$this->queryEngineFactory = new \SMW\SQLStore\QueryEngineFactory( $this->store );
