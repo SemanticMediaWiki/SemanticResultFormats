@@ -190,6 +190,8 @@ class Api extends ApiBase {
 
 		// trigger_error('queryStr ' . $queryStr);
 
+		$log['queryStr '] = $queryStr;
+
 		$query = SMWQueryProcessor::createQuery(
 			$queryStr,
 			$queryParams,
@@ -214,7 +216,8 @@ class Api extends ApiBase {
 			'draw' => $datatableData['draw'],
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
-			'recordsFiltered' => ( empty( $datatableData['search']['value'] ) && !count( $queryConjunction ) ? $settings['count'] : $results->getCount() )
+			'recordsFiltered' => ( empty( $datatableData['search']['value'] ) && !count( $queryConjunction ) ? $settings['count'] : $results->getCount() ),
+			'log' => $log
 		];
 
 		$this->getResult()->addValue( null, "datatables-json", $ret );
