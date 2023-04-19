@@ -794,7 +794,12 @@
 								})
 							)
 							.done(function (results) {
+
 								var json = results["datatables-json"];
+
+								if (mw.config.get("wgUserName") === context.data("editor")) {
+									console.log("results log",json.log)
+								}
 
 								// cache all retrieved rows for each sorting
 								// dimension (column/dir), up to a global
