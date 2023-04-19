@@ -163,6 +163,7 @@ class Api extends ApiBase {
 		$queryConjunction = [];
 		foreach ( $printoutsRaw as $key => $value ) {
 			if ( !empty( $datatableData['searchPanes'][$key] ) ) {
+				$printrequest = $printrequests[$key];
 				$label = ( $printrequest['key'] !== '' ? $value[1] : '' );
 				// @TODO consider combiner
 				// https://www.semantic-mediawiki.org/wiki/Help:Unions_of_results#User_manual
@@ -170,11 +171,22 @@ class Api extends ApiBase {
 			}
 		}
 
+		global $smwgQMaxSize;
+
+		if ( !count( $queryDisjunction ) ) {
+			$queryDisjunction = [''];
+		}
+
 		$query = $requestParams['query'] . implode( '', $queryConjunction );
 		
-		$queryStr = implode( 'OR', array_map( static function( $value ) use ( $query ) {
+		$conditions = array_map( static function( $value ) use ( $query ) {
 			return $query . $value;
-		}, count( $queryDisjunction ) ? $queryDisjunction : [''] ) );
+		}, $queryDisjunction );
+
+		// @TODO get query size as in class Conjunction
+		$smwgQMaxSize = 32;
+
+		$queryStr =	implode( 'OR', $conditions );
 
 		// trigger_error('queryStr ' . $queryStr);
 
@@ -185,6 +197,11 @@ class Api extends ApiBase {
 			'',
 			$printouts
 		);
+
+		// $size = $query->getDescription()->getSize();
+		
+		// $smwgQMaxSize = max( $smwgQMaxSize, $size );
+		// trigger_error('smwgQMaxSize ' . $smwgQMaxSize);
 
 		$applicationFactory = ServicesFactory::getInstance();
 		$results = $applicationFactory->getStore()->getQueryResult( $query );
