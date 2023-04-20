@@ -205,18 +205,35 @@ class Api extends ApiBase {
 		// $smwgQMaxSize = max( $smwgQMaxSize, $size );
 		// trigger_error('smwgQMaxSize ' . $smwgQMaxSize);
 
+
 		$applicationFactory = ServicesFactory::getInstance();
-		$results = $applicationFactory->getStore()->getQueryResult( $query );
+		$queryEngine = $applicationFactory->getStore();
+		$results = $queryEngine->getQueryResult( $query );
 
 		// or SMW_OUTPUT_RAW
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
+
+		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
+		
+		// get count
+		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
+			$queryDescription = $query->getDescription();
+			$queryCount = new \SMWQuery( $queryDescription );
+			$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
+			$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
+			$queryResult = $queryEngine->getQueryResult( $queryCount );
+			$count = $queryResult->getCount();
+
+		} else {
+			$count = $settings['count'];
+		}
 
 		// @see https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html
 		$ret = [
 			'draw' => $datatableData['draw'],
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
-			'recordsFiltered' => ( empty( $datatableData['search']['value'] ) && !count( $queryConjunction ) ? $settings['count'] : $results->getCount() ),
+			'recordsFiltered' => $count,
 			'log' => $log
 		];
 
