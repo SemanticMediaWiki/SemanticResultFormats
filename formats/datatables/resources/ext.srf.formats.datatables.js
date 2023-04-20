@@ -228,7 +228,8 @@
 			}
 		},
 
-		searchPanesOptionsServer: function (searchPanesOptions, columnDefs) {
+		searchPanesOptionsServer: function (searchPanesOptions, options, columnDefs ) {
+
 			var div = document.createElement("div");
 			for (var i in searchPanesOptions) {
 				if (!("searchPanes" in columnDefs[i])) {
@@ -236,16 +237,15 @@
 				}
 				columnDefs[i].searchPanes.show =
 					Object.keys(searchPanesOptions[i]).length > 0;
-				// columnDefs[i].searchPanes.options = {};
 
 				for (var ii in searchPanesOptions[i]) {
-					div.innerHTML = searchPanesOptions[i][ii].value;
-					var text = div.textContent || div.innerText || "";
+
+					if ( options.searchPanes.htmlLabels === false ) {
+						div.innerHTML = searchPanesOptions[i][ii].label;
+						searchPanesOptions[i][ii].label = div.textContent || div.innerText || "";
+					}
 
 					searchPanesOptions[i][ii].total = searchPanesOptions[i][ii].count;
-					searchPanesOptions[i][ii].label = text;
-
-					// columnDefs[i].searchPanes.options[ii] = searchPanesOptions[i][ii];
 				}
 			}
 
@@ -688,6 +688,7 @@
 			} else {
 				searchPanesOptions = _datatables.searchPanesOptionsServer(
 					searchPanesOptions,
+					options,
 					columnDefs
 				);
 			}
