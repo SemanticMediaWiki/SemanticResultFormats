@@ -320,10 +320,18 @@ class DataTables extends ResultPrinter {
 			'default' => 0.6,
 		];
 
+		// ***custom parameter
 		$params['datatables-searchPanes.minCount'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => 1,
+		];
+
+		// ***custom parameter
+		$params['datatables-searchPanes.htmlLabels'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
 		];
 		
 		// only single value
@@ -806,7 +814,7 @@ class DataTables extends ResultPrinter {
 		// 	}
 		// }
 
-		list( $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias, $i_alias );
+		list( $diType, $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias, $i_alias );
 
 		/*
 		---GENERATED DATATABLES
@@ -915,8 +923,10 @@ class DataTables extends ResultPrinter {
 				$property
 			);
 
-			if ( $printRequest->getOutputFormat() ) {
-				$dataValue->setOutputFormat( $printRequest->getOutputFormat() );
+			$outputFormat = $printRequest->getOutputFormat();
+
+			if ( $outputFormat ) {
+				$dataValue->setOutputFormat( $outputFormat );
 			}
 
 			$cellContent = $this->getCellContent(
@@ -927,17 +937,110 @@ class DataTables extends ResultPrinter {
 			);
 		
 			if ( !array_key_exists( $cellContent, $groups ) ) {
-				$groups[$cellContent] = 0;
+				$groups[$cellContent] = [ 'count' => 0, 'value' => '' ];
+
+				if (  $dataItem->getDiType() === DataItem::TYPE_TIME ) {
+					// max Unix time
+					$groups[$cellContent]['minDate'] = 2147483647;
+					$groups[$cellContent]['maxDate'] = 0;
+				}
 			}
 
-			$groups[$cellContent] += $row->count;
+			$groups[$cellContent]['count'] += $row->count;
+
+			// @TODO check all the possible transformations of
+			// datavalues (DataValues/ValueFormatters)
+			// using $printRequest->getOutputFormat()
+			// and provide to the API the information to
+			// rebuild the query when values are grouped
+			// by the output of the printout format, e.g.
+			// if grouped by unit (for number datatype)
+			// value should be *, for datetime see the 
+			// method below
+
+			switch( $dataItem->getDiType() ) {
+				case DataItem::TYPE_NUMBER:
+					if ( $outputFormat === '-u' ) {
+						$value = '*';
+					} else {
+						$value = $dataValue->getNumber();
+					}
+					break;
+
+				case DataItem::TYPE_BLOB:
+					// @see IntlNumberFormatter
+					// $requestedLength = intval( $outputFormat );
+					$value = $dataValue->getWikiValue();
+					break;
+
+				case DataItem::TYPE_BOOLEAN:
+					$value = $dataValue->getWikiValue();
+					break;
+
+				case DataItem::TYPE_URI:
+					$value = $dataValue->getWikiValue();
+					break;
+
+				case DataItem::TYPE_TIME: 
+					// $resDate = strtotime( $cellContent );
+					$currentDate = $dataItem->asDateTime()->getTimestamp();
+					$value = $dataValue->getISO8601Date();
+					if ( $currentDate < $groups[$cellContent]['minDate'] ) {
+						$groups[$cellContent]['minDate'] = $currentDate;
+					}
+					if ( $currentDate > $groups[$cellContent]['maxDate'] ) {
+						$groups[$cellContent]['maxDate'] = $currentDate;
+					}
+					break;
+
+				case DataItem::TYPE_GEO:
+					$value = $dataValue->getWikiValue();
+					break;
+
+				case DataItem::TYPE_CONTAINER:
+					$value = $dataValue->getWikiValue();
+					break;
+
+				case DataItem::TYPE_WIKIPAGE:
+					$value = $dataValue->getTitle()->getFullText();
+					break;
+
+				case DataItem::TYPE_CONCEPT:
+					$value = $dataValue->getWikiValue();
+					break;
+
+				case DataItem::TYPE_PROPERTY:
+
+					break;
+				case DataItem::TYPE_NOTYPE:
+					$value = $dataValue->getWikiValue();
+					break;
+
+				default:
+					$value = $dataValue->getWikiValue();
+
+			}
+
+			$groups[$cellContent]['value'] = $value;
 		}
 
 		arsort( $groups, SORT_NUMERIC );
 
 		$ret = [];
-		foreach( $groups as $content => $count ) {
-			$ret[] = [ 'value' => $content, 'count' => $count ];
+		foreach( $groups as $content => $value ) {
+
+			// @see https://www.semantic-mediawiki.org/wiki/Help:Search_operators
+			// the latest value is returned, with the largest range
+			if ( array_key_exists( 'minDate', $value ) && $value['minDate'] != $value['maxDate'] ) {
+				// ISO 8601
+				$value['value'] = '>' . date( 'c', $value['minDate'] ) . ']][[' . '<' . date( 'c', $value['maxDate'] );
+			}
+
+			$ret[] = [
+				'label' => $content,
+				'count' => $value['count'],
+				'value' => $value['value']
+			];
 		}
 
 		return $ret;
@@ -1021,7 +1124,7 @@ class DataTables extends ResultPrinter {
 		// 	$pid = $entityIdManager->getSMWPropertyID( $property );
 		// }
 
-		return [ $isIdField, $fields, $groupBy, $orderBy ];
+		return [ $diType, $isIdField, $fields, $groupBy, $orderBy ];
 	}
 
 	/**
@@ -1133,17 +1236,22 @@ class DataTables extends ResultPrinter {
 			);
 		
 			if ( !array_key_exists( $cellContent, $groups ) ) {
-				$groups[$cellContent] = 0;
+				$groups[$cellContent] = [ 'count' => 0, 'value' => '' ];
 			}
 
-			$groups[$cellContent]++;
+			$groups[$cellContent]['count']++;
+			$groups[$cellContent]['value'] = $dataValue->getTitle()->getText();
 		}
 
 		arsort( $groups, SORT_NUMERIC );
 
 		$ret = [];
-		foreach( $groups as $content => $count ) {
-			$ret[] = [ 'value' => $content, 'count' => $count ];
+		foreach( $groups as $content => $value ) {
+			$ret[] = [
+				'label' => $content,
+				'value' => $value['value'],
+				'count' => $value['count']
+			];
 		}
 
 		return $ret;
