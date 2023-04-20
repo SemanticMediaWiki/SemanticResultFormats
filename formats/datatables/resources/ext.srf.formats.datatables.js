@@ -228,8 +228,11 @@
 			}
 		},
 
-		searchPanesOptionsServer: function (searchPanesOptions, options, columnDefs ) {
-
+		searchPanesOptionsServer: function (
+			searchPanesOptions,
+			options,
+			columnDefs
+		) {
 			var div = document.createElement("div");
 			for (var i in searchPanesOptions) {
 				if (!("searchPanes" in columnDefs[i])) {
@@ -239,10 +242,10 @@
 					Object.keys(searchPanesOptions[i]).length > 0;
 
 				for (var ii in searchPanesOptions[i]) {
-
-					if ( options.searchPanes.htmlLabels === false ) {
+					if (options.searchPanes.htmlLabels === false) {
 						div.innerHTML = searchPanesOptions[i][ii].label;
-						searchPanesOptions[i][ii].label = div.textContent || div.innerText || "";
+						searchPanesOptions[i][ii].label =
+							div.textContent || div.innerText || "";
 					}
 
 					searchPanesOptions[i][ii].total = searchPanesOptions[i][ii].count;
@@ -717,7 +720,10 @@
 				// column index + dir (asc/desc)
 				var cacheKey = JSON.stringify(order) + JSON.stringify({});
 
-				preloadData[cacheKey] = queryResult;
+				preloadData[cacheKey] = {
+					data: queryResult,
+					count: context.data("count"),
+				};
 
 				var payload = {
 					action: "ext.srf.datatables.api",
@@ -751,7 +757,7 @@
 							) + JSON.stringify(datatableData.searchPanes);
 
 						if (!(key in preloadData)) {
-							preloadData[key] = [];
+							preloadData[key] = { data: [] };
 						}
 
 						// returned cached data for the required
@@ -759,16 +765,16 @@
 						if (
 							datatableData.search.value === "" &&
 							datatableData.start + datatableData.length <=
-								preloadData[key].length
+								preloadData[key]["data"].length
 						) {
 							return callback({
 								draw: datatableData.draw,
-								data: preloadData[key].slice(
+								data: preloadData[key]["data"].slice(
 									datatableData.start,
 									datatableData.start + datatableData.length
 								),
 								recordsTotal: context.data("count"),
-								recordsFiltered: context.data("count"),
+								recordsFiltered: preloadData[key]["count"],
 								searchPanes: {
 									options: searchPanesOptions,
 								},
@@ -778,14 +784,13 @@
 						// flush cache each 100,000 rows
 						// @TODO this is only one of the possible
 						// methods !
-						var totalSize = 0;
 						for (var i in preloadData) {
-							totalSize = preloadData[i].length;
-						}
+							var totalSize = preloadData[i]["data"].length;
 
-						if (totalSize > 100000) {
-							console.log("flushing datatables cache!");
-							preloadData = {};
+							if (totalSize > 100000) {
+								console.log("flushing datatables cache!");
+								preloadData[i] = {};
+							}
 						}
 
 						new mw.Api()
@@ -795,11 +800,10 @@
 								})
 							)
 							.done(function (results) {
-
 								var json = results["datatables-json"];
 
 								if (mw.config.get("wgUserName") === context.data("editor")) {
-									console.log("results log",json.log)
+									console.log("results log", json.log);
 								}
 
 								// cache all retrieved rows for each sorting
@@ -807,16 +811,18 @@
 								// threshold (100,000 rows)
 
 								if (datatableData.search.value === "") {
-									preloadData[key] = preloadData[key]
-										.slice(0, datatableData.start)
-										.concat(json.data);
+									preloadData[key] = {
+										data: preloadData[key]["data"]
+											.slice(0, datatableData.start)
+											.concat(json.data),
+										count: json.recordsFiltered,
+									};
 								}
 
 								// we retrieve more than "length"
 								// expected by datatables, so return the
 								// sliced result
 								json.data = json.data.slice(0, datatableData.length);
-
 								json.searchPanes = {
 									options: searchPanesOptions,
 								};
@@ -859,3 +865,4 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
+
