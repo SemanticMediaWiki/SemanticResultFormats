@@ -939,6 +939,12 @@ class DataTables extends ResultPrinter {
 				$outputMode,
 				$isSubject
 			);
+
+			// @TODO this is an "empirical" solution, check
+			// if there is a straightforward way
+			if ( $isIdField ) {
+				$cellContent = preg_replace( '/^\:smw-redi\:/', '', $cellContent );
+			}
 		
 			if ( !array_key_exists( $cellContent, $groups ) ) {
 				$groups[$cellContent] = [ 'count' => 0, 'value' => '' ];
@@ -1007,8 +1013,11 @@ class DataTables extends ResultPrinter {
 
 				case DataItem::TYPE_WIKIPAGE:
 					$value = $dataValue->getTitle()->getFullText();
+
+					// @TODO this is an "empirical" solution, check
+					// if there is a straightforward way
 					if ( $isIdField ) {
-						$value = str_replace( 'Smw-redi:', '', $value );
+						$value = preg_replace( '/^\Smw-redi\:/', '', $value );
 					}
 					break;
 
