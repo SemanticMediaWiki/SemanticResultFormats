@@ -1017,7 +1017,7 @@ class DataTables extends ResultPrinter {
 					// @TODO this is an "empirical" solution, check
 					// if there is a straightforward way
 					if ( $isIdField ) {
-						$value = preg_replace( '/^\Smw-redi\:/', '', $value );
+						$value = preg_replace( '/^Smw-redi\:/', '', $value );
 					}
 					break;
 
