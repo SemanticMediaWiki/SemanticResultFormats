@@ -95,7 +95,8 @@ class DataTables extends ResultPrinter {
 		$params['sep'] = [
 			'type' => 'string',
 			'message' => 'smw-paramdesc-sep',
-			'default' => '&#32;',
+			'default' => ',&#32;',
+			//'default' => '&#32;',
 		];
 
 		$params['prefix'] = [
@@ -843,9 +844,12 @@ class DataTables extends ResultPrinter {
 		// @see QueryEngine
 		$res = $this->connection->select(
 			 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-			. ( $isIdField ?  " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " as `i` ON (($p_alias.o_id=i.smw_id))  " : "" ),
+			. ( !$isIdField ?  '' : " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " as `i` ON (($p_alias.o_id=i.smw_id)) " ),
 			implode( ',', $fields ),
-			$qobj->where ,
+			//  AND i.smw_iw!=":smw-redi"
+			$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
+				. ' i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED )
+				. ' AND i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW ) ),
 			__METHOD__,
 			$sql_options
 		);
@@ -1003,6 +1007,9 @@ class DataTables extends ResultPrinter {
 
 				case DataItem::TYPE_WIKIPAGE:
 					$value = $dataValue->getTitle()->getFullText();
+					if ( $isIdField ) {
+						$value = str_replace( 'Smw-redi:', '', $value );
+					}
 					break;
 
 				case DataItem::TYPE_CONCEPT:
