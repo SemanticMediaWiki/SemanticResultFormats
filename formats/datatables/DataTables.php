@@ -945,7 +945,7 @@ class DataTables extends ResultPrinter {
 			//   $cellContent
 			if ( $isIdField ) {
 				// <a href="/w/index.php?title=Smw-redi:Frederica_Missere_Fontana&amp;action=edit&amp;redlink=1" class="new" title="Smw-redi:Frederica Missere Fontana (page does not exist)">:smw-redi:Frederica Missere Fontana</a>
-				$cellContent = str_replace( 'smw-redi:', '', $cellContent );
+				$cellContent = str_replace( ':smw-redi:', '', $cellContent );
 			}
 		
 			if ( !array_key_exists( $cellContent, $groups ) ) {
