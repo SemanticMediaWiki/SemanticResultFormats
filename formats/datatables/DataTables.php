@@ -942,8 +942,10 @@ class DataTables extends ResultPrinter {
 
 			// @TODO this is an "empirical" solution, check
 			// if there is a straightforward way
+			//   $cellContent
 			if ( $isIdField ) {
-				$cellContent = preg_replace( '/^\:smw-redi\:/', '', $cellContent );
+				// <a href="/w/index.php?title=Smw-redi:Frederica_Missere_Fontana&amp;action=edit&amp;redlink=1" class="new" title="Smw-redi:Frederica Missere Fontana (page does not exist)">:smw-redi:Frederica Missere Fontana</a>
+				$cellContent = str_replace( 'smw-redi:', '', $cellContent );
 			}
 		
 			if ( !array_key_exists( $cellContent, $groups ) ) {
@@ -1017,7 +1019,7 @@ class DataTables extends ResultPrinter {
 					// @TODO this is an "empirical" solution, check
 					// if there is a straightforward way
 					if ( $isIdField ) {
-						$value = preg_replace( '/^Smw-redi\:/', '', $value );
+						$value = preg_replace( '/Smw-redi:/', '', $value );
 					}
 					break;
 
