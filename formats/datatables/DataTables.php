@@ -782,7 +782,7 @@ class DataTables extends ResultPrinter {
 
 		if ( $isCategory ) {
 			$dataLength = $this->query->getOption( 'count' );
-
+$p_alias = true;
 /*
 *** IF A CATEGORY IS ALREADY SELECTED IN THE QUERY ...
 
@@ -1066,7 +1066,17 @@ GROUP BY i.smw_id
 					break;
 
 				case DataItem::TYPE_WIKIPAGE:
-					$value = $dataValue->getTitle()->getFullText();
+					$title_ = $dataValue->getTitle();
+					if ( $title_ ) {
+						$value = $title_->getFullText();
+					} else {
+						$value = $dataValue->getWikiValue();
+						$this->searchPanesLog[] = [
+							'canonicalLabel' => $printRequest->getCanonicalLabel(),
+							'error' => 'TYPE_WIKIPAGE title is null',
+							'wikiValue' => $value,
+						];
+					}
 					break;
 
 				case DataItem::TYPE_CONCEPT:
