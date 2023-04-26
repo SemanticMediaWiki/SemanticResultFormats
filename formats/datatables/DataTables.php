@@ -736,6 +736,7 @@ class DataTables extends ResultPrinter {
 
 		$isCategory = $printRequest->getMode() === PrintRequest::PRINT_CATS;
 
+		// @TODO @FIXME cover PRINT_CHAIN as well
 		$newQuery = SMWQueryProcessor::createQuery(
 			$this->query->getQueryString() . ( !$isCategory ? '[[' . $canonicalLabel . '::+]]' : '' ),
 			$queryParams,
@@ -807,8 +808,8 @@ GROUP BY i.smw_id
 				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
 				// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
 				. ( !$p_alias ? ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.o_id"
-					: ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id=insts.s_id "
-					. 'JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id" ),
+					: ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id=insts.s_id"
+					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id" ),
 				( !$p_alias ? "COUNT($groupBy) AS count, $qobj->alias.smw_id, $qobj->alias.smw_title, $qobj->alias.smw_namespace, $qobj->alias.smw_iw, $qobj->alias.smw_sort, $qobj->alias.smw_subobject"
 					: "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject" ),
 				$qobj->where,
@@ -838,8 +839,6 @@ GROUP BY i.smw_id
 			if ( !$dataLength ) {
 				return [];
 			}
-
-			// real query
 
 			if ( empty( $p_alias ) ) {
 				$this->searchPanesLog[] = [
@@ -890,7 +889,6 @@ GROUP BY i.smw_id
 				 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
 				. ( !$isIdField ?  '' : " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " as `i` ON (($p_alias.o_id=i.smw_id)) " ),
 				implode( ',', $fields ),
-				//  AND i.smw_iw!=":smw-redi"
 				$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
 					. ' i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED )
 					. ' AND i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW ) ),
@@ -974,10 +972,13 @@ GROUP BY i.smw_id
 			// try to resolve redirect
 			// @see 
 			if ( $isIdField && $row->smw_iw === SMW_SQL3_SMWREDIIW ) {
+				$redirectTarget = null;
 				try {
 					$redirectTarget = $deepRedirectTargetResolver->findRedirectTargetFor( $dataItem->getTitle() );
-					$dataItem = DIWikiPage::newFromTitle( $redirectTarget );
 				} catch ( \Exception $e ) {
+				}
+				if ( $redirectTarget ) {
+					$dataItem = DIWikiPage::newFromTitle( $redirectTarget );
 				}
 			}
 
