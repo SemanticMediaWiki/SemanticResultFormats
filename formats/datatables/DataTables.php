@@ -763,13 +763,38 @@ class DataTables extends ResultPrinter {
 		$qobj = $querySegmentList[$rootid];
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
-		
-		// *** this only works when a category itself is
-		// not already in the query, however does it make
-		// sense to have a category printout in that case ?
+
+
+		$tableid = ( !$isCategory ? $this->store->findPropertyTableID( $property )
+			: 'smw_fpt_inst' );
+	
+		$querySegmentList = array_reverse( $querySegmentList );
+
+		// get aliases
+		$p_alias = null;
+		foreach ( $querySegmentList as $segment ) {			
+			if ( $segment->joinTable === $tableid ) {
+				$p_alias = $segment->alias;
+				break;
+			}
+		}
+
 		if ( $isCategory ) {
 			$dataLength = $this->query->getOption( 'count' );
-			$groupBy = "$qobj->alias.smw_id";
+
+/*
+*** IF A CATEGORY IS ALREADY SELECTED IN THE QUERY ...
+
+SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0 
+JOIN `smw_fpt_inst` AS t1 ON t0.smw_id=t1.s_id 
+JOIN `smw_fpt_inst` AS insts ON t0.smw_id=insts.s_id 
+JOIN `smw_object_ids` AS i ON i.smw_id = insts.o_id
+where (t1.o_id=1077)
+GROUP BY i.smw_id
+ HAVING COUNT(i.smw_id) >= 1 ORDER BY COUNT(i.smw_id) DESC
+*/
+
+			$groupBy = ( !$p_alias ? "$qobj->alias.smw_id" : "i.smw_id" );
 			$orderBy = "count DESC, $groupBy ASC";
 			$sql_options = [
 				'GROUP BY' => $groupBy,
@@ -781,13 +806,16 @@ class DataTables extends ResultPrinter {
 			$res = $this->connection->select(
 				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
 				// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
-				. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.o_id",
-				"COUNT($groupBy) AS count, $qobj->alias.smw_id, $qobj->alias.smw_title, $qobj->alias.smw_namespace, $qobj->alias.smw_iw, $qobj->alias.smw_sort, $qobj->alias.smw_subobject",
+				. ( !$p_alias ? ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.o_id"
+					: ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id=insts.s_id "
+					. 'JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id" ),
+				( !$p_alias ? "COUNT($groupBy) AS count, $qobj->alias.smw_id, $qobj->alias.smw_title, $qobj->alias.smw_namespace, $qobj->alias.smw_iw, $qobj->alias.smw_sort, $qobj->alias.smw_subobject"
+					: "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject" ),
 				$qobj->where,
 				__METHOD__,
 				$sql_options
 			);
-	
+
 			$isIdField = true;
 
 		} else {
@@ -812,19 +840,6 @@ class DataTables extends ResultPrinter {
 			}
 
 			// real query
-
-			$tableid = $this->store->findPropertyTableID( $property );
-	
-			$querySegmentList = array_reverse( $querySegmentList );
-
-			// get aliases
-			$p_alias = null;
-			foreach ( $querySegmentList as $segment ) {			
-				if ( $segment->joinTable === $tableid ) {
-					$p_alias = $segment->alias;
-					break;
-				}
-			}
 
 			if ( empty( $p_alias ) ) {
 				$this->searchPanesLog[] = [
