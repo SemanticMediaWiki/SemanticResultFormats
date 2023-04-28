@@ -234,8 +234,11 @@ class Api extends ApiBase {
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
 			'recordsFiltered' => $count,
-			'log' => $log
 		];
+
+		if ( $settings['displayLog'] ) {
+			$ret['log'] = $log;
+		}
 
 		$this->getResult()->addValue( null, "datatables-json", $ret );
 	}

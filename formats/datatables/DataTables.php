@@ -43,6 +43,8 @@ class DataTables extends ResultPrinter {
 
 	private $printoutsParameters = [];
 
+	private $printoutsParametersOptions = [];
+
 	private $parser;
 
 	/**
@@ -60,7 +62,9 @@ class DataTables extends ResultPrinter {
 
 	private $queryFactory;
 
-	private $searchPanesLog;
+	private $searchPanesLog = [];
+
+	private $useAjax;
 
 	/**
 	 * @see ResultPrinter::getName
@@ -335,6 +339,28 @@ class DataTables extends ResultPrinter {
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
 		];
+
+		// ***custom parameter
+		// use the following as long as searchPanes created server-side
+		// are used always client-side, for which we need to use
+		// the trick mentioned below (this isn't, however, strictly
+		// necessary)
+		// $params['datatables-searchPanes.forceClient'] = [
+		// 	'type' => 'boolean',
+		// 	'message' => 'srf-paramdesc-datatables-library-option',
+		// 	'default' => false,
+		// ];
+
+		// ***custom parameter
+		// @TODO sort panes after rendering using the following
+		// https://github.com/DataTables/SearchPanes/blob/master/src/SearchPane.ts
+
+		// $params['datatables-searchPanes.defaultOrder'] = [
+		// 	'type' => 'string',
+		// 	'message' => 'srf-paramdesc-datatables-library-option',
+		// 	// label-sort, label-rsort, count-asc, count-desc
+		// 	'default' => 'label-sort',
+		// ];
 		
 		// only single value
 		$params['datatables-columns.searchPanes.show'] = [
@@ -475,16 +501,25 @@ class DataTables extends ResultPrinter {
 			}
 		}
 
-		// @TODO use $formattedOptions client side
 		$formattedOptions = $this->formatOptions( $datatablesOptions );
 
 		// @TODO use only one between printouts and printrequests
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];
+
 		$result = $this->getResultJson( $res, $outputmode );
 
-		$searchpanes = ( $this->query->getOption( 'count' ) > count( $result ) ?
-			$this->getSearchPanes( $printRequests, $formattedOptions ) : [] );
+		$this->useAjax = $this->query->getOption( 'useAjax' );
+		
+		// @TODO use this instead than the block below as long as 
+		// the following trick https://github.com/Knowledge-Wiki/SemanticResultFormats/blob/2230aa3eb8e65dd33ff493ba81269689f50d2945/formats/datatables/resources/ext.srf.formats.datatables.js
+		// is added to the library
+		// we use searchPanes server-side also if Ajax isn't required
+		// since they are more accurate
+		// $searchpanes = ( !$formattedOptions['searchPanes']['forceClient'] ?
+		// 	$this->getSearchPanes( $printRequests, $formattedOptions ) : [] );
+
+		$searchpanes = ( $this->useAjax ? $this->getSearchPanes( $printRequests, $formattedOptions ) : [] );
 
 		$data = [
 			'query' => [
@@ -493,6 +528,8 @@ class DataTables extends ResultPrinter {
 			],
 			'searchPanes' => $searchpanes,
 			'searchPanesLog' => $this->searchPanesLog,
+			'formattedOptions' => $formattedOptions,
+			'printoutsParametersOptions' => $this->printoutsParametersOptions
 		];
 
 		return $this->printContainer( $data, $headerList, $datatablesOptions,
@@ -512,7 +549,15 @@ class DataTables extends ResultPrinter {
 		$id = $resourceFormatter->session();
 		$resourceFormatter->encode( $id, $data );
 
-		$performer = RequestContext::getMain()->getUser();
+		// the following does not work with $wgCachePages
+		// so we deliberately use it to provide client-side
+		// the performer only when the page is edited
+
+		$context = RequestContext::getMain();
+		$performer = $context->getUser();
+		$context->getOutput()->addJsConfigVars( [
+			'performer' => $performer->getName(),
+		]);
 
 		$tableAttrs = [
 			'class' => 'srf-datatable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
@@ -527,6 +572,7 @@ class DataTables extends ResultPrinter {
 			'data-datatables' => json_encode( $datatablesOptions, true ),
 			'data-printrequests' => json_encode( $printrequests, true ),
 			'data-printouts' => json_encode( $printouts, true ),
+			'data-use-ajax' => $this->useAjax,
 			'data-count' => $this->query->getOption( 'count' ),
 			'data-editor' => $performer->getName(),
 		];
@@ -558,6 +604,7 @@ class DataTables extends ResultPrinter {
 	 * @return array
 	 */
 	private function getPrintouts( $printRequests ) {
+
 		foreach ( $printRequests as $key => $printRequest ) {
 			$canonicalLabel = $printRequest->getCanonicalLabel();
 
@@ -577,6 +624,7 @@ class DataTables extends ResultPrinter {
 			];
 
 			$this->printoutsParameters[$canonicalLabel] = $parameters;
+			$this->printoutsParametersOptions[$key] = $this->getPrintoutsOptions( $parameters );
 		}
 
 		return $printouts;
@@ -664,14 +712,14 @@ class DataTables extends ResultPrinter {
 
 	/**
 	 * @param array $printRequests
-	 * @param array $printoutsOptions
+	 * @param array $formattedOptions
 	 * @return array
 	 */
-	private function getSearchPanes( $printRequests, $datatablesOptions ) {
-		$searchPanesOptions = $datatablesOptions['searchPanes'];
+	private function getSearchPanes( $printRequests, $formattedOptions ) {
+		$searchPanesOptions = $formattedOptions['searchPanes'];
 
 		// searchPanes are disabled
-		if ( $searchPanesOptions[0] == false || !empty( $this->params['noajax'] ) ) {
+		if ( empty( $searchPanesOptions ) ) {
 			return [];
 		}
 		$this->queryEngineFactory = new \SMW\SQLStore\QueryEngineFactory( $this->store );
@@ -683,10 +731,8 @@ class DataTables extends ResultPrinter {
 			if ( count( $searchPanesOptions['columns'] ) && !in_array( $i, $searchPanesOptions['columns'] ) ) {
 				continue;
 			}
-			$parameters = $printRequest->getParameters();
 
-			// @TODO use $parameterOptions client side as well
-			$parameterOptions = $this->getPrintoutsOptions( $parameters );
+			$parameterOptions = $this->printoutsParametersOptions[$i];
 
 			$searchPanesParameterOptions = ( array_key_exists( 'searchPanes', $parameterOptions ) ?
 				$parameterOptions['searchPanes'] : [] );
@@ -705,6 +751,7 @@ class DataTables extends ResultPrinter {
 	}
 
 	/**
+	 * @TODO move to a dedicated class with separate code blocks
 	 * @param PrintRequest $printRequest
 	 * @param string $canonicalLabel
 	 * @param array $searchPanesOptions
@@ -712,14 +759,14 @@ class DataTables extends ResultPrinter {
 	 * @return array
 	 */
 	private function getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions ) {
+
 		if ( empty( $canonicalLabel ) ) {
 			return $this->searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions );
 		}
 
 		// create a new query for each printout/pane
-		// and retrieve the query segment related to
-		// it, then perform actually the query to
-		// get the results
+		// and retrieve the query segment related to it
+		// then perform the real query to get the results
 
 		$queryParams = [
 			'limit' => $this->query->getLimit(),
@@ -765,53 +812,49 @@ class DataTables extends ResultPrinter {
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
 
-
-		$tableid = ( !$isCategory ? $this->store->findPropertyTableID( $property )
-			: 'smw_fpt_inst' );
-	
-		$querySegmentList = array_reverse( $querySegmentList );
-
-		// get aliases
-		$p_alias = null;
-		foreach ( $querySegmentList as $segment ) {			
-			if ( $segment->joinTable === $tableid ) {
-				$p_alias = $segment->alias;
-				break;
-			}
-		}
-
 		if ( $isCategory ) {
-			$dataLength = $this->query->getOption( 'count' );
-$p_alias = true;
-/*
-*** IF A CATEGORY IS ALREADY SELECTED IN THE QUERY ...
 
-SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0 
-JOIN `smw_fpt_inst` AS t1 ON t0.smw_id=t1.s_id 
-JOIN `smw_fpt_inst` AS insts ON t0.smw_id=insts.s_id 
-JOIN `smw_object_ids` AS i ON i.smw_id = insts.o_id
-where (t1.o_id=1077)
-GROUP BY i.smw_id
- HAVING COUNT(i.smw_id) >= 1 ORDER BY COUNT(i.smw_id) DESC
-*/
+			// data-length without the GROUP BY clause
+			$sql_options = [ 'LIMIT' => 1 ];
 
-			$groupBy = ( !$p_alias ? "$qobj->alias.smw_id" : "i.smw_id" );
+			$dataLength = (int)$this->connection->selectField(
+				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
+					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id",
+				"COUNT(*) AS count",
+				$qobj->where,
+				__METHOD__,
+				$sql_options
+			);
+
+			if ( !$dataLength ) {
+				return [];
+			}
+
+			$groupBy = "i.smw_id";
 			$orderBy = "count DESC, $groupBy ASC";
 			$sql_options = [
 				'GROUP BY' => $groupBy,
-				'LIMIT' => $dataLength,
+				'LIMIT' => $dataLength, 	// $this->query->getOption( 'count' ),
 				'ORDER BY' => $orderBy,
 				'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
 			];
 
+			/*
+			SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0 
+			JOIN `smw_fpt_inst` AS t1 ON t0.smw_id=t1.s_id 
+			JOIN `smw_fpt_inst` AS insts ON t0.smw_id=insts.s_id 
+			JOIN `smw_object_ids` AS i ON i.smw_id = insts.o_id
+			where (t1.o_id=1077)
+			GROUP BY i.smw_id
+			HAVING COUNT(i.smw_id) >= 1 ORDER BY COUNT(i.smw_id) DESC
+			*/
+
 			$res = $this->connection->select(
 				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-				// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
-				. ( !$p_alias ? ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.o_id"
-					: ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id=insts.s_id"
-					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id" ),
-				( !$p_alias ? "COUNT($groupBy) AS count, $qobj->alias.smw_id, $qobj->alias.smw_title, $qobj->alias.smw_namespace, $qobj->alias.smw_iw, $qobj->alias.smw_sort, $qobj->alias.smw_subobject"
-					: "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject" ),
+					// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
+					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id"
+					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id",
+				"COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject",
 				$qobj->where,
 				__METHOD__,
 				$sql_options
@@ -820,6 +863,27 @@ GROUP BY i.smw_id
 			$isIdField = true;
 
 		} else {
+
+			$tableid = $this->store->findPropertyTableID( $property );
+	
+			$querySegmentList = array_reverse( $querySegmentList );
+
+			// get aliases
+			$p_alias = null;
+			foreach ( $querySegmentList as $segment ) {			
+				if ( $segment->joinTable === $tableid ) {
+					$p_alias = $segment->alias;
+					break;
+				}
+			}
+
+			if ( empty( $p_alias ) ) {
+				$this->searchPanesLog[] = [
+					'canonicalLabel' => $printRequest->getCanonicalLabel(),
+					'error' => '$p_alias is null',
+				];
+				return [];
+			}
 
 			// data-length without the GROUP BY clause
 			$sql_options = [ 'LIMIT' => 1 ];
@@ -840,25 +904,7 @@ GROUP BY i.smw_id
 				return [];
 			}
 
-			if ( empty( $p_alias ) ) {
-				$this->searchPanesLog[] = [
-					'canonicalLabel' => $printRequest->getCanonicalLabel(),
-					'error' => '$p_alias is null',
-				];
-				return [];
-			}
-
-			$i_alias = null;
-			// *** we use a fixed alias for that, so we don't
-			// need the following
-			// foreach ( $querySegmentList as $segment ) {
-			// 	if ( $segment->joinTable === 'smw_object_ids' ) {
-			// 		$i_alias = $segment->alias;
-			// 		break;
-			// 	}
-			// }
-
-			list( $diType, $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias, $i_alias );
+			list( $diType, $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias );
 
 			/*
 			---GENERATED DATATABLES
@@ -874,7 +920,7 @@ GROUP BY i.smw_id
 
 			$sql_options = [
 				'GROUP BY' => $groupBy,
-				// the following means that if the user sets a threshold
+				// the following implies that if the user sets a threshold
 				// close or equal to 1, and there are too many unique values,
 				// the page will break, however the user has responsibility
 				// for using searchPanes only for data reasonably grouped
@@ -887,7 +933,8 @@ GROUP BY i.smw_id
 			// @see QueryEngine
 			$res = $this->connection->select(
 				 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-				. ( !$isIdField ?  '' : " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " as `i` ON (($p_alias.o_id=i.smw_id)) " ),
+				. ( !$isIdField ?  ''
+					: " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS `i` ON ($p_alias.o_id = i.smw_id)" ),
 				implode( ',', $fields ),
 				$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
 					. ' i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED )
@@ -903,29 +950,31 @@ GROUP BY i.smw_id
 		// @see https://datatables.net/extensions/searchpanes/examples/initialisation/threshold.htm
 		// @see https://github.com/DataTables/SearchPanes/blob/818900b75dba6238bf4b62a204fdd41a9b8944b7/src/SearchPane.ts#L824
 
-		$binLength = $res->numRows();
-		$uniqueRatio = $binLength / $dataLength;
-	
 		$threshold = !empty( $searchPanesParameterOptions['threshold'] ) ?
 			$searchPanesParameterOptions['threshold'] : $searchPanesOptions['threshold'];
-	
-		$this->searchPanesLog[] = [
-			'canonicalLabel' => $printRequest->getCanonicalLabel(),
-			'dataLength' => $dataLength,
-			'binLength' => $binLength,
-			'uniqueRatio' => $uniqueRatio,
-			'threshold' => $threshold,
-		];
 
-		// *** Attention !! sometimes the threshold is not
-		// exceeded after grouping by printout format, like the
-		// following: ?Modification date #-F[F Y]
-		// in this case the user must use |+datatables-columns.searchPanes.threshold=1
-		// to force searchPanes for that specific column !
+		$outputFormat = $printRequest->getOutputFormat();
 
-		//  || $binLength <= 1
-		if ( $uniqueRatio > $threshold ) {
-			return [];
+		// *** if outputFormat is not set we can compute
+		// uniqueness ratio by now, otherwise we have to
+		// perform it after grouping the actual data
+		if ( !$outputFormat ) {
+			$binLength = $res->numRows();
+			$uniqueRatio = $binLength / $dataLength;
+
+			$this->searchPanesLog[] = [
+				'canonicalLabel' => $printRequest->getCanonicalLabel(),
+				'dataLength' => $dataLength,
+				'binLength' => $binLength,
+				'uniqueRatio' => $uniqueRatio,
+				'threshold' => $threshold,
+				'grouped' => false,
+			];
+
+			//  || $binLength <= 1
+			if ( $uniqueRatio > $threshold ) {
+				return [];
+			}
 		}
 
 		// @see ByGroupPropertyValuesLookup
@@ -970,9 +1019,9 @@ GROUP BY i.smw_id
 			);
 
 			// try to resolve redirect
-			// @see 
 			if ( $isIdField && $row->smw_iw === SMW_SQL3_SMWREDIIW ) {
 				$redirectTarget = null;
+				// @see SMWExportController
 				try {
 					$redirectTarget = $deepRedirectTargetResolver->findRedirectTargetFor( $dataItem->getTitle() );
 				} catch ( \Exception $e ) {
@@ -986,8 +1035,6 @@ GROUP BY i.smw_id
 				$dataItem,
 				$property
 			);
-
-			$outputFormat = $printRequest->getOutputFormat();
 
 			if ( $outputFormat ) {
 				$dataValue->setOutputFormat( $outputFormat );
@@ -1012,9 +1059,9 @@ GROUP BY i.smw_id
 
 			$groups[$cellContent]['count'] += $row->count;
 
-			// @TODO check all the possible transformations of
+			// @TODO complete with all the possible transformations of
 			// datavalues (DataValues/ValueFormatters)
-			// using $printRequest->getOutputFormat()
+			// based on $printRequest->getOutputFormat()
 			// and provide to the API the information to
 			// rebuild the query when values are grouped
 			// by the output of the printout format, e.g.
@@ -1045,8 +1092,7 @@ GROUP BY i.smw_id
 					$value = $dataValue->getWikiValue();
 					break;
 
-				case DataItem::TYPE_TIME: 
-					// $resDate = strtotime( $cellContent );
+				case DataItem::TYPE_TIME:
 					$currentDate = $dataItem->asDateTime()->getTimestamp();
 					$value = $dataValue->getISO8601Date();
 					if ( $currentDate < $groups[$cellContent]['minDate'] ) {
@@ -1098,6 +1144,26 @@ GROUP BY i.smw_id
 			$groups[$cellContent]['value'] = $value;
 		}
 
+		if ( $outputFormat ) {
+			$binLength = count( $groups );
+			$uniqueRatio = $binLength / $dataLength;
+
+			$this->searchPanesLog[] = [
+				'canonicalLabel' => $printRequest->getCanonicalLabel(),
+				'dataLength' => $dataLength,
+				'binLength' => $binLength,
+				'uniqueRatio' => $uniqueRatio,
+				'threshold' => $threshold,
+				'grouped' => true,
+			];
+
+			//  || $binLength <= 1
+			if ( $uniqueRatio > $threshold ) {
+				return [];
+			}
+
+		}
+	
 		arsort( $groups, SORT_NUMERIC );
 
 		$ret = [];
@@ -1124,10 +1190,9 @@ GROUP BY i.smw_id
 	 * @see ByGroupPropertyValuesLookup
 	 * @param DIProperty $property
 	 * @param string $p_alias
-	 * @param string $i_alias
 	 * @return array
 	 */
-	private function fetchValuesByGroup( DIProperty $property, $p_alias, $i_alias ) {
+	private function fetchValuesByGroup( DIProperty $property, $p_alias ) {
 
 		$tableid = $this->store->findPropertyTableID( $property );
 		// $entityIdManager = $this->store->getObjectIds();
@@ -1349,6 +1414,12 @@ GROUP BY i.smw_id
 			// transform csv to array
 			if ( array_key_exists( $key, $arrayTypes ) ) {
 				$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
+
+				if ( $arrayTypes[$key] === 'number' ) {
+					$value = array_map( static function ( $value ) {
+						return (int)$value;
+					}, $value );
+				}
 			}
 
 			// convert strings like columns.searchPanes.show
@@ -1359,6 +1430,25 @@ GROUP BY i.smw_id
 				$ret );
 
 		}
+
+		$isAssoc = function( $value ) {
+			if ( !is_array( $value ) || array() === $value ) {
+				return false;
+			}
+			return array_keys( $value ) !== range( 0, count( $value ) - 1 );
+		};
+
+		// remove $ret["searchPanes"] = [] if $ret["searchPanes"][0] === false
+		foreach ( $ret as $key => $value ) {
+			if ( $isAssoc(  $value ) && array_key_exists( 0, $value ) ) {
+				if ( $value[0] === false ) {
+					unset( $ret[$key] );
+				} else {
+					unset( $ret[$key][0] );
+				}
+			}
+		}
+
 		return $ret;
 	}
 
