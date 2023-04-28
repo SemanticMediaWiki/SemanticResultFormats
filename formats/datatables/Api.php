@@ -140,7 +140,7 @@ class Api extends ApiBase {
 		};
 
 		// filter the query
-		$searchPrintouts = [];
+		$queryDisjunction = [];
 		$allowedTypes = [ '_wpg', '_txt', '_cod', '_uri' ];
 		if ( !empty( $datatableData['search']['value'] ) ) {
 			foreach ( $printoutsRaw as $key => $value ) {
@@ -155,32 +155,90 @@ class Api extends ApiBase {
 				$searchable = $getColumnAttribute( $label, 'searchable' );
 
 				if ( $searchable === null || $searchable === true ) {
-					$searchPrintouts[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . '~*' . $datatableData['search']['value'] . '*]]';
+					$queryDisjunction[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . '~*' . $datatableData['search']['value'] . '*]]';
 				}
 			}
 		}
 
+		$queryConjunction = [];
+		foreach ( $printoutsRaw as $key => $value ) {
+			if ( !empty( $datatableData['searchPanes'][$key] ) ) {
+				$printrequest = $printrequests[$key];
+				$label = ( $printrequest['key'] !== '' ? $value[1] : '' );
+				// @TODO consider combiner
+				// https://www.semantic-mediawiki.org/wiki/Help:Unions_of_results#User_manual
+				$queryConjunction[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . implode( '||', $datatableData['searchPanes'][$key] ) . ']]';
+			}
+		}
+
+		global $smwgQMaxSize;
+
+		if ( !count( $queryDisjunction ) ) {
+			$queryDisjunction = [''];
+		}
+
+		$query = $requestParams['query'] . implode( '', $queryConjunction );
+		
+		$conditions = array_map( static function( $value ) use ( $query ) {
+			return $query . $value;
+		}, $queryDisjunction );
+
+		// @TODO get query size as in class Conjunction
+		$smwgQMaxSize = 32;
+
+		$queryStr =	implode( 'OR', $conditions );
+
+		// trigger_error('queryStr ' . $queryStr);
+
+		$log['queryStr '] = $queryStr;
+
 		$query = SMWQueryProcessor::createQuery(
-			$requestParams['query'] . implode( '||', $searchPrintouts),
+			$queryStr,
 			$queryParams,
 			SMWQueryProcessor::INLINE_QUERY,
 			'',
 			$printouts
 		);
 
+		// $size = $query->getDescription()->getSize();
+		
+		// $smwgQMaxSize = max( $smwgQMaxSize, $size );
+		// trigger_error('smwgQMaxSize ' . $smwgQMaxSize);
+
+
 		$applicationFactory = ServicesFactory::getInstance();
-		$results = $applicationFactory->getStore()->getQueryResult( $query );
+		$queryEngine = $applicationFactory->getStore();
+		$results = $queryEngine->getQueryResult( $query );
 
 		// or SMW_OUTPUT_RAW
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
+
+		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
+		
+		// get count
+		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
+			$queryDescription = $query->getDescription();
+			$queryCount = new \SMWQuery( $queryDescription );
+			$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
+			$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
+			$queryResult = $queryEngine->getQueryResult( $queryCount );
+			$count = $queryResult->getCount();
+
+		} else {
+			$count = $settings['count'];
+		}
 
 		// @see https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html
 		$ret = [
 			'draw' => $datatableData['draw'],
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
-			'recordsFiltered' => ( empty( $datatableData['search']['value'] ) ? $settings['count'] : $results->getCount() )
+			'recordsFiltered' => $count,
 		];
+
+		if ( $settings['displayLog'] ) {
+			$ret['log'] = $log;
+		}
 
 		$this->getResult()->addValue( null, "datatables-json", $ret );
 	}

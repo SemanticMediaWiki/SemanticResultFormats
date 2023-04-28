@@ -51,6 +51,11 @@ class Hooks {
 
 		$queryResult = $queryEngine->getQueryResult( $query );
 
+		// *** attention ! use the following rather
+		// that after this hook is called, since SMW::Store::AfterQueryResultLookupComplete
+		// migth change the result length !!
+		$query->setOption('useAjax', (int)$count > $queryResult->getCount() );
+
 		$result = new \SMW\Query\QueryResult(
 			$queryResult->getPrintRequests(),
 			$query,
