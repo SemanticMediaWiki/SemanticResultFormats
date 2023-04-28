@@ -1173,6 +1173,7 @@ class DataTables extends ResultPrinter {
 			// the latest value is returned, with the largest range
 			if ( array_key_exists( 'minDate', $value ) && $value['minDate'] != $value['maxDate'] ) {
 				// ISO 8601
+				// @TODO use a symbol instead and transform from the API
 				$value['value'] = '>' . date( 'c', $value['minDate'] ) . ']][[' . $printRequest->getCanonicalLabel() . '::<' . date( 'c', $value['maxDate'] );
 			}
 
