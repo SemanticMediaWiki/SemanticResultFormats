@@ -248,7 +248,7 @@
 						},
 					});
 				}
-		
+
 				// @TODO sort panes after rendering using the following
 				// https://github.com/DataTables/SearchPanes/blob/master/src/SearchPane.ts
 			}
@@ -595,6 +595,23 @@
 				},
 			});
 
+			// cacheKey ensures that the cached pages
+			// are related to current sorting and searchPanes filters
+			var getCacheKey = function (obj) {
+				return (
+					JSON.stringify(obj.order) +
+					(!searchPanes
+						? ""
+						: JSON.stringify(
+								Object.keys(obj.searchPanes).length
+									? obj.searchPanes
+									: Object.fromEntries(
+											Object.keys(columnDefs).map((x) => [x, {}])
+									  )
+						  ))
+				);
+			};
+
 			if (!useAjax) {
 				conf.serverSide = false;
 				conf.data = queryResult;
@@ -606,7 +623,12 @@
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc) + searchPanes (empty selection)
-				var cacheKey = JSON.stringify(order) + JSON.stringify({});
+				var cacheKey = getCacheKey({
+					order: order.map((x) => {
+						return { column: x[0], dir: x[1] };
+					}),
+					searchPanes: {},
+				});
 
 				preloadData[cacheKey] = {
 					data: queryResult,
@@ -642,10 +664,7 @@
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
 						// must match cacheKey
-						var key =
-							JSON.stringify(
-								datatableData.order.map((x) => [x.column, x.dir])
-							) + JSON.stringify(datatableData.searchPanes);
+						var key = getCacheKey(datatableData);
 
 						if (!(key in preloadData)) {
 							preloadData[key] = { data: [] };
@@ -757,4 +776,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-
