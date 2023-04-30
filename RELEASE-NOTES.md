@@ -1,14 +1,21 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 4.1
+
+Not a release yet (master branch).
+
+* [Complete rewrite of datatables format](https://www.semantic-mediawiki.org/w/index.php?title=Help:Datatables_format) (by @thomas-topway-it, [KM-A](https://knowledge.wiki)). Old version still available as format=datatables-legacy. New version fixes several issues with datatables, e. g. [761](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/761), [750](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/750), [725](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/725), [571](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/571), [721](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/721)...
+
+
 ## SRF 4.0.2
 
 Released on March 9, 2023.
 
 * Improved compatibility with recent versions of MediaWiki, especially 1.37, 1.38 and 1.39
-* [724](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/724) Fix problem in pagewidget carousel when bootstrap is used (by @thomas-topway-it, KM-A)
+* [724](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/724) Fix problem in pagewidget carousel when bootstrap is used (by @thomas-topway-it, [KM-A](https://knowledge.wiki))
 * [188](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/188#) Fix for datatables format (by @harugon)
-* Fix minor error in filtered format (by @Semantisch, KM-A)
-* Fix error in slideshow format (by @Semantisch, KM-A)
+* Fix minor error in filtered format (by @Semantisch, [KM-A](https://knowledge.wiki))
+* Fix error in slideshow format (by @Semantisch, [KM-A](https://knowledge.wiki))
 * Fix Outline format sometimes not showing all values (by @Seb35)
 * Solved potential `symfony/css-selector` package conflict (by @rvogel)
 * Bump moment from 2.24.0 to 2.29.2 in /formats/filtered
