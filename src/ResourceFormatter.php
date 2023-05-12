@@ -78,6 +78,46 @@ class ResourceFormatter {
 	}
 
 	/**
+	 * @param array $printRequests
+	 * @param array $ask
+	 * @return array
+	 */
+	private static function appendPreferredPropertyLabel( $printRequests, $ask ) {
+
+		// @see formats/calendar/resources/ext.srf.formats.eventcalendar.js
+		// method "init"
+		// 
+		// var datePropertyList = _calendar.api.query.printouts.search.type(
+		// 	data.query.ask.printouts,
+		// 	data.query.result.printrequests,
+		// 	['_dat'] );
+		// 
+		// and search.type.normalize in resources/ext.srf.api.query.js
+		// which calls getTypeId in resources/ext.srf.api.results.js
+		// and expects that the printrequest label and printouts custom label
+		// retrieved from the below, match
+
+		// map canonical labels to labels
+		$mapLabels = [];
+		foreach ( $printRequests as $key => $printRequest ) {
+			$mapLabels[$printRequest->getCanonicalLabel()] = $printRequest->getLabel();
+		}
+
+		// @see resources/ext.srf.api.query.js
+		foreach ( $ask['printouts'] as $key => $value ) {
+			preg_match( '/^\s*[?&]\s*(.*?)\s*(#.+)?\s*(=.+)?\s*$/', $value, $match );
+
+			// add custom label if added through Preferred property label
+			// rather than in the ask query itself
+			if ( empty( $match[3] ) && $mapLabels[$match[1]] !== array_search($mapLabels[$match[1]], $mapLabels ) ) {
+				$ask['printouts'][$key] .= '=' . $mapLabels[$match[1]];
+			}
+		}
+
+		return $ask;
+	}
+
+	/**
 	 * @param QueryResult $queryResult
 	 * @param $outputMode
 	 *
@@ -92,6 +132,8 @@ class ResourceFormatter {
 				$ask['parameters'][$key] = $value;
 			}
 		}
+
+		$ask = self::appendPreferredPropertyLabel($queryResult->getPrintRequests(), $ask );
 
 		// Combine all data into one object
 		$data = [
