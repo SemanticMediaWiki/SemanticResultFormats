@@ -49,6 +49,10 @@ return [
 		'scripts' => 'resources/jquery/jquery.easing.js'
 	],
 
+	'ext.jquery.mark' => $moduleTemplate + [
+		'scripts' => 'resources/jquery/jquery.mark.min.js'
+	],
+
 	// Fancybox
 	'ext.jquery.fancybox' => $moduleTemplate + [
 		'scripts' => 'resources/jquery/fancybox/jquery.fancybox-1.3.4.pack.js',
@@ -1023,9 +1027,14 @@ return [
 		'scripts' => [
 			'resources/jquery/datatables/datatables.min.js',
 			'resources/jquery/datatables/jquery.dataTables.extras.js',
+			'resources/jquery/datatables/datatables.mark.min.js',
 		],
 		'styles'  => [
 			'resources/jquery/datatables/datatables.min.css',
+			'resources/jquery/datatables/datatables.mark.min.css',
+		],
+		'dependencies' => [
+			'ext.jquery.mark',
 		]
 	],
 

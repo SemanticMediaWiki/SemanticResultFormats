@@ -590,6 +590,7 @@
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
 				order: order,
+				mark: true,
 				search: {
 					caseInsensitive: context.data("nocase"),
 				},
