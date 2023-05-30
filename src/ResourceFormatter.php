@@ -109,8 +109,7 @@ class ResourceFormatter {
 		// @see resources/ext.srf.api.query.js
 		foreach ( $ask['printouts'] as $key => $value ) {
 			// *** the regex reflects a similar regex in the method
-			// ext.srf.api.query.js -> toList, so in this sense it
-			// is consistent
+			// ext.srf.api.query.js -> toList
 			preg_match( '/^\s*[?&]\s*(.*?)\s*(#.+)?\s*(=.+)?\s*$/', $value, $match );
 
 			// add custom label if added through Preferred property label
