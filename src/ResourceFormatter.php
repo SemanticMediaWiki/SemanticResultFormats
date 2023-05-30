@@ -96,6 +96,9 @@ class ResourceFormatter {
 		// which calls getTypeId in resources/ext.srf.api.results.js
 		// and expects that the printrequest label and printouts custom label
 		// retrieved from the below, match
+		// 
+		// @TODO all this method can be removed as long as the issue
+		// can be fixed at SMW level: PrintRequest's Serializer -> doSerializeProp
 
 		// map canonical labels to labels
 		$mapLabels = [];
@@ -105,11 +108,14 @@ class ResourceFormatter {
 
 		// @see resources/ext.srf.api.query.js
 		foreach ( $ask['printouts'] as $key => $value ) {
+			// *** the regex reflects a similar regex in the method
+			// ext.srf.api.query.js -> toList, so in this sense it
+			// is consistent
 			preg_match( '/^\s*[?&]\s*(.*?)\s*(#.+)?\s*(=.+)?\s*$/', $value, $match );
 
 			// add custom label if added through Preferred property label
 			// rather than in the ask query itself
-			if ( empty( $match[3] ) && $mapLabels[$match[1]] !== array_search($mapLabels[$match[1]], $mapLabels ) ) {
+			if ( empty( $match[3] ) && $mapLabels[$match[1]] !== array_search( $mapLabels[$match[1]], $mapLabels ) ) {
 				$ask['printouts'][$key] .= '=' . $mapLabels[$match[1]];
 			}
 		}
@@ -133,7 +139,7 @@ class ResourceFormatter {
 			}
 		}
 
-		$ask = self::appendPreferredPropertyLabel($queryResult->getPrintRequests(), $ask );
+		$ask = self::appendPreferredPropertyLabel( $queryResult->getPrintRequests(), $ask );
 
 		// Combine all data into one object
 		$data = [
@@ -147,3 +153,4 @@ class ResourceFormatter {
 	}
 
 }
+
