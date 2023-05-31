@@ -79,7 +79,7 @@ class ResourceFormatter {
 	}
 
 	/**
-	 * @param PrintRequest[] $printRequests
+	 * @param SMW\Query\PrintRequest[] $printRequests
 	 * @param array $ask
 	 * @return array
 	 */
