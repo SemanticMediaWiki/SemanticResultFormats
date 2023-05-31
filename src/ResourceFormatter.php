@@ -11,7 +11,7 @@ use SMWQueryResult as QueryResult;
  *
  * @license GPL-2.0-or-later
  * @author mwjames
- * @reviewer thomas-topway-it
+ * @contributor thomas-topway-it
  */
 class ResourceFormatter {
 
