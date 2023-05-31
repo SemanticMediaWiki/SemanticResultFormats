@@ -79,7 +79,7 @@ class ResourceFormatter {
 	}
 
 	/**
-	 * @param array $printRequests
+	 * @param PrintRequest[] $printRequests
 	 * @param array $ask
 	 * @return array
 	 */
