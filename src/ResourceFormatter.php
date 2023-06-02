@@ -5,12 +5,14 @@ namespace SRF;
 use Html;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
+use SMW\Query\PrintRequest;
 
 /**
  * @since 3.0
  *
  * @license GPL-2.0-or-later
  * @author mwjames
+ * @contributor thomas-topway-it
  */
 class ResourceFormatter {
 
@@ -78,6 +80,51 @@ class ResourceFormatter {
 	}
 
 	/**
+	 * @param PrintRequest[] $printRequests
+	 * @param array $ask
+	 * @return array
+	 */
+	private static function appendPreferredPropertyLabel( $printRequests, $ask ) {
+
+		// @see formats/calendar/resources/ext.srf.formats.eventcalendar.js
+		// method "init"
+		// 
+		// var datePropertyList = _calendar.api.query.printouts.search.type(
+		// 	data.query.ask.printouts,
+		// 	data.query.result.printrequests,
+		// 	['_dat'] );
+		// 
+		// and search.type.normalize in resources/ext.srf.api.query.js
+		// which calls getTypeId in resources/ext.srf.api.results.js
+		// and expects that the printrequest label and printouts custom label
+		// retrieved from the below, match
+		// 
+		// @TODO all this method can be removed as long as the issue
+		// can be fixed at SMW level: PrintRequest's Serializer -> doSerializeProp
+
+		// map canonical labels to labels
+		$mapLabels = [];
+		foreach ( $printRequests as $key => $printRequest ) {
+			$mapLabels[$printRequest->getCanonicalLabel()] = $printRequest->getLabel();
+		}
+
+		// @see resources/ext.srf.api.query.js
+		foreach ( $ask['printouts'] as $key => $value ) {
+			// *** the regex reflects a similar regex in the method
+			// ext.srf.api.query.js -> toList
+			preg_match( '/^\s*[?&]\s*(.*?)\s*(#.+)?\s*(=.+)?\s*$/', $value, $match );
+
+			// add custom label if added through Preferred property label
+			// rather than in the ask query itself
+			if ( empty( $match[3] ) && $mapLabels[$match[1]] !== array_search( $mapLabels[$match[1]], $mapLabels ) ) {
+				$ask['printouts'][$key] .= '=' . $mapLabels[$match[1]];
+			}
+		}
+
+		return $ask;
+	}
+
+	/**
 	 * @param QueryResult $queryResult
 	 * @param $outputMode
 	 *
@@ -93,6 +140,8 @@ class ResourceFormatter {
 			}
 		}
 
+		$ask = self::appendPreferredPropertyLabel( $queryResult->getPrintRequests(), $ask );
+
 		// Combine all data into one object
 		$data = [
 			'query' => [
@@ -105,3 +154,4 @@ class ResourceFormatter {
 	}
 
 }
+
