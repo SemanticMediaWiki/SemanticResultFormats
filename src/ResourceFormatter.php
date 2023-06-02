@@ -5,6 +5,7 @@ namespace SRF;
 use Html;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
+use SMW\Query\PrintRequest;
 
 /**
  * @since 3.0
@@ -79,7 +80,7 @@ class ResourceFormatter {
 	}
 
 	/**
-	 * @param \SMW\Query\PrintRequest[] $printRequests
+	 * @param PrintRequest[] $printRequests
 	 * @param array $ask
 	 * @return array
 	 */
