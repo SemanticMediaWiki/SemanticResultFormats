@@ -77,7 +77,7 @@ class SRFDygraphs extends SMWResultPrinter {
 					);
 					if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
 						$aggregatedValues['url'] = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $subject->getTitle() )->getUrl();
-					} else{
+					} else {
 						// Before  MW 1.34
 						$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
 					}
