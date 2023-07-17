@@ -272,7 +272,7 @@
 	"srf-filtered-selectorlabel-table": "Таблица",
 	"srf-filtered-selectorlabel-calendar": "Календарь",
 	"srf-filtered-selectorlabel-map": "Карта",
-	"srf-filtered-noscript-error": "Результаты не могут быть отображены, потому что JavaScript отключён. Перейти к $1",
+	"srf-filtered-noscript-error": "Результаты не могут быть отображены, потому что JavaScript отключён. Перейти к $1.",
 	"srf-filtered-noscript-link-caption": "\nрезультаты в табличной форме",
 	"srf-filtered-map-provider-missing-error": "Не указан поставщик карт для просмотра в карте.",
 	"srf-filtered-value-filter-and": "И",

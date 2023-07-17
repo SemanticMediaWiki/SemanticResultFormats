@@ -7,7 +7,9 @@
 	},
 	"srf-module-loading": "Жүктөлүүдө...",
 	"srf-ui-common-label-source": "Булак",
+	"srf-ui-gridview-label-info-tab": "Маалымат",
 	"srf_printername_gallery": "Галерея",
+	"srf-ui-datatables-label-information": "Маалымат",
 	"srf-ui-datatables-label-placeholder-column-search": "Издөө...",
 	"srf-ui-datatables-label-sSearch": "Издөө:"
 }
