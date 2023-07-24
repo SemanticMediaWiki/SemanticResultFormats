@@ -26,6 +26,7 @@
 	"prefs-srf-datatables-options": "Opções do DataTables",
 	"srf-prefs-datatables-options-update-default": "Habilitar as [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates atualizações automáticas] do conteúdo da tabela durante a atualização da página",
 	"srf-prefs-datatables-options-cache-default": "Habilitar o [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage armazenamento local] para melhorar o tempo de resposta",
+	"srf-paramdesc-datatables-library-option": "opção de datatables nativa",
 	"srf-module-loading": "Carregando...",
 	"srf-paramdesc-layout": "Layout disponível",
 	"srf-paramdesc-height": "Altura",
@@ -210,6 +211,7 @@
 	"srf-paramdesc-debug": "Define se o código do gráfico do processo deve ser mostrado etiquetas previas envolvidas",
 	"srf-paramdesc-graphvalidation": "Exibe as etapas do processo em vermelho que não possuem função atribuída",
 	"srf-printername-datatables": "DataTables",
+	"srf-printername-datatables-legacy": "DataTables (legada)",
 	"srf-ui-datatables-label-conditions": "Condições",
 	"srf-ui-datatables-label-parameters": "Parâmetros",
 	"srf-ui-datatables-label-filters": "Filtros de coluna e busca",
@@ -241,6 +243,7 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Anterior",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": ativar alfabetação ascendente da tabela",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": ativar alfabetação descendente da tabela",
+	"srf-ui-datatables-searchpanes-noajax": "Datatables (v2) ainda não suporta searchPanes quando o Ajax é requerido e, portanto, foi desabilitada",
 	"srf-printername-tree": "Árvore",
 	"srf-printername-ultree": "Árvore (marcadores)",
 	"srf-printername-oltree": "Árvore (números)",
@@ -295,6 +298,10 @@
 	"srf-paramdesc-carousel-class": "Especifica a classe CSS para o carrossel",
 	"srf-paramdesc-carousel-width": "Especifica a largura do carrossel",
 	"srf-paramdesc-carousel-height": "Especifica a altura do carrossel",
+	"srf-paramdesc-carousel-captionproperty": "Especifica o nome de uma propriedade semântica presente nas páginas consultadas para ser usada como legenda",
+	"srf-paramdesc-carousel-titleproperty": "Especifica o nome de uma propriedade semântica presente nas páginas consultadas para ser usada como título",
+	"srf-paramdesc-carousel-linkproperty": "Especifica o nome de uma propriedade semântica presente nas páginas consultadas para ser usada para links",
+	"srf-paramdesc-carousel-imageproperty": "Especifica o nome de uma propriedade semântica presente nas páginas consultadas para ser usada para imagens",
 	"srf-paramdesc-carousel-slick-option": "Especifica se o carrossel deve fazer uso das opções fornecidas pelo 'Slick'",
 	"srf-paramdesc-datatable": "Ativar uma tabela de dados",
 	"srf-timeseries-zoom-out-of-range": "O alcance do zoom não produziu dados suficientes",
@@ -371,5 +378,6 @@
 	"srf-error-gantt-sortkey": "A '''sortkey''' que você escolheu não é suportado",
 	"srf-error-gantt-mermaid-not-installed": "A Extensão Mermaid precisa ser instalado.",
 	"srf-printername-gantt": "Gantt",
-	"srf-paramdesc-nodelabel": "Use um rótulo de nó de gráfico. Valores permitidos: displaytitle."
+	"srf-paramdesc-nodelabel": "Use um rótulo de nó de gráfico. Valores permitidos: displaytitle.",
+	"srf-paramdesc-graphfields": "Exibe valores de propriedades que não são de páginas dentro dos nós do gráfico, em vez de arestas."
 }

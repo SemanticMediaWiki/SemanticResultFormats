@@ -11,5 +11,6 @@
 	"srf_printername_gallery": "Галерея",
 	"srf-ui-datatables-label-information": "Маалымат",
 	"srf-ui-datatables-label-placeholder-column-search": "Издөө...",
+	"srf-ui-datatables-label-sLoadingRecords": "Жүктөлүүдө...",
 	"srf-ui-datatables-label-sSearch": "Издөө:"
 }
