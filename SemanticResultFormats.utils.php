@@ -19,7 +19,7 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement( $isHtml = true ) {
-		self::registerResources( [], [ 'ext.smw.style' ] );
+		SMWOutputs::requireResource( 'ext.smw.style' );
 
 		return Html::rawElement(
 			'div',
