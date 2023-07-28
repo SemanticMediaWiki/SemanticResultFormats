@@ -3,6 +3,7 @@
 namespace SRF;
 
 use Html;
+use RequestContext;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
 use SMW\Query\PrintRequest;
@@ -74,7 +75,7 @@ class ResourceFormatter {
 						$id => json_encode( $data )
 					]
 				),
-				false
+				RequestContext::getMain()->getOutput()->getCSP()->getNonce()
 			)
 		);
 	}
