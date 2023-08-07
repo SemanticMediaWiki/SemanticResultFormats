@@ -6,8 +6,11 @@
 		]
 	},
 	"srf-module-loading": "Жүктөлүүдө...",
+	"srf-ui-navigation-next": "Кийинки",
 	"srf-ui-common-label-source": "Булак",
 	"srf-ui-tooltip-title-filter": "Чыпка",
+	"srf-ui-common-label-refresh": "Жаңылоо",
+	"srfc_today": "Бүгүн",
 	"srf-ui-gridview-label-data-tab": "Маалымат",
 	"srf-ui-gridview-label-info-tab": "Маалымат",
 	"srf_printername_gallery": "Галерея",
@@ -15,5 +18,8 @@
 	"srf-ui-datatables-label-placeholder-column-search": "Издөө...",
 	"srf-ui-datatables-label-sLoadingRecords": "Жүктөлүүдө...",
 	"srf-ui-datatables-label-sSearch": "Издөө:",
-	"srf-filtered-selectorlabel-list": "Тизме"
+	"srf-ui-datatables-label-oPaginate-sNext": "Кийинки",
+	"srf-filtered-selectorlabel-list": "Тизме",
+	"srf-ui-eventcalendar-label-today": "Бүгүн",
+	"srf-ui-mediaplayer-label-next": "Кийинки"
 }
