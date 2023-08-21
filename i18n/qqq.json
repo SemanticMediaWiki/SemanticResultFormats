@@ -21,7 +21,7 @@
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
-	"srf-name": "This is the name of this extension (Used by the [[mw:Extension:Admin_Links|Admin Links]] extension).",
+	"srf-name": "{{ignored}}\nThis is the name of this extension (Used by the [[mw:Extension:Admin_Links|Admin Links]] extension).",
 	"prefs-srf": "This is the text of a section header on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].",
 	"srf-prefs-intro-text": "This is an user preference intro text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]].",
 	"prefs-srf-eventcalendar-options": "This is a section header text on [[Special:Preferences#mw-prefsection-smw|Special:Preferences]]. \"Event calendar\" is the same thing as in {{msg-mw|Srf-printername-eventcalendar}}.",
