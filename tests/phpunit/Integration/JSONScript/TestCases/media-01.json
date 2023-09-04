@@ -35,7 +35,7 @@
 			"subject": "Test/Mediaplayer test 01",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-media\"><div class=\"srf-spinner mw-small-spinner\"><span class=\"srf-processing-text\">Loading...</span></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
+					"<div class=\"srf-media\"><div class=\"srf-loading-dots\"></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
 				]
 			}
 		},
@@ -45,7 +45,7 @@
 			"subject": "Test/Mediaplayer test 02",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-media\"><div class=\"srf-spinner mw-small-spinner\"><span class=\"srf-processing-text\">Loading...</span></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
+					"<div class=\"srf-media\"><div class=\"srf-loading-dots\"></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
 				]
 			}
 		},
@@ -55,7 +55,7 @@
 			"subject": "Test/Mediaplayer test 03",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-media\"><div class=\"srf-spinner mw-small-spinner\"><span class=\"srf-processing-text\">Loading...</span></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
+					"<div class=\"srf-media\"><div class=\"srf-loading-dots\"></div><div id=\"srf-.*\" class=\"media-container\" style=\"display:none;\"></div></div>"
 				]
 			}
 		}
