@@ -84,6 +84,7 @@
 	"scripts":{
 		"test": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
 		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
+		"phpunit-coverage": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist --testdox --coverage-text --coverage-html coverage/php --coverage-clover coverage/php/coverage.xml",
 		"integration": "composer phpunit -- --testsuite=semantic-result-formats-integration",
 		"lint": [
 			"@parallel-lint",

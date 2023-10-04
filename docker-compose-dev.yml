@@ -1,0 +1,8 @@
+services:
+  wiki:
+    volumes:
+      - ./:${EXTENSION_FOLDER}
+      - ${EXTENSION_FOLDER}/vendor/
+    ports:
+      - 8080:8080
+      

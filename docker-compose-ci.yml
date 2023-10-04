@@ -1,0 +1,4 @@
+services:
+  wiki:
+    volumes:
+      - ./coverage:${EXTENSION_FOLDER}/coverage
