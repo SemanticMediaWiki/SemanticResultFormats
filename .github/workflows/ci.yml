@@ -25,13 +25,6 @@ jobs:
             coverage: true
             experimental: false
           - mediawiki_version: '1.35'
-            smw_version: '4.1.2'
-            php_version: 7.4
-            database_type: sqlite
-            database_image: "mysql:5.7"
-            coverage: true
-            experimental: false
-          - mediawiki_version: '1.35'
             smw_version: dev-master
             php_version: 7.4
             database_type: mysql
@@ -39,27 +32,6 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.39'
-            smw_version: dev-master
-            php_version: 8.1
-            database_type: mysql
-            database_image: "mysql:5.7"
-            coverage: false
-            experimental: true
-          - mediawiki_version: '1.39'
-            smw_version: dev-master
-            php_version: 8.1
-            database_type: mysql
-            database_image: "mysql:8"
-            coverage: false
-            experimental: true
-          - mediawiki_version: '1.40'
-            smw_version: dev-master
-            php_version: 8.1
-            database_type: mysql
-            database_image: "mysql:8"
-            coverage: false
-            experimental: true
-          - mediawiki_version: '1.40'
             smw_version: dev-master
             php_version: 8.1
             database_type: mysql
@@ -69,8 +41,8 @@ jobs:
           - mediawiki_version: '1.40'
             smw_version: dev-master
             php_version: 8.1
-            database_type: postgres
-            database_image: "postgres:14"
+            database_type: mysql
+            database_image: "mariadb:latest"
             coverage: false
             experimental: true
 
