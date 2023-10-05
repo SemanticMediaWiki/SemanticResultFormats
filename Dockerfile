@@ -7,6 +7,7 @@ ARG SMW_VERSION
 ARG PHP_VERSION
 ARG PF_VERSION
 ARG SFS_VERSION
+ARG MM_VERSION
 
 # get needed dependencies for this extension
 RUN sed -i s/80/8080/g /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
@@ -14,6 +15,7 @@ RUN sed -i s/80/8080/g /etc/apache2/sites-available/000-default.conf /etc/apache
 RUN COMPOSER=composer.local.json composer require --no-update mediawiki/semantic-media-wiki ${SMW_VERSION}
 RUN COMPOSER=composer.local.json composer require --no-update mediawiki/page-forms ${PF_VERSION}
 RUN COMPOSER=composer.local.json composer require --no-update mediawiki/semantic-forms-select ${SFS_VERSION}
+RUN COMPOSER=composer.local.json composer require --no-update mediawiki/mermaid ${MM_VERSION}
 RUN composer update 
 
 
@@ -32,5 +34,6 @@ RUN echo \
         "enableSemantics( 'localhost' );\n" \
         "wfLoadExtension( 'PageForms' );\n" \
         "wfLoadExtension( 'SemanticFormsSelect' );\n" \
+        "wfLoadExtension( 'Mermaid' );\n" \
         "wfLoadExtension( '$EXTENSION' );\n" \
     >> __setup_extension__

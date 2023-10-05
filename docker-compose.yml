@@ -8,6 +8,7 @@ services:
         PHP_VERSION: ${PHP_VERSION}
         PF_VERSION: ${PF_VERSION}
         SFS_VERSION: ${SFS_VERSION}
+        MM_VERSION: ${MM_VERSION}
     image: ${IMAGE_NAME}
     
   mysql:
