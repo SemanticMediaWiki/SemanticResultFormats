@@ -2,10 +2,11 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 4.1
 
-Not a release yet (master branch).
+Released on October 12, 2023.
 
-* [Complete rewrite of datatables format](https://www.semantic-mediawiki.org/w/index.php?title=Help:Datatables_format) (by @thomas-topway-it, [KM-A](https://knowledge.wiki)). Old version still available as format=datatables-legacy. New version fixes several issues with datatables, e. g. [761](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/761), [750](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/750), [725](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/725), [571](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/571), [721](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/721)...
-
+* [Complete rewrite of datatables format](https://www.semantic-mediawiki.org/w/index.php?title=Help:Datatables_format) (by @thomas-topway-it, [KM-A](https://knowledge.wiki)). [761](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/761), [750](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/750), [725](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/725), [571](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/571), [721](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/721)...
+* Fixed jqplotchart label error (by @thomas-topway-it)
+* Fixed preferred label issue in eventcalendar (by @thomas-topway-it)
 
 ## SRF 4.0.2
 
