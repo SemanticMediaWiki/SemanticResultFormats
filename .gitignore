@@ -18,3 +18,5 @@ extensions/
 node_modules/
 conf/
 .DS_Store
+.env
+coverage
