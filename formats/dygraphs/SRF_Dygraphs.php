@@ -1,4 +1,5 @@
 <?php
+use MediaWiki\MediaWikiServices;
 
 /**
  * A query printer that uses the dygraphs JavaScript library
@@ -74,7 +75,13 @@ class SRFDygraphs extends SMWResultPrinter {
 					$aggregatedValues['subject'] = $this->makePageFromTitle( $subject->getTitle() )->getLongHTMLText(
 						$this->getLinker( $field->getResultSubject() )
 					);
-					$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
+					if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+						$aggregatedValues['url'] = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $subject->getTitle() )->getUrl();
+					} else {
+						// Before  MW 1.34
+						$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
+					}
+					
 					$dataSource = true;
 				}
 
