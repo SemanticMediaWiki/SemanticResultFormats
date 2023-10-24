@@ -203,6 +203,7 @@
 			hide: function ( options ){
 				var c = options.length === undefined ? options.context : options;
 				c.find( '.' + _CL_srfspinner ).hide();
+				c.find(".srf-loading-dots").hide();
 			}
 		},
 

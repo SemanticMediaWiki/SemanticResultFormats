@@ -6,6 +6,7 @@ use Html;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
 use SMW\Query\PrintRequest;
+use SRFUtils;
 
 /**
  * @since 3.0
@@ -50,12 +51,7 @@ class ResourceFormatter {
 	 * @since 3.0
 	 */
 	public static function placeholder() {
-		self::registerResources( [], [ 'ext.smw.style' ] );
-
-		return Html::rawElement(
-			'div',
-			[ 'class' => 'srf-loading-dots' ]
-		);
+		return SRFUtils::htmlProcessingElement();
 	}
 
 	/**

@@ -19,16 +19,11 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement( $isHtml = true ) {
-		SMWOutputs::requireResource( 'ext.srf' );
+		SMWOutputs::requireResource( 'ext.smw.style' );
 
 		return Html::rawElement(
 			'div',
-			[ 'class' => 'srf-spinner mw-small-spinner' ],
-			Html::element(
-				'span',
-				[ 'class' => 'srf-processing-text' ],
-				wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
-			)
+			[ 'class' => 'srf-loading-dots' ]
 		);
 	}
 
