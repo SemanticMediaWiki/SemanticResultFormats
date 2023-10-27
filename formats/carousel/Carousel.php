@@ -4,7 +4,7 @@
  *
  * @license GPL-2.0-or-later
  *
- * @author thomas-topway-it <thomas.topway.it@mail.com>
+ * @author thomas-topway-it for KM-A
  */
 namespace SRF;
 
@@ -261,10 +261,12 @@ class Carousel extends ResultPrinter {
 			'default' => "window",
 		];
 
-		$params['slick-responsive'] = [
-		 	'message' => 'srf-paramdesc-carousel-slick-option',
-		 	'default' => null,
-		];
+		// @see https://github.com/kenwheeler/slick/#responsive-option-example
+		// $params['slick-responsive'] = [
+		// 	'type' => 'string',
+		//  	'message' => 'srf-paramdesc-carousel-slick-option',
+		//  	'default' => null,
+		// ];
 
 		$params['slick-rows'] = [
 			'type' => 'integer',
@@ -406,8 +408,6 @@ class Carousel extends ResultPrinter {
 		// or ...
 		// SMWOutputs::requireResource( 'ext.srf.carousel' );
 
-		// print_r($data);
-
 		/*
 		 * first retrieve explicitly set properties:
 		 * titleproperty, captionproperty, imageproperty, linkproperty
@@ -422,6 +422,28 @@ class Carousel extends ResultPrinter {
 			$printReqLabels[ $value['label'] ] = $value['typeid'];
 		}
 
+		$slidestoshow = $this->params['slick-slidestoshow'];
+
+		if ( empty( $this->params['width'] ) ) {
+			$this->params['width'] = '100%';
+		}
+
+		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );
+		
+		$styleImg = [ 'object-fit: cover' ];
+		
+		$absoluteUnits = [ 'cm', 'mm', 'in', 'px', 'pt', 'pc' ];
+		
+		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/784
+		if ( !empty( $slidestoshow ) && is_int( $slidestoshow ) && !empty( $match[1] ) ) {
+			if ( empty( $match[2] ) ) {
+				$match[2] = 'px';
+			}
+			$styleImg[] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
+				( $match[1] / $slidestoshow ) . $match[2]
+				: '100%' );
+		}
+		
 		$styleAttr = [ 'width', 'height' ];
 		$style = [];
 		foreach( $styleAttr as $attr ) {
@@ -429,18 +451,6 @@ class Carousel extends ResultPrinter {
 				$style[ $attr ] = "$attr: " . $this->params[$attr];
 			}
 		}
-
-		if ( !array_key_exists( 'width', $style ) ) {
-			$style[ 'width' ] = 'width: 100%';
-		}
-
-		$styleImg = array_map( static function ( $value ) {
-			// return 'max-' . $value;
-			return $value;
-		}, $style );
-
-		$styleImg[] = 'object-fit: cover';
-		$styleImg = implode( '; ', $styleImg );
 
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
@@ -529,7 +539,7 @@ class Carousel extends ResultPrinter {
 			$innerContent = Html::rawElement( 'img', [
 					'src' => $imageValue,
 					'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
-					'style' => $styleImg,
+					'style' => implode( '; ',  $styleImg ),
 					'class' => "slick-slide-content img"
 				] );
 
@@ -601,4 +611,3 @@ class Carousel extends ResultPrinter {
 	}
 
 }
-
