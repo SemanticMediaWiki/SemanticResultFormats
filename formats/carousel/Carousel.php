@@ -400,13 +400,11 @@ class Carousel extends ResultPrinter {
 
 		$this->isHTML = true;
 
+		// SMWOutputs::requireResource( 'ext.srf.carousel' );
 		$resourceFormatter->registerResources( [
 			'ext.srf.carousel',
 			'ext.srf.carousel.module'
 		] );
-
-		// or ...
-		// SMWOutputs::requireResource( 'ext.srf.carousel' );
 
 		/*
 		 * first retrieve explicitly set properties:
@@ -422,35 +420,7 @@ class Carousel extends ResultPrinter {
 			$printReqLabels[ $value['label'] ] = $value['typeid'];
 		}
 
-		$slidestoshow = $this->params['slick-slidestoshow'];
-
-		if ( empty( $this->params['width'] ) ) {
-			$this->params['width'] = '100%';
-		}
-
-		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );
-		
-		$styleImg = [ 'object-fit: cover' ];
-		
-		$absoluteUnits = [ 'cm', 'mm', 'in', 'px', 'pt', 'pc' ];
-		
-		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/784
-		if ( !empty( $slidestoshow ) && is_int( $slidestoshow ) && !empty( $match[1] ) ) {
-			if ( empty( $match[2] ) ) {
-				$match[2] = 'px';
-			}
-			$styleImg[] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
-				( $match[1] / $slidestoshow ) . $match[2]
-				: '100%' );
-		}
-		
-		$styleAttr = [ 'width', 'height' ];
-		$style = [];
-		foreach( $styleAttr as $attr ) {
-			if ( !empty( $this->params[$attr] ) ) {
-				$style[ $attr ] = "$attr: " . $this->params[$attr];
-			}
-		}
+		$inlineStyles = $this->getInlineStyles();
 
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
@@ -536,12 +506,17 @@ class Carousel extends ResultPrinter {
 				$captionValue = $parser->recursiveTagParse( $captionValue );
 			}
 
-			$innerContent = Html::rawElement( 'img', [
-					'src' => $imageValue,
-					'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
-					'style' => implode( '; ',  $styleImg ),
-					'class' => "slick-slide-content img"
-				] );
+			$imgAttr = [
+				'src' => $imageValue,
+				'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
+				'class' => "slick-slide-content img"
+			];
+			
+			if ( !empty( $inlineStyles['img'] ) ) {
+				$imgAttr['style'] = $inlineStyles['img'];
+			}
+
+			$innerContent = Html::rawElement( 'img', $imgAttr );
 
 			if ( $titleValue || $captionValue ) {
 				$innerContent .= Html::rawElement( 'div', [ 'class' => 'slick-slide-content caption' ],
@@ -562,9 +537,9 @@ class Carousel extends ResultPrinter {
 		} // loop through pages
 
 		$attr = [ 'class' => 'slick-slider' . ( empty( $this->params['class'] ) ? '' : ' ' . $this->params['class'] ) ];
-
-		if ( count( $style ) ) {
-			$attr['style'] = implode( '; ',  $style );
+	
+		if ( !empty( $inlineStyles['div'] ) ) {
+			$attr['style'] = $inlineStyles['div'];
 		}
 
 		$slick_attr = [];
@@ -582,7 +557,47 @@ class Carousel extends ResultPrinter {
 				implode( $items )
 			);
 	}
+	
+	/**
+	 * @return array
+	 */
+	private function getInlineStyles() {
+		if ( empty( $this->params['width'] ) ) {
+			$this->params['width'] = '100%';
+		}
 
+		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );		
+		$styleImg = [ 'object-fit: cover' ];
+
+		$absoluteUnits = [ 'cm', 'mm', 'in', 'px', 'pt', 'pc' ];
+		$slidestoshow = $this->params['slick-slidestoshow'];
+		
+		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/784
+		if ( !empty( $slidestoshow ) && is_int( $slidestoshow ) && !empty( $match[1] ) ) {
+			if ( empty( $match[2] ) ) {
+				$match[2] = 'px';
+			}
+			$styleImg[] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
+				( $match[1] / $slidestoshow ) . $match[2]
+				: '100%' );
+		}
+		
+		$styleAttr = [ 'width', 'height' ];
+		$style = [];
+		foreach( $styleAttr as $attr ) {
+			if ( !empty( $this->params[$attr] ) ) {
+				$style[ $attr ] = "$attr: " . $this->params[$attr];
+			}
+		}
+
+		return [ 'div' => implode( '; ',  $style ),
+			'img' => implode( '; ',  $styleImg ) ];
+	}
+
+	/**
+	 * @param array $array
+	 * @return string|null
+	 */
 	protected function getFirstValid( $array ) {
 		// *** or use array_filter with no arguments, then
 		// retrieve the first entry
@@ -594,6 +609,10 @@ class Carousel extends ResultPrinter {
 		return null;
 	}
 
+	/**
+	 * @param array $value
+	 * @return string|null
+	 */
 	protected function getImage( $value ) {
 		if ( !is_array( $value ) || !array_key_exists( 'fullurl', $value ) || $value['namespace'] !== NS_FILE  ) {
 			return null;
