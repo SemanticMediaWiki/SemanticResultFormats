@@ -4,7 +4,8 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 not a release yet
 * Improved compatibility with recent versions of MediaWiki [792](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/792), [780](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/780) (by @Seb35 and @D-Groenewegen)
 * Improved test coverage [789](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791), [791](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791) (by [gesinn.it](https://gesinn.it))
-* [790](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/790) Removed datatables-legacy format (by @YvarRavy)
+* [790](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/790) removed datatables-legacy format (by @YvarRavy)
+* [786](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/786) improved datatables format (by @alistair3149)
 * [788](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/788) resource loading spinner (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * [782](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/783) fixes jqplotchart issue (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * [777](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/777) fixes eventcalender issue (by @thomas-topway-it for ([KM-A](https://km-a.net))
