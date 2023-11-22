@@ -35,4 +35,14 @@
 	right: 8px;
 }
 
+div.dataTables_processing {
+	background: white;
+	box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.12);
+	z-index: 1000;
+}
+
+div.dataTables_processing>div:last-child>div {
+	background: rgb(13,110,253);
+}
+
 

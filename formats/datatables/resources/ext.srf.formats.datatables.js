@@ -33,6 +33,13 @@
 	var _cacheLimit = 40000;
 
 	/**
+	 * search panes can be used with
+	 * preload data only through the
+	 * Datatables ajax api: ...
+	 */
+	var _thresholdSearchPanesAjax = 200;
+
+	/**
 	 * Container for all non-public objects and methods
 	 *
 	 * @private
@@ -84,10 +91,10 @@
 		 * @private
 		 * @static
 		 *
-		 * @param {Object} context
+		 * @param {Object} table
 		 */
-		initColumnSort: function (context) {
-			var column = context.data("column-sort");
+		initColumnSort: function (table) {
+			var column = table.data("column-sort");
 
 			var order = [];
 
@@ -117,10 +124,10 @@
 			});
 
 			if (order.length > 0) {
-				context.data("order", order);
+				table.data("order", order);
 			} else {
 				// default @see https://datatables.net/reference/option/order
-				context.data("order", [[0, "asc"]]);
+				table.data("order", [[0, "asc"]]);
 			}
 		},
 
@@ -340,7 +347,7 @@
 			// ...
 		},
 
-		// we don't need it anymore, however keep is as
+		// we don't need it anymore, however keep it as
 		// a reference for alternate use
 		showNotice: function (context, container, msg) {
 			var cookieKey =
@@ -436,37 +443,17 @@
 		 *
 		 * @since 1.9
 		 *
-		 * @param  {array} context
 		 * @param  {array} container
 		 * @param  {array} data
 		 */
-		init: function (context, container, data) {
+		init: function (container, data) {
 			var self = this;
 
-			// Hide loading spinner
-			context.find(".srf-loading-dots").hide();
+			var table = container.find("table");
 
-			// Show container
-			container.css({ display: "block" });
+			_datatables.initColumnSort(table);
 
-			_datatables.initColumnSort(context);
-
-			var order = context.data("order");
-
-			// Setup a raw table
-			container.html(
-				html.element("table", {
-					style: "width: 100%",
-					class:
-						context.data("theme") === "bootstrap"
-							? "bordered-table zebra-striped"
-							: "display", // nowrap
-					cellpadding: "0",
-					cellspacing: "0",
-					border: "0",
-				})
-			);
-
+			var order = table.data("order");
 			var options = data["formattedOptions"];
 
 			// add the button placeholder if any button is required
@@ -489,7 +476,8 @@
 			}
 
 			var queryResult = data.query.result;
-			var useAjax = context.data("useAjax");
+			var useAjax = table.data("useAjax");
+			var count = parseInt(table.data("count"));
 
 			var searchPanes = isObject(options.searchPanes);
 
@@ -501,6 +489,41 @@
 				options.dom = options.dom.replace("P", "");
 			}
 
+			var searchBuilder = options.searchBuilder;
+
+			if (searchBuilder) {
+				if (options.dom.indexOf("Q") === -1) {
+					options.dom = "Q" + options.dom;
+				}
+
+				// @see https://datatables.net/extensions/searchbuilder/customConditions.html
+				// @see https://github.com/DataTables/SearchBuilder/blob/master/src/searchBuilder.ts
+				options.searchBuilder = {
+					depthLimit: 1,
+
+					conditions: {
+						html: {
+							null: null,
+							"!null": null,
+						},
+						string: {
+							null: null,
+							"!null": null,
+						},
+						date: {
+							null: null,
+							"!null": null,
+						},
+						num: {
+							null: null,
+							"!null": null,
+						},
+					},
+				};
+			} else {
+				options.dom = options.dom.replace("Q", "");
+			}
+
 			// add the pagelength at the proper place in the length menu
 			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
 				options.lengthMenu.push(options.pageLength);
@@ -510,19 +533,20 @@
 			}
 
 			var query = data.query.ask;
-			var printouts = context.data("printouts");
+			var printouts = table.data("printouts");
 			var queryString = query.conditions;
-			var printrequests = context.data("printrequests");
+			var printrequests = table.data("printrequests");
 			var searchPanesOptions = data.searchPanes;
+
 			var searchPanesLog = data.searchPanesLog;
 
-			var displayLog = mw.config.get("performer") === context.data("editor");
+			var displayLog = true; // mw.config.get("performer") === context.data("editor");
 
 			if (displayLog) {
 				console.log("searchPanesLog", searchPanesLog);
 			}
 
-			var entityCollation = context.data("collation");
+			var entityCollation = table.data("collation");
 
 			var columnDefs = [];
 			$.map(printrequests, function (property, index) {
@@ -557,20 +581,10 @@
 			if (searchPanes) {
 				_datatables.initSearchPanesColumns(columnDefs, options);
 
-				// @TODO remove "useAjax" and use the following trick
-				// https://github.com/Knowledge-Wiki/SemanticResultFormats/blob/2230aa3eb8e65dd33ff493ba81269689f50d2945/formats/datatables/resources/ext.srf.formats.datatables.js
-				// to use searchPanesOptions created server-side when Ajax is
-				// not required, unfortunately we cannot use the function
-				// described here https://datatables.net/reference/option/columns.searchPanes.options
-				// with the searchPanes data retrieved server-side, since
-				// we cannot simply provide count, label, and value in the searchPanesOptions
-				// (since is not allowed by the Api) -- however the current solution
-				// works fine in most cases
-				if (
-					// options["searchPanes"]["forceClient"] ||
-					!useAjax ||
-					!Object.keys(searchPanesOptions).length
-				) {
+				// *** this should now be true only if ajax is
+				// disabled and the table has no fields with
+				// multiple values
+				if (!Object.keys(searchPanesOptions).length) {
 					searchPanesOptions = _datatables.getPanesOptions(
 						queryResult,
 						columnDefs,
@@ -591,7 +605,7 @@
 				language: _datatables.oLanguage,
 				order: order,
 				search: {
-					caseInsensitive: context.data("nocase"),
+					caseInsensitive: table.data("nocase"),
 				},
 			});
 
@@ -611,6 +625,10 @@
 						  ))
 				);
 			};
+
+			if ((searchPanes || searchBuilder) && table.data("multiple-values")) {
+				useAjax = true;
+			}
 
 			if (!useAjax) {
 				conf.serverSide = false;
@@ -632,7 +650,7 @@
 
 				preloadData[cacheKey] = {
 					data: queryResult,
-					count: context.data("count"),
+					count: count,
 				};
 
 				var payload = {
@@ -643,10 +661,7 @@
 					printouts: JSON.stringify(printouts),
 					printrequests: JSON.stringify(printrequests),
 					settings: JSON.stringify(
-						$.extend(
-							{ count: context.data("count"), displayLog: displayLog },
-							query.parameters
-						)
+						$.extend({ count: count, displayLog: displayLog }, query.parameters)
 					),
 				};
 
@@ -658,7 +673,7 @@
 					// instead we use the following hack: the Ajax function returns
 					// the preloaded data as long they are available for the requested
 					// slice, and then it uses an ajax call for not available data.
-					// deferLoading: context.data("count"),
+					// deferLoading: table.data("count"),
 
 					processing: true,
 					serverSide: true,
@@ -683,14 +698,13 @@
 									datatableData.start,
 									datatableData.start + datatableData.length
 								),
-								recordsTotal: context.data("count"),
+								recordsTotal: count,
 								recordsFiltered: preloadData[key]["count"],
 								searchPanes: {
 									options: searchPanesOptions,
 								},
 							});
 						}
-
 						// flush cache each 40,000 rows
 						// *** another method is to compute the actual
 						// size in bytes of each row, but it takes more
@@ -745,12 +759,7 @@
 					},
 				});
 			}
-			// console.log("conf", conf);
-			container.find("table").DataTable(conf);
-		},
-
-		update: function (context, data) {
-			// ...
+			table.DataTable(conf);
 		},
 
 		test: {
@@ -766,13 +775,11 @@
 	var datatables = new srf.formats.datatables();
 
 	$(document).ready(function () {
-		$(".srf-datatable").each(function () {
-			var context = $(this),
-				container = context.find(".datatables-container");
-
+		$(".datatables-container").each(function () {
+			var container = $(this);
 			var data = JSON.parse(_datatables.getData(container));
-
-			datatables.init(context, container, data);
+			datatables.init(container, data);
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
+
