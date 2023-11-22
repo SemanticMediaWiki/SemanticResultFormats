@@ -283,6 +283,14 @@ class DataTables extends ResultPrinter {
 			'default' => '',
 		];
 
+		//////////////// datatables searchBuilder
+		
+		$params['datatables-searchBuilder'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+
 		//////////////// datatables searchPanes
 
 		$params['datatables-searchPanes'] = [
@@ -573,6 +581,7 @@ class DataTables extends ResultPrinter {
 			'data-use-ajax' => $this->useAjax,
 			'data-count' => $this->query->getOption( 'count' ),
 			'data-editor' => $performer->getName(),
+			'data-multiple-values' => $this->hasMultipleValues,
 		];
 		
 		// $tableAttrs['width'] = '100%';

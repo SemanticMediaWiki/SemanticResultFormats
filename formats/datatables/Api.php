@@ -67,7 +67,6 @@ class Api extends ApiBase {
 			[
 				// *** important !!
 				'format' => 'datatables',
-
 				"apicall" => "apicall",
 				// @see https://datatables.net/manual/server-side
 				// array length will be sliced client side if greater
@@ -168,6 +167,67 @@ class Api extends ApiBase {
 				// @TODO consider combiner
 				// https://www.semantic-mediawiki.org/wiki/Help:Unions_of_results#User_manual
 				$queryConjunction[] = '[[' . ( $label !== '' ? $label . '::' : '' ) . implode( '||', $datatableData['searchPanes'][$key] ) . ']]';
+			}
+		}
+
+		// @see https://datatables.net/extensions/searchbuilder/customConditions.html
+		// @see https://datatables.net/reference/option/searchBuilder.depthLimit
+		if ( !empty( $datatableData['searchBuilder'] ) ) {
+			$searchBuilder = [];
+			foreach ( $datatableData['searchBuilder']['criteria'] as $criteria ) {
+				foreach ( $printoutsRaw as $key => $value ) {
+					// @FIXME $label isn't simply $value[1] ?
+					$printrequest = $printrequests[$key];
+					$label = ( $printrequest['key'] !== '' ? $value[1] : '' );
+					if ( $label === $criteria['data'] ) {
+
+						// nested condition, skip for now
+						if ( !array_key_exists( 'condition', $criteria ) ) {
+							continue;
+						}
+						$v = implode( $criteria['value'] );
+						$str = ( $label !== '' ? "$label::" : '' );
+						switch( $criteria['condition'] ) {
+							case '=':
+								$searchBuilder[] = "[[{$str}{$v}]]";
+								break;
+							case '!=':
+								$searchBuilder[] = "[[{$str}!~$v]]";
+								break;
+							case 'starts':
+								$searchBuilder[] = "[[{$str}~$v*]]";
+								break;
+							case '!starts':
+								$searchBuilder[] = "[[{$str}!~$v*]]";
+								break;
+							case 'contains':
+								$searchBuilder[] = "[[{$str}~*$v*]]";
+								break;
+							case '!contains':
+								$searchBuilder[] = "[[{$str}!~*$v*]]";
+								break;
+							case 'ends':
+								$searchBuilder[] = "[[{$str}~*$v]]";
+								break;
+							case '!ends':
+								$searchBuilder[] = "[[$str}!~*$v]]";
+								break;
+							// case 'null':
+							// 	break;
+							case '!null':
+								if ( $label ) {
+									$searchBuilder[] = "[[$label::+]]";
+								}
+								break;
+						
+						}
+					}
+				}
+			}
+			if ( $datatableData['searchBuilder']['logic'] === 'AND' ) {
+				$queryConjunction = array_merge( $queryConjunction, $searchBuilder );
+			} else if ( $datatableData['searchBuilder']['logic'] === 'OR' ) {
+				$queryDisjunction = array_merge( $queryDisjunction, $searchBuilder );
 			}
 		}
 
