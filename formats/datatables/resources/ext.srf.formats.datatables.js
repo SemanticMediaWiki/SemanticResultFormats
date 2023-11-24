@@ -33,13 +33,6 @@
 	var _cacheLimit = 40000;
 
 	/**
-	 * search panes can be used with
-	 * preload data only through the
-	 * Datatables ajax api: ...
-	 */
-	var _thresholdSearchPanesAjax = 200;
-
-	/**
 	 * Container for all non-public objects and methods
 	 *
 	 * @private
@@ -155,6 +148,8 @@
 			}
 		},
 
+		// this is used only if Ajax is disabled and
+		// the table does not have fields with multiple values
 		getPanesOptions: function (data, columnDefs, options) {
 			var ret = {};
 			var dataLength = {};
@@ -294,12 +289,47 @@
 			return searchPanesOptions;
 		},
 
-		parse: {
-			// ...
-		},
+		callApi: function (data, callback, preloadData, searchPanesOptions, displayLog) {
+			var payload = {
+				action: "ext.srf.datatables.api",
+				format: "json",
+				data: JSON.stringify(data),
+			};
 
-		exportlinks: function (context, data) {
-			// ...
+			new mw.Api()
+				.post(payload)
+				.done(function (results) {
+					var json = results["datatables-json"];
+
+					if (displayLog) {
+						console.log("results log", json.log);
+					}
+
+					// cache all retrieved rows for each sorting
+					// dimension (column/dir), up to a fixed
+					// threshold (_cacheLimit)
+
+					if (data.datatableData.search.value === "") {
+						preloadData[json.cacheKey] = {
+							data: preloadData[json.cacheKey]["data"]
+								.slice(0, data.datatableData.start)
+								.concat(json.data),
+							count: json.recordsFiltered,
+						};
+					}
+
+					// we retrieve more than "length"
+					// expected by datatables, so return the
+					// sliced result
+					json.data = json.data.slice(0, data.datatableData.datalength);
+					json.searchPanes = {
+						options: searchPanesOptions,
+					};
+					callback(json);
+				})
+				.fail(function (error) {
+					console.log("error", error);
+				});
 		},
 
 		/**
@@ -330,25 +360,16 @@
 			sInfoThousands: mw.msg("srf-ui-datatables-label-sInfoThousands"),
 			sLengthMenu: mw.msg("srf-ui-datatables-label-sLengthMenu"),
 			sLoadingRecords: mw.msg("srf-ui-datatables-label-sLoadingRecords"),
-			sProcessing: mw.msg("srf-ui-datatables-label-sProcessing"),
+
+			// *** hide "processing" label above the indicator
+			// sProcessing: mw.msg("srf-ui-datatables-label-sProcessing"),
+
 			sSearch: mw.msg("srf-ui-datatables-label-sSearch"),
 			sZeroRecords: mw.msg("srf-ui-datatables-label-sZeroRecords"),
 		},
 
-		/**
-		 * UI components
-		 *
-		 * @private
-		 * @param  {array} context
-		 * @param  {array} container
-		 * @param  {array} data
-		 */
-		ui: function (context, container, data) {
-			// ...
-		},
-
 		// we don't need it anymore, however keep it as
-		// a reference for alternate use
+		// a reference for other use
 		showNotice: function (context, container, msg) {
 			var cookieKey =
 				"srf-ui-datatables-searchpanes-notice-" +
@@ -450,6 +471,7 @@
 			var self = this;
 
 			var table = container.find("table");
+			table.removeClass("wikitable");
 
 			_datatables.initColumnSort(table);
 
@@ -500,23 +522,18 @@
 				// @see https://github.com/DataTables/SearchBuilder/blob/master/src/searchBuilder.ts
 				options.searchBuilder = {
 					depthLimit: 1,
-
 					conditions: {
 						html: {
 							null: null,
-							"!null": null,
 						},
 						string: {
 							null: null,
-							"!null": null,
 						},
 						date: {
 							null: null,
-							"!null": null,
 						},
 						num: {
 							null: null,
-							"!null": null,
 						},
 					},
 				};
@@ -600,6 +617,11 @@
 				}
 			}
 
+			// ***important !! this has already
+			// been used for columnDefs initialization !
+			// otherwise the table won't sort !!
+			delete options.columns;
+
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
@@ -612,18 +634,27 @@
 			// cacheKey ensures that the cached pages
 			// are related to current sorting and searchPanes filters
 			var getCacheKey = function (obj) {
-				return (
-					JSON.stringify(obj.order) +
-					(!searchPanes
-						? ""
-						: JSON.stringify(
-								Object.keys(obj.searchPanes).length
-									? obj.searchPanes
-									: Object.fromEntries(
-											Object.keys(columnDefs).map((x) => [x, {}])
-									  )
-						  ))
-				);
+				// this ensures that the preload key
+				// and the dynamic key match
+				// this does not work: "searchPanes" in obj && Object.entries(obj.searchPanes).find(x => Object.keys(x).length ) ? obj.searchPanes : {},
+				if ("searchPanes" in obj) {
+					for (var i in obj.searchPanes) {
+						if (!Object.keys(obj.searchPanes[i]).length) {
+							delete obj.searchPanes[i];
+						}
+					}
+				}
+
+				return objectHash.sha1({
+					order: obj.order,
+					// search: obj.search,
+					searchPanes:
+						"searchPanes" in obj &&
+						Object.entries(obj.searchPanes).find((x) => Object.keys(x).length)
+							? obj.searchPanes
+							: {},
+					searchBuilder: "searchBuilder" in obj ? obj.searchBuilder : {},
+				});
 			};
 
 			if ((searchPanes || searchBuilder) && table.data("multiple-values")) {
@@ -645,7 +676,6 @@
 					order: order.map((x) => {
 						return { column: x[0], dir: x[1] };
 					}),
-					searchPanes: {},
 				});
 
 				preloadData[cacheKey] = {
@@ -653,16 +683,15 @@
 					count: count,
 				};
 
-				var payload = {
-					action: "ext.srf.datatables.api",
-					format: "json",
-					query: queryString,
-					columndefs: JSON.stringify(columnDefs),
-					printouts: JSON.stringify(printouts),
-					printrequests: JSON.stringify(printrequests),
-					settings: JSON.stringify(
-						$.extend({ count: count, displayLog: displayLog }, query.parameters)
-					),
+				var payloadData = {
+						queryString,
+						columnDefs,
+						printouts,
+						printrequests,
+						settings: $.extend(
+							{ count: count, displayLog: displayLog },
+							query.parameters
+						),
 				};
 
 				conf = $.extend(conf, {
@@ -678,11 +707,14 @@
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
-						// must match cacheKey
-						var key = getCacheKey(datatableData);
 
-						if (!(key in preloadData)) {
-							preloadData[key] = { data: [] };
+						// must match initial cacheKey
+						var cacheKey = getCacheKey(datatableData);
+
+						console.log("cacheKey", cacheKey);
+
+						if (!(cacheKey in preloadData)) {
+							preloadData[cacheKey] = { data: [] };
 						}
 
 						// returned cached data for the required
@@ -690,16 +722,16 @@
 						if (
 							datatableData.search.value === "" &&
 							datatableData.start + datatableData.length <=
-								preloadData[key]["data"].length
+								preloadData[cacheKey]["data"].length
 						) {
 							return callback({
 								draw: datatableData.draw,
-								data: preloadData[key]["data"].slice(
+								data: preloadData[cacheKey]["data"].slice(
 									datatableData.start,
 									datatableData.start + datatableData.length
 								),
 								recordsTotal: count,
-								recordsFiltered: preloadData[key]["count"],
+								recordsFiltered: preloadData[cacheKey]["count"],
 								searchPanes: {
 									options: searchPanesOptions,
 								},
@@ -717,48 +749,21 @@
 								preloadData[i] = {};
 							}
 						}
-
-						new mw.Api()
-							.post(
-								$.extend(payload, {
-									datatable: JSON.stringify(datatableData),
-								})
-							)
-							.done(function (results) {
-								var json = results["datatables-json"];
-
-								if (displayLog) {
-									console.log("results log", json.log);
-								}
-
-								// cache all retrieved rows for each sorting
-								// dimension (column/dir), up to a fixed
-								// threshold (_cacheLimit)
-
-								if (datatableData.search.value === "") {
-									preloadData[key] = {
-										data: preloadData[key]["data"]
-											.slice(0, datatableData.start)
-											.concat(json.data),
-										count: json.recordsFiltered,
-									};
-								}
-
-								// we retrieve more than "length"
-								// expected by datatables, so return the
-								// sliced result
-								json.data = json.data.slice(0, datatableData.length);
-								json.searchPanes = {
-									options: searchPanesOptions,
-								};
-								callback(json);
-							})
-							.fail(function (error) {
-								console.log("error", error);
-							});
+	
+						_datatables.callApi(
+							$.extend(payloadData, {
+								datatableData,
+								cacheKey,
+							}),
+							callback,
+							preloadData,
+							searchPanesOptions,
+							displayLog
+						);
 					},
 				});
 			}
+
 			table.DataTable(conf);
 		},
 
@@ -782,4 +787,3 @@
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);
-

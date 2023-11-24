@@ -36,8 +36,8 @@
 }
 
 div.dataTables_processing {
-	background: white;
-	box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.12);
+	/* background: white; */
+	/* box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.12); */
 	z-index: 1000;
 }
 
