@@ -1016,6 +1016,7 @@ return [
 
 	'ext.srf.datatables.v2.module' => $moduleTemplate + [
 		'scripts' => [
+			'resources/jquery/datatables/object_hash.js',
 			'resources/jquery/datatables/datatables.min.js',
 			'resources/jquery/datatables/jquery.dataTables.extras.js',
 		],
