@@ -44,16 +44,10 @@ class SearchPanes {
 
 	/**
 	 * @param array $printRequests
-	 * @param array $formattedOptions
+	 * @param array $searchPanesOptions
 	 * @return array
 	 */
-	public function getSearchPanes( $printRequests, $formattedOptions ) {
-		$searchPanesOptions = $formattedOptions['searchPanes'];
-
-		// searchPanes are disabled
-		if ( empty( $searchPanesOptions ) ) {
-			return [];
-		}
+	public function getSearchPanes( $printRequests, $searchPanesOptions ) {
 		$this->queryEngineFactory = new QueryEngineFactory( $this->datatables->store );
 		$this->connection = $this->datatables->store->getConnection( 'mw.db.queryengine' );		
 		$this->queryFactory = new QueryFactory();

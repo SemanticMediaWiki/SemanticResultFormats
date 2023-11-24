@@ -495,35 +495,35 @@ class DataTables extends ResultPrinter {
 
 		$result = $this->getResultJson( $res, $outputmode );
 		
-		if ( $datatablesOptions['scroller'] === false ) {
-			$this->htmlTable = new HtmlTable();
-			foreach ( $headerList as $text ) {
-				$attributes = [];
-				$this->htmlTable->header( ( $text === '' ? '&nbsp;' : $text ), $attributes );
-			}
+		$this->htmlTable = new HtmlTable();
+		foreach ( $headerList as $text ) {
+			$attributes = [];
+			$this->htmlTable->header( ( $text === '' ? '&nbsp;' : $text ), $attributes );
+		}
 
-			foreach ( $result as $i => $rows ) {				
-				$this->htmlTable->row();
-				
-				foreach ( $rows as $cell ) {
-					$this->htmlTable->cell(
-						( $cell === '' ? '&nbsp;' : $cell ),
-						[]
-					);
-				}
-				if ( $i > $datatablesOptions['pageLength'] ) {
-					break;
-				}
+		foreach ( $result as $i => $rows ) {
+			$this->htmlTable->row();
+
+			foreach ( $rows as $cell ) {
+				$this->htmlTable->cell(
+					( $cell === '' ? '&nbsp;' : $cell ),
+					[]
+				);
+			}
+			if ( $i > $datatablesOptions['pageLength'] ) {
+				break;
 			}
 		}
 
 		$this->useAjax = $this->query->getOption( 'useAjax' );
 		
 		$searchPanesData = [];
-		$searchPanesLog = [];
-		if ( $this->useAjax || $this->hasMultipleValues ) {
+		$searchPanesLog = [];		
+		if ( array_key_exists( 'searchPanes', $formattedOptions )
+			&& !empty( $formattedOptions['searchPanes'] )
+			&& ( $this->useAjax || $this->hasMultipleValues ) ) {
 			$searchPanes = new SearchPanes( $this );
-			$searchPanesData = $searchPanes->getSearchPanes( $printRequests, $formattedOptions );
+			$searchPanesData = $searchPanes->getSearchPanes( $printRequests, $formattedOptions['searchPanes'] );
 			$searchPanesLog = $searchPanes->getLog();
 		}
 
@@ -566,8 +566,7 @@ class DataTables extends ResultPrinter {
 		]);
 
 		$tableAttrs = [
-			'class' => 'srf-datatable display dataTable' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
-			// 'data-theme' => $this->params['theme'],
+			'class' => 'srf-datatable wikitable display' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
 			'data-nocase' => ( $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE ? true : false ),
 			'data-column-sort' => json_encode( [
@@ -584,8 +583,17 @@ class DataTables extends ResultPrinter {
 			'data-multiple-values' => $this->hasMultipleValues,
 		];
 		
-		// $tableAttrs['width'] = '100%';
+		$tableAttrs['width'] = '100%';
+		// $tableAttrs['class'] .= ' broadtable';
 		
+		// remove sortable, that triggers jQuery's TableSorter
+		$classes = preg_split( "/\s*,\s*/", $tableAttrs['class'], -1, PREG_SPLIT_NO_EMPTY );
+		$key = array_search( 'sortable', $classes );
+		if ( $key !== false ) {
+			unset( $classes[$key] );			
+		}
+		$tableAttrs['class'] = implode( " ", $classes );
+
 		$transpose = false;
 		$html = $this->htmlTable->table(
 			$tableAttrs,
@@ -857,10 +865,10 @@ class DataTables extends ResultPrinter {
 				$value = $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
 			}
 
-			// @FIXME this won't work with equal symbol
-			// as value
 			if ( $template ) {
-				$value = $this->parser->recursiveTagParseFully( '{{' . $template . '|' . $value . '}}' );
+				// escape pipe character
+				$value_ = str_replace( '|', '&#124;', (string)$value ); 
+				$value = $this->parser->recursiveTagParseFully( '{{' . $template . '|' . $value_ . '}}' );
 			}
 
 			$values[] = $value === '' ? '&nbsp;' : $value;
