@@ -12,6 +12,7 @@
 namespace SRF\DataTables;
 
 use SMW\DataValueFactory;
+use SMW\DIWikiPage;
 use SMW\DataTypeRegistry;
 use SMW\DIProperty;
 use SMW\SQLStore\SQLStore;
