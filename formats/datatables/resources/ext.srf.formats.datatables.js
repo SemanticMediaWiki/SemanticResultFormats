@@ -586,6 +586,10 @@
 							name: printrequests[index].key !== "" ? printouts[index][1] : "",
 							className: "smwtype" + property.typeid,
 							targets: [index],
+
+							// @FIXME https://datatables.net/reference/option/columns.searchBuilderType
+							// implement in the proper way
+							searchBuilderType: 'string'
 						},
 						options.columns,
 						data.printoutsParametersOptions[index]
