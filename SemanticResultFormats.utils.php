@@ -77,6 +77,9 @@ final class SRFUtils {
 	 */
 	public static function makeVariablesScript( $data, $nonce = null ) {
 		$script = ResourceLoader::makeConfigSetScript( $data );
+		if ( $nonce === null ) {
+			$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
+		}
 
 		return ResourceLoader::makeInlineScript( $script, $nonce );
 	}
