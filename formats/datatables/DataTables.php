@@ -283,6 +283,65 @@ class DataTables extends ResultPrinter {
 			'default' => '',
 		];
 
+		//////////////// datatables mark
+		// @see https://markjs.io/#mark
+		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/776
+		
+		$params['datatables-mark'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+		
+		$params['datatables-mark.separateWordSearch'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+		
+		$params['datatables-mark.accuracy'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 'partially',
+		];
+		
+		$params['datatables-mark.diacritics'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
+		];
+		
+		$params['datatables-mark.acrossElements'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+		
+		$params['datatables-mark.caseSensitive'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+		
+		$params['datatables-mark.ignoreJoiners'] = [
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => false,
+		];
+		
+		$params['datatables-mark.ignorePunctuation'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			// or ':;.,-–—‒_(){}[]!\'"+='
+			'default' => '',
+		];	
+		
+		$params['datatables-mark.wildcards'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 'disabled',
+		];
+
 		//////////////// datatables searchBuilder
 		
 		$params['datatables-searchBuilder'] = [
@@ -601,13 +660,23 @@ class DataTables extends ResultPrinter {
 			$this->isHTML
 		);
 		
+		// @see https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.js
+		$datatableSpinner = Html::rawElement(		
+			'div',
+			[
+				'class' => 'datatables-spinner dataTables_processing',
+				'role' => 'status'
+			],
+			'<div><div></div><div></div><div></div><div></div></div>'
+		);
+		
 		return Html::rawElement(		
 			'div',
 			[
 				'id' => $id,
 				'class' => 'datatables-container',
 			],
-			$html
+			$datatableSpinner . $html
 		);
 	}
 
@@ -732,6 +801,7 @@ class DataTables extends ResultPrinter {
 			'lengthMenu' => "number",
 			'buttons' => "string",
 			'searchPanes.columns' => "number",
+			'mark.ignorePunctuation' => "number",
 			// ...
 		];
 
@@ -828,8 +898,17 @@ class DataTables extends ResultPrinter {
 		return $ret;
 	}
 
-	// @see SMW\Query\ResultPrinters\TableResultPrinter
-	public function getCellContent( string $label, array $dataValues, $outputMode, $isSubject ) {
+	/**
+	 * @see SMW\Query\ResultPrinters\TableResultPrinter
+	 * @param string $label
+	 * @param array $dataValues
+	 * @param int $outputMode
+	 * @param bool $isSubject
+	 * @param string $propTypeid
+	 * @return array
+	 */
+	public function getCellContent( $label, $dataValues, $outputMode, $isSubject, $propTypeid = null ) {
+
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getShortText';
 		} else {
@@ -848,13 +927,16 @@ class DataTables extends ResultPrinter {
 			$outputMode = SMW_OUTPUT_WIKI;
 		}
 
+		// this is only used by SearchPanes
+		$isKeyword = ( $propTypeid === '_keyw' );
 		$values = [];
 		foreach ( $dataValues as $dv ) {
+			$dataItem = $dv->getDataItem();
 			// Restore output in Special:Ask on:
 			// - file/image parsing
 			// - text formatting on string elements including italic, bold etc.
-			if ( $outputMode === SMW_OUTPUT_HTML && $dv->getDataItem() instanceof DIWikiPage && $dv->getDataItem()->getNamespace() === NS_FILE ||
-				$outputMode === SMW_OUTPUT_HTML && $dv->getDataItem() instanceof DIBlob ) {
+			if ( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIWikiPage && $dataItem->getNamespace() === NS_FILE ||
+				$outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIBlob ) {
 				// Too lazy to handle the Parser object and besides the Message
 				// parse does the job and ensures no other hook is executed
 				$value = Message::get(
@@ -863,6 +945,13 @@ class DataTables extends ResultPrinter {
 				);
 			} else {
 				$value = $dv->$dataValueMethod( $outputMode, $this->getLinker( $isSubject ) );
+			}
+
+			// @FIXME this is not the best way,
+			// try to use $isKeyword = $dataItem->getOption( 'is.keyword' );
+			// @see DIBlobHandler
+			if ( $isKeyword ) {
+				$value = $dataItem->normalize( $value );
 			}
 
 			if ( $template ) {

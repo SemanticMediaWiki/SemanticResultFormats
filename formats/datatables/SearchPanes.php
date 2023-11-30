@@ -10,9 +10,8 @@
  */
 
 namespace SRF\DataTables;
-
-use SMW\DataValueFactory;
 use SMW\DIWikiPage;
+use SMW\DataValueFactory;
 use SMW\DataTypeRegistry;
 use SMW\DIProperty;
 use SMW\SQLStore\SQLStore;
@@ -144,6 +143,7 @@ class SearchPanes {
 		$qobj = $querySegmentList[$rootid];
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
+		$propTypeid = $property->findPropertyTypeID();
 
 		if ( $isCategory ) {
 
@@ -236,7 +236,7 @@ class SearchPanes {
 				return [];
 			}
 
-			list( $diType, $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias );
+			list( $diType, $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias, $propTypeid );
 
 			/*
 			---GENERATED FROM DATATABLES
@@ -309,7 +309,7 @@ class SearchPanes {
 
 		// @see ByGroupPropertyValuesLookup
 		$diType = DataTypeRegistry::getInstance()->getDataItemId(
-			$property->findPropertyTypeID()
+			$propTypeid
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
@@ -370,11 +370,24 @@ class SearchPanes {
 				$dataValue->setOutputFormat( $outputFormat );
 			}
 
+
+/*
+
+					
+					//  @see DIBlobHandler
+					// $isKeyword = $dataItem->getOption( 'is.keyword' );
+				
+					if ( $propTypeid === '_keyw' ) {
+						$value = $dataItem->normalize( $value );
+					}
+					
+			*/
 			$cellContent = $this->datatables->getCellContent(
 				$printRequest->getCanonicalLabel(),
 				[ $dataValue ],
 				$outputMode,
-				$isSubject
+				$isSubject,
+				$propTypeid
 			);
 
 			if ( !array_key_exists( $cellContent, $groups ) ) {
@@ -521,10 +534,10 @@ class SearchPanes {
 	 * @see ByGroupPropertyValuesLookup
 	 * @param DIProperty $property
 	 * @param string $p_alias
+	 * @param string $propTypeId
 	 * @return array
 	 */
-	private function fetchValuesByGroup( DIProperty $property, $p_alias ) {
-
+	private function fetchValuesByGroup( DIProperty $property, $p_alias, $propTypeId ) {
 		$tableid = $this->datatables->store->findPropertyTableID( $property );
 		// $entityIdManager = $this->store->getObjectIds();
 
@@ -578,7 +591,11 @@ class SearchPanes {
 			$orderBy = "count DESC, i.smw_sort ASC";
 		} elseif ( $diType === DataItem::TYPE_BLOB ) {
 			$fields = [ "$p_alias.o_hash, $p_alias.o_blob", "COUNT( $p_alias.o_hash ) as count" ];
-			$groupBy = "$p_alias.o_hash, $p_alias.o_blob";
+			
+			// @see DIBlobHandler	
+			$groupBy = ( $propTypeId !== '_keyw' ? "$p_alias.o_hash, $p_alias.o_blob"
+					: "$p_alias.o_hash" );
+
 		} elseif ( $diType === DataItem::TYPE_URI ) {
 			$fields = [ "$p_alias.o_serialized, $p_alias.o_blob", "COUNT( $p_alias.o_serialized ) as count" ];
 			$groupBy = "$p_alias.o_serialized, $p_alias.o_blob";
