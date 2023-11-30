@@ -565,7 +565,7 @@
 
 			var searchPanesLog = data.searchPanesLog;
 
-			var displayLog = mw.config.get("performer") === context.data("editor");
+			var displayLog = mw.config.get("performer") === table.data("editor");
 
 			if (displayLog) {
 				console.log("searchPanesLog", searchPanesLog);
