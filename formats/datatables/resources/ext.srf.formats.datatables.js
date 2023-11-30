@@ -289,7 +289,13 @@
 			return searchPanesOptions;
 		},
 
-		callApi: function (data, callback, preloadData, searchPanesOptions, displayLog) {
+		callApi: function (
+			data,
+			callback,
+			preloadData,
+			searchPanesOptions,
+			displayLog
+		) {
 			var payload = {
 				action: "ext.srf.datatables.api",
 				format: "json",
@@ -501,6 +507,8 @@
 			var useAjax = table.data("useAjax");
 			var count = parseInt(table.data("count"));
 
+			// var mark = isObject(options.mark);
+
 			var searchPanes = isObject(options.searchPanes);
 
 			if (searchPanes) {
@@ -557,7 +565,7 @@
 
 			var searchPanesLog = data.searchPanesLog;
 
-			var displayLog = true; // mw.config.get("performer") === context.data("editor");
+			var displayLog = mw.config.get("performer") === context.data("editor");
 
 			if (displayLog) {
 				console.log("searchPanesLog", searchPanesLog);
@@ -589,7 +597,7 @@
 
 							// @FIXME https://datatables.net/reference/option/columns.searchBuilderType
 							// implement in the proper way
-							searchBuilderType: 'string'
+							searchBuilderType: "string",
 						},
 						options.columns,
 						data.printoutsParametersOptions[index]
@@ -688,14 +696,14 @@
 				};
 
 				var payloadData = {
-						queryString,
-						columnDefs,
-						printouts,
-						printrequests,
-						settings: $.extend(
-							{ count: count, displayLog: displayLog },
-							query.parameters
-						),
+					queryString,
+					columnDefs,
+					printouts,
+					printrequests,
+					settings: $.extend(
+						{ count: count, displayLog: displayLog },
+						query.parameters
+					),
 				};
 
 				conf = $.extend(conf, {
@@ -707,15 +715,14 @@
 					// the preloaded data as long they are available for the requested
 					// slice, and then it uses an ajax call for not available data.
 					// deferLoading: table.data("count"),
-
 					processing: true,
 					serverSide: true,
+					initComplete: function () {
+						$(container).find(".datatables-spinner").hide();
+					},
 					ajax: function (datatableData, callback, settings) {
-
 						// must match initial cacheKey
 						var cacheKey = getCacheKey(datatableData);
-
-						console.log("cacheKey", cacheKey);
 
 						if (!(cacheKey in preloadData)) {
 							preloadData[cacheKey] = { data: [] };
@@ -753,7 +760,7 @@
 								preloadData[i] = {};
 							}
 						}
-	
+
 						_datatables.callApi(
 							$.extend(payloadData, {
 								datatableData,
