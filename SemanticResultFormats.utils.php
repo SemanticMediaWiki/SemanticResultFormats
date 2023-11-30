@@ -39,7 +39,7 @@ final class SRFUtils {
 		];
 
 		$requireHeadItem = [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem, false ) );
+		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem ) );
 	}
 
 	/**
