@@ -1,7 +1,9 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
-## SRF (future version)
-not a release yet
+## SRF 4.2.0
+
+Released on December 7, 2023.
+
 * Improved compatibility with recent versions of MediaWiki [792](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/792), [780](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/780) (by @Seb35 and @D-Groenewegen)
 * Improved test coverage [789](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791), [791](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791) (by [gesinn.it](https://gesinn.it))
 * [790](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/790) removed datatables-legacy format (by @YvarRavy)
@@ -10,8 +12,10 @@ not a release yet
 * [782](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/783) fixes jqplotchart issue (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * [777](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/777) fixes eventcalender issue (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Further improvements of datatables format: [775](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/775), [774](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/774), [773](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/773) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* Fixed NONCEs on inline scripts in order to support CSP-Header
+* Fixed GraphViz extension support in the Graph format (by [Professional Wiki](https://professional.wiki))
 
-## SRF 4.1
+## SRF 4.1.0
 
 Released on October 12, 2023.
 
