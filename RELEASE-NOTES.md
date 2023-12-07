@@ -1,8 +1,8 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
-## SRF (future version)
+## SRF 4.2.0
 
-Released on December 7t, 2023.
+Released on December 7, 2023.
 
 * Improved compatibility with recent versions of MediaWiki [792](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/792), [780](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/780) (by @Seb35 and @D-Groenewegen)
 * Improved test coverage [789](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791), [791](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791) (by [gesinn.it](https://gesinn.it))
@@ -15,7 +15,7 @@ Released on December 7t, 2023.
 * Fixed NONCEs on inline scripts in order to support CSP-Header
 * Fixed GraphViz extension support in the Graph format (by [Professional Wiki](https://professional.wiki))
 
-## SRF 4.1
+## SRF 4.1.0
 
 Released on October 12, 2023.
 
