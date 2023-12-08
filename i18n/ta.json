@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"ElangoRamanujam",
+			"Fahimrazick",
 			"Karthi.dr",
 			"Shanmugamp7"
 		]
@@ -57,9 +58,9 @@
 	"srf-paramdesc-graphname": "தலைப்பு",
 	"srf-ui-datatables-label-conditions": "கட்டுப்பாடுகள்",
 	"srf-ui-datatables-label-information": "தகவல்",
-	"srf-ui-datatables-label-placeholder-column-search": "தேடுக...",
+	"srf-ui-datatables-label-placeholder-column-search": "தேடு...",
 	"srf-ui-datatables-label-sLoadingRecords": "ஏற்றப்படுகிறது...",
-	"srf-ui-datatables-label-sSearch": "தேடுக:",
+	"srf-ui-datatables-label-sSearch": "தேடு:",
 	"srf-ui-datatables-label-oPaginate-sFirst": "முதல்",
 	"srf-ui-datatables-label-oPaginate-sLast": "இறுதி",
 	"srf-ui-datatables-label-oPaginate-sNext": "அடுத்து",
