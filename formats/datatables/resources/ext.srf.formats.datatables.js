@@ -641,6 +641,9 @@
 				search: {
 					caseInsensitive: table.data("nocase"),
 				},
+				initComplete: function () {
+					$(container).find(".datatables-spinner").hide();
+				}
 			});
 
 			// cacheKey ensures that the cached pages
@@ -717,9 +720,6 @@
 					// deferLoading: table.data("count"),
 					processing: true,
 					serverSide: true,
-					initComplete: function () {
-						$(container).find(".datatables-spinner").hide();
-					},
 					ajax: function (datatableData, callback, settings) {
 						// must match initial cacheKey
 						var cacheKey = getCacheKey(datatableData);
