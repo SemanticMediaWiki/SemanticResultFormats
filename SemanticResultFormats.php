@@ -45,8 +45,6 @@ class SemanticResultFormats {
 
 		$GLOBALS['srfgIP'] = __DIR__;
 		$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include __DIR__ . "/Resources.php" );
-
-		self::registerHooks();
 	}
 
 	/**
@@ -93,6 +91,8 @@ class SemanticResultFormats {
 				);
 			}
 		}
+		self::registerHooks();
+
 		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 
 		// Admin Links hook needs to be called in a delayed way so that it
