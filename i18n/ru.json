@@ -35,7 +35,7 @@
 	"prefs-srf-datatables-options": "Настройки DataTables",
 	"srf-prefs-datatables-options-update-default": "Включить [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates автоматическое обновление] содержания при обновлении страницы",
 	"srf-prefs-datatables-options-cache-default": "Включить [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage локальный том хранения], чтобы улучшить время отклика",
-	"srf-module-loading": "Загрузка...",
+	"srf-module-loading": "Загружается…",
 	"srf-paramdesc-layout": "Доступен макет",
 	"srf-paramdesc-height": "Высота",
 	"srf-paramdesc-width": "Ширина",
