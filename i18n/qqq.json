@@ -204,7 +204,7 @@
 	"srf-paramdesc-graphlink": "{{doc-paramdesc|graphlink}}",
 	"srf-paramdesc-graphcolor": "{{doc-paramdesc|graphcolor}}",
 	"srf-paramdesc-graph-wwl": "{{doc-paramdesc|wordwraplimit}}",
-	"srf-paramdesc-graph-graphfields": "{{doc-paramdesc|graphfields}}",
+	"srf-paramdesc-graph-fields": "{{doc-paramdesc|graphfields}}",
 	"srf-paramdesc-clustercolor": "{{doc-paramdesc|clustercolor}}",
 	"srf-paramdesc-highlight": "{{doc-paramdesc|highlight}}",
 	"srf-paramdesc-highlightcolor": "{{doc-paramdesc|highlightcolor}}",
