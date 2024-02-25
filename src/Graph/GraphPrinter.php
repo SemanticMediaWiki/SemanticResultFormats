@@ -195,6 +195,12 @@ class GraphPrinter extends ResultPrinter {
 		$node = null;
 		$fields = [];
 		$parents = [];
+		$label = $this->options->getNodeLabel();
+		// Use some property as the node label rather than page title or {{DISPLAYTITLE:...}}.
+		if ( $label === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
+			$label = null;
+		}
+
 		// loop through all row fields
 		foreach ( $row as $result_array ) {
 			$request = $result_array->getPrintRequest();
@@ -238,7 +244,13 @@ class GraphPrinter extends ResultPrinter {
 				// @TODO: add explicit nodes with hyperlinks to every parent node not added as '?', but only once.
 			}
 			foreach ( $fields as $field ) {
-				$node->addField( $field['name'], $field['value'], $field['type'], $field['page'] );
+				if ( $label === $field['name'] && $field['value'] ) {
+					// This property is to be used as the node label (nodelabel = Some property).
+					$node->setLabel( $field['value'] );
+				} else {
+					// This property is to be used as one of the additional node fields.
+					$node->addField( $field['name'], $field['value'], $field['type'], $field['page'] );
+				}
 			}
 			$this->nodes[] = $node;
 		}
@@ -336,14 +348,6 @@ class GraphPrinter extends ResultPrinter {
 		$params['nodelabel'] = [
 			'default' => '',
 			'message' => 'srf-paramdesc-nodelabel',
-			'values' => self::$NODE_LABELS,
-		];
-
-		$params['graphfields'] = [
-			'default' => false,
-			'message' => 'srf-paramdesc-graph-fields',
-			'manipluatedefault' => false,
-			'type' => 'boolean'
 		];
 
 		$params['graphfields'] = [
