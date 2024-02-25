@@ -186,6 +186,7 @@
 	"srf-paramdesc-graphlink": "Sets whether nodes should link to their wiki pages",
 	"srf-paramdesc-graphcolor": "Sets the color of the graph",
 	"srf-paramdesc-graph-wwl": "Sets the word wrap limit (in number of characters)",
+	"srf-paramdesc-graph-graphfields": "Sets whether non-page properties should be displayed as additional fields on their pages nodes or as edges for properties and separate nodes for property values",
 	"srf-paramdesc-clustercolor": "Sets the colors the cluster boxes",
 	"srf-paramdesc-highlight": "Sets the node to be highlighted",
 	"srf-paramdesc-highlightcolor": "Sets the font color for the highlighted node",
