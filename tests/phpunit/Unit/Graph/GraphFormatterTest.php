@@ -119,7 +119,7 @@ FIELDS
 	 * @return GraphFormatter
 	 */
 	private static function graph( array $case ): GraphFormatter {
-		$graph = new GraphFormatter( new GraphOptions( GraphFormatterTest::BASE_PARAMS + $case['params'] ) );
+		$graph = new GraphFormatter( new GraphOptions( array_merge( GraphFormatterTest::BASE_PARAMS, $case['params'] ) ) );
 		$nodes = [];
 		foreach ( $case['nodes'] as $node ) {
 			$graph_node = new GraphNode( $node['name'] );
@@ -152,7 +152,7 @@ FIELDS
 	}
 
 	/**
-	 * @covers GraphFormatter::__construct()
+	 * @covers ::__construct()
 	 * @dataProvider provideCanConstruct
 	 * @param array $params
 	 * @return void
@@ -182,7 +182,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::getWordWrappedText()
+	 * @covers ::getWordWrappedText()
 	 * @dataProvider provideGetWordWrappedText
 	 * @param string $unwrapped
 	 * @param string $wrapped
@@ -190,9 +190,9 @@ WRAPPED0
 	 */
 	public function testGetWordWrappedText( $unwrapped, $wrapped ) {
 		$formatter = new GraphFormatter(
-			new GraphOptions( GraphFormatterTest::BASE_PARAMS + [
+			new GraphOptions( array_merge( GraphFormatterTest::BASE_PARAMS, [
 				'wordwraplimit' => 10
-			] )
+			] ) )
 		);
 		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped ) );
 	}
@@ -209,7 +209,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::getGraphLegend()
+	 * @covers ::getGraphLegend()
 	 * @dataProvider provideGetGraphLegend
 	 * @param array $params
 	 * @param string $expected The expected legend.
@@ -231,7 +231,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::buildGraph()
+	 * @covers ::buildGraph()
 	 * @dataProvider provideBuildGraph
 	 * @param array $params
 	 * @param string $expected The expected DOT code.
