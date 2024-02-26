@@ -99,53 +99,21 @@ class GraphFormatter {
 		foreach ( $nodes as $node ) {
 			$instance = $this;
 			$nodeLabel = htmlspecialchars( $node->getLabel() );
-
-			// take "displaytitle" as node-label if it is set
-			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
-				if ( !empty( $nodeLabel ) ) {
-					$nodeLabel = $this->getWordWrappedText( $nodeLabel, $this->options->getWordWrapLimit() );
-				}
-			}
-
-			// URL.
 			$nodeLinkURL = $this->options->isGraphLink() ? "[[" . $node->getID() . "]]" : null;
+			$nodeTooltip = null;
 
 			// Display fields, if any.
 			$fields = $node->getFields();
 			if ( count( $fields ) > 0 ) {
-				$label = $nodeLabel
-					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
-							  [ '\n' => '<br/>' ] );
-				$nodeTooltip = $nodeLabel ?: $node->getID();
-				// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
-				// and formatting is a little different from the GraphViz extension
-				if ( version_compare( $wgVersion, '1.33', '>=' ) &&
-					\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
-					$nodeTooltip = str_replace( '<br />', '', $nodeTooltip );
-				}
-				// Label in HTML form enclosed with <>.
-				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
-							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
-							. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
-								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
-									? 'right'
-									: 'left';
-								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
-									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '">'
-										. $instance->getWordWrappedText(
-											$field['value'],
-											$instance->options->getWordWrapLimit()
-										)
-									. '</td></tr>';
-							}, $fields ) ) . "\n</table>\n>";
+				$label = $nodeLabel ?: $node->getID();
+				$nodeTooltip = htmlspecialchars( $label );
+				$nodeLabel = $this->getFieldsTable( $label, $nodeLinkURL, $fields );
 				$nodeLinkURL = null; // the value at the top is already hyperlinked.
 			} else {
 				if ( $nodeLabel ) {
 					// Label, if any, is enclosed with "".
-					$nodeLabel = '"' . htmlspecialchars( $nodeLabel ) . '"';
+					$nodeLabel = '"' .  $this->getWordWrappedText( htmlspecialchars( $nodeLabel ) ) . '"';
 				}
-				$nodeTooltip = null;
 			}
 
 			/**
@@ -160,10 +128,10 @@ class GraphFormatter {
 				$inBrackets[] = 'URL = "' . $nodeLinkURL . '"';
 			}
 			if ( $nodeLabel ) {
-				$inBrackets[] = 'label = ' . $nodeLabel;
+				$inBrackets[] = 'label = ' . $nodeLabel; // already in quotes or <>.
 			}
 			if ( $nodeTooltip ) {
-				$inBrackets[] = 'tooltip = "' . htmlspecialchars( $nodeTooltip ) . '"';
+				$inBrackets[] = 'tooltip = "' . $nodeTooltip . '"';
 			}
 			if ( count( $inBrackets ) > 0 ) {
 				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
@@ -226,6 +194,31 @@ class GraphFormatter {
 	}
 
 	/**
+	 * Show node label and fields in an HTML table.
+	 *
+  	 * @param string $label Node label,
+	 * @param string $url Node URL,
+     * @param string[] $fields Node fields.
+	 * @return string
+  	 */
+	private function getFieldsTable( string $label, string $url, array $fields ): string {
+		$instance = $this;
+		// Label in HTML form enclosed with <>.
+		return "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
+			. '<tr><td colspan="2" href="' . $url . '">'
+			. $this->getWordWrappedText( $label, '<br />' )
+			. "</td></tr><hr/>\n"
+			. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
+				$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] ) ? 'right' : 'left';
+				return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
+					. $instance->getWordWrappedText( $field['name'], '<br />' ) . '</td>'
+					. '<td align="' . $alignment . '">'
+					. $instance->getWordWrappedText( $field['value'], '<br />' )
+					. '</td></tr>';
+			}, $fields ) ) . "\n</table>\n>";
+	}
+
+	/**
 	 * Creates the graph legend
 	 *
 	 * @return string Html::rawElement
@@ -255,18 +248,19 @@ class GraphFormatter {
 	/**
 	 * Returns the word wrapped version of the provided text.
 	 *
-	 * @param string $text
-	 * @param int $charLimit
+	 * @param string $text Text to word-wrap.
+  	 * @param ?string $br Override line separator.
 	 *
 	 * @return string
 	 */
-	public function getWordWrappedText( $text, $charLimit ) {
+	public function getWordWrappedText( string $text, ?string $br = null ): string {
+		$charLimit = $this->options->getWordWrapLimit();
 		preg_match_all(
 			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)/u',
 			$text,
 			$matches,
 			PREG_PATTERN_ORDER
 		);
-		return implode( $this->lineSeparator, $matches[0] );
+		return implode( $br ?? $this->lineSeparator, $matches[0] );
 	}
 }
