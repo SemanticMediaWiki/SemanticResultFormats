@@ -128,7 +128,7 @@
 	"srf-paramdesc-hidezeroes": "Na grafikonu skrij ničelne vrednosti",
 	"srf-paramdesc-clicktarget": "Določite stran ali poizvedbeni niz kot cilj pri kliku koledarskega datuma.",
 	"srf-paramdesc-includeend": "V večdnevne dogodke vključi končni datum",
-	"srf-ui-gridview-label-item": "Podatkovni element",
+	"srf-ui-gridview-label-item": "Podatkovni predmet",
 	"srf-ui-gridview-label-value": "Podatkovna vrednost",
 	"srf-ui-gridview-label-series": "Podatkovna serija",
 	"srf-ui-gridview-label-chart-tab": "Grafikon",
