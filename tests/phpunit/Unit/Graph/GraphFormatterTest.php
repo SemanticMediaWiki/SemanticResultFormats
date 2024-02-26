@@ -110,6 +110,7 @@ FIELDS
 		'graphlabel' => true,
 		'graphcolor' => true,
 		'graphlegend' => true,
+		'graphfields' => false,
 	];
 
 	/**
