@@ -98,7 +98,7 @@ class GraphFormatter {
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 			$instance = $this;
-			$nodeLabel = htmlspecialchars( $node->getLabel() );
+			$nodeLabel = $node->getLabel();
 			$nodeLinkURL = $this->options->isGraphLink() ? "[[" . $node->getID() . "]]" : null;
 			$nodeTooltip = null;
 
@@ -206,14 +206,14 @@ class GraphFormatter {
 		// Label in HTML form enclosed with <>.
 		return "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
 			. '<tr><td colspan="2" href="' . $url . '">'
-			. $this->getWordWrappedText( $label, '<br />' )
+			. $this->getWordWrappedText( htmlspecialchars( $label ), '<br />' )
 			. "</td></tr><hr/>\n"
 			. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
 				$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] ) ? 'right' : 'left';
 				return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
-					. $instance->getWordWrappedText( $field['name'], '<br />' ) . '</td>'
+					. $instance->getWordWrappedText( htmlspecialchars( $field['name'] ), '<br />' ) . '</td>'
 					. '<td align="' . $alignment . '">'
-					. $instance->getWordWrappedText( $field['value'], '<br />' )
+					. $instance->getWordWrappedText( htmlspecialchars( $field['value'] ), '<br />' )
 					. '</td></tr>';
 			}, $fields ) ) . "\n</table>\n>";
 	}
