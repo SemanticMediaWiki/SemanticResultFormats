@@ -106,7 +106,7 @@ class GraphFormatter {
 			$fields = $node->getFields();
 			if ( count( $fields ) > 0 ) {
 				$label = $nodeLabel ?: $node->getID();
-				$nodeTooltip = htmlspecialchars( $label );
+				$nodeTooltip = $this->getWordWrappedText( htmlspecialchars( $label ) );
 				$nodeLabel = $this->getFieldsTable( $label, $nodeLinkURL, $fields );
 				$nodeLinkURL = null; // the value at the top is already hyperlinked.
 			} else {
