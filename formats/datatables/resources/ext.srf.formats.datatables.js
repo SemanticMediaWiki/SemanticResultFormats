@@ -682,6 +682,9 @@
 
 				// use Ajax only when required
 			} else {
+				// prevents double spinner
+				$(container).find(".datatables-spinner").hide();
+
 				var preloadData = {};
 
 				// cache using the column index and sorting
