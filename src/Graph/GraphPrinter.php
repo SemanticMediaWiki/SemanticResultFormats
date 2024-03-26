@@ -341,14 +341,7 @@ class GraphPrinter extends ResultPrinter {
 
 		$params['graphfields'] = [
 			'default' => false,
-			'message' => 'srf-paramdesc-graph-fields',
-			'manipluatedefault' => false,
-			'type' => 'boolean'
-		];
-
-		$params['graphfields'] = [
-			'default' => false,
-			'message' => 'srf-paramdesc-graph-fields',
+			'message' => 'srf-paramdesc-graphfields',
 			'manipluatedefault' => false,
 			'type' => 'boolean'
 		];

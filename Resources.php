@@ -456,6 +456,7 @@ return [
 	// Chart specific declarations
 	'ext.srf.jqplot.chart' => $formatModule + [
 		'scripts' => [
+			'jqplot/resources/ext.srf.jqplot.chart.bubble.js',
 			'jqplot/resources/ext.srf.jqplot.chart.bar.js',
 			'jqplot/resources/ext.srf.jqplot.chart.pie.js',
 			'jqplot/resources/ext.srf.jqplot.chart.js',

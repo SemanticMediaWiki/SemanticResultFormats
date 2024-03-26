@@ -1,7 +1,7 @@
 
 .slick-prev:before, 
 .slick-next:before {
-	color: white;
+	color: #3498db;
 	font-size: 30px;
 }
 
@@ -26,6 +26,7 @@
     background: rgba(0,0,0,.65);
     color: white;
     font-size: smaller;
+    width: 100%;
 }
 
 .slick-slide .slick-slide-content.caption-title {

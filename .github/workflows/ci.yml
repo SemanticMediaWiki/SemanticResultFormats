@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - mediawiki_version: '1.35'
-            smw_version: '4.1.2'
+            smw_version: '4.1.3'
             php_version: 7.4
             database_type: mysql
             database_image: "mysql:5.7"
@@ -35,14 +35,14 @@ jobs:
             smw_version: dev-master
             php_version: 8.1
             database_type: mysql
-            database_image: "mariadb:latest"
+            database_image: "mariadb:10"
             coverage: false
             experimental: true
 #          - mediawiki_version: '1.40'
 #            smw_version: dev-master
 #            php_version: 8.1
 #            database_type: mysql
-#            database_image: "mariadb:latest"
+#            database_image: "mariadb:10"
 #            coverage: false
 #            experimental: true
 
@@ -72,7 +72,7 @@ jobs:
         if: matrix.coverage == true
 
       - name: Upload code coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: coverage/php/coverage.xml
         if: matrix.coverage == true

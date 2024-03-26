@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Исмаил Садуев",
 			"Умар"
 		]
 	},
@@ -8,7 +9,7 @@
 	"srf-module-loading": "Чуйолуш...",
 	"srf-paramdesc-height": "Локхалла",
 	"srf-paramdesc-width": "Шоралла",
-	"srf-module-nomatch": "ХӀума цакарина",
+	"srf-module-nomatch": "Хӏумма а ца карийна",
 	"srf-ui-common-label-source": "Хьост",
 	"srf-ui-tooltip-title-options": "Параметраш",
 	"srf-ui-tooltip-title-legend": "Легенда",
