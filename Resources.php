@@ -1017,10 +1017,14 @@ return [
 
 	'ext.srf.datatables.v2.module' => $moduleTemplate + [
 		'scripts' => [
+			'resources/jquery/datatables/object_hash.js',	
+			'resources/jquery/datatables/jquery.mark.min.js',
+			'resources/jquery/datatables/datatables.mark.min.js',
 			'resources/jquery/datatables/datatables.min.js',
 			'resources/jquery/datatables/jquery.dataTables.extras.js',
 		],
 		'styles'  => [
+			'resources/jquery/datatables/datatables.mark.min.css',
 			'resources/jquery/datatables/datatables.min.css',
 		]
 	],
