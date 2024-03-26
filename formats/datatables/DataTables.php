@@ -646,7 +646,7 @@ class DataTables extends ResultPrinter {
 		// $tableAttrs['class'] .= ' broadtable';
 		
 		// remove sortable, that triggers jQuery's TableSorter
-		$classes = preg_split( "/\s*,\s*/", $tableAttrs['class'], -1, PREG_SPLIT_NO_EMPTY );
+		$classes = preg_split( "/\s+", $tableAttrs['class'], -1, PREG_SPLIT_NO_EMPTY );
 		$key = array_search( 'sortable', $classes );
 		if ( $key !== false ) {
 			unset( $classes[$key] );			
