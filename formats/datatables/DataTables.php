@@ -801,7 +801,7 @@ class DataTables extends ResultPrinter {
 			'lengthMenu' => "number",
 			'buttons' => "string",
 			'searchPanes.columns' => "number",
-			'mark.ignorePunctuation' => "number",
+			'mark.ignorePunctuation' => "",
 			// ...
 		];
 
@@ -810,12 +810,19 @@ class DataTables extends ResultPrinter {
 
 			// transform csv to array
 			if ( array_key_exists( $key, $arrayTypes ) ) {
-				$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
 
-				if ( $arrayTypes[$key] === 'number' ) {
-					$value = array_map( static function ( $value ) {
-						return (int)$value;
-					}, $value );
+				// https://markjs.io/#mark
+				if ( $arrayTypes[$key] === '' ) {
+					$value = str_split( $value );
+
+				} else {
+					$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
+
+					if ( $arrayTypes[$key] === 'number' ) {
+						$value = array_map( static function ( $value ) {
+							return (int)$value;
+						}, $value );
+					}
 				}
 			}
 
