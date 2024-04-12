@@ -315,7 +315,7 @@ class SRFArray extends SMWResultPrinter {
 		 */
 		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!
 		$parser = MediaWikiServices::getInstance()->getParser();
-		if ( !isset( $parser->mOptions ) ) {
+		if ( $parser->getOptions() === null ) {
 			// if( ! $this->mInline ) {
 			return null;
 		}
