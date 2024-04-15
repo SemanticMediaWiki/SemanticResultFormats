@@ -8,6 +8,7 @@
 	"srf-module-loading": "Жүктөлүүдө...",
 	"srf-ui-navigation-next": "Кийинки",
 	"srf-ui-common-label-source": "Булак",
+	"srf-ui-tooltip-title-options": "Параметрлер",
 	"srf-ui-tooltip-title-filter": "Чыпка",
 	"srf-ui-common-label-refresh": "Жаңылоо",
 	"srfc_today": "Бүгүн",
@@ -22,5 +23,6 @@
 	"srf-filtered-selectorlabel-list": "Тизме",
 	"srf-filtered-selectorlabel-table": "Жадыбал",
 	"srf-ui-eventcalendar-label-today": "Бүгүн",
-	"srf-ui-mediaplayer-label-next": "Кийинки"
+	"srf-ui-mediaplayer-label-next": "Кийинки",
+	"srf-ui-mediaplayer-label-full-screen": "Толук экран"
 }
