@@ -377,5 +377,18 @@
 	"srf-error-gantt-mermaid-not-installed": "Mermaid Extension needs to be installed.",
 	"srf-printername-gantt": "Gantt",
 	"srf-paramdesc-nodelabel": "Use a graph node label. Allowed values: displaytitle.",
-	"srf-paramdesc-graphfields": "Display non-page property values within graph nodes rather than as edges."
+	"srf-paramdesc-graphfields": "Display non-page property values within graph nodes rather than as edges.",
+	"srf-printername-interquartilemean": "Interquartilemean",
+	"srf-printername-interquartilerange.exc": "Interquartilerange.exc",
+	"srf-printername-interquartilerange": "Interquartilerange",
+	"srf-printername-mode": "Mode",
+	"srf-printername-quartillower.exc": "Quartillower.exc",
+	"srf-printername-quartillower": "Quartillower",
+	"srf-printername-quartilupper.exc": "Quartilupper.exc",
+	"srf-printername-quartilupper": "Quartilupper",
+	"srf-printername-range": "Range",
+	"srf-printername-samplestandarddeviation": "Samplestandarddeviation",
+	"srf-printername-samplevariance": "Samplevariance",
+	"srf-printername-standarddeviation": "Standarddeviation",
+	"srf-printername-variance": "Variance"
 }
