@@ -408,5 +408,5 @@
 	"srf-printername-samplestandarddeviation": "{{doc-smwformat|samplestandarddeviation}}",
 	"srf-printername-samplevariance": "{{doc-smwformat|samplevariance}}",
 	"srf-printername-standarddeviation": "{{doc-smwformat|standarddeviation}}",
-	"srf-printername-variance":"{{doc-smwformat|variance}}",
+	"srf-printername-variance":"{{doc-smwformat|variance}}"
 }
