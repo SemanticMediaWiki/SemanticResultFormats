@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Исмаил Садуев",
 			"Умар"
 		]
 	},
@@ -8,7 +9,7 @@
 	"srf-module-loading": "Чуйолуш...",
 	"srf-paramdesc-height": "Локхалла",
 	"srf-paramdesc-width": "Шоралла",
-	"srf-module-nomatch": "ХӀума цакарина",
+	"srf-module-nomatch": "Хӏумма а ца карийна",
 	"srf-ui-common-label-source": "Хьост",
 	"srf-ui-tooltip-title-options": "Параметраш",
 	"srf-ui-tooltip-title-legend": "Легенда",
@@ -25,12 +26,12 @@
 	"srf-gallery-navigation-previous": "Хьалхара",
 	"srf-gallery-navigation-next": "РогӀера",
 	"srf-paramdesc-graphname": "Корта",
-	"srf-ui-datatables-label-conditions": "Хьал",
+	"srf-ui-datatables-label-conditions": "Биллам",
 	"srf-ui-datatables-label-parameters": "Параметраш",
 	"srf-ui-datatables-label-information": "Хаам",
 	"srf-ui-datatables-label-update-success": "АгӀо карлайаккхар кхиамца чекхдели",
 	"srf-ui-datatables-label-placeholder-column-search": "Лоьху...",
-	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Литтаран нисярш",
+	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "Литтаран нисдаран гӀирс",
 	"srf-ui-datatables-label-sLoadingRecords": "Чуйолуш...",
 	"srf-ui-datatables-label-sProcessing": "Кечдар...",
 	"srf-ui-datatables-label-sSearch": "Лахар:",
@@ -41,6 +42,6 @@
 	"srf-filtered-selectorlabel-table": "Таблица",
 	"srf-filtered-value-filter-and": ",",
 	"srf-filtered-value-filter-or": "ЙА",
-	"srf-ui-mediaplayer-label-play": "Йолаялита",
+	"srf-ui-mediaplayer-label-play": "Йолайалита",
 	"srf-ui-mediaplayer-label-next": "Кхин дӀа"
 }

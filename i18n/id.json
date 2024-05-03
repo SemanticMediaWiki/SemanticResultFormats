@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Agam Riyandana",
 			"Bennylin",
 			"Daud I.F. Argana",
 			"Farras",
 			"IvanLanin",
 			"Kenrick95",
+			"Rachmat04",
 			"පසිඳු කාවින්ද"
 		]
 	},
@@ -62,8 +64,12 @@
 	"srf-paramdesc-direction": "Menetapkan arah bagan atau grafik",
 	"srf_paramdesc_barnumbersaxislabel": "Label untuk poros nomor",
 	"srf-paramdesc-labelaxislabel": "Label untuk poros label",
+	"srf-paramdesc-pagelength": "Tentukan panjang halaman",
+	"srf-paramdesc-lengthmenu": "Tentukan panjang menu",
+	"srf-paramdesc-datatables-columnstype": "Tentukan jenis kolom yang dapat didata",
 	"srf-ui-gridview-label-data-tab": "Data",
 	"srf_printername_gallery": "Galeri",
+	"srf_printername_carousel": "Korsel",
 	"srf_paramdesc_perrow": "Jumlah gambar per baris",
 	"srf_paramdesc_widths": "Lebar gambar",
 	"srf_paramdesc_heights": "Tinggi gambar",
@@ -99,9 +105,23 @@
 	"srf-paramdesc-graphlink": "Menetapkan apakah nodus seharusnya menautkan ke halaman wiki mereka",
 	"srf-paramdesc-graphcolor": "Menetapkan warna graf",
 	"srf-paramdesc-graph-wwl": "Menetapkan batas pemenggalan kata (dalam ukuran jumlah karakter)",
+	"srf-ui-datatables-refresh-button-title": "menyegarkan meja",
+	"srf-ui-datatables-panel-switch-button-title": "panel saklar",
 	"srf-filtered-selectorlabel-list": "Daftar",
 	"srf-filtered-selectorlabel-calendar": "Kalender",
+	"srf-filtered-noscript-error": "Hasil tidak dapat ditampilkan karena JavaScript tidak diaktifkan. Lanjut ke $1.",
+	"srf-paramdesc-carousel-class": "Tentukan kelas CSS untuk korsel",
+	"srf-paramdesc-carousel-width": "Tentukan lebar korsel",
+	"srf-paramdesc-carousel-height": "Tentukan tinggi korsel",
+	"srf-paramdesc-carousel-captionproperty": "Tentukan nama atribut semantik yang ada pada halaman yang ditanyakan agar dapat digunakan sebagai keterangan",
+	"srf-paramdesc-carousel-titleproperty": "Tentukan nama atribut semantik yang ada pada halaman yang ditanyakan agar dapat digunakan sebagai judul",
+	"srf-paramdesc-carousel-linkproperty": "Tentukan nama atribut semantik yang ada pada halaman yang ditanyakan agar dapat digunakan sebagai pranala",
+	"srf-paramdesc-carousel-imageproperty": "Tentukan nama atribut semantik yang ada di halaman yang ditanyakan agar dapat digunakan sebagai gambar",
+	"srf-paramdesc-carousel-slick-option": "Tentukan apakah korsel akan menggunakan opsi yang disediakan oleh 'Slick'",
 	"srf-ui-eventcalendar-label-today": "Hari ini",
 	"srf-ui-eventcalendar-label-month": "Bulan",
-	"srf-ui-eventcalendar-label-day": "Hari"
+	"srf-ui-eventcalendar-label-day": "Hari",
+	"srf-ui-slideshow-slide-button-play": "Mainkan",
+	"srf-ui-slideshow-slide-button-pause": "berhenti sebentar",
+	"srf-paramdesc-graphfields": "Tampilkan nilai properti non-laman di dalam simpul grafik, bukan sebagai tepi."
 }

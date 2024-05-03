@@ -29,7 +29,7 @@ class ResultItem {
 
 	/**
 	 * @param SMWResultArray[] $resultArray
-	 * @param Filtered $queryPrinter
+	 * @param Filtered &$queryPrinter
 	 */
 	public function __construct( array $resultArray, Filtered &$queryPrinter ) {
 		$this->mResultArray = $resultArray;
@@ -60,7 +60,6 @@ class ResultItem {
 	}
 
 	public function getArrayRepresentation() {
-
 		$printouts = [];
 		$isFirstColumn = true;
 
@@ -83,7 +82,7 @@ class ResultItem {
 					$sorted[] = $dataItem->getSortKey();
 				} elseif ( $dataItem instanceof SMWDIWikiPage ) {
 					$values[] = $dataValue->getShortWikiText();
-					$sorted[] = bin2hex($dataItem->getSortKey());
+					$sorted[] = bin2hex( $dataItem->getSortKey() );
 				} else {
 					$values[] = $dataValue->getShortWikiText();
 					$sorted[] = $dataValue->getShortWikiText();

@@ -146,7 +146,7 @@
 	"srf-paramdesc-chartcursor": "Opción de visualización del cursor de tabla",
 	"srf-paramdesc-trendline": "Activar la visualización simultánea de un gráfico y su línea de tendencia",
 	"srf-paramdesc-gridview": "Mostrar simultáneamente gráfico y conjunto de datos. Valores permitidos: \"none\" y \"tabs\". Predeterminado: \"none\"",
-	"srf-paramdesc-paneview": "Indica la posición del panel que contiene un pequeño gráfico de líneas. Valores permitidos: \"abajo\", \"arriba\" y \"ninguno\". Predeterminado: \"abajo\"",
+	"srf-paramdesc-paneview": "Indica la posición del panel que contiene un pequeño gráfico de líneas. Valores permitidos: \"bottom\" (abajo), \"top\" (arriba) y \"none\" (ninguno). Predeterminado: \"bottom\"",
 	"srf-paramdesc-infotext": "Mostrar información adicional en una ficha de información correspondiente",
 	"srf-paramdesc-clicktarget": "Define una página o cadena de consulta como destino al hacer clic en una fecha del calendario.",
 	"srf-paramdesc-includeend": "Incluir fecha de finalización en eventos de varios días",

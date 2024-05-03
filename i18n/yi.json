@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Pacha Tchernof",
 			"פוילישער"
 		]
 	},
@@ -16,6 +17,9 @@
 	"srfc_nextmonth": "נעקסטער חודש",
 	"srfc_today": "הײַנט",
 	"srf-paramdesc-graphname": "שטעלט טיטל פֿונעם גראפֿיק",
+	"srf-ui-datatables-label-placeholder-column-search": "זוכן…",
+	"srf-ui-datatables-label-sSearch": "זוכן:",
+	"srf-filtered-selectorlabel-calendar": "קאַלענדאַר",
 	"srf-paramdesc-unit": "איינהייט",
 	"srf-ui-mediaplayer-label-mute": "שטום",
 	"srf-ui-mediaplayer-label-unmute": "נישט שטום"

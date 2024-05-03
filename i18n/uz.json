@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"CoderSI"
+			"CoderSI",
+			"Malikxan"
 		]
 	},
-	"srf-ui-gridview-label-info-tab": "Ma'lumot"
+	"srf-ui-gridview-label-info-tab": "Ma'lumot",
+	"srf_printername_gallery": "Galereya",
+	"srf-printername-graph": "Grafik"
 }

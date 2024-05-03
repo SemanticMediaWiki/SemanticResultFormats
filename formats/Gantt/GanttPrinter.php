@@ -10,18 +10,18 @@
  * @file Gantt.php
  * @ingroup SemanticResultFormats
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author Sebastian Schmid
  */
 
 namespace SRF\Gantt;
 
+use Html;
+use SMWDIBlob;
+use SMWDITime;
 use SMWOutputs;
 use SMWQueryResult;
 use SMWResultPrinter;
-use SMWDITime;
-use SMWDIBlob;
-use Html;
 
 class GanttPrinter extends SMWResultPrinter {
 
@@ -107,13 +107,12 @@ class GanttPrinter extends SMWResultPrinter {
 	 * @see SMWResultPrinter::handleParameters()
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
-
-		//Set header params
+		// Set header params
 		$this->params['title'] = trim( $params['diagramtitle'] );
 		$this->params['axisformat'] = trim( $params['axisformat'] );
-		$this->params['statusmapping'] =  $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
+		$this->params['statusmapping'] = $this->getValidatedMapping( $params[ 'statusmapping' ], 'statusmapping', [ 'active', 'done' ] );
 		$this->params['prioritymapping'] = $this->getValidatedMapping( $params[ 'prioritymapping' ], 'prioritymapping', [ 'crit' ] );
-		$this->params['theme'] = $this->getValidatedTheme($params['theme']);
+		$this->params['theme'] = $this->getValidatedTheme( $params['theme'] );
 
 		$this->mGantt = $this->getGantt();
 	}
@@ -125,17 +124,16 @@ class GanttPrinter extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
-
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
-			$queryResult->addErrors( [wfMessage('')->text()] );
+			$queryResult->addErrors( [ wfMessage( '' )->text() ] );
 			return '';
 		}
 
 		// Load general Modules
 		SMWOutputs::requireResource( 'ext.srf.gantt' );
 
-		//Add Tasks & Sections
+		// Add Tasks & Sections
 		while ( $row = $queryResult->getNext() ) {
 
 			$status = [];
@@ -151,7 +149,7 @@ class GanttPrinter extends SMWResultPrinter {
 
 				$fieldLabel = $field->getPrintRequest()->getLabel();
 
-				//get values
+				// get values
 				foreach ( $field->getContent() as $dataItem ) {
 
 					switch ( $fieldLabel ) {
@@ -219,7 +217,6 @@ class GanttPrinter extends SMWResultPrinter {
 			]
 		];
 
-
 		// Manage Output
 		if ( !empty( $this->mErrors ) ) {
 			return $queryResult->addErrors( $this->mErrors );
@@ -230,18 +227,18 @@ class GanttPrinter extends SMWResultPrinter {
 				'data-mermaid' => html_entity_decode( json_encode( [
 					'content' => $this->mGantt->getGanttOutput(),
 					'config'  => $config
-				]))
-			], Html::rawElement( 'div', [ 'class' => 'mermaid-dots' ]));
+				] ) )
+			], Html::rawElement( 'div', [ 'class' => 'mermaid-dots' ] ) );
 		}
 	}
 
-	private function getGantt(){
+	private function getGantt() {
 		return new Gantt( $this->params );
 	}
 
 	/**
 	 * Return valid theme as string
-	 * @param String $theme
+	 * @param string $theme
 	 *
 	 * @return string
 	 */
@@ -255,16 +252,15 @@ class GanttPrinter extends SMWResultPrinter {
 		return $theme;
 	}
 
-
-	private function getValidatedMapping( $params, $mappingType, array $mappingKeys){
-		//Validate mapping
+	private function getValidatedMapping( $params, $mappingType, array $mappingKeys ) {
+		// Validate mapping
 		$mapping = [];
 
 		if ( !empty( $params ) ) {
 			$paramMapping = explode( ';', trim( $params ) );
 
 			foreach ( $paramMapping as $pm ) {
-				$pmKeyVal = explode( '=>', $pm, 2);
+				$pmKeyVal = explode( '=>', $pm, 2 );
 
 				// if no key value pair
 				if ( count( $pmKeyVal ) !== 2 ) {
@@ -272,7 +268,7 @@ class GanttPrinter extends SMWResultPrinter {
 				} else {
 					$mapping[trim( $pmKeyVal[0] )] = trim( $pmKeyVal[1] );
 
-					if(!in_array(trim( $pmKeyVal[1] ), $mappingKeys)){
+					if ( !in_array( trim( $pmKeyVal[1] ), $mappingKeys ) ) {
 						$this->mErrors[] = wfMessage( 'srf-error-gantt-mapping-keywords' )->text();
 					}
 				}

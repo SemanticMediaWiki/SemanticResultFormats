@@ -3,6 +3,7 @@
 namespace SRF\Tests\Unit\Formats;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\PHPUnitCompat;
 use SRFValueRank;
 
 /**
@@ -18,10 +19,12 @@ use SRFValueRank;
  * @group SMWExtension
  * @group ResultPrinters
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author Sebastian Schmid < sebastian.schmid@geinn.it >
  */
 class ValueRankTest extends QueryPrinterRegistryTestCase {
+
+	use PHPUnitCompat;
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats
@@ -46,13 +49,11 @@ class ValueRankTest extends QueryPrinterRegistryTestCase {
 	}
 
 	public function testGetName() {
-
 		$instance = new SRFValueRank(
 			'valuerank'
 		);
 
-		$this->assertInternalType('string', $instance->getName());
-
+		$this->assertIsString( $instance->getName() );
 	}
 
 }

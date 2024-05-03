@@ -50,7 +50,13 @@
 			"subject": "Example/Gallery-03/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-gallery-slideshow\" data-redirect-type=\"_wpg\">"
+					"<div class=\"srf-gallery-slideshow\" data-redirect-type="
+				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.35",
+					"redirect type is '_txt'"
 				]
 			}
 		},
@@ -60,7 +66,13 @@
 			"subject": "Example/Gallery-03/Q.2",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-gallery-carousel\" data-redirect-type=\"_wpg\">"
+					"<div class=\"srf-gallery-carousel\" data-redirect-type="
+				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.35",
+					"redirect type is '_txt'"
 				]
 			}
 		},
@@ -70,7 +82,7 @@
 			"subject": "Example/Gallery-03/Q.3",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"srf-gallery srf-redirect\" data-redirect-type=\"_wpg\">"
+					"<div class=\"srf-gallery srf-redirect\" data-redirect-type="
 				]
 			}
 		},

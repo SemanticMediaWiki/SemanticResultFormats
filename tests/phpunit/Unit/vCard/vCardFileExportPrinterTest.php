@@ -2,31 +2,25 @@
 
 namespace SRF\Tests\vCard;
 
-use SRF\vCard\vCardFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
+use SRF\vCard\vCardFileExportPrinter;
 
 /**
  * @covers \SRF\vCard\vCardFileExportPrinter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
  */
-class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
+class vCardFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 	private $queryResult;
 	private $resultPrinterReflector;
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( version_compare( phpversion(), '7.4', '>=' ) ) {
-			// ResultPrinterReflector creates notices on PHP 7.4+
-			$this->markTestSkipped();
-			return;
-		}
 
 		$this->resultPrinterReflector = new ResultPrinterReflector();
 
@@ -36,7 +30,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			vCardFileExportPrinter::class,
 			new vCardFileExportPrinter( 'vcard' )
@@ -47,7 +40,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider filenameProvider
 	 */
 	public function testGetFileName( $filename, $searchlabel, $expected ) {
-
 		$parameters = [
 			'filename' => $filename,
 			'searchlabel' => $searchlabel
@@ -66,7 +58,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetMimeType() {
-
 		$instance = new vCardFileExportPrinter(
 			'vcard'
 		);
@@ -78,7 +69,6 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResult_LinkOnNonFileOutput() {
-
 		$link = $this->createMock( \SMWInfolink::class );
 
 		$link->expects( $this->any() )
@@ -108,26 +98,25 @@ class vCardFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function filenameProvider() {
-
-		yield[
+		yield [
 			'',
 			'foo bar',
 			'foo_bar.vcf'
 		];
 
-		yield[
+		yield [
 			'foo',
 			'',
 			'foo.vcf'
 		];
 
-		yield[
+		yield [
 			'foo.vcf',
 			'',
 			'foo.vcf'
 		];
 
-		yield[
+		yield [
 			'foo bar.vcf',
 			'',
 			'foo_bar.vcf'

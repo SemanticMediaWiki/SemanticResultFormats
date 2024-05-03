@@ -17,7 +17,7 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group SMWExtension
  * @group ResultPrinters
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 class DygraphsTest extends QueryPrinterRegistryTestCase {

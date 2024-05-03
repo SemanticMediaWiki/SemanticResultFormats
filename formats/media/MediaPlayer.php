@@ -6,7 +6,6 @@ use File;
 use FormatJson;
 use Html;
 use MediaWiki\MediaWikiServices;
-use Skin;
 use SMW\ResultPrinter;
 use SMWDataItem;
 use SMWDataValue;
@@ -30,7 +29,7 @@ use Title;
  * @ingroup SRF
  * @ingroup QueryPrinter
  *
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 
@@ -67,7 +66,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Data processing
 		$data = $this->getResultData( $result, $outputMode );
 
@@ -96,7 +94,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @return array
 	 */
 	protected function getResultData( SMWQueryResult $result, $outputMode ) {
-
 		$data = [];
 
 		/**
@@ -172,7 +169,6 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 */
 	private function getMediaSource( Title $title ) {
-
 		// Find the file source
 		$source = $this->findFile( $title );
 
@@ -203,19 +199,18 @@ class MediaPlayer extends ResultPrinter {
 	/**
 	 * Returns single data value item
 	 *
-	 * @param string $label
+	 * @param string &$label
 	 * @param SMWDataValue $dataValue
-	 * @param string $mediaType
-	 * @param string $mimeType
+	 * @param string &$mediaType
+	 * @param string &$mimeType
 	 *
-	 * @param $rowData
+	 * @param &$rowData
 	 *
 	 * @return mixed
 	 * @since 1.9
 	 *
 	 */
 	private function getDataValueItem( &$label, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
-
 		$dataItem = $dataValue->getDataItem();
 		$type = $dataItem->getDIType();
 
@@ -283,7 +278,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( $data ) {
-
 		$ID = 'srf-' . uniqid();
 		$this->isHTML = true;
 
@@ -308,7 +302,7 @@ class MediaPlayer extends ResultPrinter {
 		];
 
 		$requireHeadItem = [ $ID => FormatJson::encode( $output ) ];
-		SMWOutputs::requireHeadItem( $ID, SRFUtils::makeVariablesScript( $requireHeadItem, false ) );
+		SMWOutputs::requireHeadItem( $ID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
 
 		SMWOutputs::requireResource( 'ext.jquery.jplayer.skin.' . $this->params['theme'] );
 		SMWOutputs::requireResource( 'ext.srf.formats.media' );
@@ -370,7 +364,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @return bool|File
 	 */
 	private function findFile( Title $title ) {
-
 		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
 			return MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
 		}

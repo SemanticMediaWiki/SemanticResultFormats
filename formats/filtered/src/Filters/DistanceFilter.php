@@ -40,7 +40,6 @@ class DistanceFilter extends Filter {
 	}
 
 	protected function buildJsConfig() {
-
 		parent::buildJsConfig();
 
 		if ( !array_key_exists( 'distance filter origin', $this->getActualParameters() ) ) {
@@ -53,7 +52,7 @@ class DistanceFilter extends Filter {
 
 			$geoCoordinateParser = new LatLongParser();
 
-			$callback = function ( $value ) use ( $geoCoordinateParser ) {
+			$callback = static function ( $value ) use ( $geoCoordinateParser ) {
 				$latlng = $geoCoordinateParser->parse( $value );
 				return [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
 			};
@@ -72,7 +71,6 @@ class DistanceFilter extends Filter {
 		$this->addValueToJsConfig( 'distance filter max distance', 'max' );
 		$this->addValueToJsConfig( 'distance filter unit', 'unit' );
 		$this->addValueListToJsConfig( 'distance filter switches', 'switches' );
-
 	}
 
 	/**
@@ -81,7 +79,6 @@ class DistanceFilter extends Filter {
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-
 		$markerPositionPropertyName = $this->getPrintRequest()->getData()->getInceptiveProperty()->getKey();
 
 		foreach ( $row->getValue() as $field ) {

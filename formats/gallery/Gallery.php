@@ -3,6 +3,7 @@
 namespace SRF;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use SMW\ResultPrinter;
 use SMWDataItem;
 use SMWOutputs;
@@ -40,7 +41,6 @@ class Gallery extends ResultPrinter {
 	 * @return string
 	 */
 	protected function buildResult( SMWQueryResult $results ) {
-
 		// Intro/outro are not planned to work with the widget option
 		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ) {
 			$results->addErrors(
@@ -50,7 +50,7 @@ class Gallery extends ResultPrinter {
 			);
 
 			return '';
-		};
+		}
 
 		return $this->getResultText( $results, $this->outputMode );
 	}
@@ -64,7 +64,6 @@ class Gallery extends ResultPrinter {
 	 * @return string | array
 	 */
 	public function getResultText( SMWQueryResult $results, $outputmode ) {
-
 		$ig = new TraditionalImageGallery();
 
 		$ig->setShowBytes( false );
@@ -79,7 +78,7 @@ class Gallery extends ResultPrinter {
 		// No need for a special page to use the parser but for the "normal" page
 		// view we have to ensure caption text is parsed correctly through the parser
 		if ( !$this->isSpecialPage() ) {
-			$ig->setParser( $GLOBALS['wgParser'] );
+			$ig->setParser( MediaWikiServices::getInstance()->getParser() );
 		}
 
 		$html = '';
@@ -97,7 +96,7 @@ class Gallery extends ResultPrinter {
 		}
 
 		// In any case we depend on mediawiki.page.gallery.styles
-		SMWOutputs::requireStyle('mediawiki.page.gallery.styles');
+		SMWOutputs::requireStyle( 'mediawiki.page.gallery.styles' );
 
 		// Only use redirects where the overlay option is not used and redirect
 		// thumb images towards a different target
@@ -183,7 +182,6 @@ class Gallery extends ResultPrinter {
 			$html = $this->params[ 'default' ];
 		}
 
-
 		return [ $html, 'nowiki' => true, 'isHTML' => true ];
 	}
 
@@ -193,7 +191,7 @@ class Gallery extends ResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $results
-	 * @param TraditionalImageGallery $ig
+	 * @param TraditionalImageGallery &$ig
 	 * @param string $imageProperty
 	 * @param string $captionProperty
 	 * @param string $redirectProperty
@@ -265,7 +263,7 @@ class Gallery extends ResultPrinter {
 	 * @since 1.5.3
 	 *
 	 * @param SMWQueryResult $results
-	 * @param TraditionalImageGallery $ig
+	 * @param TraditionalImageGallery &$ig
 	 */
 	protected function addImagePages( SMWQueryResult $results, &$ig ) {
 		while ( $row = $results->getNext() ) {
@@ -305,13 +303,12 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param TraditionalImageGallery $ig The gallery to add the image to
+	 * @param TraditionalImageGallery &$ig The gallery to add the image to
 	 * @param Title $imgTitle The title object of the page of the image
 	 * @param string $imgCaption An optional caption for the image
 	 * @param string $imgRedirect
 	 */
 	protected function addImageToGallery( &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
-
 		if ( empty( $imgCaption ) ) {
 			if ( $this->params['autocaptions'] ) {
 				$imgCaption = $imgTitle->getBaseText();
@@ -328,9 +325,9 @@ class Gallery extends ResultPrinter {
 			}
 		}
 
-		if ( $this->params['captiontemplate'] !== '' ) {
+		if ( $this->params['captiontemplate'] !== '' && gettype($ig->mParser) == "object" ) {
 			$templateCode = "{{" . $this->params['captiontemplate'] .
-				"|imageraw=".$imgTitle->getPrefixedText()."|imagecaption=$imgCaption|imageredirect=$imgRedirect}}";
+				"|imageraw=" . $imgTitle->getPrefixedText() . "|imagecaption=$imgCaption|imageredirect=$imgRedirect}}";
 
 			$imgCaption = $ig->mParser->recursiveTagParse( $templateCode );
 
@@ -375,7 +372,6 @@ class Gallery extends ResultPrinter {
 	 * @return string[]
 	 */
 	private function getCarouselWidget() {
-
 		// Set attributes for jcarousel
 		$dataAttribs = [
 			'wrap' => 'both', // Whether to wrap at the first/last item (or both) and jump back to the start/end.
@@ -414,7 +410,6 @@ class Gallery extends ResultPrinter {
 	 * @return string[]
 	 */
 	private function getSlideshowWidget() {
-
 		$attribs = [
 			'id' => uniqid(),
 			'class' => $this->getImageOverlay(),

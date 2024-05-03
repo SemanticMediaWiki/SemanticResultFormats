@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Cwlin0416",
+			"H78c67c",
 			"Hello903hello",
 			"Kly",
 			"LNDDYL",
@@ -10,6 +11,7 @@
 			"Shirayuki",
 			"Winston Sung",
 			"Wrightbus",
+			"捍粵者",
 			"星海"
 		]
 	},
@@ -88,7 +90,7 @@
 	"srf_paramdesc_timelinestart": "用來定義第一個時間點的屬性名稱",
 	"srf_paramdesc_timelineend": "用來定義第二個時間點的屬性名稱",
 	"srf_paramdesc_timelinesize": "時間軸高度",
-	"srf-timeline-allresults": "此查詢的進一步結果。",
+	"srf-timeline-allresults": "此查詢的更多結果。",
 	"srf-timeline-nojs": "要檢視互動式的時間軸，您需要啟用JavaScript。",
 	"srf_paramdesc_views": "所要顯示的視圖",
 	"srf_paramdesc_facets": "為每個頁面所要顯示的那套屬性",
@@ -217,7 +219,6 @@
 	"srf-ui-datatables-label-sInfo": "顯示 _TOTAL_ 項目從 _START_ 至 _END_ 的內容",
 	"srf-ui-datatables-label-sInfoEmpty": "顯示 0 項目從 0 到 0 的內容",
 	"srf-ui-datatables-label-sInfoFiltered": "（從 _MAX_ total 項目篩選）",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "顯示 _MENU_ 項目",
 	"srf-ui-datatables-label-sLoadingRecords": "正在載入...",
 	"srf-ui-datatables-label-sProcessing": "處理中...",
@@ -269,7 +270,7 @@
 	"srf-filtered-selectorlabel-table": "表格",
 	"srf-filtered-selectorlabel-calendar": "行事曆",
 	"srf-filtered-selectorlabel-map": "地圖",
-	"srf-filtered-noscript-error": "因 Javascript 未啟用而無法顯示結果。前至$1。",
+	"srf-filtered-noscript-error": "因 JavaScript 未啟用而無法顯示結果。前往$1。",
 	"srf-filtered-noscript-link-caption": "表格式表單的結果",
 	"srf-filtered-map-provider-missing-error": "沒有替「map」視圖指定地圖提供方。",
 	"srf-filtered-value-filter-and": "與",

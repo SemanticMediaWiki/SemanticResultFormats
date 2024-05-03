@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Buehl",
 			"Fryed-peach",
 			"Hosiryuhosi",
 			"JtFuruhata",
 			"Marine-Blue",
+			"MathXplore",
 			"Naohiro19",
 			"Nemo bis",
 			"Ochaochaocha3",
@@ -195,12 +197,9 @@
 	"srf-ui-eventcalendar-label-day": "日",
 	"srf-ui-eventcalendar-label-allday": "全日",
 	"srf-ui-eventcalendar-format-time": "H(:mm)",
-	"srf-ui-eventcalendar-format-time-agenda": "H:mm( - H:mm)",
-	"srf-ui-eventcalendar-format-axis": "H:mm",
 	"srf-ui-eventcalendar-format-title-month": "yyyy年M月",
 	"srf-ui-eventcalendar-format-title-week": "yyyy年M月d日{ '&#8212;' [yyyy年][M月]d日}",
 	"srf-ui-eventcalendar-format-title-day": "yyyy年M月d日(ddd)",
-	"srf-ui-eventcalendar-format-column-month": "ddd",
 	"srf-ui-eventcalendar-format-column-week": "M月d日(ddd)",
 	"srf-ui-eventcalendar-format-column-day": "M月d日(ddd)",
 	"srf-ui-eventcalendar-label-update-success": "イベントカレンダーの更新に成功しました。",
@@ -228,5 +227,7 @@
 	"srf-ui-mediaplayer-label-repeat-off": "連続再生解除",
 	"srf-ui-mediaplayer-label-full-screen": "全画面表示",
 	"srf-ui-mediaplayer-label-restore-screen": "全画面表示解除",
+	"srf-ui-slideshow-slide-button-play": "再生",
+	"srf-ui-slideshow-slide-button-pause": "一時停止",
 	"srf-paramdesc-icalendar-timezone": "タイムゾーンのカンマ区切りリスト"
 }

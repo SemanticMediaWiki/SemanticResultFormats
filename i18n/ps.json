@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Af420",
 			"Ahmed-Najib-Biabani-Ibrahimkhel",
 			"Amjad Khan"
 		]
@@ -19,7 +20,6 @@
 	"srf-ui-datatables-label-placeholder-column-search": "پلټل...",
 	"srf-ui-datatables-label-sSearch": "پلټل:",
 	"srf-filtered-selectorlabel-list": "لړليک",
-	"srf-filtered-firstdayofweek": "١",
 	"srf-ui-eventcalendar-label-today": "نن",
 	"srf-ui-eventcalendar-label-month": "مياشت",
 	"srf-ui-eventcalendar-label-week": "اونۍ",

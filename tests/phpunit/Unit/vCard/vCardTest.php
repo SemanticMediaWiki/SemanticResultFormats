@@ -8,15 +8,14 @@ use SRF\vCard\vCard;
  * @covers \SRF\vCard\vCard
  * @group semantic-result-formats
  *
- * @license GNU GPL v2"
+ * @license GPL-2.0-only
  * @since 3.0
  *
  * @author mwjames
  */
-class vCardTest extends \PHPUnit_Framework_TestCase {
+class vCardTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			vCard::class,
 			new vCard( '', '', [] )
@@ -24,7 +23,6 @@ class vCardTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyCard() {
-
 		$instance = new vCard( 'http://example.org/Foo', 'Foo', [] );
 		$instance->set( 'url', 'http://example.org/Bar' );
 

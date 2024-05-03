@@ -17,7 +17,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with Process Printer. If not, see <http://www.gnu.org/licenses/>.
- *******************************************************************************/
+ */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
@@ -196,14 +196,16 @@ class SRFProcess extends SMWResultPrinter {
 	 * @param res                SMWQueryResult, result set of the ask query provided by SMW
 	 * @param outputmode        ?
 	 *
-	 * @return                String, rendered HTML output of this printer for the ask-query
+	 * @return string rendered HTML output of this printer for the ask-query
 	 *
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		if ( !is_callable( 'renderGraphviz' ) ) {
-			wfWarn( 'The SRF Graph printer needs the GraphViz extension to be installed.' );
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) &&
+			!is_callable( 'renderGraphviz' ) ) {
+			wfWarn( 'The SRF Graph printer needs the Diagrams or GraphViz extension to be installed.' );
 			return '';
 		}
+
 
 		global $wgContLang; // content language object
 
@@ -311,7 +313,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hassuccessor":
-
 						if ( count( $field->getContent() ) > 1 ) {
 
 							// SplitParallel
@@ -342,7 +343,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hasorsuccessor":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitExclusiveOr
@@ -360,7 +360,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hascontruesuccessor":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitConditional
@@ -383,7 +382,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hasconfalsesuccessor":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitConditional
@@ -405,7 +403,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hascondition":
-
 						if ( count( $field->getContent() ) > 0 ) {
 
 							// SplitConditional
@@ -428,7 +425,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					case "hasstatus":
-
 						// should be only one
 						foreach ( $field->getContent() as $value ) {
 							$wikiPageValue = new SMWWikiPageValue( $field->getPrintRequest()->getTypeID() );
@@ -441,7 +437,6 @@ class SRFProcess extends SMWResultPrinter {
 						break;
 
 					default:
-
 						// TODO - redundant column in result
 
 				}
@@ -507,10 +502,10 @@ class ProcessGraph {
 	 * This method should be used for getting new or existing nodes
 	 * If a node does not exist yet, it will be created
 	 *
-	 * @param $id            string, node id
-	 * @param $label        string, node label
+	 * @param $id string, node id
+	 * @param $label string, node label
 	 *
-	 * @return                Object of type ProcessNode
+	 * @return object of type ProcessNode
 	 */
 	public function makeNode( $id, $label ) {
 		// check if node exists
@@ -544,7 +539,6 @@ class ProcessGraph {
 		}
 
 		return $node;
-
 	}
 
 	public function makeRole( $id, $label ) {
@@ -563,7 +557,6 @@ class ProcessGraph {
 		}
 
 		return $role;
-
 	}
 
 	public function makeRessource( $id, $label ) {
@@ -583,7 +576,6 @@ class ProcessGraph {
 		}
 
 		return $res;
-
 	}
 
 	public function getEndNodes() {
@@ -599,7 +591,6 @@ class ProcessGraph {
 	}
 
 	public function getStartNodes() {
-
 		if ( count( $this->m_startnodes ) == 0 ) {
 			foreach ( $this->m_nodes as $node ) {
 				if ( count( $node->getPred() ) == 0 ) {
@@ -761,7 +752,6 @@ class ProcessGraph {
 	}';
 
 		return $res;
-
 	}
 
 }
@@ -1216,7 +1206,6 @@ class SplitConditionalOrEdge extends ProcessEdge {
 	}
 
 	public function getGraphVizCode() {
-
 		$p = $this->m_from;
 
 		if ( ( !isset( $this->m_from ) ) || ( !isset( $this->m_to_false ) ) || ( !isset( $this->m_to_true ) ) ) {
@@ -1365,7 +1354,6 @@ class SequentialEdge extends ProcessEdge {
 	}
 
 	public function getGraphVizCode() {
-
 		$p = $this->m_from;
 		$s = $this->m_to;
 

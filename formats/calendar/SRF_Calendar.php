@@ -1,6 +1,6 @@
 <?php
 
-$wgAutoloadClasses['SRFCHistoricalDate'] = dirname( __FILE__ )
+$wgAutoloadClasses['SRFCHistoricalDate'] = __DIR__
 	. '/SRFC_HistoricalDate.php';
 
 use MediaWiki\MediaWikiServices;
@@ -47,7 +47,7 @@ class SRFCalendar extends SMWResultPrinter {
 			global $wgLang;
 			// Store the actual user's language, so we can revert
 			// back to it after printing the calendar.
-			$this->mRealUserLang = clone ( $wgLang );
+			$this->mRealUserLang = clone $wgLang;
 			$wgLang = Language::factory( trim( $params['lang'] ) );
 		}
 
@@ -271,13 +271,13 @@ class SRFCalendar extends SMWResultPrinter {
 
 		// Go back to the actual user's language, in case a different
 		// language had been specified for this calendar.
-		if ( !is_null( $this->mRealUserLang ) ) {
+		if ( $this->mRealUserLang !== null ) {
 			global $wgLang;
 			$wgLang = $this->mRealUserLang;
 		}
 
 		$parser = MediaWikiServices::getInstance()->getParser();
-		if ( is_null( $parser->getTitle() ) ) {
+		if ( $parser->getTitle() === null ) {
 			// Backward compatibility; getTitle never returns null in MW 1.35
 			return $result;
 		} else {
@@ -324,7 +324,7 @@ class SRFCalendar extends SMWResultPrinter {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		// NOTE: mFirstCall is never false in MW >= 1.35
 		if ( !$parser->mFirstCall ) {
-			$parser->getOutput()->updateCacheExpiry(0);
+			$parser->getOutput()->updateCacheExpiry( 0 );
 		}
 
 		$context->getOutput()->addLink(

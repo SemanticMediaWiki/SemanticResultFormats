@@ -11,7 +11,6 @@
 
 namespace SRF\Gantt;
 
-
 class GanttTask {
 
 	private $mTitle;
@@ -20,7 +19,6 @@ class GanttTask {
 	private $mPriority = '';
 	private $mStartDate;
 	private $mEndDate;
-
 
 	public function setTitle( $title ) {
 		$this->mTitle = $title;
@@ -38,11 +36,11 @@ class GanttTask {
 		return $this->mID;
 	}
 
-	public function setStatus($status){
+	public function setStatus( $status ) {
 		$this->mStatus = $this->mStatus . $status . ', ';
 	}
 
-	public function setPriority($priority){
+	public function setPriority( $priority ) {
 		$this->mPriority = $this->mPriority . $priority . ', ';
 	}
 
@@ -55,7 +53,6 @@ class GanttTask {
 	 *
 	 */
 	public function setTaskParam( $params, $paramMapping, $type ) {
-
 		// skip if $paramMapping is empty and
 		// output errormessage if wrong mapping
 		if ( !empty( $paramMapping ) ) {

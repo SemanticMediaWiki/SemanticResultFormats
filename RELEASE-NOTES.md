@@ -1,12 +1,71 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 4.2.1
+
+Released on March 13, 2024.
+* [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin) 
+* [806](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/806) Added required resources for the bubble chare to the jqplotchart format (by@YOUR1)
+* [805](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/805) Fixed issue creating a lot of log spam (by @sophivorus)
+* [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow paramter to the carousel format (by @thomas-topway-it)
+* Further improvements and fixes to the Continuous Integration (CI) (by [gesinn.it](https://gesinn.it))
+* Updated translations (by translatewiki.net community)
+
+## SRF 4.2.0
+
+Released on December 7, 2023.
+
+* Improved compatibility with recent versions of MediaWiki [792](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/792), [780](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/780) (by @Seb35 and @D-Groenewegen)
+* Improved test coverage [789](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791), [791](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/791) (by [gesinn.it](https://gesinn.it))
+* [790](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/790) removed datatables-legacy format (by @YvarRavy)
+* [786](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/786) improved datatables format (by @alistair3149)
+* [788](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/788) resource loading spinner (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* [782](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/783) fixes jqplotchart issue (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* [777](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/777) fixes eventcalender issue (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* Further improvements of datatables format: [775](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/775), [774](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/774), [773](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/773) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* Fixed NONCEs on inline scripts in order to support CSP-Header
+* Fixed GraphViz extension support in the Graph format (by [Professional Wiki](https://professional.wiki))
+* Updated translations (by translatewiki.net community)
+
+## SRF 4.1.0
+
+Released on October 12, 2023.
+
+* [Complete rewrite of datatables format](https://www.semantic-mediawiki.org/w/index.php?title=Help:Datatables_format) (by @thomas-topway-it, [KM-A](https://knowledge.wiki)). [761](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/761), [750](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/750), [725](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/725), [571](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/571), [721](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/721)...
+* Fixed jqplotchart label error (by @thomas-topway-it)
+* Fixed preferred label issue in eventcalendar (by @thomas-topway-it)
+* Updated translations (by translatewiki.net community)
+
+## SRF 4.0.2
+
+Released on March 9, 2023.
+
+* Improved compatibility with recent versions of MediaWiki, especially 1.37, 1.38 and 1.39
+* [724](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/724) Fix problem in pagewidget carousel when bootstrap is used (by @thomas-topway-it, [KM-A](https://knowledge.wiki))
+* [188](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/188#) Fix for datatables format (by @harugon)
+* Fix minor error in filtered format (by @Semantisch, [KM-A](https://knowledge.wiki))
+* Fix error in slideshow format (by @Semantisch, [KM-A](https://knowledge.wiki))
+* Fix Outline format sometimes not showing all values (by @Seb35)
+* Solved potential `symfony/css-selector` package conflict (by @rvogel)
+* Bump moment from 2.24.0 to 2.29.2 in /formats/filtered
+* Bump tar from 4.4.8 to 4.4.19 in /formats/filtered
+* Updated translations (by translatewiki.net community)
+
+## SRF 4.0.1
+
+Released on January 26, 2022.
+
 ## SRF 4.0.0
 
-not yet released
+Released on January 25, 2022.
 
+* Minimum PHP version changed from 7.0 to 7.3
+* Minimum MediaWiki version changed from 1.31 to 1.35
+* Added compatibility with Semantic MediaWiki 4.x
+* Improved compatibility with recent versions of MediaWiki
 * [Filtered] added "list view userparam" (by [gesinn.it](https://gesinn.it))
 * [Gallery] added "captiontemplate" parameter to allow wrapping of image captions with a template
 * [GraphViz] fields of data type other than 'page' are now displayed not as separate nodes connected by edges but as parts of labels of nodes of the type 'record' and similar
+* Updated translations (by translatewiki.net community)
 
 ## SRF 3.2.0
 
@@ -35,7 +94,7 @@ Released on August 18, 2019.
 * Added `template` parameter to the `outline` format (by James Hong Kong)
 * Added css `class` parameter to the `tree` format (by Stephan Gambke)
 * Improved `timeseries` format (by Christian Zagrodnick)
-  * Fixed `uncaught exception: Invalid dimensions for plot` 
+  * Fixed `uncaught exception: Invalid dimensions for plot`
   * Only correct plot height when there are tabs
 * Other bug fixes and code improvements
 * Made the extension installable without the `php-gd` PHP extension
@@ -59,7 +118,7 @@ Released on October 12, 2018.
   * PHP changed to version 5.6 and later
   * MediaWiki changed to version 1.27 and later
   * Semantic MediaWiki changed to version 3.0 and later
-* #438 Added support for extension registration via "extension.json" (by James Hong Kong)  
+* #438 Added support for extension registration via "extension.json" (by James Hong Kong)
   → Now you have to use `wfLoadExtension( 'SemanticResultFormats' );` in the "LocalSettings.php" file to invoke the extension
 * Improved filtered format: More options, better test coverage, re-enabled by default (by Stephan Gambke)
 * Refactored vcard format: Mostly code improvements (by James Hong Kong)
@@ -115,13 +174,13 @@ Released on October 25, 2017.
     - #286: Brings a reworked number filter
     - #291: Fixes `list view template` to actually show the template instead of defaulting to a table
 * #300: Brings improvements and fixes to the "filtered" format: (by Stephan Gambke)
-    - Brings back checkboxes for value filter with only few values  
-    - Brings new query parameter ` |+value filter max checkboxes`  
+    - Brings back checkboxes for value filter with only few values
+    - Brings new query parameter ` |+value filter max checkboxes`
     - Allows for easier installation of "data-values/geo"
 * #302: Fixes error messages shown in the instance language instead of the user language for the "filtered" format (by Stephan Gambke)
 * #305: Fixes "SRF\Filtered\Filtered::setParser() must be an instance of Parser..." for the "filtered" format (by Stephan Gambke)
 * Fixes issues with HTML-encoded values sent by JavaScript for the "filtered" format (by Stephan Gambke)
-* #324: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)  
+* #324: Brings improvements to the "filtered" format as authored with the following pull requests: (by Stephan Gambke)
     - #318: Wrap input elements of the Value filter (checkboxes and radioboxes) in label elements. This way they will also be triggered when only the label text is clicked.
     - #322: Show a spinner while filtering. This will block users from triggering further filter events while filtering is still ongoing.
     - #323: Adds printout parameter`|+show if undefined`. Setting it makes filters show a result item even if the printout does not contain a value.
@@ -157,7 +216,7 @@ Released on June 13, 2017.
 * Dropped compatibility with MediaWiki 1.19 to 1.22
 * Updated installation instructions in [INSTALL.md](INSTALL.md)
 * Changed bootstrapping of SRF to make it work with SMW 3.0+ (by James Hong Kong)
-* Re-organized file layout unit testing and added JSONScript integration testing facility from SMW (by Stephan Gambke) 
+* Re-organized file layout unit testing and added JSONScript integration testing facility from SMW (by Stephan Gambke)
 * Improved math format to recognize output format "-" (by Sebastian Schmid (gesinn.it))
 * Improved eventcalendar format: Added parameter 'clicktarget' to allow users to define a target URL that get's called when clicking on a calendar date. (by Felix Aba)
 * Reworked tree format (by Stephan Gambke)

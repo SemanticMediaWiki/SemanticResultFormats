@@ -8,15 +8,14 @@ use SRF\iCalendar\DateParser;
  * @covers \SRF\iCalendar\DateParser
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author mwjames
  */
-class DateParserTest extends \PHPUnit_Framework_TestCase {
+class DateParserTest extends \PHPUnit\Framework\TestCase {
 
 	public function testParseDate_Year() {
-
 		$timeValue = $this->createMock( \SMWTimeValue::class );
 
 		$timeValue->expects( $this->any() )
@@ -32,7 +31,6 @@ class DateParserTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParseDate_Year_Month_Day_Time() {
-
 		$timeValue = $this->createMock( \SMWTimeValue::class );
 
 		$timeValue->expects( $this->any() )

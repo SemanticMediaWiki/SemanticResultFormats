@@ -44,16 +44,24 @@
 			"contents": "[[Assigned to::田中]] [[Severity::Urgent]] [[Category:Outline]]"
 		},
 		{
+			"page": "SRF/Outline/4",
+			"contents": "[[Assigned to::John]] [[Assigned to::Jane]] [[Severity::Critical]] [[Category:Outline]]"
+		},
+		{
 			"page": "SRF/Outline/Q.1",
-			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity |link=none }}"
+			"contents": "{{#ask: [[Category:Outline]] [[Severity::!Critical]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity |link=none }}"
 		},
 		{
 			"page": "SRF/Outline/Q.2",
-			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none }}"
+			"contents": "{{#ask: [[Category:Outline]] [[Severity::!Critical]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none }}"
 		},
 		{
 			"page": "SRF/Outline/Q.3",
-			"contents": "{{#ask: [[Category:Outline]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none |introtemplate=intro |outrotemplate=outro}}"
+			"contents": "{{#ask: [[Category:Outline]] [[Severity::!Critical]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none |introtemplate=intro |outrotemplate=outro}}"
+		},
+		{
+			"page": "SRF/Outline/Q.4",
+			"contents": "{{#ask: [[Category:Outline]] [[Severity::Critical]] |?Severity |?Assigned to |format=outline |template=outline-test |sort=Severity,Assigned to |outlineproperties=Severity,Assigned to |link=none }}"
 		}
 	],
 	"tests": [
@@ -118,6 +126,25 @@
 					"<div class=\"outline-test-section-assigned-to\"> #outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
 					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
 					"#itemsubject: SRF/Outline/3, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div></div></div>",
+					"</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 (`outlineproperties=Severity,Assigned to` with a same page assigned to two people)",
+			"subject": "SRF/Outline/Q.4",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"outline-test-section-severity\"> #outlinelevel: 0, #itemcount: 1, Severity: Critical",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-section-assigned-to\">",
+					"#outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
+					"#itemsubject: SRF/Outline/4, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div>",
+					"<div class=\"outline-test-section-assigned-to\">",
+					"#outlinelevel: 1, #itemcount: 1, Severity: {{{Severity}}}",
+					"<div class=\"outline-test-items\"><div class=\"outline-test-item\">",
+					"#itemsubject: SRF/Outline/4, #itemsection: 0, #itemnumber: 0, Assigned to: {{{Assigned to}}}</div></div></div></div></div>",
 					"</div>"
 				]
 			}

@@ -5,7 +5,7 @@
  *
  * @since 1.8
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author mwjames
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren
@@ -13,8 +13,15 @@
  */
 abstract class SRFjqPlot extends SMWAggregatablePrinter {
 
-	public static function getCommonParams() {
+	/**
+	 * @inheritDoc
+	 */
+	protected function getLinker( $firstcol = false ) {
+		// *** force null since labels are never clickable
+                return null;
+        }
 
+	public static function getCommonParams() {
 		$params = [];
 
 		$params['min'] = [
@@ -159,11 +166,11 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 		// actual max and min, so that the bars don't directly touch
 		// the top and bottom of the graph
 		if ( $maxValue > 0 ) {
-			$maxValue += .001;
+			$maxValue += 0.001;
 		}
 
 		if ( $minValue < 0 ) {
-			$minValue -= .001;
+			$minValue -= 0.001;
 		}
 
 		if ( $maxValue == 0 ) {
@@ -183,8 +190,8 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 		}
 
 		$biggerMultipleOf10 = max( $multipleOf10, -1 * $negativeMultipleOf10 );
-		$lowestTick = floor( $minAxis / $biggerMultipleOf10 + .001 );
-		$highestTick = ceil( $maxAxis / $biggerMultipleOf10 - .001 );
+		$lowestTick = floor( $minAxis / $biggerMultipleOf10 + 0.001 );
+		$highestTick = ceil( $maxAxis / $biggerMultipleOf10 - 0.001 );
 
 		for ( $i = $lowestTick; $i <= $highestTick; $i++ ) {
 			$numbersticks[] = ( $i * $biggerMultipleOf10 );

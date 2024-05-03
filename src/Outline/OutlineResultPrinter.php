@@ -2,14 +2,14 @@
 
 namespace SRF\Outline;
 
-use SMWResultPrinter as ResultPrinter;
 use SMWQueryResult as QueryResult;
+use SMWResultPrinter as ResultPrinter;
 
 /**
  * A class to print query results in an outline format, along with some
  * helper classes to handle the aggregation
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.4.3
  *
  * @author Yaron Koren
@@ -81,7 +81,6 @@ class OutlineResultPrinter extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
-
 		// for each result row, create an array of the row itself
 		// and all its sorted-on fields, and add it to the initial
 		// 'tree'
@@ -127,7 +126,6 @@ class OutlineResultPrinter extends ResultPrinter {
 	}
 
 	private function newOutlineItem( $row ) {
-
 		$outlineItem = new OutlineItem( $row );
 
 		foreach ( $row as $field ) {

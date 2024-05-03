@@ -9,6 +9,7 @@
 			"Pyscowicz",
 			"Silvonen",
 			"Str4nd",
+			"Valtlai",
 			"Valtlait"
 		]
 	},
@@ -34,7 +35,7 @@
 	"srf-ui-common-label-parameters": "Parametrit",
 	"srf-ui-common-label-query": "Kysely",
 	"srf-error-option-mix": "Valinta ($1) ei ole käytettävissä",
-	"srf-error-missing-layout": "Asettelu puuttuu",
+	"srf-error-missing-layout": "Kaaviota tai kuvaajaa ei voida näyttää, koska asettelu puuttuu.",
 	"srf-warn-empy-chart": "Kaavio tai graafi on tyhjä, koska tietoja ei ole",
 	"srfc_previousmonth": "Edellinen kuukausi",
 	"srfc_nextmonth": "Seuraava kuukausi",

@@ -3,11 +3,10 @@
 namespace SRF\Outline;
 
 use SMW\Query\PrintRequest;
-use SRF\Outline\OutlineTree;
 use SMWDataItem as DataItem;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
@@ -15,7 +14,7 @@ use SMWDataItem as DataItem;
 class ListTreeBuilder {
 
 	/**
-	 * @var []
+	 * @var
 	 */
 	private $params = [];
 
@@ -54,7 +53,7 @@ class ListTreeBuilder {
 	private function tree( $outline_tree, $level = 0 ) {
 		$text = "";
 
-		if ( !is_null( $outline_tree->items ) ) {
+		if ( $outline_tree->items !== null ) {
 			$text .= "<ul>\n";
 			foreach ( $outline_tree->items as $item ) {
 				$text .= "<li>{$this->item($item)}</li>\n";
@@ -123,6 +122,7 @@ class ListTreeBuilder {
 				$linker = $this->linker;
 			}
 
+			$resultArray->reset();
 			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 
 				if ( !$first_col && !$found_values ) { // first values after first column

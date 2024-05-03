@@ -57,7 +57,7 @@ class GraphNode {
 	/**
 	 * @param string $label : a label, e.g. Display Title, used instead of $id.
 	 */
-	public function setLabel($label){
+	public function setLabel( $label ) {
 		$this->label = $label;
 	}
 
@@ -65,4 +65,3 @@ class GraphNode {
 		return $this->label;
 	}
 }
-

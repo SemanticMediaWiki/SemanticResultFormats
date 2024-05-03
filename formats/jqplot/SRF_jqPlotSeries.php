@@ -4,7 +4,7 @@
  * A query printer for charts series using the jqPlot JavaScript library.
  *
  * @since 1.8
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @author mwjames
  */
@@ -27,7 +27,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Get data set
 		$data = $this->getResultData( $result, $outputMode );
 
@@ -138,7 +137,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @return array
 	 */
 	private function getFormatSettings( $data, $options ) {
-
 		// Init
 		$dataSet = [];
 		$options['mode'] = 'series';
@@ -184,7 +182,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 				],
 				'rendererOptions' => [ 'barDirection' => $this->params['direction'] ]
 			];
-		};
+		}
 
 		// Basic parameters
 		$parameters = [
@@ -214,7 +212,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 
 		return [
 			'data' => $dataSet,
-			//'rawdata'      => $data , // control array
+			// 'rawdata'      => $data , // control array
 			'series' => $series,
 			'ticks' => $data['numbersticks'],
 			'total' => $data['total'],
@@ -234,7 +232,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @param array $data
 	 */
 	protected function getNumbersTicks( array $data ) {
-
 		// Only look for numeric values that have been stored
 		$numerics = array_values( $data['series'] );
 
@@ -320,7 +317,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		$this->isHTML = true;
 
 		static $statNr = 0;

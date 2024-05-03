@@ -90,7 +90,6 @@
 	"srf-ui-datatables-label-multiselect-column-selectedtext": "Zutabeak ikusgai daude",
 	"srf-ui-datatables-label-sEmptyTable": "Ez dago daturik eskuragarri taulan",
 	"srf-ui-datatables-label-sInfo": "_START_ to _END_ of _TOTAL_ sarrerak erakusten",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "_MENU_ sarrerak erakutsi",
 	"srf-ui-datatables-label-sLoadingRecords": "Kargatzen...",
 	"srf-ui-datatables-label-sProcessing": "Prozesatzen...",

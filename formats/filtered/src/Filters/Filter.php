@@ -29,9 +29,9 @@ abstract class Filter {
 	/**
 	 * Filter constructor.
 	 *
-	 * @param ResultItem[] $results
+	 * @param ResultItem[] &$results
 	 * @param SMWPrintRequest $printRequest
-	 * @param Filtered $queryPrinter
+	 * @param Filtered &$queryPrinter
 	 */
 	public function __construct( array &$results, SMWPrintRequest $printRequest, Filtered &$queryPrinter ) {
 		$this->resultItems = $results;
@@ -111,7 +111,6 @@ abstract class Filter {
 	 * @return string[]
 	 */
 	public function getJsConfig() {
-
 		if ( $this->jsConfig === null ) {
 			$this->buildJsConfig();
 		}
@@ -126,18 +125,18 @@ abstract class Filter {
 			'show if undefined',
 			'show if undefined',
 			null,
-			function ( $value ) { return filter_var( $value, FILTER_VALIDATE_BOOLEAN ); }
+			static function ( $value ) { return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
+			}
 		);
 	}
 
 	/**
 	 * @param string $paramName
 	 * @param string $configName
-	 * @param mixed | null $default
-	 * @param callable | null $callback
+	 * @param mixed | null|null $default
+	 * @param callable | null|null $callback
 	 */
 	protected function addValueToJsConfig( $paramName, $configName, $default = null, $callback = null ) {
-
 		$params = $this->getActualParameters();
 
 		if ( array_key_exists( $paramName, $params ) ) {
@@ -154,7 +153,6 @@ abstract class Filter {
 			$this->jsConfig[$configName] = $default;
 
 		}
-
 	}
 
 	/**
@@ -163,7 +161,6 @@ abstract class Filter {
 	 * @param null $default
 	 */
 	protected function addValueListToJsConfig( $paramName, $configName, $default = null, $callback = null ) {
-
 		$this->addValueToJsConfig(
 			$paramName,
 			$configName,
@@ -173,6 +170,5 @@ abstract class Filter {
 				return ( $callback !== null ) ? array_map( $callback, $parsedValues ) : $parsedValues;
 			}
 		);
-
 	}
 }

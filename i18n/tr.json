@@ -215,7 +215,6 @@
 	"srf-ui-datatables-label-sInfo": "_TOTAL_ girişten _START_ - _END_ arasındakiler gösteriliyor",
 	"srf-ui-datatables-label-sInfoEmpty": "0 girdiden 0 ile 0 arası gösteriliyor",
 	"srf-ui-datatables-label-sInfoFiltered": "(toplam _MAX_ girişten filtrelendi)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "_MENU_ girişlerini göster",
 	"srf-ui-datatables-label-sLoadingRecords": "Yükleniyor...",
 	"srf-ui-datatables-label-sProcessing": "İşleniyor...",

@@ -5,8 +5,9 @@ query results.
 == Installation ==
 For these two formats to work you do not just need the Semantic MediaWiki
 and the Semantic Result Formats extension to be installed but also the
-GraphViz extension and the ImageMap extension. Moreover the GraphViz extension
-requires the graphviz and mscgen packages to be installed on your server.
+Diagrams (or GraphViz) extension and the ImageMap extension. Moreover
+the Diagrams or GraphViz extension requires the graphviz and mscgen
+packages to be installed on your server.
 
 The extensions mentioned are best installed using Composer. Please refer to
 the individual documentation on how to do this.

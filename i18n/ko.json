@@ -152,7 +152,6 @@
 	"srf-ui-datatables-label-sInfo": "_TOTAL_개의 항목 중 _START_부터 _END_까지 표시 중",
 	"srf-ui-datatables-label-sInfoEmpty": "0개의 항목 중 0부터 0까지 표시 중",
 	"srf-ui-datatables-label-sInfoFiltered": "(_MAX_개의 전체 항목에서 필터됨)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "_MENU_ 엔트리 보기",
 	"srf-ui-datatables-label-sLoadingRecords": "불러오는 중...",
 	"srf-ui-datatables-label-sProcessing": "처리 중...",

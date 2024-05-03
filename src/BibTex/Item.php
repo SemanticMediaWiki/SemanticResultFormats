@@ -2,12 +2,10 @@
 
 namespace SRF\BibTex;
 
-use SMWDataValue as DataValue;
-
 /**
  * @see http://www.semantic-mediawiki.org/wiki/BibTex
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
@@ -22,7 +20,7 @@ class Item {
 	private $type = '';
 
 	/**
-	 * @var []
+	 * @var
 	 */
 	protected $fields = [
 		'address' => '',
@@ -83,14 +81,13 @@ class Item {
 	 * @return string
 	 */
 	public function replace( $key, $text ) {
-
 		if ( $key === 'uri' ) {
 			$text = str_replace(
 				[ "Ä", "ä", "Ö", "ö", "Ü", "ü", "ß" ],
 				[ 'Ae', 'ae', 'Oe', 'oe', 'Ue', 'ue', 'ss' ],
 				$text
 			);
-			$text = preg_replace("/[^a-zA-Z0-9]+/", "", $text );
+			$text = preg_replace( "/[^a-zA-Z0-9]+/", "", $text );
 		}
 
 		return $text;
@@ -103,7 +100,6 @@ class Item {
 	 * @param mixed $value
 	 */
 	public function set( $key, $value ) {
-
 		$key = strtolower( $key );
 
 		if ( $key === 'type' ) {
@@ -121,7 +117,6 @@ class Item {
 	 * @return string
 	 */
 	public function text() {
-
 		$formatterCallback = $this->formatterCallback;
 
 		$text = '@' . $this->type . '{' . $this->buildURI() . ",\r\n";
@@ -154,7 +149,6 @@ class Item {
 	 * @return string
 	 */
 	protected function buildURI() {
-
 		$uri = '';
 
 		if ( isset( $this->fields['author'] ) ) {

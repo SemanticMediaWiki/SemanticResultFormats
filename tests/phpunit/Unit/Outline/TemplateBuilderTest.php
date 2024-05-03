@@ -2,22 +2,24 @@
 
 namespace SRF\Tests\Outline;
 
-use SRF\Outline\TemplateBuilder;
+use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\OutlineTree;
+use SRF\Outline\TemplateBuilder;
 
 /**
  * @covers \SRF\Outline\TemplateBuilder
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
  */
-class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
+class TemplateBuilderTest extends \PHPUnit\Framework\TestCase {
+
+	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			TemplateBuilder::class,
 			new TemplateBuilder( [] )
@@ -25,7 +27,6 @@ class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testBuildForEmptyTree() {
-
 		$params = [
 			'outlineproperties' => [ 'Foo' ],
 			'template' => 'Bar',
@@ -36,8 +37,8 @@ class TemplateBuilderTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new TemplateBuilder( $params );
 
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+
 			$instance->build( new OutlineTree() )
 		);
 	}

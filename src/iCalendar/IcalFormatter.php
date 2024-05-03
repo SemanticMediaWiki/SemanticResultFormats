@@ -2,10 +2,8 @@
 
 namespace SRF\iCalendar;
 
-use Exception;
-
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author mwjames
@@ -28,7 +26,7 @@ class IcalFormatter {
 	private $description;
 
 	/**
-	 * @var []
+	 * @var
 	 */
 	private $events = [];
 
@@ -63,7 +61,6 @@ class IcalFormatter {
 	 * @param array $params
 	 */
 	public function addEvent( array $params ) {
-
 		$event = '';
 		$event .= "BEGIN:VEVENT\r\n";
 
@@ -112,7 +109,6 @@ class IcalFormatter {
 	 * @return string
 	 */
 	public function getIcal() {
-
 		$result = '';
 
 		$result .= "BEGIN:VCALENDAR\r\n";

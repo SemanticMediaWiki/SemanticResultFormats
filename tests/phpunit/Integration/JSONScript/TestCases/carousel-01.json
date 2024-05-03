@@ -1,0 +1,93 @@
+{
+	"description": "Test `format=carousel` html output (no JS validation)",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has title",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has caption",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery01.png",
+			"contents": {
+				"upload": {
+					"file" : "/../Fixtures/image-upload-480.png",
+					"text" : "[[Has file::{{FULLPAGENAME}}]] [[Has title::title a]] [[Has caption::caption a]]"
+				}
+			}
+		},
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery02.jpg",
+			"contents": {
+				"upload": {
+					"file" : "/../Fixtures/view-of-the-golden-gate-bridge-san-francisco.jpg",
+					"text" : "[[Has file::{{FULLPAGENAME}}]] [[Has title::title b]] [[Has caption::caption b]]"
+				}
+			}
+		},
+		{
+			"page": "Test/Carousel test",
+			"contents": "page content [[Category:Carousel test cat]] [[Has caption:: abc]] [[Picture::File:Gallery01.png]]"
+		},
+		{
+			"page": "Test/Carousel/T.1",
+			"contents": "{{#ask: [[Has caption::+]] |titleproperty=Has title |captionproperty=Has caption |?Has caption|?Has title|format=carousel |slick-dots= 1 |limit=2 |slick-autoplay=0 |height=400px |class=my-class }}"
+
+		},
+		{
+			"page": "Test/Carousel/T.2",
+			"contents": "{{#ask: [[Category:Carousel test cat]] |?Picture |?Has caption |format=carousel |slick-dots= 1 |limit=10 |slick-autoplay=0 |height=400px |class=my-class }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0",
+			"subject": "Test/Carousel/T.1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"slick-slide\" data-url=\".*/index.php/File:Gallery01.png\"><img src=\".*/images/7/7f/Gallery01.png\" alt=\"caption a\".* class=\"slick-slide-content img\".*/><div class=\"slick-slide-content caption\"><div class=\"slick-slide-content caption-title\">title a</div><div class=\"slick-slide-content caption-text\">caption a</div></div></div></div>"
+				]
+			}
+
+		},
+		{
+			"type": "parser",
+			"about": "#1",
+			"subject": "Test/Carousel/T.2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"slick-slide\" data-url=\".*/index.php/Test/Carousel_test\"><img src=\".*/images/7/7f/Gallery01.png\" alt=\"abc\".* class=\"slick-slide-content img\".*/><div class=\"slick-slide-content caption\"><div class=\"slick-slide-content caption-title\">Carousel test</div><div class=\"slick-slide-content caption-text\">abc</div></div></div></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"wgEnableUploads": true,
+		"wgFileExtensions": [
+			"png",
+			"jpg"
+		],
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		],
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_FILE": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": true
+	}
+}

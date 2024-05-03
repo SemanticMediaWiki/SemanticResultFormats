@@ -48,6 +48,7 @@ $GLOBALS['srfgFormats'] = [
 	'dygraphs',
 	'media',
 	'datatables',
+	'carousel',
 	'spreadsheet',
 	'gantt',
 	'graph',
@@ -90,7 +91,7 @@ $GLOBALS['srfgFormats'] = [
 
 // Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 // FIXME: According to the INSTALL file only formats should be enabled, that "do not require further software to be installed (besides SMW)"
-if(	array_key_exists( 'ExtHashTables', $GLOBALS['wgAutoloadClasses'] ) && defined( 'ExtHashTables::VERSION' )
+if ( isset( $GLOBALS['wgAutoloadClasses']['ExtHashTables'] ) && defined( 'ExtHashTables::VERSION' )
 	&& version_compare( ExtHashTables::VERSION, '0.999', '>=' )
 	|| isset( $GLOBALS['wgHashTables'] ) // Version < 1.0 alpha
 ) {
@@ -115,7 +116,7 @@ $GLOBALS['srfgArrayHeaderSep'] = ' ';
  *
  * @var Array
  */
-$GLOBALS['srfgArraySepTextualFallbacks'] =  [
+$GLOBALS['srfgArraySepTextualFallbacks'] = [
 	'sep'       => $GLOBALS['srfgArraySep'],
 	'propsep'   => $GLOBALS['srfgArrayPropSep'],
 	'manysep'   => $GLOBALS['srfgArrayManySep'],

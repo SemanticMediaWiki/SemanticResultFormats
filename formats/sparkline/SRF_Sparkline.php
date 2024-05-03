@@ -5,7 +5,7 @@
  * JavaScript library.
  *
  * @since 1.8
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @author mwjames
  */
@@ -27,8 +27,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	 * @param array $data label => value
 	 */
 	protected function getFormatOutput( array $data ) {
-
-		//Init
+		// Init
 		$dataObject = [];
 
 		static $statNr = 0;

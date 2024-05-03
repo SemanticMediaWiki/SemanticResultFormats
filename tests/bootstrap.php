@@ -20,7 +20,7 @@ if ( !defined( 'SMW_PHPUNIT_FIRST_COLUMN_WIDTH' ) ) {
 
 print sprintf( "\n%-{$width}s%s\n", "Semantic Result Formats: ", SRF_VERSION );
 
-$autoLoader = require SMW_PHPUNIT_AUTOLOADER_FILE;
+$autoloader = require SMW_PHPUNIT_AUTOLOADER_FILE;
 $autoloader->addPsr4( 'SRF\\Tests\\', __DIR__ . '/phpunit' );
 $autoloader->addPsr4( 'SMW\\Test\\', __DIR__ . '/../../SemanticMediaWiki/tests/phpunit' );
 $autoloader->addPsr4( 'SMW\\Tests\\', __DIR__ . '/../../SemanticMediaWiki/tests/phpunit' );

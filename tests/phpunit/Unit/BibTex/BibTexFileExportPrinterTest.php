@@ -12,15 +12,14 @@ use SRF\Tests\ResultPrinterReflector;
  * @covers \SRF\BibTex\BibTexFileExportPrinter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
  */
-class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
+class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			BibTexFileExportPrinter::class,
 			new BibTexFileExportPrinter( 'bibtex' )
@@ -31,12 +30,6 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider filenameProvider
 	 */
 	public function testGetFileName( $filename, $searchlabel, $expected ) {
-		if ( version_compare( phpversion(), '7.4', '>=' ) ) {
-			// ResultPrinterReflector creates notices on PHP 7.4+
-			$this->markTestSkipped();
-			return;
-		}
-
 		$parameters = [
 			'filename' => $filename,
 			'searchlabel' => $searchlabel
@@ -53,32 +46,31 @@ class BibTexFileExportPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function filenameProvider() {
-
-		yield[
+		yield [
 			'',
 			'',
 			'BibTeX.bib'
 		];
 
-		yield[
+		yield [
 			'',
 			'foo bar',
 			'foo_bar.bib'
 		];
 
-		yield[
+		yield [
 			'foo',
 			'',
 			'foo.bib'
 		];
 
-		yield[
+		yield [
 			'foo.bib',
 			'',
 			'foo.bib'
 		];
 
-		yield[
+		yield [
 			'foo bar.bib',
 			'',
 			'foo_bar.bib'

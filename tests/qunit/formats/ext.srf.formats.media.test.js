@@ -22,7 +22,7 @@
  * @since 1.9
  * @ingroup SRF
  *
- * @licence GNU GPL v2+
+ * @licence GPL-2.0-or-later
  * @author mwjames
  */
 

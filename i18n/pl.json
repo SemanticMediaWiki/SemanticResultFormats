@@ -114,6 +114,7 @@
 	"srf-paramdesc-charttext": "Tekst opisujący wykres",
 	"srf-paramdesc-chartclass": "Dodatkowa klasa CSS",
 	"srf-paramdesc-renderer": "Wybierz renderer wykresu",
+	"srf-paramdesc-filling": "Indywidualna opcja wypełniania",
 	"srf-paramdesc-theme": "Wybierz motyw siatki",
 	"srf-paramdesc-chartcolor": "Przypisz indywidualne kolory wykresu",
 	"srf-paramdesc-colorscheme": "Wybierz schemat kolorów",
@@ -148,6 +149,7 @@
 	"srf-paramdesc-captiontemplate": "Szablon używany do formatowania podpisów obrazów galerii. Zapewnia nazwane argumenty, takie jak „imageraw”, „imagecaption” i „imageredirect”",
 	"srf_paramdesc_imageproperty": "Nazwa właściwości semantycznej na odpytywanych stronach, która wskazuje obrazy do użycia. Po ustawieniu przywołane strony nie będą wyświetlane jako obrazy.",
 	"srf-paramdesc-redirects": "Nazwa właściwości semantycznej występującej na stronach z zapytaniami, zawierającymi cel przekierowania",
+	"srf-paramdesc-navigation": "Układ sterowania nawigacją",
 	"srf-paramdesc-overlay": "Zezwól na nakładanie się obrazków",
 	"srf-gallery-navigation-previous": "Poprzedni",
 	"srf-gallery-navigation-next": "Następny",
@@ -295,5 +297,9 @@
 	"srf-ui-mediaplayer-label-full-screen": "Pełny ekran",
 	"srf-ui-mediaplayer-label-restore-screen": "Przywróć ekran",
 	"srf-paramdesc-icalendar-timezone": "Lista stref czasowych przedzielana przecinkami",
-	"srf-paramdesc-gantt-barheight": "Wysokość pasków zadań"
+	"srf-paramdesc-gantt-diagramtitle": "Nazwa diagramu",
+	"srf-paramdesc-gantt-diagramtheme": "Motyw diagramu",
+	"srf-paramdesc-gantt-barheight": "Wysokość pasków zadań",
+	"srf-paramdesc-gantt-leftpadding": "Szerokość tytułu sekcji",
+	"srf-error-gantt-mermaid-not-installed": "Rozszerzenie Mermaid musi być zainstalowane."
 }

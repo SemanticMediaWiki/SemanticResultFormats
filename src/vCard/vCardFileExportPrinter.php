@@ -16,7 +16,7 @@ use WikiPage;
  * @see https://tools.ietf.org/html/rfc6350
  * @see https://www.w3.org/2002/12/cal/vcard-notes.html
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.5
  *
  * @author Markus Krötzsch
@@ -56,7 +56,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	public function getFileName( QueryResult $queryResult ) {
-
 		if ( $this->params['filename'] !== '' ) {
 
 			if ( strpos( $this->params['filename'], '.vcf' ) === false ) {
@@ -104,7 +103,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	 * @see ResultPrinter::getResultText
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
-
 		// Always return a link for when the output mode is not a file request,
 		// a file request is normally only initiated when resolving the query
 		// via Special:Ask
@@ -116,7 +114,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function getVCardLink( QueryResult $res, $outputMode ) {
-
 		// Can be viewed as HTML if requested, no more parsing needed
 		$this->isHTML = $outputMode == SMW_OUTPUT_HTML;
 
@@ -149,7 +146,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	 * @throws \MWException
 	 */
 	private function getVCardContent( $res ) {
-
 		$result = '';
 		$vCards = [];
 
@@ -181,7 +177,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function newVCard( $row, $uri, $text, $timestamp, $isPublic ) {
-
 		$vCard = new vCard(
 			$uri,
 			$text,
@@ -262,7 +257,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function mapField( $field, $vCard, &$tels, &$addresses, &$emails ) {
-
 		$printRequest = $field->getPrintRequest();
 
 		switch ( strtolower( $printRequest->getLabel() ) ) {
@@ -409,7 +403,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function getFieldCommaList( $field ) {
-
 		$list = '';
 
 		while ( $value = $field->getNextDataValue() ) {
@@ -420,7 +413,6 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function getFieldValue( $field ) {
-
 		$v = '';
 
 		if ( ( $value = $field->getNextDataValue() ) !== false ) {
