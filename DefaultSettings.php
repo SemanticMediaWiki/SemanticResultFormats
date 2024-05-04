@@ -64,7 +64,9 @@ $GLOBALS['srfgFormats'] = [
 	'interquartilerange',
 	'interquartilerange.exc',
 	'mode',
-	'interquartilemean'
+	'interquartilemean',
+	'prolog',
+	'dataframe'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',

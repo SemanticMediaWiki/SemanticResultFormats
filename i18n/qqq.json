@@ -18,7 +18,8 @@
 			"Toliño",
 			"Umherirrender",
 			"Verdy p",
-			"아라"
+			"아라",
+      "Marco Falda"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -408,5 +409,15 @@
 	"srf-printername-samplestandarddeviation": "{{doc-smwformat|samplestandarddeviation}}",
 	"srf-printername-samplevariance": "{{doc-smwformat|samplevariance}}",
 	"srf-printername-standarddeviation": "{{doc-smwformat|standarddeviation}}",
-	"srf-printername-variance":"{{doc-smwformat|variance}}"
+	"srf-printername-variance":"{{doc-smwformat|variance}}",
+  	"srf-printername-prolog": "{{doc-smwformat|prolog}}",
+	"srf-paramdesc-prolog-filename": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-prolog-fileformat": "{{doc-paramdesc|fileformat}}",
+	"srf-paramdesc-prolog-pname": "The name of the generated predicates. Default: predicate",
+	"srf-paramdesc-prolog-navalue": "The value for missing data. Default: 'NA'",
+	"srf-prolog-link": "{{doc-smw-link}}",
+	"srf-printername-dataframe": "{{doc-smwformat|dataframe}}",
+	"srf-paramdesc-dataframe-filename": "{{doc-paramdesc|filename}}",
+	"srf-paramdesc-dataframe-fileformat": "{{doc-paramdesc|fileformat}}",
+	"srf-dataframe-link": "{{doc-smw-link}}"
 }

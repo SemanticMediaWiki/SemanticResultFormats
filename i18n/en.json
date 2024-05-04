@@ -390,5 +390,15 @@
 	"srf-printername-samplestandarddeviation": "Samplestandarddeviation",
 	"srf-printername-samplevariance": "Samplevariance",
 	"srf-printername-standarddeviation": "Standarddeviation",
-	"srf-printername-variance": "Variance"
+	"srf-printername-variance": "Variance",
+  "srf-printername-prolog": "Prolog predicates",
+	"srf-paramdesc-prolog-filename": "The filename for the download of the generated predicates",
+	"srf-paramdesc-prolog-fileformat": "The format to be produced for the predicates file. Allowed values: pl, pro. Default: pl",
+	"srf-paramdesc-prolog-pname": "The name of the generated predicates. Default: predicate",
+	"srf-paramdesc-prolog-navalue": "The value for missing data. Default: 'NA'",
+	"srf-prolog-link": "Predicates",
+	"srf-printername-dataframe": "R dataframe",
+	"srf-paramdesc-dataframe-filename": "The filename for the download of the generated dataframe",
+	"srf-paramdesc-dataframe-fileformat": "The format to be produced for the dataframe. Allowed values: R.",
+	"srf-dataframe-link": "Dataframe"
 }

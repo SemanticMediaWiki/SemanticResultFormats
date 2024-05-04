@@ -11,7 +11,8 @@
 			"Macofe",
 			"McDutchie",
 			"S4b1nuz E.656",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Marco Falda"
 		]
 	},
 	"srf-desc": "Formati addizionali per i risultati delle query di Semantic MediaWiki",
@@ -148,5 +149,15 @@
 	"srf-paramdesc-gantt-diagramtitle": "Nome del diagramma",
 	"srf-paramdesc-gantt-diagramtheme": "Tema del diagramma",
 	"srf-paramdesc-gantt-axisformat": "Asse-X: Formato data",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Gantt",
+	"srf-printername-prolog": "Predicati Prolog",
+	"srf-paramdesc-prolog-filename": "Il nome del file per il download dei predicati Prolog generati",
+	"srf-paramdesc-prolog-fileformat": "Il formato file dei predicati da produrre: pl, pro. Predefinito: pl",
+	"srf-paramdesc-prolog-pname": "Il nome dei predicati. Predefinito: predicate",
+	"srf-paramdesc-prolog-navalue": "Il valore da inserire se il dato e` assente. Predefinito: 'NA'",
+	"srf-prolog-link": "Predicati",
+	"srf-printername-dataframe": "Dataframe di R",
+	"srf-paramdesc-dataframe-filename": "Il nome del file per il download del dataframe generato",
+	"srf-paramdesc-dataframe-fileformat": "Il formato file del dataframe da produrre: R.",
+	"srf-dataframe-link": "Dataframe"
 }
