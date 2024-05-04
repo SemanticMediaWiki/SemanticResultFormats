@@ -32,13 +32,13 @@ class SRFArray extends SMWResultPrinter {
 	protected $mHidePropertyGaps;
 
 	/**
-	 * @var Boolean true if 'mainlabel' parameter is set to '-'
+	 * @var bool true if 'mainlabel' parameter is set to '-'
 	 */
 	protected $mMainLabelHack = false;
 
 	public function __construct( $format, $inline = true ) {
 		parent::__construct( $format, $inline );
-		//overwrite parent default behavior for linking:
+		// overwrite parent default behavior for linking:
 		$this->mLinkFirst = false;
 		$this->mLinkOthers = false;
 	}
@@ -70,7 +70,7 @@ class SRFArray extends SMWResultPrinter {
 
 		$perPage_items = [];
 
-		//for each page:
+		// for each page:
 		while ( $row = $res->getNext() ) {
 			$perProperty_items = [];
 
@@ -78,23 +78,23 @@ class SRFArray extends SMWResultPrinter {
 			 * first field is always the page title, except, mainlabel is set to '-'
 			 *
 			 * @todo Is there some other way to check the data value directly for being the
-			 *        page title or not? SMWs behavior could change on mainlabel handling...
+			 *		  page title or not? SMWs behavior could change on mainlabel handling...
 			 */
 			$isPageTitle = !$this->mMainLabelHack;
 
-			//for each property on that page:
+			// for each property on that page:
 			foreach ( $row as $field ) { // $row is array(), $field of type SMWResultArray
 				$manyValue_items = [];
 				$isMissingProperty = false;
 
 				$manyValues = $field->getContent();
 
-				//If property is not set (has no value) on a page:
+				// If property is not set (has no value) on a page:
 				if ( empty( $manyValues ) ) {
 					$delivery = $this->deliverMissingProperty( $field );
 					$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					$isMissingProperty = true;
-				} else //otherwise collect property value (potentially many values):
+				} else // otherwise collect property value (potentially many values):
 				{
 					while ( $obj = $field->getNextDataValue() ) {
 
@@ -105,14 +105,14 @@ class SRFArray extends SMWResultPrinter {
 						if ( $isPageTitle ) {
 							if ( !$this->mShowPageTitles ) {
 								$isPageTitle = false;
-								continue 2; //next property
+								continue 2; // next property
 							}
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
 								$this->deliverPageTitle( $obj, $this->mLinkFirst )
 							);
 						} // handle record values:
-						elseif ( $obj instanceof SMWRecordValue ) {
+ elseif ( $obj instanceof SMWRecordValue ) {
 							$recordItems = $obj->getDataItems();
 							// walk all single values of the record set:
 							foreach ( $recordItems as $dataItem ) {
@@ -124,13 +124,13 @@ class SRFArray extends SMWResultPrinter {
 								);
 							}
 							$isRecord = true;
-						} // handle normal data values:
-						else {
+ } // handle normal data values:
+ else {
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
 								$this->deliverSingleValue( $obj, $this->mLinkOthers )
 							);
-						}
+ }
 						$delivery = $this->deliverSingleManyValuesData( $value_items, $isRecord, $isPageTitle );
 						$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					}
@@ -143,7 +143,7 @@ class SRFArray extends SMWResultPrinter {
 				);
 				$perProperty_items = $this->fillDeliveryArray( $perProperty_items, $delivery );
 				$isPageTitle = false; // next one could be record or normal value
-			} // foreach...			
+			} // foreach...
 			$delivery = $this->deliverPageProperties( $perProperty_items );
 			$perPage_items = $this->fillDeliveryArray( $perPage_items, $delivery );
 		} // while...
@@ -154,7 +154,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function fillDeliveryArray( $array = [], $value = null ) {
-		if ( !is_null( $value ) ) { //don't create any empty entries
+		if ( $value !== null ) { // don't create any empty entries
 			$array[] = $value;
 		}
 		return $array;
@@ -165,19 +165,18 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function deliverRecordField( $value, $link = false ) {
-		if ( $value !== null ) // contains value
-		{
+		if ( $value !== null ) {
 			return $this->deliverSingleValue( $value, $link );
 		} elseif ( $this->mHideRecordGaps ) {
 			return null;
 		} // hide gap
-		else {
+ else {
 			return '';
-		} // empty string will make sure that record value separators are generated
+ } // empty string will make sure that record value separators are generated
 	}
 
 	protected function deliverSingleValue( $value, $link = false ) {
-		//return trim( $value->getShortWikiText( $link ) );
+		// return trim( $value->getShortWikiText( $link ) );
 		return trim(
 			Sanitizer::decodeCharReferences( $value->getShortWikiText( $link ) )
 		); // decode: better for further processing with array extension
@@ -189,14 +188,13 @@ class SRFArray extends SMWResultPrinter {
 			return null;
 		} else {
 			return '';
-		} //empty string will make sure that array separator will be generated
+		} // empty string will make sure that array separator will be generated
 		/** @ToDo: System for Default values?... * */
 	}
 
-	//represented by an array of record fields or just a single array value:
+	// represented by an array of record fields or just a single array value:
 	protected function deliverSingleManyValuesData( $value_items, $containsRecord, $isPageTitle ) {
-		if ( empty( $value_items ) ) //happens when one of the higher functions delivers null
-		{
+		if ( empty( $value_items ) ) {
 			return null;
 		}
 		return implode( $this->mRecordSep, $value_items );
@@ -226,7 +224,7 @@ class SRFArray extends SMWResultPrinter {
 
 	protected function deliverQueryResultPages( $perPage_items ) {
 		if ( $this->mArrayName !== null ) {
-			$this->createArray( $perPage_items ); //create Array
+			$this->createArray( $perPage_items ); // create Array
 			return '';
 		} else {
 			return implode( $this->mSep, $perPage_items );
@@ -253,7 +251,7 @@ class SRFArray extends SMWResultPrinter {
 		// compatbility to 'ArrayExtension' extension before 2.0:
 
 		if ( !isset( $wgArrayExtension ) ) {
-			//Hash extension is not installed in this wiki
+			// Hash extension is not installed in this wiki
 			return false;
 		}
 		$version = null;
@@ -293,7 +291,7 @@ class SRFArray extends SMWResultPrinter {
 				return null;
 			}
 
-			// check for config-defined arguments to pass to the page before processing it:			
+			// check for config-defined arguments to pass to the page before processing it:
 			if ( array_key_exists( 'args', $obj ) && is_array( $obj['args'] ) ) {
 				$params = $obj['args'];
 			} else {
@@ -308,22 +306,22 @@ class SRFArray extends SMWResultPrinter {
 		} elseif ( $obj instanceof Article ) {
 			$article = $obj;
 		} else {
-			return $obj; //only text
+			return $obj; // only text
 		}
 
 		/*
 		 * Feature to use page value as separator only works if Parser::parse() is running!
 		 * That's not the case on semantic search special page for example!
 		 */
-		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!		
+		// can't use $this->mInline here since SMW 1.6.2 had a bug setting it to false in most cases!
 		$parser = MediaWikiServices::getInstance()->getParser();
-		if ( !isset( $parser->mOptions ) ) {
-			//if( ! $this->mInline ) {
+		if ( $parser->getOptions() === null ) {
+			// if( ! $this->mInline ) {
 			return null;
 		}
 
 		/*
-		 * parse page as if it were included like a template. Never use Parser::recursiveTagParse() or similar 
+		 * parse page as if it were included like a template. Never use Parser::recursiveTagParse() or similar
 		 * for this since it would call hooks we don't want to call and won't return wiki text for inclusion!
 		 */
 		$frame = $parser->getPreprocessor()->newCustomFrame( $params );
@@ -338,7 +336,7 @@ class SRFArray extends SMWResultPrinter {
 		// does the link parameter:
 		parent::handleParameters( $params, $outputmode );
 
-		//separators:
+		// separators:
 		$this->mSep = $params['sep'];
 		$this->mPropSep = $params['propsep'];
 		$this->mManySep = $params['manysep'];
@@ -351,7 +349,7 @@ class SRFArray extends SMWResultPrinter {
 			$this->mArrayName = trim( $params['name'] );
 			$this->createArray(
 				[]
-			); //create empty array in case we get no result so we won't have an undefined array in the end.
+			); // create empty array in case we get no result so we won't have an undefined array in the end.
 		}
 
 		// if mainlabel set to '-', this will cause the titles not to appear, so make sure we catch this!
@@ -460,6 +458,3 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 }
-
-
-

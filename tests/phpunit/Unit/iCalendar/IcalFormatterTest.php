@@ -9,12 +9,12 @@ use SRF\iCalendar\IcalFormatter;
  * @covers \SRF\iCalendar\IcalFormatter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author mwjames
  */
-class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
+class IcalFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	private $stringValidator;
 	private $icalTimezoneFormatter;
@@ -30,7 +30,6 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			IcalFormatter::class,
 			new IcalFormatter( $this->icalTimezoneFormatter )
@@ -41,7 +40,6 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider paramsProvider
 	 */
 	public function testGetIcal( $params, $events, $expected ) {
-
 		$instance = new IcalFormatter(
 			$this->icalTimezoneFormatter
 		);
@@ -60,7 +58,6 @@ class IcalFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function paramsProvider() {
-
 		yield [
 			[
 				'calendarname' => 'FooCalendar',

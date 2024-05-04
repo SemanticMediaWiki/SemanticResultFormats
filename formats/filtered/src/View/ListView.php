@@ -32,7 +32,6 @@ class ListView extends View {
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
-
 		$params = $this->getActualParameters();
 
 		$this->mFormat = $params['list view type'];
@@ -60,7 +59,6 @@ class ListView extends View {
 	 * @return string
 	 */
 	public function getResultText() {
-
 		$this->handleParameters();
 
 		// Determine mark-up strings used around list items:
@@ -110,14 +108,13 @@ class ListView extends View {
 	 * Prints one row of a list view.
 	 *
 	 * @param \SMWResultArray[] $row
-	 * @param $rownum
+	 * @param &$rownum
 	 * @param $rowstart
 	 * @param $rowend
-	 * @param $result
+	 * @param &$result
 	 * @param $listsep
 	 */
 	protected function printRow( $row, &$rownum, $rowstart, $rowend, &$result, $listsep ) {
-
 		$rownum++;
 
 		$result .= $rowstart;
@@ -126,7 +123,7 @@ class ListView extends View {
 			$this->getQueryPrinter()->hasTemplates( true );
 
 			$wikitext = ( $this->mUserParam ) ? "|#userparam=$this->mUserParam" : '';
-			//$wikitext = '';
+			// $wikitext = '';
 
 			foreach ( $row as $fieldNumber => $field ) {
 
@@ -243,7 +240,7 @@ class ListView extends View {
 		];
 
 		$params[] = [
-			//'type' => 'string',
+			// 'type' => 'string',
 			'name' => 'list view introtemplate',
 			'message' => 'srf-paramdesc-filtered-list-introtemplate',
 			'default' => '',
@@ -251,7 +248,7 @@ class ListView extends View {
 		];
 
 		$params[] = [
-			//'type' => 'string',
+			// 'type' => 'string',
 			'name' => 'list view outrotemplate',
 			'message' => 'srf-paramdesc-filtered-list-outrotemplate',
 			'default' => '',
@@ -259,7 +256,7 @@ class ListView extends View {
 		];
 
 		$params[] = [
-			//'type' => 'string',
+			// 'type' => 'string',
 			'name' => 'list view userparam',
 			'message' => 'srf-paramdesc-filtered-list-userparam',
 			'default' => '',
@@ -272,7 +269,7 @@ class ListView extends View {
 	/**
 	 * Returns the label of the selector for this view.
 	 *
-	 * @return String the selector label
+	 * @return string the selector label
 	 */
 	public function getSelectorLabel() {
 		return Message::newFromKey( 'srf-filtered-selectorlabel-list' )->inContentLanguage()->text();

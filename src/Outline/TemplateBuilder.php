@@ -3,10 +3,9 @@
 namespace SRF\Outline;
 
 use SMW\Query\PrintRequest;
-use SRF\Outline\OutlineTree;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
@@ -14,7 +13,7 @@ use SRF\Outline\OutlineTree;
 class TemplateBuilder {
 
 	/**
-	 * @var []
+	 * @var
 	 */
 	private $params = [];
 
@@ -58,7 +57,6 @@ class TemplateBuilder {
 	}
 
 	private function tree( $outlineTree, $level = 0 ) {
-
 		if ( $outlineTree->items !== null ) {
 			foreach ( $outlineTree->items as $i => $item ) {
 				$this->template .= $this->item( $i, $item );
@@ -84,7 +82,6 @@ class TemplateBuilder {
 	}
 
 	private function item( $i, $item ) {
-
 		$first_col = true;
 		$template = '';
 		$linker = $this->params['link'] === 'all' ? $this->linker : null;
@@ -99,6 +96,7 @@ class TemplateBuilder {
 				continue;
 			}
 
+			$resultArray->reset();
 			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 				$template .= $this->open( $this->params['template'] . '-item' );
 				$template .= $this->parameter( "#itemsection", $i );
@@ -106,7 +104,7 @@ class TemplateBuilder {
 				$template .= $this->parameter( "#itemnumber", $itemnumber );
 				$template .= $this->parameter( "#userparam", $this->params['userparam'] );
 
-				$template .= $this->itemRaw($dv);
+				$template .= $this->itemRaw( $dv );
 
 				$template .= $this->itemText( $dv, $linker, $printRequest, $first_col );
 				$template .= $this->close();
@@ -119,7 +117,6 @@ class TemplateBuilder {
 	}
 
 	private function itemText( $dv, $linker, $printRequest, &$first_col ) {
-
 		if ( $first_col && $printRequest->isMode( PrintRequest::PRINT_THIS ) ) {
 			$first_col = false;
 
@@ -143,7 +140,7 @@ class TemplateBuilder {
 		return $this->parameter( $printRequest->getLabel(), $text );
 	}
 
-	private function itemRaw( $dv ){
+	private function itemRaw( $dv ) {
 		$rawText = $dv->getShortText( SMW_OUTPUT_WIKI );
 
 		return $this->parameter( "#itemsubjectraw", $rawText );

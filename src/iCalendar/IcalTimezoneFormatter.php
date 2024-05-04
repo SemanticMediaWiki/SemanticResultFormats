@@ -8,7 +8,7 @@ use Exception;
 /**
  * Create the iCalendar's vTimezone component
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.0
  *
  * @author HgO
@@ -45,7 +45,6 @@ class IcalTimezoneFormatter {
 	 * @param array|string $localTimezones
 	 */
 	public function setLocalTimezones( $localTimezones ) {
-
 		if ( is_array( $localTimezones ) ) {
 			$localTimezones = $localTimezones;
 		} elseif ( strpos( $localTimezones, ',' ) !== false ) {
@@ -64,13 +63,12 @@ class IcalTimezoneFormatter {
 	 *
 	 * @since 3.0
 	 *
-	 * @param integer $from Timestamp from which transitions are generated.
-	 * @param integer $to Timestamp until which transitions are generated.
+	 * @param int|null $from Timestamp from which transitions are generated.
+	 * @param int|null $to Timestamp until which transitions are generated.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function calcTransitions( $from = null, $to = null ) {
-
 		if ( $this->localTimezones === [] ) {
 			return false;
 		}
@@ -124,7 +122,6 @@ class IcalTimezoneFormatter {
 	 * @return string
 	 */
 	public function getTransitions() {
-
 		$result = '';
 
 		if ( $this->transitions === null || $this->transitions === [] ) {

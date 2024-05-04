@@ -1,13 +1,11 @@
 /**
  * QUnit tests
  *
- * @since 1.9
- *
  * @file
  * @ingroup SRF
  *
- * @licence GNU GPL v2 or later
- * @author mwjames
+ * @licence GPL-2.0-or-later
+ * @author thomas-topway-it
  */
 ( function ( $, mw, srf ) {
 	'use strict';
@@ -15,8 +13,8 @@
 	QUnit.module( 'ext.srf.formats.datatables', QUnit.newMwEnvironment() );
 
 	var pass = 'Passes because ';
-	var context = $( '<div class="srf-datatables"><div id="smw-test" class="container"></div></div>', '#qunit-fixture' ),
-		container = context.find( '.container' );
+	var context = $( '<div class="srf-datatable" data-collation="identity" data-nocase="1" data-column-sort="{&quot;list&quot;:[&quot;&quot;,&quot;Modification date&quot;,&quot;Assigned to&quot;,&quot;Length&quot;,&quot;Length&quot;,&quot;Weight&quot;,&quot;Weight&quot;,&quot;My link&quot;],&quot;sort&quot;:[&quot;&quot;],&quot;order&quot;:[]}" data-datatables="{&quot;autoWidth&quot;:false,&quot;deferRender&quot;:false,&quot;info&quot;:true,&quot;lengthChange&quot;:true,&quot;ordering&quot;:true,&quot;paging&quot;:true,&quot;processing&quot;:false,&quot;scrollX&quot;:false,&quot;scrollY&quot;:&quot;&quot;,&quot;searching&quot;:true,&quot;stateSave&quot;:false,&quot;displayStart&quot;:0,&quot;pagingType&quot;:&quot;full_numbers&quot;,&quot;pageLength&quot;:20,&quot;lengthMenu&quot;:&quot;10, 20, 50, 100, 200&quot;,&quot;scrollCollapse&quot;:false,&quot;scroller&quot;:false,&quot;scroller.displayBuffer&quot;:50,&quot;scroller.loadingIndicator&quot;:false,&quot;buttons&quot;:&quot;&quot;,&quot;dom&quot;:&quot;frtip&quot;,&quot;fixedHeader&quot;:false,&quot;responsive&quot;:true,&quot;keys&quot;:false,&quot;columns.type&quot;:&quot;any-number&quot;,&quot;columns.width&quot;:&quot;&quot;,&quot;searchPanes&quot;:true,&quot;searchPanes.initCollapsed&quot;:true,&quot;searchPanes.collapse&quot;:true,&quot;searchPanes.columns&quot;:&quot;1,2,3&quot;,&quot;searchPanes.threshold&quot;:1}" data-printrequests="[{&quot;label&quot;:&quot;&quot;,&quot;key&quot;:&quot;&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_wpg&quot;,&quot;mode&quot;:2,&quot;format&quot;:&quot;&quot;},{&quot;label&quot;:&quot;abc&quot;,&quot;key&quot;:&quot;_MDAT&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_dat&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;-F[F j]&quot;},{&quot;label&quot;:&quot;Assigned to&quot;,&quot;key&quot;:&quot;Assigned_to&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_wpg&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;&quot;},{&quot;label&quot;:&quot;Length&quot;,&quot;key&quot;:&quot;Length&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_qty&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;&quot;},{&quot;label&quot;:&quot;Length&quot;,&quot;key&quot;:&quot;Length&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_qty&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;-n&quot;},{&quot;label&quot;:&quot;Weight&quot;,&quot;key&quot;:&quot;Weight&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_qty&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;&quot;},{&quot;label&quot;:&quot;Weight&quot;,&quot;key&quot;:&quot;Weight&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_qty&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;-u&quot;},{&quot;label&quot;:&quot;Link&quot;,&quot;key&quot;:&quot;My_link&quot;,&quot;redi&quot;:&quot;&quot;,&quot;typeid&quot;:&quot;_uri&quot;,&quot;mode&quot;:1,&quot;format&quot;:&quot;&quot;}]" data-printouts="[[2,&quot;&quot;,null,&quot;&quot;,{&quot;datatables-columns.type&quot;:&quot;string&quot;,&quot;datatables-width&quot;:&quot;50px&quot;,&quot;datatables-searchPanes.show&quot;:&quot; true&quot;}],[1,&quot;Modification date&quot;,null,&quot;-F[F j]&quot;,{&quot;template&quot;:&quot;mytemplate&quot;,&quot;datatables-searchPanes.show&quot;:&quot; false&quot;}],[1,&quot;Assigned to&quot;,null,&quot;&quot;,{&quot;datatables-columns.ariaTitle&quot;:&quot;a&quot;,&quot;datatables-columns.width&quot;:&quot;50&quot;,&quot;datatables-columns.searchPanes.controls&quot;:&quot;false&quot;}],[1,&quot;Length&quot;,null,&quot;&quot;,[]],[1,&quot;Length&quot;,null,&quot;-n&quot;,{&quot;e&quot;:&quot;f&quot;,&quot;g&quot;:&quot;h&quot;}],[1,&quot;Weight&quot;,null,&quot;&quot;,{&quot;datatables-searchable&quot;:&quot; 1&quot;}],[1,&quot;Weight&quot;,null,&quot;-u&quot;,[]],[1,&quot;My link&quot;,null,&quot;&quot;,[]]]" data-count="149" data-editor="Admin"><div class="top"></div><div class="srf-loading-dots"></div><div id="smw-6410f268bedaf" class="datatables-container" style="display:none;"></div></div>', '#qunit-fixture' ),
+		container = context.find( '.datatables-container' );
 
 	/**
 	 * Instance testing
@@ -32,92 +30,22 @@
 	} );
 
 	/**
-	 * SMWAPI parse testing
-	 *
-	 * @since  1.9
-	 */
-	QUnit.test( 'parse', function ( assert ) {
-		assert.expect( 3 );
-		var datatables = new srf.formats.datatables();
-
-		var _uriTestCase = '{\"query\":{\"result\":{\"printrequests\":[{\"label\":\"\",\"typeid\":\"_wpg\",\"mode\":2},{\"label\":\"Has url\",\"typeid\":\"_uri\",\"mode\":1}],\"results\":{\"Data\\/1\":{\"printouts\":{\"Has url\":[\"http:\\/\\/localhost\\/mw\\/index.php?title=Data\\/\"]},\"fulltext\":\"Data\\/1\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Data\\/1\"},\"Main Page\":{\"printouts\":{\"Has url\":[\"http:\\/\\/localhost\\/mw\\/test\\/testcase\"]},\"fulltext\":\"Main Page\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Main_Page\"}},\"meta\":{\"hash\":\"c957c73b571d202b08f1385faf7550ec\",\"count\":2,\"offset\":0}},\"ask\":{\"conditions\":\"[[Has url::+]]\",\"parameters\":{\"limit\":50,\"offset\":0,\"format\":\"datatables\",\"link\":\"all\",\"headers\":\"show\",\"mainlabel\":\"\",\"intro\":\"\",\"outro\":\"\",\"searchlabel\":\"\\u2026 further results\",\"default\":\"\",\"class\":\"sortable wikitable smwtable\",\"theme\":\"bootstrap\"},\"printouts\":[\"?Has url\"]}},\"version\":\"0.1\"}';
-		assert.equal( $.type( datatables.test._parse ), 'object', pass + 'the parse object was accessible' );
-
-		var smwAPI = new smw.api();
-		var data = smwAPI.parse( _uriTestCase );
-		var result = datatables.test._parse.results( context, data );
-		assert.equal( result.aaData.length, 2, pass + 'the result parsing returned an aaData array' );
-		assert.equal( data.aoColumnDefs.length, 2, pass + 'the result parsing returned an aoColumnDefs array' );
-
-	} );
-
-	/**
 	 * Update testing
 	 *
 	 * @since  1.9
 	 */
-	QUnit.test( 'table init and update', function ( assert ) {
-		assert.expect( 3 );
+	QUnit.test( 'table init', function ( assert ) {
+		assert.expect( 1 );
 		var datatables = new srf.formats.datatables();
 
-		assert.equal( $.type( datatables.update ), 'function', pass + 'the function was accessible' );
-
-		var _modDateCase= '{\"query\":{\"result\":{\"printrequests\":[{\"label\":\"\",\"typeid\":\"_wpg\",\"mode\":2},{\"label\":\"Modification date\",\"typeid\":\"_dat\",\"mode\":1}],\"results\":{\"File:5025159-view-of-the-golden-gate-bridge-san-francisco.jpg\":{\"printouts\":{\"Modification date\":[\"1360064258\"]},\"fulltext\":\"File:5025159-view-of-the-golden-gate-bridge-san-francisco.jpg\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/File:5025159-view-of-the-golden-gate-bridge-san-francisco.jpg\",\"namespace\":6,\"exists\":true},\"Concepttest3\":{\"printouts\":{\"Modification date\":[\"1358906761\"]},\"fulltext\":\"Concepttest3\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Concepttest3\",\"namespace\":0,\"exists\":true},\"Concepttest4\":{\"printouts\":{\"Modification date\":[\"1358905485\"]},\"fulltext\":\"Concepttest4\",\"fullurl\":\"http:\\/\\/localhost\\/mw\\/index.php\\/Concepttest4\",\"namespace\":0,\"exists\":true}},\"meta\":{\"hash\":\"f790045e40c932332c73b3c8bf7139a8\",\"count\":3,\"offset\":0}},\"ask\":{\"conditions\":\"[[Modification date::+]]\",\"parameters\":{\"limit\":3,\"offset\":0,\"format\":\"datatables\",\"link\":\"all\",\"headers\":\"show\",\"mainlabel\":\"\",\"intro\":\"\",\"outro\":\"\",\"searchlabel\":\"\\u2026 further results\",\"default\":\"\",\"class\":\"\",\"theme\":\"bootstrap\"},\"printouts\":[\"?Modification date\"]}},\"version\":\"0.1\"}';
-
-		var smwAPI = new smw.api();
-		var data = smwAPI.parse( _modDateCase );
+		var _modDateCase = "{\"query\":{\"result\":{\"printrequests\":[{\"label\":\"\",\"key\":\"\",\"redi\":\"\",\"typeid\":\"_wpg\",\"mode\":2,\"format\":false},{\"label\":\"Assigned to\",\"key\":\"Assigned_to\",\"redi\":\"\",\"typeid\":\"_wpg\",\"mode\":1,\"format\":\"\"},{\"label\":\"Boolean prop\",\"key\":\"Boolean_prop\",\"redi\":\"\",\"typeid\":\"_wpg\",\"mode\":1,\"format\":\"\"}],\"results\":{\"My page#mysubobjectb\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"My page#mysubobjectb\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/My_page#mysubobjectb\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"My page#mysubobject\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"My page#mysubobject\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/My_page#mysubobject\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"My page b#mysubobjectb\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"My page b#mysubobjectb\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/My_page_b#mysubobjectb\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"Main Page b\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:A\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:A\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"Main Page b\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/Main_Page_b\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"},\"Carousel test\":{\"printouts\":{\"Assigned to\":[{\"fulltext\":\"User:Admin\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/User:Admin\",\"namespace\":2,\"exists\":\"\",\"displaytitle\":\"\"}],\"Boolean prop\":[]},\"fulltext\":\"Carousel test\",\"fullurl\":\"http:\\/\\/127.0.0.1\\/mediawiki\\/index.php\\/Carousel_test\",\"namespace\":0,\"exists\":\"1\",\"displaytitle\":\"\"}},\"serializer\":\"SMW\\\\Serializers\\\\QueryResultSerializer\",\"version\":2,\"meta\":{\"hash\":\"6d7015d9df6e7fcc97a5335b055ff5ee\",\"count\":5,\"offset\":0,\"source\":\"\",\"time\":\"0.018219\"}},\"ask\":{\"conditions\":\"[[Assigned to::+]]\",\"parameters\":{\"limit\":5000,\"offset\":0,\"sortkeys\":{\"\":\"DESC\"},\"mainlabel\":\"\",\"querymode\":1,\"format\":\"datatables\",\"source\":\"\",\"link\":\"all\",\"headers\":\"plain\",\"intro\":\"\",\"outro\":\"\",\"searchlabel\":\"... further results\",\"default\":\"\",\"import-annotation\":false,\"class\":\"datatable\",\"theme\":\"bootstrap\",\"pagelength\":\"20\"},\"printouts\":[\"?Assigned to\",\"?Boolean prop\"]}},\"version\":\"0.2.5\"}"
+		
+		var data = JSON.parse(_modDateCase);
 
 		datatables.init( context, container, data );
-		assert.ok( container.find( 'table' ) , pass + 'table was created' );
 
-		datatables.update( context, data );
-		assert.ok( container.find( 'table' ) , pass + 'table was updated' );
-
+		assert.ok( $.fn.DataTable.isDataTable( container.find( 'table' ) ) , pass + 'table is DataTable' );
 	} );
 
-	QUnit.test( 'Issue#172: table with subject printout', function ( assert ) {
-		assert.expect( 2 );
-		var oldAlert = window.alert;
-		try {
-			var alerts = [];
-			window.alert = function( msg ) {
-				alerts.push( msg );
-			};
-			var datatables = new srf.formats.datatables();
-
-			var parameters = {"limit":50,"offset":0,"sortkeys":{"":"ASC"},"mainlabel":"-","querymode":1,"format":"datatables","source":"","link":"all","headers":"show","intro":"","outro":"","searchlabel":"... further results","default":"","class":"","theme":"bootstrap"};
-			var data1 = new smw.dataItem.wikiPage( "Data/1", "http://localhost/wiki/Data/1", 0, "1", "Data 1" );
-			data1.printouts = {
-				"Has value":{"0":new smw.dataItem.wikiPage( "Value 1","http://localhost/wiki/Value_1",0,"1",null),"property":"Has value"}
-				};
-			var data2 = new smw.dataItem.wikiPage( "Data/2", "http://localhost/wiki/Data/2", 0, "1", "Data 2" );
-			data2.printouts = {
-				"Has value":{"0":new smw.dataItem.wikiPage( "Value 2","http://localhost/wiki/Value_2",0,"1",null),"property":"Has value"}
-				};
-			var results = {
-				"Data/1": data1,
-				"Data/2": data2
-				};
-			var printReqs = [{"label":"Has value","key":"Has_value","redi":"","typeid":"_wpg","mode":1,"format":""},{"label":"Data","key":"","redi":"","typeid":"_wpg","mode":2,"format":""}];
-
-			var data = {
-				"query" : {
-					"ask" : {
-						"parameters" : parameters
-					},
-					"result" : {
-						"results" : results,
-						"printrequests" : printReqs
-					}
-				}
-			};
-			assert.strictEqual( alerts.length, 0, "Shouldn't generate any alerts" );
-			var actual = datatables.test._parse.results( context, data );
-			var expected = {"aaData":[{"Has value":"<a href=\"http://localhost/wiki/Value_1\">Value 1</a>","Data":"<a href=\"http://localhost/wiki/Data/1\">Data 1</a>"},{"Has value":"<a href=\"http://localhost/wiki/Value_2\">Value 2</a>","Data":"<a href=\"http://localhost/wiki/Data/2\">Data 2</a>"}]};
-			assert.deepEqual( actual, expected, 'Generated results should look right' );
-		} finally {
-			window.alert = oldAlert;
-		}
-	} );
 
 }( jQuery, mediaWiki, semanticFormats ) );

@@ -30,7 +30,6 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputMode ) {
-
 		// Initialize
 		static $statNr = 0;
 

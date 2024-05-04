@@ -2,7 +2,7 @@
 
 /**
  * Common libray of independent functions that are shared among different printers
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @since 1.8
  *
@@ -14,21 +14,16 @@ final class SRFUtils {
 	 * Helper function that generates a html element, representing a
 	 * processing/loading image as long as jquery is inactive
 	 *
-	 * @param boolean $isHtml
+	 * @param bool $isHtml
 	 *
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement( $isHtml = true ) {
-		SMWOutputs::requireResource( 'ext.srf' );
+		SMWOutputs::requireResource( 'ext.smw.style' );
 
 		return Html::rawElement(
 			'div',
-			[ 'class' => 'srf-spinner mw-small-spinner' ],
-			Html::element(
-				'span',
-				[ 'class' => 'srf-processing-text' ],
-				wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
-			)
+			[ 'class' => 'srf-loading-dots' ]
 		);
 	}
 
@@ -37,14 +32,14 @@ final class SRFUtils {
 	 *
 	 * @since 1.8
 	 */
-	public static function addGlobalJSVariables(){
-		$options =  [
+	public static function addGlobalJSVariables() {
+		$options = [
 			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
 			'srfVersion' => SRF_VERSION
 		];
 
-		$requireHeadItem =  [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem, false ) );
+		$requireHeadItem = [ 'srf.options' => $options ];
+		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem ) );
 	}
 
 	/**
@@ -66,8 +61,8 @@ final class SRFUtils {
 		$link->setCaption( '[+]' );
 
 		// Set parameters
-		$link->setParameter( '' , 'class' );
-		$link->setParameter( '' , 'searchlabel' );
+		$link->setParameter( '', 'class' );
+		$link->setParameter( '', 'searchlabel' );
 		return $link->getText( SMW_OUTPUT_HTML, $linker );
 	}
 
@@ -82,6 +77,9 @@ final class SRFUtils {
 	 */
 	public static function makeVariablesScript( $data, $nonce = null ) {
 		$script = ResourceLoader::makeConfigSetScript( $data );
+		if ( $nonce === null ) {
+			$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
+		}
 
 		return ResourceLoader::makeInlineScript( $script, $nonce );
 	}

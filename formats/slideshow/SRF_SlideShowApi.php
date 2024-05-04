@@ -17,7 +17,6 @@ class SRFSlideShowApi extends ApiBase {
 	 * The result data is stored in the ApiResult object available through getResult().
 	 */
 	public function execute() {
-
 		// get request parameters
 		$requestParams = $this->extractRequestParams();
 

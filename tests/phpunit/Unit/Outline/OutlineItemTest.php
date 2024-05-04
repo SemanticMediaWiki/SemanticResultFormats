@@ -8,15 +8,14 @@ use SRF\Outline\OutlineItem;
  * @covers \SRF\Outline\OutlineItem
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
  */
-class OutlineItemTest extends \PHPUnit_Framework_TestCase {
+class OutlineItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			OutlineItem::class,
 			new OutlineItem( [] )
@@ -24,7 +23,6 @@ class OutlineItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPropertyAccess() {
-
 		$instance = new OutlineItem( [ 'Foo' ] );
 
 		$this->assertEquals(

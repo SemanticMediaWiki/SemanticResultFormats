@@ -8,7 +8,7 @@
  *
  * @file SRF_jqPlotChart.php
  * @ingroup SemanticResultFormats
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @author mwjames
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -33,7 +33,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * @param array $data label => value
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		static $statNr = 0;
 		$chartID = 'jqplot-' . $this->params['charttype'] . '-' . ++$statNr;
 
@@ -44,7 +43,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 			// Parse bar relevant data
 			$dataObject = $this->prepareBarData( $data );
 		} elseif ( in_array( $this->params['charttype'], [ 'pie', 'donut' ] ) ) {
-			//Parse pie/donut relevant data
+			// Parse pie/donut relevant data
 			$dataObject = $this->preparePieData( $data );
 		} else {
 			// Return with an error
@@ -102,7 +101,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * @return array
 	 */
 	private function preparePieData( $rawdata ) {
-
 		// Init
 		$mode = 'single';
 
@@ -141,7 +139,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * @return array
 	 */
 	private function prepareBarData( $rawdata ) {
-
 		// Init
 		$total = 0;
 		$mode = 'single';
@@ -200,7 +197,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 *
 	 */
 	private function addCommonOptions() {
-
 		// Series colour
 		$seriescolors = $this->params['chartcolor'] !== '' ? array_filter(
 			explode( ",", $this->params['chartcolor'] )

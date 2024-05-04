@@ -6,7 +6,7 @@
  *
  * @file SRF_D3Chart.php
  * @ingroup SemanticResultFormats
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @since 1.8
  *
@@ -32,7 +32,6 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data ) {
-
 		// Object count
 		static $statNr = 0;
 		$d3chartID = 'd3-chart-' . ++$statNr;

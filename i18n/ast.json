@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"srf-desc": "Formatos de resultancies adicionales pa consultes de Semantic MediaWiki",
@@ -118,7 +119,7 @@
 	"srf-paramdesc-chartcursor": "Opción de visualización del cursor de tabla",
 	"srf-paramdesc-trendline": "Activar la vista simultanea d'una gráfica y la so llinia d'enclín",
 	"srf-paramdesc-gridview": "Amosar simultaneamente gráfica y conxuntu de datos. Valores permitíos: \"none\" y \"tabs\". Predetermináu: \"none\"",
-	"srf-paramdesc-paneview": "Especifica la posición del panel que contien una pequeña gráfica de llinies. Los valores permitíos son: \"abaxo\", \"arriba\" y \"nengún\". Predeterminao: \"abaxo\"",
+	"srf-paramdesc-paneview": "Especifica la posición del panel que contién una pequeña gráfica de llinies. Los valores permitíos son: \"abaxo\", \"arriba\" y \"nengún\". Predeterminao: \"abaxo\"",
 	"srf-paramdesc-infotext": "Amosar información adicional nuna llingüeta d'información correspondiente",
 	"srf-paramdesc-clicktarget": "Define una páxina o cadena de consulta como destín al facer click n'una data del calendariu.",
 	"srf-ui-gridview-label-item": "Elementu de datos",
@@ -222,7 +223,7 @@
 	"srf-tree-noparentprop": "Nun s'especificó nenguna propiedá padre. Non puede construise l'árbol ensin especificar una propiedá padre.",
 	"srf-tree-rootinvalid": "$1 nun ye un títulu de páxina válidu.",
 	"srf-tree-circledetected": "Detectóse una referencia circular al tentar inxertar $1 nel árbol.",
-	"srf-paramdesc-tree-parent": "La propiedá que contien la páxina padre",
+	"srf-paramdesc-tree-parent": "La propiedá que contién la páxina padre",
 	"srf-paramdesc-tree-root": "la páxina raíz del árbol",
 	"srf-paramdesc-tree-startlevel": "El nivel d'entamu del árbol, por casu, pa integralo n'otru árbol",
 	"srf-printername-slideshow": "Presentación de diapositives",
@@ -237,11 +238,11 @@
 	"srf-paramdesc-filtered-list-named-args": "Nome de los argumentos que se-y pasen a la plantía.",
 	"srf-paramdesc-filtered-list-introtemplate": "El nome d'una plantía que s'amuesa antes de los resultaos de la consulta, si los hai.",
 	"srf-paramdesc-filtered-list-outrotemplate": "El nome d'una plantía que s'amuesa dempués de los resultaos de la consulta, si los hai.",
-	"srf-paramdesc-filtered-calendar-start": "La impresión que contien la fecha d'entamu d'un socesu",
-	"srf-paramdesc-filtered-calendar-end": "La impresión que contien la fecha final d'un socesu",
-	"srf-paramdesc-filtered-calendar-title": "La impresión que contien el títulu d'un socesu. Nun puede utilizase xunto con una plantía de títulu.",
+	"srf-paramdesc-filtered-calendar-start": "La impresión que contién la fecha d'entamu d'un socesu",
+	"srf-paramdesc-filtered-calendar-end": "La impresión que contién la fecha final d'un socesu",
+	"srf-paramdesc-filtered-calendar-title": "La impresión que contién el títulu d'un socesu. Nun puede utilizase xunto con una plantía de títulu.",
 	"srf-paramdesc-filtered-calendar-title-template": "Una plantía que s'utiliza pa dar formatu al títulu d'un socesu nel calendariu",
-	"srf-paramdesc-filtered-map-position": "La impresión que contien la posición xeográfica.",
+	"srf-paramdesc-filtered-map-position": "La impresión que contién la posición xeográfica.",
 	"srf-paramdesc-filtered-map-icon": "La llista que decide qué iconu del mapa utilizar.",
 	"srf-paramdesc-filtered-map-icons": "Un mapa de valores de los iconos a utilizar pa estos valores nel mapa",
 	"srf-paramdesc-filtered-map-height": "L'altor del mapa.",

@@ -6,7 +6,7 @@ use SMWDataValueFactory as DataValueFactory;
 use SMWTimeValue as TimeValue;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  */
 class DateParser {
@@ -17,7 +17,7 @@ class DateParser {
 	 * @since 3.2
 	 *
 	 * @param TimeValue $dataValue
-	 * @param boolean $isEnd
+	 * @param bool $isEnd
 	 *
 	 * @return string
 	 */

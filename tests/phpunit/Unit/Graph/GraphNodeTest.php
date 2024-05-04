@@ -4,18 +4,17 @@ namespace SRF\Tests\Unit\Formats;
 
 use SRF\Graph\GraphNode;
 
-
 /**
  * @covers \SRF\Graph\GraphNode
  * @group semantic-result-formats
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author Sebastian Schmid < sebastian.schmid@gesinn.it >
  */
 
-class GraphNodeTest extends \PHPUnit_Framework_TestCase {
+class GraphNodeTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
@@ -24,7 +23,7 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testGraphNode(){
+	public function testGraphNode() {
 		$node = new GraphNode( 'Team:Beta' );
 		$this->assertEquals( 'Team:Beta', $node->getID() );
 
@@ -32,7 +31,7 @@ class GraphNodeTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( "Fossil Power Generation", $node->getLabel() );
 	}
 
-	public function testAddParentNode(){
+	public function testAddParentNode() {
 		$mockParentNode1[] = [
 			"predicate" => 'Part Of Team',
 			"object"    => 'Alpha Team'

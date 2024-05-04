@@ -15,7 +15,7 @@ use SMWQueryResult as QueryResult;
  * @file
  * @ingroup QueryPrinter
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 
@@ -119,7 +119,6 @@ class EventCalendar extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputmode ) {
-
 		$resourceFormatter = new ResourceFormatter();
 		$data = $resourceFormatter->getData( $res, $outputmode, $this->params );
 

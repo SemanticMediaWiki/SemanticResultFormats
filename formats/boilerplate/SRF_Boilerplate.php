@@ -9,7 +9,7 @@
  *
  * @since 1.8
  *
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
 
@@ -38,7 +38,6 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Data processing
 		// It is advisable to separate data processing from output logic
 		$data = $this->getResultData( $result, $outputMode );
@@ -81,7 +80,6 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 * @return array
 	 */
 	protected function getResultData( SMWQueryResult $result, $outputMode ) {
-
 		$data = [];
 
 		// This is an example implementation on how to select available data from
@@ -183,13 +181,12 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param integer $type
+	 * @param int $type
 	 * @param SMWDataValue $dataValue
 	 *
 	 * @return mixed
 	 */
 	private function getDataValueItem( $type, SMWDataValue $dataValue ) {
-
 		if ( $type == SMWDataItem::TYPE_NUMBER ) {
 
 			// Set unit if available
@@ -216,7 +213,6 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( $data, $options ) {
-
 		// The generated ID is to distinguish similar instances of the same
 		// printer that can appear within the same page
 		static $statNr = 0;

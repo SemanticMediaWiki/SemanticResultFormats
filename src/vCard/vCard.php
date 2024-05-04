@@ -2,15 +2,12 @@
 
 namespace SRF\vCard;
 
-use Article;
-use Title;
-
 /**
  * Represents a single entry in an vCard
  *
  * @see http://www.semantic-mediawiki.org/wiki/vCard
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.5
  *
  * @author Markus Krötzsch
@@ -35,12 +32,12 @@ class vCard {
 	private $vcard = [];
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $isPublic = true;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	private $timestamp;
 
@@ -91,7 +88,7 @@ class vCard {
 	/**
 	 * @since 3.0
 	 *
-	 * @param boolean $isPublic
+	 * @param bool $isPublic
 	 */
 	public function isPublic( $isPublic ) {
 		$this->isPublic = $isPublic;
@@ -100,7 +97,7 @@ class vCard {
 	/**
 	 * @since 3.0
 	 *
-	 * @param integer $timestamp
+	 * @param int $timestamp
 	 */
 	public function setTimestamp( $timestamp ) {
 		$this->timestamp = $timestamp;
@@ -112,7 +109,6 @@ class vCard {
 	 * @return string
 	 */
 	public function text() {
-
 		$vcard = $this->prepareCard( $this->vcard );
 
 		$text = "BEGIN:VCARD\r\n";
@@ -193,7 +189,6 @@ class vCard {
 	}
 
 	private function prepareCard( $vcard ) {
-
 		$vcard['label'] = '';
 
 		$additionalname = $vcard['additionalname'];

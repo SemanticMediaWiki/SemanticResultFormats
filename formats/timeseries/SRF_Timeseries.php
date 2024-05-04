@@ -4,7 +4,7 @@
  * A query printer for timeseries using the flot plotting JavaScript library
  *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Flot_timeseries_chart
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @since 1.8
  *
@@ -29,7 +29,6 @@ class SRFTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Data processing
 		$data = $this->getAggregatedTimeSeries( $result, $outputMode );
 
@@ -118,7 +117,6 @@ class SRFTimeseries extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( array $data, $options ) {
-
 		// Object count
 		static $statNr = 0;
 		$chartID = 'timeseries-' . ++$statNr;

@@ -2,10 +2,9 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SRF\Gallery;
-use TraditionalImageGallery;
-use Title;
 use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\PHPUnitCompat;
+use SRF\Gallery;
 
 /**
  * Tests for the SRF\Gallery class.
@@ -20,10 +19,12 @@ use SMW\Test\QueryPrinterRegistryTestCase;
  * @group SMWExtension
  * @group ResultPrinters
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class GalleryTest extends QueryPrinterRegistryTestCase {
+
+	use PHPUnitCompat;
 
 	private $queryResult;
 	private $title;
@@ -67,24 +68,21 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	}
 
 	public function testGetName() {
-
 		$instance = new Gallery(
 			'gallery'
 		);
 
-		$this->assertInternalType('string', $instance->getName());
-
+		$this->assertIsString( $instance->getName() );
 	}
 
-	public function testBuildResult(){
-
+	public function testBuildResult() {
 		$instance = new Gallery(
 			'gallery'
 		);
 
 		$widget = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$widget->expects( $this->any() )
@@ -95,10 +93,9 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			->method( 'getValue' )
 			->will( $this->returnValue( 'carousel' ) );
 
-
 		$intro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$intro->expects( $this->any() )
@@ -109,10 +106,9 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			->method( 'getValue' )
 			->will( $this->returnValue( '<div class="gallery-intro">' ) );
 
-
 		$outro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$outro->expects( $this->any() )

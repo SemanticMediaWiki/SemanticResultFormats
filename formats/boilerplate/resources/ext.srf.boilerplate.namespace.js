@@ -7,7 +7,7 @@
  * @since 1.8
  * @release 0.1
  *
- * @licence GNU GPL v2 or later
+ * @licence GPL-2.0-or-later
  * @author mwjames
  */
 ( function( $, mw, srf ) {

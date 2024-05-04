@@ -7,7 +7,7 @@ namespace SRF\vCard;
  *
  * @see http://www.semantic-mediawiki.org/wiki/vCard
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.5
  *
  * @author Markus Krötzsch
@@ -39,7 +39,6 @@ class Email {
 	 * Creates the vCard output for a single email item.
 	 */
 	public function text() {
-
 		if ( $this->type == "" ) {
 			$this->type = "INTERNET";
 		}

@@ -4,6 +4,7 @@
 			"Kaustubh",
 			"Phoenix303",
 			"Sachinkatiyar",
+			"Saurmandal",
 			"Sfic"
 		]
 	},
@@ -42,7 +43,6 @@
 	"srf-ui-datatables-label-information": "जानकारी",
 	"srf-ui-datatables-label-placeholder-column-search": "खोजें...",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "छननी वरीयता",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLoadingRecords": "लोड हो रहा है...",
 	"srf-ui-datatables-label-sProcessing": "प्रोसेस हो रहा...",
 	"srf-ui-datatables-label-sSearch": "खोजें:",
@@ -66,7 +66,7 @@
 	"srf-printername-media": "मीडिया प्लेयर",
 	"srf-ui-mediaplayer-label-previous": "पिछला",
 	"srf-ui-mediaplayer-label-play": "चलायें",
-	"srf-ui-mediaplayer-label-pause": "रोकें",
+	"srf-ui-mediaplayer-label-pause": "थामें",
 	"srf-ui-mediaplayer-label-next": "अगला",
 	"srf-ui-mediaplayer-label-stop": "रोकें",
 	"srf-ui-mediaplayer-label-mute": "आवाज़ बंद करें",

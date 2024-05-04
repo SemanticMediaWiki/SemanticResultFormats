@@ -11,6 +11,7 @@ namespace SRF\Filtered;
 
 use Exception;
 use Html;
+use MediaWiki\MediaWikiServices;
 use SMW\Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryLinker;
@@ -97,9 +98,8 @@ class Filtered extends ResultPrinter {
 	 * @return \Parser | \StubObject | null
 	 */
 	public function getParser() {
-
 		if ( $this->parser === null ) {
-			$this->setParser( $GLOBALS['wgParser'] );
+			$this->setParser( MediaWikiServices::getInstance()->getParser() );
 		}
 
 		return $this->parser;
@@ -160,7 +160,6 @@ class Filtered extends ResultPrinter {
 		$this->parameters = $params;
 		$this->viewNames = explode( ',', $params['views'] );
 		$this->filtersOnTop = $params['filter position'] === 'top';
-
 	}
 
 	/**
@@ -172,7 +171,6 @@ class Filtered extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		// collect the query results in an array
 		/** @var ResultItem[] $resultItems */
 		$resultItems = [];
@@ -266,7 +264,6 @@ class Filtered extends ResultPrinter {
 	}
 
 	private function addConfigToOutput( $id, $config ) {
-
 		if ( $this->getParser()->getOutput() !== null ) {
 			$getter = [ $this->getParser()->getOutput(), 'getExtensionData' ];
 			$setter = [ $this->getParser()->getOutput(), 'setExtensionData' ];
@@ -284,14 +281,12 @@ class Filtered extends ResultPrinter {
 		$previousConfig[$id] = $config;
 
 		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
-
 	}
 
 	/**
 	 * @param string | string[] | null $resourceModules
 	 */
 	protected function registerResourceModules( $resourceModules ) {
-
 		array_map( 'SMWOutputs::requireResource', (array)$resourceModules );
 	}
 
@@ -329,7 +324,6 @@ class Filtered extends ResultPrinter {
 	 * @return array
 	 */
 	protected function getFilterHtml( SMWQueryResult $res, $result ) {
-
 		// prepare filter data for inclusion in HTML and  JS
 		$filterHtml = '';
 
@@ -365,7 +359,7 @@ class Filtered extends ResultPrinter {
 
 						/** @var \SRF\Filtered\Filter\Filter $filter */
 						$filterClassName = '\SRF\Filtered\Filter\\' . $this->mFilterTypes[$filterName];
-						$filter = new  $filterClassName( $result, $printRequest, $this );
+						$filter = new $filterClassName( $result, $printRequest, $this );
 
 						if ( $filter->isValidFilterForPropertyType() ) {
 
@@ -421,7 +415,6 @@ class Filtered extends ResultPrinter {
 	 * @return array
 	 */
 	protected function getViewHtml( SMWQueryResult $res, $resultItems, $config ) {
-
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
 		$viewSelectorsHtml = '';
@@ -465,7 +458,11 @@ class Filtered extends ResultPrinter {
 					);
 					$viewSelectorsHtml .= Html::rawElement(
 						'div',
-						[ 'class' => "filtered-view-selector filtered-$viewName $viewid" ],
+						[
+							'class' => "filtered-view-selector filtered-$viewName $viewid",
+							'role' => "button",
+							'tabindex' => "0"
+						],
 						$viewSelectorLabel
 					);
 

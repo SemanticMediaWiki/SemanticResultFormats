@@ -40,7 +40,6 @@ class TableView extends View {
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
-
 		$params = $this->getActualParameters();
 
 		if ( $params['headers'] === 'hide' ) {
@@ -64,12 +63,12 @@ class TableView extends View {
 		$resultText = '';
 		$this->columnClasses = [];
 
-		// Table Header		
+		// Table Header
 		if ( $this->mShowHeaders !== SMW_HEADERS_HIDE ) { // no headers when headers=hide
 			$resultText .= $this->getTableHeaders();
 		}
 
-		// Table Body		
+		// Table Body
 		$resultText .= $this->getTableRowsHTML();
 
 		// Put the <table> tag around the whole thing and optionally add CSS class
@@ -179,7 +178,6 @@ class TableView extends View {
 		}
 
 		return $tableRows;
-
 	}
 
 	/**
@@ -194,7 +192,6 @@ class TableView extends View {
 	 * @return string
 	 */
 	protected function getCellForPropVals( SMWResultArray $resultArray, $outputmode, $columnClass ) {
-
 		$resultArray->reset();
 
 		$dataValues = [];
@@ -244,7 +241,7 @@ class TableView extends View {
 	 *
 	 * @param \SMWDataValue[] $dataValues
 	 * @param $outputmode
-	 * @param boolean $isSubject
+	 * @param bool $isSubject
 	 *
 	 * @return string
 	 */
@@ -278,7 +275,7 @@ class TableView extends View {
 	/**
 	 * Returns the label of the selector for this view.
 	 *
-	 * @return String the selector label
+	 * @return string the selector label
 	 */
 	public function getSelectorLabel() {
 		return Message::newFromKey( 'srf-filtered-selectorlabel-table' )->inContentLanguage()->text();

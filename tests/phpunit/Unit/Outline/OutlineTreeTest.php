@@ -8,15 +8,14 @@ use SRF\Outline\OutlineTree;
  * @covers \SRF\Outline\OutlineTree
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
  */
-class OutlineTreeTest extends \PHPUnit_Framework_TestCase {
+class OutlineTreeTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			OutlineTree::class,
 			new OutlineTree( [] )
@@ -24,7 +23,6 @@ class OutlineTreeTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPropertyAccess() {
-
 		$instance = new OutlineTree();
 
 		$this->assertEmpty(
@@ -35,12 +33,12 @@ class OutlineTreeTest extends \PHPUnit_Framework_TestCase {
 			$instance->items
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->itemCount
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->leafCount
 		);

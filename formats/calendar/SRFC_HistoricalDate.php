@@ -35,16 +35,16 @@ class SRFCHistoricalDate {
 		}
 	}
 
-	static protected function leap_gregorian( $year ) {
+	protected static function leap_gregorian( $year ) {
 		return ( ( $year % 4 ) == 0 ) && ( !( ( ( $year % 100 ) == 0 ) && ( ( $year % 400 ) != 0 ) ) );
 	}
 
-	static protected function leap_julian( $year ) {
+	protected static function leap_julian( $year ) {
 		return ( ( $year % 4 ) == ( ( $year > 0 ) ? 0 : 3 ) );
 	}
 
-	static protected function leap_jul_greg( $year ) {
-		return ( ( $year < 1582 ) ? SRFCHistoricalDate::leap_julian( $year ) : SRFCHistoricalDate::leap_gregorian(
+	protected static function leap_jul_greg( $year ) {
+		return ( ( $year < 1582 ) ? self::leap_julian( $year ) : self::leap_gregorian(
 			$year
 		) );
 	}
@@ -58,13 +58,12 @@ class SRFCHistoricalDate {
 			floor(
 				( ( ( 367 * $month ) - 362 ) / 12 ) +
 				( ( $month <= 2 ) ? 0 :
-					( SRFCHistoricalDate::leap_gregorian( $year ) ? -1 : -2 )
+					( self::leap_gregorian( $year ) ? -1 : -2 )
 				) + $day
 			);
 	}
 
 	protected function createFromJulian( $year, $month, $day ) {
-
 		/* Adjust negative common era years to the zero-based notation we use.  */
 		if ( $year < 1 ) {
 			$year++;
@@ -90,7 +89,7 @@ class SRFCHistoricalDate {
 			return 30;
 		}
 		if ( $month == 2 ) {
-			return ( SRFCHistoricalDate::leap_jul_greg( $year ) ) ? 29 : 28;
+			return ( self::leap_jul_greg( $year ) ) ? 29 : 28;
 		}
 		return 31;
 	}

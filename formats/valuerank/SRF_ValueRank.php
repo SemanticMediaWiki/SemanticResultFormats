@@ -16,7 +16,7 @@
  *
  * @since 1.7
  *
- * @licence GNU GPL v2
+ * @license GPL-2.0-only
  * @author DaSch < dasch@daschmedia.de >
  * @author mwjames
  */
@@ -47,7 +47,6 @@ class SRFValueRank extends SMWResultPrinter {
 	 * @return string
 	 */
 	public function getResultText( SMWQueryResult $results, $outputMode ) {
-
 		// Template support
 		$this->hasTemplates = $this->params['template'] !== '';
 
@@ -185,8 +184,8 @@ class SRFValueRank extends SMWResultPrinter {
 	 * @since 1.8
 	 *
 	 * @param string $name
-	 * @param integer $rank
-	 * @param integer $rownum
+	 * @param int $rank
+	 * @param int &$rownum
 	 *
 	 * @return string
 	 */

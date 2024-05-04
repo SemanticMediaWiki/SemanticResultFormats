@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aishik Rehman",
 			"Bellayet",
 			"Mohammed Galib Hasan",
 			"Tahmid",
@@ -12,7 +13,7 @@
 	"srf-module-loading": "লোড হচ্ছে...",
 	"srf-paramdesc-height": "উচ্চতা",
 	"srf-paramdesc-width": "প্রস্থ",
-	"srf-module-nomatch": "কোন মিল খুঁজে পাওয়া যায়নি",
+	"srf-module-nomatch": "কোনো মিল খুঁজে পাওয়া যায়নি",
 	"srf-navigation-previous": "পূর্ববর্তী",
 	"srf-ui-navigation-prev": "পূর্ব",
 	"srf-ui-navigation-next": "পরবর্তী",
@@ -69,5 +70,6 @@
 	"srf-ui-mediaplayer-label-play": "চালান",
 	"srf-ui-mediaplayer-label-next": "পরবর্তী",
 	"srf-ui-mediaplayer-label-stop": "থামান",
-	"srf-ui-mediaplayer-label-full-screen": "পূর্ণ পর্দা"
+	"srf-ui-mediaplayer-label-full-screen": "পূর্ণ পর্দা",
+	"srf-ui-slideshow-slide-button-play": "চালান"
 }

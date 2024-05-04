@@ -38,7 +38,6 @@ class CalendarView extends View {
 	 * @return array
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-
 		$value = $row->getValue();
 		$data = [];
 		$wikitext = '';
@@ -94,14 +93,14 @@ class CalendarView extends View {
 					) ) !== false ) {
 					$params[] = $text;
 				}
-				$wikitext .= '|' . ( $valueId + 1 ) . '=' . join( ',', $params );
+				$wikitext .= '|' . ( $valueId + 1 ) . '=' . implode( ',', $params );
 			}
 
 		}
 
 		// only add to title template if requested and if not hidden
 		if ( $this->titleTemplate !== null ) {
-//			$wikitext .= "|#=$rownum";
+// $wikitext .= "|#=$rownum";
 			$data['title'] = trim(
 				$this->getQueryPrinter()->getParser()->recursiveTagParse(
 					'{{' . $this->titleTemplate . $wikitext . '}}'
@@ -117,7 +116,6 @@ class CalendarView extends View {
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
-
 		$params = $this->getActualParameters();
 		$parser = $this->getQueryPrinter()->getParser();
 
@@ -141,7 +139,7 @@ class CalendarView extends View {
 			$this->titleTemplate = trim( $parser->recursiveTagParse( $params['calendar view title template'] ) );
 		}
 
-//		$this->mTemplate = $params['list view template'];
+// $this->mTemplate = $params['list view template'];
 //		$this->mIntroTemplate = $params['list view introtemplate'];
 //		$this->mOutroTemplate = $params['list view outrotemplate'];
 //		$this->mNamedArgs = $params['list view named args'];
@@ -215,8 +213,7 @@ class CalendarView extends View {
 	public function getJsConfig() {
 		global $wgAmericanDates;
 
-		return
-			$this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
+		return $this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
 			[
 				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey(
 					'srf-filtered-firstdayofweek'
@@ -232,7 +229,6 @@ class CalendarView extends View {
 	 * @return string[]
 	 */
 	private function getParamHashes( $results, $params ) {
-
 		if ( $results === null || count( $results ) < 1 ) {
 			return [];
 		}
@@ -262,7 +258,7 @@ class CalendarView extends View {
 	/**
 	 * Returns the label of the selector for this view.
 	 *
-	 * @return String the selector label
+	 * @return string the selector label
 	 */
 	public function getSelectorLabel() {
 		return Message::newFromKey( 'srf-filtered-selectorlabel-calendar' )->inContentLanguage()->text();

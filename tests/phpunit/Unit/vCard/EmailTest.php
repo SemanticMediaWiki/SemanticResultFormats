@@ -8,15 +8,14 @@ use SRF\vCard\Email;
  * @covers \SRF\vCard\Email
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.0
  *
  * @author mwjames
  */
-class EmailTest extends \PHPUnit_Framework_TestCase {
+class EmailTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Email::class,
 			new Email( '', '' )
@@ -24,7 +23,6 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testText() {
-
 		$instance = new Email( '', 'johnDoe@example.org' );
 
 		$this->assertSame(

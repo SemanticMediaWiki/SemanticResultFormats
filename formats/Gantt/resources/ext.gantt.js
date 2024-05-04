@@ -2,7 +2,7 @@
  * @file
  * @ingroup SMW
  *
- * @licence GNU GPL v2+
+ * @licence GPL-2.0-or-later
  * @author Sebastian Schmid
  */
 

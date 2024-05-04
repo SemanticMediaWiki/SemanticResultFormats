@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticResultFormats/
  *
@@ -21,7 +23,6 @@ class SemanticResultFormats {
 	 * the extension is activated.
 	 */
 	public static function load() {
-
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
@@ -34,7 +35,6 @@ class SemanticResultFormats {
 	 * @since 2.5
 	 */
 	public static function initExtension( $credits = [] ) {
-
 		// See https://phabricator.wikimedia.org/T151136
 		define( 'SRF_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
 
@@ -44,44 +44,41 @@ class SemanticResultFormats {
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
 		$GLOBALS['srfgIP'] = __DIR__;
-		$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include( __DIR__ . "/Resources.php" ) );
-
-		self::registerHooks();
+		$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include __DIR__ . "/Resources.php" );
 	}
 
 	/**
 	 * @since 2.5
 	 */
 	public static function registerHooks() {
-		$formatDir = __DIR__ . '/formats/';
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 
-		unset( $formatDir );
+		$hookContainer->register( 'ParserFirstCallInit', 'SRFParserFunctions::registerFunctions' );
+		$hookContainer->register( 'UnitTestsList', 'SRFHooks::registerUnitTests' );
 
-		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
-		$GLOBALS['wgHooks']['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
-
-		$GLOBALS['wgHooks']['ResourceLoaderTestModules'][] = 'SRFHooks::registerQUnitTests';
-		$GLOBALS['wgHooks']['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
+		$hookContainer->register( 'ResourceLoaderGetConfigVars', 'SRFHooks::onResourceLoaderGetConfigVars' );
 
 		// Format hooks
-		$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'SRF\Filtered\Hooks::onOutputPageParserOutput';
-		$GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript';
+		$hookContainer->register( 'OutputPageParserOutput', 'SRF\Filtered\Hooks::onOutputPageParserOutput' );
+		$hookContainer->register( 'MakeGlobalVariablesScript', 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript' );
+
+		$hookContainer->register( 'SMW::Store::BeforeQueryResultLookupComplete', 'SRF\DataTables\Hooks::onSMWStoreBeforeQueryResultLookupComplete' );
 
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
+		$GLOBALS['wgAPIModules']['ext.srf.datatables.api'] = 'SRF\DataTables\Api';
 
 		// User preference
-		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
+		$hookContainer->register( 'SMW::GetPreferences', 'SRFHooks::onGetPreferences' );
 
 		// Allows last minute changes to the output page, e.g. adding of CSS or JavaScript by extensions
-		$GLOBALS['wgHooks']['BeforePageDisplay'][] = 'SRFHooks::onBeforePageDisplay';
+		$hookContainer->register( 'BeforePageDisplay', 'SRFHooks::onBeforePageDisplay' );
 	}
 
 	/**
 	 * @since 2.5
 	 */
 	public static function onExtensionFunction() {
-
 		if ( !defined( 'SMW_VERSION' ) ) {
 
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
@@ -94,11 +91,14 @@ class SemanticResultFormats {
 				);
 			}
 		}
+		self::registerHooks();
+
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
 		// SMW 1.9, SMW delays calling all its hook functions.
-		$GLOBALS['wgHooks']['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
+		$hookContainer->register( 'AdminLinks', 'SRFHooks::addToAdminLinks' );
 
 		$GLOBALS['srfgScriptPath'] = ( $GLOBALS['wgExtensionAssetsPath'] === false ? $GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
 
@@ -161,6 +161,7 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
+			'carousel' => 'SRF\Carousel',
 			'gantt' => 'SRF\Gantt\GanttPrinter'
 		];
 
@@ -169,7 +170,7 @@ class SemanticResultFormats {
 			'datatables'   => [ 'datatable' ],
 			'valuerank'  => [ 'value rank' ],
 			'd3chart'    => [ 'd3 chart' ],
-			'timeseries' =>  [ 'time series' ],
+			'timeseries' => [ 'time series' ],
 			'jqplotchart' => [ 'jqplot chart', 'jqplotpie', 'jqplotbar' ],
 			'jqplotseries' => [ 'jqplot series' ],
 		];

@@ -86,7 +86,6 @@
 	"srf-ui-datatables-label-sInfo": "Afichatge de _START_ a _END_ sus _TOTAL_ entradas",
 	"srf-ui-datatables-label-sInfoEmpty": "Afichatge de 0 a 0 sus 0 entradas",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtrat per _MAX_ entradas al total)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Afichar las entradas _MENU_",
 	"srf-ui-datatables-label-sLoadingRecords": "Cargament…",
 	"srf-ui-datatables-label-sProcessing": "Tractament en cors...",

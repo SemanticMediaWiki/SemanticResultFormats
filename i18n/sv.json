@@ -12,6 +12,7 @@
 			"Nemo bis",
 			"Per",
 			"Rotsee",
+			"Sabelöga",
 			"Skalman",
 			"Umeaboy",
 			"WikiPhoenix"
@@ -181,7 +182,6 @@
 	"srf-ui-datatables-label-multiselect-column-selectedtext": "Kolonner är synliga",
 	"srf-ui-datatables-label-sInfo": "Visar _START_ till _END_ av _TOTAL_ poster",
 	"srf-ui-datatables-label-sInfoEmpty": "Visar 0 till 0 av 0 poster",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Visar _MENU_ poster",
 	"srf-ui-datatables-label-sLoadingRecords": "Läser in...",
 	"srf-ui-datatables-label-sProcessing": "Bearbetar...",
@@ -256,7 +256,7 @@
 	"srf-ui-mediaplayer-label-volume-max": "Maxvolym",
 	"srf-ui-mediaplayer-label-shuffle": "Blanda",
 	"srf-ui-mediaplayer-label-repeat": "Upprepa",
-	"srf-ui-mediaplayer-label-full-screen": "Fullskärm",
+	"srf-ui-mediaplayer-label-full-screen": "Helskärm",
 	"srf-spreadsheet-link": "Kalkylblad",
 	"srf-paramdesc-spreadsheet-filename": "Filnamnet för nedladdningen av den genererade kalkylarksfilen",
 	"srf-paramdesc-spreadsheet-templatefile": "Namnet på kalkylbladsfilen från namnrymden \"File\" som används för att formatera den genererade filen"

@@ -36,8 +36,8 @@ class SRFJitGraph extends SMWResultPrinter {
 		'red' => '#CF2A2A',
 		'green' => '#558800',
 		'blue' => '#005588' ];
-	protected $m_rootNodeColor = '#CF2A2A'; //Red
-	protected $m_graphNodeColor = '#005588'; //Blue
+	protected $m_rootNodeColor = '#CF2A2A'; // Red
+	protected $m_graphNodeColor = '#005588'; // Blue
 
 	protected $m_settings = [
 		"divID" => "infovis",
@@ -64,7 +64,7 @@ class SRFJitGraph extends SMWResultPrinter {
 
 		$this->m_graphNodeType = $params['graphnodetype'];
 
-//		if ( array_key_exists( 'graphnodetype', $params ) ) {
+// if ( array_key_exists( 'graphnodetype', $params ) ) {
 //			$userType = strtolower( trim( $params['graphnodetype'] ) );
 //			if ( in_array($userType, $this->m_nodeTypes) ) {
 //				$this->m_graphNodeType = $userType;
@@ -133,7 +133,6 @@ class SRFJitGraph extends SMWResultPrinter {
 			}
 
 		}
-
 	}
 
 	public function getName() {
@@ -148,7 +147,7 @@ class SRFJitGraph extends SMWResultPrinter {
 		if ( class_exists( 'ResourceLoader' ) ) {
 			$wgOut->addModules( 'ext.srf.jitgraph' );
 		} else {
-			//Include javascript files in the HTML header
+			// Include javascript files in the HTML header
 			$this->includeJS();
 		}
 
@@ -169,14 +168,14 @@ class SRFJitGraph extends SMWResultPrinter {
 					if ( $firstcol ) {
 						$firstcolvalue = $object->getShortText( $outputmode );
 
-						//Title of the page where the result format is being displayed
+						// Title of the page where the result format is being displayed
 						$thisPageTitle = $wgTitle->getPrefixedText();
 
-						//This little block adds the name of the current edge to the list later used to compile the graph legend
+						// This little block adds the name of the current edge to the list later used to compile the graph legend
 						$req = $field->getPrintRequest();
 						$labelName = trim( $req->getLabel() );
 
-						//Different color options and formatting for the page currently on.
+						// Different color options and formatting for the page currently on.
 						if ( strcmp( $thisPageTitle, $text ) == 0 && $this->m_graphRootNode ) {
 							$json .= "{ \"id\":\"$text\", ";
 							$json .= "\"name\":\"$text\", ";
@@ -225,7 +224,7 @@ class SRFJitGraph extends SMWResultPrinter {
 							}
 						}
 
-						//Create an explicit node for each leaf.
+						// Create an explicit node for each leaf.
 						$jsonLeafs .= "{ \"id\":\"$text\", ";
 						$jsonLeafs .= "\"name\":\"$text\", ";
 
@@ -243,7 +242,7 @@ class SRFJitGraph extends SMWResultPrinter {
 						$jsonLeafs .= "}, ";
 						$jsonLeafs .= "\"adjacencies\":[]},";
 
-						//This little block adds the name of the current edge to the list later used to compile the graph legend
+						// This little block adds the name of the current edge to the list later used to compile the graph legend
 						$req = $field->getPrintRequest();
 						$labelName = trim( $req->getLabel() );
 						if ( !in_array( $labelName, $this->m_edgeNames ) && strlen( $labelName ) > 0 ) {
@@ -255,7 +254,7 @@ class SRFJitGraph extends SMWResultPrinter {
 				$firstcol = false;
 			}
 			$json = substr( $json, 0, -1 ); // Trim the comma after the last item in the list
-			$json .= "]},"; //close adjacencies array
+			$json .= "]},"; // close adjacencies array
 
 			//Append the leaf nodes.
 			//$jsonLeafs = substr($jsonLeafs,0,-1); // Trim the comma after the last item in the list
@@ -263,7 +262,7 @@ class SRFJitGraph extends SMWResultPrinter {
 			$jsonLeafs = "";
 		}
 		$json = substr( $json, 0, -1 ); // Trim the comma after the last item in the list
-		$json .= "]"; //close the json object array
+		$json .= "]"; // close the json object array
 
 		$result = '';
 
@@ -272,11 +271,11 @@ class SRFJitGraph extends SMWResultPrinter {
 		}
 
 		$d_id = rand( 1000, 9999 );
-		$divID = 'infovis-' . $d_id; //generate a random id to have the ability to display multiple graphs on a single page.
+		$divID = 'infovis-' . $d_id; // generate a random id to have the ability to display multiple graphs on a single page.
 		$this->m_settings['d_id'] = $d_id;
 		$this->m_settings['divID'] = $divID;
 
-		//User Settings
+		// User Settings
 		$userSettings = "var graphSettings = {";
 		foreach ( $this->m_settings as $key => $value ) {
 			$userSettings .= "\"$key\": \"$value\",";
@@ -291,7 +290,7 @@ class SRFJitGraph extends SMWResultPrinter {
 		// FIXME: init function cannot be called here, use JS in a separate file and bind to the onload event.
 		$result .= "var json=" . $json . "; this.init(json, graphSettings);" . 'jQuery("#progress-' . $d_id . '").progressBar();';
 		$result .= 'jQuery(document).load(function() {});';
-		//$result .= '$("#progress1").progressBar();';
+		// $result .= '$("#progress1").progressBar();';
 		$result .= "</script>";
 
 		// yes, our code can be viewed as HTML if requested, no more parsing needed
@@ -305,7 +304,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	protected function includeJS() {
 		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
 
-		//$wgOut->addModules( 'ext.srf.jitgraph' );
+		// $wgOut->addModules( 'ext.srf.jitgraph' );
 
 		global $srfgScriptPath;
 

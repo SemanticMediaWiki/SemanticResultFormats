@@ -20,7 +20,7 @@ use Title;
  * @ingroup SRF
  * @ingroup QueryPrinter
  *
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author mwjames
  */
@@ -51,7 +51,6 @@ class TagCloud extends ResultPrinter {
 	 * @return string
 	 */
 	public function getResultText( SMWQueryResult $queryResult, $outputmode ) {
-
 		$tags = $this->getTags( $queryResult, $outputmode );
 
 		if ( $tags === [] ) {
@@ -200,8 +199,8 @@ class TagCloud extends ResultPrinter {
 					$divisor = ( $max == $min ) ? 1 : $max - $min;
 					$tag = $this->params['minsize'] + $maxSizeIncrease * ( $tag - $min ) / $divisor;
 					break;
-				case 'log' :
-				default :
+				case 'log':
+				default:
 					$divisor = ( $max == $min ) ? 1 : log( $max ) - log( $min );
 					$tag = $this->params['minsize'] + $maxSizeIncrease * ( log( $tag ) - log( $min ) ) / $divisor;
 					break;
@@ -209,13 +208,13 @@ class TagCloud extends ResultPrinter {
 		}
 
 		switch ( $this->params['tagorder'] ) {
-			case 'desc' :
+			case 'desc':
 				// Tags are already sorted desc
 				break;
-			case 'asc' :
+			case 'asc':
 				asort( $tags );
 				break;
-			case 'alphabetical' :
+			case 'alphabetical':
 				$tagNames = array_keys( $tags );
 				natcasesort( $tagNames );
 				$newTags = [];
@@ -226,7 +225,7 @@ class TagCloud extends ResultPrinter {
 
 				$tags = $newTags;
 				break;
-			case 'random' :
+			case 'random':
 				$tagSizes = $tags;
 				shuffle( $tagSizes );
 				$newTags = [];
@@ -242,8 +241,8 @@ class TagCloud extends ResultPrinter {
 
 				$tags = $newTags;
 				break;
-			case 'unchanged' :
-			default : // Restore the original order.
+			case 'unchanged':
+			default: // Restore the original order.
 				$changedTags = $tags;
 				$tags = [];
 
@@ -267,7 +266,6 @@ class TagCloud extends ResultPrinter {
 	 * @return string
 	 */
 	private function getTagCloud( array $tags ) {
-
 		// Initialize
 		$htmlTags = [];
 		$processing = '';
@@ -345,7 +343,7 @@ class TagCloud extends ResultPrinter {
 
 	/**
 	 * @param string $value
-	 * @param int $rowNumber
+	 * @param int &$rowNumber
 	 *
 	 * @return string
 	 */

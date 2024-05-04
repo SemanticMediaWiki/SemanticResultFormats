@@ -5,28 +5,28 @@ namespace SRF\Outline;
 /**
  * A tree structure for holding the outline data
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  */
 class OutlineTree {
 
 	/**
-	 * @var []
+	 * @var
 	 */
 	public $tree;
 
 	/**
-	 * @var []
+	 * @var
 	 */
 	public $items;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	public $itemCount = 0;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	public $leafCount = 0;
 

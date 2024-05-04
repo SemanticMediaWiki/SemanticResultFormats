@@ -2,18 +2,21 @@
 
 namespace SRF\Tests\Outline;
 
+use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\OutlineResultPrinter;
 
 /**
  * @covers \SRF\Outline\OutlineResultPrinter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.1
  *
  * @author mwjames
  */
-class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
+class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
+
+	use PHPUnitCompat;
 
 	private $queryResult;
 
@@ -26,7 +29,6 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			OutlineResultPrinter::class,
 			new OutlineResultPrinter( 'outline' )
@@ -34,7 +36,6 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResult_LinkOnNonFileOutput() {
-
 		$link = $this->createMock( \SMWInfolink::class );
 
 		$link->expects( $this->any() )
@@ -56,7 +57,7 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 		// IParam is an empty interface !!! so we use stdClass
 		$outlineproperties = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$outlineproperties->expects( $this->any() )
@@ -69,7 +70,7 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$template = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$template->expects( $this->any() )
@@ -82,7 +83,7 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$introtemplate = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$introtemplate->expects( $this->any() )
@@ -95,7 +96,7 @@ class OutlineResultPrinterTest extends \PHPUnit_Framework_TestCase {
 
 		$outrotemplate = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue' ] )
 			->getMock();
 
 		$outrotemplate->expects( $this->any() )

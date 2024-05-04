@@ -28,7 +28,6 @@ class SRFSlideShow extends SMWResultPrinter {
 	 * Implemented by subclasses.
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-
 		$html = '';
 		$id = uniqid();
 
@@ -89,9 +88,11 @@ class SRFSlideShow extends SMWResultPrinter {
 
 		SMWOutputs::requireResource( 'ext.srf.slideshow' );
 
-		if ( $this->params['nav controls'] ) {
-			SMWOutputs::requireResource( 'jquery.ui.slider' );
-		}
+		// if ( $this->params['nav controls'] ) {
+			// *** this resource has been removed from recent Mediawiki versions
+			// SMWOutputs::requireResource( 'jquery.ui.slider' );
+			// SMWOutputs::requireResource( 'jquery.ui' );
+		// }
 
 		return Html::element(
 			'div',
@@ -108,7 +109,7 @@ class SRFSlideShow extends SMWResultPrinter {
 	 *
 	 * @param SMWQueryResult $results
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function linkFurtherResults( SMWQueryResult $results ) {
 		return false;

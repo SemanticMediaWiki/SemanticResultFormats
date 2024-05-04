@@ -9,12 +9,12 @@ use SRF\iCalendar\IcalTimezoneFormatter;
  * @covers \SRF\iCalendar\IcalTimezoneFormatter
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.0
  *
  * @author mwjames
  */
-class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
+class IcalTimezoneFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	private $stringValidator;
 
@@ -25,7 +25,6 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			IcalTimezoneFormatter::class,
 			new IcalTimezoneFormatter()
@@ -36,7 +35,6 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider transitionsProvider
 	 */
 	public function testGetTransitions( $tz, $from, $to, $expected ) {
-
 		$instance = new IcalTimezoneFormatter();
 		$instance->setLocalTimezones( $tz );
 		$instance->calcTransitions( $from, $to );
@@ -48,7 +46,6 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function transitionsProvider() {
-
 		// DTSTART can be different pending the OS hence use .*
 
 		yield [
@@ -64,7 +61,7 @@ class IcalTimezoneFormatterTest extends \PHPUnit_Framework_TestCase {
 			1,
 			2,
 			"BEGIN:VTIMEZONE\r\nTZID:Asia/Bangkok\r\nBEGIN:STANDARD\r\nDTSTART:.*\r\n" .
-		//  Travis-CI PHP 7 issue, outputs `TZNAME:+07`
+		// Travis-CI PHP 7 issue, outputs `TZNAME:+07`
 		//	"TZOFFSETFROM:+0700\r\nTZOFFSETTO:+0700\r\nTZNAME:ICT\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 			"TZOFFSETFROM:+0700\r\nTZOFFSETTO:+0700\r\nTZNAME:.*\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n"
 		];

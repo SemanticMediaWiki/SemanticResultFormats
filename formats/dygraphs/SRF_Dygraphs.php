@@ -1,10 +1,11 @@
 <?php
+use MediaWiki\MediaWikiServices;
 
 /**
  * A query printer that uses the dygraphs JavaScript library
  *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Flot_timeseries_chart
- * @licence GNU GPL v2 or later
+ * @license GPL-2.0-or-later
  *
  * @since 1.8
  *
@@ -29,7 +30,6 @@ class SRFDygraphs extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( SMWQueryResult $result, $outputMode ) {
-
 		// Output mode is fixed
 		$outputMode = SMW_OUTPUT_HTML;
 
@@ -75,7 +75,13 @@ class SRFDygraphs extends SMWResultPrinter {
 					$aggregatedValues['subject'] = $this->makePageFromTitle( $subject->getTitle() )->getLongHTMLText(
 						$this->getLinker( $field->getResultSubject() )
 					);
-					$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
+					if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+						$aggregatedValues['url'] = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $subject->getTitle() )->getUrl();
+					} else {
+						// Before  MW 1.34
+						$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
+					}
+					
 					$dataSource = true;
 				}
 
@@ -164,7 +170,6 @@ class SRFDygraphs extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getFormatOutput( $data, $options ) {
-
 		// Object count
 		static $statNr = 0;
 		$chartID = 'srf-dygraphs-' . ++$statNr;

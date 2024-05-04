@@ -8,15 +8,14 @@ use SRF\vCard\Address;
  * @covers \SRF\vCard\Address
  * @group semantic-result-formats
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.0
  *
  * @author mwjames
  */
-class AddressTest extends \PHPUnit_Framework_TestCase {
+class AddressTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			Address::class,
 			new Address( '', [] )
@@ -24,7 +23,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testHasAddress() {
-
 		$instance = new Address( '', [] );
 
 		$this->assertFalse(
@@ -33,7 +31,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testText() {
-
 		$adr = [
 			'pobox' => '',
 			'ext' => '',

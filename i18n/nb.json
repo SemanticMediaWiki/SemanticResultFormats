@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"EdoAug",
 			"Emilbk",
 			"Event",
 			"Imre Eilertsen",
@@ -19,7 +20,7 @@
 	"prefs-srf-datatables-options": "DataTables-valgmuligheter",
 	"srf-prefs-datatables-options-update-default": "Aktiviser [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates automatiske oppdateringer] av tabellinnhold ved sideoppdatering",
 	"srf-prefs-datatables-options-cache-default": "Aktiviser [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage lokal lagring] for å forbedre responstiden",
-	"srf-module-loading": "Laster...",
+	"srf-module-loading": "Laster ...",
 	"srf-paramdesc-layout": "Tilgjengelige visninger",
 	"srf-paramdesc-height": "Høyde",
 	"srf-paramdesc-width": "Bredde",
@@ -205,7 +206,7 @@
 	"srf-ui-datatables-panel-disclaimer": "Parametre og betingelser kan endres, men slike endringer er midlertidige og borte etter en sideoppdatering.",
 	"srf-ui-datatables-label-update-success": "Tabelloppdateringen var vellykket",
 	"srf-ui-datatables-label-update-error": "Tabelloppdateringen var mislykket",
-	"srf-ui-datatables-label-placeholder-column-search": "Søk...",
+	"srf-ui-datatables-label-placeholder-column-search": "Søk ...",
 	"srf-ui-datatables-label-content-cache": "Innholdet ble hentet fra det lokale mellomlagret.",
 	"srf-ui-datatables-label-content-server": "Innholdet ble hentet fra serveren.",
 	"srf-ui-datatables-label-multiselect-column-header": "Tilgjengelige kolonner",
@@ -217,8 +218,8 @@
 	"srf-ui-datatables-label-sInfoFiltered": "(filtrert fra _MAX_ samlede punkter)",
 	"srf-ui-datatables-label-sInfoThousands": "&nbsp;",
 	"srf-ui-datatables-label-sLengthMenu": "Vis _MENU_ punkter",
-	"srf-ui-datatables-label-sLoadingRecords": "Laster...",
-	"srf-ui-datatables-label-sProcessing": "Behandler...",
+	"srf-ui-datatables-label-sLoadingRecords": "Laster ...",
+	"srf-ui-datatables-label-sProcessing": "Behandler ...",
 	"srf-ui-datatables-label-sSearch": "Søk:",
 	"srf-ui-datatables-label-sZeroRecords": "Ingen samsvarende poster ble funnet",
 	"srf-ui-datatables-label-oPaginate-sFirst": "Første",

@@ -1,292 +1,49 @@
-/**
- * CSS for the SRF dataTables module
- *
- * @since 1.9
- * @version 0.2.5
- *
- * @file
- * @ingroup SRF
- *
- * @licence GNU GPL v2 or later
- * @author mwjames
- */
 
-/* Type dependant formatting */
-.srf-datatables .smwtype_num {
-	text-align: right;
-}
-
-/* Basis setting */
-.srf-datatables .button-space {
-	margin-left: 10px;
-	float: right;
-	width: 5px;
-	height: 5px;
-}
-
-.srf-datatables .button {
-	float: right;
-	width: 5px;
-	height: 14px;
-}
-
-.srf-datatables .srf-panel {
-	overflow: hidden;
-	float: left;
-	margin-right: 10px;
-	display:none;
-	min-width: 17em;
-	margin-top: 0px;
-}
-
-.srf-datatables .srf-panel fieldset {
-	border: 1px solid #2F6FAB;
-	margin: 0.1em 0.1em 0.1em 0.1em;
-	padding: 0 0.5em 0.5em 0.5em;
-	line-height: 1.5em;
-	border: 1px solid gainsboro;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-}
-
-.srf-datatables .srf-panel fieldset label {
-	vertical-align: top;
-}
-
-.srf-datatables legend {
-    display: block;
-    font-size: 110%;
-    line-height: 16px;
-    color: #333;
-}
-
-.srf-datatables .srf-panel .query-link {
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.srf-datatables .srf-panel .export {
-	padding: 0.35em 0.3em 0.35em 0.3em;
-	border: 1px solid gainsboro;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-}
-
-.srf-datatables .parameters .label {
-	overflow: hidden;
-	float:left;
-	margin-right: 5px;
-}
-
-.srf-datatables .parameters .limit-parameter .value {
-	overflow: hidden;
-	float: right;
-	margin-right: 3px;
-}
-
-.srf-datatables .parameters .limit-parameter .count {
+.srf-datatable .srf-datatable-left {
 	float: left;
 }
 
-.srf-datatables .parameter-section {
-	font-size: 110%;
-	margin-bottom: 5px;
+.srf-datatable .srf-datatable-right {
+	float: right;
 }
 
-.srf-datatables .limit-parameter .slider {
-	margin-top:5px;
-	margin-right:3px;
-}
 
-.srf-datatables .columnfilter input[type="checkbox"], input[type="radio"] {
-	width: auto;
-	height: auto;
-	padding: 0;
-	margin: 3px 5px 0 0;
-	line-height: normal;
-	border: none;
-}
-
-.srf-datatables .columnfilter ul {
-	list-style-type: none;
-	list-style-image: none;
-	margin: .3em 0 0 0.6em;
-	width: 100%;  /* room for 3 columns */
-	overflow: hidden;
-}
-
-.srf-datatables .columnfilter ul li {
-	float: none;
-	width: 100%;
-	margin-right: 15px;
-	font-size: 90%;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.srf-datatables .srf-panel .head {
-	height: 16px;
-	font-size: 20px;
-	color: #333;
-	font-weight: bold;
-	text-rendering: optimizelegibility;
-	border-bottom: 0px solid gainsboro;
-	padding: 2px 8px 8px 12px;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 0px;
-	border-radius: 0px;
-}
-
-.srf-datatables .srf-panel .information p {
-	padding: 1px 3px 1px 3px;
-	word-wrap: break-word;
-	text-align: justify;
-	width: 200px;
-}
-
-.srf-datatables .srf-panel .content-source.cache {
-	color: rgba(141, 192, 219, 0.85);
-}
-
-.srf-datatables .conditions textarea {
-	word-wrap: break-word;
-	height: 75px;
-}
-
-/* Bootstrap aligned query panel design */
-
-.srf-datatables .srf-panel.bootstrap{
-	border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-	border-top-color: #DDD;
-	border-right-color: #DDD;
-	border-bottom-color: #DDD;
-	border-left-color: #DDD;
-	border-collapse: separate;
-	border-top-left-radius: 4px 4px;
-	border-top-right-radius: 4px 4px;
-	border-bottom-right-radius: 4px 4px;
-	border-bottom-left-radius: 4px 4px;
-	margin-top: 42px;
-	display: block;
-}
-
-.srf-datatables .srf-panel.bootstrap fieldset {
-	border: 0px solid gainsboro;
-	margin-top: 5px;
-	padding: 0 0.5em 0.0em 0.5em;
-}
-
-.srf-datatables .srf-panel.bootstrap legend {
-	padding: .5em 0 0.5em 0.3em;
-	display: block;
-	font-size: 120%;
-	line-height: 16px;
-	color: #333;
-	background-color: rgba(141, 192, 219, 0.25);
-	width: 100%;
-	font-weight: bold;
-	margin-left: -3px;
-	border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-	border-top-color: #DDD;
-	border-right-color: #DDD;
-	border-bottom-color: #DDD;
-	border-left-color: #DDD;
-	border-collapse: separate;
-	border-top-left-radius: 4px 4px;
-	border-top-right-radius: 4px 4px;
-	border-bottom-right-radius: 4px 4px;
-	border-bottom-left-radius: 4px 4px;
+.srf-datatable .dataTables_filter {
+	float: left;
 
 }
 
-.srf-datatables .srf-panel.bootstrap .conditions textarea {
-	margin-top: 10px;
+.srf-datatable .dataTables_length {
+	float: right;	
 }
 
-.srf-datatables .srf-panel.bootstrap .limit-parameter {
-	padding: 8px 0 5px 5px
+.srf-datatable .dt-buttons {
+	margin-right: 0.334em;
 }
 
-.srf-datatables .srf-panel.bootstrap .columnfilter ul {
-	margin: .3em 0 0 0.3em;
+.srf-datatable .dataTables_filter {
+	margin-right: 0.334em;
 }
 
-.srf-datatables .srf-panel .columnfilter input {
-	margin-left: 0;
-	margin-top: 0.6em;
-	margin-bottom: 0.3em;
-	width: 195px;
+.oo-ui-messageWidget.oo-ui-messageWidget-block.oo-ui-messageWidget-showClose {
+	padding-right: 56px;
 }
 
-.srf-datatables .srf-panel .columnfilter select {
-	margin-top: 0.2em;
-	width: 205px;
+.oo-ui-messageWidget.oo-ui-messageWidget-block > .oo-ui-messageWidget-close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
 }
 
-.srf-datatables .srf-panel .columnfilter .ui-multiselect {
-	height: 29px;
-	padding: 4px;
-	font-size: 13px;
-	line-height: 18px;
-	color: gray;
-	border: 1px solid #CCC;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	padding: 0.2;
-	margin-bottom: 0.5em;
+div.dataTables_processing {
+	/* background: white; */
+	/* box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.12); */
+	z-index: 1000;
+	position: sticky !important;
 }
 
-.srf-datatables .srf-panel .conditions textarea {
-	width: 195px;
+div.dataTables_processing>div:last-child>div {
+	background: rgb(13,110,253);
 }
 
-/* Yet another query panel design */
 
-.srf-datatables .srf-panel.bootstrap.flags {
-	border-top-width: 0px;
-	border-right-width: 1px;
-	border-bottom-width: 0px;
-	border-left-width: 0px;
-	border-top-style: none;
-	border-right-style: solid;
-	border-bottom-style: none;
-	border-left-style: none;
-	border-top-color: #DDD;
-	border-right-color: #DDD;
-	border-bottom-color: #DDD;
-	border-left-color: #DDD;
-	border-collapse: separate;
-	border-top-left-radius: 0px 0px;
-	border-top-right-radius: 4px 4px;
-	border-bottom-right-radius: 0px 0px;
-	border-bottom-left-radius: 0px 0px;
-	margin-top: 0;
-	display: block;
-}
-
-.srf-datatables .srf-panel.bootstrap.flags fieldset {
-	margin-top: 0;
-	margin-bottom: 5px;
-}
-
-.srf-datatables .srf-panel.bootstrap.flags legend{
-	padding: 0.5em 0.5em 0.5em 0.5em;
-	font-weight: normal;
-}

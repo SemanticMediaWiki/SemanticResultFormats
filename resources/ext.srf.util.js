@@ -23,7 +23,7 @@
  * @since 1.8
  * @ingroup SRF
  *
- * @licence GNU GPL v2+
+ * @licence GPL-2.0-or-later
  * @author mwjames
  */
 ( function( $, mw, srf ) {
@@ -203,6 +203,7 @@
 			hide: function ( options ){
 				var c = options.length === undefined ? options.context : options;
 				c.find( '.' + _CL_srfspinner ).hide();
+				c.find(".srf-loading-dots").hide();
 			}
 		},
 

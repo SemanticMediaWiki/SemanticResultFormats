@@ -22,7 +22,6 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	public function visit( NodeInterface $node ) {
-
 		$nodeTexts = [ $this->getTextForNode( $node ) ];
 
 		$this->depth++;
@@ -41,7 +40,6 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	protected function getTextForNode( TreeNode $node ) {
-
 		/** @var \SMWResultArray[]|null $row */
 		$row = $node->getValue();
 
@@ -69,7 +67,6 @@ class TreeNodePrinter implements Visitor {
 	 * @return string
 	 */
 	protected function getTextForRowNoTemplate( $row ) {
-
 		$cellTexts = [];
 		foreach ( $row as $columnNumber => $cell ) {
 
@@ -88,7 +85,7 @@ class TreeNodePrinter implements Visitor {
 			$result = array_shift( $cellTexts );
 
 			if ( count( $cellTexts ) > 0 ) {
-				$result .= ' (' . join( $this->configuration['sep'], $cellTexts ) . ')';
+				$result .= ' (' . implode( $this->configuration['sep'], $cellTexts ) . ')';
 			}
 
 		} else {
@@ -104,7 +101,6 @@ class TreeNodePrinter implements Visitor {
 	 * @return string
 	 */
 	protected function getTextForRowWithTemplate( $row ) {
-
 		$templateParams = [];
 		foreach ( $row as $columnNumber => $cell ) {
 
@@ -126,7 +122,6 @@ class TreeNodePrinter implements Visitor {
 	 * @return string
 	 */
 	protected function getValuesTextForCell( \SMWResultArray $cell, $columnNumber ) {
-
 		$cell->reset();
 		$linker = $this->resultPrinter->getLinkerForColumn( $columnNumber );
 
@@ -136,7 +131,7 @@ class TreeNodePrinter implements Visitor {
 			$valueTexts[] = $text;
 		}
 
-		$valuesText = join( $this->configuration['sep'], $valueTexts );
+		$valuesText = implode( $this->configuration['sep'], $valueTexts );
 		return $valuesText;
 	}
 
@@ -147,7 +142,6 @@ class TreeNodePrinter implements Visitor {
 	 * @return string
 	 */
 	protected function getParamNameForCell( $cell, $columnNumber ) {
-
 		if ( !array_key_exists( $columnNumber, $this->columnLabels ) ) {
 
 			$label = $cell->getPrintRequest()->getLabel();
@@ -170,7 +164,6 @@ class TreeNodePrinter implements Visitor {
 	 * @return string
 	 */
 	protected function getLabelForCell( $cell, $columnNumber ) {
-
 		if ( !array_key_exists( $columnNumber, $this->columnLabels ) ) {
 
 			if ( $this->configuration['headers'] === 'hide' || $cell->getPrintRequest()->getLabel() === '' ) {

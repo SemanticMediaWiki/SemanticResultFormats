@@ -3,14 +3,13 @@
 namespace SRF\Graph;
 
 use Html;
-use SRF\Graph\GraphNode;
 
 /**
  *
  *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
@@ -38,9 +37,19 @@ class GraphFormatter {
 	];
 	private $legendItem = [];
 	private $options;
+	/** @var string $lineSeparator Line separator for line wrapped long text. */
+	private $lineSeparator;
 
 	public function __construct( GraphOptions $options ) {
 		$this->options = $options;
+
+		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+		// and formatting is a little different from the GraphViz extension
+		global $wgVersion;
+		$this->lineSeparator
+			= version_compare( $wgVersion, '1.33', '>=' ) && \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
+			? '<br />'
+			: PHP_EOL;
 	}
 
 	public function getGraph() {
@@ -57,15 +66,18 @@ class GraphFormatter {
 	}
 
 	/*
-	* Creates the DOT (graph description language) which can be processed by the graphviz lib
+	* Creates the DOT (graph description language),
+	*  which can be processed by the Diagrams, GraphViz or External Data extension
 	*
-	* @see https://www.graphviz.org/
+	* @see https://www.graphviz.org/ for documentation about the DOT language
 	* @since 3.2
 	*
 	* @param SRF\Graph\GraphNodes[] $nodes
 	*/
 	public function buildGraph( $nodes ) {
-		$this->add( "digraph " . $this->options->getGraphName() . " {" );
+		global $wgVersion;
+
+		$this->add( 'digraph "' . $this->options->getGraphName() . '" {' );
 
 		// set fontsize and fontname of graph, nodes and edges
 		$this->add( "graph [fontsize=" . $this->options->getGraphFontSize() . ", fontname=\"Verdana\"]\n" );
@@ -85,8 +97,8 @@ class GraphFormatter {
 
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
-
-			$nodeLabel = $node->getLabel();
+			$instance = $this;
+			$nodeLabel = htmlspecialchars( $node->getLabel() );
 
 			// take "displaytitle" as node-label if it is set
 			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
@@ -100,21 +112,32 @@ class GraphFormatter {
 
 			// Display fields, if any.
 			$fields = $node->getFields();
-			if ( count( $node->getFields() ) > 0 ) {
+			if ( count( $fields ) > 0 ) {
 				$label = $nodeLabel
 					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
-					          [ '\n' => '<br/>' ] );
+							  [ '\n' => '<br/>' ] );
 				$nodeTooltip = $nodeLabel ?: $node->getID();
+				// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
+				// and formatting is a little different from the GraphViz extension
+				if ( version_compare( $wgVersion, '1.33', '>=' ) &&
+					\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+					$nodeTooltip = str_replace( '<br />', '', $nodeTooltip );
+				}
 				// Label in HTML form enclosed with <>.
 				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
 							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
-							. implode( "\n", array_map( static function ( $field ) {
-								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ])
+							. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
+								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
 									? 'right'
 									: 'left';
 								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
 									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '">' . $field['value'] . '</td></tr>';
+									. '<td align="' . $alignment . '">'
+										. $instance->getWordWrappedText(
+											$field['value'],
+											$instance->options->getWordWrapLimit()
+										)
+									. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
 				$nodeLinkURL = null; // the value at the top is already hyperlinked.
 			} else {
@@ -140,7 +163,7 @@ class GraphFormatter {
 				$inBrackets[] = 'label = ' . $nodeLabel;
 			}
 			if ( $nodeTooltip ) {
-				$inBrackets[] = 'tooltip = "' .  htmlspecialchars( $nodeTooltip ) . '"';
+				$inBrackets[] = 'tooltip = "' . htmlspecialchars( $nodeTooltip ) . '"';
 			}
 			if ( count( $inBrackets ) > 0 ) {
 				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
@@ -222,7 +245,7 @@ class GraphFormatter {
 				$itemsHtml .= Html::rawElement( 'div', [ 'class' => 'graphlegenditem', 'style' => "color: $color" ],
 					"$color: $legendLabel" );
 
-				$colorCount ++;
+				$colorCount++;
 			}
 		}
 
@@ -233,35 +256,17 @@ class GraphFormatter {
 	 * Returns the word wrapped version of the provided text.
 	 *
 	 * @param string $text
-	 * @param integer $charLimit
+	 * @param int $charLimit
 	 *
 	 * @return string
 	 */
-	public static function getWordWrappedText( $text, $charLimit ) {
-		$charLimit = max( [ $charLimit, 1 ] );
-		$segments = [];
-
-		while ( strlen( $text ) > $charLimit ) {
-			// Find the last space in the allowed range.
-			$splitPosition = strrpos( substr( $text, 0, $charLimit ), ' ' );
-
-			if ( $splitPosition === false ) {
-				// If there is no space (lond word), find the next space.
-				$splitPosition = strpos( $text, ' ' );
-
-				if ( $splitPosition === false ) {
-					// If there are no spaces, everything goes on one line.
-					$splitPosition = strlen( $text ) - 1;
-				}
-			}
-
-			$segments[] = substr( $text, 0, $splitPosition + 1 );
-			$text = substr( $text, $splitPosition + 1 );
-		}
-
-		$segments[] = $text;
-
-		return implode( '\n', $segments );
+	public function getWordWrappedText( $text, $charLimit ) {
+		preg_match_all(
+			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)/u',
+			$text,
+			$matches,
+			PREG_PATTERN_ORDER
+		);
+		return implode( $this->lineSeparator, $matches[0] );
 	}
 }
-

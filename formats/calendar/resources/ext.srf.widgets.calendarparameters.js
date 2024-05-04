@@ -7,7 +7,7 @@
  * @file
  * @ingroup SRF
  *
- * @licence GNU GPL v2 or later
+ * @licence GPL-2.0-or-later
  * @author mwjames
  */
 /* global mw:true, smw:true, mediaWiki:true, semanticMediawiki:true, semanticFormats:true */

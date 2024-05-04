@@ -53,7 +53,6 @@ class MapView extends View {
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-
 		$markerPositionPropertyName = str_replace(
 			' ',
 			'_',
@@ -139,7 +138,6 @@ class MapView extends View {
 	 * @return array of Parameter
 	 */
 	public static function getParameters() {
-
 		if ( self::$viewParams === null ) {
 
 			$params = parent::getParameters();
@@ -196,7 +194,7 @@ class MapView extends View {
 				'default' => '',
 			];
 
-			//markercluster
+			// markercluster
 			$params['marker cluster'] = [
 				'type' => 'boolean',
 				'name' => 'map view marker cluster',
@@ -211,7 +209,7 @@ class MapView extends View {
 				'default' => '',
 			];
 
-			//clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
+			// clustermaxradius - maxClusterRadius: The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
 			$params['maxClusterRadius'] = [
 				'type' => 'integer',
 				'name' => 'map view marker cluster radius',
@@ -219,7 +217,7 @@ class MapView extends View {
 				'default' => '',
 			];
 
-			//clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
+			// clusterzoomonclick - zoomToBoundsOnClick: When you click a cluster we zoom to its bounds.
 			$params['zoomToBoundsOnClick'] = [
 				'type' => 'boolean',
 				'name' => 'map view marker cluster zoom on click',
@@ -243,11 +241,10 @@ class MapView extends View {
 	}
 
 	/**
-	 * @param array $config
+	 * @param array &$config
 	 * @param string $key
 	 */
 	private function addToConfig( &$config, $key ) {
-
 		$paramDefinition = self::getParameters()[$key];
 
 		$param = $this->getActualParameters()[$paramDefinition['name']];
@@ -255,14 +252,12 @@ class MapView extends View {
 		if ( $param !== $paramDefinition['default'] ) {
 			$config[$key] = $param;
 		}
-
 	}
 
 	/**
-	 * @param $config
+	 * @param &$config
 	 */
 	protected function addMarkerIconSetupToConfig( &$config ) {
-
 		$param = $this->getActualParameters()['map view marker icon property'];
 
 		if ( $param !== '' ) {
@@ -278,7 +273,6 @@ class MapView extends View {
 	 * @return array
 	 */
 	protected function getPropertyId( $prop ) {
-
 		$prop = strtr( $prop, ' ', '_' );
 
 		$printrequests = $this->getQueryPrinter()->getPrintrequests();
@@ -295,7 +289,6 @@ class MapView extends View {
 	 * @return array
 	 */
 	private function getMarkerIcons() {
-
 		$ret = [];
 
 		$actualParameters = self::getActualParameters()['map view marker icons'];

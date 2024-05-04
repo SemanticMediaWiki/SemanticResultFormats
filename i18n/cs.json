@@ -208,7 +208,6 @@
 	"srf-ui-datatables-label-sInfo": "Zobrazují se položky _START_ až _END_ z _TOTAL_ celkem",
 	"srf-ui-datatables-label-sInfoEmpty": "Zobrazují se položky 0 až 0 z 0 celkem",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtrováno z _MAX_ položek celkem)",
-	"srf-ui-datatables-label-sInfoThousands": ",",
 	"srf-ui-datatables-label-sLengthMenu": "Zobrazují se položky _MENU_",
 	"srf-ui-datatables-label-sLoadingRecords": "Načítání...",
 	"srf-ui-datatables-label-sProcessing": "Zpracovává se...",

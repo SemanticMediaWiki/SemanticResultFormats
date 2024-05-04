@@ -2,9 +2,9 @@
 
 namespace SRF\BibTex;
 
-use SMWTimeValue as TimeValue;
-use SMWQueryResult as QueryResult;
 use SMW\Query\ResultPrinters\FileExportPrinter;
+use SMWQueryResult as QueryResult;
+use SMWTimeValue as TimeValue;
 
 /**
  * Printer class for creating BibTeX exports
@@ -22,7 +22,7 @@ use SMW\Query\ResultPrinters\FileExportPrinter;
  *   edition =     "ninth Dover printing, tenth GPO printing"
  * }
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.5
  *
  * @author Markus Krötzsch
@@ -60,7 +60,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	public function getFileName( QueryResult $queryResult ) {
-
 		if ( $this->params['filename'] !== '' ) {
 
 			if ( strpos( $this->params['filename'], '.bib' ) === false ) {
@@ -110,7 +109,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function getResultText( QueryResult $res, $outputMode ) {
-
 		if ( $outputMode !== SMW_OUTPUT_FILE ) {
 			return $this->getBibTexLink( $res, $outputMode );
 		}
@@ -125,7 +123,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	}
 
 	private function getBibTexLink( QueryResult $res, $outputMode ) {
-
 		// Can be viewed as HTML if requested, no more parsing needed
 		$this->isHTML = $outputMode == SMW_OUTPUT_HTML;
 
@@ -145,7 +142,6 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 * @return bibTexItem
 	 */
 	private function newItem( array /* of SMWResultArray */ $row ) {
-
 		$item = new Item();
 		$item->setFormatterCallback( [ $this, 'getFormattedList' ] );
 

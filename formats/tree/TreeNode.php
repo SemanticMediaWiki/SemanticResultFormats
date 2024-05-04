@@ -12,7 +12,7 @@ class TreeNode extends Node {
 	/**
 	 * SRFTreeElement constructor.
 	 *
-	 * @param \SMWResultArray[] | null $row
+	 * @param \SMWResultArray[] | null|null $row
 	 */
 	public function __construct( $row = null ) {
 		parent::__construct( $row );
@@ -22,7 +22,6 @@ class TreeNode extends Node {
 	 * @return string
 	 */
 	public function getHash() {
-
 		$resultSubject = $this->getResultSubject();
 
 		if ( $resultSubject !== null ) {
@@ -53,7 +52,6 @@ class TreeNode extends Node {
 	 * @throws Exception
 	 */
 	public function addChild( NodeInterface $child ) {
-
 		foreach ( $this->getAncestorsAndSelf() as $ancestor ) {
 			if ( $ancestor->getHash() === $child->getHash() ) {
 				throw new Exception( 'srf-tree-circledetected' );
@@ -64,4 +62,3 @@ class TreeNode extends Node {
 	}
 
 }
-

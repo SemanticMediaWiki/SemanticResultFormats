@@ -4,7 +4,6 @@ namespace SRF\Tests\Integration;
 
 use ResourceLoader;
 use ResourceLoaderContext;
-use ResourceLoaderModule;
 
 /**
  * Tests for resource definitions and files
@@ -18,10 +17,10 @@ use ResourceLoaderModule;
  * @group SRF
  * @group SMWExtension
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @author mwjames
  */
-class ResourcesTest extends \PHPUnit_Framework_TestCase {
+class ResourcesTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * Helper method to load resources only valid for this extension
@@ -34,7 +33,6 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function moduleDataProvider() {
-
 		// #501
 		// MW 1.33+
 		if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getResourceLoader' ) ) {
@@ -66,7 +64,6 @@ class ResourcesTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesStylesFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
-
 		foreach ( $modules as $name => $values ) {
 
 			// Get module details
