@@ -548,12 +548,13 @@ class DataTables extends ResultPrinter {
 
 		$formattedOptions = $this->formatOptions( $datatablesOptions );
 
+		// for the order @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/825
+		$result = $this->getResultJson( $res, $outputmode );
+
 		// @TODO use only one between printouts and printrequests
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];		
 
-		$result = $this->getResultJson( $res, $outputmode );
-		
 		$this->htmlTable = new HtmlTable();
 		foreach ( $headerList as $text ) {
 			$attributes = [];
