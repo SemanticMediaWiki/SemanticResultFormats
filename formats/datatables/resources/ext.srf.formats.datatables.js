@@ -579,7 +579,8 @@
 				// value for all columns
 				if (!options.columns.type) {
 					options.columns.type =
-						entityCollation === "numeric" && property.typeid === "_wpg"
+						( entityCollation === 'numeric' && property.typeid === '_wpg' )
+						||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1 
 							? "any-number"
 							: null;
 				}
