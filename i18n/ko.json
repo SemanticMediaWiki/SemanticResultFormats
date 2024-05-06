@@ -247,5 +247,8 @@
 	"srf-paramdesc-gantt-diagramtheme": "다이어그램 테마",
 	"srf-paramdesc-gantt-axisformat": "X축: 날짜 형식",
 	"srf-error-gantt-mermaid-not-installed": "Mermaid 확장 기능의 설치가 필요합니다.",
-	"srf-printername-gantt": "간트"
+	"srf-printername-gantt": "간트",
+	"srf-printername-mode": "모드",
+	"srf-printername-range": "범위",
+	"srf-printername-dataframe": "R 데이터프레임"
 }

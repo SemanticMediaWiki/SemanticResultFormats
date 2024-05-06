@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Nemo bis",
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"prefs-srf-eventcalendar-options": "Optioune vum Kalenner vun den Eventementer",
@@ -131,5 +132,7 @@
 	"srf-ui-mediaplayer-label-pause": "Paus",
 	"srf-ui-mediaplayer-label-stop": "Stopp",
 	"srf-paramdesc-gantt-diagramtitle": "Numm vum Diagramm",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Gantt",
+	"srf-printername-mode": "Modus",
+	"srf-printername-variance": "Varianz"
 }

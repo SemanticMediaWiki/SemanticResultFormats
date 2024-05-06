@@ -9,10 +9,10 @@
 			"F. Cosoleto",
 			"Kaspo",
 			"Macofe",
+			"Marco Falda",
 			"McDutchie",
 			"S4b1nuz E.656",
-			"පසිඳු කාවින්ද",
-			"Marco Falda"
+			"පසිඳු කාවින්ද"
 		]
 	},
 	"srf-desc": "Formati addizionali per i risultati delle query di Semantic MediaWiki",
@@ -154,7 +154,7 @@
 	"srf-paramdesc-prolog-filename": "Il nome del file per il download dei predicati Prolog generati",
 	"srf-paramdesc-prolog-fileformat": "Il formato file dei predicati da produrre: pl, pro. Predefinito: pl",
 	"srf-paramdesc-prolog-pname": "Il nome dei predicati. Predefinito: predicate",
-	"srf-paramdesc-prolog-navalue": "Il valore da inserire se il dato e` assente. Predefinito: 'NA'",
+	"srf-paramdesc-prolog-navalue": "Il valore da inserire se il dato è assente. Predefinito: 'NA'",
 	"srf-prolog-link": "Predicati",
 	"srf-printername-dataframe": "Dataframe di R",
 	"srf-paramdesc-dataframe-filename": "Il nome del file per il download del dataframe generato",

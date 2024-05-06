@@ -7,6 +7,7 @@
 			"Hamilton Abreu",
 			"Kghbln",
 			"Liuxinyu970226",
+			"Marco Falda",
 			"McDutchie",
 			"Nemo bis",
 			"Nike",
@@ -18,8 +19,7 @@
 			"Toliño",
 			"Umherirrender",
 			"Verdy p",
-			"아라",
-      "Marco Falda"
+			"아라"
 		]
 	},
 	"srf-desc": "{{desc|name=Semantic Result Formats|url=https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats}}",
@@ -409,8 +409,8 @@
 	"srf-printername-samplestandarddeviation": "{{doc-smwformat|samplestandarddeviation}}",
 	"srf-printername-samplevariance": "{{doc-smwformat|samplevariance}}",
 	"srf-printername-standarddeviation": "{{doc-smwformat|standarddeviation}}",
-	"srf-printername-variance":"{{doc-smwformat|variance}}",
-  	"srf-printername-prolog": "{{doc-smwformat|prolog}}",
+	"srf-printername-variance": "{{doc-smwformat|variance}}",
+	"srf-printername-prolog": "{{doc-smwformat|prolog}}",
 	"srf-paramdesc-prolog-filename": "{{doc-paramdesc|filename}}",
 	"srf-paramdesc-prolog-fileformat": "{{doc-paramdesc|fileformat}}",
 	"srf-paramdesc-prolog-pname": "The name of the generated predicates. Default: predicate",
