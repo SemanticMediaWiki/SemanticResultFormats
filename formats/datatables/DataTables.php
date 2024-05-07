@@ -548,12 +548,13 @@ class DataTables extends ResultPrinter {
 
 		$formattedOptions = $this->formatOptions( $datatablesOptions );
 
+		// for the order @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/825
+		$result = $this->getResultJson( $res, $outputmode );
+
 		// @TODO use only one between printouts and printrequests
 		$resultArray = $res->toArray();
 		$printrequests = $resultArray['printrequests'];		
 
-		$result = $this->getResultJson( $res, $outputmode );
-		
 		$this->htmlTable = new HtmlTable();
 		foreach ( $headerList as $text ) {
 			$attributes = [];
@@ -801,7 +802,7 @@ class DataTables extends ResultPrinter {
 			'lengthMenu' => "number",
 			'buttons' => "string",
 			'searchPanes.columns' => "number",
-			'mark.ignorePunctuation' => "number",
+			'mark.ignorePunctuation' => "",
 			// ...
 		];
 
@@ -810,12 +811,19 @@ class DataTables extends ResultPrinter {
 
 			// transform csv to array
 			if ( array_key_exists( $key, $arrayTypes ) ) {
-				$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
 
-				if ( $arrayTypes[$key] === 'number' ) {
-					$value = array_map( static function ( $value ) {
-						return (int)$value;
-					}, $value );
+				// https://markjs.io/#mark
+				if ( $arrayTypes[$key] === '' ) {
+					$value = str_split( $value );
+
+				} else {
+					$value = preg_split( "/\s*,\s*/", $value, -1, PREG_SPLIT_NO_EMPTY );
+
+					if ( $arrayTypes[$key] === 'number' ) {
+						$value = array_map( static function ( $value ) {
+							return (int)$value;
+						}, $value );
+					}
 				}
 			}
 
