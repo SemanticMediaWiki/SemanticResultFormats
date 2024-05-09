@@ -399,5 +399,15 @@
 	"srf-printername-samplestandarddeviation": "Stichprobenstandardabweichung",
 	"srf-printername-samplevariance": "Stichprobenvarianz",
 	"srf-printername-standarddeviation": "Standardabweichung",
-	"srf-printername-variance": "Varianz"
+	"srf-printername-variance": "Varianz",
+	"srf-printername-prolog": "Prolog-Prädikate",
+	"srf-paramdesc-prolog-filename": "Legt fest, welchen Namen die zu erstellende Datei haben soll",
+	"srf-paramdesc-prolog-fileformat": "Legt fest, welches Dateiformat die zu erstellende Datei haben soll. Mögliche Werte: pl, pro. Standard: pl",
+	"srf-paramdesc-prolog-pname": "Der Name der generierten Prädikate. Standard: Prädikat",
+	"srf-paramdesc-prolog-navalue": "Der Wert für fehlende Daten. Standard: „NA“",
+	"srf-prolog-link": "Prädikate",
+	"srf-printername-dataframe": "R DataFrame",
+	"srf-paramdesc-dataframe-filename": "Legt fest, welchen Namen die zu erstellende Datei haben soll",
+	"srf-paramdesc-dataframe-fileformat": "Das für den DataFrame zu erstellende Format. Zulässige Werte: R.",
+	"srf-dataframe-link": "DataFrame"
 }
