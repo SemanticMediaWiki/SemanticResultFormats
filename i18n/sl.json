@@ -370,5 +370,9 @@
 	"srf-error-gantt-mermaid-not-installed": "Treba je namestiti razširitev Mermaid.",
 	"srf-printername-gantt": "Gantt",
 	"srf-paramdesc-nodelabel": "Uporabi oznako vozlišča grafa. Dovoljene vrednosti: »displaytitle«.",
-	"srf-paramdesc-graphfields": "Vrednosti lastnosti, ki niso povezane s stranmi, prikaži znotraj vozlišč grafa in ne kot robove."
+	"srf-paramdesc-graphfields": "Vrednosti lastnosti, ki niso povezane s stranmi, prikaži znotraj vozlišč grafa in ne kot robove.",
+	"srf-printername-prolog": "Predikati Prolog",
+	"srf-paramdesc-prolog-pname": "Ime ustvarjenih predikatov. Privzeto: predikat",
+	"srf-printername-dataframe": "Podatkovni okvir R",
+	"srf-paramdesc-dataframe-fileformat": "Format, ki se bo ustvaril za podatkovni okvir. Dovoljene vrednosti: R."
 }
