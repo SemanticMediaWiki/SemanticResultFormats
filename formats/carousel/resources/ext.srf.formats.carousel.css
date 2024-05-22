@@ -1,3 +1,6 @@
+.slick-slider {
+	overflow: hidden;
+}
 
 .slick-prev:before, 
 .slick-next:before {
