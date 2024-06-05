@@ -470,7 +470,6 @@ class SearchPanes {
 					break;
 
 				case DataItem::TYPE_PROPERTY:
-
 					break;
 				case DataItem::TYPE_NOTYPE:
 					$value = $dataValue->getWikiValue();
