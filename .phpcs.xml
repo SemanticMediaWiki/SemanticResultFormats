@@ -15,7 +15,6 @@
 		</properties>
 	</rule>
 	<file>.</file>
-	<exclude-pattern>/(vendor|conf|extensions)/</exclude-pattern>
 	<arg name="extensions" value="php"/>
 	<arg name="encoding" value="UTF-8"/>
 </ruleset>
