@@ -136,7 +136,7 @@ $GLOBALS['srfgColorScheme'] = [
 	'cc210',
 	'cc252',
 	'cc267',
-	'cc294' ,
+	'cc294',
 	'cc303',
 	'cc327',
 	'ylgn',

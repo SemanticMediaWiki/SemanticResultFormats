@@ -11,7 +11,7 @@
  */
 
 $moduleTemplate = [
-	'localBasePath' => __DIR__ ,
+	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'SemanticResultFormats'
 ];
 

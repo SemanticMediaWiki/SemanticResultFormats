@@ -590,8 +590,8 @@ class Carousel extends ResultPrinter {
 			}
 		}
 
-		return [ 'div' => implode( '; ',  $style ),
-			'img' => implode( '; ',  $styleImg ) ];
+		return [ 'div' => implode( '; ', $style ),
+			'img' => implode( '; ', $styleImg ) ];
 	}
 
 	/**

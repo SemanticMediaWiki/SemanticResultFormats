@@ -71,7 +71,7 @@ class TemplateBuilder {
 			$this->template .= $this->open( $this->params['template'] . "-header" );
 			$this->template .= $this->parameter( $property, $key );
 			$this->template .= $this->parameter( "#outlinelevel", $level );
-			$this->template .= $this->parameter( "#itemcount",  $node->leafCount );
+			$this->template .= $this->parameter( "#itemcount", $node->leafCount );
 			$this->template .= $this->parameter( "#userparam", $this->params['userparam'] );
 			$this->template .= $this->close();
 			$this->template .= "<div class='" . $this->params['template'] . "-items'>";
