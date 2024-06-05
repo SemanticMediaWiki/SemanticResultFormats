@@ -105,7 +105,6 @@ class DataframePrinter extends FileExportPrinter {
      *
      */
     protected function getResultText( SMWQueryResult $queryResult, $outputMode ) {
-
         if ( $outputMode === SMW_OUTPUT_FILE ) {
             return $this->getResultFileContents( $queryResult );
         }

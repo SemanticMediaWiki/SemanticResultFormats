@@ -452,7 +452,6 @@ class DataTables extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function handleNonFileResult( $result, QueryResult $results, $outputmode ) {
-
 		// append errors
 		$result .= $this->getErrorString( $results );
 
@@ -687,7 +686,6 @@ class DataTables extends ResultPrinter {
 	 * @return array
 	 */
 	private function getPrintouts( $printRequests ) {
-
 		foreach ( $printRequests as $key => $printRequest ) {
 			$canonicalLabel = $printRequest->getCanonicalLabel();
 
@@ -916,7 +914,6 @@ class DataTables extends ResultPrinter {
 	 * @return array
 	 */
 	public function getCellContent( $label, $dataValues, $outputMode, $isSubject, $propTypeid = null ) {
-
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getShortText';
 		} else {

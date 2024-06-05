@@ -82,7 +82,6 @@ class ResourceFormatter {
 	 * @return array
 	 */
 	private static function appendPreferredPropertyLabel( $printRequests, $ask ) {
-
 		// @see formats/calendar/resources/ext.srf.formats.eventcalendar.js
 		// method "init"
 		// 

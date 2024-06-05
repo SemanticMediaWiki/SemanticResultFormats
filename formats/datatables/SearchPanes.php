@@ -90,7 +90,6 @@ class SearchPanes {
 	 * @return array
 	 */
 	private function getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions ) {
-
 		if ( empty( $canonicalLabel ) ) {
 			return $this->searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions );
 		}
@@ -619,7 +618,6 @@ class SearchPanes {
 	 * @return array
 	 */
 	private function searchPanesMainlabel( $printRequest, $searchPanesOptions, $searchPanesParameterOptions ) {
-
 		// mainlabel consists only of unique values,
 		// so do not display if settings don't allow that
 		if ( $searchPanesOptions['minCount'] > 1 ) {
