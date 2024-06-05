@@ -80,7 +80,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$queryResult->expects( $this->once() )
 			->method( 'addErrors' )
-			->will( $this->returnValue( null ) );
+			->willReturn( null );
 
 		$params = SMWQueryProcessor::getProcessedParams( [ 'format' => 'tree' ], [] );
 
@@ -109,7 +109,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$parserOutput->expects( $this->any() )
 			->method( 'getHeadItems' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$parser = $this->getMockBuilder( '\Parser' )
 			->disableOriginalConstructor()
@@ -117,7 +117,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$parser->expects( $this->any() )
 			->method( 'parse' )
-			->will( $this->returnValue( $parserOutput ) );
+			->willReturn( $parserOutput );
 
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()

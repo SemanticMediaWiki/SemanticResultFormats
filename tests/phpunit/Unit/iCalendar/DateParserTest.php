@@ -20,7 +20,7 @@ class DateParserTest extends \PHPUnit\Framework\TestCase {
 
 		$timeValue->expects( $this->any() )
 			->method( 'getYear' )
-			->will( $this->returnValue( 2000 ) );
+			->willReturn( 2000 );
 
 		$instance = new DateParser();
 
@@ -35,19 +35,19 @@ class DateParserTest extends \PHPUnit\Framework\TestCase {
 
 		$timeValue->expects( $this->any() )
 			->method( 'getYear' )
-			->will( $this->returnValue( 2000 ) );
+			->willReturn( 2000 );
 
 		$timeValue->expects( $this->any() )
 			->method( 'getMonth' )
-			->will( $this->returnValue( 12 ) );
+			->willReturn( 12 );
 
 		$timeValue->expects( $this->any() )
 			->method( 'getDay' )
-			->will( $this->returnValue( 12 ) );
+			->willReturn( 12 );
 
 		$timeValue->expects( $this->any() )
 			->method( 'getTimeString' )
-			->will( $this->returnValue( '12:01:01' ) );
+			->willReturn( '12:01:01' );
 
 		$instance = new DateParser();
 
