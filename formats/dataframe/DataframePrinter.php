@@ -122,7 +122,7 @@ class DataframePrinter extends FileExportPrinter {
     protected function getResultFileContents( SMWQueryResult $queryResult )
     {
         $res = 'data.frame(';
-        if (array_key_exists('rownames', $this->params))
+        if ( array_key_exists( 'rownames', $this->params ) )
             $res .= 'row.names=T, ';
 
         $headers = [];
@@ -130,38 +130,38 @@ class DataframePrinter extends FileExportPrinter {
 
         foreach ( $printRequests as $printRequest ) {
             $header = $printRequest->getLabel();
-            if ($header === '')
+            if ( $header === '' )
                 $header = 'ID';
             $headers[] = $header;
         }
 
         $cols = [];
-        while ($resultRow = $queryResult->getNext()) {
+        while ( $resultRow = $queryResult->getNext() ) {
 
-            foreach ($resultRow as $resultField) {
+            foreach ( $resultRow as $resultField ) {
                 $propertyLabel = $resultField->getPrintRequest()->getLabel();
                 //$subjectLabel = $resultField->getResultSubject()->getTitle()->getFullText();
                 $dataItems = $resultField->getContent();
 
-                if (count($dataItems) > 1) {
+                if ( count( $dataItems ) > 1 ) {
                     $values = [];
 
-                    while ($value = $resultField->getNextText(SMW_OUTPUT_FILE))
+                    while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) )
                         $values[] = $value;
 
-                    $rowData = "'" . implode( ', ', $values) . "'";
+                    $rowData = "'" . implode( ', ', $values ) . "'";
                 }
                 else {
                     $nextDataValue = $resultField->getNextDataValue();
-                    if ($nextDataValue !== false) {
-                        if ($nextDataValue == '')
+                    if ( $nextDataValue !== false ) {
+                        if ( $nextDataValue == '' )
                             $rowData = 'NA';
-                        else if ($nextDataValue instanceof \SMWNumberValue)
+                        else if ( $nextDataValue instanceof \SMWNumberValue )
                             $rowData = $nextDataValue;
-                        else if ($nextDataValue instanceof \SMWTimeValue)
+                        else if ( $nextDataValue instanceof \SMWTimeValue )
                             $rowData = "'" . $nextDataValue->getISO8601Date() . "'";
                         else {
-                            $nextDataValue = str_replace("'", "\'", $nextDataValue);
+                            $nextDataValue = str_replace( "'", "\'", $nextDataValue );
                             $rowData = "'$nextDataValue'";
                         }
                     }
@@ -181,16 +181,16 @@ class DataframePrinter extends FileExportPrinter {
                                 c(subj221, 'subj222', subj223)))
         */
         $i = 0;
-        foreach ($cols as $props) {
+        foreach ( $cols as $props ) {
             $data1 = array();
-            foreach ($props as $subjs) {
-                $data1[] = implode(",\n", $subjs);
+            foreach ( $props as $subjs ) {
+                $data1[] = implode( ",\n", $subjs );
             }
-            $data[] = "'" . $headers[$i] . "' = c(" . implode(', ', $data1) . ')';
+            $data[] = "'" . $headers[$i] . "' = c(" . implode( ', ', $data1 ) . ')';
             $i++;
         }
 
-        $res .= implode(",\n", $data) . ')';
+        $res .= implode( ",\n", $data ) . ')';
         return $res;
     }
 

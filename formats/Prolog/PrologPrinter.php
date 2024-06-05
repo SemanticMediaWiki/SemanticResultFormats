@@ -71,7 +71,7 @@ class PrologPrinter extends FileExportPrinter {
      */
     public function outputAsFile( SMWQueryResult $queryResult, array $params )
     {
-		if ( array_key_exists( 'fileformat', $params) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats )) {
+		if ( array_key_exists( 'fileformat', $params ) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats ) ) {
 			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
 		} else {
 			$this->fileFormat = $this->fileFormats[ 'pl' ];
@@ -159,12 +159,12 @@ class PrologPrinter extends FileExportPrinter {
             $res .= 'row.names=T, ';*/
 
         $preds = [];
-        while ($resultRow = $queryResult->getNext()) {
+        while ( $resultRow = $queryResult->getNext() ) {
 
             $subject = '';
             $i = 0;
-            foreach ($resultRow as $resultField) {
-                if ($i === 0)
+            foreach ( $resultRow as $resultField ) {
+                if ( $i === 0 )
                     $subject = $dataItems = $resultField->getContent()[0];
                 else {
                     $propertyLabel = $resultField->getPrintRequest()->getLabel();
@@ -172,23 +172,23 @@ class PrologPrinter extends FileExportPrinter {
                     //$subjectLabel = $resultField->getResultSubject()->getTitle()->getFullText();
                     $dataItems = $resultField->getContent();
 
-                    if (count($dataItems) > 1) {
+                    if ( count( $dataItems ) > 1 ) {
                         $values = [];
 
-                        while ($value = $resultField->getNextText(SMW_OUTPUT_FILE))
+                        while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) )
                             $values[] = $value;
 
-                        $rowData = "['" . implode("', '", $values) . "']";
+                        $rowData = "['" . implode( "', '", $values ) . "']";
                     }
                     else {
                         $nextDataValue = $resultField->getNextDataValue();
-                        if ($nextDataValue !== false) {
-                            if ($nextDataValue instanceof \SMWNumberValue)
+                        if ( $nextDataValue !== false ) {
+                            if ( $nextDataValue instanceof \SMWNumberValue )
                                 $rowData = $nextDataValue;
-                            else if ($nextDataValue instanceof \SMWTimeValue)
+                            else if ( $nextDataValue instanceof \SMWTimeValue )
                                 $rowData = "'" . $nextDataValue->getISO8601Date() . "'";
                             else {
-                                $nextDataValue = str_replace("'", "\'", $nextDataValue);
+                                $nextDataValue = str_replace( "'", "\'", $nextDataValue );
                                 $rowData = "'$nextDataValue'";
                             }
                         } else
@@ -201,7 +201,7 @@ class PrologPrinter extends FileExportPrinter {
             }
         }
 
-        $res = implode("\n", $preds);
+        $res = implode( "\n", $preds );
         return $res;
     }
 

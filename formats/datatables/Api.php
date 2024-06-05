@@ -236,7 +236,7 @@ class Api extends ApiBase {
 		global $smwgQMaxSize;
 
 		if ( !count( $queryDisjunction ) ) {
-			$queryDisjunction = [''];
+			$queryDisjunction = [ '' ];
 		}
 
 		$query = $data['queryString'] . implode( '', $queryConjunction );

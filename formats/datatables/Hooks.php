@@ -31,7 +31,7 @@ class Hooks {
 		 		$printouts[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ? 
 					$printRequest->getCanonicalLabel() : '' );
 			}
-			$query->setSortKeys( [$printouts[0] => "ASC"] );
+			$query->setSortKeys( [ $printouts[0] => "ASC" ] );
 		}
 
 		$inlineLimit = $query->getLimit();
@@ -47,14 +47,14 @@ class Hooks {
 		}
 
 		$query->setUnboundLimit( min( $limit , $count ) );
-		$query->setOption('count', (int)$count );
+		$query->setOption( 'count', (int)$count );
 
 		$queryResult = $queryEngine->getQueryResult( $query );
 
 		// *** attention ! use the following rather
 		// that after this hook is called, since SMW::Store::AfterQueryResultLookupComplete
 		// migth change the result length !!
-		$query->setOption('useAjax', (int)$count > $queryResult->getCount() );
+		$query->setOption( 'useAjax', (int)$count > $queryResult->getCount() );
 
 		$result = new \SMW\Query\QueryResult(
 			$queryResult->getPrintRequests(),

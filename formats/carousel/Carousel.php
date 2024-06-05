@@ -379,7 +379,7 @@ class Carousel extends ResultPrinter {
 		// *** work-around to allow camelCase parameters
 		$ret = [];
 		foreach ( $params as $key => $value ) {
-			$strlower = strtolower($key);
+			$strlower = strtolower( $key );
 			self::$camelCaseParamsKeys[$strlower] = $key;
 			$ret[$strlower] = $value;
 		}
@@ -485,7 +485,7 @@ class Carousel extends ResultPrinter {
 					$titleValue = end( $arr_ );
 				}
 
-				if ( !$linkValue  ) {
+				if ( !$linkValue ) {
 					$linkValue = $value['fullurl'];
 				}
 
@@ -544,7 +544,7 @@ class Carousel extends ResultPrinter {
 
 		$slick_attr = [];
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'slick-')  === 0 ) {
+			if ( strpos( $key, 'slick-' )  === 0 ) {
 				$slick_attr[ str_replace( 'slick-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
 			}
 		}
@@ -614,7 +614,7 @@ class Carousel extends ResultPrinter {
 	 * @return string|null
 	 */
 	protected function getImage( $value ) {
-		if ( !is_array( $value ) || !array_key_exists( 'fullurl', $value ) || $value['namespace'] !== NS_FILE  ) {
+		if ( !is_array( $value ) || !array_key_exists( 'fullurl', $value ) || $value['namespace'] !== NS_FILE ) {
 			return null;
 		}
 

@@ -417,7 +417,7 @@ class DataTables extends ResultPrinter {
 		// *** workaround to allow camelCase parameters
 		$ret = [];
 		foreach ( $params as $key => $value ) {
-			$strlower = strtolower($key);
+			$strlower = strtolower( $key );
 			self::$camelCaseParamsKeys[$strlower] = $key;
 			$ret[$strlower] = $value;
 		}
@@ -521,7 +521,7 @@ class DataTables extends ResultPrinter {
 		$ask = $this->query->toArray();
 
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-')  === 0 ) {
+			if ( strpos( $key, 'datatables-' )  === 0 ) {
 				continue;
 			}
 			if ( is_string( $value ) || is_int( $value ) || is_bool( $value ) ) {
@@ -541,7 +541,7 @@ class DataTables extends ResultPrinter {
 		// and remove from $tableAttrs
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-')  === 0 ) {
+			if ( strpos( $key, 'datatables-' )  === 0 ) {
 				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
 			}
 		}
@@ -623,7 +623,7 @@ class DataTables extends ResultPrinter {
 		$performer = $context->getUser();
 		$context->getOutput()->addJsConfigVars( [
 			'performer' => $performer->getName(),
-		]);
+		] );
 
 		$tableAttrs = [
 			'class' => 'srf-datatable wikitable display' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
@@ -807,7 +807,7 @@ class DataTables extends ResultPrinter {
 		];
 
 		$ret = [];
-		foreach ($params as $key => $value) {
+		foreach ( $params as $key => $value ) {
 
 			// transform csv to array
 			if ( array_key_exists( $key, $arrayTypes ) ) {
@@ -829,7 +829,7 @@ class DataTables extends ResultPrinter {
 
 			// convert strings like columns.searchPanes.show
 			// to nested objects
-			$arr = explode('.', $key);
+			$arr = explode( '.', $key );
 
 			$ret = array_merge_recursive( $this->plainToNestedObj( $arr, $value ),
 				$ret );
@@ -845,7 +845,7 @@ class DataTables extends ResultPrinter {
 
 		// remove $ret["searchPanes"] = [] if $ret["searchPanes"][0] === false
 		foreach ( $ret as $key => $value ) {
-			if ( $isAssoc(  $value ) && array_key_exists( 0, $value ) ) {
+			if ( $isAssoc( $value ) && array_key_exists( 0, $value ) ) {
 				if ( $value[0] === false ) {
 					unset( $ret[$key] );
 				} else {

@@ -189,7 +189,7 @@ WRAPPED0
 	 */
 	public function testGetWordWrappedText( $unwrapped, $wrapped ) {
 		$formatter = new GraphFormatter(
-			new GraphOptions( GraphFormatterTest::BASE_PARAMS + ['graphfields' => false] )
+			new GraphOptions( GraphFormatterTest::BASE_PARAMS + [ 'graphfields' => false ] )
 		);
 		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
 	}

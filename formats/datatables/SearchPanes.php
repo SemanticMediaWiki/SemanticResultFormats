@@ -124,7 +124,7 @@ class SearchPanes {
 		);
 
 		$queryDescription = $newQuery->getDescription();
-		$queryDescription->setPrintRequests( [$printRequest] );
+		$queryDescription->setPrintRequests( [ $printRequest ] );
 
 		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
 
@@ -393,7 +393,7 @@ class SearchPanes {
 			if ( !array_key_exists( $cellContent, $groups ) ) {
 				$groups[$cellContent] = [ 'count' => 0, 'value' => '' ];
 
-				if (  $dataItem->getDiType() === DataItem::TYPE_TIME ) {
+				if ( $dataItem->getDiType() === DataItem::TYPE_TIME ) {
 					// max Unix time
 					$groups[$cellContent]['minDate'] = 2147483647;
 					$groups[$cellContent]['maxDate'] = 0;
@@ -697,7 +697,7 @@ class SearchPanes {
 		$outputMode = SMW_OUTPUT_HTML;
 		$isSubject = false;
 		$groups = [];
-		foreach( $res as $row) {
+		foreach( $res as $row ) {
 			$dataItem = $diHandler->dataItemFromDBKeys( [
 				$row->t,
 				intval( $row->ns ),

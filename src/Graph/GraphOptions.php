@@ -50,7 +50,7 @@ class GraphOptions {
 	public function getGraphName(): string {
 		// Remove all special characters from the string to prevent the digraph from being
 		// invalid and causing an error.
-		return preg_replace('/[^A-Za-z0-9 ]/', '', $this->graphName );
+		return preg_replace( '/[^A-Za-z0-9 ]/', '', $this->graphName );
 	}
 
 	public function getGraphSize(): string {
