@@ -103,7 +103,7 @@
 		"integration": "composer phpunit -- --testsuite=semantic-result-formats-integration",
 		"phpcs": "phpcs -ps -d memory_limit=2G",
 		"phpcs-fix": "phpcbf -p",
-		"lint": "parallel-lint . --exclude vendor --exclude node_modules",
+		"lint": "parallel-lint . --exclude vendor --exclude node_modules --exclude extensions",
 		"minus-x": "minus-x check ."
 	},
 	"require-dev": {
