@@ -233,7 +233,7 @@ class GraphPrinter extends ResultPrinter {
 		}
 		// Add the node, if any, its parent nodes and fields for non-Page properties to the current edge.
 		if ( $node ) {
-			foreach( $parents as $parent ) {
+			foreach ( $parents as $parent ) {
 				$node->addParentNode( $parent['predicate'], $parent['object'] );
 				// @TODO: add explicit nodes with hyperlinks to every parent node not added as '?', but only once.
 			}

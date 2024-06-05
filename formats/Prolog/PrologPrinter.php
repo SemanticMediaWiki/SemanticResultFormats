@@ -178,8 +178,7 @@ class PrologPrinter extends FileExportPrinter {
                             $values[] = $value;
 
                         $rowData = "['" . implode( "', '", $values ) . "']";
-                    }
-                    else {
+                    } else {
                         $nextDataValue = $resultField->getNextDataValue();
                         if ( $nextDataValue !== false ) {
                             if ( $nextDataValue instanceof \SMWNumberValue )
@@ -190,8 +189,7 @@ class PrologPrinter extends FileExportPrinter {
                                 $nextDataValue = str_replace( "'", "\'", $nextDataValue );
                                 $rowData = "'$nextDataValue'";
                             }
-                        } else
-                            $rowData = $this->params['navalue'];
+                        } else $rowData = $this->params['navalue'];
                     }
                     $preds[] = $this->params['pname'] . "('$subject', '$propertyLabel', $rowData).";
                 }

@@ -59,8 +59,7 @@ class DistanceFilter extends Filter {
 
 			$this->addValueToJsConfig( 'distance filter origin', 'origin', null, $callback );
 
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			$label = $this->getPrintRequest()->getLabel();
 			$this->getQueryPrinter()->addError( "Distance filter on $label: " . $exception->getMessage() );
 			return [];
@@ -107,8 +106,7 @@ class DistanceFilter extends Filter {
 						try {
 							$latlng = $coordParser->parse( $value->getSerialization() );
 							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
-						}
-						catch ( \Exception $exception ) {
+						} catch ( \Exception $exception ) {
 							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
 						}
 						$value = $field->getNextDataItem();

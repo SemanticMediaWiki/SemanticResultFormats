@@ -25,7 +25,7 @@ class ResultItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testArray_representation_is_JSON_serializable_for_UCA_collation_Issue568() {
 		// TODO When SRF will only support MW 1.37+, remove this backward compatibility switch
-		if( method_exists( '\MediaWiki\MediaWikiServices', 'getCollationFactory' ) ) {
+		if ( method_exists( '\MediaWiki\MediaWikiServices', 'getCollationFactory' ) ) {
 			$collation = MediaWikiServices::getInstance()->getCollationFactory()->makeCollation( "uca-de-u-kn" );
 		} else {
 			$collation = Collation::factory( "uca-de-u-kn" );

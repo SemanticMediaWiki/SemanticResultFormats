@@ -208,8 +208,7 @@ class Filtered extends ResultPrinter {
 
 		try {
 			$this->fullParams['limit']->getOriginalValue();
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			$res->getQuery()->setLimit( 0 );
 		}
 

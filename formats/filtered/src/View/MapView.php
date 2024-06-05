@@ -86,8 +86,7 @@ class MapView extends View {
 							$latlng = $coordParser->parse( $value->getSerialization() );
 							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
 							$value = $field->getNextDataItem();
-						}
-						catch ( Exception $exception ) {
+						} catch ( Exception $exception ) {
 							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
 						}
 					}

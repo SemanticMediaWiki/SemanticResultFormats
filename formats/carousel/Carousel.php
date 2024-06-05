@@ -415,7 +415,7 @@ class Carousel extends ResultPrinter {
 
 		// get printrequests and their types
 		$printReqLabels = [];
-		foreach( $data['query']['result']['printrequests'] as $value ) {
+		foreach ( $data['query']['result']['printrequests'] as $value ) {
 			// _uri, _txt, _wpg
 			$printReqLabels[ $value['label'] ] = $value['typeid'];
 		}
@@ -424,7 +424,7 @@ class Carousel extends ResultPrinter {
 
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
-		foreach( $data['query']['result']['results'] as $titleText => $value ) {
+		foreach ( $data['query']['result']['results'] as $titleText => $value ) {
 			$title_ = \Title::newFromText( $titleText );
 			$captions = [];
 			$titles = [];
@@ -432,8 +432,8 @@ class Carousel extends ResultPrinter {
 			$links = [];
 
 			// values explicitly set
-			foreach( $value['printouts'] as $name => $values ) {
-				switch( $name ) {
+			foreach ( $value['printouts'] as $name => $values ) {
+				switch ( $name ) {
 					case $this->params['titleproperty']:
 						$titles = $values;
 					    break;
@@ -444,7 +444,7 @@ class Carousel extends ResultPrinter {
 						$links = $values;
 					    break;
 					case $this->params['imageproperty']:
-						foreach( $values as $printout_value ) {
+						foreach ( $values as $printout_value ) {
 							$images[] = $this->getImage( $printout_value );
 						}
 					    break;
@@ -458,7 +458,7 @@ class Carousel extends ResultPrinter {
 			$imageValue = $this->getFirstValid( $images );
 
 			// if one or more value is empty infer them from the property type
-			foreach( $value['printouts'] as $name => $values ) {
+			foreach ( $value['printouts'] as $name => $values ) {
 				// && $this->params['titleproperty'] !== $name
 				if ( !$captionValue && !$titleValue && $printReqLabels[ $name ] === '_txt' ) {
 					$captionValue = $this->getFirstValid( $values );
@@ -467,7 +467,7 @@ class Carousel extends ResultPrinter {
 					$linkValue = $this->getFirstValid( $values );
 				}
 				if ( !$imageValue && $printReqLabels[ $name ] === '_wpg' ) {
-					foreach( $values as $printout_value ) {
+					foreach ( $values as $printout_value ) {
 						$images[] = $this->getImage( $printout_value );
 					}
 					$imageValue = $this->getFirstValid( $images );
@@ -584,7 +584,7 @@ class Carousel extends ResultPrinter {
 
 		$styleAttr = [ 'width', 'height' ];
 		$style = [];
-		foreach( $styleAttr as $attr ) {
+		foreach ( $styleAttr as $attr ) {
 			if ( !empty( $this->params[$attr] ) ) {
 				$style[ $attr ] = "$attr: " . $this->params[$attr];
 			}
@@ -601,7 +601,7 @@ class Carousel extends ResultPrinter {
 	protected function getFirstValid( $array ) {
 		// *** or use array_filter with no arguments, then
 		// retrieve the first entry
-		foreach( $array as $value ) {
+		foreach ( $array as $value ) {
 			if ( !empty( $value ) ) {
 				return ( is_array( $value ) ? $value['fulltext'] : $value );
 			}

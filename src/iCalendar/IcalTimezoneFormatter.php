@@ -80,8 +80,7 @@ class IcalTimezoneFormatter {
 		foreach ( $this->localTimezones as $timezone ) {
 			try {
 				$dateTimezone = new DateTimeZone( $timezone );
-			}
-			catch ( Exception $e ) {
+			} catch ( Exception $e ) {
 				continue;
 			}
 

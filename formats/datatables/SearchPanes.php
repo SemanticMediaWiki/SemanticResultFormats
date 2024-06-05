@@ -409,7 +409,7 @@ class SearchPanes {
 			// value should be *, for datetime see the
 			// method below
 
-			switch( $dataItem->getDiType() ) {
+			switch ( $dataItem->getDiType() ) {
 				case DataItem::TYPE_NUMBER:
 					if ( $outputFormat === '-u' ) {
 						$value = '*';
@@ -506,7 +506,7 @@ class SearchPanes {
 		arsort( $groups, SORT_NUMERIC );
 
 		$ret = [];
-		foreach( $groups as $content => $value ) {
+		foreach ( $groups as $content => $value ) {
 
 			// @see https://www.semantic-mediawiki.org/wiki/Help:Search_operators
 			// the latest value is returned, with the largest range
@@ -692,7 +692,7 @@ class SearchPanes {
 		$outputMode = SMW_OUTPUT_HTML;
 		$isSubject = false;
 		$groups = [];
-		foreach( $res as $row ) {
+		foreach ( $res as $row ) {
 			$dataItem = $diHandler->dataItemFromDBKeys( [
 				$row->t,
 				intval( $row->ns ),
@@ -727,7 +727,7 @@ class SearchPanes {
 		arsort( $groups, SORT_NUMERIC );
 
 		$ret = [];
-		foreach( $groups as $content => $value ) {
+		foreach ( $groups as $content => $value ) {
 			$ret[] = [
 				'label' => $content,
 				'value' => $value['value'],

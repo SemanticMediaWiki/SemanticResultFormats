@@ -149,8 +149,7 @@ class DataframePrinter extends FileExportPrinter {
                         $values[] = $value;
 
                     $rowData = "'" . implode( ', ', $values ) . "'";
-                }
-                else {
+                } else {
                     $nextDataValue = $resultField->getNextDataValue();
                     if ( $nextDataValue !== false ) {
                         if ( $nextDataValue == '' )
@@ -163,9 +162,7 @@ class DataframePrinter extends FileExportPrinter {
                             $nextDataValue = str_replace( "'", "\'", $nextDataValue );
                             $rowData = "'$nextDataValue'";
                         }
-                    }
-                    else
-                        $rowData = 'NA';
+                    } else $rowData = 'NA';
                 }
 
                 $cols[$propertyLabel][/*$subjectLabel*/][] = $rowData;

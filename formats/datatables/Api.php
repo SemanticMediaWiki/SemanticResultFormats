@@ -109,7 +109,7 @@ class Api extends ApiBase {
 				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
 			} else {
 				$data_ = null;
-				if  ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
+				if ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
 					continue;
 				}
 				// match something like |?=abc |+ datatables-columns.type=any-number |+template=mytemplate
@@ -189,7 +189,7 @@ class Api extends ApiBase {
 						}
 						$v = implode( $criteria['value'] );
 						$str = ( $label !== '' ? "$label::" : '' );
-						switch( $criteria['condition'] ) {
+						switch ( $criteria['condition'] ) {
 							case '=':
 								$searchBuilder[] = "[[{$str}{$v}]]";
 								break;
