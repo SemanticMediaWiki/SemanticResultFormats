@@ -206,7 +206,6 @@ class SRFProcess extends SMWResultPrinter {
 			return '';
 		}
 
-
 		global $wgContLang; // content language object
 
 		//

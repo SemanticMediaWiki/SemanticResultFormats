@@ -37,7 +37,6 @@ class SearchPanes {
 
 	private $queryFactory;
 	
-	
 	public function __construct( $datatables ) {
 		$this->datatables = $datatables;
 	}
@@ -369,7 +368,6 @@ class SearchPanes {
 			if ( $outputFormat ) {
 				$dataValue->setOutputFormat( $outputFormat );
 			}
-
 
 /*
 
