@@ -103,13 +103,13 @@ class Api extends ApiBase {
 		$printouts = [];
 		$dataValueFactory = DataValueFactory::getInstance();
 		foreach ( $printoutsRaw as $printoutData ) {
-			
+
 			// create property from property key
-			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {			
+			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {
 				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
 			} else {
 				$data_ = null;
-				if  ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {	
+				if  ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
 					continue;
 				}
 				// match something like |?=abc |+ datatables-columns.type=any-number |+template=mytemplate
@@ -221,7 +221,7 @@ class Api extends ApiBase {
 									$searchBuilder[] = "[[$label::+]]";
 								}
 								break;
-						
+
 						}
 					}
 				}
@@ -240,7 +240,7 @@ class Api extends ApiBase {
 		}
 
 		$query = $data['queryString'] . implode( '', $queryConjunction );
-		
+
 		$conditions = array_map( static function( $value ) use ( $query ) {
 			return $query . $value;
 		}, $queryDisjunction );
@@ -261,7 +261,7 @@ class Api extends ApiBase {
 		);
 
 		// $size = $query->getDescription()->getSize();
-		
+
 		// $smwgQMaxSize = max( $smwgQMaxSize, $size );
 		// trigger_error('smwgQMaxSize ' . $smwgQMaxSize);
 
@@ -273,7 +273,7 @@ class Api extends ApiBase {
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
 
 		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
-		
+
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
 			$queryDescription = $query->getDescription();

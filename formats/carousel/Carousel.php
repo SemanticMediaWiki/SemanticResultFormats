@@ -511,7 +511,7 @@ class Carousel extends ResultPrinter {
 				'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
 				'class' => "slick-slide-content img"
 			];
-			
+
 			if ( !empty( $inlineStyles['img'] ) ) {
 				$imgAttr['style'] = $inlineStyles['img'];
 			}
@@ -524,7 +524,7 @@ class Carousel extends ResultPrinter {
 					. ( $captionValue ? Html::rawElement( 'div', [ 'class' => 'slick-slide-content caption-text' ], $captionValue ) : '' )
 				);
 			}
-			
+
 			$items[] = Html::rawElement(
 				'div',
 				[
@@ -537,7 +537,7 @@ class Carousel extends ResultPrinter {
 		} // loop through pages
 
 		$attr = [ 'class' => 'slick-slider' . ( empty( $this->params['class'] ) ? '' : ' ' . $this->params['class'] ) ];
-	
+
 		if ( !empty( $inlineStyles['div'] ) ) {
 			$attr['style'] = $inlineStyles['div'];
 		}
@@ -557,7 +557,7 @@ class Carousel extends ResultPrinter {
 				implode( $items )
 			);
 	}
-	
+
 	/**
 	 * @return array
 	 */
@@ -566,12 +566,12 @@ class Carousel extends ResultPrinter {
 			$this->params['width'] = '100%';
 		}
 
-		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );		
+		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );
 		$styleImg = [ 'object-fit: cover' ];
 
 		$absoluteUnits = [ 'cm', 'mm', 'in', 'px', 'pt', 'pc' ];
 		$slidestoshow = $this->params['slick-slidestoshow'];
-		
+
 		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/784
 		if ( !empty( $slidestoshow ) && is_int( $slidestoshow ) && !empty( $match[1] ) ) {
 			if ( empty( $match[2] ) ) {
@@ -581,7 +581,7 @@ class Carousel extends ResultPrinter {
 				( $match[1] / $slidestoshow ) . $match[2]
 				: '100%' );
 		}
-		
+
 		$styleAttr = [ 'width', 'height' ];
 		$style = [];
 		foreach( $styleAttr as $attr ) {

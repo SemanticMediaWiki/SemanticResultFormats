@@ -81,7 +81,7 @@ class SRFDygraphs extends SMWResultPrinter {
 						// Before  MW 1.34
 						$aggregatedValues['url'] = wfFindFile( $subject->getTitle() )->getUrl();
 					}
-					
+
 					$dataSource = true;
 				}
 

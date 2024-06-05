@@ -28,7 +28,7 @@ class Hooks {
 			$printouts = [];
 			foreach ( $query->getExtraPrintouts() as $printRequest ) {
 				// *** is PRINT_THIS always appropriate to match the mainLabel ?
-		 		$printouts[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ? 
+		 		$printouts[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
 					$printRequest->getCanonicalLabel() : '' );
 			}
 			$query->setSortKeys( [ $printouts[0] => "ASC" ] );
