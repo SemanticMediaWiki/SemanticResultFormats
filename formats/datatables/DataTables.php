@@ -910,7 +910,7 @@ class DataTables extends ResultPrinter {
 	 * @param array $dataValues
 	 * @param int $outputMode
 	 * @param bool $isSubject
-	 * @param string $propTypeid
+	 * @param string|null $propTypeid
 	 * @return array
 	 */
 	public function getCellContent( $label, $dataValues, $outputMode, $isSubject, $propTypeid = null ) {
