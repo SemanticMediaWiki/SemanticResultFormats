@@ -118,7 +118,7 @@ FIELDS
 	 * @return GraphFormatter
 	 */
 	private static function graph( array $case ): GraphFormatter {
-		$graph = new GraphFormatter( new GraphOptions( GraphFormatterTest::BASE_PARAMS + $case['params'] ) );
+		$graph = new GraphFormatter( new GraphOptions( self::BASE_PARAMS + $case['params'] ) );
 		$nodes = [];
 		foreach ( $case['nodes'] as $node ) {
 			$graph_node = new GraphNode( $node['name'] );
@@ -189,7 +189,7 @@ WRAPPED0
 	 */
 	public function testGetWordWrappedText( $unwrapped, $wrapped ) {
 		$formatter = new GraphFormatter(
-			new GraphOptions( GraphFormatterTest::BASE_PARAMS + [ 'graphfields' => false ] )
+			new GraphOptions( self::BASE_PARAMS + [ 'graphfields' => false ] )
 		);
 		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
 	}
