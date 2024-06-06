@@ -11,9 +11,6 @@ namespace SRF\Outline;
  */
 class OutlineItem {
 
-	/**
-	 * @var type
-	 */
 	public $row;
 
 	private $vals;
