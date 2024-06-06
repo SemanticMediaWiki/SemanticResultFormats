@@ -42,7 +42,7 @@ class ListTreeBuilder {
 	/**
 	 * @since 3.1
 	 *
-	 * @param OutlineTree $tree
+	 * @param OutlineTree $outlineTree
 	 *
 	 * @return string
 	 */

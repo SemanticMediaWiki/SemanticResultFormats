@@ -216,8 +216,8 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	}
 
 	/**
+	 * @param Worksheet $worksheet
 	 * @param SMWQueryResult $queryResult
-	 * @param $worksheet
 	 *
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */

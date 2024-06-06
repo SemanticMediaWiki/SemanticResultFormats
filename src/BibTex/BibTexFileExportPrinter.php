@@ -95,7 +95,8 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	/**
 	 * @since 3.1
 	 *
-	 * @param array $list
+	 * @param $key
+	 * @param array $values
 	 *
 	 * @return string
 	 */

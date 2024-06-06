@@ -48,7 +48,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param SMWQueryResult $res
 	 * @param $outputMode
 	 *
 	 * @return array

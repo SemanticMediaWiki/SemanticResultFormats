@@ -66,7 +66,7 @@ class Item {
 	/**
 	 * @since 3.1
 	 *
-	 * @param callable $compoundLabelCallback
+	 * @param callable $formatterCallback
 	 */
 	public function setFormatterCallback( callable $formatterCallback ) {
 		$this->formatterCallback = $formatterCallback;

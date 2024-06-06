@@ -34,7 +34,7 @@ class OutlineItem {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $name
+	 * @param $key
 	 * @param $value
 	 */
 	public function addFieldValue( $key, $value ) {
@@ -48,7 +48,7 @@ class OutlineItem {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $row
+	 * @param $key
 	 */
 	public function getFieldValues( $key ) {
 		if ( array_key_exists( $key, $this->vals ) ) {

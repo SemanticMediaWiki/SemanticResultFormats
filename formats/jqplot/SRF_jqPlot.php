@@ -143,7 +143,6 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $data
 	 * @param $minValue
 	 * @param $maxValue
 	 *
