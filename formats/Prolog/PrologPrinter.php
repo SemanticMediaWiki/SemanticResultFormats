@@ -69,8 +69,7 @@ class PrologPrinter extends FileExportPrinter {
 	 * @param SMWQueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( SMWQueryResult $queryResult, array $params )
-	{
+	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
 		if ( array_key_exists( 'fileformat', $params ) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats ) ) {
 			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
 		} else {
@@ -151,8 +150,7 @@ class PrologPrinter extends FileExportPrinter {
 	 *
 	 * @return string
 	 */
-	protected function getResultFileContents( SMWQueryResult $queryResult )
-	{
+	protected function getResultFileContents( SMWQueryResult $queryResult ) {
 		$res = '';
 		/*if ($this->params['rownames'])
 			$res .= 'row.names=T, ';*/

@@ -65,8 +65,7 @@ class DataframePrinter extends FileExportPrinter {
 	 * @param SMWQueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( SMWQueryResult $queryResult, array $params )
-	{
+	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
 		$this->fileFormat = $this->fileFormats[ 'R' ];
 		parent::outputAsFile( $queryResult, $params );
 	}
@@ -118,8 +117,7 @@ class DataframePrinter extends FileExportPrinter {
 	 *
 	 * @return string
 	 */
-	protected function getResultFileContents( SMWQueryResult $queryResult )
-	{
+	protected function getResultFileContents( SMWQueryResult $queryResult ) {
 		$res = 'data.frame(';
 		if ( array_key_exists( 'rownames', $this->params ) )
 			$res .= 'row.names=T, ';
