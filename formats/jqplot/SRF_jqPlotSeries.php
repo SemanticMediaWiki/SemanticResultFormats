@@ -257,7 +257,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $data
 	 *
 	 * @return string
 	 */
