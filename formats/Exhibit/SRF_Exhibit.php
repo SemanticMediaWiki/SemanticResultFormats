@@ -21,19 +21,29 @@ class SRFExhibit extends SMWResultPrinter {
 
 	protected static $exhibitRunningNumber = 0; // not sufficient since there might be multiple pages rendered within one PHP run; but good enough now
 
-	// /overwrite function to allow execution of result printer even if no results are available (in case remote query yields no results in local wiki)
+	/**
+	 * overwrite function to allow execution of result printer even if no results are available
+	 * (in case remote query yields no results in local wiki)
+	 *
+	 */
 	public function getResult( $results, $params, $outputmode ) {
 		$this->readParameters( $params, $outputmode );
 		$result = $this->getResultText( $results, $outputmode );
 		return $result;
 	}
 
-	// /function aligns the format of SMW's property names to Exhibit's format
+	/**
+	 * function aligns the format of SMW's property names to Exhibit's format
+	 *
+	 */
 	protected function encodePropertyName( $property ) {
 		return strtolower( str_replace( " ", "_", trim( $property ) ) );
 	}
 
-	// /Tries to determine the namespace in the event it got lost
+	/**
+	 * Tries to determine the namespace in the event it got lost
+	 *
+	 */
 	protected function determineNamespace( $res ) {
 		$row = $res->getNext();
 		if ( $row != null ) {

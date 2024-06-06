@@ -14,7 +14,7 @@
  */
 class SRFD3Chart extends SMWAggregatablePrinter {
 
-	/*
+	/**
 	 * @see SMWResultPrinter::getName
 	 *
 	 */

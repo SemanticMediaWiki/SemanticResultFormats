@@ -56,7 +56,7 @@ class GraphFormatter {
 		return $this->graph;
 	}
 
-	/*
+	/**
 	 * Add a single string to graph
 	 *
 	 * @param string $line
@@ -65,15 +65,15 @@ class GraphFormatter {
 		$this->graph .= $line;
 	}
 
-	/*
-	* Creates the DOT (graph description language),
-	*  which can be processed by the Diagrams, GraphViz or External Data extension
-	*
-	* @see https://www.graphviz.org/ for documentation about the DOT language
-	* @since 3.2
-	*
-	* @param SRF\Graph\GraphNodes[] $nodes
-	*/
+	/**
+	 * Creates the DOT (graph description language),
+	 *  which can be processed by the Diagrams, GraphViz or External Data extension
+	 *
+	 * @see https://www.graphviz.org/ for documentation about the DOT language
+	 * @since 3.2
+	 *
+	 * @param SRF\Graph\GraphNodes[] $nodes
+	 */
 	public function buildGraph( $nodes ) {
 		global $wgVersion;
 

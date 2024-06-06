@@ -53,14 +53,13 @@ class SRFArray extends SMWResultPrinter {
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
-	/*
-	// By overwriting this function, we disable default searchlabel handling?
-	public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
-		$this->handleParameters( $params, $outputmode );
-		return $this->getResultText( $results, $outputmode );
-	}
+	/**
+	 * By overwriting this function, we disable default searchlabel handling?
+	 * public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
+	 * $this->handleParameters( $params, $outputmode );
+	 * return $this->getResultText( $results, $outputmode );
+	 * }
 	*/
-
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		/*
 		 * @todo
@@ -153,6 +152,10 @@ class SRFArray extends SMWResultPrinter {
 		return $output;
 	}
 
+	/**
+	 * Method fillDeliveryArray
+	 *
+	 */
 	protected function fillDeliveryArray( $array = [], $value = null ) {
 		if ( $value !== null ) { // don't create any empty entries
 			$array[] = $value;
@@ -182,7 +185,11 @@ class SRFArray extends SMWResultPrinter {
 		); // decode: better for further processing with array extension
 	}
 
-	// Property not declared on a page:
+	/**
+	 * Method deliverMissingProperty
+	 *
+	 * @param SMWResultArray $field
+	 */
 	protected function deliverMissingProperty( SMWResultArray $field ) {
 		if ( $this->mHidePropertyGaps ) {
 			return null;
@@ -192,7 +199,13 @@ class SRFArray extends SMWResultPrinter {
 		/** @ToDo: System for Default values?... * */
 	}
 
-	// represented by an array of record fields or just a single array value:
+	/**
+	 * Method deliverSingleManyValuesData
+	 *
+	 * @param $value_items
+	 * @param $containsRecord
+	 * @param $isPageTitle
+	 */
 	protected function deliverSingleManyValuesData( $value_items, $containsRecord, $isPageTitle ) {
 		if ( empty( $value_items ) ) {
 			return null;
