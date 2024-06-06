@@ -125,10 +125,10 @@ class SRFArray extends SMWResultPrinter {
 							$isRecord = true;
  } // handle normal data values:
  else {
-							$value_items = $this->fillDeliveryArray(
-								$value_items,
-								$this->deliverSingleValue( $obj, $this->mLinkOthers )
-							);
+												$value_items = $this->fillDeliveryArray(
+												$value_items,
+												$this->deliverSingleValue( $obj, $this->mLinkOthers )
+													);
  }
 						$delivery = $this->deliverSingleManyValuesData( $value_items, $isRecord, $isPageTitle );
 						$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
