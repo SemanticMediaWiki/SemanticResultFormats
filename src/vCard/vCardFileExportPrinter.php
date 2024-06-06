@@ -310,86 +310,72 @@ class vCardFileExportPrinter extends FileExportPrinter {
 				$vCard->set( 'organization', $this->getFieldValue( $field ) );
 				break;
 			case "workpostofficebox":
-				$workpostofficebox = $this->getFieldValue( $field );
-				if ( $workpostofficebox !== '' ) {
+				if ( ( $workpostofficebox = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'pobox', $workpostofficebox );
 				}
 				break;
 			case "workextendedaddress":
-				$workextendedaddress = $this->getFieldValue( $field );
-				if ( $workextendedaddress !== '' ) {
+				if ( ( $workextendedaddress = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'ext', $workextendedaddress );
 				}
 				break;
 			case "workstreet":
-				$workstreet = $this->getFieldValue( $field );
-				if ( $workstreet !== '' ) {
+				if ( ( $workstreet = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'street', $workstreet );
 				}
 				break;
 			case "worklocality":
-				$worklocality = $this->getFieldValue( $field );
-				if ( $worklocality !== '' ) {
+				if ( ( $worklocality = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'locality', $worklocality );
 				}
 				break;
 			case "workregion":
-				$workregion = $this->getFieldValue( $field );
-				if ( $workregion !== '' ) {
+				if ( ( $workregion = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'region', $workregion );
 				}
 				break;
 			case "workpostalcode":
-				$workpostalcode = $this->getFieldValue( $field );
-				if ( $workpostalcode !== '' ) {
+				if ( ( $workpostalcode = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'code', $workpostalcode );
 				}
 				break;
 			case "workcountry":
-				$workcountry = $this->getFieldValue( $field );
-				if ( $workcountry !== '' ) {
+				if ( ( $workcountry = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['work']->set( 'country', $workcountry );
 				}
 				break;
 			case "homepostofficebox":
-				$homepostofficebox = $this->getFieldValue( $field );
-				if ( $homepostofficebox !== '' ) {
+				if ( ( $homepostofficebox = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'pobox', $homepostofficebox );
 				}
 				break;
 			case "homeextendedaddress":
-				$homeextendedaddress = $this->getFieldValue( $field );
-				if ( $homeextendedaddress !== '' ) {
+				if ( ( $homeextendedaddress = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'ext', $homeextendedaddress );
 				}
 				break;
 			case "homestreet":
-				$homestreet = $this->getFieldValue( $field );
-				if ( $homestreet !== '' ) {
+				if ( ( $homestreet = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'street', $homestreet );
 				}
 				break;
 			case "homelocality":
-				$homelocality = $this->getFieldValue( $field );
-				if ( $homelocality !== '' ) {
+				if ( ( $homelocality = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'locality', $homelocality );
 				}
 				break;
 			case "homeregion":
-				$homeregion = $this->getFieldValue( $field );
-				if ( $homeregion !== '' ) {
+				if ( ( $homeregion = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'region', $homeregion );
 				}
 				break;
 			case "homepostalcode":
-				$homepostalcode = $this->getFieldValue( $field );
-				if ( $homepostalcode !== '' ) {
+				if ( ( $homepostalcode = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'code', $homepostalcode );
 				}
 				break;
 			case "homecountry":
-				$homecountry = $this->getFieldValue( $field );
-				if ( $homecountry !== '' ) {
+				if ( ( $homecountry = $this->getFieldValue( $field ) ) !== '' ) {
 					$addresses['home']->set( 'country', $homecountry );
 				}
 				break;
@@ -418,8 +404,8 @@ class vCardFileExportPrinter extends FileExportPrinter {
 
 	private function getFieldCommaList( $field ) {
 		$list = '';
-		$value = $field->getNextDataValue();
-		while ( $value ) {
+
+		while ( $value = $field->getNextDataValue() ) {
 			$list .= ( $list ? ',' : '' ) . $value->getShortWikiText();
 		}
 
@@ -428,8 +414,8 @@ class vCardFileExportPrinter extends FileExportPrinter {
 
 	private function getFieldValue( $field ) {
 		$v = '';
-		$value = $field->getNextDataValue();
-		if ( $value !== false ) {
+
+		if ( ( $value = $field->getNextDataValue() ) !== false ) {
 			$v = $value->getShortWikiText();
 		}
 

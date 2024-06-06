@@ -138,8 +138,7 @@ class ListTreeBuilder {
 				}
 
 				$dataItem = $dv->getDataItem();
-				$caption = $dv->getDisplayTitle();
-				if ( $linker === null && $dataItem->getDIType() === DataItem::TYPE_WIKIPAGE && $caption !== '' ) {
+				if ( $linker === null && $dataItem->getDIType() === DataItem::TYPE_WIKIPAGE && ( $caption = $dv->getDisplayTitle() ) !== '' ) {
 					$dv->setCaption( $caption );
 				}
 
