@@ -3,7 +3,7 @@
 namespace SRF\Graph;
 
 use Html;
-Use MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
 use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
