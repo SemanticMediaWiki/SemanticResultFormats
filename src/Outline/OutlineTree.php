@@ -10,14 +10,8 @@ namespace SRF\Outline;
  */
 class OutlineTree {
 
-	/**
-	 * @var
-	 */
 	public $tree;
 
-	/**
-	 * @var
-	 */
 	public $items;
 
 	/**

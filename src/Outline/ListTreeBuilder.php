@@ -13,9 +13,6 @@ use SMWDataItem as DataItem;
  */
 class ListTreeBuilder {
 
-	/**
-	 * @var
-	 */
 	private $params = [];
 
 	/**

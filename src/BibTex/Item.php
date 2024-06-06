@@ -19,9 +19,6 @@ class Item {
 	 */
 	private $type = '';
 
-	/**
-	 * @var
-	 */
 	protected $fields = [
 		'address' => '',
 		'annote' => '',
