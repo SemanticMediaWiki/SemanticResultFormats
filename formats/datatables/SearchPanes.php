@@ -171,9 +171,9 @@ class SearchPanes {
 			];
 
 			/*
-            SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0
-            JOIN `smw_fpt_inst` AS t1 ON t0.smw_id=t1.s_id
-            JOIN `smw_fpt_inst` AS insts ON t0.smw_id=insts.s_id
+			SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0
+			JOIN `smw_fpt_inst` AS t1 ON t0.smw_id=t1.s_id
+			JOIN `smw_fpt_inst` AS insts ON t0.smw_id=insts.s_id
 			JOIN `smw_object_ids` AS i ON i.smw_id = insts.o_id
 			WHERE (t1.o_id=1077)
 			GROUP BY i.smw_id

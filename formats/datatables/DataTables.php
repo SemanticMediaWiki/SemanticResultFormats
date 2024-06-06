@@ -128,9 +128,9 @@ class DataTables extends ResultPrinter {
 		];
 
 		$params['datatables-info'] = [
-		 	'type' => 'boolean',
-		 	'message' => 'srf-paramdesc-datatables-library-option',
-		 	'default' => true,
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
 		];
 
 		$params['datatables-lengthChange'] = [
@@ -513,7 +513,7 @@ class DataTables extends ResultPrinter {
 		}
 
 		if ( $this->params['apicall'] === "apicall" ) {
- 			return $this->getResultJson( $res, $outputmode );
+			return $this->getResultJson( $res, $outputmode );
 		}
 
 		// @see src/ResourceFormatter.php -> getData

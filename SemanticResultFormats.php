@@ -161,7 +161,7 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
-      'carousel' => 'SRF\Carousel',
+	  'carousel' => 'SRF\Carousel',
 			'gantt' => 'SRF\Gantt\GanttPrinter',
 			'prolog' => 'SRF\Prolog\PrologPrinter',
 			'dataframe' => 'SRF\dataframe\DataframePrinter',

@@ -436,18 +436,18 @@ class Carousel extends ResultPrinter {
 				switch ( $name ) {
 					case $this->params['titleproperty']:
 						$titles = $values;
-					    break;
+						break;
 					case $this->params['captionproperty']:
 						$captions = $values;
-					    break;
+						break;
 					case $this->params['linkproperty']:
 						$links = $values;
-					    break;
+						break;
 					case $this->params['imageproperty']:
 						foreach ( $values as $printout_value ) {
 							$images[] = $this->getImage( $printout_value );
 						}
-					    break;
+						break;
 				}
 			}
 
