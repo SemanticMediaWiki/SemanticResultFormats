@@ -37,7 +37,7 @@ class GraphFormatter {
 	];
 	private $legendItem = [];
 	private $options;
-	/** @var string Line separator for line wrapped long text.*/
+	/** @var string Line separator for line wrapped long text. */
 	private $lineSeparator;
 
 	public function __construct( GraphOptions $options ) {
