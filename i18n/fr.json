@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ajeje Brazorf",
+			"Alien333",
 			"Brunoperel",
 			"Crochet.david",
 			"DavidL",
@@ -385,7 +386,7 @@
 	"srf-paramdesc-spreadsheet-filename": "Le nom de fichier pour le téléchargement du fichier de feuille de calcul généré",
 	"srf-paramdesc-spreadsheet-fileformat": "Le format à produire pour le fichier de feuille de calcul. Valeurs autorisées : « xlsx », « xls », « ods », « csv ». Par défaut : « xlsx »",
 	"srf-paramdesc-spreadsheet-templatefile": "Le nom d’un fichier de feuille de calcul dans l’espace de noms « Fichier » utilisé pour mettre en forme le fichier généré",
-	"srf-paramdesc-icalendar-timezone": "Une liste de fuseaux horaires séparés par des virgules",
+	"srf-paramdesc-icalendar-timezone": "Une liste de fuseaux horaires séparés par des virgules.",
 	"srf-paramdesc-gantt-diagramtitle": "Nom du diagramme",
 	"srf-paramdesc-gantt-diagramtheme": "Thème du diagramme",
 	"srf-paramdesc-gantt-axisformat": "Axe X : format de date",
