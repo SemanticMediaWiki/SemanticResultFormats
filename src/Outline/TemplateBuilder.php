@@ -119,8 +119,8 @@ class TemplateBuilder {
 	private function itemText( $dv, $linker, $printRequest, &$first_col ) {
 		if ( $first_col && $printRequest->isMode( PrintRequest::PRINT_THIS ) ) {
 			$first_col = false;
-
-			if ( $linker === null && ( $caption = $dv->getDisplayTitle() ) !== '' ) {
+			$caption = $dv->getDisplayTitle();
+			if ( $linker === null && $caption !== '' ) {
 				$dv->setCaption( $caption );
 			}
 
