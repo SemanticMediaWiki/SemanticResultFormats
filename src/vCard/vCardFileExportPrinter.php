@@ -287,6 +287,7 @@ class vCardFileExportPrinter extends FileExportPrinter {
 				break;
 			case "category":
 				$vCard->set( 'category', $this->getFieldCommaList( $field ) );
+				break;
 			case "email":
 				while ( $value = $field->getNextDataValue() ) {
 					$emails[] = new Email( 'INTERNET', $value->getShortWikiText() );
