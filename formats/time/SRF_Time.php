@@ -56,9 +56,11 @@ class SRFTime extends SMWResultPrinter {
 		$seconds = [];
 
 		while ( $row = $res->getNext() ) {
-			foreach ( $row as /* SMWResultArray */
+			/* SMWResultArray */
+			foreach ( $row as
 					  $resultArray ) {
-				foreach ( $resultArray->getContent() as /* SMWDataItem */
+				/* SMWDataItem */
+				foreach ( $resultArray->getContent() as
 						  $dataItem ) {
 					if ( $dataItem->getDIType() === SMWDataItem::TYPE_TIME ) {
 						$seconds[$dataItem->getSortKey()] = $dataItem;

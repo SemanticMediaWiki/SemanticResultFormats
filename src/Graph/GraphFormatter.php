@@ -139,7 +139,8 @@ class GraphFormatter {
 										)
 									. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
-				$nodeLinkURL = null; // the value at the top is already hyperlinked.
+				$nodeLinkURL = null;
+				// the value at the top is already hyperlinked.
 			} else {
 				if ( $nodeLabel ) {
 					// Label, if any, is enclosed with "".

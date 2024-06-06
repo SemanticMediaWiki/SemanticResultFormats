@@ -170,7 +170,7 @@ class TreeNodePrinter implements Visitor {
 				$labelText = '';
 			} elseif ( $this->configuration['headers'] === 'plain' ) {
 				$labelText = $cell->getPrintRequest()->getText( SMW_OUTPUT_WIKI ) . ': ';
-			} else { // $this->configuration[ 'headers' ] === 'link'
+			} else {
 				$labelText = $cell->getPrintRequest()->getText(
 						SMW_OUTPUT_WIKI,
 						$this->resultPrinter->getLinker()

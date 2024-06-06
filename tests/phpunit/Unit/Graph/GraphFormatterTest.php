@@ -19,7 +19,8 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 	/** @var array An array of test cases. */
 	private $cases = [
 		'Simple' => [
-			'params' => [ 'graphfields' => false ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			'params' => [ 'graphfields' => false ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
@@ -49,7 +50,8 @@ size="100";node [shape=rect];rankdir=LR;
 SIMPLE
 		],
 		'With fields' => [
-			'params' => [ 'graphfields' => true ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			'params' => [ 'graphfields' => true ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]

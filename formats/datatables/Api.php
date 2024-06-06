@@ -117,11 +117,16 @@ class Api extends ApiBase {
 
 			// create printrequest from request mode, label, property name, output format, parameters
 			$printouts[] = new SMWPrintRequest(
-				$printoutData[0], // mode
-				$printoutData[1], // (canonical) label
-				$data_, // property name
-				$printoutData[3], // output format
-				$printoutData[4]	// parameters
+				// mode
+				$printoutData[0],
+				// (canonical) label
+				$printoutData[1],
+				// property name
+				$data_,
+				// output format
+				$printoutData[3],
+				// parameters
+				$printoutData[4]
 			);
 
 		}

@@ -200,12 +200,13 @@ class GraphPrinter extends ResultPrinter {
 			$request = $result_array->getPrintRequest();
 			$type = $request->getTypeID();
 			// Whether this printout should be shown as an edge.
-			$show_as_edge = !$this->options->showGraphFields() // no fields at all.
-				|| in_array( $type, self::PAGETYPES ) // property of the type 'Page'.
-				|| $request->isMode( PrintRequest::PRINT_CHAIN ); // property chain, treated like 'Page'.
+			// no fields at all.
+			$show_as_edge = !$this->options->showGraphFields()
+				|| in_array( $type, self::PAGETYPES )
+				|| $request->isMode( PrintRequest::PRINT_CHAIN );
 
 			// Loop through all values of a multivalue field.
-			while ( ( /* SMWWikiPageValue */ $object = $result_array->getNextDataValue() ) !== false ) {
+			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
 				if ( $show_as_edge ) {
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,

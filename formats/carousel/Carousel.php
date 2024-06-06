@@ -534,7 +534,7 @@ class Carousel extends ResultPrinter {
 				$innerContent
 			);
 
-		} // loop through pages
+		}
 
 		$attr = [ 'class' => 'slick-slider' . ( empty( $this->params['class'] ) ? '' : ' ' . $this->params['class'] ) ];
 

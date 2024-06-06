@@ -165,8 +165,8 @@ class DataframePrinter extends FileExportPrinter {
 						$rowData = 'NA';
 					}
 				}
-
-				$cols[$propertyLabel][/*$subjectLabel*/][] = $rowData;
+				// $cols[$propertyLabel][$subjectLabel][] = $rowData;
+				$cols[$propertyLabel][][] = $rowData;
 			}
 		}
 

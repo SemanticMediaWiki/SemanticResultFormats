@@ -142,11 +142,11 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 *
 	 * @return bibTexItem
 	 */
-	private function newItem( array /* of SMWResultArray */ $row ) {
+	private function newItem( array $row ) {
 		$item = new Item();
 		$item->setFormatterCallback( [ $this, 'getFormattedList' ] );
 
-		foreach ( $row as /* SMWResultArray */ $field ) {
+		foreach ( $row as $field ) {
 			$printRequest = $field->getPrintRequest();
 			$values = [];
 
@@ -163,7 +163,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 			} elseif ( $label === 'author' || $label === 'authors' ) {
 				$values[] = $dataValue->getShortWikiText();
 
-				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
+				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
 					$values[] = $dataValue->getShortWikiText();
 				}
 
@@ -171,7 +171,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 			} elseif ( $label === 'editor' || $label === 'editors' ) {
 				$values[] = $dataValue->getShortWikiText();
 
-				while ( ( /* SMWDataValue */ $dataValue = $field->getNextDataValue() ) !== false ) {
+				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
 					$values[] = $dataValue->getShortWikiText();
 				}
 

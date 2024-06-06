@@ -69,7 +69,8 @@ class MapView extends View {
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $markerPositionPropertyName &&
 				( $value instanceof \SMWDIGeoCoord || $value instanceof \SMWDIBlob )
 			) {
-				$values = []; // contains plain text
+				// contains plain text
+				$values = [];
 
 				if ( $value instanceof \SMWDIGeoCoord ) {
 

@@ -165,7 +165,8 @@ class SearchPanes {
 			$orderBy = "count DESC, $groupBy ASC";
 			$sql_options = [
 				'GROUP BY' => $groupBy,
-				'LIMIT' => $dataLength, // $this->query->getOption( 'count' ),
+				// $this->query->getOption( 'count' ),
+				'LIMIT' => $dataLength,
 				'ORDER BY' => $orderBy,
 				'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
 			];

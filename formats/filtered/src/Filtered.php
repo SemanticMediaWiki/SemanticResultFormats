@@ -176,7 +176,8 @@ class Filtered extends ResultPrinter {
 		$resultItems = [];
 		while ( $row = $res->getNext() ) {
 			$resultItems[$this->uniqid()] = new ResultItem( $row, $this );
-			usleep( 1 ); // This is ugly, but for now th opnly way to get all resultItems. See #288.
+			// This is ugly, but for now th opnly way to get all resultItems. See #288.
+			usleep( 1 );
 		}
 
 		$config = [

@@ -22,9 +22,11 @@
  */
 class SRFCHistoricalDate {
 
-	const GREGORIAN_EPOCH = 1721425.5; // equivalent to 1 AD
+	// equivalent to 1 AD
+	const GREGORIAN_EPOCH = 1721425.5;
 
-	protected $m_date; // the Julian day
+	// the Julian day
+	protected $m_date;
 
 	public function create( $year, $month, $day ) {
 		if ( $year < 1582 ||

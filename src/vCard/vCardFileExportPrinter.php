@@ -132,7 +132,8 @@ class vCardFileExportPrinter extends FileExportPrinter {
 
 		if ( array_key_exists( 'limit', $this->params ) ) {
 			$link->setParameter( $this->params['limit'], 'limit' );
-		} else { // use a reasonable default limit
+		} else {
+			// use a reasonable default limit
 			$link->setParameter( 20, 'limit' );
 		}
 

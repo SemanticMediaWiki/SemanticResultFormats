@@ -106,10 +106,11 @@ class TagCloud extends ResultPrinter {
 		 * @var SMWResultArray $row
 		 * @var SMWDataValue $dataValue
 		 */
-		while ( $row = $queryResult->getNext() ) { // Objects (pages)
-			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) { // SMWResultArray for a sinlge property
-
-				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // Data values
+		while ( $row = $queryResult->getNext() ) {
+			// SMWResultArray for a sinlge property
+			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) {
+				// Data values
+				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) {
 
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
 
@@ -242,7 +243,8 @@ class TagCloud extends ResultPrinter {
 				$tags = $newTags;
 				break;
 			case 'unchanged':
-			default: // Restore the original order.
+			// Restore the original order.
+			default:
 				$changedTags = $tags;
 				$tags = [];
 

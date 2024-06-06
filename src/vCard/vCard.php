@@ -206,7 +206,7 @@ class vCard {
 		$vcard['label'] = self::escape( $vcard['label'] );
 
 		// read firstname and lastname, or guess it from other names that are given
-		if ( $vcard['firstname'] . $vcard['lastname'] == '' ) { // guessing needed
+		if ( $vcard['firstname'] . $vcard['lastname'] == '' ) {
 			$nameparts = explode( ' ', $vcard['label'] );
 			// Accepted forms for guessing:
 			// "Lastname"

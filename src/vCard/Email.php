@@ -32,7 +32,8 @@ class Email {
 	 */
 	public function __construct( $type, $emailaddress ) {
 		$this->type = $type;
-		$this->emailaddress = $emailaddress; // no escape, normally not needed anyway
+		// no escape, normally not needed anyway
+		$this->emailaddress = $emailaddress;
 	}
 
 	/**

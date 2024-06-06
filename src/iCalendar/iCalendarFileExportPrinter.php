@@ -204,7 +204,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 
 		if ( array_key_exists( 'limit', $this->params ) ) {
 			$link->setParameter( $this->params['limit'], 'limit' );
-		} else { // use a reasonable default limit
+		} else {
+			// use a reasonable default limit
 			$link->setParameter( 20, 'limit' );
 		}
 
@@ -223,8 +224,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 */
 	private function getEventParams( array $row ) {
 		$result = '';
-
-		$subject = $row[0]->getResultSubject(); // get the object
+		// get the object
+		$subject = $row[0]->getResultSubject();
 		$dataValue = DataValueFactory::getInstance()->newDataValueByItem( $subject, null );
 
 		$params = [
@@ -234,7 +235,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 		$params['from'] = null;
 		$params['to'] = null;
 
-		foreach ( $row as /* SMWResultArray */ $field ) {
+		foreach ( $row as $field ) {
 			$this->filterField( $field, $params );
 		}
 

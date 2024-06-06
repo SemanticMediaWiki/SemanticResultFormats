@@ -100,7 +100,8 @@ class ListTreeBuilder {
 
 	private function item( $item ) {
 		$first_col = true;
-		$found_values = false; // has anything but the first column been printed?
+		// has anything but the first column been printed?
+		$found_values = false;
 		$result = "";
 
 		foreach ( $item->row as $resultArray ) {
@@ -122,7 +123,8 @@ class ListTreeBuilder {
 			$resultArray->reset();
 			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 
-				if ( !$first_col && !$found_values ) { // first values after first column
+				if ( !$first_col && !$found_values ) {
+					// first values after first column
 					$result .= ' (';
 					$found_values = true;
 				} elseif ( $found_values || !$first_value ) {
@@ -130,7 +132,8 @@ class ListTreeBuilder {
 					$result .= ', ';
 				}
 
-				if ( $first_value ) { // first value in any column, print header
+				if ( $first_value ) {
+					// first value in any column, print header
 					$first_value = false;
 					if ( $this->params['showHeaders'] && ( '' != $printRequest->getLabel() ) ) {
 						$result .= $printRequest->getText( SMW_OUTPUT_WIKI, $linker ) . ' ';

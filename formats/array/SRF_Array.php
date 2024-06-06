@@ -82,7 +82,8 @@ class SRFArray extends SMWResultPrinter {
 			$isPageTitle = !$this->mMainLabelHack;
 
 			// for each property on that page:
-			foreach ( $row as $field ) { // $row is array(), $field of type SMWResultArray
+			// $row is array(), $field of type SMWResultArray
+			foreach ( $row as $field ) {
 				$manyValue_items = [];
 				$isMissingProperty = false;
 
@@ -93,8 +94,7 @@ class SRFArray extends SMWResultPrinter {
 					$delivery = $this->deliverMissingProperty( $field );
 					$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					$isMissingProperty = true;
-				} else // otherwise collect property value (potentially many values):
-				{
+				} else {
 					while ( $obj = $field->getNextDataValue() ) {
 
 						$value_items = [];
@@ -104,13 +104,13 @@ class SRFArray extends SMWResultPrinter {
 						if ( $isPageTitle ) {
 							if ( !$this->mShowPageTitles ) {
 								$isPageTitle = false;
-								continue 2; // next property
+								continue 2;
 							}
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
 								$this->deliverPageTitle( $obj, $this->mLinkFirst )
 							);
-						} // handle record values:
+						}
  elseif ( $obj instanceof SMWRecordValue ) {
 							$recordItems = $obj->getDataItems();
 							// walk all single values of the record set:
@@ -123,7 +123,7 @@ class SRFArray extends SMWResultPrinter {
 								);
 							}
 							$isRecord = true;
- } // handle normal data values:
+ }
  else {
 												$value_items = $this->fillDeliveryArray(
 												$value_items,
@@ -133,7 +133,7 @@ class SRFArray extends SMWResultPrinter {
 						$delivery = $this->deliverSingleManyValuesData( $value_items, $isRecord, $isPageTitle );
 						$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					}
-				} // foreach...
+				}
 				$delivery = $this->deliverPropertiesManyValues(
 					$manyValue_items,
 					$isMissingProperty,
@@ -141,11 +141,12 @@ class SRFArray extends SMWResultPrinter {
 					$field
 				);
 				$perProperty_items = $this->fillDeliveryArray( $perProperty_items, $delivery );
-				$isPageTitle = false; // next one could be record or normal value
-			} // foreach...
+				// next one could be record or normal value
+				$isPageTitle = false;
+			}
 			$delivery = $this->deliverPageProperties( $perProperty_items );
 			$perPage_items = $this->fillDeliveryArray( $perPage_items, $delivery );
-		} // while...
+		}
 
 		$output = $this->deliverQueryResultPages( $perPage_items );
 
@@ -157,7 +158,8 @@ class SRFArray extends SMWResultPrinter {
 	 *
 	 */
 	protected function fillDeliveryArray( $array = [], $value = null ) {
-		if ( $value !== null ) { // don't create any empty entries
+		// don't create any empty entries
+		if ( $value !== null ) {
 			$array[] = $value;
 		}
 		return $array;
@@ -172,17 +174,17 @@ class SRFArray extends SMWResultPrinter {
 			return $this->deliverSingleValue( $value, $link );
 		} elseif ( $this->mHideRecordGaps ) {
 			return null;
-		} // hide gap
+		}
  else {
 			return '';
- } // empty string will make sure that record value separators are generated
+ }
 	}
 
 	protected function deliverSingleValue( $value, $link = false ) {
 		// return trim( $value->getShortWikiText( $link ) );
 		return trim(
 			Sanitizer::decodeCharReferences( $value->getShortWikiText( $link ) )
-		); // decode: better for further processing with array extension
+		);
 	}
 
 	/**
@@ -195,7 +197,7 @@ class SRFArray extends SMWResultPrinter {
 			return null;
 		} else {
 			return '';
-		} // empty string will make sure that array separator will be generated
+		}
 		/** @ToDo: System for Default values?... * */
 	}
 
@@ -237,7 +239,8 @@ class SRFArray extends SMWResultPrinter {
 
 	protected function deliverQueryResultPages( $perPage_items ) {
 		if ( $this->mArrayName !== null ) {
-			$this->createArray( $perPage_items ); // create Array
+			// create Array
+			$this->createArray( $perPage_items );
 			return '';
 		} else {
 			return implode( $this->mSep, $perPage_items );
@@ -309,7 +312,7 @@ class SRFArray extends SMWResultPrinter {
 				$params = $obj['args'];
 			} else {
 				$params = [];
-			} // no arguments
+			}
 
 			// create title of page whose text should be used as separator:
 			$obj = Title::newFromText( $obj[0], ( array_key_exists( 1, $obj ) ? $obj[1] : NS_MAIN ) );
@@ -319,7 +322,7 @@ class SRFArray extends SMWResultPrinter {
 		} elseif ( $obj instanceof Article ) {
 			$article = $obj;
 		} else {
-			return $obj; // only text
+			return $obj;
 		}
 
 		/*
@@ -362,7 +365,8 @@ class SRFArray extends SMWResultPrinter {
 			$this->mArrayName = trim( $params['name'] );
 			$this->createArray(
 				[]
-			); // create empty array in case we get no result so we won't have an undefined array in the end.
+			);
+			// create empty array in case we get no result so we won't have an undefined array in the end.
 		}
 
 		// if mainlabel set to '-', this will cause the titles not to appear, so make sure we catch this!

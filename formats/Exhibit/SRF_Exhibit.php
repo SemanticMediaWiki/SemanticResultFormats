@@ -18,8 +18,8 @@ class SRFExhibit extends SMWResultPrinter {
 
 	// /mapping between SMW's and Exhibit's the data types
 	protected $m_types = [ "_wpg" => "text", "_num" => "number", "_dat" => "date", "_geo" => "text", "_uri" => "url" ];
-
-	protected static $exhibitRunningNumber = 0; // not sufficient since there might be multiple pages rendered within one PHP run; but good enough now
+	// not sufficient since there might be multiple pages rendered within one PHP run; but good enough now
+	protected static $exhibitRunningNumber = 0;
 
 	/**
 	 * overwrite function to allow execution of result printer even if no results are available
@@ -96,7 +96,8 @@ class SRFExhibit extends SMWResultPrinter {
 			if ( array_key_exists(
 				'callback',
 				$this->params
-			) ) { // check if a special name for the callback function is set, if not stick with 'callback'
+			) ) {
+				// check if a special name for the callback function is set, if not stick with 'callback'
 				$callbackfunc = $this->params['callback'];
 			} else {
 				$callbackfunc = 'callback';
@@ -165,9 +166,11 @@ class SRFExhibit extends SMWResultPrinter {
 			}
 			foreach ( $facets as $facet ) {
 				$facet = trim( $facet );
-				if ( strtolower( $facet ) == "search" ) { // special facet (text search)
+				if ( strtolower( $facet ) == "search" ) {
+					// special facet (text search)
 					$facetstack[] = ' facet' . $facetcounter++ . ': { position : "right", innerHTML: \'ex:role="facet" ex:showMissing="false" ex:facetClass="TextSearch" ex:facetLabel="' . $facet . '"\'}';
-				} else { // usual facet
+				} else {
+					// usual facet
 					foreach ( $res->getPrintRequests() as $pr ) {
 						if ( $this->encodePropertyName( $pr->getLabel() ) == $this->encodePropertyName( $facet ) ) {
 							switch ( $pr->getTypeID() ) {
@@ -205,32 +208,37 @@ class SRFExhibit extends SMWResultPrinter {
 
 		foreach ( $views as $view ) {
 			switch ( trim( $view ) ) {
-				case 'tabular':// table view (the columns are automatically defined by the selected properties)
+				case 'tabular':
+					// table view (the columns are automatically defined by the selected properties)
 					$thstack = [];
 					foreach ( $res->getPrintRequests() as $pr ) {
 						$thstack[] = "." . $this->encodePropertyName( $pr->getLabel() );
 					}
 					array_shift( $thstack );
 					array_unshift( $thstack, '.label' );
-					$stylesrc = 'var myStyler = function(table, database) {table.className=\'smwtable\';};'; // assign SMWtable CSS to Exhibit tabular view
+					// assign SMWtable CSS to Exhibit tabular view
+					$stylesrc = 'var myStyler = function(table, database) {table.className=\'smwtable\';};';
 					$viewstack[] = 'ex:role=\'view\' ex:viewClass=\'Tabular\' ex:showSummary=\'false\' ex:sortAscending=\'true\' ex:tableStyler=\'myStyler\'  ex:label=\'Table\' ex:columns=\'' . implode(
 							',',
 							$thstack
 						) . '\' ex:sortAscending=\'false\'';
 					break;
-				case 'timeline':// timeline view
+				case 'timeline':
+					// timeline view
 					$timeline = true;
 					$exparams = [
 						'start',
 						'end',
 						'proxy',
-						'colorkey' ]; // parameters expecting an Exhibit graph expression
+						'colorkey' ];
+						// parameters expecting an Exhibit graph expression
 					$usparams = [
 						'timelineheight',
 						'topbandheight',
 						'bottombandheight',
 						'bottombandunit',
-						'topbandunit' ]; // parametes expecting a textual or numeric value
+						'topbandunit' ];
+						// parametes expecting a textual or numeric value
 					$tlparams = [];
 					foreach ( $exparams as $param ) {
 						if ( array_key_exists( $param, $this->params ) ) {
@@ -249,7 +257,8 @@ class SRFExhibit extends SMWResultPrinter {
 					if ( !array_key_exists(
 						'start',
 						$this->params
-					) ) {// find out if a start and/or end date is specified
+					) ) {
+						// find out if a start and/or end date is specified
 						$dates = [];
 						foreach ( $res->getPrintRequests() as $pr ) {
 							if ( $pr->getTypeID() == '_dat' ) {
@@ -271,7 +280,8 @@ class SRFExhibit extends SMWResultPrinter {
 							$tlparams
 						);
 					break;
-				case 'map':// map view
+				case 'map':
+					// map view
 					if ( isset( $wgGoogleMapsKey ) ) {
 						$map = true;
 						$exparams = [ 'latlng', 'colorkey' ];
@@ -301,7 +311,8 @@ class SRFExhibit extends SMWResultPrinter {
 						if ( !array_key_exists( 'start', $this->params ) && !array_key_exists(
 								'end',
 								$this->params
-							) ) { // find out if a geographic coordinate is available
+							) ) {
+							// find out if a geographic coordinate is available
 							foreach ( $res->getPrintRequests() as $pr ) {
 								if ( $pr->getTypeID() == '_geo' ) {
 									$mapparams[] = 'ex:latlng=\'.' . $this->encodePropertyName(
@@ -318,7 +329,8 @@ class SRFExhibit extends SMWResultPrinter {
 					}
 					break;
 				default:
-				case 'tiles':// tile view
+				case 'tiles':
+					// tile view
 					$sortstring = '';
 					if ( array_key_exists( 'sort', $this->params ) ) {
 						$sortfields = explode( ",", $this->params['sort'] );
@@ -353,7 +365,8 @@ class SRFExhibit extends SMWResultPrinter {
 		if ( array_key_exists(
 			'lens',
 			$this->params
-		) ) {// a customized lens is specified via the lens parameter within the query
+		) ) {
+			// a customized lens is specified via the lens parameter within the query
 			$lenstitle = Title::newFromText( "Template:" . $this->params['lens'] );
 			$lensarticle = new Article( $lenstitle );
 			$lenswikitext = $lensarticle->getContent();
@@ -417,14 +430,15 @@ class SRFExhibit extends SMWResultPrinter {
 			$parser = MediaWikiServices::getInstance()->getParser();
 			$lenshtml = $parser->internalParse(
 				$lenswikitext
-			);// $parser->parse($lenswikitext, $lenstitle, new ParserOptions(), true, true)->getText();
-
+			);
+			// $parser->parse($lenswikitext, $lenstitle, new ParserOptions(), true, true)->getText();
 			$lenssrc = "var ex_lens = '" . str_replace(
 					"\n",
 					"",
 					$lenshtml
 				) . "';ex_lenscounter =" . $lenscounter . ";ex_linkcounter=" . $linkcounter . ";ex_imagecounter=" . $imagecounter . ";";
-		} else {// generic lens (creates links to further content (property-pages, pages about values)
+		} else {
+			// generic lens (creates links to further content (property-pages, pages about values)
 			foreach ( $res->getPrintRequests() as $pr ) {
 				if ( $remote ) {
 					$wikiurl = str_replace( "$1", "", $extlinkpattern );
@@ -479,7 +493,8 @@ class SRFExhibit extends SMWResultPrinter {
 		// create a URL pointing to the corresponding JSON feed
 		$label = '';
 		$JSONlink = $res->getQueryLink( $label );
-		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) { // used as a file name
+		if ( $this->getSearchLabel( SMW_OUTPUT_WIKI ) != '' ) {
+			// used as a file name
 			$link->setParameter( $this->getSearchLabel( SMW_OUTPUT_WIKI ), 'searchlabel' );
 		}
 		if ( array_key_exists( 'limit', $this->params ) ) {
@@ -505,22 +520,26 @@ class SRFExhibit extends SMWResultPrinter {
 		$ExhibitScriptSrc1 .= '"></script>';
 		$ExhibitScriptSrc2 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.js"></script>';
 		$CSSSrc = '<link rel="stylesheet" type="text/css" href="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.css"></link>';
-
-		SMWOutputs::requireHeadItem( 'CSS', $CSSSrc ); // include CSS
-		SMWOutputs::requireHeadItem( 'EXHIBIT1', $ExhibitScriptSrc1 ); // include Exhibit API
+		// include CSS
+		SMWOutputs::requireHeadItem( 'CSS', $CSSSrc );
+		// include Exhibit API
+		SMWOutputs::requireHeadItem( 'EXHIBIT1', $ExhibitScriptSrc1 );
 		SMWOutputs::requireHeadItem(
 			'EXHIBIT2',
 			$ExhibitScriptSrc2
-		); // includes javascript overwriting the Exhibit start-up functions
-		SMWOutputs::requireHeadItem( 'SOURCES' . $smwgIQRunningNumber, $sourcesrc );// include sources variable
-		SMWOutputs::requireHeadItem( 'VIEWSFACETS', $headervars );// include views and facets variable
+		);
+		// includes javascript overwriting the Exhibit start-up functions, include sources variable
+		SMWOutputs::requireHeadItem( 'SOURCES' . $smwgIQRunningNumber, $sourcesrc );
+		// include views and facets variable
+		SMWOutputs::requireHeadItem( 'VIEWSFACETS', $headervars );
 
 		if ( !$remote ) {
 
 			// print input table
 			// print header
 			$result = "<table style=\"display:none\" class=\"smwtable\" id=\"querytable" . $smwgIQRunningNumber . "\">\n";
-			if ( $this->mShowHeaders ) { // building headers
+			if ( $this->mShowHeaders ) {
+				// building headers
 				$result .= "\t<tr>\n";
 				foreach ( $res->getPrintRequests() as $pr ) {
 					if ( $pr->getText( $outputmode, $this->getLinker( 0 ) ) == '' ) {
@@ -607,8 +626,9 @@ class SRFExhibit extends SMWResultPrinter {
 
 		if ( self::$exhibitRunningNumber == 0 ) {
 			$result .= "<div id=\"exhibitLocation\"></div>";
-		} // print placeholder (just print it one time)
-		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML ); // yes, our code can be viewed as HTML if requested, no more parsing needed
+		}
+		// print placeholder (just print it one time)
+		$this->isHTML = ( $outputmode == SMW_OUTPUT_HTML );
 		self::$exhibitRunningNumber++;
 		return $result;
 	}
