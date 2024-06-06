@@ -122,12 +122,12 @@ class SRFArray extends SMWResultPrinter {
 								);
 							}
 							$isRecord = true;
- } else {
+						} else {
 												$value_items = $this->fillDeliveryArray(
 												$value_items,
 												$this->deliverSingleValue( $obj, $this->mLinkOthers )
 													);
- }
+						}
 						$delivery = $this->deliverSingleManyValuesData( $value_items, $isRecord, $isPageTitle );
 						$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					}

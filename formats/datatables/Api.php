@@ -78,11 +78,11 @@ class Api extends ApiBase {
 
 				"sort" => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
 					return $datatableData['columns'][$value['column']]['name'];
-					 }, $datatableData['order'] ) ),
+				}, $datatableData['order'] ) ),
 
 				"order" => implode( ',', array_map( static function ( $value ) {
 					return $value['dir'];
-					 }, $datatableData['order'] ) )
+				}, $datatableData['order'] ) )
 
 			]
 		);
