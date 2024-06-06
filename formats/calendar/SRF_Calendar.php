@@ -308,14 +308,14 @@ class SRFCalendar extends SMWResultPrinter {
 		)->inContentLanguage()->text();
 	}
 
-	function formatDateStr( $object ) {
+	public function formatDateStr( $object ) {
 		// For some reason, getMonth() and getDay() sometimes return a
 		// number with a leading zero - get rid of it using (int)
 		return $object->getYear()
 			. '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 	}
 
-	function displayCalendar( $events ) {
+	public function displayCalendar( $events ) {
 		global $srfgFirstDayOfWeek;
 		global $srfgScriptPath;
 

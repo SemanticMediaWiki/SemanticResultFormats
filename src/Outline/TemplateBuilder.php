@@ -158,14 +158,14 @@ class TemplateBuilder {
 		return "}}";
 	}
 
-	function getIntroTemplate(): string {
+	public function getIntroTemplate(): string {
 		if ( $this->params['introtemplate'] === '' ) {
 			return "";
 		}
 		return $this->open( $this->params['introtemplate'] ) . $this->close();
 	}
 
-	function getOutroTemplate(): string {
+	public function getOutroTemplate(): string {
 		if ( $this->params['outrotemplate'] === '' ) {
 			return "";
 		}
