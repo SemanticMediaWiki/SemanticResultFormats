@@ -151,7 +151,7 @@ FIELDS
 	}
 
 	/**
-	 * @covers GraphFormatter::__construct()
+	 * @covers \SRF\Graph\GraphFormatter::__construct()
 	 * @dataProvider provideCanConstruct
 	 * @param array $params
 	 * @return void
@@ -181,7 +181,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::getWordWrappedText()
+	 * @covers \SRF\Graph\GraphFormatter::getWordWrappedText()
 	 * @dataProvider provideGetWordWrappedText
 	 * @param string $unwrapped
 	 * @param string $wrapped
@@ -206,7 +206,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::getGraphLegend()
+	 * @covers \SRF\Graph\GraphFormatter::getGraphLegend()
 	 * @dataProvider provideGetGraphLegend
 	 * @param array $params
 	 * @param string $expected The expected legend.
@@ -228,7 +228,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::buildGraph()
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
 	 * @dataProvider provideBuildGraph
 	 * @param array $params
 	 * @param string $expected The expected DOT code.
