@@ -489,7 +489,7 @@ class Carousel extends ResultPrinter {
 					$linkValue = $value['fullurl'];
 				}
 
-			} else if ( !$imageValue || !$linkValue ) {
+			} elseif ( !$imageValue || !$linkValue ) {
 				if ( !$imageValue && $title_->getNamespace() === NS_FILE ) {
 					$imageValue = $this->getImage( [ 'fullurl' => $title_->getFullUrl(), 'fulltext' => $title_->getFullText(), 'namespace' => $title_->getNamespace() ] );
 				}

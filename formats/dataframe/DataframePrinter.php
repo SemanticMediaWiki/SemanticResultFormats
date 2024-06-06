@@ -153,9 +153,9 @@ class DataframePrinter extends FileExportPrinter {
 					if ( $nextDataValue !== false ) {
 						if ( $nextDataValue == '' ) {
 							$rowData = 'NA';
-						} else if ( $nextDataValue instanceof \SMWNumberValue ) {
+						} elseif ( $nextDataValue instanceof \SMWNumberValue ) {
 							$rowData = $nextDataValue;
-						} else if ( $nextDataValue instanceof \SMWTimeValue ) {
+						} elseif ( $nextDataValue instanceof \SMWTimeValue ) {
 							$rowData = "'" . $nextDataValue->getISO8601Date() . "'";
 						} else {
 							$nextDataValue = str_replace( "'", "\'", $nextDataValue );

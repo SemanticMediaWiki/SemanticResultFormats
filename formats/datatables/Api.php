@@ -233,7 +233,7 @@ class Api extends ApiBase {
 			}
 			if ( $datatableData['searchBuilder']['logic'] === 'AND' ) {
 				$queryConjunction = array_merge( $queryConjunction, $searchBuilder );
-			} else if ( $datatableData['searchBuilder']['logic'] === 'OR' ) {
+			} elseif ( $datatableData['searchBuilder']['logic'] === 'OR' ) {
 				$queryDisjunction = array_merge( $queryDisjunction, $searchBuilder );
 			}
 		}
