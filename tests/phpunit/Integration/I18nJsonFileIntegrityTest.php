@@ -19,6 +19,7 @@ class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnitCompat;
 
 	/**
+	 * @covers I18nJsonFileIntegrity
 	 * @dataProvider i18nFileProvider
 	 */
 	public function testI18NJsonDecodeEncode( $file ) {

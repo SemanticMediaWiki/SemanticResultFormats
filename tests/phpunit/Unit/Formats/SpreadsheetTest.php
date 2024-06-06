@@ -22,6 +22,10 @@ class SpreadsheetTest extends QueryPrinterRegistryTestCase {
 		return 'SRF\SpreadsheetPrinter';
 	}
 
+	/**
+	 * @covers Spreadsheet
+	 *
+	 */
 	public function testLink() {
 		$link = $this->getMockBuilder( '\SMWInfolink' )
 			->disableOriginalConstructor()

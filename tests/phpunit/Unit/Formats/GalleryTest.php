@@ -67,6 +67,9 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		return 'SRF\Gallery';
 	}
 
+	/**
+	 * @covers Gallery getName
+	 */
 	public function testGetName() {
 		$instance = new Gallery(
 			'gallery'
@@ -75,6 +78,9 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		$this->assertIsString( $instance->getName() );
 	}
 
+	/**
+	 * @covers Gallery buildResult
+	 */
 	public function testBuildResult() {
 		$instance = new Gallery(
 			'gallery'

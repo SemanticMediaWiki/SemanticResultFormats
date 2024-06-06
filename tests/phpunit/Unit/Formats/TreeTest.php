@@ -68,6 +68,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	}
 
 	/**
+	 * @covers Tree getResult_NoParentProperty
 	 */
 	public function testGetResult_NoParentProperty() {
 		$this->prepareGlobalState();
