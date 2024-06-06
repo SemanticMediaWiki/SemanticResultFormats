@@ -16,7 +16,7 @@ use SRF\Graph\GraphOptions;
  */
 class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 
-	/** @var array $cases An array of test cases. */
+	/** @var array An array of test cases.*/
 	private $cases = [
 		'Simple' => [
 			'params' => [ 'graphfields' => false ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
