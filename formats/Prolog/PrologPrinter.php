@@ -161,9 +161,9 @@ class PrologPrinter extends FileExportPrinter {
 			$subject = '';
 			$i = 0;
 			foreach ( $resultRow as $resultField ) {
-				if ( $i === 0 )
+				if ( $i === 0 ) {
 					$subject = $dataItems = $resultField->getContent()[0];
-				else {
+				} else {
 					$propertyLabel = $resultField->getPrintRequest()->getLabel();
 
 					// $subjectLabel = $resultField->getResultSubject()->getTitle()->getFullText();
@@ -172,22 +172,24 @@ class PrologPrinter extends FileExportPrinter {
 					if ( count( $dataItems ) > 1 ) {
 						$values = [];
 
-						while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) )
+						while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) ) {
 							$values[] = $value;
-
+						}
 						$rowData = "['" . implode( "', '", $values ) . "']";
 					} else {
 						$nextDataValue = $resultField->getNextDataValue();
 						if ( $nextDataValue !== false ) {
-							if ( $nextDataValue instanceof \SMWNumberValue )
+							if ( $nextDataValue instanceof \SMWNumberValue ) {
 								$rowData = $nextDataValue;
-							else if ( $nextDataValue instanceof \SMWTimeValue )
+							} else if ( $nextDataValue instanceof \SMWTimeValue ) {
 								$rowData = "'" . $nextDataValue->getISO8601Date() . "'";
-							else {
+							} else {
 								$nextDataValue = str_replace( "'", "\'", $nextDataValue );
 								$rowData = "'$nextDataValue'";
 							}
-						} else $rowData = $this->params['navalue'];
+						} else {
+							$rowData = $this->params['navalue'];
+						}
 					}
 					$preds[] = $this->params['pname'] . "('$subject', '$propertyLabel', $rowData).";
 				}

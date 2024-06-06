@@ -119,16 +119,17 @@ class DataframePrinter extends FileExportPrinter {
 	 */
 	protected function getResultFileContents( SMWQueryResult $queryResult ) {
 		$res = 'data.frame(';
-		if ( array_key_exists( 'rownames', $this->params ) )
+		if ( array_key_exists( 'rownames', $this->params ) ) {
 			$res .= 'row.names=T, ';
-
+		}
 		$headers = [];
 		$printRequests = $queryResult->getPrintRequests();
 
 		foreach ( $printRequests as $printRequest ) {
 			$header = $printRequest->getLabel();
-			if ( $header === '' )
+			if ( $header === '' ) {
 				$header = 'ID';
+			}
 			$headers[] = $header;
 		}
 
@@ -143,24 +144,26 @@ class DataframePrinter extends FileExportPrinter {
 				if ( count( $dataItems ) > 1 ) {
 					$values = [];
 
-					while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) )
+					while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) ) {
 						$values[] = $value;
-
+					}
 					$rowData = "'" . implode( ', ', $values ) . "'";
 				} else {
 					$nextDataValue = $resultField->getNextDataValue();
 					if ( $nextDataValue !== false ) {
-						if ( $nextDataValue == '' )
+						if ( $nextDataValue == '' ) {
 							$rowData = 'NA';
-						else if ( $nextDataValue instanceof \SMWNumberValue )
+						} else if ( $nextDataValue instanceof \SMWNumberValue ) {
 							$rowData = $nextDataValue;
-						else if ( $nextDataValue instanceof \SMWTimeValue )
+						} else if ( $nextDataValue instanceof \SMWTimeValue ) {
 							$rowData = "'" . $nextDataValue->getISO8601Date() . "'";
-						else {
+						} else {
 							$nextDataValue = str_replace( "'", "\'", $nextDataValue );
 							$rowData = "'$nextDataValue'";
 						}
-					} else $rowData = 'NA';
+					} else {
+						$rowData = 'NA';
+					}
 				}
 
 				$cols[$propertyLabel][/*$subjectLabel*/][] = $rowData;
