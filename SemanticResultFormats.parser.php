@@ -25,7 +25,7 @@ class SRFParserFunctions {
 		if ( $calendar_type == '' ) {
 			$calendar_type = 'month';
 		}
-		list( $lower_date, $upper_date, $query_date ) =
+		[ $lower_date, $upper_date, $query_date ] =
 			self::getBoundaryDates( $calendar_type, $calendar_start_day, $calendar_days, $default_year, $default_month, $default_day );
 		return date( "Y", $lower_date ) . '-' . date( "m", $lower_date ) . '-' . date( "d", $lower_date );
 	}
@@ -34,7 +34,7 @@ class SRFParserFunctions {
 		if ( $calendar_type == '' ) {
 			$calendar_type = 'month';
 		}
-		list( $lower_date, $upper_date, $query_date ) =
+		[ $lower_date, $upper_date, $query_date ] =
 			self::getBoundaryDates( $calendar_type, $calendar_start_day, $calendar_days, $default_year, $default_month, $default_day );
 		return date( "Y", $upper_date ) . '-' . date( "m", $upper_date ) . '-' . date( "d", $upper_date );
 	}

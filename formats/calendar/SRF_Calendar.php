@@ -603,7 +603,7 @@ END;
 				$events = [];
 			}
 			foreach ( $events as $event ) {
-				list( $eventTitle, $otherText, $eventDate, $color ) = $event;
+				[ $eventTitle, $otherText, $eventDate, $color ] = $event;
 				if ( $eventDate == $dateStr ) {
 					if ( $this->mTemplate != '' ) {
 						$templatetext = '{{' . $this->mTemplate . $otherText .

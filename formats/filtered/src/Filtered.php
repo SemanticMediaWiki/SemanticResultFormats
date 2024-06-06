@@ -186,12 +186,12 @@ class Filtered extends ResultPrinter {
 			'data' => [],
 		];
 
-		list( $filterHtml, $printrequests ) = $this->getFilterHtml( $res, $resultItems );
+		[ $filterHtml, $printrequests ] = $this->getFilterHtml( $res, $resultItems );
 
 		$this->printrequests = $printrequests;
 		$config['printrequests'] = $printrequests;
 
-		list( $viewHtml, $config ) = $this->getViewHtml( $res, $resultItems, $config );
+		[ $viewHtml, $config ] = $this->getViewHtml( $res, $resultItems, $config );
 
 		SMWOutputs::requireResource( 'ext.srf.filtered' );
 

@@ -234,7 +234,7 @@ class SearchPanes {
 				return [];
 			}
 
-			list( $diType, $isIdField, $fields, $groupBy, $orderBy ) = $this->fetchValuesByGroup( $property, $p_alias, $propTypeid );
+			[ $diType, $isIdField, $fields, $groupBy, $orderBy ] = $this->fetchValuesByGroup( $property, $p_alias, $propTypeid );
 
 			/*
 			---GENERATED FROM DATATABLES

@@ -109,7 +109,7 @@ class SRFExhibit extends SMWResultPrinter {
 			$link->setParameter( $callbackfunc, 'callback' );
 			$link = $link->getText( 2, $this->mLinker );
 
-			list( $link, $trash ) = explode( '|', $link );
+			[ $link, $trash ] = explode( '|', $link );
 			$link = str_replace( '[[:', '', $link );
 
 			$newheader .= str_replace( '$1', $link, $extlinkpattern );

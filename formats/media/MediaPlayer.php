@@ -128,7 +128,7 @@ class MediaPlayer extends ResultPrinter {
 
 				// Check if the subject itself is a media source
 				if ( $field->getResultSubject()->getTitle()->getNamespace() === NS_FILE && $mimeType === null ) {
-					list( $mediaType, $mimeType, $source ) = $this->getMediaSource(
+					[ $mediaType, $mimeType, $source ] = $this->getMediaSource(
 						$field->getResultSubject()->getTitle()
 					);
 					$rowData[$mimeType] = $source;
@@ -187,7 +187,7 @@ class MediaPlayer extends ResultPrinter {
 			} elseif ( in_array( $extension, [ 'm4v', 'm4a', 'm4p' ] ) ) {
 				$params = [ $extension === 'm4v' ? 'video' : 'audio', $extension, $source->getUrl() ];
 			} else {
-				list( $major, $minor ) = File::splitMime( $source->getMimeType() );
+				[ $major, $minor ] = File::splitMime( $source->getMimeType() );
 				$params = [ $major, $extension, $source->getUrl() ];
 			}
 		} else {
@@ -224,7 +224,7 @@ class MediaPlayer extends ResultPrinter {
 
 					// Identify the media source
 					// and get media information
-					list( $mediaType, $mimeType, $source ) = $this->getMediaSource( $title );
+					[ $mediaType, $mimeType, $source ] = $this->getMediaSource( $title );
 					$label = $mimeType;
 					return $source;
 				} elseif ( $label === 'poster' ) {
