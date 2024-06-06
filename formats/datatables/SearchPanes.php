@@ -299,7 +299,7 @@ class SearchPanes {
 				'grouped' => false,
 			];
 
-			//  || $binLength <= 1
+			// || $binLength <= 1
 			if ( $uniqueRatio > $threshold ) {
 				return [];
 			}
@@ -496,7 +496,7 @@ class SearchPanes {
 				'grouped' => true,
 			];
 
-			//  || $binLength <= 1
+			// || $binLength <= 1
 			if ( $uniqueRatio > $threshold ) {
 				return [];
 			}

@@ -90,7 +90,7 @@ class DataTables extends ResultPrinter {
 			'type' => 'string',
 			'message' => 'smw-paramdesc-sep',
 			'default' => ',&#32;',
-			//'default' => '&#32;',
+			// 'default' => '&#32;',
 		];
 
 		$params['prefix'] = [

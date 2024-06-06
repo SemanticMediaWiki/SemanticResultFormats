@@ -139,7 +139,7 @@ class DataframePrinter extends FileExportPrinter {
 
 			foreach ( $resultRow as $resultField ) {
 				$propertyLabel = $resultField->getPrintRequest()->getLabel();
-				//$subjectLabel = $resultField->getResultSubject()->getTitle()->getFullText();
+				// $subjectLabel = $resultField->getResultSubject()->getTitle()->getFullText();
 				$dataItems = $resultField->getContent();
 
 				if ( count( $dataItems ) > 1 ) {
