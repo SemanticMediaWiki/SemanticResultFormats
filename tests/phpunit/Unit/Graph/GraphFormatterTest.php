@@ -114,7 +114,7 @@ FIELDS
 
 	/**
 	 * Create a complete graph for the test case.
-	 * @var array $case
+	 * @param array $case
 	 * @return GraphFormatter
 	 */
 	private static function graph( array $case ): GraphFormatter {

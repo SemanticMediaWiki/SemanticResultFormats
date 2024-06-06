@@ -43,7 +43,7 @@ final class SRFUtils {
 	}
 
 	/**
-	 * @brief Returns semantic search link for the current query
+	 * Returns semantic search link for the current query
 	 *
 	 * Generate a link to access the current ask query
 	 *
