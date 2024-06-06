@@ -110,8 +110,7 @@ class SRFArray extends SMWResultPrinter {
 								$value_items,
 								$this->deliverPageTitle( $obj, $this->mLinkFirst )
 							);
-						}
- elseif ( $obj instanceof SMWRecordValue ) {
+						} elseif ( $obj instanceof SMWRecordValue ) {
 							$recordItems = $obj->getDataItems();
 							// walk all single values of the record set:
 							foreach ( $recordItems as $dataItem ) {
@@ -123,8 +122,7 @@ class SRFArray extends SMWResultPrinter {
 								);
 							}
 							$isRecord = true;
- }
- else {
+ } else {
 												$value_items = $this->fillDeliveryArray(
 												$value_items,
 												$this->deliverSingleValue( $obj, $this->mLinkOthers )
@@ -174,10 +172,9 @@ class SRFArray extends SMWResultPrinter {
 			return $this->deliverSingleValue( $value, $link );
 		} elseif ( $this->mHideRecordGaps ) {
 			return null;
-		}
- else {
+		} else {
 			return '';
- }
+		}
 	}
 
 	protected function deliverSingleValue( $value, $link = false ) {
