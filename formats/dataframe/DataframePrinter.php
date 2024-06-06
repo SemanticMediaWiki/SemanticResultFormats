@@ -179,7 +179,7 @@ class DataframePrinter extends FileExportPrinter {
 		*/
 		$i = 0;
 		foreach ( $cols as $props ) {
-			$data1 = array();
+			$data1 = [];
 			foreach ( $props as $subjs ) {
 				$data1[] = implode( ",\n", $subjs );
 			}
