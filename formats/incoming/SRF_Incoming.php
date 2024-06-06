@@ -27,7 +27,7 @@ class SRFIncoming extends SMWResultPrinter {
 	 * @since 1.8
 	 *
 	 * @param SMWQueryResult $result
-	 * @param $outputMode
+	 * @param $outputmode
 	 *
 	 * @return string
 	 */
