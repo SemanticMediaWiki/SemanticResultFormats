@@ -220,7 +220,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * @param ResultArray[] $row
 	 *
-	 * @return
+	 * @return array
 	 */
 	private function getEventParams( array $row ) {
 		$result = '';
