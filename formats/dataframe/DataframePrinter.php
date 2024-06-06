@@ -30,7 +30,7 @@ class DataframePrinter extends FileExportPrinter {
 	 * @see ResultPrinter::getName
 	 *
 	 * {@inheritDoc}
-	*/
+	 */
 	public function getName() {
 		return $this->msg( 'srf-printername-dataframe' );
 	}

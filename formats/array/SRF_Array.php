@@ -59,7 +59,7 @@ class SRFArray extends SMWResultPrinter {
 	 * $this->handleParameters( $params, $outputmode );
 	 * return $this->getResultText( $results, $outputmode );
 	 * }
-	*/
+	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		/*
 		 * @todo
