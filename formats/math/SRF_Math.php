@@ -312,19 +312,19 @@ class SRFMath extends SMWResultPrinter {
 				return MathFormats::range_function( $numbers );
 			case 'quartillower':
 				return MathFormats::quartillower_inc_function( $numbers );
-			case 'quartilupper';
+			case 'quartilupper':
 				return MathFormats::quartilupper_inc_function( $numbers );
-			case 'quartillower.exc';
+			case 'quartillower.exc':
 				return MathFormats::quartillower_exc_function( $numbers );
-			case 'quartilupper.exc';
+			case 'quartilupper.exc':
 				return MathFormats::quartilupper_exc_function( $numbers );
 			case 'interquartilerange':
 				return MathFormats::interquartilerange_inc_function( $numbers );
-			case 'interquartilerange.exc';
+			case 'interquartilerange.exc':
 				return MathFormats::interquartilerange_exc_function( $numbers );
-			case 'mode';
+			case 'mode':
 				return MathFormats::mode_function( $numbers );
-			case 'interquartilemean';
+			case 'interquartilemean':
 				return MathFormats::interquartilemean_function( $numbers );
 		}
 	}
