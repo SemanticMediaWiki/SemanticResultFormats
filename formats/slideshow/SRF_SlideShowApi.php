@@ -175,8 +175,8 @@ class SRFSlideShowApi extends ApiBase {
 	 * @return string
 	 */
 	public function getVersion() {
-		global $srfgIP;
-		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfgIP );
+		$srfg = $this->getConfig()->get();
+		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfg );
 		return __CLASS__ . '-' . SRF_VERSION . ( $gitSha1 !== false ) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
 
