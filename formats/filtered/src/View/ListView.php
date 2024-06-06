@@ -26,7 +26,12 @@ use Message;
  */
 class ListView extends View {
 
-	private $mFormat, $mTemplate, $mIntroTemplate, $mOutroTemplate, $mNamedArgs, $mShowHeaders;
+	private $mFormat;
+	private $mTemplate;
+	private $mIntroTemplate;
+	private $mOutroTemplate;
+	private $mNamedArgs;
+	private $mShowHeaders;
 
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
