@@ -189,8 +189,8 @@ class TagCloud extends ResultPrinter {
 			$tags = array_slice( $tags, 0, $this->params['maxtags'], true );
 		}
 
-		$min = end( $tags ) or $min = 0;
-		$max = reset( $tags ) or $max = 1;
+		$min = end( $tags ) || $min = 0;
+		$max = reset( $tags ) || $max = 1;
 		$maxSizeIncrease = $this->params['maxsize'] - $this->params['minsize'];
 
 		// Loop over the tags, and replace their count by a size.
