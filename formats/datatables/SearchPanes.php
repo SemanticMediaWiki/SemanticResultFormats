@@ -260,7 +260,7 @@ class SearchPanes {
 			// @see QueryEngine
 			$res = $this->connection->select(
 				 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-				. ( !$isIdField ?  ''
+				. ( !$isIdField ? ''
 					: " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS `i` ON ($p_alias.o_id = i.smw_id)" ),
 				implode( ',', $fields ),
 				$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
