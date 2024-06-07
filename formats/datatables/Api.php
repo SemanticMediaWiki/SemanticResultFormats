@@ -136,7 +136,7 @@ class Api extends ApiBase {
 		$printrequests = $data['printrequests'];
 		$columnDefs = $data['columnDefs'];
 
-		$getColumnAttribute = function( $label, $attr ) use( $columnDefs ) {
+		$getColumnAttribute = static function( $label, $attr ) use( $columnDefs ) {
 			foreach ( $columnDefs as $value ) {
 				if ( $value['name'] === $label && array_key_exists( $attr, $value ) ) {
 					return $value[$attr];

@@ -834,7 +834,7 @@ class DataTables extends ResultPrinter {
 
 		}
 
-		$isAssoc = function( $value ) {
+		$isAssoc = static function( $value ) {
 			if ( !is_array( $value ) || [] === $value ) {
 				return false;
 			}
