@@ -545,7 +545,7 @@ class Carousel extends ResultPrinter {
 		$slick_attr = [];
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'slick-' )  === 0 ) {
-				$slick_attr[ str_replace( 'slick-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
+				$slick_attr[ str_replace( 'slick-', '', self::$camelCaseParamsKeys[$key] ) ] = $value;
 			}
 		}
 

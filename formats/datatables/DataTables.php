@@ -541,7 +541,7 @@ class DataTables extends ResultPrinter {
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
 			if ( strpos( $key, 'datatables-' )  === 0 ) {
-				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
+				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value;
 			}
 		}
 
