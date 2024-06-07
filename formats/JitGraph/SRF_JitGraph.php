@@ -144,7 +144,8 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgTitle, $wgOut;
+		global $wgOut;
+		$title = RequestContext::getMain()->getTitle();
 
 		if ( class_exists( 'ResourceLoader' ) ) {
 			$wgOut->addModules( 'ext.srf.jitgraph' );
@@ -171,7 +172,7 @@ class SRFJitGraph extends SMWResultPrinter {
 						$firstcolvalue = $object->getShortText( $outputmode );
 
 						// Title of the page where the result format is being displayed
-						$thisPageTitle = $wgTitle->getPrefixedText();
+						$thisPageTitle = $title->getPrefixedText();
 
 						// This little block adds the name of the current edge to the list later used to compile the graph legend
 						$req = $field->getPrintRequest();
