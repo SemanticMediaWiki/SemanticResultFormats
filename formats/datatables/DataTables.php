@@ -520,7 +520,7 @@ class DataTables extends ResultPrinter {
 		$ask = $this->query->toArray();
 
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-' )  === 0 ) {
+			if ( strpos( $key, 'datatables-' ) === 0 ) {
 				continue;
 			}
 			if ( is_string( $value ) || is_int( $value ) || is_bool( $value ) ) {
@@ -540,7 +540,7 @@ class DataTables extends ResultPrinter {
 		// and remove from $tableAttrs
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-' )  === 0 ) {
+			if ( strpos( $key, 'datatables-' ) === 0 ) {
 				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value;
 			}
 		}
