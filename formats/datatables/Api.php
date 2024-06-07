@@ -136,7 +136,7 @@ class Api extends ApiBase {
 		$printrequests = $data['printrequests'];
 		$columnDefs = $data['columnDefs'];
 
-		$getColumnAttribute = static function( $label, $attr ) use( $columnDefs ) {
+		$getColumnAttribute = static function ( $label, $attr ) use( $columnDefs ) {
 			foreach ( $columnDefs as $value ) {
 				if ( $value['name'] === $label && array_key_exists( $attr, $value ) ) {
 					return $value[$attr];
@@ -246,7 +246,7 @@ class Api extends ApiBase {
 
 		$query = $data['queryString'] . implode( '', $queryConjunction );
 
-		$conditions = array_map( static function( $value ) use ( $query ) {
+		$conditions = array_map( static function ( $value ) use ( $query ) {
 			return $query . $value;
 		}, $queryDisjunction );
 
