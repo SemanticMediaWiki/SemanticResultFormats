@@ -5,7 +5,7 @@
  *
  * @see http://datatables.net/
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author thomas-topway-it for KM-A
  */
 
