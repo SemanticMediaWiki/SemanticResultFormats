@@ -246,15 +246,12 @@ class SearchPanes {
 			SELECT i.smw_id,i.smw_title,i.smw_namespace,i.smw_iw,i.smw_subobject,i.smw_hash,i.smw_sort,COUNT( p.o_id ) as count FROM `smw_object_ids` `o` INNER JOIN `smw_di_wikipage` `p` ON ((p.s_id=o.smw_id)) JOIN `smw_object_ids` `i` ON ((p.o_id=i.smw_id)) WHERE o.smw_hash IN ('1_-_A','1_-_Ab','1_-_Abc','10_-_Abcd','11_-_Abc') AND (o.smw_iw!=':smw') AND (o.smw_iw!=':smw-delete') AND p.p_id = 517 GROUP BY p.o_id, i.smw_id ORDER BY count DESC, i.smw_sort ASC
 			*/
 
-			global $smwgQMaxLimit;
-
 			$sql_options = [
 				'GROUP BY' => $groupBy,
 				// the following implies that if the user sets a threshold
 				// close or equal to 1, and there are too many unique values,
 				// the page will break, however the user has responsibility
 				// for using searchPanes only for data reasonably grouped
-				// shouldn't be 'LIMIT' => $smwgQMaxLimit, ?
 				'LIMIT' => $dataLength,
 				'ORDER BY' => $orderBy,
 				'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
@@ -656,14 +653,11 @@ class SearchPanes {
 
 		$qobj = $querySegmentList[$rootid];
 
-		global $smwgQMaxLimit;
-
 		$sql_options = [
 			// *** should we set a limit here ?
 			// it makes sense to show the pane for
 			// mainlabel only when page titles are grouped
 			// through the printout format or even the printout template
-			// 'LIMIT' => $smwgQMaxLimit,
 			// title
 			'ORDER BY' => 't'
 		];
