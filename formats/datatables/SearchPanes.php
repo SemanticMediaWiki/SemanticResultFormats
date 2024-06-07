@@ -10,6 +10,7 @@
  */
 
 namespace SRF\DataTables;
+
 use SMW\DIWikiPage;
 use SMW\DataValueFactory;
 use SMW\DataTypeRegistry;
