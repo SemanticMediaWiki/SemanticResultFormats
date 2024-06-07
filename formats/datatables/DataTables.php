@@ -22,7 +22,7 @@ use SMW\Utils\HtmlTable;
 use SMWPrintRequest;
 use SMWPropertyValue;
 use SMWQueryResult as QueryResult;
-use SRF\DataTables\SearchPanes as SearchPanes;
+use SRF\DataTables\SearchPanes;
 
 class DataTables extends ResultPrinter {
 
