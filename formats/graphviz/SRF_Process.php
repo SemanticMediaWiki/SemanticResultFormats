@@ -205,7 +205,7 @@ class SRFProcess extends SMWResultPrinter {
 			return '';
 		}
 		// content language object
-		global $wgContLang;
+		$lang = RequestContext::getMain()->getLanguage();
 
 		//
 		//	GraphViz settings
@@ -250,13 +250,13 @@ class SRFProcess extends SMWResultPrinter {
 				$req = $field->getPrintRequest();
 				switch ( ( strtolower( $req->getLabel() ) ) ) {
 
-					case strtolower( $wgContLang->getNsText( NS_CATEGORY ) ):
+					case strtolower( $lang->getNsText( NS_CATEGORY ) ):
 						foreach ( $field->getContent() as $value ) {
 							$wikiPageValue = new SMWWikiPageValue( '_wpg' );
 							$wikiPageValue->setDataItem( $value );
 							$val = $wikiPageValue->getShortWikiText();
 
-							if ( $val == ( $wgContLang->getNsText( NS_CATEGORY ) . ':' . $this->m_processCategory ) ) {
+							if ( $val == ( $lang->getNsText( NS_CATEGORY ) . ':' . $this->m_processCategory ) ) {
 								$node->setAtomic( false );
 							}
 						}
