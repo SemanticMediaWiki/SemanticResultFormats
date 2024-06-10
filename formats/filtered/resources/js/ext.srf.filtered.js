@@ -306,8 +306,8 @@ var Filter = /** @class */ (function () {
         var _this = this;
         this.disabled = true;
         this.outerTarget
-            .removeClass('enabled')
-            .addClass('disabled');
+            .removeClass('filtered-filter-enabled')
+            .addClass('filtered-filter-disabled');
         this.collapse();
         this.target.promise().then(function () { return _this.controller.onFilterUpdated(_this.filterId); });
     };
@@ -315,8 +315,8 @@ var Filter = /** @class */ (function () {
         var _this = this;
         this.disabled = false;
         this.outerTarget
-            .removeClass('disabled')
-            .addClass('enabled');
+            .removeClass('filtered-filter-disabled')
+            .addClass('filtered-filter-enabled');
         if (!this.collapsed) {
             this.uncollapse();
         }
@@ -359,7 +359,7 @@ var Filter = /** @class */ (function () {
         this.target = $('<div class="filtered-filter-container">');
         this.outerTarget
             .append(this.target)
-            .addClass('enabled');
+            .addClass('filtered-filter-enabled');
         this.addOnOffSwitch();
         this.addLabel();
         this.addControlForCollapsing();
@@ -377,7 +377,7 @@ var Filter = /** @class */ (function () {
                 var onOffControl = $("<div class=\"filtered-filter-onoff on\"></div>");
                 this.target.before(onOffControl);
                 onOffControl.click(function () {
-                    if (_this.outerTarget.hasClass('enabled')) {
+                    if (_this.outerTarget.hasClass('filtered-filter-enabled')) {
                         _this.disable();
                     }
                     else {

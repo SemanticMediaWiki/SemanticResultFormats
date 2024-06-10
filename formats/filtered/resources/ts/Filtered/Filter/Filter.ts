@@ -31,8 +31,8 @@ export abstract class Filter{
 		this.disabled = true;
 
 		this.outerTarget
-		.removeClass( 'enabled' )
-		.addClass( 'disabled' );
+		.removeClass( 'filtered-filter-enabled' )
+		.addClass( 'filtered-filter-disabled' );
 
 		this.collapse();
 
@@ -43,8 +43,8 @@ export abstract class Filter{
 		this.disabled = false;
 
 		this.outerTarget
-		.removeClass( 'disabled' )
-		.addClass( 'enabled' );
+		.removeClass( 'filtered-filter-disabled' )
+		.addClass( 'filtered-filter-enabled' );
 
 		if ( ! this.collapsed ) {
 			this.uncollapse();
@@ -99,7 +99,7 @@ export abstract class Filter{
 
 		this.outerTarget
 		.append( this.target )
-		.addClass( 'enabled' );
+		.addClass( 'filtered-filter-enabled' );
 
 		this.addOnOffSwitch();
 		this.addLabel();
@@ -127,7 +127,7 @@ export abstract class Filter{
 
 				onOffControl.click( () => {
 
-					if ( this.outerTarget.hasClass('enabled' ) ) {
+					if ( this.outerTarget.hasClass('filtered-filter-enabled' ) ) {
 						this.disable();
 					} else {
 						this.enable();
