@@ -100,7 +100,8 @@ class SRFValueRank extends SMWResultPrinter {
 
 					if ( !array_key_exists( $value, $tags ) ) {
 						$tags[$value] = 0;
-						$this->tagsHtml[$value] = $html; // Store the HTML separetely, so sorting can be done easily.
+						// Store the HTML separetely, so sorting can be done easily.
+						$this->tagsHtml[$value] = $html;
 					}
 
 					$tags[$value]++;

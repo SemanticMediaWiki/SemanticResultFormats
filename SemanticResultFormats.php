@@ -43,7 +43,7 @@ class SemanticResultFormats {
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
-		$GLOBALS['srfgIP'] = __DIR__;
+		$GLOBALS['wgSrfgIP'] = __DIR__;
 		$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include __DIR__ . "/Resources.php" );
 	}
 
@@ -161,7 +161,7 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
-      'carousel' => 'SRF\Carousel',
+	  'carousel' => 'SRF\Carousel',
 			'gantt' => 'SRF\Gantt\GanttPrinter',
 			'prolog' => 'SRF\Prolog\PrologPrinter',
 			'dataframe' => 'SRF\dataframe\DataframePrinter',

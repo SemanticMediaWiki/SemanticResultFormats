@@ -53,7 +53,7 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 			return false;
 		}
 
-		list( $compare, $requiredVersion ) = explode( ' ', $val );
+		[ $compare, $requiredVersion ] = explode( ' ', $val );
 		$version = ExtensionRegistry::getInstance()->getAllThings()['Mermaid']['version'];
 
 		if ( !version_compare( $version, $requiredVersion, $compare ) ) {

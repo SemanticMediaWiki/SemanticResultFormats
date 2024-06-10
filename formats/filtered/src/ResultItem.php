@@ -66,10 +66,12 @@ class ResultItem {
 		foreach ( $this->mResultArray as $field ) {
 
 			$printRequest = $field->getPrintRequest();
-
-			$values = []; // contains plain text
-			$formatted = []; // may contain links
-			$sorted = []; // uses DEFAULTSORT when available
+			// contains plain text
+			$values = [];
+			// may contain links
+			$formatted = [];
+			// uses DEFAULTSORT when available
+			$sorted = [];
 
 			$field->reset();
 

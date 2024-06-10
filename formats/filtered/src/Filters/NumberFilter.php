@@ -51,8 +51,8 @@ class NumberFilter extends Filter {
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $propertyName &&
 				( $field->reset() instanceof \SMWDINumber || $field->reset() instanceof \SMWDITime )
 			) {
-
-				$values = []; // contains plain text
+				// contains plain text
+				$values = [];
 				$value = $field->getNextDataValue();
 
 				while ( $value instanceof \SMWNumberValue || $value instanceof \SMWTimeValue ) {

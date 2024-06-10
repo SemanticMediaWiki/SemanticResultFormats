@@ -55,7 +55,10 @@ class GanttSection {
 		return $this->mTasks;
 	}
 
-	// If we reorder the tasks we need to reset it with the ordered tasks
+	/**
+	 * If we reorder the tasks we need to reset it with the ordered tasks
+	 *
+	 */
 	public function setTasks( $tasks ) {
 		$this->mTasks = $tasks;
 	}

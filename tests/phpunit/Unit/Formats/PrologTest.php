@@ -4,7 +4,7 @@ namespace SRF\Tests\Prolog;
 
 use SMW\Test\QueryPrinterRegistryTestCase;
 
-class PrologTest extends QueryPrinterRegistryTestCase{
+class PrologTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats

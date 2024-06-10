@@ -11,14 +11,8 @@ namespace SRF\Outline;
  */
 class OutlineItem {
 
-	/**
-	 * @var type
-	 */
 	public $row;
 
-	/**
-	 * @var
-	 */
 	private $vals;
 
 	/**
@@ -34,7 +28,7 @@ class OutlineItem {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $name
+	 * @param $key
 	 * @param $value
 	 */
 	public function addFieldValue( $key, $value ) {
@@ -48,7 +42,7 @@ class OutlineItem {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $row
+	 * @param $key
 	 */
 	public function getFieldValues( $key ) {
 		if ( array_key_exists( $key, $this->vals ) ) {

@@ -81,7 +81,6 @@ class Gantt {
 	 * @param string $endDate
 	 *
 	 */
-
 	public function addTask( $taskID, $taskTitle, $status, $priority, $startDate, $endDate ) {
 		$task = new GanttTask();
 		$task->setID( $taskID );

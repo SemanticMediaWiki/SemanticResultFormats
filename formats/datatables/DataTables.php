@@ -5,7 +5,7 @@
  *
  * @see http://datatables.net/
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author thomas-topway-it for KM-A
  * @credits mwjames
  */
@@ -14,15 +14,15 @@ namespace SRF;
 
 use Html;
 use RequestContext;
-use SMW\ResultPrinter;
 use SMW\DIWikiPage;
 use SMW\Message;
 use SMW\Query\PrintRequest;
+use SMW\ResultPrinter;
 use SMW\Utils\HtmlTable;
 use SMWPrintRequest;
 use SMWPropertyValue;
 use SMWQueryResult as QueryResult;
-use SRF\DataTables\SearchPanes as SearchPanes; 
+use SRF\DataTables\SearchPanes;
 
 class DataTables extends ResultPrinter {
 
@@ -51,9 +51,9 @@ class DataTables extends ResultPrinter {
 
 	/** @var HtmlTable */
 	private $htmlTable;
-	
+
 	/** @var bool */
-	private $hasMultipleValues = false;	
+	private $hasMultipleValues = false;
 
 	/**
 	 * @see ResultPrinter::getName
@@ -90,7 +90,7 @@ class DataTables extends ResultPrinter {
 			'type' => 'string',
 			'message' => 'smw-paramdesc-sep',
 			'default' => ',&#32;',
-			//'default' => '&#32;',
+			// 'default' => '&#32;',
 		];
 
 		$params['prefix'] = [
@@ -101,7 +101,7 @@ class DataTables extends ResultPrinter {
 
 		$params['defer-each'] = [
 			'type' => 'integer',
-			'message' => 'smw-paramdesc-defer-each',	
+			'message' => 'smw-paramdesc-defer-each',
 			// $GLOBALS['smwgQMaxLimit']
 			'default' => 0,
 		];
@@ -128,9 +128,9 @@ class DataTables extends ResultPrinter {
 		];
 
 		$params['datatables-info'] = [
-		 	'type' => 'boolean',
-		 	'message' => 'srf-paramdesc-datatables-library-option',
-		 	'default' => true,
+			'type' => 'boolean',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => true,
 		];
 
 		$params['datatables-lengthChange'] = [
@@ -286,56 +286,56 @@ class DataTables extends ResultPrinter {
 		//////////////// datatables mark
 		// @see https://markjs.io/#mark
 		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/776
-		
+
 		$params['datatables-mark'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
 		];
-		
+
 		$params['datatables-mark.separateWordSearch'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
 		];
-		
+
 		$params['datatables-mark.accuracy'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => 'partially',
 		];
-		
+
 		$params['datatables-mark.diacritics'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => true,
 		];
-		
+
 		$params['datatables-mark.acrossElements'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
 		];
-		
+
 		$params['datatables-mark.caseSensitive'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
 		];
-		
+
 		$params['datatables-mark.ignoreJoiners'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => false,
 		];
-		
+
 		$params['datatables-mark.ignorePunctuation'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			// or ':;.,-–—‒_(){}[]!\'"+='
 			'default' => '',
-		];	
-		
+		];
+
 		$params['datatables-mark.wildcards'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
@@ -343,7 +343,7 @@ class DataTables extends ResultPrinter {
 		];
 
 		//////////////// datatables searchBuilder
-		
+
 		$params['datatables-searchBuilder'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
@@ -406,7 +406,7 @@ class DataTables extends ResultPrinter {
 		// 	// label-sort, label-rsort, count-asc, count-desc
 		// 	'default' => 'label-sort',
 		// ];
-		
+
 		// only single value
 		$params['datatables-columns.searchPanes.show'] = [
 			'type' => 'boolean',
@@ -417,7 +417,7 @@ class DataTables extends ResultPrinter {
 		// *** workaround to allow camelCase parameters
 		$ret = [];
 		foreach ( $params as $key => $value ) {
-			$strlower = strtolower($key);
+			$strlower = strtolower( $key );
 			self::$camelCaseParamsKeys[$strlower] = $key;
 			$ret[$strlower] = $value;
 		}
@@ -452,7 +452,6 @@ class DataTables extends ResultPrinter {
 	 * {@inheritDoc}
 	 */
 	protected function handleNonFileResult( $result, QueryResult $results, $outputmode ) {
-
 		// append errors
 		$result .= $this->getErrorString( $results );
 
@@ -514,14 +513,14 @@ class DataTables extends ResultPrinter {
 		}
 
 		if ( $this->params['apicall'] === "apicall" ) {
- 			return $this->getResultJson( $res, $outputmode );
+			return $this->getResultJson( $res, $outputmode );
 		}
 
 		// @see src/ResourceFormatter.php -> getData
 		$ask = $this->query->toArray();
 
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-')  === 0 ) {
+			if ( strpos( $key, 'datatables-' ) === 0 ) {
 				continue;
 			}
 			if ( is_string( $value ) || is_int( $value ) || is_bool( $value ) ) {
@@ -531,7 +530,7 @@ class DataTables extends ResultPrinter {
 
 		$printRequests = $res->getPrintRequests();
 		$printouts = $this->getPrintouts( $printRequests );
-		
+
 		$headerList = [];
 		foreach ( $printouts as $printout ) {
 			$headerList[] = ( $printout[0] !== SMWPrintRequest::PRINT_THIS ? $printout[1] : '' );
@@ -541,8 +540,8 @@ class DataTables extends ResultPrinter {
 		// and remove from $tableAttrs
 		$datatablesOptions = [];
 		foreach ( $this->params as $key => $value ) {
-			if ( strpos( $key, 'datatables-')  === 0 ) {
-				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value ;
+			if ( strpos( $key, 'datatables-' ) === 0 ) {
+				$datatablesOptions[ str_replace( 'datatables-', '', self::$camelCaseParamsKeys[$key] ) ] = $value;
 			}
 		}
 
@@ -553,7 +552,7 @@ class DataTables extends ResultPrinter {
 
 		// @TODO use only one between printouts and printrequests
 		$resultArray = $res->toArray();
-		$printrequests = $resultArray['printrequests'];		
+		$printrequests = $resultArray['printrequests'];
 
 		$this->htmlTable = new HtmlTable();
 		foreach ( $headerList as $text ) {
@@ -576,9 +575,9 @@ class DataTables extends ResultPrinter {
 		}
 
 		$this->useAjax = $this->query->getOption( 'useAjax' );
-		
+
 		$searchPanesData = [];
-		$searchPanesLog = [];		
+		$searchPanesLog = [];
 		if ( array_key_exists( 'searchPanes', $formattedOptions )
 			&& !empty( $formattedOptions['searchPanes'] )
 			&& ( $this->useAjax || $this->hasMultipleValues ) ) {
@@ -623,7 +622,7 @@ class DataTables extends ResultPrinter {
 		$performer = $context->getUser();
 		$context->getOutput()->addJsConfigVars( [
 			'performer' => $performer->getName(),
-		]);
+		] );
 
 		$tableAttrs = [
 			'class' => 'srf-datatable wikitable display' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
@@ -642,15 +641,15 @@ class DataTables extends ResultPrinter {
 			'data-editor' => $performer->getName(),
 			'data-multiple-values' => $this->hasMultipleValues,
 		];
-		
+
 		$tableAttrs['width'] = '100%';
 		// $tableAttrs['class'] .= ' broadtable';
-		
+
 		// remove sortable, that triggers jQuery's TableSorter
 		$classes = preg_split( "/\s+/", $tableAttrs['class'], -1, PREG_SPLIT_NO_EMPTY );
 		$key = array_search( 'sortable', $classes );
 		if ( $key !== false ) {
-			unset( $classes[$key] );			
+			unset( $classes[$key] );
 		}
 		$tableAttrs['class'] = implode( " ", $classes );
 
@@ -660,9 +659,9 @@ class DataTables extends ResultPrinter {
 			$transpose,
 			$this->isHTML
 		);
-		
+
 		// @see https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.js
-		$datatableSpinner = Html::rawElement(		
+		$datatableSpinner = Html::rawElement(
 			'div',
 			[
 				'class' => 'datatables-spinner dataTables_processing',
@@ -670,8 +669,8 @@ class DataTables extends ResultPrinter {
 			],
 			'<div><div></div><div></div><div></div><div></div></div>'
 		);
-		
-		return Html::rawElement(		
+
+		return Html::rawElement(
 			'div',
 			[
 				'id' => $id,
@@ -687,7 +686,6 @@ class DataTables extends ResultPrinter {
 	 * @return array
 	 */
 	private function getPrintouts( $printRequests ) {
-
 		foreach ( $printRequests as $key => $printRequest ) {
 			$canonicalLabel = $printRequest->getCanonicalLabel();
 
@@ -753,7 +751,7 @@ class DataTables extends ResultPrinter {
 					case "number":
 						$value = $value * 1;
 						break;
-					
+
 					// ...
 				}
 
@@ -766,7 +764,7 @@ class DataTables extends ResultPrinter {
 			$ret = array_merge_recursive( $this->plainToNestedObj( $arr, $value ),
 				$ret );
 		}
-	
+
 		return $ret;
 	}
 
@@ -807,7 +805,7 @@ class DataTables extends ResultPrinter {
 		];
 
 		$ret = [];
-		foreach ($params as $key => $value) {
+		foreach ( $params as $key => $value ) {
 
 			// transform csv to array
 			if ( array_key_exists( $key, $arrayTypes ) ) {
@@ -829,15 +827,15 @@ class DataTables extends ResultPrinter {
 
 			// convert strings like columns.searchPanes.show
 			// to nested objects
-			$arr = explode('.', $key);
+			$arr = explode( '.', $key );
 
 			$ret = array_merge_recursive( $this->plainToNestedObj( $arr, $value ),
 				$ret );
 
 		}
 
-		$isAssoc = function( $value ) {
-			if ( !is_array( $value ) || array() === $value ) {
+		$isAssoc = static function ( $value ) {
+			if ( !is_array( $value ) || [] === $value ) {
 				return false;
 			}
 			return array_keys( $value ) !== range( 0, count( $value ) - 1 );
@@ -845,7 +843,7 @@ class DataTables extends ResultPrinter {
 
 		// remove $ret["searchPanes"] = [] if $ret["searchPanes"][0] === false
 		foreach ( $ret as $key => $value ) {
-			if ( $isAssoc(  $value ) && array_key_exists( 0, $value ) ) {
+			if ( $isAssoc( $value ) && array_key_exists( 0, $value ) ) {
 				if ( $value[0] === false ) {
 					unset( $ret[$key] );
 				} else {
@@ -884,7 +882,7 @@ class DataTables extends ResultPrinter {
 
 				// *** the path is the following:
 				// ResultArray loadContent -> fieldItemFinder findFor -> getResultsForProperty
-				// -> fetchContent -> ItemFetcher fetch -> (prefetchCache/EntityLookup)->getPropertyValues 
+				// -> fetchContent -> ItemFetcher fetch -> (prefetchCache/EntityLookup)->getPropertyValues
 				// -> $semanticData->getPropertyValues -> $this->store->applyRequestOptions !!
 				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
 					$dataValues[] = $dv;
@@ -912,11 +910,10 @@ class DataTables extends ResultPrinter {
 	 * @param array $dataValues
 	 * @param int $outputMode
 	 * @param bool $isSubject
-	 * @param string $propTypeid
+	 * @param string|null $propTypeid
 	 * @return array
 	 */
 	public function getCellContent( $label, $dataValues, $outputMode, $isSubject, $propTypeid = null ) {
-
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getShortText';
 		} else {
@@ -964,7 +961,7 @@ class DataTables extends ResultPrinter {
 
 			if ( $template ) {
 				// escape pipe character
-				$value_ = str_replace( '|', '&#124;', (string)$value ); 
+				$value_ = str_replace( '|', '&#124;', (string)$value );
 				$value = $this->parser->recursiveTagParseFully( '{{' . $template . '|' . $value_ . '}}' );
 			}
 
@@ -972,7 +969,7 @@ class DataTables extends ResultPrinter {
 		}
 
 		$sep = strtolower( $this->params['sep'] );
-		
+
 		// *** used to force use of Ajax with
 		// searchpanes since a client side solution
 		// won't produce reliable matches

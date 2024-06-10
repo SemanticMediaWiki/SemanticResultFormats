@@ -132,7 +132,8 @@ class vCardFileExportPrinter extends FileExportPrinter {
 
 		if ( array_key_exists( 'limit', $this->params ) ) {
 			$link->setParameter( $this->params['limit'], 'limit' );
-		} else { // use a reasonable default limit
+		} else {
+			// use a reasonable default limit
 			$link->setParameter( 20, 'limit' );
 		}
 
@@ -286,6 +287,7 @@ class vCardFileExportPrinter extends FileExportPrinter {
 				break;
 			case "category":
 				$vCard->set( 'category', $this->getFieldCommaList( $field ) );
+				break;
 			case "email":
 				while ( $value = $field->getNextDataValue() ) {
 					$emails[] = new Email( 'INTERNET', $value->getShortWikiText() );

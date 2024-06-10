@@ -115,15 +115,15 @@ class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$queryResult->expects( $this->any() )
 			->method( 'getErrors' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$queryResult->expects( $this->any() )
 			->method( 'getCount' )
-			->will( $this->returnValue( 1 ) );
+			->willReturn( 1 );
 
 		$queryResult->expects( $this->once() )
 			->method( 'getQueryLink' )
-			->will( $this->returnValue( $this->newInfoLinkStub() ) );
+			->willReturn( $this->newInfoLinkStub() );
 
 		return $queryResult;
 	}
@@ -135,7 +135,7 @@ class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$link->expects( $this->any() )
 			->method( 'getText' )
-			->will( $this->returnValue( 'foo_link' ) );
+			->willReturn( 'foo_link' );
 
 		return $link;
 	}

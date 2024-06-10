@@ -16,10 +16,11 @@ use SRF\Graph\GraphOptions;
  */
 class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 
-	/** @var array $cases An array of test cases. */
+	/** @var array An array of test cases. */
 	private $cases = [
 		'Simple' => [
-			'params' => [ 'graphfields' => false ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			'params' => [ 'graphfields' => false ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
@@ -49,7 +50,8 @@ size="100";node [shape=rect];rankdir=LR;
 SIMPLE
 		],
 		'With fields' => [
-			'params' => [ 'graphfields' => true ], // @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
+			'params' => [ 'graphfields' => true ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
@@ -114,11 +116,11 @@ FIELDS
 
 	/**
 	 * Create a complete graph for the test case.
-	 * @var array $case
+	 * @param array $case
 	 * @return GraphFormatter
 	 */
 	private static function graph( array $case ): GraphFormatter {
-		$graph = new GraphFormatter( new GraphOptions( GraphFormatterTest::BASE_PARAMS + $case['params'] ) );
+		$graph = new GraphFormatter( new GraphOptions( self::BASE_PARAMS + $case['params'] ) );
 		$nodes = [];
 		foreach ( $case['nodes'] as $node ) {
 			$graph_node = new GraphNode( $node['name'] );
@@ -151,7 +153,7 @@ FIELDS
 	}
 
 	/**
-	 * @covers GraphFormatter::__construct()
+	 * @covers \SRF\Graph\GraphFormatter::__construct()
 	 * @dataProvider provideCanConstruct
 	 * @param array $params
 	 * @return void
@@ -181,7 +183,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::getWordWrappedText()
+	 * @covers \SRF\Graph\GraphFormatter::getWordWrappedText()
 	 * @dataProvider provideGetWordWrappedText
 	 * @param string $unwrapped
 	 * @param string $wrapped
@@ -189,7 +191,7 @@ WRAPPED0
 	 */
 	public function testGetWordWrappedText( $unwrapped, $wrapped ) {
 		$formatter = new GraphFormatter(
-			new GraphOptions( GraphFormatterTest::BASE_PARAMS + ['graphfields' => false] )
+			new GraphOptions( self::BASE_PARAMS + [ 'graphfields' => false ] )
 		);
 		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
 	}
@@ -206,7 +208,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::getGraphLegend()
+	 * @covers \SRF\Graph\GraphFormatter::getGraphLegend()
 	 * @dataProvider provideGetGraphLegend
 	 * @param array $params
 	 * @param string $expected The expected legend.
@@ -228,7 +230,7 @@ WRAPPED0
 	}
 
 	/**
-	 * @covers GraphFormatter::buildGraph()
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
 	 * @dataProvider provideBuildGraph
 	 * @param array $params
 	 * @param string $expected The expected DOT code.

@@ -290,61 +290,42 @@ class SRFMath extends SMWResultPrinter {
 		switch ( $this->mFormat ) {
 			case 'max':
 				return MathFormats::max_function( $numbers );
-				break;
 			case 'min':
 				return MathFormats::min_function( $numbers );
-				break;
 			case 'sum':
 				return MathFormats::sum_function( $numbers );
-				break;
 			case 'product':
 				return MathFormats::product_function( $numbers );
-				break;
 			case 'average':
 				return MathFormats::average_function( $numbers );
-				break;
 			case 'median':
 				return MathFormats::median_function( $numbers );
-				break;
 			case 'variance':
 				return MathFormats::variance_function( $numbers );
-				break;
 			case 'samplevariance':
 				return MathFormats::samplevariance_function( $numbers );
-				break;
 			case 'samplestandarddeviation':
 				return MathFormats::samplestandarddeviation_function( $numbers );
-				break;
 			case 'standarddeviation':
 				return MathFormats::standarddeviation_function( $numbers );
-				break;
 			case 'range':
 				return MathFormats::range_function( $numbers );
-				break;
 			case 'quartillower':
 				return MathFormats::quartillower_inc_function( $numbers );
-				break;
-			case 'quartilupper';
+			case 'quartilupper':
 				return MathFormats::quartilupper_inc_function( $numbers );
-				break;
-			case 'quartillower.exc';
+			case 'quartillower.exc':
 				return MathFormats::quartillower_exc_function( $numbers );
-				break;
-			case 'quartilupper.exc';
+			case 'quartilupper.exc':
 				return MathFormats::quartilupper_exc_function( $numbers );
-				break;
 			case 'interquartilerange':
 				return MathFormats::interquartilerange_inc_function( $numbers );
-				break;
-			case 'interquartilerange.exc';
+			case 'interquartilerange.exc':
 				return MathFormats::interquartilerange_exc_function( $numbers );
-				break;
-			case 'mode';
+			case 'mode':
 				return MathFormats::mode_function( $numbers );
-				break;
-			case 'interquartilemean';
+			case 'interquartilemean':
 				return MathFormats::interquartilemean_function( $numbers );
-				break;
 		}
 	}
 

@@ -42,7 +42,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$this->title->expects( $this->any() )
 			->method( 'getNamespace' )
-			->will( $this->returnValue( NS_MAIN ) );
+			->willReturn( NS_MAIN );
 	}
 
 	/**
@@ -67,6 +67,9 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		return 'SRF\Gallery';
 	}
 
+	/**
+	 * @covers Gallery getName
+	 */
 	public function testGetName() {
 		$instance = new Gallery(
 			'gallery'
@@ -75,6 +78,9 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		$this->assertIsString( $instance->getName() );
 	}
 
+	/**
+	 * @covers Gallery buildResult
+	 */
 	public function testBuildResult() {
 		$instance = new Gallery(
 			'gallery'
@@ -87,11 +93,11 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$widget->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'widget' ) );
+			->willReturn( 'widget' );
 
 		$widget->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( 'carousel' ) );
+			->willReturn( 'carousel' );
 
 		$intro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
@@ -100,11 +106,11 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$intro->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'intro' ) );
+			->willReturn( 'intro' );
 
 		$intro->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( '<div class="gallery-intro">' ) );
+			->willReturn( '<div class="gallery-intro">' );
 
 		$outro = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
@@ -113,11 +119,11 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 
 		$outro->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'outro' ) );
+			->willReturn( 'outro' );
 
 		$outro->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( '</div>' ) );
+			->willReturn( '</div>' );
 
 		$parameters = [
 			$widget,

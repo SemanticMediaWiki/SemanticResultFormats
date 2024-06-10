@@ -26,7 +26,12 @@ use Message;
  */
 class ListView extends View {
 
-	private $mFormat, $mTemplate, $mIntroTemplate, $mOutroTemplate, $mNamedArgs, $mShowHeaders;
+	private $mFormat;
+	private $mTemplate;
+	private $mIntroTemplate;
+	private $mOutroTemplate;
+	private $mNamedArgs;
+	private $mShowHeaders;
 
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
@@ -68,7 +73,8 @@ class ListView extends View {
 			$rowstart = "\t<li class='filtered-list-item ";
 			$rowend = "</li>\n";
 			$listsep = ', ';
-		} else { // "list" format
+		} else {
+			// "list" format
 			$header = '';
 			$footer = '';
 			$rowstart = "\t<div class='filtered-list-item ";
@@ -119,7 +125,8 @@ class ListView extends View {
 
 		$result .= $rowstart;
 
-		if ( $this->mTemplate !== '' ) { // build template code
+		if ( $this->mTemplate !== '' ) {
+			// build template code
 			$this->getQueryPrinter()->hasTemplates( true );
 
 			$wikitext = ( $this->mUserParam ) ? "|#userparam=$this->mUserParam" : '';
@@ -153,9 +160,11 @@ class ListView extends View {
 			$wikitext .= "|#=$rownum";
 			$result .= '{{' . $this->mTemplate . $wikitext . '}}';
 
-		} else {  // build simple list
+		} else {
+			// build simple list
 			$firstCol = true;
-			$foundValues = false; // has anything but the first column been printed?
+			// has anything but the first column been printed?
+			$foundValues = false;
 
 			foreach ( $row as $field ) {
 				$isFirstValue = true;
@@ -171,15 +180,16 @@ class ListView extends View {
 					// only print value if not hidden
 					if ( filter_var( $printrequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) === false ) {
 
-						if ( !$firstCol && !$foundValues ) { // first values after first column
+						if ( !$firstCol && !$foundValues ) {
+							// first values after first column
 							$result .= ' (';
 							$foundValues = true;
 						} elseif ( $foundValues || !$isFirstValue ) {
 							// any value after '(' or non-first values on first column
 							$result .= "$listsep ";
 						}
-
-						if ( $isFirstValue ) { // first value in any column, print header
+						// first value in any column, print header
+						if ( $isFirstValue ) {
 							$isFirstValue = false;
 
 							if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel(
@@ -191,8 +201,8 @@ class ListView extends View {
 									) . ' ';
 							}
 						}
-
-						$result .= $text; // actual output value
+						// actual output value
+						$result .= $text;
 					}
 				}
 

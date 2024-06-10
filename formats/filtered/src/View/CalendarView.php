@@ -246,8 +246,8 @@ class CalendarView extends View {
 					return [ 'title' => $this->getQueryPrinter()->uniqid( $printout->getPrintRequest()->getHash() ) ];
 				}
 			}
-
-		} elseif ( $params['mainlabel'] !== '-' ) { // first column not suppressed
+			// first column not suppressed
+		} elseif ( $params['mainlabel'] !== '-' ) {
 			$value = reset( $results )->getValue();
 			return [ 'title' => $this->getQueryPrinter()->uniqid( reset( $value )->getPrintRequest()->getHash() ) ];
 		}

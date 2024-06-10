@@ -55,12 +55,13 @@ class SRFTimeseries extends SMWResultPrinter {
 		$values = [];
 		$aggregatedValues = [];
 
-		while ( /* array of SMWResultArray */
-		$row = $result->getNext() ) { // Objects (pages)
+		while (
+		/* array of SMWResultArray */
+		$row = $result->getNext() ) {
 			$timeStamp = '';
 			$series = [];
-
-			foreach ( $row as /* SMWResultArray */
+			/* SMWResultArray */
+			foreach ( $row as
 					  $field ) {
 				$sum = [];
 
@@ -70,9 +71,10 @@ class SRFTimeseries extends SMWResultPrinter {
 				} else {
 					$group = $field->getPrintRequest()->getLabel();
 				}
-
-				while ( ( /* SMWDataValue */
-					$dataValue = $field->getNextDataValue() ) !== false ) { // Data values
+				/* SMWDataValue */
+				while ( (
+					// Data values
+					$dataValue = $field->getNextDataValue() ) !== false ) {
 
 					// Find the timestamp
 					if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_TIME ) {

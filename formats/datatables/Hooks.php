@@ -5,14 +5,13 @@
  *
  * @see http://datatables.net/
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author thomas-topway-it for KM-A
  */
 
 namespace SRF\DataTables;
 
 use SMWPrintRequest;
-use SMW\Services\ServicesFactory as ApplicationFactory;
 
 class Hooks {
 
@@ -28,10 +27,10 @@ class Hooks {
 			$printouts = [];
 			foreach ( $query->getExtraPrintouts() as $printRequest ) {
 				// *** is PRINT_THIS always appropriate to match the mainLabel ?
-		 		$printouts[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ? 
+				$printouts[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
 					$printRequest->getCanonicalLabel() : '' );
 			}
-			$query->setSortKeys( [$printouts[0] => "ASC"] );
+			$query->setSortKeys( [ $printouts[0] => "ASC" ] );
 		}
 
 		$inlineLimit = $query->getLimit();
@@ -46,15 +45,15 @@ class Hooks {
 			$limit = $count;
 		}
 
-		$query->setUnboundLimit( min( $limit , $count ) );
-		$query->setOption('count', (int)$count );
+		$query->setUnboundLimit( min( $limit, $count ) );
+		$query->setOption( 'count', (int)$count );
 
 		$queryResult = $queryEngine->getQueryResult( $query );
 
 		// *** attention ! use the following rather
 		// that after this hook is called, since SMW::Store::AfterQueryResultLookupComplete
 		// migth change the result length !!
-		$query->setOption('useAjax', (int)$count > $queryResult->getCount() );
+		$query->setOption( 'useAjax', (int)$count > $queryResult->getCount() );
 
 		$result = new \SMW\Query\QueryResult(
 			$queryResult->getPrintRequests(),
@@ -68,11 +67,11 @@ class Hooks {
 	}
 
 	private static function getCount( $query, $queryEngine ) {
-		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
+		global $wgSmQMaxLimit, $wgSmQMaxInlineLimit;
 
 		$queryDescription = $query->getDescription();
 		$queryCount = new \SMWQuery( $queryDescription );
-		$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
+		$queryCount->setLimit( min( $wgSmQMaxLimit, $wgSmQMaxInlineLimit ) );
 		$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
 		$queryResult = $queryEngine->getQueryResult( $queryCount );
 

@@ -28,8 +28,8 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	 * @return array
 	 */
 	private function getSRFResourceModules() {
-		global $srfgIP;
-		return include $srfgIP . '/' . 'Resources.php';
+		global $wgSrfgIP;
+		return include $wgSrfgIP . '/' . 'Resources.php';
 	}
 
 	public function moduleDataProvider() {
@@ -48,6 +48,7 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @covers Recources
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
@@ -59,6 +60,7 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @covers Recources
 	 * Test styles accessibility
 	 *
 	 * @dataProvider moduleDataProvider

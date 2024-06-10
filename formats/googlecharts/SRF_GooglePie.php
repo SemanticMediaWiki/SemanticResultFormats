@@ -38,7 +38,8 @@ class SRFGooglePie extends SMWResultPrinter {
 
 		// print all result rows
 		$first = true;
-		$max = 0; // the biggest value. needed for scaling
+		// the biggest value. needed for scaling
+		$max = 0;
 
 		while ( $row = $res->getNext() ) {
 			$name = $row[0]->getNextDataValue()->getShortWikiText();

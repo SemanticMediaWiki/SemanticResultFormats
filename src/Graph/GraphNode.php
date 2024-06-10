@@ -9,7 +9,7 @@ class GraphNode {
 	private $fields = [];
 
 	/**
-	 * @var string $id : Node ID including namespace
+	 * @param string $id : Node ID including namespace
 	 */
 	public function __construct( $id ) {
 		$this->id = $id;

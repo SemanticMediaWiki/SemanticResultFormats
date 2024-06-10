@@ -11,7 +11,7 @@
  */
 
 $moduleTemplate = [
-	'localBasePath' => __DIR__ ,
+	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'SemanticResultFormats'
 ];
 
@@ -1017,7 +1017,7 @@ return [
 
 	'ext.srf.datatables.v2.module' => $moduleTemplate + [
 		'scripts' => [
-			'resources/jquery/datatables/object_hash.js',	
+			'resources/jquery/datatables/object_hash.js',
 			'resources/jquery/datatables/jquery.mark.min.js',
 			'resources/jquery/datatables/datatables.mark.min.js',
 			'resources/jquery/datatables/datatables.min.js',

@@ -48,7 +48,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param SMWQueryResult $res
 	 * @param $outputMode
 	 *
 	 * @return array
@@ -61,8 +61,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			// Loop over their fields (properties)
 			$label = '';
 			$i = 0;
-
-			foreach ( $row as /* SMWResultArray */
+			/* SMWResultArray */
+			foreach ( $row as
 					  $field ) {
 				$i++;
 				$rowNumbers = [];
@@ -81,7 +81,8 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 				$i == 1 ? $data['fcolumntypeid'] = $field->getPrintRequest()->getTypeID() : '';
 
 				// Loop over all values for the property.
-				while ( ( /* SMWDataValue */
+				while ( (
+					/* SMWDataValue */
 					$object = $field->getNextDataValue() ) !== false ) {
 
 					if ( $object->getDataItem()->getDIType() == SMWDataItem::TYPE_NUMBER ) {
@@ -166,7 +167,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 		foreach ( $data[$this->params['group']] as $key => $row ) {
 			$series[] = [
 				'label' => $key,
-				'xaxis' => 'xaxis', // xaxis could also be xaxis2 or ...
+				'xaxis' => 'xaxis',
 				'yaxis' => 'yaxis',
 				'fill' => $this->params['stackseries'],
 				'showLine' => $this->params['charttype'] !== 'scatter',
@@ -256,7 +257,6 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $data
 	 *
 	 * @return string
 	 */

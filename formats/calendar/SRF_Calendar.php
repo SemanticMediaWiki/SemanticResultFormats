@@ -308,16 +308,16 @@ class SRFCalendar extends SMWResultPrinter {
 		)->inContentLanguage()->text();
 	}
 
-	function formatDateStr( $object ) {
+	public function formatDateStr( $object ) {
 		// For some reason, getMonth() and getDay() sometimes return a
 		// number with a leading zero - get rid of it using (int)
 		return $object->getYear()
 			. '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 	}
 
-	function displayCalendar( $events ) {
-		global $srfgFirstDayOfWeek;
-		global $srfgScriptPath;
+	public function displayCalendar( $events ) {
+		global $wgSrfgFirstDayOfWeek;
+		global $wgSrfgScriptPath;
 
 		$context = RequestContext::getMain();
 		$request = $context->getRequest();
@@ -332,7 +332,7 @@ class SRFCalendar extends SMWResultPrinter {
 				'rel' => 'stylesheet',
 				'type' => 'text/css',
 				'media' => 'screen, print',
-				'href' => $srfgScriptPath
+				'href' => $wgSrfgScriptPath
 					. '/formats/calendar/resources/ext.srf.calendar.css'
 			]
 		);
@@ -385,16 +385,16 @@ class SRFCalendar extends SMWResultPrinter {
 			6 => wfMessage( 'friday' )->text(),
 			7 => wfMessage( 'saturday' )->text()
 		];
-		if ( empty( $srfgFirstDayOfWeek ) ) {
+		if ( empty( $wgSrfgFirstDayOfWeek ) ) {
 			$firstDayOfWeek = 1;
 			$lastDayOfWeek = 7;
 		} else {
 			$firstDayOfWeek =
-				array_search( $srfgFirstDayOfWeek, $weekDayNames );
+				array_search( $wgSrfgFirstDayOfWeek, $weekDayNames );
 			if ( $firstDayOfWeek === false ) {
-				// Bad value for $srfgFirstDayOfWeek!
-				print 'Warning: Bad value for $srfgFirstDayOfWeek "' .
-					'(' . $srfgFirstDayOfWeek . '")';
+				// Bad value for $wgSrfgFirstDayOfWeek!
+				print 'Warning: Bad value for $wgSrfgFirstDayOfWeek "' .
+					'(' . $wgSrfgFirstDayOfWeek . '")';
 				$firstDayOfWeek = 1;
 			}
 			if ( $firstDayOfWeek == 1 ) {
@@ -516,10 +516,10 @@ class SRFCalendar extends SMWResultPrinter {
 <table class="navigation_table">
 <tr><td class="month_name">$curMonth $curYear</td>
 <td class="nav_links"><a href="$prevMonthUrl" title="$prevMonthText">
-<img src="{$srfgScriptPath}/formats/calendar/resources/images/left-arrow.png" border="0" />
+<img src="{$wgSrfgScriptPath}/formats/calendar/resources/images/left-arrow.png" border="0" />
 </a>&#160;<a href="$todayUrl">$todayText</a>&#160;
 <a href="$nextMonthUrl" title="$nextMonthText">
-<img src="{$srfgScriptPath}/formats/calendar/resources/images/right-arrow.png" border="0" />
+<img src="{$wgSrfgScriptPath}/formats/calendar/resources/images/right-arrow.png" border="0" />
 </a></td><td class="nav_form"><form>
 <input type="hidden" name="title" value="$pageName">
 <select name="month">
@@ -603,7 +603,7 @@ END;
 				$events = [];
 			}
 			foreach ( $events as $event ) {
-				list( $eventTitle, $otherText, $eventDate, $color ) = $event;
+				[ $eventTitle, $otherText, $eventDate, $color ] = $event;
 				if ( $eventDate == $dateStr ) {
 					if ( $this->mTemplate != '' ) {
 						$templatetext = '{{' . $this->mTemplate . $otherText .

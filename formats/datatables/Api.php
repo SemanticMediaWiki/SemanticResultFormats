@@ -4,7 +4,7 @@
  *
  * @see http://datatables.net/
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author thomas-topway-it for KM-A
  * @credits Stephan Gambke (SRFSlideShowApi)
  */
@@ -14,10 +14,9 @@ namespace SRF\DataTables;
 use ApiBase;
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
+use SMW\Services\ServicesFactory;
 use SMWPrintRequest;
 use SMWQueryProcessor;
-use SMWQuery;
-use SMW\Services\ServicesFactory;
 use SRF\DataTables;
 
 class Api extends ApiBase {
@@ -78,11 +77,11 @@ class Api extends ApiBase {
 
 				"sort" => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
 					return $datatableData['columns'][$value['column']]['name'];
-					 }, $datatableData['order'] ) ),
+				}, $datatableData['order'] ) ),
 
 				"order" => implode( ',', array_map( static function ( $value ) {
 					return $value['dir'];
-					 }, $datatableData['order'] ) )
+				}, $datatableData['order'] ) )
 
 			]
 		);
@@ -103,13 +102,13 @@ class Api extends ApiBase {
 		$printouts = [];
 		$dataValueFactory = DataValueFactory::getInstance();
 		foreach ( $printoutsRaw as $printoutData ) {
-			
+
 			// create property from property key
-			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {			
+			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {
 				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
 			} else {
 				$data_ = null;
-				if  ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {	
+				if ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
 					continue;
 				}
 				// match something like |?=abc |+ datatables-columns.type=any-number |+template=mytemplate
@@ -117,11 +116,16 @@ class Api extends ApiBase {
 
 			// create printrequest from request mode, label, property name, output format, parameters
 			$printouts[] = new SMWPrintRequest(
-				$printoutData[0],	// mode
-				$printoutData[1],	// (canonical) label
-				$data_,				// property name
-				$printoutData[3],	// output format
-				$printoutData[4]	// parameters
+				// mode
+				$printoutData[0],
+				// (canonical) label
+				$printoutData[1],
+				// property name
+				$data_,
+				// output format
+				$printoutData[3],
+				// parameters
+				$printoutData[4]
 			);
 
 		}
@@ -131,7 +135,7 @@ class Api extends ApiBase {
 		$printrequests = $data['printrequests'];
 		$columnDefs = $data['columnDefs'];
 
-		$getColumnAttribute = function( $label, $attr ) use( $columnDefs ) {
+		$getColumnAttribute = static function ( $label, $attr ) use( $columnDefs ) {
 			foreach ( $columnDefs as $value ) {
 				if ( $value['name'] === $label && array_key_exists( $attr, $value ) ) {
 					return $value[$attr];
@@ -189,7 +193,7 @@ class Api extends ApiBase {
 						}
 						$v = implode( $criteria['value'] );
 						$str = ( $label !== '' ? "$label::" : '' );
-						switch( $criteria['condition'] ) {
+						switch ( $criteria['condition'] ) {
 							case '=':
 								$searchBuilder[] = "[[{$str}{$v}]]";
 								break;
@@ -221,27 +225,27 @@ class Api extends ApiBase {
 									$searchBuilder[] = "[[$label::+]]";
 								}
 								break;
-						
+
 						}
 					}
 				}
 			}
 			if ( $datatableData['searchBuilder']['logic'] === 'AND' ) {
 				$queryConjunction = array_merge( $queryConjunction, $searchBuilder );
-			} else if ( $datatableData['searchBuilder']['logic'] === 'OR' ) {
+			} elseif ( $datatableData['searchBuilder']['logic'] === 'OR' ) {
 				$queryDisjunction = array_merge( $queryDisjunction, $searchBuilder );
 			}
 		}
 
-		global $smwgQMaxSize;
+		$smwgQMaxSize = $this->getConfig()->get();
 
 		if ( !count( $queryDisjunction ) ) {
-			$queryDisjunction = [''];
+			$queryDisjunction = [ '' ];
 		}
 
 		$query = $data['queryString'] . implode( '', $queryConjunction );
-		
-		$conditions = array_map( static function( $value ) use ( $query ) {
+
+		$conditions = array_map( static function ( $value ) use ( $query ) {
 			return $query . $value;
 		}, $queryDisjunction );
 
@@ -261,7 +265,7 @@ class Api extends ApiBase {
 		);
 
 		// $size = $query->getDescription()->getSize();
-		
+
 		// $smwgQMaxSize = max( $smwgQMaxSize, $size );
 		// trigger_error('smwgQMaxSize ' . $smwgQMaxSize);
 
@@ -272,8 +276,9 @@ class Api extends ApiBase {
 		// or SMW_OUTPUT_RAW
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
 
-		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
-		
+		$smwgQMaxLimit = $this->getConfig()->get();
+		$smwgQMaxInlineLimit = $this->getConfig()->get();
+
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
 			$queryDescription = $query->getDescription();
@@ -351,8 +356,8 @@ class Api extends ApiBase {
 	 * @return string
 	 */
 	public function getVersion() {
-		global $srfgIP;
-		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfgIP );
+		$srfg = $this->getConfig()->get();
+		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfg );
 		return __CLASS__ . '-' . SRF_VERSION . ( $gitSha1 !== false ) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
 

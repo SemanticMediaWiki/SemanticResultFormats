@@ -19,8 +19,10 @@ class SRFHash extends SRFArray {
 	protected $mLastPageTitle;
 
 	protected function deliverPageTitle( $value, $link = false ) {
-		$this->mLastPageTitle = $this->deliverSingleValue( $value, $link ); // remember the page title
-		return null; // don't add page title into property list
+		// remember the page title
+		$this->mLastPageTitle = $this->deliverSingleValue( $value, $link );
+		// don't add page title into property list
+		return null;
 	}
 
 	protected function deliverPageProperties( $perProperty_items ) {
@@ -33,7 +35,8 @@ class SRFHash extends SRFArray {
 	protected function deliverQueryResultPages( $perPage_items ) {
 		$hash = [];
 		foreach ( $perPage_items as $page ) {
-			$hash[$page[0]] = $page[1];  // name of page as key, Properties as value
+			// name of page as key, Properties as value
+			$hash[$page[0]] = $page[1];
 		}
 		return parent::deliverQueryResultPages( $hash );
 	}
@@ -80,8 +83,8 @@ class SRFHash extends SRFArray {
 	 */
 	public function getParamDefinitions( array $definitions ) {
 		$params = parent::getParamDefinitions( $definitions );
-
-		unset( $params['pagetitle'] ); // page title is Hash key, otherwise, just use Array format!
+		// page title is Hash key, otherwise, just use Array format!
+		unset( $params['pagetitle'] );
 		$params['name']['message'] = 'srf_paramdesc_hashname';
 
 		return $params;

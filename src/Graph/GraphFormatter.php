@@ -37,7 +37,7 @@ class GraphFormatter {
 	];
 	private $legendItem = [];
 	private $options;
-	/** @var string $lineSeparator Line separator for line wrapped long text. */
+	/** @var string Line separator for line wrapped long text. */
 	private $lineSeparator;
 
 	public function __construct( GraphOptions $options ) {
@@ -56,7 +56,7 @@ class GraphFormatter {
 		return $this->graph;
 	}
 
-	/*
+	/**
 	 * Add a single string to graph
 	 *
 	 * @param string $line
@@ -65,15 +65,15 @@ class GraphFormatter {
 		$this->graph .= $line;
 	}
 
-	/*
-	* Creates the DOT (graph description language),
-	*  which can be processed by the Diagrams, GraphViz or External Data extension
-	*
-	* @see https://www.graphviz.org/ for documentation about the DOT language
-	* @since 3.2
-	*
-	* @param SRF\Graph\GraphNodes[] $nodes
-	*/
+	/**
+	 * Creates the DOT (graph description language),
+	 *  which can be processed by the Diagrams, GraphViz or External Data extension
+	 *
+	 * @see https://www.graphviz.org/ for documentation about the DOT language
+	 * @since 3.2
+	 *
+	 * @param SRF\Graph\GraphNodes[] $nodes
+	 */
 	public function buildGraph( $nodes ) {
 		global $wgVersion;
 
@@ -139,7 +139,8 @@ class GraphFormatter {
 										)
 									. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
-				$nodeLinkURL = null; // the value at the top is already hyperlinked.
+				$nodeLinkURL = null;
+				// the value at the top is already hyperlinked.
 			} else {
 				if ( $nodeLabel ) {
 					// Label, if any, is enclosed with "".

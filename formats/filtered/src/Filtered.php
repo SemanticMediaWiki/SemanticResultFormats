@@ -176,7 +176,8 @@ class Filtered extends ResultPrinter {
 		$resultItems = [];
 		while ( $row = $res->getNext() ) {
 			$resultItems[$this->uniqid()] = new ResultItem( $row, $this );
-			usleep( 1 ); // This is ugly, but for now th opnly way to get all resultItems. See #288.
+			// This is ugly, but for now th opnly way to get all resultItems. See #288.
+			usleep( 1 );
 		}
 
 		$config = [
@@ -186,12 +187,12 @@ class Filtered extends ResultPrinter {
 			'data' => [],
 		];
 
-		list( $filterHtml, $printrequests ) = $this->getFilterHtml( $res, $resultItems );
+		[ $filterHtml, $printrequests ] = $this->getFilterHtml( $res, $resultItems );
 
 		$this->printrequests = $printrequests;
 		$config['printrequests'] = $printrequests;
 
-		list( $viewHtml, $config ) = $this->getViewHtml( $res, $resultItems, $config );
+		[ $viewHtml, $config ] = $this->getViewHtml( $res, $resultItems, $config );
 
 		SMWOutputs::requireResource( 'ext.srf.filtered' );
 
@@ -208,8 +209,7 @@ class Filtered extends ResultPrinter {
 
 		try {
 			$this->fullParams['limit']->getOriginalValue();
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			$res->getQuery()->setLimit( 0 );
 		}
 
