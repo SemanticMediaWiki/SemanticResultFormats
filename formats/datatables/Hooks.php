@@ -12,7 +12,6 @@
 namespace SRF\DataTables;
 
 use SMWPrintRequest;
-use SMW\Services\ServicesFactory as ApplicationFactory;
 
 class Hooks {
 

@@ -2,7 +2,6 @@
 
 namespace SRF;
 
-use Html;
 use RequestContext;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;

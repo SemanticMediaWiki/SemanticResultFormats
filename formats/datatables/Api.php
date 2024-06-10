@@ -16,7 +16,6 @@ use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
 use SMWPrintRequest;
 use SMWQueryProcessor;
-use SMWQuery;
 use SMW\Services\ServicesFactory;
 use SRF\DataTables;
 

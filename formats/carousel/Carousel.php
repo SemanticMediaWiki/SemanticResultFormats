@@ -10,7 +10,6 @@ namespace SRF;
 
 use Html;
 use SMW\ResultPrinter;
-use SMWPrintRequest;
 use SMWQueryResult;
 use MediaWiki\MediaWikiServices;
 
