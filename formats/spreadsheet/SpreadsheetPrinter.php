@@ -25,7 +25,7 @@ use Title;
  */
 class SpreadsheetPrinter extends FileExportPrinter {
 
-	const HEADER_ROW_OFFSET = 1;
+	public const HEADER_ROW_OFFSET = 1;
 
 	protected $fileFormats = [
 		'xlsx' => [

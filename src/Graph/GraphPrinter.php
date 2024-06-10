@@ -28,7 +28,7 @@ class GraphPrinter extends ResultPrinter {
 	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/pull/4273
 	// Implement `ResultPrinterDependency` once SMW 3.1 becomes mandatory
 
-	const NODELABEL_DISPLAYTITLE = 'displaytitle';
+	public const NODELABEL_DISPLAYTITLE = 'displaytitle';
 	public static $NODE_LABELS = [
 		self::NODELABEL_DISPLAYTITLE,
 	];

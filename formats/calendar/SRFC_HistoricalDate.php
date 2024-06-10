@@ -23,7 +23,7 @@
 class SRFCHistoricalDate {
 
 	// equivalent to 1 AD
-	const GREGORIAN_EPOCH = 1721425.5;
+	public const GREGORIAN_EPOCH = 1721425.5;
 
 	// the Julian day
 	protected $m_date;
