@@ -3,9 +3,9 @@
 namespace SRF;
 
 use RequestContext;
+use SMW\Query\PrintRequest;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
-use SMW\Query\PrintRequest;
 use SRFUtils;
 
 /**

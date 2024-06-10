@@ -14,10 +14,10 @@ namespace SRF;
 
 use Html;
 use RequestContext;
-use SMW\ResultPrinter;
 use SMW\DIWikiPage;
 use SMW\Message;
 use SMW\Query\PrintRequest;
+use SMW\ResultPrinter;
 use SMW\Utils\HtmlTable;
 use SMWPrintRequest;
 use SMWPropertyValue;

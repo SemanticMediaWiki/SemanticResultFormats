@@ -11,19 +11,19 @@
 
 namespace SRF\DataTables;
 
-use SMW\DIWikiPage;
-use SMW\DataValueFactory;
 use SMW\DataTypeRegistry;
+use SMW\DataValueFactory;
 use SMW\DIProperty;
-use SMW\SQLStore\SQLStore;
-use SMW\SQLStore\TableBuilder\FieldType;
+use SMW\DIWikiPage;
+use SMW\Query\PrintRequest;
 use SMW\QueryFactory;
 use SMW\Services\ServicesFactory as ApplicationFactory;
-use SMWDataItem as DataItem;
-use SMWQueryProcessor;
-use SMWPrintRequest;
-use SMW\Query\PrintRequest;
 use SMW\SQLStore\QueryEngineFactory;
+use SMW\SQLStore\SQLStore;
+use SMW\SQLStore\TableBuilder\FieldType;
+use SMWDataItem as DataItem;
+use SMWPrintRequest;
+use SMWQueryProcessor;
 
 class SearchPanes {
 

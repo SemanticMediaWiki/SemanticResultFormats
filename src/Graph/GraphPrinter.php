@@ -4,10 +4,10 @@ namespace SRF\Graph;
 
 use Html;
 use MediaWiki\MediaWikiServices;
+use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
-use SMW\Query\PrintRequest;
 
 /**
  * SMW result printer for graphs using graphViz.

@@ -14,9 +14,9 @@ namespace SRF\DataTables;
 use ApiBase;
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
+use SMW\Services\ServicesFactory;
 use SMWPrintRequest;
 use SMWQueryProcessor;
-use SMW\Services\ServicesFactory;
 use SRF\DataTables;
 
 class Api extends ApiBase {

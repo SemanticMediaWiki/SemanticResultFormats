@@ -9,9 +9,9 @@
 namespace SRF;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use SMW\ResultPrinter;
 use SMWQueryResult;
-use MediaWiki\MediaWikiServices;
 
 class Carousel extends ResultPrinter {
 
