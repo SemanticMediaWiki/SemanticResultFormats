@@ -194,8 +194,6 @@ class SRFProcess extends SMWResultPrinter {
 	/**
 	 *    This method renders the result set provided by SMW according to the printer
 	 *
-	 * @param res                SMWQueryResult, result set of the ask query provided by SMW
-	 * @param outputmode        ?
 	 *
 	 * @return string rendered HTML output of this printer for the ask-query
 	 *
