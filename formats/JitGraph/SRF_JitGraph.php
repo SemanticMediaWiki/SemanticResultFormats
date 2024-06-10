@@ -314,26 +314,26 @@ class SRFJitGraph extends SMWResultPrinter {
 
 		// $wgOut->addModules( 'ext.srf.jitgraph' );
 
-		global $srfgScriptPath;
+		global $wgSrfgScriptPath;
 
 		SMWOutputs::requireHeadItem(
 			'smw_jgcss',
-			'<link rel="stylesheet" type="text/css" href="' . $srfgScriptPath .
+			'<link rel="stylesheet" type="text/css" href="' . $wgSrfgScriptPath .
 			'/JitGraph/base.css"></link>'
 		);
 		SMWOutputs::requireHeadItem(
 			'smw_jgloader',
-			'<script type="text/javascript" src="' . $srfgScriptPath .
+			'<script type="text/javascript" src="' . $wgSrfgScriptPath .
 			'/JitGraph/jquery.progressbar.js"></script>'
 		);
 		SMWOutputs::requireHeadItem(
 			'smw_jg',
-			'<script type="text/javascript" src="' . $srfgScriptPath .
+			'<script type="text/javascript" src="' . $wgSrfgScriptPath .
 			'/JitGraph/Jit/jit.js"></script>'
 		);
 		SMWOutputs::requireHeadItem(
 			'smw_jghelper',
-			'<script type="text/javascript" src="' . $srfgScriptPath .
+			'<script type="text/javascript" src="' . $wgSrfgScriptPath .
 			'/JitGraph/SRF_JitGraph.js"></script>'
 		);
 	}

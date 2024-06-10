@@ -290,8 +290,8 @@ class SRFArray extends SMWResultPrinter {
 			if ( $cache === null ) {
 				// cache can't be initialized, propably function-reference in userconfig
 				// but format is not used in inline context, use fallback in this case:
-				global $srfgArraySepTextualFallbacks;
-				$cache = $srfgArraySepTextualFallbacks[$dfltCacheKey];
+				global $wgSrfgArraySepTextualFallbacks;
+				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey];
 			}
 		}
 		return $cache;
@@ -439,32 +439,32 @@ class SRFArray extends SMWResultPrinter {
 		];
 
 		// separators (default values are defined in the following globals:)
-		global $srfgArraySep, $srfgArrayPropSep, $srfgArrayManySep, $srfgArrayRecordSep, $srfgArrayHeaderSep;
+		global $wgSrfgArraySep, $wgSrfgArrayPropSep, $wgSrfgArrayManySep, $wgSrfgArrayRecordSep, $wgSrfgArrayHeaderSep;
 
 		$params['sep'] = [
 			'message' => 'smw-paramdesc-sep',
-			'default' => $this->initializeCfgValue( $srfgArraySep, 'sep' ),
+			'default' => $this->initializeCfgValue( $wgSrfgArraySep, 'sep' ),
 		];
 
 		$params['propsep'] = [
 			'message' => 'srf_paramdesc_propsep',
-			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
+			'default' => $this->initializeCfgValue( $wgSrfgArrayPropSep, 'propsep' ),
 		];
 
 		$params['manysep'] = [
 			'message' => 'srf_paramdesc_manysep',
-			'default' => $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ),
+			'default' => $this->initializeCfgValue( $wgSrfgArrayManySep, 'manysep' ),
 		];
 
 		$params['recordsep'] = [
 			'message' => 'srf_paramdesc_recordsep',
-			'default' => $this->initializeCfgValue( $srfgArrayRecordSep, 'recordsep' ),
+			'default' => $this->initializeCfgValue( $wgSrfgArrayRecordSep, 'recordsep' ),
 			'aliases' => [ 'narysep', 'rcrdsep', 'recsep' ],
 		];
 
 		$params['headersep'] = [
 			'message' => 'srf_paramdesc_headersep',
-			'default' => $this->initializeCfgValue( $srfgArrayHeaderSep, 'headersep' ),
+			'default' => $this->initializeCfgValue( $wgSrfgArrayHeaderSep, 'headersep' ),
 			'aliases' => [ 'narysep', 'rcrdsep', 'recsep' ],
 		];
 
