@@ -364,10 +364,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @return bool|File
 	 */
 	private function findFile( Title $title ) {
-		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
-			return MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
-		}
-		// TODO: Remove when min MW version is 1.34
-		return wfFindFile( $title );
+		return MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
 	}
 }
