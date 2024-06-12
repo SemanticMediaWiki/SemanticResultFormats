@@ -109,7 +109,7 @@ class SRFDygraphs extends SMWResultPrinter {
 						$aggregatedValues['subject'] = $this->makePageFromTitle(
 							$title
 						)->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
-						$aggregatedValues['url'] = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title )->getUrl();						
+						$aggregatedValues['url'] = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title )->getUrl();
 						$dataSource = true;
 						continue;
 					} elseif ( $dataItem->getDIType() == SMWDataItem::TYPE_URI && $this->params['datasource'] === 'url' && !$dataSource ) {
