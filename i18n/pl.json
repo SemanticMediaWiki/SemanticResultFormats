@@ -10,6 +10,7 @@
 			"SemanticPioneer",
 			"Sp5uhe",
 			"ToSter",
+			"WaldiSt",
 			"Wojtas",
 			"Woytecr"
 		]
@@ -296,10 +297,13 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Powtarzanie wyłączone",
 	"srf-ui-mediaplayer-label-full-screen": "Pełny ekran",
 	"srf-ui-mediaplayer-label-restore-screen": "Przywróć ekran",
+	"srf-ui-slideshow-slide-button-pause": "zatrzymaj",
 	"srf-paramdesc-icalendar-timezone": "Lista stref czasowych przedzielana przecinkami",
 	"srf-paramdesc-gantt-diagramtitle": "Nazwa diagramu",
 	"srf-paramdesc-gantt-diagramtheme": "Motyw diagramu",
 	"srf-paramdesc-gantt-barheight": "Wysokość pasków zadań",
 	"srf-paramdesc-gantt-leftpadding": "Szerokość tytułu sekcji",
-	"srf-error-gantt-mermaid-not-installed": "Rozszerzenie Mermaid musi być zainstalowane."
+	"srf-error-gantt-mermaid-not-installed": "Rozszerzenie Mermaid musi być zainstalowane.",
+	"srf-printername-mode": "Tryb",
+	"srf-printername-range": "Zakres"
 }

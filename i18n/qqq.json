@@ -410,7 +410,7 @@
 	"srf-printername-samplevariance": "{{doc-smwformat|samplevariance}}",
 	"srf-printername-standarddeviation": "{{doc-smwformat|standarddeviation}}",
 	"srf-printername-variance": "{{doc-smwformat|variance}}",
-	"srf-printername-prolog": "{{doc-smwformat|prolog}}",
+	"srf-printername-prolog": "'''Do not translate “Prolog”.''' It’s the name of a programming language based on classical logic. A Prolog program is a set of predicates. Predicates define relations between their arguments. \n\n{{doc-smwformat|prolog}}",
 	"srf-paramdesc-prolog-filename": "{{doc-paramdesc|filename}}",
 	"srf-paramdesc-prolog-fileformat": "{{doc-paramdesc|fileformat}}",
 	"srf-paramdesc-prolog-pname": "The name of the generated predicates. Default: predicate",

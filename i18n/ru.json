@@ -337,7 +337,7 @@
 	"srf-spreadsheet-link": "Таблица",
 	"srf-paramdesc-spreadsheet-filename": "Имя файла при скачивании сгенерированной электронной таблицы",
 	"srf-paramdesc-spreadsheet-templatefile": "Название файла таблицы из пространства имён «Файл», используемого для форматирования создаваемого файла",
-	"srf-paramdesc-icalendar-timezone": "Список часовых поясов, разделенных запятыми",
+	"srf-paramdesc-icalendar-timezone": "Список часовых поясов, разделённых запятыми",
 	"srf-paramdesc-gantt-diagramtitle": "Имя диаграммы",
 	"srf-paramdesc-gantt-diagramtheme": "Тема диаграммы",
 	"srf-paramdesc-gantt-axisformat": "Ось x: Формат даты",
