@@ -1,7 +1,7 @@
 # Semantic Result Formats
 [![CI](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/ci.yml)
-[![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-result-formats/version.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
-[![Packagist download count](https://poser.pugx.org/mediawiki/semantic-result-formats/d/total.png)](https://packagist.org/packages/mediawiki/semantic-result-formats)
+![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-result-formats.svg)
+![Total Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-result-formats.svg)
 
 Semantic Result Formats (SRF) is a MediaWiki extension that provides extra visualizations (result formats) for [Semantic MediaWiki][smw] queries. For more information, see the [Semantic Result Formats documentation][srf] or consult the
 [release notes](RELEASE-NOTES.md).
@@ -15,12 +15,12 @@ Semantic Result Formats (SRF) is a MediaWiki extension that provides extra visua
 ## Installation
 
 The recommended way to install this extension is by using [Composer][composer]. See the detailed
-[installation guide](docs/INSTALL.md) which also contains information about compatibility and
+[Installation guide](docs/INSTALL.md) which also contains information about compatibility and
 configuration.
 
 ## Contribution and support
 
-Semantic Result Formats is maintained by @JeroenDeDauw.
+@JeroenDeDauw maintains Semantic Result Formats.
 
 [![Chatroom](https://www.semantic-mediawiki.org/w/thumb.php?f=Comment-alt-solid.svg&width=35)](https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki_chatroom)
 [![Twitter](https://www.semantic-mediawiki.org/w/thumb.php?f=Twitter-square.svg&width=35)](https://twitter.com/#!/semanticmw)
@@ -35,7 +35,7 @@ Primary support channels:
 * [SMW chat room](https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki_chatroom) - for questions and developer discussions
 * [Issue tracker](https://github.com/SemanticMediaWiki/SemanticMediaWiki/issues) - for bug reports
 
-If you want to contribute work to the project please look at the [contribution guildline](/CONTRIBUTING.md).
+If you want to contribute work to the project, please see the [contribution guildline](/CONTRIBUTING.md).
 A list of people who have made contributions in the past can be found [here][contributors].
 
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues)
@@ -44,7 +44,7 @@ A list of people who have made contributions in the past can be found [here][con
 
 ## Tests
 
-This extension provides unit and integration tests and are normally run by a [continues integration platform][travis]
+This extension provides unit and integration tests and is usually run by a [continues integration platform][GitHub Actions]
 but can also be executed locally using the shortcut command `composer phpunit` from the extension base directory.
 
 
@@ -54,7 +54,7 @@ Generally published under [GNU General Public License 2.0 or later][licence] tog
 third-party plugins and their license.
 
 [smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
-[travis]: https://travis-ci.org/SemanticMediaWiki/SemanticResultFormats
+[GitHub Actions]: https://docs.github.com/en/actions
 [srf]: https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats
 [composer]: https://getcomposer.org/
 [contributors]: https://github.com/SemanticMediaWiki/SemanticResultFormats/graphs/contributors
