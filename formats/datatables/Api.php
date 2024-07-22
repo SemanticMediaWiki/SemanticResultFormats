@@ -237,7 +237,7 @@ class Api extends ApiBase {
 			}
 		}
 
-		$smwgQMaxSize = $this->getConfig()->get();
+		global $smwgQMaxSize;
 
 		if ( !count( $queryDisjunction ) ) {
 			$queryDisjunction = [ '' ];
@@ -276,8 +276,7 @@ class Api extends ApiBase {
 		// or SMW_OUTPUT_RAW
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
 
-		$smwgQMaxLimit = $this->getConfig()->get();
-		$smwgQMaxInlineLimit = $this->getConfig()->get();
+		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
 
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
@@ -356,8 +355,8 @@ class Api extends ApiBase {
 	 * @return string
 	 */
 	public function getVersion() {
-		$srfg = $this->getConfig()->get();
-		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfg );
+		global $srfgIP;
+		$gitSha1 = SpecialVersion::getGitHeadSha1( $srfgIP );
 		return __CLASS__ . '-' . SRF_VERSION . ( $gitSha1 !== false ) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
 
