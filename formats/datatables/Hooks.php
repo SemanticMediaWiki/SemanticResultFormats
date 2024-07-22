@@ -67,11 +67,11 @@ class Hooks {
 	}
 
 	private static function getCount( $query, $queryEngine ) {
-		global $wgSmQMaxLimit, $wgSmQMaxInlineLimit;
+		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
 
 		$queryDescription = $query->getDescription();
 		$queryCount = new \SMWQuery( $queryDescription );
-		$queryCount->setLimit( min( $wgSmQMaxLimit, $wgSmQMaxInlineLimit ) );
+		$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
 		$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
 		$queryResult = $queryEngine->getQueryResult( $queryCount );
 
