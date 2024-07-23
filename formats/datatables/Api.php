@@ -237,7 +237,7 @@ class Api extends ApiBase {
 			}
 		}
 
-		$smwgQMaxSize = $this->getConfig()->get('smwgQMaxSize');
+		$smwgQMaxSize = $this->getConfig()->get( 'smwgQMaxSize' );
 
 		if ( !count( $queryDisjunction ) ) {
 			$queryDisjunction = [ '' ];
@@ -276,8 +276,8 @@ class Api extends ApiBase {
 		// or SMW_OUTPUT_RAW
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
 
-		$smwgQMaxLimit = $this->getConfig()->get('smwgQMaxLimit');
-		$smwgQMaxInlineLimit = $this->getConfig()->get('smwgQMaxInlineLimit');
+		$smwgQMaxLimit = $this->getConfig()->get( 'smwgQMaxLimit' );
+		$smwgQMaxInlineLimit = $this->getConfig()->get( 'smwgQMaxInlineLimit' );
 
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
