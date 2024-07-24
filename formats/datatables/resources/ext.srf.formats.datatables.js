@@ -478,6 +478,7 @@
 
 			var table = container.find("table");
 			table.removeClass("wikitable");
+			table.find("tbody:first").attr("aria-live", "polite");
 
 			_datatables.initColumnSort(table);
 
