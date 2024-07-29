@@ -180,7 +180,7 @@
 	"srf_paramdesc_maxtags": "Het maximale aantal labels in de wolk",
 	"srf-paramdesc-excludetags": "Labels uitsluiten (scheidingsteken is \";\")",
 	"srf_printername_valuerank": "Rangwaarde",
-	"srf-paramdesc-liststyle": "De stijl om de lijst te tonen",
+	"srf-paramdesc-liststyle": "De stijl om de lijst weer te geven",
 	"srf_printername_array": "Array",
 	"srf_paramdesc_pagetitle": "Of paginanamen moeten worden weergegeven of weggelaten in resultaatregels",
 	"srf_paramdesc_hidegaps": "Of lege eigenschap- en recordwaardes door komma's gescheiden moeten worden weergegeven of weggelaten",
