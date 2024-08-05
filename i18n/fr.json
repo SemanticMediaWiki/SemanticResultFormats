@@ -15,6 +15,7 @@
 			"Hashar",
 			"IAlex",
 			"Iluvalar",
+			"Kubuya kanane leopold",
 			"Macofe",
 			"McDutchie",
 			"Nemo bis",
@@ -416,5 +417,13 @@
 	"srf-printername-samplestandarddeviation": "Déviationstandarddel'échantillon",
 	"srf-printername-samplevariance": "Variancedel'échantillon",
 	"srf-printername-standarddeviation": "Déviationstandard",
-	"srf-printername-variance": "Variance"
+	"srf-printername-variance": "Variance",
+	"srf-printername-prolog": "Prédicats prologues",
+	"srf-paramdesc-prolog-filename": "Le nom du fichier pour le téléchargement du généré",
+	"srf-paramdesc-prolog-fileformat": "Le format à etre produit pour les fichiers de predicats.Valeurs autorisée m,pro, par defaut:pl",
+	"srf-paramdesc-prolog-pname": "Le nom des prédicats généré par défaut",
+	"srf-paramdesc-prolog-navalue": "La valeur des données manquantes. par défaut: 'NA'",
+	"srf-printername-dataframe": "Trame des données R",
+	"srf-paramdesc-dataframe-filename": "Le nom du fichier pour le téléchargement de la trame de données générées",
+	"srf-paramdesc-dataframe-fileformat": "Le format à produire pour la trame de données. Valeurs autorisées: R"
 }
