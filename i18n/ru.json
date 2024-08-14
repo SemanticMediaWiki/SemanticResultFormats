@@ -23,6 +23,7 @@
 			"Romanko Mikhail",
 			"Urfiner",
 			"Vlad5250",
+			"Yurina Tatiana",
 			"Александр Сигачёв"
 		]
 	},
@@ -152,6 +153,7 @@
 	"srf-ui-gridview-label-data-tab": "Данные",
 	"srf-ui-gridview-label-info-tab": "Информация",
 	"srf_printername_gallery": "Галерея",
+	"srf_printername_carousel": "Карусель",
 	"srf_paramdesc_perrow": "Количество изображений в строке",
 	"srf_paramdesc_widths": "Ширина изображений",
 	"srf_paramdesc_heights": "Высота изображений",
@@ -209,6 +211,7 @@
 	"srf-ui-datatables-label-filters": "Фильтры столбцов и поиск",
 	"srf-ui-datatables-label-information": "Информация",
 	"srf-ui-datatables-panel-disclaimer": "Параметры и условия могут быть изменены, но любое изменение временное и сбрасывается после обновления страницы.",
+	"srf-ui-datatables-refresh-button-title": "обновить таблицу",
 	"srf-ui-datatables-label-update-success": "Обновление таблицы прошло успешно",
 	"srf-ui-datatables-label-update-error": "Обновление таблицы не удалось.",
 	"srf-ui-datatables-label-placeholder-column-search": "Поиск…",
@@ -334,6 +337,7 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Повторение выкл",
 	"srf-ui-mediaplayer-label-full-screen": "На весь экран",
 	"srf-ui-mediaplayer-label-restore-screen": "Восстановить экран",
+	"srf-ui-slideshow-slide-button-pause": "пауза",
 	"srf-spreadsheet-link": "Таблица",
 	"srf-paramdesc-spreadsheet-filename": "Имя файла при скачивании сгенерированной электронной таблицы",
 	"srf-paramdesc-spreadsheet-templatefile": "Название файла таблицы из пространства имён «Файл», используемого для форматирования создаваемого файла",
@@ -347,5 +351,6 @@
 	"srf-paramdesc-gantt-leftpadding": "Ширина заголовка секции",
 	"srf-error-gantt-mermaid-not-installed": "Расширение Mermaid должно быть установлено.",
 	"srf-printername-gantt": "Диаграмма Ганта",
-	"srf-paramdesc-graphfields": "Отображать свойста не типа «Страница» внутри вершин графа, а не в виде его рёбер."
+	"srf-paramdesc-graphfields": "Отображать свойста не типа «Страница» внутри вершин графа, а не в виде его рёбер.",
+	"srf-printername-mode": "Режим"
 }
