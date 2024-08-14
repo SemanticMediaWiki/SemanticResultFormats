@@ -45,7 +45,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // global variable defining picture path
 
-$wgSrfgPicturePath = "formats/graphviz/images/";
+$srfgPicturePath = "formats/graphviz/images/";
 
 class SRFProcess extends SMWResultPrinter {
 
@@ -957,7 +957,7 @@ class ProcessNode extends ProcessElement {
 	}
 
 	public function getGraphVizCode() {
-		global $wgIP, $wgSrfgPicturePath, $wgSrfgIP;
+		global $wgIP, $srfgPicturePath, $srfgIP;
 		//
 		// show node status
 		//
@@ -966,10 +966,10 @@ class ProcessNode extends ProcessElement {
 
 			if ( file_exists( $wgIP . "/images/p000.png" ) ) {
 				$PicturePath = $wgIP . "/images/";
-			} elseif ( file_exists( $wgSrfgIP . "/formats/graphviz/images/p000.png" ) ) {
-				$PicturePath = $wgSrfgIP . "/formats/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/p000.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
-				$PicturePath = $wgIP . $wgSrfgPicturePath;
+				$PicturePath = $wgIP . $srfgPicturePath;
 			}
 			// $color = 'grey' . $this->getStatus();
 			// $color = 'grey' . rand(1, 100);
@@ -1003,10 +1003,10 @@ class ProcessNode extends ProcessElement {
 
 			if ( file_exists( $wgIP . "/images/discuss_icon.png" ) ) {
 				$PicturePath = $wgIP . "/images/";
-			} elseif ( file_exists( $wgSrfgIP . "/formats/graphviz/images/discuss_icon.png" ) ) {
-				$PicturePath = $wgSrfgIP . "/formats/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/discuss_icon.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
-				$PicturePath = $wgIP . $wgSrfgPicturePath;
+				$PicturePath = $wgIP . $srfgPicturePath;
 			}
 			$discussionTitle = Title::newFromText( 'Talk:' . $this->getId() . '' );
 			if ( $discussionTitle->isKnown() ) {
@@ -1030,10 +1030,10 @@ class ProcessNode extends ProcessElement {
 		if ( $this->getProcess()->getShowCompound() ) {
 			if ( file_exists( $wgIP . "/images/subprocess.png" ) ) {
 				$PicturePath = $wgIP . "/images/";
-			} elseif ( file_exists( $wgSrfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
-				$PicturePath = $wgSrfgIP . "/formats/graphviz/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
-				$PicturePath = $wgIP . $wgSrfgPicturePath;
+				$PicturePath = $wgIP . $srfgPicturePath;
 			}
 			if ( !$this->isAtomic() ) {
 				$compound = '<TR><TD ALIGN="LEFT" BORDER="0" WIDTH="20px" HREF="[[' . $this->getId(
@@ -1267,11 +1267,11 @@ class SplitConditionalOrEdge extends ProcessEdge {
 class SplitExclusiveOrEdge extends SplitEdge {
 
 	public function getGraphVizCode() {
-		global $wgSrfgShapeStyle;
+		global $srfgShapeStyle;
 		$p = $this->getPred();
 		$p = $p[0];
-		if ( $wgSrfgShapeStyle == '' ) {
-			$wgSrfgShapeStyle = "box";
+		if ( $srfgShapeStyle == '' ) {
+			$srfgShapeStyle = "box";
 		}
 		$res =
 			'subgraph "clus_' . $this->getId() . '" {
@@ -1280,7 +1280,7 @@ class SplitExclusiveOrEdge extends SplitEdge {
 		// add OR-Shape
 		$orx = 'or' . rand( 1, 99999 );
 		$res .=
-			'"' . $orx . '"[shape=' . $wgSrfgShapeStyle . ',label="+",style=filled,color=gold];
+			'"' . $orx . '"[shape=' . $srfgShapeStyle . ',label="+",style=filled,color=gold];
 		"' . $p->getId() . '":port1:s -> "' . $orx . '";
 		';
 
@@ -1306,9 +1306,9 @@ class SplitExclusiveOrEdge extends SplitEdge {
 class SplitParallelEdge extends SplitEdge {
 
 	public function getGraphVizCode() {
-		global $wgSrfgShapeStyle;
-		if ( $wgSrfgShapeStyle == '' ) {
-			$wgSrfgShapeStyle = "box";
+		global $srfgShapeStyle;
+		if ( $srfgShapeStyle == '' ) {
+			$srfgShapeStyle = "box";
 		}
 		$p = $this->getPred();
 		$p = $p[0];
@@ -1320,7 +1320,7 @@ class SplitParallelEdge extends SplitEdge {
 		// add AND-Shape
 		$and = 'and' . rand( 1, 99999 );
 		$res .=
-			'"' . $and . '"[shape=' . $wgSrfgShapeStyle . ',label="||",style=filled,color=palegreen];
+			'"' . $and . '"[shape=' . $srfgShapeStyle . ',label="||",style=filled,color=palegreen];
 		"' . $p->getId() . '":port1:s -> "' . $and . '";
 		';
 

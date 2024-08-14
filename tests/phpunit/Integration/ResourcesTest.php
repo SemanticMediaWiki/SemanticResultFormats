@@ -28,8 +28,8 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	 * @return array
 	 */
 	private function getSRFResourceModules() {
-		global $wgSrfgIP;
-		return include $wgSrfgIP . '/' . 'Resources.php';
+		global $srfgIP;
+		return include $srfgIP . '/' . 'Resources.php';
 	}
 
 	public function moduleDataProvider() {
