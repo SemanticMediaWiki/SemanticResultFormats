@@ -144,8 +144,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgOut;
-		$title = RequestContext::getMain()->getTitle();
+		global $wgTitle, $wgOut;
 
 		if ( class_exists( 'ResourceLoader' ) ) {
 			$wgOut->addModules( 'ext.srf.jitgraph' );
@@ -172,7 +171,7 @@ class SRFJitGraph extends SMWResultPrinter {
 						$firstcolvalue = $object->getShortText( $outputmode );
 
 						// Title of the page where the result format is being displayed
-						$thisPageTitle = $title->getPrefixedText();
+						$thisPageTitle = $wgTitle->getPrefixedText();
 
 						// This little block adds the name of the current edge to the list later used to compile the graph legend
 						$req = $field->getPrintRequest();
@@ -314,26 +313,26 @@ class SRFJitGraph extends SMWResultPrinter {
 
 		// $wgOut->addModules( 'ext.srf.jitgraph' );
 
-		global $wgSrfgScriptPath;
+		global $srfgScriptPath;
 
 		SMWOutputs::requireHeadItem(
 			'smw_jgcss',
-			'<link rel="stylesheet" type="text/css" href="' . $wgSrfgScriptPath .
+			'<link rel="stylesheet" type="text/css" href="' . $srfgScriptPath .
 			'/JitGraph/base.css"></link>'
 		);
 		SMWOutputs::requireHeadItem(
 			'smw_jgloader',
-			'<script type="text/javascript" src="' . $wgSrfgScriptPath .
+			'<script type="text/javascript" src="' . $srfgScriptPath .
 			'/JitGraph/jquery.progressbar.js"></script>'
 		);
 		SMWOutputs::requireHeadItem(
 			'smw_jg',
-			'<script type="text/javascript" src="' . $wgSrfgScriptPath .
+			'<script type="text/javascript" src="' . $srfgScriptPath .
 			'/JitGraph/Jit/jit.js"></script>'
 		);
 		SMWOutputs::requireHeadItem(
 			'smw_jghelper',
-			'<script type="text/javascript" src="' . $wgSrfgScriptPath .
+			'<script type="text/javascript" src="' . $srfgScriptPath .
 			'/JitGraph/SRF_JitGraph.js"></script>'
 		);
 	}

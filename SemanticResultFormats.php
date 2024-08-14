@@ -43,7 +43,7 @@ class SemanticResultFormats {
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormats'] = __DIR__ . '/SemanticResultFormats.i18n.php';
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticResultFormatsMagic'] = __DIR__ . '/SemanticResultFormats.i18n.magic.php';
 
-		$GLOBALS['wgSrfgIP'] = __DIR__;
+		$GLOBALS['srfgIP'] = __DIR__;
 		$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include __DIR__ . "/Resources.php" );
 	}
 

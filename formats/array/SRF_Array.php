@@ -439,32 +439,32 @@ class SRFArray extends SMWResultPrinter {
 		];
 
 		// separators (default values are defined in the following globals:)
-		global $wgSrfgArraySep, $wgSrfgArrayPropSep, $wgSrfgArrayManySep, $wgSrfgArrayRecordSep, $wgSrfgArrayHeaderSep;
+		global $srfgArraySep, $srfgArrayPropSep, $srfgArrayManySep, $srfgArrayRecordSep, $srfgArrayHeaderSep;
 
 		$params['sep'] = [
 			'message' => 'smw-paramdesc-sep',
-			'default' => $this->initializeCfgValue( $wgSrfgArraySep, 'sep' ),
+			'default' => $this->initializeCfgValue( $srfgArraySep, 'sep' ),
 		];
 
 		$params['propsep'] = [
 			'message' => 'srf_paramdesc_propsep',
-			'default' => $this->initializeCfgValue( $wgSrfgArrayPropSep, 'propsep' ),
+			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
 		];
 
 		$params['manysep'] = [
 			'message' => 'srf_paramdesc_manysep',
-			'default' => $this->initializeCfgValue( $wgSrfgArrayManySep, 'manysep' ),
+			'default' => $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ),
 		];
 
 		$params['recordsep'] = [
 			'message' => 'srf_paramdesc_recordsep',
-			'default' => $this->initializeCfgValue( $wgSrfgArrayRecordSep, 'recordsep' ),
+			'default' => $this->initializeCfgValue( $srfgArrayRecordSep, 'recordsep' ),
 			'aliases' => [ 'narysep', 'rcrdsep', 'recsep' ],
 		];
 
 		$params['headersep'] = [
 			'message' => 'srf_paramdesc_headersep',
-			'default' => $this->initializeCfgValue( $wgSrfgArrayHeaderSep, 'headersep' ),
+			'default' => $this->initializeCfgValue( $srfgArrayHeaderSep, 'headersep' ),
 			'aliases' => [ 'narysep', 'rcrdsep', 'recsep' ],
 		];
 

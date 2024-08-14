@@ -63,7 +63,7 @@ class SRFExhibit extends SMWResultPrinter {
 	}
 
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		global $wgSmIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $wgSrfgScriptPath;
+		global $smwgIQRunningNumber, $wgScriptPath, $wgGoogleMapsKey, $srfgScriptPath;
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			SMWOutputs::requireHeadItem( 'exhibit-compat', Html::linkedScript( "$wgScriptPath/common/wikibits.js" ) );
@@ -140,12 +140,12 @@ class SRFExhibit extends SMWResultPrinter {
 		array_unshift( $colstack, 'label' );
 
 		if ( self::$exhibitRunningNumber == 0 ) {
-			$sourcesrc = "var ex_sources = { source" . ( $wgSmIQRunningNumber - 1 ) . ": { id:  'querytable" . $wgSmIQRunningNumber . "' , columns: '" . implode(
+			$sourcesrc = "var ex_sources = { source" . ( $smwgIQRunningNumber - 1 ) . ": { id:  'querytable" . $smwgIQRunningNumber . "' , columns: '" . implode(
 					',',
 					$colstack
 				) . "'.split(','), hideTable: '1', type: 'Item', label: 'Item', pluralLabel: 'Items' } };";
 		} else {
-			$sourcesrc = "sources.source" . $wgSmIQRunningNumber . " =  { id:  'querytable" . $wgSmIQRunningNumber . "' , columns: '" . implode(
+			$sourcesrc = "sources.source" . $smwgIQRunningNumber . " =  { id:  'querytable" . $smwgIQRunningNumber . "' , columns: '" . implode(
 					',',
 					$colstack
 				) . "'.split(','), hideTable: '1', type: 'Item', label: 'Item', pluralLabel: 'Items' };";
@@ -510,7 +510,7 @@ class SRFExhibit extends SMWResultPrinter {
 
 		// To run Exhibit some links to the scripts of the API need to be included in the header
 
-		$ExhibitScriptSrc1 = '<script type="text/javascript" src="' . $wgSrfgScriptPath . '/Exhibit/exhibit/exhibit-api.js?autoCreate=false&safe=true&bundle=false';
+		$ExhibitScriptSrc1 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/exhibit/exhibit-api.js?autoCreate=false&safe=true&bundle=false';
 		if ( $timeline ) {
 			$ExhibitScriptSrc1 .= '&views=timeline';
 		}
@@ -518,8 +518,8 @@ class SRFExhibit extends SMWResultPrinter {
 			$ExhibitScriptSrc1 .= '&gmapkey=' . $wgGoogleMapsKey;
 		}
 		$ExhibitScriptSrc1 .= '"></script>';
-		$ExhibitScriptSrc2 = '<script type="text/javascript" src="' . $wgSrfgScriptPath . '/Exhibit/SRF_Exhibit.js"></script>';
-		$CSSSrc = '<link rel="stylesheet" type="text/css" href="' . $wgSrfgScriptPath . '/Exhibit/SRF_Exhibit.css"></link>';
+		$ExhibitScriptSrc2 = '<script type="text/javascript" src="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.js"></script>';
+		$CSSSrc = '<link rel="stylesheet" type="text/css" href="' . $srfgScriptPath . '/Exhibit/SRF_Exhibit.css"></link>';
 		// include CSS
 		SMWOutputs::requireHeadItem( 'CSS', $CSSSrc );
 		// include Exhibit API
@@ -529,7 +529,7 @@ class SRFExhibit extends SMWResultPrinter {
 			$ExhibitScriptSrc2
 		);
 		// includes javascript overwriting the Exhibit start-up functions, include sources variable
-		SMWOutputs::requireHeadItem( 'SOURCES' . $wgSmIQRunningNumber, $sourcesrc );
+		SMWOutputs::requireHeadItem( 'SOURCES' . $smwgIQRunningNumber, $sourcesrc );
 		// include views and facets variable
 		SMWOutputs::requireHeadItem( 'VIEWSFACETS', $headervars );
 
@@ -537,7 +537,7 @@ class SRFExhibit extends SMWResultPrinter {
 
 			// print input table
 			// print header
-			$result = "<table style=\"display:none\" class=\"smwtable\" id=\"querytable" . $wgSmIQRunningNumber . "\">\n";
+			$result = "<table style=\"display:none\" class=\"smwtable\" id=\"querytable" . $smwgIQRunningNumber . "\">\n";
 			if ( $this->mShowHeaders ) {
 				// building headers
 				$result .= "\t<tr>\n";

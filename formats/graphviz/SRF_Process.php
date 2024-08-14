@@ -45,7 +45,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // global variable defining picture path
 
-$wgSrfgPicturePath = "formats/graphviz/images/";
+$srfgPicturePath = "formats/graphviz/images/";
 
 class SRFProcess extends SMWResultPrinter {
 
@@ -204,8 +204,8 @@ class SRFProcess extends SMWResultPrinter {
 			wfWarn( 'The SRF Graph printer needs the Diagrams or GraphViz extension to be installed.' );
 			return '';
 		}
-		// content language object
-		$lang = RequestContext::getMain()->getLanguage();
+
+		global $wgContLang; // content language object
 
 		//
 		//	GraphViz settings
@@ -250,13 +250,13 @@ class SRFProcess extends SMWResultPrinter {
 				$req = $field->getPrintRequest();
 				switch ( ( strtolower( $req->getLabel() ) ) ) {
 
-					case strtolower( $lang->getNsText( NS_CATEGORY ) ):
+					case strtolower( $wgContLang->getNsText( NS_CATEGORY ) ):
 						foreach ( $field->getContent() as $value ) {
 							$wikiPageValue = new SMWWikiPageValue( '_wpg' );
 							$wikiPageValue->setDataItem( $value );
 							$val = $wikiPageValue->getShortWikiText();
 
-							if ( $val == ( $lang->getNsText( NS_CATEGORY ) . ':' . $this->m_processCategory ) ) {
+							if ( $val == ( $wgContLang->getNsText( NS_CATEGORY ) . ':' . $this->m_processCategory ) ) {
 								$node->setAtomic( false );
 							}
 						}
@@ -957,19 +957,19 @@ class ProcessNode extends ProcessElement {
 	}
 
 	public function getGraphVizCode() {
-		global $wgIP, $wgSrfgPicturePath, $wgSrfgIP;
+		global $IP, $srfgPicturePath, $srfgIP;
 		//
 		// show node status
 		//
 		$status = '';
 		if ( $this->getProcess()->getShowStatus() ) {
 
-			if ( file_exists( $wgIP . "/images/p000.png" ) ) {
-				$PicturePath = $wgIP . "/images/";
-			} elseif ( file_exists( $wgSrfgIP . "/formats/graphviz/images/p000.png" ) ) {
-				$PicturePath = $wgSrfgIP . "/formats/graphviz/images/";
+			if ( file_exists( $IP . "/images/p000.png" ) ) {
+				$PicturePath = $IP . "/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/p000.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
-				$PicturePath = $wgIP . $wgSrfgPicturePath;
+				$PicturePath = $IP . $srfgPicturePath;
 			}
 			// $color = 'grey' . $this->getStatus();
 			// $color = 'grey' . rand(1, 100);
@@ -1001,12 +1001,12 @@ class ProcessNode extends ProcessElement {
 		$discussion = '';
 		if ( $this->getProcess()->getShowDiscussion() ) {
 
-			if ( file_exists( $wgIP . "/images/discuss_icon.png" ) ) {
-				$PicturePath = $wgIP . "/images/";
-			} elseif ( file_exists( $wgSrfgIP . "/formats/graphviz/images/discuss_icon.png" ) ) {
-				$PicturePath = $wgSrfgIP . "/formats/graphviz/images/";
+			if ( file_exists( $IP . "/images/discuss_icon.png" ) ) {
+				$PicturePath = $IP . "/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/discuss_icon.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
-				$PicturePath = $wgIP . $wgSrfgPicturePath;
+				$PicturePath = $IP . $srfgPicturePath;
 			}
 			$discussionTitle = Title::newFromText( 'Talk:' . $this->getId() . '' );
 			if ( $discussionTitle->isKnown() ) {
@@ -1028,12 +1028,12 @@ class ProcessNode extends ProcessElement {
 		// insert icon for non-atomic nodes (i.e. subprocesses)
 		$compound = '<TR><TD ALIGN="LEFT" BORDER="0" WIDTH="20px">';
 		if ( $this->getProcess()->getShowCompound() ) {
-			if ( file_exists( $wgIP . "/images/subprocess.png" ) ) {
-				$PicturePath = $wgIP . "/images/";
-			} elseif ( file_exists( $wgSrfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
-				$PicturePath = $wgSrfgIP . "/formats/graphviz/images/";
+			if ( file_exists( $IP . "/images/subprocess.png" ) ) {
+				$PicturePath = $IP . "/images/";
+			} elseif ( file_exists( $srfgIP . "/formats/graphviz/images/subprocess.png" ) ) {
+				$PicturePath = $srfgIP . "/formats/graphviz/images/";
 			} else {
-				$PicturePath = $wgIP . $wgSrfgPicturePath;
+				$PicturePath = $IP . $srfgPicturePath;
 			}
 			if ( !$this->isAtomic() ) {
 				$compound = '<TR><TD ALIGN="LEFT" BORDER="0" WIDTH="20px" HREF="[[' . $this->getId(
@@ -1267,11 +1267,11 @@ class SplitConditionalOrEdge extends ProcessEdge {
 class SplitExclusiveOrEdge extends SplitEdge {
 
 	public function getGraphVizCode() {
-		global $wgSrfgShapeStyle;
+		global $srfgShapeStyle;
 		$p = $this->getPred();
 		$p = $p[0];
-		if ( $wgSrfgShapeStyle == '' ) {
-			$wgSrfgShapeStyle = "box";
+		if ( $srfgShapeStyle == '' ) {
+			$srfgShapeStyle = "box";
 		}
 		$res =
 			'subgraph "clus_' . $this->getId() . '" {
@@ -1280,7 +1280,7 @@ class SplitExclusiveOrEdge extends SplitEdge {
 		// add OR-Shape
 		$orx = 'or' . rand( 1, 99999 );
 		$res .=
-			'"' . $orx . '"[shape=' . $wgSrfgShapeStyle . ',label="+",style=filled,color=gold];
+			'"' . $orx . '"[shape=' . $srfgShapeStyle . ',label="+",style=filled,color=gold];
 		"' . $p->getId() . '":port1:s -> "' . $orx . '";
 		';
 
@@ -1306,9 +1306,9 @@ class SplitExclusiveOrEdge extends SplitEdge {
 class SplitParallelEdge extends SplitEdge {
 
 	public function getGraphVizCode() {
-		global $wgSrfgShapeStyle;
-		if ( $wgSrfgShapeStyle == '' ) {
-			$wgSrfgShapeStyle = "box";
+		global $srfgShapeStyle;
+		if ( $srfgShapeStyle == '' ) {
+			$srfgShapeStyle = "box";
 		}
 		$p = $this->getPred();
 		$p = $p[0];
@@ -1320,7 +1320,7 @@ class SplitParallelEdge extends SplitEdge {
 		// add AND-Shape
 		$and = 'and' . rand( 1, 99999 );
 		$res .=
-			'"' . $and . '"[shape=' . $wgSrfgShapeStyle . ',label="||",style=filled,color=palegreen];
+			'"' . $and . '"[shape=' . $srfgShapeStyle . ',label="||",style=filled,color=palegreen];
 		"' . $p->getId() . '":port1:s -> "' . $and . '";
 		';
 

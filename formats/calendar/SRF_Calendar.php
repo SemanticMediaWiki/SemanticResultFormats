@@ -316,8 +316,8 @@ class SRFCalendar extends SMWResultPrinter {
 	}
 
 	public function displayCalendar( $events ) {
-		global $wgSrfgFirstDayOfWeek;
-		global $wgSrfgScriptPath;
+		global $srfgFirstDayOfWeek;
+		global $srfgScriptPath;
 
 		$context = RequestContext::getMain();
 		$request = $context->getRequest();
@@ -332,7 +332,7 @@ class SRFCalendar extends SMWResultPrinter {
 				'rel' => 'stylesheet',
 				'type' => 'text/css',
 				'media' => 'screen, print',
-				'href' => $wgSrfgScriptPath
+				'href' => $srfgScriptPath
 					. '/formats/calendar/resources/ext.srf.calendar.css'
 			]
 		);
@@ -385,16 +385,16 @@ class SRFCalendar extends SMWResultPrinter {
 			6 => wfMessage( 'friday' )->text(),
 			7 => wfMessage( 'saturday' )->text()
 		];
-		if ( empty( $wgSrfgFirstDayOfWeek ) ) {
+		if ( empty( $srfgFirstDayOfWeek ) ) {
 			$firstDayOfWeek = 1;
 			$lastDayOfWeek = 7;
 		} else {
 			$firstDayOfWeek =
-				array_search( $wgSrfgFirstDayOfWeek, $weekDayNames );
+				array_search( $srfgFirstDayOfWeek, $weekDayNames );
 			if ( $firstDayOfWeek === false ) {
-				// Bad value for $wgSrfgFirstDayOfWeek!
-				print 'Warning: Bad value for $wgSrfgFirstDayOfWeek "' .
-					'(' . $wgSrfgFirstDayOfWeek . '")';
+				// Bad value for $srfgFirstDayOfWeek!
+				print 'Warning: Bad value for $srfgFirstDayOfWeek "' .
+					'(' . $srfgFirstDayOfWeek . '")';
 				$firstDayOfWeek = 1;
 			}
 			if ( $firstDayOfWeek == 1 ) {
@@ -516,10 +516,10 @@ class SRFCalendar extends SMWResultPrinter {
 <table class="navigation_table">
 <tr><td class="month_name">$curMonth $curYear</td>
 <td class="nav_links"><a href="$prevMonthUrl" title="$prevMonthText">
-<img src="{$wgSrfgScriptPath}/formats/calendar/resources/images/left-arrow.png" border="0" />
+<img src="{$srfgScriptPath}/formats/calendar/resources/images/left-arrow.png" border="0" />
 </a>&#160;<a href="$todayUrl">$todayText</a>&#160;
 <a href="$nextMonthUrl" title="$nextMonthText">
-<img src="{$wgSrfgScriptPath}/formats/calendar/resources/images/right-arrow.png" border="0" />
+<img src="{$srfgScriptPath}/formats/calendar/resources/images/right-arrow.png" border="0" />
 </a></td><td class="nav_form"><form>
 <input type="hidden" name="title" value="$pageName">
 <select name="month">

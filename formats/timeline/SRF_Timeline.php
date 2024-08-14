@@ -120,7 +120,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 */
 	protected function getEventsHTML( SMWQueryResult $res, $outputmode, $isEventline ) {
 		// why not, code flow has reached max insanity already
-		global $wgCurarticle, $wgCururl;
+		global $curarticle, $cururl;
 		// possible positions, collected to select one for centering
 		$positions = [];
 		// color cycling is used for eventline
@@ -143,9 +143,9 @@ class SRFTimeline extends SMWResultPrinter {
 			$curdata = '';
 			// current event meta data
 			$curmeta = '';
-			$wgCururl = '';
+			$cururl = '';
 			// label of current article, if it was found; needed only for eventline labeling
-			$wgCurarticle = '';
+			$curarticle = '';
 			$first_col = true;
 
 			if ( $this->mTemplate != '' ) {
@@ -225,9 +225,9 @@ class SRFTimeline extends SMWResultPrinter {
 
 			if ( $isEventline ) {
 				foreach ( $events as $event ) {
-					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $wgCurarticle . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
-					if ( $wgCurarticle != '' ) {
-						$result .= '<span class="smwtlprefix">' . $wgCurarticle . ' </span>';
+					$result .= '<span class="smwtlevent" style="display:none;" ><span class="smwtlstart">' . $event[0] . '</span><span class="smwtlurl">' . $curarticle . '</span><span class="smwtlcoloricon">' . $curcolor . '</span>';
+					if ( $curarticle != '' ) {
+						$result .= '<span class="smwtlprefix">' . $curarticle . ' </span>';
 					}
 					$result .= $curdata . '</span>';
 					$positions[$event[2]] = $event[0];
@@ -289,7 +289,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 */
 	protected function handlePropertyValue( SMWDataValue $object, $outputmode, SMWPrintRequest $pr, $first_col,
 		&$hastitle, &$hastime, $first_value, $isEventline, &$curmeta, &$curdata, $date_value, &$output, array &$positions ) {
-		global $wgCurarticle, $wgCururl;
+		global $curarticle, $cururl;
 
 		$event = false;
 
@@ -352,8 +352,8 @@ class SRFTimeline extends SMWResultPrinter {
 				);
 
 				if ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) {
-					$wgCurarticle = $object->getLongText( $outputmode, $l );
-					$wgCururl = $object->getDataItem()->getTitle()->getFullUrl();
+					$curarticle = $object->getLongText( $outputmode, $l );
+					$cururl = $object->getDataItem()->getTitle()->getFullUrl();
 				}
 
 				// NOTE: type Title of $object implied
