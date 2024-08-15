@@ -371,6 +371,7 @@
 	"srf-printername-gantt": "Gantt",
 	"srf-paramdesc-nodelabel": "Uporabi oznako vozlišča grafa. Dovoljene vrednosti: »displaytitle«.",
 	"srf-paramdesc-graphfields": "Vrednosti lastnosti, ki niso povezane s stranmi, prikaži znotraj vozlišč grafa in ne kot robove.",
+	"srf-printername-mode": "Način",
 	"srf-printername-prolog": "Predikati Prolog",
 	"srf-paramdesc-prolog-pname": "Ime ustvarjenih predikatov. Privzeto: predikat",
 	"srf-printername-dataframe": "Podatkovni okvir R",
