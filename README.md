@@ -2,6 +2,7 @@
 [![CI](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticResultFormats/actions/workflows/ci.yml)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-result-formats.svg)
 ![Total Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-result-formats.svg)
+[![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticResultFormats/graph/badge.svg?token=Si45N9MsGq)](https://codecov.io/gh/SemanticMediaWiki/SemanticResultFormats)
 
 Semantic Result Formats (SRF) is a MediaWiki extension that provides extra visualizations (result formats) for [Semantic MediaWiki][smw] queries. For more information, see the [Semantic Result Formats documentation][srf] or consult the
 [release notes](RELEASE-NOTES.md).
