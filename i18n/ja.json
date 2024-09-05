@@ -20,6 +20,7 @@
 			"Sujiniku",
 			"Suyama",
 			"Whym",
+			"あづまはし",
 			"青子守歌"
 		]
 	},
@@ -152,6 +153,7 @@
 	"srf-paramdesc-graphlink": "ノードをそれぞれのウィキページにリンクするかどうか設定",
 	"srf-paramdesc-graphcolor": "グラフの色を設定",
 	"srf-printername-datatables": "データテーブル",
+	"srf-ui-datatables-label-parameters": "パラメーター",
 	"srf-ui-datatables-label-placeholder-column-search": "検索...",
 	"srf-ui-datatables-label-sInfo": "_TOTAL_ 件中 _START_ から _END_ 件を表示中",
 	"srf-ui-datatables-label-sInfoEmpty": "0 件中 0 から 0 件を表示中",
