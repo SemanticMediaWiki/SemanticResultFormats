@@ -1,12 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"CiphriusKane",
 			"John Reid",
 			"Nemo bis"
 		]
 	},
 	"srf-desc": "Addeetional ootcome formats fer Semantic MediaWiki speirins",
-	"srf-prefs-intro-text": "Ye'v instawed the Semanteec Ootcome Formats extension. Fer mair heelp, please veesit the [https://www.semantic-mediawiki.org/wiki/Help:Result_formats ootcome formats] heelp page.",
+	"srf-prefs-intro-text": "Ye'v instawed the Semantic Result Formats stendin. Please veesit the [https://www.semantic-mediawiki.org/wiki/Help:Result_formats Result formats] help page fur additional assistance in regairds tae the uiser preferences.",
 	"prefs-srf-eventcalendar-options": "Event calandair opties",
 	"srf-prefs-eventcalendar-options-update-default": "Enable [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates autæmateec updates] o calendair events durin the page refresh",
 	"srf-prefs-eventcalendar-options-paneview-default": "Enable the pane luik bi defaut",
