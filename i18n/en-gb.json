@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Reedy"
+		]
+	},
+	"srf-paramdesc-color": "The colour to mark calendar entries",
+	"srf_paramdesc_calendarcolors": "The colour to display for each date property (example: \"Start date=>green,End date=>#09c\")",
+	"srf_paramdesc_barcolor": "Specify chart colours",
+	"srf-paramdesc-chartcolor": "Assign individual chart colours",
+	"srf-paramdesc-colorscheme": "Select a colour scheme",
+	"srf-paramdesc-graphcolor": "Sets the colour of the graph",
+	"srf-paramdesc-clustercolor": "Sets the colours the cluster boxes",
+	"srf-paramdesc-highlightcolor": "Sets the font colour for the highlighted node",
+	"srf-paramdesc-redlinkcolor": "Sets the font colour for the red links"
+}
