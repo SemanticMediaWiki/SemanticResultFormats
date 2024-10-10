@@ -3,6 +3,7 @@
 		"authors": [
 			"Karim185.3",
 			"Meno25",
+			"Mohammed Qays",
 			"NEHAOUA",
 			"OsamaK",
 			"Tala Ali",
@@ -334,6 +335,7 @@
 	"srf-ui-mediaplayer-label-full-screen": "ملء الشاشة",
 	"srf-ui-mediaplayer-label-restore-screen": "استعادة الشاشة",
 	"srf-ui-slideshow-slide-button-play": "تشغيل",
+	"srf-ui-slideshow-slide-button-pause": "إيقاف مؤقت",
 	"srf-spreadsheet-link": "جدول ممتد",
 	"srf-paramdesc-spreadsheet-filename": "اسم ملف لتنزيل ملف جدول البيانات المنشأ",
 	"srf-paramdesc-spreadsheet-fileformat": "التنسيق الذي سيتم إنتاجه لملف جدول البيانات، القيم المسموح بها: xlsx وxls وods وcsv، الافتراضي: xlsx",
@@ -353,5 +355,7 @@
 	"srf-error-gantt-sortkey": "'''مفتاح الفرز''' الذي اخترته غير مدعوم",
 	"srf-error-gantt-mermaid-not-installed": "امتداد Mermaid يحتاج إلى تثبيت.",
 	"srf-printername-gantt": "جانت",
-	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض."
+	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض.",
+	"srf-printername-mode": "وضع",
+	"srf-printername-range": "النطاق"
 }
