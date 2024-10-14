@@ -24,13 +24,6 @@ jobs:
             database_image: "mysql:5.7"
             coverage: true
             experimental: false
-          - mediawiki_version: '1.35'
-            smw_version: dev-master
-            php_version: 7.4
-            database_type: mysql
-            database_image: "mysql:5.7"
-            coverage: false
-            experimental: false
           - mediawiki_version: '1.39'
             smw_version: dev-master
             php_version: 8.1
