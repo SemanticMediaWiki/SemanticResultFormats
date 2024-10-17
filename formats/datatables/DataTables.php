@@ -475,12 +475,20 @@ class DataTables extends ResultPrinter {
 
 		// Apply intro parameter
 		if ( ( $this->mIntro ) && ( $results->getCount() > 0 ) ) {
-			$result = $this->parser->recursiveTagParseFully( $this->mIntro ) . $result;
+			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
+				$result = Message::get( [ 'smw-parse', $this->mIntro ], Message::PARSE ) . $result;
+			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
+				$result = $this->mIntro . $result;
+			}
 		}
 
 		// Apply outro parameter
 		if ( ( $this->mOutro ) && ( $results->getCount() > 0 ) ) {
-			$result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
+			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
+				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
+			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
+				$result = $result . $this->mOutro;
+			}
 		}
 
 		// Preprocess embedded templates if needed
