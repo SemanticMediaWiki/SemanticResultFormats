@@ -2,12 +2,13 @@
 
 namespace SRF;
 
+use MediaWiki\ResourceLoader\ResourceLoader;
 use RequestContext;
 use SMW\Query\PrintRequest;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
 use SRFUtils;
-use MediaWiki\ResourceLoader\ResourceLoader;
+
 
 /**
  * @since 3.0
