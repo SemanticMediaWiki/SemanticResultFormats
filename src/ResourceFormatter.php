@@ -7,6 +7,7 @@ use SMW\Query\PrintRequest;
 use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
 use SRFUtils;
+use MediaWiki\ResourceLoader\ResourceLoader;
 
 /**
  * @since 3.0
@@ -64,8 +65,8 @@ class ResourceFormatter {
 	public static function encode( $id, $data ) {
 		ResourceManager::requireHeadItem(
 			$id,
-			\ResourceLoader::makeInlineScript(
-				\ResourceLoader::makeConfigSetScript(
+			ResourceLoader::makeInlineScript(
+				ResourceLoader::makeConfigSetScript(
 					[
 						$id => json_encode( $data )
 					]
