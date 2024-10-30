@@ -9,7 +9,6 @@ use SMWOutputs as ResourceManager;
 use SMWQueryResult as QueryResult;
 use SRFUtils;
 
-
 /**
  * @since 3.0
  *
