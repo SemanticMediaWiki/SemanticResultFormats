@@ -2,6 +2,7 @@
 
 namespace SRF;
 
+use MediaWiki\ResourceLoader\ResourceLoader;
 use RequestContext;
 use SMW\Query\PrintRequest;
 use SMWOutputs as ResourceManager;
@@ -64,8 +65,8 @@ class ResourceFormatter {
 	public static function encode( $id, $data ) {
 		ResourceManager::requireHeadItem(
 			$id,
-			\ResourceLoader::makeInlineScript(
-				\ResourceLoader::makeConfigSetScript(
+			ResourceLoader::makeInlineScript(
+				ResourceLoader::makeConfigSetScript(
 					[
 						$id => json_encode( $data )
 					]
