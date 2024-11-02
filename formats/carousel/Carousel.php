@@ -528,7 +528,8 @@ class Carousel extends ResultPrinter {
 				'div',
 				[
 					'class' => 'slick-slide',
-					'data-url' => $linkValue
+					'data-url' => $linkValue,
+					'style' => $inlineStyles['slide']
 				],
 				$innerContent
 			);
@@ -537,8 +538,8 @@ class Carousel extends ResultPrinter {
 
 		$attr = [ 'class' => 'slick-slider' . ( empty( $this->params['class'] ) ? '' : ' ' . $this->params['class'] ) ];
 
-		if ( !empty( $inlineStyles['div'] ) ) {
-			$attr['style'] = $inlineStyles['div'];
+		if ( !empty( $inlineStyles['container'] ) ) {
+			$attr['style'] = $inlineStyles['container'];
 		}
 
 		$slick_attr = [];
@@ -564,9 +565,11 @@ class Carousel extends ResultPrinter {
 		if ( empty( $this->params['width'] ) ) {
 			$this->params['width'] = '100%';
 		}
+		$img = [ 'object-fit' => 'object-fit: cover' ];
+		$container = [];
+		$slide = [];
 
 		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );
-		$styleImg = [ 'object-fit: cover' ];
 
 		$absoluteUnits = [ 'cm', 'mm', 'in', 'px', 'pt', 'pc' ];
 		$slidestoshow = $this->params['slick-slidestoshow'];
@@ -576,21 +579,26 @@ class Carousel extends ResultPrinter {
 			if ( empty( $match[2] ) ) {
 				$match[2] = 'px';
 			}
-			$styleImg[] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
+			$img['max-width'] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
 				( $match[1] / $slidestoshow ) . $match[2]
 				: '100%' );
 		}
 
 		$styleAttr = [ 'width', 'height' ];
-		$style = [];
 		foreach ( $styleAttr as $attr ) {
 			if ( !empty( $this->params[$attr] ) ) {
-				$style[ $attr ] = "$attr: " . $this->params[$attr];
+				$container[ $attr ] = "$attr: " . $this->params[$attr];
+
+				// *** use css inherit attribute instead
+				// $slide[$attr] = "$attr: " . $this->params[$attr];
 			}
 		}
 
-		return [ 'div' => implode( '; ', $style ),
-			'img' => implode( '; ', $styleImg ) ];
+		return [
+			'container' => implode( '; ', $container ),
+			'img' => implode( '; ', $img ),
+			'slide' => implode( '; ', $slide )
+		];
 	}
 
 	/**
