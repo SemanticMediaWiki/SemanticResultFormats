@@ -270,7 +270,12 @@ class Carousel extends ResultPrinter {
 		$params['slick-rows'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-carousel-slick-option',
-			'default' => 1,
+			// @see https://github.com/kenwheeler/slick/issues/3110
+			// @see https://github.com/kenwheeler/slick/issues/3149
+			// despite https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/VisualData/+/a75a24be65e17021a227ac2c3b8f6e02e13f7a90/includes/classes/formats/CarouselResultPrinter.php
+			// works well
+			'default' => 0,
+			// 'default' => 1,
 		];
 
 		$params['slick-rtl'] = [
