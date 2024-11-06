@@ -924,17 +924,6 @@ return [
 		'group' => 'ext.srf'
 	],
 
-	// jQuery DataTables
-	'jquery.dataTables' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/datatables/datatables.min.js',
-		'position' => 'top'
-	],
-
-	// DataTables extras
-	'jquery.dataTables.extras' => $moduleTemplate + [
-		'scripts'  => 'resources/jquery/datatables/jquery.dataTables.extras.js',
-	],
-
 	'ext.srf.carousel.module' => $moduleTemplate + [
 		'styles' => [
 			'resources/slick/slick.css',
