@@ -132,7 +132,6 @@ class SemanticResultFormats {
 			'interquartilerange.exc' => 'SRFMath',
 			'mode' => 'SRFMath',
 			'interquartilemean' => 'SRFMath',
-			'exhibit' => 'SRFExhibit',
 			'googlebar' => 'SRFGoogleBar',
 			'googlepie' => 'SRFGooglePie',
 			'jitgraph' => 'SRFJitGraph',
