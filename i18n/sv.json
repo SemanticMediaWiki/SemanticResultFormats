@@ -19,7 +19,6 @@
 		]
 	},
 	"srf-desc": "Extra resultatformat för Semantic MediaWiki-frågor",
-	"srf-prefs-datatables-options-cache-default": "Aktivera [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage lokal lagring] för att förbättra svarstiden",
 	"srf-module-loading": "Laddar...",
 	"srf-paramdesc-layout": "Tillgänglig utformningar",
 	"srf-paramdesc-height": "Höjd",

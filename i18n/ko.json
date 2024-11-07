@@ -14,7 +14,6 @@
 	"prefs-srf": "시맨틱 결과 포맷",
 	"srf-prefs-intro-text": "시맨틱 결과 포맷 확장 기능을 설치하였습니다. 추가적인 도움을 받으려면 [https://www.semantic-mediawiki.org/wiki/Help:Result_formats 결과 포맷] 도움말 페이지를 방문해 주십시오.",
 	"prefs-srf-eventcalendar-options": "이벤트 캘린더 옵션",
-	"prefs-srf-datatables-options": "데이터테이블 옵션",
 	"srf-module-loading": "불러오는 중…",
 	"srf-paramdesc-layout": "사용할 수 있는 레이아웃",
 	"srf-paramdesc-height": "높이",
