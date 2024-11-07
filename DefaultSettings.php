@@ -84,9 +84,6 @@ $GLOBALS['srfgFormats'] = [
 	// Disabled by default since they contact external sites:
 	// 'googlebar',
 	// 'googlepie',
-
-	// Unstable/broken:
-	// 'exhibit',
 ];
 
 // Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
