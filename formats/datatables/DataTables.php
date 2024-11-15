@@ -13,6 +13,9 @@
 namespace SRF;
 
 use Html;
+use MediaWiki\MediaWikiServices;
+use Parser;
+use ParserOptions;
 use RequestContext;
 use SMW\DIWikiPage;
 use SMW\Message;
@@ -432,9 +435,13 @@ class DataTables extends ResultPrinter {
 		$this->isHTML = true;
 		$this->hasTemplates = false;
 
-		$this->parser = $this->copyParser();
+		$outputMode = ( $this->params['apicall'] !== 'apicall' ? SMW_OUTPUT_HTML : $this->outputMode );
 
-		$outputMode = ( $this->params['apicall'] !== "apicall" ? SMW_OUTPUT_HTML : $this->outputMode );
+		if ( $this->params['apicall'] === 'apicall' ) {
+			$this->initializePrintoutParametersAndParser( $results );
+		} else {
+			$this->parser = $this->copyParser();
+		}
 
 		// Get output from printer:
 		$result = $this->getResultText( $results, $outputMode );
@@ -446,6 +453,33 @@ class DataTables extends ResultPrinter {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @param QueryResult $results
+	 */
+	protected function initializePrintoutParametersAndParser( QueryResult $results ) {
+		// rebuild $this->printoutsParameters from
+		// printouts since $this->getPrintouts is not invoked
+		// alternatively use the $data['printouts'] from the Api
+		$printRequests = $results->getPrintRequests();
+		foreach ( $printRequests as $key => $printRequest ) {
+			$canonicalLabel = $printRequest->getCanonicalLabel();
+			$this->printoutsParameters[$canonicalLabel] = $printRequest->getParameters();
+		}
+
+		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/854
+		// the following ensures that $this->parser->recursiveTagParseFully
+		// (getCellContent) will work
+		$context = RequestContext::getMain();
+		$performer = $context->getUser();
+		$output = $context->getOutput();
+
+		$this->parser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
+		$this->parser->setTitle( $output->getTitle() );
+		$this->parser->setOptions( $output->parserOptions() );
+		$this->parser->setOutputType( Parser::OT_HTML );
+		$this->parser->clearState();	
 	}
 
 	/**
@@ -475,6 +509,8 @@ class DataTables extends ResultPrinter {
 
 		// Apply intro parameter
 		if ( ( $this->mIntro ) && ( $results->getCount() > 0 ) ) {
+			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/853
+			// $result = $this->parser->recursiveTagParseFully( $this->mIntro ) . $result;
 			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
 				$result = Message::get( [ 'smw-parse', $this->mIntro ], Message::PARSE ) . $result;
 			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
@@ -484,6 +520,8 @@ class DataTables extends ResultPrinter {
 
 		// Apply outro parameter
 		if ( ( $this->mOutro ) && ( $results->getCount() > 0 ) ) {
+			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/853
+			// $result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
 			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
 				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
 			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
