@@ -68,12 +68,6 @@ fieldset#mw-prefsection-smw-srf-eventcalendar-options {
 	margin-top: 0px;
 }
 
-fieldset#mw-prefsection-smw-srf-datatables-options {
-	border: 0px solid #2a4b8d;
-	border-top: 1px solid #ddd;
-	margin-top: 15px;
-}
-
 #mw-prefsection-smw-srf .oo-ui-fieldsetLayout-header .oo-ui-labelElement-label:before {
 	content: "◉ ";
 }
@@ -87,8 +81,7 @@ fieldset#mw-prefsection-smw-srf-datatables-options {
 	padding-bottom: 0em;
 }
 
-#mw-prefsection-smw-srf-eventcalendar-options .oo-ui-fieldsetLayout-group,
-#mw-prefsection-smw-srf-datatables-options .oo-ui-fieldsetLayout-group {
+#mw-prefsection-smw-srf-eventcalendar-options .oo-ui-fieldsetLayout-group {
 	columns: 2;
 }
 
@@ -101,8 +94,7 @@ fieldset#mw-prefsection-smw-srf-datatables-options {
  */
 @media screen and (max-width: 800px) {
 
-	#mw-prefsection-smw-srf-eventcalendar-options .oo-ui-fieldsetLayout-group,
-	#mw-prefsection-smw-srf-datatables-options .oo-ui-fieldsetLayout-group {
+	#mw-prefsection-smw-srf-eventcalendar-options .oo-ui-fieldsetLayout-group {
 		columns: 1;
 	}
 
