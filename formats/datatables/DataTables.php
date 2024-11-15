@@ -15,7 +15,6 @@ namespace SRF;
 use Html;
 use MediaWiki\MediaWikiServices;
 use Parser;
-use ParserOptions;
 use RequestContext;
 use SMW\DIWikiPage;
 use SMW\Message;
@@ -463,7 +462,7 @@ class DataTables extends ResultPrinter {
 		// printouts since $this->getPrintouts is not invoked
 		// alternatively use the $data['printouts'] from the Api
 		$printRequests = $results->getPrintRequests();
-		foreach ( $printRequests as $key => $printRequest ) {
+		foreach ( $printRequests as $printRequest ) {
 			$canonicalLabel = $printRequest->getCanonicalLabel();
 			$this->printoutsParameters[$canonicalLabel] = $printRequest->getParameters();
 		}
