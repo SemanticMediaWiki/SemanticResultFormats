@@ -148,9 +148,9 @@ return [
 		],
 		'dependencies' => [
 			'ext.srf',
-			'ext.jquery.jStorage',
 			'ext.jquery.blockUI',
 			'jquery.client',
+			'mediawiki.storage',
 			'mediawiki.Title',
 		],
 		'group' => 'ext.srf'
