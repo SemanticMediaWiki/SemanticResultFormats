@@ -72,7 +72,7 @@
 			cacheTime = cacheTime === undefined ? _cacheTime : cacheTime;
 
 			// Get url from cache otherwise do an ajax call
-			var url = $.jStorage.get( title );
+			var url = mw.storage.get( title );
 
 			if ( url !== null ) {
 				if ( typeof callback === 'function' ) { // make sure the callback is a function
@@ -99,7 +99,7 @@
 							var info = pages[p].imageinfo;
 							for ( var i in info ) {
 								if ( info.hasOwnProperty( i ) ) {
-									$.jStorage.set( title , info[i].url, { TTL: cacheTime } );
+									mw.storage.set( title , info[i].url, { TTL: cacheTime } );
 									if ( typeof callback === 'function' ) { // make sure the callback is a function
 										callback.call( this, info[i].url ); // brings the scope to the callback
 									}
@@ -131,7 +131,7 @@
 			cacheTime = cacheTime === undefined ? _cacheTime : cacheTime;
 
 			// Get url from cache otherwise do an ajax call
-			var url = $.jStorage.get( title );
+			var url = mw.storage.get( title );
 			if ( url !== null ) {
 				if ( typeof callback === 'function' ) { // make sure the callback is a function
 					callback.call( this, url ); // brings the scope to the callback
@@ -155,7 +155,7 @@
 						for ( var p in pages ) {
 							if ( pages.hasOwnProperty( p ) ) {
 								var info = pages[p];
-									$.jStorage.set( title, info.fullurl, { TTL: cacheTime } );
+									mw.storage.set( title, info.fullurl, { TTL: cacheTime } );
 									if ( typeof callback === 'function' ) { // make sure the callback is a function
 										callback.call( this, info.fullurl ); // brings the scope to the callback
 									}
@@ -317,7 +317,7 @@
 
 				// Get cache otherwise do an Ajax call
 				if ( options.cache ) {
-					var imageInfo = $.jStorage.get( options.title + '-' + options.width );
+					var imageInfo = mw.storage.get( options.title + '-' + options.width );
 
 					if ( imageInfo !== null ) {
 						if ( typeof callback === 'function' ) {
@@ -343,7 +343,7 @@
 								if ( pages.hasOwnProperty( p ) ) {
 									var info = pages[p];
 									if ( options.cache !== undefined ) {
-										$.jStorage.set( options.title + '-' + options.width , info, { TTL: options.cache } );
+										mw.storage.set( options.title + '-' + options.width , info, { TTL: options.cache } );
 									}
 									if ( typeof callback === 'function' ) {
 										callback.call( this, !isCached, info );
