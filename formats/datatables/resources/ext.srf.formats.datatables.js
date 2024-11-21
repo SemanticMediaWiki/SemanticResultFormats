@@ -715,14 +715,6 @@
 				};
 
 				conf = $.extend(conf, {
-					// *** attention! deferLoading when used in conjunction with
-					// ajax, expects only the first page of data, if the preloaded
-					// data contain more rows, datatables will show a wrong rows
-					// counter. For this reason we renounce to use deferRender, and
-					// instead we use the following hack: the Ajax function returns
-					// the preloaded data as long they are available for the requested
-					// slice, and then it uses an ajax call for not available data.
-					// deferLoading: table.data("count"),
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
