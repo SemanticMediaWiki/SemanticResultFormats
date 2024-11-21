@@ -942,7 +942,6 @@ return [
 			'carousel/resources/ext.srf.formats.carousel.css'
 		],
 		'dependencies' => [
-			'ext.smw.dataItem',
 			'ext.smw.api',
 			'ext.srf.api',
 			'ext.srf.util',
