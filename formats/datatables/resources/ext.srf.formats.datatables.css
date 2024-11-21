@@ -1,4 +1,12 @@
 
+.dt-filter {
+	float: left;
+}
+
+.dt-length {
+	float: right;	
+}
+
 .srf-datatable .srf-datatable-left {
 	float: left;
 }
@@ -7,21 +15,11 @@
 	float: right;
 }
 
-
-.srf-datatable .dataTables_filter {
-	float: left;
-
-}
-
-.srf-datatable .dataTables_length {
-	float: right;	
-}
-
 .srf-datatable .dt-buttons {
 	margin-right: 0.334em;
 }
 
-.srf-datatable .dataTables_filter {
+.srf-datatable .dt-filter {
 	margin-right: 0.334em;
 }
 
@@ -35,14 +33,14 @@
 	right: 8px;
 }
 
-div.dataTables_processing {
+div.dt-processing {
 	/* background: white; */
 	/* box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.12); */
 	z-index: 1000;
 	position: sticky !important;
 }
 
-div.dataTables_processing>div:last-child>div {
+div.dt-processing > div:last-child > div {
 	background: rgb(13,110,253);
 }
 
