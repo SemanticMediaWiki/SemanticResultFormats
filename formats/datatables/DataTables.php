@@ -573,7 +573,7 @@ class DataTables extends ResultPrinter {
 
 			foreach ( $rows as $cell ) {
 				$this->htmlTable->cell(
-					( $cell === '' ? '&nbsp;' : $cell ),
+					( $cell['display'] === '' ? '&nbsp;' : $cell['display'] ),
 					[]
 				);
 			}
@@ -993,7 +993,13 @@ class DataTables extends ResultPrinter {
 			$html = implode( $this->params['sep'], $values );
 		}
 
-		return $html;
+		$sortKey = $dataValues[0]->getDataItem()->getSortKey();
+
+		return [
+			'display' => $html,
+			'filter' => $sortKey,
+			'order' => $sortKey
+		];
 	}
 
 	/**

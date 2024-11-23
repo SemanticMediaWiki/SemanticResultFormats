@@ -384,7 +384,7 @@ class SearchPanes {
 				$outputMode,
 				$isSubject,
 				$propTypeid
-			);
+			)['display'];
 
 			if ( !array_key_exists( $cellContent, $groups ) ) {
 				$groups[$cellContent] = [ 'count' => 0, 'value' => '' ];
@@ -710,7 +710,7 @@ class SearchPanes {
 				[ $dataValue ],
 				$outputMode,
 				$isSubject
-			);
+			)['display'];
 
 			if ( !array_key_exists( $cellContent, $groups ) ) {
 				$groups[$cellContent] = [ 'count' => 0, 'value' => '' ];

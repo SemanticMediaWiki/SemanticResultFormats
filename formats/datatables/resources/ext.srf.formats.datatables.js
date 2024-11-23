@@ -164,16 +164,17 @@
 
 			for (var i in data) {
 				for (var ii in ret) {
-					if (data[i][ii] === "") {
+					var cellData = data[i][ii];
+					if (!cellData) {
 						continue;
 					}
 					dataLength[ii]++;
 					var label;
 					if (options.searchPanes.htmlLabels === false) {
-						div.innerHTML = data[i][ii];
+						div.innerHTML = cellData.display;
 						label = div.textContent || div.innerText || "";
 					} else {
-						label = data[i][ii];
+						label = cellData.display;
 					}
 
 					// this will exclude images as well if
@@ -182,15 +183,15 @@
 						continue;
 					}
 
-					if (!(data[i][ii] in ret[ii])) {
-						ret[ii][data[i][ii]] = {
+					if (!(cellData.display in ret[ii])) {
+						ret[ii][cellData.display] = {
 							label: label,
-							value: data[i][ii],
+							value: cellData.display,
 							count: 0,
 						};
 					}
 
-					ret[ii][data[i][ii]].count++;
+					ret[ii][cellData.display].count++;
 				}
 			}
 
@@ -246,7 +247,7 @@
 					columnDefs[i].searchPanes.options.push({
 						label: searchPanesOptions[i][ii].label,
 						value: function (rowData, rowIdx) {
-							return rowData[i] === searchPanesOptions[i][ii].value;
+							return rowData[i].display === searchPanesOptions[i][ii].value;
 						},
 					});
 				}
@@ -544,7 +545,7 @@
 						num: {
 							null: null,
 						},
-					},
+					}
 				};
 			} else {
 				options.dom = options.dom.replace("Q", "");
@@ -579,11 +580,9 @@
 				// @see https://datatables.net/reference/option/columns.type
 				// value for all columns
 				if (!options.columns.type) {
-					options.columns.type =
-						( entityCollation === 'numeric' && property.typeid === '_wpg' )
-						||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1 
-							? "any-number"
-							: null;
+					var isNumeric = ( entityCollation === 'numeric' && property.typeid === '_wpg' )
+						||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1;
+					options.columns.type = isNumeric ? 'num' : null;
 				}
 
 				columnDefs.push(
@@ -597,9 +596,13 @@
 							className: "smwtype" + property.typeid,
 							targets: [index],
 
-							// @FIXME https://datatables.net/reference/option/columns.searchBuilderType
-							// implement in the proper way
-							searchBuilderType: "string",
+							// https://datatables.net/reference/option/columns.render
+							render: {
+								_: 'display',
+								display: 'display',
+								filter: 'filter',
+								sort: 'order'
+							},
 						},
 						options.columns,
 						data.printoutsParametersOptions[index]
