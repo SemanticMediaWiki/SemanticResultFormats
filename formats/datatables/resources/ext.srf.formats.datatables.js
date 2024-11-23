@@ -597,7 +597,7 @@
 								_: 'display',
 								display: 'display',
 								filter: 'filter',
-								sort: 'order'
+								sort: 'sort'
 							},
 						},
 						options.columns,

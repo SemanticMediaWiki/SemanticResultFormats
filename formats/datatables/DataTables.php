@@ -988,7 +988,7 @@ class DataTables extends ResultPrinter {
 		return [
 			'display' => $html,
 			'filter' => $sortKey,
-			'order' => $sortKey
+			'sort' => $sortKey
 		];
 	}
 
