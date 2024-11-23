@@ -577,13 +577,9 @@
 
 			var columnDefs = [];
 			$.map(printrequests, function (property, index) {
-				// @see https://datatables.net/reference/option/columns.type
-				// value for all columns
-				if (!options.columns.type) {
-					var isNumeric = ( entityCollation === 'numeric' && property.typeid === '_wpg' )
-						||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1;
-					options.columns.type = isNumeric ? 'num' : null;
-				}
+				var isNumeric = ( entityCollation === 'numeric' && property.typeid === '_wpg' )
+					||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1;
+				options.columns.type = isNumeric ? 'num' : 'string';
 
 				columnDefs.push(
 					$.extend(

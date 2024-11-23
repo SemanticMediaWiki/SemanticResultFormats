@@ -267,16 +267,6 @@ class DataTables extends ResultPrinter {
 
 		//////////////// datatables columns
 
-		// only the options whose value has a sense to
-		// use for all columns, otherwise use (for single printouts)
-		// |?printout name |+ datatables-columns.type = string
-
-		$params['datatables-columns.type'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => '',
-		];
-
 		$params['datatables-columns.width'] = [
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',

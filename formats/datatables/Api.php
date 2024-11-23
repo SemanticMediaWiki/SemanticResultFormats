@@ -111,7 +111,7 @@ class Api extends ApiBase {
 				if ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
 					continue;
 				}
-				// match something like |?=abc |+ datatables-columns.type=number |+template=mytemplate
+				// match something like |?=abc |+template=mytemplate
 			}
 
 			// create printrequest from request mode, label, property name, output format, parameters
