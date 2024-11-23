@@ -18,7 +18,7 @@ Breaking changes
 
 New features and enhancements
 
-* 
+* [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) Updated DataTables from 1.13.2 to 2.1.8 (by @alistair3149)
 
 Bug fixes
 
