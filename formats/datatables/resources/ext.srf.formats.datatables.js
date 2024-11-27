@@ -485,11 +485,6 @@
 			var order = table.data("order");
 			var options = data["formattedOptions"];
 
-			// add the button placeholder if any button is required
-			if (options.buttons.length && options.dom.indexOf("B") === -1) {
-				options.dom = "B" + options.dom;
-			}
-
 			function isObject(obj) {
 				return obj !== null && typeof obj === "object" && !Array.isArray(obj);
 			}
@@ -511,22 +506,9 @@
 			// var mark = isObject(options.mark);
 
 			var searchPanes = isObject(options.searchPanes);
-
-			if (searchPanes) {
-				if (options.dom.indexOf("P") === -1) {
-					options.dom = "P" + options.dom;
-				}
-			} else {
-				options.dom = options.dom.replace("P", "");
-			}
-
 			var searchBuilder = options.searchBuilder;
 
 			if (searchBuilder) {
-				if (options.dom.indexOf("Q") === -1) {
-					options.dom = "Q" + options.dom;
-				}
-
 				// @see https://datatables.net/extensions/searchbuilder/customConditions.html
 				// @see https://github.com/DataTables/SearchBuilder/blob/master/src/searchBuilder.ts
 				options.searchBuilder = {
@@ -546,9 +528,17 @@
 						},
 					},
 				};
-			} else {
-				options.dom = options.dom.replace("Q", "");
 			}
+
+			options.layout = {
+				top9End: options.buttons.length ? 'buttons': null,
+				top3: searchBuilder ? 'searchBuilder': null,
+				top2: searchPanes ? 'searchPanes' : null,
+				topStart: 'pageLength',
+				topEnd: 'search',
+				bottomStart: 'info',
+				bottomEnd: 'paging'
+			};
 
 			// add the pagelength at the proper place in the length menu
 			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {

@@ -241,12 +241,6 @@ class DataTables extends ResultPrinter {
 			'default' => '',
 		];
 
-		$params['datatables-dom'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => 'lfrtip',
-		];
-
 		$params['datatables-fixedHeader'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
