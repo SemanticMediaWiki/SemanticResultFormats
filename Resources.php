@@ -967,6 +967,7 @@ return [
 			'ext.srf.widgets'
 		],
 		'messages' => [
+			'allmessages-filter-all',
 			'srf-ui-datatables-label-conditions',
 			'srf-ui-datatables-label-parameters',
 			'srf-ui-datatables-label-filters',

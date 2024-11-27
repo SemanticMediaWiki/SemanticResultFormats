@@ -558,6 +558,14 @@
 				});
 			}
 
+			// Replace -1 in lengthMenu with 'all' label
+			var showAll = options.lengthMenu.indexOf( -1 );
+			if ( showAll !== -1 ) {
+				var labels = options.lengthMenu.slice();
+				labels[showAll] = mw.msg( 'allmessages-filter-all' ); // stealing MW core messages :D
+				options.lengthMenu = [ options.lengthMenu, labels ];
+			}
+
 			var query = data.query.ask;
 			var printouts = table.data("printouts");
 			var queryString = query.conditions;
