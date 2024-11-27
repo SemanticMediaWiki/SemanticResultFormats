@@ -1,18 +1,5 @@
-
-.dt-filter {
-	float: left;
-}
-
-.dt-length {
-	float: right;	
-}
-
-.srf-datatable .srf-datatable-left {
-	float: left;
-}
-
-.srf-datatable .srf-datatable-right {
-	float: right;
+.dtsp-panesContainer {
+	width: 100%;
 }
 
 .srf-datatable .dt-buttons {
