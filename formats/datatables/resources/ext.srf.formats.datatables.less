@@ -1,9 +1,9 @@
 @import '../../../resources/tokens.less';
 
-/* Fix search pane not taking the whole column */
-.dt-layout-full > .dtsp-panesContainer {
-	width: 100%;
-}
+/**
+ * NOTE: DataTables uses a lot of over-qualified CSS selector
+ * such as div.dt-container and >, don't be alarmed
+ */
 
 /**
  * SRF/Codex override for default dataTables styles
@@ -18,24 +18,27 @@ div.dt-container {
 	div.dt-layout-row {
 		width: auto;
 		margin: 0;
-		padding: @spacing-75;
 		border-top: @border-base;
+		display: flex !important; // override responsive handling
 
 		&:first-of-type {
 			border-top: 0;
 		}
 
 		&.dt-layout-table {
-			padding: 0;
-
 			+ div.dt-layout-row {
 				border-top: 0;
 			}
 		}
+
+		&:not( .dt-layout-table ) {
+			padding: @spacing-75;
+		}
 	}
 
 	.dt-input,
-	.dt-search input {
+	.dt-search input,
+	div.dtsp-searchPane div.dtsp-topRow div.dtsp-searchCont input.dtsp-search {
 		padding: @spacing-25 @spacing-50;
 		min-height: @min-size-interactive-pointer;
 		border-radius: @border-radius-sharp;
@@ -75,6 +78,12 @@ div.dt-container {
 			border-color: @border-color-interactive;
 			color: @color-emphasized;
 		}
+	}
+
+	.dt-empty,
+	div.dtsp-emptyMessage {
+		color: @color-subtle;
+		padding-block: @spacing-50;
 	}
 
 	.dt-info {
@@ -129,7 +138,7 @@ div.dt-container {
 	}
 }
 
-table.srf-datatable.dataTable {
+table.dataTable {
 	--dt-html-background: transparent;
 
 	thead > tr {
@@ -217,6 +226,11 @@ table.srf-datatable.dataTable {
 			 */
 			padding: @spacing-50 @spacing-75;
 		}
+
+		&.selected > * {
+			box-shadow: inset 0 0 0 9999px @background-color-progressive-subtle;
+			color: @color-progressive;
+		}
 	}
 
 	&.display {
@@ -246,5 +260,161 @@ table.srf-datatable.dataTable {
 				background-color: @background-color-interactive;
 			}
 		}
+	}
+}
+
+/**
+ * Search Builder styles
+ */
+div.dtsb-searchBuilder {
+	margin: 0;
+
+	div.dtsb-titleRow {
+		div.dtsb-title {
+			padding-top: 0;
+		}
+	}
+}
+ 
+ /**
+  * Search Pane styles
+  */
+div.dtsp-panesContainer {
+	margin: 0;
+	/* Fix search pane not taking the whole column */
+	width: 100%;
+
+	div.dtsp-titleRow {
+		display: flex;
+		align-items: center;
+	}
+
+	div.dtsp-title {
+		padding: 0;
+		font-weight: @font-weight-bold;
+		flex-grow: 1;
+		text-align: start;
+	}
+
+	button {
+		&.dtsp-clearAll,
+		&.dtsp-collapseAll,
+		&.dtsp-showAll {
+			min-height: @min-size-interactive-pointer;
+		}
+	}
+
+	div.dtsp-searchPanes {
+		margin-top: @spacing-25;
+		margin-bottom: @spacing-50;
+		gap: @spacing-50;
+
+		div.dtsp-searchPane {
+			margin-top: 0 !important;
+			font-size: @font-size-small;
+		}
+	}
+}
+
+div.dtsp-searchPane {
+	/* Use full width */
+	@media screen and ( max-width: 640px ) {
+		max-width: 100% !important;
+        min-width: 100% !important;
+	}
+
+	div.dt-container {
+		margin-block: 0;
+		border-color: @border-color-base;
+		border-radius: @border-radius-sharp;
+
+		&:hover {
+			border-color: @border-color-base;
+		}
+
+		div.dt-scroll {
+			margin: 0;
+		}
+
+		div.dt-scroll-body {
+			background-color: transparent !important;
+
+			table tr > td {
+				padding: @spacing-50 @spacing-75;
+			}
+
+			div.dtsp-nameCont {
+				gap: @spacing-25;
+				align-items: center;
+
+				span.dtsp-pill {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					padding-inline: @spacing-50;
+					border: @border-base;
+					border-radius: @border-radius-pill;
+					background-color: @background-color-notice-subtle;
+					color: @color-subtle;
+					font-size: inherit;
+				}
+			}
+		}
+
+	}
+
+	input.dtsp-paneInputButton,
+	button.dtsp-paneButton {
+		margin: 0;
+		//height: auto;
+		min-width: @min-size-interactive-pointer;
+		min-height: @min-size-interactive-pointer;
+		width: auto;
+	}
+
+	button.dtsp-paneButton {
+		margin-left: -1px;
+		border: @border-base;
+		opacity: 1;
+		background-color: @background-color-interactive-subtle;
+		transition-property: @transition-property-base;
+		transition-duration: @transition-duration-base;
+
+		&:hover {
+			background: @background-color-base;
+		}
+
+		&:active {
+			border-color: @border-color-interactive;
+			background: @background-color-interactive;
+			color: @color-emphasized;
+		}
+
+		&.dtsp-disabledButton {
+			display: none;
+		}
+	}
+
+	div.dtsp-topRow {
+		border: 0 !important;
+
+		div.dtsp-searchCont {
+			input.dtsp-search {
+				border-width: 1px;
+				border-style: solid;
+				border-right-width: 0;
+			}
+		}
+	}
+}
+
+div.dts div.dt-scroll-body table {
+	background-color: @background-color-base;
+}
+
+@media screen and ( max-width: 767px ) {
+	/* Disable responsive styles from DataTables, we will handle it ourselves */
+	div.dt-container div.dt-layout-row:not( .dt-layout-table ) div.dt-layout-cell > * {
+		margin: 0;
 	}
 }
