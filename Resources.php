@@ -954,7 +954,7 @@ return [
 			'datatables/resources/ext.srf.formats.datatables.js',
 		],
 		'styles'  => [
-			 'datatables/resources/ext.srf.formats.datatables.css'
+			 'datatables/resources/ext.srf.formats.datatables.less'
 		],
 		'dependencies' => [
 			'ext.srf.datatables.v2.module',
@@ -967,11 +967,13 @@ return [
 			'ext.srf.widgets'
 		],
 		'messages' => [
-			'allmessages-filter-all',
+			'search',
 			'srf-ui-datatables-label-conditions',
 			'srf-ui-datatables-label-parameters',
 			'srf-ui-datatables-label-filters',
 			'srf-ui-datatables-label-information',
+			'srf-ui-datatables-label-rows',
+			'srf-ui-datatables-label-rows-all',
 			'srf-ui-datatables-panel-disclaimer',
 			'srf-ui-datatables-refresh-button-title',
 			'srf-ui-datatables-panel-switch-button-title',

@@ -534,8 +534,18 @@
 				top9End: options.buttons.length ? 'buttons': null,
 				top3: searchBuilder ? 'searchBuilder': null,
 				top2: searchPanes ? 'searchPanes' : null,
-				topStart: 'pageLength',
-				topEnd: 'search',
+				topStart: {
+					pageLength: {
+						text: '_MENU_'
+					}
+				},
+				topEnd: {
+					search: {
+						// Hide label and use placeholder
+						placeholder: mw.msg('search'),
+						text: '_INPUT_'
+					}
+				},
 				bottomStart: 'info',
 				bottomEnd: 'paging'
 			};
@@ -550,11 +560,19 @@
 
 			// Replace -1 in lengthMenu with 'all' label
 			var showAll = options.lengthMenu.indexOf( -1 );
+			var lengthMenuLabels = options.lengthMenu.slice();
 			if ( showAll !== -1 ) {
-				var labels = options.lengthMenu.slice();
-				labels[showAll] = mw.msg( 'allmessages-filter-all' ); // stealing MW core messages :D
-				options.lengthMenu = [ options.lengthMenu, labels ];
+				lengthMenuLabels[showAll] = mw.msg( 'srf-ui-datatables-label-rows-all' );
 			}
+			// Format value into readable label
+			for (var i = 0; i < lengthMenuLabels.length; i++) {
+				console.log( typeof lengthMenuLabels[i] );
+				if (typeof lengthMenuLabels[i] !== 'number') {
+					continue;
+				}
+				lengthMenuLabels[i] = mw.msg( 'srf-ui-datatables-label-rows', lengthMenuLabels[i] );
+			}
+			options.lengthMenu = [ options.lengthMenu, lengthMenuLabels ];
 
 			var query = data.query.ask;
 			var printouts = table.data("printouts");

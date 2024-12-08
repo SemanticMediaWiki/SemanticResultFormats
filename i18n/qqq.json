@@ -249,6 +249,8 @@
 	"srf-ui-datatables-label-oAria-sSortAscending": "{{doc-smw-ui-label-datatables|oAria-sSortAscending}}",
 	"srf-ui-datatables-label-oAria-sSortDescending": "{{doc-smw-ui-label-datatables|oAria-sSortDescending}}",
 	"srf-ui-datatables-searchpanes-noajax": "A UI notice alert",
+	"srf-ui-datatables-label-rows": "Label for the select dropdown for showing N rows",
+	"srf-ui-datatables-label-rows-all": "Label for the select dropdown for showing all rows",
 	"srf-printername-tree": "{{doc-smwformat|tree}}\n{{Identical|Tree}}",
 	"srf-printername-ultree": "{{doc-smwformat|ultree}}\nThis is an alias of \"tree\" {{msg-mw|Srf printername tree}}.",
 	"srf-printername-oltree": "{{doc-smwformat|oltree}}",
