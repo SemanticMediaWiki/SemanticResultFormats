@@ -1,0 +1,250 @@
+@import '../../../resources/tokens.less';
+
+/* Fix search pane not taking the whole column */
+.dt-layout-full > .dtsp-panesContainer {
+	width: 100%;
+}
+
+/**
+ * SRF/Codex override for default dataTables styles
+ * @see https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css
+ */
+div.dt-container {
+	margin-block: 1rem;
+	border: @border-base;
+	border-radius: @border-radius-base;
+	line-height: @line-height-xx-small;
+
+	div.dt-layout-row {
+		width: auto;
+		margin: 0;
+		padding: @spacing-75;
+		border-top: @border-base;
+
+		&:first-of-type {
+			border-top: 0;
+		}
+
+		&.dt-layout-table {
+			padding: 0;
+
+			+ div.dt-layout-row {
+				border-top: 0;
+			}
+		}
+	}
+
+	.dt-input,
+	.dt-search input {
+		padding: @spacing-25 @spacing-50;
+		min-height: @min-size-interactive-pointer;
+		border-radius: @border-radius-sharp;
+		border-color: @border-color-interactive;
+		background-color: @background-color-base;
+		box-shadow: @box-shadow-inset-small @box-shadow-color-transparent;
+		font-size: inherit;
+		line-height: @line-height-xx-small;
+		transition-property: @transition-property-base;
+		transition-duration: @transition-duration-medium;
+
+		&:hover {
+			border-color: @border-color-interactive--hover;
+		}
+
+		&:focus {
+			border-color: @border-color-progressive--focus;
+			box-shadow: @box-shadow-inset-small @box-shadow-color-progressive--focus;
+			outline: 1px solid transparent;
+		}
+	}
+
+	select.dt-input {
+		padding-inline: @spacing-75;
+		border-color: @border-color-base;
+		background-color: @background-color-interactive-subtle;
+		transition-duration: @transition-duration-base;
+
+		&:hover {
+			background-color: @background-color-base;
+			border-color: @border-color-base;
+			color: @color-base--hover;
+			cursor: pointer;
+		}
+
+		&:active {
+			border-color: @border-color-interactive;
+			color: @color-emphasized;
+		}
+	}
+
+	.dt-info {
+		color: @color-subtle;
+	}
+
+	.dt-paging {
+		> nav {
+			display: flex;
+			gap: @spacing-25;
+			justify-content: center;
+			overflow-x: auto;
+		}
+
+		.dt-paging-button {
+			margin-left: 0;
+			padding: @spacing-25;
+			min-width: @min-size-interactive-pointer;
+			min-height: @min-size-interactive-pointer;
+			font-size: inherit;
+			font-weight: @font-weight-bold;
+			transition-property: @transition-property-base;
+			transition-duration: @transition-duration-base;
+
+			&:hover {
+				border-color: @border-color-transparent;
+				background: @background-color-interactive-subtle;
+				color: @color-base !important;
+			}
+
+			&:active {
+				border-color: @border-color-interactive;
+				background: @background-color-interactive;
+				color: @color-emphasized;
+				box-shadow: none;
+			}
+
+			&.current,
+			&.current:hover {
+				border-color: @border-color-transparent;
+				background: @background-color-interactive;
+				box-shadow: none;
+			}
+
+			&.disabled,
+			&.disabled:hover,
+			&.disabled:active {
+				color: @color-disabled !important;
+				box-shadow: none;
+			}
+		}
+	}
+}
+
+table.srf-datatable.dataTable {
+	--dt-html-background: transparent;
+
+	thead > tr {
+		> th,
+		> td {
+			padding: @spacing-75;
+			border-bottom-color: @border-color-base;
+
+			&.dt-orderable {
+				&-asc,
+				&-desc {
+					padding-inline-end: 30px; // restore padding for sort indicator that get overriden by ours
+					transition-property: @transition-property-base;
+					transition-duration: @transition-duration-base;
+
+					&:hover {
+						outline: none;
+						background-color: @background-color-interactive-subtle;
+						border-color: @border-color-base;
+					}
+
+					&:active {
+						background-color: @background-color-interactive;
+						border-color: @border-color-base;
+					}
+
+					&:focus {
+						box-shadow: @box-shadow-inset-medium @box-shadow-color-progressive--focus;
+					}
+
+					/* Sorting indicators */
+					span.dt-column-order {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+    					flex-direction: column;
+
+						&::before,
+						&::after {
+							position: relative;
+							inset: unset;
+							color: @color-subtle;
+							opacity: 1;
+						}
+					}
+				}
+			}
+
+			&.dt-ordering {
+				&-asc {
+					/* Mimic the Codex table behavior where only one indicator is shown */
+					span.dt-column-order {
+						&::before {
+							opacity: 1;
+						}
+
+						&::after {
+							display: none;
+						}
+					}
+				}
+
+				&-desc {
+					span.dt-column-order {
+						&::before {
+							display: none;
+						}
+
+						&::after {
+							opacity: 1;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	tbody > tr {
+		> th,
+		> td {
+			/**
+			 * @spacing-50 is slightly smaller than Codex table component
+			 * DataTables usually contain a lot of data so we should make it more compact
+			 * This is also the same spacing used in SMW factbox
+			 */
+			padding: @spacing-50 @spacing-75;
+		}
+	}
+
+	&.display {
+		> tbody > tr {
+			> * {
+				border-top-color: @border-color-subtle;
+				transition-property: @transition-property-base;
+				transition-duration: @transition-duration-base;
+			}
+
+			&:nth-child( odd ) > * {
+				box-shadow: none;
+				background-color: @background-color-neutral-subtle;
+			}
+
+			> .sorting {
+				&_1,
+				&_2,
+				&_3 {
+					box-shadow: none;
+					background-color: @background-color-neutral;
+				}
+			}
+
+			&:hover > * {
+				box-shadow: none;
+				background-color: @background-color-interactive;
+			}
+		}
+	}
+}
