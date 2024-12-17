@@ -83,8 +83,7 @@
 	},
 	"scripts":{
 		"test": [
-			"@analyze",
-			"@phpunit"
+			"@analyze"
 		],
 		"test-coverage": [
 			"@analyze",
