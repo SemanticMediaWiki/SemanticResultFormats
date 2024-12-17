@@ -63,7 +63,7 @@ class SRFTime extends SMWResultPrinter {
 				foreach ( $resultArray->getContent() as
 						  $dataItem ) {
 					if ( $dataItem->getDIType() === SMWDataItem::TYPE_TIME ) {
-						$seconds[$dataItem->getSortKey()] = $dataItem;
+						$seconds[(string)$dataItem->getSortKey()] = $dataItem;
 					}
 				}
 			}
