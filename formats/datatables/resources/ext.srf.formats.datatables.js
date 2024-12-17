@@ -566,7 +566,6 @@
 			}
 			// Format value into readable label
 			for (var i = 0; i < lengthMenuLabels.length; i++) {
-				console.log( typeof lengthMenuLabels[i] );
 				if (typeof lengthMenuLabels[i] !== 'number') {
 					continue;
 				}
