@@ -106,6 +106,12 @@ div.dt-container {
 			overflow-x: auto;
 		}
 
+		.ellipsis {
+			padding: 0;
+			color: @color-placeholder;
+			font-weight: @font-weight-bold;
+		}
+
 		.dt-paging-button {
 			margin-left: 0;
 			padding: @spacing-25;
@@ -141,6 +147,48 @@ div.dt-container {
 			&.disabled:active {
 				color: @color-disabled !important;
 				box-shadow: none;
+			}
+
+			/* Turn into icon buttons */
+			&.first,
+			&.previous,
+			&.next,
+			&.last {
+				position: relative;
+				text-indent: -9999px;
+				overflow: hidden;
+
+				&::before {
+					content: '';
+					position: absolute;
+					inset: 0;
+					background-color: currentColor;
+					mask-size: ~'calc( max( @{size-icon-medium}, @{min-size-icon-medium} ) )';
+					mask-repeat: no-repeat;
+					-webkit-mask-repeat: no-repeat;
+					mask-position: center;
+					-webkit-mask-position: center;
+				}
+			}
+
+			&.first::before {
+				mask-image: url( ../../../resources/assets/codex-icons/moveFirst.svg );
+				-webkit-mask-image: url( ../../../resources/assets/codex-icons/moveFirst.svg );
+			}
+
+			&.previous::before {
+				mask-image: url( ../../../resources/assets/codex-icons/previous.svg );
+				-webkit-mask-image: url( ../../../resources/assets/codex-icons/previous.svg );
+			}
+
+			&.next::before {
+				mask-image: url( ../../../resources/assets/codex-icons/next.svg );
+				-webkit-mask-image: url( ../../../resources/assets/codex-icons/next.svg );
+			}
+
+			&.last::before {
+				mask-image: url( ../../../resources/assets/codex-icons/moveLast.svg );
+				-webkit-mask-image: url( ../../../resources/assets/codex-icons/moveLast.svg );
 			}
 		}
 	}
