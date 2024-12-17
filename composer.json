@@ -83,17 +83,13 @@
 	},
 	"scripts":{
 		"test": [
-			"@analyze",
-			"@phpunit"
+			"@lint",
+			"@phpcs",
+			"minus-x check ."
 		],
 		"test-coverage": [
 			"@analyze",
 			"@phpunit-coverage"
-		],
-		"analyze": [
-			"@lint",
-			"@phpcs",
-			"@minus-x"
 		],
 		"fix": [
 			"@phpcs-fix"
