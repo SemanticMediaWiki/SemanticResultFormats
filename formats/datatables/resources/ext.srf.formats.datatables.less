@@ -359,16 +359,25 @@ div.dtsb-searchBuilder {
 
 	div.dtsb-group {
 		margin-bottom: @spacing-50;
+		display: flex;
+		flex-direction: column;
+		gap: @spacing-75;
 
 		div.dtsb-logicContainer {
 			margin-top: @spacing-50;
-			margin-right: @spacing-50;
+			margin-right: @spacing-75;
 			border-color: @border-color-base;
 			border-radius: @border-radius-base;
 			background: @background-color-interactive-subtle;
+			flex-wrap: nowrap;
+
+			button.dtsb-logic {
+				padding: 0;
+			}
 		}
 
 		div.dtsb-criteria {
+			margin-bottom: 0;
 			gap: @spacing-50;
 
 			select.dtsb-dropDown {
