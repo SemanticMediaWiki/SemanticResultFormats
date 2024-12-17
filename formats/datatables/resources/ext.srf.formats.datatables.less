@@ -5,6 +5,42 @@
  * such as div.dt-container and >, don't be alarmed
  */
 
+ .srf-datatables-icon-mask() {
+	background-color: currentColor;
+	mask-size: ~'calc( max( @{size-icon-medium}, @{min-size-icon-medium} ) )';
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+	mask-position: center;
+	-webkit-mask-position: center;
+}
+
+.srf-datatables-icon() {
+	min-width: @min-size-icon-medium;
+	min-height: @min-size-icon-medium;
+	width: @size-icon-medium;
+	height: @size-icon-medium;
+	.srf-datatables-icon-mask()
+}
+
+ /* Turn into text button into icon button */
+.srf-datatables-icon-button() {
+	position: relative;
+	text-indent: -9999px;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		.srf-datatables-icon-mask();
+	}
+}
+
+.srf-datatables-cdx-icon( @icon ) {
+	mask-image: ~'url( ../../../resources/assets/codex-icons/@{icon}.svg )';
+	-webkit-mask-image: ~'url( ../../../resources/assets/codex-icons/@{icon}.svg )';
+}
+
 /**
  * SRF/Codex override for default dataTables styles
  * @see https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css
@@ -84,8 +120,28 @@ div.dt-container {
 		}
 	}
 
-	.dt-search input {
-		margin-left: 0;
+	.dt-search {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: @spacing-50;
+			display: block;
+			color: @color-placeholder;
+			.srf-datatables-icon();
+			.srf-datatables-cdx-icon( 'search' );
+			height: 100%; // align center
+		}
+
+		input {
+			margin-left: 0;
+			padding-left: ~'calc( max( @{size-icon-medium}, @{min-size-icon-medium} ) + @{spacing-50} * 2 )';
+		}
+
+		&:has( input:focus )::before {
+			color: @color-base;
+		}
 	}
 
 	.dt-empty,
@@ -149,46 +205,27 @@ div.dt-container {
 				box-shadow: none;
 			}
 
-			/* Turn into icon buttons */
 			&.first,
 			&.previous,
 			&.next,
 			&.last {
-				position: relative;
-				text-indent: -9999px;
-				overflow: hidden;
-
-				&::before {
-					content: '';
-					position: absolute;
-					inset: 0;
-					background-color: currentColor;
-					mask-size: ~'calc( max( @{size-icon-medium}, @{min-size-icon-medium} ) )';
-					mask-repeat: no-repeat;
-					-webkit-mask-repeat: no-repeat;
-					mask-position: center;
-					-webkit-mask-position: center;
-				}
+				.srf-datatables-icon-button();
 			}
 
 			&.first::before {
-				mask-image: url( ../../../resources/assets/codex-icons/moveFirst.svg );
-				-webkit-mask-image: url( ../../../resources/assets/codex-icons/moveFirst.svg );
+				.srf-datatables-cdx-icon( 'moveFirst' );
 			}
 
 			&.previous::before {
-				mask-image: url( ../../../resources/assets/codex-icons/previous.svg );
-				-webkit-mask-image: url( ../../../resources/assets/codex-icons/previous.svg );
+				.srf-datatables-cdx-icon( 'previous' );
 			}
 
 			&.next::before {
-				mask-image: url( ../../../resources/assets/codex-icons/next.svg );
-				-webkit-mask-image: url( ../../../resources/assets/codex-icons/next.svg );
+				.srf-datatables-cdx-icon( 'next' );
 			}
 
 			&.last::before {
-				mask-image: url( ../../../resources/assets/codex-icons/moveLast.svg );
-				-webkit-mask-image: url( ../../../resources/assets/codex-icons/moveLast.svg );
+				.srf-datatables-cdx-icon( 'moveLast' );
 			}
 		}
 	}
