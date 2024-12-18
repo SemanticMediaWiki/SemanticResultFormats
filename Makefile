@@ -11,13 +11,13 @@ endif
 EXTENSION=SemanticResultFormats
 
 # docker images
-MW_VERSION?=1.35
-PHP_VERSION?=7.4
-DB_TYPE?=sqlite
-DB_IMAGE?=""
+MW_VERSION?=1.39
+PHP_VERSION?=8.1
+DB_TYPE?=mysql
+DB_IMAGE?="mariadb:10"
 
 # extensions
-SMW_VERSION?=4.1.3
+SMW_VERSION?=dev-master
 PF_VERSION ?= 5.5.1
 SFS_VERSION ?= 4.0.0-beta
 MM_VERSION ?= 3.1.0
