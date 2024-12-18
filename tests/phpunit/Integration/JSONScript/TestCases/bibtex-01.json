@@ -60,6 +60,9 @@
 		{
 			"type": "special",
 			"about": "#0 `format=bibtex` empty (bibtex-01-0.bib)",
+			"skip-on": {
+				"mediawiki": [ ">1.39.x", "Check parser function registration for MW 1.40+" ]
+			},
 			"special-page": {
 				"page": "Ask",
 				"request-parameters": {
@@ -83,6 +86,9 @@
 		{
 			"type": "special",
 			"about": "#1 `format=bibtex` single author, editor (bibtex-01-1.bib)",
+			"skip-on": {
+				"mediawiki": [ ">1.39.x", "Check parser function registration for MW 1.40+" ]
+			},
 			"special-page": {
 				"page": "Ask",
 				"request-parameters": {
@@ -106,6 +112,9 @@
 		{
 			"type": "special",
 			"about": "#2 `format=bibtex` multiple authors (bibtex-01-2.bib)",
+			"skip-on": {
+				"mediawiki": [ ">1.39.x", "Check parser function registration for MW 1.40+" ]
+			},
 			"special-page": {
 				"page": "Ask",
 				"request-parameters": {
@@ -129,6 +138,9 @@
 		{
 			"type": "special",
 			"about": "#3 `format=bibtex` multiple records (bibtex-01-3.bib)",
+			"skip-on": {
+				"mediawiki": [ ">1.39.x", "Check parser function registration for MW 1.40+" ]
+			},
 			"special-page": {
 				"page": "Ask",
 				"request-parameters": {
