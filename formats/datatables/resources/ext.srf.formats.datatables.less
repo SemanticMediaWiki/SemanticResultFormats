@@ -654,6 +654,10 @@ div.dtsp-searchPane {
 			}
 		}
 
+		/* HACK: Magic to force the pane to fill the container in narrow viewport */
+		colgroup col {
+			width: 99999px !important;
+		}
 	}
 
 	input.dtsp-paneInputButton,
