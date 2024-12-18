@@ -4,6 +4,8 @@
  * NOTE: DataTables uses a lot of over-qualified CSS selector
  * such as div.dt-container and >, don't be alarmed
  */
+
+/* Mixins */
 .srf-datatables-icon-mask( @size: 'medium' ) {
 	@srf-datatables-icon-size: ~'@{size-icon-@{size}}';
 	@srf-datatables-icon-min-size: ~'@{min-size-icon-@{size}}';
@@ -42,11 +44,10 @@
 }
 
 /* Prepend icon to element */
-.srf-datatables-prepend-icon( @icon, @size: 'medium' ) {
+.srf-datatables-prepend-icon( @icon, @size: 'medium', @gap: @spacing-25 ) {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	gap: @spacing-25;
+	gap: @gap;
 
 	&::before {
 		content: '';
@@ -58,6 +59,23 @@
 .srf-datatables-cdx-icon( @icon ) {
 	mask-image: ~'url( ../../../resources/assets/codex-icons/@{icon}.svg )';
 	-webkit-mask-image: ~'url( ../../../resources/assets/codex-icons/@{icon}.svg )';
+}
+
+.srf-datatables-cdx-info-chip() {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-inline: @spacing-50;
+	border: @border-base;
+	border-radius: @border-radius-pill;
+	background-color: @background-color-notice-subtle;
+	color: @color-subtle;
+	font-size: @font-size-small;
+}
+
+/* SRF elements for dataTables*/
+.srf-datatables-info-chip {
+	.srf-datatables-cdx-info-chip();
 }
 
 /**
@@ -471,10 +489,15 @@ div.dtsb-searchBuilder {
 	button.dtsb-button {
 		&.dtsb-add {
 			.srf-datatables-prepend-icon( 'add' );
+			justify-content: center;
 		}
 	}
 
 	div.dtsb-titleRow {
+		div.dtsb-title {
+			.srf-datatables-prepend-icon( 'articlesSearch-ltr', 'medium', @spacing-50 );
+		}
+
 		button.dtsb-clearAll {
 			margin-bottom: 0;
 		}
@@ -505,6 +528,7 @@ div.dtsb-searchBuilder {
 
 			select.dtsb-dropDown {
 				margin: 0;
+				font-style: normal;
 			}
 
 			div.dtsb-inputCont input {
@@ -547,12 +571,6 @@ div.dtsp-panesContainer {
 	width: 100%;
 
 	button {
-		&.dtsp-clearAll,
-		&.dtsp-collapseAll,
-		&.dtsp-showAll {
-			margin-left: -@border-width-base;
-		}
-
 		/* Move to the end to align with search builder */
 		&.dtsp-clearAll {
 			order: 999;
@@ -570,6 +588,22 @@ div.dtsp-panesContainer {
 		&.dtsp-disabledButton {
 			display: none;
 		}
+
+		&.dtsp-clearAll,
+		&.dtsp-collapseAll,
+		&.dtsp-showAll {
+			margin-left: -@border-width-base;
+
+			/* Hide labels on small screens */
+			@media screen and ( max-width: @max-width-breakpoint-mobile ) {
+				text-indent: -9999px;
+				gap: 0;
+			}
+		}
+	}
+
+	div.dtsp-title {
+		.srf-datatables-prepend-icon( 'funnel', 'medium', @spacing-50 );
 	}
 
 	div.dtsp-searchPanes {
@@ -615,15 +649,7 @@ div.dtsp-searchPane {
 				align-items: center;
 
 				span.dtsp-pill {
-					display: inline-flex;
-					align-items: center;
-					justify-content: center;
-					padding-inline: @spacing-50;
-					border: @border-base;
-					border-radius: @border-radius-pill;
-					background-color: @background-color-notice-subtle;
-					color: @color-subtle;
-					font-size: inherit;
+					.srf-datatables-cdx-info-chip();
 				}
 			}
 		}
