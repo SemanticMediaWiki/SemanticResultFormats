@@ -31,6 +31,12 @@
 					"<div class=\"srf-gallery\" data-redirect-type=\"_wpg\">",
 					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery01.png\" class=\"image\">"
 				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.40",
+					"Check parser function registration for MW 1.40+"
+				]
 			}
 		}
 	],

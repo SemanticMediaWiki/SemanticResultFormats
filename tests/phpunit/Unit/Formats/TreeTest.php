@@ -5,7 +5,7 @@ namespace SRF\Test;
 use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
 use Parser;
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SMW\Tests\Utils\Mock\CoreMockObjectRepository;
 use SMW\Tests\Utils\Mock\MockObjectBuilder;
 use SMWQueryProcessor;

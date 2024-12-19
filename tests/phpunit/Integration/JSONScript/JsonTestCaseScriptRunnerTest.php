@@ -2,7 +2,7 @@
 namespace SRF\Tests\Integration\JSONScript;
 
 use ExtensionRegistry;
-use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTestCaseScriptRunnerTest;
+use SMW\Tests\Integration\JSONScript\JSONScriptTestCaseRunnerTest;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -19,7 +19,7 @@ use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTest
  *
  * @author Stephan Gambke
  */
-class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
+class JsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 	/**
 	 * @see \SMW\Tests\JsonTestCaseScriptRunner::getTestCaseLocation
 	 * @return string
