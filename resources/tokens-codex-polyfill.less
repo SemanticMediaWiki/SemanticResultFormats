@@ -1,0 +1,30 @@
+/** @since v1.16.0 */
+@background-color-interactive-subtle--hover: @background-color-interactive;
+@background-color-interactive-subtle--active: @border-color-muted;
+@background-color-error-subtle--hover: @background-color-interactive-subtle--hover; // no equivalant in v1.14.0, fallback to old behavior
+@background-color-error-subtle--active: @background-color-interactive-subtle--active; // no equivalant in v1.14.0, fallback to old behavior
+@border-color-interactive--hover: @color-base--hover; // not exactly the same but it is close
+@border-color-interactive--active: @color-base;
+
+/** @since v1.18.0 */
+@background-color-interactive--hover: @border-color-muted;
+@background-color-interactive--active: @border-color-subtle;
+@background-color-progressive-subtle--hover: @background-color-interactive-subtle--hover; // no equivalant in v1.14.0, fallback to old behavior
+@background-color-progressive-subtle--active: @background-color-interactive-subtle--active; // no equivalant in v1.14.0, fallback to old behavior
+@background-color-destructive-subtle--hover: @background-color-interactive-subtle--hover; // no equivalant in v1.14.0, fallback to old behavior
+@background-color-destructive-subtle--active: @background-color-interactive-subtle--active; // no equivalant in v1.14.0, fallback to old behavior
+
+/**
+ * filter-invert-icon is used to invert icons for dark mode
+ * It was included in Codex Design Tokens but not all skins have included it.
+ * This is a fallback for those that do not have it.
+ */
+html.skin-theme-clientpref-night {
+	--filter-invert-icon: 1;
+}
+
+@media ( prefers-color-scheme: dark ) {
+	html.skin-theme-clientpref-os {
+		--filter-invert-icon: 1;
+	}
+}
