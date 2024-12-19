@@ -372,6 +372,20 @@
 
 			sSearch: mw.msg("srf-ui-datatables-label-sSearch"),
 			sZeroRecords: mw.msg("srf-ui-datatables-label-sZeroRecords"),
+			searchBuilder: {
+				title: {
+					// Format condition count into info chip
+					_: `${ mw.msg( 'srf-ui-datatables-label-conditions' ) } <span class="srf-datatables-info-chip">%d</span>`,
+					0: mw.msg( 'srf-ui-datatables-label-conditions' )
+				}
+			},
+			searchPanes: {
+				title: {
+					// Format filter count into info chip
+					_: `${ mw.msg( 'srf-ui-datatables-label-filters' ) } <span class="srf-datatables-info-chip">%d</span>`,
+					0: mw.msg( 'srf-ui-datatables-label-filters' )
+				}
+			}
 		},
 
 		// we don't need it anymore, however keep it as
@@ -526,7 +540,7 @@
 						num: {
 							null: null,
 						},
-					},
+					}
 				};
 			}
 
