@@ -13,3 +13,18 @@
 @background-color-progressive-subtle--active: @background-color-interactive-subtle--active; // no equivalant in v1.14.0, fallback to old behavior
 @background-color-destructive-subtle--hover: @background-color-interactive-subtle--hover; // no equivalant in v1.14.0, fallback to old behavior
 @background-color-destructive-subtle--active: @background-color-interactive-subtle--active; // no equivalant in v1.14.0, fallback to old behavior
+
+/**
+ * filter-invert-icon is used to invert icons for dark mode
+ * It was included in Codex Design Tokens but not all skins have included it.
+ * This is a fallback for those that do not have it.
+ */
+html.skin-theme-clientpref-night {
+	--filter-invert-icon: 1;
+}
+
+@media ( prefers-color-scheme: dark ) {
+	html.skin-theme-clientpref-os {
+		--filter-invert-icon: 1;
+	}
+}
