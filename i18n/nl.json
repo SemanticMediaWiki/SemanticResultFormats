@@ -246,6 +246,8 @@
 	"srf-ui-datatables-label-oAria-sSortAscending": ": activeren om de kolom oplopend te sorteren",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": activeren om de kolom aflopend te sorteren",
 	"srf-ui-datatables-searchpanes-noajax": "Datatables (v2) ondersteunt nog geen zoekpanelen wanneer Ajax vereist is en is uitgeschakeld",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1 rij|$1 rijen}}",
+	"srf-ui-datatables-label-rows-all": "Alle rijen",
 	"srf-printername-tree": "Boom",
 	"srf-printername-ultree": "Ongenummerde lijst",
 	"srf-printername-oltree": "Genummerde lijst",
