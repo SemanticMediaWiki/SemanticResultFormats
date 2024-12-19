@@ -2,7 +2,7 @@
 
 namespace SRF\Tests\Gantt;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 
 class GanttTest extends QueryPrinterRegistryTestCase {
 
