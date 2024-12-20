@@ -18,8 +18,8 @@ DB_IMAGE?="mariadb:10"
 
 # extensions
 SMW_VERSION?=dev-master
-PF_VERSION ?= 5.5.1
-SFS_VERSION ?= 4.0.0-beta
+PF_VERSION ?= 5.9
+SFS_VERSION ?= dev-master
 MM_VERSION ?= 3.1.0
 
 # composer
