@@ -199,7 +199,7 @@
 	"srf-printername-datatables": "DataTables",
 	"srf-ui-datatables-label-conditions": "Conditions",
 	"srf-ui-datatables-label-parameters": "Parameters",
-	"srf-ui-datatables-label-filters": "Column filters and search",
+	"srf-ui-datatables-label-filters": "Filters",
 	"srf-ui-datatables-label-information": "Information",
 	"srf-ui-datatables-panel-disclaimer": "Parameters and conditions can be altered, but any change is temporary and abandoned after a page refresh.",
 	"srf-ui-datatables-refresh-button-title": "refresh table",
