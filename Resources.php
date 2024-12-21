@@ -1011,8 +1011,7 @@ return [
 			'resources/jquery/datatables/object_hash.js',
 			'resources/jquery/datatables/jquery.mark.min.js',
 			'resources/jquery/datatables/datatables.mark.min.js',
-			'resources/jquery/datatables/datatables.min.js',
-			'resources/jquery/datatables/jquery.dataTables.extras.js',
+			'resources/jquery/datatables/datatables.min.js'
 		],
 		'styles'  => [
 			'resources/jquery/datatables/datatables.mark.min.css',
