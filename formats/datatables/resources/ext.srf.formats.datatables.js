@@ -84,10 +84,10 @@
 		 * @private
 		 * @static
 		 *
-		 * @param {Object} context
+		 * @param {Object} table
 		 */
-		initColumnSort: function (context) {
-			var column = context.data("column-sort");
+		initColumnSort: function (table) {
+			var column = table.data("column-sort");
 
 			var order = [];
 
@@ -117,10 +117,10 @@
 			});
 
 			if (order.length > 0) {
-				context.data("order", order);
+				table.data("order", order);
 			} else {
 				// default @see https://datatables.net/reference/option/order
-				context.data("order", [[0, "asc"]]);
+				table.data("order", [[0, "asc"]]);
 			}
 		},
 
@@ -148,6 +148,8 @@
 			}
 		},
 
+		// this is used only if Ajax is disabled and
+		// the table does not have fields with multiple values
 		getPanesOptions: function (data, columnDefs, options) {
 			var ret = {};
 			var dataLength = {};
@@ -287,12 +289,53 @@
 			return searchPanesOptions;
 		},
 
-		parse: {
-			// ...
-		},
+		callApi: function (
+			data,
+			callback,
+			preloadData,
+			searchPanesOptions,
+			displayLog
+		) {
+			var payload = {
+				action: "ext.srf.datatables.api",
+				format: "json",
+				data: JSON.stringify(data),
+			};
 
-		exportlinks: function (context, data) {
-			// ...
+			new mw.Api()
+				.post(payload)
+				.done(function (results) {
+					var json = results["datatables-json"];
+
+					if (displayLog) {
+						console.log("results log", json.log);
+					}
+
+					// cache all retrieved rows for each sorting
+					// dimension (column/dir), up to a fixed
+					// threshold (_cacheLimit)
+
+					if (data.datatableData.search.value === "") {
+						preloadData[json.cacheKey] = {
+							data: preloadData[json.cacheKey]["data"]
+								.slice(0, data.datatableData.start)
+								.concat(json.data),
+							count: json.recordsFiltered,
+						};
+					}
+
+					// we retrieve more than "length"
+					// expected by datatables, so return the
+					// sliced result
+					json.data = json.data.slice(0, data.datatableData.datalength);
+					json.searchPanes = {
+						options: searchPanesOptions,
+					};
+					callback(json);
+				})
+				.fail(function (error) {
+					console.log("error", error);
+				});
 		},
 
 		/**
@@ -323,25 +366,30 @@
 			sInfoThousands: mw.msg("srf-ui-datatables-label-sInfoThousands"),
 			sLengthMenu: mw.msg("srf-ui-datatables-label-sLengthMenu"),
 			sLoadingRecords: mw.msg("srf-ui-datatables-label-sLoadingRecords"),
-			sProcessing: mw.msg("srf-ui-datatables-label-sProcessing"),
+
+			// *** hide "processing" label above the indicator
+			// sProcessing: mw.msg("srf-ui-datatables-label-sProcessing"),
+
 			sSearch: mw.msg("srf-ui-datatables-label-sSearch"),
 			sZeroRecords: mw.msg("srf-ui-datatables-label-sZeroRecords"),
+			searchBuilder: {
+				title: {
+					// Format condition count into info chip
+					_: `${ mw.msg( 'srf-ui-datatables-label-conditions' ) } <span class="srf-datatables-info-chip">%d</span>`,
+					0: mw.msg( 'srf-ui-datatables-label-conditions' )
+				}
+			},
+			searchPanes: {
+				title: {
+					// Format filter count into info chip
+					_: `${ mw.msg( 'srf-ui-datatables-label-filters' ) } <span class="srf-datatables-info-chip">%d</span>`,
+					0: mw.msg( 'srf-ui-datatables-label-filters' )
+				}
+			}
 		},
 
-		/**
-		 * UI components
-		 *
-		 * @private
-		 * @param  {array} context
-		 * @param  {array} container
-		 * @param  {array} data
-		 */
-		ui: function (context, container, data) {
-			// ...
-		},
-
-		// we don't need it anymore, however keep is as
-		// a reference for alternate use
+		// we don't need it anymore, however keep it as
+		// a reference for other use
 		showNotice: function (context, container, msg) {
 			var cookieKey =
 				"srf-ui-datatables-searchpanes-notice-" +
@@ -436,43 +484,20 @@
 		 *
 		 * @since 1.9
 		 *
-		 * @param  {array} context
 		 * @param  {array} container
 		 * @param  {array} data
 		 */
-		init: function (context, container, data) {
+		init: function (container, data) {
 			var self = this;
 
-			// Hide loading spinner
-			context.find(".srf-loading-dots").hide();
+			var table = container.find("table");
+			table.removeClass("wikitable");
+			table.find("tbody:first").attr("aria-live", "polite");
 
-			// Show container
-			container.css({ display: "block" });
+			_datatables.initColumnSort(table);
 
-			_datatables.initColumnSort(context);
-
-			var order = context.data("order");
-
-			// Setup a raw table
-			container.html(
-				html.element("table", {
-					style: "width: 100%",
-					class:
-						context.data("theme") === "bootstrap"
-							? "bordered-table zebra-striped"
-							: "display", // nowrap
-					cellpadding: "0",
-					cellspacing: "0",
-					border: "0",
-				})
-			);
-
+			var order = table.data("order");
 			var options = data["formattedOptions"];
-
-			// add the button placeholder if any button is required
-			if (options.buttons.length && options.dom.indexOf("B") === -1) {
-				options.dom = "B" + options.dom;
-			}
 
 			function isObject(obj) {
 				return obj !== null && typeof obj === "object" && !Array.isArray(obj);
@@ -489,17 +514,55 @@
 			}
 
 			var queryResult = data.query.result;
-			var useAjax = context.data("useAjax");
+			var useAjax = table.data("useAjax");
+			var count = parseInt(table.data("count"));
+
+			// var mark = isObject(options.mark);
 
 			var searchPanes = isObject(options.searchPanes);
+			var searchBuilder = options.searchBuilder;
 
-			if (searchPanes) {
-				if (options.dom.indexOf("P") === -1) {
-					options.dom = "P" + options.dom;
-				}
-			} else {
-				options.dom = options.dom.replace("P", "");
+			if (searchBuilder) {
+				// @see https://datatables.net/extensions/searchbuilder/customConditions.html
+				// @see https://github.com/DataTables/SearchBuilder/blob/master/src/searchBuilder.ts
+				options.searchBuilder = {
+					depthLimit: 1,
+					conditions: {
+						html: {
+							null: null,
+						},
+						string: {
+							null: null,
+						},
+						date: {
+							null: null,
+						},
+						num: {
+							null: null,
+						},
+					}
+				};
 			}
+
+			options.layout = {
+				top9End: options.buttons.length ? 'buttons': null,
+				top3: searchBuilder ? 'searchBuilder': null,
+				top2: searchPanes ? 'searchPanes' : null,
+				topStart: {
+					pageLength: {
+						text: '_MENU_'
+					}
+				},
+				topEnd: {
+					search: {
+						// Hide label and use placeholder
+						placeholder: mw.msg('search'),
+						text: '_INPUT_'
+					}
+				},
+				bottomStart: 'info',
+				bottomEnd: 'paging'
+			};
 
 			// add the pagelength at the proper place in the length menu
 			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
@@ -509,20 +572,36 @@
 				});
 			}
 
+			// Replace -1 in lengthMenu with 'all' label
+			var showAll = options.lengthMenu.indexOf( -1 );
+			var lengthMenuLabels = options.lengthMenu.slice();
+			if ( showAll !== -1 ) {
+				lengthMenuLabels[showAll] = mw.msg( 'srf-ui-datatables-label-rows-all' );
+			}
+			// Format value into readable label
+			for (var i = 0; i < lengthMenuLabels.length; i++) {
+				if (typeof lengthMenuLabels[i] !== 'number') {
+					continue;
+				}
+				lengthMenuLabels[i] = mw.msg( 'srf-ui-datatables-label-rows', lengthMenuLabels[i] );
+			}
+			options.lengthMenu = [ options.lengthMenu, lengthMenuLabels ];
+
 			var query = data.query.ask;
-			var printouts = context.data("printouts");
+			var printouts = table.data("printouts");
 			var queryString = query.conditions;
-			var printrequests = context.data("printrequests");
+			var printrequests = table.data("printrequests");
 			var searchPanesOptions = data.searchPanes;
+
 			var searchPanesLog = data.searchPanesLog;
 
-			var displayLog = mw.config.get("performer") === context.data("editor");
+			var displayLog = mw.config.get("performer") === table.data("editor");
 
 			if (displayLog) {
 				console.log("searchPanesLog", searchPanesLog);
 			}
 
-			var entityCollation = context.data("collation");
+			var entityCollation = table.data("collation");
 
 			var columnDefs = [];
 			$.map(printrequests, function (property, index) {
@@ -530,7 +609,8 @@
 				// value for all columns
 				if (!options.columns.type) {
 					options.columns.type =
-						entityCollation === "numeric" && property.typeid === "_wpg"
+						( entityCollation === 'numeric' && property.typeid === '_wpg' )
+						||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1 
 							? "any-number"
 							: null;
 				}
@@ -545,6 +625,10 @@
 							name: printrequests[index].key !== "" ? printouts[index][1] : "",
 							className: "smwtype" + property.typeid,
 							targets: [index],
+
+							// @FIXME https://datatables.net/reference/option/columns.searchBuilderType
+							// implement in the proper way
+							searchBuilderType: "string",
 						},
 						options.columns,
 						data.printoutsParametersOptions[index]
@@ -557,20 +641,10 @@
 			if (searchPanes) {
 				_datatables.initSearchPanesColumns(columnDefs, options);
 
-				// @TODO remove "useAjax" and use the following trick
-				// https://github.com/Knowledge-Wiki/SemanticResultFormats/blob/2230aa3eb8e65dd33ff493ba81269689f50d2945/formats/datatables/resources/ext.srf.formats.datatables.js
-				// to use searchPanesOptions created server-side when Ajax is
-				// not required, unfortunately we cannot use the function
-				// described here https://datatables.net/reference/option/columns.searchPanes.options
-				// with the searchPanes data retrieved server-side, since
-				// we cannot simply provide count, label, and value in the searchPanesOptions
-				// (since is not allowed by the Api) -- however the current solution
-				// works fine in most cases
-				if (
-					// options["searchPanes"]["forceClient"] ||
-					!useAjax ||
-					!Object.keys(searchPanesOptions).length
-				) {
+				// *** this should now be true only if ajax is
+				// disabled and the table has no fields with
+				// multiple values
+				if (!Object.keys(searchPanesOptions).length) {
 					searchPanesOptions = _datatables.getPanesOptions(
 						queryResult,
 						columnDefs,
@@ -586,31 +660,52 @@
 				}
 			}
 
+			// ***important !! this has already
+			// been used for columnDefs initialization !
+			// otherwise the table won't sort !!
+			delete options.columns;
+
 			var conf = $.extend(options, {
 				columnDefs: columnDefs,
 				language: _datatables.oLanguage,
 				order: order,
 				search: {
-					caseInsensitive: context.data("nocase"),
+					caseInsensitive: table.data("nocase"),
 				},
+				initComplete: function () {
+					$(container).find(".datatables-spinner").hide();
+				}
 			});
 
 			// cacheKey ensures that the cached pages
 			// are related to current sorting and searchPanes filters
 			var getCacheKey = function (obj) {
-				return (
-					JSON.stringify(obj.order) +
-					(!searchPanes
-						? ""
-						: JSON.stringify(
-								Object.keys(obj.searchPanes).length
-									? obj.searchPanes
-									: Object.fromEntries(
-											Object.keys(columnDefs).map((x) => [x, {}])
-									  )
-						  ))
-				);
+				// this ensures that the preload key
+				// and the dynamic key match
+				// this does not work: "searchPanes" in obj && Object.entries(obj.searchPanes).find(x => Object.keys(x).length ) ? obj.searchPanes : {},
+				if ("searchPanes" in obj) {
+					for (var i in obj.searchPanes) {
+						if (!Object.keys(obj.searchPanes[i]).length) {
+							delete obj.searchPanes[i];
+						}
+					}
+				}
+
+				return objectHash.sha1({
+					order: obj.order,
+					// search: obj.search,
+					searchPanes:
+						"searchPanes" in obj &&
+						Object.entries(obj.searchPanes).find((x) => Object.keys(x).length)
+							? obj.searchPanes
+							: {},
+					searchBuilder: "searchBuilder" in obj ? obj.searchBuilder : {},
+				});
 			};
+
+			if ((searchPanes || searchBuilder) && table.data("multiple-values")) {
+				useAjax = true;
+			}
 
 			if (!useAjax) {
 				conf.serverSide = false;
@@ -618,6 +713,9 @@
 
 				// use Ajax only when required
 			} else {
+				// prevents double spinner
+				$(container).find(".datatables-spinner").hide();
+
 				var preloadData = {};
 
 				// cache using the column index and sorting
@@ -627,47 +725,33 @@
 					order: order.map((x) => {
 						return { column: x[0], dir: x[1] };
 					}),
-					searchPanes: {},
 				});
 
 				preloadData[cacheKey] = {
 					data: queryResult,
-					count: context.data("count"),
+					count: count,
 				};
 
-				var payload = {
-					action: "ext.srf.datatables.api",
-					format: "json",
-					query: queryString,
-					columndefs: JSON.stringify(columnDefs),
-					printouts: JSON.stringify(printouts),
-					printrequests: JSON.stringify(printrequests),
-					settings: JSON.stringify(
-						$.extend(
-							{ count: context.data("count"), displayLog: displayLog },
-							query.parameters
-						)
+				var payloadData = {
+					queryString,
+					columnDefs,
+					printouts,
+					printrequests,
+					settings: $.extend(
+						{ count: count, displayLog: displayLog },
+						query.parameters
 					),
 				};
 
 				conf = $.extend(conf, {
-					// *** attention! deferLoading when used in conjunction with
-					// ajax, expects only the first page of data, if the preloaded
-					// data contain more rows, datatables will show a wrong rows
-					// counter. For this reason we renounce to use deferRender, and
-					// instead we use the following hack: the Ajax function returns
-					// the preloaded data as long they are available for the requested
-					// slice, and then it uses an ajax call for not available data.
-					// deferLoading: context.data("count"),
-
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {
-						// must match cacheKey
-						var key = getCacheKey(datatableData);
+						// must match initial cacheKey
+						var cacheKey = getCacheKey(datatableData);
 
-						if (!(key in preloadData)) {
-							preloadData[key] = { data: [] };
+						if (!(cacheKey in preloadData)) {
+							preloadData[cacheKey] = { data: [] };
 						}
 
 						// returned cached data for the required
@@ -675,22 +759,21 @@
 						if (
 							datatableData.search.value === "" &&
 							datatableData.start + datatableData.length <=
-								preloadData[key]["data"].length
+								preloadData[cacheKey]["data"].length
 						) {
 							return callback({
 								draw: datatableData.draw,
-								data: preloadData[key]["data"].slice(
+								data: preloadData[cacheKey]["data"].slice(
 									datatableData.start,
 									datatableData.start + datatableData.length
 								),
-								recordsTotal: context.data("count"),
-								recordsFiltered: preloadData[key]["count"],
+								recordsTotal: count,
+								recordsFiltered: preloadData[cacheKey]["count"],
 								searchPanes: {
 									options: searchPanesOptions,
 								},
 							});
 						}
-
 						// flush cache each 40,000 rows
 						// *** another method is to compute the actual
 						// size in bytes of each row, but it takes more
@@ -704,53 +787,21 @@
 							}
 						}
 
-						new mw.Api()
-							.post(
-								$.extend(payload, {
-									datatable: JSON.stringify(datatableData),
-								})
-							)
-							.done(function (results) {
-								var json = results["datatables-json"];
-
-								if (displayLog) {
-									console.log("results log", json.log);
-								}
-
-								// cache all retrieved rows for each sorting
-								// dimension (column/dir), up to a fixed
-								// threshold (_cacheLimit)
-
-								if (datatableData.search.value === "") {
-									preloadData[key] = {
-										data: preloadData[key]["data"]
-											.slice(0, datatableData.start)
-											.concat(json.data),
-										count: json.recordsFiltered,
-									};
-								}
-
-								// we retrieve more than "length"
-								// expected by datatables, so return the
-								// sliced result
-								json.data = json.data.slice(0, datatableData.length);
-								json.searchPanes = {
-									options: searchPanesOptions,
-								};
-								callback(json);
-							})
-							.fail(function (error) {
-								console.log("error", error);
-							});
+						_datatables.callApi(
+							$.extend(payloadData, {
+								datatableData,
+								cacheKey,
+							}),
+							callback,
+							preloadData,
+							searchPanesOptions,
+							displayLog
+						);
 					},
 				});
 			}
-			// console.log("conf", conf);
-			container.find("table").DataTable(conf);
-		},
 
-		update: function (context, data) {
-			// ...
+			table.DataTable(conf);
 		},
 
 		test: {
@@ -766,13 +817,10 @@
 	var datatables = new srf.formats.datatables();
 
 	$(document).ready(function () {
-		$(".srf-datatable").each(function () {
-			var context = $(this),
-				container = context.find(".datatables-container");
-
+		$(".datatables-container").each(function () {
+			var container = $(this);
 			var data = JSON.parse(_datatables.getData(container));
-
-			datatables.init(context, container, data);
+			datatables.init(container, data);
 		});
 	});
 })(jQuery, mediaWiki, semanticFormats);

@@ -29,7 +29,6 @@ class SRFListWidget extends ResultPrinter {
 	 * @see SMWResultPrinter::getResultText
 	 *
 	 * @param SMWQueryResult $res
-	 * @param array $params
 	 * @param $outputmode
 	 *
 	 * @return string

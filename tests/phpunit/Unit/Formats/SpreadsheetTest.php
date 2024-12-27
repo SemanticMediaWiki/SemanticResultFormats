@@ -2,7 +2,7 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\SpreadsheetPrinter;
 
 /**
@@ -22,6 +22,10 @@ class SpreadsheetTest extends QueryPrinterRegistryTestCase {
 		return 'SRF\SpreadsheetPrinter';
 	}
 
+	/**
+	 * @covers Spreadsheet
+	 *
+	 */
 	public function testLink() {
 		$link = $this->getMockBuilder( '\SMWInfolink' )
 			->disableOriginalConstructor()
@@ -33,15 +37,15 @@ class SpreadsheetTest extends QueryPrinterRegistryTestCase {
 
 		$queryResult->expects( $this->once() )
 			->method( 'getQueryLink' )
-			->will( $this->returnValue( $link ) );
+			->willReturn( $link );
 
 		$queryResult->expects( $this->any() )
 			->method( 'getCount' )
-			->will( $this->returnValue( 1 ) );
+			->willReturn( 1 );
 
 		$queryResult->expects( $this->any() )
 			->method( 'getErrors' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$instance = new SpreadsheetPrinter( 'csv' );
 		$instance->getResult( $queryResult, [], SMW_OUTPUT_WIKI );

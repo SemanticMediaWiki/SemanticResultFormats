@@ -20,6 +20,7 @@
 			"Sujiniku",
 			"Suyama",
 			"Whym",
+			"あづまはし",
 			"青子守歌"
 		]
 	},
@@ -27,9 +28,6 @@
 	"prefs-srf": "意味的結果の形式",
 	"prefs-srf-eventcalendar-options": "イベントカレンダーオプション",
 	"srf-prefs-eventcalendar-options-update-default": "ページ更新中のカレンダーイベントの[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates 自動更新]を有効にする",
-	"prefs-srf-datatables-options": "データテーブルオプション",
-	"srf-prefs-datatables-options-update-default": "ページ更新中のテーブル内容の[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates 自動更新]を有効にする",
-	"srf-prefs-datatables-options-cache-default": "応答時間の改善のため[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Local_storage ローカルストレージ]を有効にする",
 	"srf-module-loading": "読み込み中...",
 	"srf-paramdesc-layout": "利用できるレイアウト",
 	"srf-paramdesc-height": "高さ",
@@ -152,6 +150,7 @@
 	"srf-paramdesc-graphlink": "ノードをそれぞれのウィキページにリンクするかどうか設定",
 	"srf-paramdesc-graphcolor": "グラフの色を設定",
 	"srf-printername-datatables": "データテーブル",
+	"srf-ui-datatables-label-parameters": "パラメーター",
 	"srf-ui-datatables-label-placeholder-column-search": "検索...",
 	"srf-ui-datatables-label-sInfo": "_TOTAL_ 件中 _START_ から _END_ 件を表示中",
 	"srf-ui-datatables-label-sInfoEmpty": "0 件中 0 から 0 件を表示中",

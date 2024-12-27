@@ -3,11 +3,11 @@
 namespace SRF\Graph;
 
 use Html;
-Use MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
+use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMW\ResultPrinter;
 use SMWQueryResult;
-use SMW\Query\PrintRequest;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -28,7 +28,7 @@ class GraphPrinter extends ResultPrinter {
 	// @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/pull/4273
 	// Implement `ResultPrinterDependency` once SMW 3.1 becomes mandatory
 
-	const NODELABEL_DISPLAYTITLE = 'displaytitle';
+	public const NODELABEL_DISPLAYTITLE = 'displaytitle';
 	public static $NODE_LABELS = [
 		self::NODELABEL_DISPLAYTITLE,
 	];
@@ -114,7 +114,7 @@ class GraphPrinter extends ResultPrinter {
 		$registry = \ExtensionRegistry::getInstance();
 		return (
 			// <graphviz> can be provided by Diagrams.
-			!$registry->isLoaded( 'Diagrams' ) ||
+			!$registry->isLoaded( 'Diagrams' ) &&
 			!class_exists( 'GraphViz' ) && !class_exists( '\\MediaWiki\\Extension\\GraphViz\\GraphViz' )
 		) && !(
 			// <graphviz can also be added by External Data in Tag emulation mode.
@@ -200,12 +200,13 @@ class GraphPrinter extends ResultPrinter {
 			$request = $result_array->getPrintRequest();
 			$type = $request->getTypeID();
 			// Whether this printout should be shown as an edge.
-			$show_as_edge = !$this->options->showGraphFields() // no fields at all.
-				|| in_array( $type, self::PAGETYPES ) // property of the type 'Page'.
-				|| $request->isMode( PrintRequest::PRINT_CHAIN ); // property chain, treated like 'Page'.
+			// no fields at all.
+			$show_as_edge = !$this->options->showGraphFields()
+				|| in_array( $type, self::PAGETYPES )
+				|| $request->isMode( PrintRequest::PRINT_CHAIN );
 
 			// Loop through all values of a multivalue field.
-			while ( ( /* SMWWikiPageValue */ $object = $result_array->getNextDataValue() ) !== false ) {
+			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
 				if ( $show_as_edge ) {
 					if ( !$node && !$object->getProperty() ) {
 						// The graph node for the current record has not been created,
@@ -233,7 +234,7 @@ class GraphPrinter extends ResultPrinter {
 		}
 		// Add the node, if any, its parent nodes and fields for non-Page properties to the current edge.
 		if ( $node ) {
-			foreach( $parents as $parent ) {
+			foreach ( $parents as $parent ) {
 				$node->addParentNode( $parent['predicate'], $parent['object'] );
 				// @TODO: add explicit nodes with hyperlinks to every parent node not added as '?', but only once.
 			}
@@ -341,14 +342,7 @@ class GraphPrinter extends ResultPrinter {
 
 		$params['graphfields'] = [
 			'default' => false,
-			'message' => 'srf-paramdesc-graph-fields',
-			'manipluatedefault' => false,
-			'type' => 'boolean'
-		];
-
-		$params['graphfields'] = [
-			'default' => false,
-			'message' => 'srf-paramdesc-graph-fields',
+			'message' => 'srf-paramdesc-graphfields',
 			'manipluatedefault' => false,
 			'type' => 'boolean'
 		];

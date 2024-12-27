@@ -19,16 +19,11 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement( $isHtml = true ) {
-		SMWOutputs::requireResource( 'ext.srf' );
+		SMWOutputs::requireResource( 'ext.smw.styles' );
 
 		return Html::rawElement(
 			'div',
-			[ 'class' => 'srf-spinner mw-small-spinner' ],
-			Html::element(
-				'span',
-				[ 'class' => 'srf-processing-text' ],
-				wfMessage( 'srf-module-loading' )->inContentLanguage()->text()
-			)
+			[ 'class' => 'srf-loading-dots' ]
 		);
 	}
 
@@ -44,11 +39,11 @@ final class SRFUtils {
 		];
 
 		$requireHeadItem = [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem, false ) );
+		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem ) );
 	}
 
 	/**
-	 * @brief Returns semantic search link for the current query
+	 * Returns semantic search link for the current query
 	 *
 	 * Generate a link to access the current ask query
 	 *
@@ -82,6 +77,9 @@ final class SRFUtils {
 	 */
 	public static function makeVariablesScript( $data, $nonce = null ) {
 		$script = ResourceLoader::makeConfigSetScript( $data );
+		if ( $nonce === null ) {
+			$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
+		}
 
 		return ResourceLoader::makeInlineScript( $script, $nonce );
 	}

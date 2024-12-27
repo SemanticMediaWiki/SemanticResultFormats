@@ -2,11 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Nemo bis",
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"prefs-srf-eventcalendar-options": "Optioune vum Kalenner vun den Eventementer",
-	"prefs-srf-datatables-options": "Optioune vun den Tabelle vun Donnéeën",
 	"srf-module-loading": "Lueden...",
 	"srf-paramdesc-height": "Héicht",
 	"srf-paramdesc-width": "Breet",
@@ -48,7 +48,7 @@
 	"srf_paramdesc_timelinesize": "D'Héicht vun der Zäitläischt",
 	"srf-timeline-allresults": "Méi Resultater fir dës Ufro.",
 	"srf-timeline-nojs": "JavaScript muss aktivéiert si fir déi interaktiv Zäitläischt benotzen ze kënnen.",
-	"srf_paramdesc_views": "Déi Usiichten déi gewise solle ginn",
+	"srf_paramdesc_views": "Déi Usiichten, déi gewise solle ginn",
 	"srf_paramdesc_lens": "Den Numm vun enger Schabloun mat där Säiteneegeschafte gewise  ginn",
 	"srf_printername_googlebar": "Google-Sailen-Diagramm",
 	"srf_printername_googlepie": "Google-Taarten-Diagramm",
@@ -64,10 +64,10 @@
 	"srf-ui-gridview-label-data-tab": "Donnéeën",
 	"srf-ui-gridview-label-info-tab": "Informatioun",
 	"srf_printername_gallery": "Galerie",
-	"srf_paramdesc_perrow": "D'Zuel vu Biller pro Rei",
+	"srf_paramdesc_perrow": "D'Zuel vu Biller pro Zeil",
 	"srf_paramdesc_widths": "D'Breet vun de Biller",
 	"srf_paramdesc_heights": "D'Héicht vun de Biller",
-	"srf_paramdesc_autocaptions": "Den NUmm vum Fichier als Beschreiwung benotzen, wa keng ugi gouf",
+	"srf_paramdesc_autocaptions": "Den Numm vum Fichier als Beschrëftung benotzen, wa keng ugi gouf",
 	"srf-gallery-navigation-previous": "Vireg",
 	"srf-gallery-navigation-next": "Nächst",
 	"srf-gallery-overlay-count": "Bild $1 vu(n) $2",
@@ -131,5 +131,7 @@
 	"srf-ui-mediaplayer-label-pause": "Paus",
 	"srf-ui-mediaplayer-label-stop": "Stopp",
 	"srf-paramdesc-gantt-diagramtitle": "Numm vum Diagramm",
-	"srf-printername-gantt": "Gantt"
+	"srf-printername-gantt": "Gantt",
+	"srf-printername-mode": "Modus",
+	"srf-printername-variance": "Varianz"
 }

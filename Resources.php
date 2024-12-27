@@ -11,7 +11,7 @@
  */
 
 $moduleTemplate = [
-	'localBasePath' => __DIR__ ,
+	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'SemanticResultFormats'
 ];
 
@@ -115,12 +115,7 @@ return [
 	'ext.srf' => $moduleTemplate + [
 		'scripts' => 'resources/ext.srf.js',
 		'styles'  => [
-			'resources/ext.srf.css',
-
-			// Someone broke the CSS loading (Suspect bug 46401) in 1.22
-			// until this is fixed force styles to be loaded at the very start
-			// to avoid display clutter
-			'formats/calendar/resources/ext.srf.formats.eventcalendar.css',
+			'resources/ext.srf.css'
 		],
 		'dependencies' => 'ext.smw.api',
 		'position' => 'top',
@@ -153,9 +148,9 @@ return [
 		],
 		'dependencies' => [
 			'ext.srf',
-			'ext.jquery.jStorage',
 			'ext.jquery.blockUI',
 			'jquery.client',
+			'mediawiki.storage',
 			'mediawiki.Title',
 		],
 		'group' => 'ext.srf'
@@ -461,6 +456,7 @@ return [
 	// Chart specific declarations
 	'ext.srf.jqplot.chart' => $formatModule + [
 		'scripts' => [
+			'jqplot/resources/ext.srf.jqplot.chart.bubble.js',
 			'jqplot/resources/ext.srf.jqplot.chart.bar.js',
 			'jqplot/resources/ext.srf.jqplot.chart.pie.js',
 			'jqplot/resources/ext.srf.jqplot.chart.js',
@@ -928,17 +924,6 @@ return [
 		'group' => 'ext.srf'
 	],
 
-	// jQuery DataTables
-	'jquery.dataTables' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/datatables/datatables.min.js',
-		'position' => 'top'
-	],
-
-	// DataTables extras
-	'jquery.dataTables.extras' => $moduleTemplate + [
-		'scripts'  => 'resources/jquery/datatables/jquery.dataTables.extras.js',
-	],
-
 	'ext.srf.carousel.module' => $moduleTemplate + [
 		'styles' => [
 			'resources/slick/slick.css',
@@ -957,7 +942,6 @@ return [
 			'carousel/resources/ext.srf.formats.carousel.css'
 		],
 		'dependencies' => [
-			'ext.smw.dataItem',
 			'ext.smw.api',
 			'ext.srf.api',
 			'ext.srf.util',
@@ -970,7 +954,7 @@ return [
 			'datatables/resources/ext.srf.formats.datatables.js',
 		],
 		'styles'  => [
-			 'datatables/resources/ext.srf.formats.datatables.css'
+			 'datatables/resources/ext.srf.formats.datatables.less'
 		],
 		'dependencies' => [
 			'ext.srf.datatables.v2.module',
@@ -983,10 +967,13 @@ return [
 			'ext.srf.widgets'
 		],
 		'messages' => [
+			'search',
 			'srf-ui-datatables-label-conditions',
 			'srf-ui-datatables-label-parameters',
 			'srf-ui-datatables-label-filters',
 			'srf-ui-datatables-label-information',
+			'srf-ui-datatables-label-rows',
+			'srf-ui-datatables-label-rows-all',
 			'srf-ui-datatables-panel-disclaimer',
 			'srf-ui-datatables-refresh-button-title',
 			'srf-ui-datatables-panel-switch-button-title',
@@ -1021,74 +1008,15 @@ return [
 
 	'ext.srf.datatables.v2.module' => $moduleTemplate + [
 		'scripts' => [
+			'resources/jquery/datatables/object_hash.js',
+			'resources/jquery/datatables/jquery.mark.min.js',
+			'resources/jquery/datatables/datatables.mark.min.js',
 			'resources/jquery/datatables/datatables.min.js',
 			'resources/jquery/datatables/jquery.dataTables.extras.js',
 		],
 		'styles'  => [
+			'resources/jquery/datatables/datatables.mark.min.css',
 			'resources/jquery/datatables/datatables.min.css',
-		]
-	],
-
-	// DataTables implementation
-	'ext.srf.datatablesLegacy' => $formatModule + [
-		'scripts' => 'datatables-legacy/resources/ext.srf.formats.datatablesLegacy.js',
-		'styles'  => 'datatables-legacy/resources/ext.srf.formats.datatables.css',
-		'dependencies' => [
-			'jquery.dataTables',
-			'jquery.dataTables.extras',
-			'jquery.ui',
-			'ext.smw.dataItem',
-			'ext.smw.api',
-			'ext.srf.api',
-			'ext.srf.util',
-			'ext.srf.widgets'
-		],
-		'messages' => [
-			'srf-ui-datatables-label-conditions',
-			'srf-ui-datatables-label-parameters',
-			'srf-ui-datatables-label-filters',
-			'srf-ui-datatables-label-information',
-			'srf-ui-datatables-panel-disclaimer',
-			'srf-ui-datatables-refresh-button-title',
-			'srf-ui-datatables-panel-switch-button-title',
-			'srf-ui-datatables-label-update-success',
-			'srf-ui-datatables-label-update-error',
-			'srf-ui-datatables-label-sEmptyTable',
-			'srf-ui-datatables-label-sInfo',
-			'srf-ui-datatables-label-sInfoEmpty',
-			'srf-ui-datatables-label-sInfoFiltered',
-			'srf-ui-datatables-label-sInfoPostFix',
-			'srf-ui-datatables-label-sInfoThousands',
-			'srf-ui-datatables-label-sLengthMenu',
-			'srf-ui-datatables-label-sLoadingRecords',
-			'srf-ui-datatables-label-sProcessing',
-			'srf-ui-datatables-label-sSearch',
-			'srf-ui-datatables-label-sZeroRecords',
-			'srf-ui-datatables-label-oPaginate-sFirst',
-			'srf-ui-datatables-label-oPaginate-sLast',
-			'srf-ui-datatables-label-oPaginate-sNext',
-			'srf-ui-datatables-label-oPaginate-sPrevious',
-			'srf-ui-datatables-label-oAria-sSortAscending',
-			'srf-ui-datatables-label-oAria-sSortDescending',
-			'srf-ui-datatables-label-multiselect-column-header',
-			'srf-ui-datatables-label-multiselect-column-noneselectedtext',
-			'srf-ui-datatables-label-multiselect-column-selectedtext',
-			'srf-ui-datatables-label-placeholder-column-search',
-			'srf-ui-datatables-label-content-cache',
-			'srf-ui-datatables-label-content-server'
-		]
-	],
-
-	// DataTables bootstrap
-	'ext.srf.datatablesLegacy.bootstrap' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/datatables-legacy/jquery.dataTables.bootstrap.js',
-		'styles'  => 'resources/jquery/datatables-legacy/jquery.dataTables.bootstrap.css'
-	],
-
-	// DataTables basic
-	'ext.srf.datatablesLegacy.basic' => $moduleTemplate + [
-		'styles'  => [
-			'resources/jquery/datatables-legacy/datatables.min.css'
 		]
 	],
 

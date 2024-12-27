@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticResultFormats/
  *
@@ -43,39 +45,34 @@ class SemanticResultFormats {
 
 		$GLOBALS['srfgIP'] = __DIR__;
 		$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include __DIR__ . "/Resources.php" );
-
-		self::registerHooks();
 	}
 
 	/**
 	 * @since 2.5
 	 */
 	public static function registerHooks() {
-		$formatDir = __DIR__ . '/formats/';
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 
+		$hookContainer->register( 'ParserFirstCallInit', 'SRFParserFunctions::registerFunctions' );
+		$hookContainer->register( 'UnitTestsList', 'SRFHooks::registerUnitTests' );
 
-		unset( $formatDir );
-
-		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SRFParserFunctions::registerFunctions';
-		$GLOBALS['wgHooks']['UnitTestsList'][] = 'SRFHooks::registerUnitTests';
-
-		$GLOBALS['wgHooks']['ResourceLoaderGetConfigVars'][] = 'SRFHooks::onResourceLoaderGetConfigVars';
+		$hookContainer->register( 'ResourceLoaderGetConfigVars', 'SRFHooks::onResourceLoaderGetConfigVars' );
 
 		// Format hooks
-		$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'SRF\Filtered\Hooks::onOutputPageParserOutput';
-		$GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript';
+		$hookContainer->register( 'OutputPageParserOutput', 'SRF\Filtered\Hooks::onOutputPageParserOutput' );
+		$hookContainer->register( 'MakeGlobalVariablesScript', 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript' );
 
-		$GLOBALS['wgHooks']['SMW::Store::BeforeQueryResultLookupComplete'][] = 'SRF\DataTables\Hooks::onSMWStoreBeforeQueryResultLookupComplete';
+		$hookContainer->register( 'SMW::Store::BeforeQueryResultLookupComplete', 'SRF\DataTables\Hooks::onSMWStoreBeforeQueryResultLookupComplete' );
 
 		// register API modules
 		$GLOBALS['wgAPIModules']['ext.srf.slideshow.show'] = 'SRFSlideShowApi';
 		$GLOBALS['wgAPIModules']['ext.srf.datatables.api'] = 'SRF\DataTables\Api';
 
 		// User preference
-		$GLOBALS['wgHooks']['SMW::GetPreferences'][] = 'SRFHooks::onGetPreferences';
+		$hookContainer->register( 'SMW::GetPreferences', 'SRFHooks::onGetPreferences' );
 
 		// Allows last minute changes to the output page, e.g. adding of CSS or JavaScript by extensions
-		$GLOBALS['wgHooks']['BeforePageDisplay'][] = 'SRFHooks::onBeforePageDisplay';
+		$hookContainer->register( 'BeforePageDisplay', 'SRFHooks::onBeforePageDisplay' );
 	}
 
 	/**
@@ -94,11 +91,14 @@ class SemanticResultFormats {
 				);
 			}
 		}
+		self::registerHooks();
+
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
 		// SMW 1.9, SMW delays calling all its hook functions.
-		$GLOBALS['wgHooks']['AdminLinks'][] = 'SRFHooks::addToAdminLinks';
+		$hookContainer->register( 'AdminLinks', 'SRFHooks::addToAdminLinks' );
 
 		$GLOBALS['srfgScriptPath'] = ( $GLOBALS['wgExtensionAssetsPath'] === false ? $GLOBALS['wgScriptPath'] . '/extensions' : $GLOBALS['wgExtensionAssetsPath'] ) . '/SemanticResultFormats';
 
@@ -132,7 +132,6 @@ class SemanticResultFormats {
 			'interquartilerange.exc' => 'SRFMath',
 			'mode' => 'SRFMath',
 			'interquartilemean' => 'SRFMath',
-			'exhibit' => 'SRFExhibit',
 			'googlebar' => 'SRFGoogleBar',
 			'googlepie' => 'SRFGooglePie',
 			'jitgraph' => 'SRFJitGraph',
@@ -161,15 +160,15 @@ class SemanticResultFormats {
 			'incoming' => 'SRFIncoming',
 			'media' => 'SRF\MediaPlayer',
 			'datatables' => 'SRF\DataTables',
-			'datatables-legacy' => 'SRF\DataTablesLegacy',
-			'carousel' => 'SRF\Carousel',
-			'gantt' => 'SRF\Gantt\GanttPrinter'
+	  'carousel' => 'SRF\Carousel',
+			'gantt' => 'SRF\Gantt\GanttPrinter',
+			'prolog' => 'SRF\Prolog\PrologPrinter',
+			'dataframe' => 'SRF\dataframe\DataframePrinter',
 		];
 
 		$formatAliases = [
 			'tagcloud'   => [ 'tag cloud' ],
 			'datatables'   => [ 'datatable' ],
-			'datatables-legacy'   => [ 'datatable-legacy' ],
 			'valuerank'  => [ 'value rank' ],
 			'd3chart'    => [ 'd3 chart' ],
 			'timeseries' => [ 'time series' ],

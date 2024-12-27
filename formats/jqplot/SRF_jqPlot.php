@@ -18,8 +18,8 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 	 */
 	protected function getLinker( $firstcol = false ) {
 		// *** force null since labels are never clickable
-                return null;
-        }
+				return null;
+	}
 
 	public static function getCommonParams() {
 		$params = [];
@@ -143,7 +143,6 @@ abstract class SRFjqPlot extends SMWAggregatablePrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $data
 	 * @param $minValue
 	 * @param $maxValue
 	 *

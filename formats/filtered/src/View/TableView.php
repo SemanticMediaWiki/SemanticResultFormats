@@ -63,8 +63,8 @@ class TableView extends View {
 		$resultText = '';
 		$this->columnClasses = [];
 
-		// Table Header
-		if ( $this->mShowHeaders !== SMW_HEADERS_HIDE ) { // no headers when headers=hide
+		// Table Header, no headers when headers=hide
+		if ( $this->mShowHeaders !== SMW_HEADERS_HIDE ) {
 			$resultText .= $this->getTableHeaders();
 		}
 

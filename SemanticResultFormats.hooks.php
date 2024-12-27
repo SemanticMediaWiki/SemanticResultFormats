@@ -46,7 +46,6 @@ final class SRFHooks {
 			'formats/vCard',
 			'formats/MediaPlayer',
 			'formats/DataTables',
-			'formats/DataTablesLegacy',
 
 			// Boilerplate
 			// Register your testclass
@@ -152,20 +151,6 @@ final class SRFHooks {
 			'type' => 'toggle',
 			'label-message' => 'srf-prefs-eventcalendar-options-paneview-default',
 			'section' => 'smw/srf-eventcalendar-options',
-		];
-
-		// Enable auto update during a page refresh
-		$preferences['srf-prefs-datatables-options-update-default'] = [
-			'type' => 'toggle',
-			'label-message' => 'srf-prefs-datatables-options-update-default',
-			'section' => 'smw/srf-datatables-options',
-		];
-
-		// Enable local caching
-		$preferences['srf-prefs-datatables-options-cache-default'] = [
-			'type' => 'toggle',
-			'label-message' => 'srf-prefs-datatables-options-cache-default',
-			'section' => 'smw/srf-datatables-options',
 		];
 
 		return true;

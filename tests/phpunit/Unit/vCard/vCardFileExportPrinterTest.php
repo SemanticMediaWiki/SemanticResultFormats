@@ -73,19 +73,19 @@ class vCardFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$link->expects( $this->any() )
 			->method( 'getText' )
-			->will( $this->returnValue( 'foo_link' ) );
+			->willReturn( 'foo_link' );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getErrors' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getCount' )
-			->will( $this->returnValue( 1 ) );
+			->willReturn( 1 );
 
 		$this->queryResult->expects( $this->once() )
 			->method( 'getQueryLink' )
-			->will( $this->returnValue( $link ) );
+			->willReturn( $link );
 
 		$instance = new vCardFileExportPrinter(
 			'vcard'

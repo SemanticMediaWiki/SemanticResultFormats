@@ -41,21 +41,21 @@ abstract class View {
 	 * @return ResultItem[]
 	 */
 	public function &getQueryResults() {
- return $this->mResults;
+		return $this->mResults;
 	}
 
 	/**
 	 * @return string[]
 	 */
 	public function &getActualParameters() {
- return $this->mParameters;
+		return $this->mParameters;
 	}
 
 	/**
 	 * @return Filtered
 	 */
 	public function &getQueryPrinter() {
- return $this->mQueryPrinter;
+		return $this->mQueryPrinter;
 	}
 
 	/**

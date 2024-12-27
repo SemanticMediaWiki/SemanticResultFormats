@@ -12,9 +12,6 @@ use SMW\Query\PrintRequest;
  */
 class TemplateBuilder {
 
-	/**
-	 * @var
-	 */
 	private $params = [];
 
 	/**
@@ -46,7 +43,7 @@ class TemplateBuilder {
 	/**
 	 * @since 3.1
 	 *
-	 * @param OutlineTree $tree
+	 * @param OutlineTree $outlineTree
 	 *
 	 * @return string
 	 */
@@ -71,7 +68,7 @@ class TemplateBuilder {
 			$this->template .= $this->open( $this->params['template'] . "-header" );
 			$this->template .= $this->parameter( $property, $key );
 			$this->template .= $this->parameter( "#outlinelevel", $level );
-			$this->template .= $this->parameter( "#itemcount",  $node->leafCount );
+			$this->template .= $this->parameter( "#itemcount", $node->leafCount );
 			$this->template .= $this->parameter( "#userparam", $this->params['userparam'] );
 			$this->template .= $this->close();
 			$this->template .= "<div class='" . $this->params['template'] . "-items'>";
@@ -158,14 +155,14 @@ class TemplateBuilder {
 		return "}}";
 	}
 
-	function getIntroTemplate(): string {
+	public function getIntroTemplate(): string {
 		if ( $this->params['introtemplate'] === '' ) {
 			return "";
 		}
 		return $this->open( $this->params['introtemplate'] ) . $this->close();
 	}
 
-	function getOutroTemplate(): string {
+	public function getOutroTemplate(): string {
 		if ( $this->params['outrotemplate'] === '' ) {
 			return "";
 		}

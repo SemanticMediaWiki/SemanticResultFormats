@@ -17,11 +17,16 @@
  */
 class SRFTimeline extends SMWResultPrinter {
 
-	protected $m_tlstart = '';  // name of the start-date property if any
-	protected $m_tlend = '';  // name of the end-date property if any
-	protected $m_tlsize = ''; // CSS-compatible size (such as 400px)
-	protected $m_tlbands = ''; // array of band IDs (MONTH, YEAR, ...)
-	protected $m_tlpos = ''; // position identifier (start, end, today, middle)
+	// name of the start-date property if any
+	protected $m_tlstart = '';
+	// name of the end-date property if any
+	protected $m_tlend = '';
+	// CSS-compatible size (such as 400px)
+	protected $m_tlsize = '';
+	// array of band IDs (MONTH, YEAR, ...)
+	protected $m_tlbands = '';
+	// position identifier (start, end, today, middle)
+	protected $m_tlpos = '';
 	protected $mTemplate;
 	protected $mNamedArgs;
 
@@ -60,8 +65,8 @@ class SRFTimeline extends SMWResultPrinter {
 
 		$isEventline = 'eventline' == $this->mFormat;
 		$id = uniqid();
-
-		if ( !$isEventline && ( $this->m_tlstart == '' ) ) { // seek defaults
+		// seek defaults
+		if ( !$isEventline && ( $this->m_tlstart == '' ) ) {
 			foreach ( $res->getPrintRequests() as $pr ) {
 				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) ) {
 					$dataValue = $pr->getData();
@@ -114,25 +119,33 @@ class SRFTimeline extends SMWResultPrinter {
 	 * @return string
 	 */
 	protected function getEventsHTML( SMWQueryResult $res, $outputmode, $isEventline ) {
-		global $curarticle, $cururl; // why not, code flow has reached max insanity already
-
-		$positions = []; // possible positions, collected to select one for centering
-		$curcolor = 0; // color cycling is used for eventline
+		// why not, code flow has reached max insanity already
+		global $curarticle, $cururl;
+		// possible positions, collected to select one for centering
+		$positions = [];
+		// color cycling is used for eventline
+		$curcolor = 0;
 
 		$result = '';
 
-		$output = false; // true if output for the popup was given on current line
+		// true if output for the popup was given on current line
+		$output = false;
 		if ( $isEventline ) {
 			$events = [];
-		} // array of events that are to be printed
-
-		while ( $row = $res->getNext() ) { // Loop over the objcts (pages)
-			$hastime = false; // true as soon as some startdate value was found
-			$hastitle = false; // true as soon as some label for the event was found
-			$curdata = ''; // current *inner* print data (within some event span)
-			$curmeta = ''; // current event meta data
+		}
+		// Loop over the objcts (pages)
+		while ( $row = $res->getNext() ) {
+			// true as soon as some startdate value was found
+			$hastime = false;
+			// true as soon as some label for the event was found
+			$hastitle = false;
+			// current *inner* print data (within some event span)
+			$curdata = '';
+			// current event meta data
+			$curmeta = '';
 			$cururl = '';
-			$curarticle = ''; // label of current article, if it was found; needed only for eventline labeling
+			// label of current article, if it was found; needed only for eventline labeling
+			$curarticle = '';
 			$first_col = true;
 
 			if ( $this->mTemplate != '' ) {
@@ -140,8 +153,8 @@ class SRFTimeline extends SMWResultPrinter {
 				$template_text = '';
 				$i = 0;
 			}
-
-			foreach ( $row as $field ) { // Loop over the returned properties
+			// Loop over the returned properties
+			foreach ( $row as $field ) {
 				$first_value = true;
 				$pr = $field->getPrintRequest();
 				$dataValue = $pr->getData();
@@ -151,8 +164,8 @@ class SRFTimeline extends SMWResultPrinter {
 				} else {
 					$date_value = $dataValue->getDataItem()->getLabel();
 				}
-
-				while ( ( $object = $field->getNextDataValue() ) !== false ) { // Loop over property values
+				// Loop over property values
+				while ( ( $object = $field->getNextDataValue() ) !== false ) {
 					$event = $this->handlePropertyValue(
 						$object,
 						$outputmode,
@@ -238,7 +251,7 @@ class SRFTimeline extends SMWResultPrinter {
 						) - 1] . '</span>';
 					break;
 				case 'today':
-					break; // default
+					break;
 				case 'middle':
 				default:
 					$result .= '<span class="smwtlposition" style="display:none;" >' . $positions[ceil(
@@ -283,11 +296,11 @@ class SRFTimeline extends SMWResultPrinter {
 		$l = $this->getLinker( $first_col );
 
 		if ( !$hastitle && $object->getTypeID(
-			) != '_wpg' ) { // "linking" non-pages in title positions confuses timeline scripts, don't try this
+			) != '_wpg' ) {
 			$l = null;
 		}
-
-		if ( $object->getTypeID() == '_wpg' ) { // use shorter "LongText" for wikipage
+		// use shorter "LongText" for wikipage
+		if ( $object->getTypeID() == '_wpg' ) {
 			$objectlabel = $object->getLongText( $outputmode, $l );
 		} else {
 			$objectlabel = $object->getShortText( $outputmode, $l );

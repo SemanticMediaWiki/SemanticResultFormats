@@ -22,11 +22,13 @@
  */
 class SRFCHistoricalDate {
 
-	const GREGORIAN_EPOCH = 1721425.5; // equivalent to 1 AD
+	// equivalent to 1 AD
+	public const GREGORIAN_EPOCH = 1721425.5;
 
-	protected $m_date; // the Julian day
+	// the Julian day
+	protected $m_date;
 
-	function create( $year, $month, $day ) {
+	public function create( $year, $month, $day ) {
 		if ( $year < 1582 ||
 			( $year == 1582 && ( $month < 10 || ( $month == 10 && $day < 15 ) ) ) ) {
 			$this->createFromJulian( $year, $month, $day );
@@ -84,7 +86,7 @@ class SRFCHistoricalDate {
 		return ( floor( $this->m_date + 1.5 ) % 7 );
 	}
 
-	static function daysInMonth( $year, $month ) {
+	public static function daysInMonth( $year, $month ) {
 		if ( $month == 4 || $month == 6 || $month == 9 || $month == 11 ) {
 			return 30;
 		}

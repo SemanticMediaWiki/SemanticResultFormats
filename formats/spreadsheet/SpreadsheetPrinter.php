@@ -25,7 +25,7 @@ use Title;
  */
 class SpreadsheetPrinter extends FileExportPrinter {
 
-	const HEADER_ROW_OFFSET = 1;
+	public const HEADER_ROW_OFFSET = 1;
 
 	protected $fileFormats = [
 		'xlsx' => [
@@ -216,8 +216,8 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	}
 
 	/**
+	 * @param Worksheet $worksheet
 	 * @param SMWQueryResult $queryResult
-	 * @param $worksheet
 	 *
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */

@@ -31,8 +31,10 @@ class Tel {
 	 * @param string $telnumber
 	 */
 	public function __construct( $type, $telnumber ) {
-		$this->type = $type;  // may be a vCard value list using ",", no escaping
-		$this->telnumber = vCard::escape( $telnumber ); // escape to be sure
+		// may be a vCard value list using ",", no escaping
+		$this->type = $type;
+		// escape to be sure
+		$this->telnumber = vCard::escape( $telnumber );
 	}
 
 	/**

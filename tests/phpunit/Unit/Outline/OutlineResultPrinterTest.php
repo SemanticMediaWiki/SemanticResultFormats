@@ -40,15 +40,15 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$link->expects( $this->any() )
 			->method( 'getText' )
-			->will( $this->returnValue( 'foo_link' ) );
+			->willReturn( 'foo_link' );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getErrors' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getCount' )
-			->will( $this->returnValue( 1 ) );
+			->willReturn( 1 );
 
 		$instance = new OutlineResultPrinter(
 			'outline'
@@ -62,11 +62,11 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$outlineproperties->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'outlineproperties' ) );
+			->willReturn( 'outlineproperties' );
 
 		$outlineproperties->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$template = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
@@ -75,11 +75,11 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$template->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'template' ) );
+			->willReturn( 'template' );
 
 		$template->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( '' ) );
+			->willReturn( '' );
 
 		$introtemplate = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
@@ -88,11 +88,11 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$introtemplate->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'introtemplate' ) );
+			->willReturn( 'introtemplate' );
 
 		$introtemplate->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( '' ) );
+			->willReturn( '' );
 
 		$outrotemplate = $this->getMockBuilder( '\stdClass' )
 			->disableOriginalConstructor()
@@ -101,11 +101,11 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$outrotemplate->expects( $this->any() )
 			->method( 'getName' )
-			->will( $this->returnValue( 'outrotemplate' ) );
+			->willReturn( 'outrotemplate' );
 
 		$outrotemplate->expects( $this->any() )
 			->method( 'getValue' )
-			->will( $this->returnValue( '' ) );
+			->willReturn( '' );
 
 		$parameters = [
 			$outlineproperties,

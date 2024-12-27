@@ -48,7 +48,6 @@ $GLOBALS['srfgFormats'] = [
 	'dygraphs',
 	'media',
 	'datatables',
-	'datatables-legacy',
 	'carousel',
 	'spreadsheet',
 	'gantt',
@@ -65,7 +64,9 @@ $GLOBALS['srfgFormats'] = [
 	'interquartilerange',
 	'interquartilerange.exc',
 	'mode',
-	'interquartilemean'
+	'interquartilemean',
+	'prolog',
+	'dataframe'
 	// Boilerplate
 	// Enable access to the format identifier
 	// 'boilerplate',
@@ -83,16 +84,14 @@ $GLOBALS['srfgFormats'] = [
 	// Disabled by default since they contact external sites:
 	// 'googlebar',
 	// 'googlepie',
-
-	// Unstable/broken:
-	// 'exhibit',
 ];
 
 // Load hash format only if HashTables extension is initialised, otherwise 'Array' format is enough
 // FIXME: According to the INSTALL file only formats should be enabled, that "do not require further software to be installed (besides SMW)"
+// Version < 1.0 alpha
 if ( isset( $GLOBALS['wgAutoloadClasses']['ExtHashTables'] ) && defined( 'ExtHashTables::VERSION' )
 	&& version_compare( ExtHashTables::VERSION, '0.999', '>=' )
-	|| isset( $GLOBALS['wgHashTables'] ) // Version < 1.0 alpha
+	|| isset( $GLOBALS['wgHashTables'] )
 ) {
 	$GLOBALS['srfgFormats'][] = 'hash';
 }
@@ -135,7 +134,7 @@ $GLOBALS['srfgColorScheme'] = [
 	'cc210',
 	'cc252',
 	'cc267',
-	'cc294' ,
+	'cc294',
 	'cc303',
 	'cc327',
 	'ylgn',

@@ -8,6 +8,7 @@
 			"IvanLanin",
 			"Kenrick95",
 			"Rachmat04",
+			"Veracious",
 			"පසිඳු කාවින්ද"
 		]
 	},
@@ -123,5 +124,7 @@
 	"srf-ui-eventcalendar-label-day": "Hari",
 	"srf-ui-slideshow-slide-button-play": "Mainkan",
 	"srf-ui-slideshow-slide-button-pause": "berhenti sebentar",
-	"srf-paramdesc-graphfields": "Tampilkan nilai properti non-laman di dalam simpul grafik, bukan sebagai tepi."
+	"srf-paramdesc-graphfields": "Tampilkan nilai properti non-laman di dalam simpul grafik, bukan sebagai tepi.",
+	"srf-printername-mode": "Mode",
+	"srf-printername-range": "Rentang"
 }

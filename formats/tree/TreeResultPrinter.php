@@ -326,8 +326,7 @@ class TreeResultPrinter extends ListResultPrinter {
 						} elseif ( !$isRootSpecified ) {
 							$root->addChild( $node );
 						}
-					}
-					catch ( Exception $e ) {
+					} catch ( Exception $e ) {
 						$this->addError( $e->getMessage(), $node->getResultSubject()->getTitle()->getPrefixedText() );
 					}
 				}

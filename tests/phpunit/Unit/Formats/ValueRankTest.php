@@ -2,8 +2,8 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
 use SMW\Tests\PHPUnitCompat;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRFValueRank;
 
 /**
@@ -48,6 +48,9 @@ class ValueRankTest extends QueryPrinterRegistryTestCase {
 		return 'SRFValueRank';
 	}
 
+	/**
+	 * @covers ValueRank
+	 */
 	public function testGetName() {
 		$instance = new SRFValueRank(
 			'valuerank'

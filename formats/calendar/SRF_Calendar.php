@@ -48,7 +48,7 @@ class SRFCalendar extends SMWResultPrinter {
 			// Store the actual user's language, so we can revert
 			// back to it after printing the calendar.
 			$this->mRealUserLang = clone $wgLang;
-			$wgLang = Language::factory( trim( $params['lang'] ) );
+			$wgLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( trim( $params['lang'] ) );
 		}
 
 		$this->setColors( $params['colors'] );
@@ -308,14 +308,14 @@ class SRFCalendar extends SMWResultPrinter {
 		)->inContentLanguage()->text();
 	}
 
-	function formatDateStr( $object ) {
+	public function formatDateStr( $object ) {
 		// For some reason, getMonth() and getDay() sometimes return a
 		// number with a leading zero - get rid of it using (int)
 		return $object->getYear()
 			. '-' . (int)$object->getMonth() . '-' . (int)$object->getDay();
 	}
 
-	function displayCalendar( $events ) {
+	public function displayCalendar( $events ) {
 		global $srfgFirstDayOfWeek;
 		global $srfgScriptPath;
 
@@ -603,7 +603,7 @@ END;
 				$events = [];
 			}
 			foreach ( $events as $event ) {
-				list( $eventTitle, $otherText, $eventDate, $color ) = $event;
+				[ $eventTitle, $otherText, $eventDate, $color ] = $event;
 				if ( $eventDate == $dateStr ) {
 					if ( $this->mTemplate != '' ) {
 						$templatetext = '{{' . $this->mTemplate . $otherText .

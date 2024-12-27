@@ -4,7 +4,7 @@
  *
  * @see http://datatables.net/
  *
- * @licence GPL-2.0-or-later
+ * @license GPL-2.0-or-later
  * @author thomas-topway-it for KM-A
  * @credits Stephan Gambke (SRFSlideShowApi)
  */
@@ -14,10 +14,9 @@ namespace SRF\DataTables;
 use ApiBase;
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
+use SMW\Services\ServicesFactory;
 use SMWPrintRequest;
 use SMWQueryProcessor;
-use SMWQuery;
-use SMW\Services\ServicesFactory;
 use SRF\DataTables;
 
 class Api extends ApiBase {
@@ -31,9 +30,11 @@ class Api extends ApiBase {
 		// get request parameters
 		$requestParams = $this->extractRequestParams();
 
+		$data = json_decode( $requestParams['data'], true );
+
 		// @see https://datatables.net/reference/option/ajax
-		$datatableData = json_decode( $requestParams['datatable'], true );
-		$settings = json_decode( $requestParams['settings'], true );
+		$datatableData = $data['datatableData'];
+		$settings = $data['settings'];
 
 		if ( empty( $datatableData['length'] ) ) {
 			$datatableData['length'] = $settings['defer-each'];
@@ -59,7 +60,7 @@ class Api extends ApiBase {
 			$parameters[$def->getName()] = $def->getDefault();
 		}
 
-		$printoutsRaw = json_decode( $requestParams['printouts'], true );
+		$printoutsRaw = $data['printouts'];
 
 		// add/set specific parameters for this call
 		$parameters = array_merge(
@@ -67,7 +68,6 @@ class Api extends ApiBase {
 			[
 				// *** important !!
 				'format' => 'datatables',
-
 				"apicall" => "apicall",
 				// @see https://datatables.net/manual/server-side
 				// array length will be sliced client side if greater
@@ -77,11 +77,11 @@ class Api extends ApiBase {
 
 				"sort" => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
 					return $datatableData['columns'][$value['column']]['name'];
-					 }, $datatableData['order'] ) ),
+				}, $datatableData['order'] ) ),
 
 				"order" => implode( ',', array_map( static function ( $value ) {
 					return $value['dir'];
-					 }, $datatableData['order'] ) )
+				}, $datatableData['order'] ) )
 
 			]
 		);
@@ -102,13 +102,13 @@ class Api extends ApiBase {
 		$printouts = [];
 		$dataValueFactory = DataValueFactory::getInstance();
 		foreach ( $printoutsRaw as $printoutData ) {
-			
+
 			// create property from property key
 			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {
-				$data = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
+				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
 			} else {
-				$data = null;
-				if  ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {	
+				$data_ = null;
+				if ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
 					continue;
 				}
 				// match something like |?=abc |+ datatables-columns.type=any-number |+template=mytemplate
@@ -116,21 +116,26 @@ class Api extends ApiBase {
 
 			// create printrequest from request mode, label, property name, output format, parameters
 			$printouts[] = new SMWPrintRequest(
-				$printoutData[0],	// mode
-				$printoutData[1],	// (canonical) label
-				$data,				// property name
-				$printoutData[3],	// output format
-				$printoutData[4]	// parameters
+				// mode
+				$printoutData[0],
+				// (canonical) label
+				$printoutData[1],
+				// property name
+				$data_,
+				// output format
+				$printoutData[3],
+				// parameters
+				$printoutData[4]
 			);
 
 		}
 
 		// SMWQueryProcessor::addThisPrintout( $printouts, $parameters );
 
-		$printrequests = json_decode( $requestParams['printrequests'], true );
-		$columnDefs = json_decode( $requestParams['columndefs'], true );
+		$printrequests = $data['printrequests'];
+		$columnDefs = $data['columnDefs'];
 
-		$getColumnAttribute = function( $label, $attr ) use( $columnDefs ) {
+		$getColumnAttribute = static function ( $label, $attr ) use( $columnDefs ) {
 			foreach ( $columnDefs as $value ) {
 				if ( $value['name'] === $label && array_key_exists( $attr, $value ) ) {
 					return $value[$attr];
@@ -171,15 +176,76 @@ class Api extends ApiBase {
 			}
 		}
 
+		// @see https://datatables.net/extensions/searchbuilder/customConditions.html
+		// @see https://datatables.net/reference/option/searchBuilder.depthLimit
+		if ( !empty( $datatableData['searchBuilder'] ) ) {
+			$searchBuilder = [];
+			foreach ( $datatableData['searchBuilder']['criteria'] as $criteria ) {
+				foreach ( $printoutsRaw as $key => $value ) {
+					// @FIXME $label isn't simply $value[1] ?
+					$printrequest = $printrequests[$key];
+					$label = ( $printrequest['key'] !== '' ? $value[1] : '' );
+					if ( $label === $criteria['data'] ) {
+
+						// nested condition, skip for now
+						if ( !array_key_exists( 'condition', $criteria ) ) {
+							continue;
+						}
+						$v = implode( $criteria['value'] );
+						$str = ( $label !== '' ? "$label::" : '' );
+						switch ( $criteria['condition'] ) {
+							case '=':
+								$searchBuilder[] = "[[{$str}{$v}]]";
+								break;
+							case '!=':
+								$searchBuilder[] = "[[{$str}!~$v]]";
+								break;
+							case 'starts':
+								$searchBuilder[] = "[[{$str}~$v*]]";
+								break;
+							case '!starts':
+								$searchBuilder[] = "[[{$str}!~$v*]]";
+								break;
+							case 'contains':
+								$searchBuilder[] = "[[{$str}~*$v*]]";
+								break;
+							case '!contains':
+								$searchBuilder[] = "[[{$str}!~*$v*]]";
+								break;
+							case 'ends':
+								$searchBuilder[] = "[[{$str}~*$v]]";
+								break;
+							case '!ends':
+								$searchBuilder[] = "[[$str}!~*$v]]";
+								break;
+							// case 'null':
+							// 	break;
+							case '!null':
+								if ( $label ) {
+									$searchBuilder[] = "[[$label::+]]";
+								}
+								break;
+
+						}
+					}
+				}
+			}
+			if ( $datatableData['searchBuilder']['logic'] === 'AND' ) {
+				$queryConjunction = array_merge( $queryConjunction, $searchBuilder );
+			} elseif ( $datatableData['searchBuilder']['logic'] === 'OR' ) {
+				$queryDisjunction = array_merge( $queryDisjunction, $searchBuilder );
+			}
+		}
+
 		global $smwgQMaxSize;
 
 		if ( !count( $queryDisjunction ) ) {
-			$queryDisjunction = [''];
+			$queryDisjunction = [ '' ];
 		}
 
-		$query = $requestParams['query'] . implode( '', $queryConjunction );
-		
-		$conditions = array_map( static function( $value ) use ( $query ) {
+		$query = $data['queryString'] . implode( '', $queryConjunction );
+
+		$conditions = array_map( static function ( $value ) use ( $query ) {
 			return $query . $value;
 		}, $queryDisjunction );
 
@@ -187,8 +253,6 @@ class Api extends ApiBase {
 		$smwgQMaxSize = 32;
 
 		$queryStr =	implode( 'OR', $conditions );
-
-		// trigger_error('queryStr ' . $queryStr);
 
 		$log['queryStr '] = $queryStr;
 
@@ -201,10 +265,9 @@ class Api extends ApiBase {
 		);
 
 		// $size = $query->getDescription()->getSize();
-		
+
 		// $smwgQMaxSize = max( $smwgQMaxSize, $size );
 		// trigger_error('smwgQMaxSize ' . $smwgQMaxSize);
-
 
 		$applicationFactory = ServicesFactory::getInstance();
 		$queryEngine = $applicationFactory->getStore();
@@ -214,7 +277,7 @@ class Api extends ApiBase {
 		$res = $printer->getResult( $results, $queryParams, SMW_OUTPUT_FILE );
 
 		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
-		
+
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
 			$queryDescription = $query->getDescription();
@@ -234,6 +297,8 @@ class Api extends ApiBase {
 			'data' => $res,
 			'recordsTotal' => $settings['count'],
 			'recordsFiltered' => $count,
+			'cacheKey' => $data['cacheKey'],
+			'datalength' => $datatableData['length']
 		];
 
 		if ( $settings['displayLog'] ) {
@@ -275,44 +340,10 @@ class Api extends ApiBase {
 	 */
 	protected function getAllowedParams() {
 		return [
-			'query' => [
+			'data' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true,
-			],
-			'columndefs' => [
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => true,
-			],
-			'printouts' => [
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => true,
-			],
-			'printrequests' => [
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => true,
-			],
-			'settings' => [
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => true,
-			],
-			'datatable' => [
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => true,
-			],
-		];
-	}
-
-	/**
-	 * Returns an array of parameter descriptions.
-	 * Don't call this function directly: use getFinalParamDescription() to
-	 * allow hooks to modify descriptions as needed.
-	 *
-	 * @return array|bool False on no parameter descriptions
-	 */
-	protected function getParamDescription() {
-		return [
-			'query' => 'Original query',
-			'printouts' => 'Printouts used in the original query',
+			]
 		];
 	}
 

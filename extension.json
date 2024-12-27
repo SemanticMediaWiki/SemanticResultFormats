@@ -1,6 +1,6 @@
 {
     "name": "SemanticResultFormats",
-	"version": "4.1.0-beta",
+	"version": "5.0.0-alpha",
 	"author": [
 		"James Hong Kong",
 		"Stephan Gambke",
@@ -29,7 +29,6 @@
 		"SemanticResultFormats::onExtensionFunction"
 	],
 	"AutoloadClasses": {
-		"SRF\\DataTablesLegacy": "formats/datatables-legacy/DataTablesLegacy.php",
 		"SRF\\Carousel": "formats/carousel/Carousel.php"
 	},
 	"AutoloadNamespaces": {
@@ -41,7 +40,6 @@
 		"scripts": [
 			"tests/qunit/ext.srf.test.js",
 			"tests/qunit/ext.srf.util.test.js",
-			"tests/qunit/formats/ext.srf.formats.datatables-legacy.test.js",
 			"tests/qunit/formats/ext.srf.formats.datatables.test.js",
 			"tests/qunit/formats/ext.srf.formats.carousel.test.js",
 			"tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js",
@@ -58,7 +56,6 @@
 			"ext.srf",
 			"ext.srf.util",
 			"ext.srf.eventcalendar",
-			"ext.srf.datatablesLegacy",
 			"ext.srf.datatables.v2.format",
 			"ext.srf.carousel.module",
 			"ext.srf.carousel",
