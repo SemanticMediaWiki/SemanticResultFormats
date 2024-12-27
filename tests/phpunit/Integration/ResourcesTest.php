@@ -47,10 +47,20 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
-		foreach ( $modules as $name => $values ) {
-			$module = $resourceLoader->getModule( $name );
-			$scripts = $module->getScript( $context );
-			$this->assertIsArray( $scripts );
+		if ( version_compare( MW_VERSION, '1.41.0', '>=' ) ) {
+			foreach ( $modules as $name => $values ) {
+				$module = $resourceLoader->getModule( $name );
+				$scripts = $module->getScript( $context );
+				$this->assertIsString( $scripts['plainScripts'][$index]['content'] );
+
+				$index += 1;
+			}
+		} else {
+			foreach ( $modules as $name => $values ) {
+				$module = $resourceLoader->getModule( $name );
+				$scripts = $module->getScript( $context );
+				$this->assertIsString( $scripts );
+			}
 		}
 	}
 
