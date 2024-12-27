@@ -43,17 +43,17 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @covers Recources
+	 * @covers Resources
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
 		if ( version_compare( MW_VERSION, '1.41.0', '>=' ) ) {
-			$index = 0;
 			foreach ( $modules as $name => $values ) {
 				$module = $resourceLoader->getModule( $name );
 				$scripts = $module->getScript( $context );
-				$this->assertIsString( $scripts['plainScripts'][$index]['content'] );
-				$index += 1;
+				foreach ( $scripts['plainScripts'] as $key => $value ) {
+					$this->assertIsString( $value['content'] );
+				}
 			}
 		} else {
 			foreach ( $modules as $name => $values ) {
@@ -65,7 +65,7 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @covers Recources
+	 * @covers Resources
 	 * Test styles accessibility
 	 *
 	 * @dataProvider moduleDataProvider
