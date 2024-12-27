@@ -11,6 +11,7 @@ namespace SRF\Filtered\View;
  */
 
 use Message;
+use MediaWiki\MediaWikiServices;
 use SRF\Filtered\ResultItem;
 
 /**
@@ -218,7 +219,7 @@ class CalendarView extends View {
 				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey(
 					'srf-filtered-firstdayofweek'
 				)->inContentLanguage()->text() ),
-				'isRTL' => wfGetLangObj( true )->isRTL(),
+				'isRTL' => MediaWikiServices::getInstance()->getContentLanguage()->isRTL(),
 			];
 	}
 
