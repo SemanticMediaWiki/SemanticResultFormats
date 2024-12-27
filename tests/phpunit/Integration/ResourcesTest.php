@@ -50,7 +50,7 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 		foreach ( $modules as $name => $values ) {
 			$module = $resourceLoader->getModule( $name );
 			$scripts = $module->getScript( $context );
-			$this->assertIsString( $scripts );
+			$this->assertIsArray( $scripts );
 		}
 	}
 
