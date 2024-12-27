@@ -10,8 +10,8 @@ namespace SRF\Filtered\View;
  * @ingroup SemanticResultFormats
  */
 
-use Message;
 use MediaWiki\MediaWikiServices;
+use Message;
 use SRF\Filtered\ResultItem;
 
 /**
