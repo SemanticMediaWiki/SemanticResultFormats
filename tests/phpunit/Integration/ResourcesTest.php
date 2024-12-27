@@ -2,6 +2,7 @@
 
 namespace SRF\Tests\Integration;
 
+use MediaWiki\MediaWikiServices;
 use ResourceLoader;
 use ResourceLoaderContext;
 
@@ -33,13 +34,7 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function moduleDataProvider() {
-		// #501
-		// MW 1.33+
-		if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getResourceLoader' ) ) {
-			$resourceLoader = \MediaWiki\MediaWikiServices::getInstance()->getResourceLoader();
-		} else {
-			$resourceLoader = new ResourceLoader();
-		}
+		$resourceLoader = MediaWikiServices::getInstance()->getResourceLoader();
 
 		$context = ResourceLoaderContext::newDummyContext();
 		$modules = $this->getSRFResourceModules();
