@@ -34,6 +34,9 @@
 	"AutoloadNamespaces": {
 		"SRF\\DataTables\\": "formats/datatables"
 	},
+	"TestAutoloadNamespaces": {
+		"SRF\\Tests\\": "tests/phpunit/"
+	},
 	"QUnitTestModule": {
 		"localBasePath": "",
 		"remoteExtPath": "SemanticResultFormats",
