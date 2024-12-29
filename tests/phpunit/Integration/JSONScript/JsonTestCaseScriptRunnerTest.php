@@ -14,7 +14,6 @@ use SMW\Tests\Integration\JSONScript\JSONScriptTestCaseRunnerTest;
  * @group SRF
  * @group SMWExtension
  * @group Database
- * @group Parser
  *
  * @license GPL-2.0-or-later
  * @since 2.5
