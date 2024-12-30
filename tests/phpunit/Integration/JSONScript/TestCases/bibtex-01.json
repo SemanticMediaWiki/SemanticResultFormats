@@ -60,9 +60,6 @@
 		{
 			"type": "special",
 			"about": "#0 `format=bibtex` empty (bibtex-01-0.bib)",
-			"skip-on": {
-				"mediawiki": [ ">1.39.x", "Check parser function registration for MW 1.40+" ]
-			},
 			"special-page": {
 				"page": "Ask",
 				"request-parameters": {
