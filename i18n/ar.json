@@ -201,7 +201,7 @@
 	"srf-printername-datatables": "جداول البيانات",
 	"srf-ui-datatables-label-conditions": "الشروط",
 	"srf-ui-datatables-label-parameters": "وسائط",
-	"srf-ui-datatables-label-filters": "مرشحات وبحث العمود",
+	"srf-ui-datatables-label-filters": "المرشحات",
 	"srf-ui-datatables-label-information": "معلومات",
 	"srf-ui-datatables-panel-disclaimer": "يمكن تغيير الوسائط والشروط، ولكن أي تغيير مؤقت ويتم التخلي عنه بعد تحديث الصفحة.",
 	"srf-ui-datatables-label-update-success": "تم تحديث الجدول بنجاح",

@@ -51,6 +51,7 @@
 	"srf-ui-datatables-panel-switch-button-title": "промени панел",
 	"srf-ui-datatables-label-placeholder-column-search": "Претражи...",
 	"srf-ui-datatables-label-sSearch": "Претражи:",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1 ред|$1 реда}}",
 	"srf-filtered-selectorlabel-table": "Табела",
 	"srf-filtered-selectorlabel-calendar": "Календар",
 	"srf-paramdesc-widget": "Доступан виџет",
