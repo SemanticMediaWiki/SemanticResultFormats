@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "gulp"
   },
-  "author": [ "Stephan Gambke", "thomas-topway-it" ]
+  "author": [ "Stephan Gambke" ]
   "license": "GPL-2.0-or-later",
   "dependencies": {
   },
