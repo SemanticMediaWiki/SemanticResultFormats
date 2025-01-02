@@ -1,17 +1,19 @@
 {
   "name": "filtered",
-  "version": "2.0.0",
+  "version": "2.1",
   "description": "Displays SMW query results in switchable views and offers client-side (JavaScript based) filtering",
   "main": "ext.srf.filtered.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "gulp"
   },
-  "author": "Stephan Gambke",
+  "author": [ "Stephan Gambke", "thomas-topway-it" ]
   "license": "GPL-2.0-or-later",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
-    "@types/fullcalendar": "2.7.42",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
     "@types/ion.rangeslider": "^2.0.29",
     "@types/jquery": "^2.0.51",
     "@types/jqueryui": "^1.12.5",
