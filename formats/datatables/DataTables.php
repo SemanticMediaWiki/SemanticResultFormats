@@ -983,7 +983,8 @@ class DataTables extends ResultPrinter {
 			$html = implode( $this->params['sep'], $values );
 		}
 
-		$sortKey = $dataValues[0]->getDataItem()->getSortKey();
+		// $dataValues could be empty
+		$sortKey = array_key_exists( 0, $dataValues ) ? $dataValues[0]->getDataItem()->getSortKey() : '';
 
 		return [
 			'display' => $html,
