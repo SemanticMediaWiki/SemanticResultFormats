@@ -1,4 +1,7 @@
 /// <reference types="leaflet" />
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
+import 'leaflet-providers';
 
 import { View } from "./View";
 import { Options } from "../../types"
