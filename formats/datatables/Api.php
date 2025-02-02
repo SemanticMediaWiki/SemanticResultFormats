@@ -36,10 +36,6 @@ class Api extends ApiBase {
 		$datatableData = $data['datatableData'];
 		$settings = $data['settings'];
 
-		if ( empty( $datatableData['length'] ) ) {
-			$datatableData['length'] = $settings['defer-each'];
-		}
-
 		if ( empty( $datatableData['start'] ) ) {
 			$datatableData['start'] = 0;
 		}
@@ -68,18 +64,17 @@ class Api extends ApiBase {
 			[
 				// *** important !!
 				'format' => 'datatables',
-				"apicall" => "apicall",
-				// @see https://datatables.net/manual/server-side
-				// array length will be sliced client side if greater
-				// than the required datatables length
-				"limit" => max( $datatableData['length'], $settings['defer-each'] ),
-				"offset" => $datatableData['start'],
+				'apicall' => 'apicall',
 
-				"sort" => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
+				// @TODO limit taking into account PreloaData
+				'limit' => max( $datatableData['length'], $settings['limit'] ),
+				'offset' => $datatableData['start'],
+
+				'sort' => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
 					return $datatableData['columns'][$value['column']]['name'];
 				}, $datatableData['order'] ) ),
 
-				"order" => implode( ',', array_map( static function ( $value ) {
+				'order' => implode( ',', array_map( static function ( $value ) {
 					return $value['dir'];
 				}, $datatableData['order'] ) )
 
@@ -298,7 +293,8 @@ class Api extends ApiBase {
 			'recordsTotal' => $settings['count'],
 			'recordsFiltered' => $count,
 			'cacheKey' => $data['cacheKey'],
-			'datalength' => $datatableData['length']
+			'datalength' => $datatableData['length'],
+			'start' => $datatableData['start']
 		];
 
 		if ( $settings['displayLog'] ) {
