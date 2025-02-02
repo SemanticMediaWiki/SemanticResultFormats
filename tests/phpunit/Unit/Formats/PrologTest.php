@@ -2,7 +2,7 @@
 
 namespace SRF\Tests\Prolog;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 
 class PrologTest extends QueryPrinterRegistryTestCase {
 

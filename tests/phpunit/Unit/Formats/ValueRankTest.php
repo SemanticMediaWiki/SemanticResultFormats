@@ -2,8 +2,8 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
 use SMW\Tests\PHPUnitCompat;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRFValueRank;
 
 /**

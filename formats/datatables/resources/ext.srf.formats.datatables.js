@@ -164,16 +164,17 @@
 
 			for (var i in data) {
 				for (var ii in ret) {
-					if (data[i][ii] === "") {
+					var cellData = data[i][ii];
+					if (!cellData) {
 						continue;
 					}
 					dataLength[ii]++;
 					var label;
 					if (options.searchPanes.htmlLabels === false) {
-						div.innerHTML = data[i][ii];
+						div.innerHTML = cellData.display;
 						label = div.textContent || div.innerText || "";
 					} else {
-						label = data[i][ii];
+						label = cellData.display;
 					}
 
 					// this will exclude images as well if
@@ -182,15 +183,15 @@
 						continue;
 					}
 
-					if (!(data[i][ii] in ret[ii])) {
-						ret[ii][data[i][ii]] = {
+					if (!(cellData.display in ret[ii])) {
+						ret[ii][cellData.display] = {
 							label: label,
-							value: data[i][ii],
+							value: cellData.display,
 							count: 0,
 						};
 					}
 
-					ret[ii][data[i][ii]].count++;
+					ret[ii][cellData.display].count++;
 				}
 			}
 
@@ -246,7 +247,7 @@
 					columnDefs[i].searchPanes.options.push({
 						label: searchPanesOptions[i][ii].label,
 						value: function (rowData, rowIdx) {
-							return rowData[i] === searchPanesOptions[i][ii].value;
+							return rowData[i].display === searchPanesOptions[i][ii].value;
 						},
 					});
 				}
@@ -372,6 +373,20 @@
 
 			sSearch: mw.msg("srf-ui-datatables-label-sSearch"),
 			sZeroRecords: mw.msg("srf-ui-datatables-label-sZeroRecords"),
+			searchBuilder: {
+				title: {
+					// Format condition count into info chip
+					_: `${ mw.msg( 'srf-ui-datatables-label-conditions' ) } <span class="srf-datatables-info-chip">%d</span>`,
+					0: mw.msg( 'srf-ui-datatables-label-conditions' )
+				}
+			},
+			searchPanes: {
+				title: {
+					// Format filter count into info chip
+					_: `${ mw.msg( 'srf-ui-datatables-label-filters' ) } <span class="srf-datatables-info-chip">%d</span>`,
+					0: mw.msg( 'srf-ui-datatables-label-filters' )
+				}
+			}
 		},
 
 		// we don't need it anymore, however keep it as
@@ -485,11 +500,6 @@
 			var order = table.data("order");
 			var options = data["formattedOptions"];
 
-			// add the button placeholder if any button is required
-			if (options.buttons.length && options.dom.indexOf("B") === -1) {
-				options.dom = "B" + options.dom;
-			}
-
 			function isObject(obj) {
 				return obj !== null && typeof obj === "object" && !Array.isArray(obj);
 			}
@@ -511,22 +521,9 @@
 			// var mark = isObject(options.mark);
 
 			var searchPanes = isObject(options.searchPanes);
-
-			if (searchPanes) {
-				if (options.dom.indexOf("P") === -1) {
-					options.dom = "P" + options.dom;
-				}
-			} else {
-				options.dom = options.dom.replace("P", "");
-			}
-
 			var searchBuilder = options.searchBuilder;
 
 			if (searchBuilder) {
-				if (options.dom.indexOf("Q") === -1) {
-					options.dom = "Q" + options.dom;
-				}
-
 				// @see https://datatables.net/extensions/searchbuilder/customConditions.html
 				// @see https://github.com/DataTables/SearchBuilder/blob/master/src/searchBuilder.ts
 				options.searchBuilder = {
@@ -544,11 +541,29 @@
 						num: {
 							null: null,
 						},
-					},
+					}
 				};
-			} else {
-				options.dom = options.dom.replace("Q", "");
 			}
+
+			options.layout = {
+				top9End: options.buttons.length ? 'buttons': null,
+				top3: searchBuilder ? 'searchBuilder': null,
+				top2: searchPanes ? 'searchPanes' : null,
+				topStart: {
+					pageLength: {
+						text: '_MENU_'
+					}
+				},
+				topEnd: {
+					search: {
+						// Hide label and use placeholder
+						placeholder: mw.msg('search'),
+						text: '_INPUT_'
+					}
+				},
+				bottomStart: 'info',
+				bottomEnd: 'paging'
+			};
 
 			// add the pagelength at the proper place in the length menu
 			if ($.inArray(options.pageLength, options.lengthMenu) < 0) {
@@ -557,6 +572,21 @@
 					return a - b;
 				});
 			}
+
+			// Replace -1 in lengthMenu with 'all' label
+			var showAll = options.lengthMenu.indexOf( -1 );
+			var lengthMenuLabels = options.lengthMenu.slice();
+			if ( showAll !== -1 ) {
+				lengthMenuLabels[showAll] = mw.msg( 'srf-ui-datatables-label-rows-all' );
+			}
+			// Format value into readable label
+			for (var i = 0; i < lengthMenuLabels.length; i++) {
+				if (typeof lengthMenuLabels[i] !== 'number') {
+					continue;
+				}
+				lengthMenuLabels[i] = mw.msg( 'srf-ui-datatables-label-rows', lengthMenuLabels[i] );
+			}
+			options.lengthMenu = [ options.lengthMenu, lengthMenuLabels ];
 
 			var query = data.query.ask;
 			var printouts = table.data("printouts");
@@ -576,15 +606,9 @@
 
 			var columnDefs = [];
 			$.map(printrequests, function (property, index) {
-				// @see https://datatables.net/reference/option/columns.type
-				// value for all columns
-				if (!options.columns.type) {
-					options.columns.type =
-						( entityCollation === 'numeric' && property.typeid === '_wpg' )
-						||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1 
-							? "any-number"
-							: null;
-				}
+				var isNumeric = ( entityCollation === 'numeric' && property.typeid === '_wpg' )
+					||  [ '_num', '_tem', '_qty' ].indexOf(property.typeid) !== -1;
+				options.columns.type = isNumeric ? 'num' : 'string';
 
 				columnDefs.push(
 					$.extend(
@@ -597,9 +621,13 @@
 							className: "smwtype" + property.typeid,
 							targets: [index],
 
-							// @FIXME https://datatables.net/reference/option/columns.searchBuilderType
-							// implement in the proper way
-							searchBuilderType: "string",
+							// https://datatables.net/reference/option/columns.render
+							render: {
+								_: 'display',
+								display: 'display',
+								filter: 'filter',
+								sort: 'sort'
+							},
 						},
 						options.columns,
 						data.printoutsParametersOptions[index]
@@ -715,14 +743,6 @@
 				};
 
 				conf = $.extend(conf, {
-					// *** attention! deferLoading when used in conjunction with
-					// ajax, expects only the first page of data, if the preloaded
-					// data contain more rows, datatables will show a wrong rows
-					// counter. For this reason we renounce to use deferRender, and
-					// instead we use the following hack: the Ajax function returns
-					// the preloaded data as long they are available for the requested
-					// slice, and then it uses an ajax call for not available data.
-					// deferLoading: table.data("count"),
 					processing: true,
 					serverSide: true,
 					ajax: function (datatableData, callback, settings) {

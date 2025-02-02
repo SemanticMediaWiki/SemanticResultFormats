@@ -241,12 +241,6 @@ class DataTables extends ResultPrinter {
 			'default' => '',
 		];
 
-		$params['datatables-dom'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => 'lfrtip',
-		];
-
 		$params['datatables-fixedHeader'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
@@ -266,16 +260,6 @@ class DataTables extends ResultPrinter {
 		];
 
 		//////////////// datatables columns
-
-		// only the options whose value has a sense to
-		// use for all columns, otherwise use (for single printouts)
-		// |?printout name |+ datatables-columns.type = string
-
-		$params['datatables-columns.type'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => '',
-		];
 
 		$params['datatables-columns.width'] = [
 			'type' => 'string',
@@ -573,7 +557,7 @@ class DataTables extends ResultPrinter {
 
 			foreach ( $rows as $cell ) {
 				$this->htmlTable->cell(
-					( $cell === '' ? '&nbsp;' : $cell ),
+					( $cell['display'] === '' ? '&nbsp;' : $cell['display'] ),
 					[]
 				);
 			}
@@ -993,7 +977,14 @@ class DataTables extends ResultPrinter {
 			$html = implode( $this->params['sep'], $values );
 		}
 
-		return $html;
+		// $dataValues could be empty
+		$sortKey = array_key_exists( 0, $dataValues ) ? $dataValues[0]->getDataItem()->getSortKey() : '';
+
+		return [
+			'display' => $html,
+			'filter' => $sortKey,
+			'sort' => $sortKey
+		];
 	}
 
 	/**

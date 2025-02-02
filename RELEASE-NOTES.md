@@ -1,8 +1,33 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 5.0.0
+
+Released on TDB
+
+Compatibility changes
+
+* Added compatibility with Semantic MediaWiki 5.x
+* Changed minimum PHP version from 7.3 to 8.0
+* Improved PHP support up to version 8.4
+* Changed minimum MediaWiki version from 1.35 to 1.39
+* Improved MediaWiki support up to 1.43
+
+Breaking changes
+
+* 
+
+New features and enhancements
+
+* [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) Updated DataTables from 1.13.2 to 2.1.8 (by @alistair3149)
+
+Bug fixes
+
+* 
+
 ## SRF 4.2.1
 
 Released on March 13, 2024.
+
 * [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin) 
 * [806](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/806) Added required resources for the bubble chare to the jqplotchart format (by@YOUR1)
 * [805](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/805) Fixed issue creating a lot of log spam (by @sophivorus)

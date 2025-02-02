@@ -19,7 +19,7 @@ final class SRFUtils {
 	 * @since 1.8
 	 */
 	public static function htmlProcessingElement( $isHtml = true ) {
-		SMWOutputs::requireResource( 'ext.smw.style' );
+		SMWOutputs::requireResource( 'ext.smw.styles' );
 
 		return Html::rawElement(
 			'div',
@@ -76,12 +76,12 @@ final class SRFUtils {
 	 * @return string|WrappedString HTML
 	 */
 	public static function makeVariablesScript( $data, $nonce = null ) {
-		$script = ResourceLoader::makeConfigSetScript( $data );
+		$script = MediaWiki\ResourceLoader\ResourceLoader::makeConfigSetScript( $data );
 		if ( $nonce === null ) {
 			$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
 		}
 
-		return ResourceLoader::makeInlineScript( $script, $nonce );
+		return MediaWiki\ResourceLoader\ResourceLoader::makeInlineScript( $script, $nonce );
 	}
 
 }

@@ -1,6 +1,6 @@
 {
     "name": "SemanticResultFormats",
-	"version": "4.2.1",
+	"version": "5.0.0-alpha",
 	"author": [
 		"James Hong Kong",
 		"Stephan Gambke",
@@ -33,6 +33,9 @@
 	},
 	"AutoloadNamespaces": {
 		"SRF\\DataTables\\": "formats/datatables"
+	},
+	"TestAutoloadNamespaces": {
+		"SRF\\Tests\\": "tests/phpunit/"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",

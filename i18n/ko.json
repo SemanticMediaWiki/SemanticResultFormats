@@ -137,7 +137,7 @@
 	"srf-printername-datatables": "데이터테이블",
 	"srf-ui-datatables-label-conditions": "조건",
 	"srf-ui-datatables-label-parameters": "변수",
-	"srf-ui-datatables-label-filters": "컬럼 필터 및 검색",
+	"srf-ui-datatables-label-filters": "필터",
 	"srf-ui-datatables-label-information": "정보",
 	"srf-ui-datatables-label-update-success": "테이블 업데이트를 성공했습니다",
 	"srf-ui-datatables-label-update-error": "테이블 업데이트를 실패했습니다.",

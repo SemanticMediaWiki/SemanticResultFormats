@@ -37,6 +37,12 @@
 					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery02.png\" class=\"image\">",
 					"<div class=\"imageraw\">File:Gallery02.png</div>"
 				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.40",
+					"Check parser function registration for MW 1.40+"
+				]
 			}
 		}
 	],

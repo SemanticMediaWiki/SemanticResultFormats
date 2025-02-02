@@ -51,6 +51,9 @@
 		{
 			"type": "parser-html",
 			"about": "#0 Listwidget - alphabet - unordered",
+			"skip-on": {
+				"mediawiki": [ ">1.41.x", "Check assertions for MW higher then 1.41." ]
+			},
 			"subject": "Listwidget - alphabet - unordered",
 			"assert-output": {
 				"to-contain": [
@@ -61,6 +64,9 @@
 		{
 			"type": "parser-html",
 			"about": "#1 Listwidget - menu - listtype unspecified",
+			"skip-on": {
+				"mediawiki": [ ">1.41.x", "Check assertions for MW higher then 1.41." ]
+			},
 			"subject": "Listwidget - menu - listtype unspecified",
 			"assert-output": {
 				"to-contain": [
@@ -71,6 +77,9 @@
 		{
 			"type": "parser-html",
 			"about": "#2 Listwidget - pagination - ordered",
+			"skip-on": {
+				"mediawiki": [ ">1.41.x", "Check assertions for MW higher then 1.41." ]
+			},
 			"subject": "Listwidget - pagination - ordered",
 			"assert-output": {
 				"to-contain": [
