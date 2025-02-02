@@ -99,11 +99,10 @@ class DataTables extends ResultPrinter {
 			'values' => [ 'all', 'subject', 'none', 'auto' ],
 		];
 
-		$params['defer-each'] = [
+		$params['limit'] = [
 			'type' => 'integer',
-			'message' => 'smw-paramdesc-defer-each',
-			// $GLOBALS['smwgQMaxLimit']
-			'default' => 0,
+			'message' => 'smw-paramdesc-limit',
+			'default' => 100,
 		];
 
 		// *** only used internally, do not use in query
@@ -239,6 +238,12 @@ class DataTables extends ResultPrinter {
 			'type' => 'string',
 			'message' => 'srf-paramdesc-datatables-library-option',
 			'default' => '',
+		];
+
+		$params['datatables-dom'] = [
+			'type' => 'string',
+			'message' => 'srf-paramdesc-datatables-library-option',
+			'default' => 'lfrtip',
 		];
 
 		$params['datatables-fixedHeader'] = [
