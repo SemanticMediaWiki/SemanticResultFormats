@@ -14,6 +14,7 @@ namespace SRF\DataTables;
 use ApiBase;
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
+use SMW\DataValues\PropertyChainValue;
 use SMW\Services\ServicesFactory;
 use SMWPrintRequest;
 use SMWQueryProcessor;
@@ -106,6 +107,11 @@ class Api extends ApiBase {
 			// create property from property key
 			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {
 				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
+			} elseif ( $printoutData[0] === SMWPrintRequest::PRINT_CHAIN ) {
+				$data_ = $dataValueFactory->newDataValueByType(
+					PropertyChainValue::TYPE_ID
+				);
+				$data_->setUserValue( $printoutData[1] );
 			} else {
 				$data_ = null;
 				if ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
