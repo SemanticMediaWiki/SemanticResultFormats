@@ -48,6 +48,16 @@ class SearchPanes {
 	 * @return array
 	 */
 	public function getSearchPanes( $printRequests, $searchPanesOptions ) {
+		if ( $this->datatables->store instanceof \SMW\SPARQLStore\SPARQLStore ) {
+			// we got a SPARQLStore, which is not subclass of SQLStore
+			// dirty hack to access the private member baseStore, which is an instance of SQLStore
+			// this can be simplified once SPARQLStore is refactored to make this member public
+			// see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/827
+			$closure = \Closure::bind( function &( \SMW\SPARQLStore\SPARQLStore $class ) {
+				return $class->baseStore;
+			}, null, \SMW\SPARQLStore\SPARQLStore::class );
+			$this->datatables->store = &$closure( $this->datatables->store );
+		}
 		$this->queryEngineFactory = new QueryEngineFactory( $this->datatables->store );
 		$this->connection = $this->datatables->store->getConnection( 'mw.db.queryengine' );
 		$this->queryFactory = new QueryFactory();
