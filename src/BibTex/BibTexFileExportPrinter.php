@@ -2,8 +2,8 @@
 
 namespace SRF\BibTex;
 
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\FileExportPrinter;
-use SMWQueryResult as QueryResult;
 use SMWTimeValue as TimeValue;
 
 /**
