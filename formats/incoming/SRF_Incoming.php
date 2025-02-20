@@ -1,8 +1,8 @@
 <?php
 
 use SMW\Query\QueryResult;
-use SMW\RequestOptions;
 use SMW\Query\ResultPrinters\ResultPrinter;
+use SMW\RequestOptions;
 
 /**
  * @brief Find incoming properties to a result set
