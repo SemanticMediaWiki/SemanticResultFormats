@@ -1,5 +1,6 @@
 <?php
 
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
@@ -23,12 +24,12 @@ class SRFjqPlotSeries extends ResultPrinter {
 	 * Returns an array with the numerical data in the query result.
 	 *
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+	protected function getResultText( QueryResult $result, $outputMode ) {
 		// Get data set
 		$data = $this->getResultData( $result, $outputMode );
 
@@ -50,12 +51,12 @@ class SRFjqPlotSeries extends ResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultData( SMWQueryResult $res, $outputMode ) {
+	protected function getResultData( QueryResult $res, $outputMode ) {
 		$data = [];
 		$data['series'] = [];
 
@@ -63,7 +64,7 @@ class SRFjqPlotSeries extends ResultPrinter {
 			// Loop over their fields (properties)
 			$label = '';
 			$i = 0;
-			/* SMWResultArray */
+			/* \SMW\Query\Result\ResultArray */
 			foreach ( $row as
 					  $field ) {
 				$i++;

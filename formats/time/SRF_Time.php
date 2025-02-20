@@ -1,5 +1,7 @@
 <?php
 
+use SMW\DataValueFactory;
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
@@ -25,7 +27,7 @@ class SRFTime extends ResultPrinter {
 	 * (non-PHPdoc)
 	 * @see ResultPrinter::getResultText()
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		$dataItems = $this->getSortKeys( $res );
 
 		if ( empty( $dataItems ) ) {
@@ -43,22 +45,22 @@ class SRFTime extends ResultPrinter {
 				break;
 		}
 
-		$dataValue = SMWDataValueFactory::getInstance()->newDataValueByItem( $dataItems[$result], null );
+		$dataValue = DataValueFactory::getInstance()->newDataValueByItem( $dataItems[$result], null );
 		return $dataValue->getLongHTMLText();
 	}
 
 	/**
 	 * Returns an array with sortkeys for dates pointing to their source DataItems.
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 *
 	 * @return array
 	 */
-	protected function getSortKeys( SMWQueryResult $res ) {
+	protected function getSortKeys( QueryResult $res ) {
 		$seconds = [];
 
 		while ( $row = $res->getNext() ) {
-			/* SMWResultArray */
+			/* \SMW\Query\Result\ResultArray */
 			foreach ( $row as
 					  $resultArray ) {
 				/* SMWDataItem */

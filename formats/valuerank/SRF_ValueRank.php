@@ -1,5 +1,7 @@
 <?php
 
+use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
@@ -43,12 +45,12 @@ class SRFValueRank extends ResultPrinter {
 	 *
 	 * @since 1.7
 	 *
-	 * @param SMWQueryResult $results
+	 * @param QueryResult $results
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	public function getResultText( SMWQueryResult $results, $outputMode ) {
+	public function getResultText( QueryResult $results, $outputMode ) {
 		// Template support
 		$this->hasTemplates = $this->params['template'] !== '';
 
@@ -65,26 +67,26 @@ class SRFValueRank extends ResultPrinter {
 	 *
 	 * @since 1.7
 	 *
-	 * @param SMWQueryResult $results
+	 * @param QueryResult $results
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultValues( SMWQueryResult $results, $outputMode ) {
+	protected function getResultValues( QueryResult $results, $outputMode ) {
 		$tags = [];
 
 		/**
-		 * @var $row SMWResultArray Objects (pages)
+		 * @var $row \SMW\Query\Result\ResultArray Objects (pages)
 		 * @var $dataValue SMWDataValue
 		 *
 		 * @return array
 		 */
 		while ( $row = $results->getNext() ) {
-			// SMWResultArray for a sinlge property
+			// \SMW\Query\Result\ResultArray for a sinlge property
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) {
 				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) {
 
-					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
+					$isSubject = $row[$i]->getPrintRequest()->getMode() == PrintRequest::PRINT_THIS;
 
 					// If the main object should not be included, skip it.
 					if ( $i == 0 && !$this->params['includesubject'] && $isSubject ) {
