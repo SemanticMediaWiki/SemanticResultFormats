@@ -15,8 +15,9 @@ use ApiBase;
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
 use SMW\DataValues\PropertyChainValue;
+use SMW\Query\PrintRequest;
 use SMW\Services\ServicesFactory;
-use SMWPrintRequest;
+use SMWQuery;
 use SMWQueryProcessor;
 use SRF\DataTables;
 
@@ -105,9 +106,9 @@ class Api extends ApiBase {
 		foreach ( $printoutsRaw as $printoutData ) {
 
 			// create property from property key
-			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {
+			if ( $printoutData[0] === PrintRequest::PRINT_PROP ) {
 				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
-			} elseif ( $printoutData[0] === SMWPrintRequest::PRINT_CHAIN ) {
+			} elseif ( $printoutData[0] === PrintRequest::PRINT_CHAIN ) {
 				$data_ = $dataValueFactory->newDataValueByType(
 					PropertyChainValue::TYPE_ID
 				);
@@ -121,7 +122,7 @@ class Api extends ApiBase {
 			}
 
 			// create printrequest from request mode, label, property name, output format, parameters
-			$printouts[] = new SMWPrintRequest(
+			$printouts[] = new PrintRequest(
 				// mode
 				$printoutData[0],
 				// (canonical) label
@@ -287,9 +288,9 @@ class Api extends ApiBase {
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
 			$queryDescription = $query->getDescription();
-			$queryCount = new \SMWQuery( $queryDescription );
+			$queryCount = new SMWQuery( $queryDescription );
 			$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
-			$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
+			$queryCount->setQuerySource( SMWQuery::MODE_COUNT );
 			$queryResult = $queryEngine->getQueryResult( $queryCount );
 			$count = $queryResult->getCount();
 

@@ -11,7 +11,9 @@
 
 namespace SRF\DataTables;
 
-use SMWPrintRequest;
+use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
+use SMWQuery;
 
 class Hooks {
 
@@ -27,7 +29,7 @@ class Hooks {
 			$printouts = [];
 			foreach ( $query->getExtraPrintouts() as $printRequest ) {
 				// *** is PRINT_THIS always appropriate to match the mainLabel ?
-				$printouts[] = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
+				$printouts[] = ( $printRequest->getMode() !== PrintRequest::PRINT_THIS ?
 					$printRequest->getCanonicalLabel() : '' );
 			}
 			$query->setSortKeys( [ $printouts[0] => "ASC" ] );
@@ -55,7 +57,7 @@ class Hooks {
 		// migth change the result length !!
 		$query->setOption( 'useAjax', (int)$count > $queryResult->getCount() );
 
-		$result = new \SMW\Query\QueryResult(
+		$result = new QueryResult(
 			$queryResult->getPrintRequests(),
 			$query,
 			$queryResult->getResults(),
@@ -70,9 +72,9 @@ class Hooks {
 		global $smwgQMaxLimit, $smwgQMaxInlineLimit;
 
 		$queryDescription = $query->getDescription();
-		$queryCount = new \SMWQuery( $queryDescription );
+		$queryCount = new SMWQuery( $queryDescription );
 		$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
-		$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
+		$queryCount->setQuerySource( SMWQuery::MODE_COUNT );
 		$queryResult = $queryEngine->getQueryResult( $queryCount );
 
 		return $queryResult->getCount();
