@@ -4,8 +4,8 @@ namespace SRF\Tests\Filtered;
 
 use Collation;
 use MediaWiki\MediaWikiServices;
-use SMW\MediaWiki\Collator;
 use SMW\DIWikiPage;
+use SMW\MediaWiki\Collator;
 use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMWDataValue;
