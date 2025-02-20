@@ -1,5 +1,7 @@
 <?php
+
 use MediaWiki\MediaWikiServices;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * A query printer that uses the dygraphs JavaScript library
@@ -11,10 +13,10 @@ use MediaWiki\MediaWikiServices;
  *
  * @author mwjames
  */
-class SRFDygraphs extends SMWResultPrinter {
+class SRFDygraphs extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 * @return string
 	 */
 	public function getName() {
@@ -22,7 +24,7 @@ class SRFDygraphs extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
 	 * @param SMWQueryResult $result
 	 * @param $outputMode
@@ -230,7 +232,7 @@ class SRFDygraphs extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
