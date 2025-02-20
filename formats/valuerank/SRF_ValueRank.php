@@ -1,5 +1,7 @@
 <?php
 
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Result printer that prints query results as a valuerank.
  * In other words, it prints a list of all occuring values, with duplicates removed,
@@ -20,7 +22,7 @@
  * @author DaSch < dasch@daschmedia.de >
  * @author mwjames
  */
-class SRFValueRank extends SMWResultPrinter {
+class SRFValueRank extends ResultPrinter {
 
 	/**
 	 * @var array
@@ -28,7 +30,7 @@ class SRFValueRank extends SMWResultPrinter {
 	protected $tagsHtml = [];
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 *
 	 * @return string
 	 */
@@ -37,7 +39,7 @@ class SRFValueRank extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
 	 * @since 1.7
 	 *
@@ -200,7 +202,7 @@ class SRFValueRank extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
