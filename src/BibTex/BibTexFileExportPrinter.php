@@ -138,7 +138,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $row array of SMWResultArray
+	 * @param $row array of \SMW\Query\Result\ResultArray
 	 *
 	 * @return bibTexItem
 	 */
