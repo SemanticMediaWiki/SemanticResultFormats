@@ -1,5 +1,7 @@
 <?php
 
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * A query printer for charts series using the jqPlot JavaScript library.
  *
@@ -8,10 +10,10 @@
  *
  * @author mwjames
  */
-class SRFjqPlotSeries extends SMWResultPrinter {
+class SRFjqPlotSeries extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-jqplotseries' )->text();
@@ -361,7 +363,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
