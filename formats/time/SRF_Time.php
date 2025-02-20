@@ -1,5 +1,7 @@
 <?php
 
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Formats that returns a time.
  *
@@ -7,11 +9,11 @@
  * @author nischayn22
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class SRFTime extends SMWResultPrinter {
+class SRFTime extends ResultPrinter {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getName()
+	 * @see ResultPrinter::getName()
 	 */
 	public function getName() {
 		// Give grep a chance to find the usages:
@@ -21,7 +23,7 @@ class SRFTime extends SMWResultPrinter {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getResultText()
+	 * @see ResultPrinter::getResultText()
 	 */
 	protected function getResultText( SMWQueryResult $res, $outputmode ) {
 		$dataItems = $this->getSortKeys( $res );
@@ -73,7 +75,7 @@ class SRFTime extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
