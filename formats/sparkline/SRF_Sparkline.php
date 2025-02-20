@@ -1,5 +1,7 @@
 <?php
 
+use SMW\Query\ResultPrinters\AggregatablePrinter;
+
 /**
  * A query printer for sparklines (small inline charts) using the sparkline
  * JavaScript library.
@@ -9,7 +11,7 @@
  *
  * @author mwjames
  */
-class SRFSparkline extends SMWAggregatablePrinter {
+class SRFSparkline extends AggregatablePrinter {
 
 	/**
 	 * Corresponding message name

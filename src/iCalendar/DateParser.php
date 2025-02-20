@@ -2,7 +2,7 @@
 
 namespace SRF\iCalendar;
 
-use SMWDataValueFactory as DataValueFactory;
+use SMW\DataValueFactory;
 use SMWTimeValue as TimeValue;
 
 /**

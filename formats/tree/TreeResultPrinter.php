@@ -12,8 +12,8 @@ use Exception;
 use Html;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
-use SMW\ListResultPrinter;
 use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ListResultPrinter;
 use Title;
 
 /**

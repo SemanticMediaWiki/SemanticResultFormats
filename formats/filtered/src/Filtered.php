@@ -13,7 +13,7 @@ use Exception;
 use Html;
 use MediaWiki\MediaWikiServices;
 use SMW\DataValues\PropertyValue;
-use SMW\Message;
+use SMW\Localizer\Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryLinker;
 use SMW\Query\QueryResult;
@@ -146,7 +146,7 @@ class Filtered extends ResultPrinter {
 	protected function handleParameters( array $params, $outputMode ) {
 		parent::handleParameters( $params, $outputMode );
 
-		// // Set in SMWResultPrinter:
+		// // Set in ResultPrinter:
 		// $this->mIntro = $params['intro'];
 		// $this->mOutro = $params['outro'];
 		// $this->mSearchlabel = $params['searchlabel'] === false ? null : $params['searchlabel'];
@@ -224,7 +224,7 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 * @see DefaultConfig.php of param-processor/param-processor for allowed types
 	 *
 	 * @since 1.8
