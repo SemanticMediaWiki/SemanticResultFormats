@@ -1,4 +1,7 @@
 <?php
+
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Print query results in interactive timelines.
  *
@@ -15,7 +18,7 @@
  *
  * @ingroup SemanticResultFormats
  */
-class SRFTimeline extends SMWResultPrinter {
+class SRFTimeline extends ResultPrinter {
 
 	// name of the start-date property if any
 	protected $m_tlstart = '';
@@ -31,7 +34,7 @@ class SRFTimeline extends SMWResultPrinter {
 	protected $mNamedArgs;
 
 	/**
-	 * @see SMWResultPrinter::handleParameters
+	 * @see ResultPrinter::handleParameters
 	 *
 	 * @since 1.6.3
 	 *
@@ -383,7 +386,7 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
