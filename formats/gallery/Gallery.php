@@ -198,7 +198,7 @@ class Gallery extends ResultPrinter {
 	 * @param $outputMode
 	 */
 	protected function addImageProperties( QueryResult $results, &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
-		/* array of SMWResultArray */
+		/* array of \SMW\Query\Result\ResultArray */
 		while (
 		$rows = $results->getNext() ) {
 			$images = [];
@@ -207,7 +207,7 @@ class Gallery extends ResultPrinter {
 			// Properties
 			for ( $i = 0, $n = count( $rows ); $i < $n; $i++ ) {
 				/**
-				 * @var \SMWResultArray $resultArray
+				 * @var \SMW\Query\Result\ResultArray $resultArray
 				 * @var \SMWDataValue $dataValue
 				 */
 				$resultArray = $rows[$i];
@@ -272,7 +272,7 @@ class Gallery extends ResultPrinter {
 	protected function addImagePages( QueryResult $results, &$ig ) {
 		while ( $row = $results->getNext() ) {
 			/**
-			 * @var \SMWResultArray $firstField
+			 * @var \SMW\Query\Result\ResultArray $firstField
 			 */
 			$firstField = $row[0];
 
