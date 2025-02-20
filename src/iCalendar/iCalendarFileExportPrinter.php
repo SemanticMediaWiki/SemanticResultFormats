@@ -3,12 +3,12 @@
 namespace SRF\iCalendar;
 
 use MediaWiki\MediaWikiServices;
+use SMW\DataValueFactory;
+use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
-use SMWDataValueFactory as DataValueFactory;
-use SMWExportPrinter as FileExportPrinter;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 use SMWQuery as Query;
 use SMWQueryProcessor as QueryProcessor;
-use SMWQueryResult as QueryResult;
 
 /**
  * Printer class for iCalendar exports

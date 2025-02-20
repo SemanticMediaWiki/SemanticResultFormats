@@ -113,7 +113,7 @@ class ListView extends View {
 	/**
 	 * Prints one row of a list view.
 	 *
-	 * @param \SMWResultArray[] $row
+	 * @param \SMW\Query\Result\ResultArray[] $row
 	 * @param &$rownum
 	 * @param $rowstart
 	 * @param $rowend

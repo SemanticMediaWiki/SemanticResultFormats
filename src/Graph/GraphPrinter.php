@@ -5,9 +5,9 @@ namespace SRF\Graph;
 use Html;
 use MediaWiki\MediaWikiServices;
 use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
-use SMW\ResultPrinter;
-use SMWQueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -97,7 +97,7 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
@@ -140,12 +140,12 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		// Remove this once SRF requires 3.1+
 		if ( $this->hasMissingDependency() ) {
 			return $this->getDependencyError();
@@ -246,7 +246,7 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

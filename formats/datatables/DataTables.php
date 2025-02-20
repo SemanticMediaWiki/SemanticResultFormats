@@ -14,14 +14,13 @@ namespace SRF;
 
 use Html;
 use RequestContext;
+use SMW\DataValues\PropertyValue;
 use SMW\DIWikiPage;
-use SMW\Message;
+use SMW\Localizer\Message;
 use SMW\Query\PrintRequest;
-use SMW\ResultPrinter;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 use SMW\Utils\HtmlTable;
-use SMWPrintRequest;
-use SMWPropertyValue;
-use SMWQueryResult as QueryResult;
 use SRF\DataTables\SearchPanes;
 
 class DataTables extends ResultPrinter {
@@ -525,7 +524,7 @@ class DataTables extends ResultPrinter {
 
 		$headerList = [];
 		foreach ( $printouts as $printout ) {
-			$headerList[] = ( $printout[0] !== SMWPrintRequest::PRINT_THIS ? $printout[1] : '' );
+			$headerList[] = ( $printout[0] !== PrintRequest::PRINT_THIS ? $printout[1] : '' );
 		}
 
 		// @TODO put inside $this->formatOptions
@@ -683,7 +682,7 @@ class DataTables extends ResultPrinter {
 
 			$data = $printRequest->getData();
 
-			$name = ( $data instanceof SMWPropertyValue ?
+			$name = ( $data instanceof PropertyValue ?
 				$data->getDataItem()->getKey() : null );
 
 			$parameters = $printRequest->getParameters();

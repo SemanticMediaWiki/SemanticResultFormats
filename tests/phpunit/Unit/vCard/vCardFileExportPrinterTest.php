@@ -24,7 +24,7 @@ class vCardFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 
 		$this->resultPrinterReflector = new ResultPrinterReflector();
 
-		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$this->queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 	}

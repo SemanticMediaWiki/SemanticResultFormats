@@ -5,8 +5,8 @@ namespace SRF;
 use MediaWiki\ResourceLoader\ResourceLoader;
 use RequestContext;
 use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
 use SMWOutputs as ResourceManager;
-use SMWQueryResult as QueryResult;
 use SRFUtils;
 
 /**

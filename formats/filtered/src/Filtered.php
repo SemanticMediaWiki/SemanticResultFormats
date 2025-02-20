@@ -12,13 +12,13 @@ namespace SRF\Filtered;
 use Exception;
 use Html;
 use MediaWiki\MediaWikiServices;
-use SMW\Message;
+use SMW\DataValues\PropertyValue;
+use SMW\Localizer\Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryLinker;
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWOutputs;
-use SMWPropertyValue;
-use SMWQueryResult;
 
 /**
  * Result printer that displays results in switchable views and offers
@@ -146,7 +146,7 @@ class Filtered extends ResultPrinter {
 	protected function handleParameters( array $params, $outputMode ) {
 		parent::handleParameters( $params, $outputMode );
 
-		// // Set in SMWResultPrinter:
+		// // Set in ResultPrinter:
 		// $this->mIntro = $params['intro'];
 		// $this->mOutro = $params['outro'];
 		// $this->mSearchlabel = $params['searchlabel'] === false ? null : $params['searchlabel'];
@@ -165,12 +165,12 @@ class Filtered extends ResultPrinter {
 	/**
 	 * Return serialised results in specified format.
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		// collect the query results in an array
 		/** @var ResultItem[] $resultItems */
 		$resultItems = [];
@@ -224,7 +224,7 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 * @see DefaultConfig.php of param-processor/param-processor for allowed types
 	 *
 	 * @since 1.8
@@ -318,12 +318,12 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $result
 	 *
 	 * @return array
 	 */
-	protected function getFilterHtml( SMWQueryResult $res, $result ) {
+	protected function getFilterHtml( QueryResult $res, $result ) {
 		// prepare filter data for inclusion in HTML and  JS
 		$filterHtml = '';
 
@@ -339,7 +339,7 @@ class Filtered extends ResultPrinter {
 				'type' => $printRequest->getTypeID(),
 			];
 
-			if ( $printRequest->getData() instanceof SMWPropertyValue ) {
+			if ( $printRequest->getData() instanceof PropertyValue ) {
 				$prConfig['property'] = $printRequest->getData()->getInceptiveProperty()->getKey();
 			}
 
@@ -408,13 +408,13 @@ class Filtered extends ResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $resultItems
 	 * @param $config
 	 *
 	 * @return array
 	 */
-	protected function getViewHtml( SMWQueryResult $res, $resultItems, $config ) {
+	protected function getViewHtml( QueryResult $res, $resultItems, $config ) {
 		// prepare view data for inclusion in HTML and  JS
 		$viewHtml = '';
 		$viewSelectorsHtml = '';

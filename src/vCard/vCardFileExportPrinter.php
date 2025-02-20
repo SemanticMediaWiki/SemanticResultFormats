@@ -3,10 +3,10 @@
 namespace SRF\vCard;
 
 use MediaWiki\MediaWikiServices;
-use SMWExportPrinter as FileExportPrinter;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 use SMWQuery as Query;
 use SMWQueryProcessor as QueryProcessor;
-use SMWQueryResult as QueryResult;
 use SMWTimeValue as TimeValue;
 
 /**

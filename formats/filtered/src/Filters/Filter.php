@@ -10,7 +10,7 @@ namespace SRF\Filtered\Filter;
  * @ingroup SemanticResultFormats
  */
 
-use SMWPrintRequest;
+use SMW\Query\PrintRequest;
 use SRF\Filtered\Filtered;
 use SRF\Filtered\ResultItem;
 
@@ -30,10 +30,10 @@ abstract class Filter {
 	 * Filter constructor.
 	 *
 	 * @param ResultItem[] &$results
-	 * @param SMWPrintRequest $printRequest
+	 * @param PrintRequest $printRequest
 	 * @param Filtered &$queryPrinter
 	 */
-	public function __construct( array &$results, SMWPrintRequest $printRequest, Filtered &$queryPrinter ) {
+	public function __construct( array &$results, PrintRequest $printRequest, Filtered &$queryPrinter ) {
 		$this->resultItems = $results;
 		$this->printRequest = $printRequest;
 		$this->queryPrinter = $queryPrinter;
@@ -47,7 +47,7 @@ abstract class Filter {
 	}
 
 	/**
-	 * @return SMWPrintRequest
+	 * @return PrintRequest
 	 */
 	public function &getPrintRequest() {
 		return $this->printRequest;

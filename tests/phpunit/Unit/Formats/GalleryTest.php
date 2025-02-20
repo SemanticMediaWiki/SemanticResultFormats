@@ -32,7 +32,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$this->queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 

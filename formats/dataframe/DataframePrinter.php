@@ -2,8 +2,8 @@
 
 namespace SRF\dataframe;
 
-use SMW\FileExportPrinter;
-use SMWQueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 
 /**
  * @author Marco Falda
@@ -40,32 +40,32 @@ class DataframePrinter extends FileExportPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	public function getMimeType( SMWQueryResult $queryResult ) {
+	public function getMimeType( QueryResult $queryResult ) {
 		return $this->fileFormat[ 'mimetype' ];
 	}
 
 	/**
 	 * @see ExportPrinter::getFileName
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	public function getFileName( SMWQueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ) {
 		return ( $this->params[ 'filename' ] ?: base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
 	}
 
 	/**
 	 * @see ExportPrinter::outputAsFile
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
+	public function outputAsFile( QueryResult $queryResult, array $params ) {
 		$this->fileFormat = $this->fileFormats[ 'R' ];
 		parent::outputAsFile( $queryResult, $params );
 	}
@@ -103,7 +103,7 @@ class DataframePrinter extends FileExportPrinter {
 	 * Return serialised results in specified format.
 	 *
 	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputMode ) {
+	protected function getResultText( QueryResult $queryResult, $outputMode ) {
 		if ( $outputMode === SMW_OUTPUT_FILE ) {
 			return $this->getResultFileContents( $queryResult );
 		}
@@ -113,11 +113,11 @@ class DataframePrinter extends FileExportPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	protected function getResultFileContents( SMWQueryResult $queryResult ) {
+	protected function getResultFileContents( QueryResult $queryResult ) {
 		$res = 'data.frame(';
 		if ( array_key_exists( 'rownames', $this->params ) ) {
 			$res .= 'row.names=T, ';

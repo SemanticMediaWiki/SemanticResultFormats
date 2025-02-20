@@ -3,8 +3,8 @@
 namespace SRF;
 
 use Html;
-use SMW\ResultPrinter;
-use SMWQueryResult as QueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * An event calendar printer using the FullCalendar JavaScript library

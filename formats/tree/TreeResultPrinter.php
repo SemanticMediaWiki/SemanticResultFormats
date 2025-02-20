@@ -12,8 +12,8 @@ use Exception;
 use Html;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
-use SMW\ListResultPrinter;
-use SMWQueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ListResultPrinter;
 use Title;
 
 /**
@@ -29,13 +29,13 @@ class TreeResultPrinter extends ListResultPrinter {
 	private $standardTemplateParameters;
 
 	/**
-	 * @var SMWQueryResult | null
+	 * @var QueryResult | null
 	 */
 	private $queryResult = null;
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getName()
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getName()
 	 */
 	public function getName() {
 		// Give grep a chance to find the usages:
@@ -44,7 +44,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	/**
-	 * @return SMWQueryResult
+	 * @return QueryResult
 	 * @throws Exception
 	 */
 	public function getQueryResult() {
@@ -56,7 +56,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult | null $queryResult
+	 * @param QueryResult | null $queryResult
 	 */
 	public function setQueryResult( $queryResult ) {
 		$this->queryResult = $queryResult;
@@ -82,12 +82,12 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * Return serialised results in specified format.
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
+	protected function getResultText( QueryResult $queryResult, $outputmode ) {
 		$this->setQueryResult( $queryResult );
 
 		if ( $this->params['parent'] === '' ) {
@@ -155,7 +155,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

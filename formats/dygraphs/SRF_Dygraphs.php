@@ -1,5 +1,9 @@
 <?php
+
 use MediaWiki\MediaWikiServices;
+use SMW\DIWikiPage;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * A query printer that uses the dygraphs JavaScript library
@@ -11,10 +15,10 @@ use MediaWiki\MediaWikiServices;
  *
  * @author mwjames
  */
-class SRFDygraphs extends SMWResultPrinter {
+class SRFDygraphs extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 * @return string
 	 */
 	public function getName() {
@@ -22,14 +26,14 @@ class SRFDygraphs extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+	protected function getResultText( QueryResult $result, $outputMode ) {
 		// Output mode is fixed
 		$outputMode = SMW_OUTPUT_HTML;
 
@@ -50,12 +54,12 @@ class SRFDygraphs extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultData( SMWQueryResult $result, $outputMode ) {
+	protected function getResultData( QueryResult $result, $outputMode ) {
 		$aggregatedValues = [];
 
 		while ( $rows = $result->getNext() ) {
@@ -63,7 +67,7 @@ class SRFDygraphs extends SMWResultPrinter {
 			$dataSource = false;
 
 			/**
-			 * @var SMWResultArray $field
+			 * @var \SMW\Query\Result\ResultArray $field
 			 * @var SMWDataValue $dataValue
 			 */
 			foreach ( $rows as $field ) {
@@ -149,7 +153,7 @@ class SRFDygraphs extends SMWResultPrinter {
 
 	private function makePageFromTitle( \Title $title ) {
 		$dataValue = new SMWWikiPageValue( '_wpg' );
-		$dataItem = SMWDIWikiPage::newFromTitle( $title );
+		$dataItem = DIWikiPage::newFromTitle( $title );
 		$dataValue->setDataItem( $dataItem );
 		return $dataValue;
 	}
@@ -230,7 +234,7 @@ class SRFDygraphs extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

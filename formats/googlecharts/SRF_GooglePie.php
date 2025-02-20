@@ -1,18 +1,22 @@
 <?php
+
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * A query printer for pie charts using the Google Chart API
  *
  * @note AUTOLOADED
  */
 
-class SRFGooglePie extends SMWResultPrinter {
+class SRFGooglePie extends ResultPrinter {
 
 	protected $m_width = 250;
 	protected $m_heighth = 100;
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
@@ -25,7 +29,7 @@ class SRFGooglePie extends SMWResultPrinter {
 		return wfMessage( 'srf_printername_googlepie' )->text();
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		$this->isHTML = true;
 
 		$t = "";
@@ -69,7 +73,7 @@ class SRFGooglePie extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

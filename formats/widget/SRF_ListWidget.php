@@ -1,5 +1,6 @@
 <?php
 
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ListResultPrinter\ListResultBuilder;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
@@ -26,14 +27,14 @@ class SRFListWidget extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		// Initialize
 		static $statNr = 0;
 		// $this->isHTML = true;
@@ -50,7 +51,7 @@ class SRFListWidget extends ResultPrinter {
 			'show-headers' => $this->mShowHeaders,
 		] );
 
-		// Get results from SMWListResultPrinter
+		// Get results from \SMW\Query\ResultPrinters\ListResultPrinter
 		$result = $builder->getResultText();
 
 		// Count widgets
@@ -88,7 +89,7 @@ class SRFListWidget extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

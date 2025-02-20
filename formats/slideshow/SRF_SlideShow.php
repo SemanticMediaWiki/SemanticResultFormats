@@ -1,4 +1,9 @@
 <?php
+
+use SMW\DataValues\PropertyValue;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * File holding the SRF_SlideShow class
  *
@@ -12,7 +17,7 @@
  *
  * @ingroup SemanticResultFormats
  */
-class SRFSlideShow extends SMWResultPrinter {
+class SRFSlideShow extends ResultPrinter {
 
 	/**
 	 * Get a human readable label for this printer.
@@ -27,7 +32,7 @@ class SRFSlideShow extends SMWResultPrinter {
 	 * Return serialised results in specified format.
 	 * Implemented by subclasses.
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		$html = '';
 		$id = uniqid();
 
@@ -44,7 +49,7 @@ class SRFSlideShow extends SMWResultPrinter {
 		$printrequests = [];
 		foreach ( $res->getPrintRequests() as $key => $printrequest ) {
 			$data = $printrequest->getData();
-			if ( $data instanceof SMWPropertyValue ) {
+			if ( $data instanceof PropertyValue ) {
 				$name = $data->getDataItem()->getKey();
 			} else {
 				$name = null;
@@ -107,16 +112,16 @@ class SRFSlideShow extends SMWResultPrinter {
 	 * Check whether a "further results" link would normally be generated for this
 	 * result set with the given parameters.
 	 *
-	 * @param SMWQueryResult $results
+	 * @param QueryResult $results
 	 *
 	 * @return bool
 	 */
-	protected function linkFurtherResults( SMWQueryResult $results ) {
+	protected function linkFurtherResults( QueryResult $results ) {
 		return false;
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
