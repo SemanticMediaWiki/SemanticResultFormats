@@ -14,14 +14,13 @@ namespace SRF;
 
 use Html;
 use RequestContext;
+use SMW\DataValues\PropertyValue;
 use SMW\DIWikiPage;
 use SMW\Localizer\Message;
 use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 use SMW\Utils\HtmlTable;
-use SMW\Query\PrintRequest;
-use SMW\DataValues\PropertyValue;
-use SMW\Query\QueryResult;
 use SRF\DataTables\SearchPanes;
 
 class DataTables extends ResultPrinter {
