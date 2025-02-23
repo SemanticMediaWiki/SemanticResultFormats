@@ -10,8 +10,8 @@ namespace SRF;
 
 use Html;
 use MediaWiki\MediaWikiServices;
-use SMW\ResultPrinter;
-use SMWQueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 class Carousel extends ResultPrinter {
 
@@ -391,7 +391,7 @@ class Carousel extends ResultPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function getResultText( SMWQueryResult $results, $outputmode ) {
+	protected function getResultText( QueryResult $results, $outputmode ) {
 		$resourceFormatter = new ResourceFormatter();
 
 		// serialized results

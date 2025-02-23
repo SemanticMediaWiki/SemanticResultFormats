@@ -18,11 +18,11 @@ use SMW\DIWikiPage;
 use SMW\Query\PrintRequest;
 use SMW\QueryFactory;
 use SMW\Services\ServicesFactory as ApplicationFactory;
+use SMW\SQLStore\QueryEngine\QuerySegment;
 use SMW\SQLStore\QueryEngineFactory;
 use SMW\SQLStore\SQLStore;
 use SMW\SQLStore\TableBuilder\FieldType;
 use SMWDataItem as DataItem;
-use SMWPrintRequest;
 use SMWQueryProcessor;
 
 class SearchPanes {
@@ -67,7 +67,7 @@ class SearchPanes {
 				continue;
 			}
 
-			$canonicalLabel = ( $printRequest->getMode() !== SMWPrintRequest::PRINT_THIS ?
+			$canonicalLabel = ( $printRequest->getMode() !== PrintRequest::PRINT_THIS ?
 				$printRequest->getCanonicalLabel() : '' );
 
 			$ret[$i] = $this->getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions );
@@ -129,7 +129,7 @@ class SearchPanes {
 
 		$rootid = $conditionBuilder->buildCondition( $newQuery );
 
-		\SMW\SQLStore\QueryEngine\QuerySegment::$qnum = 0;
+		QuerySegment::$qnum = 0;
 		$querySegmentList = $conditionBuilder->getQuerySegmentList();
 
 		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
@@ -641,7 +641,7 @@ class SearchPanes {
 		$conditionBuilder = $this->queryEngineFactory->newConditionBuilder();
 		$rootid = $conditionBuilder->buildCondition( $query );
 
-		\SMW\SQLStore\QueryEngine\QuerySegment::$qnum = 0;
+		QuerySegment::$qnum = 0;
 		$querySegmentList = $conditionBuilder->getQuerySegmentList();
 
 		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();

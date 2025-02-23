@@ -1,4 +1,8 @@
 <?php
+
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Print query results in interactive graph using the
  * JavaScript InfoVis Toolkit (http://thejit.org)
@@ -14,7 +18,7 @@
  *
  * @ingroup SemanticResultFormats
  */
-class SRFJitGraph extends SMWResultPrinter {
+class SRFJitGraph extends ResultPrinter {
 
 	public static $NODE_SHAPES = [ 'circle', 'rectangle', 'square', 'ellipse', 'triangle', 'star' ];
 
@@ -143,7 +147,7 @@ class SRFJitGraph extends SMWResultPrinter {
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		global $wgTitle, $wgOut;
 
 		if ( class_exists( 'ResourceLoader' ) ) {
@@ -338,7 +342,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

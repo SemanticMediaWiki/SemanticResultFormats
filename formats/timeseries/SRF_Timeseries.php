@@ -1,5 +1,8 @@
 <?php
 
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * A query printer for timeseries using the flot plotting JavaScript library
  *
@@ -10,10 +13,10 @@
  *
  * @author mwjames
  */
-class SRFTimeseries extends SMWResultPrinter {
+class SRFTimeseries extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 * @return string
 	 */
 	public function getName() {
@@ -21,14 +24,14 @@ class SRFTimeseries extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+	protected function getResultText( QueryResult $result, $outputMode ) {
 		// Data processing
 		$data = $this->getAggregatedTimeSeries( $result, $outputMode );
 
@@ -46,21 +49,21 @@ class SRFTimeseries extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getAggregatedTimeSeries( SMWQueryResult $result, $outputMode ) {
+	protected function getAggregatedTimeSeries( QueryResult $result, $outputMode ) {
 		$values = [];
 		$aggregatedValues = [];
 
 		while (
-		/* array of SMWResultArray */
+		/* array of \SMW\Query\Result\ResultArray */
 		$row = $result->getNext() ) {
 			$timeStamp = '';
 			$series = [];
-			/* SMWResultArray */
+			/* \SMW\Query\Result\ResultArray */
 			foreach ( $row as
 					  $field ) {
 				$sum = [];
@@ -192,7 +195,7 @@ class SRFTimeseries extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

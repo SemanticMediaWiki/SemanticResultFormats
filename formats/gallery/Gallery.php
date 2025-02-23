@@ -4,11 +4,11 @@ namespace SRF;
 
 use Html;
 use MediaWiki\MediaWikiServices;
-use SMW\ResultPrinter;
+use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWDataItem;
 use SMWOutputs;
-use SMWPrintRequest;
-use SMWQueryResult;
 use SRFUtils;
 use Title;
 use TraditionalImageGallery;
@@ -23,7 +23,7 @@ use TraditionalImageGallery;
 class Gallery extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 *
 	 * @return string
 	 */
@@ -32,15 +32,15 @@ class Gallery extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::buildResult
+	 * @see ResultPrinter::buildResult
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $results
+	 * @param QueryResult $results
 	 *
 	 * @return string
 	 */
-	protected function buildResult( SMWQueryResult $results ) {
+	protected function buildResult( QueryResult $results ) {
 		// Intro/outro are not planned to work with the widget option
 		if ( ( $this->params['intro'] !== '' || $this->params['outro'] !== '' ) && $this->params['widget'] !== '' ) {
 			$results->addErrors(
@@ -56,14 +56,14 @@ class Gallery extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param $results SMWQueryResult
+	 * @param $results QueryResult
 	 * @param $outputmode integer
 	 *
 	 * @return string | array
 	 */
-	public function getResultText( SMWQueryResult $results, $outputmode ) {
+	public function getResultText( QueryResult $results, $outputmode ) {
 		$ig = new TraditionalImageGallery();
 
 		$ig->setShowBytes( false );
@@ -121,7 +121,7 @@ class Gallery extends ResultPrinter {
 		$redirectType = '';
 
 		/**
-		 * @var SMWPrintRequest $printReq
+		 * @var PrintRequest $printReq
 		 */
 		foreach ( $results->getPrintRequests() as $printReq ) {
 			$printReqLabels[] = $printReq->getLabel();
@@ -190,15 +190,15 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param SMWQueryResult $results
+	 * @param QueryResult $results
 	 * @param TraditionalImageGallery &$ig
 	 * @param string $imageProperty
 	 * @param string $captionProperty
 	 * @param string $redirectProperty
 	 * @param $outputMode
 	 */
-	protected function addImageProperties( SMWQueryResult $results, &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
-		/* array of SMWResultArray */
+	protected function addImageProperties( QueryResult $results, &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
+		/* array of \SMW\Query\Result\ResultArray */
 		while (
 		$rows = $results->getNext() ) {
 			$images = [];
@@ -207,12 +207,12 @@ class Gallery extends ResultPrinter {
 			// Properties
 			for ( $i = 0, $n = count( $rows ); $i < $n; $i++ ) {
 				/**
-				 * @var \SMWResultArray $resultArray
+				 * @var \SMW\Query\Result\ResultArray $resultArray
 				 * @var \SMWDataValue $dataValue
 				 */
 				$resultArray = $rows[$i];
 
-				$label = $resultArray->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS
+				$label = $resultArray->getPrintRequest()->getMode() == PrintRequest::PRINT_THIS
 					? '-' : $resultArray->getPrintRequest()->getLabel();
 
 				// Make sure always use real label here otherwise it results in an empty array
@@ -266,13 +266,13 @@ class Gallery extends ResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param SMWQueryResult $results
+	 * @param QueryResult $results
 	 * @param TraditionalImageGallery &$ig
 	 */
-	protected function addImagePages( SMWQueryResult $results, &$ig ) {
+	protected function addImagePages( QueryResult $results, &$ig ) {
 		while ( $row = $results->getNext() ) {
 			/**
-			 * @var \SMWResultArray $firstField
+			 * @var \SMW\Query\Result\ResultArray $firstField
 			 */
 			$firstField = $row[0];
 
@@ -430,7 +430,7 @@ class Gallery extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

@@ -2,6 +2,8 @@
 
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
+use SMW\Query\PrintRequest;
+use SMW\Query\ResultPrinters\ListResultPrinter;
 
 /**
  * API module to retrieve formatted results for a given page, printouts and template.
@@ -22,7 +24,7 @@ class SRFSlideShowApi extends ApiBase {
 
 		$title = Title::newFromID( $requestParams['pageid'] )->getPrefixedText();
 
-		$rp = new SMWListResultPrinter( 'template', true );
+		$rp = new ListResultPrinter( 'template', true );
 
 		// get defaults of parameters for the 'template' result format as array of ParamDefinition
 		$paramDefinitions = ParamDefinition::getCleanDefinitions( $rp->getParamDefinitions( [] ) );
@@ -68,7 +70,7 @@ class SRFSlideShowApi extends ApiBase {
 		foreach ( $printoutsRaw as $printoutData ) {
 
 			// if printout mode is PRINT_PROP
-			if ( $printoutData[0] == SMWPrintRequest::PRINT_PROP ) {
+			if ( $printoutData[0] == PrintRequest::PRINT_PROP ) {
 				// create property from property key
 				$data = DataValueFactory::getInstance()->newPropertyValueByLabel( $printoutData[2] );
 			} else {
@@ -76,7 +78,7 @@ class SRFSlideShowApi extends ApiBase {
 			}
 
 			// create printrequest from request mode, label, property name, output format, parameters
-			$printouts[] = new SMWPrintRequest(
+			$printouts[] = new PrintRequest(
 				$printoutData[0],
 				$printoutData[1],
 				$data,

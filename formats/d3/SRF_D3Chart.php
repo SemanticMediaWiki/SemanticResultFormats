@@ -1,8 +1,10 @@
 <?php
 
+use SMW\Query\ResultPrinters\AggregatablePrinter;
+
 /**
  * A query printer for D3 charts using the D3 JavaScript library
- * and SMWAggregatablePrinter.
+ * and AggregatablePrinter.
  *
  * @file SRF_D3Chart.php
  * @ingroup SemanticResultFormats
@@ -12,10 +14,10 @@
  *
  * @author mwjames
  */
-class SRFD3Chart extends SMWAggregatablePrinter {
+class SRFD3Chart extends AggregatablePrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getName
 	 *
 	 */
 	public function getName() {
@@ -23,7 +25,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getFormatOutput
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getFormatOutput
 	 *
 	 * @since 1.8
 	 *
@@ -97,7 +99,7 @@ class SRFD3Chart extends SMWAggregatablePrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
