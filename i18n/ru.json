@@ -232,6 +232,7 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Предыдущая",
 	"srf-ui-datatables-label-oAria-sSortAscending": ":активировать для сортировки столбца по возрастанию",
 	"srf-ui-datatables-label-oAria-sSortDescending": ":активировать для сортировки столбца по убыванию",
+	"srf-ui-datatables-label-rows-all": "Все строки",
 	"srf-printername-tree": "Дерево",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",
