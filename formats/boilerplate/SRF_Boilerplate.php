@@ -1,8 +1,8 @@
 <?php
 
 use SMW\Query\QueryResult;
-use SMW\Query\ResultPrinters\ResultPrinter;
 use SMW\Query\Result\ResultArray;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * Boilerplate query printer
