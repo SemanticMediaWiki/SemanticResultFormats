@@ -2,6 +2,7 @@
 
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
+use SMW\Query\Result\ResultArray;
 
 /**
  * Boilerplate query printer
@@ -101,12 +102,12 @@ class SRFBoilerplate extends ResultPrinter {
 		/**
 		 * Get all values for all rows that belong to the result set
 		 *
-		 * @var \SMW\Query\Result\ResultArray $rows
+		 * @var ResultArray $rows
 		 */
 		while ( $rows = $result->getNext() ) {
 
 			/**
-			 * @var \SMW\Query\Result\ResultArray $field
+			 * @var ResultArray $field
 			 * @var SMWDataValue $dataValue
 			 */
 			foreach ( $rows as $field ) {
