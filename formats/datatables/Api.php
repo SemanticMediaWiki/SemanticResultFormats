@@ -12,13 +12,14 @@
 namespace SRF\DataTables;
 
 use ApiBase;
-use ParamProcessor\ParamDefinition;
+use ParamProcessor\ParamDefinitionFactory;
 use SMW\DataValueFactory;
 use SMW\DataValues\PropertyChainValue;
 use SMW\Query\PrintRequest;
 use SMW\Services\ServicesFactory;
 use SMWQuery;
 use SMWQueryProcessor;
+use SpecialVersion;
 use SRF\DataTables;
 
 class Api extends ApiBase {
@@ -53,7 +54,7 @@ class Api extends ApiBase {
 		$printer = new Datatables( 'datatables', true );
 
 		// get defaults of parameters for the 'datatable' result format as array of ParamDefinition
-		$paramDefinitions = ParamDefinition::getCleanDefinitions( $printer->getParamDefinitions( [] ) );
+		$paramDefinitions = ParamDefinitionFactory::newDefault()->newDefinitionsFromArrays( $printer->getParamDefinitions( [] ) );
 
 		// transform into normal key-value array
 		$parameters = [];

@@ -142,7 +142,7 @@ class SearchPanes {
 		$qobj = $querySegmentList[$rootid];
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
-		$propTypeid = $property->findPropertyTypeID();
+		$propTypeid = $property->findPropertyValueType();
 
 		if ( $isCategory ) {
 
@@ -305,7 +305,7 @@ class SearchPanes {
 		}
 
 		// @see ByGroupPropertyValuesLookup
-		$diType = DataTypeRegistry::getInstance()->getDataItemId(
+		$diType = DataTypeRegistry::getInstance()->getDataItemByType(
 			$propTypeid
 		);
 
