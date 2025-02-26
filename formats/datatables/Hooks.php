@@ -36,12 +36,11 @@ class Hooks {
 		}
 
 		$inlineLimit = $query->getLimit();
+
 		$count = self::getCount( $query, $queryEngine );
-		// $limit = ( !empty( $params['defer-each'] ) ? $params['defer-each'] : $inlineLimit );
 
 		if ( empty( $params['noajax'] ) ) {
-			// $lengthmenuMax = max( $params['datatables-lengthmenu'] );
-			$limit = max( $params['datatables-pagelength'], $params['defer-each'], $inlineLimit );
+			$limit = max( $params['datatables-pagelength'], $inlineLimit );
 
 		} else {
 			$limit = $count;
