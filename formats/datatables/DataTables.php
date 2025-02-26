@@ -19,7 +19,6 @@ use SMW\DataValues\PropertyValue;
 use SMW\DIWikiPage;
 use SMW\Localizer\Message;
 use SMW\Parser\RecursiveTextProcessor;
-use SMWQuery as Query;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\PrefixParameterProcessor;
@@ -27,6 +26,7 @@ use SMW\Query\ResultPrinters\ResultPrinter;
 use SMW\Store;
 use SMW\Utils\HtmlTable;
 use SMWDIBlob as DIBlob;
+use SMWQuery as Query;
 use SRF\DataTables\SearchPanes;
 
 class DataTables extends ResultPrinter {
@@ -50,7 +50,7 @@ class DataTables extends ResultPrinter {
 
 	public ?Query $query = null;
 
-	private bool $useAjax;
+	private bool $useAjax = false;
 
 	private HtmlTable $htmlTable;
 
