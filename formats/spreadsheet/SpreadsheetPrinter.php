@@ -12,11 +12,11 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Sanitizer;
-use SMW\FileExportPrinter;
 use SMW\Query\ExportPrinter;
+use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 use SMWDataValue;
-use SMWQueryResult;
-use SMWResultArray;
 use Title;
 
 /**
@@ -58,32 +58,32 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	public function getMimeType( SMWQueryResult $queryResult ) {
+	public function getMimeType( QueryResult $queryResult ) {
 		return $this->fileFormat[ 'mimetype' ];
 	}
 
 	/**
 	 * @see ExportPrinter::getFileName
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	public function getFileName( SMWQueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ) {
 		return ( $this->params[ 'filename' ] ?: base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
 	}
 
 	/**
 	 * @see ExportPrinter::outputAsFile
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
+	public function outputAsFile( QueryResult $queryResult, array $params ) {
 		if ( array_key_exists( 'fileformat', $params ) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats ) ) {
 			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
 		} else {
@@ -138,7 +138,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
 	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputMode ) {
+	protected function getResultText( QueryResult $queryResult, $outputMode ) {
 		if ( $outputMode === SMW_OUTPUT_FILE ) {
 			return $this->getResultFileContents( $queryResult );
 		}
@@ -148,13 +148,13 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
 	 */
-	protected function getResultFileContents( SMWQueryResult $queryResult ) {
+	protected function getResultFileContents( QueryResult $queryResult ) {
 		$spreadsheet = $this->createSpreadsheet();
 		$worksheet = $spreadsheet->getSheet( 0 );
 
@@ -217,11 +217,11 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 	/**
 	 * @param Worksheet $worksheet
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
-	protected function populateWorksheet( Worksheet $worksheet, SMWQueryResult $queryResult ) {
+	protected function populateWorksheet( Worksheet $worksheet, QueryResult $queryResult ) {
 		$rowIterator = $worksheet->getRowIterator( self::HEADER_ROW_OFFSET );
 
 		// Get headers
@@ -242,12 +242,12 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * Populates the PhpSpreadsheet sheet with the headers from the result query
 	 *
 	 * @param Row $row
-	 * @param SMWQueryResult $queryResult The query result
+	 * @param QueryResult $queryResult The query result
 	 *
 	 * @return Row
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
-	protected function populateHeaderRow( Row $row, SMWQueryResult $queryResult ) {
+	protected function populateHeaderRow( Row $row, QueryResult $queryResult ) {
 		$printRequests = $queryResult->getPrintRequests();
 		$cellIterator = $row->getCellIterator();
 
@@ -288,11 +288,11 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 	/**
 	 * @param Cell $cell
-	 * @param SMWResultArray $field
+	 * @param ResultArray $field
 	 *
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 */
-	protected function populateCell( Cell $cell, SMWResultArray $field ) {
+	protected function populateCell( Cell $cell, ResultArray $field ) {
 		$dataItems = $field->getContent();
 
 		if ( $dataItems === false ) {

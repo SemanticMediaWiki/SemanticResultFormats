@@ -2,6 +2,7 @@
 
 namespace SRF\Formats\Tree;
 
+use SMW\Query\Result\ResultArray;
 use Tree\Node\NodeInterface;
 use Tree\Visitor\Visitor;
 
@@ -40,7 +41,7 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	protected function getTextForNode( TreeNode $node ) {
-		/** @var \SMWResultArray[]|null $row */
+		/** @var ResultArray[]|null $row */
 		$row = $node->getValue();
 
 		if ( $row === null ) {
@@ -62,7 +63,7 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	/**
-	 * @param \SMWResultArray[] $row
+	 * @param ResultArray[] $row
 	 *
 	 * @return string
 	 */
@@ -96,7 +97,7 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	/**
-	 * @param \SMWResultArray[] $row
+	 * @param ResultArray[] $row
 	 *
 	 * @return string
 	 */
@@ -116,12 +117,12 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	/**
-	 * @param \SMWResultArray $cell
+	 * @param ResultArray $cell
 	 * @param int $columnNumber
 	 *
 	 * @return string
 	 */
-	protected function getValuesTextForCell( \SMWResultArray $cell, $columnNumber ) {
+	protected function getValuesTextForCell( ResultArray $cell, $columnNumber ) {
 		$cell->reset();
 		$linker = $this->resultPrinter->getLinkerForColumn( $columnNumber );
 
@@ -136,7 +137,7 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	/**
-	 * @param \SMWResultArray $cell
+	 * @param ResultArray $cell
 	 * @param int $columnNumber
 	 *
 	 * @return string
@@ -159,7 +160,7 @@ class TreeNodePrinter implements Visitor {
 	}
 
 	/**
-	 * @param \SMWResultArray $cell
+	 * @param ResultArray $cell
 	 *
 	 * @return string
 	 */
