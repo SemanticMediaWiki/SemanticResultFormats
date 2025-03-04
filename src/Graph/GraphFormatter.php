@@ -45,9 +45,8 @@ class GraphFormatter {
 
 		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
 		// and formatting is a little different from the GraphViz extension
-		global $wgVersion;
 		$this->lineSeparator
-			= version_compare( $wgVersion, '1.33', '>=' ) && \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
+			= \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
 			? '<br />'
 			: PHP_EOL;
 	}
@@ -75,8 +74,6 @@ class GraphFormatter {
 	 * @param SRF\Graph\GraphNodes[] $nodes
 	 */
 	public function buildGraph( $nodes ) {
-		global $wgVersion;
-
 		$this->add( 'digraph "' . $this->options->getGraphName() . '" {' );
 
 		// set fontsize and fontname of graph, nodes and edges
@@ -119,8 +116,7 @@ class GraphFormatter {
 				$nodeTooltip = $nodeLabel ?: $node->getID();
 				// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
 				// and formatting is a little different from the GraphViz extension
-				if ( version_compare( $wgVersion, '1.33', '>=' ) &&
-					\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+				if ( \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
 					$nodeTooltip = str_replace( '<br />', '', $nodeTooltip );
 				}
 				// Label in HTML form enclosed with <>.
