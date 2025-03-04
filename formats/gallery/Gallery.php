@@ -132,8 +132,8 @@ class Gallery extends ResultPrinter {
 			}
 		}
 
-		if ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ||
-			$this->params['redirects'] !== '' && in_array( $this->params['redirects'], $printReqLabels ) ) {
+		if ( ( $this->params['imageproperty'] !== '' && in_array( $this->params['imageproperty'], $printReqLabels ) ) ||
+			( $this->params['redirects'] !== '' && in_array( $this->params['redirects'], $printReqLabels ) ) ) {
 
 			$this->addImageProperties(
 				$results,

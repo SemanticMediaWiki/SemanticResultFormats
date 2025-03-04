@@ -911,8 +911,8 @@ class DataTables extends ResultPrinter {
 			// Restore output in Special:Ask on:
 			// - file/image parsing
 			// - text formatting on string elements including italic, bold etc.
-			if ( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIWikiPage && $dataItem->getNamespace() === NS_FILE ||
-				$outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIBlob ) {
+			if ( ( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIWikiPage && $dataItem->getNamespace() === NS_FILE ) ||
+				( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIBlob ) ) {
 				// Too lazy to handle the Parser object and besides the Message
 				// parse does the job and ensures no other hook is executed
 				$value = Message::get(
