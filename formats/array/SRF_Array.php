@@ -288,14 +288,19 @@ class SRFArray extends ResultPrinter {
 	}
 
 	protected function initializeCfgValue( $dfltVal, $dfltCacheKey ) {
+		if ( !isset( self::$mDefaultSeps ) || !is_array( self::$mDefaultSeps ) ) {
+			self::$mDefaultSeps = [];
+		}
+
 		$cache = &self::$mDefaultSeps[$dfltCacheKey];
+
 		if ( !isset( $cache ) ) {
 			$cache = $this->getCfgSepText( $dfltVal );
 			if ( $cache === null ) {
-				// cache can't be initialized, propably function-reference in userconfig
+				// cache can't be initialized, probably function-reference in user config
 				// but format is not used in inline context, use fallback in this case:
 				global $wgSrfgArraySepTextualFallbacks;
-				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey];
+				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey] ?? ''; // Default to empty string
 			}
 		}
 		return $cache;
