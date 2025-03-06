@@ -26,6 +26,15 @@ class OutlineResultPrinter extends ResultPrinter {
 	}
 
 	/**
+	 * @see ResultPrinter::isDeferrable
+	 *
+	 * {@inheritDoc}
+	 */
+	public function isDeferrable() {
+		return true;
+	}
+
+	/**
 	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
