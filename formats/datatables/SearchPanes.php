@@ -126,7 +126,8 @@ class SearchPanes {
 
 		$qobj = $querySegmentList[$rootid];
 
-		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
+		// lookup the property by the provided label, trim leading '-' to handle inverse properties
+		$property = new DIProperty( DIProperty::newFromUserLabel( ltrim( $printRequest->getCanonicalLabel(), '-' ) ) );
 		$propTypeid = $property->findPropertyValueType();
 
 		if ( $isCategory ) {
