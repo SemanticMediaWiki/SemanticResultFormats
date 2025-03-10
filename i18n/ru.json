@@ -335,6 +335,7 @@
 	"srf-ui-mediaplayer-label-repeat-off": "Повторение выкл",
 	"srf-ui-mediaplayer-label-full-screen": "На весь экран",
 	"srf-ui-mediaplayer-label-restore-screen": "Восстановить экран",
+	"srf-ui-slideshow-slide-button-play": "воспроизвести",
 	"srf-ui-slideshow-slide-button-pause": "пауза",
 	"srf-spreadsheet-link": "Таблица",
 	"srf-paramdesc-spreadsheet-filename": "Имя файла при скачивании сгенерированной электронной таблицы",
