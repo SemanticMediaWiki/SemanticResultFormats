@@ -313,7 +313,7 @@
 	"srf-ui-eventcalendar-label-update-error": "Le actualisation del calendario de eventos ha fallite.",
 	"srf-ui-eventcalendar-click-popup": "Vole tu crear un evento?",
 	"srf-printername-dygraphs": "Graphico Dygraphs",
-	"srf-paramdesc-datasource": "Le fonte del qual le datos es accessibile. Valores permittite: \"file\", \"raw\" (crude) e \"url\". Predefinition: \"file\"",
+	"srf-paramdesc-datasource": "Le fonte ubi le datos es accessibile. Valores permittite: “file”, “raw” (brute) e “url”. Predefinite: “file”",
 	"srf-paramdesc-errorbar": "Le barra de errores a usar. Valores permittite: \"fraction\" (intervallos de confidentia pro valores), \"sigma\" (deviation standard de valores) e \"range\" (intervallos personalisate de valores)",
 	"srf-paramdesc-movingaverage": "Monstrar le media sur un numero de dies (zero indica que il non ha media mobile)",
 	"srf-paramdesc-yaxislabel": "Description que appare sur le axe y",
@@ -381,6 +381,7 @@
 	"srf-paramdesc-prolog-fileformat": "Le formato a producer pro le file de predicatos. Valores permittite: pl, pro. Predefinition: pl",
 	"srf-paramdesc-prolog-pname": "Le nomine del predicatos generate. Predefinite: predicate",
 	"srf-paramdesc-prolog-navalue": "Le valor pro datos mancante. Predefinition: ‘NA’",
+	"srf-prolog-link": "Predicatos",
 	"srf-printername-dataframe": "Quadro de datos R",
 	"srf-paramdesc-dataframe-filename": "Le nomine de file pro le discargamento del quadro de datos generate",
 	"srf-paramdesc-dataframe-fileformat": "Le formato a producer pro le quadro de datos. Valores permittite: R"
