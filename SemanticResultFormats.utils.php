@@ -28,21 +28,6 @@ final class SRFUtils {
 	}
 
 	/**
-	 * Add JavaScript variables to the output
-	 *
-	 * @since 1.8
-	 */
-	public static function addGlobalJSVariables() {
-		$options = [
-			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
-			'srfVersion' => SRF_VERSION
-		];
-
-		$requireHeadItem = [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem ) );
-	}
-
-	/**
 	 * Returns semantic search link for the current query
 	 *
 	 * Generate a link to access the current ask query

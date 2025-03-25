@@ -147,9 +147,6 @@ class Gallery extends ResultPrinter {
 			$this->addImagePages( $results, $ig );
 		}
 
-		// SRF Global settings
-		SRFUtils::addGlobalJSVariables();
-
 		// Display a processing image as long as the DOM is no ready
 		if ( $this->params['widget'] !== '' ) {
 			$processing = SRFUtils::htmlProcessingElement();
