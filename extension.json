@@ -38,22 +38,22 @@
 		"SRF\\Tests\\": "tests/phpunit/"
 	},
 	"QUnitTestModule": {
-		"localBasePath": "",
-		"remoteExtPath": "SemanticResultFormats",
+		"localBasePath": "tests/qunit/",
+		"remoteExtPath": "SemanticResultFormats/tests/qunit/",
 		"scripts": [
-			"tests/qunit/ext.srf.test.js",
-			"tests/qunit/ext.srf.util.test.js",
-			"tests/qunit/formats/ext.srf.formats.datatables.test.js",
-			"tests/qunit/formats/ext.srf.formats.carousel.test.js",
-			"tests/qunit/formats/ext.srf.formats.eventcalendar.tests.js",
-			"tests/qunit/formats/ext.srf.formats.filtered.test.js",
-			"tests/qunit/formats/ext.srf.formats.gallery.test.js",
-			"tests/qunit/formats/ext.srf.formats.media.test.js",
-			"tests/qunit/formats/ext.srf.formats.tagcloud.test.js",
-			"tests/qunit/widgets/ext.srf.widgets.eventcalendar.tests.js",
-			"tests/qunit/widgets/ext.srf.widgets.optionslist.test.js",
-			"tests/qunit/widgets/ext.srf.widgets.panel.test.js",
-			"tests/qunit/widgets/ext.srf.widgets.parameters.test.js"
+			"ext.srf.test.js",
+			"ext.srf.util.test.js",
+			"formats/ext.srf.formats.datatables.test.js",
+			"formats/ext.srf.formats.carousel.test.js",
+			"formats/ext.srf.formats.eventcalendar.tests.js",
+			"formats/ext.srf.formats.filtered.test.js",
+			"formats/ext.srf.formats.gallery.test.js",
+			"formats/ext.srf.formats.media.test.js",
+			"formats/ext.srf.formats.tagcloud.test.js",
+			"widgets/ext.srf.widgets.eventcalendar.tests.js",
+			"widgets/ext.srf.widgets.optionslist.test.js",
+			"widgets/ext.srf.widgets.panel.test.js",
+			"widgets/ext.srf.widgets.parameters.test.js"
 		],
 		"dependencies": [
 			"ext.srf",
