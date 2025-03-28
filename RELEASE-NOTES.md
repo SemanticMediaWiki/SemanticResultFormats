@@ -6,11 +6,11 @@ Released on TDB
 
 Compatibility changes
 
-* Added compatibility with Semantic MediaWiki 5.x
-* Changed minimum PHP version from 7.3 to 8.0
-* Improved PHP support up to version 8.4
 * Changed minimum MediaWiki version from 1.35 to 1.39
-* Improved MediaWiki support up to 1.43
+* Changed minimum PHP version from 7.3 to 8.1
+* Added compatibility with Semantic MediaWiki 5.x
+* Added support for PHP up to version 8.4
+* Added support for MediaWiki support up to version 1.43
 
 Breaking changes
 
