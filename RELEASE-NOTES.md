@@ -28,11 +28,12 @@ Released on TDB
   * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833 (by @thomas-topway-it)
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
-* Improved carousel format ([857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857))
+* Improved `carousel` format ([857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857))
 
 Bug fixes
 
-* Fixed precision issue in the time format
+* Fixed precision issue in the `time` format
+* Fixed reuse of values output by the `incoming` format when no template is used
 
 ## SRF 4.2.1
 
