@@ -141,19 +141,24 @@ class SRFIncoming extends ResultPrinter {
 			$result = implode( $this->params['sep'], array_keys( $data ) );
 		}
 
-		// Beautify class selector
-		$class = $this->params['template'] ? 'srf-incoming ' . str_replace(
+		if ( $this->params['template'] ) {
+			// Beautify class selector
+			$class = 'srf-incoming ' . str_replace(
 				" ",
 				"-",
 				$this->params['template']
-			) : 'srf-incoming';
+			);
 
-		// Output
-		return Html::rawElement(
-			'div',
-			[ 'class' => $class ],
-			$result
-		);
+			// Output
+			return Html::rawElement(
+				'div',
+				[ 'class' => $class ],
+				$result
+			);
+		} else {
+			// Output without template
+			return $result;
+		}
 	}
 
 	/**
