@@ -393,7 +393,7 @@ class SRFCalendar extends ResultPrinter {
 			$lastDayOfWeek = 7;
 		} else {
 			$firstDayOfWeek =
-				array_search( $srfgFirstDayOfWeek, $weekDayNames );
+				array_search( wfMessage( $srfgFirstDayOfWeek )->text(), $weekDayNames );
 			if ( $firstDayOfWeek === false ) {
 				// Bad value for $srfgFirstDayOfWeek!
 				print 'Warning: Bad value for $srfgFirstDayOfWeek "' .
