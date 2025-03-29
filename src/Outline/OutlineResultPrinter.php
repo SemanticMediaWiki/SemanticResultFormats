@@ -2,8 +2,8 @@
 
 namespace SRF\Outline;
 
-use SMWQueryResult as QueryResult;
-use SMWResultPrinter as ResultPrinter;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * A class to print query results in an outline format, along with some
@@ -26,7 +26,16 @@ class OutlineResultPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::isDeferrable
+	 *
+	 * {@inheritDoc}
+	 */
+	public function isDeferrable() {
+		return true;
+	}
+
+	/**
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

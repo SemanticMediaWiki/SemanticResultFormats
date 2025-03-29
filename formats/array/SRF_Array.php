@@ -13,11 +13,15 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use SMW\DataValueFactory;
+use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * Array format
  */
-class SRFArray extends SMWResultPrinter {
+class SRFArray extends ResultPrinter {
 
 	protected static $mDefaultSeps = [];
 	protected $mSep;
@@ -55,16 +59,16 @@ class SRFArray extends SMWResultPrinter {
 
 	/**
 	 * By overwriting this function, we disable default searchlabel handling?
-	 * public function getResult( SMWQueryResult $results, array $params, $outputmode ) {
+	 * public function getResult( QueryResult $results, array $params, $outputmode ) {
 	 * $this->handleParameters( $params, $outputmode );
 	 * return $this->getResultText( $results, $outputmode );
 	 * }
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		/*
 		 * @todo
 		 * labels of requested properties could define default values. Seems not possible at the moment because
-		 * SMWPrintRequest::getLable() always returns the property name even if no specific label is defined.
+		 * \SMW\Query\PrintRequest::getLable() always returns the property name even if no specific label is defined.
 		 */
 
 		$perPage_items = [];
@@ -82,7 +86,7 @@ class SRFArray extends SMWResultPrinter {
 			$isPageTitle = !$this->mMainLabelHack;
 
 			// for each property on that page:
-			// $row is array(), $field of type SMWResultArray
+			// $row is array(), $field of type ResultArray
 			foreach ( $row as $field ) {
 				$manyValue_items = [];
 				$isMissingProperty = false;
@@ -114,7 +118,7 @@ class SRFArray extends SMWResultPrinter {
 							$recordItems = $obj->getDataItems();
 							// walk all single values of the record set:
 							foreach ( $recordItems as $dataItem ) {
-								$recordField = $dataItem !== null ? SMWDataValueFactory::getInstance(
+								$recordField = $dataItem !== null ? DataValueFactory::getInstance(
 								)->newDataValueByItem( $dataItem, null ) : null;
 								$value_items = $this->fillDeliveryArray(
 									$value_items,
@@ -187,9 +191,9 @@ class SRFArray extends SMWResultPrinter {
 	/**
 	 * Method deliverMissingProperty
 	 *
-	 * @param SMWResultArray $field
+	 * @param ResultArray $field
 	 */
-	protected function deliverMissingProperty( SMWResultArray $field ) {
+	protected function deliverMissingProperty( ResultArray $field ) {
 		if ( $this->mHidePropertyGaps ) {
 			return null;
 		} else {
@@ -212,7 +216,7 @@ class SRFArray extends SMWResultPrinter {
 		return implode( $this->mRecordSep, $value_items );
 	}
 
-	protected function deliverPropertiesManyValues( $manyValue_items, $isMissingProperty, $isPageTitle, SMWResultArray $data ) {
+	protected function deliverPropertiesManyValues( $manyValue_items, $isMissingProperty, $isPageTitle, ResultArray $data ) {
 		if ( empty( $manyValue_items ) ) {
 			return null;
 		}
@@ -284,14 +288,19 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	protected function initializeCfgValue( $dfltVal, $dfltCacheKey ) {
+		if ( !isset( self::$mDefaultSeps ) || !is_array( self::$mDefaultSeps ) ) {
+			self::$mDefaultSeps = [];
+		}
+
 		$cache = &self::$mDefaultSeps[$dfltCacheKey];
+
 		if ( !isset( $cache ) ) {
 			$cache = $this->getCfgSepText( $dfltVal );
 			if ( $cache === null ) {
-				// cache can't be initialized, propably function-reference in userconfig
+				// cache can't be initialized, probably function-reference in user config
 				// but format is not used in inline context, use fallback in this case:
 				global $wgSrfgArraySepTextualFallbacks;
-				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey];
+				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey] ?? ''; // Default to empty string
 			}
 		}
 		return $cache;
@@ -400,7 +409,7 @@ class SRFArray extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

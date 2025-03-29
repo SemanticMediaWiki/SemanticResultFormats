@@ -94,6 +94,7 @@ final class SRFHooks {
 	 * @return true
 	 */
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
+		// Powers srf.settings.get(), via ext.stf.js.
 		$vars['srf-config'] = [
 			'version' => SRF_VERSION,
 			'settings' => [

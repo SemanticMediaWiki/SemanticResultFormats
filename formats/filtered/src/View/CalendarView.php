@@ -51,10 +51,10 @@ class CalendarView extends View {
 			$datavalue = $field->getNextDataValue();
 
 			if ( $datavalue instanceof \SMWTimeValue &&
-				( $printRequest->getLabel() === $this->start || $this->start === null && !array_key_exists(
+				( $printRequest->getLabel() === $this->start || ( $this->start === null && !array_key_exists(
 						'start',
 						$data
-					) )
+					) ) )
 			) {
 				// found specified column for start date
 				// OR no column for start date specified, take first available date value
@@ -67,10 +67,10 @@ class CalendarView extends View {
 			}
 
 			if ( $this->titleTemplate === null &&
-				( $printRequest->getLabel() === $this->title || $this->title === null && !array_key_exists(
+				( $printRequest->getLabel() === $this->title || ( $this->title === null && !array_key_exists(
 						'title',
 						$data
-					) )
+					) ) )
 			) {
 				// found specified column for title
 				if ( $datavalue !== false ) {

@@ -1,5 +1,9 @@
 <?php
 
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+use SMW\RequestOptions;
+
 /**
  * @brief Find incoming properties to a result set
  *
@@ -10,7 +14,7 @@
  * @ingroup SemanticResultFormats
  * @file SRF_Incoming.php
  */
-class SRFIncoming extends SMWResultPrinter {
+class SRFIncoming extends ResultPrinter {
 
 	/**
 	 * Get a human readable label for this printer.
@@ -26,12 +30,12 @@ class SRFIncoming extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputmode ) {
+	protected function getResultText( QueryResult $result, $outputmode ) {
 		$data = $this->getResultData( $result, $outputmode );
 
 		// Bailout if we have no results
@@ -50,18 +54,18 @@ class SRFIncoming extends SMWResultPrinter {
 	/**
 	 * Return relevant data set
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultData( SMWQueryResult $res, $outputMode ) {
+	protected function getResultData( QueryResult $res, $outputMode ) {
 		// Init
 		$properties = [];
 		$excludeProperties = explode( $this->params['sep'], $this->params['exclude'] );
 
 		// Options used when retrieving data from the store
-		$reqOptions = new SMWRequestOptions();
+		$reqOptions = new RequestOptions();
 		$reqOptions->sort = true;
 		$reqOptions->limit = $this->params['limit'];
 
@@ -82,7 +86,7 @@ class SRFIncoming extends SMWResultPrinter {
 				// to implement any native db select outside of smw core and rather
 				// would like to see a counting method available but to counter
 				// any potential inefficiencies we curb the selection by using
-				// SMWRequestOptions -> limit as boundary
+				// RequestOptions -> limit as boundary
 				$count = count( $res->getStore()->getPropertySubjects( $property, $page, $reqOptions ) );
 
 				// Limit ouput by threshold
@@ -137,23 +141,28 @@ class SRFIncoming extends SMWResultPrinter {
 			$result = implode( $this->params['sep'], array_keys( $data ) );
 		}
 
-		// Beautify class selector
-		$class = $this->params['template'] ? 'srf-incoming ' . str_replace(
+		if ( $this->params['template'] ) {
+			// Beautify class selector
+			$class = 'srf-incoming ' . str_replace(
 				" ",
 				"-",
 				$this->params['template']
-			) : 'srf-incoming';
+			);
 
-		// Output
-		return Html::rawElement(
-			'div',
-			[ 'class' => $class ],
-			$result
-		);
+			// Output
+			return Html::rawElement(
+				'div',
+				[ 'class' => $class ],
+				$result
+			);
+		} else {
+			// Output without template
+			return $result;
+		}
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

@@ -1,7 +1,10 @@
 <?php
 
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\EmbeddedResultPrinter;
+
 /**
- * Extends the SMWEmbeddedResultPrinter with a JavaScript carousel widget
+ * Extends the EmbeddedResultPrinter with a JavaScript carousel widget
  *
  * @since 1.8
  *
@@ -10,7 +13,7 @@
  * @ingroup SemanticResultFormats
  * @file
  */
-class SRFPageWidget extends SMWEmbeddedResultPrinter {
+class SRFPageWidget extends EmbeddedResultPrinter {
 
 	/**
 	 * Get a human readable label for this printer.
@@ -22,18 +25,18 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputMode ) {
+	protected function getResultText( QueryResult $res, $outputMode ) {
 		// Initialize
 		static $statNr = 0;
 
-		// Get results from SMWListResultPrinter
+		// Get results from \SMW\Query\ResultPrinters\ListResultPrinter
 		$result = parent::getResultText( $res, $outputMode );
 
 		// Count widgets
@@ -71,7 +74,7 @@ class SRFPageWidget extends SMWEmbeddedResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

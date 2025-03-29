@@ -4,31 +4,42 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on TDB
 
-Compatibility changes
+### Compatibility Changes
 
+* Changed the minimum MediaWiki version from 1.35 to 1.39
+* Changed the minimum PHP version from 7.3 to 8.1
 * Added compatibility with Semantic MediaWiki 5.x
-* Changed minimum PHP version from 7.3 to 8.0
-* Improved PHP support up to version 8.4
-* Changed minimum MediaWiki version from 1.35 to 1.39
-* Improved MediaWiki support up to 1.43
+* Added support for PHP up to version 8.4
+* Added support for MediaWiki support up to version 1.43
 
-Breaking changes
+### Breaking Changes
 
-* 
+* Removed the Exhibit format
 
-New features and enhancements
+### New Features and Enhancements
 
-* [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) Updated DataTables from 1.13.2 to 2.1.8 (by @alistair3149)
+* Overhauled DataTables format
+  * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
+  * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
+  * [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871) (by @alistair3149)
+  * [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
+  * [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
+  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845 (by @robinwiel)
+  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833 (by @thomas-topway-it)
+* Added `prolog` format that generates SVO predicates
+* Added `dataframe` format
+* Improved `carousel` format ([857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857))
 
 Bug fixes
 
-* 
+* Fixed precision issue in the `time` format
+* Fixed reuse of values output by the `incoming` format when no template is used
 
 ## SRF 4.2.1
 
 Released on March 13, 2024.
 
-* [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin) 
+* [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin)
 * [806](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/806) Added required resources for the bubble chare to the jqplotchart format (by@YOUR1)
 * [805](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/805) Fixed issue creating a lot of log spam (by @sophivorus)
 * [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow paramter to the carousel format (by @thomas-topway-it)

@@ -5,9 +5,8 @@ namespace SRF\Graph;
 use Html;
 use MediaWiki\MediaWikiServices;
 use SMW\Query\PrintRequest;
-use SMW\Query\Result\ResultArray;
-use SMW\ResultPrinter;
-use SMWQueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -97,7 +96,7 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
 	protected function handleParameters( array $params, $outputmode ) {
 		parent::handleParameters( $params, $outputmode );
@@ -140,12 +139,12 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		// Remove this once SRF requires 3.1+
 		if ( $this->hasMissingDependency() ) {
 			return $this->getDependencyError();
@@ -162,9 +161,7 @@ class GraphPrinter extends ResultPrinter {
 
 		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams or External Data extension
 		// and formatting is a little different from the GraphViz extension
-		global $wgVersion;
-		if ( version_compare( $wgVersion, '1.33', '>=' ) &&
-			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+		if ( \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
 			// Using Diagrams extension.
 			$result = "<graphviz>{$graphFormatter->getGraph()}</graphviz>";
 		} else {
@@ -246,7 +243,7 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

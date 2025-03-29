@@ -224,7 +224,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
