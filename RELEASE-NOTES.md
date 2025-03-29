@@ -19,6 +19,7 @@ Released on TDB
 ### New Features and Enhancements
 
 * Overhauled DataTables format
+  * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
   * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
   * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
   * [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871) (by @alistair3149)
