@@ -13,6 +13,9 @@
 namespace SRF;
 
 use Html;
+use MediaWiki\MediaWikiServices;
+use Mediawiki\Title\Title;
+use MWException;
 use Parser;
 use RequestContext;
 use SMW\DataValues\PropertyValue;
@@ -419,9 +422,13 @@ class DataTables extends ResultPrinter {
 		$this->isHTML = true;
 		$this->hasTemplates = false;
 
-		$this->parser = $this->copyParser();
+		$outputMode = ( $this->params['apicall'] !== 'apicall' ? SMW_OUTPUT_HTML : $this->outputMode );
 
-		$outputMode = ( $this->params['apicall'] !== "apicall" ? SMW_OUTPUT_HTML : $this->outputMode );
+		if ( $this->params['apicall'] === 'apicall' ) {
+			$this->initializePrintoutParametersAndParser( $results );
+		} else {
+			$this->parser = $this->copyParser();
+		}
 
 		// Get output from printer:
 		$result = $this->getResultText( $results, $outputMode );
@@ -433,6 +440,33 @@ class DataTables extends ResultPrinter {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @param QueryResult $results
+	 */
+	protected function initializePrintoutParametersAndParser( QueryResult $results ) {
+		// rebuild $this->printoutsParameters from
+		// printouts since $this->getPrintouts is not invoked
+		// alternatively use the $data['printouts'] from the Api
+		$printRequests = $results->getPrintRequests();
+		foreach ( $printRequests as $printRequest ) {
+			$canonicalLabel = $printRequest->getCanonicalLabel();
+			$this->printoutsParameters[$canonicalLabel] = $printRequest->getParameters();
+		}
+
+		// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/854
+		// the following ensures that $this->parser->recursiveTagParseFully
+		// (getCellContent) will work
+		$context = RequestContext::getMain();
+		$performer = $context->getUser();
+		$output = $context->getOutput();
+
+		$this->parser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
+		$this->parser->setTitle( $output->getTitle() );
+		$this->parser->setOptions( $output->parserOptions() );
+		$this->parser->setOutputType( Parser::OT_HTML );
+		$this->parser->clearState();
 	}
 
 	/**
@@ -462,6 +496,8 @@ class DataTables extends ResultPrinter {
 
 		// Apply intro parameter
 		if ( ( $this->mIntro ) && ( $results->getCount() > 0 ) ) {
+			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/853
+			// $result = $this->parser->recursiveTagParseFully( $this->mIntro ) . $result;
 			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
 				$result = Message::get( [ 'smw-parse', $this->mIntro ], Message::PARSE ) . $result;
 			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
@@ -471,6 +507,8 @@ class DataTables extends ResultPrinter {
 
 		// Apply outro parameter
 		if ( ( $this->mOutro ) && ( $results->getCount() > 0 ) ) {
+			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/853
+			// $result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
 			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
 				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
 			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
@@ -931,9 +969,13 @@ class DataTables extends ResultPrinter {
 			}
 
 			if ( $template ) {
-				// escape pipe character
-				$value_ = str_replace( '|', '&#124;', (string)$value );
-				$value = $this->parser->recursiveTagParseFully( '{{' . $template . '|' . $value_ . '}}' );
+				// @fixme use named parameter ?
+				$titleTemplate = Title::makeTitle( NS_TEMPLATE,
+					Title::capitalize( $template, NS_TEMPLATE ) );
+				$value_ = $this->expandTemplate( $titleTemplate, [ 1 => $value ] );
+				$value = Parser::stripOuterParagraph(
+					$this->parser->recursiveTagParseFully( $value_ )
+				);
 			}
 
 			$values[] = $value === '' ? '&nbsp;' : $value;
@@ -964,6 +1006,38 @@ class DataTables extends ResultPrinter {
 			'filter' => $sortKey,
 			'sort' => $sortKey
 		];
+	}
+
+	/**
+	 * @see https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/VisualData/+/refs/heads/master/includes/classes/ResultPrinter.php
+	 * @param Title|Mediawiki\Title\Title $title
+	 * @param array $args
+	 * @return array
+	 */
+	public function expandTemplate( $title, $args ) {
+		$titleText = $title->getText();
+		$frame = $this->parser->getPreprocessor()->newFrame();
+
+		if ( $frame->depth >= $this->parser->getOptions()->getMaxTemplateDepth() ) {
+			throw new MWException( 'expandTemplate: template depth limit exceeded' );
+		}
+
+		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
+			throw new MWException( 'expandTemplate: template inclusion denied' );
+		}
+
+		[ $dom, $finalTitle ] = $this->parser->getTemplateDom( $title );
+		if ( $dom === false ) {
+			throw new MWException( "expandTemplate: template \"$titleText\" does not exist" );
+		}
+
+		if ( !$frame->loopCheck( $finalTitle ) ) {
+			throw new MWException( 'expandTemplate: template loop detected' );
+		}
+
+		$fargs = $this->parser->getPreprocessor()->newPartNodeArray( $args );
+		$newFrame = $frame->newChild( $fargs, $finalTitle );
+		return $newFrame->expand( $dom );
 	}
 
 	/**
