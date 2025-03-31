@@ -12,7 +12,8 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@types/fullcalendar": "2.7.42",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
     "@types/ion.rangeslider": "^2.0.29",
     "@types/jquery": "^2.0.51",
     "@types/jqueryui": "^1.12.5",

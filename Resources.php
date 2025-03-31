@@ -780,7 +780,8 @@ return [
 			],
 			'dependencies' => [
 				'ext.srf.filtered.calendar-view.messages',
-				'ext.jquery.fullcalendar'
+				// included using gulp
+				// 'ext.jquery.fullcalendar'
 			],
 		],
 
