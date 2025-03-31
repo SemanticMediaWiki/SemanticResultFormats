@@ -21,6 +21,7 @@ Released on TDB
   * [901](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/901) (by @thomas-topway-it for ([KM-A](https://km-a.net))
   * [930](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/930) (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Overhauled DataTables format 
+  * [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
   * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
   * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
   * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
