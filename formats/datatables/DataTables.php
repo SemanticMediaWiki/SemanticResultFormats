@@ -14,10 +14,10 @@ namespace SRF;
 
 use Html;
 use MediaWiki\MediaWikiServices;
+use Mediawiki\Title\Title;
 use MWException;
 use Parser;
 use RequestContext;
-use Mediawiki\Title\Title;
 use SMW\DataValues\PropertyValue;
 use SMW\DIWikiPage;
 use SMW\Localizer\Message;
