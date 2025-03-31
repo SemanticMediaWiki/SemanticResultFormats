@@ -464,7 +464,7 @@ class DataTables extends ResultPrinter {
 		$this->parser->setTitle( $output->getTitle() );
 		$this->parser->setOptions( $output->parserOptions() );
 		$this->parser->setOutputType( Parser::OT_HTML );
-		$this->parser->clearState();	
+		$this->parser->clearState();
 	}
 
 	/**
