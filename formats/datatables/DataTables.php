@@ -14,8 +14,10 @@ namespace SRF;
 
 use Html;
 use MediaWiki\MediaWikiServices;
+use MWException;
 use Parser;
 use RequestContext;
+use Mediawiki\Title\Title;
 use SMW\DataValues\PropertyValue;
 use SMW\DIWikiPage;
 use SMW\Localizer\Message;
@@ -967,9 +969,13 @@ class DataTables extends ResultPrinter {
 			}
 
 			if ( $template ) {
-				// escape pipe character
-				$value_ = str_replace( '|', '&#124;', (string)$value );
-				$value = $this->parser->recursiveTagParseFully( '{{' . $template . '|' . $value_ . '}}' );
+				// @fixme use named parameter ?
+				$titleTemplate = Title::makeTitle( NS_TEMPLATE,
+					Title::capitalize( $template, NS_TEMPLATE ) );
+				$value_ = $this->expandTemplate( $titleTemplate, [ 1 => $value ] );
+				$value = Parser::stripOuterParagraph(
+					$this->parser->recursiveTagParseFully( $value_ )
+				);
 			}
 
 			$values[] = $value === '' ? '&nbsp;' : $value;
@@ -1000,6 +1006,38 @@ class DataTables extends ResultPrinter {
 			'filter' => $sortKey,
 			'sort' => $sortKey
 		];
+	}
+
+	/**
+	 * @see https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/VisualData/+/refs/heads/master/includes/classes/ResultPrinter.php
+	 * @param Title|Mediawiki\Title\Title $title
+	 * @param array $args
+	 * @return array
+	 */
+	public function expandTemplate( $title, $args ) {
+		$titleText = $title->getText();
+		$frame = $this->parser->getPreprocessor()->newFrame();
+
+		if ( $frame->depth >= $this->parser->getOptions()->getMaxTemplateDepth() ) {
+			throw new MWException( 'expandTemplate: template depth limit exceeded' );
+		}
+
+		if ( MediaWikiServices::getInstance()->getNamespaceInfo()->isNonincludable( $title->getNamespace() ) ) {
+			throw new MWException( 'expandTemplate: template inclusion denied' );
+		}
+
+		[ $dom, $finalTitle ] = $this->parser->getTemplateDom( $title );
+		if ( $dom === false ) {
+			throw new MWException( "expandTemplate: template \"$titleText\" does not exist" );
+		}
+
+		if ( !$frame->loopCheck( $finalTitle ) ) {
+			throw new MWException( 'expandTemplate: template loop detected' );
+		}
+
+		$fargs = $this->parser->getPreprocessor()->newPartNodeArray( $args );
+		$newFrame = $frame->newChild( $fargs, $finalTitle );
+		return $newFrame->expand( $dom );
 	}
 
 	/**
