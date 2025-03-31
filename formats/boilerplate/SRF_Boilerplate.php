@@ -1,5 +1,9 @@
 <?php
 
+use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Boilerplate query printer
  *
@@ -18,10 +22,10 @@
  *
  * @ingroup SemanticResultFormats
  */
-class SRFBoilerplate extends SMWResultPrinter {
+class SRFBoilerplate extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 * @return string
 	 */
 	public function getName() {
@@ -30,14 +34,14 @@ class SRFBoilerplate extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+	protected function getResultText( QueryResult $result, $outputMode ) {
 		// Data processing
 		// It is advisable to separate data processing from output logic
 		$data = $this->getResultData( $result, $outputMode );
@@ -74,12 +78,12 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultData( SMWQueryResult $result, $outputMode ) {
+	protected function getResultData( QueryResult $result, $outputMode ) {
 		$data = [];
 
 		// This is an example implementation on how to select available data from
@@ -87,9 +91,9 @@ class SRFBoilerplate extends SMWResultPrinter {
 		// application.
 
 		// Some methods are declared as private to show case which objects are
-		// directly accessible within SMWQueryResult
+		// directly accessible within QueryResult
 
-		// Get all SMWDIWikiPage objects that make up the results
+		// Get all \SMW\DIWikiPage objects that make up the results
 		// $subjects = $this->getSubjects( $result->getResults() );
 
 		// Get all print requests property labels
@@ -98,12 +102,12 @@ class SRFBoilerplate extends SMWResultPrinter {
 		/**
 		 * Get all values for all rows that belong to the result set
 		 *
-		 * @var SMWResultArray $rows
+		 * @var ResultArray $rows
 		 */
 		while ( $rows = $result->getNext() ) {
 
 			/**
-			 * @var SMWResultArray $field
+			 * @var ResultArray $field
 			 * @var SMWDataValue $dataValue
 			 */
 			foreach ( $rows as $field ) {
@@ -141,11 +145,11 @@ class SRFBoilerplate extends SMWResultPrinter {
 	}
 
 	/**
-	 * A quick getway method to find all SMWDIWikiPage objects that make up the results
+	 * A quick getway method to find all \SMW\DIWikiPage objects that make up the results
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 *
 	 * @return array
 	 */
@@ -163,7 +167,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 *
 	 * @return array
 	 */
@@ -268,7 +272,7 @@ class SRFBoilerplate extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

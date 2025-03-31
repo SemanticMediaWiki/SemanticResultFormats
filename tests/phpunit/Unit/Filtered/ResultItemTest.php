@@ -4,11 +4,11 @@ namespace SRF\Tests\Filtered;
 
 use Collation;
 use MediaWiki\MediaWikiServices;
+use SMW\DIWikiPage;
 use SMW\MediaWiki\Collator;
 use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMWDataValue;
-use SMWDIWikiPage;
 use SRF\Filtered\Filtered;
 use SRF\Filtered\ResultItem;
 
@@ -35,7 +35,7 @@ class ResultItemTest extends \PHPUnit\Framework\TestCase {
 
 		$resultArray = $this->createStub( ResultArray::class );
 
-		$dataItem = $this->createStub( SMWDIWikiPage::class );
+		$dataItem = $this->createStub( DIWikiPage::class );
 		$dataItem->method( 'getSortKey' )->willReturn( $sortKey );
 		$dataValue = $this->createStub( SMWDataValue::class );
 		$dataValue->method( 'getDataItem' )->willReturn( $dataItem );

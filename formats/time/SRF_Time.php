@@ -1,5 +1,9 @@
 <?php
 
+use SMW\DataValueFactory;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Formats that returns a time.
  *
@@ -7,11 +11,11 @@
  * @author nischayn22
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class SRFTime extends SMWResultPrinter {
+class SRFTime extends ResultPrinter {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getName()
+	 * @see ResultPrinter::getName()
 	 */
 	public function getName() {
 		// Give grep a chance to find the usages:
@@ -21,9 +25,9 @@ class SRFTime extends SMWResultPrinter {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getResultText()
+	 * @see ResultPrinter::getResultText()
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		$dataItems = $this->getSortKeys( $res );
 
 		if ( empty( $dataItems ) ) {
@@ -41,29 +45,29 @@ class SRFTime extends SMWResultPrinter {
 				break;
 		}
 
-		$dataValue = SMWDataValueFactory::getInstance()->newDataValueByItem( $dataItems[$result], null );
+		$dataValue = DataValueFactory::getInstance()->newDataValueByItem( $dataItems[$result], null );
 		return $dataValue->getLongHTMLText();
 	}
 
 	/**
 	 * Returns an array with sortkeys for dates pointing to their source DataItems.
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 *
 	 * @return array
 	 */
-	protected function getSortKeys( SMWQueryResult $res ) {
+	protected function getSortKeys( QueryResult $res ) {
 		$seconds = [];
 
 		while ( $row = $res->getNext() ) {
-			/* SMWResultArray */
+			/* \SMW\Query\Result\ResultArray */
 			foreach ( $row as
 					  $resultArray ) {
 				/* SMWDataItem */
 				foreach ( $resultArray->getContent() as
 						  $dataItem ) {
 					if ( $dataItem->getDIType() === SMWDataItem::TYPE_TIME ) {
-						$seconds[$dataItem->getSortKey()] = $dataItem;
+						$seconds[(string)$dataItem->getSortKey()] = $dataItem;
 					}
 				}
 			}
@@ -73,7 +77,7 @@ class SRFTime extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *

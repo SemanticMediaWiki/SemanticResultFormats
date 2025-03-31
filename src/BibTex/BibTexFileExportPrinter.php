@@ -2,8 +2,8 @@
 
 namespace SRF\BibTex;
 
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\FileExportPrinter;
-use SMWQueryResult as QueryResult;
 use SMWTimeValue as TimeValue;
 
 /**
@@ -138,7 +138,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $row array of SMWResultArray
+	 * @param $row array of \SMW\Query\Result\ResultArray
 	 *
 	 * @return bibTexItem
 	 */

@@ -11,37 +11,59 @@ jobs:
 
   test:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
         include:
-          - mediawiki_version: '1.35'
-            smw_version: '4.2.0'
-            php_version: 7.4
-            database_type: mysql
-            database_image: "mysql:5.7"
-            coverage: true
-            experimental: false
           - mediawiki_version: '1.39'
             smw_version: dev-master
             php_version: 8.1
             database_type: mysql
             database_image: "mariadb:10"
             coverage: false
-            experimental: true
-#          - mediawiki_version: '1.40'
-#            smw_version: dev-master
-#            php_version: 8.1
-#            database_type: mysql
-#            database_image: "mariadb:10"
-#            coverage: false
-#            experimental: true
+            experimental: false
+          - mediawiki_version: '1.40'
+            smw_version: dev-master
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: true
+            experimental: false
+          - mediawiki_version: '1.41'
+            smw_version: dev-master
+            pf_version: 5.9
+            sfs_version: dev-master
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.42'
+            smw_version: dev-master
+            pf_version: 5.9
+            sfs_version: dev-master
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.43'
+            smw_version: dev-master
+            pf_version: 5.9
+            sfs_version: dev-master
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
 
     env:
       MW_VERSION: ${{ matrix.mediawiki_version }}
       SMW_VERSION: ${{ matrix.smw_version }}
+      PF_VERSION: ${{ matrix.pf_version }}
+      SFS_VERSION: ${{ matrix.sfs_version }}
       PHP_VERSION: ${{ matrix.php_version }}
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}

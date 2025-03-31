@@ -16,14 +16,18 @@ use Html;
 use MediaWiki\MediaWikiServices;
 use Parser;
 use RequestContext;
+use SMW\DataValues\PropertyValue;
 use SMW\DIWikiPage;
-use SMW\Message;
+use SMW\Localizer\Message;
+use SMW\Parser\RecursiveTextProcessor;
 use SMW\Query\PrintRequest;
-use SMW\ResultPrinter;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\PrefixParameterProcessor;
+use SMW\Query\ResultPrinters\ResultPrinter;
+use SMW\Store;
 use SMW\Utils\HtmlTable;
-use SMWPrintRequest;
-use SMWPropertyValue;
-use SMWQueryResult as QueryResult;
+use SMWDIBlob as DIBlob;
+use SMWQuery as Query;
 use SRF\DataTables\SearchPanes;
 
 class DataTables extends ResultPrinter {
@@ -31,42 +35,41 @@ class DataTables extends ResultPrinter {
 	/*
 	 * camelCase params
 	 */
-	protected static $camelCaseParamsKeys = [];
+	protected static array $camelCaseParamsKeys = [];
 
-	private $prefixParameterProcessor;
+	private ?PrefixParameterProcessor $prefixParameterProcessor = null;
 
-	private $printoutsParameters = [];
+	private array $printoutsParameters = [];
 
-	public $printoutsParametersOptions = [];
+	public array $printoutsParametersOptions = [];
 
-	private $parser;
+	private ?Parser $parser = null;
 
-	/** @var bool */
-	private $recursiveAnnotation = false;
+	private bool $recursiveAnnotation = false;
 
-	public $store;
+	public ?Store $store = null;
 
-	public $query;
+	public ?Query $query = null;
 
-	/** @var bool */
-	private $useAjax;
+	private bool $useAjax = false;
 
-	/** @var HtmlTable */
-	private $htmlTable;
+	private HtmlTable $htmlTable;
 
-	/** @var bool */
-	private $hasMultipleValues = false;
+	private bool $hasMultipleValues = false;
 
 	/**
 	 * @see ResultPrinter::getName
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->msg( 'srf-printername-datatables' )->text();
 	}
 
-	public function getParamDefinitions( array $definitions ) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['class'] = [
@@ -101,11 +104,10 @@ class DataTables extends ResultPrinter {
 			'values' => [ 'all', 'subject', 'none', 'auto' ],
 		];
 
-		$params['defer-each'] = [
+		$params['limit'] = [
 			'type' => 'integer',
-			'message' => 'smw-paramdesc-defer-each',
-			// $GLOBALS['smwgQMaxLimit']
-			'default' => 0,
+			'message' => 'smw-paramdesc-limit',
+			'default' => 100,
 		];
 
 		// *** only used internally, do not use in query
@@ -243,12 +245,6 @@ class DataTables extends ResultPrinter {
 			'default' => '',
 		];
 
-		$params['datatables-dom'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => 'lfrtip',
-		];
-
 		$params['datatables-fixedHeader'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-datatables-library-option',
@@ -268,16 +264,6 @@ class DataTables extends ResultPrinter {
 		];
 
 		//////////////// datatables columns
-
-		// only the options whose value has a sense to
-		// use for all columns, otherwise use (for single printouts)
-		// |?printout name |+ datatables-columns.type = string
-
-		$params['datatables-columns.type'] = [
-			'type' => 'string',
-			'message' => 'srf-paramdesc-datatables-library-option',
-			'default' => '',
-		];
 
 		$params['datatables-columns.width'] = [
 			'type' => 'string',
@@ -430,7 +416,7 @@ class DataTables extends ResultPrinter {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function buildResult( QueryResult $results ) {
+	protected function buildResult( QueryResult $results ): array {
 		$this->isHTML = true;
 		$this->hasTemplates = false;
 
@@ -484,7 +470,7 @@ class DataTables extends ResultPrinter {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function handleNonFileResult( $result, QueryResult $results, $outputmode ) {
+	protected function handleNonFileResult( $result, QueryResult $results, $outputmode ): array {
 		// append errors
 		$result .= $this->getErrorString( $results );
 
@@ -549,13 +535,11 @@ class DataTables extends ResultPrinter {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getResultText( QueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ): mixed {
 		$this->query = $res->getQuery();
 		$this->store = $res->getStore();
 
-		if ( class_exists( '\\SMW\Query\\ResultPrinters\\PrefixParameterProcessor' ) ) {
-			$this->prefixParameterProcessor = new \SMW\Query\ResultPrinters\PrefixParameterProcessor( $this->query, $this->params['prefix'] );
-		}
+		$this->prefixParameterProcessor = new PrefixParameterProcessor( $this->query, $this->params['prefix'] );
 
 		if ( $this->params['apicall'] === "apicall" ) {
 			return $this->getResultJson( $res, $outputmode );
@@ -578,7 +562,7 @@ class DataTables extends ResultPrinter {
 
 		$headerList = [];
 		foreach ( $printouts as $printout ) {
-			$headerList[] = ( $printout[0] !== SMWPrintRequest::PRINT_THIS ? $printout[1] : '' );
+			$headerList[] = ( $printout[0] !== PrintRequest::PRINT_THIS ? $printout[1] : '' );
 		}
 
 		// @TODO put inside $this->formatOptions
@@ -610,7 +594,7 @@ class DataTables extends ResultPrinter {
 
 			foreach ( $rows as $cell ) {
 				$this->htmlTable->cell(
-					( $cell === '' ? '&nbsp;' : $cell ),
+					( $cell['display'] === '' ? '&nbsp;' : $cell['display'] ),
 					[]
 				);
 			}
@@ -646,15 +630,13 @@ class DataTables extends ResultPrinter {
 			$printrequests, $printouts );
 	}
 
-	/**
-	 * @param array $data
-	 * @param array $headerList
-	 * @param array $datatablesOptions
-	 * @param array $printrequests
-	 * @param array $printouts
-	 * @return string
-	 */
-	private function printContainer( $data, $headerList, $datatablesOptions, $printrequests, $printouts ) {
+	private function printContainer(
+		array $data,
+		array $headerList,
+		array $datatablesOptions,
+		array $printrequests,
+		array $printouts
+	): string {
 		$resourceFormatter = new ResourceFormatter();
 		$id = $resourceFormatter->session();
 		$resourceFormatter->encode( $id, $data );
@@ -727,16 +709,14 @@ class DataTables extends ResultPrinter {
 
 	/**
 	 * @see SRFSlideShow
-	 * @param array $printRequests
-	 * @return array
 	 */
-	private function getPrintouts( $printRequests ) {
+	private function getPrintouts( array $printRequests ): array {
 		foreach ( $printRequests as $key => $printRequest ) {
 			$canonicalLabel = $printRequest->getCanonicalLabel();
 
 			$data = $printRequest->getData();
 
-			$name = ( $data instanceof SMWPropertyValue ?
+			$name = ( $data instanceof PropertyValue ?
 				$data->getDataItem()->getKey() : null );
 
 			$parameters = $printRequest->getParameters();
@@ -756,11 +736,7 @@ class DataTables extends ResultPrinter {
 		return $printouts;
 	}
 
-	/**
-	 * @param array $parameters
-	 * @return array
-	 */
-	private function getPrintoutsOptions( $parameters ) {
+	private function getPrintoutsOptions( array $parameters ): array {
 		$arrayTypesColumns = [
 			'orderable' => 'boolean',
 			'searchable' => 'boolean',
@@ -813,12 +789,7 @@ class DataTables extends ResultPrinter {
 		return $ret;
 	}
 
-	/**
-	 * @param array $arr
-	 * @param string $value
-	 * @return array
-	 */
-	private function plainToNestedObj( $arr, $value ) {
+	private function plainToNestedObj( array $arr, mixed $value ): array {
 		$ret = [];
 
 		// link to first level
@@ -836,11 +807,7 @@ class DataTables extends ResultPrinter {
 		return $ret;
 	}
 
-	/**
-	 * @param array $params
-	 * @return array
-	 */
-	private function formatOptions( $params ) {
+	private function formatOptions( array $params ): array {
 		$arrayTypes = [
 			'lengthMenu' => "number",
 			'buttons' => "string",
@@ -903,16 +870,11 @@ class DataTables extends ResultPrinter {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function isDeferrable() {
+	public function isDeferrable(): bool {
 		return false;
 	}
 
-	/**
-	 * @param QueryResult $res
-	 * @param int $outputMode
-	 * @return array
-	 */
-	public function getResultJson( QueryResult $res, $outputMode ) {
+	private function getResultJson( QueryResult $res, int $outputMode ): array {
 		// force html
 		$outputMode = SMW_OUTPUT_HTML;
 
@@ -951,14 +913,14 @@ class DataTables extends ResultPrinter {
 
 	/**
 	 * @see SMW\Query\ResultPrinters\TableResultPrinter
-	 * @param string $label
-	 * @param array $dataValues
-	 * @param int $outputMode
-	 * @param bool $isSubject
-	 * @param string|null $propTypeid
-	 * @return array
 	 */
-	public function getCellContent( $label, $dataValues, $outputMode, $isSubject, $propTypeid = null ) {
+	public function getCellContent(
+		string $label,
+		array $dataValues,
+		int $outputMode,
+		bool $isSubject,
+		?string $propTypeid = null
+	): array {
 		if ( !$this->prefixParameterProcessor ) {
 			$dataValueMethod = 'getShortText';
 		} else {
@@ -985,8 +947,8 @@ class DataTables extends ResultPrinter {
 			// Restore output in Special:Ask on:
 			// - file/image parsing
 			// - text formatting on string elements including italic, bold etc.
-			if ( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIWikiPage && $dataItem->getNamespace() === NS_FILE ||
-				$outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIBlob ) {
+			if ( ( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIWikiPage && $dataItem->getNamespace() === NS_FILE ) ||
+				( $outputMode === SMW_OUTPUT_HTML && $dataItem instanceof DIBlob ) ) {
 				// Too lazy to handle the Parser object and besides the Message
 				// parse does the job and ensures no other hook is executed
 				$value = Message::get(
@@ -1030,13 +992,20 @@ class DataTables extends ResultPrinter {
 			$html = implode( $this->params['sep'], $values );
 		}
 
-		return $html;
+		// $dataValues could be empty
+		$sortKey = array_key_exists( 0, $dataValues ) ? $dataValues[0]->getDataItem()->getSortKey() : '';
+
+		return [
+			'display' => $html,
+			'filter' => $sortKey,
+			'sort' => $sortKey
+		];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getResources() {
+	protected function getResources(): array {
 		return [
 			'modules' => [
 				'ext.srf.datatables.v2.format'

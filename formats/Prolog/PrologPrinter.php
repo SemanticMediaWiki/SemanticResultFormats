@@ -2,8 +2,8 @@
 
 namespace SRF\Prolog;
 
-use SMW\FileExportPrinter;
-use SMWQueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 
 /**
  * @author Marco Falda
@@ -44,32 +44,32 @@ class PrologPrinter extends FileExportPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	public function getMimeType( SMWQueryResult $queryResult ) {
+	public function getMimeType( QueryResult $queryResult ) {
 		return $this->fileFormat[ 'mimetype' ];
 	}
 
 	/**
 	 * @see ExportPrinter::getFileName
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	public function getFileName( SMWQueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ) {
 		return ( $this->params[ 'filename' ] ?: base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
 	}
 
 	/**
 	 * @see ExportPrinter::outputAsFile
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( SMWQueryResult $queryResult, array $params ) {
+	public function outputAsFile( QueryResult $queryResult, array $params ) {
 		if ( array_key_exists( 'fileformat', $params ) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats ) ) {
 			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
 		} else {
@@ -136,7 +136,7 @@ class PrologPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputMode ) {
+	protected function getResultText( QueryResult $queryResult, $outputMode ) {
 		if ( $outputMode === SMW_OUTPUT_FILE ) {
 			return $this->getResultFileContents( $queryResult );
 		}
@@ -146,11 +146,11 @@ class PrologPrinter extends FileExportPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 *
 	 * @return string
 	 */
-	protected function getResultFileContents( SMWQueryResult $queryResult ) {
+	protected function getResultFileContents( QueryResult $queryResult ) {
 		$res = '';
 		/*if ($this->params['rownames'])
 			$res .= 'row.names=T, ';*/

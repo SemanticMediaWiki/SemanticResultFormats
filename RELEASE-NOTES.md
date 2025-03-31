@@ -1,9 +1,48 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 5.0.0
+
+Released on TDB
+
+### Compatibility Changes
+
+* Changed the minimum MediaWiki version from 1.35 to 1.39
+* Changed the minimum PHP version from 7.3 to 8.1
+* Added compatibility with Semantic MediaWiki 5.x
+* Added support for PHP up to version 8.4
+* Added support for MediaWiki support up to version 1.43
+
+### Breaking Changes
+
+* Removed the Exhibit format
+
+### New Features and Enhancements
+* updated Filtered's Calendar format to fullcalendar 6 and Map format to leaflet 1.9/leaflet-providers 2.0
+  * [901](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/901) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+  * [930](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/930) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* Overhauled DataTables format 
+  * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
+  * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
+  * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
+  * [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871) (by @alistair3149)
+  * [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
+  * [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
+  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845 (by @robinwiel)
+  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833 (by @thomas-topway-it)
+* Added `prolog` format that generates SVO predicates
+* Added `dataframe` format
+* Improved `carousel` format ([857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857))
+
+Bug fixes
+
+* Fixed precision issue in the `time` format
+* Fixed reuse of values output by the `incoming` format when no template is used
+
 ## SRF 4.2.1
 
 Released on March 13, 2024.
-* [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin) 
+
+* [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin)
 * [806](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/806) Added required resources for the bubble chare to the jqplotchart format (by@YOUR1)
 * [805](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/805) Fixed issue creating a lot of log spam (by @sophivorus)
 * [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow paramter to the carousel format (by @thomas-topway-it)

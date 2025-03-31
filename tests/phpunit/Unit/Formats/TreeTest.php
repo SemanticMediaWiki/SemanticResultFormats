@@ -5,7 +5,7 @@ namespace SRF\Test;
 use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
 use Parser;
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SMW\Tests\Utils\Mock\CoreMockObjectRepository;
 use SMW\Tests\Utils\Mock\MockObjectBuilder;
 use SMWQueryProcessor;
@@ -156,7 +156,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 		$mockBuilder = new MockObjectBuilder();
 		$mockBuilder->registerRepository( new CoreMockObjectRepository() );
 
-		/** @var \SMWResultArray[]|false $resultRow */
+		/** @var \SMW\Query\Result\ResultArray[]|false $resultRow */
 		$resultRow = $mockBuilder->newObject( 'ResultArray' );
 
 		// $resultRow->add( $resultCell );
@@ -165,7 +165,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$resultSet[] = $resultRow;
 
-		/** @var array(SMWResultArray[]|false) $resultSet */
+		/** @var array(\SMW\Query\Result\ResultArray[]|false) $resultSet */
 		$resultSet[] = false;
 
 		$queryResult = $mockBuilder->newObject(

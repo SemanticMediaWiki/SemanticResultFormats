@@ -2,13 +2,13 @@
 
 namespace SRF\iCalendar;
 
+use MediaWiki\MediaWikiServices;
+use SMW\DataValueFactory;
+use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
-use SMWDataValueFactory as DataValueFactory;
-use SMWExportPrinter as FileExportPrinter;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 use SMWQuery as Query;
 use SMWQueryProcessor as QueryProcessor;
-use SMWQueryResult as QueryResult;
-use WikiPage;
 
 /**
  * Printer class for iCalendar exports
@@ -247,7 +247,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 		$title = $subject->getTitle();
 
 		$params['url'] = $title->getFullURL();
-		$params['timestamp'] = WikiPage::factory( $title )->getTimestamp();
+		$params['timestamp'] = MediaWikiServices::getInstance()->getWikiPageFactory()
+			->newFromTitle( $title )->getTimestamp();
 		$params['sequence'] = $title->getLatestRevID();
 
 		return $params;

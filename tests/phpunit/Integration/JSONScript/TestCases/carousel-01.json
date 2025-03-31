@@ -49,10 +49,13 @@
 		{
 			"type": "parser",
 			"about": "#0",
+			"skip-on": {
+				"mediawiki": [ ">1.42.x", "Check assertions for MW higher then 1.42." ]
+			},
 			"subject": "Test/Carousel/T.1",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"slick-slide\" data-url=\".*/index.php/File:Gallery01.png\"><img src=\".*/images/7/7f/Gallery01.png\" alt=\"caption a\".* class=\"slick-slide-content img\".*/><div class=\"slick-slide-content caption\"><div class=\"slick-slide-content caption-title\">title a</div><div class=\"slick-slide-content caption-text\">caption a</div></div></div></div>"
+					"<div class=\"slick-slide\" data-url=\".*/index.php/File:Gallery01.png\".*><img src=\".*/images/7/7f/Gallery01.png\" alt=\"caption a\".* class=\"slick-slide-content img\".*/><div class=\"slick-slide-content caption\"><div class=\"slick-slide-content caption-title\">title a</div><div class=\"slick-slide-content caption-text\">caption a</div></div></div></div>"
 				]
 			}
 
@@ -60,10 +63,13 @@
 		{
 			"type": "parser",
 			"about": "#1",
+			"skip-on": {
+				"mediawiki": [ ">1.42.x", "Check assertions for MW higher then 1.42." ]
+			},
 			"subject": "Test/Carousel/T.2",
 			"assert-output": {
 				"to-contain": [
-					"<div class=\"slick-slide\" data-url=\".*/index.php/Test/Carousel_test\"><img src=\".*/images/7/7f/Gallery01.png\" alt=\"abc\".* class=\"slick-slide-content img\".*/><div class=\"slick-slide-content caption\"><div class=\"slick-slide-content caption-title\">Carousel test</div><div class=\"slick-slide-content caption-text\">abc</div></div></div></div>"
+					"<div class=\"slick-slide\" data-url=\".*/index.php/Test/Carousel_test\".*><img src=\".*/images/7/7f/Gallery01.png\" alt=\"abc\".* class=\"slick-slide-content img\".*/><div class=\"slick-slide-content caption\"><div class=\"slick-slide-content caption-title\">Carousel test</div><div class=\"slick-slide-content caption-text\">abc</div></div></div></div>"
 				]
 			}
 		}

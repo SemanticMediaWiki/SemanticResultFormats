@@ -1,0 +1,24 @@
+/**
+ * Semantic MediaWiki design tokens
+ */
+
+/**
+ * Codex is backported because we have to support multiple MW versions
+ * @see https://github.com/wikimedia/mediawiki/blob/master/resources/lib/codex-design-tokens/theme-wikimedia-ui.less
+ */
+@import 'tokens-codex.less';
+
+/**
+ * Codex polyfill for MW 1.43 / Codex Design Tokens v1.14.0
+ * This section is used to polyfill Codex tokens introduced since MW 1.43,
+ * as dark mode is introduced with Vector-2022 in MW 1.43.
+ *
+ * TODO: Figure out a way to polyfill tokens for dark mode
+ */
+@import 'tokens-codex-polyfill.less';
+
+/**
+ * Allow skins to override the tokens above
+ * @see https://www.mediawiki.org/wiki/Manual:How_to_make_a_MediaWiki_skin#Use_in_core,_skins_and_extensions_Less_files
+ */
+@import 'mediawiki.skin.variables.less';

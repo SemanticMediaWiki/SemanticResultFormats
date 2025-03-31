@@ -2,8 +2,8 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
 use SMW\Tests\PHPUnitCompat;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
 
 /**
@@ -32,7 +32,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$this->queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 

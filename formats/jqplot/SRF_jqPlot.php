@@ -1,5 +1,7 @@
 <?php
 
+use SMW\Query\ResultPrinters\AggregatablePrinter;
+
 /**
  * Abstract class to hold common functionality for the jqPlot result printers.
  *
@@ -11,7 +13,7 @@
  * @author Yaron Koren
  * @author Sanyam Goyal
  */
-abstract class SRFjqPlot extends SMWAggregatablePrinter {
+abstract class SRFjqPlot extends AggregatablePrinter {
 
 	/**
 	 * @inheritDoc
