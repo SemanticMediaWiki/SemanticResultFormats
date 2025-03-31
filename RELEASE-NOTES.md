@@ -17,9 +17,7 @@ Released on TDB
 * Removed the Exhibit format
 
 ### New Features and Enhancements
-* updated Filtered's Calendar format to fullcalendar 6 and Map format to leaflet 1.9/leaflet-providers 2.0
-  * [901](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/901) (by @thomas-topway-it for ([KM-A](https://km-a.net))
-  * [930](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/930) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+
 * Overhauled DataTables format 
   * [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
   * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
@@ -30,9 +28,10 @@ Released on TDB
   * [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
   * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845 (by @robinwiel)
   * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833 (by @thomas-topway-it)
+* Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
-* Improved `carousel` format ([857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857))
+* Improved `carousel` format with vertical centering, height adjustments, smarter captions, and nested slide.
 
 Bug fixes
 
