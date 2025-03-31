@@ -17,8 +17,10 @@ Released on TDB
 * Removed the Exhibit format
 
 ### New Features and Enhancements
-
-* Overhauled DataTables format
+* updated Filtered's Calendar format to fullcalendar 6 and Map format to leaflet 1.9/leaflet-providers 2.0
+  * [901](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/901) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+  * [930](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/930) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+* Overhauled DataTables format 
   * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
   * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
   * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
