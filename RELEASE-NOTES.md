@@ -18,16 +18,15 @@ Released on TDB
 
 ### New Features and Enhancements
 
-* Overhauled DataTables format 
-  * [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
-  * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
-  * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
-  * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
-  * [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871) (by @alistair3149)
-  * [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
-  * [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
-  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845 (by @robinwiel)
-  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833 (by @thomas-topway-it)
+* Overhauled DataTables format
+  * Bump DataTables from 1.13.2 to 2.1.8 [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
+  * Revamped DataTables UI to match with [Codex](https://doc.wikimedia.org/codex/main/) [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871), [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
+  * Improved client-side cache mechanism [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
+  * Improved accessibility with `aria-live = "polite"` attribute in DataTable [845](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845) (by @robinwiel)
+  * Added "show all" to DataTable length [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
+  * Fixed various sorting and filter issues [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
+  * Fixed template expanision [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+  * Fixed missing ParentProperties values [833](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833) (by @thomas-topway-it)
 * Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
