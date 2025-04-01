@@ -1,3 +1,15 @@
+## How to update List of tests
+
+The `readmeContentsBuilder.php` script can be used to update the list of available test cases, including their descriptions.
+
+To use this script, navigate to the following directory in your project:
+- `extensions/SemanticResultFormats/tests/phpunit/Integration/JSONScript/`
+
+Once there, run the script using PHP with the following command:
+- `php ReadmeContentsBuilder.php`
+
+The script will automatically fetch the test cases, update the `README.md` file, and ensure that the list of tests is up to date with any changes made in the test case files.
+It will also generate the descriptions for each test based on the contents of the corresponding JSON files.
 
 <!-- Begin of generated contents by readmeContentsBuilder.php -->
 
@@ -76,21 +88,21 @@ combination with the `--filter` option allows to select a single specific case.
 
 <pre>
 $ composer integration -- --filter vcard
-Using PHP 7.1.1
+Using PHP 8.1.31
 
-Semantic Result Formats: 3.0.0-alpha
+Semantic Result Formats: 5.0.0-alpha
 
-Semantic MediaWiki: 3.0.0-alpha (c352b6a, SMWSQLStore3, mysql)
-MediaWiki:          1.31.0-alpha (44c06df, MediaWiki vendor autoloader)
+Semantic MediaWiki: 5.0.1-alpha (25f24c1, SMWSQLStore, mysql)
+MediaWiki:          1.39.11 (MediaWiki vendor autoloader)
 Site language:      en
 
-Execution time:     2017-01-01 12:00
+Execution time:     2025-04-01 06:40
 Debug logs:         Disabled
 Xdebug:             Disabled (or not installed)
 
-PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
+PHPUnit 8.5.41 by Sebastian Bergmann and contributors.
 
-Runtime:        PHP 7.1.1
+Runtime:        PHP 8.1.31
 Configuration:  /var/www/html/w/extensions/SemanticResultFormats/phpunit.xml.dist
 
 .
