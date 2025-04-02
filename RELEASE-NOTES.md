@@ -30,7 +30,7 @@ Released on TDB
 * Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
-* Improved `carousel` format with vertical centering, height adjustments, smarter captions, and nested slide.
+* Improved `carousel` format with vertical centering, height adjustments, smarter captions, and nested slide [857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857) (by @thomas-topway-it for ([KM-A](https://km-a.net))
 
 Bug fixes
 
