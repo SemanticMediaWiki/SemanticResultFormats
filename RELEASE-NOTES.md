@@ -18,20 +18,19 @@ Released on TDB
 
 ### New Features and Enhancements
 
-* Overhauled DataTables format 
-  * [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
-  * [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
-  * [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
-  * [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
-  * [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871) (by @alistair3149)
-  * [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
-  * [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
-  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845 (by @robinwiel)
-  * https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833 (by @thomas-topway-it)
+* Overhauled DataTables format
+  * Bump DataTables from 1.13.2 to 2.1.8 [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
+  * Revamped DataTables UI to match with [Codex](https://doc.wikimedia.org/codex/main/) [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871), [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
+  * Improved client-side cache mechanism [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
+  * Improved accessibility with `aria-live = "polite"` attribute in DataTable [845](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845) (by @robinwiel)
+  * Added "show all" to DataTable length [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
+  * Fixed various sorting and filter issues [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
+  * Fixed template Ajax navigation and improved expansion [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+  * Fixed missing [ParentProperties](https://www.semantic-mediawiki.org/wiki/Help:Subobjects_and_queries) values [833](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833) and [825](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/825) (by @hkwi)
 * Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
-* Improved `carousel` format with vertical centering, height adjustments, smarter captions, and nested slide.
+* Improved `carousel` format with vertical centering, height adjustments, smarter captions, and nested slide [857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857) (by @thomas-topway-it for ([KM-A](https://km-a.net))
 
 Bug fixes
 
@@ -45,7 +44,7 @@ Released on March 13, 2024.
 * [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin)
 * [806](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/806) Added required resources for the bubble chare to the jqplotchart format (by@YOUR1)
 * [805](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/805) Fixed issue creating a lot of log spam (by @sophivorus)
-* [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow paramter to the carousel format (by @thomas-topway-it)
+* [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow parameter to the carousel format (by @thomas-topway-it)
 * Further improvements and fixes to the Continuous Integration (CI) (by [gesinn.it](https://gesinn.it))
 * Updated translations (by translatewiki.net community)
 
