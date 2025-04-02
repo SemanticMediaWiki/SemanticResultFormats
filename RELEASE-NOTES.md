@@ -44,7 +44,7 @@ Released on March 13, 2024.
 * [815](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/815) Document graphfields parameter to the graph format (by @alex-mashin)
 * [806](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/806) Added required resources for the bubble chare to the jqplotchart format (by@YOUR1)
 * [805](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/805) Fixed issue creating a lot of log spam (by @sophivorus)
-* [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow paramter to the carousel format (by @thomas-topway-it)
+* [793](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/793) Fixed issue with the slidesToShow parameter to the carousel format (by @thomas-topway-it)
 * Further improvements and fixes to the Continuous Integration (CI) (by [gesinn.it](https://gesinn.it))
 * Updated translations (by translatewiki.net community)
 
