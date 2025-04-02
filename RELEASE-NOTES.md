@@ -25,7 +25,7 @@ Released on TDB
   * Improved accessibility with `aria-live = "polite"` attribute in DataTable [845](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845) (by @robinwiel)
   * Added "show all" to DataTable length [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
   * Fixed various sorting and filter issues [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
-  * Fixed template expanision [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
+  * Fixed template expansion [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
   * Fixed missing ParentProperties values [833](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833) (by @thomas-topway-it)
 * Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
