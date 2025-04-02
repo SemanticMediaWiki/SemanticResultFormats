@@ -26,7 +26,7 @@ Released on TDB
   * Added "show all" to DataTable length [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
   * Fixed various sorting and filter issues [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
   * Fixed template Ajax navigation and improved expansion [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
-  * Fixed missing ParentProperties values [833](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833) (by @thomas-topway-it)
+  * Fixed missing [ParentProperties](https://www.semantic-mediawiki.org/wiki/Help:Subobjects_and_queries) values [833](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833) and [825](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/825) (by @hkwi)
 * Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
