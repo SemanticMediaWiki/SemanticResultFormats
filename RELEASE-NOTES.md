@@ -2,15 +2,15 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 5.0.0
 
-Released on TDB
+Released on April 7, 2025.
 
 ### Compatibility Changes
 
-* Changed the minimum MediaWiki version from 1.35 to 1.39
-* Changed the minimum PHP version from 7.3 to 8.1
 * Added compatibility with Semantic MediaWiki 5.x
 * Added support for PHP up to version 8.4
 * Added support for MediaWiki support up to version 1.43
+* Dropped support for MediaWiki older than 1.39
+* Dropped support for PHP older than 8.1
 
 ### Breaking Changes
 
@@ -19,14 +19,14 @@ Released on TDB
 ### New Features and Enhancements
 
 * Overhauled DataTables format
-  * Bump DataTables from 1.13.2 to 2.1.8 [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
-  * Revamped DataTables UI to match with [Codex](https://doc.wikimedia.org/codex/main/) [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871), [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
-  * Improved client-side cache mechanism [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
-  * Improved accessibility with `aria-live = "polite"` attribute in DataTable [845](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845) (by @robinwiel)
+  * Improved UI integration with MediaWiki by using [Codex](https://doc.wikimedia.org/codex/main/) [871](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/871), [879](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/879) (by @alistair3149)
   * Added "show all" to DataTable length [868](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/868) (by @alistair3149)
   * Fixed various sorting and filter issues [865](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/865) (by @alistair3149)
   * Fixed template Ajax navigation and improved expansion [931](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/931) (by @thomas-topway-it for ([KM-A](https://km-a.net))
   * Fixed missing [ParentProperties](https://www.semantic-mediawiki.org/wiki/Help:Subobjects_and_queries) values [833](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/833) and [825](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/825) (by @hkwi)
+  * Bump DataTables from 1.13.2 to 2.1.8 [864](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/864) (by @alistair3149)
+  * Improved client-side cache mechanism [904](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/904) (by @thomas-topway-it)
+  * Improved accessibility with `aria-live = "polite"` attribute in DataTable [845](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/845) (by @robinwiel)
 * Updated Filtered format dependencies: Fullcalendar 6 and leaflet 1.9/leaflet-providers 2.0 (by @thomas-topway-it for ([KM-A](https://km-a.net))
 * Added `prolog` format that generates SVO predicates
 * Added `dataframe` format
