@@ -4,6 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on April 7, 2025.
 
+Highlights:
+* Support for MediaWiki 1.43 and Semantic MediaWiki 5
+* Significant enhancements to the DataTables format
+
 ### Compatibility Changes
 
 * Added compatibility with Semantic MediaWiki 5.x
@@ -32,7 +36,7 @@ Released on April 7, 2025.
 * Added `dataframe` format
 * Improved `carousel` format with vertical centering, height adjustments, smarter captions, and nested slide [857](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/857) (by @thomas-topway-it for ([KM-A](https://km-a.net))
 
-Bug fixes
+### Bug Fixes
 
 * Fixed precision issue in the `time` format
 * Fixed reuse of values output by the `incoming` format when no template is used
