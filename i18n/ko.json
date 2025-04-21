@@ -6,6 +6,7 @@
 			"Jerrykim306",
 			"Keysuck",
 			"Nemo bis",
+			"YeBoy371",
 			"Ykhwong",
 			"아라"
 		]
@@ -167,7 +168,7 @@
 	"srf-printername-oltree": "Oltree",
 	"srf-tree-noparentprop": "부모 속성이 지정되지 않았습니다. 부모 속성이 지정되지 않으면 트리를 만들 수 없습니다.",
 	"srf-tree-rootinvalid": "$1은 올바른 문서 제목이 아닙니다.",
-	"srf-paramdesc-tree-parent": "부모 문서를 포함하는 속성",
+	"srf-paramdesc-tree-parent": "상위 문서를 포함하는 속성",
 	"srf-paramdesc-tree-root": "트리의 루트 페이지",
 	"srf-printername-slideshow": "슬라이드쇼",
 	"srf-paramdesc-delay": "슬라이드 간 지연 (초 단위)",
