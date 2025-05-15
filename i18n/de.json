@@ -11,6 +11,7 @@
 			"Nemo bis",
 			"Nipsky",
 			"Purodha",
+			"Talex42",
 			"The Evil IP address",
 			"Umherirrender"
 		]
@@ -210,7 +211,7 @@
 	"srf-printername-datatables": "Datentabellen",
 	"srf-ui-datatables-label-conditions": "Bedingungen",
 	"srf-ui-datatables-label-parameters": "Parameter",
-	"srf-ui-datatables-label-filters": "Spaltenfilter und Suche",
+	"srf-ui-datatables-label-filters": "Filter",
 	"srf-ui-datatables-label-information": "Informationen",
 	"srf-ui-datatables-panel-disclaimer": "Parameter und Bedingungen können verändert werden. Indes ist dabei jegliche Anpassung temporär und wird nach dem Neuladen der Seite verworfen.",
 	"srf-ui-datatables-refresh-button-title": "Tabelle aktualisieren",
