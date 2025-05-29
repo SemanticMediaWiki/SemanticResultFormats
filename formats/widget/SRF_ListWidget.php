@@ -37,19 +37,25 @@ class SRFListWidget extends ResultPrinter {
 	protected function getResultText( QueryResult $res, $outputmode ) {
 		// Initialize
 		static $statNr = 0;
-		// $this->isHTML = true;
-
+	
+		$this->hasTemplates = ( $this->params['template'] !== '' );
 		$listType = $this->params[ 'listtype' ] === 'ordered' || $this->params[ 'listtype' ] === 'ol' ? 'ol' : 'ul';
 
 		$builder = new ListResultBuilder( $res, $this->mLinker );
 
 		$builder->set( $this->params );
+
 		$builder->set( [
 			'format' => $listType,
 			'link-first' => $this->mLinkFirst,
 			'link-others' => $this->mLinkOthers,
 			'show-headers' => $this->mShowHeaders,
 		] );
+
+		// this does not seem to work
+		if ( $this->hasTemplates ) {
+			$builder->set( [ 'link' => 'none' ] );
+		}
 
 		// Get results from \SMW\Query\ResultPrinters\ListResultPrinter
 		$result = $builder->getResultText();
@@ -127,6 +133,10 @@ class SRFListWidget extends ResultPrinter {
 			'default' => 5,
 		];
 
+		$params['template'] = [
+			'message' => 'smw-paramdesc-template',
+			'default' => '',
+		];
 		return $params;
 	}
 }
