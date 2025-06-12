@@ -198,7 +198,7 @@
 	"srf-printername-datatables": "Datatabeller",
 	"srf-ui-datatables-label-conditions": "Betingelser",
 	"srf-ui-datatables-label-parameters": "Parametre",
-	"srf-ui-datatables-label-filters": "Kolonnefiltre og søk",
+	"srf-ui-datatables-label-filters": "Filtre",
 	"srf-ui-datatables-label-information": "Informasjon",
 	"srf-ui-datatables-panel-disclaimer": "Parametre og betingelser kan endres, men slike endringer er midlertidige og borte etter en sideoppdatering.",
 	"srf-ui-datatables-label-update-success": "Tabelloppdateringen var vellykket",
