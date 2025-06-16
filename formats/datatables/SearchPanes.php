@@ -132,16 +132,18 @@ class SearchPanes {
 		if ( $isCategory ) {
 
 			// data-length without the GROUP BY clause
-			$sql_options = [ 'LIMIT' => 1 ];
+			$sql_options = ' LIMIT 1';
 
-			$dataLength = (int)$this->connection->selectField(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id",
-				"COUNT(*) AS count",
-				$qobj->where,
-				__METHOD__,
-				$sql_options
+			$res = $this->connection->query(
+				'SELECT COUNT(*) as count' .
+				' FROM ' . $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
+					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id" .
+				$qobj->where .
+				$sql_options,
+				__METHOD__
 			);
+			$row = $res->fetchRow();
+			$dataLength = (int)( $row['count'] ?? 0 );
 
 			if ( !$dataLength ) {
 				return [];
@@ -149,13 +151,13 @@ class SearchPanes {
 
 			$groupBy = "i.smw_id";
 			$orderBy = "count DESC, $groupBy ASC";
-			$sql_options = [
-				'GROUP BY' => $groupBy,
+			$sql_options =
+				' GROUP BY ' . $groupBy .
 				// $this->query->getOption( 'count' ),
-				'LIMIT' => $dataLength,
-				'ORDER BY' => $orderBy,
-				'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
-			];
+				' HAVING ' . 'count >= ' . $searchPanesOptions['minCount'] .
+				' ORDER BY ' . $orderBy .
+				' LIMIT ' . $dataLength
+			;
 
 			/*
 			SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0
@@ -167,15 +169,15 @@ class SearchPanes {
 			HAVING COUNT(i.smw_id) >= 1 ORDER BY COUNT(i.smw_id) DESC
 			*/
 
-			$res = $this->connection->select(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
+			$res = $this->connection->query(
+				"SELECT COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject" .
+				' FROM ' . $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
 					// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
 					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id"
-					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id",
-				"COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject",
-				$qobj->where,
-				__METHOD__,
-				$sql_options
+					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id" .
+				$qobj->where .
+				$sql_options,
+				__METHOD__
 			);
 
 			$isIdField = true;
@@ -203,19 +205,21 @@ class SearchPanes {
 			}
 
 			// data-length without the GROUP BY clause
-			$sql_options = [ 'LIMIT' => 1 ];
+			$sql_options = ' LIMIT 1';
 
 			// SELECT COUNT(*) as count FROM `smw_object_ids` AS t0
 			// INNER JOIN (`smw_fpt_mdat` AS t2 INNER JOIN `smw_di_wikipage` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
 			// WHERE ((t3.p_id=517)) LIMIT 500
 
-			$dataLength = (int)$this->connection->selectField(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
-				"COUNT(*) as count",
-				$qobj->where,
-				__METHOD__,
-				$sql_options
+			$res = $this->connection->query(
+				'SELECT COUNT(*) as count' .
+				' FROM ' . $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from .
+				$qobj->where .
+				$sql_options,
+				__METHOD__
 			);
+			$row = $res->fetchRow();
+			$dataLength = (int)( $row['count'] ?? 0 );
 
 			if ( !$dataLength ) {
 				return [];
@@ -231,28 +235,28 @@ class SearchPanes {
 			SELECT i.smw_id,i.smw_title,i.smw_namespace,i.smw_iw,i.smw_subobject,i.smw_hash,i.smw_sort,COUNT( p.o_id ) as count FROM `smw_object_ids` `o` INNER JOIN `smw_di_wikipage` `p` ON ((p.s_id=o.smw_id)) JOIN `smw_object_ids` `i` ON ((p.o_id=i.smw_id)) WHERE o.smw_hash IN ('1_-_A','1_-_Ab','1_-_Abc','10_-_Abcd','11_-_Abc') AND (o.smw_iw!=':smw') AND (o.smw_iw!=':smw-delete') AND p.p_id = 517 GROUP BY p.o_id, i.smw_id ORDER BY count DESC, i.smw_sort ASC
 			*/
 
-			$sql_options = [
-				'GROUP BY' => $groupBy,
+			$sql_options =
+				' GROUP BY ' . $groupBy .
 				// the following implies that if the user sets a threshold
 				// close or equal to 1, and there are too many unique values,
 				// the page will break, however the user has responsibility
 				// for using searchPanes only for data reasonably grouped
-				'LIMIT' => $dataLength,
-				'ORDER BY' => $orderBy,
-				'HAVING' => 'count >= ' . $searchPanesOptions['minCount']
-			];
+				' HAVING ' . 'count >= ' . $searchPanesOptions['minCount'] .
+				' ORDER BY ' . $orderBy .
+				' LIMIT ' . $dataLength
+			;
 
 			// @see QueryEngine
-			$res = $this->connection->select(
-				 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
+			$res = $this->connection->query(
+				'SELECT ' . implode( ',', $fields ) .
+				' FROM ' . $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
 				. ( !$isIdField ? ''
-					: " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS `i` ON ($p_alias.o_id = i.smw_id)" ),
-				implode( ',', $fields ),
+					: " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS `i` ON ($p_alias.o_id = i.smw_id)" ) .
 				$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
 					. ' i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED )
-					. ' AND i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW ) ),
-				__METHOD__,
-				$sql_options
+					. ' AND i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW ) ) .
+				$sql_options,
+				__METHOD__
 			);
 
 		}
@@ -628,32 +632,32 @@ class SearchPanes {
 
 		$qobj = $querySegmentList[$rootid];
 
-		$sql_options = [
+		$sql_options =
 			// *** should we set a limit here ?
 			// it makes sense to show the pane for
 			// mainlabel only when page titles are grouped
 			// through the printout format or even the printout template
 			// title
-			'ORDER BY' => 't'
-		];
+			' ORDER BY t'
+		;
 
 		// Selecting those is required in standard SQL (but MySQL does not require it).
 		$sortfields = implode( ',', $qobj->sortfields );
 		$sortfields = $sortfields ? ',' . $sortfields : '';
 
 		// @see QueryEngine
-		$res = $this->connection->select(
-			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
-			"$qobj->alias.smw_id AS id," .
+		$res = $this->connection->query(
+			"SELECT $qobj->alias.smw_id AS id," .
 			"$qobj->alias.smw_title AS t," .
 			"$qobj->alias.smw_namespace AS ns," .
 			"$qobj->alias.smw_iw AS iw," .
 			"$qobj->alias.smw_subobject AS so," .
 			"$qobj->alias.smw_sortkey AS sortkey" .
-			"$sortfields",
-			$qobj->where,
-			__METHOD__,
-			$sql_options
+			"$sortfields" .
+			' FROM ' . $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from .
+			$qobj->where .
+			$sql_options,
+			__METHOD__
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
