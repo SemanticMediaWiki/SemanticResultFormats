@@ -971,7 +971,7 @@ class DataTables extends ResultPrinter {
 			if ( $template ) {
 				// @fixme use named parameter ?
 				$titleTemplate = Title::makeTitle( NS_TEMPLATE,
-					Title::capitalize( $template, NS_TEMPLATE ) );
+					Title::capitalize( trim( $template ), NS_TEMPLATE ) );
 				$value_ = $this->expandTemplate( $titleTemplate, [ 1 => $value ] );
 				$value = Parser::stripOuterParagraph(
 					$this->parser->recursiveTagParseFully( $value_ )
