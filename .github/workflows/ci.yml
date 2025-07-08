@@ -20,13 +20,15 @@ jobs:
           - mediawiki_version: '1.39'
             smw_version: dev-master
             php_version: 8.1
+            mm_version: 6.0.0
             database_type: mysql
-            database_image: "mariadb:10"
+            database_image: "mariadb:11.2"
             coverage: false
             experimental: false
           - mediawiki_version: '1.40'
             smw_version: dev-master
             php_version: 8.1
+            mm_version: 6.0.0
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: true
@@ -36,6 +38,7 @@ jobs:
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
+            mm_version: 6.0.0
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
@@ -45,15 +48,17 @@ jobs:
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
+            mm_version: 6.0.0
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
             experimental: false
-          - mediawiki_version: '1.43'
+          - mediawiki_version: '1.43.1'
             smw_version: dev-master
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
+            mm_version: 6.0.0
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
@@ -67,6 +72,7 @@ jobs:
       PHP_VERSION: ${{ matrix.php_version }}
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}
+      MM_VERSION: ${{ matrix.mm_version }} 
 
       
     steps:
