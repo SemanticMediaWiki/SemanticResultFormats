@@ -20,7 +20,7 @@ DB_IMAGE?="mariadb:10"
 SMW_VERSION?=dev-master
 PF_VERSION ?= 5.5.1
 SFS_VERSION ?= 4.0.0-beta
-MM_VERSION ?= 3.1.0
+MM_VERSION ?= 6.0.0
 
 # composer
 # Enables "composer update" inside of extension
