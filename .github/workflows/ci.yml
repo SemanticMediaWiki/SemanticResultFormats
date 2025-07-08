@@ -22,7 +22,7 @@ jobs:
             php_version: 8.1
             mm_version: 6.0.0
             database_type: mysql
-            database_image: "mariadb:10"
+            database_image: "mariadb:11.2"
             coverage: false
             experimental: false
           - mediawiki_version: '1.40'
@@ -53,7 +53,7 @@ jobs:
             database_image: "mariadb:11.2"
             coverage: false
             experimental: false
-          - mediawiki_version: '1.43'
+          - mediawiki_version: '1.43.1'
             smw_version: dev-master
             pf_version: 5.9
             sfs_version: dev-master
