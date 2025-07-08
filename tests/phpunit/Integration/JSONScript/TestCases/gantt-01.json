@@ -117,9 +117,6 @@
       "type": "parser",
       "about": "Test gantt min config",
       "subject": "Example/Gantt Diagram min config",
-      "skip-on": {
-        "mediawiki": [ "<1.32.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
       "assert-output": {
         "to-contain": [
           "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :2019-02-01, 2019-02-15\\nTask04\\t :2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;default&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:75,&quot;titleTopMargin&quot;:25,&quot;barHeight&quot;:20,&quot;barGap&quot;:4&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
@@ -130,12 +127,9 @@
       "type": "parser",
       "about": "Test gantt when all config params set",
       "subject": "Example/Gantt Diagram config all",
-      "skip-on": {
-        "mediawiki": [ ">1.31.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
       "assert-output": {
         "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:2019-02-01, 2019-02-15\\nTask04\\t&#160;:2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
+          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :2019-02-01, 2019-02-15\\nTask04\\t :2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
         ]
       }
     },
@@ -143,9 +137,6 @@
       "type": "parser",
       "about": "Test gantt when all config params set",
       "subject": "Example/Gantt Diagram config all",
-      "skip-on": {
-        "mediawiki": [ "<1.32.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
       "assert-output": {
         "to-contain": [
           "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :2019-02-01, 2019-02-15\\nTask04\\t :2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
@@ -156,22 +147,6 @@
       "type": "parser",
       "about": "Test axis forma %m/%d/%Y",
       "subject": "Example/Gantt Diagram test axis format 1",
-      "skip-on": {
-        "mediawiki": [ ">1.31.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
-      "assert-output": {
-        "to-contain": [
-          "axisFormat&#160;%m\\/%d\\/%Y"
-        ]
-      }
-    },
-    {
-      "type": "parser",
-      "about": "Test axis forma %m/%d/%Y",
-      "subject": "Example/Gantt Diagram test axis format 1",
-      "skip-on": {
-        "mediawiki": [ "<1.32.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
       "assert-output": {
         "to-contain": [
           "axisFormat %m\\/%d\\/%Y"
@@ -182,22 +157,6 @@
       "type": "parser",
       "about": "Test priority mapping",
       "subject": "Example/Gantt priority mapping test",
-      "skip-on": {
-        "mediawiki": [ ">1.31.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
-      "assert-output": {
-        "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:crit, 2019-02-01, 2019-02-15\\nTask04\\t&#160;:crit, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
-        ]
-      }
-    },
-    {
-      "type": "parser",
-      "about": "Test priority mapping",
-      "subject": "Example/Gantt priority mapping test",
-      "skip-on": {
-        "mediawiki": [ "<1.32.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
       "assert-output": {
         "to-contain": [
           "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :crit, 2019-02-01, 2019-02-15\\nTask04\\t :crit, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
@@ -208,22 +167,6 @@
       "type": "parser",
       "about": "Test priority mapping",
       "subject": "Example/Gantt status mapping test",
-      "skip-on": {
-        "mediawiki": [ ">1.31.x", "MediaWiki changed handling of spaces &#160 vs. &nbsp; vs \" \"" ]
-      },
-      "assert-output": {
-        "to-contain": [
-          "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat&#160;%m\\/%d\\/%Y\\nsection First Section\\nTask01\\t&#160;:2019-01-01, 2019-01-15\\nTask03\\t&#160;:active, 2019-02-01, 2019-02-15\\nTask04\\t&#160;:done, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t&#160;:active, 2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
-        ]
-      }
-    },
-    {
-      "type": "parser",
-      "about": "Test priority mapping",
-      "subject": "Example/Gantt status mapping test",
-      "skip-on": {
-        "mediawiki": [ "<1.32.x", "MediaWiki changed ..." ]
-      },
       "assert-output": {
         "to-contain": [
           "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt\\ndateFormat YYYY-MM-DD\\naxisFormat %m\\/%d\\/%Y\\nsection First Section\\nTask01\\t :2019-01-01, 2019-01-15\\nTask03\\t :active, 2019-02-01, 2019-02-15\\nTask04\\t :done, 2019-02-15, 2019-02-28\\nsection Second Section\\nTask02\\t :active, 2019-01-15, 2019-01-31\\n&quot;,&quot;config&quot;:&#123;&quot;theme&quot;:&quot;forest&quot;,&quot;gantt&quot;:&#123;&quot;leftPadding&quot;:130,&quot;titleTopMargin&quot;:30,&quot;barHeight&quot;:40,&quot;barGap&quot;:15&#125;&#125;&#125;\"><div class=\"mermaid-dots\"></div></div>"
