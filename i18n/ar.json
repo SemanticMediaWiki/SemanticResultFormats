@@ -8,7 +8,8 @@
 			"OsamaK",
 			"Tala Ali",
 			"ديفيد",
-			"روخو"
+			"روخو",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"srf-desc": "صيغ نتائج إضافية لاستعلامات ميدياويكي الدلالية",
@@ -228,6 +229,7 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "السابق",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": تفعيل لفرز العمود تصاعديا",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": تفعيل لفرز العمود تنازليا",
+	"srf-ui-datatables-label-rows-all": "كل الصفوف",
 	"srf-printername-tree": "زود بعمود",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",
