@@ -54,7 +54,7 @@
       "assert-output": {
         "to-contain": [
             "class=\"srf-d3-chart-treemap d3-chart-common\"",
-            "class=\"srf-loading-dbbbbots\""
+            "class=\"srf-loading-dots\""
         ]
       }
     }
