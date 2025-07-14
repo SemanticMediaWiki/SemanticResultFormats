@@ -69,7 +69,7 @@
 	"srf_printername_average": "Sayılan ortalaması",
 	"srf_printername_max": "Azami sayı",
 	"srf_printername_min": "Asgari sayı",
-	"srf_paramdesc_limit": "Sorgulanacak maksimum sayfa sayısı",
+	"srf_paramdesc_limit": "Sorgulanacak en fazla sayfa sayısı",
 	"srf_printername_product": "Sayıların çarpımı",
 	"srf_printername_median": "Sayıların medyanı",
 	"srf-paramdesc-default": "Sayısal sonuç olmadığında görüntülenecek varsayılan değer",

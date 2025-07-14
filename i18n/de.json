@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"*surak*",
 			"Ameisenigel",
 			"DaSch",
 			"Imre",
@@ -241,6 +242,8 @@
 	"srf-ui-datatables-label-oAria-sSortAscending": ": zum aufsteigenden Sortieren der Spalte aktivieren",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": zum absteigenden Sortieren der Spalte aktivieren",
 	"srf-ui-datatables-searchpanes-noajax": "Datatables (v2) unterstützt noch keine Suchfenster, wenn Ajax erforderlich ist und deaktiviert wurde.",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1 Zeile|$1 Zeilen}}",
+	"srf-ui-datatables-label-rows-all": "Alle Zeilen",
 	"srf-printername-tree": "Baumansicht (aufgezählt)",
 	"srf-printername-ultree": "Baumansicht (aufgezählt)",
 	"srf-printername-oltree": "Baumansicht (nummeriert)",
