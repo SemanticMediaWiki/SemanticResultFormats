@@ -156,8 +156,7 @@ class SearchPanes {
 				// $this->query->getOption( 'count' ),
 				' HAVING ' . 'count >= ' . $searchPanesOptions['minCount'] .
 				' ORDER BY ' . $orderBy .
-				' LIMIT ' . $dataLength
-			;
+				' LIMIT ' . $dataLength;
 
 			/*
 			SELECT COUNT(i.smw_id), i.smw_id, i.smw_title FROM `smw_object_ids` AS t0
@@ -243,8 +242,7 @@ class SearchPanes {
 				// for using searchPanes only for data reasonably grouped
 				' HAVING ' . 'count >= ' . $searchPanesOptions['minCount'] .
 				' ORDER BY ' . $orderBy .
-				' LIMIT ' . $dataLength
-			;
+				' LIMIT ' . $dataLength;
 
 			// @see QueryEngine
 			$res = $this->connection->query(
@@ -638,8 +636,7 @@ class SearchPanes {
 			// mainlabel only when page titles are grouped
 			// through the printout format or even the printout template
 			// title
-			' ORDER BY t'
-		;
+			' ORDER BY t';
 
 		// Selecting those is required in standard SQL (but MySQL does not require it).
 		$sortfields = implode( ',', $qobj->sortfields );
