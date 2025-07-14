@@ -569,7 +569,7 @@ return [
 
 	// D3
 	'ext.d3.core' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/d3/d3.v3.js'
+		'scripts' => 'resources/jquery/d3/d3.min.js'
 	],
 
 	//

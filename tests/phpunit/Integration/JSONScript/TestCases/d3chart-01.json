@@ -1,0 +1,75 @@
+{
+  "description": "Test the d3chart format",
+  "requires": {
+    "Mermaid": ">= 2.0"
+  },
+  "setup": [
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "Has number",
+      "contents": "[[Has type::Number]]"
+    },
+    {
+      "namespace": "NS_CATEGORY",
+      "page": "Task",
+      "contents": "Test d3chart format"
+    },
+    {
+      "page": "TestPage1",
+      "contents": "[[Category:Task]][[Has number::70]]"
+    },
+    {
+      "page": "TestPage2",
+      "contents": "[[Category:Task]][[Has number::80]]"
+    },
+    {
+      "page": "TestPage3",
+      "contents": "[[Category:Task]][[Has number::90]]"
+    },
+    {
+      "page": "Bubble/Chart",
+      "contents": "{{#ask: [[Category:Task]] | ?Has number| format=d3chart | charttype=bubble}}"
+    },
+    {
+      "page": "Treemap/Chart",
+      "contents": "{{#ask: [[Category:Task]] | ?Has number| format=d3chart | charttype=treemap}}"
+    }
+  ],
+  "tests": [
+    {
+      "type": "parser",
+      "about": "Test d3chart bubble chart format",
+      "subject": "Bubble/Chart",
+      "assert-output": {
+        "to-contain": [
+            "class=\"srf-d3-chart-bubble d3-chart-common\"",
+            "class=\"srf-loading-dots\""
+        ]
+      }
+    },
+    {
+      "type": "parser",
+      "about": "Test d3chart treemap chart format",
+      "subject": "Treemap/Chart",
+      "assert-output": {
+        "to-contain": [
+            "class=\"srf-d3-chart-treemap d3-chart-common\"",
+            "class=\"srf-loading-dbbbbots\""
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "wgContLang": "en",
+    "wgLang": "en",
+    "smwgNamespacesWithSemanticLinks": {
+      "NS_MAIN": true,
+      "SMW_NS_PROPERTY": true
+    }
+  },
+  "meta": {
+    "version": "2",
+    "is-incomplete": false,
+    "debug": true
+  }
+}
