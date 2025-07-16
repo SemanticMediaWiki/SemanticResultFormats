@@ -1,3 +1,5 @@
+# d3chart 
+
 ## Updating `d3chart` Library in `SemanticResultFormats`
 
 The version is managed via `npm` and bundled into the extension using a script.
