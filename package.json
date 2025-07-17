@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "d3": "3.0.4"
+    "d3": "6.7.0"
   },
   "devDependencies": {
     "copy-files-from-to": "^3.12.1"
