@@ -73,9 +73,8 @@
 				height = height - (titleHeight + textHeight);
 				if (isNaN(height) || height < 0) height = 0;
 
-				// Detect D3 major version (default to 0 if undefined)
-				var d3version = (d3.version || "0").split(".")[0];
-				var isV4Plus = parseInt(d3version, 10) >= 4;
+				// Detect if using D3 v4+ by checking for d3.pack
+				var isV4Plus = typeof d3.pack === "function";
 
 				// Color scale and format function
 				var color = isV4Plus
