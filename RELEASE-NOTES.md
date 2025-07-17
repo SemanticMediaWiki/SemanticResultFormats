@@ -15,6 +15,10 @@ Not a release yet.
 
 These changes modernize the d3chart format, improving maintainability, extensibility, and long-term support by aligning with current JavaScript development practices.
 
+### Other changes
+
+* Update SRF Gantt tests and add Mermaid version to CI config - [947](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/ce639defd51cdf193c67358a52b811a3b6f5e663)
+
 ## SRF 5.0.0
 
 Released on April 7, 2025.
