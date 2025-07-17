@@ -18,7 +18,7 @@ function addGlobalD3Assignment(content) {
 
   const match = content.match(regex);
   if (match) {
-    const d3VarName = match[1]; // npr. 'ao'
+    const d3VarName = match[1];
     const insert = `this.d3=${d3VarName};if(typeof window !== "undefined")window.d3=${d3VarName};`;
     return content.replace(regex, `${insert}}`);
   }
