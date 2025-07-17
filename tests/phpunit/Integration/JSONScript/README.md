@@ -15,8 +15,8 @@ It will also generate the descriptions for each test based on the contents of th
 
 ## List of tests
 
-- Files: 33 (includes 131 tests)
-- Last update: 2025-04-01
+- Files: 35 (includes 133 tests)
+- Last update: 2025-07-17
 
 ### B
 * [bibtex-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/bibtex-01.json) Test `format=bibtex`
@@ -25,6 +25,7 @@ It will also generate the descriptions for each test based on the contents of th
 * [carousel-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/carousel-01.json) Test `format=carousel` html output (no JS validation)
 
 ### D
+* [d3chart-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/d3chart-01.json) Test `format=d3chart` with bubble and treemap charts
 * [datatables-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/datatables-01.json) Test `format=datatables` html output (no JS validation)
 
 ### E
@@ -41,6 +42,7 @@ It will also generate the descriptions for each test based on the contents of th
 * [gallery-02.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/gallery-02.json) Test `format=gallery` with file upload and captiontemplate
 * [gallery-03.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/gallery-03.json) Test `format=gallery` with different different parameters like widget, redirects, overlay
 * [gantt-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/gantt-01.json) Test the gantt format
+* [gantt-02.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/gantt-02.json) Extended test cases for the Gantt format in SRF
 
 ### I
 * [icalendar-01.json](https://github.com/SemanticMediaWiki/SemanticResultFormats/tree/master/tests/phpunit/Integration/JSONScript/TestCases/icalendar-01.json) Test `format=icalendar`

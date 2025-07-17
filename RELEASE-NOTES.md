@@ -1,5 +1,20 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF Next Release
+
+Not a release yet.
+
+### Improvements to d3chart format
+
+* Replaced legacy d3.v3.js with modern d3.min.js for better modularity and smaller bundle size
+* Introduced package.json and modern build tooling to manage D3 as an npm dependency
+* Refactored d3chart codebase to support newer D3 versions
+* Updated D3 import and initialization to align with ES module standards
+* Added basic test coverage to validate the updated build and integration
+* Revised documentation to reflect new D3 usage and build process
+
+These changes modernize the d3chart format, improving maintainability, extensibility, and long-term support by aligning with current JavaScript development practices.
+
 ## SRF 5.0.0
 
 Released on April 7, 2025.
