@@ -50,7 +50,7 @@ but can also be executed locally using the shortcut command `composer phpunit` f
 
 ## For developers
 
-See the documention on how to [update d3chart JS library](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/UPDATED3CHART.md).
+See the documention on how to [update d3chart JS library](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/formats/d3/README.md).
 
 ## License
 
