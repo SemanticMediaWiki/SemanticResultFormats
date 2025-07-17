@@ -52,10 +52,11 @@ class SRFListWidget extends ResultPrinter {
 			'show-headers' => $this->mShowHeaders,
 		] );
 
-		// this does not seem to work
-		if ( $this->hasTemplates ) {
-			$builder->set( [ 'link' => 'none' ] );
-		}
+		// this does not work, it would be preferable
+		// to find a way to disable links when template is used
+		// if ( $this->hasTemplates ) {
+		// 	$builder->set( [ 'link' => 'none' ] );
+		// }
 
 		// Get results from \SMW\Query\ResultPrinters\ListResultPrinter
 		$result = $builder->getResultText();
