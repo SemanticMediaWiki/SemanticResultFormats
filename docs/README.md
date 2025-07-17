@@ -8,6 +8,7 @@
 ## Technical documentation
 
 * [Filtered format](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/formats/filtered/README.md)
+* [D3chart format](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/formats/d3/README.md)
 
 ## Repository documentation
 

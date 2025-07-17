@@ -48,6 +48,9 @@ A list of people who have made contributions in the past can be found [here][con
 This extension provides unit and integration tests and is usually run by a [continues integration platform][GitHub Actions]
 but can also be executed locally using the shortcut command `composer phpunit` from the extension base directory.
 
+## For developers
+
+See the documention on how to [update d3chart JS library](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/docs/UPDATED3CHART.md).
 
 ## License
 
