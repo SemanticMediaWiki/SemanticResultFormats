@@ -33,11 +33,15 @@ class ListView extends View {
 	private $mNamedArgs;
 	private $mShowHeaders;
 
+	/** @var array */
+	private $params;
+
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
 	protected function handleParameters() {
 		$params = $this->getActualParameters();
+		$this->params = $params;
 
 		$this->mFormat = $params['list view type'];
 		$this->mTemplate = $params['list view template'];
@@ -72,14 +76,18 @@ class ListView extends View {
 			$footer = "</" . $this->mFormat . ">\n";
 			$rowstart = "\t<li class='filtered-list-item ";
 			$rowend = "</li>\n";
-			$listsep = ', ';
+
+			// ***diversify from the sep below if necessary
+			$listsep = $this->params['sep'];
 		} else {
 			// "list" format
 			$header = '';
 			$footer = '';
 			$rowstart = "\t<div class='filtered-list-item ";
 			$rowend = "</div>\n";
-			$listsep = ', ';
+
+			// ***diversify from the sep above if necessary
+			$listsep = $this->params['sep'];
 		}
 
 		// Initialise more values
