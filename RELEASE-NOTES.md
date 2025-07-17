@@ -15,8 +15,9 @@ Not a release yet.
 
 These changes modernize the d3chart format, improving maintainability, extensibility, and long-term support by aligning with current JavaScript development practices.
 
-### Other changes
+### Enhancements
 
+* Bump d3 from v3.0.4 to v6.7.0 - [951](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/951)
 * Update SRF Gantt tests and add Mermaid version to CI config - [947](https://github.com/SemanticMediaWiki/SemanticResultFormats/commit/ce639defd51cdf193c67358a52b811a3b6f5e663)
 
 ## SRF 5.0.0
