@@ -252,6 +252,12 @@ class Filtered extends ResultPrinter {
 			// 'islist' => false,
 		];
 
+		$params['sep'] = [
+			'type' => 'string',
+			'message' => 'smw-paramdesc-sep',
+			'default' => ',&#32;',
+		];
+
 		foreach ( $this->mViewTypes as $viewType ) {
 			$params = array_merge( $params, call_user_func( [ 'SRF\Filtered\View\\' . $viewType, 'getParameters' ] ) );
 		}
