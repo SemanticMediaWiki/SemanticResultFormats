@@ -5,6 +5,7 @@
 			"Bunyk",
 			"DDPAT",
 			"Ice bulldog",
+			"METROKOP228 UA",
 			"Movses",
 			"NataChe",
 			"Nemo bis",
@@ -350,5 +351,6 @@
 	"srf-error-gantt-sortkey": "'''Ключ сортування''', який ви вибрали, не підтримується",
 	"srf-error-gantt-mermaid-not-installed": "Необхідно встановити розширення Mermaid.",
 	"srf-printername-gantt": "Ґант",
-	"srf-paramdesc-nodelabel": "Використайте мітку вузла графу. Дозволені значення: displaytitle."
+	"srf-paramdesc-nodelabel": "Використайте мітку вузла графу. Дозволені значення: displaytitle.",
+	"srf-printername-mode": "Режим"
 }
