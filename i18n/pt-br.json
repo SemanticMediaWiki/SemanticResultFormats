@@ -210,7 +210,7 @@
 	"srf-printername-datatables": "DataTables",
 	"srf-ui-datatables-label-conditions": "Condições",
 	"srf-ui-datatables-label-parameters": "Parâmetros",
-	"srf-ui-datatables-label-filters": "Filtros de coluna e busca",
+	"srf-ui-datatables-label-filters": "Filtros",
 	"srf-ui-datatables-label-information": "Informação",
 	"srf-ui-datatables-panel-disclaimer": "Parâmetros e condições podem ser alteradas, mas qualquer mudança é temporária e abandonada após uma atualização da página.",
 	"srf-ui-datatables-refresh-button-title": "atualizar tabela",
@@ -375,5 +375,6 @@
 	"srf-error-gantt-mermaid-not-installed": "A Extensão Mermaid precisa ser instalado.",
 	"srf-printername-gantt": "Gantt",
 	"srf-paramdesc-nodelabel": "Use um rótulo de nó de gráfico. Valores permitidos: displaytitle.",
-	"srf-paramdesc-graphfields": "Exibe valores de propriedades que não são de páginas dentro dos nós do gráfico, em vez de arestas."
+	"srf-paramdesc-graphfields": "Exibe valores de propriedades que não são de páginas dentro dos nós do gráfico, em vez de arestas.",
+	"srf-printername-mode": "Modo"
 }
