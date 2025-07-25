@@ -36,7 +36,7 @@ class PrologPrinter extends FileExportPrinter {
 	 * {@inheritDoc}
 	 */
 	public function getName() {
-		return $this->msg( 'srf-printername-prolog' );
+		return $this->msg( 'srf-printername-prolog' )->text();
 	}
 
 	/**
