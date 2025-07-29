@@ -36,8 +36,8 @@ class GraphNode {
 	 * @param string $type : Type of the field, for aligning
 	 * @param string $page : Property page
 	 */
-	public function addField( $name, $value, $type, $page ) {
-		$this->fields[] = [ 'name' => $name ?: $page, 'value' => $value, 'type' => $type, 'page' => $page ];
+	public function addField( $name, $value, $type, $page, $valueLink = null ) {
+		$this->fields[] = [ 'name' => $name ?: $page, 'value' => $value, 'type' => $type, 'page' => $page, 'valueLink' => $valueLink ];
 	}
 
 	/**

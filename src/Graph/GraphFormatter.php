@@ -95,7 +95,7 @@ class GraphFormatter {
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 			$instance = $this;
-			$nodeLabel = htmlspecialchars( $node->getLabel() );
+			$nodeLabel = htmlspecialchars( $node->getLabel(), ENT_QUOTES | ENT_XML1 );
 
 			// take "displaytitle" as node-label if it is set
 			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
@@ -126,14 +126,29 @@ class GraphFormatter {
 								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
 									? 'right'
 									: 'left';
+								$valueLink = $field['valueLink'];
+								if ($valueLink !== null) {
+									$valueLink = $field['valueLink'];
+								} else {
+									$valueLink = $field['value'];
+								}
 								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
 									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '">'
-										. $instance->getWordWrappedText(
-											$field['value'],
-											$instance->options->getWordWrapLimit()
+									. '<td align="' . $alignment . '"'
+										. (
+											$field['type'] === '_wpg'
+												? ' href="[[' . $field['valueLink'] . ']]">'
+													. $instance->getWordWrappedText(
+														$field['value'],
+														$instance->options->getWordWrapLimit()
+													)
+												: '>' 
+												    . $instance->getWordWrappedText(
+													$field['value'],
+													$instance->options->getWordWrapLimit()
+												)
 										)
-									. '</td></tr>';
+										. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
 				$nodeLinkURL = null;
 				// the value at the top is already hyperlinked.
