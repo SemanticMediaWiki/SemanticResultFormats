@@ -127,7 +127,7 @@ class GraphFormatter {
 									? 'right'
 									: 'left';
 								$valueLink = $field['valueLink'];
-								if ($valueLink !== null) {
+								if ( $valueLink !== null ) {
 									$valueLink = $field['valueLink'];
 								} else {
 									$valueLink = $field['value'];
@@ -142,8 +142,8 @@ class GraphFormatter {
 														$field['value'],
 														$instance->options->getWordWrapLimit()
 													)
-												: '>' 
-												    . $instance->getWordWrappedText(
+												: '>'
+													. $instance->getWordWrappedText(
 													$field['value'],
 													$instance->options->getWordWrapLimit()
 												)

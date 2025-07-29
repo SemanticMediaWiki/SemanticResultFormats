@@ -261,9 +261,7 @@ class GraphPrinter extends ResultPrinter {
 								'type' => $type,
 								'page' => $canonicalLabel,
 							];
-						}
-						// page field
-						elseif ( $pageTypeSeen !== 2 && $isPageType ) {
+						} elseif ( $pageTypeSeen !== 2 && $isPageType ) {
 							$fields[] = [
 								'name' => $label,
 								'value' => $object->getDisplayTitle(),
