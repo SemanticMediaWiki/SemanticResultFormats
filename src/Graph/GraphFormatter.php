@@ -95,7 +95,7 @@ class GraphFormatter {
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 			$instance = $this;
-			$nodeLabel = htmlspecialchars( $node->getLabel(), ENT_QUOTES | ENT_XML1 );
+			$nodeLabel = htmlspecialchars( $node->getLabel() );
 
 			// take "displaytitle" as node-label if it is set
 			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
@@ -165,7 +165,7 @@ class GraphFormatter {
 			 *
 			 * @var \SRF\Graph\GraphNode $node
 			 */
-			$this->add( '"' . htmlspecialchars( $node->getID() ) . '"' );
+			$this->add( '"' . $node->getID() . '"' );
 
 			$inBrackets = [];
 			if ( $nodeLinkURL ) {
@@ -175,7 +175,7 @@ class GraphFormatter {
 				$inBrackets[] = 'label = ' . $nodeLabel;
 			}
 			if ( $nodeTooltip ) {
-				$inBrackets[] = 'tooltip = "' . htmlspecialchars( $nodeTooltip ) . '"';
+				$inBrackets[] = 'tooltip = "' .  $nodeTooltip  . '"';
 			}
 			if ( count( $inBrackets ) > 0 ) {
 				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
