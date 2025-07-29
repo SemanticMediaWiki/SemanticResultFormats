@@ -175,7 +175,7 @@ class GraphFormatter {
 				$inBrackets[] = 'label = ' . $nodeLabel;
 			}
 			if ( $nodeTooltip ) {
-				$inBrackets[] = 'tooltip = "' .  $nodeTooltip  . '"';
+				$inBrackets[] = 'tooltip = "' . $nodeTooltip . '"';
 			}
 			if ( count( $inBrackets ) > 0 ) {
 				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
