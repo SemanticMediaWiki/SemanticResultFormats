@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - mediawiki_version: '1.39'
-            smw_version: dev-master
+            smw_version: 5.0.2
             php_version: 8.1
             mm_version: 6.0.1
             database_type: mysql
@@ -26,7 +26,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.40'
-            smw_version: dev-master
+            smw_version: 5.0.2
             php_version: 8.1
             mm_version: 6.0.1
             database_type: mysql
@@ -34,7 +34,7 @@ jobs:
             coverage: true
             experimental: false
           - mediawiki_version: '1.41'
-            smw_version: dev-master
+            smw_version: 5.0.2
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
@@ -44,7 +44,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.42'
-            smw_version: dev-master
+            smw_version: 5.0.2
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
@@ -54,7 +54,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.43.1'
-            smw_version: dev-master
+            smw_version: 5.0.2
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
