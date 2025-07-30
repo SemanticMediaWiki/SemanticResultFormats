@@ -137,14 +137,14 @@ class GraphFormatter {
 									. '<td align="' . $alignment . '"'
 										. (
 											$field['type'] === '_wpg'
-												? ' href="[[' . $field['valueLink'] . ']]">'
+												? ' href="[[' . htmlspecialchars( $field['valueLink'] ) . ']]">'
 													. $instance->getWordWrappedText(
-														$field['value'],
+														htmlspecialchars( $field['value'] ),
 														$instance->options->getWordWrapLimit()
 													)
 												: '>'
 													. $instance->getWordWrappedText(
-													$field['value'],
+													htmlspecialchars( $field['value'] ),
 													$instance->options->getWordWrapLimit()
 												)
 										)
