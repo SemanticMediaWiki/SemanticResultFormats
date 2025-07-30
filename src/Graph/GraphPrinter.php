@@ -214,7 +214,11 @@ class GraphPrinter extends ResultPrinter {
 
 			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
 				$hasProperty = $object->getProperty();
-				$objectText = $object->getShortWikiText();
+				if ( $object instanceof \SMW\DataValues\StringValue ) {
+					$objectText = $object->getShortWikiText();
+				} else {
+					$objectText = $object->getDisplayTitle();
+				}
 
 				$includeAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
 				$includeAsField = $showGraphFields && ( !$isPageType || $showGraphFieldsPages );
@@ -242,17 +246,10 @@ class GraphPrinter extends ResultPrinter {
 						$node = new GraphNode( $objectText );
 						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
 					} elseif ( $node && $objectText !== $node->getId() ) {
-						if ( ( $pageTypeSeen !== 2 && $isPageType ) ) {
-							$parents[] = [
-								'predicate' => $label,
-								'object' => $object->getDisplayTitle(),
-							];
-						} else {
-							$parents[] = [
-								'predicate' => $label,
-								'object' => $objectText,
-							];
-						}
+						$parents[] = [
+							'predicate' => $label,
+							'object' => $objectText,
+						];
 					}
 					continue;
 				}
