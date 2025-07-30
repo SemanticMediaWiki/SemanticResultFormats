@@ -20,7 +20,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 	private $cases = [
 		'Simple' => [
 			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
-			'params' => [ 'graphfields' => false ],
+			'params' => [ 'graphfields' => false, 'graphfieldspages' => 'no' ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
@@ -112,6 +112,7 @@ FIELDS
 		'graphlabel' => true,
 		'graphcolor' => true,
 		'graphlegend' => true,
+		'graphfieldspages' => 'no'
 	];
 
 	/**
