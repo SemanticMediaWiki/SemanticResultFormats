@@ -242,10 +242,17 @@ class GraphPrinter extends ResultPrinter {
 						$node = new GraphNode( $objectText );
 						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
 					} elseif ( $node && $objectText !== $node->getId() ) {
-						$parents[] = [
-							'predicate' => $label,
-							'object' => $objectText,
-						];
+						if ( ( $pageTypeSeen !== 2 && $isPageType ) ) {
+							$parents[] = [
+								'predicate' => $label,
+								'object' => $object->getDisplayTitle(),
+							];
+						} else {
+							$parents[] = [
+								'predicate' => $label,
+								'object' => $objectText,
+							];
+						}
 					}
 					continue;
 				}
@@ -284,16 +291,20 @@ class GraphPrinter extends ResultPrinter {
 
 		if ( $node ) {
 			foreach ( $parents as $parent ) {
-				$node->addParentNode( $parent['predicate'], $parent['object'] );
+				if ( !empty( $parent['object'] ) ) {
+					$node->addParentNode( $parent['predicate'], $parent['object'] );
+				}
 			}
 			foreach ( $fields as $field ) {
-				$node->addField(
-					$field['name'],
-					$field['value'],
-					$field['type'],
-					$field['page'],
-					$field['valueLink'] ?? null
-				);
+				if ( $field['value'] !== '' ) {
+					$node->addField(
+						$field['name'],
+						$field['value'],
+						$field['type'],
+						$field['page'],
+						$field['valueLink'] ?? null
+					);
+				}
 			}
 			$this->nodes[] = $node;
 		}
