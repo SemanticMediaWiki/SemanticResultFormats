@@ -56,14 +56,14 @@ SIMPLE
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
 				], 'fields' => [
-					[ 'name' => 'Rated as', 'value' => 10, 'type' => '_num', 'page' => 'Rating' ]
+					[ 'name' => 'Rated as', 'value' => 10, 'type' => '_num', 'page' => 'Rating', 'valueLink' => null ]
 				] ],
 				[ 'name' => 'Team:Beta', 'label' => 'Beta', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Sebastian Schmid' ],
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ],
 					[ 'predicate' => 'Part of Team', 'object' => 'Team:Alpha' ],
 				], 'fields' => [
-					[ 'name' => 'Rated as', 'value' => 20, 'type' => '_num', 'page' => 'Rating' ]
+					[ 'name' => 'Rated as', 'value' => 20, 'type' => '_num', 'page' => 'Rating', 'valueLink' => null ]
 				] ]
 			],
 			'legend' => '<div class="graphlegend">' .
@@ -93,6 +93,32 @@ size="100";node [shape=rect];rankdir=LR;
 "Team:Alpha" -> "Team:Beta" [label="Part of Team",fontcolor=red,arrowhead=diamond,color=red];
 }
 FIELDS
+		],
+		'graphfieldspages=yes - Only first page field becomes node' => [
+			'params' => [ 'graphfields' => true, 'graphfieldspages' => 'yes' ],
+			'nodes' => [
+				[ 'name' => 'Team:Gamma', 'label' => 'Gamma', 'parent' => [], 'fields' => [
+					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
+					[ 'name' => 'Casted', 'value' => 'Sebastian Schmid', 'type' => '_wpg', 'page' => 'Casted', 'valueLink' => 'Sebastian Schmid' ],
+					[ 'name' => 'Team Code', 'value' => 'ES', 'type' => '_txt', 'page' => 'Team Code', 'valueLink' => null ],
+				] ]
+			],
+			'legend' => '<div class="graphlegend"></div>',
+			'dot' => <<<'DOT'
+digraph "Unit Test" {graph [fontsize=10, fontname="Verdana"]
+node [fontsize=10, fontname="Verdana"];
+edge [fontsize=10, fontname="Verdana"];
+size="100";node [shape=rect];rankdir=LR;
+"Team:Gamma" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Gamma]]">Gamma</td></tr><hr/>
+<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+</table>
+>, tooltip = "Gamma"];
+}
+DOT
 		]
 	];
 
@@ -133,7 +159,7 @@ FIELDS
 			}
 			if ( isset( $node['fields'] ) ) {
 				foreach ( $node['fields'] as $field ) {
-					$graph_node->addField( $field['name'], $field['value'], $field['type'], $field['page'] );
+					$graph_node->addField( $field['name'], $field['value'], $field['type'], $field['page'], $field['valueLink'] );
 				}
 			}
 			$nodes[] = $graph_node;
