@@ -119,6 +119,100 @@ size="100";node [shape=rect];rankdir=LR;
 >, tooltip = "Gamma"];
 }
 DOT
+		],
+		// @see https://www.php.net/manual/en/function.htmlspecialchars.php
+		'graphfieldspages=yes - with parent nodes and special chars' => [
+			'params' => [ 'graphfields' => true, 'graphfieldspages' => 'yes' ],
+			'nodes' => [
+				[ 'name' => 'Team:Delta', 'label' => 'Delta', 'parents' => [
+					[ 'predicate' => 'Part of Team', 'object' => 'Solar & Hydro' ]
+				], 'fields' => [
+					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
+					[ 'name' => 'Casted', 'value' => 'Sebastian Schmid', 'type' => '_wpg', 'page' => 'Casted', 'valueLink' => 'Sebastian Schmid' ],
+					[ 'name' => 'Team Code', 'value' => 'ES', 'type' => '_txt', 'page' => 'Team Code', 'valueLink' => null ],
+				] ],
+				[ 'name' => 'Team:Epsilon', 'label' => 'Epsilon', 'parents' => [
+					[ 'predicate' => 'Part of Team', 'object' => 'Solar < Hydro' ]
+				], 'fields' => [
+					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
+					[ 'name' => 'Casted', 'value' => 'Sebastian Schmid', 'type' => '_wpg', 'page' => 'Casted', 'valueLink' => 'Sebastian Schmid' ],
+					[ 'name' => 'Team Code', 'value' => 'ES', 'type' => '_txt', 'page' => 'Team Code', 'valueLink' => null ],
+				] ],
+				[ 'name' => 'Team:Zeta', 'label' => 'Zeta', 'parents' => [
+					[ 'predicate' => 'Part of Team', 'object' => 'Solar > Hydro' ]
+				], 'fields' => [
+					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
+					[ 'name' => 'Casted', 'value' => 'Sebastian Schmid', 'type' => '_wpg', 'page' => 'Casted', 'valueLink' => 'Sebastian Schmid' ],
+					[ 'name' => 'Team Code', 'value' => 'ES', 'type' => '_txt', 'page' => 'Team Code', 'valueLink' => null ],
+				] ],
+				[ 'name' => 'Team:Eta', 'label' => 'Eta', 'parents' => [
+					[ 'predicate' => 'Part of Team', 'object' => 'Solar "" Hydro' ]
+				], 'fields' => [
+					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
+					[ 'name' => 'Casted', 'value' => 'Sebastian Schmid', 'type' => '_wpg', 'page' => 'Casted', 'valueLink' => 'Sebastian Schmid' ],
+					[ 'name' => 'Team Code', 'value' => 'ES', 'type' => '_txt', 'page' => 'Team Code', 'valueLink' => null ],
+				] ],
+				[ 'name' => 'Team:Theta', 'label' => 'Theta', 'parents' => [
+					[ 'predicate' => 'Part of Team', 'object' => 'Solar \' Hydro' ]
+				], 'fields' => [
+					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
+					[ 'name' => 'Casted', 'value' => 'Sebastian Schmid', 'type' => '_wpg', 'page' => 'Casted', 'valueLink' => 'Sebastian Schmid' ],
+					[ 'name' => 'Team Code', 'value' => 'ES', 'type' => '_txt', 'page' => 'Team Code', 'valueLink' => null ],
+				] ]
+			],
+			'legend' => '<div class="graphlegend"><div class="graphlegenditem" style="color: black">black: Part of Team</div></div>',
+			'dot' => <<<'DOT'
+digraph "Unit Test" {graph [fontsize=10, fontname="Verdana"]
+node [fontsize=10, fontname="Verdana"];
+edge [fontsize=10, fontname="Verdana"];
+size="100";node [shape=rect];rankdir=LR;
+"Team:Delta" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Delta]]">Delta</td></tr><hr/>
+<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+</table>
+>, tooltip = "Delta"];
+"Team:Epsilon" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Epsilon]]">Epsilon</td></tr><hr/>
+<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+</table>
+>, tooltip = "Epsilon"];
+"Team:Zeta" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Zeta]]">Zeta</td></tr><hr/>
+<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+</table>
+>, tooltip = "Zeta"];
+"Team:Eta" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Eta]]">Eta</td></tr><hr/>
+<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+</table>
+>, tooltip = "Eta"];
+"Team:Theta" [label = <
+<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Theta]]">Theta</td></tr><hr/>
+<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+</table>
+>, tooltip = "Theta"];
+"Solar &amp; Hydro" -> "Team:Delta" [label="Part of Team",fontcolor=black,arrowhead=diamond,color=black];
+"Solar &lt; Hydro" -> "Team:Epsilon" [label="Part of Team",fontcolor=black,arrowhead=diamond,color=black];
+"Solar &gt; Hydro" -> "Team:Zeta" [label="Part of Team",fontcolor=black,arrowhead=diamond,color=black];
+"Solar &quot;&quot; Hydro" -> "Team:Eta" [label="Part of Team",fontcolor=black,arrowhead=diamond,color=black];
+"Solar &#039; Hydro" -> "Team:Theta" [label="Part of Team",fontcolor=black,arrowhead=diamond,color=black];
+}
+DOT
 		]
 	];
 
