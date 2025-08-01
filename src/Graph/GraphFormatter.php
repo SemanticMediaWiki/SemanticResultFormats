@@ -126,14 +126,29 @@ class GraphFormatter {
 								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
 									? 'right'
 									: 'left';
+								$valueLink = $field['valueLink'];
+								if ( $valueLink !== null ) {
+									$valueLink = $field['valueLink'];
+								} else {
+									$valueLink = $field['value'];
+								}
 								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
 									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '">'
-										. $instance->getWordWrappedText(
-											$field['value'],
-											$instance->options->getWordWrapLimit()
+									. '<td align="' . $alignment . '"'
+										. (
+											$field['type'] === '_wpg'
+												? ' href="[[' . htmlspecialchars( $field['valueLink'] ) . ']]">'
+													. $instance->getWordWrappedText(
+														htmlspecialchars( $field['value'] ),
+														$instance->options->getWordWrapLimit()
+													)
+												: '>'
+													. $instance->getWordWrappedText(
+													htmlspecialchars( $field['value'] ),
+													$instance->options->getWordWrapLimit()
+												)
 										)
-									. '</td></tr>';
+										. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
 				$nodeLinkURL = null;
 				// the value at the top is already hyperlinked.
@@ -182,8 +197,8 @@ class GraphFormatter {
 
 					// handle parent/child switch (parentRelation)
 					$this->add( $this->options->getParentRelation()
-						? '"' . $parentNode['object'] . '" -> "' . $node->getID() . '"'
-						: '"' . $node->getID() . '" -> "' . $parentNode['object'] . '"' );
+						? '"' . htmlspecialchars( $parentNode['object'] ) . '" -> "' . htmlspecialchars( $node->getID() ) . '"'
+						: '"' . htmlspecialchars( $node->getID() ) . '" -> "' . htmlspecialchars( $parentNode['object'] ) . '"' );
 
 					if ( $this->options->isGraphLabel() || $this->options->isGraphColor() ) {
 						$this->add( ' [' );

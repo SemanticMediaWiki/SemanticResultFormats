@@ -14,10 +14,10 @@ EXTENSION=SemanticResultFormats
 MW_VERSION?=1.39
 PHP_VERSION?=8.1
 DB_TYPE?=mysql
-DB_IMAGE?="mariadb:10"
+DB_IMAGE?="mariadb:11.2"
 
 # extensions
-SMW_VERSION?=dev-master
+SMW_VERSION ?= 5.0.2
 PF_VERSION ?= 5.5.1
 SFS_VERSION ?= 4.0.0-beta
 MM_VERSION ?= 6.0.1
