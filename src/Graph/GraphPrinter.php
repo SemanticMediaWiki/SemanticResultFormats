@@ -269,7 +269,7 @@ class GraphPrinter extends ResultPrinter {
 							$fields[] = [
 								'name' => $label,
 								'value' => $object->getDisplayTitle(),
-								'valueLink' => $objectText,
+								'valueLink' => $object->getShortWikiText(),
 								'type' => $type,
 								'page' => $canonicalLabel,
 							];
