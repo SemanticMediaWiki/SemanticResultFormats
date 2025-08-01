@@ -105,6 +105,8 @@
 	"srf_printername_valuerank": "МаьӀнийн ранг",
 	"srf-paramdesc-liststyle": "Гойтучу могӀанан стиль",
 	"srf_printername_array": "Массив",
+	"srf_paramdesc_propsep": "Дехар динчу башхалашна йукъахь къасторан гӀирс",
+	"srf_paramdesc_manysep": "Дуккха а мах хадийначу башхаллийн маьӀнашца йукъахь къастор",
 	"srf_printername_hash": "Хэш",
 	"srf-printername-graph": "График",
 	"srf-paramdesc-graphname": "Графан цӀе хӀоттайо",
@@ -214,5 +216,6 @@
 	"srf-printername-gantt": "Гантан диаграмма",
 	"srf-printername-mode": "Раж",
 	"srf-printername-range": "Диапазон",
-	"srf-printername-variance": "Дисперси"
+	"srf-printername-variance": "Дисперси",
+	"srf-printername-dataframe": "R-фрейм хаамийн"
 }
