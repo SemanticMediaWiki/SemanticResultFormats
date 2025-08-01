@@ -165,7 +165,7 @@ class GraphFormatter {
 			 *
 			 * @var \SRF\Graph\GraphNode $node
 			 */
-			$this->add( '"' . $node->getID() . '"' );
+			$this->add( '"' . htmlspecialchars( $node->getID() ) . '"' );
 
 			$inBrackets = [];
 			if ( $nodeLinkURL ) {
@@ -175,7 +175,7 @@ class GraphFormatter {
 				$inBrackets[] = 'label = ' . $nodeLabel;
 			}
 			if ( $nodeTooltip ) {
-				$inBrackets[] = 'tooltip = "' . $nodeTooltip . '"';
+				$inBrackets[] = 'tooltip = "' . htmlspecialchars( $nodeTooltip ) . '"';
 			}
 			if ( count( $inBrackets ) > 0 ) {
 				$this->add( ' [' . implode( ', ', $inBrackets ) . ']' );
@@ -197,8 +197,8 @@ class GraphFormatter {
 
 					// handle parent/child switch (parentRelation)
 					$this->add( $this->options->getParentRelation()
-						? '"' . $parentNode['object'] . '" -> "' . $node->getID() . '"'
-						: '"' . $node->getID() . '" -> "' . $parentNode['object'] . '"' );
+						? '"' . htmlspecialchars( $parentNode['object'] ) . '" -> "' . htmlspecialchars( $node->getID() ) . '"'
+						: '"' . htmlspecialchars( $node->getID() ) . '" -> "' . htmlspecialchars( $parentNode['object'] ) . '"' );
 
 					if ( $this->options->isGraphLabel() || $this->options->isGraphColor() ) {
 						$this->add( ' [' );
