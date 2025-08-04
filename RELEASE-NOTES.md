@@ -15,6 +15,9 @@ Not a release yet.
 
 These changes modernize the d3chart format, improving maintainability, extensibility, and long-term support by aligning with current JavaScript development practices.
 
+### Improvements to graph format
+* add graphfieldspages param to optionally include Page-type values as node fields [958](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/958)
+
 ### Enhancements
 
 * Bump d3 from v3.0.4 to v6.7.0 - [951](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/951)
