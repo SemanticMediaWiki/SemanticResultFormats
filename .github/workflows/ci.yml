@@ -54,7 +54,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.43.1'
-            smw_version: 5.1.0
+            smw_version: dev-master
             pf_version: 5.9
             sfs_version: dev-master
             php_version: 8.1
