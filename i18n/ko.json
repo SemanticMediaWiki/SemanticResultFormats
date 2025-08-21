@@ -166,7 +166,7 @@
 	"srf-printername-tree": "트리",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",
-	"srf-tree-noparentprop": "부모 속성이 지정되지 않았습니다. 부모 속성이 지정되지 않으면 트리를 만들 수 없습니다.",
+	"srf-tree-noparentprop": "상위 속성이 지정되지 않았습니다. 상위 속성이 지정되지 않으면 트리를 만들 수 없습니다.",
 	"srf-tree-rootinvalid": "$1은 올바른 문서 제목이 아닙니다.",
 	"srf-paramdesc-tree-parent": "상위 문서를 포함하는 속성",
 	"srf-paramdesc-tree-root": "트리의 루트 페이지",

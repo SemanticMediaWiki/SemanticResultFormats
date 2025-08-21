@@ -226,7 +226,7 @@
 	"srf-tree-noparentprop": "Non se especificou propiedade pai ningunha. Non se pode construír a árbore sen achegar unha propiedade pai.",
 	"srf-tree-rootinvalid": "\"$1\" non é un título de páxina válido.",
 	"srf-tree-circledetected": "Detectadas relacións circulares ó intentar inserir $1 na árbore.",
-	"srf-paramdesc-tree-parent": "A propiedade que contén a páxina pai",
+	"srf-paramdesc-tree-parent": "A propiedade que contén a páxina nai",
 	"srf-paramdesc-tree-root": "Páxina raíz da árbore",
 	"srf-paramdesc-tree-startlevel": "Nivel inicial da árbore, p. ex. para integrala noutra árbore",
 	"srf-printername-slideshow": "Presentación de diapositivas",
