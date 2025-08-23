@@ -70,6 +70,92 @@ class SearchPanes {
 		return $this->searchPanesLog;
 	}
 
+	private function parseQuerySegment( $querySegment ) {
+/*
+parse QuerySegment in this form:
+(
+    [type] => 1
+    [depth] => 
+    [fingerprint] => 
+    [null] => 
+    [not] => 
+    [joinType] => 
+    [joinTable] => smw_object_ids
+    [joinfield] => t0.smw_id
+    [indexField] => 
+    [from] =>  INNER JOIN (`smw_fpt_mdat` AS t2  INNER JOIN `smw_di_blob` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
+    [fromTables] => Array
+        (
+            [nestedt2] => Array
+                (
+                    [t3] => smw_di_blob
+                    [t2] => smw_fpt_mdat
+                )
+
+        )
+
+    [joinConditions] => Array
+        (
+            [t3] => Array
+                (
+                    [0] => INNER JOIN
+                    [1] => t2.s_id=t3.s_id
+                )
+
+            [nestedt2] => Array
+                (
+                    [0] => INNER JOIN
+                    [1] => t0.smw_id=t2.s_id
+                )
+
+        )
+
+    [where] => ((t3.p_id=519))
+    [sortIndexField] => 
+    [components] => Array
+        (
+        )
+
+    [alias] => t0
+    [sortfields] => Array
+        (
+            [] => t0.smw_sort
+        )
+
+    [queryNumber] => 0
+)
+*/
+		$tables = [
+			$querySegment['alias'] => $querySegment['joinTable']
+		];
+		$joins = [];
+		$conds = $querySegment['where'] ?: [];
+
+		if ( !empty( $querySegment['joinConditions'] ) ) {
+			foreach ( $querySegment['joinConditions'] as $alias => $joinInfo ) {
+				$aliasFixed = preg_replace( '/^nested/', '', $alias );
+				$joins[$aliasFixed] = [ $joinInfo[0], [$joinInfo[1]] ];
+			}
+		}
+
+		if ( !empty( $querySegment['fromTables'] ) ) {
+			foreach ( $querySegment['fromTables'] as $nestedAlias => $nested ) {
+				if ( is_array($nested ) ) {
+					foreach ( $nested as $alias => $table ) {
+						$aliasFixed = preg_replace('/^nested/', '', $alias);
+						$tables[$aliasFixed] = $table;
+					}
+				} else {
+					$tables[$nestedAlias] = $nested;
+				}
+			}
+		}
+
+		ksort($tables);
+
+		return [ $tables, $joins, $conds ];
+	}
+
 	private function getPanesOptions(
 		PrintRequest $printRequest,
 		string $canonicalLabel,
@@ -126,21 +212,29 @@ class SearchPanes {
 
 		$qobj = $querySegmentList[$rootid];
 
+		[ $tables, $joins, $conds ] = $this->parseQuerySegment((array)$qobj);
+
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
 		$propTypeid = $property->findPropertyValueType();
 
 		if ( $isCategory ) {
-
 			// data-length without the GROUP BY clause
-			$sql_options = [ 'LIMIT' => 1 ];
+			$sql_options_ = [ 'LIMIT' => 1 ];
 
+			$tables_ = $tables;
+			$tables_['insts'] = 'smw_fpt_inst';
+			$fields_ = [ 'count' => 'COUNT(*)' ];
+			$conds_ = $conds;
+			$joins_ = $joins;
+			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
+			
 			$dataLength = (int)$this->connection->selectField(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id",
-				"COUNT(*) AS count",
-				$qobj->where,
-				__METHOD__,
-				$sql_options
+    			$tables_,
+    			$fields_,
+    			$conds_,
+    			__METHOD__,
+    			$sql_options_,
+    			$joins_
 			);
 
 			if ( !$dataLength ) {
@@ -149,7 +243,7 @@ class SearchPanes {
 
 			$groupBy = "i.smw_id";
 			$orderBy = "count DESC, $groupBy ASC";
-			$sql_options = [
+			$sql_options_ = [
 				'GROUP BY' => $groupBy,
 				// $this->query->getOption( 'count' ),
 				'LIMIT' => $dataLength,
@@ -167,6 +261,7 @@ class SearchPanes {
 			HAVING COUNT(i.smw_id) >= 1 ORDER BY COUNT(i.smw_id) DESC
 			*/
 
+/*
 			$res = $this->connection->select(
 				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
 					// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
@@ -176,6 +271,24 @@ class SearchPanes {
 				$qobj->where,
 				__METHOD__,
 				$sql_options
+			);
+*/		
+			$tables_ = $tables;
+			$tables_['insts'] = 'smw_fpt_inst';
+			$tables_[SQLStore::ID_TABLE] = 'i';
+			$joins_ = $joins;
+			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
+			$joins_['i'] = [ 'JOIN',  [ 'i.smw_id = insts.o_id' ] ];
+			$conds_ = $conds;
+			$fields_ = "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject";
+
+			$res = $this->connection->select(
+				$tables_,
+				$fields_,
+				$conds_,
+				__METHOD__,
+				$sql_options_,
+				$joins_
 			);
 
 			$isIdField = true;
@@ -203,25 +316,31 @@ class SearchPanes {
 			}
 
 			// data-length without the GROUP BY clause
-			$sql_options = [ 'LIMIT' => 1 ];
+			$sql_options_ = [ 'LIMIT' => 1 ];
 
 			// SELECT COUNT(*) as count FROM `smw_object_ids` AS t0
 			// INNER JOIN (`smw_fpt_mdat` AS t2 INNER JOIN `smw_di_wikipage` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
 			// WHERE ((t3.p_id=517)) LIMIT 500
 
+			$tables_ = $tables;
+			$fields_ = [ 'count' => 'COUNT(*)' ];
+			$conds_ = $conds;
+			$joins_ = $joins;
+
 			$dataLength = (int)$this->connection->selectField(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
-				"COUNT(*) as count",
-				$qobj->where,
-				__METHOD__,
-				$sql_options
+    			$tables_,
+    			$fields_,
+    			$conds_,
+    			__METHOD__,
+    			$sql_options_,
+    			$joins_
 			);
 
 			if ( !$dataLength ) {
 				return [];
 			}
 
-			[ $diType, $isIdField, $fields, $groupBy, $orderBy ] = $this->fetchValuesByGroup( $property, $p_alias, $propTypeid );
+			[ $diType, $isIdField, $fields_, $groupBy, $orderBy ] = $this->fetchValuesByGroup( $property, $p_alias, $propTypeid );
 
 			/*
 			---GENERATED FROM DATATABLES
@@ -231,7 +350,7 @@ class SearchPanes {
 			SELECT i.smw_id,i.smw_title,i.smw_namespace,i.smw_iw,i.smw_subobject,i.smw_hash,i.smw_sort,COUNT( p.o_id ) as count FROM `smw_object_ids` `o` INNER JOIN `smw_di_wikipage` `p` ON ((p.s_id=o.smw_id)) JOIN `smw_object_ids` `i` ON ((p.o_id=i.smw_id)) WHERE o.smw_hash IN ('1_-_A','1_-_Ab','1_-_Abc','10_-_Abcd','11_-_Abc') AND (o.smw_iw!=':smw') AND (o.smw_iw!=':smw-delete') AND p.p_id = 517 GROUP BY p.o_id, i.smw_id ORDER BY count DESC, i.smw_sort ASC
 			*/
 
-			$sql_options = [
+			$sql_options_ = [
 				'GROUP BY' => $groupBy,
 				// the following implies that if the user sets a threshold
 				// close or equal to 1, and there are too many unique values,
@@ -243,18 +362,27 @@ class SearchPanes {
 			];
 
 			// @see QueryEngine
-			$res = $this->connection->select(
-				 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-				. ( !$isIdField ? ''
-					: " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS `i` ON ($p_alias.o_id = i.smw_id)" ),
-				implode( ',', $fields ),
-				$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
-					. ' i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED )
-					. ' AND i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW ) ),
-				__METHOD__,
-				$sql_options
-			);
+			$tables_ = $tables;
+			$joins_ = $joins;
+			$conds_ = $conds;
 
+			if ($isIdField) {
+				$tables_['i'] = SQLStore::ID_TABLE;
+				$joins_['i'] = [ 'JOIN', "$p_alias.o_id = i.smw_id" ];
+				$conds_ .= !empty( $conds_ ) ? ' AND' : '';
+				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWIW_OUTDATED);
+				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWDELETEIW);
+			}
+
+			// perform the select
+			$res = $this->connection->select(
+				$tables_,
+				$fields_,
+				$conds_,
+				__METHOD__,
+				$sql_options_,
+				$joins_
+			);
 		}
 
 		// verify uniqueRatio
@@ -605,9 +733,9 @@ class SearchPanes {
 			'threshold' => $threshold,
 		];
 
-		if ( $threshold < 1 ) {
-			return [];
-		}
+		// if ( $threshold < 1 ) {
+		// 	return [];
+		// }
 
 		$query = $this->datatables->query;
 		$queryDescription = $query->getDescription();
@@ -628,7 +756,9 @@ class SearchPanes {
 
 		$qobj = $querySegmentList[$rootid];
 
-		$sql_options = [
+		[ $tables, $joins, $conds ] = $this->parseQuerySegment((array)$qobj);
+
+		$sql_options_ = [
 			// *** should we set a limit here ?
 			// it makes sense to show the pane for
 			// mainlabel only when page titles are grouped
@@ -639,21 +769,29 @@ class SearchPanes {
 
 		// Selecting those is required in standard SQL (but MySQL does not require it).
 		$sortfields = implode( ',', $qobj->sortfields );
-		$sortfields = $sortfields ? ',' . $sortfields : '';
+		// $sortfields = $sortfields ? ',' . $sortfields : '';
 
 		// @see QueryEngine
+		$tables_ = $tables;
+		$fields_ = [];
+		$fields_['id'] = "$qobj->alias.smw_id";
+		$fields_['t'] = "$qobj->alias.smw_title";
+		$fields_['ns'] = "$qobj->alias.smw_namespace";
+		$fields_['iw'] = "$qobj->alias.smw_iw";
+		$fields_['so'] = "$qobj->alias.smw_subobject";
+		$fields_['sortkey'] = "$qobj->alias.smw_sortkey";
+		$fields_[] = $sortfields;
+
+		$conds_ = $conds;
+		$joins_ = $joins;
+
 		$res = $this->connection->select(
-			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
-			"$qobj->alias.smw_id AS id," .
-			"$qobj->alias.smw_title AS t," .
-			"$qobj->alias.smw_namespace AS ns," .
-			"$qobj->alias.smw_iw AS iw," .
-			"$qobj->alias.smw_subobject AS so," .
-			"$qobj->alias.smw_sortkey AS sortkey" .
-			"$sortfields",
-			$qobj->where,
-			__METHOD__,
-			$sql_options
+    		$tables_,
+    		$fields_,
+    		$conds_,
+    		__METHOD__,
+    		$sql_options_,
+    		$joins_
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
