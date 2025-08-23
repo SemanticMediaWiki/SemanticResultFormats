@@ -140,7 +140,7 @@ parse QuerySegment in this form:
 
 		if ( !empty( $querySegment['fromTables'] ) ) {
 			foreach ( $querySegment['fromTables'] as $nestedAlias => $nested ) {
-				if ( is_array($nested ) ) {
+				if ( is_array( $nested ) ) {
 					foreach ( $nested as $alias => $table ) {
 						$aliasFixed = preg_replace( '/^nested/', '', $alias );
 						$tables[$aliasFixed] = $table;
