@@ -757,7 +757,6 @@ parse QuerySegment in this form:
 
 		// Selecting those is required in standard SQL (but MySQL does not require it).
 		$sortfields = implode( ',', $qobj->sortfields );
-		// $sortfields = $sortfields ? ',' . $sortfields : '';
 
 		// @see QueryEngine
 		$tables_ = $tables;
