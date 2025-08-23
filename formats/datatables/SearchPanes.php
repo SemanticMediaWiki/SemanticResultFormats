@@ -134,7 +134,7 @@ parse QuerySegment in this form:
 		if ( !empty( $querySegment['joinConditions'] ) ) {
 			foreach ( $querySegment['joinConditions'] as $alias => $joinInfo ) {
 				$aliasFixed = preg_replace( '/^nested/', '', $alias );
-				$joins[$aliasFixed] = [ $joinInfo[0], [$joinInfo[1]] ];
+				$joins[$aliasFixed] = [ $joinInfo[0], [ $joinInfo[1] ] ];
 			}
 		}
 
@@ -142,7 +142,7 @@ parse QuerySegment in this form:
 			foreach ( $querySegment['fromTables'] as $nestedAlias => $nested ) {
 				if ( is_array($nested ) ) {
 					foreach ( $nested as $alias => $table ) {
-						$aliasFixed = preg_replace('/^nested/', '', $alias);
+						$aliasFixed = preg_replace( '/^nested/', '', $alias );
 						$tables[$aliasFixed] = $table;
 					}
 				} else {
@@ -151,7 +151,7 @@ parse QuerySegment in this form:
 			}
 		}
 
-		ksort($tables);
+		ksort( $tables );
 
 		return [ $tables, $joins, $conds ];
 	}
@@ -212,7 +212,7 @@ parse QuerySegment in this form:
 
 		$qobj = $querySegmentList[$rootid];
 
-		[ $tables, $joins, $conds ] = $this->parseQuerySegment((array)$qobj);
+		[ $tables, $joins, $conds ] = $this->parseQuerySegment( (array)$qobj );
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
 		$propTypeid = $property->findPropertyValueType();
@@ -226,15 +226,15 @@ parse QuerySegment in this form:
 			$fields_ = [ 'count' => 'COUNT(*)' ];
 			$conds_ = $conds;
 			$joins_ = $joins;
-			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
-			
+			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
+
 			$dataLength = (int)$this->connection->selectField(
-    			$tables_,
-    			$fields_,
-    			$conds_,
-    			__METHOD__,
-    			$sql_options_,
-    			$joins_
+				$tables_,
+				$fields_,
+				$conds_,
+				__METHOD__,
+				$sql_options_,
+				$joins_
 			);
 
 			if ( !$dataLength ) {
@@ -261,24 +261,12 @@ parse QuerySegment in this form:
 			HAVING COUNT(i.smw_id) >= 1 ORDER BY COUNT(i.smw_id) DESC
 			*/
 
-/*
-			$res = $this->connection->select(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-					// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
-					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id"
-					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id",
-				"COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject",
-				$qobj->where,
-				__METHOD__,
-				$sql_options
-			);
-*/		
 			$tables_ = $tables;
 			$tables_['insts'] = 'smw_fpt_inst';
 			$tables_[SQLStore::ID_TABLE] = 'i';
 			$joins_ = $joins;
-			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
-			$joins_['i'] = [ 'JOIN',  [ 'i.smw_id = insts.o_id' ] ];
+			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
+			$joins_['i'] = [ 'JOIN', [ 'i.smw_id = insts.o_id' ] ];
 			$conds_ = $conds;
 			$fields_ = "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject";
 
@@ -328,12 +316,12 @@ parse QuerySegment in this form:
 			$joins_ = $joins;
 
 			$dataLength = (int)$this->connection->selectField(
-    			$tables_,
-    			$fields_,
-    			$conds_,
-    			__METHOD__,
-    			$sql_options_,
-    			$joins_
+				$tables_,
+				$fields_,
+				$conds_,
+				__METHOD__,
+				$sql_options_,
+				$joins_
 			);
 
 			if ( !$dataLength ) {
@@ -366,12 +354,12 @@ parse QuerySegment in this form:
 			$joins_ = $joins;
 			$conds_ = $conds;
 
-			if ($isIdField) {
+			if ( $isIdField ) {
 				$tables_['i'] = SQLStore::ID_TABLE;
 				$joins_['i'] = [ 'JOIN', "$p_alias.o_id = i.smw_id" ];
 				$conds_ .= !empty( $conds_ ) ? ' AND' : '';
-				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWIW_OUTDATED);
-				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWDELETEIW);
+				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED );
+				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW );
 			}
 
 			// perform the select
@@ -756,7 +744,7 @@ parse QuerySegment in this form:
 
 		$qobj = $querySegmentList[$rootid];
 
-		[ $tables, $joins, $conds ] = $this->parseQuerySegment((array)$qobj);
+		[ $tables, $joins, $conds ] = $this->parseQuerySegment( (array)$qobj );
 
 		$sql_options_ = [
 			// *** should we set a limit here ?
@@ -786,12 +774,12 @@ parse QuerySegment in this form:
 		$joins_ = $joins;
 
 		$res = $this->connection->select(
-    		$tables_,
-    		$fields_,
-    		$conds_,
-    		__METHOD__,
-    		$sql_options_,
-    		$joins_
+			$tables_,
+			$fields_,
+			$conds_,
+			__METHOD__,
+			$sql_options_,
+			$joins_
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
