@@ -4,6 +4,8 @@ namespace SRF\Filtered\View;
 
 use DataValues\Geo\Parsers\LatLongParser;
 use Exception;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPageFactory;
 use SMW\DataValues\PropertyValue;
 use SRF\Filtered\ResultItem;
 
@@ -294,7 +296,6 @@ class MapView extends View {
 		$actualParameters = self::getActualParameters()['map view marker icons'];
 
 		foreach ( $actualParameters as $relation ) {
-
 			$relation = explode( '=', $relation, 2 );
 
 			if ( count( $relation ) === 1 ) {
@@ -305,7 +306,9 @@ class MapView extends View {
 				$icon = $relation[1];
 			}
 
-			$file = \WikiPage::factory( \Title::newFromText( $icon, NS_FILE ) )->getFile();
+			$file = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle(
+				\Title::newFromText( $icon, NS_FILE )
+			)->getFile();
 
 			if ( $file->exists() ) {
 				$ret[$key] = $file->getUrl();
