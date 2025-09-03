@@ -7,15 +7,16 @@ Released on September 3, 2025.
 ### Improvements to 
 
 * Fixed compatibility issue with MediaWiki 1.43 in the `filtered` format
+* Added `sep` parameter to the `filtered` format to allow specifying the separator ([952](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/952))
 * Improved the `d3chart` format
-    * Replaced legacy d3.v3.js with modern d3.min.js for better modularity and smaller bundle size
-    * Introduced package.json and modern build tooling to manage D3 as an npm dependency
     * Refactored d3chart codebase to support newer D3 versions
+    * Bumped d3 from v3.0.4 to v6.7.0 ([951](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/951))
+    * Introduced package.json and modern build tooling to manage D3 as an npm dependency
     * Updated D3 import and initialization to align with ES module standards
-    * Added basic test coverage to validate the updated build and integration
+    * Replaced legacy d3.v3.js with modern d3.min.js for better modularity and smaller bundle size
     * Revised documentation to reflect new D3 usage and build process
-* Improved the `graph` format by adding `graphfieldspages` param to optionally include Page-type values as node fields [958](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/958)
-* Bumped d3 from v3.0.4 to v6.7.0 - [951](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/951)
+* Improved the `graph` format by adding `graphfieldspages` param to optionally include Page-type values as node fields ([958](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/958))
+* Fixed support for template names with spaces in the `datatables` format
 
 ## SRF 5.0.0
 
