@@ -9,9 +9,7 @@ Semantic Result Formats (SRF) is a MediaWiki extension that provides extra visua
 
 ## Requirements
 
-- PHP 7.3.19 or later
-- MediaWiki 1.35 or later
-- Semantic MediaWiki 3.0 or later
+PHP, MediaWiki, and Semantic MediaWiki. For specific supported versions, see the [compatibility overview](docs/COMPATIBILITY.md).
 
 ## Installation
 
