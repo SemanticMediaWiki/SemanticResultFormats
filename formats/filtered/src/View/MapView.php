@@ -5,7 +5,6 @@ namespace SRF\Filtered\View;
 use DataValues\Geo\Parsers\LatLongParser;
 use Exception;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Page\WikiPageFactory;
 use SMW\DataValues\PropertyValue;
 use SRF\Filtered\ResultItem;
 
