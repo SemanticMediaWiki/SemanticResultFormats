@@ -5,7 +5,8 @@
 			"Jaroslav Cerny",
 			"Nemo bis",
 			"Vks",
-			"XenoPheX"
+			"XenoPheX",
+			"Zagothal"
 		]
 	},
 	"srf-desc": "Další formáty inline požadavků rozšíření Semantic MediaWiki",
@@ -190,7 +191,7 @@
 	"srf-printername-datatables": "Datové tabulky",
 	"srf-ui-datatables-label-conditions": "Podmínky",
 	"srf-ui-datatables-label-parameters": "Parametry",
-	"srf-ui-datatables-label-filters": "Filtry sloupce a hledání",
+	"srf-ui-datatables-label-filters": "Filtry",
 	"srf-ui-datatables-label-information": "Informace",
 	"srf-ui-datatables-panel-disclaimer": "Parametry a podmínky lze změnit, ale všechny změny jsou dočasné a po aktualizaci stránky se ztratí",
 	"srf-ui-datatables-label-update-success": "Aktualizace tabulky byla úspěšná",
