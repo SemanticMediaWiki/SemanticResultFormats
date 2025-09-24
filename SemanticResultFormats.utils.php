@@ -1,5 +1,7 @@
 <?php
+
 use MediaWiki\Html\Html;
+
 /**
  * Common libray of independent functions that are shared among different printers
  * @license GPL-2.0-or-later
