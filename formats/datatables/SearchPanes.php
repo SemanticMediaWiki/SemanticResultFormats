@@ -74,55 +74,55 @@ class SearchPanes {
 /*
 parse QuerySegment in this form:
 (
-    [type] => 1
-    [depth] => 
-    [fingerprint] => 
-    [null] => 
-    [not] => 
-    [joinType] => 
-    [joinTable] => smw_object_ids
-    [joinfield] => t0.smw_id
-    [indexField] => 
-    [from] =>  INNER JOIN (`smw_fpt_mdat` AS t2  INNER JOIN `smw_di_blob` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
-    [fromTables] => Array
-        (
-            [nestedt2] => Array
-                (
-                    [t3] => smw_di_blob
-                    [t2] => smw_fpt_mdat
-                )
+	[type] => 1
+	[depth] =>
+	[fingerprint] =>
+	[null] =>
+	[not] =>
+	[joinType] =>
+	[joinTable] => smw_object_ids
+	[joinfield] => t0.smw_id
+	[indexField] =>
+	[from] =>  INNER JOIN (`smw_fpt_mdat` AS t2  INNER JOIN `smw_di_blob` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
+	[fromTables] => Array
+		(
+			[nestedt2] => Array
+				(
+					[t3] => smw_di_blob
+					[t2] => smw_fpt_mdat
+				)
 
-        )
+		)
 
-    [joinConditions] => Array
-        (
-            [t3] => Array
-                (
-                    [0] => INNER JOIN
-                    [1] => t2.s_id=t3.s_id
-                )
+	[joinConditions] => Array
+		(
+			[t3] => Array
+				(
+					[0] => INNER JOIN
+					[1] => t2.s_id=t3.s_id
+				)
 
-            [nestedt2] => Array
-                (
-                    [0] => INNER JOIN
-                    [1] => t0.smw_id=t2.s_id
-                )
+			[nestedt2] => Array
+				(
+					[0] => INNER JOIN
+					[1] => t0.smw_id=t2.s_id
+				)
 
-        )
+		)
 
-    [where] => ((t3.p_id=519))
-    [sortIndexField] => 
-    [components] => Array
-        (
-        )
+	[where] => ((t3.p_id=519))
+	[sortIndexField] =>
+	[components] => Array
+		(
+		)
 
-    [alias] => t0
-    [sortfields] => Array
-        (
-            [] => t0.smw_sort
-        )
+	[alias] => t0
+	[sortfields] => Array
+		(
+			[] => t0.smw_sort
+		)
 
-    [queryNumber] => 0
+	[queryNumber] => 0
 )
 */
 		$tables = [
