@@ -29,12 +29,9 @@
 	"srf-paramdesc-pagelength": "Xác định độ dài trang",
 	"srf-paramdesc-lengthmenu": "Xác định độ dài menu",
 	"srf-paramdesc-datatables-columnstype": "Xác định loại cột dữ liệu",
-	"srf_printername_carousel": "băng chuyền",
 	"srf-gallery-navigation-previous": "Trước",
 	"srf-gallery-navigation-next": "Tiếp theo",
 	"srf-paramdesc-graphname": "Đặt tiêu đề của biểu đồ",
-	"srf-ui-datatables-refresh-button-title": "làm mới bảng",
-	"srf-ui-datatables-panel-switch-button-title": "bảng chuyển đổi",
 	"srf-filtered-noscript-error": "Không thể hiển thị kết quả vì JavaScript chưa được bật. Chuyển đến $1 .",
 	"srf-paramdesc-carousel-class": "Chỉ định lớp CSS cho băng chuyền",
 	"srf-paramdesc-carousel-width": "Chỉ định chiều rộng của băng chuyền",
@@ -43,7 +40,5 @@
 	"srf-paramdesc-carousel-titleproperty": "Chỉ định tên của thuộc tính ngữ nghĩa có trên các trang được truy vấn để sử dụng làm tiêu đề",
 	"srf-paramdesc-carousel-linkproperty": "Chỉ định tên của thuộc tính ngữ nghĩa có trên các trang được truy vấn để sử dụng cho các liên kết",
 	"srf-paramdesc-carousel-imageproperty": "Chỉ định tên của thuộc tính ngữ nghĩa có trên các trang được truy vấn để sử dụng cho hình ảnh",
-	"srf-paramdesc-carousel-slick-option": "Chỉ định xem băng chuyền có nên sử dụng các tùy chọn được cung cấp bởi 'Slick' hay không",
-	"srf-ui-slideshow-slide-button-play": "chơi",
-	"srf-ui-slideshow-slide-button-pause": "tạm ngừng"
+	"srf-paramdesc-carousel-slick-option": "Chỉ định xem băng chuyền có nên sử dụng các tùy chọn được cung cấp bởi 'Slick' hay không"
 }
