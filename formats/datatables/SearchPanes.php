@@ -24,8 +24,12 @@ use SMW\SQLStore\TableBuilder\FieldType;
 use SMWDataItem as DataItem;
 use SMWQueryProcessor;
 use SRF\DataTables;
+use SMW\SQLStore\QueryEngine\HierarchyTempTableBuilder;
+use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
 
 class SearchPanes {
+	/** @const DataTables */
+	private $datatables;
 
 	private array $searchPanesLog = [];
 
@@ -33,9 +37,58 @@ class SearchPanes {
 
 	private $connection;
 
-	public function __construct(
-		private DataTables $datatables
-	) {
+	public function __construct( DataTables $datatables ) {
+		$this->datatables = $datatables;
+	}
+
+	private function newTemporaryTableBuilder() {
+		$temporaryTableBuilder = new TemporaryTableBuilder(
+			$this->datatables->store->getConnection( 'mw.db.queryengine' )
+		);
+
+		$temporaryTableBuilder->setAutoCommitFlag(
+			ApplicationFactory::getInstance()->getSettings()->get( 'smwgQTemporaryTablesAutoCommitMode' )
+		);
+
+		return $temporaryTableBuilder;
+	}
+
+	/**
+	 * @see SMW\SQLStore\QueryEngineFactory
+	 * @return QuerySegmentListProcessor
+	 */
+	public function newQuerySegmentListProcessor() {
+		$settings = ApplicationFactory::getInstance()->getSettings();
+
+		$connection = $this->datatables->store->getConnection( 'mw.db.queryengine' );
+		$temporaryTableBuilder = $this->newTemporaryTableBuilder();
+
+		$hierarchyTempTableBuilder = new HierarchyTempTableBuilder(
+			$connection,
+			$temporaryTableBuilder
+		);
+
+		$hierarchyTempTableBuilder->setTableDefinitions(
+			[
+				'property' => [
+					'table' => $this->datatables->store->findPropertyTableID( new DIProperty( '_SUBP' ) ),
+					'depth' => $settings->get( 'smwgQSubpropertyDepth' )
+				],
+				'class' => [
+					'table' => $this->datatables->store->findPropertyTableID( new DIProperty( '_SUBC' ) ),
+					'depth' => $settings->get( 'smwgQSubcategoryDepth' )
+				]
+
+			]
+		);
+
+		$querySegmentListProcessor = new QuerySegmentListProcessor(
+			$connection,
+			$temporaryTableBuilder,
+			$hierarchyTempTableBuilder
+		);
+
+		return $querySegmentListProcessor;
 	}
 
 	public function getSearchPanes( array $printRequests, array $searchPanesOptions ): array {
@@ -68,92 +121,6 @@ class SearchPanes {
 
 	public function getLog(): array {
 		return $this->searchPanesLog;
-	}
-
-	private function parseQuerySegment( $querySegment ) {
-/*
-parse QuerySegment in this form:
-(
-    [type] => 1
-    [depth] => 
-    [fingerprint] => 
-    [null] => 
-    [not] => 
-    [joinType] => 
-    [joinTable] => smw_object_ids
-    [joinfield] => t0.smw_id
-    [indexField] => 
-    [from] =>  INNER JOIN (`smw_fpt_mdat` AS t2  INNER JOIN `smw_di_blob` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
-    [fromTables] => Array
-        (
-            [nestedt2] => Array
-                (
-                    [t3] => smw_di_blob
-                    [t2] => smw_fpt_mdat
-                )
-
-        )
-
-    [joinConditions] => Array
-        (
-            [t3] => Array
-                (
-                    [0] => INNER JOIN
-                    [1] => t2.s_id=t3.s_id
-                )
-
-            [nestedt2] => Array
-                (
-                    [0] => INNER JOIN
-                    [1] => t0.smw_id=t2.s_id
-                )
-
-        )
-
-    [where] => ((t3.p_id=519))
-    [sortIndexField] => 
-    [components] => Array
-        (
-        )
-
-    [alias] => t0
-    [sortfields] => Array
-        (
-            [] => t0.smw_sort
-        )
-
-    [queryNumber] => 0
-)
-*/
-		$tables = [
-			$querySegment['alias'] => $querySegment['joinTable']
-		];
-		$joins = [];
-		$conds = $querySegment['where'] ?: [];
-
-		if ( !empty( $querySegment['joinConditions'] ) ) {
-			foreach ( $querySegment['joinConditions'] as $alias => $joinInfo ) {
-				$aliasFixed = preg_replace( '/^nested/', '', $alias );
-				$joins[$aliasFixed] = [ $joinInfo[0], [ $joinInfo[1] ] ];
-			}
-		}
-
-		if ( !empty( $querySegment['fromTables'] ) ) {
-			foreach ( $querySegment['fromTables'] as $nestedAlias => $nested ) {
-				if ( is_array( $nested ) ) {
-					foreach ( $nested as $alias => $table ) {
-						$aliasFixed = preg_replace( '/^nested/', '', $alias );
-						$tables[$aliasFixed] = $table;
-					}
-				} else {
-					$tables[$nestedAlias] = $nested;
-				}
-			}
-		}
-
-		ksort( $tables );
-
-		return [ $tables, $joins, $conds ];
 	}
 
 	private function getPanesOptions(
@@ -203,7 +170,8 @@ parse QuerySegment in this form:
 		QuerySegment::$qnum = 0;
 		$querySegmentList = $conditionBuilder->getQuerySegmentList();
 
-		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+		// $querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+		$querySegmentListProcessor = $this->newQuerySegmentListProcessor();
 
 		$querySegmentListProcessor->setQuerySegmentList( $querySegmentList );
 
@@ -212,7 +180,12 @@ parse QuerySegment in this form:
 
 		$qobj = $querySegmentList[$rootid];
 
-		[ $tables, $joins, $conds ] = $this->parseQuerySegment( (array)$qobj );
+		$tables = $querySegmentListProcessor->fromTables;
+		$joins = $querySegmentListProcessor->joinConditions;
+		
+		$tables[$qobj->alias] = $qobj->joinTable;
+
+		$conds = $qobj->where;
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
 		$propTypeid = $property->findPropertyValueType();
@@ -226,16 +199,19 @@ parse QuerySegment in this form:
 			$fields_ = [ 'count' => 'COUNT(*)' ];
 			$conds_ = $conds;
 			$joins_ = $joins;
-			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
-
-			$dataLength = (int)$this->connection->selectField(
-				$tables_,
-				$fields_,
-				$conds_,
-				__METHOD__,
-				$sql_options_,
-				$joins_
+			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
+			
+			$res = $this->connection->select(
+    			$tables_,
+    			$fields_,
+    			$conds_,
+    			__METHOD__,
+    			$sql_options_,
+    			$joins_
 			);
+
+			$row = $res->fetchRow();
+			$dataLength = (int)( $row['count'] ?? 0 );
 
 			if ( !$dataLength ) {
 				return [];
@@ -263,10 +239,10 @@ parse QuerySegment in this form:
 
 			$tables_ = $tables;
 			$tables_['insts'] = 'smw_fpt_inst';
-			$tables_[SQLStore::ID_TABLE] = 'i';
+			$tables_['i'] = SQLStore::ID_TABLE;
 			$joins_ = $joins;
-			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
-			$joins_['i'] = [ 'JOIN', [ 'i.smw_id = insts.o_id' ] ];
+			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
+			$joins_['i'] = [ 'JOIN',  [ 'i.smw_id = insts.o_id' ] ];
 			$conds_ = $conds;
 			$fields_ = "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject";
 
@@ -315,7 +291,7 @@ parse QuerySegment in this form:
 			$conds_ = $conds;
 			$joins_ = $joins;
 
-			$dataLength = (int)$this->connection->selectField(
+			$res = $this->connection->select(
 				$tables_,
 				$fields_,
 				$conds_,
@@ -323,6 +299,9 @@ parse QuerySegment in this form:
 				$sql_options_,
 				$joins_
 			);
+
+			$row = $res->fetchRow();
+			$dataLength = (int)( $row['count'] ?? 0 );
 
 			if ( !$dataLength ) {
 				return [];
@@ -354,15 +333,14 @@ parse QuerySegment in this form:
 			$joins_ = $joins;
 			$conds_ = $conds;
 
-			if ( $isIdField ) {
+			if ($isIdField) {
 				$tables_['i'] = SQLStore::ID_TABLE;
 				$joins_['i'] = [ 'JOIN', "$p_alias.o_id = i.smw_id" ];
 				$conds_ .= !empty( $conds_ ) ? ' AND' : '';
-				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED );
-				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW );
+				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWIW_OUTDATED);
+				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWDELETEIW);
 			}
 
-			// perform the select
 			$res = $this->connection->select(
 				$tables_,
 				$fields_,
@@ -423,7 +401,6 @@ parse QuerySegment in this form:
 		$isSubject = false;
 		$groups = [];
 		foreach ( $res as $row ) {
-
 			if ( $isIdField ) {
 				$dbKeys = [
 					$row->smw_title,
@@ -468,9 +445,7 @@ parse QuerySegment in this form:
 				$dataValue->setOutputFormat( $outputFormat );
 			}
 
-/*
-
-
+		/*
 					//  @see DIBlobHandler
 					// $isKeyword = $dataItem->getOption( 'is.keyword' );
 
@@ -600,7 +575,6 @@ parse QuerySegment in this form:
 			if ( $uniqueRatio > $threshold ) {
 				return [];
 			}
-
 		}
 
 		arsort( $groups, SORT_NUMERIC );
@@ -721,9 +695,9 @@ parse QuerySegment in this form:
 			'threshold' => $threshold,
 		];
 
-		// if ( $threshold < 1 ) {
-		// 	return [];
-		// }
+		if ( $threshold < 1 ) {
+		 	return [];
+		}
 
 		$query = $this->datatables->query;
 		$queryDescription = $query->getDescription();
@@ -735,7 +709,8 @@ parse QuerySegment in this form:
 		QuerySegment::$qnum = 0;
 		$querySegmentList = $conditionBuilder->getQuerySegmentList();
 
-		$querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+		// $querySegmentListProcessor = $this->queryEngineFactory->newQuerySegmentListProcessor();
+		$querySegmentListProcessor = $this->newQuerySegmentListProcessor();
 
 		$querySegmentListProcessor->setQuerySegmentList( $querySegmentList );
 
@@ -744,7 +719,12 @@ parse QuerySegment in this form:
 
 		$qobj = $querySegmentList[$rootid];
 
-		[ $tables, $joins, $conds ] = $this->parseQuerySegment( (array)$qobj );
+		$tables = $querySegmentListProcessor->fromTables;
+		$joins = $querySegmentListProcessor->joinConditions;
+		
+		$tables[$qobj->alias] = $qobj->joinTable;
+
+		$conds = $qobj->where;
 
 		$sql_options_ = [
 			// *** should we set a limit here ?
@@ -757,6 +737,7 @@ parse QuerySegment in this form:
 
 		// Selecting those is required in standard SQL (but MySQL does not require it).
 		$sortfields = implode( ',', $qobj->sortfields );
+		// $sortfields = $sortfields ? ',' . $sortfields : '';
 
 		// @see QueryEngine
 		$tables_ = $tables;
@@ -773,12 +754,12 @@ parse QuerySegment in this form:
 		$joins_ = $joins;
 
 		$res = $this->connection->select(
-			$tables_,
-			$fields_,
-			$conds_,
-			__METHOD__,
-			$sql_options_,
-			$joins_
+    		$tables_,
+    		$fields_,
+    		$conds_,
+    		__METHOD__,
+    		$sql_options_,
+    		$joins_
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
