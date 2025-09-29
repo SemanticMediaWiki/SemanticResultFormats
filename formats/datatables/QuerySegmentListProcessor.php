@@ -3,8 +3,6 @@
  * adds $this->joinConditions and $this->fromTables
  * to the original QuerySegmentListProcessor for the
  * use with SearchPanes
- * 
- * @author thomas-topway-it for KM-A
  */
 namespace SRF\DataTables;
 
