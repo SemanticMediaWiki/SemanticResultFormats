@@ -205,6 +205,7 @@
 	"srf-ui-datatables-label-filters": "المرشحات",
 	"srf-ui-datatables-label-information": "معلومات",
 	"srf-ui-datatables-panel-disclaimer": "يمكن تغيير الوسائط والشروط، ولكن أي تغيير مؤقت ويتم التخلي عنه بعد تحديث الصفحة.",
+	"srf-ui-datatables-refresh-button-title": "تحديث الجدول",
 	"srf-ui-datatables-label-update-success": "تم تحديث الجدول بنجاح",
 	"srf-ui-datatables-label-update-error": "فشل تحديث الجدول.",
 	"srf-ui-datatables-label-placeholder-column-search": "بحث...",
@@ -229,6 +230,7 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "السابق",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": تفعيل لفرز العمود تصاعديا",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": تفعيل لفرز العمود تنازليا",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1| صف|$1 صفوف|$1 صف}}",
 	"srf-ui-datatables-label-rows-all": "كل الصفوف",
 	"srf-printername-tree": "زود بعمود",
 	"srf-printername-ultree": "Ultree",
@@ -356,5 +358,6 @@
 	"srf-printername-gantt": "جانت",
 	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض.",
 	"srf-printername-mode": "وضع",
-	"srf-printername-range": "النطاق"
+	"srf-printername-range": "النطاق",
+	"srf-printername-variance": "التباين"
 }
