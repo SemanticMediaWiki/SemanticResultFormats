@@ -8,9 +8,9 @@ namespace SRF\DataTables;
 
 use RuntimeException;
 use SMW\MediaWiki\Database;
+use SMW\SQLStore\QueryEngine\QuerySegment;
 use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
 use SMWQuery as Query;
-use SMW\SQLStore\QueryEngine\QuerySegment;
 
 class QuerySegmentListProcessor {
 	/* @var array */
@@ -60,7 +60,7 @@ class QuerySegmentListProcessor {
 	 * @param TemporaryTableBuilder $temporaryTableBuilder
 	 * @param HierarchyTempTableBuilder $hierarchyTempTableBuilder
 	 */
-	public function __construct( $connection, TemporaryTableBuilder $temporaryTableBuilder,  $hierarchyTempTableBuilder ) {
+	public function __construct( $connection, TemporaryTableBuilder $temporaryTableBuilder, $hierarchyTempTableBuilder ) {
 		$this->connection = $connection;
 		$this->temporaryTableBuilder = $temporaryTableBuilder;
 		$this->hierarchyTempTableBuilder = $hierarchyTempTableBuilder;
@@ -87,7 +87,7 @@ class QuerySegmentListProcessor {
 	/**
 	 * @since 2.2
 	 *
-	 * @param integer
+	 * @param integer $queryMode
 	 */
 	public function setQueryMode( $queryMode ) {
 		$this->queryMode = $queryMode;
@@ -132,8 +132,6 @@ class QuerySegmentListProcessor {
 			case QuerySegment::Q_VALUE:
 				break; // nothing to do
 		}
-		
-		
 	}
 
 	/**
@@ -158,20 +156,19 @@ class QuerySegmentListProcessor {
 					$alias = 'nested' . $subQuery->alias;
 					$query->fromTables[$alias] = array_merge( (array)$subQuery->fromTables, [ $subQuery->alias => $joinTable ] );
 					$query->joinConditions = array_merge( (array)$query->joinConditions, (array)$subQuery->joinConditions );
-							
+
 				} else {
 					$query->fromTables[$alias] = $joinTable;
 				}
-					
+
 				$query->joinConditions[$alias] = [ $joinType . ' JOIN', "$joinField$op=" . $subQuery->joinfield ];
 
 				$this->fromTables[$subQuery->alias] = $joinTable;
 
 				ksort($this->fromTables);
 				$this->joinConditions[$subQuery->alias] = [ $joinType . ' JOIN', "$joinField$op=" . $subQuery->joinfield ];
-		
-				$query->from .= " $joinType JOIN $t ON $joinField$op=" . $subQuery->joinfield;
 
+				$query->from .= " $joinType JOIN $t ON $joinField$op=" . $subQuery->joinfield;
 				if ( $joinType === 'LEFT' ) {
 					$query->where .= ( ( $query->where === '' ) ? '' : ' AND ' ) . '(' . $subQuery->joinfield . ' IS NULL)';
 				}
