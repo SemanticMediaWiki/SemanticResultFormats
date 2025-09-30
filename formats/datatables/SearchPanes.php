@@ -11,21 +11,21 @@
 
 namespace SRF\DataTables;
 
+use DataItem as SMWDataItem;
 use SMW\DataTypeRegistry;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMW\Query\PrintRequest;
 use SMW\Services\ServicesFactory as ApplicationFactory;
+use SMW\SQLStore\QueryEngine\HierarchyTempTableBuilder;
 use SMW\SQLStore\QueryEngine\QuerySegment;
 use SMW\SQLStore\QueryEngineFactory;
 use SMW\SQLStore\SQLStore;
 use SMW\SQLStore\TableBuilder\FieldType;
-use SMWDataItem as DataItem;
+use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
 use SMWQueryProcessor;
 use SRF\DataTables;
-use SMW\SQLStore\QueryEngine\HierarchyTempTableBuilder;
-use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
 
 class SearchPanes {
 	/** @const DataTables */
@@ -182,7 +182,7 @@ class SearchPanes {
 
 		$tables = $querySegmentListProcessor->fromTables;
 		$joins = $querySegmentListProcessor->joinConditions;
-		
+
 		$tables[$qobj->alias] = $qobj->joinTable;
 
 		$conds = $qobj->where;
@@ -199,15 +199,15 @@ class SearchPanes {
 			$fields_ = [ 'count' => 'COUNT(*)' ];
 			$conds_ = $conds;
 			$joins_ = $joins;
-			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
-			
+			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
+
 			$res = $this->connection->select(
-    			$tables_,
-    			$fields_,
-    			$conds_,
-    			__METHOD__,
-    			$sql_options_,
-    			$joins_
+				$tables_,
+				$fields_,
+				$conds_,
+				__METHOD__,
+				$sql_options_,
+				$joins_
 			);
 
 			$row = $res->fetchRow();
@@ -241,8 +241,8 @@ class SearchPanes {
 			$tables_['insts'] = 'smw_fpt_inst';
 			$tables_['i'] = SQLStore::ID_TABLE;
 			$joins_ = $joins;
-			$joins_['insts'] = [ 'JOIN',  [ "$qobj->alias.smw_id = insts.s_id" ] ];
-			$joins_['i'] = [ 'JOIN',  [ 'i.smw_id = insts.o_id' ] ];
+			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
+			$joins_['i'] = [ 'JOIN', [ 'i.smw_id = insts.o_id' ] ];
 			$conds_ = $conds;
 			$fields_ = "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject";
 
@@ -333,12 +333,12 @@ class SearchPanes {
 			$joins_ = $joins;
 			$conds_ = $conds;
 
-			if ($isIdField) {
+			if ( $isIdField ) {
 				$tables_['i'] = SQLStore::ID_TABLE;
 				$joins_['i'] = [ 'JOIN', "$p_alias.o_id = i.smw_id" ];
 				$conds_ .= !empty( $conds_ ) ? ' AND' : '';
-				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWIW_OUTDATED);
-				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes(SMW_SQL3_SMWDELETEIW);
+				$conds_ .= ' i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED );
+				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW );
 			}
 
 			$res = $this->connection->select(
