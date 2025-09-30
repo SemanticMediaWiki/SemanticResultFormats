@@ -87,7 +87,7 @@ class QuerySegmentListProcessor {
 	/**
 	 * @since 2.2
 	 *
-	 * @param integer $queryMode
+	 * @param int $queryMode
 	 */
 	public function setQueryMode( $queryMode ) {
 		$this->queryMode = $queryMode;
@@ -165,7 +165,7 @@ class QuerySegmentListProcessor {
 
 				$this->fromTables[$subQuery->alias] = $joinTable;
 
-				ksort($this->fromTables);
+				ksort( $this->fromTables );
 				$this->joinConditions[$subQuery->alias] = [ $joinType . ' JOIN', "$joinField$op=" . $subQuery->joinfield ];
 
 				$query->from .= " $joinType JOIN $t ON $joinField$op=" . $subQuery->joinfield;
