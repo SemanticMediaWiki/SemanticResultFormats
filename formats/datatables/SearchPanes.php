@@ -28,7 +28,7 @@ use SMWQueryProcessor;
 use SRF\DataTables;
 
 class SearchPanes {
-	/** @const DataTables */
+	/** @var DataTables */
 	private $datatables;
 
 	private array $searchPanesLog = [];
@@ -696,7 +696,7 @@ class SearchPanes {
 		];
 
 		if ( $threshold < 1 ) {
-		 	return [];
+			return [];
 		}
 
 		$query = $this->datatables->query;
@@ -721,7 +721,7 @@ class SearchPanes {
 
 		$tables = $querySegmentListProcessor->fromTables;
 		$joins = $querySegmentListProcessor->joinConditions;
-		
+
 		$tables[$qobj->alias] = $qobj->joinTable;
 
 		$conds = $qobj->where;
@@ -754,12 +754,12 @@ class SearchPanes {
 		$joins_ = $joins;
 
 		$res = $this->connection->select(
-    		$tables_,
-    		$fields_,
-    		$conds_,
-    		__METHOD__,
-    		$sql_options_,
-    		$joins_
+			$tables_,
+			$fields_,
+			$conds_,
+			__METHOD__,
+			$sql_options_,
+			$joins_
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
