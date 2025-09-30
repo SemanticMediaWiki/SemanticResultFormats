@@ -387,5 +387,4 @@ class QuerySegmentListProcessor {
 			$this->temporaryTableBuilder->drop( $this->connection->tableName( $table ) );
 		}
 	}
-
 }
