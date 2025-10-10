@@ -125,6 +125,7 @@ class SearchPanes {
 		$querySegmentListProcessor->process( $rootid );
 
 		$qobj = $querySegmentList[$rootid];
+		$qJoinAndFromTables = array_merge( [ $qobj->alias => $qobj->joinTable ], $qobj->fromTables );
 
 		$property = new DIProperty( DIProperty::newFromUserLabel( $printRequest->getCanonicalLabel() ) );
 		$propTypeid = $property->findPropertyValueType();
@@ -134,15 +135,15 @@ class SearchPanes {
 			// data-length without the GROUP BY clause
 			$sql_options = [ 'LIMIT' => 1 ];
 
-			$dataLength = (int)$this->connection->selectField(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id",
+			$res = $this->connection->select(
+				array_merge( $qJoinAndFromTables, [ 'insts' => 'smw_fpt_inst' ] ),
 				"COUNT(*) AS count",
 				$qobj->where,
 				__METHOD__,
-				$sql_options
+				$sql_options,
+				array_merge( $qobj->joinConditions, [ 'insts' => [ 'JOIN', "$qobj->alias.smw_id = insts.s_id" ] ] )
 			);
-
+			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
 			if ( !$dataLength ) {
 				return [];
 			}
@@ -168,14 +169,16 @@ class SearchPanes {
 			*/
 
 			$res = $this->connection->select(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-					// @see https://github.com/SemanticMediaWiki/SemanticDrilldown/blob/master/includes/Sql/SqlProvider.php
-					. ' JOIN ' . $this->connection->tableName( 'smw_fpt_inst' ) . " AS insts ON $qobj->alias.smw_id = insts.s_id"
-					. ' JOIN ' . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS i ON i.smw_id = insts.o_id",
+				array_merge( $qJoinAndFromTables, [
+					'insts' => 'smw_fpt_inst',
+					'i' => SQLStore::ID_TABLE ] ),
 				"COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject",
 				$qobj->where,
 				__METHOD__,
-				$sql_options
+				$sql_options,
+				array_merge( $qobj->joinConditions, [
+					'insts' => [ "JOIN", "$qobj->alias.smw_id = insts.s_id" ],
+					'i' => [ 'JOIN', 'i.smw_id = insts.o_id' ] ] )
 			);
 
 			$isIdField = true;
@@ -209,14 +212,15 @@ class SearchPanes {
 			// INNER JOIN (`smw_fpt_mdat` AS t2 INNER JOIN `smw_di_wikipage` AS t3 ON t2.s_id=t3.s_id) ON t0.smw_id=t2.s_id
 			// WHERE ((t3.p_id=517)) LIMIT 500
 
-			$dataLength = (int)$this->connection->selectField(
-				$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
-				"COUNT(*) as count",
+			$res = $this->connection->select(
+				$qJoinAndFromTables,
+				'COUNT(*) AS count',
 				$qobj->where,
 				__METHOD__,
-				$sql_options
+				$sql_options,
+				$qobj->joinConditions
 			);
-
+			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
 			if ( !$dataLength ) {
 				return [];
 			}
@@ -244,15 +248,18 @@ class SearchPanes {
 
 			// @see QueryEngine
 			$res = $this->connection->select(
-				 $this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from
-				. ( !$isIdField ? ''
-					: " JOIN " . $this->connection->tableName( SQLStore::ID_TABLE ) . " AS `i` ON ($p_alias.o_id = i.smw_id)" ),
+				!$isIdField
+					? $qJoinAndFromTables
+					: array_merge( $qJoinAndFromTables, [ 'i' => SQLStore::ID_TABLE ] ),
 				implode( ',', $fields ),
 				$qobj->where . ( !$isIdField ? '' : ( !empty( $qobj->where ) ? ' AND' : '' )
 					. ' i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWIW_OUTDATED )
 					. ' AND i.smw_iw!=' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW ) ),
 				__METHOD__,
-				$sql_options
+				$sql_options,
+				!$isIdField
+					? $qobj->joinConditions
+					: array_merge( $qobj->joinConditions, [ 'i' => [ "JOIN", "$p_alias.o_id = i.smw_id" ] ] )
 			);
 
 		}
@@ -643,7 +650,7 @@ class SearchPanes {
 
 		// @see QueryEngine
 		$res = $this->connection->select(
-			$this->connection->tableName( $qobj->joinTable ) . " AS $qobj->alias" . $qobj->from,
+			array_merge( [ $qobj->alias => $qobj->joinTable ], $qobj->fromTables ),
 			"$qobj->alias.smw_id AS id," .
 			"$qobj->alias.smw_title AS t," .
 			"$qobj->alias.smw_namespace AS ns," .
@@ -653,7 +660,8 @@ class SearchPanes {
 			"$sortfields",
 			$qobj->where,
 			__METHOD__,
-			$sql_options
+			$sql_options,
+			$qobj->joinConditions
 		);
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
