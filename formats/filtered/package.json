@@ -34,7 +34,7 @@
     "leaflet-providers": "^2.0.0",
     "leaflet.markercluster": "^1.5.3",
     "nouislider": "^10.1.0",
-    "select2": "4.0.3",
+    "select2": "4.0.6",
     "tsify": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^2.0.0",
