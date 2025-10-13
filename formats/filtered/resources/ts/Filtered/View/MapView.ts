@@ -32,7 +32,7 @@ export class MapView extends View {
 			this.target.height( this.options.height );
 		}
 
-		this.leafletPromise = mw.loader.using( 'ext.srf.filtered.map-view.leaflet' )
+		this.leafletPromise = mw.loader.using( 'ext.srf.filtered.map-leaflet.style' )
 		.then( () => {
 
 			let bounds: L.LatLngBounds = undefined;
