@@ -30768,7 +30768,7 @@ class MapView extends View_1.View {
             if (this.options.hasOwnProperty('map provider')) {
                 mapProvider = this.options['map provider'];
             }
-            if (this.isUserUsesDarkMode() && this.options.hasOwnProperty('map provider dark')) {
+            if (this.isUserUsesDarkMode() && this.options['map provider dark']) {
                 mapProvider = this.options['map provider dark'];
             }
             if (mapProvider) {
