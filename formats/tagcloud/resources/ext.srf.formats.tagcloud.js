@@ -146,7 +146,7 @@
 			} );
 
 			// Init the colour array
-			var fill = d3.scale.category20b();
+			var fill = d3.scaleOrdinal().range(d3.quantize(function(t) { return d3.interpolateTurbo(t); }, 20));
 
 			// Set properties for the tags
 			function draw( words ) {
