@@ -463,6 +463,25 @@ function reduceViewType(viewType, action) {
     return viewType;
 }
 
+function reduceCurrentDate(currentDate, action) {
+    switch (action.type) {
+        case 'CHANGE_DATE':
+            return action.dateMarker;
+        default:
+            return currentDate;
+    }
+}
+// should be initialized once and stay constant
+// this will change too
+function getInitialDate(options, dateEnv, nowManager) {
+    let initialDateInput = options.initialDate;
+    // compute the initial ambig-timezone date
+    if (initialDateInput != null) {
+        return dateEnv.createMarker(initialDateInput);
+    }
+    return nowManager.getDateMarker();
+}
+
 function reduceDynamicOptionOverrides(dynamicOptionOverrides, action) {
     switch (action.type) {
         case 'SET_OPTION':
@@ -972,6 +991,7 @@ let recurring = {
                 endTime: refined.endTime || null,
                 startRecur: refined.startRecur ? dateEnv.createMarker(refined.startRecur) : null,
                 endRecur: refined.endRecur ? dateEnv.createMarker(refined.endRecur) : null,
+                dateEnv,
             };
             let duration;
             if (refined.duration) {
@@ -991,7 +1011,7 @@ let recurring = {
     expand(typeData, framingRange, dateEnv) {
         let clippedFramingRange = internalCommon.intersectRanges(framingRange, { start: typeData.startRecur, end: typeData.endRecur });
         if (clippedFramingRange) {
-            return expandRanges(typeData.daysOfWeek, typeData.startTime, clippedFramingRange, dateEnv);
+            return expandRanges(typeData.daysOfWeek, typeData.startTime, typeData.dateEnv, dateEnv, clippedFramingRange);
         }
         return [];
     },
@@ -1001,22 +1021,33 @@ const simpleRecurringEventsPlugin = createPlugin({
     recurringTypes: [recurring],
     eventRefiners: SIMPLE_RECURRING_REFINERS,
 });
-function expandRanges(daysOfWeek, startTime, framingRange, dateEnv) {
+function expandRanges(daysOfWeek, startTime, eventDateEnv, calendarDateEnv, framingRange) {
     let dowHash = daysOfWeek ? internalCommon.arrayToHash(daysOfWeek) : null;
     let dayMarker = internalCommon.startOfDay(framingRange.start);
     let endMarker = framingRange.end;
     let instanceStarts = [];
+    // https://github.com/fullcalendar/fullcalendar/issues/7934
+    if (startTime) {
+        if (startTime.milliseconds < 0) {
+            // possible for next-day to have negative business hours that go into current day
+            endMarker = internalCommon.addDays(endMarker, 1);
+        }
+        else if (startTime.milliseconds >= 1000 * 60 * 60 * 24) {
+            // possible for prev-day to have >24hr business hours that go into current day
+            dayMarker = internalCommon.addDays(dayMarker, -1);
+        }
+    }
     while (dayMarker < endMarker) {
         let instanceStart;
         // if everyday, or this particular day-of-week
         if (!dowHash || dowHash[dayMarker.getUTCDay()]) {
             if (startTime) {
-                instanceStart = dateEnv.add(dayMarker, startTime);
+                instanceStart = calendarDateEnv.add(dayMarker, startTime);
             }
             else {
                 instanceStart = dayMarker;
             }
-            instanceStarts.push(instanceStart);
+            instanceStarts.push(calendarDateEnv.createMarker(eventDateEnv.toDate(instanceStart)));
         }
         dayMarker = internalCommon.addDays(dayMarker, 1);
     }
@@ -1181,6 +1212,49 @@ function buildTitleFormat(dateProfile) {
     return { year: 'numeric', month: 'long', day: 'numeric' };
 }
 
+/*
+TODO: test switching timezones when NO timezone plugin
+*/
+class CalendarNowManager {
+    constructor() {
+        this.resetListeners = new Set();
+    }
+    handleInput(dateEnv, // will change if timezone setup changed
+    nowInput) {
+        const oldDateEnv = this.dateEnv;
+        if (dateEnv !== oldDateEnv) {
+            if (typeof nowInput === 'function') {
+                this.nowFn = nowInput;
+            }
+            else if (!oldDateEnv) { // first time?
+                this.nowAnchorDate = dateEnv.toDate(nowInput
+                    ? dateEnv.createMarker(nowInput)
+                    : dateEnv.createNowMarker());
+                this.nowAnchorQueried = Date.now();
+            }
+            this.dateEnv = dateEnv;
+            // not first time? fire reset handlers
+            if (oldDateEnv) {
+                for (const resetListener of this.resetListeners.values()) {
+                    resetListener();
+                }
+            }
+        }
+    }
+    getDateMarker() {
+        return this.nowAnchorDate
+            ? this.dateEnv.timestampToMarker(this.nowAnchorDate.valueOf() +
+                (Date.now() - this.nowAnchorQueried))
+            : this.dateEnv.createMarker(this.nowFn());
+    }
+    addResetListener(handler) {
+        this.resetListeners.add(handler);
+    }
+    removeResetListener(handler) {
+        this.resetListeners.delete(handler);
+    }
+}
+
 // in future refactor, do the redux-style function(state=initial) for initial-state
 // also, whatever is happening in constructor, have it happen in action queue too
 class CalendarDataManager {
@@ -1200,6 +1274,7 @@ class CalendarDataManager {
         this.buildEventUiBases = internalCommon.memoize(buildEventUiBases);
         this.parseContextBusinessHours = internalCommon.memoizeObjArg(parseContextBusinessHours);
         this.buildTitle = internalCommon.memoize(buildTitle);
+        this.nowManager = new CalendarNowManager();
         this.emitter = new internalCommon.Emitter();
         this.actionRunner = new TaskRunner(this._handleAction.bind(this), this.updateData.bind(this));
         this.currentCalendarOptionsInput = {};
@@ -1215,6 +1290,7 @@ class CalendarDataManager {
         };
         this.props = props;
         this.actionRunner.pause();
+        this.nowManager = new CalendarNowManager();
         let dynamicOptionOverrides = {};
         let optionsData = this.computeOptionsData(props.optionOverrides, dynamicOptionOverrides, props.calendarApi);
         let currentViewType = optionsData.calendarOptions.initialView || optionsData.pluginHooks.initialView;
@@ -1224,12 +1300,8 @@ class CalendarDataManager {
         props.calendarApi.currentDataManager = this;
         this.emitter.setThisContext(props.calendarApi);
         this.emitter.setOptions(currentViewData.options);
-        let currentDate = internalCommon.getInitialDate(optionsData.calendarOptions, optionsData.dateEnv);
-        let dateProfile = currentViewData.dateProfileGenerator.build(currentDate);
-        if (!internalCommon.rangeContainsMarker(dateProfile.activeRange, currentDate)) {
-            currentDate = dateProfile.currentRange.start;
-        }
         let calendarContext = {
+            nowManager: this.nowManager,
             dateEnv: optionsData.dateEnv,
             options: optionsData.calendarOptions,
             pluginHooks: optionsData.pluginHooks,
@@ -1238,6 +1310,11 @@ class CalendarDataManager {
             emitter: this.emitter,
             getCurrentData: this.getCurrentData,
         };
+        let currentDate = getInitialDate(optionsData.calendarOptions, optionsData.dateEnv, this.nowManager);
+        let dateProfile = currentViewData.dateProfileGenerator.build(currentDate);
+        if (!internalCommon.rangeContainsMarker(dateProfile.activeRange, currentDate)) {
+            currentDate = dateProfile.currentRange.start;
+        }
         // needs to be after setThisContext
         for (let callback of optionsData.pluginHooks.contextInit) {
             callback(calendarContext);
@@ -1298,6 +1375,7 @@ class CalendarDataManager {
         emitter.setThisContext(props.calendarApi);
         emitter.setOptions(currentViewData.options);
         let calendarContext = {
+            nowManager: this.nowManager,
             dateEnv: optionsData.dateEnv,
             options: optionsData.calendarOptions,
             pluginHooks: optionsData.pluginHooks,
@@ -1310,7 +1388,7 @@ class CalendarDataManager {
         if (this.data && this.data.dateProfileGenerator !== currentViewData.dateProfileGenerator) { // hack
             dateProfile = currentViewData.dateProfileGenerator.build(currentDate);
         }
-        currentDate = internalCommon.reduceCurrentDate(currentDate, action);
+        currentDate = reduceCurrentDate(currentDate, action);
         dateProfile = reduceDateProfile(dateProfile, action, currentDate, currentViewData.dateProfileGenerator);
         if (action.type === 'PREV' || // TODO: move this logic into DateProfileGenerator
             action.type === 'NEXT' || // "
@@ -1365,7 +1443,7 @@ class CalendarDataManager {
         let oldData = this.data;
         let optionsData = this.computeOptionsData(props.optionOverrides, state.dynamicOptionOverrides, props.calendarApi);
         let currentViewData = this.computeCurrentViewData(state.currentViewType, optionsData, props.optionOverrides, state.dynamicOptionOverrides);
-        let data = this.data = Object.assign(Object.assign(Object.assign({ viewTitle: this.buildTitle(state.dateProfile, currentViewData.options, optionsData.dateEnv), calendarApi: props.calendarApi, dispatch: this.dispatch, emitter: this.emitter, getCurrentData: this.getCurrentData }, optionsData), currentViewData), state);
+        let data = this.data = Object.assign(Object.assign(Object.assign({ nowManager: this.nowManager, viewTitle: this.buildTitle(state.dateProfile, currentViewData.options, optionsData.dateEnv), calendarApi: props.calendarApi, dispatch: this.dispatch, emitter: this.emitter, getCurrentData: this.getCurrentData }, optionsData), currentViewData), state);
         let changeHandlers = optionsData.pluginHooks.optionChangeHandlers;
         let oldCalendarOptions = oldData && oldData.calendarOptions;
         let newCalendarOptions = optionsData.calendarOptions;
@@ -1473,8 +1551,10 @@ class CalendarDataManager {
         }
         let { refinedOptions, extra } = this.processRawViewOptions(viewSpec, optionsData.pluginHooks, optionsData.localeDefaults, optionOverrides, dynamicOptionOverrides);
         warnUnknownOptions(extra);
+        this.nowManager.handleInput(optionsData.dateEnv, refinedOptions.now);
         let dateProfileGenerator = this.buildDateProfileGenerator({
             dateProfileGeneratorClass: viewSpec.optionDefaults.dateProfileGeneratorClass,
+            nowManager: this.nowManager,
             duration: viewSpec.duration,
             durationUnit: viewSpec.durationUnit,
             usesMinMaxTime: viewSpec.optionDefaults.usesMinMaxTime,
@@ -1488,7 +1568,6 @@ class CalendarDataManager {
             dateIncrement: refinedOptions.dateIncrement,
             hiddenDays: refinedOptions.hiddenDays,
             weekends: refinedOptions.weekends,
-            nowInput: refinedOptions.now,
             validRangeInput: refinedOptions.validRange,
             visibleRangeInput: refinedOptions.visibleRange,
             fixedWeekCount: refinedOptions.fixedWeekCount,
@@ -1892,8 +1971,6 @@ class CalendarContent extends internalCommon.PureComponent {
     render() {
         let { props } = this;
         let { toolbarConfig, options } = props;
-        let toolbarProps = this.buildToolbarProps(props.viewSpec, props.dateProfile, props.dateProfileGenerator, props.currentDate, internalCommon.getNow(props.options.now, props.dateEnv), // TODO: use NowTimer????
-        props.viewTitle);
         let viewVGrow = false;
         let viewHeight = '';
         let viewAspectRatio;
@@ -1909,16 +1986,20 @@ class CalendarContent extends internalCommon.PureComponent {
         else {
             viewAspectRatio = Math.max(options.aspectRatio, 0.5); // prevent from getting too tall
         }
-        let viewContext = this.buildViewContext(props.viewSpec, props.viewApi, props.options, props.dateProfileGenerator, props.dateEnv, props.theme, props.pluginHooks, props.dispatch, props.getCurrentData, props.emitter, props.calendarApi, this.registerInteractiveComponent, this.unregisterInteractiveComponent);
+        let viewContext = this.buildViewContext(props.viewSpec, props.viewApi, props.options, props.dateProfileGenerator, props.dateEnv, props.nowManager, props.theme, props.pluginHooks, props.dispatch, props.getCurrentData, props.emitter, props.calendarApi, this.registerInteractiveComponent, this.unregisterInteractiveComponent);
         let viewLabelId = (toolbarConfig.header && toolbarConfig.header.hasTitle)
             ? this.state.viewLabelId
             : undefined;
         return (preact.createElement(internalCommon.ViewContextType.Provider, { value: viewContext },
-            toolbarConfig.header && (preact.createElement(Toolbar, Object.assign({ ref: this.headerRef, extraClassName: "fc-header-toolbar", model: toolbarConfig.header, titleId: viewLabelId }, toolbarProps))),
-            preact.createElement(ViewHarness, { liquid: viewVGrow, height: viewHeight, aspectRatio: viewAspectRatio, labeledById: viewLabelId },
-                this.renderView(props),
-                this.buildAppendContent()),
-            toolbarConfig.footer && (preact.createElement(Toolbar, Object.assign({ ref: this.footerRef, extraClassName: "fc-footer-toolbar", model: toolbarConfig.footer, titleId: "" }, toolbarProps)))));
+            preact.createElement(internalCommon.NowTimer, { unit: "day" }, (nowDate) => {
+                let toolbarProps = this.buildToolbarProps(props.viewSpec, props.dateProfile, props.dateProfileGenerator, props.currentDate, nowDate, props.viewTitle);
+                return (preact.createElement(preact.Fragment, null,
+                    toolbarConfig.header && (preact.createElement(Toolbar, Object.assign({ ref: this.headerRef, extraClassName: "fc-header-toolbar", model: toolbarConfig.header, titleId: viewLabelId }, toolbarProps))),
+                    preact.createElement(ViewHarness, { liquid: viewVGrow, height: viewHeight, aspectRatio: viewAspectRatio, labeledById: viewLabelId },
+                        this.renderView(props),
+                        this.buildAppendContent()),
+                    toolbarConfig.footer && (preact.createElement(Toolbar, Object.assign({ ref: this.footerRef, extraClassName: "fc-footer-toolbar", model: toolbarConfig.footer, titleId: "" }, toolbarProps)))));
+            })));
     }
     componentDidMount() {
         let { props } = this;
@@ -2140,7 +2221,7 @@ function sliceEvents(props, allDay) {
     return internalCommon.sliceEventStore(props.eventStore, props.eventUiBases, props.dateProfile.activeRange, allDay ? props.nextDayThreshold : null).fg;
 }
 
-const version = '6.1.15';
+const version = '6.1.19';
 
 exports.JsonRequestError = internalCommon.JsonRequestError;
 exports.Calendar = Calendar;
@@ -2258,7 +2339,7 @@ if (typeof document !== 'undefined') {
     registerStylesRoot(document);
 }
 
-var css_248z = ":root{--fc-small-font-size:.85em;--fc-page-bg-color:#fff;--fc-neutral-bg-color:hsla(0,0%,82%,.3);--fc-neutral-text-color:grey;--fc-border-color:#ddd;--fc-button-text-color:#fff;--fc-button-bg-color:#2c3e50;--fc-button-border-color:#2c3e50;--fc-button-hover-bg-color:#1e2b37;--fc-button-hover-border-color:#1a252f;--fc-button-active-bg-color:#1a252f;--fc-button-active-border-color:#151e27;--fc-event-bg-color:#3788d8;--fc-event-border-color:#3788d8;--fc-event-text-color:#fff;--fc-event-selected-overlay-color:rgba(0,0,0,.25);--fc-more-link-bg-color:#d0d0d0;--fc-more-link-text-color:inherit;--fc-event-resizer-thickness:8px;--fc-event-resizer-dot-total-width:8px;--fc-event-resizer-dot-border-width:1px;--fc-non-business-color:hsla(0,0%,84%,.3);--fc-bg-event-color:#8fdf82;--fc-bg-event-opacity:0.3;--fc-highlight-color:rgba(188,232,241,.3);--fc-today-bg-color:rgba(255,220,40,.15);--fc-now-indicator-color:red}.fc-not-allowed,.fc-not-allowed .fc-event{cursor:not-allowed}.fc{display:flex;flex-direction:column;font-size:1em}.fc,.fc *,.fc :after,.fc :before{box-sizing:border-box}.fc table{border-collapse:collapse;border-spacing:0;font-size:1em}.fc th{text-align:center}.fc td,.fc th{padding:0;vertical-align:top}.fc a[data-navlink]{cursor:pointer}.fc a[data-navlink]:hover{text-decoration:underline}.fc-direction-ltr{direction:ltr;text-align:left}.fc-direction-rtl{direction:rtl;text-align:right}.fc-theme-standard td,.fc-theme-standard th{border:1px solid var(--fc-border-color)}.fc-liquid-hack td,.fc-liquid-hack th{position:relative}@font-face{font-family:fcicons;font-style:normal;font-weight:400;src:url(\"data:application/x-font-ttf;charset=utf-8;base64,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\") format(\"truetype\")}.fc-icon{speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:inline-block;font-family:fcicons!important;font-style:normal;font-variant:normal;font-weight:400;height:1em;line-height:1;text-align:center;text-transform:none;-moz-user-select:none;user-select:none;width:1em}.fc-icon-chevron-left:before{content:\"\\e900\"}.fc-icon-chevron-right:before{content:\"\\e901\"}.fc-icon-chevrons-left:before{content:\"\\e902\"}.fc-icon-chevrons-right:before{content:\"\\e903\"}.fc-icon-minus-square:before{content:\"\\e904\"}.fc-icon-plus-square:before{content:\"\\e905\"}.fc-icon-x:before{content:\"\\e906\"}.fc .fc-button{border-radius:0;font-family:inherit;font-size:inherit;line-height:inherit;margin:0;overflow:visible;text-transform:none}.fc .fc-button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.fc .fc-button{-webkit-appearance:button}.fc .fc-button:not(:disabled){cursor:pointer}.fc .fc-button{background-color:transparent;border:1px solid transparent;border-radius:.25em;display:inline-block;font-size:1em;font-weight:400;line-height:1.5;padding:.4em .65em;text-align:center;-moz-user-select:none;user-select:none;vertical-align:middle}.fc .fc-button:hover{text-decoration:none}.fc .fc-button:focus{box-shadow:0 0 0 .2rem rgba(44,62,80,.25);outline:0}.fc .fc-button:disabled{opacity:.65}.fc .fc-button-primary{background-color:var(--fc-button-bg-color);border-color:var(--fc-button-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:hover{background-color:var(--fc-button-hover-bg-color);border-color:var(--fc-button-hover-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:disabled{background-color:var(--fc-button-bg-color);border-color:var(--fc-button-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:focus{box-shadow:0 0 0 .2rem rgba(76,91,106,.5)}.fc .fc-button-primary:not(:disabled).fc-button-active,.fc .fc-button-primary:not(:disabled):active{background-color:var(--fc-button-active-bg-color);border-color:var(--fc-button-active-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:not(:disabled).fc-button-active:focus,.fc .fc-button-primary:not(:disabled):active:focus{box-shadow:0 0 0 .2rem rgba(76,91,106,.5)}.fc .fc-button .fc-icon{font-size:1.5em;vertical-align:middle}.fc .fc-button-group{display:inline-flex;position:relative;vertical-align:middle}.fc .fc-button-group>.fc-button{flex:1 1 auto;position:relative}.fc .fc-button-group>.fc-button.fc-button-active,.fc .fc-button-group>.fc-button:active,.fc .fc-button-group>.fc-button:focus,.fc .fc-button-group>.fc-button:hover{z-index:1}.fc-direction-ltr .fc-button-group>.fc-button:not(:first-child){border-bottom-left-radius:0;border-top-left-radius:0;margin-left:-1px}.fc-direction-ltr .fc-button-group>.fc-button:not(:last-child){border-bottom-right-radius:0;border-top-right-radius:0}.fc-direction-rtl .fc-button-group>.fc-button:not(:first-child){border-bottom-right-radius:0;border-top-right-radius:0;margin-right:-1px}.fc-direction-rtl .fc-button-group>.fc-button:not(:last-child){border-bottom-left-radius:0;border-top-left-radius:0}.fc .fc-toolbar{align-items:center;display:flex;justify-content:space-between}.fc .fc-toolbar.fc-header-toolbar{margin-bottom:1.5em}.fc .fc-toolbar.fc-footer-toolbar{margin-top:1.5em}.fc .fc-toolbar-title{font-size:1.75em;margin:0}.fc-direction-ltr .fc-toolbar>*>:not(:first-child){margin-left:.75em}.fc-direction-rtl .fc-toolbar>*>:not(:first-child){margin-right:.75em}.fc-direction-rtl .fc-toolbar-ltr{flex-direction:row-reverse}.fc .fc-scroller{-webkit-overflow-scrolling:touch;position:relative}.fc .fc-scroller-liquid{height:100%}.fc .fc-scroller-liquid-absolute{bottom:0;left:0;position:absolute;right:0;top:0}.fc .fc-scroller-harness{direction:ltr;overflow:hidden;position:relative}.fc .fc-scroller-harness-liquid{height:100%}.fc-direction-rtl .fc-scroller-harness>.fc-scroller{direction:rtl}.fc-theme-standard .fc-scrollgrid{border:1px solid var(--fc-border-color)}.fc .fc-scrollgrid,.fc .fc-scrollgrid table{table-layout:fixed;width:100%}.fc .fc-scrollgrid table{border-left-style:hidden;border-right-style:hidden;border-top-style:hidden}.fc .fc-scrollgrid{border-bottom-width:0;border-collapse:separate;border-right-width:0}.fc .fc-scrollgrid-liquid{height:100%}.fc .fc-scrollgrid-section,.fc .fc-scrollgrid-section table,.fc .fc-scrollgrid-section>td{height:1px}.fc .fc-scrollgrid-section-liquid>td{height:100%}.fc .fc-scrollgrid-section>*{border-left-width:0;border-top-width:0}.fc .fc-scrollgrid-section-footer>*,.fc .fc-scrollgrid-section-header>*{border-bottom-width:0}.fc .fc-scrollgrid-section-body table,.fc .fc-scrollgrid-section-footer table{border-bottom-style:hidden}.fc .fc-scrollgrid-section-sticky>*{background:var(--fc-page-bg-color);position:sticky;z-index:3}.fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky>*{top:0}.fc .fc-scrollgrid-section-footer.fc-scrollgrid-section-sticky>*{bottom:0}.fc .fc-scrollgrid-sticky-shim{height:1px;margin-bottom:-1px}.fc-sticky{position:sticky}.fc .fc-view-harness{flex-grow:1;position:relative}.fc .fc-view-harness-active>.fc-view{bottom:0;left:0;position:absolute;right:0;top:0}.fc .fc-col-header-cell-cushion{display:inline-block;padding:2px 4px}.fc .fc-bg-event,.fc .fc-highlight,.fc .fc-non-business{bottom:0;left:0;position:absolute;right:0;top:0}.fc .fc-non-business{background:var(--fc-non-business-color)}.fc .fc-bg-event{background:var(--fc-bg-event-color);opacity:var(--fc-bg-event-opacity)}.fc .fc-bg-event .fc-event-title{font-size:var(--fc-small-font-size);font-style:italic;margin:.5em}.fc .fc-highlight{background:var(--fc-highlight-color)}.fc .fc-cell-shaded,.fc .fc-day-disabled{background:var(--fc-neutral-bg-color)}a.fc-event,a.fc-event:hover{text-decoration:none}.fc-event.fc-event-draggable,.fc-event[href]{cursor:pointer}.fc-event .fc-event-main{position:relative;z-index:2}.fc-event-dragging:not(.fc-event-selected){opacity:.75}.fc-event-dragging.fc-event-selected{box-shadow:0 2px 7px rgba(0,0,0,.3)}.fc-event .fc-event-resizer{display:none;position:absolute;z-index:4}.fc-event-selected .fc-event-resizer,.fc-event:hover .fc-event-resizer{display:block}.fc-event-selected .fc-event-resizer{background:var(--fc-page-bg-color);border-color:inherit;border-radius:calc(var(--fc-event-resizer-dot-total-width)/2);border-style:solid;border-width:var(--fc-event-resizer-dot-border-width);height:var(--fc-event-resizer-dot-total-width);width:var(--fc-event-resizer-dot-total-width)}.fc-event-selected .fc-event-resizer:before{bottom:-20px;content:\"\";left:-20px;position:absolute;right:-20px;top:-20px}.fc-event-selected,.fc-event:focus{box-shadow:0 2px 5px rgba(0,0,0,.2)}.fc-event-selected:before,.fc-event:focus:before{bottom:0;content:\"\";left:0;position:absolute;right:0;top:0;z-index:3}.fc-event-selected:after,.fc-event:focus:after{background:var(--fc-event-selected-overlay-color);bottom:-1px;content:\"\";left:-1px;position:absolute;right:-1px;top:-1px;z-index:1}.fc-h-event{background-color:var(--fc-event-bg-color);border:1px solid var(--fc-event-border-color);display:block}.fc-h-event .fc-event-main{color:var(--fc-event-text-color)}.fc-h-event .fc-event-main-frame{display:flex}.fc-h-event .fc-event-time{max-width:100%;overflow:hidden}.fc-h-event .fc-event-title-container{flex-grow:1;flex-shrink:1;min-width:0}.fc-h-event .fc-event-title{display:inline-block;left:0;max-width:100%;overflow:hidden;right:0;vertical-align:top}.fc-h-event.fc-event-selected:before{bottom:-10px;top:-10px}.fc-direction-ltr .fc-daygrid-block-event:not(.fc-event-start),.fc-direction-rtl .fc-daygrid-block-event:not(.fc-event-end){border-bottom-left-radius:0;border-left-width:0;border-top-left-radius:0}.fc-direction-ltr .fc-daygrid-block-event:not(.fc-event-end),.fc-direction-rtl .fc-daygrid-block-event:not(.fc-event-start){border-bottom-right-radius:0;border-right-width:0;border-top-right-radius:0}.fc-h-event:not(.fc-event-selected) .fc-event-resizer{bottom:0;top:0;width:var(--fc-event-resizer-thickness)}.fc-direction-ltr .fc-h-event:not(.fc-event-selected) .fc-event-resizer-start,.fc-direction-rtl .fc-h-event:not(.fc-event-selected) .fc-event-resizer-end{cursor:w-resize;left:calc(var(--fc-event-resizer-thickness)*-.5)}.fc-direction-ltr .fc-h-event:not(.fc-event-selected) .fc-event-resizer-end,.fc-direction-rtl .fc-h-event:not(.fc-event-selected) .fc-event-resizer-start{cursor:e-resize;right:calc(var(--fc-event-resizer-thickness)*-.5)}.fc-h-event.fc-event-selected .fc-event-resizer{margin-top:calc(var(--fc-event-resizer-dot-total-width)*-.5);top:50%}.fc-direction-ltr .fc-h-event.fc-event-selected .fc-event-resizer-start,.fc-direction-rtl .fc-h-event.fc-event-selected .fc-event-resizer-end{left:calc(var(--fc-event-resizer-dot-total-width)*-.5)}.fc-direction-ltr .fc-h-event.fc-event-selected .fc-event-resizer-end,.fc-direction-rtl .fc-h-event.fc-event-selected .fc-event-resizer-start{right:calc(var(--fc-event-resizer-dot-total-width)*-.5)}.fc .fc-popover{box-shadow:0 2px 6px rgba(0,0,0,.15);position:absolute;z-index:9999}.fc .fc-popover-header{align-items:center;display:flex;flex-direction:row;justify-content:space-between;padding:3px 4px}.fc .fc-popover-title{margin:0 2px}.fc .fc-popover-close{cursor:pointer;font-size:1.1em;opacity:.65}.fc-theme-standard .fc-popover{background:var(--fc-page-bg-color);border:1px solid var(--fc-border-color)}.fc-theme-standard .fc-popover-header{background:var(--fc-neutral-bg-color)}";
+var css_248z = ":root{--fc-small-font-size:.85em;--fc-page-bg-color:#fff;--fc-neutral-bg-color:hsla(0,0%,82%,.3);--fc-neutral-text-color:grey;--fc-border-color:#ddd;--fc-button-text-color:#fff;--fc-button-bg-color:#2c3e50;--fc-button-border-color:#2c3e50;--fc-button-hover-bg-color:#1e2b37;--fc-button-hover-border-color:#1a252f;--fc-button-active-bg-color:#1a252f;--fc-button-active-border-color:#151e27;--fc-event-bg-color:#3788d8;--fc-event-border-color:#3788d8;--fc-event-text-color:#fff;--fc-event-selected-overlay-color:rgba(0,0,0,.25);--fc-more-link-bg-color:#d0d0d0;--fc-more-link-text-color:inherit;--fc-event-resizer-thickness:8px;--fc-event-resizer-dot-total-width:8px;--fc-event-resizer-dot-border-width:1px;--fc-non-business-color:hsla(0,0%,84%,.3);--fc-bg-event-color:#8fdf82;--fc-bg-event-opacity:0.3;--fc-highlight-color:rgba(188,232,241,.3);--fc-today-bg-color:rgba(255,220,40,.15);--fc-now-indicator-color:red}.fc-not-allowed,.fc-not-allowed .fc-event{cursor:not-allowed}.fc{display:flex;flex-direction:column;font-size:1em}.fc,.fc *,.fc :after,.fc :before{box-sizing:border-box}.fc table{border-collapse:collapse;border-spacing:0;font-size:1em}.fc th{text-align:center}.fc td,.fc th{padding:0;vertical-align:top}.fc a[data-navlink]{cursor:pointer}.fc a[data-navlink]:hover{text-decoration:underline}.fc-direction-ltr{direction:ltr;text-align:left}.fc-direction-rtl{direction:rtl;text-align:right}.fc-theme-standard td,.fc-theme-standard th{border:1px solid var(--fc-border-color)}.fc-liquid-hack td,.fc-liquid-hack th{position:relative}@font-face{font-family:fcicons;font-style:normal;font-weight:400;src:url(\"data:application/x-font-ttf;charset=utf-8;base64,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\") format(\"truetype\")}.fc-icon{speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:inline-block;font-family:fcicons!important;font-style:normal;font-variant:normal;font-weight:400;height:1em;line-height:1;text-align:center;text-transform:none;-webkit-user-select:none;-moz-user-select:none;user-select:none;width:1em}.fc-icon-chevron-left:before{content:\"\\e900\"}.fc-icon-chevron-right:before{content:\"\\e901\"}.fc-icon-chevrons-left:before{content:\"\\e902\"}.fc-icon-chevrons-right:before{content:\"\\e903\"}.fc-icon-minus-square:before{content:\"\\e904\"}.fc-icon-plus-square:before{content:\"\\e905\"}.fc-icon-x:before{content:\"\\e906\"}.fc .fc-button{border-radius:0;font-family:inherit;font-size:inherit;line-height:inherit;margin:0;overflow:visible;text-transform:none}.fc .fc-button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.fc .fc-button{-webkit-appearance:button}.fc .fc-button:not(:disabled){cursor:pointer}.fc .fc-button{background-color:transparent;border:1px solid transparent;border-radius:.25em;display:inline-block;font-size:1em;font-weight:400;line-height:1.5;padding:.4em .65em;text-align:center;-webkit-user-select:none;-moz-user-select:none;user-select:none;vertical-align:middle}.fc .fc-button:hover{text-decoration:none}.fc .fc-button:focus{box-shadow:0 0 0 .2rem rgba(44,62,80,.25);outline:0}.fc .fc-button:disabled{opacity:.65}.fc .fc-button-primary{background-color:var(--fc-button-bg-color);border-color:var(--fc-button-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:hover{background-color:var(--fc-button-hover-bg-color);border-color:var(--fc-button-hover-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:disabled{background-color:var(--fc-button-bg-color);border-color:var(--fc-button-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:focus{box-shadow:0 0 0 .2rem rgba(76,91,106,.5)}.fc .fc-button-primary:not(:disabled).fc-button-active,.fc .fc-button-primary:not(:disabled):active{background-color:var(--fc-button-active-bg-color);border-color:var(--fc-button-active-border-color);color:var(--fc-button-text-color)}.fc .fc-button-primary:not(:disabled).fc-button-active:focus,.fc .fc-button-primary:not(:disabled):active:focus{box-shadow:0 0 0 .2rem rgba(76,91,106,.5)}.fc .fc-button .fc-icon{font-size:1.5em;vertical-align:middle}.fc .fc-button-group{display:inline-flex;position:relative;vertical-align:middle}.fc .fc-button-group>.fc-button{flex:1 1 auto;position:relative}.fc .fc-button-group>.fc-button.fc-button-active,.fc .fc-button-group>.fc-button:active,.fc .fc-button-group>.fc-button:focus,.fc .fc-button-group>.fc-button:hover{z-index:1}.fc-direction-ltr .fc-button-group>.fc-button:not(:first-child){border-bottom-left-radius:0;border-top-left-radius:0;margin-left:-1px}.fc-direction-ltr .fc-button-group>.fc-button:not(:last-child){border-bottom-right-radius:0;border-top-right-radius:0}.fc-direction-rtl .fc-button-group>.fc-button:not(:first-child){border-bottom-right-radius:0;border-top-right-radius:0;margin-right:-1px}.fc-direction-rtl .fc-button-group>.fc-button:not(:last-child){border-bottom-left-radius:0;border-top-left-radius:0}.fc .fc-toolbar{align-items:center;display:flex;justify-content:space-between}.fc .fc-toolbar.fc-header-toolbar{margin-bottom:1.5em}.fc .fc-toolbar.fc-footer-toolbar{margin-top:1.5em}.fc .fc-toolbar-title{font-size:1.75em;margin:0}.fc-direction-ltr .fc-toolbar>*>:not(:first-child){margin-left:.75em}.fc-direction-rtl .fc-toolbar>*>:not(:first-child){margin-right:.75em}.fc-direction-rtl .fc-toolbar-ltr{flex-direction:row-reverse}.fc .fc-scroller{-webkit-overflow-scrolling:touch;position:relative}.fc .fc-scroller-liquid{height:100%}.fc .fc-scroller-liquid-absolute{bottom:0;left:0;position:absolute;right:0;top:0}.fc .fc-scroller-harness{direction:ltr;overflow:hidden;position:relative}.fc .fc-scroller-harness-liquid{height:100%}.fc-direction-rtl .fc-scroller-harness>.fc-scroller{direction:rtl}.fc-theme-standard .fc-scrollgrid{border:1px solid var(--fc-border-color)}.fc .fc-scrollgrid,.fc .fc-scrollgrid table{table-layout:fixed;width:100%}.fc .fc-scrollgrid table{border-left-style:hidden;border-right-style:hidden;border-top-style:hidden}.fc .fc-scrollgrid{border-bottom-width:0;border-collapse:separate;border-right-width:0}.fc .fc-scrollgrid-liquid{height:100%}.fc .fc-scrollgrid-section,.fc .fc-scrollgrid-section table,.fc .fc-scrollgrid-section>td{height:1px}.fc .fc-scrollgrid-section-liquid>td{height:100%}.fc .fc-scrollgrid-section>*{border-left-width:0;border-top-width:0}.fc .fc-scrollgrid-section-footer>*,.fc .fc-scrollgrid-section-header>*{border-bottom-width:0}.fc .fc-scrollgrid-section-body table,.fc .fc-scrollgrid-section-footer table{border-bottom-style:hidden}.fc .fc-scrollgrid-section-sticky>*{background:var(--fc-page-bg-color);position:sticky;z-index:3}.fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky>*{top:0}.fc .fc-scrollgrid-section-footer.fc-scrollgrid-section-sticky>*{bottom:0}.fc .fc-scrollgrid-sticky-shim{height:1px;margin-bottom:-1px}.fc-sticky{position:sticky}.fc .fc-view-harness{flex-grow:1;position:relative}.fc .fc-view-harness-active>.fc-view{bottom:0;left:0;position:absolute;right:0;top:0}.fc .fc-col-header-cell-cushion{display:inline-block;padding:2px 4px}.fc .fc-bg-event,.fc .fc-highlight,.fc .fc-non-business{bottom:0;left:0;position:absolute;right:0;top:0}.fc .fc-non-business{background:var(--fc-non-business-color)}.fc .fc-bg-event{background:var(--fc-bg-event-color);opacity:var(--fc-bg-event-opacity)}.fc .fc-bg-event .fc-event-title{font-size:var(--fc-small-font-size);font-style:italic;margin:.5em}.fc .fc-highlight{background:var(--fc-highlight-color)}.fc .fc-cell-shaded,.fc .fc-day-disabled{background:var(--fc-neutral-bg-color)}a.fc-event,a.fc-event:hover{text-decoration:none}.fc-event.fc-event-draggable,.fc-event[href]{cursor:pointer}.fc-event .fc-event-main{position:relative;z-index:2}.fc-event-dragging:not(.fc-event-selected){opacity:.75}.fc-event-dragging.fc-event-selected{box-shadow:0 2px 7px rgba(0,0,0,.3)}.fc-event .fc-event-resizer{display:none;position:absolute;z-index:4}.fc-event-selected .fc-event-resizer,.fc-event:hover .fc-event-resizer{display:block}.fc-event-selected .fc-event-resizer{background:var(--fc-page-bg-color);border-color:inherit;border-radius:calc(var(--fc-event-resizer-dot-total-width)/2);border-style:solid;border-width:var(--fc-event-resizer-dot-border-width);height:var(--fc-event-resizer-dot-total-width);width:var(--fc-event-resizer-dot-total-width)}.fc-event-selected .fc-event-resizer:before{bottom:-20px;content:\"\";left:-20px;position:absolute;right:-20px;top:-20px}.fc-event-selected,.fc-event:focus{box-shadow:0 2px 5px rgba(0,0,0,.2)}.fc-event-selected:before,.fc-event:focus:before{bottom:0;content:\"\";left:0;position:absolute;right:0;top:0;z-index:3}.fc-event-selected:after,.fc-event:focus:after{background:var(--fc-event-selected-overlay-color);bottom:-1px;content:\"\";left:-1px;position:absolute;right:-1px;top:-1px;z-index:1}.fc-h-event{background-color:var(--fc-event-bg-color);border:1px solid var(--fc-event-border-color);display:block}.fc-h-event .fc-event-main{color:var(--fc-event-text-color)}.fc-h-event .fc-event-main-frame{display:flex}.fc-h-event .fc-event-time{max-width:100%;overflow:hidden}.fc-h-event .fc-event-title-container{flex-grow:1;flex-shrink:1;min-width:0}.fc-h-event .fc-event-title{display:inline-block;left:0;max-width:100%;overflow:hidden;right:0;vertical-align:top}.fc-h-event.fc-event-selected:before{bottom:-10px;top:-10px}.fc-direction-ltr .fc-daygrid-block-event:not(.fc-event-start),.fc-direction-rtl .fc-daygrid-block-event:not(.fc-event-end){border-bottom-left-radius:0;border-left-width:0;border-top-left-radius:0}.fc-direction-ltr .fc-daygrid-block-event:not(.fc-event-end),.fc-direction-rtl .fc-daygrid-block-event:not(.fc-event-start){border-bottom-right-radius:0;border-right-width:0;border-top-right-radius:0}.fc-h-event:not(.fc-event-selected) .fc-event-resizer{bottom:0;top:0;width:var(--fc-event-resizer-thickness)}.fc-direction-ltr .fc-h-event:not(.fc-event-selected) .fc-event-resizer-start,.fc-direction-rtl .fc-h-event:not(.fc-event-selected) .fc-event-resizer-end{cursor:w-resize;left:calc(var(--fc-event-resizer-thickness)*-.5)}.fc-direction-ltr .fc-h-event:not(.fc-event-selected) .fc-event-resizer-end,.fc-direction-rtl .fc-h-event:not(.fc-event-selected) .fc-event-resizer-start{cursor:e-resize;right:calc(var(--fc-event-resizer-thickness)*-.5)}.fc-h-event.fc-event-selected .fc-event-resizer{margin-top:calc(var(--fc-event-resizer-dot-total-width)*-.5);top:50%}.fc-direction-ltr .fc-h-event.fc-event-selected .fc-event-resizer-start,.fc-direction-rtl .fc-h-event.fc-event-selected .fc-event-resizer-end{left:calc(var(--fc-event-resizer-dot-total-width)*-.5)}.fc-direction-ltr .fc-h-event.fc-event-selected .fc-event-resizer-end,.fc-direction-rtl .fc-h-event.fc-event-selected .fc-event-resizer-start{right:calc(var(--fc-event-resizer-dot-total-width)*-.5)}.fc .fc-popover{box-shadow:0 2px 6px rgba(0,0,0,.15);position:absolute;z-index:9999}.fc .fc-popover-header{align-items:center;display:flex;flex-direction:row;justify-content:space-between;padding:3px 4px}.fc .fc-popover-title{margin:0 2px}.fc .fc-popover-close{cursor:pointer;font-size:1.1em;opacity:.65}.fc-theme-standard .fc-popover{background:var(--fc-page-bg-color);border:1px solid var(--fc-border-color)}.fc-theme-standard .fc-popover-header{background:var(--fc-neutral-bg-color)}";
 injectStyles(css_248z);
 
 class DelayedRunner {
@@ -3139,10 +3220,10 @@ function memoizeHashlike(workerFunc, resEquality, teardownFunc) {
 
 const EXTENDED_SETTINGS_AND_SEVERITIES = {
     week: 3,
-    separator: 0,
-    omitZeroMinute: 0,
-    meridiem: 0,
-    omitCommas: 0,
+    separator: 9,
+    omitZeroMinute: 9,
+    meridiem: 9,
+    omitCommas: 9,
 };
 const STANDARD_DATE_PROP_SEVERITIES = {
     timeZoneName: 7,
@@ -3164,22 +3245,25 @@ class NativeFormatter {
     constructor(formatSettings) {
         let standardDateProps = {};
         let extendedSettings = {};
-        let severity = 0;
+        let smallestUnitNum = 9; // the smallest unit in the formatter (9 is a sentinel, beyond max)
         for (let name in formatSettings) {
             if (name in EXTENDED_SETTINGS_AND_SEVERITIES) {
                 extendedSettings[name] = formatSettings[name];
-                severity = Math.max(EXTENDED_SETTINGS_AND_SEVERITIES[name], severity);
+                const severity = EXTENDED_SETTINGS_AND_SEVERITIES[name];
+                if (severity < 9) {
+                    smallestUnitNum = Math.min(EXTENDED_SETTINGS_AND_SEVERITIES[name], smallestUnitNum);
+                }
             }
             else {
                 standardDateProps[name] = formatSettings[name];
                 if (name in STANDARD_DATE_PROP_SEVERITIES) { // TODO: what about hour12? no severity
-                    severity = Math.max(STANDARD_DATE_PROP_SEVERITIES[name], severity);
+                    smallestUnitNum = Math.min(STANDARD_DATE_PROP_SEVERITIES[name], smallestUnitNum);
                 }
             }
         }
         this.standardDateProps = standardDateProps;
         this.extendedSettings = extendedSettings;
-        this.severity = severity;
+        this.smallestUnitNum = smallestUnitNum;
         this.buildFormattingFunc = memoize(buildFormattingFunc);
     }
     format(date, context) {
@@ -3214,8 +3298,8 @@ class NativeFormatter {
         }
         return full0 + separator + full1;
     }
-    getLargestUnit() {
-        switch (this.severity) {
+    getSmallestUnit() {
+        switch (this.smallestUnitNum) {
             case 7:
             case 6:
             case 5:
@@ -3526,6 +3610,7 @@ const BASE_OPTION_REFINERS = {
     viewDidMount: identity,
     viewWillUnmount: identity,
     nowIndicator: Boolean,
+    nowIndicatorSnap: identity,
     nowIndicatorClassNames: identity,
     nowIndicatorContent: identity,
     nowIndicatorDidMount: identity,
@@ -3708,6 +3793,7 @@ const BASE_OPTION_DEFAULTS = {
     eventMinWidth: 30,
     eventShortHeight: 30,
     monthStartFormat: { month: 'long', day: 'numeric' },
+    nowIndicatorSnap: 'auto',
 };
 // calendar listeners
 // ------------------
@@ -3928,6 +4014,25 @@ function compareObjs(oldProps, newProps, equalityFuncs = {}) {
     if (oldProps === newProps) {
         return true;
     }
+    // if (debug) {
+    //   for (let key in newProps) {
+    //     if (key in oldProps && isObjValsEqual(oldProps[key], newProps[key], equalityFuncs[key])) {
+    //       // equal
+    //     } else {
+    //       if (debug) {
+    //         console.log('prop difference', key, oldProps[key], newProps[key])
+    //       }
+    //     }
+    //   }
+    //   // check for props that were omitted in the new
+    //   for (let key in oldProps) {
+    //     if (!(key in newProps)) {
+    //       if (debug) {
+    //         console.log('prop absent', key)
+    //       }
+    //     }
+    //   }
+    // }
     for (let key in newProps) {
         if (key in oldProps && isObjValsEqual(oldProps[key], newProps[key], equalityFuncs[key])) ;
         else {
@@ -4487,9 +4592,10 @@ class ScrollResponder {
 }
 
 const ViewContextType = createContext({}); // for Components
-function buildViewContext(viewSpec, viewApi, viewOptions, dateProfileGenerator, dateEnv, theme, pluginHooks, dispatch, getCurrentData, emitter, calendarApi, registerInteractiveComponent, unregisterInteractiveComponent) {
+function buildViewContext(viewSpec, viewApi, viewOptions, dateProfileGenerator, dateEnv, nowManager, theme, pluginHooks, dispatch, getCurrentData, emitter, calendarApi, registerInteractiveComponent, unregisterInteractiveComponent) {
     return {
         dateEnv,
+        nowManager,
         options: viewOptions,
         pluginHooks,
         emitter,
@@ -4517,13 +4623,14 @@ function buildViewContext(viewSpec, viewApi, viewOptions, dateProfileGenerator, 
 
 /* eslint max-classes-per-file: off */
 class PureComponent extends preact.Component {
+    // debug: boolean
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.debug) {
-            // eslint-disable-next-line no-console
-            console.log(getUnequalProps(nextProps, this.props), getUnequalProps(nextState, this.state));
-        }
-        return !compareObjs(this.props, nextProps, this.propEquality) ||
-            !compareObjs(this.state, nextState, this.stateEquality);
+        const shouldUpdate = !compareObjs(this.props, nextProps, this.propEquality /*, this.debug */) ||
+            !compareObjs(this.state, nextState, this.stateEquality /*, this.debug */);
+        // if (this.debug && shouldUpdate) {
+        //   console.log('shouldUpdate!')
+        // }
+        return shouldUpdate;
     }
     // HACK for freakin' React StrictMode
     safeSetState(newState) {
@@ -4763,10 +4870,10 @@ class ViewContainer extends BaseComponent {
         let { props, context } = this;
         let { options } = context;
         let renderProps = { view: context.viewApi };
-        return (preact.createElement(ContentContainer, Object.assign({}, props, { elTag: props.elTag || 'div', elClasses: [
+        return (preact.createElement(ContentContainer, { elRef: props.elRef, elTag: props.elTag || 'div', elAttrs: props.elAttrs, elClasses: [
                 ...buildViewClassNames(props.viewSpec),
                 ...(props.elClasses || []),
-            ], renderProps: renderProps, classNameGenerator: options.viewClassNames, generatorName: undefined, didMount: options.viewDidMount, willUnmount: options.viewWillUnmount }), () => props.children));
+            ], elStyle: props.elStyle, renderProps: renderProps, classNameGenerator: options.viewClassNames, generatorName: undefined, didMount: options.viewDidMount, willUnmount: options.viewWillUnmount }, () => props.children));
     }
 }
 function buildViewClassNames(viewSpec) {
@@ -4922,36 +5029,9 @@ function diffDates(date0, date1, dateEnv, largeUnit) {
     return diffDayAndTime(date0, date1); // returns a duration
 }
 
-function reduceCurrentDate(currentDate, action) {
-    switch (action.type) {
-        case 'CHANGE_DATE':
-            return action.dateMarker;
-        default:
-            return currentDate;
-    }
-}
-function getInitialDate(options, dateEnv) {
-    let initialDateInput = options.initialDate;
-    // compute the initial ambig-timezone date
-    if (initialDateInput != null) {
-        return dateEnv.createMarker(initialDateInput);
-    }
-    return getNow(options.now, dateEnv); // getNow already returns unzoned
-}
-function getNow(nowInput, dateEnv) {
-    if (typeof nowInput === 'function') {
-        nowInput = nowInput();
-    }
-    if (nowInput == null) {
-        return dateEnv.createNowMarker();
-    }
-    return dateEnv.createMarker(nowInput);
-}
-
 class DateProfileGenerator {
     constructor(props) {
         this.props = props;
-        this.nowDate = getNow(props.nowInput, props.dateEnv);
         this.initHiddenDays();
     }
     /* Date Range Computation
@@ -5036,7 +5116,7 @@ class DateProfileGenerator {
     buildValidRange() {
         let input = this.props.validRangeInput;
         let simpleInput = typeof input === 'function'
-            ? input.call(this.props.calendarApi, this.nowDate)
+            ? input.call(this.props.calendarApi, this.props.dateEnv.toDate(this.props.nowManager.getDateMarker()))
             : input;
         return this.refineRange(simpleInput) ||
             { start: null, end: null }; // completely open-ended
@@ -6928,6 +7008,101 @@ function interactionSettingsToStore(settings) {
 // global state
 const interactionSettingsStore = {};
 
+class NowTimer extends preact.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.handleRefresh = () => {
+            let timing = this.computeTiming();
+            if (timing.state.nowDate.valueOf() !== this.state.nowDate.valueOf()) {
+                this.setState(timing.state);
+            }
+            this.clearTimeout();
+            this.setTimeout(timing.waitMs);
+        };
+        this.handleVisibilityChange = () => {
+            if (!document.hidden) {
+                this.handleRefresh();
+            }
+        };
+        this.state = this.computeTiming().state;
+    }
+    render() {
+        let { props, state } = this;
+        return props.children(state.nowDate, state.todayRange);
+    }
+    componentDidMount() {
+        this.setTimeout();
+        this.context.nowManager.addResetListener(this.handleRefresh);
+        // fired tab becomes visible after being hidden
+        document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.unit !== this.props.unit) {
+            this.clearTimeout();
+            this.setTimeout();
+        }
+    }
+    componentWillUnmount() {
+        this.clearTimeout();
+        this.context.nowManager.removeResetListener(this.handleRefresh);
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+    computeTiming() {
+        let { props, context } = this;
+        let unroundedNow = context.nowManager.getDateMarker();
+        let { nowIndicatorSnap } = context.options;
+        if (nowIndicatorSnap === 'auto') {
+            nowIndicatorSnap =
+                // large unit?
+                /year|month|week|day/.test(props.unit) ||
+                    // if slotDuration 30 mins for example, would NOT appear to snap (legacy behavior)
+                    (props.unitValue || 1) === 1;
+        }
+        let nowDate;
+        let waitMs;
+        if (nowIndicatorSnap) {
+            nowDate = context.dateEnv.startOf(unroundedNow, props.unit); // aka currentUnitStart
+            let nextUnitStart = context.dateEnv.add(nowDate, createDuration(1, props.unit));
+            waitMs = nextUnitStart.valueOf() - unroundedNow.valueOf();
+        }
+        else {
+            nowDate = unroundedNow;
+            waitMs = 1000 * 60; // 1 minute
+        }
+        // there is a max setTimeout ms value (https://stackoverflow.com/a/3468650/96342)
+        // ensure no longer than a day
+        waitMs = Math.min(1000 * 60 * 60 * 24, waitMs);
+        return {
+            state: { nowDate, todayRange: buildDayRange(nowDate) },
+            waitMs,
+        };
+    }
+    setTimeout(waitMs = this.computeTiming().waitMs) {
+        // NOTE: timeout could take longer than expected if tab sleeps,
+        // which is why we listen to 'visibilitychange'
+        this.timeoutId = setTimeout(() => {
+            // NOTE: timeout could also return *earlier* than expected, and we need to wait 2 ms more
+            // This is why use use same waitMs from computeTiming, so we don't skip an interval while
+            // .setState() is executing
+            const timing = this.computeTiming();
+            this.setState(timing.state, () => {
+                this.setTimeout(timing.waitMs);
+            });
+        }, waitMs);
+    }
+    clearTimeout() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+    }
+}
+NowTimer.contextType = ViewContextType;
+function buildDayRange(date) {
+    let start = startOfDay(date);
+    let end = addDays(start, 1);
+    return { start, end };
+}
+
 class CalendarImpl {
     getCurrentData() {
         return this.currentDataManager.getCurrentData();
@@ -7083,7 +7258,7 @@ class CalendarImpl {
         this.unselect();
         this.dispatch({
             type: 'CHANGE_DATE',
-            dateMarker: getNow(state.calendarOptions.now, state.dateEnv),
+            dateMarker: state.nowManager.getDateMarker(),
         });
     }
     gotoDate(zonedDateInput) {
@@ -7484,7 +7659,7 @@ function buildEventUiForKey(allUi, eventUiForKey, individualUi) {
 function getDateMeta(date, todayRange, nowDate, dateProfile) {
     return {
         dow: date.getUTCDay(),
-        isDisabled: Boolean(dateProfile && !rangeContainsMarker(dateProfile.activeRange, date)),
+        isDisabled: Boolean(dateProfile && (!dateProfile.activeRange || !rangeContainsMarker(dateProfile.activeRange, date))),
         isOther: Boolean(dateProfile && !rangeContainsMarker(dateProfile.currentRange, date)),
         isToday: Boolean(todayRange && rangeContainsMarker(todayRange, date)),
         isPast: Boolean(nowDate ? (date < nowDate) : todayRange ? (date < todayRange.start) : false),
@@ -8249,7 +8424,13 @@ class TableDateCell extends BaseComponent {
         let navLinkAttrs = (!dayMeta.isDisabled && props.colCnt > 1)
             ? buildNavLinkAttrs(this.context, date)
             : {};
-        let renderProps = Object.assign(Object.assign(Object.assign({ date: dateEnv.toDate(date), view: viewApi }, props.extraRenderProps), { text }), dayMeta);
+        let publicDate = dateEnv.toDate(date);
+        // workaround for Luxon (and maybe moment) returning prior-days when start-of-day
+        // in DST gap: https://github.com/fullcalendar/fullcalendar/issues/7633
+        if (dateEnv.namedTimeZoneImpl) {
+            publicDate = addMs(publicDate, 3600000); // add an hour
+        }
+        let renderProps = Object.assign(Object.assign(Object.assign({ date: publicDate, view: viewApi }, props.extraRenderProps), { text }), dayMeta);
         return (preact.createElement(ContentContainer, { elTag: "th", elClasses: classNames, elAttrs: Object.assign({ role: 'columnheader', colSpan: props.colSpan, 'data-date': !dayMeta.isDisabled ? formatDayString(date) : undefined }, props.extraDataAttrs), renderProps: renderProps, generatorName: "dayHeaderContent", customGenerator: options.dayHeaderContent, defaultGenerator: renderInner$1, classNameGenerator: options.dayHeaderClassNames, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, (InnerContainer) => (preact.createElement("div", { className: "fc-scrollgrid-sync-inner" }, !dayMeta.isDisabled && (preact.createElement(InnerContainer, { elTag: "a", elAttrs: navLinkAttrs, elClasses: [
                 'fc-col-header-cell-cushion',
                 props.isSticky && 'fc-sticky',
@@ -8286,65 +8467,6 @@ class TableDowCell extends BaseComponent {
                     'aria-label': dateEnv.format(date, WEEKDAY_FORMAT),
                 } })))));
     }
-}
-
-class NowTimer extends preact.Component {
-    constructor(props, context) {
-        super(props, context);
-        this.initialNowDate = getNow(context.options.now, context.dateEnv);
-        this.initialNowQueriedMs = new Date().valueOf();
-        this.state = this.computeTiming().currentState;
-    }
-    render() {
-        let { props, state } = this;
-        return props.children(state.nowDate, state.todayRange);
-    }
-    componentDidMount() {
-        this.setTimeout();
-    }
-    componentDidUpdate(prevProps) {
-        if (prevProps.unit !== this.props.unit) {
-            this.clearTimeout();
-            this.setTimeout();
-        }
-    }
-    componentWillUnmount() {
-        this.clearTimeout();
-    }
-    computeTiming() {
-        let { props, context } = this;
-        let unroundedNow = addMs(this.initialNowDate, new Date().valueOf() - this.initialNowQueriedMs);
-        let currentUnitStart = context.dateEnv.startOf(unroundedNow, props.unit);
-        let nextUnitStart = context.dateEnv.add(currentUnitStart, createDuration(1, props.unit));
-        let waitMs = nextUnitStart.valueOf() - unroundedNow.valueOf();
-        // there is a max setTimeout ms value (https://stackoverflow.com/a/3468650/96342)
-        // ensure no longer than a day
-        waitMs = Math.min(1000 * 60 * 60 * 24, waitMs);
-        return {
-            currentState: { nowDate: currentUnitStart, todayRange: buildDayRange(currentUnitStart) },
-            nextState: { nowDate: nextUnitStart, todayRange: buildDayRange(nextUnitStart) },
-            waitMs,
-        };
-    }
-    setTimeout() {
-        let { nextState, waitMs } = this.computeTiming();
-        this.timeoutId = setTimeout(() => {
-            this.setState(nextState, () => {
-                this.setTimeout();
-            });
-        }, waitMs);
-    }
-    clearTimeout() {
-        if (this.timeoutId) {
-            clearTimeout(this.timeoutId);
-        }
-    }
-}
-NowTimer.contextType = ViewContextType;
-function buildDayRange(date) {
-    let start = startOfDay(date);
-    let end = addDays(start, 1);
-    return { start, end };
 }
 
 class DayHeader extends BaseComponent {
@@ -9222,8 +9344,11 @@ function getSectionByKey(sections, key) {
 class EventContainer extends BaseComponent {
     constructor() {
         super(...arguments);
+        // memo
+        this.buildPublicEvent = memoize((context, eventDef, eventInstance) => new EventImpl(context, eventDef, eventInstance));
         this.handleEl = (el) => {
             this.el = el;
+            setRef(this.props.elRef, el);
             if (el) {
                 setElSeg(el, this.props.seg);
             }
@@ -9236,7 +9361,7 @@ class EventContainer extends BaseComponent {
         const { eventRange } = seg;
         const { ui } = eventRange;
         const renderProps = {
-            event: new EventImpl(context, eventRange.def, eventRange.instance),
+            event: this.buildPublicEvent(context, eventRange.def, eventRange.instance),
             view: context.viewApi,
             timeText: props.timeText,
             textColor: ui.textColor,
@@ -9255,11 +9380,11 @@ class EventContainer extends BaseComponent {
             isDragging: Boolean(props.isDragging),
             isResizing: Boolean(props.isResizing),
         };
-        return (preact.createElement(ContentContainer, Object.assign({}, props /* contains children */, { elRef: this.handleEl, elClasses: [
+        return (preact.createElement(ContentContainer, { elRef: this.handleEl, elTag: props.elTag, elAttrs: props.elAttrs, elClasses: [
                 ...getEventClassNames(renderProps),
                 ...seg.eventRange.ui.classNames,
                 ...(props.elClasses || []),
-            ], renderProps: renderProps, generatorName: "eventContent", customGenerator: options.eventContent, defaultGenerator: props.defaultGenerator, classNameGenerator: options.eventClassNames, didMount: options.eventDidMount, willUnmount: options.eventWillUnmount })));
+            ], elStyle: props.elStyle, renderProps: renderProps, generatorName: "eventContent", customGenerator: options.eventContent, defaultGenerator: props.defaultGenerator, classNameGenerator: options.eventClassNames, didMount: options.eventDidMount, willUnmount: options.eventWillUnmount }, props.children));
     }
     componentDidUpdate(prevProps) {
         if (this.el && this.props.seg !== prevProps.seg) {
@@ -9286,6 +9411,9 @@ class StandardEvent extends BaseComponent {
             Boolean(eventContentArg.isEndResizable) && (preact.createElement("div", { className: "fc-event-resizer fc-event-resizer-end" }))))));
     }
 }
+StandardEvent.addPropsEquality({
+    seg: isPropsEqual,
+});
 function renderInnerContent$1(innerProps) {
     return (preact.createElement("div", { className: "fc-event-main-frame" },
         innerProps.timeText && (preact.createElement("div", { className: "fc-event-time" }, innerProps.timeText)),
@@ -9300,7 +9428,7 @@ const NowIndicatorContainer = (props) => (preact.createElement(ViewContextType.C
         date: context.dateEnv.toDate(props.date),
         view: context.viewApi,
     };
-    return (preact.createElement(ContentContainer, Object.assign({}, props /* includes children */, { elTag: props.elTag || 'div', renderProps: renderProps, generatorName: "nowIndicatorContent", customGenerator: options.nowIndicatorContent, classNameGenerator: options.nowIndicatorClassNames, didMount: options.nowIndicatorDidMount, willUnmount: options.nowIndicatorWillUnmount })));
+    return (preact.createElement(ContentContainer, { elRef: props.elRef, elTag: props.elTag || 'div', elAttrs: props.elAttrs, elClasses: props.elClasses, elStyle: props.elStyle, renderProps: renderProps, generatorName: "nowIndicatorContent", customGenerator: options.nowIndicatorContent, classNameGenerator: options.nowIndicatorClassNames, didMount: options.nowIndicatorDidMount, willUnmount: options.nowIndicatorWillUnmount }, props.children));
 }));
 
 const DAY_NUM_FORMAT = createFormatter({ day: 'numeric' });
@@ -9323,12 +9451,12 @@ class DayCellContainer extends BaseComponent {
             dateEnv: context.dateEnv,
             monthStartFormat: options.monthStartFormat,
         });
-        return (preact.createElement(ContentContainer, Object.assign({}, props /* includes children */, { elClasses: [
+        return (preact.createElement(ContentContainer, { elRef: props.elRef, elTag: props.elTag, elAttrs: Object.assign(Object.assign({}, props.elAttrs), (renderProps.isDisabled ? {} : { 'data-date': formatDayString(props.date) })), elClasses: [
                 ...getDayClassNames(renderProps, context.theme),
                 ...(props.elClasses || []),
-            ], elAttrs: Object.assign(Object.assign({}, props.elAttrs), (renderProps.isDisabled ? {} : { 'data-date': formatDayString(props.date) })), renderProps: renderProps, generatorName: "dayCellContent", customGenerator: options.dayCellContent, defaultGenerator: props.defaultGenerator, classNameGenerator: 
+            ], elStyle: props.elStyle, renderProps: renderProps, generatorName: "dayCellContent", customGenerator: options.dayCellContent, defaultGenerator: props.defaultGenerator, classNameGenerator: 
             // don't use custom classNames if disabled
-            renderProps.isDisabled ? undefined : options.dayCellClassNames, didMount: options.dayCellDidMount, willUnmount: options.dayCellWillUnmount })));
+            renderProps.isDisabled ? undefined : options.dayCellClassNames, didMount: options.dayCellDidMount, willUnmount: options.dayCellWillUnmount }, props.children));
     }
 }
 function hasCustomDayCellContent(options) {
@@ -9365,7 +9493,7 @@ const WeekNumberContainer = (props) => (preact.createElement(ViewContextType.Con
     let text = dateEnv.format(date, format);
     let renderProps = { num, text, date };
     return (preact.createElement(ContentContainer // why isn't WeekNumberContentArg being auto-detected?
-    , Object.assign({}, props /* includes children */, { renderProps: renderProps, generatorName: "weekNumberContent", customGenerator: options.weekNumberContent, defaultGenerator: renderInner, classNameGenerator: options.weekNumberClassNames, didMount: options.weekNumberDidMount, willUnmount: options.weekNumberWillUnmount })));
+    , { elRef: props.elRef, elTag: props.elTag, elAttrs: props.elAttrs, elClasses: props.elClasses, elStyle: props.elStyle, renderProps: renderProps, generatorName: "weekNumberContent", customGenerator: options.weekNumberContent, defaultGenerator: renderInner, classNameGenerator: options.weekNumberClassNames, didMount: options.weekNumberDidMount, willUnmount: options.weekNumberWillUnmount }, props.children));
 }));
 function renderInner(innerProps) {
     return innerProps.text;
@@ -9787,9 +9915,7 @@ exports.getDefaultEventEnd = getDefaultEventEnd;
 exports.getElSeg = getElSeg;
 exports.getEntrySpanEnd = getEntrySpanEnd;
 exports.getEventTargetViaRoot = getEventTargetViaRoot;
-exports.getInitialDate = getInitialDate;
 exports.getIsRtlScrollbarOnLeft = getIsRtlScrollbarOnLeft;
-exports.getNow = getNow;
 exports.getRectCenter = getRectCenter;
 exports.getRelevantEvents = getRelevantEvents;
 exports.getScrollGridClassNames = getScrollGridClassNames;
@@ -9854,7 +9980,6 @@ exports.rangeContainsMarker = rangeContainsMarker;
 exports.rangeContainsRange = rangeContainsRange;
 exports.rangesEqual = rangesEqual;
 exports.rangesIntersect = rangesIntersect;
-exports.reduceCurrentDate = reduceCurrentDate;
 exports.reduceEventStore = reduceEventStore;
 exports.refineEventDef = refineEventDef;
 exports.refineProps = refineProps;
@@ -10864,7 +10989,7 @@ class TableRows extends internal_cjs.DateComponent {
     constructor() {
         super(...arguments);
         this.splitBusinessHourSegs = internal_cjs.memoize(splitSegsByRow);
-        this.splitBgEventSegs = internal_cjs.memoize(splitSegsByRow);
+        this.splitBgEventSegs = internal_cjs.memoize(splitAllDaySegsByRow);
         this.splitFgEventSegs = internal_cjs.memoize(splitSegsByRow);
         this.splitDateSelectionSegs = internal_cjs.memoize(splitSegsByRow);
         this.splitEventDrag = internal_cjs.memoize(splitInteractionByRow);
@@ -10888,7 +11013,7 @@ class TableRows extends internal_cjs.DateComponent {
         return (preact_cjs.createElement(internal_cjs.NowTimer, { unit: "day" }, (nowDate, todayRange) => (preact_cjs.createElement(preact_cjs.Fragment, null, props.cells.map((cells, row) => (preact_cjs.createElement(TableRow, { ref: this.rowRefs.createRef(row), key: cells.length
                 ? cells[0].date.toISOString() /* best? or put key on cell? or use diff formatter? */
                 : row // in case there are no cells (like when resource view is loading)
-            , showDayNumbers: rowCnt > 1, showWeekNumbers: props.showWeekNumbers, todayRange: todayRange, dateProfile: props.dateProfile, cells: cells, renderIntro: props.renderRowIntro, businessHourSegs: businessHourSegsByRow[row], eventSelection: props.eventSelection, bgEventSegs: bgEventSegsByRow[row].filter(isSegAllDay) /* hack */, fgEventSegs: fgEventSegsByRow[row], dateSelectionSegs: dateSelectionSegsByRow[row], eventDrag: eventDragByRow[row], eventResize: eventResizeByRow[row], dayMaxEvents: props.dayMaxEvents, dayMaxEventRows: props.dayMaxEventRows, clientWidth: props.clientWidth, clientHeight: props.clientHeight, cellMinHeight: cellMinHeight, forPrint: props.forPrint })))))));
+            , showDayNumbers: rowCnt > 1, showWeekNumbers: props.showWeekNumbers, todayRange: todayRange, dateProfile: props.dateProfile, cells: cells, renderIntro: props.renderRowIntro, businessHourSegs: businessHourSegsByRow[row], eventSelection: props.eventSelection, bgEventSegs: bgEventSegsByRow[row], fgEventSegs: fgEventSegsByRow[row], dateSelectionSegs: dateSelectionSegsByRow[row], eventDrag: eventDragByRow[row], eventResize: eventResizeByRow[row], dayMaxEvents: props.dayMaxEvents, dayMaxEventRows: props.dayMaxEventRows, clientWidth: props.clientWidth, clientHeight: props.clientHeight, cellMinHeight: cellMinHeight, forPrint: props.forPrint })))))));
     }
     componentDidMount() {
         this.registerInteractiveComponent();
@@ -10956,6 +11081,9 @@ class TableRows extends internal_cjs.DateComponent {
         let end = internal_cjs.addDays(start, 1);
         return { start, end };
     }
+}
+function splitAllDaySegsByRow(segs, rowCnt) {
+    return splitSegsByRow(segs.filter(isSegAllDay), rowCnt);
 }
 function isSegAllDay(seg) {
     return seg.eventRange.def.allDay;
@@ -30400,6 +30528,7 @@ class Filtered {
         this.attachViews(controller, this.target.find('div.filtered-views-container'));
         // lift-off
         controller.show();
+        console.log('run');
     }
     attachFilters(controller, filtersContainer) {
         for (let prId in this.config.printrequests) {
@@ -30940,13 +31069,35 @@ exports.ViewSelector = ViewSelector;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Filtered_1 = require("./Filtered/Filtered");
-let config = mw.config.get('srfFilteredConfig');
-for (let id in config) {
-    if (config.hasOwnProperty(id)) {
-        let f = new Filtered_1.Filtered($('#' + id), config[id]);
-        mw.hook('wikipage.content').add(() => f.run());
-    }
+let config = mw.config.get("srfFilteredConfig") || {};
+function initItems(cfg, root) {
+    Object.keys(cfg).forEach(id => {
+        const selector = root ? root.find("#" + id) : $("#" + id);
+        const el = selector.first();
+        if (!el.length) {
+            return;
+        }
+        // Prevent double initialization
+        if (el.data("filtered-init"))
+            return;
+        el.data("filtered-init", true);
+        const f = new Filtered_1.Filtered(el, cfg[id]);
+        f.run();
+    });
 }
+// Initial run on page load
+initItems(config);
+// Handle deferred query results
+mw.hook("smw.deferred.query").add((container) => {
+    console.log("Deferred query container:", container);
+    // Reload config in case it changed
+    const cfg = mw.config.get("srfFilteredConfig") || {};
+    container.find(".filtered-spinner").hide();
+    container.find(".filtered-views").show();
+    container.find(".filtered-filters").show();
+    // Initialize only items inside the container
+    initItems(cfg, container);
+});
 
 },{"./Filtered/Filtered":18}]},{},[25])
 
