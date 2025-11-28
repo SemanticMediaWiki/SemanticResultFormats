@@ -270,12 +270,15 @@ class Filtered extends ResultPrinter {
 	}
 
 	private function addConfigToOutput( $id, $config ) {
-		if ( $this->getParser()->getOutput() !== null ) {
-			$getter = [ $this->getParser()->getOutput(), 'getExtensionData' ];
-			$setter = [ $this->getParser()->getOutput(), 'setExtensionData' ];
+		$parserOutput = $this->getParser()->getOutput();
+		if ( $parserOutput !== null ) {
+			$getter = [ $parserOutput, 'getExtensionData' ];
+			$setter = [ $parserOutput, 'setExtensionData' ];
+
 		} else {
-			$getter = [ \RequestContext::getMain()->getOutput(), 'getProperty' ];
-			$setter = [ \RequestContext::getMain()->getOutput(), 'setProperty' ];
+			$output = \RequestContext::getMain()->getOutput();
+			$getter = [ $output, 'getProperty' ];
+			$setter = [ $output, 'setProperty' ];
 		}
 
 		$previousConfig = call_user_func( $getter, 'srf-filtered-config' );
@@ -287,6 +290,10 @@ class Filtered extends ResultPrinter {
 		$previousConfig[$id] = $config;
 
 		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
+
+		if ( $parserOutput ) {
+        	$parserOutput->addJsConfigVars( 'srfFilteredConfig', $previousConfig );
+        }
 	}
 
 	/**
@@ -492,6 +499,13 @@ class Filtered extends ResultPrinter {
 			Html::rawElement( 'div', [ 'class' => 'filtered-views-container' ], $viewHtml )
 		);
 		return [ $viewHtml, $config ];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function isDeferrable(): bool {
+		return true;
 	}
 
 }
