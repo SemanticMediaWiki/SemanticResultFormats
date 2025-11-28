@@ -292,8 +292,8 @@ class Filtered extends ResultPrinter {
 		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
 
 		if ( $parserOutput ) {
-        	$parserOutput->addJsConfigVars( 'srfFilteredConfig', $previousConfig );
-        }
+				$parserOutput->addJsConfigVars( 'srfFilteredConfig', $previousConfig );
+		}
 	}
 
 	/**
