@@ -13,7 +13,6 @@
   function rebindOn(target, source) {
     target.on = function() {
       var value = source.on.apply(source, arguments);
-      // Keep chainability like the old d3.rebind
       return value === source ? target : value;
     };
     return target;
@@ -70,8 +69,6 @@
           if (place(board, d, bounds)) {
             tags.push(d);
 
-            // OLD: event.word(d);
-            // NEW (D3 v6): use dispatch.call(type, thisArg, ...)
             event.call("word", cloud, d);
 
             if (bounds) cloudBounds(bounds, d);
@@ -84,8 +81,6 @@
         if (i >= n) {
           cloud.stop();
 
-          // OLD: event.end(tags, bounds);
-          // NEW: dispatch.call("end", thisArg, ...)
           event.call("end", cloud, tags, bounds);
         }
       }
@@ -209,8 +204,6 @@
       return cloud;
     };
 
-    // OLD: return d3.rebind(cloud, event, "on");
-    // NEW: manually rebind .on
     return rebindOn(cloud, event);
   }
 
