@@ -146,7 +146,7 @@
 			} );
 
 			// Init the colour array
-			var fill = d3.scale.category20b();
+			var fill = d3.scaleOrdinal(d3.schemeTableau10);
 
 			// Set properties for the tags
 			function draw( words ) {
