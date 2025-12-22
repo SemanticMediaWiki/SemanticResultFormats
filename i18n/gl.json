@@ -341,5 +341,6 @@
 	"srf-paramdesc-gantt-diagramtitle": "Nome do diagrama",
 	"srf-paramdesc-gantt-diagramtheme": "Tema do diagrama",
 	"srf-paramdesc-gantt-sortkey": "Clave para ordenar seccións e tarefas",
-	"srf-paramdesc-gantt-titletopmargin": "Marxe superior do título do diagrama"
+	"srf-paramdesc-gantt-titletopmargin": "Marxe superior do título do diagrama",
+	"srf-printername-mode": "Modo"
 }
