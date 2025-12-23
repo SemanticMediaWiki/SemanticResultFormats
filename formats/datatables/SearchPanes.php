@@ -11,6 +11,7 @@
 
 namespace SRF\DataTables;
 
+use SMWDataItem as DataItem;
 use SMW\DataTypeRegistry;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
