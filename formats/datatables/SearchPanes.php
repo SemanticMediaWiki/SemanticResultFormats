@@ -11,7 +11,6 @@
 
 namespace SRF\DataTables;
 
-use SMWDataItem as DataItem;
 use SMW\DataTypeRegistry;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
@@ -24,6 +23,7 @@ use SMW\SQLStore\QueryEngineFactory;
 use SMW\SQLStore\SQLStore;
 use SMW\SQLStore\TableBuilder\FieldType;
 use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
+use SMWDataItem as DataItem;
 use SMWQueryProcessor;
 use SRF\DataTables;
 
