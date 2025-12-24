@@ -11,6 +11,7 @@ use SMW\MediaWiki\Database;
 use SMW\SQLStore\QueryEngine\QuerySegment;
 use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
 use SMWQuery as Query;
+use Wikimedia\Rdbms\Platform\ISQLPlatform;
 
 class QuerySegmentListProcessor {
 	/* @var array */
