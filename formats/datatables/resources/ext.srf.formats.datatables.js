@@ -896,7 +896,7 @@
 						_datatables.callApi(
 							$.extend(payloadData, {
 								datatableData,
-								cacheKey,
+								cacheKey: thisCacheKey,
 							}),
 							callback,
 							preloadData,
