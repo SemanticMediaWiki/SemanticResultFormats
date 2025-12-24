@@ -344,14 +344,8 @@ class QuerySegmentListProcessor {
 			$valuecond .= ( $valuecond ? ' OR ' : '' ) . 'o_id=' . $this->connection->addQuotes( $value );
 		}
 
-		// Try to safe time (SELECT is cheaper than creating/dropping 3 temp tables):
-		$res = $this->connection->select(
-			str_replace( '`', '' , $smwtable ),
-			's_id',
-			$valuecond,
-			__METHOD__,
-			[ 'LIMIT' => 1 ]
-		);
+		// Try to save time (SELECT is cheaper than creating/dropping 3 temp tables):
+		$res = $this->connection->query( "SELECT s_id FROM $smwtable WHERE $valuecond LIMIT 1" );
 
 		if ( !$res->fetchObject() ) { // no subobjects, we are done!
 			$res->free();
