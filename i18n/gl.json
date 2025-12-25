@@ -342,5 +342,8 @@
 	"srf-paramdesc-gantt-diagramtheme": "Tema do diagrama",
 	"srf-paramdesc-gantt-sortkey": "Clave para ordenar seccións e tarefas",
 	"srf-paramdesc-gantt-titletopmargin": "Marxe superior do título do diagrama",
-	"srf-printername-mode": "Modo"
+	"srf-error-gantt-mermaid-not-installed": "Cómpre instalar a extensión Mermaid.",
+	"srf-printername-gantt": "Gantt",
+	"srf-printername-mode": "Modo",
+	"srf-printername-range": "Rango"
 }
