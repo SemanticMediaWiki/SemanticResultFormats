@@ -340,10 +340,14 @@
 	"srf-paramdesc-icalendar-timezone": "Unha lista de fusos horarios separados por comas",
 	"srf-paramdesc-gantt-diagramtitle": "Nome do diagrama",
 	"srf-paramdesc-gantt-diagramtheme": "Tema do diagrama",
+	"srf-paramdesc-gantt-axisformat": "Eixo X: Formato de data",
 	"srf-paramdesc-gantt-sortkey": "Clave para ordenar seccións e tarefas",
 	"srf-paramdesc-gantt-titletopmargin": "Marxe superior do título do diagrama",
+	"srf-paramdesc-gantt-barheight": "Altura das barras de tarefas",
+	"srf-paramdesc-gantt-leftpadding": "Largura do título da sección",
 	"srf-error-gantt-mermaid-not-installed": "Cómpre instalar a extensión Mermaid.",
 	"srf-printername-gantt": "Gantt",
 	"srf-printername-mode": "Modo",
-	"srf-printername-range": "Rango"
+	"srf-printername-range": "Rango",
+	"srf-printername-variance": "Varianza"
 }
