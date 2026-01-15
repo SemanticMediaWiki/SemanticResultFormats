@@ -219,7 +219,7 @@
 	"srf-ui-datatables-label-multiselect-column-selectedtext": "As columnas son visibles",
 	"srf-ui-datatables-label-sEmptyTable": "Non hai datos dispoñibles na táboa",
 	"srf-ui-datatables-label-sInfo": "Amosando as entradas da _START_ á _END_ dun total de _TOTAL_",
-	"srf-ui-datatables-label-sInfoEmpty": "Amosa as entradas da 0 á 0 dun total de 0",
+	"srf-ui-datatables-label-sInfoEmpty": "Amosando as entradas da 0 á 0 dun total de 0",
 	"srf-ui-datatables-label-sInfoFiltered": "(filtradas dun total de _MAX_ entradas)",
 	"srf-ui-datatables-label-sInfoThousands": "&nbsp;",
 	"srf-ui-datatables-label-sLengthMenu": "Amosar _MENU_ entradas",
