@@ -785,10 +785,7 @@ return [
 			],
 		],
 
-	'ext.srf.filtered.map-view.leaflet' => $formatModule + [
-			'scripts' => [
-				'filtered/resources/js/ext.srf.filtered.leaflet.js',
-			],
+	'ext.srf.filtered.map-leaflet.style' => $formatModule + [
 			'styles' => [
 				'filtered/resources/css/ext.srf.filtered.leaflet.css',
 			],

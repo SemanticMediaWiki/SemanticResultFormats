@@ -19020,7 +19020,7 @@ class MapView extends View_1.View {
         if (this.options.hasOwnProperty('height')) {
             this.target.height(this.options.height);
         }
-        this.leafletPromise = mw.loader.using('ext.srf.filtered.map-view.leaflet')
+        this.leafletPromise = mw.loader.using('ext.srf.filtered.map-leaflet.style')
             .then(() => {
             let bounds = undefined;
             let disableClusteringAtZoom = this.getZoomForUnclustering();

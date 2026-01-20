@@ -66,6 +66,7 @@
 	"srf-ui-datatables-label-oPaginate-sNext": "அடுத்து",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "முந்திய",
 	"srf-paramdesc-listtype": "பட்டியல் வகையை குறிப்பிடவும்",
+	"srf-printername-eventcalendar": "நிகழ்வு நாள்காட்டி",
 	"srf-ui-eventcalendar-label-today": "இன்று",
 	"srf-ui-eventcalendar-label-month": "மாதம்",
 	"srf-ui-eventcalendar-label-week": "வாரம்",
@@ -85,5 +86,6 @@
 	"srf-ui-mediaplayer-label-shuffle-off": "கலைத்தல் அணை",
 	"srf-ui-mediaplayer-label-repeat": "மீள்செயல்",
 	"srf-ui-mediaplayer-label-repeat-off": "மீள்செயல் அணை",
-	"srf-ui-mediaplayer-label-full-screen": "முழுத்திரை"
+	"srf-ui-mediaplayer-label-full-screen": "முழுத்திரை",
+	"srf-spreadsheet-link": "விரிதாள்"
 }
