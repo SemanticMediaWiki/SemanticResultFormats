@@ -76,7 +76,7 @@
 				$this.find( '.gallerybox' ).each( function () {
 					var $this = $( this ),
 						h = mw.html,
-						image = $this.find( 'a.image' ),
+						image = $this.find( 'a.mw-file-description' ),
 						imageText = $.trim( $this.find( '.gallerytext p' ).text() );
 
 					// Group images
