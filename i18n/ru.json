@@ -351,5 +351,6 @@
 	"srf-error-gantt-mermaid-not-installed": "Расширение Mermaid должно быть установлено.",
 	"srf-printername-gantt": "Диаграмма Ганта",
 	"srf-paramdesc-graphfields": "Отображать свойста не типа «Страница» внутри вершин графа, а не в виде его рёбер.",
-	"srf-printername-mode": "Режим"
+	"srf-printername-mode": "Режим",
+	"srf-printername-range": "Диапазон"
 }
