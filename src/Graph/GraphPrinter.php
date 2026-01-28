@@ -214,10 +214,10 @@ class GraphPrinter extends ResultPrinter {
 
 			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
 				$hasProperty = $object->getProperty();
-				if ( $object instanceof \SMW\DataValues\StringValue ) {
-					$objectText = $object->getShortWikiText();
-				} else {
+				if ( method_exists( $object, 'getDisplayTitle' ) ) {
 					$objectText = $object->getDisplayTitle();
+				} else {
+					$objectText = $object->getShortWikiText();
 				}
 
 				$includeAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
