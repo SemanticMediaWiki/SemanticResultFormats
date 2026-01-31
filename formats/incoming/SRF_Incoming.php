@@ -43,7 +43,6 @@ class SRFIncoming extends ResultPrinter {
 			if ( $this->params['default'] !== '' ) {
 				return $this->escapeText( $this->params['default'], $outputmode );
 			} else {
-				$result->addErrors( [ wfMessage( 'smw_result_noresults' )->inContentLanguage()->text() ] );
 				return '';
 			}
 		} else {
