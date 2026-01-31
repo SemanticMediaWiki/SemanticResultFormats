@@ -4,7 +4,8 @@
 			"EugeneZelenko",
 			"Jim-by",
 			"Red Winged Duck",
-			"Renessaince"
+			"Renessaince",
+			"Ucukor"
 		]
 	},
 	"srf-desc": "Дадатковыя фарматы вынікаў для запытаў Semantic MediaWiki",
@@ -54,7 +55,7 @@
 	"srf_paramdesc_perrow": "Колькасьць выяваў у радку",
 	"srf_paramdesc_widths": "Шырыня выяваў",
 	"srf_paramdesc_heights": "Вышыня выяваў",
-	"srf_paramdesc_autocaptions": "Выкарыстоўваць назву файла ў якасьці загалоўку, калі ён не пададзены",
+	"srf_paramdesc_autocaptions": "Ужыць назву файла ў якасьці загалоўку, калі ён не пададзены",
 	"srf_paramdesc_fileextensions": "Падчас выкарыстаньня назвы файла ў якасьці загалоўку, таксама паказваць пашырэньне файла",
 	"srf_printername_tagcloud": "Воблака тэгаў",
 	"srf_paramdesc_increase": "Як павялічыць памер тэгаў",

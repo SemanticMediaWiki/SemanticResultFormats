@@ -4,6 +4,7 @@
 			"GreenZeb",
 			"Papuass",
 			"Peridot Nation",
+			"Rusjanis",
 			"Silraks"
 		]
 	},
@@ -35,7 +36,7 @@
 	"srf-ui-eventcalendar-label-day": "Diena",
 	"srf-ui-eventcalendar-label-allday": "Visu dienu",
 	"srf-printername-dygraphs": "Dygraphs diagramma",
-	"srf-paramdesc-datasource": "Avots, no kurienes dati ir pieejami. Atļautās vērtības: fails, izejas dati un URL. Noklusētais: fails",
+	"srf-paramdesc-datasource": "Avots, no kura dati ir pieejami. Atļautās vērtības: \"file\", \"raw\" un \"url\". Noklusējuma vērtība: \"file\"",
 	"srf-paramdesc-unit": "Vienība",
 	"srf-ui-mediaplayer-label-repeat": "Atkārtot",
 	"srf-spreadsheet-link": "Izklājlapa",
