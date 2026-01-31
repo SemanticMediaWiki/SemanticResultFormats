@@ -1,7 +1,23 @@
 // Word cloud layout by Jason Davies, http://www.jasondavies.com/word-cloud/
 // Algorithm due to Jonathan Feinberg, http://static.mrfeinberg.com/bv_ch03.pdf
 // @author: mwjames, 2012-08, added href as construtor field
+// @auhtor: your1, 2026-11-27, fixed support for D3 v6
 (function(exports) {
+
+  // Simple replacement for d3.functor (removed in D3 v4+)
+  function functor(v) {
+    return typeof v === "function" ? v : function() { return v; };
+  }
+
+  // Replacement for d3.rebind(cloud, event, "on")
+  function rebindOn(target, source) {
+    target.on = function() {
+      var value = source.on.apply(source, arguments);
+      return value === source ? target : value;
+    };
+    return target;
+  }
+
   function cloud() {
     var size = [256, 256],
         text = cloudText,
@@ -13,6 +29,7 @@
         spiral = archimedeanSpiral,
         words = [],
         timeInterval = Infinity,
+        // D3 v6 still uses d3.dispatch, but dispatching is done via .call()
         event = d3.dispatch("word", "end"),
         timer = null,
         cloud = {};
@@ -30,7 +47,8 @@
           font: font.call(this, d, i),
           rotate: rotate.call(this, d, i),
           size: ~~fontSize.call(this, d, i),
-          padding: cloudPadding.call(this, d, i)
+          // NOTE: use variable 'padding' here so cloud.padding(...) works
+          padding: padding.call(this, d, i)
         };
       }).sort(function(a, b) { return b.size - a.size; });
 
@@ -50,7 +68,9 @@
           cloudSprite(d, data, i);
           if (place(board, d, bounds)) {
             tags.push(d);
-            event.word(d);
+
+            event.call("word", cloud, d);
+
             if (bounds) cloudBounds(bounds, d);
             else bounds = [{x: d.x + d.x0, y: d.y + d.y0}, {x: d.x + d.x1, y: d.y + d.y1}];
             // Temporary hack
@@ -60,7 +80,8 @@
         }
         if (i >= n) {
           cloud.stop();
-          event.end(tags, bounds);
+
+          event.call("end", cloud, tags, bounds);
         }
       }
     }
@@ -143,25 +164,25 @@
 
     cloud.font = function(x) {
       if (!arguments.length) return font;
-      font = d3.functor(x);
+      font = functor(x);
       return cloud;
     };
 
     cloud.rotate = function(x) {
       if (!arguments.length) return rotate;
-      rotate = d3.functor(x);
+      rotate = functor(x);
       return cloud;
     };
 
     cloud.text = function(x) {
       if (!arguments.length) return text;
-      text = d3.functor(x);
+      text = functor(x);
       return cloud;
     };
 
     cloud.href = function(x) {
       if (!arguments.length) return href;
-      text = d3.functor(x);
+      href = functor(x);  // FIX: previously set 'text' by mistake
       return cloud;
     };
 
@@ -173,17 +194,17 @@
 
     cloud.fontSize = function(x) {
       if (!arguments.length) return fontSize;
-      fontSize = d3.functor(x);
+      fontSize = functor(x);
       return cloud;
     };
 
     cloud.padding = function(x) {
       if (!arguments.length) return padding;
-      padding = d3.functor(x);
+      padding = functor(x);
       return cloud;
     };
 
-    return d3.rebind(cloud, event, "on");
+    return rebindOn(cloud, event);
   }
 
   function cloudText(d) {
@@ -395,4 +416,7 @@
   c.textAlign = "center";
 
   exports.cloud = cloud;
+
+// D3 v6 still exposes a global `d3` if you use the UMD bundle.
+// This keeps the original API: d3.layout.cloud(...)
 })(typeof exports === "undefined" ? d3.layout || (d3.layout = {}) : exports);
