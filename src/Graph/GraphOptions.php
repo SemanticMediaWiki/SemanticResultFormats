@@ -29,6 +29,7 @@ class GraphOptions {
 	private $showGraphLegend;
 	/** @var bool Show non-Page properties as fields within nodes rather than edges. */
 	private $showGraphFields;
+	/** @var bool Show property pages in fields within nodes rather than just values. */
 	private $showGraphFieldsPages;
 
 	public function __construct( $options ) {
@@ -107,7 +108,7 @@ class GraphOptions {
 		return $this->showGraphFields;
 	}
 
-	public function showGraphFieldsPages(): string {
+	public function showGraphFieldsPages(): bool {
 		return $this->showGraphFieldsPages;
 	}
 }
