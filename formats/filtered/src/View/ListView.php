@@ -32,6 +32,7 @@ class ListView extends View {
 	private $mOutroTemplate;
 	private $mNamedArgs;
 	private $mShowHeaders;
+	private $mUserParam;
 
 	/** @var array */
 	private $params;
