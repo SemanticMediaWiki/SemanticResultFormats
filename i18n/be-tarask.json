@@ -10,6 +10,7 @@
 	},
 	"srf-desc": "Дадатковыя фарматы вынікаў для запытаў Semantic MediaWiki",
 	"prefs-srf-eventcalendar-options": "Налады календару падзеяў",
+	"srf-module-loading": "Ладаваньне…",
 	"srf-ui-tooltip-title-scope": "Сфэра",
 	"srfc_previousmonth": "Папярэдні месяц",
 	"srfc_nextmonth": "Наступны месяц",
@@ -74,6 +75,7 @@
 	"srf-printername-graph": "Графік",
 	"srf-paramdesc-graphname": "Вызначае назву дыяграмы",
 	"srf-paramdesc-graphsize": "Вызначае памер дыяграмы ў піксэлах",
+	"srf-ui-datatables-label-sLoadingRecords": "Ладаваньне…",
 	"srf-ui-datatables-label-oPaginate-sNext": "Наступнае",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Папярэдняе",
 	"srf-paramdesc-zoom": "Увамкнуць маштабаваньне"
