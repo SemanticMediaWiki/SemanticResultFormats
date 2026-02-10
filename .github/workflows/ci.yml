@@ -25,43 +25,15 @@ jobs:
             database_image: "mariadb:11.2"
             coverage: false
             experimental: false
-          - mediawiki_version: '1.40'
-            smw_version: 5.1.0
-            php_version: 8.1
-            mm_version: 6.0.1
+          - mediawiki_version: '1.43'
+            smw_version: 6.0.1
+            pf_version: 5.9
+            sfs_version: 4.0.0-beta
+            php_version: 8.3
+            mm_version: 6.0.2
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: true
-            experimental: false
-          - mediawiki_version: '1.41'
-            smw_version: 5.1.0
-            pf_version: 5.9
-            sfs_version: dev-master
-            php_version: 8.1
-            mm_version: 6.0.1
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: false
-            experimental: false
-          - mediawiki_version: '1.42'
-            smw_version: 5.1.0
-            pf_version: 5.9
-            sfs_version: dev-master
-            php_version: 8.1
-            mm_version: 6.0.1
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: false
-            experimental: false
-          - mediawiki_version: '1.43.1'
-            smw_version: dev-master
-            pf_version: 5.9
-            sfs_version: dev-master
-            php_version: 8.1
-            mm_version: 6.0.1
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: false
             experimental: false
 
     env:
