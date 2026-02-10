@@ -216,7 +216,7 @@ class GraphPrinter extends ResultPrinter {
 				$hasProperty = $object->getProperty();
 
 				if ( $isPageType ) {
-					$objectText = $object->getDisplayTitle();
+					$objectText = $object->getDisplayTitle() ?: $object->getWikiValue();
 				} else {
 					$objectText = $object->getWikiValue();
 				}
