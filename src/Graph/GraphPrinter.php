@@ -209,15 +209,16 @@ class GraphPrinter extends ResultPrinter {
 				|| $isPageType
 				|| $request->isMode( PrintRequest::PRINT_CHAIN );
 
-			$showGraphFieldsPages = $this->options->showGraphFieldsPages() === 'yes';
+			$showGraphFieldsPages = $this->options->showGraphFieldsPages();
 			$showGraphFields = $this->options->showGraphFields();
 
 			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
 				$hasProperty = $object->getProperty();
-				if ( $object instanceof \SMW\DataValues\StringValue ) {
-					$objectText = $object->getShortWikiText();
-				} else {
+
+				if ( $isPageType ) {
 					$objectText = $object->getDisplayTitle();
+				} else {
+					$objectText = $object->getWikiValue();
 				}
 
 				$includeAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
@@ -254,22 +255,24 @@ class GraphPrinter extends ResultPrinter {
 					continue;
 				}
 
-				// Handle field
+				// Handle field in info box for node
 				if ( $showGraphFieldsPages && $includeAsField ) {
 					if ( $hasProperty || !$isPageType ) {
-						// non-page or property field
-						if ( $pageTypeSeen !== 2 && !$isPageType ) {
-							$fields[] = [
-								'name' => $label,
-								'value' => $objectText,
-								'type' => $type,
-								'page' => $canonicalLabel,
-							];
-						} elseif ( $pageTypeSeen !== 2 && $isPageType ) {
+						// if is Page type, only add if seen more than once
+						if ( $isPageType && $pageTypeSeen > 2 ) {
 							$fields[] = [
 								'name' => $label,
 								'value' => $object->getDisplayTitle(),
 								'valueLink' => $object->getShortWikiText(),
+								'type' => $type,
+								'page' => $canonicalLabel,
+							];
+						}
+						// if is not Page type, always add
+						if ( !$isPageType ) {
+							$fields[] = [
+								'name' => $label,
+								'value' => $objectText,
 								'type' => $type,
 								'page' => $canonicalLabel,
 							];
@@ -410,9 +413,9 @@ class GraphPrinter extends ResultPrinter {
 		];
 
 		$params['graphfieldspages'] = [
-			'default' => 'no',
+			'default' => false,
 			'message' => 'srf-paramdesc-graphfieldspages',
-			'type' => 'string'
+			'type' => 'boolean'
 		];
 
 		return $params;

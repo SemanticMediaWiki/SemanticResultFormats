@@ -120,21 +120,25 @@ class GraphFormatter {
 					$nodeTooltip = str_replace( '<br />', '', $nodeTooltip );
 				}
 				// Label in HTML form enclosed with <>.
-				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
-							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
+				$nodeLabel = "<\n" . '<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">' . "\n"
+							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr>\n"
+							. '<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n'
 							. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
-								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
-									? 'right'
-									: 'left';
+								// 260209-GEA: all values are left aligned now. In case we want to change this later,
+								//   we should think about adding an alignment option
+								// $alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
+								// 	? 'left'
+								// 	: 'left';
+								$alignment = 'left';
 								$valueLink = $field['valueLink'];
 								if ( $valueLink !== null ) {
 									$valueLink = $field['valueLink'];
 								} else {
 									$valueLink = $field['value'];
 								}
-								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
-									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '"'
+								return '<tr><td align="right" href="[[Property:' . $field['page'] . ']]">'
+									. $field['name'] . ': </td>'
+									. '<td  align="' . $alignment . '"'
 										. (
 											$field['type'] === '_wpg'
 												? ' href="[[' . htmlspecialchars( $field['valueLink'] ) . ']]">'

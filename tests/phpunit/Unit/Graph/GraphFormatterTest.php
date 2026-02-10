@@ -76,15 +76,15 @@ node [fontsize=10, fontname="Verdana"];
 edge [fontsize=10, fontname="Verdana"];
 size="100";node [shape=rect];rankdir=LR;
 "Team:Alpha" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Alpha]]">Alpha</td></tr><hr/>
-<tr><td align="left" href="[[Property:Rating]]">Rated as</td><td align="right">10</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Alpha]]">Alpha</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Rating]]">Rated as: </td><td  align="left">10</td></tr>
 </table>
 >, tooltip = "Alpha"];
 "Team:Beta" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Beta]]">Beta</td></tr><hr/>
-<tr><td align="left" href="[[Property:Rating]]">Rated as</td><td align="right">20</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Beta]]">Beta</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Rating]]">Rated as: </td><td  align="left">20</td></tr>
 </table>
 >, tooltip = "Beta"];
 "Person:Alexander Gesinn" -> "Team:Alpha" [label="Casted",fontcolor=black,arrowhead=diamond,color=black];
@@ -110,11 +110,11 @@ node [fontsize=10, fontname="Verdana"];
 edge [fontsize=10, fontname="Verdana"];
 size="100";node [shape=rect];rankdir=LR;
 "Team:Gamma" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Gamma]]">Gamma</td></tr><hr/>
-<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
-<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
-<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Gamma]]">Gamma</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Main Category]]">Main Category: </td><td  align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="right" href="[[Property:Casted]]">Casted: </td><td  align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="right" href="[[Property:Team Code]]">Team Code: </td><td  align="left">ES</td></tr>
 </table>
 >, tooltip = "Gamma"];
 }
@@ -167,43 +167,43 @@ node [fontsize=10, fontname="Verdana"];
 edge [fontsize=10, fontname="Verdana"];
 size="100";node [shape=rect];rankdir=LR;
 "Team:Delta" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Delta]]">Delta</td></tr><hr/>
-<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
-<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
-<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Delta]]">Delta</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Main Category]]">Main Category: </td><td  align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="right" href="[[Property:Casted]]">Casted: </td><td  align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="right" href="[[Property:Team Code]]">Team Code: </td><td  align="left">ES</td></tr>
 </table>
 >, tooltip = "Delta"];
 "Team:Epsilon" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Epsilon]]">Epsilon</td></tr><hr/>
-<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
-<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
-<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Epsilon]]">Epsilon</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Main Category]]">Main Category: </td><td  align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="right" href="[[Property:Casted]]">Casted: </td><td  align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="right" href="[[Property:Team Code]]">Team Code: </td><td  align="left">ES</td></tr>
 </table>
 >, tooltip = "Epsilon"];
 "Team:Zeta" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Zeta]]">Zeta</td></tr><hr/>
-<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
-<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
-<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Zeta]]">Zeta</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Main Category]]">Main Category: </td><td  align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="right" href="[[Property:Casted]]">Casted: </td><td  align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="right" href="[[Property:Team Code]]">Team Code: </td><td  align="left">ES</td></tr>
 </table>
 >, tooltip = "Zeta"];
 "Team:Eta" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Eta]]">Eta</td></tr><hr/>
-<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
-<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
-<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Eta]]">Eta</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Main Category]]">Main Category: </td><td  align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="right" href="[[Property:Casted]]">Casted: </td><td  align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="right" href="[[Property:Team Code]]">Team Code: </td><td  align="left">ES</td></tr>
 </table>
 >, tooltip = "Eta"];
 "Team:Theta" [label = <
-<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">
-<tr><td colspan="2" href="[[Team:Theta]]">Theta</td></tr><hr/>
-<tr><td align="left" href="[[Property:Main Category]]">Main Category</td><td align="left" href="[[Team]]">Team</td></tr>
-<tr><td align="left" href="[[Property:Casted]]">Casted</td><td align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
-<tr><td align="left" href="[[Property:Team Code]]">Team Code</td><td align="left">ES</td></tr>
+<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">
+<tr><td colspan="2" href="[[Team:Theta]]">Theta</td></tr>
+<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n<tr><td align="right" href="[[Property:Main Category]]">Main Category: </td><td  align="left" href="[[Team]]">Team</td></tr>
+<tr><td align="right" href="[[Property:Casted]]">Casted: </td><td  align="left" href="[[Sebastian Schmid]]">Sebastian Schmid</td></tr>
+<tr><td align="right" href="[[Property:Team Code]]">Team Code: </td><td  align="left">ES</td></tr>
 </table>
 >, tooltip = "Theta"];
 "Solar &amp; Hydro" -> "Team:Delta" [label="Part of Team",fontcolor=black,arrowhead=diamond,color=black];
