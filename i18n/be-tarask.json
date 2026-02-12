@@ -11,6 +11,7 @@
 	"srf-desc": "Дадатковыя фарматы вынікаў для запытаў Semantic MediaWiki",
 	"prefs-srf-eventcalendar-options": "Налады календару падзеяў",
 	"srf-module-loading": "Ладаваньне…",
+	"srf-ui-common-label-datasource": "Крыніца зьвесткаў",
 	"srf-ui-tooltip-title-scope": "Сфэра",
 	"srfc_previousmonth": "Папярэдні месяц",
 	"srfc_nextmonth": "Наступны месяц",
@@ -52,6 +53,8 @@
 	"srf_paramdesc_barcolor": "Колер слупкоў",
 	"srf_paramdesc_bardirection": "Вызначце кірунак дыяграмы",
 	"srf_paramdesc_barnumbersaxislabel": "Надпісы для лічбавых восяў",
+	"srf-ui-gridview-label-item": "Элемэнт зьвестак",
+	"srf-ui-gridview-label-value": "Значэнне звестак",
 	"srf-ui-gridview-label-data-tab": "Зьвесткі",
 	"srf_printername_gallery": "Галерэя",
 	"srf_paramdesc_perrow": "Колькасьць выяваў у радку",
@@ -59,7 +62,7 @@
 	"srf_paramdesc_heights": "Вышыня выяваў",
 	"srf_paramdesc_autocaptions": "Ужыць назву файла ў якасьці загалоўку, калі ён не пададзены",
 	"srf_paramdesc_fileextensions": "Падчас выкарыстаньня назвы файла ў якасьці загалоўку, таксама паказваць пашырэньне файла",
-	"srf_printername_tagcloud": "Воблака тэгаў",
+	"srf_printername_tagcloud": "Воблака тэґаў",
 	"srf_paramdesc_increase": "Як павялічыць памер тэгаў",
 	"srf_paramdesc_tagorder": "Парадак тэгаў",
 	"srf_paramdesc_minsize": "Памер самых малых тэгаў у адсотках",
@@ -78,5 +81,6 @@
 	"srf-ui-datatables-label-sLoadingRecords": "Ладаваньне…",
 	"srf-ui-datatables-label-oPaginate-sNext": "Наступнае",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Папярэдняе",
-	"srf-paramdesc-zoom": "Увамкнуць маштабаваньне"
+	"srf-paramdesc-zoom": "Увамкнуць маштабаваньне",
+	"srf-ui-mediaplayer-label-unmute": "Скасаваць сьцішанасьць"
 }
