@@ -48,6 +48,8 @@
 			"formats/ext.srf.formats.eventcalendar.tests.js",
 			"formats/ext.srf.formats.filtered.test.js",
 			"formats/ext.srf.formats.gallery.test.js",
+			"formats/ext.srf.formats.gallery.overlay.test.js",
+			"formats/ext.srf.formats.gallery.redirect.test.js",
 			"formats/ext.srf.formats.media.test.js",
 			"formats/ext.srf.formats.tagcloud.test.js",
 			"widgets/ext.srf.widgets.eventcalendar.tests.js",

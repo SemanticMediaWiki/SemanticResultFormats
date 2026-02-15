@@ -59,7 +59,7 @@
 			return context.find( '.gallerybox' ).each( function() {
 				var $this = $( this ),
 					h = mw.html,
-					image = $this.find( 'a.image' );
+					image = $this.find( 'a.mw-file-description' );
 
 				// Avoid undefined error
 				if ( image.attr( 'href' ) === undefined ) {
