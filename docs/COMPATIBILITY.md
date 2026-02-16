@@ -18,11 +18,18 @@ minimum requirements are indicated in bold.
 		<th>Release status</th>
 	</tr>
 	<tr>
-		<th>5.1.x</th>
+		<th>5.2.x</th>
 		<td>8.1 - 8.4</td>
 		<td>1.39 - 1.44</td>
 		<td>5.0 - 6.x</td>
 		<td><strong>Stable release</strong></td>
+	<tr>
+	<tr>
+		<th>5.1.x</th>
+		<td>8.1 - 8.4</td>
+		<td>1.39 - 1.44</td>
+		<td>5.0 - 6.x</td>
+		<td>Obsolete release, no support</td>
 	<tr>
 	<tr>
 		<th>5.0.x</th>

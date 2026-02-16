@@ -69,11 +69,6 @@
 			"SemanticResultFormats.utils.php"
 		]
 	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "5.2.x-dev"
-		}
-	},
 	"config": {
 		"process-timeout": 0,
 		"allow-plugins": {

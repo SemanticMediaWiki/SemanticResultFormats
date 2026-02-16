@@ -1,5 +1,25 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 5.2.0
+
+Released on February 16, 2026.
+
+### New Features and Enhancements
+
+* Improved the `datatables` format with structured queries for searchpanes ([986](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/986)) (by @thomas-topway-it)
+* Improved the `graph` format field value handling and optimized field layout ([993](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/993)) (by [gesinn.it](https://gesinn.it))
+
+### Bug Fixes
+
+* Fixed `tagcloud` format issues caused by d3 v6 incompatibilities ([981](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/981)) (by @YOUR1)
+* Fixed duplicate leaflet library loading in the `filtered` format map view ([976](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/976)) (by @thomas-topway-it)
+* Fixed missing `mUserParam` property in the `filtered` format list view ([992](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/992)) (by @jaideraf)
+* Fixed template parameter handling in the `listwidget` format ([941](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/941)) (by @thomas-topway-it)
+* Fixed erroneous error message in the `incoming` format when no results are found ([985](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/985)) (by @D-Groenewegen)
+* Fixed `cacheKey` property name in the `datatables` format ([987](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/987)) (by @thomas-topway-it)
+* Fixed `graph` format fallback to `getWikiValue()` when `getDisplayTitle()` returns null (by [gesinn.it](https://gesinn.it))
+* Updated translations (by translatewiki.net community)
+
 ## SRF 5.1.0
 
 Released on September 3, 2025.
