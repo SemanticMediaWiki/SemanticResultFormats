@@ -114,6 +114,12 @@ export class ValueFilter extends Filter {
 		return checkboxes;
 	}
 
+	private stripHtml(str: string): string {
+		const tmp = document.createElement('div');
+		tmp.innerHTML = str;
+		return tmp.textContent || tmp.innerText || '';
+	}
+	
 	private getSelected2Control() {
 
 		let select = $( '<select class="filtered-value-select" style="width: 100%;">' );
@@ -123,9 +129,8 @@ export class ValueFilter extends Filter {
 		// insert options (checkboxes and labels) and attach event handlers
 		for ( let value of this.values ) {
 			// Try to get label, if not fall back to value id
-			let label = value.formattedValue || value.printoutValue;
-			data.push( { id: value.printoutValue, text: label } );
-
+			const label = value.formattedValue || value.printoutValue || '';
+			data.push( { id: value.printoutValue, text: this.stripHtml( label ) } );
 		}
 
 		mw.loader.using( 'ext.srf.filtered.value-filter.select' ).then( () => {
