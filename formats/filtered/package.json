@@ -5,12 +5,11 @@
   "main": "ext.srf.filtered.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "gulp"
+    "postinstall": "gulp",
+    "watch": "gulp watch"
   },
   "author": "Stephan Gambke",
   "license": "GPL-2.0-or-later",
-  "dependencies": {
-  },
   "devDependencies": {
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
@@ -26,6 +25,7 @@
     "gulp": "^4.0.0",
     "gulp-cli": "^2.0.1",
     "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.1",
     "gulp-replace": "^0.6.1",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.1.2",
@@ -36,8 +36,8 @@
     "nouislider": "^10.1.0",
     "select2": "4.0.3",
     "tsify": "^3.0.1",
+    "typescript": "^5.7.3",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^2.0.0",
-    "typescript": "^5.7.3"
+    "vinyl-source-stream": "^2.0.0"
   }
 }

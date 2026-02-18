@@ -1,11 +1,34 @@
 import { Filtered } from "./Filtered/Filtered";
 
-declare let mw: any;
-let config = mw.config.get( 'srfFilteredConfig' );
+declare const mw: any;
 
-for ( let id in config ) {
-	if ( config.hasOwnProperty( id ) ) {
-		let f = new Filtered( $( '#' + id ), config[ id ] );
-		mw.hook( 'wikipage.content' ).add( () => f.run() );
-	}
+let config: Record<string, any> = mw.config.get("srfFilteredConfig") || {};
+
+function initItems(cfg: Record<string, any>, root?: JQuery) {
+    Object.keys(cfg).forEach(id => {
+        const selector = root ? root.find("#" + id) : $("#" + id);
+        const el = selector.first();
+
+        if (!el.length) {
+        	return;
+        }
+
+        if (el.data("filtered-init")) return;
+        el.data("filtered-init", true);
+
+        const f = new Filtered(el, cfg[id]);
+        f.run();
+    });
 }
+
+initItems(config);
+
+mw.hook("smw.deferred.query").add((container: JQuery) => {
+    const cfg = mw.config.get("srfFilteredConfig") || {};
+
+    container.find(".filtered-spinner").hide();
+    container.find(".filtered-views").show();
+    container.find(".filtered-filters").show();
+
+    initItems(cfg, container);
+});
