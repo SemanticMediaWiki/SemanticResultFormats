@@ -2,7 +2,7 @@
 
 namespace SRF;
 
-use Html;
+use MediaWiki\Html\Html;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
