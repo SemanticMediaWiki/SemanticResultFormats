@@ -210,8 +210,7 @@ class SearchPanes {
 				$joins_
 			);
 
-			$row = $res->fetchRow();
-			$dataLength = (int)( $row['count'] ?? 0 );
+			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
 
 			if ( !$dataLength ) {
 				return [];
@@ -300,8 +299,7 @@ class SearchPanes {
 				$joins_
 			);
 
-			$row = $res->fetchRow();
-			$dataLength = (int)( $row['count'] ?? 0 );
+			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
 
 			if ( !$dataLength ) {
 				return [];
@@ -748,7 +746,9 @@ class SearchPanes {
 		$fields_['iw'] = "$qobj->alias.smw_iw";
 		$fields_['so'] = "$qobj->alias.smw_subobject";
 		$fields_['sortkey'] = "$qobj->alias.smw_sortkey";
-		$fields_[] = $sortfields;
+		if ( $sortfields !== '' ) {
+			$fields_[] = $sortfields;
+		}
 
 		$conds_ = $conds;
 		$joins_ = $joins;
