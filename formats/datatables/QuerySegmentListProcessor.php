@@ -165,8 +165,11 @@ class QuerySegmentListProcessor {
 				$query->joinConditions[$alias] = [ $joinType . ' JOIN', "$joinField$op=" . $subQuery->joinfield ];
 
 				$this->fromTables[$subQuery->alias] = $joinTable;
-
-				ksort( $this->fromTables );
+				/**
+				 * Dont remove SORT_NATURAL
+				 * @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/995
+				 */
+				ksort( $this->fromTables, SORT_NATURAL );
 				$this->joinConditions[$subQuery->alias] = [ $joinType . ' JOIN', "$joinField$op=" . $subQuery->joinfield ];
 
 				$query->from .= " $joinType JOIN $t ON $joinField$op=" . $subQuery->joinfield;
