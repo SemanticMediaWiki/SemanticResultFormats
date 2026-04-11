@@ -9,12 +9,12 @@ namespace SRF\Formats\Tree;
  */
 
 use Exception;
-use Html;
+use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ListResultPrinter;
-use Title;
 
 /**
  * Result printer that prints query results as a tree (nested html lists).
