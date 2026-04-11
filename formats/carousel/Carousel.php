@@ -8,8 +8,9 @@
  */
 namespace SRF;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
@@ -429,7 +430,7 @@ class Carousel extends ResultPrinter {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
 		foreach ( $data['query']['result']['results'] as $titleText => $value ) {
-			$title_ = \Title::newFromText( $titleText );
+			$title_ = Title::newFromText( $titleText );
 			$captions = [];
 			$titles = [];
 			$images = [];
@@ -630,7 +631,7 @@ class Carousel extends ResultPrinter {
 			return null;
 		}
 
-		$title = \Title::newFromText( $value['fulltext'], NS_FILE );
+		$title = Title::newFromText( $value['fulltext'], NS_FILE );
 		$wikiFilePage = new \WikiFilePage( $title );
 		$file = $wikiFilePage->getFile();
 
