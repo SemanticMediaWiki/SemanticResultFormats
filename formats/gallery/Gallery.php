@@ -2,15 +2,15 @@
 
 namespace SRF;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWDataItem;
 use SMWOutputs;
 use SRFUtils;
-use Title;
 use TraditionalImageGallery;
 
 /**
