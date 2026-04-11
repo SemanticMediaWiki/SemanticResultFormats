@@ -2,6 +2,7 @@
 
 namespace SRF\Tests\Unit\Formats;
 
+use MediaWiki\Title\Title;
 use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
@@ -36,7 +37,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$this->title = $this->getMockBuilder( '\Title' )
+		$this->title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
