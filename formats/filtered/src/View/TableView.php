@@ -11,12 +11,12 @@ namespace SRF\Filtered\View;
  * @ingroup SemanticResultFormats
  */
 
-use Html;
+use MediaWiki\Html\Html;
+use MediaWiki\Xml\Xml;
 use Message;
 use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SRF\Filtered\ResultItem;
-use Xml;
 
 /**
  * The TableView class defines the Table view.
