@@ -3,6 +3,7 @@
 namespace SRF;
 
 use ImagePage;
+use MediaWiki\Title\Title;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -17,7 +18,6 @@ use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
 use SMW\Query\ResultPrinters\FileExportPrinter;
 use SMWDataValue;
-use Title;
 
 /**
  * @author Kim Eik
