@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Html\Html;
 use SMW\DataValues\PropertyValue;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
