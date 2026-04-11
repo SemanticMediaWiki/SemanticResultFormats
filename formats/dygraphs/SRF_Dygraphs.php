@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\DIWikiPage;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
@@ -151,7 +152,7 @@ class SRFDygraphs extends ResultPrinter {
 		return $aggregatedValues;
 	}
 
-	private function makePageFromTitle( \Title $title ) {
+	private function makePageFromTitle( Title $title ) {
 		$dataValue = new SMWWikiPageValue( '_wpg' );
 		$dataItem = DIWikiPage::newFromTitle( $title );
 		$dataValue->setDataItem( $dataItem );
