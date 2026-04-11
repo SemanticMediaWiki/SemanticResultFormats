@@ -25,7 +25,7 @@ class JsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 	 * @see \SMW\Tests\JsonTestCaseScriptRunner::getTestCaseLocation
 	 * @return string
 	 */
-	protected function getTestCaseLocation() {
+	protected function getTestCaseLocation(): string {
 		return __DIR__ . '/TestCases';
 	}
 
@@ -33,7 +33,7 @@ class JsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 	 * @return string[]
 	 * @since 3.0
 	 */
-	protected function getPermittedSettings() {
+	protected function getPermittedSettings(): array {
 		$settings = parent::getPermittedSettings();
 		$settings[] = 'srfgMapProvider';
 		return $settings;
@@ -42,7 +42,7 @@ class JsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 	/**
 	 * @see JsonTestCaseScriptRunner::getDependencyDefinitions
 	 */
-	protected function getDependencyDefinitions() {
+	protected function getDependencyDefinitions(): array {
 		return [
 			'Mermaid' => [ $this, 'checkMermaidDependency' ]
 		];
