@@ -3,7 +3,6 @@
 namespace SRF\Tests\Unit\Formats;
 
 use MediaWiki\Title\Title;
-use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
 
@@ -24,8 +23,6 @@ use SRF\Gallery;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class GalleryTest extends QueryPrinterRegistryTestCase {
-
-	use PHPUnitCompat;
 
 	private $queryResult;
 	private $title;
@@ -132,7 +129,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			$outro
 		];
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'',
 			$instance->getResult( $this->queryResult, $parameters, SMW_OUTPUT_HTML )
 		);
