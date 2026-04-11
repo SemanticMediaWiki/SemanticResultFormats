@@ -10,7 +10,7 @@
 namespace SRF\Filtered;
 
 use Exception;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use SMW\DataValues\PropertyValue;
 use SMW\Localizer\Message;
