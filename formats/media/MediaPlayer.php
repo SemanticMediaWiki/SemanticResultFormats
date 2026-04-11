@@ -4,8 +4,9 @@ namespace SRF;
 
 use File;
 use FormatJson;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
 use SMW\Query\ResultPrinters\ResultPrinter;
@@ -13,7 +14,6 @@ use SMWDataItem;
 use SMWDataValue;
 use SMWOutputs;
 use SRFUtils;
-use Title;
 
 /**
  * HTML5 Audio / Video media query printer
