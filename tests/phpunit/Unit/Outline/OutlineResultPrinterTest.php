@@ -2,7 +2,6 @@
 
 namespace SRF\Tests\Outline;
 
-use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\OutlineResultPrinter;
 
 /**
@@ -15,8 +14,6 @@ use SRF\Outline\OutlineResultPrinter;
  * @author mwjames
  */
 class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	private $queryResult;
 
@@ -114,7 +111,7 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 			$outrotemplate
 		];
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			"<ul>\n</ul>\n",
 			$instance->getResult( $this->queryResult, $parameters, SMW_OUTPUT_HTML )
 		);
