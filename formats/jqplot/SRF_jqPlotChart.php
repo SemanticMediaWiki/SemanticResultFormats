@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Html\Html;
+
 /**
  * A query printer for bar, line, pie and donut chart on aggregated values
  * using the jqPlot JavaScript library.
