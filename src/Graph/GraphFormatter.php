@@ -2,7 +2,7 @@
 
 namespace SRF\Graph;
 
-use Html;
+use MediaWiki\Html\Html;
 
 /**
  *
