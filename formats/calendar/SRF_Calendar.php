@@ -4,6 +4,7 @@ $wgAutoloadClasses['SRFCHistoricalDate'] = __DIR__
 	. '/SRFC_HistoricalDate.php';
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
