@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Html\Html;
 use SMW\Query\ResultPrinters\AggregatablePrinter;
 
 /**
