@@ -12,7 +12,7 @@
 
 namespace SRF;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use Mediawiki\Title\Title;
 use MWException;
