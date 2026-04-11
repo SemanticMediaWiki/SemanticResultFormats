@@ -59,7 +59,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getFileName( QueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ): string|false {
 		if ( $this->params['filename'] !== '' ) {
 
 			if ( strpos( $this->params['filename'], '.bib' ) === false ) {
