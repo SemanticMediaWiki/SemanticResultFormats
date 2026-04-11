@@ -3,6 +3,7 @@
 namespace SRF\Test;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use Parser;
 use SMW\Tests\QueryPrinterRegistryTestCase;
@@ -83,7 +84,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$testObject = new TreeResultPrinter( 'tree' );
 
-		if ( version_compare( SMW_VERSION, '7.0.0', '>=' ) ) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '>=7.0.0' ) ) {
 			$this->assertStringContainsString(
 				'',
 				$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
