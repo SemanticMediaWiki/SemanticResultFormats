@@ -4,6 +4,7 @@ namespace SRF\Test;
 
 use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Parser;
 use SMW\Tests\QueryPrinterRegistryTestCase;
 use SMW\Tests\Utils\Mock\CoreMockObjectRepository;
@@ -120,7 +121,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 			->method( 'parse' )
 			->willReturn( $parserOutput );
 
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -135,18 +136,13 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	 * @param Parser $parser
 	 */
 	protected function replaceParser( Parser $parser ) {
-		// Direct access to the wgParser global was removed in SMW 4.0.0.
-		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '<4.0.0' ) ) {
-			$GLOBALS['wgParser'] = $parser;
-		} else {
-			MediaWikiServices::getInstance()->disableService( 'Parser' );
-			MediaWikiServices::getInstance()->redefineService(
-				'Parser',
-				static function () use ( $parser ) {
-					return $parser;
-				}
-			);
-		}
+		MediaWikiServices::getInstance()->disableService( 'Parser' );
+		MediaWikiServices::getInstance()->redefineService(
+			'Parser',
+			static function () use ( $parser ) {
+				return $parser;
+			}
+		);
 	}
 
 	/**
