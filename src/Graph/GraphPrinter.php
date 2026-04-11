@@ -2,7 +2,7 @@
 
 namespace SRF\Graph;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
