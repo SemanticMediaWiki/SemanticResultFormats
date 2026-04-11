@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Title\Title;
 use ParamProcessor\ParamDefinition;
 use SMW\DataValueFactory;
 use SMW\Query\PrintRequest;
