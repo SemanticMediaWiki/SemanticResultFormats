@@ -67,7 +67,7 @@ class SRFProcess extends ResultPrinter {
 	 * (non-PHPdoc)
 	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		// init process graph instance
@@ -102,7 +102,7 @@ class SRFProcess extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['graphname'] = [
@@ -695,7 +695,7 @@ class ProcessGraph {
 		$this->m_highlightNode = $name;
 	}
 
-	public function addError( $error ) {
+	public function addError( $error ): void {
 		$this->m_errors[] = $error;
 	}
 

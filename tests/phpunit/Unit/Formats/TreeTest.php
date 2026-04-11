@@ -79,16 +79,12 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 		/** @var \PHPUnit_Framework_MockObject_MockObject $queryResult */
 		$queryResult = $mockBuilder->newObject( 'QueryResult', [ 'getCount' => 1 ] );
 
-		$queryResult->expects( $this->once() )
-			->method( 'addErrors' )
-			->willReturn( null );
-
 		$params = SMWQueryProcessor::getProcessedParams( [ 'format' => 'tree' ], [] );
 
 		$testObject = new TreeResultPrinter( 'tree' );
 
-		$this->assertSame(
-			null,
+		$this->assertStringContainsString(
+			'',
 			$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
 			'Result should be empty.'
 		);

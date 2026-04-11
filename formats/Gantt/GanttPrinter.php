@@ -32,7 +32,7 @@ class GanttPrinter extends ResultPrinter {
 		return wfMessage( 'srf-printername-gantt' )->text();
 	}
 
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params[] = [
@@ -106,7 +106,7 @@ class GanttPrinter extends ResultPrinter {
 	 *
 	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		// Set header params
 		$this->params['title'] = trim( $params['diagramtitle'] );
 		$this->params['axisformat'] = trim( $params['axisformat'] );

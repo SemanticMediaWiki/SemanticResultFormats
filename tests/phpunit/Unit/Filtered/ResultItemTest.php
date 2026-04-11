@@ -43,7 +43,7 @@ class ResultItemTest extends \PHPUnit\Framework\TestCase {
 		$resultArray->method( 'getNextDataValue' )->willReturnOnConsecutiveCalls( $dataValue );
 
 		$printRequest = $this->createStub( PrintRequest::class );
-		$printRequest->method( 'getHash' )->willReturn( null );
+		$printRequest->method( 'getHash' )->willReturn( '' );
 		$resultArray->method( 'getPrintRequest' )->willReturn( $printRequest );
 
 		$queryPrinter = new Filtered( null );

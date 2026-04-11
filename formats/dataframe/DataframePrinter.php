@@ -55,7 +55,7 @@ class DataframePrinter extends FileExportPrinter {
 	 *
 	 * @return string
 	 */
-	public function getFileName( QueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ): string|false {
 		return ( $this->params[ 'filename' ] ?: base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
 	}
 
@@ -65,7 +65,7 @@ class DataframePrinter extends FileExportPrinter {
 	 * @param QueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( QueryResult $queryResult, array $params ) {
+	public function outputAsFile( QueryResult $queryResult, array $params ): void {
 		$this->fileFormat = $this->fileFormats[ 'R' ];
 		parent::outputAsFile( $queryResult, $params );
 	}
@@ -76,7 +76,7 @@ class DataframePrinter extends FileExportPrinter {
 	 *
 	 * @return array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$definitions[ 'searchlabel' ]->setDefault( wfMessage( 'srf-dataframe-link' )->inContentLanguage()->text() );

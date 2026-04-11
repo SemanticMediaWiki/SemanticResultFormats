@@ -10,6 +10,7 @@ namespace SRF\Formats\Tree;
 
 use Exception;
 use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
 use MediaWiki\Title\Title;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
@@ -37,7 +38,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * (non-PHPdoc)
 	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getName()
 	 */
-	public function getName() {
+	public function getName(): string {
 		// Give grep a chance to find the usages:
 		// srf-printername-tree, srf-printername-ultree, srf-printername-oltree
 		return \Message::newFromKey( 'srf-printername-' . $this->mFormat )->text();
@@ -65,7 +66,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * @see ResultPrinter::postProcessParameters()
 	 */
-	protected function postProcessParameters() {
+	protected function postProcessParameters(): void {
 		parent::postProcessParameters();
 
 		// Don't support pagination in trees
@@ -164,7 +165,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return array of IParamDefinition|array
 	 * @throws Exception
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['parent'] = [
@@ -256,9 +257,9 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * Returns a linker object for making hyperlinks
 	 *
-	 * @return \Linker
+	 * @return Linker|null
 	 */
-	public function getLinker( $firstcol = false ) {
+	public function getLinker( $firstcol = false ): ?Linker {
 		return $this->mLinker;
 	}
 
@@ -268,7 +269,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 *
 	 * @param int $column Column number
 	 *
-	 * @return \Linker|null
+	 * @return Linker|null
 	 */
 	public function getLinkerForColumn( $column ) {
 		return parent::getLinker( $column === 0 );
@@ -358,7 +359,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param string $msgkey
 	 * @param string | string[] $params
 	 */
-	protected function addError( $msgkey, $params = [] ) {
+	protected function addError( $msgkey, $params = [] ): void {
 		parent::addError(
 			\Message::newFromKey( $msgkey )
 				->params( $params )

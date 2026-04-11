@@ -44,7 +44,7 @@ class SRFTimeline extends ResultPrinter {
 	 * @param array $params
 	 * @param $outputmode
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		$this->mTemplate = trim( $params['template'] );
@@ -66,7 +66,7 @@ class SRFTimeline extends ResultPrinter {
 	}
 
 	protected function getResultText( QueryResult $res, $outputmode ) {
-		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
+		SMWOutputs::requireStyle( 'ext.smw.styles' );
 		SMWOutputs::requireResource( 'ext.srf.timeline' );
 
 		$isEventline = 'eventline' == $this->mFormat;
@@ -330,9 +330,9 @@ class SRFTimeline extends ResultPrinter {
 				$curmeta .= Html::element(
 					'span',
 					[ 'class' => 'smwtlstart' ],
-					$object->getXMLSchemaDate()
+					$object->getISO8601Date( true )
 				);
-				$positions[$object->getHash()] = $object->getXMLSchemaDate();
+				$positions[$object->getHash()] = $object->getISO8601Date( true );
 				$hastime = true;
 			}
 
@@ -343,7 +343,7 @@ class SRFTimeline extends ResultPrinter {
 				$curmeta .= Html::element(
 					'span',
 					[ 'class' => 'smwtlend' ],
-					$object->getXMLSchemaDate( false )
+					$object->getISO8601Date( false )
 				);
 			}
 
@@ -379,7 +379,7 @@ class SRFTimeline extends ResultPrinter {
 				) == '_dat' ) && ( '' != $pr->getLabel(
 				) ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
 			$event = [
-				$object->getXMLSchemaDate(),
+				$object->getISO8601Date( true ),
 				$pr->getLabel(),
 				$object->getDataItem()->getSortKey(),
 			];
@@ -397,7 +397,7 @@ class SRFTimeline extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['timelinesize'] = [

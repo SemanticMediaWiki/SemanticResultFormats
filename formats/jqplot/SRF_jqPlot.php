@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Linker\Linker;
 use SMW\Query\ResultPrinters\AggregatablePrinter;
 
 /**
@@ -18,7 +19,7 @@ abstract class SRFjqPlot extends AggregatablePrinter {
 	/**
 	 * @inheritDoc
 	 */
-	protected function getLinker( $firstcol = false ) {
+	protected function getLinker( $firstcol = false ): ?Linker {
 		// *** force null since labels are never clickable
 				return null;
 	}

@@ -40,7 +40,7 @@ class ListView extends View {
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
-	protected function handleParameters() {
+	protected function handleParameters(): void {
 		$params = $this->getActualParameters();
 		$this->params = $params;
 

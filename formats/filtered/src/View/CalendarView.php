@@ -116,7 +116,7 @@ class CalendarView extends View {
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
-	protected function handleParameters() {
+	protected function handleParameters(): void {
 		$params = $this->getActualParameters();
 		$parser = $this->getQueryPrinter()->getParser();
 

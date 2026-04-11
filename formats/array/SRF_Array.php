@@ -354,7 +354,7 @@ class SRFArray extends ResultPrinter {
 		return $text;
 	}
 
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		// does the link parameter:
 		parent::handleParameters( $params, $outputmode );
 
@@ -417,7 +417,7 @@ class SRFArray extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		### adjusted basic SMW params: ###

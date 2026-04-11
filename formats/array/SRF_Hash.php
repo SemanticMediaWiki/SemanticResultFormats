@@ -67,7 +67,7 @@ class SRFHash extends SRFArray {
 		return true;
 	}
 
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 		$this->mShowPageTitles = true;
 	}
@@ -81,7 +81,7 @@ class SRFHash extends SRFArray {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 		// page title is Hash key, otherwise, just use Array format!
 		unset( $params['pagetitle'] );

@@ -18,7 +18,7 @@ class SRFGooglePie extends ResultPrinter {
 	 * (non-PHPdoc)
 	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		$this->m_width = $this->params['width'];
@@ -81,7 +81,7 @@ class SRFGooglePie extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['height'] = [

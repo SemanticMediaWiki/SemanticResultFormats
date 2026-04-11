@@ -74,7 +74,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getFileName( QueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ): string|false {
 		if ( $this->title != '' ) {
 			return str_replace( ' ', '_', $this->title ) . '.ics';
 		}
@@ -100,7 +100,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['title'] = [
@@ -126,7 +126,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function handleParameters( array $params, $outputMode ) {
+	protected function handleParameters( array $params, $outputMode ): void {
 		parent::handleParameters( $params, $outputMode );
 
 		$this->title = trim( $params['title'] );

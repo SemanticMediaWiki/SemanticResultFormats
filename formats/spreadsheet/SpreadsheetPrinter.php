@@ -73,7 +73,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 *
 	 * @return string
 	 */
-	public function getFileName( QueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ): string|false {
 		return ( $this->params[ 'filename' ] ?: base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
 	}
 
@@ -83,7 +83,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @param QueryResult $queryResult
 	 * @param array $params
 	 */
-	public function outputAsFile( QueryResult $queryResult, array $params ) {
+	public function outputAsFile( QueryResult $queryResult, array $params ): void {
 		if ( array_key_exists( 'fileformat', $params ) && array_key_exists( $params[ 'fileformat' ]->getValue(), $this->fileFormats ) ) {
 			$this->fileFormat = $this->fileFormats[ $params[ 'fileformat' ]->getValue() ];
 		} else {
@@ -98,7 +98,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 *
 	 * @return array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$definitions[ 'searchlabel' ]->setDefault( wfMessage( 'srf-spreadsheet-link' )->inContentLanguage()->text() );

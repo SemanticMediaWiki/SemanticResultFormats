@@ -234,7 +234,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = self::getCommonParams();
 
 		$params['charttype'] = [

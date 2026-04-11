@@ -11,6 +11,7 @@ namespace SRF\Filtered;
 
 use Exception;
 use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
 use MediaWiki\MediaWikiServices;
 use SMW\DataValues\PropertyValue;
 use SMW\Localizer\Message;
@@ -143,7 +144,7 @@ class Filtered extends ResultPrinter {
 	 * @param array $params
 	 * @param $outputMode
 	 */
-	protected function handleParameters( array $params, $outputMode ) {
+	protected function handleParameters( array $params, $outputMode ): void {
 		parent::handleParameters( $params, $outputMode );
 
 		// // Set in ResultPrinter:
@@ -233,7 +234,7 @@ class Filtered extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params[] = [
@@ -265,7 +266,7 @@ class Filtered extends ResultPrinter {
 		return $params;
 	}
 
-	public function getLinker( $firstcol = false, $force = false ) {
+	public function getLinker( $firstcol = false, $force = false ): ?Linker {
 		return ( $force ) ? $this->mLinker : parent::getLinker( $firstcol );
 	}
 
@@ -292,7 +293,7 @@ class Filtered extends ResultPrinter {
 		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
 
 		if ( $parserOutput ) {
-				$parserOutput->addJsConfigVars( 'srfFilteredConfig', $previousConfig );
+				$parserOutput->setJsConfigVar( 'srfFilteredConfig', $previousConfig );
 		}
 	}
 
@@ -326,7 +327,7 @@ class Filtered extends ResultPrinter {
 		return $resultAsArray;
 	}
 
-	public function addError( $errorMessage ) {
+	public function addError( $errorMessage ): void {
 		parent::addError( $errorMessage );
 	}
 
