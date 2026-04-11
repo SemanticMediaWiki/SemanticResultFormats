@@ -83,11 +83,19 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$testObject = new TreeResultPrinter( 'tree' );
 
-		$this->assertStringContainsString(
-			'',
-			$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
-			'Result should be empty.'
-		);
+		if ( version_compare( SMW_VERSION, '7.0.0', '>=' ) ) {
+			$this->assertStringContainsString(
+				'',
+				$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
+				'Result should be empty.'
+			);
+		} else {
+			$this->assertSame(
+				null,
+				$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
+				'Result should be empty.'
+			);
+		}
 
 		// Restore GLOBAL state to ensure that preceding tests do not use a
 		// mocked instance
