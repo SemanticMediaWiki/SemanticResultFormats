@@ -115,6 +115,7 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "Ultimo",
 	"srf-ui-datatables-label-oPaginate-sNext": "Successivo",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "Precedente",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1 riga|$1 righe}}",
 	"srf-printername-tree": "Albero",
 	"srf-paramdesc-delay": "Il ritardo tra le slide in secondi",
 	"srf-paramdesc-filtered-map-height": "L'altezza della mappa.",

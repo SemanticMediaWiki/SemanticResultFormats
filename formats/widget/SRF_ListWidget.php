@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Html\Html;
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ListResultPrinter\ListResultBuilder;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
@@ -26,23 +28,24 @@ class SRFListWidget extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		// Initialize
 		static $statNr = 0;
-		// $this->isHTML = true;
 
+		$this->hasTemplates = ( $this->params['template'] !== '' );
 		$listType = $this->params[ 'listtype' ] === 'ordered' || $this->params[ 'listtype' ] === 'ol' ? 'ol' : 'ul';
 
 		$builder = new ListResultBuilder( $res, $this->mLinker );
 
 		$builder->set( $this->params );
+
 		$builder->set( [
 			'format' => $listType,
 			'link-first' => $this->mLinkFirst,
@@ -50,7 +53,13 @@ class SRFListWidget extends ResultPrinter {
 			'show-headers' => $this->mShowHeaders,
 		] );
 
-		// Get results from SMWListResultPrinter
+		// this does not work, it would be preferable
+		// to find a way to disable links when template is used
+		// if ( $this->hasTemplates ) {
+		// 	$builder->set( [ 'link' => 'none' ] );
+		// }
+
+		// Get results from \SMW\Query\ResultPrinters\ListResultPrinter
 		$result = $builder->getResultText();
 
 		// Count widgets
@@ -88,7 +97,7 @@ class SRFListWidget extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -96,7 +105,7 @@ class SRFListWidget extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['class'] = [
@@ -126,6 +135,10 @@ class SRFListWidget extends ResultPrinter {
 			'default' => 5,
 		];
 
+		$params['template'] = [
+			'message' => 'smw-paramdesc-template',
+			'default' => '',
+		];
 		return $params;
 	}
 }

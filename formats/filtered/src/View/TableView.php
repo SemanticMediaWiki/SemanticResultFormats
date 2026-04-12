@@ -11,13 +11,12 @@ namespace SRF\Filtered\View;
  * @ingroup SemanticResultFormats
  */
 
-use Html;
+use MediaWiki\Html\Html;
+use MediaWiki\Xml\Xml;
 use Message;
 use SMW\Query\PrintRequest;
-use SMWPrintRequest;
-use SMWResultArray;
+use SMW\Query\Result\ResultArray;
 use SRF\Filtered\ResultItem;
-use Xml;
 
 /**
  * The TableView class defines the Table view.
@@ -185,13 +184,13 @@ class TableView extends View {
 	 *
 	 * @since 1.6.1
 	 *
-	 * @param SMWResultArray $resultArray
+	 * @param ResultArray $resultArray
 	 * @param $outputmode
 	 * @param string | null $columnClass
 	 *
 	 * @return string
 	 */
-	protected function getCellForPropVals( SMWResultArray $resultArray, $outputmode, $columnClass ) {
+	protected function getCellForPropVals( ResultArray $resultArray, $outputmode, $columnClass ) {
 		$resultArray->reset();
 
 		$dataValues = [];
@@ -223,7 +222,7 @@ class TableView extends View {
 			$content = $this->getCellContent(
 				$dataValues,
 				$outputmode,
-				$resultArray->getPrintRequest()->getMode() === SMWPrintRequest::PRINT_THIS
+				$resultArray->getPrintRequest()->getMode() === PrintRequest::PRINT_THIS
 			);
 		}
 

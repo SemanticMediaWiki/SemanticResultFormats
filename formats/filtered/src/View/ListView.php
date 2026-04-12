@@ -32,12 +32,17 @@ class ListView extends View {
 	private $mOutroTemplate;
 	private $mNamedArgs;
 	private $mShowHeaders;
+	private $mUserParam;
+
+	/** @var array */
+	private $params;
 
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
 	 */
-	protected function handleParameters() {
+	protected function handleParameters(): void {
 		$params = $this->getActualParameters();
+		$this->params = $params;
 
 		$this->mFormat = $params['list view type'];
 		$this->mTemplate = $params['list view template'];
@@ -72,14 +77,18 @@ class ListView extends View {
 			$footer = "</" . $this->mFormat . ">\n";
 			$rowstart = "\t<li class='filtered-list-item ";
 			$rowend = "</li>\n";
-			$listsep = ', ';
+
+			// ***diversify from the sep below if necessary
+			$listsep = $this->params['sep'];
 		} else {
 			// "list" format
 			$header = '';
 			$footer = '';
 			$rowstart = "\t<div class='filtered-list-item ";
 			$rowend = "</div>\n";
-			$listsep = ', ';
+
+			// ***diversify from the sep above if necessary
+			$listsep = $this->params['sep'];
 		}
 
 		// Initialise more values
@@ -113,7 +122,7 @@ class ListView extends View {
 	/**
 	 * Prints one row of a list view.
 	 *
-	 * @param \SMWResultArray[] $row
+	 * @param \SMW\Query\Result\ResultArray[] $row
 	 * @param &$rownum
 	 * @param $rowstart
 	 * @param $rowend

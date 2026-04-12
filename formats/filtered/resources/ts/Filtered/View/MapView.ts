@@ -1,4 +1,7 @@
 /// <reference types="leaflet" />
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
+import 'leaflet-providers';
 
 import { View } from "./View";
 import { Options } from "../../types"
@@ -29,7 +32,7 @@ export class MapView extends View {
 			this.target.height( this.options.height );
 		}
 
-		this.leafletPromise = mw.loader.using( 'ext.srf.filtered.map-view.leaflet' )
+		this.leafletPromise = mw.loader.using( 'ext.srf.filtered.map-leaflet.style' )
 		.then( () => {
 
 			let bounds: L.LatLngBounds = undefined;
@@ -200,7 +203,7 @@ export class MapView extends View {
 				mapProvider = this.options['map provider'];
 			}
 
-			if( this.isUserUsesDarkMode() && this.options.hasOwnProperty('map provider dark') ) {
+			if( this.isUserUsesDarkMode() && this.options['map provider dark'] ) {
 				mapProvider = this.options['map provider dark'];
 			}
 

@@ -12,7 +12,7 @@ namespace SRF\Filtered\Filter;
 
 use DataValues\Geo\Parsers\LatLongParser;
 use Exception;
-use SMWPropertyValue;
+use SMW\DataValues\PropertyValue;
 use SRF\Filtered\ResultItem;
 
 /**
@@ -86,7 +86,7 @@ class DistanceFilter extends Filter {
 			$field->reset();
 
 			$value = $field->getNextDataItem();
-			if ( $printRequest->getData() instanceof SMWPropertyValue &&
+			if ( $printRequest->getData() instanceof PropertyValue &&
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $markerPositionPropertyName &&
 				( $value instanceof \SMWDIGeoCoord || $value instanceof \SMWDIBlob )
 			) {

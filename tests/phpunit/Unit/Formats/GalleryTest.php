@@ -2,8 +2,8 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
-use SMW\Tests\PHPUnitCompat;
+use MediaWiki\Title\Title;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
 
 /**
@@ -24,19 +24,17 @@ use SRF\Gallery;
  */
 class GalleryTest extends QueryPrinterRegistryTestCase {
 
-	use PHPUnitCompat;
-
 	private $queryResult;
 	private $title;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$this->queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$this->title = $this->getMockBuilder( '\Title' )
+		$this->title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -131,7 +129,7 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			$outro
 		];
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'',
 			$instance->getResult( $this->queryResult, $parameters, SMW_OUTPUT_HTML )
 		);

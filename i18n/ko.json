@@ -6,6 +6,7 @@
 			"Jerrykim306",
 			"Keysuck",
 			"Nemo bis",
+			"YeBoy371",
 			"Ykhwong",
 			"아라"
 		]
@@ -137,7 +138,7 @@
 	"srf-printername-datatables": "데이터테이블",
 	"srf-ui-datatables-label-conditions": "조건",
 	"srf-ui-datatables-label-parameters": "변수",
-	"srf-ui-datatables-label-filters": "컬럼 필터 및 검색",
+	"srf-ui-datatables-label-filters": "필터",
 	"srf-ui-datatables-label-information": "정보",
 	"srf-ui-datatables-label-update-success": "테이블 업데이트를 성공했습니다",
 	"srf-ui-datatables-label-update-error": "테이블 업데이트를 실패했습니다.",
@@ -165,9 +166,9 @@
 	"srf-printername-tree": "트리",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",
-	"srf-tree-noparentprop": "부모 속성이 지정되지 않았습니다. 부모 속성이 지정되지 않으면 트리를 만들 수 없습니다.",
+	"srf-tree-noparentprop": "상위 속성이 지정되지 않았습니다. 상위 속성이 지정되지 않으면 트리를 만들 수 없습니다.",
 	"srf-tree-rootinvalid": "$1은 올바른 문서 제목이 아닙니다.",
-	"srf-paramdesc-tree-parent": "부모 문서를 포함하는 속성",
+	"srf-paramdesc-tree-parent": "상위 문서를 포함하는 속성",
 	"srf-paramdesc-tree-root": "트리의 루트 페이지",
 	"srf-printername-slideshow": "슬라이드쇼",
 	"srf-paramdesc-delay": "슬라이드 간 지연 (초 단위)",

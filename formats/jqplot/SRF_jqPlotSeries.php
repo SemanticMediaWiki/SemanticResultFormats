@@ -1,5 +1,9 @@
 <?php
 
+use MediaWiki\Html\Html;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * A query printer for charts series using the jqPlot JavaScript library.
  *
@@ -8,10 +12,10 @@
  *
  * @author mwjames
  */
-class SRFjqPlotSeries extends SMWResultPrinter {
+class SRFjqPlotSeries extends ResultPrinter {
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-jqplotseries' )->text();
@@ -21,12 +25,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 * Returns an array with the numerical data in the query result.
 	 *
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+	protected function getResultText( QueryResult $result, $outputMode ) {
 		// Get data set
 		$data = $this->getResultData( $result, $outputMode );
 
@@ -48,12 +52,12 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @since 1.8
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultData( SMWQueryResult $res, $outputMode ) {
+	protected function getResultData( QueryResult $res, $outputMode ) {
 		$data = [];
 		$data['series'] = [];
 
@@ -61,7 +65,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 			// Loop over their fields (properties)
 			$label = '';
 			$i = 0;
-			/* SMWResultArray */
+			/* \SMW\Query\Result\ResultArray */
 			foreach ( $row as
 					  $field ) {
 				$i++;
@@ -137,7 +141,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @return array
 	 */
-	private function getFormatSettings( $data, $options ) {
+	private function getFormatSettings( $data, $options ): array {
 		// Init
 		$dataSet = [];
 		$options['mode'] = 'series';
@@ -361,7 +365,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -369,7 +373,7 @@ class SRFjqPlotSeries extends SMWResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = array_merge( parent::getParamDefinitions( $definitions ), SRFjqPlot::getCommonParams() );
 
 		$params['infotext'] = [

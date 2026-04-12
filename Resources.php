@@ -569,7 +569,7 @@ return [
 
 	// D3
 	'ext.d3.core' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/d3/d3.v3.js'
+		'scripts' => 'resources/jquery/d3/d3.min.js'
 	],
 
 	//
@@ -780,14 +780,12 @@ return [
 			],
 			'dependencies' => [
 				'ext.srf.filtered.calendar-view.messages',
-				'ext.jquery.fullcalendar'
+				// included using gulp
+				// 'ext.jquery.fullcalendar'
 			],
 		],
 
-	'ext.srf.filtered.map-view.leaflet' => $formatModule + [
-			'scripts' => [
-				'filtered/resources/js/ext.srf.filtered.leaflet.js',
-			],
+	'ext.srf.filtered.map-leaflet.style' => $formatModule + [
 			'styles' => [
 				'filtered/resources/css/ext.srf.filtered.leaflet.css',
 			],
@@ -954,7 +952,7 @@ return [
 			'datatables/resources/ext.srf.formats.datatables.js',
 		],
 		'styles'  => [
-			 'datatables/resources/ext.srf.formats.datatables.css'
+			 'datatables/resources/ext.srf.formats.datatables.less'
 		],
 		'dependencies' => [
 			'ext.srf.datatables.v2.module',
@@ -967,11 +965,13 @@ return [
 			'ext.srf.widgets'
 		],
 		'messages' => [
-			'allmessages-filter-all',
+			'search',
 			'srf-ui-datatables-label-conditions',
 			'srf-ui-datatables-label-parameters',
 			'srf-ui-datatables-label-filters',
 			'srf-ui-datatables-label-information',
+			'srf-ui-datatables-label-rows',
+			'srf-ui-datatables-label-rows-all',
 			'srf-ui-datatables-panel-disclaimer',
 			'srf-ui-datatables-refresh-button-title',
 			'srf-ui-datatables-panel-switch-button-title',
@@ -1009,8 +1009,7 @@ return [
 			'resources/jquery/datatables/object_hash.js',
 			'resources/jquery/datatables/jquery.mark.min.js',
 			'resources/jquery/datatables/datatables.mark.min.js',
-			'resources/jquery/datatables/datatables.min.js',
-			'resources/jquery/datatables/jquery.dataTables.extras.js',
+			'resources/jquery/datatables/datatables.min.js'
 		],
 		'styles'  => [
 			'resources/jquery/datatables/datatables.mark.min.css',

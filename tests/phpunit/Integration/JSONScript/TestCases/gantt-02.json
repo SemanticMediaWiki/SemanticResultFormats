@@ -1,0 +1,129 @@
+{
+  "description": "Extended test cases for the Gantt format in SRF",
+  "requires": {
+    "Mermaid": ">= 2.0"
+  },
+  "setup": [
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "Display Title",
+      "contents": "[[Has type::Text]]"
+    },
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "Start Date",
+      "contents": "[[Has type::Date]]"
+    },
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "End Date",
+      "contents": "[[Has type::Date]]"
+    },
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "Status",
+      "contents": "[[Has type::Text]]"
+    },
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "Priority",
+      "contents": "[[Has type::Text]]"
+    },
+    {
+      "namespace": "SMW_NS_PROPERTY",
+      "page": "Related To Section",
+      "contents": "[[Has type::Page]]"
+    },
+    {
+      "namespace": "NS_TEMPLATE",
+      "page": "Task",
+      "contents": "[[Category:Task]][[Display Title::{{{title|}}}]][[Start Date::{{{start|}}}]][[End Date::{{{end|}}}]][[Status::{{{status|}}}]][[Priority::{{{priority|}}}]][[Related To Section::{{{section|}}}]]"
+    },
+    {
+      "page": "Gantt/TaskA",
+      "contents": "{{Task |title=Task A |start=2025-07-01 |end=2025-07-05 |status=done |priority=medium |section=Planning}}"
+    },
+    {
+      "page": "Gantt/TaskB",
+      "contents": "{{Task |title=Task B |start=2025-07-06 |end=2025-07-12 |status=in progress |priority=critical |section=Execution}}"
+    },
+    {
+      "page": "Gantt/TaskC",
+      "contents": "{{Task |title=Task C |start=2025-07-13 |end=2025-07-20 |status=backlog |priority=low |section=Execution}}"
+    },
+    {
+      "page": "Gantt/TaskD",
+      "contents": "{{Task |title=Task D |start=2025-07-21 |end=2025-07-30 |status=open |priority=very high |section=Review}}"
+    },
+    {
+      "page": "Gantt/TaskE",
+      "contents": "{{Task |title=Task E |start=2025-08-01 |end=2025-08-10 |status=completed |priority=high |section=Closure}}"
+    },
+    {
+      "page": "Gantt/Diagram/Basic",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority |format=gantt}}"
+    },
+    {
+      "page": "Gantt/Diagram/WithTheme",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority |format=gantt |theme=base |bargap=5 |barheight=30}}"
+    },
+    {
+      "page": "Gantt/Diagram/CustomAxis",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority |format=gantt |axisformat=%B %Y}}"
+    },
+    {
+      "page": "Gantt/Diagram/StatusPriorityMap",
+      "contents": "{{#ask:[[Category:Task]] |?Display Title=task |?Status=status |?Start Date=startdate |?End Date=enddate |?Related To Section=section |?Priority=priority |format=gantt |statusmapping=backlog=>active;in progress=>active;completed=>done |prioritymapping=critical=>crit;very high=>crit}}"
+    }
+  ],
+  "tests": [
+    {
+      "type": "parser-html",
+      "about": "Ensure SVG structure exists",
+      "subject": "Gantt/Diagram/Basic",
+      "assert-output": {
+        "to-contain": [["div.mw-parser-output > div.srf-gantt", 1]]
+      }
+    },
+    {
+      "type": "parser",
+      "about": "Validate axis format %B %Y",
+      "subject": "Gantt/Diagram/CustomAxis",
+      "assert-output": {
+        "to-contain": ["axisFormat %B %Y"]
+      }
+    },
+    {
+      "type": "parser",
+      "about": "Priority and status mapping test",
+      "subject": "Gantt/Diagram/StatusPriorityMap",
+      "assert-output": {
+        "to-contain": [
+            "data-mermaid=\"&#123;&quot;content&quot;:&quot;gantt", 
+            "section Planning",
+            "Task A\\t :2025-07-01, 2025-07-05",
+            "section Execution",
+            "Task B\\t :crit, active, 2025-07-06, 2025-07-12",
+            "Task C\\t :active, 2025-07-13, 2025-07-20",
+            "section Review",
+            "Task D\\t :crit, 2025-07-21, 2025-07-30",
+            "section Closure",
+            "Task E\\t :done, 2025-08-01, 2025-08-10"
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "wgContLang": "en",
+    "wgLang": "en",
+    "smwgNamespacesWithSemanticLinks": {
+      "NS_MAIN": true,
+      "SMW_NS_PROPERTY": true
+    }
+  },
+  "meta": {
+    "version": "2",
+    "is-incomplete": false,
+    "debug": true
+  }
+}

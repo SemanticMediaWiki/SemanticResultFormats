@@ -2,7 +2,6 @@
 
 namespace SRF\Tests\Outline;
 
-use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\ListTreeBuilder;
 use SRF\Outline\OutlineTree;
 
@@ -16,8 +15,6 @@ use SRF\Outline\OutlineTree;
  * @author mwjames
  */
 class ListTreeBuilderTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(

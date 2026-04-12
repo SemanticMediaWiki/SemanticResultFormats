@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Kghbln"
-		]
-	},
-	"srf-prefs-intro-text": "Die Erweiterung „Semantic Result Formats“ ist installiert. Besuchen Sie bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen.",
-	"srf-ui-common-label-ajax-error": "Der Server meldete eine fehlgeschlagene Kommunikation für diesen $1. Bitte versuchen Sie, die Seite neu zu laden oder wenden Sie sich an $2."
-}

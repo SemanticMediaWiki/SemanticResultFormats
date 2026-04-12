@@ -9,12 +9,13 @@ namespace SRF\Formats\Tree;
  */
 
 use Exception;
-use Html;
+use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
+use MediaWiki\Title\Title;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
-use SMW\ListResultPrinter;
-use SMWQueryResult;
-use Title;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ListResultPrinter;
 
 /**
  * Result printer that prints query results as a tree (nested html lists).
@@ -29,22 +30,22 @@ class TreeResultPrinter extends ListResultPrinter {
 	private $standardTemplateParameters;
 
 	/**
-	 * @var SMWQueryResult | null
+	 * @var QueryResult | null
 	 */
 	private $queryResult = null;
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::getName()
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getName()
 	 */
-	public function getName() {
+	public function getName(): string {
 		// Give grep a chance to find the usages:
 		// srf-printername-tree, srf-printername-ultree, srf-printername-oltree
 		return \Message::newFromKey( 'srf-printername-' . $this->mFormat )->text();
 	}
 
 	/**
-	 * @return SMWQueryResult
+	 * @return QueryResult
 	 * @throws Exception
 	 */
 	public function getQueryResult() {
@@ -56,7 +57,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult | null $queryResult
+	 * @param QueryResult | null $queryResult
 	 */
 	public function setQueryResult( $queryResult ) {
 		$this->queryResult = $queryResult;
@@ -65,7 +66,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * @see ResultPrinter::postProcessParameters()
 	 */
-	protected function postProcessParameters() {
+	protected function postProcessParameters(): void {
 		parent::postProcessParameters();
 
 		// Don't support pagination in trees
@@ -82,12 +83,12 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * Return serialised results in specified format.
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
+	protected function getResultText( QueryResult $queryResult, $outputmode ) {
 		$this->setQueryResult( $queryResult );
 
 		if ( $this->params['parent'] === '' ) {
@@ -155,7 +156,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -164,7 +165,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @return array of IParamDefinition|array
 	 * @throws Exception
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['parent'] = [
@@ -256,9 +257,9 @@ class TreeResultPrinter extends ListResultPrinter {
 	/**
 	 * Returns a linker object for making hyperlinks
 	 *
-	 * @return \Linker
+	 * @return Linker|null
 	 */
-	public function getLinker( $firstcol = false ) {
+	public function getLinker( $firstcol = false ): ?Linker {
 		return $this->mLinker;
 	}
 
@@ -268,7 +269,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 *
 	 * @param int $column Column number
 	 *
-	 * @return \Linker|null
+	 * @return Linker|null
 	 */
 	public function getLinkerForColumn( $column ) {
 		return parent::getLinker( $column === 0 );
@@ -358,7 +359,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param string $msgkey
 	 * @param string | string[] $params
 	 */
-	protected function addError( $msgkey, $params = [] ) {
+	protected function addError( $msgkey, $params = [] ): void {
 		parent::addError(
 			\Message::newFromKey( $msgkey )
 				->params( $params )

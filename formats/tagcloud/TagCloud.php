@@ -2,15 +2,15 @@
 
 namespace SRF;
 
-use Html;
-use SMW\ResultPrinter;
+use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
+use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
+use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWDataValue;
 use SMWOutputs;
-use SMWPrintRequest;
-use SMWQueryResult;
-use SMWResultArray;
 use SRFUtils;
-use Title;
 
 /**
  * Result printer that prints query results as a tag cloud
@@ -45,12 +45,12 @@ class TagCloud extends ResultPrinter {
 	/**
 	 * Return serialised results in specified format
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	public function getResultText( SMWQueryResult $queryResult, $outputmode ) {
+	public function getResultText( QueryResult $queryResult, $outputmode ) {
 		$tags = $this->getTags( $queryResult, $outputmode );
 
 		if ( $tags === [] ) {
@@ -93,26 +93,26 @@ class TagCloud extends ResultPrinter {
 	/**
 	 * Returns an array with the tags (keys) and the number of times they occur (values).
 	 *
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	private function getTags( SMWQueryResult $queryResult, $outputMode ) {
+	private function getTags( QueryResult $queryResult, $outputMode ) {
 		$tags = [];
 		$excludetags = explode( ';', $this->params['excludetags'] );
 
 		/**
-		 * @var SMWResultArray $row
+		 * @var ResultArray $row
 		 * @var SMWDataValue $dataValue
 		 */
 		while ( $row = $queryResult->getNext() ) {
-			// SMWResultArray for a sinlge property
+			// ResultArray for a sinlge property
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) {
 				// Data values
 				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) {
 
-					$isSubject = $row[$i]->getPrintRequest()->getMode() == SMWPrintRequest::PRINT_THIS;
+					$isSubject = $row[$i]->getPrintRequest()->getMode() == PrintRequest::PRINT_THIS;
 
 					// If the main object should not be included, skip it.
 					if ( $i == 0 && !$this->params['includesubject'] && $isSubject ) {
@@ -366,7 +366,7 @@ class TagCloud extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['template'] = [

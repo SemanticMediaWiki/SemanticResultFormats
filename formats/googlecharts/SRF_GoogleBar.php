@@ -1,19 +1,23 @@
 <?php
+
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * A query printer using the Google Chart API
  *
  * @note AUTOLOADED
  */
 
-class SRFGoogleBar extends SMWResultPrinter {
+class SRFGoogleBar extends ResultPrinter {
 
 	protected $m_width;
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		$this->m_width = $this->params['width'];
@@ -23,7 +27,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 		return wfMessage( 'srf_printername_googlebar' )->text();
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		$this->isHTML = true;
 
 		$t = "";
@@ -77,7 +81,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -85,7 +89,7 @@ class SRFGoogleBar extends SMWResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['width'] = [

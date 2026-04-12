@@ -2,7 +2,7 @@
 
 namespace SRF\Graph;
 
-use Html;
+use MediaWiki\Html\Html;
 
 /**
  *
@@ -45,9 +45,8 @@ class GraphFormatter {
 
 		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
 		// and formatting is a little different from the GraphViz extension
-		global $wgVersion;
 		$this->lineSeparator
-			= version_compare( $wgVersion, '1.33', '>=' ) && \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
+			= \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' )
 			? '<br />'
 			: PHP_EOL;
 	}
@@ -75,8 +74,6 @@ class GraphFormatter {
 	 * @param SRF\Graph\GraphNodes[] $nodes
 	 */
 	public function buildGraph( $nodes ) {
-		global $wgVersion;
-
 		$this->add( 'digraph "' . $this->options->getGraphName() . '" {' );
 
 		// set fontsize and fontname of graph, nodes and edges
@@ -119,25 +116,43 @@ class GraphFormatter {
 				$nodeTooltip = $nodeLabel ?: $node->getID();
 				// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
 				// and formatting is a little different from the GraphViz extension
-				if ( version_compare( $wgVersion, '1.33', '>=' ) &&
-					\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+				if ( \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
 					$nodeTooltip = str_replace( '<br />', '', $nodeTooltip );
 				}
 				// Label in HTML form enclosed with <>.
-				$nodeLabel = "<\n" . '<table border="0" cellborder="0" cellspacing="1" columns="*" rows="*">' . "\n"
-							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr><hr/>\n"
+				$nodeLabel = "<\n" . '<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">' . "\n"
+							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr>\n"
+							. '<tr><td colspan="2" border="1" color="black" sides="T" cellpadding="0" cellspacing="0"></td></tr>\n'
 							. implode( "\n", array_map( static function ( $field ) use ( $instance ) {
-								$alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
-									? 'right'
-									: 'left';
-								return '<tr><td align="left" href="[[Property:' . $field['page'] . ']]">'
-									. $field['name'] . '</td>'
-									. '<td align="' . $alignment . '">'
-										. $instance->getWordWrappedText(
-											$field['value'],
-											$instance->options->getWordWrapLimit()
+								// 260209-GEA: all values are left aligned now. In case we want to change this later,
+								//   we should think about adding an alignment option
+								// $alignment = in_array( $field['type'], [ '_num', '_qty', '_dat', '_tem' ] )
+								// 	? 'left'
+								// 	: 'left';
+								$alignment = 'left';
+								$valueLink = $field['valueLink'];
+								if ( $valueLink !== null ) {
+									$valueLink = $field['valueLink'];
+								} else {
+									$valueLink = $field['value'];
+								}
+								return '<tr><td align="right" href="[[Property:' . $field['page'] . ']]">'
+									. $field['name'] . ': </td>'
+									. '<td  align="' . $alignment . '"'
+										. (
+											$field['type'] === '_wpg'
+												? ' href="[[' . htmlspecialchars( $field['valueLink'] ) . ']]">'
+													. $instance->getWordWrappedText(
+														htmlspecialchars( $field['value'] ),
+														$instance->options->getWordWrapLimit()
+													)
+												: '>'
+													. $instance->getWordWrappedText(
+													htmlspecialchars( $field['value'] ),
+													$instance->options->getWordWrapLimit()
+												)
 										)
-									. '</td></tr>';
+										. '</td></tr>';
 							}, $fields ) ) . "\n</table>\n>";
 				$nodeLinkURL = null;
 				// the value at the top is already hyperlinked.
@@ -186,8 +201,8 @@ class GraphFormatter {
 
 					// handle parent/child switch (parentRelation)
 					$this->add( $this->options->getParentRelation()
-						? '"' . $parentNode['object'] . '" -> "' . $node->getID() . '"'
-						: '"' . $node->getID() . '" -> "' . $parentNode['object'] . '"' );
+						? '"' . htmlspecialchars( $parentNode['object'] ) . '" -> "' . htmlspecialchars( $node->getID() ) . '"'
+						: '"' . htmlspecialchars( $node->getID() ) . '" -> "' . htmlspecialchars( $parentNode['object'] ) . '"' );
 
 					if ( $this->options->isGraphLabel() || $this->options->isGraphColor() ) {
 						$this->add( ' [' );

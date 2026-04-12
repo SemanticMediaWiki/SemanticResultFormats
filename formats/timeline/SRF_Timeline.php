@@ -1,4 +1,10 @@
 <?php
+
+use MediaWiki\Html\Html;
+use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Print query results in interactive timelines.
  *
@@ -15,7 +21,7 @@
  *
  * @ingroup SemanticResultFormats
  */
-class SRFTimeline extends SMWResultPrinter {
+class SRFTimeline extends ResultPrinter {
 
 	// name of the start-date property if any
 	protected $m_tlstart = '';
@@ -31,14 +37,14 @@ class SRFTimeline extends SMWResultPrinter {
 	protected $mNamedArgs;
 
 	/**
-	 * @see SMWResultPrinter::handleParameters
+	 * @see ResultPrinter::handleParameters
 	 *
 	 * @since 1.6.3
 	 *
 	 * @param array $params
 	 * @param $outputmode
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		$this->mTemplate = trim( $params['template'] );
@@ -59,8 +65,8 @@ class SRFTimeline extends SMWResultPrinter {
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
-		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
+	protected function getResultText( QueryResult $res, $outputmode ) {
+		SMWOutputs::requireStyle( 'ext.smw.styles' );
 		SMWOutputs::requireResource( 'ext.srf.timeline' );
 
 		$isEventline = 'eventline' == $this->mFormat;
@@ -68,7 +74,7 @@ class SRFTimeline extends SMWResultPrinter {
 		// seek defaults
 		if ( !$isEventline && ( $this->m_tlstart == '' ) ) {
 			foreach ( $res->getPrintRequests() as $pr ) {
-				if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) ) {
+				if ( ( $pr->getMode() == PrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) ) {
 					$dataValue = $pr->getData();
 
 					$date_value = $dataValue->getDataItem()->getLabel();
@@ -112,13 +118,13 @@ class SRFTimeline extends SMWResultPrinter {
 	 *
 	 * @since 1.5.3
 	 *
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 * @param bool $isEventline
 	 *
 	 * @return string
 	 */
-	protected function getEventsHTML( SMWQueryResult $res, $outputmode, $isEventline ) {
+	protected function getEventsHTML( QueryResult $res, $outputmode, $isEventline ) {
 		// why not, code flow has reached max insanity already
 		global $curarticle, $cururl;
 		// possible positions, collected to select one for centering
@@ -273,7 +279,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 *
 	 * @param SMWDataValue $object
 	 * @param $outputmode
-	 * @param SMWPrintRequest $pr
+	 * @param PrintRequest $pr
 	 * @param bool $first_col
 	 * @param bool &$hastitle
 	 * @param bool &$hastime
@@ -287,7 +293,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 *
 	 * @return false or array
 	 */
-	protected function handlePropertyValue( SMWDataValue $object, $outputmode, SMWPrintRequest $pr, $first_col,
+	protected function handlePropertyValue( SMWDataValue $object, $outputmode, PrintRequest $pr, $first_col,
 		&$hastitle, &$hastime, $first_value, $isEventline, &$curmeta, &$curdata, $date_value, &$output, array &$positions ) {
 		global $curarticle, $cururl;
 
@@ -316,7 +322,7 @@ class SRFTimeline extends SMWResultPrinter {
 			}
 
 			// is this a start date?
-			if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
+			if ( ( $pr->getMode() == PrintRequest::PRINT_PROP ) &&
 				( $date_value == $this->m_tlstart ) ) {
 				// FIXME: Timeline scripts should support XSD format explicitly. They
 				// currently seem to implement iso8601 which deviates from XSD in cases.
@@ -324,20 +330,20 @@ class SRFTimeline extends SMWResultPrinter {
 				$curmeta .= Html::element(
 					'span',
 					[ 'class' => 'smwtlstart' ],
-					$object->getXMLSchemaDate()
+					$object->getISO8601Date( true )
 				);
-				$positions[$object->getHash()] = $object->getXMLSchemaDate();
+				$positions[$object->getHash()] = $object->getISO8601Date( true );
 				$hastime = true;
 			}
 
 			// is this the end date?
-			if ( ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) &&
+			if ( ( $pr->getMode() == PrintRequest::PRINT_PROP ) &&
 				( $date_value == $this->m_tlend ) ) {
 				// NOTE: We can assume $object to be an SMWDataValue in this case.
 				$curmeta .= Html::element(
 					'span',
 					[ 'class' => 'smwtlend' ],
-					$object->getXMLSchemaDate( false )
+					$object->getISO8601Date( false )
 				);
 			}
 
@@ -351,7 +357,7 @@ class SRFTimeline extends SMWResultPrinter {
 					$objectlabel
 				);
 
-				if ( $pr->getMode() == SMWPrintRequest::PRINT_THIS ) {
+				if ( $pr->getMode() == PrintRequest::PRINT_THIS ) {
 					$curarticle = $object->getLongText( $outputmode, $l );
 					$cururl = $object->getDataItem()->getTitle()->getFullUrl();
 				}
@@ -369,11 +375,11 @@ class SRFTimeline extends SMWResultPrinter {
 			$output = true;
 		}
 
-		if ( $isEventline && ( $pr->getMode() == SMWPrintRequest::PRINT_PROP ) && ( $pr->getTypeID(
+		if ( $isEventline && ( $pr->getMode() == PrintRequest::PRINT_PROP ) && ( $pr->getTypeID(
 				) == '_dat' ) && ( '' != $pr->getLabel(
 				) ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
 			$event = [
-				$object->getXMLSchemaDate(),
+				$object->getISO8601Date( true ),
 				$pr->getLabel(),
 				$object->getDataItem()->getSortKey(),
 			];
@@ -383,7 +389,7 @@ class SRFTimeline extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -391,7 +397,7 @@ class SRFTimeline extends SMWResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['timelinesize'] = [

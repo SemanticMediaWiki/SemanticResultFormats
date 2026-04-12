@@ -1,5 +1,8 @@
 <?php
 
+use MediaWiki\Html\Html;
+use SMW\Query\ResultPrinters\AggregatablePrinter;
+
 /**
  * A query printer for sparklines (small inline charts) using the sparkline
  * JavaScript library.
@@ -9,7 +12,7 @@
  *
  * @author mwjames
  */
-class SRFSparkline extends SMWAggregatablePrinter {
+class SRFSparkline extends AggregatablePrinter {
 
 	/**
 	 * Corresponding message name
@@ -80,7 +83,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -88,7 +91,7 @@ class SRFSparkline extends SMWAggregatablePrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['min'] = [

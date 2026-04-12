@@ -2,7 +2,7 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\SpreadsheetPrinter;
 
 /**
@@ -31,7 +31,7 @@ class SpreadsheetTest extends QueryPrinterRegistryTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 

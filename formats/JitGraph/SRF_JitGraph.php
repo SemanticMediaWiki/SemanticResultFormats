@@ -1,4 +1,9 @@
 <?php
+
+use MediaWiki\Title\Title;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /**
  * Print query results in interactive graph using the
  * JavaScript InfoVis Toolkit (http://thejit.org)
@@ -14,7 +19,7 @@
  *
  * @ingroup SemanticResultFormats
  */
-class SRFJitGraph extends SMWResultPrinter {
+class SRFJitGraph extends ResultPrinter {
 
 	public static $NODE_SHAPES = [ 'circle', 'rectangle', 'square', 'ellipse', 'triangle', 'star' ];
 
@@ -57,7 +62,7 @@ class SRFJitGraph extends SMWResultPrinter {
 
 	protected $debug_out = '';
 
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		if ( array_key_exists( 'graphname', $params ) ) {
@@ -143,7 +148,7 @@ class SRFJitGraph extends SMWResultPrinter {
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		global $wgTitle, $wgOut;
 
 		if ( class_exists( 'ResourceLoader' ) ) {
@@ -309,7 +314,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	protected function includeJS() {
-		SMWOutputs::requireHeadItem( SMW_HEADER_STYLE );
+		SMWOutputs::requireStyle( 'ext.smw.styles' );
 
 		// $wgOut->addModules( 'ext.srf.jitgraph' );
 
@@ -338,7 +343,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -346,7 +351,7 @@ class SRFJitGraph extends SMWResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['graphname'] = [

@@ -16,14 +16,14 @@
 
 namespace SRF\Gantt;
 
-use Html;
+use MediaWiki\Html\Html;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWDIBlob;
 use SMWDITime;
 use SMWOutputs;
-use SMWQueryResult;
-use SMWResultPrinter;
 
-class GanttPrinter extends SMWResultPrinter {
+class GanttPrinter extends ResultPrinter {
 
 	protected $mGantt = null;
 	protected $mErrors = [];
@@ -32,7 +32,7 @@ class GanttPrinter extends SMWResultPrinter {
 		return wfMessage( 'srf-printername-gantt' )->text();
 	}
 
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params[] = [
@@ -104,9 +104,9 @@ class GanttPrinter extends SMWResultPrinter {
 	/**
 	 * Handle (set) the result format parameters
 	 *
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		// Set header params
 		$this->params['title'] = trim( $params['diagramtitle'] );
 		$this->params['axisformat'] = trim( $params['axisformat'] );
@@ -119,11 +119,11 @@ class GanttPrinter extends SMWResultPrinter {
 
 	/**
 	 * Return serialised results in specified format.
-	 * @param SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 * @param $outputmode
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $queryResult, $outputmode ) {
+	protected function getResultText( QueryResult $queryResult, $outputmode ) {
 		// Show warning if Extension:Mermaid is not available
 		if ( !class_exists( 'Mermaid' ) && !class_exists( 'Mermaid\\MermaidParserFunction' ) ) {
 			$queryResult->addErrors( [ wfMessage( '' )->text() ] );

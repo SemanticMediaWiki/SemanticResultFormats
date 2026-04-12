@@ -12,7 +12,7 @@ class TreeNode extends Node {
 	/**
 	 * SRFTreeElement constructor.
 	 *
-	 * @param \SMWResultArray[] | null|null $row
+	 * @param \SMW\Query\Result\ResultArray[] | null|null $row
 	 */
 	public function __construct( $row = null ) {
 		parent::__construct( $row );
@@ -32,10 +32,10 @@ class TreeNode extends Node {
 	}
 
 	/**
-	 * @return null|\SMWDIWikiPage
+	 * @return null|\SMW\DIWikiPage
 	 */
 	public function getResultSubject() {
-		/** @var \SMWResultArray[] | null $row */
+		/** @var \SMW\Query\Result\ResultArray[] | null $row */
 		$row = $this->getValue();
 
 		if ( $row !== null ) {

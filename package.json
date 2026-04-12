@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "d3": "6.7.0"
+  },
+  "devDependencies": {
+    "copy-files-from-to": "^3.12.1"
+  },
+  "scripts": {
+    "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js"
+  },
+  "copyFiles": [],
+  "copyFilesSettings": {
+    "whenFileExists": "overwrite"
+  }
+}

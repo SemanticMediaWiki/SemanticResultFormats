@@ -12,11 +12,14 @@
 namespace SRF\DataTables;
 
 use ApiBase;
-use ParamProcessor\ParamDefinition;
+use ParamProcessor\ParamDefinitionFactory;
 use SMW\DataValueFactory;
+use SMW\DataValues\PropertyChainValue;
+use SMW\Query\PrintRequest;
 use SMW\Services\ServicesFactory;
-use SMWPrintRequest;
+use SMWQuery;
 use SMWQueryProcessor;
+use SpecialVersion;
 use SRF\DataTables;
 
 class Api extends ApiBase {
@@ -36,10 +39,6 @@ class Api extends ApiBase {
 		$datatableData = $data['datatableData'];
 		$settings = $data['settings'];
 
-		if ( empty( $datatableData['length'] ) ) {
-			$datatableData['length'] = $settings['defer-each'];
-		}
-
 		if ( empty( $datatableData['start'] ) ) {
 			$datatableData['start'] = 0;
 		}
@@ -51,7 +50,7 @@ class Api extends ApiBase {
 		$printer = new Datatables( 'datatables', true );
 
 		// get defaults of parameters for the 'datatable' result format as array of ParamDefinition
-		$paramDefinitions = ParamDefinition::getCleanDefinitions( $printer->getParamDefinitions( [] ) );
+		$paramDefinitions = ParamDefinitionFactory::newDefault()->newDefinitionsFromArrays( $printer->getParamDefinitions( [] ) );
 
 		// transform into normal key-value array
 		$parameters = [];
@@ -68,18 +67,17 @@ class Api extends ApiBase {
 			[
 				// *** important !!
 				'format' => 'datatables',
-				"apicall" => "apicall",
-				// @see https://datatables.net/manual/server-side
-				// array length will be sliced client side if greater
-				// than the required datatables length
-				"limit" => max( $datatableData['length'], $settings['defer-each'] ),
-				"offset" => $datatableData['start'],
+				'apicall' => 'apicall',
 
-				"sort" => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
+				// @TODO limit taking into account PreloaData
+				'limit' => max( $datatableData['length'], $settings['limit'] ),
+				'offset' => $datatableData['start'],
+
+				'sort' => implode( ',', array_map( static function ( $value ) use( $datatableData ) {
 					return $datatableData['columns'][$value['column']]['name'];
 				}, $datatableData['order'] ) ),
 
-				"order" => implode( ',', array_map( static function ( $value ) {
+				'order' => implode( ',', array_map( static function ( $value ) {
 					return $value['dir'];
 				}, $datatableData['order'] ) )
 
@@ -104,18 +102,23 @@ class Api extends ApiBase {
 		foreach ( $printoutsRaw as $printoutData ) {
 
 			// create property from property key
-			if ( $printoutData[0] === SMWPrintRequest::PRINT_PROP ) {
+			if ( $printoutData[0] === PrintRequest::PRINT_PROP ) {
 				$data_ = $dataValueFactory->newPropertyValueByLabel( $printoutData[1] );
+			} elseif ( $printoutData[0] === PrintRequest::PRINT_CHAIN ) {
+				$data_ = $dataValueFactory->newDataValueByType(
+					PropertyChainValue::TYPE_ID
+				);
+				$data_->setUserValue( $printoutData[1] );
 			} else {
 				$data_ = null;
 				if ( $hasMainlabel && trim( $parameters['mainlabel'] ) === '-' ) {
 					continue;
 				}
-				// match something like |?=abc |+ datatables-columns.type=any-number |+template=mytemplate
+				// match something like |?=abc |+template=mytemplate
 			}
 
 			// create printrequest from request mode, label, property name, output format, parameters
-			$printouts[] = new SMWPrintRequest(
+			$printouts[] = new PrintRequest(
 				// mode
 				$printoutData[0],
 				// (canonical) label
@@ -281,9 +284,9 @@ class Api extends ApiBase {
 		// get count
 		if ( !empty( $datatableData['search']['value'] ) || count( $queryConjunction ) ) {
 			$queryDescription = $query->getDescription();
-			$queryCount = new \SMWQuery( $queryDescription );
+			$queryCount = new SMWQuery( $queryDescription );
 			$queryCount->setLimit( min( $smwgQMaxLimit, $smwgQMaxInlineLimit ) );
-			$queryCount->setQuerySource( \SMWQuery::MODE_COUNT );
+			$queryCount->setQuerySource( SMWQuery::MODE_COUNT );
 			$queryResult = $queryEngine->getQueryResult( $queryCount );
 			$count = $queryResult->getCount();
 
@@ -298,7 +301,8 @@ class Api extends ApiBase {
 			'recordsTotal' => $settings['count'],
 			'recordsFiltered' => $count,
 			'cacheKey' => $data['cacheKey'],
-			'datalength' => $datatableData['length']
+			'datalength' => $datatableData['length'],
+			'start' => $datatableData['start']
 		];
 
 		if ( $settings['displayLog'] ) {

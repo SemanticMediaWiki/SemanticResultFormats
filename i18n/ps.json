@@ -3,7 +3,8 @@
 		"authors": [
 			"Af420",
 			"Ahmed-Najib-Biabani-Ibrahimkhel",
-			"Amjad Khan"
+			"Amjad Khan",
+			"شاه زمان پټان"
 		]
 	},
 	"srf-module-loading": "رابرسېرېږي...",
@@ -22,7 +23,7 @@
 	"srf-filtered-selectorlabel-list": "لړليک",
 	"srf-ui-eventcalendar-label-today": "نن",
 	"srf-ui-eventcalendar-label-month": "مياشت",
-	"srf-ui-eventcalendar-label-week": "اونۍ",
+	"srf-ui-eventcalendar-label-week": "اوونۍ",
 	"srf-ui-eventcalendar-label-day": "ورځ",
 	"srf-ui-eventcalendar-label-allday": "ټوله ورځ",
 	"srf-ui-mediaplayer-label-play": "غږول",

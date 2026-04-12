@@ -2,8 +2,8 @@
 
 namespace SRF\BibTex;
 
+use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\FileExportPrinter;
-use SMWQueryResult as QueryResult;
 use SMWTimeValue as TimeValue;
 
 /**
@@ -59,7 +59,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getFileName( QueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ): string|false {
 		if ( $this->params['filename'] !== '' ) {
 
 			if ( strpos( $this->params['filename'], '.bib' ) === false ) {
@@ -81,7 +81,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['filename'] = [
@@ -138,7 +138,7 @@ class BibTexFileExportPrinter extends FileExportPrinter {
 	/**
 	 * @since 3.1
 	 *
-	 * @param $row array of SMWResultArray
+	 * @param $row array of \SMW\Query\Result\ResultArray
 	 *
 	 * @return bibTexItem
 	 */

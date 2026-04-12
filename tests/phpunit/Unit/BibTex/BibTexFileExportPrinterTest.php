@@ -3,8 +3,8 @@
 namespace SRF\Tests\BibTex;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use SMW\Query\QueryResult;
 use SMWInfolink;
-use SMWQueryResult;
 use SRF\BibTex\BibTexFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
 
@@ -78,10 +78,10 @@ class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return MockObject|SMWQueryResult
+	 * @return MockObject|QueryResult
 	 */
 	private function newQueryResultDummy() {
-		return $this->createMock( SMWQueryResult::class );
+		return $this->createMock( QueryResult::class );
 	}
 
 	public function testGetMimeType() {

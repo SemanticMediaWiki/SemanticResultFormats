@@ -4,16 +4,16 @@ namespace SRF;
 
 use File;
 use FormatJson;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use SMW\ResultPrinter;
+use MediaWiki\Title\Title;
+use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
+use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWDataItem;
 use SMWDataValue;
 use SMWOutputs;
-use SMWQueryResult;
-use SMWResultArray;
 use SRFUtils;
-use Title;
 
 /**
  * HTML5 Audio / Video media query printer
@@ -50,7 +50,7 @@ class MediaPlayer extends ResultPrinter {
 	protected $validMimeTypes = [ 'mp3', 'mp4', 'webm', 'webma', 'webmv', 'ogg', 'oga', 'ogv', 'm4v', 'm4a' ];
 
 	/**
-	 * @see SMWResultPrinter::getName
+	 * @see ResultPrinter::getName
 	 * @return string
 	 */
 	public function getName() {
@@ -58,14 +58,14 @@ class MediaPlayer extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getResultText
+	 * @see ResultPrinter::getResultText
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $result, $outputMode ) {
+	protected function getResultText( QueryResult $result, $outputMode ) {
 		// Data processing
 		$data = $this->getResultData( $result, $outputMode );
 
@@ -88,18 +88,18 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @since 1.9
 	 *
-	 * @param SMWQueryResult $result
+	 * @param QueryResult $result
 	 * @param $outputMode
 	 *
 	 * @return array
 	 */
-	protected function getResultData( SMWQueryResult $result, $outputMode ) {
+	protected function getResultData( QueryResult $result, $outputMode ) {
 		$data = [];
 
 		/**
 		 * Get all values for all rows that belong to the result set
 		 *
-		 * @var SMWResultArray $rows
+		 * @var ResultArray $rows
 		 */
 		while ( $rows = $result->getNext() ) {
 			$rowData = [];
@@ -107,7 +107,7 @@ class MediaPlayer extends ResultPrinter {
 			$mimeType = null;
 
 			/**
-			 * @var SMWResultArray $field
+			 * @var ResultArray $field
 			 * @var SMWDataValue $dataValue
 			 */
 			foreach ( $rows as $field ) {
@@ -327,7 +327,7 @@ class MediaPlayer extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.9
 	 *
@@ -335,7 +335,7 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['class'] = [

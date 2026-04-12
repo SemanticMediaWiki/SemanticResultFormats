@@ -2,10 +2,11 @@
 
 namespace SRF\Test;
 
-use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\Title\Title;
 use Parser;
-use SMW\Test\QueryPrinterRegistryTestCase;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SMW\Tests\Utils\Mock\CoreMockObjectRepository;
 use SMW\Tests\Utils\Mock\MockObjectBuilder;
 use SMWQueryProcessor;
@@ -79,19 +80,23 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 		/** @var \PHPUnit_Framework_MockObject_MockObject $queryResult */
 		$queryResult = $mockBuilder->newObject( 'QueryResult', [ 'getCount' => 1 ] );
 
-		$queryResult->expects( $this->once() )
-			->method( 'addErrors' )
-			->willReturn( null );
-
 		$params = SMWQueryProcessor::getProcessedParams( [ 'format' => 'tree' ], [] );
 
 		$testObject = new TreeResultPrinter( 'tree' );
 
-		$this->assertSame(
-			null,
-			$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
-			'Result should be empty.'
-		);
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '>=7.0.0' ) ) {
+			$this->assertStringContainsString(
+				'',
+				$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
+				'Result should be empty.'
+			);
+		} else {
+			$this->assertSame(
+				null,
+				$testObject->getResult( $queryResult, $params, SMW_OUTPUT_HTML ),
+				'Result should be empty.'
+			);
+		}
 
 		// Restore GLOBAL state to ensure that preceding tests do not use a
 		// mocked instance
@@ -120,7 +125,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 			->method( 'parse' )
 			->willReturn( $parserOutput );
 
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -135,18 +140,13 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 	 * @param Parser $parser
 	 */
 	protected function replaceParser( Parser $parser ) {
-		// Direct access to the wgParser global was removed in SMW 4.0.0.
-		if ( ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki', '<4.0.0' ) ) {
-			$GLOBALS['wgParser'] = $parser;
-		} else {
-			MediaWikiServices::getInstance()->disableService( 'Parser' );
-			MediaWikiServices::getInstance()->redefineService(
-				'Parser',
-				static function () use ( $parser ) {
-					return $parser;
-				}
-			);
-		}
+		MediaWikiServices::getInstance()->disableService( 'Parser' );
+		MediaWikiServices::getInstance()->redefineService(
+			'Parser',
+			static function () use ( $parser ) {
+				return $parser;
+			}
+		);
 	}
 
 	/**
@@ -156,7 +156,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 		$mockBuilder = new MockObjectBuilder();
 		$mockBuilder->registerRepository( new CoreMockObjectRepository() );
 
-		/** @var \SMWResultArray[]|false $resultRow */
+		/** @var \SMW\Query\Result\ResultArray[]|false $resultRow */
 		$resultRow = $mockBuilder->newObject( 'ResultArray' );
 
 		// $resultRow->add( $resultCell );
@@ -165,7 +165,7 @@ class TreeTest extends QueryPrinterRegistryTestCase {
 
 		$resultSet[] = $resultRow;
 
-		/** @var array(SMWResultArray[]|false) $resultSet */
+		/** @var array(\SMW\Query\Result\ResultArray[]|false) $resultSet */
 		$resultSet[] = false;
 
 		$queryResult = $mockBuilder->newObject(

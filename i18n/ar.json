@@ -8,7 +8,8 @@
 			"OsamaK",
 			"Tala Ali",
 			"ديفيد",
-			"روخو"
+			"روخو",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"srf-desc": "صيغ نتائج إضافية لاستعلامات ميدياويكي الدلالية",
@@ -167,7 +168,7 @@
 	"srf_paramdesc_pagetitle": "ما إذا كان سيتم عرض عناوين الصفحات كإدخالات نتيجة أم تركها",
 	"srf_paramdesc_hidegaps": "سواء كانت الطباعة المطلوبة، ولكن قيم سجل وخواص غير متوفرة مفصولة بفواصل أو تركها",
 	"srf_paramdesc_arrayname": "إذا تم إعطاء و تمديد مجموعة مصفوفة سيؤدي هذا إلى إنشاء مصفوفة بالاسم المحدد (لا يوجد أي إخراج مرئي بعدئذ)",
-	"srf_paramdesc_propsep": "فاصل بين الخصائص المطلوبة",
+	"srf_paramdesc_propsep": "فاصل بين الخواص المطلوبة",
 	"srf_paramdesc_manysep": "فاصل بين العديد من قيم الخاصية القيمة الملكية",
 	"srf_paramdesc_recordsep": "فاصل بين قيم خصائص السجل",
 	"srf_paramdesc_headersep": "فاصل بين اسم الخاصية والقيمة إذا تم تعيين \"الرؤوس\" إلى \"إظهار\" أو \"عادي\"",
@@ -201,9 +202,10 @@
 	"srf-printername-datatables": "جداول البيانات",
 	"srf-ui-datatables-label-conditions": "الشروط",
 	"srf-ui-datatables-label-parameters": "وسائط",
-	"srf-ui-datatables-label-filters": "مرشحات وبحث العمود",
+	"srf-ui-datatables-label-filters": "المرشحات",
 	"srf-ui-datatables-label-information": "معلومات",
 	"srf-ui-datatables-panel-disclaimer": "يمكن تغيير الوسائط والشروط، ولكن أي تغيير مؤقت ويتم التخلي عنه بعد تحديث الصفحة.",
+	"srf-ui-datatables-refresh-button-title": "تحديث الجدول",
 	"srf-ui-datatables-label-update-success": "تم تحديث الجدول بنجاح",
 	"srf-ui-datatables-label-update-error": "فشل تحديث الجدول.",
 	"srf-ui-datatables-label-placeholder-column-search": "بحث...",
@@ -228,6 +230,8 @@
 	"srf-ui-datatables-label-oPaginate-sPrevious": "السابق",
 	"srf-ui-datatables-label-oAria-sSortAscending": ": تفعيل لفرز العمود تصاعديا",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": تفعيل لفرز العمود تنازليا",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1| صف|$1 صفوف|$1 صف}}",
+	"srf-ui-datatables-label-rows-all": "كل الصفوف",
 	"srf-printername-tree": "زود بعمود",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",
@@ -311,7 +315,7 @@
 	"srf-paramdesc-xaxislabel": "الوصف الذي يظهر على المحور السيني",
 	"srf-paramdesc-unit": "وحدة",
 	"srf-printername-pagewidget": "أداة الصفحة",
-	"srf-printername-incoming": "الخصائص الواردة",
+	"srf-printername-incoming": "الخواص الواردة",
 	"srf-paramdesc-count": "يحدد ما إذا كان يجب احتساب عدد الخصائص الواردة",
 	"srf-paramdesc-min": "الحد الأدنى أو قيمة العتبة",
 	"srf-paramdesc-excludeproperty": "استبعاد الخاصية من مجموعة النتائج",
@@ -354,5 +358,6 @@
 	"srf-printername-gantt": "جانت",
 	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض.",
 	"srf-printername-mode": "وضع",
-	"srf-printername-range": "النطاق"
+	"srf-printername-range": "النطاق",
+	"srf-printername-variance": "التباين"
 }

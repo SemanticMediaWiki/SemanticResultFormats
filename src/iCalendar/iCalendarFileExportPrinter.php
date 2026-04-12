@@ -2,13 +2,13 @@
 
 namespace SRF\iCalendar;
 
+use MediaWiki\MediaWikiServices;
+use SMW\DataValueFactory;
+use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
-use SMWDataValueFactory as DataValueFactory;
-use SMWExportPrinter as FileExportPrinter;
+use SMW\Query\ResultPrinters\FileExportPrinter;
 use SMWQuery as Query;
 use SMWQueryProcessor as QueryProcessor;
-use SMWQueryResult as QueryResult;
-use WikiPage;
 
 /**
  * Printer class for iCalendar exports
@@ -74,7 +74,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getFileName( QueryResult $queryResult ) {
+	public function getFileName( QueryResult $queryResult ): string|false {
 		if ( $this->title != '' ) {
 			return str_replace( ' ', '_', $this->title ) . '.ics';
 		}
@@ -100,7 +100,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['title'] = [
@@ -126,7 +126,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function handleParameters( array $params, $outputMode ) {
+	protected function handleParameters( array $params, $outputMode ): void {
 		parent::handleParameters( $params, $outputMode );
 
 		$this->title = trim( $params['title'] );
@@ -247,7 +247,8 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 		$title = $subject->getTitle();
 
 		$params['url'] = $title->getFullURL();
-		$params['timestamp'] = WikiPage::factory( $title )->getTimestamp();
+		$params['timestamp'] = MediaWikiServices::getInstance()->getWikiPageFactory()
+			->newFromTitle( $title )->getTimestamp();
 		$params['sequence'] = $title->getLatestRevID();
 
 		return $params;

@@ -84,6 +84,12 @@
 				"to-contain": [
 					"<div class=\"srf-gallery srf-redirect\" data-redirect-type="
 				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.40",
+					"Check parser function registration for MW 1.40+"
+				]
 			}
 		},
 		{
@@ -95,6 +101,12 @@
 					"div.srf-gallery.srf-redirect > ul.gallery.mw-gallery-traditional > li.gallerybox > div > div.thumb > div > a.image > img[width=\"150\"]",
 					"div.srf-gallery.srf-redirect > ul.gallery.mw-gallery-traditional > li.gallerybox > div > div.thumb > div > a.image > img[height=\"150\"]"
 				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.40",
+					"Check parser function registration for MW 1.40+"
+				]
 			}
 		},
 		{
@@ -104,6 +116,12 @@
 			"assert-output": {
 				"to-contain": [
 					"div.srf-gallery > ul.gallery.mw-gallery-traditional.srf-overlay"
+				]
+			},
+			"skip-on": {
+				"mediawiki": [
+					">1.40",
+					"Check parser function registration for MW 1.40+"
 				]
 			}
 		}

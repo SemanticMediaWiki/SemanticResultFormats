@@ -2,7 +2,6 @@
 
 namespace SRF\Tests\Outline;
 
-use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\OutlineResultPrinter;
 
 /**
@@ -16,14 +15,12 @@ use SRF\Outline\OutlineResultPrinter;
  */
 class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 
-	use PHPUnitCompat;
-
 	private $queryResult;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$this->queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 	}
@@ -114,7 +111,7 @@ class OutlineResultPrinterTest extends \PHPUnit\Framework\TestCase {
 			$outrotemplate
 		];
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			"<ul>\n</ul>\n",
 			$instance->getResult( $this->queryResult, $parameters, SMW_OUTPUT_HTML )
 		);

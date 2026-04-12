@@ -20,7 +20,7 @@ create one and add the following content to it:
 ```
 {
 	"require": {
-		"mediawiki/semantic-result-formats": "~4.2"
+		"mediawiki/semantic-result-formats": "~5.0"
 	}
 }
 ```
@@ -28,7 +28,7 @@ create one and add the following content to it:
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-result-formats": "~4.2"
+    "mediawiki/semantic-result-formats": "~5.0"
 
 Remember to add a comma to the end of the preceding line in this section.
 

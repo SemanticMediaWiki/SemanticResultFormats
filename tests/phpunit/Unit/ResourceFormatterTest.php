@@ -2,7 +2,6 @@
 
 namespace SRF\Tests;
 
-use SMW\Tests\PHPUnitCompat;
 use SRF\ResourceFormatter;
 
 /**
@@ -16,10 +15,8 @@ use SRF\ResourceFormatter;
  */
 class ResourceFormatterTest extends \PHPUnit\Framework\TestCase {
 
-	use PHPUnitCompat;
-
 	public function testSession() {
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'smw-',
 			ResourceFormatter::session()
 		);
@@ -27,7 +24,6 @@ class ResourceFormatterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPlaceholder() {
 		$this->assertIsString(
-
 			ResourceFormatter::placeholder()
 		);
 	}

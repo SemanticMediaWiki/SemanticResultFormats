@@ -2,11 +2,11 @@
 
 namespace SRF\Filtered;
 
+use SMW\DIWikiPage;
+use SMW\Query\Result\ResultArray;
 use SMWDataValue;
 use SMWDIGeoCoord;
-use SMWDIWikiPage;
 use SMWErrorValue;
-use SMWResultArray;
 
 /**
  * File holding the SRF_Filtered_Item class
@@ -28,7 +28,7 @@ class ResultItem {
 	private $mQueryPrinter;
 
 	/**
-	 * @param SMWResultArray[] $resultArray
+	 * @param ResultArray[] $resultArray
 	 * @param Filtered &$queryPrinter
 	 */
 	public function __construct( array $resultArray, Filtered &$queryPrinter ) {
@@ -53,7 +53,7 @@ class ResultItem {
 	}
 
 	/**
-	 * @return SMWResultArray[]
+	 * @return ResultArray[]
 	 */
 	public function getValue() {
 		return $this->mResultArray;
@@ -82,7 +82,7 @@ class ResultItem {
 				if ( $dataItem instanceof SMWDIGeoCoord ) {
 					$values[] = [ 'lat' => $dataItem->getLatitude(), 'lng' => $dataItem->getLongitude() ];
 					$sorted[] = $dataItem->getSortKey();
-				} elseif ( $dataItem instanceof SMWDIWikiPage ) {
+				} elseif ( $dataItem instanceof DIWikiPage ) {
 					$values[] = $dataValue->getShortWikiText();
 					$sorted[] = bin2hex( $dataItem->getSortKey() );
 				} else {

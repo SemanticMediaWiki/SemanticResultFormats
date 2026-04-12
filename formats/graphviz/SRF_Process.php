@@ -1,4 +1,9 @@
 <?php
+
+use MediaWiki\Title\Title;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
+
 /*******************************************************************************
  *    This file contains the Process Printer for SemanticResultFormats
  *   (https://www.mediawiki.org/wiki/Extension:Semantic_Result_Formats)
@@ -47,7 +52,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 $srfgPicturePath = "formats/graphviz/images/";
 
-class SRFProcess extends SMWResultPrinter {
+class SRFProcess extends ResultPrinter {
 
 	// configuration variables
 	protected $m_graphValidation = false;
@@ -60,9 +65,9 @@ class SRFProcess extends SMWResultPrinter {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		// init process graph instance
@@ -89,7 +94,7 @@ class SRFProcess extends SMWResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -97,7 +102,7 @@ class SRFProcess extends SMWResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['graphname'] = [
@@ -198,7 +203,7 @@ class SRFProcess extends SMWResultPrinter {
 	 * @return string rendered HTML output of this printer for the ask-query
 	 *
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) &&
 			!is_callable( 'renderGraphviz' ) ) {
 			wfWarn( 'The SRF Graph printer needs the Diagrams or GraphViz extension to be installed.' );
@@ -215,7 +220,7 @@ class SRFProcess extends SMWResultPrinter {
 		//
 		//	Iterate all rows in result set
 		//
-		// get initial row (i.e. array of SMWResultArray)
+		// get initial row (i.e. array of \SMW\Query\Result\ResultArray)
 		$row = $res->getNext();
 
 		while ( $row !== false ) {
@@ -242,7 +247,7 @@ class SRFProcess extends SMWResultPrinter {
 			// FIXME: got _a bit_ of redundancy here looks like... :/
 
 			/**
-			 * @var SMWResultArray $field
+			 * @var \SMW\Query\Result\ResultArray $field
 			 */
 			foreach ( $row as $field ) {
 
@@ -690,7 +695,7 @@ class ProcessGraph {
 		$this->m_highlightNode = $name;
 	}
 
-	public function addError( $error ) {
+	public function addError( $error ): void {
 		$this->m_errors[] = $error;
 	}
 

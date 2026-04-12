@@ -3,9 +3,11 @@
 		"authors": [
 			"Dvorapa",
 			"Jaroslav Cerny",
+			"Mormegil",
 			"Nemo bis",
 			"Vks",
-			"XenoPheX"
+			"XenoPheX",
+			"Zagothal"
 		]
 	},
 	"srf-desc": "Další formáty inline požadavků rozšíření Semantic MediaWiki",
@@ -140,7 +142,7 @@
 	"srf-paramdesc-navigation": "Ovládací prvek rozložení výstupu",
 	"srf-paramdesc-overlay": "Povolit překrytí obrázků",
 	"srf-gallery-navigation-previous": "Předchozí",
-	"srf-gallery-navigation-next": "Následujicí",
+	"srf-gallery-navigation-next": "Další",
 	"srf-gallery-overlay-count": "Obrázek $1 z $2",
 	"srf-gallery-image-url-error": "Obrázek nebyl nalezen.",
 	"srf_printername_tagcloud": "Oblak nálepek",
@@ -190,7 +192,7 @@
 	"srf-printername-datatables": "Datové tabulky",
 	"srf-ui-datatables-label-conditions": "Podmínky",
 	"srf-ui-datatables-label-parameters": "Parametry",
-	"srf-ui-datatables-label-filters": "Filtry sloupce a hledání",
+	"srf-ui-datatables-label-filters": "Filtry",
 	"srf-ui-datatables-label-information": "Informace",
 	"srf-ui-datatables-panel-disclaimer": "Parametry a podmínky lze změnit, ale všechny změny jsou dočasné a po aktualizaci stránky se ztratí",
 	"srf-ui-datatables-label-update-success": "Aktualizace tabulky byla úspěšná",
@@ -307,7 +309,7 @@
 	"srf-ui-mediaplayer-label-previous": "Předchozí",
 	"srf-ui-mediaplayer-label-play": "Přehrát",
 	"srf-ui-mediaplayer-label-pause": "Pozastavit",
-	"srf-ui-mediaplayer-label-next": "Následujicí",
+	"srf-ui-mediaplayer-label-next": "Další",
 	"srf-ui-mediaplayer-label-stop": "Zastavit",
 	"srf-ui-mediaplayer-label-mute": "Ztlumit",
 	"srf-ui-mediaplayer-label-unmute": "Zapnout zvuk",

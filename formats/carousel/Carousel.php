@@ -8,10 +8,11 @@
  */
 namespace SRF;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use SMW\ResultPrinter;
-use SMWQueryResult;
+use MediaWiki\Title\Title;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 class Carousel extends ResultPrinter {
 
@@ -36,7 +37,7 @@ class Carousel extends ResultPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['width'] = [
@@ -270,7 +271,12 @@ class Carousel extends ResultPrinter {
 		$params['slick-rows'] = [
 			'type' => 'integer',
 			'message' => 'srf-paramdesc-carousel-slick-option',
-			'default' => 1,
+			// @see https://github.com/kenwheeler/slick/issues/3110
+			// @see https://github.com/kenwheeler/slick/issues/3149
+			// despite https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/VisualData/+/a75a24be65e17021a227ac2c3b8f6e02e13f7a90/includes/classes/formats/CarouselResultPrinter.php
+			// works well
+			'default' => 0,
+			// 'default' => 1,
 		];
 
 		$params['slick-rtl'] = [
@@ -391,7 +397,7 @@ class Carousel extends ResultPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	protected function getResultText( SMWQueryResult $results, $outputmode ) {
+	protected function getResultText( QueryResult $results, $outputmode ) {
 		$resourceFormatter = new ResourceFormatter();
 
 		// serialized results
@@ -424,7 +430,7 @@ class Carousel extends ResultPrinter {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$items = [];
 		foreach ( $data['query']['result']['results'] as $titleText => $value ) {
-			$title_ = \Title::newFromText( $titleText );
+			$title_ = Title::newFromText( $titleText );
 			$captions = [];
 			$titles = [];
 			$images = [];
@@ -528,7 +534,8 @@ class Carousel extends ResultPrinter {
 				'div',
 				[
 					'class' => 'slick-slide',
-					'data-url' => $linkValue
+					'data-url' => $linkValue,
+					'style' => $inlineStyles['slide']
 				],
 				$innerContent
 			);
@@ -537,8 +544,8 @@ class Carousel extends ResultPrinter {
 
 		$attr = [ 'class' => 'slick-slider' . ( empty( $this->params['class'] ) ? '' : ' ' . $this->params['class'] ) ];
 
-		if ( !empty( $inlineStyles['div'] ) ) {
-			$attr['style'] = $inlineStyles['div'];
+		if ( !empty( $inlineStyles['container'] ) ) {
+			$attr['style'] = $inlineStyles['container'];
 		}
 
 		$slick_attr = [];
@@ -564,9 +571,11 @@ class Carousel extends ResultPrinter {
 		if ( empty( $this->params['width'] ) ) {
 			$this->params['width'] = '100%';
 		}
+		$img = [ 'object-fit' => 'object-fit: cover' ];
+		$container = [];
+		$slide = [];
 
 		preg_match( '/^(\d+)(.+)?$/', $this->params['width'], $match );
-		$styleImg = [ 'object-fit: cover' ];
 
 		$absoluteUnits = [ 'cm', 'mm', 'in', 'px', 'pt', 'pc' ];
 		$slidestoshow = $this->params['slick-slidestoshow'];
@@ -576,21 +585,26 @@ class Carousel extends ResultPrinter {
 			if ( empty( $match[2] ) ) {
 				$match[2] = 'px';
 			}
-			$styleImg[] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
+			$img['max-width'] = 'max-width:' . ( in_array( $match[2], $absoluteUnits ) ?
 				( $match[1] / $slidestoshow ) . $match[2]
 				: '100%' );
 		}
 
 		$styleAttr = [ 'width', 'height' ];
-		$style = [];
 		foreach ( $styleAttr as $attr ) {
 			if ( !empty( $this->params[$attr] ) ) {
-				$style[ $attr ] = "$attr: " . $this->params[$attr];
+				$container[ $attr ] = "$attr: " . $this->params[$attr];
+
+				// *** use css inherit attribute instead
+				// $slide[$attr] = "$attr: " . $this->params[$attr];
 			}
 		}
 
-		return [ 'div' => implode( '; ', $style ),
-			'img' => implode( '; ', $styleImg ) ];
+		return [
+			'container' => implode( '; ', $container ),
+			'img' => implode( '; ', $img ),
+			'slide' => implode( '; ', $slide )
+		];
 	}
 
 	/**
@@ -617,7 +631,7 @@ class Carousel extends ResultPrinter {
 			return null;
 		}
 
-		$title = \Title::newFromText( $value['fulltext'], NS_FILE );
+		$title = Title::newFromText( $value['fulltext'], NS_FILE );
 		$wikiFilePage = new \WikiFilePage( $title );
 		$file = $wikiFilePage->getFile();
 

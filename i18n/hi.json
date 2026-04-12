@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abijeet Patro",
 			"Kaustubh",
 			"Phoenix303",
 			"Sachinkatiyar",
@@ -50,6 +51,7 @@
 	"srf-ui-datatables-label-oPaginate-sLast": "आखिरी",
 	"srf-ui-datatables-label-oPaginate-sNext": "अगला",
 	"srf-ui-datatables-label-oPaginate-sPrevious": "पिछला",
+	"srf-ui-datatables-label-rows-all": "सभी पंक्तियाँ",
 	"srf-filtered-selectorlabel-list": "सूची",
 	"srf-filtered-selectorlabel-table": "सारणी",
 	"srf-filtered-selectorlabel-calendar": "कैलेंडर",

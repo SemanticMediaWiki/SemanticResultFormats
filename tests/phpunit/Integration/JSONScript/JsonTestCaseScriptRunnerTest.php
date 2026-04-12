@@ -2,7 +2,7 @@
 namespace SRF\Tests\Integration\JSONScript;
 
 use ExtensionRegistry;
-use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTestCaseScriptRunnerTest;
+use SMW\Tests\Integration\JSONScript\JSONScriptTestCaseRunnerTest;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -13,18 +13,19 @@ use SMW\Tests\Integration\JSONScript\JsonTestCaseScriptRunnerTest as SMWJsonTest
  *
  * @group SRF
  * @group SMWExtension
+ * @group Database
  *
  * @license GPL-2.0-or-later
  * @since 2.5
  *
  * @author Stephan Gambke
  */
-class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
+class JsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 	/**
 	 * @see \SMW\Tests\JsonTestCaseScriptRunner::getTestCaseLocation
 	 * @return string
 	 */
-	protected function getTestCaseLocation() {
+	protected function getTestCaseLocation(): string {
 		return __DIR__ . '/TestCases';
 	}
 
@@ -32,7 +33,7 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 	 * @return string[]
 	 * @since 3.0
 	 */
-	protected function getPermittedSettings() {
+	protected function getPermittedSettings(): array {
 		$settings = parent::getPermittedSettings();
 		$settings[] = 'srfgMapProvider';
 		return $settings;
@@ -41,7 +42,7 @@ class JsonTestCaseScriptRunnerTest extends SMWJsonTestCaseScriptRunnerTest {
 	/**
 	 * @see JsonTestCaseScriptRunner::getDependencyDefinitions
 	 */
-	protected function getDependencyDefinitions() {
+	protected function getDependencyDefinitions(): array {
 		return [
 			'Mermaid' => [ $this, 'checkMermaidDependency' ]
 		];

@@ -2,8 +2,7 @@
 
 namespace SRF\Tests\Unit\Formats;
 
-use SMW\Test\QueryPrinterRegistryTestCase;
-use SMW\Tests\PHPUnitCompat;
+use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRFValueRank;
 
 /**
@@ -23,8 +22,6 @@ use SRFValueRank;
  * @author Sebastian Schmid < sebastian.schmid@geinn.it >
  */
 class ValueRankTest extends QueryPrinterRegistryTestCase {
-
-	use PHPUnitCompat;
 
 	/**
 	 * @see QueryPrinterRegistryTestCase::getFormats

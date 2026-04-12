@@ -2,8 +2,9 @@
 
 namespace SRF\Tests\Integration;
 
-use ResourceLoader;
-use ResourceLoaderContext;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\ResourceLoader\Context;
+use MediaWiki\ResourceLoader\ResourceLoader;
 
 /**
  * Tests for resource definitions and files
@@ -33,34 +34,38 @@ class ResourcesTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function moduleDataProvider() {
-		// #501
-		// MW 1.33+
-		if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getResourceLoader' ) ) {
-			$resourceLoader = \MediaWiki\MediaWikiServices::getInstance()->getResourceLoader();
-		} else {
-			$resourceLoader = new ResourceLoader();
-		}
+		$resourceLoader = MediaWikiServices::getInstance()->getResourceLoader();
 
-		$context = ResourceLoaderContext::newDummyContext();
+		$context = Context::newDummyContext();
 		$modules = $this->getSRFResourceModules();
 
 		return [ [ $modules, $resourceLoader, $context ] ];
 	}
 
 	/**
-	 * @covers Recources
+	 * @covers Resources
 	 * @dataProvider moduleDataProvider
 	 */
 	public function testModulesScriptsFilesAreAccessible( $modules, ResourceLoader $resourceLoader, $context ) {
-		foreach ( $modules as $name => $values ) {
-			$module = $resourceLoader->getModule( $name );
-			$scripts = $module->getScript( $context );
-			$this->assertIsString( $scripts );
+		if ( version_compare( MW_VERSION, '1.41.0', '>=' ) ) {
+			foreach ( $modules as $name => $values ) {
+				$module = $resourceLoader->getModule( $name );
+				$scripts = $module->getScript( $context );
+				foreach ( $scripts['plainScripts'] as $key => $value ) {
+					$this->assertIsString( $value['content'] );
+				}
+			}
+		} else {
+			foreach ( $modules as $name => $values ) {
+				$module = $resourceLoader->getModule( $name );
+				$scripts = $module->getScript( $context );
+				$this->assertIsString( $scripts );
+			}
 		}
 	}
 
 	/**
-	 * @covers Recources
+	 * @covers Resources
 	 * Test styles accessibility
 	 *
 	 * @dataProvider moduleDataProvider

@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Html\Html;
+
 /**
  * Common libray of independent functions that are shared among different printers
  * @license GPL-2.0-or-later
@@ -25,21 +27,6 @@ final class SRFUtils {
 			'div',
 			[ 'class' => 'srf-loading-dots' ]
 		);
-	}
-
-	/**
-	 * Add JavaScript variables to the output
-	 *
-	 * @since 1.8
-	 */
-	public static function addGlobalJSVariables() {
-		$options = [
-			'srfgScriptPath' => $GLOBALS['srfgScriptPath'],
-			'srfVersion' => SRF_VERSION
-		];
-
-		$requireHeadItem = [ 'srf.options' => $options ];
-		SMWOutputs::requireHeadItem( 'srf.options', self::makeVariablesScript( $requireHeadItem ) );
 	}
 
 	/**
@@ -76,12 +63,12 @@ final class SRFUtils {
 	 * @return string|WrappedString HTML
 	 */
 	public static function makeVariablesScript( $data, $nonce = null ) {
-		$script = ResourceLoader::makeConfigSetScript( $data );
+		$script = MediaWiki\ResourceLoader\ResourceLoader::makeConfigSetScript( $data );
 		if ( $nonce === null ) {
 			$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
 		}
 
-		return ResourceLoader::makeInlineScript( $script, $nonce );
+		return MediaWiki\ResourceLoader\ResourceLoader::makeInlineScript( $script, $nonce );
 	}
 
 }

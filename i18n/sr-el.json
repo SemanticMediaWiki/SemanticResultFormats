@@ -46,6 +46,7 @@
 	"srf-ui-datatables-panel-switch-button-title": "promeni panel",
 	"srf-ui-datatables-label-placeholder-column-search": "Pretraži...",
 	"srf-ui-datatables-label-sSearch": "Pretraži:",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1 red|$1 reda}}",
 	"srf-filtered-selectorlabel-table": "Tabela",
 	"srf-filtered-selectorlabel-calendar": "Kalendar",
 	"srf-paramdesc-widget": "Dostupan vidžet",

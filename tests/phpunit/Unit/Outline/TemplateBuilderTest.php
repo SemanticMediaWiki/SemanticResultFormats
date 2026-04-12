@@ -2,7 +2,6 @@
 
 namespace SRF\Tests\Outline;
 
-use SMW\Tests\PHPUnitCompat;
 use SRF\Outline\OutlineTree;
 use SRF\Outline\TemplateBuilder;
 
@@ -16,8 +15,6 @@ use SRF\Outline\TemplateBuilder;
  * @author mwjames
  */
 class TemplateBuilderTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
@@ -38,7 +35,6 @@ class TemplateBuilderTest extends \PHPUnit\Framework\TestCase {
 		$instance = new TemplateBuilder( $params );
 
 		$this->assertIsString(
-
 			$instance->build( new OutlineTree() )
 		);
 	}

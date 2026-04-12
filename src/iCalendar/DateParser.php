@@ -2,7 +2,7 @@
 
 namespace SRF\iCalendar;
 
-use SMWDataValueFactory as DataValueFactory;
+use SMW\DataValueFactory;
 use SMWTimeValue as TimeValue;
 
 /**
@@ -30,7 +30,7 @@ class DateParser {
 		}
 
 		$year = number_format( $year, 0, '.', '' );
-		$time = str_replace( ':', '', $dataValue->getTimeString( false ) );
+		$time = str_replace( ':', '', $dataValue->getTimeString( false ) ?? '' );
 
 		// increment by one day, compute date to cover leap years etc.
 		if ( ( $time == false ) && ( $isEnd ) ) {

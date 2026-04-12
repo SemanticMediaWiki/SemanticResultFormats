@@ -2,9 +2,9 @@
 
 namespace SRF;
 
-use Html;
-use SMW\ResultPrinter;
-use SMWQueryResult as QueryResult;
+use MediaWiki\Html\Html;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * An event calendar printer using the FullCalendar JavaScript library
@@ -43,7 +43,7 @@ class EventCalendar extends ResultPrinter {
 	 *
 	 * {@inheritDoc}
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['defaultview'] = [

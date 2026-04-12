@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"*surak*",
 			"Ameisenigel",
 			"DaSch",
 			"Imre",
@@ -11,13 +12,14 @@
 			"Nemo bis",
 			"Nipsky",
 			"Purodha",
+			"Talex42",
 			"The Evil IP address",
 			"Umherirrender"
 		]
 	},
 	"srf-desc": "Stellt zusätzliche Ergebnisformate bereit",
 	"prefs-srf": "Semantic Result Formats",
-	"srf-prefs-intro-text": "Die Erweiterung „Semantic Result Formats“ ist installiert. Besuche bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen in Bezug auf die Benutzereinstellungen.",
+	"srf-prefs-intro-text": "Die Erweiterung „Semantic Result Formats“ ist installiert. {{#FORMAL:Besuche|Besuchen Sie}} bitte die [https://www.semantic-mediawiki.org/wiki/Help:Ergebnisformate Hilfeseite zu Ergebnisformaten] für weitere Informationen in Bezug auf die Benutzereinstellungen.",
 	"prefs-srf-eventcalendar-options": "Optionen zum Veranstaltungskalender",
 	"srf-prefs-eventcalendar-options-update-default": "[https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates Automatische Aktualisierung] des Kalenders beim Neuladen der Seite aktivieren",
 	"srf-prefs-eventcalendar-options-paneview-default": "Übersichtsansicht als Standardansicht aktivieren",
@@ -34,7 +36,7 @@
 	"srf-ui-navigation-next": "Vor",
 	"srf-ui-common-label-source": "Quelle",
 	"srf-ui-common-label-datasource": "Datenquelle",
-	"srf-ui-common-label-ajax-error": "Der Server meldete eine fehlgeschlagene Kommunikation für diesen $1. Bitte versuche, die Seite neu zu laden oder wende dich an $2.",
+	"srf-ui-common-label-ajax-error": "Der Server meldete eine fehlgeschlagene Kommunikation für diesen $1. Bitte {{#FORMAL:versuche|versuchen Sie}}, die Seite neu zu laden oder {{#FORMAL:wende dich|wenden Sie sich}} an $2.",
 	"srf-ui-common-label-request-object": "Objekt abfragen",
 	"srf-ui-common-label-help-section": "Hilfeabschnitt",
 	"srf-ui-tooltip-title-options": "Optionen",
@@ -210,7 +212,7 @@
 	"srf-printername-datatables": "Datentabellen",
 	"srf-ui-datatables-label-conditions": "Bedingungen",
 	"srf-ui-datatables-label-parameters": "Parameter",
-	"srf-ui-datatables-label-filters": "Spaltenfilter und Suche",
+	"srf-ui-datatables-label-filters": "Filter",
 	"srf-ui-datatables-label-information": "Informationen",
 	"srf-ui-datatables-panel-disclaimer": "Parameter und Bedingungen können verändert werden. Indes ist dabei jegliche Anpassung temporär und wird nach dem Neuladen der Seite verworfen.",
 	"srf-ui-datatables-refresh-button-title": "Tabelle aktualisieren",
@@ -240,6 +242,8 @@
 	"srf-ui-datatables-label-oAria-sSortAscending": ": zum aufsteigenden Sortieren der Spalte aktivieren",
 	"srf-ui-datatables-label-oAria-sSortDescending": ": zum absteigenden Sortieren der Spalte aktivieren",
 	"srf-ui-datatables-searchpanes-noajax": "Datatables (v2) unterstützt noch keine Suchfenster, wenn Ajax erforderlich ist und deaktiviert wurde.",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1 Zeile|$1 Zeilen}}",
+	"srf-ui-datatables-label-rows-all": "Alle Zeilen",
 	"srf-printername-tree": "Baumansicht (aufgezählt)",
 	"srf-printername-ultree": "Baumansicht (aufgezählt)",
 	"srf-printername-oltree": "Baumansicht (nummeriert)",

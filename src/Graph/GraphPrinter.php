@@ -2,12 +2,11 @@
 
 namespace SRF\Graph;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use SMW\Query\PrintRequest;
-use SMW\Query\Result\ResultArray;
-use SMW\ResultPrinter;
-use SMWQueryResult;
+use SMW\Query\QueryResult;
+use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
  * SMW result printer for graphs using graphViz.
@@ -97,9 +96,9 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @see SMWResultPrinter::handleParameters()
+	 * @see ResultPrinter::handleParameters()
 	 */
-	protected function handleParameters( array $params, $outputmode ) {
+	protected function handleParameters( array $params, $outputmode ): void {
 		parent::handleParameters( $params, $outputmode );
 
 		$this->options = new GraphOptions( $params );
@@ -140,12 +139,12 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * @param SMWQueryResult $res
+	 * @param QueryResult $res
 	 * @param $outputmode
 	 *
 	 * @return string
 	 */
-	protected function getResultText( SMWQueryResult $res, $outputmode ) {
+	protected function getResultText( QueryResult $res, $outputmode ) {
 		// Remove this once SRF requires 3.1+
 		if ( $this->hasMissingDependency() ) {
 			return $this->getDependencyError();
@@ -162,9 +161,7 @@ class GraphPrinter extends ResultPrinter {
 
 		// GraphViz is not working for version >= 1.33, so we need to use the Diagrams or External Data extension
 		// and formatting is a little different from the GraphViz extension
-		global $wgVersion;
-		if ( version_compare( $wgVersion, '1.33', '>=' ) &&
-			\ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+		if ( \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
 			// Using Diagrams extension.
 			$result = "<graphviz>{$graphFormatter->getGraph()}</graphviz>";
 		} else {
@@ -195,58 +192,126 @@ class GraphPrinter extends ResultPrinter {
 		$node = null;
 		$fields = [];
 		$parents = [];
-		// loop through all row fields
+		$pageTypeSeen = 0;
+
 		foreach ( $row as $result_array ) {
 			$request = $result_array->getPrintRequest();
 			$type = $request->getTypeID();
-			// Whether this printout should be shown as an edge.
-			// no fields at all.
-			$show_as_edge = !$this->options->showGraphFields()
-				|| in_array( $type, self::PAGETYPES )
+			$isPageType = in_array( $type, self::PAGETYPES );
+			$canonicalLabel = $request->getCanonicalLabel();
+			$label = $request->getLabel() ?: $canonicalLabel ?: '?';
+
+			if ( $isPageType ) {
+				$pageTypeSeen++;
+			}
+
+			$showAsEdge = !$this->options->showGraphFields()
+				|| $isPageType
 				|| $request->isMode( PrintRequest::PRINT_CHAIN );
 
-			// Loop through all values of a multivalue field.
+			$showGraphFieldsPages = $this->options->showGraphFieldsPages();
+			$showGraphFields = $this->options->showGraphFields();
+
 			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
-				if ( $show_as_edge ) {
-					if ( !$node && !$object->getProperty() ) {
-						// The graph node for the current record has not been created,
-						// and this is the printout '?'. So, create it now.
-						$node = new GraphNode( $object->getShortWikiText() );
+				$hasProperty = $object->getProperty();
+
+				if ( $isPageType ) {
+					$objectText = $object->getDisplayTitle() ?: $object->getWikiValue();
+				} else {
+					$objectText = $object->getWikiValue();
+				}
+
+				$includeAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
+				$includeAsField = $showGraphFields && ( !$isPageType || $showGraphFieldsPages );
+
+				$skipNode = $isPageType && $pageTypeSeen > 1;
+
+				// Create node if not yet created
+				if ( !$node && !$hasProperty && !$skipNode ) {
+					$node = new GraphNode( $objectText );
+					$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
+				}
+
+				// Handle edge
+				if ( $showGraphFieldsPages ) {
+					if ( $includeAsEdge && $node ) {
+						if ( $objectText !== $node->getId() && $pageTypeSeen === 2 ) {
+							$parents[] = [
+								'predicate' => $label,
+								'object' => $objectText,
+							];
+						}
+					}
+				} elseif ( $showAsEdge ) {
+					if ( !$node && !$hasProperty ) {
+						$node = new GraphNode( $objectText );
 						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
-					} else {
-						// Remember a parent node to add after the row is processed.
+					} elseif ( $node && $objectText !== $node->getId() ) {
 						$parents[] = [
-							'predicate' => $request->getLabel(),
-							'object' => $object->getShortWikiText()
+							'predicate' => $label,
+							'object' => $objectText,
 						];
 					}
-				} else {
-					// A non-Page property and 'graphfields' is set,
-					// so display it as a field after the row has been processed.
+					continue;
+				}
+
+				// Handle field in info box for node
+				if ( $showGraphFieldsPages && $includeAsField ) {
+					if ( $hasProperty || !$isPageType ) {
+						// if is Page type, only add if seen more than once
+						if ( $isPageType && $pageTypeSeen > 2 ) {
+							$fields[] = [
+								'name' => $label,
+								'value' => $object->getDisplayTitle(),
+								'valueLink' => $object->getShortWikiText(),
+								'type' => $type,
+								'page' => $canonicalLabel,
+							];
+						}
+						// if is not Page type, always add
+						if ( !$isPageType ) {
+							$fields[] = [
+								'name' => $label,
+								'value' => $objectText,
+								'type' => $type,
+								'page' => $canonicalLabel,
+							];
+						}
+					}
+				} elseif ( !$showGraphFieldsPages && !$showAsEdge ) {
 					$fields[] = [
-						'name' => $request->getLabel(),
-						'value' => $object->getShortWikiText(),
+						'name' => $label,
+						'value' => $objectText,
 						'type' => $type,
-						'page' => $request->getCanonicalLabel()
+						'page' => $canonicalLabel,
 					];
 				}
 			}
 		}
-		// Add the node, if any, its parent nodes and fields for non-Page properties to the current edge.
+
 		if ( $node ) {
 			foreach ( $parents as $parent ) {
-				$node->addParentNode( $parent['predicate'], $parent['object'] );
-				// @TODO: add explicit nodes with hyperlinks to every parent node not added as '?', but only once.
+				if ( !empty( $parent['object'] ) ) {
+					$node->addParentNode( $parent['predicate'], $parent['object'] );
+				}
 			}
 			foreach ( $fields as $field ) {
-				$node->addField( $field['name'], $field['value'], $field['type'], $field['page'] );
+				if ( $field['value'] !== '' ) {
+					$node->addField(
+						$field['name'],
+						$field['value'],
+						$field['type'],
+						$field['page'],
+						$field['valueLink'] ?? null
+					);
+				}
 			}
 			$this->nodes[] = $node;
 		}
 	}
 
 	/**
-	 * @see SMWResultPrinter::getParamDefinitions
+	 * @see ResultPrinter::getParamDefinitions
 	 *
 	 * @since 1.8
 	 *
@@ -254,7 +319,7 @@ class GraphPrinter extends ResultPrinter {
 	 *
 	 * @return array of IParamDefinition|array
 	 */
-	public function getParamDefinitions( array $definitions ) {
+	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 
 		$params['graphname'] = [
@@ -344,6 +409,12 @@ class GraphPrinter extends ResultPrinter {
 			'default' => false,
 			'message' => 'srf-paramdesc-graphfields',
 			'manipluatedefault' => false,
+			'type' => 'boolean'
+		];
+
+		$params['graphfieldspages'] = [
+			'default' => false,
+			'message' => 'srf-paramdesc-graphfieldspages',
 			'type' => 'boolean'
 		];
 

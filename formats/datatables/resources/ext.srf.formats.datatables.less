@@ -1,0 +1,834 @@
+@import '../../../resources/tokens.less';
+
+/**
+ * NOTE: DataTables uses a lot of over-qualified CSS selector
+ * such as div.dt-container and >, don't be alarmed
+ */
+
+/* Mixins */
+.srf-datatables-icon-mask( @size: 'medium' ) {
+	@srf-datatables-icon-size: ~'@{size-icon-@{size}}';
+	@srf-datatables-icon-min-size: ~'@{min-size-icon-@{size}}';
+
+	background-color: currentColor;
+	mask-size: ~'calc( max( @{srf-datatables-icon-size}, @{srf-datatables-icon-min-size} ) )';
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+	mask-position: center;
+	-webkit-mask-position: center;
+}
+
+.srf-datatables-icon( @size: 'medium' ) {
+	@srf-datatables-icon-size: ~'@{size-icon-@{size}}';
+	@srf-datatables-icon-min-size: ~'@{min-size-icon-@{size}}';
+
+	min-width: @srf-datatables-icon-min-size;
+	min-height: @srf-datatables-icon-min-size;
+	width: @srf-datatables-icon-size;
+	height: @srf-datatables-icon-size;
+	.srf-datatables-icon-mask( @size );
+}
+
+ /* Turn into text button into icon button */
+.srf-datatables-icon-button( @size: 'medium', @position: relative ) {
+	position: @position;
+	text-indent: -9999px;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		.srf-datatables-icon-mask( @size );
+	}
+}
+
+/* Prepend icon to element */
+.srf-datatables-prepend-icon( @icon, @size: 'medium', @gap: @spacing-25 ) {
+	display: flex;
+	align-items: center;
+	gap: @gap;
+
+	&::before {
+		content: '';
+		.srf-datatables-icon( @size );
+		.srf-datatables-cdx-icon( @icon );
+	}
+}
+
+.srf-datatables-cdx-icon( @icon ) {
+	mask-image: ~'url( ../../../resources/assets/codex-icons/@{icon}.svg )';
+	-webkit-mask-image: ~'url( ../../../resources/assets/codex-icons/@{icon}.svg )';
+}
+
+.srf-datatables-cdx-info-chip() {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-inline: @spacing-50;
+	border: @border-base;
+	border-radius: @border-radius-pill;
+	background-color: @background-color-notice-subtle;
+	color: @color-subtle;
+	font-size: @font-size-small;
+}
+
+/* SRF elements for dataTables*/
+.srf-datatables-info-chip {
+	.srf-datatables-cdx-info-chip();
+}
+
+/**
+ * SRF/Codex override for default dataTables styles
+ * @see https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css
+ */
+div.dt-container {
+	margin-block: 1rem;
+	border: @border-base;
+	border-radius: @border-radius-base;
+	line-height: @line-height-xx-small;
+
+	div.dt-layout-row {
+		width: auto;
+		margin: 0;
+		border-top: @border-base;
+		display: flex !important; // override responsive handling
+		gap: @spacing-50;
+		flex-wrap: wrap;
+
+		&:first-of-type {
+			border-top: 0;
+		}
+
+		&.dt-layout-table {
+			+ div.dt-layout-row {
+				border-top: 0;
+			}
+		}
+
+		&:not( .dt-layout-table ) {
+			padding: @spacing-75;
+		}
+	}
+
+	.dt-input,
+	.dt-search input,
+	div.dtsp-searchPane div.dtsp-topRow div.dtsp-searchCont input.dtsp-search,
+	div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown {
+		padding: @spacing-25 @spacing-50;
+		min-height: @min-size-interactive-pointer;
+		border-radius: @border-radius-sharp;
+		border-color: @border-color-interactive;
+		background-color: @background-color-base;
+		box-shadow: @box-shadow-inset-small @box-shadow-color-transparent;
+		font-size: inherit;
+		line-height: @line-height-xx-small;
+		transition-property: @transition-property-base;
+		transition-duration: @transition-duration-medium;
+
+		&:hover {
+			border-color: @border-color-interactive--hover;
+		}
+
+		&:focus {
+			border-color: @border-color-progressive--focus;
+			box-shadow: @box-shadow-inset-small @box-shadow-color-progressive--focus;
+			outline: 1px solid transparent;
+		}
+
+		&::placeholder {
+			color: @color-placeholder;
+		}
+	}
+
+	select.dt-input,
+	div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown {
+		padding-inline: @spacing-75;
+		border-color: @border-color-interactive;
+		background-color: @background-color-interactive-subtle;
+		transition-duration: @transition-duration-base;
+
+		&:hover {
+			background-color: @background-color-interactive-subtle--hover;
+			border-color: @border-color-interactive--hover;
+			color: @color-base--hover;
+			cursor: pointer;
+		}
+
+		&:active {
+			background-color: @background-color-interactive-subtle--active;
+			border-color: @border-color-interactive--active;
+			color: @color-emphasized;
+		}
+
+		&:focus:not( :active ) {
+			background-color: @background-color-base;
+			border-color: @border-color-progressive--focus;
+			box-shadow: @box-shadow-inset-small @box-shadow-color-progressive--focus;
+			outline: 1px solid transparent;
+		}
+	}
+
+	.dt-search {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: @spacing-50;
+			display: block;
+			color: @color-placeholder;
+			.srf-datatables-icon();
+			.srf-datatables-cdx-icon( 'search' );
+			height: 100%; // align center
+		}
+
+		input {
+			margin-left: 0;
+			padding-left: ~'calc( max( @{size-icon-medium}, @{min-size-icon-medium} ) + @{spacing-50} * 2 )';
+		}
+
+		&:has( input:focus )::before {
+			color: @color-base;
+		}
+	}
+
+	.dt-empty,
+	div.dtsp-emptyMessage {
+		color: @color-subtle;
+		padding-block: @spacing-50;
+	}
+
+	.dt-info {
+		color: @color-subtle;
+	}
+
+	.dt-paging {
+		> nav {
+			display: flex;
+			gap: @spacing-25;
+			justify-content: center;
+			overflow-x: auto;
+		}
+
+		.ellipsis {
+			padding: 0;
+			color: @color-placeholder;
+			font-weight: @font-weight-bold;
+		}
+
+		.dt-paging-button {
+			margin-left: 0;
+			padding: @spacing-25;
+			min-width: @min-size-interactive-pointer;
+			min-height: @min-size-interactive-pointer;
+			font-size: inherit;
+			font-weight: @font-weight-bold;
+			transition-property: @transition-property-base;
+			transition-duration: @transition-duration-base;
+
+			&:hover {
+				border-color: @border-color-transparent;
+				background: @background-color-interactive-subtle;
+				color: @color-base !important;
+			}
+
+			&:active {
+				border-color: @border-color-interactive;
+				background: @background-color-interactive;
+				color: @color-emphasized;
+				box-shadow: none;
+			}
+
+			&.current,
+			&.current:hover {
+				border-color: @border-color-transparent;
+				background: @background-color-interactive;
+				box-shadow: none;
+			}
+
+			&.disabled,
+			&.disabled:hover,
+			&.disabled:active {
+				color: @color-disabled !important;
+				box-shadow: none;
+			}
+
+			&.first,
+			&.previous,
+			&.next,
+			&.last {
+				.srf-datatables-icon-button();
+			}
+
+			&.first::before {
+				.srf-datatables-cdx-icon( 'moveFirst' );
+			}
+
+			&.previous::before {
+				.srf-datatables-cdx-icon( 'previous' );
+			}
+
+			&.next::before {
+				.srf-datatables-cdx-icon( 'next' );
+			}
+
+			&.last::before {
+				.srf-datatables-cdx-icon( 'moveLast' );
+			}
+		}
+	}
+}
+
+table.dataTable {
+	--dt-html-background: transparent;
+
+	thead > tr {
+		> th,
+		> td {
+			padding: @spacing-75;
+			border-bottom-color: @border-color-base;
+
+			&.dt-orderable {
+				&-asc,
+				&-desc {
+					padding-inline-end: 30px; // restore padding for sort indicator that get overriden by ours
+					transition-property: @transition-property-base;
+					transition-duration: @transition-duration-base;
+
+					&:hover {
+						outline: none;
+						background-color: @background-color-interactive-subtle;
+						border-color: @border-color-base;
+					}
+
+					&:active {
+						background-color: @background-color-interactive;
+						border-color: @border-color-base;
+					}
+
+					&:focus {
+						box-shadow: @box-shadow-inset-medium @box-shadow-color-progressive--focus;
+					}
+
+					/* Sorting indicators */
+					span.dt-column-order {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+    					flex-direction: column;
+						gap: @spacing-12;
+
+						&::before,
+						&::after {
+							position: relative;
+							inset: unset;
+							color: @color-subtle;
+							opacity: 1;
+						}
+					}
+				}
+			}
+
+			&.dt-ordering {
+				&-asc {
+					/* Mimic the Codex table behavior where only one indicator is shown */
+					span.dt-column-order {
+						&::before {
+							opacity: 1;
+						}
+
+						&::after {
+							display: none;
+						}
+					}
+				}
+
+				&-desc {
+					span.dt-column-order {
+						&::before {
+							display: none;
+						}
+
+						&::after {
+							opacity: 1;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	tbody > tr {
+		> th,
+		> td {
+			/**
+			 * @spacing-50 is slightly smaller than Codex table component
+			 * DataTables usually contain a lot of data so we should make it more compact
+			 * This is also the same spacing used in SMW factbox
+			 */
+			padding: @spacing-50 @spacing-75;
+		}
+
+		&.selected > * {
+			box-shadow: inset 0 0 0 9999px @background-color-progressive-subtle;
+			color: @color-progressive;
+		}
+	}
+
+	&.display {
+		> tbody > tr {
+			> * {
+				border-top-color: @border-color-subtle;
+				transition-property: @transition-property-base;
+				transition-duration: @transition-duration-base;
+			}
+
+			&:nth-child( odd ) > * {
+				box-shadow: none;
+				background-color: @background-color-neutral-subtle;
+			}
+
+			> .sorting {
+				&_1,
+				&_2,
+				&_3 {
+					box-shadow: none;
+					background-color: @background-color-neutral;
+				}
+			}
+
+			&:hover > * {
+				box-shadow: none;
+				background-color: @background-color-interactive;
+			}
+		}
+	}
+
+	&.dtr-inline.collapsed {
+		> tbody > tr {
+			> th,
+			> td {
+				&.dtr-control {
+					border-left-color: @color-subtle;
+				}
+			}
+
+			&.dtr-expanded {
+				> th,
+				> td {
+					&.dtr-control {
+						border-top-color: @color-subtle;
+					}
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Search Builder and Pane shared styles
+ */
+div.dtsb-searchBuilder button.dtsb-button,
+div.dtsp-panesContainer button.dtsp-clearAll,
+div.dtsp-panesContainer button.dtsp-collapseAll,
+div.dtsp-panesContainer button.dtsp-showAll {
+	padding: 0 @spacing-75;
+	min-height: @min-size-interactive-pointer;
+	border-color: @border-color-interactive;
+	background: @background-color-interactive-subtle;
+	font-size: inherit;
+	font-weight: @font-weight-bold;
+	transition-property: @transition-property-base;
+	transition-duration: @transition-duration-base;
+
+	&:hover {
+		background: @background-color-interactive-subtle--hover;
+		border-color: @border-color-interactive--hover;
+	}
+
+	&:active {
+		background: @background-color-interactive-subtle--active;
+		border-color: @border-color-interactive--active;
+	}
+}
+
+div.dtsp-panesContainer button.dtsp-clearAll,
+div.dtsb-searchBuilder button.dtsb-clearAll {
+	color: @color-destructive;
+	.srf-datatables-prepend-icon( 'trash' );
+
+	&:hover {
+		border-color: @border-color-destructive--hover;
+		color: @color-destructive--hover;
+	}
+}
+
+div.dtsb-searchBuilder div.dtsb-titleRow,
+div.dtsp-panesContainer div.dtsp-titleRow {
+	margin-bottom: @spacing-75;
+	display: flex;
+	align-items: center;
+	min-height: @min-size-interactive-pointer;
+}
+
+div.dtsb-searchBuilder div.dtsb-titleRow div.dtsb-title,
+div.dtsp-panesContainer div.dtsp-titleRow div.dtsp-title {
+	padding: 0;
+	font-weight: @font-weight-bold;
+	flex-grow: 1;
+	text-align: start;
+}
+
+/**
+ * Search Builder styles
+ */
+div.dtsb-searchBuilder {
+	margin: 0;
+
+	button.dtsb-button {
+		&.dtsb-add {
+			.srf-datatables-prepend-icon( 'add' );
+			justify-content: center;
+		}
+	}
+
+	div.dtsb-titleRow {
+		div.dtsb-title {
+			.srf-datatables-prepend-icon( 'articlesSearch-ltr', 'medium', @spacing-50 );
+		}
+
+		button.dtsb-clearAll {
+			margin-bottom: 0;
+		}
+	}
+
+	div.dtsb-group {
+		margin-bottom: @spacing-50;
+		display: flex;
+		flex-direction: column;
+		gap: @spacing-75;
+
+		div.dtsb-logicContainer {
+			margin-top: @spacing-50;
+			margin-right: @spacing-75;
+			border-color: @border-color-base;
+			border-radius: @border-radius-base;
+			background: @background-color-interactive-subtle;
+			flex-wrap: nowrap;
+
+			button.dtsb-logic {
+				padding: 0;
+			}
+		}
+
+		div.dtsb-criteria {
+			margin-bottom: 0;
+			gap: @spacing-50;
+
+			select.dtsb-dropDown {
+				margin: 0;
+				font-style: normal;
+			}
+
+			div.dtsb-inputCont input {
+				background: inherit;
+			}
+		}
+
+		div.dtsb-buttonContainer {
+			button.dtsb-delete {
+				border-color: @border-color-transparent;
+				background: @background-color-transparent;
+				color: @color-destructive;
+				.srf-datatables-icon-button( 'small' );
+				
+				&::before {
+					.srf-datatables-cdx-icon( 'trash' );
+				}
+
+				&:hover {
+					background: @background-color-button-quiet--hover;
+					color: @color-destructive--hover;
+				}
+
+				&:active {
+					border-color: @border-color-interactive;
+					background: @background-color-button-quiet--active;
+					color: @color-destructive--active;
+				}
+			}
+		}
+	}
+}
+ 
+ /**
+  * Search Pane styles
+  */
+div.dtsp-panesContainer {
+	margin: 0;
+	/* Fix search pane not taking the whole column */
+	width: 100%;
+
+	button {
+		/* Move to the end to align with search builder */
+		&.dtsp-clearAll {
+			order: 999;
+		}
+
+		&.dtsp-collapseAll {
+			.srf-datatables-prepend-icon( 'collapse' );
+		}
+
+		&.dtsp-showAll {
+			.srf-datatables-prepend-icon( 'expand' );
+		}
+
+		/* Just hide disabled buttons */
+		&.dtsp-disabledButton {
+			display: none;
+		}
+
+		&.dtsp-clearAll,
+		&.dtsp-collapseAll,
+		&.dtsp-showAll {
+			margin-left: -@border-width-base;
+
+			/* Hide labels on small screens */
+			@media screen and ( max-width: @max-width-breakpoint-mobile ) {
+				text-indent: -9999px;
+				gap: 0;
+			}
+		}
+	}
+
+	div.dtsp-title {
+		.srf-datatables-prepend-icon( 'funnel', 'medium', @spacing-50 );
+	}
+
+	div.dtsp-searchPanes {
+		margin-bottom: @spacing-50;
+		gap: @spacing-50;
+
+		div.dtsp-searchPane {
+			margin-top: 0 !important;
+			font-size: inherit;
+		}
+	}
+}
+
+div.dtsp-searchPane {
+	/* Use full width */
+	@media screen and ( max-width: 640px ) {
+		max-width: 100% !important;
+        min-width: 100% !important;
+	}
+
+	div.dt-container {
+		margin-block: @min-size-interactive-pointer - @border-width-base * 2 0; // Save space for sort buttons
+		border-color: @border-color-base;
+		border-radius: @border-radius-sharp;
+
+		&:hover {
+			border-color: @border-color-base;
+		}
+
+		div.dt-scroll {
+			margin: 0;
+		}
+
+		div.dt-scroll-body {
+			background-color: transparent !important;
+
+			table tr > td {
+				padding: @spacing-50 @spacing-75;
+			}
+
+			div.dtsp-nameCont {
+				gap: @spacing-25;
+				align-items: center;
+
+				span.dtsp-pill {
+					.srf-datatables-cdx-info-chip();
+				}
+			}
+		}
+
+		/* HACK: Magic to force the pane to fill the container in narrow viewport */
+		colgroup col {
+			width: 99999px !important;
+		}
+	}
+
+	input.dtsp-paneInputButton,
+	button.dtsp-paneButton {
+		margin: 0;
+		min-width: @min-size-interactive-pointer;
+		min-height: @min-size-interactive-pointer;
+		width: @min-size-interactive-pointer;
+		height: @min-size-interactive-pointer;
+	}
+
+	button {
+		&.dtsp {
+			&-paneButton {
+				border: @border-width-base @border-style-base @border-color-interactive;
+				background-color: @background-color-interactive-subtle;
+				opacity: 1;
+				transition-property: @transition-property-base;
+				transition-duration: @transition-duration-base;
+
+				&:hover {
+					background: @background-color-interactive-subtle--hover;
+					border-color: @border-color-interactive--hover;
+				}
+
+				&:active {
+					background: @background-color-interactive-subtle--active;
+					border-color: @border-color-interactive--active;
+					color: @color-emphasized;
+				}
+
+				&.dtsp-disabledButton {
+					display: none;
+					color: @color-disabled-emphasized;
+					background: @background-color-disabled;
+					pointer-events: none;
+				}
+			}
+
+			&-searchIcon {
+				left: 0;
+				right: unset !important;
+				border: 0;
+				background: transparent;
+				pointer-events: none;
+				display: grid;
+				place-content: center;
+				color: @color-placeholder;
+
+				span {
+					.srf-datatables-icon( 'small' );
+					.srf-datatables-cdx-icon( 'search' );
+				}
+
+				/* HACK: Have to go nuclear to override that background-image styles... */
+				&.dtsp-searchIcon.dtsp-searchIcon span {
+					background-image: none !important;
+				}
+			}
+
+			&-collapseButton {
+				span.dtsp-caret {
+					top: unset;
+					.srf-datatables-icon( 'small' );
+					.srf-datatables-cdx-icon( 'collapse' );
+					transition-property: @transition-property-toggle-switch-grip;
+					transition-duration: @transition-duration-medium;
+					transition-timing-function: @transition-timing-function-system;
+				}
+
+				&.dtsp-rotated {
+					transform: none;
+
+					span.dtsp-caret {
+						transform: rotate( 180deg );
+					}					
+				}
+			}
+		}
+
+		/* HACK: Move name and count sort buttons into a new row */
+		&.dtsp-nameButton,
+		&.dtsp-countButton,
+		&.clearButton {
+			--srf-dtsp-button-width: ~'calc( 100% / 3 + @{border-width-base} )';
+			position: absolute;
+			top: 100%;
+			margin-top: -@border-width-base;
+			margin-left: -@border-width-base;
+			width: var( --srf-dtsp-button-width );
+		}
+
+		&.dtsp-nameButton,
+		&.dtsp-countButton {
+			span {
+				filter: invert( @filter-invert-icon );
+			}
+		}
+
+		&.dtsp-nameButton {
+			left: 0;
+			margin-left: 0;
+		}
+
+		&.dtsp-countButton {
+			left: var( --srf-dtsp-button-width );
+		}
+
+		&.clearButton {
+			right: 0;
+			color: @color-destructive;
+			.srf-datatables-icon-button( 'small', absolute );
+
+			&::before {
+				.srf-datatables-cdx-icon( 'trash' );
+			}
+
+			&:hover {
+				color: @color-destructive--hover;
+			}
+
+			&:active {
+				color: @color-destructive--active;
+			}
+		}
+	}
+
+	div.dtsp-topRow {
+		border: 0 !important;
+		position: relative;
+
+		div.dtsp-searchCont {
+			input.dtsp-search {
+				border-width: 1px;
+				border-style: solid;
+				border-right-width: 0;
+			}
+
+			&:has( input.dtsp-search:focus ) .dtsp-searchIcon {
+				color: @color-base;
+			}
+		}
+
+		/* Show clear button within the combobox when collapsed */
+		&.dtsp-bordered button.clearButton {
+			position: relative;
+			margin-right: -@border-width-base;
+		}
+
+		/* Expanded state */
+		&:not( .dtsp-bordered ) {
+			div.dtsp-searchCont {
+				input.dtsp-search {
+					padding-inline-start: ~'calc( max( @{size-icon-small}, @{min-size-icon-small} ) + @{spacing-50} * 2 )' !important; // make space for icon
+				}
+			}
+
+			button.clearButton {
+				display: block; // always visible when expanded
+			}
+		}
+	}
+}
+
+div.dts div.dt-scroll-body table {
+	background-color: @background-color-base;
+}
+
+@media screen and ( max-width: 767px ) {
+	/* Disable responsive styles from DataTables, we will handle it ourselves */
+	div.dt-container div.dt-layout-row:not( .dt-layout-table ) div.dt-layout-cell > * {
+		margin: 0;
+	}
+}

@@ -12,6 +12,7 @@
 			"SupaplexTW",
 			"Winston Sung",
 			"Wrightbus",
+			"列维劳德",
 			"捍粵者",
 			"星海"
 		]
@@ -208,7 +209,7 @@
 	"srf-printername-datatables": "資料表",
 	"srf-ui-datatables-label-conditions": "條件",
 	"srf-ui-datatables-label-parameters": "參數",
-	"srf-ui-datatables-label-filters": "欄位篩選與搜尋",
+	"srf-ui-datatables-label-filters": "篩選",
 	"srf-ui-datatables-label-information": "資訊",
 	"srf-ui-datatables-panel-disclaimer": "參數與條件是可變動的，但僅為臨時性更改，並且會在頁面重新整理後捨棄變動內容。",
 	"srf-ui-datatables-refresh-button-title": "重整表格",
@@ -237,6 +238,8 @@
 	"srf-ui-datatables-label-oAria-sSortAscending": ":啟用升冪排序欄位",
 	"srf-ui-datatables-label-oAria-sSortDescending": ":啟用降冪排序欄位",
 	"srf-ui-datatables-searchpanes-noajax": "當需要 Ajax 且已停用時，資料表（v2）尚無法支援 searchPanes",
+	"srf-ui-datatables-label-rows": "{{PLURAL:$1|$1}} 列",
+	"srf-ui-datatables-label-rows-all": "所有列",
 	"srf-printername-tree": "樹狀結構",
 	"srf-printername-ultree": "Ultree",
 	"srf-printername-oltree": "Oltree",

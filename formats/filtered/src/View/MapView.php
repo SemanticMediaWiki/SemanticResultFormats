@@ -4,7 +4,9 @@ namespace SRF\Filtered\View;
 
 use DataValues\Geo\Parsers\LatLongParser;
 use Exception;
-use SMWPropertyValue;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
+use SMW\DataValues\PropertyValue;
 use SRF\Filtered\ResultItem;
 
 class MapView extends View {
@@ -65,7 +67,7 @@ class MapView extends View {
 			$field->reset();
 
 			$value = $field->getNextDataItem();
-			if ( $printRequest->getData() instanceof SMWPropertyValue &&
+			if ( $printRequest->getData() instanceof PropertyValue &&
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $markerPositionPropertyName &&
 				( $value instanceof \SMWDIGeoCoord || $value instanceof \SMWDIBlob )
 			) {
@@ -294,7 +296,6 @@ class MapView extends View {
 		$actualParameters = self::getActualParameters()['map view marker icons'];
 
 		foreach ( $actualParameters as $relation ) {
-
 			$relation = explode( '=', $relation, 2 );
 
 			if ( count( $relation ) === 1 ) {
@@ -305,7 +306,9 @@ class MapView extends View {
 				$icon = $relation[1];
 			}
 
-			$file = \WikiPage::factory( \Title::newFromText( $icon, NS_FILE ) )->getFile();
+			$file = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle(
+				Title::newFromText( $icon, NS_FILE )
+			)->getFile();
 
 			if ( $file->exists() ) {
 				$ret[$key] = $file->getUrl();
