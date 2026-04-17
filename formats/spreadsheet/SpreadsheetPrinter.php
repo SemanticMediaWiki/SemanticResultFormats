@@ -280,8 +280,10 @@ class SpreadsheetPrinter extends FileExportPrinter {
 		$cellIterator = $row->getCellIterator();
 
 		foreach ( $resultRow as $resultField ) {
-
-			$this->populateCell( $cellIterator->current(), $resultField );
+			$cell = $cellIterator->current();
+			if ( $cell !== null ) {
+				$this->populateCell( $cell, $resultField );
+			}
 			$cellIterator->next();
 		}
 	}
