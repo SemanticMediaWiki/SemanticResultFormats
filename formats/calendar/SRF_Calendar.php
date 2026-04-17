@@ -325,11 +325,11 @@ class SRFCalendar extends ResultPrinter {
 
 		$context = RequestContext::getMain();
 		$request = $context->getRequest();
+		// $parser is only used below as a fallback when $context->getTitle()
+		// returns null (e.g. on special pages served outside a parser context).
+		// NOTE: the mFirstCall cache-expiry hint was removed in MW 1.35 and
+		// is intentionally not replicated here.
 		$parser = MediaWikiServices::getInstance()->getParser();
-		// NOTE: mFirstCall is never false in MW >= 1.35
-		if ( !$parser->mFirstCall ) {
-			$parser->getOutput()->updateCacheExpiry( 0 );
-		}
 
 		$context->getOutput()->addLink(
 			[
