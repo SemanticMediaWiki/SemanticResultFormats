@@ -1,0 +1,15 @@
+// Enable googlebar and googlepie formats for CI/test environments.
+// These are disabled by default in DefaultSettings.php because they contact
+// an external URL (chart.apis.google.com) to render charts. They are safe to
+// enable here since integration tests only assert against the generated HTML,
+// not against an actual HTTP response from Google.
+//
+// We register the formats directly into $smwgResultFormats and $wgAutoloadClasses
+// to bypass the srfgFormats → onExtensionFunction timing dependency.
+$wgExtensionFunctions[] = static function () {
+	$dir = __DIR__ . '/extensions/SemanticResultFormats/formats/googlecharts/';
+	$GLOBALS['wgAutoloadClasses']['SRFGoogleBar'] = $dir . 'SRF_GoogleBar.php';
+	$GLOBALS['wgAutoloadClasses']['SRFGooglePie'] = $dir . 'SRF_GooglePie.php';
+	$GLOBALS['smwgResultFormats']['googlebar'] = 'SRFGoogleBar';
+	$GLOBALS['smwgResultFormats']['googlepie'] = 'SRFGooglePie';
+};
