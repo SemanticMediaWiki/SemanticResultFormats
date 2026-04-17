@@ -16,7 +16,40 @@
 	////////////////////////// PRIVATE METHODS ////////////////////////
 
 	var util = new srf.util();
-	var tooltip = new smw.util.tooltip();
+
+	/**
+	 * Create a tooltip anchor compatible with the SMW 3.1+ tippy-based tooltip.
+	 *
+	 * SMW 3.1 replaced qTip2 with tippy.js. The old smw.util.tooltip().add() API
+	 * no longer exists. The new API relies on event delegation on #bodyContent for
+	 * .smw-highlighter elements, so we just inject the anchor into the DOM and the
+	 * global tippy.delegate() in ext.smw.tooltip.tippy.js handles the rest.
+	 *
+	 * @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/779
+	 * @return void
+	 */
+	var _createTooltip = function( options ) {
+		var typeMap = { 'warning': '4', 'error': '5', 'info': '1' };
+		var $anchor = $( '<span>' )
+			.addClass( 'smw-highlighter' )
+			.attr( 'data-title', options.title || '' )
+			.attr( 'data-content', options.content || '' );
+
+		if ( options.targetClass ) {
+			$anchor.addClass( options.targetClass );
+		}
+		if ( options.contextClass ) {
+			$anchor.attr( 'data-tooltipclass', options.contextClass );
+		}
+		if ( options.type && typeMap[ options.type ] ) {
+			$anchor.attr( 'data-type', typeMap[ options.type ] );
+		}
+		if ( options.button ) {
+			$anchor.attr( 'data-state', 'persistent' );
+		}
+
+		options.context.append( $anchor );
+	};
 
 	/**
 	 * Add icon image
@@ -160,7 +193,7 @@
 					var responseText = error.responseText !== '' ?  ' (' + error.responseText + ')' : '';
 
 					// Init error tooltip
-					tooltip.add( {
+					_createTooltip( {
 						targetClass: 'smwtticon warning',
 						context: container,
 						title: mw.msg( 'smw-ui-tooltip-title-warning' ),
@@ -285,7 +318,7 @@
 
 				// Create option set which is displayed as tooltip to safe space and
 				// only displays it when the user demands it
-				tooltip.add( {
+				_createTooltip( {
 					contextClass: 'srf-dygraphs-series',
 					contentClass: 'srf-dygraphs-series-content',
 					targetClass : 'srf-dygraphs series icon',
