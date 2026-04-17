@@ -1,0 +1,61 @@
+{
+	"description": "Test `format=googlepie` html output (#1018)",
+	"setup": [
+		{
+			"page": "Has SRFGooglepie01 value",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"page": "Example/Googlepie01/1",
+			"contents": "[[Has SRFGooglepie01 value::30]] [[Category:SRFGooglepie01]]"
+		},
+		{
+			"page": "Example/Googlepie01/2",
+			"contents": "[[Has SRFGooglepie01 value::70]] [[Category:SRFGooglepie01]]"
+		},
+		{
+			"page": "Test/Googlepie01/Q.1",
+			"contents": "{{#ask: [[Category:SRFGooglepie01]] |?Has SRFGooglepie01 value |format=googlepie }}"
+		},
+		{
+			"page": "Test/Googlepie01/Q.2",
+			"contents": "{{#ask: [[Category:SRFGooglepie01]] |format=googlepie }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 results with numeric data – chart img tag rendered",
+			"subject": "Test/Googlepie01/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"chart.apis.google.com"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 single-column query (no property) – empty output",
+			"subject": "Test/Googlepie01/Q.2",
+			"assert-output": {
+				"not-contain": [
+					"chart.apis.google.com"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

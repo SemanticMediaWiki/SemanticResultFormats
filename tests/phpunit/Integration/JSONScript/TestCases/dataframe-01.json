@@ -1,0 +1,43 @@
+{
+	"description": "Test `format=dataframe` inline link output (#1018)",
+	"setup": [
+		{
+			"page": "Has SRFDataframe01 text",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Dataframe01/1",
+			"contents": "[[Has SRFDataframe01 text::foo]] [[Category:SRFDataframe01]]"
+		},
+		{
+			"page": "Test/Dataframe01/Q.1",
+			"contents": "{{#ask: [[Category:SRFDataframe01]] |?Has SRFDataframe01 text |format=dataframe }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 results present – inline link to Special:Ask with format=dataframe",
+			"subject": "Test/Dataframe01/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"format%3Ddataframe"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

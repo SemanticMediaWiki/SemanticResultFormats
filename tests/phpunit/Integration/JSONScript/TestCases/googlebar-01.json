@@ -1,0 +1,61 @@
+{
+	"description": "Test `format=googlebar` html output (#1018)",
+	"setup": [
+		{
+			"page": "Has SRFGooglebar01 value",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"page": "Example/Googlebar01/1",
+			"contents": "[[Has SRFGooglebar01 value::42]] [[Category:SRFGooglebar01]]"
+		},
+		{
+			"page": "Example/Googlebar01/2",
+			"contents": "[[Has SRFGooglebar01 value::17]] [[Category:SRFGooglebar01]]"
+		},
+		{
+			"page": "Test/Googlebar01/Q.1",
+			"contents": "{{#ask: [[Category:SRFGooglebar01]] |?Has SRFGooglebar01 value |format=googlebar }}"
+		},
+		{
+			"page": "Test/Googlebar01/Q.2",
+			"contents": "{{#ask: [[Category:SRFGooglebar01]] |format=googlebar }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 results with numeric data – chart img tag rendered",
+			"subject": "Test/Googlebar01/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"chart.apis.google.com"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 single-column query (no property) – empty output",
+			"subject": "Test/Googlebar01/Q.2",
+			"assert-output": {
+				"not-contain": [
+					"chart.apis.google.com"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
