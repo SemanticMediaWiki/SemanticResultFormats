@@ -1,0 +1,75 @@
+{
+	"description": "Test `format=datatables` with printout parameter options (number/boolean casting)",
+	"setup": [
+		{
+			"page": "Has temperature",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"page": "Example/Datatables2/1",
+			"contents": "[[Has temperature::20]] [[Category:Datatables2]]"
+		},
+		{
+			"page": "Example/Datatables2/2",
+			"contents": "[[Has temperature::25]] [[Category:Datatables2]]"
+		},
+		{
+			"page": "Test/Datatables2/Q.1",
+			"contents": "{{#ask: [[Category:Datatables2]] |?Has temperature |format=datatables }}"
+		},
+		{
+			"page": "Test/Datatables2/Q.2",
+			"contents": "{{#ask: [[Category:Datatables2]] |?Has temperature |+ datatables-columns.searchPanes.threshold = 0.3 |format=datatables }}"
+		},
+		{
+			"page": "Test/Datatables2/Q.3",
+			"contents": "{{#ask: [[Category:Datatables2]] |?Has temperature |+ datatables-columns.orderable = true |format=datatables }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 basic datatables output renders container and table",
+			"subject": "Test/Datatables2/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"class=\"datatables-container\""
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 datatables with searchPanes.threshold number parameter renders without error",
+			"subject": "Test/Datatables2/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"class=\"datatables-container\""
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 datatables with orderable boolean parameter renders without error",
+			"subject": "Test/Datatables2/Q.3",
+			"assert-output": {
+				"to-contain": [
+					"class=\"datatables-container\""
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

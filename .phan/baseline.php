@@ -38,11 +38,11 @@ return [
     // PhanPluginDuplicateConditionalTernaryDuplication : 5 occurrences
     // PhanTypeMismatchArgumentInternal : 5 occurrences
     // PhanTypeMismatchReturnProbablyReal : 5 occurrences
-    // PhanPluginDuplicateExpressionAssignmentOperation : 4 occurrences
-    // PhanTypeInvalidLeftOperandOfNumericOp : 4 occurrences
     // PhanTypeMismatchForeach : 4 occurrences
     // PhanTypeSuspiciousStringExpression : 4 occurrences
     // PhanImpossibleConditionInLoop : 3 occurrences
+    // PhanPluginDuplicateExpressionAssignmentOperation : 3 occurrences
+    // PhanTypeInvalidLeftOperandOfNumericOp : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanPluginDuplicateConditionalNullCoalescing : 2 occurrences
     // PhanPluginUseReturnValueInternalKnown : 2 occurrences
@@ -55,7 +55,6 @@ return [
     // PhanParamSignatureMismatch : 1 occurrence
     // PhanParamSpecial1 : 1 occurrence
     // PhanParamTooMany : 1 occurrence
-    // PhanPluginSimplifyExpressionBool : 1 occurrence
     // PhanSuspiciousBinaryAddLists : 1 occurrence
     // PhanSuspiciousWeakTypeComparison : 1 occurrence
     // PhanTypeComparisonFromArray : 1 occurrence
@@ -87,7 +86,7 @@ return [
         'formats/d3/SRF_D3Chart.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredVariableDim'],
         'formats/dataframe/DataframePrinter.php' => ['PhanCompatibleUnionType', 'PhanParamSpecial1', 'PhanPossiblyUndeclaredVariable', 'PhanUndeclaredClass', 'PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariableDim'],
         'formats/datatables/Api.php' => ['PhanParamTooMany', 'PhanTypeArraySuspiciousNullable', 'PhanTypePossiblyInvalidDimOffset', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredMethod', 'PhanUndeclaredVariableDim'],
-        'formats/datatables/DataTables.php' => ['PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPluginSimplifyExpressionBool', 'PhanPossiblyUndeclaredVariable', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnNullable', 'PhanUndeclaredClass', 'PhanUndeclaredClassCatch', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty', 'PhanUndeclaredVariableDim'],
+        'formats/datatables/DataTables.php' => ['PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnNullable', 'PhanUndeclaredClass', 'PhanUndeclaredClassCatch', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty', 'PhanUndeclaredVariableDim'],
         'formats/datatables/Hooks.php' => ['PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod'],
         'formats/datatables/QuerySegmentListProcessor.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchDimFetch', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty', 'PhanUndeclaredClassReference', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty'],
         'formats/datatables/SearchPanes.php' => ['MediaWikiNoEmptyIfDefined', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgument', 'PhanTypePossiblyInvalidDimOffset', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassStaticProperty', 'PhanUndeclaredConstant', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty'],

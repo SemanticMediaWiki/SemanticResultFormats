@@ -747,7 +747,7 @@ class DataTables extends ResultPrinter {
 		$tableAttrs = [
 			'class' => 'srf-datatable wikitable display' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
-			'data-nocase' => ( $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE ? true : false ),
+			'data-nocase' => $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE,
 			'data-column-sort' => json_encode( [
 				'list'  => $headerList,
 				'sort'  => $this->params['sort'],
@@ -863,7 +863,7 @@ class DataTables extends ResultPrinter {
 						break;
 
 					case "number":
-						$value = $value * 1;
+						$value = (float)$value;
 						break;
 
 					// ...
