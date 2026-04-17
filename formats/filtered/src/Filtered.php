@@ -175,7 +175,7 @@ class Filtered extends ResultPrinter {
 		// collect the query results in an array
 		/** @var ResultItem[] $resultItems */
 		$resultItems = [];
-		while ( $row = $res->getNext() ) {
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$resultItems[$this->uniqid()] = new ResultItem( $row, $this );
 			// This is ugly, but for now th opnly way to get all resultItems. See #288.
 			usleep( 1 );

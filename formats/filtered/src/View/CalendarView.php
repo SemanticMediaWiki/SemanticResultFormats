@@ -88,6 +88,7 @@ class CalendarView extends View {
 				) === false ) {
 
 				$params = [];
+				// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 				while ( ( $text = $field->getNextText(
 						SMW_OUTPUT_WIKI,
 						$this->getQueryPrinter()->getLinker( $valueId === 0 )

@@ -128,7 +128,7 @@ class TreeNodePrinter implements Visitor {
 
 		$valueTexts = [];
 
-		while ( ( $text = $cell->getNextText( SMW_OUTPUT_WIKI, $linker ) ) !== false ) {
+		while ( ( $text = $cell->getNextText( SMW_OUTPUT_WIKI, $linker ) ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$valueTexts[] = $text;
 		}
 

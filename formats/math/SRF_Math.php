@@ -341,7 +341,7 @@ class SRFMath extends ResultPrinter {
 	private function getNumbers( QueryResult $res ) {
 		$numbers = [];
 
-		while ( $row = $res->getNext() ) {
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			foreach ( $row as $resultArray ) {
 				foreach ( $resultArray->getContent() as $dataItem ) {
 					self::addNumbersForDataItem( $dataItem, $numbers );

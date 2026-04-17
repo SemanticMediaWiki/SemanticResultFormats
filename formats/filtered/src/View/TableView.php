@@ -195,7 +195,7 @@ class TableView extends View {
 
 		$dataValues = [];
 
-		while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) {
+		while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$dataValues[] = $dataValue;
 		}
 

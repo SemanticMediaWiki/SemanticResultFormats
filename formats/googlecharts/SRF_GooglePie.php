@@ -45,11 +45,13 @@ class SRFGooglePie extends ResultPrinter {
 		// the biggest value. needed for scaling
 		$max = 0;
 
-		while ( $row = $res->getNext() ) {
+		$row = $res->getNext();
+		while ( $row !== false ) {
 			$name = $row[0]->getNextDataValue()->getShortWikiText();
 
 			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
+				$object = $field->getNextDataValue();
+				while ( $object !== false ) {
 					// use numeric sortkey
 					if ( $object->isNumeric() ) {
 						$nr = $object->getDataItem()->getSortKey();
@@ -65,8 +67,10 @@ class SRFGooglePie extends ResultPrinter {
 							$n = $name . '|' . $n;
 						}
 					}
+					$object = $field->getNextDataValue();
 				}
 			}
+			$row = $res->getNext();
 		}
 
 		return '<img src="https://chart.apis.google.com/chart?cht=p3&chs=' . $this->m_width . 'x' . $this->m_height . '&chds=0,' . $max . '&chd=t:' . $t . '&chl=' . $n . '" width="' . $this->m_width . '" height="' . $this->m_height . '"  />';

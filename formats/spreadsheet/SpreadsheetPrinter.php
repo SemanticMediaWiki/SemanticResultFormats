@@ -230,11 +230,13 @@ class SpreadsheetPrinter extends FileExportPrinter {
 			$rowIterator->next();
 		}
 
-		while ( $resultRow = $queryResult->getNext() ) {
+		$resultRow = $queryResult->getNext();
+		while ( $resultRow !== false ) {
 
 			// Get data rows
 			$this->populateRow( $rowIterator->current(), $resultRow );
 			$rowIterator->next();
+			$resultRow = $queryResult->getNext();
 		}
 	}
 
@@ -305,8 +307,10 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 			$values = [];
 
-			while ( $value = $field->getNextText( SMW_OUTPUT_FILE ) ) {
+			$value = $field->getNextText( SMW_OUTPUT_FILE );
+			while ( $value !== false ) {
 				$values[] = $value;
+				$value = $field->getNextText( SMW_OUTPUT_FILE );
 			}
 
 			$cell->setValueExplicit( implode( ', ', $values ), DataType::TYPE_STRING );

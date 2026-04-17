@@ -74,7 +74,8 @@ class SRFArray extends ResultPrinter {
 		$perPage_items = [];
 
 		// for each page:
-		while ( $row = $res->getNext() ) {
+		$row = $res->getNext();
+		while ( $row !== false ) {
 			$perProperty_items = [];
 
 			/**
@@ -99,7 +100,8 @@ class SRFArray extends ResultPrinter {
 					$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
 					$isMissingProperty = true;
 				} else {
-					while ( $obj = $field->getNextDataValue() ) {
+					$obj = $field->getNextDataValue();
+					while ( $obj !== false ) {
 
 						$value_items = [];
 						$isRecord = false;
@@ -134,6 +136,7 @@ class SRFArray extends ResultPrinter {
 						}
 						$delivery = $this->deliverSingleManyValuesData( $value_items, $isRecord, $isPageTitle );
 						$manyValue_items = $this->fillDeliveryArray( $manyValue_items, $delivery );
+						$obj = $field->getNextDataValue();
 					}
 				}
 				$delivery = $this->deliverPropertiesManyValues(
@@ -148,6 +151,7 @@ class SRFArray extends ResultPrinter {
 			}
 			$delivery = $this->deliverPageProperties( $perProperty_items );
 			$perPage_items = $this->fillDeliveryArray( $perPage_items, $delivery );
+			$row = $res->getNext();
 		}
 
 		$output = $this->deliverQueryResultPages( $perPage_items );

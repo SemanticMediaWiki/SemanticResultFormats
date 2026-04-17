@@ -140,8 +140,7 @@ class SRFTimeline extends ResultPrinter {
 			$events = [];
 		}
 		// Loop over the objcts (pages)
-		while ( $row = $res->getNext() ) {
-			// true as soon as some startdate value was found
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$hastime = false;
 			// true as soon as some label for the event was found
 			$hastitle = false;
@@ -171,7 +170,7 @@ class SRFTimeline extends ResultPrinter {
 					$date_value = $dataValue->getDataItem()->getLabel();
 				}
 				// Loop over property values
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$event = $this->handlePropertyValue(
 						$object,
 						$outputmode,

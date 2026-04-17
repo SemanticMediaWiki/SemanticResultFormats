@@ -106,11 +106,10 @@ class TagCloud extends ResultPrinter {
 		 * @var ResultArray $row
 		 * @var SMWDataValue $dataValue
 		 */
-		while ( $row = $queryResult->getNext() ) {
-			// ResultArray for a sinlge property
+		while ( $row = $queryResult->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) {
 				// Data values
-				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) {
+				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == PrintRequest::PRINT_THIS;
 

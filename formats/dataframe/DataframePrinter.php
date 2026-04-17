@@ -134,7 +134,8 @@ class DataframePrinter extends FileExportPrinter {
 		}
 
 		$cols = [];
-		while ( $resultRow = $queryResult->getNext() ) {
+		$resultRow = $queryResult->getNext();
+		while ( $resultRow !== false ) {
 
 			foreach ( $resultRow as $resultField ) {
 				$propertyLabel = $resultField->getPrintRequest()->getLabel();
@@ -144,8 +145,10 @@ class DataframePrinter extends FileExportPrinter {
 				if ( count( $dataItems ) > 1 ) {
 					$values = [];
 
-					while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) ) {
+					$value = $resultField->getNextText( SMW_OUTPUT_FILE );
+					while ( $value !== false ) {
 						$values[] = $value;
+						$value = $resultField->getNextText( SMW_OUTPUT_FILE );
 					}
 					$rowData = "'" . implode( ', ', $values ) . "'";
 				} else {
@@ -168,6 +171,7 @@ class DataframePrinter extends FileExportPrinter {
 				// $cols[$propertyLabel][$subjectLabel][] = $rowData;
 				$cols[$propertyLabel][][] = $rowData;
 			}
+			$resultRow = $queryResult->getNext();
 		}
 
 		/*

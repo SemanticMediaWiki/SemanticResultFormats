@@ -101,8 +101,7 @@ class MediaPlayer extends ResultPrinter {
 		 *
 		 * @var ResultArray $rows
 		 */
-		while ( $rows = $result->getNext() ) {
-			$rowData = [];
+		while ( $rows = $result->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$mediaType = null;
 			$mimeType = null;
 
@@ -134,7 +133,7 @@ class MediaPlayer extends ResultPrinter {
 					$rowData[$mimeType] = $source;
 				}
 
-				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
+				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					// Get other data value item details
 					$value = $this->getDataValueItem(
 						$propertyLabel,

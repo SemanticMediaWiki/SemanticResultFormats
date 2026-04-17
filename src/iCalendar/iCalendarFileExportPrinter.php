@@ -174,7 +174,7 @@ class iCalendarFileExportPrinter extends FileExportPrinter {
 			$this->description
 		);
 
-		while ( $row = $res->getNext() ) {
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$icalFormatter->addEvent( $this->getEventParams( $row ) );
 		}
 

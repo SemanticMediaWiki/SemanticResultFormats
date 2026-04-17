@@ -972,7 +972,7 @@ class DataTables extends ResultPrinter {
 		$outputMode = SMW_OUTPUT_HTML;
 
 		$ret = [];
-		while ( $subject = $res->getNext() ) {
+		while ( $subject = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$row = [];
 			foreach ( $subject as $i => $field ) {
 				$dataValues = [];
@@ -984,7 +984,7 @@ class DataTables extends ResultPrinter {
 				// ResultArray loadContent -> fieldItemFinder findFor -> getResultsForProperty
 				// -> fetchContent -> ItemFetcher fetch -> (prefetchCache/EntityLookup)->getPropertyValues
 				// -> $semanticData->getPropertyValues -> $this->store->applyRequestOptions !!
-				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
+				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$dataValues[] = $dv;
 				}
 

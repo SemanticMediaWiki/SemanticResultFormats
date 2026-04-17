@@ -89,7 +89,8 @@ class SRFCalendar extends ResultPrinter {
 		$events = [];
 
 		// Print all result rows.
-		while ( $row = $res->getNext() ) {
+		$row = $res->getNext();
+		while ( $row !== false ) {
 			$dates = [];
 			$title = $text = $color = '';
 
@@ -105,9 +106,8 @@ class SRFCalendar extends ResultPrinter {
 					$pr = $field->getPrintRequest();
 					$text .= '|' . ( $i + 1 ) . '=';
 
-					while (
-						( $object = $field->getNextDataValue() ) !== false
-					) {
+					$object = $field->getNextDataValue();
+					while ( $object !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							$text .= $object->getLongWikiText();
 
@@ -135,6 +135,7 @@ class SRFCalendar extends ResultPrinter {
 							$dates[$datePropLabel][] =
 								$this->formatDateStr( $object );
 						}
+						$object = $field->getNextDataValue();
 					}
 				}
 			} else {
@@ -150,9 +151,8 @@ class SRFCalendar extends ResultPrinter {
 					// for this property.
 					$textForProperty = '';
 
-					while (
-						( $object = $field->getNextDataValue() ) !== false
-					) {
+					$object = $field->getNextDataValue();
+					while ( $object !== false ) {
 						if ( $object->getTypeID() == '_dat' ) {
 							// Don't add date values to the display.
 
@@ -208,6 +208,7 @@ class SRFCalendar extends ResultPrinter {
 							$dates[$datePropLabel][] =
 								$this->formatDateStr( $object );
 						}
+						$object = $field->getNextDataValue();
 					}
 
 					// Add the text for this property to
@@ -269,6 +270,7 @@ class SRFCalendar extends ResultPrinter {
 					}
 				}
 			}
+			$row = $res->getNext();
 		}
 
 		$result = $this->displayCalendar( $events );

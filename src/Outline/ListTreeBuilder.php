@@ -121,7 +121,7 @@ class ListTreeBuilder {
 			}
 
 			$resultArray->reset();
-			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
+			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 				if ( !$first_col && !$found_values ) {
 					// first values after first column
@@ -141,7 +141,7 @@ class ListTreeBuilder {
 				}
 
 				$dataItem = $dv->getDataItem();
-				if ( $linker === null && $dataItem->getDIType() === DataItem::TYPE_WIKIPAGE && ( $caption = $dv->getDisplayTitle() ) !== '' ) {
+				if ( $linker === null && $dataItem->getDIType() === DataItem::TYPE_WIKIPAGE && ( $caption = $dv->getDisplayTitle() ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$dv->setCaption( $caption );
 				}
 

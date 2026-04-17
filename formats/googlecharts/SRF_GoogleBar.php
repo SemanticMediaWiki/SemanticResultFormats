@@ -45,10 +45,12 @@ class SRFGoogleBar extends ResultPrinter {
 		// the biggest value. needed for scaling
 		$max = 0;
 
-		while ( $row = $res->getNext() ) {
+		$row = $res->getNext();
+		while ( $row !== false ) {
 			$name = $row[0]->getNextDataValue()->getShortWikiText();
 			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
+				$object = $field->getNextDataValue();
+				while ( $object !== false ) {
 
 					// use numeric sortkey
 					if ( $object->isNumeric() ) {
@@ -67,8 +69,10 @@ class SRFGoogleBar extends ResultPrinter {
 							$n .= '|' . $name;
 						}
 					}
+					$object = $field->getNextDataValue();
 				}
 			}
+			$row = $res->getNext();
 		}
 		// width of each bar
 		$barwidth = 20;

@@ -196,8 +196,8 @@ class Gallery extends ResultPrinter {
 	 */
 	protected function addImageProperties( QueryResult $results, &$ig, $imageProperty, $captionProperty, $redirectProperty, $outputMode ) {
 		/* array of \SMW\Query\Result\ResultArray */
-		while (
-		$rows = $results->getNext() ) {
+		// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+		while ( $rows = $results->getNext() ) {
 			$images = [];
 			$captions = [];
 			$redirects = [];
@@ -215,19 +215,19 @@ class Gallery extends ResultPrinter {
 				// Make sure always use real label here otherwise it results in an empty array
 				if ( $resultArray->getPrintRequest()->getLabel() == $imageProperty ) {
 					// Property values
-					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) {
+					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 						if ( $dataValue->getTypeID() == '_wpg' ) {
 							$images[] = $dataValue->getDataItem()->getTitle();
 						}
 					}
 				} elseif ( $label == $captionProperty ) {
 					// Property values
-					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) {
+					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 						$captions[] = $dataValue->getShortText( $outputMode, $this->getLinker( true ) );
 					}
 				} elseif ( $label == $redirectProperty ) {
 					// Property values
-					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) {
+					while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 						if ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_WIKIPAGE ) {
 							$redirects[] = $dataValue->getTitle();
 						} elseif ( $dataValue->getDataItem()->getDIType() == SMWDataItem::TYPE_URI ) {
@@ -267,7 +267,7 @@ class Gallery extends ResultPrinter {
 	 * @param TraditionalImageGallery &$ig
 	 */
 	protected function addImagePages( QueryResult $results, &$ig ) {
-		while ( $row = $results->getNext() ) {
+		while ( $row = $results->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			/**
 			 * @var \SMW\Query\Result\ResultArray $firstField
 			 */

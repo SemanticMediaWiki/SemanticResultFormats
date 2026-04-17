@@ -161,12 +161,10 @@ class SRFJitGraph extends ResultPrinter {
 		$json = "[";
 		$jsonLeafs = "";
 
-		while ( $row = $res->getNext() ) {
-
-			$firstcol = true;
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$text = $object->getShortText( $outputmode );
 
 					$nodeLinkTitle = Title::newFromText( $text );

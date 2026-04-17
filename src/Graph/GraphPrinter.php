@@ -151,7 +151,7 @@ class GraphPrinter extends ResultPrinter {
 		}
 
 		// iterate query result and create SRF\GraphNodes
-		while ( $row = $res->getNext() ) {
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$this->processResultRow( $row );
 		}
 
@@ -212,7 +212,7 @@ class GraphPrinter extends ResultPrinter {
 			$showGraphFieldsPages = $this->options->showGraphFieldsPages();
 			$showGraphFields = $this->options->showGraphFields();
 
-			while ( ( $object = $result_array->getNextDataValue() ) !== false ) {
+			while ( ( $object = $result_array->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 				$hasProperty = $object->getProperty();
 
 				if ( $isPageType ) {

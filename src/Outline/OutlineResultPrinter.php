@@ -95,7 +95,7 @@ class OutlineResultPrinter extends ResultPrinter {
 		// 'tree'
 		$outlineTree = new OutlineTree();
 
-		while ( $row = $res->getNext() ) {
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$outlineTree->addItem( $this->newOutlineItem( $row ) );
 		}
 
@@ -144,7 +144,7 @@ class OutlineResultPrinter extends ResultPrinter {
 				continue;
 			}
 
-			while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
+			while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 				$outlineItem->addFieldValue(
 					$name,
 					$dataValue->getLongWikiText( $this->getLinker() )

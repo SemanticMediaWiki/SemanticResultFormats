@@ -290,22 +290,22 @@ class vCardFileExportPrinter extends FileExportPrinter {
 				$vCard->set( 'category', $this->getFieldCommaList( $field ) );
 				break;
 			case "email":
-				while ( $value = $field->getNextDataValue() ) {
+				while ( $value = $field->getNextDataValue() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$emails[] = new Email( 'INTERNET', $value->getShortWikiText() );
 				}
 				break;
 			case "workphone":
-				while ( $value = $field->getNextDataValue() ) {
+				while ( $value = $field->getNextDataValue() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$tels[] = new Tel( 'WORK', $value->getShortWikiText() );
 				}
 				break;
 			case "cellphone":
-				while ( $value = $field->getNextDataValue() ) {
+				while ( $value = $field->getNextDataValue() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$tels[] = new Tel( 'CELL', $value->getShortWikiText() );
 				}
 				break;
 			case "homephone":
-				while ( $value = $field->getNextDataValue() ) {
+				while ( $value = $field->getNextDataValue() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$tels[] = new Tel( 'HOME', $value->getShortWikiText() );
 				}
 				break;
@@ -313,72 +313,72 @@ class vCardFileExportPrinter extends FileExportPrinter {
 				$vCard->set( 'organization', $this->getFieldValue( $field ) );
 				break;
 			case "workpostofficebox":
-				if ( ( $workpostofficebox = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $workpostofficebox = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'pobox', $workpostofficebox );
 				}
 				break;
 			case "workextendedaddress":
-				if ( ( $workextendedaddress = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $workextendedaddress = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'ext', $workextendedaddress );
 				}
 				break;
 			case "workstreet":
-				if ( ( $workstreet = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $workstreet = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'street', $workstreet );
 				}
 				break;
 			case "worklocality":
-				if ( ( $worklocality = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $worklocality = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'locality', $worklocality );
 				}
 				break;
 			case "workregion":
-				if ( ( $workregion = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $workregion = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'region', $workregion );
 				}
 				break;
 			case "workpostalcode":
-				if ( ( $workpostalcode = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $workpostalcode = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'code', $workpostalcode );
 				}
 				break;
 			case "workcountry":
-				if ( ( $workcountry = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $workcountry = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['work']->set( 'country', $workcountry );
 				}
 				break;
 			case "homepostofficebox":
-				if ( ( $homepostofficebox = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homepostofficebox = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'pobox', $homepostofficebox );
 				}
 				break;
 			case "homeextendedaddress":
-				if ( ( $homeextendedaddress = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homeextendedaddress = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'ext', $homeextendedaddress );
 				}
 				break;
 			case "homestreet":
-				if ( ( $homestreet = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homestreet = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'street', $homestreet );
 				}
 				break;
 			case "homelocality":
-				if ( ( $homelocality = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homelocality = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'locality', $homelocality );
 				}
 				break;
 			case "homeregion":
-				if ( ( $homeregion = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homeregion = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'region', $homeregion );
 				}
 				break;
 			case "homepostalcode":
-				if ( ( $homepostalcode = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homepostalcode = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'code', $homepostalcode );
 				}
 				break;
 			case "homecountry":
-				if ( ( $homecountry = $this->getFieldValue( $field ) ) !== '' ) {
+				if ( ( $homecountry = $this->getFieldValue( $field ) ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 					$addresses['home']->set( 'country', $homecountry );
 				}
 				break;
@@ -408,7 +408,7 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	private function getFieldCommaList( $field ) {
 		$list = '';
 
-		while ( $value = $field->getNextDataValue() ) {
+		while ( $value = $field->getNextDataValue() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$list .= ( $list ? ',' : '' ) . $value->getShortWikiText();
 		}
 
@@ -418,7 +418,7 @@ class vCardFileExportPrinter extends FileExportPrinter {
 	private function getFieldValue( $field ) {
 		$v = '';
 
-		if ( ( $value = $field->getNextDataValue() ) !== false ) {
+		if ( ( $value = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 			$v = $value->getShortWikiText();
 		}
 

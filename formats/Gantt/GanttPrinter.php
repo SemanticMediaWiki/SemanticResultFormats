@@ -134,7 +134,7 @@ class GanttPrinter extends ResultPrinter {
 		SMWOutputs::requireResource( 'ext.srf.gantt' );
 
 		// Add Tasks & Sections
-		while ( $row = $queryResult->getNext() ) {
+		while ( $row = $queryResult->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 			$status = [];
 			$priority = [];
