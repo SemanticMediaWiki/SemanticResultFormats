@@ -262,7 +262,7 @@ class SRFjqPlotSeries extends ResultPrinter {
 	 * @since 1.8
 	 *
 	 *
-	 * @return string
+	 * @return void
 	 */
 	protected function addResources() {
 		// RL module

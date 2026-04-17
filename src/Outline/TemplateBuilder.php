@@ -73,8 +73,7 @@ class TemplateBuilder {
 			$this->template .= $this->close();
 			$this->template .= "<div class='" . $this->params['template'] . "-items'>";
 			$this->tree( $node, $level + 1 );
-			$this->template .= "</div>";
-			$this->template .= "</div>";
+			$this->template .= "</div></div>";
 		}
 	}
 

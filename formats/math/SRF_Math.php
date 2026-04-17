@@ -107,7 +107,7 @@ class MathFormats {
 		// get position
 		$Q1_position = ( ( count( $numbers ) - 1 ) * 0.25 );
 		// check if position is between two numbers
-		if ( is_float( $Q1_position ) == true ) {
+		if ( is_float( $Q1_position ) ) {
 			$Q1_position_y = floor( $Q1_position );
 			$Q1_position_x = ceil( $Q1_position );
 			// result
@@ -123,7 +123,7 @@ class MathFormats {
 		// get position
 		$Q3_position = ( ( count( $numbers ) - 1 ) * 0.75 );
 		// check if position is between two numbers
-		if ( is_float( $Q3_position ) == true ) {
+		if ( is_float( $Q3_position ) ) {
 			$Q3_position_y = floor( $Q3_position );
 			$Q3_position_x = ceil( $Q3_position );
 			// result
@@ -139,7 +139,7 @@ class MathFormats {
 		// get position
 		$Q1_position = ( ( count( $numbers ) + 1 ) * 0.25 );
 		// check if position is between two numbers
-		if ( is_float( $Q1_position ) == true ) {
+		if ( is_float( $Q1_position ) ) {
 			$Q1_position_y = floor( $Q1_position ) - 1;
 			$Q1_position_x = ceil( $Q1_position ) - 1;
 			// result
@@ -155,7 +155,7 @@ class MathFormats {
 		// get position
 		$Q3_position = ( ( count( $numbers ) + 1 ) * 0.75 );
 		// check if position is between two numbers
-		if ( is_float( $Q3_position ) == true ) {
+		if ( is_float( $Q3_position ) ) {
 			$Q3_position_y = floor( $Q3_position ) - 1;
 			$Q3_position_x = ceil( $Q3_position ) - 1;
 			// result

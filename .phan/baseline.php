@@ -36,7 +36,6 @@ return [
     // PhanUndeclaredFunction : 7 occurrences
     // PhanCompatibleUnionType : 6 occurrences
     // PhanPluginDuplicateConditionalTernaryDuplication : 5 occurrences
-    // PhanPluginSimplifyExpressionBool : 5 occurrences
     // PhanTypeMismatchArgumentInternal : 5 occurrences
     // PhanTypeMismatchReturnProbablyReal : 5 occurrences
     // PhanPluginDuplicateExpressionAssignmentOperation : 4 occurrences
@@ -53,19 +52,16 @@ return [
     // PhanTypeMismatchProperty : 2 occurrences
     // PhanUndeclaredClassStaticProperty : 2 occurrences
     // SecurityCheck-DoubleEscaped : 2 occurrences
-    // MediaWikiNoBaseException : 1 occurrence
     // PhanImpossibleTypeComparison : 1 occurrence
     // PhanParamSpecial1 : 1 occurrence
     // PhanParamTooMany : 1 occurrence
-    // PhanPluginDuplicateAdjacentStatement : 1 occurrence
-    // PhanPluginDuplicateExpressionAssignment : 1 occurrence
+    // PhanPluginSimplifyExpressionBool : 1 occurrence
     // PhanSuspiciousBinaryAddLists : 1 occurrence
     // PhanSuspiciousWeakTypeComparison : 1 occurrence
     // PhanTypeComparisonFromArray : 1 occurrence
     // PhanTypeInvalidLeftOperandOfAdd : 1 occurrence
     // PhanTypeMismatchDimAssignment : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
-    // PhanTypeMissingReturn : 1 occurrence
     // PhanUndeclaredClassCatch : 1 occurrence
     // PhanUndeclaredClassInCallable : 1 occurrence
     // PhanUndeclaredClassReference : 1 occurrence
@@ -112,8 +108,8 @@ return [
         'formats/incoming/SRF_Incoming.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'formats/jqplot/SRF_jqPlot.php' => ['PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredExtendedClass'],
         'formats/jqplot/SRF_jqPlotChart.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticMethod', 'PhanUndeclaredVariableDim'],
-        'formats/jqplot/SRF_jqPlotSeries.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMissingReturn', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariableDim'],
-        'formats/math/SRF_Math.php' => ['PhanPluginSimplifyExpressionBool', 'PhanRedundantCondition', 'PhanSuspiciousBinaryAddLists', 'PhanTypeMismatchDimFetch', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
+        'formats/jqplot/SRF_jqPlotSeries.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariableDim'],
+        'formats/math/SRF_Math.php' => ['PhanRedundantCondition', 'PhanSuspiciousBinaryAddLists', 'PhanTypeMismatchDimFetch', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'formats/media/MediaPlayer.php' => ['PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'formats/slideshow/SRF_SlideShow.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'formats/slideshow/SRF_SlideShowApi.php' => ['PhanTypeSuspiciousStringExpression', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant'],
@@ -125,7 +121,7 @@ return [
         'formats/timeseries/SRF_Timeseries.php' => ['PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariableDim'],
         'formats/tree/TreeNode.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeReturnType'],
         'formats/tree/TreeNodeVisitor.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredInterface', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeParameter'],
-        'formats/tree/TreeResultPrinter.php' => ['MediaWikiNoBaseException', 'MediaWikiNoEmptyIfDefined', 'PhanTypeMismatchArgument', 'PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty', 'PhanUndeclaredTypeReturnType'],
+        'formats/tree/TreeResultPrinter.php' => ['MediaWikiNoEmptyIfDefined', 'PhanTypeMismatchArgument', 'PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty', 'PhanUndeclaredTypeReturnType'],
         'formats/valuerank/SRF_ValueRank.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'formats/widget/SRF_ListWidget.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'formats/widget/SRF_PageWidget.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
@@ -136,10 +132,10 @@ return [
         'src/Graph/GraphPrinter.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeParameter'],
         'src/Outline/ListTreeBuilder.php' => ['PhanUndeclaredClassConstant', 'PhanUndeclaredConstant', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty'],
         'src/Outline/OutlineResultPrinter.php' => ['PhanUndeclaredClass', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
-        'src/Outline/TemplateBuilder.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanUndeclaredClassConstant', 'PhanUndeclaredConstant', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty'],
+        'src/Outline/TemplateBuilder.php' => ['PhanUndeclaredClassConstant', 'PhanUndeclaredConstant', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeProperty'],
         'src/ResourceFormatter.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredTypeParameter'],
         'src/iCalendar/DateParser.php' => ['PhanUndeclaredClassMethod', 'PhanUndeclaredTypeParameter'],
-        'src/iCalendar/IcalTimezoneFormatter.php' => ['PhanPluginDuplicateExpressionAssignment', 'PhanTypeComparisonFromArray'],
+        'src/iCalendar/IcalTimezoneFormatter.php' => ['PhanTypeComparisonFromArray'],
         'src/iCalendar/iCalendarFileExportPrinter.php' => ['PhanCompatibleUnionType', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
         'src/vCard/vCard.php' => ['PhanTypePossiblyInvalidDimOffset'],
         'src/vCard/vCardFileExportPrinter.php' => ['PhanCompatibleUnionType', 'PhanTypeMismatchArgument', 'PhanUndeclaredClass', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariableDim'],

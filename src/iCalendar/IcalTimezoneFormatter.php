@@ -46,7 +46,7 @@ class IcalTimezoneFormatter {
 	 */
 	public function setLocalTimezones( $localTimezones ) {
 		if ( is_array( $localTimezones ) ) {
-			$localTimezones = $localTimezones;
+			// already an array, nothing to do
 		} elseif ( strpos( $localTimezones, ',' ) !== false ) {
 			$localTimezones = explode( ',', $localTimezones );
 		} elseif ( $localTimezones !== '' ) {
@@ -123,7 +123,7 @@ class IcalTimezoneFormatter {
 	public function getTransitions() {
 		$result = '';
 
-		if ( $this->transitions === null || $this->transitions === [] ) {
+		if ( $this->transitions === [] ) {
 			return $result;
 		}
 
