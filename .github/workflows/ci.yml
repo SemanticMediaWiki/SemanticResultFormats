@@ -80,6 +80,10 @@ jobs:
         run: make ci-coverage
         if: matrix.coverage == true
 
+      - name: Run Phan static analysis
+        run: make install composer-phan
+        if: matrix.coverage == true
+
       - name: Upload code coverage
         uses: codecov/codecov-action@v4
         with:
