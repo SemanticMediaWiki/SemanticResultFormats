@@ -210,7 +210,8 @@ class SRFProcess extends ResultPrinter {
 			return '';
 		}
 
-		global $wgContLang; // content language object
+		// content language object
+		global $wgContLang;
 
 		//
 		//	GraphViz settings

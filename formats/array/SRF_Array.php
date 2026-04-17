@@ -300,7 +300,8 @@ class SRFArray extends ResultPrinter {
 				// cache can't be initialized, probably function-reference in user config
 				// but format is not used in inline context, use fallback in this case:
 				global $wgSrfgArraySepTextualFallbacks;
-				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey] ?? ''; // Default to empty string
+				// Default to empty string
+				$cache = $wgSrfgArraySepTextualFallbacks[$dfltCacheKey] ?? '';
 			}
 		}
 		return $cache;

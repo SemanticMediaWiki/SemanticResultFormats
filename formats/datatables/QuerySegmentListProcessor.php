@@ -117,7 +117,7 @@ class QuerySegmentListProcessor {
 
 	private function segment( QuerySegment &$query ) {
 		switch ( $query->type ) {
-			case QuerySegment::Q_TABLE: // .
+			case QuerySegment::Q_TABLE:
 				$this->table( $query );
 				break;
 			case QuerySegment::Q_CONJUNCTION:
@@ -127,11 +127,13 @@ class QuerySegmentListProcessor {
 				$this->disjunction( $query );
 				break;
 			case QuerySegment::Q_PROP_HIERARCHY:
-			case QuerySegment::Q_CLASS_HIERARCHY: // make a saturated hierarchy
+			case QuerySegment::Q_CLASS_HIERARCHY:
+				// make a saturated hierarchy
 				$this->hierarchy( $query );
 				break;
 			case QuerySegment::Q_VALUE:
-				break; // nothing to do
+				// nothing to do
+				break;
 		}
 	}
 
@@ -144,7 +146,8 @@ class QuerySegmentListProcessor {
 			$this->segment( $subQuery );
 			$alias = $subQuery->alias;
 
-			if ( $subQuery->joinTable !== '' ) { // Join with jointable.joinfield
+			// Join with jointable.joinfield
+			if ( $subQuery->joinTable !== '' ) {
 				$op = $subQuery->not ? '!' : '';
 
 				$joinType = $subQuery->joinType ? $subQuery->joinType : 'INNER';
@@ -177,7 +180,8 @@ class QuerySegmentListProcessor {
 					$query->where .= ( ( $query->where === '' ) ? '' : ' AND ' ) . '(' . $subQuery->joinfield . ' IS NULL)';
 				}
 
-			} elseif ( $subQuery->joinfield !== '' ) { // Require joinfield as "value" via WHERE.
+			// Require joinfield as "value" via WHERE.
+			} elseif ( $subQuery->joinfield !== '' ) {
 				$condition = '';
 
 				if ( $subQuery->null === true ) {
@@ -197,8 +201,10 @@ class QuerySegmentListProcessor {
 				$query->from .= $subQuery->from;
 				$query->fromTables = array_merge( (array)$query->fromTables, (array)$subQuery->fromTables );
 				$query->joinConditions = array_merge( (array)$query->joinConditions, (array)$subQuery->joinConditions );
-			} else { // interpret empty joinfields as impossible condition (empty result)
-				$query->joinfield = ''; // make whole query false
+			// interpret empty joinfields as impossible condition (empty result)
+			} else {
+				// make whole query false
+				$query->joinfield = '';
 				$query->joinTable = '';
 				$query->where = '';
 				$query->from = '';
@@ -282,7 +288,8 @@ class QuerySegmentListProcessor {
 				}
 
 				$sql = 'INSERT ' . 'IGNORE ' . 'INTO ' . $this->connection->tableName( $query->alias ) . " (id) VALUES $values";
-			} // else: // interpret empty joinfields as impossible condition (empty result), ignore
+			}
+			// else: interpret empty joinfields as impossible condition (empty result), ignore
 
 			if ( $sql ) {
 				$this->executedQueries[$query->alias][] = $sql;
@@ -303,7 +310,8 @@ class QuerySegmentListProcessor {
 
 		$query->joinTable = $query->alias;
 		$query->joinfield = "$query->alias.id";
-		$query->sortfields = []; // Make sure we got no sortfields.
+		// Make sure we got no sortfields.
+		$query->sortfields = [];
 
 		// TODO: currently this eliminates sortkeys, possibly keep them (needs
 		// different temp table format though, maybe not such a good thing to do)
@@ -334,7 +342,8 @@ class QuerySegmentListProcessor {
 			$depth = $query->depth;
 		}
 
-		if ( $depth <= 0 ) { // treat as value, no recursion
+		// treat as value, no recursion
+		if ( $depth <= 0 ) {
 			$query->type = QuerySegment::Q_VALUE;
 			return;
 		}
@@ -350,7 +359,8 @@ class QuerySegmentListProcessor {
 		// Try to save time (SELECT is cheaper than creating/dropping 3 temp tables):
 		$res = $this->connection->query( "SELECT s_id FROM $smwtable WHERE $valuecond LIMIT 1" );
 
-		if ( !$res->fetchObject() ) { // no subobjects, we are done!
+		// no subobjects, we are done!
+		if ( !$res->fetchObject() ) {
 			$res->free();
 			$query->type = QuerySegment::Q_VALUE;
 			return;
