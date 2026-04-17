@@ -34,6 +34,11 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$this->queryResult->method( 'getPrintRequests' )->willReturn( [] );
+		$this->queryResult->method( 'getNext' )->willReturn( false );
+		$this->queryResult->method( 'hasFurtherResults' )->willReturn( false );
+		$this->queryResult->method( 'getErrors' )->willReturn( [] );
+
 		$this->title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -41,6 +46,56 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		$this->title->expects( $this->any() )
 			->method( 'getNamespace' )
 			->willReturn( NS_MAIN );
+	}
+
+	/**
+	 * Creates a minimal param mock returning the given name and value.
+	 */
+	private function createParamMock( string $name, $value ): object {
+		$param = $this->getMockBuilder( \stdClass::class )
+			->disableOriginalConstructor()
+			->addMethods( [ 'getName', 'getValue' ] )
+			->getMock();
+		$param->method( 'getName' )->willReturn( $name );
+		$param->method( 'getValue' )->willReturn( $value );
+		return $param;
+	}
+
+	/**
+	 * Builds a complete set of Gallery param mocks with their defaults,
+	 * allowing individual values to be overridden via $overrides.
+	 *
+	 * @param array<string,mixed> $overrides
+	 * @return list<object>
+	 */
+	private function createDefaultParamMocks( array $overrides = [] ): array {
+		$defaults = [
+			// ResultPrinter base params
+			'intro'           => '',
+			'outro'           => '',
+			'default'         => '',
+			// Gallery-specific params
+			'class'           => '',
+			'widget'          => '',
+			'navigation'      => 'nav',
+			'overlay'         => false,
+			'perrow'          => '',
+			'widths'          => '',
+			'heights'         => '',
+			'autocaptions'    => true,
+			'fileextensions'  => false,
+			'captionproperty' => '',
+			'redirects'       => '',
+			'captiontemplate' => '',
+			'imageproperty'   => '',
+		];
+
+		$merged = array_merge( $defaults, $overrides );
+		$mocks  = [];
+		foreach ( $merged as $name => $value ) {
+			$mocks[] = $this->createParamMock( $name, $value );
+		}
+		return $mocks;
 	}
 
 	/**
@@ -133,6 +188,67 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 			'',
 			$instance->getResult( $this->queryResult, $parameters, SMW_OUTPUT_HTML )
 		);
+	}
+
+	/**
+	 * Covers the widget parameter code paths (carousel / slideshow / empty).
+	 * With no result rows the gallery is empty and the output HTML is ''.
+	 * Primary purpose: ensure the widget-selection branches execute without
+	 * error after == → === refactoring.
+	 *
+	 * @dataProvider provideWidgetValues
+	 * @covers \SRF\Gallery::getResultText
+	 */
+	public function testGetResultTextWithWidgetParamReturnsExpectedStructure( string $widgetValue ): void {
+		$instance = new Gallery( 'gallery' );
+		$result = $instance->getResult(
+			$this->queryResult,
+			$this->createDefaultParamMocks( [ 'widget' => $widgetValue ] ),
+			SMW_OUTPUT_HTML
+		);
+		// getResultText() returns ['html', 'nowiki' => true, 'isHTML' => true]
+		$this->assertIsArray( $result );
+		$this->assertArrayHasKey( 'isHTML', $result );
+	}
+
+	public static function provideWidgetValues(): array {
+		return [
+			'no widget'        => [ '' ],
+			'carousel widget'  => [ 'carousel' ],
+			'slideshow widget' => [ 'slideshow' ],
+		];
+	}
+
+	/**
+	 * Covers the overlay=true code path in getImageOverlay() / getStandardWidget().
+	 *
+	 * @covers \SRF\Gallery::getResultText
+	 */
+	public function testGetResultTextWithOverlayEnabledReturnsExpectedStructure(): void {
+		$instance = new Gallery( 'gallery' );
+		$result = $instance->getResult(
+			$this->queryResult,
+			$this->createDefaultParamMocks( [ 'overlay' => true ] ),
+			SMW_OUTPUT_HTML
+		);
+		$this->assertIsArray( $result );
+		$this->assertArrayHasKey( 'isHTML', $result );
+	}
+
+	/**
+	 * Covers the class parameter code path.
+	 *
+	 * @covers \SRF\Gallery::getResultText
+	 */
+	public function testGetResultTextWithCustomClassReturnsExpectedStructure(): void {
+		$instance = new Gallery( 'gallery' );
+		$result = $instance->getResult(
+			$this->queryResult,
+			$this->createDefaultParamMocks( [ 'class' => 'my-custom-class' ] ),
+			SMW_OUTPUT_HTML
+		);
+		$this->assertIsArray( $result );
+		$this->assertArrayHasKey( 'isHTML', $result );
 	}
 
 }

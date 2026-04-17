@@ -84,10 +84,10 @@ class Gallery extends ResultPrinter {
 		$html = '';
 		$processing = '';
 
-		if ( $this->params['widget'] == 'carousel' ) {
+		if ( $this->params['widget'] === 'carousel' ) {
 			// Carousel widget
 			$ig->setAttributes( $this->getCarouselWidget() );
-		} elseif ( $this->params['widget'] == 'slideshow' ) {
+		} elseif ( $this->params['widget'] === 'slideshow' ) {
 			// Slideshow widget
 			$ig->setAttributes( $this->getSlideshowWidget() );
 		} else {
@@ -153,9 +153,9 @@ class Gallery extends ResultPrinter {
 		}
 
 		// Beautify the class selector
-		$class = $this->params['widget'] ? '-' . $this->params['widget'] . ' ' : '';
+		$class = $this->params['widget'] !== '' ? '-' . $this->params['widget'] . ' ' : '';
 		$class = $this->params['redirects'] !== '' && $this->params['overlay'] === false ? $class . ' srf-redirect' . ' ' : $class;
-		$class = $this->params['class'] ? $class . ' ' . $this->params['class'] : $class;
+		$class = $this->params['class'] !== '' ? $class . ' ' . $this->params['class'] : $class;
 
 		// Separate content from result output
 		if ( !$ig->isEmpty() ) {
@@ -310,23 +310,21 @@ class Gallery extends ResultPrinter {
 	 * @param string $imgRedirect
 	 */
 	protected function addImageToGallery( &$ig, Title $imgTitle, $imgCaption, $imgRedirect = '' ) {
-		if ( empty( $imgCaption ) ) {
+		if ( $imgCaption === '' ) {
 			if ( $this->params['autocaptions'] ) {
 				$imgCaption = $imgTitle->getBaseText();
 
 				if ( !$this->params['fileextensions'] ) {
 					$imgCaption = preg_replace( '#\.[^.]+$#', '', $imgCaption );
 				}
-			} else {
-				$imgCaption = '';
 			}
 		} else {
-			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() == NS_FILE && !$this->isSpecialPage() ) {
+			if ( $imgTitle instanceof Title && $imgTitle->getNamespace() === NS_FILE && !$this->isSpecialPage() ) {
 				$imgCaption = $ig->mParser->recursiveTagParse( $imgCaption );
 			}
 		}
 
-		if ( $this->params['captiontemplate'] !== '' && gettype( $ig->mParser ) == "object" ) {
+		if ( $this->params['captiontemplate'] !== '' && is_object( $ig->mParser ) ) {
 			$templateCode = "{{" . $this->params['captiontemplate'] .
 				"|imageraw=" . $imgTitle->getPrefixedText() . "|imagecaption=$imgCaption|imageredirect=$imgRedirect}}";
 
@@ -347,7 +345,7 @@ class Gallery extends ResultPrinter {
 	 * @return string
 	 */
 	private function getImageOverlay() {
-		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] == true ) {
+		if ( array_key_exists( 'overlay', $this->params ) && $this->params['overlay'] ) {
 			SMWOutputs::requireResource( 'ext.srf.gallery.overlay' );
 			return ' srf-overlay';
 		} else {
