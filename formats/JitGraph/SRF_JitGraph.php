@@ -162,6 +162,7 @@ class SRFJitGraph extends ResultPrinter {
 		$jsonLeafs = "";
 
 		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+			$firstcol = true;
 
 			foreach ( $row as $field ) {
 				while ( ( $object = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition

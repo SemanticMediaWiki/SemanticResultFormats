@@ -58,3 +58,26 @@ install-spreadsheet: .init
 composer-phan: .init
 	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phan $(COMPOSER_PARAMS)"
 
+# Extend ci-coverage to also run phan (aligned with PageForms dev-test gate)
+ci-coverage: composer-phan
+
+.PHONY: .git-safe-dir
+.git-safe-dir: .init
+	$(compose-exec-wiki) bash -c "git config --global --add safe.directory $(EXTENSION_FOLDER) 2>/dev/null || true"
+
+# Full development cycle without reinstalling: lint + phpcs + phan + phpunit
+# Equivalent to 'make ci' but skips 'make install'. Run before committing.
+.PHONY: dev-test
+dev-test: .git-safe-dir
+ifdef COMPOSER_EXT
+	$(show-current-target)
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer lint"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phpcs"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phan"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phpunit"
+endif
+ifdef NODE_JS
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npm run analyze"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npx qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'"
+endif
+

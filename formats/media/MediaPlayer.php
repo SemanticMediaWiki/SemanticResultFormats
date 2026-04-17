@@ -104,6 +104,7 @@ class MediaPlayer extends ResultPrinter {
 		while ( $rows = $result->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$mediaType = null;
 			$mimeType = null;
+			$rowData = [];
 
 			/**
 			 * @var ResultArray $field
