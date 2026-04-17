@@ -49,7 +49,7 @@ class ResultItem {
 	}
 
 	public function getData( $viewOrFilterId ) {
-		return $this->mItemData[$viewOrFilterId];
+		return $this->mItemData[$viewOrFilterId] ?? null;
 	}
 
 	/**

@@ -55,4 +55,28 @@ class ResultItemTest extends \PHPUnit\Framework\TestCase {
 		// assert
 		$this->assertNotFalse( json_encode( $representation ) );
 	}
+
+	public function testGetData_returnsNullForUnsetKey() {
+		$queryPrinter = new Filtered( null );
+		$instance = new ResultItem( [], $queryPrinter );
+
+		$this->assertNull( $instance->getData( 'nonexistent-id' ) );
+	}
+
+	public function testGetData_returnsSetValue() {
+		$queryPrinter = new Filtered( null );
+		$instance = new ResultItem( [], $queryPrinter );
+		$instance->setData( 'my-id', [ 'foo' => 'bar' ] );
+
+		$this->assertSame( [ 'foo' => 'bar' ], $instance->getData( 'my-id' ) );
+	}
+
+	public function testGetData_returnsNullAfterUnset() {
+		$queryPrinter = new Filtered( null );
+		$instance = new ResultItem( [], $queryPrinter );
+		$instance->setData( 'my-id', 'value' );
+		$instance->unsetData( 'my-id' );
+
+		$this->assertNull( $instance->getData( 'my-id' ) );
+	}
 }
