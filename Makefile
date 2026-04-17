@@ -41,9 +41,9 @@ PHP_EXTENSIONS?=zip gd
 # check for build dir and git submodule init if it does not exist
 include build/Makefile
 
-# Chain install-spreadsheet into make install so phpspreadsheet is always available
-# after a full install. The prerequisite order ensures it runs after .install completes.
-install: install-spreadsheet
+# Chain install-spreadsheet and install-html-validator into make install.
+# The prerequisite order ensures both run after .install completes.
+install: install-spreadsheet install-html-validator
 
 # Install phpoffice/phpspreadsheet for format=spreadsheet tests.
 # phpspreadsheet is listed as "suggest" in SRF's composer.json (not "require"), so it
@@ -53,6 +53,15 @@ install: install-spreadsheet
 .PHONY: install-spreadsheet
 install-spreadsheet: .init
 	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.22.0 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
+
+# Install symfony/css-selector to enable parser-html (CSS-selector based) JSONScript tests.
+# SMW declares this in its require-dev, but MediaWiki's merge-plugin runs with merge-dev: false,
+# so SMW's dev dependencies are never installed into the shared MW vendor.
+# Installing it explicitly via composer.local.json makes HtmlValidator::canUse() return true,
+# which activates all "type": "parser-html" test cases (e.g. filtered-01.json).
+.PHONY: install-html-validator
+install-html-validator: .init
+	$(compose-exec-wiki) bash -c "composer-require.sh symfony/css-selector '^5 || ^6 || ^7' && composer update symfony/css-selector --with-all-dependencies"
 
 .PHONY: composer-phan
 composer-phan: .init
