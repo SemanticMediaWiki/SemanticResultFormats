@@ -64,7 +64,8 @@ class SRFDygraphs extends ResultPrinter {
 	protected function getResultData( QueryResult $result, $outputMode ) {
 		$aggregatedValues = [];
 
-		while ( $rows = $result->getNext() ) {
+		$rows = $result->getNext();
+		while ( $rows !== false ) {
 			$annotation = [];
 			$dataSource = false;
 
@@ -93,7 +94,8 @@ class SRFDygraphs extends ResultPrinter {
 					continue;
 				}
 
-				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
+				$dataValue = $field->getNextDataValue();
+				while ( $dataValue !== false ) {
 
 					// Jump the column (indicated by continue) because we don't want the data source being part of the annotation array
 					$dataItem = $dataValue->getDataItem();
@@ -109,6 +111,7 @@ class SRFDygraphs extends ResultPrinter {
 						)->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
 						$aggregatedValues['url'] = $title->getLocalURL( 'action=raw' );
 						$dataSource = true;
+						$dataValue = $field->getNextDataValue();
 						continue;
 					} elseif ( $dataItem->getDIType() == SMWDataItem::TYPE_WIKIPAGE && $this->params['datasource'] === 'file' && $title->getNamespace() === NS_FILE && !$dataSource ) {
 						// Support data source = file which pulls the url from a uploaded file
@@ -117,12 +120,14 @@ class SRFDygraphs extends ResultPrinter {
 						)->getLongHTMLText( $this->getLinker( $field->getResultSubject() ) );
 						$aggregatedValues['url'] = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title )->getUrl();
 						$dataSource = true;
+						$dataValue = $field->getNextDataValue();
 						continue;
 					} elseif ( $dataItem->getDIType() == SMWDataItem::TYPE_URI && $this->params['datasource'] === 'url' && !$dataSource ) {
 						// Support data source = url, pointing to an url data source
 						$aggregatedValues['link'] = $dataValue->getShortHTMLText( $this->getLinker( false ) );
 						$aggregatedValues['url'] = $dataValue->getURL();
 						$dataSource = true;
+						$dataValue = $field->getNextDataValue();
 						continue;
 					}
 
@@ -143,12 +148,14 @@ class SRFDygraphs extends ResultPrinter {
 							$annotation[$propertyLabel] = $dataValue->getWikiValue();
 						}
 					}
+					$dataValue = $field->getNextDataValue();
 				}
 			}
 			// Sum-up collected row items in a single array
 			if ( $annotation !== [] ) {
 				$aggregatedValues['annotation'][] = $annotation;
 			}
+			$rows = $result->getNext();
 		}
 		return $aggregatedValues;
 	}
