@@ -17,8 +17,11 @@ jobs:
     strategy:
       matrix:
         include:
+          # SMW 6.0.1 has a bug where #ask returns empty results in the prepareContentForEdit
+          # context used by JSONScript parser-type tests. Upgraded to dev-master as workaround;
+          # pin to 7.x once released. See: https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1020
           - mediawiki_version: '1.43'
-            smw_version: 6.0.1
+            smw_version: dev-master
             php_version: 8.1
             mm_version: 6.0.1
             database_type: mysql
@@ -26,7 +29,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.43'
-            smw_version: 6.0.1
+            smw_version: dev-master
             pf_version: 5.9
             sfs_version: 4.0.0-beta
             php_version: 8.3
