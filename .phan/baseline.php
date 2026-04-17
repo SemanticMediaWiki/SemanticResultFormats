@@ -44,7 +44,6 @@ return [
     // PhanTypeSuspiciousStringExpression : 4 occurrences
     // PhanImpossibleConditionInLoop : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
-    // PhanParamSignatureMismatch : 2 occurrences
     // PhanPluginDuplicateConditionalNullCoalescing : 2 occurrences
     // PhanPluginUseReturnValueInternalKnown : 2 occurrences
     // PhanTypeInvalidUnaryOperandIncOrDec : 2 occurrences
@@ -53,6 +52,7 @@ return [
     // PhanUndeclaredClassStaticProperty : 2 occurrences
     // SecurityCheck-DoubleEscaped : 2 occurrences
     // PhanImpossibleTypeComparison : 1 occurrence
+    // PhanParamSignatureMismatch : 1 occurrence
     // PhanParamSpecial1 : 1 occurrence
     // PhanParamTooMany : 1 occurrence
     // PhanPluginSimplifyExpressionBool : 1 occurrence
@@ -97,7 +97,7 @@ return [
         'formats/filtered/src/Filters/Filter.php' => ['PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeReturnType'],
         'formats/filtered/src/Filters/NumberFilter.php' => ['PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod'],
         'formats/filtered/src/ResultItem.php' => ['PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredTypeReturnType'],
-        'formats/filtered/src/View/CalendarView.php' => ['PhanParamSignatureMismatch', 'PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant'],
+        'formats/filtered/src/View/CalendarView.php' => ['PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant'],
         'formats/filtered/src/View/ListView.php' => ['PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredTypeParameter'],
         'formats/filtered/src/View/MapView.php' => ['PhanParamSignatureMismatch', 'PhanPluginDuplicateConditionalNullCoalescing', 'PhanTypeMismatchForeach', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnProbablyReal', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredClassInstanceof', 'PhanUndeclaredClassMethod', 'PhanUndeclaredMethod'],
         'formats/filtered/src/View/TableView.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUndeclaredClassConstant', 'PhanUndeclaredClassMethod', 'PhanUndeclaredConstant', 'PhanUndeclaredTypeParameter'],

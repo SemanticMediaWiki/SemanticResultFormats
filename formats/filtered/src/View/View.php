@@ -94,7 +94,7 @@ abstract class View {
 	/**
 	 * @param ResultItem $row
 	 *
-	 * @return null
+	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
 		return null;
