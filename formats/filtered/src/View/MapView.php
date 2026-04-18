@@ -17,7 +17,7 @@ class MapView extends View {
 	private $mapProviderDark = null;
 
 	/**
-	 * @param null $mapProvider
+	 * @param string $mapProvider
 	 */
 	public function setMapProvider( $mapProvider ) {
 		$this->mapProvider = $mapProvider;
@@ -28,14 +28,14 @@ class MapView extends View {
 	 */
 	public function getMapProvider() {
 		if ( $this->mapProvider === null ) {
-			$this->setMapProvider( isset( $GLOBALS['srfgMapProvider'] ) ? $GLOBALS['srfgMapProvider'] : '' );
+			$this->setMapProvider( $GLOBALS['srfgMapProvider'] ?? '' );
 		}
 
 		return $this->mapProvider;
 	}
 
 	/**
-	 * @param null $mapProviderDark
+	 * @param string $mapProviderDark
 	 */
 	public function setMapProviderDark( $mapProviderDark ) {
 		$this->mapProviderDark = $mapProviderDark;
@@ -43,7 +43,7 @@ class MapView extends View {
 
 	public function getMapProviderDark() {
 		if ( $this->mapProviderDark === null ) {
-			$this->setMapProviderDark( isset( $GLOBALS['srfgMapProviderDark'] ) ? $GLOBALS['srfgMapProviderDark'] : '' );
+			$this->setMapProviderDark( $GLOBALS['srfgMapProviderDark'] ?? '' );
 		}
 
 		return $this->mapProviderDark;

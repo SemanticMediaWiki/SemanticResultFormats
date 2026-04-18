@@ -102,7 +102,6 @@ class CalendarView extends View {
 
 		// only add to title template if requested and if not hidden
 		if ( $this->titleTemplate !== null ) {
-// $wikitext .= "|#=$rownum";
 			$data['title'] = trim(
 				$this->getQueryPrinter()->getParser()->recursiveTagParse(
 					'{{' . $this->titleTemplate . $wikitext . '}}'
@@ -141,18 +140,6 @@ class CalendarView extends View {
 			$this->titleTemplate = trim( $parser->recursiveTagParse( $params['calendar view title template'] ) );
 		}
 
-// $this->mTemplate = $params['list view template'];
-//		$this->mIntroTemplate = $params['list view introtemplate'];
-//		$this->mOutroTemplate = $params['list view outrotemplate'];
-//		$this->mNamedArgs = $params['list view named args'];
-//
-//		if ( $params['headers'] == 'hide' ) {
-//			$this->mShowHeaders = SMW_HEADERS_HIDE;
-//		} elseif ( $params['headers'] == 'plain' ) {
-//			$this->mShowHeaders = SMW_HEADERS_PLAIN;
-//		} else {
-//			$this->mShowHeaders = SMW_HEADERS_SHOW;
-//		}
 	}
 
 	/**

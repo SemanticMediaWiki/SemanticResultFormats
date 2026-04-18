@@ -218,9 +218,6 @@ class Filtered extends ResultPrinter {
 		$link->setCaption( Message::get( "srf-filtered-noscript-link-caption" ) );
 		$link->setParameter( 'table', 'format' );
 
-		SMWOutputs::requireResource( 'ext.srf.filtered' );
-		$this->registerResources( [], [ 'ext.srf.filtered' ] );
-
 		return $html;
 	}
 
@@ -301,7 +298,9 @@ class Filtered extends ResultPrinter {
 	 * @param string | string[] | null $resourceModules
 	 */
 	protected function registerResourceModules( $resourceModules ) {
-		array_map( 'SMWOutputs::requireResource', (array)$resourceModules );
+		foreach ( (array)$resourceModules as $module ) {
+			SMWOutputs::requireResource( $module );
+		}
 	}
 
 	/**

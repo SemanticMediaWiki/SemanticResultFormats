@@ -87,7 +87,7 @@ class TableView extends View {
 		$queryResults = $this->getQueryResults();
 		$queryResultValue = reset( $queryResults );
 
-		if ( !is_a( $queryResultValue, ResultItem::class ) ) {
+		if ( !( $queryResultValue instanceof ResultItem ) ) {
 			return '';
 		}
 
