@@ -139,7 +139,6 @@ class CalendarView extends View {
 		if ( $params['calendar view title template'] !== '' ) {
 			$this->titleTemplate = trim( $parser->recursiveTagParse( $params['calendar view title template'] ) );
 		}
-
 	}
 
 	/**
