@@ -1,0 +1,50 @@
+{
+	"description": "Listwidget format: template parameter passes result subject as positional argument",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has SRFListwidget02 prop",
+			"contents": "[[Has type::Page]]"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "SRFListwidget02",
+			"contents": "<includeonly>{{{1|}}}</includeonly>"
+		},
+		{
+			"page": "Example/Listwidget02/1",
+			"contents": "[[Has SRFListwidget02 prop::Example/Listwidget02/1]]"
+		},
+		{
+			"page": "Example/Listwidget02/2",
+			"contents": "[[Has SRFListwidget02 prop::Example/Listwidget02/2]]"
+		},
+		{
+			"page": "Test/Listwidget02/Q.1",
+			"contents": "{{#ask: [[Has SRFListwidget02 prop::+]] |format=listwidget |widget=alphabet |template=SRFListwidget02 }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 Listwidget - template receives subject title as positional argument",
+			"subject": "Test/Listwidget02/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"Example/Listwidget02/1"
+				]
+			}
+		}
+	],
+	"settings": {
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
