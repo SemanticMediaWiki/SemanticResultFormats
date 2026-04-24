@@ -177,8 +177,6 @@ class Filtered extends ResultPrinter {
 		$resultItems = [];
 		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$resultItems[$this->uniqid()] = new ResultItem( $row, $this );
-			// This is ugly, but for now th opnly way to get all resultItems. See #288.
-			usleep( 1 );
 		}
 
 		$config = [
@@ -309,7 +307,8 @@ class Filtered extends ResultPrinter {
 	 * @return string
 	 */
 	public function uniqid( $id = null ) {
-		$hashedId = ( $id === null ) ? uniqid() : md5( $id );
+		// random_bytes() produces cryptographically random hex, safe for base_convert() and unique without usleep().
+		$hashedId = ( $id === null ) ? bin2hex( random_bytes( 8 ) ) : md5( $id );
 		return base_convert( $hashedId, 16, 36 );
 	}
 
