@@ -10,6 +10,7 @@ namespace SRF\Filtered\View;
  * @ingroup SemanticResultFormats
  */
 
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use Message;
 use SRF\Filtered\ResultItem;
@@ -199,11 +200,11 @@ class CalendarView extends View {
 	 * @return string[]
 	 */
 	public function getJsConfig() {
-		global $wgAmericanDates;
+		$americanDates = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::AmericanDates );
 
 		return $this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
 			[
-				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey(
+				'firstDay' => ( $americanDates ? '0' : Message::newFromKey(
 					'srf-filtered-firstdayofweek'
 				)->inContentLanguage()->text() ),
 				'isRTL' => MediaWikiServices::getInstance()->getContentLanguage()->isRTL(),
