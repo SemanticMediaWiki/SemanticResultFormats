@@ -318,6 +318,12 @@ class Filtered extends ResultPrinter {
 		return $resultAsArray;
 	}
 
+	/**
+	 * Widen visibility from protected to public so that View subclasses can
+	 * call $this->getPrinter()->addError() directly.
+	 *
+	 * @inheritDoc
+	 */
 	public function addError( $errorMessage ): void {
 		parent::addError( $errorMessage );
 	}
