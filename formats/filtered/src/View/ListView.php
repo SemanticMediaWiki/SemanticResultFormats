@@ -34,13 +34,19 @@ class ListView extends View {
 	private $mShowHeaders;
 	private $mUserParam;
 
-	/** @var array */
+	/** @var array|null */
 	private $params;
 
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
+	 * Lazy initialisation: both getJsConfig() and getResultText() call this method;
+	 * the null-check on $this->params ensures parameters are read only once.
 	 */
 	protected function handleParameters(): void {
+		if ( $this->params !== null ) {
+			return;
+		}
+
 		$params = $this->getActualParameters();
 		$this->params = $params;
 
