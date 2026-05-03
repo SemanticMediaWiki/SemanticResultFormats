@@ -117,7 +117,7 @@ class SRFSlideShow extends ResultPrinter {
 	 *
 	 * @return bool
 	 */
-	protected function linkFurtherResults( QueryResult $results ) {
+	protected function linkFurtherResults( QueryResult $results ): bool {
 		return false;
 	}
 
