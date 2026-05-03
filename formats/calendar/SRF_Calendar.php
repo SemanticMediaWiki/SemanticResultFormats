@@ -24,6 +24,7 @@ class SRFCalendar extends ResultPrinter {
 	protected $mRealUserLang = null;
 	protected $mStartMonth;
 	protected $mStartYear;
+	protected $mColors;
 
 	protected function setColors( $colorsText ) {
 		$colors = [];
