@@ -10,7 +10,6 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-/* global wgMonthNames:true */
 ( function( $, mw, srf ) {
  'use strict';
 
@@ -25,13 +24,10 @@
 		pmDesignator: 'PM'
 	};
 
-	// Map wgMonthNames and create an indexed array
-	var monthNames = [];
-	$.map ( mw.config.get( 'wgMonthNames' ), function( value, key ) {
-		if( value !== '' ){
-			monthNames.push( value );
-		}
-	} );
+	// Zero-indexed array of localised month names in the user interface
+	// language, provided by the mediawiki.language.months module (declared
+	// as a dependency of the ext.srf.api module).
+	var monthNames = mw.language.months.names;
 
 	////////////////////////// PUBLIC METHODS /////////////////////////
 
