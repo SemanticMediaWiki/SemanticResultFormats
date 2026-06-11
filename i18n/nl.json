@@ -197,7 +197,7 @@
 	"srf-paramdesc-graphlegend": "Stelt in of een grafieklegenda moet worden weergegeven",
 	"srf-paramdesc-graphlabel": "Stelt de lettergrootte in pixels in",
 	"srf-paramdesc-rankdir": "Stelt de richting van de pijlen in",
-	"srf-paramdesc-graphlink": "Stelt in of knooppunten moeten linken naar hun wikipagina's",
+	"srf-paramdesc-graphlink": "Stelt in of knooppunten moeten verwijzen naar hun wikipagina's",
 	"srf-paramdesc-graphcolor": "Stelt de kleur van de grafiek in",
 	"srf-paramdesc-graph-wwl": "Stelt de woordomlooplimiet in (als aantal tekens)",
 	"srf-paramdesc-clustercolor": "Stelt de kleuren van de clustervakken in",
