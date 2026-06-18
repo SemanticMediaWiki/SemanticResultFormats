@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eirik",
-			"Gunnernett"
+			"Gunnernett",
+			"Ranveig"
 		]
 	},
 	"srf-desc": "Fleire format for Semantic MediaWiki «inline»-spørjingar",
@@ -20,5 +21,6 @@
 	"srf_printername_max": "Største tal",
 	"srf_printername_min": "Minste tal",
 	"srf_printername_timeline": "Tidsline",
-	"srf_printername_eventline": "Tidsline for hendingar"
+	"srf_printername_eventline": "Tidsline for hendingar",
+	"srf-paramdesc-mediainspector": "Viser detaljert informasjon om eit valt medieelement"
 }
