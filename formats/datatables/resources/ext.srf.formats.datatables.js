@@ -411,7 +411,7 @@
 					// we retrieve more than "length"
 					// expected by datatables, so return the
 					// sliced result
-					json.data = json.data.slice(0, data.datalength);
+					json.data = json.data.slice(0, json.datalength);
 					json.searchPanes = {
 						options: searchPanesOptions,
 					};
