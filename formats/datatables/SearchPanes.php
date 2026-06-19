@@ -113,7 +113,24 @@ class SearchPanes {
 			$canonicalLabel = ( $printRequest->getMode() !== PrintRequest::PRINT_THIS ?
 				$printRequest->getCanonicalLabel() : '' );
 
-			$ret[$i] = $this->getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions );
+			// @credits simontaurus
+			// getPanesOptions generates SQL for the facet pre-compute. For some query shapes
+			// (multi-valued properties, language modifiers, large result sets) the generator
+			// emits SQL that references undeclared aliases (e.g. "ON t11.s_id=..." with no t11
+			// declared in FROM/JOIN), throwing a DBQueryError that aborts the entire page render.
+			// Wrap per-column so one broken pane does NOT take down the table; the column
+			// renders without its search pane and the error is recorded in the searchPanes log.
+			// See https://github.com/OpenSemanticLab/docker-compose-osl-wiki/issues/64
+			// and upstream https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1040
+			try {
+				$ret[$i] = $this->getPanesOptions( $printRequest, $canonicalLabel, $searchPanesOptions, $searchPanesParameterOptions );
+			} catch ( \Throwable $e ) {
+				$this->searchPanesLog[] = [
+					'canonicalLabel' => $printRequest->getCanonicalLabel(),
+					'error' => $e->getMessage(),
+				];
+				$ret[$i] = [];
+			}
 		}
 
 		return $ret;
