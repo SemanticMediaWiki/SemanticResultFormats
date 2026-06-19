@@ -148,8 +148,9 @@ class Api extends ApiBase {
 		};
 
 		// filter the query
+		$allowedTypes = [ '_wpg', '_txt', '_cod', '_uri', '_keyw' ];
+
 		$queryDisjunction = [];
-		$allowedTypes = [ '_wpg', '_txt', '_cod', '_uri' ];
 		if ( !empty( $datatableData['search']['value'] ) ) {
 			foreach ( $printoutsRaw as $key => $value ) {
 				$printrequest = $printrequests[$key];
@@ -253,7 +254,7 @@ class Api extends ApiBase {
 		}, $queryDisjunction );
 
 		// @TODO get query size as in class Conjunction
-		$smwgQMaxSize = 32;
+		$smwgQMaxSize = 128;
 
 		$queryStr =	implode( 'OR', $conditions );
 
