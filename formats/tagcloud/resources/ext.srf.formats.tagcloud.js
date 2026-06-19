@@ -97,6 +97,16 @@
 				height: data.height
 			} );
 
+			// wrap text items with a fake link to ensure
+			// JQuey's TagCloud list them
+			var tagsElement = container.find( '#' + tagsID );
+			tagsElement.find( 'li' ).each( function() {
+				var $li = $( this );
+				if ( $li.find( 'a' ).length === 0 ) {
+					var text = $li.text();
+					$li.wrapInner( '<a href="javascript:void(0)"></a>' );
+				}
+			});
 
 			// Initialize tagcanvas instance
 			// Somewhere around here QUnit dies (with a time out) which
