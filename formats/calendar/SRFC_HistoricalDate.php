@@ -42,7 +42,7 @@ class SRFCHistoricalDate {
 	}
 
 	protected static function leapJulian( $year ) {
-		return ( ( $year % 4 ) == ( ( $year > 0 ) ? 0 : 3 ) );
+		return ( abs( $year ) % 4 ) == 0;
 	}
 
 	protected static function leapJulGreg( $year ) {
