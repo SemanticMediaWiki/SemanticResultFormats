@@ -1,8 +1,10 @@
 <?php
 
+declare( strict_types=1 );
+
+namespace SRF\Calendar;
+
 /**
- * SRFC_HistoricalDate.php
- *
  * This code is lifted from Terry Hurlbut's 'SMW_DV_HxDate.php' class;
  * that code was itself adapted from the Fourmilab Calendar Converter
  * Javascripts by John Walker, who wrote them in 1999 and released them
@@ -20,7 +22,7 @@
  * @author Terry A. Hurlbut
  * @author Yaron Koren
  */
-class SRFCHistoricalDate {
+class HistoricalDate {
 
 	// equivalent to 1 AD
 	public const GREGORIAN_EPOCH = 1721425.5;

@@ -1,23 +1,27 @@
 <?php
 
-$wgAutoloadClasses['SRFCHistoricalDate'] = __DIR__
-	. '/SRFC_HistoricalDate.php';
+declare( strict_types=1 );
 
+namespace SRF;
+
+use Linker;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use RequestContext;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
+use SRF\Calendar\HistoricalDate;
 
 /**
  * Result printer that prints query results as a monthly calendar.
  *
- * @file SRF_Calendar.php
+ * @file Calendar.php
  * @ingroup SemanticResultFormats
  *
  * @author Yaron Koren
  */
-class SRFCalendar extends ResultPrinter {
+class Calendar extends ResultPrinter {
 
 	protected $mTemplate;
 	protected $mUserParam;
@@ -505,16 +509,16 @@ class SRFCalendar extends ResultPrinter {
 		$goToMonthText = wfMessage( 'srfc_gotomonth' )->text();
 
 		// Get day of the week that the first of this month falls on.
-		$firstDay = new SRFCHistoricalDate();
+		$firstDay = new HistoricalDate();
 		$firstDay->create( $curYear, $curMonthNum, 1 );
 		$startDay = $firstDayOfWeek - $firstDay->getDayOfWeek();
 		if ( $startDay > 0 ) {
 			$startDay -= 7;
 		}
 		$daysInPrevMonth =
-			SRFCHistoricalDate::daysInMonth( $prevYear, $prevMonthNum );
+			HistoricalDate::daysInMonth( $prevYear, $prevMonthNum );
 		$daysInCurMonth =
-			SRFCHistoricalDate::daysInMonth( $curYear, $curMonthNum );
+			HistoricalDate::daysInMonth( $curYear, $curMonthNum );
 		$todayString = date( 'Y n j', time() );
 		$pageName = $pageTitle->getPrefixedDbKey();
 

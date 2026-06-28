@@ -5,20 +5,20 @@ declare( strict_types=1 );
 namespace SRF\Tests\Unit\Formats;
 
 use MediaWikiUnitTestCase;
-use SRFCHistoricalDate;
+use SRF\Calendar\HistoricalDate;
 
 /**
- * @covers \SRFCHistoricalDate
+ * @covers \SRF\Calendar\HistoricalDate
  *
  * @group SRF
  */
-class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
+class HistoricalDateTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @dataProvider provideLeapGregorianData
 	 */
 	public function testLeapGregorianReturnsCorrectResult( int $year, bool $expected ): void {
-		$date = new class extends SRFCHistoricalDate {
+		$date = new class extends HistoricalDate {
 			public static function exposedLeapGregorian( int $year ): bool {
 				return self::leapGregorian( $year );
 			}
@@ -45,7 +45,7 @@ class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideLeapJulianData
 	 */
 	public function testLeapJulianReturnsCorrectResult( int $year, bool $expected ): void {
-		$date = new class extends SRFCHistoricalDate {
+		$date = new class extends HistoricalDate {
 			public static function exposedLeapJulian( int $year ): bool {
 				return self::leapJulian( $year );
 			}
@@ -75,7 +75,7 @@ class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideLeapJulGregData
 	 */
 	public function testLeapJulGregDispatchesCorrectly( int $year, bool $expected ): void {
-		$date = new class extends SRFCHistoricalDate {
+		$date = new class extends HistoricalDate {
 			public static function exposedLeapJulGreg( int $year ): bool {
 				return self::leapJulGreg( $year );
 			}
@@ -101,7 +101,7 @@ class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideDaysInMonthData
 	 */
 	public function testDaysInMonthReturnsCorrectCount( int $year, int $month, int $expected ): void {
-		$this->assertSame( $expected, SRFCHistoricalDate::daysInMonth( $year, $month ) );
+		$this->assertSame( $expected, HistoricalDate::daysInMonth( $year, $month ) );
 	}
 
 	public static function provideDaysInMonthData(): array {
@@ -129,7 +129,7 @@ class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideDayOfWeekData
 	 */
 	public function testGetDayOfWeekReturnsCorrectWeekday( int $year, int $month, int $day, int $expected ): void {
-		$date = new SRFCHistoricalDate();
+		$date = new HistoricalDate();
 		$date->create( $year, $month, $day );
 		$this->assertSame( $expected, $date->getDayOfWeek() );
 	}
@@ -148,10 +148,10 @@ class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
 
 	public function testCreateUsesJulianBeforeGregorianAdoption(): void {
 		// Oct 4, 1582 was the last Julian day; Oct 15, 1582 was the first Gregorian day.
-		$julian = new SRFCHistoricalDate();
+		$julian = new HistoricalDate();
 		$julian->create( 1582, 10, 4 );
 
-		$gregorian = new SRFCHistoricalDate();
+		$gregorian = new HistoricalDate();
 		$gregorian->create( 1582, 10, 15 );
 
 		// Oct 15 Gregorian directly follows Oct 4 Julian — they are consecutive days
@@ -161,7 +161,7 @@ class SRFCHistoricalDateTest extends MediaWikiUnitTestCase {
 	public function testCreateGregorianKnownDate(): void {
 		// J2000.0 epoch: Jan 1, 2000 = JD 2451545.0 — well-known astronomical reference
 		// getDayOfWeek: floor(2451545.0 + 1.5) % 7 = 6 (Saturday)
-		$date = new SRFCHistoricalDate();
+		$date = new HistoricalDate();
 		$date->create( 2000, 1, 1 );
 		$this->assertSame( 6, $date->getDayOfWeek() );
 	}

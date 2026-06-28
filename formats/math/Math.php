@@ -1,8 +1,13 @@
 <?php
 
+declare( strict_types=1 );
+
+namespace SRF;
+
 use SMW\DataValueFactory;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
+use SMWDataItem;
 
 /**
  * Various mathematical functions - sum, product, average, min, max, median, variance, samplevariance, samplestandarddeviation, standarddeviation, range, quartillower, quartilupper, quartillower.exc, quartilupper.exc, interquartilerange, interquartilerange.exc, mode and interquartilemean
@@ -240,7 +245,7 @@ class MathFormats {
 	}
 }
 
-class SRFMath extends ResultPrinter {
+class Math extends ResultPrinter {
 
 	/**
 	 * (non-PHPdoc)
