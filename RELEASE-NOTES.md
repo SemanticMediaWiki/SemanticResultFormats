@@ -17,6 +17,7 @@ Released on TBD.
 ### Bug Fixes
 
 * Fixed `array`/`hash` formats: `continue 2` skipping entire row when page titles are hidden, no-op `unset` in `SRFHash::getParamDefinitions`, uninitialized gap/title properties, loose equality comparisons for `SMW_HEADERS_*`, and missing `return true` in `SRFHash::createArray` ([1055](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1055)) (by [gesinn.it](https://gesinn.it))
+* Fixed `calendar` format: `leapJulian()` incorrectly returned false for astronomical year 0 (1 BC) and year −4 (5 BC) due to PHP's negative modulo semantics ([1056](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1056)) (by [gesinn.it](https://gesinn.it))
 * Fixed invalid SQL JOIN order in `datatables` SearchPanes when using `ksort()` with 5+ OR values ([996](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/996)) (by @YvarRavy)
 * Fixed `tableName()` usage in `datatables` SearchPanes ([975](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/975)) (by @huaj1ng)
 * Fixed `gallery` format overlay and redirect ([977](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/977)) (by @freephile)
