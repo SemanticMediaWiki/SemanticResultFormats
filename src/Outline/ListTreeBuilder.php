@@ -2,6 +2,7 @@
 
 namespace SRF\Outline;
 
+use Html;
 use SMW\Query\PrintRequest;
 use SMWDataItem as DataItem;
 
@@ -63,31 +64,16 @@ class ListTreeBuilder {
 		}
 
 		$num_levels = count( $this->params['outlineproperties'] );
-		// set font size and weight depending on level we're at
 		$font_level = $level;
 
 		if ( $num_levels < 4 ) {
 			$font_level += ( 4 - $num_levels );
 		}
 
-		if ( $font_level == 0 ) {
-			$font_size = 'x-large';
-		} elseif ( $font_level == 1 ) {
-			$font_size = 'large';
-		} elseif ( $font_level == 2 ) {
-			$font_size = 'medium';
-		} else {
-			$font_size = 'small';
-		}
-
-		if ( $font_level == 3 ) {
-			$font_weight = 'bold';
-		} else {
-			$font_weight = 'regular';
-		}
+		$font_level = min( $font_level, 3 );
 
 		foreach ( $outline_tree->tree as $key => $node ) {
-			$text .= "<p style=\"font-size: $font_size; font-weight: $font_weight;\">$key</p>\n";
+			$text .= Html::element( 'div', [ 'class' => "srf-outline-heading srf-outline-level-$font_level" ], $key ) . "\n";
 			$text .= $this->tree( $node, $level + 1 );
 		}
 

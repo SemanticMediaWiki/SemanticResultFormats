@@ -90,6 +90,30 @@ fieldset#mw-prefsection-smw-srf-eventcalendar-options {
 }
 
 /**
+ * Outline format headings
+ */
+.srf-outline-heading {
+	margin: 0.25em 0;
+}
+
+.srf-outline-level-0 {
+	font-size: x-large;
+}
+
+.srf-outline-level-1 {
+	font-size: large;
+}
+
+.srf-outline-level-2 {
+	font-size: medium;
+}
+
+.srf-outline-level-3 {
+	font-size: small;
+	font-weight: bold;
+}
+
+/**
  * Responsive settings
  */
 @media screen and (max-width: 800px) {
