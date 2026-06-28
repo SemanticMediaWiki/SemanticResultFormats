@@ -209,7 +209,7 @@ class ArrayFormat extends ResultPrinter {
 
 		$arrayId = $this->mArrayName;
 
-		if ( defined( 'ExtArrays::VERSION' ) ) {
+		if ( defined( 'ExtArrays::VERSION' ) || class_exists( 'ExtArrays' ) ) {
 			$parser = MediaWikiServices::getInstance()->getParser();
 			ExtArrays::get( $parser )->createArray( $arrayId, $array );
 			return true;
