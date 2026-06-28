@@ -1,5 +1,30 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 6.0.0
+
+Released on TBD.
+
+### Compatibility Changes
+
+* Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
+
+### New Features and Enhancements
+
+* Improved the `filtered` format with deferred loading ([982](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/982)) (by @thomas-topway-it)
+* Improved the `filtered` format with select2 strip HTML support ([1000](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1000)) (by @thomas-topway-it)
+* Improved the `datatables` format with i18n plugins ([999](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/999)) (by @thomas-topway-it)
+
+### Bug Fixes
+
+* Fixed invalid SQL JOIN order in `datatables` SearchPanes when using `ksort()` with 5+ OR values ([996](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/996)) (by @YvarRavy)
+* Fixed `tableName()` usage in `datatables` SearchPanes ([975](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/975)) (by @huaj1ng)
+* Fixed `gallery` format overlay and redirect ([977](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/977)) (by @freephile)
+* Fixed `filtered` format parser-HTML test failures and related bug fixes ([1023](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1023)) (by [gesinn.it](https://gesinn.it))
+* Fixed `filtered` format unique ID generation by replacing `usleep()` with `random_bytes()` ([1029](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1029)) (by [gesinn.it](https://gesinn.it))
+* Fixed `filtered` format RequestContext fallback and missing JS config variable (by [gesinn.it](https://gesinn.it))
+* Fixed `filtered` format by replacing deprecated `$wgAmericanDates` with `MainConfigNames` ([1030](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1030)) (by [gesinn.it](https://gesinn.it))
+* Updated translations (by translatewiki.net community)
+
 ## SRF 5.2.0
 
 Released on February 16, 2026.
