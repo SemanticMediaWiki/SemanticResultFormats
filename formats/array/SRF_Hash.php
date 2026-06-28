@@ -54,6 +54,7 @@ class SRFHash extends SRFArray {
 			/** ToDo: is there a way to get the actual parser which has started the query? */
 			$parser = MediaWikiServices::getInstance()->getParser();
 			ExtHashTables::get( $parser )->createHash( $hashId, $hash );
+			return true;
 		} elseif ( !isset( $wgHashTables ) ) {
 			// Hash extension is not installed in this wiki
 			return false;
@@ -67,8 +68,9 @@ class SRFHash extends SRFArray {
 		return true;
 	}
 
-	protected function handleParameters( array $params, $outputmode ): void {
-		parent::handleParameters( $params, $outputmode );
+	protected function applyArrayParameters( array $params ): void {
+		parent::applyArrayParameters( $params );
+		// Page title is always the hash key — ignore the 'titles' param.
 		$this->mShowPageTitles = true;
 	}
 
@@ -84,7 +86,7 @@ class SRFHash extends SRFArray {
 	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
 		// page title is Hash key, otherwise, just use Array format!
-		unset( $params['pagetitle'] );
+		unset( $params['titles'] );
 		$params['name']['message'] = 'srf_paramdesc_hashname';
 
 		return $params;

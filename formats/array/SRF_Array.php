@@ -30,10 +30,10 @@ class SRFArray extends ResultPrinter {
 	protected $mRecordSep;
 	protected $mHeaderSep;
 	protected $mArrayName = null;
-	protected $mShowPageTitles;
+	protected $mShowPageTitles = true;
 
-	protected $mHideRecordGaps;
-	protected $mHidePropertyGaps;
+	protected $mHideRecordGaps = false;
+	protected $mHidePropertyGaps = false;
 
 	/**
 	 * @var bool true if 'mainlabel' parameter is set to '-'
@@ -110,7 +110,7 @@ class SRFArray extends ResultPrinter {
 						if ( $isPageTitle ) {
 							if ( !$this->mShowPageTitles ) {
 								$isPageTitle = false;
-								continue 2;
+								continue;
 							}
 							$value_items = $this->fillDeliveryArray(
 								$value_items,
@@ -228,8 +228,8 @@ class SRFArray extends ResultPrinter {
 		$text = implode( $this->mManySep, $manyValue_items );
 
 		// if property names should be displayed and this is not the page titles value:
-		if ( $this->mShowHeaders != SMW_HEADERS_HIDE && !$isPageTitle ) {
-			$linker = $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->mLinker;
+		if ( $this->mShowHeaders !== SMW_HEADERS_HIDE && !$isPageTitle ) {
+			$linker = $this->mShowHeaders === SMW_HEADERS_PLAIN ? null : $this->mLinker;
 			$text = $data->getPrintRequest()->getText( SMW_OUTPUT_WIKI, $linker ) . $this->mHeaderSep . $text;
 		}
 		return $text;
@@ -360,9 +360,16 @@ class SRFArray extends ResultPrinter {
 	}
 
 	protected function handleParameters( array $params, $outputmode ): void {
-		// does the link parameter:
 		parent::handleParameters( $params, $outputmode );
+		$this->applyArrayParameters( $params );
+	}
 
+	/**
+	 * Applies SRFArray-specific parameters to instance state.
+	 * Extracted from handleParameters() so subclasses and tests can invoke
+	 * the array-specific logic independently of the parent MW bootstrap.
+	 */
+	protected function applyArrayParameters( array $params ): void {
 		// separators:
 		$this->mSep = $params['sep'];
 		$this->mPropSep = $params['propsep'];
@@ -374,9 +381,7 @@ class SRFArray extends ResultPrinter {
 		// we wouldn't check, we would always end up with an array instead of visible output
 		if ( $params['name'] !== false && ( $this->mInline || trim( $params['name'] ) !== '' ) ) {
 			$this->mArrayName = trim( $params['name'] );
-			$this->createArray(
-				[]
-			);
+			$this->createArray( [] );
 			// create empty array in case we get no result so we won't have an undefined array in the end.
 		}
 
@@ -384,7 +389,7 @@ class SRFArray extends ResultPrinter {
 		$this->mMainLabelHack = trim( $params['mainlabel'] ) === '-';
 
 		// whether or not to display the page title:
-		$this->mShowPageTitles = strtolower( $params['titles'] ) != 'hide';
+		$this->mShowPageTitles = strtolower( $params['titles'] ) !== 'hide';
 
 		switch ( strtolower( $params['hidegaps'] ) ) {
 			case 'none':
