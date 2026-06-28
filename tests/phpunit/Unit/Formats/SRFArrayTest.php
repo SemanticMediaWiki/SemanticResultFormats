@@ -5,17 +5,17 @@ namespace SRF\Tests\Unit\Formats;
 use PHPUnit\Framework\TestCase;
 use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
-use SRFArray;
+use SRF\ArrayFormat\ArrayFormat;
 
 /**
- * Unit tests for SRFArray domain logic (separator composition, gap-hiding,
+ * Unit tests for ArrayFormat domain logic (separator composition, gap-hiding,
  * header rendering, and initializeCfgValue fallback).
  *
  * Uses an anonymous subclass to:
  *  - widen all tested protected methods to public (PHP allows this)
  *  - stub infrastructure methods so no MediaWiki parser bootstrap is required
  *
- * @covers SRFArray
+ * @covers \SRF\ArrayFormat\ArrayFormat
  *
  * @group SRF
  * @group SMWExtension
@@ -26,15 +26,15 @@ use SRFArray;
 class SRFArrayTest extends TestCase {
 
 	/**
-	 * Returns an anonymous SRFArray subclass with:
+	 * Returns an anonymous ArrayFormat subclass with:
 	 *  - all tested protected methods widened to public
 	 *  - separator properties pre-set to known test values
 	 *  - infrastructure methods (getCfgSepText, createArray) stubbed
 	 *
 	 * @param array $overrides Optional property overrides, e.g. ['mHideRecordGaps' => true]
 	 */
-	private function newInstance( array $overrides = [] ): SRFArray {
-		$instance = new class( 'array' ) extends SRFArray {
+	private function newInstance( array $overrides = [] ): ArrayFormat {
+		$instance = new class( 'array' ) extends ArrayFormat {
 
 			/** Stub: return scalar values directly; null for anything else. */
 			protected function getCfgSepText( $obj ) {
@@ -139,7 +139,7 @@ class SRFArrayTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		// Reset the static separator cache so tests are independent of execution order.
-		$ref = new \ReflectionProperty( SRFArray::class, 'mDefaultSeps' );
+		$ref = new \ReflectionProperty( ArrayFormat::class, 'mDefaultSeps' );
 		$ref->setAccessible( true );
 		$ref->setValue( null, [] );
 	}

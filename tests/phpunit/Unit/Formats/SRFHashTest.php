@@ -3,17 +3,17 @@
 namespace SRF\Tests\Unit\Formats;
 
 use PHPUnit\Framework\TestCase;
-use SRFArray;
-use SRFHash;
+use SRF\ArrayFormat\ArrayFormat;
+use SRF\ArrayFormat\HashFormat;
 
 /**
- * Unit tests for SRFHash domain logic.
+ * Unit tests for HashFormat domain logic.
  *
  * Uses an anonymous subclass to:
  *  - widen all tested protected methods to public
  *  - stub infrastructure methods so no MediaWiki parser or extension bootstrap is required
  *
- * @covers SRFHash
+ * @covers \SRF\ArrayFormat\HashFormat
  *
  * @group SRF
  * @group SMWExtension
@@ -24,12 +24,12 @@ use SRFHash;
 class SRFHashTest extends TestCase {
 
 	/**
-	 * Returns an anonymous SRFHash subclass with infrastructure stubbed out.
+	 * Returns an anonymous HashFormat subclass with infrastructure stubbed out.
 	 *
 	 * @param array $overrides Optional property overrides, e.g. ['mPropSep' => '|']
 	 */
-	private function newInstance( array $overrides = [] ): SRFHash {
-		$instance = new class( 'hash' ) extends SRFHash {
+	private function newInstance( array $overrides = [] ): HashFormat {
+		$instance = new class( 'hash' ) extends HashFormat {
 
 			/** Stub: return scalars directly; null for anything else. */
 			protected function getCfgSepText( $obj ) {
@@ -95,7 +95,7 @@ class SRFHashTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		// Reset the static separator cache so tests are independent of execution order.
-		$ref = new \ReflectionProperty( SRFArray::class, 'mDefaultSeps' );
+		$ref = new \ReflectionProperty( ArrayFormat::class, 'mDefaultSeps' );
 		$ref->setAccessible( true );
 		$ref->setValue( null, [] );
 	}
