@@ -37,16 +37,16 @@ class SRFCHistoricalDate {
 		}
 	}
 
-	protected static function leap_gregorian( $year ) {
+	protected static function leapGregorian( $year ) {
 		return ( ( $year % 4 ) == 0 ) && ( !( ( ( $year % 100 ) == 0 ) && ( ( $year % 400 ) != 0 ) ) );
 	}
 
-	protected static function leap_julian( $year ) {
+	protected static function leapJulian( $year ) {
 		return ( ( $year % 4 ) == ( ( $year > 0 ) ? 0 : 3 ) );
 	}
 
-	protected static function leap_jul_greg( $year ) {
-		return ( ( $year < 1582 ) ? self::leap_julian( $year ) : self::leap_gregorian(
+	protected static function leapJulGreg( $year ) {
+		return ( ( $year < 1582 ) ? self::leapJulian( $year ) : self::leapGregorian(
 			$year
 		) );
 	}
@@ -60,7 +60,7 @@ class SRFCHistoricalDate {
 			floor(
 				( ( ( 367 * $month ) - 362 ) / 12 ) +
 				( ( $month <= 2 ) ? 0 :
-					( self::leap_gregorian( $year ) ? -1 : -2 )
+					( self::leapGregorian( $year ) ? -1 : -2 )
 				) + $day
 			);
 	}
@@ -91,7 +91,7 @@ class SRFCHistoricalDate {
 			return 30;
 		}
 		if ( $month == 2 ) {
-			return ( self::leap_jul_greg( $year ) ) ? 29 : 28;
+			return ( self::leapJulGreg( $year ) ) ? 29 : 28;
 		}
 		return 31;
 	}
