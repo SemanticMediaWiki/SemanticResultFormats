@@ -250,8 +250,6 @@ class SRFArrayTest extends TestCase {
 		$this->assertSame( $first, $second );
 	}
 
-	// --- applyArrayParameters ---
-
 	public function testApplyArrayParametersSeparatorsAreAssigned(): void {
 		$instance = $this->newInstance();
 		$instance->applyArrayParameters( $this->defaultParams( [
@@ -333,8 +331,6 @@ class SRFArrayTest extends TestCase {
 		$this->assertFalse( $instance->get( 'mHidePropertyGaps' ) );
 	}
 
-	// --- deliverPropertiesManyValues ---
-
 	public function testDeliverPropertiesManyValuesReturnsNullForEmptyItems(): void {
 		$field = $this->createMock( ResultArray::class );
 		$this->assertNull( $this->newInstance()->deliverPropertiesManyValues( [], false, false, $field ) );
@@ -398,8 +394,6 @@ class SRFArrayTest extends TestCase {
 		$result = $instance->deliverPropertiesManyValues( [ 'PageTitle' ], false, true, $field );
 		$this->assertSame( 'PageTitle', $result );
 	}
-
-	// --- getResultText ---
 
 	public function testGetResultTextEmptyResultReturnsEmptyString(): void {
 		$res = $this->createMock( QueryResult::class );

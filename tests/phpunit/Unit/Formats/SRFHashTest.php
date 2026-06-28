@@ -117,8 +117,6 @@ class SRFHashTest extends TestCase {
 		], $overrides );
 	}
 
-	// --- deliverPageTitle ---
-
 	public function testDeliverPageTitleStoresLastPageTitleAndReturnsNull(): void {
 		$dataValue = $this->getMockBuilder( \SMWDataValue::class )
 			->disableOriginalConstructor()
@@ -131,8 +129,6 @@ class SRFHashTest extends TestCase {
 		$this->assertNull( $result );
 		$this->assertSame( 'My Page', $instance->get( 'mLastPageTitle' ) );
 	}
-
-	// --- deliverPageProperties ---
 
 	public function testDeliverPagePropertiesReturnsNullForEmptyItems(): void {
 		$this->assertNull( $this->newInstance()->deliverPageProperties( [] ) );
@@ -148,8 +144,6 @@ class SRFHashTest extends TestCase {
 		$this->assertSame( 'MyPage', $result[0] );
 		$this->assertSame( 'Prop1: val1<PROP>Prop2: val2', $result[1] );
 	}
-
-	// --- deliverQueryResultPages ---
 
 	public function testDeliverQueryResultPagesBuildHashAndJoinsValuesWithSep(): void {
 		$instance = $this->newInstance( [ 'mArrayName' => null, 'mSep' => '|' ] );
@@ -175,8 +169,6 @@ class SRFHashTest extends TestCase {
 		$this->assertSame( '', $result );
 	}
 
-	// --- applyArrayParameters (SRFHash override) ---
-
 	public function testApplyArrayParametersAlwaysSetsShowPageTitlesTrue(): void {
 		$instance = $this->newInstance();
 		// Even with titles=hide, SRFHash forces mShowPageTitles = true
@@ -184,8 +176,6 @@ class SRFHashTest extends TestCase {
 		$instance->applyArrayParameters( $this->defaultParams( [ 'titles' => 'hide' ] ) );
 		$this->assertTrue( $instance->get( 'mShowPageTitles' ) );
 	}
-
-	// --- createArray (SRFHash) ---
 
 	public function testCreateArrayReturnsFalseWhenNoExtensionInstalled(): void {
 		// ExtHashTables is not defined in the test environment, and $wgHashTables is unset.
