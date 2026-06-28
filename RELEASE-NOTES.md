@@ -10,6 +10,7 @@ Released on TBD.
 
 ### New Features and Enhancements
 
+* Improved `outline` format: replaced inline-style `<p>` headings with `<div class="srf-outline-heading srf-outline-level-N">` and corresponding CSS classes in `ext.srf.css`, enabling customisation via `MediaWiki:Common.css` ([915](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/915)) (by [gesinn.it](https://gesinn.it))
 * Improved the `filtered` format with deferred loading ([982](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/982)) (by @thomas-topway-it)
 * Improved the `filtered` format with select2 strip HTML support ([1000](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1000)) (by @thomas-topway-it)
 * Improved the `datatables` format with i18n plugins ([999](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/999)) (by @thomas-topway-it)
