@@ -15,6 +15,10 @@ Released on TBD.
 * Improved the `filtered` format with select2 strip HTML support ([1000](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1000)) (by @thomas-topway-it)
 * Improved the `datatables` format with i18n plugins ([999](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/999)) (by @thomas-topway-it)
 
+### Tests
+
+* Added `GraphPrinterTest` covering the fix for `graph` format crash on non-page-type data values (e.g. `Modification date`) — regression test for ([988](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/988)) (by [gesinn.it](https://gesinn.it))
+
 ### Bug Fixes
 
 * Fixed `graph` format crash when more than 14 distinct edge predicates are used — the color palette now cycles instead of throwing an undefined array key error (by [gesinn.it](https://gesinn.it))
