@@ -2,7 +2,7 @@
 
 namespace SRF\Outline;
 
-use Html;
+use MediaWiki\Html\Html;
 use SMW\Query\PrintRequest;
 use SMWDataItem as DataItem;
 
