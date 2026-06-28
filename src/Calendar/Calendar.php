@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace SRF;
+namespace SRF\Calendar;
 
 use Linker;
 use MediaWiki\MediaWikiServices;
@@ -11,7 +11,6 @@ use RequestContext;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
-use SRF\Calendar\HistoricalDate;
 
 /**
  * Result printer that prints query results as a monthly calendar.

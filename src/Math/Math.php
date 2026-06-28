@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace SRF;
+namespace SRF\Math;
 
 use SMW\DataValueFactory;
 use SMW\Query\QueryResult;

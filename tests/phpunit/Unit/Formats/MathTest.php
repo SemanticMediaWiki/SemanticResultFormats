@@ -41,7 +41,7 @@ class MathTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\Math';
+		return 'SRF\Math\Math';
 	}
 
 }

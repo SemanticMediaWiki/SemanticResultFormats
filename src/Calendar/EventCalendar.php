@@ -1,10 +1,11 @@
 <?php
 
-namespace SRF;
+namespace SRF\Calendar;
 
 use MediaWiki\Html\Html;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
+use SRF\ResourceFormatter;
 
 /**
  * An event calendar printer using the FullCalendar JavaScript library
