@@ -212,8 +212,9 @@ class GraphFormatter {
 							$this->legendItem[] = $parentNode['predicate'];
 						}
 
-						// assign color
-						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
+						// assign color, cycling through the palette when there are more predicates than colors
+						$colorIndex = array_search( $parentNode['predicate'], $this->legendItem, true ) % count( $this->graphColors );
+						$color = $this->graphColors[$colorIndex];
 
 						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
 						if ( $this->options->isGraphLabel() ) {
