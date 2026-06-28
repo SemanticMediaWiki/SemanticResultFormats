@@ -2221,7 +2221,7 @@ function sliceEvents(props, allDay) {
     return internalCommon.sliceEventStore(props.eventStore, props.eventUiBases, props.dateProfile.activeRange, allDay ? props.nextDayThreshold : null).fg;
 }
 
-const version = '6.1.20';
+const version = '6.1.21';
 
 exports.JsonRequestError = internalCommon.JsonRequestError;
 exports.Calendar = Calendar;
@@ -31006,24 +31006,32 @@ class View {
     showRows(rowIds) {
         if (this.visible && rowIds.length < 200) {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].slideDown(400);
+                if (this.rows[rowId]) {
+                    this.rows[rowId].slideDown(400);
+                }
             });
         }
         else {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].css('display', '');
+                if (this.rows[rowId]) {
+                    this.rows[rowId].css('display', '');
+                }
             });
         }
     }
     hideRows(rowIds) {
         if (this.visible && rowIds.length < 200) {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].slideUp(400);
+                if (this.rows[rowId]) {
+                    this.rows[rowId].slideUp(400);
+                }
             });
         }
         else {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].css('display', 'none');
+                if (this.rows[rowId]) {
+                    this.rows[rowId].css('display', 'none');
+                }
             });
         }
     }
