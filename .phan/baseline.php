@@ -45,7 +45,6 @@ return [
     // PhanImpossibleTypeComparison : 1 occurrence
     // PhanParamSignatureMismatch : 1 occurrence
     // PhanParamTooMany : 1 occurrence
-    // PhanSuspiciousWeakTypeComparison : 1 occurrence
     // PhanTypeComparisonFromArray : 1 occurrence
     // PhanTypeInvalidLeftOperandOfAdd : 1 occurrence
     // PhanTypeInvalidModuloOperand : 1 occurrence
@@ -265,7 +264,6 @@ return [
         ],
         'formats/gallery/Gallery.php' => [
             'PhanRedundantCondition' => ['\\SRF\\Gallery::addImageToGallery'],
-            'PhanSuspiciousWeakTypeComparison' => ['\\SRF\\Gallery::getResultText'],
             'PhanUndeclaredClass' => ['\\SRF\\Gallery::getParamDefinitions'],
             'PhanUndeclaredClassConstant' => ['\\SRF\\Gallery::addImageProperties'],
             'PhanUndeclaredClassMethod' => ['\\SRF\\Gallery::addImagePages', '\\SRF\\Gallery::addImageProperties', '\\SRF\\Gallery::buildResult', '\\SRF\\Gallery::getCarouselWidget', '\\SRF\\Gallery::getImageOverlay', '\\SRF\\Gallery::getResultText', '\\SRF\\Gallery::getSlideshowWidget'],

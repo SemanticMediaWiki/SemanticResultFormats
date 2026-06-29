@@ -8,6 +8,7 @@ Released on TBD.
 
 * Replaced unused catch variables with non-capturing catch syntax (PHP 8.0+) in `IcalTimezoneFormatter`, `DataTables`, `SearchPanes`, and `Filtered`, removing four `PhanUnusedVariableCaughtException` suppressions from the Phan baseline (by [gesinn.it](https://gesinn.it))
 * Fixed remaining low-risk Phan issues (Gruppe A): replaced `$x ? $x : $y` ternaries with Elvis operator `?:` in `D3Chart`, `QuerySegmentListProcessor`, `jqPlotChart`, `jqPlotSeries`, and `EventCalendar`; replaced `$x = $x . y` with `.=` in `DataTables` and `+` with `+=` in `jqPlotChart`; assigned discarded `substr()` return value in `JitGraph` — removing eight suppressions from the Phan baseline (by [gesinn.it](https://gesinn.it))
+* Replaced `intval($x) == $x` integer-string comparisons with `(string)(int)$x === $x` in `Calendar` (`PhanImpossibleTypeComparison`); replaced `$results == ''` object–string weak comparison with `$results->getCount() === 0` in `Gallery` (`PhanSuspiciousWeakTypeComparison`) — removing one Phan baseline suppression (by [gesinn.it](https://gesinn.it))
 * Renamed `ArrayFormat` → `ArrayPrinter` and `HashFormat` → `HashPrinter` in `src/ArrayFormat/` to align with the `GraphPrinter` naming convention (`Array` is a reserved PHP keyword) (by [gesinn.it](https://gesinn.it))
 
 ### Maintenance

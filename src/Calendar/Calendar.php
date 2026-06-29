@@ -430,7 +430,7 @@ class Calendar extends ResultPrinter {
 		// previous and next months, etc.
 
 		if ( is_numeric( $this->mStartMonth ) &&
-			( intval( $this->mStartMonth ) == $this->mStartMonth ) &&
+			( (string)(int)$this->mStartMonth === $this->mStartMonth ) &&
 			$this->mStartMonth >= 1 && $this->mStartMonth <= 12
 		) {
 			$curMonthNum = $this->mStartMonth;
@@ -440,7 +440,7 @@ class Calendar extends ResultPrinter {
 		if ( $request->getCheck( 'month' ) ) {
 			$queryMonth = $request->getVal( 'month' );
 			if ( is_numeric( $queryMonth ) &&
-				( intval( $queryMonth ) == $queryMonth ) &&
+				( (string)(int)$queryMonth === $queryMonth ) &&
 				$queryMonth >= 1 && $queryMonth <= 12
 			) {
 				$curMonthNum = $request->getVal( 'month' );
@@ -450,7 +450,7 @@ class Calendar extends ResultPrinter {
 		$curMonth = self::intToMonth( $curMonthNum );
 
 		if ( is_numeric( $this->mStartYear ) &&
-			( intval( $this->mStartYear ) == $this->mStartYear )
+			( (string)(int)$this->mStartYear === $this->mStartYear )
 		) {
 			$curYear = $this->mStartYear;
 		} else {
@@ -459,7 +459,7 @@ class Calendar extends ResultPrinter {
 		if ( $request->getCheck( 'year' ) ) {
 			$queryYear = $request->getVal( 'year' );
 			if ( is_numeric( $queryYear ) &&
-				intval( $queryYear ) == $queryYear
+				(string)(int)$queryYear === $queryYear
 			) {
 				$curYear = $request->getVal( 'year' );
 			}
