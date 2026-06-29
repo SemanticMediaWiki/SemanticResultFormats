@@ -216,7 +216,7 @@
 	"srf-ui-datatables-label-content-server": "내용은 서버로부터 가져왔습니다.",
 	"srf-ui-datatables-label-multiselect-column-header": "사용 가능한 열",
 	"srf-ui-datatables-label-multiselect-column-noneselectedtext": "필터 설정",
-	"srf-ui-datatables-label-multiselect-column-selectedtext": "컬럼을 볼 수 있습니다",
+	"srf-ui-datatables-label-multiselect-column-selectedtext": "열을 볼 수 있습니다",
 	"srf-ui-datatables-label-sEmptyTable": "테이블에 사용할 수 있는 데이터가 없습니다",
 	"srf-ui-datatables-label-sInfo": "_TOTAL_개의 항목 중 _START_부터 _END_까지 표시 중",
 	"srf-ui-datatables-label-sInfoEmpty": "0개의 항목 중 0부터 0까지 표시 중",
