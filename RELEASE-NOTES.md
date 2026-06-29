@@ -4,6 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on TBD.
 
+### Maintenance
+
+* Bumped dev dependencies: `mediawiki-codesniffer` 46→51, `mediawiki-phan-config` 0.14→0.20, `minus-x` 1.1.3→2.0.1; applied phpcbf auto-fixes, added PHPCS excludes for new sniff rules, and updated Phan baseline (by [gesinn.it](https://gesinn.it))
+
 ### Compatibility Changes
 
 * Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
