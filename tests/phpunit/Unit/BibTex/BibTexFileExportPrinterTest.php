@@ -3,7 +3,10 @@
 namespace SRF\Tests\BibTex;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
+use SMWDataValue;
 use SMWInfolink;
 use SRF\BibTex\BibTexFileExportPrinter;
 use SRF\Tests\ResultPrinterReflector;
@@ -138,6 +141,56 @@ class BibTexFileExportPrinterTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( 'foo_link' );
 
 		return $link;
+	}
+
+	public function testGetResultText_FileOutput_WithSimpleField() {
+		$dataValue = $this->createMock( SMWDataValue::class );
+		$dataValue->method( 'getShortWikiText' )->willReturn( 'Test Journal' );
+
+		$printRequest = $this->createMock( PrintRequest::class );
+		$printRequest->method( 'getLabel' )->willReturn( 'journal' );
+
+		$field = $this->createMock( ResultArray::class );
+		$field->method( 'getPrintRequest' )->willReturn( $printRequest );
+		$field->method( 'getNextDataValue' )->willReturnOnConsecutiveCalls( $dataValue, false );
+
+		$queryResult = $this->newQueryResultDummy();
+		$queryResult->method( 'getNext' )->willReturnOnConsecutiveCalls( [ $field ], false );
+
+		$reflector = new ResultPrinterReflector();
+		$printer = new BibTexFileExportPrinter( 'bibtex' );
+		$reflector->addParameters( $printer, [ 'filename' => 'test.bib' ] );
+
+		$output = $reflector->invoke( $printer, $queryResult, SMW_OUTPUT_FILE );
+
+		$this->assertStringContainsString( 'journal = "Test Journal"', $output );
+	}
+
+	public function testGetResultText_FileOutput_WithMultipleAuthors() {
+		$dataValue1 = $this->createMock( SMWDataValue::class );
+		$dataValue1->method( 'getShortWikiText' )->willReturn( 'Smith, John' );
+
+		$dataValue2 = $this->createMock( SMWDataValue::class );
+		$dataValue2->method( 'getShortWikiText' )->willReturn( 'Doe, Jane' );
+
+		$printRequest = $this->createMock( PrintRequest::class );
+		$printRequest->method( 'getLabel' )->willReturn( 'author' );
+
+		$field = $this->createMock( ResultArray::class );
+		$field->method( 'getPrintRequest' )->willReturn( $printRequest );
+		$field->method( 'getNextDataValue' )->willReturnOnConsecutiveCalls( $dataValue1, $dataValue2, false );
+
+		$queryResult = $this->newQueryResultDummy();
+		$queryResult->method( 'getNext' )->willReturnOnConsecutiveCalls( [ $field ], false );
+
+		$reflector = new ResultPrinterReflector();
+		$printer = new BibTexFileExportPrinter( 'bibtex' );
+		$reflector->addParameters( $printer, [ 'filename' => 'test.bib' ] );
+
+		$output = $reflector->invoke( $printer, $queryResult, SMW_OUTPUT_FILE );
+
+		$this->assertStringContainsString( 'Smith, John', $output );
+		$this->assertStringContainsString( 'Doe, Jane', $output );
 	}
 
 }
