@@ -665,7 +665,7 @@ class DataTables extends ResultPrinter {
 
 			try {
 				return json_decode( $json, true, 512, JSON_THROW_ON_ERROR );
-			} catch ( Throwable $e ) {
+			} catch ( Throwable ) {
 				return null;
 			}
 		};

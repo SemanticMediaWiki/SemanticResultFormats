@@ -38,7 +38,6 @@ return [
     // PhanTypeMismatchForeach : 4 occurrences
     // PhanTypeMismatchReturn : 4 occurrences
     // PhanTypeSuspiciousStringExpression : 4 occurrences
-    // PhanUnusedVariableCaughtException : 4 occurrences
     // PhanImpossibleConditionInLoop : 3 occurrences
     // PhanPluginDuplicateExpressionAssignmentOperation : 3 occurrences
     // PhanTypeInvalidLeftOperandOfNumericOp : 3 occurrences
@@ -174,8 +173,7 @@ return [
             'PhanUndeclaredTypeParameter' => ['\\SRF\\DataTables::buildResult', '\\SRF\\DataTables::expandTemplate', '\\SRF\\DataTables::getResultJson', '\\SRF\\DataTables::getResultText', '\\SRF\\DataTables::handleNonFileResult', '\\SRF\\DataTables::initializePrintoutParametersAndParser'],
             'PhanUndeclaredTypeProperty' => ['\\SRF\\DataTables'],
             'PhanUndeclaredVariableDim' => ['\\SRF\\DataTables::getPrintouts'],
-            'PhanUnusedPrivateMethodParameter' => ['\\SRF\\DataTables::getResultJson'],
-            'PhanUnusedVariableCaughtException' => ['\\closure']
+            'PhanUnusedPrivateMethodParameter' => ['\\SRF\\DataTables::getResultJson']
         ],
         'formats/datatables/Hooks.php' => [
             'PhanUndeclaredClassConstant' => ['\\SRF\\DataTables\\Hooks::getCount', '\\SRF\\DataTables\\Hooks::onSMWStoreBeforeQueryResultLookupComplete'],
@@ -200,8 +198,7 @@ return [
             'PhanUndeclaredClassStaticProperty' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions', '\\SRF\\DataTables\\SearchPanes::searchPanesMainlabel'],
             'PhanUndeclaredConstant' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions', '\\SRF\\DataTables\\SearchPanes::searchPanesMainlabel'],
             'PhanUndeclaredTypeParameter' => ['\\SRF\\DataTables\\SearchPanes::fetchValuesByGroup', '\\SRF\\DataTables\\SearchPanes::getPanesOptions', '\\SRF\\DataTables\\SearchPanes::searchPanesMainlabel'],
-            'PhanUndeclaredTypeProperty' => ['\\SRF\\DataTables\\SearchPanes'],
-            'PhanUnusedVariableCaughtException' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions']
+            'PhanUndeclaredTypeProperty' => ['\\SRF\\DataTables\\SearchPanes']
         ],
         'formats/dygraphs/SRF_Dygraphs.php' => [
             'PhanPossiblyUndeclaredVariable' => ['\\SRFDygraphs::getFormatOutput', '\\SRFDygraphs::getResultData'],
@@ -223,8 +220,7 @@ return [
             'PhanUndeclaredExtendedClass' => ['formats/filtered/src/Filtered.php'],
             'PhanUndeclaredMethod' => ['\\SRF\\Filtered\\Filtered::getViewHtml'],
             'PhanUndeclaredProperty' => ['\\SRF\\Filtered\\Filtered::getLinker', '\\SRF\\Filtered\\Filtered::getResultText', '\\SRF\\Filtered\\Filtered::handleParameters', '\\SRF\\Filtered\\Filtered::hasTemplates'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\Filtered\\Filtered::getFilterHtml', '\\SRF\\Filtered\\Filtered::getResultText', '\\SRF\\Filtered\\Filtered::getViewHtml'],
-            'PhanUnusedVariableCaughtException' => ['\\SRF\\Filtered\\Filtered::getResultText']
+            'PhanUndeclaredTypeParameter' => ['\\SRF\\Filtered\\Filtered::getFilterHtml', '\\SRF\\Filtered\\Filtered::getResultText', '\\SRF\\Filtered\\Filtered::getViewHtml']
         ],
         'formats/filtered/src/Filters/DistanceFilter.php' => [
             'PhanTypeSuspiciousStringExpression' => ['\\SRF\\Filtered\\Filter\\DistanceFilter::getJsDataForRow'],
@@ -616,8 +612,7 @@ return [
             'PhanUndeclaredTypeParameter' => ['\\SRF\\iCalendar\\DateParser::parseDate']
         ],
         'src/iCalendar/IcalTimezoneFormatter.php' => [
-            'PhanTypeComparisonFromArray' => ['\\SRF\\iCalendar\\IcalTimezoneFormatter::calcTransitions'],
-            'PhanUnusedVariableCaughtException' => ['\\SRF\\iCalendar\\IcalTimezoneFormatter::calcTransitions']
+            'PhanTypeComparisonFromArray' => ['\\SRF\\iCalendar\\IcalTimezoneFormatter::calcTransitions']
         ],
         'src/iCalendar/iCalendarFileExportPrinter.php' => [
             'PhanUndeclaredClass' => ['\\SRF\\iCalendar\\iCalendarFileExportPrinter::getParamDefinitions', '\\SRF\\iCalendar\\iCalendarFileExportPrinter::handleParameters'],

@@ -444,7 +444,7 @@ class SearchPanes {
 				// @see SMWExportController
 				try {
 					$redirectTarget = $deepRedirectTargetResolver->findRedirectTargetFor( $dataItem->getTitle() );
-				} catch ( \Exception $e ) {
+				} catch ( \Exception ) {
 				}
 				if ( $redirectTarget ) {
 					$dataItem = DIWikiPage::newFromTitle( $redirectTarget );
