@@ -15,6 +15,8 @@ use SMWRecordValue;
 /**
  * Query format for arrays with features for Extensions 'Arrays' and 'HashTables'
  *
+ * Named ArrayPrinter instead of Array because 'Array' is a reserved keyword in PHP.
+ *
  * @file
  * @ingroup SemanticResultFormats
  * @author Daniel Werner < danweetz@web.de >
@@ -24,7 +26,7 @@ use SMWRecordValue;
  *
  * Arrays 2.0+ and HashTables 1.0+ are recommended but not necessary.
  */
-class ArrayFormat extends ResultPrinter {
+class ArrayPrinter extends ResultPrinter {
 
 	protected static $mDefaultSeps = [];
 	protected $mSep;

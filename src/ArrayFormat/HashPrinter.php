@@ -9,6 +9,8 @@ use MediaWiki\MediaWikiServices;
 /**
  * Query format for hash tables with features for Extension 'HashTables'
  *
+ * Named HashPrinter for consistency with {@see ArrayPrinter}.
+ *
  * @file
  * @ingroup SemanticResultFormats
  * @author Daniel Werner < danweetz@web.de >
@@ -18,7 +20,7 @@ use MediaWiki\MediaWikiServices;
  *
  * HashTables 1.0+ is recommended but not necessary.
  */
-class HashFormat extends ArrayFormat {
+class HashPrinter extends ArrayPrinter {
 
 	protected $mLastPageTitle;
 

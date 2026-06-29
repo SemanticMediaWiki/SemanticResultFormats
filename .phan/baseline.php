@@ -494,24 +494,24 @@ return [
             'PhanUndeclaredProperty' => ['\\SRFPageWidget::getResultText'],
             'PhanUndeclaredTypeParameter' => ['\\SRFPageWidget::getResultText']
         ],
-        'src/ArrayFormat/ArrayFormat.php' => [
-            'MediaWikiNoEmptyIfDefined' => ['\\SRF\\ArrayFormat\\ArrayFormat::deliverPageProperties', '\\SRF\\ArrayFormat\\ArrayFormat::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayFormat::deliverSingleManyValuesData', '\\SRF\\ArrayFormat\\ArrayFormat::getResultText'],
-            'MediaWikiNoIssetIfDefined' => ['\\SRF\\ArrayFormat\\ArrayFormat::createArray', '\\SRF\\ArrayFormat\\ArrayFormat::initializeCfgValue'],
-            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\ArrayFormat\\ArrayFormat::getCfgSepText'],
-            'PhanUndeclaredClass' => ['\\SRF\\ArrayFormat\\ArrayFormat::__construct', '\\SRF\\ArrayFormat\\ArrayFormat::getParamDefinitions', '\\SRF\\ArrayFormat\\ArrayFormat::handleParameters'],
-            'PhanUndeclaredClassConstant' => ['\\SRF\\ArrayFormat\\ArrayFormat::createArray', '\\SRF\\ArrayFormat\\ArrayFormat::getCfgSepText', '\\SRF\\ArrayFormat\\ArrayFormat::getQueryMode'],
-            'PhanUndeclaredClassInstanceof' => ['\\SRF\\ArrayFormat\\ArrayFormat::getResultText'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\ArrayFormat\\ArrayFormat::createArray', '\\SRF\\ArrayFormat\\ArrayFormat::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayFormat::getResultText'],
-            'PhanUndeclaredConstant' => ['\\SRF\\ArrayFormat\\ArrayFormat::deliverPropertiesManyValues'],
-            'PhanUndeclaredExtendedClass' => ['src/ArrayFormat/ArrayFormat.php'],
-            'PhanUndeclaredMethod' => ['\\SRF\\ArrayFormat\\ArrayFormat::getCfgSepText'],
-            'PhanUndeclaredProperty' => ['\\SRF\\ArrayFormat\\ArrayFormat::__construct', '\\SRF\\ArrayFormat\\ArrayFormat::applyArrayParameters', '\\SRF\\ArrayFormat\\ArrayFormat::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayFormat::getName', '\\SRF\\ArrayFormat\\ArrayFormat::getResultText'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\ArrayFormat\\ArrayFormat::deliverMissingProperty', '\\SRF\\ArrayFormat\\ArrayFormat::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayFormat::getResultText']
+        'src/ArrayFormat/ArrayPrinter.php' => [
+            'MediaWikiNoEmptyIfDefined' => ['\\SRF\\ArrayFormat\\ArrayPrinter::deliverPageProperties', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverSingleManyValuesData', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
+            'MediaWikiNoIssetIfDefined' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::initializeCfgValue'],
+            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText'],
+            'PhanUndeclaredClass' => ['\\SRF\\ArrayFormat\\ArrayPrinter::__construct', '\\SRF\\ArrayFormat\\ArrayPrinter::getParamDefinitions', '\\SRF\\ArrayFormat\\ArrayPrinter::handleParameters'],
+            'PhanUndeclaredClassConstant' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText', '\\SRF\\ArrayFormat\\ArrayPrinter::getQueryMode'],
+            'PhanUndeclaredClassInstanceof' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
+            'PhanUndeclaredClassMethod' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
+            'PhanUndeclaredConstant' => ['\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues'],
+            'PhanUndeclaredExtendedClass' => ['src/ArrayFormat/ArrayPrinter.php'],
+            'PhanUndeclaredMethod' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText'],
+            'PhanUndeclaredProperty' => ['\\SRF\\ArrayFormat\\ArrayPrinter::__construct', '\\SRF\\ArrayFormat\\ArrayPrinter::applyArrayParameters', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::getName', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
+            'PhanUndeclaredTypeParameter' => ['\\SRF\\ArrayFormat\\ArrayPrinter::deliverMissingProperty', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText']
         ],
-        'src/ArrayFormat/HashFormat.php' => [
-            'MediaWikiNoIssetIfDefined' => ['\\SRF\\ArrayFormat\\HashFormat::createArray'],
-            'PhanUndeclaredClassConstant' => ['\\SRF\\ArrayFormat\\HashFormat::createArray'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\ArrayFormat\\HashFormat::createArray']
+        'src/ArrayFormat/HashPrinter.php' => [
+            'MediaWikiNoIssetIfDefined' => ['\\SRF\\ArrayFormat\\HashPrinter::createArray'],
+            'PhanUndeclaredClassConstant' => ['\\SRF\\ArrayFormat\\HashPrinter::createArray'],
+            'PhanUndeclaredClassMethod' => ['\\SRF\\ArrayFormat\\HashPrinter::createArray']
         ],
         'src/BibTex/BibTexFileExportPrinter.php' => [
             'PhanTypeMismatchReturn' => ['\\SRF\\BibTex\\BibTexFileExportPrinter::newItem'],

@@ -41,7 +41,7 @@ class ArrayTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\ArrayFormat\ArrayFormat';
+		return 'SRF\ArrayFormat\ArrayPrinter';
 	}
 
 }
