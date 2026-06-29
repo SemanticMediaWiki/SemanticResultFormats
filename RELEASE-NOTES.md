@@ -10,6 +10,7 @@ Released on TBD.
 
 ### Maintenance
 
+* Bumped npm dependencies: `d3` 6.7.0→7.9.0 (fixes d3-color ReDoS and related CVEs), `copy-files-from-to` 3.12.1→4.0.1 (resolves axios, form-data, follow-redirects, lodash, and picomatch security advisories) (by [gesinn.it](https://gesinn.it))
 * Bumped dev dependencies: `mediawiki-codesniffer` 46→51, `mediawiki-phan-config` 0.14→0.20, `minus-x` 1.1.3→2.0.1; applied phpcbf auto-fixes, added PHPCS excludes for new sniff rules, and updated Phan baseline (by [gesinn.it](https://gesinn.it))
 
 ### Compatibility Changes

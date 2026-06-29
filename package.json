@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "d3": "6.7.0"
+    "d3": "7.9.0"
   },
   "devDependencies": {
-    "copy-files-from-to": "^3.12.1"
+    "copy-files-from-to": "^4.0.1"
   },
   "scripts": {
     "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js"
