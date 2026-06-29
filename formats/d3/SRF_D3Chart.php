@@ -54,7 +54,7 @@ class SRFD3Chart extends AggregatablePrinter {
 		$d3data = [
 			'data' => $dataObject,
 			'parameters' => [
-				'colorscheme' => $this->params['colorscheme'] ? $this->params['colorscheme'] : null,
+				'colorscheme' => $this->params['colorscheme'] ?: null,
 				'charttitle' => $this->params['charttitle'],
 				'charttext' => $this->params['charttext'],
 				'datalabels' => $this->params['datalabels']

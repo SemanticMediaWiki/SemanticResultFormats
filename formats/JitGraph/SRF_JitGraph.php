@@ -291,7 +291,7 @@ class SRFJitGraph extends ResultPrinter {
 		foreach ( $this->m_settings as $key => $value ) {
 			$userSettings .= "\"$key\": \"$value\",";
 		}
-		substr( $userSettings, 0, -1 );
+		$userSettings = substr( $userSettings, 0, -1 );
 		$userSettings .= "};";
 
 		$result .= '<div id="center-container" class="className"><span class="progressBar" id="progress-' . $d_id . '">0%</span><div id="' . $this->m_settings['divID'] . '" class="infovis"></div>' . '' . '</div>';

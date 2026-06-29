@@ -31,7 +31,6 @@ return [
     // PhanRedundantCondition : 7 occurrences
     // PhanUndeclaredFunction : 7 occurrences
     // PhanUndeclaredTypeReturnType : 6 occurrences
-    // PhanPluginDuplicateConditionalTernaryDuplication : 5 occurrences
     // PhanTypeMismatchArgumentInternal : 5 occurrences
     // PhanTypeMismatchReturnProbablyReal : 5 occurrences
     // PhanNonClassMethodCall : 4 occurrences
@@ -39,7 +38,6 @@ return [
     // PhanTypeMismatchReturn : 4 occurrences
     // PhanTypeSuspiciousStringExpression : 4 occurrences
     // PhanImpossibleConditionInLoop : 3 occurrences
-    // PhanPluginDuplicateExpressionAssignmentOperation : 3 occurrences
     // PhanTypeInvalidLeftOperandOfNumericOp : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 2 occurrences
     // PhanUndeclaredClassStaticProperty : 2 occurrences
@@ -47,7 +45,6 @@ return [
     // PhanImpossibleTypeComparison : 1 occurrence
     // PhanParamSignatureMismatch : 1 occurrence
     // PhanParamTooMany : 1 occurrence
-    // PhanPluginUseReturnValueInternalKnown : 1 occurrence
     // PhanSuspiciousWeakTypeComparison : 1 occurrence
     // PhanTypeComparisonFromArray : 1 occurrence
     // PhanTypeInvalidLeftOperandOfAdd : 1 occurrence
@@ -81,7 +78,6 @@ return [
             'PhanTypeMismatchForeach' => ['\\SRF\\Gantt\\GanttTask::setTaskParam']
         ],
         'formats/JitGraph/SRF_JitGraph.php' => [
-            'PhanPluginUseReturnValueInternalKnown' => ['\\SRFJitGraph::getResultText'],
             'PhanPossiblyUndeclaredVariable' => ['\\SRFJitGraph::getResultText'],
             'PhanRedundantCondition' => ['\\SRFJitGraph::getResultText'],
             'PhanUndeclaredClass' => ['\\SRFJitGraph::getParamDefinitions', '\\SRFJitGraph::handleParameters'],
@@ -123,7 +119,6 @@ return [
             'SecurityCheck-DoubleEscaped' => ['\\SRF\\Carousel::getResultText']
         ],
         'formats/d3/SRF_D3Chart.php' => [
-            'PhanPluginDuplicateConditionalTernaryDuplication' => ['\\SRFD3Chart::getFormatOutput'],
             'PhanPossiblyUndeclaredVariable' => ['\\SRFD3Chart::getFormatOutput'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\SRFD3Chart::getFormatOutput'],
             'PhanUndeclaredClass' => ['\\SRFD3Chart::getParamDefinitions'],
@@ -155,7 +150,6 @@ return [
             'PhanUndeclaredVariableDim' => ['\\SRF\\DataTables\\Api::execute']
         ],
         'formats/datatables/DataTables.php' => [
-            'PhanPluginDuplicateExpressionAssignmentOperation' => ['\\SRF\\DataTables::handleNonFileResult'],
             'PhanPossiblyUndeclaredVariable' => ['\\SRF\\DataTables::getPrintouts'],
             'PhanTypeMismatchArgument' => ['\\SRF\\DataTables::getCellContent'],
             'PhanTypeMismatchArgumentInternal' => ['\\SRF\\DataTables::printContainer'],
@@ -180,7 +174,6 @@ return [
             'PhanUndeclaredClassMethod' => ['\\SRF\\DataTables\\Hooks::getCount', '\\SRF\\DataTables\\Hooks::onSMWStoreBeforeQueryResultLookupComplete']
         ],
         'formats/datatables/QuerySegmentListProcessor.php' => [
-            'PhanPluginDuplicateConditionalTernaryDuplication' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::table'],
             'PhanTypeMismatchDimFetch' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::conjunction'],
             'PhanUndeclaredClassConstant' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::disjunction', '\\SRF\\DataTables\\QuerySegmentListProcessor::hierarchy', '\\SRF\\DataTables\\QuerySegmentListProcessor::segment'],
             'PhanUndeclaredClassMethod' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::cleanUp', '\\SRF\\DataTables\\QuerySegmentListProcessor::disjunction', '\\SRF\\DataTables\\QuerySegmentListProcessor::hierarchy', '\\SRF\\DataTables\\QuerySegmentListProcessor::process', '\\SRF\\DataTables\\QuerySegmentListProcessor::table'],
@@ -324,8 +317,6 @@ return [
             'PhanUndeclaredExtendedClass' => ['formats/jqplot/SRF_jqPlot.php']
         ],
         'formats/jqplot/SRF_jqPlotChart.php' => [
-            'PhanPluginDuplicateConditionalTernaryDuplication' => ['\\SRFjqPlotChart::addCommonOptions'],
-            'PhanPluginDuplicateExpressionAssignmentOperation' => ['\\SRFjqPlotChart::prepareBarData'],
             'PhanPossiblyUndeclaredVariable' => ['\\SRFjqPlotChart::preparePieData'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\SRFjqPlotChart::getFormatOutput'],
             'PhanUndeclaredClassMethod' => ['\\SRFjqPlotChart::getFormatOutput', '\\SRFjqPlotChart::prepareBarData', '\\SRFjqPlotChart::preparePieData'],
@@ -334,7 +325,6 @@ return [
             'PhanUndeclaredVariableDim' => ['\\SRFjqPlotChart::prepareBarData', '\\SRFjqPlotChart::preparePieData']
         ],
         'formats/jqplot/SRF_jqPlotSeries.php' => [
-            'PhanPluginDuplicateConditionalTernaryDuplication' => ['\\SRFjqPlotSeries::getFormatSettings'],
             'PhanPossiblyUndeclaredVariable' => ['\\SRFjqPlotSeries::getFormatSettings'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\SRFjqPlotSeries::getFormatOutput'],
             'PhanUndeclaredClass' => ['\\SRFjqPlotSeries::getParamDefinitions'],
@@ -542,7 +532,6 @@ return [
             'PhanUndeclaredTypeParameter' => ['\\SRF\\Calendar\\Calendar::buildResult', '\\SRF\\Calendar\\Calendar::getResultText']
         ],
         'src/Calendar/EventCalendar.php' => [
-            'PhanPluginDuplicateConditionalTernaryDuplication' => ['\\SRF\\Calendar\\EventCalendar::getResultText'],
             'PhanTypeMismatchDimAssignment' => ['\\SRF\\Calendar\\EventCalendar::getResultText'],
             'PhanUndeclaredClass' => ['\\SRF\\Calendar\\EventCalendar::getParamDefinitions'],
             'PhanUndeclaredExtendedClass' => ['src/Calendar/EventCalendar.php'],

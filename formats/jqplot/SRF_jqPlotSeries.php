@@ -199,7 +199,7 @@ class SRFjqPlotSeries extends ResultPrinter {
 			'charttitle' => $this->params['charttitle'],
 			'charttext' => $this->params['charttext'],
 			'infotext' => $this->params['infotext'],
-			'theme' => $this->params['theme'] ? $this->params['theme'] : null,
+			'theme' => $this->params['theme'] ?: null,
 			'valueformat' => $this->params['datalabels'] === 'label' ? '' : $this->params['valueformat'],
 			'ticklabels' => $this->params['ticklabels'],
 			'highlighter' => $this->params['highlighter'],

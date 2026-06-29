@@ -140,7 +140,7 @@ class EventCalendar extends ResultPrinter {
 			'div',
 			[
 				'class' => 'srf-eventcalendar',
-				'data-external-class' => ( $this->params['class'] ? $this->params['class'] : '' )
+				'data-external-class' => ( $this->params['class'] ?: '' )
 			],
 			Html::element(
 				'div',
