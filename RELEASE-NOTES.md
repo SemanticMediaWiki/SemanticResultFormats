@@ -15,6 +15,7 @@ Released on TBD.
 
 ### Compatibility Changes
 
+* Raised minimum PHP version from 8.1 to 8.2 to align with `mediawiki-codesniffer` v51 and `minus-x` v2 (by [gesinn.it](https://gesinn.it))
 * Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
 
 ### New Features and Enhancements
