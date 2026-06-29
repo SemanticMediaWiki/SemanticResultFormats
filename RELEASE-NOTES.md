@@ -4,6 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on TBD.
 
+### Code Quality
+
+* Renamed `ArrayFormat` → `ArrayPrinter` and `HashFormat` → `HashPrinter` in `src/ArrayFormat/` to align with the `GraphPrinter` naming convention (`Array` is a reserved PHP keyword) (by [gesinn.it](https://gesinn.it))
+
 ### Maintenance
 
 * Bumped dev dependencies: `mediawiki-codesniffer` 46→51, `mediawiki-phan-config` 0.14→0.20, `minus-x` 1.1.3→2.0.1; applied phpcbf auto-fixes, added PHPCS excludes for new sniff rules, and updated Phan baseline (by [gesinn.it](https://gesinn.it))
