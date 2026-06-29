@@ -21,7 +21,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 
 	/**
 	 * Corresponding message name
-	 *
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-jqplotchart' )->text();
@@ -196,7 +195,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * jqPlot common parameters
 	 *
 	 * @since 1.8
-	 *
 	 */
 	private function addCommonOptions() {
 		// Series colour

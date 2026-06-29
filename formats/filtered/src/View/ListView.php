@@ -211,12 +211,10 @@ class ListView extends View {
 						if ( $isFirstValue ) {
 							$isFirstValue = false;
 
-							if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel(
-									) !== '' ) ) {
+							if ( ( $this->mShowHeaders != SMW_HEADERS_HIDE ) && ( $field->getPrintRequest()->getLabel() !== '' ) ) {
 								$result .= $field->getPrintRequest()->getText(
 										SMW_OUTPUT_WIKI,
-										( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter(
-										)->getLinker( true, true ) )
+										( $this->mShowHeaders == SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter()->getLinker( true, true ) )
 									) . ' ';
 							}
 						}

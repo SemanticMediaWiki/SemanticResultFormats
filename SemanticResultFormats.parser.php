@@ -60,7 +60,6 @@ class SRFParserFunctions {
 	 * @return array First element contains the lower bound date, second
 	 *	element contains the upper bound, third element contains a date indicating
 	 *	the year/month/day to be queried.
-	 *
 	 */
 	public static function getBoundaryDates( $calendar_type = 'month', $calendar_start_day = null, $calendar_days = 7, $default_year = null, $default_month = null, $default_day = null ) {
 		if ( $calendar_type == 'month' ) {

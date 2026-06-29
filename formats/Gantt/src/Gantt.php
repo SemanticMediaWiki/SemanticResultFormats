@@ -79,7 +79,6 @@ class Gantt {
 	 * @param array $priority
 	 * @param string $startDate
 	 * @param string $endDate
-	 *
 	 */
 	public function addTask( $taskID, $taskTitle, $status, $priority, $startDate, $endDate ) {
 		$task = new GanttTask();
@@ -100,7 +99,6 @@ class Gantt {
 	 * @param string $startDate
 	 * @param string $endDate
 	 * @param string $taskID
-	 *
 	 */
 	public function addSection( $sectionID, $sectionTitle, $startDate, $endDate, $taskID ) {
 		$sections = $this->getSections();

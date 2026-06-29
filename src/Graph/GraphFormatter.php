@@ -5,15 +5,12 @@ namespace SRF\Graph;
 use MediaWiki\Html\Html;
 
 /**
- *
- *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
  *
  * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
- *
  */
 class GraphFormatter {
 

@@ -22,10 +22,17 @@
 		<exclude name="MediaWiki.Usage.ExtendClassUsage.FunctionConfigUsage" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgContLang" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle" />
+		<exclude name="MediaWiki.Commenting.ClassAnnotations.UnrecognizedAnnotation" />
+		<exclude name="MediaWiki.Commenting.CommentBeforeClass.FileSpacingAfter" />
+		<exclude name="MediaWiki.Commenting.CommentBeforeClass.SpacingAfter" />
+		<exclude name="MediaWiki.NamingConventions.NamespaceName.NamespaceSubUpperCamelCase" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.ValidGlobalName">
 		<properties>
-			<property name="allowedPrefixes" type="array" value="eg,wg" />
+			<property name="allowedPrefixes" type="array">
+				<element value="eg" />
+				<element value="wg" />
+			</property>
 		</properties>
 	</rule>
 	<rule ref="MediaWiki.Commenting.FunctionComment.ObjectTypeHintReturn">

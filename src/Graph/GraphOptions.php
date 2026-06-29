@@ -10,7 +10,6 @@ namespace SRF\Graph;
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
- *
  */
 
 class GraphOptions {

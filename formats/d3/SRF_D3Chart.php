@@ -19,7 +19,6 @@ class SRFD3Chart extends AggregatablePrinter {
 
 	/**
 	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getName
-	 *
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-d3chart' )->text();

@@ -101,7 +101,6 @@ class DataframePrinter extends FileExportPrinter {
 
 	/**
 	 * Return serialised results in specified format.
-	 *
 	 */
 	protected function getResultText( QueryResult $queryResult, $outputMode ) {
 		if ( $outputMode === SMW_OUTPUT_FILE ) {

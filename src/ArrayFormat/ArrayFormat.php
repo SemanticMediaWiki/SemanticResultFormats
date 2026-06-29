@@ -96,8 +96,7 @@ class ArrayFormat extends ResultPrinter {
 						} elseif ( $obj instanceof SMWRecordValue ) {
 							$recordItems = $obj->getDataItems();
 							foreach ( $recordItems as $dataItem ) {
-								$recordField = $dataItem !== null ? DataValueFactory::getInstance(
-								)->newDataValueByItem( $dataItem, null ) : null;
+								$recordField = $dataItem !== null ? DataValueFactory::getInstance()->newDataValueByItem( $dataItem, null ) : null;
 								$value_items = $this->fillDeliveryArray(
 									$value_items,
 									$this->deliverRecordField( $recordField, $this->mLinkOthers )
