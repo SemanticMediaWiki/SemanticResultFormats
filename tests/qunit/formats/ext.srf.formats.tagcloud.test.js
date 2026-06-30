@@ -150,12 +150,12 @@
 		const done = assert.async();
 		mw.loader.using( 'ext.jquery.tagcanvas', function() {
 			tagcloud.sphere( context );
+			assert.ok( context.find( 'canvas' ), 'canvas element was found' );
 
 			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1050#discussion_r3488225643
 			assert.equal( context.find( 'li:not(:has(a))' ).length, 0, 'all li elements have an anchor after sphere()' );
 			assert.equal( context.find( 'li:has(a > a)' ).length, 0, 'no li is double-wrapped' );
 
-			assert.ok( context.find( 'canvas' ), 'canvas element was found' );
 			done();
 		} );
 	} );
