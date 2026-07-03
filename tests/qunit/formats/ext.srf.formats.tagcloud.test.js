@@ -144,7 +144,14 @@
 			'font': 'sans'
 		} );
 
-		// Tagcanvas dies during testing for some reasons,
+		// ensure qunit-fixture's context is in the DOM
+		// (otherwise tagcanvas fails)
+		var fixture = document.getElementById('qunit-fixture');
+		if (fixture) {
+			fixture.innerHTML = '';
+			fixture.appendChild(context[0]);
+		}
+	
 		// QUnit returns with a time-out
 		assert.timeout(5000)
 		const done = assert.async();
