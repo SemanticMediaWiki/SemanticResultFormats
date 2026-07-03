@@ -10,7 +10,6 @@ namespace SRF\Graph;
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
- *
  */
 
 class GraphOptions {
@@ -35,19 +34,19 @@ class GraphOptions {
 	public function __construct( $options ) {
 		$this->graphName = trim( $options['graphname'] );
 		$this->graphSize = trim( $options['graphsize'] );
-		$this->graphFontSize = trim( $options['graphfontsize'] );
+		$this->graphFontSize = (int)$options['graphfontsize'];
 		$this->nodeShape = trim( $options['nodeshape'] );
 		$this->nodeLabel = trim( $options['nodelabel'] );
 		$this->rankDir = strtoupper( trim( $options['arrowdirection'] ) );
 		$this->arrowHead = trim( $options['arrowhead'] );
-		$this->wordWrapLimit = trim( $options['wordwraplimit'] );
-		$this->parentRelation = strtolower( trim( $options['relation'] ) ) == 'parent';
-		$this->enableGraphLink = trim( $options['graphlink'] );
-		$this->showGraphLabel = trim( $options['graphlabel'] );
-		$this->showGraphColor = trim( $options['graphcolor'] );
-		$this->showGraphLegend = trim( $options['graphlegend'] );
-		$this->showGraphFields = trim( $options['graphfields'] );
-		$this->showGraphFieldsPages = trim( $options['graphfieldspages'] );
+		$this->wordWrapLimit = (int)$options['wordwraplimit'];
+		$this->parentRelation = strtolower( trim( $options['relation'] ) ) === 'parent';
+		$this->enableGraphLink = (bool)$options['graphlink'];
+		$this->showGraphLabel = (bool)$options['graphlabel'];
+		$this->showGraphColor = (bool)$options['graphcolor'];
+		$this->showGraphLegend = (bool)$options['graphlegend'];
+		$this->showGraphFields = (bool)$options['graphfields'];
+		$this->showGraphFieldsPages = (bool)$options['graphfieldspages'];
 	}
 
 	public function getGraphName(): string {
@@ -84,7 +83,7 @@ class GraphOptions {
 		return $this->wordWrapLimit;
 	}
 
-	public function getParentRelation(): string {
+	public function getParentRelation(): bool {
 		return $this->parentRelation;
 	}
 

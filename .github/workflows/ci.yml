@@ -11,25 +11,22 @@ jobs:
 
   test:
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
         include:
-          # SMW 6.0.1 has a bug where #ask returns empty results in the prepareContentForEdit
-          # context used by JSONScript parser-type tests. Upgraded to dev-master as workaround;
-          # pin to 7.x once released. See: https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1020
           - mediawiki_version: '1.43'
-            smw_version: dev-master
-            php_version: 8.1
+            smw_version: 7.0.0
+            php_version: 8.2
             mm_version: 6.0.1
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
             experimental: false
           - mediawiki_version: '1.43'
-            smw_version: dev-master
+            smw_version: 7.0.0
             pf_version: 5.9
             sfs_version: 4.0.0-beta
             php_version: 8.3
@@ -38,16 +35,8 @@ jobs:
             database_image: "mariadb:11.2"
             coverage: true
             experimental: false
-          - mediawiki_version: '1.44'
-            smw_version: dev-master
-            php_version: 8.2
-            mm_version: 6.0.1
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: false
-            experimental: false
           - mediawiki_version: '1.45'
-            smw_version: dev-master
+            smw_version: 7.0.0
             php_version: 8.3
             mm_version: 6.0.1
             database_type: mysql
@@ -63,9 +52,8 @@ jobs:
       PHP_VERSION: ${{ matrix.php_version }}
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}
-      MM_VERSION: ${{ matrix.mm_version }} 
+      MM_VERSION: ${{ matrix.mm_version }}
 
-      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -88,7 +76,7 @@ jobs:
         if: matrix.coverage == true
 
       - name: Upload code coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/php/coverage.xml

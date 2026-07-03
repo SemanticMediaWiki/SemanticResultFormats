@@ -1,10 +1,11 @@
 <?php
 
-namespace SRF;
+namespace SRF\Calendar;
 
 use MediaWiki\Html\Html;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
+use SRF\ResourceFormatter;
 
 /**
  * An event calendar printer using the FullCalendar JavaScript library
@@ -139,7 +140,7 @@ class EventCalendar extends ResultPrinter {
 			'div',
 			[
 				'class' => 'srf-eventcalendar',
-				'data-external-class' => ( $this->params['class'] ? $this->params['class'] : '' )
+				'data-external-class' => ( $this->params['class'] ?: '' )
 			],
 			Html::element(
 				'div',

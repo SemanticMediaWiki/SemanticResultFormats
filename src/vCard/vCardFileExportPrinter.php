@@ -163,8 +163,7 @@ class vCardFileExportPrinter extends FileExportPrinter {
 			$uri = $title->getFullURL();
 
 			// A timestamp for the last time the vCard was updated
-			$timestamp = MediaWikiServices::getInstance()->getWikiPageFactory()
-				->newFromTitle( $title )->getTimestamp();
+			$timestamp = $this->getPageTimestamp( $title );
 			$text = $title->getText();
 
 			$vCards[] = $this->newVCard( $row, $uri, $text, $timestamp, $isPublic );
@@ -176,6 +175,14 @@ class vCardFileExportPrinter extends FileExportPrinter {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @param \MediaWiki\Title\Title $title
+	 */
+	protected function getPageTimestamp( $title ): string {
+		return MediaWikiServices::getInstance()->getWikiPageFactory()
+			->newFromTitle( $title )->getTimestamp();
 	}
 
 	private function newVCard( $row, $uri, $text, $timestamp, $isPublic ) {

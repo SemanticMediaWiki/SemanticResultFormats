@@ -1,10 +1,13 @@
 <?php
 
-$wgAutoloadClasses['SRFCHistoricalDate'] = __DIR__
-	. '/SRFC_HistoricalDate.php';
+declare( strict_types=1 );
 
+namespace SRF\Calendar;
+
+use Linker;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use RequestContext;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
@@ -12,12 +15,12 @@ use SMW\Query\ResultPrinters\ResultPrinter;
 /**
  * Result printer that prints query results as a monthly calendar.
  *
- * @file SRF_Calendar.php
+ * @file Calendar.php
  * @ingroup SemanticResultFormats
  *
  * @author Yaron Koren
  */
-class SRFCalendar extends ResultPrinter {
+class Calendar extends ResultPrinter {
 
 	protected $mTemplate;
 	protected $mUserParam;
@@ -427,7 +430,7 @@ class SRFCalendar extends ResultPrinter {
 		// previous and next months, etc.
 
 		if ( is_numeric( $this->mStartMonth ) &&
-			( intval( $this->mStartMonth ) == $this->mStartMonth ) &&
+			( (string)(int)$this->mStartMonth === $this->mStartMonth ) &&
 			$this->mStartMonth >= 1 && $this->mStartMonth <= 12
 		) {
 			$curMonthNum = $this->mStartMonth;
@@ -437,7 +440,7 @@ class SRFCalendar extends ResultPrinter {
 		if ( $request->getCheck( 'month' ) ) {
 			$queryMonth = $request->getVal( 'month' );
 			if ( is_numeric( $queryMonth ) &&
-				( intval( $queryMonth ) == $queryMonth ) &&
+				( (string)(int)$queryMonth === $queryMonth ) &&
 				$queryMonth >= 1 && $queryMonth <= 12
 			) {
 				$curMonthNum = $request->getVal( 'month' );
@@ -447,7 +450,7 @@ class SRFCalendar extends ResultPrinter {
 		$curMonth = self::intToMonth( $curMonthNum );
 
 		if ( is_numeric( $this->mStartYear ) &&
-			( intval( $this->mStartYear ) == $this->mStartYear )
+			( (string)(int)$this->mStartYear === $this->mStartYear )
 		) {
 			$curYear = $this->mStartYear;
 		} else {
@@ -456,7 +459,7 @@ class SRFCalendar extends ResultPrinter {
 		if ( $request->getCheck( 'year' ) ) {
 			$queryYear = $request->getVal( 'year' );
 			if ( is_numeric( $queryYear ) &&
-				intval( $queryYear ) == $queryYear
+				(string)(int)$queryYear === $queryYear
 			) {
 				$curYear = $request->getVal( 'year' );
 			}
@@ -505,16 +508,16 @@ class SRFCalendar extends ResultPrinter {
 		$goToMonthText = wfMessage( 'srfc_gotomonth' )->text();
 
 		// Get day of the week that the first of this month falls on.
-		$firstDay = new SRFCHistoricalDate();
+		$firstDay = new HistoricalDate();
 		$firstDay->create( $curYear, $curMonthNum, 1 );
 		$startDay = $firstDayOfWeek - $firstDay->getDayOfWeek();
 		if ( $startDay > 0 ) {
 			$startDay -= 7;
 		}
 		$daysInPrevMonth =
-			SRFCHistoricalDate::daysInMonth( $prevYear, $prevMonthNum );
+			HistoricalDate::daysInMonth( $prevYear, $prevMonthNum );
 		$daysInCurMonth =
-			SRFCHistoricalDate::daysInMonth( $curYear, $curMonthNum );
+			HistoricalDate::daysInMonth( $curYear, $curMonthNum );
 		$todayString = date( 'Y n j', time() );
 		$pageName = $pageTitle->getPrefixedDbKey();
 

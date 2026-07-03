@@ -18902,14 +18902,19 @@ class ValueFilter extends Filter_1.Filter {
         });
         return checkboxes;
     }
+    stripHtml(str) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = str;
+        return tmp.textContent || tmp.innerText || '';
+    }
     getSelected2Control() {
         let select = $('<select class="filtered-value-select" style="width: 100%;">');
         let data = [];
         // insert options (checkboxes and labels) and attach event handlers
         for (let value of this.values) {
             // Try to get label, if not fall back to value id
-            let label = value.formattedValue || value.printoutValue;
-            data.push({ id: value.printoutValue, text: label });
+            const label = value.formattedValue || value.printoutValue || '';
+            data.push({ id: value.printoutValue, text: this.stripHtml(label) });
         }
         mw.loader.using('ext.srf.filtered.value-filter.select').then(() => {
             select.select2({
@@ -19146,7 +19151,7 @@ class MapView extends View_1.View {
             if (this.options.hasOwnProperty('map provider')) {
                 mapProvider = this.options['map provider'];
             }
-            if (this.isUserUsesDarkMode() && this.options.hasOwnProperty('map provider dark')) {
+            if (this.isUserUsesDarkMode() && this.options['map provider dark']) {
                 mapProvider = this.options['map provider dark'];
             }
             if (mapProvider) {
@@ -19239,24 +19244,32 @@ class View {
     showRows(rowIds) {
         if (this.visible && rowIds.length < 200) {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].slideDown(400);
+                if (this.rows[rowId]) {
+                    this.rows[rowId].slideDown(400);
+                }
             });
         }
         else {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].css('display', '');
+                if (this.rows[rowId]) {
+                    this.rows[rowId].css('display', '');
+                }
             });
         }
     }
     hideRows(rowIds) {
         if (this.visible && rowIds.length < 200) {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].slideUp(400);
+                if (this.rows[rowId]) {
+                    this.rows[rowId].slideUp(400);
+                }
             });
         }
         else {
             rowIds.forEach((rowId) => {
-                this.rows[rowId].css('display', 'none');
+                if (this.rows[rowId]) {
+                    this.rows[rowId].css('display', 'none');
+                }
             });
         }
     }
@@ -19591,8 +19604,8 @@ class ViewTest extends QUnitTest_1.QUnitTest {
     // [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
     // [x] public init()
     // [x] public getTargetElement(): JQuery
-    // [ ] public showRows( rowIds: string[] )
-    // [ ] public hideRows( rowIds: string[] )
+    // [x] public showRows( rowIds: string[] )
+    // [x] public hideRows( rowIds: string[] )
     // [x] public show()
     // [x] public hide()
     getTestObject(id = 'foo', target = undefined, c = undefined, options = {}) {
@@ -19605,6 +19618,7 @@ class ViewTest extends QUnitTest_1.QUnitTest {
         let that = this;
         QUnit.test(`${className}: Can construct, init and knows target element`, (assert) => { that.testBasics(assert, that); });
         QUnit.test(`${className}: Show and Hide`, (assert) => { that.testShowAndHide(assert, that); });
+        QUnit.test(`${className}: showRows and hideRows do not throw for unknown rowId`, (assert) => { that.testShowHideRowsWithUnknownId(assert, that); });
         return true;
     }
     ;
@@ -19638,6 +19652,34 @@ class ViewTest extends QUnitTest_1.QUnitTest {
         v.init();
         v.show();
         v.hide();
+        assert.expect(2);
+    }
+    ;
+    testShowHideRowsWithUnknownId(assert, that) {
+        // Setup: View with no registered rows
+        let target = $('<div>');
+        let v = that.getTestObject('foo', target);
+        v.init();
+        v.show();
+        // Assert: calling showRows/hideRows with an id that has no DOM element
+        // must not throw (issue #394: "Cannot read property 'slideDown' of undefined")
+        let showRowsThrew = false;
+        try {
+            v.showRows(['nonexistent-row']);
+        }
+        catch (e) {
+            showRowsThrew = true;
+        }
+        assert.ok(!showRowsThrew, 'showRows does not throw for unknown rowId.');
+        v.hide();
+        let hideRowsThrew = false;
+        try {
+            v.hideRows(['nonexistent-row']);
+        }
+        catch (e) {
+            hideRowsThrew = true;
+        }
+        assert.ok(!hideRowsThrew, 'hideRows does not throw for unknown rowId.');
         assert.expect(2);
     }
     ;

@@ -510,9 +510,9 @@ class DataTables extends ResultPrinter {
 			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/853
 			// $result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
 			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
-				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
+				$result .= Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
 			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
-				$result = $result . $this->mOutro;
+				$result .= $this->mOutro;
 			}
 		}
 
@@ -665,7 +665,7 @@ class DataTables extends ResultPrinter {
 
 			try {
 				return json_decode( $json, true, 512, JSON_THROW_ON_ERROR );
-			} catch ( Throwable $e ) {
+			} catch ( Throwable ) {
 				return null;
 			}
 		};

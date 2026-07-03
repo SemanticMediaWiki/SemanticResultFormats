@@ -5,15 +5,12 @@ namespace SRF\Graph;
 use MediaWiki\Html\Html;
 
 /**
- *
- *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
  *
  * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
- *
  */
 class GraphFormatter {
 
@@ -212,8 +209,9 @@ class GraphFormatter {
 							$this->legendItem[] = $parentNode['predicate'];
 						}
 
-						// assign color
-						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
+						// assign color, cycling through the palette when there are more predicates than colors
+						$colorIndex = array_search( $parentNode['predicate'], $this->legendItem, true ) % count( $this->graphColors );
+						$color = $this->graphColors[$colorIndex];
 
 						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
 						if ( $this->options->isGraphLabel() ) {

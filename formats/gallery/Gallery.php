@@ -175,7 +175,7 @@ class Gallery extends ResultPrinter {
 
 		// If available and no results, return default message
 
-		if ( $results == '' && $this->params[ 'default' ] !== '' ) {
+		if ( $results->getCount() === 0 && $this->params[ 'default' ] !== '' ) {
 			$html = $this->params[ 'default' ];
 		}
 

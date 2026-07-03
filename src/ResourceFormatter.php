@@ -56,7 +56,6 @@ class ResourceFormatter {
 	}
 
 	/**
-	 *
 	 * @since 3.0
 	 *
 	 * @param string $id

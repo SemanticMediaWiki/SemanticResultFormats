@@ -186,7 +186,6 @@ class GraphPrinter extends ResultPrinter {
 	 * @since 3.1
 	 *
 	 * @param ResultArray[] $row
-	 *
 	 */
 	protected function processResultRow( array $row ) {
 		$node = null;

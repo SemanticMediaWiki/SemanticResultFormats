@@ -24,7 +24,6 @@ class SpreadsheetTest extends QueryPrinterRegistryTestCase {
 
 	/**
 	 * @covers Spreadsheet
-	 *
 	 */
 	public function testLink() {
 		$link = $this->getMockBuilder( '\SMWInfolink' )

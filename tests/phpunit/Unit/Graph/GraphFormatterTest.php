@@ -360,4 +360,58 @@ WRAPPED0
 	public function testBuildGraph( array $params, $expected ) {
 		$this->assertEquals( $expected, self::graph( $params )->getGraph() );
 	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Covers lines 114-115: when a node has fields but an empty label, the node ID is
+	 * word-wrapped and used as the table header instead of a label.
+	 */
+	public function testBuildGraphUsesNodeIdAsLabelWhenLabelIsEmpty(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		// Override nodelabel so displaytitle logic is skipped; use a non-displaytitle value
+		$params['nodelabel'] = '';
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Iota' );
+		// Do NOT call setLabel — leaves $label as null/empty.
+		$node->addField( 'Rating', '5', '_num', 'Rating', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		// The node ID should appear as the table header href target and as the cell content.
+		$this->assertStringContainsString( 'href="[[Team:Iota]]"', $dot );
+		$this->assertStringContainsString( 'Team:Iota', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::getGraphLegend()
+	 *
+	 * Covers line 257: the color counter resets to 0 after cycling through all 14
+	 * graphColors entries, so a 15th predicate reuses the first color.
+	 */
+	public function testGetGraphLegendResetsColorCountAfterExhaustingPalette(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		// Build 15 distinct predicates so the palette wraps around.
+		$node = new GraphNode( 'Team:Kappa' );
+		$node->setLabel( 'Kappa' );
+		for ( $i = 1; $i <= 15; $i++ ) {
+			$node->addParentNode( "Predicate$i", "Object$i" );
+		}
+
+		$formatter->buildGraph( [ $node ] );
+		$legend = $formatter->getGraphLegend();
+
+		// The first color "black" must appear twice: once for Predicate1 and once for Predicate15.
+		$this->assertGreaterThanOrEqual(
+			2,
+			substr_count( $legend, 'color: black' ),
+			'Expected color "black" to be reused after palette exhaustion'
+		);
+		// Predicate15 wraps back to the first color slot.
+		$this->assertStringContainsString( 'black: Predicate15', $legend );
+	}
 }

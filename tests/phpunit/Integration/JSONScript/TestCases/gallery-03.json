@@ -52,12 +52,6 @@
 				"to-contain": [
 					"<div class=\"srf-gallery-slideshow\" data-redirect-type="
 				]
-			},
-			"skip-on": {
-				"mediawiki": [
-					">1.35",
-					"redirect type is '_txt'"
-				]
 			}
 		},
 		{
@@ -67,12 +61,6 @@
 			"assert-output": {
 				"to-contain": [
 					"<div class=\"srf-gallery-carousel\" data-redirect-type="
-				]
-			},
-			"skip-on": {
-				"mediawiki": [
-					">1.35",
-					"redirect type is '_txt'"
 				]
 			}
 		},
@@ -84,28 +72,16 @@
 				"to-contain": [
 					"<div class=\"srf-gallery srf-redirect\" data-redirect-type="
 				]
-			},
-			"skip-on": {
-				"mediawiki": [
-					">1.40",
-					"Check parser function registration for MW 1.40+"
-				]
 			}
 		},
 		{
-			"type": "parser-html",
+			"type": "parser",
 			"about": "#3 Widths and Heights",
 			"subject": "Example/Gallery-03/Q.3",
 			"assert-output": {
 				"to-contain": [
-					"div.srf-gallery.srf-redirect > ul.gallery.mw-gallery-traditional > li.gallerybox > div > div.thumb > div > a.image > img[width=\"150\"]",
-					"div.srf-gallery.srf-redirect > ul.gallery.mw-gallery-traditional > li.gallerybox > div > div.thumb > div > a.image > img[height=\"150\"]"
-				]
-			},
-			"skip-on": {
-				"mediawiki": [
-					">1.40",
-					"Check parser function registration for MW 1.40+"
+					"<div class=\"srf-gallery srf-redirect\" data-redirect-type=",
+					"img.*width=\"150\".*height=\"150\""
 				]
 			}
 		},
@@ -116,12 +92,6 @@
 			"assert-output": {
 				"to-contain": [
 					"div.srf-gallery > ul.gallery.mw-gallery-traditional.srf-overlay"
-				]
-			},
-			"skip-on": {
-				"mediawiki": [
-					">1.40",
-					"Check parser function registration for MW 1.40+"
 				]
 			}
 		}

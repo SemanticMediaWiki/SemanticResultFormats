@@ -1,27 +1,31 @@
 <?php
 
+declare( strict_types=1 );
+
+namespace SRF\ArrayFormat;
+
 use MediaWiki\MediaWikiServices;
 
 /**
- * Query format for arrays with features for Extensions 'Arrays' and 'HashTables'
+ * Query format for hash tables with features for Extension 'HashTables'
+ *
+ * Named HashPrinter for consistency with {@see ArrayPrinter}.
  *
  * @file
  * @ingroup SemanticResultFormats
  * @author Daniel Werner < danweetz@web.de >
  *
- * Doesn't require 'Arrays' nor 'HashTables' exytensions but has additional features
- * ('name' parameter in either result format) if they are available.
+ * Doesn't require 'HashTables' extension but has additional features
+ * ('name' parameter) if it is available.
  *
- * Arrays 2.0+ and HashTables 1.0+ are recommended but not necessary.
+ * HashTables 1.0+ is recommended but not necessary.
  */
-class SRFHash extends SRFArray {
+class HashPrinter extends ArrayPrinter {
 
 	protected $mLastPageTitle;
 
 	protected function deliverPageTitle( $value, $link = false ) {
-		// remember the page title
 		$this->mLastPageTitle = $this->deliverSingleValue( $value, $link );
-		// don't add page title into property list
 		return null;
 	}
 
@@ -35,7 +39,6 @@ class SRFHash extends SRFArray {
 	protected function deliverQueryResultPages( $perPage_items ) {
 		$hash = [];
 		foreach ( $perPage_items as $page ) {
-			// name of page as key, Properties as value
 			$hash[$page[0]] = $page[1];
 		}
 		return parent::deliverQueryResultPages( $hash );
@@ -50,41 +53,27 @@ class SRFHash extends SRFArray {
 			$version = ExtHashTables::VERSION;
 		}
 		if ( $version !== null && version_compare( $version, '0.999', '>=' ) ) {
-			// Version 1.0+, doesn't use $wgHashTables anymore
-			/** ToDo: is there a way to get the actual parser which has started the query? */
 			$parser = MediaWikiServices::getInstance()->getParser();
 			ExtHashTables::get( $parser )->createHash( $hashId, $hash );
+			return true;
 		} elseif ( !isset( $wgHashTables ) ) {
-			// Hash extension is not installed in this wiki
 			return false;
 		} elseif ( $version !== null && version_compare( $version, '0.6', '>=' ) ) {
-			// HashTables 0.6 to 1.0
 			$wgHashTables->createHash( $hashId, $hash );
 		} else {
-			// old HashTables, dirty way
 			$wgHashTables->mHashTables[trim( $hashId )] = $hash;
 		}
 		return true;
 	}
 
-	protected function handleParameters( array $params, $outputmode ): void {
-		parent::handleParameters( $params, $outputmode );
+	protected function applyArrayParameters( array $params ): void {
+		parent::applyArrayParameters( $params );
 		$this->mShowPageTitles = true;
 	}
 
-	/**
-	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getParamDefinitions
-	 *
-	 * @since 1.8
-	 *
-	 * @param IParamDefinition[] $definitions
-	 *
-	 * @return array of IParamDefinition|array
-	 */
 	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );
-		// page title is Hash key, otherwise, just use Array format!
-		unset( $params['pagetitle'] );
+		unset( $params['titles'] );
 		$params['name']['message'] = 'srf_paramdesc_hashname';
 
 		return $params;

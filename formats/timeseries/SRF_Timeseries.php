@@ -93,8 +93,7 @@ class SRFTimeseries extends ResultPrinter {
 				$rowSum = array_sum( $sum );
 
 				// Check the sum and threshold/min
-				if ( $timeStamp !== '' && $field->getPrintRequest()->getTypeID(
-					) !== '_dat' && $rowSum >= $this->params['min'] ) {
+				if ( $timeStamp !== '' && $field->getPrintRequest()->getTypeID() !== '_dat' && $rowSum >= $this->params['min'] ) {
 					$series[$group] = [ $timeStamp, $rowSum ];
 				}
 			}

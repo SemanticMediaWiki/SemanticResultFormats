@@ -12,8 +12,8 @@ export class ViewTest extends QUnitTest {
 	// [x] public constructor( id: string, target: JQuery, c: Controller, options: Options = {} )
 	// [x] public init()
 	// [x] public getTargetElement(): JQuery
-	// [ ] public showRows( rowIds: string[] )
-	// [ ] public hideRows( rowIds: string[] )
+	// [x] public showRows( rowIds: string[] )
+	// [x] public hideRows( rowIds: string[] )
 	// [x] public show()
 	// [x] public hide()
 
@@ -27,6 +27,7 @@ export class ViewTest extends QUnitTest {
 		let that: ViewTest = this;
 		QUnit.test( `${className}: Can construct, init and knows target element`, ( assert: QUnitAssert ) => { that.testBasics( assert, that ) } );
 		QUnit.test( `${className}: Show and Hide`, ( assert: QUnitAssert ) => { that.testShowAndHide ( assert, that ) } );
+		QUnit.test( `${className}: showRows and hideRows do not throw for unknown rowId`, ( assert: QUnitAssert ) => { that.testShowHideRowsWithUnknownId( assert, that ) } );
 		return true;
 	};
 
@@ -68,6 +69,37 @@ export class ViewTest extends QUnitTest {
 
 		v.show();
 		v.hide();
+
+		assert.expect( 2 );
+	};
+
+	public testShowHideRowsWithUnknownId( assert: QUnitAssert, that: ViewTest ) {
+
+		// Setup: View with no registered rows
+		let target = $( '<div>' );
+		let v = that.getTestObject( 'foo', target );
+		v.init();
+		v.show();
+
+		// Assert: calling showRows/hideRows with an id that has no DOM element
+		// must not throw (issue #394: "Cannot read property 'slideDown' of undefined")
+		let showRowsThrew = false;
+		try {
+			v.showRows( [ 'nonexistent-row' ] );
+		} catch ( e ) {
+			showRowsThrew = true;
+		}
+		assert.ok( !showRowsThrew, 'showRows does not throw for unknown rowId.' );
+
+		v.hide();
+
+		let hideRowsThrew = false;
+		try {
+			v.hideRows( [ 'nonexistent-row' ] );
+		} catch ( e ) {
+			hideRowsThrew = true;
+		}
+		assert.ok( !hideRowsThrew, 'hideRows does not throw for unknown rowId.' );
 
 		assert.expect( 2 );
 	};

@@ -150,7 +150,7 @@ class QuerySegmentListProcessor {
 			if ( $subQuery->joinTable !== '' ) {
 				$op = $subQuery->not ? '!' : '';
 
-				$joinType = $subQuery->joinType ? $subQuery->joinType : 'INNER';
+				$joinType = $subQuery->joinType ?: 'INNER';
 				$t = $this->connection->tableName( $subQuery->joinTable ) . " AS $subQuery->alias";
 				// If the alias is the same as the table name and if there is a prefix, MediaWiki does not declare the unprefixed alias
 				$joinTable = $subQuery->joinTable === $subQuery->alias ? $this->connection->tableName( $subQuery->joinTable ) : $subQuery->joinTable;

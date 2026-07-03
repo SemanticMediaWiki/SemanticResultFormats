@@ -1,5 +1,51 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 6.0.0
+
+Released on TBD.
+
+### Code Quality
+
+* Replaced unused catch variables with non-capturing catch syntax (PHP 8.0+) in `IcalTimezoneFormatter`, `DataTables`, `SearchPanes`, and `Filtered`, removing four `PhanUnusedVariableCaughtException` suppressions from the Phan baseline (by [gesinn.it](https://gesinn.it))
+* Fixed remaining low-risk Phan issues (Gruppe A): replaced `$x ? $x : $y` ternaries with Elvis operator `?:` in `D3Chart`, `QuerySegmentListProcessor`, `jqPlotChart`, `jqPlotSeries`, and `EventCalendar`; replaced `$x = $x . y` with `.=` in `DataTables` and `+` with `+=` in `jqPlotChart`; assigned discarded `substr()` return value in `JitGraph` — removing eight suppressions from the Phan baseline (by [gesinn.it](https://gesinn.it))
+* Replaced `intval($x) == $x` integer-string comparisons with `(string)(int)$x === $x` in `Calendar` (`PhanImpossibleTypeComparison`); replaced `$results == ''` object–string weak comparison with `$results->getCount() === 0` in `Gallery` (`PhanSuspiciousWeakTypeComparison`) — removing one Phan baseline suppression (by [gesinn.it](https://gesinn.it))
+* Renamed `ArrayFormat` → `ArrayPrinter` and `HashFormat` → `HashPrinter` in `src/ArrayFormat/` to align with the `GraphPrinter` naming convention (`Array` is a reserved PHP keyword) (by [gesinn.it](https://gesinn.it))
+
+### Maintenance
+
+* Bumped npm dependencies: `d3` 6.7.0→7.9.0 (fixes d3-color ReDoS and related CVEs), `copy-files-from-to` 3.12.1→4.0.1 (resolves axios, form-data, follow-redirects, lodash, and picomatch security advisories) (by [gesinn.it](https://gesinn.it))
+* Bumped dev dependencies: `mediawiki-codesniffer` 46→51, `mediawiki-phan-config` 0.14→0.20, `minus-x` 1.1.3→2.0.1; applied phpcbf auto-fixes, added PHPCS excludes for new sniff rules, and updated Phan baseline (by [gesinn.it](https://gesinn.it))
+
+### Compatibility Changes
+
+* Raised minimum PHP version from 8.1 to 8.2 to align with `mediawiki-codesniffer` v51 and `minus-x` v2 (by [gesinn.it](https://gesinn.it))
+* Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
+
+### New Features and Enhancements
+
+* Improved `outline` format: replaced inline-style `<p>` headings with `<div class="srf-outline-heading srf-outline-level-N">` and corresponding CSS classes in `ext.srf.css`, enabling customisation via `MediaWiki:Common.css` ([915](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/915)) (by [gesinn.it](https://gesinn.it))
+* Improved the `filtered` format with deferred loading ([982](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/982)) (by @thomas-topway-it)
+* Improved the `filtered` format with select2 strip HTML support ([1000](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1000)) (by @thomas-topway-it)
+* Improved the `datatables` format with i18n plugins ([999](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/999)) (by @thomas-topway-it)
+
+### Tests
+
+* Added `GraphPrinterTest` covering the fix for `graph` format crash on non-page-type data values (e.g. `Modification date`) — regression test for ([988](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/988)) (by [gesinn.it](https://gesinn.it))
+
+### Bug Fixes
+
+* Fixed `graph` format crash when more than 14 distinct edge predicates are used — the color palette now cycles instead of throwing an undefined array key error (by [gesinn.it](https://gesinn.it))
+* Fixed `array`/`hash` formats: `continue 2` skipping entire row when page titles are hidden, no-op `unset` in `SRFHash::getParamDefinitions`, uninitialized gap/title properties, loose equality comparisons for `SMW_HEADERS_*`, and missing `return true` in `SRFHash::createArray` ([1055](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1055)) (by [gesinn.it](https://gesinn.it))
+* Fixed `calendar` format: `leapJulian()` incorrectly returned false for astronomical year 0 (1 BC) and year −4 (5 BC) due to PHP's negative modulo semantics ([1056](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1056)) (by [gesinn.it](https://gesinn.it))
+* Fixed invalid SQL JOIN order in `datatables` SearchPanes when using `ksort()` with 5+ OR values ([996](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/996)) (by @YvarRavy)
+* Fixed `tableName()` usage in `datatables` SearchPanes ([975](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/975)) (by @huaj1ng)
+* Fixed `gallery` format overlay and redirect ([977](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/977)) (by @freephile)
+* Fixed `filtered` format parser-HTML test failures and related bug fixes ([1023](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1023)) (by [gesinn.it](https://gesinn.it))
+* Fixed `filtered` format unique ID generation by replacing `usleep()` with `random_bytes()` ([1029](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1029)) (by [gesinn.it](https://gesinn.it))
+* Fixed `filtered` format RequestContext fallback and missing JS config variable (by [gesinn.it](https://gesinn.it))
+* Fixed `filtered` format by replacing deprecated `$wgAmericanDates` with `MainConfigNames` ([1030](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1030)) (by [gesinn.it](https://gesinn.it))
+* Updated translations (by translatewiki.net community)
+
 ## SRF 5.2.0
 
 Released on February 16, 2026.
