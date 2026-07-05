@@ -89,6 +89,16 @@
 
 			context.css( { 'width': data.width, 'height': data.height } );
 
+			// wrap text items with a fake link to ensure
+			// JQuery's TagCloud list them
+			var tagsElement = container.find( '#' + tagsID );
+			tagsElement.find( 'li' ).each( function() {
+				var $li = $( this );
+				if ( $li.find( 'a' ).length === 0 ) {
+					$li.wrapInner( '<a href=""></a>' );
+				}
+			});
+
 			// Add canvas element
 			var canvas = $( '<canvas></canvas>' ).appendTo( container );
 			canvas.attr( {
@@ -96,7 +106,6 @@
 				width: data.width,
 				height: data.height
 			} );
-
 
 			// Initialize tagcanvas instance
 			// Somewhere around here QUnit dies (with a time out) which
