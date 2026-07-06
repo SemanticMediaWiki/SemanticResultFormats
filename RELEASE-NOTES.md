@@ -45,6 +45,7 @@ Released on TBD.
 * Fixed `gallery` format overlay and redirect ([977](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/977)) (by @freephile)
 * Fixed `filtered` format parser-HTML test failures and related bug fixes ([1023](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1023)) (by [gesinn.it](https://gesinn.it))
 * Fixed `filtered` format unique ID generation by replacing `usleep()` with `random_bytes()` ([1029](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1029)) (by [gesinn.it](https://gesinn.it))
+* Fixed CI: `pretest-filtered-ts` now installs `formats/filtered`'s own npm dependencies before type-checking, since `tsconfig.filtered.json`'s `typeRoots` resolves against `formats/filtered/node_modules/@types`, which the root-level `npm install` never populated (by [gesinn.it](https://gesinn.it))
 * Fixed `filtered` format RequestContext fallback and missing JS config variable (by [gesinn.it](https://gesinn.it))
 * Fixed `filtered` format by replacing deprecated `$wgAmericanDates` with `MainConfigNames` ([1030](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1030)) (by [gesinn.it](https://gesinn.it))
 * Updated translations (by translatewiki.net community)
