@@ -28,6 +28,11 @@ function createDom() {
 	global.HTMLElement = window.HTMLElement;
 	global.Option = window.Option;
 	global.$ = global.jQuery = require('jquery');
+	// MediaWiki core's jquery.client RL module (browser detection), not vendored
+	// here; srf.formats.eventcalendar reads profile.name/.versionNumber.
+	$.client = {
+		profile: () => ({ name: 'other', versionNumber: 0 }),
+	};
 	require(path.resolve(__dirname, '../../resources/jquery/jquery.blockUI.js'));
 	require('jquery-ui/ui/widget.js');
 	require('jquery-ui/ui/widgets/mouse.js');
@@ -126,15 +131,53 @@ function prepareMediaWiki() {
 					configValues[key] = value;
 				},
 			},
+			user: {
+				options: {
+					get: () => null,
+				},
+			},
+			// provided by MediaWiki core's mediawiki.language.months RL module;
+			// resources/ext.srf.api.results.js reads .names at module scope.
+			language: {
+				months: {
+					names: ['January', 'February', 'March', 'April', 'May', 'June',
+						'July', 'August', 'September', 'October', 'November', 'December'],
+				},
+			},
 		};
 
 		// SemanticMediaWiki core's own bundled JS exposes this as a page-wide
 		// global (like mw); srf.formats.media reads smw.debug() at module scope,
-		// srf.formats.tagcloud calls smw.async.load() as a mw.loader.using() callback.
+		// srf.formats.tagcloud calls smw.async.load() as a mw.loader.using()
+		// callback, srf.formats.eventcalendar's parse.api() checks
+		// `value instanceof smw.dataItem.time`/`smw.dataItem.wikiPage` (see
+		// https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/res/smw/data/ext.smw.dataItem.time.js).
 		global.smw = {
 			debug: () => false,
 			async: {
 				load: (context, callback) => callback.call(context),
+			},
+			dataItem: {
+				wikiPage: function (fullText, fullUrl) {
+					this.getUri = () => fullUrl;
+					this.getHtml = () => fullText;
+					this.getFullText = () => fullText;
+					this.getName = () => fullText;
+				},
+				time: function (isoDate, mwTimestamp) {
+					this._date = new Date(isoDate);
+					this.getDate = () => this._date;
+					this.getMwTimestamp = () => mwTimestamp;
+					this.getISO8601Date = () => this._date.toISOString();
+				},
+			},
+			// srf.formats.eventcalendar constructs one at module scope
+			// (`new smw.api()`); its .parse() isn't exercised by the ported
+			// parse.api()/startDate() tests.
+			api: function () {},
+			util: {
+				// same as above: constructed at module scope, not called
+				tooltip: function () {},
 			},
 		};
 	};
