@@ -11,6 +11,8 @@ Released on TBD.
 * Replaced `intval($x) == $x` integer-string comparisons with `(string)(int)$x === $x` in `Calendar` (`PhanImpossibleTypeComparison`); replaced `$results == ''` object–string weak comparison with `$results->getCount() === 0` in `Gallery` (`PhanSuspiciousWeakTypeComparison`) — removing one Phan baseline suppression (by [gesinn.it](https://gesinn.it))
 * Renamed `ArrayFormat` → `ArrayPrinter` and `HashFormat` → `HashPrinter` in `src/ArrayFormat/` to align with the `GraphPrinter` naming convention (`Array` is a reserved PHP keyword) (by [gesinn.it](https://gesinn.it))
 * Added a node-qunit test runner (jsdom + nyc), wired into CI and Codecov, with a test covering the `filtered` format's select2 integration (init options and `select2:select`/`select2:unselect` event payloads) (by [gesinn.it](https://gesinn.it))
+* Ported the `ext.srf`/`ext.srf.util` and filtered-format (`Controller`, `ViewSelector`, `ValueFilter` checkboxes path, `View`) legacy browser-QUnit tests to the node-qunit runner, so they now run in CI instead of only manually via `Special:JavaScriptTest/qunit` (by [gesinn.it](https://gesinn.it))
+* Fixed dead-guard conditions in `EventCalendar`'s client-side result parsing (`$.inArray()` misused against plain objects, always evaluating truthy) and in `calendarparameters`' `_BASE` CSS-class computation (computed but never applied, masking a false-positive test assertion); removed dead code from `Carousel`'s and `DataTables`' client-side scripts, and consolidated `DataTables`' two near-duplicate `getCacheKey()` implementations (by [gesinn.it](https://gesinn.it))
 
 ### Maintenance
 
