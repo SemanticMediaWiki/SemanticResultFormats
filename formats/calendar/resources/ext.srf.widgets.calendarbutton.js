@@ -11,52 +11,52 @@
  * @author mwjames
  */
 /* global mw:true, smw:true, mediaWiki:true, semanticMediawiki:true, semanticFormats:true */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
-	////////////////////////// PRIVATE OBJECTS ////////////////////////
+	// //////////////////////// PRIVATE OBJECTS ////////////////////////
 
-	var html = mw.html;
+	const html = mw.html;
 
-	////////////////////////// FACTORY METHOD ////////////////////////
+	// //////////////////////// FACTORY METHOD ////////////////////////
 
 	$.widget( 'srf.calendarbutton', {
-		options:{
+		options: {
 			right: true,
 			left: true
 		},
 
-		_init: function() {
-			var self = this,
+		_init: function () {
+			const self = this,
 				el = self.element;
 
 			// Returns button element
-			function _element ( buttonClass, contentClass, title, theme ) {
-				return html.element( 'span', { 'class': buttonClass, 'title': title }, new html.Raw(
-					html.element( 'button', { 'class': 'fc-button ' + theme + '-state-default ' + ( self.options.left ? theme + '-corner-left ' : '' ) + ( self.options.right ? theme + '-corner-right' : '' ) }, new html.Raw(
-						html.element( 'span', { 'class': 'fc-button-inner' },  new html.Raw(
-							html.element( 'span', { 'class': 'fc-button-content' }, new html.Raw(
-							html.element( 'span', { 'class': 'fc-icon-wrap' }, new html.Raw(
-								html.element( 'div', { 'class': contentClass }, new html.Raw( '&nbsp;' ) ) ) ) ) ) +
-								html.element( 'span', { 'class': 'fc-button-effect' }, new html.Raw( html.element( 'span', {}, '' ) ) )
-							) )
+			function _element( buttonClass, contentClass, title, theme ) {
+				return html.element( 'span', { class: buttonClass, title: title }, new html.Raw(
+					html.element( 'button', { class: 'fc-button ' + theme + '-state-default ' + ( self.options.left ? theme + '-corner-left ' : '' ) + ( self.options.right ? theme + '-corner-right' : '' ) }, new html.Raw(
+						html.element( 'span', { class: 'fc-button-inner' }, new html.Raw(
+							html.element( 'span', { class: 'fc-button-content' }, new html.Raw(
+								html.element( 'span', { class: 'fc-icon-wrap' }, new html.Raw(
+									html.element( 'div', { class: contentClass }, new html.Raw( '&nbsp;' ) ) ) ) ) ) +
+								html.element( 'span', { class: 'fc-button-effect' }, new html.Raw( html.element( 'span', {}, '' ) ) )
 						) )
-					)
+					) )
+				)
 				);
 			}
 
 			// Returns space element
-			function _space () {
-				return html.element( 'span', { 'class' : 'fc-header-space' }, '' );
+			function _space() {
+				return html.element( 'span', { class: 'fc-header-space' }, '' );
 			}
 
 			// The tooltip button needs a special treatment as it is placed in between elements
-			if ( self.options.tooltip ){
-				this.button = $( _element ( self.widgetBaseClass + '-' + self.options['class'], self.options.icon, self.options.title, self.options.theme ) )
-				.insertAfter( el );
+			if ( self.options.tooltip ) {
+				this.button = $( _element( self.widgetBaseClass + '-' + self.options.class, self.options.icon, self.options.title, self.options.theme ) )
+					.insertAfter( el );
 			} else {
-				this.button = $( _space() + _element ( self.widgetBaseClass + '-' + self.options['class'], self.options.icon, self.options.title, self.options.theme ) )
-				.appendTo( el );
+				this.button = $( _space() + _element( self.widgetBaseClass + '-' + self.options.class, self.options.icon, self.options.title, self.options.theme ) )
+					.appendTo( el );
 			}
 
 			return this._hover();
@@ -67,29 +67,29 @@
 		 *
 		 * @since 1.9
 		 */
-		_hover: function( ) {
-			var self = this;
+		_hover: function () {
+			const self = this;
 			this.button = this.button || $();
 
-			var instance = this.button.find( '.fc-button' );
+			const instance = this.button.find( '.fc-button' );
 			return instance
-				.mousedown( function() {
+				.mousedown( () => {
 					instance
 						.not( '.' + self.options.theme + '-state-active' )
 						.not( '.' + self.options.theme + '-state-disabled' )
 						.addClass( self.options.theme + '-state-down' );
 				} )
-				.mouseup( function() {
-					instance.removeClass( self.options.theme + '-state-down');
+				.mouseup( () => {
+					instance.removeClass( self.options.theme + '-state-down' );
 				} )
 				.hover(
-					function() {
+					() => {
 						instance.addClass( self.options.theme + '-state-hover' );
 					},
-					function() {
+					() => {
 						instance
-							.removeClass( self.options.theme + '-state-hover')
-							.removeClass( self.options.theme + '-state-down');
+							.removeClass( self.options.theme + '-state-hover' )
+							.removeClass( self.options.theme + '-state-down' );
 					}
 				);
 		},
@@ -97,17 +97,18 @@
 		/**
 		 * Remove objects
 		 *
+		 * @param options
 		 * @since 1.9
-		 * @var options
+		 * @member options
 		 */
-		destroy: function( options ) {
-			var self = this;
+		destroy: function ( options ) {
+			const self = this;
 
-			if ( options['class'] ){
-				$( '.' + self.widgetBaseClass + '-' + options['class'] , this.element ).remove();
-			} else{
+			if ( options.class ) {
+				$( '.' + self.widgetBaseClass + '-' + options.class, this.element ).remove();
+			} else {
 				$.Widget.prototype.destroy.apply( this );
 			}
 		}
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

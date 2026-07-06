@@ -1,6 +1,9 @@
 /**
  * SRF JavaScript for srf.parameters widget
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @since 1.9
  * @release 0.1
  *
@@ -10,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -18,7 +21,7 @@
 	 *
 	 * @type object
 	 */
-	var html = mw.html;
+	const html = mw.html;
 
 	/**
 	 * $.widget factory method
@@ -27,8 +30,8 @@
 	 */
 	$.widget( 'srf.parameters', {
 
-		_init: function() {
-			var self = this,
+		_init: function () {
+			const self = this,
 				el = self.element;
 			return el;
 		},
@@ -36,18 +39,19 @@
 		/**
 		 * Limit parameter
 		 *
+		 * @param options
 		 * @since 1.9
 		 */
-		limit: function( options ) {
-			var self = this,
+		limit: function ( options ) {
+			const self = this,
 				el = self.element;
 
-			function element(){
-				return html.element( 'div', { 'class': 'limit-parameter' }, new html.Raw(
-					html.element( 'div', { 'class' : 'parameter-section' }, mw.msg( 'srf-ui-widgets-label-parameter-limit' ) ) +
-					html.element( 'span', { 'class': 'value' }, '' ) +
-					html.element( 'span', { 'class': 'count' }, '' ) + '<br/>' +
-					html.element( 'div', { 'class': 'slider' }, '' )
+			function element() {
+				return html.element( 'div', { class: 'limit-parameter' }, new html.Raw(
+					html.element( 'div', { class: 'parameter-section' }, mw.msg( 'srf-ui-widgets-label-parameter-limit' ) ) +
+					html.element( 'span', { class: 'value' }, '' ) +
+					html.element( 'span', { class: 'count' }, '' ) + '<br/>' +
+					html.element( 'div', { class: 'slider' }, '' )
 				) );
 			}
 
@@ -60,12 +64,12 @@
 				min: 1,
 				max: options.max,
 				step: options.step,
-				slide: function( event, ui ){
+				slide: function ( event, ui ) {
 					self._limitParameterUpdate( { limit: self._limitConstrain( ui.value, options.max ) } );
 				},
-				change: function( event, ui ){
-					if ( $.isFunction( options.change ) ){
-						options.change( event, { value : self._limitConstrain( ui.value, options.max )  } );
+				change: function ( event, ui ) {
+					if ( $.isFunction( options.change ) ) {
+						options.change( event, { value: self._limitConstrain( ui.value, options.max ) } );
 					}
 				}
 			} );
@@ -77,22 +81,23 @@
 		/**
 		 * Limit/count value update
 		 *
+		 * @param options
 		 * @since 1.9
 		 */
-		_limitParameterUpdate: function( options ){
-			var self = this,
+		_limitParameterUpdate: function ( options ) {
+			const self = this,
 				el = self.element;
 
-			$( '.value', self.element ).text(  options.limit  );
+			$( '.value', self.element ).text( options.limit );
 
-			if ( options.count ){
+			if ( options.count ) {
 				$( '.count', self.element ).text( '[ ' + options.count + ' ]' );
 			} else {
 				$( '.count', self.element ).text( '' );
 			}
 		},
 
-		_limitConstrain: function( value, max ){
+		_limitConstrain: function ( value, max ) {
 			return value > 1 ? value >= max ? max : value - 1 : value;
 		},
 
@@ -103,10 +108,10 @@
 		 * @param value
 		 */
 		_setOption: function ( name, value ) {
-			switch( name ){
-			case 'limit':
-				this._limitParameterUpdate( value );
-				break;
+			switch ( name ) {
+				case 'limit':
+					this._limitParameterUpdate( value );
+					break;
 			}
 			$.Widget.prototype._setOption.apply( this, arguments );
 		},
@@ -114,15 +119,16 @@
 		/**
 		 * Remove objects
 		 *
+		 * @param options
 		 * @since 1.9
-		 * @var options
+		 * @member options
 		 */
-		destroy: function( options ) {
-			if ( options['class'] ){
-				$( '.' + options['class'] , this.pane ).remove();
-			} else{
+		destroy: function ( options ) {
+			if ( options.class ) {
+				$( '.' + options.class, this.pane ).remove();
+			} else {
 				$.Widget.prototype.destroy.apply( this );
 			}
 		}
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

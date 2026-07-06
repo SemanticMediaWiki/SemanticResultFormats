@@ -1,5 +1,6 @@
 /**
  * This file is part of the SRF gallery carousel module
+ *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
  * @section LICENSE
@@ -32,9 +33,12 @@
 /**
  * Extends base class with a carousel function
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @class srf.formats.gallery.carousel
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -59,40 +63,41 @@
 		 *
 		 * @return {Function}
 		 */
-		carousel: function( context ) {
-			return context.each( function() {
-				var util = new srf.util();
-				var $this = $( this ),
-					fallbackDimension = srf.settings.get( 'wgThumbLimits' )[mw.user.options.get( 'thumbsize' )],
+		carousel: function ( context ) {
+			return context.each( function () {
+				const util = new srf.util();
+				const $this = $( this ),
+					fallbackDimension = srf.settings.get( 'wgThumbLimits' )[ mw.user.options.get( 'thumbsize' ) ],
 					carousel = $this.find( '.jcarousel' );
 
-					util.spinner.hide( { context: $this } );
+				util.spinner.hide( { context: $this } );
 
-					carousel.each( function() {
-						$( this ).show();
-						$( this ).jcarousel( {
-							scroll:  parseInt( $( this ).attr( 'data-scroll' ), 10 ),
-							visible: parseInt( $( this ).attr( 'data-visible' ), 10 ),
-							wrap: $( this ).attr( 'data-wrap' ),
-							vertical: $( this ).attr( 'data-vertical' ) === 'true',
-							rtl: $( this ).attr( 'data-rtl' ) === 'true',
-							itemFallbackDimension: fallbackDimension
-						} );
+				carousel.each( function () {
+					$( this ).show();
+					$( this ).jcarousel( {
+						scroll: parseInt( $( this ).attr( 'data-scroll' ), 10 ),
+						visible: parseInt( $( this ).attr( 'data-visible' ), 10 ),
+						wrap: $( this ).attr( 'data-wrap' ),
+						vertical: $( this ).attr( 'data-vertical' ) === 'true',
+						rtl: $( this ).attr( 'data-rtl' ) === 'true',
+						itemFallbackDimension: fallbackDimension
 					} );
+				} );
 			} );
 		}
 	} );
 
 	/**
 	 * Implementation of an carousel instance
+	 *
 	 * @since 1.8
 	 * @ignore
 	 */
-	$( document ).ready( function() {
-		$( '.srf-gallery-carousel' ).each(function() {
-			var gallery = new srf.formats.gallery();
+	$( document ).ready( () => {
+		$( '.srf-gallery-carousel' ).each( function () {
+			const gallery = new srf.formats.gallery();
 			gallery.carousel( $( this ) );
 		} );
 	} );
 
-} )( jQuery, mediaWiki, semanticFormats  );
+}( jQuery, mediaWiki, semanticFormats ) );

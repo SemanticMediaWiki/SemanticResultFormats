@@ -1,5 +1,6 @@
 /**
  * This file is part of the Semantic Result Formats Extension
+ *
  * @see https://semantic-mediawiki.org/wiki/Srf
  *
  * @section LICENSE
@@ -32,14 +33,14 @@
  *
  * @class srf
  */
-var instance = ( function () {
+const instance = ( function () {
 	'use strict';
 
-	/*global console:true message:true */
+	/* global console:true message:true */
 
-	var instance = {};
+	const instance = {};
 
-	instance.log = function( message ) {
+	instance.log = function ( message ) {
 		if ( typeof mediaWiki === 'undefined' ) {
 			if ( typeof console !== 'undefined' ) {
 				console.log( 'SRF: ', message );
@@ -49,12 +50,12 @@ var instance = ( function () {
 		}
 	};
 
-	instance.msg = function() {
+	instance.msg = function () {
 		if ( typeof mediaWiki === 'undefined' ) {
-			message = window.wgSRFMessages[arguments[0]];
+			message = window.wgSRFMessages[ arguments[ 0 ] ];
 
-			for ( var i = arguments.length - 1; i > 0; i-- ) {
-				message = message.replace( '$' + i, arguments[i] );
+			for ( let i = arguments.length - 1; i > 0; i-- ) {
+				message = message.replace( '$' + i, arguments[ i ] );
 			}
 			return message;
 		} else {
@@ -77,7 +78,7 @@ var instance = ( function () {
 	 *
 	 * @since 1.9
 	 *
-	 * @return {mixed}
+	 * @return {Mixed}
 	 */
 	instance.settings = {
 
@@ -88,7 +89,7 @@ var instance = ( function () {
 		 *
 		 * @return {Object}
 		 */
-		getList: function() {
+		getList: function () {
 			return mediaWiki.config.get( 'srf-config' ).settings;
 		},
 
@@ -99,11 +100,11 @@ var instance = ( function () {
 		 *
 		 * @param  {string} key options to be selected
 		 *
-		 * @return {mixed}
+		 * @return {Mixed}
 		 */
-		get: function( key ) {
-			if( typeof key === 'string' ) {
-				return this.getList()[key];
+		get: function ( key ) {
+			if ( typeof key === 'string' ) {
+				return this.getList()[ key ];
 			}
 			return undefined;
 		}
@@ -116,7 +117,7 @@ var instance = ( function () {
 	 *
 	 * @return {string}
 	 */
-	instance.version = function() {
+	instance.version = function () {
 		return mediaWiki.config.get( 'srf-config' ).version;
 	};
 
@@ -124,7 +125,7 @@ var instance = ( function () {
 	instance.Util = instance.util;
 
 	return instance;
-} )();
+}() );
 
 // Assign namespace
 window.srf = window.semanticFormats = instance;

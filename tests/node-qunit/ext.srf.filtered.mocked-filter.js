@@ -1,6 +1,6 @@
 'use strict';
 
-const { Filter } = require('./.compiled/Filtered/Filter/Filter');
+const { Filter } = require( './.compiled/Filtered/Filter/Filter.js' );
 
 class MockedFilter extends Filter {}
 

@@ -1,5 +1,9 @@
 /**
  * JavaScript for SRF PageWidget format
+ *
+ * @param $
+ * @param mw
+ * @param srf
  * @see http://www.semantic-mediawiki.org/wiki/Help:Pagewidget format
  *
  * @since 1.8
@@ -8,20 +12,20 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
-	////////////////////////// PRIVATE METHODS ////////////////////////
+	// //////////////////////// PRIVATE METHODS ////////////////////////
 
-	var util = new srf.util();
+	const util = new srf.util();
 
-	function _moveSlide( slider, fancybox, event ){
-		var direction = null;
+	function _moveSlide( slider, fancybox, event ) {
+		let direction = null;
 
 		// Event collusion detection with fancybox, the .button will indicate an active
 		// overlay window and to avoid a conflict with both eventhandlers
 		// we will not respond to the event and bailout
-		if ( fancybox.find( '#fancybox-title' ).find( '.button' ).length > 0 ){
+		if ( fancybox.find( '#fancybox-title' ).find( '.button' ).length > 0 ) {
 			return true;
 		}
 
@@ -34,19 +38,19 @@
 			direction = 'next';
 		}
 
-		if (direction !== null) {
+		if ( direction !== null ) {
 			slider.trigger( 'nextprev', { dir: direction } );
 			event.preventDefault();
 		}
 	}
 
-	////////////////////////// IMPLEMENTATION ////////////////////////
+	// //////////////////////// IMPLEMENTATION ////////////////////////
 
-	$(document).ready( function() {
-		$( '.srf-pagewidget' ).each( function() {
+	$( document ).ready( () => {
+		$( '.srf-pagewidget' ).each( function () {
 
-			var $this = $( this );
-			var container = $this.find( '.pagewidget-container' ),
+			const $this = $( this );
+			const container = $this.find( '.pagewidget-container' ),
 				embedonly = container.data( 'embedonly' );
 
 			// Update navigation control with class that is a direct child
@@ -54,7 +58,7 @@
 			container.find( 'ul.slider > li' ).attr( 'class', 'slide' ).css( { 'list-style': 'none' } );
 
 			// Iterate over available container objects
-			container.each( function() {
+			container.each( function () {
 				$( this ).dynamicCarousel( {
 					namespace: 'srf-pagewidget-carousel',
 					slider: '.slider',
@@ -82,18 +86,18 @@
 			}
 
 			// Hide TOC as it will disturb the embedded display behavior
-			container.find ( '.toc' ).css ( { 'display': 'none' } );
+			container.find( '.toc' ).css( { display: 'none' } );
 
 			// Current slider instance
-			var slider = $( '#' + container.find( '.slider' ).attr( 'id' ) );
+			const slider = $( '#' + container.find( '.slider' ).attr( 'id' ) );
 
 			// Find the fancybox instance for possible event collusion detection
-			var fancybox = $( '#fancybox-wrap' );
+			const fancybox = $( '#fancybox-wrap' );
 
 			// Keyboard event listener which should work in all browsers
-			$( document.documentElement ).keyup( function( event ){
+			$( document.documentElement ).keyup( ( event ) => {
 				_moveSlide( slider, fancybox, event );
 			} );
 		} );
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

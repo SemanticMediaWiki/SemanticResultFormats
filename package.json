@@ -3,7 +3,12 @@
     "d3": "7.9.0"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "copy-files-from-to": "^4.0.1",
+    "eslint": "^8.57.1",
+    "eslint-config-wikimedia": "^0.32.4",
     "jquery": "^3.7.1",
     "jquery-ui": "^1.14.2",
     "jsdom": "^25.0.1",
@@ -14,6 +19,7 @@
   },
   "scripts": {
     "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js",
+    "lint": "eslint --ext .js resources formats tests/node-qunit",
     "test": "npm run node-qunit",
     "test-coverage": "npm run node-qunit-coverage",
     "pretest-filtered-ts": "(test -d formats/filtered/node_modules/@types || npm --prefix formats/filtered install) && tsc -p tests/node-qunit/tsconfig.filtered.json",

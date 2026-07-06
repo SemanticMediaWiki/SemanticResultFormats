@@ -1,6 +1,9 @@
 /**
  * SRF JavaScript for the api/query
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @since 1.9
  * @release 0.1
  *
@@ -10,15 +13,15 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
- 'use strict';
+( function ( $, mw, srf ) {
+	'use strict';
 
 	/**
 	 * Private methods and objects used within the class
 	 *
 	 * @since  1.9
 	 */
-	var results = new srf.api.results();
+	const results = new srf.api.results();
 
 	/**
 	 * Public API namespace declaration
@@ -33,7 +36,7 @@
 	 *
 	 * @since 1.9
 	 */
-	srf.api.query = function() {};
+	srf.api.query = function () {};
 
 	/**
 	 * Public methods to access information via the SMWAPI
@@ -56,7 +59,7 @@
 			 *
 			 * @return array
 			 */
-			build: function ( property, value, operator ){
+			build: function ( property, value, operator ) {
 				return '[[' + property + ( operator || '::' ) + value + ']]';
 			}
 		},
@@ -66,7 +69,7 @@
 			/**
 			 * Normalize printouts in order to get access via key reference
 			 *
-			 * e.g. |?Has location=location	will be transformed into an
+			 * e.g. |?Has location=location will be transformed into an
 			 * array ["Has location", "location"]
 			 *
 			 * @since 1.9
@@ -74,20 +77,20 @@
 			 *
 			 * @return array
 			 */
-			toList: function( printouts ){
-				var list = [];
-				var identifier = new RegExp( '[\\?&]' + '(.*?)' + '[=]' );
+			toList: function ( printouts ) {
+				const list = [];
+				const identifier = new RegExp( '[\\?&]' + '(.*?)' + '[=]' );
 
-				$.each( printouts, function( value, text ) {
+				$.each( printouts, ( value, text ) => {
 					// Split the text and find anything that is between ? and = otherwise
 					// split the string just after ?
-					var match = text.split( identifier );
-					if( match !== null ){
-						if ( match[0] === '' ){
+					const match = text.split( identifier );
+					if ( match !== null ) {
+						if ( match[ 0 ] === '' ) {
 							// match ["", "Has lcoation", "location"]
-							list.push( [ match[1], match[2]] );
-						}else{
-							list.push( match[0].split( '?' )[1] );
+							list.push( [ match[ 1 ], match[ 2 ] ] );
+						} else {
+							list.push( match[ 0 ].split( '?' )[ 1 ] );
 						}
 					}
 				} );
@@ -115,14 +118,14 @@
 				 *
 				 * @return array
 				 */
-				identifier: function( printouts, identifier ){
-					var property = '';
-					var regexS = '[\\?&]' + '(.*?)' + '=' + identifier;
-					var regex = new RegExp(regexS);
+				identifier: function ( printouts, identifier ) {
+					let property = '';
+					const regexS = '[\\?&]' + '(.*?)' + '=' + identifier;
+					const regex = new RegExp( regexS );
 
-					$.each( printouts , function( key, value ) {
-						if( value.match( regex ) !== null ){
-							property = value.match( regex )[1];
+					$.each( printouts, ( key, value ) => {
+						if ( value.match( regex ) !== null ) {
+							property = value.match( regex )[ 1 ];
 						}
 					} );
 					return property;
@@ -150,23 +153,23 @@
 				 *
 				 * @return array
 				 */
-				type: function( printouts, printrequests, dataTypes ){
+				type: function ( printouts, printrequests, dataTypes ) {
 					// Cache printouts, printrequests
-					var	po = srf.api.query.prototype.printouts.toList( printouts ),
+					const po = srf.api.query.prototype.printouts.toList( printouts ),
 						pr = srf.api.results.prototype.printrequests();
-						pr.toArray( printrequests );
+					pr.toArray( printrequests );
 
 					// Normalize printouts to an amendable structure
-					function normalize(){
-						var matches = [];
+					function normalize() {
+						const matches = [];
 						// Match printouts against the list of available printrequests
-						$.each( po, function( index, property ) {
+						$.each( po, ( index, property ) => {
 							if ( typeof property === 'object' ) {
-								if ( $.inArray( pr.getTypeId( property[1] ), dataTypes ) > -1 ){
-									matches.push( property[0] );
+								if ( $.inArray( pr.getTypeId( property[ 1 ] ), dataTypes ) > -1 ) {
+									matches.push( property[ 0 ] );
 								}
 							} else {
-								if ( $.inArray( pr.getTypeId( property ), dataTypes ) > -1 ){
+								if ( $.inArray( pr.getTypeId( property ), dataTypes ) > -1 ) {
 									matches.push( property );
 								}
 							}
@@ -175,9 +178,9 @@
 					}
 
 					// Find those properties that are without an identifier
-					function withoutIdentifier( list ){
-						var matches = [];
-						$.each( list, function( index, property ) {
+					function withoutIdentifier( list ) {
+						const matches = [];
+						$.each( list, ( index, property ) => {
 							if ( $.inArray( property, po ) > -1 ) {
 								matches.push( property );
 							}
@@ -185,7 +188,7 @@
 						return matches;
 					}
 
-					var record = withoutIdentifier( normalize() );
+					const record = withoutIdentifier( normalize() );
 					return record.length > 0 ? srf.api.util.prototype.array.unique( record ) : '';
 				}
 			}
@@ -199,30 +202,30 @@
 		 *
 		 * @return string
 		 */
-		toString: function( options ){
+		toString: function ( options ) {
 
-			var printouts = '';
-			if ( options.printouts ){
-				$.each( options.printouts , function( key, value ) {
+			let printouts = '';
+			if ( options.printouts ) {
+				$.each( options.printouts, ( key, value ) => {
 					printouts = printouts + '|' + value;
 				} );
 			}
 
-			var parameters = '';
-			$.each( options.parameters , function( key, value ) {
+			let parameters = '';
+			$.each( options.parameters, ( key, value ) => {
 				parameters = parameters + '|' + key + '=' + value;
 			} );
 
-			var conditions = '';
+			let conditions = '';
 			if ( typeof options.conditions === 'object' ) {
-				$.each( options.conditions , function( key, value ) {
+				$.each( options.conditions, ( key, value ) => {
 					conditions = conditions + value;
 				} );
 			} else {
 				conditions = options.conditions;
 			}
 
-			return  conditions + printouts + parameters;
+			return conditions + printouts + parameters;
 		},
 
 		/**
@@ -233,11 +236,12 @@
 		 *
 		 * @return array
 		 */
-		fetch: function( query, callback, log ){
+		fetch: function ( query, callback, log ) {
 
 			// Log data is only visible while in debug mode( &debug=true )
-			if ( log ){
-				var startDate = new Date();
+			let startDate;
+			if ( log ) {
+				startDate = new Date();
 				srf.log( 'Query: ' + query );
 			}
 
@@ -245,30 +249,30 @@
 				url: mw.util.wikiScript( 'api' ),
 				dataType: 'json',
 				data: {
-					'action': 'ask',
-					'format': 'json',
-					'query' : query
+					action: 'ask',
+					format: 'json',
+					query: query
+				}
+			} )
+				.done( function ( data ) {
+					if ( log ) {
+						srf.log( 'Hash: ' + data.query.meta.hash );
+						srf.log( 'Fetched: ' + ( Date.now() - startDate.getTime() ) + ' ms ' + '( ' + data.query.meta.count + ' object )' );
 					}
-			} )
-			.done( function ( data ) {
-				if ( log ){
-					srf.log( 'Hash: ' + data.query.meta.hash );
-					srf.log( 'Fetched: ' + ( new Date().getTime() - startDate.getTime() ) + ' ms ' + '( ' + data.query.meta.count + ' object )' );
-				}
 
-				// Return data to the callback
-				if ( typeof callback === 'function' ) {
-					callback.call( this, true, data );
-				}
-				return;
-			} )
-			.fail( function ( error ) {
-				if ( typeof callback === 'function' ) {
-					callback.call( this, false, error );
-				}
-				return;
-			} );
+					// Return data to the callback
+					if ( typeof callback === 'function' ) {
+						callback.call( this, true, data );
+					}
+					return;
+				} )
+				.fail( function ( error ) {
+					if ( typeof callback === 'function' ) {
+						callback.call( this, false, error );
+					}
+					return;
+				} );
 		}
 	};
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

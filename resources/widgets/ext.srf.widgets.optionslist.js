@@ -1,6 +1,9 @@
 /**
  * SRF JavaScript srf.optionslist widget
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @since 1.9
  * @release 0.1
  *
@@ -10,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -18,7 +21,7 @@
 	 *
 	 * @type object
 	 */
-	var html = mw.html;
+	const html = mw.html;
 
 	/**
 	 * $.widget factory method
@@ -34,10 +37,10 @@
 		 * Internal method that runs once during initialization
 		 *
 		 * @private
-		 * @return {object}
+		 * @return {Object}
 		 */
-		_init: function() {
-			var self = this,
+		_init: function () {
+			const self = this,
 				el = self.element;
 			return el;
 		},
@@ -45,52 +48,53 @@
 		/**
 		 * Create checkbox elements from an array
 		 *
+		 * @param options
 		 * @return object
 		 */
-		checklist: function( options ) {
-			var self = this,
+		checklist: function ( options ) {
+			const self = this,
 				el = self.element;
 
 			// Returns a list of elements
 			function checkList( list, checkListClass ) {
 				if ( list !== undefined ) {
-					var elements = [];
-					$.each( list, function( key, item ) {
+					const elements = [];
+					$.each( list, ( key, item ) => {
 						if ( key !== '' ) {
 							key = $.type( item ) === 'object' ? item.key : key;
 							item = $.type( item ) === 'object' ? item.label : item;
 							elements.push(
 								html.element( 'input', {
-									'type': 'checkbox',
-									'checked': 'checked',
-									'id': item,
-									'name': item,
-									'value': key
+									type: 'checkbox',
+									checked: 'checked',
+									id: item,
+									name: item,
+									value: key
 								}, item )
 							);
 						}
 					} );
-					return '<ul><li class="' + checkListClass + '-item">'+ elements.join('</li><li class="' + checkListClass + '-item">') + '</li></ul>';
+					return '<ul><li class="' + checkListClass + '-item">' + elements.join( '</li><li class="' + checkListClass + '-item">' ) + '</li></ul>';
 				}
 
 			}
 
-			this.checkList = $( checkList( options.list, options['class'] ) ).appendTo( el );
+			this.checkList = $( checkList( options.list, options.class ) ).appendTo( el );
 
 			// Create element and the bind click event
 			self.checkList = this.checkList
-			.on( 'click', ':checkbox', function( event ){
-				var that = $( this );
-				if ( $.isFunction( options.click ) ){
-					options.click( event, {
-						checked: that.is( ':checked' ),
-						value: that.attr( 'value' ),
-						name: that.attr( 'name' )
-					} )
-				}
-			} );
+				.on( 'click', ':checkbox', function ( event ) {
+					const that = $( this );
+					if ( $.isFunction( options.click ) ) {
+						options.click( event, {
+							checked: that.is( ':checked' ),
+							value: that.attr( 'value' ),
+							name: that.attr( 'name' )
+						} );
+					}
+				} );
 
-			return options.show || options.show === undefined ?  self.checkList.show() : self.checkList.hide();
+			return options.show || options.show === undefined ? self.checkList.show() : self.checkList.hide();
 		},
 
 		/**
@@ -98,33 +102,33 @@
 		 *
 		 * @since  1.9
 		 *
-		 * @param {array} options
+		 * @param {Array} options
 		 *
 		 * @return object
 		 */
-		selectlist: function( options ) {
-			var self = this,
+		selectlist: function ( options ) {
+			const self = this,
 				el = self.element;
 
 			// Returns a list of elements
 			function selectList( list ) {
 				if ( list !== undefined ) {
-					var dropdown = '';
-					$.each( list, function( key, item ) {
+					let dropdown = '';
+					$.each( list, ( key, item ) => {
 						key = $.type( item ) === 'object' ? item.key : key;
 						item = $.type( item ) === 'object' ? item.label : item;
 						dropdown = dropdown + html.element( 'option', {
-							'value': key,
-							'selected': options.selectedAll
-						},item );
+							value: key,
+							selected: options.selectedAll
+						}, item );
 					} );
 
 					return html.element( 'select', {
-						'id': options['class'],
-						'class': options['class'],
-						'multiple': options.multiple || false,
-						'size': options.multiple ? ( list.length > 5 ? 5 : list.length ) : 1
-						}, new html.Raw( ( options.null ? html.element( 'option', { }, '' ) : '' ) + dropdown )
+						id: options.class,
+						class: options.class,
+						multiple: options.multiple || false,
+						size: options.multiple ? ( list.length > 5 ? 5 : list.length ) : 1
+					}, new html.Raw( ( options.null ? html.element( 'option', { }, '' ) : '' ) + dropdown )
 					);
 				}
 			}
@@ -132,17 +136,17 @@
 			// Create element and bind the click event
 			this.selectList = $( selectList( options.list ) ).appendTo( el );
 			self.selectList = this.selectList
-			.on( 'change', function( event ){
-				var that = $( this );
-				if ( $.isFunction( options.change ) ){
-					options.change( event, {
-						selected: that.is( ':selected' ),
-						value: that.val()
-					} );
-				}
-			} );
+				.on( 'change', function ( event ) {
+					const that = $( this );
+					if ( $.isFunction( options.change ) ) {
+						options.change( event, {
+							selected: that.is( ':selected' ),
+							value: that.val()
+						} );
+					}
+				} );
 
-			return options.show || options.show === undefined ?  self.selectList.show() : self.selectList.hide();
+			return options.show || options.show === undefined ? self.selectList.show() : self.selectList.hide();
 		},
 
 		/**
@@ -150,8 +154,8 @@
 		 *
 		 * @since 1.9
 		 */
-		destroy: function() {
+		destroy: function () {
 			$.Widget.prototype.destroy.apply( this );
 		}
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

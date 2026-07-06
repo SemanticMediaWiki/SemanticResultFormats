@@ -1,5 +1,9 @@
 /**
  * JavaScript for SRF ListWidget module
+ *
+ * @param $
+ * @param mw
+ * @param srf
  * @see http://www.semantic-mediawiki.org/wiki/Help:Listwidget format
  *
  * @since 1.8
@@ -8,50 +12,50 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
-	/*global mw:true*/
+	/* global mw:true */
 
-	////////////////////////// PRIVATE METHODS ////////////////////////
+	// //////////////////////// PRIVATE METHODS ////////////////////////
 
-	var util = new srf.util();
+	const util = new srf.util();
 
-	////////////////////////// PUBLIC METHODS ////////////////////////
+	// //////////////////////// PUBLIC METHODS ////////////////////////
 
-	$.fn.srfListwidget = function() {
-		var widgetID = this.find( '.listwidget-container' ).attr( 'id' ),
-			listType   = this.data( 'listtype' ),
-			widget     = this.data( 'widget' ),
-			pageitems  = this.data( 'pageitems' ),
-			noMatch    = mw.msg( 'srf-module-nomatch' );
+	$.fn.srfListwidget = function () {
+		const widgetID = this.find( '.listwidget-container' ).attr( 'id' ),
+			listType = this.data( 'listtype' ),
+			widget = this.data( 'widget' ),
+			pageitems = this.data( 'pageitems' ),
+			noMatch = mw.msg( 'srf-module-nomatch' );
 
 		// Update list with ID and class
-		this.find( listType ).attr( { 'id': widgetID, 'class' : widget + '-container' } );
+		this.find( listType ).attr( { id: widgetID, class: widget + '-container' } );
 
 		// Navigation class
-		var navClass = widget === 'pagination' ? '.listwidget-container' : '.' + widget + '-container';
+		const navClass = widget === 'pagination' ? '.listwidget-container' : '.' + widget + '-container';
 
 		// Navigation element
-		var navigation  = '<div id="' + widgetID + '-nav" class="srf-listwidget-navigation"></div>';
+		const navigation = '<div id="' + widgetID + '-nav" class="srf-listwidget-navigation"></div>';
 		this.find( navClass ).before( navigation );
 
 		if ( widget === 'pagination' ) {
 			// Pagination widget
 			this.pajinate( {
-				items_per_page : pageitems,
-				item_container_id : '.pagination-container',
-				nav_panel_id : '#' + widgetID + '-nav'
+				items_per_page: pageitems,
+				item_container_id: '.pagination-container',
+				nav_panel_id: '#' + widgetID + '-nav'
 			} );
 
 		} else if ( widget === 'menu' ) {
 			// Alphabet menu navigation
 			this.find( listType ).listmenu( {
-					includeAll: false,
-					includeOther: true,
-					showCounts: false,
-					cols: { count:3, gutter:35 },
-					noMatchText: noMatch
+				includeAll: false,
+				includeOther: true,
+				showCounts: false,
+				cols: { count: 3, gutter: 35 },
+				noMatchText: noMatch
 			} );
 		} else {
 			// Alphabet list navigation
@@ -68,9 +72,9 @@
 		this.find( '.listwidget-container' ).show();
 	};
 
-	$(document).ready( function() {
-		$( '.srf-listwidget' ).each( function() {
+	$( document ).ready( () => {
+		$( '.srf-listwidget' ).each( function () {
 			$( this ).srfListwidget();
 		} );
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

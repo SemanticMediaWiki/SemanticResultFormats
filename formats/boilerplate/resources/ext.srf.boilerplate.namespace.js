@@ -1,5 +1,9 @@
 /**
  * JavaScript for SRF boilerplate format using the semanticFormats namespace
+ *
+ * @param $
+ * @param mw
+ * @param srf
  * @see http://www.semantic-mediawiki.org/wiki/Help:Boilerplate format
  *
  * Please remember to add your documentation to http://www.semantic-mediawiki.org
@@ -10,7 +14,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 
 	// Use EcmaScript 5 to improve code quality and check with jshint/jslint
 	// if the code adheres standard coding conventions
@@ -19,10 +23,11 @@
 	'use strict';
 
 	// Passing jshint
-	/*global mediaWiki:true, semanticFormats:true*/
+	/* global mediaWiki:true, semanticFormats:true */
 
 	/**
 	 * Module for formats extensions
+	 *
 	 * @since 1.8
 	 * @type Object
 	 */
@@ -32,37 +37,38 @@
 
 	/**
 	 * Base constructor for objects representing a boilerplate instance
+	 *
 	 * @since 1.8
 	 * @type Object
 	 */
 
 	// If you have default values to be set during the instantiation
 	// $.extend ... can be used here
-	srf.formats.boilerplate = function() {};
+	srf.formats.boilerplate = function () {};
 
 	srf.formats.boilerplate.prototype = {
 		// Specify your functions and parameters
-		show: function( context ) {
-			return context.each( function() {
+		show: function ( context ) {
+			return context.each( function () {
 
 				// Ensure variables have only local scope otherwise leaked content might
 				// cause issues for other plugins
-				var $this = $( this );
+				const $this = $( this );
 
 				// Find the container instance that was created by the PHP output
 				// and store it as "container" variable which all preceding steps
 				// working on a localized instance
-				var container = $this.find( '.container' );
+				const container = $this.find( '.container' );
 
 				// Find the ID that connects to the current instance with the published data
-				var ID = container.attr( 'id' );
+				const ID = container.attr( 'id' );
 
 				// Fetch the stored data with help of mw.config.get() method and the current instance ID
 				// @see http://www.mediawiki.org/wiki/ResourceLoader/Default_modules#mediaWiki.config
-				var json = mw.config.get( ID );
+				const json = mw.config.get( ID );
 
 				// Parse the fetched json string and convert it back into objects/arrays
-				var data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
+				const data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
 				// Hide the spinner which belongs to the outer wrapper
 				// Use the utility function here which makes it easier as no explicit knowledge
@@ -79,31 +85,32 @@
 
 				// Happy coding ...
 
-		} );
+			} );
 		}
 	};
 
 	/**
 	 * Implementation and representation of the boilerplate instance
+	 *
 	 * @since 1.8
 	 * @type Object
 	 */
 
 	// Create class instance
-	var boilerplate = new srf.formats.boilerplate();
+	const boilerplate = new srf.formats.boilerplate();
 
 	// Get access to SRF specific utilities function
-	var util = new srf.util();
+	const util = new srf.util();
 
-	$( document ).ready(function() {
+	$( document ).ready( () => {
 
 		// Use the class selector to find all instances relevant to the "boilerplate" printer
 		// since a wiki page can have more than one instance of the same result printer
 		// .each() ensures instances are handled separately
-		$( '.srf-boilerplate' ).each(function() {
+		$( '.srf-boilerplate' ).each( function () {
 
 			// Access methods available through the boilerplate class
 			boilerplate.show( $( this ) );
 		} );
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

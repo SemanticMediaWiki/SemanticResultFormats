@@ -26,10 +26,10 @@
  * @license GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
-	/*global d3:true*/
+	/* global d3:true */
 
 	/**
 	 * Inheritance class for the srf.formats constructor
@@ -49,7 +49,7 @@
 	 * @class
 	 * @constructor
 	 */
-	srf.formats.tagcloud = function() {};
+	srf.formats.tagcloud = function () {};
 
 	/* Public interface  */
 
@@ -80,27 +80,27 @@
 		 *
 		 * @return {boolean}
 		 */
-		sphere: function( context ) {
+		sphere: function ( context ) {
 
 			// Init
-			var container = context.find( '.srf-container' ),
+			const container = context.find( '.srf-container' ),
 				tagsID = container.find( '.srf-tags' ).attr( 'id' ),
 				data = container.data();
 
-			context.css( { 'width': data.width, 'height': data.height } );
+			context.css( { width: data.width, height: data.height } );
 
 			// wrap text items with a fake link to ensure
 			// JQuery's TagCloud list them
-			var tagsElement = container.find( '#' + tagsID );
-			tagsElement.find( 'li' ).each( function() {
-				var $li = $( this );
+			const tagsElement = container.find( '#' + tagsID );
+			tagsElement.find( 'li' ).each( function () {
+				const $li = $( this );
 				if ( $li.find( 'a' ).length === 0 ) {
 					$li.wrapInner( '<a href=""></a>' );
 				}
-			});
+			} );
 
 			// Add canvas element
-			var canvas = $( '<canvas></canvas>' ).appendTo( container );
+			const canvas = $( '<canvas></canvas>' ).appendTo( container );
 			canvas.attr( {
 				id: container.attr( 'id' ) + '-canvas',
 				width: data.width,
@@ -110,7 +110,7 @@
 			// Initialize tagcanvas instance
 			// Somewhere around here QUnit dies (with a time out) which
 			// makes it unattainable to run a successful test
-			if( !canvas.tagcanvas( {
+			if ( !canvas.tagcanvas( {
 				textColour: null,
 				outlineColour: '#FF9D43',
 				textFont: data.font,
@@ -138,76 +138,58 @@
 		 *
 		 * @return {boolean}
 		 */
-		wordcloud: function( context ) {
+		wordcloud: function ( context ) {
 
 			// Init
-			var container = context.find( '.srf-container' ),
+			const container = context.find( '.srf-container' ),
 				containerID = container.attr( 'id' ),
 				data = container.data(),
-				textFont = data.font.split(',');
+				textFont = data.font.split( ',' );
 
-			context.css( { 'width': data.width, 'height': data.height } );
+			context.css( { width: data.width, height: data.height } );
 
 			// Build array of tags, size, and href property
-			var arr = [];
-			container.find( 'li' ).each( function(){
+			const arr = [];
+			container.find( 'li' ).each( function () {
 				arr.push( [ $( this ).text(), $( this ).css( 'font-size' ), $( this ).find( 'a' ).attr( 'href' ) ] );
 			} );
 
 			// Init the colour array
-			var fill = d3.scaleOrdinal(d3.schemeTableau10);
+			const fill = d3.scaleOrdinal( d3.schemeTableau10 );
 
 			// Set properties for the tags
 			function draw( words ) {
 				d3.select( '#' + containerID ).append( 'svg' )
-				.attr( 'width', data.width - 5 )
-				.attr( 'height', data.height - 5 )
-				.append( 'g' )
-				.attr( 'transform', 'translate(' + data.width / 2 + ',' + data.height / 2 + ')' )
-				.selectAll( 'text'  )
-				.data( words )
-				.enter().append( 'text' )
-				.style( 'fill', function( d ) {
-					return fill(d.text.toLowerCase() );
-				} )
-				.style( 'font-size', function(d) {
-					return d.size + 'px';
-				} )
-				.attr( 'text-anchor', 'middle' )
-				.attr( 'transform', function( d ) {
-					return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
-				} )
-				.append( 'svg:a' )
-				.style( 'text-decoration', function( d ) {
-					return typeof d.href === 'undefined' ? 'none' : 'inherent';
-				} )
-				.attr( 'font-family',  function(d) {
-					return d.font;
-				} )
-				.attr( 'target', data.target === undefined ? '' : '_blank' )
-				.attr( 'xlink:href', function( d ) {
-					return d.href !== '' ? d.href : '';
-				} )
-				.text( function(d) {
-					return d.text;
-				} );
+					.attr( 'width', data.width - 5 )
+					.attr( 'height', data.height - 5 )
+					.append( 'g' )
+					.attr( 'transform', 'translate(' + data.width / 2 + ',' + data.height / 2 + ')' )
+					.selectAll( 'text' )
+					.data( words )
+					.enter().append( 'text' )
+					.style( 'fill', ( d ) => fill( d.text.toLowerCase() ) )
+					.style( 'font-size', ( d ) => d.size + 'px' )
+					.attr( 'text-anchor', 'middle' )
+					.attr( 'transform', ( d ) => 'translate(' + [ d.x, d.y ] + ')rotate(' + d.rotate + ')' )
+					.append( 'svg:a' )
+					.style( 'text-decoration', ( d ) => typeof d.href === 'undefined' ? 'none' : 'inherent' )
+					.attr( 'font-family', ( d ) => d.font )
+					.attr( 'target', data.target === undefined ? '' : '_blank' )
+					.attr( 'xlink:href', ( d ) => d.href !== '' ? d.href : '' )
+					.text( ( d ) => d.text );
 			}
 
 			// Build word cloud
 			// ~~ (bitwise not) is used instead of Math.floor because it is
 			// twice as fast as floor, "end" is fired when all words have been placed
-			var cloud = d3.layout.cloud().size( [ data.width - 5, data.height - 5 ] )
-				.words( arr.map( function( d ) { return {
-					text: d[0],
-					size: parseInt( d[1], 10 ),
-					href: d[2]
-				}; } ) )
-				.rotate( function() {
-					return ~~( Math.random() * 2 ) * 90;
-				} )
-				.fontSize( function(d) {
-					return d.size;
-				} )
+			const cloud = d3.layout.cloud().size( [ data.width - 5, data.height - 5 ] )
+				.words( arr.map( ( d ) => ( {
+					text: d[ 0 ],
+					size: parseInt( d[ 1 ], 10 ),
+					href: d[ 2 ]
+				} ) ) )
+				.rotate( () => ~~( Math.random() * 2 ) * 90 )
+				.fontSize( ( d ) => d.size )
 				.font( textFont[ ~~( Math.random() * textFont.length ) ] )
 				.on( 'end', draw );
 
@@ -231,16 +213,16 @@
 		 *
 		 * @return {boolean}
 		 */
-		load: function( options ) {
-			var self = this;
-			var util = new srf.util();
+		load: function ( options ) {
+			const self = this;
+			const util = new srf.util();
 
 			// Check version
 			if ( options.context.data( 'version' ) >= self.version ) {
 
 				if ( util.assert( options.element ) ) {
-					mw.loader.using( options.module, function() {
-						smw.async.load( options.context, function() {
+					mw.loader.using( options.module, () => {
+						smw.async.load( options.context, function () {
 							util.spinner.hide( $( this ) );
 							options.method.call( this, $( this ) );
 						} );
@@ -272,14 +254,15 @@
 
 	/**
 	 * Implementation of a tagcloud instance
+	 *
 	 * @since 1.8
 	 * @ignore
 	 */
-	$( document ).ready( function() {
-		var tagcloud = new srf.formats.tagcloud();
+	$( document ).ready( () => {
+		const tagcloud = new srf.formats.tagcloud();
 
 		// Tagcanvas
-		$( '.srf-tagcloud-sphere' ).each( function() {
+		$( '.srf-tagcloud-sphere' ).each( function () {
 			tagcloud.load( {
 				context: $( this ),
 				element: 'canvas',
@@ -289,7 +272,7 @@
 		} );
 
 		// Wordcloud
-		$( '.srf-tagcloud-wordcloud' ).each( function() {
+		$( '.srf-tagcloud-wordcloud' ).each( function () {
 			tagcloud.load( {
 				context: $( this ),
 				element: 'svg',
@@ -300,4 +283,4 @@
 
 	} );
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

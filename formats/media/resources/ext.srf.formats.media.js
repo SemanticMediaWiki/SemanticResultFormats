@@ -1,5 +1,6 @@
 /**
  * This file is part of the Semantic Result Formats Media module
+ *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Media_formats
  *
  * @section LICENSE
@@ -26,10 +27,10 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
-	/*global jPlayerPlaylist:true*/
+	/* global jPlayerPlaylist:true */
 
 	/**
 	 * Inheritance class for the srf.formats constructor
@@ -50,10 +51,11 @@
 	 * @constructor
 	 * @extends srf.formats
 	 */
-	srf.formats.media = function() {};
+	srf.formats.media = function () {};
 
 	/**
 	 * Public interface
+	 *
 	 * @ignore
 	 */
 	srf.formats.media.prototype = {
@@ -71,11 +73,11 @@
 		 */
 		defaults: {
 			posterImage: srf.settings.get( 'srfgScriptPath' ) + '/formats/media/resources/images/audio.auto.cover.png',
-			size:{
-				'270p' : { width: '480', height: '270', cssClass: 'jp-video-270p' },
-				'360p' : { width: '640', height: '360', cssClass: 'jp-video-360p' }
+			size: {
+				'270p': { width: '480', height: '270', cssClass: 'jp-video-270p' },
+				'360p': { width: '640', height: '360', cssClass: 'jp-video-360p' }
 			},
-			jplayer : {
+			jplayer: {
 				swfPath: srf.settings.get( 'srfgScriptPath' ) + '/resources/jquery/jplayer/jquery.jplayer.swf',
 				backgroundColor: '#FFFFFF',
 				wmode: 'window',
@@ -90,9 +92,10 @@
 		 *
 		 * @param {string} context
 		 *
+		 * @param data
 		 * @return {Object}
 		 */
-		parse: function( data ){
+		parse: function ( data ) {
 			return typeof data === 'string' ? jQuery.parseJSON( data ) : data;
 		},
 
@@ -105,11 +108,11 @@
 		 *
 		 * @return Object
 		 */
-		getId: function( ID ){
+		getId: function ( ID ) {
 			return {
-				'playerId' : ID + '-player',
-				'containerId' : ID + '-container',
-				'inspectorId' : ID + '-inspector'
+				playerId: ID + '-player',
+				containerId: ID + '-container',
+				inspectorId: ID + '-inspector'
 			};
 		},
 
@@ -122,8 +125,8 @@
 		 *
 		 * @return {string}
 		 */
-		getPlayerSize: function( type ){
-			return type === 'video' ? this.defaults.size['270p'] : '';
+		getPlayerSize: function ( type ) {
+			return type === 'video' ? this.defaults.size[ '270p' ] : '';
 		},
 
 		/**
@@ -136,10 +139,10 @@
 		 *
 		 * @return Object
 		 */
-		getData: function( source, mediaType ){
-			var data = [],
-			self = this;
-			$.each( source, function( index, value ) {
+		getData: function ( source, mediaType ) {
+			const data = [],
+				self = this;
+			$.each( source, ( index, value ) => {
 
 				// Make sure we display a title
 				if ( value.title === undefined ) {
@@ -151,7 +154,7 @@
 				if ( mediaType === 'video' && ( value.poster === undefined || value.poster.length === 0 ) ) {
 					value.poster = self.defaults.posterImage;
 				}
-				data.push ( value );
+				data.push( value );
 			} );
 			return data;
 		},
@@ -167,11 +170,11 @@
 		 *
 		 * @return Object
 		 */
-		getPlayerTemplate: function( ID, mediaType, mode ){
-			var template = srf.template.jplayer[mediaType][mode];
+		getPlayerTemplate: function ( ID, mediaType, mode ) {
+			const template = srf.template.jplayer[ mediaType ][ mode ];
 			return template( {
-				'playerId': this.getId( ID ).playerId,
-				'containerId': this.getId( ID ).containerId
+				playerId: this.getId( ID ).playerId,
+				containerId: this.getId( ID ).containerId
 			} );
 		},
 
@@ -185,11 +188,11 @@
 		 *
 		 * @return Object
 		 */
-		getInspector: function( ID ){
-			var self = this;
-			mw.loader.using( 'ext.jquery.jplayer.inspector', function () {
+		getInspector: function ( ID ) {
+			const self = this;
+			mw.loader.using( 'ext.jquery.jplayer.inspector', () => {
 				$( '#' + self.getId( ID ).inspectorId ).jPlayerInspector( {
-					jPlayer : $( '#' +  self.getId( ID ).playerId  )
+					jPlayer: $( '#' + self.getId( ID ).playerId )
 				} );
 			} );
 			return srf.template.jplayer.inspector( self.getId( ID ).inspectorId );
@@ -198,24 +201,25 @@
 
 	/**
 	 * Implementation of a media instance
+	 *
 	 * @since 1.9
 	 * @ignore
 	 */
-	$( document ).ready( function() {
+	$( document ).ready( () => {
 
-		$( '.srf-media' ).each( function() {
-			var media = new srf.formats.media();
+		$( '.srf-media' ).each( function () {
+			const media = new srf.formats.media();
 
-			var $this = $( this ),
+			const $this = $( this ),
 				container = $this.find( '.media-container' ),
 				ID = container.attr( 'id' ),
 				json = media.parse( mw.config.get( ID ) ),
 				mode = json.count === 1 ? 'single' : 'multi';
 
 			// Specify jPlayer options
-			var jPlayerSelector = {
+			const jPlayerSelector = {
 					jPlayer: '#' + media.getId( ID ).playerId,
-					cssSelectorAncestor:  '#' + media.getId( ID ).containerId
+					cssSelectorAncestor: '#' + media.getId( ID ).containerId
 				},
 				jPlayerOptions = {
 					size: media.getPlayerSize( json.mediaType ),
@@ -223,17 +227,17 @@
 				};
 
 			// Init player template
-			if ( json.mediaType ){
+			if ( json.mediaType ) {
 				container.prepend( media.getPlayerTemplate( ID, json.mediaType, mode ) );
 			}
 
 			// Init media event inspector
-			if ( json.inspector ){
+			if ( json.inspector ) {
 				container.append( media.getInspector( ID ) );
 			}
 
 			// Create jPlayer instance
-			var jPlayerInstance = new jPlayerPlaylist(
+			const jPlayerInstance = new jPlayerPlaylist(
 				jPlayerSelector,
 				media.getData( json.data, json.mediaType ),
 				// Merge defaults and options, without modifying the defaults
@@ -247,4 +251,4 @@
 		} );
 	} );
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

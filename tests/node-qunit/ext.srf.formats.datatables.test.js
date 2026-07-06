@@ -1,14 +1,14 @@
 'use strict';
 
-const path = require('path');
+const path = require( 'path' );
 
 // The real DataTables jQuery plugin is required (not stubbed) since the test
 // asserts $.fn.DataTable.isDataTable(...). objectHash is a plain vendored
 // global in production (loaded via ext.srf.datatables.v2.module, see issue
 // #1074) — replicate that here since node-qunit bypasses ResourceLoader.
-global.objectHash = require(path.resolve(__dirname, '../../resources/jquery/datatables/object_hash.js'));
-require(path.resolve(__dirname, '../../resources/jquery/datatables/jquery.mark.min.js'));
-require(path.resolve(__dirname, '../../resources/jquery/datatables/datatables.min.js'));
+global.objectHash = require( path.resolve( __dirname, '../../resources/jquery/datatables/object_hash.js' ) );
+require( path.resolve( __dirname, '../../resources/jquery/datatables/jquery.mark.min.js' ) );
+require( path.resolve( __dirname, '../../resources/jquery/datatables/datatables.min.js' ) );
 
 // srf.formats.datatables' showNotice() (unused by init(), kept as a reference
 // per its own comment) is the only OO.ui consumer in the file; stub minimally
@@ -16,47 +16,47 @@ require(path.resolve(__dirname, '../../resources/jquery/datatables/datatables.mi
 global.OO = {
 	ui: {
 		MessageWidget: function () {
-			this.$element = $('<div>');
+			this.$element = $( '<div>' );
 			this.on = function () {};
 		},
 		ButtonWidget: function () {
-			this.$element = $('<div>');
+			this.$element = $( '<div>' );
 			this.on = function () {};
 		},
-		HtmlSnippet: function (html) {
+		HtmlSnippet: function ( html ) {
 			this.html = html;
 		},
-		msg: (key) => key,
-	},
+		msg: ( key ) => key
+	}
 };
 
 // DataTables calls the browser alert() on configuration errors (e.g. a
 // row/column data mismatch); throwing surfaces those as a test failure
 // instead of silently vanishing.
-global.alert = (message) => {
-	throw new Error('DataTables alert(): ' + message);
+global.alert = ( message ) => {
+	throw new Error( 'DataTables alert(): ' + message );
 };
 
-require(path.resolve(__dirname, '../../formats/datatables/resources/ext.srf.formats.datatables.js'));
+require( path.resolve( __dirname, '../../formats/datatables/resources/ext.srf.formats.datatables.js' ) );
 
-QUnit.module('ext.srf.formats.datatables', () => {
+QUnit.module( 'ext.srf.formats.datatables', () => {
 
-	QUnit.test('instance', (assert) => {
+	QUnit.test( 'instance', ( assert ) => {
 		const datatables = new srf.formats.datatables();
 
-		assert.ok(datatables instanceof srf.formats.datatables, 'the srf.formats.datatables instance was accessible');
-	});
+		assert.true( datatables instanceof srf.formats.datatables, 'the srf.formats.datatables instance was accessible' );
+	} );
 
-	QUnit.test('init builds a real DataTable from a query result', (assert) => {
+	QUnit.test( 'init builds a real DataTable from a query result', ( assert ) => {
 		const datatables = new srf.formats.datatables();
 
 		const printrequests = [
 			{ label: '', key: '', redi: '', typeid: '_wpg', mode: 2, format: '' },
-			{ label: 'Assigned to', key: 'Assigned_to', redi: '', typeid: '_wpg', mode: 1, format: '' },
+			{ label: 'Assigned to', key: 'Assigned_to', redi: '', typeid: '_wpg', mode: 1, format: '' }
 		];
 		const printouts = [
-			[2, '', null, '', {}],
-			[1, 'Assigned to', null, '', {}],
+			[ 2, '', null, '', {} ],
+			[ 1, 'Assigned to', null, '', {} ]
 		];
 
 		const container = $(
@@ -64,9 +64,9 @@ QUnit.module('ext.srf.formats.datatables', () => {
 				'<table class="srf-datatable wikitable display" ' +
 					'data-collation="identity" ' +
 					'data-nocase="1" ' +
-					`data-column-sort='${JSON.stringify({ list: ['', 'Assigned to'], sort: [''], order: [] })}' ` +
-					`data-printrequests='${JSON.stringify(printrequests)}' ` +
-					`data-printouts='${JSON.stringify(printouts)}' ` +
+					`data-column-sort='${ JSON.stringify( { list: [ '', 'Assigned to' ], sort: [ '' ], order: [] } ) }' ` +
+					`data-printrequests='${ JSON.stringify( printrequests ) }' ` +
+					`data-printouts='${ JSON.stringify( printouts ) }' ` +
 					'data-use-ajax="" ' +
 					'data-count="1" ' +
 					'data-editor="Admin">' +
@@ -75,7 +75,7 @@ QUnit.module('ext.srf.formats.datatables', () => {
 				'</table>' +
 			'</div>'
 		);
-		$(document.body).append(container);
+		$( document.body ).append( container );
 
 		const data = {
 			query: {
@@ -84,29 +84,29 @@ QUnit.module('ext.srf.formats.datatables', () => {
 				result: [
 					[
 						{ display: 'My page', filter: 'My page', sort: 'My page' },
-						{ display: 'Admin', filter: 'Admin', sort: 'Admin' },
-					],
+						{ display: 'Admin', filter: 'Admin', sort: 'Admin' }
+					]
 				],
 				ask: {
 					conditions: '[[Assigned to::+]]',
-					parameters: { limit: 5000, offset: 0 },
-				},
+					parameters: { limit: 5000, offset: 0 }
+				}
 			},
 			formattedOptions: {
 				searchPanes: false,
 				searchBuilder: false,
 				buttons: [],
-				lengthMenu: [10, 20, 50],
+				lengthMenu: [ 10, 20, 50 ],
 				pageLength: 20,
-				columns: {},
+				columns: {}
 			},
-			printoutsParametersOptions: [{}, {}],
-			searchPanes: {},
+			printoutsParametersOptions: [ {}, {} ],
+			searchPanes: {}
 		};
 
-		datatables.init(container, data);
+		datatables.init( container, data );
 
-		assert.ok($.fn.DataTable.isDataTable(container.find('table')), 'table is a DataTable');
-	});
+		assert.true( $.fn.DataTable.isDataTable( container.find( 'table' ) ), 'table is a DataTable' );
+	} );
 
-});
+} );

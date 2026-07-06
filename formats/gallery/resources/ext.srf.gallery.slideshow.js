@@ -1,5 +1,6 @@
 /**
  * This file is part of the SRF gallery slideshow module
+ *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
  * @section LICENSE
@@ -32,9 +33,12 @@
 /**
  * Extends base class with a slideshow function
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @class srf.formats.gallery.slideshow
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -53,14 +57,14 @@
 		 *
 		 * @return {Function}
 		 */
-		slideshow: function( context ) {
-			return context.each( function() {
-				var util = new srf.util();
-				var $this = $( this );
-				var maxHeight = 0;
-				var gallery   = $this.find( 'ul' );
-				var galleryId = '#' + gallery.attr( 'id' );
-				var previous  = $this.prev( 'p' ).children( 'br' );
+		slideshow: function ( context ) {
+			return context.each( function () {
+				const util = new srf.util();
+				const $this = $( this );
+				let maxHeight = 0;
+				const gallery = $this.find( 'ul' );
+				const galleryId = '#' + gallery.attr( 'id' );
+				const previous = $this.prev( 'p' ).children( 'br' );
 
 				// The gallery parser comes with a preceding empty <p> element
 				// this is a work-around to avoid
@@ -77,7 +81,7 @@
 
 					// Text elements can vary in there height therefore determine max height
 					// for all images used in the same instance
-					if($(this).height() > maxHeight ) {
+					if ( $( this ).height() > maxHeight ) {
 						maxHeight = $( this ).height();
 					}
 				} );
@@ -85,32 +89,33 @@
 				// Set max height in order for all elements to be positioned equally
 				gallery.height( maxHeight );
 
-				if( !gallery.responsiveSlides({
+				if ( !gallery.responsiveSlides( {
 					pauseControls: gallery.attr( 'data-nav-control' ) === 'auto',
 					prevText: mw.msg( 'srf-gallery-navigation-previous' ),
 					nextText: mw.msg( 'srf-gallery-navigation-next' ),
-					auto:  gallery.attr( 'data-nav-control' ) === 'auto',
+					auto: gallery.attr( 'data-nav-control' ) === 'auto',
 					pause: gallery.attr( 'data-nav-control' ) === 'auto',
 					pager: gallery.attr( 'data-nav-control' ) === 'pager',
-					nav:   gallery.attr( 'data-nav-control' ) === 'nav'
+					nav: gallery.attr( 'data-nav-control' ) === 'nav'
 				} ) ) {
 					// something went wrong, hide the canvas container
 					$this.find( galleryId ).hide();
 				}
-		} );
+			} );
 		}
 	} );
 
 	/**
 	 * Implementation of an slideshow instance
+	 *
 	 * @since 1.8
 	 * @ignore
 	 */
-	$( document ).ready( function() {
-		$( '.srf-gallery-slideshow' ).each(function() {
-			var gallery = new srf.formats.gallery();
+	$( document ).ready( () => {
+		$( '.srf-gallery-slideshow' ).each( function () {
+			const gallery = new srf.formats.gallery();
 			gallery.slideshow( $( this ) );
 		} );
 	} );
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

@@ -5,37 +5,38 @@
  *
  * Release 0.6 has been checked agains jsHint which passed all conditions
  *
+ * @param $
  * @licence: GPL-2.0-or-later
  * @author:  mwjames
  *
  * @release: 0.6
  */
-( function( $ ) {
-	"use strict";
+( function ( $ ) {
+	'use strict';
 
-	/*global colorscheme:true*/
+	/* global colorscheme:true */
 
 	// Pie/donut handling
-	$.fn.srfjqPlotPieChart = function( options ) {
-		var data = options.data;
+	$.fn.srfjqPlotPieChart = function ( options ) {
+		const data = options.data;
 
 		// Handle data array
-		var jqplotpiedata = [];
+		let jqplotpiedata = [];
 
-		var dataRenderer = function() {
-				jqplotpiedata = data.data;
+		const dataRenderer = function () {
+			jqplotpiedata = data.data;
 			// jqplotpiedata.push( data.data );
 			return jqplotpiedata;
 		};
 
 		// Default settings
-		var seriesDefaults = {
+		const seriesDefaults = {
 			renderer: data.renderer === 'donut' ? $.jqplot.DonutRenderer : $.jqplot.PieRenderer,
 			shadow: data.parameters.theme !== 'simple',
 			rendererOptions: {
 				fill: data.parameters.filling,
 				lineWidth: 2,
-				showDataLabels: ( data.parameters.datalabels === 'percent' || data.parameters.datalabels === 'value' || data.parameters.datalabels === 'label' ? true : false ),
+				showDataLabels: ( !!( data.parameters.datalabels === 'percent' || data.parameters.datalabels === 'value' || data.parameters.datalabels === 'label' ) ),
 				dataLabels: data.parameters.datalabels,
 				sliceMargin: 2,
 				dataLabelFormatString: data.parameters.datalabels === 'label' ? null : ( !data.parameters.valueformat ? '%d' : data.parameters.valueformat )
@@ -46,10 +47,10 @@
 		$.jqplot.config.enablePlugins = true;
 
 		// Render plot
-		var jqplotpie = $.jqplot( options.id, [] , {
+		const jqplotpie = $.jqplot( options.id, [], {
 			dataRenderer: dataRenderer,
 			title: data.parameters.charttitle,
-			seriesColors: data.parameters.seriescolors ?  data.parameters.seriescolors :  ( data.parameters.colorscheme === null ? null : colorscheme[data.parameters.colorscheme][9] ),
+			seriesColors: data.parameters.seriescolors ? data.parameters.seriescolors : ( data.parameters.colorscheme === null ? null : colorscheme[ data.parameters.colorscheme ][ 9 ] ),
 			grid: data.parameters.grid,
 			highlighter: { show: false },
 			cursor: { show: false },
@@ -59,11 +60,11 @@
 				location: data.parameters.chartlegend,
 				placement: 'inside',
 				xoffset: 10,
-				yoffset:10
+				yoffset: 10
 			}
 		} ); // end of jqplot object
 
 		// Call theming
-		this.srfjqPlotTheme( { 'plot' : jqplotpie, 'theme' : data.parameters.theme } );
+		this.srfjqPlotTheme( { plot: jqplotpie, theme: data.parameters.theme } );
 	};
-} )( window.jQuery );
+}( window.jQuery ) );

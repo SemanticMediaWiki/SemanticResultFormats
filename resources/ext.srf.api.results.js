@@ -1,6 +1,9 @@
 /**
  * SRF JavaScript for the api/results
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @since 1.9
  * @release 0.1
  *
@@ -10,16 +13,16 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
- 'use strict';
+( function ( $, mw, srf ) {
+	'use strict';
 
-	////////////////////////// PRIVATE METHODS //////////////////////////
+	// //////////////////////// PRIVATE METHODS //////////////////////////
 
-	var timeLocales = {
-		monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-		monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-		dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-		dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+	const timeLocales = {
+		monthNames: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+		monthNamesShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+		dayNames: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+		dayNamesShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
 		amDesignator: 'AM',
 		pmDesignator: 'PM'
 	};
@@ -27,9 +30,9 @@
 	// Zero-indexed array of localised month names in the user interface
 	// language, provided by the mediawiki.language.months module (declared
 	// as a dependency of the ext.srf.api module).
-	var monthNames = mw.language.months.names;
+	const monthNames = mw.language.months.names;
 
-	////////////////////////// PUBLIC METHODS /////////////////////////
+	// //////////////////////// PUBLIC METHODS /////////////////////////
 
 	/**
 	 * API namespace declaration
@@ -44,8 +47,8 @@
 	 *
 	 * @since 1.9
 	 */
-	srf.api.results = function() {};
-	srf.api.util = function() {};
+	srf.api.results = function () {};
+	srf.api.util = function () {};
 
 	/**
 	 * Public to access results information retrieved through the SMWAPI
@@ -60,22 +63,23 @@
 		 *
 		 * @since 1.9
 		 */
-		array:{
+		array: {
 			/**
 			 * Array unique function
 			 *
 			 * $.unique only allows to be an array of DOM elements therefore
 			 * this returns a nromal "array" with no duplicates
 			 *
+			 * @param arr
 			 * @credits http://paulirish.com/2010/duck-punching-with-jquery/
 			 *
 			 * @since 1.9
 			 */
-			unique: function( arr ){
-				if ( !!arr[0].nodeType ){
+			unique: function ( arr ) {
+				if ( arr[ 0 ].nodeType ) {
 					return $.unique.apply( this, arguments );
 				} else {
-					return $.grep(arr,function(v,k){ return $.inArray(v,arr) === k; } );
+					return $.grep( arr, ( v, k ) => $.inArray( v, arr ) === k );
 				}
 			}
 		}
@@ -92,10 +96,11 @@
 		/**
 		 * Collection related to printrequests and properties
 		 *
+		 * @param printrequests
 		 * @since 1.9
 		 */
-		printrequests: function( printrequests ){
-			var list = printrequests;
+		printrequests: function ( printrequests ) {
+			let list = printrequests;
 
 			return {
 				list: list,
@@ -112,13 +117,13 @@
 				 * @since 1.9
 				 * @type Object
 				 */
-				toArray: function ( printrequests ){
-					var tList = {};
+				toArray: function ( printrequests ) {
+					const tList = {};
 					printrequests = printrequests || list;
 
-					if ( printrequests !== undefined ){
-						$.map( printrequests, function( key, index ) {
-							tList[key.label] = { typeid: key.typeid, position: index, meta: key.meta };
+					if ( printrequests !== undefined ) {
+						$.map( printrequests, ( key, index ) => {
+							tList[ key.label ] = { typeid: key.typeid, position: index, meta: key.meta };
 						} );
 					}
 					return list = tList;
@@ -130,8 +135,8 @@
 				 * @since 1.9
 				 * @type Object
 				 */
-				getTypeId: function ( property ){
-					return list[property].typeid || null;
+				getTypeId: function ( property ) {
+					return list[ property ].typeid || null;
 				},
 
 				/**
@@ -140,8 +145,8 @@
 				 * @since 1.9
 				 * @type Object
 				 */
-				getMetaData: function ( property ){
-					return list[property].meta || null;
+				getMetaData: function ( property ) {
+					return list[ property ].meta || null;
 				},
 
 				/**
@@ -150,10 +155,11 @@
 				 * Printouts in the result object are not sorted
 				 * therefore this returns its position in accordance with the query
 				 *
+				 * @param property
 				 * @since 1.9
 				 */
-				getPosition: function ( property ){
-					return list[property].position || null;
+				getPosition: function ( property ) {
+					return list[ property ].position || null;
 				}
 			};
 		},
@@ -178,15 +184,15 @@
 				 * @since 1.9
 				 * @type Object
 				 */
-				parseDate: function( d ) {
-					if ( typeof d === 'object') {
+				parseDate: function ( d ) {
+					if ( typeof d === 'object' ) {
 						return d;
 					}
 					if ( typeof d === 'number' ) {
 						return new Date( d * 1000 );
 					}
 					if ( typeof d === 'string' ) {
-						if ( d.match(/^\d+(\.\d+)?$/) ) {
+						if ( d.match( /^\d+(\.\d+)?$/ ) ) {
 							return new Date( parseFloat( d ) * 1000 );
 						}
 					}
@@ -202,8 +208,8 @@
 				 * @since 1.9
 				 * @type Object
 				 */
-				getISO8601Date: function( timestamp ) {
-					var d = this.parseDate( timestamp );
+				getISO8601Date: function ( timestamp ) {
+					const d = this.parseDate( timestamp );
 					return d !== null ? d.toISOString() : null;
 				},
 
@@ -211,10 +217,11 @@
 				 * Returns a formatted time (HH:MM:SS)
 				 *
 				 * @param string|Date time
+				 * @param time
 				 * @return string
 				 */
-				getTime: function( time ) {
-					var d = typeof time === 'object' ? time : this.parseDate( time );
+				getTime: function ( time ) {
+					const d = typeof time === 'object' ? time : this.parseDate( time );
 					return ( d.getHours() < 10 ? '0' + d.getHours() : d.getHours() ) +
 						':' + ( d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes() ) +
 						':' + ( d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds() );
@@ -225,21 +232,23 @@
 				 *
 				 * @param string|Date
 				 * @param string format
+				 * @param date
+				 * @param format
 				 * @return string
 				 */
-				getDate: function( date, format ) {
-					var d = typeof date === 'object' ? date : this.parseDate( date ),
+				getDate: function ( date, format ) {
+					let d = typeof date === 'object' ? date : this.parseDate( date ),
 						formatDate = '';
 
-					switch( format ) {
+					switch ( format ) {
 						case 'dmY':
-							formatDate = d.getDate() + '.' + ( '' + d.getMonth() + 1 ) + '.' + d.getFullYear();
+							formatDate = d.getDate() + '.' + ( String( d.getMonth() ) + 1 ) + '.' + d.getFullYear();
 							break;
 						case 'Ymd':
-							formatDate = d.getFullYear() + '.' + ( '' + d.getMonth() + 1 ) + '.' + d.getDate();
+							formatDate = d.getFullYear() + '.' + ( String( d.getMonth() ) + 1 ) + '.' + d.getDate();
 							break;
 						default:
-							formatDate = d.getDate() + ' ' + monthNames[d.getMonth()] + ' ' + d.getFullYear();
+							formatDate = d.getDate() + ' ' + monthNames[ d.getMonth() ] + ' ' + d.getFullYear();
 					}
 
 					return formatDate;
@@ -250,14 +259,16 @@
 				 *
 				 * @param string timestamp
 				 * @param string format
+				 * @param timestamp
+				 * @param format
 				 * @return string
 				 */
-				getMediaWikiDate: function( timestamp, format ) {
-					var date = this.parseDate( timestamp );
+				getMediaWikiDate: function ( timestamp, format ) {
+					const date = this.parseDate( timestamp );
 					return this.getDate( date, format ) + ' ' + this.getTime( date );
 				}
 			}
 		}
 	};
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

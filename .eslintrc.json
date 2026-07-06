@@ -1,0 +1,51 @@
+{
+	"root": true,
+	"extends": [
+		"wikimedia/client",
+		"wikimedia/mediawiki"
+	],
+	"globals": {
+		"$": "readonly",
+		"jQuery": "readonly",
+		"mediaWiki": "readonly",
+		"semanticFormats": "readonly",
+		"srf": "writable",
+		"smw": "readonly",
+		"Timeline": "readonly",
+		"$jit": "readonly",
+		"mermaid": "readonly",
+		"objectHash": "readonly",
+		"colorscheme": "writable",
+		"simple": "writable",
+		"vector": "writable",
+		"srf_slideshow": "readonly"
+	},
+	"env": {
+		"browser": true
+	},
+	"rules": {
+		"jsdoc/require-param-type": "off",
+		"jsdoc/require-returns-type": "off",
+		"jsdoc/require-returns": "off",
+		"jsdoc/require-property-type": "off",
+		"jsdoc/check-tag-names": "off",
+		"jsdoc/valid-types": "warn",
+		"new-cap": "off",
+		"no-underscore-dangle": "off",
+		"no-shadow": "off"
+	},
+	"overrides": [
+		{
+			"files": [
+				"tests/node-qunit/**/*.js",
+				"tests/qunit/**/*.js"
+			],
+			"extends": [
+				"wikimedia/qunit"
+			],
+			"env": {
+				"node": true
+			}
+		}
+	]
+}

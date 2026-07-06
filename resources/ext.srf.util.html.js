@@ -10,20 +10,19 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-/*global semanticFormats:true mediaWiki:true*/
-( function( $, mw, srf ) {
- 'use strict';
+/* global semanticFormats:true mediaWiki:true */
+( function ( $, mw, srf ) {
+	'use strict';
 
+	// //////////////////////// PRIVATE OBJECTS //////////////////////////
 
-	////////////////////////// PRIVATE OBJECTS //////////////////////////
+	const html = mw.html;
 
-	var html = mw.html;
-
-	////////////////////////// PUBLIC METHODS /////////////////////////
+	// //////////////////////// PUBLIC METHODS /////////////////////////
 
 	$.extend( srf.util.prototype, {
 
-		html:{
+		html: {
 
 			/**
 			 * Returns a dropdown element
@@ -37,28 +36,29 @@
 			 *  disabled: 'disabled'
 			 * }
 			 *
+			 * @param options
 			 * @since 1.9
 			 */
-			dropdown: function( options ){
+			dropdown: function ( options ) {
 				// @note The dropdown size behaves differently in some browsers
 				// therefore a css class is assigned for adjustments
-				var dropdown = '';
+				let dropdown = '';
 				if ( typeof options.list === 'object' ) {
-					$.each( options.list, function( index, text ) {
+					$.each( options.list, ( index, text ) => {
 						if ( typeof text === 'object' ) {
-							text = text[0];
+							text = text[ 0 ];
 						}
-						dropdown = dropdown + html.element( 'option', { 'value': index }, text );
+						dropdown = dropdown + html.element( 'option', { value: index }, text );
 					} );
 				}
 
-				return html.element( 'div',{ 'class': 'select-wrap-' + options.browser || 'all' },
-					new html.Raw ( html.element( 'select', {'id': options.id, 'class': options.selectClass, 'disabled': options.disabled || false },
-						new html.Raw( html.element( 'option', { 'value': '' }, '' ) + dropdown ) )
+				return html.element( 'div', { class: 'select-wrap-' + options.browser || 'all' },
+					new html.Raw( html.element( 'select', { id: options.id, class: options.selectClass, disabled: options.disabled || false },
+						new html.Raw( html.element( 'option', { value: '' }, '' ) + dropdown ) )
 					)
 				);
 			}
 		}
 	} );
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

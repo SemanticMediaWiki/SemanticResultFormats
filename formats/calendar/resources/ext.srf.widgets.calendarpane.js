@@ -1,6 +1,9 @@
 /**
  * SRF JavaScript srf.eventcalendarpane widget
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @since 1.9
  * @release 0.1
  *
@@ -10,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -18,7 +21,7 @@
 	 *
 	 * @type object
 	 */
-	var html = mw.html;
+	const html = mw.html;
 
 	/**
 	 * $.widget factory method
@@ -32,16 +35,16 @@
 		 *
 		 * @return object
 		 */
-		_create: function() {
-			var self = this,
+		_create: function () {
+			const self = this,
 				el = self.element;
 
 			this.pane = $(
-				html.element( 'div', { 'class': self.widgetBaseClass }, '' )
+				html.element( 'div', { class: self.widgetBaseClass }, '' )
 			).insertAfter( el );
 			return this.pane.css( {
-				'display' : ( this.options.show ? 'block' : 'none' )
-			} )
+				display: ( this.options.show ? 'block' : 'none' )
+			} );
 		},
 
 		/**
@@ -50,18 +53,19 @@
 		 * @since 1.9
 		 * @return object
 		 */
-		context: function( ) {
+		context: function () {
 			return this.pane;
 		},
 
 		/**
 		 * Adds a portlet
 		 *
+		 * @param options
 		 * @since 1.9
-		 * @var options
+		 * @member options
 		 */
-		portlet: function( options ) {
-			var self = this,
+		portlet: function ( options ) {
+			const self = this,
 				el = self.element;
 
 			// Specify the pane instance
@@ -70,17 +74,17 @@
 			// Append
 			this.panePortlet = $(
 				html.element( 'div', {
-					'id': self.widgetBaseClass + '-' + options['class'],
-					'class': options['class'] },
-					new html.Raw( ( options['fieldset'] ? html.element( 'fieldset', {},
-						new html.Raw( html.element( 'legend', { }, options['title'] ) ) ) : ''
-						)
-					)
+					id: self.widgetBaseClass + '-' + options.class,
+					class: options.class },
+				new html.Raw( ( options.fieldset ? html.element( 'fieldset', {},
+					new html.Raw( html.element( 'legend', { }, options.title ) ) ) : ''
+				)
+				)
 				)
 			).appendTo( this.pane );
 
 			self.panePortlet = this.panePortlet;
-			return options.hide ? self.panePortlet.hide() : self.panePortlet.show() ;
+			return options.hide ? self.panePortlet.hide() : self.panePortlet.show();
 		},
 
 		/**
@@ -88,22 +92,23 @@
 		 *
 		 * @since 1.9
 		 */
-		toggle: function() {
-			return this.pane.css( 'display' ) === 'none' ? this.pane.show(): this.pane.hide();
+		toggle: function () {
+			return this.pane.css( 'display' ) === 'none' ? this.pane.show() : this.pane.hide();
 		},
 
 		/**
 		 * Remove objects
 		 *
+		 * @param options
 		 * @since 1.9
-		 * @var options
+		 * @member options
 		 */
-		destroy: function( options ) {
-			if ( options['class'] ){
-				$( '.' + options['class'] , this.pane ).remove();
-			} else{
+		destroy: function ( options ) {
+			if ( options.class ) {
+				$( '.' + options.class, this.pane ).remove();
+			} else {
 				$.Widget.prototype.destroy.apply( this );
 			}
 		}
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

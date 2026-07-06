@@ -1,6 +1,9 @@
 /**
  * SRF JavaScript srf.panel widget
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @since 1.9
  * @release 0.1
  *
@@ -10,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -18,7 +21,7 @@
 	 *
 	 * @type object
 	 */
-	var html = mw.html;
+	const html = mw.html;
 
 	/**
 	 * $.widget factory method
@@ -32,12 +35,12 @@
 		 *
 		 * @return object
 		 */
-		_create: function() {
-			var self = this,
+		_create: function () {
+			const self = this,
 				el = self.element;
 
 			this.panel = $(
-				html.element( 'div', { 'class': self.widgetBaseClass }, '' )
+				html.element( 'div', { class: self.widgetBaseClass }, '' )
 			).insertAfter( el );
 			return this.options.show ? this.panel.show() : this.panel.hide();
 		},
@@ -48,18 +51,19 @@
 		 * @since 1.9
 		 * @return object
 		 */
-		getContext: function( ) {
+		getContext: function () {
 			return this.panel;
 		},
 
 		/**
 		 * Adds a portlet
 		 *
+		 * @param options
 		 * @since 1.9
-		 * @var options
+		 * @member options
 		 */
-		portlet: function( options ) {
-			var self = this,
+		portlet: function ( options ) {
+			const self = this,
 				el = self.element;
 
 			// Specify the pane instance
@@ -68,17 +72,17 @@
 			// Append
 			this.panelPortlet = $(
 				html.element( 'div', {
-					'id': self.widgetBaseClass + '-' + options['class'],
-					'class': options['class'] },
-					new html.Raw( ( options['fieldset'] ? html.element( 'fieldset', {},
-						new html.Raw( html.element( 'legend', { }, options['title'] ) ) ) : ''
-						)
-					)
+					id: self.widgetBaseClass + '-' + options.class,
+					class: options.class },
+				new html.Raw( ( options.fieldset ? html.element( 'fieldset', {},
+					new html.Raw( html.element( 'legend', { }, options.title ) ) ) : ''
+				)
+				)
 				)
 			).appendTo( this.panel );
 
 			self.panelPortlet = this.panelPortlet;
-			return options.hide ? self.panelPortlet.hide() : self.panelPortlet.show() ;
+			return options.hide ? self.panelPortlet.hide() : self.panelPortlet.show();
 		},
 
 		/**
@@ -86,22 +90,23 @@
 		 *
 		 * @since 1.9
 		 */
-		toggle: function() {
-			return this.panel.css( 'display' ) === 'none' ? this.panel.fadeIn( 'slow' ): this.panel.hide();
+		toggle: function () {
+			return this.panel.css( 'display' ) === 'none' ? this.panel.fadeIn( 'slow' ) : this.panel.hide();
 		},
 
 		/**
 		 * Remove objects
 		 *
+		 * @param options
 		 * @since 1.9
-		 * @var options
+		 * @member options
 		 */
-		destroy: function( options ) {
-			if ( options['class'] ){
-				$( '.' + options['class'] , this.panel ).remove();
-			} else{
+		destroy: function ( options ) {
+			if ( options.class ) {
+				$( '.' + options.class, this.panel ).remove();
+			} else {
 				$.Widget.prototype.destroy.apply( this );
 			}
 		}
 	} );
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );
