@@ -229,7 +229,7 @@
 				el = self.element;
 
 			function element(){
-				return html.element( 'div', { 'class': 'minmax' }, new html.Raw(
+				return html.element( 'div', { 'class': 'minmax ' + _BASE }, new html.Raw(
 					html.element( 'div', { 'class' : 'parameter-section' }, 'Start parameter' ) + // @note mw.msg
 					html.element( 'input', { 'type': 'radio', 'name': 'minmax', 'id': 'min', 'value': 'earliest'}, '' ) +
 					html.element( 'label', { 'for' : 'min'}, 'Earliest' ) +  // @note mw.msg
@@ -276,7 +276,7 @@
 				el = self.element;
 
 			function element( list, name ){
-				return html.element( 'div', { 'class': 'filterparam' }, new html.Raw(
+				return html.element( 'div', { 'class': 'filterparam ' + _BASE }, new html.Raw(
 					html.element( 'div', { 'class' : 'parameter-section' }, 'Filter parameter' ) + // @note mw.msg
 					html.element( 'input', { 'type': 'radio', 'name': 'filterType', 'id': 'legend', 'value': 'legend'}, '' ) +
 					html.element( 'label', { 'for' : 'legend'}, 'Legend' ) +  // @note mw.msg

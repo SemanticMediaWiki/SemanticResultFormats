@@ -725,8 +725,6 @@
 						data.printoutsParametersOptions[index]
 					)
 				);
-
-				// labelsCount[property.label]++;
 			});
 
 			if (searchPanes) {
@@ -768,32 +766,6 @@
 				},
 			});
 
-			// cacheKey ensures that the cached pages
-			// are related to current sorting and searchPanes filters
-			var getCacheKey = function (obj) {
-				// this ensures that the preload key
-				// and the dynamic key match
-				// this does not work: "searchPanes" in obj && Object.entries(obj.searchPanes).find(x => Object.keys(x).length ) ? obj.searchPanes : {},
-				if ('searchPanes' in obj) {
-					for (var i in obj.searchPanes) {
-						if (!Object.keys(obj.searchPanes[i]).length) {
-							delete obj.searchPanes[i];
-						}
-					}
-				}
-
-				return objectHash.sha1({
-					order: obj.order,
-					// search: obj.search,
-					searchPanes:
-						'searchPanes' in obj &&
-						Object.entries(obj.searchPanes).find((x) => Object.keys(x).length)
-							? obj.searchPanes
-							: {},
-					searchBuilder: 'searchBuilder' in obj ? obj.searchBuilder : {},
-				});
-			};
-
 			if ((searchPanes || searchBuilder) && table.data('multiple-values')) {
 				useAjax = true;
 			}
@@ -812,7 +784,7 @@
 				// cache using the column index and sorting
 				// method, as pseudo-multidimensional array
 				// column index + dir (asc/desc) + searchPanes (empty selection)
-				var cacheKey = getCacheKey({
+				var cacheKey = _datatables.getCacheKey({
 					order: order.map((x) => {
 						return { column: x[0], dir: x[1] };
 					}),

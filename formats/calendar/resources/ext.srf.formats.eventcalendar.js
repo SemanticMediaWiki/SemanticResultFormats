@@ -189,7 +189,7 @@
 							rowData.title = subject.getHtml();
 						}
 
-						if ( $.inArray( 'printouts', subject ) ) {
+						if ( 'printouts' in subject ) {
 							$.each ( subject.printouts, function( property, values ) {
 
 								$.map ( values, function( value ) {
@@ -254,14 +254,13 @@
 						}
 
 						// Only care for entries that have at least a start date
-						if ( rowData !== {} &&
-							$.inArray( 'start', rowData ) &&
+						if ( 'start' in rowData &&
 							rowData.start !== null &&
 							rowData.start !== undefined ) {
 
-							if ( $.inArray( 'filter', rowData ) && rowData.filter !== undefined ){
+							if ( 'filter' in rowData && rowData.filter !== undefined ){
 								var filter = rowData.filter,
-									color = $.inArray( 'color', rowData ) ? rowData.color : null;
+									color = 'color' in rowData ? rowData.color : null;
 								rowData.filter = filter.value;
 								if ( filter.value !== undefined && color !== undefined ){
 									// Collect the filter and the assigned color, colors are stored as

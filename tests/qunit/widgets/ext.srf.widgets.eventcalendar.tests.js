@@ -117,8 +117,8 @@
 			}
 		} );
 
-		var results = param.find( '.srf-calendarparameters-minmax' ).length;
-		assert.ok( results === 0, pass + 'the minmax portlet was created' );
+		var results = param.find( '.minmax' ).length;
+		assert.ok( results === 1, pass + 'the minmax portlet was created' );
 
 		// Trigger change earliest
 		param.find( '#min' ).trigger( 'change' );
