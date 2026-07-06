@@ -1,34 +1,20 @@
 {
-	"name": "Test for SRF #614: on making output from query with format=incoming re-usable.",
+	"name": "Tests for format=incoming. Covers #614 and #984, both relating to making query output re-usable in wikitext.",
 	"setup": [
 		{
 			"namespace": "SMW_NS_PROPERTY",
-			"page": "Has incoming property (text)",
-			"contents": "[[Has type::Text]]"
-		},
-		{
-			"namespace": "SMW_NS_PROPERTY",
-			"page": "Has incoming property (page)",
-			"contents": "[[Has type::Page]]"
-		},
-		{
-			"namespace": "SMW_NS_PROPERTY",
 			"page": "Is related to",
-			"contents": "[[Has type::Page]]"
+			"contents": "{{#set:Has type=Page}}"
 		},
 		{
 			"namespace": "SMW_NS_PROPERTY",
 			"page": "Not to be confused with",
-			"contents": "[[Has type::Page]]"
+			"contents": "{{#set:Has type=Page}}"
 		},
-		{
-			"namespace": "NS_TEMPLATE",
-			"page": "AddPropertyPrefixToName",
-			"contents": "<includeonly>Property:{{{1|}}}</includeonly>"
-		},
+
 		{
 			"page": "Example/SRF0614/D.1",
-			"contents": "{{#set: Has incoming property (text)={{#ask: [[{{FULLPAGENAME}}]] |format=incoming |limit=999 |sep=; }}|+sep=; \n|Has incoming property (page)={{#ask: [[{{FULLPAGENAME}}]] |format=incoming |limit=999 |template=AddPropertyPrefixToName |sep=; }}|+sep=; }}"
+			"contents": "A wiki page that receives incoming property connections."
 		},
 		{
 			"page": "Example/SRF0614/D.2",
@@ -40,19 +26,26 @@
 		},
 		{
 			"page": "Example/SRF0614/Q.1",
-			"contents": "<div>{{#show: Example/SRF0614/D.1 |?Has incoming property (text)|+order=asc |valuesep=; }}</div>"
+			"contents": "<div>{{#ask: [[Example/SRF0614/D.1]] |format=incoming |limit=999 |sep=; }}</div>"
 		},
 		{
 			"page": "Example/SRF0614/Q.2",
-			"contents": "<div>{{#show: Example/SRF0614/D.1 |?Has incoming property (page)|+order=asc |link=none |valuesep=; }}</div>"
+			"contents": "<div>{{#show: Example/SRF0614/D.1 |format=incoming |limit=999 |sep=; }}</div>"
+		},
+		{
+			"page": "Example/SRF0984/D.1",
+			"contents": "A page without incoming properties."
+		},
+		{
+			"page": "Example/SRF0984/Q.1",
+			"contents": "<div>{{#ask: [[Example/SRF0984/D.1]] |format=incoming |limit=999 |sep=; }}</div>"
 		}
 	],
-
 	"tests": [
 		{
-			"type": "format",
-			"about": "Check output using #show (properties without namespace prefixes). Should not have a div with class='srf-incoming'.",
-			"subject": "Example/F0104/Q.1",
+			"type": "parser",
+			"about": "Checks output of #ask query with the incoming format. Since #614 was solved, should no longer be enclosed by a div element with class='srf-incoming'. Properties are alphabetically listed.",
+			"subject": "Example/SRF0614/Q.1",
 			"assert-output": {
 				"to-contain": [
 					"<div>Is related to;Not to be confused with</div>"
@@ -60,12 +53,22 @@
 			}
 		},
 		{
-			"type": "format",
-			"about": "Check output using #show (properties with namespace prefixes added through template). Should not have a div with class='srf-incoming'.",
-			"subject": "Example/F0104/Q.2",
+			"type": "parser",
+			"about": "Checks output of #show query with the incoming format. Since #614 was solved, should no longer be enclosed by a div element with class='srf-incoming'. Properties are alphabetically listed.",
+			"subject": "Example/SRF0614/Q.2",
 			"assert-output": {
 				"to-contain": [
-					"<div>Property:Is related to;Property:Not to be confused with</div>"
+					"<div>Is related to;Not to be confused with</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "Checks output of an #ask query, with the incoming format, on a page that has no incoming property connections. Since issue #984 was fixed, the output should be empty.",
+			"subject": "Example/SRF0984/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"<div></div>"
 				]
 			}
 		}
