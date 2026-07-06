@@ -11,26 +11,25 @@
 			"page": "Not to be confused with",
 			"contents": "{{#set:Has type=Page}}"
 		},
-
 		{
 			"page": "Example/SRF0614/D.1",
 			"contents": "A wiki page that receives incoming property connections."
 		},
 		{
 			"page": "Example/SRF0614/D.2",
-			"contents": "{{#set:Is related to=Example/SRF0614/D.1}}"
+			"contents": "{{#set: |Is related to=Example/SRF0614/D.1}}"
 		},
 		{
 			"page": "Example/SRF0614/D.3",
-			"contents": "{{#set:Is related to=Example/SRF0614/D.1 |Not to be confused with=Example/SRF0614/D.1 }}"
+			"contents": "{{#set: |Is related to=Example/SRF0614/D.1 |Not to be confused with=Example/SRF0614/D.1 }}"
 		},
 		{
 			"page": "Example/SRF0614/Q.1",
-			"contents": "<div>{{#ask: [[Example/SRF0614/D.1]] |format=incoming |limit=999 |sep=; }}</div>"
+			"contents": "({{#ask: [[Example/SRF0614/D.1]] |mainlabel=- |link=none |format=incoming |limit=999 |sep=; }})"
 		},
 		{
 			"page": "Example/SRF0614/Q.2",
-			"contents": "<div>{{#show: Example/SRF0614/D.1 |format=incoming |limit=999 |sep=; }}</div>"
+			"contents": "({{#show: Example/SRF0614/D.1 |format=incoming |limit=999 |sep=; }})"
 		},
 		{
 			"page": "Example/SRF0984/D.1",
@@ -38,37 +37,43 @@
 		},
 		{
 			"page": "Example/SRF0984/Q.1",
-			"contents": "<div>{{#ask: [[Example/SRF0984/D.1]] |format=incoming |limit=999 |sep=; }}</div>"
+			"contents": "({{#ask: [[Example/SRF0984/D.1]] |mainlabel=- |link=none |format=incoming |limit=999 |sep=; }})"
 		}
 	],
 	"tests": [
 		{
-			"type": "parser",
-			"about": "Checks output of #ask query with the incoming format. Since #614 was solved, should no longer be enclosed by a div element with class='srf-incoming'. Properties are alphabetically listed.",
+			"type": "format",
+			"about": "Checks output of #ask query with the incoming format. Since #614 was solved, should no longer be enclosed by a div element with class='srf-incoming'. Properties are alphabetically listed. `mainlabel=-` and `link=none` are precautions but should not be necessary.",
 			"subject": "Example/SRF0614/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"<div>Is related to;Not to be confused with</div>"
+					"(Is related to;Not to be confused with)"
+				],
+				"not-contain": [
+					"srf-incoming"
 				]
 			}
 		},
 		{
-			"type": "parser",
+			"type": "format",
 			"about": "Checks output of #show query with the incoming format. Since #614 was solved, should no longer be enclosed by a div element with class='srf-incoming'. Properties are alphabetically listed.",
 			"subject": "Example/SRF0614/Q.2",
 			"assert-output": {
 				"to-contain": [
-					"<div>Is related to;Not to be confused with</div>"
+					"(Is related to;Not to be confused with)"
+				],
+				"not-contain": [
+					"srf-incoming"
 				]
 			}
 		},
 		{
-			"type": "parser",
+			"type": "format",
 			"about": "Checks output of an #ask query, with the incoming format, on a page that has no incoming property connections. Since issue #984 was fixed, the output should be empty.",
 			"subject": "Example/SRF0984/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"<div></div>"
+					"()"
 				]
 			}
 		}
