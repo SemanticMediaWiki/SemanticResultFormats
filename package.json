@@ -5,6 +5,7 @@
   "devDependencies": {
     "copy-files-from-to": "^4.0.1",
     "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.2",
     "jsdom": "^25.0.1",
     "nyc": "^17.1.0",
     "qunit": "^2.22.0",

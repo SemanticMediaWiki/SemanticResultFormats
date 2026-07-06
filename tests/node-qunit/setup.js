@@ -28,6 +28,19 @@ function createDom() {
 	global.HTMLElement = window.HTMLElement;
 	global.$ = global.jQuery = require('jquery');
 	require(path.resolve(__dirname, '../../resources/jquery/jquery.blockUI.js'));
+	require('jquery-ui/ui/widget.js');
+	require('jquery-ui/ui/widgets/mouse.js');
+	require('jquery-ui/ui/widgets/slider.js');
+
+	// MediaWiki's bundled jquery.ui.widget.js still sets widgetBaseClass (removed
+	// upstream in modern jQuery UI, see jqueryui/jquery-ui#8155); srf widgets rely
+	// on it, so restore it here to match the runtime they actually ship against.
+	const widgetFactory = $.widget;
+	$.widget = $.extend(function (name) {
+		const constructor = widgetFactory.apply($, arguments);
+		constructor.prototype.widgetBaseClass = constructor.prototype.widgetFullName;
+		return constructor;
+	}, widgetFactory);
 
 	return () => {
 		global.document.body.innerHTML = '';
@@ -53,7 +66,9 @@ function Raw(value) {
 function htmlElement(tagName, attrs, contents) {
 	attrs = attrs || {};
 	const attrString = Object.keys(attrs)
-		.map((key) => ` ${key}="${escapeAttribute(attrs[key])}"`)
+		// mirror mw.html.element: name=true -> bare "name", name=false -> attribute omitted
+		.filter((key) => attrs[key] !== false)
+		.map((key) => ` ${key}="${escapeAttribute(attrs[key] === true ? key : attrs[key])}"`)
 		.join('');
 	const inner = contents instanceof Raw ? contents.value : escapeAttribute(contents == null ? '' : contents);
 	return `<${tagName}${attrString}>${inner}</${tagName}>`;
@@ -129,4 +144,22 @@ QUnit.test('body is cleaned up between tests: 1', (assert) => {
 QUnit.test('body is cleaned up between tests: 2', (assert) => {
 	$('<div>', { id: 2 }).appendTo(document.body);
 	assert.equal($('div').length, 1);
+});
+
+QUnit.test('jQuery UI widget factory is available', (assert) => {
+	$.widget('test.smoke', {
+		_create: function () {
+			this.element.addClass('smoke-created');
+		},
+	});
+
+	const context = $('<div>').appendTo(document.body);
+	context.smoke();
+
+	assert.ok(context.hasClass('smoke-created'), 'a custom $.widget was created and its _create() ran');
+
+	const slider = $('<div class="slider">').appendTo(document.body);
+	slider.slider({ min: 1, max: 20, value: 10 });
+
+	assert.equal(slider.slider('value'), 10, 'the jQuery UI slider widget initialized with the given value');
 });
