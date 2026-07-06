@@ -20,3 +20,4 @@ conf/
 .DS_Store
 .env
 coverage
+tests/node-qunit/.compiled/
