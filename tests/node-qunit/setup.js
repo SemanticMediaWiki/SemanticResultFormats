@@ -26,6 +26,7 @@ function createDom() {
 	global.navigator = window.navigator;
 	global.Node = window.Node;
 	global.HTMLElement = window.HTMLElement;
+	global.Option = window.Option;
 	global.$ = global.jQuery = require('jquery');
 	require(path.resolve(__dirname, '../../resources/jquery/jquery.blockUI.js'));
 	require('jquery-ui/ui/widget.js');
