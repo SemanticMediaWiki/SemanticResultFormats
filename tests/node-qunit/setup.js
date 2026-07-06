@@ -32,6 +32,17 @@ function createDom() {
 	require('jquery-ui/ui/widgets/mouse.js');
 	require('jquery-ui/ui/widgets/slider.js');
 
+	// leaflet.markercluster/leaflet-providers monkey-patch new methods (e.g.
+	// L.markerClusterGroup) onto the leaflet module object; NODE_PATH (set by the
+	// node-qunit npm script) makes formats/filtered's own node_modules resolvable
+	// here. These must load before any tsc-compiled `import * as L from 'leaflet'`
+	// consumer does — tsc's esModuleInterop wraps the leaflet module in a snapshot
+	// object (via __importStar) at the time it's first required, so a plugin that
+	// patches leaflet afterwards would be invisible to that snapshot.
+	global.L = require('leaflet');
+	require('leaflet.markercluster');
+	require('leaflet-providers');
+
 	// MediaWiki's bundled jquery.ui.widget.js still sets widgetBaseClass (removed
 	// upstream in modern jQuery UI, see jqueryui/jquery-ui#8155); srf widgets rely
 	// on it, so restore it here to match the runtime they actually ship against.

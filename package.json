@@ -17,7 +17,7 @@
     "test": "npm run node-qunit",
     "test-coverage": "npm run node-qunit-coverage",
     "pretest-filtered-ts": "(test -d formats/filtered/node_modules/@types || npm --prefix formats/filtered install) && tsc -p tests/node-qunit/tsconfig.filtered.json",
-    "node-qunit": "npm run pretest-filtered-ts && qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'",
+    "node-qunit": "npm run pretest-filtered-ts && NODE_PATH=formats/filtered/node_modules qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'",
     "node-qunit-coverage": "nyc --reporter=text --reporter=html --reporter=clover --report-dir=coverage/js --all --include='formats/**/resources/js/*.js' npm run node-qunit"
   },
   "nyc": {
