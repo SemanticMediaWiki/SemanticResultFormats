@@ -3,10 +3,25 @@
     "d3": "7.9.0"
   },
   "devDependencies": {
-    "copy-files-from-to": "^4.0.1"
+    "copy-files-from-to": "^4.0.1",
+    "jquery": "^3.7.1",
+    "jsdom": "^25.0.1",
+    "nyc": "^17.1.0",
+    "qunit": "^2.22.0",
+    "sinon": "^19.0.2"
   },
   "scripts": {
-    "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js"
+    "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js",
+    "test": "npm run node-qunit",
+    "test-coverage": "npm run node-qunit-coverage",
+    "node-qunit": "qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'",
+    "node-qunit-coverage": "nyc --reporter=text --reporter=html --reporter=clover --report-dir=coverage/js --all --include='formats/**/resources/js/*.js' npm run node-qunit"
+  },
+  "nyc": {
+    "exclude": [
+      "formats/filtered/resources/js/ext.srf.filtered.select.js",
+      "formats/filtered/resources/js/ext.srf.filtered.slider.js"
+    ]
   },
   "copyFiles": [],
   "copyFilesSettings": {

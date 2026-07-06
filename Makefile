@@ -36,7 +36,7 @@ PHP_EXTENSIONS?=zip gd
 
 # nodejs
 # Enables node.js related tests and "npm install"
-# NODE_JS?=true
+NODE_JS?=true
 
 # check for build dir and git submodule init if it does not exist
 include build/Makefile
@@ -86,7 +86,6 @@ ifdef COMPOSER_EXT
 	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phpunit"
 endif
 ifdef NODE_JS
-	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npm run analyze"
-	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npx qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npm run test"
 endif
 

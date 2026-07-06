@@ -53,6 +53,9 @@ jobs:
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}
       MM_VERSION: ${{ matrix.mm_version }}
+      # Run JS tests only for the coverage entry: keeps the JS toolchain off the
+      # other matrix legs, matching how PHP coverage is scoped to one leg too.
+      NODE_JS: ${{ matrix.coverage && '1' || '' }}
 
     steps:
       - name: Checkout
@@ -79,5 +82,5 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/php/coverage.xml
+          files: coverage/php/coverage.xml,coverage/js/clover.xml
         if: matrix.coverage == true
