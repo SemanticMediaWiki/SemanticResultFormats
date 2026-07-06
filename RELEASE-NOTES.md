@@ -10,6 +10,7 @@ Released on TBD.
 * Fixed remaining low-risk Phan issues (Gruppe A): replaced `$x ? $x : $y` ternaries with Elvis operator `?:` in `D3Chart`, `QuerySegmentListProcessor`, `jqPlotChart`, `jqPlotSeries`, and `EventCalendar`; replaced `$x = $x . y` with `.=` in `DataTables` and `+` with `+=` in `jqPlotChart`; assigned discarded `substr()` return value in `JitGraph` — removing eight suppressions from the Phan baseline (by [gesinn.it](https://gesinn.it))
 * Replaced `intval($x) == $x` integer-string comparisons with `(string)(int)$x === $x` in `Calendar` (`PhanImpossibleTypeComparison`); replaced `$results == ''` object–string weak comparison with `$results->getCount() === 0` in `Gallery` (`PhanSuspiciousWeakTypeComparison`) — removing one Phan baseline suppression (by [gesinn.it](https://gesinn.it))
 * Renamed `ArrayFormat` → `ArrayPrinter` and `HashFormat` → `HashPrinter` in `src/ArrayFormat/` to align with the `GraphPrinter` naming convention (`Array` is a reserved PHP keyword) (by [gesinn.it](https://gesinn.it))
+* Added a node-qunit test runner (jsdom + nyc), wired into CI and Codecov, with a test covering the `filtered` format's select2 integration (init options and `select2:select`/`select2:unselect` event payloads) (by [gesinn.it](https://gesinn.it))
 
 ### Maintenance
 
