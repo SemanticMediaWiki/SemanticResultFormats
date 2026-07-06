@@ -103,8 +103,10 @@ function prepareMediaWiki() {
 			loader: {
 				using: () => Promise.resolve(),
 			},
-			message: () => ({
-				text: () => '',
+			message: (key) => ({
+				text: () => key,
+				escaped: () => key,
+				parse: () => key,
 			}),
 			msg: () => '',
 			html: {
@@ -122,6 +124,16 @@ function prepareMediaWiki() {
 				set: (key, value) => {
 					configValues[key] = value;
 				},
+			},
+		};
+
+		// SemanticMediaWiki core's own bundled JS exposes this as a page-wide
+		// global (like mw); srf.formats.media reads smw.debug() at module scope,
+		// srf.formats.tagcloud calls smw.async.load() as a mw.loader.using() callback.
+		global.smw = {
+			debug: () => false,
+			async: {
+				load: (context, callback) => callback.call(context),
 			},
 		};
 	};

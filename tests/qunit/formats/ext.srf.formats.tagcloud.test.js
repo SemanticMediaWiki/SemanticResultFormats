@@ -29,6 +29,13 @@
 ( function ( $, mw, srf ) {
 	'use strict';
 
+	// LEGACY: init/dependencies/load were ported to
+	// tests/node-qunit/ext.srf.formats.tagcloud.test.js (issue #1070) and removed
+	// here. sphere()/wordcloud() stay legacy — they need real tagcanvas + d3
+	// canvas/SVG rendering; wordcloud() also currently calls d3.layout.cloud(),
+	// which no longer exists in the installed d3 major version (a pre-existing,
+	// out-of-scope bug). See issue #1073 for the broader legacy-test
+	// documentation effort.
 	QUnit.module( 'ext.srf.formats.tagcloud', QUnit.newMwEnvironment() );
 
 	var context = $(
@@ -38,96 +45,6 @@
 		'<li><a href="/test2">Test2</a></li>' +
 		'<li>TextOnly</li>' +
 		'</ul></div></div></div>', '#qunit-fixture' );
-
-	/**
-	 * Test initialization and accessibility
-	 *
-	 * @since: 1.9
-	 */
-	QUnit.test( 'init', function ( assert ) {
-		assert.expect( 4 );
-		var tagcloud = new srf.formats.tagcloud();
-
-		assert.equal( $.type( tagcloud.defaults ), 'object', '.defaults was accessible' );
-		assert.equal( $.type( tagcloud.sphere ), 'function', '.sphere() was accessible' );
-		assert.equal( $.type( tagcloud.wordcloud ), 'function', '.wordcloud() was accessible' );
-		assert.equal( $.type( tagcloud.load ), 'function', '.load() was accessible' );
-
-	} );
-
-	/**
-	 * Test dependencies
-	 *
-	 * @since: 1.9
-	 */
-	QUnit.test( 'dependencies', function ( assert ) {
-		assert.expect( 4 );
-		var util = new srf.util();
-
-		assert.equal( $.type( util.assert ), 'function', 'util.assert was accessible' );
-		assert.equal( $.type( smw.async.load ), 'function', 'smw.async.load was accessible' );
-		assert.equal( $.type( util.spinner.hide ), 'function', 'util.spinner.hide was accessible' );
-		assert.equal( $.type( util.message.set ), 'function', 'util.message.set was accessible' );
-
-	} );
-
-	/**
-	 * Test load
-	 *
-	 * @since: 1.9
-	 */
-	QUnit.test( 'load', function ( assert ) {
-		assert.expect( 4 );
-		var tagcloud = new srf.formats.tagcloud();
-		var result,
-			options;
-
-		context.data( 'version', '0.4.1' );
-
-		options = {
-			context: context,
-			element: 'canvas',
-			module: 'ext.jquery.tagcanvas',
-			method: tagcloud.sphere
-		};
-
-		result = tagcloud.load( options );
-		assert.ok( result, 'sphere was initialized' );
-
-		options = {
-			context: context,
-			element: 'svg',
-			module: 'ext.d3.wordcloud',
-			method: tagcloud.wordcloud
-		};
-
-		result = tagcloud.load( options );
-		assert.ok( result, 'wordcloud was initialized' );
-
-		// Check for a non existing element
-		options = {
-			context: context,
-			element: 'lula',
-			module: '',
-			method: ''
-		};
-
-		result = tagcloud.load( options );
-		assert.ok( result, 'non existing element' );
-
-		// Check invalid version
-		options = {
-			context: context,
-			element: 'lula',
-			module: '',
-			method: ''
-		};
-
-		tagcloud.version = '0.4.2';
-		result = tagcloud.load( options );
-		assert.equal( result, false, 'wrong version' );
-
-	} );
 
 	/**
 	 * Test sphere/tagcanvas
