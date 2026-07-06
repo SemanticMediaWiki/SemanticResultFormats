@@ -41,8 +41,6 @@
 		"localBasePath": "tests/qunit/",
 		"remoteExtPath": "SemanticResultFormats/tests/qunit/",
 		"scripts": [
-			"ext.srf.test.js",
-			"ext.srf.util.test.js",
 			"formats/ext.srf.formats.datatables.test.js",
 			"formats/ext.srf.formats.carousel.test.js",
 			"formats/ext.srf.formats.eventcalendar.tests.js",
