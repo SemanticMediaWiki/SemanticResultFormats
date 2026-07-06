@@ -7,52 +7,6 @@
 (function ($, mw, srf) {
 	"use strict";
 
-	/* Private methods and objects */
-
-	/**
-	 * Helper objects
-	 *
-	 * @since 1.9
-	 *
-	 * @ignore
-	 * @private
-	 * @static
-	 */
-	var html = mw.html,
-		profile = $.client.profile(),
-		smwApi = new smw.api(),
-		util = new srf.util();
-
-	var removedURIs;
-
-	/**
-	 * Container for all non-public objects and methods
-	 *
-	 * @private
-	 * @member srf.formats.datatables
-	 */
-	var _carousel = {
-		/**
-		 * Returns ID
-		 *
-		 * @private
-		 * @return {string}
-		 */
-		getID: function (container) {
-			return container.attr("id");
-		},
-
-		/**
-		 * Returns container data
-		 *
-		 * @private
-		 * @return {object}
-		 */
-		getData: function (container) {
-			return mw.config.get(this.getID(container));
-		},
-	};
-
 	/**
 	 * Inheritance class for the srf.formats constructor
 	 *
@@ -103,16 +57,6 @@
 
 			})
 
-		},
-
-		/**
-		 * Test interface which enables some internal methods / objects
-		 * to be tested via qunit
-		 *
-		 * @ignore
-		 */
-		test: {
-			_parse: _carousel.parse,
 		},
 	};
 

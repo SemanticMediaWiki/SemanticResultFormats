@@ -5,7 +5,7 @@
 // so it must be loaded against that same jQuery instance or select2 registers
 // on a jQuery.fn the rest of the test never sees.
 const selectJsPath = require.resolve('../../formats/filtered/resources/js/ext.srf.filtered.select.js');
-global.$ = global.jQuery = require(require.resolve('jquery', { paths: [selectJsPath] }));
+const select2JQuery = require(require.resolve('jquery', { paths: [selectJsPath] }));
 const select2Export = require(selectJsPath);
 // Select2's UMD wrapper changed between 4.0.3 and later releases: newer
 // builds export a factory (module.exports = function (root, jQuery) {...})
@@ -14,10 +14,20 @@ const select2Export = require(selectJsPath);
 // only the "Browser globals: factory(jQuery)" branch of the UMD wrapper runs —
 // but under Node's CommonJS branch the factory must be invoked explicitly.
 if (typeof select2Export === 'function') {
-	select2Export(window, $);
+	select2Export(window, select2JQuery);
 }
 
-QUnit.module('ext.srf.filtered select2 integration', () => {
+QUnit.module('ext.srf.filtered select2 integration', {
+	// select2 is registered on a separate jQuery copy (see above) — swap it in
+	// for this module only, so other test files keep using the root jQuery
+	// instance (and its own registered plugins, e.g. blockUI) undisturbed.
+	beforeEach: () => {
+		global.$ = global.jQuery = select2JQuery;
+	},
+	afterEach: () => {
+		global.$ = global.jQuery = require('jquery');
+	},
+}, () => {
 
 	QUnit.test('select2 attaches to the shared jQuery instance', (assert) => {
 		assert.strictEqual(typeof $.fn.select2, 'function', '$.fn.select2 is registered');

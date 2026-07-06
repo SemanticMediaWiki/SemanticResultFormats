@@ -1,6 +1,10 @@
 /// <reference types="qunit" />
 /// <reference types="jquery" />
 
+// This class's own tests were ported to tests/node-qunit/ext.srf.filtered.view.test.js
+// (issue #1067) and removed from bootstrap.ts; it remains here only because
+// MapViewTest.ts extends it (its show()/lateInit()-exercising tests are left
+// legacy, see issue #1068).
 import { QUnitTest } from "../../Util/QUnitTest";
 import { View } from "../../../../resources/ts/Filtered/View/View";
 import { Controller } from "../../../../resources/ts/Filtered/Controller";
