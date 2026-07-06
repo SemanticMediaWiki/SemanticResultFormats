@@ -37,10 +37,18 @@ jobs:
             experimental: false
           - mediawiki_version: '1.45'
             smw_version: 7.0.0
-            php_version: 8.3
+            php_version: 8.4
             mm_version: 6.0.1
             database_type: mysql
             database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.46-dev-26e9b33'
+            smw_version: 7.0.0
+            php_version: 8.5
+            mm_version: 6.0.1
+            database_type: mysql
+            database_image: "mariadb:12.3"
             coverage: false
             experimental: false
 
