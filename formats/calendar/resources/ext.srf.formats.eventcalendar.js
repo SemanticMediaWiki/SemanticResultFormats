@@ -131,7 +131,7 @@
 			let truncated = str.slice( 0, Math.max( 0, maxChars ) );
 			if ( str.length > maxChars ) {
 				const truncatedEnd = truncated.lastIndexOf( ' ' );
-				if ( truncatedEnd != -1 ) {
+				if ( truncatedEnd !== -1 ) {
 					truncated = str.slice( 0, Math.max( 0, truncatedEnd ) );
 				}
 				return truncated + ' ...';
@@ -183,9 +183,7 @@
 
 					$.each( results, ( subjectName, subject ) => {
 						const rowData = {},
-							rowDesc = [],
-							metaData = [],
-							prevElement = '';
+							rowDesc = [];
 
 						// Subject
 						if ( rowData.url === undefined && subject instanceof smw.dataItem.wikiPage ) {
@@ -209,7 +207,8 @@
 											// value.precision is a bitmask indicating what parts of the date and time exist
 											// 1: Year, 2: Month, 4: Day, 8: Time
 											// see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/res/smw/data/ext.smw.dataItem.time.js
-											if ( data.query.ask.parameters.includeend && ( value.precision & 8 ) == 0 ) {
+											// eslint-disable-next-line no-bitwise
+											if ( data.query.ask.parameters.includeend && ( value.precision & 8 ) === 0 ) {
 												dataDate.setDate( dataDate.getDate() + 1 );
 											}
 											rowData.end = dataDate.toISOString();
@@ -299,8 +298,6 @@
 		data: {
 
 			startDate: function ( dates ) {
-				const self = this;
-
 				return {
 
 					/**
@@ -456,9 +453,9 @@
 				const s = date.getUTCSeconds();
 				let hms;
 
-				if ( h == 24 ) {
+				if ( h === 24 ) {
 					// avoid switch to next day
-					hms = 'T' + '13' + ':' + m + ':' + s;
+					hms = 'T13:' + m + ':' + s;
 				} else {
 					hms = 'T' + h + ':' + m + ':' + s;
 				}
@@ -473,8 +470,9 @@
 
 				const clicktargetURL = wgServer + wgArticlePath + clicktarget;
 				/* DONE: i18n */
+				// eslint-disable-next-line no-alert
 				const r = confirm( clickPopup.popup );
-				if ( r == true ) {
+				if ( r === true ) {
 					window.open( clicktargetURL, '_self' );
 				}
 			}
@@ -717,6 +715,13 @@
 	 */
 	srf.formats.eventcalendar = function () {};
 
+	/**
+	 * eventCalendar implementation
+	 *
+	 * @ignore
+	 */
+	const calendar = new srf.formats.eventcalendar();
+
 	/* Public methods */
 
 	srf.formats.eventcalendar.prototype = {
@@ -892,7 +897,7 @@
 						_calendar.data.refresh( context, container, data, 'The filter settings were changed.' ); // @note mw.msg
 					}
 				},
-				onReset: function ( event, ui ) {
+				onReset: function () {
 					data.query.ask.parameters.filterProperty = '';
 					data.query.ask.parameters.filterType = '';
 					_calendar.data.refresh( context, container, data, 'The filter settings were changed.' ); // @note mw.msg
@@ -960,8 +965,6 @@
 		 * @return {void}
 		 */
 		update: function ( context, container, data ) {
-			const self = this;
-
 			// Lock the current context to avoid queuing issues during the update
 			// process (e.g another button is pressed )
 			context.block( {
@@ -988,11 +991,11 @@
 					offset: data.query.ask.parameters.offset
 				};
 
-			if ( data.query.ask.parameters.hasOwnProperty( 'sort' ) ) {
+			if ( Object.prototype.hasOwnProperty.call( data.query.ask.parameters, 'sort' ) ) {
 				parameters.sort = data.query.ask.parameters.sort;
 			}
 
-			if ( data.query.ask.parameters.hasOwnProperty( 'order' ) ) {
+			if ( Object.prototype.hasOwnProperty.call( data.query.ask.parameters, 'order' ) ) {
 				parameters.order = data.query.ask.parameters.order;
 			}
 
@@ -1006,7 +1009,7 @@
 			smwApi.fetch( query )
 				.done( ( result ) => {
 
-					srf.log( 'Api : ' + ( Date.now() - startDate.getTime() ) + ' ms ' + '( ' + result.query.meta.count + ' object )' );
+					srf.log( 'Api : ' + ( Date.now() - startDate.getTime() ) + ' ms ( ' + result.query.meta.count + ' object )' );
 
 					// Reassign api query data into the data array
 					$.extend( data.query.result, result.query );
@@ -1024,7 +1027,7 @@
 						}
 					} );
 				} )
-				.fail( ( error ) => {
+				.fail( () => {
 					context.unblock( {
 						onUnblock: function () {
 							util.notification.create( {
@@ -1055,13 +1058,6 @@
 		}
 	};
 
-	/**
-	 * eventCalendar implementation
-	 *
-	 * @ignore
-	 */
-	const calendar = new srf.formats.eventcalendar();
-
 	$( document ).ready( () => {
 		$( '.srf-eventcalendar' ).each( function () {
 
@@ -1087,7 +1083,7 @@
 				context.data( 'height', 600 );
 			}
 
-			if ( data.query.ask.parameters.defaultview.indexOf( 'list' ) == 0 && context.height() < 350 ) {
+			if ( data.query.ask.parameters.defaultview.indexOf( 'list' ) === 0 && context.height() < 350 ) {
 				context.data( 'height', 350 );
 			}
 
@@ -1139,7 +1135,7 @@
 			// Allow to fetch the `srf.eventcalendar.fullCalendarRefresh` and trigger a click
 			// event to restore the fullCalendar in case the instance was part of tab (hidden
 			// during initialization)
-			$( document ).on( 'srf.eventcalendar.fullCalendarRefresh', ( event ) => {
+			$( document ).on( 'srf.eventcalendar.fullCalendarRefresh', () => {
 				context.find( '.srf-calendarbutton-refresh' ).trigger( 'click' );
 			} );
 

@@ -10,8 +10,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-/* global mw:true, smw:true, mediaWiki:true, semanticMediawiki:true, semanticFormats:true */
-( function ( $, mw, srf ) {
+( function ( $, mw ) {
 	'use strict';
 
 	// //////////////////////// PRIVATE OBJECTS ////////////////////////
@@ -111,4 +110,4 @@
 			}
 		}
 	} );
-}( jQuery, mediaWiki, semanticFormats ) );
+}( jQuery, mediaWiki ) );

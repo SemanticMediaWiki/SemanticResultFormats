@@ -10,7 +10,6 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-/* global mw:true, smw:true, mediaWiki:true, semanticMediawiki:true, semanticFormats:true */
 ( function ( $, mw, srf ) {
 	'use strict';
 
@@ -70,10 +69,10 @@
 				changeMonth: true,
 				changeYear: true,
 				dateFormat: options.dateFormat,
-				onChangeMonthYear: function ( year, month, inst ) {
+				onChangeMonthYear: function () {
 				// @note Something for later var date = new Date(); container.fullCalendar('gotoDate', year, month, date.getDate());
 				},
-				onSelect: function ( dateText, inst ) {
+				onSelect: function ( dateText ) {
 					const date = new Date( dateText ),
 						option = $( 'input:radio[name=option]:checked', self.input ).val();
 
@@ -113,7 +112,7 @@
 			// Handle events for when the printout dropdown is changed
 			// This way we know which printout property belongs to the from or to
 			// option and store it to the associated .data() element
-			self.input.on( 'change', '#printouts', function ( event ) {
+			self.input.on( 'change', '#printouts', function () {
 				const option = $( 'input:radio[name=option]:checked', self.input ).val();
 				if ( option === 'f' ) {
 					$( '#mini-calendar-from', self.input ).data( 'property', $( this ).val() );
@@ -205,8 +204,7 @@
 		 * @since 1.9
 		 */
 		_limitParameterUpdate: function ( options ) {
-			const self = this,
-				el = self.element;
+			const self = this;
 
 			$( '.value', self.element ).text( options.limit );
 
@@ -255,12 +253,12 @@
 			}
 
 			// Event handling
-			self.minmax.on( 'change', '#min, #max', ( event ) => {
+			self.minmax.on( 'change', '#min, #max', () => {
 				if ( $.isFunction( options.change ) ) {
 					options.change( $( 'input:radio[name=minmax]:checked', self.minmax ).val() );
 				}
 			} )
-				.on( 'click', '.reset-link', ( event ) => {
+				.on( 'click', '.reset-link', () => {
 					$( 'input:radio[name=minmax]', self.minmax ).prop( 'checked', false );
 					if ( $.isFunction( options.reset ) ) {
 						options.reset();
@@ -329,7 +327,11 @@
 					this._limitParameterUpdate( value );
 					break;
 				case 'colorFilter':
-					value.hide ? this.filterparam.hide() : this.filterparam.show();
+					if ( value.hide ) {
+						this.filterparam.hide();
+					} else {
+						this.filterparam.show();
+					}
 					break;
 				case 'eventStart':
 					this.eventStart( value );
