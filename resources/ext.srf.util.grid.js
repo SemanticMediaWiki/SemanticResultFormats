@@ -18,8 +18,6 @@
 
 	'use strict';
 
-	/* global mw:true semanticFormats:true */
-
 	// //////////////////////// PRIVATE METHODS //////////////////////////
 
 	const h = mw.html;
@@ -56,8 +54,8 @@
 	 * @member array
 	 */
 	function _transformData( options ) {
-		let gridData = [],
-			counter = 0;
+		const gridData = [];
+		let counter = 0;
 
 		// Data array
 		for ( let j = 0; j < options.data.length; ++j ) {

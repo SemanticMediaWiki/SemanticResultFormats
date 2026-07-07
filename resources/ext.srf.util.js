@@ -35,9 +35,9 @@
 
 	const _cacheTime = 1000 * 60 * 60 * 24; // 24 hours
 
-	const _CL_mwspinner = 'mw-small-spinner';
-	const _CL_srfIspinner = 'srf-spinner-img';
-	const _CL_srfspinner = 'srf-spinner';
+	const clMwSpinner = 'mw-small-spinner';
+	const clSrfISpinner = 'srf-spinner-img';
+	const clSrfSpinner = 'srf-spinner';
 
 	// //////////////////////// PUBLIC METHODS /////////////////////////
 
@@ -69,8 +69,8 @@
 		 * @return string
 		 */
 		getImageURL: function ( options, callback ) {
-			let title = options.title,
-				cacheTime = options.cachetime;
+			const title = options.title;
+			let cacheTime = options.cachetime;
 
 			// Get cache time
 			cacheTime = cacheTime === undefined ? _cacheTime : cacheTime;
@@ -99,10 +99,10 @@
 					if ( data.query && data.query.pages ) {
 						const pages = data.query.pages;
 						for ( const p in pages ) {
-							if ( pages.hasOwnProperty( p ) ) {
+							if ( Object.prototype.hasOwnProperty.call( pages, p ) ) {
 								const info = pages[ p ].imageinfo;
 								for ( const i in info ) {
-									if ( info.hasOwnProperty( i ) ) {
+									if ( Object.prototype.hasOwnProperty.call( info, i ) ) {
 										mw.storage.set( title, info[ i ].url, { TTL: cacheTime } );
 										if ( typeof callback === 'function' ) { // make sure the callback is a function
 											callback.call( this, info[ i ].url ); // brings the scope to the callback
@@ -129,8 +129,8 @@
 		 * @return string
 		 */
 		getTitleURL: function ( options, callback ) {
-			let title = options.title,
-				cacheTime = options.cachetime;
+			const title = options.title;
+			let cacheTime = options.cachetime;
 
 			// Get cache time
 			cacheTime = cacheTime === undefined ? _cacheTime : cacheTime;
@@ -158,7 +158,7 @@
 					if ( data.query && data.query.pages ) {
 						const pages = data.query.pages;
 						for ( const p in pages ) {
-							if ( pages.hasOwnProperty( p ) ) {
+							if ( Object.prototype.hasOwnProperty.call( pages, p ) ) {
 								const info = pages[ p ];
 								mw.storage.set( title, info.fullurl, { TTL: cacheTime } );
 								if ( typeof callback === 'function' ) { // make sure the callback is a function
@@ -192,10 +192,10 @@
 					height = obj.height();
 
 				// Add spinner to target object
-				obj.after( h.element( 'span', { class: _CL_srfIspinner + ' ' + _CL_mwspinner }, null ) );
+				obj.after( h.element( 'span', { class: clSrfISpinner + ' ' + clMwSpinner }, null ) );
 
 				// Adopt height and width to avoid clutter
-				options.context.find( '.' + _CL_srfIspinner + '.' + _CL_mwspinner )
+				options.context.find( '.' + clSrfISpinner + '.' + clMwSpinner )
 					.css( { width: width, height: height } )
 					.data( 'spinner', obj ); // Attach the original object as data element
 				obj.remove(); // Could just hide the element instead of removing it
@@ -203,12 +203,12 @@
 			},
 			replace: function ( options ) {
 				// Replace spinner and restore original instance
-				options.context.find( '.' + _CL_srfIspinner + '.' + _CL_mwspinner )
-					.replaceWith( options.context.find( '.' + _CL_srfIspinner ).data( 'spinner' ) );
+				options.context.find( '.' + clSrfISpinner + '.' + clMwSpinner )
+					.replaceWith( options.context.find( '.' + clSrfISpinner ).data( 'spinner' ) );
 			},
 			hide: function ( options ) {
 				const c = options.length === undefined ? options.context : options;
-				c.find( '.' + _CL_srfspinner ).hide();
+				c.find( '.' + clSrfSpinner ).hide();
 				c.find( '.srf-loading-dots' ).hide();
 			}
 		},
@@ -344,7 +344,7 @@
 					if ( data.query && data.query.pages ) {
 						const pages = data.query.pages;
 						for ( const p in pages ) {
-							if ( pages.hasOwnProperty( p ) ) {
+							if ( Object.prototype.hasOwnProperty.call( pages, p ) ) {
 								const info = pages[ p ];
 								if ( options.cache !== undefined ) {
 									mw.storage.set( options.title + '-' + options.width, info, { TTL: options.cache } );

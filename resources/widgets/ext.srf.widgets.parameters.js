@@ -13,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function ( $, mw, srf ) {
+( function ( $, mw ) {
 	'use strict';
 
 	/**
@@ -85,8 +85,7 @@
 		 * @since 1.9
 		 */
 		_limitParameterUpdate: function ( options ) {
-			const self = this,
-				el = self.element;
+			const self = this;
 
 			$( '.value', self.element ).text( options.limit );
 
@@ -131,4 +130,4 @@
 			}
 		}
 	} );
-}( jQuery, mediaWiki, semanticFormats ) );
+}( jQuery, mediaWiki ) );

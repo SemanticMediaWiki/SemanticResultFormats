@@ -18,15 +18,6 @@
 
 	// //////////////////////// PRIVATE METHODS //////////////////////////
 
-	const timeLocales = {
-		monthNames: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
-		monthNamesShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-		dayNames: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-		dayNamesShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-		amDesignator: 'AM',
-		pmDesignator: 'PM'
-	};
-
 	// Zero-indexed array of localised month names in the user interface
 	// language, provided by the mediawiki.language.months module (declared
 	// as a dependency of the ext.srf.api module).
@@ -126,7 +117,8 @@
 							tList[ key.label ] = { typeid: key.typeid, position: index, meta: key.meta };
 						} );
 					}
-					return list = tList;
+					list = tList;
+					return list;
 				},
 
 				/**
@@ -237,8 +229,8 @@
 				 * @return string
 				 */
 				getDate: function ( date, format ) {
-					let d = typeof date === 'object' ? date : this.parseDate( date ),
-						formatDate = '';
+					const d = typeof date === 'object' ? date : this.parseDate( date );
+					let formatDate = '';
 
 					switch ( format ) {
 						case 'dmY':

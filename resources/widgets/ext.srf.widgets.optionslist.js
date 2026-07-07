@@ -13,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function ( $, mw, srf ) {
+( function ( $, mw ) {
 	'use strict';
 
 	/**
@@ -158,4 +158,4 @@
 			$.Widget.prototype.destroy.apply( this );
 		}
 	} );
-}( jQuery, mediaWiki, semanticFormats ) );
+}( jQuery, mediaWiki ) );

@@ -17,13 +17,6 @@
 	'use strict';
 
 	/**
-	 * Private methods and objects used within the class
-	 *
-	 * @since  1.9
-	 */
-	const results = new srf.api.results();
-
-	/**
 	 * Public API namespace declaration
 	 *
 	 * @since 1.9
@@ -79,7 +72,7 @@
 			 */
 			toList: function ( printouts ) {
 				const list = [];
-				const identifier = new RegExp( '[\\?&]' + '(.*?)' + '[=]' );
+				const identifier = /[?&](.*?)[=]/;
 
 				$.each( printouts, ( value, text ) => {
 					// Split the text and find anything that is between ? and = otherwise
@@ -120,7 +113,7 @@
 				 */
 				identifier: function ( printouts, identifier ) {
 					let property = '';
-					const regexS = '[\\?&]' + '(.*?)' + '=' + identifier;
+					const regexS = '[\\?&](.*?)=' + identifier;
 					const regex = new RegExp( regexS );
 
 					$.each( printouts, ( key, value ) => {
@@ -257,7 +250,7 @@
 				.done( function ( data ) {
 					if ( log ) {
 						srf.log( 'Hash: ' + data.query.meta.hash );
-						srf.log( 'Fetched: ' + ( Date.now() - startDate.getTime() ) + ' ms ' + '( ' + data.query.meta.count + ' object )' );
+						srf.log( 'Fetched: ' + ( Date.now() - startDate.getTime() ) + ' ms ( ' + data.query.meta.count + ' object )' );
 					}
 
 					// Return data to the callback

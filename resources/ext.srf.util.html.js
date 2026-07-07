@@ -10,7 +10,6 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-/* global semanticFormats:true mediaWiki:true */
 ( function ( $, mw, srf ) {
 	'use strict';
 

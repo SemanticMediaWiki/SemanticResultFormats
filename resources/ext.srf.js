@@ -36,13 +36,14 @@
 const instance = ( function () {
 	'use strict';
 
-	/* global console:true message:true */
+	/* global message:true */
 
 	const instance = {};
 
 	instance.log = function ( message ) {
 		if ( typeof mediaWiki === 'undefined' ) {
 			if ( typeof console !== 'undefined' ) {
+				// eslint-disable-next-line no-console
 				console.log( 'SRF: ', message );
 			}
 		} else {

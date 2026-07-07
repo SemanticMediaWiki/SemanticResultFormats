@@ -13,7 +13,7 @@
  * @licence GPL-2.0-or-later
  * @author mwjames
  */
-( function ( $, mw, srf ) {
+( function ( $, mw ) {
 	'use strict';
 
 	/**
@@ -63,8 +63,7 @@
 		 * @member options
 		 */
 		portlet: function ( options ) {
-			const self = this,
-				el = self.element;
+			const self = this;
 
 			// Specify the pane instance
 			this.panel = this.panel || $();
@@ -109,4 +108,4 @@
 			}
 		}
 	} );
-}( jQuery, mediaWiki, semanticFormats ) );
+}( jQuery, mediaWiki ) );
