@@ -45,6 +45,9 @@
 			],
 			"env": {
 				"node": true
+			},
+			"rules": {
+				"mediawiki/valid-package-file-require": "off"
 			}
 		}
 	]
