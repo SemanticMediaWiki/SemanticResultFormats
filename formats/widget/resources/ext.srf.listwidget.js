@@ -15,8 +15,6 @@
 ( function ( $, mw, srf ) {
 	'use strict';
 
-	/* global mw:true */
-
 	// //////////////////////// PRIVATE METHODS ////////////////////////
 
 	const util = new srf.util();
@@ -43,8 +41,11 @@
 		if ( widget === 'pagination' ) {
 			// Pagination widget
 			this.pajinate( {
+				// eslint-disable-next-line camelcase -- pajinate plugin option keys are fixed snake_case
 				items_per_page: pageitems,
+				// eslint-disable-next-line camelcase
 				item_container_id: '.pagination-container',
+				// eslint-disable-next-line camelcase
 				nav_panel_id: '#' + widgetID + '-nav'
 			} );
 

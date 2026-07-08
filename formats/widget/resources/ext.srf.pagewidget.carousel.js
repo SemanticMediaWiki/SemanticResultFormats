@@ -30,10 +30,10 @@
 		}
 
 		// Handle cursor keys
-		if ( event.keyCode == 37 || event.keyCode == 33 ) {
+		if ( event.keyCode === 37 || event.keyCode === 33 ) {
 			// Left
 			direction = 'prev';
-		} else if ( event.keyCode == 39 || event.keyCode == 34 ) {
+		} else if ( event.keyCode === 39 || event.keyCode === 34 ) {
 			// Right
 			direction = 'next';
 		}
