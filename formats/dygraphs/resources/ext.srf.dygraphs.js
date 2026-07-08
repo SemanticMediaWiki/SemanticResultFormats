@@ -15,7 +15,7 @@
 ( function ( $, mw, srf ) {
 	'use strict';
 
-	/* global mw:true Dygraph:true mediaWiki:true */
+	/* global Dygraph:true */
 
 	// //////////////////////// PRIVATE METHODS ////////////////////////
 
@@ -57,77 +57,59 @@
 	};
 
 	/**
-	 * Add icon image
+	 * Add checkbox element
 	 *
 	 * @param options
 	 * @return object
 	 */
-	const _addIcon = function ( options ) {
-			const h = mw.html,
-				icon = h.element( 'span', { class: options.className, style: 'display:inline;' },
-					new h.Raw( h.element( 'img', {
-						src: mw.config.get( 'wgExtensionAssetsPath' ) + '/SemanticMediaWiki/resources/images/' + options.image,
-						title: options.title
-					}
-					) )
-				);
-			return icon;
-		},
+	const _addCheckboxItem = function ( options ) {
+		let item = '';
+		$.each( options.array, ( index, value ) => {
+			item += '<input type=checkbox class="' + options.className + '" id=' + index + ' checked><label for="' + index + '">' + value + '</label><br />';
+		} );
+		return item;
+	};
 
-		/**
-		 * Add checkbox element
-		 *
-		 * @param options
-		 * @return object
-		 */
-		_addCheckboxItem = function ( options ) {
-			let item = '';
-			$.each( options.array, ( index, value ) => {
-				item += '<input type=checkbox class="' + options.className + '" id=' + index + ' checked><label for="' + index + '">' + value + '</label><br />';
-			} );
-			return item;
-		},
+	/**
+	 * Add chart text element
+	 *
+	 * @param options
+	 * @return number
+	 */
+	const _addChartText = function ( options ) {
+		if ( options.text.length > 0 ) {
+			options.instance.after( '<span class="' + options.className + ' ' + options.extraClass + '">' + options.text + '</span>' );
+			return options.instance.next().height();
+		} else {
+			return 0;
+		}
+	};
 
-		/**
-		 * Add chart text element
-		 *
-		 * @param options
-		 * @return number
-		 */
-		_addChartText = function ( options ) {
-			if ( options.text.length > 0 ) {
-				options.instance.after( '<span class="' + options.className + ' ' + options.extraClass + '">' + options.text + '</span>' );
-				return options.instance.next().height();
-			} else {
-				return 0;
-			}
-		},
+	/**
+	 * Add chart source element
+	 *
+	 * @param options
+	 * @return number
+	 */
+	const _addChartSource = function ( options ) {
+		if ( options.source.length > 0 ) {
+			options.instance
+				.after( '<span class="' + options.className + ' ' + options.extraClass + '">[ ' + options.source + ' ]</span>' );
 
-		/**
-		 * Add chart source element
-		 *
-		 * @param options
-		 * @return number
-		 */
-		_addChartSource = function ( options ) {
-			if ( options.source.length > 0 ) {
-				options.instance
-					.after( '<span class="' + options.className + ' ' + options.extraClass + '">' + '[ ' + options.source + ' ]</span>' );
-
-				// Don't browse the whole DOM tree, just use the next element we created
-				// and adopt the title
-				const object = options.instance.next();
-				object.find( 'a' ).text( options.sourceTitle );
-				return object.height();
-			} else {
-				return 0;
-			}
-		};
+			// Don't browse the whole DOM tree, just use the next element we created
+			// and adopt the title
+			const object = options.instance.next();
+			object.find( 'a' ).text( options.sourceTitle );
+			return object.height();
+		} else {
+			return 0;
+		}
+	};
 
 	// //////////////////////// PUBLIC METHODS ////////////////////////
 
 	$.fn.extend( {
-		srfdygraphs: function ( options ) {
+		srfdygraphs: function () {
 			return this.each( function () {
 
 				const chart = $( this ),
@@ -148,13 +130,13 @@
 				 * container  = all additional elements
 				 * chart = container + processing
 				 */
-				let plotClass = 'srf-dygraphs-plot',
-					plotInstance = '',
-					seriesInstance = '',
+				const plotClass = 'srf-dygraphs-plot',
 					plotID = chartID + '-plot',
-					width = data.parameters.width,
-					height = data.parameters.height,
 					h = mw.html;
+				let plotInstance = '',
+					seriesInstance = '',
+					width = data.parameters.width,
+					height = data.parameters.height;
 
 				// Fetch the data from the source
 				getData( data );
@@ -176,7 +158,7 @@
 				 */
 				function getData( options ) {
 
-					const jqxhr = $.ajax( {
+					$.ajax( {
 						url: options.data.source.url
 					} )
 						.done( ( data ) => {
@@ -187,13 +169,13 @@
 							const rawData = data.replace( /\[\[(.*)\]\]|\{\{(.*)\}\}/igm, '' );
 
 							// Try the filter first line and find the labels used
-							const line_delimiter = Dygraph.detectLineDelimiter( rawData );
+							const lineDelimiter = Dygraph.detectLineDelimiter( rawData );
 							const delim = ',';
-							const lines = rawData.split( line_delimiter || '\n', 1 );
+							const lines = rawData.split( lineDelimiter || '\n', 1 );
 							const labels = lines[ 0 ].split( delim );
 
 							// In aynchronous mode only now are we able to proceed
-							prepareContainer( { labels: labels } );
+							prepareContainer();
 							initGraph( { data: rawData, labels: labels } );
 						} )
 						.fail( ( error ) => {
@@ -214,17 +196,13 @@
 									h.element( 'a', { href: options.data.source.url }, mw.msg( 'srf-ui-common-label-request-object', responseText ) ),
 									h.element( 'a', { href: 'http://www.semantic-mediawiki.org/wiki/Help:Ajax' }, mw.msg( 'srf-ui-common-label-help-section' ) ) )
 							} );
-						} )
-						.always( ( complete ) => {
 						} );
 				}
 
 				/**
 				 * Visual instance for displaying the container content
-				 *
-				 * @param options
 				 */
-				function prepareContainer( options ) {
+				function prepareContainer() {
 
 					// Set overall chart height and width
 					chart.css( { height: height, width: width } );
@@ -293,6 +271,7 @@
 					};
 
 					// Grid view instance
+					// eslint-disable-next-line no-new
 					new srf.util.grid( gridOptions );
 				}
 
@@ -370,7 +349,7 @@
 							// labels: data.parameters.group === 'label' ? dataSeriesLabel : data.parameters.datasource !== 'file' ? null : dataSeriesLabel,
 							labelsDivStyles: { textAlign: 'right', background: 'transparent' },
 							labelsSeparateLines: true,
-							underlayCallback: function ( canvas, area, g ) {
+							underlayCallback: function ( canvas, area ) {
 
 								// Allow background to be white
 								canvas.fillStyle = 'white';
@@ -380,8 +359,8 @@
 							// drawCallback gets called every time the dygraph is drawn. This includes
 							// the initial draw, after zooming and repeatedly while panning
 							// @see http://dygraphs.com/options.html#Callbacks
-							drawCallback: function ( g, is_initial ) {
-								if ( !is_initial ) {
+							drawCallback: function ( g, isInitial ) {
+								if ( !isInitial ) {
 									return;
 								} else {
 
