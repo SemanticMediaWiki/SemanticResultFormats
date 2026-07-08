@@ -64,7 +64,7 @@
 				} );
 			}
 			self.legend = this.legend;
-			this._refreshList( self.options.list );
+			this._refreshList( { list: self.options.list, type: self.options.type } );
 		},
 
 		// Something has to be done here, the current implementation
@@ -191,7 +191,7 @@
 		 */
 		destroy: function ( options ) {
 			if ( options.class ) {
-				$( '.' + options.class, this.pane ).remove();
+				$( '.' + options.class, this.element ).remove();
 			} else {
 				$.Widget.prototype.destroy.apply( this );
 			}
