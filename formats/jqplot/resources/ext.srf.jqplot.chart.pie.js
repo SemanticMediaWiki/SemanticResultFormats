@@ -14,8 +14,6 @@
 ( function ( $ ) {
 	'use strict';
 
-	/* global colorscheme:true */
-
 	// Pie/donut handling
 	$.fn.srfjqPlotPieChart = function ( options ) {
 		const data = options.data;

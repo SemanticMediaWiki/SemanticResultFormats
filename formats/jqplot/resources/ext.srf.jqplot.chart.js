@@ -15,8 +15,6 @@
 ( function ( $, srf ) {
 	'use strict';
 
-	/* global mw:true */
-
 	// //////////////////////// PRIVATE METHODS ////////////////////////
 
 	const util = new srf.util();
@@ -38,12 +36,13 @@
 	// Global jqplot container handling
 	$.fn.srfjqPlotChartContainer = function () {
 
-		let chart = this,
+		const chart = this,
 			container = chart.find( '.container' ),
 			chartID = container.attr( 'id' ),
-			height = container.height(),
-			width = container.width(),
 			json = mw.config.get( chartID );
+
+		let height = container.height(),
+			width = container.width();
 
 		// Parse json string and convert it back
 		const data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
@@ -82,6 +81,7 @@
 			};
 
 			// Grid view instance
+			// eslint-disable-next-line no-new
 			new srf.util.grid( options );
 		}
 
@@ -90,10 +90,10 @@
 		const _tabsHeight = chart.find( '.ui-tabs-nav' ).outerHeight();
 
 		// Add chart text
-		let chartText = data.parameters.charttext,
-			chartTextHeight = 0;
+		const chartText = data.parameters.charttext;
+		let chartTextHeight = 0;
 		if ( chartText.length > 0 ) {
-			container.prepend( '<div id="' + chartID + '-text' + '" class="srf-jqplot-chart-text">' + chartText + '</div>' );
+			container.prepend( '<div id="' + chartID + '-text" class="srf-jqplot-chart-text">' + chartText + '</div>' );
 			container.find( '.srf-jqplot-chart-text' )
 				.addClass( ( data.parameters.gridview === 'tabs' ? 'tabs ' + data.renderer : data.renderer ) );
 			chartTextHeight = container.find( '.srf-jqplot-chart-text' ).height() +
@@ -127,8 +127,6 @@
 
 	// Theming
 	$.fn.srfjqPlotTheme = function ( options ) {
-		/* global simple:true, vector:true */
-
 		// Reposition chart text to adjust for the tick label margin
 		const textmargin = this.find( '.jqplot-axis.jqplot-yaxis' ).width();
 		this.find( '.srf-jqplot-chart-text' ).css( { 'margin-left': textmargin, display: 'block' } );

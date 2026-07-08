@@ -14,8 +14,6 @@
 ( function ( $ ) {
 	'use strict';
 
-	/* global mw:true, colorscheme:true */
-
 	// Bar/line data handling is separated from plotting because relevant data array
 	// can be checked and if necessary bailout and show an error message instead
 	// without causing any type errors
@@ -30,49 +28,49 @@
 		const labels = [];
 
 		// Function handles all data array miracles
-		let errMsg = '',
-			dataRenderer = function () {
-				let jqplotdata = [],
-					ttLength = 0,
-					ptLength = 0;
+		let errMsg = '';
+		const dataRenderer = function () {
+			const jqplotdata = [];
+			let ttLength = 0,
+				ptLength = 0;
 
-				// Count the amount of series
-				for ( let k = 0; k < data.data.length; ++k ) {
-					const ttData = [];
-					ttLength = data.data[ k ].length;
+			// Count the amount of series
+			for ( let k = 0; k < data.data.length; ++k ) {
+				const ttData = [];
+				ttLength = data.data[ k ].length;
 
-					// Check if data series has the same length otherwise
-					// stackseries throws an error
-					if ( ttLength !== ptLength && k > 0 && data.parameters.stackseries === true ) {
-						errMsg = mw.msg( 'srf-error-jqplot-stackseries-data-length' );
-					}
-
-					// Individual data within a series
-					for ( let j = 0; j < ttLength; ++j ) {
-						if ( data.parameters.direction === 'horizontal' ) {
-							if ( data.fcolumntypeid === '_num' ) {
-								// Numeric x-value is handled differently
-								ttData.push( [ data.data[ k ][ j ][ 1 ], data.data[ k ][ j ][ 0 ] ] );
-							} else {
-								ttData.push( [ data.data[ k ][ j ][ 1 ], j + 1 ] );
-							}
-						} else {
-							if ( data.fcolumntypeid === '_num' ) {
-								// Numeric x-value is handled differently
-								ttData.push( [ data.data[ k ][ j ][ 0 ], data.data[ k ][ j ][ 1 ] ] );
-							} else {
-								ttData[ j ] = data.data[ k ][ j ][ 1 ];
-							}
-						}
-						// Handle labels in extra array
-						labels[ j ] = data.data[ k ][ j ][ 0 ];
-					}
-					jqplotdata.push( ttData );
-					// Store previous length to compare both
-					ptLength = ttLength;
+				// Check if data series has the same length otherwise
+				// stackseries throws an error
+				if ( ttLength !== ptLength && k > 0 && data.parameters.stackseries === true ) {
+					errMsg = mw.msg( 'srf-error-jqplot-stackseries-data-length' );
 				}
-				return jqplotdata;
-			};
+
+				// Individual data within a series
+				for ( let j = 0; j < ttLength; ++j ) {
+					if ( data.parameters.direction === 'horizontal' ) {
+						if ( data.fcolumntypeid === '_num' ) {
+							// Numeric x-value is handled differently
+							ttData.push( [ data.data[ k ][ j ][ 1 ], data.data[ k ][ j ][ 0 ] ] );
+						} else {
+							ttData.push( [ data.data[ k ][ j ][ 1 ], j + 1 ] );
+						}
+					} else {
+						if ( data.fcolumntypeid === '_num' ) {
+							// Numeric x-value is handled differently
+							ttData.push( [ data.data[ k ][ j ][ 0 ], data.data[ k ][ j ][ 1 ] ] );
+						} else {
+							ttData[ j ] = data.data[ k ][ j ][ 1 ];
+						}
+					}
+					// Handle labels in extra array
+					labels[ j ] = data.data[ k ][ j ][ 0 ];
+				}
+				jqplotdata.push( ttData );
+				// Store previous length to compare both
+				ptLength = ttLength;
+			}
+			return jqplotdata;
+		};
 
 		// Get data array
 		const jqplotbardata = dataRenderer();
