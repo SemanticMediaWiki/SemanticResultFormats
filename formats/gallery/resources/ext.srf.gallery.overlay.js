@@ -78,10 +78,10 @@
 
 				// Loop over all relevant gallery items
 				$this.find( '.gallerybox' ).each( function () {
-					let $this = $( this ),
+					const $this = $( this ),
 						h = mw.html,
-						image = $this.find( 'a.mw-file-description' ),
-						imageText = $.trim( $this.find( '.gallerytext p' ).text() );
+						image = $this.find( 'a.mw-file-description' );
+					let imageText = $.trim( $this.find( '.gallerytext p' ).text() );
 
 					// Group images
 					image.attr( 'rel', image.has( 'img' ).length ? galleryID : '' );
@@ -128,7 +128,7 @@
 
 				// Formatting the title
 				function formatTitle( title, currentArray, currentIndex /* ,currentOpts */ ) {
-					return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' + self.defaults.path + '/resources/jquery/fancybox/closelabel.gif' + '></a></span>' + ( title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' + mw.msg( 'srf-gallery-overlay-count', ( currentIndex + 1 ), currentArray.length ) + ')</span></div>';
+					return '<div class="srf-fancybox-title"><span class="button"><a href="javascript:;" onclick="$.fancybox.close();"><img src=' + self.defaults.path + '/resources/jquery/fancybox/closelabel.gif></a></span>' + ( title && title.length ? '<b>' + title : '' ) + '<span class="count"> (' + mw.msg( 'srf-gallery-overlay-count', ( currentIndex + 1 ), currentArray.length ) + ')</span></div>';
 				}
 
 				// Display all images related to a group

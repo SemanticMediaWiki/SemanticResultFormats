@@ -68,7 +68,7 @@
 
 				// The gallery parser comes with a preceding empty <p> element
 				// this is a work-around to avoid
-				if ( previous.length == 1 ) {
+				if ( previous.length === 1 ) {
 					previous.hide();
 				}
 

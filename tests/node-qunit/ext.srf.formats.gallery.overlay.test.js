@@ -63,6 +63,34 @@ QUnit.module( 'ext.srf.formats.gallery.overlay', {
 		assert.true( true, 'Overlay handles empty gallery without errors' );
 	} );
 
+	QUnit.test( 'overlay wires up a fancybox titleFormat that renders the close button and title', ( assert ) => {
+		const mockHtml = $(
+			'<ul class="gallery mw-gallery-traditional" id="test-gallery-title">' +
+				'<li class="gallerybox">' +
+					'<div>' +
+						'<a class="mw-file-description" href="/wiki/File:Test.jpg" title="Test image">' +
+							'<img alt="Test image" src="/thumb/Test.jpg/120px-Test.jpg" />' +
+						'</a>' +
+					'</div>' +
+					'<div class="gallerytext"><p>Test description</p></div>' +
+				'</li>' +
+			'</ul>'
+		);
+
+		$( document.body ).append( mockHtml );
+		const context = $( '#test-gallery-title' );
+		const gallery = new srf.formats.gallery();
+
+		gallery.overlay( context, 'File' );
+
+		const titleFormat = $.fn.fancybox.getCall( 0 ).args[ 0 ].titleFormat;
+		const title = titleFormat( 'My Title', [ 'a', 'b' ], 0 );
+
+		assert.true( title.startsWith( '<div class="srf-fancybox-title">' ), 'title markup starts with the fancybox title wrapper' );
+		assert.true( title.includes( '<img src=/srf/resources/jquery/fancybox/closelabel.gif>' ), 'close icon src is concatenated without a stray split' );
+		assert.true( title.includes( '<b>My Title' ), 'the given title text is included' );
+	} );
+
 	QUnit.test( 'overlay handles missing href gracefully', ( assert ) => {
 		const mockHtml = $(
 			'<ul class="gallery mw-gallery-traditional" id="test-gallery-no-href">' +
