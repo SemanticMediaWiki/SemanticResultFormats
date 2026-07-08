@@ -128,7 +128,7 @@
 				 * @type Object
 				 */
 				getTypeId: function ( property ) {
-					return list[ property ].typeid || null;
+					return list[ property ] ? list[ property ].typeid || null : null;
 				},
 
 				/**
