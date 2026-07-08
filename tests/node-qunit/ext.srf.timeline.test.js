@@ -213,8 +213,9 @@ QUnit.module( 'ext.srf.timeline', {
 	// `date` option, so a smwtlposition marker is silently ignored whenever
 	// timelinebands isn't set. The band-present case above shows `date` is
 	// honored there, confirming this is a real gap rather than documented
-	// behavior. Filed as a follow-up; this test pins today's behavior only so
-	// the suite doesn't fail until the production code is fixed.
+	// behavior. Filed as https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1114;
+	// this test pins today's behavior only so the suite doesn't fail until
+	// the production code is fixed.
 	QUnit.test( 'BUG: ignores the smwtlposition marker when no smwtlband is present (only the default band exists)', ( assert ) => {
 		const done = assert.async();
 		buildTimelineContext(
