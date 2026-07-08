@@ -20,16 +20,29 @@
   "scripts": {
     "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js",
     "lint": "eslint --ext .js resources formats tests/node-qunit",
-    "test": "npm run node-qunit",
+    "test": "npm run lint && npm run node-qunit",
     "test-coverage": "npm run node-qunit-coverage",
     "pretest-filtered-ts": "(test -d formats/filtered/node_modules/@types || npm --prefix formats/filtered install) && tsc -p tests/node-qunit/tsconfig.filtered.json",
     "node-qunit": "npm run pretest-filtered-ts && NODE_PATH=formats/filtered/node_modules qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'",
-    "node-qunit-coverage": "nyc --reporter=text --reporter=html --reporter=clover --report-dir=coverage/js --all --include='formats/**/resources/js/*.js' npm run node-qunit"
+    "node-qunit-coverage": "nyc --reporter=text --reporter=html --reporter=clover --report-dir=coverage/js --all npm run node-qunit"
   },
   "nyc": {
+    "include": [
+      "formats/**/*.js",
+      "resources/**/*.js"
+    ],
     "exclude": [
+      "**/*.min.js",
+      "resources/jquery/**",
+      "resources/slick/**",
+      "resources/docs/**",
+      "formats/JitGraph/Jit/**",
+      "formats/JitGraph/jquery.progressbar.js",
+      "formats/timeline/resources/SimileTimeline/**",
+      "formats/filtered/gulpfile.js",
       "formats/filtered/resources/js/ext.srf.filtered.select.js",
-      "formats/filtered/resources/js/ext.srf.filtered.slider.js"
+      "formats/filtered/resources/js/ext.srf.filtered.slider.js",
+      "**/node_modules/**"
     ]
   },
   "copyFiles": [],

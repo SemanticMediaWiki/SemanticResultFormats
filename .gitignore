@@ -20,4 +20,5 @@ conf/
 .DS_Store
 .env
 coverage
+.nyc_output
 tests/node-qunit/.compiled/
