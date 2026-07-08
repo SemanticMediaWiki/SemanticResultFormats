@@ -180,17 +180,16 @@
 			}
 
 			// Build word cloud
-			// ~~ (bitwise not) is used instead of Math.floor because it is
-			// twice as fast as floor, "end" is fired when all words have been placed
+			// "end" is fired when all words have been placed
 			const cloud = d3.layout.cloud().size( [ data.width - 5, data.height - 5 ] )
 				.words( arr.map( ( d ) => ( {
 					text: d[ 0 ],
 					size: parseInt( d[ 1 ], 10 ),
 					href: d[ 2 ]
 				} ) ) )
-				.rotate( () => ~~( Math.random() * 2 ) * 90 )
+				.rotate( () => Math.floor( Math.random() * 2 ) * 90 )
 				.fontSize( ( d ) => d.size )
-				.font( textFont[ ~~( Math.random() * textFont.length ) ] )
+				.font( textFont[ Math.floor( Math.random() * textFont.length ) ] )
 				.on( 'end', draw );
 
 			// Create the cloud
