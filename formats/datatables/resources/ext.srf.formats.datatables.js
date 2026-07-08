@@ -17,17 +17,6 @@
 	/* Private methods and objects */
 
 	/**
-	 * Helper objects
-	 *
-	 * @since 1.9
-	 *
-	 * @ignore
-	 * @private
-	 * @static
-	 */
-	const html = mw.html;
-
-	/**
 	 * Cache results retrieved through Ajax up to
 	 * a certain limit, this allows smooth navigation
 	 * of pages already retrieved, without to perform
@@ -61,16 +50,16 @@
 			return Object.keys( obj ).map( ( e ) => obj[ e ] );
 		},
 		objectEntries: function ( obj ) {
-			let keys = Object.keys( obj ),
-				i = keys.length,
-				ret = new Array( i );
+			const keys = Object.keys( obj ),
+				ret = new Array( keys.length );
+			let i = keys.length;
 			while ( i-- ) {
 				ret[ i ] = [ keys[ i ], obj[ keys[ i ] ] ];
 			}
 			return ret;
 		},
 
-		getCacheLimit: function ( obj ) {
+		getCacheLimit: function () {
 			return _cacheLimit;
 		},
 
@@ -336,7 +325,7 @@
 				for ( const ii in searchPanesOptions[ i ] ) {
 					columnDefs[ i ].searchPanes.options.push( {
 						label: searchPanesOptions[ i ][ ii ].label,
-						value: function ( rowData, rowIdx ) {
+						value: function ( rowData ) {
 							return rowData[ i ].display === searchPanesOptions[ i ][ ii ].value;
 						}
 					} );
@@ -399,7 +388,7 @@
 					const json = results[ 'datatables-json' ];
 
 					if ( displayLog ) {
-						console.log( 'results log', json.log );
+						mw.log( 'results log', json.log );
 					}
 
 					// cache all retrieved rows for each sorting
@@ -419,7 +408,7 @@
 					callback( json );
 				} )
 				.fail( ( error ) => {
-					console.log( 'error', error );
+					mw.log.error( 'error', error );
 				} );
 		},
 
@@ -485,7 +474,7 @@
 				mw.config.get( 'wgArticleId' );
 
 			if (
-				mw.config.get( 'wgUserName' ) != context.data( 'editor' ) ||
+				mw.config.get( 'wgUserName' ) !== context.data( 'editor' ) ||
 				mw.cookie.get( cookieKey )
 			) {
 				return;
@@ -575,8 +564,6 @@
 		 * @param  {Array} data
 		 */
 		init: function ( container, data ) {
-			const self = this;
-
 			const table = container.find( 'table' );
 			table.removeClass( 'wikitable' );
 			table.find( 'tbody:first' ).attr( 'aria-live', 'polite' );
@@ -687,8 +674,8 @@
 			const displayLog = mw.config.get( 'performer' ) === table.data( 'editor' );
 
 			if ( displayLog ) {
-				console.log( 'data', data );
-				console.log( 'searchPanesLog', searchPanesLog );
+				mw.log( 'data', data );
+				mw.log( 'searchPanesLog', searchPanesLog );
 			}
 
 			const entityCollation = table.data( 'collation' );
@@ -817,7 +804,7 @@
 					// deferLoading: table.data("count"),
 					processing: true,
 					serverSide: true,
-					ajax: function ( datatableData, callback, settings ) {
+					ajax: function ( datatableData, callback ) {
 						// must match initial cacheKey
 						const thisCacheKey = !_datatables.getNestedProp(
 							[ 'search', 'value' ],
@@ -858,7 +845,7 @@
 							).length;
 
 							if ( totalSize > _datatables.getCacheLimit() ) {
-								console.log( 'flushing datatables cache!' );
+								mw.log( 'flushing datatables cache!' );
 								preloadData[ i ] = {};
 							}
 						}
