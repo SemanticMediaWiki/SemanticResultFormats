@@ -22,9 +22,6 @@
 	// Strict mode eliminates some JavaScript pitfalls
 	'use strict';
 
-	// Passing jshint
-	/* global mediaWiki:true, semanticFormats:true */
-
 	/**
 	 * Module for formats extensions
 	 *
@@ -46,6 +43,9 @@
 	// $.extend ... can be used here
 	srf.formats.boilerplate = function () {};
 
+	// Get access to SRF specific utilities function
+	const util = new srf.util();
+
 	srf.formats.boilerplate.prototype = {
 		// Specify your functions and parameters
 		show: function ( context ) {
@@ -65,10 +65,7 @@
 
 				// Fetch the stored data with help of mw.config.get() method and the current instance ID
 				// @see http://www.mediawiki.org/wiki/ResourceLoader/Default_modules#mediaWiki.config
-				const json = mw.config.get( ID );
-
-				// Parse the fetched json string and convert it back into objects/arrays
-				const data = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
+				const data = mw.config.get( ID );
 
 				// Hide the spinner which belongs to the outer wrapper
 				// Use the utility function here which makes it easier as no explicit knowledge
@@ -80,8 +77,7 @@
 
 				// If you need to see what data you've got from your result printer
 				// it is always helpfull to do
-
-				// console.log( data );
+				srf.log( data );
 
 				// Happy coding ...
 
@@ -98,9 +94,6 @@
 
 	// Create class instance
 	const boilerplate = new srf.formats.boilerplate();
-
-	// Get access to SRF specific utilities function
-	const util = new srf.util();
 
 	$( document ).ready( () => {
 

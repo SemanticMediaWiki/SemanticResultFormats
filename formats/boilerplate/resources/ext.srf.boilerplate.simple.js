@@ -20,9 +20,6 @@
 	// Strict mode eliminates some JavaScript pitfalls
 	'use strict';
 
-	// Passing jshint
-	/* global mw:true */
-
 	/**
 	 * Document ready instance
 	 *
@@ -63,8 +60,7 @@
 
 			// If you need to see what data you've got from your result printer it is
 			// always helpfull to do
-
-			// console.log( data );
+			mw.log( data );
 
 			// Happy coding ...
 
