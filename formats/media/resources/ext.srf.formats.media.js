@@ -237,7 +237,8 @@
 			}
 
 			// Create jPlayer instance
-			const jPlayerInstance = new jPlayerPlaylist(
+			// eslint-disable-next-line no-new
+			new jPlayerPlaylist(
 				jPlayerSelector,
 				media.getData( json.data, json.mediaType ),
 				// Merge defaults and options, without modifying the defaults
