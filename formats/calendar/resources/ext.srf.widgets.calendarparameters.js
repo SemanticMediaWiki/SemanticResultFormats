@@ -349,7 +349,7 @@
 		 */
 		destroy: function ( options ) {
 			if ( options.class ) {
-				$( '.' + options.class, this.pane ).remove();
+				$( '.' + options.class, this.element ).remove();
 			} else {
 				$.Widget.prototype.destroy.apply( this );
 			}
