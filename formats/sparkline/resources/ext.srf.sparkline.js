@@ -17,11 +17,17 @@
 ( function ( srf, $ ) {
 	'use strict';
 
-	/* global mw:true semanticFormats:true */
-
 	// //////////////////////// PUBLIC METHODS ////////////////////////
 
 	srf.formats = srf.formats || {};
+
+	/**
+	 * Implementation and representation of the sparkline instance
+	 *
+	 * @since 1.8
+	 * @type {Object}
+	 */
+	const util = new srf.util();
 
 	/**
 	 * Constructor
@@ -61,16 +67,9 @@
 		}
 	};
 
-	/**
-	 * Implementation and representation of the sparkline instance
-	 *
-	 * @since 1.8
-	 * @type Object
-	 */
-	const util = new srf.util();
-
 	$( document ).ready( () => {
 		$( '.srf-sparkline' ).each( function () {
+			// eslint-disable-next-line no-new
 			new srf.formats.sparkline( { context: $( this ) } );
 		} );
 	} );
