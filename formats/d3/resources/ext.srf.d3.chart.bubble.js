@@ -15,7 +15,7 @@
 ( function ( $, srf ) {
 	'use strict';
 
-	/* global d3:true, mw:true, colorscheme:true */
+	/* global d3:true */
 	/**
 	 * Module for formats extensions
 	 *
@@ -32,21 +32,25 @@
 	 */
 	srf.formats.d3 = function () {};
 
+	const util = new srf.util();
+
 	srf.formats.d3.prototype = {
 		bubble: function ( context ) {
 			return context.each( function () {
-				let width = $( this ).width(),
-					height = $( this ).height(),
+				const width = $( this ).width(),
 					chart = $( this ).find( '.container' ),
 					d3ID = chart.attr( 'id' ),
 					json = mw.config.get( d3ID );
 
+				let height = $( this ).height();
+
 				const container = typeof json === 'string' ? jQuery.parseJSON( json ) : json;
 
-				let charttitle = container.parameters.charttitle || '',
+				const charttitle = container.parameters.charttitle || '',
 					charttext = container.parameters.charttext || '',
-					datalabels = container.parameters.datalabels,
-					colors;
+					datalabels = container.parameters.datalabels;
+
+				let colors;
 
 				if ( !container.parameters.colorscheme || typeof colorscheme[ container.parameters.colorscheme ] === 'undefined' ) {
 					colors = colorscheme[ 0 ];
@@ -193,7 +197,6 @@
 	 * @type Object
 	 */
 	const srfD3 = new srf.formats.d3();
-	const util = new srf.util();
 
 	$( document ).ready( () => {
 		$( '.srf-d3-chart-bubble' ).each( function () {
