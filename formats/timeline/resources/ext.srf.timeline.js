@@ -18,7 +18,7 @@
 				const context = $( this );
 				context.removeClass( 'is-disabled' );
 
-				smw_make_timeline( context[ 0 ] );
+				smwMakeTimeline( context[ 0 ] );
 			} );
 		} );
 
@@ -26,7 +26,7 @@
 
 }( jQuery, mediaWiki ) );
 
-function smw_make_timeline( div ) {
+function smwMakeTimeline( div ) {
 	// extract relevant event data:
 	const eventSource = new Timeline.DefaultEventSource();
 
@@ -44,32 +44,53 @@ function smw_make_timeline( div ) {
 	// theme.ether.interval.weekend.color = "#FFFFE0";
 
 	const childs = div.childNodes;
-	const l = childs.length;
 	const bands = [];
 	let bandcount = 0;
 	let position = new Date(); // fallback position: today;
 	for ( let i = 0; i < childs.length; div.removeChild( childs[ 0 ] ) ) {
 		switch ( childs[ i ].nodeType ) {
 			case 1: // ELEMENT_NODE -- an event or some general data
-				if ( childs[ i ].className == 'smwtlevent' ) {
-					smw_add_event( childs[ i ], eventSource );
-				} else if ( childs[ i ].className == 'smwtlband' ) {
+				if ( childs[ i ].className === 'smwtlevent' ) {
+					smwAddEvent( childs[ i ], eventSource );
+				} else if ( childs[ i ].className === 'smwtlband' ) {
 					switch ( childs[ i ].firstChild.data ) {
-						case 'MILLISECOND': bands[ bandcount ] = Timeline.DateTime.MILLISECOND; break;
-						case 'SECOND': bands[ bandcount ] = Timeline.DateTime.SECOND; break;
-						case 'MINUTE': bands[ bandcount ] = Timeline.DateTime.MINUTE; break;
-						case 'HOUR': bands[ bandcount ] = Timeline.DateTime.HOUR; break;
-						case 'DAY': bands[ bandcount ] = Timeline.DateTime.DAY; break;
-						case 'WEEK': bands[ bandcount ] = Timeline.DateTime.WEEK; break;
-						case 'MONTH': bands[ bandcount ] = Timeline.DateTime.MONTH; break;
-						case 'YEAR': bands[ bandcount ] = Timeline.DateTime.YEAR; break;
-						case 'DECADE': bands[ bandcount ] = Timeline.DateTime.DECADE; break;
-						case 'CENTURY': bands[ bandcount ] = Timeline.DateTime.CENTURY; break;
-						case 'MILLENNIUM': bands[ bandcount ] = Timeline.DateTime.MILLENNIUM; break;
+						case 'MILLISECOND':
+							bands[ bandcount ] = Timeline.DateTime.MILLISECOND;
+							break;
+						case 'SECOND':
+							bands[ bandcount ] = Timeline.DateTime.SECOND;
+							break;
+						case 'MINUTE':
+							bands[ bandcount ] = Timeline.DateTime.MINUTE;
+							break;
+						case 'HOUR':
+							bands[ bandcount ] = Timeline.DateTime.HOUR;
+							break;
+						case 'DAY':
+							bands[ bandcount ] = Timeline.DateTime.DAY;
+							break;
+						case 'WEEK':
+							bands[ bandcount ] = Timeline.DateTime.WEEK;
+							break;
+						case 'MONTH':
+							bands[ bandcount ] = Timeline.DateTime.MONTH;
+							break;
+						case 'YEAR':
+							bands[ bandcount ] = Timeline.DateTime.YEAR;
+							break;
+						case 'DECADE':
+							bands[ bandcount ] = Timeline.DateTime.DECADE;
+							break;
+						case 'CENTURY':
+							bands[ bandcount ] = Timeline.DateTime.CENTURY;
+							break;
+						case 'MILLENNIUM':
+							bands[ bandcount ] = Timeline.DateTime.MILLENNIUM;
+							break;
 						default: bandcount--; // dont count unrecognized bands
 					}
 					bandcount++;
-				} else if ( childs[ 0 ].className == 'smwtlposition' ) {
+				} else if ( childs[ 0 ].className === 'smwtlposition' ) {
 					position = Timeline.DateTime.parseIso8601DateTime( childs[ i ].firstChild.data );
 				} /* else if (childs[i].className == "smwtlsize") {
 					div.setAttribute("style","height: " + childs[i].firstChild.data + ";");
@@ -85,10 +106,10 @@ function smw_make_timeline( div ) {
 	const bandInfos = [];
 	let bandinfo;
 	for ( let i = 0; i < bandcount; i++ ) {
-		if ( i == 0 ) {
+		if ( i === 0 ) {
 			bandinfo = Timeline.createBandInfo( {
 				eventSource: eventSource,
-				width: smw_get_bandwidth( i, bandcount ),
+				width: smwGetBandwidth( i, bandcount ),
 				intervalUnit: bands[ i ],
 				intervalPixels: 100,
 				date: position,
@@ -100,7 +121,7 @@ function smw_make_timeline( div ) {
 				trackHeight: 0.5,
 				trackGap: 0.2,
 				eventSource: eventSource,
-				width: smw_get_bandwidth( i, bandcount ),
+				width: smwGetBandwidth( i, bandcount ),
 				intervalUnit: bands[ i ],
 				intervalPixels: 100,
 				date: position,
@@ -113,7 +134,7 @@ function smw_make_timeline( div ) {
 	}
 
 	// default band
-	if ( bandcount == 0 ) {
+	if ( bandcount === 0 ) {
 		bandInfos[ 0 ] = Timeline.createBandInfo( {
 			eventSource: eventSource,
 			width: '100%',
@@ -126,9 +147,9 @@ function smw_make_timeline( div ) {
 	Timeline.create( div, bandInfos );
 }
 
-function smw_get_bandwidth( number, count ) {
+function smwGetBandwidth( number, count ) {
 	switch ( count ) {
-		case 1: if ( number == 0 ) {
+		case 1: if ( number === 0 ) {
 			return '100%';
 		} else {
 			return '0%';
@@ -157,7 +178,7 @@ function smw_get_bandwidth( number, count ) {
 	}
 }
 
-function smw_add_event( evspan, evs ) {
+function smwAddEvent( evspan, evs ) {
 	let startdate = null;
 	let enddate = null;
 	let desc = '';
@@ -169,40 +190,40 @@ function smw_add_event( evspan, evs ) {
 
 	const childs = evspan.childNodes;
 	for ( let i = 0; i < childs.length; /* manual increment below */ ) {
-		if ( childs[ i ].nodeType == 1 ) { // ELEMENT_NODE -- some data element
+		if ( childs[ i ].nodeType === 1 ) { // ELEMENT_NODE -- some data element
 			switch ( childs[ i ].className ) {
 				case 'smwtlstart':
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						startdate = childs[ i ].firstChild.data;
 					}
 					evspan.removeChild( childs[ i ] );
 					break;
 				case 'smwtlend':
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						enddate = childs[ i ].firstChild.data;
 					}
 					evspan.removeChild( childs[ i ] );
 					break;
 				case 'smwtltitle':
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						ttl = childs[ i ].firstChild.data;
 					}
 					evspan.removeChild( childs[ i ] );
 					break;
 				case 'smwtlprefix':
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						prefix = childs[ i ].firstChild.data;
 					}
 					evspan.removeChild( childs[ i ] );
 					break;
 				case 'smwtlpostfix':
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						postfix = childs[ i ].firstChild.data;
 					}
 					evspan.removeChild( childs[ i ] );
 					break;
 				case 'smwtlurl': // accept both plain text and <a>, use text of <a> for title
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						linkurl = childs[ i ].firstChild.data;
 					} else {
 						linkurl = childs[ i ].firstChild.getAttribute( 'href' );
@@ -213,7 +234,7 @@ function smw_add_event( evspan, evs ) {
 					}
 
 					if ( linkurl === null && childs[ i ].firstChild.hasChildNodes() ) {
-						if ( childs[ i ].firstChild.firstChild.nodeType == 1 ) {
+						if ( childs[ i ].firstChild.firstChild.nodeType === 1 ) {
 							linkurl = childs[ i ].firstChild.firstChild.getAttribute( 'href' );
 							ttl = childs[ i ].firstChild.firstChild.innerHTML;
 						} else {
@@ -224,7 +245,7 @@ function smw_add_event( evspan, evs ) {
 					evspan.removeChild( childs[ i ] );
 					break;
 				case 'smwtlcoloricon':
-					if ( childs[ i ].firstChild.nodeType == 3 ) {
+					if ( childs[ i ].firstChild.nodeType === 3 ) {
 						switch ( childs[ i ].firstChild.data ) {
 							case '0': icon = Timeline.urlPrefix + 'images/dull-blue-circle.png';
 								break;
