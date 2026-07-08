@@ -14,8 +14,6 @@
 ( function ( $, srf ) {
 	'use strict';
 
-	/* global mw:true */
-
 	// //////////////////////// PRIVATE METHODS ////////////////////////
 
 	const util = new srf.util();
@@ -41,8 +39,8 @@
 			 * to be able to adjust the height of the chart and sray within the limits
 			 * specified by the query printer
 			 */
-			let plotClass = 'srf-flot-plot',
-				addedHeight = 0,
+			const plotClass = 'srf-flot-plot';
+			let addedHeight = 0,
 				width = data.parameters.width,
 				height = data.parameters.height;
 
@@ -132,6 +130,7 @@
 				};
 
 				// Grid view instance
+				// eslint-disable-next-line no-new
 				new srf.util.grid( gridOptions );
 			}
 
@@ -244,10 +243,10 @@
 					$.each( plotdata, ( e, val ) => {
 						$.each( val.data, ( e1, val1 ) => {
 							if ( ( val1[ 0 ] >= ranges.xaxis.from ) && ( val1[ 0 ] <= ranges.xaxis.to ) ) {
-								if ( ymax == null || val1[ 1 ] > ymax ) {
+								if ( ymax === undefined || val1[ 1 ] > ymax ) {
 									ymax = val1[ 1 ];
 								}
-								if ( ymin == null || val1[ 1 ] < ymin ) {
+								if ( ymin === undefined || val1[ 1 ] < ymin ) {
 									ymin = val1[ 1 ];
 								}
 							}
