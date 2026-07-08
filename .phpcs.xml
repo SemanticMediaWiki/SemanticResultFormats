@@ -39,7 +39,7 @@
 		<severity>0</severity>
 	</rule>
 	<file>.</file>
-	<exclude-pattern>/(vendor|conf)/</exclude-pattern>
+	<exclude-pattern>/(vendor|conf|node_modules)/</exclude-pattern>
 	<exclude-pattern type="relative">extensions/*</exclude-pattern>
 	<exclude-pattern>.phan/baseline.php</exclude-pattern>
 	<arg name="extensions" value="php"/>
