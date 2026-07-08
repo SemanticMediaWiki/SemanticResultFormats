@@ -86,7 +86,9 @@
 			"NS_MAIN": true,
 			"SMW_NS_PROPERTY": true
 		},
-		"srfgFormats[]": "incoming"
+		"srfgFormats": {
+			"append": [ "incoming" ]
+		}
 	},
 	"meta": {
 		"version": "2",
