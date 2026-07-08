@@ -31,7 +31,7 @@
 				} );
 
 				// word wrapping in <text>
-				$( '.srf-gantt text.sectionTitle' ).each( function ( index, value ) {
+				$( '.srf-gantt text.sectionTitle' ).each( function () {
 					forceTextWrappingOn( this, data.config.gantt.leftPadding );
 				} );
 			} );
@@ -46,19 +46,19 @@
 	function forceTextWrappingOn( node, width ) {
 		const svgns = 'http://www.w3.org/2000/svg';
 
-		if ( node.firstChild != null ) {
-			let chars = node.firstChild.nodeValue.split( ' ' ),
-				x = parseInt( node.getAttribute( 'x' ), 10 ),
-				y = parseInt( node.getAttribute( 'y' ), 10 ),
+		if ( node.firstChild !== null ) {
+			const chars = node.firstChild.nodeValue.split( ' ' ),
 				nodeBB = node.getBBox(),
+				x = parseInt( node.getAttribute( 'x' ), 10 );
+			let y = parseInt( node.getAttribute( 'y' ), 10 ),
 				index = 0,
 				tspan, tspanWidth, textNode;
 
 			node.removeChild( node.firstChild );
 
 			for ( const c in chars ) {
-				if ( chars.hasOwnProperty( c ) ) {
-					tspanWidth = tspan == null ? 0 : tspan.getComputedTextLength();
+				if ( Object.prototype.hasOwnProperty.call( chars, c ) ) {
+					tspanWidth = tspan === undefined ? 0 : tspan.getComputedTextLength();
 					if ( tspanWidth > width || tspanWidth === 0 ) {
 						if ( index !== 0 ) {
 							y = y + nodeBB.height;
