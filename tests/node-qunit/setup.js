@@ -110,6 +110,10 @@ function prepareMediaWiki() {
 				element: htmlElement,
 				Raw: Raw
 			},
+			// real implementation: core/resources/src/mediawiki.util/util.js
+			util: {
+				wikiScript: ( str ) => `${ configValues.wgScriptPath }/${ str || 'index' }.php`
+			},
 			storage: {
 				get: ( key ) => ( Object.prototype.hasOwnProperty.call( storageValues, key ) ? storageValues[ key ] : null ),
 				set: ( key, value ) => {
