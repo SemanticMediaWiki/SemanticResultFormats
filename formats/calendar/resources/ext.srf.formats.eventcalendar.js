@@ -1054,6 +1054,20 @@
 			},
 			_startDate: function ( dates ) {
 				return _calendar.data.startDate( dates );
+			},
+			_getID: function ( container ) {
+				return _calendar.getID( container );
+			},
+			_getTruncatedSentence: function ( str, maxChars ) {
+				return _calendar.getTruncatedSentence( str, maxChars );
+			},
+			_defaults: _calendar.defaults,
+			_tooltip: _calendar.tooltip,
+			_onDayClick: function ( date, data, clickPopup ) {
+				return _calendar.onDayClick( date, data, clickPopup );
+			},
+			_fullCalendarEvent: function ( context, container, data, event, element, view ) {
+				return _calendar.fullCalendar( context, container, data ).event( event, element, view );
 			}
 		}
 	};

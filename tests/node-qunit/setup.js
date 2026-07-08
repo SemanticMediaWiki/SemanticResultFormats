@@ -16,6 +16,10 @@ function createDom() {
 	global.Node = window.Node;
 	global.HTMLElement = window.HTMLElement;
 	global.Option = window.Option;
+	// jsdom's window.confirm/window.open are not leaked onto the Node global scope
+	// like a real browser would; srf.formats.eventcalendar's onDayClick() calls
+	// the bare (unprefixed) confirm()/window.open() globals directly.
+	global.confirm = window.confirm;
 	global.$ = global.jQuery = require( 'jquery' );
 	// MediaWiki core's jquery.client RL module (browser detection), not vendored
 	// here; srf.formats.eventcalendar reads profile.name/.versionNumber.
@@ -92,7 +96,9 @@ function prepareMediaWiki() {
 	return () => {
 		const configValues = {
 			'srf-config': { settings: { srfgScriptPath: '/srf' }, version: '1.0.0' },
-			wgScriptPath: '/w'
+			wgScriptPath: '/w',
+			wgArticlePath: '/wiki/$1',
+			wgServer: 'http://localhost'
 		};
 		const storageValues = {};
 
@@ -171,8 +177,14 @@ function prepareMediaWiki() {
 			// parse.api()/startDate() tests.
 			api: function () {},
 			util: {
-				// same as above: constructed at module scope, not called
-				tooltip: function () {}
+				// same as above: constructed at module scope, not called directly by
+				// the mocked-out modules; .show() is a no-op stand-in for SemanticMediaWiki's
+				// real tooltip UI (see res/smw/util/ext.smw.util.tooltip.js), called by
+				// srf.formats.eventcalendar's event().description() with
+				// { context, content, title, button }.
+				tooltip: function () {
+					this.show = () => {};
+				}
 			}
 		};
 	};
