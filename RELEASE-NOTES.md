@@ -49,6 +49,7 @@ Released on TBD.
 ### Maintenance
 
 * Bumped npm dependencies: `d3` 6.7.0→7.9.0 (fixes d3-color ReDoS and related CVEs), `copy-files-from-to` 3.12.1→4.0.1 (resolves axios, form-data, follow-redirects, lodash, and picomatch security advisories) (by [gesinn.it](https://gesinn.it))
+* Corrected `formats/d3/README.md`'s outdated `d3` update instructions (stale `3.0.4`/wrong script path from before the `d3` 7.9.0 migration), and removed `resources/jquery/d3/scripts/copy-and-minify-d3.js`'s dead `window.d3` UMD patch: its regex never matched the current bundle and failed silently, and has been unnecessary since `d3` v4, whose UMD wrapper already assigns itself to `globalThis.d3` (by [gesinn.it](https://gesinn.it))
 * Bumped dev dependencies: `mediawiki-codesniffer` 46→51, `mediawiki-phan-config` 0.14→0.20, `minus-x` 1.1.3→2.0.1; applied phpcbf auto-fixes, added PHPCS excludes for new sniff rules, and updated Phan baseline (by [gesinn.it](https://gesinn.it))
 
 ### Compatibility Changes
