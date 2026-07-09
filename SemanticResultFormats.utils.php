@@ -57,11 +57,9 @@ final class SRFUtils {
 	 *
 	 * @param array $data
 	 *
-	 * @param string|null|bool $nonce Unused
-	 *
 	 * @return string|WrappedString HTML
 	 */
-	public static function makeVariablesScript( $data, $nonce = null ) {
+	public static function makeVariablesScript( $data ) {
 		$script = MediaWiki\ResourceLoader\ResourceLoader::makeConfigSetScript( $data );
 
 		return MediaWiki\ResourceLoader\ResourceLoader::makeInlineScript( $script );
