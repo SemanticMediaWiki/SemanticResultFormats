@@ -92,6 +92,7 @@ Released on TBD.
 * Fixed the `quartillower`, `quartilupper`, their `.exc` variants and both `interquartilerange` formats interpolating with constant factors instead of the position's fractional part, returning wrong values for most result-set sizes ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Fixed `mode` returning the occurrence count instead of the most frequent value ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Fixed `variance` losing precision for values large relative to their spread, which could make `standarddeviation` return `NAN` ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
+* Fixed `jqplotseries` format showing a "Malformed `cursor=` token" query error on every chart with SMW 7.0+: the format's jqPlot cursor-plugin parameter shadowed the `cursor` query parameter reserved by SMW's keyset pagination, so its default value was rejected as a pagination token. The display parameter is renamed to `chartcursor`; queries explicitly setting `cursor=zoom|tooltip` need to switch to `chartcursor=` ([1078](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1078)) (by [Professional Wiki](https://professional.wiki))
 * Updated translations (by translatewiki.net community)
 
 ## SRF 5.2.0

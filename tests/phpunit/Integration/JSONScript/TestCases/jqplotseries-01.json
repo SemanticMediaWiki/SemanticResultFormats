@@ -1,5 +1,5 @@
 {
-	"description": "Test `format=jqplotseries` html output (#1018)",
+	"description": "Test `format=jqplotseries` html output (#1018, #1078)",
 	"setup": [
 		{
 			"page": "Has SRFJqplot01 value",
@@ -17,16 +17,36 @@
 		{
 			"page": "Test/Jqplot01/Q.1",
 			"contents": "{{#ask: [[Category:SRFJqplot01]] |?Has SRFJqplot01 value |format=jqplotseries }}"
+		},
+		{
+			"page": "Test/Jqplot01/Q.2",
+			"contents": "{{#ask: [[Category:SRFJqplot01]] |?Has SRFJqplot01 value |format=jqplotseries |charttype=line |chartcursor=zoom }}"
 		}
 	],
 	"tests": [
 		{
 			"type": "parser",
-			"about": "#0 results with numeric data – chart container rendered",
+			"about": "#0 results with numeric data – chart container rendered, no reserved-cursor query error (#1078)",
 			"subject": "Test/Jqplot01/Q.1",
 			"assert-output": {
 				"to-contain": [
 					"srf-jqplot"
+				],
+				"not-contain": [
+					"Malformed"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 explicit `chartcursor=zoom` – chart container rendered, no reserved-cursor query error (#1078)",
+			"subject": "Test/Jqplot01/Q.2",
+			"assert-output": {
+				"to-contain": [
+					"srf-jqplot"
+				],
+				"not-contain": [
+					"Malformed"
 				]
 			}
 		}
