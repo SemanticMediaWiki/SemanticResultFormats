@@ -155,8 +155,15 @@ class GraphFormatter {
 				// the value at the top is already hyperlinked.
 			} else {
 				if ( $nodeLabel ) {
-					// Label, if any, is enclosed with "".
-					$nodeLabel = '"' . htmlspecialchars( $nodeLabel ) . '"';
+					// $nodeLabel is already HTML-escaped (see above) and, when wrapped
+					// across multiple lines, already contains the line separator (either
+					// a literal "<br />" under Diagrams, or a plain newline otherwise).
+					// A "<br />" only renders as a line break in an HTML label (enclosed
+					// in <>, no further escaping); a quoted string label ("...") renders
+					// it as literal text instead (https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/846).
+					$nodeLabel = str_contains( $nodeLabel, '<br />' )
+						? '<' . $nodeLabel . '>'
+						: '"' . $nodeLabel . '"';
 				}
 				$nodeTooltip = null;
 			}
