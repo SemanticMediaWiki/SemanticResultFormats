@@ -185,4 +185,20 @@ class SRFHashTest extends TestCase {
 		$this->assertFalse( $result );
 	}
 
+	public function testGetParamDefinitionsRemovesTitlesAndUsesHashNameMessage(): void {
+		$stub = new class {
+			public function setDefault( $value ) {
+			}
+		};
+		$definitions = $this->newInstance()->getParamDefinitions( [
+			'limit'   => clone $stub,
+			'link'    => clone $stub,
+			'headers' => clone $stub,
+		] );
+
+		$this->assertArrayNotHasKey( 'titles', $definitions );
+		$this->assertSame( 'srf_paramdesc_hashname', $definitions['name']['message'] );
+		$this->assertSame( [ 'manysep' ], $definitions['valuesep']['aliases'] );
+	}
+
 }
