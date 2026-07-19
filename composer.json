@@ -97,7 +97,7 @@
 			"Composer\\Config::disableProcessTimeout",
 			"cd ${MW_INSTALL_PATH:-../..} && { [ -f tests/phpunit/generatePHPUnitConfig.php ] && { php tests/phpunit/generatePHPUnitConfig.php >/dev/null 2>&1 || true; [ -f phpunit.xml ] || printf '%s' '<phpunit><!-- generatePHPUnitConfig --></phpunit>' > phpunit.xml; } || true; } && MEDIAWIKI_HAS_INTEGRATION_TESTS=1 vendor/bin/phpunit -c extensions/SemanticResultFormats/phpunit.xml.dist --bootstrap tests/phpunit/bootstrap.php"
 		],
-		"phpunit-coverage": "@phpunit --testdox --coverage-text --coverage-html coverage/php --coverage-clover coverage/php/coverage.xml",
+		"phpunit-coverage": "@phpunit --testdox --coverage-text --coverage-html extensions/SemanticResultFormats/coverage/php --coverage-clover extensions/SemanticResultFormats/coverage/php/coverage.xml",
 		"post-test-coverage": [
 			"sed -i 's|/var/www/html/extensions/SemanticResultFormats/||g' coverage/php/coverage.xml",
 			"find coverage/php -type f -name '*.html' -exec sed -i 's|/var/www/html/extensions/||g' {} +"
