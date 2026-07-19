@@ -84,6 +84,7 @@ Released on TBD.
 * Fixed CI: PHP coverage report was still never uploaded after the above fix, because `phpunit-coverage`'s `--coverage-clover coverage/php/coverage.xml` is relative to the `phpunit` script's `cd ${MW_INSTALL_PATH:-../..}`, landing at `/var/www/html/coverage/php/coverage.xml` — outside the `build/coverage` volume mount entirely; `post-test-coverage`'s follow-up `sed` then failed silently (`|| true`). Prefixed both `--coverage-html`/`--coverage-clover` targets with `extensions/SemanticResultFormats/`, matching how SemanticMediaWiki's own `phpunit-coverage` script scopes its Clover path (by [gesinn.it](https://gesinn.it))
 * Fixed `filtered` format RequestContext fallback and missing JS config variable (by [gesinn.it](https://gesinn.it))
 * Fixed `filtered` format by replacing deprecated `$wgAmericanDates` with `MainConfigNames` ([1030](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1030)) (by [gesinn.it](https://gesinn.it))
+* Fixed `graph` format i18n messages: a duplicate `srf-paramdesc-graphlabel` key in `en.json` was silently clobbering its own value with `graphfontsize`'s text, leaving `graphfontsize` with no message at all; renamed the orphaned `srf-paramdesc-graph-arrowhead` to the actually-referenced `srf-paramdesc-arrowhead`; and added the entirely-missing `srf-paramdesc-graphfieldspages` message ([1123](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1123)) (by [gesinn.it](https://gesinn.it))
 * Updated translations (by translatewiki.net community)
 
 ## SRF 5.2.0
