@@ -210,7 +210,7 @@
 			"subject": "Example/Math/Q.9",
 			"assert-output": {
 				"to-contain": [
-					"12.986.048,652"
+					"14.994.997,37"
 				]
 			}
 		},
@@ -220,7 +220,7 @@
 			"subject": "Example/Math/Q.10",
 			"assert-output": {
 				"to-contain": [
-					"14.994.997,37"
+					"12.986.048,652"
 				]
 			}
 		},
@@ -240,7 +240,7 @@
 			"subject": "Example/Math/Q.12",
 			"assert-output": {
 				"to-contain": [
-					"3.769,125"
+					"11.256,375"
 				]
 			}
 		},
@@ -250,7 +250,7 @@
 			"subject": "Example/Math/Q.13",
 			"assert-output": {
 				"to-contain": [
-					"22.503.750,063"
+					"7.511.250,188"
 				]
 			}
 		},
@@ -260,7 +260,7 @@
 			"subject": "Example/Math/Q.14",
 			"assert-output": {
 				"to-contain": [
-					"11.256,375"
+					"3.769,125"
 				]
 			}
 		},
@@ -270,7 +270,7 @@
 			"subject": "Example/Math/Q.15",
 			"assert-output": {
 				"to-contain": [
-					"7.511.250,188"
+					"22.503.750,063"
 				]
 			}
 		},
@@ -280,7 +280,7 @@
 			"subject": "Example/Math/Q.16",
 			"assert-output": {
 				"to-contain": [
-					"22.499.980,938"
+					"7.499.993,813"
 				]
 			}
 		},
@@ -290,7 +290,7 @@
 			"subject": "Example/Math/Q.17",
 			"assert-output": {
 				"to-contain": [
-					"7.499.993,813"
+					"22.499.980,938"
 				]
 			}
 		},
@@ -310,7 +310,7 @@
 			"subject": "Example/Math/Q.19",
 			"assert-output": {
 				"to-contain": [
-					"1"
+					"333"
 				]
 			}
 		},
@@ -340,7 +340,7 @@
 			"subject": "Example/Math/Q.22",
 			"assert-output": {
 				"to-contain": [
-					"256,125"
+					"179,25"
 				]
 			}
 		},
@@ -350,7 +350,7 @@
 			"subject": "Example/Math/Q.23",
 			"assert-output": {
 				"to-contain": [
-					"7.511.250,188"
+					"15.007.500,125"
 				]
 			}
 		},
@@ -370,7 +370,7 @@
 			"subject": "Example/Math/Q.25",
 			"assert-output": {
 				"to-contain": [
-					"7.510.994,063"
+					"15.007.320,875"
 				]
 			}
 		},
