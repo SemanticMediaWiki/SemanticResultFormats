@@ -107,7 +107,7 @@ class SRFHashTest extends TestCase {
 		return array_merge( [
 			'sep'       => ', ',
 			'propsep'   => '<PROP>',
-			'manysep'   => '<MANY>',
+			'valuesep'  => '<MANY>',
 			'recordsep' => '<RCRD>',
 			'headersep' => ': ',
 			'name'      => false,

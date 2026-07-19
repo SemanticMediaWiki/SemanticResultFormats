@@ -293,7 +293,7 @@ class ArrayPrinter extends ResultPrinter {
 	protected function applyArrayParameters( array $params ): void {
 		$this->mSep = $params['sep'];
 		$this->mPropSep = $params['propsep'];
-		$this->mManySep = $params['manysep'];
+		$this->mManySep = $params['valuesep'];
 		$this->mRecordSep = $params['recordsep'];
 		$this->mHeaderSep = $params['headersep'];
 
@@ -370,9 +370,13 @@ class ArrayPrinter extends ResultPrinter {
 			'default' => $this->initializeCfgValue( $srfgArrayPropSep, 'propsep' ),
 		];
 
-		$params['manysep'] = [
+		// Renamed from `manysep` for consistency with the core `list`
+		// format; the old name stays usable as an alias. The message and
+		// the fallback cache key keep the historical name.
+		$params['valuesep'] = [
 			'message' => 'srf_paramdesc_manysep',
 			'default' => $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ),
+			'aliases' => [ 'manysep' ],
 		];
 
 		$params['recordsep'] = [

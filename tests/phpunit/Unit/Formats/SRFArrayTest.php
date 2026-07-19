@@ -126,7 +126,7 @@ class SRFArrayTest extends TestCase {
 		return array_merge( [
 			'sep'       => ', ',
 			'propsep'   => '<PROP>',
-			'manysep'   => '<MANY>',
+			'valuesep'  => '<MANY>',
 			'recordsep' => '<RCRD>',
 			'headersep' => ': ',
 			'name'      => false,
@@ -255,7 +255,7 @@ class SRFArrayTest extends TestCase {
 		$instance->applyArrayParameters( $this->defaultParams( [
 			'sep'       => '|',
 			'propsep'   => '::',
-			'manysep'   => ';;',
+			'valuesep'  => ';;',
 			'recordsep' => ',,',
 			'headersep' => '=',
 		] ) );
@@ -264,6 +264,22 @@ class SRFArrayTest extends TestCase {
 		$this->assertSame( ';;', $instance->get( 'mManySep' ) );
 		$this->assertSame( ',,', $instance->get( 'mRecordSep' ) );
 		$this->assertSame( '=', $instance->get( 'mHeaderSep' ) );
+	}
+
+	public function testValueSepParameterKeepsManySepAlias(): void {
+		$stub = new class {
+			public function setDefault( $value ) {
+			}
+		};
+		$definitions = $this->newInstance()->getParamDefinitions( [
+			'limit'   => clone $stub,
+			'link'    => clone $stub,
+			'headers' => clone $stub,
+		] );
+
+		$this->assertArrayHasKey( 'valuesep', $definitions );
+		$this->assertSame( [ 'manysep' ], $definitions['valuesep']['aliases'] );
+		$this->assertArrayNotHasKey( 'manysep', $definitions );
 	}
 
 	public function testApplyArrayParametersNameFalseDoesNotSetArrayName(): void {
