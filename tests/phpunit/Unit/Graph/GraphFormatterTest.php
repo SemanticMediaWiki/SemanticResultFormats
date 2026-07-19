@@ -20,7 +20,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 	private $cases = [
 		'Simple' => [
 			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
-			'params' => [ 'graphfields' => false, 'graphfieldspages' => 'no' ],
+			'params' => [ 'graphfields' => false, 'graphfieldspages' => false ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
@@ -95,7 +95,7 @@ size="100";node [shape=rect];rankdir=LR;
 FIELDS
 		],
 		'graphfieldspages=yes - Only first page field becomes node' => [
-			'params' => [ 'graphfields' => true, 'graphfieldspages' => 'yes' ],
+			'params' => [ 'graphfields' => true, 'graphfieldspages' => true ],
 			'nodes' => [
 				[ 'name' => 'Team:Gamma', 'label' => 'Gamma', 'parent' => [], 'fields' => [
 					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
@@ -122,7 +122,7 @@ DOT
 		],
 		// @see https://www.php.net/manual/en/function.htmlspecialchars.php
 		'graphfieldspages=yes - with parent nodes and special chars' => [
-			'params' => [ 'graphfields' => true, 'graphfieldspages' => 'yes' ],
+			'params' => [ 'graphfields' => true, 'graphfieldspages' => true ],
 			'nodes' => [
 				[ 'name' => 'Team:Delta', 'label' => 'Delta', 'parents' => [
 					[ 'predicate' => 'Part of Team', 'object' => 'Solar & Hydro' ]
@@ -232,7 +232,7 @@ DOT
 		'graphlabel' => true,
 		'graphcolor' => true,
 		'graphlegend' => true,
-		'graphfieldspages' => 'no'
+		'graphfieldspages' => false
 	];
 
 	/**
@@ -368,7 +368,7 @@ WRAPPED0
 	 * word-wrapped and used as the table header instead of a label.
 	 */
 	public function testBuildGraphUsesNodeIdAsLabelWhenLabelIsEmpty(): void {
-		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => false ];
 		// Override nodelabel so displaytitle logic is skipped; use a non-displaytitle value
 		$params['nodelabel'] = '';
 		$formatter = new GraphFormatter( new GraphOptions( $params ) );
@@ -413,7 +413,7 @@ WRAPPED0
 	 * graphColors entries, so a 15th predicate reuses the first color.
 	 */
 	public function testGetGraphLegendResetsColorCountAfterExhaustingPalette(): void {
-		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => false ];
 		$formatter = new GraphFormatter( new GraphOptions( $params ) );
 
 		// Build 15 distinct predicates so the palette wraps around.

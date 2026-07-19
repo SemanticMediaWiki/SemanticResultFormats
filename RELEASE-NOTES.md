@@ -71,10 +71,11 @@ Released on TBD.
 
 * Added `GraphPrinterTest` covering the fix for `graph` format crash on non-page-type data values (e.g. `Modification date`) — regression test for ([988](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/988)) (by [gesinn.it](https://gesinn.it))
 * Added `MathFormatsTest` unit tests covering the statistical functions behind the math result formats ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
+* Added `GraphPrinterTest` coverage for `processResultRow()`'s `graphfieldspages`/`graphfields` field-vs-edge branching (0/1/2/3+ page-type printouts per row), the silently-dropped-row case when no node is ever created, `getParamDefinitions()`/`handleParameters()` sanity, and fixed `GraphFormatterTest` cases that passed `'graphfieldspages' => 'no'`/`'yes'` as raw strings instead of booleans, bypassing SMW's `ParamProcessor` normalization (`(bool)'no'` is `true` in PHP) ([1124](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1124)) (by [gesinn.it](https://gesinn.it))
 
 ### Bug Fixes
 
-* Fixed `graph` format: `htmlspecialchars()` deprecation notice (PHP 8.1+) when a node has no label, and a missing `skipNode` guard in `GraphPrinter::processResultRow()` that could create a node from a page-type value that should have been skipped ([1096](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1096)) (by [gesinn.it](https://gesinn.it))
+* Fixed `graph` format `htmlspecialchars()` deprecation notice (PHP 8.1+) when a node has no label ([1096](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1096)) (by [gesinn.it](https://gesinn.it))
 * Fixed `graph` format crash when more than 14 distinct edge predicates are used — the color palette now cycles instead of throwing an undefined array key error (by [gesinn.it](https://gesinn.it))
 * Fixed `array`/`hash` formats: `continue 2` skipping entire row when page titles are hidden, no-op `unset` in `SRFHash::getParamDefinitions`, uninitialized gap/title properties, loose equality comparisons for `SMW_HEADERS_*`, and missing `return true` in `SRFHash::createArray` ([1055](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1055)) (by [gesinn.it](https://gesinn.it))
 * Fixed `calendar` format: `leapJulian()` incorrectly returned false for astronomical year 0 (1 BC) and year −4 (5 BC) due to PHP's negative modulo semantics ([1056](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1056)) (by [gesinn.it](https://gesinn.it))
@@ -95,6 +96,7 @@ Released on TBD.
 * Fixed `mode` returning the occurrence count instead of the most frequent value ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Fixed `variance` losing precision for values large relative to their spread, which could make `standarddeviation` return `NAN` ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Fixed `jqplotseries` format showing a "Malformed `cursor=` token" query error on every chart with SMW 7.0+ ([1078](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1078)) (by [Professional Wiki](https://professional.wiki))
+* Fixed `graph` format `GraphPrinter::processResultRow()` creating a node from a page-type value that should have been skipped (`$pageTypeSeen > 1`): the `elseif ( $showAsEdge )` node-creation branch was missing the `!$skipNode` guard already applied to the primary node-creation check, so a 3rd+ page-type printout without a property could still become the node — discovered via new test coverage for ([1124](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1124)) (by [gesinn.it](https://gesinn.it))
 * Updated translations (by translatewiki.net community)
 
 ## SRF 5.2.0

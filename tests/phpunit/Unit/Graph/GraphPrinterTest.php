@@ -6,6 +6,8 @@ namespace SRF\Tests\Unit\Graph;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
+use ReflectionProperty;
+use SMW\DataItems\Property;
 use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMWDataValue;
@@ -38,25 +40,29 @@ class GraphPrinterTest extends TestCase {
 		'graphfieldspages' => false,
 	];
 
-	private function makePrinter(): GraphPrinter {
+	private function makePrinter( array $paramOverrides = [] ): GraphPrinter {
 		$printer = new GraphPrinter( 'graph' );
 
 		$ref = new ReflectionMethod( GraphPrinter::class, 'handleParameters' );
 		$ref->setAccessible( true );
-		$ref->invoke( $printer, self::BASE_PARAMS, SMW_OUTPUT_HTML );
+		$ref->invoke( $printer, $paramOverrides + self::BASE_PARAMS, SMW_OUTPUT_HTML );
 
 		return $printer;
 	}
 
-	private function makePrintRequest( string $typeId ): PrintRequest {
+	private function makePrintRequest( string $typeId, string $label = 'TestProp', bool $isChain = false ): PrintRequest {
 		$request = $this->getMockBuilder( PrintRequest::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$request->method( 'getTypeID' )->willReturn( $typeId );
-		$request->method( 'getCanonicalLabel' )->willReturn( 'TestProp' );
-		$request->method( 'getLabel' )->willReturn( 'TestProp' );
-		$request->method( 'isMode' )->willReturn( false );
+		$request->method( 'getCanonicalLabel' )->willReturn( $label );
+		$request->method( 'getLabel' )->willReturn( $label );
+		$request->method( 'isMode' )->willReturnCallback(
+			static function ( $mode ) use ( $isChain ) {
+				return $isChain && $mode === PrintRequest::PRINT_CHAIN;
+			}
+		);
 
 		return $request;
 	}
@@ -75,6 +81,64 @@ class GraphPrinterTest extends TestCase {
 			} );
 
 		return $resultArray;
+	}
+
+	private function makeProperty(): Property {
+		return $this->getMockBuilder( Property::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
+	/**
+	 * @param string $id Used for getWikiValue()/getDisplayTitle()/getShortWikiText().
+	 * @param bool $hasProperty Whether getProperty() should return a truthy value
+	 *   (marks the value as a chained property value rather than a plain page).
+	 */
+	private function makePageValue( string $id, bool $hasProperty = false ): SMWWikiPageValue {
+		$dv = $this->getMockBuilder( SMWWikiPageValue::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$dv->method( 'getWikiValue' )->willReturn( $id );
+		$dv->method( 'getDisplayTitle' )->willReturn( $id );
+		$dv->method( 'getShortWikiText' )->willReturn( $id );
+		$dv->method( 'getPreferredCaption' )->willReturn( $id );
+		$dv->method( 'getText' )->willReturn( $id );
+		$dv->method( 'getProperty' )->willReturn( $hasProperty ? $this->makeProperty() : null );
+
+		return $dv;
+	}
+
+	/**
+	 * @param string $value Used for getWikiValue().
+	 */
+	private function makeTextValue( string $value, bool $hasProperty = false ): SMWDataValue {
+		$dv = $this->getMockBuilder( SMWDataValue::class )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'getPreferredCaption', 'getWikiValue', 'getProperty' ] )
+			->getMockForAbstractClass();
+
+		$dv->method( 'getWikiValue' )->willReturn( $value );
+		$dv->method( 'getPreferredCaption' )->willReturn( $value );
+		$dv->method( 'getProperty' )->willReturn( $hasProperty ? $this->makeProperty() : null );
+
+		return $dv;
+	}
+
+	/**
+	 * Invokes the private processResultRow() and returns the resulting nodes.
+	 *
+	 * @return \SRF\Graph\GraphNode[]
+	 */
+	private function processRow( GraphPrinter $printer, array $row ): array {
+		$ref = new ReflectionMethod( GraphPrinter::class, 'processResultRow' );
+		$ref->setAccessible( true );
+		$ref->invoke( $printer, $row );
+
+		$nodesProp = new ReflectionProperty( GraphPrinter::class, 'nodes' );
+		$nodesProp->setAccessible( true );
+
+		return $nodesProp->getValue( $printer );
 	}
 
 	/**
@@ -179,5 +243,182 @@ class GraphPrinterTest extends TestCase {
 		$ref->invoke( $printer, [ $resultArray ] );
 
 		$this->addToAssertionCount( 1 );
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function provideGraphFieldsPagesPageTypeCounts(): array {
+		return [
+			'0 page-type printouts: plain text value becomes the node itself, no parent, one field' => [
+				'requests' => [ [ '_txt', false ] ],
+				'expectId' => 'Text1',
+				'expectParents' => [],
+				'expectFields' => [ [ 'name' => 'TestProp', 'value' => 'Text1' ] ],
+			],
+			'1 page-type printout: becomes the node, no parent, no field' => [
+				'requests' => [ [ '_wpg', false ] ],
+				'expectId' => 'Page1',
+				'expectParents' => [],
+				'expectFields' => [],
+			],
+			'2 page-type printouts: first is the node, second becomes a parent' => [
+				'requests' => [ [ '_wpg', false ], [ '_wpg', false ] ],
+				'expectId' => 'Page1',
+				'expectParents' => [ [ 'predicate' => 'TestProp', 'object' => 'Page2' ] ],
+				'expectFields' => [],
+			],
+			'3+ page-type printouts: 3rd printout (with a property) is added as a field, not a parent' => [
+				'requests' => [ [ '_wpg', false ], [ '_wpg', false ], [ '_wpg', true ] ],
+				'expectId' => 'Page1',
+				'expectParents' => [ [ 'predicate' => 'TestProp', 'object' => 'Page2' ] ],
+				'expectFields' => [ [ 'name' => 'TestProp', 'value' => 'Page3' ] ],
+			],
+		];
+	}
+
+	/**
+	 * Covers processResultRow() under graphfieldspages=true (and graphfields=true), for
+	 * rows with 0, 1, 2, and 3+ page-type printouts. See
+	 * https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1124
+	 *
+	 * @dataProvider provideGraphFieldsPagesPageTypeCounts
+	 */
+	public function testProcessResultRowWithGraphFieldsPages(
+		array $requests,
+		string $expectId,
+		array $expectParents,
+		array $expectFields
+	): void {
+		$printer = $this->makePrinter( [ 'graphfields' => true, 'graphfieldspages' => true ] );
+
+		$row = [];
+		foreach ( $requests as $i => [ $typeId, $hasProperty ] ) {
+			$n = $i + 1;
+			if ( $typeId === '_wpg' ) {
+				$value = $this->makePageValue( "Page$n", $hasProperty );
+			} else {
+				$value = $this->makeTextValue( "Text$n", $hasProperty );
+			}
+			$row[] = $this->makeResultArray( $this->makePrintRequest( $typeId ), [ $value ] );
+		}
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertCount( 1, $nodes );
+		$this->assertSame( $expectId, $nodes[0]->getID() );
+		$this->assertSame( $expectParents, $nodes[0]->getParentNode() );
+
+		$fields = array_map(
+			static fn ( array $f ) => [ 'name' => $f['name'], 'value' => $f['value'] ],
+			$nodes[0]->getFields()
+		);
+		$this->assertSame( $expectFields, $fields );
+	}
+
+	/**
+	 * Covers the case where $node stays null for the entire row (e.g. because every
+	 * value's getProperty() is truthy) — the row must be silently dropped, i.e. no
+	 * GraphNode is added to $this->nodes.
+	 */
+	public function testProcessResultRowDropsRowWhenNodeIsNeverCreated(): void {
+		$printer = $this->makePrinter();
+
+		$value = $this->makePageValue( 'Page1', true );
+		$row = [ $this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $value ] ) ];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertSame( [], $nodes );
+	}
+
+	/**
+	 * Regression test for the $skipNode gap described in
+	 * https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1124
+	 * (originally reported in issue #1096's comments).
+	 *
+	 * With graphfields=false (graphfieldspages=false), a row with 3 page-type
+	 * printouts where the first two have a property (so no node is created for
+	 * them) and the third does not: the node-creation guard at the top of the
+	 * loop body correctly refuses to create a node from the third value because
+	 * $skipNode is true ($pageTypeSeen > 1). The `elseif ( $showAsEdge )` branch
+	 * must honor that same guard and not create a node from it either.
+	 */
+	public function testProcessResultRowDoesNotCreateNodeFromSkippedPageTypeViaEdgeBranch(): void {
+		$printer = $this->makePrinter();
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page1', true ) ] ),
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page2', true ) ] ),
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page3', false ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertSame( [], $nodes );
+	}
+
+	/**
+	 * Covers the showGraphFields=true / showGraphFieldsPages=false combination: a
+	 * non-page-type value falls into the `!$showGraphFieldsPages && !$showAsEdge`
+	 * field-collection branch and is added as a field without going through
+	 * $includeAsField at all.
+	 */
+	public function testProcessResultRowAddsNonPageTypeValueAsFieldWhenGraphFieldsEnabled(): void {
+		$printer = $this->makePrinter( [ 'graphfields' => true, 'graphfieldspages' => false ] );
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page1' ) ] ),
+			$this->makeResultArray( $this->makePrintRequest( '_txt' ), [ $this->makeTextValue( 'Text1' ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertCount( 1, $nodes );
+		$this->assertSame( 'Page1', $nodes[0]->getID() );
+		$fields = array_map(
+			static fn ( array $f ) => [ 'name' => $f['name'], 'value' => $f['value'] ],
+			$nodes[0]->getFields()
+		);
+		$this->assertSame( [ [ 'name' => 'TestProp', 'value' => 'Text1' ] ], $fields );
+	}
+
+	/**
+	 * Basic sanity check for getParamDefinitions(): the Graph-specific params exist
+	 * with the documented default values.
+	 */
+	public function testGetParamDefinitionsReturnsGraphParamsWithDefaults(): void {
+		$printer = new GraphPrinter( 'graph' );
+
+		$params = $printer->getParamDefinitions( [] );
+
+		$this->assertArrayHasKey( 'graphname', $params );
+		$this->assertSame( 'QueryResult', $params['graphname']['default'] );
+
+		$this->assertArrayHasKey( 'graphfields', $params );
+		$this->assertFalse( $params['graphfields']['default'] );
+
+		$this->assertArrayHasKey( 'graphfieldspages', $params );
+		$this->assertFalse( $params['graphfieldspages']['default'] );
+
+		$this->assertArrayHasKey( 'arrowdirection', $params );
+		$this->assertSame( 'LR', $params['arrowdirection']['default'] );
+		$this->assertSame( [ 'LR', 'RL', 'TB', 'BT' ], $params['arrowdirection']['values'] );
+	}
+
+	/**
+	 * handleParameters() must construct a GraphOptions instance that reflects the
+	 * given params, so that processResultRow() consults the intended configuration.
+	 */
+	public function testHandleParametersBuildsGraphOptionsFromParams(): void {
+		$printer = $this->makePrinter( [ 'graphfields' => true, 'graphfieldspages' => true ] );
+
+		$optionsProp = new ReflectionProperty( GraphPrinter::class, 'options' );
+		$optionsProp->setAccessible( true );
+		$options = $optionsProp->getValue( $printer );
+
+		$this->assertInstanceOf( \SRF\Graph\GraphOptions::class, $options );
+		$this->assertTrue( $options->showGraphFields() );
+		$this->assertTrue( $options->showGraphFieldsPages() );
 	}
 }
