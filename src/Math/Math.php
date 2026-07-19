@@ -254,7 +254,13 @@ class Math extends ResultPrinter {
 	public function getName() {
 		// Give grep a chance to find the usages:
 		// srf_printername_max, srf_printername_min, srf_printername_sum,
-		// srf_printername_product, srf_printername_average, srf_printername_median
+		// srf_printername_product, srf_printername_average, srf_printername_median,
+		// srf_printername_mode, srf_printername_range, srf_printername_variance,
+		// srf_printername_samplevariance, srf_printername_standarddeviation,
+		// srf_printername_samplestandarddeviation, srf_printername_quartillower,
+		// srf_printername_quartilupper, srf_printername_quartillower.exc,
+		// srf_printername_quartilupper.exc, srf_printername_interquartilerange,
+		// srf_printername_interquartilerange.exc, srf_printername_interquartilemean
 		return wfMessage( 'srf_printername_' . $this->mFormat )->text();
 	}
 
