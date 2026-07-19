@@ -17,8 +17,6 @@ export class DistanceFilter extends Filter {
 
 	public init() {
 
-		let values = this.controller.getData();
-
 		let origin = this.options[ 'origin' ];
 
 		if ( !( origin !== undefined && origin.hasOwnProperty( 'lat' ) && origin.hasOwnProperty( 'lng' ) ) ) {
@@ -99,7 +97,7 @@ export class DistanceFilter extends Filter {
 				values[ rowId ].data[ this.filterId ].distance = dist;
 				max = Math.max( max, dist );
 			} else {
-				values[ rowId ].data[ this.filterId ].distance = Infinity;
+				values[ rowId ].data[ this.filterId ] = { distance: Infinity };
 			}
 		}
 

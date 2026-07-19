@@ -52,7 +52,7 @@ install: install-spreadsheet install-html-validator
 # actually downloads and installs the package into the running container.
 .PHONY: install-spreadsheet
 install-spreadsheet: .init
-	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.22.0 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
+	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.30.5 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
 
 # Install symfony/css-selector to enable parser-html (CSS-selector based) JSONScript tests.
 # SMW declares this in its require-dev, but MediaWiki's merge-plugin runs with merge-dev: false,

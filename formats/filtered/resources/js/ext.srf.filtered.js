@@ -29862,7 +29862,6 @@ class DistanceFilter extends Filter_1.Filter {
         this.filterValue = 0;
     }
     init() {
-        let values = this.controller.getData();
         let origin = this.options['origin'];
         if (!(origin !== undefined && origin.hasOwnProperty('lat') && origin.hasOwnProperty('lng'))) {
             this.target.detach();
@@ -29923,7 +29922,7 @@ class DistanceFilter extends Filter_1.Filter {
                 max = Math.max(max, dist);
             }
             else {
-                values[rowId].data[this.filterId].distance = Infinity;
+                values[rowId].data[this.filterId] = { distance: Infinity };
             }
         }
         return max;

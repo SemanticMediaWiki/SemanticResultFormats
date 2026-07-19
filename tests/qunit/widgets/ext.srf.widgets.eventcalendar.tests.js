@@ -12,6 +12,12 @@
 ( function ( $, mw, srf ) {
 	'use strict';
 
+	// LEGACY: not ported to node-qunit — the calendarpane/calendarbutton/
+	// calendarparameters widgets are jQuery UI widgets specific to the calendar
+	// format; porting would require calendar-specific jQuery UI widget-factory
+	// mocking on top of the shared shim (see issue #1069) for comparatively
+	// low-value coverage. See issue #1073 for the broader legacy-test
+	// documentation effort.
 	QUnit.module( 'ext.srf.widgets.eventcalendar', QUnit.newMwEnvironment() );
 
 	var pass = 'Passes because ';

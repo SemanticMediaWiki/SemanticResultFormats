@@ -1,17 +1,6 @@
-const path = require('path');
+const path = require( 'path' );
 const resetDom = createDom();
-const sinon = require('sinon');
-
-QUnit.hooks.beforeEach((assert) => {
-	sinon.assert.pass = (message) => assert.pushResult({ result: true, expected: true, actual: true, message });
-	sinon.assert.fail = (message) => assert.pushResult({ result: false, expected: true, actual: false, message });
-});
-
-QUnit.hooks.afterEach(() => {
-	resetDom();
-	resetMediaWiki();
-	sinon.restore();
-});
+const sinon = require( 'sinon' );
 
 /**
  * provide a clean jsdom + jQuery environment for each test
@@ -19,15 +8,49 @@ QUnit.hooks.afterEach(() => {
  * @return {function(): void} a function to reset the DOM between tests
  */
 function createDom() {
-	const { JSDOM } = require('jsdom');
+	const { JSDOM } = require( 'jsdom' );
 	const dom = new JSDOM();
 	global.window = dom.window;
 	global.document = window.document;
 	global.navigator = window.navigator;
 	global.Node = window.Node;
 	global.HTMLElement = window.HTMLElement;
-	global.$ = global.jQuery = require('jquery');
-	require(path.resolve(__dirname, '../../resources/jquery/jquery.blockUI.js'));
+	global.Option = window.Option;
+	// jsdom's window.confirm/window.open are not leaked onto the Node global scope
+	// like a real browser would; srf.formats.eventcalendar's onDayClick() calls
+	// the bare (unprefixed) confirm()/window.open() globals directly.
+	global.confirm = window.confirm;
+	global.$ = global.jQuery = require( 'jquery' );
+	// MediaWiki core's jquery.client RL module (browser detection), not vendored
+	// here; srf.formats.eventcalendar reads profile.name/.versionNumber.
+	$.client = {
+		profile: () => ( { name: 'other', versionNumber: 0 } )
+	};
+	require( path.resolve( __dirname, '../../resources/jquery/jquery.blockUI.js' ) );
+	require( 'jquery-ui/ui/widget.js' );
+	require( 'jquery-ui/ui/widgets/mouse.js' );
+	require( 'jquery-ui/ui/widgets/slider.js' );
+
+	// leaflet.markercluster/leaflet-providers monkey-patch new methods (e.g.
+	// L.markerClusterGroup) onto the leaflet module object; NODE_PATH (set by the
+	// node-qunit npm script) makes formats/filtered's own node_modules resolvable
+	// here. These must load before any tsc-compiled `import * as L from 'leaflet'`
+	// consumer does — tsc's esModuleInterop wraps the leaflet module in a snapshot
+	// object (via __importStar) at the time it's first required, so a plugin that
+	// patches leaflet afterwards would be invisible to that snapshot.
+	global.L = require( 'leaflet' );
+	require( 'leaflet.markercluster' );
+	require( 'leaflet-providers' );
+
+	// MediaWiki's bundled jquery.ui.widget.js still sets widgetBaseClass (removed
+	// upstream in modern jQuery UI, see jqueryui/jquery-ui#8155); srf widgets rely
+	// on it, so restore it here to match the runtime they actually ship against.
+	const widgetFactory = $.widget;
+	$.widget = $.extend( function () {
+		const constructor = widgetFactory.apply( $, arguments );
+		constructor.prototype.widgetBaseClass = constructor.prototype.widgetFullName;
+		return constructor;
+	}, widgetFactory );
 
 	return () => {
 		global.document.body.innerHTML = '';
@@ -37,26 +60,30 @@ function createDom() {
 /**
  * minimal mw.html.element/Raw implementation, sufficient for ext.srf.util.js's
  * usage (building small trusted-attribute snippets, no real MediaWiki Sanitizer)
+ *
+ * @param value
  */
-function escapeAttribute(value) {
-	return String(value)
-		.replace(/&/g, '&amp;')
-		.replace(/"/g, '&quot;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;');
+function escapeAttribute( value ) {
+	return String( value )
+		.replace( /&/g, '&amp;' )
+		.replace( /"/g, '&quot;' )
+		.replace( /</g, '&lt;' )
+		.replace( />/g, '&gt;' );
 }
 
-function Raw(value) {
+function Raw( value ) {
 	this.value = value;
 }
 
-function htmlElement(tagName, attrs, contents) {
+function htmlElement( tagName, attrs, contents ) {
 	attrs = attrs || {};
-	const attrString = Object.keys(attrs)
-		.map((key) => ` ${key}="${escapeAttribute(attrs[key])}"`)
-		.join('');
-	const inner = contents instanceof Raw ? contents.value : escapeAttribute(contents == null ? '' : contents);
-	return `<${tagName}${attrString}>${inner}</${tagName}>`;
+	const attrString = Object.keys( attrs )
+		// mirror mw.html.element: name=true -> bare "name", name=false -> attribute omitted
+		.filter( ( key ) => attrs[ key ] !== false )
+		.map( ( key ) => ` ${ key }="${ escapeAttribute( attrs[ key ] === true ? key : attrs[ key ] ) }"` )
+		.join( '' );
+	const inner = contents instanceof Raw ? contents.value : escapeAttribute( contents === null || contents === undefined ? '' : contents );
+	return `<${ tagName }${ attrString }>${ inner }</${ tagName }>`;
 }
 
 /**
@@ -70,33 +97,95 @@ function prepareMediaWiki() {
 		const configValues = {
 			'srf-config': { settings: { srfgScriptPath: '/srf' }, version: '1.0.0' },
 			wgScriptPath: '/w',
+			wgArticlePath: '/wiki/$1',
+			wgServer: 'http://localhost'
 		};
 		const storageValues = {};
 
 		global.mw = global.mediaWiki = {
 			loader: {
-				using: () => Promise.resolve(),
+				using: () => Promise.resolve()
 			},
-			message: () => ({
-				text: () => '',
-			}),
+			message: ( key ) => ( {
+				text: () => key,
+				escaped: () => key,
+				parse: () => key
+			} ),
 			msg: () => '',
 			html: {
 				element: htmlElement,
-				Raw: Raw,
+				Raw: Raw
+			},
+			// real implementation: core/resources/src/mediawiki.util/util.js
+			util: {
+				wikiScript: ( str ) => `${ configValues.wgScriptPath }/${ str || 'index' }.php`
 			},
 			storage: {
-				get: (key) => (Object.prototype.hasOwnProperty.call(storageValues, key) ? storageValues[key] : null),
-				set: (key, value) => {
-					storageValues[key] = value;
-				},
+				get: ( key ) => ( Object.prototype.hasOwnProperty.call( storageValues, key ) ? storageValues[ key ] : null ),
+				set: ( key, value ) => {
+					storageValues[ key ] = value;
+				}
 			},
 			config: {
-				get: (key) => configValues[key],
-				set: (key, value) => {
-					configValues[key] = value;
-				},
+				get: ( key ) => configValues[ key ],
+				set: ( key, value ) => {
+					configValues[ key ] = value;
+				}
 			},
+			user: {
+				options: {
+					get: () => null
+				}
+			},
+			// provided by MediaWiki core's mediawiki.language.months RL module;
+			// resources/ext.srf.api.results.js reads .names at module scope.
+			language: {
+				months: {
+					names: [ 'January', 'February', 'March', 'April', 'May', 'June',
+						'July', 'August', 'September', 'October', 'November', 'December' ]
+				}
+			}
+		};
+
+		// SemanticMediaWiki core's own bundled JS exposes this as a page-wide
+		// global (like mw); srf.formats.media reads smw.debug() at module scope,
+		// srf.formats.tagcloud calls smw.async.load() as a mw.loader.using()
+		// callback, srf.formats.eventcalendar's parse.api() checks
+		// `value instanceof smw.dataItem.time`/`smw.dataItem.wikiPage` (see
+		// https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/res/smw/data/ext.smw.dataItem.time.js).
+		global.smw = {
+			debug: () => false,
+			async: {
+				load: ( context, callback ) => callback.call( context )
+			},
+			dataItem: {
+				wikiPage: function ( fullText, fullUrl ) {
+					this.getUri = () => fullUrl;
+					this.getHtml = () => fullText;
+					this.getFullText = () => fullText;
+					this.getName = () => fullText;
+				},
+				time: function ( isoDate, mwTimestamp ) {
+					this._date = new Date( isoDate );
+					this.getDate = () => this._date;
+					this.getMwTimestamp = () => mwTimestamp;
+					this.getISO8601Date = () => this._date.toISOString();
+				}
+			},
+			// srf.formats.eventcalendar constructs one at module scope
+			// (`new smw.api()`); its .parse() isn't exercised by the ported
+			// parse.api()/startDate() tests.
+			api: function () {},
+			util: {
+				// same as above: constructed at module scope, not called directly by
+				// the mocked-out modules; .show() is a no-op stand-in for SemanticMediaWiki's
+				// real tooltip UI (see res/smw/util/ext.smw.util.tooltip.js), called by
+				// srf.formats.eventcalendar's event().description() with
+				// { context, content, title, button }.
+				tooltip: function () {
+					this.show = () => {};
+				}
+			}
 		};
 	};
 }
@@ -110,23 +199,52 @@ function prepareMediaWiki() {
  * @return {void}
  */
 function loadSrf() {
-	require(path.resolve(__dirname, '../../resources/ext.srf.js'));
+	require( path.resolve( __dirname, '../../resources/ext.srf.js' ) );
 	global.srf = global.semanticFormats = window.srf;
-	require(path.resolve(__dirname, '../../resources/ext.srf.util.js'));
+	require( path.resolve( __dirname, '../../resources/ext.srf.util.js' ) );
 }
 
 const resetMediaWiki = prepareMediaWiki();
 resetMediaWiki();
 loadSrf();
 
-QUnit.module('setup');
+QUnit.hooks.beforeEach( ( assert ) => {
+	sinon.assert.pass = ( message ) => assert.pushResult( { result: true, expected: true, actual: true, message } );
+	sinon.assert.fail = ( message ) => assert.pushResult( { result: false, expected: true, actual: false, message } );
+} );
 
-QUnit.test('body is cleaned up between tests: 1', (assert) => {
-	$('<div>', { id: 1 }).appendTo(document.body);
-	assert.equal($('div').length, 1);
-});
+QUnit.hooks.afterEach( () => {
+	resetDom();
+	resetMediaWiki();
+	sinon.restore();
+} );
 
-QUnit.test('body is cleaned up between tests: 2', (assert) => {
-	$('<div>', { id: 2 }).appendTo(document.body);
-	assert.equal($('div').length, 1);
-});
+QUnit.module( 'setup' );
+
+QUnit.test( 'body is cleaned up between tests: 1', ( assert ) => {
+	$( '<div>', { id: 1 } ).appendTo( document.body );
+	assert.strictEqual( $( 'div' ).length, 1 );
+} );
+
+QUnit.test( 'body is cleaned up between tests: 2', ( assert ) => {
+	$( '<div>', { id: 2 } ).appendTo( document.body );
+	assert.strictEqual( $( 'div' ).length, 1 );
+} );
+
+QUnit.test( 'jQuery UI widget factory is available', ( assert ) => {
+	$.widget( 'test.smoke', {
+		_create: function () {
+			this.element.addClass( 'smoke-created' );
+		}
+	} );
+
+	const context = $( '<div>' ).appendTo( document.body );
+	context.smoke();
+
+	assert.true( context.hasClass( 'smoke-created' ), 'a custom $.widget was created and its _create() ran' );
+
+	const slider = $( '<div class="slider">' ).appendTo( document.body );
+	slider.slider( { min: 1, max: 20, value: 10 } );
+
+	assert.strictEqual( slider.slider( 'value' ), 10, 'the jQuery UI slider widget initialized with the given value' );
+} );

@@ -3,26 +3,46 @@
     "d3": "7.9.0"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "copy-files-from-to": "^4.0.1",
+    "eslint": "^8.57.1",
+    "eslint-config-wikimedia": "^0.32.4",
     "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.2",
     "jsdom": "^25.0.1",
-    "nyc": "^17.1.0",
+    "nyc": "^18.0.0",
     "qunit": "^2.22.0",
     "sinon": "^19.0.2",
     "typescript": "^6.0.3"
   },
   "scripts": {
     "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js",
-    "test": "npm run node-qunit",
+    "lint": "eslint --ext .js resources formats tests/node-qunit",
+    "test": "npm run lint && npm run node-qunit",
     "test-coverage": "npm run node-qunit-coverage",
     "pretest-filtered-ts": "(test -d formats/filtered/node_modules/@types || npm --prefix formats/filtered install) && tsc -p tests/node-qunit/tsconfig.filtered.json",
-    "node-qunit": "npm run pretest-filtered-ts && qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'",
-    "node-qunit-coverage": "nyc --reporter=text --reporter=html --reporter=clover --report-dir=coverage/js --all --include='formats/**/resources/js/*.js' npm run node-qunit"
+    "node-qunit": "npm run pretest-filtered-ts && NODE_PATH=formats/filtered/node_modules qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'",
+    "node-qunit-coverage": "nyc --reporter=text --reporter=html --reporter=clover --report-dir=coverage/js --all npm run node-qunit"
   },
   "nyc": {
+    "include": [
+      "formats/**/*.js",
+      "resources/**/*.js"
+    ],
     "exclude": [
+      "**/*.min.js",
+      "resources/jquery/**",
+      "resources/slick/**",
+      "resources/docs/**",
+      "formats/JitGraph/Jit/**",
+      "formats/JitGraph/jquery.progressbar.js",
+      "formats/timeline/resources/SimileTimeline/**",
+      "formats/filtered/gulpfile.js",
       "formats/filtered/resources/js/ext.srf.filtered.select.js",
-      "formats/filtered/resources/js/ext.srf.filtered.slider.js"
+      "formats/filtered/resources/js/ext.srf.filtered.slider.js",
+      "**/node_modules/**"
     ]
   },
   "copyFiles": [],

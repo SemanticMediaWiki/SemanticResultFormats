@@ -12,7 +12,7 @@ use SMW\Query\ResultPrinters\ResultPrinter;
 class SRFGooglePie extends ResultPrinter {
 
 	protected $m_width = 250;
-	protected $m_heighth = 100;
+	protected $m_height = 100;
 
 	/**
 	 * (non-PHPdoc)

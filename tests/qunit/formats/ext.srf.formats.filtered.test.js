@@ -18569,434 +18569,7 @@ class Controller {
 }
 exports.Controller = Controller;
 
-},{"./View/View":9}],5:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DistanceFilter = void 0;
-const Filter_1 = require("./Filter");
-class DistanceFilter extends Filter_1.Filter {
-    constructor() {
-        super(...arguments);
-        this.earthRadiusValue = DistanceFilter.earthRadius.km;
-        this.filterValue = 0;
-    }
-    init() {
-        let values = this.controller.getData();
-        let origin = this.options['origin'];
-        if (!(origin !== undefined && origin.hasOwnProperty('lat') && origin.hasOwnProperty('lng'))) {
-            this.target.detach();
-            return;
-        }
-        let unit = 'km';
-        if (this.options['unit'] && DistanceFilter.earthRadius[this.options['unit']]) {
-            unit = this.options['unit'];
-        }
-        this.earthRadiusValue = DistanceFilter.earthRadius[unit];
-        let maxValue = this.updateDistances(origin);
-        let precision = Math.pow(10, (Math.floor(Math.log(maxValue) * Math.LOG10E) - 1));
-        if (this.options['max'] !== undefined && this.options['max'] > maxValue) {
-            maxValue = this.options['max'];
-        }
-        else {
-            maxValue = Math.ceil(maxValue / precision) * precision;
-        }
-        this.filterValue = this.options['initial value'] ? Math.min(this.options['initial value'], maxValue) : maxValue;
-        // build filter controls
-        let filtercontrols = this.buildEmptyControl();
-        let readout = $('<div class="filtered-distance-readout">' + this.filterValue + '</div>');
-        let table = $('<table class="filtered-distance-table"><tbody><tr><td class="filtered-distance-min-cell">0</td>' +
-            '<td class="filtered-distance-slider-cell"><div class="filtered-distance-slider"></div></td>' +
-            '<td class="filtered-distance-max-cell">' + maxValue + '</td></tr>' +
-            '<tr><td colspan=3 class="filtered-distance-unit-cell">' + unit + '</td></tr></tbody></table>');
-        filtercontrols.append(table);
-        let that = this;
-        mw.loader.using('jquery.ui').then(function () {
-            table.find('.filtered-distance-slider')
-                .slider({
-                animate: true,
-                max: maxValue,
-                value: that.filterValue,
-                step: precision / 100
-            })
-                .on('slidechange', undefined, { 'filter': that }, function (eventObject, ui) {
-                eventObject.data.ui = ui;
-                eventObject.data.filter.onFilterUpdated(eventObject);
-            })
-                .on('slide', undefined, { 'filter': that }, function (eventObject, ui) {
-                readout.text(ui.value);
-            })
-                .find('.ui-slider-handle')
-                .append(readout);
-        });
-        return this;
-    }
-    updateDistances(origin) {
-        let values = this.controller.getData();
-        let max = 1;
-        let prId = this.printrequestId;
-        for (let rowId in values) {
-            if (values[rowId].data.hasOwnProperty(this.filterId)) {
-                let distances = values[rowId].data[this.filterId].positions.map((pos) => this.distance(origin, pos));
-                let dist = Math.min(...distances);
-                values[rowId].data[this.filterId].distance = dist;
-                max = Math.max(max, dist);
-            }
-            else {
-                values[rowId].data[this.filterId].distance = Infinity;
-            }
-        }
-        return max;
-    }
-    onFilterUpdated(eventObject) {
-        this.filterValue = eventObject.data.ui.value;
-        this.controller.onFilterUpdated(this.getId());
-    }
-    distance(a, b) {
-        const DEG2RAD = Math.PI / 180.0;
-        function squared(x) {
-            return x * x;
-        }
-        let f = squared(Math.sin((b.lat - a.lat) * DEG2RAD / 2.0)) +
-            Math.cos(a.lat * DEG2RAD) * Math.cos(b.lat * DEG2RAD) *
-                squared(Math.sin((b.lng - a.lng) * DEG2RAD / 2.0));
-        return this.earthRadiusValue * 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
-    }
-    isVisible(rowId) {
-        let rowdata = this.controller.getData()[rowId].data;
-        if (rowdata.hasOwnProperty(this.filterId)) {
-            return rowdata[this.filterId].distance <= this.filterValue;
-        }
-        return super.isVisible(rowId);
-    }
-}
-exports.DistanceFilter = DistanceFilter;
-DistanceFilter.earthRadius = {
-    m: 6371008.8,
-    km: 6371.0088,
-    mi: 3958.7613,
-    nm: 3440.0695,
-    Å: 63710088000000000
-};
-
-},{"./Filter":6}],6:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Filter = void 0;
-class Filter {
-    constructor(filterId, target, printrequestId, controller, options) {
-        this.outerTarget = undefined;
-        this.target = undefined;
-        this.options = undefined;
-        this.disabled = false;
-        this.collapsed = false;
-        this.target = target;
-        this.outerTarget = target;
-        this.filterId = filterId;
-        this.printrequestId = printrequestId;
-        this.controller = controller;
-        this.options = options || {};
-    }
-    init() { }
-    ;
-    isDisabled() {
-        return this.disabled;
-    }
-    disable() {
-        this.disabled = true;
-        this.outerTarget
-            .removeClass('filtered-filter-enabled')
-            .addClass('filtered-filter-disabled');
-        this.collapse();
-        this.target.promise().then(() => this.controller.onFilterUpdated(this.filterId));
-    }
-    enable() {
-        this.disabled = false;
-        this.outerTarget
-            .removeClass('filtered-filter-disabled')
-            .addClass('filtered-filter-enabled');
-        if (!this.collapsed) {
-            this.uncollapse();
-        }
-        this.target.promise().then(() => this.controller.onFilterUpdated(this.filterId));
-    }
-    collapse(duration = 400) {
-        if (!this.collapsed) {
-            this.outerTarget.promise()
-                .then(() => {
-                this.target.slideUp(duration);
-                this.outerTarget.animate({
-                    'padding-top': 0,
-                    'padding-bottom': 0,
-                    'margin-bottom': '2em'
-                }, duration);
-            });
-        }
-    }
-    uncollapse() {
-        this.outerTarget.promise()
-            .then(() => {
-            this.target.slideDown();
-            let style = this.outerTarget.attr('style');
-            this.outerTarget.removeAttr('style');
-            let uncollapsedCss = this.outerTarget.css(['padding-top', 'padding-bottom', 'margin-bottom']);
-            this.outerTarget.attr('style', style);
-            this.outerTarget.animate(uncollapsedCss);
-        });
-    }
-    isVisible(rowId) {
-        return this.options.hasOwnProperty('show if undefined') && this.options['show if undefined'] === true;
-    }
-    getId() {
-        return this.filterId;
-    }
-    buildEmptyControl() {
-        this.target = $('<div class="filtered-filter-container">');
-        this.outerTarget
-            .append(this.target)
-            .addClass('filtered-filter-enabled');
-        this.addOnOffSwitch();
-        this.addLabel();
-        this.addControlForCollapsing();
-        return this.target;
-    }
-    addLabel() {
-        // insert the label of the printout this filter filters on
-        this.target.before(`<div class="filtered-filter-label">${this.options['label']}</div>`);
-    }
-    addOnOffSwitch() {
-        if (this.options.hasOwnProperty('switches')) {
-            let switches = this.options['switches'];
-            if (switches.length > 0 && $.inArray('on off', switches) >= 0) {
-                let onOffControl = $(`<div class="filtered-filter-onoff on"></div>`);
-                this.target.before(onOffControl);
-                onOffControl.click(() => {
-                    if (this.outerTarget.hasClass('filtered-filter-enabled')) {
-                        this.disable();
-                    }
-                    else {
-                        this.enable();
-                    }
-                });
-            }
-        }
-    }
-    addControlForCollapsing() {
-        let collapsible = this.options.hasOwnProperty('collapsible') ? this.options['collapsible'] : undefined;
-        if (collapsible === 'collapsed' || collapsible === 'uncollapsed') {
-            let collapseControl = $('<span class="filtered-filter-collapse">');
-            this.target.before(collapseControl);
-            collapseControl.click(() => {
-                if (collapseControl.hasClass('collapsed')) {
-                    this.uncollapse();
-                    this.collapsed = false;
-                    collapseControl
-                        .removeClass('collapsed')
-                        .addClass('uncollapsed');
-                }
-                else {
-                    this.collapse();
-                    this.collapsed = true;
-                    collapseControl
-                        .removeClass('uncollapsed')
-                        .addClass('collapsed');
-                }
-            });
-            if (collapsible === 'collapsed') {
-                this.collapse(0);
-                this.collapsed = true;
-                collapseControl.addClass('collapsed');
-            }
-            else {
-                collapseControl.addClass('uncollapsed');
-            }
-        }
-    }
-}
-exports.Filter = Filter;
-
-},{}],7:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValueFilter = void 0;
-const Filter_1 = require("./Filter");
-class ValueFilter extends Filter_1.Filter {
-    constructor() {
-        super(...arguments);
-        this.values = {};
-        this.visibleValues = [];
-        this._useOr = true;
-    }
-    init() {
-        this.values = this.getSortedValues();
-        this.buildControl();
-    }
-    useOr(useOr) {
-        this._useOr = useOr;
-        this.controller.onFilterUpdated(this.getId());
-    }
-    getSortedValues() {
-        /** Map of value => label distinct values */
-        let distinctValues = {};
-        /** Map of value => sort value distinct values */
-        let distinctSortValues = {};
-        if (this.options.hasOwnProperty('values')) {
-            return this.options['values'].map((item) => {
-                return {
-                    printoutValue: item,
-                    formattedValue: item
-                };
-            });
-        }
-        else {
-            // build filter values from available values in result set
-            let data = this.controller.getData();
-            let sortedEntries = [];
-            for (let id in data) {
-                let printoutValues = data[id]['printouts'][this.printrequestId]['values'];
-                let printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
-                let printoutSortValues = data[id]['printouts'][this.printrequestId]['sort values'];
-                for (let i in printoutValues) {
-                    let printoutFormattedValue = printoutFormattedValues[i];
-                    if (printoutFormattedValue.indexOf('<a') > -1) {
-                        printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
-                    }
-                    distinctValues[printoutValues[i]] = printoutFormattedValue;
-                    distinctSortValues[printoutValues[i]] = printoutSortValues[i];
-                }
-            }
-            for (let printoutValue in distinctSortValues) {
-                sortedEntries.push({
-                    printoutValue: printoutValue,
-                    sortValue: distinctSortValues[printoutValue],
-                    formattedValue: distinctValues[printoutValue]
-                });
-            }
-            sortedEntries.sort((a, b) => {
-                return a.sortValue.localeCompare(b.sortValue);
-            });
-            return sortedEntries;
-        }
-    }
-    buildControl() {
-        let filtercontrols = this.buildEmptyControl();
-        filtercontrols = this.addControlForSwitches(filtercontrols);
-        let maxCheckboxes = this.options.hasOwnProperty('max checkboxes') ? this.options['max checkboxes'] : 5;
-        if (this.values.length > maxCheckboxes) {
-            filtercontrols.append(this.getSelected2Control());
-        }
-        else {
-            filtercontrols.append(this.getCheckboxesControl());
-        }
-    }
-    getCheckboxesControl() {
-        let checkboxes = $('<div class="filtered-value-checkboxes" style="width: 100%;">');
-        // insert options (checkboxes and labels)
-        for (let value of this.values) {
-            checkboxes.append(`<div class="filtered-value-option"><label><input type="checkbox" value="${value.printoutValue}" ><div class="filtered-value-option-label">${value.formattedValue || value.printoutValue}</div></label></div>`);
-        }
-        // attach event handler
-        checkboxes
-            .on('change', ':checkbox', (eventObject) => {
-            let checkboxElement = eventObject.currentTarget;
-            this.onFilterUpdated(checkboxElement.value, checkboxElement.checked);
-        });
-        return checkboxes;
-    }
-    stripHtml(str) {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = str;
-        return tmp.textContent || tmp.innerText || '';
-    }
-    getSelected2Control() {
-        let select = $('<select class="filtered-value-select" style="width: 100%;">');
-        let data = [];
-        // insert options (checkboxes and labels) and attach event handlers
-        for (let value of this.values) {
-            // Try to get label, if not fall back to value id
-            const label = value.formattedValue || value.printoutValue || '';
-            data.push({ id: value.printoutValue, text: this.stripHtml(label) });
-        }
-        mw.loader.using('ext.srf.filtered.value-filter.select').then(() => {
-            select.select2({
-                multiple: true,
-                placeholder: mw.message('srf-filtered-value-filter-placeholder').text(),
-                data: data
-            });
-            select.on("select2:select", (e) => {
-                this.onFilterUpdated(e.params.data.id, true);
-            });
-            select.on("select2:unselect", (e) => {
-                this.onFilterUpdated(e.params.data.id, false);
-            });
-        });
-        return select;
-    }
-    addControlForSwitches(filtercontrols) {
-        // insert switches
-        let switches = this.options.hasOwnProperty('switches') ? this.options['switches'] : undefined;
-        if (switches !== undefined && $.inArray('and or', switches) >= 0) {
-            let switchControls = $('<div class="filtered-value-switches">');
-            let andorControl = $('<div class="filtered-value-andor">');
-            let orControl = this.getRadioControl('or', true);
-            let andControl = this.getRadioControl('and');
-            andorControl
-                .append(orControl)
-                .append(andControl)
-                .appendTo(switchControls);
-            andorControl
-                .find('input')
-                .on('change', undefined, { 'filter': this }, (eventObject) => eventObject.data.filter.useOr(eventObject.target.getAttribute('value') === 'or'));
-            filtercontrols.append(switchControls);
-        }
-        return filtercontrols;
-    }
-    getRadioControl(type, isChecked = false) {
-        let checkedAttr = isChecked ? 'checked' : '';
-        let labelText = mw.message('srf-filtered-value-filter-' + type).text();
-        let controlText = `<label for="filtered-value-${type}-${this.printrequestId}">` +
-            `<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-${type}" id="filtered-value-${type}-${this.printrequestId}" value="${type}" ${checkedAttr}>` +
-            `${labelText}</label>`;
-        return $(controlText);
-    }
-    isVisible(rowId) {
-        if (this.visibleValues.length === 0) {
-            return true;
-        }
-        let values = this.controller.getData()[rowId].printouts[this.printrequestId].values;
-        if (values.length === 0) {
-            return super.isVisible(rowId);
-        }
-        if (this._useOr) {
-            for (let expectedValue of this.visibleValues) {
-                if (values.indexOf(expectedValue) >= 0) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        else {
-            for (let expectedValue of this.visibleValues) {
-                if (values.indexOf(expectedValue) < 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-    onFilterUpdated(value, isChecked) {
-        let index = this.visibleValues.indexOf(value);
-        if (isChecked && index === -1) {
-            this.visibleValues.push(value);
-        }
-        else if (!isChecked && index >= 0) {
-            this.visibleValues.splice(index, 1);
-        }
-        this.controller.onFilterUpdated(this.getId());
-    }
-}
-exports.ValueFilter = ValueFilter;
-
-},{"./Filter":6}],8:[function(require,module,exports){
+},{"./View/View":6}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MapView = void 0;
@@ -19206,7 +18779,7 @@ class MapView extends View_1.View {
 }
 exports.MapView = MapView;
 
-},{"./View":9,"leaflet":3,"leaflet-providers":1,"leaflet.markercluster":2}],9:[function(require,module,exports){
+},{"./View":6,"leaflet":3,"leaflet-providers":1,"leaflet.markercluster":2}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.View = void 0;
@@ -19284,318 +18857,48 @@ class View {
 }
 exports.View = View;
 
-},{}],10:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ViewSelector = void 0;
-class ViewSelector {
-    constructor(target, viewIDs, controller) {
-        this.target = undefined;
-        this.viewIDs = undefined;
-        this.controller = undefined;
-        this.target = target;
-        this.viewIDs = viewIDs;
-        this.controller = controller;
-    }
-    init() {
-        if (this.viewIDs.length > 1) {
-            this.viewIDs.forEach((id) => { this.target.on('click', '.' + id, { 'target': id, 'controller': this.controller }, ViewSelector.onSelectorSelected); });
-            this.target.children().first().addClass('selected');
-            this.target.show();
-        }
-    }
-    static onSelectorSelected(event) {
-        event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
-            .addClass('selected')
-            .siblings().removeClass('selected');
-        event.stopPropagation();
-        event.preventDefault();
-    }
-}
-exports.ViewSelector = ViewSelector;
-
-},{}],11:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ControllerTest = void 0;
-const Controller_1 = require("../../../resources/ts/Filtered/Controller");
-const MockedFilter_1 = require("../Util/MockedFilter");
-const View_1 = require("../../../resources/ts/Filtered/View/View");
-class ControllerTest {
-    runTests() {
-        QUnit.test('Controller: Can construct and attach data', this.testConstructAndAttachData);
-        QUnit.test('Controller: Attaching 3 views (foo, bar, baz) and switch between them', this.testAttachViewsAndSwitchToViews);
-        QUnit.test('Controller: Show', this.testShow);
-        QUnit.test('Controller: Attaching 3 filters (foo, bar, baz)', this.testAttachFilter);
-        return true;
-    }
-    /**
-     * @covers Controller.constructor
-     * @covers Controller.getData
-     */
-    testConstructAndAttachData(assert) {
-        // Setup
-        let data = { 'foo': {} };
-        // Run
-        let c = new Controller_1.Controller(undefined, data, {});
-        // Assert: Can construct
-        assert.ok(c instanceof Controller_1.Controller, 'Can construct Controller.');
-        // Assert: Data correctly attached and retained
-        assert.deepEqual(c.getData(), data, 'Returns result data as given to constructor.');
-    }
-    /**
-     * @covers Controller.attachView
-     * @covers Controller.getView
-     * @covers Controller.onViewSelected
-     */
-    testAttachViewsAndSwitchToViews(assert) {
-        // Setup
-        let c = new Controller_1.Controller(undefined, undefined, undefined);
-        let viewIds = ['foo', 'bar', 'baz'];
-        let viewsShown = [];
-        let viewsHidden = [];
-        let views = {};
-        viewIds.forEach((viewId) => {
-            let v = new View_1.View(viewId, undefined, c, {});
-            v.show = () => {
-                if (viewsShown.indexOf(v) === -1) {
-                    viewsShown.push(v);
-                }
-                let index = viewsHidden.indexOf(v);
-                if (index >= 0) {
-                    viewsHidden.splice(index, 1);
-                }
-            };
-            v.hide = () => {
-                if (viewsHidden.indexOf(v) === -1) {
-                    viewsHidden.push(v);
-                }
-                let index = viewsShown.indexOf(v);
-                if (index >= 0) {
-                    viewsShown.splice(index, 1);
-                }
-            };
-            views[viewId] = v;
-            // Run
-            c.attachView(viewId, v);
-        });
-        // Assert: One view visible, all others hidden, i.e. none has undefined
-        // visibility
-        assert.strictEqual(viewsShown.length, 1, 'One view visible.');
-        assert.strictEqual(viewsHidden.length, viewIds.length - 1, 'All but one view hidden.');
-        for (let viewId in views) {
-            // Assert: View correctly attached and retained
-            assert.deepEqual(c.getView(viewId), views[viewId], `Controller knows "${viewId}" view.`);
-        }
-        for (let viewId in views) {
-            // Run: Select view
-            c.onViewSelected(viewId);
-            // Assert: Only selected view visible, all others hidden, i.e. none
-            // has undefined visibility
-            assert.ok(viewsShown.length === 1 && viewsShown.indexOf(views[viewId]) >= 0, 'Selected view visible.');
-            assert.strictEqual(viewsHidden.length, viewIds.length - 1, 'All other views hidden.');
-        }
-    }
-    /**
-     * @covers Controller.show
-     */
-    testShow(assert) {
-        // Setup
-        let targetElement = $();
-        let targetShown = false;
-        targetElement.children = function (selector) {
-            let targetChild = $();
-            targetChild.show = function () {
-                targetShown = true;
-                return targetChild;
-            };
-            return targetChild;
-        };
-        // Run
-        new Controller_1.Controller(targetElement, undefined, undefined).show();
-        // Assert
-        assert.ok(targetShown, 'Container made visible.');
-    }
-    /**
-     * @covers Controller.attachFilter
-     * @covers Controller.getFilter
-     */
-    testAttachFilter(assert) {
-        // Setup
-        let data = { 'foo': {} };
-        let controller = new Controller_1.Controller(undefined, data, {});
-        let filterIds = ['foo', 'bar', 'baz'];
-        let done = assert.async();
-        let promises = [];
-        filterIds.forEach((filterId) => {
-            let visibilityWasQueried = false;
-            let filter = new MockedFilter_1.MockedFilter(filterId, undefined, undefined, controller);
-            filter.isVisible = function (rowId) {
-                visibilityWasQueried = true;
-                return true;
-            };
-            // Run
-            let promise = controller.attachFilter(filter)
-                .then(() => {
-                // Assert: Filter was queried for the visibility of result items
-                assert.ok(visibilityWasQueried, `Filter "${filterId}" was queried after attaching.`);
-            });
-            promises.push(promise);
-            // Assert: Filter correctly attached and retained.
-            assert.deepEqual(controller.getFilter(filterId), filter, `Controller knows "${filterId}" filter.`);
-        });
-        jQuery.when(...promises).then(done);
-    }
-}
-exports.ControllerTest = ControllerTest;
-
-},{"../../../resources/ts/Filtered/Controller":4,"../../../resources/ts/Filtered/View/View":9,"../Util/MockedFilter":17}],12:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DistanceFilterTest = void 0;
-const DistanceFilter_1 = require("../../../../resources/ts/Filtered/Filter/DistanceFilter");
-const Controller_1 = require("../../../../resources/ts/Filtered/Controller");
-const QUnitTest_1 = require("../../Util/QUnitTest");
-class DistanceFilterTest extends QUnitTest_1.QUnitTest {
-    runTests() {
-        QUnit.test('DistanceFilter: Init', this.testInit);
-        return true;
-    }
-    ;
-    testInit(assert) {
-        assert.expect(1);
-        // Setup
-        let controller = new Controller_1.Controller($(), {}, {});
-        let options = {
-            origin: { lat: 0, lng: 0 }
-        };
-        let target = $('<div>');
-        let f = new DistanceFilter_1.DistanceFilter('foo', target, 'fooPR', controller, options);
-        // Run
-        f.init();
-        // Assert
-        let done = assert.async();
-        setTimeout(() => {
-            assert.ok(target.find('.filtered-distance-slider')[0].hasChildNodes(), 'Added distance slider.');
-            done();
-        }, 100);
-    }
-    ;
-}
-exports.DistanceFilterTest = DistanceFilterTest;
-
-},{"../../../../resources/ts/Filtered/Controller":4,"../../../../resources/ts/Filtered/Filter/DistanceFilter":5,"../../Util/QUnitTest":18}],13:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValueFilterTest = void 0;
-const ValueFilter_1 = require("../../../../resources/ts/Filtered/Filter/ValueFilter");
-const Controller_1 = require("../../../../resources/ts/Filtered/Controller");
-const QUnitTest_1 = require("../../Util/QUnitTest");
-class ValueFilterTest extends QUnitTest_1.QUnitTest {
-    // TODO:
-    // 	public isVisible( rowId: string ): boolean {
-    //	public onFilterUpdated( eventObject: JQueryEventObject ) {
-    runTests() {
-        QUnit.test('ValueFilter: Can construct', this.testCanConstruct);
-        QUnit.test('ValueFilter: Init', this.testInit);
-        QUnit.test('ValueFilter: Update on and/or switch.', this.testUseOr);
-        return true;
-    }
-    ;
-    testCanConstruct(assert) {
-        let controller = undefined;
-        let options = {};
-        let f = new ValueFilter_1.ValueFilter('foo', $(), 'fooPR', controller, options);
-        assert.ok(f instanceof ValueFilter_1.ValueFilter, 'Can construct ValueFilter.');
-    }
-    ;
-    testInit(assert) {
-        // Setup
-        let controller = new Controller_1.Controller($(), {}, {});
-        let options = {
-            'switches': [
-                'and or'
-            ],
-            'values': [
-                'foo',
-                'bar'
-            ],
-            'collapsible': 'uncollapsed',
-            'type': 'value',
-            'label': 'FooLabel'
-        };
-        let target = $('<div>');
-        let f = new ValueFilter_1.ValueFilter('foo', target, 'fooPR', controller, options);
-        // Run
-        f.init();
-        // Assert
-        assert.strictEqual(target.find('.filtered-filter-container').length, 1, 'Added container for collapsable content.');
-        assert.strictEqual(target.find('.filtered-value-andor').length, 1, 'Added container for and/or switch.');
-        let done = assert.async();
-        setTimeout(() => {
-            // Assert: One input added per value
-            for (let value of options.values) {
-                assert.strictEqual(target.find("input[value=\"" + value + "\"]").length, 1, "Added option for value \"" + value + "\".");
-            }
-            done();
-        }, 100);
-    }
-    ;
-    testUseOr(assert) {
-        // Setup
-        let controller = new Controller_1.Controller($(), {}, {});
-        controller.onFilterUpdated = function (filterId) {
-            // Assert
-            assert.ok(true, 'Filter updated.');
-            let d = jQuery.Deferred();
-            d.resolve();
-            return d.promise();
-        };
-        let f = new ValueFilter_1.ValueFilter('foo', $(), 'fooPR', controller, {});
-        assert.expect(1);
-        // Run
-        f.useOr(true);
-    }
-    ;
-}
-exports.ValueFilterTest = ValueFilterTest;
-
-},{"../../../../resources/ts/Filtered/Controller":4,"../../../../resources/ts/Filtered/Filter/ValueFilter":7,"../../Util/QUnitTest":18}],14:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MapViewTest = void 0;
+// LEGACY: MapView's init()-level (marker/bounds-building) behaviour was ported to
+// tests/node-qunit/ext.srf.filtered.mapview.test.js (issue #1068), so the inherited
+// testBasics() is skipped here. testShowAndHide()/testShowHideRowsWithUnknownId()
+// stay legacy — MapView.show() drives lateInit(), which needs a real Leaflet map
+// render plus window.matchMedia, neither of which jsdom implements. See issue #1073
+// for the broader legacy-test documentation effort.
 const ViewTest_1 = require("./ViewTest");
 const MapView_1 = require("../../../../resources/ts/Filtered/View/MapView");
 const Controller_1 = require("../../../../resources/ts/Filtered/Controller");
 class MapViewTest extends ViewTest_1.ViewTest {
-    // TODO:
     getTestObject(id = 'foo', target = undefined, c = undefined, options = {}) {
         c = c || new Controller_1.Controller(undefined, {}, undefined);
         return new MapView_1.MapView(id, target, c, options);
     }
     ;
     runTests() {
-        super.runTests();
+        let className = this.getTestObject().constructor['name'];
+        let that = this;
+        QUnit.test(`${className}: Show and Hide`, (assert) => { that.testShowAndHide(assert, that); });
+        QUnit.test(`${className}: showRows and hideRows do not throw for unknown rowId`, (assert) => { that.testShowHideRowsWithUnknownId(assert, that); });
         return true;
     }
     ;
 }
 exports.MapViewTest = MapViewTest;
 
-},{"../../../../resources/ts/Filtered/Controller":4,"../../../../resources/ts/Filtered/View/MapView":8,"./ViewTest":15}],15:[function(require,module,exports){
+},{"../../../../resources/ts/Filtered/Controller":4,"../../../../resources/ts/Filtered/View/MapView":5,"./ViewTest":8}],8:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 /// <reference types="jquery" />
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ViewTest = void 0;
+// This class's own tests were ported to tests/node-qunit/ext.srf.filtered.view.test.js
+// (issue #1067) and removed from bootstrap.ts; it remains here only because
+// MapViewTest.ts extends it (its show()/lateInit()-exercising tests are left
+// legacy, see issue #1068).
 const QUnitTest_1 = require("../../Util/QUnitTest");
 const View_1 = require("../../../../resources/ts/Filtered/View/View");
 const Controller_1 = require("../../../../resources/ts/Filtered/Controller");
@@ -19686,113 +18989,7 @@ class ViewTest extends QUnitTest_1.QUnitTest {
 }
 exports.ViewTest = ViewTest;
 
-},{"../../../../resources/ts/Filtered/Controller":4,"../../../../resources/ts/Filtered/View/View":9,"../../Util/QUnitTest":18}],16:[function(require,module,exports){
-"use strict";
-/// <reference types="qunit" />
-/// <reference types="jquery" />
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ViewSelectorTest = void 0;
-const ViewSelector_1 = require("../../../resources/ts/Filtered/ViewSelector");
-const Controller_1 = require("../../../resources/ts/Filtered/Controller");
-class ViewSelectorTest {
-    runTests() {
-        QUnit.test('ViewSelector: Can construct', this.testCanConstruct);
-        QUnit.test('ViewSelector: Init for 1 view', this.testInitSingleView);
-        QUnit.test('ViewSelector: Init for 2 views', this.testInitMultipleViews);
-        QUnit.test('ViewSelector: Selecting views when clicked (3 views: foo, bar, baz)', this.testSelectViews);
-        return true;
-    }
-    testCanConstruct(assert) {
-        let v = new ViewSelector_1.ViewSelector(undefined, [], undefined);
-        assert.ok(v instanceof ViewSelector_1.ViewSelector, 'Can construct ViewSelector.');
-    }
-    testInitSingleView(assert) {
-        // Setup
-        let callCount = 0;
-        let viewName = 'foo';
-        let target = $('<div style="display:none">');
-        target.append('<div class="' + viewName + '">');
-        target.on = function (...args) {
-            callCount++;
-            return target;
-        };
-        target.appendTo('body');
-        let v = new ViewSelector_1.ViewSelector(target, [viewName], undefined);
-        // Run
-        v.init();
-        // Assert
-        assert.strictEqual(callCount, 0, 'Registers no Click events.');
-        assert.ok(target.is(':hidden'), 'Target element is NOT visible.');
-        // Tear down
-        target.remove();
-    }
-    testInitMultipleViews(assert) {
-        // Setup
-        let target = $('<div style="display:none">');
-        let viewSelectors = {};
-        let viewIDs = ['foo', 'bar'];
-        for (let id of viewIDs) {
-            viewSelectors[id] = $('<div class="' + id + '">');
-            target.append(viewSelectors[id]);
-        }
-        let eventRegistrationCount = 0;
-        target.origOn = target.on;
-        target.on = function (...args) {
-            eventRegistrationCount++;
-            return target.origOn(...args);
-        };
-        target.appendTo('body');
-        let v = new ViewSelector_1.ViewSelector(target, viewIDs, undefined);
-        // Run test: Initialize ViewSelector
-        v.init();
-        // Assert
-        assert.strictEqual(eventRegistrationCount, viewIDs.length, "Registers " + viewIDs.length + " Click events.");
-        assert.ok(target.children().first().hasClass('selected'), 'First view selector is marked as selected.');
-        assert.ok(target.is(':visible'), 'Target element is visible.');
-        // Tear down
-        target.remove();
-    }
-    testSelectViews(assert) {
-        // Setup
-        let target = $('<div style="display:none">');
-        let viewSelectors = {};
-        let viewIDs = ['foo', 'bar', 'baz'];
-        for (let _i = 0, viewIDs_2 = viewIDs; _i < viewIDs_2.length; _i++) {
-            let id = viewIDs_2[_i];
-            viewSelectors[id] = $('<div class="' + id + '">');
-            target.append(viewSelectors[id]);
-        }
-        target.appendTo('body');
-        let c = new Controller_1.Controller(undefined, undefined, undefined);
-        c.onViewSelected = function (viewID) {
-            // Assert that the ViewSelector called the Controller when clicked
-            assert.ok(true, "Controller was called to select view \"" + viewID + "\".");
-        };
-        let v = new ViewSelector_1.ViewSelector(target, viewIDs, c);
-        v.init();
-        // Run test: Select view
-        assert.expect(6);
-        for (let id in viewSelectors) {
-            viewSelectors[id].click();
-            // Assert: Only the clicked ViewController has class 'selected'
-            assert.ok(viewSelectors[id].hasClass('selected') && !viewSelectors[id].siblings().hasClass('selected'), "View selector \"" + id + "\" marked as selected, siblings NOT marked as selected.");
-        }
-        // Tear down
-        target.remove();
-    }
-}
-exports.ViewSelectorTest = ViewSelectorTest;
-
-},{"../../../resources/ts/Filtered/Controller":4,"../../../resources/ts/Filtered/ViewSelector":10}],17:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MockedFilter = void 0;
-const Filter_1 = require("../../../resources/ts/Filtered/Filter/Filter");
-class MockedFilter extends Filter_1.Filter {
-}
-exports.MockedFilter = MockedFilter;
-
-},{"../../../resources/ts/Filtered/Filter/Filter":6}],18:[function(require,module,exports){
+},{"../../../../resources/ts/Filtered/Controller":4,"../../../../resources/ts/Filtered/View/View":6,"../../Util/QUnitTest":9}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QUnitTest = void 0;
@@ -19802,7 +18999,7 @@ class QUnitTest {
 }
 exports.QUnitTest = QUnitTest;
 
-},{}],19:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QUnitTestHandler = void 0;
@@ -19846,26 +19043,21 @@ class QUnitTestHandler {
 }
 exports.QUnitTestHandler = QUnitTestHandler;
 
-},{}],20:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 /// <reference types="qunit" />
 Object.defineProperty(exports, "__esModule", { value: true });
-const ViewSelectorTest_1 = require("./Filtered/ViewSelectorTest");
-const ControllerTest_1 = require("./Filtered/ControllerTest");
-const DistanceFilterTest_1 = require("./Filtered/Filter/DistanceFilterTest");
-const ValueFilterTest_1 = require("./Filtered/Filter/ValueFilterTest");
+// ViewSelectorTest, ControllerTest, ValueFilterTest (checkboxes path), and
+// ViewTest were ported to tests/node-qunit/ (issue #1067) and removed here.
+// DistanceFilterTest was fully ported to tests/node-qunit/ (issue #1068) and
+// removed here; MapViewTest stays for its show()/lateInit()-exercising tests
+// (its init()-level test was also ported, see MapViewTest.ts).
 const QUnitTestHandler_1 = require("./Util/QUnitTestHandler");
-const ViewTest_1 = require("./Filtered/View/ViewTest");
 const MapViewTest_1 = require("./Filtered/View/MapViewTest");
 let testclasses = [
-    ViewSelectorTest_1.ViewSelectorTest,
-    ControllerTest_1.ControllerTest,
-    DistanceFilterTest_1.DistanceFilterTest,
-    ValueFilterTest_1.ValueFilterTest,
-    ViewTest_1.ViewTest,
     MapViewTest_1.MapViewTest,
 ];
 let testhandler = new QUnitTestHandler_1.QUnitTestHandler('ext.srf.formats.filtered', testclasses);
 testhandler.runTests();
 
-},{"./Filtered/ControllerTest":11,"./Filtered/Filter/DistanceFilterTest":12,"./Filtered/Filter/ValueFilterTest":13,"./Filtered/View/MapViewTest":14,"./Filtered/View/ViewTest":15,"./Filtered/ViewSelectorTest":16,"./Util/QUnitTestHandler":19}]},{},[20]);
+},{"./Filtered/View/MapViewTest":7,"./Util/QUnitTestHandler":10}]},{},[11]);
