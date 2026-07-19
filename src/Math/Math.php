@@ -79,27 +79,13 @@ class MathFormats {
 	}
 
 	public static function standarddeviationFunction( array $numbers ) {
-		// average
-		$average = self::averageFunction( $numbers );
-		// space
-		$space = null;
-		for ( $i = 0; $i < count( $numbers ); $i++ ) {
-			$space += pow( ( $numbers[$i] - $average ), 2 );
-		}
-		// result
-		return sqrt( $space / ( count( $numbers ) - 1 ) );
+		// result: square root of the population variance
+		return sqrt( self::varianceFunction( $numbers ) );
 	}
 
 	public static function samplestandarddeviationFunction( array $numbers ) {
-		// average
-		$average = self::averageFunction( $numbers );
-		// space
-		$space = null;
-		for ( $i = 0; $i < count( $numbers ); $i++ ) {
-			$space += pow( $numbers[$i], 2 );
-		}
-		// result
-		return sqrt( $space / count( $numbers ) - pow( $average, 2 ) );
+		// result: square root of the sample variance
+		return sqrt( self::samplevarianceFunction( $numbers ) );
 	}
 
 	public static function rangeFunction( array $numbers ) {
@@ -109,66 +95,46 @@ class MathFormats {
 
 	public static function quartillowerIncFunction( array $numbers ) {
 		sort( $numbers, SORT_NUMERIC );
-		// get position
-		$Q1_position = ( ( count( $numbers ) - 1 ) * 0.25 );
-		// check if position is between two numbers
-		if ( is_float( $Q1_position ) ) {
-			$Q1_position_y = floor( $Q1_position );
-			$Q1_position_x = ceil( $Q1_position );
-			// result
-			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.25 );
-		} else {
-			// result
-			return $numbers[$Q1_position];
-		}
+		// get position (inclusive method: 0-based position (n - 1) * 0.25)
+		$position = ( count( $numbers ) - 1 ) * 0.25;
+		$lower = (int)floor( $position );
+		$upper = (int)ceil( $position );
+		// result: interpolate between the neighbouring values by the
+		// fractional part of the position
+		return $numbers[$lower] + ( $numbers[$upper] - $numbers[$lower] ) * ( $position - $lower );
 	}
 
 	public static function quartilupperIncFunction( array $numbers ) {
 		sort( $numbers, SORT_NUMERIC );
-		// get position
-		$Q3_position = ( ( count( $numbers ) - 1 ) * 0.75 );
-		// check if position is between two numbers
-		if ( is_float( $Q3_position ) ) {
-			$Q3_position_y = floor( $Q3_position );
-			$Q3_position_x = ceil( $Q3_position );
-			// result
-			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.75 );
-		} else {
-			// result
-			return $numbers[$Q3_position];
-		}
+		// get position (inclusive method: 0-based position (n - 1) * 0.75)
+		$position = ( count( $numbers ) - 1 ) * 0.75;
+		$lower = (int)floor( $position );
+		$upper = (int)ceil( $position );
+		// result: interpolate between the neighbouring values by the
+		// fractional part of the position
+		return $numbers[$lower] + ( $numbers[$upper] - $numbers[$lower] ) * ( $position - $lower );
 	}
 
 	public static function quartillowerExcFunction( array $numbers ) {
 		sort( $numbers, SORT_NUMERIC );
-		// get position
-		$Q1_position = ( ( count( $numbers ) + 1 ) * 0.25 );
-		// check if position is between two numbers
-		if ( is_float( $Q1_position ) ) {
-			$Q1_position_y = floor( $Q1_position ) - 1;
-			$Q1_position_x = ceil( $Q1_position ) - 1;
-			// result
-			return ( $numbers[$Q1_position_y] + ( $numbers[$Q1_position_x] - $numbers[$Q1_position_y] ) * 0.75 );
-		} else {
-			// result
-			return $numbers[$Q1_position];
-		}
+		// get position (exclusive method: 1-based rank (n + 1) * 0.25)
+		$position = ( count( $numbers ) + 1 ) * 0.25 - 1;
+		$lower = (int)floor( $position );
+		$upper = (int)ceil( $position );
+		// result: interpolate between the neighbouring values by the
+		// fractional part of the position
+		return $numbers[$lower] + ( $numbers[$upper] - $numbers[$lower] ) * ( $position - $lower );
 	}
 
 	public static function quartilupperExcFunction( array $numbers ) {
 		sort( $numbers, SORT_NUMERIC );
-		// get position
-		$Q3_position = ( ( count( $numbers ) + 1 ) * 0.75 );
-		// check if position is between two numbers
-		if ( is_float( $Q3_position ) ) {
-			$Q3_position_y = floor( $Q3_position ) - 1;
-			$Q3_position_x = ceil( $Q3_position ) - 1;
-			// result
-			return ( $numbers[$Q3_position_y] + ( $numbers[$Q3_position_x] - $numbers[$Q3_position_y] ) * 0.25 );
-		} else {
-			// result
-			return $numbers[$Q3_position];
-		}
+		// get position (exclusive method: 1-based rank (n + 1) * 0.75)
+		$position = ( count( $numbers ) + 1 ) * 0.75 - 1;
+		$lower = (int)floor( $position );
+		$upper = (int)ceil( $position );
+		// result: interpolate between the neighbouring values by the
+		// fractional part of the position
+		return $numbers[$lower] + ( $numbers[$upper] - $numbers[$lower] ) * ( $position - $lower );
 	}
 
 	public static function interquartilerangeIncFunction( array $numbers ) {
@@ -182,29 +148,22 @@ class MathFormats {
 	}
 
 	public static function modeFunction( array $numbers ) {
-		// array temp
-		$array_temp = [];
-		// convert array
-		for ( $i = 0; $i < count( $numbers ); $i++ ) {
-			$converted_value = strval( $numbers[$i] );
-			$array_temp += [ $i => $converted_value ];
+		// count occurrences per value (string keys, so decimal values work)
+		$counts = [];
+		foreach ( $numbers as $number ) {
+			$key = strval( $number );
+			$counts[$key] = ( $counts[$key] ?? 0 ) + 1;
 		}
-		$array_counted_values = array_count_values( $array_temp );
-		// max
-		$max = max( $array_counted_values );
-		// count
-		$count = null;
-		// filter
-		for ( $i = 0; $i < count( $array_counted_values ); $i++ ) {
-			if ( $array_counted_values[array_keys( $array_counted_values )[$i]] == $max ) {
-				$count += 1;
-			}
+		// values sharing the highest occurrence count
+		$modes = array_keys( $counts, max( $counts ), true );
+		// no result unless exactly one value is the most frequent
+		if ( count( $modes ) !== 1 ) {
+			return null;
 		}
-		// check if there are more than one max
-		if ( $count == 1 ) {
-			// result
-			return $max;
-		}
+		// result: the most frequent value (array keys are int or string,
+		// decimal values arrive as numeric strings)
+		$mode = $modes[0];
+		return is_int( $mode ) ? $mode : (float)$mode;
 	}
 
 	public static function interquartilemeanFunction( array $numbers ) {

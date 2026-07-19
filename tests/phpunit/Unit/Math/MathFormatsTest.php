@@ -55,6 +55,14 @@ class MathFormatsTest extends TestCase {
 		$this->assertEqualsWithDelta( 4.571428571428571, MathFormats::samplevarianceFunction( [ 2, 4, 4, 4, 5, 5, 7, 9 ] ), 1e-9 );
 	}
 
+	public function testStandardDeviationIsThePopulationStandardDeviation() {
+		$this->assertEqualsWithDelta( 2, MathFormats::standarddeviationFunction( [ 2, 4, 4, 4, 5, 5, 7, 9 ] ), 1e-9 );
+	}
+
+	public function testSampleStandardDeviationUsesTheBesselCorrectedDivisor() {
+		$this->assertEqualsWithDelta( 2.138089935299395, MathFormats::samplestandarddeviationFunction( [ 2, 4, 4, 4, 5, 5, 7, 9 ] ), 1e-9 );
+	}
+
 	public function testLowerQuartileOnAWholePositionPicksTheValue() {
 		$this->assertEqualsWithDelta( 2, MathFormats::quartillowerIncFunction( [ 5, 4, 3, 2, 1 ] ), 1e-9 );
 	}
@@ -75,6 +83,30 @@ class MathFormatsTest extends TestCase {
 		$this->assertEqualsWithDelta( 2, MathFormats::interquartilerangeIncFunction( [ 5, 4, 3, 2, 1 ] ), 1e-9 );
 	}
 
+	public function testLowerQuartileInterpolatesByTheFractionalPosition() {
+		$this->assertEqualsWithDelta( 1.75, MathFormats::quartillowerIncFunction( [ 4, 2, 1, 3 ] ), 1e-9 );
+	}
+
+	public function testUpperQuartileInterpolatesByTheFractionalPosition() {
+		$this->assertEqualsWithDelta( 3.25, MathFormats::quartilupperIncFunction( [ 4, 2, 1, 3 ] ), 1e-9 );
+	}
+
+	public function testExclusiveLowerQuartileInterpolatesByTheFractionalRank() {
+		$this->assertEqualsWithDelta( 2.5, MathFormats::quartillowerExcFunction( [ 9, 1, 8, 2, 7, 3, 6, 4, 5 ] ), 1e-9 );
+	}
+
+	public function testExclusiveUpperQuartileInterpolatesByTheFractionalRank() {
+		$this->assertEqualsWithDelta( 7.5, MathFormats::quartilupperExcFunction( [ 9, 1, 8, 2, 7, 3, 6, 4, 5 ] ), 1e-9 );
+	}
+
+	public function testInterquartileRangeInterpolatesByTheFractionalPosition() {
+		$this->assertEqualsWithDelta( 1.5, MathFormats::interquartilerangeIncFunction( [ 4, 2, 1, 3 ] ), 1e-9 );
+	}
+
+	public function testExclusiveInterquartileRangeInterpolatesByTheFractionalRank() {
+		$this->assertEqualsWithDelta( 5, MathFormats::interquartilerangeExcFunction( [ 9, 1, 8, 2, 7, 3, 6, 4, 5 ] ), 1e-9 );
+	}
+
 	public function testInterquartileMeanOfAListDivisibleByFour() {
 		$this->assertEqualsWithDelta( 4.5, MathFormats::interquartilemeanFunction( [ 8, 7, 6, 5, 4, 3, 2, 1 ] ), 1e-9 );
 	}
@@ -85,6 +117,14 @@ class MathFormatsTest extends TestCase {
 
 	public function testModeIsNullWhenNoSingleValueIsMostFrequent() {
 		$this->assertNull( MathFormats::modeFunction( [ 1, 1, 2, 2 ] ) );
+	}
+
+	public function testModeIsTheMostFrequentValue() {
+		$this->assertSame( 3, MathFormats::modeFunction( [ 5, 3, 1, 3 ] ) );
+	}
+
+	public function testModeOfDecimalValues() {
+		$this->assertSame( 2.5, MathFormats::modeFunction( [ 2.5, 7, 2.5 ] ) );
 	}
 
 }
