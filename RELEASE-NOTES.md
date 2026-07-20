@@ -55,6 +55,7 @@ Released on TBD.
 ### Compatibility Changes
 
 * Raised minimum PHP version from 8.1 to 8.2 to align with `mediawiki-codesniffer` v51 and `minus-x` v2 (by [gesinn.it](https://gesinn.it))
+* Renamed the `array`/`hash` formats' `manysep` parameter to `valuesep` for consistency with the core `list` format; `manysep` remains supported as an alias ([466](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/466)) (by [Professional Wiki](https://professional.wiki))
 * Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
 
 ### New Features and Enhancements

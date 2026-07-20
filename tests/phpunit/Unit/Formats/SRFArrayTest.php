@@ -126,7 +126,7 @@ class SRFArrayTest extends TestCase {
 		return array_merge( [
 			'sep'       => ', ',
 			'propsep'   => '<PROP>',
-			'manysep'   => '<MANY>',
+			'valuesep'  => '<MANY>',
 			'recordsep' => '<RCRD>',
 			'headersep' => ': ',
 			'name'      => false,
@@ -255,7 +255,7 @@ class SRFArrayTest extends TestCase {
 		$instance->applyArrayParameters( $this->defaultParams( [
 			'sep'       => '|',
 			'propsep'   => '::',
-			'manysep'   => ';;',
+			'valuesep'  => ';;',
 			'recordsep' => ',,',
 			'headersep' => '=',
 		] ) );
@@ -264,6 +264,22 @@ class SRFArrayTest extends TestCase {
 		$this->assertSame( ';;', $instance->get( 'mManySep' ) );
 		$this->assertSame( ',,', $instance->get( 'mRecordSep' ) );
 		$this->assertSame( '=', $instance->get( 'mHeaderSep' ) );
+	}
+
+	public function testValueSepParameterKeepsManySepAlias(): void {
+		$stub = new class {
+			public function setDefault( $value ) {
+			}
+		};
+		$definitions = $this->newInstance()->getParamDefinitions( [
+			'limit'   => clone $stub,
+			'link'    => clone $stub,
+			'headers' => clone $stub,
+		] );
+
+		$this->assertArrayHasKey( 'valuesep', $definitions );
+		$this->assertSame( [ 'manysep' ], $definitions['valuesep']['aliases'] );
+		$this->assertArrayNotHasKey( 'manysep', $definitions );
 	}
 
 	public function testApplyArrayParametersNameFalseDoesNotSetArrayName(): void {
@@ -441,6 +457,100 @@ class SRFArrayTest extends TestCase {
 
 		$result = $instance->getResultText( $res, SMW_OUTPUT_WIKI );
 		$this->assertStringContainsString( 'PropValue', $result );
+	}
+
+	/**
+	 * Returns a ResultArray mock delivering one DataValue per given text.
+	 */
+	private function newField( array $texts ) {
+		$values = [];
+		foreach ( $texts as $text ) {
+			$value = $this->getMockBuilder( \SMWDataValue::class )
+				->disableOriginalConstructor()
+				->getMock();
+			$value->method( 'getShortWikiText' )->willReturn( $text );
+			$values[] = $value;
+		}
+
+		$field = $this->createMock( ResultArray::class );
+		$field->method( 'getContent' )->willReturn( $values );
+		$field->method( 'getNextDataValue' )
+			->willReturnOnConsecutiveCalls( ...array_merge( $values, [ false ] ) );
+
+		return $field;
+	}
+
+	public function testGetResultTextJoinsValuesPropertiesAndPagesWithConfiguredSeparators(): void {
+		$res = $this->createMock( QueryResult::class );
+		$res->method( 'getNext' )->willReturnOnConsecutiveCalls(
+			[
+				$this->newField( [ 'PageA' ] ),
+				$this->newField( [ 'V1', 'V2' ] ),
+			],
+			[
+				$this->newField( [ 'PageB' ] ),
+				$this->newField( [ 'V3' ] ),
+			],
+			false
+		);
+
+		$instance = $this->newInstance( [
+			'mShowPageTitles' => true,
+			'mShowHeaders'    => SMW_HEADERS_HIDE,
+			'mMainLabelHack'  => false,
+		] );
+
+		$result = $instance->getResultText( $res, SMW_OUTPUT_WIKI );
+		$this->assertSame( 'PageA<PROP>V1<MANY>V2, PageB<PROP>V3', $result );
+	}
+
+	public function testGetResultTextRecordFieldsAreRecordSeparated(): void {
+		$record = $this->createMock( \SMWRecordValue::class );
+		$record->method( 'getDataItems' )->willReturn( [ null, null ] );
+
+		$field = $this->createMock( ResultArray::class );
+		$field->method( 'getContent' )->willReturn( [ $record ] );
+		$field->method( 'getNextDataValue' )->willReturnOnConsecutiveCalls( $record, false );
+
+		$res = $this->createMock( QueryResult::class );
+		$res->method( 'getNext' )->willReturnOnConsecutiveCalls( [ $field ], false );
+
+		$instance = $this->newInstance( [
+			'mShowHeaders'    => SMW_HEADERS_HIDE,
+			'mMainLabelHack'  => true,
+			'mHideRecordGaps' => false,
+		] );
+
+		$this->assertSame( '<RCRD>', $instance->getResultText( $res, SMW_OUTPUT_WIKI ) );
+	}
+
+	public function testDeliverSingleValueTrimsAndDecodesCharacterReferences(): void {
+		$value = $this->getMockBuilder( \SMWDataValue::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$value->method( 'getShortWikiText' )->willReturn( '  A&amp;B ' );
+
+		$instance = new class( 'array' ) extends ArrayPrinter {
+			public function deliverSingleValuePublic( $value ) {
+				return parent::deliverSingleValue( $value );
+			}
+		};
+
+		$this->assertSame( 'A&B', $instance->deliverSingleValuePublic( $value ) );
+	}
+
+	public function testCreateArrayReturnsFalseWhenNoArraysExtensionInstalled(): void {
+		if ( class_exists( 'ExtArrays' ) ) {
+			$this->markTestSkipped( 'Arrays extension is installed' );
+		}
+
+		$instance = new class( 'array' ) extends ArrayPrinter {
+			public function createArrayPublic( $array ) {
+				return parent::createArray( $array );
+			}
+		};
+
+		$this->assertFalse( $instance->createArrayPublic( [ 'a' ] ) );
 	}
 
 }

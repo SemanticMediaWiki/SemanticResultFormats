@@ -107,7 +107,7 @@ class SRFHashTest extends TestCase {
 		return array_merge( [
 			'sep'       => ', ',
 			'propsep'   => '<PROP>',
-			'manysep'   => '<MANY>',
+			'valuesep'  => '<MANY>',
 			'recordsep' => '<RCRD>',
 			'headersep' => ': ',
 			'name'      => false,
@@ -183,6 +183,22 @@ class SRFHashTest extends TestCase {
 		$instance = $this->newInstance( [ 'mArrayName' => 'test' ] );
 		$result = $instance->createArrayPublic( [] );
 		$this->assertFalse( $result );
+	}
+
+	public function testGetParamDefinitionsRemovesTitlesAndUsesHashNameMessage(): void {
+		$stub = new class {
+			public function setDefault( $value ) {
+			}
+		};
+		$definitions = $this->newInstance()->getParamDefinitions( [
+			'limit'   => clone $stub,
+			'link'    => clone $stub,
+			'headers' => clone $stub,
+		] );
+
+		$this->assertArrayNotHasKey( 'titles', $definitions );
+		$this->assertSame( 'srf_paramdesc_hashname', $definitions['name']['message'] );
+		$this->assertSame( [ 'manysep' ], $definitions['valuesep']['aliases'] );
 	}
 
 }
