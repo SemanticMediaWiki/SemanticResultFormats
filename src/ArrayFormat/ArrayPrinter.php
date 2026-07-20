@@ -371,8 +371,9 @@ class ArrayPrinter extends ResultPrinter {
 		];
 
 		// Renamed from `manysep` for consistency with the core `list`
-		// format; the old name stays usable as an alias. The message and
-		// the fallback cache key keep the historical name.
+		// format; the old name stays usable as an alias. The message key
+		// and the fallback cache key both keep the historical name, so no
+		// wiki-side configuration changes are needed.
 		$params['valuesep'] = [
 			'message' => 'srf_paramdesc_manysep',
 			'default' => $this->initializeCfgValue( $srfgArrayManySep, 'manysep' ),
