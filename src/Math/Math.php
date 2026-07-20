@@ -57,13 +57,18 @@ class MathFormats {
 	public static function varianceFunction( array $numbers ) {
 		// average
 		$average = self::averageFunction( $numbers );
-		// space
+		// space: sum of the squared deviations from the average. Deliberately
+		// not the algebraically equivalent E[X^2] - E[X]^2, which loses
+		// precision to catastrophic cancellation when the values are large
+		// relative to their spread (timestamps, populations, currency in
+		// cents). That form can even yield a negative variance, which turns
+		// into NAN once standarddeviationFunction() takes its square root.
 		$space = null;
 		for ( $i = 0; $i < count( $numbers ); $i++ ) {
-			$space += pow( $numbers[$i], 2 );
+			$space += pow( ( $numbers[$i] - $average ), 2 );
 		}
 		// result
-		return ( $space / count( $numbers ) - pow( $average, 2 ) );
+		return ( $space / count( $numbers ) );
 	}
 
 	public static function samplevarianceFunction( array $numbers ) {
