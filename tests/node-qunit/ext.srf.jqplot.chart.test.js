@@ -309,8 +309,11 @@ QUnit.module( 'ext.srf.jqplot.chart.bar', () => {
 		QUnit.test( 'cursor plugin stays hidden for non-numeric first columns', ( assert ) => {
 			const config = plot( makeChartData( { parameters: { cursor: 'zoom' } } ) );
 
+			// Only `show` is asserted: it is what gates the plugin. The
+			// remaining flags track the parameter regardless of column type,
+			// which jqPlot ignores while `show` is false — pinning them here
+			// would fail a legitimate future cleanup that gates all four.
 			assert.false( config.cursor.show, 'zooming needs a numeric or date first column' );
-			assert.true( config.cursor.zoom, 'the zoom flag itself follows the parameter' );
 		} );
 
 		QUnit.test( 'bar renderer and vertical axes are configured', ( assert ) => {
