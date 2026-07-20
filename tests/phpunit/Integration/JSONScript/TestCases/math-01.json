@@ -11,8 +11,26 @@
 			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]]"
 		},
 		{
-			"page": "Example/Math/2",
-			"contents": "[[Has number::333]]"
+			"page": "Has SRFMath01 mode number",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"comment": "mode needs the same value to occur on several subjects: SMW collapses duplicate property-value pairs within a single page, so a repeated value cannot come from one #show subject",
+			"page": "Example/Math/Mode/1",
+			"contents": "[[Has SRFMath01 mode number::1500]]"
+		},
+		{
+			"page": "Example/Math/Mode/2",
+			"contents": "[[Has SRFMath01 mode number::2500,75]]"
+		},
+		{
+			"page": "Example/Math/Mode/3",
+			"contents": "[[Has SRFMath01 mode number::2500,75]]"
+		},
+		{
+			"page": "Example/Math/Mode/4",
+			"contents": "[[Has SRFMath01 mode number::5000]]"
 		},
 		{
 			"page": "Example/Math/3",
@@ -92,7 +110,7 @@
 		},
 		{
 			"page": "Example/Math/Q.19",
-			"contents": "{{#show: Example/Math/2 |?Has number|format=mode }}"
+			"contents": "{{#ask: [[Has SRFMath01 mode number::+]] |?Has SRFMath01 mode number |mainlabel=- |format=mode |link=none }}"
 		},
 		{
 			"page": "Example/Math/Q.20",
@@ -306,11 +324,11 @@
 		},
 		{
 			"type": "parser",
-			"about": "#18 format=mode",
+			"about": "#18 format=mode (most frequent value, not its occurrence count)",
 			"subject": "Example/Math/Q.19",
 			"assert-output": {
 				"to-contain": [
-					"333"
+					"2.500,75"
 				]
 			}
 		},

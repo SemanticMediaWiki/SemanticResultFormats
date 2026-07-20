@@ -558,8 +558,7 @@ return [
             'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow']
         ],
         'src/Math/Math.php' => [
-            'PhanRedundantCondition' => ['\\SRF\\Math\\MathFormats::quartillowerExcFunction', '\\SRF\\Math\\MathFormats::quartillowerIncFunction', '\\SRF\\Math\\MathFormats::quartilupperExcFunction', '\\SRF\\Math\\MathFormats::quartilupperIncFunction'],
-            'PhanTypeMismatchDimFetch' => ['\\SRF\\Math\\MathFormats::medianFunction', '\\SRF\\Math\\MathFormats::quartillowerExcFunction', '\\SRF\\Math\\MathFormats::quartillowerIncFunction', '\\SRF\\Math\\MathFormats::quartilupperExcFunction', '\\SRF\\Math\\MathFormats::quartilupperIncFunction'],
+            'PhanTypeMismatchDimFetch' => ['\\SRF\\Math\\MathFormats::medianFunction'],
             'PhanUndeclaredClassConstant' => ['\\SRF\\Math\\Math::addNumbersForDataItem'],
             'PhanUndeclaredClassMethod' => ['\\SRF\\Math\\Math::addNumbersForDataItem', '\\SRF\\Math\\Math::buildResult', '\\SRF\\Math\\Math::getNumbers'],
             'PhanUndeclaredConstant' => ['\\SRF\\Math\\Math::buildResult'],

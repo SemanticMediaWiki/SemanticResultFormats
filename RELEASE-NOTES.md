@@ -56,6 +56,7 @@ Released on TBD.
 
 * Raised minimum PHP version from 8.1 to 8.2 to align with `mediawiki-codesniffer` v51 and `minus-x` v2 (by [gesinn.it](https://gesinn.it))
 * Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
+* Corrected the output of nine statistical `math` result formats; wikis relying on the previous values will see different results ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 
 ### New Features and Enhancements
 
@@ -67,7 +68,7 @@ Released on TBD.
 ### Tests
 
 * Added `GraphPrinterTest` covering the fix for `graph` format crash on non-page-type data values (e.g. `Modification date`) — regression test for ([988](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/988)) (by [gesinn.it](https://gesinn.it))
-* Added `MathFormatsTest` unit tests covering the statistical functions behind the math result formats (by [Professional Wiki](https://professional.wiki))
+* Added `MathFormatsTest` unit tests covering the statistical functions behind the math result formats ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 
 ### Bug Fixes
 
@@ -86,7 +87,10 @@ Released on TBD.
 * Fixed `filtered` format RequestContext fallback and missing JS config variable (by [gesinn.it](https://gesinn.it))
 * Fixed `filtered` format by replacing deprecated `$wgAmericanDates` with `MainConfigNames` ([1030](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1030)) (by [gesinn.it](https://gesinn.it))
 * Fixed `graph` format i18n messages: a duplicate `srf-paramdesc-graphlabel` key in `en.json` was silently clobbering its own value with `graphfontsize`'s text, leaving `graphfontsize` with no message at all; renamed the orphaned `srf-paramdesc-graph-arrowhead` to the actually-referenced `srf-paramdesc-arrowhead`; and added the entirely-missing `srf-paramdesc-graphfieldspages` message ([1123](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1123)) (by [gesinn.it](https://gesinn.it))
-* Fixed the statistical `math` result formats: `standarddeviation` and `samplestandarddeviation` had swapped implementations; the quartile formats (`quartillower`, `quartilupper`, their `.exc` variants and the derived `interquartilerange` formats) interpolated with constant factors instead of the fractional part of the position and returned wrong values for most result-set sizes; `mode` returned the occurrence count of the most frequent value instead of the value itself. Wikis relying on the previous output will see corrected statistics (by [Professional Wiki](https://professional.wiki))
+* Fixed `standarddeviation` and `samplestandarddeviation` returning each other's result ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
+* Fixed the `quartillower`, `quartilupper`, their `.exc` variants and both `interquartilerange` formats interpolating with constant factors instead of the position's fractional part, returning wrong values for most result-set sizes ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
+* Fixed `mode` returning the occurrence count instead of the most frequent value ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
+* Fixed `variance` losing precision for values large relative to their spread, which could make `standarddeviation` return `NAN` ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Updated translations (by translatewiki.net community)
 
 ## SRF 5.2.0
