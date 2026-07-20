@@ -558,13 +558,15 @@ return [
             'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow']
         ],
         'src/Math/Math.php' => [
-            'PhanTypeMismatchDimFetch' => ['\\SRF\\Math\\MathFormats::medianFunction'],
             'PhanUndeclaredClassConstant' => ['\\SRF\\Math\\Math::addNumbersForDataItem'],
             'PhanUndeclaredClassMethod' => ['\\SRF\\Math\\Math::addNumbersForDataItem', '\\SRF\\Math\\Math::buildResult', '\\SRF\\Math\\Math::getNumbers'],
             'PhanUndeclaredConstant' => ['\\SRF\\Math\\Math::buildResult'],
             'PhanUndeclaredExtendedClass' => ['src/Math/Math.php'],
             'PhanUndeclaredProperty' => ['\\SRF\\Math\\Math::getName', '\\SRF\\Math\\Math::getResultText'],
             'PhanUndeclaredTypeParameter' => ['\\SRF\\Math\\Math::addNumbersForDataItem', '\\SRF\\Math\\Math::buildResult', '\\SRF\\Math\\Math::getNumbers', '\\SRF\\Math\\Math::getResultText']
+        ],
+        'src/Math/MathFormats.php' => [
+            'PhanTypeMismatchDimFetch' => ['\\SRF\\Math\\MathFormats::medianFunction']
         ],
         'src/Outline/ListTreeBuilder.php' => [
             'PhanUndeclaredClassConstant' => ['\\SRF\\Outline\\ListTreeBuilder::item'],
