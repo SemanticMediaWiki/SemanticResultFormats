@@ -172,7 +172,7 @@
 	"srf-printername-graph": "Graphico",
 	"srf-paramdesc-graph-relation": "Indica si le subjectos o proprietates de nomines es genitores o infantes",
 	"srf-paramdesc-graph-nodeshape": "Defini le forma de cata nodo in le graphico",
-	"srf-paramdesc-graph-arrowhead": "Defini le stilo de puncta de sagitta sur le nodo principal de un bordo",
+	"srf-paramdesc-arrowhead": "Defini le stilo de puncta de sagitta sur le nodo principal de un bordo",
 	"srf-paramdesc-graphname": "Defini le titulo del graphico",
 	"srf-paramdesc-graphsize": "Defini le dimension del graphico in pixels",
 	"srf-paramdesc-graphlegend": "Indica si le legenda del graphico debe esser monstrate",

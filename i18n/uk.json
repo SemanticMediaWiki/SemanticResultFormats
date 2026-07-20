@@ -178,7 +178,7 @@
 	"srf-printername-graph": "Граф",
 	"srf-paramdesc-graph-relation": "Визначає, чи предмети або властивості назв є батьківськими чи дочірніми.",
 	"srf-paramdesc-graph-nodeshape": "Встановлює форму кожного вузла графу",
-	"srf-paramdesc-graph-arrowhead": "Встановлює стиль стрілки головного вузла крайнього елемента",
+	"srf-paramdesc-arrowhead": "Встановлює стиль стрілки головного вузла крайнього елемента",
 	"srf-paramdesc-graphname": "Встановлює назву графу",
 	"srf-paramdesc-graphsize": "Встановлює розмір графу в пікселях",
 	"srf-paramdesc-graphlegend": "Встановлює, чи слід показувати легенду графу, чи ні",

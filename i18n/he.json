@@ -182,7 +182,7 @@
 	"srf-printername-graph": "תרשים",
 	"srf-paramdesc-graph-relation": "הגדרה האם הנושאים או מאפייני שם (nameproperties) הם הורים או ילדים",
 	"srf-paramdesc-graph-nodeshape": "הגדרת הצורה של כל צומת בגרף",
-	"srf-paramdesc-graph-arrowhead": "הגדרת עיצוב ראש החץ בצומת הראשי של הדופן",
+	"srf-paramdesc-arrowhead": "הגדרת עיצוב ראש החץ בצומת הראשי של הדופן",
 	"srf-paramdesc-graphname": "הגדרת הכותרת של הגרף",
 	"srf-paramdesc-graphsize": "הגדרת גודל הגרף בפיקסלים",
 	"srf-paramdesc-graphlegend": "הגדרה האם להציג את מקרא הגרף",

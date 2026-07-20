@@ -170,7 +170,7 @@
 	"srf_printername_hash": "Hasz",
 	"srf-printername-graph": "Wykres",
 	"srf-paramdesc-graph-nodeshape": "Ustawia kształt każdego węzła na wykresie.",
-	"srf-paramdesc-graph-arrowhead": "Ustawia styl grotu strzałki w głównym węźle krawędzi.",
+	"srf-paramdesc-arrowhead": "Ustawia styl grotu strzałki w głównym węźle krawędzi.",
 	"srf-paramdesc-graphname": "Ustawia tytuł wykresu",
 	"srf-paramdesc-graphsize": "Ustawia rozmiar wykresu w pikselach",
 	"srf-paramdesc-graphlegend": "Określa, czy powinna być wyświetlana legenda wykresu",

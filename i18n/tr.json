@@ -179,7 +179,7 @@
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graph-relation": "Öznelerin veya ad özelliklerinin üstü mi yoksa altı mı olduğunu belirler",
 	"srf-paramdesc-graph-nodeshape": "Grafikteki her düğümün şeklini ayarlar",
-	"srf-paramdesc-graph-arrowhead": "Kenarın baş düğümündeki ok ucu stilini ayarlar",
+	"srf-paramdesc-arrowhead": "Kenarın baş düğümündeki ok ucu stilini ayarlar",
 	"srf-paramdesc-graphname": "Grafiğin başlığını ayarlar",
 	"srf-paramdesc-graphsize": "Grafiğin boyutunu piksel olarak ayarlar",
 	"srf-paramdesc-graphlegend": "Bir grafik göstergesinin gösterilip gösterilmeyeceğini ayarlar",

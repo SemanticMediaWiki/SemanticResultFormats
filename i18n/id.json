@@ -98,7 +98,7 @@
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graph-relation": "Menetapkan apakah subjek atau properti nama merupakan induk atau turunan",
 	"srf-paramdesc-graph-nodeshape": "Menetapkan bentuk masing-masing simpul pada grafik",
-	"srf-paramdesc-graph-arrowhead": "Menetapkan gaya kepala anak panah di simpul kepala suatu rusuk",
+	"srf-paramdesc-arrowhead": "Menetapkan gaya kepala anak panah di simpul kepala suatu rusuk",
 	"srf-paramdesc-graphname": "Menetapkan judul graf",
 	"srf-paramdesc-graphsize": "Menetapkan ukuran graf (dalam satuan piksel)",
 	"srf-paramdesc-graphlegend": "Menetapkan apakah legenda graf ditampilkan atau tidak",

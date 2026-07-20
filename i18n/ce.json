@@ -172,7 +172,7 @@
 	"srf-printername-graph": "График",
 	"srf-paramdesc-graph-relation": "ЦӀерийн предметаш йа башхаллаш коьрта а, тIейоьзна а хилар къастадо",
 	"srf-paramdesc-graph-nodeshape": "Графан хӀора шедан форма хӀоттайо",
-	"srf-paramdesc-graph-arrowhead": "Уггаре а арахьарчу элементан шедан цхьамзин стиль хӀоттайо",
+	"srf-paramdesc-arrowhead": "Уггаре а арахьарчу элементан шедан цхьамзин стиль хӀоттайо",
 	"srf-paramdesc-graphname": "Графан цӀе хӀоттайо",
 	"srf-paramdesc-graphsize": "Графан барам хӀоттабо (пикселашца)",
 	"srf-paramdesc-graphlegend": "Легенда гайта йеза йа ца йеза къастадо",

@@ -172,7 +172,7 @@
 	"srf-printername-graph": "Grafikon",
 	"srf-paramdesc-graph-relation": "Določa, ali so subjekti ali lastnosti imen nadrejeni ali podrejeni objekti",
 	"srf-paramdesc-graph-nodeshape": "Določa obliko vsakega vozlišča na grafikonu",
-	"srf-paramdesc-graph-arrowhead": "Določi slog konice puščice na vozlišče glave roba",
+	"srf-paramdesc-arrowhead": "Določi slog konice puščice na vozlišče glave roba",
 	"srf-paramdesc-graphname": "Določa naslov grafikona",
 	"srf-paramdesc-graphsize": "Določa velikost grafikona v slikovnih pikah",
 	"srf-paramdesc-graphlegend": "Določa, ali naj bo prikazana legenda grafikona",

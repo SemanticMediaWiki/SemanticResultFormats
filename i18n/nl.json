@@ -191,7 +191,7 @@
 	"srf-printername-graph": "Grafiek",
 	"srf-paramdesc-graph-relation": "Stelt in of de onderwerpen of naameigenschappen ouders of kinderen zijn",
 	"srf-paramdesc-graph-nodeshape": "Stelt de vorm van elk knooppunt in de grafiek in",
-	"srf-paramdesc-graph-arrowhead": "Stelt de stijl van de pijlpunt in op het hoofdknooppunt van een rand",
+	"srf-paramdesc-arrowhead": "Stelt de stijl van de pijlpunt in op het hoofdknooppunt van een rand",
 	"srf-paramdesc-graphname": "Stelt de titel van de grafiek in",
 	"srf-paramdesc-graphsize": "Stelt de grootte van de grafiek in pixels in",
 	"srf-paramdesc-graphlegend": "Stelt in of een grafieklegenda moet worden weergegeven",

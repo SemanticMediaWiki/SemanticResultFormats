@@ -173,7 +173,7 @@
 	"srf-printername-graph": "Graf",
 	"srf-paramdesc-graph-relation": "Angir om subjektene eller navnegenskapene er foreldre eller barn?",
 	"srf-paramdesc-graph-nodeshape": "Angir formen på hver node i grafen",
-	"srf-paramdesc-graph-arrowhead": "Setter stilen til pilhodet ved hodenoden til en kant",
+	"srf-paramdesc-arrowhead": "Setter stilen til pilhodet ved hodenoden til en kant",
 	"srf-paramdesc-graphname": "Angir graftittelen",
 	"srf-paramdesc-graphsize": "Angir grafstørrelsen (i piksler)",
 	"srf-paramdesc-graphlegend": "Angir om en grafbeskrivelse skal vises",

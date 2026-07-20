@@ -184,7 +184,7 @@
 	"srf-printername-graph": "圖形",
 	"srf-paramdesc-graph-relation": "設定這些主題或名稱屬性是否為父級或子級",
 	"srf-paramdesc-graph-nodeshape": "設定圖形上各節點的形狀",
-	"srf-paramdesc-graph-arrowhead": "設定在邊的頭節點的箭頭樣式",
+	"srf-paramdesc-arrowhead": "設定在邊的頭節點的箭頭樣式",
 	"srf-paramdesc-graphname": "設定圖表標題",
 	"srf-paramdesc-graphsize": "設定圖形大小（以像素計）",
 	"srf-paramdesc-graphlegend": "設定是否顯示圖形圖例",

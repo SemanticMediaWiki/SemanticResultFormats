@@ -204,7 +204,7 @@
 	"srf-printername-graph": "Graphique",
 	"srf-paramdesc-graph-relation": "Indique si les sujets ou les propriétés de nom sont des parents ou des enfants",
 	"srf-paramdesc-graph-nodeshape": "Fixe la forme de chaque nœud sur le graphique",
-	"srf-paramdesc-graph-arrowhead": "Définit le style de pointe de flèche sur le nœud de tête d’une branche",
+	"srf-paramdesc-arrowhead": "Définit le style de pointe de flèche sur le nœud de tête d’une branche",
 	"srf-paramdesc-graphname": "Définit le titre du graphique",
 	"srf-paramdesc-graphsize": "Fixe la taille du graphique en pixels",
 	"srf-paramdesc-graphlegend": "Indique si la légende d’un graphique devrait être affichée",
