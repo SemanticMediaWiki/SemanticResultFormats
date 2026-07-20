@@ -207,7 +207,7 @@ class SRFjqPlotSeries extends ResultPrinter {
 			'gridview' => $this->params['gridview'],
 			'direction' => $this->params['direction'],
 			'smoothlines' => $this->params['smoothlines'],
-			'cursor' => $this->params['cursor'],
+			'cursor' => $this->params['chartcursor'],
 			'chartlegend' => $this->params['chartlegend'] !== '' ? $this->params['chartlegend'] : 'none',
 			'colorscheme' => $this->params['colorscheme'] !== '' ? $this->params['colorscheme'] : null,
 			'pointlabels' => $this->params['datalabels'] === 'none' ? false : $this->params['datalabels'],
@@ -289,7 +289,7 @@ class SRFjqPlotSeries extends ResultPrinter {
 		}
 
 		// Cursor plugin
-		if ( in_array( $this->params['cursor'], [ 'zoom', 'tooltip' ] ) ) {
+		if ( in_array( $this->params['chartcursor'], [ 'zoom', 'tooltip' ] ) ) {
 			SMWOutputs::requireResource( 'ext.srf.jqplot.cursor' );
 		}
 
@@ -414,7 +414,9 @@ class SRFjqPlotSeries extends ResultPrinter {
 			'values' => [ 'none', 'exp', 'linear' ],
 		];
 
-		$params['cursor'] = [
+		// `cursor` is reserved by SMW >= 7.0 for keyset pagination tokens
+		// and must not be used as a format parameter name
+		$params['chartcursor'] = [
 			'message' => 'srf-paramdesc-chartcursor',
 			'default' => 'none',
 			'values' => [ 'none', 'zoom', 'tooltip' ],

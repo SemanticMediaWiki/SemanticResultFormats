@@ -56,6 +56,7 @@ Released on TBD.
 
 * Raised minimum PHP version from 8.1 to 8.2 to align with `mediawiki-codesniffer` v51 and `minus-x` v2 (by [gesinn.it](https://gesinn.it))
 * Renamed the `array`/`hash` formats' `manysep` parameter to `valuesep` for consistency with the core `list` format; `manysep` remains supported as an alias ([466](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/466)) (by [Professional Wiki](https://professional.wiki))
+* Renamed the `jqplotseries` format's `cursor` parameter to `chartcursor`, since SMW 7.0+ reserves `cursor` for keyset pagination; no alias is possible, so queries left on `cursor=zoom|tooltip` keep erroring ([1078](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1078)) (by [Professional Wiki](https://professional.wiki))
 * Added CI for MediaWiki 1.43+, removed MediaWiki 1.39 ([1001](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1001)) (by @paladox)
 * Corrected the output of nine statistical `math` result formats; wikis relying on the previous values will see different results ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 
@@ -92,6 +93,7 @@ Released on TBD.
 * Fixed the `quartillower`, `quartilupper`, their `.exc` variants and both `interquartilerange` formats interpolating with constant factors instead of the position's fractional part, returning wrong values for most result-set sizes ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Fixed `mode` returning the occurrence count instead of the most frequent value ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
 * Fixed `variance` losing precision for values large relative to their spread, which could make `standarddeviation` return `NAN` ([1120](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1120)) (by [Professional Wiki](https://professional.wiki))
+* Fixed `jqplotseries` format showing a "Malformed `cursor=` token" query error on every chart with SMW 7.0+ ([1078](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1078)) (by [Professional Wiki](https://professional.wiki))
 * Updated translations (by translatewiki.net community)
 
 ## SRF 5.2.0

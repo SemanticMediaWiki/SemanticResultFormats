@@ -21,6 +21,10 @@ function createDom() {
 	// the bare (unprefixed) confirm()/window.open() globals directly.
 	global.confirm = window.confirm;
 	global.$ = global.jQuery = require( 'jquery' );
+	// In a real browser jQuery also hangs off the window object; the jqplot
+	// modules (ext.srf.jqplot.chart.bar/pie/bubble.js) pass window.jQuery into
+	// their IIFEs explicitly.
+	window.jQuery = window.$ = global.jQuery;
 	// MediaWiki core's jquery.client RL module (browser detection), not vendored
 	// here; srf.formats.eventcalendar reads profile.name/.versionNumber.
 	$.client = {
