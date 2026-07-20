@@ -39,7 +39,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#1 explicit `chartcursor=zoom` – chart container rendered, no reserved-cursor query error (#1078)",
+			"about": "#1 explicit `chartcursor=zoom` is not routed into keyset pagination (#1078); SMW discards parameter-processing errors, so this cannot detect a misspelled parameter name – `jqPlotSeriesTest` covers registration",
 			"subject": "Test/Jqplot01/Q.2",
 			"assert-output": {
 				"to-contain": [
