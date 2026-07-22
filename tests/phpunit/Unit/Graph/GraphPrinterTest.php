@@ -106,7 +106,7 @@ class GraphPrinterTest extends TestCase {
 	 * @param bool $hasProperty Whether getProperty() should return a truthy value
 	 *   (marks the value as a chained property value rather than a plain page).
 	 */
-	private function makePageValue( string $id, bool $hasProperty = false ): SMWWikiPageValue {
+	private function makePageValue( string $id, bool $hasProperty = false, ?string $caption = null ): SMWWikiPageValue {
 		$dv = $this->getMockBuilder( SMWWikiPageValue::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -114,7 +114,7 @@ class GraphPrinterTest extends TestCase {
 		$dv->method( 'getWikiValue' )->willReturn( $id );
 		$dv->method( 'getDisplayTitle' )->willReturn( $id );
 		$dv->method( 'getShortWikiText' )->willReturn( $id );
-		$dv->method( 'getPreferredCaption' )->willReturn( $id );
+		$dv->method( 'getPreferredCaption' )->willReturn( $caption ?? $id );
 		$dv->method( 'getText' )->willReturn( $id );
 		$dv->method( 'getProperty' )->willReturn( $hasProperty ? $this->makeProperty() : null );
 
@@ -151,6 +151,47 @@ class GraphPrinterTest extends TestCase {
 		$nodesProp->setAccessible( true );
 
 		return $nodesProp->getValue( $printer );
+	}
+
+	/**
+	 * Processes one or more rows and returns the resulting GraphFormatter, with
+	 * buildGraph() already called against the real GraphPrinter -> GraphFormatter
+	 * pipeline. Skips only the Diagrams/GraphViz dependency check and the wikitext
+	 * <graphviz> tag call in getResultText(), which require a full parser.
+	 *
+	 * @param GraphPrinter $printer
+	 * @param array[] $rows One or more rows, each in the format processResultRow() expects.
+	 */
+	private function buildFormatter( GraphPrinter $printer, array $rows ): GraphFormatter {
+		$processRowRef = new ReflectionMethod( GraphPrinter::class, 'processResultRow' );
+		$processRowRef->setAccessible( true );
+		foreach ( $rows as $row ) {
+			$processRowRef->invoke( $printer, $row );
+		}
+
+		$nodesRef = new ReflectionProperty( GraphPrinter::class, 'nodes' );
+		$nodesRef->setAccessible( true );
+		$nodes = $nodesRef->getValue( $printer );
+
+		$optionsRef = new ReflectionProperty( GraphPrinter::class, 'options' );
+		$optionsRef->setAccessible( true );
+		$options = $optionsRef->getValue( $printer );
+
+		$formatter = new GraphFormatter( $options );
+		$formatter->buildGraph( $nodes );
+
+		return $formatter;
+	}
+
+	/**
+	 * Same as buildFormatter(), but returns the DOT source (GraphFormatter::getGraph())
+	 * directly - exactly what gets handed to the `<graphviz>` tag / the `dot` binary.
+	 *
+	 * @param GraphPrinter $printer
+	 * @param array[] $rows One or more rows, each in the format processResultRow() expects.
+	 */
+	private function buildDot( GraphPrinter $printer, array $rows ): string {
+		return $this->buildFormatter( $printer, $rows )->getGraph();
 	}
 
 	/**
@@ -441,15 +482,7 @@ class GraphPrinterTest extends TestCase {
 			$this->makeResultArray( $this->makeThisPrintRequest(), [ $this->makePageValue( 'Subject', false ) ] ),
 		];
 
-		$nodes = $this->processRow( $printer, $row );
-
-		$optionsRef = new ReflectionProperty( GraphPrinter::class, 'options' );
-		$optionsRef->setAccessible( true );
-		$options = $optionsRef->getValue( $printer );
-
-		$formatter = new GraphFormatter( $options );
-		$formatter->buildGraph( $nodes );
-		$dot = $formatter->getGraph();
+		$dot = $this->buildDot( $printer, [ $row ] );
 
 		$this->assertStringContainsString( '"Subject"', $dot );
 		$this->assertStringContainsString( '"Subject" -> "Place1"', $dot );
@@ -469,15 +502,7 @@ class GraphPrinterTest extends TestCase {
 			$this->makeResultArray( $this->makeThisPrintRequest(), [ $this->makePageValue( 'Subject', false ) ] ),
 		];
 
-		$nodes = $this->processRow( $printer, $row );
-
-		$optionsRef = new ReflectionProperty( GraphPrinter::class, 'options' );
-		$optionsRef->setAccessible( true );
-		$options = $optionsRef->getValue( $printer );
-
-		$formatter = new GraphFormatter( $options );
-		$formatter->buildGraph( $nodes );
-		$dot = $formatter->getGraph();
+		$dot = $this->buildDot( $printer, [ $row ] );
 
 		$this->assertStringContainsString( '"Subject"', $dot );
 		$this->assertStringContainsString( '"Subject" -> "UnrelatedValue"', $dot );
@@ -571,5 +596,207 @@ class GraphPrinterTest extends TestCase {
 		$this->assertInstanceOf( \SRF\Graph\GraphOptions::class, $options );
 		$this->assertTrue( $options->showGraphFields() );
 		$this->assertTrue( $options->showGraphFieldsPages() );
+	}
+
+	/**
+	 * Single-node row used by the DOT-source parameter tests below: they only care about
+	 * how the graph-wide/node-level settings ($this->makePrinter( $paramOverrides )) shape
+	 * the output, not about node-selection edge cases (already covered above).
+	 *
+	 * @return array[] A one-row, one-value row for makeResultArray()/processRow().
+	 */
+	private function singleNodeRow(): array {
+		return [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Located in' ), [ $this->makePageValue( 'Place1' ) ] ),
+		];
+	}
+
+	/**
+	 * graphname is filtered through GraphOptions::getGraphName()'s
+	 * preg_replace('/[^A-Za-z0-9 ]/', '', ...), which strips characters that would
+	 * otherwise make the digraph declaration invalid DOT syntax.
+	 */
+	public function testGraphNameParamIsSanitizedInDotSource(): void {
+		$printer = $this->makePrinter( [ 'graphname' => 'My-Graph #1!' ] );
+
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+
+		$this->assertStringStartsWith( 'digraph "MyGraph 1" {', $dot );
+	}
+
+	public function testGraphFontSizeParamSetsFontsizeInDotSource(): void {
+		$printer = $this->makePrinter( [ 'graphfontsize' => 18 ] );
+
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+
+		$this->assertStringContainsString( 'graph [fontsize=18, fontname="Verdana"]', $dot );
+		$this->assertStringContainsString( 'node [fontsize=18, fontname="Verdana"];', $dot );
+		$this->assertStringContainsString( 'edge [fontsize=18, fontname="Verdana"];', $dot );
+	}
+
+	/**
+	 * graphsize is only emitted when non-empty (GraphFormatter::buildGraph()'s
+	 * `if ( $this->options->getGraphSize() !== '' )` guard).
+	 */
+	public function testGraphSizeParamSetsSizeInDotSourceOnlyWhenNonEmpty(): void {
+		$printer = $this->makePrinter( [ 'graphsize' => '' ] );
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+		$this->assertStringNotContainsString( 'size="', $dot );
+
+		$printer = $this->makePrinter( [ 'graphsize' => '8,5' ] );
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+		$this->assertStringContainsString( 'size="8,5";', $dot );
+	}
+
+	/**
+	 * nodeshape is only emitted when non-empty (GraphFormatter::buildGraph()'s
+	 * `if ( $this->options->getNodeShape() != '' )` guard).
+	 */
+	public function testNodeShapeParamSetsShapeInDotSourceOnlyWhenSet(): void {
+		$printer = $this->makePrinter( [ 'nodeshape' => false ] );
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+		$this->assertStringNotContainsString( 'node [shape=', $dot );
+
+		$printer = $this->makePrinter( [ 'nodeshape' => 'diamond' ] );
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+		$this->assertStringContainsString( 'node [shape=diamond];', $dot );
+	}
+
+	/**
+	 * @dataProvider provideArrowDirections
+	 */
+	public function testArrowDirectionParamSetsRankdirInDotSource( string $arrowDirection ): void {
+		$printer = $this->makePrinter( [ 'arrowdirection' => $arrowDirection ] );
+
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+
+		$this->assertStringContainsString( "rankdir=$arrowDirection;", $dot );
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function provideArrowDirections(): array {
+		return [
+			'Left to right' => [ 'LR' ],
+			'Right to left' => [ 'RL' ],
+			'Top to bottom' => [ 'TB' ],
+			'Bottom to top' => [ 'BT' ],
+		];
+	}
+
+	/**
+	 * graphlink adds a clickable URL (a wikilink to the node's page) to the node
+	 * declaration, only when the node has no fields (the field-table branch always
+	 * hyperlinks the top row itself instead, see GraphFormatter::buildGraph()).
+	 */
+	public function testGraphLinkParamAddsUrlToNodeInDotSource(): void {
+		$printer = $this->makePrinter( [ 'graphlink' => false ] );
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+		$this->assertStringNotContainsString( 'URL = ', $dot );
+
+		$printer = $this->makePrinter( [ 'graphlink' => true ] );
+		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
+		$this->assertStringContainsString( 'URL = "[[Place1]]"', $dot );
+	}
+
+	/**
+	 * nodelabel=displaytitle word-wraps the node's label via
+	 * GraphFormatter::getWordWrappedText(); anything else leaves it untouched.
+	 */
+	public function testNodeLabelDisplaytitleWordWrapsNodeLabelInDotSource(): void {
+		$makeRow = fn () => [
+			$this->makeResultArray(
+				$this->makePrintRequest( '_wpg', 'Located in' ),
+				[ $this->makePageValue( 'Place1', false, 'A somewhat long node label' ) ]
+			),
+		];
+
+		$printer = $this->makePrinter( [ 'nodelabel' => '', 'wordwraplimit' => 10 ] );
+		$dot = $this->buildDot( $printer, [ $makeRow() ] );
+		$this->assertStringContainsString( 'label = "A somewhat long node label"', $dot );
+
+		$printer = $this->makePrinter( [ 'nodelabel' => 'displaytitle', 'wordwraplimit' => 10 ] );
+		$dot = $this->buildDot( $printer, [ $makeRow() ] );
+		$this->assertStringContainsString( "label = \"A somewhat\nlong node\nlabel\"", $dot );
+	}
+
+	/**
+	 * graphlabel/graphcolor/arrowhead only apply to edges, so a two-node row (a node with a
+	 * parent) is needed. graphlabel adds the predicate as an edge label, graphcolor adds
+	 * fontcolor/color, and arrowhead sets the edge's arrowhead style - but only once
+	 * graphlabel or graphcolor is enabled (GraphFormatter::buildGraph()'s
+	 * `if ( isGraphLabel() || isGraphColor() )` guard around the whole `[...]` block).
+	 */
+	private function twoNodeRowWithEdge(): array {
+		return [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Located in' ), [ $this->makePageValue( 'Place1' ) ] ),
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Located in' ), [ $this->makePageValue( 'Place2' ) ] ),
+		];
+	}
+
+	public function testEdgeAttributesAreOmittedWhenGraphLabelAndGraphColorAreOff(): void {
+		$printer = $this->makePrinter( [ 'graphlabel' => false, 'graphcolor' => false ] );
+
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+
+		$this->assertStringContainsString( '"Place1" -> "Place2";', $dot );
+	}
+
+	public function testGraphLabelParamAddsPredicateLabelToEdgeInDotSource(): void {
+		$printer = $this->makePrinter( [ 'graphlabel' => true, 'graphcolor' => false ] );
+
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+
+		$this->assertStringContainsString( 'label="Located in"', $dot );
+	}
+
+	public function testGraphColorParamAddsColorToEdgeInDotSource(): void {
+		$printer = $this->makePrinter( [ 'graphlabel' => false, 'graphcolor' => true ] );
+
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+
+		$this->assertStringContainsString( 'color=black', $dot );
+	}
+
+	public function testArrowHeadParamSetsArrowheadOnEdgeInDotSourceOnlyWhenLabelOrColorEnabled(): void {
+		$printer = $this->makePrinter( [ 'arrowhead' => 'diamond', 'graphlabel' => false, 'graphcolor' => false ] );
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+		$this->assertStringNotContainsString( 'arrowhead=', $dot );
+
+		$printer = $this->makePrinter( [ 'arrowhead' => 'diamond', 'graphcolor' => true ] );
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+		$this->assertStringContainsString( 'arrowhead=diamond,', $dot );
+	}
+
+	/**
+	 * relation=parent reverses the edge direction GraphFormatter::buildGraph() emits,
+	 * compared to the default relation=child.
+	 */
+	public function testRelationParamControlsEdgeDirectionInDotSource(): void {
+		$printer = $this->makePrinter( [ 'relation' => 'child' ] );
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+		$this->assertStringContainsString( '"Place1" -> "Place2"', $dot );
+
+		$printer = $this->makePrinter( [ 'relation' => 'parent' ] );
+		$dot = $this->buildDot( $printer, [ $this->twoNodeRowWithEdge() ] );
+		$this->assertStringContainsString( '"Place2" -> "Place1"', $dot );
+	}
+
+	/**
+	 * graphlegend only renders legend markup once graphcolor is also enabled
+	 * (GraphFormatter::getGraphLegend()'s `isGraphLegend() && isGraphColor()` guard), and
+	 * only for predicates that were actually used as edges.
+	 */
+	public function testGraphLegendParamRendersLegendOnlyWithGraphColorEnabled(): void {
+		$printer = $this->makePrinter( [ 'graphlegend' => true, 'graphcolor' => false ] );
+		$formatter = $this->buildFormatter( $printer, [ $this->twoNodeRowWithEdge() ] );
+		$this->assertStringNotContainsString( 'graphlegenditem', $formatter->getGraphLegend() );
+
+		$printer = $this->makePrinter( [ 'graphlegend' => true, 'graphcolor' => true ] );
+		$formatter = $this->buildFormatter( $printer, [ $this->twoNodeRowWithEdge() ] );
+		$legend = $formatter->getGraphLegend();
+		$this->assertStringContainsString( 'graphlegenditem', $legend );
+		$this->assertStringContainsString( 'Located in', $legend );
 	}
 }
