@@ -1,0 +1,9 @@
+{
+  "extensions": [
+    {
+      "name": "Diagrams",
+      "version": "1.0.0",
+      "repo": "samwilson/diagrams-extension"
+    }
+  ]
+}

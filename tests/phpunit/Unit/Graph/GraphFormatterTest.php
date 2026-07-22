@@ -285,17 +285,16 @@ DOT
 
 	/**
 	 * @return array
+	 *
+	 * The expected line separator depends on whether the Diagrams extension is loaded
+	 * (see GraphFormatter::__construct()), so word-wrapped multi-line expectations are
+	 * built with a placeholder and substituted in testGetWordWrappedText().
 	 */
 	public function provideGetWordWrappedText(): array {
 		return [
 			'Simple wrap' => [
 				'Lorem ipsum dolor sit amet',
-				<<<'WRAPPED0'
-Lorem
-ipsum
-dolor sit
-amet
-WRAPPED0
+				"Lorem{sep}ipsum{sep}dolor sit{sep}amet",
 			],
 			'Unwrappable' => [ 'Supercalifragilisticexpialidocious', 'Supercalifragilisticexpialidocious' ],
 			'One line' => [ 'One line', 'One line' ],
@@ -314,6 +313,8 @@ WRAPPED0
 		$formatter = new GraphFormatter(
 			new GraphOptions( self::BASE_PARAMS + [ 'graphfields' => false ] )
 		);
+		$lineSeparator = \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? '<br />' : PHP_EOL;
+		$wrapped = str_replace( '{sep}', $lineSeparator, $wrapped );
 		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
 	}
 

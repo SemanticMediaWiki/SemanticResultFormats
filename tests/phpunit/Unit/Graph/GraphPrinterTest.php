@@ -703,6 +703,11 @@ class GraphPrinterTest extends TestCase {
 	/**
 	 * nodelabel=displaytitle word-wraps the node's label via
 	 * GraphFormatter::getWordWrappedText(); anything else leaves it untouched.
+	 *
+	 * The wrapped line separator depends on whether the Diagrams extension is loaded (see
+	 * GraphFormatter::__construct()): '<br />' (HTML-escaped to '&lt;br /&gt;' by
+	 * buildGraph()) when loaded, PHP_EOL otherwise. Built with a placeholder and
+	 * substituted at assertion time, same approach as GraphFormatterTest::getWordWrappedText().
 	 */
 	public function testNodeLabelDisplaytitleWordWrapsNodeLabelInDotSource(): void {
 		$makeRow = fn () => [
@@ -718,7 +723,9 @@ class GraphPrinterTest extends TestCase {
 
 		$printer = $this->makePrinter( [ 'nodelabel' => 'displaytitle', 'wordwraplimit' => 10 ] );
 		$dot = $this->buildDot( $printer, [ $makeRow() ] );
-		$this->assertStringContainsString( "label = \"A somewhat\nlong node\nlabel\"", $dot );
+		$lineSeparator = \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? htmlspecialchars( '<br />' ) : "\n";
+		$expected = 'label = "' . implode( $lineSeparator, [ 'A somewhat', 'long node', 'label' ] ) . '"';
+		$this->assertStringContainsString( $expected, $dot );
 	}
 
 	/**

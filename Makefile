@@ -31,7 +31,9 @@ COMPOSER_EXT?=true
 # OS packages and PHP extensions required for optional formats:
 # - libzip-dev + zip: prerequisite for phpoffice/phpspreadsheet (format=spreadsheet)
 # - gd: required by phpoffice/phpspreadsheet at install time
-OS_PACKAGES?=libzip-dev libpng-dev
+# - graphviz: provides the dot/neato/... binaries the Diagrams extension shells out to
+#   for local rendering of format=graph's <graphviz> output (see extensions.local.json)
+OS_PACKAGES?=libzip-dev libpng-dev graphviz
 PHP_EXTENSIONS?=zip gd
 
 # nodejs
