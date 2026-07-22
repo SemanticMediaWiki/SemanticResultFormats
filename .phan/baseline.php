@@ -12,7 +12,7 @@ return [
     // PhanUndeclaredClassMethod : 480+ occurrences
     // PhanUndeclaredProperty : 450+ occurrences
     // PhanUndeclaredTypeParameter : 130+ occurrences
-    // PhanUndeclaredClassConstant : 95+ occurrences
+    // PhanUndeclaredClassConstant : 100+ occurrences
     // PhanUndeclaredClassProperty : 90+ occurrences
     // PhanUndeclaredConstant : 85+ occurrences
     // PhanUndeclaredMethod : 60+ occurrences
@@ -550,12 +550,12 @@ return [
         'src/Graph/GraphPrinter.php' => [
             'PhanTypeMismatchArgument' => ['\\SRF\\Graph\\GraphPrinter::getResultText'],
             'PhanUndeclaredClass' => ['\\SRF\\Graph\\GraphPrinter::getParamDefinitions', '\\SRF\\Graph\\GraphPrinter::handleParameters'],
-            'PhanUndeclaredClassConstant' => ['\\SRF\\Graph\\GraphPrinter::processResultRow'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow'],
+            'PhanUndeclaredClassConstant' => ['\\SRF\\Graph\\GraphPrinter::processResultRow', '\\SRF\\Graph\\GraphPrinter::rowHasThisPrintout'],
+            'PhanUndeclaredClassMethod' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow', '\\SRF\\Graph\\GraphPrinter::rowHasThisPrintout'],
             'PhanUndeclaredConstant' => ['\\SRF\\Graph\\GraphPrinter::getResultText'],
             'PhanUndeclaredExtendedClass' => ['src/Graph/GraphPrinter.php'],
             'PhanUndeclaredMethod' => ['\\SRF\\Graph\\GraphPrinter::getName'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow']
+            'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow', '\\SRF\\Graph\\GraphPrinter::rowHasThisPrintout']
         ],
         'src/Math/Math.php' => [
             'PhanUndeclaredClassConstant' => ['\\SRF\\Math\\Math::addNumbersForDataItem'],

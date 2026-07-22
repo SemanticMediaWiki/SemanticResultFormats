@@ -50,7 +50,7 @@ class GraphPrinterTest extends TestCase {
 		return $printer;
 	}
 
-	private function makePrintRequest( string $typeId, string $label = 'TestProp', bool $isChain = false ): PrintRequest {
+	private function makePrintRequest( string $typeId, string $label = 'TestProp', bool $isChain = false, ?int $mode = null ): PrintRequest {
 		$request = $this->getMockBuilder( PrintRequest::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -59,12 +59,23 @@ class GraphPrinterTest extends TestCase {
 		$request->method( 'getCanonicalLabel' )->willReturn( $label );
 		$request->method( 'getLabel' )->willReturn( $label );
 		$request->method( 'isMode' )->willReturnCallback(
-			static function ( $mode ) use ( $isChain ) {
-				return $isChain && $mode === PrintRequest::PRINT_CHAIN;
+			static function ( $queriedMode ) use ( $isChain, $mode ) {
+				if ( $mode !== null ) {
+					return $queriedMode === $mode;
+				}
+				return $isChain && $queriedMode === PrintRequest::PRINT_CHAIN;
 			}
 		);
 
 		return $request;
+	}
+
+	/**
+	 * Convenience wrapper for a PRINT_THIS ("?=") print request, e.g. an
+	 * explicit subject column.
+	 */
+	private function makeThisPrintRequest( string $label = 'Subject' ): PrintRequest {
+		return $this->makePrintRequest( '_wpg', $label, false, PrintRequest::PRINT_THIS );
 	}
 
 	private function makeResultArray( PrintRequest $request, array $dataValues ): ResultArray {
@@ -365,6 +376,50 @@ class GraphPrinterTest extends TestCase {
 		$nodes = $this->processRow( $printer, $row );
 
 		$this->assertSame( [], $nodes );
+	}
+
+	/**
+	 * Regression test for the PRINT_THIS ("?=") case raised in review of #1127:
+	 * an explicit subject column (PRINT_THIS) must always become the node,
+	 * regardless of its position among other page-type printouts, instead of
+	 * being skipped by position-based $skipNode and dropping the whole row.
+	 *
+	 * `{{#ask: ... |?Located in |?=Page }}`: the property-bearing "Located in"
+	 * column (pageTypeSeen=1) creates no node; without PRINT_THIS-awareness,
+	 * "?=" (pageTypeSeen=2) would then be skipped too and the row would vanish.
+	 */
+	public function testProcessResultRowUsesThisPrintoutAsNodeRegardlessOfPosition(): void {
+		$printer = $this->makePrinter();
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Located in' ), [ $this->makePageValue( 'Place1', true ) ] ),
+			$this->makeResultArray( $this->makeThisPrintRequest(), [ $this->makePageValue( 'Subject', false ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertCount( 1, $nodes );
+		$this->assertSame( 'Subject', $nodes[0]->getID() );
+	}
+
+	/**
+	 * Mirror case from the same review comment: without PRINT_THIS-awareness, a
+	 * property-less page-type column placed *before* "?=" would win the node
+	 * slot by position and produce a node named after an unrelated value. The
+	 * PRINT_THIS column must take precedence even when it isn't first.
+	 */
+	public function testProcessResultRowPrefersThisPrintoutOverEarlierPageTypeColumn(): void {
+		$printer = $this->makePrinter();
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Category' ), [ $this->makePageValue( 'UnrelatedValue', false ) ] ),
+			$this->makeResultArray( $this->makeThisPrintRequest(), [ $this->makePageValue( 'Subject', false ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertCount( 1, $nodes );
+		$this->assertSame( 'Subject', $nodes[0]->getID() );
 	}
 
 	/**

@@ -6,6 +6,7 @@ use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
 use SMW\Query\ResultPrinters\ResultPrinter;
 
 /**
@@ -192,11 +193,13 @@ class GraphPrinter extends ResultPrinter {
 		$fields = [];
 		$parents = [];
 		$pageTypeSeen = 0;
+		$hasThisPrintout = $this->rowHasThisPrintout( $row );
 
 		foreach ( $row as $result_array ) {
 			$request = $result_array->getPrintRequest();
 			$type = $request->getTypeID();
 			$isPageType = in_array( $type, self::PAGETYPES );
+			$isThisPrintout = $request->isMode( PrintRequest::PRINT_THIS );
 			$canonicalLabel = $request->getCanonicalLabel();
 			$label = $request->getLabel() ?: $canonicalLabel ?: '?';
 
@@ -223,7 +226,15 @@ class GraphPrinter extends ResultPrinter {
 				$includeAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
 				$includeAsField = $showGraphFields && ( !$isPageType || $showGraphFieldsPages );
 
-				$skipNode = $isPageType && $pageTypeSeen > 1;
+				// Node identity is anchored to the query subject (the PRINT_THIS
+				// printout) whenever the row has one, regardless of column
+				// position: every other page-type printout is skipped as a
+				// node candidate, and PRINT_THIS itself is never skipped.
+				if ( $hasThisPrintout ) {
+					$skipNode = $isPageType && !$isThisPrintout;
+				} else {
+					$skipNode = $isPageType && $pageTypeSeen > 1;
+				}
 
 				// Create node if not yet created
 				if ( !$node && !$hasProperty && !$skipNode ) {
@@ -304,6 +315,26 @@ class GraphPrinter extends ResultPrinter {
 			}
 			$this->nodes[] = $node;
 		}
+	}
+
+	/**
+	 * Whether the row includes a PRINT_THIS printout (an explicit "?=" column,
+	 * or the implicit subject column added via mainlabel), which should always
+	 * be treated as the row's node regardless of its position among other
+	 * page-type printouts.
+	 *
+	 * @since 4.0
+	 *
+	 * @param ResultArray[] $row
+	 */
+	private function rowHasThisPrintout( array $row ): bool {
+		foreach ( $row as $result_array ) {
+			if ( $result_array->getPrintRequest()->isMode( PrintRequest::PRINT_THIS ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
