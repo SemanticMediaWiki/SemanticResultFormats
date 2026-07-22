@@ -704,10 +704,13 @@ class GraphPrinterTest extends TestCase {
 	 * nodelabel=displaytitle word-wraps the node's label via
 	 * GraphFormatter::getWordWrappedText(); anything else leaves it untouched.
 	 *
-	 * The wrapped line separator depends on whether the Diagrams extension is loaded (see
-	 * GraphFormatter::__construct()): '<br />' (HTML-escaped to '&lt;br /&gt;' by
-	 * buildGraph()) when loaded, PHP_EOL otherwise. Built with a placeholder and
-	 * substituted at assertion time, same approach as GraphFormatterTest::getWordWrappedText().
+	 * Whether the wrapped label renders as an HTML label (<...>) or a quoted string label
+	 * ("...") depends on whether the Diagrams extension is loaded (see
+	 * GraphFormatter::__construct()/buildGraph(), and issue #846): under Diagrams, wrapped
+	 * lines are joined with a literal '<br />' and rendered as an HTML label so GraphViz
+	 * interprets it as a line break; otherwise they're joined with PHP_EOL and rendered as
+	 * a quoted string label. Built with a placeholder and substituted at assertion time,
+	 * same approach as GraphFormatterTest::getWordWrappedText().
 	 */
 	public function testNodeLabelDisplaytitleWordWrapsNodeLabelInDotSource(): void {
 		$makeRow = fn () => [
@@ -723,8 +726,12 @@ class GraphPrinterTest extends TestCase {
 
 		$printer = $this->makePrinter( [ 'nodelabel' => 'displaytitle', 'wordwraplimit' => 10 ] );
 		$dot = $this->buildDot( $printer, [ $makeRow() ] );
-		$lineSeparator = \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? htmlspecialchars( '<br />' ) : "\n";
-		$expected = 'label = "' . implode( $lineSeparator, [ 'A somewhat', 'long node', 'label' ] ) . '"';
+		$lines = [ 'A somewhat', 'long node', 'label' ];
+		if ( \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
+			$expected = 'label = <' . implode( '<br />', $lines ) . '>';
+		} else {
+			$expected = 'label = "' . implode( "\n", $lines ) . '"';
+		}
 		$this->assertStringContainsString( $expected, $dot );
 	}
 
