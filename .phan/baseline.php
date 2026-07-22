@@ -9,10 +9,10 @@
  */
 return [
     // # Issue statistics:
-    // PhanUndeclaredClassMethod : 480+ occurrences
+    // PhanUndeclaredClassMethod : 490+ occurrences
     // PhanUndeclaredProperty : 450+ occurrences
     // PhanUndeclaredTypeParameter : 130+ occurrences
-    // PhanUndeclaredClassConstant : 95+ occurrences
+    // PhanUndeclaredClassConstant : 100+ occurrences
     // PhanUndeclaredClassProperty : 90+ occurrences
     // PhanUndeclaredConstant : 85+ occurrences
     // PhanUndeclaredMethod : 60+ occurrences
@@ -28,7 +28,6 @@ return [
     // PhanUndeclaredVariableDim : 10+ occurrences
     // PhanTypeMismatchArgumentProbablyReal : 9 occurrences
     // PhanTypeArraySuspiciousNullable : 8 occurrences
-    // PhanRedundantCondition : 7 occurrences
     // PhanUndeclaredFunction : 7 occurrences
     // PhanUndeclaredTypeReturnType : 6 occurrences
     // PhanTypeMismatchArgumentInternal : 5 occurrences
@@ -38,6 +37,7 @@ return [
     // PhanTypeMismatchReturn : 4 occurrences
     // PhanTypeSuspiciousStringExpression : 4 occurrences
     // PhanImpossibleConditionInLoop : 3 occurrences
+    // PhanRedundantCondition : 3 occurrences
     // PhanTypeInvalidLeftOperandOfNumericOp : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 2 occurrences
     // PhanUndeclaredClassStaticProperty : 2 occurrences
@@ -550,12 +550,16 @@ return [
         'src/Graph/GraphPrinter.php' => [
             'PhanTypeMismatchArgument' => ['\\SRF\\Graph\\GraphPrinter::getResultText'],
             'PhanUndeclaredClass' => ['\\SRF\\Graph\\GraphPrinter::getParamDefinitions', '\\SRF\\Graph\\GraphPrinter::handleParameters'],
-            'PhanUndeclaredClassConstant' => ['\\SRF\\Graph\\GraphPrinter::processResultRow'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow'],
+            'PhanUndeclaredClassConstant' => ['\\SRF\\Graph\\GraphPrinter::readRowValues'],
+            'PhanUndeclaredClassMethod' => ['\\SRF\\Graph\\GraphPrinter::collectEdgesAndFields', '\\SRF\\Graph\\GraphPrinter::determineNode', '\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::readRowValues'],
             'PhanUndeclaredConstant' => ['\\SRF\\Graph\\GraphPrinter::getResultText'],
             'PhanUndeclaredExtendedClass' => ['src/Graph/GraphPrinter.php'],
             'PhanUndeclaredMethod' => ['\\SRF\\Graph\\GraphPrinter::getName'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow']
+            'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphPrinter::getResultText', '\\SRF\\Graph\\GraphPrinter::processResultRow', '\\SRF\\Graph\\GraphPrinter::readRowValues']
+        ],
+        'src/Graph/GraphRowValue.php' => [
+            'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphRowValue::__construct'],
+            'PhanUndeclaredTypeProperty' => ['\\SRF\\Graph\\GraphRowValue']
         ],
         'src/Math/Math.php' => [
             'PhanUndeclaredClassConstant' => ['\\SRF\\Math\\Math::addNumbersForDataItem'],
