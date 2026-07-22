@@ -5,6 +5,7 @@ namespace SRF\Tests\Unit\Formats;
 use SRF\Graph\GraphFormatter;
 use SRF\Graph\GraphNode;
 use SRF\Graph\GraphOptions;
+use SRF\Graph\GraphPrinter;
 
 /**
  * @covers \SRF\Graph\GraphFormatter
@@ -405,6 +406,57 @@ DOT
 
 		// Must not throw/warn, and the node must still be rendered (via its ID/URL).
 		$this->assertStringContainsString( '"Team:Lambda"', $formatter->getGraph() );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/846
+	 *
+	 * Under the Diagrams extension, word-wrapped node labels are joined with a literal
+	 * "<br />" (see the constructor). A node without fields must render that as an HTML
+	 * label (enclosed in <>) so "<br />" is interpreted as a line break by GraphViz/dot,
+	 * instead of a quoted string label ("...") with a second htmlspecialchars() pass,
+	 * which turned "<br />" into the literal text "&lt;br /&gt;".
+	 */
+	public function testBuildGraphRendersLineBreaksAsHtmlLabelUnderDiagrams(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$params['nodelabel'] = GraphPrinter::NODELABEL_DISPLAYTITLE;
+		$params['wordwraplimit'] = 5;
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		// Force the Diagrams-style line separator regardless of whether the extension
+		// is actually loaded in the test environment.
+		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
+		$ref->setAccessible( true );
+		$ref->setValue( $formatter, '<br />' );
+
+		$node = new GraphNode( 'Test:Page' );
+		$node->setLabel( 'A long label text here' );
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringNotContainsString( '&lt;br', $dot, '"<br />" must not be re-escaped into visible text' );
+		$this->assertStringContainsString( 'label = <long<br />label<br />text<br />here>', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * A short label that doesn't need wrapping (no "<br />" inserted) must remain a
+	 * plain quoted string label, unaffected by the #846 fix.
+	 */
+	public function testBuildGraphKeepsQuotedLabelWhenNoLineBreakIsNeeded(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$params['nodelabel'] = '';
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Test:Page' );
+		$node->setLabel( 'Short' );
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( 'label = "Short"', $dot );
 	}
 
 	/**
