@@ -386,6 +386,27 @@ WRAPPED0
 	}
 
 	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1096
+	 *
+	 * A node without a label (setLabel() never called, no fields) must not trigger a
+	 * htmlspecialchars(): Passing null to parameter #1 deprecation notice (PHP 8.1+).
+	 */
+	public function testBuildGraphHandlesNodeWithoutLabelAndWithoutFields(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Lambda' );
+		// Do NOT call setLabel() — leaves the label null.
+
+		$formatter->buildGraph( [ $node ] );
+
+		// Must not throw/warn, and the node must still be rendered (via its ID/URL).
+		$this->assertStringContainsString( '"Team:Lambda"', $formatter->getGraph() );
+	}
+
+	/**
 	 * @covers \SRF\Graph\GraphFormatter::getGraphLegend()
 	 *
 	 * Covers line 257: the color counter resets to 0 after cycling through all 14

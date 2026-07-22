@@ -113,6 +113,47 @@ class GraphPrinterTest extends TestCase {
 	}
 
 	/**
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1096
+	 *
+	 * When the first page-type printout's value has a property (so it is not eligible to
+	 * become the node) and a second page-type printout is seen (pageTypeSeen > 1, i.e.
+	 * skipNode=true), the node must NOT be created from that second, skip-eligible value.
+	 * Prior to the fix, the node-creation check inside the `showAsEdge` branch omitted the
+	 * `!$skipNode` guard applied to the first node-creation check, so it created a node
+	 * from data that should have been skipped.
+	 */
+	public function testProcessResultRowDoesNotCreateNodeFromSkippedPageTypeValue(): void {
+		$firstRequest = $this->makePrintRequest( '_wpg' );
+		$dvWithProperty = $this->getMockBuilder( SMWWikiPageValue::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$dvWithProperty->method( 'getWikiValue' )->willReturn( 'Subject' );
+		$dvWithProperty->method( 'getDisplayTitle' )->willReturn( 'Subject' );
+		$dvWithProperty->method( 'getProperty' )->willReturn( $this->createMock( \SMW\DIProperty::class ) );
+		$firstResultArray = $this->makeResultArray( $firstRequest, [ $dvWithProperty ] );
+
+		$secondRequest = $this->makePrintRequest( '_wpg' );
+		$dvSkippable = $this->getMockBuilder( SMWWikiPageValue::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$dvSkippable->method( 'getWikiValue' )->willReturn( 'ShouldBeSkipped' );
+		$dvSkippable->method( 'getDisplayTitle' )->willReturn( 'ShouldBeSkipped' );
+		$dvSkippable->method( 'getProperty' )->willReturn( null );
+		$secondResultArray = $this->makeResultArray( $secondRequest, [ $dvSkippable ] );
+
+		$printer = $this->makePrinter();
+		$ref = new ReflectionMethod( GraphPrinter::class, 'processResultRow' );
+		$ref->setAccessible( true );
+		$ref->invoke( $printer, [ $firstResultArray, $secondResultArray ] );
+
+		$nodesRef = new \ReflectionProperty( GraphPrinter::class, 'nodes' );
+		$nodesRef->setAccessible( true );
+		$nodes = $nodesRef->getValue( $printer );
+
+		$this->assertSame( [], $nodes, 'No node should be created when the only node-eligible value is skip-eligible.' );
+	}
+
+	/**
 	 * Page-type data values (_wpg) must still use getDisplayTitle(), falling back to getWikiValue().
 	 */
 	public function testProcessResultRowUsesDisplayTitleForPageType(): void {

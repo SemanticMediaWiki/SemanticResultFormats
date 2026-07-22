@@ -74,6 +74,7 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed `graph` format: `htmlspecialchars()` deprecation notice (PHP 8.1+) when a node has no label, and a missing `skipNode` guard in `GraphPrinter::processResultRow()` that could create a node from a page-type value that should have been skipped ([1096](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1096)) (by [gesinn.it](https://gesinn.it))
 * Fixed `graph` format crash when more than 14 distinct edge predicates are used — the color palette now cycles instead of throwing an undefined array key error (by [gesinn.it](https://gesinn.it))
 * Fixed `array`/`hash` formats: `continue 2` skipping entire row when page titles are hidden, no-op `unset` in `SRFHash::getParamDefinitions`, uninitialized gap/title properties, loose equality comparisons for `SMW_HEADERS_*`, and missing `return true` in `SRFHash::createArray` ([1055](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1055)) (by [gesinn.it](https://gesinn.it))
 * Fixed `calendar` format: `leapJulian()` incorrectly returned false for astronomical year 0 (1 BC) and year −4 (5 BC) due to PHP's negative modulo semantics ([1056](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1056)) (by [gesinn.it](https://gesinn.it))
