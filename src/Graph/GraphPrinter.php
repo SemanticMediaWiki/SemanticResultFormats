@@ -189,112 +189,16 @@ class GraphPrinter extends ResultPrinter {
 	 * @param ResultArray[] $row
 	 */
 	protected function processResultRow( array $row ) {
-		$node = null;
-		$fields = [];
-		$parents = [];
-		$pageTypeSeen = 0;
-		$hasThisPrintout = $this->rowHasThisPrintout( $row );
+		// ResultArray's value iterator is stateful and single-pass, so every value is read
+		// out and classified exactly once, up front. The row is then processed in two
+		// passes over that classification: determineNode() first, so that a node
+		// candidate appearing after an earlier column - e.g. a PRINT_THIS ("?=") column
+		// placed after other printouts - is already known before collectEdgesAndFields()
+		// decides what any earlier column's value becomes.
+		$values = $this->readRowValues( $row );
 
-		foreach ( $row as $result_array ) {
-			$request = $result_array->getPrintRequest();
-			$type = $request->getTypeID();
-			$isPageType = in_array( $type, self::PAGETYPES );
-			$isThisPrintout = $request->isMode( PrintRequest::PRINT_THIS );
-			$canonicalLabel = $request->getCanonicalLabel();
-			$label = $request->getLabel() ?: $canonicalLabel ?: '?';
-
-			if ( $isPageType ) {
-				$pageTypeSeen++;
-			}
-
-			$showAsEdge = !$this->options->showGraphFields()
-				|| $isPageType
-				|| $request->isMode( PrintRequest::PRINT_CHAIN );
-
-			$showGraphFieldsPages = $this->options->showGraphFieldsPages();
-			$showGraphFields = $this->options->showGraphFields();
-
-			while ( ( $object = $result_array->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
-				$hasProperty = $object->getProperty();
-
-				if ( $isPageType ) {
-					$objectText = $object->getDisplayTitle() ?: $object->getWikiValue();
-				} else {
-					$objectText = $object->getWikiValue();
-				}
-
-				$includeAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
-				$includeAsField = $showGraphFields && ( !$isPageType || $showGraphFieldsPages );
-
-				// Node identity is anchored to the query subject (the PRINT_THIS
-				// printout) whenever the row has one, regardless of column
-				// position: every other page-type printout is skipped as a
-				// node candidate, and PRINT_THIS itself is never skipped.
-				if ( $hasThisPrintout ) {
-					$skipNode = $isPageType && !$isThisPrintout;
-				} else {
-					$skipNode = $isPageType && $pageTypeSeen > 1;
-				}
-
-				// Create node if not yet created
-				if ( !$node && !$hasProperty && !$skipNode ) {
-					$node = new GraphNode( $objectText );
-					$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
-				}
-
-				// Handle edge
-				if ( $showGraphFieldsPages ) {
-					if ( $includeAsEdge && $node ) {
-						if ( $objectText !== $node->getId() && $pageTypeSeen === 2 ) {
-							$parents[] = [
-								'predicate' => $label,
-								'object' => $objectText,
-							];
-						}
-					}
-				} elseif ( $showAsEdge ) {
-					if ( $node && $objectText !== $node->getId() ) {
-						$parents[] = [
-							'predicate' => $label,
-							'object' => $objectText,
-						];
-					}
-					continue;
-				}
-
-				// Handle field in info box for node
-				if ( $showGraphFieldsPages && $includeAsField ) {
-					if ( $hasProperty || !$isPageType ) {
-						// if is Page type, only add if seen more than once
-						if ( $isPageType && $pageTypeSeen > 2 ) {
-							$fields[] = [
-								'name' => $label,
-								'value' => $object->getDisplayTitle(),
-								'valueLink' => $object->getShortWikiText(),
-								'type' => $type,
-								'page' => $canonicalLabel,
-							];
-						}
-						// if is not Page type, always add
-						if ( !$isPageType ) {
-							$fields[] = [
-								'name' => $label,
-								'value' => $objectText,
-								'type' => $type,
-								'page' => $canonicalLabel,
-							];
-						}
-					}
-				} elseif ( !$showGraphFieldsPages && !$showAsEdge ) {
-					$fields[] = [
-						'name' => $label,
-						'value' => $objectText,
-						'type' => $type,
-						'page' => $canonicalLabel,
-					];
-				}
-			}
-		}
+		$node = $this->determineNode( $values );
+		[ $parents, $fields ] = $this->collectEdgesAndFields( $values, $node );
 
 		if ( $node ) {
 			foreach ( $parents as $parent ) {
@@ -318,23 +222,165 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * Whether the row includes a PRINT_THIS printout (an explicit "?=" column,
-	 * or the implicit subject column added via mainlabel), which should always
-	 * be treated as the row's node regardless of its position among other
-	 * page-type printouts.
+	 * Reads every data value out of the row's ResultArrays and classifies each one against
+	 * the current display options, without yet knowing which value (if any) becomes the
+	 * row's node.
 	 *
 	 * @since 4.0
 	 *
 	 * @param ResultArray[] $row
+	 *
+	 * @return GraphRowValue[]
 	 */
-	private function rowHasThisPrintout( array $row ): bool {
+	private function readRowValues( array $row ): array {
+		$showGraphFieldsPages = $this->options->showGraphFieldsPages();
+		$showGraphFields = $this->options->showGraphFields();
+		$pageTypeSeen = 0;
+		$values = [];
+
 		foreach ( $row as $result_array ) {
-			if ( $result_array->getPrintRequest()->isMode( PrintRequest::PRINT_THIS ) ) {
-				return true;
+			$request = $result_array->getPrintRequest();
+			$type = $request->getTypeID();
+			$isPageType = in_array( $type, self::PAGETYPES );
+			$isThisPrintout = $request->isMode( PrintRequest::PRINT_THIS );
+			$canonicalLabel = $request->getCanonicalLabel();
+			$label = $request->getLabel() ?: $canonicalLabel ?: '?';
+
+			if ( $isPageType ) {
+				$pageTypeSeen++;
+			}
+
+			$showAsEdge = !$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN );
+
+			while ( ( $object = $result_array->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+				$objectText = $isPageType
+					? ( $object->getDisplayTitle() ?: $object->getWikiValue() )
+					: $object->getWikiValue();
+
+				$values[] = new GraphRowValue(
+					$object,
+					$objectText,
+					(bool)$object->getProperty(),
+					$type,
+					$isPageType,
+					$isThisPrintout,
+					$label,
+					$canonicalLabel,
+					$pageTypeSeen,
+					$showAsEdge,
+					!$showGraphFields || $isPageType || $request->isMode( PrintRequest::PRINT_CHAIN ),
+					$showGraphFields && ( !$isPageType || $showGraphFieldsPages ),
+				);
 			}
 		}
 
-		return false;
+		return $values;
+	}
+
+	/**
+	 * Picks the value that becomes the row's node. Node identity is anchored to the query
+	 * subject (the PRINT_THIS printout) whenever the row has one, regardless of column
+	 * position: every other page-type value is skipped as a node candidate, and PRINT_THIS
+	 * itself is never skipped. Falls back to the first property-less page-type value when
+	 * the row has no PRINT_THIS printout at all.
+	 *
+	 * @since 4.0
+	 *
+	 * @param GraphRowValue[] $values
+	 */
+	private function determineNode( array $values ): ?GraphNode {
+		$hasThisPrintout = false;
+		foreach ( $values as $value ) {
+			if ( $value->isThisPrintout ) {
+				$hasThisPrintout = true;
+				break;
+			}
+		}
+
+		foreach ( $values as $value ) {
+			$skipNode = $hasThisPrintout
+				? ( $value->isPageType && !$value->isThisPrintout )
+				: ( $value->isPageType && $value->pageTypeSeen > 1 );
+
+			if ( !$value->hasProperty && !$skipNode ) {
+				$node = new GraphNode( $value->objectText );
+				$node->setLabel( $value->object->getPreferredCaption() ?: $value->object->getText() );
+				return $node;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Collects the parent-node (edge) and field entries for the already-determined node.
+	 *
+	 * @since 4.0
+	 *
+	 * @param GraphRowValue[] $values
+	 *
+	 * @return array{0: array, 1: array} [ $parents, $fields ]
+	 */
+	private function collectEdgesAndFields( array $values, ?GraphNode $node ): array {
+		$showGraphFieldsPages = $this->options->showGraphFieldsPages();
+		$parents = [];
+		$fields = [];
+
+		foreach ( $values as $value ) {
+			// Handle edge
+			if ( $showGraphFieldsPages ) {
+				if ( $value->includeAsEdge && $node ) {
+					if ( $value->objectText !== $node->getId() && $value->pageTypeSeen === 2 ) {
+						$parents[] = [
+							'predicate' => $value->label,
+							'object' => $value->objectText,
+						];
+					}
+				}
+			} elseif ( $value->showAsEdge ) {
+				if ( $node && $value->objectText !== $node->getId() ) {
+					$parents[] = [
+						'predicate' => $value->label,
+						'object' => $value->objectText,
+					];
+				}
+				continue;
+			}
+
+			// Handle field in info box for node
+			if ( $showGraphFieldsPages && $value->includeAsField ) {
+				if ( $value->hasProperty || !$value->isPageType ) {
+					// if is Page type, only add if seen more than once
+					if ( $value->isPageType && $value->pageTypeSeen > 2 ) {
+						$fields[] = [
+							'name' => $value->label,
+							'value' => $value->object->getDisplayTitle(),
+							'valueLink' => $value->object->getShortWikiText(),
+							'type' => $value->type,
+							'page' => $value->canonicalLabel,
+						];
+					}
+					// if is not Page type, always add
+					if ( !$value->isPageType ) {
+						$fields[] = [
+							'name' => $value->label,
+							'value' => $value->objectText,
+							'type' => $value->type,
+							'page' => $value->canonicalLabel,
+						];
+					}
+				}
+			} elseif ( !$showGraphFieldsPages && !$value->showAsEdge ) {
+				$fields[] = [
+					'name' => $value->label,
+					'value' => $value->objectText,
+					'type' => $value->type,
+					'page' => $value->canonicalLabel,
+				];
+			}
+		}
+
+		return [ $parents, $fields ];
 	}
 
 	/**

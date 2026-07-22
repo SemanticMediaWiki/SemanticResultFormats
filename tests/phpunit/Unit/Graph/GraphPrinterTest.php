@@ -12,6 +12,7 @@ use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMWDataValue;
 use SMWWikiPageValue;
+use SRF\Graph\GraphFormatter;
 use SRF\Graph\GraphPrinter;
 
 /**
@@ -420,6 +421,67 @@ class GraphPrinterTest extends TestCase {
 
 		$this->assertCount( 1, $nodes );
 		$this->assertSame( 'Subject', $nodes[0]->getID() );
+	}
+
+	/**
+	 * Builds the actual DOT source (GraphFormatter::getGraph()) that gets handed to the
+	 * `<graphviz>` tag / the `dot` binary, from the same row as
+	 * testProcessResultRowUsesThisPrintoutAsNodeRegardlessOfPosition(). This exercises the
+	 * real GraphPrinter -> GraphFormatter pipeline end to end (skipping only the
+	 * Diagrams/GraphViz dependency check and the wikitext <graphviz> tag call in
+	 * getResultText(), which require a full parser), so a regression in either
+	 * processResultRow()'s node selection or GraphFormatter's DOT rendering would show up
+	 * here as a wrong node/edge declaration in the generated graph source.
+	 */
+	public function testProcessResultRowFeedsCorrectDotSourceForThisPrintout(): void {
+		$printer = $this->makePrinter();
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Located in' ), [ $this->makePageValue( 'Place1', true ) ] ),
+			$this->makeResultArray( $this->makeThisPrintRequest(), [ $this->makePageValue( 'Subject', false ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$optionsRef = new ReflectionProperty( GraphPrinter::class, 'options' );
+		$optionsRef->setAccessible( true );
+		$options = $optionsRef->getValue( $printer );
+
+		$formatter = new GraphFormatter( $options );
+		$formatter->buildGraph( $nodes );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( '"Subject"', $dot );
+		$this->assertStringContainsString( '"Subject" -> "Place1"', $dot );
+		$this->assertStringNotContainsString( '"Place1" [', $dot, 'Place1 must only appear as an edge target, never as its own node declaration.' );
+	}
+
+	/**
+	 * Same DOT-source check for the mirror case: the property-less category column must
+	 * not leak into the generated graph as a bogus node - only as an edge from the
+	 * PRINT_THIS subject, exactly like any other page-type value in the row.
+	 */
+	public function testProcessResultRowFeedsCorrectDotSourceWhenThisPrintoutIsNotFirst(): void {
+		$printer = $this->makePrinter();
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg', 'Category' ), [ $this->makePageValue( 'UnrelatedValue', false ) ] ),
+			$this->makeResultArray( $this->makeThisPrintRequest(), [ $this->makePageValue( 'Subject', false ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$optionsRef = new ReflectionProperty( GraphPrinter::class, 'options' );
+		$optionsRef->setAccessible( true );
+		$options = $optionsRef->getValue( $printer );
+
+		$formatter = new GraphFormatter( $options );
+		$formatter->buildGraph( $nodes );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( '"Subject"', $dot );
+		$this->assertStringContainsString( '"Subject" -> "UnrelatedValue"', $dot );
+		$this->assertStringNotContainsString( '"UnrelatedValue" [', $dot, 'UnrelatedValue must only appear as an edge target, never as its own node declaration.' );
 	}
 
 	/**
