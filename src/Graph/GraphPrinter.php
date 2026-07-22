@@ -242,10 +242,7 @@ class GraphPrinter extends ResultPrinter {
 						}
 					}
 				} elseif ( $showAsEdge ) {
-					if ( !$node && !$hasProperty && !$skipNode ) {
-						$node = new GraphNode( $objectText );
-						$node->setLabel( $object->getPreferredCaption() ?: $object->getText() );
-					} elseif ( $node && $objectText !== $node->getId() ) {
+					if ( $node && $objectText !== $node->getId() ) {
 						$parents[] = [
 							'predicate' => $label,
 							'object' => $objectText,

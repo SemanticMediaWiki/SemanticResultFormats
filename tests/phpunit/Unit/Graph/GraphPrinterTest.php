@@ -268,6 +268,12 @@ class GraphPrinterTest extends TestCase {
 				'expectParents' => [ [ 'predicate' => 'TestProp', 'object' => 'Page2' ] ],
 				'expectFields' => [],
 			],
+			'2 page-type printouts, second has a property: still a parent, not a field (pins the pageTypeSeen > 2 field threshold)' => [
+				'requests' => [ [ '_wpg', false ], [ '_wpg', true ] ],
+				'expectId' => 'Page1',
+				'expectParents' => [ [ 'predicate' => 'TestProp', 'object' => 'Page2' ] ],
+				'expectFields' => [],
+			],
 			'3+ page-type printouts: 3rd printout (with a property) is added as a field, not a parent' => [
 				'requests' => [ [ '_wpg', false ], [ '_wpg', false ], [ '_wpg', true ] ],
 				'expectId' => 'Page1',
@@ -337,20 +343,23 @@ class GraphPrinterTest extends TestCase {
 	 * https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1124
 	 * (originally reported in issue #1096's comments).
 	 *
-	 * With graphfields=false (graphfieldspages=false), a row with 3 page-type
-	 * printouts where the first two have a property (so no node is created for
-	 * them) and the third does not: the node-creation guard at the top of the
-	 * loop body correctly refuses to create a node from the third value because
-	 * $skipNode is true ($pageTypeSeen > 1). The `elseif ( $showAsEdge )` branch
-	 * must honor that same guard and not create a node from it either.
+	 * With graphfields=false (graphfieldspages=false), a row with 2 page-type
+	 * printouts where the first has a property (so no node is created for it)
+	 * and the second does not: the node-creation guard at the top of the loop
+	 * body correctly refuses to create a node from the second value because
+	 * $skipNode is true ($pageTypeSeen > 1, i.e. from the second page-type
+	 * printout onward). The `elseif ( $showAsEdge )` branch duplicated that
+	 * same node-creation check without the guard, so it could still create a
+	 * node from it — that duplicate has been removed rather than patched,
+	 * since the check at the top of the loop body already governs $node for
+	 * every value once execution reaches this branch.
 	 */
 	public function testProcessResultRowDoesNotCreateNodeFromSkippedPageTypeViaEdgeBranch(): void {
 		$printer = $this->makePrinter();
 
 		$row = [
 			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page1', true ) ] ),
-			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page2', true ) ] ),
-			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page3', false ) ] ),
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page2', false ) ] ),
 		];
 
 		$nodes = $this->processRow( $printer, $row );
@@ -381,6 +390,31 @@ class GraphPrinterTest extends TestCase {
 			$nodes[0]->getFields()
 		);
 		$this->assertSame( [ [ 'name' => 'TestProp', 'value' => 'Text1' ] ], $fields );
+	}
+
+	/**
+	 * Covers the graphfields=false / graphfieldspages=true combination (reachable via
+	 * `|graphfieldspages=yes` alone): $includeAsField is always false because it requires
+	 * $showGraphFields, so a second page-type printout still becomes a parent via the
+	 * $showGraphFieldsPages edge branch, but no field is ever added for it.
+	 */
+	public function testProcessResultRowWithGraphFieldsPagesButNotGraphFields(): void {
+		$printer = $this->makePrinter( [ 'graphfields' => false, 'graphfieldspages' => true ] );
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page1' ) ] ),
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page2' ) ] ),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertCount( 1, $nodes );
+		$this->assertSame( 'Page1', $nodes[0]->getID() );
+		$this->assertSame(
+			[ [ 'predicate' => 'TestProp', 'object' => 'Page2' ] ],
+			$nodes[0]->getParentNode()
+		);
+		$this->assertSame( [], $nodes[0]->getFields() );
 	}
 
 	/**
