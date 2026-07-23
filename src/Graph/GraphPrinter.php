@@ -244,7 +244,12 @@ class GraphPrinter extends ResultPrinter {
 			$isPageType = in_array( $type, self::PAGETYPES );
 			$isThisPrintout = $request->isMode( PrintRequest::PRINT_THIS );
 			$canonicalLabel = $request->getCanonicalLabel();
-			$label = $request->getLabel() ?: $canonicalLabel ?: '?';
+			// getLabel() already defaults to the canonical label when no "=" override was
+			// given, so an empty string here means the label was explicitly suppressed
+			// (e.g. "?Property=") and must stay empty rather than falling back to the
+			// canonical property name (see issue #1131). Only a genuinely unset label
+			// (null) falls back to the canonical label / '?'.
+			$label = $request->getLabel() ?? $canonicalLabel ?? '?';
 
 			if ( $isPageType ) {
 				$pageTypeSeen++;
