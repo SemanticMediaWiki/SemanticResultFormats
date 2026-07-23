@@ -301,6 +301,6 @@
 	"srf-paramdesc-gantt-barheight": "Wysokość pasków zadań",
 	"srf-paramdesc-gantt-leftpadding": "Szerokość tytułu sekcji",
 	"srf-error-gantt-mermaid-not-installed": "Rozszerzenie Mermaid musi być zainstalowane.",
-	"srf-printername-mode": "Tryb",
-	"srf-printername-range": "Zakres"
+	"srf_printername_mode": "Tryb",
+	"srf_printername_range": "Zakres"
 }

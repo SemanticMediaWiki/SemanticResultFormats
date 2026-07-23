@@ -141,7 +141,7 @@
 	"srf-ui-gridview-label-data-tab": "Dados",
 	"srf-ui-gridview-label-info-tab": "Informação",
 	"srf_printername_gallery": "Galeria",
-	"srf_printername_carousel": "Carrossel",
+	"srf-printername-carousel": "Carrossel",
 	"srf_paramdesc_perrow": "A quantidade de imagens por linha",
 	"srf_paramdesc_widths": "A largura das imagens",
 	"srf_paramdesc_heights": "A altura das imagens",

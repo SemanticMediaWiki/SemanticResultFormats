@@ -182,7 +182,7 @@
 	"srf-paramdesc-graphname": "Встановлює назву графу",
 	"srf-paramdesc-graphsize": "Встановлює розмір графу в пікселях",
 	"srf-paramdesc-graphlegend": "Встановлює, чи слід показувати легенду графу, чи ні",
-	"srf-paramdesc-graphlabel": "Встановлює розмір шрифта в пікселях",
+	"srf-paramdesc-graphlabel": "Встановлює підпис графіку",
 	"srf-paramdesc-rankdir": "Встановлює напрямок стрілок",
 	"srf-paramdesc-graphlink": "Встановлює, чи вузли повинні посилатися на їхні сторінки у вікі",
 	"srf-paramdesc-graphcolor": "Задає колір графу",
@@ -352,5 +352,5 @@
 	"srf-error-gantt-mermaid-not-installed": "Необхідно встановити розширення Mermaid.",
 	"srf-printername-gantt": "Ґант",
 	"srf-paramdesc-nodelabel": "Використайте мітку вузла графу. Дозволені значення: displaytitle.",
-	"srf-printername-mode": "Режим"
+	"srf_printername_mode": "Режим"
 }

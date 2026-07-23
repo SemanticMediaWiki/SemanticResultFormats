@@ -357,7 +357,7 @@
 	"srf-error-gantt-mermaid-not-installed": "امتداد Mermaid يحتاج إلى تثبيت.",
 	"srf-printername-gantt": "جانت",
 	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض.",
-	"srf-printername-mode": "وضع",
-	"srf-printername-range": "النطاق",
-	"srf-printername-variance": "التباين"
+	"srf_printername_mode": "وضع",
+	"srf_printername_range": "النطاق",
+	"srf_printername_variance": "التباين"
 }

@@ -150,7 +150,7 @@
 	"srf-ui-gridview-label-data-tab": "Данные",
 	"srf-ui-gridview-label-info-tab": "Информация",
 	"srf_printername_gallery": "Галерея",
-	"srf_printername_carousel": "Карусель",
+	"srf-printername-carousel": "Карусель",
 	"srf_paramdesc_perrow": "Количество изображений в строке",
 	"srf_paramdesc_widths": "Ширина изображений",
 	"srf_paramdesc_heights": "Высота изображений",
@@ -351,6 +351,6 @@
 	"srf-error-gantt-mermaid-not-installed": "Расширение Mermaid должно быть установлено.",
 	"srf-printername-gantt": "Диаграмма Ганта",
 	"srf-paramdesc-graphfields": "Отображать свойста не типа «Страница» внутри вершин графа, а не в виде его рёбер.",
-	"srf-printername-mode": "Режим",
-	"srf-printername-range": "Диапазон"
+	"srf_printername_mode": "Режим",
+	"srf_printername_range": "Диапазон"
 }
