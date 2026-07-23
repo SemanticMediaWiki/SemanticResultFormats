@@ -83,25 +83,43 @@ export class DistanceFilter extends Filter {
 
 	private updateDistances( origin: L.LatLngLiteral ): number {
 
-		let values = this.controller.getData();
+		let rows = this.controller.getData();
 		let max = 1;
 
-		let prId = this.printrequestId;
+		for ( let rowId in rows ) {
 
-		for ( let rowId in values ) {
+			let row = rows[ rowId ];
 
-			if ( values[ rowId ].data.hasOwnProperty( this.filterId ) ) {
-				let distances: number[] = values[ rowId ].data[ this.filterId ].positions.map( ( pos: L.LatLngLiteral ) => this.distance( origin, pos ) );
+			if ( row.d === undefined ) {
+				row.d = {};
+			}
+
+			let positions = this.getPositions( row );
+
+			if ( positions !== undefined && positions.length > 0 ) {
+				let distances: number[] = positions.map( ( pos: L.LatLngLiteral ) => this.distance( origin, pos ) );
 				let dist = Math.min( ...distances );
 
-				values[ rowId ].data[ this.filterId ].distance = dist;
+				row.d[ this.filterId ] = { distance: dist };
 				max = Math.max( max, dist );
 			} else {
-				values[ rowId ].data[ this.filterId ] = { distance: Infinity };
+				row.d[ this.filterId ] = { distance: Infinity };
 			}
 		}
 
 		return max;
+	}
+
+	// Geographic coordinates are read from the shared per-printout values
+	// (p[printrequestId].v). Coordinates stored in a text property are parsed
+	// server-side and provided per row (d[filterId].positions) instead.
+	private getPositions( row: any ): L.LatLngLiteral[] | undefined {
+		if ( row.d && row.d[ this.filterId ] && row.d[ this.filterId ].positions ) {
+			return row.d[ this.filterId ].positions;
+		}
+
+		let slot = row.p ? row.p[ this.printrequestId ] : undefined;
+		return slot ? slot.v : undefined;
 	}
 
 	public onFilterUpdated( eventObject: JQueryEventObject ) {
@@ -127,9 +145,9 @@ export class DistanceFilter extends Filter {
 
 	public isVisible( rowId: string ): boolean {
 
-		let rowdata = this.controller.getData()[ rowId ].data;
+		let rowdata = this.controller.getData()[ rowId ].d;
 
-		if ( rowdata.hasOwnProperty( this.filterId ) ) {
+		if ( rowdata && rowdata.hasOwnProperty( this.filterId ) ) {
 			return rowdata[ this.filterId ].distance <= this.filterValue;
 		}
 

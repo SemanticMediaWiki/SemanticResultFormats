@@ -28,7 +28,7 @@ abstract class View {
 	 * Constructor for the view.
 	 *
 	 * @param ResultItem[] &$results
-	 * @param string[] &$params array of parameter values given as key-value-pairs
+	 * @param array<string, mixed> &$params array of parameter values given as key-value-pairs
 	 * @param Filtered &$queryPrinter
 	 */
 	public function __construct( array &$results, array &$params, Filtered &$queryPrinter ) {
@@ -45,7 +45,7 @@ abstract class View {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string, mixed>
 	 */
 	public function &getActualParameters() {
 		return $this->mParameters;

@@ -7,13 +7,21 @@ QUnit.module( 'ext.srf.filtered DistanceFilter', () => {
 
 	const origin = { lat: 0, lng: 0 };
 
+	// The distance filter reads coordinates from the shared per-printout values of
+	// the printout it filters on (p[printrequestId].v); here that printout is index 0.
+	function rowWithPositions( ...positions ) {
+		return { p: [ { v: positions } ] };
+	}
+
+	function newFilter( data, target, options ) {
+		const controller = new Controller( $(), data, [ {} ] );
+		return new DistanceFilter( 'foo', target, 0, controller, options );
+	}
+
 	QUnit.test( 'init builds the distance slider', ( assert ) => {
-		const data = {
-			row1: { data: { foo: { positions: [ { lat: 0, lng: 1 } ] } } }
-		};
-		const controller = new Controller( $(), data, {} );
+		const data = { row1: rowWithPositions( { lat: 0, lng: 1 } ) };
 		const target = $( '<div>' );
-		const f = new DistanceFilter( 'foo', target, 'fooPR', controller, { origin: origin } );
+		const f = newFilter( data, target, { origin: origin } );
 
 		f.init();
 
@@ -25,10 +33,9 @@ QUnit.module( 'ext.srf.filtered DistanceFilter', () => {
 	} );
 
 	QUnit.test( 'init without a usable origin detaches the target instead of throwing', ( assert ) => {
-		const data = { row1: { data: { foo: { positions: [ { lat: 0, lng: 1 } ] } } } };
-		const controller = new Controller( $(), data, {} );
+		const data = { row1: rowWithPositions( { lat: 0, lng: 1 } ) };
 		const target = $( '<div>' ).appendTo( document.body );
-		const f = new DistanceFilter( 'foo', target, 'fooPR', controller, {} );
+		const f = newFilter( data, target, {} );
 
 		f.init();
 
@@ -39,12 +46,10 @@ QUnit.module( 'ext.srf.filtered DistanceFilter', () => {
 		// row1 is ~111 km from origin (1 degree of longitude at the equator),
 		// row2 is at the origin itself (distance 0)
 		const data = {
-			row1: { data: { foo: { positions: [ { lat: 0, lng: 1 } ] } } },
-			row2: { data: { foo: { positions: [ { lat: 0, lng: 0 } ] } } }
+			row1: rowWithPositions( { lat: 0, lng: 1 } ),
+			row2: rowWithPositions( { lat: 0, lng: 0 } )
 		};
-		const controller = new Controller( $(), data, {} );
-		const target = $( '<div>' );
-		const f = new DistanceFilter( 'foo', target, 'fooPR', controller, { origin: origin, 'initial value': 50 } );
+		const f = newFilter( data, $( '<div>' ), { origin: origin, 'initial value': 50 } );
 
 		f.init();
 
@@ -54,26 +59,32 @@ QUnit.module( 'ext.srf.filtered DistanceFilter', () => {
 
 	QUnit.test( 'haversine distance: nearest of multiple positions is used', ( assert ) => {
 		// one position far away (~111 km), one at the origin -> nearest (0 km) should win
-		const data = {
-			row1: { data: { foo: { positions: [ { lat: 0, lng: 1 }, { lat: 0, lng: 0 } ] } } }
-		};
-		const controller = new Controller( $(), data, {} );
-		const target = $( '<div>' );
-		const f = new DistanceFilter( 'foo', target, 'fooPR', controller, { origin: origin, 'initial value': 1 } );
+		const data = { row1: rowWithPositions( { lat: 0, lng: 1 }, { lat: 0, lng: 0 } ) };
+		const f = newFilter( data, $( '<div>' ), { origin: origin, 'initial value': 1 } );
 
 		f.init();
 
 		assert.strictEqual( f.isVisible( 'row1' ), true, 'row is visible because its nearest position is at the origin' );
 	} );
 
+	QUnit.test( 'text-property positions are read from the per-row fallback data', ( assert ) => {
+		// Coordinates stored in a text property are parsed server-side and provided per
+		// row under d[filterId].positions instead of the shared per-printout values.
+		const data = { row1: { p: [ null ], d: { foo: { positions: [ { lat: 0, lng: 1 } ] } } } };
+		const f = newFilter( data, $( '<div>' ), { origin: origin, 'initial value': 50 } );
+
+		f.init();
+
+		assert.strictEqual( f.isVisible( 'row1' ), false, 'a row ~111 km away (from fallback positions) is filtered out at 50 km' );
+	} );
+
 	QUnit.test( 'rows without data for the filtered property do not throw and are treated as infinitely far', ( assert ) => {
 		const data = {
-			row1: { data: { foo: { positions: [ { lat: 0, lng: 1 } ] } } },
-			row2: { data: {} }
+			row1: rowWithPositions( { lat: 0, lng: 1 } ),
+			row2: {}
 		};
-		const controller = new Controller( $(), data, {} );
 		const target = $( '<div>' );
-		const f = new DistanceFilter( 'foo', target, 'fooPR', controller, { origin: origin, 'initial value': 1000000 } );
+		const f = newFilter( data, target, { origin: origin, 'initial value': 1000000 } );
 
 		let threw = false;
 		try {
