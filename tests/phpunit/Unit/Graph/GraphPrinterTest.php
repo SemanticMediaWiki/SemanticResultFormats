@@ -52,6 +52,10 @@ class GraphPrinterTest extends TestCase {
 	}
 
 	/**
+	 * @param string $typeId
+	 * @param string $label
+	 * @param bool $isChain
+	 * @param int|null $mode
 	 * @param string|null $explicitLabel Overrides what getLabel() returns, independent of
 	 *   $label/getCanonicalLabel() - used to simulate a suppressed "?Property=" printout
 	 *   label, which SMW represents as an empty string from getLabel() while
