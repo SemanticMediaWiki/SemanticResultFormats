@@ -60,12 +60,26 @@ class GraphNodeTest extends \PHPUnit\Framework\TestCase {
 		$this->assertNull( $fields[0]['valueLink'] );
 	}
 
-	public function testAddFieldUsesPageAsNameWhenNameIsEmpty() {
+	public function testAddFieldUsesPageAsNameWhenNameIsMissing() {
+		$node = new GraphNode( 'Team:Alpha' );
+		$node->addField( null, 'some value', '_txt', 'MyPage', null );
+
+		$fields = $node->getFields();
+		$this->assertSame( 'MyPage', $fields[0]['name'] );
+	}
+
+	/**
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1131
+	 *
+	 * An explicitly empty name (e.g. from a suppressed "?Property=" printout label) must be
+	 * kept as-is, not replaced by the property page - unlike a genuinely missing (null) name.
+	 */
+	public function testAddFieldKeepsNameEmptyWhenExplicitlySuppressed() {
 		$node = new GraphNode( 'Team:Alpha' );
 		$node->addField( '', 'some value', '_txt', 'MyPage', null );
 
 		$fields = $node->getFields();
-		$this->assertSame( 'MyPage', $fields[0]['name'] );
+		$this->assertSame( '', $fields[0]['name'] );
 	}
 
 	public function testAddFieldStoresValueLink() {

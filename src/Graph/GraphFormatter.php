@@ -133,8 +133,11 @@ class GraphFormatter {
 								} else {
 									$valueLink = $field['value'];
 								}
+								// An explicitly suppressed label (e.g. "?Property=") must render as a
+								// bare value, without a trailing "name: " prefix (see issue #1131).
+								$namePrefix = $field['name'] !== '' ? $field['name'] . ': ' : '';
 								return '<tr><td align="right" href="[[Property:' . $field['page'] . ']]">'
-									. $field['name'] . ': </td>'
+									. $namePrefix . '</td>'
 									. '<td  align="' . $alignment . '"'
 										. (
 											$field['type'] === '_wpg'

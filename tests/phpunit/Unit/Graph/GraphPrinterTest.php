@@ -51,14 +51,30 @@ class GraphPrinterTest extends TestCase {
 		return $printer;
 	}
 
-	private function makePrintRequest( string $typeId, string $label = 'TestProp', bool $isChain = false, ?int $mode = null ): PrintRequest {
+	/**
+	 * @param string $typeId
+	 * @param string $label
+	 * @param bool $isChain
+	 * @param int|null $mode
+	 * @param string|null $explicitLabel Overrides what getLabel() returns, independent of
+	 *   $label/getCanonicalLabel() - used to simulate a suppressed "?Property=" printout
+	 *   label, which SMW represents as an empty string from getLabel() while
+	 *   getCanonicalLabel() keeps returning the property's real name.
+	 */
+	private function makePrintRequest(
+		string $typeId,
+		string $label = 'TestProp',
+		bool $isChain = false,
+		?int $mode = null,
+		?string $explicitLabel = null
+	): PrintRequest {
 		$request = $this->getMockBuilder( PrintRequest::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$request->method( 'getTypeID' )->willReturn( $typeId );
 		$request->method( 'getCanonicalLabel' )->willReturn( $label );
-		$request->method( 'getLabel' )->willReturn( $label );
+		$request->method( 'getLabel' )->willReturn( $explicitLabel ?? $label );
 		$request->method( 'isMode' )->willReturnCallback(
 			static function ( $queriedMode ) use ( $isChain, $mode ) {
 				if ( $mode !== null ) {
@@ -535,6 +551,34 @@ class GraphPrinterTest extends TestCase {
 	}
 
 	/**
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1131
+	 *
+	 * An explicitly suppressed printout label (e.g. "?Property=") must stay empty rather
+	 * than falling back to the canonical property name. getLabel() returns '' in that case
+	 * while getCanonicalLabel() keeps returning the real property name.
+	 */
+	public function testProcessResultRowKeepsFieldNameEmptyWhenLabelIsExplicitlySuppressed(): void {
+		$printer = $this->makePrinter( [ 'graphfields' => true, 'graphfieldspages' => false ] );
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page1' ) ] ),
+			$this->makeResultArray(
+				$this->makePrintRequest( '_txt', 'ExampleProperty', false, null, '' ),
+				[ $this->makeTextValue( 'ExampleValue' ) ]
+			),
+		];
+
+		$nodes = $this->processRow( $printer, $row );
+
+		$this->assertCount( 1, $nodes );
+		$fields = array_map(
+			static fn ( array $f ) => [ 'name' => $f['name'], 'value' => $f['value'] ],
+			$nodes[0]->getFields()
+		);
+		$this->assertSame( [ [ 'name' => '', 'value' => 'ExampleValue' ] ], $fields );
+	}
+
+	/**
 	 * Covers the graphfields=false / graphfieldspages=true combination (reachable via
 	 * `|graphfieldspages=yes` alone): $includeAsField is always false because it requires
 	 * $showGraphFields, so a second page-type printout still becomes a parent via the
@@ -698,6 +742,31 @@ class GraphPrinterTest extends TestCase {
 		$printer = $this->makePrinter( [ 'graphlink' => true ] );
 		$dot = $this->buildDot( $printer, [ $this->singleNodeRow() ] );
 		$this->assertStringContainsString( 'URL = "[[Place1]]"', $dot );
+	}
+
+	/**
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1131
+	 *
+	 * A field whose printout label is explicitly suppressed (e.g. "?ExampleProperty=")
+	 * must render as a bare value in the node's HTML field table, with neither the
+	 * canonical property name nor a leftover "name: " / ": " prefix in the DOT source.
+	 */
+	public function testSuppressedFieldLabelOmitsNameAndColonInDotSource(): void {
+		$printer = $this->makePrinter( [ 'graphfields' => true, 'graphfieldspages' => false ] );
+
+		$row = [
+			$this->makeResultArray( $this->makePrintRequest( '_wpg' ), [ $this->makePageValue( 'Page1' ) ] ),
+			$this->makeResultArray(
+				$this->makePrintRequest( '_txt', 'ExampleProperty', false, null, '' ),
+				[ $this->makeTextValue( 'ExampleValue' ) ]
+			),
+		];
+
+		$dot = $this->buildDot( $printer, [ $row ] );
+
+		$this->assertStringContainsString( '<td align="right" href="[[Property:ExampleProperty]]"></td>', $dot );
+		$this->assertStringNotContainsString( 'ExampleProperty: ', $dot );
+		$this->assertStringNotContainsString( '>: </td>', $dot );
 	}
 
 	/**
