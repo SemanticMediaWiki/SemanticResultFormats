@@ -14,7 +14,11 @@ use ParserOutput;
 class Hooks {
 
 	public static function onOutputPageParserOutput( OutputPage &$outputPage, ParserOutput $parserOutput ) {
-		$outputPage->setProperty( 'srf-filtered-config', $parserOutput->getExtensionData( 'srf-filtered-config' ) );
+		$config = $parserOutput->getExtensionData( 'srf-filtered-config' );
+		if ( $config !== null ) {
+			$outputPage->setProperty( 'srf-filtered-config', $config );
+			$outputPage->addJsConfigVars( 'srfFilteredConfig', $config );
+		}
 	}
 
 	public static function onMakeGlobalVariablesScript( &$vars, OutputPage $output ) {
