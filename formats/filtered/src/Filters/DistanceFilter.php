@@ -90,32 +90,28 @@ class DistanceFilter extends Filter {
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $markerPositionPropertyName &&
 				( $value instanceof \SMWDIGeoCoord || $value instanceof \SMWDIBlob )
 			) {
-				// contains plain text
-				$values = [];
-
 				if ( $value instanceof \SMWDIGeoCoord ) {
-
-					while ( $value instanceof \SMWDIGeoCoord ) {
-						$values[] = [ 'lat' => $value->getLatitude(), 'lng' => $value->getLongitude() ];
-						$value = $field->getNextDataItem();
-					}
-
-				} else {
-
-					$coordParser = new LatLongParser();
-					while ( $value instanceof \SMWDataItem ) {
-						try {
-							$latlng = $coordParser->parse( $value->getSerialization() );
-							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
-						} catch ( \Exception $exception ) {
-							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
-						}
-						$value = $field->getNextDataItem();
-					}
-
+					// Geographic coordinates are read client-side from the shared per-printout
+					// values (p[printrequestId].v); no per-row duplication is emitted.
+					return null;
 				}
 
-				return [ 'positions' => $values, ];
+				// Coordinates stored in a text property need server-side parsing, so they
+				// are still emitted per row.
+				$values = [];
+				$coordParser = new LatLongParser();
+
+				while ( $value instanceof \SMWDataItem ) {
+					try {
+						$latlng = $coordParser->parse( $value->getSerialization() );
+						$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
+					} catch ( \Exception $exception ) {
+						$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
+					}
+					$value = $field->getNextDataItem();
+				}
+
+				return [ 'positions' => $values ];
 			}
 		}
 

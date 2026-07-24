@@ -402,7 +402,7 @@ class Filtered extends ResultPrinter {
 				}
 			}
 
-			$printrequests[$this->uniqid( $printRequest->getHash() )] = $prConfig;
+			$printrequests[] = $prConfig;
 		}
 
 		$filterHtml .= '<div class="filtered-filter-spinner" style="display: none;"><div class="smw-overlay-spinner"></div></div>';

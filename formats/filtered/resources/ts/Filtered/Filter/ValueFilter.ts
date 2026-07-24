@@ -1,4 +1,5 @@
 import { Filter } from "./Filter";
+import { printoutValues, printoutFormattedValues, printoutSortValues } from "../../types";
 import { IdTextPair } from "select2";
 
 declare let mw: any;
@@ -44,19 +45,25 @@ export class ValueFilter extends Filter {
 			let sortedEntries: any[] = [];
 			for ( let id in data ) {
 
-				let printoutValues: any = data[ id ][ 'printouts' ][ this.printrequestId ][ 'values' ];
-				let printoutFormattedValues = data[ id ][ 'printouts' ][ this.printrequestId ][ 'formatted values' ];
-				let printoutSortValues: any = data[ id ][ 'printouts' ][ this.printrequestId ][ 'sort values' ];
+				let slot = data[ id ].p[ this.printrequestId ];
 
-				for ( let i in printoutValues ) {
-					let printoutFormattedValue = printoutFormattedValues[ i ];
+				if ( !slot ) {
+					continue;
+				}
 
-					if ( printoutFormattedValue.indexOf( '<a' ) > -1 ) {
-						printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec( printoutFormattedValue )[ 1 ];
+				let values: any = printoutValues( slot );
+				let formattedValues: any = printoutFormattedValues( slot );
+				let sortValues: any = printoutSortValues( slot );
+
+				for ( let i in values ) {
+					let formattedValue = formattedValues[ i ];
+
+					if ( formattedValue.indexOf( '<a' ) > -1 ) {
+						formattedValue = /<a.*>(.*?)<\/a>/.exec( formattedValue )[ 1 ];
 					}
 
-					distinctValues[ printoutValues[ i ] ] = printoutFormattedValue;
-					distinctSortValues[ printoutValues[ i ] ] = printoutSortValues[ i ];
+					distinctValues[ values[ i ] ] = formattedValue;
+					distinctSortValues[ values[ i ] ] = sortValues[ i ];
 				}
 
 			}
@@ -190,8 +197,8 @@ export class ValueFilter extends Filter {
 		let labelText = mw.message( 'srf-filtered-value-filter-' + type ).text();
 
 		let controlText =
-			`<label for="filtered-value-${type}-${this.printrequestId}">` +
-			`<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-${type}" id="filtered-value-${type}-${this.printrequestId}" value="${type}" ${checkedAttr}>` +
+			`<label for="filtered-value-${type}-${this.filterId}">` +
+			`<input type="radio" name="filtered-value-${this.filterId}"  class="filtered-value-${type}" id="filtered-value-${type}-${this.filterId}" value="${type}" ${checkedAttr}>` +
 			`${labelText}</label>`;
 
 		return $( controlText );
@@ -203,7 +210,7 @@ export class ValueFilter extends Filter {
 			return true;
 		}
 
-		let values: string[] = this.controller.getData()[ rowId ].printouts[ this.printrequestId ].values;
+		let values: string[] = printoutValues( this.controller.getData()[ rowId ].p[ this.printrequestId ] );
 
 		if ( values.length === 0 ) {
 			return super.isVisible( rowId );

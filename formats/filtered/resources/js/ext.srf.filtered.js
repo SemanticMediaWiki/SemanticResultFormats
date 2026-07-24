@@ -29911,21 +29911,35 @@ class DistanceFilter extends Filter_1.Filter {
         return this;
     }
     updateDistances(origin) {
-        let values = this.controller.getData();
+        let rows = this.controller.getData();
         let max = 1;
-        let prId = this.printrequestId;
-        for (let rowId in values) {
-            if (values[rowId].data.hasOwnProperty(this.filterId)) {
-                let distances = values[rowId].data[this.filterId].positions.map((pos) => this.distance(origin, pos));
+        for (let rowId in rows) {
+            let row = rows[rowId];
+            if (row.d === undefined) {
+                row.d = {};
+            }
+            let positions = this.getPositions(row);
+            if (positions !== undefined && positions.length > 0) {
+                let distances = positions.map((pos) => this.distance(origin, pos));
                 let dist = Math.min(...distances);
-                values[rowId].data[this.filterId].distance = dist;
+                row.d[this.filterId] = { distance: dist };
                 max = Math.max(max, dist);
             }
             else {
-                values[rowId].data[this.filterId] = { distance: Infinity };
+                row.d[this.filterId] = { distance: Infinity };
             }
         }
         return max;
+    }
+    // Geographic coordinates are read from the shared per-printout values
+    // (p[printrequestId].v). Coordinates stored in a text property are parsed
+    // server-side and provided per row (d[filterId].positions) instead.
+    getPositions(row) {
+        if (row.d && row.d[this.filterId] && row.d[this.filterId].positions) {
+            return row.d[this.filterId].positions;
+        }
+        let slot = row.p ? row.p[this.printrequestId] : undefined;
+        return slot ? slot.v : undefined;
     }
     onFilterUpdated(eventObject) {
         this.filterValue = eventObject.data.ui.value;
@@ -29942,8 +29956,8 @@ class DistanceFilter extends Filter_1.Filter {
         return this.earthRadiusValue * 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
     }
     isVisible(rowId) {
-        let rowdata = this.controller.getData()[rowId].data;
-        if (rowdata.hasOwnProperty(this.filterId)) {
+        let rowdata = this.controller.getData()[rowId].d;
+        if (rowdata && rowdata.hasOwnProperty(this.filterId)) {
             return rowdata[this.filterId].distance <= this.filterValue;
         }
         return super.isVisible(rowId);
@@ -30245,8 +30259,9 @@ class NumberFilter extends Filter_1.Filter {
         let min = Infinity;
         let max = -Infinity;
         for (let rowId in rows) {
-            if (rows[rowId].data.hasOwnProperty(this.filterId)) {
-                let values = rows[rowId].data[this.filterId].values;
+            let rowData = rows[rowId].d;
+            if (rowData && rowData.hasOwnProperty(this.filterId)) {
+                let values = rowData[this.filterId].values;
                 min = Math.min(min, ...values);
                 max = Math.max(max, ...values);
             }
@@ -30257,8 +30272,8 @@ class NumberFilter extends Filter_1.Filter {
         let valueArray = [];
         let rows = this.controller.getData();
         for (let rowId in rows) {
-            let cells = rows[rowId].data;
-            if (cells.hasOwnProperty(this.filterId)) {
+            let cells = rows[rowId].d;
+            if (cells && cells.hasOwnProperty(this.filterId)) {
                 let values = cells[this.filterId].values;
                 for (let valueId in values) {
                     let value = Number(values[valueId]);
@@ -30289,8 +30304,8 @@ class NumberFilter extends Filter_1.Filter {
         this.controller.onFilterUpdated(this.getId());
     }
     isVisible(rowId) {
-        let rowdata = this.controller.getData()[rowId].data;
-        if (rowdata.hasOwnProperty(this.filterId) && rowdata[this.filterId].values.length > 0) {
+        let rowdata = this.controller.getData()[rowId].d;
+        if (rowdata && rowdata.hasOwnProperty(this.filterId) && rowdata[this.filterId].values.length > 0) {
             for (let value of rowdata[this.filterId].values) {
                 if (value >= this.filterValueLower && value <= this.filterValueUpper) {
                     return true;
@@ -30308,6 +30323,7 @@ exports.NumberFilter = NumberFilter;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValueFilter = void 0;
 const Filter_1 = require("./Filter");
+const types_1 = require("../../types");
 class ValueFilter extends Filter_1.Filter {
     constructor() {
         super(...arguments);
@@ -30341,16 +30357,20 @@ class ValueFilter extends Filter_1.Filter {
             let data = this.controller.getData();
             let sortedEntries = [];
             for (let id in data) {
-                let printoutValues = data[id]['printouts'][this.printrequestId]['values'];
-                let printoutFormattedValues = data[id]['printouts'][this.printrequestId]['formatted values'];
-                let printoutSortValues = data[id]['printouts'][this.printrequestId]['sort values'];
-                for (let i in printoutValues) {
-                    let printoutFormattedValue = printoutFormattedValues[i];
-                    if (printoutFormattedValue.indexOf('<a') > -1) {
-                        printoutFormattedValue = /<a.*>(.*?)<\/a>/.exec(printoutFormattedValue)[1];
+                let slot = data[id].p[this.printrequestId];
+                if (!slot) {
+                    continue;
+                }
+                let values = (0, types_1.printoutValues)(slot);
+                let formattedValues = (0, types_1.printoutFormattedValues)(slot);
+                let sortValues = (0, types_1.printoutSortValues)(slot);
+                for (let i in values) {
+                    let formattedValue = formattedValues[i];
+                    if (formattedValue.indexOf('<a') > -1) {
+                        formattedValue = /<a.*>(.*?)<\/a>/.exec(formattedValue)[1];
                     }
-                    distinctValues[printoutValues[i]] = printoutFormattedValue;
-                    distinctSortValues[printoutValues[i]] = printoutSortValues[i];
+                    distinctValues[values[i]] = formattedValue;
+                    distinctSortValues[values[i]] = sortValues[i];
                 }
             }
             for (let printoutValue in distinctSortValues) {
@@ -30442,8 +30462,8 @@ class ValueFilter extends Filter_1.Filter {
     getRadioControl(type, isChecked = false) {
         let checkedAttr = isChecked ? 'checked' : '';
         let labelText = mw.message('srf-filtered-value-filter-' + type).text();
-        let controlText = `<label for="filtered-value-${type}-${this.printrequestId}">` +
-            `<input type="radio" name="filtered-value-${this.printrequestId}"  class="filtered-value-${type}" id="filtered-value-${type}-${this.printrequestId}" value="${type}" ${checkedAttr}>` +
+        let controlText = `<label for="filtered-value-${type}-${this.filterId}">` +
+            `<input type="radio" name="filtered-value-${this.filterId}"  class="filtered-value-${type}" id="filtered-value-${type}-${this.filterId}" value="${type}" ${checkedAttr}>` +
             `${labelText}</label>`;
         return $(controlText);
     }
@@ -30451,7 +30471,7 @@ class ValueFilter extends Filter_1.Filter {
         if (this.visibleValues.length === 0) {
             return true;
         }
-        let values = this.controller.getData()[rowId].printouts[this.printrequestId].values;
+        let values = (0, types_1.printoutValues)(this.controller.getData()[rowId].p[this.printrequestId]);
         if (values.length === 0) {
             return super.isVisible(rowId);
         }
@@ -30485,7 +30505,7 @@ class ValueFilter extends Filter_1.Filter {
 }
 exports.ValueFilter = ValueFilter;
 
-},{"./Filter":15}],18:[function(require,module,exports){
+},{"../../types":26,"./Filter":15}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Filtered = void 0;
@@ -30706,8 +30726,8 @@ class CalendarView extends View_1.View {
     showRows(rowIds) {
         let events = [];
         rowIds.forEach((rowId) => {
-            let rowData = this.controller.getData()[rowId].data[this.id];
-            if (rowData.hasOwnProperty('start')) {
+            let rowData = (this.controller.getData()[rowId].d || {})[this.id];
+            if (rowData && rowData.hasOwnProperty('start')) {
                 events.push(this.getEvent(rowId, rowData));
             }
         });
@@ -30749,11 +30769,16 @@ exports.ListView = ListView;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MapView = void 0;
+exports.buildBaseLayers = buildBaseLayers;
+exports.buildLayerControl = buildLayerControl;
+exports.buildGeoJsonLayer = buildGeoJsonLayer;
+exports.escapeHtml = escapeHtml;
 /// <reference types="leaflet" />
 const L = require("leaflet");
 require("leaflet.markercluster");
 require("leaflet-providers");
 const View_1 = require("./View");
+const types_1 = require("../../types");
 class MapView extends View_1.View {
     constructor() {
         super(...arguments);
@@ -30786,8 +30811,8 @@ class MapView extends View_1.View {
             clusterOptions = this.getOptions(['maxClusterRadius', 'zoomToBoundsOnClick'], clusterOptions);
             let markerClusterGroup = L.markerClusterGroup(clusterOptions);
             for (let rowId in data) {
-                if (data[rowId]['data'].hasOwnProperty(this.id)) {
-                    let positions = data[rowId]['data'][this.id]['positions'];
+                let positions = this.getPositions(data[rowId]);
+                if (positions !== undefined && positions.length > 0) {
                     markers[rowId] = [];
                     for (let pos of positions) {
                         bounds = (bounds === undefined) ? new L.LatLngBounds(pos, pos) : bounds.extend(pos);
@@ -30802,6 +30827,19 @@ class MapView extends View_1.View {
             this.bounds = (bounds === undefined) ? new L.LatLngBounds([-180, -90], [180, 90]) : bounds;
         });
         return this.leafletPromise;
+    }
+    // Geographic coordinates are read from the shared per-printout values
+    // (p[position].v). Coordinates stored in a text property are parsed
+    // server-side and provided per row (d[viewId].positions) instead.
+    getPositions(row) {
+        if (row.d && row.d[this.id] && row.d[this.id].positions) {
+            return row.d[this.id].positions;
+        }
+        if (this.options.hasOwnProperty('position')) {
+            let slot = row.p[this.options['position']];
+            return slot ? slot.v : undefined;
+        }
+        return undefined;
     }
     /**
      * Detects if user uses dark theme
@@ -30824,7 +30862,7 @@ class MapView extends View_1.View {
             this.buildIconList();
         }
         if (this.options.hasOwnProperty('marker icon property')) {
-            let vals = row['printouts'][this.options['marker icon property']]['values'];
+            let vals = (0, types_1.printoutValues)(row.p[this.options['marker icon property']]);
             if (vals.length > 0 && this.icon.hasOwnProperty(vals[0])) {
                 return this.icon[vals[0]];
             }
@@ -30864,16 +30902,17 @@ class MapView extends View_1.View {
         let title = undefined;
         let popup = [];
         // TODO: Use <div> instead of <b> and do CSS styling
-        for (let prId in row['printouts']) {
+        for (let prId in row.p) {
             let printrequest = (this.controller.getPrintRequests())[prId];
             if (!printrequest.hasOwnProperty('hide') || printrequest.hide === false) {
-                let printouts = row['printouts'][prId];
+                let slot = row.p[prId];
+                let formatted = (0, types_1.printoutFormattedValues)(slot);
                 if (title === undefined) {
-                    title = printouts['values'].join(', ');
-                    popup.push('<b>' + printouts['formatted values'].join(', ') + '</b>');
+                    title = (0, types_1.printoutValues)(slot).join(', ');
+                    popup.push('<b>' + formatted.join(', ') + '</b>');
                 }
                 else {
-                    popup.push((printouts.label ? '<b>' + printouts.label + ':</b> ' : '') + printouts['formatted values'].join(', '));
+                    popup.push((slot && slot.label ? '<b>' + slot.label + ':</b> ' : '') + formatted.join(', '));
                 }
             }
         }
@@ -30896,20 +30935,95 @@ class MapView extends View_1.View {
             // TODO: Limit zoom values to map max zoom
             that.map = L.map(that.getTargetElement().get(0), mapOptions);
             that.map.addLayer(that.markerClusterGroup);
-            let mapProvider = null;
-            if (this.options.hasOwnProperty('map provider')) {
-                mapProvider = this.options['map provider'];
+            let geoJsonLayer = that.addGeoJsonOverlay(that.map);
+            let overlays = {};
+            if (geoJsonLayer !== null) {
+                overlays[escapeHtml(that.options['geojson source'] || '')] = geoJsonLayer;
             }
-            if (this.isUserUsesDarkMode() && this.options['map provider dark']) {
-                mapProvider = this.options['map provider dark'];
-            }
-            if (mapProvider) {
-                L.tileLayer.provider(mapProvider).addTo(that.map);
-            }
+            that.addBaseLayers(that.map, overlays);
             if (!mapOptions.hasOwnProperty('zoom')) {
-                that.map.fitBounds(that.bounds);
+                that.map.fitBounds(that.getFitBounds(geoJsonLayer));
             }
         });
+    }
+    // Builds the GeoJSON overlay from the 'geojson' option (if present) and adds it to the map as a
+    // standalone layer — deliberately not part of the marker cluster group — so that the marker
+    // filtering (showRows/hideRows, which add/remove from the cluster group) cannot touch it. It is
+    // added after the cluster group so its paths render above the base tiles. Returns the layer, or
+    // null when no GeoJSON is configured.
+    addGeoJsonOverlay(map) {
+        if (!this.options.hasOwnProperty('geojson') || !this.options['geojson']) {
+            return null;
+        }
+        try {
+            let layer = buildGeoJsonLayer(this.options['geojson'], this.icon['default']);
+            layer.addTo(map);
+            return layer;
+        }
+        catch (error) {
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn('srf.filtered.map: skipping invalid GeoJSON overlay', error);
+            }
+            return null;
+        }
+    }
+    // The map fits the marker bounds; when a GeoJSON overlay is present, its bounds are unioned in
+    // so the overlay is visible on load. When there are no markers at all, this.bounds is the
+    // world-spanning fallback, so the overlay bounds are used on their own instead.
+    getFitBounds(geoJsonLayer) {
+        if (geoJsonLayer === null) {
+            return this.bounds;
+        }
+        let geoBounds = geoJsonLayer.getBounds();
+        if (!geoBounds.isValid()) {
+            return this.bounds;
+        }
+        if (this.hasMarkers()) {
+            return L.latLngBounds(this.bounds.getSouthWest(), this.bounds.getNorthEast()).extend(geoBounds);
+        }
+        return geoBounds;
+    }
+    hasMarkers() {
+        return Object.keys(this.markers).length > 0;
+    }
+    // Adds the map's base tile layer(s) and registers them, together with any overlays, into a
+    // single layer control. When the 'layers' option is set, its names become the base layers
+    // (first initially active); otherwise a single provider layer is used, honouring the dark-mode
+    // provider override. The control is shown when there is more than one base to switch between, or
+    // at least one overlay to toggle.
+    addBaseLayers(map, overlays) {
+        let bases = this.buildBases();
+        if (bases.length > 0) {
+            bases[0].layer.addTo(map);
+        }
+        else if (this.options.hasOwnProperty('layers') && this.options['layers'].length > 0) {
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn('srf.filtered.map: no configured base layer could be built');
+            }
+        }
+        let control = buildLayerControl(bases, overlays);
+        if (control !== null) {
+            control.addTo(map);
+        }
+    }
+    buildBases() {
+        if (this.options.hasOwnProperty('layers') && this.options['layers'].length > 0) {
+            return buildBaseLayers(this.options['layers'], this.options['layer definitions'] || {});
+        }
+        return this.buildProviderBase();
+    }
+    buildProviderBase() {
+        let mapProvider = null;
+        if (this.options.hasOwnProperty('map provider')) {
+            mapProvider = this.options['map provider'];
+        }
+        if (this.isUserUsesDarkMode() && this.options['map provider dark']) {
+            mapProvider = this.options['map provider dark'];
+        }
+        if (!mapProvider) {
+            return [];
+        }
+        return [{ label: escapeHtml(mapProvider), layer: L.tileLayer.provider(mapProvider) }];
     }
     getOptions(keys, defaults = {}) {
         for (let key of keys) {
@@ -30954,8 +31068,119 @@ class MapView extends View_1.View {
     }
 }
 exports.MapView = MapView;
+// Builds the map's base layers in order. Names with a custom definition become tile/wms layers; the
+// rest are treated as leaflet-providers provider strings. Names that resolve to neither are skipped
+// so one bad name cannot break the map. The result is an ordered array rather than an object keyed
+// by name so that purely-numeric names (e.g. historic layers "1890"/"1920") keep their given order —
+// object enumeration would surface integer-like keys first in ascending order — which matters because
+// the first base layer is the initially-active one and the array sets the switcher order.
+function buildBaseLayers(names, definitions) {
+    let bases = [];
+    for (let name of names) {
+        let layer = buildBaseLayer(name, definitions);
+        if (layer !== null) {
+            bases.push({ label: escapeHtml(name), layer: layer });
+        }
+    }
+    return bases;
+}
+// Builds the map's layer control from its base layers and overlays, or returns null when a control
+// would serve no purpose: it is shown when there is more than one base layer to switch between, or
+// at least one overlay to toggle. The bases are registered in array order; the overlays are keyed by
+// an already-HTML-escaped label.
+function buildLayerControl(bases, overlays) {
+    if (bases.length > 1 || Object.keys(overlays).length > 0) {
+        let control = L.control.layers();
+        for (let base of bases) {
+            control.addBaseLayer(base.layer, base.label);
+        }
+        for (let label of Object.keys(overlays)) {
+            control.addOverlay(overlays[label], label);
+        }
+        return control;
+    }
+    return null;
+}
+// Builds a Leaflet GeoJSON overlay from a parsed GeoJSON object, honouring the mapbox
+// simplestyle-spec properties (stroke/fill on paths) and rendering title/description feature
+// properties as popups. Ported minimally from the Maps extension's resources/leaflet/GeoJson.js;
+// point features use Leaflet's default marker (no marker-colour icon machinery).
+function buildGeoJsonLayer(geojson, markerIcon) {
+    return L.geoJSON(geojson, {
+        // The bundled Leaflet cannot auto-detect its default icon path, so point features get the
+        // same explicitly-pathed icon as the query-result markers.
+        pointToLayer: (feature, latlng) => L.marker(latlng, markerIcon ? { icon: markerIcon } : {}),
+        style: (feature) => simpleStyleToPathOptions(feature && feature.properties),
+        onEachFeature: (feature, layer) => {
+            let popup = popupContentFromProperties(feature && feature.properties);
+            if (popup !== '') {
+                layer.bindPopup(popup);
+            }
+        }
+    });
+}
+// https://github.com/mapbox/simplestyle-spec/tree/master/1.1.0 -> https://leafletjs.com/reference.html#path
+const simpleStyleToLeaflet = {
+    'stroke': 'color',
+    'stroke-width': 'weight',
+    'stroke-opacity': 'opacity',
+    'fill': 'fillColor',
+    'fill-opacity': 'fillOpacity'
+};
+function simpleStyleToPathOptions(properties) {
+    let options = {};
+    if (!properties) {
+        return options;
+    }
+    for (let key of Object.keys(simpleStyleToLeaflet)) {
+        if (properties[key] !== undefined && properties[key] !== null) {
+            options[simpleStyleToLeaflet[key]] = properties[key];
+        }
+    }
+    return options;
+}
+function popupContentFromProperties(properties) {
+    if (!properties || (!properties.title && !properties.description)) {
+        return '';
+    }
+    if (!properties.description) {
+        return escapeHtml(properties.title);
+    }
+    if (!properties.title) {
+        return escapeHtml(properties.description);
+    }
+    return '<strong>' + escapeHtml(properties.title) + '</strong><br>' + escapeHtml(properties.description);
+}
+function buildBaseLayer(name, definitions) {
+    if (Object.prototype.hasOwnProperty.call(definitions, name)) {
+        let definition = definitions[name];
+        return definition.wms ?
+            L.tileLayer.wms(definition.url, definition.options) :
+            L.tileLayer(definition.url, definition.options);
+    }
+    try {
+        return L.tileLayer.provider(name);
+    }
+    catch (error) {
+        if (typeof console !== 'undefined' && console.warn) {
+            console.warn('srf.filtered.map: skipping unknown base layer "' + name + '"', error);
+        }
+        return null;
+    }
+}
+// Mirrors mw.html.escape; implemented locally because the node-qunit test environment has mw but
+// not the mw.html.escape helper. Non-string input is coerced with String() the way assigning to a
+// DOM element's innerText would, giving Maps-parity for numeric GeoJSON feature titles.
+function escapeHtml(text) {
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
 
-},{"./View":23,"leaflet":9,"leaflet-providers":7,"leaflet.markercluster":8}],22:[function(require,module,exports){
+},{"../../types":26,"./View":23,"leaflet":9,"leaflet-providers":7,"leaflet.markercluster":8}],22:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TableView = void 0;
@@ -31104,6 +31329,22 @@ mw.hook("smw.deferred.query").add((container) => {
     initItems(cfg, container);
 });
 
-},{"./Filtered/Filtered":18}]},{},[25])
+},{"./Filtered/Filtered":18}],26:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.printoutValues = printoutValues;
+exports.printoutFormattedValues = printoutFormattedValues;
+exports.printoutSortValues = printoutSortValues;
+function printoutValues(slot) {
+    return slot ? slot.v : [];
+}
+function printoutFormattedValues(slot) {
+    return slot ? (slot.f !== undefined ? slot.f : slot.v) : [];
+}
+function printoutSortValues(slot) {
+    return slot ? (slot.s !== undefined ? slot.s : slot.v) : [];
+}
+
+},{}]},{},[25])
 
 //# sourceMappingURL=ext.srf.filtered.js.map

@@ -45,6 +45,26 @@ QUnit.module( 'ext.srf.filtered ValueFilter', () => {
 		}, 100 );
 	} );
 
+	QUnit.test( 'builds filter options from the per-row printouts, ordered by sort value', ( assert ) => {
+		// The filter operates on printout index 1; option order follows the sort
+		// values ('1' < '2' < '3'), not the row order the values are encountered in.
+		const data = {
+			row1: { p: [ null, { v: [ 'Beta' ], s: [ '2' ] } ] },
+			row2: { p: [ null, { v: [ 'Alpha' ], s: [ '1' ] } ] },
+			row3: { p: [ null, { v: [ 'Gamma' ], s: [ '3' ] } ] }
+		};
+		const controller = new Controller( $(), data, [ {}, {} ] );
+		const f = new ValueFilter( 'foo', $( '<div>' ), 1, controller, { label: 'L' } );
+
+		f.init();
+
+		assert.deepEqual(
+			f.values.map( ( entry ) => entry.printoutValue ),
+			[ 'Alpha', 'Beta', 'Gamma' ],
+			'options are ordered by sort value'
+		);
+	} );
+
 	QUnit.test( 'update on and/or switch', ( assert ) => {
 		const controller = new Controller( $(), {}, {} );
 		controller.onFilterUpdated = () => {

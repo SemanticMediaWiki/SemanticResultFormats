@@ -150,9 +150,9 @@ export class CalendarView extends View {
 		let events: any[] = [];
 
 		rowIds.forEach((rowId: string) => {
-			let rowData = this.controller.getData()[rowId].data[this.id];
+			let rowData = (this.controller.getData()[rowId].d || {})[this.id];
 
-			if (rowData.hasOwnProperty('start')) {
+			if (rowData && rowData.hasOwnProperty('start')) {
 				events.push(this.getEvent(rowId, rowData));
 			}
 		});

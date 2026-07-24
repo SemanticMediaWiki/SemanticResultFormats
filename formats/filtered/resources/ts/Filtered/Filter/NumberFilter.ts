@@ -202,8 +202,10 @@ export class NumberFilter extends Filter {
 
 		for ( let rowId in rows ) {
 
-			if ( rows[ rowId ].data.hasOwnProperty( this.filterId ) ) {
-				let values: number[] = rows[ rowId ].data[ this.filterId ].values;
+			let rowData = rows[ rowId ].d;
+
+			if ( rowData && rowData.hasOwnProperty( this.filterId ) ) {
+				let values: number[] = rowData[ this.filterId ].values;
 				min = Math.min( min, ...values );
 				max = Math.max( max, ...values );
 			}
@@ -219,9 +221,9 @@ export class NumberFilter extends Filter {
 
 		for ( let rowId in rows ) {
 
-			let cells = rows[ rowId ].data;
+			let cells = rows[ rowId ].d;
 
-			if ( cells.hasOwnProperty( this.filterId ) ) {
+			if ( cells && cells.hasOwnProperty( this.filterId ) ) {
 
 				let values = cells[ this.filterId ].values;
 
@@ -269,9 +271,9 @@ export class NumberFilter extends Filter {
 	}
 
 	public isVisible( rowId: string ): boolean {
-		let rowdata = this.controller.getData()[ rowId ].data;
+		let rowdata = this.controller.getData()[ rowId ].d;
 
-		if ( rowdata.hasOwnProperty( this.filterId ) && rowdata[ this.filterId ].values.length > 0 ) {
+		if ( rowdata && rowdata.hasOwnProperty( this.filterId ) && rowdata[ this.filterId ].values.length > 0 ) {
 
 			for ( let value of rowdata[ this.filterId ].values ) {
 				if ( value >= this.filterValueLower && value <= this.filterValueUpper ) {
