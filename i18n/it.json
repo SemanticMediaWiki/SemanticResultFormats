@@ -123,6 +123,7 @@
 	"srf-filtered-selectorlabel-list": "Elenco",
 	"srf-filtered-selectorlabel-table": "Tabella",
 	"srf-filtered-selectorlabel-calendar": "Calendario",
+	"srf-filtered-map-geojson-requires-maps": "Il parametro <code>map view geojson</code> richiede l'installazione dell'estensione Maps.",
 	"srf-filtered-value-filter-and": "E",
 	"srf-filtered-value-filter-or": "O",
 	"srf-filtered-value-filter-placeholder": "Seleziona un valore del filtro",
