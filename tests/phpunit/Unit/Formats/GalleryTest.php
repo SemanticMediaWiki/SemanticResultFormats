@@ -2,7 +2,9 @@
 
 namespace SRF\Tests\Unit\Formats;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use SMW\Formatters\Infolink;
 use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
 
@@ -54,10 +56,12 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	private function createParamMock( string $name, $value ): object {
 		$param = $this->getMockBuilder( \stdClass::class )
 			->disableOriginalConstructor()
-			->addMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue', 'wasSetToDefault', 'getOriginalValue' ] )
 			->getMock();
 		$param->method( 'getName' )->willReturn( $name );
 		$param->method( 'getValue' )->willReturn( $value );
+		$param->method( 'wasSetToDefault' )->willReturn( true );
+		$param->method( 'getOriginalValue' )->willReturn( $value );
 		return $param;
 	}
 
@@ -249,6 +253,74 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		);
 		$this->assertIsArray( $result );
 		$this->assertArrayHasKey( 'isHTML', $result );
+	}
+
+	/**
+	 * Builds a further-results-capable QueryResult mock whose getQueryLink()
+	 * actually uses the caption it's given — unlike a fixed willReturn(), which
+	 * would let getSearchLabel()'s htmlspecialchars() call go untested.
+	 */
+	private function createFurtherResultsQueryResultMock(): object {
+		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$queryResult->method( 'getPrintRequests' )->willReturn( [] );
+		$queryResult->method( 'getNext' )->willReturn( false );
+		$queryResult->method( 'hasFurtherResults' )->willReturn( true );
+		$queryResult->method( 'getErrors' )->willReturn( [] );
+		$queryResult->method( 'getCount' )->willReturn( 1 );
+		$queryResult->method( 'getQueryLink' )->willReturnCallback(
+			static fn ( $caption ) => new Infolink( true, $caption, 'Special:Ask' )
+		);
+
+		return $queryResult;
+	}
+
+	/**
+	 * `searchlabel` is user-authored wikitext. When getResultText() cannot
+	 * parse it through an in-progress parse — as during an anonymous
+	 * ApiPurge, where $wgTitle is Special:Badtitle and no parse is running —
+	 * it must still come out sanitized, never as raw unparsed wikitext
+	 * spliced into HTML (which MediaWiki would then splice into the page
+	 * verbatim via the `isHTML` result flag).
+	 *
+	 * Swaps in a fresh Parser via redefineService(), following the pattern
+	 * TreeTest::replaceParser() already uses in this test suite: the shared
+	 * MediaWikiServices Parser is a singleton, so a previous test's parse()
+	 * call could otherwise leave it primed and mask the "no parse in
+	 * progress" condition this test needs to exercise.
+	 *
+	 * @covers \SRF\Gallery::getResultText
+	 */
+	public function testGetResultTextSanitizesSearchLabelWhenNoParseIsInProgress(): void {
+		$initialParser = MediaWikiServices::getInstance()->getParser();
+
+		try {
+			MediaWikiServices::getInstance()->disableService( 'Parser' );
+			MediaWikiServices::getInstance()->redefineService(
+				'Parser',
+				static fn () => MediaWikiServices::getInstance()->getParserFactory()->create()
+			);
+
+			$instance = new Gallery( 'gallery' );
+			$result = $instance->getResult(
+				$this->createFurtherResultsQueryResultMock(),
+				$this->createDefaultParamMocks( [
+					'searchlabel' => '<script>document.title="PWNED"</script>XSSMARK'
+				] ),
+				SMW_OUTPUT_HTML
+			);
+
+			$this->assertIsArray( $result );
+			$this->assertStringNotContainsString( '<script>', $result[0] );
+		} finally {
+			MediaWikiServices::getInstance()->disableService( 'Parser' );
+			MediaWikiServices::getInstance()->redefineService(
+				'Parser',
+				static fn () => $initialParser
+			);
+		}
 	}
 
 }
