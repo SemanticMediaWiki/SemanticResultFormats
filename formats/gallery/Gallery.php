@@ -5,6 +5,7 @@ namespace SRF;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use SMW\Parser\RecursiveTextProcessor;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\ResultPrinters\ResultPrinter;
@@ -169,18 +170,23 @@ class Gallery extends ResultPrinter {
 		}
 
 		// If available, create a link that points to further results.
-		// Built in wiki mode (like core's list/table/category printers) and then
-		// parsed to HTML, since SMW_OUTPUT_HTML would escape the "further results"
-		// label's default value, a raw <span class="smw-localized-message"> marker
-		// that SMW resolves post-cache and that must survive as unescaped markup.
+		// Built in wiki mode (like core's list/table/category printers), since
+		// SMW_OUTPUT_HTML would escape the "further results" label's default
+		// value, a raw <span class="smw-localized-message"> marker that SMW
+		// resolves post-cache and that must survive as unescaped markup.
+		// recursiveTagParse() unconditionally resolves the wiki-mode text to
+		// HTML: it falls back to a full parse when none is in progress, so
+		// unlike a manual "is a parse running" guard, there is no branch where
+		// an unresolved value — including raw wikitext from a user-supplied
+		// searchlabel — could reach the isHTML output unparsed.
 		if ( $this->linkFurtherResults( $results ) ) {
 			$furtherResultsLink = $this->getLink( $results, SMW_OUTPUT_WIKI )->getText( SMW_OUTPUT_WIKI, $this->mLinker );
 
-			if ( !$this->isSpecialPage() ) {
-				$furtherResultsLink = MediaWikiServices::getInstance()->getParser()->recursiveTagParse( $furtherResultsLink );
+			if ( $this->recursiveTextProcessor === null ) {
+				$this->recursiveTextProcessor = new RecursiveTextProcessor();
 			}
 
-			$html .= $furtherResultsLink;
+			$html .= $this->recursiveTextProcessor->recursiveTagParse( $furtherResultsLink );
 		}
 
 		// If available and no results, return default message

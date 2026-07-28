@@ -2,9 +2,9 @@
 
 namespace SRF\Tests\Unit\Formats;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use SMW\Formatters\Infolink;
-use SMW\Localizer\DeferredLocalizedMessage;
 use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
 
@@ -256,17 +256,11 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	}
 
 	/**
-	 * SMW 7's default "further results" search label is a
-	 * `DeferredLocalizedMessage` marker: a <span> resolved to text only after
-	 * the parser cache. getResultText() must render the further-results link
-	 * without HTML-escaping that marker, or the raw, unresolved <span> leaks
-	 * into the page (#1058).
-	 *
-	 * @covers \SRF\Gallery::getResultText
+	 * Builds a further-results-capable QueryResult mock whose getQueryLink()
+	 * actually uses the caption it's given — unlike a fixed willReturn(), which
+	 * would let getSearchLabel()'s htmlspecialchars() call go untested.
 	 */
-	public function testGetResultTextResolvesDeferredLocalizedSearchLabelInsteadOfEscapingIt(): void {
-		$marker = DeferredLocalizedMessage::newMarker( 'further-results' );
-
+	private function createFurtherResultsQueryResultMock(): object {
 		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -276,29 +270,57 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		$queryResult->method( 'hasFurtherResults' )->willReturn( true );
 		$queryResult->method( 'getErrors' )->willReturn( [] );
 		$queryResult->method( 'getCount' )->willReturn( 1 );
-		$queryResult->method( 'getQueryLink' )->willReturn(
-			new Infolink( true, $marker, 'Special:Ask' )
+		$queryResult->method( 'getQueryLink' )->willReturnCallback(
+			static fn ( $caption ) => new Infolink( true, $caption, 'Special:Ask' )
 		);
 
-		// Gallery::getResultText() runs its further-results link through
-		// Parser::recursiveTagParse(), which requires an in-progress parse
-		// (as is always the case for the #ask parser function it's really
-		// called from); prime one here since this test invokes it directly.
-		\MediaWiki\MediaWikiServices::getInstance()->getParser()->parse(
-			'', Title::newFromText( 'GalleryTestPage' ), \ParserOptions::newFromAnon()
-		);
+		return $queryResult;
+	}
 
-		$instance = new Gallery( 'gallery' );
-		$result = $instance->getResult(
-			$queryResult,
-			$this->createDefaultParamMocks(),
-			SMW_OUTPUT_HTML
-		);
+	/**
+	 * `searchlabel` is user-authored wikitext. When getResultText() cannot
+	 * parse it through an in-progress parse — as during an anonymous
+	 * ApiPurge, where $wgTitle is Special:Badtitle and no parse is running —
+	 * it must still come out sanitized, never as raw unparsed wikitext
+	 * spliced into HTML (which MediaWiki would then splice into the page
+	 * verbatim via the `isHTML` result flag).
+	 *
+	 * Swaps in a fresh Parser via redefineService(), following the pattern
+	 * TreeTest::replaceParser() already uses in this test suite: the shared
+	 * MediaWikiServices Parser is a singleton, so a previous test's parse()
+	 * call could otherwise leave it primed and mask the "no parse in
+	 * progress" condition this test needs to exercise.
+	 *
+	 * @covers \SRF\Gallery::getResultText
+	 */
+	public function testGetResultTextSanitizesSearchLabelWhenNoParseIsInProgress(): void {
+		$initialParser = MediaWikiServices::getInstance()->getParser();
 
-		// getResultText() returns ['html', 'nowiki' => true, 'isHTML' => true]
-		$this->assertIsArray( $result );
-		$this->assertStringContainsString( '<span class="' . DeferredLocalizedMessage::CLASS_NAME . '"', $result[0] );
-		$this->assertStringNotContainsString( '&lt;span', $result[0] );
+		try {
+			MediaWikiServices::getInstance()->disableService( 'Parser' );
+			MediaWikiServices::getInstance()->redefineService(
+				'Parser',
+				static fn () => MediaWikiServices::getInstance()->getParserFactory()->create()
+			);
+
+			$instance = new Gallery( 'gallery' );
+			$result = $instance->getResult(
+				$this->createFurtherResultsQueryResultMock(),
+				$this->createDefaultParamMocks( [
+					'searchlabel' => '<script>document.title="PWNED"</script>XSSMARK'
+				] ),
+				SMW_OUTPUT_HTML
+			);
+
+			$this->assertIsArray( $result );
+			$this->assertStringNotContainsString( '<script>', $result[0] );
+		} finally {
+			MediaWikiServices::getInstance()->disableService( 'Parser' );
+			MediaWikiServices::getInstance()->redefineService(
+				'Parser',
+				static fn () => $initialParser
+			);
+		}
 	}
 
 }
