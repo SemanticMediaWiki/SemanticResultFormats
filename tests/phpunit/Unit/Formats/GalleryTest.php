@@ -3,6 +3,8 @@
 namespace SRF\Tests\Unit\Formats;
 
 use MediaWiki\Title\Title;
+use SMW\Formatters\Infolink;
+use SMW\Localizer\DeferredLocalizedMessage;
 use SMW\Tests\QueryPrinterRegistryTestCase;
 use SRF\Gallery;
 
@@ -54,10 +56,12 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 	private function createParamMock( string $name, $value ): object {
 		$param = $this->getMockBuilder( \stdClass::class )
 			->disableOriginalConstructor()
-			->addMethods( [ 'getName', 'getValue' ] )
+			->addMethods( [ 'getName', 'getValue', 'wasSetToDefault', 'getOriginalValue' ] )
 			->getMock();
 		$param->method( 'getName' )->willReturn( $name );
 		$param->method( 'getValue' )->willReturn( $value );
+		$param->method( 'wasSetToDefault' )->willReturn( true );
+		$param->method( 'getOriginalValue' )->willReturn( $value );
 		return $param;
 	}
 
@@ -249,6 +253,52 @@ class GalleryTest extends QueryPrinterRegistryTestCase {
 		);
 		$this->assertIsArray( $result );
 		$this->assertArrayHasKey( 'isHTML', $result );
+	}
+
+	/**
+	 * SMW 7's default "further results" search label is a
+	 * `DeferredLocalizedMessage` marker: a <span> resolved to text only after
+	 * the parser cache. getResultText() must render the further-results link
+	 * without HTML-escaping that marker, or the raw, unresolved <span> leaks
+	 * into the page (#1058).
+	 *
+	 * @covers \SRF\Gallery::getResultText
+	 */
+	public function testGetResultTextResolvesDeferredLocalizedSearchLabelInsteadOfEscapingIt(): void {
+		$marker = DeferredLocalizedMessage::newMarker( 'further-results' );
+
+		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$queryResult->method( 'getPrintRequests' )->willReturn( [] );
+		$queryResult->method( 'getNext' )->willReturn( false );
+		$queryResult->method( 'hasFurtherResults' )->willReturn( true );
+		$queryResult->method( 'getErrors' )->willReturn( [] );
+		$queryResult->method( 'getCount' )->willReturn( 1 );
+		$queryResult->method( 'getQueryLink' )->willReturn(
+			new Infolink( true, $marker, 'Special:Ask' )
+		);
+
+		// Gallery::getResultText() runs its further-results link through
+		// Parser::recursiveTagParse(), which requires an in-progress parse
+		// (as is always the case for the #ask parser function it's really
+		// called from); prime one here since this test invokes it directly.
+		\MediaWiki\MediaWikiServices::getInstance()->getParser()->parse(
+			'', Title::newFromText( 'GalleryTestPage' ), \ParserOptions::newFromAnon()
+		);
+
+		$instance = new Gallery( 'gallery' );
+		$result = $instance->getResult(
+			$queryResult,
+			$this->createDefaultParamMocks(),
+			SMW_OUTPUT_HTML
+		);
+
+		// getResultText() returns ['html', 'nowiki' => true, 'isHTML' => true]
+		$this->assertIsArray( $result );
+		$this->assertStringContainsString( '<span class="' . DeferredLocalizedMessage::CLASS_NAME . '"', $result[0] );
+		$this->assertStringNotContainsString( '&lt;span', $result[0] );
 	}
 
 }

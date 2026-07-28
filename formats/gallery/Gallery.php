@@ -168,9 +168,19 @@ class Gallery extends ResultPrinter {
 			$html = Html::rawElement( 'div', $attribs, $processing . $ig->toHTML() );
 		}
 
-		// If available, create a link that points to further results
+		// If available, create a link that points to further results.
+		// Built in wiki mode (like core's list/table/category printers) and then
+		// parsed to HTML, since SMW_OUTPUT_HTML would escape the "further results"
+		// label's default value, a raw <span class="smw-localized-message"> marker
+		// that SMW resolves post-cache and that must survive as unescaped markup.
 		if ( $this->linkFurtherResults( $results ) ) {
-			$html .= $this->getLink( $results, SMW_OUTPUT_HTML )->getText( SMW_OUTPUT_HTML, $this->mLinker );
+			$furtherResultsLink = $this->getLink( $results, SMW_OUTPUT_WIKI )->getText( SMW_OUTPUT_WIKI, $this->mLinker );
+
+			if ( !$this->isSpecialPage() ) {
+				$furtherResultsLink = MediaWikiServices::getInstance()->getParser()->recursiveTagParse( $furtherResultsLink );
+			}
+
+			$html .= $furtherResultsLink;
 		}
 
 		// If available and no results, return default message
