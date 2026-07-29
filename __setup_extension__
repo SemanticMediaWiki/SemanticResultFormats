@@ -8,10 +8,10 @@
 // We register the formats directly into $smwgResultFormats and $wgAutoloadClasses
 // to bypass the srfgFormats → onExtensionFunction timing dependency.
 $wgExtensionFunctions[] = static function () {
-	$dir = __DIR__ . '/extensions/SemanticResultFormats/formats/googlecharts/';
-	$GLOBALS['wgAutoloadClasses']['SRFGoogleBar'] = $dir . 'SRF_GoogleBar.php';
-	$GLOBALS['wgAutoloadClasses']['SRFGooglePie'] = $dir . 'SRF_GooglePie.php';
-	$GLOBALS['wgAutoloadClasses']['SRFIncoming'] = __DIR__ . '/extensions/SemanticResultFormats/formats/incoming/SRF_Incoming.php';
+	$dir = __DIR__ . '/extensions/SemanticResultFormats/formats/';
+	$GLOBALS['wgAutoloadClasses']['SRFGoogleBar'] = $dir . 'googlecharts/SRF_GoogleBar.php';
+	$GLOBALS['wgAutoloadClasses']['SRFGooglePie'] = $dir . 'googlecharts/SRF_GooglePie.php';
+	$GLOBALS['wgAutoloadClasses']['SRFIncoming'] = $dir . 'incoming/SRF_Incoming.php';
 	$GLOBALS['smwgResultFormats']['googlebar'] = 'SRFGoogleBar';
 	$GLOBALS['smwgResultFormats']['googlepie'] = 'SRFGooglePie';
 	$GLOBALS['smwgResultFormats']['incoming'] = 'SRFIncoming';
