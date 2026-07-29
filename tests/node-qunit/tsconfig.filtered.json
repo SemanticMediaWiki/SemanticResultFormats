@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es6",
+		"noImplicitAny": true,
+		"strictNullChecks": false,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"typeRoots": ["../../formats/filtered/node_modules/@types"],
+		"types": ["jquery", "jqueryui", "geojson", "leaflet", "leaflet.markercluster", "leaflet-providers", "select2", "requirejs"],
+		"outDir": "./.compiled",
+		"rootDir": "../../formats/filtered/resources/ts"
+	},
+	"include": [
+		"../../formats/filtered/resources/ts/Filtered/Controller.ts",
+		"../../formats/filtered/resources/ts/Filtered/ViewSelector.ts",
+		"../../formats/filtered/resources/ts/Filtered/View/View.ts",
+		"../../formats/filtered/resources/ts/Filtered/View/MapView.ts",
+		"../../formats/filtered/resources/ts/Filtered/Filter/Filter.ts",
+		"../../formats/filtered/resources/ts/Filtered/Filter/ValueFilter.ts",
+		"../../formats/filtered/resources/ts/Filtered/Filter/DistanceFilter.ts"
+	]
+}

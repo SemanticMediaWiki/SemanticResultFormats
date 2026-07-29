@@ -136,7 +136,10 @@ return [
 			'resources/ext.srf.api.query.js',
 		],
 		'position' => 'top',
-		'dependencies' => 'ext.srf',
+		'dependencies' => [
+			'ext.srf',
+			'mediawiki.language.months',
+		],
 		'group' => 'ext.srf'
 	],
 

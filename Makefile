@@ -17,7 +17,9 @@ DB_TYPE?=mysql
 DB_IMAGE?="mariadb:11.2"
 
 # extensions
-SMW_VERSION ?= 6.0.1
+# SMW 6.0.1 has a bug where #ask returns empty results in the prepareContentForEdit context
+# used by JSONScript parser-type tests. Fixed in dev-master; pin to 7.x once released.
+SMW_VERSION ?= dev-master
 PF_VERSION ?= 6.0.5
 SFS_VERSION ?= 4.0.0-beta
 MM_VERSION ?= 6.0.2
@@ -26,10 +28,66 @@ MM_VERSION ?= 6.0.2
 # Enables "composer update" inside of extension
 COMPOSER_EXT?=true
 
+# OS packages and PHP extensions required for optional formats:
+# - libzip-dev + zip: prerequisite for phpoffice/phpspreadsheet (format=spreadsheet)
+# - gd: required by phpoffice/phpspreadsheet at install time
+# - graphviz: provides the dot/neato/... binaries the Diagrams extension shells out to
+#   for local rendering of format=graph's <graphviz> output (see extensions.local.json)
+OS_PACKAGES?=libzip-dev libpng-dev graphviz
+PHP_EXTENSIONS?=zip gd
+
 # nodejs
 # Enables node.js related tests and "npm install"
-# NODE_JS?=true
+NODE_JS?=true
 
 # check for build dir and git submodule init if it does not exist
 include build/Makefile
+
+# Chain install-spreadsheet and install-html-validator into make install.
+# The prerequisite order ensures both run after .install completes.
+install: install-spreadsheet install-html-validator
+
+# Install phpoffice/phpspreadsheet for format=spreadsheet tests.
+# phpspreadsheet is listed as "suggest" in SRF's composer.json (not "require"), so it
+# cannot be pulled in via the composer-merge-plugin; an explicit install step is needed.
+# composer-require.sh only updates composer.local.json; the follow-up "composer update"
+# actually downloads and installs the package into the running container.
+.PHONY: install-spreadsheet
+install-spreadsheet: .init
+	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.30.5 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
+
+# Install symfony/css-selector to enable parser-html (CSS-selector based) JSONScript tests.
+# SMW declares this in its require-dev, but MediaWiki's merge-plugin runs with merge-dev: false,
+# so SMW's dev dependencies are never installed into the shared MW vendor.
+# Installing it explicitly via composer.local.json makes HtmlValidator::canUse() return true,
+# which activates all "type": "parser-html" test cases (e.g. filtered-01.json).
+.PHONY: install-html-validator
+install-html-validator: .init
+	$(compose-exec-wiki) bash -c "composer-require.sh symfony/css-selector '^5 || ^6 || ^7' && composer update symfony/css-selector --with-all-dependencies"
+
+.PHONY: composer-phan
+composer-phan: .init
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phan $(COMPOSER_PARAMS)"
+
+# Extend ci-coverage to also run phan (aligned with PageForms dev-test gate)
+ci-coverage: composer-phan
+
+.PHONY: .git-safe-dir
+.git-safe-dir: .init
+	$(compose-exec-wiki) bash -c "git config --global --add safe.directory $(EXTENSION_FOLDER) 2>/dev/null || true"
+
+# Full development cycle without reinstalling: lint + phpcs + phan + phpunit
+# Equivalent to 'make ci' but skips 'make install'. Run before committing.
+.PHONY: dev-test
+dev-test: .git-safe-dir
+ifdef COMPOSER_EXT
+	$(show-current-target)
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer lint"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phpcs"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phan"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phpunit"
+endif
+ifdef NODE_JS
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npm run test"
+endif
 

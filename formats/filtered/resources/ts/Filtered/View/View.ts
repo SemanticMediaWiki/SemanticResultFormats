@@ -45,13 +45,17 @@ export class View {
 		if ( this.visible && rowIds.length < 200 ) {
 
 			rowIds.forEach( ( rowId: string ) => {
-				this.rows[ rowId ].slideDown( 400 );
+				if ( this.rows[ rowId ] ) {
+					this.rows[ rowId ].slideDown( 400 );
+				}
 			} );
 
 		} else {
 
 			rowIds.forEach( ( rowId: string ) => {
-				this.rows[ rowId ].css( 'display', '');
+				if ( this.rows[ rowId ] ) {
+					this.rows[ rowId ].css( 'display', '');
+				}
 			} );
 
 		}
@@ -62,13 +66,17 @@ export class View {
 		if ( this.visible && rowIds.length < 200 ) {
 
 			rowIds.forEach( ( rowId: string ) => {
-				this.rows[ rowId ].slideUp( 400 );
+				if ( this.rows[ rowId ] ) {
+					this.rows[ rowId ].slideUp( 400 );
+				}
 			} );
 
 		} else {
 
 			rowIds.forEach( ( rowId: string ) => {
-				this.rows[ rowId ].css( 'display', 'none');
+				if ( this.rows[ rowId ] ) {
+					this.rows[ rowId ].css( 'display', 'none');
+				}
 			} );
 
 		}

@@ -71,7 +71,7 @@
 	"srf-paramdesc-datatables-columnstype": "Tentukan jenis kolom yang dapat didata",
 	"srf-ui-gridview-label-data-tab": "Data",
 	"srf_printername_gallery": "Galeri",
-	"srf_printername_carousel": "Korsel",
+	"srf-printername-carousel": "Korsel",
 	"srf_paramdesc_perrow": "Jumlah gambar per baris",
 	"srf_paramdesc_widths": "Lebar gambar",
 	"srf_paramdesc_heights": "Tinggi gambar",
@@ -98,7 +98,7 @@
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graph-relation": "Menetapkan apakah subjek atau properti nama merupakan induk atau turunan",
 	"srf-paramdesc-graph-nodeshape": "Menetapkan bentuk masing-masing simpul pada grafik",
-	"srf-paramdesc-graph-arrowhead": "Menetapkan gaya kepala anak panah di simpul kepala suatu rusuk",
+	"srf-paramdesc-arrowhead": "Menetapkan gaya kepala anak panah di simpul kepala suatu rusuk",
 	"srf-paramdesc-graphname": "Menetapkan judul graf",
 	"srf-paramdesc-graphsize": "Menetapkan ukuran graf (dalam satuan piksel)",
 	"srf-paramdesc-graphlegend": "Menetapkan apakah legenda graf ditampilkan atau tidak",
@@ -126,6 +126,6 @@
 	"srf-ui-slideshow-slide-button-play": "Mainkan",
 	"srf-ui-slideshow-slide-button-pause": "berhenti sebentar",
 	"srf-paramdesc-graphfields": "Tampilkan nilai properti non-laman di dalam simpul grafik, bukan sebagai tepi.",
-	"srf-printername-mode": "Mode",
-	"srf-printername-range": "Rentang"
+	"srf_printername_mode": "Mode",
+	"srf_printername_range": "Rentang"
 }

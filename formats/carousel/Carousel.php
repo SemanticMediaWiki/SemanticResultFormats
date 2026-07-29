@@ -513,7 +513,7 @@ class Carousel extends ResultPrinter {
 
 			$imgAttr = [
 				'src' => $imageValue,
-				'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ) : $title_->getText() ),
+				'alt' => ( $titleValue ?? $captionValue ? strip_tags( $captionValue ?? '' ) : $title_->getText() ),
 				'class' => "slick-slide-content img"
 			];
 

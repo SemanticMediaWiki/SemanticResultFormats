@@ -5,6 +5,7 @@ namespace SRF\Tests\Unit\Formats;
 use SRF\Graph\GraphFormatter;
 use SRF\Graph\GraphNode;
 use SRF\Graph\GraphOptions;
+use SRF\Graph\GraphPrinter;
 
 /**
  * @covers \SRF\Graph\GraphFormatter
@@ -20,7 +21,7 @@ class GraphFormatterTest extends \PHPUnit\Framework\TestCase {
 	private $cases = [
 		'Simple' => [
 			// @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
-			'params' => [ 'graphfields' => false, 'graphfieldspages' => 'no' ],
+			'params' => [ 'graphfields' => false, 'graphfieldspages' => false ],
 			'nodes' => [
 				[ 'name' => 'Team:Alpha', 'label' => 'Alpha', 'parents' => [
 					[ 'predicate' => 'Casted', 'object' => 'Person:Alexander Gesinn' ]
@@ -95,7 +96,7 @@ size="100";node [shape=rect];rankdir=LR;
 FIELDS
 		],
 		'graphfieldspages=yes - Only first page field becomes node' => [
-			'params' => [ 'graphfields' => true, 'graphfieldspages' => 'yes' ],
+			'params' => [ 'graphfields' => true, 'graphfieldspages' => true ],
 			'nodes' => [
 				[ 'name' => 'Team:Gamma', 'label' => 'Gamma', 'parent' => [], 'fields' => [
 					[ 'name' => 'Main Category', 'value' => 'Team', 'type' => '_wpg', 'page' => 'Main Category', 'valueLink' => 'Team' ],
@@ -122,7 +123,7 @@ DOT
 		],
 		// @see https://www.php.net/manual/en/function.htmlspecialchars.php
 		'graphfieldspages=yes - with parent nodes and special chars' => [
-			'params' => [ 'graphfields' => true, 'graphfieldspages' => 'yes' ],
+			'params' => [ 'graphfields' => true, 'graphfieldspages' => true ],
 			'nodes' => [
 				[ 'name' => 'Team:Delta', 'label' => 'Delta', 'parents' => [
 					[ 'predicate' => 'Part of Team', 'object' => 'Solar & Hydro' ]
@@ -232,7 +233,7 @@ DOT
 		'graphlabel' => true,
 		'graphcolor' => true,
 		'graphlegend' => true,
-		'graphfieldspages' => 'no'
+		'graphfieldspages' => false
 	];
 
 	/**
@@ -285,17 +286,16 @@ DOT
 
 	/**
 	 * @return array
+	 *
+	 * The expected line separator depends on whether the Diagrams extension is loaded
+	 * (see GraphFormatter::__construct()), so word-wrapped multi-line expectations are
+	 * built with a placeholder and substituted in testGetWordWrappedText().
 	 */
 	public function provideGetWordWrappedText(): array {
 		return [
 			'Simple wrap' => [
 				'Lorem ipsum dolor sit amet',
-				<<<'WRAPPED0'
-Lorem
-ipsum
-dolor sit
-amet
-WRAPPED0
+				"Lorem{sep}ipsum{sep}dolor sit{sep}amet",
 			],
 			'Unwrappable' => [ 'Supercalifragilisticexpialidocious', 'Supercalifragilisticexpialidocious' ],
 			'One line' => [ 'One line', 'One line' ],
@@ -314,6 +314,8 @@ WRAPPED0
 		$formatter = new GraphFormatter(
 			new GraphOptions( self::BASE_PARAMS + [ 'graphfields' => false ] )
 		);
+		$lineSeparator = \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ? '<br />' : PHP_EOL;
+		$wrapped = str_replace( '{sep}', $lineSeparator, $wrapped );
 		$this->assertEquals( $wrapped, $formatter->getWordWrappedText( $unwrapped, 10 ) );
 	}
 
@@ -359,5 +361,131 @@ WRAPPED0
 	 */
 	public function testBuildGraph( array $params, $expected ) {
 		$this->assertEquals( $expected, self::graph( $params )->getGraph() );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Covers lines 114-115: when a node has fields but an empty label, the node ID is
+	 * word-wrapped and used as the table header instead of a label.
+	 */
+	public function testBuildGraphUsesNodeIdAsLabelWhenLabelIsEmpty(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => false ];
+		// Override nodelabel so displaytitle logic is skipped; use a non-displaytitle value
+		$params['nodelabel'] = '';
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Iota' );
+		// Do NOT call setLabel — leaves $label as null/empty.
+		$node->addField( 'Rating', '5', '_num', 'Rating', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		// The node ID should appear as the table header href target and as the cell content.
+		$this->assertStringContainsString( 'href="[[Team:Iota]]"', $dot );
+		$this->assertStringContainsString( 'Team:Iota', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1096
+	 *
+	 * A node without a label (setLabel() never called, no fields) must not trigger a
+	 * htmlspecialchars(): Passing null to parameter #1 deprecation notice (PHP 8.1+).
+	 */
+	public function testBuildGraphHandlesNodeWithoutLabelAndWithoutFields(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Lambda' );
+		// Do NOT call setLabel() — leaves the label null.
+
+		$formatter->buildGraph( [ $node ] );
+
+		// Must not throw/warn, and the node must still be rendered (via its ID/URL).
+		$this->assertStringContainsString( '"Team:Lambda"', $formatter->getGraph() );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/846
+	 *
+	 * Under the Diagrams extension, word-wrapped node labels are joined with a literal
+	 * "<br />" (see the constructor). A node without fields must render that as an HTML
+	 * label (enclosed in <>) so "<br />" is interpreted as a line break by GraphViz/dot,
+	 * instead of a quoted string label ("...") with a second htmlspecialchars() pass,
+	 * which turned "<br />" into the literal text "&lt;br /&gt;".
+	 */
+	public function testBuildGraphRendersLineBreaksAsHtmlLabelUnderDiagrams(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$params['nodelabel'] = GraphPrinter::NODELABEL_DISPLAYTITLE;
+		$params['wordwraplimit'] = 5;
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		// Force the Diagrams-style line separator regardless of whether the extension
+		// is actually loaded in the test environment.
+		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
+		$ref->setAccessible( true );
+		$ref->setValue( $formatter, '<br />' );
+
+		$node = new GraphNode( 'Test:Page' );
+		$node->setLabel( 'A long label text here' );
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringNotContainsString( '&lt;br', $dot, '"<br />" must not be re-escaped into visible text' );
+		$this->assertStringContainsString( 'label = <long<br />label<br />text<br />here>', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * A short label that doesn't need wrapping (no "<br />" inserted) must remain a
+	 * plain quoted string label, unaffected by the #846 fix.
+	 */
+	public function testBuildGraphKeepsQuotedLabelWhenNoLineBreakIsNeeded(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => 'no' ];
+		$params['nodelabel'] = '';
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Test:Page' );
+		$node->setLabel( 'Short' );
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( 'label = "Short"', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::getGraphLegend()
+	 *
+	 * Covers line 257: the color counter resets to 0 after cycling through all 14
+	 * graphColors entries, so a 15th predicate reuses the first color.
+	 */
+	public function testGetGraphLegendResetsColorCountAfterExhaustingPalette(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => false ];
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		// Build 15 distinct predicates so the palette wraps around.
+		$node = new GraphNode( 'Team:Kappa' );
+		$node->setLabel( 'Kappa' );
+		for ( $i = 1; $i <= 15; $i++ ) {
+			$node->addParentNode( "Predicate$i", "Object$i" );
+		}
+
+		$formatter->buildGraph( [ $node ] );
+		$legend = $formatter->getGraphLegend();
+
+		// The first color "black" must appear twice: once for Predicate1 and once for Predicate15.
+		$this->assertGreaterThanOrEqual(
+			2,
+			substr_count( $legend, 'color: black' ),
+			'Expected color "black" to be reused after palette exhaustion'
+		);
+		// Predicate15 wraps back to the first color slot.
+		$this->assertStringContainsString( 'black: Predicate15', $legend );
 	}
 }

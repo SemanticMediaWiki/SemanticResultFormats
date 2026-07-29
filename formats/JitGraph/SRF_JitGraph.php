@@ -161,12 +161,11 @@ class SRFJitGraph extends ResultPrinter {
 		$json = "[";
 		$jsonLeafs = "";
 
-		while ( $row = $res->getNext() ) {
-
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$firstcol = true;
 
 			foreach ( $row as $field ) {
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$text = $object->getShortText( $outputmode );
 
 					$nodeLinkTitle = Title::newFromText( $text );
@@ -292,7 +291,7 @@ class SRFJitGraph extends ResultPrinter {
 		foreach ( $this->m_settings as $key => $value ) {
 			$userSettings .= "\"$key\": \"$value\",";
 		}
-		substr( $userSettings, 0, -1 );
+		$userSettings = substr( $userSettings, 0, -1 );
 		$userSettings .= "};";
 
 		$result .= '<div id="center-container" class="className"><span class="progressBar" id="progress-' . $d_id . '">0%</span><div id="' . $this->m_settings['divID'] . '" class="infovis"></div>' . '' . '</div>';

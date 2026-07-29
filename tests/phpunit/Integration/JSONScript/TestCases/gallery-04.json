@@ -1,0 +1,101 @@
+{
+	"description": "Test `format=gallery` further-results link with a user-supplied `searchlabel` (#1058, #1136)",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has text",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery04.png",
+			"contents": {
+				"upload": {
+					"file" : "/../Fixtures/image-upload-480.png",
+					"text" : "[[Has caption::456]]"
+				}
+			}
+		},
+		{
+			"page": "Example/Gallery-04/Subject.1",
+			"contents": "[[Has caption::456]] [[Has file::File:Gallery04.png]]"
+		},
+		{
+			"page": "Example/Gallery-04/Subject.2",
+			"contents": "[[Has caption::456]] [[Has file::File:Gallery04.png]]"
+		},
+		{
+			"page": "Example/Gallery-04/Q.1",
+			"contents": "{{#ask: [[Has caption::456]] |?Has file |format=gallery |limit=1 |searchlabel=<script>document.title='PWNED'</script>XSSMARK }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 searchlabel is not spliced in as raw, unparsed wikitext/HTML",
+			"subject": "Example/Gallery-04/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"XSSMARK"
+				],
+				"not-contain": [
+					"<script>",
+					"[[:Special:Ask",
+					"[[Special:Ask"
+				]
+			}
+		},
+		{
+			"type": "special",
+			"about": "#1 same query rendered directly via `Special:Ask`",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "1",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "gallery",
+						"searchlabel": "<script>document.title='PWNED'</script>XSSMARK"
+					},
+					"q": "[[Has caption::456]]",
+					"po": "?Has file"
+				}
+			},
+			"assert-output": {
+				"to-contain": [
+					"XSSMARK"
+				],
+				"not-contain": [
+					"<script>",
+					"[[:Special:Ask",
+					"[[Special:Ask"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"wgEnableUploads": true,
+		"wgFileExtensions": [
+			"png"
+		],
+		"wgDefaultUserOptions": {
+			"thumbsize": 5
+		},
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		],
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"NS_FILE": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

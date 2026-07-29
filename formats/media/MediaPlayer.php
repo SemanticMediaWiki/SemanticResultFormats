@@ -101,10 +101,10 @@ class MediaPlayer extends ResultPrinter {
 		 *
 		 * @var ResultArray $rows
 		 */
-		while ( $rows = $result->getNext() ) {
-			$rowData = [];
+		while ( $rows = $result->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$mediaType = null;
 			$mimeType = null;
+			$rowData = [];
 
 			/**
 			 * @var ResultArray $field
@@ -134,7 +134,7 @@ class MediaPlayer extends ResultPrinter {
 					$rowData[$mimeType] = $source;
 				}
 
-				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
+				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					// Get other data value item details
 					$value = $this->getDataValueItem(
 						$propertyLabel,
@@ -166,7 +166,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @param Title $title
 	 *
 	 * @return string[]
-	 *
 	 */
 	private function getMediaSource( Title $title ) {
 		// Find the file source
@@ -208,7 +207,6 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @return mixed
 	 * @since 1.9
-	 *
 	 */
 	private function getDataValueItem( &$label, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
 		$dataItem = $dataValue->getDataItem();

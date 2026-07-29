@@ -5,15 +5,12 @@ namespace SRF\Graph;
 use MediaWiki\Html\Html;
 
 /**
- *
- *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Graph_format
  *
  * @license GPL-2.0-or-later
  * @since 3.2
  *
  * @author Sebastian Schmid (gesinn.it)
- *
  */
 class GraphFormatter {
 
@@ -95,7 +92,7 @@ class GraphFormatter {
 		/** @var GraphNode $node */
 		foreach ( $nodes as $node ) {
 			$instance = $this;
-			$nodeLabel = htmlspecialchars( $node->getLabel() );
+			$nodeLabel = htmlspecialchars( $node->getLabel() ?? '' );
 
 			// take "displaytitle" as node-label if it is set
 			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
@@ -136,8 +133,11 @@ class GraphFormatter {
 								} else {
 									$valueLink = $field['value'];
 								}
+								// An explicitly suppressed label (e.g. "?Property=") must render as a
+								// bare value, without a trailing "name: " prefix (see issue #1131).
+								$namePrefix = $field['name'] !== '' ? $field['name'] . ': ' : '';
 								return '<tr><td align="right" href="[[Property:' . $field['page'] . ']]">'
-									. $field['name'] . ': </td>'
+									. $namePrefix . '</td>'
 									. '<td  align="' . $alignment . '"'
 										. (
 											$field['type'] === '_wpg'
@@ -158,8 +158,15 @@ class GraphFormatter {
 				// the value at the top is already hyperlinked.
 			} else {
 				if ( $nodeLabel ) {
-					// Label, if any, is enclosed with "".
-					$nodeLabel = '"' . htmlspecialchars( $nodeLabel ) . '"';
+					// $nodeLabel is already HTML-escaped (see above) and, when wrapped
+					// across multiple lines, already contains the line separator (either
+					// a literal "<br />" under Diagrams, or a plain newline otherwise).
+					// A "<br />" only renders as a line break in an HTML label (enclosed
+					// in <>, no further escaping); a quoted string label ("...") renders
+					// it as literal text instead (https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/846).
+					$nodeLabel = str_contains( $nodeLabel, '<br />' )
+						? '<' . $nodeLabel . '>'
+						: '"' . $nodeLabel . '"';
 				}
 				$nodeTooltip = null;
 			}
@@ -212,8 +219,9 @@ class GraphFormatter {
 							$this->legendItem[] = $parentNode['predicate'];
 						}
 
-						// assign color
-						$color = $this->graphColors[array_search( $parentNode['predicate'], $this->legendItem, true )];
+						// assign color, cycling through the palette when there are more predicates than colors
+						$colorIndex = array_search( $parentNode['predicate'], $this->legendItem, true ) % count( $this->graphColors );
+						$color = $this->graphColors[$colorIndex];
 
 						// show arrow label (graphLabel is misleading but kept for compatibility reasons)
 						if ( $this->options->isGraphLabel() ) {

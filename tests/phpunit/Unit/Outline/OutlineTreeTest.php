@@ -25,11 +25,13 @@ class OutlineTreeTest extends \PHPUnit\Framework\TestCase {
 	public function testPropertyAccess() {
 		$instance = new OutlineTree();
 
-		$this->assertEmpty(
+		$this->assertSame(
+			[],
 			$instance->tree
 		);
 
-		$this->assertEmpty(
+		$this->assertSame(
+			[],
 			$instance->items
 		);
 

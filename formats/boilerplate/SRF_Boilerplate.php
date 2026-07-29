@@ -105,7 +105,7 @@ class SRFBoilerplate extends ResultPrinter {
 		 *
 		 * @var ResultArray $rows
 		 */
-		while ( $rows = $result->getNext() ) {
+		while ( $rows = $result->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 			/**
 			 * @var ResultArray $field
@@ -128,9 +128,7 @@ class SRFBoilerplate extends ResultPrinter {
 				// which is important when using subobjects
 				$subjectLabel = $field->getResultSubject()->getTitle()->getFullText();
 
-				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) {
-
-					// Get the data value item
+				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$rowData[] = $this->getDataValueItem( $dataValue->getDataItem()->getDIType(), $dataValue );
 				}
 

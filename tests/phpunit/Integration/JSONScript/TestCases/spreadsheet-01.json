@@ -1,0 +1,43 @@
+{
+	"description": "Test `format=spreadsheet` inline link output (#1018)",
+	"setup": [
+		{
+			"page": "Has SRFSpreadsheet01 text",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Spreadsheet01/1",
+			"contents": "[[Has SRFSpreadsheet01 text::foo]] [[Category:SRFSpreadsheet01]]"
+		},
+		{
+			"page": "Test/Spreadsheet01/Q.1",
+			"contents": "{{#ask: [[Category:SRFSpreadsheet01]] |?Has SRFSpreadsheet01 text |format=spreadsheet }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 results present – inline link to Special:Ask with format=spreadsheet",
+			"subject": "Test/Spreadsheet01/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"format%3Dspreadsheet"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

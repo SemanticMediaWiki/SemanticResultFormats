@@ -156,7 +156,8 @@ class PrologPrinter extends FileExportPrinter {
 			$res .= 'row.names=T, ';*/
 
 		$preds = [];
-		while ( $resultRow = $queryResult->getNext() ) {
+		$resultRow = $queryResult->getNext();
+		while ( $resultRow !== false ) {
 
 			$subject = '';
 			$i = 0;
@@ -172,8 +173,10 @@ class PrologPrinter extends FileExportPrinter {
 					if ( count( $dataItems ) > 1 ) {
 						$values = [];
 
-						while ( $value = $resultField->getNextText( SMW_OUTPUT_FILE ) ) {
+						$value = $resultField->getNextText( SMW_OUTPUT_FILE );
+						while ( $value !== false ) {
 							$values[] = $value;
+							$value = $resultField->getNextText( SMW_OUTPUT_FILE );
 						}
 						$rowData = "['" . implode( "', '", $values ) . "']";
 					} else {
@@ -196,6 +199,7 @@ class PrologPrinter extends FileExportPrinter {
 
 				$i++;
 			}
+			$resultRow = $queryResult->getNext();
 		}
 
 		$res = implode( "\n", $preds );

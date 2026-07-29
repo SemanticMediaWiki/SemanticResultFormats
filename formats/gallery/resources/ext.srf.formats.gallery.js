@@ -1,5 +1,6 @@
 /**
  * This file is part of the Semantic Result Formats Gallery module
+ *
  * @see https://www.semantic-mediawiki.org/wiki/Help:Gallery_formats
  *
  * @section LICENSE
@@ -37,7 +38,7 @@
  *
  * @ignore
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -59,7 +60,7 @@
 	 * @constructor
 	 * @extends srf.formats
 	 */
-	srf.formats.gallery = function() {};
+	srf.formats.gallery = function () {};
 
 	/**
 	 * Public interface
@@ -77,4 +78,4 @@
 		defaults: {}
 	};
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

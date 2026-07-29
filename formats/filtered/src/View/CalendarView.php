@@ -10,6 +10,7 @@ namespace SRF\Filtered\View;
  * @ingroup SemanticResultFormats
  */
 
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use Message;
 use SRF\Filtered\ResultItem;
@@ -88,6 +89,7 @@ class CalendarView extends View {
 				) === false ) {
 
 				$params = [];
+				// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 				while ( ( $text = $field->getNextText(
 						SMW_OUTPUT_WIKI,
 						$this->getQueryPrinter()->getLinker( $valueId === 0 )
@@ -101,7 +103,6 @@ class CalendarView extends View {
 
 		// only add to title template if requested and if not hidden
 		if ( $this->titleTemplate !== null ) {
-// $wikitext .= "|#=$rownum";
 			$data['title'] = trim(
 				$this->getQueryPrinter()->getParser()->recursiveTagParse(
 					'{{' . $this->titleTemplate . $wikitext . '}}'
@@ -139,19 +140,6 @@ class CalendarView extends View {
 		if ( $params['calendar view title template'] !== '' ) {
 			$this->titleTemplate = trim( $parser->recursiveTagParse( $params['calendar view title template'] ) );
 		}
-
-// $this->mTemplate = $params['list view template'];
-//		$this->mIntroTemplate = $params['list view introtemplate'];
-//		$this->mOutroTemplate = $params['list view outrotemplate'];
-//		$this->mNamedArgs = $params['list view named args'];
-//
-//		if ( $params['headers'] == 'hide' ) {
-//			$this->mShowHeaders = SMW_HEADERS_HIDE;
-//		} elseif ( $params['headers'] == 'plain' ) {
-//			$this->mShowHeaders = SMW_HEADERS_PLAIN;
-//		} else {
-//			$this->mShowHeaders = SMW_HEADERS_SHOW;
-//		}
 	}
 
 	/**
@@ -212,11 +200,11 @@ class CalendarView extends View {
 	 * @return string[]
 	 */
 	public function getJsConfig() {
-		global $wgAmericanDates;
+		$americanDates = MediaWikiServices::getInstance()->getMainConfig()->get( MainConfigNames::AmericanDates );
 
 		return $this->getParamHashes( $this->getQueryResults(), $this->getActualParameters() ) +
 			[
-				'firstDay' => ( $wgAmericanDates ? '0' : Message::newFromKey(
+				'firstDay' => ( $americanDates ? '0' : Message::newFromKey(
 					'srf-filtered-firstdayofweek'
 				)->inContentLanguage()->text() ),
 				'isRTL' => MediaWikiServices::getInstance()->getContentLanguage()->isRTL(),

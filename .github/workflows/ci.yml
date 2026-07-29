@@ -11,44 +11,44 @@ jobs:
 
   test:
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
         include:
           - mediawiki_version: '1.43'
-            smw_version: 6.0.1
-            php_version: 8.1
-            mm_version: 6.0.1
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: false
-            experimental: false
-          - mediawiki_version: '1.43'
-            smw_version: 6.0.1
-            pf_version: 5.9
-            sfs_version: 4.0.0-beta
-            php_version: 8.3
-            mm_version: 6.0.2
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: true
-            experimental: false
-          - mediawiki_version: '1.44'
-            smw_version: dev-master
+            smw_version: 7.2.0
             php_version: 8.2
             mm_version: 6.0.1
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
             experimental: false
-          - mediawiki_version: '1.45'
-            smw_version: dev-master
+          - mediawiki_version: '1.43'
+            smw_version: 7.2.0
+            pf_version: 5.9
+            sfs_version: 5.0.0
             php_version: 8.3
+            mm_version: 6.0.2
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: true
+            experimental: false
+          - mediawiki_version: '1.45'
+            smw_version: 7.2.0
+            php_version: 8.4
             mm_version: 6.0.1
             database_type: mysql
             database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.46'
+            smw_version: 7.2.0
+            php_version: 8.4
+            mm_version: 6.0.1
+            database_type: mysql
+            database_image: "mariadb:12.3"
             coverage: false
             experimental: false
 
@@ -60,9 +60,11 @@ jobs:
       PHP_VERSION: ${{ matrix.php_version }}
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}
-      MM_VERSION: ${{ matrix.mm_version }} 
+      MM_VERSION: ${{ matrix.mm_version }}
+      # Run JS tests only for the coverage entry: keeps the JS toolchain off the
+      # other matrix legs, matching how PHP coverage is scoped to one leg too.
+      NODE_JS: ${{ matrix.coverage && '1' || '' }}
 
-      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,9 +82,17 @@ jobs:
         run: make ci-coverage
         if: matrix.coverage == true
 
+      - name: Run Phan static analysis
+        run: make install composer-phan
+        if: matrix.coverage == true
+
       - name: Upload code coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/php/coverage.xml
+          # Coverage files are written into the Docker volume mounted at
+          # build/coverage/ (see build/docker-compose-ci.yml), NOT at the
+          # repo root. Using the correct paths ensures Codecov applies the
+          # codecov.yml path fixes and resolves PHP paths correctly.
+          files: build/coverage/php/coverage.xml,build/coverage/js/clover.xml
         if: matrix.coverage == true

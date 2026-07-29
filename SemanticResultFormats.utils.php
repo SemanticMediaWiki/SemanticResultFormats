@@ -41,16 +41,15 @@ final class SRFUtils {
 	 * @return $link
 	 */
 	public static function htmlQueryResultLink( $link ) {
-		// Get linker instance
-		$linker = class_exists( 'DummyLinker' ) ? new DummyLinker : new Linker;
-
 		// Set caption
 		$link->setCaption( '[+]' );
 
 		// Set parameters
 		$link->setParameter( '', 'class' );
 		$link->setParameter( '', 'searchlabel' );
-		return $link->getText( SMW_OUTPUT_HTML, $linker );
+		// DummyLinker was removed in MW 1.34 and Linker is no longer reliably
+		// autoloaded in test environments; SMWInfolink::getText() accepts null.
+		return $link->getText( SMW_OUTPUT_HTML, null );
 	}
 
 	/**

@@ -12,6 +12,7 @@ use Exception;
 use MediaWiki\Html\Html;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Title\Title;
+use MWException;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMW\Query\QueryResult;
@@ -23,7 +24,6 @@ use SMW\Query\ResultPrinters\ListResultPrinter;
  * The available formats are 'tree', 'ultree', 'oltree'. 'tree' is an alias of
  * 'ultree'. In an #ask query the parameter 'parent' must be set to contain the
  * name of the property, that gives the parent page of the subject page.
- *
  */
 class TreeResultPrinter extends ListResultPrinter {
 
@@ -46,11 +46,11 @@ class TreeResultPrinter extends ListResultPrinter {
 
 	/**
 	 * @return QueryResult
-	 * @throws Exception
+	 * @throws MWException
 	 */
 	public function getQueryResult() {
 		if ( $this->queryResult === null ) {
-			throw new Exception( __METHOD__ . ' called outside of ' . __CLASS__ . '::getResultText().' );
+			throw new MWException( __METHOD__ . ' called outside of ' . __CLASS__ . '::getResultText().' );
 		}
 
 		return $this->queryResult;
@@ -163,7 +163,7 @@ class TreeResultPrinter extends ListResultPrinter {
 	 * @param $definitions array of IParamDefinition
 	 *
 	 * @return array of IParamDefinition|array
-	 * @throws Exception
+	 * @throws MWException
 	 */
 	public function getParamDefinitions( array $definitions ): array {
 		$params = parent::getParamDefinitions( $definitions );

@@ -78,7 +78,7 @@ class NumberFilter extends Filter {
 	 */
 	public function isValidFilterForPropertyType() {
 		$typeID = $this->getPrintRequest()->getTypeID();
-		return $typeID === '_num' || $typeID === '_qty' || '_dat';
+		return $typeID === '_num' || $typeID === '_qty' || $typeID === '_dat';
 	}
 
 	protected function buildJsConfig() {

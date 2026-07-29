@@ -62,7 +62,7 @@
 	"srf-paramdesc-charttext": "Textbeschreiwung vum Diagramm",
 	"srf-ui-gridview-label-chart-tab": "Diagramm",
 	"srf-ui-gridview-label-data-tab": "Donnéeën",
-	"srf-ui-gridview-label-info-tab": "Informatioun",
+	"srf-ui-gridview-label-info-tab": "Informatiounen",
 	"srf_printername_gallery": "Galerie",
 	"srf_paramdesc_perrow": "D'Zuel vu Biller pro Zeil",
 	"srf_paramdesc_widths": "D'Breet vun de Biller",
@@ -76,8 +76,9 @@
 	"srf-printername-graph": "Grafik",
 	"srf-paramdesc-graphname": "Leet den Titel vun der Grafik fest",
 	"srf-paramdesc-graphsize": "Leet d'Gréisst vun der Grafik (a Pixel) fest",
+	"srf-paramdesc-graphfontsize": "Leet d'Schrëftgréisst a Pixel fest",
 	"srf-paramdesc-graphlegend": "Leet fest ob d'Erklärung (Legend) vum Grafik gewise gi soll oder net",
-	"srf-paramdesc-graphlabel": "Leet d'Schrëftgréisst a Pixel fest",
+	"srf-paramdesc-graphlabel": "Leet de Label vum Graph fest",
 	"srf-paramdesc-rankdir": "Leet d'Richtung vun de Feiler fest",
 	"srf-paramdesc-graphlink": "Leet fest ob d'Kniet op hier Wikisäite verlinke sollen",
 	"srf-paramdesc-graphcolor": "Leet d'Faarf vun der Grafik fest",
@@ -86,7 +87,7 @@
 	"srf-paramdesc-showredlinks": "Leet fest ob rout Linke sollen nogekuckt an ervirgehuewe ginn",
 	"srf-ui-datatables-label-conditions": "Bedingungen",
 	"srf-ui-datatables-label-parameters": "Parameteren",
-	"srf-ui-datatables-label-information": "Informatioun",
+	"srf-ui-datatables-label-information": "Informatiounen",
 	"srf-ui-datatables-label-update-success": "D'Aktualisatioun vun der Datentabell ass ofgeschloss",
 	"srf-ui-datatables-label-update-error": "D'Aktualiséierung vun der Tabell huet net funktionéiert.",
 	"srf-ui-datatables-label-placeholder-column-search": "Sichen...",
@@ -134,6 +135,6 @@
 	"srf-ui-mediaplayer-label-stop": "Stopp",
 	"srf-paramdesc-gantt-diagramtitle": "Numm vum Diagramm",
 	"srf-printername-gantt": "Gantt",
-	"srf-printername-mode": "Modus",
-	"srf-printername-variance": "Varianz"
+	"srf_printername_mode": "Modus",
+	"srf_printername_variance": "Varianz"
 }

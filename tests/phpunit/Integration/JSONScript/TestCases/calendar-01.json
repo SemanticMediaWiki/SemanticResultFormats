@@ -1,0 +1,48 @@
+{
+	"description": "Test `format=calendar` html output (#1018)",
+	"setup": [
+		{
+			"page": "Has SRFCalendar01 date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Example/Calendar01/1",
+			"contents": "[[Has SRFCalendar01 date::1 Jan 1970]] [[Category:SRFCalendar01]]"
+		},
+		{
+			"page": "Example/Calendar01/2",
+			"contents": "[[Has SRFCalendar01 date::15 Jan 1970]] [[Category:SRFCalendar01]]"
+		},
+		{
+			"page": "Test/Calendar01/Q.1",
+			"contents": "{{#ask: [[Category:SRFCalendar01]] |?Has SRFCalendar01 date |format=calendar }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 results present – calendar table rendered",
+			"subject": "Test/Calendar01/Q.1",
+			"assert-output": {
+				"to-contain": [
+					"navigation_table",
+					"month_calendar"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

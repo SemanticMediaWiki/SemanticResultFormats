@@ -16,7 +16,6 @@ class SRFSparkline extends AggregatablePrinter {
 
 	/**
 	 * Corresponding message name
-	 *
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-sparkline' )->text();

@@ -73,8 +73,7 @@ class TemplateBuilder {
 			$this->template .= $this->close();
 			$this->template .= "<div class='" . $this->params['template'] . "-items'>";
 			$this->tree( $node, $level + 1 );
-			$this->template .= "</div>";
-			$this->template .= "</div>";
+			$this->template .= "</div></div>";
 		}
 	}
 
@@ -94,7 +93,7 @@ class TemplateBuilder {
 			}
 
 			$resultArray->reset();
-			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
+			while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 				$template .= $this->open( $this->params['template'] . '-item' );
 				$template .= $this->parameter( "#itemsection", $i );
 
@@ -117,7 +116,7 @@ class TemplateBuilder {
 		if ( $first_col && $printRequest->isMode( PrintRequest::PRINT_THIS ) ) {
 			$first_col = false;
 
-			if ( $linker === null && ( $caption = $dv->getDisplayTitle() ) !== '' ) {
+			if ( $linker === null && ( $caption = $dv->getDisplayTitle() ) !== '' ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found
 				$dv->setCaption( $caption );
 			}
 

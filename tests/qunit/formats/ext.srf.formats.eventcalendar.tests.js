@@ -12,6 +12,13 @@
 ( function ( $, mw, srf ) {
 	'use strict';
 
+	// LEGACY: "parse" and "startDate" were ported to
+	// tests/node-qunit/ext.srf.formats.eventcalendar.test.js (issue #1072) and
+	// are redundant here but left in place. "update" is out of scope entirely,
+	// not just deferred: it uses the QUnit 1.x global stop()/start() API,
+	// removed in QUnit 2.x, and cannot run in any modern QUnit runtime (browser
+	// or node) as written. See issue #1073 for the broader legacy-test
+	// documentation effort.
 	QUnit.module( 'ext.srf.formats.eventcalendar', QUnit.newMwEnvironment() );
 
 	var pass = 'Passes because ';

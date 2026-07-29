@@ -510,9 +510,9 @@ class DataTables extends ResultPrinter {
 			// @see https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/853
 			// $result = $result . $this->parser->recursiveTagParseFully( $this->mOutro );
 			if ( $outputmode == SMW_OUTPUT_HTML && $this->isHTML ) {
-				$result = $result . Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
+				$result .= Message::get( [ 'smw-parse', $this->mOutro ], Message::PARSE );
 			} elseif ( $outputmode !== SMW_OUTPUT_RAW ) {
-				$result = $result . $this->mOutro;
+				$result .= $this->mOutro;
 			}
 		}
 
@@ -625,11 +625,102 @@ class DataTables extends ResultPrinter {
 			'searchPanes' => $searchPanesData,
 			'searchPanesLog' => $searchPanesLog,
 			'formattedOptions' => $formattedOptions,
-			'printoutsParametersOptions' => $this->printoutsParametersOptions
+			'printoutsParametersOptions' => $this->printoutsParametersOptions,
+			'language' => $this->retrieveLanguage()
 		];
 
 		return $this->printContainer( $data, $headerList, $datatablesOptions,
 			$printrequests, $printouts );
+	}
+
+	/**
+	 * Retrieves a language JSON file with simple fallback support.
+	 *
+	 * Resolution strategy:
+	 * 1. Exact match (e.g. de-AT.json)
+	 * 2. Prefix match (e.g. de*.json, first match in sorted order)
+	 * 3. Case-insensitive fallback (exact and prefix)
+	 *
+	 * @param string|null $languageCode Language code or null for request default
+	 * @return array|null Decoded JSON language data, or null if no valid file is found
+	 */
+	private function retrieveLanguage( ?string $languageCode = null ) {
+		if ( !$languageCode ) {
+			$context = RequestContext::getMain();
+			$languageCode = $context->getLanguage()->getCode();
+		}
+
+		$languageCode = strtolower( $languageCode );
+		$basePath = __DIR__ . "/i18n/";
+
+		$loadJson = static function ( string $path ) {
+			if ( !is_readable( $path ) ) {
+				return null;
+			}
+
+			$json = file_get_contents( $path );
+			if ( $json === false ) {
+				return null;
+			}
+
+			try {
+				return json_decode( $json, true, 512, JSON_THROW_ON_ERROR );
+			} catch ( Throwable ) {
+				return null;
+			}
+		};
+
+		$prefix = $languageCode;
+		if ( str_contains( $languageCode, '-' ) ) {
+			$prefix = explode( '-', $languageCode, 2 )[0];
+		}
+
+		// PASS 1: exact match
+		$exactPath = $basePath . "{$languageCode}.json";
+		$result = $loadJson( $exactPath );
+		if ( $result !== null ) {
+			return $result;
+		}
+
+		// PASS 2: prefix glob case-sensitive
+		$matches = glob( $basePath . "{$prefix}*.json" ) ?: [];
+		sort( $matches );
+
+		foreach ( $matches as $path ) {
+			$result = $loadJson( $path );
+			if ( $result !== null ) {
+				return $result;
+			}
+		}
+
+		// PASS 3: case-insensitive fallback
+		$allFiles = glob( $basePath . '*' ) ?: [];
+		$index = [];
+
+		foreach ( $allFiles as $file ) {
+			$index[strtolower( basename( $file ) )] = $file;
+		}
+
+		// exact (case-insensitive)
+		$path = $index[strtolower( "{$languageCode}.json" )] ?? null;
+		if ( $path ) {
+			$result = $loadJson( $path );
+			if ( $result !== null ) {
+				return $result;
+			}
+		}
+
+		// prefix (case-insensitive)
+		foreach ( $index as $name => $path ) {
+			if ( str_starts_with( $name, $prefix ) ) {
+				$result = $loadJson( $path );
+				if ( $result !== null ) {
+					return $result;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	private function printContainer(
@@ -656,7 +747,7 @@ class DataTables extends ResultPrinter {
 		$tableAttrs = [
 			'class' => 'srf-datatable wikitable display' . ( $this->params['class'] ? ' ' . $this->params['class'] : '' ),
 			'data-collation' => !empty( $GLOBALS['smwgEntityCollation'] ) ? $GLOBALS['smwgEntityCollation'] : $GLOBALS['wgCategoryCollation'],
-			'data-nocase' => ( $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE ? true : false ),
+			'data-nocase' => $GLOBALS['smwgFieldTypeFeatures'] === SMW_FIELDT_CHAR_NOCASE,
 			'data-column-sort' => json_encode( [
 				'list'  => $headerList,
 				'sort'  => $this->params['sort'],
@@ -772,7 +863,7 @@ class DataTables extends ResultPrinter {
 						break;
 
 					case "number":
-						$value = $value * 1;
+						$value = (float)$value;
 						break;
 
 					// ...
@@ -881,7 +972,7 @@ class DataTables extends ResultPrinter {
 		$outputMode = SMW_OUTPUT_HTML;
 
 		$ret = [];
-		while ( $subject = $res->getNext() ) {
+		while ( $subject = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$row = [];
 			foreach ( $subject as $i => $field ) {
 				$dataValues = [];
@@ -893,7 +984,7 @@ class DataTables extends ResultPrinter {
 				// ResultArray loadContent -> fieldItemFinder findFor -> getResultsForProperty
 				// -> fetchContent -> ItemFetcher fetch -> (prefetchCache/EntityLookup)->getPropertyValues
 				// -> $semanticData->getPropertyValues -> $this->store->applyRequestOptions !!
-				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) {
+				while ( ( $dv = $resultArray->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$dataValues[] = $dv;
 				}
 

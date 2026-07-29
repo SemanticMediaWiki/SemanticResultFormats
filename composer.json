@@ -44,10 +44,10 @@
 		"source": "https://github.com/SemanticMediaWiki/SemanticResultFormats"
 	},
 	"require": {
-		"php": ">=8.1",
+		"php": ">=8.2",
 		"composer/installers": ">=1.0.1",
 		"nicmart/tree": "^0.4.0",
-		"data-values/geo": "~4.0|~3.0|~2.0"
+		"data-values/geo": "~4.0"
 	},
 	"suggest": {
 		"phpoffice/phpspreadsheet": "Required for 'format=spreadsheet'",
@@ -93,8 +93,11 @@
 		"fix": [
 			"@phpcs-fix"
 		],
-		"phpunit": "php ${MW_INSTALL_PATH:-../..}/tests/phpunit/phpunit.php -c phpunit.xml.dist",
-		"phpunit-coverage": "php ${MW_INSTALL_PATH:-../..}/tests/phpunit/phpunit.php -c phpunit.xml.dist --testdox --coverage-text --coverage-clover coverage/php/coverage.xml",
+		"phpunit": [
+			"Composer\\Config::disableProcessTimeout",
+			"cd ${MW_INSTALL_PATH:-../..} && { [ -f tests/phpunit/generatePHPUnitConfig.php ] && { php tests/phpunit/generatePHPUnitConfig.php >/dev/null 2>&1 || true; [ -f phpunit.xml ] || printf '%s' '<phpunit><!-- generatePHPUnitConfig --></phpunit>' > phpunit.xml; } || true; } && MEDIAWIKI_HAS_INTEGRATION_TESTS=1 vendor/bin/phpunit -c extensions/SemanticResultFormats/phpunit.xml.dist --bootstrap tests/phpunit/bootstrap.php"
+		],
+		"phpunit-coverage": "@phpunit --testdox --coverage-text --coverage-html extensions/SemanticResultFormats/coverage/php --coverage-clover extensions/SemanticResultFormats/coverage/php/coverage.xml",
 		"post-test-coverage": [
 			"sed -i 's|/var/www/html/extensions/SemanticResultFormats/||g' coverage/php/coverage.xml",
 			"find coverage/php -type f -name '*.html' -exec sed -i 's|/var/www/html/extensions/||g' {} +"
@@ -103,11 +106,13 @@
 		"phpcs": "phpcs -ps -d memory_limit=2G",
 		"phpcs-fix": "phpcbf -p",
 		"lint": "parallel-lint . --exclude vendor --exclude node_modules --exclude extensions",
-		"minus-x": "minus-x check ."
+		"minus-x": "minus-x check .",
+		"phan": "phan --allow-polyfill-parser"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "46.0.0",
-		"mediawiki/minus-x": "1.1.3",
+		"mediawiki/mediawiki-codesniffer": "51.0.0",
+		"mediawiki/mediawiki-phan-config": "0.20.0",
+		"mediawiki/minus-x": "2.0.1",
 		"php-parallel-lint/php-console-highlighter": "1.0.0",
 		"php-parallel-lint/php-parallel-lint": "1.4.0"
 	}

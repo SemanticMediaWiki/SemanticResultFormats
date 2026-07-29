@@ -1,7 +1,8 @@
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         backupGlobals="false"
          bootstrap="tests/bootstrap.php"
-         cacheTokens="false"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -19,14 +20,14 @@
             <directory>tests/phpunit/Integration</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+    <coverage>
+        <include>
             <directory suffix=".php">formats</directory>
             <directory suffix=".php">src</directory>
             <file>SemanticResultFormats.hooks.php</file>
             <file>SemanticResultFormats.parser.php</file>
             <file>SemanticResultFormats.php</file>
             <file>SemanticResultFormats.utils.php</file>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>

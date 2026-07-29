@@ -140,8 +140,7 @@ class SRFTimeline extends ResultPrinter {
 			$events = [];
 		}
 		// Loop over the objcts (pages)
-		while ( $row = $res->getNext() ) {
-			// true as soon as some startdate value was found
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$hastime = false;
 			// true as soon as some label for the event was found
 			$hastitle = false;
@@ -171,7 +170,7 @@ class SRFTimeline extends ResultPrinter {
 					$date_value = $dataValue->getDataItem()->getLabel();
 				}
 				// Loop over property values
-				while ( ( $object = $field->getNextDataValue() ) !== false ) {
+				while ( ( $object = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 					$event = $this->handlePropertyValue(
 						$object,
 						$outputmode,
@@ -189,8 +188,7 @@ class SRFTimeline extends ResultPrinter {
 					);
 
 					if ( $this->mTemplate != '' ) {
-						$template_text .= '|' . ( $this->mNamedArgs ? '?' . $field->getPrintRequest()->getLabel(
-								) : $i + 1 ) . '=';
+						$template_text .= '|' . ( $this->mNamedArgs ? '?' . $field->getPrintRequest()->getLabel() : $i + 1 ) . '=';
 						if ( !$first_value ) {
 							$template_text .= ', ';
 						}
@@ -301,8 +299,7 @@ class SRFTimeline extends ResultPrinter {
 
 		$l = $this->getLinker( $first_col );
 
-		if ( !$hastitle && $object->getTypeID(
-			) != '_wpg' ) {
+		if ( !$hastitle && $object->getTypeID() != '_wpg' ) {
 			$l = null;
 		}
 		// use shorter "LongText" for wikipage
@@ -375,9 +372,7 @@ class SRFTimeline extends ResultPrinter {
 			$output = true;
 		}
 
-		if ( $isEventline && ( $pr->getMode() == PrintRequest::PRINT_PROP ) && ( $pr->getTypeID(
-				) == '_dat' ) && ( '' != $pr->getLabel(
-				) ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
+		if ( $isEventline && ( $pr->getMode() == PrintRequest::PRINT_PROP ) && ( $pr->getTypeID() == '_dat' ) && ( '' != $pr->getLabel() ) && ( $date_value != $this->m_tlstart ) && ( $date_value != $this->m_tlend ) ) {
 			$event = [
 				$object->getISO8601Date( true ),
 				$pr->getLabel(),

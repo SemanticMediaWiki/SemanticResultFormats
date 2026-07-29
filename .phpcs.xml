@@ -5,19 +5,15 @@
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamTag" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingReturn" />
-		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.NoParamType" />
+<exclude name="MediaWiki.Commenting.FunctionComment.NoParamType" />
 		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
-		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition" /> 
 		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
-		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPublic" />
-		<exclude name="MediaWiki.PHPUnit.AssertEmpty.AssertEmptyUsed" />
 		<exclude name="Squiz.Operators.ValidLogicalOperators.NotAllowed" />
 		<exclude name="Generic.ControlStructures.DisallowYodaConditions.Found" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.WrongStyle" />
@@ -25,20 +21,27 @@
 		<exclude name="MediaWiki.NamingConventions.ValidGlobalName.allowedPrefix" />
 		<exclude name="MediaWiki.Usage.ExtendClassUsage.FunctionConfigUsage" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgContLang" />
-		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle" />
+		<exclude name="MediaWiki.Commenting.ClassAnnotations.UnrecognizedAnnotation" />
+		<exclude name="MediaWiki.Commenting.CommentBeforeClass.FileSpacingAfter" />
+		<exclude name="MediaWiki.Commenting.CommentBeforeClass.SpacingAfter" />
+		<exclude name="MediaWiki.NamingConventions.NamespaceName.NamespaceSubUpperCamelCase" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.ValidGlobalName">
 		<properties>
-			<property name="allowedPrefixes" type="array" value="eg,wg" />
+			<property name="allowedPrefixes" type="array">
+				<element value="eg" />
+				<element value="wg" />
+			</property>
 		</properties>
 	</rule>
 	<rule ref="MediaWiki.Commenting.FunctionComment.ObjectTypeHintReturn">
 		<severity>0</severity>
 	</rule>
 	<file>.</file>
-	<exclude-pattern>/(vendor|conf)/</exclude-pattern>
+	<exclude-pattern>/(vendor|conf|node_modules)/</exclude-pattern>
 	<exclude-pattern type="relative">extensions/*</exclude-pattern>
+	<exclude-pattern>.phan/baseline.php</exclude-pattern>
 	<arg name="extensions" value="php"/>
 	<arg name="encoding" value="UTF-8"/>
 </ruleset>

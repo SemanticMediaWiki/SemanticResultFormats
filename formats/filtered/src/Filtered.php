@@ -51,7 +51,6 @@ use SMWOutputs;
  *
  * All format specific parameters are optional, although leaving the 'views'
  * parameter empty probably does not make much sense.
- *
  */
 class Filtered extends ResultPrinter {
 
@@ -175,10 +174,8 @@ class Filtered extends ResultPrinter {
 		// collect the query results in an array
 		/** @var ResultItem[] $resultItems */
 		$resultItems = [];
-		while ( $row = $res->getNext() ) {
+		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$resultItems[$this->uniqid()] = new ResultItem( $row, $this );
-			// This is ugly, but for now th opnly way to get all resultItems. See #288.
-			usleep( 1 );
 		}
 
 		$config = [
@@ -210,16 +207,13 @@ class Filtered extends ResultPrinter {
 
 		try {
 			$this->fullParams['limit']->getOriginalValue();
-		} catch ( Exception $exception ) {
+		} catch ( Exception ) {
 			$res->getQuery()->setLimit( 0 );
 		}
 
 		$link = QueryLinker::get( $res->getQuery() );
 		$link->setCaption( Message::get( "srf-filtered-noscript-link-caption" ) );
 		$link->setParameter( 'table', 'format' );
-
-		SMWOutputs::requireResource( 'ext.srf.filtered' );
-		$this->registerResources( [], [ 'ext.srf.filtered' ] );
 
 		return $html;
 	}
@@ -273,27 +267,20 @@ class Filtered extends ResultPrinter {
 	private function addConfigToOutput( $id, $config ) {
 		$parserOutput = $this->getParser()->getOutput();
 		if ( $parserOutput !== null ) {
-			$getter = [ $parserOutput, 'getExtensionData' ];
-			$setter = [ $parserOutput, 'setExtensionData' ];
-
+			$previousConfig = $parserOutput->getExtensionData( 'srf-filtered-config' ) ?? [];
+			$previousConfig[$id] = $config;
+			$parserOutput->setExtensionData( 'srf-filtered-config', $previousConfig );
+			$parserOutput->setJsConfigVar( 'srfFilteredConfig', $previousConfig );
 		} else {
+			// Fallback for Special:Ask and other contexts where the parser has not been
+			// initialized with a ParserOutput (Parser::getOutput() returns null before
+			// initialization, deprecated since MW 1.42 — see #362).
+			// Config data is stored on OutputPage instead of ParserOutput.
 			$output = \RequestContext::getMain()->getOutput();
-			$getter = [ $output, 'getProperty' ];
-			$setter = [ $output, 'setProperty' ];
-		}
-
-		$previousConfig = call_user_func( $getter, 'srf-filtered-config' );
-
-		if ( $previousConfig === null ) {
-			$previousConfig = [];
-		}
-
-		$previousConfig[$id] = $config;
-
-		call_user_func( $setter, 'srf-filtered-config', $previousConfig );
-
-		if ( $parserOutput ) {
-				$parserOutput->setJsConfigVar( 'srfFilteredConfig', $previousConfig );
+			$previousConfig = $output->getProperty( 'srf-filtered-config' ) ?? [];
+			$previousConfig[$id] = $config;
+			$output->setProperty( 'srf-filtered-config', $previousConfig );
+			$output->addJsConfigVars( 'srfFilteredConfig', $previousConfig );
 		}
 	}
 
@@ -301,7 +288,9 @@ class Filtered extends ResultPrinter {
 	 * @param string | string[] | null $resourceModules
 	 */
 	protected function registerResourceModules( $resourceModules ) {
-		array_map( 'SMWOutputs::requireResource', (array)$resourceModules );
+		foreach ( (array)$resourceModules as $module ) {
+			SMWOutputs::requireResource( $module );
+		}
 	}
 
 	/**
@@ -310,7 +299,8 @@ class Filtered extends ResultPrinter {
 	 * @return string
 	 */
 	public function uniqid( $id = null ) {
-		$hashedId = ( $id === null ) ? uniqid() : md5( $id );
+		// random_bytes() produces cryptographically random hex, safe for base_convert() and unique without usleep().
+		$hashedId = ( $id === null ) ? bin2hex( random_bytes( 8 ) ) : md5( $id );
 		return base_convert( $hashedId, 16, 36 );
 	}
 
@@ -327,6 +317,12 @@ class Filtered extends ResultPrinter {
 		return $resultAsArray;
 	}
 
+	/**
+	 * Widen visibility from protected to public so that View subclasses can
+	 * call $this->getPrinter()->addError() directly.
+	 *
+	 * @inheritDoc
+	 */
 	public function addError( $errorMessage ): void {
 		parent::addError( $errorMessage );
 	}
@@ -406,7 +402,7 @@ class Filtered extends ResultPrinter {
 				}
 			}
 
-			$printrequests[$this->uniqid( $printRequest->getHash() )] = $prConfig;
+			$printrequests[] = $prConfig;
 		}
 
 		$filterHtml .= '<div class="filtered-filter-spinner" style="display: none;"><div class="smw-overlay-spinner"></div></div>';

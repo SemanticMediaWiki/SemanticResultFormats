@@ -82,10 +82,10 @@ class SRFValueRank extends ResultPrinter {
 		 *
 		 * @return array
 		 */
-		while ( $row = $results->getNext() ) {
+		while ( $row = $results->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			// \SMW\Query\Result\ResultArray for a sinlge property
 			for ( $i = 0, $n = count( $row ); $i < $n; $i++ ) {
-				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) {
+				while ( ( $dataValue = $row[$i]->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 					$isSubject = $row[$i]->getPrintRequest()->getMode() == PrintRequest::PRINT_THIS;
 
