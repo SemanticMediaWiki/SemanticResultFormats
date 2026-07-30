@@ -7,7 +7,13 @@
 			"شاه زمان پټان"
 		]
 	},
+	"srf-desc": "د ماناپوهنيزه مېډياويکي تپوسونو لپاره زياتي پايلو بڼې",
+	"prefs-srf": "ماناپوهنيزه پايلو بڼې",
+	"prefs-srf-eventcalendar-options": "د پېښې کليز خوښنې",
+	"srf-prefs-eventcalendar-options-update-default": "د مخ تاندولو پرمهال د کليز پېښې [https://www.semantic-mediawiki.org/wiki/Help:User_preferences#Automatic_updates خپلکاره هم‌مهالېدنې] چارنول",
+	"srf-paramdesc-datatables-library-option": "د مورني اومتوک‌لښتيالونو خوښنه",
 	"srf-module-loading": "رابرسېرېږي...",
+	"srf-paramdesc-layout": "د لاسرسي وړ هډوانه",
 	"srf-paramdesc-height": "لوړوالی",
 	"srf-paramdesc-width": "پراخوالی",
 	"srf-module-nomatch": "هېڅ ورته والی و نه موندل شو",
@@ -33,6 +39,10 @@
 	"srf_printername_outline": "لنډيز",
 	"srf_printername_sum": "د شمېرو ټولگه",
 	"srf_printername_average": "د شمېرو منځگوړی",
+	"srf_printername_earliest": "تر ټولو لومړی وخت",
+	"srf_printername_latest": "وروستی وخت",
+	"srf_printername_timeline": "مهالوېش",
+	"srf_printername_eventline": "پېښ‌کرښه",
 	"srf-paramdesc-colorscheme": "د رنگ جوړښتي‌گارليک غوره‌کول",
 	"srf-ui-gridview-label-item": "اومتوک توکی",
 	"srf-ui-gridview-label-value": "اومتوک ارزښت",
@@ -87,5 +97,6 @@
 	"srf-ui-mediaplayer-label-full-screen": "ډکه پرده",
 	"srf-ui-mediaplayer-label-restore-screen": "پرده بېرته‌راگرځول",
 	"srf-ui-slideshow-slide-button-play": "غږول",
-	"srf-ui-slideshow-slide-button-pause": "درول‌"
+	"srf-ui-slideshow-slide-button-pause": "درول‌",
+	"srf_printername_mode": "ونگ‌ډول"
 }
