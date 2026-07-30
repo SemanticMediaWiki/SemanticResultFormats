@@ -636,10 +636,10 @@
 								self.util.getImageURL( { title: event.eventicon },
 									( url ) => {
 										if ( url !== false ) {
-											if ( element.find( '.fc-event-time' ).length ) {
-												element.find( '.fc-event-time' ).before( $( '<img src=' + url + ' />' ) );
+											if ( element.find( '.fc-time' ).length ) {
+												element.find( '.fc-time' ).before( $( '<img src=' + url + ' />' ) );
 											} else {
-												element.find( '.fc-event-title' ).before( $( '<img src=' + url + ' />' ) );
+												element.find( '.fc-title' ).before( $( '<img src=' + url + ' />' ) );
 											}
 										}
 									} );
@@ -650,8 +650,8 @@
 							if ( event.description ) {
 								// Show the tooltip for the month view and render any additional description
 								// into the event for all other views
-								if ( element.find( '.fc-event-title' ).length && view.name !== 'month' && view.name.includes( 'Day' ) ) {
-									element.find( '.fc-event-title' ).after( html.element( 'span', { class: 'srf-fc-description', property: 'v:description' }, event.description ) );
+								if ( element.find( '.fc-title' ).length && view.name !== 'month' && view.name.includes( 'Day' ) ) {
+									element.find( '.fc-title' ).after( html.element( 'span', { class: 'srf-fc-description', property: 'v:description' }, event.description ) );
 								} else {
 									// Tooltip
 									self.tooltip.show( {
@@ -1068,6 +1068,12 @@
 			},
 			_fullCalendarEvent: function ( context, container, data, event, element, view ) {
 				return _calendar.fullCalendar( context, container, data ).event( event, element, view );
+			},
+			_defaultsSet: function ( data ) {
+				return _calendar.defaults.set( data );
+			},
+			_fullCalendarInit: function ( context, container, data ) {
+				return _calendar.fullCalendar( context, container, data ).init();
 			}
 		}
 	};
