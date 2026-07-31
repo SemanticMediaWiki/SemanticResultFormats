@@ -624,10 +624,9 @@
 				 *
 				 * @param event
 				 * @param element
-				 * @param view
 				 * @since 1.9
 				 */
-				event: function ( event, element, view ) {
+				event: function ( event, element ) {
 					return {
 						icon: function () {
 							// Manage icon elements
@@ -636,10 +635,10 @@
 								self.util.getImageURL( { title: event.eventicon },
 									( url ) => {
 										if ( url !== false ) {
-											if ( element.find( '.fc-event-time' ).length ) {
-												element.find( '.fc-event-time' ).before( $( '<img src=' + url + ' />' ) );
+											if ( element.find( '.fc-time' ).length ) {
+												element.find( '.fc-time' ).before( $( '<img src=' + url + ' />' ) );
 											} else {
-												element.find( '.fc-event-title' ).before( $( '<img src=' + url + ' />' ) );
+												element.find( '.fc-title' ).before( $( '<img src=' + url + ' />' ) );
 											}
 										}
 									} );
@@ -648,19 +647,23 @@
 						description: function () {
 							// Manage description elements
 							if ( event.description ) {
-								// Show the tooltip for the month view and render any additional description
-								// into the event for all other views
-								if ( element.find( '.fc-event-title' ).length && view.name !== 'month' && view.name.includes( 'Day' ) ) {
-									element.find( '.fc-event-title' ).after( html.element( 'span', { class: 'srf-fc-description', property: 'v:description' }, event.description ) );
-								} else {
-									// Tooltip
-									self.tooltip.show( {
-										context: element,
-										content: _calendar.getTruncatedSentence( event.description, self.defaults.descriptionLength ),
-										title: mw.msg( 'smw-ui-tooltip-title-event' ),
-										button: false
-									} );
-								}
+								// Always show as a tooltip. The inline-text branch this
+								// replaced was reachable in principle (view.name.includes(
+								// 'Day')) but never actually ran, because it looked for
+								// '.fc-event-title', a class fullCalendar has never rendered
+								// (see the icon() fix above) — so on every wiki to date,
+								// every view has always rendered the tooltip. Keep it that
+								// way rather than silently switching basicDay/agendaDay to
+								// inline text now that the selector would start matching:
+								// that would be a visible behavior change (and drops the
+								// descriptionLength truncation below) for existing wikis,
+								// not a bug fix.
+								self.tooltip.show( {
+									context: element,
+									content: _calendar.getTruncatedSentence( event.description, self.defaults.descriptionLength ),
+									title: mw.msg( 'smw-ui-tooltip-title-event' ),
+									button: false
+								} );
 							}
 						}
 					};
@@ -724,7 +727,7 @@
 
 	/* Public methods */
 
-	srf.formats.eventcalendar.prototype = {
+	Object.assign( srf.formats.eventcalendar.prototype, {
 
 		/**
 		 * Default settings
@@ -1068,9 +1071,12 @@
 			},
 			_fullCalendarEvent: function ( context, container, data, event, element, view ) {
 				return _calendar.fullCalendar( context, container, data ).event( event, element, view );
+			},
+			_fullCalendarInit: function ( context, container, data ) {
+				return _calendar.fullCalendar( context, container, data ).init();
 			}
 		}
-	};
+	} );
 
 	$( document ).ready( () => {
 		$( '.srf-eventcalendar' ).each( function () {
