@@ -47,10 +47,11 @@ function createDom() {
 	require( 'leaflet-providers' );
 
 	// fullcalendar.js (vendored under resources/jquery/fullcalendar/, MediaWiki
-	// ships it via ResourceLoader) requires('moment') internally; the vendored
-	// moment.js there is a browser-global build with no CommonJS export, so the
-	// npm 'moment' package is used here purely to satisfy that require().
-	global.moment = require( 'moment' );
+	// ships it via ResourceLoader) requires('moment') internally, which Node
+	// resolves from node_modules; the vendored moment.js there is a
+	// browser-global build with no CommonJS export, so the npm 'moment'
+	// package is a devDependency purely to satisfy that require() — it is
+	// never read as `moment` or `global.moment` anywhere in this suite.
 	require( path.resolve( __dirname, '../../resources/jquery/fullcalendar/fullcalendar.js' ) );
 
 	// MediaWiki's bundled jquery.ui.widget.js still sets widgetBaseClass (removed

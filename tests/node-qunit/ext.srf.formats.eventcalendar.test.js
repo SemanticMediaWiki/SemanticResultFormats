@@ -620,26 +620,29 @@ QUnit.module( 'ext.srf.formats.eventcalendar', () => {
 		assert.strictEqual( element.find( 'img' ).length, 0, 'no image was inserted without an eventicon' );
 	} );
 
-	QUnit.test( 'fullCalendar(...).event().description() appends inline text for day views', ( assert ) => {
+	QUnit.test( 'fullCalendar(...).event().description() always shows a tooltip, day views included', ( assert ) => {
 		const calendar = new srf.formats.eventcalendar();
+
+		// smw.util.tooltip's .show() is a no-op mock (see tests/node-qunit/setup.js);
+		// the module constructs a single instance at load time (_calendar.tooltip,
+		// exposed here as test._tooltip) — stub .show() on that shared instance.
+		const showStub = sinon.stub( calendar.test._tooltip, 'show' );
 
 		const element = $( '<div><span class="fc-title">Title</span></div>' );
 		const event = { description: 'Bring snacks' };
 
 		calendar.test._fullCalendarEvent( $( '<div>' ), $( '<div>' ), { events: [] }, event, element, { name: 'agendaDay' } ).description();
 
-		assert.strictEqual( element.find( 'span.srf-fc-description' ).length, 1,
-			'a day view with an .fc-title inserted the description as an inline span' );
-		assert.strictEqual( element.find( 'span.srf-fc-description' ).text(), 'Bring snacks',
-			'the inline span carried the event description text' );
+		assert.strictEqual( element.find( 'span.srf-fc-description' ).length, 0,
+			'no inline description span was appended for a day view — the inline branch stays intentionally unreachable (see #1139 review)' );
+		assert.strictEqual( showStub.calledOnce, true, 'the tooltip was shown instead' );
+		assert.strictEqual( showStub.firstCall.args[ 0 ].content, 'Bring snacks',
+			'the tooltip content was the (short, so untruncated) event description' );
 	} );
 
-	QUnit.test( 'fullCalendar(...).event().description() shows a tooltip for the month view instead of inline text', ( assert ) => {
+	QUnit.test( 'fullCalendar(...).event().description() shows a tooltip for the month view', ( assert ) => {
 		const calendar = new srf.formats.eventcalendar();
 
-		// smw.util.tooltip's .show() is a no-op mock (see tests/node-qunit/setup.js);
-		// the module constructs a single instance at load time (_calendar.tooltip,
-		// exposed here as test._tooltip) — stub .show() on that shared instance.
 		const showStub = sinon.stub( calendar.test._tooltip, 'show' );
 
 		const element = $( '<div><span class="fc-title">Title</span></div>' );
@@ -659,14 +662,14 @@ QUnit.module( 'ext.srf.formats.eventcalendar', () => {
 
 		const showStub = sinon.stub( calendar.test._tooltip, 'show' );
 
-		// No .fc-title present at all (e.g. a "basicWeek" cell) — must fall
-		// back to the tooltip branch regardless of the view name.
+		// No .fc-title present at all (e.g. a "basicWeek" cell) — must still
+		// show the tooltip regardless of the view name.
 		const element = $( '<div></div>' );
 		const event = { description: 'Bring snacks' };
 
 		calendar.test._fullCalendarEvent( $( '<div>' ), $( '<div>' ), { events: [] }, event, element, { name: 'basicWeek' } ).description();
 
-		assert.strictEqual( showStub.calledOnce, true, 'missing .fc-title fell back to the tooltip' );
+		assert.strictEqual( showStub.calledOnce, true, 'missing .fc-title still showed the tooltip' );
 	} );
 
 	QUnit.test( 'fullCalendar(...).event().description() does nothing when the event has no description', ( assert ) => {
@@ -699,6 +702,11 @@ QUnit.module( 'ext.srf.formats.eventcalendar', () => {
 	// eventRender wrapper (icon()/description()/the srf.eventcalendar.eventRender
 	// hook) never introduces nesting on top of whatever fullCalendar renders.
 	QUnit.test( 'fullCalendar(...).init() renders one event anchor per event, none nested inside another', ( assert ) => {
+		// defaultview=agendaDay with an empty `start` renders "today" — pin the
+		// clock so the fixture's event times always fall inside the rendered
+		// day, regardless of which calendar date the suite happens to run on.
+		const clock = sinon.useFakeTimers( new Date( '2026-07-30T09:00:00' ).getTime() );
+
 		const calendar = new srf.formats.eventcalendar();
 		const context = $( '<div>' ).appendTo( document.body );
 		const container = $( '<div>' ).appendTo( context );
@@ -720,7 +728,7 @@ QUnit.module( 'ext.srf.formats.eventcalendar', () => {
 			]
 		};
 
-		calendar.test._defaultsSet( data );
+		calendar.test._defaults.set( data );
 		calendar.test._fullCalendarInit( context, container, data );
 
 		const anchors = container.find( 'a.fc-time-grid-event' ).filter( ( i, el ) => $( el ).find( '.fc-title' ).length > 0 );
@@ -730,14 +738,19 @@ QUnit.module( 'ext.srf.formats.eventcalendar', () => {
 			data.events.map( ( event ) => event.title ), 'each anchor carried its own event title, in order' );
 
 		anchors.each( ( i, el ) => {
-			assert.strictEqual( $( el ).parents( 'a.fc-time-grid-event' ).length, 0,
-				`event anchor "${ $( el ).find( '.fc-title' ).text() }" was not nested inside another event anchor` );
+			assert.strictEqual( $( el ).parents( '.fc-bg' ).length, 0,
+				`event anchor "${ $( el ).find( '.fc-title' ).text() }" was not nested inside another event's .fc-bg wrapper` );
 		} );
+
+		clock.restore();
 	} );
 
-	QUnit.test( 'fullCalendar(...).init() runs eventRender for every event, including icon insertion', ( assert ) => {
+	QUnit.test( 'fullCalendar(...).init() runs eventRender for every event, scoped to that event only', ( assert ) => {
+		const clock = sinon.useFakeTimers( new Date( '2026-07-30T09:00:00' ).getTime() );
+
 		const calendar = new srf.formats.eventcalendar();
 		sinon.stub( srf.util.prototype, 'getImageURL' ).callsFake( ( options, callback ) => callback( 'http://localhost/images/icon.png' ) );
+		const showStub = sinon.stub( calendar.test._tooltip, 'show' );
 
 		const context = $( '<div>' ).appendTo( document.body );
 		const container = $( '<div>' ).appendTo( context );
@@ -753,16 +766,92 @@ QUnit.module( 'ext.srf.formats.eventcalendar', () => {
 			},
 			dates: [],
 			events: [
-				{ title: 'Event A', start: '2026-07-30T10:00:00', end: '2026-07-30T10:15:00', eventicon: 'Icon.png' },
-				{ title: 'Event B', start: '2026-07-30T10:15:00', end: '2026-07-30T11:30:00' }
+				{ title: 'Event A', start: '2026-07-30T10:00:00', end: '2026-07-30T10:15:00', eventicon: 'Icon.png', description: 'Desc A' },
+				{ title: 'Event B', start: '2026-07-30T10:15:00', end: '2026-07-30T11:30:00', eventicon: 'Icon.png', description: 'Desc B' },
+				{ title: 'Event C', start: '2026-07-30T11:30:00', end: '2026-07-30T12:00:00', eventicon: 'Icon.png', description: 'Desc C' }
 			]
 		};
 
-		calendar.test._defaultsSet( data );
+		calendar.test._defaults.set( data );
 		calendar.test._fullCalendarInit( context, container, data );
 
-		assert.strictEqual( container.find( 'img[src="http://localhost/images/icon.png"]' ).length, 1,
-			'eventRender inserted an icon only for the event carrying eventicon' );
+		assert.strictEqual( container.find( 'img[src="http://localhost/images/icon.png"]' ).length, data.events.length,
+			'eventRender inserted exactly one icon per event, not one icon shared/duplicated across events' );
+
+		assert.strictEqual( showStub.callCount, data.events.length, 'the tooltip was shown once per event' );
+		assert.deepEqual( showStub.getCalls().map( ( call ) => call.args[ 0 ].content ),
+			data.events.map( ( event ) => event.description ),
+			'each tooltip call carried its own event\'s description, not a sibling event\'s' );
+
+		const anchors = container.find( 'a.fc-time-grid-event' ).filter( ( i, el ) => $( el ).find( '.fc-title' ).length > 0 );
+		anchors.each( ( i, el ) => {
+			const $el = $( el );
+			const title = $el.find( '.fc-title' ).text();
+			assert.strictEqual( $el.find( 'img' ).length, 1,
+				`"${ title }" carries exactly one icon (icon()/description() must not write into a shared .fc-bg ancestor)` );
+		} );
+
+		clock.restore();
+	} );
+
+	// Regression test for #1138: b75e23e3 moved `const calendar = new
+	// srf.formats.eventcalendar();` above `srf.formats.eventcalendar.prototype =
+	// { ... }` to satisfy ESLint's no-use-before-define — but assigning .prototype
+	// *replaces* the object the already-constructed `calendar` instance points
+	// to, so `calendar.init` (called from the $(document).ready() handler below)
+	// was undefined for every real page load. Every other test in this file
+	// instantiates `new srf.formats.eventcalendar()` *after* the module has
+	// fully evaluated, so they all observe the correct (final) prototype and
+	// none of them would have caught this — this test instead drives the
+	// module's own $(document).ready() handler, which is the only thing that
+	// actually calls `calendar.init(...)` on a real page.
+	QUnit.test( 'document-ready handler initializes the calendar without throwing "calendar.init is not a function"', ( assert ) => {
+		const modulePath = path.resolve( __dirname, '../../formats/calendar/resources/ext.srf.formats.eventcalendar.js' );
+		delete require.cache[ modulePath ];
+
+		// jsdom's document.readyState is already 'complete' by the time tests
+		// run, so $(document).ready() fires synchronously on require() -- the
+		// fixture and mw.config/smw.api mocks below must be in place first.
+		const context = $( '<div class="srf-eventcalendar"><div class="srf-loading-dots"></div><div class="srf-container" id="srf-1138-cal"></div></div>' )
+			.appendTo( document.body );
+
+		mw.config.set( 'srf-1138-cal', {
+			query: {
+				ask: {
+					parameters: {
+						theme: 'other', defaultview: 'agendaDay', views: 'day,week,tmonth',
+						firstday: 'Sunday', start: '', gcalurl: null, dayview: false,
+						link: 'none', headers: 'show', filterProperty: '', filterType: 'filter',
+						limit: 20, offset: 0
+					}
+				},
+				result: { results: {}, meta: { count: 0 }, printrequests: [] },
+				printouts: []
+			}
+		} );
+
+		// smw.api's real .parse() (SemanticMediaWiki core, not vendored here)
+		// normally reshapes the raw mw.config payload; identity is sufficient
+		// since the fixture above is already in the shape parse.api() expects.
+		const originalSmwApiPrototype = smw.api.prototype;
+		smw.api.prototype = { parse: ( rawData ) => rawData };
+
+		let thrown = null;
+		try {
+			require( modulePath );
+		} catch ( e ) {
+			thrown = e;
+		} finally {
+			smw.api.prototype = originalSmwApiPrototype;
+			delete require.cache[ modulePath ];
+			// Restore the cached module instance the rest of this file's tests
+			// rely on, since we just evicted it from require.cache above.
+			require( modulePath );
+			context.remove();
+		}
+
+		assert.strictEqual( thrown, null,
+			'the $(document).ready() handler ran to completion: ' + ( thrown && thrown.message ) );
 	} );
 
 } );
