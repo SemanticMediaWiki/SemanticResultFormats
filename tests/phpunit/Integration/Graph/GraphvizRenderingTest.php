@@ -3,6 +3,8 @@
 namespace SRF\Tests\Integration\Graph;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Title\Title;
 use SRF\Graph\GraphFormatter;
 use SRF\Graph\GraphNode;
 use SRF\Graph\GraphOptions;
@@ -296,8 +298,8 @@ class GraphvizRenderingTest extends \MediaWikiIntegrationTestCase {
 
 		$dot = $this->buildFieldValueDot( '<br />' );
 		$wikitext = "<graphviz>\n$dot\n</graphviz>";
-		$title = \Title::newFromText( 'Issue816Test' );
-		$parserOptions = \ParserOptions::newFromAnon();
+		$title = Title::newFromText( 'Issue816Test' );
+		$parserOptions = ParserOptions::newFromAnon();
 
 		$parserOutput = $parser->parse( $wikitext, $title, $parserOptions );
 		$html = $parserOutput->getRawText();
