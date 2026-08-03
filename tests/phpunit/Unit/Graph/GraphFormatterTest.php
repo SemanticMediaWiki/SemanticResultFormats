@@ -460,6 +460,185 @@ DOT
 	}
 
 	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/816
+	 *
+	 * Field values are always rendered inside a <td> of an HTML label, regardless of
+	 * whether the Diagrams extension is loaded (plain GraphViz/dot renders the same DOT
+	 * HTML-label syntax). A long field value must therefore always be wrapped with a
+	 * literal "<br />", never a plain newline, even when Diagrams is absent.
+	 */
+	public function testBuildGraphWordWrapsFieldValuesWithHtmlLineBreak(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
+		$params['wordwraplimit'] = 5;
+		// The fix hardcodes "<br />" at the field-value getWordWrappedText() call sites,
+		// regardless of $this->lineSeparator (which still depends on whether Diagrams is
+		// loaded) — so this test intentionally does not touch lineSeparator at all: it
+		// must pass no matter what that property's value is.
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Iota' );
+		$node->setLabel( 'Iota' );
+		$node->addField( 'Description', 'A long field value here', '_txt', 'Description', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( 'long<br />field<br />value<br />here', $dot );
+		$this->assertStringNotContainsString( 'long' . PHP_EOL . 'field', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test: a node's caption (set via GraphNode::setLabel(), which
+	 * GraphPrinter::determineNode() calls unconditionally regardless of the "nodelabel"
+	 * option) must still be used as the fields-table header when "nodelabel" is not set to
+	 * "displaytitle". "nodelabel=displaytitle" only controls whether that caption is itself
+	 * treated as a wrappable label; it must not gate whether the caption is used at all.
+	 */
+	public function testBuildGraphUsesCaptionAsFieldsTableHeaderRegardlessOfNodeLabelOption(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
+		$params['nodelabel'] = '';
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Iota' );
+		$node->setLabel( 'Iota Caption' );
+		$node->addField( 'Rating', '5', '_num', 'Rating', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString(
+			'<tr><td colspan="2" href="[[Team:Iota]]">Iota Caption</td></tr>',
+			$dot,
+			'The fields-table header must show the caption, not the raw node ID, ' .
+			'even when "nodelabel" is not "displaytitle".'
+		);
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/816
+	 *
+	 * Sibling case to testBuildGraphWordWrapsFieldValuesWithHtmlLineBreak(): the "_wpg"
+	 * field-value branch (which adds an "href" attribute) must wrap with "<br />" exactly
+	 * like the non-"_wpg" branch. Both branches call getWordWrappedText() independently, so
+	 * a future edit could fix one and miss the other.
+	 */
+	public function testBuildGraphWordWrapsWikiPageFieldValuesWithHtmlLineBreak(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
+		$params['wordwraplimit'] = 5;
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		// Force the non-Diagrams (plain newline) fallback separator so this test is a
+		// genuine regression test regardless of whether Diagrams happens to be loaded in
+		// the running environment — without this, a missing "<br />" argument at the call
+		// site under test would coincidentally still produce "<br />" via the Diagrams
+		// fallback, silently passing either way.
+		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
+		$ref->setAccessible( true );
+		$ref->setValue( $formatter, PHP_EOL );
+
+		$node = new GraphNode( 'Team:Iota' );
+		$node->setLabel( 'Iota' );
+		$node->addField( 'Casted', 'A long field value here', '_wpg', 'Casted', 'A long field value here' );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( 'long<br />field<br />value<br />here', $dot );
+		$this->assertStringNotContainsString( 'long' . PHP_EOL . 'field', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/816
+	 *
+	 * The fields-table HEADER (the node's caption, shown above the field rows) is wrapped
+	 * with the same getWordWrappedText(..., '<br />') call as field values (see line
+	 * ~112-113). A long caption must therefore also wrap with "<br />", not disappear into
+	 * $this->lineSeparator — the same bug class #816 fixed for field values.
+	 */
+	public function testBuildGraphWordWrapsFieldsTableHeaderWithHtmlLineBreak(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
+		$params['wordwraplimit'] = 5;
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		// See testBuildGraphWordWrapsWikiPageFieldValuesWithHtmlLineBreak() above: force the
+		// non-Diagrams fallback separator so this test doesn't coincidentally pass either
+		// way depending on whether Diagrams happens to be loaded.
+		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
+		$ref->setAccessible( true );
+		$ref->setValue( $formatter, PHP_EOL );
+
+		$node = new GraphNode( 'Team:Iota' );
+		$node->setLabel( 'A long caption here' );
+		$node->addField( 'Rating', '5', '_num', 'Rating', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString(
+			'<tr><td colspan="2" href="[[Team:Iota]]">long<br />caption<br />here</td></tr>',
+			$dot
+		);
+		$this->assertStringNotContainsString( 'long' . PHP_EOL . 'caption', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * General coverage, unrelated to issue #816 (line breaks): "graphlink=false" (never
+	 * exercised elsewhere in this file, which otherwise always inherits BASE_PARAMS'
+	 * "graphlink" => true) must still render a well-formed fields table — the header
+	 * <td>'s "href" attribute becomes empty rather than emitting a literal "[[...]]"
+	 * wikilink target or a PHP null-to-string coercion warning. Passes identically before
+	 * and after the #816 fix; it closes a pre-existing coverage gap found while auditing
+	 * that fix, not a regression it introduced.
+	 */
+	public function testBuildGraphWithGraphLinkDisabledAndFieldsProducesEmptyHref(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
+		$params['graphlink'] = false;
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Iota' );
+		$node->setLabel( 'Iota' );
+		$node->addField( 'Rating', '5', '_num', 'Rating', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString( '<tr><td colspan="2" href="">Iota</td></tr>', $dot );
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 *
+	 * General coverage, unrelated to issue #816 (line breaks): "graphlink=false" without
+	 * fields must not emit a "URL" attribute at all (mirrors
+	 * testBuildGraphWithGraphLinkDisabledAndFieldsProducesEmptyHref() for the field-less
+	 * branch, where $nodeLinkURL is used directly rather than embedded in a <td>). Passes
+	 * identically before and after the #816 fix.
+	 */
+	public function testBuildGraphWithGraphLinkDisabledAndNoFieldsOmitsUrl(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => false, 'graphfieldspages' => false ];
+		$params['graphlink'] = false;
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Team:Iota' );
+		$node->setLabel( 'Iota' );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringNotContainsString( 'URL = ', $dot );
+	}
+
+	/**
 	 * @covers \SRF\Graph\GraphFormatter::getGraphLegend()
 	 *
 	 * Covers line 257: the color counter resets to 0 after cycling through all 14
