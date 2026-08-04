@@ -139,6 +139,13 @@ class SRFListWidget extends ResultPrinter {
 			'message' => 'smw-paramdesc-template',
 			'default' => '',
 		];
+
+		$params['prefix'] = [
+			'message' => 'smw-paramdesc-prefix',
+			'default' => 'auto',
+			'values' => [ 'all', 'subject', 'none', 'auto' ],
+		];
+
 		return $params;
 	}
 }

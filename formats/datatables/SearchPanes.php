@@ -11,11 +11,14 @@
 
 namespace SRF\DataTables;
 
+use MediaWiki\MediaWikiServices;
+use SMW\DataItems\DataItem;
 use SMW\DataTypeRegistry;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMW\Query\PrintRequest;
+use SMW\Query\QueryProcessor;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\SQLStore\QueryEngine\HierarchyTempTableBuilder;
 use SMW\SQLStore\QueryEngine\QuerySegment;
@@ -23,8 +26,6 @@ use SMW\SQLStore\QueryEngineFactory;
 use SMW\SQLStore\SQLStore;
 use SMW\SQLStore\TableBuilder\FieldType;
 use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
-use SMWDataItem as DataItem;
-use SMWQueryProcessor;
 use SRF\DataTables;
 
 class SearchPanes {
@@ -39,6 +40,22 @@ class SearchPanes {
 
 	public function __construct( DataTables $datatables ) {
 		$this->datatables = $datatables;
+	}
+
+	/**
+	 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/commit/cb5061809fd3937ab2f1fb823e6ea981b9ca1380
+	 * @param int $db
+	 * @return \Wikimedia\Rdbms\DBConnRef
+	 */
+	private function getConnection( $db ) {
+		$connectionProvider = MediaWikiServices::getInstance()->getConnectionProvider();
+		switch ( $db ) {
+			case DB_PRIMARY:
+				return $connectionProvider->getPrimaryDatabase();
+			case DB_REPLICA:
+			default:
+				return $connectionProvider->getReplicaDatabase();
+		}
 	}
 
 	private function newTemporaryTableBuilder() {
@@ -93,7 +110,10 @@ class SearchPanes {
 
 	public function getSearchPanes( array $printRequests, array $searchPanesOptions ): array {
 		$this->queryEngineFactory = new QueryEngineFactory( $this->datatables->store );
-		$this->connection = $this->datatables->store->getConnection( 'mw.db.queryengine' );
+
+		// @ATTENTION, SMW's connection cannot be used anymore since https://github.com/SemanticMediaWiki/SemanticMediaWiki/commit/cb5061809fd3937ab2f1fb823e6ea981b9ca1380
+		// $this->connection = $this->datatables->store->getConnection( 'mw.db.queryengine' );
+		$this->connection = $this->getConnection( DB_REPLICA );
 
 		$ret = [];
 		foreach ( $printRequests as $i => $printRequest ) {
@@ -159,7 +179,7 @@ class SearchPanes {
 			'offset' => $this->datatables->query->getOffset(),
 			'mainlabel' => $this->datatables->query->getMainlabel()
 		];
-		$queryParams = SMWQueryProcessor::getProcessedParams( $queryParams, [] );
+		$queryParams = QueryProcessor::getProcessedParams( $queryParams, [] );
 
 		// @TODO @FIXME
 		// get original description and add a conjunction
@@ -170,10 +190,10 @@ class SearchPanes {
 		$isCategory = $printRequest->getMode() === PrintRequest::PRINT_CATS;
 
 		// @TODO @FIXME cover PRINT_CHAIN as well
-		$newQuery = SMWQueryProcessor::createQuery(
+		$newQuery = QueryProcessor::createQuery(
 			$this->datatables->query->getQueryString() . ( !$isCategory ? '[[' . $canonicalLabel . '::+]]' : '' ),
 			$queryParams,
-			SMWQueryProcessor::INLINE_QUERY,
+			QueryProcessor::INLINE_QUERY,
 			''
 		);
 
