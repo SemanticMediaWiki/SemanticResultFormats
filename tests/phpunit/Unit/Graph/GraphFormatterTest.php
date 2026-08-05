@@ -437,7 +437,7 @@ DOT
 		$dot = $formatter->getGraph();
 
 		$this->assertStringNotContainsString( '&lt;br', $dot, '"<br />" must not be re-escaped into visible text' );
-		$this->assertStringContainsString( 'label = <long<br />label<br />text<br />here>', $dot );
+		$this->assertStringContainsString( 'label = <A<br />long<br />label<br />text<br />here>', $dot );
 	}
 
 	/**
@@ -460,23 +460,39 @@ DOT
 	}
 
 	/**
+	 * @return array
+	 */
+	public function provideLineSeparators(): array {
+		return [
+			'lineSeparator is <br /> (e.g. Diagrams loaded)' => [ '<br />' ],
+			'lineSeparator is a plain newline (e.g. Diagrams absent)' => [ PHP_EOL ],
+		];
+	}
+
+	/**
 	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 * @dataProvider provideLineSeparators
 	 *
 	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/816
 	 *
 	 * Field values are always rendered inside a <td> of an HTML label, regardless of
 	 * whether the Diagrams extension is loaded (plain GraphViz/dot renders the same DOT
 	 * HTML-label syntax). A long field value must therefore always be wrapped with a
-	 * literal "<br />", never a plain newline, even when Diagrams is absent.
+	 * literal "<br />", never a plain newline — regardless of what $this->lineSeparator
+	 * happens to be, since the field-value call site hardcodes '<br />' explicitly. The
+	 * data provider proves the explicit argument wins either way, rather than only testing
+	 * the one lineSeparator value that happens to be active in the running environment.
+	 *
+	 * @param string $lineSeparator
 	 */
-	public function testBuildGraphWordWrapsFieldValuesWithHtmlLineBreak(): void {
+	public function testBuildGraphWordWrapsFieldValuesWithHtmlLineBreak( string $lineSeparator ): void {
 		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
 		$params['wordwraplimit'] = 5;
-		// The fix hardcodes "<br />" at the field-value getWordWrappedText() call sites,
-		// regardless of $this->lineSeparator (which still depends on whether Diagrams is
-		// loaded) — so this test intentionally does not touch lineSeparator at all: it
-		// must pass no matter what that property's value is.
 		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
+		$ref->setAccessible( true );
+		$ref->setValue( $formatter, $lineSeparator );
 
 		$node = new GraphNode( 'Team:Iota' );
 		$node->setLabel( 'Iota' );
@@ -519,28 +535,69 @@ DOT
 	}
 
 	/**
+	 * @covers \SRF\Graph\GraphFormatter::getWordWrappedText()
+	 *
+	 * A single-character (or otherwise sub-2-character) token satisfies neither
+	 * getWordWrappedText() regex alternative: "\S{$charLimit,}" needs at least $charLimit
+	 * characters, and "\S.{1,$charLimit-1}(?=\s+|$)" needs at least 2. Such a token must
+	 * still be emitted verbatim rather than silently dropped — reachable via any
+	 * single-character page title/caption on the fields-table-header path
+	 * (GraphFormatter.php:111-113), which wraps unconditionally since the #816 fix.
+	 */
+	public function testGetWordWrappedTextKeepsSingleCharacterToken(): void {
+		$formatter = new GraphFormatter(
+			new GraphOptions( self::BASE_PARAMS + [ 'graphfields' => false ] )
+		);
+
+		$this->assertSame( 'H', $formatter->getWordWrappedText( 'H', 25, '<br />' ) );
+	}
+
+	/**
 	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
 	 *
-	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/816
+	 * Regression test: a single-character caption must still appear in the fields-table
+	 * header, not be swallowed by getWordWrappedText() silently dropping a token too short
+	 * to match either of its regex alternatives (see
+	 * testGetWordWrappedTextKeepsSingleCharacterToken() above).
+	 */
+	public function testBuildGraphKeepsSingleCharacterCaptionInFieldsTableHeader(): void {
+		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
+		$params['nodelabel'] = '';
+		$formatter = new GraphFormatter( new GraphOptions( $params ) );
+
+		$node = new GraphNode( 'Page:H' );
+		$node->setLabel( 'H' );
+		$node->addField( 'Rating', '5', '_num', 'Rating', null );
+
+		$formatter->buildGraph( [ $node ] );
+		$dot = $formatter->getGraph();
+
+		$this->assertStringContainsString(
+			'<tr><td colspan="2" href="[[Page:H]]">H</td></tr>',
+			$dot,
+			'A single-character caption must not be dropped from the fields-table header.'
+		);
+	}
+
+	/**
+	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 * @dataProvider provideLineSeparators
 	 *
 	 * Sibling case to testBuildGraphWordWrapsFieldValuesWithHtmlLineBreak(): the "_wpg"
 	 * field-value branch (which adds an "href" attribute) must wrap with "<br />" exactly
 	 * like the non-"_wpg" branch. Both branches call getWordWrappedText() independently, so
 	 * a future edit could fix one and miss the other.
+	 *
+	 * @param string $lineSeparator
 	 */
-	public function testBuildGraphWordWrapsWikiPageFieldValuesWithHtmlLineBreak(): void {
+	public function testBuildGraphWordWrapsWikiPageFieldValuesWithHtmlLineBreak( string $lineSeparator ): void {
 		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
 		$params['wordwraplimit'] = 5;
 		$formatter = new GraphFormatter( new GraphOptions( $params ) );
 
-		// Force the non-Diagrams (plain newline) fallback separator so this test is a
-		// genuine regression test regardless of whether Diagrams happens to be loaded in
-		// the running environment — without this, a missing "<br />" argument at the call
-		// site under test would coincidentally still produce "<br />" via the Diagrams
-		// fallback, silently passing either way.
 		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
 		$ref->setAccessible( true );
-		$ref->setValue( $formatter, PHP_EOL );
+		$ref->setValue( $formatter, $lineSeparator );
 
 		$node = new GraphNode( 'Team:Iota' );
 		$node->setLabel( 'Iota' );
@@ -555,25 +612,31 @@ DOT
 
 	/**
 	 * @covers \SRF\Graph\GraphFormatter::buildGraph()
+	 * @dataProvider provideLineSeparators
 	 *
 	 * Regression test for https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/816
 	 *
 	 * The fields-table HEADER (the node's caption, shown above the field rows) is wrapped
 	 * with the same getWordWrappedText(..., '<br />') call as field values (see line
 	 * ~112-113). A long caption must therefore also wrap with "<br />", not disappear into
-	 * $this->lineSeparator — the same bug class #816 fixed for field values.
+	 * $this->lineSeparator — the same bug class #816 fixed for field values. Uses
+	 * "nodelabel" => "" (not "displaytitle"), unlike an earlier version of this test that
+	 * inherited BASE_PARAMS' "nodelabel" => "displaytitle": the header must wrap
+	 * unconditionally, regardless of "nodelabel" (see
+	 * testBuildGraphUsesCaptionAsFieldsTableHeaderRegardlessOfNodeLabelOption()), so pinning
+	 * "displaytitle" here would leave the "nodelabel" => "" case unpinned.
+	 *
+	 * @param string $lineSeparator
 	 */
-	public function testBuildGraphWordWrapsFieldsTableHeaderWithHtmlLineBreak(): void {
+	public function testBuildGraphWordWrapsFieldsTableHeaderWithHtmlLineBreak( string $lineSeparator ): void {
 		$params = self::BASE_PARAMS + [ 'graphfields' => true, 'graphfieldspages' => false ];
 		$params['wordwraplimit'] = 5;
+		$params['nodelabel'] = '';
 		$formatter = new GraphFormatter( new GraphOptions( $params ) );
 
-		// See testBuildGraphWordWrapsWikiPageFieldValuesWithHtmlLineBreak() above: force the
-		// non-Diagrams fallback separator so this test doesn't coincidentally pass either
-		// way depending on whether Diagrams happens to be loaded.
 		$ref = new \ReflectionProperty( GraphFormatter::class, 'lineSeparator' );
 		$ref->setAccessible( true );
-		$ref->setValue( $formatter, PHP_EOL );
+		$ref->setValue( $formatter, $lineSeparator );
 
 		$node = new GraphNode( 'Team:Iota' );
 		$node->setLabel( 'A long caption here' );
@@ -583,7 +646,7 @@ DOT
 		$dot = $formatter->getGraph();
 
 		$this->assertStringContainsString(
-			'<tr><td colspan="2" href="[[Team:Iota]]">long<br />caption<br />here</td></tr>',
+			'<tr><td colspan="2" href="[[Team:Iota]]">A<br />long<br />caption<br />here</td></tr>',
 			$dot
 		);
 		$this->assertStringNotContainsString( 'long' . PHP_EOL . 'caption', $dot );

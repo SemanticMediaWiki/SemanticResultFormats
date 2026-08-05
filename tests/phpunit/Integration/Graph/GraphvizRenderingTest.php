@@ -160,7 +160,15 @@ class GraphvizRenderingTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @covers \MediaWiki\Extension\Diagrams\Dot::getSrc()
+	 * @coversNothing
+	 *
+	 * Deliberately not "@covers \MediaWiki\Extension\Diagrams\Dot::getSrc()": MediaWiki's
+	 * inherited testValidCovers() runs as its own separate test and fails hard whenever a
+	 * @covers target can't be resolved — this method's markTestSkipped() guard does not
+	 * protect it. A --filter run that narrows to just this test class still runs
+	 * testValidCovers, so if Diagrams isn't installed in that environment a real @covers
+	 * annotation here would break the filtered run even though this test itself would only
+	 * have been skipped. "@coversNothing" opts this method out of that validation instead.
 	 *
 	 * Regression test for issue #816 (extension-agnosticism): the Diagrams extension's
 	 * Dot::getSrc() preprocessing does not touch HTML-label body content ("<br />", <td>
@@ -237,7 +245,16 @@ class GraphvizRenderingTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @covers \EDConnectorBase::emulatedTags()
+	 * @coversNothing
+	 *
+	 * Deliberately not "@covers \EDConnectorBase::emulatedTags()": that annotation would
+	 * only resolve because this test registers an ad-hoc autoloader for ExternalData in
+	 * setUpExternalDataWithoutLoadingItsHooks() above, rather than ExternalData being loaded
+	 * normally. MediaWiki's inherited testValidCovers() runs as its own separate test and
+	 * fails hard when a @covers target can't be resolved — a --filter run that excludes this
+	 * test (e.g. "--filter GraphvizRenderingTest::testValidCovers") never registers that
+	 * autoloader, so the class stays unresolvable and the filtered run breaks.
+	 * "@coversNothing" opts this method out of that validation instead.
 	 *
 	 * End-to-end smoke test for issue #816 (extension-agnosticism): configures a real
 	 * "graphviz" External Data source exactly as documented (see
@@ -254,6 +271,13 @@ class GraphvizRenderingTest extends \MediaWikiIntegrationTestCase {
 	public function testExternalDataGraphvizTagRendersCorrectLineBreaks(): void {
 		if ( !$this->setUpExternalDataWithoutLoadingItsHooks() ) {
 			$this->markTestSkipped( 'External Data extension is not installed in this environment.' );
+		}
+		// setUpExternalDataWithoutLoadingItsHooks() only proves extension.json exists; guard
+		// the actual classes this test calls (\EDConnectorBase::loadConfig()/emulatedTags())
+		// too, so a future ExternalData release that renames or removes them makes this test
+		// skip cleanly instead of erroring with a fatal "class not found".
+		if ( !class_exists( '\EDConnectorBase' ) ) {
+			$this->markTestSkipped( '\EDConnectorBase is not available in this environment.' );
 		}
 		if ( \MediaWiki\Shell\Shell::isDisabled() ) {
 			$this->markTestSkipped( 'Shell execution is disabled in this environment.' );

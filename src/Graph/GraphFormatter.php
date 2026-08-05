@@ -292,8 +292,12 @@ class GraphFormatter {
 	 * @return string
 	 */
 	public function getWordWrappedText( $text, $charLimit, $separator = null ) {
+		// The trailing "|\S+" alternative catches tokens too short to satisfy either
+		// preceding alternative (e.g. a single character: "\S{$charLimit,}" needs at least
+		// $charLimit characters, "\S.{1,$charLimit-1}(?=\s+|$)" needs at least 2) — without
+		// it, such tokens are silently dropped instead of being emitted verbatim.
 		preg_match_all(
-			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)/u',
+			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)|\S+/u',
 			$text,
 			$matches,
 			PREG_PATTERN_ORDER
