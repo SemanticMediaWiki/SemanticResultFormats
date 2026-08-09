@@ -95,11 +95,8 @@ class GraphFormatter {
 			$nodeLabel = htmlspecialchars( $node->getLabel() ?? '' );
 
 			// take "displaytitle" as node-label if it is set
-			if ( $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE ) {
-				if ( !empty( $nodeLabel ) ) {
-					$nodeLabel = $this->getWordWrappedText( $nodeLabel, $this->options->getWordWrapLimit() );
-				}
-			}
+			$useDisplayTitle = $this->options->getNodeLabel() === GraphPrinter::NODELABEL_DISPLAYTITLE
+				&& !empty( $nodeLabel );
 
 			// URL.
 			$nodeLinkURL = $this->options->isGraphLink() ? "[[" . $node->getID() . "]]" : null;
@@ -107,15 +104,16 @@ class GraphFormatter {
 			// Display fields, if any.
 			$fields = $node->getFields();
 			if ( count( $fields ) > 0 ) {
-				$label = $nodeLabel
-					?: strtr( $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit() ),
-							  [ '\n' => '<br/>' ] );
+				// The label is always embedded in an HTML label's <td> here (see below), which
+				// only renders "<br />" as a line break, never a plain newline (see issue #816).
+				// The caption (set via setLabel(), independent of the "nodelabel" option — see
+				// GraphPrinter::determineNode()) takes precedence over the node ID whenever set.
+				$label = !empty( $nodeLabel )
+					? $this->getWordWrappedText( $nodeLabel, $this->options->getWordWrapLimit(), '<br />' )
+					: $this->getWordWrappedText( $node->getID(), $this->options->getWordWrapLimit(), '<br />' );
+				// $nodeLabel here is still the raw, unwrapped value (see above), so it never
+				// contains a line separator that would need stripping for the tooltip.
 				$nodeTooltip = $nodeLabel ?: $node->getID();
-				// GraphViz is not working for version >= 1.33, so we need to use the Diagrams extension
-				// and formatting is a little different from the GraphViz extension
-				if ( \ExtensionRegistry::getInstance()->isLoaded( 'Diagrams' ) ) {
-					$nodeTooltip = str_replace( '<br />', '', $nodeTooltip );
-				}
 				// Label in HTML form enclosed with <>.
 				$nodeLabel = "<\n" . '<table color="white" border="0" cellborder="0" cellspacing="2" columns="*" rows="*">' . "\n"
 							. '<tr><td colspan="2" href="' . $nodeLinkURL . '">' . $label . "</td></tr>\n"
@@ -144,12 +142,14 @@ class GraphFormatter {
 												? ' href="[[' . htmlspecialchars( $field['valueLink'] ) . ']]">'
 													. $instance->getWordWrappedText(
 														htmlspecialchars( $field['value'] ),
-														$instance->options->getWordWrapLimit()
+														$instance->options->getWordWrapLimit(),
+														'<br />'
 													)
 												: '>'
 													. $instance->getWordWrappedText(
 													htmlspecialchars( $field['value'] ),
-													$instance->options->getWordWrapLimit()
+													$instance->options->getWordWrapLimit(),
+													'<br />'
 												)
 										)
 										. '</td></tr>';
@@ -157,6 +157,9 @@ class GraphFormatter {
 				$nodeLinkURL = null;
 				// the value at the top is already hyperlinked.
 			} else {
+				if ( $useDisplayTitle ) {
+					$nodeLabel = $this->getWordWrappedText( $nodeLabel, $this->options->getWordWrapLimit() );
+				}
 				if ( $nodeLabel ) {
 					// $nodeLabel is already HTML-escaped (see above) and, when wrapped
 					// across multiple lines, already contains the line separator (either
@@ -281,16 +284,24 @@ class GraphFormatter {
 	 *
 	 * @param string $text
 	 * @param int $charLimit
+	 * @param string|null $separator Line separator to use. Defaults to $this->lineSeparator
+	 *  (plain newline unless the Diagrams extension is loaded). Callers that always embed the
+	 *  result in a DOT HTML label (e.g. a <td> cell) must pass '<br />' explicitly, since a plain
+	 *  newline there would render as literal whitespace rather than a line break (see issue #816).
 	 *
 	 * @return string
 	 */
-	public function getWordWrappedText( $text, $charLimit ) {
+	public function getWordWrappedText( $text, $charLimit, $separator = null ) {
+		// The trailing "|\S+" alternative catches tokens too short to satisfy either
+		// preceding alternative (e.g. a single character: "\S{$charLimit,}" needs at least
+		// $charLimit characters, "\S.{1,$charLimit-1}(?=\s+|$)" needs at least 2) — without
+		// it, such tokens are silently dropped instead of being emitted verbatim.
 		preg_match_all(
-			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)/u',
+			'/\S{' . $charLimit . ',}|\S.{1,' . ( $charLimit - 1 ) . '}(?=\s+|$)|\S+/u',
 			$text,
 			$matches,
 			PREG_PATTERN_ORDER
 		);
-		return implode( $this->lineSeparator, $matches[0] );
+		return implode( $separator ?? $this->lineSeparator, $matches[0] );
 	}
 }
