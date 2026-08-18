@@ -485,7 +485,7 @@ return [
             'PhanUndeclaredClass' => ['\\SRF\\ArrayFormat\\ArrayPrinter::__construct', '\\SRF\\ArrayFormat\\ArrayPrinter::getParamDefinitions', '\\SRF\\ArrayFormat\\ArrayPrinter::handleParameters'],
             'PhanUndeclaredClassConstant' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText', '\\SRF\\ArrayFormat\\ArrayPrinter::getQueryMode'],
             'PhanUndeclaredClassInstanceof' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
+            'PhanUndeclaredClassMethod' => ['\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
             'PhanUndeclaredConstant' => ['\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues'],
             'PhanUndeclaredExtendedClass' => ['src/ArrayFormat/ArrayPrinter.php'],
             'PhanUndeclaredMethod' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText'],

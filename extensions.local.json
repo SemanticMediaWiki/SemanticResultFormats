@@ -10,6 +10,10 @@
       "version": "3.6.1",
       "repo": "wikimedia/mediawiki-extensions-ExternalData",
       "local_settings": "// ExternalData registers the <graphviz> tag too; it is loaded per-test only (see tests/phpunit/Integration/Graph/), not globally, to avoid colliding with Diagrams' handler for the same tag."
+    },
+    {
+      "name": "Arrays",
+      "version": "REL1_43"
     }
   ]
 }

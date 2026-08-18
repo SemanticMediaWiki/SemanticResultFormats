@@ -212,7 +212,7 @@ class ArrayPrinter extends ResultPrinter {
 
 		if ( defined( 'ExtArrays::VERSION' ) || class_exists( 'ExtArrays' ) ) {
 			$parser = MediaWikiServices::getInstance()->getParser();
-			ExtArrays::get( $parser )->createArray( $arrayId, $array );
+			\ExtArrays::get( $parser )->createArray( $arrayId, $array );
 			return true;
 		}
 

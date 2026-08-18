@@ -553,4 +553,49 @@ class SRFArrayTest extends TestCase {
 		$this->assertFalse( $instance->createArrayPublic( [ 'a' ] ) );
 	}
 
+	/**
+	 * createArray() calls the global \ExtArrays class unqualified while this file
+	 * is itself namespaced (SRF\ArrayFormat). An unqualified class reference in a
+	 * static call is resolved by PHP relative to the current namespace, so without
+	 * the leading `\`, PHP looks for SRF\ArrayFormat\ExtArrays and throws an Error
+	 * when the Arrays extension is actually installed — regression for the
+	 * production crash reported when querying an inverse-array-name printout.
+	 */
+	public function testCreateArrayCallsGlobalExtArraysWhenArraysExtensionInstalled(): void {
+		if ( !class_exists( 'ExtArrays' ) ) {
+			// Minimal stand-in for the real Arrays extension's global ExtArrays
+			// class, matching its actual API (get(), instance createArray()).
+			eval( <<<'PHP'
+				class ExtArrays {
+					private static $instance;
+					public $created = [];
+					public static function &get( $parser ) {
+						if ( self::$instance === null ) {
+							self::$instance = new self();
+						}
+						return self::$instance;
+					}
+					public function createArray( $arrayId, array $array = [] ) {
+						$this->created[$arrayId] = $array;
+					}
+				}
+				PHP
+			);
+		}
+
+		$instance = new class( 'array' ) extends ArrayPrinter {
+			public function createArrayPublic( $array ) {
+				return parent::createArray( $array );
+			}
+			public function set( string $property, $value ): void {
+				$this->$property = $value;
+			}
+		};
+		$instance->set( 'mArrayName', 'myArr' );
+
+		$result = $instance->createArrayPublic( [ 'a', 'b' ] );
+
+		$this->assertTrue( $result );
+	}
+
 }
