@@ -563,30 +563,14 @@ class SRFArrayTest extends TestCase {
 	 */
 	public function testCreateArrayCallsGlobalExtArraysWhenArraysExtensionInstalled(): void {
 		if ( !class_exists( 'ExtArrays' ) ) {
-			// Minimal stand-in for the real Arrays extension's global ExtArrays
-			// class, matching its actual API (get(), instance createArray()).
-			eval( <<<'PHP'
-				class ExtArrays {
-					private static $instance;
-					public $created = [];
-					public static function &get( $parser ) {
-						if ( self::$instance === null ) {
-							self::$instance = new self();
-						}
-						return self::$instance;
-					}
-					public function createArray( $arrayId, array $array = [] ) {
-						$this->created[$arrayId] = $array;
-					}
-				}
-				PHP
-			);
+			require_once __DIR__ . '/ExtArraysStub.php';
 		}
 
 		$instance = new class( 'array' ) extends ArrayPrinter {
 			public function createArrayPublic( $array ) {
 				return parent::createArray( $array );
 			}
+
 			public function set( string $property, $value ): void {
 				$this->$property = $value;
 			}
