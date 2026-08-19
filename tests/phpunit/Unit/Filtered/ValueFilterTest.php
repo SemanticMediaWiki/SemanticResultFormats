@@ -10,6 +10,7 @@ use SRF\Filtered\Filtered;
 /**
  * @covers \SRF\Filtered\Filter\ValueFilter
  * @covers \SRF\Filtered\Filter\Filter
+ * @covers \SRF\Filtered\Filtered
  * @group semantic-result-formats
  *
  * @license GPL-2.0-or-later
