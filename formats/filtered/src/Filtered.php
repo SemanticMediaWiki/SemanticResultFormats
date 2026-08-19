@@ -289,9 +289,6 @@ class Filtered extends ResultPrinter {
 			$previousConfig[$id] = $config;
 			$parserOutput->setExtensionData( 'srf-filtered-config', $previousConfig );
 
-			// *** do not set here, delegate to onOutputPageParserOutput hook
-			// $parserOutput->setJsConfigVar( 'srfFilteredConfig', $previousConfig );
-
 		} else {
 			// Fallback for Special:Ask and other contexts where the parser has not been
 			// initialized with a ParserOutput (Parser::getOutput() returns null before
