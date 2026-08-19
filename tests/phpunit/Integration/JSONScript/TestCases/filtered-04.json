@@ -1,0 +1,56 @@
+{
+	"description": "Test `format=filtered` via `Special:Ask` where the query is evaluated without the page having been parsed first (regression test for issue #802: `Parser::getOptions()` can be null on the shared 'Parser' service in this context, which used to break filter parameters that go through `Parser::recursiveTagParse()`, e.g. `+value filter switches=...`).",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Filtered 04/City name",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Filtered 04/Berlin",
+			"contents": "[[Filtered 04/City name::Berlin]] [[Category:Filtered 04]]"
+		},
+		{
+			"page": "Filtered 04/Cairo",
+			"contents": "[[Filtered 04/City name::Cairo]] [[Category:Filtered 04]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "special",
+			"about": "#0 `format=filtered` with a `value` filter switch parameter, evaluated via `Special:Ask` (no prior page parse)",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "filtered"
+					},
+					"q": "[[Category:Filtered 04]]",
+					"po": "?Filtered 04/City name|+filter=value|+value filter switches=and or"
+				}
+			},
+			"assert-output": {
+				"to-contain": [
+					"class=\"filtered-filter filtered-value\""
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
