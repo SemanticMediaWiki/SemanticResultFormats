@@ -7,10 +7,10 @@
 			"Taresi"
 		]
 	},
-	"srfc_previousmonth": "Achto mētztli",
-	"srfc_nextmonth": "Niman mētztli",
-	"srfc_today": "Āxcān",
-	"srfc_gotomonth": "Yāuh mētzhuīc",
+	"srfc_previousmonth": "Achtopa metztli",
+	"srfc_nextmonth": "Niman metztli",
+	"srfc_today": "Axcan",
+	"srfc_gotomonth": "Yauh ihuic metzpan",
 	"srf-ui-datatables-label-placeholder-column-search": "Xiktemo...",
 	"srf-ui-datatables-label-sSearch": "Xiktemo:",
 	"srf-filtered-selectorlabel-table": "Tlapechtli"

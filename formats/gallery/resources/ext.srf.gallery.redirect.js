@@ -1,5 +1,6 @@
 /**
  * This file is part of the SRF gallery redirect module
+ *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Gallery_format
  *
  * @section LICENSE
@@ -32,9 +33,12 @@
 /**
  * Extends base class with a redirect function
  *
+ * @param $
+ * @param mw
+ * @param srf
  * @class srf.formats.gallery.redirect
  */
-( function( $, mw, srf ) {
+( function ( $, mw, srf ) {
 	'use strict';
 
 	/**
@@ -53,27 +57,27 @@
 		 *
 		 * @return {Function}
 		 */
-		redirect: function( context ) {
-			var util = new srf.util();
-			var type = context.data( 'redirect-type' );
-			return context.find( '.gallerybox' ).each( function() {
-				var $this = $( this ),
+		redirect: function ( context ) {
+			const util = new srf.util();
+			const type = context.data( 'redirect-type' );
+			return context.find( '.gallerybox' ).each( function () {
+				const $this = $( this ),
 					h = mw.html,
 					image = $this.find( 'a.mw-file-description' );
 
 				// Avoid undefined error
 				if ( image.attr( 'href' ) === undefined ) {
-					$this.html( h.element( 'span', { 'class': 'error' }, mw.message( 'srf-gallery-image-url-error' ).escaped() ) );
+					$this.html( h.element( 'span', { class: 'error' }, mw.message( 'srf-gallery-image-url-error' ).escaped() ) );
 				} else {
 
 					// Per convention "alt" attribute contains the redirect title
-					var titleAlt = image.find( 'img' ).attr( 'alt' ),
+					const titleAlt = image.find( 'img' ).attr( 'alt' ),
 						titleStatus = titleAlt !== undefined && titleAlt.length > 0,
 						imageSource = image.attr( 'href' );
 
 					// Prepare and hide the redirect icon placeholder
-					image.before( h.element( 'a', { 'class': 'redirecticon', 'href': imageSource }, null ) );
-					var redirect = $this.find( '.redirecticon' ).hide();
+					image.before( h.element( 'a', { class: 'redirecticon', href: imageSource }, null ) );
+					const redirect = $this.find( '.redirecticon' ).hide();
 
 					if ( type === '_uri' && titleStatus ) {
 						// Direct assign redirect url
@@ -84,35 +88,37 @@
 						// Show image spinner while fetching the URL
 						util.spinner.create( { context: $this, selector: 'img' } );
 
-						util.getTitleURL( { 'title': titleAlt },
-							function( url ) { if ( url === false ) {
-								image.attr( 'href', '' );
-								// Release thumb image
-								util.spinner.replace( { context: $this, selector: 'img' } );
-							} else {
-								image.attr( 'href', url );
-								// Release thumb image
-								util.spinner.replace( { context: $this, selector: 'img' } );
-								// Release redirect icon
-								redirect.show();
-							}
-						} );
+						util.getTitleURL( { title: titleAlt },
+							( url ) => {
+								if ( url === false ) {
+									image.attr( 'href', '' );
+									// Release thumb image
+									util.spinner.replace( { context: $this, selector: 'img' } );
+								} else {
+									image.attr( 'href', url );
+									// Release thumb image
+									util.spinner.replace( { context: $this, selector: 'img' } );
+									// Release redirect icon
+									redirect.show();
+								}
+							} );
 					}
 				}
-		} );
+			} );
 		}
 	} );
 
 	/**
 	 * Implementation of an redirect instance
+	 *
 	 * @since 1.8
 	 * @ignore
 	 */
-	$( document ).ready( function() {
-		$( '.srf-redirect' ).each(function() {
-			var gallery = new srf.formats.gallery();
+	$( document ).ready( () => {
+		$( '.srf-redirect' ).each( function () {
+			const gallery = new srf.formats.gallery();
 			gallery.redirect( $( this ) );
 		} );
 	} );
 
-} )( jQuery, mediaWiki, semanticFormats );
+}( jQuery, mediaWiki, semanticFormats ) );

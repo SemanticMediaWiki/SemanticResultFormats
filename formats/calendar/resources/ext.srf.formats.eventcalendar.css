@@ -358,3 +358,18 @@
 fieldset input#max {
 	margin-left: 5px;
 }
+
+/* Event icon, inserted by eventRender's icon() before .fc-time/.fc-title */
+.fc-event img {
+	max-height: 1em;
+	width: auto;
+	vertical-align: text-bottom;
+	margin-right: 3px;
+}
+
+/* Inline event description, inserted by eventRender's description() after .fc-title
+   in basicDay/agendaDay views */
+.srf-fc-description {
+	display: block;
+	margin-top: 2px;
+}

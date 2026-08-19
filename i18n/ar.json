@@ -177,11 +177,11 @@
 	"srf-printername-graph": "رسم بياني",
 	"srf-paramdesc-graph-relation": "يحدد ما إذا كانت الموضوعات أو خصائص الاسم آباء أم أطفال",
 	"srf-paramdesc-graph-nodeshape": "تعيين شكل كل عقدة على الرسم البياني",
-	"srf-paramdesc-graph-arrowhead": "يضبط نمط رأس السهم على عقدة الرأس لحافة",
+	"srf-paramdesc-arrowhead": "يضبط نمط رأس السهم على عقدة الرأس لحافة",
 	"srf-paramdesc-graphname": "تعيين عنوان الرسم البياني",
 	"srf-paramdesc-graphsize": "تعيين حجم الرسم البياني بالبكسل",
 	"srf-paramdesc-graphlegend": "تحديد ما إذا كان يجب عرض العنوان التفسيري للرسم البياني",
-	"srf-paramdesc-graphlabel": "يضبط حجم الخط بالبكسل",
+	"srf-paramdesc-graphlabel": "يحدد تسمية الرسم البياني",
 	"srf-paramdesc-rankdir": "تعيين اتجاه الأسهم",
 	"srf-paramdesc-graphlink": "تحديد ما إذا كان يجب ربط العقد بصفحات الويكي الخاصة بها",
 	"srf-paramdesc-graphcolor": "تعيين لون الرسم البياني",
@@ -357,7 +357,7 @@
 	"srf-error-gantt-mermaid-not-installed": "امتداد Mermaid يحتاج إلى تثبيت.",
 	"srf-printername-gantt": "جانت",
 	"srf-paramdesc-nodelabel": "استخدام تسمية عقدة الرسم البياني، القيم المسموح بها: عنوان العرض.",
-	"srf-printername-mode": "وضع",
-	"srf-printername-range": "النطاق",
-	"srf-printername-variance": "التباين"
+	"srf_printername_mode": "وضع",
+	"srf_printername_range": "النطاق",
+	"srf_printername_variance": "التباين"
 }

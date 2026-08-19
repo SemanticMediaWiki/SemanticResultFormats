@@ -19,7 +19,6 @@ class SRFD3Chart extends AggregatablePrinter {
 
 	/**
 	 * @see \SMW\Query\ResultPrinters\ResultPrinter::getName
-	 *
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-d3chart' )->text();
@@ -55,7 +54,7 @@ class SRFD3Chart extends AggregatablePrinter {
 		$d3data = [
 			'data' => $dataObject,
 			'parameters' => [
-				'colorscheme' => $this->params['colorscheme'] ? $this->params['colorscheme'] : null,
+				'colorscheme' => $this->params['colorscheme'] ?: null,
 				'charttitle' => $this->params['charttitle'],
 				'charttext' => $this->params['charttext'],
 				'datalabels' => $this->params['datalabels']

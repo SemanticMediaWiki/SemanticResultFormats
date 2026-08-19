@@ -31,14 +31,16 @@ class GraphNode {
 	}
 
 	/**
-	 * @param string $name : Field name
+	 * @param string|null $name : Field name. An explicitly empty string (e.g. from a
+	 *   suppressed "?Property=" label, see issue #1131) is kept as-is; only a missing
+	 *   name (null) falls back to the property page.
 	 * @param string $value : Field value
 	 * @param string $type : Type of the field, for aligning
 	 * @param string $page : Property page
 	 * @param string|null $valueLink : The page to link the value to
 	 */
 	public function addField( $name, $value, $type, $page, $valueLink = null ) {
-		$this->fields[] = [ 'name' => $name ?: $page, 'value' => $value, 'type' => $type, 'page' => $page, 'valueLink' => $valueLink ];
+		$this->fields[] = [ 'name' => $name ?? $page, 'value' => $value, 'type' => $type, 'page' => $page, 'valueLink' => $valueLink ];
 	}
 
 	/**

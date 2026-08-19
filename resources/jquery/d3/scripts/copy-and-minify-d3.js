@@ -13,19 +13,6 @@ function getD3Version() {
   return { version: pkg.version, major };
 }
 
-function addGlobalD3Assignment(content) {
-  const regex = /this\.d3\s*=\s*([a-zA-Z0-9_$]+)\s*;?\s*\}/;
-
-  const match = content.match(regex);
-  if (match) {
-    const d3VarName = match[1];
-    const insert = `this.d3=${d3VarName};if(typeof window !== "undefined")window.d3=${d3VarName};`;
-    return content.replace(regex, `${insert}}`);
-  }
-
-  return content;
-}
-
 function copyMinifiedD3WithNomin() {
   const { version, major } = getD3Version();
 
@@ -49,8 +36,9 @@ function copyMinifiedD3WithNomin() {
 
   const content = fs.readFileSync(src, 'utf8');
 
-  // add /*@nomin*/ at the beginning of the file and prepend global d3 assignment if needed
-  const newContent = `/*@nomin*/\n` + addGlobalD3Assignment(content);
+  // Since d3 v4 the UMD wrapper assigns itself to globalThis.d3 already,
+  // so no extra global-assignment patch is needed here.
+  const newContent = `/*@nomin*/\n` + content;
   fs.mkdirSync(destDir, { recursive: true });
   fs.writeFileSync(dest, newContent, 'utf8');
 

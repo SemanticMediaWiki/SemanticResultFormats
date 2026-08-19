@@ -34,14 +34,8 @@
 			"assert-output": {
 				"to-contain": [
 					"<div class=\"srf-gallery\" data-redirect-type=\"_wpg\">",
-					"<div class=\"thumb\" style=\"width: 150px;\"><div style=\"margin:15px auto;\"><a href=\".*File:Gallery02.png\" class=\"image\">",
+					"<div class=\"thumb\" style=\"width: 150px;.*\"><span typeof=\"mw:File\"><a href=\".*File:Gallery02.png\" class=\"mw-file-description\">",
 					"<div class=\"imageraw\">File:Gallery02.png</div>"
-				]
-			},
-			"skip-on": {
-				"mediawiki": [
-					">1.40",
-					"Check parser function registration for MW 1.40+"
 				]
 			}
 		}

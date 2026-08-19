@@ -77,8 +77,7 @@ class SRFDygraphs extends ResultPrinter {
 
 				// Use the subject marker to identify a possible data file
 				$subject = $field->getResultSubject();
-				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace(
-					) === NS_FILE && !$dataSource ) {
+				if ( $this->params['datasource'] === 'file' && $subject->getTitle()->getNamespace() === NS_FILE && !$dataSource ) {
 					$aggregatedValues['subject'] = $this->makePageFromTitle( $subject->getTitle() )->getLongHTMLText(
 						$this->getLinker( $field->getResultSubject() )
 					);
@@ -142,8 +141,7 @@ class SRFDygraphs extends ResultPrinter {
 							// Set unit if available
 							$dataValue->setOutputFormat( $this->params['unit'] );
 							// Check if unit is available
-							$annotation[$propertyLabel] = $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText(
-							) : $dataValue->getNumber();
+							$annotation[$propertyLabel] = $dataValue->getUnit() !== '' ? $dataValue->getShortWikiText() : $dataValue->getNumber();
 						} else {
 							$annotation[$propertyLabel] = $dataValue->getWikiValue();
 						}

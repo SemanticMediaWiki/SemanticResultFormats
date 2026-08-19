@@ -21,7 +21,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 
 	/**
 	 * Corresponding message name
-	 *
 	 */
 	public function getName() {
 		return wfMessage( 'srf-printername-jqplotchart' )->text();
@@ -161,7 +160,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 		foreach ( $rawdata as $key => $value ) {
 			if ( $value >= $this->params['min'] ) {
 				$data['series'][] = [ $key, $value ];
-				$total = $total + $value;
+				$total += $value;
 			}
 		}
 
@@ -196,7 +195,6 @@ class SRFjqPlotChart extends SRFjqPlot {
 	 * jqPlot common parameters
 	 *
 	 * @since 1.8
-	 *
 	 */
 	private function addCommonOptions() {
 		// Series colour
@@ -209,7 +207,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 			'labelaxislabel' => $this->params['labelaxislabel'],
 			'charttitle' => $this->params['charttitle'],
 			'charttext' => $this->params['charttext'],
-			'theme' => $this->params['theme'] ? $this->params['theme'] : null,
+			'theme' => $this->params['theme'] ?: null,
 			'ticklabels' => $this->params['ticklabels'],
 			'highlighter' => $this->params['highlighter'],
 			'direction' => $this->params['direction'],

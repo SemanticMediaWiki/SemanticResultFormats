@@ -166,7 +166,6 @@ class MediaPlayer extends ResultPrinter {
 	 * @param Title $title
 	 *
 	 * @return string[]
-	 *
 	 */
 	private function getMediaSource( Title $title ) {
 		// Find the file source
@@ -208,7 +207,6 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @return mixed
 	 * @since 1.9
-	 *
 	 */
 	private function getDataValueItem( &$label, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
 		$dataItem = $dataValue->getDataItem();

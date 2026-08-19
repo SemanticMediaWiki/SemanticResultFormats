@@ -7,6 +7,7 @@ use Exception;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use SMW\DataValues\PropertyValue;
+use SMW\Localizer\Message;
 use SRF\Filtered\ResultItem;
 
 class MapView extends View {
@@ -15,6 +16,8 @@ class MapView extends View {
 
 	private $mapProvider = null;
 	private $mapProviderDark = null;
+	private ?MapsLayerDefinitionsProvider $layerDefinitionsProvider = null;
+	private ?MapsGeoJsonProvider $geoJsonProvider = null;
 
 	/**
 	 * @param string $mapProvider
@@ -49,6 +52,30 @@ class MapView extends View {
 		return $this->mapProviderDark;
 	}
 
+	public function setLayerDefinitionsProvider( MapsLayerDefinitionsProvider $provider ): void {
+		$this->layerDefinitionsProvider = $provider;
+	}
+
+	public function getLayerDefinitionsProvider(): MapsLayerDefinitionsProvider {
+		if ( $this->layerDefinitionsProvider === null ) {
+			$this->layerDefinitionsProvider = new MapsLayerDefinitionsProvider();
+		}
+
+		return $this->layerDefinitionsProvider;
+	}
+
+	public function setGeoJsonProvider( MapsGeoJsonProvider $provider ): void {
+		$this->geoJsonProvider = $provider;
+	}
+
+	public function getGeoJsonProvider(): MapsGeoJsonProvider {
+		if ( $this->geoJsonProvider === null ) {
+			$this->geoJsonProvider = new MapsGeoJsonProvider();
+		}
+
+		return $this->geoJsonProvider;
+	}
+
 	/**
 	 * @param ResultItem $row
 	 *
@@ -71,32 +98,29 @@ class MapView extends View {
 				$printRequest->getData()->getInceptiveProperty()->getKey() === $markerPositionPropertyName &&
 				( $value instanceof \SMWDIGeoCoord || $value instanceof \SMWDIBlob )
 			) {
-				// contains plain text
-				$values = [];
-
 				if ( $value instanceof \SMWDIGeoCoord ) {
-
-					while ( $value instanceof \SMWDIGeoCoord ) {
-						$values[] = [ 'lat' => $value->getLatitude(), 'lng' => $value->getLongitude() ];
-						$value = $field->getNextDataItem();
-					}
-
-				} else {
-
-					$coordParser = new LatLongParser();
-					while ( $value instanceof \SMWDataItem ) {
-						try {
-							$latlng = $coordParser->parse( $value->getSerialization() );
-							$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
-							$value = $field->getNextDataItem();
-						} catch ( Exception $exception ) {
-							$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
-						}
-					}
-
+					// Geographic coordinates are already serialized as { lat, lng } pairs in
+					// the shared per-printout values. The map view reads them from there
+					// (p[position].v) instead of duplicating them per row.
+					return null;
 				}
 
-				return [ 'positions' => $values, ];
+				// Coordinates stored in a text property need server-side parsing, so they
+				// are still emitted per row.
+				$values = [];
+				$coordParser = new LatLongParser();
+
+				while ( $value instanceof \SMWDataItem ) {
+					try {
+						$latlng = $coordParser->parse( $value->getSerialization() );
+						$values[] = [ 'lat' => $latlng->getLatitude(), 'lng' => $latlng->getLongitude() ];
+						$value = $field->getNextDataItem();
+					} catch ( Exception $exception ) {
+						$this->getQueryPrinter()->addError( "Error on '$value': " . $exception->getMessage() );
+					}
+				}
+
+				return [ 'positions' => $values ];
 			}
 		}
 
@@ -127,11 +151,95 @@ class MapView extends View {
 		}
 
 		$this->addMarkerIconSetupToConfig( $config );
+		$this->addMarkerPositionToConfig( $config );
 
 		$config['map provider'] = $this->getMapProvider();
 		$config['map provider dark'] = $this->getMapProviderDark();
 
+		$this->addLayersToConfig( $config );
+		$this->addGeoJsonToConfig( $config );
+
 		return $config;
+	}
+
+	/**
+	 * When the 'map view layers' parameter is set, its names become the map's base layers (the
+	 * first being initially active) and the map provider settings are ignored client-side. Names
+	 * matching a Maps custom layer definition are emitted under 'layer definitions'; the rest pass
+	 * through under 'layers' as leaflet-providers provider strings.
+	 *
+	 * @param array &$config
+	 */
+	private function addLayersToConfig( array &$config ): void {
+		$layerNames = $this->getActualParameters()['map view layers'];
+
+		if ( $layerNames === [] ) {
+			return;
+		}
+
+		$config['layers'] = array_values( $layerNames );
+
+		$definitions = $this->getLayerDefinitionsProvider()->getDefinitions( $layerNames );
+
+		if ( $definitions !== [] ) {
+			$config['layer definitions'] = $definitions;
+		}
+	}
+
+	/**
+	 * When the 'map view geojson' parameter names a GeoJson: page (or a URL), the parsed GeoJSON
+	 * is emitted under 'geojson' for the client to render as an overlay, with the parameter value
+	 * passed through as 'geojson source' for the overlay's layer-control label. Nothing is emitted
+	 * when the location cannot be resolved (missing page, invalid JSON, blocked URL). When the
+	 * parameter is set but the Maps extension, which does the fetching, is unavailable, a query
+	 * error is added instead of an overlay.
+	 *
+	 * @param array &$config
+	 */
+	private function addGeoJsonToConfig( array &$config ): void {
+		$location = $this->getActualParameters()['map view geojson'];
+
+		if ( $location === '' ) {
+			return;
+		}
+
+		$provider = $this->getGeoJsonProvider();
+
+		if ( !$provider->mapsIsAvailable() ) {
+			// @phan-suppress-next-line PhanUndeclaredClassMethod SMW is not visible to Phan; usage matches Filtered.php
+			$this->getQueryPrinter()->addError( Message::get( 'srf-filtered-map-geojson-requires-maps' ) );
+			return;
+		}
+
+		$geoJson = $provider->getGeoJson( $location );
+
+		if ( $geoJson !== [] ) {
+			$config['geojson'] = $geoJson;
+			$config['geojson source'] = $location;
+		}
+	}
+
+	/**
+	 * When the marker position property is a geographic coordinate printout, its index
+	 * within the printrequests is stored so the client can read the marker positions from
+	 * the shared per-printout values (p[position].v). Coordinates stored in a text property
+	 * are parsed server-side and emitted per row instead (see getJsDataForRow).
+	 *
+	 * @param array &$config
+	 */
+	private function addMarkerPositionToConfig( &$config ) {
+		$property = $this->getActualParameters()['map view marker position property'];
+
+		if ( $property === '' ) {
+			return;
+		}
+
+		$index = $this->getPropertyId( $property );
+		$printrequests = $this->getQueryPrinter()->getPrintrequests();
+
+		if ( $index !== null && ( $printrequests[$index]['type'] ?? null ) === '_geo' ) {
+			$config['position'] = $index;
+		}
 	}
 
 	/**
@@ -166,6 +274,19 @@ class MapView extends View {
 				'message' => 'srf-paramdesc-filtered-map-icons',
 				'default' => [],
 				'islist' => true,
+			];
+
+			$params['layers'] = [
+				'name' => 'map view layers',
+				'message' => 'srf-paramdesc-filtered-map-layers',
+				'default' => [],
+				'islist' => true,
+			];
+
+			$params['geojson'] = [
+				'name' => 'map view geojson',
+				'message' => 'srf-paramdesc-filtered-map-geojson',
+				'default' => '',
 			];
 
 			$params['height'] = [
@@ -321,9 +442,13 @@ class MapView extends View {
 	}
 
 	/**
-	 * @return bool
+	 * @return string|null
 	 */
 	public function getInitError() {
+		if ( $this->getActualParameters()['map view layers'] !== [] ) {
+			return null;
+		}
+
 		return $this->getMapProvider() === '' ? 'srf-filtered-map-provider-missing-error' : null;
 	}
 

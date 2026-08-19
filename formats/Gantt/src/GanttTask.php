@@ -50,7 +50,6 @@ class GanttTask {
 	 * @param array $params
 	 * @param string $paramMapping
 	 * @param string $type
-	 *
 	 */
 	public function setTaskParam( $params, $paramMapping, $type ) {
 		// skip if $paramMapping is empty and

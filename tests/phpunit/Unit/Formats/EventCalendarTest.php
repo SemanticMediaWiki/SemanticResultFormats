@@ -41,7 +41,7 @@ class EventCalendarTest extends QueryPrinterRegistryTestCase {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'SRF\EventCalendar';
+		return 'SRF\Calendar\EventCalendar';
 	}
 
 }

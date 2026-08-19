@@ -14,7 +14,7 @@
 	"srf-paramdesc-pagelength": "мәгълүмат таблицасы битенең озынлыгын билгеләү",
 	"srf-paramdesc-lengthmenu": "мәгълүмат таблицасы озынлыгы менюсын билгеләү",
 	"srf-paramdesc-datatables-columnstype": "мәгълүмат таблицасы баганалары төрен билгеләү",
-	"srf_printername_carousel": "Карусель",
+	"srf-printername-carousel": "Карусель",
 	"srf-ui-datatables-refresh-button-title": "таблицаны яңарту",
 	"srf-ui-datatables-panel-switch-button-title": "панельны алыштыру",
 	"srf-filtered-selectorlabel-map": "Харита",

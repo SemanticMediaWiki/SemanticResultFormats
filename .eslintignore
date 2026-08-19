@@ -1,0 +1,21 @@
+# Third-party bundled libraries, not our coding conventions to enforce
+resources/jquery/
+resources/slick/
+resources/docs/jsduck.external.js
+formats/JitGraph/Jit/
+formats/JitGraph/jquery.progressbar.js
+formats/timeline/resources/SimileTimeline/
+formats/filtered/gulpfile.js
+
+# legacy, browser-only QUnit suite (not wired into CI, see tests/qunit/README.md)
+tests/qunit/
+
+# generated / compiled output (TypeScript build output, source is resources/ts/)
+formats/filtered/resources/js/
+tests/node-qunit/.compiled/
+build/coverage/
+coverage/
+node_modules/
+
+# minified files
+**/*.min.js

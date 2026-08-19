@@ -31,12 +31,14 @@ COMPOSER_EXT?=true
 # OS packages and PHP extensions required for optional formats:
 # - libzip-dev + zip: prerequisite for phpoffice/phpspreadsheet (format=spreadsheet)
 # - gd: required by phpoffice/phpspreadsheet at install time
-OS_PACKAGES?=libzip-dev libpng-dev
+# - graphviz: provides the dot/neato/... binaries the Diagrams extension shells out to
+#   for local rendering of format=graph's <graphviz> output (see extensions.local.json)
+OS_PACKAGES?=libzip-dev libpng-dev graphviz
 PHP_EXTENSIONS?=zip gd
 
 # nodejs
 # Enables node.js related tests and "npm install"
-# NODE_JS?=true
+NODE_JS?=true
 
 # check for build dir and git submodule init if it does not exist
 include build/Makefile
@@ -52,7 +54,7 @@ install: install-spreadsheet install-html-validator
 # actually downloads and installs the package into the running container.
 .PHONY: install-spreadsheet
 install-spreadsheet: .init
-	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.22.0 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
+	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.30.5 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
 
 # Install symfony/css-selector to enable parser-html (CSS-selector based) JSONScript tests.
 # SMW declares this in its require-dev, but MediaWiki's merge-plugin runs with merge-dev: false,
@@ -86,7 +88,6 @@ ifdef COMPOSER_EXT
 	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && composer phpunit"
 endif
 ifdef NODE_JS
-	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npm run analyze"
-	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npx qunit --require ./tests/node-qunit/setup.js 'tests/node-qunit/**/*.test.js'"
+	$(compose-exec-wiki) bash -c "cd $(EXTENSION_FOLDER) && npm run test"
 endif
 

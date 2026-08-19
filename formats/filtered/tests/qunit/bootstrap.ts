@@ -1,19 +1,14 @@
 /// <reference types="qunit" />
 
-import { ViewSelectorTest } from "./Filtered/ViewSelectorTest";
-import { ControllerTest } from "./Filtered/ControllerTest";
-import { DistanceFilterTest } from "./Filtered/Filter/DistanceFilterTest";
-import { ValueFilterTest } from "./Filtered/Filter/ValueFilterTest";
+// ViewSelectorTest, ControllerTest, ValueFilterTest (checkboxes path), and
+// ViewTest were ported to tests/node-qunit/ (issue #1067) and removed here.
+// DistanceFilterTest was fully ported to tests/node-qunit/ (issue #1068) and
+// removed here; MapViewTest stays for its show()/lateInit()-exercising tests
+// (its init()-level test was also ported, see MapViewTest.ts).
 import { QUnitTestHandler } from "./Util/QUnitTestHandler";
-import { ViewTest } from "./Filtered/View/ViewTest";
 import { MapViewTest } from "./Filtered/View/MapViewTest";
 
 let testclasses = [
-	ViewSelectorTest,
-	ControllerTest,
-	DistanceFilterTest,
-	ValueFilterTest,
-	ViewTest,
 	MapViewTest,
 ];
 let testhandler = new QUnitTestHandler('ext.srf.formats.filtered', testclasses);

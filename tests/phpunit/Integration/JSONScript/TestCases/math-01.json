@@ -11,8 +11,26 @@
 			"contents": "[[Has number::30000000]] [[Has number::15000]] [[Has number::15000,25]] [[Has number::25,50]]"
 		},
 		{
-			"page": "Example/Math/2",
-			"contents": "[[Has number::333]]"
+			"page": "Has SRFMath01 mode number",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"comment": "mode needs the same value to occur on several subjects: SMW collapses duplicate property-value pairs within a single page, so a repeated value cannot come from one #show subject",
+			"page": "Example/Math/Mode/1",
+			"contents": "[[Has SRFMath01 mode number::1500]]"
+		},
+		{
+			"page": "Example/Math/Mode/2",
+			"contents": "[[Has SRFMath01 mode number::2500,75]]"
+		},
+		{
+			"page": "Example/Math/Mode/3",
+			"contents": "[[Has SRFMath01 mode number::2500,75]]"
+		},
+		{
+			"page": "Example/Math/Mode/4",
+			"contents": "[[Has SRFMath01 mode number::5000]]"
 		},
 		{
 			"page": "Example/Math/3",
@@ -92,7 +110,7 @@
 		},
 		{
 			"page": "Example/Math/Q.19",
-			"contents": "{{#show: Example/Math/2 |?Has number|format=mode }}"
+			"contents": "{{#ask: [[Has SRFMath01 mode number::+]] |?Has SRFMath01 mode number |mainlabel=- |format=mode |link=none }}"
 		},
 		{
 			"page": "Example/Math/Q.20",
@@ -210,7 +228,7 @@
 			"subject": "Example/Math/Q.9",
 			"assert-output": {
 				"to-contain": [
-					"12.986.048,652"
+					"14.994.997,37"
 				]
 			}
 		},
@@ -220,7 +238,7 @@
 			"subject": "Example/Math/Q.10",
 			"assert-output": {
 				"to-contain": [
-					"14.994.997,37"
+					"12.986.048,652"
 				]
 			}
 		},
@@ -240,7 +258,7 @@
 			"subject": "Example/Math/Q.12",
 			"assert-output": {
 				"to-contain": [
-					"3.769,125"
+					"11.256,375"
 				]
 			}
 		},
@@ -250,7 +268,7 @@
 			"subject": "Example/Math/Q.13",
 			"assert-output": {
 				"to-contain": [
-					"22.503.750,063"
+					"7.511.250,188"
 				]
 			}
 		},
@@ -260,7 +278,7 @@
 			"subject": "Example/Math/Q.14",
 			"assert-output": {
 				"to-contain": [
-					"11.256,375"
+					"3.769,125"
 				]
 			}
 		},
@@ -270,7 +288,7 @@
 			"subject": "Example/Math/Q.15",
 			"assert-output": {
 				"to-contain": [
-					"7.511.250,188"
+					"22.503.750,063"
 				]
 			}
 		},
@@ -280,7 +298,7 @@
 			"subject": "Example/Math/Q.16",
 			"assert-output": {
 				"to-contain": [
-					"22.499.980,938"
+					"7.499.993,813"
 				]
 			}
 		},
@@ -290,7 +308,7 @@
 			"subject": "Example/Math/Q.17",
 			"assert-output": {
 				"to-contain": [
-					"7.499.993,813"
+					"22.499.980,938"
 				]
 			}
 		},
@@ -306,11 +324,11 @@
 		},
 		{
 			"type": "parser",
-			"about": "#18 format=mode",
+			"about": "#18 format=mode (most frequent value, not its occurrence count)",
 			"subject": "Example/Math/Q.19",
 			"assert-output": {
 				"to-contain": [
-					"1"
+					"2.500,75"
 				]
 			}
 		},
@@ -340,7 +358,7 @@
 			"subject": "Example/Math/Q.22",
 			"assert-output": {
 				"to-contain": [
-					"256,125"
+					"179,25"
 				]
 			}
 		},
@@ -350,7 +368,7 @@
 			"subject": "Example/Math/Q.23",
 			"assert-output": {
 				"to-contain": [
-					"7.511.250,188"
+					"15.007.500,125"
 				]
 			}
 		},
@@ -370,7 +388,7 @@
 			"subject": "Example/Math/Q.25",
 			"assert-output": {
 				"to-contain": [
-					"7.510.994,063"
+					"15.007.320,875"
 				]
 			}
 		},

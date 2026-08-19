@@ -65,7 +65,6 @@ class ResultItem {
 
 		foreach ( $this->mResultArray as $field ) {
 
-			$printRequest = $field->getPrintRequest();
 			// contains plain text
 			$values = [];
 			// may contain links
@@ -97,18 +96,47 @@ class ResultItem {
 				}
 			}
 
-			$printouts[$this->mQueryPrinter->uniqid( $printRequest->getHash() )] = [
-				'values' => $values,
-				'formatted values' => $formatted,
-				'sort values' => $sorted,
-			];
+			$printouts[] = $this->serializePrintout( $values, $formatted, $sorted );
 
 			$isFirstColumn = false;
 		}
 
-		return [
-			'printouts' => $printouts,
-			'data' => $this->mItemData,
-		];
+		$representation = [ 'p' => $printouts ];
+
+		if ( $this->mItemData !== [] ) {
+			$representation['d'] = $this->mItemData;
+		}
+
+		return $representation;
+	}
+
+	/**
+	 * Serializes one printout into the compact per-item schema. A printout with no
+	 * values becomes null. Otherwise it becomes [ 'v' => values ], with the formatted
+	 * values ('f') and sort values ('s') only included when they differ from the plain
+	 * values. The client falls back to the plain values when 'f' or 's' is absent.
+	 *
+	 * The returned printouts are a positional array aligned with the config-level
+	 * printrequests order, replacing the former map keyed by uniqid( printRequest hash ).
+	 * That alignment is load-bearing: QueryResult::getPrintRequests() order, the per-row
+	 * field order from ResultArray, and the client's printrequests iteration must all
+	 * agree, since filters and views now reference printouts by index.
+	 */
+	private function serializePrintout( array $values, array $formatted, array $sorted ): ?array {
+		if ( $values === [] ) {
+			return null;
+		}
+
+		$printout = [ 'v' => $values ];
+
+		if ( $formatted !== $values ) {
+			$printout['f'] = $formatted;
+		}
+
+		if ( $sorted !== $values ) {
+			$printout['s'] = $sorted;
+		}
+
+		return $printout;
 	}
 }

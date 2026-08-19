@@ -24,7 +24,6 @@ use SMW\Query\ResultPrinters\ListResultPrinter;
  * The available formats are 'tree', 'ultree', 'oltree'. 'tree' is an alias of
  * 'ultree'. In an #ask query the parameter 'parent' must be set to contain the
  * name of the property, that gives the parent page of the subject page.
- *
  */
 class TreeResultPrinter extends ListResultPrinter {
 
