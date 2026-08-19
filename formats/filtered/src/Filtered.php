@@ -288,7 +288,6 @@ class Filtered extends ResultPrinter {
 			$previousConfig = $parserOutput->getExtensionData( 'srf-filtered-config' ) ?? [];
 			$previousConfig[$id] = $config;
 			$parserOutput->setExtensionData( 'srf-filtered-config', $previousConfig );
-
 		} else {
 			// Fallback for Special:Ask and other contexts where the parser has not been
 			// initialized with a ParserOutput (Parser::getOutput() returns null before
