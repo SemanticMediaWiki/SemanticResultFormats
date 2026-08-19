@@ -32,6 +32,10 @@ class MultipleFilteredInstancesTest extends MediaWikiIntegrationTestCase {
 		$parserOutput = new \ParserOutput();
 		$parser = $this->createMock( \Parser::class );
 		$parser->method( 'getOutput' )->willReturn( $parserOutput );
+		// Filtered::getParser() replaces the parser with a fresh real one (and a fresh,
+		// empty ParserOutput) whenever getOptions() is null — see issue #802. Stub it so
+		// this test's mock, and the $parserOutput above, are actually used.
+		$parser->method( 'getOptions' )->willReturn( $this->createStub( \ParserOptions::class ) );
 
 		$firstInstance = new Filtered( null );
 		$firstInstance->setParser( $parser );
