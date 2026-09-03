@@ -7,6 +7,7 @@
 			"Macofe",
 			"Mguix",
 			"Paucabot",
+			"Qllach",
 			"Ssola",
 			"Toniher"
 		]
@@ -82,7 +83,7 @@
 	"srf-paramdesc-graph-nodeshape": "Estableix la forma de cada node al gràfic",
 	"srf-paramdesc-graphname": "Defineix el títol del gràfic",
 	"srf-paramdesc-graphsize": "Estableix la mida del gràfic en píxels",
-	"srf-paramdesc-graphlabel": "Defineix la mida de la lletra en píxels",
+	"srf-paramdesc-graphlabel": "Defineix l'etiqueta del gràfic",
 	"srf-paramdesc-rankdir": "Estableix la direcció de les fletxes",
 	"srf-paramdesc-graphlink": "Estableix si els nodes haurien d'enllaçar a les seves pàgines wiki",
 	"srf-paramdesc-graphcolor": "Defineix el color del gràfic",
