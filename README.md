@@ -24,7 +24,7 @@ configuration.
 [![Chatroom](https://www.semantic-mediawiki.org/w/thumb.php?f=Comment-alt-solid.svg&width=35)](https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki_chatroom)
 [![Twitter](https://www.semantic-mediawiki.org/w/thumb.php?f=Twitter-square.svg&width=35)](https://twitter.com/#!/semanticmw)
 [![Facebook](https://www.semantic-mediawiki.org/w/thumb.php?f=Facebook-square.svg&width=35)](https://www.facebook.com/pages/Semantic-MediaWiki/160459700707245)
-[![LinkedIn](https://www.semantic-mediawiki.org/w/thumb.php?f=LinkedIn-square.svg&width=35)]([https://twitter.com/#!/semanticmw](https://www.linkedin.com/groups/2482811/))
+[![LinkedIn](https://www.semantic-mediawiki.org/w/thumb.php?f=LinkedIn-square.svg&width=35)](https://www.linkedin.com/groups/2482811/)
 [![YouTube](https://www.semantic-mediawiki.org/w/thumb.php?f=Youtube-square.svg&width=35)](https://www.youtube.com/c/semanticmediawiki)
 [![Mailing lists](https://www.semantic-mediawiki.org/w/thumb.php?f=Envelope-square.svg&width=35)](https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki_mailing_lists)
 
@@ -34,7 +34,7 @@ Primary support channels:
 * [SMW chat room](https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki_chatroom) - for questions and developer discussions
 * [Issue tracker](https://github.com/SemanticMediaWiki/SemanticMediaWiki/issues) - for bug reports
 
-If you want to contribute work to the project, please see the [contribution guildline](/CONTRIBUTING.md).
+If you want to contribute work to the project, please see the [contribution guideline](docs/CONTRIBUTING.md).
 A list of people who have made contributions in the past can be found [here][contributors].
 
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues)
@@ -43,12 +43,12 @@ A list of people who have made contributions in the past can be found [here][con
 
 ## Tests
 
-This extension provides unit and integration tests and is usually run by a [continues integration platform][GitHub Actions]
+This extension provides unit and integration tests and is usually run by a [continuous integration platform][GitHub Actions]
 but can also be executed locally using the shortcut command `composer phpunit` from the extension base directory.
 
 ## For developers
 
-See the documention on how to [update d3chart JS library](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/formats/d3/README.md).
+See the documentation on how to [update d3chart JS library](https://github.com/SemanticMediaWiki/SemanticResultFormats/blob/master/formats/d3/README.md).
 
 ## License
 
