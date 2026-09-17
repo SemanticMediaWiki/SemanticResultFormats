@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Addonian1123",
 			"Cwlin0416",
 			"H78c67c",
 			"Hello903hello",
@@ -271,6 +272,8 @@
 	"srf-paramdesc-filtered-map-position": "列印輸出內容包含地理位置。",
 	"srf-paramdesc-filtered-map-icon": "所決定使用之地圖標示的列印輸出。",
 	"srf-paramdesc-filtered-map-icons": "使用於在地圖裡這些值上的值與圖標對應。",
+	"srf-paramdesc-filtered-map-layers": "地圖的基礎圖層，可為leaflet-providers提供的圖層名稱，也可為Maps擴充功能定義的自訂圖層名稱。初始顯示第一個圖層；如果指定了多個圖層，則會新增圖層切換器。設定後，<i>地圖提供者的</i>設定將被忽略。",
+	"srf-paramdesc-filtered-map-geojson": "GeoJSON頁面的名稱或連結，其GeoJSON將以疊加層形式顯示在地圖上。需要Maps擴充功能。疊加層不受篩選器影響，可透過圖層切換器切換。",
 	"srf-paramdesc-filtered-map-height": "地圖高度",
 	"srf-paramdesc-filtered-map-zoom": "地圖載入時的縮放層次。這可透過使用者來更改。<br>請查看：<i>地圖視圖最小縮放</i>與<i>地圖視圖最大縮放</i>",
 	"srf-paramdesc-filtered-map-min-zoom": "地圖最小可縮放層次",
@@ -286,6 +289,7 @@
 	"srf-filtered-noscript-error": "因 JavaScript 未啟用而無法顯示結果。前往$1。",
 	"srf-filtered-noscript-link-caption": "表格式表單的結果",
 	"srf-filtered-map-provider-missing-error": "沒有替「map」視圖指定地圖提供方。",
+	"srf-filtered-map-geojson-requires-maps": "<code>map view geojson</code>參數需要安裝Maps擴充功能。",
 	"srf-filtered-value-filter-and": "與",
 	"srf-filtered-value-filter-or": "或",
 	"srf-filtered-value-filter-placeholder": "選擇一個篩選值",
@@ -376,6 +380,7 @@
 	"srf-printername-gantt": "甘特圖",
 	"srf-paramdesc-nodelabel": "使用頂點標籤，允許值為：displaytitle。",
 	"srf-paramdesc-graphfields": "在圖形節點內顯示非頁面屬性值，而不是顯示為邊緣。",
+	"srf-paramdesc-graphfieldspages": "在圖形節點內顯示頁面類型屬性值，而不是顯示為邊。",
 	"srf_printername_interquartilemean": "四分位平均數",
 	"srf_printername_interquartilerange.exc": "四分位距（不含中位數）",
 	"srf_printername_interquartilerange": "四分位距",
