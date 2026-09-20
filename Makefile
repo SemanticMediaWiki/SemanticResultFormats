@@ -52,9 +52,13 @@ install: install-spreadsheet install-html-validator
 # cannot be pulled in via the composer-merge-plugin; an explicit install step is needed.
 # composer-require.sh only updates composer.local.json; the follow-up "composer update"
 # actually downloads and installs the package into the running container.
+# PHPSPREADSHEET_VERSION is a Composer constraint; CI sets it per matrix leg to cover
+# both the 1.x branch and the current major.
+PHPSPREADSHEET_VERSION ?= 1.30.5
+
 .PHONY: install-spreadsheet
 install-spreadsheet: .init
-	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.30.5 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
+	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet '$(PHPSPREADSHEET_VERSION)' && composer update phpoffice/phpspreadsheet --with-all-dependencies"
 
 # Install symfony/css-selector to enable parser-html (CSS-selector based) JSONScript tests.
 # SMW declares this in its require-dev, but MediaWiki's merge-plugin runs with merge-dev: false,

@@ -4,7 +4,7 @@ namespace SRF;
 
 use ImagePage;
 use MediaWiki\Title\Title;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -162,7 +162,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 		// $spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight();
 
-		for ( $i = 0; $i < count( $queryResult->getPrintRequests() ); $i++ ) {
+		for ( $i = 1; $i <= count( $queryResult->getPrintRequests() ); $i++ ) {
 			$worksheet->getColumnDimensionByColumn( $i )->setAutoSize( true );
 		}
 
@@ -402,7 +402,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 */
 	protected function setTimeDataValue( Cell $cell, \SMWTimeValue $value ) {
 		$type = DataType::TYPE_NUMERIC;
-		$number = DateTime::DATEVALUE( str_replace( 'T', ' ', $value->getISO8601Date() ) );
+		$number = DateValue::fromString( str_replace( 'T', ' ', $value->getISO8601Date() ) );
 
 		$cell->setValueExplicit( $number, $type );
 
