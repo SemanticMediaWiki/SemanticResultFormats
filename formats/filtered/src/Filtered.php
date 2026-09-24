@@ -368,6 +368,10 @@ class Filtered extends ResultPrinter {
 
 			if ( $printRequest->getData() instanceof PropertyValue ) {
 				$prConfig['property'] = $printRequest->getData()->getInceptiveProperty()->getKey();
+
+			// @see SMW\Query\Result\ResultArray -> getNextDataValue
+			} elseif ( $prConfig['mode'] === PrintRequest::PRINT_CHAIN ) {
+				$prConfig['property'] = $printRequest->getData()->getLastPropertyChainValue()->getDataItem()->getKey();
 			}
 
 			if ( filter_var( $printRequest->getParameter( 'hide' ), FILTER_VALIDATE_BOOLEAN ) ) {
