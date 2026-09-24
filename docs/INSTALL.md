@@ -85,4 +85,4 @@ Notes on specific formats:
 * graph: requires the MediaWiki GraphViz extension to work.
 * hash: requires the MediaWiki HashTables extensions to work.
 * process: requires the MediaWiki GraphViz extension to work.
-* spreadsheet: requires the phpspreadsheet library from phpoffice to work, in version 1.18 or later.
+* spreadsheet: requires version 1.18 or later of the phpspreadsheet library from phpoffice to work.
