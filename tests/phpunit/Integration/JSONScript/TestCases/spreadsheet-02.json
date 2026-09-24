@@ -18,7 +18,7 @@
 		},
 		{
 			"page": "Example/Spreadsheet02/1",
-			"contents": "[[Has SRFSpreadsheet02 number::42]] [[Has SRFSpreadsheet02 date::1 Jan 1970]] [[Has SRFSpreadsheet02 text::foo]] [[Category:SRFSpreadsheet02]]"
+			"contents": "[[Has SRFSpreadsheet02 number::42]] [[Has SRFSpreadsheet02 date::13 Feb 2021]] [[Has SRFSpreadsheet02 text::foo]] [[Category:SRFSpreadsheet02]]"
 		}
 	],
 	"tests": [
@@ -43,7 +43,7 @@
 			"assert-output": {
 				"to-contain": [
 					"\"Has SRFSpreadsheet02 number\",\"Has SRFSpreadsheet02 date\",\"Has SRFSpreadsheet02 text\"",
-					"\"Example/Spreadsheet02/1\",\"42\",\"01/01/1970\",\"foo\""
+					"\n\"Example/Spreadsheet02/1\",\"42\",\"13/02/2021\",\"foo\"\n"
 				]
 			}
 		}
