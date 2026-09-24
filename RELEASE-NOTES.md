@@ -1,5 +1,17 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 6.0.1
+
+Released on TBD.
+
+### Compatibility Changes
+
+* The `spreadsheet` format now requires PhpSpreadsheet 1.18 or later ([1158](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1158)) (by [Professional Wiki](https://professional.wiki))
+
+### Bug Fixes
+
+* Fixed the `spreadsheet` format failing with PhpSpreadsheet 2.0 and later ([1158](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1158)) (by [Professional Wiki](https://professional.wiki))
+
 ## SRF 6.0.0
 
 Released on September 15, 2026.

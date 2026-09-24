@@ -1,0 +1,64 @@
+{
+	"description": "Test `format=spreadsheet` file output via `Special:Ask` (#1157)",
+	"setup": [
+		{
+			"page": "Has SRFSpreadsheet02 number",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"page": "Has SRFSpreadsheet02 date",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"page": "Has SRFSpreadsheet02 text",
+			"namespace": "SMW_NS_PROPERTY",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"page": "Example/Spreadsheet02/1",
+			"contents": "[[Has SRFSpreadsheet02 number::42]] [[Has SRFSpreadsheet02 date::13 Feb 2021]] [[Has SRFSpreadsheet02 text::foo]] [[Category:SRFSpreadsheet02]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "special",
+			"about": "#0 `fileformat=csv` writes the header row and the number, date and text values",
+			"special-page": {
+				"page": "Ask",
+				"request-parameters": {
+					"p": {
+						"link": "none",
+						"limit": "10",
+						"offset": "0",
+						"mainlabel": "",
+						"format": "spreadsheet",
+						"fileformat": "csv"
+					},
+					"q": "[[Category:SRFSpreadsheet02]]",
+					"po": "?Has SRFSpreadsheet02 number|?Has SRFSpreadsheet02 date|?Has SRFSpreadsheet02 text"
+				}
+			},
+			"assert-output": {
+				"to-contain": [
+					"\"Has SRFSpreadsheet02 number\",\"Has SRFSpreadsheet02 date\",\"Has SRFSpreadsheet02 text\"",
+					"\n\"Example/Spreadsheet02/1\",\"42\",\"13/02/2021\",\"foo\"\n"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgNamespacesWithSemanticLinks": {
+			"NS_MAIN": true,
+			"SMW_NS_PROPERTY": true
+		}
+	},
+	"meta": {
+		"version": "2",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
