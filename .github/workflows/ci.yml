@@ -21,6 +21,7 @@ jobs:
             smw_version: 7.2.0
             php_version: 8.2
             mm_version: 6.0.1
+            phpspreadsheet_version: '1.30.5'
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
@@ -31,6 +32,7 @@ jobs:
             sfs_version: 5.0.0
             php_version: 8.3
             mm_version: 6.0.2
+            phpspreadsheet_version: '1.30.5'
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: true
@@ -39,6 +41,7 @@ jobs:
             smw_version: 7.2.0
             php_version: 8.4
             mm_version: 6.0.1
+            phpspreadsheet_version: '^5.6'
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
@@ -47,6 +50,7 @@ jobs:
             smw_version: 7.2.0
             php_version: 8.4
             mm_version: 6.0.1
+            phpspreadsheet_version: '^5.6'
             database_type: mysql
             database_image: "mariadb:12.3"
             coverage: false
@@ -61,6 +65,7 @@ jobs:
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}
       MM_VERSION: ${{ matrix.mm_version }}
+      PHPSPREADSHEET_VERSION: ${{ matrix.phpspreadsheet_version }}
       # Run JS tests only for the coverage entry: keeps the JS toolchain off the
       # other matrix legs, matching how PHP coverage is scoped to one leg too.
       NODE_JS: ${{ matrix.coverage && '1' || '' }}

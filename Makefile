@@ -24,6 +24,10 @@ PF_VERSION ?= 6.0.5
 SFS_VERSION ?= 4.0.0-beta
 MM_VERSION ?= 6.0.2
 
+# libraries
+# Composer constraint for phpoffice/phpspreadsheet (format=spreadsheet); CI overrides it per matrix leg.
+PHPSPREADSHEET_VERSION ?= 1.30.5
+
 # composer
 # Enables "composer update" inside of extension
 COMPOSER_EXT?=true
@@ -54,7 +58,7 @@ install: install-spreadsheet install-html-validator
 # actually downloads and installs the package into the running container.
 .PHONY: install-spreadsheet
 install-spreadsheet: .init
-	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet 1.30.5 && composer update phpoffice/phpspreadsheet --with-all-dependencies"
+	$(compose-exec-wiki) bash -c "composer-require.sh phpoffice/phpspreadsheet '$(PHPSPREADSHEET_VERSION)' && composer update phpoffice/phpspreadsheet --with-all-dependencies"
 
 # Install symfony/css-selector to enable parser-html (CSS-selector based) JSONScript tests.
 # SMW declares this in its require-dev, but MediaWiki's merge-plugin runs with merge-dev: false,
