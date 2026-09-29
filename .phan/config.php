@@ -10,6 +10,7 @@ $cfg['directory_list'] = array_merge(
 	[
 		'formats',
 		'src',
+		'../../extensions/SemanticMediaWiki',
 	]
 );
 
