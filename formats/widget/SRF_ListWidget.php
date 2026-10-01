@@ -60,7 +60,7 @@ class SRFListWidget extends ResultPrinter {
 		// }
 
 		// Get results from \SMW\Query\ResultPrinters\ListResultPrinter
-		$result = $builder->getResultText();
+		$result = $builder->getResultText( $outputmode );
 
 		// Count widgets
 		$listwidgetID = 'listwidget-' . ++$statNr;
