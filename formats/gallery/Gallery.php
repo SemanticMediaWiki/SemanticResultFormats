@@ -3,7 +3,6 @@
 namespace SRF;
 
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use SMW\Parser\RecursiveTextProcessor;
 use SMW\Query\PrintRequest;
@@ -79,7 +78,7 @@ class Gallery extends ResultPrinter {
 		// No need for a special page to use the parser but for the "normal" page
 		// view we have to ensure caption text is parsed correctly through the parser
 		if ( !$this->isSpecialPage() ) {
-			$ig->setParser( MediaWikiServices::getInstance()->getParser() );
+			$ig->setParser( $this->copyParser() );
 		}
 
 		$html = '';
