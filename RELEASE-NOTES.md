@@ -11,6 +11,7 @@ Released on TBD.
 ### Bug Fixes
 
 * Fixed the `spreadsheet` format failing with PhpSpreadsheet 2.0 and later ([1158](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1158)) (by [Professional Wiki](https://professional.wiki))
+* Fixed the `gallery` format breaking pages rendered by Parsoid, such as through the REST `page/{title}/html` endpoint ([1166](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1166)) (by [Professional Wiki](https://professional.wiki))
 
 ## SRF 6.0.0
 
