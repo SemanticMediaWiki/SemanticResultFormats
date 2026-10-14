@@ -269,7 +269,7 @@ class SearchPanes {
 				->options( $sql_options_ )
 				->joinConds( $joins_ )
 				->fetchResultSet();
-    
+
 			$isIdField = true;
 
 		} else {
@@ -776,7 +776,7 @@ class SearchPanes {
 			->options( $sql_options_ )
 			->joinConds( $joins_ )
 			->fetchResultSet();
-    
+
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
 			DataItem::TYPE_WIKIPAGE
 		);
