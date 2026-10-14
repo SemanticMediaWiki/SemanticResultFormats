@@ -226,7 +226,7 @@ class SearchPanes {
 				->options( $sql_options_ )
 				->caller( __METHOD__ );
 
-			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
+			$dataLength = $res ? (int)( ( (array)$res->fetchRow() )['count'] ?? 0 ) : 0;
 
 			if ( !$dataLength ) {
 				return [];
@@ -314,7 +314,7 @@ class SearchPanes {
 				->options( $sql_options_ )
 				->joinConds( $joins_ );
 
-			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
+			$dataLength = $res ? (int)( ( (array)$res->fetchRow() )['count'] ?? 0 ) : 0;
 
 			if ( !$dataLength ) {
 				return [];
