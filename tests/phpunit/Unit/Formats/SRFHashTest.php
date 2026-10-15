@@ -177,6 +177,18 @@ class SRFHashTest extends TestCase {
 		$this->assertTrue( $instance->get( 'mShowPageTitles' ) );
 	}
 
+	public function testApplyArrayParametersWorksWithoutTitlesParameter(): void {
+		// getParamDefinitions() removes 'titles' for the hash format, so the
+		// processed parameters passed at runtime never contain that key.
+		$params = $this->defaultParams();
+		unset( $params['titles'] );
+
+		$instance = $this->newInstance();
+		$instance->applyArrayParameters( $params );
+
+		$this->assertTrue( $instance->get( 'mShowPageTitles' ) );
+	}
+
 	public function testCreateArrayReturnsFalseWhenNoExtensionInstalled(): void {
 		// ExtHashTables is not defined in the test environment, and $wgHashTables is unset.
 		unset( $GLOBALS['wgHashTables'] );

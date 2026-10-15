@@ -11,6 +11,7 @@ Released on TBD.
 ### Bug Fixes
 
 * Fixed the `spreadsheet` format failing with PhpSpreadsheet 2.0 and later ([1158](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1158)) (by [Professional Wiki](https://professional.wiki))
+* Fixed the `hash` format failing with a `TypeError` on every query ([1170](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1170)) (by [gesinn.it](https://gesinn.it))
 
 ## SRF 6.0.0
 

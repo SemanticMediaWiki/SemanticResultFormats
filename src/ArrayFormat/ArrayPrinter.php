@@ -303,7 +303,7 @@ class ArrayPrinter extends ResultPrinter {
 		}
 
 		$this->mMainLabelHack = trim( $params['mainlabel'] ) === '-';
-		$this->mShowPageTitles = strtolower( $params['titles'] ) !== 'hide';
+		$this->mShowPageTitles = strtolower( $params['titles'] ?? 'show' ) !== 'hide';
 
 		switch ( strtolower( $params['hidegaps'] ) ) {
 			case 'none':
