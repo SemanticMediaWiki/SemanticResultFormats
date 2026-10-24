@@ -102,11 +102,11 @@
             this.clip      = this.container.find('.jcarousel-clip');
         }
 
-        if (this.clip.size() === 0) {
+        if (this.clip.length === 0) {
             this.clip = this.list.wrap('<div></div>').parent();
         }
 
-        if (this.container.size() === 0) {
+        if (this.container.length === 0) {
             this.container = this.clip.wrap('<div></div>').parent();
         }
 
@@ -116,7 +116,7 @@
 
         this.buttonPrev = $('.jcarousel-prev', this.container);
 
-        if (this.buttonPrev.size() === 0 && this.options.buttonPrevHTML !== null) {
+        if (this.buttonPrev.length === 0 && this.options.buttonPrevHTML !== null) {
             this.buttonPrev = $(this.options.buttonPrevHTML).appendTo(this.container);
         }
 
@@ -124,7 +124,7 @@
 
         this.buttonNext = $('.jcarousel-next', this.container);
 
-        if (this.buttonNext.size() === 0 && this.options.buttonNextHTML !== null) {
+        if (this.buttonNext.length === 0 && this.options.buttonNextHTML !== null) {
             this.buttonNext = $(this.options.buttonNextHTML).appendTo(this.container);
         }
 
@@ -155,7 +155,7 @@
 
         var self = this;
 
-        if (li.size() > 0) {
+        if (li.length > 0) {
             var wh = 0, j = this.options.offset;
             li.each(function() {
                 self.format(this, j++);
@@ -166,7 +166,7 @@
 
             // Only set if not explicitly passed as option
             if (!o || o.size === undefined) {
-                this.options.size = li.size();
+                this.options.size = li.length;
             }
         }
 
@@ -175,9 +175,9 @@
         this.buttonNext.css('display', 'block');
         this.buttonPrev.css('display', 'block');
 
-        this.funcNext   = function() { self.next(); };
-        this.funcPrev   = function() { self.prev(); };
-        this.funcResize = function() { 
+        this.funcNext   = function() { self.next(); return false; };
+        this.funcPrev   = function() { self.prev(); return false; };
+        this.funcResize = function() {
             if (self.resizeTimer) {
                 clearTimeout(self.resizeTimer);
             }
@@ -191,7 +191,7 @@
             this.options.initCallback(this, 'init');
         }
 
-        if (!windowLoaded && $.browser.safari) {
+        if (!windowLoaded && $jc.isSafari()) {
             this.buttons(false, false);
             $(window).bind('load.jcarousel', function() { self.setup(); });
         } else {
@@ -203,7 +203,7 @@
     var $jc = $.jcarousel;
 
     $jc.fn = $jc.prototype = {
-        jcarousel: '0.2.8'
+        jcarousel: '0.2.10'
     };
 
     $jc.fn.extend = $jc.extend = $.extend;
@@ -837,7 +837,7 @@
 
             var self = this;
 
-            if (this.buttonNext.size() > 0) {
+            if (this.buttonNext.length > 0) {
                 this.buttonNext.unbind(this.options.buttonNextEvent + '.jcarousel', this.funcNext);
 
                 if (n) {
@@ -855,7 +855,7 @@
                 }
             }
 
-            if (this.buttonPrev.size() > 0) {
+            if (this.buttonPrev.length > 0) {
                 this.buttonPrev.unbind(this.options.buttonPrevEvent + '.jcarousel', this.funcPrev);
 
                 if (p) {
@@ -961,8 +961,16 @@
 
             if (d == null) {
                 return !this.options.vertical ?
-                       (el.outerWidth(true) || $jc.intval(this.options.itemFallbackDimension)) :
-                       (el.outerHeight(true) || $jc.intval(this.options.itemFallbackDimension));
+                    ((el.innerWidth() +
+                        $jc.intval(el.css('margin-left')) +
+                        $jc.intval(el.css('margin-right')) +
+                        $jc.intval(el.css('border-left-width')) +
+                        $jc.intval(el.css('border-right-width'))) || $jc.intval(this.options.itemFallbackDimension)) :
+                    ((el.innerHeight() +
+                        $jc.intval(el.css('margin-top')) +
+                        $jc.intval(el.css('margin-bottom')) +
+                        $jc.intval(el.css('border-top-width')) +
+                        $jc.intval(el.css('border-bottom-width'))) || $jc.intval(this.options.itemFallbackDimension));
             } else {
                 var w = !this.options.vertical ?
                     d - $jc.intval(el.css('marginLeft')) - $jc.intval(el.css('marginRight')) :
@@ -1008,6 +1016,14 @@
 
         windowLoaded: function() {
             windowLoaded = true;
+        },
+
+        isSafari: function() {
+            var ua = navigator.userAgent.toLowerCase(),
+                match = /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || [],
+                browser = match[1] || "";
+
+            return browser === 'webkit';
         }
     });
 

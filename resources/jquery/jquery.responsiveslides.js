@@ -1,4 +1,4 @@
-/*! ResponsiveSlides.js v1.53
+/*! ResponsiveSlides.js v1.55
  * http://responsiveslides.com
  * http://viljamis.com
  *
@@ -27,8 +27,8 @@
       "navContainer": "",       // Selector: Where auto generated controls should be appended to, default is after the <ul>
       "manualControls": "",     // Selector: Declare custom pager navigation
       "namespace": "rslides",   // String: change the default namespace used
-      before: function () {},   // Function: Before callback
-      after: function () {}     // Function: After callback
+      "before": $.noop,         // Function: Before callback
+      "after": $.noop           // Function: After callback
     }, options);
 
     return this.each(function () {
@@ -49,7 +49,7 @@
         // Helpers
         index = 0,
         $slide = $this.children(),
-        length = $slide.size(),
+        length = $slide.length,
         fadeTime = parseFloat(settings.speed),
         waitTime = parseFloat(settings.timeout),
         maxw = parseFloat(settings.maxwidth),
@@ -93,7 +93,7 @@
 
         // Fading animation
         slideTo = function (idx) {
-          settings.before();
+          settings.before(idx);
           // If CSS3 transitions are supported
           if (supportsTransitions) {
             $slide
@@ -104,7 +104,7 @@
               .css(visible);
             index = idx;
             setTimeout(function () {
-              settings.after();
+              settings.after(idx);
             }, fadeTime);
           // If not, use jQuery fallback
           } else {
@@ -121,7 +121,7 @@
                 $(this)
                   .addClass(visibleClass)
                   .css(visible);
-                settings.after();
+                settings.after(idx);
                 index = idx;
               });
           }
@@ -171,7 +171,7 @@
       }
 
       // Only run if there's more than one slide
-      if ($slide.size() > 1) {
+      if ($slide.length > 1) {
 
         // Make sure the timeout is at least 100ms longer than the fade
         if (waitTime < fadeTime + 100) {
