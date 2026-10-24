@@ -55,9 +55,12 @@ QUnit.module( 'ext.srf.formats.gallery.slideshow with the bundled ResponsiveSlid
 	function startSlideshow( navigation ) {
 		$( document.body ).append(
 			'<div class="srf-gallery-slideshow">' +
-			'<ul class="gallery" id="test-slideshow-real" style="display:none;" data-nav-control="' + navigation + '">' +
-			'<li>first</li><li>second</li><li>third</li>' +
-			'</ul></div>'
+				'<ul class="gallery" id="test-slideshow-real" style="display:none;" data-nav-control="' + navigation + '">' +
+					'<li>first</li>' +
+					'<li>second</li>' +
+					'<li>third</li>' +
+				'</ul>' +
+			'</div>'
 		);
 		const context = $( '.srf-gallery-slideshow' );
 

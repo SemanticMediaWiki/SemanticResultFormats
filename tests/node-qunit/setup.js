@@ -107,7 +107,7 @@ function htmlElement( tagName, attrs, contents ) {
 function prepareMediaWiki() {
 	return () => {
 		const configValues = {
-			'srf-config': { settings: { srfgScriptPath: '/srf' }, version: '1.0.0' },
+			'srf-config': { settings: { srfgScriptPath: '/srf', wgThumbLimits: [ 120, 150, 180, 200, 250, 300 ] }, version: '1.0.0' },
 			wgScriptPath: '/w',
 			wgArticlePath: '/wiki/$1',
 			wgServer: 'http://localhost'

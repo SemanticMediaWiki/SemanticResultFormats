@@ -72,6 +72,12 @@
 
 				util.spinner.hide( { context: $this } );
 
+				// On Safari, jCarousel waits for the window's load event, which it misses when
+				// ResourceLoader runs it after the page has loaded
+				if ( document.readyState === 'complete' ) {
+					$.jcarousel.windowLoaded();
+				}
+
 				carousel.each( function () {
 					$( this ).show();
 					$( this ).jcarousel( {

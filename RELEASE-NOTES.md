@@ -12,7 +12,7 @@ Released on TBD.
 
 * Fixed the `spreadsheet` format failing with PhpSpreadsheet 2.0 and later ([1158](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1158)) (by [Professional Wiki](https://professional.wiki))
 * Fixed the `hash` format failing with a `TypeError` on every query ([1170](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1170)) (by [gesinn.it](https://gesinn.it))
-* Fixed the `slideshow` and `carousel` widgets of the `gallery` format failing with `$slide.size is not a function` and `this.clip.size is not a function` ([693](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/693)) (by [Professional Wiki](https://professional.wiki))
+* Fixed the `slideshow` and `carousel` widgets of the `gallery` format failing with `$slide.size is not a function` and `this.clip.size is not a function` ([1173](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1173)) (by [Professional Wiki](https://professional.wiki))
 
 ## SRF 6.0.0
 
