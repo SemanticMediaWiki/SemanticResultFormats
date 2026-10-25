@@ -87,4 +87,15 @@ QUnit.module( 'ext.srf.formats.gallery.slideshow with the bundled ResponsiveSlid
 		assert.strictEqual( context.find( 'a.prev, a.next' ).length, 2 );
 	} );
 
+	QUnit.test( 'slideshow shows the previous and next link texts as plain text', ( assert ) => {
+		mw.messages.set( 'srf-gallery-navigation-previous', '<srf-marker>Previous' );
+		mw.messages.set( 'srf-gallery-navigation-next', '<srf-marker>Next' );
+
+		const context = startSlideshow( 'nav' );
+
+		assert.strictEqual( $( 'srf-marker' ).length, 0, 'no element is made from the texts' );
+		assert.strictEqual( context.find( 'a.prev' ).text(), '<srf-marker>Previous' );
+		assert.strictEqual( context.find( 'a.next' ).text(), '<srf-marker>Next' );
+	} );
+
 } );
