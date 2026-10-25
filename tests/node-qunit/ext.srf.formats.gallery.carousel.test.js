@@ -74,6 +74,23 @@ QUnit.module( 'ext.srf.formats.gallery.carousel', () => {
 
 			assert.strictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px' );
 		} );
+
+		QUnit.test( 'carousel waits for the load event while the page is still loading', async ( assert ) => {
+			Object.defineProperty( document, 'readyState', { configurable: true, get: () => 'loading' } );
+
+			try {
+				const context = startCarousel();
+
+				await showNextImage( context );
+				assert.notStrictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px', 'it does not scroll before the page has loaded' );
+
+				$( window ).trigger( 'load' );
+				await showNextImage( context );
+				assert.strictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px', 'it scrolls once the page has loaded' );
+			} finally {
+				delete document.readyState;
+			}
+		} );
 	} );
 
 } );
