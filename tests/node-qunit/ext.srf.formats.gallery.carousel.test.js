@@ -1,0 +1,114 @@
+'use strict';
+
+const jcarouselPath = require( 'path' ).resolve( __dirname, '../../resources/jquery/jquery.jcarousel.js' );
+
+require( jcarouselPath );
+require( require( 'path' ).resolve( __dirname, '../../formats/gallery/resources/ext.srf.formats.gallery.js' ) );
+require( require( 'path' ).resolve( __dirname, '../../formats/gallery/resources/ext.srf.gallery.carousel.js' ) );
+
+QUnit.module( 'ext.srf.formats.gallery.carousel', () => {
+
+	function startCarousel() {
+		return startCarouselWithSkin( 'jcarousel-skin-smw' );
+	}
+
+	function startCarouselWithSkin( skin ) {
+		$( document.body ).append(
+			'<div class="srf-gallery-carousel">' +
+				'<ul class="gallery mw-gallery-traditional jcarousel" id="test-carousel" style="display:none;" data-wrap="both" data-vertical="false" data-rtl="false" data-scroll="1">' +
+					'<li class="gallerybox" style="width: 335px">first</li>' +
+					'<li class="gallerybox" style="width: 335px">second</li>' +
+					'<li class="gallerybox" style="width: 335px">third</li>' +
+				'</ul>' +
+			'</div>'
+		);
+		const context = $( '.srf-gallery-carousel' );
+		context.find( '.jcarousel' ).addClass( skin );
+
+		new srf.formats.gallery().carousel( context );
+
+		return context;
+	}
+
+	function showNextImage( context ) {
+		context.find( '.jcarousel-next' ).trigger( 'click' );
+
+		return context.find( 'ul.gallery' ).promise();
+	}
+
+	QUnit.test( 'carousel turns a gallery with several images into a carousel', ( assert ) => {
+		const context = startCarousel();
+
+		assert.strictEqual(
+			context.find( '.jcarousel-skin-smw .jcarousel-container-horizontal ul.gallery' ).length,
+			1,
+			'the gallery list sits in the container the carousel stylesheet styles'
+		);
+	} );
+
+	QUnit.test( 'carousel keeps a skin class with markup characters as a plain class name', ( assert ) => {
+		const skin = 'jcarousel-skin-"><srf-marker>';
+
+		const context = startCarouselWithSkin( skin );
+
+		assert.strictEqual( $( 'srf-marker' ).length, 0, 'no element is made from the class' );
+		assert.strictEqual(
+			context.find( 'ul.gallery' ).parents( '.' + $.escapeSelector( skin ) ).length,
+			1,
+			'the gallery list sits in an element with the class'
+		);
+	} );
+
+	QUnit.test( 'carousel lets the reader move on to the next image', async ( assert ) => {
+		const context = startCarousel();
+
+		await showNextImage( context );
+
+		assert.strictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px' );
+	} );
+
+	QUnit.module( 'on Safari, with jCarousel run after the page has loaded', ( hooks ) => {
+		let navigatorDescriptor;
+
+		hooks.beforeEach( () => {
+			navigatorDescriptor = Object.getOwnPropertyDescriptor( global, 'navigator' );
+			Object.defineProperty( global, 'navigator', {
+				configurable: true,
+				value: { userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15' }
+			} );
+			// evaluated afresh after jsdom's load event, as ResourceLoader may evaluate it
+			delete require.cache[ jcarouselPath ];
+			require( jcarouselPath );
+		} );
+
+		hooks.afterEach( () => {
+			Object.defineProperty( global, 'navigator', navigatorDescriptor );
+		} );
+
+		QUnit.test( 'carousel lets the reader move on to the next image', async ( assert ) => {
+			const context = startCarousel();
+
+			await showNextImage( context );
+
+			assert.strictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px' );
+		} );
+
+		QUnit.test( 'carousel waits for the load event while the page is still loading', async ( assert ) => {
+			Object.defineProperty( document, 'readyState', { configurable: true, get: () => 'loading' } );
+
+			try {
+				const context = startCarousel();
+
+				await showNextImage( context );
+				assert.notStrictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px', 'it does not scroll before the page has loaded' );
+
+				$( window ).trigger( 'load' );
+				await showNextImage( context );
+				assert.strictEqual( context.find( 'ul.gallery' ).css( 'left' ), '-335px', 'it scrolls once the page has loaded' );
+			} finally {
+				delete document.readyState;
+			}
+		} );
+	} );
+
+} );
