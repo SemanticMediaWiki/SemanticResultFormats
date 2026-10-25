@@ -9,9 +9,13 @@ require( require( 'path' ).resolve( __dirname, '../../formats/gallery/resources/
 QUnit.module( 'ext.srf.formats.gallery.carousel', () => {
 
 	function startCarousel() {
+		return startCarouselWithSkin( 'jcarousel-skin-smw' );
+	}
+
+	function startCarouselWithSkin( skin ) {
 		$( document.body ).append(
 			'<div class="srf-gallery-carousel">' +
-				'<ul class="gallery mw-gallery-traditional jcarousel jcarousel-skin-smw" id="test-carousel" style="display:none;" data-wrap="both" data-vertical="false" data-rtl="false" data-scroll="1">' +
+				'<ul class="gallery mw-gallery-traditional jcarousel" id="test-carousel" style="display:none;" data-wrap="both" data-vertical="false" data-rtl="false" data-scroll="1">' +
 					'<li class="gallerybox" style="width: 335px">first</li>' +
 					'<li class="gallerybox" style="width: 335px">second</li>' +
 					'<li class="gallerybox" style="width: 335px">third</li>' +
@@ -19,6 +23,7 @@ QUnit.module( 'ext.srf.formats.gallery.carousel', () => {
 			'</div>'
 		);
 		const context = $( '.srf-gallery-carousel' );
+		context.find( '.jcarousel' ).addClass( skin );
 
 		new srf.formats.gallery().carousel( context );
 
@@ -38,6 +43,19 @@ QUnit.module( 'ext.srf.formats.gallery.carousel', () => {
 			context.find( '.jcarousel-skin-smw .jcarousel-container-horizontal ul.gallery' ).length,
 			1,
 			'the gallery list sits in the container the carousel stylesheet styles'
+		);
+	} );
+
+	QUnit.test( 'carousel keeps a skin class with markup characters as a plain class name', ( assert ) => {
+		const skin = 'jcarousel-skin-"><srf-marker>';
+
+		const context = startCarouselWithSkin( skin );
+
+		assert.strictEqual( $( 'srf-marker' ).length, 0, 'no element is made from the class' );
+		assert.strictEqual(
+			context.find( 'ul.gallery' ).parents( '.' + $.escapeSelector( skin ) ).length,
+			1,
+			'the gallery list sits in an element with the class'
 		);
 	} );
 

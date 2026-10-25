@@ -111,7 +111,8 @@
         }
 
         if (skin !== '' && this.container.parent()[0].className.indexOf('jcarousel-skin') == -1) {
-            this.container.wrap('<div class=" '+ skin + '"></div>');
+            // The only local change to upstream 0.2.10: the skin class comes from the page, so never parse it as HTML
+            this.container.wrap($('<div></div>').addClass(skin));
         }
 
         this.buttonPrev = $('.jcarousel-prev', this.container);
