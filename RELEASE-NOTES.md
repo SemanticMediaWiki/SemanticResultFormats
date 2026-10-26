@@ -1,5 +1,14 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 6.0.2
+
+Released on TBD.
+
+### Bug Fixes
+
+* Fixed the `spreadsheet` format turning a printout label that starts with `=` into a spreadsheet formula, and writing `csv` text values that start with `=`, `+`, `-`, `@`, a tab or a carriage return unprefixed, so that a spreadsheet application evaluated them as formulas (CSV injection) ([1176](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1176)) (by [gesinn.it](https://gesinn.it))
+* Fixed the `filename` parameter of the `spreadsheet` format being able to break out of the quoted `filename` of the `Content-Disposition` header ([1176](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1176)) (by [gesinn.it](https://gesinn.it))
+
 ## SRF 6.0.1
 
 Released on October 25, 2026.
