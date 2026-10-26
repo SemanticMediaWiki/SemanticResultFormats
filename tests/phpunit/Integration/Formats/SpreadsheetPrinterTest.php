@@ -69,6 +69,16 @@ class SpreadsheetPrinterTest extends SMWIntegrationTestCase {
 			. '[[Category:SRFSpreadsheet]]'
 		);
 
+		// Texts that a spreadsheet application would evaluate as a formula (CSV injection)
+		$this->createPage(
+			'SRFSpreadsheet/Formula/1',
+			'[[Has SRFSpreadsheet text::=HYPERLINK("http://example.org","x")]][[Category:SRFSpreadsheetFormula]]'
+		);
+		$this->createPage(
+			'SRFSpreadsheet/Formula/2',
+			'[[Has SRFSpreadsheet text::-5 apples]][[Category:SRFSpreadsheetFormula]]'
+		);
+
 		// Row without any value
 		$this->createPage( 'SRFSpreadsheet/Empty', '[[Category:SRFSpreadsheet]]' );
 	}
@@ -224,6 +234,74 @@ class SpreadsheetPrinterTest extends SMWIntegrationTestCase {
 		$this->assertSame( 'export' . $extension, $printer->getFileName( $queryResult ) );
 	}
 
+	public function testFileNameCanNotBreakOutOfTheContentDispositionHeader() {
+		$params = $this->queryAllPrintouts( [ 'filename' => "re\"port\\2021/..\r\n;x" ] );
+		$printer = $this->newPrinter();
+		$queryResult = $this->newQueryResult( $params );
+
+		ob_start();
+		$printer->outputAsFile( $queryResult, $this->processedParams( $params ) );
+		ob_end_clean();
+
+		$this->assertSame( 'report2021..;x.xlsx', $printer->getFileName( $queryResult ) );
+	}
+
+	public function testFileNameFallsBackToGeneratedNameWhenNothingRemains() {
+		$params = $this->queryAllPrintouts( [ 'filename' => '"/\\' ] );
+		$printer = $this->newPrinter();
+		$queryResult = $this->newQueryResult( $params );
+
+		ob_start();
+		$printer->outputAsFile( $queryResult, $this->processedParams( $params ) );
+		ob_end_clean();
+
+		$this->assertMatchesRegularExpression( '/^[a-z0-9]+\.xlsx$/', $printer->getFileName( $queryResult ) );
+	}
+
+	/**
+	 * @dataProvider spreadsheetFormatProvider
+	 */
+	public function testHeaderLabelIsNeverTurnedIntoAFormula( string $fileFormat ) {
+		$query = $this->queryAllPrintouts();
+		$query['printouts'][0] = '?Has SRFSpreadsheet number==HYPERLINK("http://example.org","x")';
+
+		$sheet = $this->readSheet( $fileFormat, $query );
+
+		$this->assertSame( DataType::TYPE_STRING, $sheet->getCell( 'B1' )->getDataType() );
+		$this->assertSame( '=HYPERLINK("http://example.org","x")', $sheet->getCell( 'B1' )->getValue() );
+		$this->assertCount( 0, $sheet->getHyperlinkCollection() );
+	}
+
+	public function testCsvPrefixesTextThatWouldBeEvaluatedAsFormula() {
+		$content = $this->export( 'csv', $this->formulaQuery() );
+
+		$this->assertStringContainsString( "\"'=HYPERLINK(\"\"http://example.org\"\",\"\"x\"\")\"\n", $content );
+		$this->assertStringContainsString( "\"'-5 apples\"\n", $content );
+	}
+
+	public function testCsvPrefixesHeaderLabelThatWouldBeEvaluatedAsFormula() {
+		$query = $this->formulaQuery();
+		$query['printouts'] = [ '?Has SRFSpreadsheet text=@SUM(1+1)' ];
+
+		$this->assertStringStartsWith( "\"'@SUM(1+1)\"\n", $this->export( 'csv', $query ) );
+	}
+
+	public function testCsvLeavesNumbersAndPlainTextUntouched() {
+		$content = $this->export( 'csv', $this->queryAllPrintouts() );
+
+		$this->assertStringContainsString( '"SRFSpreadsheet/Full","42","5 km","13/02/2021","Tom & Jerry"', $content );
+		$this->assertStringNotContainsString( "\"'", $content );
+	}
+
+	public function testSpreadsheetFormatsKeepTheTextAsIs() {
+		$sheet = $this->readSheet( 'xlsx', $this->formulaQuery() );
+
+		$values = [ $sheet->getCell( 'A2' )->getValue(), $sheet->getCell( 'A3' )->getValue() ];
+		$this->assertSame( DataType::TYPE_STRING, $sheet->getCell( 'A2' )->getDataType() );
+		$this->assertContains( '=HYPERLINK("http://example.org","x")', $values );
+		$this->assertContains( '-5 apples', $values );
+	}
+
 	public function testAutosizeWithSingleColumn() {
 		$sheet = $this->readSheet( 'xlsx', [
 			'query' => '[[Category:SRFSpreadsheet]]',
@@ -292,6 +370,14 @@ class SpreadsheetPrinterTest extends SMWIntegrationTestCase {
 			'xlsx' => [ 'xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', '.xlsx' ],
 			'ods' => [ 'ods', 'application/vnd.oasis.opendocument.spreadsheet', '.ods' ],
 			'csv' => [ 'csv', 'text/csv', '.csv' ],
+		];
+	}
+
+	private function formulaQuery(): array {
+		return [
+			'query' => '[[Category:SRFSpreadsheetFormula]]',
+			'printouts' => [ '?Has SRFSpreadsheet text' ],
+			'params' => [ 'mainlabel' => '-' ],
 		];
 	}
 

@@ -74,7 +74,17 @@ class SpreadsheetPrinter extends FileExportPrinter {
 	 * @return string
 	 */
 	public function getFileName( QueryResult $queryResult ): string|false {
-		return ( $this->params[ 'filename' ] ?: base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
+		$name = $this->sanitizeFileName( (string)$this->params[ 'filename' ] );
+
+		return ( $name !== '' ? $name : base_convert( uniqid(), 16, 36 ) ) . $this->fileFormat[ 'extension' ];
+	}
+
+	/**
+	 * The name ends up in the quoted `filename` parameter of the Content-Disposition header, so
+	 * quotes, backslashes, path separators and control characters must not get through.
+	 */
+	private function sanitizeFileName( string $name ): string {
+		return trim( preg_replace( '/[\x00-\x1F\x7F"\\\\\/]+/u', '', $name ) ?? '' );
 	}
 
 	/**
@@ -257,7 +267,8 @@ class SpreadsheetPrinter extends FileExportPrinter {
 
 			$cell = $cellIterator->current();
 
-			$cell->setValue( $printRequest->getLabel() );
+			// Explicit string: the label is user input and must never be turned into a formula
+			$cell->setValueExplicit( $this->neutralizeFormula( $printRequest->getLabel() ), DataType::TYPE_STRING );
 
 			$cell->getStyle()
 				->getFont()
@@ -313,7 +324,7 @@ class SpreadsheetPrinter extends FileExportPrinter {
 				$value = $field->getNextText( SMW_OUTPUT_FILE );
 			}
 
-			$cell->setValueExplicit( implode( ', ', $values ), DataType::TYPE_STRING );
+			$cell->setValueExplicit( $this->neutralizeFormula( implode( ', ', $values ) ), DataType::TYPE_STRING );
 
 		} else {
 
@@ -431,7 +442,21 @@ class SpreadsheetPrinter extends FileExportPrinter {
 		$text = Sanitizer::decodeCharReferences( $text );
 		$text = DataType::checkString( $text );
 
-		$cell->setValueExplicit( $text, $type );
+		$cell->setValueExplicit( $this->neutralizeFormula( $text ), $type );
+	}
+
+	/**
+	 * Text cells are stored as explicit strings by the spreadsheet writers, but csv has no cell
+	 * types, so a text starting with one of these characters is evaluated as a formula when the
+	 * file is opened in a spreadsheet application (CSV injection). Such a text is prefixed with
+	 * an apostrophe, see https://owasp.org/www-community/attacks/CSV_Injection
+	 */
+	private function neutralizeFormula( string $text ): string {
+		if ( $this->fileFormat[ 'writer' ] === 'Csv' && preg_match( '/^[=+\-@\t\r]/', $text ) ) {
+			return "'" . $text;
+		}
+
+		return $text;
 	}
 
 	/**
