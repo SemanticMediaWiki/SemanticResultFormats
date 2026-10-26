@@ -1,5 +1,13 @@
 These are the release notes for the [Semantic Result Formats](https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Result_Formats) (a.k.a SRF) MediaWiki extension.
 
+## SRF 6.0.2
+
+Released on TBD.
+
+### Bug Fixes
+
+* Fixed the `gallery` format breaking pages rendered by Parsoid, such as through the REST `page/{title}/html` endpoint ([1166](https://github.com/SemanticMediaWiki/SemanticResultFormats/pull/1166)) (by [Professional Wiki](https://professional.wiki))
+
 ## SRF 6.0.1
 
 Released on October 25, 2026.
