@@ -218,16 +218,15 @@ class SearchPanes {
 			$joins_ = $joins;
 			$joins_['insts'] = [ 'JOIN', [ "$qobj->alias.smw_id = insts.s_id" ] ];
 
-			$res = $this->connection->select(
-				$tables_,
-				$fields_,
-				$conds_,
-				__METHOD__,
-				$sql_options_,
-				$joins_
-			);
+			$res = $this->connection->newSelectQueryBuilder()
+				->fields( $fields_ )
+				->tables( $tables_ )
+				->conds( $conds_ !== '' ? $conds_ : [] )
+				->joinConds( $joins_ )
+				->options( $sql_options_ )
+				->caller( __METHOD__ );
 
-			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
+			$dataLength = $res ? (int)( ( (array)$res->fetchRow() )['count'] ?? 0 ) : 0;
 
 			if ( !$dataLength ) {
 				return [];
@@ -262,14 +261,14 @@ class SearchPanes {
 			$conds_ = $conds;
 			$fields_ = "COUNT($groupBy) AS count, i.smw_id, i.smw_title, i.smw_namespace, i.smw_iw, i.smw_sort, i.smw_subobject";
 
-			$res = $this->connection->select(
-				$tables_,
-				$fields_,
-				$conds_,
-				__METHOD__,
-				$sql_options_,
-				$joins_
-			);
+			$res = $this->connection->newSelectQueryBuilder()
+				->tables( $tables_ )
+				->fields( $fields_ )
+				->conds( $conds_ !== '' ? $conds_ : [] )
+				->caller( __METHOD__ )
+				->options( $sql_options_ )
+				->joinConds( $joins_ )
+				->fetchResultSet();
 
 			$isIdField = true;
 
@@ -307,16 +306,15 @@ class SearchPanes {
 			$conds_ = $conds;
 			$joins_ = $joins;
 
-			$res = $this->connection->select(
-				$tables_,
-				$fields_,
-				$conds_,
-				__METHOD__,
-				$sql_options_,
-				$joins_
-			);
+			$res = $this->connection->newSelectQueryBuilder()
+				->tables( $tables_ )
+				->fields( $fields_ )
+				->conds( $conds_ !== '' ? $conds_ : [] )
+				->caller( __METHOD__ )
+				->options( $sql_options_ )
+				->joinConds( $joins_ );
 
-			$dataLength = $res ? (int)( $res->fetchRow()['count'] ?? 0 ) : 0;
+			$dataLength = $res ? (int)( ( (array)$res->fetchRow() )['count'] ?? 0 ) : 0;
 
 			if ( !$dataLength ) {
 				return [];
@@ -356,14 +354,14 @@ class SearchPanes {
 				$conds_ .= ' AND i.smw_iw != ' . $this->connection->addQuotes( SMW_SQL3_SMWDELETEIW );
 			}
 
-			$res = $this->connection->select(
-				$tables_,
-				$fields_,
-				$conds_,
-				__METHOD__,
-				$sql_options_,
-				$joins_
-			);
+			$res = $this->connection->newSelectQueryBuilder()
+				->tables( $tables_ )
+				->fields( $fields_ )
+				->conds( $conds_ !== '' ? $conds_ : [] )
+				->caller( __METHOD__ )
+				->options( $sql_options_ )
+				->joinConds( $joins_ )
+				->fetchResultSet();
 		}
 
 		// verify uniqueRatio
@@ -770,14 +768,14 @@ class SearchPanes {
 		$conds_ = $conds;
 		$joins_ = $joins;
 
-		$res = $this->connection->select(
-			$tables_,
-			$fields_,
-			$conds_,
-			__METHOD__,
-			$sql_options_,
-			$joins_
-		);
+		$res = $this->connection->newSelectQueryBuilder()
+			->tables( $tables_ )
+			->fields( $fields_ )
+			->conds( $conds_ !== '' ? $conds_ : [] )
+			->caller( __METHOD__ )
+			->options( $sql_options_ )
+			->joinConds( $joins_ )
+			->fetchResultSet();
 
 		$diHandler = $this->datatables->store->getDataItemHandlerForDIType(
 			DataItem::TYPE_WIKIPAGE

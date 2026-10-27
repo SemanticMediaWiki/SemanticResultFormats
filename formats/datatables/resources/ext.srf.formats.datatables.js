@@ -204,6 +204,15 @@
 		},
 
 		initSearchPanesColumns( columnDefs, options ) {
+			if (
+				'columns' in options.searchPanes &&
+				options.searchPanes.columns.length
+			) {
+				options.searchPanes.columns = options.searchPanes.columns.filter(
+					n => Object.hasOwn(columnDefs, n)
+				);
+			}
+
 			for ( const i in columnDefs ) {
 				if ( !( 'searchPanes' in columnDefs[ i ] ) ) {
 					columnDefs[ i ].searchPanes = {};
