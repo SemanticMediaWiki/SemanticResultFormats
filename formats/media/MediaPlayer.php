@@ -11,15 +11,19 @@ use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
 use SMW\Query\ResultPrinters\ResultPrinter;
 use SMWDataItem;
-use SMWDataValue;
 use SMWOutputs;
-use SRFUtils;
 
 /**
  * HTML5 Audio / Video media query printer
  *
- * This printer integrates jPlayer which is a HTML5 Audio / Video
- * Javascript library under GPL/MIT license.
+ * Renders the results with the native HTML5 <audio> / <video> elements. A
+ * playlist (previous/next, shuffle, repeat) is added by a small dependency free
+ * JavaScript module when more than one media file is returned. Without
+ * JavaScript the first item is still playable with the native controls and
+ * every item is available as a plain link.
+ *
+ * This printer used to integrate jPlayer, which is not maintained anymore and
+ * does not work with recent versions of MediaWiki.
  *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Media_format
  *
@@ -32,22 +36,31 @@ use SRFUtils;
  * @license GPL-2.0-or-later
  * @author mwjames
  */
-
-/**
- * This printer integrates jPlayer which is a HTML5 Audio / Video
- * Javascript libray under GPL/MIT license.
- *
- * @ingroup SRF
- * @ingroup QueryPrinter
- */
 class MediaPlayer extends ResultPrinter {
 
 	/**
-	 * Specifies valid mime types supported by jPlayer
+	 * Supported extensions (also used as keys by the result data) mapped to
+	 * [ media type, MIME type ]
 	 *
 	 * @var array
 	 */
-	protected $validMimeTypes = [ 'mp3', 'mp4', 'webm', 'webma', 'webmv', 'ogg', 'oga', 'ogv', 'm4v', 'm4a' ];
+	protected static $mediaTypes = [
+		'mp3' => [ 'audio', 'audio/mpeg' ],
+		'm4a' => [ 'audio', 'audio/mp4' ],
+		'm4p' => [ 'audio', 'audio/mp4' ],
+		'aac' => [ 'audio', 'audio/aac' ],
+		'oga' => [ 'audio', 'audio/ogg' ],
+		'ogg' => [ 'audio', 'audio/ogg' ],
+		'opus' => [ 'audio', 'audio/ogg; codecs=opus' ],
+		'wav' => [ 'audio', 'audio/wav' ],
+		'flac' => [ 'audio', 'audio/flac' ],
+		'webma' => [ 'audio', 'audio/webm' ],
+		'mp4' => [ 'video', 'video/mp4' ],
+		'm4v' => [ 'video', 'video/mp4' ],
+		'ogv' => [ 'video', 'video/ogg' ],
+		'webm' => [ 'video', 'video/webm' ],
+		'webmv' => [ 'video', 'video/webm' ],
+	];
 
 	/**
 	 * @see ResultPrinter::getName
@@ -66,13 +79,10 @@ class MediaPlayer extends ResultPrinter {
 	 * @return string
 	 */
 	protected function getResultText( QueryResult $result, $outputMode ) {
-		// Data processing
-		$data = $this->getResultData( $result, $outputMode );
+		$items = $this->getResultData( $result, $outputMode );
 
-		// Check if the data processing returned any results otherwise just bailout
-		if ( $data !== [] ) {
-			// Return formatted results
-			return $this->getFormatOutput( $data );
+		if ( $items !== [] ) {
+			return $this->getFormatOutput( $items );
 		}
 
 		if ( $this->params[ 'default' ] !== '' ) {
@@ -84,7 +94,11 @@ class MediaPlayer extends ResultPrinter {
 	}
 
 	/**
-	 * Returns an array with data
+	 * Returns the playable items, one per result row, each being
+	 * [ 'subject' => string, 'title' => string, 'poster' => string,
+	 *   'mediaType' => 'audio'|'video', 'sources' => [ [ 'src' => url, 'type' => mime ], ... ] ]
+	 *
+	 * Rows without any playable source are skipped.
 	 *
 	 * @since 1.9
 	 *
@@ -94,176 +108,152 @@ class MediaPlayer extends ResultPrinter {
 	 * @return array
 	 */
 	protected function getResultData( QueryResult $result, $outputMode ) {
-		$data = [];
+		$items = [];
 
-		/**
-		 * Get all values for all rows that belong to the result set
-		 *
-		 * @var ResultArray $rows
-		 */
+		/** @var ResultArray[] $rows */
 		while ( $rows = $result->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+			$sources = [];
 			$mediaType = null;
-			$mimeType = null;
-			$rowData = [];
+			$poster = '';
+			$title = '';
+			$subjectText = '';
+			$subjectLabel = '';
 
-			/**
-			 * @var ResultArray $field
-			 * @var SMWDataValue $dataValue
-			 */
 			foreach ( $rows as $field ) {
-
-				// Label for the current property
 				$propertyLabel = $field->getPrintRequest()->getLabel();
-
-				// Label for the current subject
-				$subjectLabel = $field->getResultSubject()->getTitle()->getFullText();
+				$subjectTitle = $field->getResultSubject()->getTitle();
+				$subjectLabel = $subjectTitle->getFullText();
 
 				if ( $propertyLabel === '' || $propertyLabel === '-' ) {
 					$propertyLabel = 'subject';
-				} elseif ( $propertyLabel === 'poster' ) {
-					// Label "poster" is a special case where we set the media type to video in order
-					// to use the same resources that can display video and cover art
-					// $data['mediaTypes'][] = 'video';
 				}
 
-				// Check if the subject itself is a media source
-				if ( $field->getResultSubject()->getTitle()->getNamespace() === NS_FILE && $mimeType === null ) {
-					[ $mediaType, $mimeType, $source ] = $this->getMediaSource(
-						$field->getResultSubject()->getTitle()
-					);
-					$rowData[$mimeType] = $source;
+				// The subject itself can be a media file
+				if ( $subjectTitle->getNamespace() === NS_FILE && $sources === [] ) {
+					$source = $this->getFileSource( $subjectTitle );
+					if ( $source !== null ) {
+						$sources[$source['src']] = $source;
+						$mediaType = $source['mediaType'];
+					}
 				}
 
 				while ( ( $dataValue = $field->getNextDataValue() ) !== false ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
-					// Get other data value item details
-					$value = $this->getDataValueItem(
-						$propertyLabel,
-						$dataValue,
-						$mediaType,
-						$mimeType,
-						$rowData
-					);
-					$rowData[$propertyLabel] = $value;
+					$dataItem = $dataValue->getDataItem();
+					$type = $dataItem->getDIType();
+
+					if ( $propertyLabel === 'title' ) {
+						$title = $dataValue->getWikiValue();
+					} elseif ( $propertyLabel === 'subject' && $type !== SMWDataItem::TYPE_URI ) {
+						// Printouts with an empty label (e.g. "?Title=") have always been
+						// treated as the subject, whose text is used as the title
+						$subjectText = $dataValue->getWikiValue();
+					} elseif ( $type === SMWDataItem::TYPE_WIKIPAGE && $dataItem->getTitle() instanceof Title
+						&& $dataItem->getTitle()->getNamespace() === NS_FILE ) {
+						if ( $propertyLabel === 'poster' ) {
+							$file = $this->findFile( $dataItem->getTitle() );
+							if ( $file ) {
+								$poster = $file->getUrl();
+							}
+						} elseif ( $propertyLabel === 'source' ) {
+							$source = $this->getFileSource( $dataItem->getTitle() );
+							if ( $source !== null ) {
+								$sources[$source['src']] = $source;
+								$mediaType = $mediaType ?? $source['mediaType'];
+							}
+						}
+					} elseif ( $type === SMWDataItem::TYPE_URI ) {
+						if ( $propertyLabel === 'poster' ) {
+							$poster = $dataItem->getURI();
+							continue;
+						}
+						$source = $this->getUriSource( $dataItem->getURI() );
+						if ( $source !== null ) {
+							$sources[$source['src']] = $source;
+							$mediaType = $mediaType ?? $source['mediaType'];
+						}
+					}
 				}
 			}
 
-			// Only select relevant source data that match the validMimeTypes
-			if ( $mimeType !== '' && in_array( $mimeType, $this->validMimeTypes ) ) {
-				$data['mimeTypes'][] = $mimeType;
-				$data['mediaTypes'][] = $mediaType;
-				$data[$subjectLabel] = $rowData;
+			if ( $sources !== [] ) {
+				$items[] = [
+					'subject' => $subjectLabel,
+					'title' => $title !== '' ? $title : ( $subjectText !== '' ? $subjectText : $subjectLabel ),
+					'poster' => $poster,
+					'mediaType' => $mediaType,
+					'sources' => array_values( array_map( static function ( $source ) {
+						return [ 'src' => $source['src'], 'type' => $source['type'] ];
+					}, $sources ) ),
+				];
 			}
 		}
 
-		return $data;
+		return $items;
 	}
 
 	/**
-	 * Returns media source information
+	 * Returns the media type and MIME type for a file extension or null if
+	 * the extension is not supported
 	 *
-	 * @since 1.9
+	 * @since 6.0.2
 	 *
+	 * @param string $extension
+	 *
+	 * @return string[]|null [ media type, MIME type ]
+	 */
+	public static function getMediaTypeForExtension( $extension ) {
+		return self::$mediaTypes[strtolower( (string)$extension )] ?? null;
+	}
+
+	/**
 	 * @param Title $title
 	 *
-	 * @return string[]
+	 * @return array|null
 	 */
-	private function getMediaSource( Title $title ) {
-		// Find the file source
-		$source = $this->findFile( $title );
+	private function getFileSource( Title $title ) {
+		$file = $this->findFile( $title );
 
-		if ( $source ) {
-			// $source->getExtension() returns ogg even though it is a ogv/oga (same goes for m4p) file
-			// this doesn't help much therefore we do it ourselves
-			$extension = $source->getExtension();
-
-			if ( in_array( $extension, [ 'ogg', 'oga', 'ogv' ] ) ) {
-				$extension = strtolower( substr( $source->getName(), strrpos( $source->getName(), '.' ) + 1 ) );
-
-				// Xiph.Org recommends that .ogg only be used for Ogg Vorbis audio files
-				$extension = $extension === 'ogg' ? 'oga' : $extension;
-
-				$params = [ $extension === 'ogv' ? 'video' : 'audio', $extension, $source->getUrl() ];
-			} elseif ( in_array( $extension, [ 'm4v', 'm4a', 'm4p' ] ) ) {
-				$params = [ $extension === 'm4v' ? 'video' : 'audio', $extension, $source->getUrl() ];
-			} else {
-				[ $major, $minor ] = File::splitMime( $source->getMimeType() );
-				$params = [ $major, $extension, $source->getUrl() ];
-			}
-		} else {
-			$params = [];
+		if ( !$file ) {
+			return null;
 		}
-		return $params;
+
+		// File::getExtension() reports "ogg" for ogg/oga/ogv, so use the real name
+		$name = $file->getName();
+		$pos = strrpos( $name, '.' );
+		$extension = $pos === false ? $file->getExtension() : substr( $name, $pos + 1 );
+		$known = self::getMediaTypeForExtension( $extension );
+
+		if ( $known === null ) {
+			return null;
+		}
+
+		[ $mediaType, $mime ] = $known;
+
+		// Container formats (webm, mp4, ogg) are audio or video, trust the file's MIME type
+		[ $major ] = File::splitMime( (string)$file->getMimeType() );
+		if ( $major === 'audio' || $major === 'video' ) {
+			$mediaType = $major;
+			$mime = $major . strstr( $mime, '/' );
+		}
+
+		return [ 'src' => $file->getUrl(), 'type' => $mime, 'mediaType' => $mediaType ];
 	}
 
 	/**
-	 * Returns single data value item
+	 * @param string $uri
 	 *
-	 * @param string &$label
-	 * @param SMWDataValue $dataValue
-	 * @param string &$mediaType
-	 * @param string &$mimeType
-	 *
-	 * @param &$rowData
-	 *
-	 * @return mixed
-	 * @since 1.9
+	 * @return array|null
 	 */
-	private function getDataValueItem( &$label, SMWDataValue $dataValue, &$mediaType, &$mimeType, &$rowData ) {
-		$dataItem = $dataValue->getDataItem();
-		$type = $dataItem->getDIType();
+	private function getUriSource( $uri ) {
+		$path = parse_url( $uri, PHP_URL_PATH );
+		$extension = is_string( $path ) ? pathinfo( $path, PATHINFO_EXTENSION ) : '';
+		$known = self::getMediaTypeForExtension( $extension );
 
-		if ( $type === SMWDataItem::TYPE_WIKIPAGE ) {
-
-			$title = $dataItem->getTitle();
-
-			if ( $title instanceof Title && $title->getNamespace() === NS_FILE ) {
-
-				if ( $label === 'source' && $mimeType === null ) {
-
-					// Identify the media source
-					// and get media information
-					[ $mediaType, $mimeType, $source ] = $this->getMediaSource( $title );
-					$label = $mimeType;
-					return $source;
-				} elseif ( $label === 'poster' ) {
-					$mediaType = 'video';
-
-					// Get the cover art image url
-					$source = $this->findFile( $title );
-
-					return $source->getUrl();
-				}
-			}
+		if ( $known === null ) {
+			return null;
 		}
 
-		if ( $type === SMWDataItem::TYPE_URI ) {
-
-			$source = $dataItem->getURI();
-			$mimeType = '';
-
-			// Get file extension from the URI
-			$extension = strtolower( substr( $source, strrpos( $source, '.' ) + 1 ) );
-
-			// Xiph.Org recommends that .ogg only be used for Ogg Vorbis audio files
-			if ( in_array( $extension, [ 'ogg', 'oga', 'ogv' ] ) ) {
-				$mimeType = $extension === 'ogg' ? 'oga' : $extension;
-				$mediaType = $extension === 'ogv' ? 'video' : 'audio';
-			} elseif ( in_array( $extension, [ 'm4v', 'm4a', 'm4p' ] ) ) {
-				$mimeType = $extension;
-				$mediaType = $extension === 'm4v' ? 'video' : 'audio';
-			} else {
-				$mimeType = $extension;
-				$mediaType = strpos( $extension, 'v' ) !== false ? 'video' : 'audio';
-			}
-
-			if ( $mimeType !== '' ) {
-				$rowData[$mimeType] = $source;
-			}
-
-			return $source;
-		}
-
-		return $dataValue->getWikiValue();
+		return [ 'src' => $uri, 'type' => $known[1], 'mediaType' => $known[0] ];
 	}
 
 	/**
@@ -271,57 +261,90 @@ class MediaPlayer extends ResultPrinter {
 	 *
 	 * @since 1.9
 	 *
-	 * @param array $data
+	 * @param array $items
 	 *
 	 * @return string
 	 */
-	protected function getFormatOutput( $data ) {
-		$ID = 'srf-' . uniqid();
+	protected function getFormatOutput( $items ) {
 		$this->isHTML = true;
 
-		// Get the media/mime types
-		if ( in_array( 'video', $data['mediaTypes'] ) ) {
-			$mediaType = 'video';
-		} else {
-			$mediaType = 'audio';
+		// A <video> element is only used for real video, the cover art of audio
+		// files is a plain image because a <video> shows no poster while playing audio
+		$isVideo = false;
+		$hasPoster = false;
+		foreach ( $items as $item ) {
+			$isVideo = $isVideo || $item['mediaType'] === 'video';
+			$hasPoster = $hasPoster || $item['poster'] !== '';
 		}
-		unset( $data['mediaTypes'] );
+		$tag = $isVideo ? 'video' : 'audio';
 
-		$mimeTypes = array_unique( $data['mimeTypes'] );
-		unset( $data['mimeTypes'] );
-
-		// Reassign output array
-		$output = [
-			'data' => $data,
-			'count' => count( $data ),
-			'mediaType' => $mediaType,
-			'mimeTypes' => implode( ',', $mimeTypes ),
-			'inspector' => $this->params['inspector']
-		];
-
-		$requireHeadItem = [ $ID => FormatJson::encode( $output ) ];
-		SMWOutputs::requireHeadItem( $ID, SRFUtils::makeVariablesScript( $requireHeadItem ) );
-
-		SMWOutputs::requireResource( 'ext.jquery.jplayer.skin.' . $this->params['theme'] );
 		SMWOutputs::requireResource( 'ext.srf.formats.media' );
 
-		$processing = SRFUtils::htmlProcessingElement();
+		$first = $items[0];
+		$attributes = [
+			'class' => 'srf-media-element',
+			'controls' => true,
+			'preload' => 'metadata',
+		];
+		$firstIsAudio = $first['mediaType'] !== 'video';
+		if ( !$firstIsAudio && $first['poster'] !== '' ) {
+			$attributes['poster'] = $first['poster'];
+		}
 
-		return Html::rawElement(
-			'div',
-			[
-				'class' => $this->params['class'] !== '' ? 'srf-media ' . $this->params['class'] : 'srf-media'
-			],
-			$processing . Html::element(
+		$sources = '';
+		foreach ( $first['sources'] as $source ) {
+			$sources .= Html::element( 'source', [ 'src' => $source['src'], 'type' => $source['type'] ] );
+		}
+		$fallback = Html::element( 'a', [ 'href' => $first['sources'][0]['src'] ], $first['title'] );
+
+		$html = Html::rawElement( $tag, $attributes, $sources . $fallback );
+
+		if ( $hasPoster ) {
+			$showCover = $firstIsAudio && $first['poster'] !== '';
+			$html = Html::rawElement(
 				'div',
+				[ 'class' => 'srf-media-stage' ],
+				Html::element( 'img', [
+					'class' => 'srf-media-cover',
+					'src' => $showCover ? $first['poster'] : false,
+					'alt' => '',
+					'hidden' => !$showCover,
+				] ) . $html
+			);
+		}
+
+		$list = '';
+		foreach ( $items as $index => $item ) {
+			$list .= Html::rawElement(
+				'li',
 				[
-					'id' => $ID,
-					'class' => 'media-container',
-					'style' => 'display:none;'
+					'class' => 'srf-media-item' . ( $index === 0 ? ' srf-media-current' : '' ),
+					'data-sources' => FormatJson::encode( $item['sources'] ),
+					'data-poster' => $item['poster'],
+					'data-type' => $item['mediaType'] === 'video' ? 'video' : 'audio',
 				],
-				null
-			)
-		);
+				Html::element( 'a', [ 'href' => $item['sources'][0]['src'] ], $item['title'] )
+			);
+		}
+		$html .= Html::rawElement( 'ol', [ 'class' => 'srf-media-playlist' ], $list );
+
+		if ( count( $items ) === 1 ) {
+			// The (hidden) playlist is only needed by the script, show the title instead
+			$html .= Html::element( 'div', [ 'class' => 'srf-media-title' ], $first['title'] );
+		}
+
+		$classes = [ 'srf-media', 'srf-media-' . $tag ];
+		if ( count( $items ) === 1 ) {
+			$classes[] = 'srf-media-single';
+		}
+		if ( $this->params['theme'] !== '' ) {
+			$classes[] = 'srf-media-theme-' . str_replace( '.', '-', $this->params['theme'] );
+		}
+		if ( $this->params['class'] !== '' ) {
+			$classes[] = $this->params['class'];
+		}
+
+		return Html::rawElement( 'div', [ 'class' => implode( ' ', $classes ) ], $html );
 	}
 
 	/**
@@ -341,12 +364,14 @@ class MediaPlayer extends ResultPrinter {
 			'default' => '',
 		];
 
+		// Kept for backwards compatibility with queries written for the jPlayer based printer
 		$params['theme'] = [
 			'message' => 'srf-paramdesc-theme',
 			'default' => 'blue.monday',
 			'values' => [ 'blue.monday', 'morning.light' ],
 		];
 
+		// Kept for backwards compatibility, it has no effect anymore
 		$params['inspector'] = [
 			'type' => 'boolean',
 			'message' => 'srf-paramdesc-mediainspector',
