@@ -863,36 +863,10 @@ return [
 		'position' => 'top'
 	],
 
-	// Register the jplayer js
-	'ext.jquery.jplayer' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/jplayer/jquery.jplayer.js',
-	],
-
-	// Register the jplayer skin
-	'ext.jquery.jplayer.skin.blue.monday' => $moduleTemplate + [
-		'styles' => 'resources/jquery/jplayer/skin/blue.monday/jplayer.blue.monday.css',
-	],
-
-	// Register the jplayer skin
-	'ext.jquery.jplayer.skin.morning.light' => $moduleTemplate + [
-		'styles' => 'resources/jquery/jplayer/skin/morning.light/jplayer.morning.light.css',
-	],
-
-	// Register the jplayer playlist js
-	'ext.jquery.jplayer.playlist' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/jplayer/add-on/jplayer.playlist.min.js',
-		'dependencies' => 'ext.jquery.jplayer',
-	],
-
-	// Register the jplayer inspector js
-	'ext.jquery.jplayer.inspector' => $moduleTemplate + [
-		'scripts' => 'resources/jquery/jplayer/add-on/jquery.jplayer.inspector.js',
-		'dependencies' => 'ext.jquery.jplayer',
-	],
-
-	// SRF jplayer template specifications
-	'ext.srf.template.jplayer' => $formatModule + [
-		'scripts' => 'media/resources/ext.srf.template.jplayer.js',
+	// SRF media format (native HTML5 audio/video player with a playlist)
+	'ext.srf.formats.media' => $formatModule + [
+		'scripts' => 'media/resources/ext.srf.formats.media.js',
+		'styles'  => 'media/resources/ext.srf.formats.media.css',
 		'messages' => [
 			'srf-ui-mediaplayer-label-previous',
 			'srf-ui-mediaplayer-label-play',
@@ -908,18 +882,6 @@ return [
 			'srf-ui-mediaplayer-label-repeat-off',
 			'srf-ui-mediaplayer-label-full-screen',
 			'srf-ui-mediaplayer-label-restore-screen',
-		],
-		'dependencies' => 'ext.srf'
-	],
-
-	// SRF implementation
-	'ext.srf.formats.media' => $formatModule + [
-		'scripts' => 'media/resources/ext.srf.formats.media.js',
-		'styles'  => 'media/resources/ext.srf.formats.media.css',
-		'dependencies' => [
-			'ext.srf',
-			'ext.srf.template.jplayer',
-			'ext.jquery.jplayer.playlist'
 		],
 		'group' => 'ext.srf'
 	],

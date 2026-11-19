@@ -341,7 +341,7 @@ return [
             'PhanTypeMismatchArgumentNullable' => ['\\SRF\\MediaPlayer::getResultData'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\SRF\\MediaPlayer::getFormatOutput'],
             'PhanUndeclaredClass' => ['\\SRF\\MediaPlayer::getParamDefinitions'],
-            'PhanUndeclaredClassConstant' => ['\\SRF\\MediaPlayer::getDataValueItem'],
+            'PhanUndeclaredClassConstant' => ['\\SRF\\MediaPlayer::getDataValueItem', '\\SRF\\MediaPlayer::getResultData'],
             'PhanUndeclaredClassMethod' => ['\\SRF\\MediaPlayer::getDataValueItem', '\\SRF\\MediaPlayer::getFormatOutput', '\\SRF\\MediaPlayer::getResultData', '\\SRF\\MediaPlayer::getResultText'],
             'PhanUndeclaredExtendedClass' => ['formats/media/MediaPlayer.php'],
             'PhanUndeclaredMethod' => ['\\SRF\\MediaPlayer::getName', '\\SRF\\MediaPlayer::getResultText'],

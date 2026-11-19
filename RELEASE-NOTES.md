@@ -4,8 +4,13 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on TBD.
 
+### Breaking Changes
+
+* The `media` format no longer bundles jPlayer, which is unmaintained and broke on recent MediaWiki versions ([822](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/822)). It now renders native HTML5 `<audio>`/`<video>` elements with a dependency free playlist (previous/next, shuffle, repeat). The `theme` parameter only adds a CSS class and the `inspector` parameter has no effect anymore; the `ext.jquery.jplayer*` and `ext.srf.template.jplayer` ResourceLoader modules were removed
+
 ### Bug Fixes
 
+* Fixed the `media` format showing an empty box on recent MediaWiki versions ([822](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/822))
 * Fixed the `spreadsheet` format turning a printout label that starts with `=` into a spreadsheet formula, and writing `csv` text values that start with `=`, `+`, `-`, `@`, a tab or a carriage return unprefixed, so that a spreadsheet application evaluated them as formulas (CSV injection) ([1176](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1176)) (by [gesinn.it](https://gesinn.it))
 * Fixed the `filename` parameter of the `spreadsheet` format being able to break out of the quoted `filename` of the `Content-Disposition` header ([1176](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1176)) (by [gesinn.it](https://gesinn.it))
 
