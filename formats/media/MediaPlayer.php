@@ -25,6 +25,10 @@ use SMWOutputs;
  * This printer used to integrate jPlayer, which is not maintained anymore and
  * does not work with recent versions of MediaWiki.
  *
+ * The printout labels understood by this printer are "title", "artist",
+ * "poster" and "source". The artist(s) are appended in round brackets to the
+ * title, e.g. "Green Grow the Rushes O (Co-cheòl)".
+ *
  * @see http://www.semantic-mediawiki.org/wiki/Help:Media_format
  *
  * @since 1.9
@@ -95,8 +99,11 @@ class MediaPlayer extends ResultPrinter {
 
 	/**
 	 * Returns the playable items, one per result row, each being
-	 * [ 'subject' => string, 'title' => string, 'poster' => string,
+	 * [ 'subject' => string, 'title' => string, 'artist' => string, 'poster' => string,
 	 *   'mediaType' => 'audio'|'video', 'sources' => [ [ 'src' => url, 'type' => mime ], ... ] ]
+	 *
+	 * The artist is the (comma separated) value of the printout labelled "artist"
+	 * or an empty string.
 	 *
 	 * Rows without any playable source are skipped.
 	 *
@@ -116,6 +123,7 @@ class MediaPlayer extends ResultPrinter {
 			$mediaType = null;
 			$poster = '';
 			$title = '';
+			$artists = [];
 			$subjectText = '';
 			$subjectLabel = '';
 
@@ -143,6 +151,12 @@ class MediaPlayer extends ResultPrinter {
 
 					if ( $propertyLabel === 'title' ) {
 						$title = $dataValue->getWikiValue();
+					} elseif ( $propertyLabel === 'artist' ) {
+						// Any property type is accepted (text, page, ...), several values are joined
+						$artist = trim( $dataValue->getWikiValue() );
+						if ( $artist !== '' && !in_array( $artist, $artists, true ) ) {
+							$artists[] = $artist;
+						}
 					} elseif ( $propertyLabel === 'subject' && $type !== SMWDataItem::TYPE_URI ) {
 						// Printouts with an empty label (e.g. "?Title=") have always been
 						// treated as the subject, whose text is used as the title
@@ -179,6 +193,7 @@ class MediaPlayer extends ResultPrinter {
 				$items[] = [
 					'subject' => $subjectLabel,
 					'title' => $title !== '' ? $title : ( $subjectText !== '' ? $subjectText : $subjectLabel ),
+					'artist' => implode( ', ', $artists ),
 					'poster' => $poster,
 					'mediaType' => $mediaType,
 					'sources' => array_values( array_map( static function ( $source ) {
@@ -203,6 +218,18 @@ class MediaPlayer extends ResultPrinter {
 	 */
 	public static function getMediaTypeForExtension( $extension ) {
 		return self::$mediaTypes[strtolower( (string)$extension )] ?? null;
+	}
+
+	/**
+	 * Returns the text shown for an item: the title followed by the artist(s)
+	 * in round brackets, if there are any
+	 *
+	 * @param array $item
+	 *
+	 * @return string
+	 */
+	private function getDisplayTitle( array $item ) {
+		return $item['artist'] !== '' ? $item['title'] . ' (' . $item['artist'] . ')' : $item['title'];
 	}
 
 	/**
@@ -295,7 +322,7 @@ class MediaPlayer extends ResultPrinter {
 		foreach ( $first['sources'] as $source ) {
 			$sources .= Html::element( 'source', [ 'src' => $source['src'], 'type' => $source['type'] ] );
 		}
-		$fallback = Html::element( 'a', [ 'href' => $first['sources'][0]['src'] ], $first['title'] );
+		$fallback = Html::element( 'a', [ 'href' => $first['sources'][0]['src'] ], $this->getDisplayTitle( $first ) );
 
 		$html = Html::rawElement( $tag, $attributes, $sources . $fallback );
 
@@ -323,14 +350,14 @@ class MediaPlayer extends ResultPrinter {
 					'data-poster' => $item['poster'],
 					'data-type' => $item['mediaType'] === 'video' ? 'video' : 'audio',
 				],
-				Html::element( 'a', [ 'href' => $item['sources'][0]['src'] ], $item['title'] )
+				Html::element( 'a', [ 'href' => $item['sources'][0]['src'] ], $this->getDisplayTitle( $item ) )
 			);
 		}
 		$html .= Html::rawElement( 'ol', [ 'class' => 'srf-media-playlist' ], $list );
 
 		if ( count( $items ) === 1 ) {
 			// The (hidden) playlist is only needed by the script, show the title instead
-			$html .= Html::element( 'div', [ 'class' => 'srf-media-title' ], $first['title'] );
+			$html .= Html::element( 'div', [ 'class' => 'srf-media-title' ], $this->getDisplayTitle( $first ) );
 		}
 
 		$classes = [ 'srf-media', 'srf-media-' . $tag ];
