@@ -172,7 +172,7 @@ class MediaPlayer extends ResultPrinter {
 							$source = $this->getFileSource( $dataItem->getTitle() );
 							if ( $source !== null ) {
 								$sources[$source['src']] = $source;
-								$mediaType = $mediaType ?? $source['mediaType'];
+								$mediaType ??= $source['mediaType'];
 							}
 						}
 					} elseif ( $type === SMWDataItem::TYPE_URI ) {
@@ -183,22 +183,25 @@ class MediaPlayer extends ResultPrinter {
 						$source = $this->getUriSource( $dataItem->getURI() );
 						if ( $source !== null ) {
 							$sources[$source['src']] = $source;
-							$mediaType = $mediaType ?? $source['mediaType'];
+							$mediaType ??= $source['mediaType'];
 						}
 					}
 				}
 			}
 
 			if ( $sources !== [] ) {
+				$itemSources = [];
+				foreach ( $sources as $itemSource ) {
+					$itemSources[] = [ 'src' => $itemSource['src'], 'type' => $itemSource['type'] ];
+				}
+
 				$items[] = [
 					'subject' => $subjectLabel,
 					'title' => $title !== '' ? $title : ( $subjectText !== '' ? $subjectText : $subjectLabel ),
 					'artist' => implode( ', ', $artists ),
 					'poster' => $poster,
 					'mediaType' => $mediaType,
-					'sources' => array_values( array_map( static function ( $source ) {
-						return [ 'src' => $source['src'], 'type' => $source['type'] ];
-					}, $sources ) ),
+					'sources' => $itemSources,
 				];
 			}
 		}
