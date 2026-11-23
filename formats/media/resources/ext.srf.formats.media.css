@@ -1,39 +1,206 @@
 /**
  * This file is part of the Semantic Result Formats Media module
- * @see https://www.semantic-mediawiki.org/wiki/Help:Media_formats
  *
- * @section LICENSE
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
- *
- * @file
- * @ignore
- *
- * @since 1.9
- * @ingroup SRF
- *
- * @licence GPL-2.0-or-later
- * @author mwjames
+ * @license GPL-2.0-or-later
  */
-div.jp-jplayer {
-	background-color: white;
+.srf-media {
+	--srf-media-accent: #2f7ed8;
+	--srf-media-bg: #f4f4f4;
+	--srf-media-list-bg: #d2d2d2;
+	--srf-media-text: #333;
+	--srf-media-track: #c4c4c4;
+	max-width: 640px;
+	margin: 0.5em 0;
+	color: var(--srf-media-text);
 }
 
-div.jp-playlist ul {
+.srf-media-theme-morning-light {
+	--srf-media-accent: #e8590c;
+	--srf-media-bg: #fff;
+	--srf-media-list-bg: #f1ece4;
+	--srf-media-track: #ddd;
+}
+
+.srf-media .srf-media-element {
+	display: block;
+	width: 100%;
+	background: #fff;
+}
+
+.srf-media video.srf-media-element {
+	aspect-ratio: 16 / 9;
+	object-fit: contain;
+}
+
+.srf-media.srf-media-ready video.srf-media-element {
+	cursor: pointer;
+}
+
+.srf-media .srf-media-hidden,
+.srf-media .srf-media-cover[hidden] {
+	display: none;
+}
+
+/* Cover art of audio files */
+.srf-media .srf-media-cover {
+	display: block;
+	max-width: 100%;
+	max-height: 30em;
+	margin: 0 auto;
+	background: #fff;
+}
+
+.srf-media .srf-media-title {
+	margin: 0.25em 0;
+	font-weight: bold;
+}
+
+/* Custom controls */
+.srf-media .srf-media-ui {
+	padding: 0 0.5em 0.4em;
+	background: var(--srf-media-bg);
+	border-bottom: 1px solid #ddd;
+}
+
+.srf-media .srf-media-times {
+	display: flex;
+	justify-content: space-between;
+	margin: 0.2em 0;
+	font-size: 0.75em;
+	font-style: italic;
+	color: #666;
+}
+
+.srf-media .srf-media-controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.4em;
+}
+
+.srf-media .srf-media-group {
+	display: flex;
+	align-items: center;
+	gap: 0.3em;
+}
+
+.srf-media .srf-media-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.2em;
+	height: 2.2em;
+	padding: 0 0.4em;
+	cursor: pointer;
+	color: #555;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	background: transparent;
+}
+
+.srf-media .srf-media-group-transport .srf-media-button {
+	border-color: #aaa;
+	background: #fff;
+}
+
+.srf-media .srf-media-button:hover,
+.srf-media .srf-media-button:focus-visible {
+	color: var(--srf-media-accent);
+	border-color: var(--srf-media-accent);
+}
+
+.srf-media.srf-media-playing .srf-media-play {
+	color: var(--srf-media-accent);
+	border-color: var(--srf-media-accent);
+	box-shadow: 0 0 0 2px rgba(47, 126, 216, 0.25);
+}
+
+.srf-media .srf-media-button.srf-media-active {
+	color: var(--srf-media-accent);
+}
+
+/* Range inputs (seek and volume bar) */
+.srf-media .srf-media-range {
+	--srf-media-fill: 0%;
+	-webkit-appearance: none;
+	appearance: none;
+	margin: 0;
+	cursor: pointer;
+	background: linear-gradient( to right, var(--srf-media-accent) var(--srf-media-fill), var(--srf-media-track) var(--srf-media-fill) );
+}
+
+.srf-media .srf-media-seek {
+	display: block;
+	width: 100%;
+	height: 6px;
+}
+
+.srf-media .srf-media-volume {
+	width: 5.5em;
+	height: 4px;
+}
+
+.srf-media .srf-media-range::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 0;
+	height: 0;
+}
+
+.srf-media .srf-media-range::-moz-range-thumb {
+	width: 0;
+	height: 0;
+	border: 0;
+}
+
+.srf-media .srf-media-volume:hover::-webkit-slider-thumb {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--srf-media-accent);
+}
+
+/* Playlist */
+.srf-media ol.srf-media-playlist {
+	margin: 0;
+	padding: 0.4em 0.8em;
+	list-style: none;
+	background: var(--srf-media-list-bg);
+	font-size: 0.85em;
+}
+
+.srf-media ol.srf-media-playlist li {
+	position: relative;
+	margin: 0;
+	padding: 0.35em 0.2em 0.35em 0.9em;
 	list-style-image: none;
+	border-bottom: 1px solid #f4f4f4;
 }
 
-div.jp-type-single div.jp-playlist li {
-	border-bottom: 0px solid #EEE;
+.srf-media ol.srf-media-playlist li:last-child {
+	border-bottom: 0;
+}
+
+.srf-media ol.srf-media-playlist li a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.srf-media.srf-media-ready ol.srf-media-playlist li {
+	cursor: pointer;
+}
+
+.srf-media ol.srf-media-playlist li.srf-media-current,
+.srf-media ol.srf-media-playlist li.srf-media-current a {
+	color: var(--srf-media-accent);
+}
+
+.srf-media ol.srf-media-playlist li.srf-media-current::before {
+	content: '\2022';
+	position: absolute;
+	left: 0.2em;
+}
+
+.srf-media.srf-media-single ol.srf-media-playlist {
+	display: none;
 }
