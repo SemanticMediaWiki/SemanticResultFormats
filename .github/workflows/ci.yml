@@ -28,7 +28,13 @@ jobs:
         run: npm --prefix formats/filtered ci
 
       - name: Check that the committed bundle is up to date
-        run: git diff --exit-code -- formats/filtered/resources/js
+        # Only the bundle built from our own sources. The vendored copies that gulp
+        # also writes (e.g. select2) follow the dependency versions and are tracked
+        # separately.
+        run: >
+          git diff --exit-code --
+          formats/filtered/resources/js/ext.srf.filtered.js
+          formats/filtered/resources/js/ext.srf.filtered.js.map
 
   test:
 
