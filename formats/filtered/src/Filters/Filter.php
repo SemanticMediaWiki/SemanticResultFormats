@@ -61,6 +61,20 @@ abstract class Filter {
 	}
 
 	/**
+	 * Whether a field of a result row holds the values of the printout this filter is attached to.
+	 *
+	 * Compared by print request rather than by property: a property chain (Has city.Population) has
+	 * no inceptive property of its own, and two printouts of the same property are different printouts.
+	 *
+	 * @param \SMW\Query\Result\ResultArray $field
+	 *
+	 * @return bool
+	 */
+	protected function isFieldOfThisFilter( $field ): bool {
+		return $field->getPrintRequest()->getHash() === $this->getPrintRequest()->getHash();
+	}
+
+	/**
 	 * @return string[]
 	 */
 	public function getActualParameters() {

@@ -10,7 +10,6 @@ namespace SRF\Filtered\Filter;
  * @ingroup SemanticResultFormats
  */
 
-use SMW\DataValues\PropertyValue;
 use SRF\Filtered\ResultItem;
 
 /**
@@ -41,14 +40,9 @@ class NumberFilter extends Filter {
 	 * @return array|null
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
-		$propertyName = $this->getPrintRequest()->getData()->getInceptiveProperty()->getKey();
-
 		foreach ( $row->getValue() as $field ) {
 
-			$printRequest = $field->getPrintRequest();
-
-			if ( $printRequest->getData() instanceof PropertyValue &&
-				$printRequest->getData()->getInceptiveProperty()->getKey() === $propertyName &&
+			if ( $this->isFieldOfThisFilter( $field ) &&
 				( $field->reset() instanceof \SMWDINumber || $field->reset() instanceof \SMWDITime )
 			) {
 				// contains plain text
@@ -63,7 +57,8 @@ class NumberFilter extends Filter {
 					} else {
 						$values[] = $value->getYear();
 					}
-					$value = $field->getNextDataItem();
+					// a data value, as the loop condition expects; getNextDataItem() would end the loop
+					$value = $field->getNextDataValue();
 				}
 
 				return [ 'values' => $values ];
