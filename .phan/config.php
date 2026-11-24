@@ -33,11 +33,31 @@ $IP = getenv( 'MW_INSTALL_PATH' ) !== false
 
 $dependencyExtensions = [
 	'Arrays',
+	// SMW is installed in every CI leg; its classes are what most of this extension calls into
+	'SemanticMediaWiki',
 ];
 
 foreach ( $dependencyExtensions as $ext ) {
 	$cfg['directory_list'][] = $IP . '/extensions/' . $ext;
 	$cfg['exclude_analysis_directory_list'][] = $IP . '/extensions/' . $ext;
+}
+
+// The libraries and root files this extension brings itself: only parsed, so that their classes
+// are known (SRFUtils, LatLongParser, the tree classes), not analysed.
+$ownDependencies = [
+	'vendor/nicmart/tree',
+	'vendor/data-values/common',
+	'vendor/data-values/geo',
+	'vendor/data-values/interfaces',
+	'SemanticResultFormats.hooks.php',
+	'SemanticResultFormats.parser.php',
+	'SemanticResultFormats.php',
+	'SemanticResultFormats.utils.php',
+];
+
+foreach ( $ownDependencies as $dependency ) {
+	$cfg['directory_list'][] = $dependency;
+	$cfg['exclude_analysis_directory_list'][] = $dependency;
 }
 
 return $cfg;
