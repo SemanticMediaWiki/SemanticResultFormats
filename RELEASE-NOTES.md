@@ -10,6 +10,7 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed the calendar view of the `filtered` format ignoring the parameters `calendar view start`, `calendar view end`, `calendar view title` and `calendar view title template` (by [gesinn.it](https://gesinn.it))
 * Fixed the list view of the `filtered` format ignoring `headers=hide` and `headers=plain` (by [gesinn.it](https://gesinn.it))
 * Fixed the distance filter of the `filtered` format hiding every result when its origin is missing or invalid, instead of ignoring the filter (by [gesinn.it](https://gesinn.it))
 * Fixed the number filter of the `filtered` format only using the first value of a printout with several values, so the slider and the filter ignored the others (by [gesinn.it](https://gesinn.it))
