@@ -427,9 +427,14 @@ class MapView extends View {
 				$icon = $relation[1];
 			}
 
-			$file = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle(
-				Title::newFromText( $icon, NS_FILE )
-			)->getFile();
+			$title = Title::newFromText( $icon, NS_FILE );
+
+			if ( $title === null ) {
+				$this->getQueryPrinter()->addError( "Invalid file name for the map marker icon: $icon" );
+				continue;
+			}
+
+			$file = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title )->getFile();
 
 			if ( $file->exists() ) {
 				$ret[$key] = $file->getUrl();
