@@ -33,6 +33,7 @@ class CalendarView extends View {
 	private $end;
 	private $title;
 	private $titleTemplate;
+	private bool $parametersHandled = false;
 
 	/**
 	 * @param ResultItem $row
@@ -40,6 +41,12 @@ class CalendarView extends View {
 	 * @return array
 	 */
 	public function getJsDataForRow( ResultItem $row ) {
+		// read start, end, title and title template once, before the first row is evaluated
+		if ( !$this->parametersHandled ) {
+			$this->parametersHandled = true;
+			$this->handleParameters();
+		}
+
 		$value = $row->getValue();
 		$data = [];
 		$wikitext = '';
