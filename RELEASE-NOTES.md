@@ -6,6 +6,7 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed the `map` view of the `filtered` format never finishing (endless loop until the PHP time or memory limit) when a text property used as marker position contains a value that is not a valid coordinate (by [gesinn.it](https://gesinn.it))
 * Fixed the `filtered` format showing no filters and views when the query uses `|@deferred`, because its configuration was not part of the parse API response that Semantic MediaWiki loads the result from ([447](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/447)) (by [gesinn.it](https://gesinn.it))
 * Fixed the `spreadsheet` format turning a printout label that starts with `=` into a spreadsheet formula, and writing `csv` text values that start with `=`, `+`, `-`, `@`, a tab or a carriage return unprefixed, so that a spreadsheet application evaluated them as formulas (CSV injection) ([1176](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1176)) (by [gesinn.it](https://gesinn.it))
 * Fixed the `filename` parameter of the `spreadsheet` format being able to break out of the quoted `filename` of the `Content-Disposition` header ([1176](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/1176)) (by [gesinn.it](https://gesinn.it))
