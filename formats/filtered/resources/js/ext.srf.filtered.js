@@ -30055,7 +30055,8 @@ class Filter {
     }
     addLabel() {
         // insert the label of the printout this filter filters on
-        this.target.before(`<div class="filtered-filter-label">${this.options['label']}</div>`);
+        // the label is plain text from the wiki page, never markup
+        this.target.before($('<div class="filtered-filter-label">').text(this.options['label']));
     }
     addOnOffSwitch() {
         if (this.options.hasOwnProperty('switches')) {
@@ -30217,8 +30218,8 @@ class NumberFilter extends Filter_1.Filter {
         let sliderContainer = $(`<div class="filtered-number-slider ${filterClassNames[this.mode]}" />`).append(slider);
         filtercontrols.append(sliderContainer);
         if (this.options.hasOwnProperty('caption')) {
-            let caption = `<div class="filtered-number-caption">${this.options['caption']}</div>`;
-            filtercontrols.append(caption);
+            // the caption is the plain-text output format of the printout, never markup
+            filtercontrols.append($('<div class="filtered-number-caption">').text(this.options['caption']));
         }
         mw.loader.using('ext.srf.filtered.slider').then(() => slider.ionRangeSlider(sliderOptions));
     }
@@ -30346,9 +30347,9 @@ class ValueFilter extends Filter_1.Filter {
         let distinctSortValues = {};
         if (this.options.hasOwnProperty('values')) {
             return this.options['values'].map((item) => {
+                // no formatted value: the item is plain text and is escaped when shown
                 return {
-                    printoutValue: item,
-                    formattedValue: item
+                    printoutValue: item
                 };
             });
         }
@@ -30401,7 +30402,16 @@ class ValueFilter extends Filter_1.Filter {
         let checkboxes = $('<div class="filtered-value-checkboxes" style="width: 100%;">');
         // insert options (checkboxes and labels)
         for (let value of this.values) {
-            checkboxes.append(`<div class="filtered-value-option"><label><input type="checkbox" value="${value.printoutValue}" ><div class="filtered-value-option-label">${value.formattedValue || value.printoutValue}</div></label></div>`);
+            // printoutValue is raw wikitext, so it must never be put into markup; the formatted
+            // value is HTML rendered by the server and is kept as is
+            const optionLabel = $('<div class="filtered-value-option-label">');
+            if (value.formattedValue) {
+                optionLabel.html(value.formattedValue);
+            }
+            else {
+                optionLabel.text(value.printoutValue);
+            }
+            checkboxes.append($('<div class="filtered-value-option">').append($('<label>').append($('<input type="checkbox">').val(value.printoutValue), optionLabel)));
         }
         // attach event handler
         checkboxes
@@ -30412,9 +30422,9 @@ class ValueFilter extends Filter_1.Filter {
         return checkboxes;
     }
     stripHtml(str) {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = str;
-        return tmp.textContent || tmp.innerText || '';
+        // DOMParser yields an inert document: unlike innerHTML on a detached element it
+        // does not load images or run event handlers while the markup is stripped
+        return new DOMParser().parseFromString(str, 'text/html').body.textContent || '';
     }
     getSelected2Control() {
         let select = $('<select class="filtered-value-select" style="width: 100%;">');

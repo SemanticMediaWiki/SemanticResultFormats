@@ -91,7 +91,8 @@ class ResultItem {
 				}
 
 				if ( $dataValue instanceof SMWErrorValue ) {
-					$formatted[] = $dataItem->getSerialization();
+					// the invalid input as typed on the page; the formatted value is HTML
+					$formatted[] = htmlspecialchars( $dataItem->getSerialization() );
 				} else {
 					$linker = $this->mQueryPrinter->getLinker( $isFirstColumn );
 					$displayTitle = $dataValue instanceof WikiPageValue ? $dataValue->getDisplayTitle() : '';

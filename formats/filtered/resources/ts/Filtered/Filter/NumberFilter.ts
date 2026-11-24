@@ -143,8 +143,8 @@ export class NumberFilter extends Filter {
 		filtercontrols.append( sliderContainer );
 
 		if ( this.options.hasOwnProperty( 'caption' ) ) {
-			let caption = `<div class="filtered-number-caption">${this.options[ 'caption' ]}</div>`;
-			filtercontrols.append( caption );
+			// the caption is the plain-text output format of the printout, never markup
+			filtercontrols.append( $( '<div class="filtered-number-caption">' ).text( this.options[ 'caption' ] ) );
 		}
 
 		mw.loader.using( 'ext.srf.filtered.slider' ).then( () => slider.ionRangeSlider( sliderOptions ) );

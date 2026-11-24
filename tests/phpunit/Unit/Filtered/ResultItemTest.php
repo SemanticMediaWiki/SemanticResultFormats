@@ -11,6 +11,7 @@ use SMW\Query\PrintRequest;
 use SMW\Query\Result\ResultArray;
 use SMWDataValue;
 use SMWDIGeoCoord;
+use SMWErrorValue;
 use SRF\Filtered\Filtered;
 use SRF\Filtered\ResultItem;
 
@@ -107,6 +108,23 @@ class ResultItemTest extends \PHPUnit\Framework\TestCase {
 		$representation = ( new ResultItem( [ $field ], $printer ) )->getArrayRepresentation();
 
 		$this->assertSame( [ 'v' => [ 'abc' ] ], $representation['p'][0] );
+	}
+
+	public function testErrorValueIsEscapedInTheFormattedOutput() {
+		$printer = new Filtered( null );
+		$blob = $this->createStub( \SMWDIBlob::class );
+		$blob->method( 'getSerialization' )->willReturn( '<img src=x onerror=alert(1)> & "q"' );
+		$errorValue = $this->createStub( SMWErrorValue::class );
+		$errorValue->method( 'getDataItem' )->willReturn( $blob );
+		$errorValue->method( 'getShortWikiText' )->willReturn( 'broken' );
+		$field = $this->newField( [ $errorValue ] );
+
+		$representation = ( new ResultItem( [ $field ], $printer ) )->getArrayRepresentation();
+
+		$this->assertSame(
+			[ '&lt;img src=x onerror=alert(1)&gt; &amp; &quot;q&quot;' ],
+			$representation['p'][0]['f']
+		);
 	}
 
 	public function testGeoCoordinateIsSerializedAsLatLngPairWithSortKey() {

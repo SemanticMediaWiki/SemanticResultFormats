@@ -110,7 +110,8 @@ export abstract class Filter{
 
 	private addLabel() {
 		// insert the label of the printout this filter filters on
-		this.target.before( `<div class="filtered-filter-label">${this.options[ 'label' ]}</div>` );
+		// the label is plain text from the wiki page, never markup
+		this.target.before( $( '<div class="filtered-filter-label">' ).text( this.options[ 'label' ] ) );
 	}
 
 	protected addOnOffSwitch() {
