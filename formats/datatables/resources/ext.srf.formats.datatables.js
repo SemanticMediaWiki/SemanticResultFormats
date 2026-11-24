@@ -209,7 +209,7 @@
 				options.searchPanes.columns.length
 			) {
 				options.searchPanes.columns = options.searchPanes.columns.filter(
-					n => Object.hasOwn(columnDefs, n)
+					( n ) => Object.prototype.hasOwnProperty.call( columnDefs, n )
 				);
 			}
 
