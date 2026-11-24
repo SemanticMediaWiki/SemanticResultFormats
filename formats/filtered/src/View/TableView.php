@@ -33,7 +33,6 @@ class TableView extends View {
 	/**
 	 * @var string[]
 	 */
-	private $columnClasses;
 
 	/**
 	 * Transfers the parameters applicable to this view into internal variables.
@@ -60,7 +59,6 @@ class TableView extends View {
 
 		// Initialise more values
 		$resultText = '';
-		$this->columnClasses = [];
 
 		// Table Header, no headers when headers=hide
 		if ( $this->mShowHeaders !== SMW_HEADERS_HIDE ) {
@@ -105,10 +103,6 @@ class TableView extends View {
 		// build class attributes from header text assigned to each column's cell
 		$columnClass = $this->getColumnClass( $pr );
 
-		// Also add this to the array of classes, for
-		// use in displaying each row.
-		$this->columnClasses[] = $columnClass;
-
 		// get header text (and link to property)
 		$text = $pr->getText(
 			SMW_OUTPUT_WIKI,
@@ -135,8 +129,7 @@ class TableView extends View {
 			"\n",
 			$this->getTableRows(
 				$this->getQueryResults(),
-				SMW_OUTPUT_WIKI,
-				$this->columnClasses
+				SMW_OUTPUT_WIKI
 			)
 		);
 	}
@@ -144,29 +137,26 @@ class TableView extends View {
 	/**
 	 * @param ResultItem[] $queryResults
 	 * @param int $outputmode
-	 * @param string[] $columnClasses
 	 *
 	 * @return array
 	 */
-	private function getTableRows( $queryResults, $outputmode, $columnClasses ) {
+	private function getTableRows( $queryResults, $outputmode ) {
 		$tableRows = [];
 
 		foreach ( $queryResults as $id => $value ) {
 			$cells = [];
 			$row = $value->getValue();
 
-			foreach ( $row as $fieldId => $field ) {
+			foreach ( $row as $field ) {
 
 				if ( filter_var(
 						$field->getPrintRequest()->getParameter( 'hide' ),
 						FILTER_VALIDATE_BOOLEAN
 					) === false ) {
 
-					if ( array_key_exists( $fieldId, $columnClasses ) ) {
-						$columnClass = $columnClasses[$fieldId];
-					} else {
-						$columnClass = null;
-					}
+					// the class comes from the printout of the cell itself, so hidden columns and
+					// hidden headers cannot shift it onto another column
+					$columnClass = $this->getColumnClass( $field->getPrintRequest() );
 
 					$cells[] = $this->getCellForPropVals( $field, $outputmode, $columnClass );
 				}
