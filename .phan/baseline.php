@@ -222,8 +222,8 @@ return [
         ],
         'formats/filtered/src/Filters/Filter.php' => [
             'PhanTypeMismatchReturnProbablyReal' => ['\\SRF\\Filtered\\Filter\\Filter::getResourceModules'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\Filtered\\Filter\\Filter::getActualParameters'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\Filtered\\Filter\\Filter::__construct'],
+            'PhanUndeclaredClassMethod' => ['\\SRF\\Filtered\\Filter\\Filter::getActualParameters', '\\SRF\\Filtered\\Filter\\Filter::isFieldOfThisFilter'],
+            'PhanUndeclaredTypeParameter' => ['\\SRF\\Filtered\\Filter\\Filter::__construct', '\\SRF\\Filtered\\Filter\\Filter::isFieldOfThisFilter'],
             'PhanUndeclaredTypeReturnType' => ['\\SRF\\Filtered\\Filter\\Filter::getPrintRequest']
         ],
         'formats/filtered/src/Filters/NumberFilter.php' => [
@@ -243,7 +243,7 @@ return [
         ],
         'formats/filtered/src/View/ListView.php' => [
             'PhanUndeclaredClassMethod' => ['\\SRF\\Filtered\\View\\ListView::printRow'],
-            'PhanUndeclaredConstant' => ['\\SRF\\Filtered\\View\\ListView::printRow'],
+            'PhanUndeclaredConstant' => ['\\SRF\\Filtered\\View\\ListView::handleParameters', '\\SRF\\Filtered\\View\\ListView::printRow'],
             'PhanUndeclaredTypeParameter' => ['\\SRF\\Filtered\\View\\ListView::printRow']
         ],
         'formats/filtered/src/View/MapView.php' => [
