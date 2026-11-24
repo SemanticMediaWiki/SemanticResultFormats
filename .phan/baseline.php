@@ -17,10 +17,10 @@ return [
     // MediaWikiNoIssetIfDefined : 10+ occurrences
     // PhanTypeMismatchArgumentProbablyReal : 10+ occurrences
     // PhanUndeclaredVariableDim : 10+ occurrences
-    // PhanTypeMismatchArgumentNullable : 9 occurrences
     // PhanTypeMismatchDimFetch : 9 occurrences
-    // PhanTypeMismatchReturnProbablyReal : 9 occurrences
     // PhanTypeArraySuspiciousNullable : 8 occurrences
+    // PhanTypeMismatchArgumentNullable : 8 occurrences
+    // PhanTypeMismatchReturnProbablyReal : 7 occurrences
     // PhanUndeclaredTypeParameter : 6 occurrences
     // PhanTypeMismatchArgumentInternal : 5 occurrences
     // PhanNonClassMethodCall : 4 occurrences
@@ -32,9 +32,8 @@ return [
     // PhanTypeMismatchArgumentNullableInternal : 3 occurrences
     // PhanTypeMismatchArgumentSuperType : 3 occurrences
     // PhanTypeMismatchForeach : 3 occurrences
-    // PhanTypeMismatchReturn : 3 occurrences
-    // SecurityCheck-DoubleEscaped : 3 occurrences
     // PhanParamSignatureMismatch : 2 occurrences
+    // PhanTypeMismatchReturn : 2 occurrences
     // PhanTypeNoAccessiblePropertiesForeach : 2 occurrences
     // PhanTypeSuspiciousStringExpression : 2 occurrences
     // PhanUndeclaredConstant : 2 occurrences
@@ -52,7 +51,7 @@ return [
     // PhanUndeclaredFunction : 1 occurrence
     // PhanUndeclaredTypeReturnType : 1 occurrence
     // PhanUnusedPrivateMethodParameter : 1 occurrence
-    // UnusedPluginSuppression : 1 occurrence
+    // SecurityCheck-DoubleEscaped : 1 occurrence
 
     'file_suppressions' => [
         'formats/Gantt/GanttPrinter.php' => [
@@ -142,22 +141,6 @@ return [
             'PhanUndeclaredClassMethod' => ['\\SRFDygraphs::getFormatOutput', '\\SRFDygraphs::getResultText'],
             'PhanUndeclaredMethod' => ['\\SRFDygraphs::getResultData'],
             'PhanUndeclaredVariableDim' => ['\\SRFDygraphs::getFormatOutput', '\\SRFDygraphs::getResultText']
-        ],
-        'formats/filtered/src/Filters/Filter.php' => [
-            'PhanTypeMismatchReturnProbablyReal' => ['\\SRF\\Filtered\\Filter\\Filter::getResourceModules']
-        ],
-        'formats/filtered/src/View/CalendarView.php' => [
-            'PhanUndeclaredMethod' => ['\\SRF\\Filtered\\View\\CalendarView::getJsDataForRow']
-        ],
-        'formats/filtered/src/View/MapView.php' => [
-            'PhanTypeMismatchReturn' => ['\\SRF\\Filtered\\View\\MapView::getMapProvider'],
-            'PhanTypeMismatchReturnProbablyReal' => ['\\SRF\\Filtered\\View\\MapView::getPropertyId'],
-            'PhanUndeclaredMethod' => ['\\SRF\\Filtered\\View\\MapView::getMarkerIcons'],
-            'UnusedPluginSuppression' => ['formats/filtered/src/View/MapView.php']
-        ],
-        'formats/filtered/src/View/TableView.php' => [
-            'PhanTypeMismatchArgumentNullable' => ['\\SRF\\Filtered\\View\\TableView::getCellForPropVals'],
-            'SecurityCheck-DoubleEscaped' => ['\\SRF\\Filtered\\View\\TableView::getTableHeader', '\\SRF\\Filtered\\View\\TableView::getTableRows']
         ],
         'formats/gallery/Gallery.php' => [
             'PhanRedundantCondition' => ['\\SRF\\Gallery::addImageToGallery'],

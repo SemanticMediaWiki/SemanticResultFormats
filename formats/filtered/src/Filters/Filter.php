@@ -85,7 +85,7 @@ abstract class Filter {
 	 * Returns the name (string) or names (array of strings) of the resource
 	 * modules to load.
 	 *
-	 * @return string|string[]
+	 * @return string|string[]|null null when the filter needs no module
 	 */
 	public function getResourceModules() {
 		return null;

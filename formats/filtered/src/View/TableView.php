@@ -109,6 +109,7 @@ class TableView extends View {
 			$this->mShowHeaders === SMW_HEADERS_PLAIN ? null : $this->getQueryPrinter()->getLinker( false, true )
 		);
 
+		// @phan-suppress-next-line SecurityCheck-DoubleEscaped the class is the plain label; Html escapes it once
 		return Html::rawElement(
 			'th',
 			[ 'class' => $columnClass ],
@@ -158,6 +159,7 @@ class TableView extends View {
 					// hidden headers cannot shift it onto another column
 					$columnClass = $this->getColumnClass( $field->getPrintRequest() );
 
+					// @phan-suppress-next-line SecurityCheck-DoubleEscaped the class is escaped once, by Html
 					$cells[] = $this->getCellForPropVals( $field, $outputmode, $columnClass );
 				}
 			}
@@ -190,7 +192,7 @@ class TableView extends View {
 		}
 
 		$attribs = [];
-		$content = null;
+		$content = '';
 
 		if ( count( $dataValues ) > 0 ) {
 			$sortkey = $dataValues[0]->getDataItem()->getSortKey();

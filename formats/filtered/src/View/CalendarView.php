@@ -83,6 +83,7 @@ class CalendarView extends View {
 				// found specified column for title
 				if ( $datavalue !== false ) {
 					if ( $datavalue instanceof \SMWWikiPageValue ) {
+						// @phan-suppress-next-line PhanUndeclaredMethod the data item of a page value is a DIWikiPage
 						$data['url'] = $datavalue->getDataItem()->getTitle()->getLocalURL();
 					}
 					$data['title'] = $datavalue->getShortHTMLText();
