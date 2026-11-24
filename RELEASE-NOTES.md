@@ -4,6 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on TBD.
 
+### Compatibility Changes
+
+* Updated the npm development dependencies of the extension and of the `filtered` format to fix known vulnerabilities in the build and test tooling; the delivered bundle is unchanged (by [gesinn.it](https://gesinn.it))
+
 ### Bug Fixes
 
 * Fixed the number filter of the `filtered` format only using the first value of a printout with several values, so the slider and the filter ignored the others (by [gesinn.it](https://gesinn.it))
