@@ -67,13 +67,13 @@ class ListViewTest extends \PHPUnit\Framework\TestCase {
 			'headers' => $headers,
 			'sep' => ', ',
 		];
-		$linker = $this->createStub( \Linker::class );
+		$linker = $this->createStub( \MediaWiki\Linker\Linker::class );
 		$printer = new class( null, $linker ) extends Filtered {
-			public function __construct( $format, private \Linker $linker ) {
+			public function __construct( $format, private \MediaWiki\Linker\Linker $linker ) {
 				parent::__construct( $format );
 			}
 
-			public function getLinker( $firstcol = false, $force = false ): ?\Linker {
+			public function getLinker( $firstcol = false, $force = false ): ?\MediaWiki\Linker\Linker {
 				// a linked header needs a linker, plain output none
 				return $force ? $this->linker : null;
 			}
