@@ -10,6 +10,7 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed the map view of the `filtered` format failing with a fatal error when a marker icon name starts with a namespace other than `File:`; the name is reported as an error instead (by [gesinn.it](https://gesinn.it))
 * Fixed the map view of the `filtered` format failing with a `TypeError` when a marker icon is not a valid file name; the name is reported as an error instead (by [gesinn.it](https://gesinn.it))
 * Fixed the table view of the `filtered` format giving cells the CSS class of another column when a printout is hidden, and no column class at all with `headers=hide` (by [gesinn.it](https://gesinn.it))
 * Fixed the view selector of the `filtered` format not marking the selected view when its label contains markup (by [gesinn.it](https://gesinn.it))
