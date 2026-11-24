@@ -29860,13 +29860,17 @@ class DistanceFilter extends Filter_1.Filter {
         super(...arguments);
         this.earthRadiusValue = DistanceFilter.earthRadius.km;
         this.filterValue = 0;
+        this.hasOrigin = false;
     }
     init() {
         let origin = this.options['origin'];
         if (!(origin !== undefined && origin.hasOwnProperty('lat') && origin.hasOwnProperty('lng'))) {
+            // no usable origin (the server has reported it): without distances there is nothing to
+            // filter by, so the filter must not hide any rows
             this.target.detach();
             return;
         }
+        this.hasOrigin = true;
         let unit = 'km';
         if (this.options['unit'] && DistanceFilter.earthRadius[this.options['unit']]) {
             unit = this.options['unit'];
@@ -29956,6 +29960,9 @@ class DistanceFilter extends Filter_1.Filter {
         return this.earthRadiusValue * 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
     }
     isVisible(rowId) {
+        if (!this.hasOrigin) {
+            return true;
+        }
         let rowdata = this.controller.getData()[rowId].d;
         if (rowdata && rowdata.hasOwnProperty(this.filterId)) {
             return rowdata[this.filterId].distance <= this.filterValue;

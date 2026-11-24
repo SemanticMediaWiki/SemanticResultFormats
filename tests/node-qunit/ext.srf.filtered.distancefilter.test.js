@@ -42,6 +42,19 @@ QUnit.module( 'ext.srf.filtered DistanceFilter', () => {
 		assert.strictEqual( $.contains( document.body, target[ 0 ] ), false, 'target was detached when no origin was configured' );
 	} );
 
+	QUnit.test( 'without a usable origin the filter does not hide any row', ( assert ) => {
+		const data = {
+			row1: rowWithPositions( { lat: 0, lng: 1 } ),
+			row2: {}
+		};
+		const f = newFilter( data, $( '<div>' ), {} );
+
+		f.init();
+
+		assert.true( f.isVisible( 'row1' ), 'a row with positions stays visible' );
+		assert.true( f.isVisible( 'row2' ), 'a row without positions stays visible' );
+	} );
+
 	QUnit.test( 'haversine distance: rows are filtered by distance from origin via isVisible()', ( assert ) => {
 		// row1 is ~111 km from origin (1 degree of longitude at the equator),
 		// row2 is at the origin itself (distance 0)
