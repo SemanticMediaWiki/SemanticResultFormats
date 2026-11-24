@@ -9,6 +9,27 @@ on:
 
 jobs:
 
+  # The compiled bundle is committed, so a change to the TypeScript sources
+  # without a rebuilt bundle would silently ship the old behaviour.
+  filtered-bundle:
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Rebuild the filtered bundle (npm postinstall runs gulp)
+        run: npm --prefix formats/filtered ci
+
+      - name: Check that the committed bundle is up to date
+        run: git diff --exit-code -- formats/filtered/resources/js
+
   test:
 
     runs-on: ubuntu-24.04
