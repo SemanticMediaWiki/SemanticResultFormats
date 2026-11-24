@@ -177,10 +177,11 @@ export class MapView extends View {
 				let formatted = printoutFormattedValues( slot );
 
 				if ( title === undefined ) {
-					title = printoutValues( slot ).join( ', ' );
-					popup.push( '<b>' + formatted.join( ', ' ) + '</b>' );
+					title = printoutValues( slot ).map( valueAsText ).join( ', ' );
+					popup.push( '<b>' + formatted.map( valueAsText ).join( ', ' ) + '</b>' );
 				} else {
-					popup.push( (slot && slot.label ? '<b>' + slot.label + ':</b> ' : '') + formatted.join( ', ' ) )
+					// the label belongs to the printout, not to the per-row slot
+					popup.push( ( printrequest.label ? '<b>' + escapeHtml( printrequest.label ) + ':</b> ' : '' ) + formatted.map( valueAsText ).join( ', ' ) );
 				}
 			}
 		}
@@ -240,6 +241,11 @@ export class MapView extends View {
 	private addGeoJsonOverlay( map: L.Map ): L.GeoJSON | null {
 		if ( !this.options.hasOwnProperty( 'geojson' ) || !this.options[ 'geojson' ] ) {
 			return null;
+		}
+
+		// the icons are built together with the first marker; without any marker they do not exist yet
+		if ( this.icon === undefined ) {
+			this.buildIconList();
 		}
 
 		try {
@@ -326,7 +332,16 @@ export class MapView extends View {
 			return [];
 		}
 
-		return [ { label: escapeHtml( mapProvider ), layer: L.tileLayer.provider( mapProvider ) } ];
+		try {
+			return [ { label: escapeHtml( mapProvider ), layer: L.tileLayer.provider( mapProvider ) } ];
+		} catch ( error ) {
+			// an unknown provider must not stop the map from being built
+			if ( typeof console !== 'undefined' && console.warn ) {
+				console.warn( 'srf.filtered.map: skipping unknown map provider "' + mapProvider + '"', error );
+			}
+
+			return [];
+		}
 	}
 
 	public getOptions( keys: string[], defaults: Options = {} ) {
@@ -450,6 +465,15 @@ export function buildLayerControl(
 // simplestyle-spec properties (stroke/fill on paths) and rendering title/description feature
 // properties as popups. Ported minimally from the Maps extension's resources/leaflet/GeoJson.js;
 // point features use Leaflet's default marker (no marker-colour icon machinery).
+// A coordinate is stored as { lat, lng }; every other value is already text.
+function valueAsText( value: any ): string {
+	if ( value !== null && typeof value === 'object' && 'lat' in value && 'lng' in value ) {
+		return value.lat + ', ' + value.lng;
+	}
+
+	return String( value );
+}
+
 export function buildGeoJsonLayer( geojson: any, markerIcon?: L.Icon ): L.GeoJSON {
 	return L.geoJSON( geojson, {
 		// The bundled Leaflet cannot auto-detect its default icon path, so point features get the

@@ -373,3 +373,62 @@ QUnit.module( 'ext.srf.filtered MapView layer control', () => {
 	} );
 
 } );
+
+QUnit.module( 'ext.srf.filtered MapView marker details and robustness', () => {
+
+	// printout 0 holds the coordinates, printout 1 a text value
+	const printRequests = [ { label: 'Position' }, { label: 'City' } ];
+	const row = { p: [ { v: [ { lat: 1, lng: 2 } ] }, { v: [ 'Berlin' ], f: [ 'Berlin' ] } ] };
+
+	function newMapView( options ) {
+		const controller = new Controller( $(), { row1: row }, printRequests );
+		return new MapView( 'foo', $( '<div>' ), controller, options );
+	}
+
+	QUnit.test( 'the popup labels every value after the first with its printout label', ( assert ) => {
+		const marker = newMapView( { position: 0 } ).getMarker( [ 1, 2 ], row );
+
+		assert.true( marker.getPopup().getContent().includes( '<b>City:</b> Berlin' ), 'the label precedes the value' );
+	} );
+
+	QUnit.test( 'a coordinate as first printout does not turn the marker title into [object Object]', ( assert ) => {
+		const marker = newMapView( { position: 0 } ).getMarker( [ 1, 2 ], row );
+
+		assert.false( marker.options.title.includes( 'object' ), 'the title is plain text' );
+	} );
+
+	QUnit.test( 'a labelled printout cannot inject markup into the popup', ( assert ) => {
+		const controller = new Controller( $(), { row1: row }, [ { label: 'Position' }, { label: '<i>City</i>' } ] );
+		const marker = new MapView( 'foo', $( '<div>' ), controller, { position: 0 } ).getMarker( [ 1, 2 ], row );
+
+		assert.false( marker.getPopup().getContent().includes( '<i>' ), 'the label is escaped' );
+	} );
+
+	QUnit.test( 'a geojson overlay is built even when no marker has been created', ( assert ) => {
+		const warn = sinon.stub( console, 'warn' );
+		const mapView = newMapView( { geojson: { type: 'Point', coordinates: [ 16.37, 48.21 ] } } );
+
+		try {
+			const layer = mapView.addGeoJsonOverlay( { addLayer: () => {} } );
+
+			assert.notStrictEqual( layer, null, 'the overlay layer is returned' );
+			assert.false( warn.called, 'no warning about a failed overlay' );
+		} finally {
+			warn.restore();
+		}
+	} );
+
+	QUnit.test( 'an unknown configured map provider is skipped with a warning instead of throwing', ( assert ) => {
+		const warn = sinon.stub( console, 'warn' );
+		const mapView = newMapView( { 'map provider': 'No.Such.Provider' } );
+		mapView.isUserUsesDarkMode = () => false;
+
+		try {
+			assert.deepEqual( mapView.buildProviderBase(), [], 'no base layer is built' );
+			assert.true( warn.calledOnce, 'a warning was emitted' );
+		} finally {
+			warn.restore();
+		}
+	} );
+
+} );

@@ -24,7 +24,8 @@ export class ViewSelector {
 
 		event.data.controller.onViewSelected( event.data.target );
 
-		$( event.target )
+		// currentTarget is the selector the handler is bound to; target may be markup inside its label
+		$( event.currentTarget )
 		.addClass( 'selected')
 		.siblings().removeClass( 'selected' );
 

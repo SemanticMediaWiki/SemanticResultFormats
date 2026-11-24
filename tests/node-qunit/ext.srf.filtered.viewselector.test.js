@@ -96,4 +96,28 @@ QUnit.module( 'ext.srf.filtered ViewSelector', () => {
 		target.remove();
 	} );
 
+	QUnit.test( 'a click on markup inside a selector marks the selector itself', ( assert ) => {
+		const target = $( '<div style="display:none">' );
+		const viewIDs = [ 'foo', 'bar' ];
+
+		viewIDs.forEach( ( id ) => {
+			target.append( '<div class="' + id + '"><b class="label-' + id + '">Label ' + id + '</b></div>' );
+		} );
+
+		target.appendTo( 'body' );
+
+		const c = new Controller( undefined, undefined, undefined );
+		c.onViewSelected = () => {};
+
+		new ViewSelector( target, viewIDs, c ).init();
+
+		target.find( '.label-bar' ).click();
+
+		assert.true( target.find( '.bar' ).hasClass( 'selected' ), 'the selector of the clicked label is marked' );
+		assert.false( target.find( '.label-bar' ).hasClass( 'selected' ), 'the label inside it is not marked' );
+		assert.false( target.find( '.foo' ).hasClass( 'selected' ), 'the other selector is no longer marked' );
+
+		target.remove();
+	} );
+
 } );

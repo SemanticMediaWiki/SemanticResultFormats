@@ -30925,11 +30925,12 @@ class MapView extends View_1.View {
                 let slot = row.p[prId];
                 let formatted = (0, types_1.printoutFormattedValues)(slot);
                 if (title === undefined) {
-                    title = (0, types_1.printoutValues)(slot).join(', ');
-                    popup.push('<b>' + formatted.join(', ') + '</b>');
+                    title = (0, types_1.printoutValues)(slot).map(valueAsText).join(', ');
+                    popup.push('<b>' + formatted.map(valueAsText).join(', ') + '</b>');
                 }
                 else {
-                    popup.push((slot && slot.label ? '<b>' + slot.label + ':</b> ' : '') + formatted.join(', '));
+                    // the label belongs to the printout, not to the per-row slot
+                    popup.push((printrequest.label ? '<b>' + escapeHtml(printrequest.label) + ':</b> ' : '') + formatted.map(valueAsText).join(', '));
                 }
             }
         }
@@ -30971,6 +30972,10 @@ class MapView extends View_1.View {
     addGeoJsonOverlay(map) {
         if (!this.options.hasOwnProperty('geojson') || !this.options['geojson']) {
             return null;
+        }
+        // the icons are built together with the first marker; without any marker they do not exist yet
+        if (this.icon === undefined) {
+            this.buildIconList();
         }
         try {
             let layer = buildGeoJsonLayer(this.options['geojson'], this.icon['default']);
@@ -31040,7 +31045,16 @@ class MapView extends View_1.View {
         if (!mapProvider) {
             return [];
         }
-        return [{ label: escapeHtml(mapProvider), layer: L.tileLayer.provider(mapProvider) }];
+        try {
+            return [{ label: escapeHtml(mapProvider), layer: L.tileLayer.provider(mapProvider) }];
+        }
+        catch (error) {
+            // an unknown provider must not stop the map from being built
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn('srf.filtered.map: skipping unknown map provider "' + mapProvider + '"', error);
+            }
+            return [];
+        }
     }
     getOptions(keys, defaults = {}) {
         for (let key of keys) {
@@ -31122,6 +31136,13 @@ function buildLayerControl(bases, overlays) {
 // simplestyle-spec properties (stroke/fill on paths) and rendering title/description feature
 // properties as popups. Ported minimally from the Maps extension's resources/leaflet/GeoJson.js;
 // point features use Leaflet's default marker (no marker-colour icon machinery).
+// A coordinate is stored as { lat, lng }; every other value is already text.
+function valueAsText(value) {
+    if (value !== null && typeof value === 'object' && 'lat' in value && 'lng' in value) {
+        return value.lat + ', ' + value.lng;
+    }
+    return String(value);
+}
 function buildGeoJsonLayer(geojson, markerIcon) {
     return L.geoJSON(geojson, {
         // The bundled Leaflet cannot auto-detect its default icon path, so point features get the
@@ -31309,7 +31330,8 @@ class ViewSelector {
     }
     static onSelectorSelected(event) {
         event.data.controller.onViewSelected(event.data.target);
-        $(event.target)
+        // currentTarget is the selector the handler is bound to; target may be markup inside its label
+        $(event.currentTarget)
             .addClass('selected')
             .siblings().removeClass('selected');
         event.stopPropagation();
