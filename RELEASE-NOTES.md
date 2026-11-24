@@ -10,6 +10,7 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed the list view of the `filtered` format ignoring `headers=hide` and `headers=plain` (by [gesinn.it](https://gesinn.it))
 * Fixed the distance filter of the `filtered` format hiding every result when its origin is missing or invalid, instead of ignoring the filter (by [gesinn.it](https://gesinn.it))
 * Fixed the number filter of the `filtered` format only using the first value of a printout with several values, so the slider and the filter ignored the others (by [gesinn.it](https://gesinn.it))
 * Fixed the number and distance filter of the `filtered` format failing with a fatal error on a property chain such as `?Has city.Population`, and matching a different printout of the same property (by [gesinn.it](https://gesinn.it))
