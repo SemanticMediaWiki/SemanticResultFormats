@@ -184,6 +184,20 @@ class MapViewTest extends \PHPUnit\Framework\TestCase {
 		$this->assertCount( 2, $printer->errors, 'every invalid file name is reported' );
 	}
 
+	public function testMarkerIconNameOutsideTheFileNamespaceIsReportedAndDoesNotBreakTheConfig() {
+		$printer = $this->newRecordingPrinter();
+		$results = [];
+		$params = $this->mapViewParams( [ 'map view marker icons' => [ 'cafe=Talk:Cafe.png' ] ] );
+		$view = new MapView( $results, $params, $printer );
+		$view->setMapProvider( 'OpenStreetMap.Mapnik' );
+		$view->setMapProviderDark( '' );
+
+		$config = $view->getJsConfig();
+
+		$this->assertSame( [], $config['marker icons'] );
+		$this->assertCount( 1, $printer->errors, 'the name is reported' );
+	}
+
 	private function newPrintRequest( string $propertyName ): \SMW\Query\PrintRequest {
 		$property = $this->createMock( \SMW\DIProperty::class );
 		$property->method( 'getKey' )->willReturn( $propertyName );

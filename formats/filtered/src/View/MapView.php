@@ -27,7 +27,7 @@ class MapView extends View {
 	}
 
 	/**
-	 * @return null
+	 * @return string
 	 */
 	public function getMapProvider() {
 		if ( $this->mapProvider === null ) {
@@ -206,7 +206,6 @@ class MapView extends View {
 		$provider = $this->getGeoJsonProvider();
 
 		if ( !$provider->mapsIsAvailable() ) {
-			// @phan-suppress-next-line PhanUndeclaredClassMethod SMW is not visible to Phan; usage matches Filtered.php
 			$this->getQueryPrinter()->addError( Message::get( 'srf-filtered-map-geojson-requires-maps' ) );
 			return;
 		}
@@ -391,9 +390,9 @@ class MapView extends View {
 	}
 
 	/**
-	 * @param $prop
+	 * @param string $prop
 	 *
-	 * @return array
+	 * @return int|string|null the index of the print request of the property, null if there is none
 	 */
 	protected function getPropertyId( $prop ) {
 		$prop = strtr( $prop, ' ', '_' );
@@ -429,11 +428,12 @@ class MapView extends View {
 
 			$title = Title::newFromText( $icon, NS_FILE );
 
-			if ( $title === null ) {
+			if ( $title === null || !$title->inNamespace( NS_FILE ) ) {
 				$this->getQueryPrinter()->addError( "Invalid file name for the map marker icon: $icon" );
 				continue;
 			}
 
+			// @phan-suppress-next-line PhanUndeclaredMethod a title in the file namespace has a WikiFilePage
 			$file = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title )->getFile();
 
 			if ( $file->exists() ) {
