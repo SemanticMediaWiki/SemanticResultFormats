@@ -54,6 +54,9 @@ use SMWOutputs;
  */
 class Filtered extends ResultPrinter {
 
+	/** Prefix of the JS config var that carries the configuration of one instance. */
+	public const CONFIG_VAR_PREFIX = 'srfFilteredConfig-';
+
 	/**
 	 * The available view types
 	 *
@@ -282,22 +285,24 @@ class Filtered extends ResultPrinter {
 		return ( $force ) ? $this->mLinker : parent::getLinker( $firstcol );
 	}
 
+	/**
+	 * Every instance publishes its configuration under its own JS config var
+	 * (`srfFilteredConfig-<id>`). A shared key would make MediaWiki reject the
+	 * second instance on a page ("Multiple conflicting values", #1039), and
+	 * ParserOutput data is the only channel that also reaches the parse API
+	 * which SMW uses to load `@deferred` queries.
+	 */
 	private function addConfigToOutput( $id, $config ) {
+		$key = self::CONFIG_VAR_PREFIX . $id;
 		$parserOutput = $this->getParser()->getOutput();
+
 		if ( $parserOutput !== null ) {
-			$previousConfig = $parserOutput->getExtensionData( 'srf-filtered-config' ) ?? [];
-			$previousConfig[$id] = $config;
-			$parserOutput->setExtensionData( 'srf-filtered-config', $previousConfig );
+			$parserOutput->setJsConfigVar( $key, $config );
 		} else {
 			// Fallback for Special:Ask and other contexts where the parser has not been
 			// initialized with a ParserOutput (Parser::getOutput() returns null before
 			// initialization, deprecated since MW 1.42 — see #362).
-			// Config data is stored on OutputPage instead of ParserOutput.
-			$output = \RequestContext::getMain()->getOutput();
-			$previousConfig = $output->getProperty( 'srf-filtered-config' ) ?? [];
-			$previousConfig[$id] = $config;
-			$output->setProperty( 'srf-filtered-config', $previousConfig );
-			$output->addJsConfigVars( 'srfFilteredConfig', $previousConfig );
+			\RequestContext::getMain()->getOutput()->addJsConfigVars( $key, $config );
 		}
 	}
 

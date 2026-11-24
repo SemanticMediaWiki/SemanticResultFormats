@@ -13,16 +13,15 @@ use ParserOutput;
 
 class Hooks {
 
+	/**
+	 * Only needed for ParserOutputs cached before the configuration moved to
+	 * per-instance JS config vars (see Filtered::addConfigToOutput).
+	 */
 	public static function onOutputPageParserOutput( OutputPage &$outputPage, ParserOutput $parserOutput ) {
 		$config = $parserOutput->getExtensionData( 'srf-filtered-config' );
 		if ( $config !== null ) {
-			$outputPage->setProperty( 'srf-filtered-config', $config );
 			$outputPage->addJsConfigVars( 'srfFilteredConfig', $config );
 		}
-	}
-
-	public static function onMakeGlobalVariablesScript( &$vars, OutputPage $output ) {
-		$vars['srfFilteredConfig'] = $output->getProperty( 'srf-filtered-config' );
 	}
 
 }

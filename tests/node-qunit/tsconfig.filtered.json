@@ -12,6 +12,7 @@
 		"rootDir": "../../formats/filtered/resources/ts"
 	},
 	"include": [
+		"../../formats/filtered/resources/ts/bootstrap.ts",
 		"../../formats/filtered/resources/ts/Filtered/Controller.ts",
 		"../../formats/filtered/resources/ts/Filtered/ViewSelector.ts",
 		"../../formats/filtered/resources/ts/Filtered/View/View.ts",

@@ -31305,7 +31305,20 @@ exports.ViewSelector = ViewSelector;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Filtered_1 = require("./Filtered/Filtered");
-let config = mw.config.get("srfFilteredConfig") || {};
+const CONFIG_VAR_PREFIX = "srfFilteredConfig-";
+// Configs seen so far. SMW replaces mw.config entries when a deferred query is
+// loaded, so they are accumulated here instead of being re-read from scratch.
+const knownConfigs = {};
+function collectConfigs() {
+    // legacy: aggregated config of pages cached before the per-instance vars
+    Object.assign(knownConfigs, mw.config.get("srfFilteredConfig") || {});
+    Object.keys(mw.config.values).forEach(key => {
+        if (key.indexOf(CONFIG_VAR_PREFIX) === 0) {
+            knownConfigs[key.slice(CONFIG_VAR_PREFIX.length)] = mw.config.get(key);
+        }
+    });
+    return knownConfigs;
+}
 function initItems(cfg, root) {
     Object.keys(cfg).forEach(id => {
         const selector = root ? root.find("#" + id) : $("#" + id);
@@ -31320,9 +31333,9 @@ function initItems(cfg, root) {
         f.run();
     });
 }
-initItems(config);
+initItems(collectConfigs());
 mw.hook("smw.deferred.query").add((container) => {
-    const cfg = mw.config.get("srfFilteredConfig") || {};
+    const cfg = collectConfigs();
     container.find(".filtered-spinner").hide();
     container.find(".filtered-views").show();
     container.find(".filtered-filters").show();

@@ -60,7 +60,6 @@ class SemanticResultFormats {
 
 		// Format hooks
 		$hookContainer->register( 'OutputPageParserOutput', 'SRF\Filtered\Hooks::onOutputPageParserOutput' );
-		$hookContainer->register( 'MakeGlobalVariablesScript', 'SRF\Filtered\Hooks::onMakeGlobalVariablesScript' );
 
 		$hookContainer->register( 'SMW::Store::BeforeQueryResultLookupComplete', 'SRF\DataTables\Hooks::onSMWStoreBeforeQueryResultLookupComplete' );
 

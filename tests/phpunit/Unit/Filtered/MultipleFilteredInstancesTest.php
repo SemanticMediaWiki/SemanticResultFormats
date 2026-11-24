@@ -11,7 +11,7 @@ use SRF\Filtered\Hooks;
  *
  * When a page contains more than one {{#ask:format=filtered}} instance, each instance
  * used to call ParserOutput::setJsConfigVar( 'srfFilteredConfig', $accumulatedConfig )
- * with a different array value for the same key, which MediaWiki core rejects with
+ * with a different array value for the same key (now every instance has its own key), which MediaWiki core rejects with
  * "Multiple conflicting values given for srfFilteredConfig" (InvalidArgumentException).
  *
  * @covers \SRF\Filtered\Filtered
@@ -47,21 +47,19 @@ class MultipleFilteredInstancesTest extends MediaWikiIntegrationTestCase {
 		$this->addConfigToOutput( $firstInstance, 'filtered-1', [ 'views' => [ 'list' ] ] );
 		$this->addConfigToOutput( $secondInstance, 'filtered-2', [ 'views' => [ 'table' ] ] );
 
-		$mergedConfig = $parserOutput->getExtensionData( 'srf-filtered-config' );
-		$this->assertSame(
-			[
-				'filtered-1' => [ 'views' => [ 'list' ] ],
-				'filtered-2' => [ 'views' => [ 'table' ] ],
-			],
-			$mergedConfig
-		);
+		$jsConfigVars = $parserOutput->getJsConfigVars();
+		$this->assertSame( [ 'views' => [ 'list' ] ], $jsConfigVars['srfFilteredConfig-filtered-1'] );
+		$this->assertSame( [ 'views' => [ 'table' ] ], $jsConfigVars['srfFilteredConfig-filtered-2'] );
 
-		// This is the call that used to throw InvalidArgumentException before the fix,
-		// because Filtered::addConfigToOutput no longer calls setJsConfigVar() directly.
+		// Pages cached before the per-instance config vars still carry the merged
+		// extension data; the hook has to keep serving them.
+		$legacyConfig = [ 'filtered-1' => [ 'views' => [ 'list' ] ] ];
+		$legacyOutput = new \ParserOutput();
+		$legacyOutput->setExtensionData( 'srf-filtered-config', $legacyConfig );
+
 		$outputPage = new \OutputPage( \RequestContext::getMain() );
-		Hooks::onOutputPageParserOutput( $outputPage, $parserOutput );
+		Hooks::onOutputPageParserOutput( $outputPage, $legacyOutput );
 
-		$this->assertSame( $mergedConfig, $outputPage->getProperty( 'srf-filtered-config' ) );
-		$this->assertSame( $mergedConfig, $outputPage->getJsConfigVars()['srfFilteredConfig'] );
+		$this->assertSame( $legacyConfig, $outputPage->getJsConfigVars()['srfFilteredConfig'] );
 	}
 }
