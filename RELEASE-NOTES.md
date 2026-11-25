@@ -6,6 +6,7 @@ Released on TBD.
 
 ### Compatibility Changes
 
+* The QUnit tests of the extension now need Node.js 22.22 or later (jsdom 31) (by [gesinn.it](https://gesinn.it))
 * Updated the jQuery type definitions used to build the `filtered` format from jQuery 2 to jQuery 3, which the build already ran against; the delivered bundle is unchanged (by [gesinn.it](https://gesinn.it))
 * Updated the npm development dependencies of the extension and of the `filtered` format to fix known vulnerabilities in the build and test tooling; the delivered bundle is unchanged (by [gesinn.it](https://gesinn.it))
 
