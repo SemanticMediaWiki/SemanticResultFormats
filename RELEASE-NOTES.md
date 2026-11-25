@@ -4,6 +4,10 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 Released on TBD.
 
+### New Features and Enhancements
+
+* Added the template parameter `#rownumber` (counting from 1, as in the template format of Semantic MediaWiki) to the list view of the `filtered` format; `#` keeps its zero-based number ([490](https://github.com/SemanticMediaWiki/SemanticResultFormats/issues/490)) (by [gesinn.it](https://gesinn.it))
+
 ### Compatibility Changes
 
 * The QUnit tests of the extension now need Node.js 22.22 or later (jsdom 31) (by [gesinn.it](https://gesinn.it))
@@ -12,6 +16,8 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed the number filter of the `filtered` format showing the date format of a date printout (e.g. `-F[Y]`) as the caption of its slider; a caption set with `number filter label` is still shown (by [gesinn.it](https://gesinn.it))
+* Fixed the number filter of the `filtered` format adding a `false` value for a date that has no year number, which broke the range of the slider (by [gesinn.it](https://gesinn.it))
 * Fixed the search panes of the `datatables` format using the value of the previous row for a property-valued printout, which selected the wrong rows (by [gesinn.it](https://gesinn.it))
 * Fixed the `d3` format and the pie and donut charts of the `jqplot` format producing a PHP warning and no chart data when every value is below `min` (by [gesinn.it](https://gesinn.it))
 * Fixed PHP warnings and `TypeError`s of the `dataframe` format with an empty result, of the `datatables` format without printouts, and of the `jitgraph` format and array configuration texts caused by variables that were not set (by [gesinn.it](https://gesinn.it))
