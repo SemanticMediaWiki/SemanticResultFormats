@@ -63,7 +63,7 @@ export class Controller {
 		return this.views[ viewId ];
 	}
 
-	public attachFilter( filter: Filter ): JQueryPromise< void > {
+	public attachFilter( filter: Filter ): JQuery.Promise< any > {
 		let filterId = filter.getId();
 
 		this.filters[ filterId ] = filter;
@@ -121,7 +121,7 @@ export class Controller {
 		this.switchToView( this.views[ viewID ] );
 	}
 
-	public onFilterUpdated( filterId: string ): JQueryPromise< void > {
+	public onFilterUpdated( filterId: string ): JQuery.Promise< any > {
 
 		return this.showSpinner()
 		.then(() => {
@@ -180,15 +180,15 @@ export class Controller {
 		}
 	}
 
-	private showSpinner(): JQueryPromise< void > {
+	private showSpinner(): JQuery.Promise< any > {
 		return this.animateSpinner();
 	}
 
-	private hideSpinner(): JQueryPromise< void > {
+	private hideSpinner(): JQuery.Promise< any > {
 		return this.animateSpinner( false );
 	}
 
-	private animateSpinner( show: boolean = true ): JQueryPromise< void > {
+	private animateSpinner( show: boolean = true ): JQuery.Promise< any > {
 
 		if ( this.filterSpinner === undefined ) {
 			return jQuery.when();

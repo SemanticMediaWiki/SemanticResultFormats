@@ -71,11 +71,11 @@ export class DistanceFilter extends Filter {
 				value: that.filterValue,
 				step: precision / 100
 			} )
-			.on( 'slidechange', undefined, { 'filter': that }, function ( eventObject: JQueryEventObject, ui: any ) {
+			.on( 'slidechange', undefined, { 'filter': that }, function ( eventObject: JQuery.TriggeredEvent, ui: any ) {
 				eventObject.data.ui = ui;
 				eventObject.data.filter.onFilterUpdated( eventObject );
 			} )
-			.on( 'slide', undefined, { 'filter': that }, function ( eventObject: JQueryEventObject, ui: any ) {
+			.on( 'slide', undefined, { 'filter': that }, function ( eventObject: JQuery.TriggeredEvent, ui: any ) {
 				readout.text( ui.value );
 			} )
 			.find( '.ui-slider-handle' )
@@ -127,7 +127,7 @@ export class DistanceFilter extends Filter {
 		return slot ? slot.v : undefined;
 	}
 
-	public onFilterUpdated( eventObject: JQueryEventObject ) {
+	public onFilterUpdated( eventObject: JQuery.TriggeredEvent ) {
 		this.filterValue = eventObject.data.ui.value;
 		this.controller.onFilterUpdated( this.getId() );
 	}

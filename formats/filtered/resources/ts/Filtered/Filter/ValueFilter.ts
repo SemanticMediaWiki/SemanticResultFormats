@@ -126,7 +126,7 @@ export class ValueFilter extends Filter {
 
 		// attach event handler
 		checkboxes
-		.on( 'change', ':checkbox', ( eventObject: JQueryEventObject ) => {
+		.on( 'change', ':checkbox', ( eventObject: JQuery.TriggeredEvent ) => {
 			let checkboxElement = <HTMLInputElement> eventObject.currentTarget;
 			this.onFilterUpdated( checkboxElement.value, checkboxElement.checked );
 		} );
@@ -193,7 +193,7 @@ export class ValueFilter extends Filter {
 
 			andorControl
 			.find( 'input' )
-			.on( 'change', undefined, { 'filter': this }, ( eventObject: JQueryEventObject ) =>
+			.on( 'change', undefined, { 'filter': this }, ( eventObject: JQuery.TriggeredEvent ) =>
 				eventObject.data.filter.useOr( eventObject.target.getAttribute( 'value' ) === 'or' )
 			);
 

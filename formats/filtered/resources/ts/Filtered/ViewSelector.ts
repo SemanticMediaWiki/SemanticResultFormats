@@ -20,7 +20,7 @@ export class ViewSelector {
 		}
 	}
 
-	private static onSelectorSelected( event: JQueryEventObject ) {
+	private static onSelectorSelected( event: JQuery.TriggeredEvent ) {
 
 		event.data.controller.onViewSelected( event.data.target );
 
