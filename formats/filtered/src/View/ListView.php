@@ -180,7 +180,9 @@ class ListView extends View {
 				}
 			}
 
-			$wikitext .= "|#=$rownum";
+			// #rownumber counts from 1 like the template format of Semantic MediaWiki; #= is the
+			// original zero-based number and stays for existing templates
+			$wikitext .= "|#=$rownum|#rownumber=" . ( $rownum + 1 );
 			$result .= '{{' . $this->mTemplate . $wikitext . '}}';
 
 		} else {

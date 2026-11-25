@@ -37,6 +37,39 @@ class ListViewTest extends \PHPUnit\Framework\TestCase {
 		$this->assertStringNotContainsString( '[[Role]]', $text );
 	}
 
+	public function testTemplateReceivesTheRowNumberAsRownumberStartingAtOne() {
+		$printRequest = $this->createStub( PrintRequest::class );
+		$printRequest->method( 'getLabel' )->willReturn( 'Role' );
+		$printRequest->method( 'getParameter' )->willReturn( false );
+
+		$rows = [];
+		foreach ( [ 'row1' => 'Lead', 'row2' => 'Cameo' ] as $id => $value ) {
+			$field = $this->createStub( ResultArray::class );
+			$field->method( 'getPrintRequest' )->willReturn( $printRequest );
+			$field->method( 'getNextText' )->willReturnOnConsecutiveCalls( $value, false );
+
+			$row = $this->createStub( ResultItem::class );
+			$row->method( 'getValue' )->willReturn( [ $field ] );
+			$rows[$id] = $row;
+		}
+
+		$params = [
+			'list view type' => 'list', 'list view template' => 'RoleTemplate', 'list view introtemplate' => '',
+			'list view outrotemplate' => '', 'list view named args' => false, 'list view userparam' => '',
+			'headers' => 'show', 'sep' => ', ',
+		];
+		$printer = new class( null ) extends Filtered {
+			public function getLinker( $firstcol = false, $force = false ): ?\MediaWiki\Linker\Linker {
+				return null;
+			}
+		};
+
+		$text = ( new ListView( $rows, $params, $printer ) )->getResultText();
+
+		$this->assertStringContainsString( '{{RoleTemplate|1=Lead|#=0|#rownumber=1}}', $text );
+		$this->assertStringContainsString( '{{RoleTemplate|1=Cameo|#=1|#rownumber=2}}', $text );
+	}
+
 	/**
 	 * Renders a list view without template for one row with one printout.
 	 */
