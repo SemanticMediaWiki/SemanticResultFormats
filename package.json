@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "d3": "7.9.0"
+    "d3": "7.9.2"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.13.0",
@@ -8,7 +8,7 @@
     "@typescript-eslint/parser": "^7.18.0",
     "copy-files-from-to": "^4.0.1",
     "eslint": "^8.57.1",
-    "eslint-config-wikimedia": "^0.32.4",
+    "eslint-config-wikimedia": "^0.33.1",
     "jquery": "^3.7.1",
     "jquery-ui": "^1.14.2",
     "jsdom": "^25.0.1",
