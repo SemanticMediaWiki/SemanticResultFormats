@@ -10,7 +10,7 @@
 return [
     // # Issue statistics:
     // PhanUndeclaredMethod : 55+ occurrences
-    // PhanPossiblyUndeclaredVariable : 40+ occurrences
+    // PhanPossiblyUndeclaredVariable : 35+ occurrences
     // PhanUndeclaredClassMethod : 25+ occurrences
     // MediaWikiNoEmptyIfDefined : 15+ occurrences
     // MediaWikiNoIssetIfDefined : 10+ occurrences
@@ -117,7 +117,6 @@ return [
         ],
         'formats/datatables/SearchPanes.php' => [
             'MediaWikiNoEmptyIfDefined' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions'],
-            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions'],
             'PhanTypeMismatchArgumentReal' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions'],
             'PhanTypeMismatchArgumentSuperType' => ['\\SRF\\DataTables\\SearchPanes::getSearchPanes'],
             'PhanUndeclaredMethod' => ['\\SRF\\DataTables\\SearchPanes::fetchValuesByGroup', '\\SRF\\DataTables\\SearchPanes::getPanesOptions', '\\SRF\\DataTables\\SearchPanes::newQuerySegmentListProcessor', '\\SRF\\DataTables\\SearchPanes::searchPanesMainlabel']

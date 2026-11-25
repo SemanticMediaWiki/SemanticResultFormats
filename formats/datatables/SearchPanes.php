@@ -558,7 +558,10 @@ class SearchPanes {
 					break;
 
 				case DataItem::TYPE_PROPERTY:
+					// the query that selects this option is rebuilt from the value, as for the other types
+					$value = $dataValue->getWikiValue();
 					break;
+
 				case DataItem::TYPE_NOTYPE:
 					$value = $dataValue->getWikiValue();
 					break;
