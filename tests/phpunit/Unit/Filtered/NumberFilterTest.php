@@ -48,6 +48,24 @@ class NumberFilterTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse( $this->makeFilter( '_wpg' )->isValidFilterForPropertyType() );
 	}
 
+	public function testCaptionOfADateIsNotItsOutputFormat() {
+		$config = $this->newConfigFilter( '_dat', '-F[Y]' )->getJsConfig();
+
+		$this->assertArrayNotHasKey( 'caption', $config );
+	}
+
+	public function testCaptionOfAQuantityIsItsUnit() {
+		$config = $this->newConfigFilter( '_qty', 'kg' )->getJsConfig();
+
+		$this->assertSame( 'kg', $config['caption'] );
+	}
+
+	public function testGivenLabelIsTheCaptionOfADateToo() {
+		$config = $this->newConfigFilter( '_dat', '-F[Y]', [ 'number filter label' => 'Year' ] )->getJsConfig();
+
+		$this->assertSame( 'Year', $config['caption'] );
+	}
+
 	public function testGetJsDataForRow_returnsAllValuesOfAMultiValuedNumberProperty() {
 		$filter = $this->makeFilterOn( 'Size', '_num' );
 
@@ -61,6 +79,17 @@ class NumberFilterTest extends \PHPUnit\Framework\TestCase {
 
 		$data = $filter->getJsDataForRow(
 			$this->newRow( 'Built', [ $this->newYear( 2020 ), $this->newYear( 2024 ) ], $this->createStub( \SMWDITime::class ) )
+		);
+
+		$this->assertSame( [ 'values' => [ 2020, 2024 ] ], $data );
+	}
+
+	public function testGetJsDataForRow_leavesOutDatesWithoutAYear() {
+		$filter = $this->makeFilterOn( 'Built', '_dat' );
+
+		// getYear() is false for dates the calendar model has no year number for
+		$data = $filter->getJsDataForRow(
+			$this->newRow( 'Built', [ $this->newYear( 2020 ), $this->newYear( false ), $this->newYear( 2024 ) ], $this->createStub( \SMWDITime::class ) )
 		);
 
 		$this->assertSame( [ 'values' => [ 2020, 2024 ] ], $data );
@@ -99,6 +128,28 @@ class NumberFilterTest extends \PHPUnit\Framework\TestCase {
 		$row->method( 'getValue' )->willReturn( [ $field ] );
 
 		$this->assertNull( $filter->getJsDataForRow( $row ) );
+	}
+
+	private function newConfigFilter( string $typeID, string $outputFormat, array $parameters = [] ): NumberFilter {
+		$printRequest = $this->createStub( PrintRequest::class );
+		$printRequest->method( 'getTypeID' )->willReturn( $typeID );
+		$printRequest->method( 'getOutputFormat' )->willReturn( $outputFormat );
+		$printRequest->method( 'getParameters' )->willReturn( $parameters );
+
+		$parser = $this->createStub( \Parser::class );
+		$parser->method( 'recursiveTagParse' )->willReturnArgument( 0 );
+		$printer = new class( null, $parser ) extends Filtered {
+			public function __construct( $format, private $stubParser ) {
+				parent::__construct( $format );
+			}
+
+			public function getParser() {
+				return $this->stubParser;
+			}
+		};
+		$results = [];
+
+		return new NumberFilter( $results, $printRequest, $printer );
 	}
 
 	private function newPrintRequest( string $propertyName, string $typeID, bool $chain = false ): PrintRequest {
@@ -163,7 +214,7 @@ class NumberFilterTest extends \PHPUnit\Framework\TestCase {
 		return $value;
 	}
 
-	private function newYear( int $year ): \SMWTimeValue {
+	private function newYear( int|false $year ): \SMWTimeValue {
 		$value = $this->createStub( \SMWTimeValue::class );
 		$value->method( 'getYear' )->willReturn( $year );
 		$value->method( 'getDataItem' )->willReturn( $this->createStub( \SMWDITime::class ) );

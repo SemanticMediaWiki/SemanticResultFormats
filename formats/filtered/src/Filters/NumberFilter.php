@@ -55,7 +55,12 @@ class NumberFilter extends Filter {
 						$cuv = $value->getConvertedUnitValues();
 						$values[] = $cuv[$value->getCanonicalMainUnit()];
 					} else {
-						$values[] = $value->getYear();
+						$year = $value->getYear();
+
+						// false for a date the calendar model has no year number for
+						if ( $year !== false ) {
+							$values[] = $year;
+						}
 					}
 					// a data value, as the loop condition expects; getNextDataItem() would end the loop
 					$value = $field->getNextDataValue();
@@ -83,7 +88,10 @@ class NumberFilter extends Filter {
 		$this->addValueToJsConfig( 'number filter min value', 'min' );
 		$this->addValueToJsConfig( 'number filter step', 'step' );
 		$this->addValueToJsConfig( 'number filter sliders', 'sliders' );
-		$this->addValueToJsConfig( 'number filter label', 'caption', $this->getPrintRequest()->getOutputFormat() );
+		// the output format names the unit of a quantity; for a date it is a date format, not a label
+		$printRequest = $this->getPrintRequest();
+		$defaultCaption = $printRequest->getTypeID() === '_dat' ? null : $printRequest->getOutputFormat();
+		$this->addValueToJsConfig( 'number filter label', 'caption', $defaultCaption );
 		$this->addValueListToJsConfig( 'number filter values', 'values' );
 		$this->addValueListToJsConfig( 'number filter switches', 'switches' );
 	}
