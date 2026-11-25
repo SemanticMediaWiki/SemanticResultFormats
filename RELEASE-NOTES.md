@@ -2,7 +2,7 @@ These are the release notes for the [Semantic Result Formats](https://www.semant
 
 ## SRF 6.0.2
 
-Released on TBD.
+Released on November 25, 2026.
 
 ### New Features and Enhancements
 
