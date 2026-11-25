@@ -9,37 +9,39 @@
  */
 return [
     // # Issue statistics:
-    // PhanUndeclaredClassMethod : 55+ occurrences
     // PhanUndeclaredMethod : 55+ occurrences
-    // PhanPossiblyUndeclaredVariable : 45+ occurrences
+    // PhanPossiblyUndeclaredVariable : 40+ occurrences
+    // PhanUndeclaredClassMethod : 25+ occurrences
     // MediaWikiNoEmptyIfDefined : 15+ occurrences
-    // PhanTypeMismatchArgument : 15+ occurrences
     // MediaWikiNoIssetIfDefined : 10+ occurrences
+    // PhanTypeMismatchArgument : 10+ occurrences
     // PhanTypeMismatchArgumentProbablyReal : 10+ occurrences
     // PhanUndeclaredVariableDim : 10+ occurrences
     // PhanTypeMismatchDimFetch : 9 occurrences
     // PhanTypeArraySuspiciousNullable : 8 occurrences
     // PhanTypeMismatchArgumentNullable : 8 occurrences
     // PhanTypeMismatchReturnProbablyReal : 7 occurrences
-    // PhanUndeclaredTypeParameter : 6 occurrences
     // PhanTypeMismatchArgumentInternal : 5 occurrences
     // PhanNonClassMethodCall : 4 occurrences
     // PhanUndeclaredClassConstant : 4 occurrences
-    // PhanUndeclaredTypeProperty : 4 occurrences
     // PhanImpossibleConditionInLoop : 3 occurrences
     // PhanRedundantCondition : 3 occurrences
     // PhanTypeInvalidLeftOperandOfNumericOp : 3 occurrences
     // PhanTypeMismatchArgumentNullableInternal : 3 occurrences
     // PhanTypeMismatchArgumentSuperType : 3 occurrences
     // PhanTypeMismatchForeach : 3 occurrences
+    // PhanUndeclaredTypeParameter : 3 occurrences
     // PhanParamSignatureMismatch : 2 occurrences
     // PhanTypeMismatchReturn : 2 occurrences
     // PhanTypeNoAccessiblePropertiesForeach : 2 occurrences
     // PhanTypeSuspiciousStringExpression : 2 occurrences
     // PhanUndeclaredConstant : 2 occurrences
+    // PhanUndeclaredTypeProperty : 2 occurrences
+    // SecurityCheck-DoubleEscaped : 2 occurrences
     // PhanImpossibleTypeComparison : 1 occurrence
     // PhanImpossibleValueComparisonInLoop : 1 occurrence
     // PhanParamTooMany : 1 occurrence
+    // PhanPluginRedundantAssignment : 1 occurrence
     // PhanTypeComparisonFromArray : 1 occurrence
     // PhanTypeInvalidLeftOperandOfAdd : 1 occurrence
     // PhanTypeInvalidModuloOperand : 1 occurrence
@@ -51,7 +53,6 @@ return [
     // PhanUndeclaredFunction : 1 occurrence
     // PhanUndeclaredTypeReturnType : 1 occurrence
     // PhanUnusedPrivateMethodParameter : 1 occurrence
-    // SecurityCheck-DoubleEscaped : 1 occurrence
 
     'file_suppressions' => [
         'formats/Gantt/GanttPrinter.php' => [
@@ -68,7 +69,6 @@ return [
             'PhanTypeMismatchForeach' => ['\\SRF\\Gantt\\GanttTask::setTaskParam']
         ],
         'formats/JitGraph/SRF_JitGraph.php' => [
-            'PhanPossiblyUndeclaredVariable' => ['\\SRFJitGraph::getResultText'],
             'PhanRedundantCondition' => ['\\SRFJitGraph::getResultText']
         ],
         'formats/boilerplate/SRF_Boilerplate.php' => [
@@ -87,14 +87,8 @@ return [
             'SecurityCheck-DoubleEscaped' => ['\\SRF\\Carousel::getResultText']
         ],
         'formats/d3/SRF_D3Chart.php' => [
-            'PhanPossiblyUndeclaredVariable' => ['\\SRFD3Chart::getFormatOutput'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\SRFD3Chart::getFormatOutput'],
-            'PhanUndeclaredClassMethod' => ['\\SRFD3Chart::getFormatOutput'],
-            'PhanUndeclaredVariableDim' => ['\\SRFD3Chart::getFormatOutput']
-        ],
-        'formats/dataframe/DataframePrinter.php' => [
-            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\dataframe\\DataframePrinter::getResultFileContents'],
-            'PhanUndeclaredVariableDim' => ['\\SRF\\dataframe\\DataframePrinter::getResultFileContents']
+            'PhanUndeclaredClassMethod' => ['\\SRFD3Chart::getFormatOutput']
         ],
         'formats/datatables/Api.php' => [
             'PhanTypeArraySuspiciousNullable' => ['\\SRF\\DataTables\\Api::execute', '\\closure'],
@@ -105,7 +99,6 @@ return [
         ],
         'formats/datatables/DataTables.php' => [
             'PhanParamSignatureMismatch' => ['\\SRF\\DataTables::buildResult', '\\SRF\\DataTables::handleNonFileResult'],
-            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\DataTables::getPrintouts'],
             'PhanTypeMismatchArgument' => ['\\SRF\\DataTables::getCellContent'],
             'PhanTypeMismatchArgumentInternal' => ['\\SRF\\DataTables::printContainer'],
             'PhanTypeMismatchReturn' => ['\\SRF\\DataTables::expandTemplate'],
@@ -113,7 +106,6 @@ return [
             'PhanUndeclaredClassMethod' => ['\\SRF\\DataTables::expandTemplate'],
             'PhanUndeclaredMethod' => ['\\SRF\\DataTables::getPrintouts'],
             'PhanUndeclaredTypeParameter' => ['\\SRF\\DataTables::expandTemplate'],
-            'PhanUndeclaredVariableDim' => ['\\SRF\\DataTables::getPrintouts'],
             'PhanUnusedPrivateMethodParameter' => ['\\SRF\\DataTables::getResultJson']
         ],
         'formats/datatables/Hooks.php' => [
@@ -121,14 +113,11 @@ return [
         ],
         'formats/datatables/QuerySegmentListProcessor.php' => [
             'PhanImpossibleValueComparisonInLoop' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::disjunction'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::cleanUp', '\\SRF\\DataTables\\QuerySegmentListProcessor::disjunction', '\\SRF\\DataTables\\QuerySegmentListProcessor::hierarchy', '\\SRF\\DataTables\\QuerySegmentListProcessor::process', '\\SRF\\DataTables\\QuerySegmentListProcessor::table'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::__construct'],
-            'PhanUndeclaredTypeProperty' => ['\\SRF\\DataTables\\QuerySegmentListProcessor']
+            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\DataTables\\QuerySegmentListProcessor::hierarchy']
         ],
         'formats/datatables/SearchPanes.php' => [
             'MediaWikiNoEmptyIfDefined' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions'],
             'PhanPossiblyUndeclaredVariable' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions'],
-            'PhanTypeMismatchArgument' => ['\\SRF\\DataTables\\SearchPanes::newQuerySegmentListProcessor'],
             'PhanTypeMismatchArgumentReal' => ['\\SRF\\DataTables\\SearchPanes::getPanesOptions'],
             'PhanTypeMismatchArgumentSuperType' => ['\\SRF\\DataTables\\SearchPanes::getSearchPanes'],
             'PhanUndeclaredMethod' => ['\\SRF\\DataTables\\SearchPanes::fetchValuesByGroup', '\\SRF\\DataTables\\SearchPanes::getPanesOptions', '\\SRF\\DataTables\\SearchPanes::newQuerySegmentListProcessor', '\\SRF\\DataTables\\SearchPanes::searchPanesMainlabel']
@@ -163,10 +152,9 @@ return [
             'PhanTypeMismatchReturnProbablyReal' => ['\\SRFjqPlot::getNumbersTicks']
         ],
         'formats/jqplot/SRF_jqPlotChart.php' => [
-            'PhanPossiblyUndeclaredVariable' => ['\\SRFjqPlotChart::preparePieData'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\SRFjqPlotChart::getFormatOutput'],
             'PhanUndeclaredClassMethod' => ['\\SRFjqPlotChart::getFormatOutput'],
-            'PhanUndeclaredVariableDim' => ['\\SRFjqPlotChart::prepareBarData', '\\SRFjqPlotChart::preparePieData']
+            'PhanUndeclaredVariableDim' => ['\\SRFjqPlotChart::prepareBarData']
         ],
         'formats/jqplot/SRF_jqPlotSeries.php' => [
             'PhanPossiblyUndeclaredVariable' => ['\\SRFjqPlotSeries::getFormatSettings'],
@@ -241,7 +229,7 @@ return [
         'src/ArrayFormat/ArrayPrinter.php' => [
             'MediaWikiNoEmptyIfDefined' => ['\\SRF\\ArrayFormat\\ArrayPrinter::deliverPageProperties', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverPropertiesManyValues', '\\SRF\\ArrayFormat\\ArrayPrinter::deliverSingleManyValuesData', '\\SRF\\ArrayFormat\\ArrayPrinter::getResultText'],
             'MediaWikiNoIssetIfDefined' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::initializeCfgValue'],
-            'PhanPossiblyUndeclaredVariable' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText'],
+            'PhanPluginRedundantAssignment' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText'],
             'PhanUndeclaredClassConstant' => ['\\SRF\\ArrayFormat\\ArrayPrinter::createArray', '\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText'],
             'PhanUndeclaredMethod' => ['\\SRF\\ArrayFormat\\ArrayPrinter::getCfgSepText']
         ],
@@ -278,11 +266,9 @@ return [
         ],
         'src/Graph/GraphFormatter.php' => [
             'MediaWikiNoEmptyIfDefined' => ['\\SRF\\Graph\\GraphFormatter::buildGraph'],
-            'PhanUndeclaredClassMethod' => ['\\SRF\\Graph\\GraphFormatter::buildGraph'],
-            'PhanUndeclaredTypeParameter' => ['\\SRF\\Graph\\GraphFormatter::buildGraph']
+            'SecurityCheck-DoubleEscaped' => ['\\SRF\\Graph\\GraphFormatter::buildGraph']
         ],
         'src/Graph/GraphPrinter.php' => [
-            'PhanTypeMismatchArgument' => ['\\SRF\\Graph\\GraphPrinter::getResultText'],
             'PhanUndeclaredMethod' => ['\\SRF\\Graph\\GraphPrinter::collectEdgesAndFields', '\\SRF\\Graph\\GraphPrinter::determineNode', '\\SRF\\Graph\\GraphPrinter::readRowValues']
         ],
         'src/Math/Math.php' => [
