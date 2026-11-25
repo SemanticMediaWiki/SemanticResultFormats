@@ -16,7 +16,7 @@
     "nyc": "^18.0.0",
     "qunit": "^2.22.0",
     "sinon": "^22.1.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "postinstall": "node resources/jquery/d3/scripts/copy-and-minify-d3.js",
