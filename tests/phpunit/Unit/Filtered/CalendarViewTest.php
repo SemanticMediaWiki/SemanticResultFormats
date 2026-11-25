@@ -102,15 +102,27 @@ class CalendarViewTest extends \PHPUnit\Framework\TestCase {
 		return $row;
 	}
 
+	/**
+	 * Mirrors ResultArray: getNextDataValue() and getNextText() read from one pointer that reset()
+	 * moves back to the first value, and both return false at the end.
+	 */
 	private function newField( string $label, $dataValue, string $text ): ResultArray {
 		$printRequest = $this->createStub( PrintRequest::class );
 		$printRequest->method( 'getLabel' )->willReturn( $label );
 		$printRequest->method( 'getParameter' )->willReturn( false );
 
+		$position = 0;
 		$field = $this->createStub( ResultArray::class );
 		$field->method( 'getPrintRequest' )->willReturn( $printRequest );
-		$field->method( 'getNextDataValue' )->willReturn( $dataValue );
-		$field->method( 'getNextText' )->willReturnOnConsecutiveCalls( $text, false );
+		$field->method( 'reset' )->willReturnCallback( static function () use ( &$position ) {
+			$position = 0;
+		} );
+		$field->method( 'getNextDataValue' )->willReturnCallback( static function () use ( &$position, $dataValue ) {
+			return $position++ === 0 ? $dataValue : false;
+		} );
+		$field->method( 'getNextText' )->willReturnCallback( static function () use ( &$position, $text ) {
+			return $position++ === 0 ? $text : false;
+		} );
 
 		return $field;
 	}

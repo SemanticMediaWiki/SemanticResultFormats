@@ -97,6 +97,8 @@ class CalendarView extends View {
 				) === false ) {
 
 				$params = [];
+				// the first value was read above for the dates and the title, start over for the template
+				$field->reset();
 				// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 				while ( ( $text = $field->getNextText(
 						SMW_OUTPUT_WIKI,
