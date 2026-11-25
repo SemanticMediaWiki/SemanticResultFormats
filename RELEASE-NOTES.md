@@ -26,7 +26,7 @@ Released on TBD.
 * Fixed the table view of the `filtered` format giving cells the CSS class of another column when a printout is hidden, and no column class at all with `headers=hide` (by [gesinn.it](https://gesinn.it))
 * Fixed the view selector of the `filtered` format not marking the selected view when its label contains markup (by [gesinn.it](https://gesinn.it))
 * Fixed the map view of the `filtered` format showing no printout labels in marker popups, `[object Object]` when the first printout is a coordinate, no GeoJSON overlay on a map without markers, and no map at all for an unknown map provider (by [gesinn.it](https://gesinn.it))
-* Fixed the calendar view of the `filtered` format ignoring the parameters `calendar view start`, `calendar view end`, `calendar view title` and `calendar view title template` (by [gesinn.it](https://gesinn.it))
+* Fixed the calendar view of the `filtered` format ignoring the parameters `calendar view start`, `calendar view end`, `calendar view title` and `calendar view title template`, and the title template getting empty values (by [gesinn.it](https://gesinn.it))
 * Fixed the list view of the `filtered` format ignoring `headers=hide` and `headers=plain` (by [gesinn.it](https://gesinn.it))
 * Fixed the distance filter of the `filtered` format hiding every result when its origin is missing or invalid, instead of ignoring the filter (by [gesinn.it](https://gesinn.it))
 * Fixed the number filter of the `filtered` format only using the first value of a printout with several values, so the slider and the filter ignored the others (by [gesinn.it](https://gesinn.it))
