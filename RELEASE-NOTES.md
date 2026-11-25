@@ -10,6 +10,7 @@ Released on TBD.
 
 ### Bug Fixes
 
+* Fixed the search panes of the `datatables` format using the value of the previous row for a property-valued printout, which selected the wrong rows (by [gesinn.it](https://gesinn.it))
 * Fixed the `d3` format and the pie and donut charts of the `jqplot` format producing a PHP warning and no chart data when every value is below `min` (by [gesinn.it](https://gesinn.it))
 * Fixed PHP warnings and `TypeError`s of the `dataframe` format with an empty result, of the `datatables` format without printouts, and of the `jitgraph` format and array configuration texts caused by variables that were not set (by [gesinn.it](https://gesinn.it))
 * Fixed the map view of the `filtered` format failing with a fatal error when a marker icon name starts with a namespace other than `File:`; the name is reported as an error instead (by [gesinn.it](https://gesinn.it))
