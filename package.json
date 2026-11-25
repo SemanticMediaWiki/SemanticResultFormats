@@ -7,7 +7,7 @@
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "copy-files-from-to": "^4.0.1",
-    "eslint": "^8.57.1",
+    "eslint": "^10.15.0",
     "eslint-config-wikimedia": "^0.33.1",
     "jquery": "^3.7.1",
     "jquery-ui": "^1.14.2",
