@@ -151,7 +151,7 @@ class GraphPrinter extends ResultPrinter {
 			return $this->getDependencyError();
 		}
 
-		// iterate query result and create SRF\GraphNodes
+		// iterate query result and create the graph nodes
 		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$this->processResultRow( $row );
 		}
@@ -182,7 +182,7 @@ class GraphPrinter extends ResultPrinter {
 	}
 
 	/**
-	 * Process a result row and create SRF\GraphNodes
+	 * Process a result row and create graph nodes
 	 *
 	 * @since 3.1
 	 *

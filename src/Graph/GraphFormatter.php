@@ -68,7 +68,7 @@ class GraphFormatter {
 	 * @see https://www.graphviz.org/ for documentation about the DOT language
 	 * @since 3.2
 	 *
-	 * @param SRF\Graph\GraphNodes[] $nodes
+	 * @param GraphNode[] $nodes
 	 */
 	public function buildGraph( $nodes ) {
 		$this->add( 'digraph "' . $this->options->getGraphName() . '" {' );

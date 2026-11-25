@@ -7,7 +7,7 @@
 namespace SRF\DataTables;
 
 use RuntimeException;
-use SMW\MediaWiki\Database;
+use SMW\SQLStore\QueryEngine\HierarchyTempTableBuilder;
 use SMW\SQLStore\QueryEngine\QuerySegment;
 use SMW\SQLStore\TableBuilder\TemporaryTableBuilder;
 use SMWQuery as Query;
@@ -21,7 +21,7 @@ class QuerySegmentListProcessor {
 	public $fromTables = [];
 
 	/**
-	 * @var Database
+	 * @var \SMW\MediaWiki\Connection\Database
 	 */
 	private $connection;
 
@@ -57,7 +57,7 @@ class QuerySegmentListProcessor {
 	private $querySegmentList = [];
 
 	/**
-	 * @param Database $connection
+	 * @param \SMW\MediaWiki\Connection\Database $connection
 	 * @param TemporaryTableBuilder $temporaryTableBuilder
 	 * @param HierarchyTempTableBuilder $hierarchyTempTableBuilder
 	 */
