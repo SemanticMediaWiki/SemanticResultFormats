@@ -45,39 +45,28 @@ jobs:
       matrix:
         include:
           - mediawiki_version: '1.43'
-            smw_version: 7.2.0
             php_version: 8.2
             mm_version: 6.0.1
             phpspreadsheet_version: '1.30.5'
+            smw_version: 7.4.1
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: false
             experimental: false
           - mediawiki_version: '1.43'
-            smw_version: 7.2.0
-            pf_version: 5.9
-            sfs_version: 5.0.0
             php_version: 8.3
             mm_version: 6.0.2
             phpspreadsheet_version: '1.30.5'
+            smw_version: 7.4.1
             database_type: mysql
             database_image: "mariadb:11.2"
             coverage: true
             experimental: false
-          - mediawiki_version: '1.45'
-            smw_version: 7.2.0
-            php_version: 8.4
-            mm_version: 6.0.1
-            phpspreadsheet_version: '^5.6'
-            database_type: mysql
-            database_image: "mariadb:11.2"
-            coverage: false
-            experimental: false
           - mediawiki_version: '1.46'
-            smw_version: 7.2.0
             php_version: 8.4
             mm_version: 6.0.1
             phpspreadsheet_version: '^5.6'
+            smw_version: 7.4.1
             database_type: mysql
             database_image: "mariadb:12.3"
             coverage: false
@@ -86,8 +75,6 @@ jobs:
     env:
       MW_VERSION: ${{ matrix.mediawiki_version }}
       SMW_VERSION: ${{ matrix.smw_version }}
-      PF_VERSION: ${{ matrix.pf_version }}
-      SFS_VERSION: ${{ matrix.sfs_version }}
       PHP_VERSION: ${{ matrix.php_version }}
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}

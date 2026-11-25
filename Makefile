@@ -20,8 +20,6 @@ DB_IMAGE?="mariadb:11.2"
 # SMW 6.0.1 has a bug where #ask returns empty results in the prepareContentForEdit context
 # used by JSONScript parser-type tests. Fixed in dev-master; pin to 7.x once released.
 SMW_VERSION ?= dev-master
-PF_VERSION ?= 6.0.5
-SFS_VERSION ?= 4.0.0-beta
 MM_VERSION ?= 6.0.2
 
 # libraries
