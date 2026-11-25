@@ -251,6 +251,8 @@ class ArrayPrinter extends ResultPrinter {
 	}
 
 	protected function getCfgSepText( $obj ) {
+		$params = [];
+
 		if ( is_array( $obj ) ) {
 			if ( !array_key_exists( 0, $obj ) ) {
 				return null;

@@ -106,6 +106,7 @@ class SRFjqPlotChart extends SRFjqPlot {
 		$mode = 'single';
 
 		// Reorganize the data in accordance with the pie chart req.
+		$data = [];
 		foreach ( $rawdata as $name => $value ) {
 			if ( $value >= $this->params['min'] ) {
 				$data[] = [ $name, $value ];

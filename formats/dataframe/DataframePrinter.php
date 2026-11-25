@@ -181,6 +181,7 @@ class DataframePrinter extends FileExportPrinter {
 								c(subj221, 'subj222', subj223)))
 		*/
 		$i = 0;
+		$data = [];
 		foreach ( $cols as $props ) {
 			$data1 = [];
 			foreach ( $props as $subjs ) {

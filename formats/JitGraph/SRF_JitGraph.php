@@ -160,6 +160,8 @@ class SRFJitGraph extends ResultPrinter {
 
 		$json = "[";
 		$jsonLeafs = "";
+		// set while the first column of a row is read and used for the other columns of that row
+		$firstcolvalue = $thisPageTitle = $labelName = '';
 
 		while ( $row = $res->getNext() ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 			$firstcol = true;

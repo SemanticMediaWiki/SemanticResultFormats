@@ -804,6 +804,8 @@ class DataTables extends ResultPrinter {
 	 * @see SRFSlideShow
 	 */
 	private function getPrintouts( array $printRequests ): array {
+		$printouts = [];
+
 		foreach ( $printRequests as $key => $printRequest ) {
 			$canonicalLabel = $printRequest->getCanonicalLabel();
 

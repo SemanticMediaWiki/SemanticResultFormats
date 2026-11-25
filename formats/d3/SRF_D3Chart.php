@@ -41,6 +41,7 @@ class SRFD3Chart extends AggregatablePrinter {
 		$this->isHTML = true;
 
 		// Reorganize the raw data
+		$dataObject = [];
 		foreach ( $data as $name => $value ) {
 			if ( $value >= $this->params['min'] ) {
 				$dataObject[] = [ 'label' => $name, 'value' => $value ];
