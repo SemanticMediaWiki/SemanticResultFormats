@@ -1,0 +1,80 @@
+# Version updates once a week, grouped so that a week gives one pull request per ecosystem instead of
+# one per package. Security updates are grouped the same way.
+version: 2
+
+updates:
+  # The actions used by the workflows in .github/workflows
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "deps(actions)"
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  # Tooling of the extension: ESLint and the QUnit tests (package-lock.json)
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "deps(npm)"
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - "*"
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
+  # Build chain of the filtered format (browserify, gulp and TypeScript); the committed bundle is
+  # checked against a fresh build in CI
+  - package-ecosystem: npm
+    directory: /formats/filtered
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "deps(filtered)"
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - "*"
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
+  # PHP dependencies. The MediaWiki tooling (codesniffer, phan config) is pinned on purpose: its
+  # rules follow the MediaWiki version of the CI legs and are updated by hand.
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "deps(composer)"
+    ignore:
+      - dependency-name: "mediawiki/*"
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - "*"
